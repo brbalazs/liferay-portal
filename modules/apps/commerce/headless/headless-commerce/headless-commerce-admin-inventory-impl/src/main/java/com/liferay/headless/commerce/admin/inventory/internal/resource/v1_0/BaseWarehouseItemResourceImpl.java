@@ -150,45 +150,9 @@ public abstract class BaseWarehouseItemResourceImpl
 			WarehouseItem warehouseItem)
 		throws Exception {
 
-		WarehouseItem existingWarehouseItem = getWarehouseItem(
-			externalReferenceCode);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (warehouseItem.getExternalReferenceCode() != null) {
-			existingWarehouseItem.setExternalReferenceCode(
-				warehouseItem.getExternalReferenceCode());
-		}
-
-		if (warehouseItem.getModifiedDate() != null) {
-			existingWarehouseItem.setModifiedDate(
-				warehouseItem.getModifiedDate());
-		}
-
-		if (warehouseItem.getQuantity() != null) {
-			existingWarehouseItem.setQuantity(warehouseItem.getQuantity());
-		}
-
-		if (warehouseItem.getReservedQuantity() != null) {
-			existingWarehouseItem.setReservedQuantity(
-				warehouseItem.getReservedQuantity());
-		}
-
-		if (warehouseItem.getSku() != null) {
-			existingWarehouseItem.setSku(warehouseItem.getSku());
-		}
-
-		if (warehouseItem.getWarehouseExternalReferenceCode() != null) {
-			existingWarehouseItem.setWarehouseExternalReferenceCode(
-				warehouseItem.getWarehouseExternalReferenceCode());
-		}
-
-		if (warehouseItem.getWarehouseId() != null) {
-			existingWarehouseItem.setWarehouseId(
-				warehouseItem.getWarehouseId());
-		}
-
-		preparePatch(warehouseItem, existingWarehouseItem);
-
-		return putWarehouseItem(externalReferenceCode, existingWarehouseItem);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -311,44 +275,9 @@ public abstract class BaseWarehouseItemResourceImpl
 			WarehouseItem warehouseItem)
 		throws Exception {
 
-		WarehouseItem existingWarehouseItem = getWarehouseItem(id);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (warehouseItem.getExternalReferenceCode() != null) {
-			existingWarehouseItem.setExternalReferenceCode(
-				warehouseItem.getExternalReferenceCode());
-		}
-
-		if (warehouseItem.getModifiedDate() != null) {
-			existingWarehouseItem.setModifiedDate(
-				warehouseItem.getModifiedDate());
-		}
-
-		if (warehouseItem.getQuantity() != null) {
-			existingWarehouseItem.setQuantity(warehouseItem.getQuantity());
-		}
-
-		if (warehouseItem.getReservedQuantity() != null) {
-			existingWarehouseItem.setReservedQuantity(
-				warehouseItem.getReservedQuantity());
-		}
-
-		if (warehouseItem.getSku() != null) {
-			existingWarehouseItem.setSku(warehouseItem.getSku());
-		}
-
-		if (warehouseItem.getWarehouseExternalReferenceCode() != null) {
-			existingWarehouseItem.setWarehouseExternalReferenceCode(
-				warehouseItem.getWarehouseExternalReferenceCode());
-		}
-
-		if (warehouseItem.getWarehouseId() != null) {
-			existingWarehouseItem.setWarehouseId(
-				warehouseItem.getWarehouseId());
-		}
-
-		preparePatch(warehouseItem, existingWarehouseItem);
-
-		return putWarehouseItem(id, existingWarehouseItem);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -607,10 +536,6 @@ public abstract class BaseWarehouseItemResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
-	}
-
-	protected void preparePatch(
-		WarehouseItem warehouseItem, WarehouseItem existingWarehouseItem) {
 	}
 
 	protected <T, R> List<R> transform(

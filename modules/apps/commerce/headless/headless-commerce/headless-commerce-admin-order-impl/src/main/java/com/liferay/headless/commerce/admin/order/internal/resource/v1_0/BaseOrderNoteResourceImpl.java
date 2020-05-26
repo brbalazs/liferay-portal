@@ -150,37 +150,9 @@ public abstract class BaseOrderNoteResourceImpl
 			OrderNote orderNote)
 		throws Exception {
 
-		OrderNote existingOrderNote = getOrderNote(externalReferenceCode);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (orderNote.getAuthor() != null) {
-			existingOrderNote.setAuthor(orderNote.getAuthor());
-		}
-
-		if (orderNote.getContent() != null) {
-			existingOrderNote.setContent(orderNote.getContent());
-		}
-
-		if (orderNote.getExternalReferenceCode() != null) {
-			existingOrderNote.setExternalReferenceCode(
-				orderNote.getExternalReferenceCode());
-		}
-
-		if (orderNote.getOrderExternalReferenceCode() != null) {
-			existingOrderNote.setOrderExternalReferenceCode(
-				orderNote.getOrderExternalReferenceCode());
-		}
-
-		if (orderNote.getOrderId() != null) {
-			existingOrderNote.setOrderId(orderNote.getOrderId());
-		}
-
-		if (orderNote.getRestricted() != null) {
-			existingOrderNote.setRestricted(orderNote.getRestricted());
-		}
-
-		preparePatch(orderNote, existingOrderNote);
-
-		return putOrderNote(externalReferenceCode, existingOrderNote);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -278,37 +250,9 @@ public abstract class BaseOrderNoteResourceImpl
 			OrderNote orderNote)
 		throws Exception {
 
-		OrderNote existingOrderNote = getOrderNote(id);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (orderNote.getAuthor() != null) {
-			existingOrderNote.setAuthor(orderNote.getAuthor());
-		}
-
-		if (orderNote.getContent() != null) {
-			existingOrderNote.setContent(orderNote.getContent());
-		}
-
-		if (orderNote.getExternalReferenceCode() != null) {
-			existingOrderNote.setExternalReferenceCode(
-				orderNote.getExternalReferenceCode());
-		}
-
-		if (orderNote.getOrderExternalReferenceCode() != null) {
-			existingOrderNote.setOrderExternalReferenceCode(
-				orderNote.getOrderExternalReferenceCode());
-		}
-
-		if (orderNote.getOrderId() != null) {
-			existingOrderNote.setOrderId(orderNote.getOrderId());
-		}
-
-		if (orderNote.getRestricted() != null) {
-			existingOrderNote.setRestricted(orderNote.getRestricted());
-		}
-
-		preparePatch(orderNote, existingOrderNote);
-
-		return putOrderNote(id, existingOrderNote);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -534,10 +478,6 @@ public abstract class BaseOrderNoteResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
-	}
-
-	protected void preparePatch(
-		OrderNote orderNote, OrderNote existingOrderNote) {
 	}
 
 	protected <T, R> List<R> transform(

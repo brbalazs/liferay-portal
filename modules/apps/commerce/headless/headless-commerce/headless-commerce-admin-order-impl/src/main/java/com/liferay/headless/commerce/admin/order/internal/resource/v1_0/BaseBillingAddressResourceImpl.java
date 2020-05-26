@@ -124,73 +124,9 @@ public abstract class BaseBillingAddressResourceImpl
 			BillingAddress billingAddress)
 		throws Exception {
 
-		BillingAddress existingBillingAddress = getBillingAddress(
-			externalReferenceCode);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (billingAddress.getCity() != null) {
-			existingBillingAddress.setCity(billingAddress.getCity());
-		}
-
-		if (billingAddress.getCountryISOCode() != null) {
-			existingBillingAddress.setCountryISOCode(
-				billingAddress.getCountryISOCode());
-		}
-
-		if (billingAddress.getDescription() != null) {
-			existingBillingAddress.setDescription(
-				billingAddress.getDescription());
-		}
-
-		if (billingAddress.getExternalReferenceCode() != null) {
-			existingBillingAddress.setExternalReferenceCode(
-				billingAddress.getExternalReferenceCode());
-		}
-
-		if (billingAddress.getLatitude() != null) {
-			existingBillingAddress.setLatitude(billingAddress.getLatitude());
-		}
-
-		if (billingAddress.getLongitude() != null) {
-			existingBillingAddress.setLongitude(billingAddress.getLongitude());
-		}
-
-		if (billingAddress.getName() != null) {
-			existingBillingAddress.setName(billingAddress.getName());
-		}
-
-		if (billingAddress.getPhoneNumber() != null) {
-			existingBillingAddress.setPhoneNumber(
-				billingAddress.getPhoneNumber());
-		}
-
-		if (billingAddress.getRegionISOCode() != null) {
-			existingBillingAddress.setRegionISOCode(
-				billingAddress.getRegionISOCode());
-		}
-
-		if (billingAddress.getStreet1() != null) {
-			existingBillingAddress.setStreet1(billingAddress.getStreet1());
-		}
-
-		if (billingAddress.getStreet2() != null) {
-			existingBillingAddress.setStreet2(billingAddress.getStreet2());
-		}
-
-		if (billingAddress.getStreet3() != null) {
-			existingBillingAddress.setStreet3(billingAddress.getStreet3());
-		}
-
-		if (billingAddress.getVatNumber() != null) {
-			existingBillingAddress.setVatNumber(billingAddress.getVatNumber());
-		}
-
-		if (billingAddress.getZip() != null) {
-			existingBillingAddress.setZip(billingAddress.getZip());
-		}
-
-		preparePatch(billingAddress, existingBillingAddress);
-
-		return putBillingAddress(externalReferenceCode, existingBillingAddress);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -228,72 +164,9 @@ public abstract class BaseBillingAddressResourceImpl
 			BillingAddress billingAddress)
 		throws Exception {
 
-		BillingAddress existingBillingAddress = getBillingAddress(id);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (billingAddress.getCity() != null) {
-			existingBillingAddress.setCity(billingAddress.getCity());
-		}
-
-		if (billingAddress.getCountryISOCode() != null) {
-			existingBillingAddress.setCountryISOCode(
-				billingAddress.getCountryISOCode());
-		}
-
-		if (billingAddress.getDescription() != null) {
-			existingBillingAddress.setDescription(
-				billingAddress.getDescription());
-		}
-
-		if (billingAddress.getExternalReferenceCode() != null) {
-			existingBillingAddress.setExternalReferenceCode(
-				billingAddress.getExternalReferenceCode());
-		}
-
-		if (billingAddress.getLatitude() != null) {
-			existingBillingAddress.setLatitude(billingAddress.getLatitude());
-		}
-
-		if (billingAddress.getLongitude() != null) {
-			existingBillingAddress.setLongitude(billingAddress.getLongitude());
-		}
-
-		if (billingAddress.getName() != null) {
-			existingBillingAddress.setName(billingAddress.getName());
-		}
-
-		if (billingAddress.getPhoneNumber() != null) {
-			existingBillingAddress.setPhoneNumber(
-				billingAddress.getPhoneNumber());
-		}
-
-		if (billingAddress.getRegionISOCode() != null) {
-			existingBillingAddress.setRegionISOCode(
-				billingAddress.getRegionISOCode());
-		}
-
-		if (billingAddress.getStreet1() != null) {
-			existingBillingAddress.setStreet1(billingAddress.getStreet1());
-		}
-
-		if (billingAddress.getStreet2() != null) {
-			existingBillingAddress.setStreet2(billingAddress.getStreet2());
-		}
-
-		if (billingAddress.getStreet3() != null) {
-			existingBillingAddress.setStreet3(billingAddress.getStreet3());
-		}
-
-		if (billingAddress.getVatNumber() != null) {
-			existingBillingAddress.setVatNumber(billingAddress.getVatNumber());
-		}
-
-		if (billingAddress.getZip() != null) {
-			existingBillingAddress.setZip(billingAddress.getZip());
-		}
-
-		preparePatch(billingAddress, existingBillingAddress);
-
-		return putBillingAddress(id, existingBillingAddress);
+		return responseBuilder.build();
 	}
 
 	@Override
@@ -419,10 +292,6 @@ public abstract class BaseBillingAddressResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
-	}
-
-	protected void preparePatch(
-		BillingAddress billingAddress, BillingAddress existingBillingAddress) {
 	}
 
 	protected <T, R> List<R> transform(

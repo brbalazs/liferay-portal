@@ -232,24 +232,9 @@ public abstract class BaseDiscountRuleResourceImpl
 			DiscountRule discountRule)
 		throws Exception {
 
-		DiscountRule existingDiscountRule = getDiscountRule(id);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (discountRule.getDiscountId() != null) {
-			existingDiscountRule.setDiscountId(discountRule.getDiscountId());
-		}
-
-		if (discountRule.getType() != null) {
-			existingDiscountRule.setType(discountRule.getType());
-		}
-
-		if (discountRule.getTypeSettings() != null) {
-			existingDiscountRule.setTypeSettings(
-				discountRule.getTypeSettings());
-		}
-
-		preparePatch(discountRule, existingDiscountRule);
-
-		return putDiscountRule(id, existingDiscountRule);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -424,10 +409,6 @@ public abstract class BaseDiscountRuleResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
-	}
-
-	protected void preparePatch(
-		DiscountRule discountRule, DiscountRule existingDiscountRule) {
 	}
 
 	protected <T, R> List<R> transform(

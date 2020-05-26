@@ -149,72 +149,9 @@ public abstract class BaseWarehouseResourceImpl
 			Warehouse warehouse)
 		throws Exception {
 
-		Warehouse existingWarehouse = getWarehouse(externalReferenceCode);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (warehouse.getActive() != null) {
-			existingWarehouse.setActive(warehouse.getActive());
-		}
-
-		if (warehouse.getCity() != null) {
-			existingWarehouse.setCity(warehouse.getCity());
-		}
-
-		if (warehouse.getCountryISOCode() != null) {
-			existingWarehouse.setCountryISOCode(warehouse.getCountryISOCode());
-		}
-
-		if (warehouse.getDescription() != null) {
-			existingWarehouse.setDescription(warehouse.getDescription());
-		}
-
-		if (warehouse.getExternalReferenceCode() != null) {
-			existingWarehouse.setExternalReferenceCode(
-				warehouse.getExternalReferenceCode());
-		}
-
-		if (warehouse.getLatitude() != null) {
-			existingWarehouse.setLatitude(warehouse.getLatitude());
-		}
-
-		if (warehouse.getLongitude() != null) {
-			existingWarehouse.setLongitude(warehouse.getLongitude());
-		}
-
-		if (warehouse.getMvccVersion() != null) {
-			existingWarehouse.setMvccVersion(warehouse.getMvccVersion());
-		}
-
-		if (warehouse.getName() != null) {
-			existingWarehouse.setName(warehouse.getName());
-		}
-
-		if (warehouse.getRegionISOCode() != null) {
-			existingWarehouse.setRegionISOCode(warehouse.getRegionISOCode());
-		}
-
-		if (warehouse.getStreet1() != null) {
-			existingWarehouse.setStreet1(warehouse.getStreet1());
-		}
-
-		if (warehouse.getStreet2() != null) {
-			existingWarehouse.setStreet2(warehouse.getStreet2());
-		}
-
-		if (warehouse.getStreet3() != null) {
-			existingWarehouse.setStreet3(warehouse.getStreet3());
-		}
-
-		if (warehouse.getType() != null) {
-			existingWarehouse.setType(warehouse.getType());
-		}
-
-		if (warehouse.getZip() != null) {
-			existingWarehouse.setZip(warehouse.getZip());
-		}
-
-		preparePatch(warehouse, existingWarehouse);
-
-		return putWarehouse(externalReferenceCode, existingWarehouse);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -272,72 +209,9 @@ public abstract class BaseWarehouseResourceImpl
 			Warehouse warehouse)
 		throws Exception {
 
-		Warehouse existingWarehouse = getWarehouse(id);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (warehouse.getActive() != null) {
-			existingWarehouse.setActive(warehouse.getActive());
-		}
-
-		if (warehouse.getCity() != null) {
-			existingWarehouse.setCity(warehouse.getCity());
-		}
-
-		if (warehouse.getCountryISOCode() != null) {
-			existingWarehouse.setCountryISOCode(warehouse.getCountryISOCode());
-		}
-
-		if (warehouse.getDescription() != null) {
-			existingWarehouse.setDescription(warehouse.getDescription());
-		}
-
-		if (warehouse.getExternalReferenceCode() != null) {
-			existingWarehouse.setExternalReferenceCode(
-				warehouse.getExternalReferenceCode());
-		}
-
-		if (warehouse.getLatitude() != null) {
-			existingWarehouse.setLatitude(warehouse.getLatitude());
-		}
-
-		if (warehouse.getLongitude() != null) {
-			existingWarehouse.setLongitude(warehouse.getLongitude());
-		}
-
-		if (warehouse.getMvccVersion() != null) {
-			existingWarehouse.setMvccVersion(warehouse.getMvccVersion());
-		}
-
-		if (warehouse.getName() != null) {
-			existingWarehouse.setName(warehouse.getName());
-		}
-
-		if (warehouse.getRegionISOCode() != null) {
-			existingWarehouse.setRegionISOCode(warehouse.getRegionISOCode());
-		}
-
-		if (warehouse.getStreet1() != null) {
-			existingWarehouse.setStreet1(warehouse.getStreet1());
-		}
-
-		if (warehouse.getStreet2() != null) {
-			existingWarehouse.setStreet2(warehouse.getStreet2());
-		}
-
-		if (warehouse.getStreet3() != null) {
-			existingWarehouse.setStreet3(warehouse.getStreet3());
-		}
-
-		if (warehouse.getType() != null) {
-			existingWarehouse.setType(warehouse.getType());
-		}
-
-		if (warehouse.getZip() != null) {
-			existingWarehouse.setZip(warehouse.getZip());
-		}
-
-		preparePatch(warehouse, existingWarehouse);
-
-		return putWarehouse(id, existingWarehouse);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -504,10 +378,6 @@ public abstract class BaseWarehouseResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
-	}
-
-	protected void preparePatch(
-		Warehouse warehouse, Warehouse existingWarehouse) {
 	}
 
 	protected <T, R> List<R> transform(

@@ -124,63 +124,9 @@ public abstract class BaseProductConfigurationResourceImpl
 			ProductConfiguration productConfiguration)
 		throws Exception {
 
-		ProductConfiguration existingProductConfiguration =
-			getProductConfiguration(externalReferenceCode);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (productConfiguration.getAllowBackOrder() != null) {
-			existingProductConfiguration.setAllowBackOrder(
-				productConfiguration.getAllowBackOrder());
-		}
-
-		if (productConfiguration.getAllowedOrderQuantities() != null) {
-			existingProductConfiguration.setAllowedOrderQuantities(
-				productConfiguration.getAllowedOrderQuantities());
-		}
-
-		if (productConfiguration.getDisplayAvailability() != null) {
-			existingProductConfiguration.setDisplayAvailability(
-				productConfiguration.getDisplayAvailability());
-		}
-
-		if (productConfiguration.getDisplayStockQuantity() != null) {
-			existingProductConfiguration.setDisplayStockQuantity(
-				productConfiguration.getDisplayStockQuantity());
-		}
-
-		if (productConfiguration.getInventoryEngine() != null) {
-			existingProductConfiguration.setInventoryEngine(
-				productConfiguration.getInventoryEngine());
-		}
-
-		if (productConfiguration.getLowStockAction() != null) {
-			existingProductConfiguration.setLowStockAction(
-				productConfiguration.getLowStockAction());
-		}
-
-		if (productConfiguration.getMaxOrderQuantity() != null) {
-			existingProductConfiguration.setMaxOrderQuantity(
-				productConfiguration.getMaxOrderQuantity());
-		}
-
-		if (productConfiguration.getMinOrderQuantity() != null) {
-			existingProductConfiguration.setMinOrderQuantity(
-				productConfiguration.getMinOrderQuantity());
-		}
-
-		if (productConfiguration.getMinStockQuantity() != null) {
-			existingProductConfiguration.setMinStockQuantity(
-				productConfiguration.getMinStockQuantity());
-		}
-
-		if (productConfiguration.getMultipleOrderQuantity() != null) {
-			existingProductConfiguration.setMultipleOrderQuantity(
-				productConfiguration.getMultipleOrderQuantity());
-		}
-
-		preparePatch(productConfiguration, existingProductConfiguration);
-
-		return putProductConfiguration(
-			externalReferenceCode, existingProductConfiguration);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -218,62 +164,9 @@ public abstract class BaseProductConfigurationResourceImpl
 			ProductConfiguration productConfiguration)
 		throws Exception {
 
-		ProductConfiguration existingProductConfiguration =
-			getProductConfiguration(id);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (productConfiguration.getAllowBackOrder() != null) {
-			existingProductConfiguration.setAllowBackOrder(
-				productConfiguration.getAllowBackOrder());
-		}
-
-		if (productConfiguration.getAllowedOrderQuantities() != null) {
-			existingProductConfiguration.setAllowedOrderQuantities(
-				productConfiguration.getAllowedOrderQuantities());
-		}
-
-		if (productConfiguration.getDisplayAvailability() != null) {
-			existingProductConfiguration.setDisplayAvailability(
-				productConfiguration.getDisplayAvailability());
-		}
-
-		if (productConfiguration.getDisplayStockQuantity() != null) {
-			existingProductConfiguration.setDisplayStockQuantity(
-				productConfiguration.getDisplayStockQuantity());
-		}
-
-		if (productConfiguration.getInventoryEngine() != null) {
-			existingProductConfiguration.setInventoryEngine(
-				productConfiguration.getInventoryEngine());
-		}
-
-		if (productConfiguration.getLowStockAction() != null) {
-			existingProductConfiguration.setLowStockAction(
-				productConfiguration.getLowStockAction());
-		}
-
-		if (productConfiguration.getMaxOrderQuantity() != null) {
-			existingProductConfiguration.setMaxOrderQuantity(
-				productConfiguration.getMaxOrderQuantity());
-		}
-
-		if (productConfiguration.getMinOrderQuantity() != null) {
-			existingProductConfiguration.setMinOrderQuantity(
-				productConfiguration.getMinOrderQuantity());
-		}
-
-		if (productConfiguration.getMinStockQuantity() != null) {
-			existingProductConfiguration.setMinStockQuantity(
-				productConfiguration.getMinStockQuantity());
-		}
-
-		if (productConfiguration.getMultipleOrderQuantity() != null) {
-			existingProductConfiguration.setMultipleOrderQuantity(
-				productConfiguration.getMultipleOrderQuantity());
-		}
-
-		preparePatch(productConfiguration, existingProductConfiguration);
-
-		return putProductConfiguration(id, existingProductConfiguration);
+		return responseBuilder.build();
 	}
 
 	@Override
@@ -399,11 +292,6 @@ public abstract class BaseProductConfigurationResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
-	}
-
-	protected void preparePatch(
-		ProductConfiguration productConfiguration,
-		ProductConfiguration existingProductConfiguration) {
 	}
 
 	protected <T, R> List<R> transform(

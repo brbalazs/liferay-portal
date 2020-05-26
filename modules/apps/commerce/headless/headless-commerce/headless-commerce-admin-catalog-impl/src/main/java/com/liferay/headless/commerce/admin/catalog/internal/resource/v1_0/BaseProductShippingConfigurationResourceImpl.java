@@ -126,54 +126,9 @@ public abstract class BaseProductShippingConfigurationResourceImpl
 			ProductShippingConfiguration productShippingConfiguration)
 		throws Exception {
 
-		ProductShippingConfiguration existingProductShippingConfiguration =
-			getProductShippingConfiguration(externalReferenceCode);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (productShippingConfiguration.getDepth() != null) {
-			existingProductShippingConfiguration.setDepth(
-				productShippingConfiguration.getDepth());
-		}
-
-		if (productShippingConfiguration.getFreeShipping() != null) {
-			existingProductShippingConfiguration.setFreeShipping(
-				productShippingConfiguration.getFreeShipping());
-		}
-
-		if (productShippingConfiguration.getHeight() != null) {
-			existingProductShippingConfiguration.setHeight(
-				productShippingConfiguration.getHeight());
-		}
-
-		if (productShippingConfiguration.getShippable() != null) {
-			existingProductShippingConfiguration.setShippable(
-				productShippingConfiguration.getShippable());
-		}
-
-		if (productShippingConfiguration.getShippingExtraPrice() != null) {
-			existingProductShippingConfiguration.setShippingExtraPrice(
-				productShippingConfiguration.getShippingExtraPrice());
-		}
-
-		if (productShippingConfiguration.getShippingSeparately() != null) {
-			existingProductShippingConfiguration.setShippingSeparately(
-				productShippingConfiguration.getShippingSeparately());
-		}
-
-		if (productShippingConfiguration.getWeight() != null) {
-			existingProductShippingConfiguration.setWeight(
-				productShippingConfiguration.getWeight());
-		}
-
-		if (productShippingConfiguration.getWidth() != null) {
-			existingProductShippingConfiguration.setWidth(
-				productShippingConfiguration.getWidth());
-		}
-
-		preparePatch(
-			productShippingConfiguration, existingProductShippingConfiguration);
-
-		return putProductShippingConfiguration(
-			externalReferenceCode, existingProductShippingConfiguration);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -211,54 +166,9 @@ public abstract class BaseProductShippingConfigurationResourceImpl
 			ProductShippingConfiguration productShippingConfiguration)
 		throws Exception {
 
-		ProductShippingConfiguration existingProductShippingConfiguration =
-			getProductShippingConfiguration(id);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (productShippingConfiguration.getDepth() != null) {
-			existingProductShippingConfiguration.setDepth(
-				productShippingConfiguration.getDepth());
-		}
-
-		if (productShippingConfiguration.getFreeShipping() != null) {
-			existingProductShippingConfiguration.setFreeShipping(
-				productShippingConfiguration.getFreeShipping());
-		}
-
-		if (productShippingConfiguration.getHeight() != null) {
-			existingProductShippingConfiguration.setHeight(
-				productShippingConfiguration.getHeight());
-		}
-
-		if (productShippingConfiguration.getShippable() != null) {
-			existingProductShippingConfiguration.setShippable(
-				productShippingConfiguration.getShippable());
-		}
-
-		if (productShippingConfiguration.getShippingExtraPrice() != null) {
-			existingProductShippingConfiguration.setShippingExtraPrice(
-				productShippingConfiguration.getShippingExtraPrice());
-		}
-
-		if (productShippingConfiguration.getShippingSeparately() != null) {
-			existingProductShippingConfiguration.setShippingSeparately(
-				productShippingConfiguration.getShippingSeparately());
-		}
-
-		if (productShippingConfiguration.getWeight() != null) {
-			existingProductShippingConfiguration.setWeight(
-				productShippingConfiguration.getWeight());
-		}
-
-		if (productShippingConfiguration.getWidth() != null) {
-			existingProductShippingConfiguration.setWidth(
-				productShippingConfiguration.getWidth());
-		}
-
-		preparePatch(
-			productShippingConfiguration, existingProductShippingConfiguration);
-
-		return putProductShippingConfiguration(
-			id, existingProductShippingConfiguration);
+		return responseBuilder.build();
 	}
 
 	@Override
@@ -387,11 +297,6 @@ public abstract class BaseProductShippingConfigurationResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
-	}
-
-	protected void preparePatch(
-		ProductShippingConfiguration productShippingConfiguration,
-		ProductShippingConfiguration existingProductShippingConfiguration) {
 	}
 
 	protected <T, R> List<R> transform(

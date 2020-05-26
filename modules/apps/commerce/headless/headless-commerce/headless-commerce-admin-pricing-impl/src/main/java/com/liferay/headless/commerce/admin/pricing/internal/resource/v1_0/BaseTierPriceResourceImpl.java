@@ -250,42 +250,9 @@ public abstract class BaseTierPriceResourceImpl
 			TierPrice tierPrice)
 		throws Exception {
 
-		TierPrice existingTierPrice = getTierPrice(externalReferenceCode);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (tierPrice.getCustomFields() != null) {
-			existingTierPrice.setCustomFields(tierPrice.getCustomFields());
-		}
-
-		if (tierPrice.getExternalReferenceCode() != null) {
-			existingTierPrice.setExternalReferenceCode(
-				tierPrice.getExternalReferenceCode());
-		}
-
-		if (tierPrice.getMinimumQuantity() != null) {
-			existingTierPrice.setMinimumQuantity(
-				tierPrice.getMinimumQuantity());
-		}
-
-		if (tierPrice.getPrice() != null) {
-			existingTierPrice.setPrice(tierPrice.getPrice());
-		}
-
-		if (tierPrice.getPriceEntryExternalReferenceCode() != null) {
-			existingTierPrice.setPriceEntryExternalReferenceCode(
-				tierPrice.getPriceEntryExternalReferenceCode());
-		}
-
-		if (tierPrice.getPriceEntryId() != null) {
-			existingTierPrice.setPriceEntryId(tierPrice.getPriceEntryId());
-		}
-
-		if (tierPrice.getPromoPrice() != null) {
-			existingTierPrice.setPromoPrice(tierPrice.getPromoPrice());
-		}
-
-		preparePatch(tierPrice, existingTierPrice);
-
-		return putTierPrice(externalReferenceCode, existingTierPrice);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -383,42 +350,9 @@ public abstract class BaseTierPriceResourceImpl
 			TierPrice tierPrice)
 		throws Exception {
 
-		TierPrice existingTierPrice = getTierPrice(id);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (tierPrice.getCustomFields() != null) {
-			existingTierPrice.setCustomFields(tierPrice.getCustomFields());
-		}
-
-		if (tierPrice.getExternalReferenceCode() != null) {
-			existingTierPrice.setExternalReferenceCode(
-				tierPrice.getExternalReferenceCode());
-		}
-
-		if (tierPrice.getMinimumQuantity() != null) {
-			existingTierPrice.setMinimumQuantity(
-				tierPrice.getMinimumQuantity());
-		}
-
-		if (tierPrice.getPrice() != null) {
-			existingTierPrice.setPrice(tierPrice.getPrice());
-		}
-
-		if (tierPrice.getPriceEntryExternalReferenceCode() != null) {
-			existingTierPrice.setPriceEntryExternalReferenceCode(
-				tierPrice.getPriceEntryExternalReferenceCode());
-		}
-
-		if (tierPrice.getPriceEntryId() != null) {
-			existingTierPrice.setPriceEntryId(tierPrice.getPriceEntryId());
-		}
-
-		if (tierPrice.getPromoPrice() != null) {
-			existingTierPrice.setPromoPrice(tierPrice.getPromoPrice());
-		}
-
-		preparePatch(tierPrice, existingTierPrice);
-
-		return putTierPrice(id, existingTierPrice);
+		return responseBuilder.build();
 	}
 
 	@Override
@@ -548,10 +482,6 @@ public abstract class BaseTierPriceResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
-	}
-
-	protected void preparePatch(
-		TierPrice tierPrice, TierPrice existingTierPrice) {
 	}
 
 	protected <T, R> List<R> transform(

@@ -227,52 +227,9 @@ public abstract class BasePriceListResourceImpl
 			PriceList priceList)
 		throws Exception {
 
-		PriceList existingPriceList = getPriceList(externalReferenceCode);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (priceList.getActive() != null) {
-			existingPriceList.setActive(priceList.getActive());
-		}
-
-		if (priceList.getCatalogId() != null) {
-			existingPriceList.setCatalogId(priceList.getCatalogId());
-		}
-
-		if (priceList.getCurrencyCode() != null) {
-			existingPriceList.setCurrencyCode(priceList.getCurrencyCode());
-		}
-
-		if (priceList.getCustomFields() != null) {
-			existingPriceList.setCustomFields(priceList.getCustomFields());
-		}
-
-		if (priceList.getDisplayDate() != null) {
-			existingPriceList.setDisplayDate(priceList.getDisplayDate());
-		}
-
-		if (priceList.getExpirationDate() != null) {
-			existingPriceList.setExpirationDate(priceList.getExpirationDate());
-		}
-
-		if (priceList.getExternalReferenceCode() != null) {
-			existingPriceList.setExternalReferenceCode(
-				priceList.getExternalReferenceCode());
-		}
-
-		if (priceList.getName() != null) {
-			existingPriceList.setName(priceList.getName());
-		}
-
-		if (priceList.getNeverExpire() != null) {
-			existingPriceList.setNeverExpire(priceList.getNeverExpire());
-		}
-
-		if (priceList.getPriority() != null) {
-			existingPriceList.setPriority(priceList.getPriority());
-		}
-
-		preparePatch(priceList, existingPriceList);
-
-		return putPriceList(externalReferenceCode, existingPriceList);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -370,52 +327,9 @@ public abstract class BasePriceListResourceImpl
 			PriceList priceList)
 		throws Exception {
 
-		PriceList existingPriceList = getPriceList(id);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (priceList.getActive() != null) {
-			existingPriceList.setActive(priceList.getActive());
-		}
-
-		if (priceList.getCatalogId() != null) {
-			existingPriceList.setCatalogId(priceList.getCatalogId());
-		}
-
-		if (priceList.getCurrencyCode() != null) {
-			existingPriceList.setCurrencyCode(priceList.getCurrencyCode());
-		}
-
-		if (priceList.getCustomFields() != null) {
-			existingPriceList.setCustomFields(priceList.getCustomFields());
-		}
-
-		if (priceList.getDisplayDate() != null) {
-			existingPriceList.setDisplayDate(priceList.getDisplayDate());
-		}
-
-		if (priceList.getExpirationDate() != null) {
-			existingPriceList.setExpirationDate(priceList.getExpirationDate());
-		}
-
-		if (priceList.getExternalReferenceCode() != null) {
-			existingPriceList.setExternalReferenceCode(
-				priceList.getExternalReferenceCode());
-		}
-
-		if (priceList.getName() != null) {
-			existingPriceList.setName(priceList.getName());
-		}
-
-		if (priceList.getNeverExpire() != null) {
-			existingPriceList.setNeverExpire(priceList.getNeverExpire());
-		}
-
-		if (priceList.getPriority() != null) {
-			existingPriceList.setPriority(priceList.getPriority());
-		}
-
-		preparePatch(priceList, existingPriceList);
-
-		return putPriceList(id, existingPriceList);
+		return responseBuilder.build();
 	}
 
 	@Override
@@ -549,10 +463,6 @@ public abstract class BasePriceListResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
-	}
-
-	protected void preparePatch(
-		PriceList priceList, PriceList existingPriceList) {
 	}
 
 	protected <T, R> List<R> transform(

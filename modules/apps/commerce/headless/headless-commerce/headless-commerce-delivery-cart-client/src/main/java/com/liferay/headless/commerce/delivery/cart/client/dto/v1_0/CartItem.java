@@ -29,10 +29,6 @@ import javax.annotation.Generated;
 @Generated("")
 public class CartItem implements Cloneable {
 
-	public static CartItem toDTO(String json) {
-		return CartItemSerDes.toDTO(json);
-	}
-
 	public CartItem[] getCartItems() {
 		return cartItems;
 	}

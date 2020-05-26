@@ -28,10 +28,6 @@ import javax.annotation.Generated;
 @Generated("")
 public class CartComment implements Cloneable {
 
-	public static CartComment toDTO(String json) {
-		return CartCommentSerDes.toDTO(json);
-	}
-
 	public String getAuthor() {
 		return author;
 	}

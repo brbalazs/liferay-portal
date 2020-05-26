@@ -219,38 +219,9 @@ public abstract class BaseAccountMemberResourceImpl
 			AccountMember accountMember)
 		throws Exception {
 
-		AccountMember existingAccountMember = getAccountMember(
-			externalReferenceCode);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (accountMember.getAccountId() != null) {
-			existingAccountMember.setAccountId(accountMember.getAccountId());
-		}
-
-		if (accountMember.getEmail() != null) {
-			existingAccountMember.setEmail(accountMember.getEmail());
-		}
-
-		if (accountMember.getExternalReferenceCode() != null) {
-			existingAccountMember.setExternalReferenceCode(
-				accountMember.getExternalReferenceCode());
-		}
-
-		if (accountMember.getName() != null) {
-			existingAccountMember.setName(accountMember.getName());
-		}
-
-		if (accountMember.getUserExternalReferenceCode() != null) {
-			existingAccountMember.setUserExternalReferenceCode(
-				accountMember.getUserExternalReferenceCode());
-		}
-
-		if (accountMember.getUserId() != null) {
-			existingAccountMember.setUserId(accountMember.getUserId());
-		}
-
-		preparePatch(accountMember, existingAccountMember);
-
-		return putAccountMember(externalReferenceCode, existingAccountMember);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -371,37 +342,9 @@ public abstract class BaseAccountMemberResourceImpl
 			AccountMember accountMember)
 		throws Exception {
 
-		AccountMember existingAccountMember = getAccountMember(id);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (accountMember.getAccountId() != null) {
-			existingAccountMember.setAccountId(accountMember.getAccountId());
-		}
-
-		if (accountMember.getEmail() != null) {
-			existingAccountMember.setEmail(accountMember.getEmail());
-		}
-
-		if (accountMember.getExternalReferenceCode() != null) {
-			existingAccountMember.setExternalReferenceCode(
-				accountMember.getExternalReferenceCode());
-		}
-
-		if (accountMember.getName() != null) {
-			existingAccountMember.setName(accountMember.getName());
-		}
-
-		if (accountMember.getUserExternalReferenceCode() != null) {
-			existingAccountMember.setUserExternalReferenceCode(
-				accountMember.getUserExternalReferenceCode());
-		}
-
-		if (accountMember.getUserId() != null) {
-			existingAccountMember.setUserId(accountMember.getUserId());
-		}
-
-		preparePatch(accountMember, existingAccountMember);
-
-		return putAccountMember(id, existingAccountMember);
+		return responseBuilder.build();
 	}
 
 	@Override
@@ -527,10 +470,6 @@ public abstract class BaseAccountMemberResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
-	}
-
-	protected void preparePatch(
-		AccountMember accountMember, AccountMember existingAccountMember) {
 	}
 
 	protected <T, R> List<R> transform(

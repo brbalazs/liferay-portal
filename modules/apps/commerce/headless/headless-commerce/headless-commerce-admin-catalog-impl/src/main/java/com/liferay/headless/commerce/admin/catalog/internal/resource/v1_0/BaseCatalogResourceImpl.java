@@ -150,37 +150,9 @@ public abstract class BaseCatalogResourceImpl
 			Catalog catalog)
 		throws Exception {
 
-		Catalog existingCatalog = getCatalog(externalReferenceCode);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (catalog.getActions() != null) {
-			existingCatalog.setActions(catalog.getActions());
-		}
-
-		if (catalog.getCurrencyCode() != null) {
-			existingCatalog.setCurrencyCode(catalog.getCurrencyCode());
-		}
-
-		if (catalog.getDefaultLanguageId() != null) {
-			existingCatalog.setDefaultLanguageId(
-				catalog.getDefaultLanguageId());
-		}
-
-		if (catalog.getExternalReferenceCode() != null) {
-			existingCatalog.setExternalReferenceCode(
-				catalog.getExternalReferenceCode());
-		}
-
-		if (catalog.getName() != null) {
-			existingCatalog.setName(catalog.getName());
-		}
-
-		if (catalog.getSystem() != null) {
-			existingCatalog.setSystem(catalog.getSystem());
-		}
-
-		preparePatch(catalog, existingCatalog);
-
-		return putCatalog(externalReferenceCode, existingCatalog);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -278,37 +250,9 @@ public abstract class BaseCatalogResourceImpl
 			Catalog catalog)
 		throws Exception {
 
-		Catalog existingCatalog = getCatalog(id);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (catalog.getActions() != null) {
-			existingCatalog.setActions(catalog.getActions());
-		}
-
-		if (catalog.getCurrencyCode() != null) {
-			existingCatalog.setCurrencyCode(catalog.getCurrencyCode());
-		}
-
-		if (catalog.getDefaultLanguageId() != null) {
-			existingCatalog.setDefaultLanguageId(
-				catalog.getDefaultLanguageId());
-		}
-
-		if (catalog.getExternalReferenceCode() != null) {
-			existingCatalog.setExternalReferenceCode(
-				catalog.getExternalReferenceCode());
-		}
-
-		if (catalog.getName() != null) {
-			existingCatalog.setName(catalog.getName());
-		}
-
-		if (catalog.getSystem() != null) {
-			existingCatalog.setSystem(catalog.getSystem());
-		}
-
-		preparePatch(catalog, existingCatalog);
-
-		return putCatalog(id, existingCatalog);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -519,9 +463,6 @@ public abstract class BaseCatalogResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
-	}
-
-	protected void preparePatch(Catalog catalog, Catalog existingCatalog) {
 	}
 
 	protected <T, R> List<R> transform(

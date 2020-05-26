@@ -126,23 +126,9 @@ public abstract class BaseProductTaxConfigurationResourceImpl
 			ProductTaxConfiguration productTaxConfiguration)
 		throws Exception {
 
-		ProductTaxConfiguration existingProductTaxConfiguration =
-			getProductTaxConfiguration(externalReferenceCode);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (productTaxConfiguration.getTaxCategory() != null) {
-			existingProductTaxConfiguration.setTaxCategory(
-				productTaxConfiguration.getTaxCategory());
-		}
-
-		if (productTaxConfiguration.getTaxable() != null) {
-			existingProductTaxConfiguration.setTaxable(
-				productTaxConfiguration.getTaxable());
-		}
-
-		preparePatch(productTaxConfiguration, existingProductTaxConfiguration);
-
-		return putProductTaxConfiguration(
-			externalReferenceCode, existingProductTaxConfiguration);
+		return responseBuilder.build();
 	}
 
 	/**
@@ -180,22 +166,9 @@ public abstract class BaseProductTaxConfigurationResourceImpl
 			ProductTaxConfiguration productTaxConfiguration)
 		throws Exception {
 
-		ProductTaxConfiguration existingProductTaxConfiguration =
-			getProductTaxConfiguration(id);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (productTaxConfiguration.getTaxCategory() != null) {
-			existingProductTaxConfiguration.setTaxCategory(
-				productTaxConfiguration.getTaxCategory());
-		}
-
-		if (productTaxConfiguration.getTaxable() != null) {
-			existingProductTaxConfiguration.setTaxable(
-				productTaxConfiguration.getTaxable());
-		}
-
-		preparePatch(productTaxConfiguration, existingProductTaxConfiguration);
-
-		return putProductTaxConfiguration(id, existingProductTaxConfiguration);
+		return responseBuilder.build();
 	}
 
 	@Override
@@ -324,11 +297,6 @@ public abstract class BaseProductTaxConfigurationResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
-	}
-
-	protected void preparePatch(
-		ProductTaxConfiguration productTaxConfiguration,
-		ProductTaxConfiguration existingProductTaxConfiguration) {
 	}
 
 	protected <T, R> List<R> transform(

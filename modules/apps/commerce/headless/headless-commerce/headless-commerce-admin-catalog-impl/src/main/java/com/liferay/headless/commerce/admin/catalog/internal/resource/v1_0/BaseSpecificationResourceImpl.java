@@ -256,28 +256,9 @@ public abstract class BaseSpecificationResourceImpl
 			Specification specification)
 		throws Exception {
 
-		Specification existingSpecification = getSpecification(id);
+		Response.ResponseBuilder responseBuilder = Response.ok();
 
-		if (specification.getDescription() != null) {
-			existingSpecification.setDescription(
-				specification.getDescription());
-		}
-
-		if (specification.getFacetable() != null) {
-			existingSpecification.setFacetable(specification.getFacetable());
-		}
-
-		if (specification.getKey() != null) {
-			existingSpecification.setKey(specification.getKey());
-		}
-
-		if (specification.getTitle() != null) {
-			existingSpecification.setTitle(specification.getTitle());
-		}
-
-		preparePatch(specification, existingSpecification);
-
-		return putSpecification(id, existingSpecification);
+		return responseBuilder.build();
 	}
 
 	@Override
@@ -411,10 +392,6 @@ public abstract class BaseSpecificationResourceImpl
 
 		return addAction(
 			actionName, siteId, methodName, null, permissionName, siteId);
-	}
-
-	protected void preparePatch(
-		Specification specification, Specification existingSpecification) {
 	}
 
 	protected <T, R> List<R> transform(
