@@ -62,3 +62,8 @@ aa6a930576e9dc2f85f5f74a5a2a0660c5b2fea8^..eacdd952fd5d3afbc044ecade45eaf0b06f6a
 # Bundle Version 1.0.33
 #
 eacdd952fd5d3afbc044ecade45eaf0b06f6a697^..d5e2aaae0c18ecd0dea1c0908967e0cdd6f7ccba=COMMERCE-3894
+
+#
+# Bundle Version 1.0.34
+#
+d5e2aaae0c18ecd0dea1c0908967e0cdd6f7ccba^..8fbbcb05986eab8ed26867c76966e00af73bb4f5=COMMERCE-3841 COMMERCE-3911 COMMERCE-3946
