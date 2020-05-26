@@ -24,6 +24,7 @@ import com.liferay.commerce.pricing.exception.CommercePriceModifierExpirationDat
 import com.liferay.commerce.pricing.exception.CommercePriceModifierTargetException;
 import com.liferay.commerce.pricing.exception.CommercePriceModifierTitleException;
 import com.liferay.commerce.pricing.exception.CommercePriceModifierTypeException;
+import com.liferay.commerce.pricing.exception.DuplicateCommercePriceModifierException;
 import com.liferay.commerce.pricing.exception.NoSuchPriceModifierException;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.commerce.pricing.service.CommercePricingClassLocalService;
@@ -98,6 +99,34 @@ public class CommercePriceModifierLocalServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
+		return addCommercePriceModifier(
+			groupId, title, target, commercePriceListId, modifierType,
+			modifierAmount, priority, active, displayDateMonth, displayDateDay,
+			displayDateYear, displayDateHour, displayDateMinute,
+			expirationDateMonth, expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute, null, neverExpire,
+			serviceContext);
+	}
+
+	@Override
+	public CommercePriceModifier addCommercePriceModifier(
+			long groupId, String title, String target, long commercePriceListId,
+			String modifierType, BigDecimal modifierAmount, double priority,
+			boolean active, int displayDateMonth, int displayDateDay,
+			int displayDateYear, int displayDateHour, int displayDateMinute,
+			int expirationDateMonth, int expirationDateDay,
+			int expirationDateYear, int expirationDateHour,
+			int expirationDateMinute, String externalReferenceCode,
+			boolean neverExpire, ServiceContext serviceContext)
+		throws PortalException {
+
+		if (Validator.isBlank(externalReferenceCode)) {
+			externalReferenceCode = null;
+		}
+
+		validateExternalReferenceCode(
+			serviceContext.getCompanyId(), externalReferenceCode);
+
 		// Commerce price modifier
 
 		User user = userLocalService.getUser(serviceContext.getUserId());
@@ -138,6 +167,7 @@ public class CommercePriceModifierLocalServiceImpl
 		commercePriceModifier.setActive(active);
 		commercePriceModifier.setDisplayDate(displayDate);
 		commercePriceModifier.setExpirationDate(expirationDate);
+		commercePriceModifier.setExternalReferenceCode(externalReferenceCode);
 
 		if ((expirationDate == null) || expirationDate.after(now)) {
 			commercePriceModifier.setStatus(WorkflowConstants.STATUS_DRAFT);
@@ -407,15 +437,14 @@ public class CommercePriceModifierLocalServiceImpl
 		if (commercePriceModifierId > 0) {
 			try {
 				return commercePriceModifierLocalService.
-					upsertCommercePriceModifier(
-						userId, commercePriceModifierId, groupId, title, target,
+					updateCommercePriceModifier(
+						commercePriceModifierId, groupId, title, target,
 						commercePriceListId, modifierType, modifierAmount,
 						priority, active, displayDateMonth, displayDateDay,
 						displayDateYear, displayDateHour, displayDateMinute,
 						expirationDateMonth, expirationDateDay,
 						expirationDateYear, expirationDateHour,
-						expirationDateMinute, externalReferenceCode,
-						neverExpire, serviceContext);
+						expirationDateMinute, neverExpire, serviceContext);
 			}
 			catch (NoSuchPriceModifierException nspme) {
 				if (_log.isDebugEnabled()) {
@@ -451,8 +480,8 @@ public class CommercePriceModifierLocalServiceImpl
 			modifierAmount, priority, active, displayDateMonth, displayDateDay,
 			displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, neverExpire,
-			serviceContext);
+			expirationDateHour, expirationDateMinute, externalReferenceCode,
+			neverExpire, serviceContext);
 	}
 
 	protected CommercePriceModifier startWorkflowInstance(
@@ -497,6 +526,25 @@ public class CommercePriceModifierLocalServiceImpl
 
 		if (modifierAmount == null) {
 			throw new CommercePriceModifierAmountException();
+		}
+	}
+
+	protected void validateExternalReferenceCode(
+			long companyId, String externalReferenceCode)
+		throws PortalException {
+
+		if (Validator.isNull(externalReferenceCode)) {
+			return;
+		}
+
+		CommercePriceModifier commercePriceModifier =
+			commercePriceModifierPersistence.fetchByC_ERC(
+				companyId, externalReferenceCode);
+
+		if (commercePriceModifier != null) {
+			throw new DuplicateCommercePriceModifierException(
+				"There is another commerce price modifier with external " +
+					"reference code " + externalReferenceCode);
 		}
 	}
 
