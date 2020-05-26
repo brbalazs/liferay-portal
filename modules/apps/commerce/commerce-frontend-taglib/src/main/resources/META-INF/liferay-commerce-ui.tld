@@ -525,6 +525,11 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+			<name>CPDefinitionId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
 			<name>CPInstanceId</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
