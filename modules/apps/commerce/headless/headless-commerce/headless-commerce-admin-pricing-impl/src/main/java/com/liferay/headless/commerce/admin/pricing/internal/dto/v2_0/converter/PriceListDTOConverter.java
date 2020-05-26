@@ -71,7 +71,7 @@ public class PriceListDTOConverter
 				name = commercePriceList.getName();
 				netPrice = commercePriceList.isNetPrice();
 				priority = commercePriceList.getPriority();
-				type = Type.valueOf(commercePriceList.getType());
+				type = Type.create(commercePriceList.getType());
 			}
 		};
 	}
