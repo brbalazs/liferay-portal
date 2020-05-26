@@ -14,28 +14,19 @@
 
 package com.liferay.headless.commerce.admin.pricing.internal.resource.v2_0;
 
-import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.service.AssetCategoryLocalService;
 import com.liferay.commerce.price.list.exception.NoSuchPriceListException;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.commerce.pricing.exception.NoSuchPriceModifierException;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
-import com.liferay.commerce.pricing.model.CommercePriceModifierRel;
-import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePriceModifierRelService;
 import com.liferay.commerce.pricing.service.CommercePriceModifierService;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
-import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.service.CProductLocalService;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceModifier;
-import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceModifierCategory;
-import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceModifierProduct;
-import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceModifierProductGroup;
 import com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter.PriceModifierDTOConverter;
-import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.PriceModifierCategoryUtil;
-import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.PriceModifierProductGroupUtil;
-import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.PriceModifierProductUtil;
+import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.PriceModifierUtil;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceModifierResource;
 import com.liferay.headless.commerce.core.util.DateConfig;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
@@ -277,88 +268,16 @@ public class PriceModifierResourceImpl extends BasePriceModifierResourceImpl {
 			CommercePriceModifier commercePriceModifier)
 		throws PortalException {
 
-		PriceModifierCategory[] priceModifierCategories =
-			priceModifier.getPriceModifierCategory();
-
-		if (priceModifierCategories != null) {
-			for (PriceModifierCategory priceModifierCategory :
-					priceModifierCategories) {
-
-				CommercePriceModifierRel commercePriceModifierRel =
-					_commercePriceModifierRelService.
-						fetchCommercePriceModifierRel(
-							commercePriceModifier.getCommercePriceModifierId(),
-							AssetCategory.class.getName(),
-							priceModifierCategory.getCategoryId());
-
-				if (commercePriceModifierRel != null) {
-					continue;
-				}
-
-				PriceModifierCategoryUtil.addCommercePriceModifierRel(
-					_assetCategoryLocalService,
-					_commercePriceModifierRelService, priceModifierCategory,
-					commercePriceModifier, _serviceContextHelper);
-			}
-		}
-
-		PriceModifierProductGroup[] priceModifierProductGroups =
-			priceModifier.getPriceModifierProductGroup();
-
-		if (priceModifierProductGroups != null) {
-			for (PriceModifierProductGroup priceModifierProductGroup :
-					priceModifierProductGroups) {
-
-				CommercePriceModifierRel commercePriceModifierRel =
-					_commercePriceModifierRelService.
-						fetchCommercePriceModifierRel(
-							commercePriceModifier.getCommercePriceModifierId(),
-							CommercePricingClass.class.getName(),
-							priceModifierProductGroup.getProductGroupId());
-
-				if (commercePriceModifierRel != null) {
-					continue;
-				}
-
-				PriceModifierProductGroupUtil.addCommercePriceModifierRel(
-					_commercePricingClassService,
-					_commercePriceModifierRelService, priceModifierProductGroup,
-					commercePriceModifier, _serviceContextHelper);
-			}
-		}
-
-		PriceModifierProduct[] priceModifierProducts =
-			priceModifier.getPriceModifierProduct();
-
-		if (priceModifierProducts != null) {
-			for (PriceModifierProduct priceModifierProduct :
-					priceModifierProducts) {
-
-				CommercePriceModifierRel commercePriceModifierRel =
-					_commercePriceModifierRelService.
-						fetchCommercePriceModifierRel(
-							commercePriceModifier.getCommercePriceModifierId(),
-							CPDefinition.class.getName(),
-							priceModifierProduct.getProductId());
-
-				if (commercePriceModifierRel != null) {
-					continue;
-				}
-
-				PriceModifierProductUtil.addCommercePriceModifierRel(
-					_cProductLocalService, _commercePriceModifierRelService,
-					priceModifierProduct, commercePriceModifier,
-					_serviceContextHelper);
-			}
-		}
+		PriceModifierUtil.upsertCommercePriceModifierRels(
+			_assetCategoryLocalService, _commercePricingClassService,
+			_cProductLocalService, _commercePriceModifierRelService,
+			priceModifier, commercePriceModifier, _serviceContextHelper);
 	}
 
 	private CommercePriceModifier _updatePriceModifier(
 			CommercePriceModifier commercePriceModifier,
 			PriceModifier priceModifier)
 		throws PortalException {
-
-		// Commerce price entry
 
 		ServiceContext serviceContext =
 			_serviceContextHelper.getServiceContext();

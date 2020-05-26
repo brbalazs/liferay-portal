@@ -14,6 +14,7 @@
 
 package com.liferay.headless.commerce.admin.pricing.internal.resource.v2_0;
 
+import com.liferay.asset.kernel.service.AssetCategoryLocalService;
 import com.liferay.commerce.account.service.CommerceAccountGroupService;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.currency.model.CommerceCurrency;
@@ -33,7 +34,12 @@ import com.liferay.commerce.price.list.service.CommercePriceListCommerceAccountG
 import com.liferay.commerce.price.list.service.CommercePriceListDiscountRelService;
 import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.commerce.price.list.service.CommerceTierPriceEntryService;
+import com.liferay.commerce.pricing.model.CommercePriceModifier;
+import com.liferay.commerce.pricing.service.CommercePriceModifierRelService;
+import com.liferay.commerce.pricing.service.CommercePriceModifierService;
+import com.liferay.commerce.pricing.service.CommercePricingClassService;
 import com.liferay.commerce.product.model.CommerceCatalog;
+import com.liferay.commerce.product.service.CProductLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceEntry;
@@ -42,6 +48,7 @@ import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListAccount;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListAccountGroup;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListChannel;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceListDiscount;
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceModifier;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.TierPrice;
 import com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter.PriceListDTOConverter;
 import com.liferay.headless.commerce.admin.pricing.internal.odata.entity.v2_0.PriceListEntityModel;
@@ -49,6 +56,7 @@ import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.PriceListA
 import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.PriceListAccountUtil;
 import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.PriceListChannelUtil;
 import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.PriceListDiscountUtil;
+import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.PriceModifierUtil;
 import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.TierPriceUtil;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListResource;
 import com.liferay.headless.commerce.core.util.DateConfig;
@@ -318,6 +326,53 @@ public class PriceListResourceImpl extends BasePriceListResourceImpl {
 			}
 		}
 
+		// Price modifiers
+
+		PriceModifier[] priceModifiers = priceList.getPriceModifiers();
+
+		if (priceModifiers != null) {
+			for (PriceModifier priceModifier : priceModifiers) {
+				DateConfig displayDateConfig = _getDateConfig(
+					priceModifier.getDisplayDate(),
+					serviceContext.getTimeZone());
+
+				DateConfig expirationDateConfig = _getDateConfig(
+					priceModifier.getExpirationDate(),
+					serviceContext.getTimeZone());
+
+				CommercePriceModifier commercePriceModifier =
+					_commercePriceModifierService.upsertCommercePriceModifier(
+						serviceContext.getUserId(),
+						GetterUtil.getLong(priceModifier.getId()),
+						commercePriceList.getGroupId(),
+						priceModifier.getTitle(), priceModifier.getTarget(),
+						commercePriceList.getCommercePriceListId(),
+						priceModifier.getModifierType(),
+						priceModifier.getModifierAmount(),
+						priceModifier.getPriority(),
+						GetterUtil.getBoolean(priceModifier.getActive(), true),
+						displayDateConfig.getMonth(),
+						displayDateConfig.getDay(), displayDateConfig.getYear(),
+						displayDateConfig.getHour(),
+						displayDateConfig.getMinute(),
+						expirationDateConfig.getMonth(),
+						expirationDateConfig.getDay(),
+						expirationDateConfig.getYear(),
+						expirationDateConfig.getHour(),
+						expirationDateConfig.getMinute(),
+						priceModifier.getExternalReferenceCode(),
+						GetterUtil.getBoolean(
+							priceModifier.getNeverExpire(), true),
+						serviceContext);
+
+				PriceModifierUtil.upsertCommercePriceModifierRels(
+					_assetCategoryLocalService, _commercePricingClassService,
+					_cProductLocalService, _commercePriceModifierRelService,
+					priceModifier, commercePriceModifier,
+					_serviceContextHelper);
+			}
+		}
+
 		// Price entries
 
 		PriceEntry[] priceEntries = priceList.getPriceEntries();
@@ -491,6 +546,9 @@ public class PriceListResourceImpl extends BasePriceListResourceImpl {
 	private static final EntityModel _entityModel = new PriceListEntityModel();
 
 	@Reference
+	private AssetCategoryLocalService _assetCategoryLocalService;
+
+	@Reference
 	private CommerceAccountGroupService _commerceAccountGroupService;
 
 	@Reference
@@ -531,7 +589,19 @@ public class PriceListResourceImpl extends BasePriceListResourceImpl {
 	private CommercePriceListService _commercePriceListService;
 
 	@Reference
+	private CommercePriceModifierRelService _commercePriceModifierRelService;
+
+	@Reference
+	private CommercePriceModifierService _commercePriceModifierService;
+
+	@Reference
+	private CommercePricingClassService _commercePricingClassService;
+
+	@Reference
 	private CommerceTierPriceEntryService _commerceTierPriceEntryService;
+
+	@Reference
+	private CProductLocalService _cProductLocalService;
 
 	@Reference
 	private PriceListDTOConverter _priceListDTOConverter;
