@@ -175,32 +175,30 @@ public class CommerceOrderItemDataSetDataProvider
 			return Collections.emptyList();
 		}
 
-		CommerceOrderItem commerceOrderItem0 = commerceOrderItems.get(0);
-
-		CommerceOrder commerceOrder = commerceOrderItem0.getCommerceOrder();
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		Locale locale = themeDisplay.getLocale();
-
-		Format dateTimeFormat = FastDateFormatFactoryUtil.getDate(
-			locale, themeDisplay.getTimeZone());
-
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)httpServletRequest.getAttribute(
+					WebKeys.THEME_DISPLAY);
+
+			Locale locale = themeDisplay.getLocale();
+
+			Format dateTimeFormat = FastDateFormatFactoryUtil.getDate(
+				locale, themeDisplay.getTimeZone());
+
+			CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
+
 			CommerceOrderItemPrice commerceOrderItemPrice =
 				_commerceOrderPriceCalculation.getCommerceOrderItemPrice(
 					commerceOrder.getCommerceCurrency(), commerceOrderItem);
 
 			String name = commerceOrderItem.getName(locale);
 
+			StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
+
 			List<KeyValuePair> keyValuePairs =
 				_cpInstanceHelper.getKeyValuePairs(
 					commerceOrderItem.getCPDefinitionId(),
 					commerceOrderItem.getJson(), locale);
-
-			StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
 
 			for (KeyValuePair keyValuePair : keyValuePairs) {
 				stringJoiner.add(keyValuePair.getValue());

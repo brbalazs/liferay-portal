@@ -343,6 +343,8 @@ public abstract class BaseCommerceOrderPriceCalculation
 			CommerceOrderItem commerceOrderItem, boolean isUnit)
 		throws PortalException {
 
+		int parentQuantity = commerceOrderItem.getQuantity();
+
 		CommerceMoney unitPriceMoney = commerceOrderItem.getUnitPriceMoney();
 		CommerceMoney promoPriceMoney = commerceOrderItem.getPromoPriceMoney();
 
@@ -397,8 +399,6 @@ public abstract class BaseCommerceOrderPriceCalculation
 		List<CommerceOrderItem> childCommerceOrderItems =
 			commerceOrderItemService.getChildCommerceOrderItems(
 				commerceOrderItem.getCommerceOrderItemId());
-
-		int parentQuantity = commerceOrderItem.getQuantity();
 
 		for (CommerceOrderItem childCommerceOrderItem :
 				childCommerceOrderItems) {

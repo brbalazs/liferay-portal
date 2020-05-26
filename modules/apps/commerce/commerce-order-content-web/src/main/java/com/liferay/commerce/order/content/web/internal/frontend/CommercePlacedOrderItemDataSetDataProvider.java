@@ -267,17 +267,15 @@ public class CommercePlacedOrderItemDataSetDataProvider
 			return Collections.emptyList();
 		}
 
-		CommerceOrderItem commerceOrderItem0 = commerceOrderItems.get(0);
-
-		CommerceOrder commerceOrder = commerceOrderItem0.getCommerceOrder();
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		Locale locale = themeDisplay.getLocale();
-
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)httpServletRequest.getAttribute(
+					WebKeys.THEME_DISPLAY);
+
+			Locale locale = themeDisplay.getLocale();
+
+			CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
+
 			CommerceOrderItemPrice commerceOrderItemPrice =
 				_commerceOrderPriceCalculation.getCommerceOrderItemPrice(
 					commerceOrder.getCommerceCurrency(), commerceOrderItem);
@@ -287,13 +285,12 @@ public class CommercePlacedOrderItemDataSetDataProvider
 					commerceOrderItem.getCommerceOrderItemId(),
 					commerceOrderItem.getCommerceOrderId(),
 					commerceOrderItem.getSku(),
-					commerceOrderItem.getName(themeDisplay.getLocale()),
+					commerceOrderItem.getName(locale),
 					_getCommerceOrderOptions(commerceOrderItem, locale),
 					_getChildOrderItems(commerceOrderItem, httpServletRequest),
 					commerceOrderItem.getParentCommerceOrderItemId(),
 					_formatUnitPrice(commerceOrderItemPrice, locale),
-					_formatPromoPrice(
-						commerceOrderItemPrice, themeDisplay.getLocale()),
+					_formatPromoPrice(commerceOrderItemPrice, locale),
 					_formatDiscountAmount(commerceOrderItemPrice, locale),
 					commerceOrderItem.getQuantity(),
 					_formatFinalPrice(commerceOrderItemPrice, locale),

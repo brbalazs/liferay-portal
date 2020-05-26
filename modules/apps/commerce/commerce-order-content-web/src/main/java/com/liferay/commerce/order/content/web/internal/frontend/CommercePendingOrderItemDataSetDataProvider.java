@@ -313,25 +313,23 @@ public class CommercePendingOrderItemDataSetDataProvider
 			return Collections.emptyList();
 		}
 
-		CommerceOrderItem commerceOrderItem0 = commerceOrderItems.get(0);
-
-		CommerceOrder commerceOrder = commerceOrderItem0.getCommerceOrder();
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		Map<Long, List<CommerceOrderValidatorResult>>
-			commerceOrderValidatorResultMap =
-				_getCommerceOrderValidatorResultMap(
-					commerceOrderItems, themeDisplay);
-
-		Locale locale = themeDisplay.getLocale();
-
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)httpServletRequest.getAttribute(
+					WebKeys.THEME_DISPLAY);
+
+			Locale locale = themeDisplay.getLocale();
+
+			CommerceOrder commerceOrder = commerceOrderItem.getCommerceOrder();
+
 			CommerceOrderItemPrice commerceOrderItemPrice =
 				_commerceOrderPriceCalculation.getCommerceOrderItemPrice(
 					commerceOrder.getCommerceCurrency(), commerceOrderItem);
+
+			Map<Long, List<CommerceOrderValidatorResult>>
+				commerceOrderValidatorResultMap =
+					_getCommerceOrderValidatorResultMap(
+						commerceOrderItems, themeDisplay);
 
 			orderItems.add(
 				new OrderItem(
