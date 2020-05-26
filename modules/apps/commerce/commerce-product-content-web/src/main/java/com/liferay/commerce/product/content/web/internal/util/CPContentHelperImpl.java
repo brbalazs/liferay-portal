@@ -37,11 +37,13 @@ import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.model.CPOptionCategory;
 import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.service.CPAttachmentFileEntryLocalService;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPDefinitionSpecificationOptionValueLocalService;
+import com.liferay.commerce.product.service.CPInstanceOptionValueRelLocalService;
 import com.liferay.commerce.product.service.CPOptionCategoryLocalService;
 import com.liferay.commerce.product.service.CProductLocalService;
 import com.liferay.commerce.product.type.CPType;
@@ -493,6 +495,35 @@ public class CPContentHelperImpl implements CPContentHelper {
 					cpCatalogEntry.getCPDefinitionId(), false, true)));
 	}
 
+	private List<CPDefinitionOptionValueRel> _filterByAvailability(
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
+		List<CPInstanceOptionValueRel> cpInstanceOptionValueRels) {
+
+		List<CPDefinitionOptionValueRel> filteredCPDefinitionOptionValueRels =
+			new ArrayList<>();
+
+		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+				cpDefinitionOptionValueRels) {
+
+			for (CPInstanceOptionValueRel cpInstanceOptionValueRel :
+					cpInstanceOptionValueRels) {
+
+				if (cpDefinitionOptionValueRel.
+						getCPDefinitionOptionValueRelId() ==
+							cpInstanceOptionValueRel.
+								getCPDefinitionOptionValueRelId()) {
+
+					filteredCPDefinitionOptionValueRels.add(
+						cpDefinitionOptionValueRel);
+
+					break;
+				}
+			}
+		}
+
+		return filteredCPDefinitionOptionValueRels;
+	}
+
 	private Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
 		_filterByInventoryAvailability(
 			Map<CPDefinitionOptionRel, List<CPDefinitionOptionValueRel>>
@@ -502,9 +533,33 @@ public class CPContentHelperImpl implements CPContentHelper {
 				cpDefinitionOptionRelEntry :
 					cpDefinitionOptionRelstMap.entrySet()) {
 
+			CPDefinitionOptionRel cpDefinitionOptionRel =
+				cpDefinitionOptionRelEntry.getKey();
+
+			if (Validator.isNotNull(cpDefinitionOptionRel.getPriceType())) {
+				cpDefinitionOptionRelEntry.setValue(
+					_commerceInventoryChecker.filterByAvailability(
+						cpDefinitionOptionRelEntry.getValue()));
+
+				continue;
+			}
+
+			if (!cpDefinitionOptionRel.isSkuContributor()) {
+				cpDefinitionOptionRelEntry.setValue(
+					cpDefinitionOptionRelEntry.getValue());
+
+				continue;
+			}
+
 			cpDefinitionOptionRelEntry.setValue(
-				_commerceInventoryChecker.filterByAvailability(
-					cpDefinitionOptionRelEntry.getValue()));
+				_filterByAvailability(
+					cpDefinitionOptionRelEntry.getValue(),
+					_cpInstanceOptionValueRelCommerceInventoryChecker.
+						filterByAvailability(
+							_cpInstanceOptionValueRelLocalService.
+								getCPDefinitionOptionRelCPInstanceOptionValueRels(
+									cpDefinitionOptionRel.
+										getCPDefinitionOptionRelId()))));
 		}
 
 		return cpDefinitionOptionRelstMap;
@@ -547,6 +602,16 @@ public class CPContentHelperImpl implements CPContentHelper {
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
+
+	@Reference(
+		target = "(commerce.inventory.checker.target=CPInstanceOptionValueRel)"
+	)
+	private CommerceInventoryChecker<CPInstanceOptionValueRel>
+		_cpInstanceOptionValueRelCommerceInventoryChecker;
+
+	@Reference
+	private CPInstanceOptionValueRelLocalService
+		_cpInstanceOptionValueRelLocalService;
 
 	@Reference
 	private CPOptionCategoryLocalService _cpOptionCategoryLocalService;
