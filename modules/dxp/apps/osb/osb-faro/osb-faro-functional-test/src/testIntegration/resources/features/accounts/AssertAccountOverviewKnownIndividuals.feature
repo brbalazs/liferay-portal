@@ -10,4 +10,4 @@ Feature: Account overview known individuals show individuals
 
 	Scenario: Assert individuals belong to account
 		Given I click "Schneider and Sons" in the table
-		Then I should see "Maria Rau" in the card list "Known Individuals"
+		Then I should see "Lavina Waelchi" in the card list "Known Individuals"
