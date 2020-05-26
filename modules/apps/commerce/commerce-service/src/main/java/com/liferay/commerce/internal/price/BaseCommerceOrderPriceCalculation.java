@@ -20,13 +20,22 @@ import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.internal.util.CommercePriceConverterUtil;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.model.CommerceOrderItem;
+import com.liferay.commerce.price.CommerceOrderItemPrice;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceOrderPriceImpl;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
+import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
+import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
+
+import java.util.List;
 
 import org.osgi.service.component.annotations.Reference;
 
@@ -35,6 +44,26 @@ import org.osgi.service.component.annotations.Reference;
  */
 public abstract class BaseCommerceOrderPriceCalculation
 	implements CommerceOrderPriceCalculation {
+
+	@Override
+	public CommerceOrderItemPrice getCommerceOrderItemPrice(
+			CommerceCurrency commerceCurrency,
+			CommerceOrderItem commerceOrderItem)
+		throws PortalException {
+
+		return _getCommerceOrderItemPrice(
+			commerceCurrency, commerceOrderItem, false);
+	}
+
+	@Override
+	public CommerceOrderItemPrice getCommerceOrderItemPricePerUnit(
+			CommerceCurrency commerceCurrency,
+			CommerceOrderItem commerceOrderItem)
+		throws PortalException {
+
+		return _getCommerceOrderItemPrice(
+			commerceCurrency, commerceOrderItem, true);
+	}
 
 	protected CommerceOrderPrice getCommerceOrderPriceFromOrder(
 			CommerceOrder commerceOrder)
@@ -260,7 +289,13 @@ public abstract class BaseCommerceOrderPriceCalculation
 	}
 
 	@Reference
+	protected CommerceChannelLocalService commerceChannelLocalService;
+
+	@Reference
 	protected CommerceMoneyFactory commerceMoneyFactory;
+
+	@Reference
+	protected CommerceOrderItemService commerceOrderItemService;
 
 	private CommerceDiscountValue _createCommerceDiscountValue(
 		BigDecimal amount, CommerceCurrency commerceCurrency,
@@ -294,5 +329,242 @@ public abstract class BaseCommerceOrderPriceCalculation
 			0, commerceMoneyFactory.create(commerceCurrency, discountAmount),
 			discountPercentage, discountPercentageValues);
 	}
+
+	private boolean _equalsZero(BigDecimal value) {
+		if ((value == null) || (value.compareTo(BigDecimal.ZERO) != 0)) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private CommerceOrderItemPrice _getCommerceOrderItemPrice(
+			CommerceCurrency commerceCurrency,
+			CommerceOrderItem commerceOrderItem, boolean isUnit)
+		throws PortalException {
+
+		CommerceMoney unitPriceMoney = commerceOrderItem.getUnitPriceMoney();
+		CommerceMoney promoPriceMoney = commerceOrderItem.getPromoPriceMoney();
+
+		CommerceMoney discountAmountMoney =
+			commerceOrderItem.getDiscountAmountMoney();
+
+		CommerceMoney finalPriceMoney = commerceOrderItem.getFinalPriceMoney();
+
+		BigDecimal discountPercentageLevel1 =
+			commerceOrderItem.getDiscountPercentageLevel1();
+		BigDecimal discountPercentageLevel2 =
+			commerceOrderItem.getDiscountPercentageLevel2();
+		BigDecimal discountPercentageLevel3 =
+			commerceOrderItem.getDiscountPercentageLevel3();
+		BigDecimal discountPercentageLevel4 =
+			commerceOrderItem.getDiscountPercentageLevel4();
+
+		CommerceChannel commerceChannel =
+			commerceChannelLocalService.getCommerceChannelByOrderGroupId(
+				commerceOrderItem.getGroupId());
+
+		String priceDisplayType = commerceChannel.getPriceDisplayType();
+
+		if (priceDisplayType.equals(
+				CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
+
+			unitPriceMoney = commerceOrderItem.getUnitPriceWithTaxAmountMoney();
+			promoPriceMoney =
+				commerceOrderItem.getPromoPriceWithTaxAmountMoney();
+
+			discountAmountMoney =
+				commerceOrderItem.getDiscountWithTaxAmountMoney();
+
+			discountPercentageLevel1 =
+				commerceOrderItem.getDiscountPercentageLevel1WithTaxAmount();
+			discountPercentageLevel2 =
+				commerceOrderItem.getDiscountPercentageLevel2WithTaxAmount();
+			discountPercentageLevel3 =
+				commerceOrderItem.getDiscountPercentageLevel3WithTaxAmount();
+			discountPercentageLevel4 =
+				commerceOrderItem.getDiscountPercentageLevel4WithTaxAmount();
+
+			finalPriceMoney =
+				commerceOrderItem.getFinalPriceWithTaxAmountMoney();
+		}
+
+		BigDecimal unitPrice = unitPriceMoney.getPrice();
+		BigDecimal promoPrice = promoPriceMoney.getPrice();
+		BigDecimal finalPrice = finalPriceMoney.getPrice();
+		BigDecimal discountAmount = discountAmountMoney.getPrice();
+
+		List<CommerceOrderItem> childCommerceOrderItems =
+			commerceOrderItemService.getChildCommerceOrderItems(
+				commerceOrderItem.getCommerceOrderItemId());
+
+		int parentQuantity = commerceOrderItem.getQuantity();
+
+		for (CommerceOrderItem childCommerceOrderItem :
+				childCommerceOrderItems) {
+
+			BigDecimal childUnitPrice = childCommerceOrderItem.getUnitPrice();
+			BigDecimal childPromoPrice = childCommerceOrderItem.getPromoPrice();
+			BigDecimal childDiscountAmount =
+				childCommerceOrderItem.getDiscountAmount();
+			BigDecimal childFinalPrice = childCommerceOrderItem.getFinalPrice();
+
+			if (priceDisplayType.equals(
+					CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
+
+				childUnitPrice =
+					childCommerceOrderItem.getUnitPriceWithTaxAmount();
+				childPromoPrice =
+					childCommerceOrderItem.getPromoPriceWithTaxAmount();
+				childDiscountAmount =
+					childCommerceOrderItem.getDiscountWithTaxAmount();
+				childFinalPrice =
+					childCommerceOrderItem.getFinalPriceWithTaxAmount();
+			}
+
+			if (_equalsZero(promoPrice) && _greaterThanZero(childPromoPrice)) {
+				promoPrice = promoPrice.add(unitPrice);
+			}
+			else if (_equalsZero(childPromoPrice) &&
+					 _greaterThanZero(promoPrice)) {
+
+				promoPrice = promoPrice.add(
+					_getPricePerUnit(
+						commerceCurrency, childUnitPrice,
+						childCommerceOrderItem.getQuantity(), parentQuantity));
+			}
+
+			unitPrice = unitPrice.add(
+				_getPricePerUnit(
+					commerceCurrency, childUnitPrice,
+					childCommerceOrderItem.getQuantity(), parentQuantity));
+
+			promoPrice = promoPrice.add(
+				_getPricePerUnit(
+					commerceCurrency, childPromoPrice,
+					childCommerceOrderItem.getQuantity(), parentQuantity));
+
+			discountAmount = discountAmount.add(childDiscountAmount);
+
+			finalPrice = finalPrice.add(childFinalPrice);
+		}
+
+		if (isUnit) {
+			finalPrice = finalPrice.divide(
+				BigDecimal.valueOf(parentQuantity),
+				RoundingMode.valueOf(commerceCurrency.getRoundingMode()));
+		}
+
+		CommerceOrderItemPrice commerceOrderItemPrice =
+			new CommerceOrderItemPrice(
+				commerceMoneyFactory.create(commerceCurrency, unitPrice));
+
+		_updatePromoPrice(commerceCurrency, commerceOrderItemPrice, promoPrice);
+
+		_updateFinalPrice(commerceCurrency, commerceOrderItemPrice, finalPrice);
+
+		_updateDiscounts(
+			commerceCurrency, commerceOrderItemPrice, discountAmount,
+			discountPercentageLevel1, discountPercentageLevel2,
+			discountPercentageLevel3, discountPercentageLevel4,
+			commerceOrderItem.getQuantity(), unitPrice);
+
+		return commerceOrderItemPrice;
+	}
+
+	private BigDecimal _getDiscountPercentage(
+		BigDecimal amount, BigDecimal discount, RoundingMode roundingMode) {
+
+		BigDecimal discountedAmount = amount.subtract(discount);
+
+		double percentage =
+			discountedAmount.doubleValue() / amount.doubleValue();
+
+		BigDecimal discountPercentage = new BigDecimal(percentage);
+
+		discountPercentage = discountPercentage.multiply(_ONE_HUNDRED);
+
+		MathContext mathContext = new MathContext(
+			discountPercentage.precision(), roundingMode);
+
+		return _ONE_HUNDRED.subtract(discountPercentage, mathContext);
+	}
+
+	private BigDecimal _getPricePerUnit(
+		CommerceCurrency commerceCurrency, BigDecimal price, int quantity,
+		int parentQuantity) {
+
+		BigDecimal pricePerUnit = price.multiply(BigDecimal.valueOf(quantity));
+
+		return pricePerUnit.divide(
+			BigDecimal.valueOf(parentQuantity),
+			RoundingMode.valueOf(commerceCurrency.getRoundingMode()));
+	}
+
+	private boolean _greaterThanZero(BigDecimal value) {
+		if ((value == null) || (value.compareTo(BigDecimal.ZERO) <= 0)) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private void _updateDiscounts(
+		CommerceCurrency commerceCurrency,
+		CommerceOrderItemPrice commerceOrderItemPrice,
+		BigDecimal discountAmount, BigDecimal discountPercentageLevel1,
+		BigDecimal discountPercentageLevel2,
+		BigDecimal discountPercentageLevel3,
+		BigDecimal discountPercentageLevel4, int quantity,
+		BigDecimal unitPrice) {
+
+		BigDecimal activePrice = unitPrice;
+
+		CommerceMoney promoPrice = commerceOrderItemPrice.getPromoPrice();
+
+		if (_greaterThanZero(promoPrice.getPrice())) {
+			activePrice = promoPrice.getPrice();
+		}
+
+		commerceOrderItemPrice.setDiscountAmount(
+			commerceMoneyFactory.create(commerceCurrency, discountAmount));
+
+		BigDecimal discountPercentage = _getDiscountPercentage(
+			activePrice.multiply(BigDecimal.valueOf(quantity)), discountAmount,
+			RoundingMode.valueOf(commerceCurrency.getRoundingMode()));
+
+		commerceOrderItemPrice.setDiscountPercentage(discountPercentage);
+
+		commerceOrderItemPrice.setDiscountPercentageLevel1(
+			discountPercentageLevel1);
+		commerceOrderItemPrice.setDiscountPercentageLevel2(
+			discountPercentageLevel2);
+		commerceOrderItemPrice.setDiscountPercentageLevel3(
+			discountPercentageLevel3);
+		commerceOrderItemPrice.setDiscountPercentageLevel4(
+			discountPercentageLevel4);
+	}
+
+	private void _updateFinalPrice(
+		CommerceCurrency commerceCurrency,
+		CommerceOrderItemPrice commerceOrderItemPrice, BigDecimal finalPrice) {
+
+		commerceOrderItemPrice.setFinalPrice(
+			commerceMoneyFactory.create(commerceCurrency, finalPrice));
+	}
+
+	private void _updatePromoPrice(
+		CommerceCurrency commerceCurrency,
+		CommerceOrderItemPrice commerceOrderItemPrice, BigDecimal promoPrice) {
+
+		if (!_greaterThanZero(promoPrice)) {
+			return;
+		}
+
+		commerceOrderItemPrice.setPromoPrice(
+			commerceMoneyFactory.create(commerceCurrency, promoPrice));
+	}
+
+	private static final BigDecimal _ONE_HUNDRED = BigDecimal.valueOf(100);
 
 }
