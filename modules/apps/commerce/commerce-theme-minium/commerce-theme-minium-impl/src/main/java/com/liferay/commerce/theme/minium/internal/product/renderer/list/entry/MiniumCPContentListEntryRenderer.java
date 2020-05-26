@@ -209,10 +209,10 @@ public class MiniumCPContentListEntryRenderer
 		context.put("pictureUrl", cpCatalogEntry.getDefaultImageFileUrl());
 		context.put("productId", cpCatalogEntry.getCPDefinitionId());
 
-		if ((cpSku != null) &&
-			!cpContentHelper.hasChildCPDefinitions(
-				cpCatalogEntry.getCPDefinitionId())) {
+		boolean hasChildCPDefinitions = cpContentHelper.hasChildCPDefinitions(
+			cpCatalogEntry.getCPDefinitionId());
 
+		if ((cpSku != null) && !hasChildCPDefinitions) {
 			context.put("sku", cpSku.getSku());
 			context.put("skuId", cpSku.getCPInstanceId());
 
@@ -263,6 +263,13 @@ public class MiniumCPContentListEntryRenderer
 
 				context.put("availability", status);
 			}
+		}
+		else if (hasChildCPDefinitions) {
+			PriceModel priceModel = _productHelper.getMinPrice(
+				cpCatalogEntry.getCPDefinitionId(), commerceContext,
+				themeDisplay.getLocale());
+
+			context.put("prices", priceModel);
 		}
 
 		CommerceWishList commerceWishList =
