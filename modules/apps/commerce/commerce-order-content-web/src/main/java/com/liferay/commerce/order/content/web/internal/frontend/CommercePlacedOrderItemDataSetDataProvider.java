@@ -242,12 +242,12 @@ public class CommercePlacedOrderItemDataSetDataProvider
 			CommerceOrderItem commerceOrderItem, Locale locale)
 		throws PortalException {
 
+		StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
+
 		List<KeyValuePair> commerceOptionValueKeyValuePairs =
 			_cpInstanceHelper.getKeyValuePairs(
 				_getCommerceOptionValueCPDefinitionId(commerceOrderItem),
 				commerceOrderItem.getJson(), locale);
-
-		StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
 
 		for (KeyValuePair keyValuePair : commerceOptionValueKeyValuePairs) {
 			stringJoiner.add(keyValuePair.getValue());

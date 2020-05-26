@@ -250,11 +250,11 @@ public class CommercePendingOrderItemDataSetDataProvider
 		Map<Long, List<CommerceOrderValidatorResult>>
 			commerceOrderValidatorResultMap) {
 
+		List<String> errorMessages = new ArrayList<>();
+
 		List<CommerceOrderValidatorResult> commerceOrderValidatorResults =
 			commerceOrderValidatorResultMap.get(
 				commerceOrderItem.getCommerceOrderItemId());
-
-		List<String> errorMessages = new ArrayList<>();
 
 		for (CommerceOrderValidatorResult commerceOrderValidatorResult :
 				commerceOrderValidatorResults) {
@@ -270,12 +270,12 @@ public class CommercePendingOrderItemDataSetDataProvider
 			CommerceOrderItem commerceOrderItem, Locale locale)
 		throws PortalException {
 
+		StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
+
 		List<KeyValuePair> commerceOptionValueKeyValuePairs =
 			_cpInstanceHelper.getKeyValuePairs(
 				_getCommerceOptionValueCPDefinitionId(commerceOrderItem),
 				commerceOrderItem.getJson(), locale);
-
-		StringJoiner stringJoiner = new StringJoiner(StringPool.COMMA);
 
 		for (KeyValuePair keyValuePair : commerceOptionValueKeyValuePairs) {
 			stringJoiner.add(keyValuePair.getValue());
