@@ -32,3 +32,8 @@
 # Bundle Version 1.0.9
 #
 34fe38bcfe661afb14ad88a771c9a649bf7a2cf6^..b35cd29cec588efc94baed17f243448373b99beb=LPS-110685
+
+#
+# Bundle Version 1.0.10
+#
+b35cd29cec588efc94baed17f243448373b99beb^..54ec33fae783937d60cdfbe54de36b3d3d4e6ddb=COMMERCE-3908
