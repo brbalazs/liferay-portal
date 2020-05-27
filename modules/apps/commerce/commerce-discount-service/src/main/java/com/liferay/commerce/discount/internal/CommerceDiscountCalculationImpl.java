@@ -225,7 +225,7 @@ public class CommerceDiscountCalculationImpl
 
 			String discountCouponCode = commerceDiscount.getCouponCode();
 
-			if ((discountCouponCode != null) &&
+			if ((discountCouponCode != null) && !discountCouponCode.isEmpty() &&
 				!Objects.equals(couponCode, discountCouponCode)) {
 
 				continue;

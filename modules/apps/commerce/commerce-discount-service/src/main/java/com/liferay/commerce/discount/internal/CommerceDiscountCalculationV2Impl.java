@@ -317,7 +317,7 @@ public class CommerceDiscountCalculationV2Impl
 		for (CommerceDiscount commerceDiscount : commerceDiscounts) {
 			String discountCouponCode = commerceDiscount.getCouponCode();
 
-			if ((discountCouponCode != null) &&
+			if ((discountCouponCode != null) && !discountCouponCode.isEmpty() &&
 				!Objects.equals(couponCode, discountCouponCode)) {
 
 				continue;
