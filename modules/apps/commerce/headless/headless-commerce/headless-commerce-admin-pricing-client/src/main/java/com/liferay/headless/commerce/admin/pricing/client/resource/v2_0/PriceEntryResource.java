@@ -111,11 +111,13 @@ public interface PriceEntryResource {
 		throws Exception;
 
 	public Page<PriceEntry> getPriceListIdPriceEntriesPage(
-			Long id, Pagination pagination)
+			Long id, String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getPriceListIdPriceEntriesPageHttpResponse(
-			Long id, Pagination pagination)
+			Long id, String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public PriceEntry postPriceListIdPriceEntry(Long id, PriceEntry priceEntry)
@@ -744,11 +746,13 @@ public interface PriceEntryResource {
 		}
 
 		public Page<PriceEntry> getPriceListIdPriceEntriesPage(
-				Long id, Pagination pagination)
+				Long id, String search, String filterString,
+				Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getPriceListIdPriceEntriesPageHttpResponse(id, pagination);
+				getPriceListIdPriceEntriesPageHttpResponse(
+					id, search, filterString, pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -772,7 +776,8 @@ public interface PriceEntryResource {
 
 		public HttpInvoker.HttpResponse
 				getPriceListIdPriceEntriesPageHttpResponse(
-					Long id, Pagination pagination)
+					Long id, String search, String filterString,
+					Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -796,11 +801,23 @@ public interface PriceEntryResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
 
+			if (search != null) {
+				httpInvoker.parameter("search", String.valueOf(search));
+			}
+
+			if (filterString != null) {
+				httpInvoker.parameter("filter", filterString);
+			}
+
 			if (pagination != null) {
 				httpInvoker.parameter(
 					"page", String.valueOf(pagination.getPage()));
 				httpInvoker.parameter(
 					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			if (sortString != null) {
+				httpInvoker.parameter("sort", sortString);
 			}
 
 			httpInvoker.path(

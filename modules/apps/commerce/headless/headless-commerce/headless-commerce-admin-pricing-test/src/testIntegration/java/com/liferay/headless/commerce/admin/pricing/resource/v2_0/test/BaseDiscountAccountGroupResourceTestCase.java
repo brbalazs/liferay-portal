@@ -237,7 +237,7 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 						new HashMap<String, Object>() {
 							{
 								put(
-									"id",
+									"discountAccountGroupId",
 									discountAccountGroup.getId());
 							}
 						})),
@@ -266,7 +266,7 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 		}
 	}
 
-	//@Test
+	@Test
 	public void testGetDiscountByExternalReferenceCodeDiscountAccountGroupsPage()
 		throws Exception {
 
@@ -327,7 +327,7 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 		discountAccountGroupResource.deleteDiscountAccountGroup(null);
 	}
 
-	//@Test
+	@Test
 	public void testGetDiscountByExternalReferenceCodeDiscountAccountGroupsPageWithPagination()
 		throws Exception {
 
@@ -409,7 +409,7 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 		return null;
 	}
 
-	//@Test
+	@Test
 	public void testPostDiscountByExternalReferenceCodeDiscountAccountGroup()
 		throws Exception {
 
@@ -433,7 +433,7 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 			"This method needs to be implemented");
 	}
 
-	//@Test
+	@Test
 	public void testGetDiscountIdDiscountAccountGroupsPage() throws Exception {
 		Page<DiscountAccountGroup> page =
 			discountAccountGroupResource.getDiscountIdDiscountAccountGroupsPage(
