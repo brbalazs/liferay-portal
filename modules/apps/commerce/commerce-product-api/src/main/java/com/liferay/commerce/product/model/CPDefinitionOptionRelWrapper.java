@@ -629,6 +629,21 @@ public class CPDefinitionOptionRelWrapper
 		return _cpDefinitionOptionRel.isNew();
 	}
 
+	@Override
+	public boolean isPriceContributor() {
+		return _cpDefinitionOptionRel.isPriceContributor();
+	}
+
+	@Override
+	public boolean isPriceTypeDynamic() {
+		return _cpDefinitionOptionRel.isPriceTypeDynamic();
+	}
+
+	@Override
+	public boolean isPriceTypeStatic() {
+		return _cpDefinitionOptionRel.isPriceTypeStatic();
+	}
+
 	/**
 	 * Returns <code>true</code> if this cp definition option rel is required.
 	 *

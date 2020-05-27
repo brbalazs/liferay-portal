@@ -506,6 +506,13 @@ public class CPDefinitionOptionRelLocalServiceUtil {
 				cpDefinitionId);
 	}
 
+	public static boolean hasCPDefinitionRequiredCPDefinitionOptionRels(
+		long cpDefinitionId) {
+
+		return getService().hasCPDefinitionRequiredCPDefinitionOptionRels(
+			cpDefinitionId);
+	}
+
 	public static boolean hasLinkedCPInstanceCPDefinitionOptionRels(
 		long cpDefinitionId) {
 
