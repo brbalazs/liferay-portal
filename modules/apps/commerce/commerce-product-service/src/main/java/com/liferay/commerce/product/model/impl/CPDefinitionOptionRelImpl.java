@@ -63,7 +63,7 @@ public class CPDefinitionOptionRelImpl extends CPDefinitionOptionRelBaseImpl {
 	}
 
 	@Override
-	public boolean isChargeable() {
+	public boolean isPriceContributor() {
 		if (Validator.isNotNull(getPriceType())) {
 			return true;
 		}
