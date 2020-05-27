@@ -477,7 +477,7 @@ exports[`Sites Dashboard Overview render 1`] = `
           >
             <a
               class="button-root btn btn-link btn-sm"
-              href="/workspace/2000/123/sites/interests?rangeKey=30"
+              href="/workspace/2000/123/sites/interests?rangeEnd=null&rangeKey=30&rangeStart=null"
             >
               All Interests
               <svg

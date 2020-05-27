@@ -68,7 +68,7 @@ exports[`TouchpointsListCard should render with items 1`] = `
           >
             <a
               class="font-weight-semibold text-truncate-inline text-dark"
-              href="/workspace/2000/456/sites/pages/overview/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform"
+              href="/workspace/2000/456/sites/pages/overview/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform?rangeKey=30"
             >
               <span
                 class="text-truncate"
@@ -84,7 +84,7 @@ exports[`TouchpointsListCard should render with items 1`] = `
           >
             <a
               class="text-secondary text-truncate-inline"
-              href="/workspace/2000/456/sites/pages/overview/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform"
+              href="/workspace/2000/456/sites/pages/overview/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform?rangeKey=30"
             >
               <span
                 class="text-truncate"
@@ -108,7 +108,7 @@ exports[`TouchpointsListCard should render with items 1`] = `
           >
             <a
               class="font-weight-semibold text-truncate-inline text-dark"
-              href="/workspace/2000/456/sites/pages/overview/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform"
+              href="/workspace/2000/456/sites/pages/overview/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform?rangeKey=30"
             >
               <span
                 class="text-truncate"
@@ -124,7 +124,7 @@ exports[`TouchpointsListCard should render with items 1`] = `
           >
             <a
               class="text-secondary text-truncate-inline"
-              href="/workspace/2000/456/sites/pages/overview/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform"
+              href="/workspace/2000/456/sites/pages/overview/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform?rangeKey=30"
             >
               <span
                 class="text-truncate"
@@ -148,7 +148,7 @@ exports[`TouchpointsListCard should render with items 1`] = `
           >
             <a
               class="font-weight-semibold text-truncate-inline text-dark"
-              href="/workspace/2000/456/sites/pages/overview/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform"
+              href="/workspace/2000/456/sites/pages/overview/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform?rangeKey=30"
             >
               <span
                 class="text-truncate"
@@ -164,7 +164,7 @@ exports[`TouchpointsListCard should render with items 1`] = `
           >
             <a
               class="text-secondary text-truncate-inline"
-              href="/workspace/2000/456/sites/pages/overview/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform"
+              href="/workspace/2000/456/sites/pages/overview/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform/https%3A%2F%2Fwww.liferay.com%2Fdigital-experience-platform?rangeKey=30"
             >
               <span
                 class="text-truncate"

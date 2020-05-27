@@ -4,11 +4,15 @@ exports[`TableMapper should map props to options 1`] = `
 Object {
   "variables": Object {
     "channelId": 123,
+    "rangeEnd": null,
     "rangeKey": 30,
+    "rangeStart": null,
     "sort": Object {
       "column": "fooFieldName",
       "type": "DESC",
     },
+    "title": "",
+    "touchpoint": "",
   },
 }
 `;
