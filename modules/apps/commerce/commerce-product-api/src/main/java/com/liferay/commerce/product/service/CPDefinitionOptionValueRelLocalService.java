@@ -17,6 +17,7 @@ package com.liferay.commerce.product.service;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
+import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.model.CPOptionValue;
 import com.liferay.exportimport.kernel.lar.PortletDataContext;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
@@ -226,6 +227,10 @@ public interface CPDefinitionOptionValueRelLocalService
 	public CPDefinitionOptionValueRel
 		fetchCPDefinitionOptionValueRelByUuidAndGroupId(
 			String uuid, long groupId);
+
+	public List<CPDefinitionOptionValueRel> filterByCPInstanceOptionValueRels(
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
+		List<CPInstanceOptionValueRel> cpInstanceOptionValueRels);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();

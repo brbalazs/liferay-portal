@@ -254,6 +254,20 @@ public class CPDefinitionOptionValueRelLocalServiceUtil {
 			uuid, groupId);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.product.model.CPDefinitionOptionValueRel>
+			filterByCPInstanceOptionValueRels(
+				java.util.List
+					<com.liferay.commerce.product.model.
+						CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
+				java.util.List
+					<com.liferay.commerce.product.model.
+						CPInstanceOptionValueRel> cpInstanceOptionValueRels) {
+
+		return getService().filterByCPInstanceOptionValueRels(
+			cpDefinitionOptionValueRels, cpInstanceOptionValueRels);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
