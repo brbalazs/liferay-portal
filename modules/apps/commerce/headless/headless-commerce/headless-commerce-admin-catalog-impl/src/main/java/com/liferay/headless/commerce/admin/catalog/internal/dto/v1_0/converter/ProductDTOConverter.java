@@ -69,7 +69,7 @@ public class ProductDTOConverter
 				expando = expandoBridge.getAttributes();
 				expirationDate = cpDefinition.getExpirationDate();
 				externalReferenceCode = cProduct.getExternalReferenceCode();
-				id = cpDefinition.getCPDefinitionId();
+				id = cProduct.getCProductId();
 				metaDescription = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getMetaDescriptionMap());
 				metaKeyword = LanguageUtils.getLanguageIdMap(
@@ -79,7 +79,7 @@ public class ProductDTOConverter
 				modifiedDate = cpDefinition.getModifiedDate();
 				name = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getNameMap());
-				productId = cProduct.getCProductId();
+				productId = cpDefinition.getCPDefinitionId();
 				productType = cpDefinition.getProductTypeName();
 				shortDescription = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getShortDescriptionMap());
