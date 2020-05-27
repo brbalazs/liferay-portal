@@ -9,6 +9,7 @@ Feature: Dynamic segment members preview in real time
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 
 	Scenario: Assert members preview updates
 		Given I create a criteria with the following conditions:

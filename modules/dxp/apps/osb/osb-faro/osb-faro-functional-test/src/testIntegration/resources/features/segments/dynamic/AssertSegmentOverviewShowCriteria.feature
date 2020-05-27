@@ -9,6 +9,7 @@ Feature: Assert segment overview shows criteria
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 		* I create a criteria with the following conditions:
 			| state | is | california |
 		* I name the Dynamic segment "CreateDynamicIndividualsSegment - ${Random.1}" and save it

@@ -10,6 +10,7 @@ Feature: Duplicate a criteria
 		* I should see the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 		* I create a criteria with the following conditions:
 		  | familyName | contains | raynor |
 

@@ -9,6 +9,7 @@ Feature: Delete a Dynamic Individuals Segment
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 		* I create a criteria with the following conditions:
 			| familyName | contains | raynor |
 		* I name the Dynamic segment "DeleteDynamicIndividualsSegment - ${Random.1}" and save it

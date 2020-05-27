@@ -30,6 +30,7 @@ Feature: Re-enable Disabled Segment
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I click the "Individual Attributes" dropdown option
 		* I create an OR criteria with the following conditions:
 			| familyName                   | contains | raynor |
 			| ReenableDisabledSegmentField | is known |         |

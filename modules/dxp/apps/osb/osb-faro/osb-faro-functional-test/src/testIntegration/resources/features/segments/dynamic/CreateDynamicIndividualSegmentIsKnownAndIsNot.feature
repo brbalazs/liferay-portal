@@ -32,6 +32,7 @@ Feature: Create a Dynamic Individuals Segment with a criteria that uses is known
 
 	Scenario: Create the Dynamic Individuals Segment using is not
 		Given I click the "Dynamic Segment" dropdown option
+		And I select "Individual Attributes" from the criterion type dropdown
 		When I create a criteria with the following conditions:
 			| myCustomField | is not | some property |
 		And I create a criteria with the following conditions:

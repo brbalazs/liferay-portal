@@ -11,6 +11,7 @@ Feature: Create a Dynamic Individuals Segment By Date
 
 	Scenario: Create the Dynamic Individuals Segment By Date
 		Given I click the "Dynamic Segment" dropdown option
+		And I select "Individual Attributes" from the criterion type dropdown
 		When I create a criteria with the following Date condition:
 			| birthDate | is after | September 14 2016 |
 		And I name the Dynamic segment "CreateDynamicIndividualsSegmentByDate - ${Random.1}" and save it

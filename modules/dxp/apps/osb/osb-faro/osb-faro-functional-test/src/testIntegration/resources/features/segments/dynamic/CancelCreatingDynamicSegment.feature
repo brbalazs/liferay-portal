@@ -10,6 +10,7 @@ Feature: Cancel Creating a Dynamic Segment
 		* I should see the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 
 	Scenario: Cancel Creating a Dynamic Segment
 		Given I create a criteria with the following conditions:

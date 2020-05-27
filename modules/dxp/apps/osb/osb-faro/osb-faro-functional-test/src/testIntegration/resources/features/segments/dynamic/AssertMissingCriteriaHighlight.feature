@@ -30,6 +30,7 @@ Feature: Missing Criteria are highlighted when editing a disabled Segment
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 		* I create an OR criteria with the following conditions:
 			| givenName                           | contains | blossom |
 			| AssertMissingCriteriaHighlightField | is known |         |

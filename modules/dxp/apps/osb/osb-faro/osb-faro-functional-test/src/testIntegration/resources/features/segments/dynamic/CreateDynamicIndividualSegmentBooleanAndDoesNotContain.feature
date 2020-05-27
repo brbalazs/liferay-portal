@@ -33,6 +33,7 @@ Feature: Create a Dynamic Individuals Segment with a criteria that uses a boolea
 
 	Scenario: Create the Dynamic Individuals Segment Using does not contain
 		Given I click the "Dynamic Segment" dropdown option
+		And I select "Individual Attributes" from the criterion type dropdown
 		When I create a criteria with the following conditions:
 			| jobTitle | does not contain | economist |
 		And I create a criteria with the following conditions:

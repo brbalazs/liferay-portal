@@ -9,6 +9,7 @@ Feature: Assert Segment Overview shows include anonymous
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 		* I create a criteria with the following conditions:
 		| additionalName | is | bert |
 		* I click the Include Anonymous switch

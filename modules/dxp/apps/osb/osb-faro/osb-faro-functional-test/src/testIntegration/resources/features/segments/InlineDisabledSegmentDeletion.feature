@@ -30,6 +30,7 @@ Feature: Delete a Disabled Segment with the Inline Delete Button
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 		* I create a criteria with the following conditions:
 			| InlineDisabledSegmentDeletion | is known |
 		* I name the Dynamic segment "InlineDisabledSegmentDeletion - ${Random.1}" and save it

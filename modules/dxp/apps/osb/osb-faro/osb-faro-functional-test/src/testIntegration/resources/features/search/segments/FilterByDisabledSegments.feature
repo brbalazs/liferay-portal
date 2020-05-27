@@ -30,12 +30,14 @@ Feature: Filter by Disabled Segments
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 		* I create a criteria with the following conditions:
 			| FilterByDisabledSegmentsField | is known |
 		* I name the Dynamic segment "FilterByDisabledSegments - ${Random.1}" and save it
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 		* I create a criteria with the following conditions:
 			| givenName | is | blossom |
 		* I name the Dynamic segment "FilterByDisabledSegments (Not Disabled) - ${Random.1}" and save it

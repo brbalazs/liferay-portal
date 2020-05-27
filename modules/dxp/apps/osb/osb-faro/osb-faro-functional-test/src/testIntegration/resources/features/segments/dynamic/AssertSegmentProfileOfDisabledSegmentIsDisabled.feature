@@ -30,6 +30,7 @@ Feature: Assert Segment Profile of a Disabled Segment is Disabled
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 		* I create a criteria with the following conditions:
 			| AssertSegmentProfileOfDisabledSegmentIsDisabledField | is known |
 		* I name the Dynamic segment "AssertSegmentProfileOfDisabledSegmentIsDisabled - ${Random.1}" and save it

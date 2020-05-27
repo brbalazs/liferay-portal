@@ -33,6 +33,7 @@ Feature: Assert Unaffected Segments Do Not Appear During Data Source Deletion
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 		* I create a criteria with the following conditions:
 			| uniqueField | contains | waosounique |
 		* I name the Dynamic segment "AssertAffectedSegments - ${Random.1}" and save it
@@ -42,6 +43,7 @@ Feature: Assert Unaffected Segments Do Not Appear During Data Source Deletion
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 		* I create a criteria with the following conditions:
 			| givenName | contains | alton |
 		* I name the Dynamic segment "Unaffected Segment - ${Random.1}" and save it

@@ -9,6 +9,7 @@ Feature: Order a Dynamic Segment's Membership Preview Modal
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 
 	Scenario: Order the Dynamic Individuals Segment's Membership Preview
 		Given I create a criteria with the following conditions:

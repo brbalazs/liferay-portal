@@ -10,6 +10,7 @@ Feature: Edit Individuals Segment Criteria
 		* I should see the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 		* I create a criteria with the following conditions:
 			| familyName | contains | raynor |
 		* I name the Dynamic segment "EditIndividualsSegmentCriteria - ${Random.1}" and save it

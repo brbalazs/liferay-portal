@@ -26,6 +26,7 @@ Feature: Create a Dynamic Individuals Segment with a criteria that uses is unkno
 
 	Scenario: Create the Dynamic Individuals Segment using unknown
 		Given I click the "Dynamic Segment" dropdown option
+		And I select "Individual Attributes" from the criterion type dropdown
 		When I create a criteria with the following conditions:
 			| industry | is unknown |
 		And I name the Dynamic segment "CreateDynamicIndividualSegmentIsUnknown - ${Random.1}" and save it

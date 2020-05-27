@@ -30,12 +30,14 @@ Feature: Dynamic Segments with criteria changes are disabled
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 		* I create a criteria with the following conditions:
 			| AssertCriteriaChangesDisablesDynamicSegmentField | is known |
 		* I name the Dynamic segment "AssertCriteriaChangesDisablesDynamicSegment - ${Random.1}" and save it
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Dynamic Segment" dropdown option
+		* I select "Individual Attributes" from the criterion type dropdown
 		* I create a criteria with the following conditions:
 			| givenName | is | blossom |
 		* I name the Dynamic segment "AssertCriteriaChangesDisablesDynamicSegment (Not Disabled) - ${Random.1}" and save it

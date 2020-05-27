@@ -11,6 +11,7 @@ Feature: Create a Dynamic Individuals Segment
 
 	Scenario: Create the Dynamic Individuals Segment
 		Given I click the "Dynamic Segment" dropdown option
+		And I select "Individual Attributes" from the criterion type dropdown
 		When I create a criteria with the following conditions:
 			| givenName | contains | abram |
 		And I name the Dynamic segment "CreateDynamicIndividualsSegment - ${Random.1}" and save it
