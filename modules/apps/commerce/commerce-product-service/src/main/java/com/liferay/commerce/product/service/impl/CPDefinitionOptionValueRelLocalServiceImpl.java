@@ -249,6 +249,36 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 	}
 
 	@Override
+	public List<CPDefinitionOptionValueRel> filterByCPInstanceOptionValueRels(
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels,
+		List<CPInstanceOptionValueRel> cpInstanceOptionValueRels) {
+
+		List<CPDefinitionOptionValueRel> filteredCPDefinitionOptionValueRels =
+			new ArrayList<>();
+
+		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+				cpDefinitionOptionValueRels) {
+
+			for (CPInstanceOptionValueRel cpInstanceOptionValueRel :
+					cpInstanceOptionValueRels) {
+
+				if (cpDefinitionOptionValueRel.
+						getCPDefinitionOptionValueRelId() ==
+							cpInstanceOptionValueRel.
+								getCPDefinitionOptionValueRelId()) {
+
+					filteredCPDefinitionOptionValueRels.add(
+						cpDefinitionOptionValueRel);
+
+					break;
+				}
+			}
+		}
+
+		return filteredCPDefinitionOptionValueRels;
+	}
+
+	@Override
 	public List<CPDefinitionOptionValueRel> getCPDefinitionOptionValueRels(
 		long cpDefinitionOptionRelId) {
 
