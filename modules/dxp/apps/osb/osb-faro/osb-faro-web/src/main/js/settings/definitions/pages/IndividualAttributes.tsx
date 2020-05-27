@@ -1,6 +1,7 @@
 import * as API from 'shared/api';
 import BasePage from 'settings/components/BasePage';
 import Button from 'shared/components/Button';
+import Card from 'shared/components/Card';
 import Constants from 'shared/util/constants';
 import moment from 'moment';
 import React from 'react';
@@ -73,40 +74,42 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 			)}
 			pageTitle={Liferay.Language.get('individual-attributes')}
 		>
-			<SearchableEntityTableHOC
-				columns={[
-					{
-						accessor: 'fieldName',
-						cellRenderer: FieldNameCell,
-						className: 'table-cell-expand',
-						label: Liferay.Language.get('attribute')
-					},
-					{
-						accessor: 'dataSources',
-						className: 'pr-6',
-						dataFormatter: dataSources =>
-							dataSources.length > 1
-								? sub(Liferay.Language.get('x-sources'), [
-										dataSources.length
-								  ])
-								: dataSources[0].dataSourceName,
-						label: Liferay.Language.get('sources')
-					},
-					{
-						accessor: 'dateModified',
-						className: 'pr-5',
-						dataFormatter: dateModified =>
-							moment(dateModified).fromNow(),
-						label: Liferay.Language.get('last-synced'),
-						sortable: false
-					}
-				]}
-				dataSourceFn={API.definitions.searchIndividualAttributes}
-				dataSourceParams={{groupId}}
-				internalSort
-				rowIdentifier='fieldName'
-				showPagination={false}
-			/>
+			<Card>
+				<SearchableEntityTableHOC
+					columns={[
+						{
+							accessor: 'fieldName',
+							cellRenderer: FieldNameCell,
+							className: 'table-cell-expand',
+							label: Liferay.Language.get('attribute')
+						},
+						{
+							accessor: 'dataSources',
+							className: 'pr-6',
+							dataFormatter: dataSources =>
+								dataSources.length > 1
+									? sub(Liferay.Language.get('x-sources'), [
+											dataSources.length
+									  ])
+									: dataSources[0].dataSourceName,
+							label: Liferay.Language.get('sources')
+						},
+						{
+							accessor: 'dateModified',
+							className: 'pr-5',
+							dataFormatter: dateModified =>
+								moment(dateModified).fromNow(),
+							label: Liferay.Language.get('last-synced'),
+							sortable: false
+						}
+					]}
+					dataSourceFn={API.definitions.searchIndividualAttributes}
+					dataSourceParams={{groupId}}
+					internalSort
+					rowIdentifier='fieldName'
+					showPagination={false}
+				/>
+			</Card>
 		</BasePage>
 	);
 };

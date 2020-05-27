@@ -56,255 +56,259 @@ exports[`IndividualAttributes should render 1`] = `
     </div>
     <div>
       <div
-        class="base-results-root d-flex flex-column flex-grow-1 searchable-table-root searchable-table-borderless"
+        class="card card-root"
       >
         <div
-          class="toolbar-root"
+          class="base-results-root d-flex flex-column flex-grow-1 searchable-table-root searchable-table-borderless"
         >
-          <nav
-            class="navbar navbar-root management-bar management-bar-light navbar-expand"
+          <div
+            class="toolbar-root"
           >
-            <div
-              class="container-fluid"
+            <nav
+              class="navbar navbar-root management-bar management-bar-light navbar-expand"
             >
-              <ul
-                class="nav-root front-nav navbar-nav"
-                role="tablist"
-              />
               <div
-                class="navbar-form navbar-form-autofit"
+                class="container-fluid"
               >
+                <ul
+                  class="nav-root front-nav navbar-nav"
+                  role="tablist"
+                />
                 <div
-                  class="input-group search"
+                  class="navbar-form navbar-form-autofit"
                 >
                   <div
-                    class="input-group-item"
+                    class="input-group search"
                   >
-                    <input
-                      class="input-root form-control input-group-inset input-group-inset-after"
-                      placeholder="Search"
-                      type="text"
-                      value=""
-                    />
                     <div
-                      class="input-group-inset-item input-group-inset-item-after"
+                      class="input-group-item"
+                    >
+                      <input
+                        class="input-root form-control input-group-inset input-group-inset-after"
+                        placeholder="Search"
+                        type="text"
+                        value=""
+                      />
+                      <div
+                        class="input-group-inset-item input-group-inset-item-after"
+                      >
+                        <button
+                          class="button-root btn btn-unstyled"
+                          type="button"
+                        >
+                          <svg
+                            class="icon-root lexicon-icon lexicon-icon-search"
+                            viewBox=""
+                          >
+                            <use
+                              xlink:href="#search"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+          <div
+            class="table-responsive table-root flex-grow-1"
+          >
+            <table
+              class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+            >
+              <thead>
+                <tr
+                  class=""
+                >
+                  <th
+                    class="table-head-title table-cell-expand"
+                  >
+                    <button
+                      class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                      type="button"
+                    >
+                      <span
+                        class="text-truncate"
+                      >
+                        Attribute
+                      </span>
+                    </button>
+                  </th>
+                  <th
+                    class="table-head-title pr-6"
+                  >
+                    <button
+                      class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                      type="button"
+                    >
+                      <span
+                        class="text-truncate"
+                      >
+                        Sources
+                      </span>
+                    </button>
+                  </th>
+                  <th
+                    class="table-head-title pr-5"
+                  >
+                    Last Synced
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class=""
+                >
+                  <td
+                    class="table-cell-expand"
+                  >
+                    <div
+                      class="content-container"
                     >
                       <button
                         class="button-root btn btn-unstyled"
                         type="button"
                       >
-                        <svg
-                          class="icon-root lexicon-icon lexicon-icon-search"
-                          viewBox=""
-                        >
-                          <use
-                            xlink:href="#search"
-                          />
-                        </svg>
+                        testFildName0
                       </button>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </nav>
-        </div>
-        <div
-          class="table-responsive table-root flex-grow-1"
-        >
-          <table
-            class="table table-autofit table-hover table-heading-nowrap table-nowrap"
-          >
-            <thead>
-              <tr
-                class=""
-              >
-                <th
-                  class="table-head-title table-cell-expand"
-                >
-                  <button
-                    class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                    type="button"
+                  </td>
+                  <td
+                    class=" pr-6"
                   >
-                    <span
-                      class="text-truncate"
-                    >
-                      Attribute
-                    </span>
-                  </button>
-                </th>
-                <th
-                  class="table-head-title pr-6"
-                >
-                  <button
-                    class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                    type="button"
+                    LIFERAY-DATASOURCE-FARO-EXAMPLE-0
+                  </td>
+                  <td
+                    class=" pr-5"
                   >
-                    <span
-                      class="text-truncate"
-                    >
-                      Sources
-                    </span>
-                  </button>
-                </th>
-                <th
-                  class="table-head-title pr-5"
+                    2 years ago
+                  </td>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr
+                  class=""
                 >
-                  Last Synced
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                class=""
-              >
-                <td
-                  class="table-cell-expand"
-                >
-                  <div
-                    class="content-container"
+                  <td
+                    class="table-cell-expand"
                   >
-                    <button
-                      class="button-root btn btn-unstyled"
-                      type="button"
+                    <div
+                      class="content-container"
                     >
-                      testFildName0
-                    </button>
-                  </div>
-                </td>
-                <td
-                  class=" pr-6"
-                >
-                  LIFERAY-DATASOURCE-FARO-EXAMPLE-0
-                </td>
-                <td
-                  class=" pr-5"
-                >
-                  2 years ago
-                </td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr
-                class=""
-              >
-                <td
-                  class="table-cell-expand"
-                >
-                  <div
-                    class="content-container"
+                      <button
+                        class="button-root btn btn-unstyled"
+                        type="button"
+                      >
+                        testFildName1
+                      </button>
+                    </div>
+                  </td>
+                  <td
+                    class=" pr-6"
                   >
-                    <button
-                      class="button-root btn btn-unstyled"
-                      type="button"
-                    >
-                      testFildName1
-                    </button>
-                  </div>
-                </td>
-                <td
-                  class=" pr-6"
-                >
-                  2 Sources
-                </td>
-                <td
-                  class=" pr-5"
-                >
-                  2 years ago
-                </td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr
-                class=""
-              >
-                <td
-                  class="table-cell-expand"
-                >
-                  <div
-                    class="content-container"
+                    2 Sources
+                  </td>
+                  <td
+                    class=" pr-5"
                   >
-                    <button
-                      class="button-root btn btn-unstyled"
-                      type="button"
-                    >
-                      testFildName2
-                    </button>
-                  </div>
-                </td>
-                <td
-                  class=" pr-6"
+                    2 years ago
+                  </td>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr
+                  class=""
                 >
-                  3 Sources
-                </td>
-                <td
-                  class=" pr-5"
-                >
-                  2 years ago
-                </td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr
-                class=""
-              >
-                <td
-                  class="table-cell-expand"
-                >
-                  <div
-                    class="content-container"
+                  <td
+                    class="table-cell-expand"
                   >
-                    <button
-                      class="button-root btn btn-unstyled"
-                      type="button"
+                    <div
+                      class="content-container"
                     >
-                      testFildName3
-                    </button>
-                  </div>
-                </td>
-                <td
-                  class=" pr-6"
-                >
-                  4 Sources
-                </td>
-                <td
-                  class=" pr-5"
-                >
-                  2 years ago
-                </td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr
-                class=""
-              >
-                <td
-                  class="table-cell-expand"
-                >
-                  <div
-                    class="content-container"
+                      <button
+                        class="button-root btn btn-unstyled"
+                        type="button"
+                      >
+                        testFildName2
+                      </button>
+                    </div>
+                  </td>
+                  <td
+                    class=" pr-6"
                   >
-                    <button
-                      class="button-root btn btn-unstyled"
-                      type="button"
+                    3 Sources
+                  </td>
+                  <td
+                    class=" pr-5"
+                  >
+                    2 years ago
+                  </td>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr
+                  class=""
+                >
+                  <td
+                    class="table-cell-expand"
+                  >
+                    <div
+                      class="content-container"
                     >
-                      testFildName4
-                    </button>
-                  </div>
-                </td>
-                <td
-                  class=" pr-6"
+                      <button
+                        class="button-root btn btn-unstyled"
+                        type="button"
+                      >
+                        testFildName3
+                      </button>
+                    </div>
+                  </td>
+                  <td
+                    class=" pr-6"
+                  >
+                    4 Sources
+                  </td>
+                  <td
+                    class=" pr-5"
+                  >
+                    2 years ago
+                  </td>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr
+                  class=""
                 >
-                  5 Sources
-                </td>
-                <td
-                  class=" pr-5"
-                >
-                  2 years ago
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                  <td
+                    class="table-cell-expand"
+                  >
+                    <div
+                      class="content-container"
+                    >
+                      <button
+                        class="button-root btn btn-unstyled"
+                        type="button"
+                      >
+                        testFildName4
+                      </button>
+                    </div>
+                  </td>
+                  <td
+                    class=" pr-6"
+                  >
+                    5 Sources
+                  </td>
+                  <td
+                    class=" pr-5"
+                  >
+                    2 years ago
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
