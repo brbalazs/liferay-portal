@@ -154,23 +154,18 @@ public class CommerceProductOptionValueDataSetDataProvider
 
 		String priceType = cpDefinitionOptionRel.getPriceType();
 
-		if (priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC) &&
-			(cpDefinitionOptionValueRel.getPrice() != null)) {
+		if (!priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+			return BigDecimal.ZERO;
+		}
 
+		if (cpDefinitionOptionValueRel.getQuantity() == 0) {
 			return cpDefinitionOptionValueRel.getPrice();
 		}
-		else if (priceType.equals(
-					CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
 
-			CPInstance cpInstance =
-				cpDefinitionOptionValueRel.fetchCPInstance();
+		BigDecimal quantity = new BigDecimal(
+			cpDefinitionOptionValueRel.getQuantity());
 
-			if (cpInstance != null) {
-				return cpInstance.getPrice();
-			}
-		}
-
-		return BigDecimal.ZERO;
+		return quantity.multiply(cpDefinitionOptionValueRel.getPrice());
 	}
 
 	private String _getSku(
