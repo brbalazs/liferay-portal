@@ -247,6 +247,20 @@ public class OrderSummaryCheckoutStepDisplayContext {
 				commerceOrderItem.getPromoPriceWithTaxAmount();
 		}
 
+		commerceProductPriceImpl.setFinalPrice(
+			commerceOrderItem.getFinalPriceMoney());
+		commerceProductPriceImpl.setFinalPriceWithTaxAmount(
+			commerceOrderItem.getFinalPriceWithTaxAmountMoney());
+		commerceProductPriceImpl.setQuantity(commerceOrderItem.getQuantity());
+		commerceProductPriceImpl.setUnitPrice(
+			commerceOrderItem.getUnitPriceMoney());
+		commerceProductPriceImpl.setUnitPriceWithTaxAmount(
+			commerceOrderItem.getUnitPriceWithTaxAmountMoney());
+		commerceProductPriceImpl.setUnitPromoPrice(
+			commerceOrderItem.getPromoPriceMoney());
+		commerceProductPriceImpl.setUnitPromoPriceWithTaxAmount(
+			commerceOrderItem.getPromoPriceWithTaxAmountMoney());
+
 		BigDecimal discountAmount = commerceOrderItem.getDiscountAmount();
 
 		if ((discountAmount == null) ||
@@ -255,10 +269,15 @@ public class OrderSummaryCheckoutStepDisplayContext {
 			return commerceProductPriceImpl;
 		}
 
-		CommerceMoney discountAmountMoney =
-			commerceOrderItem.getDiscountAmountMoney();
+		activePrice = activePrice.multiply(
+			BigDecimal.valueOf(commerceOrderItem.getQuantity()));
+		activePriceWithTaxAmount = activePriceWithTaxAmount.multiply(
+			BigDecimal.valueOf(commerceOrderItem.getQuantity()));
 
 		BigDecimal discountedAmount = activePrice.subtract(discountAmount);
+
+		CommerceMoney discountAmountMoney =
+			commerceOrderItem.getDiscountAmountMoney();
 
 		CommerceCurrency commerceCurrency =
 			discountAmountMoney.getCommerceCurrency();
@@ -304,20 +323,6 @@ public class OrderSummaryCheckoutStepDisplayContext {
 
 		commerceProductPriceImpl.setCommerceDiscountValueWithTaxAmount(
 			commerceDiscountValueWithTaxAmount);
-
-		commerceProductPriceImpl.setFinalPrice(
-			commerceOrderItem.getFinalPriceMoney());
-		commerceProductPriceImpl.setFinalPriceWithTaxAmount(
-			commerceOrderItem.getFinalPriceWithTaxAmountMoney());
-		commerceProductPriceImpl.setQuantity(commerceOrderItem.getQuantity());
-		commerceProductPriceImpl.setUnitPrice(
-			commerceOrderItem.getUnitPriceMoney());
-		commerceProductPriceImpl.setUnitPriceWithTaxAmount(
-			commerceOrderItem.getUnitPriceWithTaxAmountMoney());
-		commerceProductPriceImpl.setUnitPromoPrice(
-			commerceOrderItem.getPromoPriceMoney());
-		commerceProductPriceImpl.setUnitPromoPriceWithTaxAmount(
-			commerceOrderItem.getPromoPriceWithTaxAmountMoney());
 
 		return commerceProductPriceImpl;
 	}
