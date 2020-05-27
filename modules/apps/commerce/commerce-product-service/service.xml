@@ -437,6 +437,10 @@
 			<finder-column name="CPDefinitionId" />
 			<finder-column name="CPOptionId" />
 		</finder>
+		<finder name="CPDI_R" return-type="Collection">
+			<finder-column name="CPDefinitionId" />
+			<finder-column name="required" />
+		</finder>
 		<finder name="C_SC" return-type="Collection">
 			<finder-column name="CPDefinitionId" />
 			<finder-column name="skuContributor" />
