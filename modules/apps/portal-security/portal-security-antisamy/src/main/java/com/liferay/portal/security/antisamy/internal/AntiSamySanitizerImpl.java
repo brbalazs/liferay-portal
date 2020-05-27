@@ -156,8 +156,8 @@ public class AntiSamySanitizerImpl extends BaseSanitizer {
 	protected boolean isModeled(String className, long classPK) {
 		String classNameAndClassPK = className + StringPool.POUND + classPK;
 
-		for (String modelItem : _modelMap.keySet()) {
-			if (classNameAndClassPK.startsWith(modelItem)) {
+		for (String model : _modelMap.keySet()) {
+			if (classNameAndClassPK.startsWith(model)) {
 				return true;
 			}
 		}
