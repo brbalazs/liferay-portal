@@ -33,6 +33,7 @@ import com.liferay.commerce.discount.target.CommerceDiscountTargetRegistry;
 import com.liferay.commerce.discount.util.comparator.CommerceDiscountCreateDateComparator;
 import com.liferay.commerce.pricing.service.CommercePricingClassLocalService;
 import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -100,12 +101,12 @@ public class CommerceDiscountLocalServiceImpl
 
 		return commerceDiscountLocalService.addCommerceDiscount(
 			userId, title, target, useCouponCode, couponCode, usePercentage,
-			maximumDiscountAmount, "", level1, level2, level3, level4,
-			limitationType, limitationTimes, true, active, displayDateMonth,
-			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
-			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, neverExpire,
-			serviceContext);
+			maximumDiscountAmount, StringPool.BLANK, level1, level2, level3,
+			level4, limitationType, limitationTimes, true, active,
+			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
+			displayDateMinute, expirationDateMonth, expirationDateDay,
+			expirationDateYear, expirationDateHour, expirationDateMinute,
+			neverExpire, serviceContext);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -751,12 +752,12 @@ public class CommerceDiscountLocalServiceImpl
 
 		return commerceDiscountLocalService.addCommerceDiscount(
 			userId, title, target, useCouponCode, couponCode, usePercentage,
-			maximumDiscountAmount, "", level1, level2, level3, level4,
-			limitationType, limitationTimes, true, active, displayDateMonth,
-			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
-			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, externalReferenceCode,
-			neverExpire, serviceContext);
+			maximumDiscountAmount, StringPool.BLANK, level1, level2, level3,
+			level4, limitationType, limitationTimes, true, active,
+			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
+			displayDateMinute, expirationDateMonth, expirationDateDay,
+			expirationDateYear, expirationDateHour, expirationDateMinute,
+			externalReferenceCode, neverExpire, serviceContext);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
