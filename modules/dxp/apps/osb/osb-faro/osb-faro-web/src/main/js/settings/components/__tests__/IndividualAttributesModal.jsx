@@ -1,4 +1,4 @@
-import IndividualAttributeModal from '../IndividualsAttributesModal';
+import IndividualAttributeModal from '../IndividualAttributesModal';
 import React from 'react';
 import {mockIndividualAttributes} from 'test/data';
 import {noop} from 'lodash';

@@ -2,7 +2,7 @@ import Modal from 'shared/components/modal';
 import React from 'react';
 import Table from 'shared/components/table';
 
-interface IIndividualsAttributesModalInterface
+interface IIndividualAttributesModalInterface
 	extends React.HTMLAttributes<HTMLElement> {
 	dataSources: {
 		dataSourceFieldName: string;
@@ -12,8 +12,8 @@ interface IIndividualsAttributesModalInterface
 	onClose: () => void;
 }
 
-const IndividualsAttributesModal: React.FC<
-	IIndividualsAttributesModalInterface
+const IndividualAttributesModal: React.FC<
+	IIndividualAttributesModalInterface
 > = ({dataSources, fieldName, onClose}) => (
 	<Modal>
 		<Modal.Header onClose={onClose} title={fieldName} />
@@ -41,4 +41,4 @@ const IndividualsAttributesModal: React.FC<
 	</Modal>
 );
 
-export default IndividualsAttributesModal;
+export default IndividualAttributesModal;

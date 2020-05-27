@@ -37,7 +37,7 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 	open
 }) => {
 	const openModal = ({dataSources, fieldName}) => () => {
-		open(modalTypes.INDIVIDUALS_ATTRIBUTES_MODAL, {
+		open(modalTypes.INDIVIDUAL_ATTRIBUTES_MODAL, {
 			dataSources,
 			fieldName,
 			onClose: close
