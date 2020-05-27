@@ -62,11 +62,13 @@ public interface AccountResource {
 		throws Exception;
 
 	public Page<Account> getAccountsPage(
-			String filterString, Pagination pagination, String sortString)
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getAccountsPageHttpResponse(
-			String filterString, Pagination pagination, String sortString)
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public Account postAccount(Account account) throws Exception;
@@ -320,11 +322,12 @@ public interface AccountResource {
 		}
 
 		public Page<Account> getAccountsPage(
-				String filterString, Pagination pagination, String sortString)
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = getAccountsPageHttpResponse(
-				filterString, pagination, sortString);
+				search, filterString, pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -347,7 +350,8 @@ public interface AccountResource {
 		}
 
 		public HttpInvoker.HttpResponse getAccountsPageHttpResponse(
-				String filterString, Pagination pagination, String sortString)
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -370,6 +374,10 @@ public interface AccountResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (search != null) {
+				httpInvoker.parameter("search", String.valueOf(search));
+			}
 
 			if (filterString != null) {
 				httpInvoker.parameter("filter", filterString);
