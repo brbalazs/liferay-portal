@@ -518,7 +518,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		for (CPDefinitionOptionRel cpDefinitionOptionRel :
 				cpDefinitionOptionRels) {
 
-			if (Validator.isNotNull(cpDefinitionOptionRel.getPriceType())) {
+			if (cpDefinitionOptionRel.isPriceContributor()) {
 				return true;
 			}
 		}
@@ -555,7 +555,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		for (CPDefinitionOptionRel cpDefinitionOptionRel :
 				cpDefinitionOptionRels) {
 
-			if (Validator.isNull(cpDefinitionOptionRel.getPriceType())) {
+			if (!cpDefinitionOptionRel.isPriceContributor()) {
 				continue;
 			}
 
@@ -874,7 +874,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		throws PortalException {
 
 		if (cpDefinitionOptionRel.isNew() ||
-			Validator.isNull(cpDefinitionOptionRel.getPriceType()) ||
+			!cpDefinitionOptionRel.isPriceContributor() ||
 			Objects.equals(cpDefinitionOptionRel.getPriceType(), priceType)) {
 
 			return;

@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.product.internal.option;
 
-import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
@@ -28,7 +27,6 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.math.BigDecimal;
 
@@ -36,7 +34,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -97,16 +94,15 @@ public class CommerceOptionValueHelperImpl
 				commerceOptionValueBuilder.optionValueKey(
 					cpDefinitionOptionValueRel.getKey());
 
-				String priceType = cpDefinitionOptionRel.getPriceType();
-
-				if (Validator.isNull(priceType)) {
+				if (!cpDefinitionOptionRel.isPriceContributor()) {
 					commerceOptionValues.add(
 						commerceOptionValueBuilder.build());
 
 					continue;
 				}
 
-				commerceOptionValueBuilder.priceType(priceType);
+				commerceOptionValueBuilder.priceType(
+					cpDefinitionOptionRel.getPriceType());
 
 				commerceOptionValueBuilder.price(
 					cpDefinitionOptionValueRel.getPrice());
@@ -120,10 +116,7 @@ public class CommerceOptionValueHelperImpl
 					commerceOptionValueBuilder.cpInstanceId(
 						cpDefinitionOptionValueRelCPInstance.getCPInstanceId());
 
-					if (Objects.equals(
-							priceType,
-							CPConstants.PRODUCT_OPTION_PRICE_TYPE_DYNAMIC)) {
-
+					if (cpDefinitionOptionRel.isPriceTypeDynamic()) {
 						commerceOptionValueBuilder.price(
 							cpDefinitionOptionValueRelCPInstance.getPrice());
 					}
