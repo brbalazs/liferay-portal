@@ -1266,7 +1266,9 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 		File dir = new File(PropsValues.MODULE_FRAMEWORK_CONFIGS_DIR);
 
 		for (File file : dir.listFiles()) {
-			method.invoke(configInstaller, file);
+			if (file.isFile()) {
+				method.invoke(configInstaller, file);
+			}
 		}
 	}
 
