@@ -814,6 +814,13 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 			return;
 		}
 
+		if (cpDefinitionOptionRelLocalService.
+				hasCPDefinitionRequiredCPDefinitionOptionRels(
+					cpInstance.getCPDefinitionId())) {
+
+			throw new CPDefinitionOptionValueRelCPInstanceException();
+		}
+
 		if (cpDefinitionOptionValueRel.getQuantity() <= 0) {
 			throw new CPDefinitionOptionValueRelQuantityException();
 		}
