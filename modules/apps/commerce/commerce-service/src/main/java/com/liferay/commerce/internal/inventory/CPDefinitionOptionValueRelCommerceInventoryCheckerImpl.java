@@ -63,7 +63,7 @@ public class CPDefinitionOptionValueRelCommerceInventoryCheckerImpl
 			(CPDefinitionOptionValueRel)baseModel;
 
 		if (Validator.isNull(cpDefinitionOptionValueRel.getCPInstanceUuid())) {
-			return false;
+			return true;
 		}
 
 		CPInstance cpInstance = cpDefinitionOptionValueRel.fetchCPInstance();
