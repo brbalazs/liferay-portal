@@ -109,20 +109,6 @@ public class PunchoutSessionSerDes {
 			sb.append("\"");
 		}
 
-		if (punchoutSession.getPunchoutSessionRedirectURL() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"punchoutSessionRedirectURL\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(punchoutSession.getPunchoutSessionRedirectURL()));
-
-			sb.append("\"");
-		}
-
 		if (punchoutSession.getPunchoutSessionType() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -133,6 +119,20 @@ public class PunchoutSessionSerDes {
 			sb.append("\"");
 
 			sb.append(_escape(punchoutSession.getPunchoutSessionType()));
+
+			sb.append("\"");
+		}
+
+		if (punchoutSession.getPunchoutStartURL() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"punchoutStartURL\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(punchoutSession.getPunchoutStartURL()));
 
 			sb.append("\"");
 		}
@@ -197,16 +197,6 @@ public class PunchoutSessionSerDes {
 				String.valueOf(punchoutSession.getPunchoutReturnURL()));
 		}
 
-		if (punchoutSession.getPunchoutSessionRedirectURL() == null) {
-			map.put("punchoutSessionRedirectURL", null);
-		}
-		else {
-			map.put(
-				"punchoutSessionRedirectURL",
-				String.valueOf(
-					punchoutSession.getPunchoutSessionRedirectURL()));
-		}
-
 		if (punchoutSession.getPunchoutSessionType() == null) {
 			map.put("punchoutSessionType", null);
 		}
@@ -214,6 +204,15 @@ public class PunchoutSessionSerDes {
 			map.put(
 				"punchoutSessionType",
 				String.valueOf(punchoutSession.getPunchoutSessionType()));
+		}
+
+		if (punchoutSession.getPunchoutStartURL() == null) {
+			map.put("punchoutStartURL", null);
+		}
+		else {
+			map.put(
+				"punchoutStartURL",
+				String.valueOf(punchoutSession.getPunchoutStartURL()));
 		}
 
 		return map;
@@ -268,18 +267,16 @@ public class PunchoutSessionSerDes {
 				}
 			}
 			else if (Objects.equals(
-						jsonParserFieldName, "punchoutSessionRedirectURL")) {
-
-				if (jsonParserFieldValue != null) {
-					punchoutSession.setPunchoutSessionRedirectURL(
-						(String)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(
 						jsonParserFieldName, "punchoutSessionType")) {
 
 				if (jsonParserFieldValue != null) {
 					punchoutSession.setPunchoutSessionType(
+						(String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "punchoutStartURL")) {
+				if (jsonParserFieldValue != null) {
+					punchoutSession.setPunchoutStartURL(
 						(String)jsonParserFieldValue);
 				}
 			}

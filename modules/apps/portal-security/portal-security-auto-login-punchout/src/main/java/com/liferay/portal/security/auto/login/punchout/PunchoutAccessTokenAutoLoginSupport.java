@@ -16,6 +16,8 @@ package com.liferay.portal.security.auto.login.punchout;
 
 import com.liferay.oauth2.provider.punchout.PunchoutAccessTokenProvider;
 import com.liferay.oauth2.provider.punchout.model.PunchoutAccessToken;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.auto.login.AutoLogin;
 import com.liferay.portal.kernel.security.auto.login.BaseAutoLogin;
@@ -45,8 +47,10 @@ public class PunchoutAccessTokenAutoLoginSupport extends BaseAutoLogin {
 			HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
 
+		//todo: check if enabled for channel - it could've been turned off while punchout sessions still exist
+
 		String punchoutAccessTokenFromParam = ParamUtil.getString(
-			request, getPunchoutAccessTokenParam());
+			request, _PUNCHOUT_ACCESS_TOKEN_PARAM);
 
 		if (Validator.isNull(punchoutAccessTokenFromParam)) {
 			return null;
@@ -57,38 +61,51 @@ public class PunchoutAccessTokenAutoLoginSupport extends BaseAutoLogin {
 				punchoutAccessTokenFromParam);
 
 		if (punchoutAccessToken == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn("Punchout access token not found");
+			}
+
 			return null;
 		}
 
 		String userEmailAddress = punchoutAccessToken.getUserEmailAddress();
 
 		if (Validator.isBlank(userEmailAddress)) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(
+					"Blank punchout user email address in punchout access " +
+						"token");
+			}
+
 			return null;
 		}
 
 		long companyId = _portal.getCompanyId(request);
 
-		User user = _userLocalService.getUserByEmailAddress(
+		User punchoutUser = _userLocalService.getUserByEmailAddress(
 			companyId, userEmailAddress);
 
-		if (user == null) {
+		if (punchoutUser == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn("Punchout user not found in punchout access token");
+			}
+
 			return null;
 		}
+
+		request.setAttribute("punchoutAccessToken", punchoutAccessToken);
+		request.setAttribute("punchoutUserId", punchoutUser.getUserId());
 
 		_punchoutAccessTokenProvider.removePunchoutAccessToken(
 			punchoutAccessTokenFromParam);
 
 		String[] credentials = new String[3];
 
-		credentials[0] = String.valueOf(user.getUserId());
-		credentials[1] = user.getPassword();
+		credentials[0] = String.valueOf(punchoutUser.getUserId());
+		credentials[1] = punchoutUser.getPassword();
 		credentials[2] = Boolean.TRUE.toString();
 
 		return credentials;
-	}
-
-	protected String getPunchoutAccessTokenParam() {
-		return _PUNCHOUT_ACCESS_TOKEN_PARAM;
 	}
 
 	@Reference(unbind = "-")
@@ -103,6 +120,9 @@ public class PunchoutAccessTokenAutoLoginSupport extends BaseAutoLogin {
 
 	private static final String _PUNCHOUT_ACCESS_TOKEN_PARAM =
 		"punchoutAccessToken";
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		PunchoutAccessTokenAutoLoginSupport.class);
 
 	private Portal _portal;
 

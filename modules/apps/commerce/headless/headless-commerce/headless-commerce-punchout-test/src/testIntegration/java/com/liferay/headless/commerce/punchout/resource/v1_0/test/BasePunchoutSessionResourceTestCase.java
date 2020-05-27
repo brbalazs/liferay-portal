@@ -180,8 +180,8 @@ public abstract class BasePunchoutSessionResourceTestCase {
 		PunchoutSession punchoutSession = randomPunchoutSession();
 
 		punchoutSession.setPunchoutReturnURL(regex);
-		punchoutSession.setPunchoutSessionRedirectURL(regex);
 		punchoutSession.setPunchoutSessionType(regex);
+		punchoutSession.setPunchoutStartURL(regex);
 
 		String json = PunchoutSessionSerDes.toJSON(punchoutSession);
 
@@ -190,9 +190,8 @@ public abstract class BasePunchoutSessionResourceTestCase {
 		punchoutSession = PunchoutSessionSerDes.toDTO(json);
 
 		Assert.assertEquals(regex, punchoutSession.getPunchoutReturnURL());
-		Assert.assertEquals(
-			regex, punchoutSession.getPunchoutSessionRedirectURL());
 		Assert.assertEquals(regex, punchoutSession.getPunchoutSessionType());
+		Assert.assertEquals(regex, punchoutSession.getPunchoutStartURL());
 	}
 
 	@Test
@@ -319,19 +318,17 @@ public abstract class BasePunchoutSessionResourceTestCase {
 			}
 
 			if (Objects.equals(
-					"punchoutSessionRedirectURL", additionalAssertFieldName)) {
+					"punchoutSessionType", additionalAssertFieldName)) {
 
-				if (punchoutSession.getPunchoutSessionRedirectURL() == null) {
+				if (punchoutSession.getPunchoutSessionType() == null) {
 					valid = false;
 				}
 
 				continue;
 			}
 
-			if (Objects.equals(
-					"punchoutSessionType", additionalAssertFieldName)) {
-
-				if (punchoutSession.getPunchoutSessionType() == null) {
+			if (Objects.equals("punchoutStartURL", additionalAssertFieldName)) {
+				if (punchoutSession.getPunchoutStartURL() == null) {
 					valid = false;
 				}
 
@@ -491,11 +488,11 @@ public abstract class BasePunchoutSessionResourceTestCase {
 			}
 
 			if (Objects.equals(
-					"punchoutSessionRedirectURL", additionalAssertFieldName)) {
+					"punchoutSessionType", additionalAssertFieldName)) {
 
 				if (!Objects.deepEquals(
-						punchoutSession1.getPunchoutSessionRedirectURL(),
-						punchoutSession2.getPunchoutSessionRedirectURL())) {
+						punchoutSession1.getPunchoutSessionType(),
+						punchoutSession2.getPunchoutSessionType())) {
 
 					return false;
 				}
@@ -503,12 +500,10 @@ public abstract class BasePunchoutSessionResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals(
-					"punchoutSessionType", additionalAssertFieldName)) {
-
+			if (Objects.equals("punchoutStartURL", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						punchoutSession1.getPunchoutSessionType(),
-						punchoutSession2.getPunchoutSessionType())) {
+						punchoutSession1.getPunchoutStartURL(),
+						punchoutSession2.getPunchoutStartURL())) {
 
 					return false;
 				}
@@ -627,19 +622,17 @@ public abstract class BasePunchoutSessionResourceTestCase {
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("punchoutSessionRedirectURL")) {
+		if (entityFieldName.equals("punchoutSessionType")) {
 			sb.append("'");
-			sb.append(
-				String.valueOf(
-					punchoutSession.getPunchoutSessionRedirectURL()));
+			sb.append(String.valueOf(punchoutSession.getPunchoutSessionType()));
 			sb.append("'");
 
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("punchoutSessionType")) {
+		if (entityFieldName.equals("punchoutStartURL")) {
 			sb.append("'");
-			sb.append(String.valueOf(punchoutSession.getPunchoutSessionType()));
+			sb.append(String.valueOf(punchoutSession.getPunchoutStartURL()));
 			sb.append("'");
 
 			return sb.toString();
@@ -691,9 +684,9 @@ public abstract class BasePunchoutSessionResourceTestCase {
 			{
 				punchoutReturnURL = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
-				punchoutSessionRedirectURL = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
 				punchoutSessionType = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				punchoutStartURL = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 			}
 		};

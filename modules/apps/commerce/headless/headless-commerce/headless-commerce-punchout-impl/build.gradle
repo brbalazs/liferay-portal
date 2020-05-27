@@ -35,6 +35,7 @@ dependencies {
 
 	compileOnly project(":apps:commerce:commerce-api")
 	compileOnly project(":apps:commerce:commerce-account-api")
+	compileOnly project(":apps:commerce:commerce-product-api")
 	compileOnly project(":apps:commerce:headless:headless-commerce-core-api")
 	compileOnly project(":apps:commerce:headless:headless-commerce:headless-commerce-punchout-api")
 	compileOnly project(":apps:portal-odata:portal-odata-api")

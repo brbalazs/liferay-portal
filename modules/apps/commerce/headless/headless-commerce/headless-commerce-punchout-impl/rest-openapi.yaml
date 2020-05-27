@@ -133,6 +133,8 @@ components:
                     $ref: "#/components/schemas/Summary"
                 useAsBilling:
                     type: boolean
+            required:
+                - currencyCode
             type: object
         CartComment:
             properties:
@@ -259,16 +261,16 @@ components:
                     $ref: "#/components/schemas/Cart"
                 punchoutReturnURL:
                     type: string
-                punchoutSessionRedirectURL:
-                    type: string
                 punchoutSessionType:
                     type: string
+                punchoutStartURL:
+                    type: string
             required:
-                - buyerOrganization
                 - buyerGroup
                 - punchoutReturnURL
                 - punchoutSessionType
                 - buyerUser
+                - cart
             type: object
         Settings:
             properties:

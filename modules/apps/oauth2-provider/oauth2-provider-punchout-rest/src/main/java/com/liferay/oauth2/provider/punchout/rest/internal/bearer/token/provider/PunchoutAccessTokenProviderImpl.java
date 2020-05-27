@@ -49,10 +49,13 @@ public class PunchoutAccessTokenProviderImpl
 	implements PunchoutAccessTokenProvider {
 
 	public PunchoutAccessToken generatePunchoutAccessToken(
-		String userEmailAddress) {
+		long groupId, long channelId, long commerceAccountId,
+		String currencyCode, String userEmailAddress,
+		String punchoutReturnURL) {
 
 		PunchoutAccessToken punchoutAccessToken = _generatePunchoutAccessToken(
-			userEmailAddress);
+			groupId, channelId, commerceAccountId, currencyCode,
+			userEmailAddress, punchoutReturnURL);
 
 		if (!_clusterMasterExecutor.isEnabled() ||
 			_clusterMasterExecutor.isMaster()) {
@@ -173,9 +176,19 @@ public class PunchoutAccessTokenProviderImpl
 	}
 
 	private PunchoutAccessToken _generatePunchoutAccessToken(
-		String userEmailAddress) {
+		long groupId, long channelId, long commerceAccountId,
+		String currencyCode, String userEmailAddress,
+		String punchoutReturnURL) {
 
 		PunchoutAccessToken punchoutAccessToken = new PunchoutAccessToken();
+
+		punchoutAccessToken.setGroupId(groupId);
+
+		punchoutAccessToken.setChannelId(channelId);
+
+		punchoutAccessToken.setCommerceAccountId(commerceAccountId);
+
+		punchoutAccessToken.setCurrencyCode(currencyCode);
 
 		punchoutAccessToken.setIssuedAt(System.currentTimeMillis());
 
@@ -193,6 +206,8 @@ public class PunchoutAccessTokenProviderImpl
 		punchoutAccessToken.setToken(token);
 
 		punchoutAccessToken.setUserEmailAddress(userEmailAddress);
+
+		punchoutAccessToken.setPunchoutReturnURL(punchoutReturnURL);
 
 		return punchoutAccessToken;
 	}

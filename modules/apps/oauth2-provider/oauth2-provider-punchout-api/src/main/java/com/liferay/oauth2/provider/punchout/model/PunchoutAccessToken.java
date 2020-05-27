@@ -19,12 +19,32 @@ package com.liferay.oauth2.provider.punchout.model;
  */
 public class PunchoutAccessToken {
 
+	public long getChannelId() {
+		return _channelId;
+	}
+
+	public long getCommerceAccountId() {
+		return _commerceAccountId;
+	}
+
+	public String getCurrencyCode() {
+		return _currencyCode;
+	}
+
 	public long getExpiresIn() {
 		return _expiresIn;
 	}
 
+	public long getGroupId() {
+		return _groupId;
+	}
+
 	public long getIssuedAt() {
 		return _issuedAt;
+	}
+
+	public String getPunchoutReturnURL() {
+		return _punchoutReturnURL;
 	}
 
 	public byte[] getToken() {
@@ -35,12 +55,32 @@ public class PunchoutAccessToken {
 		return _userEmailAddress;
 	}
 
+	public void setChannelId(long channelId) {
+		_channelId = channelId;
+	}
+
+	public void setCommerceAccountId(long commerceAccountId) {
+		_commerceAccountId = commerceAccountId;
+	}
+
+	public void setCurrencyCode(String currencyCode) {
+		_currencyCode = currencyCode;
+	}
+
 	public void setExpiresIn(long expiresIn) {
 		_expiresIn = expiresIn;
 	}
 
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+	}
+
 	public void setIssuedAt(long issuedAt) {
 		_issuedAt = issuedAt;
+	}
+
+	public void setPunchoutReturnURL(String punchoutReturnURL) {
+		_punchoutReturnURL = punchoutReturnURL;
 	}
 
 	public void setToken(byte[] token) {
@@ -51,8 +91,13 @@ public class PunchoutAccessToken {
 		_userEmailAddress = userEmailAddress;
 	}
 
+	private long _channelId;
+	private long _commerceAccountId;
+	private String _currencyCode;
 	private long _expiresIn;
+	private long _groupId;
 	private long _issuedAt;
+	private String _punchoutReturnURL;
 	private byte[] _token;
 	private String _userEmailAddress;
 

@@ -38,6 +38,7 @@ import java.util.Set;
 import javax.annotation.Generated;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -48,6 +49,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Generated("")
 @GraphQLName("Cart")
 @JsonFilter("Liferay.Vulcan")
+@Schema(requiredProperties = {"currencyCode"})
 @XmlRootElement(name = "Cart")
 public class Cart {
 
@@ -335,6 +337,7 @@ public class Cart {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotEmpty
 	protected String currencyCode;
 
 	@Schema

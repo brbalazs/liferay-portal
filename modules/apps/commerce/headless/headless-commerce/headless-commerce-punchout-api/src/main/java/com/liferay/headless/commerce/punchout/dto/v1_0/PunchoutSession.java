@@ -48,8 +48,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @JsonFilter("Liferay.Vulcan")
 @Schema(
 	requiredProperties = {
-		"buyerOrganization", "buyerGroup", "punchoutReturnURL",
-		"punchoutSessionType", "buyerUser"
+		"buyerGroup", "punchoutReturnURL", "punchoutSessionType", "buyerUser",
+		"cart"
 	}
 )
 @XmlRootElement(name = "PunchoutSession")
@@ -117,7 +117,6 @@ public class PunchoutSession {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	@NotNull
 	protected Organization buyerOrganization;
 
 	@Schema
@@ -175,6 +174,7 @@ public class PunchoutSession {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Cart cart;
 
 	@Schema
@@ -207,38 +207,6 @@ public class PunchoutSession {
 	protected String punchoutReturnURL;
 
 	@Schema
-	public String getPunchoutSessionRedirectURL() {
-		return punchoutSessionRedirectURL;
-	}
-
-	public void setPunchoutSessionRedirectURL(
-		String punchoutSessionRedirectURL) {
-
-		this.punchoutSessionRedirectURL = punchoutSessionRedirectURL;
-	}
-
-	@JsonIgnore
-	public void setPunchoutSessionRedirectURL(
-		UnsafeSupplier<String, Exception>
-			punchoutSessionRedirectURLUnsafeSupplier) {
-
-		try {
-			punchoutSessionRedirectURL =
-				punchoutSessionRedirectURLUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String punchoutSessionRedirectURL;
-
-	@Schema
 	public String getPunchoutSessionType() {
 		return punchoutSessionType;
 	}
@@ -266,6 +234,34 @@ public class PunchoutSession {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
 	protected String punchoutSessionType;
+
+	@Schema
+	public String getPunchoutStartURL() {
+		return punchoutStartURL;
+	}
+
+	public void setPunchoutStartURL(String punchoutStartURL) {
+		this.punchoutStartURL = punchoutStartURL;
+	}
+
+	@JsonIgnore
+	public void setPunchoutStartURL(
+		UnsafeSupplier<String, Exception> punchoutStartURLUnsafeSupplier) {
+
+		try {
+			punchoutStartURL = punchoutStartURLUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String punchoutStartURL;
 
 	@Override
 	public boolean equals(Object object) {
@@ -348,20 +344,6 @@ public class PunchoutSession {
 			sb.append("\"");
 		}
 
-		if (punchoutSessionRedirectURL != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"punchoutSessionRedirectURL\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(punchoutSessionRedirectURL));
-
-			sb.append("\"");
-		}
-
 		if (punchoutSessionType != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -372,6 +354,20 @@ public class PunchoutSession {
 			sb.append("\"");
 
 			sb.append(_escape(punchoutSessionType));
+
+			sb.append("\"");
+		}
+
+		if (punchoutStartURL != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"punchoutStartURL\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(punchoutStartURL));
 
 			sb.append("\"");
 		}

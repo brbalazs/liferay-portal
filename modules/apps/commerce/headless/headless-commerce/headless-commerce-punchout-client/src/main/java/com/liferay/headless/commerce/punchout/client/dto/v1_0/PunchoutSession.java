@@ -136,31 +136,6 @@ public class PunchoutSession implements Cloneable {
 
 	protected String punchoutReturnURL;
 
-	public String getPunchoutSessionRedirectURL() {
-		return punchoutSessionRedirectURL;
-	}
-
-	public void setPunchoutSessionRedirectURL(
-		String punchoutSessionRedirectURL) {
-
-		this.punchoutSessionRedirectURL = punchoutSessionRedirectURL;
-	}
-
-	public void setPunchoutSessionRedirectURL(
-		UnsafeSupplier<String, Exception>
-			punchoutSessionRedirectURLUnsafeSupplier) {
-
-		try {
-			punchoutSessionRedirectURL =
-				punchoutSessionRedirectURLUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String punchoutSessionRedirectURL;
-
 	public String getPunchoutSessionType() {
 		return punchoutSessionType;
 	}
@@ -181,6 +156,27 @@ public class PunchoutSession implements Cloneable {
 	}
 
 	protected String punchoutSessionType;
+
+	public String getPunchoutStartURL() {
+		return punchoutStartURL;
+	}
+
+	public void setPunchoutStartURL(String punchoutStartURL) {
+		this.punchoutStartURL = punchoutStartURL;
+	}
+
+	public void setPunchoutStartURL(
+		UnsafeSupplier<String, Exception> punchoutStartURLUnsafeSupplier) {
+
+		try {
+			punchoutStartURL = punchoutStartURLUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String punchoutStartURL;
 
 	@Override
 	public PunchoutSession clone() throws CloneNotSupportedException {

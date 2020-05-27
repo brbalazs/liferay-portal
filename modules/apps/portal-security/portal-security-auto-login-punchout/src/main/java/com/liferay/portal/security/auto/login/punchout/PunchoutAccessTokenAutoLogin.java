@@ -56,14 +56,14 @@ public class PunchoutAccessTokenAutoLogin extends BaseAutoLogin {
 
 	protected boolean isEnabled(long companyId) {
 		PunchoutAccessTokenAutoLoginConfiguration
-			requestParameterAutoLoginConfiguration =
+			punchoutAccessTokenAutoLoginConfiguration =
 				_getPunchoutAccessTokenAutoLoginConfiguration(companyId);
 
-		if (requestParameterAutoLoginConfiguration == null) {
+		if (punchoutAccessTokenAutoLoginConfiguration == null) {
 			return false;
 		}
 
-		return requestParameterAutoLoginConfiguration.enabled();
+		return punchoutAccessTokenAutoLoginConfiguration.enabled();
 	}
 
 	@Reference(unbind = "-")
