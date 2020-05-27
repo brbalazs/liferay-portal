@@ -271,8 +271,6 @@ public class OrderSummaryCheckoutStepDisplayContext {
 
 		activePrice = activePrice.multiply(
 			BigDecimal.valueOf(commerceOrderItem.getQuantity()));
-		activePriceWithTaxAmount = activePriceWithTaxAmount.multiply(
-			BigDecimal.valueOf(commerceOrderItem.getQuantity()));
 
 		BigDecimal discountedAmount = activePrice.subtract(discountAmount);
 
@@ -298,6 +296,9 @@ public class OrderSummaryCheckoutStepDisplayContext {
 
 		commerceProductPriceImpl.setCommerceDiscountValue(
 			commerceDiscountValue);
+
+		activePriceWithTaxAmount = activePriceWithTaxAmount.multiply(
+			BigDecimal.valueOf(commerceOrderItem.getQuantity()));
 
 		CommerceMoney discountAmountMoneyWithTaxAmount =
 			commerceOrderItem.getDiscountWithTaxAmountMoney();
