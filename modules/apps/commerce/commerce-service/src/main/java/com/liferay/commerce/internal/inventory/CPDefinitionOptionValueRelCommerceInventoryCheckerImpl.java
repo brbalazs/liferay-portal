@@ -14,10 +14,14 @@
 
 package com.liferay.commerce.internal.inventory;
 
+import com.liferay.commerce.inventory.CPDefinitionInventoryEngine;
 import com.liferay.commerce.inventory.CommerceInventoryChecker;
 import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -72,6 +76,17 @@ public class CPDefinitionOptionValueRelCommerceInventoryCheckerImpl
 			return false;
 		}
 
+		try {
+			if (_isBackOrderAllowed(cpInstance)) {
+				return true;
+			}
+		}
+		catch (PortalException pe) {
+			_log.error("Unable to check is back order allowed", pe);
+
+			return false;
+		}
+
 		if (_commerceInventoryEngine.hasStockQuantity(
 				cpInstance.getCompanyId(), cpInstance.getSku(),
 				cpDefinitionOptionValueRel.getQuantity())) {
@@ -82,7 +97,23 @@ public class CPDefinitionOptionValueRelCommerceInventoryCheckerImpl
 		return false;
 	}
 
+	private boolean _isBackOrderAllowed(CPInstance cpInstance)
+		throws PortalException {
+
+		if (_cpDefinitionInventoryEngine.isBackOrderAllowed(cpInstance)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CPDefinitionOptionValueRelCommerceInventoryCheckerImpl.class);
+
 	@Reference
 	private CommerceInventoryEngine _commerceInventoryEngine;
+
+	@Reference
+	private CPDefinitionInventoryEngine _cpDefinitionInventoryEngine;
 
 }
