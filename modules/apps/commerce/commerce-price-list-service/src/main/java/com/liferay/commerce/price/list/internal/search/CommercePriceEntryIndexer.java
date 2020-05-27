@@ -16,6 +16,7 @@ package com.liferay.commerce.price.list.internal.search;
 
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.service.CommercePriceEntryLocalService;
+import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -130,6 +131,10 @@ public class CommercePriceEntryIndexer extends BaseIndexer<CommercePriceEntry> {
 		document.addKeyword(
 			FIELD_EXTERNAL_REFERENCE_CODE,
 			commercePriceEntry.getExternalReferenceCode());
+
+		CPInstance cpInstance = commercePriceEntry.getCPInstance();
+
+		document.addKeyword("cpInstanceId", cpInstance.getCPInstanceId());
 
 		if (_log.isDebugEnabled()) {
 			_log.debug(
