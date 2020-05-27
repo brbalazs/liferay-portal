@@ -27,9 +27,11 @@ import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.permission.CommerceProductViewPermission;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalService;
+import com.liferay.commerce.product.service.CPInstanceOptionValueRelLocalService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.product.util.JsonHelper;
@@ -235,6 +237,19 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 					allowedCPDefinitionOptionValueRels =
 						_commerceInventoryChecker.filterByAvailability(
 							allowedCPDefinitionOptionValueRels);
+				}
+
+				if (cpDefinitionOptionRel.isSkuContributor()) {
+					allowedCPDefinitionOptionValueRels =
+						_cpDefinitionOptionValueRelLocalService.
+							filterByCPInstanceOptionValueRels(
+								allowedCPDefinitionOptionValueRels,
+								_cpInstanceOptionValueRelCommerceInventoryChecker.
+									filterByAvailability(
+										_cpInstanceOptionValueRelLocalService.
+											getCPDefinitionOptionRelCPInstanceOptionValueRels(
+												cpDefinitionOptionRel.
+													getCPDefinitionOptionRelId())));
 				}
 
 				String optionKey = cpDefinitionOptionRel.getKey();
@@ -698,6 +713,16 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 
 	@Reference
 	private CPInstanceHelper _cpInstanceHelper;
+
+	@Reference(
+		target = "(commerce.inventory.checker.target=CPInstanceOptionValueRel)"
+	)
+	private CommerceInventoryChecker<CPInstanceOptionValueRel>
+		_cpInstanceOptionValueRelCommerceInventoryChecker;
+
+	@Reference
+	private CPInstanceOptionValueRelLocalService
+		_cpInstanceOptionValueRelLocalService;
 
 	@Reference
 	private JSONFactory _jsonFactory;
