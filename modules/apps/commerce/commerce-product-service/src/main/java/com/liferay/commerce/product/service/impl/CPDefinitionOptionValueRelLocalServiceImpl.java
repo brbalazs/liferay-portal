@@ -816,7 +816,8 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 
 		if (cpDefinitionOptionRelLocalService.
 				hasCPDefinitionRequiredCPDefinitionOptionRels(
-					cpInstance.getCPDefinitionId())) {
+					cpInstance.getCPDefinitionId()) ||
+			(cpInstance.getCPSubscriptionInfo() != null)) {
 
 			throw new CPDefinitionOptionValueRelCPInstanceException();
 		}
