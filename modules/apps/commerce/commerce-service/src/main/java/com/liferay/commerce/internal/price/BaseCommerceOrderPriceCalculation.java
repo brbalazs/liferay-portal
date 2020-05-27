@@ -522,7 +522,7 @@ public abstract class BaseCommerceOrderPriceCalculation
 
 		CommerceMoney promoPrice = commerceOrderItemPrice.getPromoPrice();
 
-		if (_greaterThanZero(promoPrice.getPrice())) {
+		if ((promoPrice != null) && _greaterThanZero(promoPrice.getPrice())) {
 			activePrice = promoPrice.getPrice();
 		}
 
