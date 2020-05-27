@@ -1,4 +1,4 @@
-import IndividualAttributeModal from '../IndividualAttributesModal';
+import IndividualAttributesModal from '../IndividualAttributesModal';
 import React from 'react';
 import {mockIndividualAttributes} from 'test/data';
 import {noop} from 'lodash';
@@ -6,10 +6,12 @@ import {render} from '@testing-library/react';
 
 const {dataSources, fieldName} = mockIndividualAttributes();
 
-describe('IndividualAttributeModal', () => {
+jest.unmock('react-dom');
+
+describe('IndividualAttributesModal', () => {
 	it('should render', () => {
 		const {container} = render(
-			<IndividualAttributeModal
+			<IndividualAttributesModal
 				dataSources={dataSources}
 				fieldName={fieldName}
 				onClose={noop}
