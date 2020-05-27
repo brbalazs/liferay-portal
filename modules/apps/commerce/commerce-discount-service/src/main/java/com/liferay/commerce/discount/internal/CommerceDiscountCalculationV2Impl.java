@@ -45,6 +45,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -317,7 +318,7 @@ public class CommerceDiscountCalculationV2Impl
 		for (CommerceDiscount commerceDiscount : commerceDiscounts) {
 			String discountCouponCode = commerceDiscount.getCouponCode();
 
-			if ((discountCouponCode != null) && !discountCouponCode.isEmpty() &&
+			if (!Validator.isBlank(discountCouponCode) &&
 				!Objects.equals(couponCode, discountCouponCode)) {
 
 				continue;
