@@ -25,7 +25,6 @@ import com.liferay.calendar.service.CalendarResourceLocalService;
 import com.liferay.calendar.service.CalendarService;
 import com.liferay.calendar.util.JCalendarUtil;
 import com.liferay.calendar.util.RecurrenceUtil;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
