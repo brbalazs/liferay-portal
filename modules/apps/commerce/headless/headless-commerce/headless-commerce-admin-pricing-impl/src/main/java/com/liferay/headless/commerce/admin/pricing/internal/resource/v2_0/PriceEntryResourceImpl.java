@@ -27,18 +27,24 @@ import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceEntry;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.TierPrice;
 import com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter.PriceEntryDTOConverter;
+import com.liferay.headless.commerce.admin.pricing.internal.odata.entity.v2_0.PriceEntryEntityModel;
 import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.TierPriceUtil;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceEntryResource;
 import com.liferay.headless.commerce.core.util.DateConfig;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
+import com.liferay.portal.vulcan.util.SearchUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,6 +52,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
@@ -83,6 +90,13 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 
 		_commercePriceEntryService.deleteCommercePriceEntry(
 			commercePriceEntry.getCommercePriceEntryId());
+	}
+
+	@Override
+	public EntityModel getEntityModel(MultivaluedMap multivaluedMap)
+		throws Exception {
+
+		return _entityModel;
 	}
 
 	@Override
@@ -141,18 +155,20 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 
 	@Override
 	public Page<PriceEntry> getPriceListIdPriceEntriesPage(
-			Long id, Pagination pagination)
+			Long id, String search, Filter filter, Pagination pagination,
+			Sort[] sorts)
 		throws Exception {
 
-		List<CommercePriceEntry> commercePriceEntries =
-			_commercePriceEntryService.getCommercePriceEntries(
-				id, pagination.getStartPosition(), pagination.getEndPosition());
-
-		int totalItems =
-			_commercePriceEntryService.getCommercePriceEntriesCount(id);
-
-		return Page.of(
-			_toPriceEntries(commercePriceEntries), pagination, totalItems);
+		return SearchUtil.search(
+			null, booleanQuery -> booleanQuery.getPreBooleanFilter(), filter,
+			CommercePriceEntry.class, search, pagination,
+			queryConfig -> queryConfig.setSelectedFieldNames(
+				Field.ENTRY_CLASS_PK),
+			searchContext -> searchContext.setCompanyId(
+				contextCompany.getCompanyId()),
+			sorts,
+			document -> _toPriceEntry(
+				GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))));
 	}
 
 	@Override
@@ -366,6 +382,8 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 
 		return commercePriceEntry;
 	}
+
+	private static final EntityModel _entityModel = new PriceEntryEntityModel();
 
 	@Reference
 	private CommercePriceEntryService _commercePriceEntryService;
