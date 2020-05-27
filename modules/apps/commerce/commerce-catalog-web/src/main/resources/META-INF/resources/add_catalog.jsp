@@ -97,8 +97,7 @@ List<CommerceCurrency> commerceCurrencies = commerceCatalogDisplayContext.getCom
 									showSuccessNotification: true,
 									message:
 										'<liferay-ui:message key="your-request-completed-successfully" />'
-								},
-								willIframeRefresh: false
+								}
 							});
 						})
 						.catch(function() {

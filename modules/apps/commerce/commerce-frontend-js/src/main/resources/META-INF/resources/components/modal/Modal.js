@@ -35,20 +35,15 @@ function Modal(props) {
 	const [url, setUrl] = useState(props.url);
 	const [size, setSize] = useState(INITIAL_MODAL_SIZE);
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	function doClose(successNotification) {
-		if (onClose) {
-			onClose(successNotification);
-		} else if (props.onClose) {
-			props.onClose(successNotification);
+	const {observer, onClose: close} = useModal({
+		onClose: notification => {
+			if (onClose) {
+				onClose(notification);
+			}
+
+			setLoading(false);
+			setVisible(false);
 		}
-
-		setLoading(false);
-		setVisible(false);
-	}
-
-	const {observer, onClose: closeOnIframeRefresh} = useModal({
-		onClose: doClose
 	});
 
 	useEffect(() => {
@@ -84,17 +79,14 @@ function Modal(props) {
 
 		function handleCloseModal({
 			redirectURL = '',
-			successNotification = {},
-			willIframeRefresh = true
+			successNotification = {}
 		}) {
 			if (!visible) return;
 
 			if (redirectURL) {
 				liferayNavigate(redirectURL);
-			} else if (willIframeRefresh) {
-				closeOnIframeRefresh(successNotification);
 			} else {
-				doClose(successNotification);
+				close(successNotification);
 			}
 		}
 
@@ -119,7 +111,7 @@ function Modal(props) {
 		}
 
 		return () => cleanUpListeners();
-	}, [props.id, closeOnIframeRefresh, visible, doClose]);
+	}, [close, props.id, visible]);
 
 	useEffect(() => {
 		setOnClose(() => props.onClose);

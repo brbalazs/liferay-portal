@@ -35,9 +35,7 @@
 
 <aui:script require="commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/debounce as debounce">
 	function closeModal(isSuccessful) {
-		var eventDetail = {
-			willIframeRefresh: false
-		};
+		var eventDetail = {};
 
 		if (isSuccessful) {
 			eventDetail.successNotification = {
