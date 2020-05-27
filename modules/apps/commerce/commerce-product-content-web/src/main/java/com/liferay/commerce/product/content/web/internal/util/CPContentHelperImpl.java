@@ -536,7 +536,7 @@ public class CPContentHelperImpl implements CPContentHelper {
 			CPDefinitionOptionRel cpDefinitionOptionRel =
 				cpDefinitionOptionRelEntry.getKey();
 
-			if (Validator.isNotNull(cpDefinitionOptionRel.getPriceType())) {
+			if (cpDefinitionOptionRel.isPriceContributor()) {
 				cpDefinitionOptionRelEntry.setValue(
 					_commerceInventoryChecker.filterByAvailability(
 						cpDefinitionOptionRelEntry.getValue()));
