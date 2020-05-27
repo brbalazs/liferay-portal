@@ -1,4 +1,4 @@
-@spira_Segments @Segments @Deletion @team_FARO @priority_4
+@spira_Segments @Segments @Deletion @team_FARO @priority_4 @blocked
 Feature: Assert Segment Profile of a Disabled Segment is Disabled
 	As an Business User, I should see that the Segment Profile of a disabled Segment is disabled
 

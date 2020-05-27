@@ -1,4 +1,4 @@
-@spira_Individuals @Individuals @Dashboard @team_FARO @priority_4
+@spira_Individuals @Individuals @Dashboard @team_FARO @priority_4 @blocked
 Feature: Assert Enriched Profiles change when property is updated
   As a User, I would like to see how many enriched profiles I have on the Individuals' dashboard page
 

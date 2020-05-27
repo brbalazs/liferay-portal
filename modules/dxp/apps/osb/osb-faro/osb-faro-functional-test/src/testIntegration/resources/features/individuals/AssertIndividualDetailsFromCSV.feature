@@ -1,4 +1,4 @@
-@spira_Individuals @Individuals @CSV @team_FARO @priority_5
+@spira_Individuals @Individuals @CSV @team_FARO @priority_5 @blocked
 Feature: Assert an Individual's Details from a CSV Data Source
 	As a Business User, I should be able to upload a CSV Data Source and assert the details of imported Individuals
 

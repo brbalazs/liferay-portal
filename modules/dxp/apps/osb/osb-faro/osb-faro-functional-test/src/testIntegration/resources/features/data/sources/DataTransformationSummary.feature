@@ -1,4 +1,4 @@
-@spira_Data_Source @Data_Source @Data_Transformation @team_FARO @priority_5
+@spira_Data_Source @Data_Source @Data_Transformation @team_FARO @priority_5 @blocked
 Feature: Assert Data Transformation Summary
 	As an Business User, I should be able to assert the data transformation summary page
 

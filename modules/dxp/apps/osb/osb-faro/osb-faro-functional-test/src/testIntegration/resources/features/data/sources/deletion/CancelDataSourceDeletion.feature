@@ -1,4 +1,4 @@
-@spira_Data_Source @Data_Source @Deletion @team_FARO @priority_3
+@spira_Data_Source @Data_Source @Deletion @team_FARO @priority_3 @blocked
 Feature: Cancel Deleting a Data Source
 	As an Business User, I should be able to cancel deleting a Data Source
 

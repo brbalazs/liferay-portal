@@ -1,4 +1,4 @@
-@spira_Data_Source @Data_Source @CSV @team_FARO @priority_5
+@spira_Data_Source @Data_Source @CSV @team_FARO @priority_5 @blocked
 Feature: Add a CSV Data Source - Happy Path
 	As a Business User, I should be able to upload a CSV as a Data Source
 

@@ -1,4 +1,4 @@
-@spira_Data_Source @Data_Source @Deletion @team_FARO @priority_4
+@spira_Data_Source @Data_Source @Deletion @team_FARO @priority_4 @blocked
 Feature: Assert Data Source Deletion Status
 	As an Business User, I should see the status of my in progress Data Source deletion
 

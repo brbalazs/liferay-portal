@@ -1,4 +1,4 @@
-@spira_Segments @Segments @Dynamic @Creation @team_FARO @priority_4
+@spira_Segments @Segments @Dynamic @Creation @team_FARO @priority_4 @blocked
 Feature: Create a Dynamic Individuals Segment with a criteria that uses a boolean and a does not contain
 	As a Business User, I should be able to create a Dynamic Individuals Segment
 

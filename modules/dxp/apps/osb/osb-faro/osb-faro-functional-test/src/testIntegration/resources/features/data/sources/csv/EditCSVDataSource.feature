@@ -1,4 +1,4 @@
-@spira_Data_Source @Data_Source @CSV @team_FARO @priority_5
+@spira_Data_Source @Data_Source @CSV @team_FARO @priority_5 @blocked
 Feature: Edit CSV Data Source
 	As a Business User, I should be able to upload and edit a CSV Data Source
 

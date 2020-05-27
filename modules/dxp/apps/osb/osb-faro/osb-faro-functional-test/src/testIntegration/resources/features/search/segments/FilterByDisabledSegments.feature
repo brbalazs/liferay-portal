@@ -1,4 +1,4 @@
-@spira_Search @Search @Segments @List @team_FARO @priority_4
+@spira_Search @Search @Segments @List @team_FARO @priority_4 @blocked
 Feature: Filter by Disabled Segments
 	As an Business User, I should be able to filter by disablde segments using the filter menu
 

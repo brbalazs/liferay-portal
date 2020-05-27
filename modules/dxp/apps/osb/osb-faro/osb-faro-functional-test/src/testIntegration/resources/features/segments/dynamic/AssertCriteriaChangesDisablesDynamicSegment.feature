@@ -1,4 +1,4 @@
-@spira_Segments @Segments @Dynamic @team_FARO @priority_5
+@spira_Segments @Segments @Dynamic @team_FARO @priority_5 @blocked
 Feature: Dynamic Segments with criteria changes are disabled
 	As an Business User, I should see that Dynamic Segments with criteria changes are disabled
 

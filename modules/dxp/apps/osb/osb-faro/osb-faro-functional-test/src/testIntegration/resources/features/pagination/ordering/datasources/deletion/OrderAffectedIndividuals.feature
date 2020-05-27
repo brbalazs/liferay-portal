@@ -1,4 +1,4 @@
-@spira_Order @Order @Data_Source @Deletion @team_FARO @priority_3
+@spira_Order @Order @Data_Source @Deletion @team_FARO @priority_3 @blocked
 Feature: Order Affected Individuals During Data Source Deletion
 	As an Business User, I should be able to order Individuals affected by Data Source deletion by name
 

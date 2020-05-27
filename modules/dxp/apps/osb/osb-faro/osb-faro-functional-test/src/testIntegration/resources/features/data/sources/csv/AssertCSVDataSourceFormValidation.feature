@@ -1,4 +1,4 @@
-@spira_Data_Source @Data_Source @CSV @team_FARO @priority_3
+@spira_Data_Source @Data_Source @CSV @team_FARO @priority_3 @blocked
 Feature: CSV Data Source Form Validation
 	As an Business User, I should not be able to create a CSV Data Source if the Data Source name is missing
 

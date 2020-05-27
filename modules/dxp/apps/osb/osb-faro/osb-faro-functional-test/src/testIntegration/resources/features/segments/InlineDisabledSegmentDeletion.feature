@@ -1,4 +1,4 @@
-@spira_Segments @Segments @Dynamic @Deletion @team_FARO @priority_3
+@spira_Segments @Segments @Dynamic @Deletion @team_FARO @priority_3 @blocked
 Feature: Delete a Disabled Segment with the Inline Delete Button
 	As an Business User, I should see that I can delete a disabled Dynamic Segment with the inline delete button
 

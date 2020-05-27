@@ -1,4 +1,4 @@
-@spira_Individuals @Individuals @Deletion @team_FARO @priority_5
+@spira_Individuals @Individuals @Deletion @team_FARO @priority_5 @blocked
 Feature: Individual Properties are Removed with Data Source Deletion
 	As an Business User, an Individual's properties should be removed when its source Data Source is deleted
 

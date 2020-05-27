@@ -1,4 +1,4 @@
-@spira_Data_Source @Data_Source @Data_Transformation @team_FARO @priority_5
+@spira_Data_Source @Data_Source @Data_Transformation @team_FARO @priority_5 @blocked
 Feature: Perform Data Transformations
 	As a Business User, I should be able to upload a CSV Data Source and perform data transformations on its fields
 

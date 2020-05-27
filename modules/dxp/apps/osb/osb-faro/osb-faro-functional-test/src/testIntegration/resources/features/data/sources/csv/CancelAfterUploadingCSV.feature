@@ -1,4 +1,4 @@
-@spira_Data_Source @Data_Source @CSV @team_FARO @priority_5
+@spira_Data_Source @Data_Source @CSV @team_FARO @priority_5 @blocked
 Feature: Cancel After Uploading CSV File
 	As an Business User, I should be able to cancel after uploading a CSV data source
 

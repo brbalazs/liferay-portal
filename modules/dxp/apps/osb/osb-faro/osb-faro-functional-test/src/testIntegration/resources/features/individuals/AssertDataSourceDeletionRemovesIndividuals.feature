@@ -1,4 +1,4 @@
-@spira_Individuals @Individuals @Deletion @team_FARO @priority_5
+@spira_Individuals @Individuals @Deletion @team_FARO @priority_5 @blocked
 Feature: Data Source Deletion Removes Individuals
 	As an Business User, Individuals added from a Data Source should be removed when the Data Source is deleted
 

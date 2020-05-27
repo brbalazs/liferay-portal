@@ -1,4 +1,4 @@
-@spira_Data_Source @Data_Source @Deletion @team_FARO @priority_4
+@spira_Data_Source @Data_Source @Deletion @team_FARO @priority_4 @blocked
 Feature: Assert Unaffected Individuals Do Not Appear During Data Source Deletion
 	As an Business User, I should not see unaffected individuals during Data Source deletion
 	

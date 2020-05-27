@@ -1,4 +1,4 @@
-@spira_Data_Source @Data_Source @Deletion @team_FARO @priority_5
+@spira_Data_Source @Data_Source @Deletion @team_FARO @priority_5 @blocked
 Feature: Deleting a Data Source Does Not Delete Any Other Data Sources
 	As an Business User, deleting a data source should not delete any other data sources
 

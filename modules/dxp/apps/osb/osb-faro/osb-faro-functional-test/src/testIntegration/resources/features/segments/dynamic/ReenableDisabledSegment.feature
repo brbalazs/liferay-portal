@@ -1,4 +1,4 @@
-@spira_Segments @Segments @team_FARO @priority_4
+@spira_Segments @Segments @team_FARO @priority_4 @blocked
 Feature: Re-enable Disabled Segment
 	As an Business User, I should be able to inline edit a disabled segment so that it is re-enabled
 

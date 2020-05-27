@@ -1,4 +1,4 @@
-@spira_Data_Source @Data_Source @CSV @team_FARO @priority_5
+@spira_Data_Source @Data_Source @CSV @team_FARO @priority_5 @blocked
 Feature: Preview CSV Data Source
 	As a Business User, I should be able to preview an uploaded CSV Data Source
 

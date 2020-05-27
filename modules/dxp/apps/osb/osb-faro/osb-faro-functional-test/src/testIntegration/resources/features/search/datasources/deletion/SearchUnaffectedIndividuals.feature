@@ -1,4 +1,4 @@
-@spira_Search @Search @Data_Source @Deletion @List @team_FARO @priority_3
+@spira_Search @Search @Data_Source @Deletion @List @team_FARO @priority_3 @blocked
 Feature: Search Unaffected Individuals List During Data Source Deletion
 	As an Business User, I should not be able to search for unaffected Individuals during Data Source deletion
 

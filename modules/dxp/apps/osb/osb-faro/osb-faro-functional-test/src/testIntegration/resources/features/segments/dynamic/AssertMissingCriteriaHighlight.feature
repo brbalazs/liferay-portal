@@ -1,4 +1,4 @@
-@spira_Segments @Segments @Dynamic @team_FARO @priority_4
+@spira_Segments @Segments @Dynamic @team_FARO @priority_4 @blocked
 Feature: Missing Criteria are highlighted when editing a disabled Segment
 	As an Business User, I should see that a missing Criteria is highlighted when editing a disabled Segment
 
