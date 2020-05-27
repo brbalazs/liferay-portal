@@ -36,7 +36,6 @@ import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.tax.CommerceTaxCalculation;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -73,15 +72,13 @@ public abstract class BaseCommerceProductPriceCalculation
 		for (CPDefinitionOptionRel cpDefinitionOptionRel :
 				cpDefinitionOptionRels) {
 
-			String priceType = cpDefinitionOptionRel.getPriceType();
-
-			if (Validator.isNull(priceType) ||
+			if (!cpDefinitionOptionRel.isPriceContributor() ||
 				!cpDefinitionOptionRel.isRequired()) {
 
 				continue;
 			}
 
-			if (_isStaticPriceType(priceType)) {
+			if (cpDefinitionOptionRel.isPriceTypeStatic()) {
 				cpDefinitionMinimumPrice = cpDefinitionMinimumPrice.add(
 					_getCPDefinitionOptionMinStaticPrice(
 						cpDefinitionOptionRel, commerceContext));
@@ -122,7 +119,7 @@ public abstract class BaseCommerceProductPriceCalculation
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
 
-		if (Validator.isNull(cpDefinitionOptionRel.getPriceType())) {
+		if (!cpDefinitionOptionRel.isPriceContributor()) {
 			return commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(), relativePrice,
 				PriceFormat.RELATIVE);
