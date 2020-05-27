@@ -92,7 +92,8 @@ public class NavigationSteps {
 			if (!destination.equals("Keywords") &&
 				!destination.equals("Properties") &&
 				!destination.equals("Data Source") &&
-				!destination.equals("Workspace")) {
+				!destination.equals("Workspace") &&
+				!destination.equals("User Management")) {
 
 				sb.append("/");
 				sb.append(FaroPagePool.getPropertyId());
