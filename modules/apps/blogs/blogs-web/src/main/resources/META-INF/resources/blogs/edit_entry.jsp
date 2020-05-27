@@ -472,6 +472,7 @@ if (portletTitleBasedNavigation) {
 			blogs.setCustomDescription(text);
 		}
 	}
+
 	<c:if test="<%= (entry != null) && blogsGroupServiceSettings.isEmailEntryUpdatedEnabled() %>">
 		Liferay.Util.toggleBoxes('<portlet:namespace />sendEmailEntryUpdated', '<portlet:namespace />emailEntryUpdatedCommentWrapper');
 	</c:if>
