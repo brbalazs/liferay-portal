@@ -20,7 +20,6 @@ import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
-import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.definitions.web.internal.model.ProductOptionValue;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
@@ -152,9 +151,7 @@ public class CommerceProductOptionValueDataSetDataProvider
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			cpDefinitionOptionValueRel.getCPDefinitionOptionRel();
 
-		String priceType = cpDefinitionOptionRel.getPriceType();
-
-		if (!priceType.equals(CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC) ||
+		if (!cpDefinitionOptionRel.isPriceTypeStatic() ||
 			(cpDefinitionOptionValueRel.getPrice() == null)) {
 
 			return BigDecimal.ZERO;

@@ -51,7 +51,6 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ReleaseInfo;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -232,7 +231,7 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 							cpDefinitionOptionRel,
 							selectedCPDefinitionOptionValueRels);
 
-				if (Validator.isNotNull(cpDefinitionOptionRel.getPriceType())) {
+				if (cpDefinitionOptionRel.isPriceContributor()) {
 					allowedCPDefinitionOptionValueRels =
 						_commerceInventoryChecker.filterByAvailability(
 							allowedCPDefinitionOptionValueRels);
