@@ -1,6 +1,9 @@
 {
 	"config": {
 		"imports": {
+			"frontend-js-node-shims": {
+				"domain": "*"
+			},
 			"frontend-taglib-clay": {
 					"@clayui/icon": ">=3.0.0"
 			}
