@@ -148,8 +148,8 @@
 
 		<!-- Other fields -->
 
-		<column name="title" type="String" />
-		<column name="description" type="String" />
+		<column localized="true" name="title" type="String" />
+		<column localized="true" name="description" type="String" />
 		<column name="lastPublishDate" type="Date" />
 
 		<!-- Order -->
@@ -198,6 +198,10 @@
 			<finder-column name="commercePricingClassId" />
 		</finder>
 		<finder name="CPDefinitionId" return-type="Collection">
+			<finder-column name="CPDefinitionId" />
+		</finder>
+		<finder name="C_C" return-type="CommercePricingClassCPDefinitionRel" unique="true">
+			<finder-column name="commercePricingClassId" />
 			<finder-column name="CPDefinitionId" />
 		</finder>
 	</entity>
