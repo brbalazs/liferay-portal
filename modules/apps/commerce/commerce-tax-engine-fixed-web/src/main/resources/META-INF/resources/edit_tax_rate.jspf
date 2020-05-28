@@ -52,7 +52,7 @@ if (commerceTaxFixedRate != null) {
 	</div>
 
 	<div class="col-md-6">
-		<aui:input label='<%= commerceTaxMethod.isPercentage() ? "rate" : "amount" %>' name="rate" suffix="<%= commerceTaxFixedRatesDisplayContext.getCommerceCurrencyCode() %>">
+		<aui:input label='<%= commerceTaxMethod.isPercentage() ? "rate" : "amount" %>' name="rate" suffix="<%= commerceTaxFixedRatesDisplayContext.getCommerceCurrencyCode() %>" value="<%= commerceTaxFixedRatesDisplayContext.getLocalizedPercentage((commerceTaxFixedRate == null) ? 0 : commerceTaxFixedRate.getRate(), locale) %>">
 			<aui:validator name="min">0</aui:validator>
 		</aui:input>
 	</div>
