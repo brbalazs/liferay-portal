@@ -148,6 +148,8 @@ public class CommerceOrderItemLocalServiceTest {
 
 	@After
 	public void tearDown() throws Exception {
+		_deleteCommerceAccountTestOrderItems();
+
 		List<CPDefinition> cpDefinitions =
 			_cpDefinitionLocalService.getCPDefinitions(
 				_commerceCatalog.getGroupId(), WorkflowConstants.STATUS_ANY,
@@ -189,16 +191,13 @@ public class CommerceOrderItemLocalServiceTest {
 
 		Assert.assertNotNull(_commerceAccount);
 
-		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
-
 		CommerceTestUtil.addWarehouseCommerceChannelRel(
 			commerceInventoryWarehouse.getCommerceInventoryWarehouseId(),
-			commerceChannel.getCommerceChannelId());
+			_commerceChannel.getCommerceChannelId());
 
 		CommerceOrder commerceOrder =
 			_commerceOrderLocalService.addCommerceOrder(
-				_user.getUserId(), commerceChannel.getGroupId(),
+				_user.getUserId(), _commerceChannel.getGroupId(),
 				_commerceAccount.getCommerceAccountId(),
 				_commerceCurrency.getCommerceCurrencyId());
 
@@ -253,20 +252,17 @@ public class CommerceOrderItemLocalServiceTest {
 			_user.getUserId(), commerceInventoryWarehouse, cpInstance.getSku(),
 			2);
 
-		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
-
 		Assert.assertNotNull(_commerceCurrency);
 
 		Assert.assertNotNull(_commerceAccount);
 
 		CommerceTestUtil.addWarehouseCommerceChannelRel(
 			commerceInventoryWarehouse.getCommerceInventoryWarehouseId(),
-			commerceChannel.getCommerceChannelId());
+			_commerceChannel.getCommerceChannelId());
 
 		CommerceOrder commerceOrder =
 			_commerceOrderLocalService.addCommerceOrder(
-				_user.getUserId(), commerceChannel.getGroupId(),
+				_user.getUserId(), _commerceChannel.getGroupId(),
 				_commerceAccount.getCommerceAccountId(),
 				_commerceCurrency.getCommerceCurrencyId());
 
@@ -295,7 +291,7 @@ public class CommerceOrderItemLocalServiceTest {
 
 		_cpInstanceLocalService.updateStatus(
 			_user.getUserId(), cpInstance.getCPInstanceId(),
-			WorkflowConstants.STATUS_DRAFT, _serviceContext, null);
+			WorkflowConstants.STATUS_DRAFT);
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
@@ -304,20 +300,17 @@ public class CommerceOrderItemLocalServiceTest {
 			_user.getUserId(), commerceInventoryWarehouse, cpInstance.getSku(),
 			2);
 
-		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
-
 		Assert.assertNotNull(_commerceCurrency);
 
 		Assert.assertNotNull(_commerceAccount);
 
 		CommerceTestUtil.addWarehouseCommerceChannelRel(
 			commerceInventoryWarehouse.getCommerceInventoryWarehouseId(),
-			commerceChannel.getCommerceChannelId());
+			_commerceChannel.getCommerceChannelId());
 
 		CommerceOrder commerceOrder =
 			_commerceOrderLocalService.addCommerceOrder(
-				_user.getUserId(), commerceChannel.getGroupId(),
+				_user.getUserId(), _commerceChannel.getGroupId(),
 				_commerceAccount.getCommerceAccountId(),
 				_commerceCurrency.getCommerceCurrencyId());
 
@@ -455,16 +448,13 @@ public class CommerceOrderItemLocalServiceTest {
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
 
-		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
-
 		CommerceTestUtil.addWarehouseCommerceChannelRel(
 			commerceInventoryWarehouse.getCommerceInventoryWarehouseId(),
-			commerceChannel.getCommerceChannelId());
+			_commerceChannel.getCommerceChannelId());
 
 		CommerceOrder commerceOrder =
 			_commerceOrderLocalService.addCommerceOrder(
-				_user.getUserId(), commerceChannel.getGroupId(),
+				_user.getUserId(), _commerceChannel.getGroupId(),
 				_commerceAccount.getCommerceAccountId(),
 				_commerceCurrency.getCommerceCurrencyId());
 
@@ -1435,6 +1425,18 @@ public class CommerceOrderItemLocalServiceTest {
 			"Instance with option value key " + key, cpInstance);
 
 		return cpInstance;
+	}
+
+	private void _deleteCommerceAccountTestOrderItems() throws Exception {
+		List<CommerceOrder> commerceOrders =
+			_commerceOrderLocalService.getCommerceOrders(
+				_commerceChannel.getGroupId(),
+				_commerceAccount.getCommerceAccountId(), -1, -1, null);
+
+		for (CommerceOrder commerceOrder : commerceOrders) {
+			_commerceOrderLocalService.deleteCommerceOrder(
+				commerceOrder.getCommerceOrderId());
+		}
 	}
 
 	private CPInstance _getBundleCPInstanceWithUnavailableChildSKU(
