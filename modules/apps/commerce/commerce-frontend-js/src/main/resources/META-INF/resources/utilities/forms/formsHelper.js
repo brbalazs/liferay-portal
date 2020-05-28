@@ -12,7 +12,7 @@
  * details.
  */
 
-const FIELD_BLACKLIST = ['formDate'];
+const FIELD_BLACKLIST = ['formDate', 'p_auth'];
 
 export function isFormElement(form) {
 	return form instanceof HTMLFormElement;
