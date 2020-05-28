@@ -463,6 +463,9 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
+                catalogName:
+                    example: simple
+                    type: string
                 categories:
                     items:
                         $ref: "#/components/schemas/Category"
@@ -577,10 +580,16 @@ components:
                         hr_HR: Product Short Description HR
                         hu_HU: Product Short Description HU
                     type: object
+                sku:
+                    example: simple
+                    type: string
                 skus:
                     items:
                         $ref: "#/components/schemas/Sku"
                     type: array
+                status:
+                    example: simple
+                    type: string
                 subscriptionConfiguration:
                     $ref: "#/components/schemas/ProductSubscriptionConfiguration"
                 tags:
@@ -593,6 +602,9 @@ components:
                     type: array
                 taxConfiguration:
                     $ref: "#/components/schemas/ProductTaxConfiguration"
+                thumbnail:
+                    example: simple
+                    type: string
                 urls:
                     additionalProperties:
                         type: string
