@@ -72,9 +72,7 @@ public abstract class BaseCommerceProductPriceCalculation
 		for (CPDefinitionOptionRel cpDefinitionOptionRel :
 				cpDefinitionOptionRels) {
 
-			if (!cpDefinitionOptionRel.isPriceContributor() ||
-				!cpDefinitionOptionRel.isRequired()) {
-
+			if (!_isRequiredPriceContributor(cpDefinitionOptionRel)) {
 				continue;
 			}
 
@@ -527,6 +525,19 @@ public abstract class BaseCommerceProductPriceCalculation
 		}
 
 		return priceDifference.subtract(selectedCPInstanceFinalPrice);
+	}
+
+	private boolean _isRequiredPriceContributor(
+		CPDefinitionOptionRel cpDefinitionOptionRel) {
+
+		if (cpDefinitionOptionRel.isPriceContributor() &&
+			(cpDefinitionOptionRel.isRequired() ||
+			 cpDefinitionOptionRel.isSkuContributor())) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private boolean _isStaticPriceType(String value) {
