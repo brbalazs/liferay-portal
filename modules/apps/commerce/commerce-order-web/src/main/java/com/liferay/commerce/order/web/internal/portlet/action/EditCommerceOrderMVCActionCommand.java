@@ -17,7 +17,6 @@ package com.liferay.commerce.order.web.internal.portlet.action;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceAddressConstants;
 import com.liferay.commerce.constants.CommerceOrderConstants;
-import com.liferay.commerce.constants.CommerceOrderPaymentConstants;
 import com.liferay.commerce.constants.CommercePortletKeys;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
@@ -28,6 +27,7 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
+import com.liferay.commerce.payment.engine.CommercePaymentEngine;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShipmentService;
@@ -45,6 +45,8 @@ import com.liferay.portal.kernel.util.Portal;
 import java.math.BigDecimal;
 
 import java.util.Calendar;
+
+import javax.annotation.Resource;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -465,14 +467,11 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 		int paymentStatus = ParamUtil.getInteger(
 			actionRequest, "paymentStatus");
 
-		CommerceOrder commerceOrder = _commerceOrderService.updatePaymentStatus(
-			commerceOrderId, paymentStatus);
+		CommerceOrder commerceOrder = _commerceOrderService.getCommerceOrder(
+			commerceOrderId);
 
-		if (paymentStatus == CommerceOrderPaymentConstants.STATUS_COMPLETED) {
-			_commerceOrderEngine.transitionCommerceOrder(
-				commerceOrder, CommerceOrderConstants.ORDER_STATUS_PENDING,
-				_portal.getUserId(actionRequest));
-		}
+		_commercePaymentEngine.updateOrderPaymentStatus(
+			commerceOrderId, paymentStatus, commerceOrder.getTransactionId());
 	}
 
 	protected void updatePrintedNote(ActionRequest actionRequest)
@@ -603,6 +602,9 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
+
+	@Resource
+	private CommercePaymentEngine _commercePaymentEngine;
 
 	@Reference
 	private CommerceShipmentService _commerceShipmentService;
