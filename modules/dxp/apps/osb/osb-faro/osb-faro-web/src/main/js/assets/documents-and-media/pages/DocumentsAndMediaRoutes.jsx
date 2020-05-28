@@ -6,7 +6,6 @@ import getCN from 'classnames';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense, useState} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
-import WrappedPageComponent from 'cerebro-shared/hocs/WrappedPageComponent';
 import {get} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {Routes} from 'shared/util/router';
@@ -128,6 +127,4 @@ DocumentsAndMediaRoutes.propTypes = {
 	title: PropTypes.string
 };
 
-export default props => (
-	<WrappedPageComponent {...props} Component={DocumentsAndMediaRoutes} />
-);
+export default DocumentsAndMediaRoutes;

@@ -4,7 +4,6 @@ import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import ExperimentListCard from '../hocs/ExperimentListCard';
 import Icon from 'shared/components/Icon';
 import React from 'react';
-import WrappedPageComponent from 'cerebro-shared/hocs/WrappedPageComponent';
 import {EXPERIMENT_LIST_QUERY} from '../queries/ExperimentQuery';
 import {get} from 'lodash';
 import {getMapPropsToOptions} from 'shared/hoc/mappers/metrics';
@@ -121,6 +120,4 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 	);
 };
 
-export default props => (
-	<WrappedPageComponent {...props} Component={ExperimentsListPage} />
-);
+export default ExperimentsListPage;

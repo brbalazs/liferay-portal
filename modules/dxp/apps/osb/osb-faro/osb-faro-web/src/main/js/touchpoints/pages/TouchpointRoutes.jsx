@@ -8,7 +8,6 @@ import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense, useState} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import TextTruncate from 'shared/components/TextTruncate';
-import WrappedPageComponent from 'cerebro-shared/hocs/WrappedPageComponent';
 import {get} from 'lodash';
 import {getMatchedRoute, Routes} from 'shared/util/router';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
@@ -182,6 +181,4 @@ TouchpointRoutes.propTypes = {
 	title: PropTypes.string
 };
 
-export default props => (
-	<WrappedPageComponent {...props} Component={TouchpointRoutes} />
-);
+export default TouchpointRoutes;

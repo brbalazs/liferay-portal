@@ -5,7 +5,6 @@ import getCN from 'classnames';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
-import WrappedPageComponent from 'cerebro-shared/hocs/WrappedPageComponent';
 import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
@@ -141,6 +140,4 @@ export const Dashboard: React.FC<IDashboardProps> = ({router}) => {
 	);
 };
 
-export default props => (
-	<WrappedPageComponent {...props} Component={Dashboard} />
-);
+export default Dashboard;
