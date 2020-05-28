@@ -411,7 +411,7 @@ public class CPAttachmentFileEntryLocalServiceImpl
 		JSONArray jsonArray = _jsonFactory.createJSONArray();
 
 		if (_jsonHelper.isArray(serializedDDMFormValues)) {
-			_jsonFactory.createJSONArray(serializedDDMFormValues);
+			jsonArray = _jsonFactory.createJSONArray(serializedDDMFormValues);
 		}
 
 		Indexer<CPAttachmentFileEntry> indexer =
