@@ -219,8 +219,8 @@ public class SamlIdpSpConnectionLocalServiceImpl
 				"Unable to parse SAML metadata from " + metadataUrl, e);
 		}
 
-		samlIdpSpConnection.setMetadataUpdatedDate(new Date());
 		samlIdpSpConnection.setMetadataXml(metadataXml);
+		samlIdpSpConnection.setMetadataUpdatedDate(new Date());
 
 		samlIdpSpConnectionPersistence.update(samlIdpSpConnection);
 	}
@@ -294,8 +294,8 @@ public class SamlIdpSpConnectionLocalServiceImpl
 		}
 
 		if (Validator.isNotNull(metadataXml)) {
-			samlIdpSpConnection.setMetadataUpdatedDate(now);
 			samlIdpSpConnection.setMetadataXml(metadataXml);
+			samlIdpSpConnection.setMetadataUpdatedDate(now);
 		}
 
 		samlIdpSpConnection.setName(name);

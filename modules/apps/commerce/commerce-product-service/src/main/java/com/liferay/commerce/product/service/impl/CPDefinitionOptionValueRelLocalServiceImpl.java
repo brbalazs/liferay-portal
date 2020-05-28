@@ -452,10 +452,10 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
 				cpDefinitionOptionValueRels) {
 
-			cpDefinitionOptionValueRel.setQuantity(0);
-			cpDefinitionOptionValueRel.setPrice(BigDecimal.ZERO);
 			cpDefinitionOptionValueRel.setCPInstanceUuid(null);
 			cpDefinitionOptionValueRel.setCProductId(0);
+			cpDefinitionOptionValueRel.setQuantity(0);
+			cpDefinitionOptionValueRel.setPrice(BigDecimal.ZERO);
 
 			cpDefinitionOptionValueRelPersistence.update(
 				cpDefinitionOptionValueRel);
@@ -745,8 +745,8 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		throws PortalException {
 
 		if (cpInstanceId <= 0) {
-			cpDefinitionOptionValueRel.setCProductId(0);
 			cpDefinitionOptionValueRel.setCPInstanceUuid(null);
+			cpDefinitionOptionValueRel.setCProductId(0);
 
 			return;
 		}
