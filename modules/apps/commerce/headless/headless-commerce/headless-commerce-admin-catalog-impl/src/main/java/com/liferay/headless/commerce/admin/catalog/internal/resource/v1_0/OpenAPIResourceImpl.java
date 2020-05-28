@@ -85,6 +85,10 @@ public class OpenAPIResourceImpl {
 
 			add(ProductConfigurationResourceImpl.class);
 
+			add(ProductGroupResourceImpl.class);
+
+			add(ProductGroupProductResourceImpl.class);
+
 			add(ProductOptionResourceImpl.class);
 
 			add(ProductOptionValueResourceImpl.class);

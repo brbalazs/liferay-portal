@@ -24,6 +24,8 @@ import com.liferay.headless.commerce.admin.catalog.dto.v1_0.OptionCategory;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.OptionValue;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductConfiguration;
+import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductGroup;
+import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductGroupProduct;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductOption;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductOptionValue;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductShippingConfiguration;
@@ -40,6 +42,8 @@ import com.liferay.headless.commerce.admin.catalog.resource.v1_0.OptionCategoryR
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.OptionResource;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.OptionValueResource;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.ProductConfigurationResource;
+import com.liferay.headless.commerce.admin.catalog.resource.v1_0.ProductGroupProductResource;
+import com.liferay.headless.commerce.admin.catalog.resource.v1_0.ProductGroupResource;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.ProductOptionResource;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.ProductOptionValueResource;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.ProductResource;
@@ -139,6 +143,22 @@ public class Mutation {
 
 		_productConfigurationResourceComponentServiceObjects =
 			productConfigurationResourceComponentServiceObjects;
+	}
+
+	public static void setProductGroupResourceComponentServiceObjects(
+		ComponentServiceObjects<ProductGroupResource>
+			productGroupResourceComponentServiceObjects) {
+
+		_productGroupResourceComponentServiceObjects =
+			productGroupResourceComponentServiceObjects;
+	}
+
+	public static void setProductGroupProductResourceComponentServiceObjects(
+		ComponentServiceObjects<ProductGroupProductResource>
+			productGroupProductResourceComponentServiceObjects) {
+
+		_productGroupProductResourceComponentServiceObjects =
+			productGroupProductResourceComponentServiceObjects;
 	}
 
 	public static void setProductOptionResourceComponentServiceObjects(
@@ -783,6 +803,163 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public ProductGroup createProductGroup(
+			@GraphQLName("productGroup") ProductGroup productGroup)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productGroupResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupResource -> productGroupResource.postProductGroup(
+				productGroup));
+	}
+
+	@GraphQLField
+	public Response createProductGroupBatch(
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productGroupResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupResource -> productGroupResource.postProductGroupBatch(
+				callbackURL, object));
+	}
+
+	@GraphQLField
+	public boolean deleteProductGroupByExternalReferenceCode(
+			@GraphQLName("externalReferenceCode") String externalReferenceCode)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_productGroupResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupResource ->
+				productGroupResource.deleteProductGroupByExternalReferenceCode(
+					externalReferenceCode));
+
+		return true;
+	}
+
+	@GraphQLField
+	public Response patchProductGroupByExternalReferenceCode(
+			@GraphQLName("externalReferenceCode") String externalReferenceCode,
+			@GraphQLName("productGroup") ProductGroup productGroup)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productGroupResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupResource ->
+				productGroupResource.patchProductGroupByExternalReferenceCode(
+					externalReferenceCode, productGroup));
+	}
+
+	@GraphQLField
+	public boolean deleteProductGroup(@GraphQLName("id") Long id)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_productGroupResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupResource -> productGroupResource.deleteProductGroup(
+				id));
+
+		return true;
+	}
+
+	@GraphQLField
+	public Response deleteProductGroupBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productGroupResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupResource ->
+				productGroupResource.deleteProductGroupBatch(
+					id, callbackURL, object));
+	}
+
+	@GraphQLField
+	public Response patchProductGroup(
+			@GraphQLName("id") Long id,
+			@GraphQLName("productGroup") ProductGroup productGroup)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productGroupResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupResource -> productGroupResource.patchProductGroup(
+				id, productGroup));
+	}
+
+	@GraphQLField
+	public boolean deleteProductGroupProduct(@GraphQLName("id") Long id)
+		throws Exception {
+
+		_applyVoidComponentServiceObjects(
+			_productGroupProductResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupProductResource ->
+				productGroupProductResource.deleteProductGroupProduct(id));
+
+		return true;
+	}
+
+	@GraphQLField
+	public Response deleteProductGroupProductBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productGroupProductResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupProductResource ->
+				productGroupProductResource.deleteProductGroupProductBatch(
+					id, callbackURL, object));
+	}
+
+	@GraphQLField
+	public ProductGroupProduct
+			createProductGroupByExternalReferenceCodeProductGroupProduct(
+				@GraphQLName("externalReferenceCode") String
+					externalReferenceCode,
+				@GraphQLName("productGroupProduct") ProductGroupProduct
+					productGroupProduct)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productGroupProductResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupProductResource ->
+				productGroupProductResource.
+					postProductGroupByExternalReferenceCodeProductGroupProduct(
+						externalReferenceCode, productGroupProduct));
+	}
+
+	@GraphQLField
+	public ProductGroupProduct createProductGroupIdProductGroupProduct(
+			@GraphQLName("id") Long id,
+			@GraphQLName("productGroupProduct") ProductGroupProduct
+				productGroupProduct)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productGroupProductResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupProductResource ->
+				productGroupProductResource.
+					postProductGroupIdProductGroupProduct(
+						id, productGroupProduct));
+	}
+
+	@GraphQLField
 	public Response deleteProductOption(@GraphQLName("id") Long id)
 		throws Exception {
 
@@ -1320,6 +1497,33 @@ public class Mutation {
 	}
 
 	private void _populateResourceContext(
+			ProductGroupResource productGroupResource)
+		throws Exception {
+
+		productGroupResource.setContextAcceptLanguage(_acceptLanguage);
+		productGroupResource.setContextCompany(_company);
+		productGroupResource.setContextHttpServletRequest(_httpServletRequest);
+		productGroupResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		productGroupResource.setContextUriInfo(_uriInfo);
+		productGroupResource.setContextUser(_user);
+	}
+
+	private void _populateResourceContext(
+			ProductGroupProductResource productGroupProductResource)
+		throws Exception {
+
+		productGroupProductResource.setContextAcceptLanguage(_acceptLanguage);
+		productGroupProductResource.setContextCompany(_company);
+		productGroupProductResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		productGroupProductResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		productGroupProductResource.setContextUriInfo(_uriInfo);
+		productGroupProductResource.setContextUser(_user);
+	}
+
+	private void _populateResourceContext(
 			ProductOptionResource productOptionResource)
 		throws Exception {
 
@@ -1461,6 +1665,10 @@ public class Mutation {
 		_productResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductConfigurationResource>
 		_productConfigurationResourceComponentServiceObjects;
+	private static ComponentServiceObjects<ProductGroupResource>
+		_productGroupResourceComponentServiceObjects;
+	private static ComponentServiceObjects<ProductGroupProductResource>
+		_productGroupProductResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductOptionResource>
 		_productOptionResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductOptionValueResource>

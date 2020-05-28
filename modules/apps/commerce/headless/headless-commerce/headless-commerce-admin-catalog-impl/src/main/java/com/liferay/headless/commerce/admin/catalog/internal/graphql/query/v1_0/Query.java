@@ -22,6 +22,8 @@ import com.liferay.headless.commerce.admin.catalog.dto.v1_0.OptionCategory;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.OptionValue;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductConfiguration;
+import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductGroup;
+import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductGroupProduct;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductOption;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductOptionValue;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductShippingConfiguration;
@@ -38,6 +40,8 @@ import com.liferay.headless.commerce.admin.catalog.resource.v1_0.OptionCategoryR
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.OptionResource;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.OptionValueResource;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.ProductConfigurationResource;
+import com.liferay.headless.commerce.admin.catalog.resource.v1_0.ProductGroupProductResource;
+import com.liferay.headless.commerce.admin.catalog.resource.v1_0.ProductGroupResource;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.ProductOptionResource;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.ProductOptionValueResource;
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.ProductResource;
@@ -140,6 +144,22 @@ public class Query {
 
 		_productConfigurationResourceComponentServiceObjects =
 			productConfigurationResourceComponentServiceObjects;
+	}
+
+	public static void setProductGroupResourceComponentServiceObjects(
+		ComponentServiceObjects<ProductGroupResource>
+			productGroupResourceComponentServiceObjects) {
+
+		_productGroupResourceComponentServiceObjects =
+			productGroupResourceComponentServiceObjects;
+	}
+
+	public static void setProductGroupProductResourceComponentServiceObjects(
+		ComponentServiceObjects<ProductGroupProductResource>
+			productGroupProductResourceComponentServiceObjects) {
+
+		_productGroupProductResourceComponentServiceObjects =
+			productGroupProductResourceComponentServiceObjects;
 	}
 
 	public static void setProductOptionResourceComponentServiceObjects(
@@ -654,6 +674,108 @@ public class Query {
 			this::_populateResourceContext,
 			productConfigurationResource ->
 				productConfigurationResource.getProductIdConfiguration(id));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productGroups(filter: ___, page: ___, pageSize: ___, search: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public ProductGroupPage productGroups(
+			@GraphQLName("search") String search,
+			@GraphQLName("filter") String filterString,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page,
+			@GraphQLName("sort") String sortsString)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productGroupResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupResource -> new ProductGroupPage(
+				productGroupResource.getProductGroupsPage(
+					search,
+					_filterBiFunction.apply(productGroupResource, filterString),
+					Pagination.of(page, pageSize),
+					_sortsBiFunction.apply(
+						productGroupResource, sortsString))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productGroupByExternalReferenceCode(externalReferenceCode: ___){description, externalReferenceCode, id, products, productsCount, title}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public ProductGroup productGroupByExternalReferenceCode(
+			@GraphQLName("externalReferenceCode") String externalReferenceCode)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productGroupResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupResource ->
+				productGroupResource.getProductGroupByExternalReferenceCode(
+					externalReferenceCode));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productGroup(id: ___){description, externalReferenceCode, id, products, productsCount, title}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public ProductGroup productGroup(@GraphQLName("id") Long id)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productGroupResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupResource -> productGroupResource.getProductGroup(id));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productGroupByExternalReferenceCodeProductGroupProducts(externalReferenceCode: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public ProductGroupProductPage
+			productGroupByExternalReferenceCodeProductGroupProducts(
+				@GraphQLName("externalReferenceCode") String
+					externalReferenceCode,
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productGroupProductResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupProductResource -> new ProductGroupProductPage(
+				productGroupProductResource.
+					getProductGroupByExternalReferenceCodeProductGroupProductsPage(
+						externalReferenceCode, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {productGroupIdProductGroupProducts(id: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public ProductGroupProductPage productGroupIdProductGroupProducts(
+			@GraphQLName("id") Long id, @GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productGroupProductResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupProductResource -> new ProductGroupProductPage(
+				productGroupProductResource.
+					getProductGroupIdProductGroupProductsPage(
+						id, Pagination.of(page, pageSize))));
 	}
 
 	/**
@@ -1195,6 +1317,37 @@ public class Query {
 
 	@GraphQLTypeExtension(Catalog.class)
 	public class
+		GetProductGroupByExternalReferenceCodeProductGroupProductsPageTypeExtension {
+
+		public GetProductGroupByExternalReferenceCodeProductGroupProductsPageTypeExtension(
+			Catalog catalog) {
+
+			_catalog = catalog;
+		}
+
+		@GraphQLField
+		public ProductGroupProductPage
+				productGroupByExternalReferenceCodeProductGroupProducts(
+					@GraphQLName("pageSize") int pageSize,
+					@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_productGroupProductResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				productGroupProductResource -> new ProductGroupProductPage(
+					productGroupProductResource.
+						getProductGroupByExternalReferenceCodeProductGroupProductsPage(
+							_catalog.getExternalReferenceCode(),
+							Pagination.of(page, pageSize))));
+		}
+
+		private Catalog _catalog;
+
+	}
+
+	@GraphQLTypeExtension(Catalog.class)
+	public class
 		GetProductByExternalReferenceCodeProductOptionsPageTypeExtension {
 
 		public GetProductByExternalReferenceCodeProductOptionsPageTypeExtension(
@@ -1422,6 +1575,31 @@ public class Query {
 				Query.this::_populateResourceContext,
 				optionResource ->
 					optionResource.getOptionByExternalReferenceCode(
+						_catalog.getExternalReferenceCode()));
+		}
+
+		private Catalog _catalog;
+
+	}
+
+	@GraphQLTypeExtension(Catalog.class)
+	public class GetProductGroupByExternalReferenceCodeTypeExtension {
+
+		public GetProductGroupByExternalReferenceCodeTypeExtension(
+			Catalog catalog) {
+
+			_catalog = catalog;
+		}
+
+		@GraphQLField
+		public ProductGroup productGroupByExternalReferenceCode()
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_productGroupResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				productGroupResource ->
+					productGroupResource.getProductGroupByExternalReferenceCode(
 						_catalog.getExternalReferenceCode()));
 		}
 
@@ -1727,6 +1905,70 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<ProductConfiguration> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
+	@GraphQLName("ProductGroupPage")
+	public class ProductGroupPage {
+
+		public ProductGroupPage(Page productGroupPage) {
+			actions = productGroupPage.getActions();
+			items = productGroupPage.getItems();
+			lastPage = productGroupPage.getLastPage();
+			page = productGroupPage.getPage();
+			pageSize = productGroupPage.getPageSize();
+			totalCount = productGroupPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<ProductGroup> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
+	@GraphQLName("ProductGroupProductPage")
+	public class ProductGroupProductPage {
+
+		public ProductGroupProductPage(Page productGroupProductPage) {
+			actions = productGroupProductPage.getActions();
+			items = productGroupProductPage.getItems();
+			lastPage = productGroupProductPage.getLastPage();
+			page = productGroupProductPage.getPage();
+			pageSize = productGroupProductPage.getPageSize();
+			totalCount = productGroupProductPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<ProductGroupProduct> items;
 
 		@GraphQLField
 		protected long lastPage;
@@ -2149,6 +2391,33 @@ public class Query {
 	}
 
 	private void _populateResourceContext(
+			ProductGroupResource productGroupResource)
+		throws Exception {
+
+		productGroupResource.setContextAcceptLanguage(_acceptLanguage);
+		productGroupResource.setContextCompany(_company);
+		productGroupResource.setContextHttpServletRequest(_httpServletRequest);
+		productGroupResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		productGroupResource.setContextUriInfo(_uriInfo);
+		productGroupResource.setContextUser(_user);
+	}
+
+	private void _populateResourceContext(
+			ProductGroupProductResource productGroupProductResource)
+		throws Exception {
+
+		productGroupProductResource.setContextAcceptLanguage(_acceptLanguage);
+		productGroupProductResource.setContextCompany(_company);
+		productGroupProductResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		productGroupProductResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		productGroupProductResource.setContextUriInfo(_uriInfo);
+		productGroupProductResource.setContextUser(_user);
+	}
+
+	private void _populateResourceContext(
 			ProductOptionResource productOptionResource)
 		throws Exception {
 
@@ -2290,6 +2559,10 @@ public class Query {
 		_productResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductConfigurationResource>
 		_productConfigurationResourceComponentServiceObjects;
+	private static ComponentServiceObjects<ProductGroupResource>
+		_productGroupResourceComponentServiceObjects;
+	private static ComponentServiceObjects<ProductGroupProductResource>
+		_productGroupProductResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductOptionResource>
 		_productOptionResourceComponentServiceObjects;
 	private static ComponentServiceObjects<ProductOptionValueResource>
