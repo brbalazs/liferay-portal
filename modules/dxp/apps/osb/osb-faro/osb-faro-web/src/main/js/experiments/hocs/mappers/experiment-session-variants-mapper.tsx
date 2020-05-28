@@ -49,7 +49,7 @@ export default ({experiment}) => {
 
 			const header = [
 				{
-					label: d3.utcFormat('%-d %b')(dataPoint[0].x),
+					label: d3.utcFormat('%b %-d')(dataPoint[0].x),
 					weight: 'semibold'
 				},
 				{

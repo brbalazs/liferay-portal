@@ -334,51 +334,40 @@ describe('getVariantLabel', () => {
 });
 
 describe('getTicks', () => {
-	it('should return intervals with max value 40', () => {
-		expect(getTicks(40)).toStrictEqual([1, 6, 11, 16, 21, 26, 31, 36, 40]);
+	it('should not return intervals with max value 40', () => {
+		expect(getTicks(40)).toStrictEqual([1, 6, 11, 16, 21, 26, 31, 36]);
 	});
 
-	it('should return intervals with max value 20', () => {
-		expect(getTicks(20)).toStrictEqual([1, 4, 7, 10, 13, 16, 19, 20]);
+	it('should not return intervals with max value 20', () => {
+		expect(getTicks(20)).toStrictEqual([1, 4, 7, 10, 13, 16, 19]);
 	});
 
-	it('should return intervals with max value 21', () => {
-		expect(getTicks(21)).toStrictEqual([1, 4, 7, 10, 13, 16, 19, 21]);
+	it('should not return intervals with max value 21', () => {
+		expect(getTicks(21)).toStrictEqual([1, 4, 7, 10, 13, 16, 19]);
 	});
 
-	it('should return intervals with max value 30', () => {
-		expect(getTicks(30)).toStrictEqual([1, 5, 9, 13, 17, 21, 25, 29, 30]);
+	it('should not return intervals with max value 30', () => {
+		expect(getTicks(30)).toStrictEqual([1, 5, 9, 13, 17, 21, 25, 29]);
 	});
 
-	it('should return intervals with max value 34', () => {
-		expect(getTicks(34)).toStrictEqual([
-			1,
-			5,
-			9,
-			13,
-			17,
-			21,
-			25,
-			29,
-			33,
-			34
-		]);
+	it('should not return intervals with max value 34', () => {
+		expect(getTicks(34)).toStrictEqual([1, 5, 9, 13, 17, 21, 25, 29, 33]);
 	});
 
-	it('should return intervals with max value 12', () => {
-		expect(getTicks(12)).toStrictEqual([1, 3, 5, 7, 9, 11, 12]);
+	it('should not return intervals with max value 12', () => {
+		expect(getTicks(12)).toStrictEqual([1, 3, 5, 7, 9, 11]);
 	});
 
-	it('should return intervals with max value 16', () => {
-		expect(getTicks(16)).toStrictEqual([1, 3, 5, 7, 9, 11, 13, 15, 16]);
+	it('should not return intervals with max value 16', () => {
+		expect(getTicks(16)).toStrictEqual([1, 3, 5, 7, 9, 11, 13, 15]);
 	});
 
 	it('should return intervals with max value 15', () => {
 		expect(getTicks(15)).toStrictEqual([1, 3, 5, 7, 9, 11, 13, 15]);
 	});
 
-	it('should return intervals with max value 12', () => {
-		expect(getTicks(12)).toStrictEqual([1, 3, 5, 7, 9, 11, 12]);
+	it('should not return intervals with max value 12', () => {
+		expect(getTicks(12)).toStrictEqual([1, 3, 5, 7, 9, 11]);
 	});
 });
 

@@ -50,7 +50,7 @@ export default ({experiment}) => {
 				{
 					columns: [
 						{
-							label: d3.utcFormat('%-d %b')(dataPoint[0].x)
+							label: d3.utcFormat('%b %-d')(dataPoint[0].x)
 						},
 						{
 							align: 'right',

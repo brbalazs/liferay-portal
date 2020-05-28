@@ -129,7 +129,7 @@ const LineChart: React.FC<ILineChartProps> = ({
 			<Chart
 				axisX={{
 					tick: {
-						format: (date: Date) => d3.utcFormat('%-d %b')(date),
+						format: (date: Date) => d3.utcFormat('%b %-d')(date),
 						values: intervals
 					},
 					type: 'timeseries'

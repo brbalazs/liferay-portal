@@ -383,13 +383,13 @@ export const getTicks: GetTicksFn = maxValue => {
 	let interval = 1;
 	const step = Math.round(maxValue / 8);
 
-	while (interval < maxValue) {
+	while (interval <= maxValue) {
 		arr.push(interval);
 
 		interval = interval + step;
 	}
 
-	return [...arr, maxValue];
+	return [...arr];
 };
 
 export const getShortIntervals: GetShortIntervals = intervals =>
