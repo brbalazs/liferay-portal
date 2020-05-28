@@ -174,9 +174,9 @@ definition {
 	}
 
 	@priority = "4"
-	test AssertSearchFunctionalityWhenSettingIndexOnStartupToTrue {
+	test AssertIndexOnStartup {
 		property test.assert.warning.exceptions = "true";
-		property test.name.skip.portal.instance = "Search#AssertSearchFunctionalityWhenSettingIndexOnStartupToTrue";
+		property test.name.skip.portal.instance = "Search#AssertIndexOnStartup";
 
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
