@@ -170,7 +170,7 @@ export const LAST_28_DAYS = '28';
 export const LAST_30_DAYS = '30';
 export const LAST_7_DAYS = '7';
 export const LAST_90_DAYS = '90';
-export const LAST_YEAR = '366';
+export const LAST_YEAR = '365';
 export const YESTERDAY = '1';
 
 export const TIME_RANGE_LABELS = {
