@@ -44,6 +44,16 @@ public class CommercePricingClassLocalServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
+		return addCommercePricingClass(
+			userId, groupId, title, description, null, serviceContext);
+	}
+
+	@Override
+	public CommercePricingClass addCommercePricingClass(
+			long userId, long groupId, String title, String description,
+			String externalReferenceCode, ServiceContext serviceContext)
+		throws PortalException {
+
 		User user = userLocalService.getUser(userId);
 
 		validate(title);
@@ -59,6 +69,7 @@ public class CommercePricingClassLocalServiceImpl
 		commercePricingClass.setUserName(user.getFullName());
 		commercePricingClass.setTitle(title);
 		commercePricingClass.setDescription(description);
+		commercePricingClass.setExternalReferenceCode(externalReferenceCode);
 
 		return commercePricingClassPersistence.update(commercePricingClass);
 	}
@@ -207,7 +218,8 @@ public class CommercePricingClassLocalServiceImpl
 		}
 
 		return commercePricingClassLocalService.addCommercePricingClass(
-			userId, groupId, title, description, serviceContext);
+			userId, groupId, title, description, externalReferenceCode,
+			serviceContext);
 	}
 
 	protected void validate(String title) throws PortalException {

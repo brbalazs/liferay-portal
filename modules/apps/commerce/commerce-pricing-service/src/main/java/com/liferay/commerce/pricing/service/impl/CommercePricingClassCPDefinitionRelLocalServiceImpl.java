@@ -109,6 +109,15 @@ public class CommercePricingClassCPDefinitionRelLocalServiceImpl
 	}
 
 	@Override
+	public CommercePricingClassCPDefinitionRel
+		fetchCommercePricingClassCPDefinitionRel(
+			long commercePricingClassId, long cpDefinitionId) {
+
+		return commercePricingClassCPDefinitionRelPersistence.fetchByC_C(
+			commercePricingClassId, cpDefinitionId);
+	}
+
+	@Override
 	public List<CommercePricingClassCPDefinitionRel>
 		getCommercePricingClassByCPDefinitionId(long cpDefinitionId) {
 
