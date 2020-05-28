@@ -106,8 +106,8 @@ public class ProductDTOConverter
 				productType = cpType.getLabel(locale);
 				shortDescription = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getShortDescriptionMap());
-				status = productStatus;
 				sku = _getSku(cpDefinition, locale);
+				status = productStatus;
 				tags = _getTags(cpDefinition);
 				thumbnail = cpDefinition.getDefaultImageThumbnailSrc();
 			}
