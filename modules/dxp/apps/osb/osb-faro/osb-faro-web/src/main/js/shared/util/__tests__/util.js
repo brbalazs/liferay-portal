@@ -3,8 +3,6 @@ import {
 	formatStringToLowercase,
 	getAlignPosition,
 	getPercentage,
-	getRangeKeyFromContext,
-	getRangeKeyFromTimeRange,
 	getRangeSelectorsFromQuery,
 	getSafeDisplayValue,
 	getSafeRangeSelectors,
@@ -79,79 +77,6 @@ describe('util', () => {
 			const percent = getPercentage(number1, number2);
 
 			expect(percent).toEqual(0);
-		});
-	});
-
-	describe('getRangeKeyFromContext', () => {
-		it('should return the rangeKey from query passing context', () => {
-			const context = {
-				rangeKey: {
-					defaultValue: '30'
-				},
-				router: {
-					query: {
-						rangeKey: '0'
-					}
-				}
-			};
-
-			expect(getRangeKeyFromContext(context)).toEqual('0');
-		});
-
-		it('should return the rangeKey from defaultValue passing context', () => {
-			const context = {
-				rangeKey: {
-					defaultValue: '30'
-				},
-				router: {
-					query: {}
-				}
-			};
-
-			expect(getRangeKeyFromContext(context)).toEqual('30');
-		});
-	});
-
-	describe('getRangeKeyFromTimeRange', () => {
-		const timeRange = [
-			{
-				default: false,
-				rangeKey: 7
-			},
-			{
-				default: false,
-				rangeKey: 0
-			},
-			{
-				default: false,
-				rangeKey: 28
-			},
-			{
-				default: true,
-				rangeKey: 30
-			},
-			{
-				default: false,
-				rangeKey: 90
-			},
-			{
-				default: false,
-				rangeKey: 1
-			}
-		];
-
-		it('should return defaultValue and lastValue passing as parameter the timeFilter', () => {
-			expect(getRangeKeyFromTimeRange(timeRange)).toEqual({
-				defaultValue: '30',
-				lastValue: '90'
-			});
-		});
-
-		it('should return a default object when do not exist timeRange', () => {
-			expect(getRangeKeyFromTimeRange()).toEqual({
-				defaultValue: '30',
-				lastValue: '90'
-			});
 		});
 	});
 

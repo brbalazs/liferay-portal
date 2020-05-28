@@ -12,10 +12,7 @@ import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
 import withCurrentUser from 'shared/hoc/WithCurrentUser';
 import {ChannelContext} from 'shared/context/channel';
 import {compose} from 'redux';
-import {
-	getRangeKeyFromTimeRange,
-	getRangeSelectorsFromQuery
-} from 'shared/util/util';
+import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {graphql} from '@apollo/react-hoc';
 import {hasChanges} from 'shared/util/react';
 import {PropTypes} from 'prop-types';
@@ -242,9 +239,8 @@ class CustomAssetsDashboardPage extends React.Component {
 
 const withTimeRangeQuery = () =>
 	graphql(TimeRangeQuery, {
-		props: ({data: {loading, timeRange = []}}) => ({
-			loadingTimeRange: loading,
-			rangeKey: getRangeKeyFromTimeRange(timeRange)
+		props: ({data: {loading}}) => ({
+			loadingTimeRange: loading
 		})
 	});
 

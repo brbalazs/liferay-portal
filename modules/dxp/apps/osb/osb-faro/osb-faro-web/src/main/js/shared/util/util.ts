@@ -1,10 +1,5 @@
 import {Align} from 'metal-position';
-import {
-	ALIGNMENTS_MAP,
-	LAST_30_DAYS,
-	LAST_90_DAYS,
-	POSITIONS
-} from 'shared/util/constants';
+import {ALIGNMENTS_MAP, LAST_30_DAYS, POSITIONS} from 'shared/util/constants';
 import {flow, get, isFinite, isNil, isString, toLower, trim} from 'lodash';
 import {RangeSelectors, SafeRangeSelectors} from 'shared/types';
 
@@ -192,52 +187,6 @@ export const getAlignPosition = (source, target, suggestedPosition) => {
 	);
 
 	return POSITIONS[position];
-};
-
-/**
- * Get Range Key
- * @param {string} timeRange
- */
-export const getRangeKeyFromTimeRange = timeRange => {
-	if (!timeRange || timeRange.length === 0) {
-		return {
-			defaultValue: LAST_30_DAYS,
-			lastValue: LAST_90_DAYS
-		};
-	}
-
-	const timeRangeDefault = timeRange.filter(range => range.default);
-	const {
-		[0]: {rangeKey: defaultValue}
-	} = timeRangeDefault;
-
-	const timeRangeSorted = timeRange
-		.map(timeRange => timeRange)
-		.sort((a, b) => a.rangeKey - b.rangeKey);
-	const {
-		[timeRange.length - 1]: {rangeKey: lastValue = ''}
-	} = timeRangeSorted;
-
-	return {
-		defaultValue: `${defaultValue}`,
-		lastValue: `${lastValue}`
-	};
-};
-
-/**
- * Get the RangeKey from the context object.
- * @param {object} context
- * @param {object} context.rangeKey
- * @param {object} context.router
- * @returns {string} rangeKey
- */
-export const getRangeKeyFromContext = ({
-	rangeKey: {defaultValue},
-	router: {query}
-}): string => {
-	const {rangeKey = defaultValue} = query;
-
-	return rangeKey;
 };
 
 /**
