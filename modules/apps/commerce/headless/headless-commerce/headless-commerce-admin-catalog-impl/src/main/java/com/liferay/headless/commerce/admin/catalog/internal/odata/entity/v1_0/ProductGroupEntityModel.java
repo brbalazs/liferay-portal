@@ -14,7 +14,6 @@
 
 package com.liferay.headless.commerce.admin.catalog.internal.odata.entity.v1_0;
 
-import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.odata.entity.StringEntityField;
@@ -31,8 +30,7 @@ public class ProductGroupEntityModel implements EntityModel {
 
 	public ProductGroupEntityModel() {
 		_entityFieldsMap = Stream.of(
-			new StringEntityField(
-				"title", locale -> Field.getSortableFieldName("title"))
+			new StringEntityField("title", locale -> "title")
 		).collect(
 			Collectors.toMap(EntityField::getName, Function.identity())
 		);
