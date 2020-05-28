@@ -66,7 +66,6 @@ export default configs => WrappedComponent => {
 
 		@autobind
 		handleRangeSelectorsChange(rangeSelectors) {
-			// TODO: rename method tho handleRangeSelectorsChange
 			const {history, onRangeSelectorsChange} = this.props;
 
 			const {rangeEnd, rangeKey, rangeStart} = rangeSelectors;

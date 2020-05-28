@@ -13,7 +13,6 @@ interface ICardWithRangeKeyProps extends React.HTMLAttributes<HTMLElement> {
 	rangeSelectors: RangeSelectors;
 }
 
-// TODO: Maybe rename this component?
 const CardWithRangeKey = compose(withRangeKey)(
 	({
 		children,

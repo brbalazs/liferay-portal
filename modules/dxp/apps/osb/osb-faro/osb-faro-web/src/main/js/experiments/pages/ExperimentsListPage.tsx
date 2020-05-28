@@ -27,10 +27,7 @@ interface IExperimentsListPage extends IBasePageContext {
 	};
 }
 
-const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
-	// TODO: Look to remove the BasePage.Context
-	router
-}) => {
+const ExperimentsListPage: React.FC<IExperimentsListPage> = ({router}) => {
 	const {channelId, groupId} = router.params;
 	const {query} = router.query;
 	const {variables} = getMapPropsToOptions(EXPERIMENT_LIST_QUERY)({
