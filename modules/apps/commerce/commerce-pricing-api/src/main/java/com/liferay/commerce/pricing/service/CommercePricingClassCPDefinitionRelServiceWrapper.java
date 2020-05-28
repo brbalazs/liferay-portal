@@ -50,6 +50,56 @@ public class CommercePricingClassCPDefinitionRelServiceWrapper
 	}
 
 	@Override
+	public
+		com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel
+				deleteCommercePricingClassCPDefinitionRel(
+					com.liferay.commerce.pricing.model.
+						CommercePricingClassCPDefinitionRel
+							commercePricingClassCPDefinitionRel)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePricingClassCPDefinitionRelService.
+			deleteCommercePricingClassCPDefinitionRel(
+				commercePricingClassCPDefinitionRel);
+	}
+
+	@Override
+	public
+		com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel
+				deleteCommercePricingClassCPDefinitionRel(
+					long commercePricingClassCPDefinitionRelId)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePricingClassCPDefinitionRelService.
+			deleteCommercePricingClassCPDefinitionRel(
+				commercePricingClassCPDefinitionRelId);
+	}
+
+	@Override
+	public
+		com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel
+				fetchCommercePricingClassCPDefinitionRel(
+					long commercePricingClassId, long cpDefinitionId)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePricingClassCPDefinitionRelService.
+			fetchCommercePricingClassCPDefinitionRel(
+				commercePricingClassId, cpDefinitionId);
+	}
+
+	@Override
+	public
+		com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel
+				getCommercePricingClassCPDefinitionRel(
+					long commercePricingClassCPDefinitionRelId)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePricingClassCPDefinitionRelService.
+			getCommercePricingClassCPDefinitionRel(
+				commercePricingClassCPDefinitionRelId);
+	}
+
+	@Override
 	public java.util.List
 		<com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel>
 				getCommercePricingClassCPDefinitionRelByClassId(
@@ -58,6 +108,32 @@ public class CommercePricingClassCPDefinitionRelServiceWrapper
 
 		return _commercePricingClassCPDefinitionRelService.
 			getCommercePricingClassCPDefinitionRelByClassId(
+				commercePricingClassId);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel>
+				getCommercePricingClassCPDefinitionRels(
+					long commercePricingClassId, int start, int end,
+					com.liferay.portal.kernel.util.OrderByComparator
+						<com.liferay.commerce.pricing.model.
+							CommercePricingClassCPDefinitionRel>
+								orderByComparator)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePricingClassCPDefinitionRelService.
+			getCommercePricingClassCPDefinitionRels(
+				commercePricingClassId, start, end, orderByComparator);
+	}
+
+	@Override
+	public int getCommercePricingClassCPDefinitionRelsCount(
+			long commercePricingClassId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePricingClassCPDefinitionRelService.
+			getCommercePricingClassCPDefinitionRelsCount(
 				commercePricingClassId);
 	}
 

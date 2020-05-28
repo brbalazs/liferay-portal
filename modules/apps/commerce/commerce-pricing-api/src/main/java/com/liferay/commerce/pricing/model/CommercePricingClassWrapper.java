@@ -162,6 +162,11 @@ public class CommercePricingClassWrapper
 		return _commercePricingClass.compareTo(commercePricingClass);
 	}
 
+	@Override
+	public String[] getAvailableLanguageIds() {
+		return _commercePricingClass.getAvailableLanguageIds();
+	}
+
 	/**
 	 * Returns the commerce pricing class ID of this commerce pricing class.
 	 *
@@ -192,6 +197,11 @@ public class CommercePricingClassWrapper
 		return _commercePricingClass.getCreateDate();
 	}
 
+	@Override
+	public String getDefaultLanguageId() {
+		return _commercePricingClass.getDefaultLanguageId();
+	}
+
 	/**
 	 * Returns the description of this commerce pricing class.
 	 *
@@ -200,6 +210,72 @@ public class CommercePricingClassWrapper
 	@Override
 	public String getDescription() {
 		return _commercePricingClass.getDescription();
+	}
+
+	/**
+	 * Returns the localized description of this commerce pricing class in the language. Uses the default language if no localization exists for the requested language.
+	 *
+	 * @param locale the locale of the language
+	 * @return the localized description of this commerce pricing class
+	 */
+	@Override
+	public String getDescription(java.util.Locale locale) {
+		return _commercePricingClass.getDescription(locale);
+	}
+
+	/**
+	 * Returns the localized description of this commerce pricing class in the language, optionally using the default language if no localization exists for the requested language.
+	 *
+	 * @param locale the local of the language
+	 * @param useDefault whether to use the default language if no localization exists for the requested language
+	 * @return the localized description of this commerce pricing class. If <code>useDefault</code> is <code>false</code> and no localization exists for the requested language, an empty string will be returned.
+	 */
+	@Override
+	public String getDescription(java.util.Locale locale, boolean useDefault) {
+		return _commercePricingClass.getDescription(locale, useDefault);
+	}
+
+	/**
+	 * Returns the localized description of this commerce pricing class in the language. Uses the default language if no localization exists for the requested language.
+	 *
+	 * @param languageId the ID of the language
+	 * @return the localized description of this commerce pricing class
+	 */
+	@Override
+	public String getDescription(String languageId) {
+		return _commercePricingClass.getDescription(languageId);
+	}
+
+	/**
+	 * Returns the localized description of this commerce pricing class in the language, optionally using the default language if no localization exists for the requested language.
+	 *
+	 * @param languageId the ID of the language
+	 * @param useDefault whether to use the default language if no localization exists for the requested language
+	 * @return the localized description of this commerce pricing class
+	 */
+	@Override
+	public String getDescription(String languageId, boolean useDefault) {
+		return _commercePricingClass.getDescription(languageId, useDefault);
+	}
+
+	@Override
+	public String getDescriptionCurrentLanguageId() {
+		return _commercePricingClass.getDescriptionCurrentLanguageId();
+	}
+
+	@Override
+	public String getDescriptionCurrentValue() {
+		return _commercePricingClass.getDescriptionCurrentValue();
+	}
+
+	/**
+	 * Returns a map of the locales and localized descriptions of this commerce pricing class.
+	 *
+	 * @return the locales and localized descriptions of this commerce pricing class
+	 */
+	@Override
+	public Map<java.util.Locale, String> getDescriptionMap() {
+		return _commercePricingClass.getDescriptionMap();
 	}
 
 	@Override
@@ -273,6 +349,72 @@ public class CommercePricingClassWrapper
 	}
 
 	/**
+	 * Returns the localized title of this commerce pricing class in the language. Uses the default language if no localization exists for the requested language.
+	 *
+	 * @param locale the locale of the language
+	 * @return the localized title of this commerce pricing class
+	 */
+	@Override
+	public String getTitle(java.util.Locale locale) {
+		return _commercePricingClass.getTitle(locale);
+	}
+
+	/**
+	 * Returns the localized title of this commerce pricing class in the language, optionally using the default language if no localization exists for the requested language.
+	 *
+	 * @param locale the local of the language
+	 * @param useDefault whether to use the default language if no localization exists for the requested language
+	 * @return the localized title of this commerce pricing class. If <code>useDefault</code> is <code>false</code> and no localization exists for the requested language, an empty string will be returned.
+	 */
+	@Override
+	public String getTitle(java.util.Locale locale, boolean useDefault) {
+		return _commercePricingClass.getTitle(locale, useDefault);
+	}
+
+	/**
+	 * Returns the localized title of this commerce pricing class in the language. Uses the default language if no localization exists for the requested language.
+	 *
+	 * @param languageId the ID of the language
+	 * @return the localized title of this commerce pricing class
+	 */
+	@Override
+	public String getTitle(String languageId) {
+		return _commercePricingClass.getTitle(languageId);
+	}
+
+	/**
+	 * Returns the localized title of this commerce pricing class in the language, optionally using the default language if no localization exists for the requested language.
+	 *
+	 * @param languageId the ID of the language
+	 * @param useDefault whether to use the default language if no localization exists for the requested language
+	 * @return the localized title of this commerce pricing class
+	 */
+	@Override
+	public String getTitle(String languageId, boolean useDefault) {
+		return _commercePricingClass.getTitle(languageId, useDefault);
+	}
+
+	@Override
+	public String getTitleCurrentLanguageId() {
+		return _commercePricingClass.getTitleCurrentLanguageId();
+	}
+
+	@Override
+	public String getTitleCurrentValue() {
+		return _commercePricingClass.getTitleCurrentValue();
+	}
+
+	/**
+	 * Returns a map of the locales and localized titles of this commerce pricing class.
+	 *
+	 * @return the locales and localized titles of this commerce pricing class
+	 */
+	@Override
+	public Map<java.util.Locale, String> getTitleMap() {
+		return _commercePricingClass.getTitleMap();
+	}
+
+	/**
 	 * Returns the user ID of this commerce pricing class.
 	 *
 	 * @return the user ID of this commerce pricing class
@@ -338,6 +480,22 @@ public class CommercePricingClassWrapper
 	}
 
 	@Override
+	public void prepareLocalizedFieldsForImport()
+		throws com.liferay.portal.kernel.exception.LocaleException {
+
+		_commercePricingClass.prepareLocalizedFieldsForImport();
+	}
+
+	@Override
+	public void prepareLocalizedFieldsForImport(
+			java.util.Locale defaultImportLocale)
+		throws com.liferay.portal.kernel.exception.LocaleException {
+
+		_commercePricingClass.prepareLocalizedFieldsForImport(
+			defaultImportLocale);
+	}
+
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_commercePricingClass.setCachedModel(cachedModel);
 	}
@@ -380,6 +538,64 @@ public class CommercePricingClassWrapper
 	@Override
 	public void setDescription(String description) {
 		_commercePricingClass.setDescription(description);
+	}
+
+	/**
+	 * Sets the localized description of this commerce pricing class in the language.
+	 *
+	 * @param description the localized description of this commerce pricing class
+	 * @param locale the locale of the language
+	 */
+	@Override
+	public void setDescription(String description, java.util.Locale locale) {
+		_commercePricingClass.setDescription(description, locale);
+	}
+
+	/**
+	 * Sets the localized description of this commerce pricing class in the language, and sets the default locale.
+	 *
+	 * @param description the localized description of this commerce pricing class
+	 * @param locale the locale of the language
+	 * @param defaultLocale the default locale
+	 */
+	@Override
+	public void setDescription(
+		String description, java.util.Locale locale,
+		java.util.Locale defaultLocale) {
+
+		_commercePricingClass.setDescription(
+			description, locale, defaultLocale);
+	}
+
+	@Override
+	public void setDescriptionCurrentLanguageId(String languageId) {
+		_commercePricingClass.setDescriptionCurrentLanguageId(languageId);
+	}
+
+	/**
+	 * Sets the localized descriptions of this commerce pricing class from the map of locales and localized descriptions.
+	 *
+	 * @param descriptionMap the locales and localized descriptions of this commerce pricing class
+	 */
+	@Override
+	public void setDescriptionMap(
+		Map<java.util.Locale, String> descriptionMap) {
+
+		_commercePricingClass.setDescriptionMap(descriptionMap);
+	}
+
+	/**
+	 * Sets the localized descriptions of this commerce pricing class from the map of locales and localized descriptions, and sets the default locale.
+	 *
+	 * @param descriptionMap the locales and localized descriptions of this commerce pricing class
+	 * @param defaultLocale the default locale
+	 */
+	@Override
+	public void setDescriptionMap(
+		Map<java.util.Locale, String> descriptionMap,
+		java.util.Locale defaultLocale) {
+
+		_commercePricingClass.setDescriptionMap(descriptionMap, defaultLocale);
 	}
 
 	@Override
@@ -467,6 +683,60 @@ public class CommercePricingClassWrapper
 	@Override
 	public void setTitle(String title) {
 		_commercePricingClass.setTitle(title);
+	}
+
+	/**
+	 * Sets the localized title of this commerce pricing class in the language.
+	 *
+	 * @param title the localized title of this commerce pricing class
+	 * @param locale the locale of the language
+	 */
+	@Override
+	public void setTitle(String title, java.util.Locale locale) {
+		_commercePricingClass.setTitle(title, locale);
+	}
+
+	/**
+	 * Sets the localized title of this commerce pricing class in the language, and sets the default locale.
+	 *
+	 * @param title the localized title of this commerce pricing class
+	 * @param locale the locale of the language
+	 * @param defaultLocale the default locale
+	 */
+	@Override
+	public void setTitle(
+		String title, java.util.Locale locale, java.util.Locale defaultLocale) {
+
+		_commercePricingClass.setTitle(title, locale, defaultLocale);
+	}
+
+	@Override
+	public void setTitleCurrentLanguageId(String languageId) {
+		_commercePricingClass.setTitleCurrentLanguageId(languageId);
+	}
+
+	/**
+	 * Sets the localized titles of this commerce pricing class from the map of locales and localized titles.
+	 *
+	 * @param titleMap the locales and localized titles of this commerce pricing class
+	 */
+	@Override
+	public void setTitleMap(Map<java.util.Locale, String> titleMap) {
+		_commercePricingClass.setTitleMap(titleMap);
+	}
+
+	/**
+	 * Sets the localized titles of this commerce pricing class from the map of locales and localized titles, and sets the default locale.
+	 *
+	 * @param titleMap the locales and localized titles of this commerce pricing class
+	 * @param defaultLocale the default locale
+	 */
+	@Override
+	public void setTitleMap(
+		Map<java.util.Locale, String> titleMap,
+		java.util.Locale defaultLocale) {
+
+		_commercePricingClass.setTitleMap(titleMap, defaultLocale);
 	}
 
 	/**

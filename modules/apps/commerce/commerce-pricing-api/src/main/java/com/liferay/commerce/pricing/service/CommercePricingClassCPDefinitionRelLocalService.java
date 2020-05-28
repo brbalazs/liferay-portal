@@ -201,6 +201,11 @@ public interface CommercePricingClassCPDefinitionRelLocalService
 			long CommercePricingClassCPDefinitionRelId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommercePricingClassCPDefinitionRel
+		fetchCommercePricingClassCPDefinitionRel(
+			long commercePricingClassId, long cpDefinitionId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

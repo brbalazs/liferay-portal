@@ -231,6 +231,15 @@ public class CommercePricingClassCPDefinitionRelLocalServiceUtil {
 			CommercePricingClassCPDefinitionRelId);
 	}
 
+	public static
+		com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel
+			fetchCommercePricingClassCPDefinitionRel(
+				long commercePricingClassId, long cpDefinitionId) {
+
+		return getService().fetchCommercePricingClassCPDefinitionRel(
+			commercePricingClassId, cpDefinitionId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

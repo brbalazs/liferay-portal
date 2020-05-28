@@ -52,12 +52,40 @@ public class CommercePricingClassLocalServiceWrapper
 	@Override
 	public com.liferay.commerce.pricing.model.CommercePricingClass
 			addCommercePricingClass(
+				long userId, long groupId,
+				java.util.Map<java.util.Locale, String> titleMap,
+				java.util.Map<java.util.Locale, String> descriptionMap,
+				String externalReferenceCode,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePricingClassLocalService.addCommercePricingClass(
+			userId, groupId, titleMap, descriptionMap, externalReferenceCode,
+			serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.pricing.model.CommercePricingClass
+			addCommercePricingClass(
 				long userId, long groupId, String title, String description,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commercePricingClassLocalService.addCommercePricingClass(
 			userId, groupId, title, description, serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.pricing.model.CommercePricingClass
+			addCommercePricingClass(
+				long userId, long groupId, String title, String description,
+				String externalReferenceCode,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePricingClassLocalService.addCommercePricingClass(
+			userId, groupId, title, description, externalReferenceCode,
+			serviceContext);
 	}
 
 	/**
@@ -466,6 +494,20 @@ public class CommercePricingClassLocalServiceWrapper
 	public com.liferay.commerce.pricing.model.CommercePricingClass
 			updateCommercePricingClass(
 				long commercePricingClassId, long userId, long groupId,
+				java.util.Map<java.util.Locale, String> titleMap,
+				java.util.Map<java.util.Locale, String> descriptionMap,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePricingClassLocalService.updateCommercePricingClass(
+			commercePricingClassId, userId, groupId, titleMap, descriptionMap,
+			serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.pricing.model.CommercePricingClass
+			updateCommercePricingClass(
+				long commercePricingClassId, long userId, long groupId,
 				String title, String description,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -473,6 +515,21 @@ public class CommercePricingClassLocalServiceWrapper
 		return _commercePricingClassLocalService.updateCommercePricingClass(
 			commercePricingClassId, userId, groupId, title, description,
 			serviceContext);
+	}
+
+	@Override
+	public com.liferay.commerce.pricing.model.CommercePricingClass
+			upsertCommercePricingClass(
+				long commercePricingClassId, long userId, long groupId,
+				java.util.Map<java.util.Locale, String> titleMap,
+				java.util.Map<java.util.Locale, String> descriptionMap,
+				String externalReferenceCode,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePricingClassLocalService.upsertCommercePricingClass(
+			commercePricingClassId, userId, groupId, titleMap, descriptionMap,
+			externalReferenceCode, serviceContext);
 	}
 
 	@Override

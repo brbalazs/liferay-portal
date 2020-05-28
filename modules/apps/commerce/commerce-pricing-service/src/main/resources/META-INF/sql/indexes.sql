@@ -1,5 +1,5 @@
 create index IX_31653559 on CPricingClassCPDefinitionRel (CPDefinitionId);
-create index IX_DF602906 on CPricingClassCPDefinitionRel (commercePricingClassId);
+create unique index IX_AC54AA95 on CPricingClassCPDefinitionRel (commercePricingClassId, CPDefinitionId);
 
 create index IX_176CA5EC on CommercePriceModifier (commercePriceListId);
 create index IX_335B7FE0 on CommercePriceModifier (companyId, externalReferenceCode[$COLUMN_LENGTH:75$]);

@@ -144,6 +144,13 @@ public class CommercePricingClassCPDefinitionRelWrapper
 			commercePricingClassCPDefinitionRel);
 	}
 
+	@Override
+	public CommercePricingClass getCommercePricingClass()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePricingClassCPDefinitionRel.getCommercePricingClass();
+	}
+
 	/**
 	 * Returns the commerce pricing class cp definition rel ID of this commerce pricing class cp definition rel.
 	 *

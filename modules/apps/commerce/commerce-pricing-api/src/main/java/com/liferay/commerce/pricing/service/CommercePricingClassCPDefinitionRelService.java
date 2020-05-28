@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.util.List;
 
@@ -67,10 +68,46 @@ public interface CommercePricingClassCPDefinitionRelService
 				ServiceContext serviceContext)
 		throws PortalException;
 
+	public CommercePricingClassCPDefinitionRel
+			deleteCommercePricingClassCPDefinitionRel(
+				CommercePricingClassCPDefinitionRel
+					commercePricingClassCPDefinitionRel)
+		throws PortalException;
+
+	public CommercePricingClassCPDefinitionRel
+			deleteCommercePricingClassCPDefinitionRel(
+				long commercePricingClassCPDefinitionRelId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommercePricingClassCPDefinitionRel
+			fetchCommercePricingClassCPDefinitionRel(
+				long commercePricingClassId, long cpDefinitionId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommercePricingClassCPDefinitionRel
+			getCommercePricingClassCPDefinitionRel(
+				long commercePricingClassCPDefinitionRelId)
+		throws PortalException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePricingClassCPDefinitionRel>
 			getCommercePricingClassCPDefinitionRelByClassId(
 				long commercePricingClassId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePricingClassCPDefinitionRel>
+			getCommercePricingClassCPDefinitionRels(
+				long commercePricingClassId, int start, int end,
+				OrderByComparator<CommercePricingClassCPDefinitionRel>
+					orderByComparator)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePricingClassCPDefinitionRelsCount(
+			long commercePricingClassId)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

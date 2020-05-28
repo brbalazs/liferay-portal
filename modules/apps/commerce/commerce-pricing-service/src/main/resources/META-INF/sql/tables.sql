@@ -57,7 +57,7 @@ create table CommercePricingClass (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	title VARCHAR(75) null,
-	description VARCHAR(75) null,
+	title STRING null,
+	description STRING null,
 	lastPublishDate DATE null
 );

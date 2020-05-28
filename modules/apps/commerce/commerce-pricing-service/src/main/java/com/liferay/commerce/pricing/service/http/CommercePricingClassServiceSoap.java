@@ -17,8 +17,12 @@ package com.liferay.commerce.pricing.service.http;
 import com.liferay.commerce.pricing.service.CommercePricingClassServiceUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.LocalizationUtil;
 
 import java.rmi.RemoteException;
+
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Provides the SOAP utility for the
@@ -72,6 +76,37 @@ public class CommercePricingClassServiceSoap {
 				returnValue =
 					CommercePricingClassServiceUtil.addCommercePricingClass(
 						userId, groupId, title, description, serviceContext);
+
+			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
+			addCommercePricingClass(
+				long userId, long groupId, String[] titleMapLanguageIds,
+				String[] titleMapValues, String[] descriptionMapLanguageIds,
+				String[] descriptionMapValues,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+
+		try {
+			Map<Locale, String> titleMap = LocalizationUtil.getLocalizationMap(
+				titleMapLanguageIds, titleMapValues);
+			Map<Locale, String> descriptionMap =
+				LocalizationUtil.getLocalizationMap(
+					descriptionMapLanguageIds, descriptionMapValues);
+
+			com.liferay.commerce.pricing.model.CommercePricingClass
+				returnValue =
+					CommercePricingClassServiceUtil.addCommercePricingClass(
+						userId, groupId, titleMap, descriptionMap,
+						serviceContext);
 
 			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
 				toSoapModel(returnValue);
@@ -211,6 +246,38 @@ public class CommercePricingClassServiceSoap {
 	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
 			updateCommercePricingClass(
 				long commercePricingClassId, long userId, long groupId,
+				String[] titleMapLanguageIds, String[] titleMapValues,
+				String[] descriptionMapLanguageIds,
+				String[] descriptionMapValues,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+
+		try {
+			Map<Locale, String> titleMap = LocalizationUtil.getLocalizationMap(
+				titleMapLanguageIds, titleMapValues);
+			Map<Locale, String> descriptionMap =
+				LocalizationUtil.getLocalizationMap(
+					descriptionMapLanguageIds, descriptionMapValues);
+
+			com.liferay.commerce.pricing.model.CommercePricingClass
+				returnValue =
+					CommercePricingClassServiceUtil.updateCommercePricingClass(
+						commercePricingClassId, userId, groupId, titleMap,
+						descriptionMap, serviceContext);
+
+			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
+			updateCommercePricingClass(
+				long commercePricingClassId, long userId, long groupId,
 				String title, String description,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
@@ -245,6 +312,38 @@ public class CommercePricingClassServiceSoap {
 					CommercePricingClassServiceUtil.upsertCommercePricingClass(
 						commercePricingClassId, userId, groupId, title,
 						description, externalReferenceCode, serviceContext);
+
+			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
+			upsertCommercePricingClass(
+				long commercePricingClassId, long userId, long groupId,
+				String[] titleMapLanguageIds, String[] titleMapValues,
+				String[] descriptionMapLanguageIds,
+				String[] descriptionMapValues, String externalReferenceCode,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+
+		try {
+			Map<Locale, String> titleMap = LocalizationUtil.getLocalizationMap(
+				titleMapLanguageIds, titleMapValues);
+			Map<Locale, String> descriptionMap =
+				LocalizationUtil.getLocalizationMap(
+					descriptionMapLanguageIds, descriptionMapValues);
+
+			com.liferay.commerce.pricing.model.CommercePricingClass
+				returnValue =
+					CommercePricingClassServiceUtil.upsertCommercePricingClass(
+						commercePricingClassId, userId, groupId, titleMap,
+						descriptionMap, externalReferenceCode, serviceContext);
 
 			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
 				toSoapModel(returnValue);

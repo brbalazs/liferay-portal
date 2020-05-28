@@ -39,6 +39,8 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Provides the local service interface for CommercePricingClass. Methods of this
@@ -74,9 +76,22 @@ public interface CommercePricingClassLocalService
 	public CommercePricingClass addCommercePricingClass(
 		CommercePricingClass commercePricingClass);
 
+	@Indexable(type = IndexableType.REINDEX)
+	public CommercePricingClass addCommercePricingClass(
+			long userId, long groupId, Map<Locale, String> titleMap,
+			Map<Locale, String> descriptionMap, String externalReferenceCode,
+			ServiceContext serviceContext)
+		throws PortalException;
+
 	public CommercePricingClass addCommercePricingClass(
 			long userId, long groupId, String title, String description,
 			ServiceContext serviceContext)
+		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CommercePricingClass addCommercePricingClass(
+			long userId, long groupId, String title, String description,
+			String externalReferenceCode, ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
@@ -341,9 +356,23 @@ public interface CommercePricingClassLocalService
 	public CommercePricingClass updateCommercePricingClass(
 		CommercePricingClass commercePricingClass);
 
+	@Indexable(type = IndexableType.REINDEX)
+	public CommercePricingClass updateCommercePricingClass(
+			long commercePricingClassId, long userId, long groupId,
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
+			ServiceContext serviceContext)
+		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
 	public CommercePricingClass updateCommercePricingClass(
 			long commercePricingClassId, long userId, long groupId,
 			String title, String description, ServiceContext serviceContext)
+		throws PortalException;
+
+	public CommercePricingClass upsertCommercePricingClass(
+			long commercePricingClassId, long userId, long groupId,
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
+			String externalReferenceCode, ServiceContext serviceContext)
 		throws PortalException;
 
 	public CommercePricingClass upsertCommercePricingClass(

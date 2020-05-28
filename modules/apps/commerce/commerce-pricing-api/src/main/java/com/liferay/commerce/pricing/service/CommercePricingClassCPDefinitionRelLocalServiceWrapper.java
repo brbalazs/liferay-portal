@@ -251,6 +251,17 @@ public class CommercePricingClassCPDefinitionRelLocalServiceWrapper
 	}
 
 	@Override
+	public
+		com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel
+			fetchCommercePricingClassCPDefinitionRel(
+				long commercePricingClassId, long cpDefinitionId) {
+
+		return _commercePricingClassCPDefinitionRelLocalService.
+			fetchCommercePricingClassCPDefinitionRel(
+				commercePricingClassId, cpDefinitionId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
