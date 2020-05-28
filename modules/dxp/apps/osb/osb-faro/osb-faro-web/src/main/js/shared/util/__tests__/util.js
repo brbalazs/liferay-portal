@@ -5,7 +5,9 @@ import {
 	getPercentage,
 	getRangeKeyFromContext,
 	getRangeKeyFromTimeRange,
+	getRangeSelectorsFromQuery,
 	getSafeDisplayValue,
+	getSafeRangeSelectors,
 	groupData,
 	isBlank,
 	isEllipisActive,
@@ -408,5 +410,37 @@ describe('util', () => {
 
 			expect(truncatedText).toEqual('this is a not truncate text');
 		});
+	});
+
+	describe('getRangeSelectorsFromQuery', () => {
+		it.each`
+			rangeEnd        | rangeKey    | rangeStart      | results
+			${''}           | ${'30'}     | ${''}           | ${{rangeEnd: '', rangeKey: '30', rangeStart: ''}}
+			${'null'}       | ${'90'}     | ${'null'}       | ${{rangeEnd: null, rangeKey: '90', rangeStart: null}}
+			${'2020-04-04'} | ${'CUSTOM'} | ${'2020-04-01'} | ${{rangeEnd: '2020-04-04', rangeKey: 'CUSTOM', rangeStart: '2020-04-01'}}
+		`(
+			'should convert $rangeEnd, $rangeKey, & $rangeStart to $results',
+			({rangeEnd, rangeKey, rangeStart, results}) => {
+				expect(
+					getRangeSelectorsFromQuery({rangeEnd, rangeKey, rangeStart})
+				).toMatchObject(results);
+			}
+		);
+	});
+
+	describe('getSafeRangeSelectors', () => {
+		it.each`
+			rangeEnd        | rangeKey    | rangeStart      | results
+			${''}           | ${'30'}     | ${''}           | ${{rangeEnd: null, rangeKey: 30, rangeStart: null}}
+			${null}         | ${'90'}     | ${null}         | ${{rangeEnd: null, rangeKey: 90, rangeStart: null}}
+			${'2020-04-04'} | ${'CUSTOM'} | ${'2020-04-01'} | ${{rangeEnd: '2020-04-04', rangeKey: null, rangeStart: '2020-04-01'}}
+		`(
+			'should convert $rangeEnd, $rangeKey, & $rangeStart to $results',
+			({rangeEnd, rangeKey, rangeStart, results}) => {
+				expect(
+					getSafeRangeSelectors({rangeEnd, rangeKey, rangeStart})
+				).toMatchObject(results);
+			}
+		);
 	});
 });

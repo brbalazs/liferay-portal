@@ -74,6 +74,12 @@ export type RangeSelectors = {
 	rangeStart: string;
 };
 
+export type SafeRangeSelectors = {
+	rangeEnd: string;
+	rangeKey: number;
+	rangeStart: string;
+};
+
 export interface RESTParams {
 	delta?: number;
 	groupId: string;

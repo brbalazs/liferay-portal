@@ -6,7 +6,7 @@ import {
 	POSITIONS
 } from 'shared/util/constants';
 import {flow, get, isFinite, isNil, isString, toLower, trim} from 'lodash';
-import {RangeSelectors} from 'shared/types';
+import {RangeSelectors, SafeRangeSelectors} from 'shared/types';
 
 /**
  * Check if the value is blank.
@@ -17,22 +17,26 @@ export const isBlank = (value: string | number): boolean =>
 	isNil(value) || (isString(value) && !value.length);
 
 export const getRangeSelectorsFromQuery = query => {
+	const rangeEnd = get(query, 'rangeEnd', '');
 	const rangeKey = get(query, 'rangeKey', LAST_30_DAYS);
+	const rangeStart = get(query, 'rangeStart', '');
 
 	return {
-		rangeEnd: get(query, 'rangeEnd', ''),
-		rangeKey: rangeKey === 'CUSTOM' ? null : rangeKey,
-		rangeStart: get(query, 'rangeStart', '')
+		rangeEnd: rangeEnd === 'null' ? null : rangeEnd,
+		rangeKey,
+		rangeStart: rangeStart === 'null' ? null : rangeStart
 	};
 };
 
-export const getSafeRangeSelectors = (rangeSelectors: RangeSelectors) => {
+export const getSafeRangeSelectors = (rangeSelectors: RangeSelectors): SafeRangeSelectors => {
+	const rangeEnd = get(rangeSelectors, 'rangeEnd', null);
 	const rangeKey = get(rangeSelectors, 'rangeKey', LAST_30_DAYS);
+	const rangeStart = get(rangeSelectors, 'rangeStart', null);
 
 	return {
-		rangeEnd: get(rangeSelectors, 'rangeEnd', null),
+		rangeEnd: rangeEnd || null,
 		rangeKey: rangeKey === 'CUSTOM' ? null : parseInt(rangeKey),
-		rangeStart: get(rangeSelectors, 'rangeStart', null)
+		rangeStart: rangeStart || null
 	};
 };
 
