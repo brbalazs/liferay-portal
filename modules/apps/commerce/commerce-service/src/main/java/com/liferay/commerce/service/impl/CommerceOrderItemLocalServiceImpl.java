@@ -257,7 +257,11 @@ public class CommerceOrderItemLocalServiceImpl
 				commerceOrderId, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
 		for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
-			_deleteCommerceOrderItem(commerceOrderItem);
+			if (commerceOrderItem.hasParentCommerceOrderItem()) {
+				continue;
+			}
+
+			deleteCommerceOrderItem(commerceOrderItem);
 		}
 	}
 
