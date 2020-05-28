@@ -6560,6 +6560,45 @@ go</echo>
 		<delete dir="/tmp/sprite" />
 	</target>
 
+	<target name="deploy-commerce-license-li">
+		<local name="start.date" />
+
+		<beanshell>
+			<![CDATA[
+				long startDate = new Date().getTime();
+
+				project.setProperty("start.date", Long.toString(startDate));
+			]]>
+		</beanshell>
+
+		<if>
+			<and>
+				<isset property="commerce.license.owner" />
+				<isset property="osb.api.token" />
+			</and>
+			<then>
+				<exec executable="curl" outputproperty="commerce.license">
+					<arg value="https://customer-uat.liferay.com/api/jsonws/osb-portlet.licensekey/generate-commerce-license-key?owner=${commerce.license.owner}&amp;startDate=${start.date}&amp;licenseLifetime=2592000000" />
+					<arg value="-H" />
+					<arg value="OSB_API_Token:${osb.api.token}" />
+				</exec>
+			</then>
+			<else>
+				<fail message="Commerce license credentials were not set." />
+			</else>
+		</if>
+
+		<propertyregex
+			input="${commerce.license}"
+			override="true"
+			property="commerce.license"
+			regexp="&quot;(.*?)&quot;"
+			select="\1"
+		/>
+
+		<echo file="${liferay.home}/data/license/LiferayCommerce_enterprise.li">${commerce.license}</echo>
+	</target>
+
 	<target name="deploy-dependency-jars">
 		<get-testcase-property property.name="liferay.training.dependency.jars" />
 
