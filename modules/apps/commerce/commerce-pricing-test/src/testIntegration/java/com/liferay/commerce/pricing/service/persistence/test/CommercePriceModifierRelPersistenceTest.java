@@ -201,20 +201,20 @@ public class CommercePriceModifierRelPersistenceTest {
 	}
 
 	@Test
+	public void testCountByCN_CPK() throws Exception {
+		_persistence.countByCN_CPK(
+			RandomTestUtil.nextLong(), RandomTestUtil.nextLong());
+
+		_persistence.countByCN_CPK(0L, 0L);
+	}
+
+	@Test
 	public void testCountByCPM_CN_CPK() throws Exception {
 		_persistence.countByCPM_CN_CPK(
 			RandomTestUtil.nextLong(), RandomTestUtil.nextLong(),
 			RandomTestUtil.nextLong());
 
 		_persistence.countByCPM_CN_CPK(0L, 0L, 0L);
-	}
-
-	@Test
-	public void testCountByCN_CPK() throws Exception {
-		_persistence.countByCN_CPK(
-			RandomTestUtil.nextLong(), RandomTestUtil.nextLong());
-
-		_persistence.countByCN_CPK(0L, 0L);
 	}
 
 	@Test
