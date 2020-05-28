@@ -116,6 +116,20 @@ public class ProductSerDes {
 			sb.append(product.getCatalogId());
 		}
 
+		if (product.getCatalogName() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"catalogName\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(product.getCatalogName()));
+
+			sb.append("\"");
+		}
+
 		if (product.getCategories() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -439,6 +453,20 @@ public class ProductSerDes {
 			sb.append(_toJSON(product.getShortDescription()));
 		}
 
+		if (product.getSku() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"sku\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(product.getSku()));
+
+			sb.append("\"");
+		}
+
 		if (product.getSkus() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -457,6 +485,20 @@ public class ProductSerDes {
 			}
 
 			sb.append("]");
+		}
+
+		if (product.getStatus() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"status\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(product.getStatus()));
+
+			sb.append("\"");
 		}
 
 		if (product.getSubscriptionConfiguration() != null) {
@@ -501,6 +543,20 @@ public class ProductSerDes {
 			sb.append("\"taxConfiguration\": ");
 
 			sb.append(String.valueOf(product.getTaxConfiguration()));
+		}
+
+		if (product.getThumbnail() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"thumbnail\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(product.getThumbnail()));
+
+			sb.append("\"");
 		}
 
 		if (product.getUrls() != null) {
@@ -560,6 +616,13 @@ public class ProductSerDes {
 		}
 		else {
 			map.put("catalogId", String.valueOf(product.getCatalogId()));
+		}
+
+		if (product.getCatalogName() == null) {
+			map.put("catalogName", null);
+		}
+		else {
+			map.put("catalogName", String.valueOf(product.getCatalogName()));
 		}
 
 		if (product.getCategories() == null) {
@@ -752,11 +815,25 @@ public class ProductSerDes {
 				String.valueOf(product.getShortDescription()));
 		}
 
+		if (product.getSku() == null) {
+			map.put("sku", null);
+		}
+		else {
+			map.put("sku", String.valueOf(product.getSku()));
+		}
+
 		if (product.getSkus() == null) {
 			map.put("skus", null);
 		}
 		else {
 			map.put("skus", String.valueOf(product.getSkus()));
+		}
+
+		if (product.getStatus() == null) {
+			map.put("status", null);
+		}
+		else {
+			map.put("status", String.valueOf(product.getStatus()));
 		}
 
 		if (product.getSubscriptionConfiguration() == null) {
@@ -782,6 +859,13 @@ public class ProductSerDes {
 			map.put(
 				"taxConfiguration",
 				String.valueOf(product.getTaxConfiguration()));
+		}
+
+		if (product.getThumbnail() == null) {
+			map.put("thumbnail", null);
+		}
+		else {
+			map.put("thumbnail", String.valueOf(product.getThumbnail()));
 		}
 
 		if (product.getUrls() == null) {
@@ -838,6 +922,11 @@ public class ProductSerDes {
 				if (jsonParserFieldValue != null) {
 					product.setCatalogId(
 						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "catalogName")) {
+				if (jsonParserFieldValue != null) {
+					product.setCatalogName((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "categories")) {
@@ -1018,6 +1107,11 @@ public class ProductSerDes {
 						(Map)ProductSerDes.toMap((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "sku")) {
+				if (jsonParserFieldValue != null) {
+					product.setSku((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "skus")) {
 				if (jsonParserFieldValue != null) {
 					product.setSkus(
@@ -1028,6 +1122,11 @@ public class ProductSerDes {
 						).toArray(
 							size -> new Sku[size]
 						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "status")) {
+				if (jsonParserFieldValue != null) {
+					product.setStatus((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(
@@ -1049,6 +1148,11 @@ public class ProductSerDes {
 					product.setTaxConfiguration(
 						ProductTaxConfigurationSerDes.toDTO(
 							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "thumbnail")) {
+				if (jsonParserFieldValue != null) {
+					product.setThumbnail((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "urls")) {

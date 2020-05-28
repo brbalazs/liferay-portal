@@ -119,6 +119,27 @@ public class Product implements Cloneable {
 
 	protected Long catalogId;
 
+	public String getCatalogName() {
+		return catalogName;
+	}
+
+	public void setCatalogName(String catalogName) {
+		this.catalogName = catalogName;
+	}
+
+	public void setCatalogName(
+		UnsafeSupplier<String, Exception> catalogNameUnsafeSupplier) {
+
+		try {
+			catalogName = catalogNameUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String catalogName;
+
 	public Category[] getCategories() {
 		return categories;
 	}
@@ -635,6 +656,25 @@ public class Product implements Cloneable {
 
 	protected Map<String, String> shortDescription;
 
+	public String getSku() {
+		return sku;
+	}
+
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
+
+	public void setSku(UnsafeSupplier<String, Exception> skuUnsafeSupplier) {
+		try {
+			sku = skuUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String sku;
+
 	public Sku[] getSkus() {
 		return skus;
 	}
@@ -653,6 +693,27 @@ public class Product implements Cloneable {
 	}
 
 	protected Sku[] skus;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setStatus(
+		UnsafeSupplier<String, Exception> statusUnsafeSupplier) {
+
+		try {
+			status = statusUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String status;
 
 	public ProductSubscriptionConfiguration getSubscriptionConfiguration() {
 		return subscriptionConfiguration;
@@ -721,6 +782,27 @@ public class Product implements Cloneable {
 	}
 
 	protected ProductTaxConfiguration taxConfiguration;
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	public void setThumbnail(
+		UnsafeSupplier<String, Exception> thumbnailUnsafeSupplier) {
+
+		try {
+			thumbnail = thumbnailUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String thumbnail;
 
 	public Map<String, String> getUrls() {
 		return urls;

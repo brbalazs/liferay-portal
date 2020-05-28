@@ -189,9 +189,13 @@ public abstract class BaseProductResourceTestCase {
 
 		Product product = randomProduct();
 
+		product.setCatalogName(regex);
 		product.setDefaultSku(regex);
 		product.setExternalReferenceCode(regex);
 		product.setProductType(regex);
+		product.setSku(regex);
+		product.setStatus(regex);
+		product.setThumbnail(regex);
 
 		String json = ProductSerDes.toJSON(product);
 
@@ -199,9 +203,13 @@ public abstract class BaseProductResourceTestCase {
 
 		product = ProductSerDes.toDTO(json);
 
+		Assert.assertEquals(regex, product.getCatalogName());
 		Assert.assertEquals(regex, product.getDefaultSku());
 		Assert.assertEquals(regex, product.getExternalReferenceCode());
 		Assert.assertEquals(regex, product.getProductType());
+		Assert.assertEquals(regex, product.getSku());
+		Assert.assertEquals(regex, product.getStatus());
+		Assert.assertEquals(regex, product.getThumbnail());
 	}
 
 	@Test
@@ -804,6 +812,14 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("catalogName", additionalAssertFieldName)) {
+				if (product.getCatalogName() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("categories", additionalAssertFieldName)) {
 				if (product.getCategories() == null) {
 					valid = false;
@@ -994,8 +1010,24 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("sku", additionalAssertFieldName)) {
+				if (product.getSku() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("skus", additionalAssertFieldName)) {
 				if (product.getSkus() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("status", additionalAssertFieldName)) {
+				if (product.getStatus() == null) {
 					valid = false;
 				}
 
@@ -1022,6 +1054,14 @@ public abstract class BaseProductResourceTestCase {
 
 			if (Objects.equals("taxConfiguration", additionalAssertFieldName)) {
 				if (product.getTaxConfiguration() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("thumbnail", additionalAssertFieldName)) {
+				if (product.getThumbnail() == null) {
 					valid = false;
 				}
 
@@ -1160,6 +1200,16 @@ public abstract class BaseProductResourceTestCase {
 			if (Objects.equals("catalogId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						product1.getCatalogId(), product2.getCatalogId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("catalogName", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						product1.getCatalogName(), product2.getCatalogName())) {
 
 					return false;
 				}
@@ -1423,9 +1473,27 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("sku", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(product1.getSku(), product2.getSku())) {
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("skus", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						product1.getSkus(), product2.getSkus())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("status", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						product1.getStatus(), product2.getStatus())) {
 
 					return false;
 				}
@@ -1460,6 +1528,16 @@ public abstract class BaseProductResourceTestCase {
 				if (!Objects.deepEquals(
 						product1.getTaxConfiguration(),
 						product2.getTaxConfiguration())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("thumbnail", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						product1.getThumbnail(), product2.getThumbnail())) {
 
 					return false;
 				}
@@ -1575,6 +1653,14 @@ public abstract class BaseProductResourceTestCase {
 		if (entityFieldName.equals("catalogId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("catalogName")) {
+			sb.append("'");
+			sb.append(String.valueOf(product.getCatalogName()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("categories")) {
@@ -1810,9 +1896,25 @@ public abstract class BaseProductResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("sku")) {
+			sb.append("'");
+			sb.append(String.valueOf(product.getSku()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("skus")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("status")) {
+			sb.append("'");
+			sb.append(String.valueOf(product.getStatus()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("subscriptionConfiguration")) {
@@ -1828,6 +1930,14 @@ public abstract class BaseProductResourceTestCase {
 		if (entityFieldName.equals("taxConfiguration")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("thumbnail")) {
+			sb.append("'");
+			sb.append(String.valueOf(product.getThumbnail()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("urls")) {
@@ -1881,6 +1991,8 @@ public abstract class BaseProductResourceTestCase {
 			{
 				active = RandomTestUtil.randomBoolean();
 				catalogId = RandomTestUtil.randomLong();
+				catalogName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				createDate = RandomTestUtil.nextDate();
 				defaultSku = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
@@ -1893,6 +2005,10 @@ public abstract class BaseProductResourceTestCase {
 				neverExpire = RandomTestUtil.randomBoolean();
 				productId = RandomTestUtil.randomLong();
 				productType = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				sku = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				status = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				thumbnail = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 			}
 		};

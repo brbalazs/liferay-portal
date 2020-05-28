@@ -178,6 +178,34 @@ public class Product {
 	protected Long catalogId;
 
 	@Schema
+	public String getCatalogName() {
+		return catalogName;
+	}
+
+	public void setCatalogName(String catalogName) {
+		this.catalogName = catalogName;
+	}
+
+	@JsonIgnore
+	public void setCatalogName(
+		UnsafeSupplier<String, Exception> catalogNameUnsafeSupplier) {
+
+		try {
+			catalogName = catalogNameUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String catalogName;
+
+	@Schema
 	@Valid
 	public Category[] getCategories() {
 		return categories;
@@ -879,6 +907,32 @@ public class Product {
 	protected Map<String, String> shortDescription;
 
 	@Schema
+	public String getSku() {
+		return sku;
+	}
+
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
+
+	@JsonIgnore
+	public void setSku(UnsafeSupplier<String, Exception> skuUnsafeSupplier) {
+		try {
+			sku = skuUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String sku;
+
+	@Schema
 	@Valid
 	public Sku[] getSkus() {
 		return skus;
@@ -904,6 +958,34 @@ public class Product {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Sku[] skus;
+
+	@Schema
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	@JsonIgnore
+	public void setStatus(
+		UnsafeSupplier<String, Exception> statusUnsafeSupplier) {
+
+		try {
+			status = statusUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String status;
 
 	@Schema
 	@Valid
@@ -995,6 +1077,34 @@ public class Product {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected ProductTaxConfiguration taxConfiguration;
+
+	@Schema
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	@JsonIgnore
+	public void setThumbnail(
+		UnsafeSupplier<String, Exception> thumbnailUnsafeSupplier) {
+
+		try {
+			thumbnail = thumbnailUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String thumbnail;
 
 	@Schema
 	@Valid
@@ -1103,6 +1213,20 @@ public class Product {
 			sb.append("\"catalogId\": ");
 
 			sb.append(catalogId);
+		}
+
+		if (catalogName != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"catalogName\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(catalogName));
+
+			sb.append("\"");
 		}
 
 		if (categories != null) {
@@ -1423,6 +1547,20 @@ public class Product {
 			sb.append(_toJSON(shortDescription));
 		}
 
+		if (sku != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"sku\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(sku));
+
+			sb.append("\"");
+		}
+
 		if (skus != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -1441,6 +1579,20 @@ public class Product {
 			}
 
 			sb.append("]");
+		}
+
+		if (status != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"status\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(status));
+
+			sb.append("\"");
 		}
 
 		if (subscriptionConfiguration != null) {
@@ -1485,6 +1637,20 @@ public class Product {
 			sb.append("\"taxConfiguration\": ");
 
 			sb.append(String.valueOf(taxConfiguration));
+		}
+
+		if (thumbnail != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"thumbnail\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(thumbnail));
+
+			sb.append("\"");
 		}
 
 		if (urls != null) {
