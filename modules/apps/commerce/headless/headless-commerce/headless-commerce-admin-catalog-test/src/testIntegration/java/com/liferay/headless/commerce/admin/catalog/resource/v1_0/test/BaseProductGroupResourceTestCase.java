@@ -502,11 +502,6 @@ public abstract class BaseProductGroupResourceTestCase {
 	}
 
 	@Test
-	public void testNullBatch() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
 	public void testDeleteProductGroupByExternalReferenceCode()
 		throws Exception {
 
