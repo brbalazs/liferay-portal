@@ -17,16 +17,25 @@ package com.liferay.headless.commerce.admin.catalog.internal.dto.v1_0.converter;
 import com.liferay.asset.kernel.model.AssetTag;
 import com.liferay.asset.kernel.service.AssetTagService;
 import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionService;
+import com.liferay.commerce.product.type.CPType;
+import com.liferay.commerce.product.type.CPTypeServicesTracker;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.language.LanguageResources;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
 import org.osgi.service.component.annotations.Component;
@@ -55,13 +64,27 @@ public class ProductDTOConverter
 
 		CProduct cProduct = cpDefinition.getCProduct();
 
+		CommerceCatalog commerceCatalog = cpDefinition.getCommerceCatalog();
+
 		ExpandoBridge expandoBridge = cpDefinition.getExpandoBridge();
+
+		Locale locale = dtoConverterContext.getLocale();
+
+		ResourceBundle resourceBundle = LanguageResources.getResourceBundle(
+			locale);
+
+		String productStatus = LanguageUtil.get(
+			resourceBundle,
+			WorkflowConstants.getStatusLabel(cpDefinition.getStatus()));
+
+		CPType cpType = _getCPType(cpDefinition.getProductTypeName());
 
 		return new Product() {
 			{
 				actions = dtoConverterContext.getActions();
 				active = !cpDefinition.isInactive();
 				catalogId = _getCommerceCatalogId(cpDefinition);
+				catalogName = commerceCatalog.getName();
 				createDate = cpDefinition.getCreateDate();
 				description = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getDescriptionMap());
@@ -80,10 +103,13 @@ public class ProductDTOConverter
 				name = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getNameMap());
 				productId = cpDefinition.getCPDefinitionId();
-				productType = cpDefinition.getProductTypeName();
+				productType = cpType.getLabel(locale);
 				shortDescription = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getShortDescriptionMap());
+				status = productStatus;
+				sku = _getSku(cpDefinition, locale);
 				tags = _getTags(cpDefinition);
+				thumbnail = cpDefinition.getDefaultImageThumbnailSrc();
 			}
 		};
 	}
@@ -96,6 +122,26 @@ public class ProductDTOConverter
 		}
 
 		return commerceCatalog.getCommerceCatalogId();
+	}
+
+	private CPType _getCPType(String name) {
+		return _cpTypeServicesTracker.getCPType(name);
+	}
+
+	private String _getSku(CPDefinition cpDefinition, Locale locale) {
+		List<CPInstance> cpInstances = cpDefinition.getCPInstances();
+
+		if (cpInstances.isEmpty()) {
+			return StringPool.BLANK;
+		}
+
+		if (cpInstances.size() > 1) {
+			return LanguageUtil.get(locale, "multiple-skus");
+		}
+
+		CPInstance cpInstance = cpInstances.get(0);
+
+		return cpInstance.getSku();
 	}
 
 	private String[] _getTags(CPDefinition cpDefinition) {
@@ -116,5 +162,8 @@ public class ProductDTOConverter
 
 	@Reference
 	private CPDefinitionService _cpDefinitionService;
+
+	@Reference
+	private CPTypeServicesTracker _cpTypeServicesTracker;
 
 }
