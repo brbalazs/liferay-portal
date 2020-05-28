@@ -78,7 +78,11 @@ const VisitorsByTimeCard: React.FC<IVisitorsByTimeCardProps> = ({
 	>);
 
 	return (
-		<CardWithRangeKey className={className} label={label}>
+		<CardWithRangeKey
+			className={className}
+			label={label}
+			legacyDropdownRangeKey={false}
+		>
 			{({rangeSelectors}) => (
 				<Card.Body>
 					<HeatmapChartWithData

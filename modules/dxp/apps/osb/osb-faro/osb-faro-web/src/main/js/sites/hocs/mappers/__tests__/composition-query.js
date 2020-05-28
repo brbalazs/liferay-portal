@@ -19,6 +19,9 @@ const mockData = {
 };
 
 const mockProps = {
+	rangeSelectors: {
+		rangeKey: '90'
+	},
 	router: {
 		query: {
 			delta: '5',
@@ -59,8 +62,11 @@ describe('Composition Query Mapper', () => {
 			).toEqual(
 				expect.objectContaining({
 					variables: {
+						activeTabId: undefined,
 						channelId,
+						rangeEnd: null,
 						rangeKey: parseInt(rangeKey),
+						rangeStart: null,
 						size: 5,
 						start: 0
 					}
@@ -78,7 +84,10 @@ describe('Composition Query Mapper', () => {
 			expect(mapPropsToOptions(mockProps)).toEqual(
 				expect.objectContaining({
 					variables: {
+						channelId: undefined,
+						rangeEnd: null,
 						rangeKey: parseInt(rangeKey),
+						rangeStart: null,
 						size: parseInt(delta),
 						start: 5
 					}

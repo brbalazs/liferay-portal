@@ -42,8 +42,7 @@ const getTableMapper = getItems => {
 
 		return {
 			variables: {
-				channelId: variables.channelId,
-				rangeKey: variables.rangeKey,
+				...variables,
 				sort: {
 					column: activeTabConfig.orderByField,
 					type: orderDescending.toUpperCase()

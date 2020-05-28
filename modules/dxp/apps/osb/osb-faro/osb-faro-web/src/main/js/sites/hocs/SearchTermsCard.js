@@ -46,6 +46,7 @@ const SearchTermsCard = props => {
 		<CardWithRangeKey
 			className='search-terms-card-root'
 			label={Liferay.Language.get('search-terms')}
+			legacyDropdownRangeKey={false}
 		>
 			{({rangeSelectors}) => (
 				<TableWithData

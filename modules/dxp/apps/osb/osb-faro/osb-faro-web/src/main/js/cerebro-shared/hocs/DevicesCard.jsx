@@ -110,7 +110,12 @@ const withDevicesCard = withDevices => {
 		metricLabel: PropTypes.string
 	};
 
-	const DevicesCard = ({className, label, metricLabel}) => {
+	const DevicesCard = ({
+		className,
+		label,
+		legacyDropdownRangeKey,
+		metricLabel
+	}) => {
 		const [activeTab, setActiveTab] = useState(OPERATING_SYSTEM);
 
 		const handleActiveTabChange = useCallback(
@@ -119,7 +124,12 @@ const withDevicesCard = withDevices => {
 		);
 
 		return (
-			<BaseCard className={className} label={label} minHeight={536}>
+			<BaseCard
+				className={className}
+				label={label}
+				legacyDropdownRangeKey={legacyDropdownRangeKey}
+				minHeight={536}
+			>
 				{({filters, rangeSelectors, router}) => (
 					<Card.Body>
 						<TabsWithDevices

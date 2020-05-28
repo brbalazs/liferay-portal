@@ -23,7 +23,9 @@ export const getRangeSelectorsFromQuery = query => {
 	};
 };
 
-export const getSafeRangeSelectors = (rangeSelectors: RangeSelectors): SafeRangeSelectors => {
+export const getSafeRangeSelectors = (
+	rangeSelectors: RangeSelectors
+): SafeRangeSelectors => {
 	const rangeEnd = get(rangeSelectors, 'rangeEnd', null);
 	const rangeKey = get(rangeSelectors, 'rangeKey', LAST_30_DAYS);
 	const rangeStart = get(rangeSelectors, 'rangeStart', null);

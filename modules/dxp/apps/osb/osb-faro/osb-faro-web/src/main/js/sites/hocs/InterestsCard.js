@@ -54,6 +54,7 @@ const InterestsCard = props => {
 		<CardWithRangeKey
 			className='interests-card-root'
 			label={Liferay.Language.get('interests')}
+			legacyDropdownRangeKey={false}
 		>
 			{({rangeSelectors}) => (
 				<>

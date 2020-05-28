@@ -53,6 +53,7 @@ export default class Overview extends React.Component<IOverviewProps> {
 							})}
 							footerLabel={Liferay.Language.get('view-pages')}
 							label={Liferay.Language.get('top-pages')}
+							legacyDropdownRangeKey={false}
 							metricLabel={Liferay.Language.get('pages')}
 						/>
 					</div>
@@ -61,6 +62,7 @@ export default class Overview extends React.Component<IOverviewProps> {
 						<AcquisitionsCard
 							className='acquisitions-card-root table-tabs-root'
 							label={Liferay.Language.get('acquisitions')}
+							legacyDropdownRangeKey={false}
 						/>
 					</div>
 				</div>
@@ -88,6 +90,7 @@ export default class Overview extends React.Component<IOverviewProps> {
 					<div className='col-xl-6'>
 						<LocationsCard
 							label={Liferay.Language.get('sessions-by-location')}
+							legacyDropdownRangeKey={false}
 							metricLabel={Liferay.Language.get('sessions')}
 						/>
 					</div>
@@ -95,6 +98,7 @@ export default class Overview extends React.Component<IOverviewProps> {
 					<div className='col-xl-6'>
 						<DevicesCard
 							label={Liferay.Language.get('session-technology')}
+							legacyDropdownRangeKey={false}
 							metricLabel={Liferay.Language.get('sessions')}
 						/>
 					</div>

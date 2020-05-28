@@ -47,8 +47,18 @@ const withLocationsCard = (withLocations, withCountries) => {
 		metricLabel: PropTypes.string
 	};
 
-	const LocationsCard = ({className, label, metricLabel}) => (
-		<BaseCard className={className} label={label} minHeight={536}>
+	const LocationsCard = ({
+		className,
+		label,
+		legacyDropdownRangeKey,
+		metricLabel
+	}) => (
+		<BaseCard
+			className={className}
+			label={label}
+			legacyDropdownRangeKey={legacyDropdownRangeKey}
+			minHeight={536}
+		>
 			{({filters, rangeSelectors, router}) => (
 				<Card.Body>
 					<LocationsGeoMap

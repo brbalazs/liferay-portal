@@ -5,14 +5,18 @@ export default gql`
 	query Acquisitions(
 		$activeTabId: AcquisitionType!
 		$channelId: String
-		$rangeKey: Int!
+		$rangeEnd: String
+		$rangeKey: Int
+		$rangeStart: String
 		$size: Int!
 		$start: Int!
 	) {
 		acquisitions(
 			acquisitionType: $activeTabId
 			channelId: $channelId
+			rangeEnd: $rangeEnd
 			rangeKey: $rangeKey
+			rangeStart: $rangeStart
 			size: $size
 			start: $start
 		) {

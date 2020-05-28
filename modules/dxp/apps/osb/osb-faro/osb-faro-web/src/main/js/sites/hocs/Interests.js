@@ -34,7 +34,7 @@ const withData = () =>
 const TableWithData = withTableData(withData, {
 	getColumns: ({
 		maxCount,
-		rangeKey,
+		rangeSelectors,
 		router: {
 			params: {channelId, groupId}
 		},
@@ -45,7 +45,7 @@ const TableWithData = withTableData(withData, {
 			routeFn: ({data: {name}}) =>
 				name &&
 				setUriQueryValues(
-					pickBy({rangeKey}),
+					pickBy({rangeKey: rangeSelectors.rangeKey}),
 					toRoute(Routes.SITES_INTEREST_DETAILS, {
 						channelId,
 						groupId,
@@ -98,6 +98,7 @@ const Interests = ({history, router}) => {
 				)}
 
 				<DropdownRangeKey
+					legacy={false}
 					onChange={handleRangeKeyValueChange}
 					rangeSelectors={rangeSelectors}
 				/>

@@ -60,6 +60,7 @@ const TableWithData = withRangeKey(
 			metricsListColumns.entrancesMetric,
 			metricsListColumns.exitRateMetric
 		],
+		legacyDropdownRangeKey: false,
 		rowIdentifier: 'assetId',
 		showRangeKeyDropdown: true
 	})
