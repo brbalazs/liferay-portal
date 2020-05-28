@@ -475,6 +475,10 @@ public abstract class BaseCommerceOrderPriceCalculation
 	private BigDecimal _getDiscountPercentage(
 		BigDecimal amount, BigDecimal discount, RoundingMode roundingMode) {
 
+		if ((amount == null) || (amount.compareTo(BigDecimal.ZERO) == 0)) {
+			return BigDecimal.ZERO;
+		}
+
 		BigDecimal discountedAmount = amount.subtract(discount);
 
 		double percentage =
