@@ -1297,7 +1297,7 @@ public class CommerceProductPriceCalculationTest {
 			bundleCPDefinition.getCPDefinitionId(), 0,
 			requiredCPOption.getCPOptionId(),
 			CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC,
-			BigDecimal.valueOf(50), 1, false, true, _serviceContext);
+			BigDecimal.valueOf(50), 1, false, false, _serviceContext);
 
 		CPOption nonRequiredCPOption = CPTestUtil.addCPOption(
 			_commerceCatalog.getGroupId(),
