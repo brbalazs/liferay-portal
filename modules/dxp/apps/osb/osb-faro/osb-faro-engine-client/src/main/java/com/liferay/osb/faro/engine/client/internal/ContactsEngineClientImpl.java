@@ -2407,12 +2407,11 @@ public class ContactsEngineClientImpl
 
 		FilterBuilder filterBuilder = new FilterBuilder();
 
-		filterBuilder.addFilter(
-			"name", FilterConstants.STRING_FUNCTION_STARTS_WITH, "Account:",
-			true, true);
-
 		filterBuilder.addNullFilter(
 			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS);
+		filterBuilder.addFilter(
+			"status", FilterConstants.COMPARISON_OPERATOR_EQUALS,
+			IndividualSegment.Status.ACTIVE.name());
 
 		uriVariables.put("filter", filterBuilder.build());
 
