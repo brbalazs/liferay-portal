@@ -179,9 +179,10 @@ export class KnownIndividuals extends React.Component<
 
 	@autobind
 	getStaticIndividualSegments({cur, delta, orderBy, query}) {
-		const {groupId} = this.props;
+		const {channelId, groupId} = this.props;
 
 		return API.individualSegment.search({
+			channelId,
 			delta,
 			groupId,
 			orderByFields: [
