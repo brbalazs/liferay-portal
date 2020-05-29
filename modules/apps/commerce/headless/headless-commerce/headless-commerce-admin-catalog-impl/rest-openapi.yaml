@@ -587,7 +587,11 @@ components:
                     items:
                         $ref: "#/components/schemas/Sku"
                     type: array
-                status:
+                statusCode:
+                    format: int32
+                    readOnly: true
+                    type: integer
+                statusLabel:
                     example: simple
                     type: string
                 subscriptionConfiguration:
