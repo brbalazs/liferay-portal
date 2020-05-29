@@ -13,6 +13,6 @@ describe('UpgradeConnectionModal', () => {
 			<UpgradeConnectionModal groupId='123' id='456' onClose={noop} />
 		);
 
-		expect(container).toHaveTextContent('Upgrading your connection type.');
+		expect(container).toMatchSnapshot();
 	});
 });

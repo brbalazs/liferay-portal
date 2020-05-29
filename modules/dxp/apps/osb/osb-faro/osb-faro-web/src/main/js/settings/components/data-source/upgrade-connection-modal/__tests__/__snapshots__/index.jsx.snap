@@ -1,0 +1,223 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UpgradeConnectionModal should render 1`] = `
+<div>
+  <div
+    aria-modal="true"
+    class="modal-dialog upgrade-connection-modal-root modal-xxl"
+    role="dialog"
+  >
+    <div
+      class="modal-content"
+    >
+      <div
+        class="upgrade-connection-type row d-flex flex-grow-1 no-gutters"
+      >
+        <div
+          class="token-connection col-8 d-flex flex-column flex-grow-1"
+        >
+          <div
+            class="header"
+          >
+            <div
+              class="title"
+            >
+              Upgrading your connection type.
+            </div>
+          </div>
+          <div
+            class="modal-body d-flex flex-column"
+          >
+            <span
+              class="description"
+            >
+              Using our new token-based connection, connecting Analytics Cloud to your sites is easier than ever. The latest DXP fix packs support this method.
+            </span>
+            <div
+              class="benefits-requirements-container row no-gutters"
+            >
+              <div
+                class="col-12"
+              >
+                <div
+                  class="heading"
+                >
+                  What To Expect Upon Upgrade:
+                </div>
+                <ul>
+                  <li
+                    class="item"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-check-circle benefits-check"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="#check-circle"
+                      />
+                    </svg>
+                    <span>
+                      Data will resume syncing as soon as your data source is connected with the token.
+                    </span>
+                  </li>
+                  <li
+                    class="item"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-check-circle benefits-check"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="#check-circle"
+                      />
+                    </svg>
+                    <span>
+                      Your sites and contacts configurations will stay the same.
+                    </span>
+                  </li>
+                  <li
+                    class="item"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-check-circle benefits-check"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="#check-circle"
+                      />
+                    </svg>
+                    <span>
+                      Your field mappings will be maintained.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+              <div
+                class="col-12"
+              >
+                <ul>
+                  <li
+                    class="item"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-exclamation-circle warning-exclamation"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="#exclamation-circle"
+                      />
+                    </svg>
+                    <span>
+                      Sites and contacts are now configured in DXP.
+                    </span>
+                  </li>
+                  <li
+                    class="item"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-exclamation-circle warning-exclamation"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="#exclamation-circle"
+                      />
+                    </svg>
+                    <span>
+                      Field mappings will not be editable until a future update.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div
+              class="connect-button-container d-flex justify-content-center"
+            >
+              <button
+                class="button-root btn btn-primary"
+                type="button"
+              >
+                Continue with Upgrade
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="requirements col-4 d-flex flex-column flex-grow-1"
+        >
+          <div
+            class="header d-flex"
+          >
+            <div
+              class="title flex-grow-1"
+            >
+              Not ready yet?
+            </div>
+            <div
+              class="d-flex justify-content-end"
+            >
+              <button
+                class="close-button btn btn-monospaced btn-outline-borderless btn-sm btn-outline-secondary"
+                type="button"
+              >
+                <svg
+                  class="lexicon-icon lexicon-icon-times"
+                  role="presentation"
+                >
+                  <use
+                    xlink:href="#times"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="modal-body d-flex flex-column"
+          >
+            <div
+              class="description"
+            >
+              If your DXP instance does not meet the minimum requirements, you must upgrade to the latest fix pack before continuing  with the connection upgrade.
+            </div>
+            <div
+              class="benefits-requirements-container"
+            >
+              <div
+                class="heading"
+              >
+                DXP Minimum Requirements:
+              </div>
+              <ul>
+                <li
+                  class="item"
+                >
+                  7.2 Fix Pack 5/SP2
+                </li>
+                <li
+                  class="item"
+                >
+                  7.1 Fix Pack 17/SP4
+                </li>
+                <li
+                  class="item"
+                >
+                  7.0 Fix Pack 90/SP13
+                </li>
+              </ul>
+            </div>
+            <div
+              class="requirements-button-container d-flex justify-content-center"
+            >
+              <button
+                class="button-root btn btn-secondary"
+                type="button"
+              >
+                Upgrade Later
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
