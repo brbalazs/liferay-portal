@@ -14,4 +14,4 @@ Feature: Paginate static segment "Add Members" creation model
 		And I click the "Add Members" button
 		When I go to page "2" in the creation modal
 		Then I should be on page "2" in the creation modal
-		And I should see an individual named "Andrew Funk" in the table
+		And I should see an individual named "Ben Larkin" in the table

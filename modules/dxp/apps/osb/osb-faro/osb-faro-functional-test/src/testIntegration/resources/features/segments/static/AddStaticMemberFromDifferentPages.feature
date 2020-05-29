@@ -15,8 +15,8 @@ Feature: Add members from different pages
 		And I click the checkbox on the table row containing "Abram Bauch"
 		And I go to page "2" in the creation modal
 		And I should be on page "2" in the creation modal
-		When I click the checkbox on the table row containing "Annis Osinski"
+		When I click the checkbox on the table row containing "Ava Wiza"
 		And I click the "Add" button
 		And I click the "View Added Members" button
 		Then I should see an individual named "Abram Bauch" in the table
-		And I should see an individual named "Annis Osinski" in the table
+		And I should see an individual named "Ava Wiza" in the table
