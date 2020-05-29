@@ -10,7 +10,7 @@ Feature: Assert no interest found in segment
 		* I click the "Create Segment" button
 		* I click the "Static Segment" dropdown option
 		* I click the "Add Members" button
-		* I click the checkbox on the table row containing "Abram Farrell"
+		* I click the checkbox on the table row containing "Annis Osinski"
 		* I click the "Add" button
 		* I name the Static segment "NoInterestStaticSegment - ${Random.1}" and save it
 
