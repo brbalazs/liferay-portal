@@ -6888,6 +6888,20 @@ go</echo>
 										/>
 									</then>
 									<elseif>
+										<and>
+											<available file="${project.dir}/plugins/marketplace/${Liferay-Releng-App-Title}.lpkg" />
+											<equals arg1="${osgi.app.name}" arg2="commerce" />
+										</and>
+										<then>
+											<echo>Copying ${project.dir}/plugins/marketplace/${Liferay-Releng-App-Title}.lpkg to ${liferay.home}/deploy/${Liferay-Releng-App-Title}.lpkg.</echo>
+
+											<copy
+												file="${project.dir}/plugins/marketplace/${Liferay-Releng-App-Title}.lpkg"
+												tofile="${liferay.home}/deploy/${Liferay-Releng-App-Title}.lpkg"
+											/>
+										</then>
+									</elseif>
+									<elseif>
 										<available file="${project.dir}/plugins/marketplace/${Liferay-Releng-App-Title}.lpkg" />
 										<then>
 											<echo>Copying ${project.dir}/plugins/marketplace/${Liferay-Releng-App-Title}.lpkg to ${liferay.home}/osgi/marketplace/${Liferay-Releng-App-Title}.lpkg.</echo>
