@@ -14,13 +14,12 @@
 
 package com.liferay.commerce.pricing.service.impl;
 
+import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
 import com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel;
 import com.liferay.commerce.pricing.service.base.CommercePricingClassCPDefinitionRelServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.security.permission.ActionKeys;
-import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.util.List;
@@ -39,8 +38,9 @@ public class CommercePricingClassCPDefinitionRelServiceImpl
 				ServiceContext serviceContext)
 		throws PortalException {
 
-		_commercePricingClassCPDefinitionRelResourcePermission.check(
-			getPermissionChecker(), commercePricingClassId, ActionKeys.UPDATE);
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassCPDefinitionRelLocalService.
 			addCommercePricingClassCPDefinitionRel(
@@ -54,10 +54,9 @@ public class CommercePricingClassCPDefinitionRelServiceImpl
 					commercePricingClassCPDefinitionRel)
 		throws PortalException {
 
-		_commercePricingClassCPDefinitionRelResourcePermission.check(
+		PortalPermissionUtil.check(
 			getPermissionChecker(),
-			commercePricingClassCPDefinitionRel.getCommercePricingClassId(),
-			ActionKeys.UPDATE);
+			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassCPDefinitionRelLocalService.
 			deleteCommercePricingClassCPDefinitionRel(
@@ -70,16 +69,9 @@ public class CommercePricingClassCPDefinitionRelServiceImpl
 				long commercePricingClassCPDefinitionRelId)
 		throws PortalException {
 
-		CommercePricingClassCPDefinitionRel
-			commercePricingClassCPDefinitionRel =
-				commercePricingClassCPDefinitionRelLocalService.
-					fetchCommercePricingClassCPDefinitionRel(
-						commercePricingClassCPDefinitionRelId);
-
-		_commercePricingClassCPDefinitionRelResourcePermission.check(
+		PortalPermissionUtil.check(
 			getPermissionChecker(),
-			commercePricingClassCPDefinitionRel.getCommercePricingClassId(),
-			ActionKeys.UPDATE);
+			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassCPDefinitionRelLocalService.
 			deleteCommercePricingClassCPDefinitionRel(
@@ -92,8 +84,9 @@ public class CommercePricingClassCPDefinitionRelServiceImpl
 				long commercePricingClassId, long cpDefinitionId)
 		throws PortalException {
 
-		_commercePricingClassCPDefinitionRelResourcePermission.check(
-			getPermissionChecker(), commercePricingClassId, ActionKeys.VIEW);
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassCPDefinitionRelLocalService.
 			fetchCommercePricingClassCPDefinitionRel(
@@ -106,18 +99,13 @@ public class CommercePricingClassCPDefinitionRelServiceImpl
 				long commercePricingClassCPDefinitionRelId)
 		throws PortalException {
 
-		CommercePricingClassCPDefinitionRel
-			commercePricingClassCPDefinitionRel =
-				commercePricingClassCPDefinitionRelLocalService.
-					fetchCommercePricingClassCPDefinitionRel(
-						commercePricingClassCPDefinitionRelId);
-
-		_commercePricingClassCPDefinitionRelResourcePermission.check(
+		PortalPermissionUtil.check(
 			getPermissionChecker(),
-			commercePricingClassCPDefinitionRel.getCommercePricingClassId(),
-			ActionKeys.VIEW);
+			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
 
-		return commercePricingClassCPDefinitionRel;
+		return commercePricingClassCPDefinitionRelLocalService.
+			fetchCommercePricingClassCPDefinitionRel(
+				commercePricingClassCPDefinitionRelId);
 	}
 
 	@Override
@@ -126,8 +114,9 @@ public class CommercePricingClassCPDefinitionRelServiceImpl
 				long commercePricingClassId)
 		throws PortalException {
 
-		_commercePricingClassCPDefinitionRelResourcePermission.check(
-			getPermissionChecker(), commercePricingClassId, ActionKeys.VIEW);
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassCPDefinitionRelLocalService.
 			getCommercePricingClassCPDefinitionRels(commercePricingClassId);
@@ -141,8 +130,9 @@ public class CommercePricingClassCPDefinitionRelServiceImpl
 					orderByComparator)
 		throws PortalException {
 
-		_commercePricingClassCPDefinitionRelResourcePermission.check(
-			getPermissionChecker(), commercePricingClassId, ActionKeys.VIEW);
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassCPDefinitionRelLocalService.
 			getCommercePricingClassCPDefinitionRels(
@@ -154,8 +144,9 @@ public class CommercePricingClassCPDefinitionRelServiceImpl
 			long commercePricingClassId)
 		throws PortalException {
 
-		_commercePricingClassCPDefinitionRelResourcePermission.check(
-			getPermissionChecker(), commercePricingClassId, ActionKeys.VIEW);
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassCPDefinitionRelLocalService.
 			getCommercePricingClassCPDefinitionRelsCount(
@@ -166,19 +157,12 @@ public class CommercePricingClassCPDefinitionRelServiceImpl
 	public long[] getCPDefinitionIds(long commercePricingClassId)
 		throws PortalException {
 
-		_commercePricingClassCPDefinitionRelResourcePermission.check(
-			getPermissionChecker(), commercePricingClassId, ActionKeys.VIEW);
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassCPDefinitionRelLocalService.
 			getCPDefinitionIds(commercePricingClassId);
 	}
-
-	private static volatile ModelResourcePermission
-		<CommercePricingClassCPDefinitionRel>
-			_commercePricingClassCPDefinitionRelResourcePermission =
-				ModelResourcePermissionFactory.getInstance(
-					CommercePricingClassCPDefinitionRelServiceImpl.class,
-					"_commercePricingClassCPDefinitionRelResourcePermission",
-					CommercePricingClassCPDefinitionRel.class);
 
 }
