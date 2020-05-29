@@ -47,6 +47,9 @@ const DataSourceEdit = lazy(() =>
 const DataSourceList = lazy(() =>
 	import(/* webpackChunkName: "DataSourceList" */ './DataSourceList')
 );
+const DeleteDataSource = lazy(() =>
+	import(/* webpackChunkName: "DeleteDataSource" */ './data-source/Delete')
+);
 
 // Definitions
 
@@ -293,6 +296,11 @@ export class Settings extends React.Component {
 									data={NewLiferayDataSource}
 									exact
 									path={Routes.SETTINGS_LIFERAY_ADD}
+								/>
+
+								<BundleRouter
+									data={DeleteDataSource}
+									path={Routes.SETTINGS_DATA_SOURCE_DELETE}
 								/>
 
 								<BundleRouter
