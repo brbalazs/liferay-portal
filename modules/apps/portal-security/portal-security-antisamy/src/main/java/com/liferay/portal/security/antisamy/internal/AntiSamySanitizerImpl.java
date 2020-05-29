@@ -78,7 +78,7 @@ public class AntiSamySanitizerImpl extends BaseSanitizer {
 		}
 	}
 
-	public void addAntiSamySanitizerByClassName(String className, URL url) {
+	public void addPolicy(String className, URL url) {
 		try (InputStream inputstream = url.openStream()) {
 			Policy policy = Policy.getInstance(inputstream);
 
@@ -90,7 +90,7 @@ public class AntiSamySanitizerImpl extends BaseSanitizer {
 		}
 	}
 
-	public void removeAntiSamySanitizerByClassName(String className) {
+	public void removePolicy(String className) {
 		_policies.remove(className);
 	}
 
