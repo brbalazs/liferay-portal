@@ -100,7 +100,8 @@ public class EditCPDefinitionOptionValueRelMVCActionCommand
 				SessionErrors.add(actionRequest, e.getClass());
 
 				actionResponse.setRenderParameter(
-					"mvcRenderCommandName", "editCPDefinitionOptionValueRel");
+					"mvcRenderCommandName",
+					"editProductDefinitionOptionValueRel");
 			}
 			else {
 				_log.error(e, e);
