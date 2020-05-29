@@ -487,16 +487,26 @@ public class ProductSerDes {
 			sb.append("]");
 		}
 
-		if (product.getStatus() != null) {
+		if (product.getStatusCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"status\": ");
+			sb.append("\"statusCode\": ");
+
+			sb.append(product.getStatusCode());
+		}
+
+		if (product.getStatusLabel() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"statusLabel\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(product.getStatus()));
+			sb.append(_escape(product.getStatusLabel()));
 
 			sb.append("\"");
 		}
@@ -829,11 +839,18 @@ public class ProductSerDes {
 			map.put("skus", String.valueOf(product.getSkus()));
 		}
 
-		if (product.getStatus() == null) {
-			map.put("status", null);
+		if (product.getStatusCode() == null) {
+			map.put("statusCode", null);
 		}
 		else {
-			map.put("status", String.valueOf(product.getStatus()));
+			map.put("statusCode", String.valueOf(product.getStatusCode()));
+		}
+
+		if (product.getStatusLabel() == null) {
+			map.put("statusLabel", null);
+		}
+		else {
+			map.put("statusLabel", String.valueOf(product.getStatusLabel()));
 		}
 
 		if (product.getSubscriptionConfiguration() == null) {
@@ -1124,9 +1141,15 @@ public class ProductSerDes {
 						));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "status")) {
+			else if (Objects.equals(jsonParserFieldName, "statusCode")) {
 				if (jsonParserFieldValue != null) {
-					product.setStatus((String)jsonParserFieldValue);
+					product.setStatusCode(
+						Integer.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "statusLabel")) {
+				if (jsonParserFieldValue != null) {
+					product.setStatusLabel((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(

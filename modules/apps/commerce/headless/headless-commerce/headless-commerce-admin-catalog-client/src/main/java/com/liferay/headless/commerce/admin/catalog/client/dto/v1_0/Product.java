@@ -694,26 +694,47 @@ public class Product implements Cloneable {
 
 	protected Sku[] skus;
 
-	public String getStatus() {
-		return status;
+	public Integer getStatusCode() {
+		return statusCode;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatusCode(Integer statusCode) {
+		this.statusCode = statusCode;
 	}
 
-	public void setStatus(
-		UnsafeSupplier<String, Exception> statusUnsafeSupplier) {
+	public void setStatusCode(
+		UnsafeSupplier<Integer, Exception> statusCodeUnsafeSupplier) {
 
 		try {
-			status = statusUnsafeSupplier.get();
+			statusCode = statusCodeUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected String status;
+	protected Integer statusCode;
+
+	public String getStatusLabel() {
+		return statusLabel;
+	}
+
+	public void setStatusLabel(String statusLabel) {
+		this.statusLabel = statusLabel;
+	}
+
+	public void setStatusLabel(
+		UnsafeSupplier<String, Exception> statusLabelUnsafeSupplier) {
+
+		try {
+			statusLabel = statusLabelUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String statusLabel;
 
 	public ProductSubscriptionConfiguration getSubscriptionConfiguration() {
 		return subscriptionConfiguration;

@@ -960,20 +960,48 @@ public class Product {
 	protected Sku[] skus;
 
 	@Schema
-	public String getStatus() {
-		return status;
+	public Integer getStatusCode() {
+		return statusCode;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatusCode(Integer statusCode) {
+		this.statusCode = statusCode;
 	}
 
 	@JsonIgnore
-	public void setStatus(
-		UnsafeSupplier<String, Exception> statusUnsafeSupplier) {
+	public void setStatusCode(
+		UnsafeSupplier<Integer, Exception> statusCodeUnsafeSupplier) {
 
 		try {
-			status = statusUnsafeSupplier.get();
+			statusCode = statusCodeUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Integer statusCode;
+
+	@Schema
+	public String getStatusLabel() {
+		return statusLabel;
+	}
+
+	public void setStatusLabel(String statusLabel) {
+		this.statusLabel = statusLabel;
+	}
+
+	@JsonIgnore
+	public void setStatusLabel(
+		UnsafeSupplier<String, Exception> statusLabelUnsafeSupplier) {
+
+		try {
+			statusLabel = statusLabelUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -985,7 +1013,7 @@ public class Product {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String status;
+	protected String statusLabel;
 
 	@Schema
 	@Valid
@@ -1581,16 +1609,26 @@ public class Product {
 			sb.append("]");
 		}
 
-		if (status != null) {
+		if (statusCode != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"status\": ");
+			sb.append("\"statusCode\": ");
+
+			sb.append(statusCode);
+		}
+
+		if (statusLabel != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"statusLabel\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(status));
+			sb.append(_escape(statusLabel));
 
 			sb.append("\"");
 		}
