@@ -73,7 +73,7 @@ public class ProductDTOConverter
 		ResourceBundle resourceBundle = LanguageResources.getResourceBundle(
 			locale);
 
-		String productStatus = LanguageUtil.get(
+		String productStatusLabel = LanguageUtil.get(
 			resourceBundle,
 			WorkflowConstants.getStatusLabel(cpDefinition.getStatus()));
 
@@ -107,7 +107,8 @@ public class ProductDTOConverter
 				shortDescription = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getShortDescriptionMap());
 				sku = _getSku(cpDefinition, locale);
-				status = productStatus;
+				statusCode = cpDefinition.getStatus();
+				statusLabel = productStatusLabel;
 				tags = _getTags(cpDefinition);
 				thumbnail = cpDefinition.getDefaultImageThumbnailSrc();
 			}

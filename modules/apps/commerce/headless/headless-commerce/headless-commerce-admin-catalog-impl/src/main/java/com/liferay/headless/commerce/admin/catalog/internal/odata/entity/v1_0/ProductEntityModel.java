@@ -14,6 +14,7 @@
 
 package com.liferay.headless.commerce.admin.catalog.internal.odata.entity.v1_0;
 
+import com.liferay.commerce.product.constants.CPField;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.odata.entity.BooleanEntityField;
 import com.liferay.portal.odata.entity.DateTimeEntityField;
@@ -46,7 +47,9 @@ public class ProductEntityModel implements EntityModel {
 				locale -> Field.MODIFIED_DATE),
 			new StringEntityField(
 				"name", locale -> Field.getSortableFieldName("name")),
-			new StringEntityField("productType", locale -> "productTypeName")
+			new StringEntityField("productType", locale -> "productTypeName"),
+			new IntegerEntityField(
+				"statusCode", locale -> CPField.CP_DEFINITION_STATUS)
 		).collect(
 			Collectors.toMap(EntityField::getName, Function.identity())
 		);
