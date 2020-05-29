@@ -3127,7 +3127,19 @@ AUI.add(
 								else {
 									var localizationMap = instance.get('localizationMap');
 
-									if (value === localizationMap[instance.get('displayLocale')]) {
+									if (
+										value ===
+											localizationMap[
+												instance.get('displayLocale')
+											] ||
+										(!localizationMap[
+											instance.get('displayLocale')
+										] &&
+											value ===
+												localizationMap[
+													instance.getDefaultLocale()
+												])
+									) {
 										editor.setHTML(value);
 									}
 								}
