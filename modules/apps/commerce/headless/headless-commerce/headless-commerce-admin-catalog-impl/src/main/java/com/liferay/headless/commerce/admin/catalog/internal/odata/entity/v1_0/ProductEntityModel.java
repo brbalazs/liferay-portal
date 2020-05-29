@@ -46,8 +46,7 @@ public class ProductEntityModel implements EntityModel {
 				locale -> Field.MODIFIED_DATE),
 			new StringEntityField(
 				"name", locale -> Field.getSortableFieldName("name")),
-			new StringEntityField("productType", locale -> "productTypeName"),
-			new IntegerEntityField("catalogId", locale -> "commerceCatalogId")
+			new StringEntityField("productType", locale -> "productTypeName")
 		).collect(
 			Collectors.toMap(EntityField::getName, Function.identity())
 		);
