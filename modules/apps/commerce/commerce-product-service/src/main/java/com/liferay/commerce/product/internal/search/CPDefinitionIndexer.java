@@ -654,6 +654,8 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 			document.addKeyword(Field.HIDDEN, true);
 		}
 
+		document.addKeyword(CPField.CP_DEFINITION_STATUS, cpDefinition.getStatus());
+
 		CommerceCatalog commerceCatalog = cpDefinition.getCommerceCatalog();
 
 		document.addKeyword(
