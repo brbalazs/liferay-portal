@@ -1,5 +1,7 @@
 import com.liferay.gradle.util.FileUtil
 
+String sanitizerConfigurationUrl = "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/owaspantisamy/antisamy-ebay-1.4.4.xml"
+
 dependencies {
 	compileInclude group: "commons-codec", name: "commons-codec", version: "1.15"
 	compileInclude group: "net.sourceforge.htmlunit", name: "neko-htmlunit", version: "2.61.0"
@@ -25,13 +27,17 @@ dependencies {
 	compileOnly project(":core:petra:petra-string")
 }
 
-task processDefaultSanitizerConfiguration(type: AntiSamyTask)
-task processKnowledgeBaseSanitizerConfiguration(type: AntiSamyTask)
+task processDefaultSanitizerConfiguration(type: Copy)
+task processKnowledgeBaseSanitizerConfiguration(type: Copy)
 
 processKnowledgeBaseSanitizerConfiguration {
 	dependsOn processDefaultSanitizerConfiguration
 
-	sanitizerConfigurationFile = new File("src/main/resources/META-INF/resources/knowledge-base-sanitizer-configuration.xml")
+	File sanitizerConfigurationFile = new File("src/main/resources/META-INF/resources/knowledge-base-sanitizer-configuration.xml")
+
+	ext {
+		autoClean = false
+	}
 
 	filter {
 		String line ->
@@ -121,9 +127,25 @@ processKnowledgeBaseSanitizerConfiguration {
 	from {
 		processDefaultSanitizerConfiguration.outputs.files.singleFile
 	}
+
+	into sanitizerConfigurationFile.parentFile
+
+	onlyIf {
+		!sanitizerConfigurationFile.exists()
+	}
+
+	rename {
+		sanitizerConfigurationFile.name
+	}
 }
 
 processDefaultSanitizerConfiguration {
+	File sanitizerConfigurationFile = new File("src/main/resources/META-INF/resources/sanitizer-configuration.xml")
+
+	ext {
+		autoClean = false
+	}
+
 	filter {
 		String line ->
 
@@ -225,33 +247,19 @@ processDefaultSanitizerConfiguration {
 
 		return line
 	}
-}
 
-class AntiSamyTask extends Copy {
-	@Input
-	File sanitizerConfigurationFile = new File("src/main/resources/META-INF/resources/sanitizer-configuration.xml")
+	from {
+		FileUtil.get(project, sanitizerConfigurationUrl)
+	}
 
-	@Input
-	String sanitizerConfigurationUrl = "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/owaspantisamy/antisamy-ebay-1.4.4.xml"
+	into sanitizerConfigurationFile.parentFile
 
-	AntiSamyTask() {
-		ext {
-			autoClean = false
-		}
+	onlyIf {
+		!sanitizerConfigurationFile.exists()
+	}
 
-		from {
-			FileUtil.get(project, sanitizerConfigurationUrl)
-		}
-
-		into sanitizerConfigurationFile.parentFile
-
-		onlyIf {
-			!sanitizerConfigurationFile.exists()
-		}
-
-		rename {
-			sanitizerConfigurationFile.name
-		}
+	rename {
+		sanitizerConfigurationFile.name
 	}
 }
 
