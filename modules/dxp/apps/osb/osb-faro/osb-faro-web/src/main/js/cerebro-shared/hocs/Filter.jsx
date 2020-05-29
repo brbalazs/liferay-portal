@@ -4,6 +4,7 @@ import Filter from 'cerebro-shared/components/Filter';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {compose} from 'redux';
+import {LAST_YEAR} from 'shared/util/constants';
 import {withEmpty, withError} from 'cerebro-shared/hocs/utils';
 
 /**
@@ -47,7 +48,7 @@ const withFilterComponent = withFilter => {
 		render() {
 			const {
 				context: {router},
-				props: {className, rangeSelectors}
+				props: {className}
 			} = this;
 
 			return (
@@ -55,7 +56,7 @@ const withFilterComponent = withFilter => {
 					className={className}
 					isTopLevel
 					onChange={this.handleApplyFilters}
-					rangeSelectors={rangeSelectors}
+					rangeSelectors={{rangeKey: LAST_YEAR}}
 					router={router}
 				/>
 			);
