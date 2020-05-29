@@ -25,7 +25,7 @@ import SearchableTableModalGraphql from './SearchableTableModalGraphql';
 import SelectItemsModal from './SelectItemsModal';
 import TestModal from './TestModal';
 import UnassignedSegmentsModal from 'shared/components/unassigned-segments-modal';
-import UpgradeConnectionModal from 'settings/components/data-source/UpgradeConnectionModal';
+import UpgradeConnectionModal from 'settings/components/data-source/upgrade-connection-modal';
 import {close, modalTypes} from '../actions/modals';
 import {connect} from 'react-redux';
 import {List} from 'immutable';

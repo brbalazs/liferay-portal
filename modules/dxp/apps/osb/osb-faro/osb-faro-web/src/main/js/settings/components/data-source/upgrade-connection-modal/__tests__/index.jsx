@@ -1,5 +1,5 @@
 import React from 'react';
-import UpgradeConnectionModal from '../UpgradeConnectionModal';
+import UpgradeConnectionModal from '..';
 import {cleanup, render} from '@testing-library/react';
 import {noop} from 'lodash';
 

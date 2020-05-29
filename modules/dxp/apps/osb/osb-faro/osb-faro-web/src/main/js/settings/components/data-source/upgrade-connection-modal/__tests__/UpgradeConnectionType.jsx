@@ -25,7 +25,7 @@ describe('UpgradeConnectionType', () => {
 
 		expect(spy).not.toBeCalled();
 
-		fireEvent.click(queryByText('Continue With Upgrade'));
+		fireEvent.click(queryByText('Continue with Upgrade'));
 
 		expect(spy).toBeCalled();
 	});
