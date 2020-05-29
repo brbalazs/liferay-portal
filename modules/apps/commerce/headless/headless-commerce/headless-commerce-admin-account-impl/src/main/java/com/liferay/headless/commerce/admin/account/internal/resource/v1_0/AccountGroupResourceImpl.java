@@ -23,8 +23,10 @@ import com.liferay.headless.commerce.admin.account.internal.odata.entity.v1_0.Ac
 import com.liferay.headless.commerce.admin.account.resource.v1_0.AccountGroupResource;
 import com.liferay.headless.commerce.core.util.ExpandoUtil;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -126,8 +128,15 @@ public class AccountGroupResourceImpl
 			CommerceAccountGroup.class, StringPool.BLANK, pagination,
 			queryConfig -> queryConfig.setSelectedFieldNames(
 				Field.ENTRY_CLASS_PK),
-			searchContext -> searchContext.setCompanyId(
-				contextCompany.getCompanyId()),
+			new UnsafeConsumer() {
+
+				public void accept(Object o) throws Exception {
+					SearchContext searchContext = (SearchContext)o;
+
+					searchContext.setCompanyId(contextCompany.getCompanyId());
+				}
+
+			},
 			document -> _toAccountGroup(
 				_commerceAccountGroupService.getCommerceAccountGroup(
 					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))),
