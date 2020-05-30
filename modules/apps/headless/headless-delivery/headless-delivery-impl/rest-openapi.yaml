@@ -807,6 +807,11 @@ components:
                     type: integer
                 documentType:
                     properties:
+                        availableLanguages:
+                            items:
+                                type: string
+                            readOnly: true
+                            type: array
                         contentFields:
                             items:
                                 $ref: "#/components/schemas/ContentField"
