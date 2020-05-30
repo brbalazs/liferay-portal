@@ -110,20 +110,18 @@ public class DocumentResourceImpl
 		return _getDocumentsPage(
 			_getDocumentFolderListActions(folder.getGroupId()),
 			booleanQuery -> {
-				if (documentFolderId != null) {
-					BooleanFilter booleanFilter =
-						booleanQuery.getPreBooleanFilter();
+				BooleanFilter booleanFilter =
+					booleanQuery.getPreBooleanFilter();
 
-					String field = Field.FOLDER_ID;
+				String field = Field.FOLDER_ID;
 
-					if (GetterUtil.getBoolean(flatten)) {
-						field = "treePath";
-					}
-
-					booleanFilter.add(
-						new TermFilter(field, String.valueOf(documentFolderId)),
-						BooleanClauseOccur.MUST);
+				if (GetterUtil.getBoolean(flatten)) {
+					field = "treePath";
 				}
+
+				booleanFilter.add(
+					new TermFilter(field, String.valueOf(documentFolderId)),
+					BooleanClauseOccur.MUST);
 			},
 			search, filter, pagination, sorts);
 	}
