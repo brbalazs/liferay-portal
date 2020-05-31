@@ -115,21 +115,27 @@ exports[`Workspace Settting should render 1`] = `
                   >
                     <option
                       class=""
-                      value="EUROPE"
+                      value="LONDON, ENGLAND"
                     >
-                      Europe
+                      London, England
                     </option>
                     <option
                       class=""
-                      value="SOUTH AMERICA"
+                      value="FRANKFURT, GERMANY"
                     >
-                      South America
+                      Frankfurt, Germany
                     </option>
                     <option
                       class=""
-                      value="UNITED_STATES"
+                      value="SÃO PAULO, BRAZIL"
                     >
-                      United States
+                      São Paulo, Brazil
+                    </option>
+                    <option
+                      class=""
+                      value="OREGON, USA"
+                    >
+                      Oregon, USA
                     </option>
                   </select>
                 </div>
