@@ -51,6 +51,7 @@ public class ProjectConstants {
 		new HashMap<String, String>() {
 			{
 				put("EU", LCPProject.Cluster.EU.toString());
+				put("EU2", LCPProject.Cluster.EU2.toString());
 				put("SA", LCPProject.Cluster.SA.toString());
 				put("US", LCPProject.Cluster.US.toString());
 			}

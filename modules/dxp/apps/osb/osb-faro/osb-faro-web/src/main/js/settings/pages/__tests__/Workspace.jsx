@@ -48,7 +48,7 @@ describe('Workspace Settting', () => {
 		);
 
 		expect(getByLabelText('Workspace Name')).toBeDisabled();
-		expect(getByDisplayValue('United States')).toBeDisabled();
+		expect(getByDisplayValue('Oregon, USA')).toBeDisabled();
 		expect(
 			getByLabelText(/Set a Friendly Workspace URL/, {selector: 'input'})
 		).toBeDisabled();

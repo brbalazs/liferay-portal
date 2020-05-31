@@ -25,13 +25,14 @@ import {sub} from 'shared/util/lang';
 
 const {
 	faroURL,
-	projectLocations: {EU, SA, US}
+	projectLocations: {EU, EU2, SA, US}
 } = Constants;
 
 const projectLocations = [
-	{label: Liferay.Language.get('europe'), value: EU},
-	{label: Liferay.Language.get('south-america'), value: SA},
-	{label: Liferay.Language.get('united-states'), value: US}
+	{label: Liferay.Language.get('location-eu'), value: EU},
+	{label: Liferay.Language.get('location-eu2'), value: EU2},
+	{label: Liferay.Language.get('location-sa'), value: SA},
+	{label: Liferay.Language.get('location-us'), value: US}
 ];
 
 const VALIDATE_DOMAINS = /^([a-zA-Z0-9_]([a-zA-Z0-9_-]{0,61}[a-zA-Z0-9_])?\.){1,126}[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z]$/;

@@ -39,6 +39,9 @@ public class LCPProject {
 		if (StringUtil.equals(_cluster, Cluster.EU.toString())) {
 			return "ac-europe";
 		}
+		else if (StringUtil.equals(_cluster, Cluster.EU2.toString())) {
+			return "ac-europe2";
+		}
 		else if (StringUtil.equals(_cluster, Cluster.SA.toString())) {
 			return "ac-southamerica";
 		}
@@ -111,7 +114,8 @@ public class LCPProject {
 
 	public enum Cluster {
 
-		EU("europe-west2-c1"), SA("southamerica-east1-c1"), US("us-west1-c1");
+		EU("europe-west2-c1"), EU2("europe-west3-c1"),
+		SA("southamerica-east1-c1"), US("us-west1-c1");
 
 		@Override
 		public String toString() {

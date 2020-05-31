@@ -222,9 +222,10 @@ module.exports = {
 				user: 'user'
 			},
 			projectLocations: {
-				EU: 'EUROPE',
-				SA: 'SOUTH AMERICA',
-				US: 'UNITED_STATES'
+				EU: 'LONDON, ENGLAND',
+				EU2: 'FRANKFURT, GERMANY',
+				SA: 'SÃO PAULO, BRAZIL',
+				US: 'OREGON, USA'
 			},
 			projectOperations: {
 				restart: 'restart',

@@ -73,6 +73,7 @@ public class ProjectUtil {
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 		}
 		else if (key.equals(LCPProject.Cluster.EU.toString()) ||
+				 key.equals(LCPProject.Cluster.EU2.toString()) ||
 				 key.equals(LCPProject.Cluster.SA.toString()) ||
 				 key.equals(LCPProject.Cluster.US.toString())) {
 
