@@ -116,8 +116,8 @@ public class ContentElementResourceImpl extends BaseContentElementResourceImpl {
 			searchContext.setEnd(pagination.getEndPosition());
 		}
 
-		searchContext.setKeywords(search);
 		searchContext.setGroupIds(new long[] {siteId});
+		searchContext.setKeywords(search);
 		searchContext.setLocale(contextAcceptLanguage.getPreferredLocale());
 
 		if (sorts == null) {
