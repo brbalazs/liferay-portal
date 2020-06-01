@@ -92,19 +92,19 @@ public class ContentElementEntityModel implements EntityModel {
 					ParameterizedType parameterizedType =
 						(ParameterizedType)type;
 
-					Type[] actualTypeArguments =
+					Type[] argumentTypes =
 						parameterizedType.getActualTypeArguments();
 
-					Type actualTypeArgument = actualTypeArguments[1];
+					Type actualType = argumentTypes[1];
 
 					String typeNameLowerCase = StringUtil.toLowerCase(
-						actualTypeArgument.getTypeName());
+						actualType.getTypeName());
 
 					String simpleClassName = typeNameLowerCase.substring(
 						typeNameLowerCase.lastIndexOf(".") + 1);
 
 					if (object.equals(simpleClassName)) {
-						return actualTypeArguments[0].getTypeName();
+						return argumentTypes[0].getTypeName();
 					}
 				}
 			}
