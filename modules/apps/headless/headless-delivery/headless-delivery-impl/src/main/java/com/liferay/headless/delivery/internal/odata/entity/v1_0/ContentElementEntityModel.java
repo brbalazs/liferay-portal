@@ -92,8 +92,7 @@ public class ContentElementEntityModel implements EntityModel {
 					continue;
 				}
 
-				ParameterizedType parameterizedType =
-					(ParameterizedType)type;
+				ParameterizedType parameterizedType = (ParameterizedType)type;
 
 				Type[] argumentTypes =
 					parameterizedType.getActualTypeArguments();
