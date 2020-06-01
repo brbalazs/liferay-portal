@@ -83,14 +83,14 @@ public class ContentElementEntityModel implements EntityModel {
 
 			Class<? extends DTOConverter> clazz = dtoConverter.getClass();
 
-			Type[] genericInterfaces = clazz.getGenericInterfaces();
+			Type[] types = clazz.getGenericInterfaces();
 
-			for (Type genericInterface : genericInterfaces) {
-				String typeName = genericInterface.getTypeName();
+			for (Type type : types) {
+				String typeName = type.getTypeName();
 
 				if (typeName.contains(DTOConverter.class.getSimpleName())) {
 					ParameterizedType parameterizedType =
-						(ParameterizedType)genericInterface;
+						(ParameterizedType)type;
 
 					Type[] actualTypeArguments =
 						parameterizedType.getActualTypeArguments();
