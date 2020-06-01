@@ -85,6 +85,13 @@ const NewLiferayDataSource = lazy(() =>
 	)
 );
 
+// Recommendations
+const RecommendationsList = lazy(() =>
+	import(
+		/* webpackChunkName: "RecommendationsList" */ '../recommendations/pages/Recommendations'
+	)
+);
+
 // Other
 
 const UsageOverview = lazy(() =>
@@ -151,6 +158,12 @@ export class Settings extends React.Component {
 						url: toRoute(Routes.SETTINGS_DATA_SOURCE_LIST, {
 							groupId
 						})
+					},
+					currentUser.isAdmin() && {
+						icon: 'circle',
+						label: Liferay.Language.get('recommendations'),
+						route: Routes.SETTINGS_RECOMMENDATIONS,
+						url: toRoute(Routes.SETTINGS_RECOMMENDATIONS, {groupId})
 					}
 				].filter(Boolean),
 				label: Liferay.Language.get('workspace-data')
@@ -366,6 +379,11 @@ export class Settings extends React.Component {
 								<BundleRouter
 									data={Apis}
 									path={Routes.SETTINGS_APIS}
+								/>
+
+								<BundleRouter
+									data={RecommendationsList}
+									path={Routes.SETTINGS_RECOMMENDATIONS}
 								/>
 
 								<RouteNotFound />

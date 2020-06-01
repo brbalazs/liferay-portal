@@ -271,6 +271,10 @@ export const Routes = buildRoutes({
 										'/configure'
 								}
 							},
+							SETTINGS_RECOMMENDATIONS: {
+								path: '/recommendations',
+								routes: {}
+							},
 							SETTINGS_SALESFORCE_ADD: `/data-source/${SALESFORCE}`,
 							SETTINGS_SALESFORCE_CONFIGURATION_STATUS: `/data-source/:id/${SALESFORCE}/configuration-status`,
 							SETTINGS_SALESFORCE_FIELD_MAPPING: {
