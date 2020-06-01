@@ -13,8 +13,8 @@ Feature: Paginate list of members to be added to the segment
 
 	Scenario: Paginate to next page of members to be added
 		Given I click the checkbox on the table row containing "Abram Bauch"
-		And I click the checkbox on the table row containing "Abram Farrell"
-		And I click the checkbox on the table row containing "Adelina Kohler"
+		And I click the checkbox on the table row containing "Alena Will"
+		And I click the checkbox on the table row containing "Alton Jacobi"
 		And I click the checkbox on the table row containing "Adrienne Johnston"
 		And I click the checkbox on the table row containing "Alana Nicolas"
 		And I click the checkbox on the table row containing "Alanna Emard"
@@ -23,4 +23,4 @@ Feature: Paginate list of members to be added to the segment
 		When I set the pagination delta to "5"
 		And I go to page "2" in the creation modal
 		Then I should be on page "2" in the creation modal
-		And I should see an individual named "Alanna Emard" in the table
+		And I should see an individual named "Alton Jacobi" in the table
