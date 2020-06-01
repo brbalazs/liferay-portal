@@ -88,24 +88,26 @@ public class ContentElementEntityModel implements EntityModel {
 			for (Type type : types) {
 				String typeName = type.getTypeName();
 
-				if (typeName.contains(DTOConverter.class.getSimpleName())) {
-					ParameterizedType parameterizedType =
-						(ParameterizedType)type;
+				if (!typeName.contains(DTOConverter.class.getSimpleName())) {
+					continue;
+				}
 
-					Type[] argumentTypes =
-						parameterizedType.getActualTypeArguments();
+				ParameterizedType parameterizedType =
+					(ParameterizedType)type;
 
-					Type actualType = argumentTypes[1];
+				Type[] argumentTypes =
+					parameterizedType.getActualTypeArguments();
 
-					String actualTypeName = StringUtil.toLowerCase(
-						actualType.getTypeName());
+				Type actualType = argumentTypes[1];
 
-					String simpleClassName = actualTypeName.substring(
-						actualTypeName.lastIndexOf(".") + 1);
+				String actualTypeName = StringUtil.toLowerCase(
+					actualType.getTypeName());
 
-					if (object.equals(simpleClassName)) {
-						return argumentTypes[0].getTypeName();
-					}
+				String simpleClassName = actualTypeName.substring(
+					actualTypeName.lastIndexOf(".") + 1);
+
+				if (object.equals(simpleClassName)) {
+					return argumentTypes[0].getTypeName();
 				}
 			}
 		}
