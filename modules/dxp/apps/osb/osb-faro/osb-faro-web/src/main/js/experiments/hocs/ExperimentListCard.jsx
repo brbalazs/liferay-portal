@@ -30,7 +30,7 @@ const ExperimentListCard = props => {
 		emptyTitle: Liferay.Language.get('empty-title-experiments'),
 		getColumns: () => columns,
 		rowIdentifier: 'id',
-		showRangeKeyDropdown: false
+		showDropdownRangeKey: false
 	});
 
 	return (

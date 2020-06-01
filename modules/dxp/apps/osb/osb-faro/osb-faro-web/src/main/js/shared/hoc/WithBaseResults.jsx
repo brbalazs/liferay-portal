@@ -22,7 +22,7 @@ const withBaseResults = (withData, configs) => {
 		getColumns,
 		legacyDropdownRangeKey = true,
 		rowIdentifier,
-		showRangeKeyDropdown = true,
+		showDropdownRangeKey = true,
 		withQueryOptions = defaultHOC,
 		withSelection = defaultHOC
 	} = configs;
@@ -37,7 +37,7 @@ const withBaseResults = (withData, configs) => {
 		withToolbar({
 			disableSearch,
 			legacyDropdownRangeKey,
-			showRangeKeyDropdown
+			showDropdownRangeKey
 		}),
 		withPaginationBar({defaultDelta}),
 		withLoading({alignCenter: true, page: false}),

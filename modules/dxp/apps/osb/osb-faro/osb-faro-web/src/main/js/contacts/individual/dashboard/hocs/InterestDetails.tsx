@@ -70,7 +70,7 @@ const TableWithData: React.FC<ITableWithDataProps> = withRangeKey(
 			metricsListColumns.exitRateMetric
 		],
 		rowIdentifier: 'assetId',
-		showRangeKeyDropdown: true
+		showDropdownRangeKey: true
 	})
 );
 

@@ -124,7 +124,7 @@ const SuppressedListWithData = withBaseResults(withData, {
 		}
 	],
 	primary: true,
-	showRangeKeyDropdown: false,
+	showDropdownRangeKey: false,
 	withQueryOptions
 });
 

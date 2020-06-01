@@ -62,7 +62,7 @@ const TableWithData = withRangeKey(
 		],
 		legacyDropdownRangeKey: false,
 		rowIdentifier: 'assetId',
-		showRangeKeyDropdown: true
+		showDropdownRangeKey: true
 	})
 );
 

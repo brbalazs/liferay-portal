@@ -368,7 +368,7 @@ const RequestListWithData = withCrossPageSelect(withData, {
 	],
 	page: false,
 	primary: true,
-	showRangeKeyDropdown: false,
+	showDropdownRangeKey: false,
 	withQueryOptions
 });
 

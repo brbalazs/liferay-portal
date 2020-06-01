@@ -54,7 +54,7 @@ const TableWithData = withBaseResults(withData, {
 		metricsListColumns.createDate
 	],
 	rowIdentifier: 'id',
-	showRangeKeyDropdown: false
+	showDropdownRangeKey: false
 });
 
 const CustomAssetsListCard = props => (

@@ -104,7 +104,7 @@ export default configs => WrappedComponent => {
 					query,
 					rangeSelectors,
 					renderNav,
-					showRangeKeyDropdown,
+					showDropdownRangeKey,
 					toolbarProps,
 					total
 				},
@@ -131,8 +131,8 @@ export default configs => WrappedComponent => {
 					>
 						{get(
 							configs,
-							'showRangeKeyDropdown',
-							showRangeKeyDropdown
+							'showDropdownRangeKey',
+							showDropdownRangeKey
 						) && (
 							<DropdownRangeKey
 								legacy={get(

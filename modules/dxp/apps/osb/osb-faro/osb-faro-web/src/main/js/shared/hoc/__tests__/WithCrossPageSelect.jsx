@@ -147,7 +147,7 @@ describe('WithCrossPageSelect', () => {
 		{
 			defaultOrderByField: 'name',
 			getColumns: () => [{accessor: 'name', label: 'name'}],
-			showRangeKeyDropdown: false
+			showDropdownRangeKey: false
 		}
 	);
 

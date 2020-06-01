@@ -64,7 +64,7 @@ const TableWithData = withBaseResults(withData, {
 		})
 	],
 	rowIdentifier: 'name',
-	showRangeKeyDropdown: false
+	showDropdownRangeKey: false
 });
 
 const Interests = ({router}) => {
