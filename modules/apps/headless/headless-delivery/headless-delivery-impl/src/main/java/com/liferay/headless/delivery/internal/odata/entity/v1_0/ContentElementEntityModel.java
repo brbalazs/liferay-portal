@@ -97,11 +97,11 @@ public class ContentElementEntityModel implements EntityModel {
 
 					Type actualType = argumentTypes[1];
 
-					String typeNameLowerCase = StringUtil.toLowerCase(
+					String actualTypeName = StringUtil.toLowerCase(
 						actualType.getTypeName());
 
-					String simpleClassName = typeNameLowerCase.substring(
-						typeNameLowerCase.lastIndexOf(".") + 1);
+					String simpleClassName = actualTypeName.substring(
+						actualTypeName.lastIndexOf(".") + 1);
 
 					if (object.equals(simpleClassName)) {
 						return argumentTypes[0].getTypeName();
