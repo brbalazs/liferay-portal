@@ -18,4 +18,4 @@ Feature: Create a Segment of Individuals Interested in a Topic
         And I name the Dynamic segment "CreateDynamicInterestSegment - ${Random.1}" and save it
         When I go to the "Segments" page
         And I search for "CreateDynamicInterestSegment - ${Random.1}"
-        Then I should see a "Segment" named "CreateDynamicInterestSegment - ${Random.1}" with "36" items
+        Then I should see a "Segment" named "CreateDynamicInterestSegment - ${Random.1}" with "34" items
