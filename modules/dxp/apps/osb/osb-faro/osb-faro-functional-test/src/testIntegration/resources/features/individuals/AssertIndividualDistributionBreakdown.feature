@@ -13,10 +13,10 @@ Feature: Assert the Individual Distribution card
 		And I name and save the breakdown "Industry"
 		Then I should see the following names in breakdown:
 			| architecture & planning  |
-			| international affairs    |
+			| food & beverages		   |
+			| philanthropy			   |
+			| international affairs	   |
 			| alternative medicine     |
-			| food & beverages         |
-			| philanthropy             |
 			| paper & forest products  |
 			| fund-raising             |
 			| research                 |

@@ -17,10 +17,10 @@ Feature: Assert breakdown by property can select different tabs
 		When I click the "Industry" button
 		Then I should see the following names in breakdown:
 			| architecture & planning  |
-			| international affairs    |
+			| food & beverages		   |
+			| philanthropy			   |
+			| international affairs	   |
 			| alternative medicine     |
-			| food & beverages         |
-			| philanthropy             |
 			| paper & forest products  |
 			| fund-raising             |
 			| research                 |
