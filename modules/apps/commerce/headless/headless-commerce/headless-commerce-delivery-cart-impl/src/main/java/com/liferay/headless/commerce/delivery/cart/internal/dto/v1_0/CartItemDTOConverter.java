@@ -107,21 +107,6 @@ public class CartItemDTOConverter
 				commerceCurrency, commerceOrderItem);
 
 		CommerceMoney unitPriceMoney = commerceOrderItemPrice.getUnitPrice();
-		CommerceMoney promoPriceMoney = commerceOrderItemPrice.getPromoPrice();
-
-		CommerceMoney discountAmountMoney =
-			commerceOrderItemPrice.getDiscountAmount();
-
-		CommerceMoney finalPriceMoney = commerceOrderItemPrice.getFinalPrice();
-
-		BigDecimal discountPercentageLevel1 =
-			commerceOrderItemPrice.getDiscountPercentageLevel1();
-		BigDecimal discountPercentageLevel2 =
-			commerceOrderItemPrice.getDiscountPercentageLevel2();
-		BigDecimal discountPercentageLevel3 =
-			commerceOrderItemPrice.getDiscountPercentageLevel3();
-		BigDecimal discountPercentageLevel4 =
-			commerceOrderItemPrice.getDiscountPercentageLevel4();
 
 		BigDecimal unitPrice = unitPriceMoney.getPrice();
 
@@ -133,6 +118,8 @@ public class CartItemDTOConverter
 			}
 		};
 
+		CommerceMoney promoPriceMoney = commerceOrderItemPrice.getPromoPrice();
+
 		if (promoPriceMoney != null) {
 			BigDecimal unitPromoPrice = promoPriceMoney.getPrice();
 
@@ -142,12 +129,28 @@ public class CartItemDTOConverter
 			}
 		}
 
+		CommerceMoney discountAmountMoney =
+			commerceOrderItemPrice.getDiscountAmount();
+
 		if (discountAmountMoney != null) {
 			BigDecimal discountAmount = discountAmountMoney.getPrice();
 
 			if (discountAmount != null) {
 				price.setDiscount(discountAmount.doubleValue());
 				price.setDiscountFormatted(discountAmountMoney.format(locale));
+				price.setDiscountPercentage(
+					_commercePriceFormatter.format(
+						commerceOrderItemPrice.getDiscountPercentage(),
+						locale));
+
+				BigDecimal discountPercentageLevel1 =
+					commerceOrderItemPrice.getDiscountPercentageLevel1();
+				BigDecimal discountPercentageLevel2 =
+					commerceOrderItemPrice.getDiscountPercentageLevel2();
+				BigDecimal discountPercentageLevel3 =
+					commerceOrderItemPrice.getDiscountPercentageLevel3();
+				BigDecimal discountPercentageLevel4 =
+					commerceOrderItemPrice.getDiscountPercentageLevel4();
 
 				price.setDiscountPercentageLevel1(
 					discountPercentageLevel1.doubleValue());
@@ -157,13 +160,10 @@ public class CartItemDTOConverter
 					discountPercentageLevel3.doubleValue());
 				price.setDiscountPercentageLevel4(
 					discountPercentageLevel4.doubleValue());
-
-				price.setDiscountPercentage(
-					_commercePriceFormatter.format(
-						commerceOrderItemPrice.getDiscountPercentage(),
-						locale));
 			}
 		}
+
+		CommerceMoney finalPriceMoney = commerceOrderItemPrice.getFinalPrice();
 
 		BigDecimal finalPrice = finalPriceMoney.getPrice();
 
