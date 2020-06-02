@@ -22,7 +22,7 @@ Feature: Assert the Liferay DXP Data Source Status
 		When I accept the Liferay DXP OAuth2 Popup
 		And I should see that "AssertLiferayDataSourceStatus (Auth Only) - ${Random.1}" was successfully authenticated
 		And I go to the "Data Source" page
-		Then I should see that the "AssertLiferayDataSourceStatus (Auth Only) - ${Random.1}" data source status is currently "Authenticated"
+		Then I should see that the "AssertLiferayDataSourceStatus (Auth Only) - ${Random.1}" data source status is currently "Action Needed"
 
 	Scenario: Configure DXP Data Source - Contacts Only
 		Given I type "AssertLiferayDataSourceStatus (Contacts Only) - ${Random.1}" into the "Name" input field
@@ -35,7 +35,7 @@ Feature: Assert the Liferay DXP Data Source Status
 		And I click the "Save and Continue" button
 		And I click the "Configure" button
 		And I go to the "Data Source" page
-		Then I should see that the "AssertLiferayDataSourceStatus (Contacts Only) - ${Random.1}" data source status is currently "Active"
+		Then I should see that the "AssertLiferayDataSourceStatus (Contacts Only) - ${Random.1}" data source status is currently "Action Needed"
 
 	Scenario: Configure DXP Data Source - Analytics Only
 		Given I type "AssertLiferayDataSourceStatus (Analytics Only) - ${Random.1}" into the "Name" input field
@@ -47,4 +47,4 @@ Feature: Assert the Liferay DXP Data Source Status
 		And I click the select all checkbox in the toolbar
 		And I click the "Configure" button
 		And I go to the "Data Source" page
-		Then I should see that the "AssertLiferayDataSourceStatus (Analytics Only) - ${Random.1}" data source status is currently "Active"
+		Then I should see that the "AssertLiferayDataSourceStatus (Analytics Only) - ${Random.1}" data source status is currently "Action Needed"
