@@ -267,11 +267,6 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 					getShippingDiscountPercentageLevel4WithTaxAmount();
 		}
 
-		summary.setShippingDiscountValue(shippingDiscountAmount.doubleValue());
-
-		summary.setShippingDiscountValueFormatted(
-			_formatPrice(shippingDiscountAmount, commerceCurrency, locale));
-
 		summary.setShippingDiscountPercentages(
 			_getFormattedDiscountPercentages(
 				new BigDecimal[] {
@@ -281,6 +276,9 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 					shippingDiscountPercentageLevel4
 				},
 				locale));
+		summary.setShippingDiscountValue(shippingDiscountAmount.doubleValue());
+		summary.setShippingDiscountValueFormatted(
+			_formatPrice(shippingDiscountAmount, commerceCurrency, locale));
 	}
 
 	private void _setSubtotalDiscountOnSummary(
@@ -326,10 +324,6 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 		}
 
 		summary.setSubtotal(subtotalDiscountAmount.doubleValue());
-
-		summary.setSubtotalDiscountValueFormatted(
-			_formatPrice(subtotalDiscountAmount, commerceCurrency, locale));
-
 		summary.setSubtotalDiscountPercentages(
 			_getFormattedDiscountPercentages(
 				new BigDecimal[] {
@@ -339,6 +333,8 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 					subtotalDiscountPercentageLevel4
 				},
 				locale));
+		summary.setSubtotalDiscountValueFormatted(
+			_formatPrice(subtotalDiscountAmount, commerceCurrency, locale));
 	}
 
 	private void _setTotalDiscountOnSummary(
@@ -378,10 +374,6 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 		}
 
 		summary.setTotal(totalDiscountAmount.doubleValue());
-
-		summary.setTotalDiscountValueFormatted(
-			_formatPrice(totalDiscountAmount, commerceCurrency, locale));
-
 		summary.setTotalDiscountPercentages(
 			_getFormattedDiscountPercentages(
 				new BigDecimal[] {
@@ -390,6 +382,8 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 					totalDiscountPercentageLevel3, totalDiscountPercentageLevel4
 				},
 				locale));
+		summary.setTotalDiscountValueFormatted(
+			_formatPrice(totalDiscountAmount, commerceCurrency, locale));
 	}
 
 	@Reference
