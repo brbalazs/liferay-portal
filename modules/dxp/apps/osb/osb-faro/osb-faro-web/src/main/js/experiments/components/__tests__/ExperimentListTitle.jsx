@@ -10,6 +10,7 @@ jest.unmock('react-dom');
 
 describe('ExperimentListTitle', () => {
 	afterEach(cleanup);
+
 	const MOCK_CONTEXT = {
 		router: {
 			params: {
@@ -30,6 +31,7 @@ describe('ExperimentListTitle', () => {
 			</BasePage.Context.Provider>
 		</ApolloProvider>
 	);
+
 	it('should render component', () => {
 		const {container} = render(
 			<WrappedComponent
@@ -39,6 +41,7 @@ describe('ExperimentListTitle', () => {
 				value={MOCK_CONTEXT}
 			/>
 		);
+
 		expect(container).toMatchSnapshot();
 	});
 });

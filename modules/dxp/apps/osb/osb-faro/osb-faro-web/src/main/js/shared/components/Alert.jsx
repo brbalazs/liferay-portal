@@ -118,11 +118,7 @@ export default class Alert extends React.Component {
 		);
 
 		if (stripe) {
-			content = (
-				<div className='container' data-testid='stripe	'>
-					{content}
-				</div>
-			);
+			content = <div className='container'>{content}</div>;
 		}
 
 		return (

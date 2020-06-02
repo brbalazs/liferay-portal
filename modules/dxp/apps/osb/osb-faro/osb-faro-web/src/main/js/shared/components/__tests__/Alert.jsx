@@ -19,15 +19,19 @@ describe('Alert', () => {
 
 	it('should render with close', () => {
 		const spy = jest.fn();
+
 		const {container} = render(<Alert onClose={spy} />);
+
 		expect(spy).not.toBeCalled;
+
 		fireEvent.click(container.querySelector('.close'));
+
 		expect(spy).toBeCalled();
 	});
 
 	it('should render with stripe', () => {
-		const {getByTestId} = render(<Alert stripe={jest.fn()} />);
-		expect(getByTestId('stripe')).toBeTruthy();
+		const {container} = render(<Alert stripe />);
+		expect(container.querySelector('.container')).toBeTruthy();
 	});
 
 	it('should render as dismissable', () => {
