@@ -1,13 +1,21 @@
 import * as breadcrumbs from 'shared/util/breadcrumbs';
+import Alert from 'shared/components/Alert';
 import BasePage from 'shared/components/base-page';
 import BundleRouter from 'route-middleware/BundleRouter';
+import Button from 'shared/components/Button';
+import DataSourceQuery from 'shared/queries/DataSourceQuery';
 import getCN from 'classnames';
 import Loading from 'shared/pages/Loading';
-import React, {lazy, Suspense} from 'react';
+import React, {lazy, Suspense, useEffect, useState} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
-import {Routes} from 'shared/util/router';
+import WrappedPageComponent from 'cerebro-shared/hocs/WrappedPageComponent';
+import {compose} from 'redux';
+import {get} from 'lodash';
+import {Routes, toRoute} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
+import {useQuery} from '@apollo/react-hooks';
+import {withCurrentUser} from 'shared/hoc';
 
 const InterestDetails = lazy(() =>
 	import(
@@ -54,13 +62,35 @@ type Router = {
 
 interface IDashboardProps extends React.HTMLAttributes<HTMLDivElement> {
 	router: Router;
+	currentUser: {
+		isAdmin: () => boolean;
+	};
 }
 
-export const Dashboard: React.FC<IDashboardProps> = ({router}) => {
+export const Dashboard: React.FC<IDashboardProps> = ({currentUser, router}) => {
 	const {channelId, groupId} = router.params;
 	const {selectedChannel} = useChannelContext();
 
 	const selectedChannelName = selectedChannel && selectedChannel.name;
+
+	const [showWarning, setShowWarning] = useState(false);
+
+	const {data: oAuth1} = useQuery(DataSourceQuery, {
+		variables: {credentialsType: 'OAuth 1 Authentication'}
+	});
+	const {data: oAuth2} = useQuery(DataSourceQuery, {
+		variables: {credentialsType: 'OAuth 2 Authentication'}
+	});
+
+	useEffect(() => {
+		if (
+			oAuth1 &&
+			oAuth2 &&
+			oAuth1.dataSources.length + oAuth2.dataSources.length > 0
+		) {
+			setShowWarning(true);
+		}
+	}, [oAuth1, oAuth2]);
 
 	return (
 		<BasePage
@@ -90,6 +120,35 @@ export const Dashboard: React.FC<IDashboardProps> = ({router}) => {
 					routeParams={{channelId, groupId}}
 				/>
 			</BasePage.Header>
+
+			{showWarning && currentUser.isAdmin() && (
+				<Alert
+					className='no-radius only-bottom-border'
+					iconSymbol='warning'
+					onClose={() => {
+						setShowWarning(false);
+					}}
+					title='Warning'
+					type={Alert.TYPES.warning}
+				>
+					{Liferay.Language.get(
+						'one-or-more-of-your-data-sources-needs-to-upgrade-from-oauth-to-the-new-token-based-connection'
+					)}
+
+					<div className='mt-3 pl-4'>
+						<Button
+							display='warning'
+							href={toRoute(Routes.SETTINGS_DATA_SOURCE_LIST, {
+								channelId,
+								groupId
+							})}
+							size='sm'
+						>
+							{Liferay.Language.get('go-to-datasources')}
+						</Button>
+					</div>
+				</Alert>
+			)}
 
 			<BasePage.Context.Provider
 				value={{
@@ -140,4 +199,6 @@ export const Dashboard: React.FC<IDashboardProps> = ({router}) => {
 	);
 };
 
-export default Dashboard;
+export default compose(withCurrentUser)(props => (
+	<WrappedPageComponent {...props} Component={Dashboard} />
+));
