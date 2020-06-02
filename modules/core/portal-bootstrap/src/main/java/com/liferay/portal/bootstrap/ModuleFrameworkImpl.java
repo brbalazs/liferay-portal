@@ -1374,8 +1374,8 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 		return true;
 	}
 
-	private List<File> _listConfigs(File directory) {
-		if (!directory.isDirectory()) {
+	private List<File> _listConfigs(File dir) {
+		if (!dir.isDirectory()) {
 			return Collections.<File>emptyList();
 		}
 
@@ -1385,18 +1385,18 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 			"felix.fileinstall.subdir.mode");
 
 		if (Objects.equals(subdirMode, "recurse")) {
-			Queue<File> directories = new LinkedList<>();
+			Queue<File> queue = new LinkedList<>();
 
-			directories.add(directory);
+			queue.add(dir);
 
 			List<File> files = new ArrayList<>();
 
 			File curDir = null;
 
-			while ((curDir = directories.poll()) != null) {
+			while ((curDir = queue.poll()) != null) {
 				for (File file : curDir.listFiles()) {
 					if (file.isDirectory()) {
-						directories.add(file);
+						queue.add(file);
 					}
 					else {
 						String name = file.getName();
@@ -1412,7 +1412,7 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 		}
 
 		return Arrays.asList(
-			directory.listFiles(
+			dir.listFiles(
 				file -> {
 					if (file.isFile()) {
 						String name = file.getName();
