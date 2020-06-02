@@ -16,10 +16,8 @@ package com.liferay.commerce.product.definitions.web.internal.frontend;
 
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayView;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
-import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Igor Beslic
@@ -38,13 +36,5 @@ public class CommerceProductOptionValueStaticClayTableDataSetDisplayView
 		clayTableSchemaBuilder.addField("deltaPrice", "delta-price");
 		clayTableSchemaBuilder.addField("sku", "linked-product");
 	}
-
-	@Override
-	protected ClayTableSchemaBuilder getClayTableSchemaBuilder() {
-		return _clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
-	}
-
-	@Reference
-	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
 
 }

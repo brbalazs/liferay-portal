@@ -17,7 +17,10 @@ package com.liferay.commerce.product.definitions.web.internal.frontend;
 import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
+
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Igor Beslic
@@ -28,7 +31,7 @@ public abstract class BaseClayTableDataSetDisplayView
 	@Override
 	public ClayTableSchema getClayTableSchema() {
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
-			getClayTableSchemaBuilder();
+			clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
 		addActionLinkFields(clayTableSchemaBuilder);
 
@@ -46,9 +49,10 @@ public abstract class BaseClayTableDataSetDisplayView
 		nameField.setContentRenderer("actionLink");
 	}
 
-	abstract protected void addFields(
+	protected abstract void addFields(
 		ClayTableSchemaBuilder clayTableSchemaBuilder);
 
-	abstract protected ClayTableSchemaBuilder getClayTableSchemaBuilder();
+	@Reference
+	protected ClayTableSchemaBuilderFactory clayTableSchemaBuilderFactory;
 
 }
