@@ -8,6 +8,7 @@ import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import {compose} from 'shared/hoc';
 import {connect} from 'react-redux';
+import {DEVELOPER_MODE} from 'shared/util/constants';
 import {Link, matchPath, Switch, withRouter} from 'react-router-dom';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
@@ -159,7 +160,7 @@ export class Settings extends React.Component {
 							groupId
 						})
 					},
-					currentUser.isAdmin() && {
+					DEVELOPER_MODE && {
 						icon: 'circle',
 						label: Liferay.Language.get('recommendations'),
 						route: Routes.SETTINGS_RECOMMENDATIONS,
@@ -381,11 +382,13 @@ export class Settings extends React.Component {
 									path={Routes.SETTINGS_APIS}
 								/>
 
-								<BundleRouter
-									data={RecommendationsList}
-									destructured={false}
-									path={Routes.SETTINGS_RECOMMENDATIONS}
-								/>
+								{DEVELOPER_MODE && (
+									<BundleRouter
+										data={RecommendationsList}
+										destructured={false}
+										path={Routes.SETTINGS_RECOMMENDATIONS}
+									/>
+								)}
 
 								<RouteNotFound />
 							</Switch>
