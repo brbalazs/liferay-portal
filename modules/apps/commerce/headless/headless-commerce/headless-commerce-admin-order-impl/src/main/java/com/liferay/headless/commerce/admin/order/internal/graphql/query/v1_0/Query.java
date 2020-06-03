@@ -14,12 +14,16 @@
 
 package com.liferay.headless.commerce.admin.order.internal.graphql.query.v1_0;
 
+import com.liferay.headless.commerce.admin.order.dto.v1_0.Account;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.BillingAddress;
+import com.liferay.headless.commerce.admin.order.dto.v1_0.Channel;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.Order;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.OrderItem;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.OrderNote;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.ShippingAddress;
+import com.liferay.headless.commerce.admin.order.resource.v1_0.AccountResource;
 import com.liferay.headless.commerce.admin.order.resource.v1_0.BillingAddressResource;
+import com.liferay.headless.commerce.admin.order.resource.v1_0.ChannelResource;
 import com.liferay.headless.commerce.admin.order.resource.v1_0.OrderItemResource;
 import com.liferay.headless.commerce.admin.order.resource.v1_0.OrderNoteResource;
 import com.liferay.headless.commerce.admin.order.resource.v1_0.OrderResource;
@@ -54,12 +58,28 @@ import org.osgi.service.component.ComponentServiceObjects;
 @Generated("")
 public class Query {
 
+	public static void setAccountResourceComponentServiceObjects(
+		ComponentServiceObjects<AccountResource>
+			accountResourceComponentServiceObjects) {
+
+		_accountResourceComponentServiceObjects =
+			accountResourceComponentServiceObjects;
+	}
+
 	public static void setBillingAddressResourceComponentServiceObjects(
 		ComponentServiceObjects<BillingAddressResource>
 			billingAddressResourceComponentServiceObjects) {
 
 		_billingAddressResourceComponentServiceObjects =
 			billingAddressResourceComponentServiceObjects;
+	}
+
+	public static void setChannelResourceComponentServiceObjects(
+		ComponentServiceObjects<ChannelResource>
+			channelResourceComponentServiceObjects) {
+
+		_channelResourceComponentServiceObjects =
+			channelResourceComponentServiceObjects;
 	}
 
 	public static void setOrderResourceComponentServiceObjects(
@@ -92,6 +112,37 @@ public class Query {
 
 		_shippingAddressResourceComponentServiceObjects =
 			shippingAddressResourceComponentServiceObjects;
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {orderByExternalReferenceCodeAccount(externalReferenceCode: ___){customFields, emailAddress, externalReferenceCode, id, logoId, name, root, taxId, type}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public Account orderByExternalReferenceCodeAccount(
+			@GraphQLName("externalReferenceCode") String externalReferenceCode)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource ->
+				accountResource.getOrderByExternalReferenceCodeAccount(
+					externalReferenceCode));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {orderIdAccount(id: ___){customFields, emailAddress, externalReferenceCode, id, logoId, name, root, taxId, type}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public Account orderIdAccount(@GraphQLName("id") Long id) throws Exception {
+		return _applyComponentServiceObjects(
+			_accountResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			accountResource -> accountResource.getOrderIdAccount(id));
 	}
 
 	/**
@@ -132,6 +183,37 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {orderByExternalReferenceCodeChannel(externalReferenceCode: ___){currencyCode, externalReferenceCode, id, name}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public Channel orderByExternalReferenceCodeChannel(
+			@GraphQLName("externalReferenceCode") String externalReferenceCode)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_channelResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			channelResource ->
+				channelResource.getOrderByExternalReferenceCodeChannel(
+					externalReferenceCode));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {orderIdChannel(id: ___){currencyCode, externalReferenceCode, id, name}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public Channel orderIdChannel(@GraphQLName("id") Long id) throws Exception {
+		return _applyComponentServiceObjects(
+			_channelResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			channelResource -> channelResource.getOrderIdChannel(id));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {orders(filter: ___, page: ___, pageSize: ___, sorts: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
@@ -155,7 +237,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {orderByExternalReferenceCode(externalReferenceCode: ___){accountExternalReferenceCode, accountId, advanceStatus, billingAddress, billingAddressId, channelId, couponCode, createDate, currencyCode, customFields, externalReferenceCode, id, lastPriceUpdateDate, modifiedDate, orderDate, orderItems, orderStatus, paymentMethod, paymentStatus, printedNote, purchaseOrderNumber, requestedDeliveryDate, shippingAddress, shippingAddressId, shippingAmount, shippingAmountFormatted, shippingAmountValue, shippingDiscountAmount, shippingDiscountAmountFormatted, shippingDiscountPercentageLevel1, shippingDiscountPercentageLevel2, shippingDiscountPercentageLevel3, shippingDiscountPercentageLevel4, shippingMethod, shippingOption, subtotal, subtotalAmount, subtotalDiscountAmount, subtotalDiscountAmountFormatted, subtotalDiscountPercentageLevel1, subtotalDiscountPercentageLevel2, subtotalDiscountPercentageLevel3, subtotalDiscountPercentageLevel4, subtotalFormatted, taxAmount, taxAmountFormatted, total, totalAmount, totalDiscountAmount, totalDiscountAmountFormatted, totalDiscountPercentageLevel1, totalDiscountPercentageLevel2, totalDiscountPercentageLevel3, totalDiscountPercentageLevel4, totalFormatted, transactionId}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {orderByExternalReferenceCode(externalReferenceCode: ___){account, accountExternalReferenceCode, accountId, advanceStatus, billingAddress, billingAddressId, channel, channelId, couponCode, createDate, currencyCode, customFields, externalReferenceCode, id, lastPriceUpdateDate, modifiedDate, orderDate, orderItems, orderStatus, orderStatusLabel, paymentMethod, paymentStatus, paymentStatusLabel, printedNote, purchaseOrderNumber, requestedDeliveryDate, shippingAddress, shippingAddressId, shippingAmount, shippingAmountFormatted, shippingAmountValue, shippingDiscountAmount, shippingDiscountAmountFormatted, shippingDiscountPercentageLevel1, shippingDiscountPercentageLevel2, shippingDiscountPercentageLevel3, shippingDiscountPercentageLevel4, shippingMethod, shippingOption, subtotal, subtotalAmount, subtotalDiscountAmount, subtotalDiscountAmountFormatted, subtotalDiscountPercentageLevel1, subtotalDiscountPercentageLevel2, subtotalDiscountPercentageLevel3, subtotalDiscountPercentageLevel4, subtotalFormatted, taxAmount, taxAmountFormatted, total, totalAmount, totalDiscountAmount, totalDiscountAmountFormatted, totalDiscountPercentageLevel1, totalDiscountPercentageLevel2, totalDiscountPercentageLevel3, totalDiscountPercentageLevel4, totalFormatted, transactionId}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public Order orderByExternalReferenceCode(
@@ -172,7 +254,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {order(id: ___){accountExternalReferenceCode, accountId, advanceStatus, billingAddress, billingAddressId, channelId, couponCode, createDate, currencyCode, customFields, externalReferenceCode, id, lastPriceUpdateDate, modifiedDate, orderDate, orderItems, orderStatus, paymentMethod, paymentStatus, printedNote, purchaseOrderNumber, requestedDeliveryDate, shippingAddress, shippingAddressId, shippingAmount, shippingAmountFormatted, shippingAmountValue, shippingDiscountAmount, shippingDiscountAmountFormatted, shippingDiscountPercentageLevel1, shippingDiscountPercentageLevel2, shippingDiscountPercentageLevel3, shippingDiscountPercentageLevel4, shippingMethod, shippingOption, subtotal, subtotalAmount, subtotalDiscountAmount, subtotalDiscountAmountFormatted, subtotalDiscountPercentageLevel1, subtotalDiscountPercentageLevel2, subtotalDiscountPercentageLevel3, subtotalDiscountPercentageLevel4, subtotalFormatted, taxAmount, taxAmountFormatted, total, totalAmount, totalDiscountAmount, totalDiscountAmountFormatted, totalDiscountPercentageLevel1, totalDiscountPercentageLevel2, totalDiscountPercentageLevel3, totalDiscountPercentageLevel4, totalFormatted, transactionId}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {order(id: ___){account, accountExternalReferenceCode, accountId, advanceStatus, billingAddress, billingAddressId, channel, channelId, couponCode, createDate, currencyCode, customFields, externalReferenceCode, id, lastPriceUpdateDate, modifiedDate, orderDate, orderItems, orderStatus, orderStatusLabel, paymentMethod, paymentStatus, paymentStatusLabel, printedNote, purchaseOrderNumber, requestedDeliveryDate, shippingAddress, shippingAddressId, shippingAmount, shippingAmountFormatted, shippingAmountValue, shippingDiscountAmount, shippingDiscountAmountFormatted, shippingDiscountPercentageLevel1, shippingDiscountPercentageLevel2, shippingDiscountPercentageLevel3, shippingDiscountPercentageLevel4, shippingMethod, shippingOption, subtotal, subtotalAmount, subtotalDiscountAmount, subtotalDiscountAmountFormatted, subtotalDiscountPercentageLevel1, subtotalDiscountPercentageLevel2, subtotalDiscountPercentageLevel3, subtotalDiscountPercentageLevel4, subtotalFormatted, taxAmount, taxAmountFormatted, total, totalAmount, totalDiscountAmount, totalDiscountAmountFormatted, totalDiscountPercentageLevel1, totalDiscountPercentageLevel2, totalDiscountPercentageLevel3, totalDiscountPercentageLevel4, totalFormatted, transactionId}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public Order order(@GraphQLName("id") Long id) throws Exception {
@@ -378,6 +460,52 @@ public class Query {
 
 	}
 
+	@GraphQLTypeExtension(Order.class)
+	public class GetOrderByExternalReferenceCodeChannelTypeExtension {
+
+		public GetOrderByExternalReferenceCodeChannelTypeExtension(
+			Order order) {
+
+			_order = order;
+		}
+
+		@GraphQLField
+		public Channel byExternalReferenceCodeChannel() throws Exception {
+			return _applyComponentServiceObjects(
+				_channelResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				channelResource ->
+					channelResource.getOrderByExternalReferenceCodeChannel(
+						_order.getExternalReferenceCode()));
+		}
+
+		private Order _order;
+
+	}
+
+	@GraphQLTypeExtension(Order.class)
+	public class GetOrderByExternalReferenceCodeAccountTypeExtension {
+
+		public GetOrderByExternalReferenceCodeAccountTypeExtension(
+			Order order) {
+
+			_order = order;
+		}
+
+		@GraphQLField
+		public Account byExternalReferenceCodeAccount() throws Exception {
+			return _applyComponentServiceObjects(
+				_accountResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				accountResource ->
+					accountResource.getOrderByExternalReferenceCodeAccount(
+						_order.getExternalReferenceCode()));
+		}
+
+		private Order _order;
+
+	}
+
 	@GraphQLTypeExtension(OrderItem.class)
 	public class GetOrderByExternalReferenceCodeTypeExtension {
 
@@ -531,6 +659,38 @@ public class Query {
 
 	}
 
+	@GraphQLName("AccountPage")
+	public class AccountPage {
+
+		public AccountPage(Page accountPage) {
+			actions = accountPage.getActions();
+			items = accountPage.getItems();
+			lastPage = accountPage.getLastPage();
+			page = accountPage.getPage();
+			pageSize = accountPage.getPageSize();
+			totalCount = accountPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<Account> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
 	@GraphQLName("BillingAddressPage")
 	public class BillingAddressPage {
 
@@ -548,6 +708,38 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<BillingAddress> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
+	@GraphQLName("ChannelPage")
+	public class ChannelPage {
+
+		public ChannelPage(Page channelPage) {
+			actions = channelPage.getActions();
+			items = channelPage.getItems();
+			lastPage = channelPage.getLastPage();
+			page = channelPage.getPage();
+			pageSize = channelPage.getPageSize();
+			totalCount = channelPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<Channel> items;
 
 		@GraphQLField
 		protected long lastPage;
@@ -710,6 +902,17 @@ public class Query {
 		}
 	}
 
+	private void _populateResourceContext(AccountResource accountResource)
+		throws Exception {
+
+		accountResource.setContextAcceptLanguage(_acceptLanguage);
+		accountResource.setContextCompany(_company);
+		accountResource.setContextHttpServletRequest(_httpServletRequest);
+		accountResource.setContextHttpServletResponse(_httpServletResponse);
+		accountResource.setContextUriInfo(_uriInfo);
+		accountResource.setContextUser(_user);
+	}
+
 	private void _populateResourceContext(
 			BillingAddressResource billingAddressResource)
 		throws Exception {
@@ -722,6 +925,17 @@ public class Query {
 			_httpServletResponse);
 		billingAddressResource.setContextUriInfo(_uriInfo);
 		billingAddressResource.setContextUser(_user);
+	}
+
+	private void _populateResourceContext(ChannelResource channelResource)
+		throws Exception {
+
+		channelResource.setContextAcceptLanguage(_acceptLanguage);
+		channelResource.setContextCompany(_company);
+		channelResource.setContextHttpServletRequest(_httpServletRequest);
+		channelResource.setContextHttpServletResponse(_httpServletResponse);
+		channelResource.setContextUriInfo(_uriInfo);
+		channelResource.setContextUser(_user);
 	}
 
 	private void _populateResourceContext(OrderResource orderResource)
@@ -771,8 +985,12 @@ public class Query {
 		shippingAddressResource.setContextUser(_user);
 	}
 
+	private static ComponentServiceObjects<AccountResource>
+		_accountResourceComponentServiceObjects;
 	private static ComponentServiceObjects<BillingAddressResource>
 		_billingAddressResourceComponentServiceObjects;
+	private static ComponentServiceObjects<ChannelResource>
+		_channelResourceComponentServiceObjects;
 	private static ComponentServiceObjects<OrderResource>
 		_orderResourceComponentServiceObjects;
 	private static ComponentServiceObjects<OrderItemResource>

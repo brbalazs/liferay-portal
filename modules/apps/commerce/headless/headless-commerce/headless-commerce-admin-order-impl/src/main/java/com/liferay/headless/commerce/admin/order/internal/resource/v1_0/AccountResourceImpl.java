@@ -29,7 +29,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 /**
- * @author Alessio Antonio Rendina
+ * @author Andrea Sbarra
  */
 @Component(
 	properties = "OSGI-INF/liferay/rest/v1_0/account.properties",

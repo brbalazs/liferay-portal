@@ -62,6 +62,35 @@ public class Order {
 	}
 
 	@Schema
+	@Valid
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	@JsonIgnore
+	public void setAccount(
+		UnsafeSupplier<Account, Exception> accountUnsafeSupplier) {
+
+		try {
+			account = accountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Account account;
+
+	@Schema
 	public String getAccountExternalReferenceCode() {
 		return accountExternalReferenceCode;
 	}
@@ -208,6 +237,35 @@ public class Order {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long billingAddressId;
+
+	@Schema
+	@Valid
+	public Channel getChannel() {
+		return channel;
+	}
+
+	public void setChannel(Channel channel) {
+		this.channel = channel;
+	}
+
+	@JsonIgnore
+	public void setChannel(
+		UnsafeSupplier<Channel, Exception> channelUnsafeSupplier) {
+
+		try {
+			channel = channelUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Channel channel;
 
 	@DecimalMin("0")
 	@Schema
@@ -551,6 +609,34 @@ public class Order {
 	protected Integer orderStatus;
 
 	@Schema
+	public String getOrderStatusLabel() {
+		return orderStatusLabel;
+	}
+
+	public void setOrderStatusLabel(String orderStatusLabel) {
+		this.orderStatusLabel = orderStatusLabel;
+	}
+
+	@JsonIgnore
+	public void setOrderStatusLabel(
+		UnsafeSupplier<String, Exception> orderStatusLabelUnsafeSupplier) {
+
+		try {
+			orderStatusLabel = orderStatusLabelUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String orderStatusLabel;
+
+	@Schema
 	public String getPaymentMethod() {
 		return paymentMethod;
 	}
@@ -606,6 +692,34 @@ public class Order {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer paymentStatus;
+
+	@Schema
+	public String getPaymentStatusLabel() {
+		return paymentStatusLabel;
+	}
+
+	public void setPaymentStatusLabel(String paymentStatusLabel) {
+		this.paymentStatusLabel = paymentStatusLabel;
+	}
+
+	@JsonIgnore
+	public void setPaymentStatusLabel(
+		UnsafeSupplier<String, Exception> paymentStatusLabelUnsafeSupplier) {
+
+		try {
+			paymentStatusLabel = paymentStatusLabelUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String paymentStatusLabel;
 
 	@Schema
 	public String getPrintedNote() {
@@ -1769,6 +1883,16 @@ public class Order {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (account != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"account\": ");
+
+			sb.append(String.valueOf(account));
+		}
+
 		if (accountExternalReferenceCode != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -1825,6 +1949,16 @@ public class Order {
 			sb.append("\"billingAddressId\": ");
 
 			sb.append(billingAddressId);
+		}
+
+		if (channel != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"channel\": ");
+
+			sb.append(String.valueOf(channel));
 		}
 
 		if (channelId != null) {
@@ -1985,6 +2119,20 @@ public class Order {
 			sb.append(orderStatus);
 		}
 
+		if (orderStatusLabel != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"orderStatusLabel\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(orderStatusLabel));
+
+			sb.append("\"");
+		}
+
 		if (paymentMethod != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -2007,6 +2155,20 @@ public class Order {
 			sb.append("\"paymentStatus\": ");
 
 			sb.append(paymentStatus);
+		}
+
+		if (paymentStatusLabel != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"paymentStatusLabel\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(paymentStatusLabel));
+
+			sb.append("\"");
 		}
 
 		if (printedNote != null) {

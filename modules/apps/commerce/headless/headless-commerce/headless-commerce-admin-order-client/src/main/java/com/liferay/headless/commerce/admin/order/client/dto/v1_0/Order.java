@@ -36,6 +36,27 @@ public class Order implements Cloneable {
 		return OrderSerDes.toDTO(json);
 	}
 
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public void setAccount(
+		UnsafeSupplier<Account, Exception> accountUnsafeSupplier) {
+
+		try {
+			account = accountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Account account;
+
 	public String getAccountExternalReferenceCode() {
 		return accountExternalReferenceCode;
 	}
@@ -145,6 +166,27 @@ public class Order implements Cloneable {
 	}
 
 	protected Long billingAddressId;
+
+	public Channel getChannel() {
+		return channel;
+	}
+
+	public void setChannel(Channel channel) {
+		this.channel = channel;
+	}
+
+	public void setChannel(
+		UnsafeSupplier<Channel, Exception> channelUnsafeSupplier) {
+
+		try {
+			channel = channelUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Channel channel;
 
 	public Long getChannelId() {
 		return channelId;
@@ -396,6 +438,27 @@ public class Order implements Cloneable {
 
 	protected Integer orderStatus;
 
+	public String getOrderStatusLabel() {
+		return orderStatusLabel;
+	}
+
+	public void setOrderStatusLabel(String orderStatusLabel) {
+		this.orderStatusLabel = orderStatusLabel;
+	}
+
+	public void setOrderStatusLabel(
+		UnsafeSupplier<String, Exception> orderStatusLabelUnsafeSupplier) {
+
+		try {
+			orderStatusLabel = orderStatusLabelUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String orderStatusLabel;
+
 	public String getPaymentMethod() {
 		return paymentMethod;
 	}
@@ -437,6 +500,27 @@ public class Order implements Cloneable {
 	}
 
 	protected Integer paymentStatus;
+
+	public String getPaymentStatusLabel() {
+		return paymentStatusLabel;
+	}
+
+	public void setPaymentStatusLabel(String paymentStatusLabel) {
+		this.paymentStatusLabel = paymentStatusLabel;
+	}
+
+	public void setPaymentStatusLabel(
+		UnsafeSupplier<String, Exception> paymentStatusLabelUnsafeSupplier) {
+
+		try {
+			paymentStatusLabel = paymentStatusLabelUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String paymentStatusLabel;
 
 	public String getPrintedNote() {
 		return printedNote;

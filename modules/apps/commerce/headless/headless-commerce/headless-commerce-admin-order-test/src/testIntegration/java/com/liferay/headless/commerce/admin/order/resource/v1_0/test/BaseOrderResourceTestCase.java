@@ -187,7 +187,9 @@ public abstract class BaseOrderResourceTestCase {
 		order.setCouponCode(regex);
 		order.setCurrencyCode(regex);
 		order.setExternalReferenceCode(regex);
+		order.setOrderStatusLabel(regex);
 		order.setPaymentMethod(regex);
+		order.setPaymentStatusLabel(regex);
 		order.setPrintedNote(regex);
 		order.setPurchaseOrderNumber(regex);
 		order.setShippingAmountFormatted(regex);
@@ -212,7 +214,9 @@ public abstract class BaseOrderResourceTestCase {
 		Assert.assertEquals(regex, order.getCouponCode());
 		Assert.assertEquals(regex, order.getCurrencyCode());
 		Assert.assertEquals(regex, order.getExternalReferenceCode());
+		Assert.assertEquals(regex, order.getOrderStatusLabel());
 		Assert.assertEquals(regex, order.getPaymentMethod());
+		Assert.assertEquals(regex, order.getPaymentStatusLabel());
 		Assert.assertEquals(regex, order.getPrintedNote());
 		Assert.assertEquals(regex, order.getPurchaseOrderNumber());
 		Assert.assertEquals(regex, order.getShippingAmountFormatted());
@@ -562,6 +566,14 @@ public abstract class BaseOrderResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("account", additionalAssertFieldName)) {
+				if (order.getAccount() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"accountExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -599,6 +611,14 @@ public abstract class BaseOrderResourceTestCase {
 
 			if (Objects.equals("billingAddressId", additionalAssertFieldName)) {
 				if (order.getBillingAddressId() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("channel", additionalAssertFieldName)) {
+				if (order.getChannel() == null) {
 					valid = false;
 				}
 
@@ -697,6 +717,14 @@ public abstract class BaseOrderResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("orderStatusLabel", additionalAssertFieldName)) {
+				if (order.getOrderStatusLabel() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("paymentMethod", additionalAssertFieldName)) {
 				if (order.getPaymentMethod() == null) {
 					valid = false;
@@ -707,6 +735,16 @@ public abstract class BaseOrderResourceTestCase {
 
 			if (Objects.equals("paymentStatus", additionalAssertFieldName)) {
 				if (order.getPaymentStatus() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"paymentStatusLabel", additionalAssertFieldName)) {
+
+				if (order.getPaymentStatusLabel() == null) {
 					valid = false;
 				}
 
@@ -1164,6 +1202,16 @@ public abstract class BaseOrderResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("account", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						order1.getAccount(), order2.getAccount())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"accountExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -1213,6 +1261,16 @@ public abstract class BaseOrderResourceTestCase {
 				if (!Objects.deepEquals(
 						order1.getBillingAddressId(),
 						order2.getBillingAddressId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("channel", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						order1.getChannel(), order2.getChannel())) {
 
 					return false;
 				}
@@ -1345,6 +1403,17 @@ public abstract class BaseOrderResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("orderStatusLabel", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						order1.getOrderStatusLabel(),
+						order2.getOrderStatusLabel())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("paymentMethod", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						order1.getPaymentMethod(), order2.getPaymentMethod())) {
@@ -1358,6 +1427,19 @@ public abstract class BaseOrderResourceTestCase {
 			if (Objects.equals("paymentStatus", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						order1.getPaymentStatus(), order2.getPaymentStatus())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"paymentStatusLabel", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						order1.getPaymentStatusLabel(),
+						order2.getPaymentStatusLabel())) {
 
 					return false;
 				}
@@ -1911,6 +1993,11 @@ public abstract class BaseOrderResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("account")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("accountExternalReferenceCode")) {
 			sb.append("'");
 			sb.append(String.valueOf(order.getAccountExternalReferenceCode()));
@@ -1938,6 +2025,11 @@ public abstract class BaseOrderResourceTestCase {
 		}
 
 		if (entityFieldName.equals("billingAddressId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("channel")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -2117,6 +2209,14 @@ public abstract class BaseOrderResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("orderStatusLabel")) {
+			sb.append("'");
+			sb.append(String.valueOf(order.getOrderStatusLabel()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("paymentMethod")) {
 			sb.append("'");
 			sb.append(String.valueOf(order.getPaymentMethod()));
@@ -2128,6 +2228,14 @@ public abstract class BaseOrderResourceTestCase {
 		if (entityFieldName.equals("paymentStatus")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("paymentStatusLabel")) {
+			sb.append("'");
+			sb.append(String.valueOf(order.getPaymentStatusLabel()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("printedNote")) {
@@ -2444,9 +2552,13 @@ public abstract class BaseOrderResourceTestCase {
 				modifiedDate = RandomTestUtil.nextDate();
 				orderDate = RandomTestUtil.nextDate();
 				orderStatus = RandomTestUtil.randomInt();
+				orderStatusLabel = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				paymentMethod = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				paymentStatus = RandomTestUtil.randomInt();
+				paymentStatusLabel = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				printedNote = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				purchaseOrderNumber = StringUtil.toLowerCase(

@@ -63,6 +63,16 @@ public class OrderSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (order.getAccount() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"account\": ");
+
+			sb.append(String.valueOf(order.getAccount()));
+		}
+
 		if (order.getAccountExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -119,6 +129,16 @@ public class OrderSerDes {
 			sb.append("\"billingAddressId\": ");
 
 			sb.append(order.getBillingAddressId());
+		}
+
+		if (order.getChannel() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"channel\": ");
+
+			sb.append(String.valueOf(order.getChannel()));
 		}
 
 		if (order.getChannelId() != null) {
@@ -280,6 +300,20 @@ public class OrderSerDes {
 			sb.append(order.getOrderStatus());
 		}
 
+		if (order.getOrderStatusLabel() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"orderStatusLabel\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(order.getOrderStatusLabel()));
+
+			sb.append("\"");
+		}
+
 		if (order.getPaymentMethod() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -302,6 +336,20 @@ public class OrderSerDes {
 			sb.append("\"paymentStatus\": ");
 
 			sb.append(order.getPaymentStatus());
+		}
+
+		if (order.getPaymentStatusLabel() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"paymentStatusLabel\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(order.getPaymentStatusLabel()));
+
+			sb.append("\"");
 		}
 
 		if (order.getPrintedNote() != null) {
@@ -749,6 +797,13 @@ public class OrderSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (order.getAccount() == null) {
+			map.put("account", null);
+		}
+		else {
+			map.put("account", String.valueOf(order.getAccount()));
+		}
+
 		if (order.getAccountExternalReferenceCode() == null) {
 			map.put("accountExternalReferenceCode", null);
 		}
@@ -787,6 +842,13 @@ public class OrderSerDes {
 			map.put(
 				"billingAddressId",
 				String.valueOf(order.getBillingAddressId()));
+		}
+
+		if (order.getChannel() == null) {
+			map.put("channel", null);
+		}
+		else {
+			map.put("channel", String.valueOf(order.getChannel()));
 		}
 
 		if (order.getChannelId() == null) {
@@ -883,6 +945,15 @@ public class OrderSerDes {
 			map.put("orderStatus", String.valueOf(order.getOrderStatus()));
 		}
 
+		if (order.getOrderStatusLabel() == null) {
+			map.put("orderStatusLabel", null);
+		}
+		else {
+			map.put(
+				"orderStatusLabel",
+				String.valueOf(order.getOrderStatusLabel()));
+		}
+
 		if (order.getPaymentMethod() == null) {
 			map.put("paymentMethod", null);
 		}
@@ -895,6 +966,15 @@ public class OrderSerDes {
 		}
 		else {
 			map.put("paymentStatus", String.valueOf(order.getPaymentStatus()));
+		}
+
+		if (order.getPaymentStatusLabel() == null) {
+			map.put("paymentStatusLabel", null);
+		}
+		else {
+			map.put(
+				"paymentStatusLabel",
+				String.valueOf(order.getPaymentStatusLabel()));
 		}
 
 		if (order.getPrintedNote() == null) {
@@ -1233,8 +1313,14 @@ public class OrderSerDes {
 			Order order, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(
-					jsonParserFieldName, "accountExternalReferenceCode")) {
+			if (Objects.equals(jsonParserFieldName, "account")) {
+				if (jsonParserFieldValue != null) {
+					order.setAccount(
+						AccountSerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "accountExternalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
 					order.setAccountExternalReferenceCode(
@@ -1263,6 +1349,12 @@ public class OrderSerDes {
 				if (jsonParserFieldValue != null) {
 					order.setBillingAddressId(
 						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "channel")) {
+				if (jsonParserFieldValue != null) {
+					order.setChannel(
+						ChannelSerDes.toDTO((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "channelId")) {
@@ -1341,6 +1433,11 @@ public class OrderSerDes {
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "orderStatusLabel")) {
+				if (jsonParserFieldValue != null) {
+					order.setOrderStatusLabel((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "paymentMethod")) {
 				if (jsonParserFieldValue != null) {
 					order.setPaymentMethod((String)jsonParserFieldValue);
@@ -1350,6 +1447,13 @@ public class OrderSerDes {
 				if (jsonParserFieldValue != null) {
 					order.setPaymentStatus(
 						Integer.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "paymentStatusLabel")) {
+
+				if (jsonParserFieldValue != null) {
+					order.setPaymentStatusLabel((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "printedNote")) {
