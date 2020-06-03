@@ -134,6 +134,10 @@ public interface ContactsEngineClient {
 
 	public void deleteChannels(FaroProject faroProject, List<String> ids);
 
+	public void deleteData(
+		FaroProject faroProject, String weDeployDataServiceName,
+		String collectionName);
+
 	public void deleteDataSource(FaroProject faroProject, String id)
 		throws FaroEngineClientException;
 

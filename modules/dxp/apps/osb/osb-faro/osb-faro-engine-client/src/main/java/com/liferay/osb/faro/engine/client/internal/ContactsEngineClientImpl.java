@@ -445,6 +445,19 @@ public class ContactsEngineClientImpl
 	}
 
 	@Override
+	public void deleteData(
+		FaroProject faroProject, String weDeployDataServiceName,
+		String collectionName) {
+
+		Map<String, Object> uriVariables = getUriVariables(faroProject);
+
+		uriVariables.put("collectionName", collectionName);
+		uriVariables.put("weDeployDataServiceName", weDeployDataServiceName);
+
+		delete(faroProject, Rels.ADMIN_DATA, uriVariables);
+	}
+
+	@Override
 	public void deleteDataSource(FaroProject faroProject, String id)
 		throws FaroEngineClientException {
 

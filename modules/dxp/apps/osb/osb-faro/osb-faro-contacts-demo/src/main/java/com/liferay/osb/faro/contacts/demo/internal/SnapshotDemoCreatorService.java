@@ -93,6 +93,9 @@ public class SnapshotDemoCreatorService extends DemoCreatorService {
 
 			zipInputStream.close();
 		}
+
+		contactsEngineClient.deleteData(
+			faroProject, "osbasahfaroinfo", "run-logs");
 	}
 
 	private Object _addOffset(Object value, long timeOffset) {

@@ -234,6 +234,15 @@ public abstract class BaseMockContactsEngineClientImpl
 	}
 
 	@Override
+	public void deleteData(
+		FaroProject faroProject, String weDeployDataServiceName,
+		String collectionName) {
+
+		contactsEngineClient.deleteData(
+			faroProject, weDeployDataServiceName, collectionName);
+	}
+
+	@Override
 	public void deleteDataSource(FaroProject faroProject, String id)
 		throws FaroEngineClientException {
 
