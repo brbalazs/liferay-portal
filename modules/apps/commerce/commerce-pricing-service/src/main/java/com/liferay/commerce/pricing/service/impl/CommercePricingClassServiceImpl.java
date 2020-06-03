@@ -23,6 +23,8 @@ import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author Riccardo Alberti
@@ -30,6 +32,20 @@ import java.util.List;
  */
 public class CommercePricingClassServiceImpl
 	extends CommercePricingClassServiceBaseImpl {
+
+	@Override
+	public CommercePricingClass addCommercePricingClass(
+			long userId, long groupId, Map<Locale, String> titleMap,
+			Map<Locale, String> descriptionMap, ServiceContext serviceContext)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
+
+		return commercePricingClassLocalService.addCommercePricingClass(
+			userId, groupId, titleMap, descriptionMap, null, serviceContext);
+	}
 
 	@Override
 	public CommercePricingClass addCommercePricingClass(
@@ -128,6 +144,22 @@ public class CommercePricingClassServiceImpl
 	@Override
 	public CommercePricingClass updateCommercePricingClass(
 			long commercePricingClassId, long userId, long groupId,
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
+
+		return commercePricingClassLocalService.updateCommercePricingClass(
+			commercePricingClassId, userId, groupId, titleMap, descriptionMap,
+			serviceContext);
+	}
+
+	@Override
+	public CommercePricingClass updateCommercePricingClass(
+			long commercePricingClassId, long userId, long groupId,
 			String title, String description, ServiceContext serviceContext)
 		throws PortalException {
 
@@ -138,6 +170,22 @@ public class CommercePricingClassServiceImpl
 		return commercePricingClassLocalService.updateCommercePricingClass(
 			commercePricingClassId, userId, groupId, title, description,
 			serviceContext);
+	}
+
+	@Override
+	public CommercePricingClass upsertCommercePricingClass(
+			long commercePricingClassId, long userId, long groupId,
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
+			String externalReferenceCode, ServiceContext serviceContext)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
+
+		return commercePricingClassLocalService.upsertCommercePricingClass(
+			commercePricingClassId, userId, groupId, titleMap, descriptionMap,
+			externalReferenceCode, serviceContext);
 	}
 
 	@Override

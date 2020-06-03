@@ -30,6 +30,8 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
@@ -39,6 +41,34 @@ import java.util.stream.Stream;
  */
 public class CommercePricingClassLocalServiceImpl
 	extends CommercePricingClassLocalServiceBaseImpl {
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommercePricingClass addCommercePricingClass(
+			long userId, long groupId, Map<Locale, String> titleMap,
+			Map<Locale, String> descriptionMap, String externalReferenceCode,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		User user = userLocalService.getUser(userId);
+
+		validate(titleMap);
+
+		long commercePricingClassId = counterLocalService.increment();
+
+		CommercePricingClass commercePricingClass =
+			commercePricingClassPersistence.create(commercePricingClassId);
+
+		commercePricingClass.setGroupId(groupId);
+		commercePricingClass.setCompanyId(serviceContext.getCompanyId());
+		commercePricingClass.setUserId(user.getUserId());
+		commercePricingClass.setUserName(user.getFullName());
+		commercePricingClass.setTitleMap(titleMap);
+		commercePricingClass.setDescriptionMap(descriptionMap);
+		commercePricingClass.setExternalReferenceCode(externalReferenceCode);
+
+		return commercePricingClassPersistence.update(commercePricingClass);
+	}
 
 	@Override
 	public CommercePricingClass addCommercePricingClass(
@@ -165,6 +195,32 @@ public class CommercePricingClassLocalServiceImpl
 	@Override
 	public CommercePricingClass updateCommercePricingClass(
 			long commercePricingClassId, long userId, long groupId,
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		User user = userLocalService.getUser(serviceContext.getUserId());
+
+		CommercePricingClass commercePricingClass =
+			commercePricingClassPersistence.findByPrimaryKey(
+				commercePricingClassId);
+
+		validate(titleMap);
+
+		commercePricingClass.setGroupId(groupId);
+		commercePricingClass.setCompanyId(serviceContext.getCompanyId());
+		commercePricingClass.setUserId(user.getUserId());
+		commercePricingClass.setUserName(user.getFullName());
+		commercePricingClass.setTitleMap(titleMap);
+		commercePricingClass.setDescriptionMap(descriptionMap);
+
+		return commercePricingClassPersistence.update(commercePricingClass);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommercePricingClass updateCommercePricingClass(
+			long commercePricingClassId, long userId, long groupId,
 			String title, String description, ServiceContext serviceContext)
 		throws PortalException {
 
@@ -184,6 +240,47 @@ public class CommercePricingClassLocalServiceImpl
 		commercePricingClass.setDescription(description);
 
 		return commercePricingClassPersistence.update(commercePricingClass);
+	}
+
+	@Override
+	public CommercePricingClass upsertCommercePricingClass(
+			long commercePricingClassId, long userId, long groupId,
+			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
+			String externalReferenceCode, ServiceContext serviceContext)
+		throws PortalException {
+
+		if (commercePricingClassId > 0) {
+			try {
+				return commercePricingClassLocalService.
+					updateCommercePricingClass(
+						commercePricingClassId, userId, groupId, titleMap,
+						descriptionMap, serviceContext);
+			}
+			catch (NoSuchPricingClassException nspc) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"Unable to find pricing class with ID: " +
+							commercePricingClassId);
+				}
+			}
+		}
+
+		if (!Validator.isBlank(externalReferenceCode)) {
+			CommercePricingClass commercePricingClass =
+				commercePricingClassPersistence.fetchByC_ERC(
+					serviceContext.getCompanyId(), externalReferenceCode);
+
+			if (commercePricingClass != null) {
+				return commercePricingClassLocalService.
+					updateCommercePricingClass(
+						commercePricingClassId, userId, groupId, titleMap,
+						descriptionMap, serviceContext);
+			}
+		}
+
+		return commercePricingClassLocalService.addCommercePricingClass(
+			userId, groupId, titleMap, descriptionMap, externalReferenceCode,
+			serviceContext);
 	}
 
 	@Override
@@ -225,6 +322,14 @@ public class CommercePricingClassLocalServiceImpl
 		return commercePricingClassLocalService.addCommercePricingClass(
 			userId, groupId, title, description, externalReferenceCode,
 			serviceContext);
+	}
+
+	protected void validate(Map<Locale, String> titleMap)
+		throws PortalException {
+
+		if ((titleMap == null) || titleMap.isEmpty()) {
+			throw new CommercePricingClassTitleException();
+		}
 	}
 
 	protected void validate(String title) throws PortalException {
