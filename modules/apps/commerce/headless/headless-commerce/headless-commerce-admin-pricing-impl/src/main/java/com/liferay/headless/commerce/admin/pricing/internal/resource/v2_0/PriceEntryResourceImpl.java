@@ -32,8 +32,10 @@ import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.TierPriceU
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceEntryResource;
 import com.liferay.headless.commerce.core.util.DateConfig;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -164,8 +166,15 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 			CommercePriceEntry.class, search, pagination,
 			queryConfig -> queryConfig.setSelectedFieldNames(
 				Field.ENTRY_CLASS_PK),
-			searchContext -> searchContext.setCompanyId(
-				contextCompany.getCompanyId()),
+			new UnsafeConsumer() {
+
+				public void accept(Object o) throws Exception {
+					SearchContext searchContext = (SearchContext)o;
+
+					searchContext.setCompanyId(contextCompany.getCompanyId());
+				}
+
+			},
 			sorts,
 			document -> _toPriceEntry(
 				GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))));

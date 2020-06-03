@@ -30,7 +30,9 @@ import com.liferay.headless.commerce.admin.catalog.internal.util.v1_0.ProductGro
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.ProductGroupResource;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -124,8 +126,15 @@ public class ProductGroupResourceImpl
 			CommercePricingClass.class, search, pagination,
 			queryConfig -> queryConfig.setSelectedFieldNames(
 				Field.ENTRY_CLASS_PK),
-			searchContext -> searchContext.setCompanyId(
-				contextCompany.getCompanyId()),
+			new UnsafeConsumer() {
+
+				public void accept(Object o) throws Exception {
+					SearchContext searchContext = (SearchContext)o;
+
+					searchContext.setCompanyId(contextCompany.getCompanyId());
+				}
+
+			},
 			sorts,
 			document -> _toProductGroup(
 				GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))));
