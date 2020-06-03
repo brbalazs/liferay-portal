@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.sql.PreparedStatement;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -75,6 +76,8 @@ public class UpgradeLayoutPrototype extends UpgradeProcess {
 				_layoutPrototypeLocalService.getLayoutPrototypes(
 					QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
+			List<String> existingNames = new ArrayList<>();
+
 			for (LayoutPrototype layoutPrototype : layoutPrototypes) {
 				long companyId = layoutPrototype.getCompanyId();
 				Date createDate = layoutPrototype.getCreateDate();
@@ -88,6 +91,26 @@ public class UpgradeLayoutPrototype extends UpgradeProcess {
 				Locale defaultLocale = LocaleUtil.fromLanguageId(
 					LocalizationUtil.getDefaultLanguageId(nameXML));
 
+				String name = nameMap.get(defaultLocale);
+
+				if (existingNames.contains(name)) {
+					while (true) {
+						int i = 1;
+
+						name = name + i;
+
+						if (existingNames.contains(name)) {
+							i++;
+
+							continue;
+						}
+
+						break;
+					}
+				}
+
+				existingNames.add(name);
+
 				ps.setString(1, PortalUUIDUtil.generate());
 				ps.setLong(2, increment());
 				ps.setLong(3, company.getGroupId());
@@ -97,7 +120,7 @@ public class UpgradeLayoutPrototype extends UpgradeProcess {
 				ps.setDate(7, new java.sql.Date(createDate.getTime()));
 				ps.setDate(8, new java.sql.Date(createDate.getTime()));
 				ps.setLong(9, 0);
-				ps.setString(10, nameMap.get(defaultLocale));
+				ps.setString(10, name);
 				ps.setInt(
 					11, LayoutPageTemplateEntryTypeConstants.TYPE_WIDGET_PAGE);
 				ps.setLong(12, layoutPrototype.getLayoutPrototypeId());
