@@ -1,5 +1,5 @@
 import * as API from 'shared/api';
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {DEVELOPER_MODE} from 'shared/util/constants';
 import React from 'react';
 import {alertTypes} from 'shared/actions/alerts';
 import {DataSource} from 'shared/util/records';
@@ -204,7 +204,11 @@ export function getDataSourceDisplayObject(
 		return STATUS_DISPLAY.default;
 	}
 
-	if (showActionNeededStatus && hasLegacyDXPConnection(dataSource)) {
+	if (
+		DEVELOPER_MODE &&
+		showActionNeededStatus &&
+		hasLegacyDXPConnection(dataSource)
+	) {
 		return STATUS_DISPLAY[actionNeeded];
 	}
 
