@@ -15,6 +15,7 @@
 package com.liferay.headless.commerce.admin.order.internal.dto.v1_0.converter;
 
 import com.liferay.commerce.account.model.CommerceAccount;
+import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
@@ -26,12 +27,16 @@ import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.Order;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.language.LanguageResources;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
 import java.math.BigDecimal;
 
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -63,6 +68,20 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 			commerceOrder.getCommerceShippingMethod();
 		ExpandoBridge expandoBridge = commerceOrder.getExpandoBridge();
 
+		Locale locale = dtoConverterContext.getLocale();
+
+		ResourceBundle resourceBundle = LanguageResources.getResourceBundle(
+			locale);
+
+		String commerceOrderStatusLabel = LanguageUtil.get(
+			resourceBundle,
+			WorkflowConstants.getStatusLabel(commerceOrder.getStatus()));
+
+		String commerceOrderPaymentStatusLabel = LanguageUtil.get(
+			resourceBundle,
+			CommerceOrderConstants.getPaymentStatusLabel(
+				commerceOrder.getPaymentStatus()));
+
 		CommerceChannel commerceChannel =
 			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
 				commerceOrder.getGroupId());
@@ -86,8 +105,10 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				lastPriceUpdateDate = commerceOrder.getLastPriceUpdateDate();
 				modifiedDate = commerceOrder.getModifiedDate();
 				orderStatus = commerceOrder.getOrderStatus();
+				orderStatusLabel = commerceOrderStatusLabel;
 				paymentMethod = commerceOrder.getCommercePaymentMethodKey();
 				paymentStatus = commerceOrder.getPaymentStatus();
+				paymentStatusLabel = commerceOrderPaymentStatusLabel;
 				printedNote = commerceOrder.getPrintedNote();
 				purchaseOrderNumber = commerceOrder.getPurchaseOrderNumber();
 				requestedDeliveryDate =
@@ -99,8 +120,6 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				transactionId = commerceOrder.getTransactionId();
 			}
 		};
-
-		Locale locale = dtoConverterContext.getLocale();
 
 		CommerceMoney commerceOrderSubTotalMoney =
 			commerceOrder.getSubtotalMoney();
