@@ -3,19 +3,23 @@ import {gql} from 'apollo-boost';
 export default gql`
 	query TouchpointPath(
 		$channelId: String
+		$devices: String
+		$location: String
+		$rangeEnd: String
+		$rangeKey: Int
+		$rangeStart: String
 		$title: String
 		$touchpoint: String!
-		$rangeKey: Int!
-		$location: String
-		$devices: String
 	) {
 		page(
 			channelId: $channelId
-			url: $touchpoint
-			rangeKey: $rangeKey
 			country: $location
 			deviceType: $devices
+			rangeEnd: $rangeEnd
+			rangeKey: $rangeKey
+			rangeStart: $rangeStart
 			title: $title
+			url: $touchpoint
 		) {
 			assetTitle
 			directAccessMetric {
