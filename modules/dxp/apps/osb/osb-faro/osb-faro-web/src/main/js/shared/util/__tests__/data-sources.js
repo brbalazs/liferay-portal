@@ -201,7 +201,7 @@ describe('data-sources', () => {
 			expect(result).toMatchSnapshot();
 		});
 
-		it('should return the "action needed" state display object if the data source state is in oAuth1 Authentication', () => {
+		xit('should return the "action needed" state display object if the data source state is in oAuth1 Authentication', () => {
 			const result = getDataSourceDisplayObject(
 				getMockLiferayDataSource(1, {
 					credentials: {type: credentialTypes.oAuth1}
@@ -212,7 +212,7 @@ describe('data-sources', () => {
 			expect(result).toEqual(STATUS_DISPLAY[actionNeeded]);
 		});
 
-		it('should return the "action needed" state display object if the data source state is in oAuth2 Authentication', () => {
+		xit('should return the "action needed" state display object if the data source state is in oAuth2 Authentication', () => {
 			const result = getDataSourceDisplayObject(
 				getMockLiferayDataSource(1, {
 					credentials: {type: credentialTypes.oAuth2}
