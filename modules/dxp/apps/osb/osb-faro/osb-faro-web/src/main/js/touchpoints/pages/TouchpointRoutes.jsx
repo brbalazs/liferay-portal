@@ -123,6 +123,7 @@ function TouchpointRoutes({className, router}) {
 
 					{matchedRoute === Routes.SITES_TOUCHPOINTS_PATH && (
 						<DropdownRangeKey
+							legacy={false}
 							onChange={setPathRangeSelectors}
 							rangeSelectors={pathRangeSelectors}
 						/>

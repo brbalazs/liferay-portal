@@ -24,8 +24,13 @@ const withAudienceReportCard = withData => {
 		className: 'analytics-audience-report-card'
 	};
 
-	const AudienceReportCard = ({className, label}) => (
-		<BaseCard className={className} label={label} minHeight={536}>
+	const AudienceReportCard = ({className, label, legacyDropdownRangeKey}) => (
+		<BaseCard
+			className={className}
+			label={label}
+			legacyDropdownRangeKey={legacyDropdownRangeKey}
+			minHeight={536}
+		>
 			{({filters, rangeSelectors, router}) => (
 				<Card.Body>
 					<AudienceReportWithData
