@@ -212,6 +212,9 @@ components:
                     format: int32
                     minimum: 0
                     type: integer
+                orderStatusLabel:
+                    example: paypal
+                    type: string
                 paymentMethod:
                     example: paypal
                     type: string
@@ -220,6 +223,9 @@ components:
                     format: int32
                     minimum: 0
                     type: integer
+                paymentStatusLabel:
+                    example: paypal
+                    type: string
                 printedNote:
                     example: Order printed note
                     type: string
