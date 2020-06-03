@@ -271,7 +271,6 @@ public class DocumentDTOConverter
 						return LocaleUtil.toW3cLanguageIds(
 							locales.toArray(new Locale[0]));
 					});
-
 				setContentFields(
 					() -> {
 						List<DDMFormFieldValue> ddmFormFieldValues =
