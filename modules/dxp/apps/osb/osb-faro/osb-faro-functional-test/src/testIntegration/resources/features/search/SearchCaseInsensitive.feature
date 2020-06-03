@@ -11,9 +11,9 @@ Feature: Case Insensitive Search
 
 	Scenario: Search for an Individual Using a Lowercase Query
 		Given I should see the "Individuals" page
-		When I search for "avery"
-		Then I should only see Individuals named "Avery" in the table
+		When I search for "abram"
+		Then I should only see Individuals named "Abram" in the table
 
 	Scenario: Search for an Individual Using an Uppercase Query
-		When I search for "Avery"
-		Then I should only see Individuals named "Avery" in the table
+		When I search for "Abram"
+		Then I should only see Individuals named "Abram" in the table

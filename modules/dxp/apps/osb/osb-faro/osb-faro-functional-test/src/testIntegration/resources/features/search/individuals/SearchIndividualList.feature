@@ -11,25 +11,25 @@ Feature: Search for an Individual in the Individual's List
 
 	Scenario: Search for an Individual
 #	Scenario: Search for an Individual Using a First Name
-		When I search for "Macy"
-		Then I should only see Individuals named "Macy" in the table
+		When I search for "Curt"
+		Then I should only see Individuals named "Curt" in the table
 
 #	Scenario: Search for an Individual Using a Last Name
-		When I search for "Wuckert"
-		Then I should only see Individuals named "Wuckert" in the table
+		When I search for "Parker"
+		Then I should only see Individuals named "Parker" in the table
 
 #	Scenario: Search for an Individual Using a Full Name
-		When I search for "Macy Wuckert"
-		Then I should only see Individuals named "Macy Wuckert" in the table
+		When I search for "Maria Rau"
+		Then I should only see Individuals named "Maria Rau" in the table
 
 #	Scenario: Search for an Individual Using an Email
-		When I search for "Kym.Hand@hotmail.com"
-		Then I should only see Individuals named "Kym Hand" in the table
+		When I search for "Randy.Smith@gmail.com"
+		Then I should only see Individuals named "Randy Smith" in the table
 
 #	Scenario: Search for an Individual Using a Job Title
-		When I search for "Direct Tactics Manager"
-		Then I should only see Individuals named "Jc Luettgen" in the table
+		When I search for "Global Division Assistant"
+		Then I should only see Individuals named "Karlene Sipes" in the table
 
 #	Scenario: Search for an Individual Using the "worksFor" value
-		When I search for "O'Keefe-Waelchi"
-		Then I should only see Individuals named "An Padberg" in the table
+		When I search for "Quigley-Larkin"
+		Then I should see Individual named "Kylee Blanda" in the table
