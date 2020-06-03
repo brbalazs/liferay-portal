@@ -49,11 +49,12 @@ function DateRangeFilter(props) {
 	return (
 		<div className="form-group">
 			<ClayForm.Group className="form-group-sm">
-				<label htmlFor="basicInput">
+				<label htmlFor={`from-${props.id}`}>
 					{Liferay.Language.get('from')}
 				</label>
 				<input
 					className="form-control"
+					id={`from-${props.id}`}
 					max={toValue || (props.max && formatDateObject(props.max))}
 					min={props.min && formatDateObject(props.min)}
 					onChange={e => setFromValue(e.target.value)}
@@ -64,9 +65,12 @@ function DateRangeFilter(props) {
 				/>
 			</ClayForm.Group>
 			<ClayForm.Group className="form-group-sm mt-2">
-				<label htmlFor="basicInput">{Liferay.Language.get('to')}</label>
+				<label htmlFor={`to-${props.id}`}>
+					{Liferay.Language.get('to')}
+				</label>
 				<input
 					className="form-control"
+					id={`to-${props.id}`}
 					max={props.max && formatDateObject(props.max)}
 					min={
 						fromValue || (props.min && formatDateObject(props.min))
@@ -116,33 +120,23 @@ function DateRangeFilter(props) {
 	);
 }
 
+const dateShape = PropTypes.shape({
+	day: PropTypes.number,
+	month: PropTypes.number,
+	year: PropTypes.number
+});
+
 DateRangeFilter.propTypes = {
 	id: PropTypes.string.isRequired,
 	invisible: PropTypes.bool,
 	label: PropTypes.string.isRequired,
-	max: PropTypes.shape({
-		day: PropTypes.number,
-		month: PropTypes.number,
-		year: PropTypes.number
-	}),
-	min: PropTypes.shape({
-		day: PropTypes.number,
-		month: PropTypes.number,
-		year: PropTypes.number
-	}),
+	max: dateShape,
+	min: dateShape,
 	placeholder: PropTypes.string,
 	type: PropTypes.oneOf(['dateRange']).isRequired,
 	value: PropTypes.shape({
-		from: PropTypes.shape({
-			day: PropTypes.number,
-			month: PropTypes.number,
-			year: PropTypes.number
-		}),
-		to: PropTypes.shape({
-			day: PropTypes.number,
-			month: PropTypes.number,
-			year: PropTypes.number
-		})
+		from: dateShape,
+		to: dateShape
 	})
 };
 

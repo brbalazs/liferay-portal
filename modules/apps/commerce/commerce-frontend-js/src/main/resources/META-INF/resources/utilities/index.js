@@ -12,6 +12,21 @@
  * details.
  */
 
+import createOdataFilter from './odata';
+
+export function getData(apiUrl, query) {
+	let url = apiUrl;
+
+	if (query) {
+		url += (url.includes('?') ? '&' : '?') + `search=${query}`;
+	}
+
+	return fetch(url, {
+		...fetchParams,
+		method: 'GET'
+	}).then(data => data.json());
+}
+
 export function liferayNavigate(url) {
 	if (Liferay.SPA) {
 		Liferay.SPA.app.navigate(url);
@@ -96,15 +111,18 @@ export function loadData(
 ) {
 	const authString = `p_auth=${window.Liferay.authToken}`;
 	const currentUrlString = `&currentUrl=${encodeURIComponent(currentUrl)}`;
-	const pagination = `&pageSize=${delta}&page=${page}`;
+	const paginationString = `&pageSize=${delta}&page=${page}`;
 	const searchParamString = searchParam ? `&search=${searchParam}` : '';
 	const sortingString = sorting.length
 		? `&orderBy=${JSON.stringify(sorting)}`
 		: ``;
+	const filtersString = filters.length
+		? `&filter=${createOdataFilter(filters)}`
+		: '';
 
 	const url = `${apiUrl}${
 		apiUrl.indexOf('?') > -1 ? '&' : '?'
-	}${authString}${currentUrlString}${pagination}${sortingString}${searchParamString}`;
+	}${authString}${currentUrlString}${paginationString}${sortingString}${filtersString}${searchParamString}`;
 
 	return executeAsyncAction(url, 'GET').then(response => response.json());
 }

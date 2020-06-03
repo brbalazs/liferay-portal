@@ -12,13 +12,11 @@
  * details.
  */
 
+import ClayAutocomplete from '@clayui/autocomplete';
 import ClayButton from '@clayui/button';
 import {ClayCheckbox, ClayRadio} from '@clayui/form';
-import {ClayIconSpriteContext} from '@clayui/icon';
+import ClayLabel from '@clayui/label';
 import ClayLoadingIndicator from '@clayui/loading-indicator';
-import ClayMultiSelect from '@clayui/multi-select';
-
-// import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect, useCallback, useRef} from 'react';
 
@@ -67,6 +65,7 @@ function AutocompleteFilter(props) {
 	const [search, setSearch] = useState('');
 	const [selectedItems, setSelectedItems] = useState(props.value || []);
 	const [items, updateItems] = useState(null);
+	const [loading, setLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalItems, updateTotalItems] = useState(0);
 	const scrollingArea = useRef(null);
@@ -87,14 +86,21 @@ function AutocompleteFilter(props) {
 	}, [query, search]);
 
 	useEffect(() => {
-		fetchData(props.apiUrl, search, currentPage).then(data => {
-			if (currentPage === 1) {
-				updateItems(data.items);
-			} else {
-				updateItems(items => [...items, ...data.items]);
-			}
-			updateTotalItems(data.totalCount);
-		});
+		setLoading(true);
+		fetchData(props.apiUrl, search, currentPage)
+			.then(data => {
+				setLoading(false);
+				if (currentPage === 1) {
+					updateItems(data.items);
+				} else {
+					updateItems(items => [...items, ...data.items]);
+				}
+				updateTotalItems(data.totalCount);
+			})
+			.catch(e => {
+				console.error(e);
+				setLoading(false);
+			});
 	}, [currentPage, props.apiUrl, search]);
 
 	const setScrollingArea = useCallback(node => {
@@ -153,142 +159,107 @@ function AutocompleteFilter(props) {
 	}
 
 	return (
-		<ClayIconSpriteContext.Consumer>
-			{spritemap => (
-				<div className="form-group">
-					{props.selectionType === 'multiple' ? (
-						<ClayMultiSelect
-							inputValue={query || ''}
-							items={selectedItems}
-							onChange={setQuery}
-							onItemsChange={e => {
-								if (e.length < selectedItems.length) {
-									return setSelectedItems(e);
-								} else {
-									if (!items.length) return;
-
-									const firstEl = {
-										label: getValueFromItem(
-											items[0],
-											props.itemLabel
-										),
-										value: getValueFromItem(
-											items[0],
-											props.itemKey
-										)
-									};
-									const added = selectedItems.find(
-										selectedItem =>
-											selectedItem.value === firstEl.value
-									);
-									return setSelectedItems(
-										added
-											? selectedItems.filter(
-													selectedItem =>
-														selectedItem.value !==
-														firstEl.value
-											  )
-											: [...selectedItems, firstEl]
-									);
-								}
-							}}
-							placeholder={props.inputPlaceholder}
-							spritemap={spritemap}
-						/>
-					) : (
-						<input
-							className="form-control"
-							onChange={e => setQuery(e.target.value)}
-							placeholder={props.inputPlaceholder}
-							type="text"
-							value={query}
-						/>
-					)}
-					{items && items.length ? (
-						<ul
-							className="inline-scroller mx-n3 px-3 mt-2"
-							ref={setScrollingArea}
-						>
-							{items.map(item => {
-								const itemValue = item[props.itemKey];
-								const itemLabel = getValueFromItem(
-									item,
-									props.itemLabel
-								);
-								const newValue = {
-									label: itemLabel,
-									value: itemValue
-								};
-
-								return (
-									<Item
-										key={itemValue}
-										label={itemLabel}
-										onChange={() => {
-											setSelectedItems(
-												selectedItems.find(
-													el => el.value === itemValue
-												)
-													? selectedItems.filter(
-															el =>
-																el.value !==
-																itemValue
-													  )
-													: props.selectionType ===
-													  'multiple'
-													? [
-															...selectedItems,
-															newValue
-													  ]
-													: [newValue]
-											);
-										}}
-										selected={Boolean(
-											selectedItems.find(
-												el => el.value === itemValue
+		<div className="form-group">
+			{props.selectionType === 'multiple' && (
+				<ClayAutocomplete className="mb-2">
+					<ClayAutocomplete.Input
+						onChange={event => setQuery(event.target.value)}
+					/>
+					{loading && <ClayAutocomplete.LoadingIndicator />}
+				</ClayAutocomplete>
+			)}
+			{props.selectionType === 'multiple' && (
+				<div className="selected-elements-wrapper">
+					{selectedItems.map(selectedItem => {
+						return (
+							<ClayLabel
+								closeButtonProps={{
+									onClick: () =>
+										setSelectedItems(items =>
+											items.filter(
+												item =>
+													item.value !==
+													selectedItem.value
 											)
-										)}
-										selectionType={props.selectionType}
-										value={itemValue}
-									/>
-								);
-							})}
-							{loaderVisible && (
-								<ClayLoadingIndicator
-									ref={setInfiniteLoader}
-									small
-								/>
-							)}
-						</ul>
-					) : (
-						<div className="text-muted p-2 mt-2">
-							{Liferay.Language.get('no-items-were-found')}
-						</div>
-					)}
-					<div className="mt-3">
-						<ClayButton
-							className="btn-sm"
-							disabled={
-								!isValueChanged(
-									props.value || [],
-									selectedItems
-								)
-							}
-							onClick={() =>
-								actions.updateFilterValue(
-									props.id,
-									selectedItems.length ? selectedItems : null
-								)
-							}
-						>
-							{props.panelType === 'edit'
-								? Liferay.Language.get('edit-filter')
-								: Liferay.Language.get('add-filter')}
-						</ClayButton>
-					</div>
+										)
+								}}
+								key={selectedItem.value}
+							>
+								{selectedItem.label}
+							</ClayLabel>
+						);
+					})}
 				</div>
 			)}
-		</ClayIconSpriteContext.Consumer>
+			{items && items.length ? (
+				<ul
+					className="inline-scroller mx-n3 px-3 mt-2"
+					ref={setScrollingArea}
+				>
+					{items.map(item => {
+						const itemValue = item[props.itemKey];
+						const itemLabel = getValueFromItem(
+							item,
+							props.itemLabel
+						);
+						const newValue = {
+							label: itemLabel,
+							value: itemValue
+						};
+
+						return (
+							<Item
+								key={itemValue}
+								label={itemLabel}
+								onChange={() => {
+									setSelectedItems(
+										selectedItems.find(
+											el => el.value === itemValue
+										)
+											? selectedItems.filter(
+													el => el.value !== itemValue
+											  )
+											: props.selectionType === 'multiple'
+											? [...selectedItems, newValue]
+											: [newValue]
+									);
+								}}
+								selected={Boolean(
+									selectedItems.find(
+										el => el.value === itemValue
+									)
+								)}
+								selectionType={props.selectionType}
+								value={itemValue}
+							/>
+						);
+					})}
+					{loaderVisible && (
+						<ClayLoadingIndicator ref={setInfiniteLoader} small />
+					)}
+				</ul>
+			) : (
+				<div className="text-muted p-2 mt-2">
+					{Liferay.Language.get('no-items-were-found')}
+				</div>
+			)}
+			<div className="mt-3">
+				<ClayButton
+					className="btn-sm"
+					disabled={!isValueChanged(props.value || [], selectedItems)}
+					onClick={() =>
+						actions.updateFilterValue(
+							props.id,
+							selectedItems.length ? selectedItems : null
+						)
+					}
+				>
+					{props.panelType === 'edit'
+						? Liferay.Language.get('edit-filter')
+						: Liferay.Language.get('add-filter')}
+				</ClayButton>
+			</div>
+		</div>
 	);
 }
 
@@ -309,5 +280,9 @@ AutocompleteFilter.propTypes = {
 		})
 	)
 };
+
+AutocompleteFilter.defaultProps = {
+	selectionType: 'multiple'
+}
 
 export default AutocompleteFilter;

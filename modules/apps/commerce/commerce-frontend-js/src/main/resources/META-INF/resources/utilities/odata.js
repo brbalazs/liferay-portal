@@ -12,8 +12,14 @@
  * details.
  */
 
-export function convertObjectDateToIsoString(objDate) {
-	const date = new Date(objDate.year, objDate.month - 1, objDate.day);
+export function convertObjectDateToIsoString(objDate, direction) {
+	const time = direction === 'from' ? [0, 0, 0, 0] : [23, 59, 59, 999];
+	const date = new Date(
+		objDate.year,
+		objDate.month - 1,
+		objDate.day,
+		...time
+	);
 	return date.toISOString();
 }
 
@@ -28,26 +34,32 @@ function createOdataFilterString(
 		case 'autocomplete':
 			if (selectionType !== 'multiple') {
 				const firstItemVal = value[0].value;
-				return `${key} eq ${
-					firstItemVal instanceof Number
-						? firstItemVal
-						: `'${firstItemVal}'`
-				}`;
+				return `${key} eq ${firstItemVal}`;
 			}
 			break;
 		case 'date':
 			return `${key} ${operator} ${convertObjectDateToIsoString(value)}`;
 		case 'dateRange':
 			if (value.from && value.to) {
-				return `${key} gt ${convertObjectDateToIsoString(
-					value.from
-				)}) and (${key} lt ${convertObjectDateToIsoString(value.to)}`;
+				return `${key} ge ${convertObjectDateToIsoString(
+					value.from,
+					'from'
+				)}) and (${key} le ${convertObjectDateToIsoString(
+					value.to,
+					'to'
+				)}`;
 			}
 			if (value.from) {
-				return `${key} gt ${convertObjectDateToIsoString(value.from)}`;
+				return `${key} ge ${convertObjectDateToIsoString(
+					value.from,
+					'from'
+				)}`;
 			}
 			if (value.to) {
-				return `${key} lt ${convertObjectDateToIsoString(value.to)}`;
+				return `${key} le ${convertObjectDateToIsoString(
+					value.to,
+					'to'
+				)}`;
 			}
 			break;
 		default:

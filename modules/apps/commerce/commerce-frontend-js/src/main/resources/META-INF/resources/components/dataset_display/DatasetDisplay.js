@@ -315,8 +315,8 @@ function DatasetDisplay(props) {
 				{items && items.length ? (
 					<CurrentViewComponent
 						datasetDisplayContext={DatasetDisplayContext}
-						itemActions={props.itemActions}
 						items={items}
+						itemsActions={props.itemsActions}
 						style={props.style}
 						{...currentViewProps}
 					/>
@@ -399,7 +399,7 @@ function DatasetDisplay(props) {
 				formRef,
 				highlightItems,
 				highlightedItemsValue,
-				itemActions: props.itemActions,
+				itemsActions: props.itemsActions,
 				loadData: refreshData,
 				modalId: datasetDisplaySupportModalId,
 				namespace: props.namespace,
@@ -470,8 +470,8 @@ DatasetDisplay.propTypes = {
 	filters: PropTypes.array,
 	formId: PropTypes.string,
 	id: PropTypes.string.isRequired,
-	itemActions: PropTypes.array,
 	items: PropTypes.array,
+	itemsActions: PropTypes.array,
 	namespace: PropTypes.string,
 	nestedItemsKey: PropTypes.string,
 	nestedItemsReferenceKey: PropTypes.string,
@@ -509,7 +509,7 @@ DatasetDisplay.propTypes = {
 DatasetDisplay.defaultProps = {
 	bulkActions: [],
 	filters: [],
-	itemActions: null,
+	itemsActions: null,
 	items: null,
 	selectedItemsKey: 'id',
 	selectionType: 'multiple',

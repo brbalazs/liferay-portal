@@ -19,7 +19,7 @@ import React, {useState, useEffect, useCallback, useRef} from 'react';
 
 import debounce from '../../utilities/debounce';
 import {AUTOCOMPLETE_VALUE_UPDATED} from '../../utilities/eventsDefinitions';
-import {fetchParams, getValueFromItem} from '../../utilities/index';
+import {getValueFromItem, getData} from '../../utilities/index';
 import {showErrorNotification} from '../../utilities/notifications';
 
 function Autocomplete(props) {
@@ -33,18 +33,8 @@ function Autocomplete(props) {
 	const node = useRef();
 	const dropdownNode = useRef();
 
-	const getData = () => {
-		let url = props.apiUrl;
-
-		if (query) {
-			url += (props.apiUrl.includes('?') ? '&' : '?') + `search=${query}`;
-		}
-
-		return fetch(url, {
-			...fetchParams,
-			method: 'GET'
-		})
-			.then(data => data.json())
+	const getItems = () => {
+		return getData(props.apiUrl, query)
 			.then(jsonResponse => {
 				updateItems(jsonResponse.items);
 				setLoading(false);
@@ -70,8 +60,8 @@ function Autocomplete(props) {
 		});
 	}, [value, props.id]);
 
-	const debouncedGetData = debounce(getData, 50);
-	const memoizedGetData = useCallback(debouncedGetData, [
+	const debouncedGetItems = debounce(getItems, 50);
+	const memoizedGetItems = useCallback(debouncedGetItems, [
 		query,
 		props.apiUrl
 	]);
@@ -79,14 +69,14 @@ function Autocomplete(props) {
 	useEffect(() => {
 		if (renderingCounter > 1) {
 			setLoading(true);
-			memoizedGetData();
+			memoizedGetItems();
 			setActive(true);
 		}
-	}, [memoizedGetData, renderingCounter, query]);
+	}, [memoizedGetItems, renderingCounter, query]);
 
 	useEffect(() => {
 		updateRenderingCounter(counter => counter + 1);
-	}, [memoizedGetData]);
+	}, [memoizedGetItems]);
 
 	const handleClick = e => {
 		if (

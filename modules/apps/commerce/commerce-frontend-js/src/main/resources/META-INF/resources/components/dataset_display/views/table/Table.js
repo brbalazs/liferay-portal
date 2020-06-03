@@ -81,7 +81,7 @@ function CustomTableCell(props) {
 	);
 }
 
-function getItemFields(item, fields, itemId, itemActions) {
+function getItemFields(item, fields, itemId, itemsActions) {
 	return fields.map((field, i) => {
 		const {actionItems, comments} = item;
 		const rawValue = getValueFromItem(item, field.fieldName);
@@ -91,7 +91,7 @@ function getItemFields(item, fields, itemId, itemActions) {
 		const comment = comments ? comments[field.fieldName] : null;
 		return (
 			<CustomTableCell
-				actions={itemActions || actionItems}
+				actions={itemsActions || actionItems}
 				comment={comment}
 				itemData={item}
 				itemId={itemId}
@@ -122,7 +122,7 @@ function Table(props) {
 	} = useContext(DatasetDisplayContext);
 
 	const showActionItems = Boolean(
-		(props.itemActions && props.itemActions.length) ||
+		(props.itemsActions && props.itemsActions.length) ||
 			props.items.find(el => el.actionItems)
 	);
 
@@ -189,15 +189,15 @@ function Table(props) {
 										item,
 										props.schema.fields,
 										itemId,
-										props.itemActions
+										props.itemsActions
 									)}
 									{showActionItems && (
 										<ClayTable.Cell className="dataset-item-actions-wrapper">
-											{(props.itemActions ||
+											{(props.itemsActions ||
 												item.actionItems) && (
 												<ActionsDropdownRenderer
 													actions={
-														props.itemActions ||
+														props.itemsActions ||
 														item.actionItems
 													}
 													itemData={item}
@@ -227,7 +227,7 @@ function Table(props) {
 													nestedItem,
 													props.schema.fields,
 													nestedItem[nestedItemsKey],
-													props.itemActions
+													props.itemsActions
 												)}
 												{showActionItems ? (
 													<ClayTable.Cell />
@@ -245,8 +245,8 @@ function Table(props) {
 }
 
 Table.propTypes = {
-	itemActions: PropTypes.array,
 	items: PropTypes.arrayOf(PropTypes.object),
+	itemsActions: PropTypes.array,
 	schema: PropTypes.shape({
 		fields: PropTypes.arrayOf(
 			PropTypes.shape({

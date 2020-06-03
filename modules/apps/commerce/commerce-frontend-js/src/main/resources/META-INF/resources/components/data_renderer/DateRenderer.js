@@ -12,37 +12,29 @@
  * details.
  */
 
-import moment from 'moment';
 import PropType from 'prop-types';
 
 function DateRenderer(props) {
-	switch (props.options.type) {
-		case 'calendar':
-			return moment(props.value).calendar();
-		case 'relative': {
-			const date = moment(props.value).fromNow();
-			return date.replace(/^./, date[0].toUpperCase());
-		}
-		default:
-			return moment(props.value).format(
-				props.options.format || 'MMMM Do YYYY'
-			);
-	}
+	const locale = themeDisplay.getLanguageId().replace('_', '-');
+	const dateOptions = props.options.format || {
+		day: 'numeric',
+		hour: 'numeric',
+		minute: 'numeric',
+		month: 'short',
+		second: 'numeric',
+		year: 'numeric'
+	};
+	const formattedDate = new Intl.DateTimeFormat(locale, dateOptions).format(
+		new Date(props.value)
+	);
+	return formattedDate;
 }
 
 DateRenderer.propTypes = {
 	options: PropType.shape({
-		format: PropType.string,
-		type: PropType.oneOf(['calendar', 'relative', 'default'])
+		format: PropType.object
 	}),
 	value: PropType.string.isRequired
-};
-
-DateRenderer.defaultProps = {
-	options: {
-		format: 'MMMM Do YYYY',
-		type: 'default'
-	}
 };
 
 export default DateRenderer;
