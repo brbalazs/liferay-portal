@@ -178,12 +178,13 @@ public class CPDefinitionOptionRelLocalServiceImpl
 				cpDefinitionOptionRelId, serviceContext);
 		}
 
-		checkCPDefinition(cpDefinitionId, serviceContext);
-
 		// Commerce product instances
 
 		cpInstanceLocalService.inactivateIncompatibleCPInstances(
 			user.getUserId(), cpDefinitionId);
+
+		_updateCPDefinitionIgnoreSKUCombinations(
+			cpDefinitionId, serviceContext);
 
 		// Commerce product definition
 
@@ -254,7 +255,7 @@ public class CPDefinitionOptionRelLocalServiceImpl
 			cpDefinitionOptionRel.getCPDefinitionId(),
 			cpDefinitionOptionRel.getCPDefinitionOptionRelId());
 
-		checkCPDefinition(
+		_updateCPDefinitionIgnoreSKUCombinations(
 			cpDefinitionOptionRel.getCPDefinitionId(), new ServiceContext());
 
 		// Commerce product definition
@@ -669,14 +670,14 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		cpDefinitionOptionRel = cpDefinitionOptionRelPersistence.update(
 			cpDefinitionOptionRel);
 
-		checkCPDefinition(
-			cpDefinitionOptionRel.getCPDefinitionId(), serviceContext);
-
 		// Commerce product instances
 
 		cpInstanceLocalService.inactivateIncompatibleCPInstances(
 			serviceContext.getUserId(),
 			cpDefinitionOptionRel.getCPDefinitionId());
+
+		_updateCPDefinitionIgnoreSKUCombinations(
+			cpDefinitionOptionRel.getCPDefinitionId(), serviceContext);
 
 		// Commerce product definition
 
@@ -724,23 +725,6 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		}
 
 		return searchContext;
-	}
-
-	protected void checkCPDefinition(
-			long cpDefintionId, ServiceContext serviceContext)
-		throws PortalException {
-
-		if (_hasCPDefinitionSKUContributorCPDefinitionOptionRel(
-				cpDefintionId)) {
-
-			cpDefinitionLocalService.updateCPDefinitionIgnoreSKUCombinations(
-				cpDefintionId, false, serviceContext);
-
-			return;
-		}
-
-		cpDefinitionLocalService.updateCPDefinitionIgnoreSKUCombinations(
-			cpDefintionId, true, serviceContext);
 	}
 
 	protected List<CPDefinitionOptionRel> getCPDefinitionOptionRels(Hits hits)
@@ -828,6 +812,23 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		}
 
 		return false;
+	}
+
+	private void _updateCPDefinitionIgnoreSKUCombinations(
+			long cpDefintionId, ServiceContext serviceContext)
+		throws PortalException {
+
+		if (_hasCPDefinitionSKUContributorCPDefinitionOptionRel(
+				cpDefintionId)) {
+
+			cpDefinitionLocalService.updateCPDefinitionIgnoreSKUCombinations(
+				cpDefintionId, false, serviceContext);
+
+			return;
+		}
+
+		cpDefinitionLocalService.updateCPDefinitionIgnoreSKUCombinations(
+			cpDefintionId, true, serviceContext);
 	}
 
 	private void _validateCPDefinitionOptionKey(long cpDefinitionId, String key)
