@@ -150,6 +150,26 @@ public class ProductSerDes {
 			sb.append("]");
 		}
 
+		if (product.getCategoryIds() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"categoryIds\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < product.getCategoryIds().length; i++) {
+				sb.append(product.getCategoryIds()[i]);
+
+				if ((i + 1) < product.getCategoryIds().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (product.getConfiguration() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -642,6 +662,13 @@ public class ProductSerDes {
 			map.put("categories", String.valueOf(product.getCategories()));
 		}
 
+		if (product.getCategoryIds() == null) {
+			map.put("categoryIds", null);
+		}
+		else {
+			map.put("categoryIds", String.valueOf(product.getCategoryIds()));
+		}
+
 		if (product.getConfiguration() == null) {
 			map.put("configuration", null);
 		}
@@ -956,6 +983,12 @@ public class ProductSerDes {
 						).toArray(
 							size -> new Category[size]
 						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "categoryIds")) {
+				if (jsonParserFieldValue != null) {
+					product.setCategoryIds(
+						toLongs((Object[])jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "configuration")) {

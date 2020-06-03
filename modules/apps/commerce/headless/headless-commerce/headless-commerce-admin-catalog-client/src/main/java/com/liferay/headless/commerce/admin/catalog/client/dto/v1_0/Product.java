@@ -161,6 +161,27 @@ public class Product implements Cloneable {
 
 	protected Category[] categories;
 
+	public Long[] getCategoryIds() {
+		return categoryIds;
+	}
+
+	public void setCategoryIds(Long[] categoryIds) {
+		this.categoryIds = categoryIds;
+	}
+
+	public void setCategoryIds(
+		UnsafeSupplier<Long[], Exception> categoryIdsUnsafeSupplier) {
+
+		try {
+			categoryIds = categoryIdsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long[] categoryIds;
+
 	public ProductConfiguration getConfiguration() {
 		return configuration;
 	}

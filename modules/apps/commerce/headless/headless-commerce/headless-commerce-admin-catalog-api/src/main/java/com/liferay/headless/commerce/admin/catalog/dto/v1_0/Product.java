@@ -234,6 +234,34 @@ public class Product {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Category[] categories;
 
+	@Schema(description = "A field to filter products.")
+	public Long[] getCategoryIds() {
+		return categoryIds;
+	}
+
+	public void setCategoryIds(Long[] categoryIds) {
+		this.categoryIds = categoryIds;
+	}
+
+	@JsonIgnore
+	public void setCategoryIds(
+		UnsafeSupplier<Long[], Exception> categoryIdsUnsafeSupplier) {
+
+		try {
+			categoryIds = categoryIdsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField(description = "A field to filter products.")
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Long[] categoryIds;
+
 	@Schema
 	@Valid
 	public ProductConfiguration getConfiguration() {
@@ -1270,6 +1298,26 @@ public class Product {
 				sb.append(String.valueOf(categories[i]));
 
 				if ((i + 1) < categories.length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (categoryIds != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"categoryIds\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < categoryIds.length; i++) {
+				sb.append(categoryIds[i]);
+
+				if ((i + 1) < categoryIds.length) {
 					sb.append(", ");
 				}
 			}
