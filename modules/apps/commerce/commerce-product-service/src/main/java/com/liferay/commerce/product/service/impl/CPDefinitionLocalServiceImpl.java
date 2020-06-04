@@ -1999,33 +1999,33 @@ public class CPDefinitionLocalServiceImpl
 				cpInstanceLocalService.getCPDefinitionInstancesCount(
 					cpDefinitionId, WorkflowConstants.STATUS_APPROVED);
 
-			if (cpInstancesCount > 1) {
-				throw new CPDefinitionIgnoreSKUCombinationsException();
-			}
-		}
-		else {
-			int cpDefinitionOptionRelsCount =
-				cpDefinitionOptionRelLocalService.
-					getCPDefinitionOptionRelsCount(cpDefinitionId, true);
-
-			if (cpDefinitionOptionRelsCount == 0) {
+			if (cpInstancesCount <= 1) {
 				return;
 			}
 
-			List<CPInstance> cpInstances =
-				cpInstanceLocalService.getCPDefinitionInstances(
-					cpDefinitionId, WorkflowConstants.STATUS_APPROVED,
-					QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+			throw new CPDefinitionIgnoreSKUCombinationsException();
+		}
 
-			for (CPInstance cpInstance : cpInstances) {
-				if (!cpInstanceOptionValueRelLocalService.
-						hasCPInstanceOptionValueRel(
-							cpInstance.getCPInstanceId())) {
+		int cpDefinitionOptionRelsCount =
+			cpDefinitionOptionRelLocalService.getCPDefinitionOptionRelsCount(
+				cpDefinitionId, true);
 
-					cpInstanceLocalService.updateStatus(
-						userId, cpInstance.getCPInstanceId(),
-						WorkflowConstants.STATUS_INACTIVE);
-				}
+		if (cpDefinitionOptionRelsCount == 0) {
+			return;
+		}
+
+		List<CPInstance> cpInstances =
+			cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinitionId, WorkflowConstants.STATUS_APPROVED,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+
+		for (CPInstance cpInstance : cpInstances) {
+			if (!cpInstanceOptionValueRelLocalService.
+					hasCPInstanceOptionValueRel(cpInstance.getCPInstanceId())) {
+
+				cpInstanceLocalService.updateStatus(
+					userId, cpInstance.getCPInstanceId(),
+					WorkflowConstants.STATUS_INACTIVE);
 			}
 		}
 	}
