@@ -472,6 +472,76 @@ public class CPInstanceLocalServiceTest {
 	}
 
 	@Test
+	public void testInactivateCPInstanceSkuContributorOptionUpdate()
+		throws Exception {
+
+		int cpOptionsCount = 2;
+		int cpOptionValuesCount = 2;
+
+		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		_assertBuildCPInstancesSuccess(
+			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+			cpOptionsCount, cpOptionValuesCount);
+
+		CPDefinitionOptionValueRel randomCPDefinitionOptionValueRel =
+			CPTestUtil.getRandomCPDefinitionOptionValueRel(
+				cpDefinition.getCPDefinitionId());
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			randomCPDefinitionOptionValueRel.getCPDefinitionOptionRel();
+
+		Assert.assertTrue(
+			"SKU contributor value", cpDefinitionOptionRel.isSkuContributor());
+
+		cpDefinitionOptionRel =
+			CPDefinitionOptionRelLocalServiceUtil.updateCPDefinitionOptionRel(
+				cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+				cpDefinitionOptionRel.getCPOptionId(),
+				cpDefinitionOptionRel.getNameMap(),
+				cpDefinitionOptionRel.getDescriptionMap(),
+				cpDefinitionOptionRel.getDDMFormFieldTypeName(),
+				cpDefinitionOptionRel.getPriority(),
+				cpDefinitionOptionRel.isFacetable(),
+				cpDefinitionOptionRel.isRequired(), false,
+				ServiceContextTestUtil.getServiceContext(
+					_commerceCatalog.getGroupId()));
+
+		Assert.assertFalse(
+			"SKU contributor value", cpDefinitionOptionRel.isSkuContributor());
+
+		_assertApprovedCPInstancesCount(cpDefinition.getCPDefinitionId(), 0);
+
+		_cpInstanceLocalService.buildCPInstances(
+			cpDefinition.getCPDefinitionId(),
+			ServiceContextTestUtil.getServiceContext(
+				_commerceCatalog.getGroupId()));
+
+		_assertApprovedCPInstancesCount(
+			cpDefinition.getCPDefinitionId(), cpOptionValuesCount);
+
+		cpDefinitionOptionRel =
+			CPDefinitionOptionRelLocalServiceUtil.updateCPDefinitionOptionRel(
+				cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+				cpDefinitionOptionRel.getCPOptionId(),
+				cpDefinitionOptionRel.getNameMap(),
+				cpDefinitionOptionRel.getDescriptionMap(),
+				cpDefinitionOptionRel.getDDMFormFieldTypeName(),
+				cpDefinitionOptionRel.getPriority(),
+				cpDefinitionOptionRel.isFacetable(),
+				cpDefinitionOptionRel.isRequired(), true,
+				ServiceContextTestUtil.getServiceContext(
+					_commerceCatalog.getGroupId()));
+
+		Assert.assertTrue(
+			"SKU contributor value", cpDefinitionOptionRel.isSkuContributor());
+
+		_assertApprovedCPInstancesCount(cpDefinition.getCPDefinitionId(), 0);
+	}
+
+	@Test
 	public void testInactivateCPInstanceSkuContributorOptionValueDeleted()
 		throws Exception {
 
