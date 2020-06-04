@@ -104,6 +104,32 @@ definition {
 		AssertChecked(locator1 = "Checkbox#ANY_CHECKBOX", checkboxName = "Blogs Entry");
 	}
 
+	@description = "This is a use case for LPS-95798."
+	test SearchAfterViewingResultDetails {
+		JSONWebcontent.addWebContent(
+			content = "Web Content",
+			groupName = "Guest",
+			title = "First WC");
+
+		JSONWebcontent.addWebContent(
+			content = "Web Content",
+			groupName = "Guest",
+			title = "Second WC");
+
+		SearchPortlets.searchEmbedded(searchTerm = "First");
+
+		SearchPortlets.gotoResultDetails(searchAssetTitle = "First WC");
+
+		SearchPortlets.viewResultDetails(searchAssetTitle = "First WC");
+
+		SearchPortlets.searchEmbedded(searchTerm = "Second");
+
+		SearchResultPortlet.viewSearchResults(
+			searchAssetTitle = "Second WC",
+			searchAssetType = "Web Content Article",
+			searchTerm = "Second");
+	}
+
 	@priority = "4"
 	test SearchBlogsEntry {
 		Navigator.openURL();
