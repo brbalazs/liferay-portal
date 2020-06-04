@@ -229,6 +229,21 @@ public class CPTestUtil {
 	}
 
 	public static CPDefinitionOptionRel addCPDefinitionOptionRel(
+			long groupId, long cpDefinitionId, boolean skuContributor,
+			int cpDefinitionOptionValueRelsCount)
+		throws PortalException {
+
+		CPOption cpOption = addCPOption(groupId, skuContributor);
+
+		for (int idx = 0; idx < cpDefinitionOptionValueRelsCount; idx++) {
+			addCPOptionValue(cpOption);
+		}
+
+		return addCPDefinitionOptionRel(
+			groupId, cpDefinitionId, cpOption.getCPOptionId());
+	}
+
+	public static CPDefinitionOptionRel addCPDefinitionOptionRel(
 			long groupId, long cpDefinitionId, long cpOptionId)
 		throws PortalException {
 
