@@ -87,9 +87,9 @@ const NewLiferayDataSource = lazy(() =>
 );
 
 // Recommendations
-const RecommendationsList = lazy(() =>
+const RecommendationList = lazy(() =>
 	import(
-		/* webpackChunkName: "RecommendationsList" */ '../recommendations/pages/Recommendations'
+		/* webpackChunkName: "RecommendationList" */ '../recommendations/pages/Recommendations'
 	)
 );
 
@@ -384,7 +384,7 @@ export class Settings extends React.Component {
 
 								{DEVELOPER_MODE && (
 									<BundleRouter
-										data={RecommendationsList}
+										data={RecommendationList}
 										destructured={false}
 										path={Routes.SETTINGS_RECOMMENDATIONS}
 									/>
