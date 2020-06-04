@@ -192,7 +192,7 @@
 </tr>
 <tr>
 	<td>ORDER_DETAILS_NAME</td>
-	<td>//tbody//td[2]</td>
+	<td>//tbody//td[1]</td>
 	<td></td>
 </tr>
 <tr>
@@ -207,7 +207,7 @@
 </tr>
 <tr>
 	<td>ORDER_DETAILS_SKU</td>
-	<td>//tbody//td[1]</td>
+	<td>//tbody//td[3]</td>
 	<td></td>
 </tr>
 <tr>
