@@ -284,6 +284,8 @@ definition {
 			productName = "ABS Sensor",
 			productQuantity = "2");
 
+		Refresh();
+
 		CommerceNavigator.gotoMiniCart();
 
 		Click(
