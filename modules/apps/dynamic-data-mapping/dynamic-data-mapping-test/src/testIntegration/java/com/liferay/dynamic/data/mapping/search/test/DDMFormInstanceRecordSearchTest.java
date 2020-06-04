@@ -106,7 +106,6 @@ public class DDMFormInstanceRecordSearchTest {
 		addDDMFormInstanceRecord("Joe Bloggs", "Simple description");
 
 		_searchContext.setKeywords("Simple description");
-
 		_searchContext.setUserId(user.getUserId());
 
 		assertSearch("description", 1);
