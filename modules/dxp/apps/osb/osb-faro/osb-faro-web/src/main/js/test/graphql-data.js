@@ -325,3 +325,12 @@ export function mockTouchpointsReq(items, mockVariables = {}) {
 		}
 	};
 }
+
+export function mockJobBag(items) {
+	return mockBag({
+		items,
+		itemTypeName: 'Job',
+		name: 'jobs',
+		typeName: 'JobBag'
+	});
+}

@@ -189,6 +189,35 @@ export const TIME_RANGE_LABELS = {
  */
 export const spritemap = `${window.faroConstants.pathThemeImages}/lexicon/icons.svg`;
 
+/**
+ * Jobs
+ */
+export enum jobStatuses {
+	failed = 'FAILED',
+	pending = 'PENDING',
+	ready = 'READY',
+	scheduled = 'SCHEDULED',
+	training = 'training'
+}
+
+export enum jobTrainingFrequencies {
+	every7Days = 'EVERY_7_DAYS',
+	every14Days = 'EVERY_14_DAYS',
+	every30Days = 'EVERY_30_DAYS',
+	manual = 'MANUAL'
+}
+
+export enum jobTrainingPeriods {
+	last7Days = 'LAST_7_DAYS',
+	last30Days = 'LAST_30_DAYS',
+	last180Days = 'LAST_180_DAYS',
+	last365Days = 'LAST_365_DAYS'
+}
+
+export enum jobTypes {
+	itemSimilarity = 'CONTENT_RECOMMENDATION_ITEM_SIMILARITY'
+}
+
 const Constants: any = {
 	...window.faroConstants,
 	acquisitionTypes,

@@ -1,4 +1,9 @@
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {
+	jobStatuses,
+	jobTrainingFrequencies,
+	jobTrainingPeriods,
+	jobTypes
+} from 'shared/util/constants';
 import moment from 'moment';
 import {clamp, find, isArray, range, times} from 'lodash';
 import {
@@ -937,6 +942,19 @@ export function mockProperty(seed = 1, data = {}) {
 		name: '',
 		propertyKey: '',
 		type: '',
+		...data
+	};
+}
+
+export function mockRecommendationJob(seed = 0, data = {}) {
+	return {
+		id: seed,
+		name: `Recommendation Job Name ${seed}`,
+		status: jobStatuses.ready,
+		trainingDate: getTimestamp(-2),
+		trainingFrequency: jobTrainingFrequencies.every30Days,
+		trainingPeriod: jobTrainingPeriods.last30Days,
+		type: jobTypes.itemSimilarity,
 		...data
 	};
 }

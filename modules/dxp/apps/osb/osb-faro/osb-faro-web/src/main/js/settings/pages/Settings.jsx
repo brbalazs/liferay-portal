@@ -383,6 +383,7 @@ export class Settings extends React.Component {
 
 								<BundleRouter
 									data={RecommendationsList}
+									destructured={false}
 									path={Routes.SETTINGS_RECOMMENDATIONS}
 								/>
 
