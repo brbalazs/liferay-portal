@@ -164,6 +164,7 @@ export enum GDPR_REQUEST_TYPES {
 /**
  * TimeRange
  */
+export const CUSTOM_RANGE = 'CUSTOM';
 export const LAST_180_DAYS = '180';
 export const LAST_24_HOURS = '0';
 export const LAST_28_DAYS = '28';

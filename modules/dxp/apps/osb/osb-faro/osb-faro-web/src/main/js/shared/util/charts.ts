@@ -1,13 +1,14 @@
 import * as d3 from 'd3';
-import {Interval} from 'shared/types';
-import {INTERVAL_KEY_MAP, isMonthlyRangeKey} from 'shared/util/time';
 import {
+	CUSTOM_RANGE,
 	LAST_24_HOURS,
 	LAST_28_DAYS,
 	LAST_30_DAYS,
 	LAST_90_DAYS,
 	YESTERDAY
 } from 'shared/util/constants';
+import {Interval} from 'shared/types';
+import {INTERVAL_KEY_MAP, isMonthlyRangeKey} from 'shared/util/time';
 import {Map} from 'immutable';
 import {toDuration, toRounded, toThousands} from 'shared/util/numbers';
 
@@ -44,15 +45,24 @@ export const Colors = {
 	secondary: '#CCCCCC'
 };
 
-export const dateRangeFormatter = (dateStart: Date, dateEnd: Date): string => {
+export const dateRangeFormatter = (
+	dateStart: Date,
+	dateEnd: Date,
+	withYear: Boolean = false
+): string => {
 	const dayFormat = d3.utcFormat('%-d');
-	const dayMonthFormat = d3.utcFormat('%-d %b');
+	const dayMonthFormat = d3.utcFormat('%b %-d');
+	const dayMonthYearFormat = d3.utcFormat('%Y %b %-d');
 
 	return `${
+		withYear ? dayMonthYearFormat(dateStart) : dayMonthFormat(dateStart)
+	} - ${
 		dateStart.getUTCMonth() !== dateEnd.getUTCMonth()
-			? dayMonthFormat(dateStart)
-			: dayFormat(dateStart)
-	} - ${dayMonthFormat(dateEnd)}`;
+			? withYear
+				? dayMonthYearFormat(dateEnd)
+				: dayMonthFormat(dateEnd)
+			: dayFormat(dateEnd)
+	}`;
 };
 
 /**
@@ -65,13 +75,13 @@ export const formatTooltipDate = (date, rangeKey) => {
 
 	if (rangeKey === LAST_24_HOURS || rangeKey === YESTERDAY) {
 		// display hours for Last 24 hours and yesterday
-		formatter = d3.utcFormat('%-d %b, %-I %p');
+		formatter = d3.utcFormat('%b %-d, %-I %p');
 	} else if (rangeKey === LAST_90_DAYS) {
-		// display date and month for Last 90 days
-		formatter = d3.utcFormat('%-d\u00A0%b');
+		// display date, month and year for Last 90 days
+		formatter = d3.utcFormat('%Y %b\u00A0%-d');
 	} else {
-		// display date and month
-		formatter = d3.utcFormat('%-d %b');
+		// display date, month and year
+		formatter = d3.utcFormat('%Y %b %-d');
 	}
 
 	return formatter(date);
@@ -84,16 +94,22 @@ export const formatXAxisDate = (
 	dateKeysIMap: Map<Date, [Date, Date?]>
 ) => {
 	// display date and month
-	let formatter = d3.utcFormat('%-d %b');
+	let formatter = d3.utcFormat('%b %-d');
+	const monthFormat = d3.utcFormat('%b');
 	const [dateStart, dateEnd] = dateKeysIMap.get(dateKey);
 
 	switch (rangeKey) {
+		case CUSTOM_RANGE:
 		case LAST_28_DAYS:
 		case LAST_30_DAYS:
 		case LAST_90_DAYS:
 			if (interval === INTERVAL_KEY_MAP.week) {
 				// display date range
-				return dateRangeFormatter(dateStart, dateEnd);
+				return dateRangeFormatter(dateStart, dateEnd, false);
+			}
+			if (interval === INTERVAL_KEY_MAP.month) {
+				// display month
+				return monthFormat(dateStart);
 			}
 			break;
 		case LAST_24_HOURS:
@@ -249,7 +265,7 @@ export const getDateTitle = (
 	const title = `${formatTooltipDate(startDate, rangeKey)}`;
 
 	return isMonthlyRangeKey(rangeKey) && interval === INTERVAL_KEY_MAP.week
-		? `${dateRangeFormatter(startDate, endDate)}`
+		? `${dateRangeFormatter(startDate, endDate, true)}`
 		: title;
 };
 
@@ -284,7 +300,8 @@ export const getIntervals = (rangeKey, arr, timeInterval) => {
 		} else if (
 			rangeKey == LAST_24_HOURS ||
 			rangeKey == YESTERDAY ||
-			(rangeKey == LAST_30_DAYS && timeInterval !== INTERVAL_KEY_MAP.week)
+			((rangeKey == LAST_30_DAYS || rangeKey == CUSTOM_RANGE) &&
+				timeInterval !== INTERVAL_KEY_MAP.week)
 		) {
 			return [
 				...arr.filter((_, index) => index % 6 === 0),
