@@ -463,19 +463,9 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                catalogName:
-                    example: simple
-                    type: string
                 categories:
                     items:
                         $ref: "#/components/schemas/Category"
-                    type: array
-                categoryIds:
-                    description:
-                        A field to filter products.
-                    items:
-                        format: int64
-                        type: integer
                     type: array
                 configuration:
                     $ref: "#/components/schemas/ProductConfiguration"
@@ -573,6 +563,9 @@ components:
                 productType:
                     example: simple
                     type: string
+                productTypeI18n:
+                    example: simple
+                    type: string
                 relatedProducts:
                     items:
                         $ref: "#/components/schemas/RelatedProduct"
@@ -587,9 +580,6 @@ components:
                         hr_HR: Product Short Description HR
                         hu_HU: Product Short Description HU
                     type: object
-                sku:
-                    example: simple
-                    type: string
                 skus:
                     items:
                         $ref: "#/components/schemas/Sku"
@@ -599,6 +589,9 @@ components:
                     readOnly: true
                     type: integer
                 statusLabel:
+                    example: simple
+                    type: string
+                statusLabelI18n:
                     example: simple
                     type: string
                 subscriptionConfiguration:
