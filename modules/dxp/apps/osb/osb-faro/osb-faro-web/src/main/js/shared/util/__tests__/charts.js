@@ -1,5 +1,6 @@
 jest.unmock('clay-charts');
 
+import moment from 'moment';
 import {
 	Colors,
 	dateRangeFormatter,
@@ -34,13 +35,13 @@ const mockDateKeysIMap = new Map([[mockDate, [mockDate]]]);
 describe('dateRangeFormatter', () => {
 	it('should render a range of dates with different start and ending months', () => {
 		expect(dateRangeFormatter(mockDate, getDate('2019-02-02'))).toEqual(
-			'2 Jan - 2 Feb'
+			'Jan 2 - Feb 2'
 		);
 	});
 
 	it('should render a range of dates with the same start and ending months', () => {
 		expect(dateRangeFormatter(mockDate, getDate('2019-01-14'))).toEqual(
-			'2 - 14 Jan'
+			'Jan 2 - 14'
 		);
 	});
 });
@@ -55,7 +56,7 @@ describe('formatTooltipDate', () => {
 
 		const formatedDate = formatTooltipDate(date, LAST_24_HOURS);
 
-		expect(formatedDate).toEqual('7 Aug, 8 PM');
+		expect(formatedDate).toEqual('Aug 7, 8 PM');
 	});
 
 	it('should return the hours with UTC for Yesterday', () => {
@@ -68,24 +69,21 @@ describe('formatTooltipDate', () => {
 
 		const formatedDate = formatTooltipDate(date, YESTERDAY);
 
-		expect(formatedDate).toEqual('8 Jun, 8 PM');
+		expect(formatedDate).toEqual('Jun 8, 8 PM');
 	});
 
 	it('should return the hours with UTC for last 90 days', () => {
-		const date = getDate('2018-08-07');
+		const date = moment('2018-08-07');
 
-		date.setDate(date.getDate() - 8.64e7);
-		date.setHours(20);
-		date.setMinutes(30);
-		date.setSeconds(0);
+		date.subtract(90, 'days');
 
 		const formatedDate = formatTooltipDate(date, LAST_90_DAYS);
 
-		expect(formatedDate).toEqual('8\u00A0Jun');
+		expect(formatedDate).toEqual('2018 May\u00A09');
 	});
 
 	it('should return the formated date and month', () => {
-		expect(formatTooltipDate(getDate('2018-08-07'))).toEqual('7 Aug');
+		expect(formatTooltipDate(getDate('2018-08-07'))).toEqual('2018 Aug 7');
 	});
 });
 
@@ -98,7 +96,7 @@ describe('formatXAxisDate', () => {
 				INTERVAL_KEY_MAP.day,
 				mockDateKeysIMap
 			)
-		).toEqual('2 Jan');
+		).toEqual('Jan 2');
 	});
 
 	it('should render an x-axis label in an hourly format', () => {
@@ -120,13 +118,13 @@ describe('formatXAxisDate', () => {
 				INTERVAL_KEY_MAP.week,
 				new Map([[mockDate, [mockDate, getDate('2019-01-08')]]])
 			)
-		).toEqual('2 - 8 Jan');
+		).toEqual('Jan 2 - 8');
 	});
 });
 
 describe('getDateTitle', () => {
 	it('should return a date display string', () => {
-		expect(getDateTitle([getDate('2019-01-01')])).toEqual('1 Jan');
+		expect(getDateTitle([getDate('2019-01-01')])).toEqual('2019 Jan 1');
 	});
 
 	it('should return a date display string as a date range if rangeKey is monthly and interval is weekly', () => {
@@ -136,7 +134,7 @@ describe('getDateTitle', () => {
 				LAST_30_DAYS,
 				INTERVAL_KEY_MAP.week
 			)
-		).toEqual('1 - 14 Jan');
+		).toEqual('2019 Jan 1 - 14');
 	});
 });
 
