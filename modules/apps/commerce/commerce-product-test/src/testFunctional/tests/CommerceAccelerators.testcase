@@ -455,15 +455,13 @@ definition {
 
 		Pause(locator1 = "2000");
 
+		Refresh();
+
 		CommerceNavigator.gotoMiniCart();
 
 		Click(
-			key_button = "Review Order",
+			key_button = "Checkout",
 			locator1 = "CommerceAccelerators#ANY_BUTTON");
-
-		Click(
-			key_text = "Checkout",
-			locator1 = "Button#ANY");
 
 		Pause(locator1 = "3000");
 
