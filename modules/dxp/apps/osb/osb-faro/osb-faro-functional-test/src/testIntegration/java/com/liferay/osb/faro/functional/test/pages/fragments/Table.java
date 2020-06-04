@@ -236,13 +236,13 @@ public class Table {
 
 		StringBundler sb = new StringBundler(7);
 
-		sb.append("//table[contains(@class,'table')]//div/*[text()='");
+		sb.append("//table[contains(@class,'table')]//div/*[text()=\"");
 		sb.append(name);
-		sb.append("']|//li[contains(@class,'timeline')]//span[text()='");
+		sb.append("\"]|//li[contains(@class,'timeline')]//span[text()=\"");
 		sb.append(name);
-		sb.append("']|//table[contains(@class,'table')]//*[text()='");
+		sb.append("\"]|//table[contains(@class,'table')]//*[text()=\"");
 		sb.append(name);
-		sb.append("']");
+		sb.append("\"]");
 
 		try {
 			if (negation == null) {
