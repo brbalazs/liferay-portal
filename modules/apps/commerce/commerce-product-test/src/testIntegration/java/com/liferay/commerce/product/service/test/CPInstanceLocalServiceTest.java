@@ -130,18 +130,15 @@ public class CPInstanceLocalServiceTest {
 					ServiceContextTestUtil.getServiceContext(
 						_commerceCatalog.getGroupId()));
 
-		List<CPInstance> cpDefinitionInstances =
-			_cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
-
 		int combinationsSize = (int)Math.pow(
 			cpOptionValuesCount, cpOptionsCount);
 
-		Assert.assertEquals(
-			"Product instance count", combinationsSize,
-			cpDefinitionInstances.size());
+		_assertApprovedCPInstancesCount(
+			cpDefinition.getCPDefinitionId(), combinationsSize);
+
+		List<CPInstance> cpDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionApprovedCPInstances(
+				cpDefinition.getCPDefinitionId());
 
 		_assertNoCPInstanceWithCPDefinitionOptionValue(
 			newCPDefinitionOptionValueRel, cpDefinitionInstances);
@@ -151,17 +148,10 @@ public class CPInstanceLocalServiceTest {
 			ServiceContextTestUtil.getServiceContext(
 				_commerceCatalog.getGroupId()));
 
-		cpDefinitionInstances =
-			_cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
-
-		Assert.assertEquals(
-			"Product instance count",
+		_assertApprovedCPInstancesCount(
+			cpDefinition.getCPDefinitionId(),
 			combinationsSize +
-				(int)Math.pow(cpOptionValuesCount, cpOptionsCount - 1),
-			cpDefinitionInstances.size());
+				(int)Math.pow(cpOptionValuesCount, cpOptionsCount - 1));
 	}
 
 	@Test
@@ -214,57 +204,34 @@ public class CPInstanceLocalServiceTest {
 			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
 			true);
 
-		CPOption cpOption = CPTestUtil.addCPOption(
-			_commerceCatalog.getGroupId(), true);
-
-		CPTestUtil.addCPOptionValue(cpOption);
-		CPTestUtil.addCPOptionValue(cpOption);
-
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			CPTestUtil.addCPDefinitionOptionRel(
 				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
-				cpOption.getCPOptionId());
+				true, 2);
 
 		Assert.assertTrue(
 			"SKU contributor value", cpDefinitionOptionRel.isSkuContributor());
 
 		_addSingleCPDefinitionInstance(cpDefinition, cpDefinitionOptionRel);
 
-		List<CPInstance> approvedCPDefinitionInstances =
-			_cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
+		_assertApprovedCPInstancesCount(cpDefinition.getCPDefinitionId(), 1);
 
-		Assert.assertEquals(
-			"Product approved instances count", 1,
-			approvedCPDefinitionInstances.size());
+		List<CPInstance> approvedCPDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionApprovedCPInstances(
+				cpDefinition.getCPDefinitionId());
 
 		CPInstance approvedCPInstance = approvedCPDefinitionInstances.get(0);
-
-		cpOption = CPTestUtil.addCPOption(_commerceCatalog.getGroupId(), false);
-
-		CPTestUtil.addCPOptionValue(cpOption);
-		CPTestUtil.addCPOptionValue(cpOption);
 
 		CPDefinitionOptionRel newCPDefinitionOptionRel =
 			CPTestUtil.addCPDefinitionOptionRel(
 				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
-				cpOption.getCPOptionId());
+				false, 2);
 
 		Assert.assertFalse(
 			"SKU contributor value",
 			newCPDefinitionOptionRel.isSkuContributor());
 
-		approvedCPDefinitionInstances =
-			_cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
-
-		Assert.assertEquals(
-			"Product approved instances count", 1,
-			approvedCPDefinitionInstances.size());
+		_assertApprovedCPInstancesCount(cpDefinition.getCPDefinitionId(), 1);
 
 		approvedCPInstance = _cpInstanceLocalService.getCPInstance(
 			approvedCPInstance.getCPInstanceId());
@@ -298,57 +265,24 @@ public class CPInstanceLocalServiceTest {
 			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
 			true);
 
-		CPOption cpOption = CPTestUtil.addCPOption(
-			_commerceCatalog.getGroupId(), false);
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			CPTestUtil.addCPDefinitionOptionRel(
+				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+				false, 3);
 
-		CPTestUtil.addCPOptionValue(cpOption);
-		CPTestUtil.addCPOptionValue(cpOption);
+		Assert.assertFalse(
+			"SKU contributor value", cpDefinitionOptionRel.isSkuContributor());
 
-		CPTestUtil.addCPDefinitionOptionRel(
+		_assertDefaultCPInstance(cpDefinition.getCPDefinitionId());
+
+		cpDefinitionOptionRel = CPTestUtil.addCPDefinitionOptionRel(
 			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
-			cpOption.getCPOptionId());
+			false, 3);
 
-		List<CPInstance> approvedCPDefinitionInstances =
-			_cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
+		Assert.assertFalse(
+			"SKU contributor value", cpDefinitionOptionRel.isSkuContributor());
 
-		Assert.assertEquals(
-			"Product approved instances count", 1,
-			approvedCPDefinitionInstances.size());
-
-		CPInstance approvedCPInstance = approvedCPDefinitionInstances.get(0);
-
-		cpOption = CPTestUtil.addCPOption(_commerceCatalog.getGroupId(), false);
-
-		CPTestUtil.addCPOptionValue(cpOption);
-		CPTestUtil.addCPOptionValue(cpOption);
-
-		CPTestUtil.addCPDefinitionOptionRel(
-			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
-			cpOption.getCPOptionId());
-
-		approvedCPDefinitionInstances =
-			_cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
-
-		Assert.assertEquals(
-			"Product approved instances count", 1,
-			approvedCPDefinitionInstances.size());
-
-		approvedCPInstance = _cpInstanceLocalService.getCPInstance(
-			approvedCPInstance.getCPInstanceId());
-
-		Assert.assertEquals(
-			"Product instance sku", CPInstanceConstants.DEFAULT_SKU,
-			approvedCPInstance.getSku());
-
-		Assert.assertEquals(
-			"Product instance status", WorkflowConstants.STATUS_APPROVED,
-			approvedCPInstance.getStatus());
+		_assertDefaultCPInstance(cpDefinition.getCPDefinitionId());
 	}
 
 	@Test
@@ -374,16 +308,10 @@ public class CPInstanceLocalServiceTest {
 			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
 			true);
 
-		CPOption cpOption = CPTestUtil.addCPOption(
-			_commerceCatalog.getGroupId(), true);
-
-		CPTestUtil.addCPOptionValue(cpOption);
-		CPTestUtil.addCPOptionValue(cpOption);
-
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			CPTestUtil.addCPDefinitionOptionRel(
 				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
-				cpOption.getCPOptionId());
+				true, 2);
 
 		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
 			cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
@@ -416,15 +344,11 @@ public class CPInstanceLocalServiceTest {
 			"Product instance A is not equal to product instance B",
 			cpInstanceA.getCPInstanceId(), cpInstanceB.getCPInstanceId());
 
-		List<CPInstance> activeCPDefinitionInstances =
-			_cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
+		_assertApprovedCPInstancesCount(cpDefinition.getCPDefinitionId(), 1);
 
-		Assert.assertEquals(
-			"Product active instances count", 1,
-			activeCPDefinitionInstances.size());
+		List<CPInstance> activeCPDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionApprovedCPInstances(
+				cpDefinition.getCPDefinitionId());
 
 		CPInstance activeCPInstance = activeCPDefinitionInstances.get(0);
 
@@ -456,16 +380,10 @@ public class CPInstanceLocalServiceTest {
 			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
 			true);
 
-		CPOption cpOption = CPTestUtil.addCPOption(
-			_commerceCatalog.getGroupId(), true);
-
-		CPTestUtil.addCPOptionValue(cpOption);
-		CPTestUtil.addCPOptionValue(cpOption);
-
 		CPDefinitionOptionRel cpDefinitionOptionRel =
 			CPTestUtil.addCPDefinitionOptionRel(
 				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
-				cpOption.getCPOptionId());
+				true, 2);
 
 		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
 			cpDefinitionOptionRel.getCPDefinitionOptionValueRels();
@@ -496,36 +414,19 @@ public class CPInstanceLocalServiceTest {
 			"Product inactive instances count", 1,
 			inactiveCPDefinitionInstances.size());
 
-		List<CPInstance> approvedCPDefinitionInstances =
-			_cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
+		_assertApprovedCPInstancesCount(cpDefinition.getCPDefinitionId(), 1);
 
-		Assert.assertEquals(
-			"Product approved instances count", 1,
-			approvedCPDefinitionInstances.size());
+		List<CPInstance> approvedCPDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionApprovedCPInstances(
+				cpDefinition.getCPDefinitionId());
 
 		CPInstance cpInstance = approvedCPDefinitionInstances.get(0);
 
-		cpOption = CPTestUtil.addCPOption(_commerceCatalog.getGroupId(), true);
-
-		CPTestUtil.addCPOptionValue(cpOption);
-		CPTestUtil.addCPOptionValue(cpOption);
-
 		CPTestUtil.addCPDefinitionOptionRel(
 			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
-			cpOption.getCPOptionId());
+			true, 2);
 
-		approvedCPDefinitionInstances =
-			_cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
-
-		Assert.assertEquals(
-			"Product approved instances count", 0,
-			approvedCPDefinitionInstances.size());
+		_assertApprovedCPInstancesCount(cpDefinition.getCPDefinitionId(), 0);
 
 		inactiveCPDefinitionInstances =
 			_cpInstanceLocalService.getCPDefinitionInstances(
@@ -567,14 +468,7 @@ public class CPInstanceLocalServiceTest {
 		CPDefinitionOptionRelLocalServiceUtil.deleteCPDefinitionOptionRel(
 			randomCPDefinitionOptionValueRel.getCPDefinitionOptionRelId());
 
-		List<CPInstance> cpDefinitionInstances =
-			_cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
-
-		Assert.assertTrue(
-			"No active CP instances", cpDefinitionInstances.isEmpty());
+		_assertApprovedCPInstancesCount(cpDefinition.getCPDefinitionId(), 0);
 	}
 
 	@Test
@@ -598,20 +492,15 @@ public class CPInstanceLocalServiceTest {
 					CPTestUtil.getRandomCPDefinitionOptionValueRel(
 						cpDefinition.getCPDefinitionId()));
 
-		List<CPInstance> cpDefinitionInstances =
-			_cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinition.getCPDefinitionId(),
-				WorkflowConstants.STATUS_APPROVED, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, null);
-
-		Assert.assertEquals(
-			"Product instance count",
+		_assertApprovedCPInstancesCount(
+			cpDefinition.getCPDefinitionId(),
 			(int)Math.pow(cpOptionValuesCount, cpOptionsCount - 1) *
-				(cpOptionValuesCount - 1),
-			cpDefinitionInstances.size());
+				(cpOptionValuesCount - 1));
 
 		_assertNoCPInstanceWithCPDefinitionOptionValue(
-			deletedCPDefinitionOptionValueRel, cpDefinitionInstances);
+			deletedCPDefinitionOptionValueRel,
+			_cpInstanceLocalService.getCPDefinitionApprovedCPInstances(
+				cpDefinition.getCPDefinitionId()));
 	}
 
 	@Rule
@@ -647,6 +536,19 @@ public class CPInstanceLocalServiceTest {
 			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds);
 	}
 
+	private void _assertApprovedCPInstancesCount(
+		long cpDefinitionId, int size) {
+
+		List<CPInstance> approvedCPDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionInstances(
+				cpDefinitionId, WorkflowConstants.STATUS_APPROVED,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			"Product approved instances count", size,
+			approvedCPDefinitionInstances.size());
+	}
+
 	private void _assertBuildCPInstancesSuccess(
 			long groupId, long cpDefinitionId, int cpOptionsCount,
 			int cpOptionValuesCount)
@@ -659,15 +561,26 @@ public class CPInstanceLocalServiceTest {
 		_cpInstanceLocalService.buildCPInstances(
 			cpDefinitionId, ServiceContextTestUtil.getServiceContext(groupId));
 
-		List<CPInstance> cpDefinitionInstances =
-			_cpInstanceLocalService.getCPDefinitionInstances(
-				cpDefinitionId, WorkflowConstants.STATUS_APPROVED,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+		_assertApprovedCPInstancesCount(
+			cpDefinitionId, (int)Math.pow(cpOptionValuesCount, cpOptionsCount));
+	}
+
+	private void _assertDefaultCPInstance(long cpDefinitionId) {
+		_assertApprovedCPInstancesCount(cpDefinitionId, 1);
+
+		List<CPInstance> approvedCPDefinitionInstances =
+			_cpInstanceLocalService.getCPDefinitionApprovedCPInstances(
+				cpDefinitionId);
+
+		CPInstance defaultCPInstance = approvedCPDefinitionInstances.get(0);
 
 		Assert.assertEquals(
-			"Product instance count",
-			(int)Math.pow(cpOptionValuesCount, cpOptionsCount),
-			cpDefinitionInstances.size());
+			"Product instance sku", CPInstanceConstants.DEFAULT_SKU,
+			defaultCPInstance.getSku());
+
+		Assert.assertEquals(
+			"Product instance status", WorkflowConstants.STATUS_APPROVED,
+			defaultCPInstance.getStatus());
 	}
 
 	private void _assertNoCPInstanceWithCPDefinitionOptionValue(
@@ -683,7 +596,7 @@ public class CPInstanceLocalServiceTest {
 						cpInstance.getCPInstanceId());
 
 			Assert.assertNotEquals(
-				"CP instance definnition option value",
+				"CP instance definition option value",
 				cpDefinitionOptionValueRel.getCPDefinitionOptionValueRelId(),
 				cpInstanceCPDefinitionOptionValueRel.
 					getCPDefinitionOptionValueRelId());
