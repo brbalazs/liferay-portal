@@ -116,20 +116,6 @@ public class ProductSerDes {
 			sb.append(product.getCatalogId());
 		}
 
-		if (product.getCatalogName() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"catalogName\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(product.getCatalogName()));
-
-			sb.append("\"");
-		}
-
 		if (product.getCategories() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -143,26 +129,6 @@ public class ProductSerDes {
 				sb.append(String.valueOf(product.getCategories()[i]));
 
 				if ((i + 1) < product.getCategories().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
-		}
-
-		if (product.getCategoryIds() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"categoryIds\": ");
-
-			sb.append("[");
-
-			for (int i = 0; i < product.getCategoryIds().length; i++) {
-				sb.append(product.getCategoryIds()[i]);
-
-				if ((i + 1) < product.getCategoryIds().length) {
 					sb.append(", ");
 				}
 			}
@@ -433,6 +399,20 @@ public class ProductSerDes {
 			sb.append("\"");
 		}
 
+		if (product.getProductTypeI18n() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"productTypeI18n\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(product.getProductTypeI18n()));
+
+			sb.append("\"");
+		}
+
 		if (product.getRelatedProducts() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -471,20 +451,6 @@ public class ProductSerDes {
 			sb.append("\"shortDescription\": ");
 
 			sb.append(_toJSON(product.getShortDescription()));
-		}
-
-		if (product.getSku() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"sku\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(product.getSku()));
-
-			sb.append("\"");
 		}
 
 		if (product.getSkus() != null) {
@@ -527,6 +493,20 @@ public class ProductSerDes {
 			sb.append("\"");
 
 			sb.append(_escape(product.getStatusLabel()));
+
+			sb.append("\"");
+		}
+
+		if (product.getStatusLabelI18n() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"statusLabelI18n\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(product.getStatusLabelI18n()));
 
 			sb.append("\"");
 		}
@@ -648,25 +628,11 @@ public class ProductSerDes {
 			map.put("catalogId", String.valueOf(product.getCatalogId()));
 		}
 
-		if (product.getCatalogName() == null) {
-			map.put("catalogName", null);
-		}
-		else {
-			map.put("catalogName", String.valueOf(product.getCatalogName()));
-		}
-
 		if (product.getCategories() == null) {
 			map.put("categories", null);
 		}
 		else {
 			map.put("categories", String.valueOf(product.getCategories()));
-		}
-
-		if (product.getCategoryIds() == null) {
-			map.put("categoryIds", null);
-		}
-		else {
-			map.put("categoryIds", String.valueOf(product.getCategoryIds()));
 		}
 
 		if (product.getConfiguration() == null) {
@@ -825,6 +791,15 @@ public class ProductSerDes {
 			map.put("productType", String.valueOf(product.getProductType()));
 		}
 
+		if (product.getProductTypeI18n() == null) {
+			map.put("productTypeI18n", null);
+		}
+		else {
+			map.put(
+				"productTypeI18n",
+				String.valueOf(product.getProductTypeI18n()));
+		}
+
 		if (product.getRelatedProducts() == null) {
 			map.put("relatedProducts", null);
 		}
@@ -852,13 +827,6 @@ public class ProductSerDes {
 				String.valueOf(product.getShortDescription()));
 		}
 
-		if (product.getSku() == null) {
-			map.put("sku", null);
-		}
-		else {
-			map.put("sku", String.valueOf(product.getSku()));
-		}
-
 		if (product.getSkus() == null) {
 			map.put("skus", null);
 		}
@@ -878,6 +846,15 @@ public class ProductSerDes {
 		}
 		else {
 			map.put("statusLabel", String.valueOf(product.getStatusLabel()));
+		}
+
+		if (product.getStatusLabelI18n() == null) {
+			map.put("statusLabelI18n", null);
+		}
+		else {
+			map.put(
+				"statusLabelI18n",
+				String.valueOf(product.getStatusLabelI18n()));
 		}
 
 		if (product.getSubscriptionConfiguration() == null) {
@@ -968,11 +945,6 @@ public class ProductSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "catalogName")) {
-				if (jsonParserFieldValue != null) {
-					product.setCatalogName((String)jsonParserFieldValue);
-				}
-			}
 			else if (Objects.equals(jsonParserFieldName, "categories")) {
 				if (jsonParserFieldValue != null) {
 					product.setCategories(
@@ -983,12 +955,6 @@ public class ProductSerDes {
 						).toArray(
 							size -> new Category[size]
 						));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "categoryIds")) {
-				if (jsonParserFieldValue != null) {
-					product.setCategoryIds(
-						toLongs((Object[])jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "configuration")) {
@@ -1130,6 +1096,11 @@ public class ProductSerDes {
 					product.setProductType((String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "productTypeI18n")) {
+				if (jsonParserFieldValue != null) {
+					product.setProductTypeI18n((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "relatedProducts")) {
 				if (jsonParserFieldValue != null) {
 					product.setRelatedProducts(
@@ -1157,11 +1128,6 @@ public class ProductSerDes {
 						(Map)ProductSerDes.toMap((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "sku")) {
-				if (jsonParserFieldValue != null) {
-					product.setSku((String)jsonParserFieldValue);
-				}
-			}
 			else if (Objects.equals(jsonParserFieldName, "skus")) {
 				if (jsonParserFieldValue != null) {
 					product.setSkus(
@@ -1183,6 +1149,11 @@ public class ProductSerDes {
 			else if (Objects.equals(jsonParserFieldName, "statusLabel")) {
 				if (jsonParserFieldValue != null) {
 					product.setStatusLabel((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "statusLabelI18n")) {
+				if (jsonParserFieldValue != null) {
+					product.setStatusLabelI18n((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(

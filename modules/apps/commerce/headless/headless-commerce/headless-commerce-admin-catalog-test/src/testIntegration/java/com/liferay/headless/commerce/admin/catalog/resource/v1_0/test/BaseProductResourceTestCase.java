@@ -189,12 +189,12 @@ public abstract class BaseProductResourceTestCase {
 
 		Product product = randomProduct();
 
-		product.setCatalogName(regex);
 		product.setDefaultSku(regex);
 		product.setExternalReferenceCode(regex);
 		product.setProductType(regex);
-		product.setSku(regex);
+		product.setProductTypeI18n(regex);
 		product.setStatusLabel(regex);
+		product.setStatusLabelI18n(regex);
 		product.setThumbnail(regex);
 
 		String json = ProductSerDes.toJSON(product);
@@ -203,12 +203,12 @@ public abstract class BaseProductResourceTestCase {
 
 		product = ProductSerDes.toDTO(json);
 
-		Assert.assertEquals(regex, product.getCatalogName());
 		Assert.assertEquals(regex, product.getDefaultSku());
 		Assert.assertEquals(regex, product.getExternalReferenceCode());
 		Assert.assertEquals(regex, product.getProductType());
-		Assert.assertEquals(regex, product.getSku());
+		Assert.assertEquals(regex, product.getProductTypeI18n());
 		Assert.assertEquals(regex, product.getStatusLabel());
+		Assert.assertEquals(regex, product.getStatusLabelI18n());
 		Assert.assertEquals(regex, product.getThumbnail());
 	}
 
@@ -812,24 +812,8 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("catalogName", additionalAssertFieldName)) {
-				if (product.getCatalogName() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("categories", additionalAssertFieldName)) {
 				if (product.getCategories() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("categoryIds", additionalAssertFieldName)) {
-				if (product.getCategoryIds() == null) {
 					valid = false;
 				}
 
@@ -992,6 +976,14 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("productTypeI18n", additionalAssertFieldName)) {
+				if (product.getProductTypeI18n() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("relatedProducts", additionalAssertFieldName)) {
 				if (product.getRelatedProducts() == null) {
 					valid = false;
@@ -1018,14 +1010,6 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("sku", additionalAssertFieldName)) {
-				if (product.getSku() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("skus", additionalAssertFieldName)) {
 				if (product.getSkus() == null) {
 					valid = false;
@@ -1044,6 +1028,14 @@ public abstract class BaseProductResourceTestCase {
 
 			if (Objects.equals("statusLabel", additionalAssertFieldName)) {
 				if (product.getStatusLabel() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("statusLabelI18n", additionalAssertFieldName)) {
+				if (product.getStatusLabelI18n() == null) {
 					valid = false;
 				}
 
@@ -1223,29 +1215,9 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("catalogName", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						product1.getCatalogName(), product2.getCatalogName())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("categories", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						product1.getCategories(), product2.getCategories())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("categoryIds", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						product1.getCategoryIds(), product2.getCategoryIds())) {
 
 					return false;
 				}
@@ -1464,6 +1436,17 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("productTypeI18n", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						product1.getProductTypeI18n(),
+						product2.getProductTypeI18n())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("relatedProducts", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						product1.getRelatedProducts(),
@@ -1499,14 +1482,6 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("sku", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(product1.getSku(), product2.getSku())) {
-					return false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("skus", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						product1.getSkus(), product2.getSkus())) {
@@ -1530,6 +1505,17 @@ public abstract class BaseProductResourceTestCase {
 			if (Objects.equals("statusLabel", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						product1.getStatusLabel(), product2.getStatusLabel())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("statusLabelI18n", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						product1.getStatusLabelI18n(),
+						product2.getStatusLabelI18n())) {
 
 					return false;
 				}
@@ -1691,20 +1677,7 @@ public abstract class BaseProductResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("catalogName")) {
-			sb.append("'");
-			sb.append(String.valueOf(product.getCatalogName()));
-			sb.append("'");
-
-			return sb.toString();
-		}
-
 		if (entityFieldName.equals("categories")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("categoryIds")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -1922,6 +1895,14 @@ public abstract class BaseProductResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("productTypeI18n")) {
+			sb.append("'");
+			sb.append(String.valueOf(product.getProductTypeI18n()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("relatedProducts")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1937,14 +1918,6 @@ public abstract class BaseProductResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("sku")) {
-			sb.append("'");
-			sb.append(String.valueOf(product.getSku()));
-			sb.append("'");
-
-			return sb.toString();
-		}
-
 		if (entityFieldName.equals("skus")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1958,6 +1931,14 @@ public abstract class BaseProductResourceTestCase {
 		if (entityFieldName.equals("statusLabel")) {
 			sb.append("'");
 			sb.append(String.valueOf(product.getStatusLabel()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("statusLabelI18n")) {
+			sb.append("'");
+			sb.append(String.valueOf(product.getStatusLabelI18n()));
 			sb.append("'");
 
 			return sb.toString();
@@ -2037,8 +2018,6 @@ public abstract class BaseProductResourceTestCase {
 			{
 				active = RandomTestUtil.randomBoolean();
 				catalogId = RandomTestUtil.randomLong();
-				catalogName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
 				createDate = RandomTestUtil.nextDate();
 				defaultSku = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
@@ -2052,9 +2031,12 @@ public abstract class BaseProductResourceTestCase {
 				productId = RandomTestUtil.randomLong();
 				productType = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
-				sku = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				productTypeI18n = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				statusCode = RandomTestUtil.randomInt();
 				statusLabel = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				statusLabelI18n = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				thumbnail = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());

@@ -119,27 +119,6 @@ public class Product implements Cloneable {
 
 	protected Long catalogId;
 
-	public String getCatalogName() {
-		return catalogName;
-	}
-
-	public void setCatalogName(String catalogName) {
-		this.catalogName = catalogName;
-	}
-
-	public void setCatalogName(
-		UnsafeSupplier<String, Exception> catalogNameUnsafeSupplier) {
-
-		try {
-			catalogName = catalogNameUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String catalogName;
-
 	public Category[] getCategories() {
 		return categories;
 	}
@@ -160,27 +139,6 @@ public class Product implements Cloneable {
 	}
 
 	protected Category[] categories;
-
-	public Long[] getCategoryIds() {
-		return categoryIds;
-	}
-
-	public void setCategoryIds(Long[] categoryIds) {
-		this.categoryIds = categoryIds;
-	}
-
-	public void setCategoryIds(
-		UnsafeSupplier<Long[], Exception> categoryIdsUnsafeSupplier) {
-
-		try {
-			categoryIds = categoryIdsUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected Long[] categoryIds;
 
 	public ProductConfiguration getConfiguration() {
 		return configuration;
@@ -609,6 +567,27 @@ public class Product implements Cloneable {
 
 	protected String productType;
 
+	public String getProductTypeI18n() {
+		return productTypeI18n;
+	}
+
+	public void setProductTypeI18n(String productTypeI18n) {
+		this.productTypeI18n = productTypeI18n;
+	}
+
+	public void setProductTypeI18n(
+		UnsafeSupplier<String, Exception> productTypeI18nUnsafeSupplier) {
+
+		try {
+			productTypeI18n = productTypeI18nUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String productTypeI18n;
+
 	public RelatedProduct[] getRelatedProducts() {
 		return relatedProducts;
 	}
@@ -677,25 +656,6 @@ public class Product implements Cloneable {
 
 	protected Map<String, String> shortDescription;
 
-	public String getSku() {
-		return sku;
-	}
-
-	public void setSku(String sku) {
-		this.sku = sku;
-	}
-
-	public void setSku(UnsafeSupplier<String, Exception> skuUnsafeSupplier) {
-		try {
-			sku = skuUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String sku;
-
 	public Sku[] getSkus() {
 		return skus;
 	}
@@ -756,6 +716,27 @@ public class Product implements Cloneable {
 	}
 
 	protected String statusLabel;
+
+	public String getStatusLabelI18n() {
+		return statusLabelI18n;
+	}
+
+	public void setStatusLabelI18n(String statusLabelI18n) {
+		this.statusLabelI18n = statusLabelI18n;
+	}
+
+	public void setStatusLabelI18n(
+		UnsafeSupplier<String, Exception> statusLabelI18nUnsafeSupplier) {
+
+		try {
+			statusLabelI18n = statusLabelI18nUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String statusLabelI18n;
 
 	public ProductSubscriptionConfiguration getSubscriptionConfiguration() {
 		return subscriptionConfiguration;
