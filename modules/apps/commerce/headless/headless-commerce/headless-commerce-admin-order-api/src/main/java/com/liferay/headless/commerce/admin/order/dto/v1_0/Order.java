@@ -637,6 +637,34 @@ public class Order {
 	protected String orderStatusLabel;
 
 	@Schema
+	public String getOrderStatusLabelI18n() {
+		return orderStatusLabelI18n;
+	}
+
+	public void setOrderStatusLabelI18n(String orderStatusLabelI18n) {
+		this.orderStatusLabelI18n = orderStatusLabelI18n;
+	}
+
+	@JsonIgnore
+	public void setOrderStatusLabelI18n(
+		UnsafeSupplier<String, Exception> orderStatusLabelI18nUnsafeSupplier) {
+
+		try {
+			orderStatusLabelI18n = orderStatusLabelI18nUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String orderStatusLabelI18n;
+
+	@Schema
 	public String getPaymentMethod() {
 		return paymentMethod;
 	}
@@ -720,6 +748,35 @@ public class Order {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String paymentStatusLabel;
+
+	@Schema
+	public String getPaymentStatusLabelI18n() {
+		return paymentStatusLabelI18n;
+	}
+
+	public void setPaymentStatusLabelI18n(String paymentStatusLabelI18n) {
+		this.paymentStatusLabelI18n = paymentStatusLabelI18n;
+	}
+
+	@JsonIgnore
+	public void setPaymentStatusLabelI18n(
+		UnsafeSupplier<String, Exception>
+			paymentStatusLabelI18nUnsafeSupplier) {
+
+		try {
+			paymentStatusLabelI18n = paymentStatusLabelI18nUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String paymentStatusLabelI18n;
 
 	@Schema
 	public String getPrintedNote() {
@@ -2133,6 +2190,20 @@ public class Order {
 			sb.append("\"");
 		}
 
+		if (orderStatusLabelI18n != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"orderStatusLabelI18n\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(orderStatusLabelI18n));
+
+			sb.append("\"");
+		}
+
 		if (paymentMethod != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -2167,6 +2238,20 @@ public class Order {
 			sb.append("\"");
 
 			sb.append(_escape(paymentStatusLabel));
+
+			sb.append("\"");
+		}
+
+		if (paymentStatusLabelI18n != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"paymentStatusLabelI18n\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(paymentStatusLabelI18n));
 
 			sb.append("\"");
 		}

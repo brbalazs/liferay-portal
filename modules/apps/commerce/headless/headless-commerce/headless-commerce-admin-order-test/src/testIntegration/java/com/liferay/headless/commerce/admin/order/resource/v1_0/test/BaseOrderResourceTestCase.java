@@ -188,8 +188,10 @@ public abstract class BaseOrderResourceTestCase {
 		order.setCurrencyCode(regex);
 		order.setExternalReferenceCode(regex);
 		order.setOrderStatusLabel(regex);
+		order.setOrderStatusLabelI18n(regex);
 		order.setPaymentMethod(regex);
 		order.setPaymentStatusLabel(regex);
+		order.setPaymentStatusLabelI18n(regex);
 		order.setPrintedNote(regex);
 		order.setPurchaseOrderNumber(regex);
 		order.setShippingAmountFormatted(regex);
@@ -215,8 +217,10 @@ public abstract class BaseOrderResourceTestCase {
 		Assert.assertEquals(regex, order.getCurrencyCode());
 		Assert.assertEquals(regex, order.getExternalReferenceCode());
 		Assert.assertEquals(regex, order.getOrderStatusLabel());
+		Assert.assertEquals(regex, order.getOrderStatusLabelI18n());
 		Assert.assertEquals(regex, order.getPaymentMethod());
 		Assert.assertEquals(regex, order.getPaymentStatusLabel());
+		Assert.assertEquals(regex, order.getPaymentStatusLabelI18n());
 		Assert.assertEquals(regex, order.getPrintedNote());
 		Assert.assertEquals(regex, order.getPurchaseOrderNumber());
 		Assert.assertEquals(regex, order.getShippingAmountFormatted());
@@ -725,6 +729,16 @@ public abstract class BaseOrderResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"orderStatusLabelI18n", additionalAssertFieldName)) {
+
+				if (order.getOrderStatusLabelI18n() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("paymentMethod", additionalAssertFieldName)) {
 				if (order.getPaymentMethod() == null) {
 					valid = false;
@@ -745,6 +759,16 @@ public abstract class BaseOrderResourceTestCase {
 					"paymentStatusLabel", additionalAssertFieldName)) {
 
 				if (order.getPaymentStatusLabel() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"paymentStatusLabelI18n", additionalAssertFieldName)) {
+
+				if (order.getPaymentStatusLabelI18n() == null) {
 					valid = false;
 				}
 
@@ -1414,6 +1438,19 @@ public abstract class BaseOrderResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"orderStatusLabelI18n", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						order1.getOrderStatusLabelI18n(),
+						order2.getOrderStatusLabelI18n())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("paymentMethod", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						order1.getPaymentMethod(), order2.getPaymentMethod())) {
@@ -1440,6 +1477,19 @@ public abstract class BaseOrderResourceTestCase {
 				if (!Objects.deepEquals(
 						order1.getPaymentStatusLabel(),
 						order2.getPaymentStatusLabel())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"paymentStatusLabelI18n", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						order1.getPaymentStatusLabelI18n(),
+						order2.getPaymentStatusLabelI18n())) {
 
 					return false;
 				}
@@ -2217,6 +2267,14 @@ public abstract class BaseOrderResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("orderStatusLabelI18n")) {
+			sb.append("'");
+			sb.append(String.valueOf(order.getOrderStatusLabelI18n()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("paymentMethod")) {
 			sb.append("'");
 			sb.append(String.valueOf(order.getPaymentMethod()));
@@ -2233,6 +2291,14 @@ public abstract class BaseOrderResourceTestCase {
 		if (entityFieldName.equals("paymentStatusLabel")) {
 			sb.append("'");
 			sb.append(String.valueOf(order.getPaymentStatusLabel()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("paymentStatusLabelI18n")) {
+			sb.append("'");
+			sb.append(String.valueOf(order.getPaymentStatusLabelI18n()));
 			sb.append("'");
 
 			return sb.toString();
@@ -2554,10 +2620,14 @@ public abstract class BaseOrderResourceTestCase {
 				orderStatus = RandomTestUtil.randomInt();
 				orderStatusLabel = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
+				orderStatusLabelI18n = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				paymentMethod = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				paymentStatus = RandomTestUtil.randomInt();
 				paymentStatusLabel = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				paymentStatusLabelI18n = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				printedNote = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());

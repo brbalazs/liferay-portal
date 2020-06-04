@@ -314,6 +314,20 @@ public class OrderSerDes {
 			sb.append("\"");
 		}
 
+		if (order.getOrderStatusLabelI18n() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"orderStatusLabelI18n\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(order.getOrderStatusLabelI18n()));
+
+			sb.append("\"");
+		}
+
 		if (order.getPaymentMethod() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -348,6 +362,20 @@ public class OrderSerDes {
 			sb.append("\"");
 
 			sb.append(_escape(order.getPaymentStatusLabel()));
+
+			sb.append("\"");
+		}
+
+		if (order.getPaymentStatusLabelI18n() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"paymentStatusLabelI18n\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(order.getPaymentStatusLabelI18n()));
 
 			sb.append("\"");
 		}
@@ -954,6 +982,15 @@ public class OrderSerDes {
 				String.valueOf(order.getOrderStatusLabel()));
 		}
 
+		if (order.getOrderStatusLabelI18n() == null) {
+			map.put("orderStatusLabelI18n", null);
+		}
+		else {
+			map.put(
+				"orderStatusLabelI18n",
+				String.valueOf(order.getOrderStatusLabelI18n()));
+		}
+
 		if (order.getPaymentMethod() == null) {
 			map.put("paymentMethod", null);
 		}
@@ -975,6 +1012,15 @@ public class OrderSerDes {
 			map.put(
 				"paymentStatusLabel",
 				String.valueOf(order.getPaymentStatusLabel()));
+		}
+
+		if (order.getPaymentStatusLabelI18n() == null) {
+			map.put("paymentStatusLabelI18n", null);
+		}
+		else {
+			map.put(
+				"paymentStatusLabelI18n",
+				String.valueOf(order.getPaymentStatusLabelI18n()));
 		}
 
 		if (order.getPrintedNote() == null) {
@@ -1438,6 +1484,13 @@ public class OrderSerDes {
 					order.setOrderStatusLabel((String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(
+						jsonParserFieldName, "orderStatusLabelI18n")) {
+
+				if (jsonParserFieldValue != null) {
+					order.setOrderStatusLabelI18n((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "paymentMethod")) {
 				if (jsonParserFieldValue != null) {
 					order.setPaymentMethod((String)jsonParserFieldValue);
@@ -1454,6 +1507,14 @@ public class OrderSerDes {
 
 				if (jsonParserFieldValue != null) {
 					order.setPaymentStatusLabel((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "paymentStatusLabelI18n")) {
+
+				if (jsonParserFieldValue != null) {
+					order.setPaymentStatusLabelI18n(
+						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "printedNote")) {

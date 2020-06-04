@@ -459,6 +459,27 @@ public class Order implements Cloneable {
 
 	protected String orderStatusLabel;
 
+	public String getOrderStatusLabelI18n() {
+		return orderStatusLabelI18n;
+	}
+
+	public void setOrderStatusLabelI18n(String orderStatusLabelI18n) {
+		this.orderStatusLabelI18n = orderStatusLabelI18n;
+	}
+
+	public void setOrderStatusLabelI18n(
+		UnsafeSupplier<String, Exception> orderStatusLabelI18nUnsafeSupplier) {
+
+		try {
+			orderStatusLabelI18n = orderStatusLabelI18nUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String orderStatusLabelI18n;
+
 	public String getPaymentMethod() {
 		return paymentMethod;
 	}
@@ -521,6 +542,28 @@ public class Order implements Cloneable {
 	}
 
 	protected String paymentStatusLabel;
+
+	public String getPaymentStatusLabelI18n() {
+		return paymentStatusLabelI18n;
+	}
+
+	public void setPaymentStatusLabelI18n(String paymentStatusLabelI18n) {
+		this.paymentStatusLabelI18n = paymentStatusLabelI18n;
+	}
+
+	public void setPaymentStatusLabelI18n(
+		UnsafeSupplier<String, Exception>
+			paymentStatusLabelI18nUnsafeSupplier) {
+
+		try {
+			paymentStatusLabelI18n = paymentStatusLabelI18nUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String paymentStatusLabelI18n;
 
 	public String getPrintedNote() {
 		return printedNote;
