@@ -21,9 +21,10 @@ Feature: Edit Individuals Segment Criteria
 		And I click "EditIndividualsSegmentCriteria - ${Random.1}" in the table
 		When I click the "Edit Segment" button
 		And I delete the criteria group in row 1
+		And I select "Individual Attributes" from the criterion type dropdown
 		And I create a criteria with the following conditions:
 			| familyName | is | will |
 		And I click the "Save Segment" button
 		And I go to the "Segments" page
 		And I search for "EditIndividualsSegmentCriteria - ${Random.1}"
-		Then I should see a "Segment" named "EditIndividualsSegmentCriteria - ${Random.1}" with "2" items
+		Then I should see a "Segment" named "EditIndividualsSegmentCriteria - ${Random.1}" with "1" items

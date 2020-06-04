@@ -13,7 +13,7 @@ Feature: Order a Dynamic Segment's Membership Preview Modal
 
 	Scenario: Order the Dynamic Individuals Segment's Membership Preview
 		Given I create a criteria with the following conditions:
-			| additionalName | is | connie |
+			| additionalName | is | bert |
 		And I click the Dynamic Segment membership preview
 		When I sort the table by the "Name | Email" column header in descending order
 		Then I should see the users sorted in descending alphabetical order

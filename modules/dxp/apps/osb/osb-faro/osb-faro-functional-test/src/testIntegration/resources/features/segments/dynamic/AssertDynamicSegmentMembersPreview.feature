@@ -15,11 +15,11 @@ Feature: Dynamic segment members preview in real time
 		Given I create a criteria with the following conditions:
 			| worksFor | is | schneider and sons |
 		When I click the Dynamic Segment membership preview
-		And I search for "Devon Carter"
-		Then I should see an individual named "Devon Carter" in the table
+		And I search for "Randy Smith"
+		Then I should see an individual named "Randy Smith" in the table
 		When I click the "Done" button
 		And I create a criteria with the following conditions:
 			| gender | is | female |
 		And I click the Dynamic Segment membership preview
-		And I search for "Devon Carter"
-		Then I should not see an individual named "Devon Carter" in the table
+		And I search for "Randy Smith"
+		Then I should not see an individual named "Randy Smith" in the table

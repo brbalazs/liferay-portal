@@ -17,4 +17,4 @@ Feature: Create a Dynamic Individuals Segment
 		And I name the Dynamic segment "CreateDynamicIndividualsSegment - ${Random.1}" and save it
 		When I go to the "Segments" page
 		And I search for "CreateDynamicIndividualsSegment - ${Random.1}"
-		Then I should see a "Segment" named "CreateDynamicIndividualsSegment - ${Random.1}" with "2" items
+		Then I should see a "Segment" named "CreateDynamicIndividualsSegment - ${Random.1}" with "1" items

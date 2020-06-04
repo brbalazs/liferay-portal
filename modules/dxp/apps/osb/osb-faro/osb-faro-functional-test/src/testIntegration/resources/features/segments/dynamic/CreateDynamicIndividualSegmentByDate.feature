@@ -17,4 +17,4 @@ Feature: Create a Dynamic Individuals Segment By Date
 		And I name the Dynamic segment "CreateDynamicIndividualsSegmentByDate - ${Random.1}" and save it
 		When I go to the "Segments" page
 		And I search for "CreateDynamicIndividualsSegmentByDate - ${Random.1}"
-		Then I should see a "Segment" named "CreateDynamicIndividualsSegmentByDate - ${Random.1}" with "9" items
+		Then I should see a "Segment" named "CreateDynamicIndividualsSegmentByDate - ${Random.1}" with "7" items
