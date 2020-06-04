@@ -22,7 +22,9 @@ import com.liferay.headless.commerce.admin.channel.internal.dto.v1_0.converter.C
 import com.liferay.headless.commerce.admin.channel.internal.odata.entity.v1_0.ChannelEntityModel;
 import com.liferay.headless.commerce.admin.channel.resource.v1_0.ChannelResource;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -76,8 +78,15 @@ public class ChannelResourceImpl
 			CommerceChannel.class, search, pagination,
 			queryConfig -> queryConfig.setSelectedFieldNames(
 				Field.ENTRY_CLASS_PK),
-			searchContext -> searchContext.setCompanyId(
-				contextCompany.getCompanyId()),
+			new UnsafeConsumer() {
+
+				public void accept(Object o) throws Exception {
+					SearchContext searchContext = (SearchContext)o;
+
+					searchContext.setCompanyId(contextCompany.getCompanyId());
+				}
+
+			},
 			document -> _toChannel(
 				GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))),
 			sorts);
