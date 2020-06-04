@@ -225,6 +225,9 @@ public class CPInstanceLocalServiceTest {
 				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
 				cpOption.getCPOptionId());
 
+		Assert.assertTrue(
+			"SKU contributor value", cpDefinitionOptionRel.isSkuContributor());
+
 		_addSingleCPDefinitionInstance(cpDefinition, cpDefinitionOptionRel);
 
 		List<CPInstance> approvedCPDefinitionInstances =
@@ -244,9 +247,14 @@ public class CPInstanceLocalServiceTest {
 		CPTestUtil.addCPOptionValue(cpOption);
 		CPTestUtil.addCPOptionValue(cpOption);
 
-		CPTestUtil.addCPDefinitionOptionRel(
-			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
-			cpOption.getCPOptionId());
+		CPDefinitionOptionRel newCPDefinitionOptionRel =
+			CPTestUtil.addCPDefinitionOptionRel(
+				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+				cpOption.getCPOptionId());
+
+		Assert.assertFalse(
+			"SKU contributor value",
+			newCPDefinitionOptionRel.isSkuContributor());
 
 		approvedCPDefinitionInstances =
 			_cpInstanceLocalService.getCPDefinitionInstances(
