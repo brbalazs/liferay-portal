@@ -29,21 +29,21 @@ const fluidDataSetDisplayProps = {
 			href: '/side-panel/edit.html',
 			icon: 'plus',
 			label: 'Add',
-			target: 'sidePanel',
+			target: 'sidePanel'
 		},
 		{
 			href: '/delete',
 			icon: 'trash',
 			label: 'Delete',
-			method: 'delete',
-		},
+			method: 'delete'
+		}
 	],
 	creationMenuItems: [
 		{
 			href: 'modal/url',
 			label: 'Add via modal',
-			target: 'modal',
-		},
+			target: 'modal'
+		}
 	],
 	filters: [
 		{
@@ -54,7 +54,7 @@ const fluidDataSetDisplayProps = {
 			min: 20,
 			operator: 'eq',
 			type: 'number',
-			value: 123,
+			value: 123
 		},
 		{
 			id: 'shipment-date',
@@ -62,20 +62,20 @@ const fluidDataSetDisplayProps = {
 			max: {
 				day: 2,
 				month: 9,
-				year: 2020,
+				year: 2020
 			},
 			min: {
 				day: 14,
 				month: 6,
-				year: 2020,
+				year: 2020
 			},
 			placeholder: 'dd/mm/yyyy',
 			type: 'date',
 			value: {
 				day: 18,
 				month: 7,
-				year: 2020,
-			},
+				year: 2020
+			}
 		},
 		{
 			id: 'order-date',
@@ -83,12 +83,12 @@ const fluidDataSetDisplayProps = {
 			max: {
 				day: 2,
 				month: 9,
-				year: 2026,
+				year: 2026
 			},
 			min: {
 				day: 14,
 				month: 6,
-				year: 2020,
+				year: 2020
 			},
 			placeholder: 'dd/mm/yyyy',
 			type: 'dateRange',
@@ -96,15 +96,15 @@ const fluidDataSetDisplayProps = {
 				from: {
 					day: 18,
 					month: 7,
-					year: 2020,
+					year: 2020
 				},
 				to: {
 					day: 18,
 					month: 7,
-					year: 2025,
-				},
-			},
-		},
+					year: 2025
+				}
+			}
+		}
 	],
 	id: 'tableTest',
 	nestedItemsKey: 'skuId',
@@ -113,29 +113,29 @@ const fluidDataSetDisplayProps = {
 	pagination: {
 		deltas: [
 			{
-				label: 5,
+				label: 5
 			},
 			{
-				label: 10,
+				label: 10
 			},
 			{
-				label: 20,
+				label: 20
 			},
 			{
-				label: 30,
+				label: 30
 			},
 			{
-				label: 50,
+				label: 50
 			},
 			{
 				href:
 					'http://localhost:8080/group/test-1/pending-orders?p_p_id=com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_delta=75',
-				label: 75,
-			},
+				label: 75
+			}
 		],
 		initialDelta: 10,
 		initialPageNumber: 1,
-		initialTotalItems: 40,
+		initialTotalItems: 40
 	},
 	showPagination: true,
 	sidePanelId: 'sidePanelTestId',
@@ -152,17 +152,17 @@ const fluidDataSetDisplayProps = {
 				imgProps: 'img',
 				labels: 'status',
 				stickerProps: 'type',
-				title: 'skuId',
-			},
+				title: 'skuId'
+			}
 		},
 		{
-			component: (props) => {
+			component: props => {
 				return (
 					<>
 						<h4 className="p-3 mb-0 bg-dark text-center text-white">
 							Hey, I&apos;m a custom template from the outside
 						</h4>
-						{props.items.map((item) => (
+						{props.items.map(item => (
 							<div
 								className="p-3 text-center bg-white"
 								key={item.skuId}
@@ -177,7 +177,7 @@ const fluidDataSetDisplayProps = {
 			icon: 'merge',
 			id: 'custom-table',
 			label: "Hey you don't know me",
-			schema: {},
+			schema: {}
 		},
 		{
 			contentRenderer: 'table',
@@ -188,44 +188,44 @@ const fluidDataSetDisplayProps = {
 					{
 						contentRenderer: 'image',
 						fieldName: 'img',
-						label: '',
+						label: ''
 					},
 					{
 						contentRenderer: 'actionLink',
 						fieldName: 'name',
 						label: 'Name',
-						sortable: true,
+						sortable: true
 					},
 					{
 						actionId: 'edit',
-						contentRenderer: 'actionLink',
+						contentRenderer: 'actionLink'
 					},
 					{
 						actionId: 'delete',
-						contentRenderer: 'actionLink',
+						contentRenderer: 'actionLink'
 					},
 					{
 						actionId: 'alert',
-						contentRenderer: 'actionLink',
+						contentRenderer: 'actionLink'
 					},
 					{
 						actionId: 'select',
-						contentRenderer: 'actionLink',
+						contentRenderer: 'actionLink'
 					},
 					{
 						contentRenderer: 'tooltipPrice',
 						fieldName: 'price',
-						label: 'Price',
+						label: 'Price'
 					},
 					{
 						contentRenderer: 'quantitySelector',
 						fieldName: 'testQuantity',
-						label: 'Qt. Selector',
-					},
-				],
-			},
-		},
-	],
+						label: 'Qt. Selector'
+					}
+				]
+			}
+		}
+	]
 };
 
 const emailsDataSetDisplayProps = {
@@ -233,40 +233,40 @@ const emailsDataSetDisplayProps = {
 	creationMenuItems: [
 		{
 			href: '/standard/edit',
-			label: 'Add',
+			label: 'Add'
 		},
 		{
 			href: 'modal/url',
 			label: 'Add via modal',
-			target: 'modal',
-		},
+			target: 'modal'
+		}
 	],
 	id: 'emailsDatasetDIsplay',
 	pageSize: 5,
 	pagination: {
 		deltas: [
 			{
-				label: 5,
+				label: 5
 			},
 			{
-				label: 10,
+				label: 10
 			},
 			{
-				label: 20,
+				label: 20
 			},
 			{
-				label: 30,
+				label: 30
 			},
 			{
-				label: 50,
+				label: 50
 			},
 			{
 				href:
 					'http://localhost:8080/group/test-1/pending-orders?p_p_id=com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_delta=75',
-				label: 75,
-			},
+				label: 75
+			}
 		],
-		initialDelta: 10,
+		initialDelta: 10
 	},
 	showPagination: true,
 	sidePanelId: 'sidePanelTestId',
@@ -276,9 +276,9 @@ const emailsDataSetDisplayProps = {
 		{
 			contentRenderer: 'emailsList',
 			icon: 'email',
-			label: 'Email',
-		},
-	],
+			label: 'Email'
+		}
+	]
 };
 
 const selectableTableProps = {
@@ -289,27 +289,27 @@ const selectableTableProps = {
 	pagination: {
 		deltas: [
 			{
-				label: 5,
+				label: 5
 			},
 			{
-				label: 10,
+				label: 10
 			},
 			{
-				label: 20,
+				label: 20
 			},
 			{
-				label: 30,
+				label: 30
 			},
 			{
-				label: 50,
+				label: 50
 			},
 			{
 				href:
 					'http://localhost:8080/group/test-1/pending-orders?p_p_id=com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_delta=75',
-				label: 75,
-			},
+				label: 75
+			}
 		],
-		initialDelta: 10,
+		initialDelta: 10
 	},
 	selectedItemsKey: 'countryId',
 	showPagination: true,
@@ -322,10 +322,10 @@ const selectableTableProps = {
 			label: 'Table',
 			schema: {
 				firstColumnLabel: 'Country',
-				firstColumnName: 'countryName',
-			},
-		},
-	],
+				firstColumnName: 'countryName'
+			}
+		}
+	]
 };
 
 const headlessDataSetDisplayProps = {
@@ -335,32 +335,32 @@ const headlessDataSetDisplayProps = {
 			href: '/side-panel/edit.html',
 			icon: 'plus',
 			label: 'Add',
-			target: 'sidePanel',
+			target: 'sidePanel'
 		},
 		{
 			href: '/delete',
 			icon: 'trash',
 			label: 'Delete',
-			method: 'delete',
-		},
+			method: 'delete'
+		}
 	],
 	creationMenuItems: [
 		{
 			href: '/standard/edit',
-			label: 'Add',
+			label: 'Add'
 		},
 		{
 			href: 'modal/url',
 			label: 'Add via modal',
-			target: 'modal',
-		},
+			target: 'modal'
+		}
 	],
 	filters: [
 		{
 			id: 'createDate',
 			label: 'Creation date',
 			operator: 'eq',
-			type: 'date',
+			type: 'date'
 		},
 		{
 			apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products',
@@ -370,49 +370,49 @@ const headlessDataSetDisplayProps = {
 			itemLabel: ['name', lang_id],
 			label: 'Product ID',
 			selectionType: 'single',
-			type: 'autocomplete',
-		},
+			type: 'autocomplete'
+		}
 	],
 	id: 'tableTest',
 	itemsActions: [
 		{
 			href: '/edit/{productId}',
 			icon: 'pencil',
-			label: 'Edit',
+			label: 'Edit'
 		},
 		{
 			href: '/delete/{productId}',
 			icon: 'trash',
 			label: 'Delete',
 			method: 'delete',
-			target: 'async',
-		},
+			target: 'async'
+		}
 	],
 	pageSize: 5,
 	pagination: {
 		deltas: [
 			{
-				label: 5,
+				label: 5
 			},
 			{
-				label: 10,
+				label: 10
 			},
 			{
-				label: 20,
+				label: 20
 			},
 			{
-				label: 30,
+				label: 30
 			},
 			{
-				label: 50,
+				label: 50
 			},
 			{
 				href:
 					'http://localhost:8080/group/test-1/pending-orders?p_p_id=com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_delta=75',
-				label: 75,
-			},
+				label: 75
+			}
 		],
-		initialDelta: 10,
+		initialDelta: 10
 	},
 	selectedItemsKey: 'productId',
 	showPagination: true,
@@ -429,42 +429,42 @@ const headlessDataSetDisplayProps = {
 						contentRenderer: 'actionLink',
 						fieldName: ['name', lang_id],
 						label: 'Name',
-						sortable: true,
+						sortable: true
 					},
 					{
 						fieldName: 'productType',
 						label: 'Product Type',
-						mapData: (value) => value.toUpperCase(),
+						mapData: value => value.toUpperCase()
 					},
 					{
 						fieldName: 'externalReferenceCode',
-						label: 'SKU',
+						label: 'SKU'
 					},
 					{
 						contentRenderer: 'date',
 						fieldName: 'modifiedDate',
 						label: 'Modified Date',
-						type: 'relative',
+						type: 'relative'
 					},
 					{
 						contentRenderer: 'label',
 						fieldName: 'active',
 						label: 'Status',
-						mapData: (value) =>
+						mapData: value =>
 							value
 								? {
 										displayStyle: 'success',
-										label: 'Active',
+										label: 'Active'
 								  }
 								: {
 										displayStyle: 'danger',
-										label: 'Disabled',
-								  },
-					},
-				],
-			},
-		},
-	],
+										label: 'Disabled'
+								  }
+					}
+				]
+			}
+		}
+	]
 };
 
 const today = new Date();
@@ -476,15 +476,15 @@ const ordersDataSetDisplayProps = {
 			href: '/delete',
 			icon: 'trash',
 			label: 'Delete',
-			method: 'delete',
-		},
+			method: 'delete'
+		}
 	],
 	creationMenuItems: [
 		{
 			href: 'modal/url',
 			label: 'Add via modal',
-			target: 'modal',
-		},
+			target: 'modal'
+		}
 	],
 	filters: [
 		{
@@ -495,7 +495,7 @@ const ordersDataSetDisplayProps = {
 			itemLabel: 'name',
 			label: 'account-id',
 			selectionType: 'multiple',
-			type: 'autocomplete',
+			type: 'autocomplete'
 		},
 		{
 			apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products',
@@ -505,7 +505,7 @@ const ordersDataSetDisplayProps = {
 			itemLabel: ['name', lang_id],
 			label: 'Product ID',
 			selectionType: 'multiple',
-			type: 'autocomplete',
+			type: 'autocomplete'
 		},
 		{
 			id: 'createDate',
@@ -513,57 +513,57 @@ const ordersDataSetDisplayProps = {
 			max: {
 				day: today.getDate(),
 				month: today.getMonth() + 1,
-				year: today.getFullYear(),
+				year: today.getFullYear()
 			},
 			min: {
 				day: today.getDate(),
 				month: today.getMonth() + 1,
-				year: today.getFullYear() - 1,
+				year: today.getFullYear() - 1
 			},
 			placeholder: 'dd/mm/yyyy',
-			type: 'dateRange',
-		},
+			type: 'dateRange'
+		}
 	],
 	id: 'tableTest',
 	itemsActions: [
 		{
 			href: '/edit/{productId}',
 			icon: 'pencil',
-			label: 'Edit',
+			label: 'Edit'
 		},
 		{
 			href: '/delete/{productId}',
 			icon: 'trash',
 			label: 'Delete',
 			method: 'delete',
-			target: 'async',
-		},
+			target: 'async'
+		}
 	],
 	pageSize: 5,
 	pagination: {
 		deltas: [
 			{
-				label: 5,
+				label: 5
 			},
 			{
-				label: 10,
+				label: 10
 			},
 			{
-				label: 20,
+				label: 20
 			},
 			{
-				label: 30,
+				label: 30
 			},
 			{
-				label: 50,
+				label: 50
 			},
 			{
 				href:
 					'http://localhost:8080/group/test-1/pending-orders?p_p_id=com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_delta=75',
-				label: 75,
-			},
+				label: 75
+			}
 		],
-		initialDelta: 10,
+		initialDelta: 10
 	},
 	selectedItemsKey: 'id',
 	showPagination: true,
@@ -578,37 +578,37 @@ const ordersDataSetDisplayProps = {
 				fields: [
 					{
 						fieldName: 'id',
-						label: 'order-id',
+						label: 'order-id'
 					},
 					{
 						fieldName: 'accountId',
-						label: 'account-id',
+						label: 'account-id'
 					},
 					{
 						fieldName: 'channelId',
-						label: 'channel-id',
+						label: 'channel-id'
 					},
 					{
 						fieldName: 'totalFormatted',
-						label: 'amount',
+						label: 'amount'
 					},
 					{
 						contentRenderer: 'date',
 						fieldName: 'createDate',
-						label: 'creation-date',
+						label: 'creation-date'
 					},
 					{
 						fieldName: 'orderStatus',
-						label: 'order-status',
+						label: 'order-status'
 					},
 					{
 						fieldName: '',
-						label: 'acceptance-workflow-status',
-					},
-				],
-			},
-		},
-	],
+						label: 'acceptance-workflow-status'
+					}
+				]
+			}
+		}
+	]
 };
 
 const productsDataSetDisplayProps = {
@@ -619,15 +619,15 @@ const productsDataSetDisplayProps = {
 			href: '/delete',
 			icon: 'trash',
 			label: 'Delete',
-			method: 'delete',
-		},
+			method: 'delete'
+		}
 	],
 	creationMenuItems: [
 		{
 			href: 'modal/url',
 			label: 'Add via modal',
-			target: 'modal',
-		},
+			target: 'modal'
+		}
 	],
 	filters: [
 		{
@@ -636,16 +636,16 @@ const productsDataSetDisplayProps = {
 			max: {
 				day: today.getDate(),
 				month: today.getMonth() + 1,
-				year: today.getFullYear(),
+				year: today.getFullYear()
 			},
 			min: {
 				day: today.getDate(),
 				month: today.getMonth() + 1,
-				year: today.getFullYear() - 1,
+				year: today.getFullYear() - 1
 			},
 			placeholder: 'dd/mm/yyyy',
-			type: 'dateRange',
-		},
+			type: 'dateRange'
+		}
 	],
 	id: 'tableTest',
 	// itemsActions: [
@@ -658,27 +658,27 @@ const productsDataSetDisplayProps = {
 	pagination: {
 		deltas: [
 			{
-				label: 5,
+				label: 5
 			},
 			{
-				label: 10,
+				label: 10
 			},
 			{
-				label: 20,
+				label: 20
 			},
 			{
-				label: 30,
+				label: 30
 			},
 			{
-				label: 50,
+				label: 50
 			},
 			{
 				href:
 					'http://localhost:8080/group/test-1/pending-orders?p_p_id=com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_delta=75',
-				label: 75,
-			},
+				label: 75
+			}
 		],
-		initialDelta: 10,
+		initialDelta: 10
 	},
 	selectedItemsKey: 'id',
 	showPagination: true,
@@ -692,34 +692,40 @@ const productsDataSetDisplayProps = {
 			schema: {
 				fields: [
 					{
-						fieldName: ['name', themeDisplay.getLanguageId()],
-						label: Liferay.Language.get('name'),
+						contentRenderer: 'image',
+						fieldName: 'thumbnail',
+						labelKey: ['name', 'LANG'],
+					},
+					{
+						fieldName: ['name', 'LANG'],
+						label: Liferay.Language.get('name')
 					},
 					{
 						fieldName: 'productType',
-						label: Liferay.Language.get('product-type'),
+						label: Liferay.Language.get('product-type')
 					},
 					{
-						fieldName: 'externalReferenceCode',
+						fieldName: 'sku',
 						label: Liferay.Language.get('sku'),
 					},
 					{
-						fieldName: 'catalogId',
-						label: Liferay.Language.get('catalog'),
+						fieldName: 'catalogName',
+						label: Liferay.Language.get('catalog')
 					},
 					{
 						contentRenderer: 'date',
 						fieldName: 'modifiedDate',
-						label: Liferay.Language.get('modified-date'),
+						label: Liferay.Language.get('modified-date')
 					},
 					{
+						contentRenderer: 'workflowStatus',
 						fieldName: 'status',
-						label: Liferay.Language.get('status'),
-					},
-				],
-			},
-		},
-	],
+						label: Liferay.Language.get('status')
+					}
+				]
+			}
+		}
+	]
 };
 
 datasetDisplayLauncher(
@@ -765,20 +771,20 @@ sidePanelLauncher('sidePanel', 'side-panel-root', {
 		{
 			href: '/side-panel/comments.html',
 			icon: 'comments',
-			slug: 'comments',
+			slug: 'comments'
 		},
 		{
 			href: '/side-panel/edit.html',
 			icon: 'pencil',
-			slug: 'edit',
+			slug: 'edit'
 		},
 		{
 			href: '/side-panel/changelog.html',
 			icon: 'restore',
-			slug: 'changelog',
-		},
+			slug: 'changelog'
+		}
 	],
 	size: 'md',
 	spritemap: './assets/icons.svg',
-	topAnchorSelector: '.top-anchor',
+	topAnchorSelector: '.top-anchor'
 });

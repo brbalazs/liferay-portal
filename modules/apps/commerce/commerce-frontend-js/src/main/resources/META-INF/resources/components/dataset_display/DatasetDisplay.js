@@ -509,8 +509,8 @@ DatasetDisplay.propTypes = {
 DatasetDisplay.defaultProps = {
 	bulkActions: [],
 	filters: [],
-	itemsActions: null,
 	items: null,
+	itemsActions: null,
 	selectedItemsKey: 'id',
 	selectionType: 'multiple',
 	showManagementBar: true,

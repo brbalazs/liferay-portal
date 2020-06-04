@@ -283,6 +283,6 @@ AutocompleteFilter.propTypes = {
 
 AutocompleteFilter.defaultProps = {
 	selectionType: 'multiple'
-}
+};
 
 export default AutocompleteFilter;

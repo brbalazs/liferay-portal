@@ -41,5 +41,5 @@ window.Liferay = {
 	},
 	staticEnvHeaders: new Headers({
 		Authorization: `Basic ${window.btoa('test@liferay.com:test')}`
-	})
+	}),
 };
