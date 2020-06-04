@@ -64,8 +64,6 @@ public class ProductDTOConverter
 
 		CProduct cProduct = cpDefinition.getCProduct();
 
-		CommerceCatalog commerceCatalog = cpDefinition.getCommerceCatalog();
-
 		ExpandoBridge expandoBridge = cpDefinition.getExpandoBridge();
 
 		Locale locale = dtoConverterContext.getLocale();
@@ -73,7 +71,10 @@ public class ProductDTOConverter
 		ResourceBundle resourceBundle = LanguageResources.getResourceBundle(
 			locale);
 
-		String productStatusLabel = LanguageUtil.get(
+		String productStatusLabel = WorkflowConstants.getStatusLabel(
+			cpDefinition.getStatus());
+
+		String productStatusLabelI18n = LanguageUtil.get(
 			resourceBundle,
 			WorkflowConstants.getStatusLabel(cpDefinition.getStatus()));
 
@@ -84,7 +85,6 @@ public class ProductDTOConverter
 				actions = dtoConverterContext.getActions();
 				active = !cpDefinition.isInactive();
 				catalogId = _getCommerceCatalogId(cpDefinition);
-				catalogName = commerceCatalog.getName();
 				createDate = cpDefinition.getCreateDate();
 				description = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getDescriptionMap());
@@ -92,7 +92,7 @@ public class ProductDTOConverter
 				expando = expandoBridge.getAttributes();
 				expirationDate = cpDefinition.getExpirationDate();
 				externalReferenceCode = cProduct.getExternalReferenceCode();
-				id = cProduct.getCProductId();
+				id = cpDefinition.getCPDefinitionId();
 				metaDescription = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getMetaDescriptionMap());
 				metaKeyword = LanguageUtils.getLanguageIdMap(
@@ -102,13 +102,14 @@ public class ProductDTOConverter
 				modifiedDate = cpDefinition.getModifiedDate();
 				name = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getNameMap());
-				productId = cpDefinition.getCPDefinitionId();
-				productType = cpType.getLabel(locale);
+				productId = cProduct.getCProductId();
+				productType = cpType.getName();
+				productTypeI18n = cpType.getLabel(locale);
 				shortDescription = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getShortDescriptionMap());
-				sku = _getSku(cpDefinition, locale);
 				statusCode = cpDefinition.getStatus();
 				statusLabel = productStatusLabel;
+				statusLabelI18n = productStatusLabelI18n;
 				tags = _getTags(cpDefinition);
 				thumbnail = cpDefinition.getDefaultImageThumbnailSrc();
 			}
