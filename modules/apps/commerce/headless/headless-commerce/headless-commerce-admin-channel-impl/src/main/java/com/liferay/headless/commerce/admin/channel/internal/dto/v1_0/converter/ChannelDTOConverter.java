@@ -15,7 +15,7 @@
 package com.liferay.headless.commerce.admin.channel.internal.dto.v1_0.converter;
 
 import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CommerceChannelLocalService;
+import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.headless.commerce.admin.channel.dto.v1_0.Channel;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
@@ -43,7 +43,7 @@ public class ChannelDTOConverter
 		throws Exception {
 
 		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannel(
+			_commerceChannelService.getCommerceChannel(
 				(Long)dtoConverterContext.getId());
 
 		return new Channel() {
@@ -60,6 +60,6 @@ public class ChannelDTOConverter
 	}
 
 	@Reference
-	private CommerceChannelLocalService _commerceChannelLocalService;
+	private CommerceChannelService _commerceChannelService;
 
 }
