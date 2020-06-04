@@ -17,7 +17,6 @@ package com.liferay.headless.commerce.admin.catalog.internal.dto.v1_0.converter;
 import com.liferay.asset.kernel.model.AssetTag;
 import com.liferay.asset.kernel.service.AssetTagService;
 import com.liferay.commerce.product.model.CPDefinition;
-import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionService;
@@ -26,7 +25,6 @@ import com.liferay.commerce.product.type.CPTypeServicesTracker;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Product;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.language.LanguageResources;
@@ -128,22 +126,6 @@ public class ProductDTOConverter
 
 	private CPType _getCPType(String name) {
 		return _cpTypeServicesTracker.getCPType(name);
-	}
-
-	private String _getSku(CPDefinition cpDefinition, Locale locale) {
-		List<CPInstance> cpInstances = cpDefinition.getCPInstances();
-
-		if (cpInstances.isEmpty()) {
-			return StringPool.BLANK;
-		}
-
-		if (cpInstances.size() > 1) {
-			return LanguageUtil.get(locale, "multiple-skus");
-		}
-
-		CPInstance cpInstance = cpInstances.get(0);
-
-		return cpInstance.getSku();
 	}
 
 	private String[] _getTags(CPDefinition cpDefinition) {
