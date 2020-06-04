@@ -73,11 +73,18 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 		ResourceBundle resourceBundle = LanguageResources.getResourceBundle(
 			locale);
 
-		String commerceOrderStatusLabel = LanguageUtil.get(
+		String commerceOrderStatusLabel = WorkflowConstants.getStatusLabel(
+			commerceOrder.getStatus());
+
+		String commerceOrderStatusLabelI18n = LanguageUtil.get(
 			resourceBundle,
 			WorkflowConstants.getStatusLabel(commerceOrder.getStatus()));
 
-		String commerceOrderPaymentStatusLabel = LanguageUtil.get(
+		String commerceOrderPaymentStatusLabel =
+			CommerceOrderConstants.getPaymentStatusLabel(
+				commerceOrder.getPaymentStatus());
+
+		String commerceOrderPaymentStatusLabelI18n = LanguageUtil.get(
 			resourceBundle,
 			CommerceOrderConstants.getPaymentStatusLabel(
 				commerceOrder.getPaymentStatus()));
@@ -106,9 +113,11 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				modifiedDate = commerceOrder.getModifiedDate();
 				orderStatus = commerceOrder.getOrderStatus();
 				orderStatusLabel = commerceOrderStatusLabel;
+				orderStatusLabelI18n = commerceOrderStatusLabelI18n;
 				paymentMethod = commerceOrder.getCommercePaymentMethodKey();
 				paymentStatus = commerceOrder.getPaymentStatus();
 				paymentStatusLabel = commerceOrderPaymentStatusLabel;
+				paymentStatusLabelI18n = commerceOrderPaymentStatusLabelI18n;
 				printedNote = commerceOrder.getPrintedNote();
 				purchaseOrderNumber = commerceOrder.getPurchaseOrderNumber();
 				requestedDeliveryDate =
