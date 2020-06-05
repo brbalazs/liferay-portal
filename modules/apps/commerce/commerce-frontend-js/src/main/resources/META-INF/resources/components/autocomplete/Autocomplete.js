@@ -34,7 +34,19 @@ function Autocomplete(props) {
 	const dropdownNode = useRef();
 
 	const getData = () => {
-		return fetch(`${props.apiUrl}${query ? `?search=${query}` : ''}`, {
+		let url = props.apiUrl;
+
+		if (query) {
+			url += '?search=' + query;
+
+			if (props.filterQuery) {
+				url += '&filter=' + props.filterQuery;
+			}
+		} else if (props.filterQuery) {
+			url += '?filter=' + props.filterQuery;
+		}
+
+		return fetch(url, {
 			...fetchParams,
 			method: 'GET'
 		})
@@ -166,6 +178,7 @@ function Autocomplete(props) {
 
 Autocomplete.propTypes = {
 	apiUrl: PropTypes.string.isRequired,
+	filterQuery: PropTypes.string,
 	id: PropTypes.string.isRequired,
 	initialLabel: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 		.isRequired,
@@ -182,6 +195,7 @@ Autocomplete.propTypes = {
 };
 
 Autocomplete.defaultProps = {
+	filterQuery: '',
 	initialLabel: '',
 	initialValue: '',
 	inputPlaceholder: Liferay.Language.get('type-here')
