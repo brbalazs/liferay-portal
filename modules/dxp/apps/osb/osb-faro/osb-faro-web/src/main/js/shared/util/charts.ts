@@ -48,7 +48,7 @@ export const Colors = {
 export const dateRangeFormatter = (
 	dateStart: Date,
 	dateEnd: Date,
-	withYear: Boolean = false
+	withYear: boolean = false
 ): string => {
 	const dayFormat = d3.utcFormat('%-d');
 	const dayMonthFormat = d3.utcFormat('%b %-d');
