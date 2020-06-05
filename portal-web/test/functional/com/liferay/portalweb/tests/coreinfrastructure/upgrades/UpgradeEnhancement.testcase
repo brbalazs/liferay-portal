@@ -87,7 +87,7 @@ definition {
 	test UpgradeCoreSchemaVersion {
 		property test.name.skip.portal.instance = "UpgradeEnhancement#UpgradeCoreSchemaVersion";
 
-		var script1 = '''
+		var printSchemaVersionScript = '''
 			import com.liferay.portal.kernel.service.ReleaseLocalServiceUtil;
 			import com.liferay.portal.kernel.model.*;
 			import com.liferay.portal.kernel.version.Version;
@@ -101,7 +101,7 @@ definition {
 			out.println("Schema Version is " + version.toString());
 		''';
 
-		var script2 = '''
+		var decrementSchemaVersionScript = '''
 			import com.liferay.portal.kernel.service.ReleaseLocalServiceUtil;
 			import com.liferay.portal.kernel.model.*;
 			import com.liferay.portal.kernel.version.Version;
@@ -134,7 +134,7 @@ definition {
 
 		ServerAdministration.executeScript(
 			language = "Groovy",
-			script = "${script1}");
+			script = "${printSchemaVersionScript}");
 
 		var originalSchemaVersion = selenium.getText("ServerAdministrationScript#OUTPUT_FIELD");
 		var originalSchemaVersion = StringUtil.extractLast("${originalSchemaVersion}", "Schema Version is");
@@ -144,7 +144,7 @@ definition {
 
 		ServerAdministration.executeScript(
 			language = "Groovy",
-			script = "${script2}");
+			script = "${decrementSchemaVersionScript}");
 
 		var output = selenium.getText("ServerAdministrationScript#OUTPUT_FIELD");
 
@@ -170,7 +170,7 @@ definition {
 
 			ServerAdministration.executeScript(
 				language = "Groovy",
-				script = "${script1}");
+				script = "${printSchemaVersionScript}");
 
 			AssertTextEquals.assertPartialText(
 				locator1 = "ServerAdministrationScript#OUTPUT_FIELD",
@@ -202,7 +202,7 @@ definition {
 
 		ServerAdministration.executeScript(
 			language = "Groovy",
-			script = "${script1}");
+			script = "${printSchemaVersionScript}");
 
 		AssertTextEquals.assertPartialText(
 			locator1 = "ServerAdministrationScript#OUTPUT_FIELD",
