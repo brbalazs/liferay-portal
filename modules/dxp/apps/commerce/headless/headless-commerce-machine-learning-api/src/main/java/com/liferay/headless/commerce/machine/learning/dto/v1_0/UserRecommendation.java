@@ -168,16 +168,16 @@ public class UserRecommendation {
 	protected Long productId;
 
 	@Schema(description = "The recommendation rank.")
-	public Long getRank() {
+	public Integer getRank() {
 		return rank;
 	}
 
-	public void setRank(Long rank) {
+	public void setRank(Integer rank) {
 		this.rank = rank;
 	}
 
 	@JsonIgnore
-	public void setRank(UnsafeSupplier<Long, Exception> rankUnsafeSupplier) {
+	public void setRank(UnsafeSupplier<Integer, Exception> rankUnsafeSupplier) {
 		try {
 			rank = rankUnsafeSupplier.get();
 		}
@@ -191,7 +191,7 @@ public class UserRecommendation {
 
 	@GraphQLField(description = "The recommendation rank.")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Long rank;
+	protected Integer rank;
 
 	@Schema(description = "The recommended product identifier.")
 	public Long getRecommendedProductId() {
