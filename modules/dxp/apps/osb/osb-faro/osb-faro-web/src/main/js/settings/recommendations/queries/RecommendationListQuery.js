@@ -9,9 +9,9 @@ export default gql`
 	) {
 		jobs(keywords: $keywords, size: $size, sort: $sort, start: $start) {
 			jobs {
-				active
 				id
 				name
+				status
 				trainingFrequency
 				trainingPeriod
 				type
