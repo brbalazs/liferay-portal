@@ -20,6 +20,7 @@ import com.liferay.commerce.configuration.CommerceOrderCheckoutConfiguration;
 import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommercePortletKeys;
+import com.liferay.commerce.constants.CommercePunchoutConstants;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
@@ -466,7 +467,14 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 			long commerceAccountId, ThemeDisplay themeDisplay)
 		throws PortalException {
 
-		CommerceOrder commerceOrder = _commerceOrderUuidThreadLocal.get();
+		CommerceOrder commerceOrder = _getCurrentPunchoutCommerceOrder(
+			commerceAccountId, themeDisplay);
+
+		if (commerceOrder != null) {
+			return commerceOrder;
+		}
+
+		commerceOrder = _commerceOrderUuidThreadLocal.get();
 
 		if (commerceOrder != null) {
 			return commerceOrder;
@@ -522,6 +530,35 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 		}
 
 		return commerceOrder;
+	}
+
+	private CommerceOrder _getCurrentPunchoutCommerceOrder(
+			long commerceAccountId, ThemeDisplay themeDisplay)
+		throws PortalException {
+
+		if (commerceAccountId == CommerceAccountConstants.ACCOUNT_ID_GUEST) {
+			return null;
+		}
+
+		String punchoutCommerceOrderUuId = CookieKeys.getCookie(
+			themeDisplay.getRequest(),
+			CommercePunchoutConstants.PUNCHOUT_COMMERCE_ORDER_UUID_COOKIE_NAME,
+			true);
+
+		if (Validator.isBlank(punchoutCommerceOrderUuId)) {
+			return null;
+		}
+
+		CommerceChannel commerceChannel =
+			_commerceChannelLocalService.fetchCommerceChannelBySiteGroupId(
+				themeDisplay.getScopeGroupId());
+
+		if (commerceChannel == null) {
+			return null;
+		}
+
+		return _commerceOrderService.fetchCommerceOrder(
+			punchoutCommerceOrderUuId, commerceChannel.getGroupId());
 	}
 
 	private String _getLocalizedMessage(Locale locale, String key) {

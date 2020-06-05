@@ -14,6 +14,7 @@
 
 package com.liferay.portal.security.auto.login.punchout.internal.events;
 
+import com.liferay.commerce.constants.CommercePunchoutConstants;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
@@ -94,6 +95,24 @@ public class PunchoutLoginPostAction extends Action {
 		}
 	}
 
+	private void _addPunchoutCookie(
+		String name, String value, HttpServletRequest request,
+		HttpServletResponse response) {
+
+		Cookie cookie = new Cookie(name, value);
+
+		String domain = CookieKeys.getDomain(request);
+
+		if (Validator.isNotNull(domain)) {
+			cookie.setDomain(domain);
+		}
+
+		cookie.setMaxAge(CookieKeys.MAX_AGE);
+		cookie.setPath(StringPool.SLASH);
+
+		CookieKeys.addCookie(request, response, cookie);
+	}
+
 	private ThemeDisplay _getThemeDisplay() {
 		return new ThemeDisplay() {
 			{
@@ -142,19 +161,14 @@ public class PunchoutLoginPostAction extends Action {
 		_commerceOrderHttpHelper.setCurrentCommerceOrder(
 			httpServletRequest, commerceOrder);
 
-		Cookie cookie = new Cookie(
-			"PUNCHOUTRETURNURL", punchoutAccessToken.getPunchoutReturnURL());
+		_addPunchoutCookie(
+			CommercePunchoutConstants.PUNCHOUT_RETURN_URL_COOKIE_NAME,
+			punchoutAccessToken.getPunchoutReturnURL(), httpServletRequest,
+			httpServletResponse);
 
-		String domain = CookieKeys.getDomain(httpServletRequest);
-
-		if (Validator.isNotNull(domain)) {
-			cookie.setDomain(domain);
-		}
-
-		cookie.setMaxAge(CookieKeys.MAX_AGE);
-		cookie.setPath(StringPool.SLASH);
-
-		CookieKeys.addCookie(httpServletRequest, httpServletResponse, cookie);
+		_addPunchoutCookie(
+			CommercePunchoutConstants.PUNCHOUT_COMMERCE_ORDER_UUID_COOKIE_NAME,
+			commerceOrder.getUuid(), httpServletRequest, httpServletResponse);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

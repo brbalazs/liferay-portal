@@ -15,6 +15,7 @@
 package com.liferay.commerce.checkout.web.internal.util;
 
 import com.liferay.commerce.constants.CommerceCheckoutWebKeys;
+import com.liferay.commerce.constants.CommercePunchoutConstants;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.punchout.service.PunchoutReturnService;
 import com.liferay.commerce.util.BaseCommerceCheckoutStep;
@@ -112,7 +113,11 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 		CookieKeys.deleteCookies(
 			httpServletRequest, httpServletResponse,
-			CookieKeys.getDomain(httpServletRequest), "PUNCHOUTRETURNURL");
+			CookieKeys.getDomain(httpServletRequest), CommercePunchoutConstants.PUNCHOUT_RETURN_URL_COOKIE_NAME);
+
+		CookieKeys.deleteCookies(
+			httpServletRequest, httpServletResponse,
+			CookieKeys.getDomain(httpServletRequest), CommercePunchoutConstants.PUNCHOUT_COMMERCE_ORDER_UUID_COOKIE_NAME);
 	}
 
 	private CommerceOrder _getCommerceOrder(ActionRequest actionRequest) {
@@ -123,7 +128,7 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 	private String _getPunchoutReturnURL(
 		HttpServletRequest httpServletRequest) {
 
-		return CookieKeys.getCookie(httpServletRequest, "PUNCHOUTRETURNURL");
+		return CookieKeys.getCookie(httpServletRequest, CommercePunchoutConstants.PUNCHOUT_RETURN_URL_COOKIE_NAME);
 	}
 
 	private boolean _punchoutSession(HttpServletRequest request) {
