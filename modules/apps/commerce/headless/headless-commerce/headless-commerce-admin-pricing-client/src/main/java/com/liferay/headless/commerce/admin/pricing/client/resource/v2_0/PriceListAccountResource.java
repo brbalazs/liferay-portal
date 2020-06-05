@@ -198,7 +198,7 @@ public interface PriceListAccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceListAccounts/{id}",
+						"/o/headless-commerce-admin-pricing/v2.0/price-list-accounts/{id}",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -257,7 +257,7 @@ public interface PriceListAccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceListAccounts/{id}/batch",
+						"/o/headless-commerce-admin-pricing/v2.0/price-list-accounts/{id}/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -331,7 +331,7 @@ public interface PriceListAccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccounts",
+						"/o/headless-commerce-admin-pricing/v2.0/price-lists/by-externalReferenceCode/{externalReferenceCode}/price-list-accounts",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -402,7 +402,7 @@ public interface PriceListAccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccounts",
+						"/o/headless-commerce-admin-pricing/v2.0/price-lists/by-externalReferenceCode/{externalReferenceCode}/price-list-accounts",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -474,7 +474,7 @@ public interface PriceListAccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceLists/{id}/priceListAccounts",
+						"/o/headless-commerce-admin-pricing/v2.0/price-lists/{id}/price-list-accounts",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -542,7 +542,7 @@ public interface PriceListAccountResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceLists/{id}/priceListAccounts",
+						"/o/headless-commerce-admin-pricing/v2.0/price-lists/{id}/price-list-accounts",
 				id);
 
 			httpInvoker.userNameAndPassword(

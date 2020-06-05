@@ -207,7 +207,7 @@ public interface DiscountRuleResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discountRules/{id}",
+						"/o/headless-commerce-admin-pricing/v2.0/discount-rules/{id}",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -265,7 +265,7 @@ public interface DiscountRuleResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discountRules/{id}/batch",
+						"/o/headless-commerce-admin-pricing/v2.0/discount-rules/{id}/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -325,7 +325,7 @@ public interface DiscountRuleResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discountRules/{id}",
+						"/o/headless-commerce-admin-pricing/v2.0/discount-rules/{id}",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -379,7 +379,7 @@ public interface DiscountRuleResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discountRules/{id}",
+						"/o/headless-commerce-admin-pricing/v2.0/discount-rules/{id}",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -453,7 +453,7 @@ public interface DiscountRuleResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountRules",
+						"/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discount-rules",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -521,7 +521,7 @@ public interface DiscountRuleResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountRules",
+						"/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discount-rules",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -593,7 +593,7 @@ public interface DiscountRuleResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discountRules",
+						"/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discount-rules",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -659,7 +659,7 @@ public interface DiscountRuleResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discountRules",
+						"/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discount-rules",
 				id);
 
 			httpInvoker.userNameAndPassword(

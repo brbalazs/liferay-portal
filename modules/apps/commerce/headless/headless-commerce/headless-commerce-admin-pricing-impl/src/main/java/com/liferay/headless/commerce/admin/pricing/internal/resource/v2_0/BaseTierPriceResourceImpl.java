@@ -83,7 +83,7 @@ public abstract class BaseTierPriceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceEntries/by-externalReferenceCode/{externalReferenceCode}/tierPrices'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-entries/by-externalReferenceCode/{externalReferenceCode}/tier-prices'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -95,7 +95,7 @@ public abstract class BaseTierPriceResourceImpl
 		}
 	)
 	@Path(
-		"/priceEntries/by-externalReferenceCode/{externalReferenceCode}/tierPrices"
+		"/price-entries/by-externalReferenceCode/{externalReferenceCode}/tier-prices"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TierPrice")})
@@ -111,7 +111,7 @@ public abstract class BaseTierPriceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceEntries/by-externalReferenceCode/{externalReferenceCode}/tierPrices' -d $'{"active": ___, "customFields": ___, "discountDiscovery": ___, "discountLevel1": ___, "discountLevel2": ___, "discountLevel3": ___, "discountLevel4": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "minimumQuantity": ___, "neverExpire": ___, "price": ___, "priceEntryExternalReferenceCode": ___, "priceEntryId": ___, "promoPrice": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-entries/by-externalReferenceCode/{externalReferenceCode}/tier-prices' -d $'{"active": ___, "customFields": ___, "discountDiscovery": ___, "discountLevel1": ___, "discountLevel2": ___, "discountLevel3": ___, "discountLevel4": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "minimumQuantity": ___, "neverExpire": ___, "price": ___, "priceEntryExternalReferenceCode": ___, "priceEntryId": ___, "promoPrice": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -122,7 +122,7 @@ public abstract class BaseTierPriceResourceImpl
 		}
 	)
 	@Path(
-		"/priceEntries/by-externalReferenceCode/{externalReferenceCode}/tierPrices"
+		"/price-entries/by-externalReferenceCode/{externalReferenceCode}/tier-prices"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TierPrice")})
@@ -138,7 +138,7 @@ public abstract class BaseTierPriceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceEntries/{id}/tierPrices'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-entries/{id}/tier-prices'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -149,7 +149,7 @@ public abstract class BaseTierPriceResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/priceEntries/{id}/tierPrices")
+	@Path("/price-entries/{id}/tier-prices")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TierPrice")})
 	public Page<TierPrice> getPriceEntryIdTierPricesPage(
@@ -163,13 +163,13 @@ public abstract class BaseTierPriceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceEntries/{id}/tierPrices' -d $'{"active": ___, "customFields": ___, "discountDiscovery": ___, "discountLevel1": ___, "discountLevel2": ___, "discountLevel3": ___, "discountLevel4": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "minimumQuantity": ___, "neverExpire": ___, "price": ___, "priceEntryExternalReferenceCode": ___, "priceEntryId": ___, "promoPrice": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-entries/{id}/tier-prices' -d $'{"active": ___, "customFields": ___, "discountDiscovery": ___, "discountLevel1": ___, "discountLevel2": ___, "discountLevel3": ___, "discountLevel4": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "minimumQuantity": ___, "neverExpire": ___, "price": ___, "priceEntryExternalReferenceCode": ___, "priceEntryId": ___, "promoPrice": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/priceEntries/{id}/tierPrices")
+	@Path("/price-entries/{id}/tier-prices")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TierPrice")})
 	public TierPrice postPriceEntryIdTierPrice(
@@ -183,7 +183,7 @@ public abstract class BaseTierPriceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/tierPrices/by-externalReferenceCode/{externalReferenceCode}'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/tier-prices/by-externalReferenceCode/{externalReferenceCode}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@DELETE
@@ -192,7 +192,7 @@ public abstract class BaseTierPriceResourceImpl
 			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
 		}
 	)
-	@Path("/tierPrices/by-externalReferenceCode/{externalReferenceCode}")
+	@Path("/tier-prices/by-externalReferenceCode/{externalReferenceCode}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TierPrice")})
 	public void deleteTierPriceByExternalReferenceCode(
@@ -204,7 +204,7 @@ public abstract class BaseTierPriceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/tierPrices/by-externalReferenceCode/{externalReferenceCode}'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/tier-prices/by-externalReferenceCode/{externalReferenceCode}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -213,7 +213,7 @@ public abstract class BaseTierPriceResourceImpl
 			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
 		}
 	)
-	@Path("/tierPrices/by-externalReferenceCode/{externalReferenceCode}")
+	@Path("/tier-prices/by-externalReferenceCode/{externalReferenceCode}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TierPrice")})
 	public TierPrice getTierPriceByExternalReferenceCode(
@@ -227,7 +227,7 @@ public abstract class BaseTierPriceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/tierPrices/by-externalReferenceCode/{externalReferenceCode}' -d $'{"active": ___, "customFields": ___, "discountDiscovery": ___, "discountLevel1": ___, "discountLevel2": ___, "discountLevel3": ___, "discountLevel4": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "minimumQuantity": ___, "neverExpire": ___, "price": ___, "priceEntryExternalReferenceCode": ___, "priceEntryId": ___, "promoPrice": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/tier-prices/by-externalReferenceCode/{externalReferenceCode}' -d $'{"active": ___, "customFields": ___, "discountDiscovery": ___, "discountLevel1": ___, "discountLevel2": ___, "discountLevel3": ___, "discountLevel4": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "minimumQuantity": ___, "neverExpire": ___, "price": ___, "priceEntryExternalReferenceCode": ___, "priceEntryId": ___, "promoPrice": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -237,7 +237,7 @@ public abstract class BaseTierPriceResourceImpl
 			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode")
 		}
 	)
-	@Path("/tierPrices/by-externalReferenceCode/{externalReferenceCode}")
+	@Path("/tier-prices/by-externalReferenceCode/{externalReferenceCode}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TierPrice")})
 	public Response patchTierPriceByExternalReferenceCode(
@@ -254,12 +254,12 @@ public abstract class BaseTierPriceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/tierPrices/{id}'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/tier-prices/{id}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@DELETE
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/tierPrices/{id}")
+	@Path("/tier-prices/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TierPrice")})
 	public void deleteTierPrice(
@@ -270,7 +270,7 @@ public abstract class BaseTierPriceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/tierPrices/{id}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/tier-prices/{id}/batch'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes("application/json")
@@ -281,7 +281,7 @@ public abstract class BaseTierPriceResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
 		}
 	)
-	@Path("/tierPrices/{id}/batch")
+	@Path("/tier-prices/{id}/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "TierPrice")})
 	public Response deleteTierPriceBatch(
@@ -310,12 +310,12 @@ public abstract class BaseTierPriceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/tierPrices/{id}'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/tier-prices/{id}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/tierPrices/{id}")
+	@Path("/tier-prices/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TierPrice")})
 	public TierPrice getTierPrice(
@@ -328,13 +328,13 @@ public abstract class BaseTierPriceResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/tierPrices/{id}' -d $'{"active": ___, "customFields": ___, "discountDiscovery": ___, "discountLevel1": ___, "discountLevel2": ___, "discountLevel3": ___, "discountLevel4": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "minimumQuantity": ___, "neverExpire": ___, "price": ___, "priceEntryExternalReferenceCode": ___, "priceEntryId": ___, "promoPrice": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/tier-prices/{id}' -d $'{"active": ___, "customFields": ___, "discountDiscovery": ___, "discountLevel1": ___, "discountLevel2": ___, "discountLevel3": ___, "discountLevel4": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "minimumQuantity": ___, "neverExpire": ___, "price": ___, "priceEntryExternalReferenceCode": ___, "priceEntryId": ___, "promoPrice": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PATCH
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/tierPrices/{id}")
+	@Path("/tier-prices/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TierPrice")})
 	public Response patchTierPrice(

@@ -83,12 +83,12 @@ public abstract class BaseDiscountRuleResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discountRules/{id}'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discount-rules/{id}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@DELETE
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/discountRules/{id}")
+	@Path("/discount-rules/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountRule")})
 	public void deleteDiscountRule(
@@ -99,7 +99,7 @@ public abstract class BaseDiscountRuleResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discountRules/{id}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discount-rules/{id}/batch'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes("application/json")
@@ -110,7 +110,7 @@ public abstract class BaseDiscountRuleResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
 		}
 	)
-	@Path("/discountRules/{id}/batch")
+	@Path("/discount-rules/{id}/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "DiscountRule")})
 	public Response deleteDiscountRuleBatch(
@@ -139,12 +139,12 @@ public abstract class BaseDiscountRuleResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discountRules/{id}'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discount-rules/{id}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/discountRules/{id}")
+	@Path("/discount-rules/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountRule")})
 	public DiscountRule getDiscountRule(
@@ -157,13 +157,13 @@ public abstract class BaseDiscountRuleResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discountRules/{id}' -d $'{"name": ___, "type": ___, "typeSettings": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discount-rules/{id}' -d $'{"name": ___, "type": ___, "typeSettings": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@PATCH
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/discountRules/{id}")
+	@Path("/discount-rules/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountRule")})
 	public Response patchDiscountRule(
@@ -179,7 +179,7 @@ public abstract class BaseDiscountRuleResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountRules'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discount-rules'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -191,7 +191,7 @@ public abstract class BaseDiscountRuleResourceImpl
 		}
 	)
 	@Path(
-		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discountRules"
+		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discount-rules"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountRule")})
@@ -209,7 +209,7 @@ public abstract class BaseDiscountRuleResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountRules' -d $'{"name": ___, "type": ___, "typeSettings": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discount-rules' -d $'{"name": ___, "type": ___, "typeSettings": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -220,7 +220,7 @@ public abstract class BaseDiscountRuleResourceImpl
 		}
 	)
 	@Path(
-		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discountRules"
+		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discount-rules"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountRule")})
@@ -236,7 +236,7 @@ public abstract class BaseDiscountRuleResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discountRules'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discount-rules'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -247,7 +247,7 @@ public abstract class BaseDiscountRuleResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/discounts/{id}/discountRules")
+	@Path("/discounts/{id}/discount-rules")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountRule")})
 	public Page<DiscountRule> getDiscountIdDiscountRulesPage(
@@ -261,13 +261,13 @@ public abstract class BaseDiscountRuleResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discountRules' -d $'{"name": ___, "type": ___, "typeSettings": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discount-rules' -d $'{"name": ___, "type": ___, "typeSettings": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/discounts/{id}/discountRules")
+	@Path("/discounts/{id}/discount-rules")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountRule")})
 	public DiscountRule postDiscountIdDiscountRule(

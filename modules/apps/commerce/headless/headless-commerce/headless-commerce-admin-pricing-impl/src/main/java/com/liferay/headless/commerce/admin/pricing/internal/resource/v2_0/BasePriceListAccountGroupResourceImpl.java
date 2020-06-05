@@ -82,12 +82,12 @@ public abstract class BasePriceListAccountGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceListAccountGroups/{id}'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-list-account-groups/{id}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@DELETE
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/priceListAccountGroups/{id}")
+	@Path("/price-list-account-groups/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListAccountGroup")})
 	public void deletePriceListAccountGroup(
@@ -98,7 +98,7 @@ public abstract class BasePriceListAccountGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceListAccountGroups/{id}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-list-account-groups/{id}/batch'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes("application/json")
@@ -109,7 +109,7 @@ public abstract class BasePriceListAccountGroupResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
 		}
 	)
-	@Path("/priceListAccountGroups/{id}/batch")
+	@Path("/price-list-account-groups/{id}/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "PriceListAccountGroup")})
 	public Response deletePriceListAccountGroupBatch(
@@ -138,7 +138,7 @@ public abstract class BasePriceListAccountGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccountGroups'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-lists/by-externalReferenceCode/{externalReferenceCode}/price-list-account-groups'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -150,7 +150,7 @@ public abstract class BasePriceListAccountGroupResourceImpl
 		}
 	)
 	@Path(
-		"/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccountGroups"
+		"/price-lists/by-externalReferenceCode/{externalReferenceCode}/price-list-account-groups"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListAccountGroup")})
@@ -168,7 +168,7 @@ public abstract class BasePriceListAccountGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccountGroups' -d $'{"accountGroupExternalReferenceCode": ___, "accountGroupId": ___, "order": ___, "priceListExternalReferenceCode": ___, "priceListId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-lists/by-externalReferenceCode/{externalReferenceCode}/price-list-account-groups' -d $'{"accountGroupExternalReferenceCode": ___, "accountGroupId": ___, "order": ___, "priceListExternalReferenceCode": ___, "priceListId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -179,7 +179,7 @@ public abstract class BasePriceListAccountGroupResourceImpl
 		}
 	)
 	@Path(
-		"/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccountGroups"
+		"/price-lists/by-externalReferenceCode/{externalReferenceCode}/price-list-account-groups"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListAccountGroup")})
@@ -197,7 +197,7 @@ public abstract class BasePriceListAccountGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/{id}/priceListAccountGroups'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-lists/{id}/price-list-account-groups'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -208,7 +208,7 @@ public abstract class BasePriceListAccountGroupResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/priceLists/{id}/priceListAccountGroups")
+	@Path("/price-lists/{id}/price-list-account-groups")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListAccountGroup")})
 	public Page<PriceListAccountGroup> getPriceListIdPriceListAccountGroupsPage(
@@ -222,13 +222,13 @@ public abstract class BasePriceListAccountGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/{id}/priceListAccountGroups' -d $'{"accountGroupExternalReferenceCode": ___, "accountGroupId": ___, "order": ___, "priceListExternalReferenceCode": ___, "priceListId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-lists/{id}/price-list-account-groups' -d $'{"accountGroupExternalReferenceCode": ___, "accountGroupId": ___, "order": ___, "priceListExternalReferenceCode": ___, "priceListId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/priceLists/{id}/priceListAccountGroups")
+	@Path("/price-lists/{id}/price-list-account-groups")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {})
 	public PriceListAccountGroup postPriceListIdPriceListAccountGroup(

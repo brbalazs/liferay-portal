@@ -205,7 +205,7 @@ public interface PriceModifierProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceModifierProductGroups/{id}",
+						"/o/headless-commerce-admin-pricing/v2.0/price-modifier-product-groups/{id}",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -265,7 +265,7 @@ public interface PriceModifierProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceModifierProductGroups/{id}/batch",
+						"/o/headless-commerce-admin-pricing/v2.0/price-modifier-product-groups/{id}/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -339,7 +339,7 @@ public interface PriceModifierProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceModifiers/by-externalReferenceCode/{externalReferenceCode}/priceModifierProductGroups",
+						"/o/headless-commerce-admin-pricing/v2.0/price-modifiers/by-externalReferenceCode/{externalReferenceCode}/price-modifier-product-groups",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -411,7 +411,7 @@ public interface PriceModifierProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceModifiers/by-externalReferenceCode/{externalReferenceCode}/priceModifierProductGroups",
+						"/o/headless-commerce-admin-pricing/v2.0/price-modifiers/by-externalReferenceCode/{externalReferenceCode}/price-modifier-product-groups",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -485,7 +485,7 @@ public interface PriceModifierProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceModifiers/{id}/priceModifierProductGroups",
+						"/o/headless-commerce-admin-pricing/v2.0/price-modifiers/{id}/price-modifier-product-groups",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -557,7 +557,7 @@ public interface PriceModifierProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceModifiers/{id}/priceModifierProductGroups",
+						"/o/headless-commerce-admin-pricing/v2.0/price-modifiers/{id}/price-modifier-product-groups",
 				id);
 
 			httpInvoker.userNameAndPassword(

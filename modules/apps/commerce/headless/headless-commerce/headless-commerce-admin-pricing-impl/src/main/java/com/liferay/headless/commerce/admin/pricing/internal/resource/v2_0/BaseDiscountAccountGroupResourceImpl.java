@@ -82,12 +82,12 @@ public abstract class BaseDiscountAccountGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discountAccountGroups/{id}'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discount-account-groups/{id}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@DELETE
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/discountAccountGroups/{id}")
+	@Path("/discount-account-groups/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountAccountGroup")})
 	public void deleteDiscountAccountGroup(
@@ -98,7 +98,7 @@ public abstract class BaseDiscountAccountGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discountAccountGroups/{id}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discount-account-groups/{id}/batch'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes("application/json")
@@ -109,7 +109,7 @@ public abstract class BaseDiscountAccountGroupResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
 		}
 	)
-	@Path("/discountAccountGroups/{id}/batch")
+	@Path("/discount-account-groups/{id}/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "DiscountAccountGroup")})
 	public Response deleteDiscountAccountGroupBatch(
@@ -138,7 +138,7 @@ public abstract class BaseDiscountAccountGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountAccountGroups'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discount-account-groups'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -150,7 +150,7 @@ public abstract class BaseDiscountAccountGroupResourceImpl
 		}
 	)
 	@Path(
-		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discountAccountGroups"
+		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discount-account-groups"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountAccountGroup")})
@@ -168,7 +168,7 @@ public abstract class BaseDiscountAccountGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountAccountGroups' -d $'{"accountGroupExternalReferenceCode": ___, "accountGroupId": ___, "discountExternalReferenceCode": ___, "discountId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discount-account-groups' -d $'{"accountGroupExternalReferenceCode": ___, "accountGroupId": ___, "discountExternalReferenceCode": ___, "discountId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -179,7 +179,7 @@ public abstract class BaseDiscountAccountGroupResourceImpl
 		}
 	)
 	@Path(
-		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discountAccountGroups"
+		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discount-account-groups"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountAccountGroup")})
@@ -197,7 +197,7 @@ public abstract class BaseDiscountAccountGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discountAccountGroups'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discount-account-groups'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -208,7 +208,7 @@ public abstract class BaseDiscountAccountGroupResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/discounts/{id}/discountAccountGroups")
+	@Path("/discounts/{id}/discount-account-groups")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountAccountGroup")})
 	public Page<DiscountAccountGroup> getDiscountIdDiscountAccountGroupsPage(
@@ -222,13 +222,13 @@ public abstract class BaseDiscountAccountGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discountAccountGroups' -d $'{"accountGroupExternalReferenceCode": ___, "accountGroupId": ___, "discountExternalReferenceCode": ___, "discountId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discount-account-groups' -d $'{"accountGroupExternalReferenceCode": ___, "accountGroupId": ___, "discountExternalReferenceCode": ___, "discountId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/discounts/{id}/discountAccountGroups")
+	@Path("/discounts/{id}/discount-account-groups")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountAccountGroup")})
 	public DiscountAccountGroup postDiscountIdDiscountAccountGroup(

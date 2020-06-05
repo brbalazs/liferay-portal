@@ -202,7 +202,7 @@ public interface DiscountAccountGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discountAccountGroups/{id}",
+						"/o/headless-commerce-admin-pricing/v2.0/discount-account-groups/{id}",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -262,7 +262,7 @@ public interface DiscountAccountGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discountAccountGroups/{id}/batch",
+						"/o/headless-commerce-admin-pricing/v2.0/discount-account-groups/{id}/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -336,7 +336,7 @@ public interface DiscountAccountGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountAccountGroups",
+						"/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discount-account-groups",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -408,7 +408,7 @@ public interface DiscountAccountGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discountAccountGroups",
+						"/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}/discount-account-groups",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -482,7 +482,7 @@ public interface DiscountAccountGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discountAccountGroups",
+						"/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discount-account-groups",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -551,7 +551,7 @@ public interface DiscountAccountGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discountAccountGroups",
+						"/o/headless-commerce-admin-pricing/v2.0/discounts/{id}/discount-account-groups",
 				id);
 
 			httpInvoker.userNameAndPassword(

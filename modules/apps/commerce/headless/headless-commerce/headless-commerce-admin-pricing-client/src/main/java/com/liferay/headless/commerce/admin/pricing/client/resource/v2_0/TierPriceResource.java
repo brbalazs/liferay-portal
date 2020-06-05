@@ -243,7 +243,7 @@ public interface TierPriceResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceEntries/by-externalReferenceCode/{externalReferenceCode}/tierPrices",
+						"/o/headless-commerce-admin-pricing/v2.0/price-entries/by-externalReferenceCode/{externalReferenceCode}/tier-prices",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -311,7 +311,7 @@ public interface TierPriceResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceEntries/by-externalReferenceCode/{externalReferenceCode}/tierPrices",
+						"/o/headless-commerce-admin-pricing/v2.0/price-entries/by-externalReferenceCode/{externalReferenceCode}/tier-prices",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -383,7 +383,7 @@ public interface TierPriceResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceEntries/{id}/tierPrices",
+						"/o/headless-commerce-admin-pricing/v2.0/price-entries/{id}/tier-prices",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -448,7 +448,7 @@ public interface TierPriceResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/priceEntries/{id}/tierPrices",
+						"/o/headless-commerce-admin-pricing/v2.0/price-entries/{id}/tier-prices",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -514,7 +514,7 @@ public interface TierPriceResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/tierPrices/by-externalReferenceCode/{externalReferenceCode}",
+						"/o/headless-commerce-admin-pricing/v2.0/tier-prices/by-externalReferenceCode/{externalReferenceCode}",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -580,7 +580,7 @@ public interface TierPriceResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/tierPrices/by-externalReferenceCode/{externalReferenceCode}",
+						"/o/headless-commerce-admin-pricing/v2.0/tier-prices/by-externalReferenceCode/{externalReferenceCode}",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -637,7 +637,7 @@ public interface TierPriceResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/tierPrices/by-externalReferenceCode/{externalReferenceCode}",
+						"/o/headless-commerce-admin-pricing/v2.0/tier-prices/by-externalReferenceCode/{externalReferenceCode}",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -697,7 +697,7 @@ public interface TierPriceResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/tierPrices/{id}",
+						"/o/headless-commerce-admin-pricing/v2.0/tier-prices/{id}",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -755,7 +755,7 @@ public interface TierPriceResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/tierPrices/{id}/batch",
+						"/o/headless-commerce-admin-pricing/v2.0/tier-prices/{id}/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -815,7 +815,7 @@ public interface TierPriceResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/tierPrices/{id}",
+						"/o/headless-commerce-admin-pricing/v2.0/tier-prices/{id}",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -869,7 +869,7 @@ public interface TierPriceResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/tierPrices/{id}",
+						"/o/headless-commerce-admin-pricing/v2.0/tier-prices/{id}",
 				id);
 
 			httpInvoker.userNameAndPassword(

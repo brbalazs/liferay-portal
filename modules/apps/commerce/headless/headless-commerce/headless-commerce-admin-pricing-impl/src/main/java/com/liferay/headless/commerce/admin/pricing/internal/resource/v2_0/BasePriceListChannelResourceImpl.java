@@ -82,12 +82,12 @@ public abstract class BasePriceListChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceListChannels/{id}'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-list-channels/{id}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@DELETE
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/priceListChannels/{id}")
+	@Path("/price-list-channels/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListChannel")})
 	public void deletePriceListChannel(
@@ -98,7 +98,7 @@ public abstract class BasePriceListChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceListChannels/{id}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-list-channels/{id}/batch'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes("application/json")
@@ -109,7 +109,7 @@ public abstract class BasePriceListChannelResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
 		}
 	)
-	@Path("/priceListChannels/{id}/batch")
+	@Path("/price-list-channels/{id}/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "PriceListChannel")})
 	public Response deletePriceListChannelBatch(
@@ -138,7 +138,7 @@ public abstract class BasePriceListChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannels'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-lists/by-externalReferenceCode/{externalReferenceCode}/price-list-channels'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -150,7 +150,7 @@ public abstract class BasePriceListChannelResourceImpl
 		}
 	)
 	@Path(
-		"/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannels"
+		"/price-lists/by-externalReferenceCode/{externalReferenceCode}/price-list-channels"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListChannel")})
@@ -168,7 +168,7 @@ public abstract class BasePriceListChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannels' -d $'{"channelExternalReferenceCode": ___, "channelId": ___, "order": ___, "priceListExternalReferenceCode": ___, "priceListId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-lists/by-externalReferenceCode/{externalReferenceCode}/price-list-channels' -d $'{"channelExternalReferenceCode": ___, "channelId": ___, "order": ___, "priceListExternalReferenceCode": ___, "priceListId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -179,7 +179,7 @@ public abstract class BasePriceListChannelResourceImpl
 		}
 	)
 	@Path(
-		"/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannels"
+		"/price-lists/by-externalReferenceCode/{externalReferenceCode}/price-list-channels"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListChannel")})
@@ -197,7 +197,7 @@ public abstract class BasePriceListChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/{id}/priceListChannels'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-lists/{id}/price-list-channels'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -208,7 +208,7 @@ public abstract class BasePriceListChannelResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/priceLists/{id}/priceListChannels")
+	@Path("/price-lists/{id}/price-list-channels")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListChannel")})
 	public Page<PriceListChannel> getPriceListIdPriceListChannelsPage(
@@ -222,13 +222,13 @@ public abstract class BasePriceListChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceLists/{id}/priceListChannels' -d $'{"channelExternalReferenceCode": ___, "channelId": ___, "order": ___, "priceListExternalReferenceCode": ___, "priceListId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-lists/{id}/price-list-channels' -d $'{"channelExternalReferenceCode": ___, "channelId": ___, "order": ___, "priceListExternalReferenceCode": ___, "priceListId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/priceLists/{id}/priceListChannels")
+	@Path("/price-lists/{id}/price-list-channels")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListChannel")})
 	public PriceListChannel postPriceListIdPriceListChannel(

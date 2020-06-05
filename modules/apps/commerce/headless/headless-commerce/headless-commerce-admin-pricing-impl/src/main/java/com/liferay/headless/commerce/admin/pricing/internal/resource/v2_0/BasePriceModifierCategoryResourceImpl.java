@@ -82,12 +82,12 @@ public abstract class BasePriceModifierCategoryResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceModifierCategories/{id}'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-modifier-categories/{id}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@DELETE
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/priceModifierCategories/{id}")
+	@Path("/price-modifier-categories/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceModifierCategory")})
 	public void deletePriceModifierCategory(
@@ -98,7 +98,7 @@ public abstract class BasePriceModifierCategoryResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceModifierCategories/{id}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-modifier-categories/{id}/batch'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes("application/json")
@@ -109,7 +109,7 @@ public abstract class BasePriceModifierCategoryResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
 		}
 	)
-	@Path("/priceModifierCategories/{id}/batch")
+	@Path("/price-modifier-categories/{id}/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "PriceModifierCategory")})
 	public Response deletePriceModifierCategoryBatch(
@@ -138,7 +138,7 @@ public abstract class BasePriceModifierCategoryResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceModifiers/by-externalReferenceCode/{externalReferenceCode}/priceModifierCategories'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-modifiers/by-externalReferenceCode/{externalReferenceCode}/price-modifier-categories'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -150,7 +150,7 @@ public abstract class BasePriceModifierCategoryResourceImpl
 		}
 	)
 	@Path(
-		"/priceModifiers/by-externalReferenceCode/{externalReferenceCode}/priceModifierCategories"
+		"/price-modifiers/by-externalReferenceCode/{externalReferenceCode}/price-modifier-categories"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceModifierCategory")})
@@ -168,7 +168,7 @@ public abstract class BasePriceModifierCategoryResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceModifiers/by-externalReferenceCode/{externalReferenceCode}/priceModifierCategories' -d $'{"categoryExternalReferenceCode": ___, "categoryId": ___, "priceModifierExternalReferenceCode": ___, "priceModifierId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-modifiers/by-externalReferenceCode/{externalReferenceCode}/price-modifier-categories' -d $'{"categoryExternalReferenceCode": ___, "categoryId": ___, "priceModifierExternalReferenceCode": ___, "priceModifierId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -179,7 +179,7 @@ public abstract class BasePriceModifierCategoryResourceImpl
 		}
 	)
 	@Path(
-		"/priceModifiers/by-externalReferenceCode/{externalReferenceCode}/priceModifierCategories"
+		"/price-modifiers/by-externalReferenceCode/{externalReferenceCode}/price-modifier-categories"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceModifierCategory")})
@@ -197,7 +197,7 @@ public abstract class BasePriceModifierCategoryResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceModifiers/{id}/priceModifierCategories'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-modifiers/{id}/price-modifier-categories'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -208,7 +208,7 @@ public abstract class BasePriceModifierCategoryResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/priceModifiers/{id}/priceModifierCategories")
+	@Path("/price-modifiers/{id}/price-modifier-categories")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceModifierCategory")})
 	public Page<PriceModifierCategory>
@@ -223,13 +223,13 @@ public abstract class BasePriceModifierCategoryResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/priceModifiers/{id}/priceModifierCategories' -d $'{"categoryExternalReferenceCode": ___, "categoryId": ___, "priceModifierExternalReferenceCode": ___, "priceModifierId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-modifiers/{id}/price-modifier-categories' -d $'{"categoryExternalReferenceCode": ___, "categoryId": ___, "priceModifierExternalReferenceCode": ___, "priceModifierId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/priceModifiers/{id}/priceModifierCategories")
+	@Path("/price-modifiers/{id}/price-modifier-categories")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceModifierCategory")})
 	public PriceModifierCategory postPriceModifierIdPriceModifierCategory(
