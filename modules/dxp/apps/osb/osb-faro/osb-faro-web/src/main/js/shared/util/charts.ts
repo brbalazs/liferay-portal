@@ -96,6 +96,7 @@ export const formatXAxisDate = (
 	// display date and month
 	let formatter = d3.utcFormat('%b %-d');
 	const monthFormat = d3.utcFormat('%b');
+
 	const [dateStart, dateEnd] = dateKeysIMap.get(dateKey);
 
 	switch (rangeKey) {
