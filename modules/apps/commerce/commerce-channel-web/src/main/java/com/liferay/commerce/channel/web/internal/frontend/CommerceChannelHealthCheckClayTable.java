@@ -126,11 +126,30 @@ public class CommerceChannelHealthCheckClayTable
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
+		long commerceChannelId = ParamUtil.getLong(
+			httpServletRequest, "commerceChannelId");
+
+		CommerceChannel commerceChannel =
+			_commerceChannelService.getCommerceChannel(commerceChannelId);
+
 		List<CommerceChannelHealthStatus> commerceChannelHealthStatuses =
 			_commerceChannelHealthStatusRegistry.
 				getCommerceChannelHealthStatuses();
 
-		return commerceChannelHealthStatuses.size();
+		int healthStatusToFixCount = 0;
+
+		for (CommerceChannelHealthStatus commerceChannelHealthStatus :
+				commerceChannelHealthStatuses) {
+
+			if (!commerceChannelHealthStatus.isFixed(
+					commerceChannel.getCompanyId(),
+					commerceChannel.getCommerceChannelId())) {
+
+				healthStatusToFixCount++;
+			}
+		}
+
+		return healthStatusToFixCount;
 	}
 
 	@Override
