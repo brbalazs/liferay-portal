@@ -225,6 +225,16 @@ public class DxpSteps {
 			"//div[contains(text(),'Your request completed successfully.')]");
 	}
 
+	@When("^I add activity to user$")
+	public void createDxpActivity() throws Exception {
+		_faroSelenium.get(PropsUtil.get("portal.url"));
+
+		_handleDxpLogin();
+		_handleDxpPasswordReminder();
+
+		_faroSelenium.click("//h2[@role='heading' and text()='Liferay DXP']");
+	}
+
 	/**
 	 * Creates a page on DXP and generates click activity
 	 *
