@@ -280,7 +280,7 @@ public class PunchoutSessionResourceImpl
 
 		Role role = _roleLocalService.fetchRole(
 			contextCompany.getCompanyId(),
-			CommerceAccountConstants.ROLE_NAME_ACCOUNT_BUYER);
+			CommerceAccountConstants.ROLE_NAME_ACCOUNT_PUNCHOUT);
 
 		long[] roleIds = {role.getRoleId()};
 

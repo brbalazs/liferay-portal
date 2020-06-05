@@ -51,6 +51,8 @@ public class CommerceAccountConstants {
 
 	public static final String ROLE_NAME_ACCOUNT_BUYER = "Buyer";
 
+	public static final String ROLE_NAME_ACCOUNT_PUNCHOUT = "Punchout";
+
 	public static final String ROLE_NAME_ACCOUNT_ORDER_MANAGER =
 		"Order Manager";
 
