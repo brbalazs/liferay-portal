@@ -57,4 +57,7 @@ public class CommerceProductDataSetConstants {
 	public static final String COMMERCE_DATA_SET_KEY_PRODUCT_OPTIONS =
 		"commerceProductOptions";
 
+	public static final String COMMERCE_DATA_SET_KEY_PRODUCT_PRICING_CLASSES =
+		"commerceProductPricingClasses";
+
 }
