@@ -101,6 +101,7 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 		<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
 			autocomplete.default('autocomplete', 'autocomplete-root', {
 				apiUrl: '/o/headless-commerce-admin-catalog/v1.0/skus',
+				filterQuery: 'hasChildCPDefinitions eq false',
 				initialLabel: '<%= cpInstanceLabel %>',
 				initialValue: '<%= cpInstanceId %>',
 				inputId: 'skuId',
