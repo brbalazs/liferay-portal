@@ -2764,7 +2764,7 @@ paths:
                       - HeadlessCommerceAdminCatalog.write
             summary: Creates or updates a Value related to an Option.
             tags: ["OptionValue"]
-    /productGroupProducts/{id}:
+    /product-group-products/{id}:
         delete:
             parameters:
                 - in: path
@@ -2803,7 +2803,7 @@ paths:
                       - HeadlessCommerceAdminCatalog.write
             summary: Deletes a Product in a Product Group by ID.
             tags: ["ProductGroupProduct"]
-    /productGroups:
+    /product-groups:
         get:
             parameters:
                 - in: query
@@ -2950,7 +2950,7 @@ paths:
                       - HeadlessCommerceAdminCatalog.write
             summary: Creates or updates a Product Group.
             tags: ["ProductGroup"]
-    /productGroups/by-externalReferenceCode/{externalReferenceCode}:
+    /product-groups/by-externalReferenceCode/{externalReferenceCode}:
         delete:
             parameters:
                 - in: path
@@ -3121,7 +3121,7 @@ paths:
                       - HeadlessCommerceAdminCatalog.write
             summary: Updates a Product Group by external reference code.
             tags: ["ProductGroup"]
-    /productGroups/by-externalReferenceCode/{externalReferenceCode}/productGroupProducts:
+    /product-groups/by-externalReferenceCode/{externalReferenceCode}/product-group-products:
         get:
             parameters:
                 - in: path
@@ -3280,7 +3280,7 @@ paths:
                       - HeadlessCommerceAdminCatalog.write
             summary: Creates or updates a Product related to a Product Group.
             tags: ["ProductGroupProduct"]
-    /productGroups/{id}:
+    /product-groups/{id}:
         delete:
             parameters:
                 - in: path
@@ -3454,7 +3454,7 @@ paths:
                       - HeadlessCommerceAdminCatalog.write
             summary: Updates a Product Group by ID.
             tags: ["ProductGroup"]
-    /productGroups/{id}/productGroupProducts:
+    /product-groups/{id}/product-group-products:
         get:
             parameters:
                 - in: path
