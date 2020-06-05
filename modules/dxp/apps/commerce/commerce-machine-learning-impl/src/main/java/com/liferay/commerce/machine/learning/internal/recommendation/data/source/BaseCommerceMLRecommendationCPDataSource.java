@@ -14,11 +14,16 @@
 
 package com.liferay.commerce.machine.learning.internal.recommendation.data.source;
 
+import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.product.data.source.CPDataSource;
+import com.liferay.commerce.product.util.CPDefinitionHelper;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Riccardo Ferrari
@@ -30,5 +35,14 @@ public abstract class BaseCommerceMLRecommendationCPDataSource
 		return ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 	}
+
+	@Reference(unbind = "-")
+	protected CommerceAccountHelper commerceAccountHelper;
+
+	@Reference(unbind = "-")
+	protected CPDefinitionHelper cpDefinitionHelper;
+
+	@Reference(unbind = "-")
+	protected Portal portal;
 
 }

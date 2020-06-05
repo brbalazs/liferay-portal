@@ -14,35 +14,22 @@
 
 package com.liferay.commerce.machine.learning.internal.recommendation.data.source;
 
+import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.machine.learning.recommendation.model.ProductInteractionCommerceMLRecommendation;
 import com.liferay.commerce.machine.learning.recommendation.service.ProductInteractionCommerceMLRecommendationService;
 import com.liferay.commerce.product.catalog.CPCatalogEntry;
-import com.liferay.commerce.product.catalog.CPQuery;
 import com.liferay.commerce.product.constants.CPWebKeys;
 import com.liferay.commerce.product.data.source.CPDataSource;
 import com.liferay.commerce.product.data.source.CPDataSourceResult;
-import com.liferay.commerce.product.model.CPDefinition;
-import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.search.BooleanClause;
-import com.liferay.portal.kernel.search.BooleanClauseFactoryUtil;
-import com.liferay.portal.kernel.search.BooleanClauseOccur;
-import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.Query;
-import com.liferay.portal.kernel.search.SearchContext;
-import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
-
-import java.io.Serializable;
+import com.liferay.portal.kernel.util.ListUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -80,6 +67,13 @@ public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
 			HttpServletRequest httpServletRequest, int start, int end)
 		throws Exception {
 
+		CommerceAccount commerceAccount =
+			commerceAccountHelper.getCurrentCommerceAccount(httpServletRequest);
+
+		if (commerceAccount == null) {
+			return new CPDataSourceResult(Collections.emptyList(), 0);
+		}
+
 		CPCatalogEntry cpCatalogEntry =
 			(CPCatalogEntry)httpServletRequest.getAttribute(
 				CPWebKeys.CP_CATALOG_ENTRY);
@@ -88,7 +82,7 @@ public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
 			return new CPDataSourceResult(Collections.emptyList(), 0);
 		}
 
-		long companyId = _portal.getCompanyId(httpServletRequest);
+		long companyId = portal.getCompanyId(httpServletRequest);
 
 		List<ProductInteractionCommerceMLRecommendation>
 			productInteractionCommerceMLRecommendations =
@@ -100,34 +94,21 @@ public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
 			return new CPDataSourceResult(Collections.emptyList(), 0);
 		}
 
-		long groupId = _portal.getScopeGroupId(httpServletRequest);
+		long groupId = portal.getScopeGroupId(httpServletRequest);
 
-		SearchContext searchContext = new SearchContext();
+		List<CPCatalogEntry> cpCatalogEntries = new ArrayList<>();
 
-		Map<String, Serializable> attributes = new HashMap<>();
-
-		attributes.put(Field.STATUS, WorkflowConstants.STATUS_APPROVED);
-
-		searchContext.setAttributes(attributes);
-
-		searchContext.setCompanyId(companyId);
-
-		searchContext.setEntryClassNames(
-			new String[] {CPDefinition.class.getName()});
-
-		List<BooleanClause> booleanClauseList = new ArrayList<>();
+		List<ProductInteractionCommerceMLRecommendation>
+			productInteractionCommerceMLRecommendationList = ListUtil.subList(
+				productInteractionCommerceMLRecommendations, start, end);
 
 		for (ProductInteractionCommerceMLRecommendation
 				productInteractionCommerceMLRecommendation :
-					productInteractionCommerceMLRecommendations) {
+					productInteractionCommerceMLRecommendationList) {
 
 			long recommendedEntryClassPK =
 				productInteractionCommerceMLRecommendation.
 					getRecommendedEntryClassPK();
-
-			float score = productInteractionCommerceMLRecommendation.getScore();
-
-			int rank = productInteractionCommerceMLRecommendation.getRank();
 
 			if (_log.isTraceEnabled()) {
 				StringBuilder sb = new StringBuilder();
@@ -135,37 +116,30 @@ public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
 				sb.append("Recommended item: ");
 				sb.append(recommendedEntryClassPK);
 				sb.append(" rank: ");
-				sb.append(rank);
+				sb.append(productInteractionCommerceMLRecommendation.getRank());
 				sb.append(" score: ");
-				sb.append(score);
+				sb.append(
+					productInteractionCommerceMLRecommendation.getScore());
 
 				_log.trace(sb.toString());
 			}
 
-			BooleanClause<Query> entryClassPKBooleanClause =
-				BooleanClauseFactoryUtil.create(
-					Field.ENTRY_CLASS_PK,
-					String.valueOf(recommendedEntryClassPK),
-					BooleanClauseOccur.SHOULD.getName());
+			CPCatalogEntry recommendedCPCatalogEntry =
+				cpDefinitionHelper.getCPCatalogEntry(
+					commerceAccount.getCommerceAccountId(), groupId,
+					recommendedEntryClassPK,
+					portal.getLocale(httpServletRequest));
 
-			booleanClauseList.add(entryClassPKBooleanClause);
+			cpCatalogEntries.add(recommendedCPCatalogEntry);
 		}
 
-		searchContext.setBooleanClauses(
-			booleanClauseList.toArray(new BooleanClause[0]));
-
-		return _cpDefinitionHelper.search(
-			groupId, searchContext, new CPQuery(), start, end);
+		return new CPDataSourceResult(
+			cpCatalogEntries,
+			productInteractionCommerceMLRecommendations.size());
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		ProductInteractionCommerceMLRecommendationCPDataSourceImpl.class);
-
-	@Reference(unbind = "-")
-	private CPDefinitionHelper _cpDefinitionHelper;
-
-	@Reference(unbind = "-")
-	private Portal _portal;
 
 	@Reference(unbind = "-")
 	private ProductInteractionCommerceMLRecommendationService
