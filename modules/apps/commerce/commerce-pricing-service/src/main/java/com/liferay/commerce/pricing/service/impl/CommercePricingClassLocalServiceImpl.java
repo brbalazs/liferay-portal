@@ -26,9 +26,12 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -67,6 +70,13 @@ public class CommercePricingClassLocalServiceImpl
 		commercePricingClass.setDescriptionMap(descriptionMap);
 		commercePricingClass.setExternalReferenceCode(externalReferenceCode);
 
+		Date now = new Date();
+
+		Calendar calendar = CalendarFactoryUtil.getCalendar(
+			now.getTime(), user.getTimeZone());
+
+		commercePricingClass.setLastPublishDate(calendar.getTime());
+
 		return commercePricingClassPersistence.update(commercePricingClass);
 	}
 
@@ -103,6 +113,13 @@ public class CommercePricingClassLocalServiceImpl
 		commercePricingClass.setTitle(title);
 		commercePricingClass.setDescription(description);
 		commercePricingClass.setExternalReferenceCode(externalReferenceCode);
+
+		Date now = new Date();
+
+		Calendar calendar = CalendarFactoryUtil.getCalendar(
+			now.getTime(), user.getTimeZone());
+
+		commercePricingClass.setLastPublishDate(calendar.getTime());
 
 		return commercePricingClassPersistence.update(commercePricingClass);
 	}
@@ -214,6 +231,13 @@ public class CommercePricingClassLocalServiceImpl
 		commercePricingClass.setTitleMap(titleMap);
 		commercePricingClass.setDescriptionMap(descriptionMap);
 
+		Date now = new Date();
+
+		Calendar calendar = CalendarFactoryUtil.getCalendar(
+			now.getTime(), user.getTimeZone());
+
+		commercePricingClass.setLastPublishDate(calendar.getTime());
+
 		return commercePricingClassPersistence.update(commercePricingClass);
 	}
 
@@ -238,6 +262,13 @@ public class CommercePricingClassLocalServiceImpl
 		commercePricingClass.setUserName(user.getFullName());
 		commercePricingClass.setTitle(title);
 		commercePricingClass.setDescription(description);
+
+		Date now = new Date();
+
+		Calendar calendar = CalendarFactoryUtil.getCalendar(
+			now.getTime(), user.getTimeZone());
+
+		commercePricingClass.setLastPublishDate(calendar.getTime());
 
 		return commercePricingClassPersistence.update(commercePricingClass);
 	}
