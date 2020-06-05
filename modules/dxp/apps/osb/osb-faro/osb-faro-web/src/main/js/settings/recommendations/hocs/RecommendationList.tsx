@@ -202,6 +202,7 @@ const RecommendationList: React.FC<IRecommendationListProps> = ({
 			</Nav>
 		);
 	};
+
 	return (
 		<Card className='recommendations-list-root' pageDisplay>
 			<RecommendationListWithData

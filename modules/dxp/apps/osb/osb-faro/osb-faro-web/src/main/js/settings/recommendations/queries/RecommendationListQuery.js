@@ -1,7 +1,7 @@
 import {gql} from 'apollo-boost';
 
 export default gql`
-	query RecommendationsList(
+	query RecommendationList(
 		$keywords: String
 		$size: Int!
 		$sort: Sort!
