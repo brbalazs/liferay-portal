@@ -252,6 +252,16 @@ public class CommerceChannelDisplayContext
 		return commerceAccountGroupServiceConfiguration.commerceSiteType();
 	}
 
+	public PortletURL getEditCommerceChannelRenderURL() {
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			cpRequestHelper.getRequest(), CPPortletKeys.COMMERCE_CHANNELS,
+			PortletRequest.RENDER_PHASE);
+
+		portletURL.setParameter("mvcRenderCommandName", "editCommerceChannel");
+
+		return portletURL;
+	}
+
 	public List<HeaderActionModel> getHeaderActionModels() {
 		List<HeaderActionModel> headerActionModels = new ArrayList<>();
 
