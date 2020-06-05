@@ -124,6 +124,18 @@ public class CommercePricingClassServiceImpl
 	}
 
 	@Override
+	public long[] getCommercePricingClassByCPDefinition(long cpDefinitionId)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
+
+		return commercePricingClassLocalService.
+			getCommercePricingClassByCPDefinition(cpDefinitionId);
+	}
+
+	@Override
 	public List<CommercePricingClass> getCommercePricingClasses(
 			long companyId, int start, int end,
 			OrderByComparator<CommercePricingClass> orderByComparator)
