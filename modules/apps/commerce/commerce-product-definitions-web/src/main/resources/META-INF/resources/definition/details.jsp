@@ -222,6 +222,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 								'/productSpecifications/',
 							{
 								body: JSON.stringify({
+									optionCategoryId: specification.optionCategory.id,
 									productId: productId,
 									specificationId: specification.id,
 									specificationKey: specification.key,
