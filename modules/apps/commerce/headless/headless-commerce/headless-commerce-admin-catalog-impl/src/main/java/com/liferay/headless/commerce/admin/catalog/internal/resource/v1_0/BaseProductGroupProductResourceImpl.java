@@ -82,12 +82,12 @@ public abstract class BaseProductGroupProductResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/productGroupProducts/{id}'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/product-group-products/{id}'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@DELETE
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/productGroupProducts/{id}")
+	@Path("/product-group-products/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductGroupProduct")})
 	public void deleteProductGroupProduct(
@@ -98,7 +98,7 @@ public abstract class BaseProductGroupProductResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/productGroupProducts/{id}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/product-group-products/{id}/batch'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes("application/json")
@@ -109,7 +109,7 @@ public abstract class BaseProductGroupProductResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
 		}
 	)
-	@Path("/productGroupProducts/{id}/batch")
+	@Path("/product-group-products/{id}/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "ProductGroupProduct")})
 	public Response deleteProductGroupProductBatch(
@@ -138,7 +138,7 @@ public abstract class BaseProductGroupProductResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/productGroups/by-externalReferenceCode/{externalReferenceCode}/productGroupProducts'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/product-groups/by-externalReferenceCode/{externalReferenceCode}/product-group-products'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -150,7 +150,7 @@ public abstract class BaseProductGroupProductResourceImpl
 		}
 	)
 	@Path(
-		"/productGroups/by-externalReferenceCode/{externalReferenceCode}/productGroupProducts"
+		"/product-groups/by-externalReferenceCode/{externalReferenceCode}/product-group-products"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductGroupProduct")})
@@ -168,7 +168,7 @@ public abstract class BaseProductGroupProductResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/productGroups/by-externalReferenceCode/{externalReferenceCode}/productGroupProducts' -d $'{"id": ___, "productExternalReferenceCode": ___, "productGroupExternalReferenceCode": ___, "productGroupId": ___, "productId": ___, "sku": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/product-groups/by-externalReferenceCode/{externalReferenceCode}/product-group-products' -d $'{"id": ___, "productExternalReferenceCode": ___, "productGroupExternalReferenceCode": ___, "productGroupId": ___, "productId": ___, "sku": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -179,7 +179,7 @@ public abstract class BaseProductGroupProductResourceImpl
 		}
 	)
 	@Path(
-		"/productGroups/by-externalReferenceCode/{externalReferenceCode}/productGroupProducts"
+		"/product-groups/by-externalReferenceCode/{externalReferenceCode}/product-group-products"
 	)
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductGroupProduct")})
@@ -197,7 +197,7 @@ public abstract class BaseProductGroupProductResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/productGroups/{id}/productGroupProducts'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/product-groups/{id}/product-group-products'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -208,7 +208,7 @@ public abstract class BaseProductGroupProductResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/productGroups/{id}/productGroupProducts")
+	@Path("/product-groups/{id}/product-group-products")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductGroupProduct")})
 	public Page<ProductGroupProduct> getProductGroupIdProductGroupProductsPage(
@@ -222,13 +222,13 @@ public abstract class BaseProductGroupProductResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/productGroups/{id}/productGroupProducts' -d $'{"id": ___, "productExternalReferenceCode": ___, "productGroupExternalReferenceCode": ___, "productGroupId": ___, "productId": ___, "sku": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/product-groups/{id}/product-group-products' -d $'{"id": ___, "productExternalReferenceCode": ___, "productGroupExternalReferenceCode": ___, "productGroupId": ___, "productId": ___, "sku": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/productGroups/{id}/productGroupProducts")
+	@Path("/product-groups/{id}/product-group-products")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductGroupProduct")})
 	public ProductGroupProduct postProductGroupIdProductGroupProduct(

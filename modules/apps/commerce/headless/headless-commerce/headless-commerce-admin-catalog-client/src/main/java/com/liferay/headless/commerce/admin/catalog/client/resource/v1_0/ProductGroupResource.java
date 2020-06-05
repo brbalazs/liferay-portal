@@ -247,7 +247,7 @@ public interface ProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-catalog/v1.0/productGroups");
+						"/o/headless-commerce-admin-catalog/v1.0/product-groups");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -311,7 +311,7 @@ public interface ProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-catalog/v1.0/productGroups");
+						"/o/headless-commerce-admin-catalog/v1.0/product-groups");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -369,7 +369,7 @@ public interface ProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-catalog/v1.0/productGroups/batch");
+						"/o/headless-commerce-admin-catalog/v1.0/product-groups/batch");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -434,7 +434,7 @@ public interface ProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-catalog/v1.0/productGroups/by-externalReferenceCode/{externalReferenceCode}",
+						"/o/headless-commerce-admin-catalog/v1.0/product-groups/by-externalReferenceCode/{externalReferenceCode}",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -500,7 +500,7 @@ public interface ProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-catalog/v1.0/productGroups/by-externalReferenceCode/{externalReferenceCode}",
+						"/o/headless-commerce-admin-catalog/v1.0/product-groups/by-externalReferenceCode/{externalReferenceCode}",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -557,7 +557,7 @@ public interface ProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-catalog/v1.0/productGroups/by-externalReferenceCode/{externalReferenceCode}",
+						"/o/headless-commerce-admin-catalog/v1.0/product-groups/by-externalReferenceCode/{externalReferenceCode}",
 				externalReferenceCode);
 
 			httpInvoker.userNameAndPassword(
@@ -617,7 +617,7 @@ public interface ProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-catalog/v1.0/productGroups/{id}",
+						"/o/headless-commerce-admin-catalog/v1.0/product-groups/{id}",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -674,7 +674,7 @@ public interface ProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-catalog/v1.0/productGroups/{id}/batch",
+						"/o/headless-commerce-admin-catalog/v1.0/product-groups/{id}/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -734,7 +734,7 @@ public interface ProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-catalog/v1.0/productGroups/{id}",
+						"/o/headless-commerce-admin-catalog/v1.0/product-groups/{id}",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -788,7 +788,7 @@ public interface ProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-catalog/v1.0/productGroups/{id}",
+						"/o/headless-commerce-admin-catalog/v1.0/product-groups/{id}",
 				id);
 
 			httpInvoker.userNameAndPassword(
