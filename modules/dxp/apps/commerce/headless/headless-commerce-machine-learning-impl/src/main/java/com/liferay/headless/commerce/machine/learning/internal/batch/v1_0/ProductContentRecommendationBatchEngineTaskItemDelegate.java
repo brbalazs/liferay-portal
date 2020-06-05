@@ -55,6 +55,7 @@ public class ProductContentRecommendationBatchEngineTaskItemDelegate
 		productContentCommerceMLRecommendation.setEntryClassPK(
 			item.getProductId());
 		productContentCommerceMLRecommendation.setJobId(item.getJobId());
+		productContentCommerceMLRecommendation.setRank(item.getRank());
 		productContentCommerceMLRecommendation.setRecommendedEntryClassPK(
 			item.getRecommendedProductId());
 		productContentCommerceMLRecommendation.setScore(item.getScore());
