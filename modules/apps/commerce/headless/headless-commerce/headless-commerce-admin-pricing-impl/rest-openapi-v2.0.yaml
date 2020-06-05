@@ -966,7 +966,7 @@ info:
         name: Commerce Team
     description:
         "Liferay Commerce Admin Pricing API. A Java client JAR is available for use with the group ID 'com.liferay',
-        artifact ID 'com.liferay.headless.commerce.admin.pricing.client', and version '1.0.4'."
+        artifact ID 'com.liferay.headless.commerce.admin.pricing.client', and version '1.0.5'."
     license:
         name: "Apache 2.0"
         url: "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -974,7 +974,7 @@ info:
     version: v2.0
 openapi: 3.0.0
 paths:
-    /discountAccountGroups/{id}:
+    /discount-account-groups/{id}:
         delete:
             operationId: deleteDiscountAccountGroup
             parameters:
@@ -1014,7 +1014,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Deletes a Discount Account Group by ID.
             tags: ["DiscountAccountGroup"]
-    /discountAccounts/{id}:
+    /discount-accounts/{id}:
         delete:
             operationId: deleteDiscountAccount
             parameters:
@@ -1054,7 +1054,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Deletes a Discount Account by ID.
             tags: ["DiscountAccount"]
-    /discountCategories/{id}:
+    /discount-categories/{id}:
         delete:
             operationId: deleteDiscountCategory
             parameters:
@@ -1094,7 +1094,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Deletes a Discount Category by ID.
             tags: ["DiscountCategory"]
-    /discountChannels/{id}:
+    /discount-channels/{id}:
         delete:
             operationId: deleteDiscountChannel
             parameters:
@@ -1134,7 +1134,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Deletes a Discount Channel by ID.
             tags: ["DiscountChannel"]
-    /discountProductGroups/{id}:
+    /discount-product-groups/{id}:
         delete:
             operationId: deleteDiscountProductGroup
             parameters:
@@ -1174,7 +1174,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Deletes a Discount Product Group by ID.
             tags: ["DiscountProductGroup"]
-    /discountProducts/{id}:
+    /discount-products/{id}:
         delete:
             operationId: deleteDiscountProduct
             parameters:
@@ -1214,7 +1214,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Deletes a Discount Product by ID.
             tags: ["DiscountProduct"]
-    /discountRules/{id}:
+    /discount-rules/{id}:
         delete:
             operationId: deleteDiscountRule
             parameters:
@@ -1703,7 +1703,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Updates a Discount by external reference code.
             tags: ["Discount"]
-    /discounts/by-externalReferenceCode/{externalReferenceCode}/discountAccountGroups:
+    /discounts/by-externalReferenceCode/{externalReferenceCode}/discount-account-groups:
         get:
             operationId: getDiscountByExternalReferenceCodeDiscountAccountGroupsPage
             parameters:
@@ -1864,7 +1864,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Discount Account Group.
             tags: ["DiscountAccountGroup"]
-    /discounts/by-externalReferenceCode/{externalReferenceCode}/discountAccounts:
+    /discounts/by-externalReferenceCode/{externalReferenceCode}/discount-accounts:
         get:
             operationId: getDiscountByExternalReferenceCodeDiscountAccountsPage
             parameters:
@@ -2025,7 +2025,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Discount Account.
             tags: ["DiscountAccount"]
-    /discounts/by-externalReferenceCode/{externalReferenceCode}/discountCategories:
+    /discounts/by-externalReferenceCode/{externalReferenceCode}/discount-categories:
         get:
             operationId: getDiscountByExternalReferenceCodeDiscountCategoriesPage
             parameters:
@@ -2186,7 +2186,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Discount Category.
             tags: ["DiscountCategory"]
-    /discounts/by-externalReferenceCode/{externalReferenceCode}/discountChannels:
+    /discounts/by-externalReferenceCode/{externalReferenceCode}/discount-channels:
         get:
             operationId: getDiscountByExternalReferenceCodeDiscountChannelsPage
             parameters:
@@ -2347,7 +2347,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Discount Channel.
             tags: ["DiscountChannel"]
-    /discounts/by-externalReferenceCode/{externalReferenceCode}/discountProductGroups:
+    /discounts/by-externalReferenceCode/{externalReferenceCode}/discount-product-groups:
         get:
             operationId: getDiscountByExternalReferenceCodeDiscountProductGroupsPage
             parameters:
@@ -2508,7 +2508,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Discount Product Group.
             tags: ["DiscountProductGroup"]
-    /discounts/by-externalReferenceCode/{externalReferenceCode}/discountProducts:
+    /discounts/by-externalReferenceCode/{externalReferenceCode}/discount-products:
         get:
             operationId: getDiscountByExternalReferenceCodeDiscountProductsPage
             parameters:
@@ -2669,7 +2669,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Discount Product.
             tags: ["DiscountProduct"]
-    /discounts/by-externalReferenceCode/{externalReferenceCode}/discountRules:
+    /discounts/by-externalReferenceCode/{externalReferenceCode}/discount-rules:
         get:
             operationId: getDiscountByExternalReferenceCodeDiscountRulesPage
             parameters:
@@ -3010,7 +3010,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Updates a Discount by ID.
             tags: ["Discount"]
-    /discounts/{id}/discountAccountGroups:
+    /discounts/{id}/discount-account-groups:
         get:
             operationId: getDiscountIdDiscountAccountGroupsPage
             parameters:
@@ -3173,7 +3173,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Discount Account Group.
             tags: ["DiscountAccountGroup"]
-    /discounts/{id}/discountAccounts:
+    /discounts/{id}/discount-accounts:
         get:
             operationId: getDiscountIdDiscountAccountsPage
             parameters:
@@ -3336,7 +3336,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Discount Account.
             tags: ["DiscountAccount"]
-    /discounts/{id}/discountCategories:
+    /discounts/{id}/discount-categories:
         get:
             operationId: getDiscountIdDiscountCategoriesPage
             parameters:
@@ -3499,7 +3499,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Discount Category.
             tags: ["DiscountCategory"]
-    /discounts/{id}/discountChannels:
+    /discounts/{id}/discount-channels:
         get:
             operationId: getDiscountIdDiscountChannelsPage
             parameters:
@@ -3662,7 +3662,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Discount Channel.
             tags: ["DiscountChannel"]
-    /discounts/{id}/discountProductGroups:
+    /discounts/{id}/discount-product-groups:
         get:
             operationId: getDiscountIdDiscountProductGroupsPage
             parameters:
@@ -3825,7 +3825,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Discount Product Group.
             tags: ["DiscountProductGroup"]
-    /discounts/{id}/discountProducts:
+    /discounts/{id}/discount-products:
         get:
             operationId: getDiscountIdDiscountProductsPage
             parameters:
@@ -3988,7 +3988,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Discount Product.
             tags: ["DiscountProduct"]
-    /discounts/{id}/discountRules:
+    /discounts/{id}/discount-rules:
         get:
             operationId: getDiscountIdDiscountRulesPage
             parameters:
@@ -4154,7 +4154,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or Updates a Discount Rule.
             tags: ["DiscountRule"]
-    /priceEntries/by-externalReferenceCode/{externalReferenceCode}:
+    /price-entries/by-externalReferenceCode/{externalReferenceCode}:
         delete:
             operationId: deletePriceEntryByExternalReferenceCode
             parameters:
@@ -4328,7 +4328,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Updates a Price Entry by external reference code.
             tags: ["PriceEntry"]
-    /priceEntries/by-externalReferenceCode/{externalReferenceCode}/tierPrices:
+    /price-entries/by-externalReferenceCode/{externalReferenceCode}/tier-prices:
         get:
             operationId: getPriceEntryByExternalReferenceCodeTierPricesPage
             parameters:
@@ -4492,7 +4492,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or Updates a Tier Price.
             tags: ["TierPrice"]
-    /priceEntries/{id}:
+    /price-entries/{id}:
         delete:
             operationId: deletePriceEntry
             parameters:
@@ -4669,7 +4669,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Updates a Price Entry by ID.
             tags: ["PriceEntry"]
-    /priceEntries/{id}/tierPrices:
+    /price-entries/{id}/tier-prices:
         get:
             operationId: getPriceEntryIdTierPricesPage
             parameters:
@@ -4835,7 +4835,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or Updates a Tier Price.
             tags: ["TierPrice"]
-    /priceListAccountGroups/{id}:
+    /price-list-account-groups/{id}:
         delete:
             operationId: deletePriceListAccountGroup
             parameters:
@@ -4875,7 +4875,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Deletes a Price List Account Group by ID.
             tags: ["PriceListAccountGroup"]
-    /priceListAccounts/{id}:
+    /price-list-accounts/{id}:
         delete:
             operationId: deletePriceListAccount
             parameters:
@@ -4915,7 +4915,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Deletes a Price List Account by ID.
             tags: ["PriceListAccount"]
-    /priceListChannels/{id}:
+    /price-list-channels/{id}:
         delete:
             operationId: deletePriceListChannel
             parameters:
@@ -4955,7 +4955,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Deletes a Price List Channel by ID.
             tags: ["PriceListChannel"]
-    /priceListDiscounts/{id}:
+    /price-list-discounts/{id}:
         delete:
             operationId: deletePriceListDiscount
             parameters:
@@ -4995,7 +4995,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Deletes a Price List Discount by ID.
             tags: ["PriceListDiscount"]
-    /priceLists:
+    /price-lists:
         get:
             operationId: getPriceListsPage
             parameters:
@@ -5144,7 +5144,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List.
             tags: ["PriceList"]
-    /priceLists/by-externalReferenceCode/{externalReferenceCode}:
+    /price-lists/by-externalReferenceCode/{externalReferenceCode}:
         delete:
             operationId: deletePriceListByExternalReferenceCode
             parameters:
@@ -5318,7 +5318,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Updates a Price List by external reference code.
             tags: ["PriceList"]
-    /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceEntries:
+    /price-lists/by-externalReferenceCode/{externalReferenceCode}/price-entries:
         get:
             operationId: getPriceListByExternalReferenceCodePriceEntriesPage
             parameters:
@@ -5479,7 +5479,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price Entry.
             tags: ["PriceEntry"]
-    /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccountGroups:
+    /price-lists/by-externalReferenceCode/{externalReferenceCode}/price-list-account-groups:
         get:
             operationId: getPriceListByExternalReferenceCodePriceListAccountGroupsPage
             parameters:
@@ -5640,7 +5640,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Account Group.
             tags: ["PriceListAccountGroup"]
-    /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListAccounts:
+    /price-lists/by-externalReferenceCode/{externalReferenceCode}/price-list-accounts:
         get:
             operationId: getPriceListByExternalReferenceCodePriceListAccountsPage
             parameters:
@@ -5801,7 +5801,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Account.
             tags: ["PriceListAccount"]
-    /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListChannels:
+    /price-lists/by-externalReferenceCode/{externalReferenceCode}/price-list-channels:
         get:
             operationId: getPriceListByExternalReferenceCodePriceListChannelsPage
             parameters:
@@ -5962,7 +5962,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Channel.
             tags: ["PriceListChannel"]
-    /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceListDiscounts:
+    /price-lists/by-externalReferenceCode/{externalReferenceCode}/price-list-discounts:
         get:
             operationId: getPriceListByExternalReferenceCodePriceListDiscountsPage
             parameters:
@@ -6123,7 +6123,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Discount.
             tags: ["PriceListDiscount"]
-    /priceLists/by-externalReferenceCode/{externalReferenceCode}/priceModifiers:
+    /price-lists/by-externalReferenceCode/{externalReferenceCode}/price-modifiers:
         get:
             operationId: getPriceListByExternalReferenceCodePriceModifiersPage
             parameters:
@@ -6284,7 +6284,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Price Modifier.
             tags: ["PriceModifier"]
-    /priceLists/{id}:
+    /price-lists/{id}:
         delete:
             operationId: deletePriceList
             parameters:
@@ -6461,7 +6461,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Updates a Price List by ID.
             tags: ["PriceList"]
-    /priceLists/{id}/priceEntries:
+    /price-lists/{id}/price-entries:
         get:
             operationId: getPriceListIdPriceEntriesPage
             parameters:
@@ -6639,7 +6639,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price Entry.
             tags: ["PriceEntry"]
-    /priceLists/{id}/priceListAccountGroups:
+    /price-lists/{id}/price-list-account-groups:
         get:
             operationId: getPriceListIdPriceListAccountGroupsPage
             parameters:
@@ -6801,7 +6801,7 @@ paths:
                 - OAuth2:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Account Group.
-    /priceLists/{id}/priceListAccounts:
+    /price-lists/{id}/price-list-accounts:
         get:
             operationId: getPriceListIdPriceListAccountsPage
             parameters:
@@ -6963,7 +6963,7 @@ paths:
                 - OAuth2:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Account.
-    /priceLists/{id}/priceListChannels:
+    /price-lists/{id}/price-list-channels:
         get:
             operationId: getPriceListIdPriceListChannelsPage
             parameters:
@@ -7126,7 +7126,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Channel.
             tags: ["PriceListChannel"]
-    /priceLists/{id}/priceListDiscounts:
+    /price-lists/{id}/price-list-giscounts:
         get:
             operationId: getPriceListIdPriceListDiscountsPage
             parameters:
@@ -7289,7 +7289,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Discount.
             tags: ["PriceListDiscount"]
-    /priceLists/{id}/priceModifiers:
+    /price-lists/{id}/price-modifiers:
         get:
             operationId: getPriceListIdPriceModifiersPage
             parameters:
@@ -7452,7 +7452,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price Modifier.
             tags: ["PriceModifier"]
-    /priceModifierCategories/{id}:
+    /price-modifier-categories/{id}:
         delete:
             operationId: deletePriceModifierCategory
             parameters:
@@ -7492,7 +7492,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Deletes a Price Modifier Category by ID.
             tags: ["PriceModifierCategory"]
-    /priceModifierProductGroups/{id}:
+    /price-modifier-product-groups/{id}:
         delete:
             operationId: deletePriceModifierProductGroup
             parameters:
@@ -7532,7 +7532,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Deletes a Price Modifier Product Group by ID.
             tags: ["PriceModifierProductGroup"]
-    /priceModifierProducts/{id}:
+    /price-modifier-products/{id}:
         delete:
             operationId: deletePriceModifierProduct
             parameters:
@@ -7572,7 +7572,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Deletes a Price Modifier Product by ID.
             tags: ["PriceModifierProduct"]
-    /priceModifiers/by-externalReferenceCode/{externalReferenceCode}:
+    /price-modifiers/by-externalReferenceCode/{externalReferenceCode}:
         delete:
             operationId: deletePriceModifierByExternalReferenceCode
             parameters:
@@ -7746,7 +7746,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Updates a Price Modifier by external reference code.
             tags: ["PriceModifier"]
-    /priceModifiers/by-externalReferenceCode/{externalReferenceCode}/priceModifierCategories:
+    /price-modifiers/by-externalReferenceCode/{externalReferenceCode}/price-modifier-categories:
         get:
             operationId: getPriceModifierByExternalReferenceCodePriceModifierCategoriesPage
             parameters:
@@ -7910,7 +7910,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or Updates a Price Modifier Category.
             tags: ["PriceModifierCategory"]
-    /priceModifiers/by-externalReferenceCode/{externalReferenceCode}/priceModifierProductGroups:
+    /price-modifiers/by-externalReferenceCode/{externalReferenceCode}/price-modifier-product-groups:
         get:
             operationId: getPriceModifierByExternalReferenceCodePriceModifierProductGroupsPage
             parameters:
@@ -8074,7 +8074,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or Updates a Price Modifier Product Group.
             tags: ["PriceModifierProductGroup"]
-    /priceModifiers/by-externalReferenceCode/{externalReferenceCode}/priceModifierProducts:
+    /price-modifiers/by-externalReferenceCode/{externalReferenceCode}/price-modifier-products:
         get:
             operationId: getPriceModifierByExternalReferenceCodePriceModifierProductsPage
             parameters:
@@ -8238,7 +8238,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or Updates a Price Modifier Product.
             tags: ["PriceModifierProduct"]
-    /priceModifiers/{id}:
+    /price-modifiers/{id}:
         delete:
             operationId: deletePriceModifier
             parameters:
@@ -8415,7 +8415,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Updates a Price Modifier by ID.
             tags: ["PriceModifier"]
-    /priceModifiers/{id}/priceModifierCategories:
+    /price-modifiers/{id}/price-modifier-categories:
         get:
             operationId: getPriceModifierIdPriceModifierCategoriesPage
             parameters:
@@ -8578,7 +8578,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price Modifier Category.
             tags: ["PriceModifierCategory"]
-    /priceModifiers/{id}/priceModifierProductGroups:
+    /price-modifiers/{id}/price-modifier-product-groups:
         get:
             operationId: getPriceModifierIdPriceModifierProductGroupsPage
             parameters:
@@ -8741,7 +8741,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price Modifier Product Group.
             tags: ["PriceModifierProductGroup"]
-    /priceModifiers/{id}/priceModifierProducts:
+    /price-modifiers/{id}/price-modifier-products:
         get:
             operationId: getPriceModifierIdPriceModifierProductsPage
             parameters:
@@ -8904,7 +8904,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price Modifier Product.
             tags: ["PriceModifierProduct"]
-    /tierPrices/by-externalReferenceCode/{externalReferenceCode}:
+    /tier-prices/by-externalReferenceCode/{externalReferenceCode}:
         delete:
             operationId: deleteTierPriceByExternalReferenceCode
             parameters:
@@ -9078,7 +9078,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Updates a Tier Price by external reference code.
             tags: ["TierPrice"]
-    /tierPrices/{id}:
+    /tier-prices/{id}:
         delete:
             operationId: deleteTierPrice
             parameters:
