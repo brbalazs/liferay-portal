@@ -348,6 +348,16 @@ public class CPDefinitionLocalServiceImpl
 	public CPDefinition copyCPDefinition(long cpDefinitionId)
 		throws PortalException {
 
+		CPDefinition cpDefinition = cpDefinitionLocalService.getCPDefinition(
+			cpDefinitionId);
+
+		return copyCPDefinition(cpDefinitionId, cpDefinition.getGroupId());
+	}
+
+	@Override
+	public CPDefinition copyCPDefinition(long cpDefinitionId, long groupId)
+		throws PortalException {
+
 		// CPDefinition
 
 		CPDefinition originalCPDefinition =
@@ -356,22 +366,26 @@ public class CPDefinitionLocalServiceImpl
 		CPDefinition newCPDefinition =
 			(CPDefinition)originalCPDefinition.clone();
 
-		if (originalCPDefinition.isPublished()) {
+		if (originalCPDefinition.isPublished() &&
+			cpDefinitionLocalService.isVersionable(originalCPDefinition) &&
+			(originalCPDefinition.getGroupId() == groupId)) {
+
 			originalCPDefinition.setPublished(false);
 
 			originalCPDefinition = cpDefinitionPersistence.update(
 				originalCPDefinition);
+
+			newCPDefinition.setVersion(
+				cProductLocalService.increment(
+					originalCPDefinition.getCProductId()));
 		}
 
+		newCPDefinition.setGroupId(groupId);
 		newCPDefinition.setUuid(PortalUUIDUtil.generate());
 
 		long newCPDefinitionId = counterLocalService.increment();
 
 		newCPDefinition.setCPDefinitionId(newCPDefinitionId);
-
-		newCPDefinition.setVersion(
-			cProductLocalService.increment(
-				originalCPDefinition.getCProductId()));
 
 		newCPDefinition = cpDefinitionPersistence.update(newCPDefinition);
 
