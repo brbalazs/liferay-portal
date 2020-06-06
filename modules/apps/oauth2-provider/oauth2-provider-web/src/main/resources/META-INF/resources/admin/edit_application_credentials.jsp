@@ -169,7 +169,7 @@ String clientSecret = (oAuth2Application == null) ? "" : oAuth2Application.getCl
 				</div>
 			</div>
 
-			<aui:input label="client-id" name="newClientId" onKeyup='<%= renderResponse.getNamespace() + "updatePadlock('clientIdPadlock', this.value, '" + HtmlUtil.escapeJS(clientId) + "')" %>' type="text" value="<%= clientId %>" />
+			<aui:input label="client-id" name="newClientId" onKeyup="<%= renderResponse.getNamespace() + "updatePadlock('clientIdPadlock', this.value, '" + HtmlUtil.escapeJS(clientId) + "')" %>" type="text" value="<%= clientId %>" />
 
 			<aui:button-row>
 				<aui:button href="" icon="icon-undo" onClick='<%= renderResponse.getNamespace() + "setControlEqualTo('newClientId', 'originalClientId')" %>' value="revert" />
@@ -199,7 +199,7 @@ String clientSecret = (oAuth2Application == null) ? "" : oAuth2Application.getCl
 				</div>
 			</div>
 
-			<aui:input label="client-secret" name="newClientSecret" onKeyup='<%= renderResponse.getNamespace() + "updatePadlock('clientSecretPadlock', this.value, '" + HtmlUtil.escapeJS(clientSecret) + "')" %>' type="text" value="<%= clientSecret %>" />
+			<aui:input label="client-secret" name="newClientSecret" onKeyup="<%= renderResponse.getNamespace() + "updatePadlock('clientSecretPadlock', this.value, '" + HtmlUtil.escapeJS(clientSecret) + "')" %>" type="text" value="<%= clientSecret %>" />
 
 			<aui:button-row>
 				<aui:button href="" icon="icon-plus" onClick='<%= renderResponse.getNamespace() + "generateRandomSecret()" %>' value="generate-new-secret" />
