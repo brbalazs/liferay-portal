@@ -57,27 +57,6 @@ const fluidDataSetDisplayProps = {
 			value: 123
 		},
 		{
-			id: 'shipment-date',
-			label: 'Shipment date',
-			max: {
-				day: 2,
-				month: 9,
-				year: 2020
-			},
-			min: {
-				day: 14,
-				month: 6,
-				year: 2020
-			},
-			placeholder: 'dd/mm/yyyy',
-			type: 'date',
-			value: {
-				day: 18,
-				month: 7,
-				year: 2020
-			}
-		},
-		{
 			id: 'order-date',
 			label: 'Order range',
 			max: {
@@ -357,12 +336,6 @@ const headlessDataSetDisplayProps = {
 	],
 	filters: [
 		{
-			id: 'createDate',
-			label: 'Creation date',
-			operator: 'eq',
-			type: 'date'
-		},
-		{
 			apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products',
 			id: 'productId',
 			inputPlaceholder: 'Search for products...',
@@ -427,7 +400,7 @@ const headlessDataSetDisplayProps = {
 				fields: [
 					{
 						contentRenderer: 'actionLink',
-						fieldName: ['name', lang_id],
+						fieldName: ['name', 'LANG'],
 						label: 'Name',
 						sortable: true
 					},
@@ -443,8 +416,7 @@ const headlessDataSetDisplayProps = {
 					{
 						contentRenderer: 'date',
 						fieldName: 'modifiedDate',
-						label: 'Modified Date',
-						type: 'relative'
+						label: 'Modified Date'
 					},
 					{
 						contentRenderer: 'label',
@@ -494,16 +466,6 @@ const ordersDataSetDisplayProps = {
 			itemKey: 'id',
 			itemLabel: 'name',
 			label: 'account-id',
-			selectionType: 'multiple',
-			type: 'autocomplete'
-		},
-		{
-			apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products',
-			id: 'productId',
-			inputPlaceholder: 'Search for products...',
-			itemKey: 'productId',
-			itemLabel: ['name', lang_id],
-			label: 'Product ID',
 			selectionType: 'multiple',
 			type: 'autocomplete'
 		},
@@ -632,7 +594,7 @@ const productsDataSetDisplayProps = {
 	filters: [
 		{
 			id: 'createDate',
-			label: 'Order range',
+			label: 'Creation date',
 			max: {
 				day: today.getDate(),
 				month: today.getMonth() + 1,
@@ -641,19 +603,55 @@ const productsDataSetDisplayProps = {
 			min: {
 				day: today.getDate(),
 				month: today.getMonth() + 1,
-				year: today.getFullYear() - 1
+				year: today.getFullYear() - 10
 			},
 			placeholder: 'dd/mm/yyyy',
 			type: 'dateRange'
+		},
+		{
+			apiUrl:
+				'/o/headless-admin-taxonomy/v1.0/taxonomy-categories/0/taxonomy-categories',
+			id: 'categoryIds',
+			inputPlaceholder: 'Search for category...',
+			itemKey: 'id',
+			itemLabel: 'name',
+			label: 'Category',
+			type: 'autocomplete'
+		},
+		{
+			apiUrl: '/o/headless-commerce-admin-catalog/v1.0/catalogs',
+			id: 'catalogId',
+			inputPlaceholder: 'Search for catalog...',
+			itemKey: 'id',
+			itemLabel: 'name',
+			label: 'Catalog',
+			selectionType: 'single',
+			type: 'autocomplete'
+		},
+		{
+			id: 'productType',
+			items: [
+				{
+					label: 'Simple',
+					value: 'simple'
+				},
+				{
+					label: 'Multiple',
+					value: 'multiple'
+				}
+			],
+			label: 'Product type',
+			operator: 'eq',
+			type: 'radio'
 		}
 	],
 	id: 'tableTest',
-	// itemsActions: [
-	// 	{
-	// 		id: 'delete',
-	// 		label: 'Delete',
-	// 	}
-	// ],
+	itemsActions: [
+		{
+			id: 'delete',
+			label: 'Delete'
+		}
+	],
 	pageSize: 5,
 	pagination: {
 		deltas: [
@@ -683,6 +681,10 @@ const productsDataSetDisplayProps = {
 	selectedItemsKey: 'id',
 	showPagination: true,
 	sidePanelId: 'sidePanelTestId',
+	sorting: [{
+		direction: 'desc',
+		key: 'modifiedDate',
+	}],
 	spritemap: './assets/icons.svg',
 	views: [
 		{
@@ -694,11 +696,12 @@ const productsDataSetDisplayProps = {
 					{
 						contentRenderer: 'image',
 						fieldName: 'thumbnail',
-						labelKey: ['name', 'LANG'],
+						labelKey: ['name', 'LANG']
 					},
 					{
 						fieldName: ['name', 'LANG'],
-						label: Liferay.Language.get('name')
+						label: Liferay.Language.get('name'),
+						sortable: true
 					},
 					{
 						fieldName: 'productType',
@@ -706,7 +709,7 @@ const productsDataSetDisplayProps = {
 					},
 					{
 						fieldName: 'sku',
-						label: Liferay.Language.get('sku'),
+						label: Liferay.Language.get('sku')
 					},
 					{
 						fieldName: 'catalogName',
@@ -714,8 +717,15 @@ const productsDataSetDisplayProps = {
 					},
 					{
 						contentRenderer: 'date',
+						fieldName: 'createDate',
+						label: Liferay.Language.get('created-date'),
+						sortable: true
+					},
+					{
+						contentRenderer: 'date',
 						fieldName: 'modifiedDate',
-						label: Liferay.Language.get('modified-date')
+						label: Liferay.Language.get('modified-date'),
+						sortable: true
 					},
 					{
 						contentRenderer: 'workflowStatus',
@@ -728,11 +738,11 @@ const productsDataSetDisplayProps = {
 	]
 };
 
-datasetDisplayLauncher(
-	'orders-dataset-display',
-	'orders-dataset-display-root',
-	ordersDataSetDisplayProps
-);
+// datasetDisplayLauncher(
+// 	'orders-dataset-display',
+// 	'orders-dataset-display-root',
+// 	ordersDataSetDisplayProps
+// );
 
 datasetDisplayLauncher(
 	'products-dataset-display',

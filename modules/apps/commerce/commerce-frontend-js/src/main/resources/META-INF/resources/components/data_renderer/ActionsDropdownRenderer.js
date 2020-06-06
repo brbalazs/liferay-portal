@@ -127,13 +127,40 @@ function ActionsDropdownRenderer(props) {
 		return null;
 	}
 
-	if (props.actions.length === 1) {
-		const action = props.actions[0];
+	const formattedActions = props.actions.reduce((actions, action) => {
+		if (action.id && props.itemData.actions) {
+			if (props.itemData.actions[action.id]) {
+				return [
+					...actions,
+					{
+						...action,
+						...props.itemData.actions[action.id],
+						target: 'async'
+					}
+				];
+			}
+			return actions;
+		}
+		return [...actions, action];
+	}, []);
+
+	if (formattedActions.length === 1) {
+		const action = formattedActions[0];
+
+		if (action.id && !action.href) {
+			return null;
+		}
+
 		const formattedHref = formatActionUrl(action.href, props.itemData);
 
 		if (loading) {
 			return (
-				<ClayButton className="btn-sm" disabled monospaced>
+				<ClayButton
+					className="btn-sm"
+					disabled
+					displayType="secondary"
+					monospaced
+				>
 					<ClayLoadingIndicator small />
 				</ClayButton>
 			);
@@ -204,7 +231,7 @@ function ActionsDropdownRenderer(props) {
 		>
 			<ClayDropDown.ItemList>
 				<ClayDropDown.Group>
-					{props.actions.map((action, i) => {
+					{formattedActions.map((action, i) => {
 						return (
 							<ActionItem
 								key={i}

@@ -16,7 +16,7 @@ import ClaySticker from '@clayui/sticker';
 import PropType from 'prop-types';
 import React from 'react';
 
-import {getValueFromItem} from '../../../utilities';
+import {getValueFromItem} from '../../../utilities/index';
 
 function ImageRenderer(props) {
 	return (
@@ -54,7 +54,7 @@ function ImageRenderer(props) {
 					>
 						<div className="sticker-overlay">
 							<img
-								alt={props.value.alt}
+								alt={props.value.alt || Liferay.Language.get('thumbnail')}
 								className="sticker-img"
 								src={props.value.src}
 							/>
@@ -69,13 +69,13 @@ function ImageRenderer(props) {
 ImageRenderer.propTypes = {
 	options: PropType.shape({
 		label: PropType.string,
-		labelKey: PropType.string,
+		labelKey: PropType.oneOfType([PropType.array, PropType.string]),
 		shape: PropType.string,
 		size: PropType.string
 	}),
-	value: PropType.oneOf([
+	value: PropType.oneOfType([
 		PropType.shape({
-			alt: PropType.string.isRequired,
+			alt: PropType.string,
 			shape: PropType.string,
 			size: PropType.string,
 			src: PropType.string.isRequired

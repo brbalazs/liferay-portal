@@ -21,16 +21,18 @@ import React from 'react';
 import Checkbox from '../../../data_renderer/CheckboxRenderer';
 
 function TableHeadCell(props) {
-	const sortingMatch = props.sorting.find(
-		el => el.fieldName === props.fieldName
-	);
+	const sortingKey =
+		props.sortingKey ||
+		(Array.isArray(props.fieldName) ? props.fieldName[0] : props.fieldName);
+
+	const sortingMatch = props.sorting.find(el => el.key === sortingKey);
 
 	function handleSortingCellClick(e) {
 		e.preventDefault();
 
 		if (sortingMatch) {
 			const updatedSortedElements = props.sorting.map(el =>
-				el.fieldName === props.fieldName
+				el.key === sortingKey
 					? {
 							...el,
 							direction: el.direction === 'asc' ? 'desc' : 'asc'
@@ -42,7 +44,7 @@ function TableHeadCell(props) {
 			props.updateSorting([
 				{
 					direction: 'asc',
-					fieldName: props.fieldName
+					key: sortingKey
 				}
 			]);
 		}
@@ -76,7 +78,7 @@ function TableHeadCell(props) {
 									'active'
 							)}
 							draggable
-							symbol={'order-arrow-up'}
+							symbol="order-arrow-up"
 						/>
 						<ClayIcon
 							className={classNames(
@@ -86,7 +88,7 @@ function TableHeadCell(props) {
 									'active'
 							)}
 							draggable
-							symbol={'order-arrow-down'}
+							symbol="order-arrow-down"
 						/>
 					</span>
 				</a>
@@ -108,7 +110,7 @@ function TableHeadRow(props) {
 				<TableHeadCell
 					{...field}
 					expandableColumns={expandableColumns}
-					key={field.fieldName || i}
+					key={field.sortingKey || field.fieldName || i}
 					sorting={props.sorting}
 					updateSorting={props.updateSorting}
 				/>
@@ -162,10 +164,11 @@ TableHeadRow.propTypes = {
 				expand: PropTypes.bool,
 				fieldName: PropTypes.oneOfType([
 					PropTypes.string,
-					PropTypes.array
+					PropTypes.arrayOf(PropTypes.string)
 				]),
 				label: PropTypes.string,
-				sortable: PropTypes.bool
+				sortable: PropTypes.bool,
+				sortingKey: PropTypes.string
 			}).isRequired
 		)
 	}),

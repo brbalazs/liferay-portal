@@ -15,7 +15,7 @@
 import ClayButton from '@clayui/button';
 import ClayForm from '@clayui/form';
 import PropTypes from 'prop-types';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 import {
 	formatDateObject,
@@ -32,19 +32,6 @@ function DateRangeFilter(props) {
 	const [toValue, setToValue] = useState(
 		props.value && props.value.to && formatDateObject(props.value.to)
 	);
-
-	useEffect(() => {
-		setFromValue(() =>
-			props.value && props.value.from
-				? formatDateObject(props.value.from)
-				: ''
-		);
-		setToValue(() =>
-			props.value && props.value.to
-				? formatDateObject(props.value.to)
-				: ''
-		);
-	}, [props.value]);
 
 	return (
 		<div className="form-group">

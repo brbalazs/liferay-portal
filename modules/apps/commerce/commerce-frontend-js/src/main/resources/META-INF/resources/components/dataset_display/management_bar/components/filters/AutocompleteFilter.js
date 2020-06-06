@@ -160,37 +160,33 @@ function AutocompleteFilter(props) {
 
 	return (
 		<div className="form-group">
-			{props.selectionType === 'multiple' && (
-				<ClayAutocomplete className="mb-2">
-					<ClayAutocomplete.Input
-						onChange={event => setQuery(event.target.value)}
-					/>
-					{loading && <ClayAutocomplete.LoadingIndicator />}
-				</ClayAutocomplete>
-			)}
-			{props.selectionType === 'multiple' && (
-				<div className="selected-elements-wrapper">
-					{selectedItems.map(selectedItem => {
-						return (
-							<ClayLabel
-								closeButtonProps={{
-									onClick: () =>
-										setSelectedItems(items =>
-											items.filter(
-												item =>
-													item.value !==
-													selectedItem.value
-											)
+			<ClayAutocomplete className="mb-2">
+				<ClayAutocomplete.Input
+					onChange={event => setQuery(event.target.value)}
+				/>
+				{loading && <ClayAutocomplete.LoadingIndicator />}
+			</ClayAutocomplete>
+			<div className="selected-elements-wrapper">
+				{selectedItems.map(selectedItem => {
+					return (
+						<ClayLabel
+							closeButtonProps={{
+								onClick: () =>
+									setSelectedItems(items =>
+										items.filter(
+											item =>
+												item.value !==
+												selectedItem.value
 										)
-								}}
-								key={selectedItem.value}
-							>
-								{selectedItem.label}
-							</ClayLabel>
-						);
-					})}
-				</div>
-			)}
+									)
+							}}
+							key={selectedItem.value}
+						>
+							{selectedItem.label}
+						</ClayLabel>
+					);
+				})}
+			</div>
 			{items && items.length ? (
 				<ul
 					className="inline-scroller mx-n3 px-3 mt-2"

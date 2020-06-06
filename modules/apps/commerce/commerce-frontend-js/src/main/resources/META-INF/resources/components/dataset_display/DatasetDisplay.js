@@ -491,7 +491,12 @@ DatasetDisplay.propTypes = {
 	showPagination: PropTypes.bool,
 	showSearch: PropTypes.bool,
 	sidePanelId: PropTypes.string,
-	sorting: PropTypes.array,
+	sorting: PropTypes.arrayOf(
+		PropTypes.shape({
+			direction: PropTypes.oneOf(['asc', 'desc']),
+			key: PropTypes.string
+		})
+	),
 	spritemap: PropTypes.string.isRequired,
 	style: PropTypes.oneOf(['default', 'fluid', 'stacked']),
 	views: PropTypes.arrayOf(

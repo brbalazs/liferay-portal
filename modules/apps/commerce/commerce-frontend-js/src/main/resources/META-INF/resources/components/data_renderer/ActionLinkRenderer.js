@@ -36,15 +36,26 @@ function ActionLinkRenderer(props) {
 		return null;
 	}
 
-	const currentAction =
+	let currentAction =
 		props.options && props.options.actionId
 			? props.actions.find(action => action.id === props.options.actionId)
 			: props.actions[0];
-
+	
 	if (!currentAction) {
 		return null;
 	}
 
+	if(currentAction.id && props.itemData.actions) {
+		if(props.itemData.actions[currentAction.id]) {
+			currentAction = {
+				...currentAction,
+				...props.itemData.actions[currentAction.id],
+				target: 'async'
+			}
+		}
+		return null;
+	}
+			
 	const formattedHref =
 		currentAction.href &&
 		formatActionUrl(currentAction.href, props.itemData);

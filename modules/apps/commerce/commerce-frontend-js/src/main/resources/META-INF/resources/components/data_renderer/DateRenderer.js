@@ -15,6 +15,10 @@
 import PropType from 'prop-types';
 
 function DateRenderer(props) {
+	if (!props.value) {
+		return null;
+	}
+
 	const locale = themeDisplay.getLanguageId().replace('_', '-');
 	const dateOptions = props.options.format || {
 		day: 'numeric',

@@ -114,7 +114,9 @@ export function loadData(
 	const paginationString = `&pageSize=${delta}&page=${page}`;
 	const searchParamString = searchParam ? `&search=${searchParam}` : '';
 	const sortingString = sorting.length
-		? `&orderBy=${JSON.stringify(sorting)}`
+		? `&sort=${sorting
+				.map(item => `${item.key}:${item.direction}`)
+				.join(',')}`
 		: ``;
 	const filtersString = filters.length
 		? `&filter=${createOdataFilter(filters)}`

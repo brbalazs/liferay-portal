@@ -23,48 +23,81 @@ export function convertObjectDateToIsoString(objDate, direction) {
 	return date.toISOString();
 }
 
+function formatStrings(value) {
+	if (typeof value === 'string') {
+		return `'${value}'`;
+	}
+
+	if (Array.isArray(value)) {
+		return value.map(valueEl => {
+			if (typeof valueEl === 'string') {
+				return `'${valueEl}'`;
+			}
+
+			if (valueEl.value) {
+				return {
+					...valueEl,
+					value:
+						typeof value === 'string'
+							? `'${valueEl.value}'`
+							: valueEl.value
+				};
+			}
+
+			return valueEl;
+		});
+	}
+
+	return value;
+}
+
 function createOdataFilterString(
 	key,
 	operator = 'eq',
 	type,
 	value,
-	selectionType
+	selectionType = 'multiple'
 ) {
+	const formattedValue = formatStrings(value);
+
 	switch (type) {
 		case 'autocomplete':
-			if (selectionType !== 'multiple') {
-				const firstItemVal = value[0].value;
-				return `${key} eq ${firstItemVal}`;
+			if (selectionType === 'multiple') {
+				return `${key}/any(x:${formattedValue
+					.map(v => `(x eq ${v.value})`)
+					.join(' or ')})`;
 			}
-			break;
+			return `${key} eq ${formattedValue[0].value}`;
 		case 'date':
-			return `${key} ${operator} ${convertObjectDateToIsoString(value)}`;
+			return `${key} ${operator} ${convertObjectDateToIsoString(
+				formattedValue
+			)}`;
 		case 'dateRange':
-			if (value.from && value.to) {
+			if (formattedValue.from && formattedValue.to) {
 				return `${key} ge ${convertObjectDateToIsoString(
-					value.from,
+					formattedValue.from,
 					'from'
 				)}) and (${key} le ${convertObjectDateToIsoString(
-					value.to,
+					formattedValue.to,
 					'to'
 				)}`;
 			}
-			if (value.from) {
+			if (formattedValue.from) {
 				return `${key} ge ${convertObjectDateToIsoString(
-					value.from,
+					formattedValue.from,
 					'from'
 				)}`;
 			}
-			if (value.to) {
+			if (formattedValue.to) {
 				return `${key} le ${convertObjectDateToIsoString(
-					value.to,
+					formattedValue.to,
 					'to'
 				)}`;
 			}
 			break;
 		default:
-			if (Array.isArray(value)) {
-				return value
+			if (Array.isArray(formattedValue)) {
+				return formattedValue
 					.map(
 						el =>
 							`(${createOdataFilterString(
@@ -76,26 +109,23 @@ function createOdataFilterString(
 					)
 					.join(' or ');
 			}
-			if (value instanceof String) {
-				return `${key} ${operator} '${value}'`;
-			}
+			return `${key} ${operator} ${formattedValue}`;
 	}
-	return `${key} ${operator} ${value}`;
 }
 
 export default function createOdataFilter(filters) {
 	if (!filters.length) return null;
 
 	return filters
-		.map(filter => {
-			return createOdataFilterString(
+		.map(filter =>
+			createOdataFilterString(
 				filter.id,
 				filter.operator,
 				filter.type,
 				filter.value,
 				filter.selectionType
-			);
-		})
+			)
+		)
 		.map(filterString => `(${filterString})`)
 		.join(' and ');
 }
