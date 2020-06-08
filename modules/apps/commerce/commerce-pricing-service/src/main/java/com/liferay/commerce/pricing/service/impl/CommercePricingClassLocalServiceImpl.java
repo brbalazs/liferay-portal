@@ -69,6 +69,7 @@ public class CommercePricingClassLocalServiceImpl
 		commercePricingClass.setTitleMap(titleMap);
 		commercePricingClass.setDescriptionMap(descriptionMap);
 		commercePricingClass.setExternalReferenceCode(externalReferenceCode);
+		commercePricingClass.setExpandoBridgeAttributes(serviceContext);
 
 		Date now = new Date();
 
@@ -113,6 +114,7 @@ public class CommercePricingClassLocalServiceImpl
 		commercePricingClass.setTitle(title);
 		commercePricingClass.setDescription(description);
 		commercePricingClass.setExternalReferenceCode(externalReferenceCode);
+		commercePricingClass.setExpandoBridgeAttributes(serviceContext);
 
 		Date now = new Date();
 
@@ -130,12 +132,19 @@ public class CommercePricingClassLocalServiceImpl
 			CommercePricingClass commercePricingClass)
 		throws PortalException {
 
-		commercePricingClassCPDefinitionRelLocalService.
-			deleteCommercePricingClassCPDefinitionRels(
-				commercePricingClass.getCommercePricingClassId());
+		long commercePricingClassId =
+			commercePricingClass.getCommercePricingClassId();
 
-		return commercePricingClassPersistence.remove(
-			commercePricingClass.getCommercePricingClassId());
+		commercePricingClassCPDefinitionRelLocalService.
+			deleteCommercePricingClassCPDefinitionRels(commercePricingClassId);
+
+		commercePricingClassPersistence.remove(commercePricingClass);
+
+		// Expando
+
+		expandoRowLocalService.deleteRows(commercePricingClassId);
+
+		return commercePricingClass;
 	}
 
 	@Override
@@ -238,6 +247,8 @@ public class CommercePricingClassLocalServiceImpl
 
 		commercePricingClass.setLastPublishDate(calendar.getTime());
 
+		commercePricingClass.setExpandoBridgeAttributes(serviceContext);
+
 		return commercePricingClassPersistence.update(commercePricingClass);
 	}
 
@@ -269,6 +280,8 @@ public class CommercePricingClassLocalServiceImpl
 			now.getTime(), user.getTimeZone());
 
 		commercePricingClass.setLastPublishDate(calendar.getTime());
+
+		commercePricingClass.setExpandoBridgeAttributes(serviceContext);
 
 		return commercePricingClassPersistence.update(commercePricingClass);
 	}
