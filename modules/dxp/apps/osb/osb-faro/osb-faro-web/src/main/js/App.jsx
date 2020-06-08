@@ -32,6 +32,7 @@ import {Routes} from 'shared/util/router';
 import {setBackURL} from 'shared/actions/settings';
 import {spritemap} from 'shared/util/constants';
 import {throttle} from 'lodash';
+import {WarningStripeContext} from 'shared/context/WarningStripe';
 
 // App Routes with Sidebar
 
@@ -113,7 +114,8 @@ export default class App extends React.Component {
 	};
 
 	state = {
-		onboardingTriggered: false
+		onboardingTriggered: false,
+		showWarningStripe: true
 	};
 
 	constructor(props) {
@@ -150,7 +152,7 @@ export default class App extends React.Component {
 	}
 
 	render() {
-		const {onboardingTriggered} = this.state;
+		const {onboardingTriggered, showWarningStripe} = this.state;
 
 		return (
 			<ApolloProvider client={client}>
@@ -165,136 +167,151 @@ export default class App extends React.Component {
 								)}
 							>
 								<UnassignedSegmentsProvider>
-									<OnboardingContext.Provider
+									<WarningStripeContext.Provider
 										value={{
-											onboardingTriggered,
-											setOnboardingTriggered: () =>
+											setShowWarningStripe: value =>
 												this.setState({
-													onboardingTriggered: true
-												})
+													showWarningStripe: value
+												}),
+											showWarningStripe
 										}}
 									>
-										<ChannelProvider>
-											{/* eslint-disable react/jsx-handler-names */}
-											<Router
-												getUserConfirmation={
-													this.handleUserConfirmation
-												}
-											>
-												{/* eslint-enable react/jsx-handler-names */}
-												<RoutesContainer>
-													<AlertFeed />
+										<OnboardingContext.Provider
+											value={{
+												onboardingTriggered,
+												setOnboardingTriggered: () =>
+													this.setState({
+														onboardingTriggered: true
+													})
+											}}
+										>
+											<ChannelProvider>
+												{/* eslint-disable react/jsx-handler-names */}
+												<Router
+													getUserConfirmation={
+														this
+															.handleUserConfirmation
+													}
+												>
+													{/* eslint-enable react/jsx-handler-names */}
+													<RoutesContainer>
+														<AlertFeed />
 
-													<Tooltip />
+														<Tooltip />
 
-													<ModalRenderer />
+														<ModalRenderer />
 
-													<Suspense
-														fallback={<Loading />}
-													>
-														<Switch>
-															<BundleRouter
-																data={
-																	Workspaces
-																}
-																exact
-																path={
-																	Routes.BASE
-																}
-															/>
+														<Suspense
+															fallback={
+																<Loading />
+															}
+														>
+															<Switch>
+																<BundleRouter
+																	data={
+																		Workspaces
+																	}
+																	exact
+																	path={
+																		Routes.BASE
+																	}
+																/>
 
-															<BundleRouter
-																data={
-																	Workspaces
-																}
-																exact
-																path={
-																	Routes.WORKSPACES
-																}
-															/>
+																<BundleRouter
+																	data={
+																		Workspaces
+																	}
+																	exact
+																	path={
+																		Routes.WORKSPACES
+																	}
+																/>
 
-															<BundleRouter
-																data={
-																	SelectWorkspaceAccount
-																}
-																exact
-																path={
-																	Routes.WORKSPACE_ADD
-																}
-															/>
+																<BundleRouter
+																	data={
+																		SelectWorkspaceAccount
+																	}
+																	exact
+																	path={
+																		Routes.WORKSPACE_ADD
+																	}
+																/>
 
-															<BundleRouter
-																data={
-																	AddWorkspace
-																}
-																exact
-																path={
-																	Routes.WORKSPACE_ADD_TRIAL
-																}
-															/>
+																<BundleRouter
+																	data={
+																		AddWorkspace
+																	}
+																	exact
+																	path={
+																		Routes.WORKSPACE_ADD_TRIAL
+																	}
+																/>
 
-															<BundleRouter
-																data={
-																	AddWorkspace
-																}
-																exact
-																path={
-																	Routes.WORKSPACE_ADD_WITH_CORP_PROJECT_UUID
-																}
-															/>
+																<BundleRouter
+																	data={
+																		AddWorkspace
+																	}
+																	exact
+																	path={
+																		Routes.WORKSPACE_ADD_WITH_CORP_PROJECT_UUID
+																	}
+																/>
 
-															<BundleRouter
-																data={
-																	SelectWorkspaceAccount
-																}
-																exact
-																path={
-																	Routes.WORKSPACE_SELECT_ACCOUNT
-																}
-															/>
+																<BundleRouter
+																	data={
+																		SelectWorkspaceAccount
+																	}
+																	exact
+																	path={
+																		Routes.WORKSPACE_SELECT_ACCOUNT
+																	}
+																/>
 
-															<BundleRouter
-																data={
-																	OAuthReceive
-																}
-																exact
-																path={
-																	Routes.OAUTH_RECEIVE
-																}
-															/>
+																<BundleRouter
+																	data={
+																		OAuthReceive
+																	}
+																	exact
+																	path={
+																		Routes.OAUTH_RECEIVE
+																	}
+																/>
 
-															<Route
-																component={
-																	Loading
-																}
-																path={
-																	Routes.LOADING
-																}
-															/>
+																<Route
+																	component={
+																		Loading
+																	}
+																	path={
+																		Routes.LOADING
+																	}
+																/>
 
-															<BundleRouter
-																data={Settings}
-																path={
-																	Routes.SETTINGS
-																}
-															/>
+																<BundleRouter
+																	data={
+																		Settings
+																	}
+																	path={
+																		Routes.SETTINGS
+																	}
+																/>
 
-															<BundleRouter
-																data={
-																	AppSidebarRoutes
-																}
-																path={
-																	Routes.CHANNEL
-																}
-															/>
+																<BundleRouter
+																	data={
+																		AppSidebarRoutes
+																	}
+																	path={
+																		Routes.CHANNEL
+																	}
+																/>
 
-															<RouteNotFound />
-														</Switch>
-													</Suspense>
-												</RoutesContainer>
-											</Router>
-										</ChannelProvider>
-									</OnboardingContext.Provider>
+																<RouteNotFound />
+															</Switch>
+														</Suspense>
+													</RoutesContainer>
+												</Router>
+											</ChannelProvider>
+										</OnboardingContext.Provider>
+									</WarningStripeContext.Provider>
 								</UnassignedSegmentsProvider>
 							</ClayLinkContext.Provider>
 						</ClayIconSpriteContext.Provider>
