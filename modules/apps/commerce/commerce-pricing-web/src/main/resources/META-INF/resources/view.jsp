@@ -30,7 +30,7 @@ CommercePricingClassDisplayContext
 			itemsPerPage="<%= 10 %>"
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="<%= 1 %>"
-			portletURL="<%= commercePricingClassDisplayContext.getPortletURL() %>"
+			portletURL="<%= currentURLObj %>"
 			style="fluid"
 		/>
 	</div>
