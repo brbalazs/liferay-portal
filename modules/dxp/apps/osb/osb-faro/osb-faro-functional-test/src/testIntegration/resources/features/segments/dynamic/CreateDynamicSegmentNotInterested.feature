@@ -11,7 +11,7 @@ Feature: Create a Segment of Individuals Not Interested in a Topic
     * I click the "Create Segment" button
     * I click the "Dynamic Segment" dropdown option
 
-  Scenario:  Create the Dynamic Interests Segment
+  Scenario: Create the Dynamic Interests Segment
     Given I select "Interests" from the criterion type dropdown
     When I create a criteria with the following conditions:
       | synergistic schemas | is not |
