@@ -49,28 +49,6 @@ import org.osgi.service.component.annotations.Reference;
 public class EditCommercePricingClassMVCActionCommand
 	extends BaseMVCActionCommand {
 
-	protected void deleteCommercePricingClass(ActionRequest actionRequest)
-		throws Exception {
-
-		long[] commercePricingClassIds = null;
-
-		long commercePricingClassId = ParamUtil.getLong(
-			actionRequest, "commercePricingClassId");
-
-		if (commercePricingClassId > 0) {
-			commercePricingClassIds = new long[] {commercePricingClassId};
-		}
-		else {
-			commercePricingClassIds = ParamUtil.getLongValues(
-				actionRequest, "commercePricingClassIds");
-		}
-
-		for (long deleteCommercePricingClassId : commercePricingClassIds) {
-			_commercePricingClassService.deleteCommercePricingClass(
-				deleteCommercePricingClassId);
-		}
-	}
-
 	@Override
 	protected void doProcessAction(
 			ActionRequest actionRequest, ActionResponse actionResponse)
@@ -79,12 +57,7 @@ public class EditCommercePricingClassMVCActionCommand
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
 		try {
-			if (cmd.equals(Constants.DELETE)) {
-				deleteCommercePricingClass(actionRequest);
-			}
-			else if (cmd.equals(Constants.ADD) ||
-					 cmd.equals(Constants.UPDATE)) {
-
+			if (cmd.equals(Constants.ADD) || cmd.equals(Constants.UPDATE)) {
 				updateCommercePricingClass(actionRequest);
 			}
 		}

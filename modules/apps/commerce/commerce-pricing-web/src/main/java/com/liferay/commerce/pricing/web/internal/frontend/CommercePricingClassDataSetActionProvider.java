@@ -32,7 +32,6 @@ import com.liferay.portal.kernel.util.WebKeys;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 
@@ -80,13 +79,16 @@ public class CommercePricingClassDataSetActionProvider
 
 			clayDataSetActions.add(editClayDataSetAction);
 
-			PortletURL deleteURL = _getPricingClassDeleteURL(
-				pricingClass.getPricingClassId(), httpServletRequest);
-
 			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
-				StringPool.BLANK, deleteURL.toString(), StringPool.BLANK,
+				StringPool.BLANK,
+				_getPricingClassDeleteURL(pricingClass.getPricingClassId()),
+				StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, Constants.DELETE),
 				StringPool.BLANK, false, false);
+
+			deleteClayDataSetAction.setTarget("async");
+
+			deleteClayDataSetAction.setMethod("delete");
 
 			clayDataSetActions.add(deleteClayDataSetAction);
 		}
@@ -94,28 +96,9 @@ public class CommercePricingClassDataSetActionProvider
 		return clayDataSetActions;
 	}
 
-	private PortletURL _getPricingClassDeleteURL(
-		long pricingClassId, HttpServletRequest httpServletRequest) {
-
-		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			httpServletRequest,
-			CommercePricingPorletKeys.COMMERCE_PRICING_CLASSES,
-			PortletRequest.ACTION_PHASE);
-
-		portletURL.setParameter(
-			ActionRequest.ACTION_NAME, "editCommercePricingClass");
-		portletURL.setParameter(Constants.CMD, Constants.DELETE);
-
-		String redirect = ParamUtil.getString(
-			httpServletRequest, "currentUrl",
-			_portal.getCurrentURL(httpServletRequest));
-
-		portletURL.setParameter("redirect", redirect);
-
-		portletURL.setParameter(
-			"commercePricingClassId", String.valueOf(pricingClassId));
-
-		return portletURL;
+	private String _getPricingClassDeleteURL(long pricingClassId) {
+		return "/o/headless-commerce-admin-catalog/v1.0/productGroups/" +
+			pricingClassId;
 	}
 
 	private PortletURL _getPricingClassEditURL(
