@@ -362,6 +362,8 @@ components:
                     type: string
                 transactionId:
                     type: string
+                workflowStatus:
+                    $ref: "#/components/schemas/WorkflowStatus"
             required:
                 - channelId
                 - currencyCode
@@ -579,6 +581,19 @@ components:
                 - street1
             type: object
         Status:
+            properties:
+                code:
+                    format: int32
+                    readOnly: true
+                    type: integer
+                label:
+                    example: black
+                    type: string
+                labelI18n:
+                    example: black
+                    type: string
+            type: object
+        WorkflowStatus:
             properties:
                 code:
                     format: int32
