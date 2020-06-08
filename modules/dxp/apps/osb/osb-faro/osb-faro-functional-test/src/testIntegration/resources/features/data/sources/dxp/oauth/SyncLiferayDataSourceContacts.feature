@@ -33,6 +33,9 @@ Feature: Sync Liferay Data Source Contacts
 		And I click the "Save and Continue" button
 		And I click the "Configure" button
 		And I should see that the DXP Contacts data is synced
+		And I go to the "Sites" page
+		And I click the Property Dropdown Menu
+		And I click "SyncLiferayDataSourceContacts - ${Random.1}" in the Property Dropdown Menu
 		And I go to the "Individuals" page
 		And I click the "Known Individuals" tab
 		And I search for "Test Test"
