@@ -141,22 +141,22 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 
 		<aui:script>
 			var valuesContainer = document.querySelector('#values-container');
-			var optionTypeSelect = document.querySelector(
+			var formFieldTypeSelect = document.querySelector(
 				'#<portlet:namespace />DDMFormFieldTypeName'
 			);
 			var sectionsTypeWithMultipleValues = ['select', 'radio', 'checkbox_multiple'];
 
-			function handleTypeSelectChanges() {
-				if (sectionsTypeWithMultipleValues.includes(optionTypeSelect.value)) {
+			function handleFormFieldTypeSelectChanges() {
+				if (sectionsTypeWithMultipleValues.includes(formFieldTypeSelect.value)) {
 					valuesContainer.classList.remove('d-none');
 				} else {
 					valuesContainer.classList.add('d-none');
 				}
 			}
 
-			optionTypeSelect.addEventListener('change', handleTypeSelectChanges);
+			formFieldTypeSelect.addEventListener('change', handleFormFieldTypeSelectChanges);
 
-			handleTypeSelectChanges();
+			handleFormFieldTypeSelectChanges();
 		</aui:script>
 
 		<aui:button-row>
