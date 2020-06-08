@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 
 import {getValueFromItem} from '../../utilities/index';
-import {getDataRendererById} from '../data_renderer/index';
+import {getDataRendererById} from '../data_renderers/index';
 import Expose from './Expose';
 
 function Item(props) {

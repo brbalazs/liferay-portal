@@ -18,14 +18,14 @@ import PropTypes from 'prop-types';
 import React, {useState, useEffect, useContext} from 'react';
 
 import {getValueFromItem} from '../../../../utilities/index';
-import ActionsDropdownRenderer from '../../../data_renderer/ActionsDropdownRenderer';
-import CheckboxRenderer from '../../../data_renderer/CheckboxRenderer';
-import CommentRenderer from '../../../data_renderer/CommentRenderer';
-import RadioRenderer from '../../../data_renderer/RadioRenderer';
+import ActionsDropdownRenderer from '../../../data_renderers/ActionsDropdownRenderer';
+import CheckboxRenderer from '../../../data_renderers/CheckboxRenderer';
+import CommentRenderer from '../../../data_renderers/CommentRenderer';
+import RadioRenderer from '../../../data_renderers/RadioRenderer';
 import {
 	getDataRendererById,
 	getDataRendererByUrl
-} from '../../../data_renderer/index';
+} from '../../../data_renderers/index';
 import DatasetDisplayContext from '../../DatasetDisplayContext';
 import TableHeadRow from './TableHeadRow';
 

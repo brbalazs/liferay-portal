@@ -23,8 +23,8 @@ import LabelRenderer from './LabelRenderer';
 import LinkRenderer from './LinkRenderer';
 import ListRenderer from './ListRenderer';
 import QuantitySelectorRenderer from './QuantitySelectorRenderer';
+import StatusRenderer from './StatusRenderer';
 import TooltipPriceRenderer from './TooltipPriceRenderer';
-import WorkflowStatusRenderer from './WorkflowStatusRenderer';
 
 const dataRenderers = {
 	actionLink: ActionsLinkRenderer,
@@ -37,8 +37,8 @@ const dataRenderers = {
 	link: LinkRenderer,
 	list: ListRenderer,
 	quantitySelector: QuantitySelectorRenderer,
-	tooltipPrice: TooltipPriceRenderer,
-	workflowStatus: WorkflowStatusRenderer
+	status: StatusRenderer,
+	tooltipPrice: TooltipPriceRenderer
 };
 
 export function getDataRendererById(id) {

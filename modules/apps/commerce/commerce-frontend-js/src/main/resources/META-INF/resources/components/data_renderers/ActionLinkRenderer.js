@@ -17,8 +17,8 @@ import ClayLink from '@clayui/link';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 
-import {formatActionUrl, getValueFromItem} from '../../../utilities/index';
-import DatasetDisplayContext from '../DatasetDisplayContext';
+import {formatActionUrl} from '../../utilities/index';
+import DatasetDisplayContext from '../dataset_display/DatasetDisplayContext';
 import DefaultContent from './DefaultRenderer';
 
 function ActionLinkRenderer(props) {
@@ -40,22 +40,22 @@ function ActionLinkRenderer(props) {
 		props.options && props.options.actionId
 			? props.actions.find(action => action.id === props.options.actionId)
 			: props.actions[0];
-	
+
 	if (!currentAction) {
 		return null;
 	}
 
-	if(currentAction.id && !currentAction.href && props.itemData.actions) {
-		if(props.itemData.actions[currentAction.id]) {
+	if (currentAction.id && !currentAction.href && props.itemData.actions) {
+		if (props.itemData.actions[currentAction.id]) {
 			currentAction = {
 				...currentAction,
 				...props.itemData.actions[currentAction.id],
 				target: 'async'
-			}
+			};
 		}
 		return null;
 	}
-			
+
 	const formattedHref =
 		currentAction.href &&
 		formatActionUrl(currentAction.href, props.itemData);

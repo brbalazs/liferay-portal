@@ -18,7 +18,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Checkbox from '../../../data_renderer/CheckboxRenderer';
+import Checkbox from '../../../data_renderers/CheckboxRenderer';
 
 function TableHeadCell(props) {
 	const sortingKey =

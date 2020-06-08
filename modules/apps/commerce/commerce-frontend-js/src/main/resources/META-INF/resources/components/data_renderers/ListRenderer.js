@@ -14,22 +14,25 @@
 
 import PropType from 'prop-types';
 
-import {getValueFromItem} from '../../../utilities/index';
+import {getValueFromItem} from '../../utilities/index';
 
 function ListRenderer(props) {
-	if(!props.value || (props.value.length === 0)) return null;
-	if(props.options.singleItemLabel && (props.value.length === 1)) {
-		return props.options.singleItemLabel
+	if (!props.value || props.value.length === 0) return null;
+	if (props.options.singleItemLabel && props.value.length === 1) {
+		return props.options.singleItemLabel;
 	}
-	if(props.options.multipleItemsLabel && (props.value.length > 1)) {
-		return props.options.multipleItemsLabel
+	if (props.options.multipleItemsLabel && props.value.length > 1) {
+		return props.options.multipleItemsLabel;
 	}
-	return props.value.map(el => getValueFromItem(el, props.options.labelKey)).join(props.options.separator || ', ')
+	return props.value
+		.map(el => getValueFromItem(el, props.options.labelKey))
+		.join(props.options.separator || ', ');
 }
 
 ListRenderer.propTypes = {
 	options: PropType.shape({
-		labelKey: PropType.oneOfType([PropType.array, PropType.string]).isRequired,
+		labelKey: PropType.oneOfType([PropType.array, PropType.string])
+			.isRequired,
 		multipleItemsLabel: PropType.string,
 		separator: PropType.string,
 		singleItemLabel: PropType.string

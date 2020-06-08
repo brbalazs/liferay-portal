@@ -15,24 +15,26 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function WorkflowStatusRenderer(props) {
+function StatusRenderer(props) {
 	return props.value ? (
 		<span className="taglib-workflow-status">
 			<span className="workflow-status">
-				<strong className={`label status workflow-status-${props.value.label} ${props.value.label} workflow-value`}>
-					{props.value.labelI18n}
+				<strong
+					className={`label status workflow-status-${props.value.label} ${props.value.label} workflow-value`}
+				>
+					{props.value.label_i18n}
 				</strong>
 			</span>
 		</span>
 	) : null;
 }
 
-WorkflowStatusRenderer.propTypes = {
+StatusRenderer.propTypes = {
 	value: PropTypes.shape({
 		code: PropTypes.number,
 		label: PropTypes.string,
-		labelI18n: PropTypes.string
+		label_i18n: PropTypes.string
 	})
 };
 
-export default WorkflowStatusRenderer;
+export default StatusRenderer;
