@@ -37,7 +37,11 @@ definition {
 
 		Button.clickSave();
 
-		IFrame.closeFrame();
+		KeyPress(
+			locator1 = "Icon#CLOSE",
+			value1 = "\ESCAPE");
+
+		IFrame.selectTopFrame();
 	}
 
 	macro viewOrdersEntry {
