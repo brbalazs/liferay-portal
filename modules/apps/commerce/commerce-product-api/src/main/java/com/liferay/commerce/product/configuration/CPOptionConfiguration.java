@@ -36,7 +36,7 @@ public interface CPOptionConfiguration {
 	public String[] ddmFormFieldTypesAllowed();
 
 	@Meta.AD(
-		deflt = "select|radio|checkbox_multiple",
+		deflt = "select|radio",
 		name = "sku-contributor-product-option-form-field-types-allowed",
 		required = false
 	)
