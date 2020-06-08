@@ -80,6 +80,13 @@ public interface CatalogResource {
 	public Response postCatalogBatch(String callbackURL, Object object)
 		throws Exception;
 
+	public Catalog getProductByExternalReferenceCodeCatalog(
+			String externalReferenceCode, Pagination pagination)
+		throws Exception;
+
+	public Catalog getProductIdCatalog(Long id, Pagination pagination)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

@@ -106,6 +106,16 @@ public class ProductSerDes {
 			sb.append("]");
 		}
 
+		if (product.getCatalog() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"catalog\": ");
+
+			sb.append(String.valueOf(product.getCatalog()));
+		}
+
 		if (product.getCatalogId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -593,6 +603,13 @@ public class ProductSerDes {
 			map.put("attachments", String.valueOf(product.getAttachments()));
 		}
 
+		if (product.getCatalog() == null) {
+			map.put("catalog", null);
+		}
+		else {
+			map.put("catalog", String.valueOf(product.getCatalog()));
+		}
+
 		if (product.getCatalogId() == null) {
 			map.put("catalogId", null);
 		}
@@ -893,6 +910,12 @@ public class ProductSerDes {
 						).toArray(
 							size -> new Attachment[size]
 						));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "catalog")) {
+				if (jsonParserFieldValue != null) {
+					product.setCatalog(
+						CatalogSerDes.toDTO((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "catalogId")) {

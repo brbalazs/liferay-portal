@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.Catalog;
 import com.liferay.headless.commerce.admin.catalog.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.catalog.client.pagination.Page;
+import com.liferay.headless.commerce.admin.catalog.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.catalog.client.resource.v1_0.CatalogResource;
 import com.liferay.headless.commerce.admin.catalog.client.serdes.v1_0.CatalogSerDes;
 import com.liferay.petra.reflect.ReflectionUtil;
@@ -476,6 +477,139 @@ public abstract class BaseCatalogResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGetProductByExternalReferenceCodeCatalog()
+		throws Exception {
+
+		Catalog postCatalog =
+			testGetProductByExternalReferenceCodeCatalog_addCatalog();
+
+		Catalog getCatalog =
+			catalogResource.getProductByExternalReferenceCodeCatalog(
+				postCatalog.getExternalReferenceCode(), Pagination.of(1, 2));
+
+		assertEquals(postCatalog, getCatalog);
+		assertValid(getCatalog);
+	}
+
+	protected Catalog testGetProductByExternalReferenceCodeCatalog_addCatalog()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetProductByExternalReferenceCodeCatalog()
+		throws Exception {
+
+		Catalog catalog = testGraphQLCatalog_addCatalog();
+
+		Assert.assertTrue(
+			equals(
+				catalog,
+				CatalogSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"productByExternalReferenceCodeCatalog",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"externalReferenceCode",
+											"\"" +
+												catalog.
+													getExternalReferenceCode() +
+														"\"");
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data",
+						"Object/productByExternalReferenceCodeCatalog"))));
+	}
+
+	@Test
+	public void testGraphQLGetProductByExternalReferenceCodeCatalogNotFound()
+		throws Exception {
+
+		String irrelevantExternalReferenceCode =
+			"\"" + RandomTestUtil.randomString() + "\"";
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"productByExternalReferenceCodeCatalog",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"externalReferenceCode",
+									irrelevantExternalReferenceCode);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	@Test
+	public void testGetProductIdCatalog() throws Exception {
+		Catalog postCatalog = testGetProductIdCatalog_addCatalog();
+
+		Catalog getCatalog = catalogResource.getProductIdCatalog(
+			postCatalog.getId(), Pagination.of(1, 2));
+
+		assertEquals(postCatalog, getCatalog);
+		assertValid(getCatalog);
+	}
+
+	protected Catalog testGetProductIdCatalog_addCatalog() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetProductIdCatalog() throws Exception {
+		Catalog catalog = testGraphQLCatalog_addCatalog();
+
+		Assert.assertTrue(
+			equals(
+				catalog,
+				CatalogSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"productIdCatalog",
+								new HashMap<String, Object>() {
+									{
+										put("id", catalog.getId());
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/productIdCatalog"))));
+	}
+
+	@Test
+	public void testGraphQLGetProductIdCatalogNotFound() throws Exception {
+		Long irrelevantId = RandomTestUtil.randomLong();
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"productIdCatalog",
+						new HashMap<String, Object>() {
+							{
+								put("id", irrelevantId);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
 	}
 
 	protected Catalog testGraphQLCatalog_addCatalog() throws Exception {

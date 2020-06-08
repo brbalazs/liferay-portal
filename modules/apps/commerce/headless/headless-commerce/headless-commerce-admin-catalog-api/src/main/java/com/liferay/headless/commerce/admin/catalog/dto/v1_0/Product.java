@@ -147,6 +147,35 @@ public class Product {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Attachment[] attachments;
 
+	@Schema
+	@Valid
+	public Catalog getCatalog() {
+		return catalog;
+	}
+
+	public void setCatalog(Catalog catalog) {
+		this.catalog = catalog;
+	}
+
+	@JsonIgnore
+	public void setCatalog(
+		UnsafeSupplier<Catalog, Exception> catalogUnsafeSupplier) {
+
+		try {
+			catalog = catalogUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Catalog catalog;
+
 	@DecimalMin("0")
 	@Schema
 	public Long getCatalogId() {
@@ -1178,6 +1207,16 @@ public class Product {
 			}
 
 			sb.append("]");
+		}
+
+		if (catalog != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"catalog\": ");
+
+			sb.append(String.valueOf(catalog));
 		}
 
 		if (catalogId != null) {

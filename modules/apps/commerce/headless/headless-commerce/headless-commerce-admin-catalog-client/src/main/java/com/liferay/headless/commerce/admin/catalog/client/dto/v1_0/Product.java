@@ -98,6 +98,27 @@ public class Product implements Cloneable {
 
 	protected Attachment[] attachments;
 
+	public Catalog getCatalog() {
+		return catalog;
+	}
+
+	public void setCatalog(Catalog catalog) {
+		this.catalog = catalog;
+	}
+
+	public void setCatalog(
+		UnsafeSupplier<Catalog, Exception> catalogUnsafeSupplier) {
+
+		try {
+			catalog = catalogUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Catalog catalog;
+
 	public Long getCatalogId() {
 		return catalogId;
 	}
