@@ -462,10 +462,10 @@ components:
                     example: true
                     type: boolean
                 price:
-                    example: 30130
-                    format: bigdecimal
-                    minimum: 0
+                    format: double
                     type: number
+                priceFormatted:
+                    type: string
                 priceListExternalReferenceCode:
                     example: PLAB-34098-789-N
                     type: string
@@ -475,10 +475,10 @@ components:
                     minimum: 0
                     type: integer
                 promoPrice:
-                    example: 30130
-                    format: bigdecimal
-                    minimum: 0
+                    format: double
                     type: number
+                promoPriceFormatted:
+                    type: string
                 sku:
                     example: BL500IC
                     type: string
@@ -925,9 +925,7 @@ components:
                     example: true
                     type: boolean
                 price:
-                    example: 25
-                    format: bigdecimal
-                    minimum: 0
+                    format: double
                     type: number
                 priceEntryExternalReferenceCode:
                     example: CAB-34098-789-N
@@ -937,11 +935,13 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
+                priceFormatted:
+                    type: string
                 promoPrice:
-                    example: 20
-                    format: bigdecimal
-                    minimum: 0
+                    format: double
                     type: number
+                promoPriceFormatted:
+                    type: string
             type: object
     securitySchemes:
         BasicAuth:
