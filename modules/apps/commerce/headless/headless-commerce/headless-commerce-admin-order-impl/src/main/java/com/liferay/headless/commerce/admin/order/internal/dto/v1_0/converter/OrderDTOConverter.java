@@ -28,6 +28,7 @@ import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.Order;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.PaymentStatus;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.Status;
+import com.liferay.headless.commerce.admin.order.dto.v1_0.WorkflowStatus;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -75,10 +76,19 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 		ResourceBundle resourceBundle = LanguageResources.getResourceBundle(
 			locale);
 
-		String commerceOrderStatusLabel = WorkflowConstants.getStatusLabel(
-			commerceOrder.getStatus());
+		String commerceOrderStatusLabel =
+			CommerceOrderConstants.getOrderStatusLabel(
+				commerceOrder.getStatus());
 
 		String commerceOrderStatusLabelI18n = LanguageUtil.get(
+			resourceBundle,
+			CommerceOrderConstants.getOrderStatusLabel(
+				commerceOrder.getStatus()));
+
+		String commerceOrderWorkflowStatusLabel =
+			WorkflowConstants.getStatusLabel(commerceOrder.getStatus());
+
+		String commerceOrderWorkflowStatusLabelI18n = LanguageUtil.get(
 			resourceBundle,
 			WorkflowConstants.getStatusLabel(commerceOrder.getStatus()));
 
@@ -131,6 +141,10 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 					commerceOrder.getOrderStatus(), commerceOrderStatusLabel,
 					commerceOrderStatusLabelI18n);
 				transactionId = commerceOrder.getTransactionId();
+				workflowStatus = _getWorkflowStatus(
+					commerceOrder.getOrderStatus(),
+					commerceOrderWorkflowStatusLabel,
+					commerceOrderWorkflowStatusLabelI18n);
 			}
 		};
 
@@ -321,6 +335,19 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				code = orderStatus;
 				label = commerceOrderStatusLabel;
 				labelI18n = commerceOrderStatusLabelI18n;
+			}
+		};
+	}
+
+	private WorkflowStatus _getWorkflowStatus(
+		int orderStatus, String commerceOrderWorkflowStatusLabel,
+		String commerceOrderWorkflowStatusLabelI18n) {
+
+		return new WorkflowStatus() {
+			{
+				code = orderStatus;
+				label = commerceOrderWorkflowStatusLabel;
+				labelI18n = commerceOrderWorkflowStatusLabelI18n;
 			}
 		};
 	}
