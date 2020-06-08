@@ -24,7 +24,6 @@ import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
 import com.liferay.commerce.product.display.context.util.CPRequestHelper;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
-import com.liferay.item.selector.ItemSelector;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -34,7 +33,6 @@ import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,10 +54,9 @@ public class CommercePricingClassDisplayContext {
 	public CommercePricingClassDisplayContext(
 		HttpServletRequest httpServletRequest,
 		CommercePricingClassService commercePricingClassService,
-		ItemSelector itemSelector, Portal portal) {
+		Portal portal) {
 
 		_commercePricingClassService = commercePricingClassService;
-		_itemSelector = itemSelector;
 		_portal = portal;
 
 		cpRequestHelper = new CPRequestHelper(httpServletRequest);
@@ -179,43 +176,6 @@ public class CommercePricingClassDisplayContext {
 		return headerActionModels;
 	}
 
-	public PortletURL getPortletURL() {
-		LiferayPortletResponse liferayPortletResponse =
-			cpRequestHelper.getLiferayPortletResponse();
-
-		PortletURL portletURL = liferayPortletResponse.createRenderURL();
-
-		String redirect = ParamUtil.getString(
-			cpRequestHelper.getRequest(), "redirect");
-
-		if (Validator.isNotNull(redirect)) {
-			portletURL.setParameter("redirect", redirect);
-		}
-
-		String filterFields = ParamUtil.getString(
-			cpRequestHelper.getRequest(), "filterFields");
-
-		if (Validator.isNotNull(filterFields)) {
-			portletURL.setParameter("filterFields", filterFields);
-		}
-
-		String filtersLabels = ParamUtil.getString(
-			cpRequestHelper.getRequest(), "filtersLabels");
-
-		if (Validator.isNotNull(filtersLabels)) {
-			portletURL.setParameter("filtersLabels", filtersLabels);
-		}
-
-		String filtersValues = ParamUtil.getString(
-			cpRequestHelper.getRequest(), "filtersValues");
-
-		if (Validator.isNotNull(filtersValues)) {
-			portletURL.setParameter("filtersValues", filtersValues);
-		}
-
-		return portletURL;
-	}
-
 	public boolean hasPermission() {
 		return PortalPermissionUtil.contains(
 			cpRequestHelper.getPermissionChecker(),
@@ -225,7 +185,6 @@ public class CommercePricingClassDisplayContext {
 	protected final CPRequestHelper cpRequestHelper;
 
 	private final CommercePricingClassService _commercePricingClassService;
-	private final ItemSelector _itemSelector;
 	private final Portal _portal;
 
 }

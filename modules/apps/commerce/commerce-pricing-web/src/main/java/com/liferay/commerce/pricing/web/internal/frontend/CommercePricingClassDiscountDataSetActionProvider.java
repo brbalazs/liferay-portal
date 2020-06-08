@@ -14,18 +14,18 @@
 
 package com.liferay.commerce.pricing.web.internal.frontend;
 
+import com.liferay.commerce.discount.constants.CommerceDiscountPortletKeys;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
 import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
-import com.liferay.commerce.pricing.constants.CommercePricingPorletKeys;
-import com.liferay.commerce.pricing.web.internal.model.PricingClass;
-import com.liferay.commerce.pricing.web.servlet.taglib.ui.CommercePricingClassScreenNavigationConstants;
+import com.liferay.commerce.pricing.web.internal.model.PricingClassDiscount;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -45,10 +45,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.provider.key=" + CommercePricingClassDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASSES,
+	property = "commerce.data.provider.key=" + CommercePricingClassDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_DISCOUNTS,
 	service = ClayDataSetActionProvider.class
 )
-public class CommercePricingClassDataSetActionProvider
+public class CommercePricingClassDiscountDataSetActionProvider
 	implements ClayDataSetActionProvider {
 
 	@Override
@@ -58,7 +58,7 @@ public class CommercePricingClassDataSetActionProvider
 
 		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
-		PricingClass pricingClass = (PricingClass)model;
+		PricingClassDiscount pricingClassDiscount = (PricingClassDiscount)model;
 
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
@@ -69,8 +69,9 @@ public class CommercePricingClassDataSetActionProvider
 				CommercePricingClassActionKeys.
 					MANAGE_COMMERCE_PRICING_CLASSES)) {
 
-			PortletURL editURL = _getPricingClassEditURL(
-				pricingClass.getPricingClassId(), httpServletRequest);
+			PortletURL editURL = _getDiscountEditURL(
+				pricingClassDiscount.getCommerceDiscountId(),
+				httpServletRequest);
 
 			ClayDataSetAction editClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK, editURL.toString(), StringPool.BLANK,
@@ -78,44 +79,26 @@ public class CommercePricingClassDataSetActionProvider
 				StringPool.BLANK, false, false);
 
 			clayDataSetActions.add(editClayDataSetAction);
-
-			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
-				StringPool.BLANK,
-				_getPricingClassDeleteURL(pricingClass.getPricingClassId()),
-				StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, Constants.DELETE),
-				StringPool.BLANK, false, false);
-
-			deleteClayDataSetAction.setTarget("async");
-
-			deleteClayDataSetAction.setMethod("delete");
-
-			clayDataSetActions.add(deleteClayDataSetAction);
 		}
 
 		return clayDataSetActions;
 	}
 
-	private String _getPricingClassDeleteURL(long pricingClassId) {
-		return "/o/headless-commerce-admin-catalog/v1.0/productGroups/" +
-			pricingClassId;
-	}
-
-	private PortletURL _getPricingClassEditURL(
-		long pricingClassId, HttpServletRequest httpServletRequest) {
+	private PortletURL _getDiscountEditURL(
+		long commerceDiscountId, HttpServletRequest httpServletRequest) {
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			httpServletRequest,
-			CommercePricingPorletKeys.COMMERCE_PRICING_CLASSES,
+			httpServletRequest, CommerceDiscountPortletKeys.COMMERCE_DISCOUNT,
 			PortletRequest.RENDER_PHASE);
 
+		String redirect = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			_portal.getCurrentURL(httpServletRequest));
+
+		portletURL.setParameter("mvcRenderCommandName", "editCommerceDiscount");
 		portletURL.setParameter(
-			"mvcRenderCommandName", "editCommercePricingClass");
-		portletURL.setParameter(
-			"commercePricingClassId", String.valueOf(pricingClassId));
-		portletURL.setParameter(
-			"screenNavigationCategoryKey",
-			CommercePricingClassScreenNavigationConstants.CATEGORY_KEY_DETAILS);
+			"commerceDiscountId", String.valueOf(commerceDiscountId));
+		portletURL.setParameter("redirect", redirect);
 
 		return portletURL;
 	}

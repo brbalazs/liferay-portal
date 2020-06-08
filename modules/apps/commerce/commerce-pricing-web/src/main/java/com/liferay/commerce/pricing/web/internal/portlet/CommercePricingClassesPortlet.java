@@ -17,7 +17,6 @@ package com.liferay.commerce.pricing.web.internal.portlet;
 import com.liferay.commerce.pricing.constants.CommercePricingPorletKeys;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
 import com.liferay.commerce.pricing.web.internal.display.context.CommercePricingClassDisplayContext;
-import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -66,7 +65,7 @@ public class CommercePricingClassesPortlet extends MVCPortlet {
 		CommercePricingClassDisplayContext commercePricingClassDisplayContext =
 			new CommercePricingClassDisplayContext(
 				_portal.getHttpServletRequest(renderRequest),
-				_commercePricingClassService, _itemSelector, _portal);
+				_commercePricingClassService, _portal);
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -77,9 +76,6 @@ public class CommercePricingClassesPortlet extends MVCPortlet {
 
 	@Reference
 	private CommercePricingClassService _commercePricingClassService;
-
-	@Reference
-	private ItemSelector _itemSelector;
 
 	@Reference
 	private Portal _portal;
