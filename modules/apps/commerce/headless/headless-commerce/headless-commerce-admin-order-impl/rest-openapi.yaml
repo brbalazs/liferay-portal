@@ -212,26 +212,11 @@ components:
                     format: int32
                     minimum: 0
                     type: integer
-                orderStatusLabel:
-                    example: approved
-                    type: string
-                orderStatusLabelI18n:
-                    example: approved
-                    type: string
                 paymentMethod:
                     example: paypal
                     type: string
                 paymentStatus:
-                    example: 0
-                    format: int32
-                    minimum: 0
-                    type: integer
-                paymentStatusLabel:
-                    example: approved
-                    type: string
-                paymentStatusLabelI18n:
-                    example: Approved
-                    type: string
+                    $ref: "#/components/schemas/PaymentStatus"
                 printedNote:
                     example: Order printed note
                     type: string
@@ -292,6 +277,8 @@ components:
                 shippingOption:
                     example: by Air
                     type: string
+                status:
+                    $ref: "#/components/schemas/Status"
                 subtotal:
                     format: bigdecimal
                     type: number
@@ -523,6 +510,19 @@ components:
                     example: true
                     type: boolean
             type: object
+        PaymentStatus:
+            properties:
+                code:
+                    format: int32
+                    readOnly: true
+                    type: integer
+                label:
+                    example: black
+                    type: string
+                labelI18n:
+                    example: black
+                    type: string
+            type: object
         ShippingAddress:
             properties:
                 city:
@@ -577,6 +577,19 @@ components:
                 - countryISOCode
                 - name
                 - street1
+            type: object
+        Status:
+            properties:
+                code:
+                    format: int32
+                    readOnly: true
+                    type: integer
+                label:
+                    example: black
+                    type: string
+                labelI18n:
+                    example: black
+                    type: string
             type: object
     securitySchemes:
         BasicAuth:
