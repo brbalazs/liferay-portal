@@ -667,6 +667,10 @@ components:
             type: object
         ProductGroup:
             properties:
+                customFields:
+                    additionalProperties: true
+                    readOnly: true
+                    type: object
                 description:
                     type: object
                     additionalProperties:
