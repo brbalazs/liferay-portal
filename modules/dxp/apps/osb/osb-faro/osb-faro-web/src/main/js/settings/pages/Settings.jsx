@@ -93,6 +93,18 @@ const RecommendationList = lazy(() =>
 	)
 );
 
+const RecommendationCreateItemSimilarity = lazy(() =>
+	import(
+		/* webpackChunkName: "RecommendationCreateItemSimilarity" */ '../recommendations/pages/CreateItemSimilarity'
+	)
+);
+
+const RecommendationEdit = lazy(() =>
+	import(
+		/* webpackChunkName: "RecommendationEdit" */ '../recommendations/pages/Edit'
+	)
+);
+
 // Other
 
 const UsageOverview = lazy(() =>
@@ -383,11 +395,34 @@ export class Settings extends React.Component {
 								/>
 
 								{DEVELOPER_MODE && (
-									<BundleRouter
-										data={RecommendationList}
-										destructured={false}
-										path={Routes.SETTINGS_RECOMMENDATIONS}
-									/>
+									<>
+										<BundleRouter
+											data={RecommendationList}
+											destructured={false}
+											exact
+											path={
+												Routes.SETTINGS_RECOMMENDATIONS
+											}
+										/>
+
+										<BundleRouter
+											data={
+												RecommendationCreateItemSimilarity
+											}
+											destructured={false}
+											path={
+												Routes.SETTINGS_RECOMMENDATIONS_CREATE_ITEM_SIMILARITY_MODEL
+											}
+										/>
+
+										<BundleRouter
+											data={RecommendationEdit}
+											destructured={false}
+											path={
+												Routes.SETTINGS_RECOMMENDATION_EDIT
+											}
+										/>
+									</>
 								)}
 
 								<RouteNotFound />

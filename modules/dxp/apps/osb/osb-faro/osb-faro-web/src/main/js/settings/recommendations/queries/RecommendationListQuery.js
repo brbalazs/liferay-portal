@@ -12,6 +12,7 @@ export default gql`
 				id
 				name
 				status
+				trainingDate
 				trainingFrequency
 				trainingPeriod
 				type

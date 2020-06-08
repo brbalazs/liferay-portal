@@ -191,7 +191,7 @@ const RecommendationList: React.FC<IRecommendationListProps> = ({
 							className='nav-btn'
 							display='primary'
 							href={toRoute(
-								Routes.SETTINGS_RECOMMENDATIONS_CREATE_MODEL,
+								Routes.SETTINGS_RECOMMENDATIONS_CREATE_ITEM_SIMILARITY_MODEL,
 								{groupId}
 							)}
 						>
