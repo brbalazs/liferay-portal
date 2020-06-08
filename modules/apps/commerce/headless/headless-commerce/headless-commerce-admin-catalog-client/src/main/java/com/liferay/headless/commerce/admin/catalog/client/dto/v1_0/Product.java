@@ -675,68 +675,26 @@ public class Product implements Cloneable {
 
 	protected Sku[] skus;
 
-	public Integer getStatusCode() {
-		return statusCode;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setStatusCode(Integer statusCode) {
-		this.statusCode = statusCode;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
-	public void setStatusCode(
-		UnsafeSupplier<Integer, Exception> statusCodeUnsafeSupplier) {
+	public void setStatus(
+		UnsafeSupplier<Status, Exception> statusUnsafeSupplier) {
 
 		try {
-			statusCode = statusCodeUnsafeSupplier.get();
+			status = statusUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected Integer statusCode;
-
-	public String getStatusLabel() {
-		return statusLabel;
-	}
-
-	public void setStatusLabel(String statusLabel) {
-		this.statusLabel = statusLabel;
-	}
-
-	public void setStatusLabel(
-		UnsafeSupplier<String, Exception> statusLabelUnsafeSupplier) {
-
-		try {
-			statusLabel = statusLabelUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String statusLabel;
-
-	public String getStatusLabelI18n() {
-		return statusLabelI18n;
-	}
-
-	public void setStatusLabelI18n(String statusLabelI18n) {
-		this.statusLabelI18n = statusLabelI18n;
-	}
-
-	public void setStatusLabelI18n(
-		UnsafeSupplier<String, Exception> statusLabelI18nUnsafeSupplier) {
-
-		try {
-			statusLabelI18n = statusLabelI18nUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String statusLabelI18n;
+	protected Status status;
 
 	public ProductSubscriptionConfiguration getSubscriptionConfiguration() {
 		return subscriptionConfiguration;

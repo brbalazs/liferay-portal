@@ -473,42 +473,14 @@ public class ProductSerDes {
 			sb.append("]");
 		}
 
-		if (product.getStatusCode() != null) {
+		if (product.getStatus() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"statusCode\": ");
+			sb.append("\"status\": ");
 
-			sb.append(product.getStatusCode());
-		}
-
-		if (product.getStatusLabel() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"statusLabel\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(product.getStatusLabel()));
-
-			sb.append("\"");
-		}
-
-		if (product.getStatusLabelI18n() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"statusLabelI18n\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(product.getStatusLabelI18n()));
-
-			sb.append("\"");
+			sb.append(String.valueOf(product.getStatus()));
 		}
 
 		if (product.getSubscriptionConfiguration() != null) {
@@ -834,27 +806,11 @@ public class ProductSerDes {
 			map.put("skus", String.valueOf(product.getSkus()));
 		}
 
-		if (product.getStatusCode() == null) {
-			map.put("statusCode", null);
+		if (product.getStatus() == null) {
+			map.put("status", null);
 		}
 		else {
-			map.put("statusCode", String.valueOf(product.getStatusCode()));
-		}
-
-		if (product.getStatusLabel() == null) {
-			map.put("statusLabel", null);
-		}
-		else {
-			map.put("statusLabel", String.valueOf(product.getStatusLabel()));
-		}
-
-		if (product.getStatusLabelI18n() == null) {
-			map.put("statusLabelI18n", null);
-		}
-		else {
-			map.put(
-				"statusLabelI18n",
-				String.valueOf(product.getStatusLabelI18n()));
+			map.put("status", String.valueOf(product.getStatus()));
 		}
 
 		if (product.getSubscriptionConfiguration() == null) {
@@ -1140,20 +1096,10 @@ public class ProductSerDes {
 						));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "statusCode")) {
+			else if (Objects.equals(jsonParserFieldName, "status")) {
 				if (jsonParserFieldValue != null) {
-					product.setStatusCode(
-						Integer.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "statusLabel")) {
-				if (jsonParserFieldValue != null) {
-					product.setStatusLabel((String)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "statusLabelI18n")) {
-				if (jsonParserFieldValue != null) {
-					product.setStatusLabelI18n((String)jsonParserFieldValue);
+					product.setStatus(
+						StatusSerDes.toDTO((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(

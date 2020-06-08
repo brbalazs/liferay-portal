@@ -934,48 +934,21 @@ public class Product {
 	protected Sku[] skus;
 
 	@Schema
-	public Integer getStatusCode() {
-		return statusCode;
+	@Valid
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setStatusCode(Integer statusCode) {
-		this.statusCode = statusCode;
-	}
-
-	@JsonIgnore
-	public void setStatusCode(
-		UnsafeSupplier<Integer, Exception> statusCodeUnsafeSupplier) {
-
-		try {
-			statusCode = statusCodeUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected Integer statusCode;
-
-	@Schema
-	public String getStatusLabel() {
-		return statusLabel;
-	}
-
-	public void setStatusLabel(String statusLabel) {
-		this.statusLabel = statusLabel;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	@JsonIgnore
-	public void setStatusLabel(
-		UnsafeSupplier<String, Exception> statusLabelUnsafeSupplier) {
+	public void setStatus(
+		UnsafeSupplier<Status, Exception> statusUnsafeSupplier) {
 
 		try {
-			statusLabel = statusLabelUnsafeSupplier.get();
+			status = statusUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -987,35 +960,7 @@ public class Product {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String statusLabel;
-
-	@Schema
-	public String getStatusLabelI18n() {
-		return statusLabelI18n;
-	}
-
-	public void setStatusLabelI18n(String statusLabelI18n) {
-		this.statusLabelI18n = statusLabelI18n;
-	}
-
-	@JsonIgnore
-	public void setStatusLabelI18n(
-		UnsafeSupplier<String, Exception> statusLabelI18nUnsafeSupplier) {
-
-		try {
-			statusLabelI18n = statusLabelI18nUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String statusLabelI18n;
+	protected Status status;
 
 	@Schema
 	@Valid
@@ -1597,42 +1542,14 @@ public class Product {
 			sb.append("]");
 		}
 
-		if (statusCode != null) {
+		if (status != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"statusCode\": ");
+			sb.append("\"status\": ");
 
-			sb.append(statusCode);
-		}
-
-		if (statusLabel != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"statusLabel\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(statusLabel));
-
-			sb.append("\"");
-		}
-
-		if (statusLabelI18n != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"statusLabelI18n\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(statusLabelI18n));
-
-			sb.append("\"");
+			sb.append(String.valueOf(status));
 		}
 
 		if (subscriptionConfiguration != null) {

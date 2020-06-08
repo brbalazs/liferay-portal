@@ -193,8 +193,6 @@ public abstract class BaseProductResourceTestCase {
 		product.setExternalReferenceCode(regex);
 		product.setProductType(regex);
 		product.setProductTypeI18n(regex);
-		product.setStatusLabel(regex);
-		product.setStatusLabelI18n(regex);
 		product.setThumbnail(regex);
 
 		String json = ProductSerDes.toJSON(product);
@@ -207,8 +205,6 @@ public abstract class BaseProductResourceTestCase {
 		Assert.assertEquals(regex, product.getExternalReferenceCode());
 		Assert.assertEquals(regex, product.getProductType());
 		Assert.assertEquals(regex, product.getProductTypeI18n());
-		Assert.assertEquals(regex, product.getStatusLabel());
-		Assert.assertEquals(regex, product.getStatusLabelI18n());
 		Assert.assertEquals(regex, product.getThumbnail());
 	}
 
@@ -1018,24 +1014,8 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("statusCode", additionalAssertFieldName)) {
-				if (product.getStatusCode() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("statusLabel", additionalAssertFieldName)) {
-				if (product.getStatusLabel() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("statusLabelI18n", additionalAssertFieldName)) {
-				if (product.getStatusLabelI18n() == null) {
+			if (Objects.equals("status", additionalAssertFieldName)) {
+				if (product.getStatus() == null) {
 					valid = false;
 				}
 
@@ -1492,30 +1472,9 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("statusCode", additionalAssertFieldName)) {
+			if (Objects.equals("status", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						product1.getStatusCode(), product2.getStatusCode())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("statusLabel", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						product1.getStatusLabel(), product2.getStatusLabel())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("statusLabelI18n", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						product1.getStatusLabelI18n(),
-						product2.getStatusLabelI18n())) {
+						product1.getStatus(), product2.getStatus())) {
 
 					return false;
 				}
@@ -1923,25 +1882,9 @@ public abstract class BaseProductResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("statusCode")) {
+		if (entityFieldName.equals("status")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("statusLabel")) {
-			sb.append("'");
-			sb.append(String.valueOf(product.getStatusLabel()));
-			sb.append("'");
-
-			return sb.toString();
-		}
-
-		if (entityFieldName.equals("statusLabelI18n")) {
-			sb.append("'");
-			sb.append(String.valueOf(product.getStatusLabelI18n()));
-			sb.append("'");
-
-			return sb.toString();
 		}
 
 		if (entityFieldName.equals("subscriptionConfiguration")) {
@@ -2032,11 +1975,6 @@ public abstract class BaseProductResourceTestCase {
 				productType = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				productTypeI18n = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				statusCode = RandomTestUtil.randomInt();
-				statusLabel = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				statusLabelI18n = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				thumbnail = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
