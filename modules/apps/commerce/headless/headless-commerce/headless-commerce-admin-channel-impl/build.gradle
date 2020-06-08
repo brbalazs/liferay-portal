@@ -19,5 +19,4 @@ dependencies {
 	compileOnly project(":apps:commerce:headless:headless-commerce:headless-commerce-admin-channel-api")
 	compileOnly project(":apps:portal-vulcan:portal-vulcan-api")
 
-	testCompile group: "org.mockito", name: "mockito-core", version: "1.10.8"
 }
