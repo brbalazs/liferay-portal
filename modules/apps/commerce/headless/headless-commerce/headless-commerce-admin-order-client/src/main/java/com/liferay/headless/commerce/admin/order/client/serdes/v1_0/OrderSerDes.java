@@ -758,6 +758,16 @@ public class OrderSerDes {
 			sb.append("\"");
 		}
 
+		if (order.getWorkflowStatus() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"workflowStatus\": ");
+
+			sb.append(String.valueOf(order.getWorkflowStatus()));
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -1264,6 +1274,14 @@ public class OrderSerDes {
 			map.put("transactionId", String.valueOf(order.getTransactionId()));
 		}
 
+		if (order.getWorkflowStatus() == null) {
+			map.put("workflowStatus", null);
+		}
+		else {
+			map.put(
+				"workflowStatus", String.valueOf(order.getWorkflowStatus()));
+		}
+
 		return map;
 	}
 
@@ -1688,6 +1706,13 @@ public class OrderSerDes {
 			else if (Objects.equals(jsonParserFieldName, "transactionId")) {
 				if (jsonParserFieldValue != null) {
 					order.setTransactionId((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "workflowStatus")) {
+				if (jsonParserFieldValue != null) {
+					order.setWorkflowStatus(
+						WorkflowStatusSerDes.toDTO(
+							(String)jsonParserFieldValue));
 				}
 			}
 			else {

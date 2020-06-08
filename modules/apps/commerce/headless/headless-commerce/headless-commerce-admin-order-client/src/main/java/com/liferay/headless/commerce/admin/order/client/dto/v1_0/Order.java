@@ -1351,6 +1351,28 @@ public class Order implements Cloneable {
 
 	protected String transactionId;
 
+	public WorkflowStatus getWorkflowStatus() {
+		return workflowStatus;
+	}
+
+	public void setWorkflowStatus(WorkflowStatus workflowStatus) {
+		this.workflowStatus = workflowStatus;
+	}
+
+	public void setWorkflowStatus(
+		UnsafeSupplier<WorkflowStatus, Exception>
+			workflowStatusUnsafeSupplier) {
+
+		try {
+			workflowStatus = workflowStatusUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected WorkflowStatus workflowStatus;
+
 	@Override
 	public Order clone() throws CloneNotSupportedException {
 		return (Order)super.clone();

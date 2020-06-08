@@ -1826,6 +1826,36 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String transactionId;
 
+	@Schema
+	@Valid
+	public WorkflowStatus getWorkflowStatus() {
+		return workflowStatus;
+	}
+
+	public void setWorkflowStatus(WorkflowStatus workflowStatus) {
+		this.workflowStatus = workflowStatus;
+	}
+
+	@JsonIgnore
+	public void setWorkflowStatus(
+		UnsafeSupplier<WorkflowStatus, Exception>
+			workflowStatusUnsafeSupplier) {
+
+		try {
+			workflowStatus = workflowStatusUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected WorkflowStatus workflowStatus;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -2546,6 +2576,16 @@ public class Order {
 			sb.append(_escape(transactionId));
 
 			sb.append("\"");
+		}
+
+		if (workflowStatus != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"workflowStatus\": ");
+
+			sb.append(String.valueOf(workflowStatus));
 		}
 
 		sb.append("}");
