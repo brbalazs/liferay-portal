@@ -300,34 +300,6 @@ public class OrderSerDes {
 			sb.append(order.getOrderStatus());
 		}
 
-		if (order.getOrderStatusLabel() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"orderStatusLabel\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(order.getOrderStatusLabel()));
-
-			sb.append("\"");
-		}
-
-		if (order.getOrderStatusLabelI18n() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"orderStatusLabelI18n\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(order.getOrderStatusLabelI18n()));
-
-			sb.append("\"");
-		}
-
 		if (order.getPaymentMethod() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -349,35 +321,7 @@ public class OrderSerDes {
 
 			sb.append("\"paymentStatus\": ");
 
-			sb.append(order.getPaymentStatus());
-		}
-
-		if (order.getPaymentStatusLabel() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"paymentStatusLabel\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(order.getPaymentStatusLabel()));
-
-			sb.append("\"");
-		}
-
-		if (order.getPaymentStatusLabelI18n() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"paymentStatusLabelI18n\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(order.getPaymentStatusLabelI18n()));
-
-			sb.append("\"");
+			sb.append(String.valueOf(order.getPaymentStatus()));
 		}
 
 		if (order.getPrintedNote() != null) {
@@ -568,6 +512,16 @@ public class OrderSerDes {
 			sb.append(_escape(order.getShippingOption()));
 
 			sb.append("\"");
+		}
+
+		if (order.getStatus() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"status\": ");
+
+			sb.append(String.valueOf(order.getStatus()));
 		}
 
 		if (order.getSubtotal() != null) {
@@ -973,24 +927,6 @@ public class OrderSerDes {
 			map.put("orderStatus", String.valueOf(order.getOrderStatus()));
 		}
 
-		if (order.getOrderStatusLabel() == null) {
-			map.put("orderStatusLabel", null);
-		}
-		else {
-			map.put(
-				"orderStatusLabel",
-				String.valueOf(order.getOrderStatusLabel()));
-		}
-
-		if (order.getOrderStatusLabelI18n() == null) {
-			map.put("orderStatusLabelI18n", null);
-		}
-		else {
-			map.put(
-				"orderStatusLabelI18n",
-				String.valueOf(order.getOrderStatusLabelI18n()));
-		}
-
 		if (order.getPaymentMethod() == null) {
 			map.put("paymentMethod", null);
 		}
@@ -1003,24 +939,6 @@ public class OrderSerDes {
 		}
 		else {
 			map.put("paymentStatus", String.valueOf(order.getPaymentStatus()));
-		}
-
-		if (order.getPaymentStatusLabel() == null) {
-			map.put("paymentStatusLabel", null);
-		}
-		else {
-			map.put(
-				"paymentStatusLabel",
-				String.valueOf(order.getPaymentStatusLabel()));
-		}
-
-		if (order.getPaymentStatusLabelI18n() == null) {
-			map.put("paymentStatusLabelI18n", null);
-		}
-		else {
-			map.put(
-				"paymentStatusLabelI18n",
-				String.valueOf(order.getPaymentStatusLabelI18n()));
 		}
 
 		if (order.getPrintedNote() == null) {
@@ -1160,6 +1078,13 @@ public class OrderSerDes {
 		else {
 			map.put(
 				"shippingOption", String.valueOf(order.getShippingOption()));
+		}
+
+		if (order.getStatus() == null) {
+			map.put("status", null);
+		}
+		else {
+			map.put("status", String.valueOf(order.getStatus()));
 		}
 
 		if (order.getSubtotal() == null) {
@@ -1479,18 +1404,6 @@ public class OrderSerDes {
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "orderStatusLabel")) {
-				if (jsonParserFieldValue != null) {
-					order.setOrderStatusLabel((String)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(
-						jsonParserFieldName, "orderStatusLabelI18n")) {
-
-				if (jsonParserFieldValue != null) {
-					order.setOrderStatusLabelI18n((String)jsonParserFieldValue);
-				}
-			}
 			else if (Objects.equals(jsonParserFieldName, "paymentMethod")) {
 				if (jsonParserFieldValue != null) {
 					order.setPaymentMethod((String)jsonParserFieldValue);
@@ -1499,22 +1412,8 @@ public class OrderSerDes {
 			else if (Objects.equals(jsonParserFieldName, "paymentStatus")) {
 				if (jsonParserFieldValue != null) {
 					order.setPaymentStatus(
-						Integer.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(
-						jsonParserFieldName, "paymentStatusLabel")) {
-
-				if (jsonParserFieldValue != null) {
-					order.setPaymentStatusLabel((String)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(
-						jsonParserFieldName, "paymentStatusLabelI18n")) {
-
-				if (jsonParserFieldValue != null) {
-					order.setPaymentStatusLabelI18n(
-						(String)jsonParserFieldValue);
+						PaymentStatusSerDes.toDTO(
+							(String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "printedNote")) {
@@ -1632,6 +1531,12 @@ public class OrderSerDes {
 			else if (Objects.equals(jsonParserFieldName, "shippingOption")) {
 				if (jsonParserFieldValue != null) {
 					order.setShippingOption((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "status")) {
+				if (jsonParserFieldValue != null) {
+					order.setStatus(
+						StatusSerDes.toDTO((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "subtotal")) {
