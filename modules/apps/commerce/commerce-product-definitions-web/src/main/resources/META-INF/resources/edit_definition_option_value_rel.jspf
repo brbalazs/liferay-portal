@@ -117,7 +117,8 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 
 				if (e.value) {
 					quantityInput.disabled = false;
-					quantityInput.value = (quantityInput.value != 0) ? quantityInput.value : 1;
+					quantityInput.value =
+						quantityInput.value != 0 ? quantityInput.value : 1;
 					deleteButton.disabled = false;
 				} else {
 					quantityInput.disabled = true;
