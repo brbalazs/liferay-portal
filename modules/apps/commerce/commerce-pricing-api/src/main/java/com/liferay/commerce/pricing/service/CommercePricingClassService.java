@@ -93,6 +93,10 @@ public interface CommercePricingClassService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long[] getCommercePricingClassByCPDefinition(long cpDefinitionId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePricingClass> getCommercePricingClasses(
 			long companyId, int start, int end,
 			OrderByComparator<CommercePricingClass> orderByComparator)

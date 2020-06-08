@@ -89,6 +89,14 @@ public class CommercePricingClassServiceUtil {
 		return getService().getCommercePricingClass(commercePricingClassId);
 	}
 
+	public static long[] getCommercePricingClassByCPDefinition(
+			long cpDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().getCommercePricingClassByCPDefinition(
+			cpDefinitionId);
+	}
+
 	public static java.util.List
 		<com.liferay.commerce.pricing.model.CommercePricingClass>
 				getCommercePricingClasses(

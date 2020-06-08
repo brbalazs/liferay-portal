@@ -67,28 +67,6 @@ public class CommercePricingClassServiceSoap {
 
 	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
 			addCommercePricingClass(
-				long userId, long groupId, String title, String description,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws RemoteException {
-
-		try {
-			com.liferay.commerce.pricing.model.CommercePricingClass
-				returnValue =
-					CommercePricingClassServiceUtil.addCommercePricingClass(
-						userId, groupId, title, description, serviceContext);
-
-			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
-				toSoapModel(returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
-			addCommercePricingClass(
 				long userId, long groupId, String[] titleMapLanguageIds,
 				String[] titleMapValues, String[] descriptionMapLanguageIds,
 				String[] descriptionMapValues,
@@ -107,6 +85,28 @@ public class CommercePricingClassServiceSoap {
 					CommercePricingClassServiceUtil.addCommercePricingClass(
 						userId, groupId, titleMap, descriptionMap,
 						serviceContext);
+
+			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
+			addCommercePricingClass(
+				long userId, long groupId, String title, String description,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.pricing.model.CommercePricingClass
+				returnValue =
+					CommercePricingClassServiceUtil.addCommercePricingClass(
+						userId, groupId, title, description, serviceContext);
 
 			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
 				toSoapModel(returnValue);
@@ -192,6 +192,24 @@ public class CommercePricingClassServiceSoap {
 
 			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
 				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static long[] getCommercePricingClassByCPDefinition(
+			long cpDefinitionId)
+		throws RemoteException {
+
+		try {
+			long[] returnValue =
+				CommercePricingClassServiceUtil.
+					getCommercePricingClassByCPDefinition(cpDefinitionId);
+
+			return returnValue;
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -302,30 +320,6 @@ public class CommercePricingClassServiceSoap {
 	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
 			upsertCommercePricingClass(
 				long commercePricingClassId, long userId, long groupId,
-				String title, String description, String externalReferenceCode,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws RemoteException {
-
-		try {
-			com.liferay.commerce.pricing.model.CommercePricingClass
-				returnValue =
-					CommercePricingClassServiceUtil.upsertCommercePricingClass(
-						commercePricingClassId, userId, groupId, title,
-						description, externalReferenceCode, serviceContext);
-
-			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
-				toSoapModel(returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
-			upsertCommercePricingClass(
-				long commercePricingClassId, long userId, long groupId,
 				String[] titleMapLanguageIds, String[] titleMapValues,
 				String[] descriptionMapLanguageIds,
 				String[] descriptionMapValues, String externalReferenceCode,
@@ -344,6 +338,30 @@ public class CommercePricingClassServiceSoap {
 					CommercePricingClassServiceUtil.upsertCommercePricingClass(
 						commercePricingClassId, userId, groupId, titleMap,
 						descriptionMap, externalReferenceCode, serviceContext);
+
+			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
+			upsertCommercePricingClass(
+				long commercePricingClassId, long userId, long groupId,
+				String title, String description, String externalReferenceCode,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.pricing.model.CommercePricingClass
+				returnValue =
+					CommercePricingClassServiceUtil.upsertCommercePricingClass(
+						commercePricingClassId, userId, groupId, title,
+						description, externalReferenceCode, serviceContext);
 
 			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
 				toSoapModel(returnValue);

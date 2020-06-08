@@ -95,6 +95,14 @@ public class CommercePricingClassServiceWrapper
 	}
 
 	@Override
+	public long[] getCommercePricingClassByCPDefinition(long cpDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePricingClassService.
+			getCommercePricingClassByCPDefinition(cpDefinitionId);
+	}
+
+	@Override
 	public java.util.List
 		<com.liferay.commerce.pricing.model.CommercePricingClass>
 				getCommercePricingClasses(
