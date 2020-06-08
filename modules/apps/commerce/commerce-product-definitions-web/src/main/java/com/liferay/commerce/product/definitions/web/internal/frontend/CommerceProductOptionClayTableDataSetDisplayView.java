@@ -33,6 +33,7 @@ public class CommerceProductOptionClayTableDataSetDisplayView
 	@Override
 	protected void addFields(ClayTableSchemaBuilder clayTableSchemaBuilder) {
 		clayTableSchemaBuilder.addField("fieldType", "field-type");
+		clayTableSchemaBuilder.addField("skuContributor", "sku-contributor");
 		clayTableSchemaBuilder.addField("required", "is-required");
 		clayTableSchemaBuilder.addField("position", "position");
 		clayTableSchemaBuilder.addField("values", "values");
