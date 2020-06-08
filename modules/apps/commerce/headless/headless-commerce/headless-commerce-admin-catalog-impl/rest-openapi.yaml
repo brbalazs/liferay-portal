@@ -584,16 +584,8 @@ components:
                     items:
                         $ref: "#/components/schemas/Sku"
                     type: array
-                statusCode:
-                    format: int32
-                    readOnly: true
-                    type: integer
-                statusLabel:
-                    example: simple
-                    type: string
-                statusLabelI18n:
-                    example: simple
-                    type: string
+                status:
+                    $ref: "#/components/schemas/Status"
                 subscriptionConfiguration:
                     $ref: "#/components/schemas/ProductSubscriptionConfiguration"
                 tags:
@@ -1030,6 +1022,19 @@ components:
             required:
                 - key
                 - title
+            type: object
+        Status:
+            properties:
+                code:
+                    format: int32
+                    readOnly: true
+                    type: integer
+                label:
+                    example: black
+                    type: string
+                labelI18n:
+                    example: black
+                    type: string
             type: object
     securitySchemes:
         BasicAuth:
