@@ -10,7 +10,6 @@ import getCN from 'classnames';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense, useContext, useEffect} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
-import {get} from 'lodash';
 import {Routes, toRoute} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
