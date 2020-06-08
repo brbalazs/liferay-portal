@@ -834,6 +834,14 @@ public abstract class BaseProductGroupResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("customFields", additionalAssertFieldName)) {
+				if (productGroup.getCustomFields() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("description", additionalAssertFieldName)) {
 				if (productGroup.getDescription() == null) {
 					valid = false;
@@ -967,6 +975,17 @@ public abstract class BaseProductGroupResourceTestCase {
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
+
+			if (Objects.equals("customFields", additionalAssertFieldName)) {
+				if (!equals(
+						(Map)productGroup1.getCustomFields(),
+						(Map)productGroup2.getCustomFields())) {
+
+					return false;
+				}
+
+				continue;
+			}
 
 			if (Objects.equals("description", additionalAssertFieldName)) {
 				if (!equals(
@@ -1116,6 +1135,11 @@ public abstract class BaseProductGroupResourceTestCase {
 		sb.append(" ");
 		sb.append(operator);
 		sb.append(" ");
+
+		if (entityFieldName.equals("customFields")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
 
 		if (entityFieldName.equals("description")) {
 			throw new IllegalArgumentException(

@@ -54,6 +54,35 @@ public class ProductGroup {
 
 	@Schema
 	@Valid
+	public Map<String, ?> getCustomFields() {
+		return customFields;
+	}
+
+	public void setCustomFields(Map<String, ?> customFields) {
+		this.customFields = customFields;
+	}
+
+	@JsonIgnore
+	public void setCustomFields(
+		UnsafeSupplier<Map<String, ?>, Exception> customFieldsUnsafeSupplier) {
+
+		try {
+			customFields = customFieldsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Map<String, ?> customFields;
+
+	@Schema
+	@Valid
 	public Map<String, String> getDescription() {
 		return description;
 	}
@@ -251,6 +280,16 @@ public class ProductGroup {
 		StringBundler sb = new StringBundler();
 
 		sb.append("{");
+
+		if (customFields != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"customFields\": ");
+
+			sb.append(_toJSON(customFields));
+		}
 
 		if (description != null) {
 			if (sb.length() > 1) {

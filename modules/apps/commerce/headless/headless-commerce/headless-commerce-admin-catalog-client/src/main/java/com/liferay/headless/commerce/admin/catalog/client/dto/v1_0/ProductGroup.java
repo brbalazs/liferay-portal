@@ -33,6 +33,27 @@ public class ProductGroup implements Cloneable {
 		return ProductGroupSerDes.toDTO(json);
 	}
 
+	public Map<String, ?> getCustomFields() {
+		return customFields;
+	}
+
+	public void setCustomFields(Map<String, ?> customFields) {
+		this.customFields = customFields;
+	}
+
+	public void setCustomFields(
+		UnsafeSupplier<Map<String, ?>, Exception> customFieldsUnsafeSupplier) {
+
+		try {
+			customFields = customFieldsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Map<String, ?> customFields;
+
 	public Map<String, String> getDescription() {
 		return description;
 	}

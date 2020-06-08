@@ -57,6 +57,16 @@ public class ProductGroupSerDes {
 
 		sb.append("{");
 
+		if (productGroup.getCustomFields() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"customFields\": ");
+
+			sb.append(_toJSON(productGroup.getCustomFields()));
+		}
+
 		if (productGroup.getDescription() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -150,6 +160,14 @@ public class ProductGroupSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (productGroup.getCustomFields() == null) {
+			map.put("customFields", null);
+		}
+		else {
+			map.put(
+				"customFields", String.valueOf(productGroup.getCustomFields()));
+		}
+
 		if (productGroup.getDescription() == null) {
 			map.put("description", null);
 		}
@@ -218,7 +236,14 @@ public class ProductGroupSerDes {
 			ProductGroup productGroup, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "description")) {
+			if (Objects.equals(jsonParserFieldName, "customFields")) {
+				if (jsonParserFieldValue != null) {
+					productGroup.setCustomFields(
+						(Map)ProductGroupSerDes.toMap(
+							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "description")) {
 				if (jsonParserFieldValue != null) {
 					productGroup.setDescription(
 						(Map)ProductGroupSerDes.toMap(
