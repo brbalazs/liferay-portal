@@ -120,8 +120,8 @@ public class CommercePricingClassCPDefinitionRelDataSetActionProvider
 	private String _getPricingClassCPDefinitionRelDeleteURL(
 		long pricingClassCPDefinitionRelId) {
 
-		return "/o/headless-commerce-admin-catalog/v1.0/productGroupProducts/" +
-			pricingClassCPDefinitionRelId;
+		return "/o/headless-commerce-admin-catalog/v1.0" +
+			"/product-group-products/" + pricingClassCPDefinitionRelId;
 	}
 
 	@Reference

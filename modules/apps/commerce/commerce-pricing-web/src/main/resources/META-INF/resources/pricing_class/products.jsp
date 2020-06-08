@@ -45,9 +45,9 @@ long commercePricingClassId = commercePricingClass.getCommercePricingClassId();
 
 					function selectItem(product) {
 						return fetch(
-							'/o/headless-commerce-admin-catalog/v1.0/productGroups/' +
+							'/o/headless-commerce-admin-catalog/v1.0/product-groups/' +
 								id +
-								'/productGroupProducts/',
+								'/product-group-products/',
 							{
 								body: JSON.stringify({
 									productExternalReferenceCode: product.externalReferenceCode,

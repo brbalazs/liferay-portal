@@ -46,7 +46,7 @@ CommercePricingClass commercePricingClass = commercePricingClassDisplayContext.g
 				window,
 				'<portlet:namespace/>apiSubmit',
 				function(form) {
-					var API_URL = '/o/headless-commerce-admin-catalog/v1.0/productGroups';
+					var API_URL = '/o/headless-commerce-admin-catalog/v1.0/product-groups';
 
 					window.parent.Liferay.fire(events.IS_LOADING_MODAL, {
 						isLoading: true

@@ -97,7 +97,7 @@ public class CommercePricingClassDataSetActionProvider
 	}
 
 	private String _getPricingClassDeleteURL(long pricingClassId) {
-		return "/o/headless-commerce-admin-catalog/v1.0/productGroups/" +
+		return "/o/headless-commerce-admin-catalog/v1.0/product-groups/" +
 			pricingClassId;
 	}
 
