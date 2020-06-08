@@ -17,5 +17,5 @@ Feature: Assert the Segments Overview Cards
 		* I click the "View Added Members" button
 		* I name the Static segment "AssertSegmentsOverviewCards - ${Random.1}" and save it
 
-	Scenario:
+	Scenario: Assert Segment Overview Profile Cards
 		Then I should see the Segment Profile Cards with their details
