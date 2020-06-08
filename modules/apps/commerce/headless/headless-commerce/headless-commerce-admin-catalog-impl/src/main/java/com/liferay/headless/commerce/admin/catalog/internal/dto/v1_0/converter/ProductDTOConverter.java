@@ -24,6 +24,7 @@ import com.liferay.commerce.product.type.CPType;
 import com.liferay.commerce.product.type.CPTypeServicesTracker;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Product;
+import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Status;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -105,9 +106,9 @@ public class ProductDTOConverter
 				productTypeI18n = cpType.getLabel(locale);
 				shortDescription = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getShortDescriptionMap());
-				statusCode = cpDefinition.getStatus();
-				statusLabel = productStatusLabel;
-				statusLabelI18n = productStatusLabelI18n;
+				status = _getStatus(
+					cpDefinition.getStatus(), productStatusLabel,
+					productStatusLabelI18n);
 				tags = _getTags(cpDefinition);
 				thumbnail = cpDefinition.getDefaultImageThumbnailSrc();
 			}
@@ -126,6 +127,19 @@ public class ProductDTOConverter
 
 	private CPType _getCPType(String name) {
 		return _cpTypeServicesTracker.getCPType(name);
+	}
+
+	private Status _getStatus(
+		int statusCode, String productStatusLabel,
+		String productStatusLabelI18n) {
+
+		return new Status() {
+			{
+				code = statusCode;
+				label = productStatusLabel;
+				labelI18n = productStatusLabelI18n;
+			}
+		};
 	}
 
 	private String[] _getTags(CPDefinition cpDefinition) {
