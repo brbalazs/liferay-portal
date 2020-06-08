@@ -18,10 +18,10 @@ import com.liferay.commerce.account.item.selector.criterion.CommerceAccountGroup
 import com.liferay.commerce.account.item.selector.criterion.CommerceAccountItemSelectorCriterion;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.model.CommerceAccountGroup;
-import com.liferay.commerce.account.service.CommerceAccountGroupService;
+import com.liferay.commerce.account.service.CommerceAccountGroupLocalService;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.currency.model.CommerceCurrency;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.currency.util.comparator.CommerceCurrencyPriorityComparator;
 import com.liferay.commerce.item.selector.criterion.CommercePriceListItemSelectorCriterion;
 import com.liferay.commerce.price.list.model.CommercePriceList;
@@ -35,7 +35,7 @@ import com.liferay.commerce.price.list.web.display.context.BaseCommercePriceList
 import com.liferay.commerce.price.list.web.internal.util.CommercePriceListPortletUtil;
 import com.liferay.commerce.price.list.web.portlet.action.CommercePriceListActionHelper;
 import com.liferay.commerce.product.model.CommerceCatalog;
-import com.liferay.commerce.product.service.CommerceCatalogService;
+import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.criteria.Base64ItemSelectorReturnType;
@@ -72,9 +72,9 @@ public class CommercePriceListDisplayContext
 	public CommercePriceListDisplayContext(
 		CommercePriceListActionHelper commercePriceListActionHelper,
 		CommerceAccountService commerceAccountService,
-		CommerceAccountGroupService commerceAccountGroupService,
-		CommerceCatalogService commerceCatalogService,
-		CommerceCurrencyService commerceCurrencyService,
+		CommerceAccountGroupLocalService commerceAccountGroupLocalService,
+		CommerceCatalogLocalService commerceCatalogLocalService,
+		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		CommercePriceListAccountRelService commercePriceListAccountRelService,
 		CommercePriceListCommerceAccountGroupRelService
 			commercePriceListCommerceAccountGroupRelService,
@@ -84,9 +84,9 @@ public class CommercePriceListDisplayContext
 		super(commercePriceListActionHelper, httpServletRequest);
 
 		_commerceAccountService = commerceAccountService;
-		_commerceAccountGroupService = commerceAccountGroupService;
-		_commerceCatalogService = commerceCatalogService;
-		_commerceCurrencyService = commerceCurrencyService;
+		_commerceAccountGroupLocalService = commerceAccountGroupLocalService;
+		_commerceCatalogLocalService = commerceCatalogLocalService;
+		_commerceCurrencyLocalService = commerceCurrencyLocalService;
 		_commercePriceListAccountRelService =
 			commercePriceListAccountRelService;
 		_commercePriceListCommerceAccountGroupRelService =
@@ -102,7 +102,7 @@ public class CommercePriceListDisplayContext
 			CommercePriceList commercePriceList)
 		throws PortalException {
 
-		return _commerceCatalogService.fetchCommerceCatalogByGroupId(
+		return _commerceCatalogLocalService.fetchCommerceCatalogByGroupId(
 			commercePriceList.getGroupId());
 	}
 
@@ -116,7 +116,7 @@ public class CommercePriceListDisplayContext
 			long commerceAccountGroupId)
 		throws PortalException {
 
-		return _commerceAccountGroupService.getCommerceAccountGroup(
+		return _commerceAccountGroupLocalService.getCommerceAccountGroup(
 			commerceAccountGroupId);
 	}
 
@@ -176,7 +176,7 @@ public class CommercePriceListDisplayContext
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		return _commerceCatalogService.searchCommerceCatalogs(
+		return _commerceCatalogLocalService.searchCommerceCatalogs(
 			themeDisplay.getCompanyId(), null, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
 	}
@@ -188,7 +188,7 @@ public class CommercePriceListDisplayContext
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		return _commerceCurrencyService.getCommerceCurrencies(
+		return _commerceCurrencyLocalService.getCommerceCurrencies(
 			themeDisplay.getCompanyId(), true, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, new CommerceCurrencyPriorityComparator(true));
 	}
@@ -404,10 +404,11 @@ public class CommercePriceListDisplayContext
 		).toArray();
 	}
 
-	private final CommerceAccountGroupService _commerceAccountGroupService;
+	private final CommerceAccountGroupLocalService
+		_commerceAccountGroupLocalService;
 	private final CommerceAccountService _commerceAccountService;
-	private final CommerceCatalogService _commerceCatalogService;
-	private final CommerceCurrencyService _commerceCurrencyService;
+	private final CommerceCatalogLocalService _commerceCatalogLocalService;
+	private final CommerceCurrencyLocalService _commerceCurrencyLocalService;
 	private final CommercePriceListAccountRelService
 		_commercePriceListAccountRelService;
 	private final CommercePriceListCommerceAccountGroupRelService

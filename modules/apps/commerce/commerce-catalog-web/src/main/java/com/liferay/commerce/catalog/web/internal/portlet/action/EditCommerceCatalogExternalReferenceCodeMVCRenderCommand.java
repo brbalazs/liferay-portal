@@ -15,6 +15,7 @@
 package com.liferay.commerce.catalog.web.internal.portlet.action;
 
 import com.liferay.commerce.catalog.web.internal.display.context.CommerceCatalogDisplayContext;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.currency.service.CommerceCurrencyService;
 import com.liferay.commerce.media.CommerceCatalogDefaultImage;
 import com.liferay.commerce.product.configuration.AttachmentsConfiguration;
@@ -65,7 +66,7 @@ public class EditCommerceCatalogExternalReferenceCodeMVCRenderCommand
 				_portal.getHttpServletRequest(renderRequest),
 				_commerceCatalogDefaultImage, _commerceCatalogService,
 				_commerceCatalogModelResourcePermission,
-				_commerceCurrencyService, _dlAppService, _itemSelector,
+				_commerceCurrencyLocalService, _dlAppService, _itemSelector,
 				_portal);
 
 		renderRequest.setAttribute(
@@ -96,7 +97,7 @@ public class EditCommerceCatalogExternalReferenceCodeMVCRenderCommand
 	private CommerceCatalogService _commerceCatalogService;
 
 	@Reference
-	private CommerceCurrencyService _commerceCurrencyService;
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
 	@Reference
 	private DLAppService _dlAppService;
