@@ -76,6 +76,8 @@ import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.util.SearchUtil;
 
+import java.math.BigDecimal;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -401,7 +403,7 @@ public class PriceListResourceImpl extends BasePriceListResourceImpl {
 						GetterUtil.getLong(priceEntry.getSkuId()), null,
 						commercePriceList.getCommercePriceListId(),
 						priceEntry.getExternalReferenceCode(),
-						priceEntry.getPrice(),
+						BigDecimal.valueOf(priceEntry.getPrice()),
 						priceEntry.getDiscountDiscovery(),
 						priceEntry.getDiscountLevel1(),
 						priceEntry.getDiscountLevel2(),
