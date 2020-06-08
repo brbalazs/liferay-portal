@@ -128,7 +128,7 @@ function ActionsDropdownRenderer(props) {
 	}
 
 	const formattedActions = props.actions.reduce((actions, action) => {
-		if (action.id && props.itemData.actions) {
+		if (action.id && !action.href && props.itemData.actions) {
 			if (props.itemData.actions[action.id]) {
 				return [
 					...actions,

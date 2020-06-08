@@ -442,7 +442,7 @@ const headlessDataSetDisplayProps = {
 const today = new Date();
 
 const ordersDataSetDisplayProps = {
-	apiUrl: '/o/headless-commerce-admin-order/v1.0/orders',
+	apiUrl: '/o/headless-commerce-admin-order/v1.0/orders?nestedFields=account,channel',
 	bulkActions: [
 		{
 			href: '/delete',
@@ -466,7 +466,17 @@ const ordersDataSetDisplayProps = {
 			itemKey: 'id',
 			itemLabel: 'name',
 			label: 'account-id',
-			selectionType: 'multiple',
+			selectionType: 'single',
+			type: 'autocomplete'
+		},
+		{
+			apiUrl: '/o/headless-commerce-admin-channel/v1.0/channels',
+			id: 'channelId',
+			inputPlaceholder: 'search-for-channel',
+			itemKey: 'id',
+			itemLabel: 'name',
+			label: 'channel-id',
+			selectionType: 'single',
 			type: 'autocomplete'
 		},
 		{
@@ -543,12 +553,12 @@ const ordersDataSetDisplayProps = {
 						label: 'order-id'
 					},
 					{
-						fieldName: 'accountId',
-						label: 'account-id'
+						fieldName: ['account', 'name'],
+						label: 'account'
 					},
 					{
-						fieldName: 'channelId',
-						label: 'channel-id'
+						fieldName: ['channel', 'name'],
+						label: 'channel'
 					},
 					{
 						fieldName: 'totalFormatted',
@@ -575,7 +585,7 @@ const ordersDataSetDisplayProps = {
 
 const productsDataSetDisplayProps = {
 	apiUrl:
-		'/o/headless-commerce-admin-catalog/v1.0/products?nestedFields=skus',
+		'/o/headless-commerce-admin-catalog/v1.0/products?nestedFields=skus,catalogs',
 	bulkActions: [
 		{
 			href: '/delete',
@@ -648,8 +658,15 @@ const productsDataSetDisplayProps = {
 	id: 'tableTest',
 	itemsActions: [
 		{
+			href: '/page/{id}',
+			icon: 'view',
+			id: 'view',
+			label: Liferay.Language.get('view'),
+		},
+		{
+			icon: 'trash',
 			id: 'delete',
-			label: 'Delete'
+			label: Liferay.Language.get('delete')
 		}
 	],
 	pageSize: 5,
@@ -699,6 +716,8 @@ const productsDataSetDisplayProps = {
 						labelKey: ['name', 'LANG']
 					},
 					{
+						actionId: 'view',
+						contentRenderer: 'actionLink',
 						fieldName: ['name', 'LANG'],
 						label: Liferay.Language.get('name'),
 						sortable: true
@@ -708,8 +727,11 @@ const productsDataSetDisplayProps = {
 						label: Liferay.Language.get('product-type')
 					},
 					{
-						fieldName: 'sku',
-						label: Liferay.Language.get('sku')
+						contentRenderer: 'list',
+						fieldName: 'skus',
+						label: Liferay.Language.get('sku'),
+						labelKey: 'sku',
+						multipleItemsLabel: Liferay.Language.get('multiple-skus'),
 					},
 					{
 						fieldName: 'catalogName',
@@ -738,11 +760,11 @@ const productsDataSetDisplayProps = {
 	]
 };
 
-// datasetDisplayLauncher(
-// 	'orders-dataset-display',
-// 	'orders-dataset-display-root',
-// 	ordersDataSetDisplayProps
-// );
+datasetDisplayLauncher(
+	'orders-dataset-display',
+	'orders-dataset-display-root',
+	ordersDataSetDisplayProps
+);
 
 datasetDisplayLauncher(
 	'products-dataset-display',

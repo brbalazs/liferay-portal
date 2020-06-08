@@ -17,8 +17,8 @@ import ClayLink from '@clayui/link';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 
-import {formatActionUrl} from '../../utilities/index';
-import DatasetDisplayContext from '../dataset_display/DatasetDisplayContext';
+import {formatActionUrl, getValueFromItem} from '../../../utilities/index';
+import DatasetDisplayContext from '../DatasetDisplayContext';
 import DefaultContent from './DefaultRenderer';
 
 function ActionLinkRenderer(props) {
@@ -45,7 +45,7 @@ function ActionLinkRenderer(props) {
 		return null;
 	}
 
-	if(currentAction.id && props.itemData.actions) {
+	if(currentAction.id && !currentAction.href && props.itemData.actions) {
 		if(props.itemData.actions[currentAction.id]) {
 			currentAction = {
 				...currentAction,
