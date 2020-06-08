@@ -25,6 +25,8 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 
+import java.math.BigDecimal;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -52,7 +54,8 @@ public class TierPriceUtil {
 		return commerceTierPriceEntryService.upsertCommerceTierPriceEntry(
 			GetterUtil.getLong(tierPrice.getId()),
 			commercePriceEntry.getCommercePriceEntryId(),
-			tierPrice.getExternalReferenceCode(), tierPrice.getPrice(),
+			tierPrice.getExternalReferenceCode(),
+			BigDecimal.valueOf(tierPrice.getPrice()),
 			tierPrice.getMinimumQuantity(), commercePriceEntry.isBulkPricing(),
 			tierPrice.getDiscountDiscovery(), tierPrice.getDiscountLevel1(),
 			tierPrice.getDiscountLevel2(), tierPrice.getDiscountLevel3(),

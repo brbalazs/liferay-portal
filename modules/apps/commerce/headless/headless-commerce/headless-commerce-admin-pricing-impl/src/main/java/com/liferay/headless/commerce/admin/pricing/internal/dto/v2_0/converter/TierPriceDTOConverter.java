@@ -14,13 +14,21 @@
 
 package com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter;
 
+import com.liferay.commerce.currency.model.CommerceCurrency;
+import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
+import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.model.CommerceTierPriceEntry;
 import com.liferay.commerce.price.list.service.CommerceTierPriceEntryService;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.TierPrice;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
+
+import java.math.BigDecimal;
+
+import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -50,7 +58,18 @@ public class TierPriceDTOConverter
 		CommercePriceEntry commercePriceEntry =
 			commerceTierPriceEntry.getCommercePriceEntry();
 
+		CommercePriceList commercePriceList =
+			commercePriceEntry.getCommercePriceList();
+
+		CommerceCurrency commerceCurrency =
+			commercePriceList.getCommerceCurrency();
+
 		ExpandoBridge expandoBridge = commerceTierPriceEntry.getExpandoBridge();
+
+		BigDecimal priceEntryPrice = commercePriceEntry.getPrice();
+		BigDecimal priceEntryPromoPrice = commercePriceEntry.getPromoPrice();
+
+		Locale locale = dtoConverterContext.getLocale();
 
 		return new TierPrice() {
 			{
@@ -67,14 +86,32 @@ public class TierPriceDTOConverter
 					commerceTierPriceEntry.getExternalReferenceCode();
 				id = commercePriceEntry.getCommercePriceEntryId();
 				minimumQuantity = commerceTierPriceEntry.getMinQuantity();
-				price = commerceTierPriceEntry.getPrice();
+				price = priceEntryPrice.doubleValue();
 				priceEntryExternalReferenceCode =
 					commercePriceEntry.getExternalReferenceCode();
 				priceEntryId = commercePriceEntry.getCommercePriceEntryId();
-				promoPrice = commerceTierPriceEntry.getPromoPrice();
+				priceFormatted = _formatPrice(
+					priceEntryPrice, commerceCurrency, locale);
+				promoPrice = priceEntryPromoPrice.doubleValue();
+				promoPriceFormatted = _formatPrice(
+					priceEntryPromoPrice, commerceCurrency, locale);
 			}
 		};
 	}
+
+	private String _formatPrice(
+			BigDecimal price, CommerceCurrency commerceCurrency, Locale locale)
+		throws PortalException {
+
+		if (price == null) {
+			price = BigDecimal.ZERO;
+		}
+
+		return _commercePriceFormatter.format(commerceCurrency, price, locale);
+	}
+
+	@Reference
+	private CommercePriceFormatter _commercePriceFormatter;
 
 	@Reference
 	private CommerceTierPriceEntryService _commerceTierPriceEntryService;
