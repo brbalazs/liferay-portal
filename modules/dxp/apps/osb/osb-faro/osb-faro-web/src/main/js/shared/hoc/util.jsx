@@ -6,6 +6,8 @@ import React from 'react';
 import Spinner from 'shared/components/Spinner';
 import {compose} from 'redux';
 import {get, omit} from 'lodash';
+import {sub} from 'shared/util/lang';
+import {toRoute} from 'shared/util/router';
 
 /**
  * HOC for ErrorDisplay.
@@ -93,6 +95,32 @@ export const withLoading = (options = {}) => Component => ({
 	}
 
 	return <Component className={className} data={data} {...otherProps} />;
+};
+
+export const withNull = (key, errorProps = {}) => Component => props => {
+	const {entityType = Liferay.Language.get('page'), linkRoute} = errorProps;
+
+	if (key && !props[key]) {
+		return (
+			<ErrorPage
+				{...props}
+				href={toRoute(linkRoute, props.router.params)}
+				linkLabel={sub(Liferay.Language.get('go-to-x'), [entityType])}
+				message={sub(
+					Liferay.Language.get(
+						'the-x-you-are-looking-for-does-not-exist'
+					),
+					[entityType.toLowerCase()]
+				)}
+				subtitle={sub(Liferay.Language.get('x-not-found'), [
+					entityType
+				])}
+				title={Liferay.Language.get('404')}
+			/>
+		);
+	}
+
+	return <Component {...props} />;
 };
 
 /**
