@@ -20,5 +20,28 @@
 		"name": "Sales Agent",
 		"scope": 1,
 		"type": 1
+	},
+	{
+		"actions": {
+			"actionIds": [
+				"MANAGE_COMMERCE_PRICE_LISTS",
+				"VIEW_CONTROL_PANEL"
+			],
+			"resource": "90"
+		},
+		"name": "Discount Manager",
+		"scope": 1,
+		"type": 1
+	},
+	{
+		"actions": {
+			"actionIds": [
+				"ACCESS_IN_CONTROL_PANEL"
+			],
+			"resource": "com_liferay_commerce_price_list_web_internal_portlet_CommercePriceListPortlet"
+		},
+		"name": "Discount Manager",
+		"scope": 1,
+		"type": 1
 	}
 ]
