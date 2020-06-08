@@ -26,6 +26,8 @@ import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.Order;
+import com.liferay.headless.commerce.admin.order.dto.v1_0.PaymentStatus;
+import com.liferay.headless.commerce.admin.order.dto.v1_0.Status;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -112,12 +114,11 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				lastPriceUpdateDate = commerceOrder.getLastPriceUpdateDate();
 				modifiedDate = commerceOrder.getModifiedDate();
 				orderStatus = commerceOrder.getOrderStatus();
-				orderStatusLabel = commerceOrderStatusLabel;
-				orderStatusLabelI18n = commerceOrderStatusLabelI18n;
 				paymentMethod = commerceOrder.getCommercePaymentMethodKey();
-				paymentStatus = commerceOrder.getPaymentStatus();
-				paymentStatusLabel = commerceOrderPaymentStatusLabel;
-				paymentStatusLabelI18n = commerceOrderPaymentStatusLabelI18n;
+				paymentStatus = _getPaymentStats(
+					commerceOrder.getPaymentStatus(),
+					commerceOrderPaymentStatusLabel,
+					commerceOrderPaymentStatusLabelI18n);
 				printedNote = commerceOrder.getPrintedNote();
 				purchaseOrderNumber = commerceOrder.getPurchaseOrderNumber();
 				requestedDeliveryDate =
@@ -126,6 +127,9 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				shippingMethod = _getShippingMethodEngineKey(
 					commerceShippingMethod);
 				shippingOption = commerceOrder.getShippingOptionName();
+				status = _getStatus(
+					commerceOrder.getOrderStatus(), commerceOrderStatusLabel,
+					commerceOrderStatusLabelI18n);
 				transactionId = commerceOrder.getTransactionId();
 			}
 		};
@@ -285,6 +289,19 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 		return _commercePriceFormatter.format(commerceCurrency, price, locale);
 	}
 
+	private PaymentStatus _getPaymentStats(
+		int paymentStatus, String commerceOrderPaymentStatusLabel,
+		String commerceOrderPaymentStatusLabelI18n) {
+
+		return new PaymentStatus() {
+			{
+				code = paymentStatus;
+				label = commerceOrderPaymentStatusLabel;
+				labelI18n = commerceOrderPaymentStatusLabelI18n;
+			}
+		};
+	}
+
 	private String _getShippingMethodEngineKey(
 		CommerceShippingMethod commerceShippingMethod) {
 
@@ -293,6 +310,19 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 		}
 
 		return commerceShippingMethod.getEngineKey();
+	}
+
+	private Status _getStatus(
+		int orderStatus, String commerceOrderStatusLabel,
+		String commerceOrderStatusLabelI18n) {
+
+		return new Status() {
+			{
+				code = orderStatus;
+				label = commerceOrderStatusLabel;
+				labelI18n = commerceOrderStatusLabelI18n;
+			}
+		};
 	}
 
 	@Reference
