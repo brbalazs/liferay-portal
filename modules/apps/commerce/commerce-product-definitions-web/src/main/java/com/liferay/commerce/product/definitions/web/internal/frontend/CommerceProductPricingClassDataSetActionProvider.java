@@ -19,7 +19,6 @@ import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
 import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
 import com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel;
 import com.liferay.commerce.pricing.service.CommercePricingClassCPDefinitionRelService;
-import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.definitions.web.internal.model.ProductPricingClass;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.petra.string.StringPool;
@@ -33,15 +32,12 @@ import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
-import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.WindowStateException;
 
@@ -91,14 +87,18 @@ public class CommerceProductPricingClassDataSetActionProvider
 
 			clayDataSetActions.add(editClayDataSetAction);
 
-			PortletURL deleteURL = _getProductPricingClassDeleteURL(
-				productPricingClass.getPricingClassId(),
-				productPricingClass.getCpDefinitionId(), httpServletRequest);
-
 			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
-				StringPool.BLANK, deleteURL.toString(), StringPool.BLANK,
+				StringPool.BLANK,
+				_getProductPricingClassDeleteURL(
+					productPricingClass.getPricingClassId(),
+					productPricingClass.getCpDefinitionId()),
+				StringPool.BLANK,
 				LanguageUtil.get(httpServletRequest, Constants.DELETE),
 				StringPool.BLANK, false, false);
+
+			deleteClayDataSetAction.setTarget("async");
+
+			deleteClayDataSetAction.setMethod("delete");
 
 			clayDataSetActions.add(deleteClayDataSetAction);
 		}
@@ -129,24 +129,9 @@ public class CommerceProductPricingClassDataSetActionProvider
 		return portletURL;
 	}
 
-	private PortletURL _getProductPricingClassDeleteURL(
-			long pricingClassId, long cpDefinitionId,
-			HttpServletRequest httpServletRequest)
+	private String _getProductPricingClassDeleteURL(
+			long pricingClassId, long cpDefinitionId)
 		throws PortalException {
-
-		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			httpServletRequest, CPPortletKeys.CP_DEFINITIONS,
-			PortletRequest.ACTION_PHASE);
-
-		portletURL.setParameter(
-			ActionRequest.ACTION_NAME, "editCProductPricingClass");
-		portletURL.setParameter(Constants.CMD, Constants.DELETE);
-
-		String redirect = ParamUtil.getString(
-			httpServletRequest, "currentUrl",
-			_portal.getCurrentURL(httpServletRequest));
-
-		portletURL.setParameter("redirect", redirect);
 
 		CommercePricingClassCPDefinitionRel
 			commercePricingClassCPDefinitionRel =
@@ -154,15 +139,10 @@ public class CommerceProductPricingClassDataSetActionProvider
 					fetchCommercePricingClassCPDefinitionRel(
 						pricingClassId, cpDefinitionId);
 
-		if (commercePricingClassCPDefinitionRel != null) {
-			portletURL.setParameter(
-				"commercePricingClassCPDefinitionRelId",
-				String.valueOf(
-					commercePricingClassCPDefinitionRel.
-						getCommercePricingClassCPDefinitionRelId()));
-		}
-
-		return portletURL;
+		return "/o/headless-commerce-admin-catalog/v1.0" +
+			"/product-group-products/" +
+				commercePricingClassCPDefinitionRel.
+					getCommercePricingClassCPDefinitionRelId();
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

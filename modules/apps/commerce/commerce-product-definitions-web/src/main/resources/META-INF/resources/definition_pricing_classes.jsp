@@ -40,9 +40,9 @@ CProduct cProduct = cpDefinition.getCProduct();
 
 			function selectItem(productPricingClass) {
 				return fetch(
-					'/o/headless-commerce-admin-catalog/v1.0/productGroups/' +
+					'/o/headless-commerce-admin-catalog/v1.0/product-groups/' +
 						productPricingClass.id +
-						'/productGroupProducts/',
+						'/product-group-products/',
 					{
 						body: JSON.stringify({
 							productExternalReferenceCode: productExternalReferenceCode,
@@ -78,7 +78,7 @@ CProduct cProduct = cpDefinition.getCProduct();
 					nameDefinition[themeDisplay.getDefaultLanguageId()] = name;
 				}
 
-				return fetch('/o/headless-commerce-admin-catalog/v1.0/productGroups', {
+				return fetch('/o/headless-commerce-admin-catalog/v1.0/product-groups', {
 					body: JSON.stringify({
 						title: nameDefinition
 					}),
@@ -103,7 +103,7 @@ CProduct cProduct = cpDefinition.getCProduct();
 			}
 
 			itemFinder.default('itemFinder', 'item-finder-root', {
-				apiUrl: '/o/headless-commerce-admin-catalog/v1.0/productGroups',
+				apiUrl: '/o/headless-commerce-admin-catalog/v1.0/product-groups',
 				createNewItemLabel: '<%= LanguageUtil.get(request, "create-new") %>',
 				getSelectedItems: getSelectedItems,
 				inputPlaceholder:
