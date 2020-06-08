@@ -1,15 +1,17 @@
 import Button from 'shared/components/Button';
+import getCN from 'classnames';
 import React from 'react';
 import {PropTypes} from 'prop-types';
 
 class FormNavigation extends React.Component {
 	static defaultProps = {
 		enableNext: false,
-		submitMessage: Liferay.Language.get('next-step')
+		submitMessage: Liferay.Language.get('next')
 	};
 
 	static propTypes = {
 		cancelHref: PropTypes.string,
+		className: PropTypes.string,
 		enableNext: PropTypes.bool,
 		onNextStep: PropTypes.func,
 		onPreviousStep: PropTypes.func,
@@ -20,6 +22,7 @@ class FormNavigation extends React.Component {
 	render() {
 		const {
 			cancelHref,
+			className,
 			enableNext,
 			onNextStep,
 			onPreviousStep,
@@ -28,18 +31,14 @@ class FormNavigation extends React.Component {
 		} = this.props;
 
 		return (
-			<div
-				className={`form-navigation-root${
-					this.props.className ? ` ${this.props.className}` : ''
-				}`}
-			>
+			<div className={getCN('form-navigation-root', className)}>
 				{onPreviousStep && (
 					<Button
 						display='secondary'
 						key='previousStep'
 						onClick={onPreviousStep}
 					>
-						{Liferay.Language.get('previous-step')}
+						{Liferay.Language.get('previous')}
 					</Button>
 				)}
 
