@@ -15,7 +15,7 @@ exports[`FormNavigation should render 1`] = `
     display="primary"
     type="submit"
   >
-    Next Step
+    Next
   </Button>
 </div>
 `;

@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BasicSettings should render 1`] = `
+<div>
+  <form
+    class="form-root"
+  >
+    <div
+      class="basic-settings-root"
+    >
+      <div
+        class="form-group"
+      >
+        <div
+          class=""
+        >
+          <label
+            class="form-control-label label-root required"
+            for="name"
+          >
+            Model Name
+          </label>
+          <input
+            class="input-root form-control"
+            id="name"
+            name="name"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="form-group"
+      >
+        <div
+          class=""
+        >
+          <label
+            class="form-control-label label-root"
+            for="trainingFrequency"
+          >
+            Training Frequency
+          </label>
+          <select
+            class="form-control select-root"
+            id="trainingFrequency"
+            name="trainingFrequency"
+          >
+            <option
+              class=""
+              value="MANUAL"
+            >
+              Run Manually
+            </option>
+            <option
+              class=""
+              value="EVERY_7_DAYS"
+            >
+              Every 7 days
+            </option>
+            <option
+              class=""
+              value="EVERY_14_DAYS"
+            >
+              Every 14 days
+            </option>
+            <option
+              class=""
+              value="EVERY_30_DAYS"
+            >
+              Every 30 days
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;

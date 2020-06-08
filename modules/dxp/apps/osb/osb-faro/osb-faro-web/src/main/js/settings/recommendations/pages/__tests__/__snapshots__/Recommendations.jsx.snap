@@ -114,7 +114,7 @@ exports[`Recommendations should render 1`] = `
                 >
                   <a
                     class="button-root btn btn-primary nav-btn"
-                    href="/workspace/23/settings/recommendations/create-model"
+                    href="/workspace/23/settings/recommendations/create-item-similarity-model"
                   >
                     New Model
                   </a>
