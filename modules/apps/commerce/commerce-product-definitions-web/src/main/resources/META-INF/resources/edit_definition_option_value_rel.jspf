@@ -70,7 +70,7 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 				</div>
 
 				<div class="col-4">
-					<aui:input name="quantity" wrapperCssClass="mb-0">
+					<aui:input name="quantity" type="number" value="<%= cpDefinitionOptionValueRel.getQuantity() %>" wrapperCssClass="mb-0">
 						<aui:validator name="min">1</aui:validator>
 						<aui:validator name="number" />
 					</aui:input>
@@ -117,9 +117,11 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 
 				if (e.value) {
 					quantityInput.disabled = false;
+					quantityInput.value = (quantityInput.value != 0) ? quantityInput.value : 1;
 					deleteButton.disabled = false;
 				} else {
 					quantityInput.disabled = true;
+					quantityInput.value = 0;
 					deleteButton.disabled = true;
 				}
 			});
