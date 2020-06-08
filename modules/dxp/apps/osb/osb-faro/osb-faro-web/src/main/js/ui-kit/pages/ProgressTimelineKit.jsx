@@ -5,11 +5,7 @@ import Row from '../components/Row';
 class ProgressTimelineKit extends React.Component {
 	render() {
 		return (
-			<div
-				className={
-					this.props.className ? ` ${this.props.className}` : ''
-				}
-			>
+			<div>
 				<Row>
 					<ProgressTimeline
 						activeIndex={1}

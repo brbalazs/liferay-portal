@@ -7,18 +7,15 @@ import {PropTypes} from 'prop-types';
 class ProgressTimeline extends React.Component {
 	static propTypes = {
 		activeIndex: PropTypes.number,
+		className: PropTypes.string,
 		items: PropTypes.array
 	};
 
 	render() {
-		const {activeIndex, items} = this.props;
+		const {activeIndex, className, items} = this.props;
 
 		return (
-			<div
-				className={`timeline-root${
-					this.props.className ? ` ${this.props.className}` : ''
-				}`}
-			>
+			<div className={getCN('timeline-root', className)}>
 				{items.map(({href, title}, i) => {
 					const active = activeIndex === i;
 					const previousStep = activeIndex > i;
