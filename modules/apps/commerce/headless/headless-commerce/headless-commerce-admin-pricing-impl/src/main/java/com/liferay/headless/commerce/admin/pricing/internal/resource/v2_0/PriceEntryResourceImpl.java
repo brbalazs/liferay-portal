@@ -48,6 +48,8 @@ import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.util.SearchUtil;
 
+import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -309,7 +311,8 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 		commercePriceEntry =
 			_commercePriceEntryService.updateCommercePriceEntry(
 				commercePriceEntry.getCommercePriceEntryId(),
-				priceEntry.getPrice(), priceEntry.getDiscountDiscovery(),
+				BigDecimal.valueOf(priceEntry.getPrice()),
+				priceEntry.getDiscountDiscovery(),
 				priceEntry.getDiscountLevel1(), priceEntry.getDiscountLevel2(),
 				priceEntry.getDiscountLevel3(), priceEntry.getDiscountLevel4(),
 				GetterUtil.getBoolean(priceEntry.getBulkPricing(), true),
@@ -372,7 +375,8 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 			_commercePriceEntryService.upsertCommercePriceEntry(
 				GetterUtil.getLong(priceEntry.getId()), cProductId,
 				cpInstanceUuid, commercePriceList.getCommercePriceListId(),
-				priceEntry.getExternalReferenceCode(), priceEntry.getPrice(),
+				priceEntry.getExternalReferenceCode(),
+				BigDecimal.valueOf(priceEntry.getPrice()),
 				priceEntry.getDiscountDiscovery(),
 				priceEntry.getDiscountLevel1(), priceEntry.getDiscountLevel2(),
 				priceEntry.getDiscountLevel3(), priceEntry.getDiscountLevel4(),
