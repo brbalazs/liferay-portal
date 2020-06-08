@@ -55,7 +55,8 @@ public class CommerceAccountRoleHelperImpl
 		_checkRole(
 			CommerceAccountConstants.ROLE_NAME_ACCOUNT_BUYER, serviceContext);
 		_checkRole(
-			CommerceAccountConstants.ROLE_NAME_ACCOUNT_PUNCHOUT, serviceContext);
+			CommerceAccountConstants.ROLE_NAME_ACCOUNT_PUNCHOUT,
+			serviceContext);
 		_checkRole(
 			CommerceAccountConstants.ROLE_NAME_ACCOUNT_ORDER_MANAGER,
 			serviceContext);
@@ -136,7 +137,7 @@ public class CommerceAccountRoleHelperImpl
 				});
 		}
 		else if (name.equals(
-			CommerceAccountConstants.ROLE_NAME_ACCOUNT_PUNCHOUT)) {
+					CommerceAccountConstants.ROLE_NAME_ACCOUNT_PUNCHOUT)) {
 
 			resourceActionIds.put(
 				"com.liferay.commerce.order",

@@ -65,23 +65,23 @@ public class MoneyOrderCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 	@Override
 	public boolean isActive(
-		HttpServletRequest httpServletRequest,
-		HttpServletResponse httpServletResponse)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
 		throws Exception {
 
 		CommerceOrder commerceOrder = _getCommerceOrder(httpServletRequest);
 
 		MoneyOrderGroupServiceConfiguration
 			moneyOrderGroupServiceConfiguration =
-			_configurationProvider.getConfiguration(
-				MoneyOrderGroupServiceConfiguration.class,
-				new GroupServiceSettingsLocator(
-					commerceOrder.getGroupId(),
-					MoneyOrderCommercePaymentEngineMethodConstants.
-						SERVICE_NAME));
+				_configurationProvider.getConfiguration(
+					MoneyOrderGroupServiceConfiguration.class,
+					new GroupServiceSettingsLocator(
+						commerceOrder.getGroupId(),
+						MoneyOrderCommercePaymentEngineMethodConstants.
+							SERVICE_NAME));
 
 		if (MoneyOrderCommercePaymentMethod.KEY.equals(
-			commerceOrder.getCommercePaymentMethodKey())) {
+				commerceOrder.getCommercePaymentMethodKey())) {
 
 			return moneyOrderGroupServiceConfiguration.showMessagePage();
 		}
@@ -96,41 +96,41 @@ public class MoneyOrderCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 	@Override
 	public boolean isVisible(
-		HttpServletRequest httpServletRequest,
-		HttpServletResponse httpServletResponse)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
 		throws Exception {
 
 		CommerceOrder commerceOrder = _getCommerceOrder(httpServletRequest);
 
 		MoneyOrderGroupServiceConfiguration
 			moneyOrderGroupServiceConfiguration =
-			_configurationProvider.getConfiguration(
-				MoneyOrderGroupServiceConfiguration.class,
-				new GroupServiceSettingsLocator(
-					commerceOrder.getGroupId(),
-					MoneyOrderCommercePaymentEngineMethodConstants.
-						SERVICE_NAME));
+				_configurationProvider.getConfiguration(
+					MoneyOrderGroupServiceConfiguration.class,
+					new GroupServiceSettingsLocator(
+						commerceOrder.getGroupId(),
+						MoneyOrderCommercePaymentEngineMethodConstants.
+							SERVICE_NAME));
 
 		return moneyOrderGroupServiceConfiguration.showMessagePage();
 	}
 
 	@Override
 	public void processAction(
-		ActionRequest actionRequest, ActionResponse actionResponse)
+			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 	}
 
 	@Override
 	public void render(
-		HttpServletRequest httpServletRequest,
-		HttpServletResponse httpServletResponse)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
 		throws Exception {
 
 		MoneyOrderCheckoutStepDisplayContext
 			moneyOrderCheckoutStepDisplayContext =
-			new MoneyOrderCheckoutStepDisplayContext(
-				_commerceOrderService, _configurationProvider,
-				httpServletRequest);
+				new MoneyOrderCheckoutStepDisplayContext(
+					_commerceOrderService, _configurationProvider,
+					httpServletRequest);
 
 		httpServletRequest.setAttribute(
 			CommerceCheckoutWebKeys.COMMERCE_CHECKOUT_STEP_DISPLAY_CONTEXT,
@@ -142,7 +142,7 @@ public class MoneyOrderCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 	}
 
 	private CommerceOrder _getCommerceOrder(
-		HttpServletRequest httpServletRequest)
+			HttpServletRequest httpServletRequest)
 		throws PortalException {
 
 		String commerceOrderUuid = ParamUtil.getString(

@@ -60,7 +60,8 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 		HttpServletRequest httpServletRequest,
 		HttpServletResponse httpServletResponse) {
 
-		//todo: check if enabled for channel - it could've been turned off while punchout sessions still exist
+		// TODO: check if enabled for channel -
+		// TODO: it could've been turned off while punchout sessions still exist
 
 		return _punchoutSession(httpServletRequest);
 	}
@@ -113,11 +114,13 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 		CookieKeys.deleteCookies(
 			httpServletRequest, httpServletResponse,
-			CookieKeys.getDomain(httpServletRequest), CommercePunchoutConstants.PUNCHOUT_RETURN_URL_COOKIE_NAME);
+			CookieKeys.getDomain(httpServletRequest),
+			CommercePunchoutConstants.PUNCHOUT_RETURN_URL_COOKIE_NAME);
 
 		CookieKeys.deleteCookies(
 			httpServletRequest, httpServletResponse,
-			CookieKeys.getDomain(httpServletRequest), CommercePunchoutConstants.PUNCHOUT_COMMERCE_ORDER_UUID_COOKIE_NAME);
+			CookieKeys.getDomain(httpServletRequest),
+			CommercePunchoutConstants.PUNCHOUT_COMMERCE_ORDER_UUID_COOKIE_NAME);
 	}
 
 	private CommerceOrder _getCommerceOrder(ActionRequest actionRequest) {
@@ -128,7 +131,9 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 	private String _getPunchoutReturnURL(
 		HttpServletRequest httpServletRequest) {
 
-		return CookieKeys.getCookie(httpServletRequest, CommercePunchoutConstants.PUNCHOUT_RETURN_URL_COOKIE_NAME);
+		return CookieKeys.getCookie(
+			httpServletRequest,
+			CommercePunchoutConstants.PUNCHOUT_RETURN_URL_COOKIE_NAME);
 	}
 
 	private boolean _punchoutSession(HttpServletRequest request) {
