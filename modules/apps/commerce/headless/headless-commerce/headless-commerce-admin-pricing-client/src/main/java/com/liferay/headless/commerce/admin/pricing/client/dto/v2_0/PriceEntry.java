@@ -328,16 +328,16 @@ public class PriceEntry implements Cloneable {
 
 	protected Boolean neverExpire;
 
-	public BigDecimal getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(BigDecimal price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
 	public void setPrice(
-		UnsafeSupplier<BigDecimal, Exception> priceUnsafeSupplier) {
+		UnsafeSupplier<Double, Exception> priceUnsafeSupplier) {
 
 		try {
 			price = priceUnsafeSupplier.get();
@@ -347,7 +347,28 @@ public class PriceEntry implements Cloneable {
 		}
 	}
 
-	protected BigDecimal price;
+	protected Double price;
+
+	public String getPriceFormatted() {
+		return priceFormatted;
+	}
+
+	public void setPriceFormatted(String priceFormatted) {
+		this.priceFormatted = priceFormatted;
+	}
+
+	public void setPriceFormatted(
+		UnsafeSupplier<String, Exception> priceFormattedUnsafeSupplier) {
+
+		try {
+			priceFormatted = priceFormattedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String priceFormatted;
 
 	public String getPriceListExternalReferenceCode() {
 		return priceListExternalReferenceCode;
@@ -395,16 +416,16 @@ public class PriceEntry implements Cloneable {
 
 	protected Long priceListId;
 
-	public BigDecimal getPromoPrice() {
+	public Double getPromoPrice() {
 		return promoPrice;
 	}
 
-	public void setPromoPrice(BigDecimal promoPrice) {
+	public void setPromoPrice(Double promoPrice) {
 		this.promoPrice = promoPrice;
 	}
 
 	public void setPromoPrice(
-		UnsafeSupplier<BigDecimal, Exception> promoPriceUnsafeSupplier) {
+		UnsafeSupplier<Double, Exception> promoPriceUnsafeSupplier) {
 
 		try {
 			promoPrice = promoPriceUnsafeSupplier.get();
@@ -414,7 +435,28 @@ public class PriceEntry implements Cloneable {
 		}
 	}
 
-	protected BigDecimal promoPrice;
+	protected Double promoPrice;
+
+	public String getPromoPriceFormatted() {
+		return promoPriceFormatted;
+	}
+
+	public void setPromoPriceFormatted(String promoPriceFormatted) {
+		this.promoPriceFormatted = promoPriceFormatted;
+	}
+
+	public void setPromoPriceFormatted(
+		UnsafeSupplier<String, Exception> promoPriceFormattedUnsafeSupplier) {
+
+		try {
+			promoPriceFormatted = promoPriceFormattedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String promoPriceFormatted;
 
 	public String getSku() {
 		return sku;

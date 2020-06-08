@@ -227,6 +227,20 @@ public class PriceEntrySerDes {
 			sb.append(priceEntry.getPrice());
 		}
 
+		if (priceEntry.getPriceFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(priceEntry.getPriceFormatted()));
+
+			sb.append("\"");
+		}
+
 		if (priceEntry.getPriceListExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -259,6 +273,20 @@ public class PriceEntrySerDes {
 			sb.append("\"promoPrice\": ");
 
 			sb.append(priceEntry.getPromoPrice());
+		}
+
+		if (priceEntry.getPromoPriceFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"promoPriceFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(priceEntry.getPromoPriceFormatted()));
+
+			sb.append("\"");
 		}
 
 		if (priceEntry.getSku() != null) {
@@ -463,6 +491,15 @@ public class PriceEntrySerDes {
 			map.put("price", String.valueOf(priceEntry.getPrice()));
 		}
 
+		if (priceEntry.getPriceFormatted() == null) {
+			map.put("priceFormatted", null);
+		}
+		else {
+			map.put(
+				"priceFormatted",
+				String.valueOf(priceEntry.getPriceFormatted()));
+		}
+
 		if (priceEntry.getPriceListExternalReferenceCode() == null) {
 			map.put("priceListExternalReferenceCode", null);
 		}
@@ -484,6 +521,15 @@ public class PriceEntrySerDes {
 		}
 		else {
 			map.put("promoPrice", String.valueOf(priceEntry.getPromoPrice()));
+		}
+
+		if (priceEntry.getPromoPriceFormatted() == null) {
+			map.put("promoPriceFormatted", null);
+		}
+		else {
+			map.put(
+				"promoPriceFormatted",
+				String.valueOf(priceEntry.getPromoPriceFormatted()));
 		}
 
 		if (priceEntry.getSku() == null) {
@@ -622,7 +668,13 @@ public class PriceEntrySerDes {
 			}
 			else if (Objects.equals(jsonParserFieldName, "price")) {
 				if (jsonParserFieldValue != null) {
-					priceEntry.setPrice((BigDecimal)jsonParserFieldValue);
+					priceEntry.setPrice(
+						Double.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "priceFormatted")) {
+				if (jsonParserFieldValue != null) {
+					priceEntry.setPriceFormatted((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(
@@ -642,7 +694,16 @@ public class PriceEntrySerDes {
 			}
 			else if (Objects.equals(jsonParserFieldName, "promoPrice")) {
 				if (jsonParserFieldValue != null) {
-					priceEntry.setPromoPrice((BigDecimal)jsonParserFieldValue);
+					priceEntry.setPromoPrice(
+						Double.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "promoPriceFormatted")) {
+
+				if (jsonParserFieldValue != null) {
+					priceEntry.setPromoPriceFormatted(
+						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "sku")) {

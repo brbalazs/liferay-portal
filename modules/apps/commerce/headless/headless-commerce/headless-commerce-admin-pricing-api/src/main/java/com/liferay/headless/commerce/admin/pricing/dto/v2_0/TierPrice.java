@@ -431,20 +431,18 @@ public class TierPrice {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean neverExpire;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
-	public BigDecimal getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(BigDecimal price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
 	@JsonIgnore
 	public void setPrice(
-		UnsafeSupplier<BigDecimal, Exception> priceUnsafeSupplier) {
+		UnsafeSupplier<Double, Exception> priceUnsafeSupplier) {
 
 		try {
 			price = priceUnsafeSupplier.get();
@@ -459,7 +457,7 @@ public class TierPrice {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected BigDecimal price;
+	protected Double price;
 
 	@Schema
 	public String getPriceEntryExternalReferenceCode() {
@@ -522,20 +520,46 @@ public class TierPrice {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long priceEntryId;
 
-	@DecimalMin("0")
 	@Schema
-	@Valid
-	public BigDecimal getPromoPrice() {
+	public String getPriceFormatted() {
+		return priceFormatted;
+	}
+
+	public void setPriceFormatted(String priceFormatted) {
+		this.priceFormatted = priceFormatted;
+	}
+
+	@JsonIgnore
+	public void setPriceFormatted(
+		UnsafeSupplier<String, Exception> priceFormattedUnsafeSupplier) {
+
+		try {
+			priceFormatted = priceFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String priceFormatted;
+
+	@Schema
+	public Double getPromoPrice() {
 		return promoPrice;
 	}
 
-	public void setPromoPrice(BigDecimal promoPrice) {
+	public void setPromoPrice(Double promoPrice) {
 		this.promoPrice = promoPrice;
 	}
 
 	@JsonIgnore
 	public void setPromoPrice(
-		UnsafeSupplier<BigDecimal, Exception> promoPriceUnsafeSupplier) {
+		UnsafeSupplier<Double, Exception> promoPriceUnsafeSupplier) {
 
 		try {
 			promoPrice = promoPriceUnsafeSupplier.get();
@@ -550,7 +574,35 @@ public class TierPrice {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected BigDecimal promoPrice;
+	protected Double promoPrice;
+
+	@Schema
+	public String getPromoPriceFormatted() {
+		return promoPriceFormatted;
+	}
+
+	public void setPromoPriceFormatted(String promoPriceFormatted) {
+		this.promoPriceFormatted = promoPriceFormatted;
+	}
+
+	@JsonIgnore
+	public void setPromoPriceFormatted(
+		UnsafeSupplier<String, Exception> promoPriceFormattedUnsafeSupplier) {
+
+		try {
+			promoPriceFormatted = promoPriceFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String promoPriceFormatted;
 
 	@Override
 	public boolean equals(Object object) {
@@ -758,6 +810,20 @@ public class TierPrice {
 			sb.append(priceEntryId);
 		}
 
+		if (priceFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(priceFormatted));
+
+			sb.append("\"");
+		}
+
 		if (promoPrice != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -766,6 +832,20 @@ public class TierPrice {
 			sb.append("\"promoPrice\": ");
 
 			sb.append(promoPrice);
+		}
+
+		if (promoPriceFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"promoPriceFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(promoPriceFormatted));
+
+			sb.append("\"");
 		}
 
 		sb.append("}");

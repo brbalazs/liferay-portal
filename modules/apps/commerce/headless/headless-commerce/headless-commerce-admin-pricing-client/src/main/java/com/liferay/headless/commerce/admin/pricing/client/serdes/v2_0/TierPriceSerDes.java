@@ -239,6 +239,20 @@ public class TierPriceSerDes {
 			sb.append(tierPrice.getPriceEntryId());
 		}
 
+		if (tierPrice.getPriceFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"priceFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(tierPrice.getPriceFormatted()));
+
+			sb.append("\"");
+		}
+
 		if (tierPrice.getPromoPrice() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -247,6 +261,20 @@ public class TierPriceSerDes {
 			sb.append("\"promoPrice\": ");
 
 			sb.append(tierPrice.getPromoPrice());
+		}
+
+		if (tierPrice.getPromoPriceFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"promoPriceFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(tierPrice.getPromoPriceFormatted()));
+
+			sb.append("\"");
 		}
 
 		sb.append("}");
@@ -404,11 +432,29 @@ public class TierPriceSerDes {
 				"priceEntryId", String.valueOf(tierPrice.getPriceEntryId()));
 		}
 
+		if (tierPrice.getPriceFormatted() == null) {
+			map.put("priceFormatted", null);
+		}
+		else {
+			map.put(
+				"priceFormatted",
+				String.valueOf(tierPrice.getPriceFormatted()));
+		}
+
 		if (tierPrice.getPromoPrice() == null) {
 			map.put("promoPrice", null);
 		}
 		else {
 			map.put("promoPrice", String.valueOf(tierPrice.getPromoPrice()));
+		}
+
+		if (tierPrice.getPromoPriceFormatted() == null) {
+			map.put("promoPriceFormatted", null);
+		}
+		else {
+			map.put(
+				"promoPriceFormatted",
+				String.valueOf(tierPrice.getPromoPriceFormatted()));
 		}
 
 		return map;
@@ -511,7 +557,8 @@ public class TierPriceSerDes {
 			}
 			else if (Objects.equals(jsonParserFieldName, "price")) {
 				if (jsonParserFieldValue != null) {
-					tierPrice.setPrice((BigDecimal)jsonParserFieldValue);
+					tierPrice.setPrice(
+						Double.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(
@@ -529,9 +576,23 @@ public class TierPriceSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "priceFormatted")) {
+				if (jsonParserFieldValue != null) {
+					tierPrice.setPriceFormatted((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "promoPrice")) {
 				if (jsonParserFieldValue != null) {
-					tierPrice.setPromoPrice((BigDecimal)jsonParserFieldValue);
+					tierPrice.setPromoPrice(
+						Double.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "promoPriceFormatted")) {
+
+				if (jsonParserFieldValue != null) {
+					tierPrice.setPromoPriceFormatted(
+						(String)jsonParserFieldValue);
 				}
 			}
 			else {

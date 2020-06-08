@@ -190,7 +190,9 @@ public abstract class BasePriceEntryResourceTestCase {
 		PriceEntry priceEntry = randomPriceEntry();
 
 		priceEntry.setExternalReferenceCode(regex);
+		priceEntry.setPriceFormatted(regex);
 		priceEntry.setPriceListExternalReferenceCode(regex);
+		priceEntry.setPromoPriceFormatted(regex);
 		priceEntry.setSku(regex);
 		priceEntry.setSkuExternalReferenceCode(regex);
 
@@ -201,8 +203,10 @@ public abstract class BasePriceEntryResourceTestCase {
 		priceEntry = PriceEntrySerDes.toDTO(json);
 
 		Assert.assertEquals(regex, priceEntry.getExternalReferenceCode());
+		Assert.assertEquals(regex, priceEntry.getPriceFormatted());
 		Assert.assertEquals(
 			regex, priceEntry.getPriceListExternalReferenceCode());
+		Assert.assertEquals(regex, priceEntry.getPromoPriceFormatted());
 		Assert.assertEquals(regex, priceEntry.getSku());
 		Assert.assertEquals(regex, priceEntry.getSkuExternalReferenceCode());
 	}
@@ -1110,6 +1114,14 @@ public abstract class BasePriceEntryResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("priceFormatted", additionalAssertFieldName)) {
+				if (priceEntry.getPriceFormatted() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"priceListExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -1131,6 +1143,16 @@ public abstract class BasePriceEntryResourceTestCase {
 
 			if (Objects.equals("promoPrice", additionalAssertFieldName)) {
 				if (priceEntry.getPromoPrice() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"promoPriceFormatted", additionalAssertFieldName)) {
+
+				if (priceEntry.getPromoPriceFormatted() == null) {
 					valid = false;
 				}
 
@@ -1427,6 +1449,17 @@ public abstract class BasePriceEntryResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("priceFormatted", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceEntry1.getPriceFormatted(),
+						priceEntry2.getPriceFormatted())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"priceListExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -1456,6 +1489,19 @@ public abstract class BasePriceEntryResourceTestCase {
 				if (!Objects.deepEquals(
 						priceEntry1.getPromoPrice(),
 						priceEntry2.getPromoPrice())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"promoPriceFormatted", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						priceEntry1.getPromoPriceFormatted(),
+						priceEntry2.getPromoPriceFormatted())) {
 
 					return false;
 				}
@@ -1721,6 +1767,14 @@ public abstract class BasePriceEntryResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("priceFormatted")) {
+			sb.append("'");
+			sb.append(String.valueOf(priceEntry.getPriceFormatted()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("priceListExternalReferenceCode")) {
 			sb.append("'");
 			sb.append(
@@ -1738,6 +1792,14 @@ public abstract class BasePriceEntryResourceTestCase {
 		if (entityFieldName.equals("promoPrice")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("promoPriceFormatted")) {
+			sb.append("'");
+			sb.append(String.valueOf(priceEntry.getPromoPriceFormatted()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("sku")) {
@@ -1820,9 +1882,15 @@ public abstract class BasePriceEntryResourceTestCase {
 				hasTierPrice = RandomTestUtil.randomBoolean();
 				id = RandomTestUtil.randomLong();
 				neverExpire = RandomTestUtil.randomBoolean();
+				price = RandomTestUtil.randomDouble();
+				priceFormatted = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				priceListExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				priceListId = RandomTestUtil.randomLong();
+				promoPrice = RandomTestUtil.randomDouble();
+				promoPriceFormatted = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				sku = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				skuExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
