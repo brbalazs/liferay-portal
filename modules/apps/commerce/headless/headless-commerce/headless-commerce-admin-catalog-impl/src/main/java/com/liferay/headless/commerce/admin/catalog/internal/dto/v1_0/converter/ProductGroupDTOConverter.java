@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.admin.catalog.internal.dto.v1_0.converter;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePricingClassCPDefinitionRelService;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
+import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductGroup;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -48,8 +49,11 @@ public class ProductGroupDTOConverter
 			_commercePricingClassService.getCommercePricingClass(
 				(Long)dtoConverterContext.getId());
 
+		ExpandoBridge expandoBridge = commercePricingClass.getExpandoBridge();
+
 		return new ProductGroup() {
 			{
+				customFields = expandoBridge.getAttributes();
 				description = LanguageUtils.getLanguageIdMap(
 					commercePricingClass.getDescriptionMap());
 				externalReferenceCode =
