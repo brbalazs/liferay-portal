@@ -567,6 +567,27 @@ public class Product implements Cloneable {
 
 	protected ProductSpecification[] productSpecifications;
 
+	public Integer getProductStatus() {
+		return productStatus;
+	}
+
+	public void setProductStatus(Integer productStatus) {
+		this.productStatus = productStatus;
+	}
+
+	public void setProductStatus(
+		UnsafeSupplier<Integer, Exception> productStatusUnsafeSupplier) {
+
+		try {
+			productStatus = productStatusUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Integer productStatus;
+
 	public String getProductType() {
 		return productType;
 	}
@@ -696,27 +717,6 @@ public class Product implements Cloneable {
 
 	protected Sku[] skus;
 
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	public void setStatus(
-		UnsafeSupplier<Status, Exception> statusUnsafeSupplier) {
-
-		try {
-			status = statusUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected Status status;
-
 	public ProductSubscriptionConfiguration getSubscriptionConfiguration() {
 		return subscriptionConfiguration;
 	}
@@ -826,6 +826,28 @@ public class Product implements Cloneable {
 	}
 
 	protected Map<String, String> urls;
+
+	public WorkflowStatusInfo getWorkflowStatusInfo() {
+		return workflowStatusInfo;
+	}
+
+	public void setWorkflowStatusInfo(WorkflowStatusInfo workflowStatusInfo) {
+		this.workflowStatusInfo = workflowStatusInfo;
+	}
+
+	public void setWorkflowStatusInfo(
+		UnsafeSupplier<WorkflowStatusInfo, Exception>
+			workflowStatusInfoUnsafeSupplier) {
+
+		try {
+			workflowStatusInfo = workflowStatusInfoUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected WorkflowStatusInfo workflowStatusInfo;
 
 	@Override
 	public Product clone() throws CloneNotSupportedException {

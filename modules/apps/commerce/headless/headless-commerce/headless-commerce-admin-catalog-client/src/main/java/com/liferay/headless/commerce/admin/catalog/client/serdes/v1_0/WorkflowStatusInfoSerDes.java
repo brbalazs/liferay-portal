@@ -14,7 +14,7 @@
 
 package com.liferay.headless.commerce.admin.catalog.client.serdes.v1_0;
 
-import com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.Status;
+import com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.WorkflowStatusInfo;
 import com.liferay.headless.commerce.admin.catalog.client.json.BaseJSONParser;
 
 import java.util.Iterator;
@@ -30,22 +30,24 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class StatusSerDes {
+public class WorkflowStatusInfoSerDes {
 
-	public static Status toDTO(String json) {
-		StatusJSONParser statusJSONParser = new StatusJSONParser();
+	public static WorkflowStatusInfo toDTO(String json) {
+		WorkflowStatusInfoJSONParser workflowStatusInfoJSONParser =
+			new WorkflowStatusInfoJSONParser();
 
-		return statusJSONParser.parseToDTO(json);
+		return workflowStatusInfoJSONParser.parseToDTO(json);
 	}
 
-	public static Status[] toDTOs(String json) {
-		StatusJSONParser statusJSONParser = new StatusJSONParser();
+	public static WorkflowStatusInfo[] toDTOs(String json) {
+		WorkflowStatusInfoJSONParser workflowStatusInfoJSONParser =
+			new WorkflowStatusInfoJSONParser();
 
-		return statusJSONParser.parseToDTOs(json);
+		return workflowStatusInfoJSONParser.parseToDTOs(json);
 	}
 
-	public static String toJSON(Status status) {
-		if (status == null) {
+	public static String toJSON(WorkflowStatusInfo workflowStatusInfo) {
+		if (workflowStatusInfo == null) {
 			return "null";
 		}
 
@@ -53,17 +55,17 @@ public class StatusSerDes {
 
 		sb.append("{");
 
-		if (status.getCode() != null) {
+		if (workflowStatusInfo.getCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"code\": ");
 
-			sb.append(status.getCode());
+			sb.append(workflowStatusInfo.getCode());
 		}
 
-		if (status.getLabel() != null) {
+		if (workflowStatusInfo.getLabel() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -72,12 +74,12 @@ public class StatusSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(status.getLabel()));
+			sb.append(_escape(workflowStatusInfo.getLabel()));
 
 			sb.append("\"");
 		}
 
-		if (status.getLabelI18n() != null) {
+		if (workflowStatusInfo.getLabelI18n() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -86,7 +88,7 @@ public class StatusSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(status.getLabelI18n()));
+			sb.append(_escape(workflowStatusInfo.getLabelI18n()));
 
 			sb.append("\"");
 		}
@@ -97,73 +99,79 @@ public class StatusSerDes {
 	}
 
 	public static Map<String, Object> toMap(String json) {
-		StatusJSONParser statusJSONParser = new StatusJSONParser();
+		WorkflowStatusInfoJSONParser workflowStatusInfoJSONParser =
+			new WorkflowStatusInfoJSONParser();
 
-		return statusJSONParser.parseToMap(json);
+		return workflowStatusInfoJSONParser.parseToMap(json);
 	}
 
-	public static Map<String, String> toMap(Status status) {
-		if (status == null) {
+	public static Map<String, String> toMap(
+		WorkflowStatusInfo workflowStatusInfo) {
+
+		if (workflowStatusInfo == null) {
 			return null;
 		}
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (status.getCode() == null) {
+		if (workflowStatusInfo.getCode() == null) {
 			map.put("code", null);
 		}
 		else {
-			map.put("code", String.valueOf(status.getCode()));
+			map.put("code", String.valueOf(workflowStatusInfo.getCode()));
 		}
 
-		if (status.getLabel() == null) {
+		if (workflowStatusInfo.getLabel() == null) {
 			map.put("label", null);
 		}
 		else {
-			map.put("label", String.valueOf(status.getLabel()));
+			map.put("label", String.valueOf(workflowStatusInfo.getLabel()));
 		}
 
-		if (status.getLabelI18n() == null) {
+		if (workflowStatusInfo.getLabelI18n() == null) {
 			map.put("labelI18n", null);
 		}
 		else {
-			map.put("labelI18n", String.valueOf(status.getLabelI18n()));
+			map.put(
+				"labelI18n", String.valueOf(workflowStatusInfo.getLabelI18n()));
 		}
 
 		return map;
 	}
 
-	public static class StatusJSONParser extends BaseJSONParser<Status> {
+	public static class WorkflowStatusInfoJSONParser
+		extends BaseJSONParser<WorkflowStatusInfo> {
 
 		@Override
-		protected Status createDTO() {
-			return new Status();
+		protected WorkflowStatusInfo createDTO() {
+			return new WorkflowStatusInfo();
 		}
 
 		@Override
-		protected Status[] createDTOArray(int size) {
-			return new Status[size];
+		protected WorkflowStatusInfo[] createDTOArray(int size) {
+			return new WorkflowStatusInfo[size];
 		}
 
 		@Override
 		protected void setField(
-			Status status, String jsonParserFieldName,
+			WorkflowStatusInfo workflowStatusInfo, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
 			if (Objects.equals(jsonParserFieldName, "code")) {
 				if (jsonParserFieldValue != null) {
-					status.setCode(
+					workflowStatusInfo.setCode(
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "label")) {
 				if (jsonParserFieldValue != null) {
-					status.setLabel((String)jsonParserFieldValue);
+					workflowStatusInfo.setLabel((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "labelI18n")) {
 				if (jsonParserFieldValue != null) {
-					status.setLabelI18n((String)jsonParserFieldValue);
+					workflowStatusInfo.setLabelI18n(
+						(String)jsonParserFieldValue);
 				}
 			}
 			else {

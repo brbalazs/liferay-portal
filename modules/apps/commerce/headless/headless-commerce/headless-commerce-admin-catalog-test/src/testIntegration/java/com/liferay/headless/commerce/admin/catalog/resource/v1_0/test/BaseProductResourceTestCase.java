@@ -972,6 +972,14 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("productStatus", additionalAssertFieldName)) {
+				if (product.getProductStatus() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("productType", additionalAssertFieldName)) {
 				if (product.getProductType() == null) {
 					valid = false;
@@ -1022,14 +1030,6 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("status", additionalAssertFieldName)) {
-				if (product.getStatus() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals(
 					"subscriptionConfiguration", additionalAssertFieldName)) {
 
@@ -1066,6 +1066,16 @@ public abstract class BaseProductResourceTestCase {
 
 			if (Objects.equals("urls", additionalAssertFieldName)) {
 				if (product.getUrls() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"workflowStatusInfo", additionalAssertFieldName)) {
+
+				if (product.getWorkflowStatusInfo() == null) {
 					valid = false;
 				}
 
@@ -1424,6 +1434,17 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("productStatus", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						product1.getProductStatus(),
+						product2.getProductStatus())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("productType", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						product1.getProductType(), product2.getProductType())) {
@@ -1490,16 +1511,6 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("status", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						product1.getStatus(), product2.getStatus())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals(
 					"subscriptionConfiguration", additionalAssertFieldName)) {
 
@@ -1546,6 +1557,19 @@ public abstract class BaseProductResourceTestCase {
 
 			if (Objects.equals("urls", additionalAssertFieldName)) {
 				if (!equals((Map)product1.getUrls(), (Map)product2.getUrls())) {
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"workflowStatusInfo", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						product1.getWorkflowStatusInfo(),
+						product2.getWorkflowStatusInfo())) {
+
 					return false;
 				}
 
@@ -1869,6 +1893,11 @@ public abstract class BaseProductResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("productStatus")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("productType")) {
 			sb.append("'");
 			sb.append(String.valueOf(product.getProductType()));
@@ -1905,11 +1934,6 @@ public abstract class BaseProductResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("status")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
 		if (entityFieldName.equals("subscriptionConfiguration")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1934,6 +1958,11 @@ public abstract class BaseProductResourceTestCase {
 		}
 
 		if (entityFieldName.equals("urls")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("workflowStatusInfo")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -1995,6 +2024,7 @@ public abstract class BaseProductResourceTestCase {
 				modifiedDate = RandomTestUtil.nextDate();
 				neverExpire = RandomTestUtil.randomBoolean();
 				productId = RandomTestUtil.randomLong();
+				productStatus = RandomTestUtil.randomInt();
 				productType = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				productTypeI18n = StringUtil.toLowerCase(

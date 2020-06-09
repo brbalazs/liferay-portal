@@ -787,6 +787,34 @@ public class Product {
 	protected ProductSpecification[] productSpecifications;
 
 	@Schema
+	public Integer getProductStatus() {
+		return productStatus;
+	}
+
+	public void setProductStatus(Integer productStatus) {
+		this.productStatus = productStatus;
+	}
+
+	@JsonIgnore
+	public void setProductStatus(
+		UnsafeSupplier<Integer, Exception> productStatusUnsafeSupplier) {
+
+		try {
+			productStatus = productStatusUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Integer productStatus;
+
+	@Schema
 	public String getProductType() {
 		return productType;
 	}
@@ -964,35 +992,6 @@ public class Product {
 
 	@Schema
 	@Valid
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	@JsonIgnore
-	public void setStatus(
-		UnsafeSupplier<Status, Exception> statusUnsafeSupplier) {
-
-		try {
-			status = statusUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Status status;
-
-	@Schema
-	@Valid
 	public ProductSubscriptionConfiguration getSubscriptionConfiguration() {
 		return subscriptionConfiguration;
 	}
@@ -1138,6 +1137,36 @@ public class Product {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Map<String, String> urls;
+
+	@Schema
+	@Valid
+	public WorkflowStatusInfo getWorkflowStatusInfo() {
+		return workflowStatusInfo;
+	}
+
+	public void setWorkflowStatusInfo(WorkflowStatusInfo workflowStatusInfo) {
+		this.workflowStatusInfo = workflowStatusInfo;
+	}
+
+	@JsonIgnore
+	public void setWorkflowStatusInfo(
+		UnsafeSupplier<WorkflowStatusInfo, Exception>
+			workflowStatusInfoUnsafeSupplier) {
+
+		try {
+			workflowStatusInfo = workflowStatusInfoUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected WorkflowStatusInfo workflowStatusInfo;
 
 	@Override
 	public boolean equals(Object object) {
@@ -1493,6 +1522,16 @@ public class Product {
 			sb.append("]");
 		}
 
+		if (productStatus != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"productStatus\": ");
+
+			sb.append(productStatus);
+		}
+
 		if (productType != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -1581,16 +1620,6 @@ public class Product {
 			sb.append("]");
 		}
 
-		if (status != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"status\": ");
-
-			sb.append(String.valueOf(status));
-		}
-
 		if (subscriptionConfiguration != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -1657,6 +1686,16 @@ public class Product {
 			sb.append("\"urls\": ");
 
 			sb.append(_toJSON(urls));
+		}
+
+		if (workflowStatusInfo != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"workflowStatusInfo\": ");
+
+			sb.append(String.valueOf(workflowStatusInfo));
 		}
 
 		sb.append("}");

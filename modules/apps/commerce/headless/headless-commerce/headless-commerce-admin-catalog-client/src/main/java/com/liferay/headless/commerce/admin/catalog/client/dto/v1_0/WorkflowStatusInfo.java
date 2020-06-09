@@ -15,7 +15,7 @@
 package com.liferay.headless.commerce.admin.catalog.client.dto.v1_0;
 
 import com.liferay.headless.commerce.admin.catalog.client.function.UnsafeSupplier;
-import com.liferay.headless.commerce.admin.catalog.client.serdes.v1_0.StatusSerDes;
+import com.liferay.headless.commerce.admin.catalog.client.serdes.v1_0.WorkflowStatusInfoSerDes;
 
 import java.util.Objects;
 
@@ -26,10 +26,10 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Status implements Cloneable {
+public class WorkflowStatusInfo implements Cloneable {
 
-	public static Status toDTO(String json) {
-		return StatusSerDes.toDTO(json);
+	public static WorkflowStatusInfo toDTO(String json) {
+		return WorkflowStatusInfoSerDes.toDTO(json);
 	}
 
 	public Integer getCode() {
@@ -94,8 +94,8 @@ public class Status implements Cloneable {
 	protected String labelI18n;
 
 	@Override
-	public Status clone() throws CloneNotSupportedException {
-		return (Status)super.clone();
+	public WorkflowStatusInfo clone() throws CloneNotSupportedException {
+		return (WorkflowStatusInfo)super.clone();
 	}
 
 	@Override
@@ -104,13 +104,13 @@ public class Status implements Cloneable {
 			return true;
 		}
 
-		if (!(object instanceof Status)) {
+		if (!(object instanceof WorkflowStatusInfo)) {
 			return false;
 		}
 
-		Status status = (Status)object;
+		WorkflowStatusInfo workflowStatusInfo = (WorkflowStatusInfo)object;
 
-		return Objects.equals(toString(), status.toString());
+		return Objects.equals(toString(), workflowStatusInfo.toString());
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class Status implements Cloneable {
 	}
 
 	public String toString() {
-		return StatusSerDes.toJSON(this);
+		return WorkflowStatusInfoSerDes.toJSON(this);
 	}
 
 }

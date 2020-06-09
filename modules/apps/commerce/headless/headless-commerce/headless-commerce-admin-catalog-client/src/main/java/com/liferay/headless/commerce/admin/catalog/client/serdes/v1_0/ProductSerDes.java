@@ -395,6 +395,16 @@ public class ProductSerDes {
 			sb.append("]");
 		}
 
+		if (product.getProductStatus() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"productStatus\": ");
+
+			sb.append(product.getProductStatus());
+		}
+
 		if (product.getProductType() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -483,16 +493,6 @@ public class ProductSerDes {
 			sb.append("]");
 		}
 
-		if (product.getStatus() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"status\": ");
-
-			sb.append(String.valueOf(product.getStatus()));
-		}
-
 		if (product.getSubscriptionConfiguration() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -559,6 +559,16 @@ public class ProductSerDes {
 			sb.append("\"urls\": ");
 
 			sb.append(_toJSON(product.getUrls()));
+		}
+
+		if (product.getWorkflowStatusInfo() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"workflowStatusInfo\": ");
+
+			sb.append(String.valueOf(product.getWorkflowStatusInfo()));
 		}
 
 		sb.append("}");
@@ -773,6 +783,14 @@ public class ProductSerDes {
 				String.valueOf(product.getProductSpecifications()));
 		}
 
+		if (product.getProductStatus() == null) {
+			map.put("productStatus", null);
+		}
+		else {
+			map.put(
+				"productStatus", String.valueOf(product.getProductStatus()));
+		}
+
 		if (product.getProductType() == null) {
 			map.put("productType", null);
 		}
@@ -823,13 +841,6 @@ public class ProductSerDes {
 			map.put("skus", String.valueOf(product.getSkus()));
 		}
 
-		if (product.getStatus() == null) {
-			map.put("status", null);
-		}
-		else {
-			map.put("status", String.valueOf(product.getStatus()));
-		}
-
 		if (product.getSubscriptionConfiguration() == null) {
 			map.put("subscriptionConfiguration", null);
 		}
@@ -867,6 +878,15 @@ public class ProductSerDes {
 		}
 		else {
 			map.put("urls", String.valueOf(product.getUrls()));
+		}
+
+		if (product.getWorkflowStatusInfo() == null) {
+			map.put("workflowStatusInfo", null);
+		}
+		else {
+			map.put(
+				"workflowStatusInfo",
+				String.valueOf(product.getWorkflowStatusInfo()));
 		}
 
 		return map;
@@ -1070,6 +1090,12 @@ public class ProductSerDes {
 						));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "productStatus")) {
+				if (jsonParserFieldValue != null) {
+					product.setProductStatus(
+						Integer.valueOf((String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "productType")) {
 				if (jsonParserFieldValue != null) {
 					product.setProductType((String)jsonParserFieldValue);
@@ -1119,12 +1145,6 @@ public class ProductSerDes {
 						));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "status")) {
-				if (jsonParserFieldValue != null) {
-					product.setStatus(
-						StatusSerDes.toDTO((String)jsonParserFieldValue));
-				}
-			}
 			else if (Objects.equals(
 						jsonParserFieldName, "subscriptionConfiguration")) {
 
@@ -1155,6 +1175,15 @@ public class ProductSerDes {
 				if (jsonParserFieldValue != null) {
 					product.setUrls(
 						(Map)ProductSerDes.toMap((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "workflowStatusInfo")) {
+
+				if (jsonParserFieldValue != null) {
+					product.setWorkflowStatusInfo(
+						WorkflowStatusInfoSerDes.toDTO(
+							(String)jsonParserFieldValue));
 				}
 			}
 			else {
