@@ -142,10 +142,20 @@ public class PunchoutLoginPostAction extends Action {
 			_commerceChannelLocalService.getCommerceChannelGroupIdBySiteGroupId(
 				groupId);
 
-		CommerceOrder commerceOrder =
-			_commerceOrderLocalService.addCommerceOrder(
+		String commerceOrderUuid = punchoutAccessToken.getCommerceOrderUuid();
+
+		CommerceOrder commerceOrder;
+
+		if (!Validator.isBlank(commerceOrderUuid)) {
+			commerceOrder =
+				_commerceOrderLocalService.fetchCommerceOrderByUuidAndGroupId(
+					commerceOrderUuid, commerceChannelGroupId);
+		}
+		else {
+			commerceOrder = _commerceOrderLocalService.addCommerceOrder(
 				punchoutUserId, commerceChannelGroupId, commerceAccountId,
 				commerceCurrencyId);
+		}
 
 		CommerceContext commerceContext = _commerceContextFactory.create(
 			companyId, commerceChannelGroupId, punchoutUserId,

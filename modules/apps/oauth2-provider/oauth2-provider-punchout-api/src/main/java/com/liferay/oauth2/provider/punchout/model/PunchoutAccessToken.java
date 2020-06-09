@@ -19,12 +19,12 @@ package com.liferay.oauth2.provider.punchout.model;
  */
 public class PunchoutAccessToken {
 
-	public long getChannelId() {
-		return _channelId;
-	}
-
 	public long getCommerceAccountId() {
 		return _commerceAccountId;
+	}
+
+	public String getCommerceOrderUuid() {
+		return _commerceOrderUuId;
 	}
 
 	public String getCurrencyCode() {
@@ -55,12 +55,12 @@ public class PunchoutAccessToken {
 		return _userEmailAddress;
 	}
 
-	public void setChannelId(long channelId) {
-		_channelId = channelId;
-	}
-
 	public void setCommerceAccountId(long commerceAccountId) {
 		_commerceAccountId = commerceAccountId;
+	}
+
+	public void setCommerceOrderUuid(String commerceOrderUuid) {
+		_commerceOrderUuId = commerceOrderUuid;
 	}
 
 	public void setCurrencyCode(String currencyCode) {
@@ -91,8 +91,8 @@ public class PunchoutAccessToken {
 		_userEmailAddress = userEmailAddress;
 	}
 
-	private long _channelId;
 	private long _commerceAccountId;
+	private String _commerceOrderUuId;
 	private String _currencyCode;
 	private long _expiresIn;
 	private long _groupId;

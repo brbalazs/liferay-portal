@@ -114,19 +114,22 @@ public class PunchoutSessionResourceImpl
 			throw new BadRequestException();
 		}
 
-		CommerceAccount businessCommerceAccount =
-			_fetchBusinessCommerceAccount(punchoutSession.getBuyerAccountReferenceCode());
+		CommerceAccount businessCommerceAccount = _fetchBusinessCommerceAccount(
+			punchoutSession.getBuyerAccountReferenceCode());
 
 		if (businessCommerceAccount == null) {
 			throw new BadRequestException();
 		}
 
 		_addBuyerUserToAccount(
-			businessCommerceAccount, buyerUserInLiferay.getUserId(), buyerGroup.getGroupId());
+			businessCommerceAccount, buyerUserInLiferay.getUserId(),
+			buyerGroup.getGroupId());
 
 		String punchoutSessionType = punchoutSession.getPunchoutSessionType();
 
 		Cart cart = punchoutSession.getCart();
+
+		String commerceOrderUuid = null;
 
 		if (punchoutSessionType.equalsIgnoreCase(_EDIT_REQUEST_TYPE) ||
 			punchoutSessionType.equalsIgnoreCase(_INSPECT_REQUEST_TYPE)) {
@@ -138,6 +141,11 @@ public class PunchoutSessionResourceImpl
 			}
 
 			_mergeCartItems(punchoutSession.getCart(), buyerGroup.getGroupId());
+
+			CommerceOrder commerceOrder =
+				_commerceOrderLocalService.fetchCommerceOrder(cart.getId());
+
+			commerceOrderUuid = commerceOrder.getUuid();
 		}
 
 		String punchoutStartURL = _getPunchoutStartURL(
@@ -145,10 +153,10 @@ public class PunchoutSessionResourceImpl
 
 		PunchoutAccessToken punchoutAccessToken =
 			_punchoutAccessTokenProvider.generatePunchoutAccessToken(
-				buyerGroup.getGroupId(), commerceChannel.getCommerceChannelId(),
+				buyerGroup.getGroupId(),
 				businessCommerceAccount.getCommerceAccountId(),
 				cart.getCurrencyCode(), buyerUserInLiferay.getEmailAddress(),
-				punchoutSession.getPunchoutReturnURL());
+				punchoutSession.getPunchoutReturnURL(), commerceOrderUuid);
 
 		byte[] token = punchoutAccessToken.getToken();
 
@@ -227,9 +235,8 @@ public class PunchoutSessionResourceImpl
 		long[] roleIds = {role.getRoleId()};
 
 		_commerceAccountUserRelLocalService.addCommerceAccountUserRels(
-			commerceAccount.getCommerceAccountId(),
-			new long[] {userId}, null, roleIds,
-			_serviceContextHelper.getServiceContext(groupId));
+			commerceAccount.getCommerceAccountId(), new long[] {userId}, null,
+			roleIds, _serviceContextHelper.getServiceContext(groupId));
 	}
 
 	private void _checkAllowUserCreation(long companyId, String email)
@@ -246,9 +253,11 @@ public class PunchoutSessionResourceImpl
 		}
 	}
 
-	private CommerceAccount _fetchBusinessCommerceAccount(String externalReferenceCode) {
+	private CommerceAccount _fetchBusinessCommerceAccount(
+		String externalReferenceCode) {
+
 		return _commerceAccountLocalService.fetchCommerceAccountByReferenceCode(
-				contextCompany.getCompanyId(), externalReferenceCode);
+			contextCompany.getCompanyId(), externalReferenceCode);
 	}
 
 	private CommerceChannel _fetchChannel(long groupId) {

@@ -22,8 +22,9 @@ import com.liferay.oauth2.provider.punchout.model.PunchoutAccessToken;
 public interface PunchoutAccessTokenProvider {
 
 	public PunchoutAccessToken generatePunchoutAccessToken(
-		long groupId, long channelId, long commerceAccountId,
-		String currencyCode, String userEmailAddress, String punchoutReturnURL);
+		long groupId, long commerceAccountId, String currencyCode,
+		String userEmailAddress, String punchoutReturnURL,
+		String commerceOrderUuid);
 
 	public PunchoutAccessToken getPunchoutAccessToken(String token);
 
