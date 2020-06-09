@@ -460,6 +460,7 @@ components:
                     type: array
                 catalog:
                     $ref: "#/components/schemas/Catalog"
+                    readonly: true
                 catalogId:
                     example: 30054
                     format: int64
@@ -571,6 +572,7 @@ components:
                     type: string
                 productTypeI18n:
                     example: simple
+                    readonly: true
                     type: string
                 relatedProducts:
                     items:
@@ -604,6 +606,7 @@ components:
                     $ref: "#/components/schemas/ProductTaxConfiguration"
                 thumbnail:
                     example: simple
+                    readonly: true
                     type: string
                 urls:
                     additionalProperties:
