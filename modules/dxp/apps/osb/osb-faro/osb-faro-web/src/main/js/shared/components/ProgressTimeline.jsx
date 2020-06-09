@@ -11,6 +11,10 @@ class ProgressTimeline extends React.Component {
 		items: PropTypes.array
 	};
 
+	wrapWithLink(content, href, i) {
+		return <Link key={i} to={href}></Link>;
+	}
+
 	render() {
 		const {activeIndex, className, items} = this.props;
 
@@ -22,14 +26,13 @@ class ProgressTimeline extends React.Component {
 
 					const step = i + 1;
 
-					return [
-						<Link
+					const content = (
+						<div
 							className={getCN('step', {
 								active,
 								'previous-step': previousStep
 							})}
 							key={i}
-							to={href || ''}
 						>
 							<div className='title'>{title}</div>
 
@@ -38,7 +41,11 @@ class ProgressTimeline extends React.Component {
 
 								{previousStep && <Icon symbol='check' />}
 							</div>
-						</Link>,
+						</div>
+					);
+
+					return [
+						href ? this.wrapWithLink(content, href, i) : content,
 						items.length !== i + 1 && (
 							<span
 								className={getCN('bar', {filled: previousStep})}
