@@ -562,6 +562,10 @@ components:
                     items:
                         $ref: "#/components/schemas/ProductSpecification"
                     type: array
+                productStatus:
+                    format: int32
+                    readOnly: true
+                    type: integer
                 productType:
                     example: simple
                     type: string
@@ -586,8 +590,6 @@ components:
                     items:
                         $ref: "#/components/schemas/Sku"
                     type: array
-                status:
-                    $ref: "#/components/schemas/Status"
                 subscriptionConfiguration:
                     $ref: "#/components/schemas/ProductSubscriptionConfiguration"
                 tags:
@@ -611,6 +613,9 @@ components:
                         hr_HR: product-url-hr
                         hu_HU: product-url-hu
                     type: object
+                workflowStatusInfo:
+                    $ref: "#/components/schemas/WorkflowStatusInfo"
+                    readonly: true
             required:
                 - active
                 - catalogId
@@ -1025,7 +1030,7 @@ components:
                 - key
                 - title
             type: object
-        Status:
+        WorkflowStatusInfo:
             properties:
                 code:
                     format: int32
