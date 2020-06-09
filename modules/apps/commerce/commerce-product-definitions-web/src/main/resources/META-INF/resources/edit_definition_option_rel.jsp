@@ -140,22 +140,145 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 		</div>
 
 		<aui:script>
-			var valuesContainer = document.querySelector('#values-container');
-			var formFieldTypeSelect = document.querySelector(
-				'#<portlet:namespace />DDMFormFieldTypeName'
+			var allowedPriceContributorTypeNames =
+				'<%= String.join(StringPool.COMMA, CPConstants.PRODUCT_OPTION_PRICE_CONTRIBUTOR_FIELD_TYPES) %>';
+			var allowedPriceContributorFieldTypeSelectOptions = allowedPriceContributorTypeNames.split(
+				','
 			);
-			var sectionsTypeWithMultipleValues = ['select', 'radio', 'checkbox_multiple'];
+			var allowedSkuContributorTypeNames =
+				'<%= String.join(StringPool.COMMA, CPConstants.PRODUCT_OPTION_SKU_CONTRIBUTOR_FIELD_TYPES) %>';
+			var allowedSkuContributorFieldTypeSelectOptions = allowedPriceContributorTypeNames.split(
+				','
+			);
+			var availableTypeNames =
+				'<%= cpDefinitionOptionRelDisplayContext.getDDMFormFieldTypeNames() %>';
+			var availableFieldTypeSelectOptions = availableTypeNames.split(',');
+			var multipleValuesTypeNames =
+				'<%= String.join(StringPool.COMMA, CPConstants.PRODUCT_OPTION_MULTIPLE_VALUES_FIELD_TYPES) %>';
+			var multipleValuesFieldTypeSelectOptions = multipleValuesTypeNames.split(',');
+
+			var formFieldTypeSelect = document.getElementById(
+				'<portlet:namespace />DDMFormFieldTypeName'
+			);
+			var priceTypeSelect = document.getElementById('<portlet:namespace />priceType');
+			var skuContributorInput = document.getElementById(
+				'<portlet:namespace />skuContributor'
+			);
+			var valuesContainer = document.getElementById('values-container');
+
+			function checkDDMFormFieldType() {
+				var priceTypeSelectValue =
+					priceTypeSelect.options[priceTypeSelect.selectedIndex].value;
+				var skuContributorInputChecked = skuContributorInput.checked;
+
+				var allowedFieldTypeSelectOptions = availableFieldTypeSelectOptions;
+
+				if (priceTypeSelectValue != '') {
+					allowedFieldTypeSelectOptions = allowedPriceContributorFieldTypeSelectOptions;
+				}
+
+				if (skuContributorInputChecked) {
+					allowedFieldTypeSelectOptions = allowedSkuContributorFieldTypeSelectOptions;
+				}
+
+				if (
+					formFieldTypeSelect.value != '' &&
+					!allowedFieldTypeSelectOptions.includes(formFieldTypeSelect.value)
+				) {
+					alert(
+						'<liferay-ui:message key="selected-field-type-price-type-and-sku-contributor-combination-is-not-allowed" />'
+					);
+
+					return;
+				}
+
+				for (var i = 0; i < formFieldTypeSelect.options.length; i++) {
+					var formFieldTypeSelectOption = formFieldTypeSelect.options[i];
+
+					if (formFieldTypeSelectOption.value == '') {
+						continue;
+					}
+
+					if (
+						allowedFieldTypeSelectOptions.includes(
+							formFieldTypeSelectOption.value
+						)
+					) {
+						if (formFieldTypeSelectOption.getAttribute('disabled')) {
+							formFieldTypeSelectOption.removeAttribute('disabled');
+						}
+
+						continue;
+					}
+
+					formFieldTypeSelectOption.setAttribute('disabled', true);
+				}
+			}
 
 			function handleFormFieldTypeSelectChanges() {
-				if (sectionsTypeWithMultipleValues.includes(formFieldTypeSelect.value)) {
+				if (
+					allowedPriceContributorFieldTypeSelectOptions.includes(
+						formFieldTypeSelect.value
+					)
+				) {
+					enable(priceTypeSelect);
+				} else {
+					if (priceTypeSelect.value == '') {
+						disable(priceTypeSelect);
+					} else {
+						alert(
+							'<liferay-ui:message key="selected-field-type-price-type-and-sku-contributor-combination-is-not-allowed" />'
+						);
+
+						return;
+					}
+				}
+
+				if (
+					allowedSkuContributorFieldTypeSelectOptions.includes(
+						formFieldTypeSelect.value
+					)
+				) {
+					enable(skuContributorInput);
+				} else {
+					if (!skuContributorInput.checked) {
+						disable(skuContributorInput);
+					} else {
+						alert(
+							'<liferay-ui:message key="selected-field-type-price-type-and-sku-contributor-combination-is-not-allowed" />'
+						);
+
+						return;
+					}
+				}
+
+				if (
+					multipleValuesFieldTypeSelectOptions.includes(formFieldTypeSelect.value)
+				) {
 					valuesContainer.classList.remove('d-none');
 				} else {
 					valuesContainer.classList.add('d-none');
 				}
 			}
 
-			formFieldTypeSelect.addEventListener('change', handleFormFieldTypeSelectChanges);
+			function disable(element) {
+				if (!element.getAttribute('disabled')) {
+					element.setAttribute('disabled', true);
+				}
+			}
 
+			function enable(element) {
+				if (element.getAttribute('disabled')) {
+					element.removeAttribute('disabled');
+				}
+			}
+
+			formFieldTypeSelect.addEventListener(
+				'change',
+				handleFormFieldTypeSelectChanges
+			);
+			skuContributorInput.addEventListener('change', checkDDMFormFieldType);
+			priceTypeSelect.addEventListener('change', checkDDMFormFieldType);
 			handleFormFieldTypeSelectChanges();
 		</aui:script>
 
