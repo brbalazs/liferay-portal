@@ -15,7 +15,7 @@ import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 import {useQuery} from '@apollo/react-hooks';
 import {User} from 'shared/util/records';
-import {WarningStripeContext} from 'shared/context/WarningStripe';
+import {WarningStripeFromOAuthContext} from 'shared/context/warningStripeFromOAuth';
 import {withCurrentUser} from 'shared/hoc';
 
 const {
@@ -112,7 +112,7 @@ export const Dashboard: React.FC<IDashboardProps> = ({currentUser, router}) => {
 	const selectedChannelName = selectedChannel && selectedChannel.name;
 
 	const {setShowWarningStripe, showWarningStripe} = useContext(
-		WarningStripeContext
+		WarningStripeFromOAuthContext
 	);
 
 	const {data: oAuth1Data} = useQuery(DataSourceQuery, {
@@ -124,7 +124,7 @@ export const Dashboard: React.FC<IDashboardProps> = ({currentUser, router}) => {
 
 	useEffect(() => {
 		if (
-			showWarningStripe &&
+			showWarningStripe === null &&
 			oAuth1Data &&
 			oAuth2Data &&
 			oAuth1Data.dataSources.length + oAuth2Data.dataSources.length > 0
