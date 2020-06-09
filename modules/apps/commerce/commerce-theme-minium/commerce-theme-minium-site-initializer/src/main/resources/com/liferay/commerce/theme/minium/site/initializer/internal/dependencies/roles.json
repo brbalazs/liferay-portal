@@ -43,5 +43,52 @@
 		"name": "Discount Manager",
 		"scope": 1,
 		"type": 1
+	},
+	{
+		"actions": [
+			{
+				"actionIds": [
+					"ADD_COMMERCE_CATALOG",
+					"VIEW_CONTROL_PANEL"
+				],
+				"resource": "90"
+			},
+			{
+				"actionIds": [
+					"ACCESS_IN_CONTROL_PANEL"
+				],
+				"resource": "com_liferay_commerce_product_definitions_web_internal_portlet_CPDefinitionsPortlet"
+			},
+			{
+				"actionIds": [
+					"UPDATE",
+					"VIEW"
+				],
+				"resource": "com.liferay.commerce.product.model.CommerceCatalog"
+			},
+			{
+				"actionIds": [
+					"ACCESS_IN_CONTROL_PANEL"
+				],
+				"resource": "com_liferay_commerce_catalog_web_internal_portlet_CommerceCatalogsPortlet"
+			},
+			{
+				"actionIds": [
+					"ACCESS_IN_CONTROL_PANEL",
+					"VIEW"
+				],
+				"resource": "com_liferay_asset_categories_admin_web_portlet_AssetCategoriesAdminPortlet"
+			},
+			{
+				"actionIds": [
+					"ADD_CATEGORY",
+					"ADD_VOCABULARY"
+				],
+				"resource": "com.liferay.asset.categories"
+			}
+		],
+		"name": "Category Manager",
+		"scope": 1,
+		"type": 1
 	}
 ]
