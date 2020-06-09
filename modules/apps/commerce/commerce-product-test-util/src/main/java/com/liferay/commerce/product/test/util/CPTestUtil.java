@@ -235,7 +235,7 @@ public class CPTestUtil {
 
 		CPOption cpOption = addCPOption(groupId, skuContributor);
 
-		for (int idx = 0; idx < cpDefinitionOptionValueRelsCount; idx++) {
+		for (int i = 0; i < cpDefinitionOptionValueRelsCount; i++) {
 			addCPOptionValue(cpOption);
 		}
 
