@@ -17,6 +17,7 @@ package com.liferay.commerce.product.ddm.internal;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
 import com.liferay.commerce.media.CommerceMediaResolver;
+import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.ddm.DDMHelper;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;
@@ -43,6 +44,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -440,11 +442,7 @@ public class DDMHelperImpl implements DDMHelper {
 	private boolean _isIterableCPDefinitionOptionRelFieldType(
 		CPDefinitionOptionRel cpDefinitionOptionRel) {
 
-		List<String> iterableFieldTypes = Arrays.asList(
-			"select", "radio", "checkbox", "checkbox_multiple");
-
-		if (iterableFieldTypes.contains(
-				cpDefinitionOptionRel.getDDMFormFieldTypeName())) {
+		if (ArrayUtil.contains(CPConstants.PRODUCT_OPTION_MULTIPLE_VALUES_FIELD_TYPES, cpDefinitionOptionRel.getDDMFormFieldTypeName())) {
 
 			return true;
 		}
