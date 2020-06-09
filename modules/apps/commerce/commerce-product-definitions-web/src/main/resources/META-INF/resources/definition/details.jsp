@@ -252,7 +252,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 
 						return fetch('/o/headless-commerce-admin-catalog/v1.0/specifications', {
 							body: JSON.stringify({
-								key: slugify.default(encodeURIComponent(name)),
+								key: slugify.default(name),
 								title: nameDefinition
 							}),
 							credentials: 'include',

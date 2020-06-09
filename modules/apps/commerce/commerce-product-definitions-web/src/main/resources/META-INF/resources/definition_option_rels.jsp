@@ -88,7 +88,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 				return fetch('/o/headless-commerce-admin-catalog/v1.0/options', {
 					body: JSON.stringify({
 						fieldType: 'select',
-						key: slugify.default(encodeURIComponent(name)),
+						key: slugify.default(name),
 						name: nameDefinition
 					}),
 					credentials: 'include',
