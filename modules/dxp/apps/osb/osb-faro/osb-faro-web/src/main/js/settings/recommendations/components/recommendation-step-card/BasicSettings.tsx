@@ -22,7 +22,7 @@ const BasicSettings: React.FC<IBasicSettingsProps> = ({
 }) => {
 	useEffect(() => {
 		onSetDisabled(!name || !!errors.name);
-	}, [name]);
+	}, [name, errors]);
 
 	return (
 		<div className='basic-settings-root'>
