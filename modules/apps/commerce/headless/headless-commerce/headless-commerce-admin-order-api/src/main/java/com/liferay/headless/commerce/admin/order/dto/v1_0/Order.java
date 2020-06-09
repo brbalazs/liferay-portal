@@ -87,7 +87,7 @@ public class Order {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Account account;
 
 	@Schema
@@ -266,6 +266,38 @@ public class Order {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Channel channel;
+
+	@Schema
+	public String getChannelExternalReferenceCode() {
+		return channelExternalReferenceCode;
+	}
+
+	public void setChannelExternalReferenceCode(
+		String channelExternalReferenceCode) {
+
+		this.channelExternalReferenceCode = channelExternalReferenceCode;
+	}
+
+	@JsonIgnore
+	public void setChannelExternalReferenceCode(
+		UnsafeSupplier<String, Exception>
+			channelExternalReferenceCodeUnsafeSupplier) {
+
+		try {
+			channelExternalReferenceCode =
+				channelExternalReferenceCodeUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String channelExternalReferenceCode;
 
 	@DecimalMin("0")
 	@Schema
@@ -609,6 +641,36 @@ public class Order {
 	protected Integer orderStatus;
 
 	@Schema
+	@Valid
+	public OrderStatusInfo getOrderStatusInfo() {
+		return orderStatusInfo;
+	}
+
+	public void setOrderStatusInfo(OrderStatusInfo orderStatusInfo) {
+		this.orderStatusInfo = orderStatusInfo;
+	}
+
+	@JsonIgnore
+	public void setOrderStatusInfo(
+		UnsafeSupplier<OrderStatusInfo, Exception>
+			orderStatusInfoUnsafeSupplier) {
+
+		try {
+			orderStatusInfo = orderStatusInfoUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected OrderStatusInfo orderStatusInfo;
+
+	@Schema
 	public String getPaymentMethod() {
 		return paymentMethod;
 	}
@@ -636,19 +698,19 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String paymentMethod;
 
+	@DecimalMin("0")
 	@Schema
-	@Valid
-	public PaymentStatus getPaymentStatus() {
+	public Integer getPaymentStatus() {
 		return paymentStatus;
 	}
 
-	public void setPaymentStatus(PaymentStatus paymentStatus) {
+	public void setPaymentStatus(Integer paymentStatus) {
 		this.paymentStatus = paymentStatus;
 	}
 
 	@JsonIgnore
 	public void setPaymentStatus(
-		UnsafeSupplier<PaymentStatus, Exception> paymentStatusUnsafeSupplier) {
+		UnsafeSupplier<Integer, Exception> paymentStatusUnsafeSupplier) {
 
 		try {
 			paymentStatus = paymentStatusUnsafeSupplier.get();
@@ -663,7 +725,37 @@ public class Order {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected PaymentStatus paymentStatus;
+	protected Integer paymentStatus;
+
+	@Schema
+	@Valid
+	public PaymentStatusInfo getPaymentStatusInfo() {
+		return paymentStatusInfo;
+	}
+
+	public void setPaymentStatusInfo(PaymentStatusInfo paymentStatusInfo) {
+		this.paymentStatusInfo = paymentStatusInfo;
+	}
+
+	@JsonIgnore
+	public void setPaymentStatusInfo(
+		UnsafeSupplier<PaymentStatusInfo, Exception>
+			paymentStatusInfoUnsafeSupplier) {
+
+		try {
+			paymentStatusInfo = paymentStatusInfoUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected PaymentStatusInfo paymentStatusInfo;
 
 	@Schema
 	public String getPrintedNote() {
@@ -1149,35 +1241,6 @@ public class Order {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String shippingOption;
-
-	@Schema
-	@Valid
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	@JsonIgnore
-	public void setStatus(
-		UnsafeSupplier<Status, Exception> statusUnsafeSupplier) {
-
-		try {
-			status = statusUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Status status;
 
 	@Schema
 	@Valid
@@ -1828,21 +1891,21 @@ public class Order {
 
 	@Schema
 	@Valid
-	public WorkflowStatus getWorkflowStatus() {
-		return workflowStatus;
+	public WorkflowStatusInfo getWorkflowStatusInfo() {
+		return workflowStatusInfo;
 	}
 
-	public void setWorkflowStatus(WorkflowStatus workflowStatus) {
-		this.workflowStatus = workflowStatus;
+	public void setWorkflowStatusInfo(WorkflowStatusInfo workflowStatusInfo) {
+		this.workflowStatusInfo = workflowStatusInfo;
 	}
 
 	@JsonIgnore
-	public void setWorkflowStatus(
-		UnsafeSupplier<WorkflowStatus, Exception>
-			workflowStatusUnsafeSupplier) {
+	public void setWorkflowStatusInfo(
+		UnsafeSupplier<WorkflowStatusInfo, Exception>
+			workflowStatusInfoUnsafeSupplier) {
 
 		try {
-			workflowStatus = workflowStatusUnsafeSupplier.get();
+			workflowStatusInfo = workflowStatusInfoUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -1854,7 +1917,7 @@ public class Order {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected WorkflowStatus workflowStatus;
+	protected WorkflowStatusInfo workflowStatusInfo;
 
 	@Override
 	public boolean equals(Object object) {
@@ -1962,6 +2025,20 @@ public class Order {
 			sb.append("\"channel\": ");
 
 			sb.append(String.valueOf(channel));
+		}
+
+		if (channelExternalReferenceCode != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"channelExternalReferenceCode\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(channelExternalReferenceCode));
+
+			sb.append("\"");
 		}
 
 		if (channelId != null) {
@@ -2122,6 +2199,16 @@ public class Order {
 			sb.append(orderStatus);
 		}
 
+		if (orderStatusInfo != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"orderStatusInfo\": ");
+
+			sb.append(String.valueOf(orderStatusInfo));
+		}
+
 		if (paymentMethod != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -2143,7 +2230,17 @@ public class Order {
 
 			sb.append("\"paymentStatus\": ");
 
-			sb.append(String.valueOf(paymentStatus));
+			sb.append(paymentStatus);
+		}
+
+		if (paymentStatusInfo != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"paymentStatusInfo\": ");
+
+			sb.append(String.valueOf(paymentStatusInfo));
 		}
 
 		if (printedNote != null) {
@@ -2332,16 +2429,6 @@ public class Order {
 			sb.append(_escape(shippingOption));
 
 			sb.append("\"");
-		}
-
-		if (status != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"status\": ");
-
-			sb.append(String.valueOf(status));
 		}
 
 		if (subtotal != null) {
@@ -2578,14 +2665,14 @@ public class Order {
 			sb.append("\"");
 		}
 
-		if (workflowStatus != null) {
+		if (workflowStatusInfo != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"workflowStatus\": ");
+			sb.append("\"workflowStatusInfo\": ");
 
-			sb.append(String.valueOf(workflowStatus));
+			sb.append(String.valueOf(workflowStatusInfo));
 		}
 
 		sb.append("}");

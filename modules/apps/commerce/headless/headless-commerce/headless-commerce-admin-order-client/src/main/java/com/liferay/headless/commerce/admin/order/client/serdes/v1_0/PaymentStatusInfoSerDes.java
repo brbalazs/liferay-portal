@@ -14,7 +14,7 @@
 
 package com.liferay.headless.commerce.admin.order.client.serdes.v1_0;
 
-import com.liferay.headless.commerce.admin.order.client.dto.v1_0.PaymentStatus;
+import com.liferay.headless.commerce.admin.order.client.dto.v1_0.PaymentStatusInfo;
 import com.liferay.headless.commerce.admin.order.client.json.BaseJSONParser;
 
 import java.util.Iterator;
@@ -30,24 +30,24 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class PaymentStatusSerDes {
+public class PaymentStatusInfoSerDes {
 
-	public static PaymentStatus toDTO(String json) {
-		PaymentStatusJSONParser paymentStatusJSONParser =
-			new PaymentStatusJSONParser();
+	public static PaymentStatusInfo toDTO(String json) {
+		PaymentStatusInfoJSONParser paymentStatusInfoJSONParser =
+			new PaymentStatusInfoJSONParser();
 
-		return paymentStatusJSONParser.parseToDTO(json);
+		return paymentStatusInfoJSONParser.parseToDTO(json);
 	}
 
-	public static PaymentStatus[] toDTOs(String json) {
-		PaymentStatusJSONParser paymentStatusJSONParser =
-			new PaymentStatusJSONParser();
+	public static PaymentStatusInfo[] toDTOs(String json) {
+		PaymentStatusInfoJSONParser paymentStatusInfoJSONParser =
+			new PaymentStatusInfoJSONParser();
 
-		return paymentStatusJSONParser.parseToDTOs(json);
+		return paymentStatusInfoJSONParser.parseToDTOs(json);
 	}
 
-	public static String toJSON(PaymentStatus paymentStatus) {
-		if (paymentStatus == null) {
+	public static String toJSON(PaymentStatusInfo paymentStatusInfo) {
+		if (paymentStatusInfo == null) {
 			return "null";
 		}
 
@@ -55,17 +55,17 @@ public class PaymentStatusSerDes {
 
 		sb.append("{");
 
-		if (paymentStatus.getCode() != null) {
+		if (paymentStatusInfo.getCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"code\": ");
 
-			sb.append(paymentStatus.getCode());
+			sb.append(paymentStatusInfo.getCode());
 		}
 
-		if (paymentStatus.getLabel() != null) {
+		if (paymentStatusInfo.getLabel() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -74,12 +74,12 @@ public class PaymentStatusSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(paymentStatus.getLabel()));
+			sb.append(_escape(paymentStatusInfo.getLabel()));
 
 			sb.append("\"");
 		}
 
-		if (paymentStatus.getLabelI18n() != null) {
+		if (paymentStatusInfo.getLabelI18n() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -88,7 +88,7 @@ public class PaymentStatusSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(paymentStatus.getLabelI18n()));
+			sb.append(_escape(paymentStatusInfo.getLabelI18n()));
 
 			sb.append("\"");
 		}
@@ -99,75 +99,79 @@ public class PaymentStatusSerDes {
 	}
 
 	public static Map<String, Object> toMap(String json) {
-		PaymentStatusJSONParser paymentStatusJSONParser =
-			new PaymentStatusJSONParser();
+		PaymentStatusInfoJSONParser paymentStatusInfoJSONParser =
+			new PaymentStatusInfoJSONParser();
 
-		return paymentStatusJSONParser.parseToMap(json);
+		return paymentStatusInfoJSONParser.parseToMap(json);
 	}
 
-	public static Map<String, String> toMap(PaymentStatus paymentStatus) {
-		if (paymentStatus == null) {
+	public static Map<String, String> toMap(
+		PaymentStatusInfo paymentStatusInfo) {
+
+		if (paymentStatusInfo == null) {
 			return null;
 		}
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (paymentStatus.getCode() == null) {
+		if (paymentStatusInfo.getCode() == null) {
 			map.put("code", null);
 		}
 		else {
-			map.put("code", String.valueOf(paymentStatus.getCode()));
+			map.put("code", String.valueOf(paymentStatusInfo.getCode()));
 		}
 
-		if (paymentStatus.getLabel() == null) {
+		if (paymentStatusInfo.getLabel() == null) {
 			map.put("label", null);
 		}
 		else {
-			map.put("label", String.valueOf(paymentStatus.getLabel()));
+			map.put("label", String.valueOf(paymentStatusInfo.getLabel()));
 		}
 
-		if (paymentStatus.getLabelI18n() == null) {
+		if (paymentStatusInfo.getLabelI18n() == null) {
 			map.put("labelI18n", null);
 		}
 		else {
-			map.put("labelI18n", String.valueOf(paymentStatus.getLabelI18n()));
+			map.put(
+				"labelI18n", String.valueOf(paymentStatusInfo.getLabelI18n()));
 		}
 
 		return map;
 	}
 
-	public static class PaymentStatusJSONParser
-		extends BaseJSONParser<PaymentStatus> {
+	public static class PaymentStatusInfoJSONParser
+		extends BaseJSONParser<PaymentStatusInfo> {
 
 		@Override
-		protected PaymentStatus createDTO() {
-			return new PaymentStatus();
+		protected PaymentStatusInfo createDTO() {
+			return new PaymentStatusInfo();
 		}
 
 		@Override
-		protected PaymentStatus[] createDTOArray(int size) {
-			return new PaymentStatus[size];
+		protected PaymentStatusInfo[] createDTOArray(int size) {
+			return new PaymentStatusInfo[size];
 		}
 
 		@Override
 		protected void setField(
-			PaymentStatus paymentStatus, String jsonParserFieldName,
+			PaymentStatusInfo paymentStatusInfo, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
 			if (Objects.equals(jsonParserFieldName, "code")) {
 				if (jsonParserFieldValue != null) {
-					paymentStatus.setCode(
+					paymentStatusInfo.setCode(
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "label")) {
 				if (jsonParserFieldValue != null) {
-					paymentStatus.setLabel((String)jsonParserFieldValue);
+					paymentStatusInfo.setLabel((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "labelI18n")) {
 				if (jsonParserFieldValue != null) {
-					paymentStatus.setLabelI18n((String)jsonParserFieldValue);
+					paymentStatusInfo.setLabelI18n(
+						(String)jsonParserFieldValue);
 				}
 			}
 			else {

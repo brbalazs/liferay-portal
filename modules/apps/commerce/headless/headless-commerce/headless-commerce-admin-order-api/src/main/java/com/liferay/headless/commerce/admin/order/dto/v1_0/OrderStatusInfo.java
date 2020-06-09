@@ -40,13 +40,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName("Status")
+@GraphQLName("OrderStatusInfo")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "Status")
-public class Status {
+@XmlRootElement(name = "OrderStatusInfo")
+public class OrderStatusInfo {
 
-	public static Status toDTO(String json) {
-		return ObjectMapperUtil.readValue(Status.class, json);
+	public static OrderStatusInfo toDTO(String json) {
+		return ObjectMapperUtil.readValue(OrderStatusInfo.class, json);
 	}
 
 	@Schema
@@ -137,13 +137,13 @@ public class Status {
 			return true;
 		}
 
-		if (!(object instanceof Status)) {
+		if (!(object instanceof OrderStatusInfo)) {
 			return false;
 		}
 
-		Status status = (Status)object;
+		OrderStatusInfo orderStatusInfo = (OrderStatusInfo)object;
 
-		return Objects.equals(toString(), status.toString());
+		return Objects.equals(toString(), orderStatusInfo.toString());
 	}
 
 	@Override
@@ -202,7 +202,7 @@ public class Status {
 	}
 
 	@Schema(
-		defaultValue = "com.liferay.headless.commerce.admin.order.dto.v1_0.Status",
+		defaultValue = "com.liferay.headless.commerce.admin.order.dto.v1_0.OrderStatusInfo",
 		name = "x-class-name"
 	)
 	public String xClassName;

@@ -141,6 +141,20 @@ public class OrderSerDes {
 			sb.append(String.valueOf(order.getChannel()));
 		}
 
+		if (order.getChannelExternalReferenceCode() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"channelExternalReferenceCode\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(order.getChannelExternalReferenceCode()));
+
+			sb.append("\"");
+		}
+
 		if (order.getChannelId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -300,6 +314,16 @@ public class OrderSerDes {
 			sb.append(order.getOrderStatus());
 		}
 
+		if (order.getOrderStatusInfo() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"orderStatusInfo\": ");
+
+			sb.append(String.valueOf(order.getOrderStatusInfo()));
+		}
+
 		if (order.getPaymentMethod() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -321,7 +345,17 @@ public class OrderSerDes {
 
 			sb.append("\"paymentStatus\": ");
 
-			sb.append(String.valueOf(order.getPaymentStatus()));
+			sb.append(order.getPaymentStatus());
+		}
+
+		if (order.getPaymentStatusInfo() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"paymentStatusInfo\": ");
+
+			sb.append(String.valueOf(order.getPaymentStatusInfo()));
 		}
 
 		if (order.getPrintedNote() != null) {
@@ -512,16 +546,6 @@ public class OrderSerDes {
 			sb.append(_escape(order.getShippingOption()));
 
 			sb.append("\"");
-		}
-
-		if (order.getStatus() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"status\": ");
-
-			sb.append(String.valueOf(order.getStatus()));
 		}
 
 		if (order.getSubtotal() != null) {
@@ -758,14 +782,14 @@ public class OrderSerDes {
 			sb.append("\"");
 		}
 
-		if (order.getWorkflowStatus() != null) {
+		if (order.getWorkflowStatusInfo() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"workflowStatus\": ");
+			sb.append("\"workflowStatusInfo\": ");
 
-			sb.append(String.valueOf(order.getWorkflowStatus()));
+			sb.append(String.valueOf(order.getWorkflowStatusInfo()));
 		}
 
 		sb.append("}");
@@ -841,6 +865,15 @@ public class OrderSerDes {
 		}
 		else {
 			map.put("channel", String.valueOf(order.getChannel()));
+		}
+
+		if (order.getChannelExternalReferenceCode() == null) {
+			map.put("channelExternalReferenceCode", null);
+		}
+		else {
+			map.put(
+				"channelExternalReferenceCode",
+				String.valueOf(order.getChannelExternalReferenceCode()));
 		}
 
 		if (order.getChannelId() == null) {
@@ -937,6 +970,14 @@ public class OrderSerDes {
 			map.put("orderStatus", String.valueOf(order.getOrderStatus()));
 		}
 
+		if (order.getOrderStatusInfo() == null) {
+			map.put("orderStatusInfo", null);
+		}
+		else {
+			map.put(
+				"orderStatusInfo", String.valueOf(order.getOrderStatusInfo()));
+		}
+
 		if (order.getPaymentMethod() == null) {
 			map.put("paymentMethod", null);
 		}
@@ -949,6 +990,15 @@ public class OrderSerDes {
 		}
 		else {
 			map.put("paymentStatus", String.valueOf(order.getPaymentStatus()));
+		}
+
+		if (order.getPaymentStatusInfo() == null) {
+			map.put("paymentStatusInfo", null);
+		}
+		else {
+			map.put(
+				"paymentStatusInfo",
+				String.valueOf(order.getPaymentStatusInfo()));
 		}
 
 		if (order.getPrintedNote() == null) {
@@ -1088,13 +1138,6 @@ public class OrderSerDes {
 		else {
 			map.put(
 				"shippingOption", String.valueOf(order.getShippingOption()));
-		}
-
-		if (order.getStatus() == null) {
-			map.put("status", null);
-		}
-		else {
-			map.put("status", String.valueOf(order.getStatus()));
 		}
 
 		if (order.getSubtotal() == null) {
@@ -1274,12 +1317,13 @@ public class OrderSerDes {
 			map.put("transactionId", String.valueOf(order.getTransactionId()));
 		}
 
-		if (order.getWorkflowStatus() == null) {
-			map.put("workflowStatus", null);
+		if (order.getWorkflowStatusInfo() == null) {
+			map.put("workflowStatusInfo", null);
 		}
 		else {
 			map.put(
-				"workflowStatus", String.valueOf(order.getWorkflowStatus()));
+				"workflowStatusInfo",
+				String.valueOf(order.getWorkflowStatusInfo()));
 		}
 
 		return map;
@@ -1344,6 +1388,14 @@ public class OrderSerDes {
 				if (jsonParserFieldValue != null) {
 					order.setChannel(
 						ChannelSerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "channelExternalReferenceCode")) {
+
+				if (jsonParserFieldValue != null) {
+					order.setChannelExternalReferenceCode(
+						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "channelId")) {
@@ -1422,6 +1474,13 @@ public class OrderSerDes {
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "orderStatusInfo")) {
+				if (jsonParserFieldValue != null) {
+					order.setOrderStatusInfo(
+						OrderStatusInfoSerDes.toDTO(
+							(String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "paymentMethod")) {
 				if (jsonParserFieldValue != null) {
 					order.setPaymentMethod((String)jsonParserFieldValue);
@@ -1430,7 +1489,13 @@ public class OrderSerDes {
 			else if (Objects.equals(jsonParserFieldName, "paymentStatus")) {
 				if (jsonParserFieldValue != null) {
 					order.setPaymentStatus(
-						PaymentStatusSerDes.toDTO(
+						Integer.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "paymentStatusInfo")) {
+				if (jsonParserFieldValue != null) {
+					order.setPaymentStatusInfo(
+						PaymentStatusInfoSerDes.toDTO(
 							(String)jsonParserFieldValue));
 				}
 			}
@@ -1549,12 +1614,6 @@ public class OrderSerDes {
 			else if (Objects.equals(jsonParserFieldName, "shippingOption")) {
 				if (jsonParserFieldValue != null) {
 					order.setShippingOption((String)jsonParserFieldValue);
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "status")) {
-				if (jsonParserFieldValue != null) {
-					order.setStatus(
-						StatusSerDes.toDTO((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "subtotal")) {
@@ -1708,10 +1767,12 @@ public class OrderSerDes {
 					order.setTransactionId((String)jsonParserFieldValue);
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "workflowStatus")) {
+			else if (Objects.equals(
+						jsonParserFieldName, "workflowStatusInfo")) {
+
 				if (jsonParserFieldValue != null) {
-					order.setWorkflowStatus(
-						WorkflowStatusSerDes.toDTO(
+					order.setWorkflowStatusInfo(
+						WorkflowStatusInfoSerDes.toDTO(
 							(String)jsonParserFieldValue));
 				}
 			}

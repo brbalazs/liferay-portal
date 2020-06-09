@@ -188,6 +188,31 @@ public class Order implements Cloneable {
 
 	protected Channel channel;
 
+	public String getChannelExternalReferenceCode() {
+		return channelExternalReferenceCode;
+	}
+
+	public void setChannelExternalReferenceCode(
+		String channelExternalReferenceCode) {
+
+		this.channelExternalReferenceCode = channelExternalReferenceCode;
+	}
+
+	public void setChannelExternalReferenceCode(
+		UnsafeSupplier<String, Exception>
+			channelExternalReferenceCodeUnsafeSupplier) {
+
+		try {
+			channelExternalReferenceCode =
+				channelExternalReferenceCodeUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String channelExternalReferenceCode;
+
 	public Long getChannelId() {
 		return channelId;
 	}
@@ -438,6 +463,28 @@ public class Order implements Cloneable {
 
 	protected Integer orderStatus;
 
+	public OrderStatusInfo getOrderStatusInfo() {
+		return orderStatusInfo;
+	}
+
+	public void setOrderStatusInfo(OrderStatusInfo orderStatusInfo) {
+		this.orderStatusInfo = orderStatusInfo;
+	}
+
+	public void setOrderStatusInfo(
+		UnsafeSupplier<OrderStatusInfo, Exception>
+			orderStatusInfoUnsafeSupplier) {
+
+		try {
+			orderStatusInfo = orderStatusInfoUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected OrderStatusInfo orderStatusInfo;
+
 	public String getPaymentMethod() {
 		return paymentMethod;
 	}
@@ -459,16 +506,16 @@ public class Order implements Cloneable {
 
 	protected String paymentMethod;
 
-	public PaymentStatus getPaymentStatus() {
+	public Integer getPaymentStatus() {
 		return paymentStatus;
 	}
 
-	public void setPaymentStatus(PaymentStatus paymentStatus) {
+	public void setPaymentStatus(Integer paymentStatus) {
 		this.paymentStatus = paymentStatus;
 	}
 
 	public void setPaymentStatus(
-		UnsafeSupplier<PaymentStatus, Exception> paymentStatusUnsafeSupplier) {
+		UnsafeSupplier<Integer, Exception> paymentStatusUnsafeSupplier) {
 
 		try {
 			paymentStatus = paymentStatusUnsafeSupplier.get();
@@ -478,7 +525,29 @@ public class Order implements Cloneable {
 		}
 	}
 
-	protected PaymentStatus paymentStatus;
+	protected Integer paymentStatus;
+
+	public PaymentStatusInfo getPaymentStatusInfo() {
+		return paymentStatusInfo;
+	}
+
+	public void setPaymentStatusInfo(PaymentStatusInfo paymentStatusInfo) {
+		this.paymentStatusInfo = paymentStatusInfo;
+	}
+
+	public void setPaymentStatusInfo(
+		UnsafeSupplier<PaymentStatusInfo, Exception>
+			paymentStatusInfoUnsafeSupplier) {
+
+		try {
+			paymentStatusInfo = paymentStatusInfoUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected PaymentStatusInfo paymentStatusInfo;
 
 	public String getPrintedNote() {
 		return printedNote;
@@ -843,27 +912,6 @@ public class Order implements Cloneable {
 	}
 
 	protected String shippingOption;
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	public void setStatus(
-		UnsafeSupplier<Status, Exception> statusUnsafeSupplier) {
-
-		try {
-			status = statusUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected Status status;
 
 	public BigDecimal getSubtotal() {
 		return subtotal;
@@ -1351,27 +1399,27 @@ public class Order implements Cloneable {
 
 	protected String transactionId;
 
-	public WorkflowStatus getWorkflowStatus() {
-		return workflowStatus;
+	public WorkflowStatusInfo getWorkflowStatusInfo() {
+		return workflowStatusInfo;
 	}
 
-	public void setWorkflowStatus(WorkflowStatus workflowStatus) {
-		this.workflowStatus = workflowStatus;
+	public void setWorkflowStatusInfo(WorkflowStatusInfo workflowStatusInfo) {
+		this.workflowStatusInfo = workflowStatusInfo;
 	}
 
-	public void setWorkflowStatus(
-		UnsafeSupplier<WorkflowStatus, Exception>
-			workflowStatusUnsafeSupplier) {
+	public void setWorkflowStatusInfo(
+		UnsafeSupplier<WorkflowStatusInfo, Exception>
+			workflowStatusInfoUnsafeSupplier) {
 
 		try {
-			workflowStatus = workflowStatusUnsafeSupplier.get();
+			workflowStatusInfo = workflowStatusInfoUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected WorkflowStatus workflowStatus;
+	protected WorkflowStatusInfo workflowStatusInfo;
 
 	@Override
 	public Order clone() throws CloneNotSupportedException {

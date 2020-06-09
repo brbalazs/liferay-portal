@@ -184,6 +184,7 @@ public abstract class BaseOrderResourceTestCase {
 
 		order.setAccountExternalReferenceCode(regex);
 		order.setAdvanceStatus(regex);
+		order.setChannelExternalReferenceCode(regex);
 		order.setCouponCode(regex);
 		order.setCurrencyCode(regex);
 		order.setExternalReferenceCode(regex);
@@ -209,6 +210,7 @@ public abstract class BaseOrderResourceTestCase {
 
 		Assert.assertEquals(regex, order.getAccountExternalReferenceCode());
 		Assert.assertEquals(regex, order.getAdvanceStatus());
+		Assert.assertEquals(regex, order.getChannelExternalReferenceCode());
 		Assert.assertEquals(regex, order.getCouponCode());
 		Assert.assertEquals(regex, order.getCurrencyCode());
 		Assert.assertEquals(regex, order.getExternalReferenceCode());
@@ -621,6 +623,17 @@ public abstract class BaseOrderResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"channelExternalReferenceCode",
+					additionalAssertFieldName)) {
+
+				if (order.getChannelExternalReferenceCode() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("channelId", additionalAssertFieldName)) {
 				if (order.getChannelId() == null) {
 					valid = false;
@@ -713,6 +726,14 @@ public abstract class BaseOrderResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("orderStatusInfo", additionalAssertFieldName)) {
+				if (order.getOrderStatusInfo() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("paymentMethod", additionalAssertFieldName)) {
 				if (order.getPaymentMethod() == null) {
 					valid = false;
@@ -723,6 +744,16 @@ public abstract class BaseOrderResourceTestCase {
 
 			if (Objects.equals("paymentStatus", additionalAssertFieldName)) {
 				if (order.getPaymentStatus() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"paymentStatusInfo", additionalAssertFieldName)) {
+
+				if (order.getPaymentStatusInfo() == null) {
 					valid = false;
 				}
 
@@ -878,14 +909,6 @@ public abstract class BaseOrderResourceTestCase {
 
 			if (Objects.equals("shippingOption", additionalAssertFieldName)) {
 				if (order.getShippingOption() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("status", additionalAssertFieldName)) {
-				if (order.getStatus() == null) {
 					valid = false;
 				}
 
@@ -1098,8 +1121,10 @@ public abstract class BaseOrderResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("workflowStatus", additionalAssertFieldName)) {
-				if (order.getWorkflowStatus() == null) {
+			if (Objects.equals(
+					"workflowStatusInfo", additionalAssertFieldName)) {
+
+				if (order.getWorkflowStatusInfo() == null) {
 					valid = false;
 				}
 
@@ -1272,6 +1297,20 @@ public abstract class BaseOrderResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"channelExternalReferenceCode",
+					additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						order1.getChannelExternalReferenceCode(),
+						order2.getChannelExternalReferenceCode())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("channelId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						order1.getChannelId(), order2.getChannelId())) {
@@ -1397,6 +1436,17 @@ public abstract class BaseOrderResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("orderStatusInfo", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						order1.getOrderStatusInfo(),
+						order2.getOrderStatusInfo())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("paymentMethod", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						order1.getPaymentMethod(), order2.getPaymentMethod())) {
@@ -1410,6 +1460,19 @@ public abstract class BaseOrderResourceTestCase {
 			if (Objects.equals("paymentStatus", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						order1.getPaymentStatus(), order2.getPaymentStatus())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"paymentStatusInfo", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						order1.getPaymentStatusInfo(),
+						order2.getPaymentStatusInfo())) {
 
 					return false;
 				}
@@ -1612,16 +1675,6 @@ public abstract class BaseOrderResourceTestCase {
 				if (!Objects.deepEquals(
 						order1.getShippingOption(),
 						order2.getShippingOption())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("status", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						order1.getStatus(), order2.getStatus())) {
 
 					return false;
 				}
@@ -1891,10 +1944,12 @@ public abstract class BaseOrderResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("workflowStatus", additionalAssertFieldName)) {
+			if (Objects.equals(
+					"workflowStatusInfo", additionalAssertFieldName)) {
+
 				if (!Objects.deepEquals(
-						order1.getWorkflowStatus(),
-						order2.getWorkflowStatus())) {
+						order1.getWorkflowStatusInfo(),
+						order2.getWorkflowStatusInfo())) {
 
 					return false;
 				}
@@ -2023,6 +2078,14 @@ public abstract class BaseOrderResourceTestCase {
 		if (entityFieldName.equals("channel")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("channelExternalReferenceCode")) {
+			sb.append("'");
+			sb.append(String.valueOf(order.getChannelExternalReferenceCode()));
+			sb.append("'");
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("channelId")) {
@@ -2200,6 +2263,11 @@ public abstract class BaseOrderResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("orderStatusInfo")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("paymentMethod")) {
 			sb.append("'");
 			sb.append(String.valueOf(order.getPaymentMethod()));
@@ -2209,6 +2277,11 @@ public abstract class BaseOrderResourceTestCase {
 		}
 
 		if (entityFieldName.equals("paymentStatus")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("paymentStatusInfo")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -2340,11 +2413,6 @@ public abstract class BaseOrderResourceTestCase {
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("status")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
 		if (entityFieldName.equals("subtotal")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -2469,7 +2537,7 @@ public abstract class BaseOrderResourceTestCase {
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("workflowStatus")) {
+		if (entityFieldName.equals("workflowStatusInfo")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
@@ -2524,6 +2592,8 @@ public abstract class BaseOrderResourceTestCase {
 				advanceStatus = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				billingAddressId = RandomTestUtil.randomLong();
+				channelExternalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				channelId = RandomTestUtil.randomLong();
 				couponCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
@@ -2539,6 +2609,7 @@ public abstract class BaseOrderResourceTestCase {
 				orderStatus = RandomTestUtil.randomInt();
 				paymentMethod = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
+				paymentStatus = RandomTestUtil.randomInt();
 				printedNote = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				purchaseOrderNumber = StringUtil.toLowerCase(

@@ -15,7 +15,7 @@
 package com.liferay.headless.commerce.admin.order.client.dto.v1_0;
 
 import com.liferay.headless.commerce.admin.order.client.function.UnsafeSupplier;
-import com.liferay.headless.commerce.admin.order.client.serdes.v1_0.WorkflowStatusSerDes;
+import com.liferay.headless.commerce.admin.order.client.serdes.v1_0.PaymentStatusInfoSerDes;
 
 import java.util.Objects;
 
@@ -26,10 +26,10 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class WorkflowStatus implements Cloneable {
+public class PaymentStatusInfo implements Cloneable {
 
-	public static WorkflowStatus toDTO(String json) {
-		return WorkflowStatusSerDes.toDTO(json);
+	public static PaymentStatusInfo toDTO(String json) {
+		return PaymentStatusInfoSerDes.toDTO(json);
 	}
 
 	public Integer getCode() {
@@ -94,8 +94,8 @@ public class WorkflowStatus implements Cloneable {
 	protected String labelI18n;
 
 	@Override
-	public WorkflowStatus clone() throws CloneNotSupportedException {
-		return (WorkflowStatus)super.clone();
+	public PaymentStatusInfo clone() throws CloneNotSupportedException {
+		return (PaymentStatusInfo)super.clone();
 	}
 
 	@Override
@@ -104,13 +104,13 @@ public class WorkflowStatus implements Cloneable {
 			return true;
 		}
 
-		if (!(object instanceof WorkflowStatus)) {
+		if (!(object instanceof PaymentStatusInfo)) {
 			return false;
 		}
 
-		WorkflowStatus workflowStatus = (WorkflowStatus)object;
+		PaymentStatusInfo paymentStatusInfo = (PaymentStatusInfo)object;
 
-		return Objects.equals(toString(), workflowStatus.toString());
+		return Objects.equals(toString(), paymentStatusInfo.toString());
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class WorkflowStatus implements Cloneable {
 	}
 
 	public String toString() {
-		return WorkflowStatusSerDes.toJSON(this);
+		return PaymentStatusInfoSerDes.toJSON(this);
 	}
 
 }

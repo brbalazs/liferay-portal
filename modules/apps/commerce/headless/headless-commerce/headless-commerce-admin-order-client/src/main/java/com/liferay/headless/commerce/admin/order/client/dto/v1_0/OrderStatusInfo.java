@@ -15,7 +15,7 @@
 package com.liferay.headless.commerce.admin.order.client.dto.v1_0;
 
 import com.liferay.headless.commerce.admin.order.client.function.UnsafeSupplier;
-import com.liferay.headless.commerce.admin.order.client.serdes.v1_0.StatusSerDes;
+import com.liferay.headless.commerce.admin.order.client.serdes.v1_0.OrderStatusInfoSerDes;
 
 import java.util.Objects;
 
@@ -26,10 +26,10 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class Status implements Cloneable {
+public class OrderStatusInfo implements Cloneable {
 
-	public static Status toDTO(String json) {
-		return StatusSerDes.toDTO(json);
+	public static OrderStatusInfo toDTO(String json) {
+		return OrderStatusInfoSerDes.toDTO(json);
 	}
 
 	public Integer getCode() {
@@ -94,8 +94,8 @@ public class Status implements Cloneable {
 	protected String labelI18n;
 
 	@Override
-	public Status clone() throws CloneNotSupportedException {
-		return (Status)super.clone();
+	public OrderStatusInfo clone() throws CloneNotSupportedException {
+		return (OrderStatusInfo)super.clone();
 	}
 
 	@Override
@@ -104,13 +104,13 @@ public class Status implements Cloneable {
 			return true;
 		}
 
-		if (!(object instanceof Status)) {
+		if (!(object instanceof OrderStatusInfo)) {
 			return false;
 		}
 
-		Status status = (Status)object;
+		OrderStatusInfo orderStatusInfo = (OrderStatusInfo)object;
 
-		return Objects.equals(toString(), status.toString());
+		return Objects.equals(toString(), orderStatusInfo.toString());
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class Status implements Cloneable {
 	}
 
 	public String toString() {
-		return StatusSerDes.toJSON(this);
+		return OrderStatusInfoSerDes.toJSON(this);
 	}
 
 }
