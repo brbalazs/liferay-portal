@@ -26,13 +26,13 @@ import {
 	withRouter
 } from 'react-router-dom';
 import {loadState, saveState} from 'shared/store/local-storage';
+import {OAuthUpgradeWarningContext} from 'shared/context/oAuthUpgradeWarning';
 import {OnboardingContext} from 'shared/context/onboarding';
 import {PropTypes} from 'prop-types';
 import {Routes} from 'shared/util/router';
 import {setBackURL} from 'shared/actions/settings';
 import {spritemap} from 'shared/util/constants';
 import {throttle} from 'lodash';
-import {WarningStripeFromOAuthContext} from 'shared/context/warningStripeFromOAuth';
 
 // App Routes with Sidebar
 
@@ -115,7 +115,7 @@ export default class App extends React.Component {
 
 	state = {
 		onboardingTriggered: false,
-		showWarningStripe: null
+		showOAuthUpgradeWarning: null
 	};
 
 	constructor(props) {
@@ -152,7 +152,7 @@ export default class App extends React.Component {
 	}
 
 	render() {
-		const {onboardingTriggered, showWarningStripe} = this.state;
+		const {onboardingTriggered, showOAuthUpgradeWarning} = this.state;
 
 		return (
 			<ApolloProvider client={client}>
@@ -167,13 +167,13 @@ export default class App extends React.Component {
 								)}
 							>
 								<UnassignedSegmentsProvider>
-									<WarningStripeFromOAuthContext.Provider
+									<OAuthUpgradeWarningContext.Provider
 										value={{
-											setShowWarningStripe: value =>
+											setShowOAuthUpgradeWarning: value =>
 												this.setState({
-													showWarningStripe: value
+													showOAuthUpgradeWarning: value
 												}),
-											showWarningStripe
+											showOAuthUpgradeWarning
 										}}
 									>
 										<OnboardingContext.Provider
@@ -311,7 +311,7 @@ export default class App extends React.Component {
 												</Router>
 											</ChannelProvider>
 										</OnboardingContext.Provider>
-									</WarningStripeFromOAuthContext.Provider>
+									</OAuthUpgradeWarningContext.Provider>
 								</UnassignedSegmentsProvider>
 							</ClayLinkContext.Provider>
 						</ClayIconSpriteContext.Provider>
