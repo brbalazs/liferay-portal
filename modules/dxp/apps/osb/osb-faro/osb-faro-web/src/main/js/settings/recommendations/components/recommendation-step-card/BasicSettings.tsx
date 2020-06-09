@@ -21,7 +21,7 @@ const BasicSettings: React.FC<IBasicSettingsProps> = ({
 	onSetDisabled
 }) => {
 	useEffect(() => {
-		onSetDisabled(!name && !errors.name);
+		onSetDisabled(!name || !!errors.name);
 	}, [name]);
 
 	return (
