@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <aui:script use="aui-base">
-	var continueButton = A.one('#<portlet:namespace />continue');
+	var continueButton = document.getElementById('<portlet:namespace />continue');
 
 	if (continueButton) {
 		Liferay.Util.toggleDisabled(continueButton, true);
