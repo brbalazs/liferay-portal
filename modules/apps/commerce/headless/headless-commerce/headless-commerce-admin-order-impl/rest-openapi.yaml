@@ -145,6 +145,7 @@ components:
             properties:
                 account:
                     $ref: "#/components/schemas/Account"
+                    readOnly: true
                 accountExternalReferenceCode:
                     example: AAB-34098-789-N
                     type: string
@@ -165,6 +166,10 @@ components:
                     type: integer
                 channel:
                     $ref: "#/components/schemas/Channel"
+                    readonly: true
+                channelExternalReferenceCode:
+                    example: AAB-34098-789-N
+                    type: string
                 channelId:
                     example: 30130
                     format: int64
@@ -212,11 +217,20 @@ components:
                     format: int32
                     minimum: 0
                     type: integer
+                orderStatusInfo:
+                    $ref: "#/components/schemas/OrderStatusInfo"
+                    readonly: true
                 paymentMethod:
                     example: paypal
                     type: string
                 paymentStatus:
-                    $ref: "#/components/schemas/PaymentStatus"
+                    example: 0
+                    format: int32
+                    minimum: 0
+                    type: integer
+                paymentStatusInfo:
+                    $ref: "#/components/schemas/PaymentStatusInfo"
+                    readonly: true
                 printedNote:
                     example: Order printed note
                     type: string
@@ -277,8 +291,6 @@ components:
                 shippingOption:
                     example: by Air
                     type: string
-                status:
-                    $ref: "#/components/schemas/Status"
                 subtotal:
                     format: bigdecimal
                     type: number
@@ -362,8 +374,9 @@ components:
                     type: string
                 transactionId:
                     type: string
-                workflowStatus:
-                    $ref: "#/components/schemas/WorkflowStatus"
+                workflowStatusInfo:
+                    $ref: "#/components/schemas/WorkflowStatusInfo"
+                    readonly: true
             required:
                 - channelId
                 - currencyCode
@@ -512,7 +525,20 @@ components:
                     example: true
                     type: boolean
             type: object
-        PaymentStatus:
+        OrderStatusInfo:
+            properties:
+                code:
+                    format: int32
+                    readOnly: true
+                    type: integer
+                label:
+                    example: black
+                    type: string
+                labelI18n:
+                    example: black
+                    type: string
+            type: object
+        PaymentStatusInfo:
             properties:
                 code:
                     format: int32
@@ -580,20 +606,7 @@ components:
                 - name
                 - street1
             type: object
-        Status:
-            properties:
-                code:
-                    format: int32
-                    readOnly: true
-                    type: integer
-                label:
-                    example: black
-                    type: string
-                labelI18n:
-                    example: black
-                    type: string
-            type: object
-        WorkflowStatus:
+        WorkflowStatusInfo:
             properties:
                 code:
                     format: int32
