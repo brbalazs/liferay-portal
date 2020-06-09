@@ -49,7 +49,6 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -442,7 +441,9 @@ public class DDMHelperImpl implements DDMHelper {
 	private boolean _isIterableCPDefinitionOptionRelFieldType(
 		CPDefinitionOptionRel cpDefinitionOptionRel) {
 
-		if (ArrayUtil.contains(CPConstants.PRODUCT_OPTION_MULTIPLE_VALUES_FIELD_TYPES, cpDefinitionOptionRel.getDDMFormFieldTypeName())) {
+		if (ArrayUtil.contains(
+				CPConstants.PRODUCT_OPTION_MULTIPLE_VALUES_FIELD_TYPES,
+				cpDefinitionOptionRel.getDDMFormFieldTypeName())) {
 
 			return true;
 		}
