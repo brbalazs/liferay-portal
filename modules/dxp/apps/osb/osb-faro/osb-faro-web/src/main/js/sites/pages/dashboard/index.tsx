@@ -10,12 +10,12 @@ import getCN from 'classnames';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense, useContext, useEffect} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
+import {OAuthUpgradeWarningContext} from 'shared/context/oAuthUpgradeWarning';
 import {Routes, toRoute} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 import {useQuery} from '@apollo/react-hooks';
 import {User} from 'shared/util/records';
-import {WarningStripeFromOAuthContext} from 'shared/context/warningStripeFromOAuth';
 import {withCurrentUser} from 'shared/hoc';
 
 const {
@@ -58,7 +58,7 @@ const getAlert = (
 						})}
 						size='sm'
 					>
-						{Liferay.Language.get('go-to-datasources')}
+						{Liferay.Language.get('go-to-data-sources')}
 					</Button>
 				</div>
 			</>
@@ -111,8 +111,8 @@ export const Dashboard: React.FC<IDashboardProps> = ({currentUser, router}) => {
 
 	const selectedChannelName = selectedChannel && selectedChannel.name;
 
-	const {setShowWarningStripe, showWarningStripe} = useContext(
-		WarningStripeFromOAuthContext
+	const {setShowOAuthUpgradeWarning, showOAuthUpgradeWarning} = useContext(
+		OAuthUpgradeWarningContext
 	);
 
 	const {data: oAuth1Data} = useQuery(DataSourceQuery, {
@@ -124,12 +124,12 @@ export const Dashboard: React.FC<IDashboardProps> = ({currentUser, router}) => {
 
 	useEffect(() => {
 		if (
-			showWarningStripe === null &&
+			showOAuthUpgradeWarning === null &&
 			oAuth1Data &&
 			oAuth2Data &&
 			oAuth1Data.dataSources.length + oAuth2Data.dataSources.length > 0
 		) {
-			setShowWarningStripe(true);
+			setShowOAuthUpgradeWarning(true);
 		}
 	}, [oAuth1Data, oAuth2Data]);
 
@@ -162,9 +162,13 @@ export const Dashboard: React.FC<IDashboardProps> = ({currentUser, router}) => {
 				/>
 			</BasePage.Header>
 
-			{showWarningStripe && currentUser.isAdmin() && (
+			{showOAuthUpgradeWarning && currentUser.isAdmin() && (
 				<EmbeddedAlertList
-					alerts={getAlert(channelId, groupId, setShowWarningStripe)}
+					alerts={getAlert(
+						channelId,
+						groupId,
+						setShowOAuthUpgradeWarning
+					)}
 				/>
 			)}
 
