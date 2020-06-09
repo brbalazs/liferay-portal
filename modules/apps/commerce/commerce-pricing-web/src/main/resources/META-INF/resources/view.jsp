@@ -21,6 +21,11 @@ CommercePricingClassDisplayContext
 	commercePricingClassDisplayContext = (CommercePricingClassDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 %>
 
+<clay:navigation-bar
+	inverted="<%= true %>"
+	navigationItems="<%= PricingNavigationItemRegistryUtil.getNavigationItems(renderRequest) %>"
+/>
+
 <div class="row">
 	<div class="col-12">
 		<commerce-ui:dataset-display

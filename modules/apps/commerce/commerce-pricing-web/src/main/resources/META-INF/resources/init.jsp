@@ -19,6 +19,7 @@
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %><%@
+taglib uri="http://liferay.com/tld/clay" prefix="clay" %><%@
 taglib uri="http://liferay.com/tld/commerce-ui" prefix="commerce-ui" %><%@
 taglib uri="http://liferay.com/tld/expando" prefix="liferay-expando" %><%@
 taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
@@ -28,6 +29,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 <%@ page import="com.liferay.commerce.pricing.exception.NoSuchPricingClassException" %><%@
 page import="com.liferay.commerce.pricing.model.CommercePricingClass" %><%@
+page import="com.liferay.commerce.pricing.util.PricingNavigationItemRegistryUtil" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommercePricingClassCPDefinitionDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommercePricingClassDiscountDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommercePricingClassDisplayContext" %><%@
