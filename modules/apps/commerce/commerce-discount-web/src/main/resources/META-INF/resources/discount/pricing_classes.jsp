@@ -51,7 +51,7 @@ SearchContainer<CommerceDiscountRel> commercePricingClassCommerceDiscountRelSear
 		>
 			<liferay-frontend:add-menu-item
 				id="addCommerceDiscountRelMenuItem"
-				title='<%= LanguageUtil.get(request, "add-discount-pricing-class") %>'
+				title='<%= LanguageUtil.get(request, "add-discount-product-group") %>'
 				url="javascript:;"
 			/>
 		</liferay-frontend:add-menu>
@@ -142,7 +142,7 @@ SearchContainer<CommerceDiscountRel> commercePricingClassCommerceDiscountRelSear
 				}
 			},
 			title:
-				'<liferay-ui:message arguments="<%= commerceDiscount.getTitle() %>" key="add-new-pricing-class-to-x" />',
+				'<liferay-ui:message arguments="<%= commerceDiscount.getTitle() %>" key="add-new-product-group-to-x" />',
 			url:
 				'<%= commerceDiscountRelDisplayContext.getPricingClassItemSelectorUrl() %>'
 		});
@@ -155,7 +155,7 @@ SearchContainer<CommerceDiscountRel> commercePricingClassCommerceDiscountRelSear
 	function <portlet:namespace />deleteCommerceDiscountRels() {
 		if (
 			confirm(
-				'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-discount-pricing-classes" />'
+				'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-discount-product-groups" />'
 			)
 		) {
 			var form = AUI.$(document.<portlet:namespace />fm);
