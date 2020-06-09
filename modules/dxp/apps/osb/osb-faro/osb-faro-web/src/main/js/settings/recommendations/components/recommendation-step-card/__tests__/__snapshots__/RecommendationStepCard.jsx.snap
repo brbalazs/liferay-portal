@@ -14,9 +14,8 @@ exports[`RecommendationStepCard should render 1`] = `
         <div
           class="timeline-root"
         >
-          <a
+          <div
             class="step active"
-            href="/"
           >
             <div
               class="title"
@@ -28,31 +27,12 @@ exports[`RecommendationStepCard should render 1`] = `
             >
               1
             </div>
-          </a>
+          </div>
           <span
             class="bar"
           />
-          <a
+          <div
             class="step"
-            href="/"
-          >
-            <div
-              class="title"
-            >
-              Items
-            </div>
-            <div
-              class="circle"
-            >
-              2
-            </div>
-          </a>
-          <span
-            class="bar"
-          />
-          <a
-            class="step"
-            href="/"
           >
             <div
               class="title"
@@ -62,9 +42,43 @@ exports[`RecommendationStepCard should render 1`] = `
             <div
               class="circle"
             >
+              2
+            </div>
+          </div>
+          <span
+            class="bar"
+          />
+          <div
+            class="step"
+          >
+            <div
+              class="title"
+            >
+              Items
+            </div>
+            <div
+              class="circle"
+            >
               3
             </div>
-          </a>
+          </div>
+          <span
+            class="bar"
+          />
+          <div
+            class="step"
+          >
+            <div
+              class="title"
+            >
+              Summary
+            </div>
+            <div
+              class="circle"
+            >
+              4
+            </div>
+          </div>
         </div>
       </div>
       <div

@@ -8,6 +8,29 @@ exports[`Recommendations should render 1`] = `
     <div
       class="maintenance-alert-root"
     />
+    <ol
+      class="breadcrumb breadcrumbs-root"
+    >
+      <li
+        class="breadcrumb-item"
+      >
+        <a
+          class="breadcrumb-link breadcrumb-text-truncate"
+          href="/workspace/23/settings/recommendations"
+        >
+          Recommentations
+        </a>
+      </li>
+      <li
+        class="breadcrumb-item active"
+      >
+        <span
+          class="breadcrumb-text-truncate"
+        >
+          New Model
+        </span>
+      </li>
+    </ol>
     <div
       class="content-header"
     >
@@ -50,9 +73,8 @@ exports[`Recommendations should render 1`] = `
                 <div
                   class="timeline-root"
                 >
-                  <a
+                  <div
                     class="step active"
-                    href="/"
                   >
                     <div
                       class="title"
@@ -64,31 +86,12 @@ exports[`Recommendations should render 1`] = `
                     >
                       1
                     </div>
-                  </a>
+                  </div>
                   <span
                     class="bar"
                   />
-                  <a
+                  <div
                     class="step"
-                    href="/"
-                  >
-                    <div
-                      class="title"
-                    >
-                      Items
-                    </div>
-                    <div
-                      class="circle"
-                    >
-                      2
-                    </div>
-                  </a>
-                  <span
-                    class="bar"
-                  />
-                  <a
-                    class="step"
-                    href="/"
                   >
                     <div
                       class="title"
@@ -98,9 +101,43 @@ exports[`Recommendations should render 1`] = `
                     <div
                       class="circle"
                     >
+                      2
+                    </div>
+                  </div>
+                  <span
+                    class="bar"
+                  />
+                  <div
+                    class="step"
+                  >
+                    <div
+                      class="title"
+                    >
+                      Items
+                    </div>
+                    <div
+                      class="circle"
+                    >
                       3
                     </div>
-                  </a>
+                  </div>
+                  <span
+                    class="bar"
+                  />
+                  <div
+                    class="step"
+                  >
+                    <div
+                      class="title"
+                    >
+                      Summary
+                    </div>
+                    <div
+                      class="circle"
+                    >
+                      4
+                    </div>
+                  </div>
                 </div>
               </div>
               <div
