@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.headless.commerce.punchout.internal.configuration;
+package com.liferay.commerce.punchout.constants;
 
 /**
  * @author Jaclyn Ong

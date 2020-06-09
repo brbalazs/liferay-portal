@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.headless.commerce.punchout.internal.configuration;
+package com.liferay.commerce.punchout.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
@@ -22,13 +22,16 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
  * @author Jaclyn Ong
  */
 @ExtendedObjectClassDefinition(
-	category = "catalog", scope = ExtendedObjectClassDefinition.Scope.SYSTEM
+	category = "punchout", scope = ExtendedObjectClassDefinition.Scope.GROUP
 )
 @Meta.OCD(
-	id = "com.liferay.headless.commerce.punchout.internal.configuration.PunchoutConfiguration",
+	id = "com.liferay.commerce.punchout.configuration.PunchoutConfiguration",
 	localization = "content/Language", name = "punchout-configuration-name"
 )
 public interface PunchoutConfiguration {
+
+	@Meta.AD(deflt = "false", name = "enabled", required = false)
+	public boolean enabled();
 
 	@Meta.AD(name = "punchout-start-url", required = false)
 	public String punchoutStartURL();

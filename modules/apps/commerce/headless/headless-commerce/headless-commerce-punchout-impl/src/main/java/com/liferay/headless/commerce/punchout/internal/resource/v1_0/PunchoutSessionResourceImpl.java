@@ -25,6 +25,8 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
+import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
+import com.liferay.commerce.punchout.constants.PunchoutConstants;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
@@ -33,8 +35,6 @@ import com.liferay.headless.commerce.punchout.dto.v1_0.CartItem;
 import com.liferay.headless.commerce.punchout.dto.v1_0.Group;
 import com.liferay.headless.commerce.punchout.dto.v1_0.PunchoutSession;
 import com.liferay.headless.commerce.punchout.dto.v1_0.User;
-import com.liferay.headless.commerce.punchout.internal.configuration.PunchoutConfiguration;
-import com.liferay.headless.commerce.punchout.internal.configuration.PunchoutConstants;
 import com.liferay.headless.commerce.punchout.resource.v1_0.PunchoutSessionResource;
 import com.liferay.oauth2.provider.punchout.PunchoutAccessTokenProvider;
 import com.liferay.oauth2.provider.punchout.model.PunchoutAccessToken;
@@ -52,7 +52,7 @@ import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
+import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -66,6 +66,7 @@ import java.util.Locale;
 import javax.validation.constraints.NotNull;
 
 import javax.ws.rs.BadRequestException;
+import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.InternalServerErrorException;
 
 import org.osgi.service.component.annotations.Component;
@@ -76,7 +77,6 @@ import org.osgi.service.component.annotations.ServiceScope;
  * @author Jaclyn Ong
  */
 @Component(
-	configurationPid = "com.liferay.headless.commerce.punchout.internal.configuration.PunchoutConfiguration",
 	properties = "OSGI-INF/liferay/rest/v1_0/punchout-session.properties",
 	scope = ServiceScope.PROTOTYPE, service = PunchoutSessionResource.class
 )
@@ -95,7 +95,12 @@ public class PunchoutSessionResourceImpl
 			throw new NoSuchGroupException("No such group exists");
 		}
 
-		//todo: check if punchout enabled for the channel
+		CommerceChannel commerceChannel = _fetchChannel(
+			buyerGroup.getGroupId());
+
+		if (!_punchoutEnabled(commerceChannel.getGroupId())) {
+			throw new ForbiddenException();
+		}
 
 		User buyerUser = punchoutSession.getBuyerUser();
 
@@ -130,10 +135,8 @@ public class PunchoutSessionResourceImpl
 			_mergeCartItems(punchoutSession.getCart(), buyerGroup.getGroupId());
 		}
 
-		String punchoutStartURL = _getPunchoutStartURL();
-
-		CommerceChannel commerceChannel = _fetchChannel(
-			buyerGroup.getGroupId());
+		String punchoutStartURL = _getPunchoutStartURL(
+			commerceChannel.getGroupId());
 
 		PunchoutAccessToken punchoutAccessToken =
 			_punchoutAccessTokenProvider.generatePunchoutAccessToken(
@@ -313,25 +316,25 @@ public class PunchoutSessionResourceImpl
 			user.getFirstName(), user.getMiddleName(), user.getLastName());
 	}
 
-	private PunchoutConfiguration _getPunchoutConfiguration(long companyId) {
+	private PunchoutConfiguration _getPunchoutConfiguration(
+		long commerceChannelGroupId) {
+
 		try {
 			return _configurationProvider.getConfiguration(
 				PunchoutConfiguration.class,
-				new CompanyServiceSettingsLocator(
-					companyId, PunchoutConstants.SERVICE_NAME));
+				new GroupServiceSettingsLocator(
+					commerceChannelGroupId, PunchoutConstants.SERVICE_NAME));
 		}
 		catch (ConfigurationException ce) {
-			_log.error(
-				"Unable to get punchout access token auto login configuration",
-				ce);
+			_log.error("Unable to get punchout configuration", ce);
 		}
 
 		return null;
 	}
 
-	private String _getPunchoutStartURL() {
+	private String _getPunchoutStartURL(long commerceChannelGroupId) {
 		PunchoutConfiguration punchoutConfiguration = _getPunchoutConfiguration(
-			contextCompany.getCompanyId());
+			commerceChannelGroupId);
 
 		if (punchoutConfiguration == null) {
 			return null;
@@ -414,6 +417,17 @@ public class PunchoutSessionResourceImpl
 			_commerceOrderItemLocalService.deleteCommerceOrderItem(
 				commerceOrderItem.getCommerceOrderItemId());
 		}
+	}
+
+	private boolean _punchoutEnabled(long commerceChannelGroupId) {
+		PunchoutConfiguration punchoutConfiguration = _getPunchoutConfiguration(
+			commerceChannelGroupId);
+
+		if (punchoutConfiguration == null) {
+			return false;
+		}
+
+		return punchoutConfiguration.enabled();
 	}
 
 	private boolean _userBelongsToCart(long userId, long cartId) {

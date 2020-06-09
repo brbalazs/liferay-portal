@@ -47,9 +47,6 @@ public class PunchoutAccessTokenAutoLoginSupport extends BaseAutoLogin {
 			HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
 
-		// TODO: check if enabled for channel -
-		// TODO: it could've been turned off while punchout sessions still exist
-
 		String punchoutAccessTokenFromParam = ParamUtil.getString(
 			request, _PUNCHOUT_ACCESS_TOKEN_PARAM);
 

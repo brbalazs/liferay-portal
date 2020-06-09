@@ -16,11 +16,20 @@ package com.liferay.commerce.checkout.web.internal.util;
 
 import com.liferay.commerce.constants.CommerceCheckoutWebKeys;
 import com.liferay.commerce.constants.CommercePunchoutConstants;
+import com.liferay.commerce.constants.CommerceWebKeys;
+import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
+import com.liferay.commerce.punchout.constants.PunchoutConstants;
 import com.liferay.commerce.punchout.service.PunchoutReturnService;
 import com.liferay.commerce.util.BaseCommerceCheckoutStep;
 import com.liferay.commerce.util.CommerceCheckoutStep;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.module.configuration.ConfigurationException;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
+import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.CookieKeys;
 import com.liferay.portal.kernel.util.Validator;
@@ -60,10 +69,13 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 		HttpServletRequest httpServletRequest,
 		HttpServletResponse httpServletResponse) {
 
-		// TODO: check if enabled for channel -
-		// TODO: it could've been turned off while punchout sessions still exist
+		if (_punchoutEnabled(httpServletRequest) &&
+			_punchoutSession(httpServletRequest)) {
 
-		return _punchoutSession(httpServletRequest);
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
@@ -128,6 +140,22 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 			CommerceCheckoutWebKeys.COMMERCE_ORDER);
 	}
 
+	private PunchoutConfiguration _getPunchoutConfiguration(
+		long channelGroupId) {
+
+		try {
+			return _configurationProvider.getConfiguration(
+				PunchoutConfiguration.class,
+				new GroupServiceSettingsLocator(
+					channelGroupId, PunchoutConstants.SERVICE_NAME));
+		}
+		catch (ConfigurationException ce) {
+			_log.error("Unable to get punchout configuration", ce);
+		}
+
+		return null;
+	}
+
 	private String _getPunchoutReturnURL(
 		HttpServletRequest httpServletRequest) {
 
@@ -136,11 +164,44 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 			CommercePunchoutConstants.PUNCHOUT_RETURN_URL_COOKIE_NAME);
 	}
 
+	private boolean _punchoutEnabled(HttpServletRequest httpServletRequest) {
+		try {
+			CommerceContext commerceContext =
+				(CommerceContext)httpServletRequest.getAttribute(
+					CommerceWebKeys.COMMERCE_CONTEXT);
+
+			long commerceChannelGroupId =
+				commerceContext.getCommerceChannelGroupId();
+
+			if (commerceChannelGroupId == 0L) {
+				return false;
+			}
+
+			PunchoutConfiguration punchoutConfiguration =
+				_getPunchoutConfiguration(commerceChannelGroupId);
+
+			if (punchoutConfiguration != null) {
+				return punchoutConfiguration.enabled();
+			}
+		}
+		catch (Exception e) {
+			_log.error("Failed to load punchout configuration", e);
+		}
+
+		return false;
+	}
+
 	private boolean _punchoutSession(HttpServletRequest request) {
 		String punchoutReturnURL = _getPunchoutReturnURL(request);
 
 		return !Validator.isBlank(punchoutReturnURL);
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		PunchoutCommerceCheckoutStep.class);
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private JSPRenderer _jspRenderer;

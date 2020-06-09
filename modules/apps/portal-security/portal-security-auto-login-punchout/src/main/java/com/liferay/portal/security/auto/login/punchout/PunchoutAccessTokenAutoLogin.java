@@ -42,7 +42,7 @@ public class PunchoutAccessTokenAutoLogin extends BaseAutoLogin {
 
 	@Override
 	protected String[] doLogin(
-			HttpServletRequest request, HttpServletResponse response)
+		HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
 
 		long companyId = _portal.getCompanyId(request);
@@ -57,7 +57,7 @@ public class PunchoutAccessTokenAutoLogin extends BaseAutoLogin {
 	protected boolean isEnabled(long companyId) {
 		PunchoutAccessTokenAutoLoginConfiguration
 			punchoutAccessTokenAutoLoginConfiguration =
-				_getPunchoutAccessTokenAutoLoginConfiguration(companyId);
+			_getPunchoutAccessTokenAutoLoginConfiguration(companyId);
 
 		if (punchoutAccessTokenAutoLoginConfiguration == null) {
 			return false;
@@ -79,7 +79,7 @@ public class PunchoutAccessTokenAutoLogin extends BaseAutoLogin {
 	}
 
 	private PunchoutAccessTokenAutoLoginConfiguration
-		_getPunchoutAccessTokenAutoLoginConfiguration(long companyId) {
+	_getPunchoutAccessTokenAutoLoginConfiguration(long companyId) {
 
 		try {
 			return _configurationProvider.getConfiguration(

@@ -32,7 +32,4 @@ public interface PunchoutAccessTokenAutoLoginConfiguration {
 	@Meta.AD(deflt = "false", name = "enabled", required = false)
 	public boolean enabled();
 
-	@Meta.AD(name = "enabled", required = false)
-	public String punchoutStartURL();
-
 }

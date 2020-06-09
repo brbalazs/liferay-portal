@@ -12,8 +12,9 @@
  * details.
  */
 
-package com.liferay.headless.commerce.punchout.internal.configuration;
+package com.liferay.commerce.punchout.service.configuration;
 
+import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
 import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
 
 import org.osgi.service.component.annotations.Component;
