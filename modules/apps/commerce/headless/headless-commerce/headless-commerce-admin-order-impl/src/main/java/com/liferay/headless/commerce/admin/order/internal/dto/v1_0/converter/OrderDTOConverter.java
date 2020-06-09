@@ -26,9 +26,9 @@ import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.Order;
-import com.liferay.headless.commerce.admin.order.dto.v1_0.PaymentStatus;
-import com.liferay.headless.commerce.admin.order.dto.v1_0.Status;
-import com.liferay.headless.commerce.admin.order.dto.v1_0.WorkflowStatus;
+import com.liferay.headless.commerce.admin.order.dto.v1_0.OrderStatusInfo;
+import com.liferay.headless.commerce.admin.order.dto.v1_0.PaymentStatusInfo;
+import com.liferay.headless.commerce.admin.order.dto.v1_0.WorkflowStatusInfo;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -113,6 +113,8 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				advanceStatus = commerceOrder.getAdvanceStatus();
 				billingAddressId = commerceOrder.getBillingAddressId();
 				channelId = commerceChannel.getCommerceChannelId();
+				channelExternalReferenceCode =
+					commerceChannel.getExternalReferenceCode();
 				couponCode = commerceOrder.getCouponCode();
 				createDate = commerceOrder.getCreateDate();
 				currencyCode = commerceCurrency.getName(
@@ -124,8 +126,12 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				lastPriceUpdateDate = commerceOrder.getLastPriceUpdateDate();
 				modifiedDate = commerceOrder.getModifiedDate();
 				orderStatus = commerceOrder.getOrderStatus();
+				orderStatusInfo = _getOrderStatusInfo(
+					commerceOrder.getOrderStatus(), commerceOrderStatusLabel,
+					commerceOrderStatusLabelI18n);
 				paymentMethod = commerceOrder.getCommercePaymentMethodKey();
-				paymentStatus = _getPaymentStats(
+				paymentStatus = commerceOrder.getPaymentStatus();
+				paymentStatusInfo = _getPaymentStatusInfo(
 					commerceOrder.getPaymentStatus(),
 					commerceOrderPaymentStatusLabel,
 					commerceOrderPaymentStatusLabelI18n);
@@ -137,11 +143,8 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				shippingMethod = _getShippingMethodEngineKey(
 					commerceShippingMethod);
 				shippingOption = commerceOrder.getShippingOptionName();
-				status = _getStatus(
-					commerceOrder.getOrderStatus(), commerceOrderStatusLabel,
-					commerceOrderStatusLabelI18n);
 				transactionId = commerceOrder.getTransactionId();
-				workflowStatus = _getWorkflowStatus(
+				workflowStatusInfo = _getWorkflowStatusInfo(
 					commerceOrder.getOrderStatus(),
 					commerceOrderWorkflowStatusLabel,
 					commerceOrderWorkflowStatusLabelI18n);
@@ -303,11 +306,24 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 		return _commercePriceFormatter.format(commerceCurrency, price, locale);
 	}
 
-	private PaymentStatus _getPaymentStats(
+	private OrderStatusInfo _getOrderStatusInfo(
+		int orderStatus, String commerceOrderStatusLabel,
+		String commerceOrderStatusLabelI18n) {
+
+		return new OrderStatusInfo() {
+			{
+				code = orderStatus;
+				label = commerceOrderStatusLabel;
+				labelI18n = commerceOrderStatusLabelI18n;
+			}
+		};
+	}
+
+	private PaymentStatusInfo _getPaymentStatusInfo(
 		int paymentStatus, String commerceOrderPaymentStatusLabel,
 		String commerceOrderPaymentStatusLabelI18n) {
 
-		return new PaymentStatus() {
+		return new PaymentStatusInfo() {
 			{
 				code = paymentStatus;
 				label = commerceOrderPaymentStatusLabel;
@@ -326,24 +342,11 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 		return commerceShippingMethod.getEngineKey();
 	}
 
-	private Status _getStatus(
-		int orderStatus, String commerceOrderStatusLabel,
-		String commerceOrderStatusLabelI18n) {
-
-		return new Status() {
-			{
-				code = orderStatus;
-				label = commerceOrderStatusLabel;
-				labelI18n = commerceOrderStatusLabelI18n;
-			}
-		};
-	}
-
-	private WorkflowStatus _getWorkflowStatus(
+	private WorkflowStatusInfo _getWorkflowStatusInfo(
 		int orderStatus, String commerceOrderWorkflowStatusLabel,
 		String commerceOrderWorkflowStatusLabelI18n) {
 
-		return new WorkflowStatus() {
+		return new WorkflowStatusInfo() {
 			{
 				code = orderStatus;
 				label = commerceOrderWorkflowStatusLabel;
