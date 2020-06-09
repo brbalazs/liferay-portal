@@ -70,10 +70,7 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 				</div>
 
 				<div class="col-4">
-					<aui:input name="quantity" type="number" wrapperCssClass="mb-0">
-						<aui:validator name="min">1</aui:validator>
-						<aui:validator name="number" />
-					</aui:input>
+					<aui:input min="1" name="quantity" type="number" wrapperCssClass="mb-0" />
 				</div>
 
 				<div class="align-items-end col-auto d-flex">
@@ -100,8 +97,8 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 
 		<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
 			autocomplete.default('autocomplete', 'autocomplete-root', {
-				apiUrl: '/o/headless-commerce-admin-catalog/v1.0/skus',
-				filterQuery: 'hasChildCPDefinitions eq false',
+				apiUrl:
+					'/o/headless-commerce-admin-catalog/v1.0/skus?filter=hasChildCPDefinitions eq false',
 				initialLabel: '<%= cpInstanceLabel %>',
 				initialValue: '<%= cpInstanceId %>',
 				inputId: 'skuId',
@@ -110,20 +107,22 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 				itemsLabel: 'sku'
 			});
 
+			var quantityInput = document.getElementById(
+				'<%= renderResponse.getNamespace() %>quantity'
+			);
+
+			if (!quantityInput.value || quantityInput.value === '0') {
+				quantityInput.value = 1;
+			}
+
 			Liferay.on(events.AUTOCOMPLETE_VALUE_UPDATED, function(e) {
-				var quantityInput = document.getElementById(
-					'<%= renderResponse.getNamespace() %>quantity'
-				);
 				var deleteButton = document.getElementById('remove-sku-button');
 
 				if (e.value) {
 					quantityInput.disabled = false;
-					quantityInput.value =
-						quantityInput.value != 0 ? quantityInput.value : 1;
 					deleteButton.disabled = false;
 				} else {
 					quantityInput.disabled = true;
-					quantityInput.value = 0;
 					deleteButton.disabled = true;
 				}
 			});
