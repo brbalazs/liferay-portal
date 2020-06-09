@@ -6,8 +6,10 @@ import {getUrl} from 'shared/util/urls';
 import {Link} from 'react-router-dom';
 import {PropTypes} from 'prop-types';
 import {Routes} from 'shared/util/router';
+import {sub} from 'shared/util/lang';
 
 const CLASSNAME = 'analytics-touchpoints-list';
+const MAX_PAGES_LIMIT = 1000;
 
 /**
  * Touchpoint List Card
@@ -54,6 +56,22 @@ class TouchpointsListCard extends React.Component {
 		};
 
 		return getUrl(Routes.SITES_TOUCHPOINTS_OVERVIEW, router);
+	}
+
+	/**
+	 * When Limit of 1000 pages is reached
+	 */
+	handlePageLimitWarning(items) {
+		if (items.length >= MAX_PAGES_LIMIT) {
+			return (
+				<p>
+					{sub(
+						Liferay.Language.get('x-pages-limit-has-been-reached'),
+						[MAX_PAGES_LIMIT]
+					)}
+				</p>
+			);
+		}
 	}
 
 	/**
@@ -121,6 +139,7 @@ class TouchpointsListCard extends React.Component {
 					items={items}
 					rowIdentifier={['touchpoint', 'title']}
 				/>
+				{this.handlePageLimitWarning(items)}
 			</div>
 		);
 	}

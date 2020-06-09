@@ -4,9 +4,17 @@ $c-touchpoints: '.analytics-touchpoints-list';
 
 #{$c-assets},
 #{$c-touchpoints} {
-	.table-root {
-		margin-bottom: 0;
-		max-height: 470px;
+	max-height: 470px;
+	overflow: auto;
+
+ 	.table-root {
+ 		margin-bottom: 0;
+	}
+	
+	p {
+		color: $secondary;
+		padding-top: 16px;
+		text-align: center;
 	}
 }
 
