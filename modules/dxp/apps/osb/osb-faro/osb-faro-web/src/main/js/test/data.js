@@ -950,6 +950,7 @@ export function mockRecommendationJob(seed = 0, data = {}) {
 	return {
 		id: seed,
 		name: `Recommendation Job Name ${seed}`,
+		parameter: [{name: 'includePreviousPeriod', value: false}],
 		status: jobStatuses.ready,
 		trainingDate: getTimestamp(-2),
 		trainingFrequency: jobTrainingFrequencies.every30Days,

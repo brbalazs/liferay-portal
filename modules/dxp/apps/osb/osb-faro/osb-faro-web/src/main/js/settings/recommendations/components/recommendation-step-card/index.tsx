@@ -2,11 +2,15 @@ import BasicSettings from './BasicSettings';
 import Card from 'shared/components/Card';
 import Form from 'shared/components/form';
 import FormNavigation from 'settings/components/FormNavigation';
+import Interactions from './Interactions';
 import NavigationWarning from 'shared/components/NavigationWarning';
 import ProgressTimeline from 'shared/components/ProgressTimeline';
 import React, {useState} from 'react';
-import {Job} from '../../utils/utils';
-import {jobTrainingFrequencies} from 'shared/util/constants';
+import {Job, JobParameter} from '../../utils/utils';
+import {
+	jobTrainingFrequencies,
+	jobTrainingPeriods
+} from 'shared/util/constants';
 import {RouterType} from 'shared/types';
 
 const STEPS = [
@@ -14,14 +18,17 @@ const STEPS = [
 		component: BasicSettings,
 		title: Liferay.Language.get('basic-settings')
 	},
-
 	{
-		component: () => <div>{'step 2'}</div>,
-		title: Liferay.Language.get('items')
+		component: Interactions,
+		title: Liferay.Language.get('interactions')
 	},
 	{
 		component: () => <div>{'step 3'}</div>,
-		title: Liferay.Language.get('interactions')
+		title: Liferay.Language.get('items')
+	},
+	{
+		component: () => <div>{'step 4'}</div>,
+		title: Liferay.Language.get('summary')
 	}
 ];
 
@@ -40,31 +47,69 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 
 	const StepComponent = STEPS[currentStep].component;
 
-	const lastStep = currentStep === STEPS.length;
-
-	const handleSubmit = () => {
-		if (lastStep) {
-			// TODO: Add submission
-		}
-
-		setDisabled(true);
+	const handleNext = event => {
+		event.preventDefault();
 
 		setCurrentStep(currentStep + 1);
 	};
 
-	const initialValues = job
-		? job
-		: {
-				name: '',
-				trainingFrequency: jobTrainingFrequencies.every7Days
-		  };
+	const handleSubmit = ({
+		includePreviousPeriod,
+		name,
+		trainingFrequency,
+		trainingPeriod
+	}) => {
+		// eslint-disable-next-line no-console
+		console.log({
+			name,
+			parameters: [
+				{name: 'includePreviousPeriod', value: includePreviousPeriod}
+			],
+			trainingFrequency,
+			trainingPeriod
+		});
+		// TODO: Add submission
+		//
+	};
+
+	const getInitialValuesFromJob = () => {
+		if (job) {
+			const {name, parameters, trainingFrequency, trainingPeriod} = job;
+
+			const includePreviousPeriodParameter: JobParameter = parameters.find(
+				({name}) => name === 'includePreviousPeriod'
+			);
+
+			return {
+				includePreviousPeriod:
+					includePreviousPeriodParameter &&
+					includePreviousPeriodParameter.value,
+				name,
+				trainingFrequency,
+				trainingPeriod
+			};
+		}
+
+		return {
+			includePreviousPeriod: false,
+			name: '',
+			trainingFrequency: jobTrainingFrequencies.every7Days,
+			trainingPeriod: jobTrainingPeriods.last30Days
+		};
+	};
+
+	const lastStep = currentStep === STEPS.length - 1;
 
 	return (
 		<Card className='recommendation-step-card-root'>
-			<Form initialValues={initialValues} onSubmit={handleSubmit}>
+			<Form
+				initialValues={getInitialValuesFromJob()}
+				onSubmit={handleSubmit}
+			>
 				{({dirty, errors, handleSubmit, isSubmitting, values}) => (
 					<Form.Form>
 						<NavigationWarning when={dirty && !isSubmitting} />
+
 						<Card.Header>
 							<ProgressTimeline
 								activeIndex={currentStep}
@@ -85,7 +130,9 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 							<FormNavigation
 								cancelHref={cancelHref}
 								enableNext={!disabled}
-								onNextStep={handleSubmit}
+								onNextStep={
+									lastStep ? handleSubmit : handleNext
+								}
 								onPreviousStep={
 									currentStep
 										? () => setCurrentStep(currentStep - 1)

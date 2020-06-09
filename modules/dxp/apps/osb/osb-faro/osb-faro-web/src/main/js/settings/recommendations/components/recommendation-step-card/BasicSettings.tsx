@@ -4,13 +4,12 @@ import Form, {
 } from 'shared/components/form';
 import React, {useEffect} from 'react';
 import {FormikErrors} from 'formik';
-import {Job} from '../../utils/utils';
 import {JOB_TRAINING_FREQUENCIES_LIST} from '../../utils/utils';
 import {sequence} from 'shared/util/promise';
 
 interface IBasicSettingsProps {
 	disabled: boolean;
-	errors: FormikErrors<Job>;
+	errors: FormikErrors<any>;
 	name: string;
 	onSetDisabled: (disabled: boolean) => void;
 }
