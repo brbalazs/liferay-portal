@@ -24,7 +24,7 @@ import com.liferay.commerce.product.type.CPType;
 import com.liferay.commerce.product.type.CPTypeServicesTracker;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Product;
-import com.liferay.headless.commerce.admin.catalog.dto.v1_0.WorkflowStatusInfo;
+import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Status;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -143,15 +143,15 @@ public class ProductDTOConverter
 		);
 	}
 
-	private WorkflowStatusInfo _getWorkflowStatusInfo(
+	private Status _getWorkflowStatusInfo(
 		int statusCode, String productStatusLabel,
 		String productStatusLabelI18n) {
 
-		return new WorkflowStatusInfo() {
+		return new Status() {
 			{
 				code = statusCode;
 				label = productStatusLabel;
-				labelI18n = productStatusLabelI18n;
+				label_i18n = productStatusLabelI18n;
 			}
 		};
 	}
