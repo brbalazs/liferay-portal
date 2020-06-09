@@ -614,7 +614,7 @@ components:
                         hu_HU: product-url-hu
                     type: object
                 workflowStatusInfo:
-                    $ref: "#/components/schemas/WorkflowStatusInfo"
+                    $ref: "#/components/schemas/Status"
                     readonly: true
             required:
                 - active
@@ -1030,7 +1030,7 @@ components:
                 - key
                 - title
             type: object
-        WorkflowStatusInfo:
+        Status:
             properties:
                 code:
                     format: int32
@@ -1039,7 +1039,7 @@ components:
                 label:
                     example: black
                     type: string
-                labelI18n:
+                label_i18n:
                     example: black
                     type: string
             type: object
