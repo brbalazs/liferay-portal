@@ -14,7 +14,7 @@
 
 package com.liferay.headless.commerce.admin.order.client.serdes.v1_0;
 
-import com.liferay.headless.commerce.admin.order.client.dto.v1_0.OrderStatusInfo;
+import com.liferay.headless.commerce.admin.order.client.dto.v1_0.Status;
 import com.liferay.headless.commerce.admin.order.client.json.BaseJSONParser;
 
 import java.util.Iterator;
@@ -30,24 +30,22 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class OrderStatusInfoSerDes {
+public class StatusSerDes {
 
-	public static OrderStatusInfo toDTO(String json) {
-		OrderStatusInfoJSONParser orderStatusInfoJSONParser =
-			new OrderStatusInfoJSONParser();
+	public static Status toDTO(String json) {
+		StatusJSONParser statusJSONParser = new StatusJSONParser();
 
-		return orderStatusInfoJSONParser.parseToDTO(json);
+		return statusJSONParser.parseToDTO(json);
 	}
 
-	public static OrderStatusInfo[] toDTOs(String json) {
-		OrderStatusInfoJSONParser orderStatusInfoJSONParser =
-			new OrderStatusInfoJSONParser();
+	public static Status[] toDTOs(String json) {
+		StatusJSONParser statusJSONParser = new StatusJSONParser();
 
-		return orderStatusInfoJSONParser.parseToDTOs(json);
+		return statusJSONParser.parseToDTOs(json);
 	}
 
-	public static String toJSON(OrderStatusInfo orderStatusInfo) {
-		if (orderStatusInfo == null) {
+	public static String toJSON(Status status) {
+		if (status == null) {
 			return "null";
 		}
 
@@ -55,17 +53,17 @@ public class OrderStatusInfoSerDes {
 
 		sb.append("{");
 
-		if (orderStatusInfo.getCode() != null) {
+		if (status.getCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"code\": ");
 
-			sb.append(orderStatusInfo.getCode());
+			sb.append(status.getCode());
 		}
 
-		if (orderStatusInfo.getLabel() != null) {
+		if (status.getLabel() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -74,21 +72,21 @@ public class OrderStatusInfoSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(orderStatusInfo.getLabel()));
+			sb.append(_escape(status.getLabel()));
 
 			sb.append("\"");
 		}
 
-		if (orderStatusInfo.getLabelI18n() != null) {
+		if (status.getLabel_i18n() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"labelI18n\": ");
+			sb.append("\"label_i18n\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(orderStatusInfo.getLabelI18n()));
+			sb.append(_escape(status.getLabel_i18n()));
 
 			sb.append("\"");
 		}
@@ -99,76 +97,73 @@ public class OrderStatusInfoSerDes {
 	}
 
 	public static Map<String, Object> toMap(String json) {
-		OrderStatusInfoJSONParser orderStatusInfoJSONParser =
-			new OrderStatusInfoJSONParser();
+		StatusJSONParser statusJSONParser = new StatusJSONParser();
 
-		return orderStatusInfoJSONParser.parseToMap(json);
+		return statusJSONParser.parseToMap(json);
 	}
 
-	public static Map<String, String> toMap(OrderStatusInfo orderStatusInfo) {
-		if (orderStatusInfo == null) {
+	public static Map<String, String> toMap(Status status) {
+		if (status == null) {
 			return null;
 		}
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (orderStatusInfo.getCode() == null) {
+		if (status.getCode() == null) {
 			map.put("code", null);
 		}
 		else {
-			map.put("code", String.valueOf(orderStatusInfo.getCode()));
+			map.put("code", String.valueOf(status.getCode()));
 		}
 
-		if (orderStatusInfo.getLabel() == null) {
+		if (status.getLabel() == null) {
 			map.put("label", null);
 		}
 		else {
-			map.put("label", String.valueOf(orderStatusInfo.getLabel()));
+			map.put("label", String.valueOf(status.getLabel()));
 		}
 
-		if (orderStatusInfo.getLabelI18n() == null) {
-			map.put("labelI18n", null);
+		if (status.getLabel_i18n() == null) {
+			map.put("label_i18n", null);
 		}
 		else {
-			map.put(
-				"labelI18n", String.valueOf(orderStatusInfo.getLabelI18n()));
+			map.put("label_i18n", String.valueOf(status.getLabel_i18n()));
 		}
 
 		return map;
 	}
 
-	public static class OrderStatusInfoJSONParser
-		extends BaseJSONParser<OrderStatusInfo> {
+	public static class StatusJSONParser extends BaseJSONParser<Status> {
 
 		@Override
-		protected OrderStatusInfo createDTO() {
-			return new OrderStatusInfo();
+		protected Status createDTO() {
+			return new Status();
 		}
 
 		@Override
-		protected OrderStatusInfo[] createDTOArray(int size) {
-			return new OrderStatusInfo[size];
+		protected Status[] createDTOArray(int size) {
+			return new Status[size];
 		}
 
 		@Override
 		protected void setField(
-			OrderStatusInfo orderStatusInfo, String jsonParserFieldName,
+			Status status, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
 			if (Objects.equals(jsonParserFieldName, "code")) {
 				if (jsonParserFieldValue != null) {
-					orderStatusInfo.setCode(
+					status.setCode(
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "label")) {
 				if (jsonParserFieldValue != null) {
-					orderStatusInfo.setLabel((String)jsonParserFieldValue);
+					status.setLabel((String)jsonParserFieldValue);
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "labelI18n")) {
+			else if (Objects.equals(jsonParserFieldName, "label_i18n")) {
 				if (jsonParserFieldValue != null) {
-					orderStatusInfo.setLabelI18n((String)jsonParserFieldValue);
+					status.setLabel_i18n((String)jsonParserFieldValue);
 				}
 			}
 			else {

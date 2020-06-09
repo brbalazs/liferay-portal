@@ -1477,8 +1477,7 @@ public class OrderSerDes {
 			else if (Objects.equals(jsonParserFieldName, "orderStatusInfo")) {
 				if (jsonParserFieldValue != null) {
 					order.setOrderStatusInfo(
-						OrderStatusInfoSerDes.toDTO(
-							(String)jsonParserFieldValue));
+						StatusSerDes.toDTO((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "paymentMethod")) {
@@ -1495,8 +1494,7 @@ public class OrderSerDes {
 			else if (Objects.equals(jsonParserFieldName, "paymentStatusInfo")) {
 				if (jsonParserFieldValue != null) {
 					order.setPaymentStatusInfo(
-						PaymentStatusInfoSerDes.toDTO(
-							(String)jsonParserFieldValue));
+						StatusSerDes.toDTO((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "printedNote")) {
@@ -1772,8 +1770,7 @@ public class OrderSerDes {
 
 				if (jsonParserFieldValue != null) {
 					order.setWorkflowStatusInfo(
-						WorkflowStatusInfoSerDes.toDTO(
-							(String)jsonParserFieldValue));
+						StatusSerDes.toDTO((String)jsonParserFieldValue));
 				}
 			}
 			else {

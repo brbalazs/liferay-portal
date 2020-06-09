@@ -642,18 +642,17 @@ public class Order {
 
 	@Schema
 	@Valid
-	public OrderStatusInfo getOrderStatusInfo() {
+	public Status getOrderStatusInfo() {
 		return orderStatusInfo;
 	}
 
-	public void setOrderStatusInfo(OrderStatusInfo orderStatusInfo) {
+	public void setOrderStatusInfo(Status orderStatusInfo) {
 		this.orderStatusInfo = orderStatusInfo;
 	}
 
 	@JsonIgnore
 	public void setOrderStatusInfo(
-		UnsafeSupplier<OrderStatusInfo, Exception>
-			orderStatusInfoUnsafeSupplier) {
+		UnsafeSupplier<Status, Exception> orderStatusInfoUnsafeSupplier) {
 
 		try {
 			orderStatusInfo = orderStatusInfoUnsafeSupplier.get();
@@ -668,7 +667,7 @@ public class Order {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected OrderStatusInfo orderStatusInfo;
+	protected Status orderStatusInfo;
 
 	@Schema
 	public String getPaymentMethod() {
@@ -729,18 +728,17 @@ public class Order {
 
 	@Schema
 	@Valid
-	public PaymentStatusInfo getPaymentStatusInfo() {
+	public Status getPaymentStatusInfo() {
 		return paymentStatusInfo;
 	}
 
-	public void setPaymentStatusInfo(PaymentStatusInfo paymentStatusInfo) {
+	public void setPaymentStatusInfo(Status paymentStatusInfo) {
 		this.paymentStatusInfo = paymentStatusInfo;
 	}
 
 	@JsonIgnore
 	public void setPaymentStatusInfo(
-		UnsafeSupplier<PaymentStatusInfo, Exception>
-			paymentStatusInfoUnsafeSupplier) {
+		UnsafeSupplier<Status, Exception> paymentStatusInfoUnsafeSupplier) {
 
 		try {
 			paymentStatusInfo = paymentStatusInfoUnsafeSupplier.get();
@@ -755,7 +753,7 @@ public class Order {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected PaymentStatusInfo paymentStatusInfo;
+	protected Status paymentStatusInfo;
 
 	@Schema
 	public String getPrintedNote() {
@@ -1891,18 +1889,17 @@ public class Order {
 
 	@Schema
 	@Valid
-	public WorkflowStatusInfo getWorkflowStatusInfo() {
+	public Status getWorkflowStatusInfo() {
 		return workflowStatusInfo;
 	}
 
-	public void setWorkflowStatusInfo(WorkflowStatusInfo workflowStatusInfo) {
+	public void setWorkflowStatusInfo(Status workflowStatusInfo) {
 		this.workflowStatusInfo = workflowStatusInfo;
 	}
 
 	@JsonIgnore
 	public void setWorkflowStatusInfo(
-		UnsafeSupplier<WorkflowStatusInfo, Exception>
-			workflowStatusInfoUnsafeSupplier) {
+		UnsafeSupplier<Status, Exception> workflowStatusInfoUnsafeSupplier) {
 
 		try {
 			workflowStatusInfo = workflowStatusInfoUnsafeSupplier.get();
@@ -1917,7 +1914,7 @@ public class Order {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected WorkflowStatusInfo workflowStatusInfo;
+	protected Status workflowStatusInfo;
 
 	@Override
 	public boolean equals(Object object) {
