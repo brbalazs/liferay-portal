@@ -218,7 +218,7 @@ components:
                     minimum: 0
                     type: integer
                 orderStatusInfo:
-                    $ref: "#/components/schemas/OrderStatusInfo"
+                    $ref: "#/components/schemas/Status"
                     readonly: true
                 paymentMethod:
                     example: paypal
@@ -229,7 +229,7 @@ components:
                     minimum: 0
                     type: integer
                 paymentStatusInfo:
-                    $ref: "#/components/schemas/PaymentStatusInfo"
+                    $ref: "#/components/schemas/Status"
                     readonly: true
                 printedNote:
                     example: Order printed note
@@ -375,7 +375,7 @@ components:
                 transactionId:
                     type: string
                 workflowStatusInfo:
-                    $ref: "#/components/schemas/WorkflowStatusInfo"
+                    $ref: "#/components/schemas/Status"
                     readonly: true
             required:
                 - channelId
@@ -525,32 +525,6 @@ components:
                     example: true
                     type: boolean
             type: object
-        OrderStatusInfo:
-            properties:
-                code:
-                    format: int32
-                    readOnly: true
-                    type: integer
-                label:
-                    example: black
-                    type: string
-                labelI18n:
-                    example: black
-                    type: string
-            type: object
-        PaymentStatusInfo:
-            properties:
-                code:
-                    format: int32
-                    readOnly: true
-                    type: integer
-                label:
-                    example: black
-                    type: string
-                labelI18n:
-                    example: black
-                    type: string
-            type: object
         ShippingAddress:
             properties:
                 city:
@@ -606,7 +580,7 @@ components:
                 - name
                 - street1
             type: object
-        WorkflowStatusInfo:
+        Status:
             properties:
                 code:
                     format: int32
@@ -615,7 +589,7 @@ components:
                 label:
                     example: black
                     type: string
-                labelI18n:
+                label_i18n:
                     example: black
                     type: string
             type: object
