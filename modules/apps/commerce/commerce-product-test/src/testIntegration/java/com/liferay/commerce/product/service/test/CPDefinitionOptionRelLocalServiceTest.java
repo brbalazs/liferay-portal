@@ -123,8 +123,8 @@ public class CPDefinitionOptionRelLocalServiceTest {
 				cpDefinitionOptionRel.getDescriptionMap(),
 				cpDefinitionOptionRel.getDDMFormFieldTypeName(),
 				cpDefinitionOptionRel.getPriority(),
-				cpDefinitionOptionRel.getFacetable(),
-				cpDefinitionOptionRel.getRequired(), true, _serviceContext);
+				cpDefinitionOptionRel.isFacetable(),
+				cpDefinitionOptionRel.isRequired(), true, _serviceContext);
 
 		Assert.assertTrue(
 			"SKU contributor value", cpDefinitionOptionRel.isSkuContributor());
@@ -178,8 +178,8 @@ public class CPDefinitionOptionRelLocalServiceTest {
 			cpDefinitionOptionRel.getDescriptionMap(),
 			cpDefinitionOptionRel.getDDMFormFieldTypeName(),
 			cpDefinitionOptionRel.getPriority(),
-			cpDefinitionOptionRel.getFacetable(),
-			cpDefinitionOptionRel.getRequired(), false, _serviceContext);
+			cpDefinitionOptionRel.isFacetable(),
+			cpDefinitionOptionRel.isRequired(), false, _serviceContext);
 
 		cpDefinitionApprovedCPInstances =
 			_cpInstanceLocalService.getCPDefinitionApprovedCPInstances(
