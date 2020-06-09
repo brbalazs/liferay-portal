@@ -1,7 +1,7 @@
 import * as data from 'test/data';
 import BasePage from 'shared/components/base-page';
 import client from 'shared/apollo/client';
-import FaroConstants from 'shared/util/constants';
+import Constants from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
@@ -10,15 +10,15 @@ import {ChannelContext} from 'shared/context/channel';
 import {cleanup, render} from '@testing-library/react';
 import {Dashboard} from '../index';
 import {mockChannelContext} from 'test/mock-channel-context';
+import {OAuthUpgradeWarningContext} from 'shared/context/oAuthUpgradeWarning';
 import {Provider} from 'react-redux';
 import {User} from 'shared/util/records';
-import {WarningStripeFromOAuthContext} from 'shared/context/warningStripeFromOAuth';
 
 jest.unmock('react-dom');
 
 const {
 	userRoleNames: {administrator, member}
-} = FaroConstants;
+} = Constants;
 
 const ADMIN_USER = new User(data.mockUser(24, {roleName: administrator}));
 
@@ -38,14 +38,14 @@ const MOCK_CONTEXT = {
 };
 
 const WARNING_STRIPE_CONTEXT_MOCK = {
-	setShowWarningStripe: () => {},
-	showWarningStripe: false
+	setShowOAuthUpgradeWarning: () => {},
+	showOAuthUpgradeWarning: false
 };
 
 const WrappedComponent = props => (
 	<ApolloProvider client={client}>
 		<Provider store={mockStore()}>
-			<WarningStripeFromOAuthContext.Provider
+			<OAuthUpgradeWarningContext.Provider
 				value={WARNING_STRIPE_CONTEXT_MOCK}
 			>
 				<ChannelContext.Provider value={mockChannelContext()}>
@@ -59,7 +59,7 @@ const WrappedComponent = props => (
 						</BrowserRouter>
 					</BasePage.Context.Provider>
 				</ChannelContext.Provider>
-			</WarningStripeFromOAuthContext.Provider>
+			</OAuthUpgradeWarningContext.Provider>
 		</Provider>
 	</ApolloProvider>
 );
@@ -95,7 +95,7 @@ describe('Sites Dashboard Index', () => {
 		const WrappedComponentWithContext = props => (
 			<ApolloProvider client={client}>
 				<Provider store={mockStore()}>
-					<WarningStripeFromOAuthContext.Provider
+					<OAuthUpgradeWarningContext.Provider
 						value={WARNING_STRIPE_CONTEXT_MOCK}
 					>
 						<ChannelContext.Provider value={CHANNEL_CONTEXT_MOCK}>
@@ -109,7 +109,7 @@ describe('Sites Dashboard Index', () => {
 								</BrowserRouter>
 							</BasePage.Context.Provider>
 						</ChannelContext.Provider>
-					</WarningStripeFromOAuthContext.Provider>
+					</OAuthUpgradeWarningContext.Provider>
 				</Provider>
 			</ApolloProvider>
 		);
@@ -127,14 +127,14 @@ describe('Sites Dashboard Index', () => {
 		};
 
 		const SHOW_WARNING_STRIPE_CONTEXT_MOCK = {
-			setShowWarningStripe: () => {},
-			showWarningStripe: true
+			setShowOAuthUpgradeWarning: () => {},
+			showOAuthUpgradeWarning: true
 		};
 
 		const WrappedComponentWithContext = props => (
 			<ApolloProvider client={client}>
 				<Provider store={mockStore()}>
-					<WarningStripeFromOAuthContext.Provider
+					<OAuthUpgradeWarningContext.Provider
 						value={SHOW_WARNING_STRIPE_CONTEXT_MOCK}
 					>
 						<ChannelContext.Provider value={mockChannelContext()}>
@@ -148,7 +148,7 @@ describe('Sites Dashboard Index', () => {
 								</BrowserRouter>
 							</BasePage.Context.Provider>
 						</ChannelContext.Provider>
-					</WarningStripeFromOAuthContext.Provider>
+					</OAuthUpgradeWarningContext.Provider>
 				</Provider>
 			</ApolloProvider>
 		);
@@ -156,7 +156,7 @@ describe('Sites Dashboard Index', () => {
 		const {container} = render(<WrappedComponentWithContext />);
 
 		expect(container.querySelector('.btn-warning')).toHaveTextContent(
-			'Go to Datasources'
+			'Go to Data Sources'
 		);
 	});
 });
