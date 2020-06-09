@@ -70,7 +70,7 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 				</div>
 
 				<div class="col-4">
-					<aui:input name="quantity" type="number" value="<%= cpDefinitionOptionValueRel.getQuantity() %>" wrapperCssClass="mb-0">
+					<aui:input name="quantity" type="number" wrapperCssClass="mb-0">
 						<aui:validator name="min">1</aui:validator>
 						<aui:validator name="number" />
 					</aui:input>
