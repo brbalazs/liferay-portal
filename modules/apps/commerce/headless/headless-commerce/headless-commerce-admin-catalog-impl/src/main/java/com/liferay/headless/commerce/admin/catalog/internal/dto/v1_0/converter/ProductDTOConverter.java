@@ -24,7 +24,7 @@ import com.liferay.commerce.product.type.CPType;
 import com.liferay.commerce.product.type.CPTypeServicesTracker;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Product;
-import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Status;
+import com.liferay.headless.commerce.admin.catalog.dto.v1_0.WorkflowStatusInfo;
 import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -102,11 +102,12 @@ public class ProductDTOConverter
 				name = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getNameMap());
 				productId = cProduct.getCProductId();
+				productStatus = cpDefinition.getStatus();
 				productType = cpType.getName();
 				productTypeI18n = cpType.getLabel(locale);
 				shortDescription = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getShortDescriptionMap());
-				status = _getStatus(
+				workflowStatusInfo = _getWorkflowStatusInfo(
 					cpDefinition.getStatus(), productStatusLabel,
 					productStatusLabelI18n);
 				tags = _getTags(cpDefinition);
@@ -129,19 +130,6 @@ public class ProductDTOConverter
 		return _cpTypeServicesTracker.getCPType(name);
 	}
 
-	private Status _getStatus(
-		int statusCode, String productStatusLabel,
-		String productStatusLabelI18n) {
-
-		return new Status() {
-			{
-				code = statusCode;
-				label = productStatusLabel;
-				labelI18n = productStatusLabelI18n;
-			}
-		};
-	}
-
 	private String[] _getTags(CPDefinition cpDefinition) {
 		List<AssetTag> assetEntryAssetTags = _assetTagService.getTags(
 			cpDefinition.getModelClassName(), cpDefinition.getCPDefinitionId());
@@ -153,6 +141,19 @@ public class ProductDTOConverter
 		).toArray(
 			String[]::new
 		);
+	}
+
+	private WorkflowStatusInfo _getWorkflowStatusInfo(
+		int statusCode, String productStatusLabel,
+		String productStatusLabelI18n) {
+
+		return new WorkflowStatusInfo() {
+			{
+				code = statusCode;
+				label = productStatusLabel;
+				labelI18n = productStatusLabelI18n;
+			}
+		};
 	}
 
 	@Reference
