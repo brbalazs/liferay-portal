@@ -10,4 +10,5 @@ Export-Package:\
 	com.liferay.commerce.pricing.service,\
 	com.liferay.commerce.pricing.service.persistence,\
 	com.liferay.commerce.pricing.type,\
+	com.liferay.commerce.pricing.util,\
 	com.liferay.commerce.pricing.util.comparator
