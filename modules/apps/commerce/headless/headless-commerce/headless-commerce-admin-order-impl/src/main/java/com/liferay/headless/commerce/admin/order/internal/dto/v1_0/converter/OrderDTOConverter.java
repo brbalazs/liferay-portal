@@ -26,9 +26,7 @@ import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.Order;
-import com.liferay.headless.commerce.admin.order.dto.v1_0.OrderStatusInfo;
-import com.liferay.headless.commerce.admin.order.dto.v1_0.PaymentStatusInfo;
-import com.liferay.headless.commerce.admin.order.dto.v1_0.WorkflowStatusInfo;
+import com.liferay.headless.commerce.admin.order.dto.v1_0.Status;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -306,28 +304,28 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 		return _commercePriceFormatter.format(commerceCurrency, price, locale);
 	}
 
-	private OrderStatusInfo _getOrderStatusInfo(
+	private Status _getOrderStatusInfo(
 		int orderStatus, String commerceOrderStatusLabel,
 		String commerceOrderStatusLabelI18n) {
 
-		return new OrderStatusInfo() {
+		return new Status() {
 			{
 				code = orderStatus;
 				label = commerceOrderStatusLabel;
-				labelI18n = commerceOrderStatusLabelI18n;
+				label_i18n = commerceOrderStatusLabelI18n;
 			}
 		};
 	}
 
-	private PaymentStatusInfo _getPaymentStatusInfo(
+	private Status _getPaymentStatusInfo(
 		int paymentStatus, String commerceOrderPaymentStatusLabel,
 		String commerceOrderPaymentStatusLabelI18n) {
 
-		return new PaymentStatusInfo() {
+		return new Status() {
 			{
 				code = paymentStatus;
 				label = commerceOrderPaymentStatusLabel;
-				labelI18n = commerceOrderPaymentStatusLabelI18n;
+				label_i18n = commerceOrderPaymentStatusLabelI18n;
 			}
 		};
 	}
@@ -342,15 +340,15 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 		return commerceShippingMethod.getEngineKey();
 	}
 
-	private WorkflowStatusInfo _getWorkflowStatusInfo(
+	private Status _getWorkflowStatusInfo(
 		int orderStatus, String commerceOrderWorkflowStatusLabel,
 		String commerceOrderWorkflowStatusLabelI18n) {
 
-		return new WorkflowStatusInfo() {
+		return new Status() {
 			{
 				code = orderStatus;
 				label = commerceOrderWorkflowStatusLabel;
-				labelI18n = commerceOrderWorkflowStatusLabelI18n;
+				label_i18n = commerceOrderWorkflowStatusLabelI18n;
 			}
 		};
 	}
