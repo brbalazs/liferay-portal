@@ -110,9 +110,9 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				accountId = commerceOrder.getCommerceAccountId();
 				advanceStatus = commerceOrder.getAdvanceStatus();
 				billingAddressId = commerceOrder.getBillingAddressId();
-				channelId = commerceChannel.getCommerceChannelId();
 				channelExternalReferenceCode =
 					commerceChannel.getExternalReferenceCode();
+				channelId = commerceChannel.getCommerceChannelId();
 				couponCode = commerceOrder.getCouponCode();
 				createDate = commerceOrder.getCreateDate();
 				currencyCode = commerceCurrency.getName(
