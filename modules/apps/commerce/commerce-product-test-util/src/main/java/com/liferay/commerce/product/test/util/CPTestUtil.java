@@ -528,16 +528,7 @@ public class CPTestUtil {
 		CPOptionConfiguration cpOptionConfiguration =
 			_getCPOptionConfiguration();
 
-		return cpOptionConfiguration.skuContributorDDMFormFieldTypesAllowed();
-	}
-
-	public static String[] getCPOptionSKUContributorFieldTypes()
-		throws ConfigurationException {
-
-		CPOptionConfiguration cpOptionConfiguration =
-			_getCPOptionConfiguration();
-
-		return cpOptionConfiguration.skuContributorDDMFormFieldTypesAllowed();
+		return cpOptionConfiguration.ddmFormFieldTypesAllowed();
 	}
 
 	public static String getDefaultDDMFormFieldType(boolean skuContributor)
@@ -551,7 +542,7 @@ public class CPTestUtil {
 
 		if (skuContributor) {
 			ddmFormFieldTypesAllowed =
-				cpOptionConfiguration.skuContributorDDMFormFieldTypesAllowed();
+				CPConstants.PRODUCT_OPTION_SKU_CONTRIBUTOR_FIELD_TYPES;
 		}
 
 		return ddmFormFieldTypesAllowed[0];
