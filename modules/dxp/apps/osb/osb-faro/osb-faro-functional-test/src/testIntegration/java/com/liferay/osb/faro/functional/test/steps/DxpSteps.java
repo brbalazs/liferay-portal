@@ -233,6 +233,8 @@ public class DxpSteps {
 		_handleDxpPasswordReminder();
 
 		_faroSelenium.click("//h2[@role='heading' and text()='Liferay DXP']");
+
+		_handleDxpLogout();
 	}
 
 	/**
@@ -431,6 +433,16 @@ public class DxpSteps {
 
 			_faroSelenium.waitForPageLoadingComplete();
 			_faroSelenium.waitForLoadingComplete();
+		}
+	}
+
+	private static void _handleDxpLogout() throws Exception {
+		if(_faroSelenium.isElementNotPresent("//a[contains(@class,'sign-in')]")) {
+			_faroSelenium.click("//h2[@role='heading' and text()='Liferay DXP']");
+
+			_faroSelenium.click("//div[@class='personal-menu-dropdown']//button");
+
+			_faroSelenium.click("//a[text()='Sign Out']");
 		}
 	}
 
