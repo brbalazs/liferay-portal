@@ -32,7 +32,7 @@ import {Routes} from 'shared/util/router';
 import {setBackURL} from 'shared/actions/settings';
 import {spritemap} from 'shared/util/constants';
 import {throttle} from 'lodash';
-import {WarningStripeContext} from 'shared/context/WarningStripe';
+import {WarningStripeFromOAuthContext} from 'shared/context/warningStripeFromOAuth';
 
 // App Routes with Sidebar
 
@@ -115,7 +115,7 @@ export default class App extends React.Component {
 
 	state = {
 		onboardingTriggered: false,
-		showWarningStripe: true
+		showWarningStripe: null
 	};
 
 	constructor(props) {
@@ -167,7 +167,7 @@ export default class App extends React.Component {
 								)}
 							>
 								<UnassignedSegmentsProvider>
-									<WarningStripeContext.Provider
+									<WarningStripeFromOAuthContext.Provider
 										value={{
 											setShowWarningStripe: value =>
 												this.setState({
@@ -311,7 +311,7 @@ export default class App extends React.Component {
 												</Router>
 											</ChannelProvider>
 										</OnboardingContext.Provider>
-									</WarningStripeContext.Provider>
+									</WarningStripeFromOAuthContext.Provider>
 								</UnassignedSegmentsProvider>
 							</ClayLinkContext.Provider>
 						</ClayIconSpriteContext.Provider>

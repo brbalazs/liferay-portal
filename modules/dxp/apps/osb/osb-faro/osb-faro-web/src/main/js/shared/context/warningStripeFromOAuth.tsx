@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const WarningStripeContext = React.createContext<{
+export const WarningStripeFromOAuthContext = React.createContext<{
 	showWarningStripe: boolean;
 	setShowWarningStripe?:(value: boolean) => void;
-}>({showWarningStripe: true});
+}>(null);
