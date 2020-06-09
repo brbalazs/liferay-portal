@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.service.persistence.UserGroupRolePK;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RoleTestUtil;
+import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.search.test.util.DocumentsAssert;
@@ -98,7 +99,11 @@ public class AssetSearcherStagingTest {
 
 		addJournalArticle();
 
+		UserTestUtil.setUser(TestPropsValues.getUser());
+
 		GroupTestUtil.enableLocalStaging(_group);
+
+		UserTestUtil.setUser(user);
 
 		SearchContext searchContext = getSearchContext();
 
