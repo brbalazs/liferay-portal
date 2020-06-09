@@ -107,11 +107,11 @@ public class ProductDTOConverter
 				productTypeI18n = cpType.getLabel(locale);
 				shortDescription = LanguageUtils.getLanguageIdMap(
 					cpDefinition.getShortDescriptionMap());
+				tags = _getTags(cpDefinition);
+				thumbnail = cpDefinition.getDefaultImageThumbnailSrc();
 				workflowStatusInfo = _getWorkflowStatusInfo(
 					cpDefinition.getStatus(), productStatusLabel,
 					productStatusLabelI18n);
-				tags = _getTags(cpDefinition);
-				thumbnail = cpDefinition.getDefaultImageThumbnailSrc();
 			}
 		};
 	}
