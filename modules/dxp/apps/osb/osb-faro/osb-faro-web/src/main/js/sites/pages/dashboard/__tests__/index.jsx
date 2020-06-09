@@ -12,7 +12,7 @@ import {Dashboard} from '../index';
 import {mockChannelContext} from 'test/mock-channel-context';
 import {Provider} from 'react-redux';
 import {User} from 'shared/util/records';
-import {WarningStripeContext} from 'shared/context/warningStripe';
+import {WarningStripeFromOAuthContext} from 'shared/context/warningStripeFromOAuth';
 
 jest.unmock('react-dom');
 
@@ -37,20 +37,29 @@ const MOCK_CONTEXT = {
 	}
 };
 
+const WARNING_STRIPE_CONTEXT_MOCK = {
+	setShowWarningStripe: () => {},
+	showWarningStripe: false
+};
+
 const WrappedComponent = props => (
 	<ApolloProvider client={client}>
 		<Provider store={mockStore()}>
-			<ChannelContext.Provider value={mockChannelContext()}>
-				<BasePage.Context.Provider value={MOCK_CONTEXT}>
-					<BrowserRouter>
-						<Dashboard
-							currentUser={MEMBER_USER}
-							router={MOCK_CONTEXT.router}
-							{...props}
-						/>
-					</BrowserRouter>
-				</BasePage.Context.Provider>
-			</ChannelContext.Provider>
+			<WarningStripeFromOAuthContext.Provider
+				value={WARNING_STRIPE_CONTEXT_MOCK}
+			>
+				<ChannelContext.Provider value={mockChannelContext()}>
+					<BasePage.Context.Provider value={MOCK_CONTEXT}>
+						<BrowserRouter>
+							<Dashboard
+								currentUser={MEMBER_USER}
+								router={MOCK_CONTEXT.router}
+								{...props}
+							/>
+						</BrowserRouter>
+					</BasePage.Context.Provider>
+				</ChannelContext.Provider>
+			</WarningStripeFromOAuthContext.Provider>
 		</Provider>
 	</ApolloProvider>
 );
@@ -86,17 +95,21 @@ describe('Sites Dashboard Index', () => {
 		const WrappedComponentWithContext = props => (
 			<ApolloProvider client={client}>
 				<Provider store={mockStore()}>
-					<ChannelContext.Provider value={CHANNEL_CONTEXT_MOCK}>
-						<BasePage.Context.Provider value={MOCK_CONTEXT}>
-							<BrowserRouter>
-								<Dashboard
-									currentUser={MEMBER_USER}
-									router={MOCK_CONTEXT.router}
-									{...props}
-								/>
-							</BrowserRouter>
-						</BasePage.Context.Provider>
-					</ChannelContext.Provider>
+					<WarningStripeFromOAuthContext.Provider
+						value={WARNING_STRIPE_CONTEXT_MOCK}
+					>
+						<ChannelContext.Provider value={CHANNEL_CONTEXT_MOCK}>
+							<BasePage.Context.Provider value={MOCK_CONTEXT}>
+								<BrowserRouter>
+									<Dashboard
+										currentUser={MEMBER_USER}
+										router={MOCK_CONTEXT.router}
+										{...props}
+									/>
+								</BrowserRouter>
+							</BasePage.Context.Provider>
+						</ChannelContext.Provider>
+					</WarningStripeFromOAuthContext.Provider>
 				</Provider>
 			</ApolloProvider>
 		);
@@ -113,15 +126,16 @@ describe('Sites Dashboard Index', () => {
 			pathname: '/workspace/2000/123/sites'
 		};
 
-		const WARNING_STRIPE_CONTEXT_MOCK = {
+		const SHOW_WARNING_STRIPE_CONTEXT_MOCK = {
+			setShowWarningStripe: () => {},
 			showWarningStripe: true
 		};
 
 		const WrappedComponentWithContext = props => (
 			<ApolloProvider client={client}>
 				<Provider store={mockStore()}>
-					<WarningStripeContext.Provider
-						value={WARNING_STRIPE_CONTEXT_MOCK}
+					<WarningStripeFromOAuthContext.Provider
+						value={SHOW_WARNING_STRIPE_CONTEXT_MOCK}
 					>
 						<ChannelContext.Provider value={mockChannelContext()}>
 							<BasePage.Context.Provider value={MOCK_CONTEXT}>
@@ -134,7 +148,7 @@ describe('Sites Dashboard Index', () => {
 								</BrowserRouter>
 							</BasePage.Context.Provider>
 						</ChannelContext.Provider>
-					</WarningStripeContext.Provider>
+					</WarningStripeFromOAuthContext.Provider>
 				</Provider>
 			</ApolloProvider>
 		);
