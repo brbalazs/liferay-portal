@@ -55,6 +55,20 @@ public class PunchoutSessionSerDes {
 
 		sb.append("{");
 
+		if (punchoutSession.getBuyerAccountReferenceCode() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"buyerAccountReferenceCode\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(punchoutSession.getBuyerAccountReferenceCode()));
+
+			sb.append("\"");
+		}
+
 		if (punchoutSession.getBuyerGroup() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -156,6 +170,15 @@ public class PunchoutSessionSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (punchoutSession.getBuyerAccountReferenceCode() == null) {
+			map.put("buyerAccountReferenceCode", null);
+		}
+		else {
+			map.put(
+				"buyerAccountReferenceCode",
+				String.valueOf(punchoutSession.getBuyerAccountReferenceCode()));
+		}
+
 		if (punchoutSession.getBuyerGroup() == null) {
 			map.put("buyerGroup", null);
 		}
@@ -236,7 +259,15 @@ public class PunchoutSessionSerDes {
 			PunchoutSession punchoutSession, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "buyerGroup")) {
+			if (Objects.equals(
+					jsonParserFieldName, "buyerAccountReferenceCode")) {
+
+				if (jsonParserFieldValue != null) {
+					punchoutSession.setBuyerAccountReferenceCode(
+						(String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "buyerGroup")) {
 				if (jsonParserFieldValue != null) {
 					punchoutSession.setBuyerGroup(
 						GroupSerDes.toDTO((String)jsonParserFieldValue));

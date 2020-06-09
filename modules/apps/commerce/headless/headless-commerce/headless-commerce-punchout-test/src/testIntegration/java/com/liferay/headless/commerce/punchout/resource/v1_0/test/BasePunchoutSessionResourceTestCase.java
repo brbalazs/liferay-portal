@@ -179,6 +179,7 @@ public abstract class BasePunchoutSessionResourceTestCase {
 
 		PunchoutSession punchoutSession = randomPunchoutSession();
 
+		punchoutSession.setBuyerAccountReferenceCode(regex);
 		punchoutSession.setPunchoutReturnURL(regex);
 		punchoutSession.setPunchoutSessionType(regex);
 		punchoutSession.setPunchoutStartURL(regex);
@@ -189,6 +190,8 @@ public abstract class BasePunchoutSessionResourceTestCase {
 
 		punchoutSession = PunchoutSessionSerDes.toDTO(json);
 
+		Assert.assertEquals(
+			regex, punchoutSession.getBuyerAccountReferenceCode());
 		Assert.assertEquals(regex, punchoutSession.getPunchoutReturnURL());
 		Assert.assertEquals(regex, punchoutSession.getPunchoutSessionType());
 		Assert.assertEquals(regex, punchoutSession.getPunchoutStartURL());
@@ -272,6 +275,16 @@ public abstract class BasePunchoutSessionResourceTestCase {
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
+
+			if (Objects.equals(
+					"buyerAccountReferenceCode", additionalAssertFieldName)) {
+
+				if (punchoutSession.getBuyerAccountReferenceCode() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
 
 			if (Objects.equals("buyerGroup", additionalAssertFieldName)) {
 				if (punchoutSession.getBuyerGroup() == null) {
@@ -427,6 +440,19 @@ public abstract class BasePunchoutSessionResourceTestCase {
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
+
+			if (Objects.equals(
+					"buyerAccountReferenceCode", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						punchoutSession1.getBuyerAccountReferenceCode(),
+						punchoutSession2.getBuyerAccountReferenceCode())) {
+
+					return false;
+				}
+
+				continue;
+			}
 
 			if (Objects.equals("buyerGroup", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
@@ -594,6 +620,15 @@ public abstract class BasePunchoutSessionResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("buyerAccountReferenceCode")) {
+			sb.append("'");
+			sb.append(
+				String.valueOf(punchoutSession.getBuyerAccountReferenceCode()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("buyerGroup")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -682,6 +717,8 @@ public abstract class BasePunchoutSessionResourceTestCase {
 	protected PunchoutSession randomPunchoutSession() throws Exception {
 		return new PunchoutSession() {
 			{
+				buyerAccountReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				punchoutReturnURL = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				punchoutSessionType = StringUtil.toLowerCase(

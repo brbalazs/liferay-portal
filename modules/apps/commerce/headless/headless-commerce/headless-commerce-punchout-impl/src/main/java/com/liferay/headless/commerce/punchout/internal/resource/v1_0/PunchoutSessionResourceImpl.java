@@ -16,7 +16,6 @@ package com.liferay.headless.commerce.punchout.internal.resource.v1_0;
 
 import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.model.CommerceAccount;
-import com.liferay.commerce.account.model.CommerceAccountUserRel;
 import com.liferay.commerce.account.service.CommerceAccountLocalService;
 import com.liferay.commerce.account.service.CommerceAccountUserRelLocalService;
 import com.liferay.commerce.context.CommerceContext;
@@ -116,8 +115,14 @@ public class PunchoutSessionResourceImpl
 		}
 
 		CommerceAccount businessCommerceAccount =
-			_fetchOrCreateBusinessCommerceAccount(
-				buyerUserInLiferay, buyerGroup.getGroupId());
+			_fetchBusinessCommerceAccount(punchoutSession.getBuyerAccountReferenceCode());
+
+		if (businessCommerceAccount == null) {
+			throw new BadRequestException();
+		}
+
+		_addBuyerUserToAccount(
+			businessCommerceAccount, buyerUserInLiferay.getUserId(), buyerGroup.getGroupId());
 
 		String punchoutSessionType = punchoutSession.getPunchoutSessionType();
 
@@ -211,6 +216,22 @@ public class PunchoutSessionResourceImpl
 		return _userLocalService.updatePasswordReset(user.getUserId(), false);
 	}
 
+	private void _addBuyerUserToAccount(
+			CommerceAccount commerceAccount, long userId, long groupId)
+		throws PortalException {
+
+		Role role = _roleLocalService.fetchRole(
+			contextCompany.getCompanyId(),
+			CommerceAccountConstants.ROLE_NAME_ACCOUNT_PUNCHOUT);
+
+		long[] roleIds = {role.getRoleId()};
+
+		_commerceAccountUserRelLocalService.addCommerceAccountUserRels(
+			commerceAccount.getCommerceAccountId(),
+			new long[] {userId}, null, roleIds,
+			_serviceContextHelper.getServiceContext(groupId));
+	}
+
 	private void _checkAllowUserCreation(long companyId, String email)
 		throws PortalException {
 
@@ -225,31 +246,9 @@ public class PunchoutSessionResourceImpl
 		}
 	}
 
-	private CommerceAccount _fetchBusinessCommerceAccount(long userId)
-		throws PortalException {
-
-		List<CommerceAccount> businessCommerceAccounts =
-			_commerceAccountLocalService.getUserCommerceAccounts(
-				userId, 0L, CommerceAccountConstants.ACCOUNT_TYPE_BUSINESS,
-				null, -1, -1);
-
-		for (CommerceAccount commerceAccount : businessCommerceAccounts) {
-			List<CommerceAccountUserRel> commerceAccountUserRels =
-				commerceAccount.getCommerceAccountUserRels();
-
-			for (CommerceAccountUserRel commerceAccountUserRel :
-					commerceAccountUserRels) {
-
-				com.liferay.portal.kernel.model.User commerceAccountUser =
-					commerceAccountUserRel.getUser();
-
-				if (commerceAccountUser.getUserId() == userId) {
-					return commerceAccount;
-				}
-			}
-		}
-
-		return null;
+	private CommerceAccount _fetchBusinessCommerceAccount(String externalReferenceCode) {
+		return _commerceAccountLocalService.fetchCommerceAccountByReferenceCode(
+				contextCompany.getCompanyId(), externalReferenceCode);
 	}
 
 	private CommerceChannel _fetchChannel(long groupId) {
@@ -260,39 +259,6 @@ public class PunchoutSessionResourceImpl
 	private com.liferay.portal.kernel.model.Group _fetchGroup(Group group) {
 		return _groupLocalService.fetchGroup(
 			contextCompany.getCompanyId(), group.getName());
-	}
-
-	private CommerceAccount _fetchOrCreateBusinessCommerceAccount(
-			com.liferay.portal.kernel.model.User user, long groupId)
-		throws PortalException {
-
-		CommerceAccount businessCommerceAccount = _fetchBusinessCommerceAccount(
-			user.getUserId());
-
-		if (businessCommerceAccount != null) {
-			return businessCommerceAccount;
-		}
-
-		businessCommerceAccount =
-			_commerceAccountLocalService.addBusinessCommerceAccount(
-				_BUSINESS_ACCOUNT_NAME_PREFIX + user.getFullName(),
-				CommerceAccountConstants.DEFAULT_PARENT_ACCOUNT_ID,
-				user.getEmailAddress(), StringPool.BLANK, true, null,
-				new long[] {user.getUserId()}, null,
-				_serviceContextHelper.getServiceContext(groupId));
-
-		Role role = _roleLocalService.fetchRole(
-			contextCompany.getCompanyId(),
-			CommerceAccountConstants.ROLE_NAME_ACCOUNT_PUNCHOUT);
-
-		long[] roleIds = {role.getRoleId()};
-
-		_commerceAccountUserRelLocalService.addCommerceAccountUserRels(
-			businessCommerceAccount.getCommerceAccountId(),
-			new long[] {user.getUserId()}, null, roleIds,
-			_serviceContextHelper.getServiceContext(groupId));
-
-		return businessCommerceAccount;
 	}
 
 	private com.liferay.portal.kernel.model.User _fetchOrCreateBuyerUser(
@@ -446,9 +412,6 @@ public class PunchoutSessionResourceImpl
 
 		return ArrayUtil.contains(user.getGroupIds(), groupId);
 	}
-
-	private static final String _BUSINESS_ACCOUNT_NAME_PREFIX =
-		"Business Account ";
 
 	private static final String _EDIT_REQUEST_TYPE = "edit";
 

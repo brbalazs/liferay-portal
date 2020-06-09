@@ -32,6 +32,29 @@ public class PunchoutSession implements Cloneable {
 		return PunchoutSessionSerDes.toDTO(json);
 	}
 
+	public String getBuyerAccountReferenceCode() {
+		return buyerAccountReferenceCode;
+	}
+
+	public void setBuyerAccountReferenceCode(String buyerAccountReferenceCode) {
+		this.buyerAccountReferenceCode = buyerAccountReferenceCode;
+	}
+
+	public void setBuyerAccountReferenceCode(
+		UnsafeSupplier<String, Exception>
+			buyerAccountReferenceCodeUnsafeSupplier) {
+
+		try {
+			buyerAccountReferenceCode =
+				buyerAccountReferenceCodeUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String buyerAccountReferenceCode;
+
 	public Group getBuyerGroup() {
 		return buyerGroup;
 	}

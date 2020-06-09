@@ -48,8 +48,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @JsonFilter("Liferay.Vulcan")
 @Schema(
 	requiredProperties = {
-		"buyerGroup", "punchoutReturnURL", "punchoutSessionType", "buyerUser",
-		"cart"
+		"buyerAccountReferenceCode", "buyerGroup", "punchoutReturnURL",
+		"punchoutSessionType", "buyerUser", "cart"
 	}
 )
 @XmlRootElement(name = "PunchoutSession")
@@ -58,6 +58,37 @@ public class PunchoutSession {
 	public static PunchoutSession toDTO(String json) {
 		return ObjectMapperUtil.readValue(PunchoutSession.class, json);
 	}
+
+	@Schema
+	public String getBuyerAccountReferenceCode() {
+		return buyerAccountReferenceCode;
+	}
+
+	public void setBuyerAccountReferenceCode(String buyerAccountReferenceCode) {
+		this.buyerAccountReferenceCode = buyerAccountReferenceCode;
+	}
+
+	@JsonIgnore
+	public void setBuyerAccountReferenceCode(
+		UnsafeSupplier<String, Exception>
+			buyerAccountReferenceCodeUnsafeSupplier) {
+
+		try {
+			buyerAccountReferenceCode =
+				buyerAccountReferenceCodeUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotEmpty
+	protected String buyerAccountReferenceCode;
 
 	@Schema
 	@Valid
@@ -289,6 +320,20 @@ public class PunchoutSession {
 		StringBundler sb = new StringBundler();
 
 		sb.append("{");
+
+		if (buyerAccountReferenceCode != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"buyerAccountReferenceCode\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(buyerAccountReferenceCode));
+
+			sb.append("\"");
+		}
 
 		if (buyerGroup != null) {
 			if (sb.length() > 1) {

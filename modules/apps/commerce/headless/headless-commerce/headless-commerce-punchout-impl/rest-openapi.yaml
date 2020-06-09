@@ -251,6 +251,8 @@ components:
             type: object
         PunchoutSession:
             properties:
+                buyerAccountReferenceCode:
+                    type: string
                 buyerGroup:
                     $ref: "#/components/schemas/Group"
                 buyerOrganization:
@@ -266,6 +268,7 @@ components:
                 punchoutStartURL:
                     type: string
             required:
+                - buyerAccountReferenceCode
                 - buyerGroup
                 - punchoutReturnURL
                 - punchoutSessionType
