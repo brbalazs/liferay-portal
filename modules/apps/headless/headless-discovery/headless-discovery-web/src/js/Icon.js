@@ -12,15 +12,19 @@
  * details.
  */
 
-package com.liferay.headless.discovery.web.internal.constants;
+import ClayIcon from '@clayui/icon';
+import React from 'react';
 
-/**
- * @author Javier Gamarra
- */
-public class HeadlessDiscoveryPortletKeys {
+// export const spritemap =
+// 	themeDisplay.getPathThemeImages() + '/lexicon/icons.svg';
 
-	public static final String HEADLESS_DISCOVERY =
-		"com_liferay_headless_discovery_web_internal_portlet_" +
-			"HeadlessDiscoveryPortlet";
+export const spritemap =
+	'http://localhost:8080/o/classic-theme/images' + '/lexicon/icons.svg';
 
-}
+const Icon = props => {
+	const {symbol, ...otherProps} = props;
+
+	return <ClayIcon spritemap={spritemap} symbol={symbol} {...otherProps} />;
+};
+
+export default Icon;

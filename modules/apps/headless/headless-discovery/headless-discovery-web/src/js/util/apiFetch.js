@@ -12,12 +12,11 @@
  * details.
  */
 
-import {fetch} from 'frontend-js-web';
-
 const apiFetch = (url, method = 'get', data, contentType, headers) => {
+
 	const request = {
-		headers: getHeaders(headers),
-		method: method.toUpperCase()
+		headers: {...getHeaders(headers), 'x-csrf-token': document.querySelector('meta[name="csrf-token"]').content},
+		method: method.toUpperCase(),
 	};
 
 	if (method === 'post' || method === 'put') {
@@ -36,16 +35,11 @@ const apiFetch = (url, method = 'get', data, contentType, headers) => {
 		}
 	}
 
-	return fetch(url, request).then(res => {
-		let retVal;
-
+	return window.fetch(url, request).then((res) => {
 		if (method === 'delete' && res.status === 204) {
-			retVal = 'Deleted Successfully';
-		} else {
-			retVal = res.json();
+			return 'Deleted Successfully';
 		}
-
-		return retVal;
+		return res.json();
 	});
 
 	function getHeaders(headers) {

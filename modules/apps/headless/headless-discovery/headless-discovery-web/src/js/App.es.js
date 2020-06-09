@@ -14,12 +14,25 @@
 
 import React from 'react';
 
-import App from './App.es';
+import '@clayui/css/lib/css/atlas.css';
 
-export default function(props) {
+import 'swagger-ui-react/swagger-ui.css';
+
+import APIGUI from './APIGUI';
+
+import 'graphiql/graphiql.css';
+
+import {AppStateProvider} from './hooks/appState';
+import appReducer, {initialState} from './reducers/appReducer';
+
+const App = props => {
 	return (
-		<div>
-			<App {...props} />
-		</div>
+		<>
+			<AppStateProvider initialState={initialState} reducer={appReducer}>
+				<APIGUI props={props} />
+			</AppStateProvider>
+		</>
 	);
-}
+};
+
+export default App;

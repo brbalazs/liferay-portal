@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -12,12 +11,10 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
---%>
 
-<%@ include file="/init.jsp" %>
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-<div id="root">
-	<react:component
-		module="js/index.es"
-	/>
-</div>
+import App from './js/App.es';
+
+ReactDOM.render(<App />, document.getElementById('container'));
