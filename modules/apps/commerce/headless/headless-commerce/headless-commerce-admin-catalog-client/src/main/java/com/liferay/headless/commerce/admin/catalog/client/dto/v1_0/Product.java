@@ -827,17 +827,16 @@ public class Product implements Cloneable {
 
 	protected Map<String, String> urls;
 
-	public WorkflowStatusInfo getWorkflowStatusInfo() {
+	public Status getWorkflowStatusInfo() {
 		return workflowStatusInfo;
 	}
 
-	public void setWorkflowStatusInfo(WorkflowStatusInfo workflowStatusInfo) {
+	public void setWorkflowStatusInfo(Status workflowStatusInfo) {
 		this.workflowStatusInfo = workflowStatusInfo;
 	}
 
 	public void setWorkflowStatusInfo(
-		UnsafeSupplier<WorkflowStatusInfo, Exception>
-			workflowStatusInfoUnsafeSupplier) {
+		UnsafeSupplier<Status, Exception> workflowStatusInfoUnsafeSupplier) {
 
 		try {
 			workflowStatusInfo = workflowStatusInfoUnsafeSupplier.get();
@@ -847,7 +846,7 @@ public class Product implements Cloneable {
 		}
 	}
 
-	protected WorkflowStatusInfo workflowStatusInfo;
+	protected Status workflowStatusInfo;
 
 	@Override
 	public Product clone() throws CloneNotSupportedException {

@@ -14,7 +14,7 @@
 
 package com.liferay.headless.commerce.admin.catalog.client.serdes.v1_0;
 
-import com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.WorkflowStatusInfo;
+import com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.Status;
 import com.liferay.headless.commerce.admin.catalog.client.json.BaseJSONParser;
 
 import java.util.Iterator;
@@ -30,24 +30,22 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class WorkflowStatusInfoSerDes {
+public class StatusSerDes {
 
-	public static WorkflowStatusInfo toDTO(String json) {
-		WorkflowStatusInfoJSONParser workflowStatusInfoJSONParser =
-			new WorkflowStatusInfoJSONParser();
+	public static Status toDTO(String json) {
+		StatusJSONParser statusJSONParser = new StatusJSONParser();
 
-		return workflowStatusInfoJSONParser.parseToDTO(json);
+		return statusJSONParser.parseToDTO(json);
 	}
 
-	public static WorkflowStatusInfo[] toDTOs(String json) {
-		WorkflowStatusInfoJSONParser workflowStatusInfoJSONParser =
-			new WorkflowStatusInfoJSONParser();
+	public static Status[] toDTOs(String json) {
+		StatusJSONParser statusJSONParser = new StatusJSONParser();
 
-		return workflowStatusInfoJSONParser.parseToDTOs(json);
+		return statusJSONParser.parseToDTOs(json);
 	}
 
-	public static String toJSON(WorkflowStatusInfo workflowStatusInfo) {
-		if (workflowStatusInfo == null) {
+	public static String toJSON(Status status) {
+		if (status == null) {
 			return "null";
 		}
 
@@ -55,17 +53,17 @@ public class WorkflowStatusInfoSerDes {
 
 		sb.append("{");
 
-		if (workflowStatusInfo.getCode() != null) {
+		if (status.getCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
 			sb.append("\"code\": ");
 
-			sb.append(workflowStatusInfo.getCode());
+			sb.append(status.getCode());
 		}
 
-		if (workflowStatusInfo.getLabel() != null) {
+		if (status.getLabel() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
@@ -74,21 +72,21 @@ public class WorkflowStatusInfoSerDes {
 
 			sb.append("\"");
 
-			sb.append(_escape(workflowStatusInfo.getLabel()));
+			sb.append(_escape(status.getLabel()));
 
 			sb.append("\"");
 		}
 
-		if (workflowStatusInfo.getLabelI18n() != null) {
+		if (status.getLabel_i18n() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"labelI18n\": ");
+			sb.append("\"label_i18n\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(workflowStatusInfo.getLabelI18n()));
+			sb.append(_escape(status.getLabel_i18n()));
 
 			sb.append("\"");
 		}
@@ -99,79 +97,73 @@ public class WorkflowStatusInfoSerDes {
 	}
 
 	public static Map<String, Object> toMap(String json) {
-		WorkflowStatusInfoJSONParser workflowStatusInfoJSONParser =
-			new WorkflowStatusInfoJSONParser();
+		StatusJSONParser statusJSONParser = new StatusJSONParser();
 
-		return workflowStatusInfoJSONParser.parseToMap(json);
+		return statusJSONParser.parseToMap(json);
 	}
 
-	public static Map<String, String> toMap(
-		WorkflowStatusInfo workflowStatusInfo) {
-
-		if (workflowStatusInfo == null) {
+	public static Map<String, String> toMap(Status status) {
+		if (status == null) {
 			return null;
 		}
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (workflowStatusInfo.getCode() == null) {
+		if (status.getCode() == null) {
 			map.put("code", null);
 		}
 		else {
-			map.put("code", String.valueOf(workflowStatusInfo.getCode()));
+			map.put("code", String.valueOf(status.getCode()));
 		}
 
-		if (workflowStatusInfo.getLabel() == null) {
+		if (status.getLabel() == null) {
 			map.put("label", null);
 		}
 		else {
-			map.put("label", String.valueOf(workflowStatusInfo.getLabel()));
+			map.put("label", String.valueOf(status.getLabel()));
 		}
 
-		if (workflowStatusInfo.getLabelI18n() == null) {
-			map.put("labelI18n", null);
+		if (status.getLabel_i18n() == null) {
+			map.put("label_i18n", null);
 		}
 		else {
-			map.put(
-				"labelI18n", String.valueOf(workflowStatusInfo.getLabelI18n()));
+			map.put("label_i18n", String.valueOf(status.getLabel_i18n()));
 		}
 
 		return map;
 	}
 
-	public static class WorkflowStatusInfoJSONParser
-		extends BaseJSONParser<WorkflowStatusInfo> {
+	public static class StatusJSONParser extends BaseJSONParser<Status> {
 
 		@Override
-		protected WorkflowStatusInfo createDTO() {
-			return new WorkflowStatusInfo();
+		protected Status createDTO() {
+			return new Status();
 		}
 
 		@Override
-		protected WorkflowStatusInfo[] createDTOArray(int size) {
-			return new WorkflowStatusInfo[size];
+		protected Status[] createDTOArray(int size) {
+			return new Status[size];
 		}
 
 		@Override
 		protected void setField(
-			WorkflowStatusInfo workflowStatusInfo, String jsonParserFieldName,
+			Status status, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
 			if (Objects.equals(jsonParserFieldName, "code")) {
 				if (jsonParserFieldValue != null) {
-					workflowStatusInfo.setCode(
+					status.setCode(
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "label")) {
 				if (jsonParserFieldValue != null) {
-					workflowStatusInfo.setLabel((String)jsonParserFieldValue);
+					status.setLabel((String)jsonParserFieldValue);
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "labelI18n")) {
+			else if (Objects.equals(jsonParserFieldName, "label_i18n")) {
 				if (jsonParserFieldValue != null) {
-					workflowStatusInfo.setLabelI18n(
-						(String)jsonParserFieldValue);
+					status.setLabel_i18n((String)jsonParserFieldValue);
 				}
 			}
 			else {

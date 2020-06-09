@@ -15,7 +15,7 @@
 package com.liferay.headless.commerce.admin.catalog.client.dto.v1_0;
 
 import com.liferay.headless.commerce.admin.catalog.client.function.UnsafeSupplier;
-import com.liferay.headless.commerce.admin.catalog.client.serdes.v1_0.WorkflowStatusInfoSerDes;
+import com.liferay.headless.commerce.admin.catalog.client.serdes.v1_0.StatusSerDes;
 
 import java.util.Objects;
 
@@ -26,10 +26,10 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class WorkflowStatusInfo implements Cloneable {
+public class Status implements Cloneable {
 
-	public static WorkflowStatusInfo toDTO(String json) {
-		return WorkflowStatusInfoSerDes.toDTO(json);
+	public static Status toDTO(String json) {
+		return StatusSerDes.toDTO(json);
 	}
 
 	public Integer getCode() {
@@ -72,30 +72,30 @@ public class WorkflowStatusInfo implements Cloneable {
 
 	protected String label;
 
-	public String getLabelI18n() {
-		return labelI18n;
+	public String getLabel_i18n() {
+		return label_i18n;
 	}
 
-	public void setLabelI18n(String labelI18n) {
-		this.labelI18n = labelI18n;
+	public void setLabel_i18n(String label_i18n) {
+		this.label_i18n = label_i18n;
 	}
 
-	public void setLabelI18n(
-		UnsafeSupplier<String, Exception> labelI18nUnsafeSupplier) {
+	public void setLabel_i18n(
+		UnsafeSupplier<String, Exception> label_i18nUnsafeSupplier) {
 
 		try {
-			labelI18n = labelI18nUnsafeSupplier.get();
+			label_i18n = label_i18nUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected String labelI18n;
+	protected String label_i18n;
 
 	@Override
-	public WorkflowStatusInfo clone() throws CloneNotSupportedException {
-		return (WorkflowStatusInfo)super.clone();
+	public Status clone() throws CloneNotSupportedException {
+		return (Status)super.clone();
 	}
 
 	@Override
@@ -104,13 +104,13 @@ public class WorkflowStatusInfo implements Cloneable {
 			return true;
 		}
 
-		if (!(object instanceof WorkflowStatusInfo)) {
+		if (!(object instanceof Status)) {
 			return false;
 		}
 
-		WorkflowStatusInfo workflowStatusInfo = (WorkflowStatusInfo)object;
+		Status status = (Status)object;
 
-		return Objects.equals(toString(), workflowStatusInfo.toString());
+		return Objects.equals(toString(), status.toString());
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class WorkflowStatusInfo implements Cloneable {
 	}
 
 	public String toString() {
-		return WorkflowStatusInfoSerDes.toJSON(this);
+		return StatusSerDes.toJSON(this);
 	}
 
 }

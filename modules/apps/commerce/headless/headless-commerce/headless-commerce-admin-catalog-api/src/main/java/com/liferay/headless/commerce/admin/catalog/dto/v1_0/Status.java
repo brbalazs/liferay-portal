@@ -40,13 +40,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName("WorkflowStatusInfo")
+@GraphQLName("Status")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "WorkflowStatusInfo")
-public class WorkflowStatusInfo {
+@XmlRootElement(name = "Status")
+public class Status {
 
-	public static WorkflowStatusInfo toDTO(String json) {
-		return ObjectMapperUtil.readValue(WorkflowStatusInfo.class, json);
+	public static Status toDTO(String json) {
+		return ObjectMapperUtil.readValue(Status.class, json);
 	}
 
 	@Schema
@@ -104,20 +104,20 @@ public class WorkflowStatusInfo {
 	protected String label;
 
 	@Schema
-	public String getLabelI18n() {
-		return labelI18n;
+	public String getLabel_i18n() {
+		return label_i18n;
 	}
 
-	public void setLabelI18n(String labelI18n) {
-		this.labelI18n = labelI18n;
+	public void setLabel_i18n(String label_i18n) {
+		this.label_i18n = label_i18n;
 	}
 
 	@JsonIgnore
-	public void setLabelI18n(
-		UnsafeSupplier<String, Exception> labelI18nUnsafeSupplier) {
+	public void setLabel_i18n(
+		UnsafeSupplier<String, Exception> label_i18nUnsafeSupplier) {
 
 		try {
-			labelI18n = labelI18nUnsafeSupplier.get();
+			label_i18n = label_i18nUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -129,7 +129,7 @@ public class WorkflowStatusInfo {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String labelI18n;
+	protected String label_i18n;
 
 	@Override
 	public boolean equals(Object object) {
@@ -137,13 +137,13 @@ public class WorkflowStatusInfo {
 			return true;
 		}
 
-		if (!(object instanceof WorkflowStatusInfo)) {
+		if (!(object instanceof Status)) {
 			return false;
 		}
 
-		WorkflowStatusInfo workflowStatusInfo = (WorkflowStatusInfo)object;
+		Status status = (Status)object;
 
-		return Objects.equals(toString(), workflowStatusInfo.toString());
+		return Objects.equals(toString(), status.toString());
 	}
 
 	@Override
@@ -182,16 +182,16 @@ public class WorkflowStatusInfo {
 			sb.append("\"");
 		}
 
-		if (labelI18n != null) {
+		if (label_i18n != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"labelI18n\": ");
+			sb.append("\"label_i18n\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(labelI18n));
+			sb.append(_escape(label_i18n));
 
 			sb.append("\"");
 		}
@@ -202,7 +202,7 @@ public class WorkflowStatusInfo {
 	}
 
 	@Schema(
-		defaultValue = "com.liferay.headless.commerce.admin.catalog.dto.v1_0.WorkflowStatusInfo",
+		defaultValue = "com.liferay.headless.commerce.admin.catalog.dto.v1_0.Status",
 		name = "x-class-name"
 	)
 	public String xClassName;

@@ -1182,8 +1182,7 @@ public class ProductSerDes {
 
 				if (jsonParserFieldValue != null) {
 					product.setWorkflowStatusInfo(
-						WorkflowStatusInfoSerDes.toDTO(
-							(String)jsonParserFieldValue));
+						StatusSerDes.toDTO((String)jsonParserFieldValue));
 				}
 			}
 			else {
