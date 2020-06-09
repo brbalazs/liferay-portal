@@ -216,3 +216,8 @@ export const getDefinitions = ({groupId}: IBasicRouteArgs) => ({
 	href: toRoute(Routes.SETTINGS_DEFINITIONS, {groupId}),
 	label: Liferay.Language.get('definitions')
 });
+
+export const getRecommendations = ({groupId}: IBasicRouteArgs) => ({
+	href: toRoute(Routes.SETTINGS_RECOMMENDATIONS, {groupId}),
+	label: Liferay.Language.get('recommendations')
+});

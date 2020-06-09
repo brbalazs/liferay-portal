@@ -4,6 +4,7 @@ import RecommendationStepCard from '../components/recommendation-step-card';
 import withRecommendation from 'shared/hoc/WithRecommendation';
 import {compose} from 'redux';
 import {get} from 'lodash';
+import {getRecommendations} from 'shared/util/breadcrumbs';
 import {Job} from '../utils/utils';
 import {RouterType} from 'shared/types';
 import {Routes, toRoute} from 'shared/util/router';
@@ -17,13 +18,22 @@ interface IEditProps {
 const Edit: React.FC<IEditProps> = ({job, router}) => {
 	const {groupId} = router.params;
 
+	const name = get(job, 'name');
+
 	return (
 		<BasePage
+			breadcrumbItems={[
+				getRecommendations({groupId}),
+				{
+					active: true,
+					label: name
+				}
+			]}
 			groupId={groupId}
 			pageDescription={Liferay.Language.get(
 				'item-similarity-model-uses-items-and-iteractions-for-training'
 			)}
-			pageTitle={get(job, 'name')}
+			pageTitle={name}
 		>
 			<div className='row'>
 				<div className='col-xl-8'>
