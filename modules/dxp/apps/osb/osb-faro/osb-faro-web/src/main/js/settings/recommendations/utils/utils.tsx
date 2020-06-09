@@ -22,6 +22,10 @@ export type Job = {
 };
 export const JOB_TRAINING_FREQUENCIES_LIST = [
 	{
+		name: Liferay.Language.get('run-manually'),
+		value: jobTrainingFrequencies.manual
+	},
+	{
 		name: Liferay.Language.get('every-7-days'),
 		value: jobTrainingFrequencies.every7Days
 	},
@@ -32,9 +36,5 @@ export const JOB_TRAINING_FREQUENCIES_LIST = [
 	{
 		name: Liferay.Language.get('every-30-days'),
 		value: jobTrainingFrequencies.every30Days
-	},
-	{
-		name: Liferay.Language.get('run-manually'),
-		value: jobTrainingFrequencies.manual
 	}
 ];
