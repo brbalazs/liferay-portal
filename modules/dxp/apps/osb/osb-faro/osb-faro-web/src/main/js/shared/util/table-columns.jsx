@@ -693,7 +693,7 @@ export const organizationsListColumns = [
  */
 
 export const sitePagesListColumns = {
-	getTitleUrl: ({channelId, groupId, rangeKey, route}) => ({
+	getTitleUrl: ({channelId, groupId, rangeSelectors, route}) => ({
 		accessor: 'assetTitle',
 		cellRenderer: NameCell,
 		cellRendererProps: {
@@ -703,7 +703,7 @@ export const sitePagesListColumns = {
 			),
 			routeFn: ({data: {assetId, assetTitle}}) =>
 				setUriQueryValues(
-					pickBy({rangeKey}),
+					pickBy({...rangeSelectors}),
 					toRoute(route, {
 						channelId,
 						groupId,

@@ -52,23 +52,26 @@ const TableWithData: React.FC<ITableWithDataProps> = withRangeKey(
 		getColumns: ({
 			router: {
 				params: {channelId, groupId},
-				query: {rangeKey}
+				query
 			}
-		}) => [
-			sitePagesListColumns.getTitleUrl({
-				channelId,
-				groupId,
-				rangeKey,
-				route: Routes.SITES_TOUCHPOINTS_OVERVIEW
-			}),
-			metricsListColumns.engagementMetric,
-			metricsListColumns.visitorsMetric,
-			metricsListColumns.viewsMetric,
-			metricsListColumns.avgTimeOnPageMetric,
-			metricsListColumns.bounceRateMetric,
-			metricsListColumns.entrancesMetric,
-			metricsListColumns.exitRateMetric
-		],
+		}) => {
+			const rangeSelectors = getRangeSelectorsFromQuery(query);
+			return [
+				sitePagesListColumns.getTitleUrl({
+					channelId,
+					groupId,
+					rangeSelectors,
+					route: Routes.SITES_TOUCHPOINTS_OVERVIEW
+				}),
+				metricsListColumns.engagementMetric,
+				metricsListColumns.visitorsMetric,
+				metricsListColumns.viewsMetric,
+				metricsListColumns.avgTimeOnPageMetric,
+				metricsListColumns.bounceRateMetric,
+				metricsListColumns.entrancesMetric,
+				metricsListColumns.exitRateMetric
+			];
+		},
 		rowIdentifier: 'assetId',
 		showDropdownRangeKey: true
 	})
