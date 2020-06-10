@@ -182,7 +182,7 @@ public abstract class BaseOptionCategoryResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/optionCategories/{id}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/optionCategories/batch'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes("application/json")
@@ -193,7 +193,7 @@ public abstract class BaseOptionCategoryResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
 		}
 	)
-	@Path("/optionCategories/{id}/batch")
+	@Path("/optionCategories/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "OptionCategory")})
 	public Response deleteOptionCategoryBatch(
