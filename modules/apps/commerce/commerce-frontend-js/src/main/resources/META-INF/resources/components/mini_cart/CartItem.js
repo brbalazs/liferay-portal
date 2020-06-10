@@ -18,11 +18,12 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useContext, useState} from 'react';
 
-import QuantitySelector from '../quantity_selector/QuantitySelector';
-import MiniCartContext from './MiniCartContext';
 import {PRODUCT_REMOVED} from '../../utilities/eventsDefinitions';
+import QuantitySelector from '../quantity_selector/QuantitySelector';
 import ItemInfoView from './CartItemViews/ItemInfoView';
 import ItemPriceView from './CartItemViews/ItemPriceView';
+import MiniCartContext from './MiniCartContext';
+import {parseOptions} from './util/index';
 
 const REMOVAL_TIMEOUT = 2000,
 	REMOVAL_CANCELING_TIMEOUT = 700,
@@ -47,7 +48,6 @@ function CartItem({item: cartItem}) {
 		quantity,
 		settings,
 		sku,
-		subscription,
 		thumbnail
 	} = cartItem;
 
@@ -61,6 +61,8 @@ function CartItem({item: cartItem}) {
 		} = useContext(MiniCartContext),
 		{id: orderId} = cartState,
 		[itemState, setItemState] = useState(INITIAL_ITEM_STATE);
+
+	const options = parseOptions(rawOptions);
 
 	const showErrors = () => {
 		setIsUpdating(false);
@@ -99,8 +101,7 @@ function CartItem({item: cartItem}) {
 						isGettingRemoved: true,
 						isRemoved: true,
 						removalTimeoutRef: setTimeout(() => {
-							AJAX
-								.deleteItemById(cartItemId)
+							AJAX.deleteItemById(cartItemId)
 								.then(() => updateCartModel({orderId}))
 								.then(() => {
 									setIsUpdating(false);
@@ -118,11 +119,10 @@ function CartItem({item: cartItem}) {
 	const updateItemQuantity = quantity => {
 		setIsUpdating(true);
 
-		AJAX
-			.updateItemById(cartItemId, {
-				...cartItem,
-				quantity
-			})
+		AJAX.updateItemById(cartItemId, {
+			...cartItem,
+			quantity
+		})
 			.catch(showErrors)
 			.then(() => updateCartModel({orderId}))
 			.then(() => setIsUpdating(false));
@@ -150,13 +150,13 @@ function CartItem({item: cartItem}) {
 			<div
 				className={classnames(
 					'mini-cart-item-info',
-					options.length > 0 && 'has-options'
+					!!options && 'has-options'
 				)}
 			>
 				<ItemInfoView
 					childItems={childItems}
 					name={name}
-					rawOptions={rawOptions}
+					options={options}
 					sku={sku}
 				/>
 			</div>

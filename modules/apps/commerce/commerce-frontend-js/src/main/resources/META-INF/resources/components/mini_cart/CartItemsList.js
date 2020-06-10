@@ -16,8 +16,8 @@ import ClayIcon from '@clayui/icon';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 
-import CartItem from './CartItem';
 import Summary from '../summary/Summary';
+import CartItem from './CartItem';
 import CartItemsListActions from './CartItemsListActions';
 import MiniCartContext from './MiniCartContext';
 import {summaryDataMapper} from './util/index';
@@ -53,7 +53,10 @@ function CartItemsList({items}) {
 			) : (
 				<div className="empty-cart">
 					<div className="empty-cart-icon mb-3">
-						<ClayIcon spritemap={spritemap} symbol={'shopping-cart'} />
+						<ClayIcon
+							spritemap={spritemap}
+							symbol={'shopping-cart'}
+						/>
 					</div>
 
 					<p className="empty-cart-label">

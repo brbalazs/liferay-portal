@@ -37,8 +37,7 @@ export default basePath => ({
 
 	getItemById: itemId => AJAX.GET(resolveCartItemsPath(basePath, itemId)),
 
-	getItemsByCartId: cartId =>
-		AJAX.GET(resolveItemsPath(basePath, cartId)),
+	getItemsByCartId: cartId => AJAX.GET(resolveItemsPath(basePath, cartId)),
 
 	replaceItemById: (itemId, json) =>
 		AJAX.PUT(resolveCartItemsPath(basePath, itemId), json),

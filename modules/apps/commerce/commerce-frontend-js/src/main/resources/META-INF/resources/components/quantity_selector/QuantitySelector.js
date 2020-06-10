@@ -44,6 +44,8 @@ function QuantitySelector(props) {
 		if (props.updateQuantity && props.quantity !== currentQuantity) {
 			props.updateQuantity(currentQuantity);
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentQuantity, props.quantity, props.updateQuantity]);
 
 	useEffect(() => {

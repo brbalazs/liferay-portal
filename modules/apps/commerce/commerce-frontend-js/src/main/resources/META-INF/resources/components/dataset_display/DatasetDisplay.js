@@ -202,7 +202,7 @@ function DatasetDisplay(props) {
 		if (itemsAreInjected) {
 			updateDatasetItems({items: props.items});
 		}
-	}, [items, props.apiUrl, props.items]);
+	}, [items, props, props.apiUrl, props.items]);
 
 	function selectItems(val) {
 		if (Array.isArray(val)) {

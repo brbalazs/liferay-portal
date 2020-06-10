@@ -15,17 +15,17 @@
 import React from 'react';
 
 const MiniCartContext = React.createContext({
-	actionURLs: {},
 	AJAX: {},
+	actionURLs: {},
 	cartState: {},
 	closeCart: () => {},
 	displayDiscountLevels: false,
 	isOpen: false,
 	isUpdating: false,
 	setIsUpdating: () => {},
+	spritemap: '',
 	updateCartModel: () => {},
-	updateCartState: () => {},
-	spritemap: ''
+	updateCartState: () => {}
 });
 
 export default MiniCartContext;

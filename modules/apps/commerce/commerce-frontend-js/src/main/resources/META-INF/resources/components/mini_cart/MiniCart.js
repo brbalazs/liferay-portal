@@ -16,15 +16,19 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
+import {ServiceProvider} from '../../ServiceProvider/index';
+import {
+	ADD_TO_ORDER,
+	CHANGE_ACCOUNT,
+	CHANGE_ORDER
+} from '../../utilities/eventsDefinitions';
 import {showErrorNotification} from '../../utilities/notifications';
 import CartItemsList from './CartItemsList';
 import MiniCartContext from './MiniCartContext';
 import Opener from './Opener';
 import Wrapper from './Wrapper';
 import {generateActionURLs} from './util/cartActionURLs';
-import {ADD_TO_ORDER, CHANGE_ACCOUNT, CHANGE_ORDER} from '../../utilities/eventsDefinitions';
 import {resolveView} from './util/index';
-import {ServiceProvider} from '../../ServiceProvider/index';
 
 function MiniCart({
 	cartItemsListView,
@@ -94,8 +98,8 @@ function MiniCart({
 	return (
 		<MiniCartContext.Provider
 			value={{
-				actionURLs,
 				AJAX,
+				actionURLs,
 				cartState,
 				closeCart,
 				displayDiscountLevels,

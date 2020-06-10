@@ -32,13 +32,9 @@ export default basePath => ({
 		AJAX.POST(resolveChannelsPath(basePath, channelId), json),
 
 	createCouponCodeByCartId: (cartId, json) =>
-		AJAX.POST(
-			`${resolveCartsPath(basePath, cartId)}/coupon-code`,
-			json
-		),
+		AJAX.POST(`${resolveCartsPath(basePath, cartId)}/coupon-code`, json),
 
-	deleteCartById: cartId =>
-		AJAX.DELETE(resolveCartsPath(basePath, cartId)),
+	deleteCartById: cartId => AJAX.DELETE(resolveCartsPath(basePath, cartId)),
 
 	getCartById: cartId => AJAX.GET(resolveCartsPath(basePath, cartId)),
 

@@ -14,7 +14,6 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import {parseOptions} from '../util/index';
 
 function ItemInfoViewOptions({options}) {
 	return (
@@ -51,9 +50,7 @@ function ItemInfoViewBase({name, sku}) {
 	);
 }
 
-function ItemInfoView({childItems = [], name, rawOptions = '', sku}) {
-	const options = parseOptions(rawOptions);
-
+function ItemInfoView({childItems = [], name, options = '', sku}) {
 	const isBundle = childItems.length > 0,
 		hasOptions = !!options;
 
@@ -63,7 +60,7 @@ function ItemInfoView({childItems = [], name, rawOptions = '', sku}) {
 
 			{isBundle && <ItemInfoViewBundle childItems={childItems} />}
 
-			{hasOptions && <ItemInfoViewOptions options={options}/>}
+			{hasOptions && <ItemInfoViewOptions options={options} />}
 		</>
 	);
 }

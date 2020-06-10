@@ -26,8 +26,8 @@ function getCN(isAsking, className) {
 
 function CartItemsListActions({numberOfItems}) {
 	const {
-			actionURLs,
 			AJAX,
+			actionURLs,
 			cartState,
 			setIsUpdating,
 			updateCartModel
@@ -44,8 +44,7 @@ function CartItemsListActions({numberOfItems}) {
 		flushCart = () => {
 			setIsUpdating(true);
 
-			AJAX
-				.updateCartById(orderId, {...cartState, cartItems: []})
+			AJAX.updateCartById(orderId, {...cartState, cartItems: []})
 				.then(() => updateCartModel({orderId}))
 				.then(() => {
 					setIsAsking(false);
