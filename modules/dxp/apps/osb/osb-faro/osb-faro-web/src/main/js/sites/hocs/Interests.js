@@ -45,7 +45,7 @@ const TableWithData = withTableData(withData, {
 			routeFn: ({data: {name}}) =>
 				name &&
 				setUriQueryValues(
-					pickBy({rangeKey: rangeSelectors.rangeKey}),
+					pickBy({...rangeSelectors}),
 					toRoute(Routes.SITES_INTEREST_DETAILS, {
 						channelId,
 						groupId,
@@ -76,12 +76,14 @@ const Interests = ({history, router}) => {
 
 	const handleRangeKeyValueChange = ({rangeEnd, rangeKey, rangeStart}) =>
 		history.push(
-			setUriQueryValues({
-				page: defaultPage,
-				rangeEnd,
-				rangeKey,
-				rangeStart
-			})
+			setUriQueryValues(
+				pickBy({
+					page: defaultPage,
+					rangeEnd,
+					rangeKey,
+					rangeStart
+				})
+			)
 		);
 
 	const rangeSelectors = getRangeSelectorsFromQuery(router.query);
