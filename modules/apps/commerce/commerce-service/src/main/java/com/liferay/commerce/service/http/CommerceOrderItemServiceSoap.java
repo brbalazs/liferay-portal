@@ -423,6 +423,27 @@ public class CommerceOrderItemServiceSoap {
 	}
 
 	public static com.liferay.commerce.model.CommerceOrderItemSoap
+			updateCustomFields(
+				long commerceOrderItemId,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.model.CommerceOrderItem returnValue =
+				CommerceOrderItemServiceUtil.updateCustomFields(
+					commerceOrderItemId, serviceContext);
+
+			return com.liferay.commerce.model.CommerceOrderItemSoap.toSoapModel(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceOrderItemSoap
 			updateCommerceOrderItemInfo(
 				long commerceOrderItemId, String deliveryGroup,
 				long shippingAddressId, String printedNote,

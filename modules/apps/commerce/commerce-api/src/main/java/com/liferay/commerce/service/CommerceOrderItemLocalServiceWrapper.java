@@ -694,6 +694,16 @@ public class CommerceOrderItemLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.model.CommerceOrderItem updateCustomFields(
+			long commerceOrderItemId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderItemLocalService.updateCustomFields(
+			commerceOrderItemId, serviceContext);
+	}
+
+	@Override
 	public com.liferay.commerce.model.CommerceOrderItem upsertCommerceOrderItem(
 			long commerceOrderId, long cpInstanceId, int quantity,
 			int shippedQuantity,

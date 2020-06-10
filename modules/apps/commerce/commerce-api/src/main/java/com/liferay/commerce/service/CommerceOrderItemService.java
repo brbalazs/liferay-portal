@@ -233,6 +233,10 @@ public interface CommerceOrderItemService extends BaseService {
 			long commerceOrderItemId, BigDecimal unitPrice, int quantity)
 		throws PortalException;
 
+	public CommerceOrderItem updateCustomFields(
+			long commerceOrderItemId, ServiceContext serviceContext)
+		throws PortalException;
+
 	public CommerceOrderItem upsertCommerceOrderItem(
 			long commerceOrderId, long cpInstanceId, int quantity,
 			int shippedQuantity, String json, CommerceContext commerceContext,

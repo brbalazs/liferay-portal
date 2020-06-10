@@ -447,6 +447,11 @@ public interface CommerceOrderItemLocalService
 			int quantity)
 		throws PortalException;
 
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceOrderItem updateCustomFields(
+			long commerceOrderItemId, ServiceContext serviceContext)
+		throws PortalException;
+
 	public CommerceOrderItem upsertCommerceOrderItem(
 			long commerceOrderId, long cpInstanceId, int quantity,
 			int shippedQuantity, CommerceContext commerceContext,

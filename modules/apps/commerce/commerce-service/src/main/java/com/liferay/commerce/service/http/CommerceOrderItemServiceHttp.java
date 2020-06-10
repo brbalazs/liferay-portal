@@ -978,6 +978,48 @@ public class CommerceOrderItemServiceHttp {
 	}
 
 	public static com.liferay.commerce.model.CommerceOrderItem
+			updateCustomFields(
+				HttpPrincipal httpPrincipal, long commerceOrderItemId,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceOrderItemServiceUtil.class, "updateCustomFields",
+				_updateCustomFieldsParameterTypes22);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceOrderItemId, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.commerce.model.CommerceOrderItem)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceOrderItem
 			updateCommerceOrderItemInfo(
 				HttpPrincipal httpPrincipal, long commerceOrderItemId,
 				String deliveryGroup, long shippingAddressId,
@@ -989,7 +1031,7 @@ public class CommerceOrderItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceOrderItemServiceUtil.class,
 				"updateCommerceOrderItemInfo",
-				_updateCommerceOrderItemInfoParameterTypes22);
+				_updateCommerceOrderItemInfoParameterTypes23);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceOrderItemId, deliveryGroup,
@@ -1038,7 +1080,7 @@ public class CommerceOrderItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceOrderItemServiceUtil.class,
 				"updateCommerceOrderItemInfo",
-				_updateCommerceOrderItemInfoParameterTypes23);
+				_updateCommerceOrderItemInfoParameterTypes24);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceOrderItemId, deliveryGroup,
@@ -1091,7 +1133,7 @@ public class CommerceOrderItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceOrderItemServiceUtil.class,
 				"updateCommerceOrderItemPrices",
-				_updateCommerceOrderItemPricesParameterTypes24);
+				_updateCommerceOrderItemPricesParameterTypes25);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceOrderItemId, unitPrice, promoPrice,
@@ -1151,7 +1193,7 @@ public class CommerceOrderItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceOrderItemServiceUtil.class,
 				"updateCommerceOrderItemPrices",
-				_updateCommerceOrderItemPricesParameterTypes25);
+				_updateCommerceOrderItemPricesParameterTypes26);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceOrderItemId, unitPrice, promoPrice,
@@ -1202,7 +1244,7 @@ public class CommerceOrderItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceOrderItemServiceUtil.class,
 				"updateCommerceOrderItemUnitPrice",
-				_updateCommerceOrderItemUnitPriceParameterTypes26);
+				_updateCommerceOrderItemUnitPriceParameterTypes27);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceOrderItemId, unitPrice);
@@ -1245,7 +1287,7 @@ public class CommerceOrderItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceOrderItemServiceUtil.class,
 				"updateCommerceOrderItemUnitPrice",
-				_updateCommerceOrderItemUnitPriceParameterTypes27);
+				_updateCommerceOrderItemUnitPriceParameterTypes28);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceOrderItemId, unitPrice, quantity);
@@ -1290,7 +1332,7 @@ public class CommerceOrderItemServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceOrderItemServiceUtil.class, "upsertCommerceOrderItem",
-				_upsertCommerceOrderItemParameterTypes28);
+				_upsertCommerceOrderItemParameterTypes29);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceOrderId, cpInstanceId, quantity,
@@ -1403,29 +1445,33 @@ public class CommerceOrderItemServiceHttp {
 			com.liferay.commerce.context.CommerceContext.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[]
-		_updateCommerceOrderItemInfoParameterTypes22 = new Class[] {
-			long.class, String.class, long.class, String.class, int.class,
-			int.class, int.class
+	private static final Class<?>[] _updateCustomFieldsParameterTypes22 =
+		new Class[] {
+			long.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[]
 		_updateCommerceOrderItemInfoParameterTypes23 = new Class[] {
 			long.class, String.class, long.class, String.class, int.class,
-			int.class, int.class, int.class, int.class,
-			com.liferay.portal.kernel.service.ServiceContext.class
+			int.class, int.class
 		};
 	private static final Class<?>[]
-		_updateCommerceOrderItemPricesParameterTypes24 = new Class[] {
-			long.class, java.math.BigDecimal.class, java.math.BigDecimal.class,
-			java.math.BigDecimal.class, java.math.BigDecimal.class,
-			java.math.BigDecimal.class, java.math.BigDecimal.class,
-			java.math.BigDecimal.class, java.math.BigDecimal.class
+		_updateCommerceOrderItemInfoParameterTypes24 = new Class[] {
+			long.class, String.class, long.class, String.class, int.class,
+			int.class, int.class, int.class, int.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[]
 		_updateCommerceOrderItemPricesParameterTypes25 = new Class[] {
 			long.class, java.math.BigDecimal.class, java.math.BigDecimal.class,
 			java.math.BigDecimal.class, java.math.BigDecimal.class,
 			java.math.BigDecimal.class, java.math.BigDecimal.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class
+		};
+	private static final Class<?>[]
+		_updateCommerceOrderItemPricesParameterTypes26 = new Class[] {
+			long.class, java.math.BigDecimal.class, java.math.BigDecimal.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class,
 			java.math.BigDecimal.class, java.math.BigDecimal.class,
 			java.math.BigDecimal.class, java.math.BigDecimal.class,
 			java.math.BigDecimal.class, java.math.BigDecimal.class,
@@ -1433,14 +1479,14 @@ public class CommerceOrderItemServiceHttp {
 			java.math.BigDecimal.class, java.math.BigDecimal.class
 		};
 	private static final Class<?>[]
-		_updateCommerceOrderItemUnitPriceParameterTypes26 = new Class[] {
+		_updateCommerceOrderItemUnitPriceParameterTypes27 = new Class[] {
 			long.class, java.math.BigDecimal.class
 		};
 	private static final Class<?>[]
-		_updateCommerceOrderItemUnitPriceParameterTypes27 = new Class[] {
+		_updateCommerceOrderItemUnitPriceParameterTypes28 = new Class[] {
 			long.class, java.math.BigDecimal.class, int.class
 		};
-	private static final Class<?>[] _upsertCommerceOrderItemParameterTypes28 =
+	private static final Class<?>[] _upsertCommerceOrderItemParameterTypes29 =
 		new Class[] {
 			long.class, long.class, int.class, int.class, String.class,
 			com.liferay.commerce.context.CommerceContext.class,
