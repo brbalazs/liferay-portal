@@ -20,20 +20,25 @@ import com.liferay.commerce.constants.CommercePunchoutConstants;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.order.CommerceOrderHttpHelper;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
 import com.liferay.commerce.punchout.constants.PunchoutConstants;
 import com.liferay.commerce.punchout.service.PunchoutAccountRoleHelper;
 import com.liferay.commerce.punchout.service.PunchoutReturnService;
+import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.util.BaseCommerceCheckoutStep;
 import com.liferay.commerce.util.CommerceCheckoutStep;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.CookieKeys;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -42,6 +47,7 @@ import javax.portlet.ActionResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -96,8 +102,6 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 		HttpServletRequest httpServletRequest = themeDisplay.getRequest();
 
-		HttpServletResponse httpServletResponse = themeDisplay.getResponse();
-
 		String punchoutReturnURL = _getPunchoutReturnURL(httpServletRequest);
 
 		CommerceOrder commerceOrder = _getCommerceOrder(actionRequest);
@@ -106,7 +110,7 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 			commerceOrder, punchoutReturnURL);
 
 		if (!Validator.isBlank(redirectURL)) {
-			_endPunchoutSession(httpServletRequest, httpServletResponse);
+			_endPunchoutSession(httpServletRequest);
 
 			actionResponse.setProperty("redirectURL", redirectURL);
 		}
@@ -123,24 +127,46 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 			"/checkout_step/punchout.jsp");
 	}
 
-	private void _endPunchoutSession(
-		HttpServletRequest httpServletRequest,
-		HttpServletResponse httpServletResponse) {
+	private void _endPunchoutSession(HttpServletRequest httpServletRequest) {
+		HttpSession httpSession = _getHttpSession(httpServletRequest);
 
-		CookieKeys.deleteCookies(
-			httpServletRequest, httpServletResponse,
-			CookieKeys.getDomain(httpServletRequest),
-			CommercePunchoutConstants.PUNCHOUT_RETURN_URL_COOKIE_NAME);
+		httpSession.removeAttribute(
+			CommercePunchoutConstants.PUNCHOUT_RETURN_URL_SESSION_ATTRIBUTE_NAME);
 
-		CookieKeys.deleteCookies(
-			httpServletRequest, httpServletResponse,
-			CookieKeys.getDomain(httpServletRequest),
-			CommercePunchoutConstants.PUNCHOUT_COMMERCE_ORDER_UUID_COOKIE_NAME);
+		httpSession.removeAttribute(
+			CommercePunchoutConstants.PUNCHOUT_COMMERCE_ORDER_UUID_SESSION_ATTRIBUTE_NAME);
 	}
 
 	private CommerceOrder _getCommerceOrder(ActionRequest actionRequest) {
 		return (CommerceOrder)actionRequest.getAttribute(
 			CommerceCheckoutWebKeys.COMMERCE_ORDER);
+	}
+
+	private CommerceOrder _getCommerceOrder(HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		String commerceOrderUuid = ParamUtil.getString(
+			httpServletRequest, "commerceOrderUuid");
+
+		if (Validator.isNotNull(commerceOrderUuid)) {
+			long groupId =
+				_commerceChannelLocalService.
+					getCommerceChannelGroupIdBySiteGroupId(
+						_portal.getScopeGroupId(httpServletRequest));
+
+			return _commerceOrderService.getCommerceOrderByUuidAndGroupId(
+				commerceOrderUuid, groupId);
+		}
+
+		return _commerceOrderHttpHelper.getCurrentCommerceOrder(
+			httpServletRequest);
+	}
+
+	private HttpSession _getHttpSession(HttpServletRequest httpServletRequest) {
+		HttpServletRequest originalHttpServletRequest =
+			_portal.getOriginalServletRequest(httpServletRequest);
+
+		return originalHttpServletRequest.getSession();
 	}
 
 	private PunchoutConfiguration _getPunchoutConfiguration(
@@ -162,18 +188,25 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 	private String _getPunchoutReturnURL(
 		HttpServletRequest httpServletRequest) {
 
-		return CookieKeys.getCookie(
-			httpServletRequest,
-			CommercePunchoutConstants.PUNCHOUT_RETURN_URL_COOKIE_NAME);
+		HttpSession httpSession = _getHttpSession(httpServletRequest);
+
+		Object punchoutReturnUrlObject = httpSession.getAttribute(
+			CommercePunchoutConstants.PUNCHOUT_RETURN_URL_SESSION_ATTRIBUTE_NAME);
+
+		if (punchoutReturnUrlObject == null) {
+			return null;
+		}
+
+		return (String)punchoutReturnUrlObject;
 	}
 
 	private boolean _punchoutAllowed(HttpServletRequest httpServletRequest) {
 		try {
+			CommerceOrder commerceOrder = _getCommerceOrder(httpServletRequest);
+
 			CommerceContext commerceContext =
 				(CommerceContext)httpServletRequest.getAttribute(
 					CommerceWebKeys.COMMERCE_CONTEXT);
-
-			CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
 
 			CommerceAccount commerceAccount =
 				commerceContext.getCommerceAccount();
@@ -228,10 +261,22 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 		PunchoutCommerceCheckoutStep.class);
 
 	@Reference
+	private CommerceChannelLocalService _commerceChannelLocalService;
+
+	@Reference
+	private CommerceOrderHttpHelper _commerceOrderHttpHelper;
+
+	@Reference
+	private CommerceOrderService _commerceOrderService;
+
+	@Reference
 	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private JSPRenderer _jspRenderer;
+
+	@Reference
+	private Portal _portal;
 
 	@Reference
 	private PunchoutAccountRoleHelper _punchoutAccountRoleHelper;

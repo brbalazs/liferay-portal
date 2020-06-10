@@ -25,21 +25,19 @@ import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.oauth2.provider.punchout.model.PunchoutAccessToken;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.events.Action;
 import com.liferay.portal.kernel.events.LifecycleAction;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.CookieKeys;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -84,7 +82,7 @@ public class PunchoutLoginPostAction extends Action {
 				companyId, punchoutAccessToken.getGroupId(),
 				punchoutAccessToken.getCommerceAccountId(),
 				punchoutAccessToken.getCurrencyCode(), punchoutAccessToken,
-				punchoutUserId, httpServletRequest, httpServletResponse);
+				punchoutUserId, httpServletRequest);
 
 			httpServletRequest.removeAttribute("punchoutAccessToken");
 
@@ -93,24 +91,6 @@ public class PunchoutLoginPostAction extends Action {
 		catch (Exception e) {
 			_log.error(e, e);
 		}
-	}
-
-	private void _addPunchoutCookie(
-		String name, String value, HttpServletRequest request,
-		HttpServletResponse response) {
-
-		Cookie cookie = new Cookie(name, value);
-
-		String domain = CookieKeys.getDomain(request);
-
-		if (Validator.isNotNull(domain)) {
-			cookie.setDomain(domain);
-		}
-
-		cookie.setMaxAge(CookieKeys.MAX_AGE);
-		cookie.setPath(StringPool.SLASH);
-
-		CookieKeys.addCookie(request, response, cookie);
 	}
 
 	private ThemeDisplay _getThemeDisplay() {
@@ -124,8 +104,7 @@ public class PunchoutLoginPostAction extends Action {
 	private void _startNewPunchoutSession(
 			long companyId, long groupId, long commerceAccountId,
 			String currencyCode, PunchoutAccessToken punchoutAccessToken,
-			long punchoutUserId, HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse)
+			long punchoutUserId, HttpServletRequest httpServletRequest)
 		throws PortalException {
 
 		long commerceCurrencyId = 0;
@@ -171,14 +150,15 @@ public class PunchoutLoginPostAction extends Action {
 		_commerceOrderHttpHelper.setCurrentCommerceOrder(
 			httpServletRequest, commerceOrder);
 
-		_addPunchoutCookie(
-			CommercePunchoutConstants.PUNCHOUT_RETURN_URL_COOKIE_NAME,
-			punchoutAccessToken.getPunchoutReturnURL(), httpServletRequest,
-			httpServletResponse);
+		HttpSession httpSession = httpServletRequest.getSession();
 
-		_addPunchoutCookie(
-			CommercePunchoutConstants.PUNCHOUT_COMMERCE_ORDER_UUID_COOKIE_NAME,
-			commerceOrder.getUuid(), httpServletRequest, httpServletResponse);
+		httpSession.setAttribute(
+			CommercePunchoutConstants.PUNCHOUT_RETURN_URL_SESSION_ATTRIBUTE_NAME,
+			punchoutAccessToken.getPunchoutReturnURL());
+
+		httpSession.setAttribute(
+			CommercePunchoutConstants.PUNCHOUT_COMMERCE_ORDER_UUID_SESSION_ATTRIBUTE_NAME,
+			commerceOrder.getUuid());
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

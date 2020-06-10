@@ -550,6 +550,10 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 			_commerceChannelLocalService.fetchCommerceChannelBySiteGroupId(
 				themeDisplay.getScopeGroupId());
 
+		if (commerceChannel == null) {
+			return null;
+		}
+
 		if (!_punchoutEnabled(commerceChannel.getGroupId()) ||
 			!_punchoutAllowed(
 				themeDisplay.getCompanyId(), themeDisplay.getUserId(),
@@ -558,16 +562,10 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 			return null;
 		}
 
-		String punchoutCommerceOrderUuId = CookieKeys.getCookie(
-			themeDisplay.getRequest(),
-			CommercePunchoutConstants.PUNCHOUT_COMMERCE_ORDER_UUID_COOKIE_NAME,
-			true);
+		String punchoutCommerceOrderUuId = _getPunchoutOrderUuid(
+			themeDisplay.getRequest());
 
 		if (Validator.isBlank(punchoutCommerceOrderUuId)) {
-			return null;
-		}
-
-		if (commerceChannel == null) {
 			return null;
 		}
 
@@ -631,6 +629,25 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 		}
 
 		return null;
+	}
+
+	private String _getPunchoutOrderUuid(
+		HttpServletRequest httpServletRequest) {
+
+		HttpServletRequest originalHttpServletRequest =
+			_portal.getOriginalServletRequest(httpServletRequest);
+
+		HttpSession httpSession = originalHttpServletRequest.getSession();
+
+		Object punchoutOrderUuidObject = httpSession.getAttribute(
+			CommercePunchoutConstants.
+				PUNCHOUT_COMMERCE_ORDER_UUID_SESSION_ATTRIBUTE_NAME);
+
+		if (punchoutOrderUuidObject == null) {
+			return null;
+		}
+
+		return (String)punchoutOrderUuidObject;
 	}
 
 	private boolean _punchoutAllowed(

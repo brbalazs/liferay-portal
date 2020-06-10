@@ -19,10 +19,11 @@ package com.liferay.commerce.constants;
  */
 public class CommercePunchoutConstants {
 
-	public static final String PUNCHOUT_COMMERCE_ORDER_UUID_COOKIE_NAME =
-		"PUNCHOUT_COMMERCE_ORDER_UUID";
+	public static final String
+		PUNCHOUT_COMMERCE_ORDER_UUID_SESSION_ATTRIBUTE_NAME =
+			"PUNCHOUT_COMMERCE_ORDER_UUID";
 
-	public static final String PUNCHOUT_RETURN_URL_COOKIE_NAME =
+	public static final String PUNCHOUT_RETURN_URL_SESSION_ATTRIBUTE_NAME =
 		"PUNCHOUT_RETURN_URL";
 
 }
