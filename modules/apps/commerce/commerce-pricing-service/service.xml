@@ -166,6 +166,8 @@
 		<finder name="CompanyId" return-type="Collection">
 			<finder-column name="companyId" />
 		</finder>
+
+		<reference entity="ExpandoRow" package-path="com.liferay.portlet.expando" />
 	</entity>
 	<entity local-service="true" name="CommercePricingClassCPDefinitionRel" remote-service="true" table="CPricingClassCPDefinitionRel">
 
@@ -217,5 +219,6 @@
 		<exception>CommercePricingClassTitle</exception>
 		<exception>CommerceUndefinedBasePriceList</exception>
 		<exception>DuplicateCommercePriceModifier</exception>
+		<exception>DuplicateCommercePricingClassCPDefinitionRel</exception>
 	</exceptions>
 </service-builder>
