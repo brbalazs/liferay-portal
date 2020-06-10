@@ -8,9 +8,9 @@ import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense, useState} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import TextTruncate from 'shared/components/TextTruncate';
-import {get} from 'lodash';
 import {getMatchedRoute, Routes} from 'shared/util/router';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
+import {pickBy} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
@@ -61,8 +61,6 @@ function TouchpointRoutes({className, router}) {
 
 	const matchedRoute = getMatchedRoute(NAV_ITEMS);
 
-	const rangeKeyFromQuery = get(router, ['query', 'rangeKey']);
-
 	const decodedTitle = decodeURIComponent(title);
 
 	const decodedTouchpoint = decodeURIComponent(touchpoint);
@@ -104,7 +102,7 @@ function TouchpointRoutes({className, router}) {
 						title,
 						touchpoint
 					}}
-					routeQueries={{rangeKey: rangeKeyFromQuery}}
+					routeQueries={pickBy({...pathRangeSelectors})}
 				/>
 			</BasePage.Header>
 
