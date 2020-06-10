@@ -12,7 +12,11 @@ class ProgressTimeline extends React.Component {
 	};
 
 	wrapWithLink(content, href, i) {
-		return <Link key={i} to={href}></Link>;
+		return (
+			<Link key={i} to={href}>
+				{content}
+			</Link>
+		);
 	}
 
 	render() {
