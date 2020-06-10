@@ -24,15 +24,15 @@ function Wrapper({cartItemsListView}) {
 		{cartItems} = cartState;
 
 	return (
-		<div className={'mini-cart__wrapper'}>
+		<div className={'mini-cart-wrapper'}>
 			<Header />
 
-			<div className={'mini-cart__wrapper-items'}>
+			<div className={'mini-cart-wrapper-items'}>
 				{isOpen && (
 					<DatasetDisplay
-						allowNoItems={true}
 						id={'cart-items-list-dataset-display'}
 						items={cartItems}
+						overrideEmptyResultView={true}
 						showManagementBar={false}
 						showPagination={false}
 						spritemap={spritemap}

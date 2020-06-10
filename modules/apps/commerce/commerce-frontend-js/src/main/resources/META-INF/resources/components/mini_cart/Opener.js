@@ -27,7 +27,7 @@ function Opener({openCart}) {
 	return (
 		<button
 			className={classnames(
-				'mini-cart__opener',
+				'mini-cart-opener',
 				!!numberOfItems && 'has-badge'
 			)}
 			data-badge-count={numberOfItems}

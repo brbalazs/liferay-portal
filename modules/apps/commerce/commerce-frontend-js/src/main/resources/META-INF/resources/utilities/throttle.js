@@ -12,25 +12,27 @@
  * details.
  */
 
-import ClayIcon from '@clayui/icon';
-import React, {useContext} from 'react';
+export default function throttle(fn, limit) {
+	let lastFunction, lastRan;
 
-import MiniCartContext from '../MiniCartContext';
+	return () => {
+		const context = this,
+			args = arguments;
 
-function NoItems() {
-	const {spritemap} = useContext(MiniCartContext);
+		if (!lastRan) {
+			fn.apply(context, args);
 
-	return (
-		<div className="empty-cart">
-			<div className="empty-cart-icon mb-3">
-				<ClayIcon spritemap={spritemap} symbol={'shopping-cart'} />
-			</div>
+			lastRan = Date.now();
+		} else {
+			clearTimeout(lastFunction);
 
-			<p className="empty-cart-label">
-				{Liferay.Language.get('add-a-product-to-the-cart')}
-			</p>
-		</div>
-	);
+			lastFunction = setTimeout(() => {
+				if (Date.now() - lastRan >= limit) {
+					fn.apply(context, args);
+
+					lastRan = Date.now();
+				}
+			}, limit - (Date.now() - lastRan));
+		}
+	};
 }
-
-export default NoItems;

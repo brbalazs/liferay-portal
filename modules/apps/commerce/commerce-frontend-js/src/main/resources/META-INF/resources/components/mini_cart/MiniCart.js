@@ -21,13 +21,12 @@ import CartItemsList from './CartItemsList';
 import MiniCartContext from './MiniCartContext';
 import Opener from './Opener';
 import Wrapper from './Wrapper';
-import API from './util/apiConfiguration';
 import {generateActionURLs} from './util/cartActionURLs';
-import {ADD_TO_ORDER, CHANGE_ACCOUNT, CHANGE_ORDER} from './util/events';
+import {ADD_TO_ORDER, CHANGE_ACCOUNT, CHANGE_ORDER} from '../../utilities/eventsDefinitions';
 import {resolveView} from './util/index';
+import {ServiceProvider} from '../../ServiceProvider/index';
 
 function MiniCart({
-	apiEndpoint,
 	cartItemsListView,
 	cartView,
 	checkoutPortletId,
@@ -35,6 +34,8 @@ function MiniCart({
 	orderDetailsPortletId,
 	spritemap
 }) {
+	const AJAX = ServiceProvider.DeliveryCartAPI('v1');
+
 	const [isOpen, setIsOpen] = useState(false),
 		[isUpdating, setIsUpdating] = useState(false),
 		[cartState, updateCartState] = useState({}),
@@ -46,7 +47,7 @@ function MiniCart({
 		resetCartState = () => updateCartState({});
 
 	const updateCartModel = ({orderId: cartId}) =>
-		API(apiEndpoint).getCartByIdWithItems(cartId)
+		AJAX.getCartByIdWithItems(cartId)
 			.then(model => {
 				if (model.id !== cartId) {
 					const {orderUUID} = model;
@@ -94,7 +95,7 @@ function MiniCart({
 		<MiniCartContext.Provider
 			value={{
 				actionURLs,
-				apiEndpoint,
+				AJAX,
 				cartState,
 				closeCart,
 				displayDiscountLevels,
@@ -109,7 +110,7 @@ function MiniCart({
 			{!!CartView && (
 				<div className={classnames('mini-cart', isOpen && 'is-open')}>
 					<div
-						className={'mini-cart__overlay'}
+						className={'mini-cart-overlay'}
 						onClick={() => setIsOpen(false)}
 					/>
 
@@ -133,7 +134,6 @@ MiniCart.defaultProps = {
 };
 
 MiniCart.propTypes = {
-	apiEndpoint: PropTypes.string,
 	cartItemsListView: PropTypes.shape({
 		component: PropTypes.func,
 		contentRendererModuleUrl: PropTypes.string

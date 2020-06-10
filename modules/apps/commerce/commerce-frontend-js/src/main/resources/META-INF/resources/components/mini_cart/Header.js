@@ -23,16 +23,16 @@ function Header() {
 		numberOfItems = cartItems.length > 0 ? cartItems.length : 0;
 
 	return (
-		<div className={'mini-cart__header'}>
-			<div className={'mini-cart__header-block'}>
-				<div className={'mini-cart__header-title'}>
+		<div className={'mini-cart-header'}>
+			<div className={'mini-cart-header-block'}>
+				<div className={'mini-cart-header-title'}>
 					<h3>
 						{!numberOfItems
 							? Liferay.Language.get('your-order-is-empty')
 							: Liferay.Language.get('your-order')}
 					</h3>
 				</div>
-				<button className={'mini-cart__close'} onClick={closeCart}>
+				<button className={'mini-cart-close'} onClick={closeCart}>
 					<ClayIcon spritemap={spritemap} symbol={'times'} />
 				</button>
 			</div>

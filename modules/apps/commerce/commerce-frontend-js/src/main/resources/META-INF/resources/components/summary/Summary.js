@@ -16,7 +16,7 @@ import ClayLoadingIndicator from '@clayui/loading-indicator';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect} from 'react';
 
-import Headless from '../../utilities/Headless/index';
+import AJAX from '../../utilities/AJAX/index';
 import {DATASET_DISPLAY_UPDATED} from '../../utilities/eventsDefinitions';
 
 function SummaryItemDividerVariant() {
@@ -121,7 +121,7 @@ function Summary({
 		),
 		refreshData = ({id = null}) => {
 			if (!id || datasetDisplayId !== id) {
-				return Headless.GET(apiUrl)
+				return AJAX.GET(apiUrl)
 					.then(data => mapDataToLayout(data))
 					.then(updateItems);
 			}

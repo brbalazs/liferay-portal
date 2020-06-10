@@ -10,7 +10,7 @@
 		height: calc(100vh - #{$liferay-topbar-height});
 	}
 
-	&__header {
+	&-header {
 		background-color: transparent;
 
 		&-actions .btn-outline {
@@ -38,8 +38,8 @@
 		}
 	}
 
-	&__items-list {
-		.mini-cart__header-block {
+	&-items-list {
+		.mini-cart-header-block {
 			background-color: $stroke;
 			color: $stroke-alt;
 
@@ -57,7 +57,7 @@
 		}
 	}
 
-	&__item {
+	&-item {
 		&-errors,
 		.price-value-discount,
 		.price-value-final,
@@ -102,25 +102,25 @@
 		}
 	}
 
-	&__opener {
+	&-opener {
 		height: $topbar-height;
 		width: $topbar-height;
 	}
 
-	&__opener,
-	&__wrapper {
+	&-opener,
+	&-wrapper {
 		top: -#{$topbar-height};
 	}
 
-	&__wrapper {
+	&-wrapper {
 		box-shadow: -10px $topbar-height 20px -10px rgba(0, 0, 0, .3)
 	}
 
-	&__opener::before {
+	&-opener::before {
 		background-color: $color-theme;
 	}
 
-	&__close {
+	&-close {
 		background-color: $stroke;
 		color: $stroke-alt;
 		height: 80px;
@@ -130,7 +130,7 @@
 		width: 80px;
 	}
 
-	&__submit {
+	&-submit {
 		padding: 0;
 
 		.btn {
@@ -151,12 +151,12 @@
 	}
 
 	.rtl & {
-		&__close {
+		&-close {
 			left: 0;
 			right: auto;
 		}
 
-		&__wrapper {
+		&-wrapper {
 			box-shadow: 10px $topbar-height 20px -10px rgba(0, 0, 0, .3)
 		}
 	}

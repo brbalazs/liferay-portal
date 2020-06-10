@@ -1,4 +1,4 @@
-.mini-cart__items-list {
+.mini-cart-items-list {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
@@ -34,7 +34,7 @@
 	}
 }
 
-.mini-cart__cart-items {
+.mini-cart-cart-items {
 	flex: 1;
 	overflow-y: auto;
 

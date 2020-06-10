@@ -24,7 +24,7 @@ const BASE_OPTIONS = {
 	method: 'GET'
 };
 
-function doFetch(url, options = {}) {
+function _fetch(url, options = {}) {
 	return fetch(url, {...BASE_OPTIONS, ...options})
 		.catch(error => {
 			throw new Error(error);
@@ -38,18 +38,18 @@ function doFetch(url, options = {}) {
 		});
 }
 
-const Headless = {
+const AJAX = {
 	DELETE(apiUrl, customOptions = {}) {
 		const options = {
 			method: 'DELETE',
 			...customOptions
 		};
 
-		return doFetch(apiUrl, options);
+		return _fetch(apiUrl, options);
 	},
 
 	GET(apiUrl, customOptions = {}) {
-		return doFetch(apiUrl, customOptions);
+		return _fetch(apiUrl, customOptions);
 	},
 
 	PATCH(apiUrl, jsonProps = {}, customOptions = {}) {
@@ -59,7 +59,7 @@ const Headless = {
 			...customOptions
 		};
 
-		return doFetch(apiUrl, options);
+		return _fetch(apiUrl, options);
 	},
 
 	POST(apiUrl, json = {}, customOptions = {}) {
@@ -69,7 +69,7 @@ const Headless = {
 			...customOptions
 		};
 
-		return doFetch(apiUrl, options);
+		return _fetch(apiUrl, options);
 	},
 
 	PUT(apiUrl, json = {}, customOptions = {}) {
@@ -79,8 +79,8 @@ const Headless = {
 			...customOptions
 		};
 
-		return doFetch(apiUrl, options);
+		return _fetch(apiUrl, options);
 	}
 };
 
-export default Headless;
+export default AJAX;

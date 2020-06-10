@@ -323,7 +323,7 @@ function DatasetDisplay(props) {
 					readOnly
 					value={selectedItemsValue.join(',')}
 				/>
-				{(items && items.length) || props.allowNoItems ? (
+				{(items && items.length) || props.overrideEmptyResultView ? (
 					<CurrentViewComponent
 						datasetDisplayContext={DatasetDisplayContext}
 						items={items}
@@ -487,6 +487,7 @@ DatasetDisplay.propTypes = {
 	namespace: PropTypes.string,
 	nestedItemsKey: PropTypes.string,
 	nestedItemsReferenceKey: PropTypes.string,
+	overrideEmptyResultView: PropTypes.bool,
 	pagination: PropTypes.shape({
 		deltas: PropTypes.arrayOf(
 			PropTypes.shape({

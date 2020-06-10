@@ -17,7 +17,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {createRef, useEffect, useState} from 'react';
 
-import {throttle} from '../../utilities/debounce';
+import throttle from '../../utilities/throttle';
 
 const THROTTLE_TIMEOUT = 1000;
 

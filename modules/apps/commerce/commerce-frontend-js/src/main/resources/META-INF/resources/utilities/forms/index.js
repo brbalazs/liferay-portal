@@ -12,14 +12,14 @@
  * details.
  */
 
-import Headless from '../Headless/index';
+import AJAX from '../AJAX/index';
 import {isFormElement, toJSON} from './formsHelper';
 
 export function apiSubmit(formElement, API_URL = null) {
 	if (isFormElement(formElement)) {
 		const jsonData = toJSON(new FormData(formElement));
 
-		return Headless.POST(API_URL, jsonData);
+		return AJAX.POST(API_URL, jsonData);
 	}
 
 	return Promise.reject(new Error('Not a form.'));

@@ -1,4 +1,4 @@
-.mini-cart__header {
+.mini-cart-header {
 	background-color: $gray-100;
 	box-sizing: border-box;
 	flex-basis: auto;
@@ -29,6 +29,14 @@
 
 			.action {
 				padding: 2px;
+
+				&:last-child {
+					border-left: 2px solid $gray-200;
+					border-radius: 0;
+					height: auto;
+					margin-left: .25rem;
+					padding-left: .5rem;
+				}
 			}
 
 			@keyframes showActions {

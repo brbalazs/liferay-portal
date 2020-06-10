@@ -12,7 +12,7 @@
  * details.
  */
 
-import Headless from '../../../utilities/Headless/index';
+import AJAX from '../../../utilities/AJAX/index';
 
 const CARTS_PATH = '/carts',
 	CART_ITEMS_PATH = '/cart-items',
@@ -30,19 +30,19 @@ function resolveCartItemsPath(basePath = '', itemId) {
 
 export default basePath => ({
 	createItemsByCartId: (cartId, json) =>
-		Headless.POST(resolveItemsPath(basePath, cartId), json),
+		AJAX.POST(resolveItemsPath(basePath, cartId), json),
 
 	deleteItemById: itemId =>
-		Headless.DELETE(resolveCartItemsPath(basePath, itemId)),
+		AJAX.DELETE(resolveCartItemsPath(basePath, itemId)),
 
-	getItemById: itemId => Headless.GET(resolveCartItemsPath(basePath, itemId)),
+	getItemById: itemId => AJAX.GET(resolveCartItemsPath(basePath, itemId)),
 
 	getItemsByCartId: cartId =>
-		Headless.GET(resolveItemsPath(basePath, cartId)),
+		AJAX.GET(resolveItemsPath(basePath, cartId)),
 
 	replaceItemById: (itemId, json) =>
-		Headless.PUT(resolveCartItemsPath(basePath, itemId), json),
+		AJAX.PUT(resolveCartItemsPath(basePath, itemId), json),
 
 	updateItemById: (itemId, jsonProps) =>
-		Headless.PATCH(resolveCartItemsPath(basePath, itemId), jsonProps)
+		AJAX.PATCH(resolveCartItemsPath(basePath, itemId), jsonProps)
 });

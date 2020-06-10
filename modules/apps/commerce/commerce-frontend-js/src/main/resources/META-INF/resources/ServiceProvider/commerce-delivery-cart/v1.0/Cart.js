@@ -12,7 +12,7 @@
  * details.
  */
 
-import Headless from '../../../utilities/Headless/index';
+import AJAX from '../../../utilities/AJAX/index';
 
 const CARTS_PATH = '/carts',
 	CHANNELS_PATH = '/channels';
@@ -29,30 +29,30 @@ function resolveChannelsPath(basePath = '', channelId) {
 
 export default basePath => ({
 	createCartByChannelId: (channelId, json) =>
-		Headless.POST(resolveChannelsPath(basePath, channelId), json),
+		AJAX.POST(resolveChannelsPath(basePath, channelId), json),
 
 	createCouponCodeByCartId: (cartId, json) =>
-		Headless.POST(
+		AJAX.POST(
 			`${resolveCartsPath(basePath, cartId)}/coupon-code`,
 			json
 		),
 
 	deleteCartById: cartId =>
-		Headless.DELETE(resolveCartsPath(basePath, cartId)),
+		AJAX.DELETE(resolveCartsPath(basePath, cartId)),
 
-	getCartById: cartId => Headless.GET(resolveCartsPath(basePath, cartId)),
+	getCartById: cartId => AJAX.GET(resolveCartsPath(basePath, cartId)),
 
 	getCartByIdWithItems: cartId =>
-		Headless.GET(
+		AJAX.GET(
 			resolveCartsPath(basePath, cartId) + '?nestedFields=cartItems'
 		),
 
 	getCartsByChannelId: channelId =>
-		Headless.GET(resolveChannelsPath(basePath, channelId)),
+		AJAX.GET(resolveChannelsPath(basePath, channelId)),
 
 	replaceCartById: (cartId, json) =>
-		Headless.PUT(resolveCartsPath(basePath, cartId), json),
+		AJAX.PUT(resolveCartsPath(basePath, cartId), json),
 
 	updateCartById: (cartId, jsonProps) =>
-		Headless.PATCH(resolveCartsPath(basePath, cartId), jsonProps)
+		AJAX.PATCH(resolveCartsPath(basePath, cartId), jsonProps)
 });

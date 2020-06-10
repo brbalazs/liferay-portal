@@ -27,7 +27,7 @@ function OrderButton() {
 		{checkoutURL} = actionURLs;
 
 	return (
-		<div className={'mini-cart__submit'}>
+		<div className={'mini-cart-submit'}>
 			<ClayButton
 				block
 				disabled={!numberOfItems}

@@ -16,9 +16,9 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {collectDiscountLevels, isNonnull} from '../../util/index';
+import {collectDiscountLevels, isNonnull} from '../util/index';
 
-function ItemPrice({displayDiscountLevels, price}) {
+function ItemPriceView({displayDiscountLevels, price}) {
 	const {
 		discountPercentage,
 		finalPrice,
@@ -99,11 +99,11 @@ function ItemPrice({displayDiscountLevels, price}) {
 	);
 }
 
-ItemPrice.defaultProps = {
+ItemPriceView.defaultProps = {
 	displayDiscountLevels: false
 };
 
-ItemPrice.propTypes = {
+ItemPriceView.propTypes = {
 	displayDiscountLevels: PropTypes.bool,
 	price: PropTypes.shape({
 		currency: PropTypes.string.isRequired,
@@ -122,4 +122,4 @@ ItemPrice.propTypes = {
 	}).isRequired
 };
 
-export default ItemPrice;
+export default ItemPriceView;

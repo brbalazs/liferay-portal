@@ -6,7 +6,7 @@
 		height: calc(100vh - #{$frame-size-small});
 	}
 
-	&__header {
+	&-header {
 		background-color: transparent;
 
 		&-actions .btn-outline {
@@ -34,8 +34,8 @@
 		}
 	}
 
-	&__items-list {
-		.mini-cart__header-block {
+	&-items-list {
+		.mini-cart-header-block {
 			background-color: $color-bg-alt;
 
 			.action {
@@ -86,20 +86,20 @@
 		}
 	}
 
-	&__opener,
-	&__wrapper {
+	&-opener,
+	&-wrapper {
 		top: -#{$frame-size};
 	}
 
-	&__wrapper {
+	&-wrapper {
 		box-shadow: -10px $frame-size 20px -10px rgba(0, 0, 0, .3)
 	}
 
-	&__opener::before {
+	&-opener::before {
 		background-color: $color-theme;
 	}
 
-	&__close {
+	&-close {
 		background-color: $color-bg-alt;
 		height: 70px;
 		position: absolute;
@@ -107,7 +107,7 @@
 		width: 70px;
 	}
 
-	&__submit {
+	&-submit {
 		padding: 0;
 
 		.btn {
@@ -122,12 +122,12 @@
 	}
 
 	.rtl & {
-		&__close {
+		&-close {
 			left: 0;
 			right: auto;
 		}
 
-		&__wrapper {
+		&-wrapper {
 			box-shadow: 10px $frame-size 20px -10px rgba(0, 0, 0, .3)
 		}
 	}

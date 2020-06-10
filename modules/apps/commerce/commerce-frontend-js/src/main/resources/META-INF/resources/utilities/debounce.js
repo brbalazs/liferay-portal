@@ -18,6 +18,7 @@ export default function debounce(func, wait, immediate) {
 	return () => {
 		const context = this;
 		const args = arguments;
+
 		function later() {
 			timeout = null;
 			if (!immediate) func.apply(context, args);
@@ -27,30 +28,5 @@ export default function debounce(func, wait, immediate) {
 		clearTimeout(timeout);
 		timeout = setTimeout(later, wait);
 		if (callNow) func.apply(context, args);
-	};
-}
-
-export function throttle(fn, limit) {
-	let lastFunction, lastRan;
-
-	return function() {
-		const context = this,
-			args = arguments;
-
-		if (!lastRan) {
-			fn.apply(context, args);
-
-			lastRan = Date.now();
-		} else {
-			clearTimeout(lastFunction);
-
-			lastFunction = setTimeout(() => {
-				if (Date.now() - lastRan >= limit) {
-					fn.apply(context, args);
-
-					lastRan = Date.now();
-				}
-			}, limit - (Date.now() - lastRan));
-		}
 	};
 }

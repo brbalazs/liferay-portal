@@ -16,13 +16,13 @@
 		position: absolute;
 		right: 0;
 		top: 0;
-		width: 64px;
-		z-index: 0;
 		transition: height 0ms ease-out, width 0ms ease-out;
 		transition-delay: 200ms;
+		width: 64px;
+		z-index: 0;
 	}
 
-	&__overlay {
+	&-overlay {
 		background-color: rgba(0, 0, 0, 0.3);
 		height: 100%;
 		left: 0;
@@ -32,11 +32,11 @@
 		width: 100%;
 	}
 
-	&:not(.is-open) &__overlay {
+	&:not(.is-open) &-overlay {
 		background-color: transparent;
 	}
 
-	&__opener {
+	&-opener {
 		align-items: center;
 		color: $gray-600;
 		display: flex;
@@ -75,13 +75,13 @@
 		}
 	}
 
-	&__close,
-	&__opener {
+	&-close,
+	&-opener {
 		background: transparent;
 		border: 0;
 	}
 
-	&__submit {
+	&-submit {
 		background-color: #fff;
 		flex-basis: auto;
 		flex-grow: initial;
@@ -91,7 +91,7 @@
 		z-index: 2;
 	}
 
-	&__wrapper {
+	&-wrapper {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
@@ -125,7 +125,7 @@
 		}
 	}
 
-	&:not(.is-open) &__wrapper {
+	&:not(.is-open) &-wrapper {
 		transform: getOpeningTranslation(
 			right,
 			($minicart-width + $liferay-sidebars-width)
@@ -133,7 +133,7 @@
 		z-index: 0;
 	}
 
-	.rtl &:not(.is-open) &__wrapper {
+	.rtl &:not(.is-open) &-wrapper {
 		transform: getOpeningTranslation(
 			left,
 			($minicart-width + $liferay-sidebars-width)
@@ -141,13 +141,13 @@
 	}
 
 	.rtl &,
-	.rtl &__opener,
-	.rtl &__wrapper {
+	.rtl &-opener,
+	.rtl &-wrapper {
 		left: 0;
 		right: auto;
 	}
 
-	.rtl &__header-block {
+	.rtl &-header-block {
 		flex-direction: row-reverse;
 	}
 

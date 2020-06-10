@@ -14,4 +14,4 @@
 
 export const DISCOUNT_LEVEL_PREFIX = 'discountPercentageLevel';
 
-export const WORKFLOW_STATUS_APPROVED = 'Approved';
+export const WORKFLOW_STATUS_APPROVED = 0;

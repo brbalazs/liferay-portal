@@ -183,10 +183,6 @@ public class ServletContextUtil {
 		return _commerceDataProviderRegistry;
 	}
 
-	private CommerceOrderHttpHelper _getCommerceOrderHttpHelper() {
-		return _commerceOrderHttpHelper;
-	}
-
 	private ConfigurationProvider _getConfigurationProvider() {
 		return _configurationProvider;
 	}

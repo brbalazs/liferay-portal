@@ -135,6 +135,6 @@ export function loadData(
 	return executeAsyncAction(url, 'GET').then(response => response.json());
 }
 
-export function serialize(parameters) {
-	return `?${parameters.join('&')}`;
+export function serializeParameters(parameters) {
+	return Array.isArray(parameters) ? `?${parameters.join('&')}` : '';
 }

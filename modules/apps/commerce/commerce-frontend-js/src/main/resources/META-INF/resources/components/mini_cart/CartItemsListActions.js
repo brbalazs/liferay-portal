@@ -19,7 +19,6 @@ import React, {useContext, useState} from 'react';
 
 import {liferayNavigate} from '../../utilities/index';
 import MiniCartContext from './MiniCartContext';
-import API from './util/apiConfiguration';
 
 function getCN(isAsking, className) {
 	return classnames(className, !isAsking && 'hide');
@@ -28,7 +27,7 @@ function getCN(isAsking, className) {
 function CartItemsListActions({numberOfItems}) {
 	const {
 			actionURLs,
-			apiEndpoint,
+			AJAX,
 			cartState,
 			setIsUpdating,
 			updateCartModel
@@ -45,7 +44,7 @@ function CartItemsListActions({numberOfItems}) {
 		flushCart = () => {
 			setIsUpdating(true);
 
-			API(apiEndpoint)
+			AJAX
 				.updateCartById(orderId, {...cartState, cartItems: []})
 				.then(() => updateCartModel({orderId}))
 				.then(() => {
@@ -55,9 +54,9 @@ function CartItemsListActions({numberOfItems}) {
 		};
 
 	return (
-		<div className={'mini-cart__header'}>
-			<div className={'mini-cart__header-block'}>
-				<div className={'mini-cart__header-resume'}>
+		<div className={'mini-cart-header'}>
+			<div className={'mini-cart-header-block'}>
+				<div className={'mini-cart-header-resume'}>
 					{numberOfItems > 0 && (
 						<>
 							<span className={'items'}>{numberOfItems}</span>
@@ -70,7 +69,7 @@ function CartItemsListActions({numberOfItems}) {
 					)}
 				</div>
 
-				<div className={'mini-cart__header-actions'}>
+				<div className={'mini-cart-header-actions'}>
 					<span className={getCN(!isAsking, 'actions')}>
 						<ClayButton
 							className={'action'}
@@ -83,7 +82,7 @@ function CartItemsListActions({numberOfItems}) {
 						>
 							{Liferay.Language.get('view-details')}
 						</ClayButton>
-						&nbsp;&#124;&nbsp;
+
 						<ClayButton
 							className={'action'}
 							disabled={!numberOfItems}
@@ -91,7 +90,7 @@ function CartItemsListActions({numberOfItems}) {
 							onClick={askConfirmation}
 							small
 						>
-							{Liferay.Language.get('delete-all-items')}
+							{Liferay.Language.get('remove-all-items')}
 						</ClayButton>
 					</span>
 

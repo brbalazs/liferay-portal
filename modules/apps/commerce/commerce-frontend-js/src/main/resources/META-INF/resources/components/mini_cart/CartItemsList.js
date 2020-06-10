@@ -12,28 +12,29 @@
  * details.
  */
 
+import ClayIcon from '@clayui/icon';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 
-import Summary from '../summary/Summary';
 import CartItem from './CartItem';
+import Summary from '../summary/Summary';
 import CartItemsListActions from './CartItemsListActions';
 import MiniCartContext from './MiniCartContext';
 import {summaryDataMapper} from './util/index';
 
 function CartItemsList({items}) {
-	const {cartState, isUpdating} = useContext(MiniCartContext),
+	const {cartState, isUpdating, spritemap} = useContext(MiniCartContext),
 		{summary = {}} = cartState,
 		{itemsQuantity = 0} = summary,
 		numberOfItems = (items || []).length;
 
 	return (
-		<div className={'mini-cart__items-list'}>
+		<div className={'mini-cart-items-list'}>
 			<CartItemsListActions numberOfItems={numberOfItems} />
 
 			{numberOfItems > 0 ? (
 				<>
-					<div className={'mini-cart__cart-items'}>
+					<div className={'mini-cart-cart-items'}>
 						{items.map(item => (
 							<CartItem item={item} key={item.id} />
 						))}
@@ -50,14 +51,21 @@ function CartItemsList({items}) {
 					)}
 				</>
 			) : (
-				<CartItem.NoItems />
+				<div className="empty-cart">
+					<div className="empty-cart-icon mb-3">
+						<ClayIcon spritemap={spritemap} symbol={'shopping-cart'} />
+					</div>
+
+					<p className="empty-cart-label">
+						{Liferay.Language.get('add-a-product-to-the-cart')}
+					</p>
+				</div>
 			)}
 		</div>
 	);
 }
 
 CartItemsList.propTypes = {
-	datasetDisplayContext: PropTypes.object,
 	items: PropTypes.array
 };
 
