@@ -1430,7 +1430,7 @@ definition {
 		KaleoDesigner.viewNodeNotPresent(nodeNodeLabel = "EndNode");
 
 		KaleoDesigner.editSourceXML(
-			kdSourceXML = '''</transitions>''',
+			kdSourceXML = '''</transitions></state>''',
 			line = "14");
 
 		KaleoDesigner.viewViewTab();
