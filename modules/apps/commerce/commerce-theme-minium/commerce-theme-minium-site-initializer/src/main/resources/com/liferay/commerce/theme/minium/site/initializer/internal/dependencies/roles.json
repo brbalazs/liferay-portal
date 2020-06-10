@@ -84,5 +84,52 @@
 		"name": "Category Manager",
 		"scope": 1,
 		"type": 1
+	},
+	{
+		"actions": [
+			{
+				"actionIds": [
+					"MANAGE_ALL_ACCOUNTS",
+					"MANAGE_COMMERCE_SHIPMENTS",
+					"MANAGE_COMMERCE_SUBSCRIPTIONS",
+					"MANAGE_INVENTORY",
+					"VIEW_CONTROL_PANEL"
+				],
+				"resource": "90"
+			},
+			{
+				"actionIds": [
+					"ACCESS_IN_CONTROL_PANEL"
+				],
+				"resource": "com_liferay_commerce_inventory_web_internal_portlet_CommerceInventoryPortlet"
+			},
+			{
+				"actionIds": [
+					"ACCESS_IN_CONTROL_PANEL"
+				],
+				"resource": "com_liferay_commerce_order_web_internal_portlet_CommerceOrderPortlet"
+			},
+			{
+				"actionIds": [
+					"ACCESS_IN_CONTROL_PANEL"
+				],
+				"resource": "com_liferay_commerce_shipment_web_internal_portlet_CommerceShipmentPortlet"
+			},
+			{
+				"actionIds": [
+					"ACCESS_IN_CONTROL_PANEL"
+				],
+				"resource": "com_liferay_commerce_subscription_web_internal_portlet_CommerceSubscriptionEntryPortlet"
+			},
+			{
+				"actionIds": [
+					"MANAGE_COMMERCE_ORDERS"
+				],
+				"resource": "com.liferay.commerce.order"
+			}
+		],
+		"name": "Operations Manager",
+		"scope": 1,
+		"type": 1
 	}
 ]
