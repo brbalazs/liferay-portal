@@ -76,19 +76,19 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 
 		String commerceOrderStatusLabel =
 			CommerceOrderConstants.getOrderStatusLabel(
-				commerceOrder.getStatus());
+				commerceOrder.getOrderStatus());
 
 		String commerceOrderStatusLabelI18n = LanguageUtil.get(
 			resourceBundle,
 			CommerceOrderConstants.getOrderStatusLabel(
-				commerceOrder.getStatus()));
+				commerceOrder.getOrderStatus()));
 
 		String commerceOrderWorkflowStatusLabel =
-			WorkflowConstants.getStatusLabel(commerceOrder.getStatus());
+			WorkflowConstants.getStatusLabel(commerceOrder.getOrderStatus());
 
 		String commerceOrderWorkflowStatusLabelI18n = LanguageUtil.get(
 			resourceBundle,
-			WorkflowConstants.getStatusLabel(commerceOrder.getStatus()));
+			WorkflowConstants.getStatusLabel(commerceOrder.getOrderStatus()));
 
 		String commerceOrderPaymentStatusLabel =
 			CommerceOrderConstants.getPaymentStatusLabel(
