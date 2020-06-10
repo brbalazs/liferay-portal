@@ -173,6 +173,7 @@ export class Settings extends React.Component {
 						})
 					},
 					DEVELOPER_MODE && {
+						// TODO: LRAC-6115 Remove developer mode
 						icon: 'circle',
 						label: Liferay.Language.get('recommendations'),
 						route: Routes.SETTINGS_RECOMMENDATIONS,
@@ -394,7 +395,7 @@ export class Settings extends React.Component {
 									path={Routes.SETTINGS_APIS}
 								/>
 
-								{DEVELOPER_MODE && (
+								{DEVELOPER_MODE && ( // TODO: LRAC-6115 Remove developer mode
 									<>
 										<BundleRouter
 											data={RecommendationList}
