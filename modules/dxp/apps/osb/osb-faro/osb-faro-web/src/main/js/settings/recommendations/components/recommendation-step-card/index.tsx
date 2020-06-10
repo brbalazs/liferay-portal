@@ -3,6 +3,7 @@ import Card from 'shared/components/Card';
 import Form from 'shared/components/form';
 import FormNavigation from 'settings/components/FormNavigation';
 import Interactions from './Interactions';
+import Items from './Items';
 import NavigationWarning from 'shared/components/NavigationWarning';
 import ProgressTimeline from 'shared/components/ProgressTimeline';
 import React, {useState} from 'react';
@@ -23,7 +24,7 @@ const STEPS = [
 		title: Liferay.Language.get('interactions')
 	},
 	{
-		component: () => <div>{'step 3'}</div>,
+		component: Items,
 		title: Liferay.Language.get('items')
 	},
 	{
@@ -55,6 +56,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 
 	const handleSubmit = ({
 		includePreviousPeriod,
+		items,
 		name,
 		trainingFrequency,
 		trainingPeriod
@@ -63,13 +65,14 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 		console.log({
 			name,
 			parameters: [
-				{name: 'includePreviousPeriod', value: includePreviousPeriod}
+				{name: 'includePreviousPeriod', value: includePreviousPeriod},
+				...items.map(({name, value}) => ({name, value}))
 			],
 			trainingFrequency,
 			trainingPeriod
 		});
+
 		// TODO: Add submission
-		//
 	};
 
 	const getInitialValuesFromJob = () => {
@@ -80,10 +83,22 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 				({name}) => name === 'includePreviousPeriod'
 			);
 
+			const items = parameters.reduce((acc, {name, value}) => {
+				if (name === 'includePreviousPeriod') {
+					return acc;
+				}
+
+				return [
+					...acc,
+					{count: null, id: `${name} - ${value}`, name, value}
+				];
+			}, []);
+
 			return {
 				includePreviousPeriod:
 					includePreviousPeriodParameter &&
 					includePreviousPeriodParameter.value,
+				items,
 				name,
 				trainingFrequency,
 				trainingPeriod
@@ -92,6 +107,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 
 		return {
 			includePreviousPeriod: false,
+			items: [],
 			name: '',
 			trainingFrequency: jobTrainingFrequencies.every7Days,
 			trainingPeriod: jobTrainingPeriods.last30Days

@@ -58,3 +58,8 @@ export const JOB_TRAINING_PERIODS_LIST = [
 		value: jobTrainingPeriods.last365Days
 	}
 ];
+
+export const RULE_NAME_LABEL_MAP = {
+	excludeFilter: Liferay.Language.get('exclude'),
+	includeFilter: Liferay.Language.get('include')
+};
