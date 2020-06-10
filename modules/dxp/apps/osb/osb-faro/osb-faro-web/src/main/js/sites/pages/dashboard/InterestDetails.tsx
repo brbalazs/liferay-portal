@@ -1,6 +1,7 @@
 import BackButton from 'contacts/components/BackButton';
 import InterestDetails from 'sites/hocs/InterestDetails';
 import React from 'react';
+import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {pickBy} from 'lodash';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 
@@ -24,8 +25,10 @@ export default class InterestDetailsPage extends React.Component<
 
 		const {
 			params: {channelId, groupId},
-			query: {rangeKey}
+			query
 		} = router;
+
+		const rangeSelectors = getRangeSelectorsFromQuery(query);
 
 		return (
 			<div className='sites-dashboard-interest-details-root'>
@@ -33,7 +36,7 @@ export default class InterestDetailsPage extends React.Component<
 					<div className='col-xl-12'>
 						<BackButton
 							href={setUriQueryValues(
-								pickBy({rangeKey}),
+								pickBy({...rangeSelectors}),
 
 								toRoute(Routes.SITES_INTERESTS, {
 									channelId,
