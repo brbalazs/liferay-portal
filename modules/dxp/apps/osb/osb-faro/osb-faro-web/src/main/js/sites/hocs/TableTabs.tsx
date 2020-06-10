@@ -5,6 +5,7 @@ import CardWithRangeKey from 'shared/hoc/CardWithRangeKey';
 import Icon from 'shared/components/Icon';
 import React, {useCallback, useContext, useState} from 'react';
 import {HOC_CARD_PROPTYPES} from 'shared/util/proptypes';
+import {pickBy} from 'lodash';
 import {setUriQueryValues} from 'shared/util/router';
 import {Tab, default as Tabs} from 'shared/components/TableTabs';
 
@@ -81,7 +82,7 @@ const withTableTabs = (withData, tabConfig: Tab[], tableConfig: object) => {
 								<Button
 									display='link'
 									href={setUriQueryValues(
-										{rangeKey: rangeSelectors.rangeKey},
+										pickBy({...rangeSelectors}),
 										footerHref
 									)}
 									size='sm'
