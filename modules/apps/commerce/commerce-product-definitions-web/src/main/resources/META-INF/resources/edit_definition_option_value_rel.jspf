@@ -75,7 +75,7 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 				</div>
 
 				<div class="align-items-end col-auto d-flex">
-					<button class="btn btn-monospaced btn-secondary" id="remove-sku-button" onclick="<%= renderResponse.getNamespace() + "removeSku();" %>" type="button">
+					<button class="btn btn-monospaced btn-secondary form-submitter" id="remove-sku-button" onclick="<%= renderResponse.getNamespace() + "removeSku();" %>" type="button">
 						<clay:icon
 							symbol="trash"
 						/>
@@ -131,7 +131,11 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 					'<%= cpDefinitionOptionValueRelDisplayContext.getRemoveSkuUrl(currentURL) %>'
 				);
 
-				window.location.href = url.toString();
+				if (Liferay.SPA) {
+					Liferay.SPA.app.navigate(url.toString());
+				} else {
+					window.location.href = url.toString();
+				}
 			});
 		</aui:script>
 	</c:if>
