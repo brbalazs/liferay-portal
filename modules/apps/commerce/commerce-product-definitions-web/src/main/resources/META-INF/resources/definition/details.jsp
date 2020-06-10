@@ -284,6 +284,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 							'<%= LanguageUtil.get(request, "find-or-create-a-specification") %>',
 						itemSelectedMessage:
 							'<%= LanguageUtil.get(request, "specification-selected") %>',
+						itemsKey: 'id',
 						linkedDatasetsId: [
 							'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITION_SPECIFICATIONS %>'
 						],
