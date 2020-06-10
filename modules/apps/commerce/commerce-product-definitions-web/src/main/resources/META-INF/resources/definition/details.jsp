@@ -294,9 +294,14 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 						pageSize: 10,
 						panelHeaderLabel: '<%= LanguageUtil.get(request, "add-specifications") %>',
 						portletId: '<%= portletDisplay.getRootPortletId() %>',
-						schema: {
-							itemTitle: ['title', 'LANG']
-						},
+						schema: [
+							{
+								fieldName: ['title', 'LANG']
+							},
+							{
+								fieldName: 'key'
+							}
+						],
 						spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
 						titleLabel: '<%= LanguageUtil.get(request, "add-existing-specification") %>'
 					});

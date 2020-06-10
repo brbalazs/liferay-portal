@@ -57,13 +57,23 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 						headers: headers,
 						method: 'POST'
 					}
-				).then(function() {
-					Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
-						id:
-							'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTIONS %>'
+				)
+					.then(function(response) {
+						if (response.ok) {
+							return response.json();
+						}
+
+						return response.json().then(function(data) {
+							return Promise.reject(data.errorDescription);
+						});
+					})
+					.then(function(e) {
+						Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
+							id:
+								'<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTIONS %>'
+						});
+						return null;
 					});
-					return null;
-				});
 			}
 
 			function addNewItem(name) {
@@ -91,7 +101,7 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 						}
 
 						return response.json().then(function(data) {
-							return Promise.reject(data.message);
+							return Promise.reject(data.errorDescription);
 						});
 					})
 					.then(selectItem);
@@ -118,9 +128,11 @@ CPDefinition cpDefinition = cpDefinitionOptionRelDisplayContext.getCPDefinition(
 				pageSize: 10,
 				panelHeaderLabel: '<%= LanguageUtil.get(request, "add-options") %>',
 				portletId: '<%= portletDisplay.getRootPortletId() %>',
-				schema: {
-					itemTitle: ['name', 'LANG']
-				},
+				schema: [
+					{
+						fieldName: ['name', 'LANG']
+					}
+				],
 				spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
 				titleLabel: '<%= LanguageUtil.get(request, "add-existing-option") %>'
 			});
