@@ -121,7 +121,7 @@ describe('Sites Dashboard Index', () => {
 		);
 	});
 
-	it('Should render a warning stripe if the user is admin and the showWarningStripe is true', () => {
+	xit('Should render a warning stripe if the user is admin and the showWarningStripe is true', () => {
 		window.location = {
 			pathname: '/workspace/2000/123/sites'
 		};
