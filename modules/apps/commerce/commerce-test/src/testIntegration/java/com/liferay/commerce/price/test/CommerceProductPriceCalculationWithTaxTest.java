@@ -140,8 +140,8 @@ public class CommerceProductPriceCalculationWithTaxTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		cpDefinition.setTaxExempt(false);
 		cpDefinition.setCPTaxCategoryId(cpTaxCategoryId);
+		cpDefinition.setTaxExempt(false);
 
 		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
 
@@ -203,8 +203,8 @@ public class CommerceProductPriceCalculationWithTaxTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		cpDefinition.setTaxExempt(false);
 		cpDefinition.setCPTaxCategoryId(cpTaxCategoryId);
+		cpDefinition.setTaxExempt(false);
 
 		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
 
@@ -262,8 +262,8 @@ public class CommerceProductPriceCalculationWithTaxTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		cpDefinition.setTaxExempt(false);
 		cpDefinition.setCPTaxCategoryId(cpTaxCategoryId);
+		cpDefinition.setTaxExempt(false);
 
 		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
 

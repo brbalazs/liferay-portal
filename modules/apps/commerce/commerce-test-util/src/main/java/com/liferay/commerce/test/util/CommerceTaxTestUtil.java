@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+
 import java.util.List;
 
 /**
@@ -75,17 +76,6 @@ public class CommerceTaxTestUtil {
 		return cpTaxCategory.getCPTaxCategoryId();
 	}
 
-	public static void setCommerceMethodTaxRate(
-			long userId, long channelGroupId, long cpTaxCategoryId,
-			long commerceTaxMethodId, double rate)
-		throws PortalException {
-
-		CommerceTaxFixedRateAddressRelLocalServiceUtil.
-			addCommerceTaxFixedRateAddressRel(
-				userId, channelGroupId, commerceTaxMethodId, cpTaxCategoryId, 0,
-				0, StringPool.BLANK, rate);
-	}
-
 	public static BigDecimal getPriceWithoutTaxAmount(
 		BigDecimal priceWithTaxAmount, BigDecimal taxRate,
 		RoundingMode roundingMode) {
@@ -109,6 +99,19 @@ public class CommerceTaxTestUtil {
 		return price.add(taxValue);
 	}
 
+	public static void setCommerceMethodTaxRate(
+			long userId, long channelGroupId, long cpTaxCategoryId,
+			long commerceTaxMethodId, double rate)
+		throws PortalException {
+
+		CommerceTaxFixedRateAddressRelLocalServiceUtil.
+			addCommerceTaxFixedRateAddressRel(
+				userId, channelGroupId, commerceTaxMethodId, cpTaxCategoryId, 0,
+				0, StringPool.BLANK, rate);
+	}
+
 	private static final BigDecimal _ONE_HUNDRED = new BigDecimal("100");
+
 	private static final int _SCALE = 10;
+
 }

@@ -193,8 +193,8 @@ public class CommerceGrossPricingTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		cpDefinition.setTaxExempt(false);
 		cpDefinition.setCPTaxCategoryId(_commerceTaxCategoryId);
+		cpDefinition.setTaxExempt(false);
 
 		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
 
@@ -345,8 +345,8 @@ public class CommerceGrossPricingTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		cpDefinition.setTaxExempt(false);
 		cpDefinition.setCPTaxCategoryId(_commerceTaxCategoryId);
+		cpDefinition.setTaxExempt(false);
 
 		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
 
@@ -439,8 +439,8 @@ public class CommerceGrossPricingTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		cpDefinition.setTaxExempt(false);
 		cpDefinition.setCPTaxCategoryId(_commerceTaxCategoryId);
+		cpDefinition.setTaxExempt(false);
 
 		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
 
@@ -527,8 +527,8 @@ public class CommerceGrossPricingTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		cpDefinition.setTaxExempt(false);
 		cpDefinition.setCPTaxCategoryId(_commerceTaxCategoryId);
+		cpDefinition.setTaxExempt(false);
 
 		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
 
@@ -627,8 +627,8 @@ public class CommerceGrossPricingTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		cpDefinition.setTaxExempt(false);
 		cpDefinition.setCPTaxCategoryId(_commerceTaxCategoryId);
+		cpDefinition.setTaxExempt(false);
 
 		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
 
@@ -743,8 +743,8 @@ public class CommerceGrossPricingTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		cpDefinition.setTaxExempt(false);
 		cpDefinition.setCPTaxCategoryId(_commerceTaxCategoryId);
+		cpDefinition.setTaxExempt(false);
 
 		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
 
@@ -864,8 +864,8 @@ public class CommerceGrossPricingTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		cpDefinition.setTaxExempt(false);
 		cpDefinition.setCPTaxCategoryId(_commerceTaxCategoryId);
+		cpDefinition.setTaxExempt(false);
 
 		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
 
@@ -949,8 +949,8 @@ public class CommerceGrossPricingTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		cpDefinition.setTaxExempt(false);
 		cpDefinition.setCPTaxCategoryId(_commerceTaxCategoryId);
+		cpDefinition.setTaxExempt(false);
 
 		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
 
@@ -1066,8 +1066,8 @@ public class CommerceGrossPricingTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		cpDefinition.setTaxExempt(false);
 		cpDefinition.setCPTaxCategoryId(_commerceTaxCategoryId);
+		cpDefinition.setTaxExempt(false);
 
 		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
 
@@ -1176,8 +1176,8 @@ public class CommerceGrossPricingTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		cpDefinition.setTaxExempt(false);
 		cpDefinition.setCPTaxCategoryId(_commerceTaxCategoryId);
+		cpDefinition.setTaxExempt(false);
 
 		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
 
@@ -1365,8 +1365,8 @@ public class CommerceGrossPricingTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		cpDefinition.setTaxExempt(false);
 		cpDefinition.setCPTaxCategoryId(_commerceTaxCategoryId);
+		cpDefinition.setTaxExempt(false);
 
 		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
 
@@ -1527,8 +1527,8 @@ public class CommerceGrossPricingTest {
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
-		cpDefinition.setTaxExempt(false);
 		cpDefinition.setCPTaxCategoryId(_commerceTaxCategoryId);
+		cpDefinition.setTaxExempt(false);
 
 		_cpDefinitionLocalService.updateCPDefinition(cpDefinition);
 
