@@ -8,6 +8,7 @@ import withHistory from './WithHistory';
 import {get} from 'lodash';
 import {hasChanges} from 'shared/util/react';
 import {paginationDefaults} from 'shared/util/pagination';
+import {pickBy} from 'lodash';
 import {setUriQueryValues} from 'shared/util/router';
 
 const {
@@ -73,12 +74,14 @@ export default configs => WrappedComponent => {
 			onRangeSelectorsChange
 				? onRangeSelectorsChange(rangeSelectors)
 				: history.push(
-						setUriQueryValues({
-							page: DEFAULT_CUR,
-							rangeEnd,
-							rangeKey,
-							rangeStart
-						})
+						setUriQueryValues(
+							pickBy({
+								page: DEFAULT_CUR,
+								rangeEnd,
+								rangeKey,
+								rangeStart
+							})
+						)
 				  );
 		}
 
