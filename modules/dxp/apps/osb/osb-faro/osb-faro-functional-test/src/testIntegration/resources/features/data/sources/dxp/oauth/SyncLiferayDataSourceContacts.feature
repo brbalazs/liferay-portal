@@ -19,7 +19,6 @@ Feature: Sync Liferay Data Source Contacts
 		* I click the "Authorize & Save" button
 		* I accept the Liferay DXP OAuth2 Popup
 		* I should see that "SyncLiferayDataSourceContacts - ${Random.1}" was successfully authenticated
-		* I add activity to user
 		* I go to the "Home" page
 		* I login as "test@faro.io:test"
 		* I should see the "Sites" page
@@ -33,6 +32,11 @@ Feature: Sync Liferay Data Source Contacts
 		And I click the "Save and Continue" button
 		And I click the "Configure" button
 		And I should see that the DXP Contacts data is synced
+		And I click the button for Analytics Configuration
+		And I click the select all checkbox in the toolbar
+		And I click the "Configure" button
+		And I should see that the DXP Contacts data is synced
+		And I add activity to user
 		And I go to the "Sites" page
 		And I click the Property Dropdown Menu
 		And I click "SyncLiferayDataSourceContacts - ${Random.1}" in the Property Dropdown Menu
