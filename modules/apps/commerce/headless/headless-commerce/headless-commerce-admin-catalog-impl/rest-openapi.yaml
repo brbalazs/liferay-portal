@@ -460,7 +460,7 @@ components:
                     type: array
                 catalog:
                     $ref: "#/components/schemas/Catalog"
-                    readonly: true
+                    readOnly: true
                 catalogId:
                     example: 30054
                     format: int64
@@ -572,7 +572,7 @@ components:
                     type: string
                 productTypeI18n:
                     example: simple
-                    readonly: true
+                    readOnly: true
                     type: string
                 relatedProducts:
                     items:
@@ -606,7 +606,7 @@ components:
                     $ref: "#/components/schemas/ProductTaxConfiguration"
                 thumbnail:
                     example: simple
-                    readonly: true
+                    readOnly: true
                     type: string
                 urls:
                     additionalProperties:
@@ -618,7 +618,7 @@ components:
                     type: object
                 workflowStatusInfo:
                     $ref: "#/components/schemas/Status"
-                    readonly: true
+                    readOnly: true
             required:
                 - active
                 - catalogId
