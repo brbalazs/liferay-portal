@@ -40,6 +40,8 @@ const STR_TOKEN = '~::~';
 
 const STR_TOKEN_CDATA = '<' + STR_TOKEN + 'CDATA' + STR_TOKEN + '>';
 
+const REGEX_TOKEN_CDATA = new RegExp(STR_TOKEN_CDATA, 'g');
+
 const TAG_INDENT = '\t';
 
 const DEFAULT_OPTIONS = {
@@ -64,7 +66,6 @@ export default function formatXML(content, options = {}) {
 	}
 
 	const cdata = [];
-	const REGEX_TOKEN_CDATA = new RegExp(STR_TOKEN_CDATA, 'g');
 
 	content = content.trim();
 	content = content.replace(REGEX_CDATA, (match) => {
