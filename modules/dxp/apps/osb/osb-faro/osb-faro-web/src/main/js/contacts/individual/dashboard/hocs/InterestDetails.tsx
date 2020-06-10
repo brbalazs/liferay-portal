@@ -56,6 +56,7 @@ const TableWithData: React.FC<ITableWithDataProps> = withRangeKey(
 			}
 		}) => {
 			const rangeSelectors = getRangeSelectorsFromQuery(query);
+
 			return [
 				sitePagesListColumns.getTitleUrl({
 					channelId,
