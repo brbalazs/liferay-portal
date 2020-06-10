@@ -17,6 +17,7 @@ package com.liferay.commerce.punchout.service.impl;
 import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.service.AssetEntryLocalService;
+import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.product.model.CPDefinition;
@@ -77,6 +78,10 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 		cartJSONObject.put("tax", commerceOrder.getTaxAmount());
 		cartJSONObject.put("tax_description", StringPool.BLANK);
 		cartJSONObject.put("total", commerceOrder.getTotal());
+
+		CommerceCurrency commerceCurrency = commerceOrder.getCommerceCurrency();
+
+		cartJSONObject.put("currencyCode", commerceCurrency.getCode());
 
 		JSONArray cartItemJSONArray = _jsonFactory.createJSONArray();
 
@@ -168,9 +173,7 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 			cartItemJSONArray.put(cartItemJSONObject);
 		}
 
-		String cartItemJSON = cartItemJSONArray.toString();
-
-		cartJSONObject.put("items", cartItemJSON);
+		cartJSONObject.put("items", cartItemJSONArray);
 
 		String cartJSON = cartJSONObject.toString();
 
