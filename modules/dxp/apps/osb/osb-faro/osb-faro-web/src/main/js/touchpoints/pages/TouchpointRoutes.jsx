@@ -95,7 +95,6 @@ function TouchpointRoutes({className, router}) {
 
 				<BasePage.Header.NavBar
 					items={NAV_ITEMS}
-					onClick={() => setPathRangeSelectors(rangeSelectors)}
 					routeParams={{
 						channelId,
 						groupId,
@@ -113,11 +112,7 @@ function TouchpointRoutes({className, router}) {
 				}}
 			>
 				<BasePage.SubHeader>
-					<Filter
-						onChange={setFilters}
-						rangeSelectors={pathRangeSelectors}
-						router={router}
-					/>
+					<Filter onChange={setFilters} router={router} />
 
 					{matchedRoute === Routes.SITES_TOUCHPOINTS_PATH && (
 						<DropdownRangeKey

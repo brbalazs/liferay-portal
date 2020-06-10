@@ -27,8 +27,7 @@ const withFilterComponent = withFilter => {
 		static contextType = BasePage.Context;
 
 		static propTypes = {
-			onChange: PropTypes.func,
-			rangeSelectors: PropTypes.object
+			onChange: PropTypes.func
 		};
 
 		/**
