@@ -68,7 +68,7 @@ public class CommerceOptionValueHelperImpl
 			Long key = entry.getKey();
 			List<Long> value = entry.getValue();
 
-			for (long cpDefinitionOpionValueRelId : value) {
+			for (long cpDefinitionOptionValueRelId : value) {
 				CPDefinitionOptionRel cpDefinitionOptionRel =
 					_cpDefinitionOptionRelLocalService.
 						fetchCPDefinitionOptionRel(key);
@@ -80,7 +80,7 @@ public class CommerceOptionValueHelperImpl
 				CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
 					_cpDefinitionOptionValueRelService.
 						fetchCPDefinitionOptionValueRel(
-							cpDefinitionOpionValueRelId);
+							cpDefinitionOptionValueRelId);
 
 				if (cpDefinitionOptionValueRel == null) {
 					continue;
