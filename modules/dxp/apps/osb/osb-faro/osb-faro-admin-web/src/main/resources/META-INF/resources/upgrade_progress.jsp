@@ -16,34 +16,6 @@
 
 <%@ include file="/init.jsp" %>
 
-<liferay-portlet:renderURL copyCurrentRenderParameters="<%= false %>" var="viewURL" />
-
-<%
-String viewURLString = viewURL.toString();
-%>
-
-<clay:navigation-bar
-	inverted="<%= true %>"
-	navigationItems='<%=
-		new JSPNavigationItemList(pageContext) {
-			{
-				add(
-					navigationItem -> {
-						navigationItem.setActive(false);
-						navigationItem.setHref(viewURLString);
-						navigationItem.setLabel(LanguageUtil.get(request, "projects"));
-					});
-				add(
-					navigationItem -> {
-						navigationItem.setActive(true);
-						navigationItem.setHref(currentURL);
-						navigationItem.setLabel(LanguageUtil.get(request, "upgrade"));
-					});
-			}
-		}
-	%>'
-/>
-
 <%
 Map<String, String> upgradeProgress = (Map<String, String>)request.getAttribute(FaroAdminWebKeys.FARO_PROJECT_UPGRADE_PROGRESS);
 

@@ -45,8 +45,9 @@ public class ViewUpgradeProgressMVCRenderCommand implements MVCRenderCommand {
 		renderRequest.setAttribute(
 			FaroAdminWebKeys.FARO_PROJECT_UPGRADE_PROGRESS,
 			_upgradeExecutor.getProgress());
+		renderRequest.setAttribute("tabs1", "upgrade");
 
-		return "/view_upgrade_progress.jsp";
+		return "/view.jsp";
 	}
 
 	@Reference

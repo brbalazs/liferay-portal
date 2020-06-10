@@ -17,19 +17,9 @@
 <%@ include file="/init.jsp" %>
 
 <%
-FaroAdminDisplayContext faroAdminDisplayContext = new FaroAdminDisplayContext(renderRequest, renderResponse, request);
-
-FaroAdminManagementToolbarDisplayContext faroAdminManagementToolbarDisplayContext = new FaroAdminManagementToolbarDisplayContext(renderResponse, liferayPortletRequest, liferayPortletResponse, request, faroAdminDisplayContext.getSearchContainer());
+String tabs1 = ParamUtil.getString(request, "tabs1", "projects");
 
 boolean omniAdmin = permissionChecker.isOmniadmin();
-%>
-
-<liferay-portlet:renderURL copyCurrentRenderParameters="<%= false %>" var="viewUpgradeProgressURL">
-	<liferay-portlet:param name="mvcRenderCommandName" value="/faro_admin/view_upgrade_progress" />
-</liferay-portlet:renderURL>
-
-<%
-String viewUpgradeProgressURLString = viewUpgradeProgressURL.toString();
 %>
 
 <clay:navigation-bar
@@ -39,16 +29,21 @@ String viewUpgradeProgressURLString = viewUpgradeProgressURL.toString();
 			{
 				add(
 					navigationItem -> {
-						navigationItem.setActive(true);
-						navigationItem.setHref(currentURL);
+						navigationItem.setActive(tabs1.equals("projects"));
+						navigationItem.setHref(renderResponse.createRenderURL(), "mvcPath", "/view.jsp", "tabs1", "projects");
 						navigationItem.setLabel(LanguageUtil.get(request, "projects"));
 					});
 
 				if (omniAdmin) {
+					PortletURL viewUpgradeProgressURL = renderResponse.createRenderURL();
+
+					viewUpgradeProgressURL.setParameter("mvcRenderCommandName", "/faro_admin/view_upgrade_progress");
+					viewUpgradeProgressURL.setParameter("tabs1", "upgrade");
+
 					add(
 						navigationItem -> {
-							navigationItem.setActive(false);
-							navigationItem.setHref(viewUpgradeProgressURLString);
+							navigationItem.setActive(tabs1.equals("upgrade"));
+							navigationItem.setHref(viewUpgradeProgressURL);
 							navigationItem.setLabel(LanguageUtil.get(request, "upgrade"));
 						});
 				}
@@ -57,81 +52,11 @@ String viewUpgradeProgressURLString = viewUpgradeProgressURL.toString();
 	%>'
 />
 
-<clay:management-toolbar
-	displayContext="<%= faroAdminManagementToolbarDisplayContext %>"
-/>
-
-<div class="closed container-fluid-1280 sidenav-container sidenav-right" id="<portlet:namespace />infoPanelId">
-	<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="/faro_admin/info_panel" var="sidebarPanelURL" />
-
-	<liferay-frontend:sidebar-panel
-		resourceURL="<%= sidebarPanelURL %>"
-		searchContainerId="faro_admin"
-	>
-		<liferay-util:include page="" servletContext="<%= application %>" />
-	</liferay-frontend:sidebar-panel>
-
-	<div class="sidenav-content">
-		<aui:form name="fm">
-			<liferay-ui:search-container
-				id="faro_admin"
-				searchContainer="<%= faroAdminDisplayContext.getSearchContainer() %>"
-			>
-				<liferay-ui:search-container-row
-					className="com.liferay.osb.faro.admin.web.internal.model.FaroProjectAdminDisplay"
-					escapedModel="<%= true %>"
-					keyProperty="faroProjectId"
-					modelVar="faroProjectAdminDisplay"
-					rowIdProperty="faroProjectId"
-				>
-					<liferay-ui:search-container-column-text
-						orderable="<%= true %>"
-						property="name"
-					/>
-
-					<liferay-ui:search-container-column-text
-						property="owner"
-					/>
-
-					<liferay-ui:search-container-column-date
-						orderable="<%= true %>"
-						property="createDate"
-					/>
-
-					<liferay-ui:search-container-column-text
-						property="subscriptionName"
-					/>
-
-					<liferay-ui:search-container-column-text
-						property="individualsUsage"
-					/>
-
-					<liferay-ui:search-container-column-text
-						property="pageViewsUsage"
-					/>
-
-					<liferay-ui:search-container-column-text
-						property="version"
-					/>
-
-					<liferay-ui:search-container-column-text
-						property="offline"
-					/>
-
-					<c:if test="<%= omniAdmin %>">
-						<liferay-ui:search-container-column-text>
-							<clay:dropdown-actions
-								dropdownItems="<%= faroAdminDisplayContext.getActionDropdownItems(faroProjectAdminDisplay) %>"
-							/>
-						</liferay-ui:search-container-column-text>
-					</c:if>
-				</liferay-ui:search-container-row>
-
-				<liferay-ui:search-iterator
-					markupView="lexicon"
-					searchResultCssClass="show-quick-actions-on-hover table table-autofit"
-				/>
-			</liferay-ui:search-container>
-		</aui:form>
-	</div>
-</div>
+<c:choose>
+	<c:when test='<%= tabs1.equals("projects") %>'>
+		<liferay-util:include page="/projects.jsp" servletContext="<%= application %>" />
+	</c:when>
+	<c:otherwise>
+		<liferay-util:include page="/upgrade_progress.jsp" servletContext="<%= application %>" />
+	</c:otherwise>
+</c:choose>
