@@ -12,10 +12,16 @@
  * details.
  */
 
+window.themeDisplay = {
+	getDefaultLanguageId: () => 'en_US',
+	getLanguageId: () => 'it_IT'
+};
+
 window.Liferay = {
 	Language: {
 		get: v => v
 	},
+	ThemeDisplay: window.themeDisplay,
 	component: () => {},
 	detach: (name, fn) => {
 		window.removeEventListener(name, fn);
@@ -36,8 +42,4 @@ window.Liferay = {
 	staticEnvHeaders: new Headers({
 		Authorization: `Basic ${window.btoa('test@liferay.com:test')}`
 	})
-};
-
-window.themeDisplay = {
-	getLanguageId: () => 'en_US'
 };

@@ -18,15 +18,15 @@ import PropTypes from 'prop-types';
 import React, {useState, useEffect, useContext} from 'react';
 
 import {getValueFromItem} from '../../../../utilities/index';
-import DatasetDisplayContext from '../../DatasetDisplayContext';
-import ActionsDropdownRenderer from '../../data_renderer/ActionsDropdownRenderer';
-import CheckboxRenderer from '../../data_renderer/CheckboxRenderer';
-import CommentRenderer from '../../data_renderer/CommentRenderer';
-import RadioRenderer from '../../data_renderer/RadioRenderer';
+import ActionsDropdownRenderer from '../../../data_renderer/ActionsDropdownRenderer';
+import CheckboxRenderer from '../../../data_renderer/CheckboxRenderer';
+import CommentRenderer from '../../../data_renderer/CommentRenderer';
+import RadioRenderer from '../../../data_renderer/RadioRenderer';
 import {
 	getDataRendererById,
 	getDataRendererByUrl
-} from '../../data_renderer/index';
+} from '../../../data_renderer/index';
+import DatasetDisplayContext from '../../DatasetDisplayContext';
 import TableHeadRow from './TableHeadRow';
 
 function CustomTableCell(props) {
@@ -83,22 +83,19 @@ function CustomTableCell(props) {
 
 function getItemFields(item, fields, itemId, itemActions) {
 	return fields.map((field, i) => {
-		const fieldName = field.fieldName;
-		const {actionItems, ...otherProps} = item;
-		const rawValue = getValueFromItem(item, fieldName);
+		const {actionItems, comments} = item;
+		const rawValue = getValueFromItem(item, field.fieldName);
 		const formattedValue = field.mapData
 			? field.mapData(rawValue)
 			: rawValue;
-		const comment = otherProps.comments
-			? otherProps.comments[field.fieldName]
-			: null;
+		const comment = comments ? comments[field.fieldName] : null;
 		return (
 			<CustomTableCell
 				actions={itemActions || actionItems}
 				comment={comment}
 				itemData={item}
 				itemId={itemId}
-				key={fieldName || i}
+				key={field.fieldName || i}
 				options={field}
 				value={formattedValue}
 				view={{

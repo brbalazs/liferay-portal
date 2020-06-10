@@ -17,8 +17,8 @@ import ClayLink from '@clayui/link';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 
-import {formatActionUrl} from '../../../utilities/index';
-import DatasetDisplayContext from '../DatasetDisplayContext';
+import {formatActionUrl} from '../../utilities/index';
+import DatasetDisplayContext from '../dataset_display/DatasetDisplayContext';
 import DefaultContent from './DefaultRenderer';
 
 function ActionLinkRenderer(props) {

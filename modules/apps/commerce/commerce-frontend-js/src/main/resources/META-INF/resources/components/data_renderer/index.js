@@ -12,7 +12,7 @@
  * details.
  */
 
-import getJsModule from '../../../utilities/modules';
+import getJsModule from '../../utilities/modules';
 import ActionsLinkRenderer from './ActionLinkRenderer';
 import ActionsDropdownRenderer from './ActionsDropdownRenderer';
 import CheckboxRenderer from './CheckboxRenderer';
@@ -21,7 +21,6 @@ import DefaultRenderer from './DefaultRenderer';
 import ImageRenderer from './ImageRenderer';
 import LabelRenderer from './LabelRenderer';
 import LinkRenderer from './LinkRenderer';
-import ModalLinkRenderer from './ModalLinkRenderer';
 import QuantitySelectorRenderer from './QuantitySelectorRenderer';
 import TooltipPriceRenderer from './TooltipPriceRenderer';
 
@@ -34,7 +33,6 @@ const dataRenderers = {
 	image: ImageRenderer,
 	label: LabelRenderer,
 	link: LinkRenderer,
-	modalLink: ModalLinkRenderer,
 	quantitySelector: QuantitySelectorRenderer,
 	tooltipPrice: TooltipPriceRenderer
 };
