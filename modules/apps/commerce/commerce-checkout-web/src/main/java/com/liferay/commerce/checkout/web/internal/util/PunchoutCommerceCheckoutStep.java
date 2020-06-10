@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.checkout.web.internal.util;
 
+import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceCheckoutWebKeys;
 import com.liferay.commerce.constants.CommercePunchoutConstants;
 import com.liferay.commerce.constants.CommerceWebKeys;
@@ -21,6 +22,7 @@ import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
 import com.liferay.commerce.punchout.constants.PunchoutConstants;
+import com.liferay.commerce.punchout.service.PunchoutAccountRoleHelper;
 import com.liferay.commerce.punchout.service.PunchoutReturnService;
 import com.liferay.commerce.util.BaseCommerceCheckoutStep;
 import com.liferay.commerce.util.CommerceCheckoutStep;
@@ -70,6 +72,7 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 		HttpServletResponse httpServletResponse) {
 
 		if (_punchoutEnabled(httpServletRequest) &&
+			_punchoutAllowed(httpServletRequest) &&
 			_punchoutSession(httpServletRequest)) {
 
 			return true;
@@ -164,6 +167,30 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 			CommercePunchoutConstants.PUNCHOUT_RETURN_URL_COOKIE_NAME);
 	}
 
+	private boolean _punchoutAllowed(HttpServletRequest httpServletRequest) {
+		try {
+			CommerceContext commerceContext =
+				(CommerceContext)httpServletRequest.getAttribute(
+					CommerceWebKeys.COMMERCE_CONTEXT);
+
+			CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
+
+			CommerceAccount commerceAccount =
+				commerceContext.getCommerceAccount();
+
+			return _punchoutAccountRoleHelper.hasPunchoutRole(
+				commerceOrder.getCompanyId(), commerceOrder.getUserId(),
+				commerceAccount.getCommerceAccountId());
+		}
+		catch (Exception e) {
+			_log.error(
+				"Failed to determine whether user has Punchout role under " +
+					"commerce account");
+
+			return false;
+		}
+	}
+
 	private boolean _punchoutEnabled(HttpServletRequest httpServletRequest) {
 		try {
 			CommerceContext commerceContext =
@@ -205,6 +232,9 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 	@Reference
 	private JSPRenderer _jspRenderer;
+
+	@Reference
+	private PunchoutAccountRoleHelper _punchoutAccountRoleHelper;
 
 	@Reference
 	private PunchoutReturnService _punchoutReturnService;

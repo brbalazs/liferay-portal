@@ -32,6 +32,9 @@ import com.liferay.commerce.order.CommerceOrderValidatorResult;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
+import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
+import com.liferay.commerce.punchout.constants.PunchoutConstants;
+import com.liferay.commerce.punchout.service.PunchoutAccountRoleHelper;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderLocalService;
@@ -40,8 +43,11 @@ import com.liferay.petra.lang.CentralizedThreadLocal;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.portlet.PortletURLFactory;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
@@ -540,6 +546,18 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 			return null;
 		}
 
+		CommerceChannel commerceChannel =
+			_commerceChannelLocalService.fetchCommerceChannelBySiteGroupId(
+				themeDisplay.getScopeGroupId());
+
+		if (!_punchoutEnabled(commerceChannel.getGroupId()) ||
+			!_punchoutAllowed(
+				themeDisplay.getCompanyId(), themeDisplay.getUserId(),
+				commerceAccountId)) {
+
+			return null;
+		}
+
 		String punchoutCommerceOrderUuId = CookieKeys.getCookie(
 			themeDisplay.getRequest(),
 			CommercePunchoutConstants.PUNCHOUT_COMMERCE_ORDER_UUID_COOKIE_NAME,
@@ -548,10 +566,6 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 		if (Validator.isBlank(punchoutCommerceOrderUuId)) {
 			return null;
 		}
-
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.fetchCommerceChannelBySiteGroupId(
-				themeDisplay.getScopeGroupId());
 
 		if (commerceChannel == null) {
 			return null;
@@ -601,6 +615,49 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 		}
 
 		return portletURL;
+	}
+
+	private PunchoutConfiguration _getPunchoutConfiguration(
+		long channelGroupId) {
+
+		try {
+			return _configurationProvider.getConfiguration(
+				PunchoutConfiguration.class,
+				new GroupServiceSettingsLocator(
+					channelGroupId, PunchoutConstants.SERVICE_NAME));
+		}
+		catch (ConfigurationException ce) {
+			_log.error("Unable to get punchout configuration", ce);
+		}
+
+		return null;
+	}
+
+	private boolean _punchoutAllowed(
+		long companyId, long userId, long commerceAccountId) {
+
+		try {
+			return _punchoutAccountRoleHelper.hasPunchoutRole(
+				companyId, userId, commerceAccountId);
+		}
+		catch (Exception e) {
+			_log.error(
+				"Failed to determine whether user has Punchout role under " +
+					"commerce account");
+		}
+
+		return false;
+	}
+
+	private boolean _punchoutEnabled(long commerceChannelGroupId) {
+		PunchoutConfiguration punchoutConfiguration = _getPunchoutConfiguration(
+			commerceChannelGroupId);
+
+		if (punchoutConfiguration != null) {
+			return punchoutConfiguration.enabled();
+		}
+
+		return false;
 	}
 
 	private void _setGuestCommerceOrder(
@@ -656,6 +713,9 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 		}
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceOrderHttpHelperImpl.class);
+
 	private static ModelResourcePermission<CommerceOrder>
 		_commerceOrderModelResourcePermission;
 	private static final ThreadLocal<CommerceOrder>
@@ -691,5 +751,8 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 
 	@Reference
 	private PortletURLFactory _portletURLFactory;
+
+	@Reference
+	private PunchoutAccountRoleHelper _punchoutAccountRoleHelper;
 
 }
