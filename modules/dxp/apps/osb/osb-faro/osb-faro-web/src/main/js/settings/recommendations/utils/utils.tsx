@@ -28,6 +28,29 @@ export type Job = {
 	type: jobTypes;
 };
 
+export const JOB_STATUSES_DISPLAY_MAP = {
+	[jobStatuses.failed]: 'danger',
+	[jobStatuses.pending]: 'secondary',
+	[jobStatuses.ready]: 'success',
+	[jobStatuses.scheduled]: 'info',
+	[jobStatuses.training]: 'warning'
+};
+
+export const JOB_STATUSES_LABEL_MAP = {
+	[jobStatuses.failed]: Liferay.Language.get('failed'),
+	[jobStatuses.pending]: Liferay.Language.get('pending'),
+	[jobStatuses.ready]: Liferay.Language.get('ready'),
+	[jobStatuses.scheduled]: Liferay.Language.get('scheduled'),
+	[jobStatuses.training]: Liferay.Language.get('training')
+};
+
+export const JOB_TRAINING_FREQUENCIES_LABEL_MAP = {
+	[jobTrainingFrequencies.every7Days]: Liferay.Language.get('every-7-days'),
+	[jobTrainingFrequencies.every14Days]: Liferay.Language.get('every-14-days'),
+	[jobTrainingFrequencies.every30Days]: Liferay.Language.get('every-30-days'),
+	[jobTrainingFrequencies.manual]: Liferay.Language.get('run-manually')
+};
+
 export const JOB_TRAINING_FREQUENCIES_LIST = [
 	{
 		name: Liferay.Language.get('run-manually'),
@@ -47,6 +70,13 @@ export const JOB_TRAINING_FREQUENCIES_LIST = [
 	}
 ];
 
+export const JOB_TRAINING_PERIODS_LABEL_MAP = {
+	[jobTrainingPeriods.last7Days]: Liferay.Language.get('last-7-days'),
+	[jobTrainingPeriods.last30Days]: Liferay.Language.get('last-30-days'),
+	[jobTrainingPeriods.last180Days]: Liferay.Language.get('last-180-days'),
+	[jobTrainingPeriods.last365Days]: Liferay.Language.get('last-year')
+};
+
 export const JOB_TRAINING_PERIODS_LIST = [
 	{
 		name: Liferay.Language.get('last-7-days'),
@@ -65,6 +95,10 @@ export const JOB_TRAINING_PERIODS_LIST = [
 		value: jobTrainingPeriods.last365Days
 	}
 ];
+
+export const JOB_TYPES_LABEL_MAP = {
+	[jobTypes.itemSimilarity]: Liferay.Language.get('item-similarity')
+};
 
 export const RULE_NAME_LABEL_MAP = {
 	excludeFilter: Liferay.Language.get('exclude'),
