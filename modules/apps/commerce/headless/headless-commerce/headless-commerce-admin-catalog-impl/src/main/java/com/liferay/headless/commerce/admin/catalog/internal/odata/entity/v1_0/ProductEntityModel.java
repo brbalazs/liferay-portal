@@ -14,7 +14,6 @@
 
 package com.liferay.headless.commerce.admin.catalog.internal.odata.entity.v1_0;
 
-import com.liferay.commerce.product.constants.CPField;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.odata.entity.BooleanEntityField;
 import com.liferay.portal.odata.entity.CollectionEntityField;
@@ -36,7 +35,6 @@ public class ProductEntityModel implements EntityModel {
 
 	public ProductEntityModel() {
 		_entityFieldsMap = Stream.of(
-			new BooleanEntityField("active", locale -> "active"),
 			new CollectionEntityField(
 				new IntegerEntityField(
 					"categoryIds", locale -> "assetCategoryIds")),
@@ -52,8 +50,7 @@ public class ProductEntityModel implements EntityModel {
 			new StringEntityField(
 				"name", locale -> Field.getSortableFieldName("name")),
 			new StringEntityField("productType", locale -> "productTypeName"),
-			new IntegerEntityField(
-				"statusCode", locale -> CPField.CP_DEFINITION_STATUS)
+			new IntegerEntityField("statusCode", locale -> Field.STATUS)
 		).collect(
 			Collectors.toMap(EntityField::getName, Function.identity())
 		);
