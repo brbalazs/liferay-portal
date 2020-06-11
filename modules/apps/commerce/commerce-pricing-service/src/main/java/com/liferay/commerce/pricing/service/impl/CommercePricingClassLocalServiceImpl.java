@@ -23,15 +23,31 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.search.BaseModelSearchResult;
+import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.search.QueryConfig;
+import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.search.SearchException;
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 
+import java.io.Serializable;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -217,6 +233,18 @@ public class CommercePricingClassLocalServiceImpl
 		return commercePricingClassPersistence.countByCompanyId(companyId);
 	}
 
+	@Override
+	public BaseModelSearchResult<CommercePricingClass>
+			searchCommercePricingClasses(
+				long companyId, String keywords, int start, int end, Sort sort)
+		throws PortalException {
+
+		SearchContext searchContext = buildSearchContext(
+			companyId, keywords, start, end, sort);
+
+		return searchCommercePricingClasses(searchContext);
+	}
+
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommercePricingClass updateCommercePricingClass(
@@ -368,6 +396,101 @@ public class CommercePricingClassLocalServiceImpl
 			serviceContext);
 	}
 
+	protected SearchContext buildSearchContext(
+		long companyId, String keywords, int start, int end, Sort sort) {
+
+		SearchContext searchContext = new SearchContext();
+
+		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+
+		params.put("keywords", keywords);
+
+		Map<String, Serializable> attributes = new HashMap<>();
+
+		attributes.put(Field.CONTENT, keywords);
+		attributes.put(Field.ENTRY_CLASS_PK, keywords);
+		attributes.put(Field.NAME, keywords);
+		attributes.put("params", params);
+
+		searchContext.setAttributes(attributes);
+
+		searchContext.setCompanyId(companyId);
+		searchContext.setStart(start);
+		searchContext.setEnd(end);
+
+		if (Validator.isNotNull(keywords)) {
+			searchContext.setKeywords(keywords);
+		}
+
+		QueryConfig queryConfig = searchContext.getQueryConfig();
+
+		queryConfig.setHighlightEnabled(false);
+		queryConfig.setScoreEnabled(false);
+
+		if (sort != null) {
+			searchContext.setSorts(sort);
+		}
+
+		return searchContext;
+	}
+
+	protected List<CommercePricingClass> getCommercePricingClasses(Hits hits)
+		throws PortalException {
+
+		List<Document> documents = hits.toList();
+
+		List<CommercePricingClass> commercePricingClasses = new ArrayList<>(
+			documents.size());
+
+		for (Document document : documents) {
+			long commercePricingClassId = GetterUtil.getLong(
+				document.get(Field.ENTRY_CLASS_PK));
+
+			CommercePricingClass commercePricingClass =
+				fetchCommercePricingClass(commercePricingClassId);
+
+			if (commercePricingClass == null) {
+				commercePricingClasses = null;
+
+				Indexer<CommercePricingClass> indexer =
+					IndexerRegistryUtil.getIndexer(CommercePricingClass.class);
+
+				long companyId = GetterUtil.getLong(
+					document.get(Field.COMPANY_ID));
+
+				indexer.delete(companyId, document.getUID());
+			}
+			else if (commercePricingClasses != null) {
+				commercePricingClasses.add(commercePricingClass);
+			}
+		}
+
+		return commercePricingClasses;
+	}
+
+	protected BaseModelSearchResult<CommercePricingClass>
+			searchCommercePricingClasses(SearchContext searchContext)
+		throws PortalException {
+
+		Indexer<CommercePricingClass> indexer =
+			IndexerRegistryUtil.nullSafeGetIndexer(CommercePricingClass.class);
+
+		for (int i = 0; i < 10; i++) {
+			Hits hits = indexer.search(searchContext, _SELECTED_FIELD_NAMES);
+
+			List<CommercePricingClass> commercePricingClasses =
+				getCommercePricingClasses(hits);
+
+			if (commercePricingClasses != null) {
+				return new BaseModelSearchResult<>(
+					commercePricingClasses, hits.getLength());
+			}
+		}
+
+		throw new SearchException(
+			"Unable to fix the search index after 10 attempts");
+	}
+
 	protected void validate(Map<Locale, String> titleMap)
 		throws PortalException {
 
@@ -381,6 +504,11 @@ public class CommercePricingClassLocalServiceImpl
 			throw new CommercePricingClassTitleException();
 		}
 	}
+
+	private static final String[] _SELECTED_FIELD_NAMES = {
+		Field.COMPANY_ID, Field.ENTRY_CLASS_NAME, Field.ENTRY_CLASS_PK,
+		Field.TITLE
+	};
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommercePricingClassLocalServiceImpl.class);

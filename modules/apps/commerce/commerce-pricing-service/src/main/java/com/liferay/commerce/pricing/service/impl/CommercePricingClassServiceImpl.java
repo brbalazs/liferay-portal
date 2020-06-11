@@ -18,6 +18,8 @@ import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.base.CommercePricingClassServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.BaseModelSearchResult;
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -141,6 +143,10 @@ public class CommercePricingClassServiceImpl
 			OrderByComparator<CommercePricingClass> orderByComparator)
 		throws PortalException {
 
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
+
 		return commercePricingClassLocalService.getCommercePricingClasses(
 			companyId, start, end, orderByComparator);
 	}
@@ -149,8 +155,26 @@ public class CommercePricingClassServiceImpl
 	public int getCommercePricingClassesCount(long companyId)
 		throws PortalException {
 
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
+
 		return commercePricingClassLocalService.getCommercePricingClassesCount(
 			companyId);
+	}
+
+	@Override
+	public BaseModelSearchResult<CommercePricingClass>
+			searchCommercePricingClasses(
+				long companyId, String keywords, int start, int end, Sort sort)
+		throws PortalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
+
+		return commercePricingClassLocalService.searchCommercePricingClasses(
+			companyId, keywords, start, end, sort);
 	}
 
 	@Override
