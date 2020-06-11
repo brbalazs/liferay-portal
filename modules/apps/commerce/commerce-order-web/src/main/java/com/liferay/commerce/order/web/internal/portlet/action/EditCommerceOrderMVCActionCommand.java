@@ -46,8 +46,6 @@ import java.math.BigDecimal;
 
 import java.util.Calendar;
 
-import javax.annotation.Resource;
-
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletRequest;
@@ -603,7 +601,7 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 	@Reference
 	private CommerceOrderService _commerceOrderService;
 
-	@Resource
+	@Reference
 	private CommercePaymentEngine _commercePaymentEngine;
 
 	@Reference
