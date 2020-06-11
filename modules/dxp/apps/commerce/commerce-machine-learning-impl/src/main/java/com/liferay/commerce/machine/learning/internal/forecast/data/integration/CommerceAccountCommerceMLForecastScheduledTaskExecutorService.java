@@ -19,21 +19,14 @@ import com.liferay.commerce.machine.learning.internal.forecast.constants.Commerc
 import com.liferay.commerce.machine.learning.internal.forecast.constants.CommerceMLForecastScope;
 import com.liferay.commerce.machine.learning.internal.forecast.constants.CommerceMLForecastTarget;
 import com.liferay.commerce.machine.learning.internal.forecast.data.integration.process.type.CommerceAccountCommerceMLForecastProcessType;
-import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
-import com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration;
 
-import java.util.Map;
-
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.ConfigurationPolicy;
 
 /**
  * @author Riccardo Ferrari
  */
 @Component(
-	configurationPid = "com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration",
-	configurationPolicy = ConfigurationPolicy.OPTIONAL, immediate = true,
+	immediate = true,
 	property = "data.integration.service.executor.key=" + CommerceAccountCommerceMLForecastProcessType.KEY,
 	service = ScheduledTaskExecutorService.class
 )
@@ -43,17 +36,6 @@ public class CommerceAccountCommerceMLForecastScheduledTaskExecutorService
 	@Override
 	public String getName() {
 		return CommerceAccountCommerceMLForecastProcessType.KEY;
-	}
-
-	@Activate
-	protected void activate(Map<String, Object> properties) {
-		_elasticsearchConfiguration = ConfigurableUtil.createConfigurable(
-			ElasticsearchConfiguration.class, properties);
-	}
-
-	@Override
-	protected String getLiferayIndexNamePrefix() {
-		return _elasticsearchConfiguration.indexNamePrefix();
 	}
 
 	@Override
@@ -79,7 +61,5 @@ public class CommerceAccountCommerceMLForecastScheduledTaskExecutorService
 
 	private static final CommerceMLForecastTarget _COMMERCE_ML_FORECAST_TARGET =
 		CommerceMLForecastTarget.REVENUE;
-
-	private ElasticsearchConfiguration _elasticsearchConfiguration;
 
 }

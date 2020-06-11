@@ -18,7 +18,6 @@ import com.liferay.commerce.data.integration.model.CommerceDataIntegrationProces
 import com.liferay.commerce.data.integration.service.CommerceDataIntegrationProcessLocalService;
 import com.liferay.commerce.data.integration.service.ScheduledTaskExecutorService;
 import com.liferay.commerce.machine.learning.internal.data.integration.CommerceMLScheduledTaskExecutorService;
-import com.liferay.commerce.machine.learning.internal.search.api.CommerceMLIndexer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 
@@ -56,12 +55,6 @@ public abstract class BaseForecastScheduledTaskExecutorService
 
 		Map<String, String> contextProperties = new HashMap<>();
 
-		String commerceMLForecastIndexName = commerceMLIndexer.getIndexName(
-			commerceDataIntegrationProcess.getCompanyId());
-
-		contextProperties.put(
-			"COMMERCE_ML_FORECAST_INDEX_NAME", commerceMLForecastIndexName);
-
 		UnicodeProperties typeSettingsProperties =
 			commerceDataIntegrationProcess.getTypeSettingsProperties();
 
@@ -79,16 +72,8 @@ public abstract class BaseForecastScheduledTaskExecutorService
 
 		contextProperties.put("COMMERCE_ML_PROCESS_TYPE", getName());
 
-		String liferayIndexName =
-			getLiferayIndexNamePrefix() +
-				commerceDataIntegrationProcess.getCompanyId();
-
-		contextProperties.put("LIFERAY_INDEX_NAME", liferayIndexName);
-
 		return contextProperties;
 	}
-
-	protected abstract String getLiferayIndexNamePrefix();
 
 	protected abstract String getPeriod();
 
@@ -105,11 +90,6 @@ public abstract class BaseForecastScheduledTaskExecutorService
 	@Reference
 	protected CommerceDataIntegrationProcessLocalService
 		commerceDataIntegrationProcessLocalService;
-
-	@Reference(
-		target = "(component.name=com.liferay.commerce.machine.learning.internal.forecast.search.index.CommerceMLForecastIndexer)"
-	)
-	protected CommerceMLIndexer commerceMLIndexer;
 
 	@Reference
 	protected CommerceMLScheduledTaskExecutorService

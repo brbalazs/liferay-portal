@@ -33,15 +33,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.ConfigurationPolicy;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Riccardo Ferrari
  */
 @Component(
-	configurationPid = "com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration",
-	configurationPolicy = ConfigurationPolicy.OPTIONAL, immediate = true,
+	immediate = true,
 	property = "data.integration.service.executor.key=" + BatchProductContentCommerceMLRecommendationProcessType.KEY,
 	service = ScheduledTaskExecutorService.class
 )
