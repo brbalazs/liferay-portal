@@ -27,6 +27,8 @@ String orderByCol = ParamUtil.getString(request, "orderByCol");
 String orderByType = ParamUtil.getString(request, "orderByType");
 String searchContainerId = ParamUtil.getString(request, "searchContainerId");
 
+boolean hasPublishStagingPermission = GroupPermissionUtil.contains(permissionChecker, scopeGroupId, ActionKeys.PUBLISH_STAGING);
+
 PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
 portletURL.setParameter("mvcRenderCommandName", mvcRenderCommandName);
@@ -36,8 +38,6 @@ portletURL.setParameter("navigation", navigation);
 portletURL.setParameter("orderByCol", orderByCol);
 portletURL.setParameter("orderByType", orderByType);
 portletURL.setParameter("searchContainerId", String.valueOf(searchContainerId));
-
-boolean hasPublishStagingPermission = GroupPermissionUtil.contains(permissionChecker, scopeGroupId, ActionKeys.PUBLISH_STAGING);
 %>
 
 <clay:management-toolbar
