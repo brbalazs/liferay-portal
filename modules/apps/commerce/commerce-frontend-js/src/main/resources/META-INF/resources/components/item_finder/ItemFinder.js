@@ -40,9 +40,9 @@ function ItemFinder(props) {
 		}
 
 		fetch(
-			`${
-				props.apiUrl
-			}?pageSize=${pageSize}&page=${currentPage}&search=${encodeURIComponent(
+			`${props.apiUrl}${
+				props.apiUrl.includes('?') ? '&' : '?'
+			}pageSize=${pageSize}&page=${currentPage}&search=${encodeURIComponent(
 				textFilter
 			)}`,
 			{
