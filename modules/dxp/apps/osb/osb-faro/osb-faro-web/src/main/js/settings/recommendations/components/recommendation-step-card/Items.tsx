@@ -5,11 +5,11 @@ import MetadataTag from '../MetadataTag';
 import React from 'react';
 import Table from 'shared/components/table';
 import {FieldArray} from 'formik';
-import {RULE_NAME_LABEL_MAP} from '../../utils/utils';
+import {Filter, RULE_NAME_LABEL_MAP} from '../../utils/utils';
 
 const CountCell: React.FC<{
 	className: string;
-	data: {count: number; id: string; name: string; value: string};
+	data: Filter;
 }> = ({className, data: {count}}) => (
 	// TODO: LRAC-6112 Fetch the count here only if count does not currently exist. Use replace to add the value to the fieldArray item. Will need to add loading indicator
 	// TODO: LRAC-6113 Add button here to open model with matching metadata/pages
@@ -19,7 +19,7 @@ const CountCell: React.FC<{
 
 const RuleCell: React.FC<{
 	className: string;
-	data: {name: string; value: string};
+	data: Filter;
 }> = ({className, data: {name, value}}) => {
 	const [rule, metadataTag] = value.split(/\s*(?:[=~])\s*/, 2).reverse();
 
@@ -35,11 +35,11 @@ const RuleCell: React.FC<{
 };
 
 interface IItemsProps {
-	items: any[]; // TODO: rename items to filters
+	itemFilters: Filter[];
 }
 
-const Items: React.FC<IItemsProps> = ({items}) => {
-	const totalPages = items.reduce((acc, {count}) => acc + count, 0);
+const Items: React.FC<IItemsProps> = ({itemFilters}) => {
+	const totalPages = itemFilters.reduce((acc, {count}) => acc + count, 0);
 
 	return (
 		<div className='items-root'>
@@ -51,12 +51,16 @@ const Items: React.FC<IItemsProps> = ({items}) => {
 				)}
 			</div>
 
-			<FieldArray name='items'>
+			<FieldArray name='itemFilters'>
 				{arrayHelpers => (
 					<>
 						<Button
 							className='new-rule-button'
 							onClick={() => {
+								// TODO: open modal
+								// do not allow addition of duplicate values
+								// Maybe add a toast alert to inform the user that this already exists therefore it was not added
+
 								const newItem = {
 									count: 16,
 									id:
@@ -66,20 +70,18 @@ const Items: React.FC<IItemsProps> = ({items}) => {
 								};
 
 								if (
-									!items.find(item => item.id === newItem.id)
+									!itemFilters.find(
+										item => item.id === newItem.id
+									)
 								) {
 									arrayHelpers.push(newItem);
 								}
-
-								// TODO: open modal
-								// do not allow addition of duplicate values
-								// Maybe add a toast alert to inform the user that this already exists therefore it was not added
 							}}
 						>
 							{Liferay.Language.get('new-rule')}
 						</Button>
 
-						{!!items.length && (
+						{!!itemFilters.length && (
 							<>
 								<Table
 									columns={[
@@ -100,15 +102,18 @@ const Items: React.FC<IItemsProps> = ({items}) => {
 											sortable: false
 										}
 									]}
-									items={items}
-									renderInlineRowActions={({data, items}) => (
+									items={itemFilters}
+									renderInlineRowActions={({
+										data,
+										itemFilters
+									}) => (
 										<span>
 											<Button
 												borderless
 												display='secondary'
 												onClick={() => {
 													arrayHelpers.remove(
-														items.findIndex(
+														itemFilters.findIndex(
 															itemData =>
 																itemData.id ===
 																data.id

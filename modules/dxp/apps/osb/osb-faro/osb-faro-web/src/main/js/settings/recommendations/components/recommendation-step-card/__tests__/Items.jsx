@@ -10,7 +10,7 @@ describe('Items', () => {
 		const {container} = render(
 			<Form
 				initialValues={{
-					items: [
+					itemFilters: [
 						{
 							count: 12,
 							id: "includeFilter - og:title ~ ''blog*''",
@@ -26,9 +26,9 @@ describe('Items', () => {
 					]
 				}}
 			>
-				{({values: {items}}) => (
+				{({values: {itemFilters}}) => (
 					<Form.Form>
-						<Items items={items} />
+						<Items itemFilters={itemFilters} />
 					</Form.Form>
 				)}
 			</Form>

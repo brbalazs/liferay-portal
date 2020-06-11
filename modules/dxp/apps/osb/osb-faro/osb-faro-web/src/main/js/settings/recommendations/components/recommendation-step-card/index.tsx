@@ -56,7 +56,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 
 	const handleSubmit = ({
 		includePreviousPeriod,
-		items,
+		itemFilters,
 		name,
 		trainingFrequency,
 		trainingPeriod
@@ -66,7 +66,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 			name,
 			parameters: [
 				{name: 'includePreviousPeriod', value: includePreviousPeriod},
-				...items.map(({name, value}) => ({name, value}))
+				...itemFilters.map(({name, value}) => ({name, value}))
 			],
 			trainingFrequency,
 			trainingPeriod
@@ -83,7 +83,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 				({name}) => name === 'includePreviousPeriod'
 			);
 
-			const items = parameters.reduce((acc, {name, value}) => {
+			const itemFilters = parameters.reduce((acc, {name, value}) => {
 				if (name === 'includePreviousPeriod') {
 					return acc;
 				}
@@ -98,7 +98,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 				includePreviousPeriod:
 					includePreviousPeriodParameter &&
 					includePreviousPeriodParameter.value,
-				items,
+				itemFilters,
 				name,
 				trainingFrequency,
 				trainingPeriod
@@ -107,7 +107,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 
 		return {
 			includePreviousPeriod: false,
-			items: [],
+			itemFilters: [],
 			name: '',
 			trainingFrequency: jobTrainingFrequencies.every7Days,
 			trainingPeriod: jobTrainingPeriods.last30Days

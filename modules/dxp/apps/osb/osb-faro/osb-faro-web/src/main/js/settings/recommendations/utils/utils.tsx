@@ -5,6 +5,13 @@ import {
 	jobTypes
 } from 'shared/util/constants';
 
+export type Filter = {
+	count: number;
+	id: string;
+	name: string;
+	value: string;
+};
+
 export type JobParameter = {
 	name: string;
 	value: string;
