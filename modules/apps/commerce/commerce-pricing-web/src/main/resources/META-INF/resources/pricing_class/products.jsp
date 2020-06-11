@@ -132,7 +132,6 @@ long commercePricingClassId = commercePricingClass.getCommercePricingClassId();
 						namespace="<%= renderResponse.getNamespace() %>"
 						pageNumber="<%= 1 %>"
 						portletURL="<%= currentURLObj %>"
-						showManagementBar="<%= false %>"
 					/>
 				</commerce-ui:panel>
 			</div>
