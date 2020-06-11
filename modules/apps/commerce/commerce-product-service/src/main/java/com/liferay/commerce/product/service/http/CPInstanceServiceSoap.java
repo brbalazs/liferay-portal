@@ -98,7 +98,7 @@ public class CPInstanceServiceSoap {
 				int displayDateYear, int displayDateHour, int displayDateMinute,
 				int expirationDateMonth, int expirationDateDay,
 				int expirationDateYear, int expirationDateHour,
-				int expirationDateMinute, boolean neverExpire,
+				int expirationDateMinute, boolean neverExpire, String unspsc,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 
@@ -110,7 +110,7 @@ public class CPInstanceServiceSoap {
 					displayDateDay, displayDateYear, displayDateHour,
 					displayDateMinute, expirationDateMonth, expirationDateDay,
 					expirationDateYear, expirationDateHour,
-					expirationDateMinute, neverExpire, serviceContext);
+					expirationDateMinute, neverExpire, unspsc, serviceContext);
 
 			return com.liferay.commerce.product.model.CPInstanceSoap.
 				toSoapModel(returnValue);
@@ -314,7 +314,7 @@ public class CPInstanceServiceSoap {
 				int displayDateYear, int displayDateHour, int displayDateMinute,
 				int expirationDateMonth, int expirationDateDay,
 				int expirationDateYear, int expirationDateHour,
-				int expirationDateMinute, boolean neverExpire,
+				int expirationDateMinute, boolean neverExpire, String unspsc,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 
@@ -326,7 +326,7 @@ public class CPInstanceServiceSoap {
 					displayDateYear, displayDateHour, displayDateMinute,
 					expirationDateMonth, expirationDateDay, expirationDateYear,
 					expirationDateHour, expirationDateMinute, neverExpire,
-					serviceContext);
+					unspsc, serviceContext);
 
 			return com.liferay.commerce.product.model.CPInstanceSoap.
 				toSoapModel(returnValue);
@@ -394,7 +394,7 @@ public class CPInstanceServiceSoap {
 				int displayDateMinute, int expirationDateMonth,
 				int expirationDateDay, int expirationDateYear,
 				int expirationDateHour, int expirationDateMinute,
-				boolean neverExpire,
+				boolean neverExpire, String unspsc,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 
@@ -407,7 +407,7 @@ public class CPInstanceServiceSoap {
 					displayDateMonth, displayDateDay, displayDateYear,
 					displayDateHour, displayDateMinute, expirationDateMonth,
 					expirationDateDay, expirationDateYear, expirationDateHour,
-					expirationDateMinute, neverExpire, serviceContext);
+					expirationDateMinute, neverExpire, unspsc, serviceContext);
 
 			return com.liferay.commerce.product.model.CPInstanceSoap.
 				toSoapModel(returnValue);

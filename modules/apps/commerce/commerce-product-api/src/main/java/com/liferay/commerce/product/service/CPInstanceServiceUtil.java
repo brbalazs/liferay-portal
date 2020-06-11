@@ -46,7 +46,7 @@ public class CPInstanceServiceUtil {
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
+			int expirationDateMinute, boolean neverExpire, String unspsc,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -56,7 +56,7 @@ public class CPInstanceServiceUtil {
 			published, displayDateMonth, displayDateDay, displayDateYear,
 			displayDateHour, displayDateMinute, expirationDateMonth,
 			expirationDateDay, expirationDateYear, expirationDateHour,
-			expirationDateMinute, neverExpire, serviceContext);
+			expirationDateMinute, neverExpire, unspsc, serviceContext);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class CPInstanceServiceUtil {
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
+			int expirationDateMinute, boolean neverExpire, String unspsc,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -104,7 +104,7 @@ public class CPInstanceServiceUtil {
 			purchasable, json, published, displayDateMonth, displayDateDay,
 			displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, neverExpire,
+			expirationDateHour, expirationDateMinute, neverExpire, unspsc,
 			serviceContext);
 	}
 
@@ -250,7 +250,7 @@ public class CPInstanceServiceUtil {
 				int displayDateYear, int displayDateHour, int displayDateMinute,
 				int expirationDateMonth, int expirationDateDay,
 				int expirationDateYear, int expirationDateHour,
-				int expirationDateMinute, boolean neverExpire,
+				int expirationDateMinute, boolean neverExpire, String unspsc,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -259,7 +259,7 @@ public class CPInstanceServiceUtil {
 			published, displayDateMonth, displayDateDay, displayDateYear,
 			displayDateHour, displayDateMinute, expirationDateMonth,
 			expirationDateDay, expirationDateYear, expirationDateHour,
-			expirationDateMinute, neverExpire, serviceContext);
+			expirationDateMinute, neverExpire, unspsc, serviceContext);
 	}
 
 	public static com.liferay.commerce.product.model.CPInstance
@@ -342,7 +342,7 @@ public class CPInstanceServiceUtil {
 				int displayDateMinute, int expirationDateMonth,
 				int expirationDateDay, int expirationDateYear,
 				int expirationDateHour, int expirationDateMinute,
-				boolean neverExpire,
+				boolean neverExpire, String unspsc,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -352,7 +352,7 @@ public class CPInstanceServiceUtil {
 			cost, published, externalReferenceCode, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, neverExpire,
+			expirationDateHour, expirationDateMinute, neverExpire, unspsc,
 			serviceContext);
 	}
 

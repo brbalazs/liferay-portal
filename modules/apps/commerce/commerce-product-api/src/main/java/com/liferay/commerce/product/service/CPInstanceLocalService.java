@@ -103,7 +103,8 @@ public interface CPInstanceLocalService
 			long maxSubscriptionCycles, boolean deliverySubscriptionEnabled,
 			int deliverySubscriptionLength, String deliverySubscriptionType,
 			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
-			long deliveryMaxSubscriptionCycles, ServiceContext serviceContext)
+			long deliveryMaxSubscriptionCycles, String unspsc,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 	public CPInstance addCPInstance(
@@ -122,7 +123,8 @@ public interface CPInstanceLocalService
 			boolean subscriptionEnabled, int subscriptionLength,
 			String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
-			long maxSubscriptionCycles, ServiceContext serviceContext)
+			long maxSubscriptionCycles, String unspsc,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
@@ -163,7 +165,7 @@ public interface CPInstanceLocalService
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
+			int expirationDateMinute, boolean neverExpire, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException;
 
@@ -226,7 +228,8 @@ public interface CPInstanceLocalService
 			boolean subscriptionEnabled, int subscriptionLength,
 			String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
-			long maxSubscriptionCycles, ServiceContext serviceContext)
+			long maxSubscriptionCycles, String unspsc,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
@@ -278,7 +281,7 @@ public interface CPInstanceLocalService
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
-			boolean neverExpire, ServiceContext serviceContext)
+			boolean neverExpire, String unspsc, ServiceContext serviceContext)
 		throws PortalException;
 
 	public void buildCPInstances(
@@ -651,7 +654,7 @@ public interface CPInstanceLocalService
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
+			int expirationDateMinute, boolean neverExpire, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException;
 
@@ -665,7 +668,7 @@ public interface CPInstanceLocalService
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
-			boolean neverExpire, ServiceContext serviceContext)
+			boolean neverExpire, String unspsc, ServiceContext serviceContext)
 		throws PortalException;
 
 	public CPInstance updatePricingInfo(
@@ -735,7 +738,7 @@ public interface CPInstanceLocalService
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
-			boolean neverExpire, ServiceContext serviceContext)
+			boolean neverExpire, String unspsc, ServiceContext serviceContext)
 		throws PortalException;
 
 }

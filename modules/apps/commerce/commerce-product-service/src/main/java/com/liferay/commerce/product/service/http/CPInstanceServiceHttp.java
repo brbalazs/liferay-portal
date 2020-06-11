@@ -61,7 +61,7 @@ public class CPInstanceServiceHttp {
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
+			int expirationDateMinute, boolean neverExpire, String unspsc,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -77,7 +77,7 @@ public class CPInstanceServiceHttp {
 				displayDateMonth, displayDateDay, displayDateYear,
 				displayDateHour, displayDateMinute, expirationDateMonth,
 				expirationDateDay, expirationDateYear, expirationDateHour,
-				expirationDateMinute, neverExpire, serviceContext);
+				expirationDateMinute, neverExpire, unspsc, serviceContext);
 
 			Object returnObj = null;
 
@@ -115,7 +115,7 @@ public class CPInstanceServiceHttp {
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
-			boolean neverExpire,
+			boolean neverExpire, String unspsc,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -130,7 +130,7 @@ public class CPInstanceServiceHttp {
 				displayDateMonth, displayDateDay, displayDateYear,
 				displayDateHour, displayDateMinute, expirationDateMonth,
 				expirationDateDay, expirationDateYear, expirationDateHour,
-				expirationDateMinute, neverExpire, serviceContext);
+				expirationDateMinute, neverExpire, unspsc, serviceContext);
 
 			Object returnObj = null;
 
@@ -758,7 +758,7 @@ public class CPInstanceServiceHttp {
 				int displayDateYear, int displayDateHour, int displayDateMinute,
 				int expirationDateMonth, int expirationDateDay,
 				int expirationDateYear, int expirationDateHour,
-				int expirationDateMinute, boolean neverExpire,
+				int expirationDateMinute, boolean neverExpire, String unspsc,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -772,7 +772,7 @@ public class CPInstanceServiceHttp {
 				purchasable, published, displayDateMonth, displayDateDay,
 				displayDateYear, displayDateHour, displayDateMinute,
 				expirationDateMonth, expirationDateDay, expirationDateYear,
-				expirationDateHour, expirationDateMinute, neverExpire,
+				expirationDateHour, expirationDateMinute, neverExpire, unspsc,
 				serviceContext);
 
 			Object returnObj = null;
@@ -1010,7 +1010,7 @@ public class CPInstanceServiceHttp {
 				int displayDateHour, int displayDateMinute,
 				int expirationDateMonth, int expirationDateDay,
 				int expirationDateYear, int expirationDateHour,
-				int expirationDateMinute, boolean neverExpire,
+				int expirationDateMinute, boolean neverExpire, String unspsc,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -1026,7 +1026,7 @@ public class CPInstanceServiceHttp {
 				externalReferenceCode, displayDateMonth, displayDateDay,
 				displayDateYear, displayDateHour, displayDateMinute,
 				expirationDateMonth, expirationDateDay, expirationDateYear,
-				expirationDateHour, expirationDateMinute, neverExpire,
+				expirationDateHour, expirationDateMinute, neverExpire, unspsc,
 				serviceContext);
 
 			Object returnObj = null;
@@ -1065,7 +1065,7 @@ public class CPInstanceServiceHttp {
 			long.class, long.class, String.class, String.class, String.class,
 			boolean.class, java.util.Map.class, boolean.class, int.class,
 			int.class, int.class, int.class, int.class, int.class, int.class,
-			int.class, int.class, int.class, boolean.class,
+			int.class, int.class, int.class, boolean.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _addCPInstanceParameterTypes1 =
@@ -1073,7 +1073,7 @@ public class CPInstanceServiceHttp {
 			long.class, long.class, String.class, String.class, String.class,
 			boolean.class, String.class, boolean.class, int.class, int.class,
 			int.class, int.class, int.class, int.class, int.class, int.class,
-			int.class, int.class, boolean.class,
+			int.class, int.class, boolean.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _buildCPInstancesParameterTypes2 =
@@ -1133,7 +1133,7 @@ public class CPInstanceServiceHttp {
 			long.class, String.class, String.class, String.class, boolean.class,
 			boolean.class, int.class, int.class, int.class, int.class,
 			int.class, int.class, int.class, int.class, int.class, int.class,
-			boolean.class,
+			boolean.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _updatePricingInfoParameterTypes17 =
@@ -1168,7 +1168,7 @@ public class CPInstanceServiceHttp {
 			java.math.BigDecimal.class, java.math.BigDecimal.class,
 			boolean.class, String.class, int.class, int.class, int.class,
 			int.class, int.class, int.class, int.class, int.class, int.class,
-			int.class, boolean.class,
+			int.class, boolean.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 

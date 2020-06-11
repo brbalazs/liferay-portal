@@ -76,7 +76,7 @@ public interface CPInstanceService extends BaseService {
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
+			int expirationDateMinute, boolean neverExpire, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException;
 
@@ -116,7 +116,7 @@ public interface CPInstanceService extends BaseService {
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
+			int expirationDateMinute, boolean neverExpire, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException;
 
@@ -200,7 +200,7 @@ public interface CPInstanceService extends BaseService {
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
+			int expirationDateMinute, boolean neverExpire, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException;
 
@@ -247,7 +247,7 @@ public interface CPInstanceService extends BaseService {
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
-			boolean neverExpire, ServiceContext serviceContext)
+			boolean neverExpire, String unspsc, ServiceContext serviceContext)
 		throws PortalException;
 
 }

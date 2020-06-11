@@ -29,3 +29,4 @@ const MiniCartContext = React.createContext({
 });
 
 export default MiniCartContext;
+packageinfo

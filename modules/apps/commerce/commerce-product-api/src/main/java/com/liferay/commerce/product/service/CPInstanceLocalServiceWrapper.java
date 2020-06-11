@@ -68,7 +68,7 @@ public class CPInstanceLocalServiceWrapper
 			int deliverySubscriptionLength, String deliverySubscriptionType,
 			com.liferay.portal.kernel.util.UnicodeProperties
 				deliverySubscriptionTypeSettingsProperties,
-			long deliveryMaxSubscriptionCycles,
+			long deliveryMaxSubscriptionCycles, String unspsc,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -85,7 +85,7 @@ public class CPInstanceLocalServiceWrapper
 			maxSubscriptionCycles, deliverySubscriptionEnabled,
 			deliverySubscriptionLength, deliverySubscriptionType,
 			deliverySubscriptionTypeSettingsProperties,
-			deliveryMaxSubscriptionCycles, serviceContext);
+			deliveryMaxSubscriptionCycles, unspsc, serviceContext);
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public class CPInstanceLocalServiceWrapper
 			String subscriptionType,
 			com.liferay.portal.kernel.util.UnicodeProperties
 				subscriptionTypeSettingsProperties,
-			long maxSubscriptionCycles,
+			long maxSubscriptionCycles, String unspsc,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -121,7 +121,7 @@ public class CPInstanceLocalServiceWrapper
 			expirationDateHour, expirationDateMinute, neverExpire,
 			overrideSubscriptionInfo, subscriptionEnabled, subscriptionLength,
 			subscriptionType, subscriptionTypeSettingsProperties,
-			maxSubscriptionCycles, serviceContext);
+			maxSubscriptionCycles, unspsc, serviceContext);
 	}
 
 	/**
@@ -163,7 +163,7 @@ public class CPInstanceLocalServiceWrapper
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
+			int expirationDateMinute, boolean neverExpire, String unspsc,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -172,7 +172,7 @@ public class CPInstanceLocalServiceWrapper
 			purchasable, json, published, displayDateMonth, displayDateDay,
 			displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, neverExpire,
+			expirationDateHour, expirationDateMinute, neverExpire, unspsc,
 			serviceContext);
 	}
 
@@ -238,7 +238,7 @@ public class CPInstanceLocalServiceWrapper
 			String subscriptionType,
 			com.liferay.portal.kernel.util.UnicodeProperties
 				subscriptionTypeSettingsProperties,
-			long maxSubscriptionCycles,
+			long maxSubscriptionCycles, String unspsc,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -251,7 +251,7 @@ public class CPInstanceLocalServiceWrapper
 			expirationDateHour, expirationDateMinute, neverExpire,
 			overrideSubscriptionInfo, subscriptionEnabled, subscriptionLength,
 			subscriptionType, subscriptionTypeSettingsProperties,
-			maxSubscriptionCycles, serviceContext);
+			maxSubscriptionCycles, unspsc, serviceContext);
 	}
 
 	/**
@@ -305,7 +305,7 @@ public class CPInstanceLocalServiceWrapper
 			int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
-			boolean neverExpire,
+			boolean neverExpire, String unspsc,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -315,7 +315,7 @@ public class CPInstanceLocalServiceWrapper
 			cost, published, externalReferenceCode, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, neverExpire,
+			expirationDateHour, expirationDateMinute, neverExpire, unspsc,
 			serviceContext);
 	}
 
@@ -915,7 +915,7 @@ public class CPInstanceLocalServiceWrapper
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
+			int expirationDateMinute, boolean neverExpire, String unspsc,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -924,7 +924,7 @@ public class CPInstanceLocalServiceWrapper
 			published, displayDateMonth, displayDateDay, displayDateYear,
 			displayDateHour, displayDateMinute, expirationDateMonth,
 			expirationDateDay, expirationDateYear, expirationDateHour,
-			expirationDateMinute, neverExpire, serviceContext);
+			expirationDateMinute, neverExpire, unspsc, serviceContext);
 	}
 
 	@Override
@@ -938,7 +938,7 @@ public class CPInstanceLocalServiceWrapper
 			int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
-			boolean neverExpire,
+			boolean neverExpire, String unspsc,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -948,7 +948,7 @@ public class CPInstanceLocalServiceWrapper
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, expirationDateMonth, expirationDateDay,
 			expirationDateYear, expirationDateHour, expirationDateMinute,
-			neverExpire, serviceContext);
+			neverExpire, unspsc, serviceContext);
 	}
 
 	@Override
@@ -1063,7 +1063,7 @@ public class CPInstanceLocalServiceWrapper
 			int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
-			boolean neverExpire,
+			boolean neverExpire, String unspsc,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -1073,7 +1073,7 @@ public class CPInstanceLocalServiceWrapper
 			cost, published, externalReferenceCode, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, neverExpire,
+			expirationDateHour, expirationDateMinute, neverExpire, unspsc,
 			serviceContext);
 	}
 
