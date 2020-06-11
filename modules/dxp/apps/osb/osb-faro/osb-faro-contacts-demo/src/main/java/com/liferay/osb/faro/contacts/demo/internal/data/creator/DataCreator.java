@@ -18,6 +18,7 @@ import com.github.javafaker.Address;
 import com.github.javafaker.Bool;
 import com.github.javafaker.Commerce;
 import com.github.javafaker.Company;
+import com.github.javafaker.Country;
 import com.github.javafaker.DateAndTime;
 import com.github.javafaker.Faker;
 import com.github.javafaker.Internet;
@@ -158,6 +159,7 @@ public abstract class DataCreator {
 	protected Bool bool = _faker.bool();
 	protected Commerce commerce = _faker.commerce();
 	protected Company company = _faker.company();
+	protected Country country = _faker.country();
 	protected DateAndTime dateAndTime = _faker.date();
 	protected FaroProject faroProject;
 	protected Internet internet = _faker.internet();
