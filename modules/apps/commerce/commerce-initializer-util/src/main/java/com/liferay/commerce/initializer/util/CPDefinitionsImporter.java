@@ -910,7 +910,7 @@ public class CPDefinitionsImporter {
 			overrideSubscriptionInfo, subscriptionEnabled, subscriptionLength,
 			subscriptionType,
 			_getSubscriptionTypeSettingsProperties(subscriptionInfoJSONObject),
-			maxSubscriptionCycles, serviceContext);
+			maxSubscriptionCycles, null, serviceContext);
 
 		_addWarehouseQuantities(
 			skuJSONObject, commerceInventoryWarehouseIds, serviceContext,

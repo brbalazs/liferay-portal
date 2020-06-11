@@ -268,7 +268,7 @@ public class CPDefinitionLocalServiceImpl
 				externalReferenceCode, displayDateMonth, displayDateDay,
 				displayDateYear, displayDateHour, displayDateMinute,
 				expirationDateMonth, expirationDateDay, expirationDateYear,
-				expirationDateHour, expirationDateMinute, neverExpire,
+				expirationDateHour, expirationDateMinute, neverExpire, null,
 				cpInstanceServiceContext);
 		}
 

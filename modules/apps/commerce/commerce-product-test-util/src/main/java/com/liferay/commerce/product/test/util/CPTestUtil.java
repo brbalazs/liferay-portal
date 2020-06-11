@@ -197,7 +197,7 @@ public class CPTestUtil {
 			displayDateHour, displayDateMinute, expirationDateMonth,
 			expirationDateDay, expirationDateYear, expirationDateHour,
 			expirationDateMinute, true, false, false, 1, StringPool.BLANK, null,
-			0, serviceContext);
+			0, null, serviceContext);
 	}
 
 	public static CPInstance addCPDefinitionCPInstanceWithPrice(
