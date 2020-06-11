@@ -703,7 +703,7 @@ export const sitePagesListColumns = {
 			),
 			routeFn: ({data: {assetId, assetTitle}}) =>
 				setUriQueryValues(
-					pickBy({...rangeSelectors}),
+					pickBy(rangeSelectors),
 					toRoute(route, {
 						channelId,
 						groupId,
