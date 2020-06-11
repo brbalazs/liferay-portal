@@ -972,6 +972,15 @@ public abstract class BaseMockContactsEngineClientImpl
 	}
 
 	@Override
+	public Channel patchChannel(
+		FaroProject faroProject, String id, String dataSourceId,
+		List<Map<String, String>> groups) {
+
+		return contactsEngineClient.patchChannel(
+			faroProject, id, dataSourceId, groups);
+	}
+
+	@Override
 	public DataSource patchDataSource(
 		FaroProject faroProject, String id, Credentials credentials,
 		long userId, String name, String url, Provider provider, Event event,

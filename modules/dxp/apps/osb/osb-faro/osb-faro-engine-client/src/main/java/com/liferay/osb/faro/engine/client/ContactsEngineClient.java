@@ -460,6 +460,10 @@ public interface ContactsEngineClient {
 	public Channel patchChannel(
 		FaroProject faroProject, String id, String name);
 
+	public Channel patchChannel(
+		FaroProject faroProject, String id, String dataSourceId,
+		List<Map<String, String>> groups);
+
 	public DataSource patchDataSource(
 		FaroProject faroProject, String id, Credentials credentials,
 		long userId, String name, String url, Provider provider, Event event,

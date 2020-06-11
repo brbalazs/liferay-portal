@@ -2496,6 +2496,23 @@ public class ContactsEngineClientImpl
 	}
 
 	@Override
+	public Channel patchChannel(
+		FaroProject faroProject, String id, String dataSourceId,
+		List<Map<String, String>> groups) {
+
+		Map<String, Object> channelPatch = new HashMap<>();
+
+		channelPatch.put("dataSourceId", dataSourceId);
+		channelPatch.put("groups", groups);
+
+		Map<String, Object> patchChannelObject = patch(
+			faroProject, Rels.CHANNEL, id, channelPatch, Map.class);
+
+		return objectMapper.convertValue(
+			patchChannelObject.get("channel"), Channel.class);
+	}
+
+	@Override
 	public DataSource patchDataSource(
 		FaroProject faroProject, String id, Credentials credentials,
 		long userId, String name, String url, Provider provider, Event event,
