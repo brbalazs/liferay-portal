@@ -16,7 +16,6 @@ package com.liferay.osb.faro.contacts.demo.internal.data.creator;
 
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.model.FaroProject;
-import com.liferay.petra.string.StringPool;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -43,6 +42,7 @@ public class FaroInfoOrganizationsDataCreator extends DataCreator {
 
 		faroInfoOrganization.put(
 			"dataSourceId", organization.get("osbAsahDataSourceId"));
+
 		faroInfoOrganization.put("dateCreated", dateFormat.format(new Date()));
 		faroInfoOrganization.put(
 			"dateModified", organization.get("modifiedDate"));

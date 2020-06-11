@@ -17,12 +17,9 @@ package com.liferay.osb.faro.contacts.demo.internal.data.creator;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.kernel.util.Validator;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Matthew Kong
@@ -41,6 +38,26 @@ public class LiferayOrganizationsDataCreator extends DataCreator {
 		_faroInfoOrganizationsDataCreator =
 			new FaroInfoOrganizationsDataCreator(
 				contactsEngineClient, faroProject);
+	}
+
+	public void execute() {
+		super.execute();
+
+		for (Object object : getObjects()) {
+			_faroInfoOrganizationsDataCreator.create(new Object[] {object});
+		}
+
+		_faroInfoOrganizationsDataCreator.execute();
+	}
+
+	@Override
+	public String getClassName() {
+		return "com.liferay.portal.kernel.model.Organization";
+	}
+
+	@Override
+	public String getClassPKFieldName() {
+		return "organizationId";
 	}
 
 	@Override
@@ -74,16 +91,6 @@ public class LiferayOrganizationsDataCreator extends DataCreator {
 		return organization;
 	}
 
-	public void execute() {
-		super.execute();
-
-		for (Object object : getObjects()) {
-			_faroInfoOrganizationsDataCreator.create(new Object[] {object});
-		}
-
-		_faroInfoOrganizationsDataCreator.execute();
-	}
-
 	private String _getNameTreePath(
 		String name, Map<String, Object> parentOrganization) {
 
@@ -95,7 +102,7 @@ public class LiferayOrganizationsDataCreator extends DataCreator {
 	}
 
 	private final String _dataSourceId;
-
-	private FaroInfoOrganizationsDataCreator _faroInfoOrganizationsDataCreator;
+	private final FaroInfoOrganizationsDataCreator
+		_faroInfoOrganizationsDataCreator;
 
 }

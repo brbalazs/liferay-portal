@@ -36,6 +36,16 @@ public class LiferayUserGroupsDataCreator extends DataCreator {
 	}
 
 	@Override
+	public String getClassName() {
+		return "com.liferay.portal.kernel.model.UserGroup";
+	}
+
+	@Override
+	public String getClassPKFieldName() {
+		return "userGroupId";
+	}
+
+	@Override
 	protected Map<String, Object> doCreate(Object[] params) {
 		Map<String, Object> team = new HashMap<>();
 

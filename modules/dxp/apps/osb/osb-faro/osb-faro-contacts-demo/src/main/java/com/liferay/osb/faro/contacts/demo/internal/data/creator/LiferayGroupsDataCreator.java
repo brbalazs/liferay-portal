@@ -16,11 +16,9 @@ package com.liferay.osb.faro.contacts.demo.internal.data.creator;
 
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.model.FaroProject;
-import com.liferay.petra.string.StringPool;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Matthew Kong
@@ -37,12 +35,22 @@ public class LiferayGroupsDataCreator extends DataCreator {
 	}
 
 	@Override
+	public String getClassName() {
+		return "com.liferay.portal.kernel.model.Group";
+	}
+
+	@Override
+	public String getClassPKFieldName() {
+		return "groupId";
+	}
+
+	@Override
 	protected Map<String, Object> doCreate(Object[] params) {
 		Map<String, Object> group = new HashMap<>();
 
 		group.put("groupId", number.randomNumber(8, false));
 		group.put("id", internet.uuid());
-		group.put("name", commerce.department());
+		group.put("name", pokemon.name());
 		group.put("osbAsahDataSourceId", _dataSourceId);
 
 		return group;

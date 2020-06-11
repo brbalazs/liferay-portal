@@ -35,6 +35,16 @@ public class LiferayRolesDataCreator extends DataCreator {
 	}
 
 	@Override
+	public String getClassName() {
+		return "com.liferay.portal.kernel.model.Role";
+	}
+
+	@Override
+	public String getClassPKFieldName() {
+		return "roleId";
+	}
+
+	@Override
 	protected Map<String, Object> doCreate(Object[] params) {
 		Map<String, Object> role = new HashMap<>();
 

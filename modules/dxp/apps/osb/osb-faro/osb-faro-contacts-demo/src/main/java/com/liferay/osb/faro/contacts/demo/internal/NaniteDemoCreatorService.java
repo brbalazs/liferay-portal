@@ -15,6 +15,7 @@
 package com.liferay.osb.faro.contacts.demo.internal;
 
 import com.liferay.osb.faro.contacts.demo.internal.data.creator.AnalyticEventsDataCreator;
+import com.liferay.osb.faro.contacts.demo.internal.data.creator.LiferayAssociationsDataCreator;
 import com.liferay.osb.faro.contacts.demo.internal.data.creator.LiferayGroupsDataCreator;
 import com.liferay.osb.faro.contacts.demo.internal.data.creator.LiferayOrganizationsDataCreator;
 import com.liferay.osb.faro.contacts.demo.internal.data.creator.LiferayRolesDataCreator;
@@ -45,6 +46,7 @@ import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -70,11 +72,13 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 		FaroThreadLocal.setCacheEnabled(false);
 
-		createIndividualSegments();
+		String channelId = getChannelId();
+
+		createIndividualSegments(channelId);
 
 		createMembershipChanges();
 
-		createLiferayAssociations(liferayUsersDataCreator);
+		createLiferayAssociations(channelId, liferayUsersDataCreator);
 
 		AnalyticEventsDataCreator analyticEventsDataCreator =
 			createAnalyticEvents(liferayUsersDataCreator);
@@ -89,77 +93,6 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 		curateEngagements();
 		curateInterests();
-	}
-
-	protected void createLiferayAssociations(
-		LiferayUsersDataCreator liferayUsersDataCreator) {
-
-		// Groups
-
-		LiferayGroupsDataCreator liferayGroupsDataCreator =
-			new LiferayGroupsDataCreator(
-				contactsEngineClient, faroProject,
-				liferayUsersDataCreator.getDataSourceId());
-
-		liferayGroupsDataCreator.create(5, true);
-
-		liferayGroupsDataCreator.execute();
-
-		// Organizations
-
-		LiferayOrganizationsDataCreator liferayOrganizationsDataCreator =
-			new LiferayOrganizationsDataCreator(
-				contactsEngineClient, faroProject,
-				liferayUsersDataCreator.getDataSourceId());
-
-		Map<String, Object> liferayOrganization =
-			liferayOrganizationsDataCreator.create(
-				new Object[] {"Liferay", new HashMap<>()});
-
-		liferayOrganizationsDataCreator.create(
-			new Object[] {"Engineering", liferayOrganization});
-		liferayOrganizationsDataCreator.create(
-			new Object[] {"Marketing", liferayOrganization});
-		liferayOrganizationsDataCreator.create(
-			new Object[] {"Sales", liferayOrganization});
-		liferayOrganizationsDataCreator.create(
-			new Object[] {"Support", liferayOrganization});
-
-		liferayOrganizationsDataCreator.execute();
-
-		// Roles
-
-		LiferayRolesDataCreator liferayRolesDataCreator =
-			new LiferayRolesDataCreator(
-				contactsEngineClient, faroProject,
-				liferayUsersDataCreator.getDataSourceId());
-
-		liferayRolesDataCreator.create(5, true);
-
-		liferayRolesDataCreator.execute();
-
-		// Teams
-
-		LiferayTeamsDataCreator liferayTeamsDataCreator =
-			new LiferayTeamsDataCreator(
-				contactsEngineClient, faroProject,
-				liferayUsersDataCreator.getDataSourceId());
-
-		liferayTeamsDataCreator.create(5, true);
-
-		liferayTeamsDataCreator.execute();
-
-		// User Groups
-
-		LiferayUserGroupsDataCreator liferayUserGroupsDataCreator =
-			new LiferayUserGroupsDataCreator(
-				contactsEngineClient, faroProject,
-				liferayUsersDataCreator.getDataSourceId());
-
-		liferayUserGroupsDataCreator.create(5, true);
-
-		liferayUserGroupsDataCreator.execute();
-
 	}
 
 	protected AnalyticEventsDataCreator createAnalyticEvents(
@@ -222,20 +155,13 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 			faroProject, dataSourceId, context, ownerType, fieldMappingMaps);
 	}
 
-	protected void createIndividualSegments() throws Exception {
-		Results results = contactsEngineClient.getChannels(
-			faroProject, 0, 1, null);
-
-		List<Channel> channels =  results.getItems();
-
-		Channel channel = channels.get(0);
-
+	protected void createIndividualSegments(String channelId) throws Exception {
 		for (Map.Entry<String, String> individualSegment :
 				_individualSegments.entrySet()) {
 
 			Http.Options options = new Http.Options();
 
-			options.addPart("channelId", channel.getId());
+			options.addPart("channelId", channelId);
 			options.addPart("filter", individualSegment.getValue());
 			options.addPart("name", individualSegment.getKey());
 			options.addPart(
@@ -248,6 +174,111 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 			http.URLtoString(options);
 		}
+	}
+
+	protected void createLiferayAssociations(
+		String channelId, LiferayUsersDataCreator liferayUsersDataCreator) {
+
+		// Groups
+
+		LiferayGroupsDataCreator liferayGroupsDataCreator =
+			new LiferayGroupsDataCreator(
+				contactsEngineClient, faroProject,
+				liferayUsersDataCreator.getDataSourceId());
+
+		liferayGroupsDataCreator.create(5, true);
+
+		liferayGroupsDataCreator.execute();
+
+		List<Map<String, String>> groups = new ArrayList<>();
+
+		for (Map<String, Object> liferayGroup :
+				liferayGroupsDataCreator.getObjects()) {
+
+			Map<String, String> group = new HashMap<>();
+
+			group.put("id", String.valueOf(liferayGroup.get("groupId")));
+			group.put("name", (String)liferayGroup.get("name"));
+
+			groups.add(group);
+		}
+
+		contactsEngineClient.patchChannel(
+			faroProject, channelId, liferayUsersDataCreator.getDataSourceId(),
+			groups);
+
+		// Organizations
+
+		LiferayOrganizationsDataCreator liferayOrganizationsDataCreator =
+			new LiferayOrganizationsDataCreator(
+				contactsEngineClient, faroProject,
+				liferayUsersDataCreator.getDataSourceId());
+
+		Map<String, Object> liferayOrganization =
+			liferayOrganizationsDataCreator.create(
+				true, new Object[] {"Liferay", new HashMap<>()});
+
+		liferayOrganizationsDataCreator.create(
+			true, new Object[] {"Engineering", liferayOrganization});
+		liferayOrganizationsDataCreator.create(
+			true, new Object[] {"Marketing", liferayOrganization});
+		liferayOrganizationsDataCreator.create(
+			true, new Object[] {"Sales", liferayOrganization});
+		liferayOrganizationsDataCreator.create(
+			true, new Object[] {"Support", liferayOrganization});
+
+		liferayOrganizationsDataCreator.execute();
+
+		// Roles
+
+		LiferayRolesDataCreator liferayRolesDataCreator =
+			new LiferayRolesDataCreator(
+				contactsEngineClient, faroProject,
+				liferayUsersDataCreator.getDataSourceId());
+
+		liferayRolesDataCreator.create(5, true);
+
+		liferayRolesDataCreator.execute();
+
+		// Teams
+
+		LiferayTeamsDataCreator liferayTeamsDataCreator =
+			new LiferayTeamsDataCreator(
+				contactsEngineClient, faroProject,
+				liferayUsersDataCreator.getDataSourceId());
+
+		liferayTeamsDataCreator.create(
+			5, true, new Object[] {liferayGroupsDataCreator.getRandom()});
+
+		liferayTeamsDataCreator.execute();
+
+		// User Groups
+
+		LiferayUserGroupsDataCreator liferayUserGroupsDataCreator =
+			new LiferayUserGroupsDataCreator(
+				contactsEngineClient, faroProject,
+				liferayUsersDataCreator.getDataSourceId());
+
+		liferayUserGroupsDataCreator.create(5, true);
+
+		liferayUserGroupsDataCreator.execute();
+
+		// Associations
+
+		LiferayAssociationsDataCreator liferayAssociationsDataCreator =
+			new LiferayAssociationsDataCreator(
+				faroProject, liferayUsersDataCreator.getDataSourceId(),
+				liferayGroupsDataCreator, liferayOrganizationsDataCreator,
+				liferayRolesDataCreator, liferayTeamsDataCreator,
+				liferayUserGroupsDataCreator);
+
+		for (Map<String, Object> liferayUser :
+				liferayUsersDataCreator.getObjects()) {
+
+			liferayAssociationsDataCreator.create(new Object[] {liferayUser});
+		}
+
+		liferayAssociationsDataCreator.execute();
 	}
 
 	protected LiferayUsersDataCreator createLiferayData() {
@@ -434,6 +465,21 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 		contactsEngineClient.addNanites(
 			faroProject,
 			Collections.singletonList("IndividualInterestScoresNanite"));
+	}
+
+	protected String getChannelId() {
+		Results results = contactsEngineClient.getChannels(
+			faroProject, 0, 1, null);
+
+		List<Channel> channels = results.getItems();
+
+		if (channels.isEmpty()) {
+			return null;
+		}
+
+		Channel channel = channels.get(0);
+
+		return channel.getId();
 	}
 
 	protected LiferayProvider getLiferayProvider() {

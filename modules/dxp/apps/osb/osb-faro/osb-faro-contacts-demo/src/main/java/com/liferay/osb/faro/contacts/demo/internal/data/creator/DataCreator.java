@@ -27,8 +27,8 @@ import com.github.javafaker.LordOfTheRings;
 import com.github.javafaker.Name;
 import com.github.javafaker.Number;
 import com.github.javafaker.PhoneNumber;
-
 import com.github.javafaker.Pokemon;
+
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.petra.string.StringBundler;
@@ -62,6 +62,14 @@ public abstract class DataCreator {
 		this.faroProject = faroProject;
 		_weDeployServiceName = weDeployServiceName;
 		_collectionName = collectionName;
+	}
+
+	public Map<String, Object> create(boolean keepInMemory, Object[] params) {
+		if (keepInMemory) {
+			_memoryCount++;
+		}
+
+		return create(params);
 	}
 
 	public void create(int count, boolean keepInMemory) {
@@ -122,6 +130,14 @@ public abstract class DataCreator {
 		}
 
 		_index = _objects.size();
+	}
+
+	public String getClassName() {
+		return null;
+	}
+
+	public String getClassPKFieldName() {
+		return null;
 	}
 
 	public List<Map<String, Object>> getObjects() {
