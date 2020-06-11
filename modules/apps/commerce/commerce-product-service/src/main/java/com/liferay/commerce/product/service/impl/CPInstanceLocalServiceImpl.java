@@ -104,7 +104,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			long maxSubscriptionCycles, boolean deliverySubscriptionEnabled,
 			int deliverySubscriptionLength, String deliverySubscriptionType,
 			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
-			long deliveryMaxSubscriptionCycles, ServiceContext serviceContext)
+			long deliveryMaxSubscriptionCycles, String unspsc, ServiceContext serviceContext)
 		throws PortalException {
 
 		_validateSku(cpDefinitionId, 0, sku);
@@ -192,6 +192,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		cpInstance.setStatusByUserId(user.getUserId());
 		cpInstance.setStatusDate(serviceContext.getModifiedDate(now));
 		cpInstance.setExpandoBridgeAttributes(serviceContext);
+		cpInstance.setUNSPSC(unspsc);
 
 		cpInstance = cpInstancePersistence.update(cpInstance);
 
@@ -258,7 +259,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			boolean subscriptionEnabled, int subscriptionLength,
 			String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
-			long maxSubscriptionCycles, ServiceContext serviceContext)
+			long maxSubscriptionCycles, String unspsc, ServiceContext serviceContext)
 		throws PortalException {
 
 		return cpInstanceLocalService.addCPInstance(
@@ -271,7 +272,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			expirationDateHour, expirationDateMinute, neverExpire,
 			overrideSubscriptionInfo, subscriptionEnabled, subscriptionLength,
 			subscriptionType, subscriptionTypeSettingsProperties,
-			maxSubscriptionCycles, false, 1, null, null, 0, serviceContext);
+			maxSubscriptionCycles, false, 1, null, null, 0, unspsc, serviceContext);
 	}
 
 	/**
@@ -314,7 +315,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
+			int expirationDateMinute, boolean neverExpire, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -334,7 +335,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			displayDateMinute, expirationDateMonth, expirationDateDay,
 			expirationDateYear, expirationDateHour, expirationDateMinute,
 			neverExpire, false, false, 1, StringPool.BLANK, null, 0,
-			serviceContext);
+			unspsc, serviceContext);
 	}
 
 	/**
@@ -398,7 +399,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			boolean subscriptionEnabled, int subscriptionLength,
 			String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
-			long maxSubscriptionCycles, ServiceContext serviceContext)
+			long maxSubscriptionCycles, String unspsc, ServiceContext serviceContext)
 		throws PortalException {
 
 		return cpInstanceLocalService.addCPInstance(
@@ -414,7 +415,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			expirationDateHour, expirationDateMinute, neverExpire,
 			overrideSubscriptionInfo, subscriptionEnabled, subscriptionLength,
 			subscriptionType, subscriptionTypeSettingsProperties,
-			maxSubscriptionCycles, serviceContext);
+			maxSubscriptionCycles, unspsc, serviceContext);
 	}
 
 	/**
@@ -468,7 +469,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
-			boolean neverExpire, ServiceContext serviceContext)
+			boolean neverExpire, String unspsc, ServiceContext serviceContext)
 		throws PortalException {
 
 		return cpInstanceLocalService.addCPInstance(
@@ -482,7 +483,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
 			expirationDateHour, expirationDateMinute, neverExpire, false, false,
-			1, StringPool.BLANK, null, 0, serviceContext);
+			1, StringPool.BLANK, null, 0, unspsc, serviceContext);
 	}
 
 	@Override
@@ -525,7 +526,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 				cpDefinition.getDepth(), cpDefinition.getWeight(),
 				BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, true,
 				cpDefinition.getDisplayDate(), cpDefinition.getExpirationDate(),
-				neverExpire, serviceContext);
+				neverExpire, null, serviceContext);
 		}
 	}
 
@@ -950,7 +951,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
+			int expirationDateMinute, boolean neverExpire, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -965,7 +966,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			cpInstance.getCost(), published, displayDateMonth, displayDateDay,
 			displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, neverExpire,
+			expirationDateHour, expirationDateMinute, neverExpire, unspsc,
 			serviceContext);
 	}
 
@@ -980,7 +981,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
-			boolean neverExpire, ServiceContext serviceContext)
+			boolean neverExpire, String unspsc, ServiceContext serviceContext)
 		throws PortalException {
 
 		// Commerce product instance
@@ -1041,6 +1042,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		cpInstance.setStatusByUserId(user.getUserId());
 		cpInstance.setStatusDate(serviceContext.getModifiedDate(now));
 		cpInstance.setExpandoBridgeAttributes(serviceContext);
+		cpInstance.setUNSPSC(unspsc);
 
 		cpInstance = cpInstancePersistence.update(cpInstance);
 
@@ -1295,7 +1297,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
-			boolean neverExpire, ServiceContext serviceContext)
+			boolean neverExpire, String unspsc, ServiceContext serviceContext)
 		throws PortalException {
 
 		if (Validator.isBlank(externalReferenceCode)) {
@@ -1313,7 +1315,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 					displayDateMonth, displayDateDay, displayDateYear,
 					displayDateHour, displayDateMinute, expirationDateMonth,
 					expirationDateDay, expirationDateYear, expirationDateHour,
-					expirationDateMinute, neverExpire, serviceContext);
+					expirationDateMinute, neverExpire, unspsc, serviceContext);
 			}
 		}
 
@@ -1323,7 +1325,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			cost, published, externalReferenceCode, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, neverExpire,
+			expirationDateHour, expirationDateMinute, neverExpire, unspsc,
 			serviceContext);
 	}
 
@@ -1335,7 +1337,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			double width, double height, double depth, double weight,
 			BigDecimal price, BigDecimal promoPrice, BigDecimal cost,
 			boolean published, Date displayDate, Date expirationDate,
-			boolean neverExpire, ServiceContext serviceContext)
+			boolean neverExpire, String unspsc, ServiceContext serviceContext)
 		throws PortalException {
 
 		User user = userLocalService.getUser(serviceContext.getUserId());
@@ -1375,7 +1377,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			displayDateHour, displayDateMinute, expirationDateMonth,
 			expirationDateDay, expirationDateYear, expirationDateHour,
 			expirationDateMinute, neverExpire, false, false, 1,
-			StringPool.BLANK, null, 0, serviceContext);
+			StringPool.BLANK, null, 0, unspsc, serviceContext);
 	}
 
 	protected SearchContext buildSearchContext(

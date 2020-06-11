@@ -56,7 +56,7 @@ public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
+			int expirationDateMinute, boolean neverExpire, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -76,7 +76,7 @@ public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 			displayDateMinute, expirationDateMonth, expirationDateDay,
 			expirationDateYear, expirationDateHour, expirationDateMinute,
 			neverExpire, false, false, 1, StringPool.BLANK, null, 0,
-			serviceContext);
+			unspsc, serviceContext);
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
+			int expirationDateMinute, boolean neverExpire, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -130,7 +130,7 @@ public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 			displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
 			expirationDateHour, expirationDateMinute, neverExpire,
-			serviceContext);
+			unspsc, serviceContext);
 	}
 
 	@Override
@@ -331,7 +331,7 @@ public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
-			int expirationDateMinute, boolean neverExpire,
+			int expirationDateMinute, boolean neverExpire, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -346,7 +346,7 @@ public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 			published, displayDateMonth, displayDateDay, displayDateYear,
 			displayDateHour, displayDateMinute, expirationDateMonth,
 			expirationDateDay, expirationDateYear, expirationDateHour,
-			expirationDateMinute, neverExpire, serviceContext);
+			expirationDateMinute, neverExpire, unspsc, serviceContext);
 	}
 
 	@Override
@@ -446,7 +446,7 @@ public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
-			boolean neverExpire, ServiceContext serviceContext)
+			boolean neverExpire, String unspsc, ServiceContext serviceContext)
 		throws PortalException {
 
 		_checkCommerceCatalogPermission(groupId, ActionKeys.UPDATE);
@@ -457,7 +457,7 @@ public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 			cost, published, externalReferenceCode, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
-			expirationDateHour, expirationDateMinute, neverExpire,
+			expirationDateHour, expirationDateMinute, neverExpire, unspsc,
 			serviceContext);
 	}
 
