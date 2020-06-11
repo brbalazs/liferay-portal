@@ -225,18 +225,6 @@ public class DxpSteps {
 			"//div[contains(text(),'Your request completed successfully.')]");
 	}
 
-	@When("^I add activity to user$")
-	public void createDxpActivity() throws Exception {
-		_faroSelenium.get(PropsUtil.get("portal.url"));
-
-		_handleDxpLogin();
-		_handleDxpPasswordReminder();
-
-		_faroSelenium.click("//h2[@role='heading' and text()='Liferay DXP']");
-
-		_handleDxpLogout();
-	}
-
 	/**
 	 * Creates a page on DXP and generates click activity
 	 *
@@ -282,6 +270,18 @@ public class DxpSteps {
 		_faroSelenium.click("//a/span[text()=' " + pageName + " ']");
 
 		Thread.sleep(90000);
+	}
+
+	@When("^I add activity to user$")
+	public void createDxpActivity() throws Exception {
+		_faroSelenium.get(PropsUtil.get("portal.url"));
+
+		_handleDxpLogin();
+		_handleDxpPasswordReminder();
+
+		_faroSelenium.click("//h2[@role='heading' and text()='Liferay DXP']");
+
+		_handleDxpLogout();
 	}
 
 	@When(
@@ -437,10 +437,31 @@ public class DxpSteps {
 	}
 
 	private static void _handleDxpLogout() throws Exception {
-		if(_faroSelenium.isElementNotPresent("//a[contains(@class,'sign-in')]")) {
-			_faroSelenium.click("//h2[@role='heading' and text()='Liferay DXP']");
+		if (_faroSelenium.isElementNotPresent(
+				"//a[contains(@class,'sign-in')]")) {
 
-			_faroSelenium.click("//div[@class='personal-menu-dropdown']//button");
+			_faroSelenium.click(
+				"//h2[@role='heading' and text()='Liferay DXP']");
+
+			_faroSelenium.waitForPageLoadingComplete();
+			_faroSelenium.waitForLoadingComplete();
+
+			_faroSelenium.click(
+				"//div[@class='personal-menu-dropdown']//button");
+
+			_faroSelenium.click("//a[text()='Sign Out']");
+		}
+		else {
+			_handleDxpLogin();
+
+			_faroSelenium.click(
+				"//h2[@role='heading' and text()='Liferay DXP']");
+
+			_faroSelenium.waitForPageLoadingComplete();
+			_faroSelenium.waitForLoadingComplete();
+
+			_faroSelenium.click(
+				"//div[@class='personal-menu-dropdown']//button");
 
 			_faroSelenium.click("//a[text()='Sign Out']");
 		}
