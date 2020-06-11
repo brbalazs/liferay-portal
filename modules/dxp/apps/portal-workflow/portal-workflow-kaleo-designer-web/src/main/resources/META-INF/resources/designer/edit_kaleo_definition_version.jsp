@@ -233,7 +233,7 @@ String successMessageKey = KaleoDesignerPortletKeys.KALEO_DESIGNER + "requestPro
 				</div>
 			</c:if>
 
-			<div class='<%= isPreviewBeforeRestoreState ? "" : "container-fluid-1280" %>'>
+			<div class="<%= isPreviewBeforeRestoreState ? "" : "container-fluid-1280" %>">
 				<div class="sidenav-content">
 					<aui:form method="post" name="fm" onSubmit="event.preventDefault();">
 						<aui:model-context bean="<%= kaleoDefinitionVersion %>" model="<%= KaleoDefinitionVersion.class %>" />

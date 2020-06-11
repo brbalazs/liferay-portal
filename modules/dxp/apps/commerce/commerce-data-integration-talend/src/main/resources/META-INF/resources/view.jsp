@@ -35,7 +35,7 @@ TalendProcessTypeHelper talendProcessTypeHelper = (TalendProcessTypeHelper)reque
 			FileEntry fileEntry = talendProcessTypeHelper.getFileEntry(commerceDataIntegrationProcess.getCommerceDataIntegrationProcessId());
 			%>
 
-			<p class='<%= (fileEntry != null) ? "text-default" : "hide text-default" %>' id="<portlet:namespace />fileEntryName">
+			<p class="<%= (fileEntry != null) ? "text-default" : "hide text-default" %>" id="<portlet:namespace />fileEntryName">
 				<span id="<portlet:namespace />fileEntryRemove">
 					<liferay-ui:icon
 						icon="times"
@@ -49,7 +49,7 @@ TalendProcessTypeHelper talendProcessTypeHelper = (TalendProcessTypeHelper)reque
 			</p>
 
 			<c:if test="<%= (commerceDataIntegrationProcess == null) || !commerceDataIntegrationProcess.isSystem() %>">
-				<div class='<%= (fileEntry != null) ? "hide" : StringPool.BLANK %>' id="<portlet:namespace />fileEntry">
+				<div class="<%= (fileEntry != null) ? "hide" : StringPool.BLANK %>" id="<portlet:namespace />fileEntry">
 					<aui:input name="srcArchive" required="<%= true %>" type="file" />
 				</div>
 			</c:if>

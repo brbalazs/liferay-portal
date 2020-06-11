@@ -113,7 +113,7 @@ String kaleoNamespace = PortalUtil.getPortletNamespace(KaleoDesignerPortletKeys.
 
 				<liferay-ui:icon
 					message="delete"
-					onClick="<%= renderResponse.getNamespace() + "confirmDeleteDefinition('" + deleteURL + "'); return false;" %>"
+					onClick='<%= renderResponse.getNamespace() + "confirmDeleteDefinition('" + deleteURL + "'); return false;" %>'
 					url="<%= deleteURL %>"
 				/>
 			</c:if>
