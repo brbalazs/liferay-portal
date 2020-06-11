@@ -347,6 +347,27 @@ public class Cart implements Cloneable {
 
 	protected CartComment[] notes;
 
+	public Status getOrderStatusInfo() {
+		return orderStatusInfo;
+	}
+
+	public void setOrderStatusInfo(Status orderStatusInfo) {
+		this.orderStatusInfo = orderStatusInfo;
+	}
+
+	public void setOrderStatusInfo(
+		UnsafeSupplier<Status, Exception> orderStatusInfoUnsafeSupplier) {
+
+		try {
+			orderStatusInfo = orderStatusInfoUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Status orderStatusInfo;
+
 	public String getOrderUUID() {
 		return orderUUID;
 	}
@@ -430,6 +451,27 @@ public class Cart implements Cloneable {
 	}
 
 	protected Integer paymentStatus;
+
+	public Status getPaymentStatusInfo() {
+		return paymentStatusInfo;
+	}
+
+	public void setPaymentStatusInfo(Status paymentStatusInfo) {
+		this.paymentStatusInfo = paymentStatusInfo;
+	}
+
+	public void setPaymentStatusInfo(
+		UnsafeSupplier<Status, Exception> paymentStatusInfoUnsafeSupplier) {
+
+		try {
+			paymentStatusInfo = paymentStatusInfoUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Status paymentStatusInfo;
 
 	public String getPaymentStatusLabel() {
 		return paymentStatusLabel;

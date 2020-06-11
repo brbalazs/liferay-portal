@@ -225,6 +225,10 @@ public abstract class BaseCartResourceImpl
 			existingCart.setNotes(cart.getNotes());
 		}
 
+		if (cart.getOrderStatusInfo() != null) {
+			existingCart.setOrderStatusInfo(cart.getOrderStatusInfo());
+		}
+
 		if (cart.getOrderUUID() != null) {
 			existingCart.setOrderUUID(cart.getOrderUUID());
 		}
@@ -239,6 +243,10 @@ public abstract class BaseCartResourceImpl
 
 		if (cart.getPaymentStatus() != null) {
 			existingCart.setPaymentStatus(cart.getPaymentStatus());
+		}
+
+		if (cart.getPaymentStatusInfo() != null) {
+			existingCart.setPaymentStatusInfo(cart.getPaymentStatusInfo());
 		}
 
 		if (cart.getPaymentStatusLabel() != null) {
@@ -267,10 +275,6 @@ public abstract class BaseCartResourceImpl
 
 		if (cart.getShippingOption() != null) {
 			existingCart.setShippingOption(cart.getShippingOption());
-		}
-
-		if (cart.getStatus() != null) {
-			existingCart.setStatus(cart.getStatus());
 		}
 
 		if (cart.getUseAsBilling() != null) {
