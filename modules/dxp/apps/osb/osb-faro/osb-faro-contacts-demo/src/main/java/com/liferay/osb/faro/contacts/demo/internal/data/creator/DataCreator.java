@@ -25,6 +25,7 @@ import com.github.javafaker.Name;
 import com.github.javafaker.Number;
 import com.github.javafaker.PhoneNumber;
 
+import com.github.javafaker.Pokemon;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.petra.string.StringBundler;
@@ -161,6 +162,7 @@ public abstract class DataCreator {
 	protected Name name = _faker.name();
 	protected Number number = _faker.number();
 	protected PhoneNumber phoneNumber = _faker.phoneNumber();
+	protected Pokemon pokemon = _faker.pokemon();
 
 	private int _getBound() {
 		if (_objects.size() <= _memoryCount) {

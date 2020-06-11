@@ -15,6 +15,7 @@
 package com.liferay.osb.faro.contacts.demo.internal;
 
 import com.liferay.osb.faro.contacts.demo.internal.data.creator.AnalyticEventsDataCreator;
+import com.liferay.osb.faro.contacts.demo.internal.data.creator.LiferayGroupsDataCreator;
 import com.liferay.osb.faro.contacts.demo.internal.data.creator.LiferayOrganizationsDataCreator;
 import com.liferay.osb.faro.contacts.demo.internal.data.creator.LiferayUsersDataCreator;
 import com.liferay.osb.faro.contacts.demo.internal.data.creator.MembershipChangesDataCreator;
@@ -177,6 +178,16 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 		DataSource dataSource = createDataSource(
 			faroProject, getLiferayProvider(), _LIFERAY_DATA_SOURCE_NAME,
 			"liferay.example.faro.com");
+
+		// Groups
+
+		LiferayGroupsDataCreator liferayGroupsDataCreator =
+			new LiferayGroupsDataCreator(
+				contactsEngineClient, faroProject, dataSource.getId());
+
+		liferayGroupsDataCreator.create(5, true);
+
+		liferayGroupsDataCreator.execute();
 
 		// Organizations
 
