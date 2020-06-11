@@ -74,12 +74,16 @@ public abstract class DataCreator {
 		}
 	}
 
-	public void create(Object[] params) {
-		_objects.add(doCreate(params));
+	public Map<String, Object> create(Object[] params) {
+		Map<String, Object> object = doCreate(params);
+
+		_objects.add(object);
 
 		if ((_objects.size() - _index) >= _BATCH_SIZE) {
 			execute();
 		}
+
+		return object;
 	}
 
 	public void createRandom(
