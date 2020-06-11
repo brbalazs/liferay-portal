@@ -1488,7 +1488,7 @@ public class CommerceOrderItemLocalServiceImpl
 		commerceOrderItem.setQuantity(quantity);
 		commerceOrderItem.setJson(json);
 
-		if (!commerceOrder.isOpen()) {
+		if (commerceOrder.isOpen()) {
 			if (commerceProductPrice == null) {
 				commerceProductPrice = _getCommerceProductPrice(
 					commerceOrderItem.getCPDefinitionId(),
