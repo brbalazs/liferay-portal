@@ -22,7 +22,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
-import com.liferay.headless.commerce.punchout.client.dto.v1_0.Group;
 import com.liferay.headless.commerce.punchout.client.dto.v1_0.PunchoutSession;
 import com.liferay.headless.commerce.punchout.client.http.HttpInvoker;
 import com.liferay.headless.commerce.punchout.client.pagination.Page;
@@ -743,7 +742,7 @@ public abstract class BasePunchoutSessionResourceTestCase {
 	}
 
 	protected PunchoutSessionResource punchoutSessionResource;
-	protected Group irrelevantGroup;
+	protected com.liferay.portal.kernel.model.Group irrelevantGroup;
 	protected Company testCompany;
 	protected Group testGroup;
 
