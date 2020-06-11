@@ -74,6 +74,40 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 
+	protected CommerceChannel addCommerceChannel(ActionRequest actionRequest)
+		throws Exception {
+
+		String name = ParamUtil.getString(actionRequest, "name");
+		String type = ParamUtil.getString(actionRequest, "type");
+		String commerceCurrencyCode = ParamUtil.getString(
+			actionRequest, "commerceCurrencyCode");
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			CommerceChannel.class.getName(), actionRequest);
+
+		HttpServletRequest httpServletRequest = _portal.getHttpServletRequest(
+			actionRequest);
+
+		CommerceChannelType commerceChannelType =
+			_commerceChannelTypeRegistry.getCommerceChannelType(type);
+
+		UnicodeProperties typeSettingsProperties = null;
+
+		String channelType = commerceChannelType.getKey();
+
+		if ((commerceChannelType != null) &&
+			!channelType.equals(CommerceChannelConstants.CHANNEL_TYPE_SITE)) {
+
+			typeSettingsProperties =
+				commerceChannelType.getTypeSettingsProperties(
+					httpServletRequest.getParameterMap());
+		}
+
+		return _commerceChannelService.addCommerceChannel(
+			0, name, type, typeSettingsProperties, commerceCurrencyCode, null,
+			serviceContext);
+	}
+
 	protected void deleteCommerceChannel(ActionRequest actionRequest)
 		throws Exception {
 
@@ -107,6 +141,12 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 			if (cmd.equals(Constants.DELETE)) {
 				deleteCommerceChannel(actionRequest);
 			}
+			else if (cmd.equals(Constants.ADD)) {
+				addCommerceChannel(actionRequest);
+			}
+			else if (cmd.equals(Constants.UPDATE)) {
+				updateCommerceChannel(actionRequest);
+			}
 			else if (cmd.equals("selectSite")) {
 				selectSite(actionRequest);
 			}
@@ -116,6 +156,15 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 
 			actionResponse.setRenderParameter("mvcPath", "/error.jsp");
 		}
+	}
+
+	protected ObjectValuePair<Long, String> getWorkflowDefinitionOVP(
+		ActionRequest actionRequest, long typePK, String typePrefix) {
+
+		String workflowDefinition = ParamUtil.getString(
+			actionRequest, typePrefix + "WorkflowDefinition");
+
+		return new ObjectValuePair<>(typePK, workflowDefinition);
 	}
 
 	protected CommerceChannel selectSite(ActionRequest actionRequest)
@@ -136,6 +185,150 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 			commerceChannel.getCommerceCurrencyCode());
 	}
 
+	protected CommerceChannel updateCommerceChannel(ActionRequest actionRequest)
+		throws Exception {
+
+		long commerceChannelId = ParamUtil.getLong(
+			actionRequest, "commerceChannelId");
+
+		String name = ParamUtil.getString(actionRequest, "name");
+		String commerceCurrencyCode = ParamUtil.getString(
+			actionRequest, "commerceCurrencyCode");
+		String priceDisplayType = ParamUtil.getString(
+			actionRequest, "priceDisplayType");
+		boolean discountsTargetNetPrice = ParamUtil.getBoolean(
+			actionRequest, "discountsTargetNetPrice");
+
+		CommerceChannel commerceChannel =
+			_commerceChannelService.getCommerceChannel(commerceChannelId);
+
+		_updateSiteType(commerceChannel, actionRequest);
+		_updateShippingTaxCategory(commerceChannel, actionRequest);
+		_updatePurchcaseOrderNumber(commerceChannel, actionRequest);
+		updateWorkflowDefinitionLinks(commerceChannel, actionRequest);
+
+		return _commerceChannelService.updateCommerceChannel(
+			commerceChannelId, commerceChannel.getSiteGroupId(), name,
+			commerceChannel.getType(),
+			commerceChannel.getTypeSettingsProperties(), commerceCurrencyCode,
+			priceDisplayType, discountsTargetNetPrice);
+	}
+
+	protected void updateWorkflowDefinitionLinks(
+			CommerceChannel commerceChannel, ActionRequest actionRequest)
+		throws PortalException {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		_commerceChannelPermission.check(
+			themeDisplay.getPermissionChecker(), commerceChannel,
+			ActionKeys.UPDATE);
+
+		List<ObjectValuePair<Long, String>> workflowDefinitionOVPs =
+			new ArrayList<>(2);
+
+		workflowDefinitionOVPs.add(
+			getWorkflowDefinitionOVP(
+				actionRequest, CommerceOrderConstants.TYPE_PK_APPROVAL,
+				"buyer-order-approval"));
+		workflowDefinitionOVPs.add(
+			getWorkflowDefinitionOVP(
+				actionRequest, CommerceOrderConstants.TYPE_PK_FULFILLMENT,
+				"seller-order-acceptance"));
+
+		_workflowDefinitionLinkLocalService.updateWorkflowDefinitionLinks(
+			_portal.getUserId(actionRequest), commerceChannel.getCompanyId(),
+			commerceChannel.getGroupId(), CommerceOrder.class.getName(), 0,
+			workflowDefinitionOVPs);
+	}
+
+	private void _updatePurchcaseOrderNumber(
+			CommerceChannel commerceChannel, ActionRequest actionRequest)
+		throws Exception {
+
+		Map<String, String> parameterMap = PropertiesParamUtil.getProperties(
+			actionRequest, "settings--");
+
+		Settings settings = _settingsFactory.getSettings(
+			new GroupServiceSettingsLocator(
+				commerceChannel.getGroupId(),
+				CommerceConstants.ORDER_SERVICE_NAME));
+
+		ModifiableSettings modifiableSettings =
+			settings.getModifiableSettings();
+
+		for (Map.Entry<String, String> entry : parameterMap.entrySet()) {
+			modifiableSettings.setValue(entry.getKey(), entry.getValue());
+		}
+
+		modifiableSettings.store();
+	}
+
+	private void _updateShippingTaxCategory(
+			CommerceChannel commerceChannel, ActionRequest actionRequest)
+		throws Exception {
+
+		Map<String, String> parameterMap = PropertiesParamUtil.getProperties(
+			actionRequest, "shippingTaxSettings--");
+
+		Settings settings = _settingsFactory.getSettings(
+			new GroupServiceSettingsLocator(
+				commerceChannel.getGroupId(),
+				CommerceConstants.TAX_SERVICE_NAME));
+
+		ModifiableSettings modifiableSettings =
+			settings.getModifiableSettings();
+
+		for (Map.Entry<String, String> entry : parameterMap.entrySet()) {
+			modifiableSettings.setValue(entry.getKey(), entry.getValue());
+		}
+
+		modifiableSettings.store();
+	}
+
+	private void _updateSiteType(
+			CommerceChannel commerceChannel, ActionRequest actionRequest)
+		throws Exception {
+
+		Map<String, String> parameterMap = PropertiesParamUtil.getProperties(
+			actionRequest, "settings--");
+
+		Settings settings = _settingsFactory.getSettings(
+			new GroupServiceSettingsLocator(
+				commerceChannel.getGroupId(),
+				CommerceAccountConstants.SERVICE_NAME));
+
+		ModifiableSettings modifiableSettings =
+			settings.getModifiableSettings();
+
+		for (Map.Entry<String, String> entry : parameterMap.entrySet()) {
+			modifiableSettings.setValue(entry.getKey(), entry.getValue());
+		}
+
+		modifiableSettings.store();
+	}
+
+	@Reference
+	private CommerceChannelPermission _commerceChannelPermission;
+
 	@Reference
 	private CommerceChannelService _commerceChannelService;
+
+	@Reference
+	private CommerceChannelTypeRegistry _commerceChannelTypeRegistry;
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
+
+	@Reference
+	private Portal _portal;
+
+	@Reference
+	private SettingsFactory _settingsFactory;
+
+	@Reference
+	private WorkflowDefinitionLinkLocalService
+		_workflowDefinitionLinkLocalService;
+
 }
