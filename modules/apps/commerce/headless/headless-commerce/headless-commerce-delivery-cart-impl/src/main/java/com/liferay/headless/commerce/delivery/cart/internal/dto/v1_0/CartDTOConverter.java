@@ -27,6 +27,7 @@ import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Cart;
+import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Status;
 import com.liferay.headless.commerce.delivery.cart.dto.v1_0.Summary;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -73,11 +74,23 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 		ResourceBundle resourceBundle = LanguageResources.getResourceBundle(
 			locale);
 
-		String workflowStatusLabel = LanguageUtil.get(
-			resourceBundle,
-			WorkflowConstants.getStatusLabel(commerceOrder.getStatus()));
+		String commerceOrderStatusLabel =
+			CommerceOrderConstants.getOrderStatusLabel(
+				commerceOrder.getOrderStatus());
 
-		String commerceOrderPaymentStatusLabel = LanguageUtil.get(
+		String commerceOrderStatusLabelI18n = LanguageUtil.get(
+			resourceBundle,
+			CommerceOrderConstants.getOrderStatusLabel(
+				commerceOrder.getOrderStatus()));
+
+		String commerceOrderWorkflowStatusLabel =
+			WorkflowConstants.getStatusLabel(commerceOrder.getOrderStatus());
+
+		String commerceOrderPaymentStatusLabel =
+			CommerceOrderConstants.getPaymentStatusLabel(
+				commerceOrder.getPaymentStatus());
+
+		String commerceOrderPaymentStatusLabelI18n = LanguageUtil.get(
 			resourceBundle,
 			CommerceOrderConstants.getPaymentStatusLabel(
 				commerceOrder.getPaymentStatus()));
@@ -94,14 +107,21 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 				id = commerceOrder.getCommerceOrderId();
 				lastPriceUpdateDate = commerceOrder.getLastPriceUpdateDate();
 				modifiedDate = commerceOrder.getModifiedDate();
+				orderStatusInfo = _getOrderStatusInfo(
+					commerceOrder.getOrderStatus(), commerceOrderStatusLabel,
+					commerceOrderStatusLabelI18n);
 				orderUUID = commerceOrder.getUuid();
 				paymentMethod = commerceOrder.getCommercePaymentMethodKey();
 				paymentStatus = commerceOrder.getPaymentStatus();
+				paymentStatusInfo = _getPaymentStatusInfo(
+					commerceOrder.getPaymentStatus(),
+					commerceOrderPaymentStatusLabel,
+					commerceOrderPaymentStatusLabelI18n);
 				paymentStatusLabel = commerceOrderPaymentStatusLabel;
 				printedNote = commerceOrder.getPrintedNote();
 				purchaseOrderNumber = commerceOrder.getPurchaseOrderNumber();
 				shippingAddressId = commerceOrder.getShippingAddressId();
-				status = workflowStatusLabel;
+				status = commerceOrderWorkflowStatusLabel;
 				summary = _getSummary(commerceOrder, locale);
 			}
 		};
@@ -142,6 +162,32 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 		}
 
 		return formattedDiscountPercentages.toArray(new String[0]);
+	}
+
+	private Status _getOrderStatusInfo(
+		int orderStatus, String commerceOrderStatusLabel,
+		String commerceOrderStatusLabelI18n) {
+
+		return new Status() {
+			{
+				code = orderStatus;
+				label = commerceOrderStatusLabel;
+				label_i18n = commerceOrderStatusLabelI18n;
+			}
+		};
+	}
+
+	private Status _getPaymentStatusInfo(
+		int paymentStatus, String commerceOrderPaymentStatusLabel,
+		String commerceOrderPaymentStatusLabelI18n) {
+
+		return new Status() {
+			{
+				code = paymentStatus;
+				label = commerceOrderPaymentStatusLabel;
+				label_i18n = commerceOrderPaymentStatusLabelI18n;
+			}
+		};
 	}
 
 	private Summary _getSummary(CommerceOrder commerceOrder, Locale locale)
