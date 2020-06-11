@@ -16,7 +16,6 @@ package com.liferay.commerce.catalog.web.internal.portlet.action;
 
 import com.liferay.commerce.catalog.web.internal.display.context.CommerceCatalogDisplayContext;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
-import com.liferay.commerce.currency.service.CommerceCurrencyService;
 import com.liferay.commerce.media.CommerceCatalogDefaultImage;
 import com.liferay.commerce.product.configuration.AttachmentsConfiguration;
 import com.liferay.commerce.product.constants.CPPortletKeys;
