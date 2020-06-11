@@ -21,6 +21,7 @@ import com.liferay.osb.faro.contacts.demo.internal.data.creator.SalesforceAccoun
 import com.liferay.osb.faro.contacts.demo.internal.data.creator.SalesforceIndividualsDataCreator;
 import com.liferay.osb.faro.engine.client.constants.FieldMappingConstants;
 import com.liferay.osb.faro.engine.client.model.Author;
+import com.liferay.osb.faro.engine.client.model.Channel;
 import com.liferay.osb.faro.engine.client.model.DataSource;
 import com.liferay.osb.faro.engine.client.model.FieldMapping;
 import com.liferay.osb.faro.engine.client.model.FieldMappingMap;
@@ -144,11 +145,19 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 	}
 
 	protected void createIndividualSegments() throws Exception {
+		Results results = contactsEngineClient.getChannels(
+			faroProject, 0, 1, null);
+
+		List<Channel> channels =  results.getItems();
+
+		Channel channel = channels.get(0);
+
 		for (Map.Entry<String, String> individualSegment :
 				_individualSegments.entrySet()) {
 
 			Http.Options options = new Http.Options();
 
+			options.addPart("channelId", channel.getId());
 			options.addPart("filter", individualSegment.getValue());
 			options.addPart("name", individualSegment.getKey());
 			options.addPart(
