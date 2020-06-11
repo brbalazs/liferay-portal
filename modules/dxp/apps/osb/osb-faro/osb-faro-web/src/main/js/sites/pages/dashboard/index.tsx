@@ -162,7 +162,7 @@ export const Dashboard: React.FC<IDashboardProps> = ({currentUser, router}) => {
 					routeParams={{channelId, groupId}}
 				/>
 			</BasePage.Header>
-
+			{/* Remove the DEVELOPER_MODE flag on LRAC-6119 */}
 			{DEVELOPER_MODE &&
 				showOAuthUpgradeWarning &&
 				currentUser.isAdmin() && (

@@ -150,6 +150,7 @@ const BaseDataSourcePage: React.FC<IBaseDataSourcePageProps> = ({
 				<div className='content-main'>{passedChildren}</div>
 
 				<div className='content-side'>
+					{/* Remove the DEVELOPER_MODE flag on LRAC-6119 */}
 					{DEVELOPER_MODE &&
 						dataSource &&
 						currentUser.isAdmin() &&

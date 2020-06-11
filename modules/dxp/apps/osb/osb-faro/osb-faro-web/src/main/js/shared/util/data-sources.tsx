@@ -203,7 +203,7 @@ export function getDataSourceDisplayObject(
 	if (!dataSource) {
 		return STATUS_DISPLAY.default;
 	}
-
+	// Remove the DEVELOPER_MODE flag on LRAC-6119
 	if (
 		DEVELOPER_MODE &&
 		showActionNeededStatus &&
