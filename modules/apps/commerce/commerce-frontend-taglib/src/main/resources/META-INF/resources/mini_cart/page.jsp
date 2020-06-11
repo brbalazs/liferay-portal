@@ -20,7 +20,12 @@
 
 <aui:script require="commerce-frontend-js/components/mini_cart/entry as Cart">
 	Cart.default('<%= miniCartId %>', '<%= miniCartId %>', {
+		cartActionURLs: {
+			checkoutURL: '<%= checkoutURL %>',
+			orderDetailURL: '<%= orderDetailURL %>'
+		},
 		displayDiscountLevels: <%= displayDiscountLevels %>,
+		orderId: <%= orderId %>,
 		spritemap: '<%= spritemap %>'
 	});
 </aui:script>

@@ -149,15 +149,4 @@
 			}
 		}
 	}
-
-	.rtl & {
-		&-close {
-			left: 0;
-			right: auto;
-		}
-
-		&-wrapper {
-			box-shadow: 10px $topbar-height 20px -10px rgba(0, 0, 0, .3)
-		}
-	}
 }

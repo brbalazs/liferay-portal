@@ -16,9 +16,12 @@ import ClayButton from '@clayui/button';
 import ClayIcon from '@clayui/icon';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import React, {useContext, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 
-import {PRODUCT_REMOVED} from '../../utilities/eventsDefinitions';
+import {
+	CART_PRODUCT_QUANTITY_CHANGED,
+	PRODUCT_REMOVED
+} from '../../utilities/eventsDefinitions';
 import QuantitySelector from '../quantity_selector/QuantitySelector';
 import ItemInfoView from './CartItemViews/ItemInfoView';
 import ItemPriceView from './CartItemViews/ItemPriceView';
@@ -44,10 +47,10 @@ function CartItem({item: cartItem}) {
 		name,
 		options: rawOptions,
 		price,
-		productId,
 		quantity,
 		settings,
 		sku,
+		skuId,
 		thumbnail
 	} = cartItem;
 
@@ -106,7 +109,7 @@ function CartItem({item: cartItem}) {
 								.then(() => {
 									setIsUpdating(false);
 									Liferay.fire(PRODUCT_REMOVED, {
-										productId
+										skuId
 									});
 								})
 								.catch(showErrors);
@@ -116,7 +119,7 @@ function CartItem({item: cartItem}) {
 			});
 		};
 
-	const updateItemQuantity = quantity => {
+	const updateItemQuantity = useCallback(quantity => {
 		setIsUpdating(true);
 
 		AJAX.updateItemById(cartItemId, {
@@ -126,7 +129,7 @@ function CartItem({item: cartItem}) {
 			.catch(showErrors)
 			.then(() => updateCartModel({orderId}))
 			.then(() => setIsUpdating(false));
-	};
+	}, [AJAX, cartItem, cartItemId, setIsUpdating, updateCartModel]);
 
 	const {
 		isGettingRemoved,

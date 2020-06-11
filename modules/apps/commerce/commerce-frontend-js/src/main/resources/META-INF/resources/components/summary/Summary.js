@@ -14,7 +14,7 @@
 
 import ClayLoadingIndicator from '@clayui/loading-indicator';
 import PropTypes from 'prop-types';
-import React, {useState, useEffect} from 'react';
+import React, {useCallback, useState, useEffect} from 'react';
 
 import AJAX from '../../utilities/AJAX/index';
 import {DATASET_DISPLAY_UPDATED} from '../../utilities/eventsDefinitions';
@@ -114,16 +114,14 @@ function Summary({
 }) {
 	const [items, updateItems] = useState(props.items);
 
-	const mapDataToLayout = data => Promise.resolve(
+	const mapDataToLayout = useCallback(data =>
 			typeof dataMapper === 'function'
 				? dataMapper(data)
-				: data
-		),
+				: data, [dataMapper]),
 		refreshData = ({id = null}) => {
 			if (!id || datasetDisplayId !== id) {
 				return AJAX.GET(apiUrl)
-					.then(data => mapDataToLayout(data))
-					.then(updateItems);
+					.then(data => updateItems(mapDataToLayout(data)));
 			}
 		};
 
@@ -135,21 +133,19 @@ function Summary({
 
 			return () => Liferay.detach(DATASET_DISPLAY_UPDATED, refreshData);
 		}
-
-		if (!!summaryData && Object.keys(summaryData).length > 0) {
-			mapDataToLayout(summaryData).then(updateItems);
-		}
-
 		return () => {};
 	}, [
 		apiUrl,
-		dataMapper,
-		datasetDisplayId,
-		mapDataToLayout,
-		refreshData,
-		summaryData,
-		updateItems
+		datasetDisplayId
 	]);
+
+	useEffect(() => {
+		if (!!summaryData && Object.keys(summaryData).length > 0) {
+			updateItems(mapDataToLayout(summaryData));
+		}
+
+		return () => {};
+	}, [summaryData]);
 
 	return (
 		<div className="row summary-table text-right">

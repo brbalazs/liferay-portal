@@ -13,7 +13,7 @@
  */
 
 import getJsModule from '../../../utilities/modules';
-import {DISCOUNT_LEVEL_PREFIX} from './constants';
+import {DISCOUNT_LEVEL_PREFIX, ORDER_UUID_PARAMETER} from './constants';
 
 export function isNonnull(...values) {
 	return !!values.find(value => parseFloat(value) > 0);
@@ -41,6 +41,14 @@ export function parseOptions(stringifiedJSON) {
 	return Array.isArray(options)
 		? options.map(({value}) => `${value}`).join(', ')
 		: options;
+}
+
+export function regenerateOrderDetailURL (orderDetailURL, orderUUID) {
+	const originalURL = new URL(orderDetailURL);
+
+	originalURL.searchParams.set(ORDER_UUID_PARAMETER, orderUUID);
+
+	return originalURL.toString();
 }
 
 export function resolveView({component, contentRendererModuleUrl}) {

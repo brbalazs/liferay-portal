@@ -19,6 +19,7 @@ import React, {useContext, useState} from 'react';
 
 import {liferayNavigate} from '../../utilities/index';
 import MiniCartContext from './MiniCartContext';
+import {PRODUCT_REMOVED} from '../../utilities/eventsDefinitions';
 
 function getCN(isAsking, className) {
 	return classnames(className, !isAsking && 'hide');
@@ -33,7 +34,7 @@ function CartItemsListActions({numberOfItems}) {
 			updateCartModel
 		} = useContext(MiniCartContext),
 		{id: orderId} = cartState,
-		{detailsURL} = actionURLs;
+		{orderDetailURL} = actionURLs;
 
 	const [isAsking, setIsAsking] = useState(false);
 
@@ -49,6 +50,10 @@ function CartItemsListActions({numberOfItems}) {
 				.then(() => {
 					setIsAsking(false);
 					setIsUpdating(false);
+
+					Liferay.fire(PRODUCT_REMOVED, {
+						skuId: 'all'
+					});
 				});
 		};
 
@@ -75,7 +80,7 @@ function CartItemsListActions({numberOfItems}) {
 							disabled={!numberOfItems}
 							displayType={'link'}
 							onClick={() => {
-								liferayNavigate(detailsURL);
+								liferayNavigate(orderDetailURL);
 							}}
 							small
 						>

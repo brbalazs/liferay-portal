@@ -24,13 +24,12 @@ import com.liferay.commerce.product.content.util.CPContentHelper;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
 import com.liferay.frontend.js.loader.modules.extender.npm.NPMResolver;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
-
-import javax.servlet.ServletContext;
-
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
+
+import javax.servlet.ServletContext;
 
 /**
  * @author Marco Leo
@@ -55,6 +54,10 @@ public class ServletContextUtil {
 		getCommerceDataProviderRegistry() {
 
 		return _servletContextUtil._getCommerceDataProviderRegistry();
+	}
+
+	public static final CommerceOrderHttpHelper getCommerceOrderHttpHelper() {
+		return _servletContextUtil._getCommerceOrderHttpHelper();
 	}
 
 	public static final ConfigurationProvider getConfigurationProvider() {
@@ -181,6 +184,10 @@ public class ServletContextUtil {
 
 	private CommerceDataProviderRegistry _getCommerceDataProviderRegistry() {
 		return _commerceDataProviderRegistry;
+	}
+
+	private CommerceOrderHttpHelper _getCommerceOrderHttpHelper() {
+		return _commerceOrderHttpHelper;
 	}
 
 	private ConfigurationProvider _getConfigurationProvider() {

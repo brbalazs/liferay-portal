@@ -17,5 +17,9 @@ import launcher from '../../../src/main/resources/META-INF/resources/components/
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 
 launcher('mini_cart', 'mini-cart-root-id', {
+	cartActionURLs: {
+		checkoutURL: 'http://localhost:8080',
+		orderDetailURL: 'http://localhost:8080?commerceOrderUuid=12323'
+	},
 	spritemap: './assets/icons.svg'
 });

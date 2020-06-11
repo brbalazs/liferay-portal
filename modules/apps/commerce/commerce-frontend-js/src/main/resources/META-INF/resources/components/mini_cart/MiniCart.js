@@ -27,15 +27,15 @@ import CartItemsList from './CartItemsList';
 import MiniCartContext from './MiniCartContext';
 import Opener from './Opener';
 import Wrapper from './Wrapper';
-import {generateActionURLs} from './util/cartActionURLs';
+import {regenerateOrderDetailURL} from './util/index';
 import {resolveView} from './util/index';
 
 function MiniCart({
+	cartActionURLs,
 	cartItemsListView,
 	cartView,
-	checkoutPortletId,
 	displayDiscountLevels,
-	orderDetailsPortletId,
+	orderId,
 	spritemap
 }) {
 	const AJAX = ServiceProvider.DeliveryCartAPI('v1');
@@ -43,7 +43,7 @@ function MiniCart({
 	const [isOpen, setIsOpen] = useState(false),
 		[isUpdating, setIsUpdating] = useState(false),
 		[cartState, updateCartState] = useState({}),
-		[actionURLs, setActionURLs] = useState({}),
+		[actionURLs, setActionURLs] = useState(cartActionURLs),
 		[CartView, setCartView] = useState(null);
 
 	const closeCart = () => setIsOpen(false),
@@ -54,15 +54,14 @@ function MiniCart({
 		AJAX.getCartByIdWithItems(cartId)
 			.then(model => {
 				if (model.id !== cartId) {
-					const {orderUUID} = model;
+					const {orderUUID} = model,
+						{checkoutURL, orderDetailURL} = actionURLs;
 
-					setActionURLs(
-						generateActionURLs({
-							checkoutPortletId,
-							orderDetailsPortletId,
-							orderUUID
-						})
-					);
+					setActionURLs({
+						checkoutURL,
+						orderDetailURL:
+							regenerateOrderDetailURL(orderDetailURL, orderUUID)
+					});
 				}
 
 				updateCartState({...cartState, ...model});
@@ -86,6 +85,10 @@ function MiniCart({
 			Liferay.detach(CHANGE_ORDER, updateCartModel);
 		};
 	}, [updateCartModel]);
+
+	useEffect(() => {
+		updateCartModel({orderId})
+	}, [orderId]);
 
 	useEffect(() => {
 		Liferay.on(CHANGE_ACCOUNT, resetCartState);
@@ -138,6 +141,10 @@ MiniCart.defaultProps = {
 };
 
 MiniCart.propTypes = {
+	cartActionURLs: PropTypes.shape({
+		checkoutURL: PropTypes.string,
+		orderDetailURL: PropTypes.string
+	}).isRequired,
 	cartItemsListView: PropTypes.shape({
 		component: PropTypes.func,
 		contentRendererModuleUrl: PropTypes.string
@@ -146,9 +153,8 @@ MiniCart.propTypes = {
 		component: PropTypes.func,
 		contentRendererModuleUrl: PropTypes.string
 	}),
-	checkoutPortletId: PropTypes.string,
 	displayDiscountLevels: PropTypes.bool,
-	orderDetailsPortletId: PropTypes.string,
+	orderId: PropTypes.number,
 	spritemap: PropTypes.string
 };
 

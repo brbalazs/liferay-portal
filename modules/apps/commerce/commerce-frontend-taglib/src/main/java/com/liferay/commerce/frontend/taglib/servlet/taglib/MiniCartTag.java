@@ -16,7 +16,13 @@ package com.liferay.commerce.frontend.taglib.servlet.taglib;
 
 import com.liferay.commerce.configuration.CommercePriceConfiguration;
 import com.liferay.commerce.constants.CommerceConstants;
+import com.liferay.commerce.constants.CommerceWebKeys;
+import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.frontend.taglib.internal.servlet.ServletContextUtil;
+import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.order.CommerceOrderHttpHelper;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.settings.SystemSettingsLocator;
@@ -25,7 +31,9 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.util.IncludeTag;
 
+import javax.portlet.PortletURL;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
 /**
@@ -42,7 +50,7 @@ public class MiniCartTag extends IncludeTag {
 		super.setPageContext(pageContext);
 
 		_configurationProvider = ServletContextUtil.getConfigurationProvider();
-
+		_commerceOrderHttpHelper = ServletContextUtil.getCommerceOrderHttpHelper();
 		servletContext = ServletContextUtil.getServletContext();
 	}
 
@@ -54,8 +62,11 @@ public class MiniCartTag extends IncludeTag {
 	protected void cleanUp() {
 		super.cleanUp();
 
+		_checkoutURL = null;
+		_commerceOrderHttpHelper = null;
 		_configurationProvider = null;
-		_displayDiscountLevels = false;
+		_orderDetailURL = null;
+		_orderId = 0;
 		_spritemap = null;
 	}
 
@@ -65,10 +76,68 @@ public class MiniCartTag extends IncludeTag {
 	}
 
 	@Override
-	protected void setAttributes(HttpServletRequest request) {
+	public int doStartTag() throws JspException {
+		CommerceContext commerceContext = (CommerceContext)request.getAttribute(
+			CommerceWebKeys.COMMERCE_CONTEXT);
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
+		if (Validator.isNull(_spritemap)) {
+			_spritemap = themeDisplay.getPathThemeImages() + "/clay/icons.svg";
+		}
+
+		try {
+			CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
+
+			PortletURL commerceCartPortletURL =
+				_commerceOrderHttpHelper.getCommerceCartPortletURL(
+					request, commerceOrder);
+
+			if (commerceCartPortletURL != null) {
+				_orderDetailURL = String.valueOf(commerceCartPortletURL);
+			}
+
+			_checkoutURL = StringPool.BLANK;
+
+			PortletURL commerceCheckoutPortletURL =
+				_commerceOrderHttpHelper.getCommerceCheckoutPortletURL(request);
+
+			if (commerceCheckoutPortletURL != null) {
+				_checkoutURL = String.valueOf(commerceCheckoutPortletURL);
+			}
+
+			_orderId = commerceOrder.getCommerceOrderId();
+
+		} catch (PortalException e) {
+			_checkoutURL = StringPool.BLANK;
+			_orderDetailURL = StringPool.BLANK;
+			_orderId = 0;
+		}
+
+		return super.doStartTag();
+	}
+
+	@Override
+	protected void setAttributes(HttpServletRequest request) {
+
+
+		request.setAttribute(
+			"liferay-commerce:cart:checkoutURL", _checkoutURL);
+
+		request.setAttribute(
+			"liferay-commerce:cart:displayDiscountLevels",
+			_isDisplayDiscountLevels());
+
+		request.setAttribute(
+			"liferay-commerce:cart:orderDetailURL", _orderDetailURL);
+
+		request.setAttribute(
+			"liferay-commerce:cart:orderId", _orderId);
+
+		request.setAttribute("liferay-commerce:cart:spritemap", _spritemap);
+	}
+
+	private boolean _isDisplayDiscountLevels() {
 		try {
 			CommercePriceConfiguration commercePriceConfiguration =
 				_configurationProvider.getConfiguration(
@@ -76,28 +145,19 @@ public class MiniCartTag extends IncludeTag {
 					new SystemSettingsLocator(
 						CommerceConstants.PRICE_SERVICE_NAME));
 
-			_displayDiscountLevels =
-				commercePriceConfiguration.displayDiscountLevels();
+			return commercePriceConfiguration.displayDiscountLevels();
+		} catch (ConfigurationException e) {
+			return false;
 		}
-		catch (ConfigurationException e) {
-			_displayDiscountLevels = false;
-		}
-
-		if (Validator.isNull(_spritemap)) {
-			_spritemap = themeDisplay.getPathThemeImages() + "/clay/icons.svg";
-		}
-
-		request.setAttribute(
-			"liferay-commerce:cart:displayDiscountLevels",
-			_displayDiscountLevels);
-
-		request.setAttribute("liferay-commerce:cart:spritemap", _spritemap);
 	}
 
 	private static final String _PAGE = "/mini_cart/page.jsp";
 
+	private String _checkoutURL;
+	private CommerceOrderHttpHelper _commerceOrderHttpHelper;
 	private ConfigurationProvider _configurationProvider;
-	private boolean _displayDiscountLevels;
+	private String _orderDetailURL;
+	private long _orderId;
 	private String _spritemap;
 
 }

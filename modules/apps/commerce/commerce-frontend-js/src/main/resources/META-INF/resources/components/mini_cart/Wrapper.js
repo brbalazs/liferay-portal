@@ -35,6 +35,7 @@ function Wrapper({cartItemsListView}) {
 						overrideEmptyResultView={true}
 						showManagementBar={false}
 						showPagination={false}
+						sidePanelId={'sidePanelDisabled'}
 						spritemap={spritemap}
 						views={[cartItemsListView]}
 					/>

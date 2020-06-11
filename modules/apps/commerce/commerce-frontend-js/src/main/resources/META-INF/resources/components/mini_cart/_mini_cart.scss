@@ -140,17 +140,6 @@
 		);
 	}
 
-	.rtl &,
-	.rtl &-opener,
-	.rtl &-wrapper {
-		left: 0;
-		right: auto;
-	}
-
-	.rtl &-header-block {
-		flex-direction: row-reverse;
-	}
-
 	.empty-cart {
 		align-items: center;
 		color: $gray-200;
