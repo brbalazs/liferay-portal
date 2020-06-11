@@ -72,13 +72,14 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 		FaroThreadLocal.setCacheEnabled(false);
 
-		String channelId = getChannelId();
+		int individualsCount =
+			_LIFERAY_INDIVIDUALS_COUNT + _SALESFORCE_INDIVIDUALS_COUNT;
 
-		createIndividualSegments(channelId);
-
-		createMembershipChanges(channelId);
-
-		createLiferayAssociations(channelId, liferayUsersDataCreator);
+		poll(
+			() -> contactsEngineClient.getIndividuals(
+				faroProject, (String)null, false, 1, 0, null),
+			individualsCount, individualsCount * 2 * Time.SECOND,
+			"individuals");
 
 		AnalyticEventsDataCreator analyticEventsDataCreator =
 			createAnalyticEvents(liferayUsersDataCreator);
@@ -90,6 +91,14 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 			analyticEventsDataCreator.getActivitiesCount(),
 			analyticEventsDataCreator.getActivitiesCount() * Time.SECOND / 2,
 			"activities");
+
+		String channelId = getChannelId();
+
+		createIndividualSegments(channelId);
+
+		createMembershipChanges(channelId);
+
+		createLiferayAssociations(channelId, liferayUsersDataCreator);
 
 		curateEngagements();
 		curateInterests();
@@ -318,15 +327,6 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 	}
 
 	protected void createMembershipChanges(String channelId) throws Exception {
-		int individualsCount =
-			_LIFERAY_INDIVIDUALS_COUNT + _SALESFORCE_INDIVIDUALS_COUNT;
-
-		poll(
-			() -> contactsEngineClient.getIndividuals(
-				faroProject, (String)null, false, 1, 0, null),
-			individualsCount, individualsCount * 2 * Time.SECOND,
-			"individuals");
-
 		int individualSegmentsCount = 2;
 
 		poll(
