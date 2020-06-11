@@ -127,6 +127,16 @@ portletURL.setParameter("eventName", eventName);
 </div>
 
 <aui:script use="aui-base,aui-io">
+	A.on('domready', function (event) {
+		A.all('.selector-button').each(function () {
+			var selectorButton = this;
+
+			Liferay.component(
+				'<portlet:namespace />' + this.getData().fieldsnamespace + 'ddmForm'
+			);
+		});
+	});
+
 	var Util = Liferay.Util;
 
 	var structureFormContainer = A.one('#<portlet:namespace />selectDDMStructureFieldForm');
