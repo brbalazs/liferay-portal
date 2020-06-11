@@ -15,6 +15,7 @@
 package com.liferay.osb.faro.web.internal.model.display.asah;
 
 import com.liferay.osb.faro.engine.client.model.Channel;
+import com.liferay.osb.faro.engine.client.model.credentials.DummyCredentials;
 import com.liferay.osb.faro.engine.client.model.credentials.TokenCredentials;
 import com.liferay.osb.faro.model.FaroChannel;
 import com.liferay.portal.kernel.util.MapUtil;
@@ -54,6 +55,9 @@ public class FaroChannelDisplay {
 					(Map<String, Object>)dataSource.get("credentials");
 
 				if (StringUtil.equals(
+						String.valueOf(credentials.get("type")),
+						DummyCredentials.TYPE) ||
+					StringUtil.equals(
 						String.valueOf(credentials.get("type")),
 						TokenCredentials.TYPE)) {
 
