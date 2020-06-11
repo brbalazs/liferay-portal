@@ -698,7 +698,8 @@ const productsDataSetDisplayProps = {
 			href: '/page/{id}',
 			icon: 'view',
 			id: 'view',
-			label: 'View'
+			label: 'View',
+			permissionKey: 'get'
 		},
 		{
 			href:
@@ -707,6 +708,7 @@ const productsDataSetDisplayProps = {
 			id: 'delete',
 			label: 'Delete',
 			method: 'delete',
+			permissionKey: 'delete',
 			target: 'async'
 		}
 	],

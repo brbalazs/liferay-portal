@@ -30,10 +30,7 @@ function ActionLinkRenderer(props) {
 	} = useContext(DatasetDisplayContext);
 
 	if (!props.actions || !props.actions.length) {
-		if (props.value) {
-			return <DefaultContent value={props.value} />;
-		}
-		return null;
+		return props.value ? <DefaultContent value={props.value} /> : null;
 	}
 
 	let currentAction =
@@ -45,15 +42,17 @@ function ActionLinkRenderer(props) {
 		return null;
 	}
 
-	if (currentAction.id && !currentAction.href && props.itemData.actions) {
-		if (props.itemData.actions[currentAction.id]) {
-			currentAction = {
-				...currentAction,
-				...props.itemData.actions[currentAction.id],
-				target: 'async'
-			};
+	if (currentAction.permissionKey) {
+		if (props.itemData.actions[currentAction.permissionKey]) {
+			if (currentAction.target === 'headless') {
+				currentAction = {
+					...currentAction,
+					...props.itemData.actions[currentAction.id]
+				};
+			}
+		} else {
+			return props.value ? <DefaultContent value={props.value} /> : null;
 		}
-		return null;
 	}
 
 	const formattedHref =
@@ -80,7 +79,10 @@ function ActionLinkRenderer(props) {
 			});
 		}
 
-		if (currentAction.target === 'async') {
+		if (
+			currentAction.target === 'async' ||
+			currentAction.target === 'headless'
+		) {
 			executeAsyncItemAction(formattedHref, currentAction.method);
 		}
 
@@ -118,7 +120,13 @@ ActionLinkRenderer.propTypes = {
 			method: PropTypes.oneOf(['get', 'delete']),
 			onClick: PropTypes.string,
 			size: PropTypes.string,
-			target: PropTypes.oneOf(['modal', 'sidePanel', 'link', 'async']),
+			target: PropTypes.oneOf([
+				'modal',
+				'sidePanel',
+				'link',
+				'async',
+				'headless'
+			]),
 			title: PropTypes.string
 		})
 	),

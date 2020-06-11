@@ -113,7 +113,7 @@ function ActionsDropdownRenderer(props) {
 			});
 		}
 
-		if (target === 'async') {
+		if (target === 'async' || target === 'headless') {
 			setLoading(true);
 			executeAsyncItemAction(url, method).then(() => setLoading(false));
 		}
@@ -123,26 +123,33 @@ function ActionsDropdownRenderer(props) {
 		}
 	}
 
-	if (!props.actions || !props.actions.length) {
+	const formattedActions = props.actions
+		? props.actions.reduce((actions, action) => {
+				if (action.permissionKey) {
+					if (props.itemData.actions[action.permissionKey]) {
+						if (action.target === 'headless') {
+							return [
+								...actions,
+								{
+									...action,
+									...props.itemData.actions[
+										action.permissionKey
+									]
+								}
+							];
+						} else {
+							return [...actions, action];
+						}
+					}
+					return actions;
+				}
+				return [...actions, action];
+		  }, [])
+		: [];
+
+	if (!formattedActions || !formattedActions.length) {
 		return null;
 	}
-
-	const formattedActions = props.actions.reduce((actions, action) => {
-		if (action.id && !action.href && props.itemData.actions) {
-			if (props.itemData.actions[action.id]) {
-				return [
-					...actions,
-					{
-						...action,
-						...props.itemData.actions[action.id],
-						target: 'async'
-					}
-				];
-			}
-			return actions;
-		}
-		return [...actions, action];
-	}, []);
 
 	if (formattedActions.length === 1) {
 		const action = formattedActions[0];
@@ -259,7 +266,14 @@ ActionsDropdownRenderer.propTypes = {
 			label: PropTypes.string.isRequired,
 			method: PropTypes.oneOf(['get', 'delete']),
 			onClick: PropTypes.string,
-			target: PropTypes.oneOf(['modal', 'sidePanel', 'link', 'async'])
+			permissionKey: PropTypes.string,
+			target: PropTypes.oneOf([
+				'modal',
+				'sidePanel',
+				'link',
+				'async',
+				'headless'
+			])
 		})
 	),
 	itemData: PropTypes.object,
