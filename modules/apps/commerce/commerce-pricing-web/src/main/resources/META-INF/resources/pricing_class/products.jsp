@@ -80,7 +80,8 @@ long commercePricingClassId = commercePricingClass.getCommercePricingClassId();
 					}
 
 					itemFinder.default('itemFinder', 'item-finder-root', {
-						apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products',
+						apiUrl:
+							'/o/headless-commerce-admin-catalog/v1.0/products?nestedFields=catalog',
 						getSelectedItems: getSelectedItems,
 						inputPlaceholder: '<%= LanguageUtil.get(request, "find-a-product") %>',
 						itemSelectedMessage: '<%= LanguageUtil.get(request, "product-selected") %>',
@@ -99,6 +100,9 @@ long commercePricingClassId = commercePricingClass.getCommercePricingClassId();
 							},
 							{
 								fieldName: 'productId'
+							},
+							{
+								fieldName: ['catalog', 'name']
 							}
 						],
 						spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
