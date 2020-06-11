@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.service.OrganizationLocalService;
 import com.liferay.portal.kernel.service.OrganizationService;
 import com.liferay.portal.kernel.service.permission.OrganizationPermissionUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -172,9 +173,6 @@ public class CommerceOrganizationClayTableDataSetDisplayView
 			Pagination pagination, Sort sort)
 		throws PortalException {
 
-		OrganizationFilterImpl organizationFilterImpl =
-			(OrganizationFilterImpl)filter;
-
 		List<Organization> organizations = new ArrayList<>();
 
 		ThemeDisplay themeDisplay =
@@ -182,10 +180,9 @@ public class CommerceOrganizationClayTableDataSetDisplayView
 				WebKeys.THEME_DISPLAY);
 
 		List<com.liferay.portal.kernel.model.Organization> organizationList =
-			_organizationService.getOrganizations(
-				themeDisplay.getCompanyId(),
-				organizationFilterImpl.getOrganizationId(),
-				pagination.getStartPosition(), pagination.getEndPosition());
+			_organizationLocalService.getOrganizations(
+				themeDisplay.getUserId(), pagination.getStartPosition(),
+				pagination.getEndPosition(), null);
 
 		for (com.liferay.portal.kernel.model.Organization organization :
 				organizationList) {
@@ -269,6 +266,9 @@ public class CommerceOrganizationClayTableDataSetDisplayView
 
 	@Reference
 	private ClayTableSchemaBuilderFactory _clayTableSchemaBuilderFactory;
+
+	@Reference
+	private OrganizationLocalService _organizationLocalService;
 
 	@Reference
 	private OrganizationService _organizationService;
