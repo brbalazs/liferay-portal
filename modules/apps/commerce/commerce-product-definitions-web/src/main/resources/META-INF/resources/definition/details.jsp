@@ -216,18 +216,28 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 					var productId = <%= cpDefinition.getCProductId() %>;
 
 					function selectItem(specification) {
+						debugger;
 						return fetch(
 							'/o/headless-commerce-admin-catalog/v1.0/products/' +
 								id +
 								'/productSpecifications/',
 							{
-								body: JSON.stringify({
-									optionCategoryId: specification.optionCategory.id,
-									productId: productId,
-									specificationId: specification.id,
-									specificationKey: specification.key,
-									value: {}
-								}),
+								body: JSON.stringify(
+									Object.assign(
+										{
+											productId: productId,
+											specificationId: specification.id,
+											specificationKey: specification.key,
+											value: {}
+										},
+										specification.optionCategory
+											? {
+													optionCategoryId:
+														specification.optionCategory.id
+											  }
+											: {}
+									)
+								),
 								credentials: 'include',
 								headers: headers,
 								method: 'POST'
@@ -282,6 +292,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 						getSelectedItems: getSelectedItems,
 						inputPlaceholder:
 							'<%= LanguageUtil.get(request, "find-or-create-a-specification") %>',
+						itemsKey: 'id',
 						itemSelectedMessage:
 							'<%= LanguageUtil.get(request, "specification-selected") %>',
 						itemsKey: 'id',
