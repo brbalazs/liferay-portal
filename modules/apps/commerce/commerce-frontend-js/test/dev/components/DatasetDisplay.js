@@ -28,20 +28,20 @@ const fluidDataSetDisplayProps = {
 		{
 			href: '/side-panel/edit.html',
 			icon: 'plus',
-			label: Liferay.Language.get('add'),
+			label: 'Add',
 			target: 'sidePanel'
 		},
 		{
 			href: '/delete',
 			icon: 'trash',
-			label: Liferay.Language.get('delete'),
+			label: 'Delete',
 			method: 'delete'
 		}
 	],
 	creationMenuItems: [
 		{
 			href: 'modal/url',
-			label: Liferay.Language.get('add-via-modal'),
+			label: 'Add',
 			target: 'modal'
 		}
 	],
@@ -49,7 +49,7 @@ const fluidDataSetDisplayProps = {
 		{
 			id: 'number-test',
 			inputText: '$',
-			label: Liferay.Language.get('number-test'),
+			label: 'Number',
 			max: 200,
 			min: 20,
 			operator: 'eq',
@@ -58,7 +58,7 @@ const fluidDataSetDisplayProps = {
 		},
 		{
 			id: 'order-date',
-			label: Liferay.Language.get('order-range'),
+			label: 'Order Range',
 			max: {
 				day: 2,
 				month: 9,
@@ -124,7 +124,7 @@ const fluidDataSetDisplayProps = {
 		{
 			contentRenderer: 'cards',
 			icon: 'documents-and-media',
-			label: Liferay.Language.get('cards'),
+			label: 'Cards',
 			schema: {
 				description: 'name',
 				href: 'productPage',
@@ -161,7 +161,7 @@ const fluidDataSetDisplayProps = {
 		{
 			contentRenderer: 'table',
 			icon: 'table',
-			label: Liferay.Language.get('table'),
+			label: 'Table',
 			schema: {
 				fields: [
 					{
@@ -212,11 +212,11 @@ const emailsDataSetDisplayProps = {
 	creationMenuItems: [
 		{
 			href: '/standard/edit',
-			label: Liferay.Language.get('add')
+			label: 'Add'
 		},
 		{
 			href: 'modal/url',
-			label: Liferay.Language.get('add-via-modal'),
+			label: 'Add via modal',
 			target: 'modal'
 		}
 	],
@@ -255,7 +255,7 @@ const emailsDataSetDisplayProps = {
 		{
 			contentRenderer: 'emailsList',
 			icon: 'email',
-			label: Liferay.Language.get('email')
+			label: 'Email'
 		}
 	]
 };
@@ -298,9 +298,9 @@ const selectableTableProps = {
 		{
 			contentRenderer: 'selectableTable',
 			icon: 'table',
-			label: Liferay.Language.get('table'),
+			label: 'Table',
 			schema: {
-				firstColumnLabel: Liferay.Language.get('country'),
+				firstColumnLabel: 'Country',
 				firstColumnName: 'countryName'
 			}
 		}
@@ -313,24 +313,24 @@ const headlessDataSetDisplayProps = {
 		{
 			href: '/side-panel/edit.html',
 			icon: 'plus',
-			label: Liferay.Language.get('add'),
+			label: 'Add',
 			target: 'sidePanel'
 		},
 		{
 			href: '/delete',
 			icon: 'trash',
-			label: Liferay.Language.get('delete'),
+			label: 'Delete',
 			method: 'delete'
 		}
 	],
 	creationMenuItems: [
 		{
 			href: '/standard/edit',
-			label: Liferay.Language.get('add')
+			label: 'Add'
 		},
 		{
 			href: 'modal/url',
-			label: Liferay.Language.get('add-via-modal'),
+			label: 'Add-via-modal',
 			target: 'modal'
 		}
 	],
@@ -338,10 +338,10 @@ const headlessDataSetDisplayProps = {
 		{
 			apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products',
 			id: 'productId',
-			inputPlaceholder: Liferay.Language.get('search-for-products'),
+			inputPlaceholder: 'Search for Products',
 			itemKey: 'productId',
 			itemLabel: ['name', lang_id],
-			label: Liferay.Language.get('product-id'),
+			label: 'Product',
 			selectionType: 'single',
 			type: 'autocomplete'
 		}
@@ -395,42 +395,42 @@ const headlessDataSetDisplayProps = {
 		{
 			contentRenderer: 'table',
 			icon: 'table',
-			label: Liferay.Language.get('table'),
+			label: 'Table',
 			schema: {
 				fields: [
 					{
 						contentRenderer: 'actionLink',
 						fieldName: ['name', 'LANG'],
-						label: Liferay.Language.get('name'),
+						label: 'Name',
 						sortable: true
 					},
 					{
 						fieldName: 'productType',
-						label: Liferay.Language.get('product-type'),
+						label: 'Product Type',
 						mapData: value => value.toUpperCase()
 					},
 					{
 						fieldName: 'externalReferenceCode',
-						label: Liferay.Language.get('sku')
+						label: 'Sku'
 					},
 					{
 						contentRenderer: 'date',
 						fieldName: 'modifiedDate',
-						label: Liferay.Language.get('modified-date')
+						label: 'Modified-date'
 					},
 					{
 						contentRenderer: 'label',
 						fieldName: 'active',
-						label: Liferay.Language.get('status'),
+						label: 'Status',
 						mapData: value =>
 							value
 								? {
 										displayStyle: 'success',
-										label: Liferay.Language.get('active')
+										label: 'Active'
 								  }
 								: {
 										displayStyle: 'danger',
-										label: Liferay.Language.get('disabled')
+										label: 'Disabled'
 								  }
 					}
 				]
@@ -449,14 +449,14 @@ const ordersDataSetDisplayProps = {
 			bodyKeys: ['id'],
 			href: '/o/headless-commerce-admin-order/v1.0/orders/0/batch',
 			icon: 'trash',
-			label: Liferay.Language.get('delete'),
+			label: 'Delete',
 			method: 'delete'
 		}
 	],
 	creationMenuItems: [
 		{
 			href: 'modal/url',
-			label: Liferay.Language.get('add'),
+			label: 'Add',
 			target: 'modal'
 		}
 	],
@@ -464,26 +464,26 @@ const ordersDataSetDisplayProps = {
 		{
 			apiUrl: '/o/headless-commerce-admin-account/v1.0/accounts',
 			id: 'accountId',
-			inputPlaceholder: Liferay.Language.get('search-for-account'),
+			inputPlaceholder: 'Search for account',
 			itemKey: 'id',
 			itemLabel: 'name',
-			label: Liferay.Language.get('account-id'),
+			label: 'Account',
 			selectionType: 'single',
 			type: 'autocomplete'
 		},
 		{
 			apiUrl: '/o/headless-commerce-admin-channel/v1.0/channels',
 			id: 'channelId',
-			inputPlaceholder: Liferay.Language.get('search-for-channel'),
+			inputPlaceholder: 'Search for Channel',
 			itemKey: 'id',
 			itemLabel: 'name',
-			label: Liferay.Language.get('channel-id'),
+			label: 'Channel',
 			selectionType: 'single',
 			type: 'autocomplete'
 		},
 		{
 			id: 'createDate',
-			label: Liferay.Language.get('order-range'),
+			label: 'Order Range',
 			max: {
 				day: today.getDate(),
 				month: today.getMonth() + 1,
@@ -501,15 +501,15 @@ const ordersDataSetDisplayProps = {
 			id: 'orderStatus',
 			items: [
 				{
-					label: Liferay.Language.get('completed'),
+					label: 'Completed',
 					value: 1
 				},
 				{
-					label: Liferay.Language.get('not-completed'),
+					label: 'Not-completed',
 					value: 999
 				}
 			],
-			label: Liferay.Language.get('status'),
+			label: 'Status',
 			operator: 'eq',
 			type: 'radio'
 		}
@@ -520,13 +520,13 @@ const ordersDataSetDisplayProps = {
 			href: '/view/{id}',
 			icon: 'view',
 			id: 'view',
-			label: Liferay.Language.get('view')
+			label: 'View'
 		},
 		{
 			href: '/o/headless-commerce-admin-order/v1.0/orders/{id}',
 			icon: 'trash',
 			id: 'delete',
-			label: Liferay.Language.get('delete'),
+			label: 'Delete',
 			method: 'delete',
 			target: 'async'
 		}
@@ -571,7 +571,7 @@ const ordersDataSetDisplayProps = {
 		{
 			contentRenderer: 'table',
 			icon: 'table',
-			label: Liferay.Language.get('table'),
+			label: 'Table',
 			schema: {
 				fields: [
 					{
@@ -595,24 +595,24 @@ const ordersDataSetDisplayProps = {
 					{
 						contentRenderer: 'date',
 						fieldName: 'createDate',
-						label: Liferay.Language.get('creation-date'),
+						label: 'Creation Date',
 						sortable: true
 					},
 					{
 						contentRenderer: 'date',
 						fieldName: 'modifiedDate',
-						label: Liferay.Language.get('modification-date'),
+						label: 'Modification Date',
 						sortable: true
 					},
 					{
 						contentRenderer: 'status',
 						fieldName: 'orderStatusInfo',
-						label: Liferay.Language.get('status')
+						label: 'Status'
 					},
 					{
 						contentRenderer: 'status',
 						fieldName: 'workflowStatusInfo',
-						label: Liferay.Language.get('workflow-status')
+						label: 'Workflow Status'
 					}
 				]
 			}
@@ -627,21 +627,21 @@ const productsDataSetDisplayProps = {
 		{
 			href: '/delete',
 			icon: 'trash',
-			label: Liferay.Language.get('delete'),
+			label: 'Delete',
 			method: 'delete'
 		}
 	],
 	creationMenuItems: [
 		{
 			href: 'modal/url',
-			label: Liferay.Language.get('add-product'),
+			label: 'Add Product',
 			target: 'modal'
 		}
 	],
 	filters: [
 		{
 			id: 'createDate',
-			label: Liferay.Language.get('creation-date'),
+			label: 'Creation date',
 			max: {
 				day: today.getDate(),
 				month: today.getMonth() + 1,
@@ -659,19 +659,19 @@ const productsDataSetDisplayProps = {
 			apiUrl:
 				'/o/headless-admin-taxonomy/v1.0/taxonomy-categories/0/taxonomy-categories',
 			id: 'categoryIds',
-			inputPlaceholder: Liferay.Language.get('search-for-category'),
+			inputPlaceholder: 'Search for Category',
 			itemKey: 'id',
 			itemLabel: 'name',
-			label: Liferay.Language.get('category'),
+			label: 'Category',
 			type: 'autocomplete'
 		},
 		{
 			apiUrl: '/o/headless-commerce-admin-catalog/v1.0/catalogs',
 			id: 'catalogId',
-			inputPlaceholder: Liferay.Language.get('search-for-catalog'),
+			inputPlaceholder: 'Search for Catalog',
 			itemKey: 'id',
 			itemLabel: 'name',
-			label: Liferay.Language.get('catalog'),
+			label: 'Catalog',
 			selectionType: 'single',
 			type: 'autocomplete'
 		},
@@ -679,15 +679,15 @@ const productsDataSetDisplayProps = {
 			id: 'productType',
 			items: [
 				{
-					label: Liferay.Language.get('simple'),
+					label: 'Simple',
 					value: 'simple'
 				},
 				{
-					label: Liferay.Language.get('multiple'),
+					label: 'Multiple',
 					value: 'multiple'
 				}
 			],
-			label: Liferay.Language.get('product-type'),
+			label: 'Product Type',
 			operator: 'eq',
 			type: 'radio'
 		}
@@ -698,14 +698,14 @@ const productsDataSetDisplayProps = {
 			href: '/page/{id}',
 			icon: 'view',
 			id: 'view',
-			label: Liferay.Language.get('view')
+			label: 'View'
 		},
 		{
 			href:
 				'/o/headless-commerce-admin-catalog/v1.0/products/{productId}',
 			icon: 'trash',
 			id: 'delete',
-			label: Liferay.Language.get('delete'),
+			label: 'Delete',
 			method: 'delete',
 			target: 'async'
 		}
@@ -750,7 +750,7 @@ const productsDataSetDisplayProps = {
 		{
 			contentRenderer: 'table',
 			icon: 'table',
-			label: Liferay.Language.get('table'),
+			label: 'Table',
 			schema: {
 				fields: [
 					{
@@ -762,42 +762,40 @@ const productsDataSetDisplayProps = {
 						actionId: 'view',
 						contentRenderer: 'actionLink',
 						fieldName: ['name', 'LANG'],
-						label: Liferay.Language.get('name'),
+						label: 'Name',
 						sortable: true
 					},
 					{
 						fieldName: 'productType',
-						label: Liferay.Language.get('product-type')
+						label: 'Product Type'
 					},
 					{
 						contentRenderer: 'list',
 						fieldName: 'skus',
-						label: Liferay.Language.get('sku'),
+						label: 'Sku',
 						labelKey: 'sku',
-						multipleItemsLabel: Liferay.Language.get(
-							'multiple-skus'
-						)
+						multipleItemsLabel: 'Multiple-skus'
 					},
 					{
 						fieldName: ['catalog', 'name'],
-						label: Liferay.Language.get('catalog')
+						label: 'Catalog'
 					},
 					{
 						contentRenderer: 'date',
 						fieldName: 'createDate',
-						label: Liferay.Language.get('created-date'),
+						label: 'Created Date',
 						sortable: true
 					},
 					{
 						contentRenderer: 'date',
 						fieldName: 'modifiedDate',
-						label: Liferay.Language.get('modified-date'),
+						label: 'Modified Date',
 						sortable: true
 					},
 					{
 						contentRenderer: 'status',
 						fieldName: 'workflowStatusInfo',
-						label: Liferay.Language.get('status')
+						label: 'Status'
 					}
 				]
 			}
