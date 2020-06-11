@@ -36,6 +36,10 @@ public class LiferayUsersDataCreator extends DataCreator {
 		_dataSourceId = dataSourceId;
 	}
 
+	public String getDataSourceId() {
+		return _dataSourceId;
+	}
+
 	@Override
 	protected Map<String, Object> doCreate(Object[] params) {
 		Map<String, Object> liferayUser = new HashMap<>();

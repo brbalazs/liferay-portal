@@ -74,6 +74,8 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 		createMembershipChanges();
 
+		createLiferayAssociations(liferayUsersDataCreator);
+
 		AnalyticEventsDataCreator analyticEventsDataCreator =
 			createAnalyticEvents(liferayUsersDataCreator);
 
@@ -87,6 +89,77 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 		curateEngagements();
 		curateInterests();
+	}
+
+	protected void createLiferayAssociations(
+		LiferayUsersDataCreator liferayUsersDataCreator) {
+
+		// Groups
+
+		LiferayGroupsDataCreator liferayGroupsDataCreator =
+			new LiferayGroupsDataCreator(
+				contactsEngineClient, faroProject,
+				liferayUsersDataCreator.getDataSourceId());
+
+		liferayGroupsDataCreator.create(5, true);
+
+		liferayGroupsDataCreator.execute();
+
+		// Organizations
+
+		LiferayOrganizationsDataCreator liferayOrganizationsDataCreator =
+			new LiferayOrganizationsDataCreator(
+				contactsEngineClient, faroProject,
+				liferayUsersDataCreator.getDataSourceId());
+
+		Map<String, Object> liferayOrganization =
+			liferayOrganizationsDataCreator.create(
+				new Object[] {"Liferay", new HashMap<>()});
+
+		liferayOrganizationsDataCreator.create(
+			new Object[] {"Engineering", liferayOrganization});
+		liferayOrganizationsDataCreator.create(
+			new Object[] {"Marketing", liferayOrganization});
+		liferayOrganizationsDataCreator.create(
+			new Object[] {"Sales", liferayOrganization});
+		liferayOrganizationsDataCreator.create(
+			new Object[] {"Support", liferayOrganization});
+
+		liferayOrganizationsDataCreator.execute();
+
+		// Roles
+
+		LiferayRolesDataCreator liferayRolesDataCreator =
+			new LiferayRolesDataCreator(
+				contactsEngineClient, faroProject,
+				liferayUsersDataCreator.getDataSourceId());
+
+		liferayRolesDataCreator.create(5, true);
+
+		liferayRolesDataCreator.execute();
+
+		// Teams
+
+		LiferayTeamsDataCreator liferayTeamsDataCreator =
+			new LiferayTeamsDataCreator(
+				contactsEngineClient, faroProject,
+				liferayUsersDataCreator.getDataSourceId());
+
+		liferayTeamsDataCreator.create(5, true);
+
+		liferayTeamsDataCreator.execute();
+
+		// User Groups
+
+		LiferayUserGroupsDataCreator liferayUserGroupsDataCreator =
+			new LiferayUserGroupsDataCreator(
+				contactsEngineClient, faroProject,
+				liferayUsersDataCreator.getDataSourceId());
+
+		liferayUserGroupsDataCreator.create(5, true);
+
+		liferayUserGroupsDataCreator.execute();
+
 	}
 
 	protected AnalyticEventsDataCreator createAnalyticEvents(
@@ -181,67 +254,6 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 		DataSource dataSource = createDataSource(
 			faroProject, getLiferayProvider(), _LIFERAY_DATA_SOURCE_NAME,
 			"liferay.example.faro.com");
-
-		// Groups
-
-		LiferayGroupsDataCreator liferayGroupsDataCreator =
-			new LiferayGroupsDataCreator(
-				contactsEngineClient, faroProject, dataSource.getId());
-
-		liferayGroupsDataCreator.create(5, true);
-
-		liferayGroupsDataCreator.execute();
-
-		// Organizations
-
-		LiferayOrganizationsDataCreator liferayOrganizationsDataCreator =
-			new LiferayOrganizationsDataCreator(
-				contactsEngineClient, faroProject, dataSource.getId());
-
-		Map<String, Object> liferayOrganization =
-			liferayOrganizationsDataCreator.create(
-				new Object[] {"Liferay", new HashMap<>()});
-
-		liferayOrganizationsDataCreator.create(
-			new Object[] {"Engineering", liferayOrganization});
-		liferayOrganizationsDataCreator.create(
-			new Object[] {"Marketing", liferayOrganization});
-		liferayOrganizationsDataCreator.create(
-			new Object[] {"Sales", liferayOrganization});
-		liferayOrganizationsDataCreator.create(
-			new Object[] {"Support", liferayOrganization});
-
-		liferayOrganizationsDataCreator.execute();
-
-		// Roles
-
-		LiferayRolesDataCreator liferayRolesDataCreator =
-			new LiferayRolesDataCreator(
-				contactsEngineClient, faroProject, dataSource.getId());
-
-		liferayRolesDataCreator.create(5, true);
-
-		liferayRolesDataCreator.execute();
-
-		// Teams
-
-		LiferayTeamsDataCreator liferayTeamsDataCreator =
-			new LiferayTeamsDataCreator(
-				contactsEngineClient, faroProject, dataSource.getId());
-
-		liferayTeamsDataCreator.create(5, true);
-
-		liferayTeamsDataCreator.execute();
-
-		// User Groups
-
-		LiferayUserGroupsDataCreator liferayUserGroupsDataCreator =
-			new LiferayUserGroupsDataCreator(
-				contactsEngineClient, faroProject, dataSource.getId());
-
-		liferayUserGroupsDataCreator.create(5, true);
-
-		liferayUserGroupsDataCreator.execute();
 
 		// Individuals
 
