@@ -22,6 +22,7 @@ import com.github.javafaker.DateAndTime;
 import com.github.javafaker.Faker;
 import com.github.javafaker.Internet;
 import com.github.javafaker.Job;
+import com.github.javafaker.LordOfTheRings;
 import com.github.javafaker.Name;
 import com.github.javafaker.Number;
 import com.github.javafaker.PhoneNumber;
@@ -161,6 +162,7 @@ public abstract class DataCreator {
 	protected FaroProject faroProject;
 	protected Internet internet = _faker.internet();
 	protected Job job = _faker.job();
+	protected LordOfTheRings lordOfTheRings = _faker.lordOfTheRings();
 	protected Name name = _faker.name();
 	protected Number number = _faker.number();
 	protected PhoneNumber phoneNumber = _faker.phoneNumber();
