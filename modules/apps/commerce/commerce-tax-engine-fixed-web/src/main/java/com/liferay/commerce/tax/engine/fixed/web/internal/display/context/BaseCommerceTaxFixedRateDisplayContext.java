@@ -37,6 +37,8 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.math.BigDecimal;
 
+import java.text.NumberFormat;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -144,6 +146,25 @@ public class BaseCommerceTaxFixedRateDisplayContext {
 
 		return localizedPercentage.replace(
 			StringPool.PERCENT, StringPool.BLANK);
+	}
+
+	public String getLocalizedRate(
+			boolean isPercentage, double rate, Locale locale)
+		throws PortalException {
+
+		if (isPercentage) {
+			return getLocalizedPercentage(rate, locale);
+		}
+
+		return getLocalizedRate(rate, locale);
+	}
+
+	public String getLocalizedRate(double rate, Locale locale)
+		throws PortalException {
+
+		NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+
+		return numberFormat.format(rate);
 	}
 
 	public PortletURL getPortletURL() throws PortalException {
