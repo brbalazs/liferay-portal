@@ -114,16 +114,21 @@ function Summary({
 }) {
 	const [items, updateItems] = useState(props.items);
 
-	const mapDataToLayout = useCallback(data =>
-			typeof dataMapper === 'function'
-				? dataMapper(data)
-				: data, [dataMapper]),
-		refreshData = ({id = null}) => {
-			if (!id || datasetDisplayId !== id) {
-				return AJAX.GET(apiUrl)
-					.then(data => updateItems(mapDataToLayout(data)));
-			}
-		};
+	const mapDataToLayout = useCallback(
+			data =>
+				typeof dataMapper === 'function' ? dataMapper(data) : data,
+			[dataMapper]
+		),
+		refreshData = useCallback(
+			({id = null}) => {
+				if (!id || datasetDisplayId !== id) {
+					return AJAX.GET(apiUrl).then(data =>
+						updateItems(mapDataToLayout(data))
+					);
+				}
+			},
+			[apiUrl, datasetDisplayId, mapDataToLayout]
+		);
 
 	useEffect(() => {
 		if (!!apiUrl && !!datasetDisplayId) {
@@ -134,10 +139,7 @@ function Summary({
 			return () => Liferay.detach(DATASET_DISPLAY_UPDATED, refreshData);
 		}
 		return () => {};
-	}, [
-		apiUrl,
-		datasetDisplayId
-	]);
+	}, [apiUrl, datasetDisplayId, refreshData]);
 
 	useEffect(() => {
 		if (!!summaryData && Object.keys(summaryData).length > 0) {
@@ -145,7 +147,7 @@ function Summary({
 		}
 
 		return () => {};
-	}, [summaryData]);
+	}, [mapDataToLayout, summaryData]);
 
 	return (
 		<div className="row summary-table text-right">

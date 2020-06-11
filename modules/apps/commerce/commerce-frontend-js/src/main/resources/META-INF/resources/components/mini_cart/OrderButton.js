@@ -23,7 +23,9 @@ function OrderButton() {
 	const {actionURLs, cartState} = useContext(MiniCartContext),
 		{cartItems} = cartState,
 		{length: numberOfItems = 0} = cartItems || {},
-		{status: workflowStatus = WORKFLOW_STATUS_APPROVED} = cartState,
+		{orderStatusInfo} = cartState,
+		{code: workflowStatus = WORKFLOW_STATUS_APPROVED} =
+			orderStatusInfo || {},
 		{checkoutURL} = actionURLs;
 
 	return (

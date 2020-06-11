@@ -43,7 +43,7 @@ export function parseOptions(stringifiedJSON) {
 		: options;
 }
 
-export function regenerateOrderDetailURL (orderDetailURL, orderUUID) {
+export function regenerateOrderDetailURL(orderDetailURL, orderUUID) {
 	const originalURL = new URL(orderDetailURL);
 
 	originalURL.searchParams.set(ORDER_UUID_PARAMETER, orderUUID);

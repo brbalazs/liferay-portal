@@ -12,11 +12,6 @@
  * details.
  */
 
-window.themeDisplay = {
-	getDefaultLanguageId: () => 'en_US',
-	getLanguageId: () => 'it_IT'
-};
-
 window.Liferay = {
 	Language: {
 		get(v) {
@@ -31,10 +26,10 @@ window.Liferay = {
 	},
 	ThemeDisplay: {
 		getCanonicalURL: () => '/',
-		getLanguageId: () => 'en_US',
+		getDefaultLanguageId: () => 'en_US',
+		getLanguageId: () => 'it_IT',
 		getPathThemeImages: () => '/assets'
 	},
-	ThemeDisplay: window.themeDisplay,
 	component: () => {},
 	detach: (name, fn) => {
 		window.removeEventListener(name, fn);

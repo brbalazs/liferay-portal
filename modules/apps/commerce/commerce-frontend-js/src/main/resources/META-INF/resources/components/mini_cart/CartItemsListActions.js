@@ -17,9 +17,9 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useContext, useState} from 'react';
 
+import {PRODUCT_REMOVED} from '../../utilities/eventsDefinitions';
 import {liferayNavigate} from '../../utilities/index';
 import MiniCartContext from './MiniCartContext';
-import {PRODUCT_REMOVED} from '../../utilities/eventsDefinitions';
 
 function getCN(isAsking, className) {
 	return classnames(className, !isAsking && 'hide');

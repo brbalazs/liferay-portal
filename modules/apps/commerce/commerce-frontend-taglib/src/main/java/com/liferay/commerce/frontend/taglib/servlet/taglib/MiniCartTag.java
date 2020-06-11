@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.util.IncludeTag;
 
 import javax.portlet.PortletURL;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -41,44 +42,11 @@ import javax.servlet.jsp.PageContext;
  */
 public class MiniCartTag extends IncludeTag {
 
-	public String getSpritemap() {
-		return _spritemap;
-	}
-
-	@Override
-	public void setPageContext(PageContext pageContext) {
-		super.setPageContext(pageContext);
-
-		_configurationProvider = ServletContextUtil.getConfigurationProvider();
-		_commerceOrderHttpHelper = ServletContextUtil.getCommerceOrderHttpHelper();
-		servletContext = ServletContextUtil.getServletContext();
-	}
-
-	public void setSpritemap(String spritemap) {
-		_spritemap = spritemap;
-	}
-
-	@Override
-	protected void cleanUp() {
-		super.cleanUp();
-
-		_checkoutURL = null;
-		_commerceOrderHttpHelper = null;
-		_configurationProvider = null;
-		_orderDetailURL = null;
-		_orderId = 0;
-		_spritemap = null;
-	}
-
-	@Override
-	protected String getPage() {
-		return _PAGE;
-	}
-
 	@Override
 	public int doStartTag() throws JspException {
 		CommerceContext commerceContext = (CommerceContext)request.getAttribute(
 			CommerceWebKeys.COMMERCE_CONTEXT);
+
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
@@ -107,8 +75,8 @@ public class MiniCartTag extends IncludeTag {
 			}
 
 			_orderId = commerceOrder.getCommerceOrderId();
-
-		} catch (PortalException e) {
+		}
+		catch (PortalException e) {
 			_checkoutURL = StringPool.BLANK;
 			_orderDetailURL = StringPool.BLANK;
 			_orderId = 0;
@@ -117,12 +85,44 @@ public class MiniCartTag extends IncludeTag {
 		return super.doStartTag();
 	}
 
+	public String getSpritemap() {
+		return _spritemap;
+	}
+
+	@Override
+	public void setPageContext(PageContext pageContext) {
+		super.setPageContext(pageContext);
+
+		_configurationProvider = ServletContextUtil.getConfigurationProvider();
+		_commerceOrderHttpHelper =
+			ServletContextUtil.getCommerceOrderHttpHelper();
+		servletContext = ServletContextUtil.getServletContext();
+	}
+
+	public void setSpritemap(String spritemap) {
+		_spritemap = spritemap;
+	}
+
+	@Override
+	protected void cleanUp() {
+		super.cleanUp();
+
+		_checkoutURL = null;
+		_commerceOrderHttpHelper = null;
+		_configurationProvider = null;
+		_orderDetailURL = null;
+		_orderId = 0;
+		_spritemap = null;
+	}
+
+	@Override
+	protected String getPage() {
+		return _PAGE;
+	}
+
 	@Override
 	protected void setAttributes(HttpServletRequest request) {
-
-
-		request.setAttribute(
-			"liferay-commerce:cart:checkoutURL", _checkoutURL);
+		request.setAttribute("liferay-commerce:cart:checkoutURL", _checkoutURL);
 
 		request.setAttribute(
 			"liferay-commerce:cart:displayDiscountLevels",
@@ -131,8 +131,7 @@ public class MiniCartTag extends IncludeTag {
 		request.setAttribute(
 			"liferay-commerce:cart:orderDetailURL", _orderDetailURL);
 
-		request.setAttribute(
-			"liferay-commerce:cart:orderId", _orderId);
+		request.setAttribute("liferay-commerce:cart:orderId", _orderId);
 
 		request.setAttribute("liferay-commerce:cart:spritemap", _spritemap);
 	}
@@ -146,7 +145,8 @@ public class MiniCartTag extends IncludeTag {
 						CommerceConstants.PRICE_SERVICE_NAME));
 
 			return commercePriceConfiguration.displayDiscountLevels();
-		} catch (ConfigurationException e) {
+		}
+		catch (ConfigurationException e) {
 			return false;
 		}
 	}

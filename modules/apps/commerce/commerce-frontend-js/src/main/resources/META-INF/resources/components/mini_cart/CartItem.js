@@ -18,10 +18,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useCallback, useContext, useState} from 'react';
 
-import {
-	CART_PRODUCT_QUANTITY_CHANGED,
-	PRODUCT_REMOVED
-} from '../../utilities/eventsDefinitions';
+import {PRODUCT_REMOVED} from '../../utilities/eventsDefinitions';
 import QuantitySelector from '../quantity_selector/QuantitySelector';
 import ItemInfoView from './CartItemViews/ItemInfoView';
 import ItemPriceView from './CartItemViews/ItemPriceView';
@@ -67,6 +64,7 @@ function CartItem({item: cartItem}) {
 
 	const options = parseOptions(rawOptions);
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const showErrors = () => {
 		setIsUpdating(false);
 
@@ -119,17 +117,20 @@ function CartItem({item: cartItem}) {
 			});
 		};
 
-	const updateItemQuantity = useCallback(quantity => {
-		setIsUpdating(true);
+	const updateItemQuantity = useCallback(
+		quantity => {
+			setIsUpdating(true);
 
-		AJAX.updateItemById(cartItemId, {
-			...cartItem,
-			quantity
-		})
-			.catch(showErrors)
-			.then(() => updateCartModel({orderId}))
-			.then(() => setIsUpdating(false));
-	}, [AJAX, cartItem, cartItemId, setIsUpdating, updateCartModel]);
+			AJAX.updateItemById(cartItemId, {
+				...cartItem,
+				quantity
+			})
+				.catch(showErrors)
+				.then(() => updateCartModel({orderId}))
+				.then(() => setIsUpdating(false));
+
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, [AJAX, cartItem, cartItemId, orderId]);
 
 	const {
 		isGettingRemoved,

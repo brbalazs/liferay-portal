@@ -14,7 +14,7 @@
 
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import {ServiceProvider} from '../../ServiceProvider/index';
 import {
@@ -27,8 +27,7 @@ import CartItemsList from './CartItemsList';
 import MiniCartContext from './MiniCartContext';
 import Opener from './Opener';
 import Wrapper from './Wrapper';
-import {regenerateOrderDetailURL} from './util/index';
-import {resolveView} from './util/index';
+import {regenerateOrderDetailURL, resolveView} from './util/index';
 
 function MiniCart({
 	cartActionURLs,
@@ -48,8 +47,11 @@ function MiniCart({
 
 	const closeCart = () => setIsOpen(false),
 		openCart = () => setIsOpen(true),
-		resetCartState = () => updateCartState({});
+		resetCartState = useCallback(() => updateCartState({}), [
+			updateCartState
+		]);
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const updateCartModel = ({orderId: cartId}) =>
 		AJAX.getCartByIdWithItems(cartId)
 			.then(model => {
@@ -59,8 +61,10 @@ function MiniCart({
 
 					setActionURLs({
 						checkoutURL,
-						orderDetailURL:
-							regenerateOrderDetailURL(orderDetailURL, orderUUID)
+						orderDetailURL: regenerateOrderDetailURL(
+							orderDetailURL,
+							orderUUID
+						)
 					});
 				}
 
@@ -87,7 +91,8 @@ function MiniCart({
 	}, [updateCartModel]);
 
 	useEffect(() => {
-		updateCartModel({orderId})
+		updateCartModel({orderId});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [orderId]);
 
 	useEffect(() => {
