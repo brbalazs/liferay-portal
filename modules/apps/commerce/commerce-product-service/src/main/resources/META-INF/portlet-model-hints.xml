@@ -345,6 +345,7 @@
 		<field name="deliverySubscriptionType" type="String" />
 		<field name="deliverySubscriptionTypeSettings" type="String" />
 		<field name="deliveryMaxSubscriptionCycles" type="long" />
+		<field name="UNSPSC" type="String" />
 		<field name="status" type="int" />
 		<field name="statusByUserId" type="long" />
 		<field name="statusByUserName" type="String" />

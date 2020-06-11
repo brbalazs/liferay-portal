@@ -103,8 +103,9 @@ public class CPInstanceModelImpl
 		{"deliverySubscriptionType", Types.VARCHAR},
 		{"deliverySubTypeSettings", Types.VARCHAR},
 		{"deliveryMaxSubscriptionCycles", Types.BIGINT},
-		{"status", Types.INTEGER}, {"statusByUserId", Types.BIGINT},
-		{"statusByUserName", Types.VARCHAR}, {"statusDate", Types.TIMESTAMP}
+		{"UNSPSC", Types.VARCHAR}, {"status", Types.INTEGER},
+		{"statusByUserId", Types.BIGINT}, {"statusByUserName", Types.VARCHAR},
+		{"statusDate", Types.TIMESTAMP}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -148,6 +149,7 @@ public class CPInstanceModelImpl
 		TABLE_COLUMNS_MAP.put("deliverySubscriptionType", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("deliverySubTypeSettings", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("deliveryMaxSubscriptionCycles", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("UNSPSC", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("statusByUserId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("statusByUserName", Types.VARCHAR);
@@ -155,7 +157,7 @@ public class CPInstanceModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CPInstance (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,CPInstanceId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,CPDefinitionId LONG,CPInstanceUuid VARCHAR(75) null,sku VARCHAR(75) null,gtin VARCHAR(75) null,manufacturerPartNumber VARCHAR(75) null,purchasable BOOLEAN,width DOUBLE,height DOUBLE,depth DOUBLE,weight DOUBLE,price DECIMAL(30, 16) null,promoPrice DECIMAL(30, 16) null,cost DECIMAL(30, 16) null,published BOOLEAN,displayDate DATE null,expirationDate DATE null,lastPublishDate DATE null,overrideSubscriptionInfo BOOLEAN,subscriptionEnabled BOOLEAN,subscriptionLength INTEGER,subscriptionType VARCHAR(75) null,subscriptionTypeSettings TEXT null,maxSubscriptionCycles LONG,deliverySubscriptionEnabled BOOLEAN,deliverySubscriptionLength INTEGER,deliverySubscriptionType VARCHAR(75) null,deliverySubTypeSettings VARCHAR(75) null,deliveryMaxSubscriptionCycles LONG,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
+		"create table CPInstance (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,CPInstanceId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,CPDefinitionId LONG,CPInstanceUuid VARCHAR(75) null,sku VARCHAR(75) null,gtin VARCHAR(75) null,manufacturerPartNumber VARCHAR(75) null,purchasable BOOLEAN,width DOUBLE,height DOUBLE,depth DOUBLE,weight DOUBLE,price DECIMAL(30, 16) null,promoPrice DECIMAL(30, 16) null,cost DECIMAL(30, 16) null,published BOOLEAN,displayDate DATE null,expirationDate DATE null,lastPublishDate DATE null,overrideSubscriptionInfo BOOLEAN,subscriptionEnabled BOOLEAN,subscriptionLength INTEGER,subscriptionType VARCHAR(75) null,subscriptionTypeSettings TEXT null,maxSubscriptionCycles LONG,deliverySubscriptionEnabled BOOLEAN,deliverySubscriptionLength INTEGER,deliverySubscriptionType VARCHAR(75) null,deliverySubTypeSettings VARCHAR(75) null,deliveryMaxSubscriptionCycles LONG,UNSPSC VARCHAR(75) null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table CPInstance";
 
@@ -263,6 +265,7 @@ public class CPInstanceModelImpl
 			soapModel.getDeliverySubscriptionTypeSettings());
 		model.setDeliveryMaxSubscriptionCycles(
 			soapModel.getDeliveryMaxSubscriptionCycles());
+		model.setUNSPSC(soapModel.getUNSPSC());
 		model.setStatus(soapModel.getStatus());
 		model.setStatusByUserId(soapModel.getStatusByUserId());
 		model.setStatusByUserName(soapModel.getStatusByUserName());
@@ -1237,6 +1240,26 @@ public class CPInstanceModelImpl
 
 			});
 		attributeGetterFunctions.put(
+			"UNSPSC",
+			new Function<CPInstance, Object>() {
+
+				@Override
+				public Object apply(CPInstance cpInstance) {
+					return cpInstance.getUNSPSC();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"UNSPSC",
+			new BiConsumer<CPInstance, Object>() {
+
+				@Override
+				public void accept(CPInstance cpInstance, Object UNSPSCObject) {
+					cpInstance.setUNSPSC((String)UNSPSCObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
 			"status",
 			new Function<CPInstance, Object>() {
 
@@ -1940,6 +1963,22 @@ public class CPInstanceModelImpl
 
 	@JSON
 	@Override
+	public String getUNSPSC() {
+		if (_UNSPSC == null) {
+			return "";
+		}
+		else {
+			return _UNSPSC;
+		}
+	}
+
+	@Override
+	public void setUNSPSC(String UNSPSC) {
+		_UNSPSC = UNSPSC;
+	}
+
+	@JSON
+	@Override
 	public int getStatus() {
 		return _status;
 	}
@@ -2181,6 +2220,7 @@ public class CPInstanceModelImpl
 			getDeliverySubscriptionTypeSettings());
 		cpInstanceImpl.setDeliveryMaxSubscriptionCycles(
 			getDeliveryMaxSubscriptionCycles());
+		cpInstanceImpl.setUNSPSC(getUNSPSC());
 		cpInstanceImpl.setStatus(getStatus());
 		cpInstanceImpl.setStatusByUserId(getStatusByUserId());
 		cpInstanceImpl.setStatusByUserName(getStatusByUserName());
@@ -2493,6 +2533,14 @@ public class CPInstanceModelImpl
 		cpInstanceCacheModel.deliveryMaxSubscriptionCycles =
 			getDeliveryMaxSubscriptionCycles();
 
+		cpInstanceCacheModel.UNSPSC = getUNSPSC();
+
+		String UNSPSC = cpInstanceCacheModel.UNSPSC;
+
+		if ((UNSPSC != null) && (UNSPSC.length() == 0)) {
+			cpInstanceCacheModel.UNSPSC = null;
+		}
+
 		cpInstanceCacheModel.status = getStatus();
 
 		cpInstanceCacheModel.statusByUserId = getStatusByUserId();
@@ -2636,6 +2684,9 @@ public class CPInstanceModelImpl
 	private String _deliverySubscriptionType;
 	private String _deliverySubscriptionTypeSettings;
 	private long _deliveryMaxSubscriptionCycles;
+
+	private String _UNSPSC;
+
 	private int _status;
 	private int _originalStatus;
 	private boolean _setOriginalStatus;

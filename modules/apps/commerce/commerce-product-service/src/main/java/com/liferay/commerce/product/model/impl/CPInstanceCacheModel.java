@@ -64,7 +64,7 @@ public class CPInstanceCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(83);
+		StringBundler sb = new StringBundler(85);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -140,6 +140,8 @@ public class CPInstanceCacheModel
 		sb.append(deliverySubscriptionTypeSettings);
 		sb.append(", deliveryMaxSubscriptionCycles=");
 		sb.append(deliveryMaxSubscriptionCycles);
+		sb.append(", UNSPSC=");
+		sb.append(UNSPSC);
 		sb.append(", status=");
 		sb.append(status);
 		sb.append(", statusByUserId=");
@@ -301,6 +303,14 @@ public class CPInstanceCacheModel
 
 		cpInstanceImpl.setDeliveryMaxSubscriptionCycles(
 			deliveryMaxSubscriptionCycles);
+
+		if (UNSPSC == null) {
+			cpInstanceImpl.setUNSPSC("");
+		}
+		else {
+			cpInstanceImpl.setUNSPSC(UNSPSC);
+		}
+
 		cpInstanceImpl.setStatus(status);
 		cpInstanceImpl.setStatusByUserId(statusByUserId);
 
@@ -382,6 +392,7 @@ public class CPInstanceCacheModel
 		deliverySubscriptionTypeSettings = objectInput.readUTF();
 
 		deliveryMaxSubscriptionCycles = objectInput.readLong();
+		UNSPSC = objectInput.readUTF();
 
 		status = objectInput.readInt();
 
@@ -514,6 +525,13 @@ public class CPInstanceCacheModel
 
 		objectOutput.writeLong(deliveryMaxSubscriptionCycles);
 
+		if (UNSPSC == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(UNSPSC);
+		}
+
 		objectOutput.writeInt(status);
 
 		objectOutput.writeLong(statusByUserId);
@@ -565,6 +583,9 @@ public class CPInstanceCacheModel
 	public String deliverySubscriptionType;
 	public String deliverySubscriptionTypeSettings;
 	public long deliveryMaxSubscriptionCycles;
+
+	public String UNSPSC;
+
 	public int status;
 	public long statusByUserId;
 	public String statusByUserName;
