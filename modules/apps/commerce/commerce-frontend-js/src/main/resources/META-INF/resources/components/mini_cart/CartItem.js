@@ -132,7 +132,9 @@ function CartItem({item: cartItem}) {
 				.then(() => setIsUpdating(false));
 
 			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, [AJAX, cartItem, cartItemId, orderId]);
+		},
+		[AJAX, cartItem, cartItemId, orderId]
+	);
 
 	const {
 		isGettingRemoved,

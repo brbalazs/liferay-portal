@@ -16,4 +16,4 @@ export const DISCOUNT_LEVEL_PREFIX = 'discountPercentageLevel';
 
 export const ORDER_UUID_PARAMETER = 'commerceOrderUuid';
 
-export const WORKFLOW_STATUS_APPROVED = 2;
+export const WORKFLOW_STATUS_APPROVED = 0;
