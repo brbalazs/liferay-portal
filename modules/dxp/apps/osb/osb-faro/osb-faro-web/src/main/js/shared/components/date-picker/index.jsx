@@ -141,7 +141,7 @@ export default class DatePicker extends React.Component {
 			state: {currentMonth}
 		} = this;
 
-		return !!maxDate && !maxDate.isSame(currentMonth);
+		return !!maxDate && maxDate.isSame(currentMonth, 'month');
 	}
 
 	@autobind
