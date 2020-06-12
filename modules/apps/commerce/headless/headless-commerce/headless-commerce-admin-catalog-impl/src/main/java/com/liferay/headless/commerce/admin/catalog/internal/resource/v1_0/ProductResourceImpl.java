@@ -248,14 +248,6 @@ public class ProductResourceImpl
 			String externalReferenceCode, String catalogExternalReferenceCode)
 		throws Exception {
 
-		CommerceCatalog commerceCatalog =
-			_commerceCatalogLocalService.fetchCommerceCatalogByReferenceCode(
-				contextCompany.getCompanyId(), catalogExternalReferenceCode);
-
-		if (commerceCatalog == null) {
-			throw new NoSuchCatalogException();
-		}
-
 		CPDefinition cpDefinition =
 			_cpDefinitionService.
 				fetchCPDefinitionByCProductExternalReferenceCode(
@@ -263,6 +255,20 @@ public class ProductResourceImpl
 
 		if (cpDefinition == null) {
 			throw new NoSuchCPDefinitionException();
+		}
+
+		CommerceCatalog commerceCatalog = cpDefinition.getCommerceCatalog();
+
+		if (catalogExternalReferenceCode != null) {
+			commerceCatalog =
+				_commerceCatalogLocalService.
+					fetchCommerceCatalogByReferenceCode(
+						contextCompany.getCompanyId(),
+						catalogExternalReferenceCode);
+		}
+
+		if (commerceCatalog == null) {
+			throw new NoSuchCatalogException();
 		}
 
 		cpDefinition = _cpDefinitionService.copyCPDefinition(
@@ -273,11 +279,23 @@ public class ProductResourceImpl
 
 	@Override
 	public Product postProductClone(Long id, Long catalogId) throws Exception {
-		CommerceCatalog commerceCatalog =
-			_commerceCatalogLocalService.getCommerceCatalog(catalogId);
+		CPDefinition cpDefinition =
+			_cpDefinitionService.fetchCPDefinitionByCProductId(id);
 
-		CPDefinition cpDefinition = _cpDefinitionService.copyCPDefinition(
-			id, commerceCatalog.getGroupId());
+		if (cpDefinition == null) {
+			throw new NoSuchCPDefinitionException(
+				"Unable to find Product with ID: " + id);
+		}
+
+		CommerceCatalog commerceCatalog = cpDefinition.getCommerceCatalog();
+
+		if (catalogId != null) {
+			commerceCatalog = _commerceCatalogLocalService.getCommerceCatalog(
+				catalogId);
+		}
+
+		cpDefinition = _cpDefinitionService.copyCPDefinition(
+			cpDefinition.getCPDefinitionId(), commerceCatalog.getGroupId());
 
 		return _toProduct(cpDefinition.getCPDefinitionId());
 	}
