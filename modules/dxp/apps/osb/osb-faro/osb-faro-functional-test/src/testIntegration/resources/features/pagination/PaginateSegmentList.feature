@@ -10,8 +10,8 @@ Feature: Paginate Segment list
 		* I click the "Create Segment" button
 		* I click the "Static Segment" dropdown option
 		* I click the "Add Members" button
-		* I search for "Cuc Jast"
-		* I click the checkbox on the table row containing "Cuc Jast"
+		* I search for "Ava Wiza"
+		* I click the checkbox on the table row containing "Ava Wiza"
 		* I click the "Add" button
 		* I name the Static segment "CreateStaticIndividualsSegment1 - ${Random.1}"  and save it
 		* I go to the "Segments" page
@@ -34,8 +34,8 @@ Feature: Paginate Segment list
 		* I click the "Create Segment" button
 		* I click the "Static Segment" dropdown option
 		* I click the "Add Members" button
-		* I search for "Ramon Von"
-		* I click the checkbox on the table row containing "Ramon Von"
+		* I search for "Ryan Von"
+		* I click the checkbox on the table row containing "Ryan Von"
 		* I click the "Add" button
 		* I name the Static segment "CreateStaticIndividualsSegment4 - ${Random.1}" and save it
 

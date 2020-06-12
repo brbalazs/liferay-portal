@@ -13,5 +13,5 @@ Feature: Search the Segment Profile Distribution
 		Given I click the "Distribution" tab
 		And I select breakdown "Individuals" by "gender"
 		And I click row number "1" in the bar graph table
-		When I search for "Devon Carter"
-		Then I should only see an individual named "Devon Carter" in the table
+		When I search for "Annabell Feeney"
+		Then I should only see an individual named "Annabell Feeney" in the table

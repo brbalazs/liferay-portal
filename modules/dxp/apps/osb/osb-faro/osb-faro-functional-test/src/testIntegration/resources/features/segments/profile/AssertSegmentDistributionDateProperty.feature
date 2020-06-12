@@ -13,4 +13,4 @@ Feature: Segment distribution chart can be filtered by date property
 		And I click the "Distribution" tab
 		When I select breakdown "Individuals" by "birthDate"
 		And I click row number "2" in the bar graph table
-		Then I should see an individual named "Cuc Jast" in the table
+		Then I should see an individual named "Tashia Carroll" in the table

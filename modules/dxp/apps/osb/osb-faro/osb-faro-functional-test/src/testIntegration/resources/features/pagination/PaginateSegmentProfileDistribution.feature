@@ -15,4 +15,4 @@ Feature: List of individuals can be paginated in distribution
 		And I click row number "1" in the bar graph table
 		When I go to page "2" in the creation modal
 		Then I should be on page "2" in the creation modal
-		And I should see an individual named "Jeremiah Parker" in the table
+		And I should see an individual named "Larae Howe" in the table

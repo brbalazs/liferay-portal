@@ -13,6 +13,6 @@ Feature: Segment Overview distribution filtered by date
 		When I create breakdown context "Individuals" by "birthDate" named Birth Date
 		And I click the "Explore Breakdown" button
 		And I click row number "2" in the bar graph table
-		Then I should see individual named "Cuc Jast" in the table
+		Then I should see individual named "Tashia Carroll" in the table
 		And I click the "Overview" tab
 		And I delete the breakdown

@@ -26,16 +26,16 @@ Feature: Account segment list has pagination
 		* I click the "Create Segment" button
 		* I click the "Static Segment" dropdown option
 		* I click the "Add Members" button
-		* I search for "Devon Carter"
-		* I click the checkbox on the table row containing "Devon Carter"
+		* I search for "Maria Rau"
+		* I click the checkbox on the table row containing "Maria Rau"
 		* I click the "Add" button
 		* I name the Static segment "CreateStaticIndividualsSegment3 - ${Random.1}" and save it
 		* I go to the "Segments" page
 		* I click the "Create Segment" button
 		* I click the "Static Segment" dropdown option
 		* I click the "Add Members" button
-		* I search for "Ryan Von"
-		* I click the checkbox on the table row containing "Ryan Von"
+		* I search for "Sally Johns"
+		* I click the checkbox on the table row containing "Sally Johns"
 		* I click the "Add" button
 		* I name the Static segment "CreateStaticIndividualsSegment4 - ${Random.1}" and save it
 

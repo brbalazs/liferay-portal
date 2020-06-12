@@ -11,5 +11,5 @@ Feature: Search the Segment Profile Membership List
 
 	Scenario: Search for an Individual in the Segment Profile's Membership List
 		Given I click the "Membership" tab
-		When I search for "Bao Raynor"
-		Then I should only see an Individual named "Bao Raynor" in the table
+		When I search for "Tory Glover"
+		Then I should only see an Individual named "Tory Glover" in the table

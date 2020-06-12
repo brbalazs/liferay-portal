@@ -14,5 +14,3 @@ Feature: Assert segment membership list shows all known individuals
 		Then I should see an individual named "Tory Glover" in the table
 		And I should see an individual named "Jeni Kertzmann" in the table
 		And I should see an individual named "Roy Morissette" in the table
-		And I should see an individual named "Malcom Satterfield" in the table
-		And I should see an individual named "Bao Raynor" in the table

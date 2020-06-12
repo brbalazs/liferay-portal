@@ -10,8 +10,8 @@ Feature: Order an Individual's Associated Segments List
 		* I click the "Known Individuals" tab
 
 	Scenario: Order an Individual's Associated Segments List
-		Given I search for "Bao Raynor"
-		And I click "Bao Raynor" in the table
+		Given I search for "Tory Glover"
+		And I click "Tory Glover" in the table
 		And I click the "Segments" tab
 
 		# Order by Name
