@@ -22,6 +22,7 @@ import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.frontend.model.LabelField;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
+import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClassDiscount;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;

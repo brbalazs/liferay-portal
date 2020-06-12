@@ -72,18 +72,19 @@ public class EditCommercePricingClassMVCActionCommand
 			ActionRequest actionRequest)
 		throws Exception {
 
-		long commercePricingClassId = ParamUtil.getLong(
-			actionRequest, "commercePricingClassId");
+		CommercePricingClass commercePricingClass = null;
 
 		Map<Locale, String> titleMap = LocalizationUtil.getLocalizationMap(
 			actionRequest, "title");
+
 		Map<Locale, String> descriptionMap =
 			LocalizationUtil.getLocalizationMap(actionRequest, "description");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			CommercePricingClass.class.getName(), actionRequest);
 
-		CommercePricingClass commercePricingClass = null;
+		long commercePricingClassId = ParamUtil.getLong(
+			actionRequest, "commercePricingClassId");
 
 		if (commercePricingClassId <= 0) {
 			commercePricingClass =

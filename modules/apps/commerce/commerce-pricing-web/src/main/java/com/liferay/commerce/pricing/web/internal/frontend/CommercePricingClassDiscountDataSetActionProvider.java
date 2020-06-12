@@ -18,6 +18,7 @@ import com.liferay.commerce.discount.constants.CommerceDiscountPortletKeys;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
 import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
+import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClassDiscount;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -58,8 +59,6 @@ public class CommercePricingClassDiscountDataSetActionProvider
 
 		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
-		PricingClassDiscount pricingClassDiscount = (PricingClassDiscount)model;
-
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
@@ -68,6 +67,9 @@ public class CommercePricingClassDiscountDataSetActionProvider
 				themeDisplay.getPermissionChecker(),
 				CommercePricingClassActionKeys.
 					MANAGE_COMMERCE_PRICING_CLASSES)) {
+
+			PricingClassDiscount pricingClassDiscount =
+				(PricingClassDiscount)model;
 
 			PortletURL editURL = _getDiscountEditURL(
 				pricingClassDiscount.getCommerceDiscountId(),

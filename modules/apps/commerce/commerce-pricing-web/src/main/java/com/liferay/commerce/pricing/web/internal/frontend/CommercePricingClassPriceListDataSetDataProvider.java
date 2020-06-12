@@ -25,6 +25,7 @@ import com.liferay.commerce.pricing.model.CommercePriceModifierRel;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePriceModifierRelService;
 import com.liferay.commerce.pricing.service.CommercePriceModifierService;
+import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClassPriceList;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;

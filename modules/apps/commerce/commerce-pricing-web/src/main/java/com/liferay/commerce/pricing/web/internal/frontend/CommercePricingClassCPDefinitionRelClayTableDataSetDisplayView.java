@@ -20,6 +20,8 @@ import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
+import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
+import com.liferay.petra.string.StringPool;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -41,7 +43,7 @@ public class CommercePricingClassCPDefinitionRelClayTableDataSetDisplayView
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
 		ClayTableSchemaField imageField = clayTableSchemaBuilder.addField(
-			"image", "");
+			"image", StringPool.BLANK);
 
 		imageField.setContentRenderer("image");
 

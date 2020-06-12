@@ -20,6 +20,7 @@ import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePricingClassCPDefinitionRelService;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
+import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClass;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;

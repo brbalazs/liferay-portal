@@ -20,6 +20,7 @@ import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.frontend.model.ImageField;
 import com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel;
 import com.liferay.commerce.pricing.service.CommercePricingClassCPDefinitionRelService;
+import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClassCPDefinitionRel;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
@@ -75,10 +76,10 @@ public class CommercePricingClassCPDefinitionRelDataSetDataProvider
 			new ArrayList<>();
 
 		try {
+			Locale locale = _portal.getLocale(httpServletRequest);
+
 			long commercePricingClassId = ParamUtil.getLong(
 				httpServletRequest, "commercePricingClassId");
-
-			Locale locale = _portal.getLocale(httpServletRequest);
 
 			List<CommercePricingClassCPDefinitionRel>
 				commercePricingClassCPDefinitionRels =

@@ -23,7 +23,7 @@ CommercePricingClass commercePricingClass = commercePricingClassCPDefinitionDisp
 
 long commercePricingClassId = commercePricingClass.getCommercePricingClassId();
 
-	boolean hasPermission = commercePricingClassCPDefinitionDisplayContext.hasPermission();
+boolean hasPermission = commercePricingClassCPDefinitionDisplayContext.hasPermission();
 %>
 
 <c:if test="<%= hasPermission %>">

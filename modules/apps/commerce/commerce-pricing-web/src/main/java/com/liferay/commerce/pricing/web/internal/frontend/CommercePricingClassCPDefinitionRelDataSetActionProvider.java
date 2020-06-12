@@ -17,6 +17,7 @@ package com.liferay.commerce.pricing.web.internal.frontend;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
 import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
+import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClassCPDefinitionRel;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.petra.string.StringPool;
@@ -58,9 +59,6 @@ public class CommercePricingClassCPDefinitionRelDataSetActionProvider
 
 		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
-		PricingClassCPDefinitionRel pricingClassCPDefinitionRel =
-			(PricingClassCPDefinitionRel)model;
-
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
@@ -69,6 +67,9 @@ public class CommercePricingClassCPDefinitionRelDataSetActionProvider
 				themeDisplay.getPermissionChecker(),
 				CommercePricingClassActionKeys.
 					MANAGE_COMMERCE_PRICING_CLASSES)) {
+
+			PricingClassCPDefinitionRel pricingClassCPDefinitionRel =
+				(PricingClassCPDefinitionRel)model;
 
 			PortletURL editURL = _getCPDefinitionEditURL(
 				pricingClassCPDefinitionRel.getCPDefinitionId(),

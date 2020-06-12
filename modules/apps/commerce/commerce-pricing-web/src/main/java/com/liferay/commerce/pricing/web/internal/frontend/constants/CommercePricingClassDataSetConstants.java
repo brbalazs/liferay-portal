@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.pricing.web.internal.frontend;
+package com.liferay.commerce.pricing.web.internal.frontend.constants;
 
 /**
  * @author Riccardo Alberti
