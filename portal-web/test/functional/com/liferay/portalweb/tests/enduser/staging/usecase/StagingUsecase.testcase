@@ -1090,6 +1090,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-84418."
+	@ignore = "true"
 	@priority = "5"
 	test PublishWithImpossibleDateRange {
 		Navigator.openStagingSiteURL(siteName = "Site Name");
