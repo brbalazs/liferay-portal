@@ -1054,6 +1054,9 @@ components:
                 sku:
                     example: "12341234"
                     type: string
+                unspsc:
+                    example: "1234567890"
+                    type: string
                 weight:
                     example: 1.1
                     format: double
