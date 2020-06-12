@@ -199,6 +199,9 @@ components:
                     $ref: "#/components/schemas/Summary"
                 useAsBilling:
                     type: boolean
+                workflowStatusInfo:
+                    $ref: "#/components/schemas/Status"
+                    readOnly: true
             type: object
         CartComment:
             properties:
