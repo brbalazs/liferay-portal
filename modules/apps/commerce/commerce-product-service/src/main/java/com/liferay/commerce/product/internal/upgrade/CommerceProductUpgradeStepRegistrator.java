@@ -167,6 +167,11 @@ public class CommerceProductUpgradeStepRegistrator
 			new CommerceChannelUpgradeProcess());
 
 		registry.register(
+			_SCHEMA_VERSION_2_3_0, _SCHEMA_VERSION_2_3_1,
+			new com.liferay.commerce.product.internal.upgrade.v2_3_1.
+				CPInstanceUpgradeProcess());
+
+		registry.register(
 			_SCHEMA_VERSION_2_3_0, _SCHEMA_VERSION_2_4_0,
 			new com.liferay.commerce.product.internal.upgrade.v2_4_0.
 				CPDefinitionOptionValueRelUpgradeProcess());
@@ -221,6 +226,8 @@ public class CommerceProductUpgradeStepRegistrator
 	private static final String _SCHEMA_VERSION_2_2_2 = "2.2.2";
 
 	private static final String _SCHEMA_VERSION_2_3_0 = "2.3.0";
+
+	private static final String _SCHEMA_VERSION_2_3_1 = "2.3.1";
 
 	private static final String _SCHEMA_VERSION_2_4_0 = "2.4.0";
 
