@@ -137,6 +137,24 @@ public class CommerceDiscountServiceSoap {
 		}
 	}
 
+	public static int countByCommercePricingClassId(
+			long commercePricingClassId, String title)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceDiscountServiceUtil.countByCommercePricingClassId(
+					commercePricingClassId, title);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static void deleteCommerceDiscount(long commerceDiscountId)
 		throws RemoteException {
 
@@ -238,6 +256,27 @@ public class CommerceDiscountServiceSoap {
 					companyId, couponCode);
 
 			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.discount.model.CommerceDiscountSoap[]
+			searchByCommercePricingClassId(
+				long commercePricingClassId, String title, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
+				returnValue =
+					CommerceDiscountServiceUtil.searchByCommercePricingClassId(
+						commercePricingClassId, title, start, end);
+
+			return com.liferay.commerce.discount.model.CommerceDiscountSoap.
+				toSoapModels(returnValue);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

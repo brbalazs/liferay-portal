@@ -129,6 +129,9 @@ public interface CommerceDiscountLocalService
 
 	public void checkCommerceDiscounts() throws PortalException;
 
+	public int countByCommercePricingClassId(
+		long commercePricingClassId, String title);
+
 	/**
 	 * Creates a new commerce discount with the primary key. Does not add the commerce discount to the database.
 	 *
@@ -384,6 +387,10 @@ public interface CommerceDiscountLocalService
 	public CommerceDiscount incrementCommerceDiscountNumberOfUse(
 			long commerceDiscountId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscount> searchByCommercePricingClassId(
+		long commercePricingClassId, String title, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public BaseModelSearchResult<CommerceDiscount> searchCommerceDiscounts(

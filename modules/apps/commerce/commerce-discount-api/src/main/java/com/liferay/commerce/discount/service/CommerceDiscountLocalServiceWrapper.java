@@ -139,6 +139,14 @@ public class CommerceDiscountLocalServiceWrapper
 		_commerceDiscountLocalService.checkCommerceDiscounts();
 	}
 
+	@Override
+	public int countByCommercePricingClassId(
+		long commercePricingClassId, String title) {
+
+		return _commerceDiscountLocalService.countByCommercePricingClassId(
+			commercePricingClassId, title);
+	}
+
 	/**
 	 * Creates a new commerce discount with the primary key. Does not add the commerce discount to the database.
 	 *
@@ -554,6 +562,15 @@ public class CommerceDiscountLocalServiceWrapper
 
 		return _commerceDiscountLocalService.
 			incrementCommerceDiscountNumberOfUse(commerceDiscountId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
+		searchByCommercePricingClassId(
+			long commercePricingClassId, String title, int start, int end) {
+
+		return _commerceDiscountLocalService.searchByCommercePricingClassId(
+			commercePricingClassId, title, start, end);
 	}
 
 	@Override

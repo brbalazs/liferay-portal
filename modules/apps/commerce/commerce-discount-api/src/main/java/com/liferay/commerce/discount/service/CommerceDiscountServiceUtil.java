@@ -90,6 +90,14 @@ public class CommerceDiscountServiceUtil {
 			neverExpire, serviceContext);
 	}
 
+	public static int countByCommercePricingClassId(
+			long commercePricingClassId, String title)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().countByCommercePricingClassId(
+			commercePricingClassId, title);
+	}
+
 	public static void deleteCommerceDiscount(long commerceDiscountId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -141,6 +149,17 @@ public class CommerceDiscountServiceUtil {
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscount>
+				searchByCommercePricingClassId(
+					long commercePricingClassId, String title, int start,
+					int end)
+			throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().searchByCommercePricingClassId(
+			commercePricingClassId, title, start, end);
 	}
 
 	public static com.liferay.portal.kernel.search.BaseModelSearchResult
