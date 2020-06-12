@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
@@ -67,6 +68,10 @@ public interface CommercePricingClassCPDefinitionRelService
 				long commercePricingClassId, long cpDefinitionId,
 				ServiceContext serviceContext)
 		throws PortalException;
+
+	public int countByCommercePricingClassId(
+			long commercePricingClassId, String name, String languageId)
+		throws PrincipalException;
 
 	public CommercePricingClassCPDefinitionRel
 			deleteCommercePricingClassCPDefinitionRel(
@@ -120,5 +125,12 @@ public interface CommercePricingClassCPDefinitionRelService
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePricingClassCPDefinitionRel>
+			searchByCommercePricingClassId(
+				long commercePricingClassId, String name, String languageId,
+				int start, int end)
+		throws PrincipalException;
 
 }

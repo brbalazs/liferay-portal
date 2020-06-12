@@ -49,6 +49,14 @@ public class CommercePricingClassCPDefinitionRelServiceUtil {
 			commercePricingClassId, cpDefinitionId, serviceContext);
 	}
 
+	public static int countByCommercePricingClassId(
+			long commercePricingClassId, String name, String languageId)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().countByCommercePricingClassId(
+			commercePricingClassId, name, languageId);
+	}
+
 	public static
 		com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel
 				deleteCommercePricingClassCPDefinitionRel(
@@ -136,6 +144,17 @@ public class CommercePricingClassCPDefinitionRelServiceUtil {
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel>
+				searchByCommercePricingClassId(
+					long commercePricingClassId, String name, String languageId,
+					int start, int end)
+			throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().searchByCommercePricingClassId(
+			commercePricingClassId, name, languageId, start, end);
 	}
 
 	public static CommercePricingClassCPDefinitionRelService getService() {

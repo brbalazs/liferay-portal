@@ -67,6 +67,13 @@ public class CommercePricingClassCPDefinitionRelLocalServiceUtil {
 			commercePricingClassId, cpDefinitionId, serviceContext);
 	}
 
+	public static int countByCommercePricingClassId(
+		long commercePricingClassId, String name, String languageId) {
+
+		return getService().countByCommercePricingClassId(
+			commercePricingClassId, name, languageId);
+	}
+
 	/**
 	 * Creates a new commerce pricing class cp definition rel with the primary key. Does not add the commerce pricing class cp definition rel to the database.
 	 *
@@ -355,6 +362,16 @@ public class CommercePricingClassCPDefinitionRelLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel>
+			searchByCommercePricingClassId(
+				long commercePricingClassId, String name, String languageId,
+				int start, int end) {
+
+		return getService().searchByCommercePricingClassId(
+			commercePricingClassId, name, languageId, start, end);
 	}
 
 	/**

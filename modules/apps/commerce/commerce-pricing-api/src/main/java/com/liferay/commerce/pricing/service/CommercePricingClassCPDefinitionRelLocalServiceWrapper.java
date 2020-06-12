@@ -68,6 +68,15 @@ public class CommercePricingClassCPDefinitionRelLocalServiceWrapper
 				commercePricingClassId, cpDefinitionId, serviceContext);
 	}
 
+	@Override
+	public int countByCommercePricingClassId(
+		long commercePricingClassId, String name, String languageId) {
+
+		return _commercePricingClassCPDefinitionRelLocalService.
+			countByCommercePricingClassId(
+				commercePricingClassId, name, languageId);
+	}
+
 	/**
 	 * Creates a new commerce pricing class cp definition rel with the primary key. Does not add the commerce pricing class cp definition rel to the database.
 	 *
@@ -397,6 +406,18 @@ public class CommercePricingClassCPDefinitionRelLocalServiceWrapper
 
 		return _commercePricingClassCPDefinitionRelLocalService.
 			getPersistedModel(primaryKeyObj);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel>
+			searchByCommercePricingClassId(
+				long commercePricingClassId, String name, String languageId,
+				int start, int end) {
+
+		return _commercePricingClassCPDefinitionRelLocalService.
+			searchByCommercePricingClassId(
+				commercePricingClassId, name, languageId, start, end);
 	}
 
 	/**

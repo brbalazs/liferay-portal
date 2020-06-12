@@ -88,6 +88,12 @@ public class CommercePricingClassLocalServiceWrapper
 			serviceContext);
 	}
 
+	@Override
+	public int countByCPDefinitionId(long cpDefinitionId, String title) {
+		return _commercePricingClassLocalService.countByCPDefinitionId(
+			cpDefinitionId, title);
+	}
+
 	/**
 	 * Creates a new commerce pricing class with the primary key. Does not add the commerce pricing class to the database.
 	 *
@@ -472,6 +478,16 @@ public class CommercePricingClassLocalServiceWrapper
 
 		return _commercePricingClassLocalService.getPersistedModel(
 			primaryKeyObj);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.pricing.model.CommercePricingClass>
+			searchByCPDefinitionId(
+				long cpDefinitionId, String title, int start, int end) {
+
+		return _commercePricingClassLocalService.searchByCPDefinitionId(
+			cpDefinitionId, title, start, end);
 	}
 
 	@Override

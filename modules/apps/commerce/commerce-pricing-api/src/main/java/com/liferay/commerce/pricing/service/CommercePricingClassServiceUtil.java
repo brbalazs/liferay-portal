@@ -59,6 +59,12 @@ public class CommercePricingClassServiceUtil {
 			userId, groupId, title, description, serviceContext);
 	}
 
+	public static int countByCPDefinitionId(long cpDefinitionId, String title)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().countByCPDefinitionId(cpDefinitionId, title);
+	}
+
 	public static com.liferay.commerce.pricing.model.CommercePricingClass
 			deleteCommercePricingClass(long commercePricingClassId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -123,6 +129,16 @@ public class CommercePricingClassServiceUtil {
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.pricing.model.CommercePricingClass>
+				searchByByCPDefinitionId(
+					long cpDefinitionId, String title, int start, int end)
+			throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().searchByByCPDefinitionId(
+			cpDefinitionId, title, start, end);
 	}
 
 	public static com.liferay.portal.kernel.search.BaseModelSearchResult

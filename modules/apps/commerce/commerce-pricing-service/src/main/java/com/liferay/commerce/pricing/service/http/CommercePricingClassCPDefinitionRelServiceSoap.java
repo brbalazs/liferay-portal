@@ -89,6 +89,53 @@ public class CommercePricingClassCPDefinitionRelServiceSoap {
 		}
 	}
 
+	public static int countByCommercePricingClassId(
+			long commercePricingClassId, String name, String languageId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommercePricingClassCPDefinitionRelServiceUtil.
+					countByCommercePricingClassId(
+						commercePricingClassId, name, languageId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static
+		com.liferay.commerce.pricing.model.
+			CommercePricingClassCPDefinitionRelSoap[]
+					searchByCommercePricingClassId(
+						long commercePricingClassId, String name,
+						String languageId, int start, int end)
+				throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.pricing.model.
+					CommercePricingClassCPDefinitionRel> returnValue =
+						CommercePricingClassCPDefinitionRelServiceUtil.
+							searchByCommercePricingClassId(
+								commercePricingClassId, name, languageId, start,
+								end);
+
+			return com.liferay.commerce.pricing.model.
+				CommercePricingClassCPDefinitionRelSoap.toSoapModels(
+					returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static
 		com.liferay.commerce.pricing.model.
 			CommercePricingClassCPDefinitionRelSoap

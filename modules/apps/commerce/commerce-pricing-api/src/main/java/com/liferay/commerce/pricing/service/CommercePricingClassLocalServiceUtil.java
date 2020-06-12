@@ -88,6 +88,10 @@ public class CommercePricingClassLocalServiceUtil {
 			serviceContext);
 	}
 
+	public static int countByCPDefinitionId(long cpDefinitionId, String title) {
+		return getService().countByCPDefinitionId(cpDefinitionId, title);
+	}
+
 	/**
 	 * Creates a new commerce pricing class with the primary key. Does not add the commerce pricing class to the database.
 	 *
@@ -431,6 +435,15 @@ public class CommercePricingClassLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.pricing.model.CommercePricingClass>
+			searchByCPDefinitionId(
+				long cpDefinitionId, String title, int start, int end) {
+
+		return getService().searchByCPDefinitionId(
+			cpDefinitionId, title, start, end);
 	}
 
 	public static com.liferay.portal.kernel.search.BaseModelSearchResult

@@ -80,6 +80,9 @@ public interface CommercePricingClassCPDefinitionRelLocalService
 				ServiceContext serviceContext)
 		throws PortalException;
 
+	public int countByCommercePricingClassId(
+		long commercePricingClassId, String name, String languageId);
+
 	/**
 	 * Creates a new commerce pricing class cp definition rel with the primary key. Does not add the commerce pricing class cp definition rel to the database.
 	 *
@@ -283,6 +286,12 @@ public interface CommercePricingClassCPDefinitionRelLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePricingClassCPDefinitionRel>
+		searchByCommercePricingClassId(
+			long commercePricingClassId, String name, String languageId,
+			int start, int end);
 
 	/**
 	 * Updates the commerce pricing class cp definition rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

@@ -96,6 +96,8 @@ public interface CommercePricingClassLocalService
 			String externalReferenceCode, ServiceContext serviceContext)
 		throws PortalException;
 
+	public int countByCPDefinitionId(long cpDefinitionId, String title);
+
 	/**
 	 * Creates a new commerce pricing class with the primary key. Does not add the commerce pricing class to the database.
 	 *
@@ -347,6 +349,10 @@ public interface CommercePricingClassLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePricingClass> searchByCPDefinitionId(
+		long cpDefinitionId, String title, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public BaseModelSearchResult<CommercePricingClass>
