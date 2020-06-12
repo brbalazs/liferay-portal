@@ -275,7 +275,7 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 								}
 
 								return response.json().then(function(data) {
-									return Promise.reject(data.message);
+									return Promise.reject(data.errorDescription);
 								});
 							})
 							.then(selectItem);
