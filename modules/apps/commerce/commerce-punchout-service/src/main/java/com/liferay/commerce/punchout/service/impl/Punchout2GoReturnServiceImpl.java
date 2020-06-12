@@ -21,6 +21,8 @@ import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.punchout.service.PunchoutReturnService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -145,6 +147,11 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 			cartItemJSONObject.put(
 				"shippingAddressId", commerceOrderItem.getShippingAddressId());
 
+			CPInstance cpInstance = _cpInstanceLocalService.fetchCPInstance(
+				commerceOrderItem.getCPInstanceId());
+
+			cartItemJSONObject.put("UNSPSC", cpInstance.getUNSPSC());
+
 			DateFormat dateFormat = new SimpleDateFormat(
 				"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
@@ -200,6 +207,9 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 
 	@Reference
 	private AssetEntryLocalService _assetEntryLocalService;
+
+	@Reference
+	private CPInstanceLocalService _cpInstanceLocalService;
 
 	@Reference
 	private JSONFactory _jsonFactory;
