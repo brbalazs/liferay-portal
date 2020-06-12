@@ -571,6 +571,34 @@ public class Sku {
 	@NotEmpty
 	protected String sku;
 
+	@Schema
+	public String getUnspsc() {
+		return unspsc;
+	}
+
+	public void setUnspsc(String unspsc) {
+		this.unspsc = unspsc;
+	}
+
+	@JsonIgnore
+	public void setUnspsc(
+		UnsafeSupplier<String, Exception> unspscUnsafeSupplier) {
+
+		try {
+			unspsc = unspscUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String unspsc;
+
 	@DecimalMin("0")
 	@Schema
 	public Double getWeight() {
@@ -859,6 +887,20 @@ public class Sku {
 			sb.append("\"");
 
 			sb.append(_escape(sku));
+
+			sb.append("\"");
+		}
+
+		if (unspsc != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"unspsc\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(unspsc));
 
 			sb.append("\"");
 		}

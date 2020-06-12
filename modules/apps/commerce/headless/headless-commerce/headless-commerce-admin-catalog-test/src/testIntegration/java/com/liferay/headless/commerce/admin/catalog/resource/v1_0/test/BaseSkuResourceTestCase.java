@@ -193,6 +193,7 @@ public abstract class BaseSkuResourceTestCase {
 		sku.setGtin(regex);
 		sku.setManufacturerPartNumber(regex);
 		sku.setSku(regex);
+		sku.setUnspsc(regex);
 
 		String json = SkuSerDes.toJSON(sku);
 
@@ -204,6 +205,7 @@ public abstract class BaseSkuResourceTestCase {
 		Assert.assertEquals(regex, sku.getGtin());
 		Assert.assertEquals(regex, sku.getManufacturerPartNumber());
 		Assert.assertEquals(regex, sku.getSku());
+		Assert.assertEquals(regex, sku.getUnspsc());
 	}
 
 	@Test
@@ -1110,6 +1112,14 @@ public abstract class BaseSkuResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("unspsc", additionalAssertFieldName)) {
+				if (sku.getUnspsc() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("weight", additionalAssertFieldName)) {
 				if (sku.getWeight() == null) {
 					valid = false;
@@ -1386,6 +1396,14 @@ public abstract class BaseSkuResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("unspsc", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(sku1.getUnspsc(), sku2.getUnspsc())) {
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("weight", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(sku1.getWeight(), sku2.getWeight())) {
 					return false;
@@ -1638,6 +1656,14 @@ public abstract class BaseSkuResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("unspsc")) {
+			sb.append("'");
+			sb.append(String.valueOf(sku.getUnspsc()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("weight")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1708,6 +1734,7 @@ public abstract class BaseSkuResourceTestCase {
 				published = RandomTestUtil.randomBoolean();
 				purchasable = RandomTestUtil.randomBoolean();
 				sku = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				unspsc = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				weight = RandomTestUtil.randomDouble();
 				width = RandomTestUtil.randomDouble();
 			}
