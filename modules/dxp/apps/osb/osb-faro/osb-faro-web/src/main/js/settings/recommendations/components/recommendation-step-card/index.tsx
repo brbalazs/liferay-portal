@@ -7,6 +7,7 @@ import Items from './Items';
 import NavigationWarning from 'shared/components/NavigationWarning';
 import ProgressTimeline from 'shared/components/ProgressTimeline';
 import React, {useState} from 'react';
+import Summary from './Summary';
 import {Job, JobParameter} from '../../utils/utils';
 import {
 	jobTrainingFrequencies,
@@ -28,7 +29,7 @@ const STEPS = [
 		title: Liferay.Language.get('items')
 	},
 	{
-		component: () => <div>{'step 4'}</div>,
+		component: Summary,
 		title: Liferay.Language.get('summary')
 	}
 ];
@@ -116,6 +117,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 
 	const lastStep = currentStep === STEPS.length - 1;
 
+	// TODO Do we store model type in the form or elsewhere and fetch it later?
 	return (
 		<Card className='recommendation-step-card-root'>
 			<Form

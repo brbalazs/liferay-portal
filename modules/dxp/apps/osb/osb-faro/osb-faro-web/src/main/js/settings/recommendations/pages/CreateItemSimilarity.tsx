@@ -2,6 +2,7 @@ import BasePage from 'settings/components/BasePage';
 import React from 'react';
 import RecommendationStepCard from '../components/recommendation-step-card';
 import {getRecommendations} from 'shared/util/breadcrumbs';
+import {jobTypes} from 'shared/util/constants';
 import {RouterType} from 'shared/types';
 import {Routes, toRoute} from 'shared/util/router';
 import {withAdminPermission} from 'shared/hoc';
@@ -36,6 +37,7 @@ const CreateItemSimilarity: React.FC<ICreateItemSimilarityProps> = ({
 						cancelHref={toRoute(Routes.SETTINGS_RECOMMENDATIONS, {
 							groupId
 						})}
+						jobType={jobTypes.itemSimilarity}
 						router={router}
 					/>
 				</div>

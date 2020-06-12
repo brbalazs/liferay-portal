@@ -16,20 +16,12 @@ export default class DateRenderer extends React.Component {
 	};
 
 	render() {
-		const {data, dateFormatter, datePath} = this.props;
+		const {className, data, dateFormatter, datePath} = this.props;
 
 		const date = get(data, datePath);
 
 		const formattedDate = date ? dateFormatter(date) : '-';
 
-		return (
-			<td
-				className={
-					this.props.className ? ` ${this.props.className}` : ''
-				}
-			>
-				{formattedDate}
-			</td>
-		);
+		return <td className={className}>{formattedDate}</td>;
 	}
 }

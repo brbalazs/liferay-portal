@@ -71,7 +71,7 @@ export function generateDateRange(period = 30, interval = 'days') {
 
 /**
  * Get Date
- * @param {string} date
+ * @param {string} [date]
  */
 export const getDate = date => moment.utc(date).toDate();
 

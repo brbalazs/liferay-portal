@@ -35,11 +35,6 @@
 			color: $mainLighten28;
 		}
 
-		.title {
-			font-size: $fontSizeMedium;
-			font-weight: $fontWeightSemiBold;
-		}
-
 		.total-included-pages {
 			font-weight: $fontWeightSemiBold;
 			margin-left: 24px;
@@ -50,5 +45,21 @@
 	.secondary-info {
 		color: $mainLighten28;
 		font-weight: $fontWeightRegular;
+	}
+
+	.summary-root {
+		.summary-value {
+			font-weight: $fontWeightSemiBold;
+			padding-left: 12px;
+		}
+
+		.title {
+			margin-bottom: 12px;
+		}
+	}
+
+	.title {
+		font-size: $fontSizeMedium;
+		font-weight: $fontWeightSemiBold;
 	}
 }
