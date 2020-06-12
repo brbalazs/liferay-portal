@@ -1100,8 +1100,6 @@ definition {
 			failureExpected = "true",
 			frequency = "Monthly",
 			scheduleTitleName = "Event Monthly Name");
-
-		AssertConsoleTextNotPresent(value1 = "SchedulerException");
 	}
 
 	@priority = "4"
