@@ -3,7 +3,7 @@ jest.unmock('clay-charts');
 import * as data from 'test/data';
 import siteMetrics from 'sites/hocs/metrics';
 import {CHART_COLOR_NAMES} from 'shared/components/Chart';
-import {Colors} from 'shared/util/charts';
+import {Colors, getIntervals} from 'shared/util/charts';
 import {
 	convertHistogramKeysToDate,
 	getIcon,
@@ -138,7 +138,7 @@ describe('getMetricsData', () => {
 					{data: [getDate(keyDate)], id: 'x'}
 				],
 				dateKeysIMap,
-				intervals: [getDate(keyDate), getDate(keyDate)],
+				intervals: getIntervals(rangeKey, [getDate(keyDate)], 'D'),
 				prevDateKeysIMap
 			},
 			{
@@ -169,7 +169,7 @@ describe('getMetricsData', () => {
 					{data: [getDate(keyDate)], id: 'x'}
 				],
 				dateKeysIMap,
-				intervals: [getDate(keyDate), getDate(keyDate)],
+				intervals: getIntervals(rangeKey, [getDate(keyDate)], 'D'),
 				prevDateKeysIMap
 			}
 		]);

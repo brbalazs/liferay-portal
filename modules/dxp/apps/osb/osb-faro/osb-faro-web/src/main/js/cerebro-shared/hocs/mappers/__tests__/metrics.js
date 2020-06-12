@@ -110,7 +110,7 @@ describe('Shared HOCs Mappers - Metrics', () => {
 				ownProps: {
 					rangeSelectors: {
 						rangeEnd: null,
-						rangeKey: '30',
+						rangeKey: '7',
 						rangeStart: null
 					}
 				}

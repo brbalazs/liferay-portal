@@ -18,15 +18,18 @@ import {
 	isEmptyData,
 	nextColor
 } from '../charts';
-import {getDate} from 'shared/util/date';
-import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {
+	CUSTOM_RANGE,
+	LAST_180_DAYS,
 	LAST_24_HOURS,
 	LAST_28_DAYS,
 	LAST_30_DAYS,
 	LAST_90_DAYS,
+	LAST_YEAR,
 	YESTERDAY
 } from 'shared/util/constants';
+import {getDate} from 'shared/util/date';
+import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {Map} from 'immutable';
 
 const mockDate = getDate('2019-01-02');
@@ -139,10 +142,10 @@ describe('getDateTitle', () => {
 });
 
 describe('getIntervals', () => {
-	const currentDate = getDate();
+	const currentDate = getDate('2020-06-12'); // Friday
 	const dates = [];
 
-	for (let i = 1; i < 100; i++) {
+	for (let i = 1; i < 370; i++) {
 		const date = getDate(currentDate.getTime() - i * 8.64e7);
 
 		dates.push(date);
@@ -163,36 +166,52 @@ describe('getIntervals', () => {
 		).toEqual([dates[0], dates[6], dates[12], dates[18], dates[22]]);
 	});
 
-	it('should be return the intervals from an array of dates from the last 28 days', () => {
-		expect(
-			getIntervals(
-				LAST_28_DAYS,
-				dates.filter((item, index) => index <= 27),
-				INTERVAL_KEY_MAP.day
-			)
-		).toEqual([dates[0], dates[7], dates[14], dates[21], dates[27]]);
+	it('should be return only sundays as intervals from an array of dates from the last 28 days', () => {
+		const mockDates = dates.filter((item, index) => index <= 27).reverse();
+		const intervals = getIntervals(
+			LAST_28_DAYS,
+			mockDates,
+			INTERVAL_KEY_MAP.day
+		);
+
+		expect(intervals[0].getUTCDay()).toEqual(0);
+		expect(intervals[1].getUTCDay()).toEqual(0);
+		expect(intervals[2].getUTCDay()).toEqual(0);
+		expect(intervals[3].getUTCDay()).toEqual(0);
+
+		expect(intervals).toEqual([
+			mockDates[2],
+			mockDates[9],
+			mockDates[16],
+			mockDates[23]
+		]);
 	});
 
 	it('should return the unfiltered interval dates from an array of dates from the last 28 days and with an interval of longer than a day', () => {
-		const mockDates = dates.filter((item, index) => index <= 27);
+		const mockDates = dates.filter((item, index) => index <= 27).reverse();
 		expect(
 			getIntervals(LAST_28_DAYS, mockDates, INTERVAL_KEY_MAP.week)
 		).toEqual(expect.arrayContaining(mockDates));
 	});
 
-	it('should be return the intervals from a array of dates from the last 30 days', () => {
-		expect(
-			getIntervals(
-				LAST_30_DAYS,
-				dates.filter((item, index) => index <= 29)
-			)
-		).toEqual([
-			dates[0],
-			dates[6],
-			dates[12],
-			dates[18],
-			dates[24],
-			dates[29]
+	it('should be return only sundays as intervals from a array of dates from the last 30 days', () => {
+		const mockDates = dates.filter((item, index) => index <= 29).reverse();
+		const intervals = getIntervals(
+			LAST_30_DAYS,
+			mockDates,
+			INTERVAL_KEY_MAP.day
+		);
+
+		expect(intervals[0].getUTCDay()).toEqual(0);
+		expect(intervals[1].getUTCDay()).toEqual(0);
+		expect(intervals[2].getUTCDay()).toEqual(0);
+		expect(intervals[3].getUTCDay()).toEqual(0);
+
+		expect(intervals).toEqual([
+			mockDates[4],
+			mockDates[11],
+			mockDates[18],
+			mockDates[25]
 		]);
 	});
 
@@ -203,15 +222,8 @@ describe('getIntervals', () => {
 		).toEqual(expect.arrayContaining(mockDates));
 	});
 
-	it('should be return the intervals from a array of dates from the last 90 days', () => {
-		const mockDates = dates.filter((item, index) => index <= 89);
-		expect(getIntervals(LAST_90_DAYS, mockDates)).toEqual(
-			mockDates.filter((_, i) => i === 0 || i % 2 !== 0)
-		);
-	});
-
-	it('should be return the intervals in multiples of 15 from a array of dates from the last 90 days with an interval of day', () => {
-		const mockDates = dates.filter((item, index) => index <= 89);
+	it('should be return only the 1st or 15th of each month from a array of dates from the last 90 days with an interval of day', () => {
+		const mockDates = dates.filter((item, index) => index <= 89).reverse();
 
 		const result = getIntervals(
 			LAST_90_DAYS,
@@ -219,20 +231,109 @@ describe('getIntervals', () => {
 			INTERVAL_KEY_MAP.day
 		);
 
-		const expected = mockDates.filter(
-			(_, i) => i === 0 || (i + 1) % 15 === 0
-		);
-
-		expect(mockDates[0]).toEqual(result[0]);
-		expect(mockDates[mockDates.length - 1]).toEqual(
-			result[result.length - 1]
-		);
-
-		expect(result).toEqual(expected);
+		expect(result[0].getUTCDate()).toEqual(15);
+		expect(result[1].getUTCDate()).toEqual(1);
+		expect(result[2].getUTCDate()).toEqual(15);
 	});
 
-	it('should be return the intervals from a array of dates of a custom rangeKey', () => {
-		expect(getIntervals(15, dates)).toEqual(dates);
+	it('should be return the intervals with multiple of two indexes from a array of dates from the last 90 days with a week interval', () => {
+		const mockDates = dates.filter((item, index) => index <= 89).reverse();
+		expect(
+			getIntervals(LAST_90_DAYS, mockDates, INTERVAL_KEY_MAP.week)
+		).toEqual(mockDates.filter((_, i) => i === 0 || i % 2 !== 0));
+	});
+
+	it('should be return only the 1st or 15th of each month from a array of dates from the last 180 days with an interval of day', () => {
+		const mockDates = dates.filter((item, index) => index <= 179).reverse();
+
+		const result = getIntervals(
+			LAST_180_DAYS,
+			mockDates,
+			INTERVAL_KEY_MAP.day
+		);
+
+		expect(result[0].getUTCDate()).toEqual(15);
+		expect(result[1].getUTCDate()).toEqual(1);
+		expect(result[2].getUTCDate()).toEqual(15);
+	});
+
+	it('should be return the intervals with multiple of two indexes from a array of dates from the last 180 days with a week interval', () => {
+		const mockDates = dates.filter((item, index) => index <= 179).reverse();
+		expect(
+			getIntervals(LAST_180_DAYS, mockDates, INTERVAL_KEY_MAP.week)
+		).toEqual(mockDates.filter((_, i) => i === 0 || i % 2 !== 0));
+	});
+
+	it('should be return only the 1st of each month from a array of dates from the last year with an interval of day', () => {
+		const mockDates = dates.filter((item, index) => index <= 364).reverse();
+
+		const result = getIntervals(LAST_YEAR, mockDates, INTERVAL_KEY_MAP.day);
+
+		expect(result[0].getUTCDate()).toEqual(1);
+		expect(result[1].getUTCDate()).toEqual(1);
+		expect(result[2].getUTCDate()).toEqual(1);
+		expect(result[3].getUTCDate()).toEqual(1);
+		expect(result[4].getUTCDate()).toEqual(1);
+	});
+
+	it('should be return the intervals with multiple of four indexes from a array of dates from the last year with a week interval', () => {
+		const mockDates = dates.filter((item, index) => index <= 364).reverse();
+
+		expect(
+			getIntervals(LAST_YEAR, mockDates, INTERVAL_KEY_MAP.week)
+		).toEqual(mockDates.filter((_, i) => i === 0 || i % 4 === 0));
+	});
+
+	it('should be return only sundays as intervals from an array of dates of a custom rangeKey greater or equal 14 and smaller or equal 30', () => {
+		let mockDates = dates.filter((item, index) => index <= 13).reverse();
+		let intervals = getIntervals(
+			CUSTOM_RANGE,
+			mockDates,
+			INTERVAL_KEY_MAP.day
+		);
+
+		expect(intervals[0].getUTCDay()).toEqual(0);
+		expect(intervals[1].getUTCDay()).toEqual(0);
+
+		mockDates = dates.filter((item, index) => index <= 29).reverse();
+		intervals = getIntervals(CUSTOM_RANGE, mockDates, INTERVAL_KEY_MAP.day);
+
+		expect(intervals[0].getUTCDay()).toEqual(0);
+		expect(intervals[1].getUTCDay()).toEqual(0);
+	});
+
+	it('should be return only the 1st or 15th of each month from a array of dates of a custom rangeKey greater than 30 and smaller or equal 180', () => {
+		let mockDates = dates.filter((item, index) => index <= 39).reverse();
+
+		let intervals = getIntervals(
+			CUSTOM_RANGE,
+			mockDates,
+			INTERVAL_KEY_MAP.day
+		);
+
+		expect(intervals[0].getUTCDate()).toEqual(15);
+		expect(intervals[1].getUTCDate()).toEqual(1);
+
+		mockDates = dates.filter((item, index) => index <= 179).reverse();
+
+		intervals = getIntervals(CUSTOM_RANGE, mockDates, INTERVAL_KEY_MAP.day);
+
+		expect(intervals[0].getUTCDate()).toEqual(15);
+		expect(intervals[1].getUTCDate()).toEqual(1);
+	});
+
+	it('should be return only the 1st of each month from a array of dates of a custom rangeKey greater than 180', () => {
+		const mockDates = dates.filter((item, index) => index <= 200).reverse();
+
+		const result = getIntervals(
+			CUSTOM_RANGE,
+			mockDates,
+			INTERVAL_KEY_MAP.day
+		);
+
+		expect(result[0].getUTCDate()).toEqual(1);
+		expect(result[1].getUTCDate()).toEqual(1);
+		expect(result[2].getUTCDate()).toEqual(1);
 	});
 
 	it('returns an empty intervals array if the original data array was empty', () => {
