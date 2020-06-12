@@ -161,7 +161,11 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 							),
 						values: getIntervals(
 							rangeSelectors.rangeKey,
-							get(find(data, ({id}) => id === 'x'), 'data', []),
+							get(
+								find(data, ({id}) => id === 'x') as xAxisData,
+								'data',
+								[]
+							),
 							interval
 						)
 					},

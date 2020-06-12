@@ -1,13 +1,16 @@
 import * as d3 from 'd3';
 import {
 	CUSTOM_RANGE,
+	LAST_180_DAYS,
 	LAST_24_HOURS,
 	LAST_28_DAYS,
 	LAST_30_DAYS,
 	LAST_90_DAYS,
+	LAST_YEAR,
 	YESTERDAY
 } from 'shared/util/constants';
-import {Interval} from 'shared/types';
+import {getIntervalHandle} from './intervals';
+import {Interval, RangeSelectors} from 'shared/types';
 import {INTERVAL_KEY_MAP, isMonthlyRangeKey} from 'shared/util/time';
 import {Map} from 'immutable';
 import {toDuration, toRounded, toThousands} from 'shared/util/numbers';
@@ -104,6 +107,8 @@ export const formatXAxisDate = (
 		case LAST_28_DAYS:
 		case LAST_30_DAYS:
 		case LAST_90_DAYS:
+		case LAST_180_DAYS:
+		case LAST_YEAR:
 			if (interval === INTERVAL_KEY_MAP.week) {
 				// display date range
 				return dateRangeFormatter(dateStart, dateEnd, false);
@@ -275,40 +280,19 @@ export const getDateTitle = (
  * @param {string} rangeKey
  * @param {array} arr
  */
-export const getIntervals = (rangeKey, arr, timeInterval) => {
+export const getIntervals = (
+	rangeKey: RangeSelectors['rangeKey'],
+	arr: Date[],
+	timeInterval: Interval
+): Date[] => {
 	if (arr.length) {
-		if (
-			rangeKey == LAST_90_DAYS &&
-			timeInterval !== INTERVAL_KEY_MAP.month
-		) {
-			if (timeInterval === INTERVAL_KEY_MAP.day) {
-				return arr.filter(
-					(_, index) => index === 0 || (index + 1) % 15 === 0
-				);
-			} else {
-				return arr.length % 2 === 0
-					? [arr[0], ...arr.filter((_, index) => index % 2 !== 0)]
-					: arr.filter((_, index) => index % 2 === 0);
-			}
-		} else if (
-			rangeKey == LAST_28_DAYS &&
-			timeInterval === INTERVAL_KEY_MAP.day
-		) {
-			return [
-				...arr.filter((_, index) => index % 7 === 0),
-				arr[arr.length - 1]
-			];
-		} else if (
-			rangeKey == LAST_24_HOURS ||
-			rangeKey == YESTERDAY ||
-			((rangeKey == LAST_30_DAYS || rangeKey == CUSTOM_RANGE) &&
-				timeInterval !== INTERVAL_KEY_MAP.week)
-		) {
-			return [
-				...arr.filter((_, index) => index % 6 === 0),
-				arr[arr.length - 1]
-			];
+		if ([LAST_24_HOURS, YESTERDAY].includes(rangeKey)) {
+			timeInterval = INTERVAL_KEY_MAP.day;
 		}
+
+		const intervalHandle = getIntervalHandle(rangeKey, arr, timeInterval);
+
+		return intervalHandle ? intervalHandle(arr) : arr;
 	}
 
 	return arr;
