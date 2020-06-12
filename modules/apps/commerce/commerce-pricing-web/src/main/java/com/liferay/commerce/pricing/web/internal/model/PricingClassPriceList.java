@@ -22,11 +22,9 @@ import com.liferay.commerce.frontend.model.LabelField;
 public class PricingClassPriceList {
 
 	public PricingClassPriceList(
-		long priceClassPriceListId, long commercePriceListId, String name,
-		String catalogName, String createDate, LabelField status,
-		String active) {
+		long commercePriceListId, String name, String catalogName,
+		String createDate, LabelField status, String active) {
 
-		_priceClassPriceListId = priceClassPriceListId;
 		_commercePriceListId = commercePriceListId;
 		_name = name;
 		_catalogName = catalogName;
@@ -55,10 +53,6 @@ public class PricingClassPriceList {
 		return _name;
 	}
 
-	public long getPriceClassPriceListId() {
-		return _priceClassPriceListId;
-	}
-
 	public LabelField getStatus() {
 		return _status;
 	}
@@ -68,7 +62,6 @@ public class PricingClassPriceList {
 	private final long _commercePriceListId;
 	private final String _createDate;
 	private final String _name;
-	private final long _priceClassPriceListId;
 	private final LabelField _status;
 
 }
