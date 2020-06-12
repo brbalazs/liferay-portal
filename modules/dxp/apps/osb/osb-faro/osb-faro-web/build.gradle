@@ -6,7 +6,7 @@ configJSModules {
 dependencies {
 	compileInclude group: "com.fasterxml.jackson.core", name: "jackson-annotations", version: "2.9.10"
 	compileInclude group: "com.fasterxml.jackson.core", name: "jackson-core", version: "2.9.10"
-	compileInclude group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "2.9.10.1"
+	compileInclude group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "2.9.10.4"
 	compileInclude group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-yaml", version: "2.9.6"
 	compileInclude group: "com.fasterxml.jackson.jaxrs", name: "jackson-jaxrs-base", version: "2.9.1"
 	compileInclude group: "com.fasterxml.jackson.jaxrs", name: "jackson-jaxrs-json-provider", version: "2.9.1"
