@@ -86,6 +86,8 @@ function CartItem({item: cartItem}) {
 				...INITIAL_ITEM_STATE,
 				isRemovalCanceled: true,
 				removalTimeoutRef: setTimeout(() => {
+					setIsUpdating(false);
+
 					setItemState(INITIAL_ITEM_STATE);
 				}, REMOVAL_CANCELING_TIMEOUT)
 			});

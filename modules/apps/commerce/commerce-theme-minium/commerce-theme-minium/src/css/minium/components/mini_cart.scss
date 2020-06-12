@@ -48,6 +48,10 @@
 			color: $color-bg-medium;
 			margin: 0;
 			padding: 16px;
+
+			&-loader {
+				background-color: $color-bg-dark;
+			}
 		}
 	}
 

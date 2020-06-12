@@ -529,6 +529,9 @@ DatasetDisplay.defaultProps = {
 	filters: [],
 	items: null,
 	itemsActions: null,
+	pagination: {
+		initialDelta: 10
+	},
 	selectedItemsKey: 'id',
 	selectionType: 'multiple',
 	showManagementBar: true,
