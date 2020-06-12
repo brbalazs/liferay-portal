@@ -284,7 +284,7 @@ public class SkuResourceImpl extends BaseSkuResourceImpl {
 			GetterUtil.get(
 				sku.getNeverExpire(),
 				(cpInstance.getExpirationDate() == null) ? true : false),
-			serviceContext);
+			sku.getUnspsc(), serviceContext);
 
 		return _toSku(cpInstance.getCPInstanceId());
 	}
