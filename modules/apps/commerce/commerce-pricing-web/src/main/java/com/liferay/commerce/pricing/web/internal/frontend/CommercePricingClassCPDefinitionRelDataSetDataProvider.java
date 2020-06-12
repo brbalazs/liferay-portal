@@ -31,8 +31,10 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,9 +63,14 @@ public class CommercePricingClassCPDefinitionRelDataSetDataProvider
 		long commercePricingClassId = ParamUtil.getLong(
 			httpServletRequest, "commercePricingClassId");
 
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
 		return _commercePricingClassCPDefinitionRelService.
-			getCommercePricingClassCPDefinitionRelsCount(
-				commercePricingClassId);
+			countByCommercePricingClassId(
+				commercePricingClassId, filter.getKeywords(),
+				themeDisplay.getLanguageId());
 	}
 
 	@Override
@@ -84,10 +91,11 @@ public class CommercePricingClassCPDefinitionRelDataSetDataProvider
 			List<CommercePricingClassCPDefinitionRel>
 				commercePricingClassCPDefinitionRels =
 					_commercePricingClassCPDefinitionRelService.
-						getCommercePricingClassCPDefinitionRels(
-							commercePricingClassId,
+						searchByCommercePricingClassId(
+							commercePricingClassId, filter.getKeywords(),
+							LanguageUtil.getLanguageId(locale),
 							pagination.getStartPosition(),
-							pagination.getEndPosition(), null);
+							pagination.getEndPosition());
 
 			for (CommercePricingClassCPDefinitionRel
 					commercePricingClassCPDefinitionRel :
