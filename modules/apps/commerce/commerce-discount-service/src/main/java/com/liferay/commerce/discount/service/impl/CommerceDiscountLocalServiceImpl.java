@@ -258,6 +258,14 @@ public class CommerceDiscountLocalServiceImpl
 		checkCommerceDiscountsByExpirationDate();
 	}
 
+	@Override
+	public int countByCommercePricingClassId(
+		long commercePricingClassId, String title) {
+
+		return commerceDiscountFinder.countByCommercePricingClassId(
+			commercePricingClassId, title);
+	}
+
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
@@ -451,6 +459,14 @@ public class CommerceDiscountLocalServiceImpl
 		commerceDiscount.setNumberOfUse(commerceDiscount.getNumberOfUse() + 1);
 
 		return commerceDiscountPersistence.update(commerceDiscount);
+	}
+
+	@Override
+	public List<CommerceDiscount> searchByCommercePricingClassId(
+		long commercePricingClassId, String title, int start, int end) {
+
+		return commerceDiscountFinder.findByCommercePricingClassId(
+			commercePricingClassId, title, start, end);
 	}
 
 	@Override

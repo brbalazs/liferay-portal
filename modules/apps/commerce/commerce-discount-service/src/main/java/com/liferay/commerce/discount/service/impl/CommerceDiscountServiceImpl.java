@@ -22,6 +22,7 @@ import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
@@ -96,6 +97,19 @@ public class CommerceDiscountServiceImpl
 			displayDateMinute, expirationDateMonth, expirationDateDay,
 			expirationDateYear, expirationDateHour, expirationDateMinute,
 			neverExpire, serviceContext);
+	}
+
+	@Override
+	public int countByCommercePricingClassId(
+			long commercePricingClassId, String title)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceDiscountActionKeys.VIEW_COMMERCE_DISCOUNTS);
+
+		return commerceDiscountLocalService.countByCommercePricingClassId(
+			commercePricingClassId, title);
 	}
 
 	@Override
@@ -175,6 +189,19 @@ public class CommerceDiscountServiceImpl
 
 		return commerceDiscountLocalService.getCommerceDiscountsCount(
 			companyId, couponCode);
+	}
+
+	@Override
+	public List<CommerceDiscount> searchByCommercePricingClassId(
+			long commercePricingClassId, String title, int start, int end)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommerceDiscountActionKeys.VIEW_COMMERCE_DISCOUNTS);
+
+		return commerceDiscountLocalService.searchByCommercePricingClassId(
+			commercePricingClassId, title, start, end);
 	}
 
 	@Override

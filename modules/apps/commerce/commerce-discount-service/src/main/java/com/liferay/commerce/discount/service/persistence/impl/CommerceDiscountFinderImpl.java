@@ -21,16 +21,20 @@ import com.liferay.commerce.discount.service.persistence.CommerceDiscountFinder;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.dao.orm.custom.sql.CustomSQL;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
+import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -38,6 +42,14 @@ import java.util.List;
  */
 public class CommerceDiscountFinderImpl
 	extends CommerceDiscountFinderBaseImpl implements CommerceDiscountFinder {
+
+	public static final String COUNT_BY_COMMERCE_PRICING_CLASS_ID =
+		CommerceDiscountFinder.class.getName() +
+			".countByCommercePricingClassId";
+
+	public static final String FIND_BY_COMMERCE_PRICING_CLASS_ID =
+		CommerceDiscountFinder.class.getName() +
+			".findByCommercePricingClassId";
 
 	public static final String FIND_BY_UNQUALIFIED_PRODUCT =
 		CommerceDiscountFinder.class.getName() + ".findByUnqualifiedProduct";
@@ -66,6 +78,124 @@ public class CommerceDiscountFinderImpl
 	public static final String FIND_PL_DISCOUNT_PRODUCT =
 		CommerceDiscountFinder.class.getName() +
 			".findPriceListDiscountProduct";
+
+	@Override
+	public int countByCommercePricingClassId(
+		long commercePricingClassId, String title) {
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = _customSQL.get(
+				getClass(), COUNT_BY_COMMERCE_PRICING_CLASS_ID);
+
+			String[] keywords = _customSQL.keywords(title, true);
+
+			if (Validator.isNotNull(title)) {
+				sql = _customSQL.replaceKeywords(
+					sql, "(LOWER(CommerceDiscount.title)", StringPool.LIKE,
+					true, keywords);
+				sql = _customSQL.replaceAndOperator(sql, false);
+			}
+			else {
+				sql = StringUtil.replace(
+					sql,
+					" AND (LOWER(CommerceDiscount.title) LIKE ? " +
+						"[$AND_OR_NULL_CHECK$])",
+					StringPool.BLANK);
+			}
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addScalar(_COUNT_VALUE, Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(
+				PortalUtil.getClassNameId(
+					CommercePricingClass.class.getName()));
+			qPos.add(commercePricingClassId);
+
+			if (Validator.isNotNull(title)) {
+				qPos.add(keywords, 2);
+			}
+
+			Iterator<Long> itr = q.iterate();
+
+			if (itr.hasNext()) {
+				Long count = itr.next();
+
+				if (count != null) {
+					return count.intValue();
+				}
+			}
+
+			return 0;
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
+	public List<CommerceDiscount> findByCommercePricingClassId(
+		long commercePricingClassId, String title, int start, int end) {
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String[] keywords = _customSQL.keywords(title, true);
+
+			String sql = _customSQL.get(
+				getClass(), FIND_BY_COMMERCE_PRICING_CLASS_ID);
+
+			if (Validator.isNotNull(title)) {
+				sql = _customSQL.replaceKeywords(
+					sql, "(LOWER(CommerceDiscount.title)", StringPool.LIKE,
+					true, keywords);
+				sql = _customSQL.replaceAndOperator(sql, false);
+			}
+			else {
+				sql = StringUtil.replace(
+					sql,
+					" AND (LOWER(CommerceDiscount.title) LIKE ? " +
+						"[$AND_OR_NULL_CHECK$])",
+					StringPool.BLANK);
+			}
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addEntity(
+				CommerceDiscountImpl.TABLE_NAME, CommerceDiscountImpl.class);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(
+				PortalUtil.getClassNameId(
+					CommercePricingClass.class.getName()));
+			qPos.add(commercePricingClassId);
+
+			if (Validator.isNotNull(title)) {
+				qPos.add(keywords, 2);
+			}
+
+			return (List<CommerceDiscount>)QueryUtil.list(
+				q, getDialect(), start, end);
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
 
 	@Override
 	public List<CommerceDiscount> findByUnqualifiedProduct(
@@ -364,6 +494,8 @@ public class CommerceDiscountFinderImpl
 			closeSession(session);
 		}
 	}
+
+	private static final String _COUNT_VALUE = "COUNT_VALUE";
 
 	@ServiceReference(type = CustomSQL.class)
 	private CustomSQL _customSQL;
