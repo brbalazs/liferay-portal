@@ -443,12 +443,6 @@ public class WorkflowDefinitionLinkDisplayContext {
 			StringPool.AT + workflowDefinition.getVersion();
 	}
 
-	public boolean isDisabledManagementBar() throws PortalException {
-		SearchContainer searchContainer = getSearchContainer();
-
-		return !searchContainer.hasResults();
-	}
-
 	public boolean isWorkflowDefinitionSelected(
 			WorkflowDefinition workflowDefinition, String className)
 		throws PortalException {
