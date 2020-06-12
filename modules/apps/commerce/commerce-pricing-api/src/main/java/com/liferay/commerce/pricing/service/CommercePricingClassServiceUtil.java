@@ -125,6 +125,17 @@ public class CommercePricingClassServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	public static com.liferay.portal.kernel.search.BaseModelSearchResult
+		<com.liferay.commerce.pricing.model.CommercePricingClass>
+				searchCommercePricingClasses(
+					long companyId, String keywords, int start, int end,
+					com.liferay.portal.kernel.search.Sort sort)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().searchCommercePricingClasses(
+			companyId, keywords, start, end, sort);
+	}
+
 	public static com.liferay.commerce.pricing.model.CommercePricingClass
 			updateCommercePricingClass(
 				long commercePricingClassId, long userId, long groupId,

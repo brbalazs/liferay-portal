@@ -135,6 +135,18 @@ public class CommercePricingClassServiceWrapper
 	}
 
 	@Override
+	public com.liferay.portal.kernel.search.BaseModelSearchResult
+		<com.liferay.commerce.pricing.model.CommercePricingClass>
+				searchCommercePricingClasses(
+					long companyId, String keywords, int start, int end,
+					com.liferay.portal.kernel.search.Sort sort)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePricingClassService.searchCommercePricingClasses(
+			companyId, keywords, start, end, sort);
+	}
+
+	@Override
 	public com.liferay.commerce.pricing.model.CommercePricingClass
 			updateCommercePricingClass(
 				long commercePricingClassId, long userId, long groupId,

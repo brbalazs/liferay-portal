@@ -447,6 +447,53 @@ public class CommercePricingClassServiceHttp {
 		}
 	}
 
+	public static com.liferay.portal.kernel.search.BaseModelSearchResult
+		<com.liferay.commerce.pricing.model.CommercePricingClass>
+				searchCommercePricingClasses(
+					HttpPrincipal httpPrincipal, long companyId,
+					String keywords, int start, int end,
+					com.liferay.portal.kernel.search.Sort sort)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommercePricingClassServiceUtil.class,
+				"searchCommercePricingClasses",
+				_searchCommercePricingClassesParameterTypes9);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, companyId, keywords, start, end, sort);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.portal.kernel.search.BaseModelSearchResult
+				<com.liferay.commerce.pricing.model.CommercePricingClass>)
+					returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static com.liferay.commerce.pricing.model.CommercePricingClass
 			updateCommercePricingClass(
 				HttpPrincipal httpPrincipal, long commercePricingClassId,
@@ -460,7 +507,7 @@ public class CommercePricingClassServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePricingClassServiceUtil.class,
 				"updateCommercePricingClass",
-				_updateCommercePricingClassParameterTypes9);
+				_updateCommercePricingClassParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePricingClassId, userId, groupId, titleMap,
@@ -506,7 +553,7 @@ public class CommercePricingClassServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePricingClassServiceUtil.class,
 				"updateCommercePricingClass",
-				_updateCommercePricingClassParameterTypes10);
+				_updateCommercePricingClassParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePricingClassId, userId, groupId, title,
@@ -555,7 +602,7 @@ public class CommercePricingClassServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePricingClassServiceUtil.class,
 				"upsertCommercePricingClass",
-				_upsertCommercePricingClassParameterTypes11);
+				_upsertCommercePricingClassParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePricingClassId, userId, groupId, titleMap,
@@ -602,7 +649,7 @@ public class CommercePricingClassServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePricingClassServiceUtil.class,
 				"upsertCommercePricingClass",
-				_upsertCommercePricingClassParameterTypes12);
+				_upsertCommercePricingClassParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePricingClassId, userId, groupId, title,
@@ -673,25 +720,30 @@ public class CommercePricingClassServiceHttp {
 		_getCommercePricingClassesCountParameterTypes8 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _updateCommercePricingClassParameterTypes9 =
-		new Class[] {
+	private static final Class<?>[]
+		_searchCommercePricingClassesParameterTypes9 = new Class[] {
+			long.class, String.class, int.class, int.class,
+			com.liferay.portal.kernel.search.Sort.class
+		};
+	private static final Class<?>[]
+		_updateCommercePricingClassParameterTypes10 = new Class[] {
 			long.class, long.class, long.class, java.util.Map.class,
 			java.util.Map.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[]
-		_updateCommercePricingClassParameterTypes10 = new Class[] {
+		_updateCommercePricingClassParameterTypes11 = new Class[] {
 			long.class, long.class, long.class, String.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[]
-		_upsertCommercePricingClassParameterTypes11 = new Class[] {
+		_upsertCommercePricingClassParameterTypes12 = new Class[] {
 			long.class, long.class, long.class, java.util.Map.class,
 			java.util.Map.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[]
-		_upsertCommercePricingClassParameterTypes12 = new Class[] {
+		_upsertCommercePricingClassParameterTypes13 = new Class[] {
 			long.class, long.class, long.class, String.class, String.class,
 			String.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
