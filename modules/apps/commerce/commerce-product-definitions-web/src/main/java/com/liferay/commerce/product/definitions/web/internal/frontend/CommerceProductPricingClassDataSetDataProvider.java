@@ -57,15 +57,8 @@ public class CommerceProductPricingClassDataSetDataProvider
 		long cpDefinitionId = ParamUtil.getLong(
 			httpServletRequest, "cpDefinitionId");
 
-		long[] commercePricingClassIds =
-			_commercePricingClassService.getCommercePricingClassByCPDefinition(
-				cpDefinitionId);
-
-		if (commercePricingClassIds != null) {
-			return commercePricingClassIds.length;
-		}
-
-		return 0;
+		return _commercePricingClassService.countByCPDefinitionId(
+			cpDefinitionId, filter.getKeywords());
 	}
 
 	@Override
@@ -87,14 +80,13 @@ public class CommerceProductPricingClassDataSetDataProvider
 		long cpDefinitionId = ParamUtil.getLong(
 			httpServletRequest, "cpDefinitionId");
 
-		long[] commercePricingClassIds =
-			_commercePricingClassService.getCommercePricingClassByCPDefinition(
-				cpDefinitionId);
+		List<CommercePricingClass> commercePricingClasses =
+			_commercePricingClassService.searchByCPDefinitionId(
+				cpDefinitionId, filter.getKeywords(),
+				pagination.getStartPosition(), pagination.getEndPosition());
 
-		for (long commercePricingClassId : commercePricingClassIds) {
-			CommercePricingClass commercePricingClass =
-				_commercePricingClassService.getCommercePricingClass(
-					commercePricingClassId);
+		for (CommercePricingClass commercePricingClass :
+				commercePricingClasses) {
 
 			productPricingClasses.add(
 				new ProductPricingClass(
