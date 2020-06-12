@@ -86,6 +86,10 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 		String commerceOrderWorkflowStatusLabel =
 			WorkflowConstants.getStatusLabel(commerceOrder.getOrderStatus());
 
+		String commerceOrderWorkflowStatusLabelI18n = LanguageUtil.get(
+			resourceBundle,
+			WorkflowConstants.getStatusLabel(commerceOrder.getOrderStatus()));
+
 		String commerceOrderPaymentStatusLabel =
 			CommerceOrderConstants.getPaymentStatusLabel(
 				commerceOrder.getPaymentStatus());
@@ -123,6 +127,10 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 				shippingAddressId = commerceOrder.getShippingAddressId();
 				status = commerceOrderWorkflowStatusLabel;
 				summary = _getSummary(commerceOrder, locale);
+				workflowStatusInfo = _getWorkflowStatusInfo(
+					commerceOrder.getOrderStatus(),
+					commerceOrderWorkflowStatusLabel,
+					commerceOrderWorkflowStatusLabelI18n);
 			}
 		};
 
@@ -269,6 +277,19 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 			commerceChannel.getPriceDisplayType(), summary);
 
 		return summary;
+	}
+
+	private Status _getWorkflowStatusInfo(
+		int orderStatus, String commerceOrderWorkflowStatusLabel,
+		String commerceOrderWorkflowStatusLabelI18n) {
+
+		return new Status() {
+			{
+				code = orderStatus;
+				label = commerceOrderWorkflowStatusLabel;
+				label_i18n = commerceOrderWorkflowStatusLabelI18n;
+			}
+		};
 	}
 
 	private void _setShippingDiscountOnSummary(
