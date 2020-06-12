@@ -593,6 +593,26 @@ public abstract class BaseProductResourceTestCase {
 	}
 
 	@Test
+	public void testPostProductByExternalReferenceCodeClone() throws Exception {
+		Product randomProduct = randomProduct();
+
+		Product postProduct =
+			testPostProductByExternalReferenceCodeClone_addProduct(
+				randomProduct);
+
+		assertEquals(randomProduct, postProduct);
+		assertValid(postProduct);
+	}
+
+	protected Product testPostProductByExternalReferenceCodeClone_addProduct(
+			Product product)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
 	public void testDeleteProduct() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
 		Product product = testDeleteProduct_addProduct();
@@ -708,6 +728,23 @@ public abstract class BaseProductResourceTestCase {
 	@Test
 	public void testPatchProduct() throws Exception {
 		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPostProductClone() throws Exception {
+		Product randomProduct = randomProduct();
+
+		Product postProduct = testPostProductClone_addProduct(randomProduct);
+
+		assertEquals(randomProduct, postProduct);
+		assertValid(postProduct);
+	}
+
+	protected Product testPostProductClone_addProduct(Product product)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Rule

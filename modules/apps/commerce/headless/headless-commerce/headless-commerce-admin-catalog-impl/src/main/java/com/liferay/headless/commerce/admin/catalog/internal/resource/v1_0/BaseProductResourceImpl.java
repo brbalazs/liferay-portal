@@ -237,6 +237,35 @@ public abstract class BaseProductResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/products/by-externalReferenceCode/{externalReferenceCode}/clone'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@POST
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "externalReferenceCode"),
+			@Parameter(
+				in = ParameterIn.QUERY, name = "catalogExternalReferenceCode"
+			)
+		}
+	)
+	@Path("/products/by-externalReferenceCode/{externalReferenceCode}/clone")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Product")})
+	public Product postProductByExternalReferenceCodeClone(
+			@NotNull @Parameter(hidden = true)
+			@PathParam("externalReferenceCode") String externalReferenceCode,
+			@NotNull @Parameter(hidden = true)
+			@QueryParam("catalogExternalReferenceCode") String
+				catalogExternalReferenceCode)
+		throws Exception {
+
+		return new Product();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
 	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/products/{id}'  -u 'test@liferay.com:test'
 	 */
 	@Override
@@ -332,6 +361,30 @@ public abstract class BaseProductResourceImpl
 		Response.ResponseBuilder responseBuilder = Response.ok();
 
 		return responseBuilder.build();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-catalog/v1.0/products/{id}/clone'  -u 'test@liferay.com:test'
+	 */
+	@Override
+	@POST
+	@Parameters(
+		value = {
+			@Parameter(in = ParameterIn.PATH, name = "id"),
+			@Parameter(in = ParameterIn.QUERY, name = "catalogId")
+		}
+	)
+	@Path("/products/{id}/clone")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Product")})
+	public Product postProductClone(
+			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
+			@Parameter(hidden = true) @QueryParam("catalogId") Long catalogId)
+		throws Exception {
+
+		return new Product();
 	}
 
 	@Override

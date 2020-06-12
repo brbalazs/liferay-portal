@@ -739,6 +739,21 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public Product createProductByExternalReferenceCodeClone(
+			@GraphQLName("externalReferenceCode") String externalReferenceCode,
+			@GraphQLName("catalogExternalReferenceCode") String
+				catalogExternalReferenceCode)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productResource ->
+				productResource.postProductByExternalReferenceCodeClone(
+					externalReferenceCode, catalogExternalReferenceCode));
+	}
+
+	@GraphQLField
 	public Response deleteProduct(@GraphQLName("id") Long id) throws Exception {
 		return _applyComponentServiceObjects(
 			_productResourceComponentServiceObjects,
@@ -769,6 +784,18 @@ public class Mutation {
 			_productResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			productResource -> productResource.patchProduct(id, product));
+	}
+
+	@GraphQLField
+	public Product createProductClone(
+			@GraphQLName("id") Long id,
+			@GraphQLName("catalogId") Long catalogId)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productResource -> productResource.postProductClone(id, catalogId));
 	}
 
 	@GraphQLField
