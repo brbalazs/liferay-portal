@@ -1,6 +1,8 @@
+import client from 'shared/apollo/client';
 import CreateItemSimilarity from '../CreateItemSimilarity';
 import mockStore from 'test/mock-store';
 import React from 'react';
+import {ApolloProvider} from '@apollo/react-components';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router-dom';
@@ -12,11 +14,13 @@ const defaultProps = {
 };
 
 const DefaultComponent = props => (
-	<Provider store={mockStore()}>
-		<StaticRouter>
-			<CreateItemSimilarity {...defaultProps} {...props} />
-		</StaticRouter>
-	</Provider>
+	<ApolloProvider client={client}>
+		<Provider store={mockStore()}>
+			<StaticRouter>
+				<CreateItemSimilarity {...defaultProps} {...props} />
+			</StaticRouter>
+		</Provider>
+	</ApolloProvider>
 );
 
 describe('Recommendations', () => {

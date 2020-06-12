@@ -8,12 +8,22 @@ import NavigationWarning from 'shared/components/NavigationWarning';
 import ProgressTimeline from 'shared/components/ProgressTimeline';
 import React, {useState} from 'react';
 import Summary from './Summary';
-import {Job, JobParameter} from '../../utils/utils';
+import {addAlert} from 'shared/actions/alerts';
+import {Alert} from 'shared/types';
+import {compose} from 'redux';
+import {connect} from 'react-redux';
+import {Filter, Job, JobParameter} from '../../utils/utils';
 import {
 	jobTrainingFrequencies,
-	jobTrainingPeriods
+	jobTrainingPeriods,
+	jobTypes
 } from 'shared/util/constants';
+import {RECOMMENDATION_MUTATION} from '../../queries/RecommendationMutation';
 import {RouterType} from 'shared/types';
+import {Routes, toRoute} from 'shared/util/router';
+import {sub} from 'shared/util/lang';
+import {useMutation} from '@apollo/react-hooks';
+import {withHistory} from 'shared/hoc';
 
 const STEPS = [
 	{
@@ -35,19 +45,28 @@ const STEPS = [
 ];
 
 interface IRecommendationStepCardProps {
+	addAlert: Alert.AddAlert;
 	cancelHref: string;
+	history: {
+		push: (string) => void;
+	};
 	job?: Job;
+	jobType?: jobTypes;
 	router: RouterType;
 }
 
 const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
+	addAlert,
 	cancelHref,
-	job
+	history,
+	job,
+	jobType,
+	router
 }) => {
 	const [currentStep, setCurrentStep] = useState(0);
 	const [disabled, setDisabled] = useState(true);
 
-	const StepComponent = STEPS[currentStep].component;
+	const [createRecommendationJob] = useMutation(RECOMMENDATION_MUTATION);
 
 	const handleNext = event => {
 		event.preventDefault();
@@ -60,71 +79,147 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 		itemFilters,
 		name,
 		trainingFrequency,
-		trainingPeriod
+		trainingPeriod,
+		type
 	}) => {
-		// eslint-disable-next-line no-console
-		console.log({
-			name,
-			parameters: [
-				{name: 'includePreviousPeriod', value: includePreviousPeriod},
-				...itemFilters.map(({name, value}) => ({name, value}))
-			],
-			trainingFrequency,
-			trainingPeriod
-		});
+		let parameters = [
+			{
+				name: 'includePreviousPeriod',
+				value: includePreviousPeriod
+			}
+		];
 
-		// TODO: Add submission
+		if (itemFilters.length) {
+			parameters = [
+				{
+					name: 'includePreviousPeriod',
+					value: includePreviousPeriod
+				},
+				...itemFilters.map(({name, value}) => ({name, value}))
+			];
+		}
+
+		// TODO: LRAC-6133 Add updateJob mutation
+		createRecommendationJob({
+			variables: {
+				name,
+				parameters,
+				trainingFrequency,
+				trainingPeriod,
+				type
+			}
+		})
+			.then(({data: {createJob: {name}}}) => {
+				addAlert({
+					alertType: Alert.Types.SUCCESS,
+					message: sub(
+						Liferay.Language.get(
+							'x-recommendation-model-has-been-saved'
+						),
+						[name]
+					) as string
+				});
+
+				history.push(
+					toRoute(Routes.SETTINGS_RECOMMENDATIONS, {
+						groupId: router.params.groupId
+					})
+				);
+			})
+			.catch(() => {
+				addAlert({
+					alertType: Alert.Types.ERROR,
+					message: Liferay.Language.get(
+						'there-was-an-error-processing-your-request.-please-try-again'
+					)
+				});
+			});
 	};
 
-	const getInitialValuesFromJob = () => {
+	const getInitialValues = () => {
 		if (job) {
-			const {name, parameters, trainingFrequency, trainingPeriod} = job;
+			const {
+				id,
+				name,
+				parameters,
+				trainingFrequency,
+				trainingPeriod,
+				type
+			} = job;
 
 			const includePreviousPeriodParameter: JobParameter = parameters.find(
 				({name}) => name === 'includePreviousPeriod'
 			);
 
-			const itemFilters = parameters.reduce((acc, {name, value}) => {
-				if (name === 'includePreviousPeriod') {
-					return acc;
-				}
+			const itemFilters: Filter[] = parameters.reduce(
+				(acc, {name, value}) => {
+					if (name === 'includePreviousPeriod') {
+						return acc;
+					}
 
-				return [
-					...acc,
-					{count: null, id: `${name} - ${value}`, name, value}
-				];
-			}, []);
+					return [
+						...acc,
+						{count: null, id: `${name} - ${value}`, name, value}
+					];
+				},
+				[]
+			);
 
 			return {
+				id,
 				includePreviousPeriod:
 					includePreviousPeriodParameter &&
 					includePreviousPeriodParameter.value,
 				itemFilters,
 				name,
 				trainingFrequency,
-				trainingPeriod
+				trainingPeriod,
+				type
 			};
 		}
 
 		return {
+			id: null,
 			includePreviousPeriod: false,
 			itemFilters: [],
 			name: '',
 			trainingFrequency: jobTrainingFrequencies.every7Days,
-			trainingPeriod: jobTrainingPeriods.last30Days
+			trainingPeriod: jobTrainingPeriods.last30Days,
+			type: jobType
 		};
 	};
 
+	const getSubmitMessage = (
+		lastStep: boolean,
+		trainingFrequency: jobTrainingFrequencies,
+		initialTrainingFrequency: jobTrainingFrequencies
+	): string => {
+		if (lastStep) {
+			if (job && trainingFrequency === initialTrainingFrequency) {
+				return Liferay.Language.get('save');
+			}
+
+			return Liferay.Language.get('save-and-train');
+		}
+
+		return Liferay.Language.get('next');
+	};
+
+	const StepComponent = STEPS[currentStep].component;
+
 	const lastStep = currentStep === STEPS.length - 1;
 
-	// TODO Do we store model type in the form or elsewhere and fetch it later?
 	return (
 		<Card className='recommendation-step-card-root'>
-			<Form
-				initialValues={getInitialValuesFromJob()}
-				onSubmit={handleSubmit}
-			>
-				{({dirty, errors, handleSubmit, isSubmitting, values}) => (
+			<Form initialValues={getInitialValues()} onSubmit={handleSubmit}>
+				{({
+					dirty,
+					errors,
+					handleSubmit,
+					initialValues,
+					isSubmitting,
+					values
+				}) => (
 					<Form.Form>
 						<NavigationWarning when={dirty && !isSubmitting} />
 
@@ -139,7 +234,9 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 							<StepComponent
 								disabled={disabled}
 								errors={errors}
+								initialValues={initialValues}
 								onSetDisabled={setDisabled}
+								trainingDate={job ? job.trainingDate : null}
 								{...values}
 							/>
 						</Card.Body>
@@ -156,11 +253,12 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 										? () => setCurrentStep(currentStep - 1)
 										: null
 								}
-								submitMessage={
-									lastStep
-										? Liferay.Language.get('done')
-										: Liferay.Language.get('next')
-								}
+								submitMessage={getSubmitMessage(
+									lastStep,
+									values.trainingFrequency,
+									initialValues.trainingFrequency
+								)}
+								submitting={isSubmitting}
 							/>
 						</Card.Footer>
 					</Form.Form>
@@ -170,4 +268,10 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 	);
 };
 
-export default RecommendationStepCard;
+export default compose<any>(
+	withHistory,
+	connect(
+		null,
+		{addAlert}
+	)
+)(RecommendationStepCard);

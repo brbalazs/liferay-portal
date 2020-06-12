@@ -1,8 +1,10 @@
 import * as data from 'test/data';
+import client from 'shared/apollo/client';
 import Edit from '../Edit';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import RecommendationQuery from '../../queries/RecommendationQuery';
+import {ApolloProvider} from '@apollo/react-components';
 import {MockedProvider} from '@apollo/react-testing';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
@@ -32,17 +34,19 @@ export function mockRecommendationReq() {
 }
 
 const DefaultComponent = props => (
-	<Provider store={mockStore()}>
-		<StaticRouter>
-			<MockedProvider mocks={[mockRecommendationReq()]}>
-				<Edit
-					{...defaultProps}
-					{...props}
-					router={{params: {groupId: '123', jobId: '321'}}}
-				/>
-			</MockedProvider>
-		</StaticRouter>
-	</Provider>
+	<ApolloProvider client={client}>
+		<Provider store={mockStore()}>
+			<StaticRouter>
+				<MockedProvider mocks={[mockRecommendationReq()]}>
+					<Edit
+						{...defaultProps}
+						{...props}
+						router={{params: {groupId: '123', jobId: '321'}}}
+					/>
+				</MockedProvider>
+			</StaticRouter>
+		</Provider>
+	</ApolloProvider>
 );
 
 describe('Edit', () => {
