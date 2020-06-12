@@ -2,6 +2,7 @@ import BasePage from 'shared/components/base-page';
 import React from 'react';
 import Table from 'shared/components/table';
 import TextTruncate from 'shared/components/TextTruncate';
+import {CUSTOM_RANGE, LAST_30_DAYS} from 'shared/util/constants';
 import {Link} from 'react-router-dom';
 import {pickBy} from 'lodash';
 import {PropTypes} from 'prop-types';
@@ -62,7 +63,13 @@ class AssetsListCard extends React.Component {
 				title,
 				...(assetType === 'custom' ? {id: assetId} : false)
 			},
-			pickBy({...query, rangeKey: rangeSelectors.rangeKey})
+			pickBy({
+				...query,
+				rangeKey:
+					rangeSelectors.rangeKey === CUSTOM_RANGE
+						? LAST_30_DAYS
+						: rangeSelectors.rangeKey
+			})
 		);
 	}
 
