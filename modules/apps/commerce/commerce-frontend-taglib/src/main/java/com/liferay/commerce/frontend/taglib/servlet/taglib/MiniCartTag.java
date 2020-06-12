@@ -23,6 +23,8 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.settings.SystemSettingsLocator;
@@ -30,9 +32,9 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.util.IncludeTag;
-import sun.rmi.runtime.Log;
 
 import javax.portlet.PortletURL;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -57,12 +59,19 @@ public class MiniCartTag extends IncludeTag {
 		try {
 			CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
 
-			PortletURL commerceCartPortletURL =
-				_commerceOrderHttpHelper.getCommerceCartPortletURL(
-					request, commerceOrder);
+			if (commerceOrder != null) {
+				_orderId = commerceOrder.getCommerceOrderId();
 
-			if (commerceCartPortletURL != null) {
-				_orderDetailURL = String.valueOf(commerceCartPortletURL);
+				PortletURL commerceCartPortletURL =
+					_commerceOrderHttpHelper.getCommerceCartPortletURL(
+						request, commerceOrder);
+
+				if (commerceCartPortletURL != null) {
+					_orderDetailURL = String.valueOf(commerceCartPortletURL);
+				}
+			} else {
+				_orderDetailURL = StringPool.BLANK;
+				_orderId = 0;
 			}
 
 			_checkoutURL = StringPool.BLANK;
@@ -74,7 +83,7 @@ public class MiniCartTag extends IncludeTag {
 				_checkoutURL = String.valueOf(commerceCheckoutPortletURL);
 			}
 
-			_orderId = commerceOrder.getCommerceOrderId();
+
 		}
 		catch (PortalException pe) {
 			_log.error(pe, pe);
@@ -155,7 +164,7 @@ public class MiniCartTag extends IncludeTag {
 
 	private static final String _PAGE = "/mini_cart/page.jsp";
 
-	private static final Log _log = LogFactoryUtil.getLog(GalleryTag.class);
+	private static final Log _log = LogFactoryUtil.getLog(MiniCartTag.class);
 
 	private String _checkoutURL;
 	private CommerceOrderHttpHelper _commerceOrderHttpHelper;

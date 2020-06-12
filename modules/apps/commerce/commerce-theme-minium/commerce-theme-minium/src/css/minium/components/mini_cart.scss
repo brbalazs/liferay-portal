@@ -90,6 +90,12 @@
 		}
 	}
 
+	&-opener {
+		background-color: $color-bg;
+		height: $frame-size;
+		width: $frame-size;
+	}
+
 	&-opener,
 	&-wrapper {
 		top: -#{$frame-size};
