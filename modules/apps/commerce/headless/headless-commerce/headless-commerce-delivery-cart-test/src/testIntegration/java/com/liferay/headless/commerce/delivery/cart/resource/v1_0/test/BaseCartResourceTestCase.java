@@ -809,6 +809,16 @@ public abstract class BaseCartResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"workflowStatusInfo", additionalAssertFieldName)) {
+
+				if (cart.getWorkflowStatusInfo() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -1223,6 +1233,19 @@ public abstract class BaseCartResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"workflowStatusInfo", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						cart1.getWorkflowStatusInfo(),
+						cart2.getWorkflowStatusInfo())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -1575,6 +1598,11 @@ public abstract class BaseCartResourceTestCase {
 		}
 
 		if (entityFieldName.equals("useAsBilling")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("workflowStatusInfo")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}

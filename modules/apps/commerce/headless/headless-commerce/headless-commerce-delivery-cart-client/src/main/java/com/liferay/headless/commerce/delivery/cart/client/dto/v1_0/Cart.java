@@ -683,6 +683,27 @@ public class Cart implements Cloneable {
 
 	protected Boolean useAsBilling;
 
+	public Status getWorkflowStatusInfo() {
+		return workflowStatusInfo;
+	}
+
+	public void setWorkflowStatusInfo(Status workflowStatusInfo) {
+		this.workflowStatusInfo = workflowStatusInfo;
+	}
+
+	public void setWorkflowStatusInfo(
+		UnsafeSupplier<Status, Exception> workflowStatusInfoUnsafeSupplier) {
+
+		try {
+			workflowStatusInfo = workflowStatusInfoUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Status workflowStatusInfo;
+
 	@Override
 	public Cart clone() throws CloneNotSupportedException {
 		return (Cart)super.clone();

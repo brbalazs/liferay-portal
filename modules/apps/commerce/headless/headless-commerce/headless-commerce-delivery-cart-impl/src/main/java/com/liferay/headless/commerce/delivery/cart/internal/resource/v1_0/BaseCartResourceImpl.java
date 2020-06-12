@@ -281,6 +281,10 @@ public abstract class BaseCartResourceImpl
 			existingCart.setUseAsBilling(cart.getUseAsBilling());
 		}
 
+		if (cart.getWorkflowStatusInfo() != null) {
+			existingCart.setWorkflowStatusInfo(cart.getWorkflowStatusInfo());
+		}
+
 		preparePatch(cart, existingCart);
 
 		return putCart(cartId, existingCart);

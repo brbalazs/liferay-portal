@@ -457,6 +457,16 @@ public class CartSerDes {
 			sb.append(cart.getUseAsBilling());
 		}
 
+		if (cart.getWorkflowStatusInfo() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"workflowStatusInfo\": ");
+
+			sb.append(String.valueOf(cart.getWorkflowStatusInfo()));
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -714,6 +724,15 @@ public class CartSerDes {
 			map.put("useAsBilling", String.valueOf(cart.getUseAsBilling()));
 		}
 
+		if (cart.getWorkflowStatusInfo() == null) {
+			map.put("workflowStatusInfo", null);
+		}
+		else {
+			map.put(
+				"workflowStatusInfo",
+				String.valueOf(cart.getWorkflowStatusInfo()));
+		}
+
 		return map;
 	}
 
@@ -921,6 +940,14 @@ public class CartSerDes {
 			else if (Objects.equals(jsonParserFieldName, "useAsBilling")) {
 				if (jsonParserFieldValue != null) {
 					cart.setUseAsBilling((Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "workflowStatusInfo")) {
+
+				if (jsonParserFieldValue != null) {
+					cart.setWorkflowStatusInfo(
+						StatusSerDes.toDTO((String)jsonParserFieldValue));
 				}
 			}
 			else {

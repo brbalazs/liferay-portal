@@ -929,6 +929,35 @@ public class Cart {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean useAsBilling;
 
+	@Schema
+	@Valid
+	public Status getWorkflowStatusInfo() {
+		return workflowStatusInfo;
+	}
+
+	public void setWorkflowStatusInfo(Status workflowStatusInfo) {
+		this.workflowStatusInfo = workflowStatusInfo;
+	}
+
+	@JsonIgnore
+	public void setWorkflowStatusInfo(
+		UnsafeSupplier<Status, Exception> workflowStatusInfoUnsafeSupplier) {
+
+		try {
+			workflowStatusInfo = workflowStatusInfoUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Status workflowStatusInfo;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -1351,6 +1380,16 @@ public class Cart {
 			sb.append("\"useAsBilling\": ");
 
 			sb.append(useAsBilling);
+		}
+
+		if (workflowStatusInfo != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"workflowStatusInfo\": ");
+
+			sb.append(String.valueOf(workflowStatusInfo));
 		}
 
 		sb.append("}");
