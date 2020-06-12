@@ -142,6 +142,12 @@ public class CommercePricingClassLocalServiceImpl
 		return commercePricingClassPersistence.update(commercePricingClass);
 	}
 
+	@Override
+	public int countByCPDefinitionId(long cpDefinitionId, String title) {
+		return commercePricingClassFinder.countByCPDefinitionId(
+			cpDefinitionId, title);
+	}
+
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CommercePricingClass deleteCommercePricingClass(
@@ -231,6 +237,14 @@ public class CommercePricingClassLocalServiceImpl
 	@Override
 	public int getCommercePricingClassesCount(long companyId) {
 		return commercePricingClassPersistence.countByCompanyId(companyId);
+	}
+
+	@Override
+	public List<CommercePricingClass> searchByCPDefinitionId(
+		long cpDefinitionId, String title, int start, int end) {
+
+		return commercePricingClassFinder.findByCPDefinitionId(
+			cpDefinitionId, title, start, end);
 	}
 
 	@Override

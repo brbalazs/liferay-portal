@@ -20,6 +20,7 @@ import com.liferay.commerce.pricing.service.base.CommercePricingClassServiceBase
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -61,6 +62,18 @@ public class CommercePricingClassServiceImpl
 
 		return commercePricingClassLocalService.addCommercePricingClass(
 			userId, groupId, title, description, serviceContext);
+	}
+
+	@Override
+	public int countByCPDefinitionId(long cpDefinitionId, String title)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
+
+		return commercePricingClassLocalService.countByCPDefinitionId(
+			cpDefinitionId, title);
 	}
 
 	@Override
@@ -161,6 +174,19 @@ public class CommercePricingClassServiceImpl
 
 		return commercePricingClassLocalService.getCommercePricingClassesCount(
 			companyId);
+	}
+
+	@Override
+	public List<CommercePricingClass> searchByByCPDefinitionId(
+			long cpDefinitionId, String title, int start, int end)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
+
+		return commercePricingClassLocalService.searchByCPDefinitionId(
+			cpDefinitionId, title, start, end);
 	}
 
 	@Override
