@@ -16,6 +16,7 @@ package com.liferay.headless.commerce.admin.catalog.internal.resource.v1_0;
 
 import com.liferay.asset.kernel.service.AssetCategoryLocalService;
 import com.liferay.commerce.product.exception.NoSuchCPDefinitionException;
+import com.liferay.commerce.product.exception.NoSuchCatalogException;
 import com.liferay.commerce.product.model.CPAttachmentFileEntryConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
@@ -238,6 +239,45 @@ public class ProductResourceImpl
 	@Override
 	public Product postProduct(Product product) throws Exception {
 		CPDefinition cpDefinition = _upsertProduct(product);
+
+		return _toProduct(cpDefinition.getCPDefinitionId());
+	}
+
+	@Override
+	public Product postProductByExternalReferenceCodeClone(
+			String externalReferenceCode, String catalogExternalReferenceCode)
+		throws Exception {
+
+		CommerceCatalog commerceCatalog =
+			_commerceCatalogLocalService.fetchCommerceCatalogByReferenceCode(
+				contextCompany.getCompanyId(), catalogExternalReferenceCode);
+
+		if (commerceCatalog == null) {
+			throw new NoSuchCatalogException();
+		}
+
+		CPDefinition cpDefinition =
+			_cpDefinitionService.
+				fetchCPDefinitionByCProductExternalReferenceCode(
+					contextCompany.getCompanyId(), externalReferenceCode);
+
+		if (cpDefinition == null) {
+			throw new NoSuchCPDefinitionException();
+		}
+
+		cpDefinition = _cpDefinitionService.copyCPDefinition(
+			cpDefinition.getCPDefinitionId(), commerceCatalog.getGroupId());
+
+		return _toProduct(cpDefinition.getCPDefinitionId());
+	}
+
+	@Override
+	public Product postProductClone(Long id, Long catalogId) throws Exception {
+		CommerceCatalog commerceCatalog =
+			_commerceCatalogLocalService.getCommerceCatalog(catalogId);
+
+		CPDefinition cpDefinition = _cpDefinitionService.copyCPDefinition(
+			id, commerceCatalog.getGroupId());
 
 		return _toProduct(cpDefinition.getCPDefinitionId());
 	}
