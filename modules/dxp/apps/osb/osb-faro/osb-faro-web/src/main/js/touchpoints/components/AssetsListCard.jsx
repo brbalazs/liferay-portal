@@ -23,7 +23,7 @@ const ITEMS_SHAPE = PropTypes.shape({
 	type: PropTypes.string
 });
 
-const RANGE_KEY_LIST = [CUSTOM_RANGE, LAST_180_DAYS, LAST_YEAR];
+const NEW_RANGE_KEYS_LIST = [CUSTOM_RANGE, LAST_180_DAYS, LAST_YEAR];
 
 /**
  * Assets List Card
@@ -72,9 +72,7 @@ class AssetsListCard extends React.Component {
 			},
 			pickBy({
 				...query,
-				rangeKey: RANGE_KEY_LIST.some(
-					rangeKey => rangeKey === rangeSelectors.rangeKey
-				)
+				rangeKey: NEW_RANGE_KEYS_LIST.includes(rangeSelectors.rangeKey)
 					? LAST_30_DAYS
 					: rangeSelectors.rangeKey
 			})
