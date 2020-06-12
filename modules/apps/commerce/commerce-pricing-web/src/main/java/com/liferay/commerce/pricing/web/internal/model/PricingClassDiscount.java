@@ -22,10 +22,9 @@ import com.liferay.commerce.frontend.model.LabelField;
 public class PricingClassDiscount {
 
 	public PricingClassDiscount(
-		long priceClassDiscountId, long commerceDiscountId, String name,
-		String target, String type, LabelField status) {
+		long commerceDiscountId, String name, String target, String type,
+		LabelField status) {
 
-		_priceClassDiscountId = priceClassDiscountId;
 		_commerceDiscountId = commerceDiscountId;
 		_name = name;
 		_target = target;
@@ -39,10 +38,6 @@ public class PricingClassDiscount {
 
 	public String getName() {
 		return _name;
-	}
-
-	public long getPriceClassDiscountId() {
-		return _priceClassDiscountId;
 	}
 
 	public LabelField getStatus() {
@@ -59,7 +54,6 @@ public class PricingClassDiscount {
 
 	private final long _commerceDiscountId;
 	private final String _name;
-	private final long _priceClassDiscountId;
 	private final LabelField _status;
 	private final String _target;
 	private final String _type;
