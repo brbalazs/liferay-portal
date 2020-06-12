@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Summary should render 1`] = `
+<div>
+  <form
+    class="form-root"
+  >
+    <div
+      class="summary-root"
+    >
+      <div
+        class="title"
+      >
+        Summary
+      </div>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              Name
+            </td>
+            <td>
+              <span
+                class="summary-value"
+              >
+                Test Name
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Model Type
+            </td>
+            <td>
+              <span
+                class="summary-value"
+              >
+                Item Similarity
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Training Frequency
+            </td>
+            <td>
+              <span
+                class="summary-value"
+              >
+                Run Manually
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Training Period
+            </td>
+            <td>
+              <span
+                class="summary-value"
+              >
+                Last 30 days
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        class="table-responsive table-root flex-grow-1"
+      >
+        <table
+          class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+        >
+          <thead>
+            <tr
+              class=""
+            >
+              <th
+                class="table-head-title table-cell-expand"
+              >
+                <a
+                  class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                  href="/?orderBy=asc&orderByField=trainingDate&page=1"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Training Date
+                  </span>
+                </a>
+              </th>
+              <th
+                class="table-head-title table-column-text-end"
+              >
+                <a
+                  class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                  href="/?orderBy=asc&orderByField=eventsCount&page=1"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Events
+                  </span>
+                </a>
+              </th>
+              <th
+                class="table-head-title table-column-text-end"
+              >
+                <a
+                  class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                  href="/?orderBy=asc&orderByField=itemsCount&page=1"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Items
+                  </span>
+                </a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class=""
+            >
+              <td
+                class="table-cell-expand"
+              >
+                Jul 10, 2018
+              </td>
+              <td
+                class=" table-column-text-end"
+              >
+                321
+              </td>
+              <td
+                class=" table-column-text-end"
+              >
+                123
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </form>
+</div>
+`;
