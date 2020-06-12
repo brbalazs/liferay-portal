@@ -104,7 +104,8 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			long maxSubscriptionCycles, boolean deliverySubscriptionEnabled,
 			int deliverySubscriptionLength, String deliverySubscriptionType,
 			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
-			long deliveryMaxSubscriptionCycles, String unspsc, ServiceContext serviceContext)
+			long deliveryMaxSubscriptionCycles, String unspsc,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		_validateSku(cpDefinitionId, 0, sku);
@@ -259,7 +260,8 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			boolean subscriptionEnabled, int subscriptionLength,
 			String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
-			long maxSubscriptionCycles, String unspsc, ServiceContext serviceContext)
+			long maxSubscriptionCycles, String unspsc,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		return cpInstanceLocalService.addCPInstance(
@@ -272,7 +274,8 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			expirationDateHour, expirationDateMinute, neverExpire,
 			overrideSubscriptionInfo, subscriptionEnabled, subscriptionLength,
 			subscriptionType, subscriptionTypeSettingsProperties,
-			maxSubscriptionCycles, false, 1, null, null, 0, unspsc, serviceContext);
+			maxSubscriptionCycles, false, 1, null, null, 0, unspsc,
+			serviceContext);
 	}
 
 	/**
@@ -334,8 +337,8 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, expirationDateMonth, expirationDateDay,
 			expirationDateYear, expirationDateHour, expirationDateMinute,
-			neverExpire, false, false, 1, StringPool.BLANK, null, 0,
-			unspsc, serviceContext);
+			neverExpire, false, false, 1, StringPool.BLANK, null, 0, unspsc,
+			serviceContext);
 	}
 
 	/**
@@ -399,7 +402,8 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			boolean subscriptionEnabled, int subscriptionLength,
 			String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
-			long maxSubscriptionCycles, String unspsc, ServiceContext serviceContext)
+			long maxSubscriptionCycles, String unspsc,
+			ServiceContext serviceContext)
 		throws PortalException {
 
 		return cpInstanceLocalService.addCPInstance(

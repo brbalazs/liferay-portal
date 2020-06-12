@@ -20,14 +20,14 @@ import com.liferay.commerce.product.model.impl.CPInstanceModelImpl;
 /**
  * @author Jaclyn Ong
  */
-public class CPInstanceUpgradeProcess extends
-	BaseCommerceProductServiceUpgradeProcess {
+public class CPInstanceUpgradeProcess
+	extends BaseCommerceProductServiceUpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
 		addColumn(
-			CPInstanceModelImpl.class, CPInstanceModelImpl.TABLE_NAME,
-			"UNSPSC", "VARCHAR(75)");
+			CPInstanceModelImpl.class, CPInstanceModelImpl.TABLE_NAME, "UNSPSC",
+			"VARCHAR(75)");
 	}
 
-} 
+}
