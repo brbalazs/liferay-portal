@@ -185,6 +185,9 @@ public interface CommercePriceListLocalService
 
 	public void cleanPriceListCache(long companyId);
 
+	public int countByCommercePricingClassId(
+		long commercePricingClassId, String name);
+
 	/**
 	 * Creates a new commerce price list with the primary key. Does not add the commerce price list to the database.
 	 *
@@ -481,6 +484,10 @@ public interface CommercePriceListLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Hits search(SearchContext searchContext);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePriceList> searchByCommercePricingClassId(
+		long commercePricingClassId, String name, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public BaseModelSearchResult<CommercePriceList> searchCommercePriceLists(

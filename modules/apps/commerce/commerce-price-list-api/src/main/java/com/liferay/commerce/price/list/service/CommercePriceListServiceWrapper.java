@@ -164,6 +164,15 @@ public class CommercePriceListServiceWrapper
 	}
 
 	@Override
+	public int countByCommercePricingClassId(
+			long commercePricingClassId, String title)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return _commercePriceListService.countByCommercePricingClassId(
+			commercePricingClassId, title);
+	}
+
+	@Override
 	public void deleteCommercePriceList(long commercePriceListId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -228,6 +237,18 @@ public class CommercePriceListServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _commercePriceListService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceList>
+				searchByCommercePricingClassId(
+					long commercePricingClassId, String name, int start,
+					int end)
+			throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return _commercePriceListService.searchByCommercePricingClassId(
+			commercePricingClassId, name, start, end);
 	}
 
 	@Override

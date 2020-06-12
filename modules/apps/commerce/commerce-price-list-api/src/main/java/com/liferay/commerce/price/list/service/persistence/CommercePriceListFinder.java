@@ -23,6 +23,9 @@ import aQute.bnd.annotation.ProviderType;
 @ProviderType
 public interface CommercePriceListFinder {
 
+	public int countByCommercePricingClassId(
+		long commercePricingClassId, String name);
+
 	public java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceList>
 			findByCommerceAccountAndChannelId(
@@ -44,6 +47,11 @@ public interface CommercePriceListFinder {
 				com.liferay.portal.kernel.dao.orm.QueryDefinition
 					<com.liferay.commerce.price.list.model.CommercePriceList>
 						queryDefinition);
+
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceList>
+			findByCommercePricingClassId(
+				long commercePricingClassId, String name, int start, int end);
 
 	public java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceList>

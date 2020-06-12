@@ -161,6 +161,14 @@ public class CommercePriceListServiceUtil {
 			externalReferenceCode, neverExpire, serviceContext);
 	}
 
+	public static int countByCommercePricingClassId(
+			long commercePricingClassId, String title)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().countByCommercePricingClassId(
+			commercePricingClassId, title);
+	}
+
 	public static void deleteCommercePriceList(long commercePriceListId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -216,6 +224,17 @@ public class CommercePriceListServiceUtil {
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceList>
+				searchByCommercePricingClassId(
+					long commercePricingClassId, String name, int start,
+					int end)
+			throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().searchByCommercePricingClassId(
+			commercePricingClassId, name, start, end);
 	}
 
 	public static com.liferay.portal.kernel.search.BaseModelSearchResult

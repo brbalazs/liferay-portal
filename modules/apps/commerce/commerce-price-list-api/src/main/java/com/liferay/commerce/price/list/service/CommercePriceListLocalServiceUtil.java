@@ -251,6 +251,13 @@ public class CommercePriceListLocalServiceUtil {
 		getService().cleanPriceListCache(companyId);
 	}
 
+	public static int countByCommercePricingClassId(
+		long commercePricingClassId, String name) {
+
+		return getService().countByCommercePricingClassId(
+			commercePricingClassId, name);
+	}
+
 	/**
 	 * Creates a new commerce price list with the primary key. Does not add the commerce price list to the database.
 	 *
@@ -690,6 +697,15 @@ public class CommercePriceListLocalServiceUtil {
 		com.liferay.portal.kernel.search.SearchContext searchContext) {
 
 		return getService().search(searchContext);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceList>
+			searchByCommercePricingClassId(
+				long commercePricingClassId, String name, int start, int end) {
+
+		return getService().searchByCommercePricingClassId(
+			commercePricingClassId, name, start, end);
 	}
 
 	public static com.liferay.portal.kernel.search.BaseModelSearchResult
