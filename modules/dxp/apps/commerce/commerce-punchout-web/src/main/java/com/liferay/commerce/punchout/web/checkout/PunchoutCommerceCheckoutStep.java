@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.commerce.checkout.web.internal.util;
+package com.liferay.commerce.punchout.web.checkout;
 
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceCheckoutWebKeys;
