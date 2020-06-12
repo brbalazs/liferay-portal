@@ -27,10 +27,10 @@ List<CommerceOrder> commerceOrders = commerceOrderContentDisplayContext.getComme
 %>
 
 <liferay-ddm:template-renderer
-	className="<%= CommerceOrderContentPortlet.class.getName() %>"
+	className="<%= CommerceOpenOrderContentPortlet.class.getName() %>"
 	contextObjects="<%= contextObjects %>"
-	displayStyle="<%= commerceOrderContentDisplayContext.getDisplayStyle() %>"
-	displayStyleGroupId="<%= commerceOrderContentDisplayContext.getDisplayStyleGroupId() %>"
+	displayStyle="<%= commerceOrderContentDisplayContext.getDisplayStyle(CommercePortletKeys.COMMERCE_OPEN_ORDER_CONTENT) %>"
+	displayStyleGroupId="<%= commerceOrderContentDisplayContext.getDisplayStyleGroupId(CommercePortletKeys.COMMERCE_OPEN_ORDER_CONTENT) %>"
 	entries="<%= commerceOrders %>"
 >
 	<div class="container-fluid-1280" id="<portlet:namespace />ordersContainer">
