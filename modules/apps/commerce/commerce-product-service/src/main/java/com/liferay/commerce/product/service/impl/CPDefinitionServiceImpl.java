@@ -137,6 +137,7 @@ public class CPDefinitionServiceImpl extends CPDefinitionServiceBaseImpl {
 	@Override
 	public CPDefinition copyCPDefinition(long cpDefinitionId, long groupId)
 		throws PortalException {
+		
 		_checkCommerceCatalogPermission(groupId, ActionKeys.UPDATE);
 
 		return cpDefinitionLocalService.copyCPDefinition(cpDefinitionId, groupId);
