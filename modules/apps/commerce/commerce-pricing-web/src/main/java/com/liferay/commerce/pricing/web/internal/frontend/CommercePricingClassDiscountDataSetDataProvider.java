@@ -15,13 +15,11 @@
 package com.liferay.commerce.pricing.web.internal.frontend;
 
 import com.liferay.commerce.discount.model.CommerceDiscount;
-import com.liferay.commerce.discount.model.CommerceDiscountRel;
-import com.liferay.commerce.discount.service.CommerceDiscountRelService;
+import com.liferay.commerce.discount.service.CommerceDiscountService;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.frontend.model.LabelField;
-import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClassDiscount;
 import com.liferay.petra.string.StringPool;
@@ -57,8 +55,8 @@ public class CommercePricingClassDiscountDataSetDataProvider
 		long commercePricingClassId = ParamUtil.getLong(
 			httpServletRequest, "commercePricingClassId");
 
-		return _commerceDiscountRelService.getCommerceDiscountRelsCount(
-			CommercePricingClass.class.getName(), commercePricingClassId);
+		return _commerceDiscountService.countByCommercePricingClassId(
+			commercePricingClassId, filter.getKeywords());
 	}
 
 	@Override
@@ -72,16 +70,12 @@ public class CommercePricingClassDiscountDataSetDataProvider
 		long commercePricingClassId = ParamUtil.getLong(
 			httpServletRequest, "commercePricingClassId");
 
-		List<CommerceDiscountRel> commerceDiscountRels =
-			_commerceDiscountRelService.getCommerceDiscountRels(
-				CommercePricingClass.class.getName(), commercePricingClassId,
-				pagination.getStartPosition(), pagination.getEndPosition(),
-				null);
+		List<CommerceDiscount> commerceDiscounts =
+			_commerceDiscountService.searchByCommercePricingClassId(
+				commercePricingClassId, filter.getKeywords(),
+				pagination.getStartPosition(), pagination.getEndPosition());
 
-		for (CommerceDiscountRel commerceDiscountRel : commerceDiscountRels) {
-			CommerceDiscount commerceDiscount =
-				commerceDiscountRel.getCommerceDiscount();
-
+		for (CommerceDiscount commerceDiscount : commerceDiscounts) {
 			String statusDisplayStyle = StringPool.BLANK;
 
 			if (commerceDiscount.getStatus() ==
@@ -102,8 +96,7 @@ public class CommercePricingClassDiscountDataSetDataProvider
 
 			priceClassDiscounts.add(
 				new PricingClassDiscount(
-					commerceDiscountRel.getCommerceDiscountRelId(),
-					commerceDiscountRel.getCommerceDiscountId(),
+					commerceDiscount.getCommerceDiscountId(),
 					commerceDiscount.getTitle(), "Product Group",
 					_getDiscountType(commerceDiscount.isUsePercentage()),
 					new LabelField(
@@ -126,6 +119,6 @@ public class CommercePricingClassDiscountDataSetDataProvider
 	}
 
 	@Reference
-	private CommerceDiscountRelService _commerceDiscountRelService;
+	private CommerceDiscountService _commerceDiscountService;
 
 }
