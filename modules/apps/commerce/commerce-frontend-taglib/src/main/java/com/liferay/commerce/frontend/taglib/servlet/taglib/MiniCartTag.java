@@ -30,9 +30,9 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.util.IncludeTag;
+import sun.rmi.runtime.Log;
 
 import javax.portlet.PortletURL;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -76,7 +76,9 @@ public class MiniCartTag extends IncludeTag {
 
 			_orderId = commerceOrder.getCommerceOrderId();
 		}
-		catch (PortalException e) {
+		catch (PortalException pe) {
+			_log.error(pe, pe);
+
 			_checkoutURL = StringPool.BLANK;
 			_orderDetailURL = StringPool.BLANK;
 			_orderId = 0;
@@ -152,6 +154,8 @@ public class MiniCartTag extends IncludeTag {
 	}
 
 	private static final String _PAGE = "/mini_cart/page.jsp";
+
+	private static final Log _log = LogFactoryUtil.getLog(GalleryTag.class);
 
 	private String _checkoutURL;
 	private CommerceOrderHttpHelper _commerceOrderHttpHelper;
