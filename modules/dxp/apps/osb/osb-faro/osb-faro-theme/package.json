@@ -1,5 +1,5 @@
 {
-	"dependencies": {
+	"devDependencies": {
 		"gulp": "^3.8.10",
 		"liferay-theme-deps-7.1": "8.1.2",
 		"liferay-theme-tasks": "8.1.2"
