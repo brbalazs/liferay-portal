@@ -1,6 +1,36 @@
 <?xml version="1.0"?>
 
 <custom-sql>
+	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountFinder.countByCommercePricingClassId">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT CommerceDiscount.commerceDiscountId) AS COUNT_VALUE
+			FROM
+				CommerceDiscount
+			INNER JOIN
+				CommerceDiscountRel ON
+					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
+			WHERE
+				(CommerceDiscountRel.classNameId = ?) AND
+				(CommerceDiscountRel.classPK = ?) AND
+				(LOWER(CommerceDiscount.title) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountFinder.findByCommercePricingClassId">
+		<![CDATA[
+			SELECT
+				DISTINCT CommerceDiscount.*
+			FROM
+				CommerceDiscount
+			INNER JOIN
+				CommerceDiscountRel ON
+					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
+			WHERE
+				(CommerceDiscountRel.classNameId = ?) AND
+				(CommerceDiscountRel.classPK = ?) AND
+				(LOWER(CommerceDiscount.title) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
 	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountFinder.findByUnqualifiedProduct">
 		<![CDATA[
 			SELECT
