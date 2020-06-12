@@ -146,19 +146,22 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "commerceChannelId");
 
 		String name = ParamUtil.getString(actionRequest, "name");
+
 		String commerceCurrencyCode = ParamUtil.getString(
 			actionRequest, "commerceCurrencyCode");
+
 		String priceDisplayType = ParamUtil.getString(
 			actionRequest, "priceDisplayType");
+
 		boolean discountsTargetNetPrice = ParamUtil.getBoolean(
 			actionRequest, "discountsTargetNetPrice");
 
 		CommerceChannel commerceChannel =
 			_commerceChannelService.getCommerceChannel(commerceChannelId);
 
-		_updateSiteType(commerceChannel, actionRequest);
-		_updateShippingTaxCategory(commerceChannel, actionRequest);
 		_updatePurchcaseOrderNumber(commerceChannel, actionRequest);
+		_updateShippingTaxCategory(commerceChannel, actionRequest);
+		_updateSiteType(commerceChannel, actionRequest);
 		updateWorkflowDefinitionLinks(commerceChannel, actionRequest);
 
 		return _commerceChannelService.updateCommerceChannel(
@@ -201,9 +204,6 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 			CommerceChannel commerceChannel, ActionRequest actionRequest)
 		throws Exception {
 
-		Map<String, String> parameterMap = PropertiesParamUtil.getProperties(
-			actionRequest, "settings--");
-
 		Settings settings = _settingsFactory.getSettings(
 			new GroupServiceSettingsLocator(
 				commerceChannel.getGroupId(),
@@ -211,6 +211,9 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 
 		ModifiableSettings modifiableSettings =
 			settings.getModifiableSettings();
+
+		Map<String, String> parameterMap = PropertiesParamUtil.getProperties(
+			actionRequest, "settings--");
 
 		for (Map.Entry<String, String> entry : parameterMap.entrySet()) {
 			modifiableSettings.setValue(entry.getKey(), entry.getValue());
@@ -223,9 +226,6 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 			CommerceChannel commerceChannel, ActionRequest actionRequest)
 		throws Exception {
 
-		Map<String, String> parameterMap = PropertiesParamUtil.getProperties(
-			actionRequest, "shippingTaxSettings--");
-
 		Settings settings = _settingsFactory.getSettings(
 			new GroupServiceSettingsLocator(
 				commerceChannel.getGroupId(),
@@ -233,6 +233,9 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 
 		ModifiableSettings modifiableSettings =
 			settings.getModifiableSettings();
+
+		Map<String, String> parameterMap = PropertiesParamUtil.getProperties(
+			actionRequest, "shippingTaxSettings--");
 
 		for (Map.Entry<String, String> entry : parameterMap.entrySet()) {
 			modifiableSettings.setValue(entry.getKey(), entry.getValue());
@@ -245,9 +248,6 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 			CommerceChannel commerceChannel, ActionRequest actionRequest)
 		throws Exception {
 
-		Map<String, String> parameterMap = PropertiesParamUtil.getProperties(
-			actionRequest, "settings--");
-
 		Settings settings = _settingsFactory.getSettings(
 			new GroupServiceSettingsLocator(
 				commerceChannel.getGroupId(),
@@ -255,6 +255,9 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 
 		ModifiableSettings modifiableSettings =
 			settings.getModifiableSettings();
+
+		Map<String, String> parameterMap = PropertiesParamUtil.getProperties(
+			actionRequest, "settings--");
 
 		for (Map.Entry<String, String> entry : parameterMap.entrySet()) {
 			modifiableSettings.setValue(entry.getKey(), entry.getValue());
