@@ -95,6 +95,8 @@ if ((cpInstance != null) && (cpInstance.getExpirationDate() != null)) {
 				<aui:input bean="<%= cpInstance %>" helpMessage="gtin-help" label="global-trade-item-number" model="<%= CPInstance.class %>" name="gtin" />
 
 				<aui:input bean="<%= cpInstance %>" model="<%= CPInstance.class %>" name="manufacturerPartNumber" />
+
+				<aui:input bean="<%= cpInstance %>" label="unspsc" model="<%= CPInstance.class %>" name="UNSPSC" />
 			</div>
 		</div>
 	</commerce-ui:panel>
