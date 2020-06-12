@@ -107,7 +107,6 @@ public class JournalFeedExportImportContentProcessor
 		}
 
 		Layout targetLayout = null;
-
 		String targetLayoutFriendlyURL = null;
 
 		if (friendlyURLParts.length > 3) {
@@ -136,7 +135,7 @@ public class JournalFeedExportImportContentProcessor
 			if (_log.isDebugEnabled()) {
 				StringBundler sb = new StringBundler(4);
 
-				sb.append("Can not retrieve target page friendly URL ");
+				sb.append("Unable to get target page friendly URL ");
 				sb.append(targetLayoutFriendlyURL);
 				sb.append(" for feed: ");
 				sb.append(feed.getFeedId());
