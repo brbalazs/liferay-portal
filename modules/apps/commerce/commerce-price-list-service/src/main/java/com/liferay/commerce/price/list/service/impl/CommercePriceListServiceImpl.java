@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -167,6 +168,19 @@ public class CommercePriceListServiceImpl
 	}
 
 	@Override
+	public int countByCommercePricingClassId(
+			long commercePricingClassId, String title)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+
+		return commercePriceListLocalService.countByCommercePricingClassId(
+			commercePricingClassId, title);
+	}
+
+	@Override
 	public void deleteCommercePriceList(long commercePriceListId)
 		throws PortalException {
 
@@ -259,6 +273,19 @@ public class CommercePriceListServiceImpl
 
 		return commercePriceListLocalService.getCommercePriceListsCount(
 			groupIds, companyId, status);
+	}
+
+	@Override
+	public List<CommercePriceList> searchByCommercePricingClassId(
+			long commercePricingClassId, String name, int start, int end)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+
+		return commercePriceListLocalService.searchByCommercePricingClassId(
+			commercePricingClassId, name, start, end);
 	}
 
 	@Override

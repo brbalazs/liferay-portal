@@ -356,6 +356,14 @@ public class CommercePriceListLocalServiceImpl
 		MultiVMPoolUtil.removePortalCache("PRICE_LISTS_" + companyId);
 	}
 
+	@Override
+	public int countByCommercePricingClassId(
+		long commercePricingClassId, String name) {
+
+		return commercePriceListFinder.countByCommercePricingClassId(
+			commercePricingClassId, name);
+	}
+
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
@@ -769,6 +777,14 @@ public class CommercePriceListLocalServiceImpl
 		catch (Exception e) {
 			throw new SystemException(e);
 		}
+	}
+
+	@Override
+	public List<CommercePriceList> searchByCommercePricingClassId(
+		long commercePricingClassId, String name, int start, int end) {
+
+		return commercePriceListFinder.findByCommercePricingClassId(
+			commercePricingClassId, name, start, end);
 	}
 
 	@Override
