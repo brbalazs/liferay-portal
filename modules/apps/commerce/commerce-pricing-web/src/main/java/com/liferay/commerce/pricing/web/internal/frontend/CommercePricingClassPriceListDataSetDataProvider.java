@@ -20,11 +20,6 @@ import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.frontend.model.LabelField;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListService;
-import com.liferay.commerce.pricing.model.CommercePriceModifier;
-import com.liferay.commerce.pricing.model.CommercePriceModifierRel;
-import com.liferay.commerce.pricing.model.CommercePricingClass;
-import com.liferay.commerce.pricing.service.CommercePriceModifierRelService;
-import com.liferay.commerce.pricing.service.CommercePriceModifierService;
 import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClassPriceList;
 import com.liferay.commerce.product.model.CommerceCatalog;
@@ -68,9 +63,8 @@ public class CommercePricingClassPriceListDataSetDataProvider
 		long commercePricingClassId = ParamUtil.getLong(
 			httpServletRequest, "commercePricingClassId");
 
-		return _commercePriceModifierRelService.
-			getCommercePriceModifiersRelsCount(
-				CommercePricingClass.class.getName(), commercePricingClassId);
+		return _commercePriceListService.countByCommercePricingClassId(
+			commercePricingClassId, filter.getKeywords());
 	}
 
 	@Override
@@ -92,23 +86,12 @@ public class CommercePricingClassPriceListDataSetDataProvider
 		long commercePricingClassId = ParamUtil.getLong(
 			httpServletRequest, "commercePricingClassId");
 
-		List<CommercePriceModifierRel> commercePriceModifierRels =
-			_commercePriceModifierRelService.getCommercePriceModifiersRels(
-				CommercePricingClass.class.getName(), commercePricingClassId,
-				pagination.getStartPosition(), pagination.getEndPosition(),
-				null);
+		List<CommercePriceList> commercePriceLists =
+			_commercePriceListService.searchByCommercePricingClassId(
+				commercePricingClassId, filter.getKeywords(),
+				pagination.getStartPosition(), pagination.getEndPosition());
 
-		for (CommercePriceModifierRel commercePriceModifierRel :
-				commercePriceModifierRels) {
-
-			CommercePriceModifier commercePriceModifier =
-				_commercePriceModifierService.getCommercePriceModifier(
-					commercePriceModifierRel.getCommercePriceModifierId());
-
-			CommercePriceList commercePriceList =
-				_commercePriceListService.getCommercePriceList(
-					commercePriceModifier.getCommercePriceListId());
-
+		for (CommercePriceList commercePriceList : commercePriceLists) {
 			CommerceCatalog commerceCatalog =
 				_commerceCatalogService.fetchCommerceCatalogByGroupId(
 					commercePriceList.getGroupId());
@@ -133,8 +116,7 @@ public class CommercePricingClassPriceListDataSetDataProvider
 
 			pricingClassPriceLists.add(
 				new PricingClassPriceList(
-					commercePriceModifierRel.getCommercePriceModifierRelId(),
-					commercePriceModifier.getCommercePriceListId(),
+					commercePriceList.getCommercePriceListId(),
 					commercePriceList.getName(), commerceCatalog.getName(),
 					dateTimeFormat.format(commercePriceList.getCreateDate()),
 					new LabelField(
@@ -162,11 +144,5 @@ public class CommercePricingClassPriceListDataSetDataProvider
 
 	@Reference
 	private CommercePriceListService _commercePriceListService;
-
-	@Reference
-	private CommercePriceModifierRelService _commercePriceModifierRelService;
-
-	@Reference
-	private CommercePriceModifierService _commercePriceModifierService;
 
 }
