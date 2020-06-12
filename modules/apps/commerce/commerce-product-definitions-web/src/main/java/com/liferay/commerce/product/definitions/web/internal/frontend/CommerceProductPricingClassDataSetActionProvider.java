@@ -64,8 +64,6 @@ public class CommerceProductPricingClassDataSetActionProvider
 
 		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
-		ProductPricingClass productPricingClass = (ProductPricingClass)model;
-
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
@@ -74,6 +72,9 @@ public class CommerceProductPricingClassDataSetActionProvider
 				themeDisplay.getPermissionChecker(),
 				CommercePricingClassActionKeys.
 					MANAGE_COMMERCE_PRICING_CLASSES)) {
+
+			ProductPricingClass productPricingClass =
+				(ProductPricingClass)model;
 
 			PortletURL editURL = _getPricingClassEditURL(
 				productPricingClass.getPricingClassId(), httpServletRequest);
