@@ -84,11 +84,11 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				commerceOrder.getOrderStatus()));
 
 		String commerceOrderWorkflowStatusLabel =
-			WorkflowConstants.getStatusLabel(commerceOrder.getOrderStatus());
+			WorkflowConstants.getStatusLabel(commerceOrder.getStatus());
 
 		String commerceOrderWorkflowStatusLabelI18n = LanguageUtil.get(
 			resourceBundle,
-			WorkflowConstants.getStatusLabel(commerceOrder.getOrderStatus()));
+			WorkflowConstants.getStatusLabel(commerceOrder.getStatus()));
 
 		String commerceOrderPaymentStatusLabel =
 			CommerceOrderConstants.getPaymentStatusLabel(
@@ -143,7 +143,7 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				shippingOption = commerceOrder.getShippingOptionName();
 				transactionId = commerceOrder.getTransactionId();
 				workflowStatusInfo = _getWorkflowStatusInfo(
-					commerceOrder.getOrderStatus(),
+					commerceOrder.getStatus(),
 					commerceOrderWorkflowStatusLabel,
 					commerceOrderWorkflowStatusLabelI18n);
 			}
