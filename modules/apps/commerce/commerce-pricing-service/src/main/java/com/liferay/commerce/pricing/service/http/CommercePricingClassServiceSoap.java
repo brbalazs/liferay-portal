@@ -118,6 +118,23 @@ public class CommercePricingClassServiceSoap {
 		}
 	}
 
+	public static int countByCPDefinitionId(long cpDefinitionId, String title)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommercePricingClassServiceUtil.countByCPDefinitionId(
+					cpDefinitionId, title);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
 			deleteCommercePricingClass(long commercePricingClassId)
 		throws RemoteException {
@@ -261,6 +278,28 @@ public class CommercePricingClassServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap[]
+			searchByCPDefinitionId(
+				long cpDefinitionId, String title, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.pricing.model.CommercePricingClass>
+					returnValue =
+						CommercePricingClassServiceUtil.searchByCPDefinitionId(
+							cpDefinitionId, title, start, end);
+
+			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
 			updateCommercePricingClass(
 				long commercePricingClassId, long userId, long groupId,
@@ -285,46 +324,6 @@ public class CommercePricingClassServiceSoap {
 
 			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
 				toSoapModel(returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static int countByCPDefinitionId(long cpDefinitionId, String title)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				CommercePricingClassServiceUtil.countByCPDefinitionId(
-					cpDefinitionId, title);
-
-			return returnValue;
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap[]
-			searchByByCPDefinitionId(
-				long cpDefinitionId, String title, int start, int end)
-		throws RemoteException {
-
-		try {
-			java.util.List
-				<com.liferay.commerce.pricing.model.CommercePricingClass>
-					returnValue =
-						CommercePricingClassServiceUtil.
-							searchByByCPDefinitionId(
-								cpDefinitionId, title, start, end);
-
-			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
-				toSoapModels(returnValue);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

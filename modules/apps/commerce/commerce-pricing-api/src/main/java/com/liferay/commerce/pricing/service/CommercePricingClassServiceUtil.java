@@ -133,11 +133,11 @@ public class CommercePricingClassServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.pricing.model.CommercePricingClass>
-				searchByByCPDefinitionId(
+				searchByCPDefinitionId(
 					long cpDefinitionId, String title, int start, int end)
 			throws com.liferay.portal.kernel.security.auth.PrincipalException {
 
-		return getService().searchByByCPDefinitionId(
+		return getService().searchByCPDefinitionId(
 			cpDefinitionId, title, start, end);
 	}
 
