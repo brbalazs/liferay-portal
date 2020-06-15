@@ -354,6 +354,7 @@ public class CPDefinitionLocalServiceImpl
 		return copyCPDefinition(cpDefinitionId, cpDefinition.getGroupId());
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CPDefinition copyCPDefinition(long cpDefinitionId, long groupId)
 		throws PortalException {
@@ -366,9 +367,12 @@ public class CPDefinitionLocalServiceImpl
 		CPDefinition newCPDefinition =
 			(CPDefinition)originalCPDefinition.clone();
 
+		long newCPDefinitionId = counterLocalService.increment();
+
+		newCPDefinition.setCPDefinitionId(newCPDefinitionId);
+
 		if (originalCPDefinition.isPublished() &&
-			cpDefinitionLocalService.isVersionable(originalCPDefinition) &&
-			(originalCPDefinition.getGroupId() == groupId)) {
+			cpDefinitionLocalService.isVersionable(originalCPDefinition)) {
 
 			originalCPDefinition.setPublished(false);
 
@@ -379,13 +383,22 @@ public class CPDefinitionLocalServiceImpl
 				cProductLocalService.increment(
 					originalCPDefinition.getCProductId()));
 		}
+		else {
+			CProduct originalCProduct = originalCPDefinition.getCProduct();
+
+			CProduct newCProduct = (CProduct)originalCProduct.clone();
+
+			newCProduct.setCProductId(counterLocalService.increment());
+			newCProduct.setUuid(PortalUUIDUtil.generate());
+			newCProduct.setPublishedCPDefinitionId(newCPDefinitionId);
+
+			newCPDefinition.setCProductId(newCProduct.getCProductId());
+
+			cProductPersistence.update(newCProduct);
+		}
 
 		newCPDefinition.setGroupId(groupId);
 		newCPDefinition.setUuid(PortalUUIDUtil.generate());
-
-		long newCPDefinitionId = counterLocalService.increment();
-
-		newCPDefinition.setCPDefinitionId(newCPDefinitionId);
 
 		newCPDefinition = cpDefinitionPersistence.update(newCPDefinition);
 
@@ -422,6 +435,16 @@ public class CPDefinitionLocalServiceImpl
 			newCPDefinitionLocalization.setCpDefinitionLocalizationId(
 				counterLocalService.increment());
 			newCPDefinitionLocalization.setCPDefinitionId(newCPDefinitionId);
+
+			if (originalCPDefinition.getCProductId() !=
+					newCPDefinition.getCProductId()) {
+
+				newCPDefinitionLocalization.setName(
+					LanguageUtil.format(
+						LocaleUtil.fromLanguageId(
+							newCPDefinitionLocalization.getLanguageId()),
+						"copy-of-x", newCPDefinitionLocalization.getName()));
+			}
 
 			cpDefinitionLocalizationPersistence.update(
 				newCPDefinitionLocalization);
