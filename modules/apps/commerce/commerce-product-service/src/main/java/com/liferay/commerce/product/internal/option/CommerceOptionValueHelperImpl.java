@@ -141,7 +141,7 @@ public class CommerceOptionValueHelperImpl
 
 		List<CommerceOptionValue> commerceOptionValues = new ArrayList<>();
 
-		JSONArray commerceOptionValuesJSONArray = _jsonFactory.createJSONArray(
+		JSONArray commerceOptionValuesJSONArray = _jsonHelper.getJSONArray(
 			json);
 
 		for (int i = 0; i < commerceOptionValuesJSONArray.length(); i++) {
