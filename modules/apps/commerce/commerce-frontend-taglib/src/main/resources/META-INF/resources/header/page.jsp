@@ -314,14 +314,21 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 						</div>
 					</c:if>
 
-					<c:if test=" <%= (Validator.isNotNull(dropdownItems) && !dropdownItems.isEmpty()) || Validator.isNotNull(previewUrl) %>">
+					<c:if test="<%= Validator.isNotNull(dropdownItems) || Validator.isNotNull(previewUrl) %>">
 						<div class="align-items-center border-left col-auto d-flex pl-3">
-							<c:if test=" <%= Validator.isNotNull(dropdownItems) && !dropdownItems.isEmpty() %>">
-								<clay:dropdown-menu
-									buttonType="button"
-									dropdownItems="<%= dropdownItems %>"
-									icon="ellipsis-v"
-								/>
+							<c:if test="<%= Validator.isNotNull(dropdownItems) && (dropdownItems.size() > 0) %>">
+								<div id="dropdown">
+									<liferay-ui:icon
+										icon="ellipsis-v"
+										markupView="lexicon"
+									/>
+								</div>
+
+								<aui:script require="commerce-frontend-js/components/dropdown/entry as dropdown">
+									dropdown.default('dropdown', 'dropdown', {
+										items: '<%= jsonSerializer.serializeDeep(dropdownItems) %>'
+									});
+								</aui:script>
 							</c:if>
 
 							<c:if test="<%= Validator.isNotNull(previewUrl) %>">
