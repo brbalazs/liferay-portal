@@ -1084,6 +1084,41 @@ public class Order {
 
 	@DecimalMin("0")
 	@Schema
+	public Double getShippingDiscountPercentageLevel1WithTaxAmount() {
+		return shippingDiscountPercentageLevel1WithTaxAmount;
+	}
+
+	public void setShippingDiscountPercentageLevel1WithTaxAmount(
+		Double shippingDiscountPercentageLevel1WithTaxAmount) {
+
+		this.shippingDiscountPercentageLevel1WithTaxAmount =
+			shippingDiscountPercentageLevel1WithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setShippingDiscountPercentageLevel1WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			shippingDiscountPercentageLevel1WithTaxAmountUnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel1WithTaxAmount =
+				shippingDiscountPercentageLevel1WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double shippingDiscountPercentageLevel1WithTaxAmount;
+
+	@DecimalMin("0")
+	@Schema
 	public Double getShippingDiscountPercentageLevel2() {
 		return shippingDiscountPercentageLevel2;
 	}
@@ -1115,6 +1150,41 @@ public class Order {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double shippingDiscountPercentageLevel2;
+
+	@DecimalMin("0")
+	@Schema
+	public Double getShippingDiscountPercentageLevel2WithTaxAmount() {
+		return shippingDiscountPercentageLevel2WithTaxAmount;
+	}
+
+	public void setShippingDiscountPercentageLevel2WithTaxAmount(
+		Double shippingDiscountPercentageLevel2WithTaxAmount) {
+
+		this.shippingDiscountPercentageLevel2WithTaxAmount =
+			shippingDiscountPercentageLevel2WithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setShippingDiscountPercentageLevel2WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			shippingDiscountPercentageLevel2WithTaxAmountUnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel2WithTaxAmount =
+				shippingDiscountPercentageLevel2WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double shippingDiscountPercentageLevel2WithTaxAmount;
 
 	@DecimalMin("0")
 	@Schema
@@ -1152,6 +1222,41 @@ public class Order {
 
 	@DecimalMin("0")
 	@Schema
+	public Double getShippingDiscountPercentageLevel3WithTaxAmount() {
+		return shippingDiscountPercentageLevel3WithTaxAmount;
+	}
+
+	public void setShippingDiscountPercentageLevel3WithTaxAmount(
+		Double shippingDiscountPercentageLevel3WithTaxAmount) {
+
+		this.shippingDiscountPercentageLevel3WithTaxAmount =
+			shippingDiscountPercentageLevel3WithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setShippingDiscountPercentageLevel3WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			shippingDiscountPercentageLevel3WithTaxAmountUnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel3WithTaxAmount =
+				shippingDiscountPercentageLevel3WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double shippingDiscountPercentageLevel3WithTaxAmount;
+
+	@DecimalMin("0")
+	@Schema
 	public Double getShippingDiscountPercentageLevel4() {
 		return shippingDiscountPercentageLevel4;
 	}
@@ -1183,6 +1288,106 @@ public class Order {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double shippingDiscountPercentageLevel4;
+
+	@DecimalMin("0")
+	@Schema
+	public Double getShippingDiscountPercentageLevel4WithTaxAmount() {
+		return shippingDiscountPercentageLevel4WithTaxAmount;
+	}
+
+	public void setShippingDiscountPercentageLevel4WithTaxAmount(
+		Double shippingDiscountPercentageLevel4WithTaxAmount) {
+
+		this.shippingDiscountPercentageLevel4WithTaxAmount =
+			shippingDiscountPercentageLevel4WithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setShippingDiscountPercentageLevel4WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			shippingDiscountPercentageLevel4WithTaxAmountUnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel4WithTaxAmount =
+				shippingDiscountPercentageLevel4WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double shippingDiscountPercentageLevel4WithTaxAmount;
+
+	@Schema
+	public Double getShippingDiscountWithTaxAmount() {
+		return shippingDiscountWithTaxAmount;
+	}
+
+	public void setShippingDiscountWithTaxAmount(
+		Double shippingDiscountWithTaxAmount) {
+
+		this.shippingDiscountWithTaxAmount = shippingDiscountWithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setShippingDiscountWithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			shippingDiscountWithTaxAmountUnsafeSupplier) {
+
+		try {
+			shippingDiscountWithTaxAmount =
+				shippingDiscountWithTaxAmountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double shippingDiscountWithTaxAmount;
+
+	@Schema
+	public String getShippingDiscountWithTaxAmountFormatted() {
+		return shippingDiscountWithTaxAmountFormatted;
+	}
+
+	public void setShippingDiscountWithTaxAmountFormatted(
+		String shippingDiscountWithTaxAmountFormatted) {
+
+		this.shippingDiscountWithTaxAmountFormatted =
+			shippingDiscountWithTaxAmountFormatted;
+	}
+
+	@JsonIgnore
+	public void setShippingDiscountWithTaxAmountFormatted(
+		UnsafeSupplier<String, Exception>
+			shippingDiscountWithTaxAmountFormattedUnsafeSupplier) {
+
+		try {
+			shippingDiscountWithTaxAmountFormatted =
+				shippingDiscountWithTaxAmountFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String shippingDiscountWithTaxAmountFormatted;
 
 	@Schema
 	public String getShippingMethod() {
@@ -1239,6 +1444,102 @@ public class Order {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String shippingOption;
+
+	@DecimalMin("0")
+	@Schema
+	@Valid
+	public BigDecimal getShippingWithTaxAmount() {
+		return shippingWithTaxAmount;
+	}
+
+	public void setShippingWithTaxAmount(BigDecimal shippingWithTaxAmount) {
+		this.shippingWithTaxAmount = shippingWithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setShippingWithTaxAmount(
+		UnsafeSupplier<BigDecimal, Exception>
+			shippingWithTaxAmountUnsafeSupplier) {
+
+		try {
+			shippingWithTaxAmount = shippingWithTaxAmountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BigDecimal shippingWithTaxAmount;
+
+	@Schema
+	public String getShippingWithTaxAmountFormatted() {
+		return shippingWithTaxAmountFormatted;
+	}
+
+	public void setShippingWithTaxAmountFormatted(
+		String shippingWithTaxAmountFormatted) {
+
+		this.shippingWithTaxAmountFormatted = shippingWithTaxAmountFormatted;
+	}
+
+	@JsonIgnore
+	public void setShippingWithTaxAmountFormatted(
+		UnsafeSupplier<String, Exception>
+			shippingWithTaxAmountFormattedUnsafeSupplier) {
+
+		try {
+			shippingWithTaxAmountFormatted =
+				shippingWithTaxAmountFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String shippingWithTaxAmountFormatted;
+
+	@DecimalMin("0")
+	@Schema
+	public Double getShippingWithTaxAmountValue() {
+		return shippingWithTaxAmountValue;
+	}
+
+	public void setShippingWithTaxAmountValue(
+		Double shippingWithTaxAmountValue) {
+
+		this.shippingWithTaxAmountValue = shippingWithTaxAmountValue;
+	}
+
+	@JsonIgnore
+	public void setShippingWithTaxAmountValue(
+		UnsafeSupplier<Double, Exception>
+			shippingWithTaxAmountValueUnsafeSupplier) {
+
+		try {
+			shippingWithTaxAmountValue =
+				shippingWithTaxAmountValueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double shippingWithTaxAmountValue;
 
 	@Schema
 	@Valid
@@ -1394,6 +1695,41 @@ public class Order {
 
 	@DecimalMin("0")
 	@Schema
+	public Double getSubtotalDiscountPercentageLevel1WithTaxAmount() {
+		return subtotalDiscountPercentageLevel1WithTaxAmount;
+	}
+
+	public void setSubtotalDiscountPercentageLevel1WithTaxAmount(
+		Double subtotalDiscountPercentageLevel1WithTaxAmount) {
+
+		this.subtotalDiscountPercentageLevel1WithTaxAmount =
+			subtotalDiscountPercentageLevel1WithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setSubtotalDiscountPercentageLevel1WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			subtotalDiscountPercentageLevel1WithTaxAmountUnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel1WithTaxAmount =
+				subtotalDiscountPercentageLevel1WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double subtotalDiscountPercentageLevel1WithTaxAmount;
+
+	@DecimalMin("0")
+	@Schema
 	public Double getSubtotalDiscountPercentageLevel2() {
 		return subtotalDiscountPercentageLevel2;
 	}
@@ -1425,6 +1761,41 @@ public class Order {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double subtotalDiscountPercentageLevel2;
+
+	@DecimalMin("0")
+	@Schema
+	public Double getSubtotalDiscountPercentageLevel2WithTaxAmount() {
+		return subtotalDiscountPercentageLevel2WithTaxAmount;
+	}
+
+	public void setSubtotalDiscountPercentageLevel2WithTaxAmount(
+		Double subtotalDiscountPercentageLevel2WithTaxAmount) {
+
+		this.subtotalDiscountPercentageLevel2WithTaxAmount =
+			subtotalDiscountPercentageLevel2WithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setSubtotalDiscountPercentageLevel2WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			subtotalDiscountPercentageLevel2WithTaxAmountUnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel2WithTaxAmount =
+				subtotalDiscountPercentageLevel2WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double subtotalDiscountPercentageLevel2WithTaxAmount;
 
 	@DecimalMin("0")
 	@Schema
@@ -1462,6 +1833,41 @@ public class Order {
 
 	@DecimalMin("0")
 	@Schema
+	public Double getSubtotalDiscountPercentageLevel3WithTaxAmount() {
+		return subtotalDiscountPercentageLevel3WithTaxAmount;
+	}
+
+	public void setSubtotalDiscountPercentageLevel3WithTaxAmount(
+		Double subtotalDiscountPercentageLevel3WithTaxAmount) {
+
+		this.subtotalDiscountPercentageLevel3WithTaxAmount =
+			subtotalDiscountPercentageLevel3WithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setSubtotalDiscountPercentageLevel3WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			subtotalDiscountPercentageLevel3WithTaxAmountUnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel3WithTaxAmount =
+				subtotalDiscountPercentageLevel3WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double subtotalDiscountPercentageLevel3WithTaxAmount;
+
+	@DecimalMin("0")
+	@Schema
 	public Double getSubtotalDiscountPercentageLevel4() {
 		return subtotalDiscountPercentageLevel4;
 	}
@@ -1494,6 +1900,106 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double subtotalDiscountPercentageLevel4;
 
+	@DecimalMin("0")
+	@Schema
+	public Double getSubtotalDiscountPercentageLevel4WithTaxAmount() {
+		return subtotalDiscountPercentageLevel4WithTaxAmount;
+	}
+
+	public void setSubtotalDiscountPercentageLevel4WithTaxAmount(
+		Double subtotalDiscountPercentageLevel4WithTaxAmount) {
+
+		this.subtotalDiscountPercentageLevel4WithTaxAmount =
+			subtotalDiscountPercentageLevel4WithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setSubtotalDiscountPercentageLevel4WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			subtotalDiscountPercentageLevel4WithTaxAmountUnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel4WithTaxAmount =
+				subtotalDiscountPercentageLevel4WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double subtotalDiscountPercentageLevel4WithTaxAmount;
+
+	@Schema
+	public Double getSubtotalDiscountWithTaxAmount() {
+		return subtotalDiscountWithTaxAmount;
+	}
+
+	public void setSubtotalDiscountWithTaxAmount(
+		Double subtotalDiscountWithTaxAmount) {
+
+		this.subtotalDiscountWithTaxAmount = subtotalDiscountWithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setSubtotalDiscountWithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			subtotalDiscountWithTaxAmountUnsafeSupplier) {
+
+		try {
+			subtotalDiscountWithTaxAmount =
+				subtotalDiscountWithTaxAmountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double subtotalDiscountWithTaxAmount;
+
+	@Schema
+	public String getSubtotalDiscountWithTaxAmountFormatted() {
+		return subtotalDiscountWithTaxAmountFormatted;
+	}
+
+	public void setSubtotalDiscountWithTaxAmountFormatted(
+		String subtotalDiscountWithTaxAmountFormatted) {
+
+		this.subtotalDiscountWithTaxAmountFormatted =
+			subtotalDiscountWithTaxAmountFormatted;
+	}
+
+	@JsonIgnore
+	public void setSubtotalDiscountWithTaxAmountFormatted(
+		UnsafeSupplier<String, Exception>
+			subtotalDiscountWithTaxAmountFormattedUnsafeSupplier) {
+
+		try {
+			subtotalDiscountWithTaxAmountFormatted =
+				subtotalDiscountWithTaxAmountFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String subtotalDiscountWithTaxAmountFormatted;
+
 	@Schema
 	public String getSubtotalFormatted() {
 		return subtotalFormatted;
@@ -1521,6 +2027,100 @@ public class Order {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String subtotalFormatted;
+
+	@Schema
+	@Valid
+	public BigDecimal getSubtotalWithTaxAmount() {
+		return subtotalWithTaxAmount;
+	}
+
+	public void setSubtotalWithTaxAmount(BigDecimal subtotalWithTaxAmount) {
+		this.subtotalWithTaxAmount = subtotalWithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setSubtotalWithTaxAmount(
+		UnsafeSupplier<BigDecimal, Exception>
+			subtotalWithTaxAmountUnsafeSupplier) {
+
+		try {
+			subtotalWithTaxAmount = subtotalWithTaxAmountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BigDecimal subtotalWithTaxAmount;
+
+	@Schema
+	public String getSubtotalWithTaxAmountFormatted() {
+		return subtotalWithTaxAmountFormatted;
+	}
+
+	public void setSubtotalWithTaxAmountFormatted(
+		String subtotalWithTaxAmountFormatted) {
+
+		this.subtotalWithTaxAmountFormatted = subtotalWithTaxAmountFormatted;
+	}
+
+	@JsonIgnore
+	public void setSubtotalWithTaxAmountFormatted(
+		UnsafeSupplier<String, Exception>
+			subtotalWithTaxAmountFormattedUnsafeSupplier) {
+
+		try {
+			subtotalWithTaxAmountFormatted =
+				subtotalWithTaxAmountFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String subtotalWithTaxAmountFormatted;
+
+	@Schema
+	public Double getSubtotalWithTaxAmountValue() {
+		return subtotalWithTaxAmountValue;
+	}
+
+	public void setSubtotalWithTaxAmountValue(
+		Double subtotalWithTaxAmountValue) {
+
+		this.subtotalWithTaxAmountValue = subtotalWithTaxAmountValue;
+	}
+
+	@JsonIgnore
+	public void setSubtotalWithTaxAmountValue(
+		UnsafeSupplier<Double, Exception>
+			subtotalWithTaxAmountValueUnsafeSupplier) {
+
+		try {
+			subtotalWithTaxAmountValue =
+				subtotalWithTaxAmountValueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double subtotalWithTaxAmountValue;
 
 	@DecimalMin("0")
 	@Schema
@@ -1734,6 +2334,40 @@ public class Order {
 
 	@DecimalMin("0")
 	@Schema
+	public Double getTotalDiscountPercentageLevel1WithTaxAmount() {
+		return totalDiscountPercentageLevel1WithTaxAmount;
+	}
+
+	public void setTotalDiscountPercentageLevel1WithTaxAmount(
+		Double totalDiscountPercentageLevel1WithTaxAmount) {
+
+		this.totalDiscountPercentageLevel1WithTaxAmount =
+			totalDiscountPercentageLevel1WithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setTotalDiscountPercentageLevel1WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			totalDiscountPercentageLevel1WithTaxAmountUnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel1WithTaxAmount =
+				totalDiscountPercentageLevel1WithTaxAmountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double totalDiscountPercentageLevel1WithTaxAmount;
+
+	@DecimalMin("0")
+	@Schema
 	public Double getTotalDiscountPercentageLevel2() {
 		return totalDiscountPercentageLevel2;
 	}
@@ -1764,6 +2398,40 @@ public class Order {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double totalDiscountPercentageLevel2;
+
+	@DecimalMin("0")
+	@Schema
+	public Double getTotalDiscountPercentageLevel2WithTaxAmount() {
+		return totalDiscountPercentageLevel2WithTaxAmount;
+	}
+
+	public void setTotalDiscountPercentageLevel2WithTaxAmount(
+		Double totalDiscountPercentageLevel2WithTaxAmount) {
+
+		this.totalDiscountPercentageLevel2WithTaxAmount =
+			totalDiscountPercentageLevel2WithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setTotalDiscountPercentageLevel2WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			totalDiscountPercentageLevel2WithTaxAmountUnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel2WithTaxAmount =
+				totalDiscountPercentageLevel2WithTaxAmountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double totalDiscountPercentageLevel2WithTaxAmount;
 
 	@DecimalMin("0")
 	@Schema
@@ -1800,6 +2468,40 @@ public class Order {
 
 	@DecimalMin("0")
 	@Schema
+	public Double getTotalDiscountPercentageLevel3WithTaxAmount() {
+		return totalDiscountPercentageLevel3WithTaxAmount;
+	}
+
+	public void setTotalDiscountPercentageLevel3WithTaxAmount(
+		Double totalDiscountPercentageLevel3WithTaxAmount) {
+
+		this.totalDiscountPercentageLevel3WithTaxAmount =
+			totalDiscountPercentageLevel3WithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setTotalDiscountPercentageLevel3WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			totalDiscountPercentageLevel3WithTaxAmountUnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel3WithTaxAmount =
+				totalDiscountPercentageLevel3WithTaxAmountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double totalDiscountPercentageLevel3WithTaxAmount;
+
+	@DecimalMin("0")
+	@Schema
 	public Double getTotalDiscountPercentageLevel4() {
 		return totalDiscountPercentageLevel4;
 	}
@@ -1831,6 +2533,106 @@ public class Order {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Double totalDiscountPercentageLevel4;
 
+	@DecimalMin("0")
+	@Schema
+	public Double getTotalDiscountPercentageLevel4WithTaxAmount() {
+		return totalDiscountPercentageLevel4WithTaxAmount;
+	}
+
+	public void setTotalDiscountPercentageLevel4WithTaxAmount(
+		Double totalDiscountPercentageLevel4WithTaxAmount) {
+
+		this.totalDiscountPercentageLevel4WithTaxAmount =
+			totalDiscountPercentageLevel4WithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setTotalDiscountPercentageLevel4WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			totalDiscountPercentageLevel4WithTaxAmountUnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel4WithTaxAmount =
+				totalDiscountPercentageLevel4WithTaxAmountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double totalDiscountPercentageLevel4WithTaxAmount;
+
+	@DecimalMin("0")
+	@Schema
+	public Double getTotalDiscountWithTaxAmount() {
+		return totalDiscountWithTaxAmount;
+	}
+
+	public void setTotalDiscountWithTaxAmount(
+		Double totalDiscountWithTaxAmount) {
+
+		this.totalDiscountWithTaxAmount = totalDiscountWithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setTotalDiscountWithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			totalDiscountWithTaxAmountUnsafeSupplier) {
+
+		try {
+			totalDiscountWithTaxAmount =
+				totalDiscountWithTaxAmountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double totalDiscountWithTaxAmount;
+
+	@Schema
+	public String getTotalDiscountWithTaxAmountFormatted() {
+		return totalDiscountWithTaxAmountFormatted;
+	}
+
+	public void setTotalDiscountWithTaxAmountFormatted(
+		String totalDiscountWithTaxAmountFormatted) {
+
+		this.totalDiscountWithTaxAmountFormatted =
+			totalDiscountWithTaxAmountFormatted;
+	}
+
+	@JsonIgnore
+	public void setTotalDiscountWithTaxAmountFormatted(
+		UnsafeSupplier<String, Exception>
+			totalDiscountWithTaxAmountFormattedUnsafeSupplier) {
+
+		try {
+			totalDiscountWithTaxAmountFormatted =
+				totalDiscountWithTaxAmountFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String totalDiscountWithTaxAmountFormatted;
+
 	@Schema
 	public String getTotalFormatted() {
 		return totalFormatted;
@@ -1858,6 +2660,100 @@ public class Order {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String totalFormatted;
+
+	@DecimalMin("0")
+	@Schema
+	@Valid
+	public BigDecimal getTotalWithTaxAmount() {
+		return totalWithTaxAmount;
+	}
+
+	public void setTotalWithTaxAmount(BigDecimal totalWithTaxAmount) {
+		this.totalWithTaxAmount = totalWithTaxAmount;
+	}
+
+	@JsonIgnore
+	public void setTotalWithTaxAmount(
+		UnsafeSupplier<BigDecimal, Exception>
+			totalWithTaxAmountUnsafeSupplier) {
+
+		try {
+			totalWithTaxAmount = totalWithTaxAmountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected BigDecimal totalWithTaxAmount;
+
+	@Schema
+	public String getTotalWithTaxAmountFormatted() {
+		return totalWithTaxAmountFormatted;
+	}
+
+	public void setTotalWithTaxAmountFormatted(
+		String totalWithTaxAmountFormatted) {
+
+		this.totalWithTaxAmountFormatted = totalWithTaxAmountFormatted;
+	}
+
+	@JsonIgnore
+	public void setTotalWithTaxAmountFormatted(
+		UnsafeSupplier<String, Exception>
+			totalWithTaxAmountFormattedUnsafeSupplier) {
+
+		try {
+			totalWithTaxAmountFormatted =
+				totalWithTaxAmountFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String totalWithTaxAmountFormatted;
+
+	@DecimalMin("0")
+	@Schema
+	public Double getTotalWithTaxAmountValue() {
+		return totalWithTaxAmountValue;
+	}
+
+	public void setTotalWithTaxAmountValue(Double totalWithTaxAmountValue) {
+		this.totalWithTaxAmountValue = totalWithTaxAmountValue;
+	}
+
+	@JsonIgnore
+	public void setTotalWithTaxAmountValue(
+		UnsafeSupplier<Double, Exception>
+			totalWithTaxAmountValueUnsafeSupplier) {
+
+		try {
+			totalWithTaxAmountValue =
+				totalWithTaxAmountValueUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Double totalWithTaxAmountValue;
 
 	@Schema
 	public String getTransactionId() {
@@ -2370,6 +3266,16 @@ public class Order {
 			sb.append(shippingDiscountPercentageLevel1);
 		}
 
+		if (shippingDiscountPercentageLevel1WithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingDiscountPercentageLevel1WithTaxAmount\": ");
+
+			sb.append(shippingDiscountPercentageLevel1WithTaxAmount);
+		}
+
 		if (shippingDiscountPercentageLevel2 != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -2378,6 +3284,16 @@ public class Order {
 			sb.append("\"shippingDiscountPercentageLevel2\": ");
 
 			sb.append(shippingDiscountPercentageLevel2);
+		}
+
+		if (shippingDiscountPercentageLevel2WithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingDiscountPercentageLevel2WithTaxAmount\": ");
+
+			sb.append(shippingDiscountPercentageLevel2WithTaxAmount);
 		}
 
 		if (shippingDiscountPercentageLevel3 != null) {
@@ -2390,6 +3306,16 @@ public class Order {
 			sb.append(shippingDiscountPercentageLevel3);
 		}
 
+		if (shippingDiscountPercentageLevel3WithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingDiscountPercentageLevel3WithTaxAmount\": ");
+
+			sb.append(shippingDiscountPercentageLevel3WithTaxAmount);
+		}
+
 		if (shippingDiscountPercentageLevel4 != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -2398,6 +3324,40 @@ public class Order {
 			sb.append("\"shippingDiscountPercentageLevel4\": ");
 
 			sb.append(shippingDiscountPercentageLevel4);
+		}
+
+		if (shippingDiscountPercentageLevel4WithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingDiscountPercentageLevel4WithTaxAmount\": ");
+
+			sb.append(shippingDiscountPercentageLevel4WithTaxAmount);
+		}
+
+		if (shippingDiscountWithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingDiscountWithTaxAmount\": ");
+
+			sb.append(shippingDiscountWithTaxAmount);
+		}
+
+		if (shippingDiscountWithTaxAmountFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingDiscountWithTaxAmountFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(shippingDiscountWithTaxAmountFormatted));
+
+			sb.append("\"");
 		}
 
 		if (shippingMethod != null) {
@@ -2426,6 +3386,40 @@ public class Order {
 			sb.append(_escape(shippingOption));
 
 			sb.append("\"");
+		}
+
+		if (shippingWithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingWithTaxAmount\": ");
+
+			sb.append(shippingWithTaxAmount);
+		}
+
+		if (shippingWithTaxAmountFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingWithTaxAmountFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(shippingWithTaxAmountFormatted));
+
+			sb.append("\"");
+		}
+
+		if (shippingWithTaxAmountValue != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"shippingWithTaxAmountValue\": ");
+
+			sb.append(shippingWithTaxAmountValue);
 		}
 
 		if (subtotal != null) {
@@ -2482,6 +3476,16 @@ public class Order {
 			sb.append(subtotalDiscountPercentageLevel1);
 		}
 
+		if (subtotalDiscountPercentageLevel1WithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountPercentageLevel1WithTaxAmount\": ");
+
+			sb.append(subtotalDiscountPercentageLevel1WithTaxAmount);
+		}
+
 		if (subtotalDiscountPercentageLevel2 != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -2490,6 +3494,16 @@ public class Order {
 			sb.append("\"subtotalDiscountPercentageLevel2\": ");
 
 			sb.append(subtotalDiscountPercentageLevel2);
+		}
+
+		if (subtotalDiscountPercentageLevel2WithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountPercentageLevel2WithTaxAmount\": ");
+
+			sb.append(subtotalDiscountPercentageLevel2WithTaxAmount);
 		}
 
 		if (subtotalDiscountPercentageLevel3 != null) {
@@ -2502,6 +3516,16 @@ public class Order {
 			sb.append(subtotalDiscountPercentageLevel3);
 		}
 
+		if (subtotalDiscountPercentageLevel3WithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountPercentageLevel3WithTaxAmount\": ");
+
+			sb.append(subtotalDiscountPercentageLevel3WithTaxAmount);
+		}
+
 		if (subtotalDiscountPercentageLevel4 != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -2510,6 +3534,40 @@ public class Order {
 			sb.append("\"subtotalDiscountPercentageLevel4\": ");
 
 			sb.append(subtotalDiscountPercentageLevel4);
+		}
+
+		if (subtotalDiscountPercentageLevel4WithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountPercentageLevel4WithTaxAmount\": ");
+
+			sb.append(subtotalDiscountPercentageLevel4WithTaxAmount);
+		}
+
+		if (subtotalDiscountWithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountWithTaxAmount\": ");
+
+			sb.append(subtotalDiscountWithTaxAmount);
+		}
+
+		if (subtotalDiscountWithTaxAmountFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalDiscountWithTaxAmountFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(subtotalDiscountWithTaxAmountFormatted));
+
+			sb.append("\"");
 		}
 
 		if (subtotalFormatted != null) {
@@ -2524,6 +3582,40 @@ public class Order {
 			sb.append(_escape(subtotalFormatted));
 
 			sb.append("\"");
+		}
+
+		if (subtotalWithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalWithTaxAmount\": ");
+
+			sb.append(subtotalWithTaxAmount);
+		}
+
+		if (subtotalWithTaxAmountFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalWithTaxAmountFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(subtotalWithTaxAmountFormatted));
+
+			sb.append("\"");
+		}
+
+		if (subtotalWithTaxAmountValue != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"subtotalWithTaxAmountValue\": ");
+
+			sb.append(subtotalWithTaxAmountValue);
 		}
 
 		if (taxAmount != null) {
@@ -2604,6 +3696,16 @@ public class Order {
 			sb.append(totalDiscountPercentageLevel1);
 		}
 
+		if (totalDiscountPercentageLevel1WithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountPercentageLevel1WithTaxAmount\": ");
+
+			sb.append(totalDiscountPercentageLevel1WithTaxAmount);
+		}
+
 		if (totalDiscountPercentageLevel2 != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -2612,6 +3714,16 @@ public class Order {
 			sb.append("\"totalDiscountPercentageLevel2\": ");
 
 			sb.append(totalDiscountPercentageLevel2);
+		}
+
+		if (totalDiscountPercentageLevel2WithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountPercentageLevel2WithTaxAmount\": ");
+
+			sb.append(totalDiscountPercentageLevel2WithTaxAmount);
 		}
 
 		if (totalDiscountPercentageLevel3 != null) {
@@ -2624,6 +3736,16 @@ public class Order {
 			sb.append(totalDiscountPercentageLevel3);
 		}
 
+		if (totalDiscountPercentageLevel3WithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountPercentageLevel3WithTaxAmount\": ");
+
+			sb.append(totalDiscountPercentageLevel3WithTaxAmount);
+		}
+
 		if (totalDiscountPercentageLevel4 != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -2632,6 +3754,40 @@ public class Order {
 			sb.append("\"totalDiscountPercentageLevel4\": ");
 
 			sb.append(totalDiscountPercentageLevel4);
+		}
+
+		if (totalDiscountPercentageLevel4WithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountPercentageLevel4WithTaxAmount\": ");
+
+			sb.append(totalDiscountPercentageLevel4WithTaxAmount);
+		}
+
+		if (totalDiscountWithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountWithTaxAmount\": ");
+
+			sb.append(totalDiscountWithTaxAmount);
+		}
+
+		if (totalDiscountWithTaxAmountFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalDiscountWithTaxAmountFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(totalDiscountWithTaxAmountFormatted));
+
+			sb.append("\"");
 		}
 
 		if (totalFormatted != null) {
@@ -2646,6 +3802,40 @@ public class Order {
 			sb.append(_escape(totalFormatted));
 
 			sb.append("\"");
+		}
+
+		if (totalWithTaxAmount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalWithTaxAmount\": ");
+
+			sb.append(totalWithTaxAmount);
+		}
+
+		if (totalWithTaxAmountFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalWithTaxAmountFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(totalWithTaxAmountFormatted));
+
+			sb.append("\"");
+		}
+
+		if (totalWithTaxAmountValue != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"totalWithTaxAmountValue\": ");
+
+			sb.append(totalWithTaxAmountValue);
 		}
 
 		if (transactionId != null) {

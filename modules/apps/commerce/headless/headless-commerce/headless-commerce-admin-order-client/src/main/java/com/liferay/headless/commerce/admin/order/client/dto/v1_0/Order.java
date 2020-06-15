@@ -791,6 +791,33 @@ public class Order implements Cloneable {
 
 	protected Double shippingDiscountPercentageLevel1;
 
+	public Double getShippingDiscountPercentageLevel1WithTaxAmount() {
+		return shippingDiscountPercentageLevel1WithTaxAmount;
+	}
+
+	public void setShippingDiscountPercentageLevel1WithTaxAmount(
+		Double shippingDiscountPercentageLevel1WithTaxAmount) {
+
+		this.shippingDiscountPercentageLevel1WithTaxAmount =
+			shippingDiscountPercentageLevel1WithTaxAmount;
+	}
+
+	public void setShippingDiscountPercentageLevel1WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			shippingDiscountPercentageLevel1WithTaxAmountUnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel1WithTaxAmount =
+				shippingDiscountPercentageLevel1WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double shippingDiscountPercentageLevel1WithTaxAmount;
+
 	public Double getShippingDiscountPercentageLevel2() {
 		return shippingDiscountPercentageLevel2;
 	}
@@ -816,6 +843,33 @@ public class Order implements Cloneable {
 	}
 
 	protected Double shippingDiscountPercentageLevel2;
+
+	public Double getShippingDiscountPercentageLevel2WithTaxAmount() {
+		return shippingDiscountPercentageLevel2WithTaxAmount;
+	}
+
+	public void setShippingDiscountPercentageLevel2WithTaxAmount(
+		Double shippingDiscountPercentageLevel2WithTaxAmount) {
+
+		this.shippingDiscountPercentageLevel2WithTaxAmount =
+			shippingDiscountPercentageLevel2WithTaxAmount;
+	}
+
+	public void setShippingDiscountPercentageLevel2WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			shippingDiscountPercentageLevel2WithTaxAmountUnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel2WithTaxAmount =
+				shippingDiscountPercentageLevel2WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double shippingDiscountPercentageLevel2WithTaxAmount;
 
 	public Double getShippingDiscountPercentageLevel3() {
 		return shippingDiscountPercentageLevel3;
@@ -843,6 +897,33 @@ public class Order implements Cloneable {
 
 	protected Double shippingDiscountPercentageLevel3;
 
+	public Double getShippingDiscountPercentageLevel3WithTaxAmount() {
+		return shippingDiscountPercentageLevel3WithTaxAmount;
+	}
+
+	public void setShippingDiscountPercentageLevel3WithTaxAmount(
+		Double shippingDiscountPercentageLevel3WithTaxAmount) {
+
+		this.shippingDiscountPercentageLevel3WithTaxAmount =
+			shippingDiscountPercentageLevel3WithTaxAmount;
+	}
+
+	public void setShippingDiscountPercentageLevel3WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			shippingDiscountPercentageLevel3WithTaxAmountUnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel3WithTaxAmount =
+				shippingDiscountPercentageLevel3WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double shippingDiscountPercentageLevel3WithTaxAmount;
+
 	public Double getShippingDiscountPercentageLevel4() {
 		return shippingDiscountPercentageLevel4;
 	}
@@ -868,6 +949,84 @@ public class Order implements Cloneable {
 	}
 
 	protected Double shippingDiscountPercentageLevel4;
+
+	public Double getShippingDiscountPercentageLevel4WithTaxAmount() {
+		return shippingDiscountPercentageLevel4WithTaxAmount;
+	}
+
+	public void setShippingDiscountPercentageLevel4WithTaxAmount(
+		Double shippingDiscountPercentageLevel4WithTaxAmount) {
+
+		this.shippingDiscountPercentageLevel4WithTaxAmount =
+			shippingDiscountPercentageLevel4WithTaxAmount;
+	}
+
+	public void setShippingDiscountPercentageLevel4WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			shippingDiscountPercentageLevel4WithTaxAmountUnsafeSupplier) {
+
+		try {
+			shippingDiscountPercentageLevel4WithTaxAmount =
+				shippingDiscountPercentageLevel4WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double shippingDiscountPercentageLevel4WithTaxAmount;
+
+	public Double getShippingDiscountWithTaxAmount() {
+		return shippingDiscountWithTaxAmount;
+	}
+
+	public void setShippingDiscountWithTaxAmount(
+		Double shippingDiscountWithTaxAmount) {
+
+		this.shippingDiscountWithTaxAmount = shippingDiscountWithTaxAmount;
+	}
+
+	public void setShippingDiscountWithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			shippingDiscountWithTaxAmountUnsafeSupplier) {
+
+		try {
+			shippingDiscountWithTaxAmount =
+				shippingDiscountWithTaxAmountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double shippingDiscountWithTaxAmount;
+
+	public String getShippingDiscountWithTaxAmountFormatted() {
+		return shippingDiscountWithTaxAmountFormatted;
+	}
+
+	public void setShippingDiscountWithTaxAmountFormatted(
+		String shippingDiscountWithTaxAmountFormatted) {
+
+		this.shippingDiscountWithTaxAmountFormatted =
+			shippingDiscountWithTaxAmountFormatted;
+	}
+
+	public void setShippingDiscountWithTaxAmountFormatted(
+		UnsafeSupplier<String, Exception>
+			shippingDiscountWithTaxAmountFormattedUnsafeSupplier) {
+
+		try {
+			shippingDiscountWithTaxAmountFormatted =
+				shippingDiscountWithTaxAmountFormattedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String shippingDiscountWithTaxAmountFormatted;
 
 	public String getShippingMethod() {
 		return shippingMethod;
@@ -910,6 +1069,78 @@ public class Order implements Cloneable {
 	}
 
 	protected String shippingOption;
+
+	public BigDecimal getShippingWithTaxAmount() {
+		return shippingWithTaxAmount;
+	}
+
+	public void setShippingWithTaxAmount(BigDecimal shippingWithTaxAmount) {
+		this.shippingWithTaxAmount = shippingWithTaxAmount;
+	}
+
+	public void setShippingWithTaxAmount(
+		UnsafeSupplier<BigDecimal, Exception>
+			shippingWithTaxAmountUnsafeSupplier) {
+
+		try {
+			shippingWithTaxAmount = shippingWithTaxAmountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal shippingWithTaxAmount;
+
+	public String getShippingWithTaxAmountFormatted() {
+		return shippingWithTaxAmountFormatted;
+	}
+
+	public void setShippingWithTaxAmountFormatted(
+		String shippingWithTaxAmountFormatted) {
+
+		this.shippingWithTaxAmountFormatted = shippingWithTaxAmountFormatted;
+	}
+
+	public void setShippingWithTaxAmountFormatted(
+		UnsafeSupplier<String, Exception>
+			shippingWithTaxAmountFormattedUnsafeSupplier) {
+
+		try {
+			shippingWithTaxAmountFormatted =
+				shippingWithTaxAmountFormattedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String shippingWithTaxAmountFormatted;
+
+	public Double getShippingWithTaxAmountValue() {
+		return shippingWithTaxAmountValue;
+	}
+
+	public void setShippingWithTaxAmountValue(
+		Double shippingWithTaxAmountValue) {
+
+		this.shippingWithTaxAmountValue = shippingWithTaxAmountValue;
+	}
+
+	public void setShippingWithTaxAmountValue(
+		UnsafeSupplier<Double, Exception>
+			shippingWithTaxAmountValueUnsafeSupplier) {
+
+		try {
+			shippingWithTaxAmountValue =
+				shippingWithTaxAmountValueUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double shippingWithTaxAmountValue;
 
 	public BigDecimal getSubtotal() {
 		return subtotal;
@@ -1026,6 +1257,33 @@ public class Order implements Cloneable {
 
 	protected Double subtotalDiscountPercentageLevel1;
 
+	public Double getSubtotalDiscountPercentageLevel1WithTaxAmount() {
+		return subtotalDiscountPercentageLevel1WithTaxAmount;
+	}
+
+	public void setSubtotalDiscountPercentageLevel1WithTaxAmount(
+		Double subtotalDiscountPercentageLevel1WithTaxAmount) {
+
+		this.subtotalDiscountPercentageLevel1WithTaxAmount =
+			subtotalDiscountPercentageLevel1WithTaxAmount;
+	}
+
+	public void setSubtotalDiscountPercentageLevel1WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			subtotalDiscountPercentageLevel1WithTaxAmountUnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel1WithTaxAmount =
+				subtotalDiscountPercentageLevel1WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double subtotalDiscountPercentageLevel1WithTaxAmount;
+
 	public Double getSubtotalDiscountPercentageLevel2() {
 		return subtotalDiscountPercentageLevel2;
 	}
@@ -1051,6 +1309,33 @@ public class Order implements Cloneable {
 	}
 
 	protected Double subtotalDiscountPercentageLevel2;
+
+	public Double getSubtotalDiscountPercentageLevel2WithTaxAmount() {
+		return subtotalDiscountPercentageLevel2WithTaxAmount;
+	}
+
+	public void setSubtotalDiscountPercentageLevel2WithTaxAmount(
+		Double subtotalDiscountPercentageLevel2WithTaxAmount) {
+
+		this.subtotalDiscountPercentageLevel2WithTaxAmount =
+			subtotalDiscountPercentageLevel2WithTaxAmount;
+	}
+
+	public void setSubtotalDiscountPercentageLevel2WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			subtotalDiscountPercentageLevel2WithTaxAmountUnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel2WithTaxAmount =
+				subtotalDiscountPercentageLevel2WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double subtotalDiscountPercentageLevel2WithTaxAmount;
 
 	public Double getSubtotalDiscountPercentageLevel3() {
 		return subtotalDiscountPercentageLevel3;
@@ -1078,6 +1363,33 @@ public class Order implements Cloneable {
 
 	protected Double subtotalDiscountPercentageLevel3;
 
+	public Double getSubtotalDiscountPercentageLevel3WithTaxAmount() {
+		return subtotalDiscountPercentageLevel3WithTaxAmount;
+	}
+
+	public void setSubtotalDiscountPercentageLevel3WithTaxAmount(
+		Double subtotalDiscountPercentageLevel3WithTaxAmount) {
+
+		this.subtotalDiscountPercentageLevel3WithTaxAmount =
+			subtotalDiscountPercentageLevel3WithTaxAmount;
+	}
+
+	public void setSubtotalDiscountPercentageLevel3WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			subtotalDiscountPercentageLevel3WithTaxAmountUnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel3WithTaxAmount =
+				subtotalDiscountPercentageLevel3WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double subtotalDiscountPercentageLevel3WithTaxAmount;
+
 	public Double getSubtotalDiscountPercentageLevel4() {
 		return subtotalDiscountPercentageLevel4;
 	}
@@ -1104,6 +1416,84 @@ public class Order implements Cloneable {
 
 	protected Double subtotalDiscountPercentageLevel4;
 
+	public Double getSubtotalDiscountPercentageLevel4WithTaxAmount() {
+		return subtotalDiscountPercentageLevel4WithTaxAmount;
+	}
+
+	public void setSubtotalDiscountPercentageLevel4WithTaxAmount(
+		Double subtotalDiscountPercentageLevel4WithTaxAmount) {
+
+		this.subtotalDiscountPercentageLevel4WithTaxAmount =
+			subtotalDiscountPercentageLevel4WithTaxAmount;
+	}
+
+	public void setSubtotalDiscountPercentageLevel4WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			subtotalDiscountPercentageLevel4WithTaxAmountUnsafeSupplier) {
+
+		try {
+			subtotalDiscountPercentageLevel4WithTaxAmount =
+				subtotalDiscountPercentageLevel4WithTaxAmountUnsafeSupplier.
+					get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double subtotalDiscountPercentageLevel4WithTaxAmount;
+
+	public Double getSubtotalDiscountWithTaxAmount() {
+		return subtotalDiscountWithTaxAmount;
+	}
+
+	public void setSubtotalDiscountWithTaxAmount(
+		Double subtotalDiscountWithTaxAmount) {
+
+		this.subtotalDiscountWithTaxAmount = subtotalDiscountWithTaxAmount;
+	}
+
+	public void setSubtotalDiscountWithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			subtotalDiscountWithTaxAmountUnsafeSupplier) {
+
+		try {
+			subtotalDiscountWithTaxAmount =
+				subtotalDiscountWithTaxAmountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double subtotalDiscountWithTaxAmount;
+
+	public String getSubtotalDiscountWithTaxAmountFormatted() {
+		return subtotalDiscountWithTaxAmountFormatted;
+	}
+
+	public void setSubtotalDiscountWithTaxAmountFormatted(
+		String subtotalDiscountWithTaxAmountFormatted) {
+
+		this.subtotalDiscountWithTaxAmountFormatted =
+			subtotalDiscountWithTaxAmountFormatted;
+	}
+
+	public void setSubtotalDiscountWithTaxAmountFormatted(
+		UnsafeSupplier<String, Exception>
+			subtotalDiscountWithTaxAmountFormattedUnsafeSupplier) {
+
+		try {
+			subtotalDiscountWithTaxAmountFormatted =
+				subtotalDiscountWithTaxAmountFormattedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String subtotalDiscountWithTaxAmountFormatted;
+
 	public String getSubtotalFormatted() {
 		return subtotalFormatted;
 	}
@@ -1124,6 +1514,78 @@ public class Order implements Cloneable {
 	}
 
 	protected String subtotalFormatted;
+
+	public BigDecimal getSubtotalWithTaxAmount() {
+		return subtotalWithTaxAmount;
+	}
+
+	public void setSubtotalWithTaxAmount(BigDecimal subtotalWithTaxAmount) {
+		this.subtotalWithTaxAmount = subtotalWithTaxAmount;
+	}
+
+	public void setSubtotalWithTaxAmount(
+		UnsafeSupplier<BigDecimal, Exception>
+			subtotalWithTaxAmountUnsafeSupplier) {
+
+		try {
+			subtotalWithTaxAmount = subtotalWithTaxAmountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal subtotalWithTaxAmount;
+
+	public String getSubtotalWithTaxAmountFormatted() {
+		return subtotalWithTaxAmountFormatted;
+	}
+
+	public void setSubtotalWithTaxAmountFormatted(
+		String subtotalWithTaxAmountFormatted) {
+
+		this.subtotalWithTaxAmountFormatted = subtotalWithTaxAmountFormatted;
+	}
+
+	public void setSubtotalWithTaxAmountFormatted(
+		UnsafeSupplier<String, Exception>
+			subtotalWithTaxAmountFormattedUnsafeSupplier) {
+
+		try {
+			subtotalWithTaxAmountFormatted =
+				subtotalWithTaxAmountFormattedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String subtotalWithTaxAmountFormatted;
+
+	public Double getSubtotalWithTaxAmountValue() {
+		return subtotalWithTaxAmountValue;
+	}
+
+	public void setSubtotalWithTaxAmountValue(
+		Double subtotalWithTaxAmountValue) {
+
+		this.subtotalWithTaxAmountValue = subtotalWithTaxAmountValue;
+	}
+
+	public void setSubtotalWithTaxAmountValue(
+		UnsafeSupplier<Double, Exception>
+			subtotalWithTaxAmountValueUnsafeSupplier) {
+
+		try {
+			subtotalWithTaxAmountValue =
+				subtotalWithTaxAmountValueUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double subtotalWithTaxAmountValue;
 
 	public Double getTaxAmount() {
 		return taxAmount;
@@ -1280,6 +1742,32 @@ public class Order implements Cloneable {
 
 	protected Double totalDiscountPercentageLevel1;
 
+	public Double getTotalDiscountPercentageLevel1WithTaxAmount() {
+		return totalDiscountPercentageLevel1WithTaxAmount;
+	}
+
+	public void setTotalDiscountPercentageLevel1WithTaxAmount(
+		Double totalDiscountPercentageLevel1WithTaxAmount) {
+
+		this.totalDiscountPercentageLevel1WithTaxAmount =
+			totalDiscountPercentageLevel1WithTaxAmount;
+	}
+
+	public void setTotalDiscountPercentageLevel1WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			totalDiscountPercentageLevel1WithTaxAmountUnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel1WithTaxAmount =
+				totalDiscountPercentageLevel1WithTaxAmountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double totalDiscountPercentageLevel1WithTaxAmount;
+
 	public Double getTotalDiscountPercentageLevel2() {
 		return totalDiscountPercentageLevel2;
 	}
@@ -1304,6 +1792,32 @@ public class Order implements Cloneable {
 	}
 
 	protected Double totalDiscountPercentageLevel2;
+
+	public Double getTotalDiscountPercentageLevel2WithTaxAmount() {
+		return totalDiscountPercentageLevel2WithTaxAmount;
+	}
+
+	public void setTotalDiscountPercentageLevel2WithTaxAmount(
+		Double totalDiscountPercentageLevel2WithTaxAmount) {
+
+		this.totalDiscountPercentageLevel2WithTaxAmount =
+			totalDiscountPercentageLevel2WithTaxAmount;
+	}
+
+	public void setTotalDiscountPercentageLevel2WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			totalDiscountPercentageLevel2WithTaxAmountUnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel2WithTaxAmount =
+				totalDiscountPercentageLevel2WithTaxAmountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double totalDiscountPercentageLevel2WithTaxAmount;
 
 	public Double getTotalDiscountPercentageLevel3() {
 		return totalDiscountPercentageLevel3;
@@ -1330,6 +1844,32 @@ public class Order implements Cloneable {
 
 	protected Double totalDiscountPercentageLevel3;
 
+	public Double getTotalDiscountPercentageLevel3WithTaxAmount() {
+		return totalDiscountPercentageLevel3WithTaxAmount;
+	}
+
+	public void setTotalDiscountPercentageLevel3WithTaxAmount(
+		Double totalDiscountPercentageLevel3WithTaxAmount) {
+
+		this.totalDiscountPercentageLevel3WithTaxAmount =
+			totalDiscountPercentageLevel3WithTaxAmount;
+	}
+
+	public void setTotalDiscountPercentageLevel3WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			totalDiscountPercentageLevel3WithTaxAmountUnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel3WithTaxAmount =
+				totalDiscountPercentageLevel3WithTaxAmountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double totalDiscountPercentageLevel3WithTaxAmount;
+
 	public Double getTotalDiscountPercentageLevel4() {
 		return totalDiscountPercentageLevel4;
 	}
@@ -1355,6 +1895,83 @@ public class Order implements Cloneable {
 
 	protected Double totalDiscountPercentageLevel4;
 
+	public Double getTotalDiscountPercentageLevel4WithTaxAmount() {
+		return totalDiscountPercentageLevel4WithTaxAmount;
+	}
+
+	public void setTotalDiscountPercentageLevel4WithTaxAmount(
+		Double totalDiscountPercentageLevel4WithTaxAmount) {
+
+		this.totalDiscountPercentageLevel4WithTaxAmount =
+			totalDiscountPercentageLevel4WithTaxAmount;
+	}
+
+	public void setTotalDiscountPercentageLevel4WithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			totalDiscountPercentageLevel4WithTaxAmountUnsafeSupplier) {
+
+		try {
+			totalDiscountPercentageLevel4WithTaxAmount =
+				totalDiscountPercentageLevel4WithTaxAmountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double totalDiscountPercentageLevel4WithTaxAmount;
+
+	public Double getTotalDiscountWithTaxAmount() {
+		return totalDiscountWithTaxAmount;
+	}
+
+	public void setTotalDiscountWithTaxAmount(
+		Double totalDiscountWithTaxAmount) {
+
+		this.totalDiscountWithTaxAmount = totalDiscountWithTaxAmount;
+	}
+
+	public void setTotalDiscountWithTaxAmount(
+		UnsafeSupplier<Double, Exception>
+			totalDiscountWithTaxAmountUnsafeSupplier) {
+
+		try {
+			totalDiscountWithTaxAmount =
+				totalDiscountWithTaxAmountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double totalDiscountWithTaxAmount;
+
+	public String getTotalDiscountWithTaxAmountFormatted() {
+		return totalDiscountWithTaxAmountFormatted;
+	}
+
+	public void setTotalDiscountWithTaxAmountFormatted(
+		String totalDiscountWithTaxAmountFormatted) {
+
+		this.totalDiscountWithTaxAmountFormatted =
+			totalDiscountWithTaxAmountFormatted;
+	}
+
+	public void setTotalDiscountWithTaxAmountFormatted(
+		UnsafeSupplier<String, Exception>
+			totalDiscountWithTaxAmountFormattedUnsafeSupplier) {
+
+		try {
+			totalDiscountWithTaxAmountFormatted =
+				totalDiscountWithTaxAmountFormattedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String totalDiscountWithTaxAmountFormatted;
+
 	public String getTotalFormatted() {
 		return totalFormatted;
 	}
@@ -1375,6 +1992,76 @@ public class Order implements Cloneable {
 	}
 
 	protected String totalFormatted;
+
+	public BigDecimal getTotalWithTaxAmount() {
+		return totalWithTaxAmount;
+	}
+
+	public void setTotalWithTaxAmount(BigDecimal totalWithTaxAmount) {
+		this.totalWithTaxAmount = totalWithTaxAmount;
+	}
+
+	public void setTotalWithTaxAmount(
+		UnsafeSupplier<BigDecimal, Exception>
+			totalWithTaxAmountUnsafeSupplier) {
+
+		try {
+			totalWithTaxAmount = totalWithTaxAmountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected BigDecimal totalWithTaxAmount;
+
+	public String getTotalWithTaxAmountFormatted() {
+		return totalWithTaxAmountFormatted;
+	}
+
+	public void setTotalWithTaxAmountFormatted(
+		String totalWithTaxAmountFormatted) {
+
+		this.totalWithTaxAmountFormatted = totalWithTaxAmountFormatted;
+	}
+
+	public void setTotalWithTaxAmountFormatted(
+		UnsafeSupplier<String, Exception>
+			totalWithTaxAmountFormattedUnsafeSupplier) {
+
+		try {
+			totalWithTaxAmountFormatted =
+				totalWithTaxAmountFormattedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String totalWithTaxAmountFormatted;
+
+	public Double getTotalWithTaxAmountValue() {
+		return totalWithTaxAmountValue;
+	}
+
+	public void setTotalWithTaxAmountValue(Double totalWithTaxAmountValue) {
+		this.totalWithTaxAmountValue = totalWithTaxAmountValue;
+	}
+
+	public void setTotalWithTaxAmountValue(
+		UnsafeSupplier<Double, Exception>
+			totalWithTaxAmountValueUnsafeSupplier) {
+
+		try {
+			totalWithTaxAmountValue =
+				totalWithTaxAmountValueUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Double totalWithTaxAmountValue;
 
 	public String getTransactionId() {
 		return transactionId;
