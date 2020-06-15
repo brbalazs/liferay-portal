@@ -1029,8 +1029,8 @@ public class CommerceOrderLocalServiceImpl
 		}
 
 		commerceOrder.setShippingAmount(shippingAmount);
-		commerceOrder.setShippingWithTaxAmount(shippingWithTaxAmount);
 		commerceOrder.setTotal(total);
+		commerceOrder.setShippingWithTaxAmount(shippingWithTaxAmount);
 		commerceOrder.setTotalWithTaxAmount(totalWithTaxAmount);
 		commerceOrder.setAdvanceStatus(advanceStatus);
 		commerceOrder.setExternalReferenceCode(externalReferenceCode);
