@@ -286,11 +286,15 @@ export const getIntervals = (
 	timeInterval: Interval
 ): Date[] => {
 	if (arr.length) {
-		if ([LAST_24_HOURS, YESTERDAY].includes(rangeKey)) {
-			timeInterval = INTERVAL_KEY_MAP.day;
-		}
+		const validTimeInterval = [LAST_24_HOURS, YESTERDAY].includes(rangeKey)
+			? INTERVAL_KEY_MAP.day
+			: timeInterval;
 
-		const intervalHandle = getIntervalHandle(rangeKey, arr, timeInterval);
+		const intervalHandle = getIntervalHandle(
+			rangeKey,
+			arr,
+			validTimeInterval
+		);
 
 		return intervalHandle ? intervalHandle(arr) : arr;
 	}
