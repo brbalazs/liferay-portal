@@ -6,6 +6,7 @@ import {FieldProps} from 'formik';
 interface IFormRadioGroupProps
 	extends FieldProps,
 		React.HTMLAttributes<HTMLElement> {
+	inline: boolean;
 	label: string;
 	onChange: (value: any) => void;
 }
@@ -15,6 +16,7 @@ const FormRadioGroup: React.FC<IFormRadioGroupProps> = ({
 	className,
 	field,
 	form,
+	inline = false,
 	label,
 	onChange
 }) => {
@@ -38,6 +40,7 @@ const FormRadioGroup: React.FC<IFormRadioGroupProps> = ({
 				{...field}
 				checked={checked}
 				id={name}
+				inline={inline}
 				name={name}
 				onChange={handleChange}
 			>
