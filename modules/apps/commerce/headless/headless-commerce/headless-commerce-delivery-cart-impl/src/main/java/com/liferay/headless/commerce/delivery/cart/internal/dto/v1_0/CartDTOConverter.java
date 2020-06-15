@@ -128,8 +128,7 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 				status = commerceOrderWorkflowStatusLabel;
 				summary = _getSummary(commerceOrder, locale);
 				workflowStatusInfo = _getWorkflowStatusInfo(
-					commerceOrder.getStatus(),
-					commerceOrderWorkflowStatusLabel,
+					commerceOrder.getStatus(), commerceOrderWorkflowStatusLabel,
 					commerceOrderWorkflowStatusLabelI18n);
 			}
 		};
