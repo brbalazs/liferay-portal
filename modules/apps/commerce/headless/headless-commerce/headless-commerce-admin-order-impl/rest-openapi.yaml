@@ -166,7 +166,7 @@ components:
                     type: integer
                 channel:
                     $ref: "#/components/schemas/Channel"
-                    readonly: true
+                    readOnly: true
                 channelExternalReferenceCode:
                     example: AAB-34098-789-N
                     type: string
@@ -219,7 +219,7 @@ components:
                     type: integer
                 orderStatusInfo:
                     $ref: "#/components/schemas/Status"
-                    readonly: true
+                    readOnly: true
                 paymentMethod:
                     example: paypal
                     type: string
@@ -230,7 +230,7 @@ components:
                     type: integer
                 paymentStatusInfo:
                     $ref: "#/components/schemas/Status"
-                    readonly: true
+                    readOnly: true
                 printedNote:
                     example: Order printed note
                     type: string
@@ -333,7 +333,7 @@ components:
                     type: number
                 subtotalAmount:
                     format: double
-                    readonly: true
+                    readOnly: true
                     type: number
                 subtotalDiscountAmount:
                     format: double
@@ -394,7 +394,7 @@ components:
                     type: string
                 subtotalWithTaxAmountValue:
                     format: double
-                    readonly: true
+                    readOnly: true
                     type: number
                 taxAmount:
                     example: 11
@@ -412,7 +412,7 @@ components:
                     example: 113
                     format: double
                     minimum: 0
-                    readonly: true
+                    readOnly: true
                     type: number
                 totalDiscountAmount:
                     example: 11
@@ -481,13 +481,13 @@ components:
                     example: 113
                     format: double
                     minimum: 0
-                    readonly: true
+                    readOnly: true
                     type: number
                 transactionId:
                     type: string
                 workflowStatusInfo:
                     $ref: "#/components/schemas/Status"
-                    readonly: true
+                    readOnly: true
             required:
                 - channelId
                 - currencyCode
