@@ -76,7 +76,8 @@
 				width: auto;
 			}
 
-			input, select {
+			input,
+			select {
 				background-color: transparent;
 				border: 2px solid $color-border;
 				border-radius: 8px;
@@ -86,7 +87,7 @@
 		}
 
 		.item-sku {
-			font-size: .9em;
+			font-size: 0.9em;
 		}
 	}
 
@@ -102,7 +103,7 @@
 	}
 
 	&-wrapper {
-		box-shadow: -10px $frame-size 20px -10px rgba(0, 0, 0, .3)
+		box-shadow: -10px $frame-size 20px -10px rgba(0, 0, 0, 0.3);
 	}
 
 	&-opener::before {
@@ -133,7 +134,7 @@
 
 	.rtl & {
 		&-wrapper {
-			box-shadow: 10px $frame-size 20px -10px rgba(0, 0, 0, .3)
+			box-shadow: 10px $frame-size 20px -10px rgba(0, 0, 0, 0.3);
 		}
 	}
 }
