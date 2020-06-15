@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom';
 import {PropTypes} from 'prop-types';
 import {Routes} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
+import {toFixedPoint} from 'shared/util/numbers';
 
 const CLASSNAME = 'analytics-touchpoints-list';
 const MAX_PAGES_LIMIT = 1000;
@@ -66,8 +67,8 @@ class TouchpointsListCard extends React.Component {
 			return (
 				<p>
 					{sub(
-						Liferay.Language.get('x-pages-limit-has-been-reached'),
-						[MAX_PAGES_LIMIT]
+						Liferay.Language.get('x-page-limit-has-been-reached'),
+						[toFixedPoint(MAX_PAGES_LIMIT)]
 					)}
 				</p>
 			);
