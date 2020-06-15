@@ -58,13 +58,13 @@ public class CommercePricingClassDataSetDataProvider
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		DefaultFilterImpl defaultFilterImpl = (DefaultFilterImpl)filter;
-
-		String keywords = defaultFilterImpl.getKeywords();
-
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
+
+		DefaultFilterImpl defaultFilterImpl = (DefaultFilterImpl)filter;
+
+		String keywords = defaultFilterImpl.getKeywords();
 
 		if (Validator.isNotNull(keywords)) {
 			BaseModelSearchResult<CommercePricingClass> baseModelSearchResult =
