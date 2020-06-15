@@ -177,7 +177,7 @@ public class CommercePricingClassServiceImpl
 	}
 
 	@Override
-	public List<CommercePricingClass> searchByByCPDefinitionId(
+	public List<CommercePricingClass> searchByCPDefinitionId(
 			long cpDefinitionId, String title, int start, int end)
 		throws PrincipalException {
 
