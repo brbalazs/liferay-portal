@@ -22,7 +22,7 @@ const ITEMS_SHAPE = PropTypes.shape({
 	title: PropTypes.string,
 	type: PropTypes.string
 });
-// Remove the logic of new range keys on the LRAC-6137
+// TODO: LRAC-6137 Remove the logic of new range keys
 const NEW_RANGE_KEYS_LIST = [CUSTOM_RANGE, LAST_180_DAYS, LAST_YEAR];
 
 /**
