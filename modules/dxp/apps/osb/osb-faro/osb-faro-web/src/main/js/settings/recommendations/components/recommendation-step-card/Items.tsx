@@ -103,17 +103,14 @@ const Items: React.FC<IItemsProps> = ({itemFilters}) => {
 										}
 									]}
 									items={itemFilters}
-									renderInlineRowActions={({
-										data,
-										itemFilters
-									}) => (
+									renderInlineRowActions={({data, items}) => (
 										<span>
 											<Button
 												borderless
 												display='secondary'
 												onClick={() => {
 													arrayHelpers.remove(
-														itemFilters.findIndex(
+														items.findIndex(
 															itemData =>
 																itemData.id ===
 																data.id
