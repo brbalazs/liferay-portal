@@ -1195,15 +1195,16 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 	}
 
 	/**
-	 * @param userId
-	 * @param cpInstanceId
-	 * @param status
-	 * @param serviceContext
-	 * @param workflowContext
+	 * @param      userId
+	 * @param      cpInstanceId
+	 * @param      status
+	 * @param      serviceContext
+	 * @param      workflowContext
 	 * @return
 	 *
-	 * @throws PortalException
-	 * @deprecated As of Athanasius (7.3.x), use {@link #updateStatus(long, long, int)}
+	 * @throws     PortalException
+	 * @deprecated As of Athanasius (7.3.x), use {@link #updateStatus(long,
+	 *             long, int)}
 	 */
 	@Deprecated
 	@Indexable(type = IndexableType.REINDEX)
