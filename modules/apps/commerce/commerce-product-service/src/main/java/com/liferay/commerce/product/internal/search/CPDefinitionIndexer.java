@@ -707,13 +707,15 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 		}
 
 		if ((cpDefinition.getStatus() != WorkflowConstants.STATUS_APPROVED) ||
-			(cpDefinition.getCPDefinitionId() ==
-				cProduct.getPublishedCPDefinitionId())) {
+			((cpDefinition.getCPDefinitionId() !=
+				cProduct.getPublishedCPDefinitionId()) &&
+			 _cpDefinitionLocalService.isVersionable(
+				 cpDefinition.getCPDefinitionId()))) {
 
-			document.addKeyword(Field.HIDDEN, false);
+			document.addKeyword(Field.HIDDEN, true);
 		}
 		else {
-			document.addKeyword(Field.HIDDEN, true);
+			document.addKeyword(Field.HIDDEN, false);
 		}
 
 		CommerceCatalog commerceCatalog = cpDefinition.getCommerceCatalog();
