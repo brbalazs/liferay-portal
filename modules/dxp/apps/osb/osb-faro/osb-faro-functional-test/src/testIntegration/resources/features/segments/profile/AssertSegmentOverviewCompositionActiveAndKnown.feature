@@ -11,4 +11,4 @@ Feature: Segment Composition shows Active and Known individuals
 	Scenario: Assert segment active and known individuals
 		Given I click "engineers" in the table
 		Then I should see segment composition with "3" Active individuals
-		And I should see segment composition with "5" Known individuals
+		And I should see segment composition with "3" Known individuals

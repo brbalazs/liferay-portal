@@ -11,5 +11,5 @@ Feature: Total Membership of segments is shown
 	Scenario: Total Membership of segments
 		Given I click "Schneider and Sons" in the table
 		When I click the "Segments" tab
-		Then I should see a Segment named "engineers" with "5" items
-		And I should see a Segment named "everybody" with "200" items
+		Then I should see a Segment named "engineers" with "3" items
+		And I should see a Segment named "everybody" with "98" items

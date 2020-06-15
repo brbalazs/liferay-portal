@@ -11,4 +11,4 @@ Feature: Account interests shows member percentage
 	Scenario: View interest member percentage
 		Given I click "Hilll, Gottlieb and Dicki" in the table
 		When I click the "Interests" tab
-		Then I should see an active member percentage "45.45%"
+		Then I should see an active member percentage "36.36%"

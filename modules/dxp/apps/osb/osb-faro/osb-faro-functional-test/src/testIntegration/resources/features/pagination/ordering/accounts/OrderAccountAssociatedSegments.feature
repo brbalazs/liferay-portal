@@ -58,8 +58,8 @@ Feature: Order an Account's Associated Segments
 
 		When I click the "Members" dropdown option
 		Then I should see the following ordered rows in column 2:
-			| 200 |
-			| 5   |
+			| 98 |
+			| 3   |
 			| 3   |
 			| 2   |
 			| 1   |

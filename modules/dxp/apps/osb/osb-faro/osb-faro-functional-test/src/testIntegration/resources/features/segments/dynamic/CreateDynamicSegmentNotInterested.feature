@@ -18,4 +18,4 @@ Feature: Create a Segment of Individuals Not Interested in a Topic
     And I name the Dynamic segment "CreateDynamicNotInterestSegment - ${Random.1}" and save it
     When I go to the "Segments" page
     And I search for "CreateDynamicNotInterestSegment - ${Random.1}"
-    Then I should see a "Segment" named "CreateDynamicNotInterestSegment - ${Random.1}" with "64" items
+    Then I should see a "Segment" named "CreateDynamicNotInterestSegment - ${Random.1}" with "59" items

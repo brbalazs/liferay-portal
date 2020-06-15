@@ -11,5 +11,5 @@ Feature: Segment Membership graph exist and shows members
 	Scenario: Assert membership graph and members
 		Given I click "engineers" in the table
 		When I click the "Membership" tab
-		Then I should see "5" total members
+		Then I should see "3" total members
 		And I click row number "1" in the bar graph table

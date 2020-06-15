@@ -48,8 +48,8 @@ Feature: Order the Segment List
 		When I sort the table by the "Membership" column header in ascending order
 		Then I should see the following ordered rows in column 1:
 			| z AssertSegmentListKebab Segment |
-			| AssertSegmentListKebab Segment   |
 			| engineers                        |
+			| AssertSegmentListKebab Segment   |
 			| everybody                        |
 
 		# Order by Total Activities
@@ -71,13 +71,13 @@ Feature: Order the Segment List
 
 		When I sort the table by the "30 Day Engagement" column header in descending order
 		Then I should see the following ordered rows in column 1:
-			| engineers                        |
 			| everybody                        |
+			| engineers                        |
 			| AssertSegmentListKebab Segment   |
 			| z AssertSegmentListKebab Segment |
 		When I sort the table by the "30 Day Engagement" column header in ascending order
 		Then I should see the following ordered rows in column 1:
 			| AssertSegmentListKebab Segment   |
 			| z AssertSegmentListKebab Segment |
-			| everybody                        |
 			| engineers                        |
+			| everybody                        |

@@ -18,4 +18,4 @@ Feature: Create a Segment of Session in a Topic
         And I name the Dynamic segment "CreateDynamicSessionSegment - ${Random.1}" and save it
         When I go to the "Segments" page
         And I search for "CreateDynamicSessionSegment - ${Random.1}"
-        Then I should see a "Segment" named "CreateDynamicSessionSegment - ${Random.1}" with 77 items
+        Then I should see a "Segment" named "CreateDynamicSessionSegment - ${Random.1}" with 95 items
