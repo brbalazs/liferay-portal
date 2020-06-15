@@ -145,6 +145,10 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		cpDefinitionOptionValueRel.setKey(key);
 		cpDefinitionOptionValueRel.setExpandoBridgeAttributes(serviceContext);
 
+		if (cpDefinitionOptionRel.isPriceTypeStatic()) {
+			cpDefinitionOptionValueRel.setPrice(BigDecimal.ZERO);
+		}
+
 		_validateLinkedCPDefinitionOptionValueRel(cpDefinitionOptionValueRel);
 		_validatePriceableCPDefinitionOptionValue(
 			cpDefinitionOptionValueRel, cpDefinitionOptionRel.getPriceType());
