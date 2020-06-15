@@ -266,23 +266,23 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 			BigDecimal shippingDiscountPercentageLevel1 =
 				commerceOrder.getShippingDiscountPercentageLevel1();
 
-			BigDecimal shippingDiscountPercentageLevel2 =
-				commerceOrder.getShippingDiscountPercentageLevel2();
-
-			BigDecimal shippingDiscountPercentageLevel3 =
-				commerceOrder.getShippingDiscountPercentageLevel3();
-
-			BigDecimal shippingDiscountPercentageLevel4 =
-				commerceOrder.getShippingDiscountPercentageLevel4();
-
 			order.setShippingDiscountPercentageLevel1(
 				shippingDiscountPercentageLevel1.doubleValue());
+
+			BigDecimal shippingDiscountPercentageLevel2 =
+				commerceOrder.getShippingDiscountPercentageLevel2();
 
 			order.setShippingDiscountPercentageLevel2(
 				shippingDiscountPercentageLevel2.doubleValue());
 
+			BigDecimal shippingDiscountPercentageLevel3 =
+				commerceOrder.getShippingDiscountPercentageLevel3();
+
 			order.setShippingDiscountPercentageLevel3(
 				shippingDiscountPercentageLevel3.doubleValue());
+
+			BigDecimal shippingDiscountPercentageLevel4 =
+				commerceOrder.getShippingDiscountPercentageLevel4();
 
 			order.setShippingDiscountPercentageLevel4(
 				shippingDiscountPercentageLevel4.doubleValue());
@@ -303,26 +303,26 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				commerceOrder.
 					getShippingDiscountPercentageLevel1WithTaxAmount();
 
+			order.setShippingDiscountPercentageLevel1WithTaxAmount(
+				shippingDiscountPercentageLevel1WithTaxAmount.doubleValue());
+
 			BigDecimal shippingDiscountPercentageLevel2WithTaxAmount =
 				commerceOrder.
 					getShippingDiscountPercentageLevel2WithTaxAmount();
+
+			order.setShippingDiscountPercentageLevel2WithTaxAmount(
+				shippingDiscountPercentageLevel2WithTaxAmount.doubleValue());
 
 			BigDecimal shippingDiscountPercentageLevel3WithTaxAmount =
 				commerceOrder.
 					getShippingDiscountPercentageLevel3WithTaxAmount();
 
+			order.setShippingDiscountPercentageLevel3WithTaxAmount(
+				shippingDiscountPercentageLevel3WithTaxAmount.doubleValue());
+
 			BigDecimal shippingDiscountPercentageLevel4WithTaxAmount =
 				commerceOrder.
 					getShippingDiscountPercentageLevel4WithTaxAmount();
-
-			order.setShippingDiscountPercentageLevel1WithTaxAmount(
-				shippingDiscountPercentageLevel1WithTaxAmount.doubleValue());
-
-			order.setShippingDiscountPercentageLevel2WithTaxAmount(
-				shippingDiscountPercentageLevel2WithTaxAmount.doubleValue());
-
-			order.setShippingDiscountPercentageLevel3WithTaxAmount(
-				shippingDiscountPercentageLevel3WithTaxAmount.doubleValue());
 
 			order.setShippingDiscountPercentageLevel4WithTaxAmount(
 				shippingDiscountPercentageLevel4WithTaxAmount.doubleValue());
@@ -369,23 +369,23 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 			BigDecimal subtotalDiscountPercentageLevel1 =
 				commerceOrder.getSubtotalDiscountPercentageLevel1();
 
-			BigDecimal subtotalDiscountPercentageLevel2 =
-				commerceOrder.getSubtotalDiscountPercentageLevel2();
-
-			BigDecimal subtotalDiscountPercentageLevel3 =
-				commerceOrder.getSubtotalDiscountPercentageLevel3();
-
-			BigDecimal subtotalDiscountPercentageLevel4 =
-				commerceOrder.getSubtotalDiscountPercentageLevel4();
-
 			order.setSubtotalDiscountPercentageLevel1(
 				subtotalDiscountPercentageLevel1.doubleValue());
+
+			BigDecimal subtotalDiscountPercentageLevel2 =
+				commerceOrder.getSubtotalDiscountPercentageLevel2();
 
 			order.setSubtotalDiscountPercentageLevel2(
 				subtotalDiscountPercentageLevel2.doubleValue());
 
+			BigDecimal subtotalDiscountPercentageLevel3 =
+				commerceOrder.getSubtotalDiscountPercentageLevel3();
+
 			order.setSubtotalDiscountPercentageLevel3(
 				subtotalDiscountPercentageLevel3.doubleValue());
+
+			BigDecimal subtotalDiscountPercentageLevel4 =
+				commerceOrder.getSubtotalDiscountPercentageLevel4();
 
 			order.setSubtotalDiscountPercentageLevel4(
 				subtotalDiscountPercentageLevel4.doubleValue());
@@ -406,26 +406,26 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				commerceOrder.
 					getSubtotalDiscountPercentageLevel1WithTaxAmount();
 
+			order.setSubtotalDiscountPercentageLevel1WithTaxAmount(
+				subtotalDiscountPercentageLevel1WithTaxAmount.doubleValue());
+
 			BigDecimal subtotalDiscountPercentageLevel2WithTaxAmount =
 				commerceOrder.
 					getSubtotalDiscountPercentageLevel2WithTaxAmount();
+
+			order.setSubtotalDiscountPercentageLevel2WithTaxAmount(
+				subtotalDiscountPercentageLevel2WithTaxAmount.doubleValue());
 
 			BigDecimal subtotalDiscountPercentageLevel3WithTaxAmount =
 				commerceOrder.
 					getSubtotalDiscountPercentageLevel3WithTaxAmount();
 
+			order.setSubtotalDiscountPercentageLevel3WithTaxAmount(
+				subtotalDiscountPercentageLevel3WithTaxAmount.doubleValue());
+
 			BigDecimal subtotalDiscountPercentageLevel4WithTaxAmount =
 				commerceOrder.
 					getSubtotalDiscountPercentageLevel4WithTaxAmount();
-
-			order.setSubtotalDiscountPercentageLevel1WithTaxAmount(
-				subtotalDiscountPercentageLevel1WithTaxAmount.doubleValue());
-
-			order.setSubtotalDiscountPercentageLevel2WithTaxAmount(
-				subtotalDiscountPercentageLevel2WithTaxAmount.doubleValue());
-
-			order.setSubtotalDiscountPercentageLevel3WithTaxAmount(
-				subtotalDiscountPercentageLevel3WithTaxAmount.doubleValue());
 
 			order.setSubtotalDiscountPercentageLevel4WithTaxAmount(
 				subtotalDiscountPercentageLevel4WithTaxAmount.doubleValue());
@@ -468,23 +468,23 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 			BigDecimal totalDiscountPercentageLevel1 =
 				commerceOrder.getTotalDiscountPercentageLevel1();
 
-			BigDecimal totalDiscountPercentageLevel2 =
-				commerceOrder.getTotalDiscountPercentageLevel2();
-
-			BigDecimal totalDiscountPercentageLevel3 =
-				commerceOrder.getTotalDiscountPercentageLevel3();
-
-			BigDecimal totalDiscountPercentageLevel4 =
-				commerceOrder.getTotalDiscountPercentageLevel4();
-
 			order.setTotalDiscountPercentageLevel1(
 				totalDiscountPercentageLevel1.doubleValue());
+
+			BigDecimal totalDiscountPercentageLevel2 =
+				commerceOrder.getTotalDiscountPercentageLevel2();
 
 			order.setTotalDiscountPercentageLevel2(
 				totalDiscountPercentageLevel2.doubleValue());
 
+			BigDecimal totalDiscountPercentageLevel3 =
+				commerceOrder.getTotalDiscountPercentageLevel3();
+
 			order.setTotalDiscountPercentageLevel3(
 				totalDiscountPercentageLevel3.doubleValue());
+
+			BigDecimal totalDiscountPercentageLevel4 =
+				commerceOrder.getTotalDiscountPercentageLevel4();
 
 			order.setTotalDiscountPercentageLevel4(
 				totalDiscountPercentageLevel4.doubleValue());
@@ -504,23 +504,23 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 			BigDecimal totalDiscountPercentageLevel1WithTaxAmount =
 				commerceOrder.getTotalDiscountPercentageLevel1WithTaxAmount();
 
-			BigDecimal totalDiscountPercentageLevel2WithTaxAmount =
-				commerceOrder.getTotalDiscountPercentageLevel2WithTaxAmount();
-
-			BigDecimal totalDiscountPercentageLevel3WithTaxAmount =
-				commerceOrder.getTotalDiscountPercentageLevel3WithTaxAmount();
-
-			BigDecimal totalDiscountPercentageLevel4WithTaxAmount =
-				commerceOrder.getTotalDiscountPercentageLevel4WithTaxAmount();
-
 			order.setSubtotalDiscountPercentageLevel1WithTaxAmount(
 				totalDiscountPercentageLevel1WithTaxAmount.doubleValue());
+
+			BigDecimal totalDiscountPercentageLevel2WithTaxAmount =
+				commerceOrder.getTotalDiscountPercentageLevel2WithTaxAmount();
 
 			order.setSubtotalDiscountPercentageLevel2WithTaxAmount(
 				totalDiscountPercentageLevel2WithTaxAmount.doubleValue());
 
+			BigDecimal totalDiscountPercentageLevel3WithTaxAmount =
+				commerceOrder.getTotalDiscountPercentageLevel3WithTaxAmount();
+
 			order.setSubtotalDiscountPercentageLevel3WithTaxAmount(
 				totalDiscountPercentageLevel3WithTaxAmount.doubleValue());
+
+			BigDecimal totalDiscountPercentageLevel4WithTaxAmount =
+				commerceOrder.getTotalDiscountPercentageLevel4WithTaxAmount();
 
 			order.setSubtotalDiscountPercentageLevel4WithTaxAmount(
 				totalDiscountPercentageLevel4WithTaxAmount.doubleValue());
