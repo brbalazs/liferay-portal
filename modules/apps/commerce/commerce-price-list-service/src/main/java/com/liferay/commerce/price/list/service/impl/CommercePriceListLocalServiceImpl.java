@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
@@ -195,6 +196,11 @@ public class CommercePriceListLocalServiceImpl
 		// Cache
 
 		cleanPriceListCache(user.getCompanyId());
+
+		// Resources
+
+		resourceLocalService.addModelResources(
+			commercePriceList, serviceContext);
 
 		return commercePriceList;
 	}
@@ -397,6 +403,11 @@ public class CommercePriceListLocalServiceImpl
 		_commercePriceModifierLocalService.
 			deleteCommercePriceModifiersByCommercePriceListId(
 				commercePriceList.getCommercePriceListId());
+
+		// Resources
+
+		resourceLocalService.deleteResource(
+			commercePriceList, ResourceConstants.SCOPE_INDIVIDUAL);
 
 		// Commerce price list
 
