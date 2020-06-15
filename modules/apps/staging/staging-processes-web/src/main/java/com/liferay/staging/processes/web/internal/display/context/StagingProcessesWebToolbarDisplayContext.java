@@ -57,6 +57,15 @@ public class StagingProcessesWebToolbarDisplayContext {
 			portlet.getRootPortletId());
 	}
 
+	/**
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link
+	 *             #getActionDropdownItems(boolean)}
+	 */
+	@Deprecated
+	public List<DropdownItem> getActionDropdownItems() {
+		return getActionDropdownItems(true);
+	}
+
 	public List<DropdownItem> getActionDropdownItems(boolean hasPermission) {
 		if (!hasPermission) {
 			return null;
@@ -74,6 +83,15 @@ public class StagingProcessesWebToolbarDisplayContext {
 					});
 			}
 		};
+	}
+
+	/**
+	 * @deprecated As of Mueller (7.2.x), replaced by {@link
+	 *             #getCreationMenu(boolean)}
+	 */
+	@Deprecated
+	public CreationMenu getCreationMenu() {
+		return getCreationMenu(true);
 	}
 
 	public CreationMenu getCreationMenu(boolean hasPermission) {
