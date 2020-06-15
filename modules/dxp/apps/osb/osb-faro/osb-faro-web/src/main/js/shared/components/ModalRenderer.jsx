@@ -17,6 +17,7 @@ import InterestTopicModal from 'settings/components/InterestTopicsModal';
 import InviteUsersModal from 'settings/components/InviteUsersModal';
 import LoadingModal from './LoadingModal';
 import NewRequestModal from './NewRequestModal';
+import NewRuleModal from 'settings/recommendations/components/NewRuleModal';
 import OnboardingModal from './onboarding-modal';
 import React from 'react';
 import SearchableEntitiesTableModal from './SearchableEntitiesTableModal';
@@ -52,6 +53,7 @@ const COMPONENT_MAP = {
 	[modalTypes.INVITE_USERS_MODAL]: InviteUsersModal,
 	[modalTypes.LOADING_MODAL]: LoadingModal,
 	[modalTypes.NEW_REQUEST_MODAL]: NewRequestModal,
+	[modalTypes.NEW_RULE_MODAL]: NewRuleModal,
 	[modalTypes.ONBOARDING_MODAL]: OnboardingModal,
 	[modalTypes.UNASSIGNED_SEGMENTS_MODAL]: UnassignedSegmentsModal,
 	[modalTypes.UPGRADE_CONNECTION_MODAL]: UpgradeConnectionModal,

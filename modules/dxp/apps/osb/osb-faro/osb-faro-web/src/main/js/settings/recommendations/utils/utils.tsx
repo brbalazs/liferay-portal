@@ -5,6 +5,16 @@ import {
 	jobTypes
 } from 'shared/util/constants';
 
+export const CANONICAL_URL = 'canonicalUrl';
+export const DESCRIPTION = 'description';
+export const TITLE = 'title';
+export const URL = 'url';
+
+export const METADATA_TAGS = [CANONICAL_URL, DESCRIPTION, TITLE, URL];
+
+export const EXCLUDE = 'excludeFilter';
+export const INCLUDE = 'includeFilter';
+
 export type Filter = {
 	count: number;
 	id: string;
