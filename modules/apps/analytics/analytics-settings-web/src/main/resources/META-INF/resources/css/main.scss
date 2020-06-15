@@ -11,9 +11,29 @@
 		padding-top: 250px;
 	}
 
+	.input-group-input {
+		width: 92%;
+	}
+
 	.list-group-sync {
 		list-style: none;
 		padding: 0;
+	}
+
+	.management-bar-collapse.collapse {
+		width: 95%;
+	}
+
+	.management-bar-nav {
+		width : 100%;
+	}
+
+	.management-bar-nav > li {
+		float: none;
+	}
+
+	.management-bar-nav > li > .form {
+		padding-left: 0;
 	}
 
 	.radio-buttons {
