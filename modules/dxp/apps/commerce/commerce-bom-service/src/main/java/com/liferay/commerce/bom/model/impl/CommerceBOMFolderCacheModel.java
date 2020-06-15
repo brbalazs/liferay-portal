@@ -36,17 +36,17 @@ public class CommerceBOMFolderCacheModel
 	implements CacheModel<CommerceBOMFolder>, Externalizable {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceBOMFolderCacheModel)) {
+		if (!(object instanceof CommerceBOMFolderCacheModel)) {
 			return false;
 		}
 
 		CommerceBOMFolderCacheModel commerceBOMFolderCacheModel =
-			(CommerceBOMFolderCacheModel)obj;
+			(CommerceBOMFolderCacheModel)object;
 
 		if (commerceBOMFolderId ==
 				commerceBOMFolderCacheModel.commerceBOMFolderId) {

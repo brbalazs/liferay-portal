@@ -630,17 +630,17 @@ public class OAuthApplicationWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof OAuthApplicationWrapper)) {
+		if (!(object instanceof OAuthApplicationWrapper)) {
 			return false;
 		}
 
 		OAuthApplicationWrapper oAuthApplicationWrapper =
-			(OAuthApplicationWrapper)obj;
+			(OAuthApplicationWrapper)object;
 
 		if (Objects.equals(
 				_oAuthApplication, oAuthApplicationWrapper._oAuthApplication)) {

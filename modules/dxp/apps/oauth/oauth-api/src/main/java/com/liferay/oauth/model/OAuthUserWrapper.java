@@ -469,16 +469,16 @@ public class OAuthUserWrapper implements ModelWrapper<OAuthUser>, OAuthUser {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof OAuthUserWrapper)) {
+		if (!(object instanceof OAuthUserWrapper)) {
 			return false;
 		}
 
-		OAuthUserWrapper oAuthUserWrapper = (OAuthUserWrapper)obj;
+		OAuthUserWrapper oAuthUserWrapper = (OAuthUserWrapper)object;
 
 		if (Objects.equals(_oAuthUser, oAuthUserWrapper._oAuthUser)) {
 			return true;

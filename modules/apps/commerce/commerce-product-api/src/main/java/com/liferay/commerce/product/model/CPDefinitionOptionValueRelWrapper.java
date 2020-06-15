@@ -815,17 +815,17 @@ public class CPDefinitionOptionValueRelWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CPDefinitionOptionValueRelWrapper)) {
+		if (!(object instanceof CPDefinitionOptionValueRelWrapper)) {
 			return false;
 		}
 
 		CPDefinitionOptionValueRelWrapper cpDefinitionOptionValueRelWrapper =
-			(CPDefinitionOptionValueRelWrapper)obj;
+			(CPDefinitionOptionValueRelWrapper)object;
 
 		if (Objects.equals(
 				_cpDefinitionOptionValueRel,

@@ -1071,17 +1071,17 @@ public class CommerceDataIntegrationProcessModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceDataIntegrationProcess)) {
+		if (!(object instanceof CommerceDataIntegrationProcess)) {
 			return false;
 		}
 
 		CommerceDataIntegrationProcess commerceDataIntegrationProcess =
-			(CommerceDataIntegrationProcess)obj;
+			(CommerceDataIntegrationProcess)object;
 
 		long primaryKey = commerceDataIntegrationProcess.getPrimaryKey();
 

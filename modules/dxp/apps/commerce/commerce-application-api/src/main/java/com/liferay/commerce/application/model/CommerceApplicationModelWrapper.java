@@ -462,17 +462,17 @@ public class CommerceApplicationModelWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceApplicationModelWrapper)) {
+		if (!(object instanceof CommerceApplicationModelWrapper)) {
 			return false;
 		}
 
 		CommerceApplicationModelWrapper commerceApplicationModelWrapper =
-			(CommerceApplicationModelWrapper)obj;
+			(CommerceApplicationModelWrapper)object;
 
 		if (Objects.equals(
 				_commerceApplicationModel,

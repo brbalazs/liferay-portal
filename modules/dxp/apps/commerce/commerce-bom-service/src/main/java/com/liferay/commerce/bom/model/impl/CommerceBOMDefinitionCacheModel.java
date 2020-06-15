@@ -36,17 +36,17 @@ public class CommerceBOMDefinitionCacheModel
 	implements CacheModel<CommerceBOMDefinition>, Externalizable {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceBOMDefinitionCacheModel)) {
+		if (!(object instanceof CommerceBOMDefinitionCacheModel)) {
 			return false;
 		}
 
 		CommerceBOMDefinitionCacheModel commerceBOMDefinitionCacheModel =
-			(CommerceBOMDefinitionCacheModel)obj;
+			(CommerceBOMDefinitionCacheModel)object;
 
 		if (commerceBOMDefinitionId ==
 				commerceBOMDefinitionCacheModel.commerceBOMDefinitionId) {

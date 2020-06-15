@@ -809,17 +809,17 @@ public class CommercePricingClassWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommercePricingClassWrapper)) {
+		if (!(object instanceof CommercePricingClassWrapper)) {
 			return false;
 		}
 
 		CommercePricingClassWrapper commercePricingClassWrapper =
-			(CommercePricingClassWrapper)obj;
+			(CommercePricingClassWrapper)object;
 
 		if (Objects.equals(
 				_commercePricingClass,

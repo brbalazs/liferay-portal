@@ -641,18 +641,18 @@ public class CommerceDataIntegrationProcessWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceDataIntegrationProcessWrapper)) {
+		if (!(object instanceof CommerceDataIntegrationProcessWrapper)) {
 			return false;
 		}
 
 		CommerceDataIntegrationProcessWrapper
 			commerceDataIntegrationProcessWrapper =
-				(CommerceDataIntegrationProcessWrapper)obj;
+				(CommerceDataIntegrationProcessWrapper)object;
 
 		if (Objects.equals(
 				_commerceDataIntegrationProcess,

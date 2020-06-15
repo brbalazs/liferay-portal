@@ -892,16 +892,16 @@ public class CommerceBOMEntryModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceBOMEntry)) {
+		if (!(object instanceof CommerceBOMEntry)) {
 			return false;
 		}
 
-		CommerceBOMEntry commerceBOMEntry = (CommerceBOMEntry)obj;
+		CommerceBOMEntry commerceBOMEntry = (CommerceBOMEntry)object;
 
 		long primaryKey = commerceBOMEntry.getPrimaryKey();
 

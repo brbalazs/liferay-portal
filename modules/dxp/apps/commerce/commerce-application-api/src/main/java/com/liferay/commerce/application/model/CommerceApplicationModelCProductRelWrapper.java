@@ -452,18 +452,18 @@ public class CommerceApplicationModelCProductRelWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceApplicationModelCProductRelWrapper)) {
+		if (!(object instanceof CommerceApplicationModelCProductRelWrapper)) {
 			return false;
 		}
 
 		CommerceApplicationModelCProductRelWrapper
 			commerceApplicationModelCProductRelWrapper =
-				(CommerceApplicationModelCProductRelWrapper)obj;
+				(CommerceApplicationModelCProductRelWrapper)object;
 
 		if (Objects.equals(
 				_commerceApplicationModelCProductRel,

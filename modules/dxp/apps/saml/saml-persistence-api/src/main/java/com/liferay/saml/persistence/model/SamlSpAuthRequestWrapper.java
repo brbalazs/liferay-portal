@@ -327,17 +327,17 @@ public class SamlSpAuthRequestWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof SamlSpAuthRequestWrapper)) {
+		if (!(object instanceof SamlSpAuthRequestWrapper)) {
 			return false;
 		}
 
 		SamlSpAuthRequestWrapper samlSpAuthRequestWrapper =
-			(SamlSpAuthRequestWrapper)obj;
+			(SamlSpAuthRequestWrapper)object;
 
 		if (Objects.equals(
 				_samlSpAuthRequest,

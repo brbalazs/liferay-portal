@@ -36,18 +36,18 @@ public class CommerceDataIntegrationProcessCacheModel
 	implements CacheModel<CommerceDataIntegrationProcess>, Externalizable {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceDataIntegrationProcessCacheModel)) {
+		if (!(object instanceof CommerceDataIntegrationProcessCacheModel)) {
 			return false;
 		}
 
 		CommerceDataIntegrationProcessCacheModel
 			commerceDataIntegrationProcessCacheModel =
-				(CommerceDataIntegrationProcessCacheModel)obj;
+				(CommerceDataIntegrationProcessCacheModel)object;
 
 		if (commerceDataIntegrationProcessId ==
 				commerceDataIntegrationProcessCacheModel.

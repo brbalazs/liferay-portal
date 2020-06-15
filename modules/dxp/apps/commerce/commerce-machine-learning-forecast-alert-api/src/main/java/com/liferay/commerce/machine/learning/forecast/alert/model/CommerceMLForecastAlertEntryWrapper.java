@@ -577,18 +577,18 @@ public class CommerceMLForecastAlertEntryWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceMLForecastAlertEntryWrapper)) {
+		if (!(object instanceof CommerceMLForecastAlertEntryWrapper)) {
 			return false;
 		}
 
 		CommerceMLForecastAlertEntryWrapper
 			commerceMLForecastAlertEntryWrapper =
-				(CommerceMLForecastAlertEntryWrapper)obj;
+				(CommerceMLForecastAlertEntryWrapper)object;
 
 		if (Objects.equals(
 				_commerceMLForecastAlertEntry,

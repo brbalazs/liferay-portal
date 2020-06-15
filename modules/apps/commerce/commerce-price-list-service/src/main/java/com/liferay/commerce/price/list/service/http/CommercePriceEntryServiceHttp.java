@@ -824,12 +824,12 @@ public class CommercePriceEntryServiceHttp {
 				java.math.BigDecimal discountLevel1,
 				java.math.BigDecimal discountLevel2,
 				java.math.BigDecimal discountLevel3,
-				java.math.BigDecimal discountLevel4, int displayDateMonth,
-				int displayDateDay, int displayDateYear, int displayDateHour,
-				int displayDateMinute, int expirationDateMonth,
-				int expirationDateDay, int expirationDateYear,
-				int expirationDateHour, int expirationDateMinute,
-				boolean neverExpire,
+				java.math.BigDecimal discountLevel4, boolean bulkPricing,
+				int displayDateMonth, int displayDateDay, int displayDateYear,
+				int displayDateHour, int displayDateMinute,
+				int expirationDateMonth, int expirationDateDay,
+				int expirationDateYear, int expirationDateHour,
+				int expirationDateMinute, boolean neverExpire,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -841,7 +841,7 @@ public class CommercePriceEntryServiceHttp {
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceEntryId, price, discountDiscovery,
 				discountLevel1, discountLevel2, discountLevel3, discountLevel4,
-				displayDateMonth, displayDateDay, displayDateYear,
+				bulkPricing, displayDateMonth, displayDateDay, displayDateYear,
 				displayDateHour, displayDateMinute, expirationDateMonth,
 				expirationDateDay, expirationDateYear, expirationDateHour,
 				expirationDateMinute, neverExpire, serviceContext);
@@ -882,12 +882,12 @@ public class CommercePriceEntryServiceHttp {
 				java.math.BigDecimal discountLevel1,
 				java.math.BigDecimal discountLevel2,
 				java.math.BigDecimal discountLevel3,
-				java.math.BigDecimal discountLevel4, boolean bulkPricing,
-				int displayDateMonth, int displayDateDay, int displayDateYear,
-				int displayDateHour, int displayDateMinute,
-				int expirationDateMonth, int expirationDateDay,
-				int expirationDateYear, int expirationDateHour,
-				int expirationDateMinute, boolean neverExpire,
+				java.math.BigDecimal discountLevel4, int displayDateMonth,
+				int displayDateDay, int displayDateYear, int displayDateHour,
+				int displayDateMinute, int expirationDateMonth,
+				int expirationDateDay, int expirationDateYear,
+				int expirationDateHour, int expirationDateMinute,
+				boolean neverExpire,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -899,7 +899,7 @@ public class CommercePriceEntryServiceHttp {
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceEntryId, price, discountDiscovery,
 				discountLevel1, discountLevel2, discountLevel3, discountLevel4,
-				bulkPricing, displayDateMonth, displayDateDay, displayDateYear,
+				displayDateMonth, displayDateDay, displayDateYear,
 				displayDateHour, displayDateMinute, expirationDateMonth,
 				expirationDateDay, expirationDateYear, expirationDateHour,
 				expirationDateMinute, neverExpire, serviceContext);
@@ -1218,19 +1218,19 @@ public class CommercePriceEntryServiceHttp {
 		new Class[] {
 			long.class, java.math.BigDecimal.class, boolean.class,
 			java.math.BigDecimal.class, java.math.BigDecimal.class,
-			java.math.BigDecimal.class, java.math.BigDecimal.class, int.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class,
+			boolean.class, int.class, int.class, int.class, int.class,
 			int.class, int.class, int.class, int.class, int.class, int.class,
-			int.class, int.class, int.class, boolean.class,
+			boolean.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _updateCommercePriceEntryParameterTypes18 =
 		new Class[] {
 			long.class, java.math.BigDecimal.class, boolean.class,
 			java.math.BigDecimal.class, java.math.BigDecimal.class,
-			java.math.BigDecimal.class, java.math.BigDecimal.class,
-			boolean.class, int.class, int.class, int.class, int.class,
+			java.math.BigDecimal.class, java.math.BigDecimal.class, int.class,
 			int.class, int.class, int.class, int.class, int.class, int.class,
-			boolean.class,
+			int.class, int.class, int.class, boolean.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[]

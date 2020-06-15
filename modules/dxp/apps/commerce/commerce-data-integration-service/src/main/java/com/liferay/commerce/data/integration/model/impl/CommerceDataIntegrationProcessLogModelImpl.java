@@ -966,17 +966,17 @@ public class CommerceDataIntegrationProcessLogModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceDataIntegrationProcessLog)) {
+		if (!(object instanceof CommerceDataIntegrationProcessLog)) {
 			return false;
 		}
 
 		CommerceDataIntegrationProcessLog commerceDataIntegrationProcessLog =
-			(CommerceDataIntegrationProcessLog)obj;
+			(CommerceDataIntegrationProcessLog)object;
 
 		long primaryKey = commerceDataIntegrationProcessLog.getPrimaryKey();
 

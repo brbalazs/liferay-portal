@@ -36,18 +36,18 @@ public class CommerceBOMFolderApplicationRelCacheModel
 	implements CacheModel<CommerceBOMFolderApplicationRel>, Externalizable {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceBOMFolderApplicationRelCacheModel)) {
+		if (!(object instanceof CommerceBOMFolderApplicationRelCacheModel)) {
 			return false;
 		}
 
 		CommerceBOMFolderApplicationRelCacheModel
 			commerceBOMFolderApplicationRelCacheModel =
-				(CommerceBOMFolderApplicationRelCacheModel)obj;
+				(CommerceBOMFolderApplicationRelCacheModel)object;
 
 		if (commerceBOMFolderApplicationRelId ==
 				commerceBOMFolderApplicationRelCacheModel.

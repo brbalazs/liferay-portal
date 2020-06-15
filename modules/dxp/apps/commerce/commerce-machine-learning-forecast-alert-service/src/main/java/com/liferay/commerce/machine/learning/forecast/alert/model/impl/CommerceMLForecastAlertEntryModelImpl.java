@@ -1023,17 +1023,17 @@ public class CommerceMLForecastAlertEntryModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceMLForecastAlertEntry)) {
+		if (!(object instanceof CommerceMLForecastAlertEntry)) {
 			return false;
 		}
 
 		CommerceMLForecastAlertEntry commerceMLForecastAlertEntry =
-			(CommerceMLForecastAlertEntry)obj;
+			(CommerceMLForecastAlertEntry)object;
 
 		long primaryKey = commerceMLForecastAlertEntry.getPrimaryKey();
 

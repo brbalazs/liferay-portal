@@ -781,17 +781,17 @@ public class CommerceBOMFolderApplicationRelModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceBOMFolderApplicationRel)) {
+		if (!(object instanceof CommerceBOMFolderApplicationRel)) {
 			return false;
 		}
 
 		CommerceBOMFolderApplicationRel commerceBOMFolderApplicationRel =
-			(CommerceBOMFolderApplicationRel)obj;
+			(CommerceBOMFolderApplicationRel)object;
 
 		long primaryKey = commerceBOMFolderApplicationRel.getPrimaryKey();
 

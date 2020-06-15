@@ -981,16 +981,16 @@ public class CPFriendlyURLEntryModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CPFriendlyURLEntry)) {
+		if (!(object instanceof CPFriendlyURLEntry)) {
 			return false;
 		}
 
-		CPFriendlyURLEntry cpFriendlyURLEntry = (CPFriendlyURLEntry)obj;
+		CPFriendlyURLEntry cpFriendlyURLEntry = (CPFriendlyURLEntry)object;
 
 		long primaryKey = cpFriendlyURLEntry.getPrimaryKey();
 

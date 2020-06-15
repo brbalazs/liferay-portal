@@ -432,17 +432,17 @@ public class CommerceApplicationBrandWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceApplicationBrandWrapper)) {
+		if (!(object instanceof CommerceApplicationBrandWrapper)) {
 			return false;
 		}
 
 		CommerceApplicationBrandWrapper commerceApplicationBrandWrapper =
-			(CommerceApplicationBrandWrapper)obj;
+			(CommerceApplicationBrandWrapper)object;
 
 		if (Objects.equals(
 				_commerceApplicationBrand,

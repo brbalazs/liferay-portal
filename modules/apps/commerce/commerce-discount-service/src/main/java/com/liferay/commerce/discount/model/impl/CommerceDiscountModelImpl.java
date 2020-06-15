@@ -1807,16 +1807,16 @@ public class CommerceDiscountModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceDiscount)) {
+		if (!(object instanceof CommerceDiscount)) {
 			return false;
 		}
 
-		CommerceDiscount commerceDiscount = (CommerceDiscount)obj;
+		CommerceDiscount commerceDiscount = (CommerceDiscount)object;
 
 		long primaryKey = commerceDiscount.getPrimaryKey();
 

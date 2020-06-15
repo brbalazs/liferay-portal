@@ -818,17 +818,17 @@ public class CommerceBOMDefinitionModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceBOMDefinition)) {
+		if (!(object instanceof CommerceBOMDefinition)) {
 			return false;
 		}
 
 		CommerceBOMDefinition commerceBOMDefinition =
-			(CommerceBOMDefinition)obj;
+			(CommerceBOMDefinition)object;
 
 		long primaryKey = commerceBOMDefinition.getPrimaryKey();
 

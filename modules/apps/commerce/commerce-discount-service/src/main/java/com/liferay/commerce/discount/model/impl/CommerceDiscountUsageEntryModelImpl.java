@@ -691,17 +691,17 @@ public class CommerceDiscountUsageEntryModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceDiscountUsageEntry)) {
+		if (!(object instanceof CommerceDiscountUsageEntry)) {
 			return false;
 		}
 
 		CommerceDiscountUsageEntry commerceDiscountUsageEntry =
-			(CommerceDiscountUsageEntry)obj;
+			(CommerceDiscountUsageEntry)object;
 
 		long primaryKey = commerceDiscountUsageEntry.getPrimaryKey();
 

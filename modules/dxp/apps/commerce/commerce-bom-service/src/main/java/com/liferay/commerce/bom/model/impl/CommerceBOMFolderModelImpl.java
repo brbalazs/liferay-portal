@@ -795,16 +795,16 @@ public class CommerceBOMFolderModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceBOMFolder)) {
+		if (!(object instanceof CommerceBOMFolder)) {
 			return false;
 		}
 
-		CommerceBOMFolder commerceBOMFolder = (CommerceBOMFolder)obj;
+		CommerceBOMFolder commerceBOMFolder = (CommerceBOMFolder)object;
 
 		long primaryKey = commerceBOMFolder.getPrimaryKey();
 

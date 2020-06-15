@@ -733,17 +733,17 @@ public class CommerceApplicationBrandModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceApplicationBrand)) {
+		if (!(object instanceof CommerceApplicationBrand)) {
 			return false;
 		}
 
 		CommerceApplicationBrand commerceApplicationBrand =
-			(CommerceApplicationBrand)obj;
+			(CommerceApplicationBrand)object;
 
 		long primaryKey = commerceApplicationBrand.getPrimaryKey();
 

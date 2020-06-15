@@ -781,17 +781,17 @@ public class SamlSpIdpConnectionWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof SamlSpIdpConnectionWrapper)) {
+		if (!(object instanceof SamlSpIdpConnectionWrapper)) {
 			return false;
 		}
 
 		SamlSpIdpConnectionWrapper samlSpIdpConnectionWrapper =
-			(SamlSpIdpConnectionWrapper)obj;
+			(SamlSpIdpConnectionWrapper)object;
 
 		if (Objects.equals(
 				_samlSpIdpConnection,

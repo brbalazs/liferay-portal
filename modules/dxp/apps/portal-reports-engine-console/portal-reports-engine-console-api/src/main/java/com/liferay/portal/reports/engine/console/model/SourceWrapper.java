@@ -739,16 +739,16 @@ public class SourceWrapper implements ModelWrapper<Source>, Source {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof SourceWrapper)) {
+		if (!(object instanceof SourceWrapper)) {
 			return false;
 		}
 
-		SourceWrapper sourceWrapper = (SourceWrapper)obj;
+		SourceWrapper sourceWrapper = (SourceWrapper)object;
 
 		if (Objects.equals(_source, sourceWrapper._source)) {
 			return true;

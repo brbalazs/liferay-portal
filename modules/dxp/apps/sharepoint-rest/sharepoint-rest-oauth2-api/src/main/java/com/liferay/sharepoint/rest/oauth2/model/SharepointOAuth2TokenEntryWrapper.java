@@ -437,17 +437,17 @@ public class SharepointOAuth2TokenEntryWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof SharepointOAuth2TokenEntryWrapper)) {
+		if (!(object instanceof SharepointOAuth2TokenEntryWrapper)) {
 			return false;
 		}
 
 		SharepointOAuth2TokenEntryWrapper sharepointOAuth2TokenEntryWrapper =
-			(SharepointOAuth2TokenEntryWrapper)obj;
+			(SharepointOAuth2TokenEntryWrapper)object;
 
 		if (Objects.equals(
 				_sharepointOAuth2TokenEntry,

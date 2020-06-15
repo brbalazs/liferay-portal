@@ -651,16 +651,17 @@ public class SamlSpSessionWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof SamlSpSessionWrapper)) {
+		if (!(object instanceof SamlSpSessionWrapper)) {
 			return false;
 		}
 
-		SamlSpSessionWrapper samlSpSessionWrapper = (SamlSpSessionWrapper)obj;
+		SamlSpSessionWrapper samlSpSessionWrapper =
+			(SamlSpSessionWrapper)object;
 
 		if (Objects.equals(
 				_samlSpSession, samlSpSessionWrapper._samlSpSession)) {

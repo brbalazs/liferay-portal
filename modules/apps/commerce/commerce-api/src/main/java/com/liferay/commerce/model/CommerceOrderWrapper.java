@@ -2527,16 +2527,17 @@ public class CommerceOrderWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceOrderWrapper)) {
+		if (!(object instanceof CommerceOrderWrapper)) {
 			return false;
 		}
 
-		CommerceOrderWrapper commerceOrderWrapper = (CommerceOrderWrapper)obj;
+		CommerceOrderWrapper commerceOrderWrapper =
+			(CommerceOrderWrapper)object;
 
 		if (Objects.equals(
 				_commerceOrder, commerceOrderWrapper._commerceOrder)) {

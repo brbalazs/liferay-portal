@@ -1204,16 +1204,17 @@ public class CommercePricingClassModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommercePricingClass)) {
+		if (!(object instanceof CommercePricingClass)) {
 			return false;
 		}
 
-		CommercePricingClass commercePricingClass = (CommercePricingClass)obj;
+		CommercePricingClass commercePricingClass =
+			(CommercePricingClass)object;
 
 		long primaryKey = commercePricingClass.getPrimaryKey();
 

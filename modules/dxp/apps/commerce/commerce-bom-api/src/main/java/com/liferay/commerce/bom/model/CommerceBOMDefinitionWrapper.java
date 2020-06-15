@@ -498,17 +498,17 @@ public class CommerceBOMDefinitionWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceBOMDefinitionWrapper)) {
+		if (!(object instanceof CommerceBOMDefinitionWrapper)) {
 			return false;
 		}
 
 		CommerceBOMDefinitionWrapper commerceBOMDefinitionWrapper =
-			(CommerceBOMDefinitionWrapper)obj;
+			(CommerceBOMDefinitionWrapper)object;
 
 		if (Objects.equals(
 				_commerceBOMDefinition,

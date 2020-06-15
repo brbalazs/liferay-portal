@@ -561,17 +561,17 @@ public class CommerceBOMEntryWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceBOMEntryWrapper)) {
+		if (!(object instanceof CommerceBOMEntryWrapper)) {
 			return false;
 		}
 
 		CommerceBOMEntryWrapper commerceBOMEntryWrapper =
-			(CommerceBOMEntryWrapper)obj;
+			(CommerceBOMEntryWrapper)object;
 
 		if (Objects.equals(
 				_commerceBOMEntry, commerceBOMEntryWrapper._commerceBOMEntry)) {

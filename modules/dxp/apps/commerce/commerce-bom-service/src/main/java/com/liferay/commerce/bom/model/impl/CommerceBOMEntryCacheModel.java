@@ -36,17 +36,17 @@ public class CommerceBOMEntryCacheModel
 	implements CacheModel<CommerceBOMEntry>, Externalizable {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceBOMEntryCacheModel)) {
+		if (!(object instanceof CommerceBOMEntryCacheModel)) {
 			return false;
 		}
 
 		CommerceBOMEntryCacheModel commerceBOMEntryCacheModel =
-			(CommerceBOMEntryCacheModel)obj;
+			(CommerceBOMEntryCacheModel)object;
 
 		if (commerceBOMEntryId ==
 				commerceBOMEntryCacheModel.commerceBOMEntryId) {

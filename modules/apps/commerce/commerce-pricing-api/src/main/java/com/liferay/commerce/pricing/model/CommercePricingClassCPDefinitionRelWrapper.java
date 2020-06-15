@@ -457,18 +457,18 @@ public class CommercePricingClassCPDefinitionRelWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommercePricingClassCPDefinitionRelWrapper)) {
+		if (!(object instanceof CommercePricingClassCPDefinitionRelWrapper)) {
 			return false;
 		}
 
 		CommercePricingClassCPDefinitionRelWrapper
 			commercePricingClassCPDefinitionRelWrapper =
-				(CommercePricingClassCPDefinitionRelWrapper)obj;
+				(CommercePricingClassCPDefinitionRelWrapper)object;
 
 		if (Objects.equals(
 				_commercePricingClassCPDefinitionRel,

@@ -557,18 +557,18 @@ public class CommerceDataIntegrationProcessLogWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CommerceDataIntegrationProcessLogWrapper)) {
+		if (!(object instanceof CommerceDataIntegrationProcessLogWrapper)) {
 			return false;
 		}
 
 		CommerceDataIntegrationProcessLogWrapper
 			commerceDataIntegrationProcessLogWrapper =
-				(CommerceDataIntegrationProcessLogWrapper)obj;
+				(CommerceDataIntegrationProcessLogWrapper)object;
 
 		if (Objects.equals(
 				_commerceDataIntegrationProcessLog,

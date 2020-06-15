@@ -36,17 +36,17 @@ public class SPIDefinitionCacheModel
 	implements CacheModel<SPIDefinition>, Externalizable {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof SPIDefinitionCacheModel)) {
+		if (!(object instanceof SPIDefinitionCacheModel)) {
 			return false;
 		}
 
 		SPIDefinitionCacheModel spiDefinitionCacheModel =
-			(SPIDefinitionCacheModel)obj;
+			(SPIDefinitionCacheModel)object;
 
 		if (spiDefinitionId == spiDefinitionCacheModel.spiDefinitionId) {
 			return true;

@@ -472,16 +472,16 @@ public class AkismetEntryWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof AkismetEntryWrapper)) {
+		if (!(object instanceof AkismetEntryWrapper)) {
 			return false;
 		}
 
-		AkismetEntryWrapper akismetEntryWrapper = (AkismetEntryWrapper)obj;
+		AkismetEntryWrapper akismetEntryWrapper = (AkismetEntryWrapper)object;
 
 		if (Objects.equals(_akismetEntry, akismetEntryWrapper._akismetEntry)) {
 			return true;
