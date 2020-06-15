@@ -283,6 +283,15 @@ public class OrderResourceImpl
 				order.getShippingAmount(), commerceOrder.getShippingAmount()),
 			(BigDecimal)GetterUtil.getNumber(
 				order.getTotal(), commerceOrder.getTotal()),
+			(BigDecimal)GetterUtil.getNumber(
+				order.getSubtotalWithTaxAmount(),
+				commerceOrder.getSubtotalWithTaxAmount()),
+			(BigDecimal)GetterUtil.getNumber(
+				order.getShippingWithTaxAmount(),
+				commerceOrder.getShippingWithTaxAmount()),
+			(BigDecimal)GetterUtil.getNumber(
+				order.getTotalWithTaxAmount(),
+				commerceOrder.getTotalWithTaxAmount()),
 			GetterUtil.getString(
 				order.getAdvanceStatus(), commerceOrder.getAdvanceStatus()),
 			GetterUtil.getString(
@@ -366,6 +375,8 @@ public class OrderResourceImpl
 			order.getPaymentMethod(), commerceShippingMethodId,
 			order.getShippingOption(), order.getPurchaseOrderNumber(),
 			order.getSubtotal(), order.getShippingAmount(), order.getTotal(),
+			order.getSubtotalWithTaxAmount(), order.getShippingWithTaxAmount(),
+			order.getTotalWithTaxAmount(),
 			GetterUtil.getInteger(
 				order.getPaymentStatus(),
 				CommerceOrderConstants.PAYMENT_STATUS_PENDING),
