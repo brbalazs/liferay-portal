@@ -14,4 +14,4 @@ Feature: Individual activities shows last 20 entries
 		When I click "Annita Nader" in the table
 		Then I should see pagination delta is set to "20"
 		And I should see activities named "Visited www.sherman-pfeffer.net" in the table
-	  	And I should see activities named "Visited www.ike-schneider.net" in the table
+	  	And I should see activities named "Visited www.cherelle-ullrich.org" in the table
