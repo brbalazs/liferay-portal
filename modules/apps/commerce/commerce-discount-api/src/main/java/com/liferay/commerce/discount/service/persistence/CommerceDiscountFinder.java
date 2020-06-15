@@ -67,6 +67,27 @@ public interface CommerceDiscountFinder {
 			long commerceChannelId, String commerceDiscountTargetType);
 
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
+		findByA_C_C_C_Product(
+			long commerceAccountId, long commerceChannelId, long cpDefinitionId,
+			long[] assetCategoryIds, long[] commercePricingClassIds);
+
+	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
+		findByA_C_C_C_Order(
+			long commerceAccountId, long commerceChannelId,
+			String commerceDiscountTargetType);
+
+	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
+		findByAG_C_C_C_Product(
+			long[] commerceAccountGroupIds, long commerceChannelId,
+			long cpDefinitionId, long[] assetCategoryIds,
+			long[] commercePricingClassIds);
+
+	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
+		findByAG_C_C_C_Order(
+			long[] commerceAccountGroupIds, long commerceChannelId,
+			String commerceDiscountTargetType);
+
+	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findPriceListDiscountProduct(
 			long[] commerceDiscountIds, long cpDefinitionId,
 			long[] assetCategoryIds, long[] commercePricingClassIds);
