@@ -32,7 +32,6 @@ import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.commerce.product.service.CommerceChannelRelService;
 import com.liferay.commerce.product.type.CPType;
-import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.criteria.UUIDItemSelectorReturnType;
@@ -41,11 +40,13 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
 import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.util.CustomAttributesUtil;
@@ -57,6 +58,7 @@ import java.util.stream.Stream;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionURL;
+import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderResponse;
 import javax.portlet.RenderURL;
@@ -213,6 +215,30 @@ public class CPDefinitionsDisplayContext
 		return clayCreationMenu;
 	}
 
+	public List<ClayMenuActionItem> getClayMenuActionItems() throws Exception {
+		List<ClayMenuActionItem> clayMenuActionItems = new ArrayList<>();
+
+		PortletURL portletURL = PortletURLFactoryUtil.create(
+			cpRequestHelper.getRenderRequest(), cpRequestHelper.getPortletId(),
+			PortletRequest.RENDER_PHASE);
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "duplicateCPDefinition");
+		portletURL.setParameter(
+			"cpDefinitionId",
+			ParamUtil.getString(httpServletRequest, "cpDefinitionId"));
+		portletURL.setWindowState(LiferayWindowState.POP_UP);
+
+		ClayMenuActionItem clayMenuActionItem = new ClayMenuActionItem(
+			portletURL.toString(), null,
+			LanguageUtil.get(httpServletRequest, "duplicate"),
+			ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL);
+
+		clayMenuActionItems.add(clayMenuActionItem);
+
+		return clayMenuActionItems;
+	}
+
 	public long[] getCommerceAccountGroupRelCommerceAccountGroupIds()
 		throws PortalException {
 
@@ -268,10 +294,6 @@ public class CPDefinitionsDisplayContext
 		}
 
 		return cpDefinition.getCProduct();
-	}
-
-	public List<DropdownItem> getDropdownItems() {
-		return Collections.emptyList();
 	}
 
 	public List<HeaderActionModel> getHeaderActionModels()

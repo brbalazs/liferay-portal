@@ -28,7 +28,6 @@ import com.liferay.commerce.product.display.context.util.CPRequestHelper;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.document.library.kernel.service.DLAppService;
-import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.criteria.FileEntryItemSelectorReturnType;
@@ -165,7 +164,7 @@ public class CommerceCatalogDisplayContext {
 			commerceCatalog.getGroupId());
 	}
 
-	public List<DropdownItem> getDropdownItems() {
+	public List<ClayMenuActionItem> getDropdownItems() {
 		return Collections.emptyList();
 	}
 
