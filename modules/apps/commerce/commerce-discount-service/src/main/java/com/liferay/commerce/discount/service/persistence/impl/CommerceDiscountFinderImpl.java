@@ -75,6 +75,18 @@ public class CommerceDiscountFinderImpl
 	public static final String FIND_BY_C_C_C_ORDER =
 		CommerceDiscountFinder.class.getName() + ".findByC_C_C_Order";
 
+	public static final String FIND_BY_A_C_C_C_PRODUCT =
+		CommerceDiscountFinder.class.getName() + ".findByA_C_C_C_Product";
+
+	public static final String FIND_BY_A_C_C_C_ORDER =
+		CommerceDiscountFinder.class.getName() + ".findByA_C_C_C_Order";
+
+	public static final String FIND_BY_AG_C_C_C_PRODUCT =
+		CommerceDiscountFinder.class.getName() + ".findByAG_C_C_C_Product";
+
+	public static final String FIND_BY_AG_C_C_C_ORDER =
+		CommerceDiscountFinder.class.getName() + ".findByAG_C_C_C_Order";
+
 	public static final String FIND_PL_DISCOUNT_PRODUCT =
 		CommerceDiscountFinder.class.getName() +
 			".findPriceListDiscountProduct";
@@ -271,6 +283,49 @@ public class CommerceDiscountFinderImpl
 		return _findOrderDiscounts(
 			FIND_BY_C_C_C_ORDER, -1, -1, null, commerceChannelId,
 			commerceDiscountTargetType);
+	}
+
+	@Override
+	public List<CommerceDiscount> findByA_C_C_C_Product(
+		long commerceAccountId, long commerceChannelId, long cpDefinitionId,
+		long[] assetCategoryIds, long[] commercePricingClassIds) {
+
+		return _findProductDiscount(
+			FIND_BY_A_C_C_C_PRODUCT, -1, commerceAccountId, null,
+			commerceChannelId, cpDefinitionId, assetCategoryIds,
+			commercePricingClassIds);
+	}
+
+	@Override
+	public List<CommerceDiscount> findByA_C_C_C_Order(
+		long commerceAccountId, long commerceChannelId,
+		String commerceDiscountTargetType) {
+
+		return _findOrderDiscounts(
+			FIND_BY_A_C_C_C_ORDER, -1, commerceAccountId, null,
+			commerceChannelId, commerceDiscountTargetType);
+	}
+
+	@Override
+	public List<CommerceDiscount> findByAG_C_C_C_Product(
+		long[] commerceAccountGroupIds, long commerceChannelId,
+		long cpDefinitionId, long[] assetCategoryIds,
+		long[] commercePricingClassIds) {
+
+		return _findProductDiscount(
+			FIND_BY_AG_C_C_C_PRODUCT, -1, -1, commerceAccountGroupIds,
+			commerceChannelId, cpDefinitionId, assetCategoryIds,
+			commercePricingClassIds);
+	}
+
+	@Override
+	public List<CommerceDiscount> findByAG_C_C_C_Order(
+		long[] commerceAccountGroupIds, long commerceChannelId,
+		String commerceDiscountTargetType) {
+
+		return _findOrderDiscounts(
+			FIND_BY_AG_C_C_C_ORDER, -1, -1, commerceAccountGroupIds,
+			commerceChannelId, commerceDiscountTargetType);
 	}
 
 	@Override
