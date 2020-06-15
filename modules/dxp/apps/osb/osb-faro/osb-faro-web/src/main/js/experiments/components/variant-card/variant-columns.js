@@ -86,7 +86,7 @@ export default ({
 		sortable: true
 	},
 	{
-		accessor: 'uniqueVisitor',
+		accessor: 'uniqueVisitors',
 		cellRenderer: ({data: {trafficSplit, uniqueVisitors}}) => (
 			<UniqueVisitorCell
 				className={'text-right'}
