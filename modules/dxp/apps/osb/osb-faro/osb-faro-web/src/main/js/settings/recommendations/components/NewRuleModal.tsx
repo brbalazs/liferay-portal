@@ -50,13 +50,10 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 	const [exactMatch, setExactMatch] = useState(false);
 	const [includeExclude, setIncludeExclude] = useState(INCLUDE);
 
-	const [getPageAssets, {data, error, loading}] = useLazyQuery(
+	const [getPageAssets, {data, loading}] = useLazyQuery(
 		RecommendationPageAssetsQuery,
 		{
-			fetchPolicy: 'network-only',
-			onCompleted: () => {
-				console.log(data, error, loading);
-			}
+			fetchPolicy: 'network-only'
 		}
 	);
 
@@ -86,7 +83,6 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 	useEffect(() => {
 		fetchPageAssets();
 	}, [delta, orderBy, orderByField, page]);
-	console.log(loading);
 
 	const TableWithPagination = withPaginationBar()(Table);
 

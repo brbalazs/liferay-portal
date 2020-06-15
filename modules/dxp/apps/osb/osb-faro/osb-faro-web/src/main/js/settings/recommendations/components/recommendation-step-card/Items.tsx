@@ -4,8 +4,11 @@ import Icon from 'shared/components/Icon';
 import MetadataTag from '../MetadataTag';
 import React from 'react';
 import Table from 'shared/components/table';
+import {close, modalTypes, open} from 'shared/actions/modals';
+import {connect} from 'react-redux';
 import {FieldArray} from 'formik';
 import {Filter, RULE_NAME_LABEL_MAP} from '../../utils/utils';
+import {Modal} from 'shared/types';
 
 const CountCell: React.FC<{
 	className: string;
@@ -35,10 +38,13 @@ const RuleCell: React.FC<{
 };
 
 interface IItemsProps {
+	close: Modal.close;
+	groupId: string;
 	itemFilters: Filter[];
+	open: Modal.open;
 }
 
-const Items: React.FC<IItemsProps> = ({itemFilters}) => {
+const Items: React.FC<IItemsProps> = ({close, groupId, itemFilters, open}) => {
 	const totalPages = itemFilters.reduce((acc, {count}) => acc + count, 0);
 
 	return (
@@ -60,6 +66,11 @@ const Items: React.FC<IItemsProps> = ({itemFilters}) => {
 								// TODO: open modal
 								// do not allow addition of duplicate values
 								// Maybe add a toast alert to inform the user that this already exists therefore it was not added
+
+								open(modalTypes.NEW_RULE_MODAL, {
+									groupId,
+									onClose: close
+								});
 
 								const newItem = {
 									count: 16,
@@ -144,4 +155,7 @@ const Items: React.FC<IItemsProps> = ({itemFilters}) => {
 	);
 };
 
-export default Items;
+export default connect(
+	null,
+	{close, open}
+)(Items);

@@ -63,6 +63,10 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 	jobType,
 	router
 }) => {
+	const {
+		params: {groupId}
+	} = router;
+
 	const [currentStep, setCurrentStep] = useState(0);
 	const [disabled, setDisabled] = useState(true);
 
@@ -122,7 +126,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 
 				history.push(
 					toRoute(Routes.SETTINGS_RECOMMENDATIONS, {
-						groupId: router.params.groupId
+						groupId
 					})
 				);
 			})
@@ -234,6 +238,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 							<StepComponent
 								disabled={disabled}
 								errors={errors}
+								groupId={groupId}
 								initialValues={initialValues}
 								onSetDisabled={setDisabled}
 								trainingDate={job ? job.trainingDate : null}
