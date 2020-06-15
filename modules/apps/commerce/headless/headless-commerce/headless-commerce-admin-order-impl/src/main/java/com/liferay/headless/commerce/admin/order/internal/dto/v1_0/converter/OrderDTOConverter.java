@@ -143,8 +143,7 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				shippingOption = commerceOrder.getShippingOptionName();
 				transactionId = commerceOrder.getTransactionId();
 				workflowStatusInfo = _getWorkflowStatusInfo(
-					commerceOrder.getStatus(),
-					commerceOrderWorkflowStatusLabel,
+					commerceOrder.getStatus(), commerceOrderWorkflowStatusLabel,
 					commerceOrderWorkflowStatusLabelI18n);
 			}
 		};
