@@ -198,7 +198,7 @@ export enum jobStatuses {
 	pending = 'PENDING',
 	ready = 'READY',
 	scheduled = 'SCHEDULED',
-	training = 'training'
+	training = 'TRAINING'
 }
 
 export enum jobTrainingFrequencies {
