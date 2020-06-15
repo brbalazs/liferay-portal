@@ -24,12 +24,12 @@ export const getIntervalHandle = (
 	return intervalMapsByRangeKey && intervalMapsByRangeKey[rangeKey];
 };
 
-const getIntervalsFromMap = (duration: number) => ({
+export const getIntervalsFromMap = (duration: number) => ({
 	[INTERVAL_KEY_MAP.day]: getDayIntervalsMap(duration),
 	[INTERVAL_KEY_MAP.week]: getWeekIntervalsMap(duration)
 });
 
-const getDayIntervalsMap = (duration: number) => ({
+export const getDayIntervalsMap = (duration: number) => ({
 	[CUSTOM_RANGE]: getByCustomRangeKey(duration, INTERVAL_KEY_MAP.day),
 	[LAST_180_DAYS]: getFirstAndFifteenthsDays,
 	[LAST_24_HOURS]: getByIndexesMultipleOfSix,
@@ -40,14 +40,14 @@ const getDayIntervalsMap = (duration: number) => ({
 	[YESTERDAY]: getByIndexesMultipleOfSix
 });
 
-const getWeekIntervalsMap = (duration: number) => ({
+export const getWeekIntervalsMap = (duration: number) => ({
 	[CUSTOM_RANGE]: getByCustomRangeKey(duration, INTERVAL_KEY_MAP.week),
 	[LAST_180_DAYS]: getByEvenOrOddIndexes,
 	[LAST_90_DAYS]: getByEvenOrOddIndexes,
 	[LAST_YEAR]: getByIndexesMultipleOfFour
 });
 
-const handleDayInterval = (
+export const handleDayInterval = (
 	handleFn: (date: Date) => Date,
 	firstTick: Date,
 	lastDate: Date
@@ -66,20 +66,20 @@ const handleDayInterval = (
 	return intervals;
 };
 
-const getByEvenOrOddIndexes = (arr: Date[]): Date[] =>
+export const getByEvenOrOddIndexes = (arr: Date[]): Date[] =>
 	arr.length % 2 === 0
 		? [arr[0], ...arr.filter((_, index) => index % 2 !== 0)]
 		: arr.filter((_, index) => index % 2 === 0);
 
-const getByIndexesMultipleOfFour = (arr: Date[]): Date[] =>
+export const getByIndexesMultipleOfFour = (arr: Date[]): Date[] =>
 	arr.filter((_, index) => index % 4 === 0);
 
-const getByIndexesMultipleOfSix = (arr: Date[]): Date[] => [
+export const getByIndexesMultipleOfSix = (arr: Date[]): Date[] => [
 	...arr.filter((_, index) => index % 6 === 0),
 	arr[arr.length - 1]
 ];
 
-const getSundays = (arr: Date[]): Date[] => {
+export const getSundays = (arr: Date[]): Date[] => {
 	const firstDate = arr[0];
 	const lastDate = arr[arr.length - 1];
 
@@ -89,7 +89,7 @@ const getSundays = (arr: Date[]): Date[] => {
 	return handleDayInterval(getNextSunday, firstTick, lastDate);
 };
 
-const getFirstAndFifteenthsDays = (arr: Date[]): Date[] => {
+export const getFirstAndFifteenthsDays = (arr: Date[]): Date[] => {
 	const firstDate = arr[0];
 	const lastDate = arr[arr.length - 1];
 
@@ -101,7 +101,7 @@ const getFirstAndFifteenthsDays = (arr: Date[]): Date[] => {
 	return handleDayInterval(getNextFirstOrFifteenth, firstTick, lastDate);
 };
 
-const getFirstDays = (arr: Date[]): Date[] => {
+export const getFirstDays = (arr: Date[]): Date[] => {
 	const firstDate = arr[0];
 	const lastDate = arr[arr.length - 1];
 
@@ -111,7 +111,10 @@ const getFirstDays = (arr: Date[]): Date[] => {
 	return handleDayInterval(getNextFirst, firstTick, lastDate);
 };
 
-const getByCustomRangeKey = (duration: number, timeInterval: Interval) => {
+export const getByCustomRangeKey = (
+	duration: number,
+	timeInterval: Interval
+) => {
 	if (timeInterval === INTERVAL_KEY_MAP.day) {
 		if (duration >= 14 && duration <= 30) {
 			return getSundays;
@@ -129,14 +132,14 @@ const getByCustomRangeKey = (duration: number, timeInterval: Interval) => {
 	}
 };
 
-const getNextSunday = (date: Date): Date =>
+export const getNextSunday = (date: Date): Date =>
 	moment(date)
 		.utc()
 		.day(7)
 		.startOf('day')
 		.toDate();
 
-const getNextFirstOrFifteenth = (date: Date): Date => {
+export const getNextFirstOrFifteenth = (date: Date): Date => {
 	if (date.getUTCDate() >= 15) {
 		return getNextFirst(date);
 	}
@@ -148,7 +151,7 @@ const getNextFirstOrFifteenth = (date: Date): Date => {
 		.toDate();
 };
 
-const getNextFirst = (date: Date): Date =>
+export const getNextFirst = (date: Date): Date =>
 	moment(date)
 		.utc()
 		.endOf('month')
