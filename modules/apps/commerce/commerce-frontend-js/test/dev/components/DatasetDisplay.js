@@ -19,6 +19,11 @@ import sidePanelLauncher from '../../../src/main/resources/META-INF/resources/co
 
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 
+<<<<<<< HEAD
+=======
+const lang_id = Liferay.ThemeDisplay.getLanguageId();
+
+>>>>>>> COMMERCE-2789 Auto-SF
 const fluidDataSetDisplayProps = {
 	activeView: 2,
 	apiUrl: '/dataset-display-nested-items',
@@ -1464,58 +1469,30 @@ const dndDataSetDisplayProps = {
 			unitPrice: 396
 		}
 	],
-	pageSize: 5,
-	pagination: {
-		deltas: [
-			{
-				label: 5
-			},
-			{
-				label: 10
-			},
-			{
-				label: 20
-			},
-			{
-				label: 30
-			},
-			{
-				label: 50
-			},
-			{
-				href:
-					'http://localhost:8080/group/test-1/pending-orders?p_p_id=com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_delta=75',
-				label: 75
-			}
-		],
-		initialDelta: 10,
-		initialPageNumber: 1,
-		initialTotalItems: 40
-	},
 	selectedItemsKey: 'id',
 	selectionType: 'single',
-	showPagination: true,
+	showPagination: false,
 	sidePanelId: 'sidePanelTestId',
 	spritemap: './assets/icons.svg',
 	views: [
 		{
 			component: props => {
 				return (
-					   <>
-					   <h4 className="p-3 mb-0 bg-dark text-center text-white">
-									 Hey, I&apos;m a custom template from the outside
-																			  </h4>
-				{props.items.map(item => (
-										 <div
-					className="p-3 text-center bg-white"
-					key={item.skuId}
-						>
-						<strong className="mr-3">{item.skuId}</strong>
-					{item.name}
-				</div>
-				))}
-			</>
-			);
+					<>
+						<h4 className="p-3 mb-0 bg-dark text-center text-white">
+							Hey, I&apos;m a custom template from the outside
+						</h4>
+						{props.items.map(item => (
+							<div
+								className="p-3 text-center bg-white"
+								key={item.skuId}
+							>
+								<strong className="mr-3">{item.skuId}</strong>
+								{item.name}
+							</div>
+						))}
+					</>
+				);
 			},
 			icon: 'merge',
 			label: 'Custom list'
@@ -1648,35 +1625,7 @@ const inventoryDatasetDisplayProps = {
 	enableDragDrop: true,
 	id: 'inventoryDatasetDisplay',
 	items: [...warehouses.map(warehouseNumbersGenerator)],
-	pageSize: 5,
-	pagination: {
-		deltas: [
-			{
-				label: 5
-			},
-			{
-				label: 10
-			},
-			{
-				label: 20
-			},
-			{
-				label: 30
-			},
-			{
-				label: 50
-			},
-			{
-				href:
-					'http://localhost:8080/group/test-1/pending-orders?p_p_id=com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_delta=75',
-				label: 75
-			}
-		],
-		initialDelta: 10,
-		initialPageNumber: 1,
-		initialTotalItems: 40
-	},
-	showPagination: true,
+	showPagination: false,
 	sidePanelId: '',
 	spritemap: './assets/icons.svg',
 	views: [
