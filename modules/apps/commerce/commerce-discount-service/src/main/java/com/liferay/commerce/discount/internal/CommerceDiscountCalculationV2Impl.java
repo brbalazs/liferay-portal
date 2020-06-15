@@ -510,6 +510,15 @@ public class CommerceDiscountCalculationV2Impl
 		throws PortalException {
 
 		List<CommerceDiscount> commerceDiscounts =
+			_commerceDiscountLocalService.getAccountAndChannelCommerceDiscounts(
+				commerceAccountId, commerceChannelId,
+				commerceDiscountTargetType);
+
+		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
+			return commerceDiscounts;
+		}
+
+		commerceDiscounts =
 			_commerceDiscountLocalService.getAccountCommerceDiscounts(
 				commerceAccountId, commerceDiscountTargetType);
 
@@ -520,6 +529,16 @@ public class CommerceDiscountCalculationV2Impl
 		long[] commerceAccountGroupIds =
 			_commerceAccountHelper.getCommerceAccountGroupIds(
 				commerceAccountId);
+
+		commerceDiscounts =
+			_commerceDiscountLocalService.
+				getAccountGroupAndChannelCommerceDiscount(
+					commerceAccountGroupIds, commerceChannelId,
+					commerceDiscountTargetType);
+
+		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
+			return commerceDiscounts;
+		}
 
 		commerceDiscounts =
 			_commerceDiscountLocalService.getAccountGroupCommerceDiscount(
@@ -565,6 +584,14 @@ public class CommerceDiscountCalculationV2Impl
 		throws PortalException {
 
 		List<CommerceDiscount> commerceDiscounts =
+			_commerceDiscountLocalService.getAccountAndChannelCommerceDiscounts(
+				commerceAccountId, commerceChannelId, cpDefinitionId);
+
+		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
+			return commerceDiscounts;
+		}
+
+		commerceDiscounts =
 			_commerceDiscountLocalService.getAccountCommerceDiscounts(
 				commerceAccountId, cpDefinitionId);
 
@@ -575,6 +602,15 @@ public class CommerceDiscountCalculationV2Impl
 		long[] commerceAccountGroupIds =
 			_commerceAccountHelper.getCommerceAccountGroupIds(
 				commerceAccountId);
+
+		commerceDiscounts =
+			_commerceDiscountLocalService.
+				getAccountGroupAndChannelCommerceDiscount(
+					commerceAccountGroupIds, commerceChannelId, cpDefinitionId);
+
+		if ((commerceDiscounts != null) && !commerceDiscounts.isEmpty()) {
+			return commerceDiscounts;
+		}
 
 		commerceDiscounts =
 			_commerceDiscountLocalService.getAccountGroupCommerceDiscount(
