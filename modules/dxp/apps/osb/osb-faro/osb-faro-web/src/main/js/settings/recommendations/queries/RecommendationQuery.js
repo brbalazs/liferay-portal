@@ -2,7 +2,7 @@ import {gql} from 'apollo-boost';
 
 export default gql`
 	query Recommendation($jobId: String!) {
-		job(jobId: $jobId) {
+		jobById(id: $jobId) {
 			id
 			name
 			parameters {

@@ -16,7 +16,7 @@ const withRecommendation = compose(
 				jobId
 			}
 		}),
-		props: safeResultToProps(({job}) => ({job}))
+		props: safeResultToProps(({jobById}) => ({job: jobById}))
 	}),
 	withLoading({page: true}),
 	withError({page: true}),
