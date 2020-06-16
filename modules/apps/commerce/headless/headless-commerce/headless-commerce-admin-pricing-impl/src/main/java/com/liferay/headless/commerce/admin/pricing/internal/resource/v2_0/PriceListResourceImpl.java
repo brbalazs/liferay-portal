@@ -463,8 +463,11 @@ public class PriceListResourceImpl extends BasePriceListResourceImpl {
 		commercePriceList = _commercePriceListService.updateCommercePriceList(
 			commercePriceList.getCommercePriceListId(),
 			commerceCurrency.getCommerceCurrencyId(),
-			GetterUtil.get(priceList.getNetPrice(), true),
-			priceList.getParentPriceListId(),
+			GetterUtil.get(
+				priceList.getNetPrice(), commercePriceList.isNetPrice()),
+			GetterUtil.get(
+				priceList.getParentPriceListId(),
+				commercePriceList.getParentCommercePriceListId()),
 			GetterUtil.get(priceList.getName(), commercePriceList.getName()),
 			GetterUtil.get(
 				priceList.getPriority(), commercePriceList.getPriority()),
