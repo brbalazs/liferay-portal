@@ -67,7 +67,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 		params: {groupId}
 	} = router;
 
-	const [currentStep, setCurrentStep] = useState(0);
+	const [currentStep, setCurrentStep] = useState(2);
 	const [disabled, setDisabled] = useState(true);
 
 	const [createRecommendationJob] = useMutation(RECOMMENDATION_MUTATION);
