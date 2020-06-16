@@ -197,7 +197,7 @@ public abstract class BasePriceListDiscountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-lists/{id}/price-list-giscounts'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-lists/{id}/price-list-discounts'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -208,7 +208,7 @@ public abstract class BasePriceListDiscountResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/price-lists/{id}/price-list-giscounts")
+	@Path("/price-lists/{id}/price-list-discounts")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListDiscount")})
 	public Page<PriceListDiscount> getPriceListIdPriceListDiscountsPage(
@@ -222,13 +222,13 @@ public abstract class BasePriceListDiscountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-lists/{id}/price-list-giscounts' -d $'{"discountExternalReferenceCode": ___, "discountId": ___, "order": ___, "priceListExternalReferenceCode": ___, "priceListId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-lists/{id}/price-list-discounts' -d $'{"discountExternalReferenceCode": ___, "discountId": ___, "order": ___, "priceListExternalReferenceCode": ___, "priceListId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@POST
 	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "id")})
-	@Path("/price-lists/{id}/price-list-giscounts")
+	@Path("/price-lists/{id}/price-list-discounts")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceListDiscount")})
 	public PriceListDiscount postPriceListIdPriceListDiscount(
