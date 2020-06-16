@@ -70,6 +70,8 @@ public class PriceListDTOConverter
 				id = commercePriceList.getCommercePriceListId();
 				name = commercePriceList.getName();
 				netPrice = commercePriceList.isNetPrice();
+				parentPriceListId =
+					commercePriceList.getParentCommercePriceListId();
 				priority = commercePriceList.getPriority();
 				type = Type.create(commercePriceList.getType());
 			}
