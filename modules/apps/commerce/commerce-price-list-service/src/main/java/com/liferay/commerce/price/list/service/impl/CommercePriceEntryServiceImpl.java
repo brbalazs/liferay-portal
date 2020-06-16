@@ -16,10 +16,14 @@ package com.liferay.commerce.price.list.service.impl;
 
 import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
+import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.base.CommercePriceEntryServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -54,9 +58,8 @@ public class CommercePriceEntryServiceImpl
 			BigDecimal promoPrice, ServiceContext serviceContext)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceListId, ActionKeys.UPDATE);
 
 		return commercePriceEntryLocalService.addCommercePriceEntry(
 			cpInstanceId, commercePriceListId, externalReferenceCode, price,
@@ -77,9 +80,8 @@ public class CommercePriceEntryServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceListId, ActionKeys.UPDATE);
 
 		return commercePriceEntryLocalService.addCommercePriceEntry(
 			cProductId, cpInstanceUuid, commercePriceListId,
@@ -95,12 +97,16 @@ public class CommercePriceEntryServiceImpl
 	public void deleteCommercePriceEntry(long commercePriceEntryId)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		CommercePriceEntry commercePriceEntry =
+			commercePriceEntryLocalService.getCommercePriceEntry(
+				commercePriceEntryId);
+
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceEntry.getCommercePriceListId(),
+			ActionKeys.UPDATE);
 
 		commercePriceEntryLocalService.deleteCommercePriceEntry(
-			commercePriceEntryId);
+			commercePriceEntry);
 	}
 
 	@Override
@@ -108,24 +114,34 @@ public class CommercePriceEntryServiceImpl
 			long companyId, String externalReferenceCode)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		CommercePriceEntry commercePriceEntry =
+			commercePriceEntryLocalService.fetchByExternalReferenceCode(
+				companyId, externalReferenceCode);
 
-		return commercePriceEntryLocalService.fetchByExternalReferenceCode(
-			companyId, externalReferenceCode);
+		if (commercePriceEntry != null) {
+			_commercePriceListModelResourcePermission.check(
+				getPermissionChecker(),
+				commercePriceEntry.getCommercePriceListId(), ActionKeys.VIEW);
+		}
+
+		return commercePriceEntry;
 	}
 
 	@Override
 	public CommercePriceEntry fetchCommercePriceEntry(long commercePriceEntryId)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		CommercePriceEntry commercePriceEntry =
+			commercePriceEntryLocalService.fetchCommercePriceEntry(
+				commercePriceEntryId);
 
-		return commercePriceEntryLocalService.fetchCommercePriceEntry(
-			commercePriceEntryId);
+		if (commercePriceEntry != null) {
+			_commercePriceListModelResourcePermission.check(
+				getPermissionChecker(),
+				commercePriceEntry.getCommercePriceListId(), ActionKeys.VIEW);
+		}
+
+		return commercePriceEntry;
 	}
 
 	@Override
@@ -133,9 +149,8 @@ public class CommercePriceEntryServiceImpl
 			long commercePriceListId, int start, int end)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceListId, ActionKeys.VIEW);
 
 		return commercePriceEntryLocalService.getCommercePriceEntries(
 			commercePriceListId, start, end);
@@ -147,9 +162,8 @@ public class CommercePriceEntryServiceImpl
 			OrderByComparator<CommercePriceEntry> orderByComparator)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceListId, ActionKeys.VIEW);
 
 		return commercePriceEntryLocalService.getCommercePriceEntries(
 			commercePriceListId, start, end, orderByComparator);
@@ -162,7 +176,7 @@ public class CommercePriceEntryServiceImpl
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+			CommercePriceListActionKeys.VIEW_COMMERCE_PRICE_LISTS);
 
 		return commercePriceEntryLocalService.
 			getCommercePriceEntriesByCompanyId(companyId, start, end);
@@ -172,9 +186,8 @@ public class CommercePriceEntryServiceImpl
 	public int getCommercePriceEntriesCount(long commercePriceListId)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceListId, ActionKeys.VIEW);
 
 		return commercePriceEntryLocalService.getCommercePriceEntriesCount(
 			commercePriceListId);
@@ -186,7 +199,7 @@ public class CommercePriceEntryServiceImpl
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+			CommercePriceListActionKeys.VIEW_COMMERCE_PRICE_LISTS);
 
 		return commercePriceEntryLocalService.
 			getCommercePriceEntriesCountByCompanyId(companyId);
@@ -196,12 +209,15 @@ public class CommercePriceEntryServiceImpl
 	public CommercePriceEntry getCommercePriceEntry(long commercePriceEntryId)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		CommercePriceEntry commercePriceEntry =
+			commercePriceEntryLocalService.getCommercePriceEntry(
+				commercePriceEntryId);
 
-		return commercePriceEntryLocalService.getCommercePriceEntry(
-			commercePriceEntryId);
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceEntry.getCommercePriceListId(),
+			ActionKeys.VIEW);
+
+		return commercePriceEntry;
 	}
 
 	@Override
@@ -211,7 +227,7 @@ public class CommercePriceEntryServiceImpl
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+			CommercePriceListActionKeys.VIEW_COMMERCE_PRICE_LISTS);
 
 		return commercePriceEntryLocalService.getInstanceCommercePriceEntries(
 			cpInstanceId, start, end);
@@ -225,7 +241,7 @@ public class CommercePriceEntryServiceImpl
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+			CommercePriceListActionKeys.VIEW_COMMERCE_PRICE_LISTS);
 
 		return commercePriceEntryLocalService.getInstanceCommercePriceEntries(
 			cpInstanceId, start, end, orderByComparator);
@@ -237,7 +253,7 @@ public class CommercePriceEntryServiceImpl
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+			CommercePriceListActionKeys.VIEW_COMMERCE_PRICE_LISTS);
 
 		return commercePriceEntryLocalService.
 			getInstanceCommercePriceEntriesCount(cpInstanceId);
@@ -249,9 +265,8 @@ public class CommercePriceEntryServiceImpl
 			int start, int end, Sort sort)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceListId, ActionKeys.VIEW);
 
 		return commercePriceEntryLocalService.searchCommercePriceEntries(
 			companyId, commercePriceListId, keywords, start, end, sort);
@@ -263,9 +278,13 @@ public class CommercePriceEntryServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		CommercePriceEntry commercePriceEntry =
+			commercePriceEntryLocalService.getCommercePriceEntry(
+				commercePriceEntryId);
+
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceEntry.getCommercePriceListId(),
+			ActionKeys.UPDATE);
 
 		return commercePriceEntryLocalService.updateCommercePriceEntry(
 			commercePriceEntryId, price, promoPrice, serviceContext);
@@ -284,9 +303,13 @@ public class CommercePriceEntryServiceImpl
 			boolean neverExpire, ServiceContext serviceContext)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		CommercePriceEntry commercePriceEntry =
+			commercePriceEntryLocalService.getCommercePriceEntry(
+				commercePriceEntryId);
+
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceEntry.getCommercePriceListId(),
+			ActionKeys.UPDATE);
 
 		return commercePriceEntryLocalService.updateCommercePriceEntry(
 			commercePriceEntryId, price, null, discountDiscovery,
@@ -310,9 +333,13 @@ public class CommercePriceEntryServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		CommercePriceEntry commercePriceEntry =
+			commercePriceEntryLocalService.getCommercePriceEntry(
+				commercePriceEntryId);
+
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceEntry.getCommercePriceListId(),
+			ActionKeys.UPDATE);
 
 		return commercePriceEntryLocalService.updateCommercePriceEntry(
 			commercePriceEntryId, price, discountDiscovery, discountLevel1,
@@ -328,9 +355,9 @@ public class CommercePriceEntryServiceImpl
 			CommercePriceEntry commercePriceEntry, String externalReferenceCode)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceEntry.getCommercePriceListId(),
+			ActionKeys.UPDATE);
 
 		return commercePriceEntryLocalService.updateExternalReferenceCode(
 			commercePriceEntry, externalReferenceCode);
@@ -348,9 +375,8 @@ public class CommercePriceEntryServiceImpl
 			String skuExternalReferenceCode, ServiceContext serviceContext)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceListId, ActionKeys.UPDATE);
 
 		return commercePriceEntryLocalService.upsertCommercePriceEntry(
 			commercePriceEntryId, cpInstanceId, commercePriceListId,
@@ -366,9 +392,8 @@ public class CommercePriceEntryServiceImpl
 			String skuExternalReferenceCode, ServiceContext serviceContext)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceListId, ActionKeys.UPDATE);
 
 		return commercePriceEntryLocalService.upsertCommercePriceEntry(
 			commercePriceEntryId, cProductId, cpInstanceUuid,
@@ -391,9 +416,8 @@ public class CommercePriceEntryServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceListId, ActionKeys.UPDATE);
 
 		return commercePriceEntryLocalService.upsertCommercePriceEntry(
 			commercePriceEntryId, cProductId, cpInstanceUuid,
@@ -405,5 +429,12 @@ public class CommercePriceEntryServiceImpl
 			expirationDateMinute, neverExpire, skuExternalReferenceCode,
 			serviceContext);
 	}
+
+	private static volatile ModelResourcePermission<CommercePriceList>
+		_commercePriceListModelResourcePermission =
+			ModelResourcePermissionFactory.getInstance(
+				CommercePriceEntryServiceImpl.class,
+				"_commercePriceListModelResourcePermission",
+				CommercePriceList.class);
 
 }
