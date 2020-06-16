@@ -7154,7 +7154,7 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price List Channel.
             tags: ["PriceListChannel"]
-    /price-lists/{id}/price-list-giscounts:
+    /price-lists/{id}/price-list-discounts:
         get:
             operationId: getPriceListIdPriceListDiscountsPage
             parameters:
