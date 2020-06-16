@@ -127,7 +127,7 @@ public class CommercePriceEntryIndexer extends BaseIndexer<CommercePriceEntry> {
 
 		document.addKeyword(
 			FIELD_COMMERCE_PRICE_LIST_ID,
-			commercePriceEntry.getCommercePriceEntryId());
+			commercePriceEntry.getCommercePriceListId());
 		document.addKeyword(
 			FIELD_EXTERNAL_REFERENCE_CODE,
 			commercePriceEntry.getExternalReferenceCode());
