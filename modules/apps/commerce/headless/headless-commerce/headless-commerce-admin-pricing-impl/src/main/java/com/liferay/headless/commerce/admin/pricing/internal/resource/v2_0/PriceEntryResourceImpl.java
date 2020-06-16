@@ -173,6 +173,7 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 					SearchContext searchContext = (SearchContext)o;
 
 					searchContext.setCompanyId(contextCompany.getCompanyId());
+					searchContext.setAttribute("commercePriceListId", id);
 				}
 
 			},
