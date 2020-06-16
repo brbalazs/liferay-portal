@@ -101,6 +101,7 @@ export function isEnd(dateOrRange, date) {
 
 class Day extends React.Component {
 	static defaultProps = {
+		isSelectingEndDate: false,
 		onSelect: noop,
 		outsideMonth: false,
 		selected: false
@@ -108,6 +109,7 @@ class Day extends React.Component {
 
 	static propTypes = {
 		date: PropTypes.instanceOf(moment).isRequired,
+		isSelectingEndDate: PropTypes.bool,
 		onSelect: PropTypes.func,
 		onSetHoveredDate: PropTypes.func,
 		outsideMonth: PropTypes.bool,
@@ -116,9 +118,9 @@ class Day extends React.Component {
 
 	@autobind
 	handleClick() {
-		const {date, onSelect, selected} = this.props;
+		const {date, isSelectingEndDate, onSelect, selected} = this.props;
 
-		if (!selected) {
+		if (!isSelectingEndDate || !selected) {
 			onSelect(date);
 		}
 	}
@@ -323,6 +325,11 @@ export default class Calendar extends React.Component {
 													date.isBefore(minDate)) ||
 												(maxDate &&
 													date.isAfter(maxDate))
+											}
+											isSelectingEndDate={
+												range &&
+												!!dateOrRange.start &&
+												!dateOrRange.end
 											}
 											onSelect={onSelect}
 											onSetHoveredDate={
