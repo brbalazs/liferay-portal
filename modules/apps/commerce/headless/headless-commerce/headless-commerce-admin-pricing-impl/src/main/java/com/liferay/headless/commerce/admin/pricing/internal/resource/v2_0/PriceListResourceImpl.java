@@ -20,6 +20,7 @@ import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.service.CommerceCurrencyService;
 import com.liferay.commerce.discount.service.CommerceDiscountService;
+import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.exception.NoSuchPriceListException;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
@@ -522,7 +523,10 @@ public class PriceListResourceImpl extends BasePriceListResourceImpl {
 				commerceCatalog.getGroupId(), contextUser.getUserId(), 0L,
 				commerceCurrency.getCommerceCurrencyId(),
 				GetterUtil.get(priceList.getNetPrice(), true),
-				priceList.getTypeAsString(), priceList.getParentPriceListId(),
+				GetterUtil.get(
+					priceList.getTypeAsString(),
+					CommercePriceListConstants.TYPE_PRICE_LIST),
+				GetterUtil.get(priceList.getParentPriceListId(), 0L),
 				GetterUtil.get(priceList.getCatalogBasePriceList(), false),
 				priceList.getName(),
 				GetterUtil.get(priceList.getPriority(), 0D),
