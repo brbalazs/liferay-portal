@@ -63,63 +63,19 @@ exports[`Items should render 1`] = `
                   <span
                     class="label-item"
                   >
-                    og:title
+                    url
                   </span>
                 </div>
                 <span
                   class="rule-value secondary-info"
                 >
-                  ''blog*''
+                  .*custom-assets
                 </span>
               </td>
               <td
                 class="table-column-text-end"
               >
-                12
-              </td>
-              <td
-                class=" row-inline-actions"
-              >
-                <span>
-                  <span>
-                    <button
-                      class="button-root btn btn-outline-secondary btn-outline-borderless"
-                      type="button"
-                    >
-                      <svg
-                        class="icon-root lexicon-icon lexicon-icon-times"
-                        viewBox=""
-                      >
-                        <use
-                          xlink:href="#times"
-                        />
-                      </svg>
-                    </button>
-                  </span>
-                </span>
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr
-              class=""
-            >
-              <td
-                class="rule table-cell-expand"
-              >
-                <b>
-                  Include:
-                </b>
-                <span
-                  class="rule-value secondary-info"
-                >
-                  https://www.google.com
-                </span>
-              </td>
-              <td
-                class="table-column-text-end"
-              >
-                5
+                0
               </td>
               <td
                 class=" row-inline-actions"
@@ -153,7 +109,7 @@ exports[`Items should render 1`] = `
           Total Included Pages
         </div>
         <div>
-          17
+          0
         </div>
       </div>
     </div>
