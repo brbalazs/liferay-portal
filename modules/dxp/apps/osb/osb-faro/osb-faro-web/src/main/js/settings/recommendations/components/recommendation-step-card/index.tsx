@@ -18,7 +18,10 @@ import {
 	jobTrainingPeriods,
 	jobTypes
 } from 'shared/util/constants';
-import {RECOMMENDATION_MUTATION} from '../../queries/RecommendationMutation';
+import {
+	RECOMMENDATION_MUTATION,
+	RECOMMENDATION_UPDATE_MUTATION
+} from '../../queries/RecommendationMutation';
 import {RouterType} from 'shared/types';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
@@ -71,6 +74,9 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 	const [disabled, setDisabled] = useState(true);
 
 	const [createRecommendationJob] = useMutation(RECOMMENDATION_MUTATION);
+	const [updateRecommendationJob] = useMutation(
+		RECOMMENDATION_UPDATE_MUTATION
+	);
 
 	const handleNext = event => {
 		event.preventDefault();
@@ -103,17 +109,32 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 			];
 		}
 
-		// TODO: LRAC-6133 Add updateJob mutation
-		createRecommendationJob({
-			variables: {
-				name,
-				parameters,
-				trainingFrequency,
-				trainingPeriod,
-				type
-			}
-		})
-			.then(({data: {createJob: {name}}}) => {
+		const mutationFn = job
+			? () =>
+					updateRecommendationJob({
+						variables: {
+							jobId: job.id,
+							name,
+							parameters,
+							trainingFrequency,
+							trainingPeriod
+						}
+					})
+			: () =>
+					createRecommendationJob({
+						variables: {
+							name,
+							parameters,
+							trainingFrequency,
+							trainingPeriod,
+							type
+						}
+					});
+
+		const key = job ? 'updateJob' : 'createJob';
+
+		mutationFn()
+			.then(({data: {[key]: {name}}}) => {
 				addAlert({
 					alertType: Alert.Types.SUCCESS,
 					message: sub(

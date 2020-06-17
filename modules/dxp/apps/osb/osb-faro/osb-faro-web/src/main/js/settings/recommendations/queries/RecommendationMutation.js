@@ -29,3 +29,33 @@ export const RECOMMENDATION_MUTATION = gql`
 		}
 	}
 `;
+
+export const RECOMMENDATION_UPDATE_MUTATION = gql`
+	mutation RecommendationUpdateMutation(
+		$jobId: String!
+		$name: String!
+		$parameters: [JobParameterInput]
+		$trainingFrequency: JobTrainingFrequency
+		$trainingPeriod: JobTrainingPeriod
+	) {
+		updateJob(
+			jobId: $jobId
+			name: $name
+			parameters: $parameters
+			trainingFrequency: $trainingFrequency
+			trainingPeriod: $trainingPeriod
+		) {
+			id
+			name
+			parameters {
+				name
+				value
+			}
+			status
+			trainingDate
+			trainingFrequency
+			trainingPeriod
+			type
+		}
+	}
+`;
