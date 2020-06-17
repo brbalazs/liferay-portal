@@ -30,8 +30,11 @@ long commerceTierPriceEntryId = commerceTierPriceEntryDisplayContext.getCommerce
 BigDecimal price = BigDecimal.ZERO;
 BigDecimal promoPrice = BigDecimal.ZERO;
 
-if (commerceTierPriceEntry != null) {
+if (commerceTierPriceEntry.getPrice() != null) {
 	price = commerceTierPriceEntry.getPrice();
+}
+
+if (commerceTierPriceEntry.getPromoPrice() != null) {
 	promoPrice = commerceTierPriceEntry.getPromoPrice();
 }
 
