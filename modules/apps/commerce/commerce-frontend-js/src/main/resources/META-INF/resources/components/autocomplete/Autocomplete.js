@@ -46,12 +46,12 @@ function Autocomplete(props) {
 	};
 
 	useEffect(() => {
-		if (items && items.length === 1) {
+		if (items && items.length === 1 && props.autofill) {
 			const firstItem = items[0];
 			setValue(firstItem[props.itemsKey]);
 			setLabel(getValueFromItem(firstItem, props.itemsLabel));
 		}
-	}, [items, props.itemsKey, props.itemsLabel]);
+	}, [items, props.autofill, props.itemsKey, props.itemsLabel]);
 
 	useEffect(() => {
 		Liferay.fire(AUTOCOMPLETE_VALUE_UPDATED, {
@@ -162,6 +162,7 @@ function Autocomplete(props) {
 
 Autocomplete.propTypes = {
 	apiUrl: PropTypes.string.isRequired,
+	autofill: PropTypes.bool,
 	id: PropTypes.string.isRequired,
 	initialLabel: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 		.isRequired,
@@ -178,6 +179,7 @@ Autocomplete.propTypes = {
 };
 
 Autocomplete.defaultProps = {
+	autofill: false,
 	initialLabel: '',
 	initialValue: '',
 	inputPlaceholder: Liferay.Language.get('type-here')
