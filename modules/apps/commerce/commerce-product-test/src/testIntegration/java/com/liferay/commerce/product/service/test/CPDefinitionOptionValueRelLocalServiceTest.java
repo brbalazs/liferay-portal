@@ -417,6 +417,123 @@ public class CPDefinitionOptionValueRelLocalServiceTest {
 		Assert.assertEquals(0, cpDefinitionOptionValueRel.getCProductId());
 	}
 
+	@Test
+	public void testUpdatePreselectedCPDefinitionOptionValueRel()
+		throws Exception {
+
+		CPDefinition cpDefinition = CPTestUtil.addCPDefinitionFromCatalog(
+			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
+			true);
+
+		List<CPDefinitionOptionRel> cpDefinitionOptionRels =
+			CPTestUtil.addCPOption(
+				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+				1, 5);
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			cpDefinitionOptionRels.get(0);
+
+		Assert.assertEquals(
+			"product option values count", 5,
+			cpDefinitionOptionRel.getCPDefinitionOptionValueRelsCount());
+
+		Assert.assertFalse(
+			"preselected option value exists",
+			_cpDefinitionOptionValueRelLocalService.
+				hasPreselectedCPDefinitionOptionValueRel(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId()));
+
+		CPDefinitionOptionValueRel randomCPDefinitionOptionValueRel =
+			CPTestUtil.getRandomCPDefinitionOptionValueRel(
+				cpDefinition.getCPDefinitionId());
+
+		_updateCPDefinitionOptionValueRel(
+			randomCPDefinitionOptionValueRel, 0, true,
+			randomCPDefinitionOptionValueRel.getPrice(),
+			randomCPDefinitionOptionValueRel.getQuantity());
+
+		Assert.assertTrue(
+			"preselected option value exists",
+			_cpDefinitionOptionValueRelLocalService.
+				hasPreselectedCPDefinitionOptionValueRel(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId()));
+
+		CPDefinitionOptionValueRel targetCPDefinitionOptionValueRel = null;
+
+		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+				cpDefinitionOptionRel.getCPDefinitionOptionValueRels()) {
+
+			if (randomCPDefinitionOptionValueRel.
+					getCPDefinitionOptionValueRelId() ==
+						cpDefinitionOptionValueRel.
+							getCPDefinitionOptionValueRelId()) {
+
+				Assert.assertTrue(
+					"Option value preselected",
+					cpDefinitionOptionValueRel.isPreselected());
+
+				continue;
+			}
+
+			Assert.assertFalse(
+				"Option value preselected",
+				cpDefinitionOptionValueRel.isPreselected());
+
+			if (targetCPDefinitionOptionValueRel == null) {
+				targetCPDefinitionOptionValueRel = cpDefinitionOptionValueRel;
+			}
+		}
+
+		Assert.assertNotEquals(
+			"updated option value id",
+			randomCPDefinitionOptionValueRel.getCPDefinitionOptionValueRelId(),
+			targetCPDefinitionOptionValueRel.getCPDefinitionOptionValueRelId());
+
+		_cpDefinitionOptionValueRelLocalService.
+			updateCPDefinitionOptionValueRelPreselected(
+				targetCPDefinitionOptionValueRel.
+					getCPDefinitionOptionValueRelId(),
+				true);
+
+		Assert.assertTrue(
+			"preselected option value exists",
+			_cpDefinitionOptionValueRelLocalService.
+				hasPreselectedCPDefinitionOptionValueRel(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId()));
+
+		CPDefinitionOptionValueRel preselectedCPDefinitionOptionValueRel =
+			_cpDefinitionOptionValueRelLocalService.
+				fetchPreselectedCPDefinitionOptionValueRel(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId());
+
+		Assert.assertEquals(
+			"updated option value id",
+			targetCPDefinitionOptionValueRel.getCPDefinitionOptionValueRelId(),
+			preselectedCPDefinitionOptionValueRel.
+				getCPDefinitionOptionValueRelId());
+
+		Assert.assertTrue(
+			"Option value preselected",
+			preselectedCPDefinitionOptionValueRel.isPreselected());
+
+		preselectedCPDefinitionOptionValueRel =
+			_cpDefinitionOptionValueRelLocalService.
+				updateCPDefinitionOptionValueRelPreselected(
+					targetCPDefinitionOptionValueRel.
+						getCPDefinitionOptionValueRelId(),
+					false);
+
+		Assert.assertFalse(
+			"preselected option value exists",
+			_cpDefinitionOptionValueRelLocalService.
+				hasPreselectedCPDefinitionOptionValueRel(
+					cpDefinitionOptionRel.getCPDefinitionOptionRelId()));
+
+		Assert.assertFalse(
+			"Option value preselected",
+			preselectedCPDefinitionOptionValueRel.isPreselected());
+	}
+
 	@Test(expected = CPDefinitionOptionValueRelPriceException.class)
 	public void testUpdateStaticPriceTypeCPDefinitionOptionValueRelWithoutPrice()
 		throws Exception {
