@@ -22,11 +22,11 @@ const getMetadataTag = (value: string): string[] =>
 
 const StringMatchInput: React.FC<IStringMatchInputProps> = ({
 	className,
-	metadata,
+	metadata = '',
 	onEnterClick,
 	onMetadataChange,
 	onStringMatchChange,
-	stringMatch
+	stringMatch = ''
 }) => {
 	const _inputRef = useRef<HTMLInputElement>();
 

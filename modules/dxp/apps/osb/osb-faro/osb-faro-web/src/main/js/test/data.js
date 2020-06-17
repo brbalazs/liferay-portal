@@ -946,6 +946,18 @@ export function mockProperty(seed = 1, data = {}) {
 	};
 }
 
+export function mockRecommendationPageAsset(seed = 0, data = {}) {
+	return {
+		canonicalUrl: `https://www.test${seed}.com`,
+		description: 'Test description',
+		id: seed,
+		keywords: [],
+		title: 'Test Title',
+		url: `https://www.test${seed}.com`,
+		...data
+	};
+}
+
 export function mockRecommendationJob(seed = 0, data = {}) {
 	return {
 		id: seed,

@@ -1,18 +1,16 @@
-import * as data from 'test/data';
-import NewRuleModal from '../NewRuleModal';
 import mockStore from 'test/mock-store';
+import NewRuleModal from '../NewRuleModal';
 import React from 'react';
-import {mockRecommendationPageAssetsReq} from 'test/graphql-data';
 import {MockedProvider} from '@apollo/react-testing';
+import {mockRecommendationPageAssetsReq} from 'test/graphql-data';
 import {Provider} from 'react-redux';
-import {range} from 'lodash';
 import {render} from '@testing-library/react';
 import {waitForLoading} from 'test/helpers';
 
 jest.unmock('react-dom');
 
 describe('NewRuleModal', () => {
-	it('should render', async () => {
+	it('should render', async() => {
 		const {container} = render(
 			<MockedProvider mocks={[mockRecommendationPageAssetsReq([])]}>
 				<Provider store={mockStore()}>

@@ -1,6 +1,7 @@
 import IndividualMetricsQuery from 'contacts/individual/dashboard/queries/IndividualMetricsQuery';
 import InterestsQuery from 'contacts/individual/dashboard/queries/InterestsQuery';
 import OrganizationsQuery from 'contacts/components/segment-editor/dynamic/queries/OrganizationsQuery';
+import RecommendationPageAssetsQuery from 'settings/recommendations/queries/RecommendationPageAssetsQuery';
 import SitesDashboardQuery from 'sites/queries/SitesDashboardQuery';
 import SuppressedUsersListQuery from 'settings/data-privacy/queries/SuppressedUsersListQuery';
 import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
@@ -212,6 +213,30 @@ export function mockMetric(metrics = {}) {
 				: value;
 		}),
 		__typename: 'Metric'
+	};
+}
+
+export function mockRecommendationPageAssetsReq(items, mockVariables = {}) {
+	return {
+		request: {
+			query: RecommendationPageAssetsQuery,
+			variables: {
+				propertyFilters: [{filter: '.*custom-assets', negate: false}],
+				size: 5,
+				sort: {column: 'title', type: 'DESC'},
+				start: 0,
+				...mockVariables
+			}
+		},
+		result: {
+			data: {
+				pageAssets: {
+					__typename: 'PageAssetBag',
+					pageAssets: items,
+					total: items.length
+				}
+			}
+		}
 	};
 }
 

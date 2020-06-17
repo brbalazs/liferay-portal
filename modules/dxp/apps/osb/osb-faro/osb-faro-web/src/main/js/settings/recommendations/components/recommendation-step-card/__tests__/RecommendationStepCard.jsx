@@ -15,7 +15,9 @@ describe('RecommendationStepCard', () => {
 			<ApolloProvider client={client}>
 				<Provider store={mockStore()}>
 					<StaticRouter>
-						<RecommendationStepCard router={{groupId: '123'}} />
+						<RecommendationStepCard
+							router={{params: {groupId: '123'}}}
+						/>
 					</StaticRouter>
 				</Provider>
 			</ApolloProvider>

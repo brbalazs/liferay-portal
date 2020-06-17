@@ -1,38 +1,53 @@
+import * as data from 'test/data';
 import Form from 'shared/components/form';
 import Items from '../Items';
+import mockStore from 'test/mock-store';
 import React from 'react';
+import {MockedProvider} from '@apollo/react-testing';
+import {mockRecommendationPageAssetsReq} from 'test/graphql-data';
+import {Provider} from 'react-redux';
+import {range} from 'lodash';
 import {render} from '@testing-library/react';
+import {waitForLoading} from 'test/helpers';
 
 jest.unmock('react-dom');
 
 describe('Items', () => {
-	it('should render', () => {
+	it('should render', async() => {
 		const {container} = render(
-			<Form
-				initialValues={{
-					itemFilters: [
-						{
-							count: 12,
-							id: "includeFilter - og:title ~ ''blog*''",
-							name: 'includeFilter',
-							value: "og:title ~ ''blog*''"
-						},
-						{
-							count: 5,
-							id: 'includeFilter - https://www.google.com',
-							name: 'includeFilter',
-							value: 'https://www.google.com'
-						}
-					]
-				}}
+			<MockedProvider
+				mocks={[
+					mockRecommendationPageAssetsReq(
+						range(10).map(i => data.mockRecommendationPageAsset(i)),
+						{size: 0}
+					)
+				]}
 			>
-				{({values: {itemFilters}}) => (
-					<Form.Form>
-						<Items itemFilters={itemFilters} />
-					</Form.Form>
-				)}
-			</Form>
+				<Provider store={mockStore()}>
+					<Form
+						initialValues={{
+							itemFilters: [
+								{
+									id: 'includeFilter - url ~ .*custom-assets',
+									name: 'includeFilter',
+									value: 'url ~ .*custom-assets'
+								}
+							]
+						}}
+					>
+						{({values: {itemFilters}}) => (
+							<Form.Form>
+								<Items itemFilters={itemFilters} />
+							</Form.Form>
+						)}
+					</Form>
+				</Provider>
+			</MockedProvider>
 		);
+
+		await waitForLoading(container);
+
+		jest.runAllTimers();
 
 		expect(container).toMatchSnapshot();
 	});

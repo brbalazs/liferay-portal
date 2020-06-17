@@ -16,7 +16,7 @@ export default gql`
 			start: $start
 		) {
 			pageAssets {
-				canonicalURL
+				canonicalUrl
 				description
 				keywords {
 					type
