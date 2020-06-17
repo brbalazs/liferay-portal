@@ -17,6 +17,7 @@ import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
 
+import {listenToBulkActionStatus} from '../../utilities/actionItems/bulkActions';
 import {closest} from '../../utilities/closest';
 import {
 	DATASET_ACTION_PERFORMED,
@@ -28,7 +29,10 @@ import {
 } from '../../utilities/eventsDefinitions';
 import {getRandomId, executeAsyncAction, loadData} from '../../utilities/index';
 import getJsModule from '../../utilities/modules';
-import {showNotification} from '../../utilities/notifications';
+import {
+	showNotification,
+	showErrorNotification
+} from '../../utilities/notifications';
 import Modal from '../modal/Modal';
 import SidePanel from '../side_panel/SidePanel';
 import DatasetDisplayContext from './DatasetDisplayContext';
@@ -40,6 +44,7 @@ function DatasetDisplay(props) {
 	const wrapperRef = useRef(null);
 	const [views, updateViews] = useState(props.views);
 	const [loading, setLoading] = useState(false);
+	const [actionLoading, setActionLoading] = useState(false);
 	const [datasetDisplaySupportSidePanelId] = useState(
 		props.sidePanelId || 'support-side-panel-' + getRandomId()
 	);
@@ -372,21 +377,55 @@ function DatasetDisplay(props) {
 			</div>
 		) : null;
 
+	function handleCompletedAction(e = null) {
+		refreshData();
+		Liferay.fire(DATASET_ACTION_PERFORMED, {
+			id: props.id
+		});
+		setActionLoading(false);
+		if (e) {
+			showNotification(e);
+		}
+	}
+
+	function handleFailedAction(e) {
+		showErrorNotification(Liferay.Language.get('unexpected-error'));
+		setActionLoading(false);
+		throw new Error(e);
+	}
+
+	function executeAsyncBulkAction(url, method, bodyKeys) {
+		const bodyContent = items.reduce((foundData, item) => {
+			if (selectedItemsValue.includes(item[props.selectedItemsKey])) {
+				return [
+					...foundData,
+					bodyKeys.reduce(
+						(keys, key) => ({...keys, [key]: item[key]}),
+						{}
+					)
+				];
+			}
+			return foundData;
+		}, []);
+		setActionLoading(true);
+
+		return executeAsyncAction(url, method, JSON.stringify(bodyContent))
+			.then(response => response.json())
+			.then(jsonResponse =>
+				listenToBulkActionStatus(
+					jsonResponse.id,
+					props.batchTasksStatusApiUrl
+				)
+			)
+			.then(handleCompletedAction)
+			.catch(handleFailedAction);
+	}
+
 	function executeAsyncItemAction(url, method) {
+		setActionLoading(true);
 		return executeAsyncAction(url, method)
-			.then(_ => {
-				refreshData();
-				Liferay.fire(DATASET_ACTION_PERFORMED, {
-					id: props.id
-				});
-			})
-			.catch(e => {
-				console.error(e);
-				showNotification(
-					Liferay.Language.get('unexpected-error'),
-					'danger'
-				);
-			});
+			.then(_ => handleCompletedAction())
+			.catch(handleFailedAction);
 	}
 
 	function openSidePanel(config) {
@@ -408,6 +447,8 @@ function DatasetDisplay(props) {
 	return (
 		<DatasetDisplayContext.Provider
 			value={{
+				actionLoading,
+				executeAsyncBulkAction,
 				executeAsyncItemAction,
 				formId: props.formId,
 				formRef,
@@ -479,6 +520,7 @@ function DatasetDisplay(props) {
 DatasetDisplay.propTypes = {
 	activeViewId: PropTypes.string,
 	apiUrl: PropTypes.string,
+	batchTasksStatusApiUrl: PropTypes.string,
 	bulkActions: PropTypes.array,
 	creationMenuItems: PropTypes.array,
 	currentUrl: PropTypes.string,

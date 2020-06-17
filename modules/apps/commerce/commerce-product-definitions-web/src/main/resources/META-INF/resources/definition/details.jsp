@@ -292,7 +292,6 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 						getSelectedItems: getSelectedItems,
 						inputPlaceholder:
 							'<%= LanguageUtil.get(request, "find-or-create-a-specification") %>',
-						itemsKey: 'id',
 						itemSelectedMessage:
 							'<%= LanguageUtil.get(request, "specification-selected") %>',
 						itemsKey: 'id',

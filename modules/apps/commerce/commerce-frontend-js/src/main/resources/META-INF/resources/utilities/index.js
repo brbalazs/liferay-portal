@@ -59,9 +59,10 @@ export function excludeFromList(matchingList, againstList) {
 	return againstList.filter(item => !matcher.includes(JSON.stringify(item)));
 }
 
-export function executeAsyncAction(url, method = 'GET') {
+export function executeAsyncAction(url, method = 'GET', body = null) {
 	return fetch(url, {
 		...fetchParams,
+		body,
 		method
 	});
 }
@@ -84,11 +85,14 @@ export function getRandomId() {
 }
 
 export const fetchHeaders = new Headers({
+	Accept: 'application/json',
+	'Content-Type': 'application/json',
 	'x-csrf-token': Liferay.authToken
 });
 
 export const fetchParams = {
 	credentials: 'include',
+
 	headers: Liferay.staticEnvHeaders || fetchHeaders
 };
 

@@ -109,6 +109,7 @@ function getItemFields(item, fields, itemId, itemsActions) {
 
 function Table(props) {
 	const {
+		actionLoading,
 		highlightedItemsValue,
 		nestedItemsKey,
 		nestedItemsReferenceKey,
@@ -178,6 +179,7 @@ function Table(props) {
 															String(itemId)
 													)
 												}
+												disabled={actionLoading}
 												onChange={() =>
 													selectItems(itemId)
 												}

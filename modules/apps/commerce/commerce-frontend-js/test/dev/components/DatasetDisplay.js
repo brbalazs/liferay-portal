@@ -19,8 +19,6 @@ import sidePanelLauncher from '../../../src/main/resources/META-INF/resources/co
 
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 
-const lang_id = themeDisplay.getLanguageId();
-
 const fluidDataSetDisplayProps = {
 	activeView: 2,
 	apiUrl: '/dataset-display-nested-items',
@@ -340,7 +338,7 @@ const headlessDataSetDisplayProps = {
 			id: 'productId',
 			inputPlaceholder: 'Search for Products',
 			itemKey: 'productId',
-			itemLabel: ['name', lang_id],
+			itemLabel: ['name', 'LANG'],
 			label: 'Product',
 			selectionType: 'single',
 			type: 'autocomplete'
@@ -444,13 +442,15 @@ const today = new Date();
 const ordersDataSetDisplayProps = {
 	apiUrl:
 		'/o/headless-commerce-admin-order/v1.0/orders?nestedFields=account,channel',
+	batchTasksStatusApiUrl: '/o/fake-batch-engine/v1.0/import-task',
 	bulkActions: [
 		{
-			bodyKeys: ['id'],
-			href: '/o/headless-commerce-admin-order/v1.0/orders/0/batch',
+			bodyKeys: ['id', 'productId'],
+			href: '/o/fake-bulk-action/v1.0/products/0/batch',
 			icon: 'trash',
 			label: 'Delete',
-			method: 'delete'
+			method: 'delete',
+			target: 'async'
 		}
 	],
 	creationMenuItems: [

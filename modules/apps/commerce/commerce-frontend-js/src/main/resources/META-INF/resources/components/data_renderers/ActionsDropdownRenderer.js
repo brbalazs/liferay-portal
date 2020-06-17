@@ -72,6 +72,7 @@ function ActionItem(props) {
 
 function ActionsDropdownRenderer(props) {
 	const {
+		actionLoading,
 		executeAsyncItemAction,
 		highlightItems,
 		openModal,
@@ -79,7 +80,6 @@ function ActionsDropdownRenderer(props) {
 	} = useContext(DatasetDisplayContext);
 
 	const [active, setActive] = useState(false);
-	const [loading, setLoading] = useState(false);
 
 	function handleAction({
 		method = '',
@@ -114,8 +114,7 @@ function ActionsDropdownRenderer(props) {
 		}
 
 		if (target === 'async' || target === 'headless') {
-			setLoading(true);
-			executeAsyncItemAction(url, method).then(() => setLoading(false));
+			executeAsyncItemAction(url, method);
 		}
 
 		if (onClick) {
@@ -160,7 +159,7 @@ function ActionsDropdownRenderer(props) {
 
 		const formattedHref = formatActionUrl(action.href, props.itemData);
 
-		if (loading) {
+		if (actionLoading) {
 			return (
 				<ClayButton
 					className="btn-sm"
@@ -180,10 +179,8 @@ function ActionsDropdownRenderer(props) {
 		);
 
 		return isNotALink(action.target, action.onClick) ? (
-			<ClayLink
-				className="btn btn-secondary btn-sm"
-				data-senna-off
-				href="#"
+			<ClayButton
+				displayType="secondary"
 				monospaced={Boolean(action.icon)}
 				onClick={e => {
 					e.preventDefault();
@@ -196,9 +193,10 @@ function ActionsDropdownRenderer(props) {
 						url: action.href
 					});
 				}}
+				small
 			>
 				{content}
-			</ClayLink>
+			</ClayButton>
 		) : (
 			<ClayLink
 				className="btn btn-secondary btn-sm"
@@ -210,14 +208,9 @@ function ActionsDropdownRenderer(props) {
 		);
 	}
 
-	if (loading) {
+	if (actionLoading) {
 		return (
-			<ClayButton
-				className="btn-sm"
-				disabled
-				displayType="secondary"
-				monospaced
-			>
+			<ClayButton disabled displayType="secondary" monospaced small>
 				<ClayLoadingIndicator small />
 			</ClayButton>
 		);

@@ -69,7 +69,8 @@ public class MiniCartTag extends IncludeTag {
 				if (commerceCartPortletURL != null) {
 					_orderDetailURL = String.valueOf(commerceCartPortletURL);
 				}
-			} else {
+			}
+			else {
 				_orderDetailURL = StringPool.BLANK;
 				_orderId = 0;
 			}
@@ -82,8 +83,6 @@ public class MiniCartTag extends IncludeTag {
 			if (commerceCheckoutPortletURL != null) {
 				_checkoutURL = String.valueOf(commerceCheckoutPortletURL);
 			}
-
-
 		}
 		catch (PortalException pe) {
 			_log.error(pe, pe);

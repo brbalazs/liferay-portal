@@ -16,9 +16,10 @@ import ClayIcon from '@clayui/icon';
 import ClayTable from '@clayui/table';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useContext} from 'react';
 
 import Checkbox from '../../../data_renderers/CheckboxRenderer';
+import DatasetDisplayContext from '../../DatasetDisplayContext';
 
 function TableHeadCell(props) {
 	const sortingKey =
@@ -101,6 +102,8 @@ function TableHeadCell(props) {
 }
 
 function TableHeadRow(props) {
+	const {actionLoading} = useContext(DatasetDisplayContext);
+
 	const getColumns = fields => {
 		const expandableColumns = fields.reduce(
 			(expandable, field) => expandable || Boolean(field.expand),
@@ -138,6 +141,7 @@ function TableHeadRow(props) {
 						props.selectionType === 'multiple' ? (
 							<Checkbox
 								checked={!!props.selectedItemsValue.length}
+								disabled={actionLoading}
 								indeterminate={
 									!!props.selectedItemsValue.length &&
 									props.items.length !==

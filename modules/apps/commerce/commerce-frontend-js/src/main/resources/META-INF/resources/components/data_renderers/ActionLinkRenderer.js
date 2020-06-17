@@ -12,8 +12,10 @@
  * details.
  */
 
+import ClayButton from '@clayui/button';
 import ClayIcon from '@clayui/icon';
 import ClayLink from '@clayui/link';
+import ClayLoadingIndicator from '@clayui/loading-indicator';
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 
@@ -23,6 +25,7 @@ import DefaultContent from './DefaultRenderer';
 
 function ActionLinkRenderer(props) {
 	const {
+		actionLoading,
 		executeAsyncItemAction,
 		highlightItems,
 		openModal,
@@ -98,13 +101,25 @@ function ActionLinkRenderer(props) {
 		);
 	}
 
-	return (
+	return isNotALink() ? (
 		<div className="table-list-title">
-			<ClayLink
-				data-senna-off
-				href={formattedHref || '#'}
-				onClick={isNotALink() ? handleClickOnLink : null}
+			<ClayButton
+				className="p-0"
+				disabled={actionLoading}
+				displayType="unstyled"
+				onClick={handleClickOnLink}
+				small
 			>
+				{actionLoading ? (
+					<ClayLoadingIndicator small />
+				) : (
+					props.value || <ClayIcon symbol={currentAction.icon} />
+				)}
+			</ClayButton>
+		</div>
+	) : (
+		<div className="table-list-title">
+			<ClayLink data-senna-off href={formattedHref}>
 				{props.value || <ClayIcon symbol={currentAction.icon} />}
 			</ClayLink>
 		</div>
@@ -135,7 +150,7 @@ ActionLinkRenderer.propTypes = {
 	options: PropTypes.shape({
 		actionId: PropTypes.string
 	}),
-	value: PropTypes.string
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 export default ActionLinkRenderer;
