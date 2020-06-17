@@ -7,7 +7,7 @@ import Table from 'shared/components/table';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {FieldArray} from 'formik';
-import {Filter, RULE_NAME_LABEL_MAP} from '../../utils/utils';
+import {Filter, JobParameter, RULE_NAME_LABEL_MAP} from '../../utils/utils';
 import {Modal} from 'shared/types';
 
 const CountCell: React.FC<{
@@ -69,24 +69,19 @@ const Items: React.FC<IItemsProps> = ({close, groupId, itemFilters, open}) => {
 
 								open(modalTypes.NEW_RULE_MODAL, {
 									groupId,
-									onClose: close
+									onClose: close,
+									onSubmit: filter => {
+										if (
+											!itemFilters.find(
+												item => item.id === filter.id
+											)
+										) {
+											arrayHelpers.push(filter);
+										}
+
+										close();
+									}
 								});
-
-								const newItem = {
-									count: 16,
-									id:
-										'excludeFilter - og:url = .jp/blog/group=./.',
-									name: 'excludeFilter',
-									value: 'og:url = .jp/blog/group=./.'
-								};
-
-								if (
-									!itemFilters.find(
-										item => item.id === newItem.id
-									)
-								) {
-									arrayHelpers.push(newItem);
-								}
 							}}
 						>
 							{Liferay.Language.get('new-rule')}
