@@ -14,12 +14,10 @@ import {INTERVAL_KEY_MAP} from 'shared/util/time';
 
 export const getIntervalHandle = (
 	rangeKey: RangeSelectors['rangeKey'],
-	arr: Date[],
+	duration: number,
 	timeInterval: Interval
 ) => {
-	const intervalMapsByRangeKey = getIntervalsFromMap(arr.length)[
-		timeInterval
-	];
+	const intervalMapsByRangeKey = getIntervalsFromMap(duration)[timeInterval];
 
 	return intervalMapsByRangeKey && intervalMapsByRangeKey[rangeKey];
 };
@@ -124,7 +122,7 @@ export const getByCustomRangeKey = (
 			return getFirstDays;
 		}
 	} else if (timeInterval === INTERVAL_KEY_MAP.week) {
-		if (duration > 30 && duration <= 180) {
+		if (duration > 90 && duration <= 180) {
 			return getByEvenOrOddIndexes;
 		} else if (duration > 180) {
 			return getByIndexesMultipleOfFour;

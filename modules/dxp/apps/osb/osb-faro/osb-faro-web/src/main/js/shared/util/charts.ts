@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import moment from 'moment';
 import {
 	CUSTOM_RANGE,
 	LAST_180_DAYS,
@@ -283,16 +284,26 @@ export const getDateTitle = (
 export const getIntervals = (
 	rangeKey: RangeSelectors['rangeKey'],
 	arr: Date[],
-	timeInterval: Interval
+	timeInterval: Interval,
+	dateKeysIMap: Map<Date, [Date, Date?]>
 ): Date[] => {
 	if (arr.length) {
+		const firstDate = moment(arr[0]);
+		const [lastDateStart, lastDateEnd] = dateKeysIMap.get(
+			arr[arr.length - 1]
+		);
+		const lastDate = lastDateEnd
+			? moment(lastDateEnd)
+			: moment(lastDateStart);
+		const duration = lastDate.diff(firstDate, 'days') + 1;
+
 		const validTimeInterval = [LAST_24_HOURS, YESTERDAY].includes(rangeKey)
 			? INTERVAL_KEY_MAP.day
 			: timeInterval;
 
 		const intervalHandle = getIntervalHandle(
 			rangeKey,
-			arr,
+			duration,
 			validTimeInterval
 		);
 

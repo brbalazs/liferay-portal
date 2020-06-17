@@ -150,6 +150,10 @@ export const getMetricsData = (
 			  }
 			: {};
 
+		const dateKeysIMap = new Map(
+			histogram.map(({key, valueKey}) => [key, valueKey])
+		);
+
 		return {
 			...compositeData,
 			content: {
@@ -175,14 +179,13 @@ export const getMetricsData = (
 				tooltipTitle,
 				type
 			}),
-			dateKeysIMap: new Map(
-				histogram.map(({key, valueKey}) => [key, valueKey])
-			),
+			dateKeysIMap,
 			format: getAxisFormatter(type),
 			intervals: getIntervals(
 				rangeSelectors.rangeKey,
 				histogram.map(({key}) => key),
-				timeInterval
+				timeInterval,
+				dateKeysIMap
 			),
 			prevDateKeysIMap: new Map(
 				histogram.map(({key, previousValueKey}) => [

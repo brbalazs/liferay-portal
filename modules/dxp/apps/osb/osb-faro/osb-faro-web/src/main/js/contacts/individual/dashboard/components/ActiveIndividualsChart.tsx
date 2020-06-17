@@ -166,7 +166,8 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 								'data',
 								[]
 							),
-							interval
+							interval,
+							dateKeysIMap
 						)
 					},
 					type: 'timeseries'
