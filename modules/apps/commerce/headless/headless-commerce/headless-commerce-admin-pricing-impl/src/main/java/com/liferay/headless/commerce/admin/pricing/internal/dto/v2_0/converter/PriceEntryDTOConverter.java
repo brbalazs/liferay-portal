@@ -66,7 +66,6 @@ public class PriceEntryDTOConverter
 		ExpandoBridge expandoBridge = commercePriceEntry.getExpandoBridge();
 
 		BigDecimal priceEntryPrice = commercePriceEntry.getPrice();
-		BigDecimal priceEntryPromoPrice = commercePriceEntry.getPromoPrice();
 
 		Locale locale = dtoConverterContext.getLocale();
 
@@ -89,9 +88,6 @@ public class PriceEntryDTOConverter
 				priceFormatted = _formatPrice(
 					priceEntryPrice, commerceCurrency, locale);
 				priceListId = commercePriceEntry.getCommercePriceListId();
-				promoPrice = priceEntryPromoPrice.doubleValue();
-				promoPriceFormatted = _formatPrice(
-					priceEntryPromoPrice, commerceCurrency, locale);
 				sku = cpInstance.getSku();
 				skuExternalReferenceCode =
 					cpInstance.getExternalReferenceCode();

@@ -67,8 +67,6 @@ public class TierPriceDTOConverter
 		ExpandoBridge expandoBridge = commerceTierPriceEntry.getExpandoBridge();
 
 		BigDecimal tierPriceEntryPrice = commerceTierPriceEntry.getPrice();
-		BigDecimal tierPriceEntryPromoPrice =
-			commerceTierPriceEntry.getPromoPrice();
 
 		Locale locale = dtoConverterContext.getLocale();
 
@@ -93,9 +91,6 @@ public class TierPriceDTOConverter
 				priceEntryId = commercePriceEntry.getCommercePriceEntryId();
 				priceFormatted = _formatPrice(
 					tierPriceEntryPrice, commerceCurrency, locale);
-				promoPrice = tierPriceEntryPromoPrice.doubleValue();
-				promoPriceFormatted = _formatPrice(
-					tierPriceEntryPromoPrice, commerceCurrency, locale);
 			}
 		};
 	}
