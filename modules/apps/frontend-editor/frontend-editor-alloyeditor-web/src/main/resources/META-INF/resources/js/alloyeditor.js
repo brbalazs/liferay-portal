@@ -102,6 +102,8 @@ AUI.add(
 						nativeEditor.on('instanceReady', instance._onInstanceReady, instance);
 						nativeEditor.on('setData', instance._onSetData, instance);
 
+						nativeEditor.on('drop', instance._onDrop, instance);
+
 						if (instance.get('onBlurMethod')) {
 							nativeEditor.on('blur', instance._onBlur, instance);
 						}
@@ -351,6 +353,22 @@ AUI.add(
 						}
 						else {
 							instance._dataReady = true;
+						}
+					},
+
+					_onDrop(event) {
+						var instance = this;
+	
+						var data = event.data.dataTransfer.getData('text/html');
+	
+						var fragment = CKEDITOR.htmlParser.fragment.fromHtml(data);
+	
+						var name = fragment.children[0].name;
+	
+						if (name) {
+							var nativeEditor = instance.getNativeEditor();
+	
+							return nativeEditor.pasteFilter.check(name);
 						}
 					},
 
