@@ -690,7 +690,8 @@ public interface CPInstanceLocalService
 	 * @param workflowContext
 	 * @return
 	 * @throws PortalException
-	 * @deprecated As of Athanasius (7.3.x), use {@link #updateStatus(long, long, int)}
+	 * @deprecated As of Athanasius (7.3.x), use {@link #updateStatus(long,
+	 long, int)}
 	 */
 	@Deprecated
 	@Indexable(type = IndexableType.REINDEX)

@@ -990,7 +990,8 @@ public class CPInstanceLocalServiceWrapper
 	 * @param workflowContext
 	 * @return
 	 * @throws PortalException
-	 * @deprecated As of Athanasius (7.3.x), use {@link #updateStatus(long, long, int)}
+	 * @deprecated As of Athanasius (7.3.x), use {@link #updateStatus(long,
+	 long, int)}
 	 */
 	@Deprecated
 	@Override

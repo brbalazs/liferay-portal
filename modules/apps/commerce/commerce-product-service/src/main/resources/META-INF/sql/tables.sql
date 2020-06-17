@@ -157,6 +157,7 @@ create table CPDefinitionOptionValueRel (
 	priority DOUBLE,
 	key_ VARCHAR(75) null,
 	quantity INTEGER,
+	preselected BOOLEAN,
 	price DECIMAL(30, 16) null
 );
 

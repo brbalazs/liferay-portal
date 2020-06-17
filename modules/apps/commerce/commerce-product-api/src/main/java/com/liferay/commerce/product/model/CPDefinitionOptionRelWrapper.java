@@ -212,6 +212,14 @@ public class CPDefinitionOptionRelWrapper
 	}
 
 	@Override
+	public CPDefinitionOptionValueRel
+		fetchPreselectedCPDefinitionOptionValueRel() {
+
+		return _cpDefinitionOptionRel.
+			fetchPreselectedCPDefinitionOptionValueRel();
+	}
+
+	@Override
 	public String[] getAvailableLanguageIds() {
 		return _cpDefinitionOptionRel.getAvailableLanguageIds();
 	}

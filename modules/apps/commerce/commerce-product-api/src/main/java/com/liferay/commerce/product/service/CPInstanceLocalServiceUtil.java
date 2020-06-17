@@ -935,7 +935,8 @@ public class CPInstanceLocalServiceUtil {
 	 * @param workflowContext
 	 * @return
 	 * @throws PortalException
-	 * @deprecated As of Athanasius (7.3.x), use {@link #updateStatus(long, long, int)}
+	 * @deprecated As of Athanasius (7.3.x), use {@link #updateStatus(long,
+	 long, int)}
 	 */
 	@Deprecated
 	public static com.liferay.commerce.product.model.CPInstance updateStatus(
