@@ -854,8 +854,6 @@ public class OrganizationLocalServiceTest {
 	@Test
 	public void testSearchOrganizationsByType() throws Exception {
 		String defaultType = "organization";
-		String orderByCol = "type";
-		String orderByType = "asc";
 
 		String orgType = "test org type";
 
@@ -873,7 +871,7 @@ public class OrganizationLocalServiceTest {
 				OrganizationTestUtil.addOrganization(defaultType));
 
 			Sort sort = SortFactoryUtil.getSort(
-				Organization.class, orderByCol, orderByType);
+				Organization.class, "type", "asc");
 
 			BaseModelSearchResult<Organization> baseModelSearchResult =
 				OrganizationLocalServiceUtil.searchOrganizations(
@@ -896,10 +894,7 @@ public class OrganizationLocalServiceTest {
 						expectedResults, new OrganizationTypeComparator(true))),
 				toStringList(indexerSearchResults));
 
-			orderByType = "desc";
-
-			sort = SortFactoryUtil.getSort(
-				Organization.class, orderByCol, orderByType);
+			sort = SortFactoryUtil.getSort(Organization.class, "type", "desc");
 
 			baseModelSearchResult =
 				OrganizationLocalServiceUtil.searchOrganizations(
