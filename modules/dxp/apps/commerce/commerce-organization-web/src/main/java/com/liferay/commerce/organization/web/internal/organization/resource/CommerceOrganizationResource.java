@@ -73,7 +73,8 @@ public class CommerceOrganizationResource {
 			}
 
 			organization = _commerceOrganizationResourceUtil.getOrganization(
-				companyId, curOrganization);
+				_portal.getUserId(httpServletRequest), companyId,
+				curOrganization);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

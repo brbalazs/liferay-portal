@@ -21,7 +21,7 @@ public class User {
 
 	public User(
 		long userId, long organizationId, String name, String email,
-		String[] roles, String href) {
+		String roles, String href) {
 
 		_userId = userId;
 		_organizationId = organizationId;
@@ -47,7 +47,7 @@ public class User {
 		return _organizationId;
 	}
 
-	public String[] getRoles() {
+	public String getRoles() {
 		return _roles;
 	}
 
@@ -59,7 +59,7 @@ public class User {
 	private final String _href;
 	private final String _name;
 	private final long _organizationId;
-	private final String[] _roles;
+	private final String _roles;
 	private final long _userId;
 
 }

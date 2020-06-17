@@ -16,7 +16,6 @@ package com.liferay.commerce.organization.web.internal.display.context;
 
 import com.liferay.commerce.organization.web.internal.constants.CommerceOrganizationConstants;
 import com.liferay.commerce.organization.web.internal.display.context.util.CommerceOrganizationRequestHelper;
-import com.liferay.commerce.organization.web.internal.frontend.OrganizationFilterImpl;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -102,20 +101,6 @@ public class CommerceOrganizationDisplayContext {
 		}
 
 		return null;
-	}
-
-	public OrganizationFilterImpl getOrganizationFilter()
-		throws PortalException {
-
-		OrganizationFilterImpl organizationFilterImpl =
-			new OrganizationFilterImpl();
-
-		organizationFilterImpl.setOrganizationId(getOrganizationId());
-		organizationFilterImpl.setUserId(getSelectedUserId());
-
-		organizationFilterImpl.setKeywords(getKeywords());
-
-		return organizationFilterImpl;
 	}
 
 	public long getOrganizationId() throws PortalException {

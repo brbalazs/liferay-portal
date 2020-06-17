@@ -35,11 +35,13 @@ import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.service.OrganizationLocalService;
 import com.liferay.portal.kernel.service.OrganizationService;
 import com.liferay.portal.kernel.service.permission.OrganizationPermissionUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -144,16 +146,15 @@ public class CommerceOrganizationClayTableDataSetDisplayView
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		OrganizationFilterImpl organizationFilterImpl =
-			(OrganizationFilterImpl)filter;
-
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
+		long organizationId = ParamUtil.getLong(
+			httpServletRequest, "organizationId");
+
 		return _organizationService.getOrganizationsCount(
-			themeDisplay.getCompanyId(),
-			organizationFilterImpl.getOrganizationId());
+			themeDisplay.getCompanyId(), organizationId);
 	}
 
 	@Override
@@ -179,10 +180,20 @@ public class CommerceOrganizationClayTableDataSetDisplayView
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
+		long organizationId = ParamUtil.getLong(
+			httpServletRequest, "organizationId");
+
 		List<com.liferay.portal.kernel.model.Organization> organizationList =
-			_organizationLocalService.getOrganizations(
-				themeDisplay.getUserId(), pagination.getStartPosition(),
-				pagination.getEndPosition(), null);
+			_organizationService.getOrganizations(
+				themeDisplay.getCompanyId(), organizationId,
+				pagination.getStartPosition(), pagination.getEndPosition());
+
+		if (organizationList.isEmpty()) {
+			organizationList =
+				_organizationLocalService.getOrganizations(
+					themeDisplay.getUserId(), pagination.getStartPosition(),
+					pagination.getEndPosition(), null);
+		}
 
 		for (com.liferay.portal.kernel.model.Organization organization :
 				organizationList) {
@@ -190,19 +201,31 @@ public class CommerceOrganizationClayTableDataSetDisplayView
 			organizations.add(
 				new Organization(
 					organization.getOrganizationId(), organization.getName(),
-					getPath(organization.getTreePath())));
+					getPath(
+						organization.getTreePath(),
+						themeDisplay.getPermissionChecker())));
 		}
 
 		return organizations;
 	}
 
-	protected String getPath(String treePath) throws PortalException {
+	protected String getPath(
+			String treePath, PermissionChecker permissionChecker)
+		throws PortalException {
+
 		String[] organizationIds = StringUtil.split(
 			treePath, CharPool.FORWARD_SLASH);
 
 		StringBundler sb = new StringBundler(organizationIds.length * 2);
 
 		for (int i = 1; i < organizationIds.length; i++) {
+			if (!OrganizationPermissionUtil.contains(
+				permissionChecker, GetterUtil.getLong(organizationIds[i]),
+				ActionKeys.VIEW)) {
+
+				continue;
+			}
+
 			sb.append(CharPool.FORWARD_SLASH);
 
 			com.liferay.portal.kernel.model.Organization organization =

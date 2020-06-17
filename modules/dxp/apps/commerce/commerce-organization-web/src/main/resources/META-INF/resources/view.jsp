@@ -79,6 +79,7 @@ wrapperCssClass = viewMode + " " + wrapperCssClass;
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"
 				portletURL="<%= commerceOrganizationDisplayContext.getPortletURL() %>"
+				showSearch="<%= false %>"
 			/>
 		</div>
 	</c:when>

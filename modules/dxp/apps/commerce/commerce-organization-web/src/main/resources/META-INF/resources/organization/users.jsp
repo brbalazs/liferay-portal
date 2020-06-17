@@ -22,15 +22,21 @@ CommerceOrganizationDisplayContext commerceOrganizationDisplayContext = (Commerc
 PortletURL portletURL = currentURLObj;
 
 portletURL.setParameter(PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL", backURL);
+
+Map<String, String> contextParams = new HashMap<>();
+
+contextParams.put("organizationId", String.valueOf(commerceOrganizationDisplayContext.getOrganizationId()));
 %>
 
 <commerce-ui:dataset-display
+	contextParams="<%= contextParams %>"
 	dataProviderKey="<%= CommerceOrganizationUserClayTableDataSetDisplayView.NAME %>"
-	id="<%= CommerceOrganizationClayTableDataSetDisplayView.NAME %>"
+	id="<%= CommerceOrganizationUserClayTableDataSetDisplayView.NAME %>"
 	itemsPerPage="<%= 10 %>"
 	namespace="<%= renderResponse.getNamespace() %>"
 	pageNumber="<%= 1 %>"
 	portletURL="<%= commerceOrganizationDisplayContext.getPortletURL() %>"
+	showSearch="<%= false %>"
 />
 
 <c:if test="<%= OrganizationPermissionUtil.contains(permissionChecker, commerceOrganizationDisplayContext.getOrganizationId(), ActionKeys.ASSIGN_MEMBERS) %>">

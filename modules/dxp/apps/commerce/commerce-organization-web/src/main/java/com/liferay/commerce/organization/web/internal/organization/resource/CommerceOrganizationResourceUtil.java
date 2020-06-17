@@ -29,6 +29,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.model.OrganizationConstants;
 import com.liferay.portal.kernel.model.UserConstants;
+import com.liferay.portal.kernel.service.OrganizationLocalService;
 import com.liferay.portal.kernel.service.OrganizationService;
 import com.liferay.portal.kernel.service.UserService;
 import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
@@ -48,18 +49,25 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceOrganizationResourceUtil {
 
 	public Organization getOrganization(
-			long companyId,
+			long userId, long companyId,
 			com.liferay.portal.kernel.model.Organization organization)
 		throws Exception {
 
 		if (organization == null) {
-			return new Organization(
-				OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID, "Root",
-				_toOrganizations(
+			List<com.liferay.portal.kernel.model.Organization> organizations =
 					_organizationService.getOrganizations(
 						companyId,
 						OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
-						QueryUtil.ALL_POS, QueryUtil.ALL_POS)),
+						QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+			if (organizations.isEmpty()) {
+				organizations = _organizationLocalService.getOrganizations(
+					userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+			}
+
+			return new Organization(
+				OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID, "Root",
+				_toOrganizations(organizations),
 				_organizationService.getOrganizationsCount(
 					companyId,
 					OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID),
@@ -188,6 +196,9 @@ public class CommerceOrganizationResourceUtil {
 
 	@Reference
 	private OrganizationService _organizationService;
+
+	@Reference
+	private OrganizationLocalService _organizationLocalService;
 
 	@Reference
 	private UserService _userService;

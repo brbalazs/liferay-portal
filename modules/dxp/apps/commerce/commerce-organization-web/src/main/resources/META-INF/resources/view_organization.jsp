@@ -26,7 +26,7 @@ portletURL.setParameter("mvcRenderCommandName", "viewCommerceOrganization");
 %>
 
 <portlet:renderURL var="editCommerceOrganizationURL">
-	<portlet:param name="mvcRenderCommandName" value="editOrganization" />
+	<portlet:param name="mvcRenderCommandName" value="editCommerceOrganization" />
 	<portlet:param name="organizationId" value="<%= String.valueOf(organization.getOrganizationId()) %>" />
 	<portlet:param name='<%= PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL" %>' value="<%= portletURL.toString() %>" />
 </portlet:renderURL>

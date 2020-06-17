@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.organization.web.internal.frontend;
 
-import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
@@ -30,6 +29,7 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.portlet.PortletProvider;
@@ -43,6 +43,7 @@ import com.liferay.portal.kernel.service.permission.OrganizationPermissionUtil;
 import com.liferay.portal.kernel.service.permission.RolePermissionUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -50,7 +51,6 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import javax.portlet.PortletURL;
 
@@ -137,12 +137,11 @@ public class CommerceOrganizationUserClayTableDataSetDisplayView
 	public int countItems(HttpServletRequest httpServletRequest, Filter filter)
 		throws PortalException {
 
-		OrganizationFilterImpl organizationFilterImpl =
-			(OrganizationFilterImpl)filter;
+		long organizationId = ParamUtil.getLong(
+			httpServletRequest, "organizationId");
 
 		return _userService.getOrganizationUsersCount(
-			organizationFilterImpl.getOrganizationId(),
-			WorkflowConstants.STATUS_ANY);
+			organizationId, WorkflowConstants.STATUS_ANY);
 	}
 
 	@Override
@@ -169,22 +168,21 @@ public class CommerceOrganizationUserClayTableDataSetDisplayView
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		OrganizationFilterImpl organizationFilterImpl =
-			(OrganizationFilterImpl)filter;
+		long organizationId = ParamUtil.getLong(
+			httpServletRequest, "organizationId");
 
 		List<User> users = new ArrayList<>();
 
 		List<com.liferay.portal.kernel.model.User> userList =
 			_userService.getOrganizationUsers(
-				organizationFilterImpl.getOrganizationId(),
-				WorkflowConstants.STATUS_ANY, pagination.getStartPosition(),
-				pagination.getEndPosition(), null);
+				organizationId, WorkflowConstants.STATUS_ANY,
+				pagination.getStartPosition(), pagination.getEndPosition(),
+				null);
 
 		for (com.liferay.portal.kernel.model.User user : userList) {
 			users.add(
 				new User(
-					user.getUserId(),
-					organizationFilterImpl.getOrganizationId(),
+					user.getUserId(), organizationId,
 					HtmlUtil.escape(user.getFullName()), user.getEmailAddress(),
 					getUserRoles(user, themeDisplay.getPermissionChecker()),
 					_getOrganizationUserViewDetailURL(
@@ -194,7 +192,7 @@ public class CommerceOrganizationUserClayTableDataSetDisplayView
 		return users;
 	}
 
-	protected String[] getUserRoles(
+	protected String getUserRoles(
 		com.liferay.portal.kernel.model.User user,
 		PermissionChecker permissionChecker) {
 
@@ -211,13 +209,7 @@ public class CommerceOrganizationUserClayTableDataSetDisplayView
 			}
 		}
 
-		Stream<Role> stream = roles.stream();
-
-		return stream.map(
-			Role::getName
-		).toArray(
-			String[]::new
-		);
+		return ListUtil.toString(roles, "name", StringPool.COMMA_AND_SPACE);
 	}
 
 	private String _getOrganizationUserViewDetailURL(
@@ -225,8 +217,8 @@ public class CommerceOrganizationUserClayTableDataSetDisplayView
 		throws PortalException {
 
 		PortletURL viewURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, CommerceAccount.class.getName(),
-			PortletProvider.Action.VIEW);
+			httpServletRequest, Organization.class.getName(),
+			PortletProvider.Action.MANAGE);
 
 		viewURL.setParameter(
 			"mvcRenderCommandName", "viewCommerceOrganizationUser");

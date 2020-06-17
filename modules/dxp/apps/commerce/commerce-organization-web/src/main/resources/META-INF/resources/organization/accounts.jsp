@@ -21,13 +21,22 @@ CommerceOrganizationDisplayContext commerceOrganizationDisplayContext = (Commerc
 %>
 
 <div class="commerce-organization-container" id="<portlet:namespace />entriesContainer">
+
+	<%
+	Map<String, String> contextParams = new HashMap<>();
+
+	contextParams.put("organizationId", String.valueOf(commerceOrganizationDisplayContext.getOrganizationId()));
+	%>
+
 	<commerce-ui:dataset-display
+		contextParams="<%= contextParams %>"
 		dataProviderKey="<%= CommerceOrganizationAccountClayTableDataSetDisplayView.NAME %>"
 		id="<%= CommerceOrganizationAccountClayTableDataSetDisplayView.NAME %>"
 		itemsPerPage="<%= 10 %>"
 		namespace="<%= renderResponse.getNamespace() %>"
 		pageNumber="<%= 1 %>"
 		portletURL="<%= commerceOrganizationDisplayContext.getPortletURL() %>"
+		showSearch="<%= false %>"
 	/>
 </div>
 
