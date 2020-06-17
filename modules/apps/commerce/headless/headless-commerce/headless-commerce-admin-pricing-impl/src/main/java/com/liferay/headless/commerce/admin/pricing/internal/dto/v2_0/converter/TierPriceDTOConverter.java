@@ -84,7 +84,7 @@ public class TierPriceDTOConverter
 				expirationDate = commerceTierPriceEntry.getExpirationDate();
 				externalReferenceCode =
 					commerceTierPriceEntry.getExternalReferenceCode();
-				id = commercePriceEntry.getCommercePriceEntryId();
+				id = commerceTierPriceEntry.getCommerceTierPriceEntryId();
 				minimumQuantity = commerceTierPriceEntry.getMinQuantity();
 				price = priceEntryPrice.doubleValue();
 				priceEntryExternalReferenceCode =
