@@ -138,7 +138,12 @@ describe('getMetricsData', () => {
 					{data: [getDate(keyDate)], id: 'x'}
 				],
 				dateKeysIMap,
-				intervals: getIntervals(rangeKey, [getDate(keyDate)], 'D'),
+				intervals: getIntervals(
+					rangeKey,
+					[getDate(keyDate)],
+					'D',
+					dateKeysIMap
+				),
 				prevDateKeysIMap
 			},
 			{
@@ -169,7 +174,12 @@ describe('getMetricsData', () => {
 					{data: [getDate(keyDate)], id: 'x'}
 				],
 				dateKeysIMap,
-				intervals: getIntervals(rangeKey, [getDate(keyDate)], 'D'),
+				intervals: getIntervals(
+					rangeKey,
+					[getDate(keyDate)],
+					'D',
+					dateKeysIMap
+				),
 				prevDateKeysIMap
 			}
 		]);
