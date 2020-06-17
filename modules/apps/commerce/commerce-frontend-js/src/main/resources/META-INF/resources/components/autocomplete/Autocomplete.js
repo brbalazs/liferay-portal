@@ -14,6 +14,7 @@
 
 import ClayAutocomplete from '@clayui/autocomplete';
 import ClayDropDown from '@clayui/drop-down';
+import {FocusScope} from '@clayui/shared';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect, useCallback, useRef} from 'react';
 
@@ -97,66 +98,68 @@ function Autocomplete(props) {
 	}, []);
 
 	return (
-		<ClayAutocomplete ref={node}>
-			<input
-				id={props.inputId || props.inputName}
-				name={props.inputName}
-				type="hidden"
-				value={value || ''}
-			/>
-			<ClayAutocomplete.Input
-				onChange={event => {
-					setLabel(null);
-					setValue(null);
+		<FocusScope>
+			<ClayAutocomplete ref={node}>
+				<input
+					id={props.inputId || props.inputName}
+					name={props.inputName}
+					type="hidden"
+					value={value || ''}
+				/>
+				<ClayAutocomplete.Input
+					onChange={event => {
+						setLabel(null);
+						setValue(null);
 
-					if (event.target.value !== query) {
-						setQuery(event.target.value);
-					}
-				}}
-				placeholder={props.inputPlaceholder}
-				value={label || query}
-			/>
-			{active && (
-				<ClayAutocomplete.DropDown active={true}>
-					<div className="autocomplete-items" ref={dropdownNode}>
-						<ClayDropDown.ItemList className="mb-0">
-							{items && items.length === 0 && (
-								<ClayDropDown.Item className="disabled">
-									{Liferay.Language.get(
-										'no-items-were-found'
-									)}
-								</ClayDropDown.Item>
-							)}
-							{items &&
-								items.length > 0 &&
-								items.map(item => (
-									<ClayAutocomplete.Item
-										key={String(item[props.itemsKey])}
-										onClick={() => {
-											setValue(item[props.itemsKey]);
-											setLabel(
+						if (event.target.value !== query) {
+							setQuery(event.target.value);
+						}
+					}}
+					placeholder={props.inputPlaceholder}
+					value={label || query}
+				/>
+				{active && (
+					<ClayAutocomplete.DropDown active={true}>
+						<div className="autocomplete-items" ref={dropdownNode}>
+							<ClayDropDown.ItemList className="mb-0">
+								{items && items.length === 0 && (
+									<ClayDropDown.Item className="disabled">
+										{Liferay.Language.get(
+											'no-items-were-found'
+										)}
+									</ClayDropDown.Item>
+								)}
+								{items &&
+									items.length > 0 &&
+									items.map(item => (
+										<ClayAutocomplete.Item
+											key={String(item[props.itemsKey])}
+											onClick={() => {
+												setValue(item[props.itemsKey]);
+												setLabel(
+													getValueFromItem(
+														item,
+														props.itemsLabel
+													)
+												);
+												setActive(false);
+												Liferay.fire();
+											}}
+											value={String(
 												getValueFromItem(
 													item,
 													props.itemsLabel
 												)
-											);
-											setActive(false);
-											Liferay.fire();
-										}}
-										value={String(
-											getValueFromItem(
-												item,
-												props.itemsLabel
-											)
-										)}
-									/>
-								))}
-						</ClayDropDown.ItemList>
-					</div>
-				</ClayAutocomplete.DropDown>
-			)}
-			{loading && <ClayAutocomplete.LoadingIndicator />}
-		</ClayAutocomplete>
+											)}
+										/>
+									))}
+							</ClayDropDown.ItemList>
+						</div>
+					</ClayAutocomplete.DropDown>
+				)}
+				{loading && <ClayAutocomplete.LoadingIndicator />}
+			</ClayAutocomplete>
+		</FocusScope>
 	);
 }
 
