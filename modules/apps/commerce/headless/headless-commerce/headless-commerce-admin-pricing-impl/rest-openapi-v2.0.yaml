@@ -474,11 +474,6 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                promoPrice:
-                    format: double
-                    type: number
-                promoPriceFormatted:
-                    type: string
                 sku:
                     example: BL500IC
                     type: string
@@ -936,11 +931,6 @@ components:
                     minimum: 0
                     type: integer
                 priceFormatted:
-                    type: string
-                promoPrice:
-                    format: double
-                    type: number
-                promoPriceFormatted:
                     type: string
             type: object
     securitySchemes:
