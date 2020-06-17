@@ -1,27 +1,55 @@
+import client from 'shared/apollo/client';
 import Form, {
+	toPromise,
 	validateMaxLength,
 	validateRequired
 } from 'shared/components/form';
 import React, {useEffect} from 'react';
 import {FormikErrors} from 'formik';
 import {JOB_TRAINING_FREQUENCIES_LIST} from '../../utils/utils';
+import {RECOMMENDATION_BY_NAME_QUERY} from '../../queries/RecommendationQuery';
 import {sequence} from 'shared/util/promise';
 
 interface IBasicSettingsProps {
 	disabled: boolean;
 	errors: FormikErrors<any>;
+	initialValues: any;
 	name: string;
 	onSetDisabled: (disabled: boolean) => void;
 }
 
 const BasicSettings: React.FC<IBasicSettingsProps> = ({
 	errors,
+	initialValues,
 	name,
 	onSetDisabled
 }) => {
 	useEffect(() => {
 		onSetDisabled(!name || !!errors.name);
 	}, [name, errors]);
+
+	const validateRecommendationName = (value: string): Promise<string> => {
+		let error = '';
+
+		if (value !== initialValues.name) {
+			return client
+				.query({
+					query: RECOMMENDATION_BY_NAME_QUERY,
+					variables: {name}
+				})
+				.then(({data: {jobByName}}) => {
+					if (jobByName) {
+						error = Liferay.Language.get(
+							'a-recommendation-model-already-exists-with-that-name.-please-enter-a-different-name'
+						);
+					}
+
+					return error;
+				});
+		} else {
+			return toPromise(error);
+		}
+	};
 
 	return (
 		<div className='basic-settings-root'>
@@ -32,7 +60,8 @@ const BasicSettings: React.FC<IBasicSettingsProps> = ({
 					required
 					validate={sequence([
 						validateRequired,
-						validateMaxLength(255)
+						validateMaxLength(255),
+						validateRecommendationName
 					])}
 				/>
 			</Form.Group>
