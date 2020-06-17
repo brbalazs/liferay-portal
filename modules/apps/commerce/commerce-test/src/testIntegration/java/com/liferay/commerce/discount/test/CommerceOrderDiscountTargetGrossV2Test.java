@@ -248,7 +248,7 @@ public class CommerceOrderDiscountTargetGrossV2Test {
 				BigDecimal.valueOf(0.9), taxRate,
 				RoundingMode.valueOf(_commerceCurrency.getRoundingMode()));
 
-		BigDecimal discountedTotal = priceWithTaxAmount;
+		BigDecimal discountedTotal = BigDecimal.ZERO;
 
 		if (priceWithTaxAmount.compareTo(BigDecimal.ONE) > 0) {
 			discountedTotal = priceWithTaxAmount.subtract(BigDecimal.ONE);
