@@ -1,40 +1,39 @@
 import BaseSelect from 'shared/components/BaseSelect';
-import Input from 'shared/components/Input';
+import getCN from 'classnames';
 import MetadataTag from './MetadataTag';
 import Promise from 'metal-promise';
 import React, {useEffect, useRef} from 'react';
-import {BACKSPACE} from 'shared/util/key-constants';
+import {BACKSPACE, ENTER} from 'shared/util/key-constants';
+import {METADATA_TAGS} from '../utils/utils';
 
-interface IStringMatchInputProps {
+interface IStringMatchInputProps
+	extends React.HTMLAttributes<HTMLInputElement> {
 	metadata: string;
-	onMetadataChange: () => void;
-	onStringMatchChange: () => void;
+	onEnterClick: () => void;
+	onMetadataChange: (value: string) => void;
+	onStringMatchChange: (value: string) => void;
 	stringMatch: string;
 }
 
-const METADATA_TAGS = ['canonicalurl', 'description', 'title', 'url'];
-
-const getMetadataTagsFn = query => {
-	return Promise.resolve(
-		METADATA_TAGS.filter(val => val.includes(query.toLowerCase()))
+const getMetadataTag = (value: string): string[] =>
+	METADATA_TAGS.filter(tag =>
+		tag.toLowerCase().includes(value.toLowerCase())
 	);
-};
 
 const StringMatchInput: React.FC<IStringMatchInputProps> = ({
+	className,
 	metadata,
-	onBlur,
+	onEnterClick,
 	onMetadataChange,
 	onStringMatchChange,
 	stringMatch
 }) => {
-	const _inputRef = useRef();
+	const _inputRef = useRef<HTMLInputElement>();
 
-	const metadataResults = !!METADATA_TAGS.filter(val =>
-		val.includes(stringMatch.toLowerCase())
-	).length;
+	const metadataResults: boolean = !!getMetadataTag(stringMatch).length;
 
 	useEffect(() => {
-		if (!!metadata) {
+		if (metadata) {
 			onStringMatchChange('');
 		}
 	}, [metadata]);
@@ -46,7 +45,7 @@ const StringMatchInput: React.FC<IStringMatchInputProps> = ({
 	}, [metadata, stringMatch]);
 
 	return (
-		<div>
+		<div className={getCN('string-match-input-root', className)}>
 			{(!!metadata || !metadataResults) && (
 				<div className='form-control form-control-tag-group'>
 					{!!metadata && <MetadataTag value={metadata} />}
@@ -59,10 +58,9 @@ const StringMatchInput: React.FC<IStringMatchInputProps> = ({
 							onStringMatchChange(value);
 						}}
 						onKeyDown={event => {
-							const {
-								keyCode,
-								target: {value}
-							} = event;
+							const {keyCode, target} = event;
+
+							const {value} = target as HTMLInputElement;
 
 							if (
 								keyCode === BACKSPACE &&
@@ -70,6 +68,8 @@ const StringMatchInput: React.FC<IStringMatchInputProps> = ({
 								!value
 							) {
 								onMetadataChange('');
+							} else if (keyCode === ENTER) {
+								onEnterClick();
 							}
 						}}
 						ref={_inputRef}
@@ -81,12 +81,13 @@ const StringMatchInput: React.FC<IStringMatchInputProps> = ({
 			{!metadata && metadataResults && (
 				<BaseSelect
 					className='form-control-inset'
-					dataSourceFn={getMetadataTagsFn}
+					dataSourceFn={query =>
+						Promise.resolve(getMetadataTag(query))
+					}
 					focusOnInit
 					inputValue={stringMatch}
 					itemRenderer={value => <MetadataTag value={value} />}
 					menuTitle={Liferay.Language.get('available-metadata')}
-					onBlur={onBlur}
 					onInputValueChange={onStringMatchChange}
 					onSelect={onMetadataChange}
 				/>
