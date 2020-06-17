@@ -640,6 +640,11 @@ const productsDataSetDisplayProps = {
 	],
 	filters: [
 		{
+			id: 'blbl',
+			label: 'Custom Filter',
+			moduleUrl: '/blblasd/asd/basdkj'
+		},
+		{
 			id: 'createDate',
 			label: 'Creation date',
 			max: {

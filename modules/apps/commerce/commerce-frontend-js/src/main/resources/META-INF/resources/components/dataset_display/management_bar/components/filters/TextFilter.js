@@ -17,10 +17,11 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import getAppContext from '../Context';
+function getOdataString(value, key) {
+	return `${key} eq '${value}'`;
+}
 
 function TextFilter(props) {
-	const {actions} = getAppContext();
 	const [value, setValue] = useState(props.value);
 
 	return (
@@ -51,9 +52,15 @@ function TextFilter(props) {
 				<ClayButton
 					className="btn-sm"
 					disabled={value === props.value}
-					onClick={() => actions.updateFilterValue(props.id, value)}
+					onClick={() =>
+						props.actions.updateFilterValue(
+							props.id,
+							value,
+							getOdataString(value, props.id)
+						)
+					}
 				>
-					{props.panelType === 'edit'
+					{props.value
 						? Liferay.Language.get('edit-filter')
 						: Liferay.Language.get('add-filter')}
 				</ClayButton>
@@ -67,7 +74,6 @@ TextFilter.propTypes = {
 	inputText: PropTypes.string,
 	invisible: PropTypes.bool,
 	label: PropTypes.string.isRequired,
-	operator: PropTypes.oneOf(['eq', 'startswith']).isRequired,
 	type: PropTypes.oneOf(['text']).isRequired,
 	value: PropTypes.string
 };

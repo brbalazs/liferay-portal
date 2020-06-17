@@ -130,9 +130,7 @@ function CartItem({item: cartItem}) {
 				.catch(showErrors)
 				.then(() => updateCartModel({orderId}))
 				.then(() => setIsUpdating(false));
-
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-		},
+		}, // eslint-disable-next-line react-hooks/exhaustive-deps
 		[AJAX, cartItem, cartItemId, orderId]
 	);
 

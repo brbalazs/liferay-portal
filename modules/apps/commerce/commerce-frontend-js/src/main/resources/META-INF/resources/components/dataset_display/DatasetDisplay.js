@@ -197,7 +197,10 @@ function DatasetDisplay(props) {
 
 	useEffect(() => {
 		const {apiUrl, items: injectedItems = []} = props,
-			itemsAreInjected = !apiUrl && !!injectedItems && injectedItems.length !== items.length;
+			itemsAreInjected =
+				!apiUrl &&
+				!!injectedItems &&
+				injectedItems.length !== items.length;
 
 		if (itemsAreInjected) {
 			updateDatasetItems({items: props.items});

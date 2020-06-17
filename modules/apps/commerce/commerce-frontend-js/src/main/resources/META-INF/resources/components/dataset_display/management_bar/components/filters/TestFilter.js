@@ -17,11 +17,11 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-function getOdataString(value, key) {
-	return `${key} eq ${value}`;
+function getOdataString() {
+	return `test ne 4`;
 }
 
-function NumberFilter(props) {
+function TestFilter(props) {
 	const [value, setValue] = useState(props.value);
 
 	return (
@@ -33,31 +33,28 @@ function NumberFilter(props) {
 					})}
 				>
 					<input
+						aria-label={props.label}
 						className="form-control"
-						max={props.max}
-						min={props.min}
 						onChange={e => setValue(e.target.value)}
-						type="number"
+						type="text"
 						value={value || ''}
 					/>
 				</div>
-				{props.inputText && (
-					<div className="input-group-append input-group-item input-group-item-shrink">
-						<span className="input-group-text">
-							{props.inputText}
-						</span>
-					</div>
-				)}
+				<div className="input-group-append input-group-item input-group-item-shrink">
+					<span className="input-group-text">
+						{Liferay.Language.get('test')}
+					</span>
+				</div>
 			</div>
 			<div className="mt-3">
 				<ClayButton
 					className="btn-sm"
-					disabled={Number(value) === props.value}
+					disabled={value === props.value}
 					onClick={() =>
 						props.actions.updateFilterValue(
 							props.id,
-							Number(value),
-							getOdataString(Number(value, props.id))
+							value,
+							getOdataString(value, props.id)
 						)
 					}
 				>
@@ -70,15 +67,11 @@ function NumberFilter(props) {
 	);
 }
 
-NumberFilter.propTypes = {
+TestFilter.propTypes = {
 	id: PropTypes.string.isRequired,
-	inputText: PropTypes.string,
 	invisible: PropTypes.bool,
 	label: PropTypes.string.isRequired,
-	max: PropTypes.number,
-	min: PropTypes.number,
-	type: PropTypes.oneOf(['number']).isRequired,
-	value: PropTypes.number
+	value: PropTypes.string
 };
 
-export default NumberFilter;
+export default TestFilter;

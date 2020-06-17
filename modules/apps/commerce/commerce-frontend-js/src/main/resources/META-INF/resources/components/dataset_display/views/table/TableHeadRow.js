@@ -65,6 +65,7 @@ function TableHeadCell(props) {
 			{props.sortable ? (
 				<a
 					className="inline-item text-truncate-inline text-nowrap"
+					data-senna-off
 					href="#"
 					onClick={handleSortingCellClick}
 				>

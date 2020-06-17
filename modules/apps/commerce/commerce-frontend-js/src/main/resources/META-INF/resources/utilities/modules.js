@@ -12,12 +12,14 @@
  * details.
  */
 
+import React from 'react';
+
 export function getLiferayJsModule(moduleUrl) {
 	return new Promise((resolve, reject) => {
 		Liferay.Loader.require(
 			moduleUrl,
 			jsModule => {
-				return resolve(jsModule.defult || jsModule);
+				return resolve(jsModule.default || jsModule);
 			},
 			err => {
 				return reject(err);
@@ -32,13 +34,11 @@ export function getFakeJsModule() {
 			resolve(() => {
 				return <>fakely fetched component</>;
 			});
-		}, 500);
+		}, 3000);
 	});
 }
 
-const getJsModule =
+export const getJsModule =
 	Liferay.Loader && Liferay.Loader.require
 		? getLiferayJsModule
 		: getFakeJsModule;
-
-export default getJsModule;

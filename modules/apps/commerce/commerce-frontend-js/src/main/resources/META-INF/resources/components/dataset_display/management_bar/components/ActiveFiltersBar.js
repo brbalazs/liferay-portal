@@ -16,7 +16,7 @@ import ClayButton from '@clayui/button';
 import React from 'react';
 
 import getAppContext from './Context';
-import ResumeFilter from './filters/ResumeFilter';
+import FilterResume from './FilterResume';
 
 function ActiveFiltersBar(props) {
 	const {actions, state} = getAppContext();
@@ -49,7 +49,7 @@ function ActiveFiltersBar(props) {
 									}
 
 									return (
-										<ResumeFilter
+										<FilterResume
 											disabled={props.disabled}
 											key={filter.id}
 											{...filter}

@@ -21,11 +21,33 @@ import {
 	formatDateObject,
 	getDateFromDateString
 } from '../../../utilities/dates';
-import getAppContext from '../Context';
 
+export function convertObjectDateToIsoString(objDate, direction) {
+	const time = direction === 'from' ? [0, 0, 0, 0] : [23, 59, 59, 999];
+	const date = new Date(
+		objDate.year,
+		objDate.month - 1,
+		objDate.day,
+		...time
+	);
+	return date.toISOString();
+}
+
+function getOdataString(value, key) {
+	if (value.from && value.to) {
+		return `${key} ge ${convertObjectDateToIsoString(
+			value.from,
+			'from'
+		)}) and (${key} le ${convertObjectDateToIsoString(value.to, 'to')}`;
+	}
+	if (value.from) {
+		return `${key} ge ${convertObjectDateToIsoString(value.from, 'from')}`;
+	}
+	if (value.to) {
+		return `${key} le ${convertObjectDateToIsoString(value.to, 'to')}`;
+	}
+}
 function DateRangeFilter(props) {
-	const {actions} = getAppContext();
-
 	const [fromValue, setFromValue] = useState(
 		props.value && props.value.from && formatDateObject(props.value.from)
 	);
@@ -48,7 +70,7 @@ function DateRangeFilter(props) {
 					pattern="\d{4}-\d{2}-\d{2}"
 					placeholder={props.placeholder || 'yyyy-mm-dd'}
 					type="date"
-					value={fromValue}
+					value={fromValue || ''}
 				/>
 			</ClayForm.Group>
 			<ClayForm.Group className="form-group-sm mt-2">
@@ -66,7 +88,7 @@ function DateRangeFilter(props) {
 					pattern="\d{4}-\d{2}-\d{2}"
 					placeholder={props.placeholder || 'yyyy-mm-dd'}
 					type="date"
-					value={toValue}
+					value={toValue || ''}
 				/>
 			</ClayForm.Group>
 
@@ -85,20 +107,29 @@ function DateRangeFilter(props) {
 					}
 					onClick={() => {
 						if (!fromValue && !toValue) {
-							actions.updateFilterValue(props.id, null);
+							props.actions.updateFilterValue(
+								props.id,
+								null,
+								null
+							);
 						} else {
-							actions.updateFilterValue(props.id, {
+							const newValue = {
 								from: fromValue
 									? getDateFromDateString(fromValue)
 									: null,
 								to: toValue
 									? getDateFromDateString(toValue)
 									: null
-							});
+							};
+							props.actions.updateFilterValue(
+								props.id,
+								newValue,
+								getOdataString(newValue, props.id)
+							);
 						}
 					}}
 				>
-					{props.panelType === 'edit'
+					{props.value
 						? Liferay.Language.get('edit-filter')
 						: Liferay.Language.get('add-filter')}
 				</ClayButton>

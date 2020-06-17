@@ -17,10 +17,18 @@ import {ClayCheckbox} from '@clayui/form';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import getAppContext from '../Context';
-
+function getOdataString(value, key) {
+	if (!value || !value.length) return null;
+	return `${key}/any(x:${value
+		.map(
+			v =>
+				`(x eq ${
+					typeof v.value === 'string' ? `'${v.value}'` : v.value
+				})`
+		)
+		.join(' or ')})`;
+}
 function CheckboxesFilter(props) {
-	const {actions} = getAppContext();
 	const [value, setValue] = useState(props.value);
 
 	function selectCheckbox(itemValue) {
@@ -63,9 +71,15 @@ function CheckboxesFilter(props) {
 				<ClayButton
 					className="btn-sm"
 					disabled={value === props.value}
-					onClick={() => actions.updateFilterValue(props.id, value)}
+					onClick={() =>
+						props.actions.updateFilterValue(
+							props.id,
+							value,
+							getOdataString(value, props.id)
+						)
+					}
 				>
-					{props.panelType === 'edit'
+					{props.value
 						? Liferay.Language.get('edit-filter')
 						: Liferay.Language.get('add-filter')}
 				</ClayButton>
@@ -84,17 +98,6 @@ CheckboxesFilter.propTypes = {
 		})
 	),
 	label: PropTypes.string.isRequired,
-	operator: PropTypes.oneOf([
-		'eq',
-		'ne',
-		'gt',
-		'ge',
-		'lt',
-		'le',
-		'and',
-		'or',
-		'not'
-	]).isRequired,
 	type: PropTypes.oneOf(['checkbox']).isRequired,
 	value: PropTypes.arrayOf(
 		PropTypes.oneOfType([PropTypes.string, PropTypes.number])
