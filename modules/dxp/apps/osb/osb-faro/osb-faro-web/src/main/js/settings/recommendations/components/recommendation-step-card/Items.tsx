@@ -59,7 +59,11 @@ const RuleCell: React.FC<{
 	className: string;
 	data: Filter;
 }> = ({className, data: {name, value}}) => {
-	const [rule, metadataTag] = value.split(/\s*(?:[=~])\s*/, 2).reverse();
+	const [rule, exactMatchSign, metadataTag] = value
+		.split(/\s*([=~])\s*/, 3)
+		.reverse();
+
+	const exactMatch = exactMatchSign === '=';
 
 	return (
 		<td className={getCN('rule', className)}>
@@ -67,7 +71,9 @@ const RuleCell: React.FC<{
 
 			{metadataTag && <MetadataTag value={metadataTag} />}
 
-			<span className='rule-value secondary-info'>{rule}</span>
+			<span className='rule-value secondary-info'>
+				{exactMatch ? `"${rule}"` : rule}
+			</span>
 		</td>
 	);
 };
@@ -132,7 +138,6 @@ const Items: React.FC<IItemsProps> = ({close, groupId, itemFilters, open}) => {
 						<Button
 							className='new-rule-button'
 							onClick={() => {
-								// TODO: open modal
 								// Maybe add a toast alert to inform the user that this already exists therefore it was not added
 
 								open(modalTypes.NEW_RULE_MODAL, {
