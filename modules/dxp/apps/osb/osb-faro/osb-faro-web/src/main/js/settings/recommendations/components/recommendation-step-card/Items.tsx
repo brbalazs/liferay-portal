@@ -1,24 +1,59 @@
 import Button from 'shared/components/Button';
+import Constants from 'shared/util/constants';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import MetadataTag from '../MetadataTag';
-import React from 'react';
+import React, {useEffect} from 'react';
+import RecommendationPageAssetsQuery from '../../queries/RecommendationPageAssetsQuery';
+import Spinner from 'shared/components/Spinner';
 import Table from 'shared/components/table';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
+import {EXCLUDE, Filter, RULE_NAME_LABEL_MAP} from '../../utils/utils';
 import {FieldArray} from 'formik';
-import {Filter, JobParameter, RULE_NAME_LABEL_MAP} from '../../utils/utils';
+import {get} from 'lodash';
 import {Modal} from 'shared/types';
+import {useLazyQuery, useQuery} from '@apollo/react-hooks';
+
+const {
+	pagination: {orderDescending}
+} = Constants;
 
 const CountCell: React.FC<{
 	className: string;
 	data: Filter;
-}> = ({className, data: {count}}) => (
-	// TODO: LRAC-6112 Fetch the count here only if count does not currently exist. Use replace to add the value to the fieldArray item. Will need to add loading indicator
-	// TODO: LRAC-6113 Add button here to open model with matching metadata/pages
+}> = ({className, data: {name, value}}) => {
+	const {data, loading} = useQuery(RecommendationPageAssetsQuery, {
+		variables: {
+			propertyFilters: [
+				{
+					filter: value,
+					negate: name === EXCLUDE
+				}
+			],
+			size: 0,
+			sort: {
+				column: 'title',
+				type: orderDescending.toUpperCase()
+			},
+			start: 0
+		}
+	});
 
-	<td className={className}>{count}</td>
-);
+	if (loading) {
+		return (
+			<td className={className}>
+				<Spinner size='sm' />
+			</td>
+		);
+	}
+
+	return (
+		<td className={className}>
+			{get(data, ['pageAssets', 'total'], 0).toLocaleString()}
+		</td>
+	);
+};
 
 const RuleCell: React.FC<{
 	className: string;
@@ -45,7 +80,41 @@ interface IItemsProps {
 }
 
 const Items: React.FC<IItemsProps> = ({close, groupId, itemFilters, open}) => {
-	const totalPages = itemFilters.reduce((acc, {count}) => acc + count, 0);
+	const [
+		getPageAssetsTotal,
+		{data, loading: pagesTotalLoading}
+	] = useLazyQuery(RecommendationPageAssetsQuery);
+
+	useEffect(() => {
+		getPageAssetsTotal({
+			variables: {
+				propertyFilters: itemFilters.map(({name, value}) => ({
+					filter: value,
+					negate: name === EXCLUDE
+				})),
+				size: 0,
+				sort: {
+					column: 'title',
+					type: orderDescending.toUpperCase()
+				},
+				start: 0
+			}
+		});
+	}, [itemFilters]);
+
+	const renderTotalPages = (): React.ReactNode => {
+		if (pagesTotalLoading) {
+			return (
+				<div>
+					<Spinner size='sm' />
+				</div>
+			);
+		}
+
+		return (
+			<div>{get(data, ['pageAssets', 'total'], 0).toLocaleString()}</div>
+		);
+	};
 
 	return (
 		<div className='items-root'>
@@ -64,7 +133,6 @@ const Items: React.FC<IItemsProps> = ({close, groupId, itemFilters, open}) => {
 							className='new-rule-button'
 							onClick={() => {
 								// TODO: open modal
-								// do not allow addition of duplicate values
 								// Maybe add a toast alert to inform the user that this already exists therefore it was not added
 
 								open(modalTypes.NEW_RULE_MODAL, {
@@ -139,7 +207,7 @@ const Items: React.FC<IItemsProps> = ({close, groupId, itemFilters, open}) => {
 										)}
 									</div>
 
-									<div>{totalPages}</div>
+									{renderTotalPages()}
 								</div>
 							</>
 						)}
