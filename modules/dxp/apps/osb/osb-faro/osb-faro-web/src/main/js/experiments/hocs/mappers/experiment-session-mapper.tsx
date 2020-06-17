@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import React from 'react';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {getAxisFormatter, getIntervals} from 'shared/util/charts';
+import {getAxisFormatter} from 'shared/util/charts';
 import {
 	getFormattedHistogram,
 	toThousandsABTesting
@@ -32,7 +32,7 @@ export default ({experiment}) => {
 			}
 		],
 		format: getAxisFormatter('number'),
-		intervals: getIntervals(null, key, null),
+		intervals: key,
 		Tooltip: ({dataPoint}) => {
 			const header = [
 				{

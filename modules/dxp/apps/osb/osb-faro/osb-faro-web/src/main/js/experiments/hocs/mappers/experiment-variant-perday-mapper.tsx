@@ -10,7 +10,6 @@ import {
 	normalizeHistogram,
 	TOOLTIP_METRICS
 } from 'experiments/util/experiments';
-import {getIntervals} from 'shared/util/charts';
 
 const CONTROL_COLOR = '#6B6C7E';
 
@@ -54,7 +53,7 @@ export default metricUnit => ({experiment}) => {
 			}
 		],
 		format: formatYAxis(metricUnit),
-		intervals: getIntervals(null, key, null),
+		intervals: key,
 		Tooltip: ({dataPoint}) => {
 			const date = dateFormatter(dataPoint[0].x);
 			const variant = variantsKeyValue[dataPoint[0].id][date];
