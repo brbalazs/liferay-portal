@@ -1,8 +1,11 @@
 import Constants, {
+	CUSTOM_RANGE,
+	LAST_180_DAYS,
 	LAST_24_HOURS,
 	LAST_28_DAYS,
 	LAST_30_DAYS,
 	LAST_90_DAYS,
+	LAST_YEAR,
 	YESTERDAY
 } from 'shared/util/constants';
 import {Interval} from 'shared/types';
@@ -101,7 +104,14 @@ export function isHourlyRangeKey(rangeKey: string): boolean {
 }
 
 export function isMonthlyRangeKey(rangeKey: string): boolean {
-	return [LAST_28_DAYS, LAST_30_DAYS, LAST_90_DAYS].includes(rangeKey);
+	return [
+		CUSTOM_RANGE,
+		LAST_28_DAYS,
+		LAST_30_DAYS,
+		LAST_90_DAYS,
+		LAST_180_DAYS,
+		LAST_YEAR
+	].includes(rangeKey);
 }
 
 /**
