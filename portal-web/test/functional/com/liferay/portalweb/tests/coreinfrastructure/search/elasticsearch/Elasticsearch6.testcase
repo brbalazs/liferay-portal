@@ -92,10 +92,6 @@ definition {
 			key_assetTitle = "WC WebContent Title",
 			locator1 = "AP#ASSET_ABSTRACT_TITLE");
 
-		AssetPublisherPortlet.viewAssetPG(
-			assetContent = "DM Document Description",
-			assetTitle = "DM Document Title");
-
 		SearchPortlets.searchEmbedded(searchTerm = "test");
 
 		// Workaround for LPS-89026, LPS-113094, and LPS-114163
