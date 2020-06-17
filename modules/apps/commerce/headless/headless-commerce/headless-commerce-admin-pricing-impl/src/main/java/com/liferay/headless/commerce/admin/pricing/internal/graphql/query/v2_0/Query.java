@@ -591,7 +591,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceEntryByExternalReferenceCode(externalReferenceCode: ___){active, bulkPricing, customFields, discountDiscovery, discountLevel1, discountLevel2, discountLevel3, discountLevel4, displayDate, expirationDate, externalReferenceCode, hasTierPrice, id, neverExpire, price, priceFormatted, priceListExternalReferenceCode, priceListId, promoPrice, promoPriceFormatted, sku, skuExternalReferenceCode, skuId, tierPrices}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceEntryByExternalReferenceCode(externalReferenceCode: ___){active, bulkPricing, customFields, discountDiscovery, discountLevel1, discountLevel2, discountLevel3, discountLevel4, displayDate, expirationDate, externalReferenceCode, hasTierPrice, id, neverExpire, price, priceFormatted, priceListExternalReferenceCode, priceListId, sku, skuExternalReferenceCode, skuId, tierPrices}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public PriceEntry priceEntryByExternalReferenceCode(
@@ -609,7 +609,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceEntry(id: ___){active, bulkPricing, customFields, discountDiscovery, discountLevel1, discountLevel2, discountLevel3, discountLevel4, displayDate, expirationDate, externalReferenceCode, hasTierPrice, id, neverExpire, price, priceFormatted, priceListExternalReferenceCode, priceListId, promoPrice, promoPriceFormatted, sku, skuExternalReferenceCode, skuId, tierPrices}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {priceEntry(id: ___){active, bulkPricing, customFields, discountDiscovery, discountLevel1, discountLevel2, discountLevel3, discountLevel4, displayDate, expirationDate, externalReferenceCode, hasTierPrice, id, neverExpire, price, priceFormatted, priceListExternalReferenceCode, priceListId, sku, skuExternalReferenceCode, skuId, tierPrices}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public PriceEntry priceEntry(@GraphQLName("id") Long id) throws Exception {
@@ -1141,7 +1141,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {tierPriceByExternalReferenceCode(externalReferenceCode: ___){active, customFields, discountDiscovery, discountLevel1, discountLevel2, discountLevel3, discountLevel4, displayDate, expirationDate, externalReferenceCode, id, minimumQuantity, neverExpire, price, priceEntryExternalReferenceCode, priceEntryId, priceFormatted, promoPrice, promoPriceFormatted}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {tierPriceByExternalReferenceCode(externalReferenceCode: ___){active, customFields, discountDiscovery, discountLevel1, discountLevel2, discountLevel3, discountLevel4, displayDate, expirationDate, externalReferenceCode, id, minimumQuantity, neverExpire, price, priceEntryExternalReferenceCode, priceEntryId, priceFormatted}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public TierPrice tierPriceByExternalReferenceCode(
@@ -1159,7 +1159,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {tierPrice(id: ___){active, customFields, discountDiscovery, discountLevel1, discountLevel2, discountLevel3, discountLevel4, displayDate, expirationDate, externalReferenceCode, id, minimumQuantity, neverExpire, price, priceEntryExternalReferenceCode, priceEntryId, priceFormatted, promoPrice, promoPriceFormatted}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {tierPrice(id: ___){active, customFields, discountDiscovery, discountLevel1, discountLevel2, discountLevel3, discountLevel4, displayDate, expirationDate, externalReferenceCode, id, minimumQuantity, neverExpire, price, priceEntryExternalReferenceCode, priceEntryId, priceFormatted}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public TierPrice tierPrice(@GraphQLName("id") Long id) throws Exception {

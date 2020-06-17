@@ -548,62 +548,6 @@ public class TierPrice {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String priceFormatted;
 
-	@Schema
-	public Double getPromoPrice() {
-		return promoPrice;
-	}
-
-	public void setPromoPrice(Double promoPrice) {
-		this.promoPrice = promoPrice;
-	}
-
-	@JsonIgnore
-	public void setPromoPrice(
-		UnsafeSupplier<Double, Exception> promoPriceUnsafeSupplier) {
-
-		try {
-			promoPrice = promoPriceUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Double promoPrice;
-
-	@Schema
-	public String getPromoPriceFormatted() {
-		return promoPriceFormatted;
-	}
-
-	public void setPromoPriceFormatted(String promoPriceFormatted) {
-		this.promoPriceFormatted = promoPriceFormatted;
-	}
-
-	@JsonIgnore
-	public void setPromoPriceFormatted(
-		UnsafeSupplier<String, Exception> promoPriceFormattedUnsafeSupplier) {
-
-		try {
-			promoPriceFormatted = promoPriceFormattedUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String promoPriceFormatted;
-
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -820,30 +764,6 @@ public class TierPrice {
 			sb.append("\"");
 
 			sb.append(_escape(priceFormatted));
-
-			sb.append("\"");
-		}
-
-		if (promoPrice != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"promoPrice\": ");
-
-			sb.append(promoPrice);
-		}
-
-		if (promoPriceFormatted != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"promoPriceFormatted\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(promoPriceFormatted));
 
 			sb.append("\"");
 		}

@@ -186,7 +186,6 @@ public abstract class BaseTierPriceResourceTestCase {
 		tierPrice.setExternalReferenceCode(regex);
 		tierPrice.setPriceEntryExternalReferenceCode(regex);
 		tierPrice.setPriceFormatted(regex);
-		tierPrice.setPromoPriceFormatted(regex);
 
 		String json = TierPriceSerDes.toJSON(tierPrice);
 
@@ -198,7 +197,6 @@ public abstract class BaseTierPriceResourceTestCase {
 		Assert.assertEquals(
 			regex, tierPrice.getPriceEntryExternalReferenceCode());
 		Assert.assertEquals(regex, tierPrice.getPriceFormatted());
-		Assert.assertEquals(regex, tierPrice.getPromoPriceFormatted());
 	}
 
 	@Test
@@ -910,24 +908,6 @@ public abstract class BaseTierPriceResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("promoPrice", additionalAssertFieldName)) {
-				if (tierPrice.getPromoPrice() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals(
-					"promoPriceFormatted", additionalAssertFieldName)) {
-
-				if (tierPrice.getPromoPriceFormatted() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -1209,30 +1189,6 @@ public abstract class BaseTierPriceResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("promoPrice", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						tierPrice1.getPromoPrice(),
-						tierPrice2.getPromoPrice())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals(
-					"promoPriceFormatted", additionalAssertFieldName)) {
-
-				if (!Objects.deepEquals(
-						tierPrice1.getPromoPriceFormatted(),
-						tierPrice2.getPromoPriceFormatted())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -1464,19 +1420,6 @@ public abstract class BaseTierPriceResourceTestCase {
 			return sb.toString();
 		}
 
-		if (entityFieldName.equals("promoPrice")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("promoPriceFormatted")) {
-			sb.append("'");
-			sb.append(String.valueOf(tierPrice.getPromoPriceFormatted()));
-			sb.append("'");
-
-			return sb.toString();
-		}
-
 		throw new IllegalArgumentException(
 			"Invalid entity field " + entityFieldName);
 	}
@@ -1535,9 +1478,6 @@ public abstract class BaseTierPriceResourceTestCase {
 					RandomTestUtil.randomString());
 				priceEntryId = RandomTestUtil.randomLong();
 				priceFormatted = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
-				promoPrice = RandomTestUtil.randomDouble();
-				promoPriceFormatted = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 			}
 		};

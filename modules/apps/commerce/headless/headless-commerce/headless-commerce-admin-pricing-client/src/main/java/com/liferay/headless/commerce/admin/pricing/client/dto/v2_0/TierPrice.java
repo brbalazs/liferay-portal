@@ -395,48 +395,6 @@ public class TierPrice implements Cloneable {
 
 	protected String priceFormatted;
 
-	public Double getPromoPrice() {
-		return promoPrice;
-	}
-
-	public void setPromoPrice(Double promoPrice) {
-		this.promoPrice = promoPrice;
-	}
-
-	public void setPromoPrice(
-		UnsafeSupplier<Double, Exception> promoPriceUnsafeSupplier) {
-
-		try {
-			promoPrice = promoPriceUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected Double promoPrice;
-
-	public String getPromoPriceFormatted() {
-		return promoPriceFormatted;
-	}
-
-	public void setPromoPriceFormatted(String promoPriceFormatted) {
-		this.promoPriceFormatted = promoPriceFormatted;
-	}
-
-	public void setPromoPriceFormatted(
-		UnsafeSupplier<String, Exception> promoPriceFormattedUnsafeSupplier) {
-
-		try {
-			promoPriceFormatted = promoPriceFormattedUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String promoPriceFormatted;
-
 	@Override
 	public TierPrice clone() throws CloneNotSupportedException {
 		return (TierPrice)super.clone();

@@ -265,30 +265,6 @@ public class PriceEntrySerDes {
 			sb.append(priceEntry.getPriceListId());
 		}
 
-		if (priceEntry.getPromoPrice() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"promoPrice\": ");
-
-			sb.append(priceEntry.getPromoPrice());
-		}
-
-		if (priceEntry.getPromoPriceFormatted() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"promoPriceFormatted\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(priceEntry.getPromoPriceFormatted()));
-
-			sb.append("\"");
-		}
-
 		if (priceEntry.getSku() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -516,22 +492,6 @@ public class PriceEntrySerDes {
 			map.put("priceListId", String.valueOf(priceEntry.getPriceListId()));
 		}
 
-		if (priceEntry.getPromoPrice() == null) {
-			map.put("promoPrice", null);
-		}
-		else {
-			map.put("promoPrice", String.valueOf(priceEntry.getPromoPrice()));
-		}
-
-		if (priceEntry.getPromoPriceFormatted() == null) {
-			map.put("promoPriceFormatted", null);
-		}
-		else {
-			map.put(
-				"promoPriceFormatted",
-				String.valueOf(priceEntry.getPromoPriceFormatted()));
-		}
-
 		if (priceEntry.getSku() == null) {
 			map.put("sku", null);
 		}
@@ -690,20 +650,6 @@ public class PriceEntrySerDes {
 				if (jsonParserFieldValue != null) {
 					priceEntry.setPriceListId(
 						Long.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "promoPrice")) {
-				if (jsonParserFieldValue != null) {
-					priceEntry.setPromoPrice(
-						Double.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(
-						jsonParserFieldName, "promoPriceFormatted")) {
-
-				if (jsonParserFieldValue != null) {
-					priceEntry.setPromoPriceFormatted(
-						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "sku")) {

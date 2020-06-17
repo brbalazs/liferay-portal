@@ -192,7 +192,6 @@ public abstract class BasePriceEntryResourceTestCase {
 		priceEntry.setExternalReferenceCode(regex);
 		priceEntry.setPriceFormatted(regex);
 		priceEntry.setPriceListExternalReferenceCode(regex);
-		priceEntry.setPromoPriceFormatted(regex);
 		priceEntry.setSku(regex);
 		priceEntry.setSkuExternalReferenceCode(regex);
 
@@ -206,7 +205,6 @@ public abstract class BasePriceEntryResourceTestCase {
 		Assert.assertEquals(regex, priceEntry.getPriceFormatted());
 		Assert.assertEquals(
 			regex, priceEntry.getPriceListExternalReferenceCode());
-		Assert.assertEquals(regex, priceEntry.getPromoPriceFormatted());
 		Assert.assertEquals(regex, priceEntry.getSku());
 		Assert.assertEquals(regex, priceEntry.getSkuExternalReferenceCode());
 	}
@@ -1188,24 +1186,6 @@ public abstract class BasePriceEntryResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("promoPrice", additionalAssertFieldName)) {
-				if (priceEntry.getPromoPrice() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals(
-					"promoPriceFormatted", additionalAssertFieldName)) {
-
-				if (priceEntry.getPromoPriceFormatted() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("sku", additionalAssertFieldName)) {
 				if (priceEntry.getSku() == null) {
 					valid = false;
@@ -1532,30 +1512,6 @@ public abstract class BasePriceEntryResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("promoPrice", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						priceEntry1.getPromoPrice(),
-						priceEntry2.getPromoPrice())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals(
-					"promoPriceFormatted", additionalAssertFieldName)) {
-
-				if (!Objects.deepEquals(
-						priceEntry1.getPromoPriceFormatted(),
-						priceEntry2.getPromoPriceFormatted())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
 			if (Objects.equals("sku", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						priceEntry1.getSku(), priceEntry2.getSku())) {
@@ -1836,19 +1792,6 @@ public abstract class BasePriceEntryResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("promoPrice")) {
-			throw new IllegalArgumentException(
-				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("promoPriceFormatted")) {
-			sb.append("'");
-			sb.append(String.valueOf(priceEntry.getPromoPriceFormatted()));
-			sb.append("'");
-
-			return sb.toString();
-		}
-
 		if (entityFieldName.equals("sku")) {
 			sb.append("'");
 			sb.append(String.valueOf(priceEntry.getSku()));
@@ -1935,9 +1878,6 @@ public abstract class BasePriceEntryResourceTestCase {
 				priceListExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				priceListId = RandomTestUtil.randomLong();
-				promoPrice = RandomTestUtil.randomDouble();
-				promoPriceFormatted = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
 				sku = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				skuExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
