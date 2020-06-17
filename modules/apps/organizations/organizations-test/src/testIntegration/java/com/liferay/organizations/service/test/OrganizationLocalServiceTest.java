@@ -44,9 +44,6 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.HashMapDictionary;
-import com.liferay.portal.kernel.util.ListUtil;
-import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.comparator.OrganizationTypeComparator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.search.test.util.AssertUtils;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
@@ -54,6 +51,7 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Dictionary;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -870,6 +868,8 @@ public class OrganizationLocalServiceTest {
 			_organizations.add(
 				OrganizationTestUtil.addOrganization(defaultType));
 
+			_organizations.sort(_organizationTypeComparator);
+
 			Sort sort = SortFactoryUtil.getSort(
 				Organization.class, "type", "asc");
 
@@ -879,20 +879,9 @@ public class OrganizationLocalServiceTest {
 					OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, null,
 					null, QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
 
-			List<Organization> indexerSearchResults =
-				baseModelSearchResult.getBaseModels();
-
-			_lowercaseOrganizationNamesForSort(indexerSearchResults);
-
-			List<Organization> expectedResults = new ArrayList<>(
-				indexerSearchResults);
-
 			AssertUtils.assertEquals(
-				"Sorting Error Message",
-				toStringList(
-					ListUtil.sort(
-						expectedResults, new OrganizationTypeComparator(true))),
-				toStringList(indexerSearchResults));
+				"Sorting Error Message", toStringList(_organizations),
+				toStringList(baseModelSearchResult.getBaseModels()));
 
 			sort = SortFactoryUtil.getSort(Organization.class, "type", "desc");
 
@@ -901,17 +890,11 @@ public class OrganizationLocalServiceTest {
 					TestPropsValues.getCompanyId(), 0, "", null,
 					QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
 
-			indexerSearchResults = baseModelSearchResult.getBaseModels();
-
-			_lowercaseOrganizationNamesForSort(indexerSearchResults);
+			_organizations.sort(_organizationTypeComparator.reversed());
 
 			AssertUtils.assertEquals(
-				"Sorting Error Message",
-				toStringList(
-					ListUtil.sort(
-						expectedResults,
-						new OrganizationTypeComparator(false))),
-				toStringList(indexerSearchResults));
+				"Sorting Error Message", toStringList(_organizations),
+				toStringList(baseModelSearchResult.getBaseModels()));
 		}
 		finally {
 			ConfigurationTestUtil.deleteConfiguration((String)configPid);
@@ -1000,16 +983,6 @@ public class OrganizationLocalServiceTest {
 		return sb.toString();
 	}
 
-	private void _lowercaseOrganizationNamesForSort(
-		List<Organization> organizations) {
-
-		for (Organization organization : organizations) {
-			String lowercaseName = StringUtil.lowerCase(organization.getName());
-
-			organization.setName(lowercaseName);
-		}
-	}
-
 	private Organization _updateOrganization(Organization organization)
 		throws Exception {
 
@@ -1030,6 +1003,23 @@ public class OrganizationLocalServiceTest {
 
 	@DeleteAfterTestRun
 	private final List<Organization> _organizations = new ArrayList<>();
+
+	private final Comparator<Organization> _organizationTypeComparator =
+		(organization1, organization2) -> {
+			int typeOrder1 = organization1.getTypeOrder();
+			int typeOrder2 = organization2.getTypeOrder();
+
+			int value = typeOrder1 - typeOrder2;
+
+			if (value == 0) {
+				String name1 = organization1.getName();
+				String name2 = organization2.getName();
+
+				value = name1.compareToIgnoreCase(name2);
+			}
+
+			return value;
+		};
 
 	@DeleteAfterTestRun
 	private User _user;
