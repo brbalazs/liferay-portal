@@ -194,6 +194,9 @@ public class FaroHooks {
 
 			faroSelenium.refresh();
 
+			faroSelenium.waitForLoadingComplete();
+			faroSelenium.waitForPageLoadingComplete();
+
 			String finalCount = String.valueOf(Table.tableItemCount());
 
 			if (!finalCount.equals("1")) {
