@@ -27,6 +27,7 @@ import com.liferay.commerce.price.list.exception.NoSuchPriceListException;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.base.CommercePriceListLocalServiceBaseImpl;
+import com.liferay.commerce.pricing.exception.CommerceUndefinedBasePriceListException;
 import com.liferay.commerce.pricing.service.CommercePriceModifierLocalService;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -133,7 +134,7 @@ public class CommercePriceListLocalServiceImpl
 
 		validate(
 			groupId, commerceCurrencyId, parentCommercePriceListId,
-			catalogBasePriceList, 0);
+			catalogBasePriceList, 0, type);
 
 		validateExternalReferenceCode(
 			serviceContext.getCompanyId(), externalReferenceCode);
@@ -470,11 +471,51 @@ public class CommercePriceListLocalServiceImpl
 	}
 
 	@Override
-	public CommercePriceList getCommerceCatalogBasePriceList(long groupId)
-		throws NoSuchPriceListException {
+	public CommercePriceList fetchCommerceCatalogBasePriceList(long groupId)
+		throws PortalException {
 
-		return commercePriceListPersistence.fetchByCatalogBasePriceList(
-			groupId, true);
+		return commercePriceListPersistence.fetchByCatalogBasePriceListByType(
+			groupId, true, CommercePriceListConstants.TYPE_PRICE_LIST);
+	}
+
+	@Override
+	public CommercePriceList getCommerceCatalogBasePriceList(long groupId)
+		throws PortalException {
+
+		CommercePriceList commercePriceList =
+			commercePriceListPersistence.fetchByCatalogBasePriceListByType(
+				groupId, true, CommercePriceListConstants.TYPE_PRICE_LIST);
+
+		if (commercePriceList == null) {
+			throw new CommerceUndefinedBasePriceListException();
+		}
+
+		return commercePriceList;
+	}
+
+	@Override
+	public CommercePriceList getCommerceCatalogBasePriceListByType(
+			long groupId, String type)
+		throws PortalException {
+
+		CommercePriceList commercePriceList =
+			commercePriceListPersistence.fetchByCatalogBasePriceListByType(
+				groupId, true, type);
+
+		if (commercePriceList == null) {
+			throw new CommerceUndefinedBasePriceListException();
+		}
+
+		return commercePriceList;
+	}
+
+	@Override
+	public CommercePriceList fetchCommerceCatalogBasePriceListByType(
+			long groupId, String type)
+		throws PortalException {
+
+		return commercePriceListPersistence.fetchByCatalogBasePriceListByType(
+			groupId, true, type);
 	}
 
 	@Override
@@ -870,7 +911,7 @@ public class CommercePriceListLocalServiceImpl
 		validate(
 			commercePriceList.getGroupId(), commerceCurrencyId,
 			parentCommercePriceListId, catalogBasePriceList,
-			commercePriceListId);
+			commercePriceListId, type);
 
 		Date expirationDate = null;
 		Date now = new Date();
@@ -1469,13 +1510,13 @@ public class CommercePriceListLocalServiceImpl
 	protected void validate(
 			long groupId, long commerceCurrencyId,
 			long parentCommercePriceListId, boolean catalogBasePriceList,
-			long commercePriceListId)
+			long commercePriceListId, String type)
 		throws PortalException {
 
 		if (catalogBasePriceList) {
 			CommercePriceList basePriceList =
-				commercePriceListPersistence.fetchByCatalogBasePriceList(
-					groupId, true);
+				commercePriceListPersistence.fetchByCatalogBasePriceListByType(
+					groupId, true, type);
 
 			if ((basePriceList != null) &&
 				(basePriceList.getCommercePriceListId() !=
