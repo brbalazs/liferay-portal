@@ -1,6 +1,7 @@
 import IndividualMetricsQuery from 'contacts/individual/dashboard/queries/IndividualMetricsQuery';
 import InterestsQuery from 'contacts/individual/dashboard/queries/InterestsQuery';
 import OrganizationsQuery from 'contacts/components/segment-editor/dynamic/queries/OrganizationsQuery';
+import RecommendationActivitiesQuery from 'settings/recommendations/queries/RecommendationActivitiesQuery';
 import RecommendationPageAssetsQuery from 'settings/recommendations/queries/RecommendationPageAssetsQuery';
 import SitesDashboardQuery from 'sites/queries/SitesDashboardQuery';
 import SuppressedUsersListQuery from 'settings/data-privacy/queries/SuppressedUsersListQuery';
@@ -216,6 +217,32 @@ export function mockMetric(metrics = {}) {
 	};
 }
 
+export function mockRecommendationActivitiesReq(items, mockVariables = {}) {
+	return {
+		request: {
+			query: RecommendationActivitiesQuery,
+			variables: {
+				applicationId: 'Page',
+				eventContextPropertyFilters: [
+					{filter: '.*custom-assets', negate: false}
+				],
+				eventId: 'pageUnloaded',
+				size: 0,
+				start: 0,
+				...mockVariables
+			}
+		},
+		result: {
+			data: {
+				activities: {
+					__typename: 'ActivityBag',
+					activities: items,
+					total: items.length
+				}
+			}
+		}
+	};
+}
 export function mockRecommendationPageAssetsReq(items, mockVariables = {}) {
 	return {
 		request: {

@@ -27,6 +27,11 @@ export type JobParameter = {
 	value: string;
 };
 
+export type JobProperty = {
+	filter: string;
+	negate: boolean;
+};
+
 export type Job = {
 	id: string;
 	name: string;
@@ -114,3 +119,9 @@ export const RULE_NAME_LABEL_MAP = {
 	excludeFilter: Liferay.Language.get('exclude'),
 	includeFilter: Liferay.Language.get('include')
 };
+
+export const getPropertiesFromItems = (itemFilters: Filter[]): JobProperty[] =>
+	itemFilters.map(({name, value}) => ({
+		filter: value,
+		negate: name === EXCLUDE
+	}));

@@ -9,7 +9,12 @@ import Spinner from 'shared/components/Spinner';
 import Table from 'shared/components/table';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
-import {EXCLUDE, Filter, RULE_NAME_LABEL_MAP} from '../../utils/utils';
+import {
+	EXCLUDE,
+	Filter,
+	getPropertiesFromItems,
+	RULE_NAME_LABEL_MAP
+} from '../../utils/utils';
 import {FieldArray} from 'formik';
 import {get} from 'lodash';
 import {Modal} from 'shared/types';
@@ -94,10 +99,7 @@ const Items: React.FC<IItemsProps> = ({close, groupId, itemFilters, open}) => {
 	useEffect(() => {
 		getPageAssetsTotal({
 			variables: {
-				propertyFilters: itemFilters.map(({name, value}) => ({
-					filter: value,
-					negate: name === EXCLUDE
-				})),
+				propertyFilters: getPropertiesFromItems(itemFilters),
 				size: 0,
 				sort: {
 					column: 'title',

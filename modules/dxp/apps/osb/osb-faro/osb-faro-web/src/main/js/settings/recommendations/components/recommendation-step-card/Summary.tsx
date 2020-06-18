@@ -1,20 +1,33 @@
+import Constants from 'shared/util/constants';
 import React from 'react';
+import RecommendationActivitiesQuery from '../../queries/RecommendationActivitiesQuery';
+import RecommendationPageAssetsQuery from '../../queries/RecommendationPageAssetsQuery';
 import Table from 'shared/components/table';
 import {DateCell} from 'shared/components/table/cell-components';
-import {getDate} from 'shared/util/date';
 import {
+	Filter,
+	getPropertiesFromItems,
 	JOB_TRAINING_FREQUENCIES_LABEL_MAP,
 	JOB_TRAINING_PERIODS_LABEL_MAP,
-	JOB_TYPES_LABEL_MAP
+	JOB_TYPES_LABEL_MAP,
+	JobProperty
 } from '../../utils/utils';
+import {get} from 'lodash';
+import {getDate} from 'shared/util/date';
 import {
 	jobTrainingFrequencies,
 	jobTrainingPeriods,
 	jobTypes
 } from 'shared/util/constants';
+import {useQuery} from '@apollo/react-hooks';
+
+const {
+	pagination: {orderDescending}
+} = Constants;
 
 interface ISummaryProps {
 	initialValues: any;
+	itemFilters: Filter[];
 	name: string;
 	trainingDate: string;
 	trainingFrequency: jobTrainingFrequencies;
@@ -24,13 +37,38 @@ interface ISummaryProps {
 
 const Summary: React.FC<ISummaryProps> = ({
 	initialValues,
+	itemFilters,
 	name,
 	trainingDate,
 	trainingFrequency,
 	trainingPeriod,
 	type
 }) => {
-	const trainingFrequencyChanged =
+	const propertyFilters: JobProperty[] = getPropertiesFromItems(itemFilters);
+
+	const {data: pageAssetsData} = useQuery(RecommendationPageAssetsQuery, {
+		variables: {
+			propertyFilters,
+			size: 0,
+			sort: {
+				column: 'title',
+				type: orderDescending.toUpperCase()
+			},
+			start: 0
+		}
+	});
+
+	const {data: activitiesData} = useQuery(RecommendationActivitiesQuery, {
+		variables: {
+			applicationId: 'Page',
+			eventContextPropertyFilters: propertyFilters,
+			eventId: 'pageUnloaded',
+			size: 0,
+			start: 0
+		}
+	});
+
+	const trainingFrequencyChanged: boolean =
 		initialValues.trainingFrequency !== trainingFrequency;
 
 	return (
@@ -92,25 +130,38 @@ const Summary: React.FC<ISummaryProps> = ({
 							datePath: 'trainingDate'
 						},
 						className: 'table-cell-expand',
-						label: Liferay.Language.get('training-date')
+						label: Liferay.Language.get('training-date'),
+						sortable: false
 					},
 					{
-						accessor: 'eventsCount',
+						accessor: 'activitiesData',
 						className: 'table-column-text-end',
-						dataFormatter: data => data.toLocaleString(),
-						label: Liferay.Language.get('events')
+						dataFormatter: data =>
+							get(
+								data,
+								['activities', 'total'],
+								0
+							).toLocaleString(),
+						label: Liferay.Language.get('events'),
+						sortable: false
 					},
 					{
-						accessor: 'itemsCount',
+						accessor: 'pageAssetsData',
 						className: 'table-column-text-end',
-						dataFormatter: data => data.toLocaleString(),
-						label: Liferay.Language.get('items')
+						dataFormatter: data =>
+							get(
+								data,
+								['pageAssets', 'total'],
+								0
+							).toLocaleString(),
+						label: Liferay.Language.get('items'),
+						sortable: false
 					}
 				]}
 				items={[
 					{
-						eventsCount: 321, // TODO: LRAC-5936 replace with actual count provided to form in step 3 modal
-						itemsCount: 123, // TODO: LRAC-5936 replace with count
+						activitiesData,
+						pageAssetsData,
 						trainingDate:
 							!trainingDate || trainingFrequencyChanged
 								? getDate()
