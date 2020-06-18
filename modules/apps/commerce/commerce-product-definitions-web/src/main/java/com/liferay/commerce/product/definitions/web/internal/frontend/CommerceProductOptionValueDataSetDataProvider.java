@@ -114,6 +114,10 @@ public class CommerceProductOptionValueDataSetDataProvider
 						cpDefinitionOptionValueRel.getName(
 							LanguageUtil.getLanguageId(locale))),
 					cpDefinitionOptionValueRel.getPriority(),
+					LanguageUtil.get(
+						locale,
+						cpDefinitionOptionValueRel.isPreselected() ? "yes" :
+							"no"),
 					_getSku(cpDefinitionOptionValueRel)));
 		}
 
