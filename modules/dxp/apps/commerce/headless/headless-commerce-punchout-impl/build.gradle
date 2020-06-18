@@ -36,13 +36,13 @@ dependencies {
 	compileOnly project(":apps:commerce:commerce-api")
 	compileOnly project(":apps:commerce:commerce-account-api")
 	compileOnly project(":apps:commerce:commerce-product-api")
-	compileOnly project(":dxp:apps:commerce:commerce-punchout-api")
 	compileOnly project(":apps:commerce:headless:headless-commerce-core-api")
-	compileOnly project(":dxp:apps:commerce:headless:headless-commerce-punchout-api")
 	compileOnly project(":apps:portal-odata:portal-odata-api")
-	compileOnly project(":apps:portal-security:portal-security-auto-login-punchout")
 	compileOnly project(":apps:portal-vulcan:portal-vulcan-api")
-	compileOnly project(":apps:oauth2-provider:oauth2-provider-punchout-api")
+	compileOnly project(":dxp:apps:commerce:commerce-punchout-api")
+	compileOnly project(":dxp:apps:commerce:headless:headless-commerce-punchout-api")
+	compileOnly project(":dxp:apps:oauth2-provider:oauth2-provider-punchout-api")
+	compileOnly project(":dxp:apps:portal-security:portal-security-auto-login-punchout")
 
 	testCompile group: "org.mockito", name: "mockito-core", version: "1.10.8"
 }
