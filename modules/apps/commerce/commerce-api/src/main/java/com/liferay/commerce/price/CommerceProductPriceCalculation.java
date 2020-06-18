@@ -28,6 +28,14 @@ import com.liferay.portal.kernel.exception.PortalException;
 @ProviderType
 public interface CommerceProductPriceCalculation {
 
+	public CommerceMoney getBasePrice(
+			long cpInstanceId, CommerceCurrency commerceCurrency)
+		throws PortalException;
+
+	public CommerceMoney getBasePromoPrice(
+			long cpInstanceId, CommerceCurrency commerceCurrency)
+		throws PortalException;
+
 	public CommerceProductPrice getCommerceProductPrice(
 			CommerceProductPriceRequest commerceProductPriceRequest)
 		throws PortalException;

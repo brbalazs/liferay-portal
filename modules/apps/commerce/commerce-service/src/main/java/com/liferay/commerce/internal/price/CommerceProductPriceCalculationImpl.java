@@ -16,6 +16,7 @@ package com.liferay.commerce.internal.price;
 
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.context.CommerceContext;
+import com.liferay.commerce.currency.exception.NoSuchCurrencyException;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
@@ -87,6 +88,31 @@ public class CommerceProductPriceCalculationImpl
 		_commercePriceListLocalService = commercePriceListLocalService;
 		_commerceTierPriceEntryLocalService =
 			commerceTierPriceEntryLocalService;
+	}
+
+	@Override
+	public CommerceMoney getBasePrice(
+			long cpInstanceId, CommerceCurrency commerceCurrency)
+		throws PortalException {
+
+		CPInstance cpInstance = cpInstanceLocalService.getCPInstance(
+			cpInstanceId);
+
+		return _getCurrencyConvertedPrice(
+			cpInstance.getGroupId(), commerceCurrency, cpInstance.getPrice());
+	}
+
+	@Override
+	public CommerceMoney getBasePromoPrice(
+			long cpInstanceId, CommerceCurrency commerceCurrency)
+		throws PortalException {
+
+		CPInstance cpInstance = cpInstanceLocalService.getCPInstance(
+			cpInstanceId);
+
+		return _getCurrencyConvertedPrice(
+			cpInstance.getGroupId(), commerceCurrency,
+			cpInstance.getPromoPrice());
 	}
 
 	@Override
@@ -326,29 +352,9 @@ public class CommerceProductPriceCalculationImpl
 			}
 		}
 
-		BigDecimal price = cpInstance.getPromoPrice();
-
-		CommerceCatalog commerceCatalog =
-			_commerceCatalogLocalService.fetchCommerceCatalogByGroupId(
-				cpInstance.getGroupId());
-
-		CommerceCurrency catalogCommerceCurrency =
-			_commerceCurrencyLocalService.getCommerceCurrency(
-				commerceCatalog.getCompanyId(),
-				commerceCatalog.getCommerceCurrencyCode());
-
-		if (catalogCommerceCurrency.getCommerceCurrencyId() !=
-				commerceCurrency.getCommerceCurrencyId()) {
-
-			price = price.divide(
-				catalogCommerceCurrency.getRate(),
-				RoundingMode.valueOf(
-					catalogCommerceCurrency.getRoundingMode()));
-
-			price = price.multiply(commerceCurrency.getRate());
-		}
-
-		return commerceMoneyFactory.create(commerceCurrency, price);
+		return _getCurrencyConvertedPrice(
+			cpInstance.getGroupId(), commerceCurrency,
+			cpInstance.getPromoPrice());
 	}
 
 	@Override
@@ -450,16 +456,21 @@ public class CommerceProductPriceCalculationImpl
 			}
 		}
 
+		return _getCurrencyConvertedPrice(
+			cpInstance.getGroupId(), commerceCurrency, cpInstance.getPrice());
+	}
+
+	private CommerceMoney _getCurrencyConvertedPrice(
+			long groupId, CommerceCurrency commerceCurrency, BigDecimal price)
+		throws NoSuchCurrencyException {
+
 		CommerceCatalog commerceCatalog =
-			_commerceCatalogLocalService.fetchCommerceCatalogByGroupId(
-				cpInstance.getGroupId());
+			_commerceCatalogLocalService.fetchCommerceCatalogByGroupId(groupId);
 
 		CommerceCurrency catalogCommerceCurrency =
 			_commerceCurrencyLocalService.getCommerceCurrency(
 				commerceCatalog.getCompanyId(),
 				commerceCatalog.getCommerceCurrencyCode());
-
-		BigDecimal price = cpInstance.getPrice();
 
 		if (catalogCommerceCurrency.getCommerceCurrencyId() !=
 				commerceCurrency.getCommerceCurrencyId()) {

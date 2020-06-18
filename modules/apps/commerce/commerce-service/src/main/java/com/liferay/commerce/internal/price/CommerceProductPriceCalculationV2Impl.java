@@ -103,6 +103,30 @@ public class CommerceProductPriceCalculationV2Impl
 	}
 
 	@Override
+	public CommerceMoney getBasePrice(
+			long cpInstanceId, CommerceCurrency commerceCurrency)
+		throws PortalException {
+
+		return commerceMoneyFactory.create(
+			commerceCurrency,
+			_getBasePrice(
+				cpInstanceId, commerceCurrency,
+				CommercePriceListConstants.TYPE_PRICE_LIST));
+	}
+
+	@Override
+	public CommerceMoney getBasePromoPrice(
+			long cpInstanceId, CommerceCurrency commerceCurrency)
+		throws PortalException {
+
+		return commerceMoneyFactory.create(
+			commerceCurrency,
+			_getBasePrice(
+				cpInstanceId, commerceCurrency,
+				CommercePriceListConstants.TYPE_PROMOTION));
+	}
+
+	@Override
 	public CommerceProductPrice getCommerceProductPrice(
 			CommerceProductPriceRequest commerceProductPriceRequest)
 		throws PortalException {
@@ -464,6 +488,50 @@ public class CommerceProductPriceCalculationV2Impl
 			0, discountAmount,
 			_getDiscountPercentage(discountedAmount, finalPrice, roundingMode),
 			values);
+	}
+
+	private BigDecimal _getBasePrice(
+			long cpInstanceId, CommerceCurrency commerceCurrency,
+			String commercePriceListType)
+		throws PortalException {
+
+		CPInstance cpInstance = cpInstanceLocalService.getCPInstance(
+			cpInstanceId);
+
+		CommercePriceList commercePriceList =
+			_commercePriceListLocalService.
+				fetchCommerceCatalogBasePriceListByType(
+					cpInstance.getGroupId(), commercePriceListType);
+
+		if (commercePriceList == null) {
+			return BigDecimal.ZERO;
+		}
+
+		CommercePriceEntry commercePriceEntry =
+			_commercePriceEntryLocalService.fetchCommercePriceEntry(
+				commercePriceList.getCommercePriceListId(),
+				cpInstance.getCPInstanceUuid());
+
+		if (commercePriceEntry == null) {
+			return BigDecimal.ZERO;
+		}
+
+		BigDecimal price = commercePriceEntry.getPrice();
+
+		CommerceCurrency priceListCurrency =
+			commercePriceList.getCommerceCurrency();
+
+		if (priceListCurrency.getCommerceCurrencyId() !=
+				commerceCurrency.getCommerceCurrencyId()) {
+
+			price = price.divide(
+				priceListCurrency.getRate(),
+				RoundingMode.valueOf(priceListCurrency.getRoundingMode()));
+
+			price = price.multiply(commerceCurrency.getRate());
+		}
+
+		return price;
 	}
 
 	private long _getBasePriceListId(CPInstance cpInstance)
