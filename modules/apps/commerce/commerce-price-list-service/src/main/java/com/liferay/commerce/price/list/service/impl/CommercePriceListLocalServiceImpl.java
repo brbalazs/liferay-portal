@@ -479,6 +479,15 @@ public class CommercePriceListLocalServiceImpl
 	}
 
 	@Override
+	public CommercePriceList fetchCommerceCatalogBasePriceListByType(
+			long groupId, String type)
+		throws PortalException {
+
+		return commercePriceListPersistence.fetchByCatalogBasePriceListByType(
+			groupId, true, type);
+	}
+
+	@Override
 	public CommercePriceList getCommerceCatalogBasePriceList(long groupId)
 		throws PortalException {
 
@@ -507,15 +516,6 @@ public class CommercePriceListLocalServiceImpl
 		}
 
 		return commercePriceList;
-	}
-
-	@Override
-	public CommercePriceList fetchCommerceCatalogBasePriceListByType(
-			long groupId, String type)
-		throws PortalException {
-
-		return commercePriceListPersistence.fetchByCatalogBasePriceListByType(
-			groupId, true, type);
 	}
 
 	@Override
