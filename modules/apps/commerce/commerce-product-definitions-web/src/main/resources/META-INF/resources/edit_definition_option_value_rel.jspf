@@ -40,6 +40,7 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 <aui:input helpMessage="key-help" name="key" />
 
 <c:if test="<%= cpDefinitionOptionValueRel != null %>">
+	<aui:input checked="<%= cpDefinitionOptionValueRel.isPreselected() %>" inlineField="<%= true %>" label="default" name="preselected" type="toggle-switch" />
 
 	<%
 	CommerceCurrency commerceCurrency = cpDefinitionOptionValueRelDisplayContext.getCommerceCurrency();
