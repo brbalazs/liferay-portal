@@ -15,11 +15,13 @@
 package com.liferay.commerce.product.definitions.web.internal.display.context;
 
 import com.liferay.commerce.currency.model.CommerceCurrency;
+import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.frontend.ClayCreationMenu;
 import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
 import com.liferay.commerce.frontend.ClayMenuActionItem;
+import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.ddm.DDMHelper;
 import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsDisplayContext;
 import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
@@ -69,6 +71,7 @@ public class CPInstanceDisplayContext extends BaseCPDefinitionsDisplayContext {
 		ActionHelper actionHelper, HttpServletRequest httpServletRequest,
 		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		CommercePriceFormatter commercePriceFormatter,
+		CommerceProductPriceCalculation commerceProductPriceCalculation,
 		CPDefinitionOptionRelService cpDefinitionOptionRelService,
 		CPInstanceHelper cpInstanceHelper,
 		CPMeasurementUnitLocalService cpMeasurementUnitLocalService,
@@ -78,6 +81,7 @@ public class CPInstanceDisplayContext extends BaseCPDefinitionsDisplayContext {
 
 		_commerceCurrencyLocalService = commerceCurrencyLocalService;
 		_commercePriceFormatter = commercePriceFormatter;
+		_commerceProductPriceCalculation = commerceProductPriceCalculation;
 		_cpDefinitionOptionRelService = cpDefinitionOptionRelService;
 		_cpInstanceHelper = cpInstanceHelper;
 		_cpMeasurementUnitLocalService = cpMeasurementUnitLocalService;
@@ -212,6 +216,30 @@ public class CPInstanceDisplayContext extends BaseCPDefinitionsDisplayContext {
 		return portletURL;
 	}
 
+	public BigDecimal getPrice() throws PortalException {
+		CPInstance cpInstance = getCPInstance();
+
+		if (cpInstance == null) {
+			return BigDecimal.ZERO;
+		}
+
+		CommerceMoney commerceMoney =
+			_commerceProductPriceCalculation.getBasePrice(
+				cpInstance.getCPInstanceId(), getCommerceCurrency());
+
+		return round(commerceMoney.getPrice());
+	}
+
+	public BigDecimal getPromoPrice() throws PortalException {
+		CPInstance cpInstance = getCPInstance();
+
+		CommerceMoney commerceMoney =
+			_commerceProductPriceCalculation.getBasePromoPrice(
+				cpInstance.getCPInstanceId(), getCommerceCurrency());
+
+		return round(commerceMoney.getPrice());
+	}
+
 	@Override
 	public String getScreenNavigationCategoryKey() {
 		return CPDefinitionScreenNavigationConstants.CATEGORY_KEY_SKUS;
@@ -292,6 +320,8 @@ public class CPInstanceDisplayContext extends BaseCPDefinitionsDisplayContext {
 
 	private final CommerceCurrencyLocalService _commerceCurrencyLocalService;
 	private final CommercePriceFormatter _commercePriceFormatter;
+	private final CommerceProductPriceCalculation
+		_commerceProductPriceCalculation;
 	private final CPDefinitionOptionRelService _cpDefinitionOptionRelService;
 	private CPInstance _cpInstance;
 	private final CPInstanceHelper _cpInstanceHelper;
