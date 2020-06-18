@@ -25,6 +25,7 @@ import com.liferay.dynamic.data.mapping.model.DDMFormInstanceRecord;
 import com.liferay.dynamic.data.mapping.model.DDMFormInstanceRecordVersion;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.model.LocalizedValue;
+import com.liferay.dynamic.data.mapping.model.Value;
 import com.liferay.dynamic.data.mapping.service.DDMFormInstanceRecordLocalService;
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
@@ -149,8 +150,17 @@ public class DDMFormViewFormInstanceRecordsDisplayContext {
 
 				@Override
 				public String apply(DDMFormFieldValue formFieldValue) {
-					return fieldValueRenderer.render(
+					String valueRendered = fieldValueRenderer.render(
 						formFieldValue, _renderRequest.getLocale());
+
+					if (Validator.isNull(valueRendered)) {
+						Value value = formFieldValue.getValue();
+
+						valueRendered = fieldValueRenderer.render(
+							formFieldValue, value.getDefaultLocale());
+					}
+
+					return valueRendered;
 				}
 
 			});
