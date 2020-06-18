@@ -68,7 +68,7 @@ if (analyticsConfiguration != null) {
 PortletURL portletURL = renderResponse.createRenderURL();
 %>
 
-<portlet:actionURL name="/analytics/edit_workspace_connection" var="editWorkspaceConnectionURL" />
+<portlet:actionURL name="/analytics_settings/edit_workspace_connection" var="editWorkspaceConnectionURL" />
 
 <div class="container-fluid-1280 mt-4 portlet-analytics-settings sheet sheet-lg">
 	<c:if test="<%= AnalyticsSettingsUtil.isAnalyticsEnabledWithOAuth(themeDisplay.getCompanyId()) %>">

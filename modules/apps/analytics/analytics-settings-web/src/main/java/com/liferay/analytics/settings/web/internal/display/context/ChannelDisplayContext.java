@@ -125,7 +125,8 @@ public class ChannelDisplayContext {
 	public PortletURL getPortletURL() {
 		PortletURL portletURL = _renderResponse.createRenderURL();
 
-		portletURL.setParameter("mvcRenderCommandName", "/analytics/view");
+		portletURL.setParameter(
+			"mvcRenderCommandName", "/analytics_settings/view");
 		portletURL.setParameter("tabs1", "synced-sites");
 
 		return portletURL;

@@ -56,7 +56,7 @@ String keywords = ParamUtil.getString(request, "keywords");
 
 				<div class="mt-4">
 					<portlet:renderURL var="selectSitesURL">
-						<portlet:param name="mvcRenderCommandName" value="/analytics/view" />
+						<portlet:param name="mvcRenderCommandName" value="/analytics_settings/view" />
 						<portlet:param name="tabs1" value="synced-sites" />
 					</portlet:renderURL>
 
