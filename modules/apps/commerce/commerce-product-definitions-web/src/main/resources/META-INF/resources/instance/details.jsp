@@ -41,6 +41,7 @@ if ((cpInstance != null) && (cpInstance.getExpirationDate() != null)) {
 	<aui:input name="cpInstanceId" type="hidden" value="<%= String.valueOf(cpInstanceId) %>" />
 	<aui:input name="workflowAction" type="hidden" value="<%= String.valueOf(WorkflowConstants.ACTION_SAVE_DRAFT) %>" />
 
+	<liferay-ui:error exception="<%= CommerceUndefinedBasePriceListException.class %>" message="there-is-no-base-price-list-associated-with-the-current-sku" />
 	<liferay-ui:error exception="<%= CPDefinitionIgnoreSKUCombinationsException.class %>" message="only-one-sku-can-be-approved" />
 	<liferay-ui:error exception="<%= CPInstanceJsonException.class %>" message="there-is-already-one-sku-with-the-selected-options" />
 	<liferay-ui:error exception="<%= CPInstanceSkuException.class %>" message="please-enter-a-valid-sku" />
@@ -106,14 +107,14 @@ if ((cpInstance != null) && (cpInstance.getExpirationDate() != null)) {
 	>
 		<div class="row">
 			<div class="col-4">
-				<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrencyCode) %>" type="text" value="<%= (cpInstance == null) ? StringPool.BLANK : cpInstanceDisplayContext.round(cpInstance.getPrice()) %>">
+				<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrencyCode) %>" type="text" value="<%= cpInstanceDisplayContext.getPrice() %>">
 					<aui:validator name="min">0</aui:validator>
 					<aui:validator name="number" />
 				</aui:input>
 			</div>
 
 			<div class="col-4">
-				<aui:input name="promoPrice" suffix="<%= HtmlUtil.escape(commerceCurrencyCode) %>" type="text" value="<%= (cpInstance == null) ? StringPool.BLANK : cpInstanceDisplayContext.round(cpInstance.getPromoPrice()) %>">
+				<aui:input name="promoPrice" suffix="<%= HtmlUtil.escape(commerceCurrencyCode) %>" type="text" value="<%= cpInstanceDisplayContext.getPromoPrice() %>">
 					<aui:validator name="min">0</aui:validator>
 					<aui:validator name="number" />
 				</aui:input>

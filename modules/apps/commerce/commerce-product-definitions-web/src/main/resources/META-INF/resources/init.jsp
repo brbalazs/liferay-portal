@@ -37,6 +37,7 @@ page import="com.liferay.commerce.inventory.CPDefinitionInventoryEngine" %><%@
 page import="com.liferay.commerce.model.CPDAvailabilityEstimate" %><%@
 page import="com.liferay.commerce.model.CPDefinitionInventory" %><%@
 page import="com.liferay.commerce.model.CommerceAvailabilityEstimate" %><%@
+page import="com.liferay.commerce.pricing.exception.CommerceUndefinedBasePriceListException" %><%@
 page import="com.liferay.commerce.pricing.model.CommercePricingClass" %><%@
 page import="com.liferay.commerce.product.constants.CPConstants" %><%@
 page import="com.liferay.commerce.product.constants.CPPortletKeys" %><%@
