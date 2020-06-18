@@ -14,9 +14,11 @@
 
 package com.liferay.headless.commerce.admin.channel.internal.dto.v1_0.converter;
 
-import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CommerceChannelService;
+import com.liferay.commerce.product.model.CPTaxCategory;
+import com.liferay.commerce.product.service.CPTaxCategoryService;
 import com.liferay.headless.commerce.admin.channel.dto.v1_0.Channel;
+import com.liferay.headless.commerce.admin.channel.dto.v1_0.TaxCategory;
+import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
@@ -27,11 +29,11 @@ import org.osgi.service.component.annotations.Reference;
  * @author Andrea Sbarra
  */
 @Component(
-	property = "dto.class.name=com.liferay.commerce.product.model.CommerceChannel",
-	service = {ChannelDTOConverter.class, DTOConverter.class}
+	property = "dto.class.name=com.liferay.commerce.product.model.CPTaxCategory",
+	service = {DTOConverter.class, TaxCategoryDTOConverter.class}
 )
-public class ChannelDTOConverter
-	implements DTOConverter<CommerceChannel, Channel> {
+public class TaxCategoryDTOConverter
+	implements DTOConverter<CPTaxCategory, TaxCategory> {
 
 	@Override
 	public String getContentType() {
@@ -39,27 +41,24 @@ public class ChannelDTOConverter
 	}
 
 	@Override
-	public Channel toDTO(DTOConverterContext dtoConverterContext)
+	public TaxCategory toDTO(DTOConverterContext dtoConverterContext)
 		throws Exception {
 
-		CommerceChannel commerceChannel =
-			_commerceChannelService.getCommerceChannel(
-				(Long)dtoConverterContext.getId());
+		CPTaxCategory cpTaxCategory = _cpTaxCategoryService.getCPTaxCategory(
+			(Long)dtoConverterContext.getId());
 
-		return new Channel() {
+		return new TaxCategory() {
 			{
-				currency = commerceChannel.getCommerceCurrencyCode();
-				externalReferenceCode =
-					commerceChannel.getExternalReferenceCode();
-				id = commerceChannel.getCommerceChannelId();
-				name = commerceChannel.getName();
-				siteGroupId = commerceChannel.getSiteGroupId();
-				type = commerceChannel.getType();
+				description = LanguageUtils.getLanguageIdMap(
+					cpTaxCategory.getDescriptionMap());
+				id = cpTaxCategory.getCPTaxCategoryId();
+				name = LanguageUtils.getLanguageIdMap(
+					cpTaxCategory.getNameMap());
 			}
 		};
 	}
 
 	@Reference
-	private CommerceChannelService _commerceChannelService;
+	private CPTaxCategoryService _cpTaxCategoryService;
 
 }
