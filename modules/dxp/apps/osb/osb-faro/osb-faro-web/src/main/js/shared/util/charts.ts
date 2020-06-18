@@ -289,12 +289,12 @@ export const getIntervals = (
 ): Date[] => {
 	if (arr.length) {
 		const firstDate = moment(arr[0]);
-		const [lastDateStart, lastDateEnd] = dateKeysIMap.get(
+		const [lastPeriodStart, lastPeriodEnd] = dateKeysIMap.get(
 			arr[arr.length - 1]
 		);
-		const lastDate = lastDateEnd
-			? moment(lastDateEnd)
-			: moment(lastDateStart);
+		const lastDate = lastPeriodEnd
+			? moment(lastPeriodEnd)
+			: moment(lastPeriodStart);
 		const duration = lastDate.diff(firstDate, 'days') + 1;
 
 		const validTimeInterval = [LAST_24_HOURS, YESTERDAY].includes(rangeKey)
