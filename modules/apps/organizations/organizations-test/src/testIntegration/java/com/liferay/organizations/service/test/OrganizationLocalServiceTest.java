@@ -852,6 +852,8 @@ public class OrganizationLocalServiceTest {
 
 	@Test
 	public void testSearchOrganizationsByType() throws Exception {
+		_organizations.add(OrganizationTestUtil.addOrganization());
+
 		for (int i = 0; i < 5; i++) {
 			String organizationType = RandomTestUtil.randomString();
 
@@ -871,8 +873,13 @@ public class OrganizationLocalServiceTest {
 				OrganizationTestUtil.addOrganization(organizationType));
 		}
 
-		_testSearchOrganizationsByType(_organizations, "asc");
-		_testSearchOrganizationsByType(_organizations, "desc");
+		List<Organization> expectedOrganizations = new ArrayList<>(
+			OrganizationLocalServiceUtil.getOrganizations(
+				TestPropsValues.getCompanyId(),
+				OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID));
+
+		_testSearchOrganizationsByType(expectedOrganizations, "asc");
+		_testSearchOrganizationsByType(expectedOrganizations, "desc");
 	}
 
 	protected List<Object> getOrganizationsAndUsers(Organization organization) {
