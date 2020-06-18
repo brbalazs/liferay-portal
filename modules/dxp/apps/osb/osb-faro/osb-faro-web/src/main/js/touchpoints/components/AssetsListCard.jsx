@@ -72,9 +72,11 @@ class AssetsListCard extends React.Component {
 			},
 			pickBy({
 				...query,
+				rangeEnd: null,
 				rangeKey: NEW_RANGE_KEYS_LIST.includes(rangeSelectors.rangeKey)
 					? LAST_30_DAYS
-					: rangeSelectors.rangeKey
+					: rangeSelectors.rangeKey,
+				rangeStart: null
 			})
 		);
 	}
