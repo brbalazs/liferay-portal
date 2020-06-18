@@ -228,7 +228,6 @@ $request.servletContext.getAttribute("org.apache.tomcat.InstanceManager"))
 
 		WebContent.addStructuredPGViaWCD(
 			structureName = "WC Structure Name",
-			templateName = "WC Template Name",
 			webContentTitle = "WC Title");
 
 		Portlet.viewBody(
@@ -281,7 +280,6 @@ $request.servletContext.getAttribute("org.apache.tomcat.InstanceManager"))
 
 		WebContent.addStructuredPGViaWCD(
 			structureName = "WC Structure Name",
-			templateName = "WC Template Name",
 			webContentTitle = "WC Title");
 
 		Portlet.viewBody(
