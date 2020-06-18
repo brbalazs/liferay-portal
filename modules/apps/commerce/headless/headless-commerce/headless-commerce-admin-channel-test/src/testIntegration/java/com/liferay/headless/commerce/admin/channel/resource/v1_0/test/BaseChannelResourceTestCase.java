@@ -485,6 +485,11 @@ public abstract class BaseChannelResourceTestCase {
 	}
 
 	@Test
+	public void testNullBatch() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testDeleteChannel() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
 		Channel channel = testDeleteChannel_addChannel();
@@ -539,6 +544,20 @@ public abstract class BaseChannelResourceTestCase {
 
 			Assert.assertTrue(errorsJSONArray.length() > 0);
 		}
+	}
+
+	@Test
+	public void testNullBatch() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Channel channel = testNullBatch_addChannel();
+
+		assertHttpResponseStatusCode(
+			204, channelResource.nullBatchHttpResponse(null, null));
+	}
+
+	protected Channel testNullBatch_addChannel() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
@@ -642,6 +661,11 @@ public abstract class BaseChannelResourceTestCase {
 	protected Channel testPutChannel_addChannel() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testNullBatch() throws Exception {
+		Assert.assertTrue(false);
 	}
 
 	@Rule

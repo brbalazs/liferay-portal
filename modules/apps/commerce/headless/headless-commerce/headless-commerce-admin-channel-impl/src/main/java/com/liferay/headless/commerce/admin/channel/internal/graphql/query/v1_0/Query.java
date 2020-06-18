@@ -15,7 +15,9 @@
 package com.liferay.headless.commerce.admin.channel.internal.graphql.query.v1_0;
 
 import com.liferay.headless.commerce.admin.channel.dto.v1_0.Channel;
+import com.liferay.headless.commerce.admin.channel.dto.v1_0.TaxCategory;
 import com.liferay.headless.commerce.admin.channel.resource.v1_0.ChannelResource;
+import com.liferay.headless.commerce.admin.channel.resource.v1_0.TaxCategoryResource;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.search.Sort;
@@ -23,6 +25,7 @@ import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
+import com.liferay.portal.vulcan.graphql.annotation.GraphQLTypeExtension;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
@@ -51,6 +54,14 @@ public class Query {
 
 		_channelResourceComponentServiceObjects =
 			channelResourceComponentServiceObjects;
+	}
+
+	public static void setTaxCategoryResourceComponentServiceObjects(
+		ComponentServiceObjects<TaxCategoryResource>
+			taxCategoryResourceComponentServiceObjects) {
+
+		_taxCategoryResourceComponentServiceObjects =
+			taxCategoryResourceComponentServiceObjects;
 	}
 
 	/**
@@ -93,6 +104,66 @@ public class Query {
 			channelResource -> channelResource.getChannel(channelId));
 	}
 
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelTaxCategories(channelId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public TaxCategoryPage channelTaxCategories(
+			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("pageSize") int pageSize,
+			@GraphQLName("page") int page)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_taxCategoryResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			taxCategoryResource -> new TaxCategoryPage(
+				taxCategoryResource.getChannelTaxCategoriesPage(
+					channelId, Pagination.of(page, pageSize))));
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {taxCategory(id: ___){description, groupId, id, name}}"}' -u 'test@liferay.com:test'
+	 */
+	@GraphQLField
+	public TaxCategory taxCategory(@GraphQLName("id") Long id)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_taxCategoryResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			taxCategoryResource -> taxCategoryResource.getTaxCategory(id));
+	}
+
+	@GraphQLTypeExtension(Channel.class)
+	public class GetChannelTaxCategoriesPageTypeExtension {
+
+		public GetChannelTaxCategoriesPageTypeExtension(Channel channel) {
+			_channel = channel;
+		}
+
+		@GraphQLField
+		public TaxCategoryPage taxCategories(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_taxCategoryResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				taxCategoryResource -> new TaxCategoryPage(
+					taxCategoryResource.getChannelTaxCategoriesPage(
+						_channel.getId(), Pagination.of(page, pageSize))));
+		}
+
+		private Channel _channel;
+
+	}
+
 	@GraphQLName("ChannelPage")
 	public class ChannelPage {
 
@@ -110,6 +181,38 @@ public class Query {
 
 		@GraphQLField
 		protected java.util.Collection<Channel> items;
+
+		@GraphQLField
+		protected long lastPage;
+
+		@GraphQLField
+		protected long page;
+
+		@GraphQLField
+		protected long pageSize;
+
+		@GraphQLField
+		protected long totalCount;
+
+	}
+
+	@GraphQLName("TaxCategoryPage")
+	public class TaxCategoryPage {
+
+		public TaxCategoryPage(Page taxCategoryPage) {
+			actions = taxCategoryPage.getActions();
+			items = taxCategoryPage.getItems();
+			lastPage = taxCategoryPage.getLastPage();
+			page = taxCategoryPage.getPage();
+			pageSize = taxCategoryPage.getPageSize();
+			totalCount = taxCategoryPage.getTotalCount();
+		}
+
+		@GraphQLField
+		protected Map<String, Map> actions;
+
+		@GraphQLField
+		protected java.util.Collection<TaxCategory> items;
 
 		@GraphQLField
 		protected long lastPage;
@@ -155,8 +258,22 @@ public class Query {
 		channelResource.setContextUser(_user);
 	}
 
+	private void _populateResourceContext(
+			TaxCategoryResource taxCategoryResource)
+		throws Exception {
+
+		taxCategoryResource.setContextAcceptLanguage(_acceptLanguage);
+		taxCategoryResource.setContextCompany(_company);
+		taxCategoryResource.setContextHttpServletRequest(_httpServletRequest);
+		taxCategoryResource.setContextHttpServletResponse(_httpServletResponse);
+		taxCategoryResource.setContextUriInfo(_uriInfo);
+		taxCategoryResource.setContextUser(_user);
+	}
+
 	private static ComponentServiceObjects<ChannelResource>
 		_channelResourceComponentServiceObjects;
+	private static ComponentServiceObjects<TaxCategoryResource>
+		_taxCategoryResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
 	private BiFunction<Object, String, Filter> _filterBiFunction;

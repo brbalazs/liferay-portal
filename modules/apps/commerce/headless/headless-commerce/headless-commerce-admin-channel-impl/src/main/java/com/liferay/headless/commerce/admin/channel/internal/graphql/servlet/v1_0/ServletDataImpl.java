@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.admin.channel.internal.graphql.servlet.v1_
 import com.liferay.headless.commerce.admin.channel.internal.graphql.mutation.v1_0.Mutation;
 import com.liferay.headless.commerce.admin.channel.internal.graphql.query.v1_0.Query;
 import com.liferay.headless.commerce.admin.channel.resource.v1_0.ChannelResource;
+import com.liferay.headless.commerce.admin.channel.resource.v1_0.TaxCategoryResource;
 import com.liferay.portal.vulcan.graphql.servlet.ServletData;
 
 import javax.annotation.Generated;
@@ -43,6 +44,8 @@ public class ServletDataImpl implements ServletData {
 
 		Query.setChannelResourceComponentServiceObjects(
 			_channelResourceComponentServiceObjects);
+		Query.setTaxCategoryResourceComponentServiceObjects(
+			_taxCategoryResourceComponentServiceObjects);
 	}
 
 	@Override
@@ -63,5 +66,9 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<ChannelResource>
 		_channelResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<TaxCategoryResource>
+		_taxCategoryResourceComponentServiceObjects;
 
 }
