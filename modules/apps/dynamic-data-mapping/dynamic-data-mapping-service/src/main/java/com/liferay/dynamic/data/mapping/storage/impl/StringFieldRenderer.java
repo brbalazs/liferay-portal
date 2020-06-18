@@ -124,7 +124,7 @@ public class StringFieldRenderer extends BaseFieldRenderer {
 		LocalizedValue label = getFieldOptionLabel(field, value);
 
 		if (label == null) {
-			return StringPool.BLANK;
+			return value;
 		}
 
 		return GetterUtil.getString(label.getString(locale));
@@ -143,11 +143,15 @@ public class StringFieldRenderer extends BaseFieldRenderer {
 		StringBundler sb = new StringBundler(jsonArray.length() * 2);
 
 		for (int i = 0; i < jsonArray.length(); i++) {
-			LocalizedValue label = getFieldOptionLabel(
-				field, jsonArray.getString(i));
+			String value = jsonArray.getString(i);
+
+			LocalizedValue label = getFieldOptionLabel(field, value);
 
 			if (label == null) {
-				continue;
+				sb.append(value);
+			}
+			else {
+				sb.append(label.getString(locale));
 			}
 
 			sb.append(label.getString(locale));
