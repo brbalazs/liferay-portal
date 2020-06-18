@@ -28,7 +28,7 @@ import org.osgi.service.component.annotations.Component;
 	service = ClayDataSetDisplayView.class
 )
 public class CommerceProductOptionValueStaticClayTableDataSetDisplayView
-	extends BaseClayTableDataSetDisplayView {
+	extends BaseCommerceProductOptionValueClayTableDataSetDisplayView {
 
 	protected void addFields(ClayTableSchemaBuilder clayTableSchemaBuilder) {
 		clayTableSchemaBuilder.addField("key", "key");

@@ -14,28 +14,29 @@
 
 package com.liferay.commerce.product.definitions.web.internal.frontend;
 
-import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayView;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
-
-import org.osgi.service.component.annotations.Component;
+import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
 
 /**
- * @author Alessio Antonio Rendina
  * @author Igor Beslic
  */
-@Component(
-	immediate = true,
-	property = "commerce.data.set.display.name=" + CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_OPTION_VALUES,
-	service = ClayDataSetDisplayView.class
-)
-public class CommerceProductOptionValueClayTableDataSetDisplayView
-	extends BaseCommerceProductOptionValueClayTableDataSetDisplayView {
+public abstract class BaseCommerceProductOptionValueClayTableDataSetDisplayView
+	extends BaseClayTableDataSetDisplayView {
 
 	@Override
-	protected void addFields(ClayTableSchemaBuilder clayTableSchemaBuilder) {
-		clayTableSchemaBuilder.addField("key", "key");
-		clayTableSchemaBuilder.addField("position", "position");
-		clayTableSchemaBuilder.addField("sku", "linked-product");
+	protected void addActionLinkFields(
+		ClayTableSchemaBuilder clayTableSchemaBuilder) {
+
+		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
+			"name", "name");
+
+		nameField.setContentRenderer("actionLink");
+
+		ClayTableSchemaField preselectedField = clayTableSchemaBuilder.addField(
+			"preselected", "default");
+
+		preselectedField.setActionId("updatePreselected");
+		preselectedField.setContentRenderer("actionLink");
 	}
 
 }
