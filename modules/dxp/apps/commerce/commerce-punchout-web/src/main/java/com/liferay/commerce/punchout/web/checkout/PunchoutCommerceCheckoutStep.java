@@ -44,6 +44,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -122,7 +123,7 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 		throws Exception {
 
 		_jspRenderer.renderJSP(
-			httpServletRequest, httpServletResponse,
+			_servletContext, httpServletRequest, httpServletResponse,
 			"/checkout_step/punchout.jsp");
 	}
 
@@ -279,5 +280,10 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 	@Reference
 	private PunchoutReturnService _punchoutReturnService;
+
+	@Reference(
+		target = "(osgi.web.symbolicname=com.liferay.commerce.punchout.web)"
+	)
+	private ServletContext _servletContext;
 
 }
