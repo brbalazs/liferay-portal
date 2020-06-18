@@ -14,6 +14,14 @@
 
 package com.liferay.commerce.product.definitions.web.internal.portlet.action;
 
+import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
+import com.liferay.commerce.price.list.model.CommercePriceEntry;
+import com.liferay.commerce.price.list.model.CommercePriceList;
+import com.liferay.commerce.price.list.service.CommercePriceEntryLocalService;
+import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
+import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
+import com.liferay.commerce.pricing.exception.CommerceUndefinedBasePriceListException;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.exception.CPDefinitionIgnoreSKUCombinationsException;
 import com.liferay.commerce.product.exception.CPInstanceJsonException;
@@ -24,6 +32,8 @@ import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.module.configuration.ConfigurationException;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
@@ -32,6 +42,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.settings.SystemSettingsLocator;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionConfig;
@@ -46,6 +57,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 import java.math.BigDecimal;
 
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 
 import javax.portlet.ActionRequest;
@@ -132,7 +144,8 @@ public class EditCPInstanceMVCActionCommand extends BaseMVCActionCommand {
 			}
 		}
 		catch (Throwable t) {
-			if (t instanceof CPDefinitionIgnoreSKUCombinationsException ||
+			if (t instanceof CommerceUndefinedBasePriceListException ||
+				t instanceof CPDefinitionIgnoreSKUCombinationsException ||
 				t instanceof CPInstanceJsonException ||
 				t instanceof CPInstanceSkuException ||
 				t instanceof
@@ -275,6 +288,19 @@ public class EditCPInstanceMVCActionCommand extends BaseMVCActionCommand {
 			cpInstance.getCPInstanceId(), price, promoPrice, cost,
 			serviceContext);
 
+		String commercePricingConfigurationKey =
+			_getCommercePricingConfigurationKey();
+
+		if (Objects.equals(commercePricingConfigurationKey, "v2.0")) {
+			_updateCommercePriceEntry(
+				cpInstance, CommercePriceListConstants.TYPE_PRICE_LIST, price,
+				serviceContext);
+
+			_updateCommercePriceEntry(
+				cpInstance, CommercePriceListConstants.TYPE_PROMOTION,
+				promoPrice, serviceContext);
+		}
+
 		// Update shipping info
 
 		double width = ParamUtil.getDouble(actionRequest, "width");
@@ -327,9 +353,50 @@ public class EditCPInstanceMVCActionCommand extends BaseMVCActionCommand {
 			deliveryMaxSubscriptionCycles);
 	}
 
+	private String _getCommercePricingConfigurationKey()
+		throws ConfigurationException {
+
+		CommercePricingConfiguration commercePricingConfiguration =
+			_configurationProvider.getConfiguration(
+				CommercePricingConfiguration.class,
+				new SystemSettingsLocator(
+					CommercePricingConstants.SERVICE_NAME));
+
+		return commercePricingConfiguration.commercePricingCalculationKey();
+	}
+
+	private void _updateCommercePriceEntry(
+			CPInstance cpInstance, String type, BigDecimal price,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		CommercePriceList commercePriceList =
+			_commercePriceListLocalService.
+				getCommerceCatalogBasePriceListByType(
+					cpInstance.getGroupId(), type);
+
+		CommercePriceEntry commercePriceEntry =
+			_commercePriceEntryLocalService.fetchCommercePriceEntry(
+				commercePriceList.getCommercePriceListId(),
+				cpInstance.getCPInstanceUuid());
+
+		_commercePriceEntryLocalService.updateCommercePriceEntry(
+			commercePriceEntry.getCommercePriceEntryId(), price, null,
+			serviceContext);
+	}
+
 	private static final TransactionConfig _transactionConfig =
 		TransactionConfig.Factory.create(
 			Propagation.REQUIRED, new Class<?>[] {Exception.class});
+
+	@Reference
+	private CommercePriceEntryLocalService _commercePriceEntryLocalService;
+
+	@Reference
+	private CommercePriceListLocalService _commercePriceListLocalService;
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private CPDefinitionLocalService _cpDefinitionLocalService;
