@@ -16,7 +16,6 @@ package com.liferay.commerce.price.list.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.commerce.price.list.exception.NoSuchPriceListException;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.exportimport.kernel.lar.PortletDataContext;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
@@ -298,6 +297,15 @@ public interface CommercePriceListLocalService
 		long companyId, String externalReferenceCode);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommercePriceList fetchCommerceCatalogBasePriceList(long groupId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommercePriceList fetchCommerceCatalogBasePriceListByType(
+			long groupId, String type)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommercePriceList fetchCommercePriceList(long commercePriceListId);
 
 	/**
@@ -327,7 +335,12 @@ public interface CommercePriceListLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommercePriceList getCommerceCatalogBasePriceList(long groupId)
-		throws NoSuchPriceListException;
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommercePriceList getCommerceCatalogBasePriceListByType(
+			long groupId, String type)
+		throws PortalException;
 
 	/**
 	 * Returns the commerce price list with the primary key.

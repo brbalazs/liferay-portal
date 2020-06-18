@@ -168,11 +168,13 @@ public class CommercePriceListModelImpl
 
 	public static final long STATUS_COLUMN_BITMASK = 128L;
 
-	public static final long UUID_COLUMN_BITMASK = 256L;
+	public static final long TYPE_COLUMN_BITMASK = 256L;
 
-	public static final long CREATEDATE_COLUMN_BITMASK = 512L;
+	public static final long UUID_COLUMN_BITMASK = 512L;
 
-	public static final long PRIORITY_COLUMN_BITMASK = 1024L;
+	public static final long CREATEDATE_COLUMN_BITMASK = 1024L;
+
+	public static final long PRIORITY_COLUMN_BITMASK = 2048L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -1198,7 +1200,17 @@ public class CommercePriceListModelImpl
 
 	@Override
 	public void setType(String type) {
+		_columnBitmask |= TYPE_COLUMN_BITMASK;
+
+		if (_originalType == null) {
+			_originalType = _type;
+		}
+
 		_type = type;
+	}
+
+	public String getOriginalType() {
+		return GetterUtil.getString(_originalType);
 	}
 
 	@JSON
@@ -1620,6 +1632,9 @@ public class CommercePriceListModelImpl
 
 		commercePriceListModelImpl._setOriginalCatalogBasePriceList = false;
 
+		commercePriceListModelImpl._originalType =
+			commercePriceListModelImpl._type;
+
 		commercePriceListModelImpl._originalDisplayDate =
 			commercePriceListModelImpl._displayDate;
 
@@ -1870,6 +1885,7 @@ public class CommercePriceListModelImpl
 	private boolean _setOriginalCatalogBasePriceList;
 	private boolean _netPrice;
 	private String _type;
+	private String _originalType;
 	private String _name;
 	private double _priority;
 	private Date _displayDate;

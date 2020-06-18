@@ -428,6 +428,24 @@ public class CommercePriceListLocalServiceWrapper
 
 	@Override
 	public com.liferay.commerce.price.list.model.CommercePriceList
+			fetchCommerceCatalogBasePriceList(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListLocalService.fetchCommerceCatalogBasePriceList(
+			groupId);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
+			fetchCommerceCatalogBasePriceListByType(long groupId, String type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListLocalService.
+			fetchCommerceCatalogBasePriceListByType(groupId, type);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
 		fetchCommercePriceList(long commercePriceListId) {
 
 		return _commercePriceListLocalService.fetchCommercePriceList(
@@ -476,11 +494,19 @@ public class CommercePriceListLocalServiceWrapper
 	@Override
 	public com.liferay.commerce.price.list.model.CommercePriceList
 			getCommerceCatalogBasePriceList(long groupId)
-		throws com.liferay.commerce.price.list.exception.
-			NoSuchPriceListException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commercePriceListLocalService.getCommerceCatalogBasePriceList(
 			groupId);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
+			getCommerceCatalogBasePriceListByType(long groupId, String type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListLocalService.
+			getCommerceCatalogBasePriceListByType(groupId, type);
 	}
 
 	/**

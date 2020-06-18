@@ -366,6 +366,18 @@ public class CommercePriceListPersistenceTest {
 	}
 
 	@Test
+	public void testCountByCatalogBasePriceListByType() throws Exception {
+		_persistence.countByCatalogBasePriceListByType(
+			RandomTestUtil.nextLong(), RandomTestUtil.randomBoolean(), "");
+
+		_persistence.countByCatalogBasePriceListByType(
+			0L, RandomTestUtil.randomBoolean(), "null");
+
+		_persistence.countByCatalogBasePriceListByType(
+			0L, RandomTestUtil.randomBoolean(), (String)null);
+	}
+
+	@Test
 	public void testCountByC_ERC() throws Exception {
 		_persistence.countByC_ERC(RandomTestUtil.nextLong(), "");
 
@@ -669,6 +681,24 @@ public class CommercePriceListPersistenceTest {
 			ReflectionTestUtil.<Boolean>invoke(
 				existingCommercePriceList, "getOriginalCatalogBasePriceList",
 				new Class<?>[0]));
+
+		Assert.assertEquals(
+			Long.valueOf(existingCommercePriceList.getGroupId()),
+			ReflectionTestUtil.<Long>invoke(
+				existingCommercePriceList, "getOriginalGroupId",
+				new Class<?>[0]));
+		Assert.assertEquals(
+			Boolean.valueOf(
+				existingCommercePriceList.getCatalogBasePriceList()),
+			ReflectionTestUtil.<Boolean>invoke(
+				existingCommercePriceList, "getOriginalCatalogBasePriceList",
+				new Class<?>[0]));
+		Assert.assertTrue(
+			Objects.equals(
+				existingCommercePriceList.getType(),
+				ReflectionTestUtil.invoke(
+					existingCommercePriceList, "getOriginalType",
+					new Class<?>[0])));
 
 		Assert.assertEquals(
 			Long.valueOf(existingCommercePriceList.getCompanyId()),

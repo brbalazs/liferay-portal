@@ -2068,6 +2068,66 @@ public interface CommercePriceListPersistence
 		long[] groupIds, long companyId, int status);
 
 	/**
+	 * Returns the commerce price list where groupId = &#63; and catalogBasePriceList = &#63; and type = &#63; or throws a <code>NoSuchPriceListException</code> if it could not be found.
+	 *
+	 * @param groupId the group ID
+	 * @param catalogBasePriceList the catalog base price list
+	 * @param type the type
+	 * @return the matching commerce price list
+	 * @throws NoSuchPriceListException if a matching commerce price list could not be found
+	 */
+	public CommercePriceList findByCatalogBasePriceListByType(
+			long groupId, boolean catalogBasePriceList, String type)
+		throws NoSuchPriceListException;
+
+	/**
+	 * Returns the commerce price list where groupId = &#63; and catalogBasePriceList = &#63; and type = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param catalogBasePriceList the catalog base price list
+	 * @param type the type
+	 * @return the matching commerce price list, or <code>null</code> if a matching commerce price list could not be found
+	 */
+	public CommercePriceList fetchByCatalogBasePriceListByType(
+		long groupId, boolean catalogBasePriceList, String type);
+
+	/**
+	 * Returns the commerce price list where groupId = &#63; and catalogBasePriceList = &#63; and type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param catalogBasePriceList the catalog base price list
+	 * @param type the type
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching commerce price list, or <code>null</code> if a matching commerce price list could not be found
+	 */
+	public CommercePriceList fetchByCatalogBasePriceListByType(
+		long groupId, boolean catalogBasePriceList, String type,
+		boolean useFinderCache);
+
+	/**
+	 * Removes the commerce price list where groupId = &#63; and catalogBasePriceList = &#63; and type = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param catalogBasePriceList the catalog base price list
+	 * @param type the type
+	 * @return the commerce price list that was removed
+	 */
+	public CommercePriceList removeByCatalogBasePriceListByType(
+			long groupId, boolean catalogBasePriceList, String type)
+		throws NoSuchPriceListException;
+
+	/**
+	 * Returns the number of commerce price lists where groupId = &#63; and catalogBasePriceList = &#63; and type = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param catalogBasePriceList the catalog base price list
+	 * @param type the type
+	 * @return the number of matching commerce price lists
+	 */
+	public int countByCatalogBasePriceListByType(
+		long groupId, boolean catalogBasePriceList, String type);
+
+	/**
 	 * Returns the commerce price list where companyId = &#63; and externalReferenceCode = &#63; or throws a <code>NoSuchPriceListException</code> if it could not be found.
 	 *
 	 * @param companyId the company ID
