@@ -20,7 +20,6 @@ import com.liferay.commerce.configuration.CommerceOrderCheckoutConfiguration;
 import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommercePortletKeys;
-import com.liferay.commerce.constants.CommercePunchoutConstants;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
@@ -32,9 +31,6 @@ import com.liferay.commerce.order.CommerceOrderValidatorResult;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
-import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
-import com.liferay.commerce.punchout.constants.PunchoutConstants;
-import com.liferay.commerce.punchout.service.PunchoutAccountRoleHelper;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceOrderLocalService;
@@ -43,11 +39,8 @@ import com.liferay.petra.lang.CentralizedThreadLocal;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.portlet.PortletURLFactory;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
@@ -286,6 +279,11 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 	}
 
 	@Override
+	public String getCookieName(long groupId) {
+		return CommerceOrder.class.getName() + StringPool.POUND + groupId;
+	}
+
+	@Override
 	public CommerceOrder getCurrentCommerceOrder(
 			HttpServletRequest httpServletRequest)
 		throws PortalException {
@@ -368,7 +366,7 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 		HttpSession httpSession = httpServletRequest.getSession();
 
 		httpSession.setAttribute(
-			_getCookieName(commerceOrder.getGroupId()),
+			getCookieName(commerceOrder.getGroupId()),
 			commerceOrder.getUuid());
 	}
 
@@ -405,7 +403,7 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 
 		String domain = CookieKeys.getDomain(themeDisplay.getRequest());
 
-		String commerceOrderUuidWebKey = _getCookieName(
+		String commerceOrderUuidWebKey = getCookieName(
 			commerceOrder.getGroupId());
 
 		// Remove thread local order when used
@@ -465,22 +463,11 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 			CommerceWebKeys.COMMERCE_CONTEXT);
 	}
 
-	private String _getCookieName(long groupId) {
-		return CommerceOrder.class.getName() + StringPool.POUND + groupId;
-	}
-
 	private CommerceOrder _getCurrentCommerceOrder(
 			long commerceAccountId, ThemeDisplay themeDisplay)
 		throws PortalException {
 
-		CommerceOrder commerceOrder = _getCurrentPunchoutCommerceOrder(
-			commerceAccountId, themeDisplay);
-
-		if (commerceOrder != null) {
-			return commerceOrder;
-		}
-
-		commerceOrder = _commerceOrderUuidThreadLocal.get();
+		CommerceOrder commerceOrder = _commerceOrderUuidThreadLocal.get();
 
 		if (commerceOrder != null) {
 			return commerceOrder;
@@ -495,7 +482,7 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 		}
 
 		if (commerceAccountId != CommerceAccountConstants.ACCOUNT_ID_GUEST) {
-			String cookieName = _getCookieName(commerceChannel.getGroupId());
+			String cookieName = getCookieName(commerceChannel.getGroupId());
 
 			String commerceOrderUuid = CookieKeys.getCookie(
 				themeDisplay.getRequest(), cookieName, true);
@@ -520,7 +507,7 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 			}
 		}
 
-		String cookieName = _getCookieName(commerceChannel.getGroupId());
+		String cookieName = getCookieName(commerceChannel.getGroupId());
 
 		String commerceOrderUuid = CookieKeys.getCookie(
 			themeDisplay.getRequest(), cookieName, true);
@@ -536,41 +523,6 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 		}
 
 		return commerceOrder;
-	}
-
-	private CommerceOrder _getCurrentPunchoutCommerceOrder(
-			long commerceAccountId, ThemeDisplay themeDisplay)
-		throws PortalException {
-
-		if (commerceAccountId == CommerceAccountConstants.ACCOUNT_ID_GUEST) {
-			return null;
-		}
-
-		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.fetchCommerceChannelBySiteGroupId(
-				themeDisplay.getScopeGroupId());
-
-		if (commerceChannel == null) {
-			return null;
-		}
-
-		if (!_punchoutEnabled(commerceChannel.getGroupId()) ||
-			!_punchoutAllowed(
-				themeDisplay.getCompanyId(), themeDisplay.getUserId(),
-				commerceAccountId)) {
-
-			return null;
-		}
-
-		String punchoutCommerceOrderUuId = _getPunchoutOrderUuid(
-			themeDisplay.getRequest());
-
-		if (Validator.isBlank(punchoutCommerceOrderUuId)) {
-			return null;
-		}
-
-		return _commerceOrderService.fetchCommerceOrder(
-			punchoutCommerceOrderUuId, commerceChannel.getGroupId());
 	}
 
 	private String _getLocalizedMessage(Locale locale, String key) {
@@ -615,68 +567,6 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 		return portletURL;
 	}
 
-	private PunchoutConfiguration _getPunchoutConfiguration(
-		long channelGroupId) {
-
-		try {
-			return _configurationProvider.getConfiguration(
-				PunchoutConfiguration.class,
-				new GroupServiceSettingsLocator(
-					channelGroupId, PunchoutConstants.SERVICE_NAME));
-		}
-		catch (ConfigurationException ce) {
-			_log.error("Unable to get punchout configuration", ce);
-		}
-
-		return null;
-	}
-
-	private String _getPunchoutOrderUuid(
-		HttpServletRequest httpServletRequest) {
-
-		HttpServletRequest originalHttpServletRequest =
-			_portal.getOriginalServletRequest(httpServletRequest);
-
-		HttpSession httpSession = originalHttpServletRequest.getSession();
-
-		Object punchoutOrderUuidObject = httpSession.getAttribute(
-			CommercePunchoutConstants.
-				PUNCHOUT_COMMERCE_ORDER_UUID_SESSION_ATTRIBUTE_NAME);
-
-		if (punchoutOrderUuidObject == null) {
-			return null;
-		}
-
-		return (String)punchoutOrderUuidObject;
-	}
-
-	private boolean _punchoutAllowed(
-		long companyId, long userId, long commerceAccountId) {
-
-		try {
-			return _punchoutAccountRoleHelper.hasPunchoutRole(
-				companyId, userId, commerceAccountId);
-		}
-		catch (Exception e) {
-			_log.error(
-				"Failed to determine whether user has Punchout role under " +
-					"commerce account");
-		}
-
-		return false;
-	}
-
-	private boolean _punchoutEnabled(long commerceChannelGroupId) {
-		PunchoutConfiguration punchoutConfiguration = _getPunchoutConfiguration(
-			commerceChannelGroupId);
-
-		if (punchoutConfiguration != null) {
-			return punchoutConfiguration.enabled();
-		}
-
-		return false;
-	}
-
 	private void _setGuestCommerceOrder(
 			ThemeDisplay themeDisplay, CommerceOrder commerceOrder)
 		throws PortalException {
@@ -691,7 +581,7 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 			_commerceChannelLocalService.getCommerceChannelGroupIdBySiteGroupId(
 				themeDisplay.getScopeGroupId());
 
-		String commerceOrderUuidWebKey = _getCookieName(commerceChannelGroupId);
+		String commerceOrderUuidWebKey = getCookieName(commerceChannelGroupId);
 
 		Cookie cookie = new Cookie(
 			commerceOrderUuidWebKey, commerceOrder.getUuid());
@@ -730,9 +620,6 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 		}
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceOrderHttpHelperImpl.class);
-
 	private static ModelResourcePermission<CommerceOrder>
 		_commerceOrderModelResourcePermission;
 	private static final ThreadLocal<CommerceOrder>
@@ -768,8 +655,5 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 
 	@Reference
 	private PortletURLFactory _portletURLFactory;
-
-	@Reference
-	private PunchoutAccountRoleHelper _punchoutAccountRoleHelper;
 
 }

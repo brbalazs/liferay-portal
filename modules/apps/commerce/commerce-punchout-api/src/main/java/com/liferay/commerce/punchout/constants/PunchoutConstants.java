@@ -19,6 +19,9 @@ package com.liferay.commerce.punchout.constants;
  */
 public class PunchoutConstants {
 
+	public static final String PUNCHOUT_RETURN_URL_SESSION_ATTRIBUTE_NAME =
+		"PUNCHOUT_RETURN_URL";
+
 	public static final String SERVICE_NAME =
 		"com.liferay.headless.commerce.punchout";
 

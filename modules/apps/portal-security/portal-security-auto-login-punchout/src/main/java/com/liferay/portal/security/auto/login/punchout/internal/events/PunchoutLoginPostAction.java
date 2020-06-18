@@ -14,7 +14,6 @@
 
 package com.liferay.portal.security.auto.login.punchout.internal.events;
 
-import com.liferay.commerce.constants.CommercePunchoutConstants;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
@@ -23,18 +22,22 @@ import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
+import com.liferay.commerce.punchout.constants.PunchoutConstants;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.oauth2.provider.punchout.model.PunchoutAccessToken;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.events.Action;
 import com.liferay.portal.kernel.events.LifecycleAction;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.CookieKeys;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -82,7 +85,7 @@ public class PunchoutLoginPostAction extends Action {
 				companyId, punchoutAccessToken.getGroupId(),
 				punchoutAccessToken.getCommerceAccountId(),
 				punchoutAccessToken.getCurrencyCode(), punchoutAccessToken,
-				punchoutUserId, httpServletRequest);
+				punchoutUserId, httpServletRequest, httpServletResponse);
 
 			httpServletRequest.removeAttribute("punchoutAccessToken");
 
@@ -104,7 +107,8 @@ public class PunchoutLoginPostAction extends Action {
 	private void _startNewPunchoutSession(
 			long companyId, long groupId, long commerceAccountId,
 			String currencyCode, PunchoutAccessToken punchoutAccessToken,
-			long punchoutUserId, HttpServletRequest httpServletRequest)
+			long punchoutUserId, HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
 		throws PortalException {
 
 		long commerceCurrencyId = 0;
@@ -147,18 +151,21 @@ public class PunchoutLoginPostAction extends Action {
 
 		httpServletRequest.setAttribute(WebKeys.THEME_DISPLAY, themeDisplay);
 
-		_commerceOrderHttpHelper.setCurrentCommerceOrder(
-			httpServletRequest, commerceOrder);
+		String cookieName =
+			_commerceOrderHttpHelper.getCookieName(commerceOrder.getGroupId());
+
+		Cookie cookie = new Cookie(cookieName, commerceOrder.getUuid());
+
+		cookie.setMaxAge(-1);
+		cookie.setPath(StringPool.SLASH);
+
+		CookieKeys.addCookie(httpServletRequest, httpServletResponse, cookie);
 
 		HttpSession httpSession = httpServletRequest.getSession();
 
 		httpSession.setAttribute(
-			CommercePunchoutConstants.PUNCHOUT_RETURN_URL_SESSION_ATTRIBUTE_NAME,
+			PunchoutConstants.PUNCHOUT_RETURN_URL_SESSION_ATTRIBUTE_NAME,
 			punchoutAccessToken.getPunchoutReturnURL());
-
-		httpSession.setAttribute(
-			CommercePunchoutConstants.PUNCHOUT_COMMERCE_ORDER_UUID_SESSION_ATTRIBUTE_NAME,
-			commerceOrder.getUuid());
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

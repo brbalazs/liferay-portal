@@ -16,7 +16,6 @@ package com.liferay.commerce.checkout.web.internal.util;
 
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceCheckoutWebKeys;
-import com.liferay.commerce.constants.CommercePunchoutConstants;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.model.CommerceOrder;
@@ -131,10 +130,7 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 		HttpSession httpSession = _getHttpSession(httpServletRequest);
 
 		httpSession.removeAttribute(
-			CommercePunchoutConstants.PUNCHOUT_RETURN_URL_SESSION_ATTRIBUTE_NAME);
-
-		httpSession.removeAttribute(
-			CommercePunchoutConstants.PUNCHOUT_COMMERCE_ORDER_UUID_SESSION_ATTRIBUTE_NAME);
+			PunchoutConstants.PUNCHOUT_RETURN_URL_SESSION_ATTRIBUTE_NAME);
 	}
 
 	private CommerceOrder _getCommerceOrder(ActionRequest actionRequest) {
@@ -191,7 +187,7 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 		HttpSession httpSession = _getHttpSession(httpServletRequest);
 
 		Object punchoutReturnUrlObject = httpSession.getAttribute(
-			CommercePunchoutConstants.PUNCHOUT_RETURN_URL_SESSION_ATTRIBUTE_NAME);
+			PunchoutConstants.PUNCHOUT_RETURN_URL_SESSION_ATTRIBUTE_NAME);
 
 		if (punchoutReturnUrlObject == null) {
 			return null;
