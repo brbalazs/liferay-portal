@@ -206,9 +206,7 @@ public class S3Store extends BaseStore {
 			S3Object s3Object = getS3Object(
 				companyId, repositoryId, fileName, versionLabel);
 
-			File file = _s3FileCache.getCacheFile(s3Object, fileName);
-
-			return file;
+			return _s3FileCache.getCacheFile(s3Object, fileName);
 		}
 		catch (IOException ioe) {
 			throw new SystemException(ioe);
