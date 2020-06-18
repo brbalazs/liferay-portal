@@ -14,6 +14,8 @@
 
 package com.liferay.commerce.product.definitions.web.internal.frontend;
 
+import com.liferay.commerce.currency.model.CommerceMoney;
+import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.DefaultFilterImpl;
@@ -21,6 +23,7 @@ import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.frontend.model.LabelField;
 import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
+import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.definitions.web.internal.model.Sku;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
@@ -161,9 +164,16 @@ public class CommerceProductInstanceDataSetDataProvider
 
 		CommerceCatalog commerceCatalog = cpInstance.getCommerceCatalog();
 
+		CommerceMoney commerceMoney =
+			_commerceProductPriceCalculation.getBasePrice(
+				cpInstance.getCPInstanceId(),
+				_commerceCurrencyLocalService.getCommerceCurrency(
+					cpInstance.getCompanyId(),
+					commerceCatalog.getCommerceCurrencyCode()));
+
 		return _commercePriceFormatter.format(
 			cpInstance.getCompanyId(),
-			commerceCatalog.getCommerceCurrencyCode(), cpInstance.getPrice(),
+			commerceCatalog.getCommerceCurrencyCode(), commerceMoney.getPrice(),
 			locale);
 	}
 
@@ -220,10 +230,16 @@ public class CommerceProductInstanceDataSetDataProvider
 	}
 
 	@Reference
+	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
+
+	@Reference
 	private CommerceInventoryEngine _commerceInventoryEngine;
 
 	@Reference
 	private CommercePriceFormatter _commercePriceFormatter;
+
+	@Reference
+	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
 
 	@Reference
 	private CPDefinitionOptionRelLocalService
