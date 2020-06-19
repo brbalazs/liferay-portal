@@ -41,7 +41,7 @@ function QuantitySelector(props) {
 	}, [props.quantity, setCurrentQuantity]);
 
 	useEffect(() => {
-		if (props.updateQuantity && props.quantity !== currentQuantity) {
+		if (props.updateQuantity) {
 			props.updateQuantity(currentQuantity);
 		}
 
