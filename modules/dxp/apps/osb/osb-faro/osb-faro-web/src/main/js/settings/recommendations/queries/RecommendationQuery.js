@@ -23,15 +23,6 @@ export const RECOMMENDATION_BY_NAME_QUERY = gql`
 		jobByName(name: $name) {
 			id
 			name
-			parameters {
-				name
-				value
-			}
-			status
-			trainingDate
-			trainingFrequency
-			trainingPeriod
-			type
 		}
 	}
 `;
