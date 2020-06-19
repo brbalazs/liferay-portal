@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 import javax.servlet.http.HttpSession;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -30,6 +31,10 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * @author Miguel Pastor
  */
 public class PortalImplUnitTest {
+
+	@BeforeClass
+	public static void setUpClass() {
+	}
 
 	@Test
 	public void testGetForwardedHost() {
