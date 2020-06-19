@@ -205,11 +205,15 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 			int responseCode = httpURLConnection.getResponseCode();
 
 			if (responseCode == HttpURLConnection.HTTP_OK) {
-				String json = StringUtil.toLowerCase(
+				String response = StringUtil.toLowerCase(
 					StringUtil.read(httpURLConnection.getInputStream()));
 
+				if (_log.isDebugEnabled()) {
+					_log.debug("JSON response received from Punchout2Go: " + response);
+				}
+
 				JSONArray jsonArray = _jsonFactory.createJSONArray(
-					StringPool.OPEN_BRACKET + json + StringPool.CLOSE_BRACKET);
+					StringPool.OPEN_BRACKET + response + StringPool.CLOSE_BRACKET);
 
 				JSONObject jsonObject = jsonArray.getJSONObject(0);
 

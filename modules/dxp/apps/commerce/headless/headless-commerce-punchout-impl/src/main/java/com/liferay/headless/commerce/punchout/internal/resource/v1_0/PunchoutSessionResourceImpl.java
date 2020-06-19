@@ -91,14 +91,18 @@ public class PunchoutSessionResourceImpl
 			punchoutSession.getBuyerGroup());
 
 		if (buyerGroup == null) {
-			throw new NoSuchGroupException("No such group exists");
+			throw new NoSuchGroupException();
 		}
 
 		CommerceChannel commerceChannel = _fetchChannel(
 			buyerGroup.getGroupId());
 
 		if (!_punchoutEnabled(commerceChannel.getGroupId())) {
-			throw new ForbiddenException();
+			_log.error(
+			"Punchout request not allowed. Punchout is disabled for channel " +
+				commerceChannel.getName());
+
+			throw new ForbiddenException("Punchout not allowed for channel");
 		}
 
 		User buyerUser = punchoutSession.getBuyerUser();
@@ -107,18 +111,30 @@ public class PunchoutSessionResourceImpl
 			_fetchOrCreateBuyerUser(buyerUser, buyerGroup.getGroupId());
 
 		if (buyerUserInLiferay == null) {
-			throw new InternalServerErrorException();
+			_log.error(
+				"Buyer user not found or failed to be created (user email: " +
+						buyerUser.getEmail() + ")");
+
+			throw new InternalServerErrorException("Buyer not found or failed to be created");
 		}
 
 		if (!_userBelongsToGroup(buyerGroup.getGroupId(), buyerUserInLiferay)) {
-			throw new BadRequestException();
+			_log.error(
+				"Buyer user does not belong to group (user email: " +
+					buyerUser.getEmail() + ")");
+
+			throw new BadRequestException("Buyer user does not belong to group");
 		}
 
 		CommerceAccount businessCommerceAccount = _fetchBusinessCommerceAccount(
 			punchoutSession.getBuyerAccountReferenceCode());
 
 		if (businessCommerceAccount == null) {
-			throw new BadRequestException();
+			_log.error(
+				"Business commrece account not found (external reference code: " +
+				punchoutSession.getBuyerAccountReferenceCode() + ")");
+
+			throw new BadRequestException("Business commrece account not found");
 		}
 
 		_addBuyerUserToAccount(
@@ -137,7 +153,11 @@ public class PunchoutSessionResourceImpl
 			if (!_userBelongsToCart(
 					buyerUserInLiferay.getUserId(), cart.getId())) {
 
-				throw new BadRequestException();
+				_log.error(
+					"Buyer user does not belong to cart (cart ID: " +
+						cart.getId() + ")");
+
+				throw new BadRequestException("Buyer user does not belong to cart");
 			}
 
 			_mergeCartItems(punchoutSession.getCart(), buyerGroup.getGroupId());
@@ -184,8 +204,10 @@ public class PunchoutSessionResourceImpl
 		throws Exception {
 
 		if (Validator.isBlank(firstName) && Validator.isBlank(lastName)) {
+			_log.error("Buyer user first and last name are required");
+
 			throw new BadRequestException(
-				"User first and last name are required");
+				"Buyer user first and last name are required");
 		}
 
 		_checkAllowUserCreation(companyId, email);
@@ -245,6 +267,10 @@ public class PunchoutSessionResourceImpl
 		Company company = _companyLocalService.getCompany(companyId);
 
 		if (!company.isStrangers()) {
+			_log.error(
+				"Strangers are disabled for company (company ID: " +
+					   companyId + ")");
+
 			throw new InternalServerErrorException();
 		}
 
@@ -275,7 +301,9 @@ public class PunchoutSessionResourceImpl
 		throws Exception {
 
 		if (Validator.isBlank(user.getEmail())) {
-			throw new BadRequestException("User email is required");
+			_log.error("Buyer user email is required");
+
+			throw new BadRequestException("Buyer user email is required");
 		}
 
 		com.liferay.portal.kernel.model.User liferayUser =
