@@ -191,6 +191,16 @@ public abstract class BaseEngineClient {
 			uriVariablesList);
 	}
 
+	protected HttpHeaders createHttpHeaders(Map<String, String> headers) {
+		HttpHeaders httpHeaders = new HttpHeaders();
+
+		for (Map.Entry<String, String> entry : headers.entrySet()) {
+			httpHeaders.set(entry.getKey(), entry.getValue());
+		}
+
+		return httpHeaders;
+	}
+
 	protected void delete(
 			FaroProject faroProject, String type, List<String> ids)
 		throws FaroEngineClientException {
@@ -229,15 +239,10 @@ public abstract class BaseEngineClient {
 
 		RestTemplate restTemplate = getRestTemplate();
 
-		HttpHeaders httpHeaders = new HttpHeaders();
-
-		for (Map.Entry<String, String> entry : headers.entrySet()) {
-			httpHeaders.set(entry.getKey(), entry.getValue());
-		}
-
 		ResponseEntity<T> responseEntity = restTemplate.exchange(
 			getUriString(faroProject, path, queryParameters), HttpMethod.GET,
-			new HttpEntity(httpHeaders), responseType, uriVariables);
+			new HttpEntity(createHttpHeaders(headers)), responseType,
+			uriVariables);
 
 		return responseEntity.getBody();
 	}
@@ -526,6 +531,22 @@ public abstract class BaseEngineClient {
 		return getRestTemplate().patchForObject(
 			getTemplatedURL(faroProject, type), object, responseType,
 			getUriVariables(faroProject, id));
+	}
+
+	protected <T> T post(
+			FaroProject faroProject, Map<String, String> headers, String path,
+			Map<String, List<String>> queryParameters, Object requestBody,
+			Class<T> responseType, Map<String, Object> uriVariables)
+		throws Exception {
+
+		RestTemplate restTemplate = getRestTemplate();
+
+		ResponseEntity<T> responseEntity = restTemplate.exchange(
+			getUriString(faroProject, path, queryParameters), HttpMethod.POST,
+			new HttpEntity<>(requestBody, createHttpHeaders(headers)),
+			responseType, uriVariables);
+
+		return responseEntity.getBody();
 	}
 
 	protected <T> T post(

@@ -477,6 +477,12 @@ public interface ContactsEngineClient {
 		FaroProject faroProject, String dataSourceId, String context,
 		String ownerType, List<FieldMappingMap> fieldMappingMaps);
 
+	public <T> T post(
+			FaroProject faroProject, Map<String, String> headers, String path,
+			Map<String, List<String>> queryParameters, Object requestBody,
+			Class<T> returnType)
+		throws Exception;
+
 	public List<Map<String, Object>> refreshLiferay(FaroProject faroProject);
 
 	public void setEngineURL(String engineURL);

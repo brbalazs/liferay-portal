@@ -1010,6 +1010,18 @@ public abstract class BaseMockContactsEngineClientImpl
 	}
 
 	@Override
+	public <T> T post(
+			FaroProject faroProject, Map<String, String> headers, String path,
+			Map<String, List<String>> queryParameters, Object requestBody,
+			Class<T> returnType)
+		throws Exception {
+
+		return contactsEngineClient.post(
+			faroProject, headers, path, queryParameters, requestBody,
+			returnType);
+	}
+
+	@Override
 	public List<Map<String, Object>> refreshLiferay(FaroProject faroProject) {
 		return contactsEngineClient.refreshLiferay(faroProject);
 	}

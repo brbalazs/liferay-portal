@@ -2599,6 +2599,18 @@ public class ContactsEngineClientImpl
 	}
 
 	@Override
+	public <T> T post(
+			FaroProject faroProject, Map<String, String> headers, String path,
+			Map<String, List<String>> queryParameters, Object requestBody,
+			Class<T> responseType)
+		throws Exception {
+
+		return post(
+			faroProject, headers, path, queryParameters, requestBody,
+			responseType, getUriVariables(faroProject));
+	}
+
+	@Override
 	public List<Map<String, Object>> refreshLiferay(FaroProject faroProject) {
 		Map<String, Object> uriVariables = getUriVariables(
 			faroProject, 1, 10000, null);
