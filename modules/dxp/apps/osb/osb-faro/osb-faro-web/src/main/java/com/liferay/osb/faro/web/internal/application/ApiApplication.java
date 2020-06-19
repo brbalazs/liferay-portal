@@ -17,6 +17,7 @@ package com.liferay.osb.faro.web.internal.application;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 import com.liferay.osb.faro.web.internal.context.GroupInfoContextProvider;
+import com.liferay.osb.faro.web.internal.controller.api.RecommendationController;
 import com.liferay.osb.faro.web.internal.controller.api.ReportController;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
 
@@ -47,12 +48,16 @@ public class ApiApplication extends Application {
 
 		singletons.add(_groupInfoContextProvider);
 		singletons.add(new JacksonJsonProvider(JSONUtil.getObjectMapper()));
+		singletons.add(_recommendationController);
 		singletons.add(_reportController);
 
 		return singletons;
 	}
 
 	public static class OAuth2ScopeAliases {
+
+		public static final String RECOMMENDATIONS_EVERYTHING =
+			"Liferay.Analytics.Cloud.REST.recommendations.everything";
 
 		public static final String REPORTS_EVERYTHING =
 			"Liferay.Analytics.Cloud.REST.reports.everything";
@@ -61,6 +66,9 @@ public class ApiApplication extends Application {
 
 	@Reference
 	private GroupInfoContextProvider _groupInfoContextProvider;
+
+	@Reference
+	private RecommendationController _recommendationController;
 
 	@Reference
 	private ReportController _reportController;
