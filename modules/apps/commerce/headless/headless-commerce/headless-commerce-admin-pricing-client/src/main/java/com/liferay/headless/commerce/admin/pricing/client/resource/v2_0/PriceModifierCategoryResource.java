@@ -264,7 +264,7 @@ public interface PriceModifierCategoryResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/price-modifier-categories/{id}/batch",
+						"/o/headless-commerce-admin-pricing/v2.0/price-modifier-categories/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(

@@ -755,7 +755,7 @@ public interface TierPriceResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/tier-prices/{id}/batch",
+						"/o/headless-commerce-admin-pricing/v2.0/tier-prices/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(

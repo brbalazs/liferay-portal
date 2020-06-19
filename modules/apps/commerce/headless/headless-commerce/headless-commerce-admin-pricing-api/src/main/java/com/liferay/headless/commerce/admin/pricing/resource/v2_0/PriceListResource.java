@@ -66,7 +66,7 @@ public interface PriceListResource {
 			String externalReferenceCode)
 		throws Exception;
 
-	public Response patchPriceListByExternalReferenceCode(
+	public PriceList patchPriceListByExternalReferenceCode(
 			String externalReferenceCode, PriceList priceList)
 		throws Exception;
 
@@ -78,7 +78,7 @@ public interface PriceListResource {
 
 	public PriceList getPriceList(Long id) throws Exception;
 
-	public Response patchPriceList(Long id, PriceList priceList)
+	public PriceList patchPriceList(Long id, PriceList priceList)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(

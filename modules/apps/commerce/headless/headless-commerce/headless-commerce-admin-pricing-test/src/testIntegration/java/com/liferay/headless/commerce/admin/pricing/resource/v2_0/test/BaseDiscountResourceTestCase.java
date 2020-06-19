@@ -364,7 +364,32 @@ public abstract class BaseDiscountResourceTestCase {
 
 	@Test
 	public void testPatchDiscountByExternalReferenceCode() throws Exception {
-		Assert.assertTrue(false);
+		Discount postDiscount =
+			testPatchDiscountByExternalReferenceCode_addDiscount();
+
+		Discount randomPatchDiscount = randomPatchDiscount();
+
+		Discount patchDiscount =
+			discountResource.patchDiscountByExternalReferenceCode(
+				postDiscount.getId(), randomPatchDiscount);
+
+		Discount expectedPatchDiscount = postDiscount.clone();
+
+		_beanUtilsBean.copyProperties(
+			expectedPatchDiscount, randomPatchDiscount);
+
+		Discount getDiscount = discountResource.getDiscount(
+			patchDiscount.getId());
+
+		assertEquals(expectedPatchDiscount, getDiscount);
+		assertValid(getDiscount);
+	}
+
+	protected Discount testPatchDiscountByExternalReferenceCode_addDiscount()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
@@ -483,7 +508,28 @@ public abstract class BaseDiscountResourceTestCase {
 
 	@Test
 	public void testPatchDiscount() throws Exception {
-		Assert.assertTrue(false);
+		Discount postDiscount = testPatchDiscount_addDiscount();
+
+		Discount randomPatchDiscount = randomPatchDiscount();
+
+		Discount patchDiscount = discountResource.patchDiscount(
+			postDiscount.getId(), randomPatchDiscount);
+
+		Discount expectedPatchDiscount = postDiscount.clone();
+
+		_beanUtilsBean.copyProperties(
+			expectedPatchDiscount, randomPatchDiscount);
+
+		Discount getDiscount = discountResource.getDiscount(
+			patchDiscount.getId());
+
+		assertEquals(expectedPatchDiscount, getDiscount);
+		assertValid(getDiscount);
+	}
+
+	protected Discount testPatchDiscount_addDiscount() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	protected Discount testGraphQLDiscount_addDiscount() throws Exception {

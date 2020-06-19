@@ -57,7 +57,7 @@ public interface PriceEntryResource {
 			String externalReferenceCode)
 		throws Exception;
 
-	public Response patchPriceEntryByExternalReferenceCode(
+	public PriceEntry patchPriceEntryByExternalReferenceCode(
 			String externalReferenceCode, PriceEntry priceEntry)
 		throws Exception;
 
@@ -69,7 +69,7 @@ public interface PriceEntryResource {
 
 	public PriceEntry getPriceEntry(Long id) throws Exception;
 
-	public Response patchPriceEntry(Long id, PriceEntry priceEntry)
+	public PriceEntry patchPriceEntry(Long id, PriceEntry priceEntry)
 		throws Exception;
 
 	public Page<PriceEntry> getPriceListByExternalReferenceCodePriceEntriesPage(

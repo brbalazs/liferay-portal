@@ -63,7 +63,7 @@ public interface DiscountResource {
 			String externalReferenceCode)
 		throws Exception;
 
-	public Response patchDiscountByExternalReferenceCode(
+	public Discount patchDiscountByExternalReferenceCode(
 			String externalReferenceCode, Discount discount)
 		throws Exception;
 
@@ -75,7 +75,7 @@ public interface DiscountResource {
 
 	public Discount getDiscount(Long id) throws Exception;
 
-	public Response patchDiscount(Long id, Discount discount) throws Exception;
+	public Discount patchDiscount(Long id, Discount discount) throws Exception;
 
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {

@@ -601,7 +601,32 @@ public abstract class BasePriceListResourceTestCase {
 
 	@Test
 	public void testPatchPriceListByExternalReferenceCode() throws Exception {
-		Assert.assertTrue(false);
+		PriceList postPriceList =
+			testPatchPriceListByExternalReferenceCode_addPriceList();
+
+		PriceList randomPatchPriceList = randomPatchPriceList();
+
+		PriceList patchPriceList =
+			priceListResource.patchPriceListByExternalReferenceCode(
+				postPriceList.getId(), randomPatchPriceList);
+
+		PriceList expectedPatchPriceList = postPriceList.clone();
+
+		_beanUtilsBean.copyProperties(
+			expectedPatchPriceList, randomPatchPriceList);
+
+		PriceList getPriceList = priceListResource.getPriceList(
+			patchPriceList.getId());
+
+		assertEquals(expectedPatchPriceList, getPriceList);
+		assertValid(getPriceList);
+	}
+
+	protected PriceList testPatchPriceListByExternalReferenceCode_addPriceList()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
@@ -721,7 +746,28 @@ public abstract class BasePriceListResourceTestCase {
 
 	@Test
 	public void testPatchPriceList() throws Exception {
-		Assert.assertTrue(false);
+		PriceList postPriceList = testPatchPriceList_addPriceList();
+
+		PriceList randomPatchPriceList = randomPatchPriceList();
+
+		PriceList patchPriceList = priceListResource.patchPriceList(
+			postPriceList.getId(), randomPatchPriceList);
+
+		PriceList expectedPatchPriceList = postPriceList.clone();
+
+		_beanUtilsBean.copyProperties(
+			expectedPatchPriceList, randomPatchPriceList);
+
+		PriceList getPriceList = priceListResource.getPriceList(
+			patchPriceList.getId());
+
+		assertEquals(expectedPatchPriceList, getPriceList);
+		assertValid(getPriceList);
+	}
+
+	protected PriceList testPatchPriceList_addPriceList() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Rule

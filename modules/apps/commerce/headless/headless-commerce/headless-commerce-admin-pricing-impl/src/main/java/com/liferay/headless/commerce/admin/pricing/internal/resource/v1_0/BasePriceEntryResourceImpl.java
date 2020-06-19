@@ -178,7 +178,7 @@ public abstract class BasePriceEntryResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v1.0/priceEntries/{id}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v1.0/priceEntries/batch'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes("application/json")
@@ -189,7 +189,7 @@ public abstract class BasePriceEntryResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
 		}
 	)
-	@Path("/priceEntries/{id}/batch")
+	@Path("/priceEntries/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "PriceEntry")})
 	public Response deletePriceEntryBatch(

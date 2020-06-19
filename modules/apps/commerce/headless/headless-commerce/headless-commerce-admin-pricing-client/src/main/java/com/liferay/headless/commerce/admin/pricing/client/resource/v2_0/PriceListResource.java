@@ -81,7 +81,7 @@ public interface PriceListResource {
 				String externalReferenceCode)
 		throws Exception;
 
-	public void patchPriceListByExternalReferenceCode(
+	public PriceList patchPriceListByExternalReferenceCode(
 			String externalReferenceCode, PriceList priceList)
 		throws Exception;
 
@@ -107,7 +107,8 @@ public interface PriceListResource {
 	public HttpInvoker.HttpResponse getPriceListHttpResponse(Long id)
 		throws Exception;
 
-	public void patchPriceList(Long id, PriceList priceList) throws Exception;
+	public PriceList patchPriceList(Long id, PriceList priceList)
+		throws Exception;
 
 	public HttpInvoker.HttpResponse patchPriceListHttpResponse(
 			Long id, PriceList priceList)
@@ -505,7 +506,7 @@ public interface PriceListResource {
 			return httpInvoker.invoke();
 		}
 
-		public void patchPriceListByExternalReferenceCode(
+		public PriceList patchPriceListByExternalReferenceCode(
 				String externalReferenceCode, PriceList priceList)
 			throws Exception {
 
@@ -520,6 +521,17 @@ public interface PriceListResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return PriceListSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -671,7 +683,7 @@ public interface PriceListResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/price-lists/{id}/batch",
+						"/o/headless-commerce-admin-pricing/v2.0/price-lists/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -740,7 +752,7 @@ public interface PriceListResource {
 			return httpInvoker.invoke();
 		}
 
-		public void patchPriceList(Long id, PriceList priceList)
+		public PriceList patchPriceList(Long id, PriceList priceList)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = patchPriceListHttpResponse(
@@ -753,6 +765,17 @@ public interface PriceListResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return PriceListSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse patchPriceListHttpResponse(

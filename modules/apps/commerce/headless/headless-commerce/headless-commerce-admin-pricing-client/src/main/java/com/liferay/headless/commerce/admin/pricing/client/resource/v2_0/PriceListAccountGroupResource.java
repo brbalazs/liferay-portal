@@ -263,7 +263,7 @@ public interface PriceListAccountGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/price-list-account-groups/{id}/batch",
+						"/o/headless-commerce-admin-pricing/v2.0/price-list-account-groups/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(

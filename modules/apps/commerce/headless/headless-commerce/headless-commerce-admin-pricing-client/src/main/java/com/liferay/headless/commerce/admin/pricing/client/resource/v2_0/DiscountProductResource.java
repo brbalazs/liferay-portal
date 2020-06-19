@@ -255,7 +255,7 @@ public interface DiscountProductResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discount-products/{id}/batch",
+						"/o/headless-commerce-admin-pricing/v2.0/discount-products/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(

@@ -319,7 +319,33 @@ public abstract class BasePriceEntryResourceTestCase {
 
 	@Test
 	public void testPatchPriceEntryByExternalReferenceCode() throws Exception {
-		Assert.assertTrue(false);
+		PriceEntry postPriceEntry =
+			testPatchPriceEntryByExternalReferenceCode_addPriceEntry();
+
+		PriceEntry randomPatchPriceEntry = randomPatchPriceEntry();
+
+		PriceEntry patchPriceEntry =
+			priceEntryResource.patchPriceEntryByExternalReferenceCode(
+				postPriceEntry.getId(), randomPatchPriceEntry);
+
+		PriceEntry expectedPatchPriceEntry = postPriceEntry.clone();
+
+		_beanUtilsBean.copyProperties(
+			expectedPatchPriceEntry, randomPatchPriceEntry);
+
+		PriceEntry getPriceEntry = priceEntryResource.getPriceEntry(
+			patchPriceEntry.getId());
+
+		assertEquals(expectedPatchPriceEntry, getPriceEntry);
+		assertValid(getPriceEntry);
+	}
+
+	protected PriceEntry
+			testPatchPriceEntryByExternalReferenceCode_addPriceEntry()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
@@ -442,7 +468,28 @@ public abstract class BasePriceEntryResourceTestCase {
 
 	@Test
 	public void testPatchPriceEntry() throws Exception {
-		Assert.assertTrue(false);
+		PriceEntry postPriceEntry = testPatchPriceEntry_addPriceEntry();
+
+		PriceEntry randomPatchPriceEntry = randomPatchPriceEntry();
+
+		PriceEntry patchPriceEntry = priceEntryResource.patchPriceEntry(
+			postPriceEntry.getId(), randomPatchPriceEntry);
+
+		PriceEntry expectedPatchPriceEntry = postPriceEntry.clone();
+
+		_beanUtilsBean.copyProperties(
+			expectedPatchPriceEntry, randomPatchPriceEntry);
+
+		PriceEntry getPriceEntry = priceEntryResource.getPriceEntry(
+			patchPriceEntry.getId());
+
+		assertEquals(expectedPatchPriceEntry, getPriceEntry);
+		assertValid(getPriceEntry);
+	}
+
+	protected PriceEntry testPatchPriceEntry_addPriceEntry() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test

@@ -55,7 +55,7 @@ public interface DiscountRuleResource {
 
 	public DiscountRule getDiscountRule(Long id) throws Exception;
 
-	public Response patchDiscountRule(Long id, DiscountRule discountRule)
+	public DiscountRule patchDiscountRule(Long id, DiscountRule discountRule)
 		throws Exception;
 
 	public Page<DiscountRule>

@@ -77,7 +77,7 @@ public interface DiscountResource {
 				String externalReferenceCode)
 		throws Exception;
 
-	public void patchDiscountByExternalReferenceCode(
+	public Discount patchDiscountByExternalReferenceCode(
 			String externalReferenceCode, Discount discount)
 		throws Exception;
 
@@ -103,7 +103,7 @@ public interface DiscountResource {
 	public HttpInvoker.HttpResponse getDiscountHttpResponse(Long id)
 		throws Exception;
 
-	public void patchDiscount(Long id, Discount discount) throws Exception;
+	public Discount patchDiscount(Long id, Discount discount) throws Exception;
 
 	public HttpInvoker.HttpResponse patchDiscountHttpResponse(
 			Long id, Discount discount)
@@ -485,7 +485,7 @@ public interface DiscountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void patchDiscountByExternalReferenceCode(
+		public Discount patchDiscountByExternalReferenceCode(
 				String externalReferenceCode, Discount discount)
 			throws Exception {
 
@@ -500,6 +500,17 @@ public interface DiscountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return DiscountSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -719,7 +730,9 @@ public interface DiscountResource {
 			return httpInvoker.invoke();
 		}
 
-		public void patchDiscount(Long id, Discount discount) throws Exception {
+		public Discount patchDiscount(Long id, Discount discount)
+			throws Exception {
+
 			HttpInvoker.HttpResponse httpResponse = patchDiscountHttpResponse(
 				id, discount);
 
@@ -730,6 +743,17 @@ public interface DiscountResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return DiscountSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse patchDiscountHttpResponse(

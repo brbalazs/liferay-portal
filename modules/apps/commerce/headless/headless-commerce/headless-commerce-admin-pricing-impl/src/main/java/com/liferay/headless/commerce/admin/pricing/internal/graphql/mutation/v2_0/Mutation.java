@@ -270,7 +270,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response patchDiscountByExternalReferenceCode(
+	public Discount patchDiscountByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("discount") Discount discount)
 		throws Exception {
@@ -308,7 +308,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response patchDiscount(
+	public Discount patchDiscount(
 			@GraphQLName("id") Long id,
 			@GraphQLName("discount") Discount discount)
 		throws Exception {
@@ -701,7 +701,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response patchDiscountRule(
+	public DiscountRule patchDiscountRule(
 			@GraphQLName("id") Long id,
 			@GraphQLName("discountRule") DiscountRule discountRule)
 		throws Exception {
@@ -758,7 +758,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response patchPriceEntryByExternalReferenceCode(
+	public PriceEntry patchPriceEntryByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("priceEntry") PriceEntry priceEntry)
 		throws Exception {
@@ -798,7 +798,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response patchPriceEntry(
+	public PriceEntry patchPriceEntry(
 			@GraphQLName("id") Long id,
 			@GraphQLName("priceEntry") PriceEntry priceEntry)
 		throws Exception {
@@ -878,7 +878,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response patchPriceListByExternalReferenceCode(
+	public PriceList patchPriceListByExternalReferenceCode(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("priceList") PriceList priceList)
 		throws Exception {
@@ -918,7 +918,7 @@ public class Mutation {
 	}
 
 	@GraphQLField
-	public Response patchPriceList(
+	public PriceList patchPriceList(
 			@GraphQLName("id") Long id,
 			@GraphQLName("priceList") PriceList priceList)
 		throws Exception {

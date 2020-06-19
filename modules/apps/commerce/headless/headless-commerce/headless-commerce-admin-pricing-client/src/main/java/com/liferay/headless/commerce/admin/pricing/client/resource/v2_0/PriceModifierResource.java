@@ -763,7 +763,7 @@ public interface PriceModifierResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/price-modifiers/{id}/batch",
+						"/o/headless-commerce-admin-pricing/v2.0/price-modifiers/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(

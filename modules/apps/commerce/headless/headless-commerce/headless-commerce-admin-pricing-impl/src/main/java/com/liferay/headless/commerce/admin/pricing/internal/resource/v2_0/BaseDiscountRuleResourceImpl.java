@@ -99,7 +99,7 @@ public abstract class BaseDiscountRuleResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discount-rules/{id}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discount-rules/batch'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes("application/json")
@@ -110,7 +110,7 @@ public abstract class BaseDiscountRuleResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
 		}
 	)
-	@Path("/discount-rules/{id}/batch")
+	@Path("/discount-rules/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "DiscountRule")})
 	public Response deleteDiscountRuleBatch(
@@ -166,14 +166,12 @@ public abstract class BaseDiscountRuleResourceImpl
 	@Path("/discount-rules/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "DiscountRule")})
-	public Response patchDiscountRule(
+	public DiscountRule patchDiscountRule(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
 			DiscountRule discountRule)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
+		return new DiscountRule();
 	}
 
 	/**

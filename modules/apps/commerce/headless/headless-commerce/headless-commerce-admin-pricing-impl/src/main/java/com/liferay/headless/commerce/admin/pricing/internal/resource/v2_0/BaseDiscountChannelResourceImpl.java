@@ -98,7 +98,7 @@ public abstract class BaseDiscountChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discount-channels/{id}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discount-channels/batch'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes("application/json")
@@ -109,7 +109,7 @@ public abstract class BaseDiscountChannelResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
 		}
 	)
-	@Path("/discount-channels/{id}/batch")
+	@Path("/discount-channels/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "DiscountChannel")})
 	public Response deleteDiscountChannelBatch(

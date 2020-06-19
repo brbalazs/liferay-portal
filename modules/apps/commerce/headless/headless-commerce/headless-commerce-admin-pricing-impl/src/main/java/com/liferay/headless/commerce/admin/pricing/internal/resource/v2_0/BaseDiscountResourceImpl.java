@@ -213,15 +213,13 @@ public abstract class BaseDiscountResourceImpl
 	@Path("/discounts/by-externalReferenceCode/{externalReferenceCode}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Discount")})
-	public Response patchDiscountByExternalReferenceCode(
+	public Discount patchDiscountByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode") String externalReferenceCode,
 			Discount discount)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
+		return new Discount();
 	}
 
 	/**
@@ -310,14 +308,12 @@ public abstract class BaseDiscountResourceImpl
 	@Path("/discounts/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Discount")})
-	public Response patchDiscount(
+	public Discount patchDiscount(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
 			Discount discount)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
+		return new Discount();
 	}
 
 	@Override

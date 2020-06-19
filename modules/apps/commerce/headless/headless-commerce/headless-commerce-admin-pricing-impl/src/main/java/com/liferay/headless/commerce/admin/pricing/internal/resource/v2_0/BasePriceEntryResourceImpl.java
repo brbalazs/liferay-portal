@@ -140,15 +140,13 @@ public abstract class BasePriceEntryResourceImpl
 	@Path("/price-entries/by-externalReferenceCode/{externalReferenceCode}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceEntry")})
-	public Response patchPriceEntryByExternalReferenceCode(
+	public PriceEntry patchPriceEntryByExternalReferenceCode(
 			@NotNull @Parameter(hidden = true)
 			@PathParam("externalReferenceCode") String externalReferenceCode,
 			PriceEntry priceEntry)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
+		return new PriceEntry();
 	}
 
 	/**
@@ -170,7 +168,7 @@ public abstract class BasePriceEntryResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-entries/{id}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-entries/batch'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes("application/json")
@@ -181,7 +179,7 @@ public abstract class BasePriceEntryResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
 		}
 	)
-	@Path("/price-entries/{id}/batch")
+	@Path("/price-entries/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "PriceEntry")})
 	public Response deletePriceEntryBatch(
@@ -237,14 +235,12 @@ public abstract class BasePriceEntryResourceImpl
 	@Path("/price-entries/{id}")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "PriceEntry")})
-	public Response patchPriceEntry(
+	public PriceEntry patchPriceEntry(
 			@NotNull @Parameter(hidden = true) @PathParam("id") Long id,
 			PriceEntry priceEntry)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
+		return new PriceEntry();
 	}
 
 	/**

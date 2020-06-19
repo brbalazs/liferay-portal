@@ -58,7 +58,7 @@ public interface DiscountRuleResource {
 	public HttpInvoker.HttpResponse getDiscountRuleHttpResponse(Long id)
 		throws Exception;
 
-	public void patchDiscountRule(Long id, DiscountRule discountRule)
+	public DiscountRule patchDiscountRule(Long id, DiscountRule discountRule)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse patchDiscountRuleHttpResponse(
@@ -265,7 +265,7 @@ public interface DiscountRuleResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/discount-rules/{id}/batch",
+						"/o/headless-commerce-admin-pricing/v2.0/discount-rules/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -334,7 +334,8 @@ public interface DiscountRuleResource {
 			return httpInvoker.invoke();
 		}
 
-		public void patchDiscountRule(Long id, DiscountRule discountRule)
+		public DiscountRule patchDiscountRule(
+				Long id, DiscountRule discountRule)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -347,6 +348,17 @@ public interface DiscountRuleResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return DiscountRuleSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse patchDiscountRuleHttpResponse(

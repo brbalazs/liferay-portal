@@ -58,7 +58,7 @@ public interface PriceEntryResource {
 				String externalReferenceCode)
 		throws Exception;
 
-	public void patchPriceEntryByExternalReferenceCode(
+	public PriceEntry patchPriceEntryByExternalReferenceCode(
 			String externalReferenceCode, PriceEntry priceEntry)
 		throws Exception;
 
@@ -85,7 +85,7 @@ public interface PriceEntryResource {
 	public HttpInvoker.HttpResponse getPriceEntryHttpResponse(Long id)
 		throws Exception;
 
-	public void patchPriceEntry(Long id, PriceEntry priceEntry)
+	public PriceEntry patchPriceEntry(Long id, PriceEntry priceEntry)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse patchPriceEntryHttpResponse(
@@ -314,7 +314,7 @@ public interface PriceEntryResource {
 			return httpInvoker.invoke();
 		}
 
-		public void patchPriceEntryByExternalReferenceCode(
+		public PriceEntry patchPriceEntryByExternalReferenceCode(
 				String externalReferenceCode, PriceEntry priceEntry)
 			throws Exception {
 
@@ -329,6 +329,17 @@ public interface PriceEntryResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return PriceEntrySerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse
@@ -480,7 +491,7 @@ public interface PriceEntryResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/price-entries/{id}/batch",
+						"/o/headless-commerce-admin-pricing/v2.0/price-entries/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(
@@ -549,7 +560,7 @@ public interface PriceEntryResource {
 			return httpInvoker.invoke();
 		}
 
-		public void patchPriceEntry(Long id, PriceEntry priceEntry)
+		public PriceEntry patchPriceEntry(Long id, PriceEntry priceEntry)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = patchPriceEntryHttpResponse(
@@ -562,6 +573,17 @@ public interface PriceEntryResource {
 			_logger.fine("HTTP response message: " + httpResponse.getMessage());
 			_logger.fine(
 				"HTTP response status code: " + httpResponse.getStatusCode());
+
+			try {
+				return PriceEntrySerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
 		}
 
 		public HttpInvoker.HttpResponse patchPriceEntryHttpResponse(

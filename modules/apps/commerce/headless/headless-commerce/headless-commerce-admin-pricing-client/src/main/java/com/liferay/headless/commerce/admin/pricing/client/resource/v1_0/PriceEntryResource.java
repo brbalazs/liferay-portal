@@ -456,7 +456,7 @@ public interface PriceEntryResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v1.0/priceEntries/{id}/batch",
+						"/o/headless-commerce-admin-pricing/v1.0/priceEntries/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(

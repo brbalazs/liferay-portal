@@ -98,7 +98,7 @@ public abstract class BasePriceModifierProductGroupResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-modifier-product-groups/{id}/batch'  -u 'test@liferay.com:test'
+	 * curl -X 'DELETE' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/price-modifier-product-groups/batch'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes("application/json")
@@ -109,7 +109,7 @@ public abstract class BasePriceModifierProductGroupResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "callbackURL")
 		}
 	)
-	@Path("/price-modifier-product-groups/{id}/batch")
+	@Path("/price-modifier-product-groups/batch")
 	@Produces("application/json")
 	@Tags(value = {@Tag(name = "PriceModifierProductGroup")})
 	public Response deletePriceModifierProductGroupBatch(

@@ -323,7 +323,30 @@ public abstract class BaseDiscountRuleResourceTestCase {
 
 	@Test
 	public void testPatchDiscountRule() throws Exception {
-		Assert.assertTrue(false);
+		DiscountRule postDiscountRule = testPatchDiscountRule_addDiscountRule();
+
+		DiscountRule randomPatchDiscountRule = randomPatchDiscountRule();
+
+		DiscountRule patchDiscountRule = discountRuleResource.patchDiscountRule(
+			postDiscountRule.getId(), randomPatchDiscountRule);
+
+		DiscountRule expectedPatchDiscountRule = postDiscountRule.clone();
+
+		_beanUtilsBean.copyProperties(
+			expectedPatchDiscountRule, randomPatchDiscountRule);
+
+		DiscountRule getDiscountRule = discountRuleResource.getDiscountRule(
+			patchDiscountRule.getId());
+
+		assertEquals(expectedPatchDiscountRule, getDiscountRule);
+		assertValid(getDiscountRule);
+	}
+
+	protected DiscountRule testPatchDiscountRule_addDiscountRule()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
