@@ -966,7 +966,7 @@ info:
         name: Commerce Team
     description:
         "Liferay Commerce Admin Pricing API. A Java client JAR is available for use with the group ID 'com.liferay',
-        artifact ID 'com.liferay.headless.commerce.admin.pricing.client', and version '1.0.5'."
+        artifact ID 'com.liferay.headless.commerce.admin.pricing.client', and version '1.0.6'."
     license:
         name: "Apache 2.0"
         url: "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -1345,12 +1345,16 @@ paths:
                             $ref: "#/components/schemas/DiscountRule"
                 required: true
             responses:
-                201:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/DiscountRule"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/DiscountRule"
                     description:
-                        Created
-                202:
-                    description:
-                        Async
+                        Succesfully update the discount rule
                 400:
                     description:
                         Invalid input
@@ -1657,12 +1661,16 @@ paths:
                             $ref: "#/components/schemas/Discount"
                 required: true
             responses:
-                202:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Discount"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Discount"
                     description:
-                        Async
-                204:
-                    description:
-                        Updated
+                        Succesfully update the discount
                 400:
                     description:
                         Invalid input
@@ -2964,12 +2972,16 @@ paths:
                             $ref: "#/components/schemas/Discount"
                 required: true
             responses:
-                202:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Discount"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Discount"
                     description:
-                        Async
-                204:
-                    description:
-                        Updated
+                        Succesfully update the discount
                 400:
                     description:
                         Invalid input
@@ -4282,12 +4294,16 @@ paths:
                             $ref: "#/components/schemas/PriceEntry"
                 required: true
             responses:
-                202:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PriceEntry"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PriceEntry"
                     description:
-                        Async
-                204:
-                    description:
-                        Updated
+                        Succesfully update the price entry
                 400:
                     description:
                         Invalid input
@@ -4623,12 +4639,16 @@ paths:
                             $ref: "#/components/schemas/PriceEntry"
                 required: true
             responses:
-                202:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PriceEntry"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PriceEntry"
                     description:
-                        Async
-                204:
-                    description:
-                        Updated
+                        Succesfully update the price entry
                 400:
                     description:
                         Invalid input
@@ -5272,12 +5292,16 @@ paths:
                             $ref: "#/components/schemas/PriceList"
                 required: true
             responses:
-                201:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PriceList"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PriceList"
                     description:
-                        Created
-                202:
-                    description:
-                        Async
+                        Succesfully update the price list
                 400:
                     description:
                         Invalid input
@@ -6415,12 +6439,16 @@ paths:
                             $ref: "#/components/schemas/PriceList"
                 required: true
             responses:
-                201:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PriceList"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PriceList"
                     description:
-                        Created
-                202:
-                    description:
-                        Async
+                        Succesfully update the price list
                 400:
                     description:
                         Invalid input
