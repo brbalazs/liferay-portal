@@ -75,8 +75,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.Response;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -155,17 +153,14 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 	}
 
 	@Override
-	public Response patchDiscount(Long id, Discount discount) throws Exception {
-		_updateDiscount(
-			_commerceDiscountService.getCommerceDiscount(id), discount);
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
+	public Discount patchDiscount(Long id, Discount discount) throws Exception {
+		return _toDiscount(
+			_updateDiscount(
+				_commerceDiscountService.getCommerceDiscount(id), discount));
 	}
 
 	@Override
-	public Response patchDiscountByExternalReferenceCode(
+	public Discount patchDiscountByExternalReferenceCode(
 			String externalReferenceCode, Discount discount)
 		throws Exception {
 
@@ -179,11 +174,7 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 					externalReferenceCode);
 		}
 
-		_updateDiscount(commerceDiscount, discount);
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
+		return _toDiscount(_updateDiscount(commerceDiscount, discount));
 	}
 
 	@Override
@@ -191,6 +182,12 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 		CommerceDiscount commerceDiscount = _upsertCommerceDiscount(discount);
 
 		return _toDiscount(commerceDiscount.getCommerceDiscountId());
+	}
+
+	private Discount _toDiscount(CommerceDiscount updateDiscount)
+		throws Exception {
+
+		return _toDiscount(updateDiscount.getCommerceDiscountId());
 	}
 
 	private Discount _toDiscount(Long commerceDiscountId) throws Exception {

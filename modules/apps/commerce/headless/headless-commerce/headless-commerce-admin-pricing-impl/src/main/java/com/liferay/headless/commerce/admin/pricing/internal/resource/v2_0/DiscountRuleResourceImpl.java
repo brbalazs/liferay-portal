@@ -32,8 +32,6 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.core.Response;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -105,22 +103,19 @@ public class DiscountRuleResourceImpl extends BaseDiscountRuleResourceImpl {
 	}
 
 	@Override
-	public Response patchDiscountRule(Long id, DiscountRule discountRule)
+	public DiscountRule patchDiscountRule(Long id, DiscountRule discountRule)
 		throws Exception {
 
 		CommerceDiscountRule commerceDiscountRule =
 			_commerceDiscountRuleService.getCommerceDiscountRule(id);
 
-		_commerceDiscountRuleService.updateCommerceDiscountRule(
-			commerceDiscountRule.getCommerceDiscountRuleId(),
-			discountRule.getType(),
-			GetterUtil.get(
-				discountRule.getTypeSettings(),
-				commerceDiscountRule.getTypeSettings()));
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
+		return _toDiscountRule(
+			_commerceDiscountRuleService.updateCommerceDiscountRule(
+				commerceDiscountRule.getCommerceDiscountRuleId(),
+				discountRule.getType(),
+				GetterUtil.get(
+					discountRule.getTypeSettings(),
+					commerceDiscountRule.getTypeSettings())));
 	}
 
 	@Override
@@ -160,6 +155,14 @@ public class DiscountRuleResourceImpl extends BaseDiscountRuleResourceImpl {
 
 		return _toDiscountRule(
 			commerceDiscountRule.getCommerceDiscountRuleId());
+	}
+
+	private DiscountRule _toDiscountRule(
+			CommerceDiscountRule commerceCommerceDiscountRule)
+		throws Exception {
+
+		return _toDiscountRule(
+			commerceCommerceDiscountRule.getCommerceDiscountRuleId());
 	}
 
 	private DiscountRule _toDiscountRule(Long discountId) throws Exception {

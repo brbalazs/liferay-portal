@@ -84,7 +84,6 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -178,19 +177,16 @@ public class PriceListResourceImpl extends BasePriceListResourceImpl {
 	}
 
 	@Override
-	public Response patchPriceList(Long id, PriceList priceList)
+	public PriceList patchPriceList(Long id, PriceList priceList)
 		throws Exception {
 
-		_updatePriceList(
-			_commercePriceListService.getCommercePriceList(id), priceList);
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
+		return _toPriceList(
+			_updatePriceList(
+				_commercePriceListService.getCommercePriceList(id), priceList));
 	}
 
 	@Override
-	public Response patchPriceListByExternalReferenceCode(
+	public PriceList patchPriceListByExternalReferenceCode(
 			String externalReferenceCode, PriceList priceList)
 		throws Exception {
 
@@ -204,11 +200,7 @@ public class PriceListResourceImpl extends BasePriceListResourceImpl {
 					externalReferenceCode);
 		}
 
-		_updatePriceList(commercePriceList, priceList);
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
+		return _toPriceList(_updatePriceList(commercePriceList, priceList));
 	}
 
 	@Override
@@ -224,6 +216,12 @@ public class PriceListResourceImpl extends BasePriceListResourceImpl {
 		Calendar calendar = CalendarFactoryUtil.getCalendar(time, timeZone);
 
 		return new DateConfig(calendar);
+	}
+
+	private PriceList _toPriceList(CommercePriceList commercePriceList)
+		throws Exception {
+
+		return _toPriceList(commercePriceList.getCommercePriceListId());
 	}
 
 	private PriceList _toPriceList(Long commercePriceListId) throws Exception {

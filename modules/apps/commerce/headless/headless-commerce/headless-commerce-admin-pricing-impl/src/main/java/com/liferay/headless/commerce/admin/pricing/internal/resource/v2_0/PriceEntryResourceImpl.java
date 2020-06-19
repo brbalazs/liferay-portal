@@ -57,7 +57,6 @@ import java.util.List;
 import java.util.TimeZone;
 
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -183,19 +182,17 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 	}
 
 	@Override
-	public Response patchPriceEntry(Long id, PriceEntry priceEntry)
+	public PriceEntry patchPriceEntry(Long id, PriceEntry priceEntry)
 		throws Exception {
 
-		_updatePriceEntry(
-			_commercePriceEntryService.getCommercePriceEntry(id), priceEntry);
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
+		return _toPriceEntry(
+			_updatePriceEntry(
+				_commercePriceEntryService.getCommercePriceEntry(id),
+				priceEntry));
 	}
 
 	@Override
-	public Response patchPriceEntryByExternalReferenceCode(
+	public PriceEntry patchPriceEntryByExternalReferenceCode(
 			String externalReferenceCode, PriceEntry priceEntry)
 		throws Exception {
 
@@ -209,11 +206,7 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 					externalReferenceCode);
 		}
 
-		_updatePriceEntry(commercePriceEntry, priceEntry);
-
-		Response.ResponseBuilder responseBuilder = Response.ok();
-
-		return responseBuilder.build();
+		return _toPriceEntry(_updatePriceEntry(commercePriceEntry, priceEntry));
 	}
 
 	@Override
@@ -267,6 +260,12 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 		}
 
 		return priceEntries;
+	}
+
+	private PriceEntry _toPriceEntry(CommercePriceEntry commercePriceEntry)
+		throws Exception {
+
+		return _toPriceEntry(commercePriceEntry.getCommercePriceEntryId());
 	}
 
 	private PriceEntry _toPriceEntry(Long commercePriceEntryId)
