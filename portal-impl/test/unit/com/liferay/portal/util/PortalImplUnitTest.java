@@ -17,6 +17,7 @@ package com.liferay.portal.util;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.servlet.http.HttpSession;
@@ -497,6 +498,25 @@ public class PortalImplUnitTest {
 			_portalImpl.isValidResourceId("%5cWEB-INF%5cweb.xml"));
 		Assert.assertFalse(
 			_portalImpl.isValidResourceId("%255cWEB-INF%255cweb.xml"));
+
+		Assert.assertTrue(_portalImpl.isValidResourceId("%25252525252525252f"));
+
+		StringBundler sb = new StringBundler();
+
+		sb.append("%");
+
+		for (int i = 0; i < 100000; i++) {
+			sb.append("25");
+		}
+
+		sb.append("2f");
+
+		try {
+			Assert.assertFalse(_portalImpl.isValidResourceId(sb.toString()));
+		}
+		catch (OutOfMemoryError oome) {
+			Assert.fail();
+		}
 	}
 
 	@Test
