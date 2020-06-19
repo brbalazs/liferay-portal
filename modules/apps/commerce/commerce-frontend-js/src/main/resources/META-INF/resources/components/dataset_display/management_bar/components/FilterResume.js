@@ -16,17 +16,15 @@ import ClayDropDown from '@clayui/drop-down';
 import ClayIcon from '@clayui/icon';
 import ClayLabel from '@clayui/label';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import {prettifyFilterValue} from '../../utilities/dates';
 import getAppContext from './Context';
 import {Filter} from './filters/index';
 
 function FilterResume(props) {
 	const {actions} = getAppContext();
 	const [open, setOpen] = useState(false);
-
-	const prettifiedValue = prettifyFilterValue(props);
 
 	const label = (
 		<ClayLabel
@@ -38,7 +36,7 @@ function FilterResume(props) {
 			closeButtonProps={{
 				className: 'filter-resume-close',
 				disabled: props.disabled,
-				onClick: () => actions.updateFilterValue(props.id, null)
+				onClick: () => actions.updateFilterState(props.id)
 			}}
 			role="button"
 		>
@@ -48,7 +46,7 @@ function FilterResume(props) {
 					symbol={open ? 'caret-top' : 'caret-bottom'}
 				/>
 				<div className="label-section">
-					{props.label}: {prettifiedValue}
+					{props.label}: {props.formattedValue}
 				</div>
 			</div>
 		</ClayLabel>
@@ -61,15 +59,19 @@ function FilterResume(props) {
 			onActiveChange={setOpen}
 			trigger={label}
 		>
-			<ClayDropDown.ItemList>
-				<div className="p-3">
-					<Filter {...{...props, actions}} />
-				</div>
-			</ClayDropDown.ItemList>
+			<li className="dropdown-subheader">{props.label}</li>
+			<Filter {...{...props, actions}} />
 		</ClayDropDown>
 	);
 
 	return props.disabled ? label : dropDown;
 }
+
+FilterResume.propTypes = {
+	disabled: PropTypes.bool,
+	formattedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	id: PropTypes.string,
+	label: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+};
 
 export default FilterResume;

@@ -13,25 +13,17 @@
  */
 
 import ClayButton from '@clayui/button';
+import ClayDropDown from '@clayui/drop-down';
 import ClayForm from '@clayui/form';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
 import {
 	formatDateObject,
-	getDateFromDateString
+	formatDateRangeObject,
+	getDateFromDateString,
+	convertObjectDateToIsoString
 } from '../../../utilities/dates';
-
-export function convertObjectDateToIsoString(objDate, direction) {
-	const time = direction === 'from' ? [0, 0, 0, 0] : [23, 59, 59, 999];
-	const date = new Date(
-		objDate.year,
-		objDate.month - 1,
-		objDate.day,
-		...time
-	);
-	return date.toISOString();
-}
 
 function getOdataString(value, key) {
 	if (value.from && value.to) {
@@ -55,63 +47,83 @@ function DateRangeFilter(props) {
 		props.value && props.value.to && formatDateObject(props.value.to)
 	);
 
-	return (
-		<div className="form-group">
-			<ClayForm.Group className="form-group-sm">
-				<label htmlFor={`from-${props.id}`}>
-					{Liferay.Language.get('from')}
-				</label>
-				<input
-					className="form-control"
-					id={`from-${props.id}`}
-					max={toValue || (props.max && formatDateObject(props.max))}
-					min={props.min && formatDateObject(props.min)}
-					onChange={e => setFromValue(e.target.value)}
-					pattern="\d{4}-\d{2}-\d{2}"
-					placeholder={props.placeholder || 'yyyy-mm-dd'}
-					type="date"
-					value={fromValue || ''}
-				/>
-			</ClayForm.Group>
-			<ClayForm.Group className="form-group-sm mt-2">
-				<label htmlFor={`to-${props.id}`}>
-					{Liferay.Language.get('to')}
-				</label>
-				<input
-					className="form-control"
-					id={`to-${props.id}`}
-					max={props.max && formatDateObject(props.max)}
-					min={
-						fromValue || (props.min && formatDateObject(props.min))
-					}
-					onChange={e => setToValue(e.target.value)}
-					pattern="\d{4}-\d{2}-\d{2}"
-					placeholder={props.placeholder || 'yyyy-mm-dd'}
-					type="date"
-					value={toValue || ''}
-				/>
-			</ClayForm.Group>
+	let actionType = 'edit';
 
-			<div className="mt-3">
+	if (props.value && !fromValue && !toValue) {
+		actionType = 'delete';
+	}
+
+	if (!props.value) {
+		actionType = 'add';
+	}
+
+	let submitDisabled = true;
+
+	if (
+		actionType === 'delete' ||
+		((!props.value || !props.value.from) && fromValue) ||
+		((!props.value || !props.value.to) && toValue) ||
+		(props.value &&
+			props.value.from &&
+			fromValue !== formatDateObject(props.value.from)) ||
+		(props.value &&
+			props.value.to &&
+			toValue !== formatDateObject(props.value.to))
+	) {
+		submitDisabled = false;
+	}
+
+	return (
+		<>
+			<ClayDropDown.Caption>
+				<div className="form-group">
+					<ClayForm.Group className="form-group-sm">
+						<label htmlFor={`from-${props.id}`}>
+							{Liferay.Language.get('from')}
+						</label>
+						<input
+							className="form-control"
+							id={`from-${props.id}`}
+							max={
+								toValue ||
+								(props.max && formatDateObject(props.max))
+							}
+							min={props.min && formatDateObject(props.min)}
+							onChange={e => setFromValue(e.target.value)}
+							pattern="\d{4}-\d{2}-\d{2}"
+							placeholder={props.placeholder || 'yyyy-mm-dd'}
+							type="date"
+							value={fromValue || ''}
+						/>
+					</ClayForm.Group>
+					<ClayForm.Group className="form-group-sm mt-2">
+						<label htmlFor={`to-${props.id}`}>
+							{Liferay.Language.get('to')}
+						</label>
+						<input
+							className="form-control"
+							id={`to-${props.id}`}
+							max={props.max && formatDateObject(props.max)}
+							min={
+								fromValue ||
+								(props.min && formatDateObject(props.min))
+							}
+							onChange={e => setToValue(e.target.value)}
+							pattern="\d{4}-\d{2}-\d{2}"
+							placeholder={props.placeholder || 'yyyy-mm-dd'}
+							type="date"
+							value={toValue || ''}
+						/>
+					</ClayForm.Group>
+				</div>
+			</ClayDropDown.Caption>
+			<ClayDropDown.Divider />
+			<ClayDropDown.Caption>
 				<ClayButton
-					className="btn-sm"
-					disabled={
-						fromValue ===
-							(props.value && props.value.from
-								? formatDateObject(props.value.from)
-								: '') &&
-						toValue ===
-							(props.value && props.value.to
-								? formatDateObject(props.value.to)
-								: '')
-					}
+					disabled={submitDisabled}
 					onClick={() => {
-						if (!fromValue && !toValue) {
-							props.actions.updateFilterValue(
-								props.id,
-								null,
-								null
-							);
+						if (actionType === 'delete') {
+							props.actions.updateFilterState(props.id);
 						} else {
 							const newValue = {
 								from: fromValue
@@ -121,20 +133,24 @@ function DateRangeFilter(props) {
 									? getDateFromDateString(toValue)
 									: null
 							};
-							props.actions.updateFilterValue(
+							props.actions.updateFilterState(
 								props.id,
 								newValue,
+								formatDateRangeObject(newValue),
 								getOdataString(newValue, props.id)
 							);
 						}
 					}}
+					small
 				>
-					{props.value
-						? Liferay.Language.get('edit-filter')
-						: Liferay.Language.get('add-filter')}
+					{actionType === 'add' && Liferay.Language.get('add-filter')}
+					{actionType === 'edit' &&
+						Liferay.Language.get('edit-filter')}
+					{actionType === 'delete' &&
+						Liferay.Language.get('delete-filter')}
 				</ClayButton>
-			</div>
-		</div>
+			</ClayDropDown.Caption>
+		</>
 	);
 }
 

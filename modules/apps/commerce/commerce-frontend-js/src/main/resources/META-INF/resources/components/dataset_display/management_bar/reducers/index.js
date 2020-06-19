@@ -21,7 +21,7 @@ export const initialState = {
 
 function reducer(state = initialState, action) {
 	switch (action.type) {
-		case actionsDefinition.UPDATE_FILTER_VALUE:
+		case actionsDefinition.UPDATE_FILTER_STATE:
 			return {
 				...state,
 				filters: state.filters.map(el => ({
@@ -34,7 +34,9 @@ function reducer(state = initialState, action) {
 				...state,
 				filters: state.filters.map(el => ({
 					...el,
+					additionalData: null,
 					odataFilterString: null,
+					resumeCustomLabel: null,
 					value: null
 				}))
 			};
