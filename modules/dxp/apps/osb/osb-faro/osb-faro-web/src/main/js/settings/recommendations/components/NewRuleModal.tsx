@@ -210,7 +210,7 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 			</Modal.Body>
 
 			<Modal.Footer>
-				<Button onClick={close}>
+				<Button onClick={onClose}>
 					{Liferay.Language.get('cancel')}
 				</Button>
 
