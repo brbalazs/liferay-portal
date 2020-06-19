@@ -111,20 +111,9 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerc
 				bodyClasses="flex-fill"
 				title='<%= LanguageUtil.get(request, "prices") %>'
 			>
-				<aui:select label="shipping-tax-category" name="shippingTaxSettings--taxCategoryId--">
-					<aui:option label="no-tax-category" selected="<%= 0 == commerceChannelDisplayContext.getActiveShippingTaxCategory() %>" value="0" />
+				<label class="control-label" for="shippingTaxSettings--taxCategoryId--"><%= LanguageUtil.get(request, "shipping-tax-category") %></label>
 
-					<%
-					for (CPTaxCategory taxCategory : commerceChannelDisplayContext.getTaxCategories()) {
-					%>
-
-						<aui:option label="<%= taxCategory.getName() %>" selected="<%= taxCategory.getCPTaxCategoryId() == commerceChannelDisplayContext.getActiveShippingTaxCategory() %>" value="<%= taxCategory.getCPTaxCategoryId() %>" />
-
-					<%
-					}
-					%>
-
-				</aui:select>
+				<div class="mb-4" id="autocomplete-root"></div>
 
 				<aui:select label="price-type" name="priceDisplayType">
 
@@ -226,3 +215,29 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerc
 		</commerce-ui:panel>
 	</div>
 </div>
+
+<%
+String shippingTaxCategoryId = StringPool.BLANK;
+String shippingTaxCategoryLabel = LanguageUtil.get(request, "no-tax-category");
+
+CPTaxCategory shippingTaxCategory = commerceChannelDisplayContext.getActiveShippingTaxCategory();
+
+if (shippingTaxCategory != null) {
+	shippingTaxCategoryId = String.valueOf(shippingTaxCategory.getCPTaxCategoryId());
+	shippingTaxCategoryLabel = shippingTaxCategory.getName(locale);
+}
+%>
+
+<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
+	autocomplete.default('autocomplete', 'autocomplete-root', {
+		apiUrl:
+			'/o/headless-commerce-admin-channel/v1.0/channels/<%= commerceChannelId %>/tax-categories',
+		initialLabel: '<%= shippingTaxCategoryLabel %>',
+		initialValue: '<%= shippingTaxCategoryId %>',
+		inputId: 'shippingTaxCategoryId',
+		inputName:
+			'<%= renderResponse.getNamespace() %>shippingTaxSettings--taxCategoryId--',
+		itemsKey: 'id',
+		itemsLabel: ['name', 'LANG']
+	});
+</aui:script>
