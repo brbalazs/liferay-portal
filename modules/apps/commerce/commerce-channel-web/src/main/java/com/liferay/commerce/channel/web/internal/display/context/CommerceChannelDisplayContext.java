@@ -116,7 +116,7 @@ public class CommerceChannelDisplayContext
 		_cpTaxCategoryLocalService = cpTaxCategoryLocalService;
 	}
 
-	public long getActiveShippingTaxCategory() throws PortalException {
+	public CPTaxCategory getActiveShippingTaxCategory() throws PortalException {
 		CommerceChannel commerceChannel = getCommerceChannel();
 
 		CommerceShippingTaxConfiguration commerceShippingTaxConfiguration =
@@ -126,7 +126,8 @@ public class CommerceChannelDisplayContext
 					commerceChannel.getGroupId(),
 					CommerceConstants.TAX_SERVICE_NAME));
 
-		return commerceShippingTaxConfiguration.taxCategoryId();
+		return _cpTaxCategoryLocalService.fetchCPTaxCategory(
+			commerceShippingTaxConfiguration.taxCategoryId());
 	}
 
 	public List<WorkflowDefinition> getActiveWorkflowDefinitions()
