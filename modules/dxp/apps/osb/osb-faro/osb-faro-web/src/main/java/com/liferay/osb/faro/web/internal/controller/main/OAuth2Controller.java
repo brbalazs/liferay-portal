@@ -238,7 +238,9 @@ public class OAuth2Controller extends BaseFaroController {
 			Collections.emptyList(), StringPool.BLANK, 0,
 			_generateApplicationName(), StringPool.BLANK,
 			Collections.emptyList(),
-			Arrays.asList(ApiApplication.OAuth2ScopeAliases.REPORTS_EVERYTHING),
+			Arrays.asList(
+				ApiApplication.OAuth2ScopeAliases.RECOMMENDATIONS_EVERYTHING,
+				ApiApplication.OAuth2ScopeAliases.REPORTS_EVERYTHING),
 			serviceContext);
 	}
 
