@@ -145,16 +145,17 @@ public class StringFieldRenderer extends BaseFieldRenderer {
 		for (int i = 0; i < jsonArray.length(); i++) {
 			String value = jsonArray.getString(i);
 
-			LocalizedValue label = getFieldOptionLabel(field, value);
+			LocalizedValue labelLocalizedValue = getFieldOptionLabel(
+				field, value);
 
-			if (label == null) {
-				sb.append(value);
-			}
-			else {
-				sb.append(label.getString(locale));
+			String label = value;
+
+			if (labelLocalizedValue != null) {
+				label = labelLocalizedValue.getString(locale);
 			}
 
-			sb.append(label.getString(locale));
+			sb.append(label);
+
 			sb.append(StringPool.COMMA_AND_SPACE);
 		}
 
