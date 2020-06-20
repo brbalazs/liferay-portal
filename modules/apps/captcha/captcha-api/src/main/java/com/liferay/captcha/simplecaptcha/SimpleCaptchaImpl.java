@@ -53,6 +53,7 @@ import nl.captcha.text.renderer.WordRenderer;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Brian Wing Shun Chan
@@ -486,6 +487,11 @@ public class SimpleCaptchaImpl implements Captcha {
 		return valid;
 	}
 
+	@Reference(
+		target = "(&(release.bundle.symbolic.name=com.liferay.captcha.impl)(release.schema.version>=1.1.0))"
+	)
+	protected Release release;
+
 	private Object _getInstance(String className) {
 		className = className.trim();
 
@@ -527,12 +533,6 @@ public class SimpleCaptchaImpl implements Captcha {
 	private GimpyRenderer[] _gimpyRenderers;
 	private final Map<String, Object> _instances = new ConcurrentHashMap<>();
 	private NoiseProducer[] _noiseProducers;
-
-	@Reference(
-		target = "(&(release.bundle.symbolic.name=com.liferay.captcha.api)(release.schema.version>=1.1.0))"
-	)
-	private Release _release;
-
 	private TextProducer[] _textProducers;
 	private WordRenderer[] _wordRenderers;
 
