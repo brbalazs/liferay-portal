@@ -188,8 +188,8 @@ public abstract class BaseTaxCategoryResourceTestCase {
 	public void testGetChannelTaxCategoriesPage() throws Exception {
 		Page<TaxCategory> page =
 			taxCategoryResource.getChannelTaxCategoriesPage(
-				testGetChannelTaxCategoriesPage_getChannelId(), null,
-				Pagination.of(1, 2));
+				testGetChannelTaxCategoriesPage_getChannelId(),
+				RandomTestUtil.randomString(), Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 

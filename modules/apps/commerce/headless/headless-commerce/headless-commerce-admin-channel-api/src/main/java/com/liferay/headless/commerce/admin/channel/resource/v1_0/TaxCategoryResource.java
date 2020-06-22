@@ -47,7 +47,7 @@ public interface TaxCategoryResource {
 	}
 
 	public Page<TaxCategory> getChannelTaxCategoriesPage(
-			Long channelId, Integer search, Pagination pagination)
+			Long channelId, String search, Pagination pagination)
 		throws Exception;
 
 	public TaxCategory getTaxCategory(Long id) throws Exception;
