@@ -40,10 +40,10 @@
 
 			.action {
 				color: $color-theme;
-				text-transform: capitalize;
-				letter-spacing: normal;
 				font-size: .8em;
 				font-weight: 500;
+				letter-spacing: normal;
+				text-transform: capitalize;
 			}
 		}
 
@@ -76,8 +76,8 @@
 		}
 
 		&-delete {
-			margin: 25px 0;
 			font-size: .9rem;
+			margin: 25px 0;
 		}
 
 		&-quantity {
