@@ -128,6 +128,12 @@ public class CPTaxCategoryLocalServiceImpl
 		return cpTaxCategoryPersistence.update(cpTaxCategory);
 	}
 
+	@Override
+	public List<CPTaxCategory> findCPTaxCategoriesByCompanyId(long companyId, String keyword, int start, int end) {
+		return cpTaxCategoryFinder.findCPTaxCategoriesByCompanyId(companyId, keyword, start, end);
+	}
+
+
 	protected void validate(Map<Locale, String> nameMap)
 		throws PortalException {
 
