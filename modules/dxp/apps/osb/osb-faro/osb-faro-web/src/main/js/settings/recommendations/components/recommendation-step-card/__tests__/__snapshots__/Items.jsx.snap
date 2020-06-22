@@ -35,12 +35,12 @@ exports[`Items should render 1`] = `
               class=""
             >
               <th
-                class="table-head-title table-cell-expand"
+                class="table-head-title rule-cell table-cell-expand"
               >
                 Rule
               </th>
               <th
-                class="table-head-title table-column-text-end"
+                class="table-head-title count-cell table-column-text-end"
               >
                 Matching Items
               </th>
@@ -52,7 +52,7 @@ exports[`Items should render 1`] = `
               class=""
             >
               <td
-                class="rule table-cell-expand"
+                class="rule rule-cell table-cell-expand"
               >
                 <b>
                   Include:
@@ -73,9 +73,14 @@ exports[`Items should render 1`] = `
                 </span>
               </td>
               <td
-                class="table-column-text-end"
+                class="count-cell table-column-text-end"
               >
-                0
+                <button
+                  class="button-root btn btn-unstyled matching-pages-modal-button"
+                  type="button"
+                >
+                  0
+                </button>
               </td>
               <td
                 class=" row-inline-actions"
@@ -109,7 +114,12 @@ exports[`Items should render 1`] = `
           Total Included Pages
         </div>
         <div>
-          0
+          <button
+            class="button-root btn btn-unstyled matching-pages-modal-button"
+            type="button"
+          >
+            0
+          </button>
         </div>
       </div>
     </div>
