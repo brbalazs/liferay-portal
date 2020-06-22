@@ -536,17 +536,17 @@ public class CommercePriceListChannelRelWrapper
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CommercePriceListChannelRelWrapper)) {
+		if (!(obj instanceof CommercePriceListChannelRelWrapper)) {
 			return false;
 		}
 
 		CommercePriceListChannelRelWrapper commercePriceListChannelRelWrapper =
-			(CommercePriceListChannelRelWrapper)object;
+			(CommercePriceListChannelRelWrapper)obj;
 
 		if (Objects.equals(
 				_commercePriceListChannelRel,

@@ -366,14 +366,13 @@ public class CommercePriceListPersistenceTest {
 	}
 
 	@Test
-	public void testCountByCatalogBasePriceListByType() throws Exception {
-		_persistence.countByCatalogBasePriceListByType(
+	public void testCountByG_C_T() throws Exception {
+		_persistence.countByG_C_T(
 			RandomTestUtil.nextLong(), RandomTestUtil.randomBoolean(), "");
 
-		_persistence.countByCatalogBasePriceListByType(
-			0L, RandomTestUtil.randomBoolean(), "null");
+		_persistence.countByG_C_T(0L, RandomTestUtil.randomBoolean(), "null");
 
-		_persistence.countByCatalogBasePriceListByType(
+		_persistence.countByG_C_T(
 			0L, RandomTestUtil.randomBoolean(), (String)null);
 	}
 

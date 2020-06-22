@@ -36,18 +36,18 @@ public class CommercePriceListDiscountRelCacheModel
 	implements CacheModel<CommercePriceListDiscountRel>, Externalizable {
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CommercePriceListDiscountRelCacheModel)) {
+		if (!(obj instanceof CommercePriceListDiscountRelCacheModel)) {
 			return false;
 		}
 
 		CommercePriceListDiscountRelCacheModel
 			commercePriceListDiscountRelCacheModel =
-				(CommercePriceListDiscountRelCacheModel)object;
+				(CommercePriceListDiscountRelCacheModel)obj;
 
 		if (commercePriceListDiscountRelId ==
 				commercePriceListDiscountRelCacheModel.
