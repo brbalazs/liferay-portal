@@ -588,7 +588,7 @@ DatasetDisplay.defaultProps = {
 	style: 'default'
 };
 
-export default function DatasetDisplayEnhancer(props) {
+export default function DragAndDropProvider(props) {
 	const baseComponent = props => {
 		const {apiUrl, id, spritemap, views} = props;
 
