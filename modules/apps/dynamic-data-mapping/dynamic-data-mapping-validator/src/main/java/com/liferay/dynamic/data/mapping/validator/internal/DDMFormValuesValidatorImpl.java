@@ -40,6 +40,7 @@ import com.liferay.dynamic.data.mapping.validator.DDMFormValuesValidator;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.MapUtil;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Collections;
@@ -189,7 +190,7 @@ public class DDMFormValuesValidatorImpl implements DDMFormValuesValidator {
 
 		Value value = ddmFormFieldValue.getValue();
 
-		if ((value == null) || value.getAvailableLocales().isEmpty()) {
+		if ((value == null) || SetUtil.isEmpty(value.getAvailableLocales())) {
 			return true;
 		}
 
