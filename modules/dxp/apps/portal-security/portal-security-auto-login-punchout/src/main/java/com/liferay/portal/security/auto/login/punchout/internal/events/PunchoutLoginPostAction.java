@@ -164,7 +164,7 @@ public class PunchoutLoginPostAction extends Action {
 		HttpSession httpSession = httpServletRequest.getSession();
 
 		httpSession.setAttribute(
-			PunchoutConstants.PUNCHOUT_RETURN_URL_SESSION_ATTRIBUTE_NAME,
+			PunchoutConstants.PUNCHOUT_RETURN_URL_ATTRIBUTE_NAME,
 			punchoutAccessToken.getPunchoutReturnURL());
 	}
 

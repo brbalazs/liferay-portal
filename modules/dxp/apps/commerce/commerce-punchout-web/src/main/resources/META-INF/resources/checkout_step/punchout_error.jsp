@@ -1,3 +1,4 @@
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -11,18 +12,10 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+--%>
 
-package com.liferay.commerce.punchout.constants;
+<%@ include file="/init.jsp" %>
 
-/**
- * @author Jaclyn Ong
- */
-public class PunchoutConstants {
-
-	public static final String PUNCHOUT_RETURN_URL_ATTRIBUTE_NAME =
-		"PUNCHOUT_RETURN_URL";
-
-	public static final String SERVICE_NAME =
-		"com.liferay.headless.commerce.punchout";
-
-}
+<div>
+	<liferay-ui:message key="punchout-cart-transfer-failed-please-try-again" />
+</div>

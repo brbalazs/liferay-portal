@@ -16,14 +16,18 @@
 
 <%@ include file="/init.jsp" %>
 
-<aui:script use="aui-base">
-	var continueButton = document.getElementById('<portlet:namespace />continue');
+<%
+	String redirectUrl = (String)request.getAttribute(PunchoutConstants.PUNCHOUT_RETURN_URL_ATTRIBUTE_NAME);
+%>
 
-	if (continueButton) {
-		Liferay.Util.toggleDisabled(continueButton, true);
-	}
-</aui:script>
+<div>
+	<c:set var="redirectLink">
+		<a href="<%= redirectUrl %>"><%= redirectUrl %></a>
+	</c:set>
 
-<div id="punchoutContainer">
-	<aui:button cssClass="btn-lg" name="transferCartButton" type="submit" value='<%= LanguageUtil.get(request, "transfer-cart") %>' />
+	<liferay-ui:message arguments="${redirectLink}" key="the-punchout-cart-transfer-process-has-been-initiated.-you-should-be-redirected-automatically.-if-the-page-does-not-reload-within-a-few-seconds-please-click-this-link-x" />
 </div>
+
+<script>
+	window.location.href = '<%= redirectUrl %>';
+</script>

@@ -35,11 +35,9 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -93,27 +91,18 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 	}
 
 	@Override
-	public void processAction(
-			ActionRequest actionRequest, ActionResponse actionResponse)
+	public boolean isVisible(
+		HttpServletRequest httpServletRequest,
+		HttpServletResponse httpServletResponse)
 		throws Exception {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
+		return false;
+	}
 
-		HttpServletRequest httpServletRequest = themeDisplay.getRequest();
-
-		String punchoutReturnURL = _getPunchoutReturnURL(httpServletRequest);
-
-		CommerceOrder commerceOrder = _getCommerceOrder(actionRequest);
-
-		String redirectURL = _punchoutReturnService.returnToPunchoutVendor(
-			commerceOrder, punchoutReturnURL);
-
-		if (!Validator.isBlank(redirectURL)) {
-			_endPunchoutSession(httpServletRequest);
-
-			actionResponse.setProperty("redirectURL", redirectURL);
-		}
+	@Override
+	public void processAction(
+		ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
 	}
 
 	@Override
@@ -122,21 +111,54 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 			HttpServletResponse httpServletResponse)
 		throws Exception {
 
+		String punchoutReturnURL = _getPunchoutReturnURL(httpServletRequest);
+
+		CommerceOrder commerceOrder =
+			(CommerceOrder)httpServletRequest.getAttribute(
+				CommerceCheckoutWebKeys.COMMERCE_ORDER);
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("Transferring cart to " + punchoutReturnURL);
+		}
+
+		String punchoutRedirectURL = _punchoutReturnService.returnToPunchoutVendor(
+			commerceOrder, punchoutReturnURL);
+
+		if (Validator.isBlank(punchoutRedirectURL)) {
+			_jspRenderer.renderJSP(
+				_servletContext, httpServletRequest, httpServletResponse,
+				"/checkout_step/punchout_error.jsp");
+
+			return;
+		}
+
+		if (_log.isDebugEnabled()) {
+			_log.debug("Redirecting to " + punchoutRedirectURL);
+		}
+
+		httpServletRequest.setAttribute(
+			PunchoutConstants.PUNCHOUT_RETURN_URL_ATTRIBUTE_NAME, punchoutRedirectURL);
+
 		_jspRenderer.renderJSP(
 			_servletContext, httpServletRequest, httpServletResponse,
 			"/checkout_step/punchout.jsp");
+
+		_endPunchoutSession(httpServletRequest);
+	}
+
+	@Override
+	public boolean showControls(
+		HttpServletRequest httpServletRequest,
+		HttpServletResponse httpServletResponse) {
+
+		return false;
 	}
 
 	private void _endPunchoutSession(HttpServletRequest httpServletRequest) {
 		HttpSession httpSession = _getHttpSession(httpServletRequest);
 
 		httpSession.removeAttribute(
-			PunchoutConstants.PUNCHOUT_RETURN_URL_SESSION_ATTRIBUTE_NAME);
-	}
-
-	private CommerceOrder _getCommerceOrder(ActionRequest actionRequest) {
-		return (CommerceOrder)actionRequest.getAttribute(
-			CommerceCheckoutWebKeys.COMMERCE_ORDER);
+			PunchoutConstants.PUNCHOUT_RETURN_URL_ATTRIBUTE_NAME);
 	}
 
 	private CommerceOrder _getCommerceOrder(HttpServletRequest httpServletRequest)
@@ -188,7 +210,7 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 		HttpSession httpSession = _getHttpSession(httpServletRequest);
 
 		Object punchoutReturnUrlObject = httpSession.getAttribute(
-			PunchoutConstants.PUNCHOUT_RETURN_URL_SESSION_ATTRIBUTE_NAME);
+			PunchoutConstants.PUNCHOUT_RETURN_URL_ATTRIBUTE_NAME);
 
 		if (punchoutReturnUrlObject == null) {
 			return null;
