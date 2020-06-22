@@ -592,8 +592,13 @@ DatasetDisplay.defaultProps = {
 };
 
 export default function DatasetDisplayEnhancer(props) {
-	const baseComponent = props => {
-		const {apiUrl, id, spritemap, views} = props;
+	const baseComponent = (props) => {
+		const {
+			apiUrl,
+			id,
+			spritemap,
+			views
+		} = props;
 
 		return (
 			<DatasetDisplay
