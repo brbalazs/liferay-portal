@@ -50,6 +50,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -197,15 +198,13 @@ public class DDMFormValuesValidatorImpl implements DDMFormValuesValidator {
 		DDMFormFieldValueAccessor<?> ddmFormFieldValueAccessor =
 			getDDMFormFieldValueAccessor(ddmFormField.getType());
 
-		for (Locale availableLocale : value.getAvailableLocales()) {
-			if (!ddmFormFieldValueAccessor.isEmpty(
-					ddmFormFieldValue, availableLocale)) {
+		Set<Locale> locales = value.getAvailableLocales();
 
-				return false;
-			}
-		}
+		Stream<Locale> stream = locales.stream();
 
-		return true;
+		return stream.allMatch(
+			locale -> ddmFormFieldValueAccessor.isEmpty(
+				ddmFormFieldValue, locale));
 	}
 
 	protected void removeDDMFormFieldValueValidator(
