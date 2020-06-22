@@ -16,8 +16,8 @@ import getCN from 'classnames';
 import {useDrag, useDrop} from 'react-dnd';
 import React, {useContext} from 'react';
 
-import {ItemTypes} from '../../utilities/drag_drop/constants';
-import DatasetDisplayContext from '../dataset_display/DatasetDisplayContext';
+import {ItemTypes} from '../../../utilities/drag_drop/constants';
+import DatasetDisplayContext from '../DatasetDisplayContext';
 
 function getClassNames(isDragging, isOver) {
 	return getCN(
