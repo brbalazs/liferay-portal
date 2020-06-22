@@ -2,6 +2,7 @@ import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import checkExperimentLink from './CheckExperimentLink';
 import checkProjectState from './CheckProjectState';
+import checkSegmentLink from './CheckSegmentLink';
 import checkValidChannel from './CheckValidChannel';
 import getCN from 'classnames';
 import PropTypes from 'prop-types';
@@ -32,6 +33,7 @@ import {withError, withLoading} from './util';
 export default compose(
 	checkProjectState,
 	checkExperimentLink,
+	checkSegmentLink,
 	withCurrentUser,
 	connect(
 		(store, {currentUser}) => ({
