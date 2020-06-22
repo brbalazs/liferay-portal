@@ -85,6 +85,8 @@ AUI.add(
 							eventHandles.push(buttonRow.delegate(STR_CLICK, instance._onButtonClick, 'button', instance));
 						}
 
+						eventHandles.push(Liferay.on('inputLocalized:defaultLocaleChanged', instance._onDefaultLocaleChange.bind(instance)));
+
 						eventHandles.push(Liferay.on('inputLocalized:localeChanged', instance._onLocaleChange.bind(instance)));
 
 						instance._eventHandles = eventHandles;
@@ -165,6 +167,14 @@ AUI.add(
 
 							instance.one(SELECTOR_ACTION_NAME, form).val(actionName);
 						}
+					},
+
+					_onDefaultLocaleChange: function(event) {
+						var instance = this;
+
+						var article = instance.get(STR_ARTICLE);
+
+						article.defaultLanguageId = event.item.getAttribute('data-value');
 					},
 
 					_onFormChanged: function(event) {
