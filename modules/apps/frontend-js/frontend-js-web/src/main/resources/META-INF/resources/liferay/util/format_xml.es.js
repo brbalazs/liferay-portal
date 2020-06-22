@@ -68,7 +68,7 @@ export default function formatXML(content, options = {}) {
 	const cdata = [];
 
 	content = content.trim();
-	content = content.replace(REGEX_CDATA, (match) => {
+	content = content.replace(REGEX_CDATA, match => {
 		cdata.push(match);
 
 		return STR_TOKEN_CDATA;
