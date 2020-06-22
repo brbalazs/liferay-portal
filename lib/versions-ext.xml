@@ -1899,18 +1899,6 @@
 			</library>
 			<library>
 				<file-name>lib/portal/jackson-databind.jar</file-name>
-				<version>2.9.10.1</version>
-				<project-name>Jackson Databind</project-name>
-				<project-url>https://github.com/FasterXML/jackson</project-url>
-				<licenses>
-					<license>
-						<license-name>The Apache Software License, Version 2.0 </license-name>
-						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
-					</license>
-				</licenses>
-			</library>
-			<library>
-				<file-name>lib/portal/jackson-databind.jar</file-name>
 				<version>2.10.0.LIFERAY-PATCHED-1</version>
 				<project-name>Jackson Databind</project-name>
 				<project-url>https://github.com/FasterXML/jackson-databind</project-url>
