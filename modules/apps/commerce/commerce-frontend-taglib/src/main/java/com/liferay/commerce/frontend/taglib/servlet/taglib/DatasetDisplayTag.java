@@ -121,10 +121,6 @@ public class DatasetDisplayTag extends IncludeTag {
 		_deltaParam = deltaParam;
 	}
 
-	public void setEnableDragDrop(boolean enableDragDrop) {
-		_enableDragDrop = enableDragDrop;
-	}
-
 	public void setFormId(String formId) {
 		_formId = formId;
 	}
@@ -264,8 +260,6 @@ public class DatasetDisplayTag extends IncludeTag {
 		request.setAttribute(
 			"liferay-commerce:dataset-display:deltaParam", _deltaParam);
 		request.setAttribute(
-			"liferay-commerce:dataset-display:enableDragDrop", _enableDragDrop);
-		request.setAttribute(
 			"liferay-commerce:dataset-display:formId", _formId);
 		request.setAttribute("liferay-commerce:dataset-display:id", _id);
 		request.setAttribute(
@@ -341,7 +335,6 @@ public class DatasetDisplayTag extends IncludeTag {
 	private String _dataProviderKey;
 	private String _dataSetAPI;
 	private String _deltaParam;
-	private boolean _enableDragDrop = false;
 	private String _formId;
 	private String _id;
 	private int _itemsPerPage;
