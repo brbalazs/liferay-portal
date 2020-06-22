@@ -511,6 +511,13 @@ paths:
                   schema:
                       type: integer
                   style: form
+                - in: query
+                  explode: true
+                  name: search
+                  required: false
+                  schema:
+                      type: integer
+                  style: form
             responses:
                 200:
                     content:
