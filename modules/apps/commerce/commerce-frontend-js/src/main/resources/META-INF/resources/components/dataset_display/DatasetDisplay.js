@@ -95,9 +95,9 @@ function DatasetDisplay(props) {
 						views.map((view, i) =>
 							i === activeView
 								? {
-										...view,
-										component
-								  }
+									...view,
+									component
+								}
 								: view
 						)
 					);
