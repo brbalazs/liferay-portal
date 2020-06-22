@@ -211,6 +211,7 @@ JournalEditArticleDisplayContext journalEditArticleDisplayContext = new JournalE
 	var journal = new Liferay.Portlet.Journal(
 		{
 			article: {
+				defaultLanguageId: '<%= journalDisplayContext.getDefaultLanguageId() %>',
 				editUrl: '<%= journalEditArticleDisplayContext.getEditArticleURL() %>',
 				id: '<%= (article != null) ? HtmlUtil.escape(journalEditArticleDisplayContext.getArticleId()) : StringPool.BLANK %>',
 

@@ -186,8 +186,12 @@ AUI.add(
 					},
 
 					_onLocaleChange: function(event) {
-						var defaultLanguageId = themeDisplay.getDefaultLanguageId();
 						var instance = this;
+
+						var article = instance.get(STR_ARTICLE);
+
+						var defaultLanguageId = article.defaultLanguageId;
+
 						var selectedLanguageId = event.item.getAttribute('data-value');
 
 						if (selectedLanguageId) {
