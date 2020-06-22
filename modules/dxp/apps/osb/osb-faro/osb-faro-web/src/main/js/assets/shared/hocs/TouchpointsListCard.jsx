@@ -20,7 +20,7 @@ const TouchpointListWithData = compose(
 	}),
 	withLoading({alignCenter: true, page: false}),
 	withError({page: false}),
-	withEmpty()
+	withEmpty({emptyTitle: Liferay.Language.get('empty-message-pages-card')})
 )(TouchpointsListCard);
 
 TouchpointListWithData.propTypes = HOC_CARD_PROPTYPES;

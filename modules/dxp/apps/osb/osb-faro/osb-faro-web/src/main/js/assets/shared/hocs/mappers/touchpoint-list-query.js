@@ -8,13 +8,6 @@ const mapResultToProps = safeResultToProps(({assetPages}) => {
 			touchpoint: assetId
 		}));
 
-	if (!items || items.length === 0) {
-		return {
-			empty: true,
-			emptyMessage: Liferay.Language.get('empty-message-pages-card')
-		};
-	}
-
 	return {
 		items
 	};
