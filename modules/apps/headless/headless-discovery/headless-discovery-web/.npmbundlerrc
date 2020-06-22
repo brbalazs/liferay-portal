@@ -1,11 +1,4 @@
 {
-	"config": {
-		"imports": {
-			"frontend-js-node-shims": {
-				"domain": "*"
-			}
-		}
-	},
 	"rules": [
 		{
 			"test": "\\.css$",

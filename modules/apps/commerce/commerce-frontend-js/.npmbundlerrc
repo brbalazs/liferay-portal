@@ -1,9 +1,0 @@
-{
-	"config": {
-		"imports": {
-			"frontend-js-node-shims": {
-				"domain": "*"
-			}
-		}
-	}
-}
