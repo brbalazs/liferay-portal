@@ -19,8 +19,6 @@ import sidePanelLauncher from '../../../src/main/resources/META-INF/resources/co
 
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 
-const lang_id = Liferay.ThemeDisplay.getLanguageId();
-
 const fluidDataSetDisplayProps = {
 	activeView: 2,
 	apiUrl: '/dataset-display-nested-items',
