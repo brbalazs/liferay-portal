@@ -147,7 +147,7 @@
 			<finder-column name="companyId" />
 			<finder-column comparator="!=" name="status" />
 		</finder>
-		<finder name="CatalogBasePriceListByType" return-type="CommercePriceList">
+		<finder name="G_C_T" return-type="CommercePriceList">
 			<finder-column name="groupId" />
 			<finder-column name="catalogBasePriceList" />
 			<finder-column name="type" />
