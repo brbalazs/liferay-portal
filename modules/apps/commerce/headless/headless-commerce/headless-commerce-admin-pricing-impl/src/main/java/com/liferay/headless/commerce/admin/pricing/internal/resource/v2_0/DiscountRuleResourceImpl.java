@@ -158,11 +158,11 @@ public class DiscountRuleResourceImpl extends BaseDiscountRuleResourceImpl {
 	}
 
 	private DiscountRule _toDiscountRule(
-			CommerceDiscountRule commerceCommerceDiscountRule)
+			CommerceDiscountRule commerceDiscountRule)
 		throws Exception {
 
 		return _toDiscountRule(
-			commerceCommerceDiscountRule.getCommerceDiscountRuleId());
+			commerceDiscountRule.getCommerceDiscountRuleId());
 	}
 
 	private DiscountRule _toDiscountRule(Long discountId) throws Exception {

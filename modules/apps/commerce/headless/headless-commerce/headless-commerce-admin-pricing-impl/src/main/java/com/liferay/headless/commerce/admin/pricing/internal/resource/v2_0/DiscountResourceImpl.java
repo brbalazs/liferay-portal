@@ -184,10 +184,10 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 		return _toDiscount(commerceDiscount.getCommerceDiscountId());
 	}
 
-	private Discount _toDiscount(CommerceDiscount updateDiscount)
+	private Discount _toDiscount(CommerceDiscount commerceDiscount)
 		throws Exception {
 
-		return _toDiscount(updateDiscount.getCommerceDiscountId());
+		return _toDiscount(commerceDiscount.getCommerceDiscountId());
 	}
 
 	private Discount _toDiscount(Long commerceDiscountId) throws Exception {
