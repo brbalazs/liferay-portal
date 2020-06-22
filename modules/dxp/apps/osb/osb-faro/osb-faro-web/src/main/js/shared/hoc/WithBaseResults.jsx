@@ -54,15 +54,16 @@ const withBaseResults = (withData, configs) => {
 				props: {rangeSelectors, router, ...otherProps}
 			} = this;
 
-			const {
-				query: {
-					delta,
-					orderBy = orderDescending,
-					orderByField = defaultOrderByField,
-					page,
-					query
-				}
-			} = router;
+			const delta = router ? router.query.delta : otherProps.delta;
+			const orderBy =
+				(router ? router.query.orderBy : otherProps.orderBy) ||
+				orderDescending;
+			const orderByField =
+				(router
+					? router.query.orderByField
+					: otherProps.orderByField) || defaultOrderByField;
+			const page = router ? router.query.page : otherProps.page;
+			const query = router ? router.query.query : otherProps.query;
 
 			return (
 				<TableWithData

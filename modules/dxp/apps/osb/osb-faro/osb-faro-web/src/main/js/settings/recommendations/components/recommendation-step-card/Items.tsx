@@ -27,7 +27,9 @@ const {
 const CountCell: React.FC<{
 	className: string;
 	data: Filter;
-}> = ({className, data: {name, value}}) => {
+	close: Modal.close;
+	open: Modal.open;
+}> = ({className, close, data: {name, value}, open}) => {
 	const {data, loading} = useQuery(RecommendationPageAssetsQuery, {
 		variables: {
 			propertyFilters: [
@@ -55,7 +57,18 @@ const CountCell: React.FC<{
 
 	return (
 		<td className={className}>
-			{get(data, ['pageAssets', 'total'], 0).toLocaleString()}
+			<Button
+				className='matching-pages-modal-button'
+				display='unstyled'
+				onClick={() => {
+					open(modalTypes.MATCHING_PAGES_MODAL, {
+						itemFilters: [{name, value}],
+						onClose: close
+					});
+				}}
+			>
+				{get(data, ['pageAssets', 'total'], 0).toLocaleString()}
+			</Button>
 		</td>
 	);
 };
@@ -120,7 +133,20 @@ const Items: React.FC<IItemsProps> = ({close, groupId, itemFilters, open}) => {
 		}
 
 		return (
-			<div>{get(data, ['pageAssets', 'total'], 0).toLocaleString()}</div>
+			<div>
+				<Button
+					className='matching-pages-modal-button'
+					display='unstyled'
+					onClick={() => {
+						open(modalTypes.MATCHING_PAGES_MODAL, {
+							itemFilters,
+							onClose: close
+						});
+					}}
+				>
+					{get(data, ['pageAssets', 'total'], 0).toLocaleString()}
+				</Button>
+			</div>
 		);
 	};
 
@@ -169,14 +195,17 @@ const Items: React.FC<IItemsProps> = ({close, groupId, itemFilters, open}) => {
 										{
 											accessor: 'name',
 											cellRenderer: RuleCell,
-											className: 'table-cell-expand',
+											className:
+												'rule-cell table-cell-expand',
 											label: Liferay.Language.get('rule'),
 											sortable: false
 										},
 										{
 											accessor: 'value',
 											cellRenderer: CountCell,
-											className: 'table-column-text-end',
+											cellRendererProps: {close, open},
+											className:
+												'count-cell table-column-text-end',
 											label: Liferay.Language.get(
 												'matching-items'
 											),

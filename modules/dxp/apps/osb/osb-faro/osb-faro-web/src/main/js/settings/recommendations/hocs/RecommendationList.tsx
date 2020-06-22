@@ -182,6 +182,7 @@ const RecommendationList: React.FC<IRecommendationListProps> = ({
 				{...otherProps}
 				defaultOrderBy={orderDescending}
 				defaultOrderByField={NAME}
+				defaultSort={{field: NAME, sortOrder: orderDescending}}
 				entityLabel={Liferay.Language.get('recommendations')}
 				groupId={groupId}
 				renderNav={renderNav}

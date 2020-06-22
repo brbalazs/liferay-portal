@@ -16,6 +16,7 @@ import InputModal from './InputModal';
 import InterestTopicModal from 'settings/components/InterestTopicsModal';
 import InviteUsersModal from 'settings/components/InviteUsersModal';
 import LoadingModal from './LoadingModal';
+import MatchingPagesModal from 'settings/recommendations/components/MatchingPagesModal';
 import NewRequestModal from './NewRequestModal';
 import NewRuleModal from 'settings/recommendations/components/NewRuleModal';
 import OnboardingModal from './onboarding-modal';
@@ -52,6 +53,7 @@ const COMPONENT_MAP = {
 	[modalTypes.INSERT_BLOCKED_KEYWORDS]: InterestTopicModal,
 	[modalTypes.INVITE_USERS_MODAL]: InviteUsersModal,
 	[modalTypes.LOADING_MODAL]: LoadingModal,
+	[modalTypes.MATCHING_PAGES_MODAL]: MatchingPagesModal,
 	[modalTypes.NEW_REQUEST_MODAL]: NewRequestModal,
 	[modalTypes.NEW_RULE_MODAL]: NewRuleModal,
 	[modalTypes.ONBOARDING_MODAL]: OnboardingModal,
