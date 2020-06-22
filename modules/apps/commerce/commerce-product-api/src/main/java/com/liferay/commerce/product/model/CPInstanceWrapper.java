@@ -1549,16 +1549,16 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPInstanceWrapper)) {
+		if (!(obj instanceof CPInstanceWrapper)) {
 			return false;
 		}
 
-		CPInstanceWrapper cpInstanceWrapper = (CPInstanceWrapper)object;
+		CPInstanceWrapper cpInstanceWrapper = (CPInstanceWrapper)obj;
 
 		if (Objects.equals(_cpInstance, cpInstanceWrapper._cpInstance)) {
 			return true;

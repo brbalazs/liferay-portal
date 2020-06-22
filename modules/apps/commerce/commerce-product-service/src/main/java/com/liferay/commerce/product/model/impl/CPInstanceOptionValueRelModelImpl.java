@@ -941,17 +941,17 @@ public class CPInstanceOptionValueRelModelImpl
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPInstanceOptionValueRel)) {
+		if (!(obj instanceof CPInstanceOptionValueRel)) {
 			return false;
 		}
 
 		CPInstanceOptionValueRel cpInstanceOptionValueRel =
-			(CPInstanceOptionValueRel)object;
+			(CPInstanceOptionValueRel)obj;
 
 		long primaryKey = cpInstanceOptionValueRel.getPrimaryKey();
 

@@ -624,17 +624,17 @@ public class CommerceChannelWrapper
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CommerceChannelWrapper)) {
+		if (!(obj instanceof CommerceChannelWrapper)) {
 			return false;
 		}
 
 		CommerceChannelWrapper commerceChannelWrapper =
-			(CommerceChannelWrapper)object;
+			(CommerceChannelWrapper)obj;
 
 		if (Objects.equals(
 				_commerceChannel, commerceChannelWrapper._commerceChannel)) {

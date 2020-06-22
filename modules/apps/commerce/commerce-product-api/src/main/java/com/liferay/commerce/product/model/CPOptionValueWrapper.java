@@ -711,17 +711,16 @@ public class CPOptionValueWrapper
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPOptionValueWrapper)) {
+		if (!(obj instanceof CPOptionValueWrapper)) {
 			return false;
 		}
 
-		CPOptionValueWrapper cpOptionValueWrapper =
-			(CPOptionValueWrapper)object;
+		CPOptionValueWrapper cpOptionValueWrapper = (CPOptionValueWrapper)obj;
 
 		if (Objects.equals(
 				_cpOptionValue, cpOptionValueWrapper._cpOptionValue)) {

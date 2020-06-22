@@ -930,16 +930,16 @@ public class CPDefinitionLinkModelImpl
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPDefinitionLink)) {
+		if (!(obj instanceof CPDefinitionLink)) {
 			return false;
 		}
 
-		CPDefinitionLink cpDefinitionLink = (CPDefinitionLink)object;
+		CPDefinitionLink cpDefinitionLink = (CPDefinitionLink)obj;
 
 		long primaryKey = cpDefinitionLink.getPrimaryKey();
 

@@ -209,6 +209,15 @@ public class CPTaxCategoryLocalServiceUtil {
 		return getService().fetchCPTaxCategory(CPTaxCategoryId);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.product.model.CPTaxCategory>
+			findCPTaxCategoriesByCompanyId(
+				long companyId, String keyword, int start, int end) {
+
+		return getService().findCPTaxCategoriesByCompanyId(
+			companyId, keyword, start, end);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

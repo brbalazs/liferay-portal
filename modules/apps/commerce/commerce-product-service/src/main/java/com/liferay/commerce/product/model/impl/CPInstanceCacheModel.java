@@ -38,17 +38,16 @@ public class CPInstanceCacheModel
 	implements CacheModel<CPInstance>, Externalizable {
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPInstanceCacheModel)) {
+		if (!(obj instanceof CPInstanceCacheModel)) {
 			return false;
 		}
 
-		CPInstanceCacheModel cpInstanceCacheModel =
-			(CPInstanceCacheModel)object;
+		CPInstanceCacheModel cpInstanceCacheModel = (CPInstanceCacheModel)obj;
 
 		if (CPInstanceId == cpInstanceCacheModel.CPInstanceId) {
 			return true;

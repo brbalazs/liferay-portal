@@ -536,17 +536,17 @@ public class CPDisplayLayoutWrapper
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPDisplayLayoutWrapper)) {
+		if (!(obj instanceof CPDisplayLayoutWrapper)) {
 			return false;
 		}
 
 		CPDisplayLayoutWrapper cpDisplayLayoutWrapper =
-			(CPDisplayLayoutWrapper)object;
+			(CPDisplayLayoutWrapper)obj;
 
 		if (Objects.equals(
 				_cpDisplayLayout, cpDisplayLayoutWrapper._cpDisplayLayout)) {

@@ -2028,16 +2028,16 @@ public class CPDefinitionWrapper
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPDefinitionWrapper)) {
+		if (!(obj instanceof CPDefinitionWrapper)) {
 			return false;
 		}
 
-		CPDefinitionWrapper cpDefinitionWrapper = (CPDefinitionWrapper)object;
+		CPDefinitionWrapper cpDefinitionWrapper = (CPDefinitionWrapper)obj;
 
 		if (Objects.equals(_cpDefinition, cpDefinitionWrapper._cpDefinition)) {
 			return true;

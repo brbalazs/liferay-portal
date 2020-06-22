@@ -36,17 +36,17 @@ public class CPTaxCategoryCacheModel
 	implements CacheModel<CPTaxCategory>, Externalizable {
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPTaxCategoryCacheModel)) {
+		if (!(obj instanceof CPTaxCategoryCacheModel)) {
 			return false;
 		}
 
 		CPTaxCategoryCacheModel cpTaxCategoryCacheModel =
-			(CPTaxCategoryCacheModel)object;
+			(CPTaxCategoryCacheModel)obj;
 
 		if (CPTaxCategoryId == cpTaxCategoryCacheModel.CPTaxCategoryId) {
 			return true;

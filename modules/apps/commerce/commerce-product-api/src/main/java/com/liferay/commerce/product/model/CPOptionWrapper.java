@@ -941,16 +941,16 @@ public class CPOptionWrapper implements CPOption, ModelWrapper<CPOption> {
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPOptionWrapper)) {
+		if (!(obj instanceof CPOptionWrapper)) {
 			return false;
 		}
 
-		CPOptionWrapper cpOptionWrapper = (CPOptionWrapper)object;
+		CPOptionWrapper cpOptionWrapper = (CPOptionWrapper)obj;
 
 		if (Objects.equals(_cpOption, cpOptionWrapper._cpOption)) {
 			return true;

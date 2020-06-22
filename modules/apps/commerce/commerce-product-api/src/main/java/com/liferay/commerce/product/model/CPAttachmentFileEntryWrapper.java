@@ -1105,17 +1105,17 @@ public class CPAttachmentFileEntryWrapper
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPAttachmentFileEntryWrapper)) {
+		if (!(obj instanceof CPAttachmentFileEntryWrapper)) {
 			return false;
 		}
 
 		CPAttachmentFileEntryWrapper cpAttachmentFileEntryWrapper =
-			(CPAttachmentFileEntryWrapper)object;
+			(CPAttachmentFileEntryWrapper)obj;
 
 		if (Objects.equals(
 				_cpAttachmentFileEntry,

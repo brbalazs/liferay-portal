@@ -1317,16 +1317,16 @@ public class CPOptionModelImpl
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPOption)) {
+		if (!(obj instanceof CPOption)) {
 			return false;
 		}
 
-		CPOption cpOption = (CPOption)object;
+		CPOption cpOption = (CPOption)obj;
 
 		long primaryKey = cpOption.getPrimaryKey();
 

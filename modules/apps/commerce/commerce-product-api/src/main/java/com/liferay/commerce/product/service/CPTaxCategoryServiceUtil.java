@@ -55,6 +55,16 @@ public class CPTaxCategoryServiceUtil {
 	}
 
 	public static java.util.List
+		<com.liferay.commerce.product.model.CPTaxCategory>
+				findCPTaxCategoriesByCompanyId(
+					long companyId, String keyword, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().findCPTaxCategoriesByCompanyId(
+			companyId, keyword, start, end);
+	}
+
+	public static java.util.List
 		<com.liferay.commerce.product.model.CPTaxCategory> getCPTaxCategories(
 				long companyId)
 			throws com.liferay.portal.kernel.exception.PortalException {

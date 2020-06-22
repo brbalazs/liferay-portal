@@ -903,16 +903,16 @@ public class CPDisplayLayoutModelImpl
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPDisplayLayout)) {
+		if (!(obj instanceof CPDisplayLayout)) {
 			return false;
 		}
 
-		CPDisplayLayout cpDisplayLayout = (CPDisplayLayout)object;
+		CPDisplayLayout cpDisplayLayout = (CPDisplayLayout)obj;
 
 		long primaryKey = cpDisplayLayout.getPrimaryKey();
 

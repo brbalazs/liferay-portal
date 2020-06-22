@@ -1273,17 +1273,17 @@ public class CPSpecificationOptionModelImpl
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPSpecificationOption)) {
+		if (!(obj instanceof CPSpecificationOption)) {
 			return false;
 		}
 
 		CPSpecificationOption cpSpecificationOption =
-			(CPSpecificationOption)object;
+			(CPSpecificationOption)obj;
 
 		long primaryKey = cpSpecificationOption.getPrimaryKey();
 

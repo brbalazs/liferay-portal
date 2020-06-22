@@ -190,6 +190,9 @@ public interface CPTaxCategoryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CPTaxCategory fetchCPTaxCategory(long CPTaxCategoryId);
 
+	public List<CPTaxCategory> findCPTaxCategoriesByCompanyId(
+		long companyId, String keyword, int start, int end);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 

@@ -36,17 +36,17 @@ public class CPDefinitionOptionRelCacheModel
 	implements CacheModel<CPDefinitionOptionRel>, Externalizable {
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPDefinitionOptionRelCacheModel)) {
+		if (!(obj instanceof CPDefinitionOptionRelCacheModel)) {
 			return false;
 		}
 
 		CPDefinitionOptionRelCacheModel cpDefinitionOptionRelCacheModel =
-			(CPDefinitionOptionRelCacheModel)object;
+			(CPDefinitionOptionRelCacheModel)obj;
 
 		if (CPDefinitionOptionRelId ==
 				cpDefinitionOptionRelCacheModel.CPDefinitionOptionRelId) {

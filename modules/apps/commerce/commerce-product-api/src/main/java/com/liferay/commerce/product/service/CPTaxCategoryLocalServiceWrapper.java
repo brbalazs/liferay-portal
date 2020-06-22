@@ -215,6 +215,15 @@ public class CPTaxCategoryLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.commerce.product.model.CPTaxCategory>
+		findCPTaxCategoriesByCompanyId(
+			long companyId, String keyword, int start, int end) {
+
+		return _cpTaxCategoryLocalService.findCPTaxCategoriesByCompanyId(
+			companyId, keyword, start, end);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 

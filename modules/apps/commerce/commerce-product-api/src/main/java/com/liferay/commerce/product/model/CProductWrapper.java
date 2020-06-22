@@ -504,16 +504,16 @@ public class CProductWrapper implements CProduct, ModelWrapper<CProduct> {
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CProductWrapper)) {
+		if (!(obj instanceof CProductWrapper)) {
 			return false;
 		}
 
-		CProductWrapper cProductWrapper = (CProductWrapper)object;
+		CProductWrapper cProductWrapper = (CProductWrapper)obj;
 
 		if (Objects.equals(_cProduct, cProductWrapper._cProduct)) {
 			return true;

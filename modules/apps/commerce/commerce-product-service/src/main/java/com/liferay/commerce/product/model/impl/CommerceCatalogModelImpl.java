@@ -862,16 +862,16 @@ public class CommerceCatalogModelImpl
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CommerceCatalog)) {
+		if (!(obj instanceof CommerceCatalog)) {
 			return false;
 		}
 
-		CommerceCatalog commerceCatalog = (CommerceCatalog)object;
+		CommerceCatalog commerceCatalog = (CommerceCatalog)obj;
 
 		long primaryKey = commerceCatalog.getPrimaryKey();
 

@@ -71,6 +71,10 @@ public interface CPTaxCategoryService extends BaseService {
 	public void deleteCPTaxCategory(long cpTaxCategoryId)
 		throws PortalException;
 
+	public List<CPTaxCategory> findCPTaxCategoriesByCompanyId(
+			long companyId, String keyword, int start, int end)
+		throws PortalException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CPTaxCategory> getCPTaxCategories(long companyId)
 		throws PortalException;

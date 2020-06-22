@@ -487,17 +487,17 @@ public class CPDefinitionLocalizationWrapper
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPDefinitionLocalizationWrapper)) {
+		if (!(obj instanceof CPDefinitionLocalizationWrapper)) {
 			return false;
 		}
 
 		CPDefinitionLocalizationWrapper cpDefinitionLocalizationWrapper =
-			(CPDefinitionLocalizationWrapper)object;
+			(CPDefinitionLocalizationWrapper)obj;
 
 		if (Objects.equals(
 				_cpDefinitionLocalization,

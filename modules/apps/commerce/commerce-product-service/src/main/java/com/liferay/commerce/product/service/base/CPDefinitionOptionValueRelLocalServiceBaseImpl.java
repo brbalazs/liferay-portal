@@ -36,6 +36,7 @@ import com.liferay.commerce.product.service.persistence.CPOptionCategoryPersiste
 import com.liferay.commerce.product.service.persistence.CPOptionPersistence;
 import com.liferay.commerce.product.service.persistence.CPOptionValuePersistence;
 import com.liferay.commerce.product.service.persistence.CPSpecificationOptionPersistence;
+import com.liferay.commerce.product.service.persistence.CPTaxCategoryFinder;
 import com.liferay.commerce.product.service.persistence.CPTaxCategoryPersistence;
 import com.liferay.commerce.product.service.persistence.CProductPersistence;
 import com.liferay.commerce.product.service.persistence.CommerceCatalogPersistence;
@@ -1533,6 +1534,26 @@ public abstract class CPDefinitionOptionValueRelLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the cp tax category finder.
+	 *
+	 * @return the cp tax category finder
+	 */
+	public CPTaxCategoryFinder getCPTaxCategoryFinder() {
+		return cpTaxCategoryFinder;
+	}
+
+	/**
+	 * Sets the cp tax category finder.
+	 *
+	 * @param cpTaxCategoryFinder the cp tax category finder
+	 */
+	public void setCPTaxCategoryFinder(
+		CPTaxCategoryFinder cpTaxCategoryFinder) {
+
+		this.cpTaxCategoryFinder = cpTaxCategoryFinder;
+	}
+
+	/**
 	 * Returns the counter local service.
 	 *
 	 * @return the counter local service
@@ -1962,6 +1983,9 @@ public abstract class CPDefinitionOptionValueRelLocalServiceBaseImpl
 
 	@BeanReference(type = CPTaxCategoryPersistence.class)
 	protected CPTaxCategoryPersistence cpTaxCategoryPersistence;
+
+	@BeanReference(type = CPTaxCategoryFinder.class)
+	protected CPTaxCategoryFinder cpTaxCategoryFinder;
 
 	@ServiceReference(
 		type = com.liferay.counter.kernel.service.CounterLocalService.class

@@ -36,17 +36,17 @@ public class CPFriendlyURLEntryCacheModel
 	implements CacheModel<CPFriendlyURLEntry>, Externalizable {
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CPFriendlyURLEntryCacheModel)) {
+		if (!(obj instanceof CPFriendlyURLEntryCacheModel)) {
 			return false;
 		}
 
 		CPFriendlyURLEntryCacheModel cpFriendlyURLEntryCacheModel =
-			(CPFriendlyURLEntryCacheModel)object;
+			(CPFriendlyURLEntryCacheModel)obj;
 
 		if (CPFriendlyURLEntryId ==
 				cpFriendlyURLEntryCacheModel.CPFriendlyURLEntryId) {

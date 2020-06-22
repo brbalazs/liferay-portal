@@ -529,17 +529,17 @@ public class CommerceCatalogWrapper
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (this == object) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
 
-		if (!(object instanceof CommerceCatalogWrapper)) {
+		if (!(obj instanceof CommerceCatalogWrapper)) {
 			return false;
 		}
 
 		CommerceCatalogWrapper commerceCatalogWrapper =
-			(CommerceCatalogWrapper)object;
+			(CommerceCatalogWrapper)obj;
 
 		if (Objects.equals(
 				_commerceCatalog, commerceCatalogWrapper._commerceCatalog)) {
