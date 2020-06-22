@@ -40,6 +40,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
 import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalServiceUtil;
@@ -187,13 +188,14 @@ public class CPDefinitionsDisplayContext
 		return clayCreationMenu;
 	}
 
-	public ClayCreationMenu getClayCreationMenu() {
+	public ClayCreationMenu getClayCreationMenu() throws Exception {
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
 		RenderURL renderURL = liferayPortletResponse.createRenderURL();
 
-		renderURL.setParameter("mvcRenderCommandName", "editProductDefinition");
+		renderURL.setParameter("mvcRenderCommandName", "addProductDefinition");
 		renderURL.setParameter("backURL", cpRequestHelper.getCurrentURL());
+		renderURL.setWindowState(LiferayWindowState.POP_UP);
 
 		for (CPType cpType : getCPTypes()) {
 			renderURL.setParameter("productTypeName", cpType.getName());
@@ -201,7 +203,8 @@ public class CPDefinitionsDisplayContext
 			ClayCreationMenuActionItem clayCreationMenuActionItem =
 				new ClayCreationMenuActionItem(
 					renderURL.toString(),
-					cpType.getLabel(cpRequestHelper.getLocale()));
+					cpType.getLabel(cpRequestHelper.getLocale()),
+					ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL);
 
 			clayCreationMenu.addClayCreationMenuActionItem(
 				clayCreationMenuActionItem);
