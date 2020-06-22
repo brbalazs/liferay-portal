@@ -107,11 +107,12 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelTaxCategories(channelId: ___, page: ___, pageSize: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelTaxCategories(channelId: ___, page: ___, pageSize: ___, search: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public TaxCategoryPage channelTaxCategories(
 			@GraphQLName("channelId") Long channelId,
+			@GraphQLName("search") Integer search,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -121,7 +122,7 @@ public class Query {
 			this::_populateResourceContext,
 			taxCategoryResource -> new TaxCategoryPage(
 				taxCategoryResource.getChannelTaxCategoriesPage(
-					channelId, Pagination.of(page, pageSize))));
+					channelId, search, Pagination.of(page, pageSize))));
 	}
 
 	/**
@@ -148,6 +149,7 @@ public class Query {
 
 		@GraphQLField
 		public TaxCategoryPage taxCategories(
+				@GraphQLName("search") Integer search,
 				@GraphQLName("pageSize") int pageSize,
 				@GraphQLName("page") int page)
 			throws Exception {
@@ -157,7 +159,8 @@ public class Query {
 				Query.this::_populateResourceContext,
 				taxCategoryResource -> new TaxCategoryPage(
 					taxCategoryResource.getChannelTaxCategoriesPage(
-						_channel.getId(), Pagination.of(page, pageSize))));
+						_channel.getId(), search,
+						Pagination.of(page, pageSize))));
 		}
 
 		private Channel _channel;

@@ -59,6 +59,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
@@ -84,6 +85,7 @@ public abstract class BaseTaxCategoryResourceImpl
 	@Parameters(
 		value = {
 			@Parameter(in = ParameterIn.PATH, name = "channelId"),
+			@Parameter(in = ParameterIn.QUERY, name = "search"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
@@ -94,6 +96,7 @@ public abstract class BaseTaxCategoryResourceImpl
 	public Page<TaxCategory> getChannelTaxCategoriesPage(
 			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
 				channelId,
+			@Parameter(hidden = true) @QueryParam("search") Integer search,
 			@Context Pagination pagination)
 		throws Exception {
 

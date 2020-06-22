@@ -188,7 +188,7 @@ public abstract class BaseTaxCategoryResourceTestCase {
 	public void testGetChannelTaxCategoriesPage() throws Exception {
 		Page<TaxCategory> page =
 			taxCategoryResource.getChannelTaxCategoriesPage(
-				testGetChannelTaxCategoriesPage_getChannelId(),
+				testGetChannelTaxCategoriesPage_getChannelId(), null,
 				Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
@@ -203,7 +203,7 @@ public abstract class BaseTaxCategoryResourceTestCase {
 					irrelevantChannelId, randomIrrelevantTaxCategory());
 
 			page = taxCategoryResource.getChannelTaxCategoriesPage(
-				irrelevantChannelId, Pagination.of(1, 2));
+				irrelevantChannelId, null, Pagination.of(1, 2));
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -222,7 +222,7 @@ public abstract class BaseTaxCategoryResourceTestCase {
 				channelId, randomTaxCategory());
 
 		page = taxCategoryResource.getChannelTaxCategoriesPage(
-			channelId, Pagination.of(1, 2));
+			channelId, null, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -252,7 +252,7 @@ public abstract class BaseTaxCategoryResourceTestCase {
 
 		Page<TaxCategory> page1 =
 			taxCategoryResource.getChannelTaxCategoriesPage(
-				channelId, Pagination.of(1, 2));
+				channelId, null, Pagination.of(1, 2));
 
 		List<TaxCategory> taxCategories1 = (List<TaxCategory>)page1.getItems();
 
@@ -261,7 +261,7 @@ public abstract class BaseTaxCategoryResourceTestCase {
 
 		Page<TaxCategory> page2 =
 			taxCategoryResource.getChannelTaxCategoriesPage(
-				channelId, Pagination.of(2, 2));
+				channelId, null, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -272,7 +272,7 @@ public abstract class BaseTaxCategoryResourceTestCase {
 
 		Page<TaxCategory> page3 =
 			taxCategoryResource.getChannelTaxCategoriesPage(
-				channelId, Pagination.of(1, 3));
+				channelId, null, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(taxCategory1, taxCategory2, taxCategory3),
