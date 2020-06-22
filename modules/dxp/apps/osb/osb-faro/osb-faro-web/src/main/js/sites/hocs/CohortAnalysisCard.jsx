@@ -3,6 +3,7 @@ import Card from 'shared/components/Card';
 import CohortAnalysis from 'sites/components/cohort-analysis';
 import CohortQuery from 'sites/queries/CohortQuery';
 import Form from 'shared/components/form';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React, {useContext, useState} from 'react';
 import {ClaySelectWithOption} from '@clayui/select';
 import {compose} from 'shared/hoc';
@@ -15,8 +16,19 @@ import {
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {graphql} from '@apollo/react-hoc';
 import {mapPropsToOptions, mapResultToProps} from './mappers/cohort-query';
-import {withEmpty} from 'cerebro-shared/hocs/utils';
 import {withError, withLoading} from 'shared/hoc/util';
+
+const withEmpty = Component => ({empty, ...otherProps}) => {
+	if (empty) {
+		return (
+			<NoResultsDisplay
+				title={getFormattedTitle(Liferay.Language.get('cohorts'))}
+			/>
+		);
+	}
+
+	return <Component {...otherProps} />;
+};
 
 const CohortAnalysisWithData = compose(
 	graphql(CohortQuery, {
@@ -24,7 +36,7 @@ const CohortAnalysisWithData = compose(
 		props: mapResultToProps
 	}),
 	withError({page: false}),
-	withEmpty({emptyTitle: getFormattedTitle(Liferay.Language.get('cohorts'))}),
+	withEmpty,
 	withLoading({alignCenter: true, page: false})
 )(CohortAnalysis);
 
