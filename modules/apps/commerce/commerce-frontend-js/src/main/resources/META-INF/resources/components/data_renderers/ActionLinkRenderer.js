@@ -150,7 +150,11 @@ ActionLinkRenderer.propTypes = {
 	options: PropTypes.shape({
 		actionId: PropTypes.string
 	}),
+<<<<<<< HEAD
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+=======
 	value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+>>>>>>> COMMERCE-2789 Auto-SF
 };
 
 export default ActionLinkRenderer;

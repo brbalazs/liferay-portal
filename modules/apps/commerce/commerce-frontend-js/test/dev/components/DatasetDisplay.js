@@ -19,8 +19,11 @@ import sidePanelLauncher from '../../../src/main/resources/META-INF/resources/co
 
 import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 
+<<<<<<< HEAD
+=======
 const lang_id = Liferay.ThemeDisplay.getLanguageId();
 
+>>>>>>> COMMERCE-2789 Auto-SF
 const fluidDataSetDisplayProps = {
 	activeView: 2,
 	apiUrl: '/dataset-display-nested-items',
