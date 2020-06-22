@@ -26,7 +26,9 @@ public interface DTOConverter<E, D> {
 	public String getContentType();
 
 	public default String getDTOClassName() {
-		Type[] types = getClass().getGenericInterfaces();
+		Class<?> clazz = getClass();
+
+		Type[] types = clazz.getGenericInterfaces();
 
 		for (Type type : types) {
 			String typeName = type.getTypeName();
