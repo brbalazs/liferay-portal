@@ -19,7 +19,7 @@ const AssetsListWithData = compose(
 	}),
 	withLoading({alignCenter: true, page: false}),
 	withError({page: false}),
-	withEmpty()
+	withEmpty({emptyTitle: Liferay.Language.get('empty-message-assets-card')})
 )(AssetsListCard);
 
 AssetsListWithData.propTypes = HOC_CARD_PROPTYPES;

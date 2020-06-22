@@ -19,13 +19,6 @@ const mapResultToProps = safeResultToProps(({assets}) => {
 		})
 	);
 
-	if (items.length === 0) {
-		return {
-			empty: true,
-			emptyMessage: Liferay.Language.get('empty-message-assets-card')
-		};
-	}
-
 	return {items};
 });
 

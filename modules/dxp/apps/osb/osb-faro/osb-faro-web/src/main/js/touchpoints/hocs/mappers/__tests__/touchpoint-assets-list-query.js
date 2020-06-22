@@ -106,12 +106,6 @@ describe('TouchpointsAssetsListQuery Mappers', () => {
 		expect(props).toMatchSnapshot();
 	});
 
-	it('should return empty true if there is no data', () => {
-		const props = mapResultToProps({data: {assets: []}});
-
-		expect(props.empty).toBeTruthy();
-	});
-
 	it('should include options', () => {
 		const options = mapPropsToOptions(props);
 
