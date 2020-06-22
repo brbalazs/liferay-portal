@@ -40,6 +40,10 @@
 
 			.action {
 				color: $color-theme;
+				text-transform: capitalize;
+				letter-spacing: normal;
+				font-size: .8em;
+				font-weight: 500;
 			}
 		}
 
@@ -55,7 +59,7 @@
 		}
 	}
 
-	&__item {
+	&-item {
 		&-errors,
 		.price-value-discount,
 		.price-value-final,
@@ -63,8 +67,17 @@
 			color: $color-mood-bad;
 		}
 
+		.price-value {
+			font-size: .9rem;
+
+			&-percentages::after {
+				color: $color-mood-bad;
+			}
+		}
+
 		&-delete {
 			margin: 25px 0;
+			font-size: .9rem;
 		}
 
 		&-quantity {
@@ -127,7 +140,7 @@
 			box-sizing: border-box;
 			color: $color-bg-alt;
 			font-weight: 600;
-			padding: 15px;
+			padding: 16px;
 			text-transform: uppercase;
 		}
 	}
