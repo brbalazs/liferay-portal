@@ -15,12 +15,12 @@ const withChart: React.FC<VariantCardIProps> = ({
 	...props
 }) => {
 	const [{variantChartTriggered}]: any = useStateValue();
-	const {empty} = mediansData;
+	const {items} = mediansData;
 
 	return (
 		<VariantCard metricUnit={metricUnit} {...props}>
 			{variantChartTriggered === 'medians' ? (
-				empty ? (
+				items && !items.length ? (
 					<NoResultsDisplay
 						icon={{border: false, size: 'xl', symbol: 'ac-chart'}}
 					>

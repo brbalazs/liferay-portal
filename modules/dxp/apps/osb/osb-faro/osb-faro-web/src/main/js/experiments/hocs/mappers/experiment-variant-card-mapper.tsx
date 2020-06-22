@@ -42,9 +42,6 @@ const getMedianGraphData = ({dxpVariants, metricUnit}) => {
 	);
 
 	return {
-		data: {
-			items
-		},
 		disableScroll: true,
 		empty: maxValue === 0,
 		formatSpacement: false,
@@ -55,7 +52,8 @@ const getMedianGraphData = ({dxpVariants, metricUnit}) => {
 			precision: 2,
 			show: true,
 			type
-		}
+		},
+		items
 	};
 };
 
