@@ -106,7 +106,7 @@ describe('BarChartHTML', () => {
 	});
 
 	it('should render component with header', () => {
-		component = shallow(<BarChartHTML data={{header: HEADER}} />);
+		component = shallow(<BarChartHTML header={HEADER} />);
 
 		expect(
 			component.find(`${CLASSNAME}-header`).render()
@@ -114,27 +114,25 @@ describe('BarChartHTML', () => {
 	});
 
 	it('should render component with items', () => {
-		component = shallow(<BarChartHTML data={{items: ITEMS}} />);
+		component = shallow(<BarChartHTML items={ITEMS} />);
 
 		expect(component.find(`${CLASSNAME}-items`).render()).toMatchSnapshot();
 	});
 
 	it('should update component when receive new data', () => {
-		let props = {data: {items: ITEMS}};
+		let props = {items: ITEMS};
 
 		React.createRef.mockReturnValueOnce(groupItemsRef);
 
 		component = shallow(<BarChartHTML {...props} />);
 
 		props = {
-			data: {
-				items: [
-					...ITEMS,
-					{
-						items: ITEMS
-					}
-				]
-			}
+			items: [
+				...ITEMS,
+				{
+					items: ITEMS
+				}
+			]
 		};
 
 		component.instance().componentDidUpdate(props);
@@ -144,15 +142,13 @@ describe('BarChartHTML', () => {
 	it('should render component with items nested', () => {
 		component = shallow(
 			<BarChartHTML
-				data={{
-					items: [
-						...ITEMS,
-						{
-							expanded: true,
-							items: ITEMS
-						}
-					]
-				}}
+				items={[
+					...ITEMS,
+					{
+						expanded: true,
+						items: ITEMS
+					}
+				]}
 			/>
 		);
 
@@ -164,16 +160,14 @@ describe('BarChartHTML', () => {
 	it('should render component item with control button to toggle content', () => {
 		component = shallow(
 			<BarChartHTML
-				data={{
-					items: [
-						...ITEMS,
-						{
-							expanded: true,
-							items: ITEMS,
-							showControls: true
-						}
-					]
-				}}
+				items={[
+					...ITEMS,
+					{
+						expanded: true,
+						items: ITEMS,
+						showControls: true
+					}
+				]}
 			/>
 		);
 
@@ -183,16 +177,14 @@ describe('BarChartHTML', () => {
 	it('should toggle content when click in button', () => {
 		component = shallow(
 			<BarChartHTML
-				data={{
-					items: [
-						...ITEMS,
-						{
-							expanded: true,
-							items: ITEMS,
-							showControls: true
-						}
-					]
-				}}
+				items={[
+					...ITEMS,
+					{
+						expanded: true,
+						items: ITEMS,
+						showControls: true
+					}
+				]}
 			/>
 		);
 
@@ -208,24 +200,22 @@ describe('BarChartHTML', () => {
 
 		button.simulate('click', mockedEvent);
 
-		expect(component.state().data.items[0].expanded).toBeTruthy();
+		expect(component.state().items[0].expanded).toBeTruthy();
 
 		button.simulate('click', mockedEvent);
 
-		expect(component.state().data.items[0].expanded).toBeFalsy();
+		expect(component.state().items[0].expanded).toBeFalsy();
 	});
 
 	it('should set tooltip when MouseEnter on Item', () => {
 		component = shallow(
 			<BarChartHTML
-				data={{
-					items: [
-						...ITEMS,
-						{
-							tooltip: TOOLTIP
-						}
-					]
-				}}
+				items={[
+					...ITEMS,
+					{
+						tooltip: TOOLTIP
+					}
+				]}
 			/>
 		);
 
@@ -261,14 +251,12 @@ describe('BarChartHTML', () => {
 	it('should set tooltip when MouseLeave on Item', () => {
 		component = shallow(
 			<BarChartHTML
-				data={{
-					items: [
-						...ITEMS,
-						{
-							tooltip: TOOLTIP
-						}
-					]
-				}}
+				items={[
+					...ITEMS,
+					{
+						tooltip: TOOLTIP
+					}
+				]}
 			/>
 		);
 
@@ -289,20 +277,18 @@ describe('BarChartHTML', () => {
 	it('should render Progress item based on grid', () => {
 		component = shallow(
 			<BarChartHTML
-				data={{
-					items: [
-						{
-							columns: COLUMNS,
-							progress: PROGRESS_WITH_NUMBER
-						}
-					]
-				}}
 				grid={{
 					formatter: value => value,
 					maxValue: 1000,
 					minValue: 0,
 					show: true
 				}}
+				items={[
+					{
+						columns: COLUMNS,
+						progress: PROGRESS_WITH_NUMBER
+					}
+				]}
 			/>
 		);
 
@@ -312,20 +298,18 @@ describe('BarChartHTML', () => {
 	it('should render Progress item based on grid and type of grid is percentage', () => {
 		component = shallow(
 			<BarChartHTML
-				data={{
-					items: [
-						{
-							columns: COLUMNS,
-							progress: PROGRESS_WITH_NUMBER
-						}
-					]
-				}}
 				grid={{
 					maxValue: 1000,
 					minValue: 0,
 					show: true,
 					type: 'percentage'
 				}}
+				items={[
+					{
+						columns: COLUMNS,
+						progress: PROGRESS_WITH_NUMBER
+					}
+				]}
 			/>
 		);
 
@@ -335,24 +319,6 @@ describe('BarChartHTML', () => {
 	it('should render Progress with Interval item based on grid and type of grid is percentage', () => {
 		component = shallow(
 			<BarChartHTML
-				data={{
-					items: [
-						{
-							columns: COLUMNS,
-							intervals: [
-								{
-									end: 600,
-									start: 400
-								},
-								{
-									end: 600,
-									start: 400
-								}
-							],
-							progress: PROGRESS_WITH_NUMBER
-						}
-					]
-				}}
 				grid={{
 					formatter: value => value,
 					maxValue: 1000,
@@ -360,6 +326,22 @@ describe('BarChartHTML', () => {
 					show: true,
 					type: 'percentage'
 				}}
+				items={[
+					{
+						columns: COLUMNS,
+						intervals: [
+							{
+								end: 600,
+								start: 400
+							},
+							{
+								end: 600,
+								start: 400
+							}
+						],
+						progress: PROGRESS_WITH_NUMBER
+					}
+				]}
 			/>
 		);
 
@@ -404,7 +386,7 @@ describe('BarChartHTML', () => {
 			}
 		};
 
-		component = shallow(<BarChartHTML data={{items: ITEMS}} />);
+		component = shallow(<BarChartHTML items={ITEMS} />);
 
 		component
 			.find(`${CLASSNAME}-group-items`)
@@ -428,7 +410,7 @@ describe('BarChartHTML', () => {
 			}
 		};
 
-		component = shallow(<BarChartHTML data={{items: ITEMS}} />);
+		component = shallow(<BarChartHTML items={ITEMS} />);
 
 		component
 			.find(`${CLASSNAME}-group-items`)
@@ -440,7 +422,7 @@ describe('BarChartHTML', () => {
 	});
 
 	it('should return true if there is items', () => {
-		component = shallow(<BarChartHTML data={{items: ITEMS}} />);
+		component = shallow(<BarChartHTML items={ITEMS} />);
 
 		expect(component.instance().hasItems(ITEMS)).toBeTruthy();
 		expect(component.instance().hasItems(HEADER)).toBeTruthy();
@@ -455,17 +437,15 @@ describe('BarChartHTML', () => {
 
 		component = shallow(
 			<BarChartHTML
-				data={{
-					items: [
-						{
-							columns: [
-								{
-									label
-								}
-							]
-						}
-					]
-				}}
+				items={[
+					{
+						columns: [
+							{
+								label
+							}
+						]
+					}
+				]}
 			/>
 		);
 
@@ -485,13 +465,11 @@ describe('BarChartHTML', () => {
 
 		component = shallow(
 			<BarChartHTML
-				data={{
-					items: [
-						{
-							columns
-						}
-					]
-				}}
+				items={[
+					{
+						columns
+					}
+				]}
 			/>
 		);
 
@@ -504,7 +482,7 @@ describe('BarChartHTML', () => {
 	});
 
 	it('should return left and top positions based on event', () => {
-		component = shallow(<BarChartHTML data={{items: ITEMS}} />);
+		component = shallow(<BarChartHTML items={ITEMS} />);
 
 		const mockEvent = {pageX: 100, pageY: 100};
 

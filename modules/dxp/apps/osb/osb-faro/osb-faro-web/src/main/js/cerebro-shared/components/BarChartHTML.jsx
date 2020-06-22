@@ -72,17 +72,15 @@ class BarChartHTML extends React.Component {
 	};
 
 	static propTypes = {
-		data: PropTypes.shape({
-			header: COLUMN_SHAPE,
-			items: ITEMS_SHAPE
-		}).isRequired,
 		disableScroll: PropTypes.bool,
 		formatSpacement: PropTypes.bool,
-		grid: GRID_SHAPE
+		grid: GRID_SHAPE,
+		header: COLUMN_SHAPE,
+		items: ITEMS_SHAPE
 	};
 
 	state = {
-		data: {},
+		items: [],
 		showArrowDownIcon: false,
 		showList: false,
 		tooltip: {
@@ -101,7 +99,7 @@ class BarChartHTML extends React.Component {
 
 		this.state = {
 			...this.state,
-			data: props.data
+			items: props.items
 		};
 
 		this._groupItemsRef = React.createRef();
@@ -109,9 +107,9 @@ class BarChartHTML extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (hasChanges(prevProps, this.props, 'data')) {
+		if (hasChanges(prevProps, this.props, 'items')) {
 			this.setState({
-				data: this.props.data,
+				items: this.props.items,
 				showArrowDownIcon: this.showArrowDownIcon(
 					this._groupItemsRef.current
 				)
@@ -121,13 +119,12 @@ class BarChartHTML extends React.Component {
 
 	@autobind
 	handleClickToggleList({currentTarget}) {
-		const {data} = this.state;
+		const {items} = this.state;
 		const {index} = currentTarget.dataset;
 
-		this.state.data.items[index].expanded = !this.state.data.items[index]
-			.expanded;
+		items[index].expanded = !items[index].expanded;
 
-		this.setState({data});
+		this.setState({items});
 	}
 
 	@autobind
@@ -489,10 +486,10 @@ class BarChartHTML extends React.Component {
 		const {
 			disableScroll,
 			formatSpacement,
-			grid: {show: showGrid}
+			grid: {show: showGrid},
+			header
 		} = this.props;
-		const {data, showArrowDownIcon, tooltip} = this.state;
-		const {header, items} = data;
+		const {items, showArrowDownIcon, tooltip} = this.state;
 
 		const classes = getCN(CLASSNAME, {
 			'disable-scroll': disableScroll,
