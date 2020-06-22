@@ -26,9 +26,9 @@ DDLRecordSet recordSet = (DDLRecordSet)request.getAttribute(DDLWebKeys.DYNAMIC_D
 
 long recordSetId = BeanParamUtil.getLong(recordSet, request, "recordSetId");
 
-Group scopeGroup = GroupLocalServiceUtil.getGroup(scopeGroupId);
-
 long groupId = BeanParamUtil.getLong(recordSet, request, "groupId", scopeGroupId);
+
+Group scopeGroup = GroupLocalServiceUtil.getGroup(scopeGroupId);
 
 if (scopeGroup.isStagingGroup() && !scopeGroup.isInStagingPortlet(DDLPortletKeys.DYNAMIC_DATA_LISTS)) {
 	groupId = scopeGroup.getLiveGroupId();
