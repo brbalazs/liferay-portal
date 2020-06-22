@@ -37,7 +37,7 @@ function MiniCart({
 	orderId,
 	spritemap
 }) {
-	const CartResource = ServiceProvider.DeliveryCartAPI('v1');
+	const AJAX = ServiceProvider.DeliveryCartAPI('v1');
 
 	const [isOpen, setIsOpen] = useState(false),
 		[isUpdating, setIsUpdating] = useState(false),
@@ -53,7 +53,7 @@ function MiniCart({
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const updateCartModel = ({orderId: cartId}) =>
-		CartResource.getCartByIdWithItems(cartId)
+		AJAX.getCartByIdWithItems(cartId)
 			.then(model => {
 				if (model.id !== cartId) {
 					const {orderUUID} = model,
@@ -108,7 +108,7 @@ function MiniCart({
 	return (
 		<MiniCartContext.Provider
 			value={{
-				CartResource,
+				AJAX,
 				actionURLs,
 				cartState,
 				closeCart,
