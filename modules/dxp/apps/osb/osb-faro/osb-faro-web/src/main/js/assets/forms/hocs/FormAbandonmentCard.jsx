@@ -20,7 +20,9 @@ const FormAbandonmentWithData = compose(
 	}),
 	withLoading({alignCenter: true, page: false}),
 	withError(),
-	withEmpty()
+	withEmpty({
+		emptyTitle: Liferay.Language.get('empty-message-form-abandoment')
+	})
 )(BarChartHTML);
 
 FormAbandonmentWithData.propTypes = HOC_CARD_PROPTYPES;

@@ -192,7 +192,8 @@ describe('FormAbandonmentQuery mapper', () => {
 	it('should extract items from result', () => {
 		const props = mapResultToProps({data});
 
-		expect(props).toMatchSnapshot();
+		expect(props).toHaveProperty('header');
+		expect(props).toHaveProperty('items');
 	});
 
 	it('should return a object with empty true when formPageMetrics is not present in parameters', () => {

@@ -1,180 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FormAbandonmentQuery mapper should extract items from result 1`] = `
-Object {
-  "data": Object {
-    "header": Array [
-      Object {
-        "icon": "document",
-        "label": "1 Form Steps",
-      },
-      Object {
-        "icon": "custom-field",
-        "label": "9 Fields",
-      },
-    ],
-    "items": Array [
-      Object {
-        "columns": Array [
-          Object {
-            "icon": "document",
-            "label": [Function],
-          },
-          Object {
-            "icon": "custom-field",
-            "label": "9 Fields",
-          },
-        ],
-        "expanded": true,
-        "items": Array [
-          Object {
-            "columns": Array [
-              Object {
-                "icon": "custom-field",
-                "label": "Name",
-              },
-            ],
-            "progress": Array [
-              Object {
-                "color": "#B1D4FF",
-                "value": "0.3927729772191673%",
-              },
-            ],
-          },
-          Object {
-            "columns": Array [
-              Object {
-                "icon": "custom-field",
-                "label": "Address",
-              },
-            ],
-            "progress": Array [
-              Object {
-                "color": "#95C5FF",
-                "value": "1.2568735271013356%",
-              },
-            ],
-          },
-          Object {
-            "columns": Array [
-              Object {
-                "icon": "custom-field",
-                "label": "City",
-              },
-            ],
-            "progress": Array [
-              Object {
-                "color": "#B1D4FF",
-                "value": "0.3142183817753339%",
-              },
-            ],
-          },
-          Object {
-            "columns": Array [
-              Object {
-                "icon": "custom-field",
-                "label": "State",
-              },
-            ],
-            "progress": Array [
-              Object {
-                "color": "#95C5FF",
-                "value": "0.9426551453260016%",
-              },
-            ],
-          },
-          Object {
-            "columns": Array [
-              Object {
-                "icon": "custom-field",
-                "label": "Zip Code",
-              },
-            ],
-            "progress": Array [
-              Object {
-                "color": "#B1D4FF",
-                "value": "0.5498821681068342%",
-              },
-            ],
-          },
-          Object {
-            "columns": Array [
-              Object {
-                "icon": "custom-field",
-                "label": "Order Number",
-              },
-            ],
-            "progress": Array [
-              Object {
-                "color": "#95C5FF",
-                "value": "17.360565593087195%",
-              },
-            ],
-          },
-          Object {
-            "columns": Array [
-              Object {
-                "icon": "custom-field",
-                "label": "Phone Number",
-              },
-            ],
-            "progress": Array [
-              Object {
-                "color": "#B1D4FF",
-                "value": "0.2356637863315004%",
-              },
-            ],
-          },
-          Object {
-            "columns": Array [
-              Object {
-                "icon": "custom-field",
-                "label": "Requested Repair Date",
-              },
-            ],
-            "progress": Array [
-              Object {
-                "color": "#95C5FF",
-                "value": "1.4925373134328357%",
-              },
-            ],
-          },
-          Object {
-            "columns": Array [
-              Object {
-                "icon": "custom-field",
-                "label": "Description of Problem",
-              },
-            ],
-            "progress": Array [
-              Object {
-                "color": "#B1D4FF",
-                "value": "1.335428122545169%",
-              },
-            ],
-          },
-        ],
-        "progress": Array [
-          Object {
-            "color": "#4B9BFF",
-            "value": "36.21366849960722%",
-          },
-        ],
-        "showControls": false,
-      },
-    ],
-  },
-  "error": null,
-  "loading": false,
-  "refetch": undefined,
-}
-`;
-
 exports[`FormAbandonmentQuery mapper should return a object with empty true when formPageMetrics is not present in parameters 1`] = `
 Object {
-  "empty": true,
-  "emptyMessage": "There are no interactions on the selected period.",
   "error": null,
+  "header": Array [
+    Object {
+      "icon": "document",
+      "label": "0 Form Steps",
+    },
+    Object {
+      "icon": "custom-field",
+      "label": "0 Fields",
+    },
+  ],
+  "items": Array [],
   "loading": false,
   "refetch": undefined,
 }

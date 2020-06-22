@@ -37,13 +37,6 @@ const getColor = index => (index % 2 === 0 ? '#B1D4FF' : '#95C5FF');
 const mapResultToProps = safeResultToProps(({form}) => {
 	const {formPageMetrics} = form;
 
-	if (formPageMetrics.length === 0) {
-		return {
-			empty: true,
-			emptyMessage: Liferay.Language.get('empty-message-form-abandoment')
-		};
-	}
-
 	const header = [
 		{
 			icon: 'document',
@@ -118,7 +111,8 @@ const mapResultToProps = safeResultToProps(({form}) => {
 	);
 
 	return {
-		data: {header, items}
+		header,
+		items
 	};
 });
 
