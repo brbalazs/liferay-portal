@@ -27,6 +27,12 @@
 		"react": [
 			"umd/**/*"
 		],
+		"react-dnd": [
+			"dist/**/*"
+		],
+		"react-dnd-html5-backend": [
+			"dist/**/*"
+		],
 		"react-dom": [
 			"**/*profiling*",
 			"**/*server*",

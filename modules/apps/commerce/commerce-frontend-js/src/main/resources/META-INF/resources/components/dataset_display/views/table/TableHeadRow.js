@@ -135,7 +135,6 @@ function TableHeadRow(props) {
 	return (
 		<ClayTable.Head>
 			<ClayTable.Row>
-				{props.prioritize && <ClayTable.Cell headingCell />}
 				{props.selectable && (
 					<ClayTable.Cell headingCell>
 						{props.items.length &&

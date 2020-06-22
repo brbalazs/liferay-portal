@@ -18,7 +18,6 @@ import ActionsDropdownRenderer from './ActionsDropdownRenderer';
 import CheckboxRenderer from './CheckboxRenderer';
 import DateRenderer from './DateRenderer';
 import DefaultRenderer from './DefaultRenderer';
-import DraggableDroppableRenderer from './DraggableDroppable.es';
 import ImageRenderer from './ImageRenderer';
 import LabelRenderer from './LabelRenderer';
 import LinkRenderer from './LinkRenderer';
@@ -33,7 +32,6 @@ const dataRenderers = {
 	checkbox: CheckboxRenderer,
 	date: DateRenderer,
 	default: DefaultRenderer,
-	draggableDroppable: DraggableDroppableRenderer,
 	image: ImageRenderer,
 	label: LabelRenderer,
 	link: LinkRenderer,
@@ -50,19 +48,21 @@ export function getDataRendererById(id) {
 export const fetchedContentRenderers = [];
 
 export function getDataRendererByUrl(url) {
-	const addedDataRenderer = fetchedContentRenderers.find(
-		cr => cr.url === url);
-
-	return addedDataRenderer
-		? Promise.resolve(addedDataRenderer.component)
-		: getJsModule(url)
+	return new Promise((resolve, reject) => {
+		const addedDataRenderer = fetchedContentRenderers.find(
+			cr => cr.url === url
+		);
+		if (addedDataRenderer) {
+			resolve(addedDataRenderer.component);
+		}
+		return getJsModule(url)
 			.then(fetchedComponent => {
 				fetchedContentRenderers.push({
 					component: fetchedComponent,
 					url
 				});
-
-				return Promise.resolve(fetchedComponent);
+				return resolve(fetchedComponent);
 			})
-			.catch(error => Promise.reject(error));
+			.catch(reject);
+	});
 }
