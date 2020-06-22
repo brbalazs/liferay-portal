@@ -13,7 +13,6 @@ import {
 	VISITORS,
 	VISITORS_TYPE_OPTIONS
 } from 'sites/components/cohort-analysis/utils';
-import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {graphql} from '@apollo/react-hoc';
 import {mapPropsToOptions, mapResultToProps} from './mappers/cohort-query';
 import {withError, withLoading} from 'shared/hoc/util';
@@ -22,7 +21,7 @@ const withEmpty = Component => ({empty, ...otherProps}) => {
 	if (empty) {
 		return (
 			<NoResultsDisplay
-				title={getFormattedTitle(Liferay.Language.get('cohorts'))}
+				title={Liferay.Language.get('no-sessions-recorded')}
 			/>
 		);
 	}
