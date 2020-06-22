@@ -15,10 +15,8 @@
 import ClayTable from '@clayui/table';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import {useDrop} from 'react-dnd';
 import React, {useState, useEffect, useContext} from 'react';
 
-import {ItemTypes} from '../../../../utilities/drag_drop/constants';
 import {getValueFromItem} from '../../../../utilities/index';
 import ActionsDropdownRenderer from '../../../data_renderers/ActionsDropdownRenderer';
 import CheckboxRenderer from '../../../data_renderers/CheckboxRenderer';
@@ -29,9 +27,7 @@ import {
 	getDataRendererByUrl
 } from '../../../data_renderers/index';
 import DatasetDisplayContext from '../../DatasetDisplayContext';
-import TableBodyRow from './TableBodyRow';
 import TableHeadRow from './TableHeadRow';
-import {hasEnoughItems, secureOrderability} from './orderability/index';
 
 function CustomTableCell(props) {
 	const {view} = props;
@@ -111,40 +107,9 @@ function getItemFields(item, fields, itemId, itemsActions) {
 	});
 }
 
-function shouldUseTableOrderability({
-	items: originalItems,
-	orderable,
-	orderableField
-}) {
-	let itemsList = originalItems,
-		provideDropArea = () => {},
-		orderabilityProps = {};
-
-	const shouldUse = hasEnoughItems(itemsList),
-		whichField = secureOrderability(itemsList, orderableField);
-
-	if (shouldUse && orderable && whichField) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const [statefulItemsList, setItemsList] = useState(itemsList);
-
-		itemsList = statefulItemsList;
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		provideDropArea = useDrop({accept: ItemTypes.DATASET_ROW})[1];
-		orderabilityProps = {
-			itemsList,
-			orderable,
-			orderableField: whichField,
-			setItemsList
-		};
-	}
-
-	return [itemsList, provideDropArea, orderabilityProps];
-}
-
 function Table(props) {
 	const {
 		actionLoading,
-		enableDragDrop,
 		highlightedItemsValue,
 		nestedItemsKey,
 		nestedItemsReferenceKey,
@@ -156,12 +121,6 @@ function Table(props) {
 		sorting,
 		updateSorting
 	} = useContext(DatasetDisplayContext);
-
-	const [
-		itemsList,
-		provideDropArea,
-		orderabilityProps
-	] = shouldUseTableOrderability(props);
 
 	const showActionItems = Boolean(
 		(props.itemsActions && props.itemsActions.length) ||
@@ -175,7 +134,7 @@ function Table(props) {
 		<div className={`table-style-${props.style}`}>
 			<ClayTable borderless hover={false} responsive>
 				<TableHeadRow
-					items={itemsList}
+					items={props.items}
 					schema={props.schema}
 					selectItems={selectItems}
 					selectable={selectable}
@@ -186,11 +145,8 @@ function Table(props) {
 					sorting={sorting}
 					updateSorting={updateSorting}
 				/>
-				<ClayTable.Body
-					className={enableDragDrop ? 'has-dnd' : ''}
-					ref={node => provideDropArea(node)}
-				>
-					{itemsList.map((item, i) => {
+				<ClayTable.Body>
+					{props.items.map((item, i) => {
 						const itemId = item[selectedItemsKey] || i;
 						const nestedItems =
 							nestedItemsReferenceKey &&
@@ -198,14 +154,12 @@ function Table(props) {
 
 						return (
 							<React.Fragment key={itemId}>
-								<TableBodyRow
-									index={i}
-									isActive={highlightedItemsValue.includes(
-										itemId
+								<ClayTable.Row
+									className={classNames(
+										highlightedItemsValue.includes(
+											itemId
+										) && 'active'
 									)}
-									item={item}
-									key={itemId}
-									{...orderabilityProps}
 								>
 									{selectable && (
 										<ClayTable.Cell
@@ -254,7 +208,7 @@ function Table(props) {
 											)}
 										</ClayTable.Cell>
 									)}
-								</TableBodyRow>
+								</ClayTable.Row>
 								{nestedItems && nestedItems.length
 									? nestedItems.map((nestedItem, i) => (
 											<ClayTable.Row
