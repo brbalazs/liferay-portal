@@ -1512,7 +1512,7 @@ public class CommerceOrderItemLocalServiceImpl
 		commerceOrderItem = commerceOrderItemPersistence.update(
 			commerceOrderItem);
 
-		if (!commerceOrder.isOpen()) {
+		if (commerceOrder.isOpen()) {
 			commerceOrderLocalService.recalculatePrice(
 				commerceOrderItem.getCommerceOrderId(), commerceContext);
 		}
