@@ -54,13 +54,11 @@ public abstract class BaseListDDMFormFieldValueRenderer
 				StringBundler sb = new StringBundler(jsonArray.length() * 2);
 
 				for (int i = 0; i < jsonArray.length(); i++) {
-					String optionValue = jsonArray.getString(i);
-
 					LocalizedValue label = getDDMFormFieldOptionLabel(
-						ddmFormFieldValue, optionValue);
+						ddmFormFieldValue, jsonArray.getString(i));
 
 					if (label == null) {
-						sb.append(optionValue);
+						sb.append(jsonArray.getString(i));
 					}
 					else {
 						sb.append(label.getString(locale));
