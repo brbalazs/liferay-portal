@@ -41,7 +41,7 @@ public class TaxCategoryResourceImpl extends BaseTaxCategoryResourceImpl {
 
 	@Override
 	public Page<TaxCategory> getChannelTaxCategoriesPage(
-			Long channelId, Pagination pagination)
+		Long channelId, Integer search, Pagination pagination)
 		throws Exception {
 
 		List<TaxCategory> taxCategories = new ArrayList<>();
