@@ -8,7 +8,7 @@ jest.unmock('react-dom');
 
 const RenderText = () => 'Wrapped component text';
 
-describe('CheckExperimentLink', () => {
+describe('CheckSegmentLink', () => {
 	afterEach(cleanup);
 
 	it('should render', () => {
