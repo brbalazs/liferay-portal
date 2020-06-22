@@ -51,19 +51,18 @@ export const fetchedContentRenderers = [];
 
 export function getDataRendererByUrl(url) {
 	const addedDataRenderer = fetchedContentRenderers.find(
-		cr => cr.url === url
-	);
+		cr => cr.url === url);
 
 	return addedDataRenderer
 		? Promise.resolve(addedDataRenderer.component)
 		: getJsModule(url)
-				.then(fetchedComponent => {
-					fetchedContentRenderers.push({
-						component: fetchedComponent,
-						url
-					});
+			.then(fetchedComponent => {
+				fetchedContentRenderers.push({
+					component: fetchedComponent,
+					url
+				});
 
-					return Promise.resolve(fetchedComponent);
-				})
-				.catch(error => Promise.reject(error));
+				return Promise.resolve(fetchedComponent);
+			})
+			.catch(error => Promise.reject(error));
 }

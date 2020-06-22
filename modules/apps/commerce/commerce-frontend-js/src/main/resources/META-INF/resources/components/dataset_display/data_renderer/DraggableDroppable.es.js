@@ -12,12 +12,11 @@
  * details.
  */
 
-import getCN from 'classnames';
+import React, { useContext } from 'react';
 import {useDrag, useDrop} from 'react-dnd';
-import React, {useContext} from 'react';
-
-import {ItemTypes} from '../../../utilities/drag_drop/constants.es';
+import {ItemTypes} from "../../../utilities/drag_drop/constants.es";
 import DatasetDisplayContext from '../DatasetDisplayContext.es';
+import getCN from 'classnames';
 
 function getClassNames(isDragging, isOver) {
 	return getCN(
@@ -27,13 +26,13 @@ function getClassNames(isDragging, isOver) {
 	);
 }
 
-function DraggableDroppable({item: rowItem, value}) {
-	const {openModal} = useContext(DatasetDisplayContext);
+function DraggableDroppable({ item: rowItem, value }) {
+	const { openModal } = useContext(DatasetDisplayContext);
 
 	const [{isOver}, drop] = useDrop({
 		accept: ItemTypes.DATASET_CELL,
 
-		collect: monitor => ({isOver: monitor.isOver()}),
+		collect: monitor => ({ isOver: monitor.isOver() }),
 
 		drop(dropResult) {
 			const idTo = rowItem.id,
@@ -42,21 +41,23 @@ function DraggableDroppable({item: rowItem, value}) {
 			if (idFrom !== idTo) {
 				openModal({idFrom, idTo});
 			}
-		}
+		},
 	});
 
 	const [{isDragging}, drag] = useDrag({
-		collect: monitor => ({isDragging: monitor.isDragging()}),
-
 		item: {
-			id: rowItem.id,
-			type: ItemTypes.DATASET_CELL
-		}
+			type: ItemTypes.DATASET_CELL,
+			id: rowItem.id
+		},
+
+		collect: monitor => ({ isDragging: monitor.isDragging() })
 	});
 
-	return drop(
-		drag(<span className={getClassNames(isDragging, isOver)}>{value}</span>)
-	);
+	return drop(drag(
+		<span className={getClassNames(isDragging, isOver)}>
+			{value}
+		</span>
+	));
 }
 
 export default DraggableDroppable;
