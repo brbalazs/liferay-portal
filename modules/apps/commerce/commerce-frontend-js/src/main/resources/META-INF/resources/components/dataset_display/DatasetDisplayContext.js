@@ -16,7 +16,6 @@ import React from 'react';
 
 const DatasetDisplayContext = React.createContext({
 	actionLoading: false,
-	enableDragDrop: false,
 	executeAsyncBulkAction: () => {},
 	executeAsyncItemAction: () => {},
 	formId: null,

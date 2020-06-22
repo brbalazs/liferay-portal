@@ -453,7 +453,6 @@ function DatasetDisplay(props) {
 				actionLoading,
 				executeAsyncBulkAction,
 				executeAsyncItemAction,
-				enableDragDrop: props.enableDragDrop,
 				formId: props.formId,
 				formRef,
 				highlightItems,
