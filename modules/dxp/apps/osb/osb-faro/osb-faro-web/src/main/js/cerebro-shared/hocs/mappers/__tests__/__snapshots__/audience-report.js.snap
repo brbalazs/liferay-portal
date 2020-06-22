@@ -325,322 +325,6 @@ Object {
 
 exports[`Shared HOCs Mappers - Segments should map segments information 1`] = `
 Object {
-  "data": Object {
-    "items": Array [
-      Object {
-        "columns": Array [
-          Object {
-            "icon": "ac-segment",
-            "label": "Segment 6",
-          },
-        ],
-        "progress": Array [
-          Object {
-            "color": "#FF5F5F",
-            "value": 100,
-          },
-        ],
-        "tooltip": Object {
-          "header": Array [
-            Object {
-              "label": "Segment",
-              "weight": "semibold",
-            },
-            Object {
-              "label": "",
-            },
-            Object {
-              "align": "right",
-              "label": "%",
-              "weight": "semibold",
-            },
-          ],
-          "rows": Array [
-            Object {
-              "columns": Array [
-                Object {
-                  "label": "Segment 6",
-                  "truncated": true,
-                  "weight": "semibold",
-                  "width": 160,
-                },
-                Object {
-                  "align": "right",
-                  "label": "3.5K",
-                },
-                Object {
-                  "align": "right",
-                  "label": "100%",
-                  "weight": "semibold",
-                  "width": 50,
-                },
-              ],
-            },
-          ],
-        },
-      },
-      Object {
-        "columns": Array [
-          Object {
-            "icon": "ac-segment",
-            "label": "Segment 3",
-          },
-        ],
-        "progress": Array [
-          Object {
-            "color": "#FF5F5F",
-            "value": 57,
-          },
-        ],
-        "tooltip": Object {
-          "header": Array [
-            Object {
-              "label": "Segment",
-              "weight": "semibold",
-            },
-            Object {
-              "label": "",
-            },
-            Object {
-              "align": "right",
-              "label": "%",
-              "weight": "semibold",
-            },
-          ],
-          "rows": Array [
-            Object {
-              "columns": Array [
-                Object {
-                  "label": "Segment 3",
-                  "truncated": true,
-                  "weight": "semibold",
-                  "width": 160,
-                },
-                Object {
-                  "align": "right",
-                  "label": "2K",
-                },
-                Object {
-                  "align": "right",
-                  "label": "57.1%",
-                  "weight": "semibold",
-                  "width": 50,
-                },
-              ],
-            },
-          ],
-        },
-      },
-      Object {
-        "columns": Array [
-          Object {
-            "icon": "ac-segment",
-            "label": "Segment 2",
-          },
-        ],
-        "progress": Array [
-          Object {
-            "color": "#FF5F5F",
-            "value": 42,
-          },
-        ],
-        "tooltip": Object {
-          "header": Array [
-            Object {
-              "label": "Segment",
-              "weight": "semibold",
-            },
-            Object {
-              "label": "",
-            },
-            Object {
-              "align": "right",
-              "label": "%",
-              "weight": "semibold",
-            },
-          ],
-          "rows": Array [
-            Object {
-              "columns": Array [
-                Object {
-                  "label": "Segment 2",
-                  "truncated": true,
-                  "weight": "semibold",
-                  "width": 160,
-                },
-                Object {
-                  "align": "right",
-                  "label": "1.5K",
-                },
-                Object {
-                  "align": "right",
-                  "label": "42.9%",
-                  "weight": "semibold",
-                  "width": 50,
-                },
-              ],
-            },
-          ],
-        },
-      },
-      Object {
-        "columns": Array [
-          Object {
-            "icon": "ac-segment",
-            "label": "Segment 1",
-          },
-        ],
-        "progress": Array [
-          Object {
-            "color": "#FF5F5F",
-            "value": 28,
-          },
-        ],
-        "tooltip": Object {
-          "header": Array [
-            Object {
-              "label": "Segment",
-              "weight": "semibold",
-            },
-            Object {
-              "label": "",
-            },
-            Object {
-              "align": "right",
-              "label": "%",
-              "weight": "semibold",
-            },
-          ],
-          "rows": Array [
-            Object {
-              "columns": Array [
-                Object {
-                  "label": "Segment 1",
-                  "truncated": true,
-                  "weight": "semibold",
-                  "width": 160,
-                },
-                Object {
-                  "align": "right",
-                  "label": "1K",
-                },
-                Object {
-                  "align": "right",
-                  "label": "28.6%",
-                  "weight": "semibold",
-                  "width": 50,
-                },
-              ],
-            },
-          ],
-        },
-      },
-      Object {
-        "columns": Array [
-          Object {
-            "icon": "ac-segment",
-            "label": "Segment 5",
-          },
-        ],
-        "progress": Array [
-          Object {
-            "color": "#FF5F5F",
-            "value": 12,
-          },
-        ],
-        "tooltip": Object {
-          "header": Array [
-            Object {
-              "label": "Segment",
-              "weight": "semibold",
-            },
-            Object {
-              "label": "",
-            },
-            Object {
-              "align": "right",
-              "label": "%",
-              "weight": "semibold",
-            },
-          ],
-          "rows": Array [
-            Object {
-              "columns": Array [
-                Object {
-                  "label": "Segment 5",
-                  "truncated": true,
-                  "weight": "semibold",
-                  "width": 160,
-                },
-                Object {
-                  "align": "right",
-                  "label": "450",
-                },
-                Object {
-                  "align": "right",
-                  "label": "12.9%",
-                  "weight": "semibold",
-                  "width": 50,
-                },
-              ],
-            },
-          ],
-        },
-      },
-      Object {
-        "columns": Array [
-          Object {
-            "icon": "ac-segment",
-            "label": "Segment 4",
-          },
-        ],
-        "progress": Array [
-          Object {
-            "color": "#FF5F5F",
-            "value": 4,
-          },
-        ],
-        "tooltip": Object {
-          "header": Array [
-            Object {
-              "label": "Segment",
-              "weight": "semibold",
-            },
-            Object {
-              "label": "",
-            },
-            Object {
-              "align": "right",
-              "label": "%",
-              "weight": "semibold",
-            },
-          ],
-          "rows": Array [
-            Object {
-              "columns": Array [
-                Object {
-                  "label": "Segment 4",
-                  "truncated": true,
-                  "weight": "semibold",
-                  "width": 160,
-                },
-                Object {
-                  "align": "right",
-                  "label": "150",
-                },
-                Object {
-                  "align": "right",
-                  "label": "4.3%",
-                  "weight": "semibold",
-                  "width": 50,
-                },
-              ],
-            },
-          ],
-        },
-      },
-    ],
-  },
   "disableScroll": true,
   "formatSpacement": false,
   "grid": Object {
@@ -649,6 +333,320 @@ Object {
     "show": true,
     "type": "percentage",
   },
+  "items": Array [
+    Object {
+      "columns": Array [
+        Object {
+          "icon": "ac-segment",
+          "label": "Segment 6",
+        },
+      ],
+      "progress": Array [
+        Object {
+          "color": "#FF5F5F",
+          "value": 100,
+        },
+      ],
+      "tooltip": Object {
+        "header": Array [
+          Object {
+            "label": "Segment",
+            "weight": "semibold",
+          },
+          Object {
+            "label": "",
+          },
+          Object {
+            "align": "right",
+            "label": "%",
+            "weight": "semibold",
+          },
+        ],
+        "rows": Array [
+          Object {
+            "columns": Array [
+              Object {
+                "label": "Segment 6",
+                "truncated": true,
+                "weight": "semibold",
+                "width": 160,
+              },
+              Object {
+                "align": "right",
+                "label": "3.5K",
+              },
+              Object {
+                "align": "right",
+                "label": "100%",
+                "weight": "semibold",
+                "width": 50,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    Object {
+      "columns": Array [
+        Object {
+          "icon": "ac-segment",
+          "label": "Segment 3",
+        },
+      ],
+      "progress": Array [
+        Object {
+          "color": "#FF5F5F",
+          "value": 57,
+        },
+      ],
+      "tooltip": Object {
+        "header": Array [
+          Object {
+            "label": "Segment",
+            "weight": "semibold",
+          },
+          Object {
+            "label": "",
+          },
+          Object {
+            "align": "right",
+            "label": "%",
+            "weight": "semibold",
+          },
+        ],
+        "rows": Array [
+          Object {
+            "columns": Array [
+              Object {
+                "label": "Segment 3",
+                "truncated": true,
+                "weight": "semibold",
+                "width": 160,
+              },
+              Object {
+                "align": "right",
+                "label": "2K",
+              },
+              Object {
+                "align": "right",
+                "label": "57.1%",
+                "weight": "semibold",
+                "width": 50,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    Object {
+      "columns": Array [
+        Object {
+          "icon": "ac-segment",
+          "label": "Segment 2",
+        },
+      ],
+      "progress": Array [
+        Object {
+          "color": "#FF5F5F",
+          "value": 42,
+        },
+      ],
+      "tooltip": Object {
+        "header": Array [
+          Object {
+            "label": "Segment",
+            "weight": "semibold",
+          },
+          Object {
+            "label": "",
+          },
+          Object {
+            "align": "right",
+            "label": "%",
+            "weight": "semibold",
+          },
+        ],
+        "rows": Array [
+          Object {
+            "columns": Array [
+              Object {
+                "label": "Segment 2",
+                "truncated": true,
+                "weight": "semibold",
+                "width": 160,
+              },
+              Object {
+                "align": "right",
+                "label": "1.5K",
+              },
+              Object {
+                "align": "right",
+                "label": "42.9%",
+                "weight": "semibold",
+                "width": 50,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    Object {
+      "columns": Array [
+        Object {
+          "icon": "ac-segment",
+          "label": "Segment 1",
+        },
+      ],
+      "progress": Array [
+        Object {
+          "color": "#FF5F5F",
+          "value": 28,
+        },
+      ],
+      "tooltip": Object {
+        "header": Array [
+          Object {
+            "label": "Segment",
+            "weight": "semibold",
+          },
+          Object {
+            "label": "",
+          },
+          Object {
+            "align": "right",
+            "label": "%",
+            "weight": "semibold",
+          },
+        ],
+        "rows": Array [
+          Object {
+            "columns": Array [
+              Object {
+                "label": "Segment 1",
+                "truncated": true,
+                "weight": "semibold",
+                "width": 160,
+              },
+              Object {
+                "align": "right",
+                "label": "1K",
+              },
+              Object {
+                "align": "right",
+                "label": "28.6%",
+                "weight": "semibold",
+                "width": 50,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    Object {
+      "columns": Array [
+        Object {
+          "icon": "ac-segment",
+          "label": "Segment 5",
+        },
+      ],
+      "progress": Array [
+        Object {
+          "color": "#FF5F5F",
+          "value": 12,
+        },
+      ],
+      "tooltip": Object {
+        "header": Array [
+          Object {
+            "label": "Segment",
+            "weight": "semibold",
+          },
+          Object {
+            "label": "",
+          },
+          Object {
+            "align": "right",
+            "label": "%",
+            "weight": "semibold",
+          },
+        ],
+        "rows": Array [
+          Object {
+            "columns": Array [
+              Object {
+                "label": "Segment 5",
+                "truncated": true,
+                "weight": "semibold",
+                "width": 160,
+              },
+              Object {
+                "align": "right",
+                "label": "450",
+              },
+              Object {
+                "align": "right",
+                "label": "12.9%",
+                "weight": "semibold",
+                "width": 50,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    Object {
+      "columns": Array [
+        Object {
+          "icon": "ac-segment",
+          "label": "Segment 4",
+        },
+      ],
+      "progress": Array [
+        Object {
+          "color": "#FF5F5F",
+          "value": 4,
+        },
+      ],
+      "tooltip": Object {
+        "header": Array [
+          Object {
+            "label": "Segment",
+            "weight": "semibold",
+          },
+          Object {
+            "label": "",
+          },
+          Object {
+            "align": "right",
+            "label": "%",
+            "weight": "semibold",
+          },
+        ],
+        "rows": Array [
+          Object {
+            "columns": Array [
+              Object {
+                "label": "Segment 4",
+                "truncated": true,
+                "weight": "semibold",
+                "width": 160,
+              },
+              Object {
+                "align": "right",
+                "label": "150",
+              },
+              Object {
+                "align": "right",
+                "label": "4.3%",
+                "weight": "semibold",
+                "width": 50,
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
 }
 `;
 

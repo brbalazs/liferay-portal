@@ -55,9 +55,7 @@ describe('Shared HOCs Mappers - Segments', () => {
 			result => result.form.submissionsMetric
 		);
 		const props = mapper.props({data});
-		const arr = props.segments.data.items.map(
-			({progress}) => progress[0].value
-		);
+		const arr = props.segments.items.map(({progress}) => progress[0].value);
 
 		expect(arr).toEqual([100, 57, 42, 28, 12, 4]);
 	});
@@ -87,7 +85,7 @@ describe('Shared HOCs Mappers - Segments', () => {
 			}
 		});
 
-		const arr = props.segments.data.items;
+		const arr = props.segments.items;
 		const label = arr[arr.length - 1].columns[0].label;
 
 		expect(arr.length).toEqual(6);
@@ -99,7 +97,7 @@ describe('Shared HOCs Mappers - Segments', () => {
 			result => result.form.submissionsMetric
 		);
 		const props = mapper.props({data});
-		const arr = props.segments.data.items;
+		const arr = props.segments.items;
 		const tooltip = arr[arr.length - 1].tooltip;
 
 		expect(tooltip.rows.length).toEqual(1);
@@ -130,7 +128,7 @@ describe('Shared HOCs Mappers - Segments', () => {
 				}
 			}
 		});
-		const arr = props.segments.data.items;
+		const arr = props.segments.items;
 		const label = arr[arr.length - 1].columns[0].label;
 		const tooltip = arr[arr.length - 1].tooltip;
 
@@ -197,7 +195,7 @@ describe('Shared HOCs Mappers - Segments', () => {
 				}
 			}
 		});
-		const arr = props.segments.data.items;
+		const arr = props.segments.items;
 		const label = arr[arr.length - 1].columns[0].label;
 		const tooltip = arr[arr.length - 1].tooltip;
 

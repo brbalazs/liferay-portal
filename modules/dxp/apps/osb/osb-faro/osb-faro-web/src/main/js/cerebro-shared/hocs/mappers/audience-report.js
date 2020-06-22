@@ -182,9 +182,6 @@ const getSegmentsData = ({segments, total, totalOthers}, color) => {
 	}
 
 	return {
-		data: {
-			items
-		},
 		disableScroll: true,
 		formatSpacement: false,
 		grid: {
@@ -194,7 +191,8 @@ const getSegmentsData = ({segments, total, totalOthers}, color) => {
 			minValue: 0,
 			show: true,
 			type: 'percentage'
-		}
+		},
+		items
 	};
 };
 
