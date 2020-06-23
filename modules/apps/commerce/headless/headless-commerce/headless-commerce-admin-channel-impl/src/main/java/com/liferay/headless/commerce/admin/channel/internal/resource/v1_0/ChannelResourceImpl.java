@@ -103,8 +103,8 @@ public class ChannelResourceImpl
 
 		Channel existingChannel = getChannel(channelId);
 
-		if (channel.getCurrency() != null) {
-			existingChannel.setCurrency(channel.getCurrency());
+		if (channel.getCurrencyCode() != null) {
+			existingChannel.setCurrencyCode(channel.getCurrencyCode());
 		}
 
 		if (channel.getExternalReferenceCode() != null) {
@@ -128,7 +128,7 @@ public class ChannelResourceImpl
 		return _toChannel(
 			_commerceChannelService.addCommerceChannel(
 				GetterUtil.get(channel.getSiteGroupId(), 0), channel.getName(),
-				channel.getType(), null, channel.getCurrency(),
+				channel.getType(), null, channel.getCurrencyCode(),
 				channel.getExternalReferenceCode(),
 				_serviceContextHelper.getServiceContext(contextUser)));
 	}
@@ -140,7 +140,7 @@ public class ChannelResourceImpl
 		return _toChannel(
 			_commerceChannelService.updateCommerceChannel(
 				channelId, channel.getSiteGroupId(), channel.getName(),
-				channel.getType(), null, channel.getCurrency()));
+				channel.getType(), null, channel.getCurrencyCode()));
 	}
 
 	private Channel _toChannel(CommerceChannel commerceChannel)

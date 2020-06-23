@@ -95,13 +95,13 @@ public class ChannelResourceTest extends BaseChannelResourceTestCase {
 
 	@Override
 	protected String[] getAdditionalAssertFieldNames() {
-		return new String[] {"currency", "name", "siteGroupId", "type"};
+		return new String[] {"currencyCode", "name", "type"};
 	}
 
 	protected Channel randomPatchChannel() throws Exception {
 		return new Channel() {
 			{
-				currency = StringUtil.toLowerCase(
+				currencyCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				externalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
@@ -155,7 +155,7 @@ public class ChannelResourceTest extends BaseChannelResourceTestCase {
 		CommerceChannel commerceChannel =
 			CommerceChannelLocalServiceUtil.addCommerceChannel(
 				channel.getSiteGroupId(), channel.getName(), channel.getType(),
-				null, channel.getCurrency(), StringPool.BLANK, _serviceContext);
+				null, channel.getCurrencyCode(), StringPool.BLANK, _serviceContext);
 
 		_commerceChannels.add(commerceChannel);
 
@@ -165,7 +165,7 @@ public class ChannelResourceTest extends BaseChannelResourceTestCase {
 	private Channel _toChannel(CommerceChannel commerceChannel) {
 		return new Channel() {
 			{
-				currency = commerceChannel.getCommerceCurrencyCode();
+				currencyCode = commerceChannel.getCommerceCurrencyCode();
 				externalReferenceCode =
 					commerceChannel.getExternalReferenceCode();
 				id = commerceChannel.getCommerceChannelId();
