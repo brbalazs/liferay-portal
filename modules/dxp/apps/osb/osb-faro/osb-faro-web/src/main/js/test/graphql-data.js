@@ -3,6 +3,7 @@ import InterestsQuery from 'contacts/individual/dashboard/queries/InterestsQuery
 import OrganizationsQuery from 'contacts/components/segment-editor/dynamic/queries/OrganizationsQuery';
 import RecommendationActivitiesQuery from 'settings/recommendations/queries/RecommendationActivitiesQuery';
 import RecommendationPageAssetsQuery from 'settings/recommendations/queries/RecommendationPageAssetsQuery';
+import RecommendationQuery from 'settings/recommendations/queries/RecommendationQuery';
 import SitesDashboardQuery from 'sites/queries/SitesDashboardQuery';
 import SuppressedUsersListQuery from 'settings/data-privacy/queries/SuppressedUsersListQuery';
 import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
@@ -214,6 +215,26 @@ export function mockMetric(metrics = {}) {
 				: value;
 		}),
 		__typename: 'Metric'
+	};
+}
+
+export function mockRecommendationReq(item = {}, mockVariables = {}) {
+	return {
+		request: {
+			query: RecommendationQuery,
+			variables: {
+				jobId: '321',
+				...mockVariables
+			}
+		},
+		result: {
+			data: {
+				jobById: {
+					...item,
+					__typename: 'Job'
+				}
+			}
+		}
 	};
 }
 
