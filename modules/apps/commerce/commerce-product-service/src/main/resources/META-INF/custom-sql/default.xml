@@ -1,6 +1,17 @@
 <?xml version="1.0"?>
 
 <custom-sql>
+	<sql id="com.liferay.commerce.product.service.persistence.CPTaxCategoryFinder.countCPTaxCategoriesByCompanyId">
+		<![CDATA[
+			SELECT
+				COUNT(*) AS COUNT_VALUE
+			FROM
+				CPTaxCategory
+			WHERE
+				(CPTaxCategory.companyId = [$COMPANY_ID$]) AND
+				(LOWER(CPTaxCategory.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
 	<sql id="com.liferay.commerce.product.service.persistence.CPAttachmentFileEntryFinder.findByExpirationDate">
 		<![CDATA[
 			SELECT
@@ -102,17 +113,6 @@
 				(LOWER(CPTaxCategory.name) LIKE ? [$AND_OR_NULL_CHECK$])
 			ORDER BY
 				CPTaxCategory.name
-		]]>
-	</sql>
-	<sql id="com.liferay.commerce.product.service.persistence.CPTaxCategoryFinder.countCPTaxCategoriesByCompanyId">
-		<![CDATA[
-			SELECT
-				COUNT(*) AS COUNT_VALUE
-			FROM
-				CPTaxCategory
-			WHERE
-				(CPTaxCategory.companyId = [$COMPANY_ID$]) AND
-				(LOWER(CPTaxCategory.name) LIKE ? [$AND_OR_NULL_CHECK$])
 		]]>
 	</sql>
 </custom-sql>
