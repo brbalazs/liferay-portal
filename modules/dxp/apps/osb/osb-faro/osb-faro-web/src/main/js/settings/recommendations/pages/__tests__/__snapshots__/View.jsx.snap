@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`View should render 1`] = `
+<div>
+  <div
+    class="settings-base-page-root"
+  >
+    <div
+      class="maintenance-alert-root"
+    />
+    <ol
+      class="breadcrumb breadcrumbs-root"
+    >
+      <li
+        class="breadcrumb-item"
+      >
+        <a
+          class="breadcrumb-link breadcrumb-text-truncate"
+          href="/workspace/123/settings/recommendations"
+        >
+          Recommentations
+        </a>
+      </li>
+      <li
+        class="breadcrumb-item active"
+      >
+        <span
+          class="breadcrumb-text-truncate"
+        >
+          Recommendation Job Name 321
+        </span>
+      </li>
+    </ol>
+    <div
+      class="content-header has-page-actions"
+    >
+      <div
+        class="header-text"
+      >
+        <h3>
+          <span
+            class="text-truncate"
+            data-tooltip="false"
+            title=""
+          >
+            Recommendation Job Name 321
+          </span>
+        </h3>
+      </div>
+      <div
+        class="page-actions-container"
+      >
+        <button
+          class="button-root btn btn-secondary"
+          type="button"
+        >
+          Retrain
+        </button>
+        <a
+          class="button-root btn btn-secondary"
+          href="/workspace/123/settings/recommendations/321/edit"
+        >
+          Edit
+        </a>
+        <button
+          class="button-root btn btn-secondary"
+          type="button"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+    <div>
+      test
+    </div>
+  </div>
+</div>
+`;

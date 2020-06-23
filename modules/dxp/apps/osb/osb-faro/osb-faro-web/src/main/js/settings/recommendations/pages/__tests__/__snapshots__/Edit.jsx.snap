@@ -3,14 +3,242 @@
 exports[`Edit should render 1`] = `
 <div>
   <div
-    class="loading-root"
+    class="settings-base-page-root"
   >
     <div
-      class="spinner-root spinner-fade-in"
+      class="maintenance-alert-root"
+    />
+    <ol
+      class="breadcrumb breadcrumbs-root"
     >
-      <span
-        class="loading-animation loading-animation-dotted"
+      <li
+        class="breadcrumb-item"
+      >
+        <a
+          class="breadcrumb-link breadcrumb-text-truncate"
+          href="/workspace/123/settings/recommendations"
+        >
+          Recommentations
+        </a>
+      </li>
+      <li
+        class="breadcrumb-item active"
+      >
+        <span
+          class="breadcrumb-text-truncate"
+        >
+          Recommendation Job Name 321
+        </span>
+      </li>
+    </ol>
+    <div
+      class="content-header"
+    >
+      <div
+        class="header-text"
+      >
+        <h3>
+          <span
+            class="text-truncate"
+            data-tooltip="false"
+            title=""
+          >
+            Recommendation Job Name 321
+          </span>
+        </h3>
+        <div
+          class="description"
+        >
+          Item similarity model uses items and interactions data for training.
+        </div>
+      </div>
+      <div
+        class="page-actions-container"
       />
+    </div>
+    <div>
+      <div
+        class="row"
+      >
+        <div
+          class="col-xl-8"
+        >
+          <div
+            class="card card-root recommendation-step-card-root"
+          >
+            <form
+              class="form-root"
+            >
+              <div
+                class="card-header"
+              >
+                <div
+                  class="timeline-root"
+                >
+                  <div
+                    class="step active"
+                  >
+                    <div
+                      class="title"
+                    >
+                      Basic Settings
+                    </div>
+                    <div
+                      class="circle"
+                    >
+                      1
+                    </div>
+                  </div>
+                  <span
+                    class="bar"
+                  />
+                  <div
+                    class="step"
+                  >
+                    <div
+                      class="title"
+                    >
+                      Interactions
+                    </div>
+                    <div
+                      class="circle"
+                    >
+                      2
+                    </div>
+                  </div>
+                  <span
+                    class="bar"
+                  />
+                  <div
+                    class="step"
+                  >
+                    <div
+                      class="title"
+                    >
+                      Items
+                    </div>
+                    <div
+                      class="circle"
+                    >
+                      3
+                    </div>
+                  </div>
+                  <span
+                    class="bar"
+                  />
+                  <div
+                    class="step"
+                  >
+                    <div
+                      class="title"
+                    >
+                      Summary
+                    </div>
+                    <div
+                      class="circle"
+                    >
+                      4
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="card-body"
+              >
+                <div
+                  class="basic-settings-root"
+                >
+                  <div
+                    class="form-group"
+                  >
+                    <div
+                      class=""
+                    >
+                      <label
+                        class="form-control-label label-root required"
+                        for="name"
+                      >
+                        Model Name
+                      </label>
+                      <input
+                        class="input-root form-control"
+                        id="name"
+                        name="name"
+                        type="text"
+                        value="Recommendation Job Name 321"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="form-group"
+                  >
+                    <div
+                      class=""
+                    >
+                      <label
+                        class="form-control-label label-root"
+                        for="trainingFrequency"
+                      >
+                        Training Frequency
+                      </label>
+                      <select
+                        class="form-control select-root"
+                        id="trainingFrequency"
+                        name="trainingFrequency"
+                      >
+                        <option
+                          class=""
+                          value="MANUAL"
+                        >
+                          Run Manually
+                        </option>
+                        <option
+                          class=""
+                          value="EVERY_7_DAYS"
+                        >
+                          Every 7 days
+                        </option>
+                        <option
+                          class=""
+                          value="EVERY_14_DAYS"
+                        >
+                          Every 14 days
+                        </option>
+                        <option
+                          class=""
+                          value="EVERY_30_DAYS"
+                        >
+                          Every 30 days
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="card-footer"
+              >
+                <div
+                  class="form-navigation-root"
+                >
+                  <a
+                    class="button-root btn btn-secondary cancel"
+                    href="/workspace/123/settings/recommendations/321"
+                  >
+                    Cancel
+                  </a>
+                  <button
+                    class="button-root btn btn-primary"
+                    type="button"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
