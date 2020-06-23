@@ -35,5 +35,5 @@ JournalEditArticleDisplayContext journalEditArticleDisplayContext = new JournalE
 		xml="<%= (article != null) ? HttpUtil.decodeURL(article.getFriendlyURLsXML()) : StringPool.BLANK %>"
 	/>
 
-	<p class="text-muted"><liferay-ui:message key="changing-the-friendly-url-will-affect-all-web-content-article-versions,-even-when-saving-it-as-draft" /></p>
+	<p class="text-muted"><liferay-ui:message key="changing-the-friendly-url-will-affect-all-web-content-article-versions-even-when-saving-it-as-a-draft" /></p>
 </div>
