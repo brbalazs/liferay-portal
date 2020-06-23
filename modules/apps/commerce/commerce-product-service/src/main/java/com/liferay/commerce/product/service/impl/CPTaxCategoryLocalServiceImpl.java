@@ -61,6 +61,12 @@ public class CPTaxCategoryLocalServiceImpl
 	}
 
 	@Override
+	public int countCPTaxCategoriesByCompanyId(long companyId, String keyword) {
+		return cpTaxCategoryFinder.countCPTaxCategoriesByCompanyId(
+			companyId, keyword);
+	}
+
+	@Override
 	public void deleteCPTaxCategories(long companyId) {
 		cpTaxCategoryPersistence.removeByCompanyId(companyId);
 	}
@@ -90,6 +96,14 @@ public class CPTaxCategoryLocalServiceImpl
 			cpTaxCategoryId);
 
 		return cpTaxCategoryLocalService.deleteCPTaxCategory(cpTaxCategory);
+	}
+
+	@Override
+	public List<CPTaxCategory> findCPTaxCategoriesByCompanyId(
+		long companyId, String keyword, int start, int end) {
+
+		return cpTaxCategoryFinder.findCPTaxCategoriesByCompanyId(
+			companyId, keyword, start, end);
 	}
 
 	@Override
@@ -127,12 +141,6 @@ public class CPTaxCategoryLocalServiceImpl
 
 		return cpTaxCategoryPersistence.update(cpTaxCategory);
 	}
-
-	@Override
-	public List<CPTaxCategory> findCPTaxCategoriesByCompanyId(long companyId, String keyword, int start, int end) {
-		return cpTaxCategoryFinder.findCPTaxCategoriesByCompanyId(companyId, keyword, start, end);
-	}
-
 
 	protected void validate(Map<Locale, String> nameMap)
 		throws PortalException {
