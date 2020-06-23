@@ -137,13 +137,13 @@ public class EditCommerceTaxFixedRateAddressRelMVCActionCommand
 		NumberFormat numberFormat = NumberFormat.getNumberInstance(
 			_portal.getLocale(actionRequest));
 
-		Double rate = (Double)numberFormat.parse(localizedRate);
+		Number rate = numberFormat.parse(localizedRate);
 
 		if (commerceTaxFixedRateAddressRelId > 0) {
 			_commerceTaxFixedRateAddressRelService.
 				updateCommerceTaxFixedRateAddressRel(
 					commerceTaxFixedRateAddressRelId, commerceCountryId,
-					commerceRegionId, zip, rate);
+					commerceRegionId, zip, rate.doubleValue());
 		}
 		else {
 			CommerceTaxMethod commerceTaxMethod =
@@ -155,7 +155,8 @@ public class EditCommerceTaxFixedRateAddressRelMVCActionCommand
 					_portal.getUserId(actionRequest),
 					commerceTaxMethod.getGroupId(),
 					commerceTaxMethod.getCommerceTaxMethodId(), cpTaxCategoryId,
-					commerceCountryId, commerceRegionId, zip, rate);
+					commerceCountryId, commerceRegionId, zip,
+					rate.doubleValue());
 		}
 	}
 
