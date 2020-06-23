@@ -6565,9 +6565,7 @@ go</echo>
 
 		<beanshell>
 			<![CDATA[
-				long startDate = new Date().getTime();
-
-				project.setProperty("start.date", Long.toString(startDate));
+				project.setProperty("start.date", String.valueOf(System.currentTimeMillis()));
 			]]>
 		</beanshell>
 
