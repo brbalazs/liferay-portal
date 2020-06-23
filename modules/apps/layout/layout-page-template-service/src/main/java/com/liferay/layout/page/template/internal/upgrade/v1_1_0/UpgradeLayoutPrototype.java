@@ -165,8 +165,8 @@ public class UpgradeLayoutPrototype extends UpgradeProcess {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					StringBundler.concat(
-						"Duplicate Layout Prototype name ", name,
-						" found. Renaming to ", newName));
+						"Renaming duplicate layout prototype name \"", name,
+						"\" to \"", newName, "\""));
 			}
 
 			return newName;
