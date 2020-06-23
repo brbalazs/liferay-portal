@@ -118,12 +118,10 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 				<div>
 					<div className='strings-matching-input-container'>
 						<span className='strings-matching-title'>
-							{Liferay.Language.get('strings-matching')}
+							{Liferay.Language.get('string-match')}
 						</span>
 
-						<span>{`(${Liferay.Language.get(
-							'supports-regex'
-						)})`}</span>
+						<span>{`(${Liferay.Language.get('regex-only')})`}</span>
 
 						<div className='d-flex'>
 							<StringMatchInput
