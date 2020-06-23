@@ -41,23 +41,23 @@ public class TaxCategoryResourceImpl extends BaseTaxCategoryResourceImpl {
 
 	@Override
 	public Page<TaxCategory> getChannelTaxCategoriesPage(
-		Long channelId, String search, Pagination pagination)
+			Long channelId, String search, Pagination pagination)
 		throws Exception {
 
 		List<TaxCategory> taxCategories = new ArrayList<>();
 
 		List<CPTaxCategory> cpTaxCategories =
 			_cpTaxCategoryService.findCPTaxCategoriesByCompanyId(
-				contextCompany.getCompanyId(), search, pagination.getStartPosition(),
-				pagination.getEndPosition());
+				contextCompany.getCompanyId(), search,
+				pagination.getStartPosition(), pagination.getEndPosition());
 
 		for (CPTaxCategory cpTaxCategory : cpTaxCategories) {
 			taxCategories.add(
 				_toTaxCategory(cpTaxCategory.getCPTaxCategoryId()));
 		}
 
-		int count = _cpTaxCategoryService.getCPTaxCategoriesCount(
-			contextCompany.getCompanyId());
+		int count = _cpTaxCategoryService.countCPTaxCategoriesByCompanyId(
+			contextCompany.getCompanyId(), search);
 
 		return Page.of(taxCategories, pagination, count);
 	}
