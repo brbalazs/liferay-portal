@@ -35,11 +35,12 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.sql.PreparedStatement;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Pavel Savinov
@@ -76,7 +77,7 @@ public class UpgradeLayoutPrototype extends UpgradeProcess {
 				AutoBatchPreparedStatementUtil.concurrentAutoBatch(
 					connection, sb.toString())) {
 
-			List<String> existingNames = new ArrayList<>();
+			Set<String> existingNames = new HashSet<>();
 
 			List<LayoutPrototype> layoutPrototypes =
 				_layoutPrototypeLocalService.getLayoutPrototypes(
@@ -140,7 +141,7 @@ public class UpgradeLayoutPrototype extends UpgradeProcess {
 		runSQLTemplateString(template, false, false);
 	}
 
-	private String _generateNewName(String name, List<String> existingNames) {
+	private String _generateNewName(String name, Set<String> existingNames) {
 		int i = 1;
 
 		while (true) {
