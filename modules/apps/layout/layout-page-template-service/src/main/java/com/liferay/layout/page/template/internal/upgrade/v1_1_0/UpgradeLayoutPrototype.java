@@ -76,11 +76,11 @@ public class UpgradeLayoutPrototype extends UpgradeProcess {
 				AutoBatchPreparedStatementUtil.concurrentAutoBatch(
 					connection, sb.toString())) {
 
+			List<String> existingNames = new ArrayList<>();
+
 			List<LayoutPrototype> layoutPrototypes =
 				_layoutPrototypeLocalService.getLayoutPrototypes(
 					QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-
-			List<String> existingNames = new ArrayList<>();
 
 			for (LayoutPrototype layoutPrototype : layoutPrototypes) {
 				long companyId = layoutPrototype.getCompanyId();
