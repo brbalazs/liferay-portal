@@ -53,16 +53,16 @@ public class ChannelSerDes {
 
 		sb.append("{");
 
-		if (channel.getCurrency() != null) {
+		if (channel.getCurrencyCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"currency\": ");
+			sb.append("\"currencyCode\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(channel.getCurrency()));
+			sb.append(_escape(channel.getCurrencyCode()));
 
 			sb.append("\"");
 		}
@@ -147,11 +147,11 @@ public class ChannelSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
-		if (channel.getCurrency() == null) {
-			map.put("currency", null);
+		if (channel.getCurrencyCode() == null) {
+			map.put("currencyCode", null);
 		}
 		else {
-			map.put("currency", String.valueOf(channel.getCurrency()));
+			map.put("currencyCode", String.valueOf(channel.getCurrencyCode()));
 		}
 
 		if (channel.getExternalReferenceCode() == null) {
@@ -211,9 +211,9 @@ public class ChannelSerDes {
 			Channel channel, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "currency")) {
+			if (Objects.equals(jsonParserFieldName, "currencyCode")) {
 				if (jsonParserFieldValue != null) {
-					channel.setCurrency((String)jsonParserFieldValue);
+					channel.setCurrencyCode((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(

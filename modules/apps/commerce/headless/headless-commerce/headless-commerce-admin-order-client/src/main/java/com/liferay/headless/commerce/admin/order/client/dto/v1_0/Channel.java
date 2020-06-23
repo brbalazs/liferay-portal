@@ -112,6 +112,25 @@ public class Channel implements Cloneable {
 
 	protected String name;
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public void setType(UnsafeSupplier<String, Exception> typeUnsafeSupplier) {
+		try {
+			type = typeUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String type;
+
 	@Override
 	public Channel clone() throws CloneNotSupportedException {
 		return (Channel)super.clone();

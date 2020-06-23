@@ -114,7 +114,7 @@ public abstract class BaseChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-channel/v1.0/channels' -d $'{"currency": ___, "externalReferenceCode": ___, "id": ___, "name": ___, "siteGroupId": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-channel/v1.0/channels' -d $'{"currencyCode": ___, "externalReferenceCode": ___, "id": ___, "name": ___, "siteGroupId": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -238,7 +238,7 @@ public abstract class BaseChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-channel/v1.0/channels/{channelId}' -d $'{"currency": ___, "externalReferenceCode": ___, "id": ___, "name": ___, "siteGroupId": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-channel/v1.0/channels/{channelId}' -d $'{"currencyCode": ___, "externalReferenceCode": ___, "id": ___, "name": ___, "siteGroupId": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -255,8 +255,8 @@ public abstract class BaseChannelResourceImpl
 
 		Channel existingChannel = getChannel(channelId);
 
-		if (channel.getCurrency() != null) {
-			existingChannel.setCurrency(channel.getCurrency());
+		if (channel.getCurrencyCode() != null) {
+			existingChannel.setCurrencyCode(channel.getCurrencyCode());
 		}
 
 		if (channel.getExternalReferenceCode() != null) {
@@ -284,7 +284,7 @@ public abstract class BaseChannelResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-admin-channel/v1.0/channels/{channelId}' -d $'{"currency": ___, "externalReferenceCode": ___, "id": ___, "name": ___, "siteGroupId": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/headless-commerce-admin-channel/v1.0/channels/{channelId}' -d $'{"currencyCode": ___, "externalReferenceCode": ___, "id": ___, "name": ___, "siteGroupId": ___, "type": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})

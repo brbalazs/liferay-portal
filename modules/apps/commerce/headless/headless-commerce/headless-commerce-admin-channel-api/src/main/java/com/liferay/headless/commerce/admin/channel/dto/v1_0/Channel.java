@@ -53,20 +53,20 @@ public class Channel {
 	}
 
 	@Schema
-	public String getCurrency() {
-		return currency;
+	public String getCurrencyCode() {
+		return currencyCode;
 	}
 
-	public void setCurrency(String currency) {
-		this.currency = currency;
+	public void setCurrencyCode(String currencyCode) {
+		this.currencyCode = currencyCode;
 	}
 
 	@JsonIgnore
-	public void setCurrency(
-		UnsafeSupplier<String, Exception> currencyUnsafeSupplier) {
+	public void setCurrencyCode(
+		UnsafeSupplier<String, Exception> currencyCodeUnsafeSupplier) {
 
 		try {
-			currency = currencyUnsafeSupplier.get();
+			currencyCode = currencyCodeUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -78,8 +78,7 @@ public class Channel {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	@NotEmpty
-	protected String currency;
+	protected String currencyCode;
 
 	@Schema
 	public String getExternalReferenceCode() {
@@ -244,16 +243,16 @@ public class Channel {
 
 		sb.append("{");
 
-		if (currency != null) {
+		if (currencyCode != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"currency\": ");
+			sb.append("\"currencyCode\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(currency));
+			sb.append(_escape(currencyCode));
 
 			sb.append("\"");
 		}

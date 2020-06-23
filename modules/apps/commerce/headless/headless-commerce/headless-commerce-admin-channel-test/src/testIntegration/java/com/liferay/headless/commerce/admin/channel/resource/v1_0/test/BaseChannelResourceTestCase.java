@@ -189,7 +189,7 @@ public abstract class BaseChannelResourceTestCase {
 
 		Channel channel = randomChannel();
 
-		channel.setCurrency(regex);
+		channel.setCurrencyCode(regex);
 		channel.setExternalReferenceCode(regex);
 		channel.setName(regex);
 		channel.setType(regex);
@@ -200,7 +200,7 @@ public abstract class BaseChannelResourceTestCase {
 
 		channel = ChannelSerDes.toDTO(json);
 
-		Assert.assertEquals(regex, channel.getCurrency());
+		Assert.assertEquals(regex, channel.getCurrencyCode());
 		Assert.assertEquals(regex, channel.getExternalReferenceCode());
 		Assert.assertEquals(regex, channel.getName());
 		Assert.assertEquals(regex, channel.getType());
@@ -710,8 +710,8 @@ public abstract class BaseChannelResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
-			if (Objects.equals("currency", additionalAssertFieldName)) {
-				if (channel.getCurrency() == null) {
+			if (Objects.equals("currencyCode", additionalAssertFieldName)) {
+				if (channel.getCurrencyCode() == null) {
 					valid = false;
 				}
 
@@ -842,9 +842,10 @@ public abstract class BaseChannelResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
-			if (Objects.equals("currency", additionalAssertFieldName)) {
+			if (Objects.equals("currencyCode", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
-						channel1.getCurrency(), channel2.getCurrency())) {
+						channel1.getCurrencyCode(),
+						channel2.getCurrencyCode())) {
 
 					return false;
 				}
@@ -985,9 +986,9 @@ public abstract class BaseChannelResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
-		if (entityFieldName.equals("currency")) {
+		if (entityFieldName.equals("currencyCode")) {
 			sb.append("'");
-			sb.append(String.valueOf(channel.getCurrency()));
+			sb.append(String.valueOf(channel.getCurrencyCode()));
 			sb.append("'");
 
 			return sb.toString();
@@ -1071,7 +1072,7 @@ public abstract class BaseChannelResourceTestCase {
 	protected Channel randomChannel() throws Exception {
 		return new Channel() {
 			{
-				currency = StringUtil.toLowerCase(
+				currencyCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				externalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());

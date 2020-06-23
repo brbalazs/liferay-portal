@@ -105,6 +105,20 @@ public class ChannelSerDes {
 			sb.append("\"");
 		}
 
+		if (channel.getType() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"type\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(channel.getType()));
+
+			sb.append("\"");
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -153,6 +167,13 @@ public class ChannelSerDes {
 			map.put("name", String.valueOf(channel.getName()));
 		}
 
+		if (channel.getType() == null) {
+			map.put("type", null);
+		}
+		else {
+			map.put("type", String.valueOf(channel.getType()));
+		}
+
 		return map;
 	}
 
@@ -194,6 +215,11 @@ public class ChannelSerDes {
 			else if (Objects.equals(jsonParserFieldName, "name")) {
 				if (jsonParserFieldValue != null) {
 					channel.setName((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "type")) {
+				if (jsonParserFieldValue != null) {
+					channel.setType((String)jsonParserFieldValue);
 				}
 			}
 			else {

@@ -180,6 +180,7 @@ public abstract class BaseChannelResourceTestCase {
 		channel.setCurrencyCode(regex);
 		channel.setExternalReferenceCode(regex);
 		channel.setName(regex);
+		channel.setType(regex);
 
 		String json = ChannelSerDes.toJSON(channel);
 
@@ -190,6 +191,7 @@ public abstract class BaseChannelResourceTestCase {
 		Assert.assertEquals(regex, channel.getCurrencyCode());
 		Assert.assertEquals(regex, channel.getExternalReferenceCode());
 		Assert.assertEquals(regex, channel.getName());
+		Assert.assertEquals(regex, channel.getType());
 	}
 
 	@Test
@@ -412,6 +414,14 @@ public abstract class BaseChannelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("type", additionalAssertFieldName)) {
+				if (channel.getType() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -544,6 +554,16 @@ public abstract class BaseChannelResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("type", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						channel1.getType(), channel2.getType())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -655,6 +675,14 @@ public abstract class BaseChannelResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("type")) {
+			sb.append("'");
+			sb.append(String.valueOf(channel.getType()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		throw new IllegalArgumentException(
 			"Invalid entity field " + entityFieldName);
 	}
@@ -705,6 +733,7 @@ public abstract class BaseChannelResourceTestCase {
 					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				type = StringUtil.toLowerCase(RandomTestUtil.randomString());
 			}
 		};
 	}
