@@ -105,6 +105,12 @@ const RecommendationEdit = lazy(() =>
 	)
 );
 
+const RecommendationView = lazy(() =>
+	import(
+		/* webpackChunkName: "RecommendationView" */ '../recommendations/pages/View'
+	)
+);
+
 // Other
 
 const UsageOverview = lazy(() =>
@@ -411,6 +417,7 @@ export class Settings extends React.Component {
 												RecommendationCreateItemSimilarity
 											}
 											destructured={false}
+											exact
 											path={
 												Routes.SETTINGS_RECOMMENDATIONS_CREATE_ITEM_SIMILARITY_MODEL
 											}
@@ -419,8 +426,18 @@ export class Settings extends React.Component {
 										<BundleRouter
 											data={RecommendationEdit}
 											destructured={false}
+											exact
 											path={
 												Routes.SETTINGS_RECOMMENDATION_EDIT
+											}
+										/>
+
+										<BundleRouter
+											data={RecommendationView}
+											destructured={false}
+											exact
+											path={
+												Routes.SETTINGS_RECOMMENDATION_MODEL_VIEW
 											}
 										/>
 									</>

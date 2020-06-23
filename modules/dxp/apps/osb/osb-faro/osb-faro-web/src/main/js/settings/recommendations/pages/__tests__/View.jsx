@@ -1,8 +1,8 @@
 import * as data from 'test/data';
 import client from 'shared/apollo/client';
-import Edit from '../Edit';
 import mockStore from 'test/mock-store';
 import React from 'react';
+import View from '../View';
 import {ApolloProvider} from '@apollo/react-components';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockRecommendationReq} from 'test/graphql-data';
@@ -26,7 +26,7 @@ const DefaultComponent = props => (
 						mockRecommendationReq(data.mockRecommendationJob('321'))
 					]}
 				>
-					<Edit
+					<View
 						{...defaultProps}
 						{...props}
 						router={{params: {groupId: '123', jobId: '321'}}}
@@ -37,7 +37,7 @@ const DefaultComponent = props => (
 	</ApolloProvider>
 );
 
-describe('Edit', () => {
+describe('View', () => {
 	it('should render', async() => {
 		const {container} = render(<DefaultComponent />);
 

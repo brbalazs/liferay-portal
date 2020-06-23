@@ -65,7 +65,7 @@ export class SettingsBasePage extends React.Component {
 							)}
 						</div>
 
-						<div>
+						<div className='page-actions-container'>
 							<PageActions actions={pageActions} />
 						</div>
 					</div>

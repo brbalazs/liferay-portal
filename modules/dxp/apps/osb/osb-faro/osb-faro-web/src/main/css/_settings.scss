@@ -70,6 +70,12 @@
 				.header-text {
 					margin-right: 0.5rem;
 				}
+
+				.page-actions-container {
+					.button-root:not(:last-child) {
+						margin-right: 16px;
+					}
+				}
 			}
 
 			.header-text {

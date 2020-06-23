@@ -69,14 +69,14 @@ const PageActions: React.FC<IPageActionsProps> = ({
 
 	return (
 		<>
-			{actions.length === 1 &&
+			{actions.length <= 3 &&
 				actions.map(({label, ...props}) => (
 					<Button key={label} {...props}>
 						{label}
 					</Button>
 				))}
 
-			{actions.length > 1 && (
+			{actions.length > 3 && (
 				<Dropdown
 					{...triggerDisplayProps}
 					align='bottomRight'
