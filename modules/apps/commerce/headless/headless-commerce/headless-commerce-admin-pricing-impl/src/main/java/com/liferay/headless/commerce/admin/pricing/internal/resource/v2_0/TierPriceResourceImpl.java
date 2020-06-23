@@ -114,6 +114,16 @@ public class TierPriceResourceImpl extends BaseTierPriceResourceImpl {
 			Long id, Pagination pagination)
 		throws Exception {
 
+		CommercePriceEntry commercePriceEntry =
+			_commercePriceEntryService.fetchCommercePriceEntry(id);
+
+		if (commercePriceEntry == null) {
+			throw new NoSuchPriceEntryException(
+				"Unable to find Price Entry with id: " +
+				id);
+		}
+
+
 		List<CommerceTierPriceEntry> commerceTierPriceEntries =
 			_commerceTierPriceEntryService.getCommerceTierPriceEntries(
 				id, pagination.getStartPosition(), pagination.getEndPosition());

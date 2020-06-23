@@ -162,6 +162,15 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 			Sort[] sorts)
 		throws Exception {
 
+		CommercePriceList commercePriceList =
+			_commercePriceListService.fetchCommercePriceList(id);
+
+		if (commercePriceList == null) {
+			throw new NoSuchPriceListException(
+				"Unable to find Price List with id: " +
+				id);
+		}
+
 		return SearchUtil.search(
 			null, booleanQuery -> booleanQuery.getPreBooleanFilter(), filter,
 			CommercePriceEntry.class, search, pagination,
