@@ -44,6 +44,14 @@ public class CPTaxCategoryServiceWrapper
 	}
 
 	@Override
+	public int countCPTaxCategoriesByCompanyId(long companyId, String keyword)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpTaxCategoryService.countCPTaxCategoriesByCompanyId(
+			companyId, keyword);
+	}
+
+	@Override
 	public void deleteCPTaxCategory(long cpTaxCategoryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

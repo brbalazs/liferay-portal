@@ -57,6 +57,12 @@ public class CPTaxCategoryLocalServiceWrapper
 			nameMap, descriptionMap, serviceContext);
 	}
 
+	@Override
+	public int countCPTaxCategoriesByCompanyId(long companyId, String keyword) {
+		return _cpTaxCategoryLocalService.countCPTaxCategoriesByCompanyId(
+			companyId, keyword);
+	}
+
 	/**
 	 * Creates a new cp tax category with the primary key. Does not add the cp tax category to the database.
 	 *

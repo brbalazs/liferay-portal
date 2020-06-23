@@ -62,6 +62,12 @@ public class CPTaxCategoryLocalServiceUtil {
 			nameMap, descriptionMap, serviceContext);
 	}
 
+	public static int countCPTaxCategoriesByCompanyId(
+		long companyId, String keyword) {
+
+		return getService().countCPTaxCategoriesByCompanyId(companyId, keyword);
+	}
+
 	/**
 	 * Creates a new cp tax category with the primary key. Does not add the cp tax category to the database.
 	 *

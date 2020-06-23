@@ -48,6 +48,13 @@ public class CPTaxCategoryServiceUtil {
 			nameMap, descriptionMap, serviceContext);
 	}
 
+	public static int countCPTaxCategoriesByCompanyId(
+			long companyId, String keyword)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().countCPTaxCategoriesByCompanyId(companyId, keyword);
+	}
+
 	public static void deleteCPTaxCategory(long cpTaxCategoryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

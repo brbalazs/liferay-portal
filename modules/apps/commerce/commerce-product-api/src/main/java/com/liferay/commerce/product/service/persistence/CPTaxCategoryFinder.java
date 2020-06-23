@@ -23,6 +23,8 @@ import aQute.bnd.annotation.ProviderType;
 @ProviderType
 public interface CPTaxCategoryFinder {
 
+	public int countCPTaxCategoriesByCompanyId(long companyId, String keyword);
+
 	public java.util.List<com.liferay.commerce.product.model.CPTaxCategory>
 		findCPTaxCategoriesByCompanyId(
 			long companyId, String keyword, int start, int end);

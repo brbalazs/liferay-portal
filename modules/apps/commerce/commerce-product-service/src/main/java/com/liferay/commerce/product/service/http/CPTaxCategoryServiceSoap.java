@@ -170,6 +170,24 @@ public class CPTaxCategoryServiceSoap {
 		}
 	}
 
+	public static int countCPTaxCategoriesByCompanyId(
+			long companyId, String keyword)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CPTaxCategoryServiceUtil.countCPTaxCategoriesByCompanyId(
+					companyId, keyword);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static int getCPTaxCategoriesCount(long companyId)
 		throws RemoteException {
 

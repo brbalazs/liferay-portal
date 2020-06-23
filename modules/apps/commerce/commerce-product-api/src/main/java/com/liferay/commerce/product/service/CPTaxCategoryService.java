@@ -68,6 +68,9 @@ public interface CPTaxCategoryService extends BaseService {
 			ServiceContext serviceContext)
 		throws PortalException;
 
+	public int countCPTaxCategoriesByCompanyId(long companyId, String keyword)
+		throws PortalException;
+
 	public void deleteCPTaxCategory(long cpTaxCategoryId)
 		throws PortalException;
 
