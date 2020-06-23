@@ -76,10 +76,10 @@ exports[`NewRuleModal should render 1`] = `
             <span
               class="strings-matching-title"
             >
-              Strings Matching
+              String Match
             </span>
             <span>
-              (Supports RegEx)
+              (RegEx Only)
             </span>
             <div
               class="d-flex"
