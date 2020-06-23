@@ -275,7 +275,7 @@ export const Routes = buildRoutes({
 								path: '/recommendations',
 								routes: {
 									SETTINGS_RECOMMENDATION_MODEL_VIEW: {
-										path: '/:jobId',
+										path: '/:jobId([\\d]+)',
 										routes: {
 											SETTINGS_RECOMMENDATION_EDIT:
 												'/edit'
