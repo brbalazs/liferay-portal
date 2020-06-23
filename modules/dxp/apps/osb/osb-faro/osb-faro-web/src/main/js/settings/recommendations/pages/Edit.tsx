@@ -16,7 +16,7 @@ interface IEditProps {
 }
 
 const Edit: React.FC<IEditProps> = ({job, router}) => {
-	const {groupId} = router.params;
+	const {groupId, jobId} = router.params;
 
 	const name = get(job, 'name');
 
@@ -38,9 +38,13 @@ const Edit: React.FC<IEditProps> = ({job, router}) => {
 			<div className='row'>
 				<div className='col-xl-8'>
 					<RecommendationStepCard
-						cancelHref={toRoute(Routes.SETTINGS_RECOMMENDATIONS, {
-							groupId
-						})}
+						cancelHref={toRoute(
+							Routes.SETTINGS_RECOMMENDATION_MODEL_VIEW,
+							{
+								groupId,
+								jobId
+							}
+						)}
 						job={job}
 						router={router}
 					/>
