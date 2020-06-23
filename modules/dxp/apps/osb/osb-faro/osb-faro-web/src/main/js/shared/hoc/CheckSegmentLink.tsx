@@ -25,7 +25,7 @@ const checkSegmentLink = (
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		const isSegment = matchPath<{channelId: string; id: string}>(
+		const segment = matchPath<{channelId: string; id: string}>(
 			location.pathname,
 			{
 				exact: true,
@@ -33,11 +33,11 @@ const checkSegmentLink = (
 			}
 		);
 
-		if (isSegment && !isSegment.params.channelId) {
+		if (segment && !segment.params.channelId) {
 			setLoading(true);
 
 			API.individualSegment
-				.fetch({groupId, segmentId: isSegment.params.id})
+				.fetch({groupId, segmentId: segment.params.id})
 				.then(({channelId, id}) => {
 					setLoading(false);
 
