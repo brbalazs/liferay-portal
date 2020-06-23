@@ -24,7 +24,9 @@ exports[`Data Privacy Overview should render 1`] = `
           </span>
         </h3>
       </div>
-      <div />
+      <div
+        class="page-actions-container"
+      />
     </div>
     <div>
       <div

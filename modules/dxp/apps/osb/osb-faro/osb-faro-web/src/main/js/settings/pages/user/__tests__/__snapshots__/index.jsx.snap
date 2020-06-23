@@ -29,7 +29,9 @@ exports[`UserRoutes should render 1`] = `
           Invite new users to Analytics Cloud and/or configure existing users.
         </div>
       </div>
-      <div />
+      <div
+        class="page-actions-container"
+      />
     </div>
     <div>
       <div

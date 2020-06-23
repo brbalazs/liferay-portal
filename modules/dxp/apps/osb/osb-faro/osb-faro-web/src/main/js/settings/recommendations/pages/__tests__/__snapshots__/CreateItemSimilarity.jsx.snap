@@ -52,7 +52,9 @@ exports[`Recommendations should render 1`] = `
           Item similarity model uses items and interactions data for training.
         </div>
       </div>
-      <div />
+      <div
+        class="page-actions-container"
+      />
     </div>
     <div>
       <div

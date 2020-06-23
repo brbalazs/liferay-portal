@@ -52,7 +52,9 @@ exports[`IndividualAttributes should render 1`] = `
           This is the data model of an individual. Analytics Cloud will take and store the newest data from all your sources.
         </div>
       </div>
-      <div />
+      <div
+        class="page-actions-container"
+      />
     </div>
     <div>
       <div

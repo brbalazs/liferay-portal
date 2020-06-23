@@ -54,11 +54,13 @@ interface Action extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 interface IPageActionsProps {
 	actions: Action[];
+	actionsDisplayLimit: number;
 	label?: string;
 }
 
 const PageActions: React.FC<IPageActionsProps> = ({
 	actions = [],
+	actionsDisplayLimit = 1,
 	label = ''
 }) => {
 	const triggerDisplayProps = label.length
@@ -69,14 +71,14 @@ const PageActions: React.FC<IPageActionsProps> = ({
 
 	return (
 		<>
-			{actions.length <= 3 &&
+			{actions.length <= actionsDisplayLimit &&
 				actions.map(({label, ...props}) => (
 					<Button key={label} {...props}>
 						{label}
 					</Button>
 				))}
 
-			{actions.length > 3 && (
+			{actions.length > actionsDisplayLimit && (
 				<Dropdown
 					{...triggerDisplayProps}
 					align='bottomRight'

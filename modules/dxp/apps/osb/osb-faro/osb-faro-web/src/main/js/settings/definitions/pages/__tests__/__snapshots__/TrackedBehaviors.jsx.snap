@@ -52,7 +52,9 @@ exports[`TrackedBehaviorsList should render 1`] = `
           This is the data model of behaviors tracked within Analytics Cloud. Instructions for tracking third-party assets in Analytics Cloud are provided when you click each behavior. Click and conversion goals can be tracked using Click Events.
         </div>
       </div>
-      <div />
+      <div
+        class="page-actions-container"
+      />
     </div>
     <div>
       <div

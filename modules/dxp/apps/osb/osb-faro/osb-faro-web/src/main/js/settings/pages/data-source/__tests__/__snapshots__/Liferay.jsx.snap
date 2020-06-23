@@ -52,7 +52,9 @@ exports[`LiferayDataSource should render 1`] = `
           https://www.faro-1.io
         </div>
       </div>
-      <div>
+      <div
+        class="page-actions-container"
+      >
         <button
           class="button-root btn btn-secondary"
           type="button"

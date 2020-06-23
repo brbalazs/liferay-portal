@@ -62,7 +62,9 @@ exports[`DataSourceClearData should render 1`] = `
           The following data will be impacted and can yield unexpected results. This action will not remove the data source.
         </div>
       </div>
-      <div />
+      <div
+        class="page-actions-container"
+      />
     </div>
     <div>
       <div

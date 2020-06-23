@@ -29,7 +29,9 @@ exports[`Workspace Settting should render 1`] = `
           Here you can view and change your workspace settings. You can only set your Friendly Workspace URL once. Data Center Location cannot be changed.
         </div>
       </div>
-      <div />
+      <div
+        class="page-actions-container"
+      />
     </div>
     <div>
       <div

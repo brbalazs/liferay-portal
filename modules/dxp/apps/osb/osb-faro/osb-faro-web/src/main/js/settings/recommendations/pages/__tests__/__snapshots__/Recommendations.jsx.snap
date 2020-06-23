@@ -29,7 +29,9 @@ exports[`Recommendations should render 1`] = `
           Create and train machine learning models to use in your recommendations.
         </div>
       </div>
-      <div />
+      <div
+        class="page-actions-container"
+      />
     </div>
     <div>
       <div

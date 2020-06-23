@@ -42,6 +42,7 @@ const View: React.FC<IViewProps> = ({job, router}) => {
 					label: Liferay.Language.get('delete')
 				}
 			]}
+			pageActionsDisplayLimit={3}
 			pageTitle={name}
 		>
 			{'test'}

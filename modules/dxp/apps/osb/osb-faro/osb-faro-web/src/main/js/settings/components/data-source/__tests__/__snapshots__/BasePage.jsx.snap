@@ -29,7 +29,9 @@ exports[`BaseDataSourcePage should render 1`] = `
           Liferay1 - https://www.faro-1.io
         </div>
       </div>
-      <div />
+      <div
+        class="page-actions-container"
+      />
     </div>
     <div>
       <div

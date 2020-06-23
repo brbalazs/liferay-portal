@@ -37,7 +37,9 @@ exports[`DataSourceList should render 1`] = `
           Manage Data Sources that are synced with Analytics Cloud.
         </div>
       </div>
-      <div />
+      <div
+        class="page-actions-container"
+      />
     </div>
     <div>
       <div

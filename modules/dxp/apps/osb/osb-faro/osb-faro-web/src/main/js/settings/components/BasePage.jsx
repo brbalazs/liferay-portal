@@ -20,6 +20,7 @@ export class SettingsBasePage extends React.Component {
 		documentTitle: PropTypes.string,
 		groupId: PropTypes.string.isRequired,
 		pageActions: PropTypes.array,
+		pageActionsDisplayLimit: PropTypes.number,
 		pageDescription: PropTypes.node,
 		pageTitle: PropTypes.node,
 		passedChildren: PropTypes.node
@@ -31,6 +32,7 @@ export class SettingsBasePage extends React.Component {
 			className,
 			documentTitle,
 			pageActions,
+			pageActionsDisplayLimit,
 			pageDescription,
 			pageTitle,
 			passedChildren
@@ -66,7 +68,10 @@ export class SettingsBasePage extends React.Component {
 						</div>
 
 						<div className='page-actions-container'>
-							<PageActions actions={pageActions} />
+							<PageActions
+								actions={pageActions}
+								actionsDisplayLimit={pageActionsDisplayLimit}
+							/>
 						</div>
 					</div>
 				)}
