@@ -184,6 +184,11 @@
 	<td>//li[contains(@class,'commerce-total')]//div[contains(@class,'commerce-value') and contains (.,'${key_totalValue}')]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>GUEST_CHECKOUT_EMAIL</td>
+	<td>//div[contains(@class,'form-group')]//input[contains(@name,'email')]</td>
+	<td></td>
+</tr>
 <!--ORDERS-->
 <tr>
 	<td>ORDER_DETAILS_DISCOUNT</td>
