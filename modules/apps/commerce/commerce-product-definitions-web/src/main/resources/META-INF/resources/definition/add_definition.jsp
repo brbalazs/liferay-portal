@@ -33,70 +33,40 @@
 		<portlet:param name="mvcRenderCommandName" value="editProductDefinition" />
 	</portlet:renderURL>
 
-	<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/ServiceProvider/index as serviceProvider">
-		var headers = new Headers({
-			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			'x-csrf-token': Liferay.authToken
-		});
-
+	<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/modals/index as ModalUtils, commerce-frontend-js/ServiceProvider/index as ServiceProvider">
 		Liferay.provide(
 			window,
 			'<portlet:namespace/>apiSubmit',
 			function() {
-				window.parent.Liferay.fire(events.IS_LOADING_MODAL, {
-					isLoading: true
-				});
+				const AdminCatalogResource = ServiceProvider.default.AdminCatalogAPI('v1');
 
-				var json = {
+				const productData = {
 					active: true,
 					catalogId: document.getElementById('<portlet:namespace />catalogId').value,
 					name: {
-						<%= locale %>: document.getElementById('<portlet:namespace />name').value
+						'<%= locale %>': document.getElementById('<portlet:namespace />name').value
 					},
-					productType: '<%= ParamUtil.getString(request, "<portlet:namespace />productTypeName") %>'
+					productType: '<%= ParamUtil.getString(request, "productTypeName") %>'
 				};
 
-				serviceProvider.AdminCatalogAPI('v1').createProduct(json)
+				ModalUtils.isSubmitting();
+
+				AdminCatalogResource.createProduct(productData)
 					.then(function(cpDefinition) {
-						var redirectURL = new Liferay.PortletURL.createURL(
+						const redirectURL = new Liferay.PortletURL.createURL(
 							'<%= editProductDefinitionURL %>'
 						);
 
-						redirectURL.setParameter('cpDefinitionId', cpDefinition.id);
 						redirectURL.setParameter(
 							'p_p_state',
 							'<%= LiferayWindowState.MAXIMIZED.toString() %>'
 						);
 
-						window.parent.Liferay.fire(events.CLOSE_MODAL, {
-							redirectURL: redirectURL.toString(),
-							successNotification: {
-								showSuccessNotification: true,
-								message:
-								'<liferay-ui:message key="your-request-completed-successfully" />'
-							}
-						});
-					})
-					.catch(function() {
-						window.parent.Liferay.fire(events.IS_LOADING_MODAL, {
-							isLoading: false
-						});
+						redirectURL.setParameter('cpDefinitionId', cpDefinition.id);
 
-						new Liferay.Notification({
-							closeable: true,
-							delay: {
-								hide: 5000,
-								show: 0
-							},
-							duration: 500,
-							message:
-							'<liferay-ui:message key="an-unexpected-error-occurred" />',
-							render: true,
-							title: '<liferay-ui:message key="danger" />',
-							type: 'danger'
-						});
-					});
+						ModalUtils.closeAndRedirect(redirectURL);
+					})
+					.catch(ModalUtils.onSubmitFail);
 			},
 			['liferay-portlet-url']
 		);
@@ -111,20 +81,10 @@
 
 		Liferay.on(events.AUTOCOMPLETE_VALUE_UPDATED, function(e) {
 			if (e.value) {
-				fetch(
-					'/o/headless-commerce-admin-catalog/v1.0/catalog/' + e.value,
-					{
-						credentials: 'include',
-						headers: headers,
-						method: 'GET'
-					}
-				)
-				.then(function(response) {
-					return response.json();
-				})
-				.then(function(catalog) {
-					document.getElementById('<portlet:namespace />locale').value = catalog.defaultLanguageId;
-				});
+				AdminCatalogResource.getCatalogById(e.value)
+					.then(function(catalog) {
+						document.getElementById('<portlet:namespace />locale').value = catalog.defaultLanguageId;
+					});
 			}
 		});
 	</aui:script>
