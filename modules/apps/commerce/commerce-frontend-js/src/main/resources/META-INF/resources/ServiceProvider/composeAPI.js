@@ -15,8 +15,8 @@
 export function composeAPI(version, APIs, baseEndpoint) {
 	if (version in APIs) {
 		return Object.values(APIs[version]).reduce(
-			(api, collectMethods) => Object.assign(
-				api, collectMethods(baseEndpoint)),
+			(api, collectMethods) =>
+				Object.assign(api, collectMethods(baseEndpoint)),
 			{}
 		);
 	}

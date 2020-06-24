@@ -12,9 +12,9 @@
  * details.
  */
 
-import {CLAY_MODAL_SIZES_MAP, MODAL_HEIGHT_MAP} from './constants';
 import {CLOSE_MODAL, IS_LOADING_MODAL} from '../eventsDefinitions';
 import {showErrorNotification} from '../notifications';
+import {CLAY_MODAL_SIZES_MAP, MODAL_HEIGHT_MAP} from './constants';
 
 export function resolveModalSize(modalTarget) {
 	const modalSize = modalTarget.split('-')[1];
@@ -54,15 +54,15 @@ export function closeAndRedirect(redirectURL) {
 
 	const modalSettings = {
 		successNotification: {
-			showSuccessNotification: true,
 			message: Liferay.Language.get(
 				'your-request-completed-successfully'
-			)
+			),
+			showSuccessNotification: true
 		}
 	};
 
-	if (!!redirectURL) {
-		modalSettings.redirectURL = redirectURL.toString()
+	if (redirectURL) {
+		modalSettings.redirectURL = redirectURL.toString();
 	}
 
 	t_Liferay.fire(CLOSE_MODAL, modalSettings);
@@ -79,7 +79,5 @@ export function onSubmitFail() {
 
 	t_Liferay.fire(IS_LOADING_MODAL, {isLoading: false});
 
-	showErrorNotification(
-		Liferay.Language.get('an-unexpected-error-occurred')
-	);
+	showErrorNotification(Liferay.Language.get('an-unexpected-error-occurred'));
 }

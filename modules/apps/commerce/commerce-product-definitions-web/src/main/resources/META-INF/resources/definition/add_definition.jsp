@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <commerce-ui:modal-content
-	title="<%= LanguageUtil.get(locale, "create-new-product") %>"
+	title='<%= LanguageUtil.get(request, "create-new-product") %>'
 >
 	<aui:form cssClass="container-fluid-1280" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "apiSubmit();" %>'>
 		<aui:input name="locale" type="hidden" value="<%= locale %>" />
@@ -38,15 +38,21 @@
 			window,
 			'<portlet:namespace/>apiSubmit',
 			function() {
-				const AdminCatalogResource = ServiceProvider.default.AdminCatalogAPI('v1');
+				const AdminCatalogResource = ServiceProvider.default.AdminCatalogAPI(
+					'v1'
+				);
 
 				const productData = {
 					active: true,
-					catalogId: document.getElementById('<portlet:namespace />catalogId').value,
+					catalogId: document.getElementById('<portlet:namespace />catalogId')
+						.value,
 					name: {
-						'<%= locale %>': document.getElementById('<portlet:namespace />name').value
+						<%= locale %>: document.getElementById(
+							'<portlet:namespace />name'
+						).value
 					},
-					productType: '<%= ParamUtil.getString(request, "productTypeName") %>'
+					productType:
+						'<%= ParamUtil.getString(request, "productTypeName") %>'
 				};
 
 				ModalUtils.isSubmitting();
@@ -81,10 +87,10 @@
 
 		Liferay.on(events.AUTOCOMPLETE_VALUE_UPDATED, function(e) {
 			if (e.value) {
-				AdminCatalogResource.getCatalogById(e.value)
-					.then(function(catalog) {
-						document.getElementById('<portlet:namespace />locale').value = catalog.defaultLanguageId;
-					});
+				AdminCatalogResource.getCatalogById(e.value).then(function(catalog) {
+					document.getElementById('<portlet:namespace />locale').value =
+						catalog.defaultLanguageId;
+				});
 			}
 		});
 	</aui:script>

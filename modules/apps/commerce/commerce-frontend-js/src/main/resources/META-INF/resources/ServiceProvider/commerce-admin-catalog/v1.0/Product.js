@@ -23,8 +23,7 @@ function resolveProductsPath(basePath = '', productId = '') {
 }
 
 export default basePath => ({
-	createProduct: json =>
-		AJAX.POST(resolveProductsPath(basePath), json),
+	createProduct: json => AJAX.POST(resolveProductsPath(basePath), json),
 
 	getProductById: productId =>
 		AJAX.GET(resolveProductsPath(basePath, productId))
