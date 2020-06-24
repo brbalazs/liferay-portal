@@ -161,18 +161,18 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 					</div>
 				</div>
 
-				<div className='results'>
-					<div className='title'>
-						{Liferay.Language.get('matched-items')}
-					</div>
+				{(loading || data) && (
+					<div className='results'>
+						<div className='title'>
+							{Liferay.Language.get('matched-items')}
+						</div>
 
-					<div className='secondary-info'>
-						{Liferay.Language.get(
-							'item-sets-can-vary-per-period-depending-on-interactions.-metadata-matches-pages-with-at-least-one-view-event'
-						)}
-					</div>
+						<div className='secondary-info'>
+							{Liferay.Language.get(
+								'item-sets-can-vary-per-period-depending-on-interactions.-metadata-matches-pages-with-at-least-one-view-event'
+							)}
+						</div>
 
-					{(loading || data) && (
 						<TableWithPagination
 							columns={[
 								{
@@ -203,8 +203,8 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 							paginationProps={paginationProps}
 							total={data ? data.pageAssets.total : 0}
 						/>
-					)}
-				</div>
+					</div>
+				)}
 			</Modal.Body>
 
 			<Modal.Footer>
