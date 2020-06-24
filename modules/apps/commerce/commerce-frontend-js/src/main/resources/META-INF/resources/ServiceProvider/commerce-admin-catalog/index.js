@@ -12,10 +12,23 @@
  * details.
  */
 
-import AdminCatalogAPI from './commerce-admin-catalog/index';
-import DeliveryCartAPI from './commerce-delivery-cart/index';
+import * as v1 from './v1.0/index';
 
-export const ServiceProvider = {
-	AdminCatalogAPI,
-	DeliveryCartAPI
+const BASE_ENDPOINT = '/o/headless-commerce-admin-catalog/';
+
+const APIs = {
+	v1
 };
+
+function composeAPI(version) {
+	if (version in APIs) {
+		return Object.values(APIs[version]).reduce(
+			(api, composeFn) => Object.assign(api, composeFn(BASE_ENDPOINT)),
+			{}
+		);
+	}
+
+	throw new Error('The API version was not specified');
+}
+
+export default version => composeAPI(version);

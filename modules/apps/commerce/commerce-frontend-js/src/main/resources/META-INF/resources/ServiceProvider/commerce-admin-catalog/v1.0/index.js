@@ -12,10 +12,4 @@
  * details.
  */
 
-import AdminCatalogAPI from './commerce-admin-catalog/index';
-import DeliveryCartAPI from './commerce-delivery-cart/index';
-
-export const ServiceProvider = {
-	AdminCatalogAPI,
-	DeliveryCartAPI
-};
+export {default as productAPI} from './Product';

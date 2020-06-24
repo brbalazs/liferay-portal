@@ -12,10 +12,19 @@
  * details.
  */
 
-import AdminCatalogAPI from './commerce-admin-catalog/index';
-import DeliveryCartAPI from './commerce-delivery-cart/index';
+import AJAX from '../../../utilities/AJAX/index';
 
-export const ServiceProvider = {
-	AdminCatalogAPI,
-	DeliveryCartAPI
-};
+const PRODUCTS_PATH = '/products';
+
+const VERSION = 'v1.0';
+
+function resolveProductsPath(basePath = '', productId) {
+	return `${basePath}${VERSION}${PRODUCTS_PATH}/${productId}`;
+}
+
+export default basePath => ({
+	createProduct: json => AJAX.POST(resolveProductsPath(basePath, null), json),
+
+	getProductById: productId =>
+		AJAX.GET(resolveProductsPath(basePath, productId))
+});
