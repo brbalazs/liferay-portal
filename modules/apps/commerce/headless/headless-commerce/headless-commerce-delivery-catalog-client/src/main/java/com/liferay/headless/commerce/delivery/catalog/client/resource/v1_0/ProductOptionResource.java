@@ -168,7 +168,7 @@ public interface ProductOptionResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/options",
+						"/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/product-options",
 				channelId, productId);
 
 			httpInvoker.userNameAndPassword(

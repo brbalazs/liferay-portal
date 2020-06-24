@@ -77,7 +77,7 @@ public abstract class BaseProductOptionResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/options'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-delivery-catalog/v1.0/channels/{channelId}/products/{productId}/product-options'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
@@ -89,7 +89,7 @@ public abstract class BaseProductOptionResourceImpl
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/channels/{channelId}/products/{productId}/options")
+	@Path("/channels/{channelId}/products/{productId}/product-options")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "ProductOption")})
 	public Page<ProductOption> getChannelProductOptionsPage(
