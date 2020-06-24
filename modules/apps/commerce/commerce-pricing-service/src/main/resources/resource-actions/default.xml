@@ -6,18 +6,42 @@
 		<portlet-name>90</portlet-name>
 		<permissions>
 			<supports>
-				<action-key>MANAGE_COMMERCE_PRICE_MODIFIERS</action-key>
-				<action-key>MANAGE_COMMERCE_PRICING_CLASSES</action-key>
-				<action-key>VIEW_COMMERCE_PRICE_MODIFIERS</action-key>
-				<action-key>VIEW_COMMERCE_PRICING_CLASSES</action-key>
+				<action-key>ADD_COMMERCE_PRICING_CLASS</action-key>
 			</supports>
 			<site-member-defaults />
 			<guest-defaults />
 			<guest-unsupported>
-				<action-key>MANAGE_COMMERCE_PRICE_MODIFIERS</action-key>
-				<action-key>MANAGE_COMMERCE_PRICING_CLASSES</action-key>
-				<action-key>VIEW_COMMERCE_PRICE_MODIFIERS</action-key>
+				<action-key>ADD_COMMERCE_PRICING_CLASS</action-key>
 			</guest-unsupported>
 		</permissions>
 	</portlet-resource>
+	<model-resource>
+		<model-name>com.liferay.commerce.pricing.model.CommercePricingClass</model-name>
+		<portlet-ref>
+			<portlet-name>com_liferay_commerce_pricing_web_internal_portlet_CommercePricingClassesPortlet</portlet-name>
+		</portlet-ref>
+		<weight>2</weight>
+		<permissions>
+			<supports>
+				<action-key>DELETE</action-key>
+				<action-key>PERMISSIONS</action-key>
+				<action-key>UPDATE</action-key>
+				<action-key>VIEW</action-key>
+			</supports>
+			<site-member-defaults />
+			<guest-defaults />
+			<guest-unsupported>
+				<action-key>DELETE</action-key>
+				<action-key>PERMISSIONS</action-key>
+				<action-key>UPDATE</action-key>
+				<action-key>VIEW</action-key>
+			</guest-unsupported>
+			<owner-defaults>
+				<action-key>DELETE</action-key>
+				<action-key>PERMISSIONS</action-key>
+				<action-key>UPDATE</action-key>
+				<action-key>VIEW</action-key>
+			</owner-defaults>
+		</permissions>
+	</model-resource>
 </resource-action-mapping>
