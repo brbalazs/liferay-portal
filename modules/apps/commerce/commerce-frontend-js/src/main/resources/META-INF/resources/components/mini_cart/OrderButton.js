@@ -19,7 +19,7 @@ import {liferayNavigate} from '../../utilities/index';
 import MiniCartContext from './MiniCartContext';
 import {WORKFLOW_STATUS_APPROVED} from './util/constants';
 
-function OrderButton() {
+function OrderButton(props) {
 	const {actionURLs, cartState} = useContext(MiniCartContext),
 		{cartItems} = cartState,
 		{length: numberOfItems = 0} = cartItems || {},
@@ -27,6 +27,17 @@ function OrderButton() {
 		{code: workflowStatus = WORKFLOW_STATUS_APPROVED} =
 			workflowStatusInfo || {},
 		{checkoutURL} = actionURLs;
+
+	var label;
+
+	if (props && props.label) {
+		label = Liferay.Language.get(props.label);
+	}
+	else if (workflowStatus === WORKFLOW_STATUS_APPROVED) {
+		label = Liferay.Language.get('submit');
+	}else {
+		label = Liferay.Language.get('review-order');
+	}
 
 	return (
 		<div className={'mini-cart-submit'}>
@@ -37,9 +48,7 @@ function OrderButton() {
 					liferayNavigate(checkoutURL);
 				}}
 			>
-				{workflowStatus === WORKFLOW_STATUS_APPROVED
-					? Liferay.Language.get('submit')
-					: Liferay.Language.get('review-order')}
+				{label}
 			</ClayButton>
 		</div>
 	);
