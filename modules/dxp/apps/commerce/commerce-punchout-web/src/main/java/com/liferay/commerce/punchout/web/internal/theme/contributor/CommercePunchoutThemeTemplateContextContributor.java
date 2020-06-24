@@ -41,7 +41,8 @@ public class CommercePunchoutThemeTemplateContextContributor
 		HttpServletRequest httpServletRequest) {
 
 		contextObjects.put(
-			"commercePunchoutThemeHttpHelper", _commercePunchoutThemeHttpHelper);
+			"commercePunchoutThemeHttpHelper",
+			_commercePunchoutThemeHttpHelper);
 	}
 
 	@Reference

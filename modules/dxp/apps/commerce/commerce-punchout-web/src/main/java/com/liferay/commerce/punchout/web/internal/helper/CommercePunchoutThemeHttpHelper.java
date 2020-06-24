@@ -14,10 +14,10 @@
 
 package com.liferay.commerce.punchout.web.internal.helper;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Jaclyn Ong
@@ -25,9 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component(immediate = true, service = CommercePunchoutThemeHttpHelper.class)
 public class CommercePunchoutThemeHttpHelper {
 
-	public boolean punchoutSession(
-		HttpServletRequest httpServletRequest) {
-
+	public boolean punchoutSession(HttpServletRequest httpServletRequest) {
 		if (_punchoutSessionHelper.punchoutEnabled(httpServletRequest) &&
 			_punchoutSessionHelper.punchoutSession(httpServletRequest)) {
 

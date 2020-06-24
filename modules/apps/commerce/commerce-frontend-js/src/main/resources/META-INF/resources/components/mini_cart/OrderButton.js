@@ -32,10 +32,9 @@ function OrderButton(props) {
 
 	if (props && props.label) {
 		label = Liferay.Language.get(props.label);
-	}
-	else if (workflowStatus === WORKFLOW_STATUS_APPROVED) {
+	} else if (workflowStatus === WORKFLOW_STATUS_APPROVED) {
 		label = Liferay.Language.get('submit');
-	}else {
+	} else {
 		label = Liferay.Language.get('review-order');
 	}
 

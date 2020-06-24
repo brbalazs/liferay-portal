@@ -33,11 +33,12 @@ import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Jaclyn Ong
@@ -52,9 +53,7 @@ public class PunchoutSessionHelper {
 		return originalHttpServletRequest.getSession();
 	}
 
-	public String getPunchoutReturnURL(
-		HttpServletRequest httpServletRequest) {
-
+	public String getPunchoutReturnURL(HttpServletRequest httpServletRequest) {
 		HttpSession httpSession = getHttpSession(httpServletRequest);
 
 		Object punchoutReturnUrlObject = httpSession.getAttribute(
@@ -85,7 +84,7 @@ public class PunchoutSessionHelper {
 		catch (Exception e) {
 			_log.error(
 				"Failed to determine whether user has Punchout role under " +
-				"commerce account");
+					"commerce account");
 
 			return false;
 		}
@@ -125,7 +124,7 @@ public class PunchoutSessionHelper {
 	}
 
 	private CommerceOrder _getCommerceOrder(
-		HttpServletRequest httpServletRequest)
+			HttpServletRequest httpServletRequest)
 		throws PortalException {
 
 		String commerceOrderUuid = ParamUtil.getString(

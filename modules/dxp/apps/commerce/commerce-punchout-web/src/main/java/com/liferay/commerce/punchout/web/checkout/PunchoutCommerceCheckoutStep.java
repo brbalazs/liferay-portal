@@ -98,8 +98,8 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 			HttpServletResponse httpServletResponse)
 		throws Exception {
 
-		String punchoutReturnURL =
-			_punchoutSessionHelper.getPunchoutReturnURL(httpServletRequest);
+		String punchoutReturnURL = _punchoutSessionHelper.getPunchoutReturnURL(
+			httpServletRequest);
 
 		CommerceOrder commerceOrder =
 			(CommerceOrder)httpServletRequest.getAttribute(
@@ -145,8 +145,8 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 	}
 
 	private void _endPunchoutSession(HttpServletRequest httpServletRequest) {
-		HttpSession httpSession =
-			_punchoutSessionHelper.getHttpSession(httpServletRequest);
+		HttpSession httpSession = _punchoutSessionHelper.getHttpSession(
+			httpServletRequest);
 
 		httpSession.removeAttribute(
 			PunchoutConstants.PUNCHOUT_RETURN_URL_ATTRIBUTE_NAME);
