@@ -16,7 +16,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useCallback, useEffect, useState} from 'react';
 
-import {ServiceProvider} from '../../ServiceProvider/index';
+import ServiceProvider from '../../ServiceProvider/index';
 import {
 	ADD_TO_ORDER,
 	CHANGE_ACCOUNT,

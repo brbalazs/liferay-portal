@@ -12,12 +12,17 @@
  * details.
  */
 
-import AdminCatalogAPI from './commerce-admin-catalog/index';
-import DeliveryCartAPI from './commerce-delivery-cart/index';
+import AJAX from '../../../utilities/AJAX/index';
 
-const ServiceProvider = {
-	AdminCatalogAPI,
-	DeliveryCartAPI
-};
+const CATALOG_PATH = '/catalog';
 
-export default ServiceProvider;
+const VERSION = 'v1.0';
+
+function resolveCatalogPath(basePath = '', catalogId = '') {
+	return `${basePath}${VERSION}${CATALOG_PATH}/${catalogId}`;
+}
+
+export default basePath => ({
+	getCatalogById: catalogId =>
+		AJAX.GET(resolveCatalogPath(basePath, catalogId))
+});

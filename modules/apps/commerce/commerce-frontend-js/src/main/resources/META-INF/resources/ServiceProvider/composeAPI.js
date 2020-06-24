@@ -12,12 +12,14 @@
  * details.
  */
 
-import AdminCatalogAPI from './commerce-admin-catalog/index';
-import DeliveryCartAPI from './commerce-delivery-cart/index';
+export function composeAPI(version, APIs, baseEndpoint) {
+	if (version in APIs) {
+		return Object.values(APIs[version]).reduce(
+			(api, collectMethods) => Object.assign(
+				api, collectMethods(baseEndpoint)),
+			{}
+		);
+	}
 
-const ServiceProvider = {
-	AdminCatalogAPI,
-	DeliveryCartAPI
-};
-
-export default ServiceProvider;
+	throw new Error('The API version was not specified');
+}
