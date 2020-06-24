@@ -8,6 +8,7 @@ Export-Package:\
 	com.liferay.commerce.pricing.exception,\
 	com.liferay.commerce.pricing.model,\
 	com.liferay.commerce.pricing.modifier,\
+	com.liferay.commerce.pricing.permission,\
 	com.liferay.commerce.pricing.service,\
 	com.liferay.commerce.pricing.service.persistence,\
 	com.liferay.commerce.pricing.type,\
