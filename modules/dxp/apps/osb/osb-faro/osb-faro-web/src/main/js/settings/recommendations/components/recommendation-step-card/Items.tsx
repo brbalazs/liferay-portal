@@ -1,20 +1,14 @@
 import Button from 'shared/components/Button';
 import Constants from 'shared/util/constants';
-import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
-import MetadataTag from '../MetadataTag';
 import React, {useEffect} from 'react';
 import RecommendationPageAssetsQuery from '../../queries/RecommendationPageAssetsQuery';
+import RuleItem from '../RuleItem';
 import Spinner from 'shared/components/Spinner';
 import Table from 'shared/components/table';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
-import {
-	EXCLUDE,
-	Filter,
-	getPropertiesFromItems,
-	RULE_NAME_LABEL_MAP
-} from '../../utils/utils';
+import {EXCLUDE, Filter, getPropertiesFromItems} from '../../utils/utils';
 import {FieldArray} from 'formik';
 import {get} from 'lodash';
 import {Modal} from 'shared/types';
@@ -76,25 +70,11 @@ const CountCell: React.FC<{
 const RuleCell: React.FC<{
 	className: string;
 	data: Filter;
-}> = ({className, data: {name, value}}) => {
-	const [rule, exactMatchSign, metadataTag] = value
-		.split(/\s*([=~])\s*/, 3)
-		.reverse();
-
-	const exactMatch = exactMatchSign === '=';
-
-	return (
-		<td className={getCN('rule', className)}>
-			<b>{`${RULE_NAME_LABEL_MAP[name]}:`}</b>
-
-			{metadataTag && <MetadataTag value={metadataTag} />}
-
-			<span className='rule-value secondary-info'>
-				{exactMatch ? `"${rule}"` : rule}
-			</span>
-		</td>
-	);
-};
+}> = ({className, data: {name, value}}) => (
+	<td className={className}>
+		<RuleItem name={name} value={value} />
+	</td>
+);
 
 interface IItemsProps {
 	close: Modal.close;
