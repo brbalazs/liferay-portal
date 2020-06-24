@@ -182,10 +182,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 						return acc;
 					}
 
-					return [
-						...acc,
-						{count: null, id: `${name} - ${value}`, name, value}
-					];
+					return [...acc, {id: `${name} - ${value}`, name, value}];
 				},
 				[]
 			);

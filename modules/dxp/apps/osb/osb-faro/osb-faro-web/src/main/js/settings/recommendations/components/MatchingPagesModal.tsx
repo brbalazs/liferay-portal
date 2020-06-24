@@ -129,6 +129,7 @@ const MatchingPagesModal: React.FC<IMatchingPagesModalProps> = ({
 
 			<TableWithData
 				itemFilters={itemFilters}
+				noResultsProps={{spacer: true}}
 				secondColumnHeader={customFilter}
 			/>
 

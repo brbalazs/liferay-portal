@@ -42,7 +42,11 @@ const withBaseResults = (withData, configs) => {
 		withPaginationBar({defaultDelta}),
 		withLoading({alignCenter: true, page: false}),
 		withError({page: false}),
-		withEmpty({emptyDescription, emptyTitle, primary: emptyPrimary})
+		withEmpty({
+			emptyDescription,
+			emptyTitle,
+			primary: emptyPrimary
+		})
 	)(Table);
 
 	class BaseResults extends React.Component {
