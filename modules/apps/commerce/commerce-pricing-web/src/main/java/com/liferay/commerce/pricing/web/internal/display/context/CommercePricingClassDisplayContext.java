@@ -22,7 +22,7 @@ import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
 import com.liferay.commerce.pricing.constants.CommercePricingPorletKeys;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
-import com.liferay.commerce.product.display.context.util.CPRequestHelper;
+import com.liferay.commerce.pricing.display.context.util.CommercePricingClassRequestHelper;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -59,12 +59,13 @@ public class CommercePricingClassDisplayContext {
 		_commercePricingClassService = commercePricingClassService;
 		_portal = portal;
 
-		cpRequestHelper = new CPRequestHelper(httpServletRequest);
+		commercePricingClassRequestHelper =
+			new CommercePricingClassRequestHelper(httpServletRequest);
 	}
 
 	public String getAddCommercePricingClassRenderURL() throws Exception {
 		LiferayPortletResponse liferayPortletResponse =
-			cpRequestHelper.getLiferayPortletResponse();
+			commercePricingClassRequestHelper.getLiferayPortletResponse();
 
 		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
@@ -83,7 +84,8 @@ public class CommercePricingClassDisplayContext {
 				new ClayCreationMenuActionItem(
 					getAddCommercePricingClassRenderURL(),
 					LanguageUtil.get(
-						cpRequestHelper.getRequest(), "add-product-group"),
+						commercePricingClassRequestHelper.getRequest(),
+						"add-product-group"),
 					ClayMenuActionItem.
 						CLAY_MENU_ACTION_ITEM_TARGET_MODAL_LARGE));
 		}
@@ -95,7 +97,8 @@ public class CommercePricingClassDisplayContext {
 		throws PortalException {
 
 		long commercePricingClassId = ParamUtil.getLong(
-			cpRequestHelper.getRequest(), "commercePricingClassId");
+			commercePricingClassRequestHelper.getRequest(),
+			"commercePricingClassId");
 
 		if (commercePricingClassId == 0) {
 			return null;
@@ -127,7 +130,7 @@ public class CommercePricingClassDisplayContext {
 		}
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			cpRequestHelper.getRequest(),
+			commercePricingClassRequestHelper.getRequest(),
 			CommercePricingPorletKeys.COMMERCE_PRICING_CLASSES,
 			PortletRequest.ACTION_PHASE);
 
@@ -144,7 +147,7 @@ public class CommercePricingClassDisplayContext {
 
 	public PortletURL getEditCommercePricingClassRenderURL() {
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			cpRequestHelper.getRequest(),
+			commercePricingClassRequestHelper.getRequest(),
 			CommercePricingPorletKeys.COMMERCE_PRICING_CLASSES,
 			PortletRequest.RENDER_PHASE);
 
@@ -157,7 +160,8 @@ public class CommercePricingClassDisplayContext {
 	public List<HeaderActionModel> getHeaderActionModels() throws Exception {
 		List<HeaderActionModel> headerActionModels = new ArrayList<>();
 
-		RenderResponse renderResponse = cpRequestHelper.getRenderResponse();
+		RenderResponse renderResponse =
+			commercePricingClassRequestHelper.getRenderResponse();
 
 		RenderURL cancelURL = renderResponse.createRenderURL();
 
@@ -178,11 +182,12 @@ public class CommercePricingClassDisplayContext {
 
 	public boolean hasPermission() {
 		return PortalPermissionUtil.contains(
-			cpRequestHelper.getPermissionChecker(),
+			commercePricingClassRequestHelper.getPermissionChecker(),
 			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 	}
 
-	protected final CPRequestHelper cpRequestHelper;
+	protected final CommercePricingClassRequestHelper
+		commercePricingClassRequestHelper;
 
 	private final CommercePricingClassService _commercePricingClassService;
 	private final Portal _portal;

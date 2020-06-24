@@ -17,7 +17,7 @@ package com.liferay.commerce.pricing.web.internal.display.context;
 import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
-import com.liferay.commerce.product.display.context.util.CPRequestHelper;
+import com.liferay.commerce.pricing.display.context.util.CommercePricingClassRequestHelper;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
@@ -37,14 +37,16 @@ public class CommercePricingClassCPDefinitionDisplayContext {
 
 		_commercePricingClassService = commercePricingClassService;
 		_itemSelector = itemSelector;
-		_cpRequestHelper = new CPRequestHelper(httpServletRequest);
+		_commercePricingClassRequestHelper =
+			new CommercePricingClassRequestHelper(httpServletRequest);
 	}
 
 	public CommercePricingClass getCommercePricingClass()
 		throws PortalException {
 
 		long commercePricingClassId = ParamUtil.getLong(
-			_cpRequestHelper.getRequest(), "commercePricingClassId");
+			_commercePricingClassRequestHelper.getRequest(),
+			"commercePricingClassId");
 
 		if (commercePricingClassId == 0) {
 			return null;
@@ -56,12 +58,13 @@ public class CommercePricingClassCPDefinitionDisplayContext {
 
 	public boolean hasPermission() {
 		return PortalPermissionUtil.contains(
-			_cpRequestHelper.getPermissionChecker(),
+			_commercePricingClassRequestHelper.getPermissionChecker(),
 			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 	}
 
+	private final CommercePricingClassRequestHelper
+		_commercePricingClassRequestHelper;
 	private final CommercePricingClassService _commercePricingClassService;
-	private final CPRequestHelper _cpRequestHelper;
 	private final ItemSelector _itemSelector;
 
 }
