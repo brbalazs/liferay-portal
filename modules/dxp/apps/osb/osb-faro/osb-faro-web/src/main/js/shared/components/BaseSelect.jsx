@@ -325,8 +325,6 @@ export default class BaseSelect extends React.Component {
 									<li className='dropdown-header'>
 										{menuTitle}
 									</li>
-
-									<li className='dropdown-divider' />
 								</>
 							)}
 
