@@ -275,7 +275,7 @@
 </tr>
 <tr>
 	<td>FIX_ISSUE_BUTTON</td>
-	<td>//tr[contains (@data-qa-id,'row')]//td/button[contains (@id,'fixIssueButton${key_buttonRowNumber}')and contains(@class,'${key_buttonStatus}')]</td>
+	<td>//tr/td[contains(.,'${key_fixIssueButtonName}')]/..//td[@class='dataset-item-actions-wrapper']/a</td>
 	<td></td>
 </tr>
 <tr>
