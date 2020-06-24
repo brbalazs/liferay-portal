@@ -166,20 +166,6 @@ exports[`NewRuleModal should render 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="results"
-        >
-          <div
-            class="title"
-          >
-            Matched Items
-          </div>
-          <div
-            class="secondary-info"
-          >
-            Item sets can vary per period depending on interactions. Metadata matches pages with at least one view event.
-          </div>
-        </div>
       </div>
       <div
         class="modal-footer"
