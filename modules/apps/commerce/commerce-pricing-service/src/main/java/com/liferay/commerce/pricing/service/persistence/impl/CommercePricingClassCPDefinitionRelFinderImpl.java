@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.pricing.service.persistence.impl;
 
+import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel;
 import com.liferay.commerce.pricing.model.impl.CommercePricingClassCPDefinitionRelImpl;
 import com.liferay.commerce.pricing.service.persistence.CommercePricingClassCPDefinitionRelFinder;
@@ -25,6 +26,7 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.spring.extender.service.ServiceReference;
@@ -51,6 +53,15 @@ public class CommercePricingClassCPDefinitionRelFinderImpl
 	public int countByCommercePricingClassId(
 		long commercePricingClassId, String name, String languageId) {
 
+		return countByCommercePricingClassId(
+			commercePricingClassId, name, languageId, false);
+	}
+
+	@Override
+	public int countByCommercePricingClassId(
+		long commercePricingClassId, String name, String languageId,
+		boolean inlineSQLHelper) {
+
 		Session session = null;
 
 		try {
@@ -58,6 +69,13 @@ public class CommercePricingClassCPDefinitionRelFinderImpl
 
 			String sql = _customSQL.get(
 				getClass(), COUNT_BY_COMMERCE_PRICING_CLASS_ID);
+
+			if (inlineSQLHelper) {
+				sql = InlineSQLHelperUtil.replacePermissionCheck(
+					sql, CommercePricingClass.class.getName(),
+					"CommercePricingClass.commercePricingClassId", null, null,
+					new long[] {0}, null);
+			}
 
 			String[] keywords = _customSQL.keywords(name, true);
 
@@ -114,6 +132,16 @@ public class CommercePricingClassCPDefinitionRelFinderImpl
 			long commercePricingClassId, String name, String languageId,
 			int start, int end) {
 
+		return findByCommercePricingClassId(
+			commercePricingClassId, name, languageId, start, end, false);
+	}
+
+	@Override
+	public List<CommercePricingClassCPDefinitionRel>
+		findByCommercePricingClassId(
+			long commercePricingClassId, String name, String languageId,
+			int start, int end, boolean inlineSQLHelper) {
+
 		Session session = null;
 
 		try {
@@ -123,6 +151,13 @@ public class CommercePricingClassCPDefinitionRelFinderImpl
 
 			String sql = _customSQL.get(
 				getClass(), FIND_BY_COMMERCE_PRICING_CLASS_ID);
+
+			if (inlineSQLHelper) {
+				sql = InlineSQLHelperUtil.replacePermissionCheck(
+					sql, CommercePricingClass.class.getName(),
+					"CommercePricingClass.commercePricingClassId", null, null,
+					new long[] {0}, null);
+			}
 
 			if (Validator.isNotNull(name)) {
 				sql = _customSQL.replaceKeywords(

@@ -66,6 +66,17 @@ public class CommercePricingClassLocalServiceImpl
 	@Override
 	public CommercePricingClass addCommercePricingClass(
 			long userId, Map<Locale, String> titleMap,
+			Map<Locale, String> descriptionMap, ServiceContext serviceContext)
+		throws PortalException {
+
+		return addCommercePricingClass(
+			userId, titleMap, descriptionMap, null, serviceContext);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommercePricingClass addCommercePricingClass(
+			long userId, Map<Locale, String> titleMap,
 			Map<Locale, String> descriptionMap, String externalReferenceCode,
 			ServiceContext serviceContext)
 		throws PortalException {
@@ -188,6 +199,14 @@ public class CommercePricingClassLocalServiceImpl
 	}
 
 	@Override
+	public int getCommercePricingClassCountByCPDefinitionId(
+		long cpDefinitionId, String title) {
+
+		return commercePricingClassFinder.countByCPDefinitionId(
+			cpDefinitionId, title);
+	}
+
+	@Override
 	public List<CommercePricingClass> getCommercePricingClasses(
 		long companyId, int start, int end,
 		OrderByComparator<CommercePricingClass> orderByComparator) {
@@ -210,14 +229,6 @@ public class CommercePricingClassLocalServiceImpl
 	}
 
 	@Override
-	public List<CommercePricingClass> searchByCPDefinitionId(
-		long cpDefinitionId, String title, int start, int end) {
-
-		return commercePricingClassFinder.findByCPDefinitionId(
-			cpDefinitionId, title, start, end);
-	}
-
-	@Override
 	public BaseModelSearchResult<CommercePricingClass>
 			searchCommercePricingClasses(
 				long companyId, String keywords, int start, int end, Sort sort)
@@ -227,6 +238,15 @@ public class CommercePricingClassLocalServiceImpl
 			companyId, keywords, start, end, sort);
 
 		return searchCommercePricingClasses(searchContext);
+	}
+
+	@Override
+	public List<CommercePricingClass>
+		searchCommercePricingClassesByCPDefinitionId(
+			long cpDefinitionId, String title, int start, int end) {
+
+		return commercePricingClassFinder.findByCPDefinitionId(
+			cpDefinitionId, title, start, end);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)

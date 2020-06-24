@@ -15,15 +15,22 @@
 package com.liferay.commerce.pricing.service.impl;
 
 import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
+import com.liferay.commerce.pricing.exception.NoSuchPricingClassException;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.base.CommercePricingClassServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
 import java.util.Locale;
@@ -44,7 +51,7 @@ public class CommercePricingClassServiceImpl
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(),
-			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
+			CommercePricingClassActionKeys.ADD_COMMERCE_PRICING_CLASS);
 
 		return commercePricingClassLocalService.addCommercePricingClass(
 			userId, titleMap, descriptionMap, null, serviceContext);
@@ -59,10 +66,11 @@ public class CommercePricingClassServiceImpl
 
 		PortalPermissionUtil.check(
 			getPermissionChecker(),
-			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
+			CommercePricingClassActionKeys.ADD_COMMERCE_PRICING_CLASS);
 
 		return commercePricingClassLocalService.addCommercePricingClass(
-			userId, title, description, serviceContext);
+			userId, titleMap, descriptionMap, externalReferenceCode,
+			serviceContext);
 	}
 
 	@Override
@@ -70,9 +78,8 @@ public class CommercePricingClassServiceImpl
 			long commercePricingClassId)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
+		_commercePricingClassResourcePermission.check(
+			getPermissionChecker(), commercePricingClassId, ActionKeys.DELETE);
 
 		return commercePricingClassLocalService.deleteCommercePricingClass(
 			commercePricingClassId);
@@ -88,9 +95,8 @@ public class CommercePricingClassServiceImpl
 				companyId, externalReferenceCode);
 
 		if (commercePricingClass != null) {
-			PortalPermissionUtil.check(
-				getPermissionChecker(),
-				CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
+			_commercePricingClassResourcePermission.check(
+				getPermissionChecker(), commercePricingClass, ActionKeys.VIEW);
 		}
 
 		return commercePricingClass;
@@ -106,9 +112,8 @@ public class CommercePricingClassServiceImpl
 				commercePricingClassId);
 
 		if (commercePricingClass != null) {
-			PortalPermissionUtil.check(
-				getPermissionChecker(),
-				CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
+			_commercePricingClassResourcePermission.check(
+				getPermissionChecker(), commercePricingClass, ActionKeys.VIEW);
 		}
 
 		return commercePricingClass;
@@ -119,36 +124,20 @@ public class CommercePricingClassServiceImpl
 			long commercePricingClassId)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
+		_commercePricingClassResourcePermission.check(
+			getPermissionChecker(), commercePricingClassId, ActionKeys.VIEW);
 
 		return commercePricingClassLocalService.getCommercePricingClass(
 			commercePricingClassId);
 	}
 
 	@Override
-	public long[] getCommercePricingClassByCPDefinition(long cpDefinitionId)
-		throws PortalException {
-
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
-
-		return commercePricingClassLocalService.
-			getCommercePricingClassByCPDefinition(cpDefinitionId);
-	}
-
-	@Override
-	public int getCommercePricingClassesCount(long cpDefinitionId, String title)
+	public int getCommercePricingClassCountByCPDefinitionId(
+			long cpDefinitionId, String title)
 		throws PrincipalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
-
-		return commercePricingClassLocalService.getCommercePricingClassesCount(
-			cpDefinitionId, title);
+		return commercePricingClassFinder.countByCPDefinitionId(
+			cpDefinitionId, title, true);
 	}
 
 	@Override
@@ -170,16 +159,11 @@ public class CommercePricingClassServiceImpl
 	}
 
 	@Override
-	public List<CommercePricingClass> searchByCPDefinitionId(
-			long cpDefinitionId, String title, int start, int end)
+	public int getCommercePricingClassesCount(long cpDefinitionId, String title)
 		throws PrincipalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
-
-		return commercePricingClassLocalService.searchByCPDefinitionId(
-			cpDefinitionId, title, start, end);
+		return commercePricingClassFinder.countByCPDefinitionId(
+			cpDefinitionId, title, true);
 	}
 
 	@Override
@@ -188,12 +172,18 @@ public class CommercePricingClassServiceImpl
 				long companyId, String keywords, int start, int end, Sort sort)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
-
 		return commercePricingClassLocalService.searchCommercePricingClasses(
 			companyId, keywords, start, end, sort);
+	}
+
+	@Override
+	public List<CommercePricingClass>
+			searchCommercePricingClassesByCPDefinitionId(
+				long cpDefinitionId, String title, int start, int end)
+		throws PrincipalException {
+
+		return commercePricingClassFinder.findByCPDefinitionId(
+			cpDefinitionId, title, start, end, true);
 	}
 
 	@Override
@@ -203,24 +193,8 @@ public class CommercePricingClassServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
-
-		return commercePricingClassLocalService.updateCommercePricingClass(
-			commercePricingClassId, userId, titleMap, descriptionMap,
-			serviceContext);
-	}
-
-	@Override
-	public CommercePricingClass updateCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId,
-			String title, String description, ServiceContext serviceContext)
-		throws PortalException {
-
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
+		_commercePricingClassResourcePermission.check(
+			getPermissionChecker(), commercePricingClassId, ActionKeys.UPDATE);
 
 		return commercePricingClassLocalService.updateCommercePricingClass(
 			commercePricingClassId, userId, titleMap, descriptionMap,
@@ -234,27 +208,11 @@ public class CommercePricingClassServiceImpl
 			String externalReferenceCode, ServiceContext serviceContext)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
-
-		return commercePricingClassLocalService.upsertCommercePricingClass(
-			commercePricingClassId, userId, titleMap, descriptionMap,
-			externalReferenceCode, serviceContext);
-	}
-
-	@Override
-	public CommercePricingClass upsertCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId,
-			String title, String description, String externalReferenceCode,
-			ServiceContext serviceContext)
-		throws PortalException {
-
 		if (commercePricingClassId > 0) {
 			try {
 				return updateCommercePricingClass(
-					commercePricingClassId, userId, titleMap,
-					descriptionMap, serviceContext);
+					commercePricingClassId, userId, titleMap, descriptionMap,
+					serviceContext);
 			}
 			catch (NoSuchPricingClassException nspc) {
 				if (_log.isDebugEnabled()) {
@@ -271,9 +229,10 @@ public class CommercePricingClassServiceImpl
 					serviceContext.getCompanyId(), externalReferenceCode);
 
 			if (commercePricingClass != null) {
-				return updateCommercePricingClass(
-					commercePricingClassId, userId, titleMap,
-					descriptionMap, serviceContext);
+				return commercePricingClassLocalService.
+					updateCommercePricingClass(
+						commercePricingClassId, userId, titleMap,
+						descriptionMap, serviceContext);
 			}
 		}
 
@@ -291,4 +250,5 @@ public class CommercePricingClassServiceImpl
 				CommercePricingClassServiceImpl.class,
 				"_commercePricingClassResourcePermission",
 				CommercePricingClass.class);
+
 }

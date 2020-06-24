@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.spring.extender.service.ServiceReference;
@@ -47,12 +48,26 @@ public class CommercePricingClassFinderImpl
 
 	@Override
 	public int countByCPDefinitionId(long cpDefinitionId, String title) {
+		return countByCPDefinitionId(cpDefinitionId, title, false);
+	}
+
+	@Override
+	public int countByCPDefinitionId(
+		long cpDefinitionId, String title, boolean inlineSQLHelper) {
+
 		Session session = null;
 
 		try {
 			session = openSession();
 
 			String sql = _customSQL.get(getClass(), COUNT_BY_CPDEFINITION_ID);
+
+			if (inlineSQLHelper) {
+				sql = InlineSQLHelperUtil.replacePermissionCheck(
+					sql, CommercePricingClass.class.getName(),
+					"CommercePricingClass.commercePricingClassId", null, null,
+					new long[] {0}, null);
+			}
 
 			String[] keywords = _customSQL.keywords(title, true);
 
@@ -106,6 +121,14 @@ public class CommercePricingClassFinderImpl
 	public List<CommercePricingClass> findByCPDefinitionId(
 		long cpDefinitionId, String title, int start, int end) {
 
+		return findByCPDefinitionId(cpDefinitionId, title, start, end, false);
+	}
+
+	@Override
+	public List<CommercePricingClass> findByCPDefinitionId(
+		long cpDefinitionId, String title, int start, int end,
+		boolean inlineSQLHelper) {
+
 		Session session = null;
 
 		try {
@@ -114,6 +137,13 @@ public class CommercePricingClassFinderImpl
 			String[] keywords = _customSQL.keywords(title, true);
 
 			String sql = _customSQL.get(getClass(), FIND_BY_CPDEFINITION_ID);
+
+			if (inlineSQLHelper) {
+				sql = InlineSQLHelperUtil.replacePermissionCheck(
+					sql, CommercePricingClass.class.getName(),
+					"CommercePricingClass.commercePricingClassId", null, null,
+					new long[] {0}, null);
+			}
 
 			if (Validator.isNotNull(title)) {
 				sql = _customSQL.replaceKeywords(
