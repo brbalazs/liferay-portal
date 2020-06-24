@@ -167,8 +167,7 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 
 		if (commercePriceList == null) {
 			throw new NoSuchPriceListException(
-				"Unable to find Price List with id: " +
-				id);
+				"Unable to find Price List with id: " + id);
 		}
 
 		return SearchUtil.search(

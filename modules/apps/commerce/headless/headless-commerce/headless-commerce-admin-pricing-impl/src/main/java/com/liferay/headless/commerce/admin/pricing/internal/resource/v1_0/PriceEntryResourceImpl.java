@@ -153,8 +153,9 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 		CommercePriceList commercePriceList =
 			_commercePriceListService.fetchCommercePriceList(id);
 
-		if(commercePriceList == null){
-			throw new NoSuchPriceListException("Unable to find Price List with id: " + id);
+		if (commercePriceList == null) {
+			throw new NoSuchPriceListException(
+				"Unable to find Price List with id: " + id);
 		}
 
 		List<CommercePriceEntry> commercePriceEntries =

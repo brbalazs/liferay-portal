@@ -120,8 +120,7 @@ public class TierPriceResourceImpl extends BaseTierPriceResourceImpl {
 
 		if (commercePriceEntry == null) {
 			throw new NoSuchPriceEntryException(
-				"Unable to find Price Entry with id: " +
-				id);
+				"Unable to find Price Entry with id: " + id);
 		}
 
 		List<CommerceTierPriceEntry> commerceTierPriceEntries =
