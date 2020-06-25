@@ -20,9 +20,7 @@ import React, {useState} from 'react';
 
 import {OPEN_MODAL} from '../../utilities/eventsDefinitions';
 import {getRandomId, sortByKey} from '../../utilities/index';
-import {
-	resolveModalSize
-} from '../../utilities/modals/index';
+import {resolveModalSize} from '../../utilities/modals/index';
 import Modal from '../modal/Modal';
 
 function Dropdown(props) {
@@ -61,10 +59,7 @@ function Dropdown(props) {
 					className="component-action dropdown-toggle"
 					displayType="unstyled"
 				>
-					<ClayIcon
-						spritemap={props.spritemap}
-						symbol="ellipsis-v"
-					/>
+					<ClayIcon spritemap={props.spritemap} symbol="ellipsis-v" />
 				</ClayButton>
 			}
 		>
@@ -72,22 +67,23 @@ function Dropdown(props) {
 			<ClayDropDown.ItemList>
 				<ClayDropDown.Group>
 					{sortedItems.map((item, i) => {
-						const dropdownProps = (
+						const dropdownProps =
 							item.target === 'modal' || item.onClick
-						) ? {
-							onClick: e => {
-								e.preventDefault();
-								setActive(false);
-								return handleAction({
-									onClick: item.onClick,
-									target: item.target,
-									title: item.title,
-									url: item.href
-								});
-							}
-						} : {
-							"data-senna-off": true,
-						}
+								? {
+										onClick: e => {
+											e.preventDefault();
+											setActive(false);
+											return handleAction({
+												onClick: item.onClick,
+												target: item.target,
+												title: item.title,
+												url: item.href
+											});
+										}
+								  }
+								: {
+										'data-senna-off': true
+								  };
 						return (
 							<ClayDropDown.Item
 								href={item.href || '#'}
@@ -119,10 +115,7 @@ Dropdown.propTypes = {
 			icon: PropTypes.string,
 			label: PropTypes.string.isRequired,
 			order: PropTypes.number,
-			target: PropTypes.oneOf([
-				'link',
-				'modal'
-			])
+			target: PropTypes.oneOf(['link', 'modal'])
 		})
 	),
 	spritemap: PropTypes.string.isRequired

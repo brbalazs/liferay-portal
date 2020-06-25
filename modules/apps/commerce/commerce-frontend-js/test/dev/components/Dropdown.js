@@ -21,7 +21,7 @@ const props = {
 		{
 			href: '/side-panel/delete',
 			icon: 'plus',
-			label: 'Delete',
+			label: 'Delete'
 		},
 		{
 			href: '/side-panel/email',
@@ -35,7 +35,7 @@ const props = {
 			icon: 'view',
 			label: 'View',
 			order: 1
-		},
+		}
 	],
 	spritemap: './assets/icons.svg'
 };

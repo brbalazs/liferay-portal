@@ -144,30 +144,33 @@ export function serializeParameters(parameters) {
 }
 
 export function sortByKey(items, keyName) {
-	const arrangedItems = items.reduce((data, item) => {
-	    if (typeof item[keyName] === 'number') {
-            return {
-                ...data,
-                sorted: {
-                    ...data.sorted,
-                    [item[keyName]]: item
-                }
-            }
-	    } else {
-	        return {
-	            ...data,
-	            unsortable: data.unsortable.concat(item)
-	        }
-	    }
-	}, {
-	    sorted: {},
-	    unsortable: []
-	})
+	const arrangedItems = items.reduce(
+		(data, item) => {
+			if (typeof item[keyName] === 'number') {
+				return {
+					...data,
+					sorted: {
+						...data.sorted,
+						[item[keyName]]: item
+					}
+				};
+			} else {
+				return {
+					...data,
+					unsortable: data.unsortable.concat(item)
+				};
+			}
+		},
+		{
+			sorted: {},
+			unsortable: []
+		}
+	);
 
 	const sortedItems = [
-	   ...Object.values(arrangedItems.sorted),
-	   ...arrangedItems.unsortable
-	]
+		...Object.values(arrangedItems.sorted),
+		...arrangedItems.unsortable
+	];
 
 	return sortedItems;
 }
