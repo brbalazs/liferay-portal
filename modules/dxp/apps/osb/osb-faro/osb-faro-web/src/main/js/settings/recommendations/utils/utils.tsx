@@ -1,4 +1,5 @@
 import {
+	jobRunStatuses,
 	jobStatuses,
 	jobTrainingFrequencies,
 	jobTrainingPeriods,
@@ -41,6 +42,18 @@ export type Job = {
 	trainingFrequency: jobTrainingFrequencies;
 	trainingPeriod: jobTrainingPeriods;
 	type: jobTypes;
+};
+
+export const JOB_RUN_STATUSES_DISPLAY_MAP = {
+	[jobRunStatuses.completed]: 'success',
+	[jobRunStatuses.failed]: 'danger',
+	[jobRunStatuses.running]: 'warning'
+};
+
+export const JOB_RUN_STATUSES_LABEL_MAP = {
+	[jobRunStatuses.completed]: Liferay.Language.get('completed'),
+	[jobRunStatuses.failed]: Liferay.Language.get('failed'),
+	[jobRunStatuses.running]: Liferay.Language.get('training')
 };
 
 export const JOB_STATUSES_DISPLAY_MAP = {

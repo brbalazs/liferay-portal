@@ -193,6 +193,12 @@ export const spritemap = `${window.faroConstants.pathThemeImages}/lexicon/icons.
 /**
  * Jobs
  */
+export enum jobRunStatuses {
+	completed = 'COMPLETED',
+	failed = 'FAILED',
+	running = 'RUNNING'
+}
+
 export enum jobStatuses {
 	failed = 'FAILED',
 	pending = 'PENDING',

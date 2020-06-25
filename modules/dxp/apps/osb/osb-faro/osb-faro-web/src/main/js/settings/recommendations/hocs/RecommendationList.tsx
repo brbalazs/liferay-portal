@@ -95,8 +95,14 @@ const RecommendationListWithData = withCrossPageSelect(withData, {
 		},
 		{
 			accessor: 'status',
-			cellRenderer: ({data: {status}}: {data: {status: jobStatuses}}) => (
-				<td>
+			cellRenderer: ({
+				className,
+				data: {status}
+			}: {
+				className: string;
+				data: {status: jobStatuses};
+			}) => (
+				<td className={className}>
 					<Label
 						className='status'
 						display={JOB_STATUSES_DISPLAY_MAP[status]}
@@ -107,6 +113,7 @@ const RecommendationListWithData = withCrossPageSelect(withData, {
 					</Label>
 				</td>
 			),
+			className: 'table-column-text-end',
 			label: Liferay.Language.get('status')
 		}
 	],

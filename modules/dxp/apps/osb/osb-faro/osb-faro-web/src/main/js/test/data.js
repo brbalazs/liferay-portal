@@ -946,6 +946,19 @@ export function mockProperty(seed = 1, data = {}) {
 	};
 }
 
+export function mockRecommendationRunJob(seed = 0, data = {}) {
+	return {
+		completedDate: '2020-04-24',
+		context: [
+			{key: 'userItemInteractionsDatasetCount', value: 321},
+			{key: 'itemsDatasetCount', value: 123}
+		],
+		id: seed,
+		status: 'COMPLETED',
+		...data
+	};
+}
+
 export function mockRecommendationPageAsset(seed = 0, data = {}) {
 	return {
 		canonicalUrl: `https://www.test${seed}.com`,

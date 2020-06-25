@@ -1,4 +1,5 @@
 import BasePage from 'settings/components/BasePage';
+import OutputVersionsCard from '../components/OutputVersionsCard';
 import React from 'react';
 import TrainingItemsCard from '../components/TrainingItemsCard';
 import withRecommendation from 'shared/hoc/WithRecommendation';
@@ -16,11 +17,11 @@ interface IViewProps {
 const View: React.FC<IViewProps> = ({job, router}) => {
 	const {groupId, jobId} = router.params;
 
-	const name = get(job, 'name');
-
 	const itemFilters: Filter[] = get(job, 'parameters', []).filter(
 		({name}) => name !== 'includePreviousPeriod'
 	);
+
+	const name = get(job, 'name');
 
 	return (
 		<div className='row'>
@@ -52,6 +53,10 @@ const View: React.FC<IViewProps> = ({job, router}) => {
 					pageActionsDisplayLimit={3}
 					pageTitle={name}
 				>
+					<OutputVersionsCard
+						router={router}
+						trainingFrequency={get(job, 'trainingFrequency')}
+					/>
 					<TrainingItemsCard itemFilters={itemFilters} />
 				</BasePage>
 			</div>

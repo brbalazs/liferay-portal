@@ -2,6 +2,7 @@ import IndividualMetricsQuery from 'contacts/individual/dashboard/queries/Indivi
 import InterestsQuery from 'contacts/individual/dashboard/queries/InterestsQuery';
 import OrganizationsQuery from 'contacts/components/segment-editor/dynamic/queries/OrganizationsQuery';
 import RecommendationActivitiesQuery from 'settings/recommendations/queries/RecommendationActivitiesQuery';
+import RecommendationJobRunsQuery from 'settings/recommendations/queries/RecommendationJobRunsQuery';
 import RecommendationPageAssetsQuery from 'settings/recommendations/queries/RecommendationPageAssetsQuery';
 import RecommendationQuery from 'settings/recommendations/queries/RecommendationQuery';
 import SitesDashboardQuery from 'sites/queries/SitesDashboardQuery';
@@ -264,6 +265,31 @@ export function mockRecommendationActivitiesReq(items, mockVariables = {}) {
 		}
 	};
 }
+
+export function mockRecommendationJobRunsReq(items, mockVariables = {}) {
+	return {
+		request: {
+			query: RecommendationJobRunsQuery,
+			variables: {
+				jobId: '321',
+				size: 5,
+				sort: {column: 'completedDate', type: 'ASC'},
+				start: 0,
+				...mockVariables
+			}
+		},
+		result: {
+			data: {
+				jobRuns: {
+					__typename: 'JobRunBag',
+					jobRuns: items,
+					total: items.length
+				}
+			}
+		}
+	};
+}
+
 export function mockRecommendationPageAssetsReq(items, mockVariables = {}) {
 	return {
 		request: {
