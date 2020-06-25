@@ -170,6 +170,7 @@ export default class CustomStringInput extends React.Component<
 								) : (
 									<Input
 										{...sharedInputProps}
+										autoComplete='nope'
 										onChange={event => {
 											this.handleValueChange(
 												event.target.value
