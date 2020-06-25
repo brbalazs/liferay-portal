@@ -32,7 +32,7 @@ if (!Validator.isBlank(analyticsConfiguration.token())) {
 String keywords = ParamUtil.getString(request, "keywords");
 %>
 
-<div class="pb-2 portlet-analytics-settings sheet sheet-lg">
+<div class="pb-2 portlet-analytics-settings sheet sheet-lg sync-sites">
 	<h2>
 		<liferay-ui:message key="sync-sites-to-property" />
 	</h2>
