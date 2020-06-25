@@ -58,6 +58,7 @@ exports[`OrganizationTextInput should render 1`] = `
         class="form-group-item"
       >
         <input
+          autocomplete="nope"
           class="input-root form-control"
           data-testid="string-input"
           type="text"
