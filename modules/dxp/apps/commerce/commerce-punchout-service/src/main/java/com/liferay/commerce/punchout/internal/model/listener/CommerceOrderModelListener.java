@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.commerce.punchout.internal.model.listener;
@@ -22,13 +22,13 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.BaseModelListener;
 import com.liferay.portal.kernel.model.ModelListener;
-
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.Collections;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Jaclyn Ong
@@ -40,10 +40,11 @@ public class CommerceOrderModelListener
 	@Override
 	public void onAfterUpdate(CommerceOrder commerceOrder) {
 		try {
-			if ((commerceOrder.getStatus() == WorkflowConstants.STATUS_APPROVED) ||
-				(!_punchoutAccountRoleHelper.hasPunchoutRole(
+			if ((commerceOrder.getStatus() ==
+					WorkflowConstants.STATUS_APPROVED) ||
+				!_punchoutAccountRoleHelper.hasPunchoutRole(
 					commerceOrder.getCompanyId(), commerceOrder.getUserId(),
-					commerceOrder.getCommerceAccountId()))) {
+					commerceOrder.getCommerceAccountId())) {
 
 				return;
 			}
@@ -52,12 +53,14 @@ public class CommerceOrderModelListener
 
 			_commerceOrderLocalService.updateStatus(
 				commerceOrder.getUserId(), commerceOrder.getCommerceOrderId(),
-				WorkflowConstants.STATUS_APPROVED, serviceContext, Collections.emptyMap());
+				WorkflowConstants.STATUS_APPROVED, serviceContext,
+				Collections.emptyMap());
 		}
 		catch (PortalException e) {
 			_log.error(
 				"Failed to update workflow status to Approved on punchout " +
-					"order (" + commerceOrder.getCommerceOrderId() + ")");
+					"order (" + commerceOrder.getCommerceOrderId() + ")",
+				e);
 		}
 	}
 

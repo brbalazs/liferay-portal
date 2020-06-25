@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.commerce.punchout.service.impl;
@@ -80,14 +80,14 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 			JSONArray cartItemJSONArray = _jsonFactory.createJSONArray();
 
 			for (CommerceOrderItem commerceOrderItem :
-				commerceOrder.getCommerceOrderItems()) {
+					commerceOrder.getCommerceOrderItems()) {
 
 				JSONObject cartItemJSONObject = _jsonFactory.createJSONObject();
 
 				cartItemJSONObject.put(
 					"supplierauxid",
 					commerceOrder.getCommerceOrderId() + "/" +
-					commerceOrderItem.getCommerceOrderItemId());
+						commerceOrderItem.getCommerceOrderItemId());
 				cartItemJSONObject.put(
 					"supplierid", commerceOrderItem.getSku());
 
@@ -182,13 +182,14 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"Punchout2Go cart transfer request to " + url + "; cart JSON: " + cartJSON);
+					"Punchout2Go cart transfer request to " + url +
+						"; cart JSON: " + cartJSON);
 			}
 
 			URL urlObj = new URL(url);
 
 			HttpURLConnection httpURLConnection =
-				(HttpURLConnection) urlObj.openConnection();
+				(HttpURLConnection)urlObj.openConnection();
 
 			httpURLConnection.setDoOutput(true);
 			httpURLConnection.setRequestMethod("POST");
@@ -209,11 +210,13 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 					StringUtil.read(httpURLConnection.getInputStream()));
 
 				if (_log.isDebugEnabled()) {
-					_log.debug("JSON response received from Punchout2Go: " + response);
+					_log.debug(
+						"JSON response received from Punchout2Go: " + response);
 				}
 
 				JSONArray jsonArray = _jsonFactory.createJSONArray(
-					StringPool.OPEN_BRACKET + response + StringPool.CLOSE_BRACKET);
+					StringPool.OPEN_BRACKET + response +
+						StringPool.CLOSE_BRACKET);
 
 				JSONObject jsonObject = jsonArray.getJSONObject(0);
 
