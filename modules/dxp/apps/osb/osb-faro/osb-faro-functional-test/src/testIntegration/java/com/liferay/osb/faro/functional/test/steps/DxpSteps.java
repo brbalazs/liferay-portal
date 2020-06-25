@@ -130,7 +130,13 @@ public class DxpSteps {
 
 		Thread.sleep(2000);
 
-		_faroSelenium.click(DxpStringPool.OAUTH_SCOPES_TAB_XPATH);
+		try {
+			_faroSelenium.click(DxpStringPool.OAUTH_SCOPES_TAB_XPATH);
+		}
+		catch (Exception e) {
+			_faroSelenium.click(DxpStringPool.MASTER_OAUTH_SCOPES_TAB_XPATH);
+		}
+
 		_faroSelenium.waitForElementPresent(
 			DxpStringPool.ANALYTICS_SCOPE_XPATH);
 
