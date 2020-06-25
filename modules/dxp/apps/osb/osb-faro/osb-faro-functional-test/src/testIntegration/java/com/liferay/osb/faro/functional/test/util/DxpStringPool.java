@@ -62,6 +62,9 @@ public class DxpStringPool {
 		"//button[@id='_com_liferay_configuration_admin_web_portlet_Instance" +
 			"SettingsPortlet_tokenButton']";
 
+	public static final String MASTER_OAUTH_SCOPES_TAB_XPATH =
+		"//a[text()='Scopes']";
+
 	public static final String OAUTH_ID_XPATH =
 		"//input[@id='_com_liferay_oauth2_provider_web_internal_portlet_OAut" +
 			"h2AdminPortlet_clientId']";
