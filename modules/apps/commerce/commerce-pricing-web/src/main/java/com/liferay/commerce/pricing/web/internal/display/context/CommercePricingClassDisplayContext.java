@@ -23,7 +23,6 @@ import com.liferay.commerce.pricing.constants.CommercePricingPorletKeys;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
 import com.liferay.commerce.pricing.display.context.util.CommercePricingClassRequestHelper;
-import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -116,10 +115,6 @@ public class CommercePricingClassDisplayContext {
 		}
 
 		return commercePricingClass.getCommercePricingClassId();
-	}
-
-	public List<DropdownItem> getDropdownItems() {
-		return Collections.emptyList();
 	}
 
 	public String getEditCommercePricingClassActionURL() throws Exception {

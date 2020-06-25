@@ -12,13 +12,32 @@
  * details.
  */
 
-export const ACTION_ITEM_TARGETS = {
-	EVENT: 'event',
-	LINK: 'link',
-	MODAL: 'modal',
-	MODAL_FULL_SCREEN: 'modal-full-screen',
-	MODAL_LARGE: 'modal-lg',
-	MODAL_PERMISSIONS: 'modal-permissions',
-	MODAL_SMALL: 'modal-sm',
-	SIDE_PANEL: 'sidePanel',
+import launcher from '../../../src/main/resources/META-INF/resources/components/dropdown/entry';
+
+import '../../../src/main/resources/META-INF/resources/styles/main.scss';
+
+const props = {
+	items: [
+		{
+			href: '/side-panel/delete',
+			icon: 'plus',
+			label: 'Delete',
+		},
+		{
+			href: '/side-panel/email',
+			icon: 'plus',
+			label: 'Add',
+			order: 20,
+			target: 'modal'
+		},
+		{
+			href: '/test',
+			icon: 'view',
+			label: 'View',
+			order: 1
+		},
+	],
+	spritemap: './assets/icons.svg'
 };
+
+launcher('dropdownId', 'dropdown-root-id', props);

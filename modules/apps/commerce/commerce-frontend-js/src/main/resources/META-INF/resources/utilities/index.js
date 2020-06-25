@@ -142,3 +142,32 @@ export function loadData(
 export function serializeParameters(parameters) {
 	return Array.isArray(parameters) ? `?${parameters.join('&')}` : '';
 }
+
+export function sortByKey(items, keyName) {
+	const arrangedItems = items.reduce((data, item) => {
+	    if (typeof item[keyName] === 'number') {
+            return {
+                ...data,
+                sorted: {
+                    ...data.sorted,
+                    [item[keyName]]: item
+                }
+            }
+	    } else {
+	        return {
+	            ...data,
+	            unsortable: data.unsortable.concat(item)
+	        }
+	    }
+	}, {
+	    sorted: {},
+	    unsortable: []
+	})
+
+	const sortedItems = [
+	   ...Object.values(arrangedItems.sorted),
+	   ...arrangedItems.unsortable
+	]
+
+	return sortedItems;
+}

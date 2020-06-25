@@ -31,7 +31,6 @@ CommercePricingClass commercePricingClass = commercePricingClassDisplayContext.g
 	actions="<%= commercePricingClassDisplayContext.getHeaderActionModels() %>"
 	bean="<%= commercePricingClass %>"
 	beanIdLabel="id"
-	dropdownItems="<%= commercePricingClassDisplayContext.getDropdownItems() %>"
 	externalReferenceCode="<%= commercePricingClass.getExternalReferenceCode() %>"
 	externalReferenceCodeEditUrl="<%= editCommercePricingClassExternalReferenceCodeURL %>"
 	model="<%= CommercePricingClass.class %>"

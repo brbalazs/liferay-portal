@@ -34,6 +34,11 @@ module.exports = [
 		page: 'summary.html'
 	},
 	{
+		entry: 'Dropdown',
+		name: 'Dropdown',
+		page: 'dropdown.html'
+	},
+	{
 		entry: 'Gallery',
 		name: 'Gallery',
 		page: 'gallery.html'

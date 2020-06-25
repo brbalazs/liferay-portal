@@ -18,44 +18,27 @@ import ClayIcon from '@clayui/icon';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import {ACTION_ITEM_TARGETS} from '../../utilities/actionItems/constants';
 import {OPEN_MODAL} from '../../utilities/eventsDefinitions';
-import {getRandomId} from '../../utilities/index';
+import {getRandomId, sortByKey} from '../../utilities/index';
 import {
-	openPermissionsModal,
 	resolveModalSize
 } from '../../utilities/modals/index';
 import Modal from '../modal/Modal';
-
-const {MODAL_PERMISSIONS} = ACTION_ITEM_TARGETS;
 
 function Dropdown(props) {
 	const [active, setActive] = useState(false);
 
 	const [dropdownSupportModalId] = useState('support-modal-' + getRandomId());
 
-	function openModal(configs) {
-		return Liferay.fire(OPEN_MODAL, {
-			closeOnSubmit: true,
-			id: dropdownSupportModalId,
-			...configs
-		});
-	}
-
-	function handleAction({onClick = '', target = '', title = '', url = ''}) {
-		if (!!target && target.includes('modal')) {
-			switch (target) {
-				case MODAL_PERMISSIONS:
-					openPermissionsModal(url);
-					break;
-				default:
-					openModal({
-						size: resolveModalSize(target),
-						title,
-						url
-					});
-					break;
-			}
+	function handleAction({onClick, target = 'link', title, url}) {
+		if (target.includes('modal')) {
+			Liferay.fire(OPEN_MODAL, {
+				closeOnSubmit: true,
+				id: dropdownSupportModalId,
+				size: resolveModalSize(target),
+				title,
+				url
+			});
 		}
 
 		if (onClick) {
@@ -67,6 +50,8 @@ function Dropdown(props) {
 		return null;
 	}
 
+	const sortedItems = sortByKey(props.items, 'order');
+
 	return (
 		<ClayDropDown
 			active={active}
@@ -77,41 +62,44 @@ function Dropdown(props) {
 					displayType="unstyled"
 				>
 					<ClayIcon
-						spritemap={
-							themeDisplay.getPathThemeImages() +
-							'/lexicon/icons.svg'
-						}
+						spritemap={props.spritemap}
 						symbol="ellipsis-v"
 					/>
 				</ClayButton>
 			}
 		>
 			<Modal id={dropdownSupportModalId} />
-
 			<ClayDropDown.ItemList>
 				<ClayDropDown.Group>
-					{JSON.parse(props.items).map((item, i) => {
+					{sortedItems.map((item, i) => {
+						const dropdownProps = (
+							item.target === 'modal' || item.onClick
+						) ? {
+							onClick: e => {
+								e.preventDefault();
+								setActive(false);
+								return handleAction({
+									onClick: item.onClick,
+									target: item.target,
+									title: item.title,
+									url: item.href
+								});
+							}
+						} : {
+							"data-senna-off": true,
+						}
 						return (
 							<ClayDropDown.Item
-								data-senna-off
 								href={item.href || '#'}
 								key={i}
-								onClick={e => {
-									if (props.target.includes('modal')) {
-										e.preventDefault();
-										setActive(false);
-										return handleAction({
-											onClick: item.onClick,
-											target: item.target,
-											title: item.title,
-											url: item.href
-										});
-									}
-								}}
+								{...dropdownProps}
 							>
 								{item.icon && (
 									<span className="pr-2">
-										<ClayIcon symbol={item.icon} />
+										<ClayIcon
+											spritemap={props.spritemap}
+											symbol={item.icon}
+										/>
 									</span>
 								)}
 								{item.label}
@@ -131,9 +119,13 @@ Dropdown.propTypes = {
 			icon: PropTypes.string,
 			label: PropTypes.string.isRequired,
 			order: PropTypes.number,
-			target: PropTypes.string.isRequired
+			target: PropTypes.oneOf([
+				'link',
+				'modal'
+			])
 		})
-	)
+	),
+	spritemap: PropTypes.string.isRequired
 };
 
 export default Dropdown;

@@ -317,7 +317,7 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 					<c:if test="<%= Validator.isNotNull(dropdownItems) || Validator.isNotNull(previewUrl) %>">
 						<div class="align-items-center border-left col-auto d-flex pl-3">
 							<c:if test="<%= Validator.isNotNull(dropdownItems) && (dropdownItems.size() > 0) %>">
-								<div id="dropdown">
+								<div id="dropdown-header-container">
 									<liferay-ui:icon
 										icon="ellipsis-v"
 										markupView="lexicon"
@@ -325,8 +325,9 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 								</div>
 
 								<aui:script require="commerce-frontend-js/components/dropdown/entry as dropdown">
-									dropdown.default('dropdown', 'dropdown', {
-										items: '<%= jsonSerializer.serializeDeep(dropdownItems) %>'
+									dropdown.default('dropdown-header', 'dropdown-header-container', {
+										items: <%= jsonSerializer.serializeDeep(dropdownItems) %>,
+										spritemap: '<%= themeDisplay.getPathThemeImages() + "/lexicon/icons.svg" %>'
 									});
 								</aui:script>
 							</c:if>
