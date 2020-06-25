@@ -14,6 +14,7 @@
 
 package com.liferay.portal.security.auto.login.punchout.internal.events;
 
+import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
@@ -31,6 +32,7 @@ import com.liferay.portal.kernel.events.LifecycleAction;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.CookieKeys;
 import com.liferay.portal.kernel.util.Portal;
@@ -42,8 +44,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
+import java.util.Collections;
 
 /**
  * @author Jaclyn Ong
@@ -138,6 +143,13 @@ public class PunchoutLoginPostAction extends Action {
 			commerceOrder = _commerceOrderLocalService.addCommerceOrder(
 				punchoutUserId, commerceChannelGroupId, commerceAccountId,
 				commerceCurrencyId);
+
+			ServiceContext serviceContext = new ServiceContext();
+
+			commerceOrder = _commerceOrderLocalService.updateStatus(
+				punchoutUserId, commerceOrder.getCommerceOrderId(),
+				WorkflowConstants.STATUS_APPROVED, serviceContext,
+				Collections.emptyMap());
 		}
 
 		CommerceContext commerceContext = _commerceContextFactory.create(
