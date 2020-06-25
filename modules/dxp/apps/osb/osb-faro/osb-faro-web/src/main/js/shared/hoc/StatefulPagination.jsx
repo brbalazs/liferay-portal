@@ -171,7 +171,7 @@ export default function withStatefulPagination(
 
 		render() {
 			const {
-				props: {toolbarProps, ...otherProps},
+				props: {paginationProps, toolbarProps, ...otherProps},
 				state: {
 					delta,
 					filterBy,
@@ -194,6 +194,7 @@ export default function withStatefulPagination(
 				orderByFields,
 				page,
 				paginationProps: {
+					...paginationProps,
 					onDeltaChange: this.handleDeltaChange,
 					onPageChange: this.handlePageChange
 				},
