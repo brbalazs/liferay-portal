@@ -35,6 +35,8 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	property = {
 		"oauth2.scopechecker.type=annotations",
+		"osgi.http.whiteboard.filter.dispatcher=FORWARD",
+		"osgi.http.whiteboard.filter.dispatcher=REQUEST",
 		"osgi.jaxrs.application.base=/analytics-cloud-api",
 		"osgi.jaxrs.name=Liferay.Analytics.Cloud.REST"
 	},
