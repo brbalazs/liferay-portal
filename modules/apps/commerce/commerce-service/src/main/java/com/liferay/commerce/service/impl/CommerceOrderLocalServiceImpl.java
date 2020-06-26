@@ -221,9 +221,10 @@ public class CommerceOrderLocalServiceImpl
 		// Workflow
 
 		return WorkflowHandlerRegistryUtil.startWorkflowInstance(
-			commerceOrder.getCompanyId(), commerceOrder.getGroupId(), userId,
-			CommerceOrder.class.getName(), commerceOrder.getCommerceOrderId(),
-			commerceOrder, serviceContext, new HashMap<>());
+			commerceOrder.getCompanyId(), commerceOrder.getScopeGroupId(),
+			userId, CommerceOrder.class.getName(),
+			commerceOrder.getCommerceOrderId(), commerceOrder, serviceContext,
+			new HashMap<>());
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
