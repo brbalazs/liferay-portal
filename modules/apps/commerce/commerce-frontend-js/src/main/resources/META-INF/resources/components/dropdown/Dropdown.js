@@ -82,14 +82,11 @@ function Dropdown(props) {
 										}
 								  }
 								: {
-									'data-senna-off': true,
-									href: item.href,
+										'data-senna-off': true,
+										href: item.href
 								  };
 						return (
-							<ClayDropDown.Item
-								key={i}
-								{...dropdownProps}
-							>
+							<ClayDropDown.Item key={i} {...dropdownProps}>
 								{item.icon && (
 									<span className="pr-2">
 										<ClayIcon
