@@ -17,6 +17,7 @@
 	notification_count = commerceThemeMiniumHttpHelper.getNotificationsCount(themeDisplay)
 	back_url = paramUtil.getString(request, "p_r_p_backURL")
 	minium_content_css_class = "minium-content"
+	punchoutSession = commercePunchoutThemeHttpHelper.punchoutSession(request)
 />
 
 <#if wide_layout>

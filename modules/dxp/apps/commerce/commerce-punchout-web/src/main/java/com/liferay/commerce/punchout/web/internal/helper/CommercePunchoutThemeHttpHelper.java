@@ -27,7 +27,7 @@ public class CommercePunchoutThemeHttpHelper {
 
 	public boolean punchoutSession(HttpServletRequest httpServletRequest) {
 		if (_punchoutSessionHelper.punchoutEnabled(httpServletRequest) &&
-			_punchoutSessionHelper.punchoutSession(httpServletRequest)) {
+			_punchoutSessionHelper.punchoutAllowed(httpServletRequest)) {
 
 			return true;
 		}
