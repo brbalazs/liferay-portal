@@ -33,7 +33,14 @@ function resolveModule(name = '') {
 const include = [resolveModule()];
 
 const config = {
-	entry: resolveModule('main.jsx'),
+	entry: [
+		'core-js/fn/array/fill',
+		'core-js/fn/string/code-point-at',
+		'custom-event-polyfill',
+		'unorm',
+		'whatwg-fetch',
+		resolveModule('main.jsx')
+	],
 	module: {
 		rules: [
 			{
