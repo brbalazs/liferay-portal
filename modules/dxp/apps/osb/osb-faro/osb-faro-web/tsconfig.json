@@ -2,7 +2,7 @@
 	"awesomeTypescriptLoaderOptions": {
 		"transpileOnly": false,
 		"useBabel": true,
-		"useCache": true
+		"useCache": false
 	},
 	"babelCore": "@babel/core",
 	"compilerOptions": {
@@ -18,6 +18,9 @@
 		"target": "ES5"
 	},
 	"include": [
-		"./src/main/js/**/*"
+		"./src/main/js/**/*",
+		"./node_modules/isemail/**/*",
+		"./node_modules/query-string/**/*",
+		"./node_modules/strict-uri-encode/**/*",
 	]
 }

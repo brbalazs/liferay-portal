@@ -30,7 +30,12 @@ function resolveModule(name = '') {
 	return path.resolve(__dirname, 'src', 'main', 'js', name);
 }
 
-const include = [resolveModule()];
+const include = [
+	resolveModule(),
+	path.resolve(__dirname, 'node_modules', 'isemail'),
+	path.resolve(__dirname, 'node_modules', 'query-string'),
+	path.resolve(__dirname, 'node_modules', 'strict-uri-encode'),
+];
 
 const config = {
 	entry: [
