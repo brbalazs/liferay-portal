@@ -1,8 +1,7 @@
 {
 	"awesomeTypescriptLoaderOptions": {
 		"transpileOnly": false,
-		"useBabel": true,
-		"useCache": false
+		"useBabel": true
 	},
 	"babelCore": "@babel/core",
 	"compilerOptions": {
