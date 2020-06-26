@@ -81,7 +81,7 @@ export default compose(
 			constructor(props, {channelDispatch}) {
 				super(props);
 
-				this._toggleSidebarEvent = new Event('toggleSidebar');
+				this._toggleSidebarEvent = new CustomEvent('toggleSidebar');
 
 				channelDispatch({
 					payload: getDefaultChannel(
