@@ -34,13 +34,14 @@ const include = [
 	resolveModule(),
 	path.resolve(__dirname, 'node_modules', 'isemail'),
 	path.resolve(__dirname, 'node_modules', 'query-string'),
-	path.resolve(__dirname, 'node_modules', 'strict-uri-encode'),
+	path.resolve(__dirname, 'node_modules', 'strict-uri-encode')
 ];
 
 const config = {
 	entry: [
 		'core-js/fn/array/fill',
 		'core-js/fn/string/code-point-at',
+		'core-js/fn/typed',
 		'custom-event-polyfill',
 		'unorm',
 		'whatwg-fetch',
