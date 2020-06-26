@@ -14,7 +14,6 @@
 
 package com.liferay.headless.commerce.punchout.internal.resource.v1_0;
 
-import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountLocalService;
 import com.liferay.commerce.account.service.CommerceAccountUserRelLocalService;
@@ -252,7 +251,7 @@ public class PunchoutSessionResourceImpl
 
 		Role role = _roleLocalService.fetchRole(
 			contextCompany.getCompanyId(),
-			CommerceAccountConstants.ROLE_NAME_ACCOUNT_PUNCHOUT);
+			PunchoutConstants.ROLE_NAME_ACCOUNT_PUNCHOUT);
 
 		long[] roleIds = {role.getRoleId()};
 

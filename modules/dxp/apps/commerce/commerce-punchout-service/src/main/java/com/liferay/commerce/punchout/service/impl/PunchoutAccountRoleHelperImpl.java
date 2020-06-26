@@ -14,9 +14,9 @@
 
 package com.liferay.commerce.punchout.service.impl;
 
-import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.model.CommerceAccountUserRel;
 import com.liferay.commerce.account.service.CommerceAccountUserRelLocalService;
+import com.liferay.commerce.punchout.constants.PunchoutConstants;
 import com.liferay.commerce.punchout.service.PunchoutAccountRoleHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Role;
@@ -49,7 +49,7 @@ public class PunchoutAccountRoleHelperImpl
 		}
 
 		Role punchoutRole = _roleLocalService.fetchRole(
-			companyId, CommerceAccountConstants.ROLE_NAME_ACCOUNT_PUNCHOUT);
+			companyId, PunchoutConstants.ROLE_NAME_ACCOUNT_PUNCHOUT);
 
 		if (punchoutRole == null) {
 			return false;

@@ -22,6 +22,8 @@ public class PunchoutConstants {
 	public static final String PUNCHOUT_RETURN_URL_ATTRIBUTE_NAME =
 		"PUNCHOUT_RETURN_URL";
 
+	public static final String ROLE_NAME_ACCOUNT_PUNCHOUT = "Punchout";
+
 	public static final String SERVICE_NAME =
 		"com.liferay.headless.commerce.punchout";
 
