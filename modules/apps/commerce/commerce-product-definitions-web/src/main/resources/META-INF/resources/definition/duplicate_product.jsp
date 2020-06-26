@@ -24,7 +24,9 @@ CPDefinition cpDefinition = cpDefinitionsDisplayContext.getCPDefinition();
 List<CommerceCatalog> commerceCatalogs = cpDefinitionsDisplayContext.getCommerceCatalogs();
 %>
 
-<commerce-ui:modal-content>
+<commerce-ui:modal-content
+	title='<%= LanguageUtil.get(request, "duplicate-product") %>'
+>
 	<aui:form cssClass="container-fluid-1280 p-0" method="post" name="duplicatefm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "apiSubmit(this.form);" %>' useNamespace="<%= false %>">
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 

@@ -82,11 +82,11 @@ function Dropdown(props) {
 										}
 								  }
 								: {
-										'data-senna-off': true
+									'data-senna-off': true,
+									href: item.href,
 								  };
 						return (
 							<ClayDropDown.Item
-								href={item.href || '#'}
 								key={i}
 								{...dropdownProps}
 							>
