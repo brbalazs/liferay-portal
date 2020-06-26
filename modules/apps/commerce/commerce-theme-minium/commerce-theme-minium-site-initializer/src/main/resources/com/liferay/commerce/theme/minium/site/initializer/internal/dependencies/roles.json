@@ -139,5 +139,19 @@
 		"name": "Operations Manager",
 		"scope": 1,
 		"type": 1
+	},
+	{
+		"actions": [
+			{
+				"actionIds": [
+					"VIEW_OPEN_COMMERCE_ORDERS",
+					"CHECKOUT_OPEN_COMMERCE_ORDERS"
+				],
+				"resource": "com.liferay.commerce.order"
+			}
+		],
+		"name": "Punchout",
+		"scope": 3,
+		"type": 2
 	}
 ]
