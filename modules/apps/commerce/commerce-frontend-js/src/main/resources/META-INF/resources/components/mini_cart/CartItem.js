@@ -120,18 +120,16 @@ function CartItem({item: cartItem}) {
 		};
 
 	const updateItemQuantity = useCallback(
-		newQuantity => {
-			if (quantity !== newQuantity) {
-				setIsUpdating(true);
+		quantity => {
+			setIsUpdating(true);
 
-				AJAX.updateItemById(cartItemId, {
-					...cartItem,
-					quantity
-				})
-					.catch(showErrors)
-					.then(() => updateCartModel({orderId}))
-					.then(() => setIsUpdating(false));
-			}
+			AJAX.updateItemById(cartItemId, {
+				...cartItem,
+				quantity
+			})
+				.catch(showErrors)
+				.then(() => updateCartModel({orderId}))
+				.then(() => setIsUpdating(false));
 		}, // eslint-disable-next-line react-hooks/exhaustive-deps
 		[AJAX, cartItem, cartItemId, orderId]
 	);
