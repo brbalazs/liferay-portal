@@ -44,11 +44,11 @@ public class CPInstanceOptionValueRelCommerceInventoryCheckerImpl
 
 		List<CPInstanceOptionValueRel> filtered = new ArrayList<>();
 
-		for (CPInstanceOptionValueRel cpDefinitionOptionValueRel :
+		for (CPInstanceOptionValueRel cpInstanceOptionValueRel :
 				cpInstanceOptionValueRels) {
 
-			if (isAvailable(cpDefinitionOptionValueRel)) {
-				filtered.add(cpDefinitionOptionValueRel);
+			if (isAvailable(cpInstanceOptionValueRel)) {
+				filtered.add(cpInstanceOptionValueRel);
 			}
 		}
 
