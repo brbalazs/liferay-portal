@@ -53,6 +53,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -70,6 +71,13 @@ public class OrganizationLocalServiceTest {
 	@Rule
 	public static final AggregateTestRule aggregateTestRule =
 		new LiferayIntegrationTestRule();
+
+	@After
+	public void tearDown() throws Exception {
+		for (String pid : _pids) {
+			ConfigurationTestUtil.deleteConfiguration(pid);
+		}
+	}
 
 	@Test
 	public void testAddOrganization() throws Exception {
@@ -844,12 +852,10 @@ public class OrganizationLocalServiceTest {
 
 	@Test
 	public void testSearchOrganizationsByType() throws Exception {
-		List<String> pids = new ArrayList<>();
-
 		for (int i = 0; i < 5; i++) {
 			String organizationType = RandomTestUtil.randomString();
 
-			pids.add(
+			_pids.add(
 				ConfigurationTestUtil.createFactoryConfiguration(
 					"com.liferay.organizations.service.internal." +
 						"configuration.OrganizationTypeConfiguration",
@@ -865,15 +871,8 @@ public class OrganizationLocalServiceTest {
 				OrganizationTestUtil.addOrganization(organizationType));
 		}
 
-		try {
-			_testSearchOrganizationsByType(_organizations, "asc");
-			_testSearchOrganizationsByType(_organizations, "desc");
-		}
-		finally {
-			for (String pid : pids) {
-				ConfigurationTestUtil.deleteConfiguration(pid);
-			}
-		}
+		_testSearchOrganizationsByType(_organizations, "asc");
+		_testSearchOrganizationsByType(_organizations, "desc");
 	}
 
 	protected List<Object> getOrganizationsAndUsers(Organization organization) {
@@ -978,6 +977,8 @@ public class OrganizationLocalServiceTest {
 
 	@DeleteAfterTestRun
 	private final List<Organization> _organizations = new ArrayList<>();
+
+	private final List<String> _pids = new ArrayList<>();
 
 	@DeleteAfterTestRun
 	private User _user;
