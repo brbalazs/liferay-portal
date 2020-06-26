@@ -1,52 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CSVPreviewModal should render 1`] = `
-<Modal
-  className=" undefined"
-  fileName="test"
-  size="lg"
->
-  <Header
-    onClose={[Function]}
-    title="Data Preview \\"\\""
-  />
-  <table>
-    <tr>
-      <th
-        key="0"
-      >
-        email
-      </th>
-      <th
-        key="1"
-      >
-        familyName
-      </th>
-      <th
-        key="2"
-      >
-        givenName
-      </th>
-    </tr>
-    <tr
-      key="0"
+<div>
+  <div
+    aria-modal="true"
+    class="modal-dialog  undefined modal-lg"
+    role="dialog"
+  >
+    <div
+      class="modal-content"
     >
-      <td
-        key="0-0"
+      <div
+        class="modal-header"
       >
-        test@liferay.com
-      </td>
-      <td
-        key="1-0"
-      >
-        Bloggs
-      </td>
-      <td
-        key="2-0"
-      >
-        Joe
-      </td>
-    </tr>
-  </table>
-</Modal>
+        <h4
+          class="modal-title"
+        >
+          Data Preview ""
+        </h4>
+        <button
+          class="button-root btn btn-secondary close"
+          type="button"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-times"
+            viewBox=""
+          >
+            <use
+              xlink:href="#times"
+            />
+          </svg>
+        </button>
+      </div>
+      <table>
+        <tr>
+          <th>
+            email
+          </th>
+          <th>
+            familyName
+          </th>
+          <th>
+            givenName
+          </th>
+        </tr>
+        <tr>
+          <td>
+            test@liferay.com
+          </td>
+          <td>
+            Bloggs
+          </td>
+          <td>
+            Joe
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
 `;

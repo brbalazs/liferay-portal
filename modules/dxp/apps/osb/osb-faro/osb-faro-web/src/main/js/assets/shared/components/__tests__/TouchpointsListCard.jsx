@@ -4,7 +4,9 @@ import React from 'react';
 import TouchpointsListCard from '../TouchpointsListCard';
 import {ApolloProvider} from '@apollo/react-components';
 import {BrowserRouter} from 'react-router-dom';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 const items = [
 	{
@@ -45,14 +47,14 @@ const WrappedComponent = props => (
 
 describe('TouchpointsListCard', () => {
 	it('should render', () => {
-		const component = shallow(<WrappedComponent />);
+		const {container} = render(<WrappedComponent />);
 
-		expect(component.render()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with items', () => {
-		const component = shallow(<WrappedComponent items={items} />);
+		const {container} = render(<WrappedComponent items={items} />);
 
-		expect(component.render()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

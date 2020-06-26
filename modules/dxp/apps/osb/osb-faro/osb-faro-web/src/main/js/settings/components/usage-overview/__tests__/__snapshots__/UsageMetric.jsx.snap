@@ -1,187 +1,217 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UsageMetric should render 1`] = `
-<div
-  className="overview-usage-metric-root"
->
-  <h3
-    className="metric-name"
-  >
-    Page Views
-  </h3>
+<div>
   <div
-    className="metric-breakdown"
+    class="overview-usage-metric-root"
   >
-    <Sticker
-      circle={false}
-      display="light"
-      symbol="faro-page-views"
-    />
-    <div
-      className="metric-breakdown-content"
+    <h3
+      class="metric-name"
     >
-      <div>
-        <span>
-          <span
-            className="metric-current"
-            key="0"
-          >
-            0
-          </span>
-           of 
-          <span
-            className="metric-limit"
-            key="7000000"
-          >
-            7,000,000
-          </span>
-        </span>
-        <span
-          className="text-secondary usage-since-label semibold"
+      Page Views
+    </h3>
+    <div
+      class="metric-breakdown"
+    >
+      <div
+        class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-faro-page-views"
+          viewBox=""
         >
-          0% since July 8, 2018
-        </span>
+          <use
+            xlink:href="#faro-page-views"
+          />
+        </svg>
       </div>
       <div
-        className="text-muted small semibold"
+        class="metric-breakdown-content"
       >
-        Enterprise Plan 2,000,000 + 5,000,000 Add-On (1x)
+        <div>
+          <span>
+            <span
+              class="metric-current"
+            >
+              0
+            </span>
+             of 
+            <span
+              class="metric-limit"
+            >
+              7,000,000
+            </span>
+          </span>
+          <span
+            class="text-secondary usage-since-label semibold"
+          >
+            0% since July 8, 2018
+          </span>
+        </div>
+        <div
+          class="text-muted small semibold"
+        >
+          Enterprise Plan 2,000,000 + 5,000,000 Add-On (1x)
+        </div>
       </div>
     </div>
-  </div>
-  <MetricBar
-    display="primary"
-    percent={0}
-    size="default"
-  />
-  <div
-    className="metric-definition text-secondary"
-  >
-    Non-unique visits to any of the pages synced to Analytics Cloud.
+    <div
+      class="metric-bar-root"
+    >
+      <div
+        class="bar bar-primary bar-default"
+        style="width: 0%;"
+      />
+    </div>
+    <div
+      class="metric-definition text-secondary"
+    >
+      Non-unique visits to any of the pages synced to Analytics Cloud.
+    </div>
   </div>
 </div>
 `;
 
 exports[`UsageMetric should render as a danger usage level if metric status is 2 1`] = `
-<div
-  className="overview-usage-metric-root"
->
-  <h3
-    className="metric-name"
-  >
-    Page Views
-  </h3>
+<div>
   <div
-    className="metric-breakdown"
+    class="overview-usage-metric-root"
   >
-    <Sticker
-      circle={false}
-      display="light"
-      symbol="faro-page-views"
-    />
-    <div
-      className="metric-breakdown-content"
+    <h3
+      class="metric-name"
     >
-      <div>
-        <span>
-          <span
-            className="metric-current"
-            key="7500000"
-          >
-            7,500,000
-          </span>
-           of 
-          <span
-            className="metric-limit"
-            key="7000000"
-          >
-            7,000,000
-          </span>
-        </span>
-        <span
-          className="text-secondary usage-since-label semibold"
+      Page Views
+    </h3>
+    <div
+      class="metric-breakdown"
+    >
+      <div
+        class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-faro-page-views"
+          viewBox=""
         >
-          107% since July 8, 2018
-        </span>
+          <use
+            xlink:href="#faro-page-views"
+          />
+        </svg>
       </div>
       <div
-        className="text-muted small semibold"
+        class="metric-breakdown-content"
       >
-        Enterprise Plan 2,000,000 + 5,000,000 Add-On (1x)
+        <div>
+          <span>
+            <span
+              class="metric-current"
+            >
+              7,500,000
+            </span>
+             of 
+            <span
+              class="metric-limit"
+            >
+              7,000,000
+            </span>
+          </span>
+          <span
+            class="text-secondary usage-since-label semibold"
+          >
+            107% since July 8, 2018
+          </span>
+        </div>
+        <div
+          class="text-muted small semibold"
+        >
+          Enterprise Plan 2,000,000 + 5,000,000 Add-On (1x)
+        </div>
       </div>
     </div>
-  </div>
-  <MetricBar
-    display="danger"
-    percent={1.0714285714285714}
-    size="default"
-  />
-  <div
-    className="metric-definition text-secondary"
-  >
-    Non-unique visits to any of the pages synced to Analytics Cloud.
+    <div
+      class="metric-bar-root"
+    >
+      <div
+        class="bar bar-danger bar-default"
+        style="width: 107%;"
+      />
+    </div>
+    <div
+      class="metric-definition text-secondary"
+    >
+      Non-unique visits to any of the pages synced to Analytics Cloud.
+    </div>
   </div>
 </div>
 `;
 
 exports[`UsageMetric should render as a warning usage level 1`] = `
-<div
-  className="overview-usage-metric-root"
->
-  <h3
-    className="metric-name"
-  >
-    Page Views
-  </h3>
+<div>
   <div
-    className="metric-breakdown"
+    class="overview-usage-metric-root"
   >
-    <Sticker
-      circle={false}
-      display="light"
-      symbol="faro-page-views"
-    />
-    <div
-      className="metric-breakdown-content"
+    <h3
+      class="metric-name"
     >
-      <div>
-        <span>
-          <span
-            className="metric-current"
-            key="6500000"
-          >
-            6,500,000
-          </span>
-           of 
-          <span
-            className="metric-limit"
-            key="7000000"
-          >
-            7,000,000
-          </span>
-        </span>
-        <span
-          className="text-secondary usage-since-label semibold"
+      Page Views
+    </h3>
+    <div
+      class="metric-breakdown"
+    >
+      <div
+        class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-faro-page-views"
+          viewBox=""
         >
-          93% since July 8, 2018
-        </span>
+          <use
+            xlink:href="#faro-page-views"
+          />
+        </svg>
       </div>
       <div
-        className="text-muted small semibold"
+        class="metric-breakdown-content"
       >
-        Enterprise Plan 2,000,000 + 5,000,000 Add-On (1x)
+        <div>
+          <span>
+            <span
+              class="metric-current"
+            >
+              6,500,000
+            </span>
+             of 
+            <span
+              class="metric-limit"
+            >
+              7,000,000
+            </span>
+          </span>
+          <span
+            class="text-secondary usage-since-label semibold"
+          >
+            93% since July 8, 2018
+          </span>
+        </div>
+        <div
+          class="text-muted small semibold"
+        >
+          Enterprise Plan 2,000,000 + 5,000,000 Add-On (1x)
+        </div>
       </div>
     </div>
-  </div>
-  <MetricBar
-    display="warning"
-    percent={0.9285714285714286}
-    size="default"
-  />
-  <div
-    className="metric-definition text-secondary"
-  >
-    Non-unique visits to any of the pages synced to Analytics Cloud.
+    <div
+      class="metric-bar-root"
+    >
+      <div
+        class="bar bar-warning bar-default"
+        style="width: 93%;"
+      />
+    </div>
+    <div
+      class="metric-definition text-secondary"
+    >
+      Non-unique visits to any of the pages synced to Analytics Cloud.
+    </div>
   </div>
 </div>
 `;

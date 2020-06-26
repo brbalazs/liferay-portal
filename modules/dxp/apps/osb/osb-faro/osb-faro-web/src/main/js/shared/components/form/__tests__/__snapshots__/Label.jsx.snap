@@ -1,26 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Label should render 1`] = `
-<label
-  className="form-control-label label-root"
-/>
+<div>
+  <label
+    class="form-control-label label-root"
+  />
+</div>
 `;
 
 exports[`Label should render as required 1`] = `
-<label
-  className="form-control-label label-root required"
-/>
+<div>
+  <label
+    class="form-control-label label-root required"
+  />
+</div>
 `;
 
 exports[`Label should render with a tooltip and icon 1`] = `
-<label
-  className="form-control-label label-root"
-  data-tooltip={true}
-  title="foo bar baz"
->
-  <Icon
-    className="info"
-    symbol="question-circle-full"
-  />
-</label>
+<div>
+  <label
+    class="form-control-label label-root"
+    data-tooltip="true"
+    title="foo bar baz"
+  >
+    <svg
+      class="icon-root lexicon-icon lexicon-icon-question-circle-full info"
+      viewBox=""
+    >
+      <use
+        xlink:href="#question-circle-full"
+      />
+    </svg>
+  </label>
+</div>
 `;

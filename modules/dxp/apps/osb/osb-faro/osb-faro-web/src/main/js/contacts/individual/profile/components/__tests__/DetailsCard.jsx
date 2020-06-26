@@ -3,17 +3,22 @@ import React from 'react';
 import {fromJS} from 'immutable';
 import {Individual} from 'shared/util/records';
 import {mockIndividual} from 'test/data';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 describe('IndividualDetailsCard', () => {
 	it('should render', () => {
-		const component = shallow(
-			<IndividualDetailsCard
-				entity={new Individual(fromJS(mockIndividual()))}
-				groupId={'23'}
-			/>
+		const {container} = render(
+			<StaticRouter>
+				<IndividualDetailsCard
+					entity={new Individual(fromJS(mockIndividual()))}
+					groupId={'23'}
+				/>
+			</StaticRouter>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

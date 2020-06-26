@@ -1,19 +1,24 @@
 import React from 'react';
 import SubscriptionTitle from '../SubscriptionTitle';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('SubscriptionTitle', () => {
+	
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<SubscriptionTitle name={'Business'} price={750} />
 		);
-		expect(component).toMatchSnapshot();
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with a label', () => {
-		const component = shallow(
+		const {container} = render(
 			<SubscriptionTitle labelText={'1x'} name={'Business'} price={750} />
 		);
-		expect(component).toMatchSnapshot();
+
+		expect(container).toMatchSnapshot();
 	});
 });

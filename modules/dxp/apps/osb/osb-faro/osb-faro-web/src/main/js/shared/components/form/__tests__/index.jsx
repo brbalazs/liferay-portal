@@ -1,25 +1,32 @@
 import Form from '../index';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('Form', () => {
+	
 	it('should render a Form', () => {
-		const component = shallow(<Form />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<Form />);
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render a Form Group', () => {
-		const component = shallow(<Form.Group />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<Form.Group />);
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render an inline Form Group', () => {
-		const component = shallow(<Form.Group inline />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<Form.Group inline />);
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render an autofit Form Group', () => {
-		const component = shallow(<Form.Group autoFit />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<Form.Group autoFit />);
+
+		expect(container).toMatchSnapshot();
 	});
 });

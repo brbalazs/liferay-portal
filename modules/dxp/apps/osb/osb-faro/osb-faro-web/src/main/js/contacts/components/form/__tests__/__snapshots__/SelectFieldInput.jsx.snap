@@ -1,41 +1,83 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SelectFieldInput should render 1`] = `
-<div
-  className=""
->
-  <SelectFieldInput
-    context="demographics"
-    groupId="23"
-    id="foo"
-    name="foo"
-    onSelect={[Function]}
-  />
-  <HelpBlock
-    name="foo"
-  />
+<div>
+  <div
+    class=""
+  >
+    <div
+      aria-haspopup="true"
+      class="input-group base-select-input-root select-input-root"
+    >
+      <div
+        class="input-group-item"
+      >
+        <input
+          autocomplete="nope"
+          class="input-root form-control input-group-inset input-group-inset-after"
+          id="foo"
+          placeholder="Select Field"
+          type="text"
+          value=""
+        />
+        <div
+          class="input-group-inset-item input-group-inset-item-after"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+            viewBox=""
+          >
+            <use
+              xlink:href="#caret-bottom"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
 exports[`SelectFieldInput should render with a label 1`] = `
-<div
-  className=""
->
-  <Label
-    htmlFor="foo"
-    required={false}
+<div>
+  <div
+    class=""
   >
-    bar
-  </Label>
-  <SelectFieldInput
-    context="demographics"
-    groupId="23"
-    id="foo"
-    name="foo"
-    onSelect={[Function]}
-  />
-  <HelpBlock
-    name="foo"
-  />
+    <label
+      class="form-control-label label-root"
+      for="foo"
+    >
+      bar
+    </label>
+    <div
+      aria-haspopup="true"
+      class="input-group base-select-input-root select-input-root"
+    >
+      <div
+        class="input-group-item"
+      >
+        <input
+          autocomplete="nope"
+          class="input-root form-control input-group-inset input-group-inset-after"
+          id="foo"
+          placeholder="Select Field"
+          type="text"
+          value=""
+        />
+        <div
+          class="input-group-inset-item input-group-inset-item-after"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+            viewBox=""
+          >
+            <use
+              xlink:href="#caret-bottom"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;

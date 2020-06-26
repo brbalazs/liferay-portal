@@ -1,10 +1,18 @@
 import React from 'react';
 import SalesforceTabRoutes from '../TabRoutes';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 describe('SalesforceTabRoutes', () => {
 	it('should render', () => {
-		const component = shallow(<SalesforceTabRoutes />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(
+			<StaticRouter>
+				<SalesforceTabRoutes />
+			</StaticRouter>
+		);
+
+		expect(container).toMatchSnapshot();
 	});
 });

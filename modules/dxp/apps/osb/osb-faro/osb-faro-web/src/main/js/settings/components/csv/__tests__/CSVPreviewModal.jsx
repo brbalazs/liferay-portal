@@ -1,11 +1,13 @@
 import CSVPreviewModal from '../CSVPreviewModal';
 import React from 'react';
 import {noop} from 'lodash';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('CSVPreviewModal', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<CSVPreviewModal
 				fileName='test'
 				groupId='23'
@@ -16,6 +18,6 @@ describe('CSVPreviewModal', () => {
 
 		jest.runAllTimers();
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

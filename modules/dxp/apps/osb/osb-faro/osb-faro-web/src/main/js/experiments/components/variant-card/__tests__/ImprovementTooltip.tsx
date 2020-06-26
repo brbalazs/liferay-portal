@@ -1,25 +1,19 @@
 import ImprovementTooltip from '../ImprovementTooltip';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('Unique Visitors Tooltip', () => {
-	let component;
-
-	afterEach(() => {
-		if (component) {
-			component.unmount();
-		}
-	});
-
 	it('should render', () => {
-		component = shallow(<ImprovementTooltip improvement={10} />);
+		const {container} = render(<ImprovementTooltip improvement={10} />);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render negative improvements', () => {
-		component = shallow(<ImprovementTooltip improvement={-10} />);
+		const {container} = render(<ImprovementTooltip improvement={-10} />);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

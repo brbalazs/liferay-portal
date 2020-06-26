@@ -1,17 +1,19 @@
 import Label from '../Label';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('Label', () => {
 	it('should render', () => {
-		const component = shallow(<Label label='Label' />);
+		const {container} = render(<Label label='Label' />);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render closeable Label', () => {
-		const component = shallow(<Label closeable />);
+		const {container} = render(<Label closeable />);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

@@ -1,39 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ToolbarActionsRenderer should render 1`] = `
-<Nav>
-  <Item
-    active={false}
-    disabled={false}
+<div>
+  <ul
+    class="nav-root nav"
+    role="tablist"
   >
-    <Button
-      display="primary"
-      onClick={[Function]}
+    <li
+      class="nav-item"
+      role="presentation"
     >
-      Add Members
-    </Button>
-  </Item>
-</Nav>
+      <button
+        class="button-root btn btn-primary"
+        type="button"
+      >
+        Add Members
+      </button>
+    </li>
+  </ul>
+</div>
 `;
 
 exports[`ToolbarActionsRenderer should render secondary button actions if items are selected 1`] = `
-<Nav>
-  <Item
-    active={false}
-    disabled={false}
+<div>
+  <ul
+    class="nav-root nav"
+    role="tablist"
   >
-    <Button
-      display="primary"
-      onClick={[Function]}
+    <li
+      class="nav-item"
+      role="presentation"
     >
-      Undo Changes
-    </Button>
-    <Button
-      display="primary"
-      onClick={[Function]}
-    >
-      Remove Members
-    </Button>
-  </Item>
-</Nav>
+      <button
+        class="button-root btn btn-primary"
+        type="button"
+      >
+        Undo Changes
+      </button>
+      <button
+        class="button-root btn btn-primary"
+        type="button"
+      >
+        Remove Members
+      </button>
+    </li>
+  </ul>
+</div>
 `;

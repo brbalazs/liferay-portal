@@ -1,10 +1,13 @@
 import Body from '../Body';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('Modal Body', () => {
 	it('should render', () => {
-		const component = shallow(<Body />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<Body />);
+
+		expect(container).toMatchSnapshot();
 	});
 });

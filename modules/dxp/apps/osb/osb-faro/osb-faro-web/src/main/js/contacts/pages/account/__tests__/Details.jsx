@@ -2,11 +2,13 @@ import * as data from 'test/data';
 import Details from '../Details';
 import React from 'react';
 import {Account} from 'shared/util/records';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('AccountDetails', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<Details
 				account={data.getImmutableMock(Account, data.mockAccount)}
 				groupId={'23'}
@@ -14,6 +16,6 @@ describe('AccountDetails', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

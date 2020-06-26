@@ -1,47 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ToggleSwitch should render 1`] = `
-<label
-  className="toggle-switch toggle-switch-root"
->
-  <input
-    checked={false}
-    className="toggle-switch-check"
-    data-testid="toggle-switch-input"
-    onChange={[Function]}
-    type="checkbox"
-    value="false"
-  />
-  <span
-    aria-hidden="true"
-    className="toggle-switch-bar"
+<div>
+  <label
+    class="toggle-switch toggle-switch-root"
   >
-    <span
-      className="toggle-switch-handle"
+    <input
+      class="toggle-switch-check"
+      data-testid="toggle-switch-input"
+      type="checkbox"
+      value="false"
     />
-  </span>
-</label>
+    <span
+      aria-hidden="true"
+      class="toggle-switch-bar"
+    >
+      <span
+        class="toggle-switch-handle"
+      />
+    </span>
+  </label>
+</div>
 `;
 
 exports[`ToggleSwitch should render with an initial value 1`] = `
-<label
-  className="toggle-switch toggle-switch-root"
->
-  <input
-    checked={true}
-    className="toggle-switch-check"
-    data-testid="toggle-switch-input"
-    onChange={[Function]}
-    type="checkbox"
-    value="true"
-  />
-  <span
-    aria-hidden="true"
-    className="toggle-switch-bar"
+<div>
+  <label
+    class="toggle-switch toggle-switch-root"
   >
-    <span
-      className="toggle-switch-handle"
+    <input
+      checked=""
+      class="toggle-switch-check"
+      data-testid="toggle-switch-input"
+      type="checkbox"
+      value="true"
     />
-  </span>
-</label>
+    <span
+      aria-hidden="true"
+      class="toggle-switch-bar"
+    >
+      <span
+        class="toggle-switch-handle"
+      />
+    </span>
+  </label>
+</div>
 `;

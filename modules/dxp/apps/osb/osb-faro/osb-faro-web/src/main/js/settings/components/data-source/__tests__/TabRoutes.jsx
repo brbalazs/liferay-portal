@@ -1,12 +1,20 @@
 import React from 'react';
 import TabRoutes from '../TabRoutes';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 describe('TabRoutes', () => {
 	it('should render', () => {
-		const component = shallow(
-			<TabRoutes routes={[{component: jest.fn(), path: 'foo/path'}]} />
+		const {container} = render(
+			<StaticRouter>
+				<TabRoutes
+					routes={[{component: jest.fn(), path: 'foo/path'}]}
+				/>
+			</StaticRouter>
 		);
-		expect(component).toMatchSnapshot();
+
+		expect(container).toMatchSnapshot();
 	});
 });

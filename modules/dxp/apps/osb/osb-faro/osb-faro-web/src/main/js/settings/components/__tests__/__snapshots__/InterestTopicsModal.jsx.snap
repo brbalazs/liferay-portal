@@ -1,55 +1,82 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InterestTopicsModal should render 1`] = `
-<Modal
-  className="invite-users-modal-root"
-  size="lg"
->
-  <Header
-    onClose={[Function]}
-    title="Insert Keywords"
-  />
-  <Body>
-    <InputGroup>
-      <InputList
-        autoFocus={true}
-        disabled={false}
-        errorMessage="Please enter a valid keyword"
-        inputValue=""
-        items={Array []}
-        keyCodesToSplit={
-          Array [
-            188,
-            13,
-          ]
-        }
-        onInputChange={[Function]}
-        onItemsChange={[Function]}
-        onValidationFail={[Function]}
-        placeholder="Enter Keyword"
-        validateOnBlur={true}
-        validationFn={[Function]}
-      />
-    </InputGroup>
+<div>
+  <div
+    aria-modal="true"
+    class="modal-dialog invite-users-modal-root modal-lg"
+    role="dialog"
+  >
     <div
-      className="description form-text"
+      class="modal-content"
     >
-      Use comma or enter to add several keywords.
+      <div
+        class="modal-header"
+      >
+        <h4
+          class="modal-title"
+        >
+          Insert Keywords
+        </h4>
+        <button
+          class="button-root btn btn-secondary close"
+          type="button"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-times"
+            viewBox=""
+          >
+            <use
+              xlink:href="#times"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="modal-body"
+      >
+        <div
+          class="input-group"
+        >
+          <div
+            class="input-group-item input-list-root focus"
+          >
+            <div
+              class="form-control form-control-tag-group"
+            >
+              <input
+                class="form-control-inset"
+                placeholder="Enter Keyword"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="description form-text"
+        >
+          Use comma or enter to add several keywords.
+        </div>
+      </div>
+      <div
+        class="modal-footer"
+      >
+        <button
+          class="button-root btn btn-secondary"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="button-root btn btn-primary"
+          disabled=""
+          type="button"
+        >
+          Send
+        </button>
+      </div>
     </div>
-  </Body>
-  <Footer>
-    <Button
-      onClick={[Function]}
-    >
-      Cancel
-    </Button>
-    <Button
-      disabled={true}
-      display="primary"
-      onClick={[Function]}
-    >
-      Send
-    </Button>
-  </Footer>
-</Modal>
+  </div>
+</div>
 `;

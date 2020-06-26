@@ -1,11 +1,13 @@
 import * as data from 'test/data';
 import React from 'react';
 import {FormSelectFieldInput} from '../SelectFieldInput';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('SelectFieldInput', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<FormSelectFieldInput
 				field={{name: 'foo'}}
 				form={data.mockForm()}
@@ -14,11 +16,11 @@ describe('SelectFieldInput', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with a label', () => {
-		const component = shallow(
+		const {container} = render(
 			<FormSelectFieldInput
 				field={{name: 'foo'}}
 				form={data.mockForm()}
@@ -28,6 +30,6 @@ describe('SelectFieldInput', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

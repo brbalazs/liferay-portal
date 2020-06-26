@@ -1,6 +1,8 @@
 import OperatingSystem from '../OperatingSystem';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 const devices = [
 	{
@@ -95,8 +97,8 @@ const devices = [
 
 describe('OperatingSystem', () => {
 	it('should render', () => {
-		const component = shallow(<OperatingSystem devices={devices} />);
+		const {container} = render(<OperatingSystem devices={devices} />);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

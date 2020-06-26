@@ -2,7 +2,10 @@ import * as data from 'test/data';
 import KnownIndividualsCard from '../KnownIndividualsCard';
 import Promise from 'metal-promise';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 const mockIndividualWithEngagementHistory = () => ({
 	...data.mockIndividual(),
@@ -11,16 +14,18 @@ const mockIndividualWithEngagementHistory = () => ({
 
 describe('KnownIndividualsCard', () => {
 	it('should render', () => {
-		const component = shallow(
-			<KnownIndividualsCard
-				channelId={'123'}
-				dataSourceFn={() => Promise.resolve()}
-				groupId={'23'}
-				id={'23'}
-			/>
+		const {container} = render(
+			<StaticRouter>
+				<KnownIndividualsCard
+					channelId={'123'}
+					dataSourceFn={() => Promise.resolve()}
+					groupId={'23'}
+					id={'23'}
+				/>
+			</StaticRouter>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render w/ NoResultsDisplay', () => {
@@ -29,32 +34,36 @@ describe('KnownIndividualsCard', () => {
 				data.mockSearch(mockIndividualWithEngagementHistory, 0)
 			);
 
-		const component = shallow(
-			<KnownIndividualsCard
-				channelId={'123'}
-				dataSourceFn={dataSourceFn}
-				groupId={'23'}
-				id={'23'}
-			/>
+		const {container} = render(
+			<StaticRouter>
+				<KnownIndividualsCard
+					channelId={'123'}
+					dataSourceFn={dataSourceFn}
+					groupId={'23'}
+					id={'23'}
+				/>
+			</StaticRouter>
 		);
 
 		jest.runAllTimers();
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render w/ ErrorDisplay', () => {
-		const component = shallow(
-			<KnownIndividualsCard
-				channelId={'123'}
-				dataSourceFn={() => Promise.reject({})}
-				groupId={'23'}
-				id={'23'}
-			/>
+		const {container} = render(
+			<StaticRouter>
+				<KnownIndividualsCard
+					channelId={'123'}
+					dataSourceFn={() => Promise.reject({})}
+					groupId={'23'}
+					id={'23'}
+				/>
+			</StaticRouter>
 		);
 
 		jest.runAllTimers();
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

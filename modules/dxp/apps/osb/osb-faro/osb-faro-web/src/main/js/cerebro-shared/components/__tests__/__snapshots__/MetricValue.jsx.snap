@@ -1,92 +1,104 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MetricValue should render the component 1`] = `
-<div
-  className="metric-value"
->
-  100
-  <span
-    className="metric-value-letter"
+<div>
+  <div
+    class="metric-value"
   >
-    K
-     
-  </span>
+    100
+    <span
+      class="metric-value-letter"
+    >
+      K
+       
+    </span>
+  </div>
 </div>
 `;
 
 exports[`MetricValue should render the component with engagement  1`] = `
-<div
-  className="metric-value"
->
-  5
-  <span
-    className="metric-value-letter"
+<div>
+  <div
+    class="metric-value"
   >
-    /10
-     
-  </span>
+    5
+    <span
+      class="metric-value-letter"
+    >
+      /10
+       
+    </span>
+  </div>
 </div>
 `;
 
 exports[`MetricValue should render the component with number type 1`] = `
-<div
-  className="metric-value"
->
-  100
-  <span
-    className="metric-value-letter"
+<div>
+  <div
+    class="metric-value"
   >
-    K
-     
-  </span>
+    100
+    <span
+      class="metric-value-letter"
+    >
+      K
+       
+    </span>
+  </div>
 </div>
 `;
 
 exports[`MetricValue should render the component with percentage  1`] = `
-<div
-  className="metric-value"
->
-  100
-  <span
-    className="metric-value-letter"
+<div>
+  <div
+    class="metric-value"
   >
-    %
-     
-  </span>
+    100
+    <span
+      class="metric-value-letter"
+    >
+      %
+       
+    </span>
+  </div>
 </div>
 `;
 
 exports[`MetricValue should render the component with ratings  1`] = `
-<div
-  className="metric-value"
->
-  10
-  <span
-    className="metric-value-letter"
+<div>
+  <div
+    class="metric-value"
   >
-    /10
-     
-  </span>
+    10
+    <span
+      class="metric-value-letter"
+    >
+      /10
+       
+    </span>
+  </div>
 </div>
 `;
 
 exports[`MetricValue should render the component with time  1`] = `
-<div
-  className="metric-value"
->
-  12
-  <span
-    className="metric-value-letter"
+<div>
+  <div
+    class="metric-value"
   >
-    m
-     
-  </span>
-  40
-  <span
-    className="metric-value-letter"
-  >
-    s
-     
-  </span>
+    12
+    <span
+      class="metric-value-letter"
+    >
+      m
+       
+    </span>
+    40
+    <span
+      class="metric-value-letter"
+    >
+      s
+       
+    </span>
+  </div>
 </div>
 `;

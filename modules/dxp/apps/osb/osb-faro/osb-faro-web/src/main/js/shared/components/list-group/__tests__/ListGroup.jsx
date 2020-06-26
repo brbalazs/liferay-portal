@@ -1,10 +1,13 @@
 import ListGroup from '../index';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('ListGroup', () => {
 	it('should render', () => {
-		const component = shallow(<ListGroup />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<ListGroup />);
+
+		expect(container).toMatchSnapshot();
 	});
 });

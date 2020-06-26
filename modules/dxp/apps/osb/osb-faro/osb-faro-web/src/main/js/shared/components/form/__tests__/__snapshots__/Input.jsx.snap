@@ -1,37 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Input should render 1`] = `
-<div
-  className=""
->
-  <Input
-    id="foo"
-    name="foo"
-    onChange={[Function]}
-    type="text"
-  />
-  <HelpBlock
-    name="foo"
-  />
+<div>
+  <div
+    class=""
+  >
+    <input
+      class="input-root form-control"
+      id="foo"
+      name="foo"
+      type="text"
+      value=""
+    />
+  </div>
 </div>
 `;
 
 exports[`Input should render a masked input 1`] = `
-<div
-  className=""
->
-  <MaskedInput
-    guide={true}
-    id="foo"
-    keepCharPositions={false}
-    mask={Array []}
-    name="foo"
-    onChange={[Function]}
-    placeholderChar="_"
-    showMask={false}
-  />
-  <HelpBlock
-    name="foo"
-  />
+<div>
+  <div
+    class=""
+  >
+    <input
+      class="input-root form-control"
+      id="foo"
+      name="foo"
+      type="text"
+      value=""
+    />
+  </div>
 </div>
 `;

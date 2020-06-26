@@ -1,62 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Form should render a Form 1`] = `
-<ContextProvider
-  value={
-    Object {
-      "dirty": false,
-      "errors": Object {},
-      "handleBlur": [Function],
-      "handleChange": [Function],
-      "handleReset": [Function],
-      "handleSubmit": [Function],
-      "initialValues": Object {},
-      "isSubmitting": false,
-      "isValid": false,
-      "isValidating": false,
-      "registerField": [Function],
-      "resetForm": [Function],
-      "setError": [Function],
-      "setErrors": [Function],
-      "setFieldError": [Function],
-      "setFieldTouched": [Function],
-      "setFieldValue": [Function],
-      "setFormikState": [Function],
-      "setStatus": [Function],
-      "setSubmitting": [Function],
-      "setTouched": [Function],
-      "setValues": [Function],
-      "status": undefined,
-      "submitCount": 0,
-      "submitForm": [Function],
-      "touched": Object {},
-      "unregisterField": [Function],
-      "validate": undefined,
-      "validateField": [Function],
-      "validateForm": [Function],
-      "validateOnBlur": true,
-      "validateOnChange": true,
-      "validationSchema": undefined,
-      "values": Object {},
-    }
-  }
-/>
-`;
+exports[`Form should render a Form 1`] = `<div />`;
 
 exports[`Form should render a Form Group 1`] = `
-<div
-  className="form-group"
-/>
+<div>
+  <div
+    class="form-group"
+  />
+</div>
 `;
 
 exports[`Form should render an autofit Form Group 1`] = `
-<div
-  className="form-group form-group-autofit"
-/>
+<div>
+  <div
+    class="form-group form-group-autofit"
+  />
+</div>
 `;
 
 exports[`Form should render an inline Form Group 1`] = `
-<div
-  className="form-group"
-/>
+<div>
+  <div
+    class="form-group"
+  />
+</div>
 `;

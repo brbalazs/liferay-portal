@@ -5,6 +5,8 @@ import {getTimestamp} from 'test/data';
 import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router';
 
+jest.unmock('react-dom');
+
 const {entityTypes} = Constants;
 
 const MOCK_DATA = [

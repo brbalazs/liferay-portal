@@ -1,6 +1,8 @@
 import BaseConfigurationOverview from '../BaseConfigurationOverview';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('BaseConfigurationOverview', () => {
 	it('should render', () => {
@@ -12,11 +14,12 @@ describe('BaseConfigurationOverview', () => {
 			}
 		];
 
-		const component = shallow(
+		const {container} = render(
 			<BaseConfigurationOverview
 				configurationItems={mockConfigurationItems}
 			/>
 		);
-		expect(component).toMatchSnapshot();
+
+		expect(container).toMatchSnapshot();
 	});
 });

@@ -1,85 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`OperatingSystem should render 1`] = `
-<ForwardRef
-  axis={
-    Object {
-      "x": Object {
-        "categories": undefined,
-        "type": "category",
-      },
-      "y": Object {
-        "max": 3000,
-        "min": 0,
-        "padding": Object {
-          "bottom": 0,
-          "top": 0,
-        },
-        "tick": Object {
-          "count": 5,
-          "format": [Function],
-          "values": Array [
-            0,
-            1000,
-            2000,
-            3000,
-          ],
-        },
-      },
-    }
-  }
-  className="analytics-operating-system-chart"
-  data={
-    Object {
-      "colors": Object {
-        "data1": "#4B9BFF",
-        "data2": "#FFB46E",
-        "data3": "#FF5F5F",
-        "data4": "#50D2A0",
-        "data5": "#FF73C3",
-        "data6": "#9CE268",
-        "data7": "#B077FF",
-        "data8": "#FFD76E",
-        "data9": "#5FC8FF",
-      },
-      "columns": undefined,
-      "groups": Array [
-        undefined,
-      ],
-      "order": "asc",
-      "type": "bar",
-    }
-  }
-  grid={
-    Object {
-      "x": Object {
-        "lines": Array [
-          Object {
-            "value": 4,
-          },
-        ],
-      },
-      "y": Object {
-        "show": true,
-      },
-    }
-  }
-  legend={
-    Object {
-      "show": false,
-    }
-  }
-  padding={
-    Object {
-      "top": 1,
-    }
-  }
-  tooltip={
-    Object {
-      "contents": [Function],
-      "position": [Function],
-    }
-  }
-  unloadBeforeLoad={true}
-/>
+<div>
+  <div
+    class="analytics-operating-system-chart"
+  />
+</div>
 `;

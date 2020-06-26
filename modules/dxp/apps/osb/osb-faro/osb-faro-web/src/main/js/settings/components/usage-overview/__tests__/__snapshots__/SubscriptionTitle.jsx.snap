@@ -1,38 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SubscriptionTitle should render 1`] = `
-<div
-  className="plan-title"
->
+<div>
   <div
-    className="plan-name"
+    class="plan-title"
   >
-    Business
+    <div
+      class="plan-name"
+    >
+      Business
+    </div>
+    <div
+      class="annual-price"
+    >
+      <div>
+        <strong>
+          750 USD
+        </strong>
+        <span
+          class="text-secondary small"
+        >
+           / year
+        </span>
+      </div>
+    </div>
   </div>
-  <AnnualPrice
-    price={750}
-  />
 </div>
 `;
 
 exports[`SubscriptionTitle should render with a label 1`] = `
-<div
-  className="plan-title"
->
+<div>
   <div
-    className="plan-name"
+    class="plan-title"
   >
-    Business
+    <div
+      class="plan-name"
+    >
+      Business
+    </div>
+    <div
+      class="label label-root label-primary label-lg label-uppercase"
+    >
+      <span
+        class="label-item"
+      >
+        1x
+      </span>
+    </div>
+    <div
+      class="annual-price"
+    >
+      <div>
+        <strong>
+          750 USD
+        </strong>
+        <span
+          class="text-secondary small"
+        >
+           / year
+        </span>
+      </div>
+    </div>
   </div>
-  <Label
-    display="primary"
-    size="lg"
-    uppercase={true}
-  >
-    1x
-  </Label>
-  <AnnualPrice
-    price={750}
-  />
 </div>
 `;

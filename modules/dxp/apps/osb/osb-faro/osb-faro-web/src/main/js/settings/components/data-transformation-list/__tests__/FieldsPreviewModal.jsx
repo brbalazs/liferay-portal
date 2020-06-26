@@ -2,11 +2,13 @@ import FieldPreviewModal from '../FieldPreviewModal';
 import Promise from 'metal-promise';
 import React from 'react';
 import {noop} from 'lodash';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('FieldPreviewModal', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<FieldPreviewModal
 				dataSourceFn={() => Promise.resolve()}
 				onClose={noop}
@@ -14,6 +16,6 @@ describe('FieldPreviewModal', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

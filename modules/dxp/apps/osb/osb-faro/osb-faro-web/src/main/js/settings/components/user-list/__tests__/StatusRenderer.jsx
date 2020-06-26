@@ -1,10 +1,13 @@
 import React from 'react';
 import StatusRenderer from '../StatusRenderer';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('StatusRenderer', () => {
 	it('should render', () => {
-		const component = shallow(<StatusRenderer data={{status: 0}} />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<StatusRenderer data={{status: 0}} />);
+
+		expect(container).toMatchSnapshot();
 	});
 });

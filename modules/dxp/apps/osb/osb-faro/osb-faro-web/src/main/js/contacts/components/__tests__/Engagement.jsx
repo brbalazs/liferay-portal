@@ -2,7 +2,10 @@ import * as data from 'test/data';
 import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import {EngagementWithList, SelectedPointInfo} from '../Engagement';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 const {entityTypes} = FaroConstants;
 
@@ -53,25 +56,36 @@ describe('EngagementWithList', () => {
 	};
 
 	it('should render', () => {
-		const component = shallow(
-			<EngagementWithList {...defaultProps} data={mockEngagementData} />
+		const {container} = render(
+			<StaticRouter>
+				<EngagementWithList
+					{...defaultProps}
+					data={mockEngagementData}
+				/>
+			</StaticRouter>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with empty engagement', () => {
-		const component = shallow(
-			<EngagementWithList {...defaultProps} data={[]} hasSelectedPoint />
+		const {container} = render(
+			<StaticRouter>
+				<EngagementWithList
+					{...defaultProps}
+					data={[]}
+					hasSelectedPoint
+				/>
+			</StaticRouter>
 		);
 
-		expect(component).toBeTruthy();
+		expect(container).toBeTruthy();
 	});
 });
 
 describe('SelectedPointInfo', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<SelectedPointInfo
 				data={[
 					...mockEngagementData,
@@ -91,6 +105,6 @@ describe('SelectedPointInfo', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

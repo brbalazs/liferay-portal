@@ -8,7 +8,9 @@ import {
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {List, Map} from 'immutable';
 import {Property} from 'shared/util/records';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('InterestDisplay', () => {
 	const mockCriterion = {
@@ -41,13 +43,13 @@ describe('InterestDisplay', () => {
 	});
 
 	it('renders', () => {
-		const component = shallow(
+		const {container} = render(
 			<InterestDisplay
 				criterion={mockCriterion}
 				property={mockProperty}
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

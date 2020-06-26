@@ -1,15 +1,20 @@
 import Item from '../Item';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('Item', () => {
+	
 	it('should render', () => {
-		const component = shallow(<Item />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<Item />);
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render as active', () => {
-		const component = shallow(<Item active />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<Item active />);
+
+		expect(container).toMatchSnapshot();
 	});
 });

@@ -1,13 +1,18 @@
 import BackButton from '../BackButton.tsx';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 describe('BackButton', () => {
 	it('should render', () => {
-		const component = shallow(
-			<BackButton href='foo.url' label='foo label' />
+		const {container} = render(
+			<StaticRouter>
+				<BackButton href='foo.url' label='foo label' />
+			</StaticRouter>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

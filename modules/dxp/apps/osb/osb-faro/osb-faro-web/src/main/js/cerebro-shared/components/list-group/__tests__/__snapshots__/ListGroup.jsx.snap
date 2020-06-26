@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ListGroup should render 1`] = `
-<ul
-  className="list-group list-group-root"
-/>
+<div>
+  <ul
+    class="list-group list-group-root"
+  />
+</div>
 `;

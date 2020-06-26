@@ -2,21 +2,26 @@ import * as data from 'test/data';
 import AssociatedSegments from '../AssociatedSegments';
 import React from 'react';
 import {Individual} from 'shared/util/records';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 describe('IndividualAssociatedSegments', () => {
 	it('should render', () => {
-		const component = shallow(
-			<AssociatedSegments
-				groupId={'23'}
-				id={'test'}
-				individual={data.getImmutableMock(
-					Individual,
-					data.mockIndividual
-				)}
-			/>
+		const {container} = render(
+			<StaticRouter>
+				<AssociatedSegments
+					groupId={'23'}
+					id={'test'}
+					individual={data.getImmutableMock(
+						Individual,
+						data.mockIndividual
+					)}
+				/>
+			</StaticRouter>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

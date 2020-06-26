@@ -1,44 +1,210 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AccountAssociatedSegments should render 1`] = `
-<AssociatedSegmentsList
-  account={
-    Immutable.Record {
-      "activitiesCount": 100,
-      "createTime": null,
-      "engagementScore": 0.4899,
-      "id": "1",
-      "individualCount": 10,
-      "name": "account1",
-      "photoURL": "",
-      "properties": Immutable.Map {
-        "yearStarted": "2003",
-        "numberOfEmployees": "9001",
-        "shippingAddress": "123 Fairy Lane Diamond Bar, CA 91765 USA",
-        "accountType": "customer",
-        "phone": "123-123-1234",
-        "ownership": "private",
-        "accountNumber": "123123123",
-        "billingAddress": "123 Fairy Lane Diamond Bar, CA 91765 USA",
-        "website": "www.liferay.com",
-        "description": "Foo company description",
-        "annualRevenue": "USD $1,000,000,000",
-        "fax": "321-321-4321",
-        "industry": "Agriculture",
-      },
-      "status": null,
-      "type": 0,
-    }
-  }
-  dataSourceFn={[Function]}
-  delta={2}
-  filterBy={Immutable.Map {}}
-  groupId="23"
-  id="test"
-  orderBy="asc"
-  orderByField="name"
-  page={1}
-  query=""
-  total={0}
-/>
+<div>
+  <div
+    class="card card-root associated-segments-list-root page-display"
+  >
+    <div
+      class="card-header"
+    >
+      <h5
+        class="card-title"
+      >
+        Associated Segments
+      </h5>
+      <div
+        class="secondary-info"
+      >
+        <b>
+          0
+        </b>
+         Segments
+      </div>
+    </div>
+    <div
+      class="base-results-root d-flex flex-column flex-grow-1 searchable-table-root searchable-table-borderless"
+    >
+      <div
+        class="toolbar-root"
+      >
+        <nav
+          class="navbar navbar-root management-bar management-bar-light navbar-expand"
+        >
+          <div
+            class="container-fluid"
+          >
+            <ul
+              class="nav-root front-nav navbar-nav"
+              role="tablist"
+            >
+              <li
+                aria-haspopup="true"
+                class="dropdown dropdown-root filter-and-order-root nav-item"
+              >
+                <button
+                  class="button-root btn btn-unstyled dropdown-toggle nav-btn show-caret"
+                  data-testid="filter-and-order-button"
+                  type="button"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Order
+                  </span>
+                  
+                  <span
+                    class="caret-root"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="#caret-bottom"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </li>
+              <li
+                class="nav-item"
+                role="presentation"
+              >
+                <a
+                  class="button-root btn btn-unstyled nav-link nav-link-monospaced btn-outline-borderless"
+                  href="/?orderBy=desc&page=1"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-order-arrow-ascending"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="#order-arrow-ascending"
+                    />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+            <div
+              class="navbar-form navbar-form-autofit"
+            >
+              <div
+                class="input-group search"
+              >
+                <div
+                  class="input-group-item"
+                >
+                  <input
+                    class="input-root form-control input-group-inset input-group-inset-after"
+                    placeholder="Search"
+                    type="text"
+                    value=""
+                  />
+                  <div
+                    class="input-group-inset-item input-group-inset-item-after"
+                  >
+                    <button
+                      class="button-root btn btn-unstyled"
+                      type="button"
+                    >
+                      <svg
+                        class="icon-root lexicon-icon lexicon-icon-search"
+                        viewBox=""
+                      >
+                        <use
+                          xlink:href="#search"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div
+        class="table-responsive table-root flex-grow-1"
+      >
+        <table
+          class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+        >
+          <thead>
+            <tr
+              class=""
+            >
+              <th
+                class="table-head-title table-cell-expand"
+              >
+                <a
+                  class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                  href="/?orderBy=desc&orderByField=name&page=1"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Name
+                  </span>
+                  <span
+                    class="inline-item inline-item-after"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-order-arrow-up"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="#order-arrow-up"
+                      />
+                    </svg>
+                  </span>
+                </a>
+              </th>
+              <th
+                class="table-head-title table-column-text-end"
+              >
+                <a
+                  class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                  href="/?orderBy=desc&orderByField=individualCount&page=1"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Membership
+                  </span>
+                </a>
+              </th>
+              <th
+                class="table-head-title"
+              >
+                Date Added
+              </th>
+              <th
+                class="table-head-title"
+              >
+                <a
+                  class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                  href="/?orderBy=desc&orderByField=dateCreated&page=1"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Date Created
+                  </span>
+                </a>
+              </th>
+            </tr>
+          </thead>
+        </table>
+        <div
+          class="spinner-root spinner-overlay"
+        >
+          <span
+            class="loading-animation loading-animation-dotted"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;

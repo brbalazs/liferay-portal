@@ -1,10 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AccountDetails should render 1`] = `
-<_class
-  dataSourceFn={[Function]}
-  groupId="23"
-  id="test"
-  title="Account Attributes"
-/>
+<div>
+  <div
+    class="card card-root page-display"
+  >
+    <div
+      class="spinner-root flex-grow-1 spinner-spacer"
+    >
+      <span
+        class="loading-animation loading-animation-dotted"
+      />
+    </div>
+  </div>
+</div>
 `;

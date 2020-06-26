@@ -1,10 +1,13 @@
 import ItemTitle from '../ItemTitle';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('ItemTitle', () => {
 	it('should render', () => {
-		const component = shallow(<ItemTitle />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<ItemTitle />);
+
+		expect(container).toMatchSnapshot();
 	});
 });

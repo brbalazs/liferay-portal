@@ -1,94 +1,691 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`IndividualOverview should render 1`] = `
-<div
-  className="overview-layout"
->
+<div>
   <div
-    className="overview-column-main"
+    class="overview-layout"
   >
-    <ProfileCard
-      entity={
-        Immutable.Record {
-          "accountNames": null,
-          "activitiesCount": 1000,
-          "dateCreated": 1531090866366,
-          "demographics": Immutable.Map {},
-          "engagementScore": 0.4899,
-          "id": "0",
-          "lastActivityDate": 1531263666366,
-          "name": "Foo Bar",
-          "properties": Immutable.Map {
-            "familyName": "Bar",
-            "givenName": "Foo",
-            "jobTitle": "Developer",
-            "salary": "50,000",
-            "title": "Developer",
-          },
-          "type": 2,
-        }
-      }
-      groupId="23"
-    />
-  </div>
-  <div
-    className="overview-column-side"
-  >
-    <DetailsCard
-      entity={
-        Immutable.Record {
-          "accountNames": null,
-          "activitiesCount": 1000,
-          "dateCreated": 1531090866366,
-          "demographics": Immutable.Map {},
-          "engagementScore": 0.4899,
-          "id": "0",
-          "lastActivityDate": 1531263666366,
-          "name": "Foo Bar",
-          "properties": Immutable.Map {
-            "familyName": "Bar",
-            "givenName": "Foo",
-            "jobTitle": "Developer",
-            "salary": "50,000",
-            "title": "Developer",
-          },
-          "type": 2,
-        }
-      }
-      groupId="23"
-    />
-    <InterestsCard
-      compact={true}
-      entity={
-        Immutable.Record {
-          "accountNames": null,
-          "activitiesCount": 1000,
-          "dateCreated": 1531090866366,
-          "demographics": Immutable.Map {},
-          "engagementScore": 0.4899,
-          "id": "0",
-          "lastActivityDate": 1531263666366,
-          "name": "Foo Bar",
-          "properties": Immutable.Map {
-            "familyName": "Bar",
-            "givenName": "Foo",
-            "jobTitle": "Developer",
-            "salary": "50,000",
-            "title": "Developer",
-          },
-          "type": 2,
-        }
-      }
-      groupId="23"
-      showFilter={true}
-      type="individuals"
-    />
-    <_class
-      dataSourceFn={[Function]}
-      groupId="23"
-      id="test"
-      pageUrl="/workspace/23/contacts/individuals/known-individuals/test/segments"
-    />
+    <div
+      class="overview-column-main"
+    >
+      <div
+        class="card card-root individual-profile-card-root page-display"
+      >
+        <div
+          class="card-header align-items-center d-flex justify-content-between"
+        >
+          <h5
+            class="card-title"
+          >
+            Individual Activities
+          </h5>
+          <div
+            class="d-flex"
+          >
+            <div
+              class="interval-selector-root mr-3 btn-group"
+              role="group"
+            >
+              <button
+                class="interval-option text-uppercase active btn btn-sm btn-secondary"
+                type="button"
+              >
+                D
+              </button>
+              <button
+                class="interval-option text-uppercase btn btn-sm btn-secondary"
+                type="button"
+              >
+                W
+              </button>
+              <button
+                class="interval-option text-uppercase btn btn-sm btn-secondary"
+                type="button"
+              >
+                M
+              </button>
+            </div>
+            <div
+              class="spinner-root spinner-inline"
+            >
+              <span
+                class="loading-animation loading-animation-dotted"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="card-body no-padding"
+        >
+          <ul
+            class="card-tabs-root"
+          >
+            <li
+              class="card-tab active"
+            >
+              <a
+                class="button-root btn btn-unstyled"
+                href="/workspace/23/contacts/individuals/known-individuals/0/activities"
+              >
+                <span
+                  class="title"
+                >
+                  Activities
+                </span>
+                <div>
+                  <span>
+                    <span
+                      class="primary-content"
+                    >
+                      <div
+                        class="metric-value"
+                      >
+                        123
+                        <span
+                          class="metric-value-letter"
+                        >
+                           
+                        </span>
+                      </div>
+                    </span>
+                    <div
+                      class="analytics-trend"
+                      style="color: rgb(40, 125, 60);"
+                    >
+                      <svg
+                        class="icon-root lexicon-icon lexicon-icon-caret-top"
+                        viewBox=""
+                      >
+                        <use
+                          xlink:href="#caret-top"
+                        />
+                      </svg>
+                      <span
+                        class="analytics-trend-percent mb-0"
+                      >
+                        1.3%
+                      </span>
+                    </div>
+                  </span>
+                </div>
+              </a>
+            </li>
+            <li
+              class="card-tab"
+            >
+              <a
+                class="button-root btn btn-unstyled"
+                href="/workspace/23/contacts/individuals/known-individuals/0/engagement"
+              >
+                <span
+                  class="title"
+                >
+                  Engagement Score
+                </span>
+                <div>
+                  <span>
+                    <span
+                      class="primary-content"
+                    >
+                      <div
+                        class="metric-value"
+                      >
+                        48.99
+                        <span
+                          class="metric-value-letter"
+                        >
+                          /10
+                           
+                        </span>
+                      </div>
+                    </span>
+                    <div
+                      class="analytics-trend"
+                      style="color: rgb(218, 20, 20);"
+                    >
+                      <svg
+                        class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                        viewBox=""
+                      >
+                        <use
+                          xlink:href="#caret-bottom"
+                        />
+                      </svg>
+                      <span
+                        class="analytics-trend-percent mb-0"
+                      >
+                        0.2%
+                      </span>
+                    </div>
+                  </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+          <div
+            class="individuals-activities-chart"
+          >
+            <div
+              class="chart-root activities-timeline-chart selectable"
+            >
+              <div
+                class="chart-labels"
+              >
+                <span>
+                  Activities
+                </span>
+                <span />
+              </div>
+              <div />
+            </div>
+            <div
+              class="selected-info"
+            >
+              <b>
+                Individual's Activities - July 9, 2018 - July 10, 2018
+              </b>
+            </div>
+          </div>
+          <div
+            class="base-results-root d-flex flex-column flex-grow-1"
+          >
+            <div
+              class="toolbar-root"
+            >
+              <nav
+                class="navbar navbar-root management-bar management-bar-light navbar-expand"
+              >
+                <div
+                  class="container-fluid"
+                >
+                  <ul
+                    class="nav-root front-nav navbar-nav"
+                    role="tablist"
+                  />
+                  <div
+                    class="navbar-form navbar-form-autofit"
+                  >
+                    <div
+                      class="input-group search"
+                    >
+                      <div
+                        class="input-group-item"
+                      >
+                        <input
+                          class="input-root form-control input-group-inset input-group-inset-after"
+                          placeholder="Search"
+                          type="text"
+                          value=""
+                        />
+                        <div
+                          class="input-group-inset-item input-group-inset-item-after"
+                        >
+                          <button
+                            class="button-root btn btn-unstyled"
+                            type="button"
+                          >
+                            <svg
+                              class="icon-root lexicon-icon lexicon-icon-search"
+                              viewBox=""
+                            >
+                              <use
+                                xlink:href="#search"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            </div>
+            <div
+              class="vertical-timeline-root"
+            >
+              <div
+                class="timeline-header"
+              >
+                <div
+                  class="header-label"
+                >
+                  Time
+                </div>
+                <div
+                  class="header-title"
+                >
+                  Session
+                </div>
+                <div
+                  class="header-count"
+                >
+                  Activity Count
+                </div>
+              </div>
+              <ul
+                class="timeline timeline-center"
+              >
+                <li
+                  class="timeline-item header"
+                >
+                  <div
+                    class="timeline-panel"
+                  >
+                    <div
+                      class="timeline-panel-body"
+                    >
+                      <div
+                        class="timeline-panel-body-content"
+                      >
+                        <div
+                          class="timeline-panel-body-content-text"
+                        >
+                          <div>
+                            <span
+                              class="text-truncate"
+                            >
+                              <span
+                                class="title"
+                              >
+                                Jul 10, 2018
+                              </span>
+                            </span>
+                          </div>
+                          <span
+                            class="text-truncate subtitle"
+                            data-tooltip="false"
+                            title=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="timeline-item"
+                >
+                  <div
+                    class="timeline-panel"
+                  >
+                    <div
+                      class="timeline-panel-body"
+                    >
+                      <div
+                        class="timeline-increment"
+                      >
+                        <div
+                          class="sticker sticker-root sticker-static sticker-circle sticker-point sticker-lg"
+                        />
+                      </div>
+                      <div
+                        class="timeline-item-label"
+                      >
+                        11:01pm
+                      </div>
+                      <div
+                        class="timeline-panel-body-content selectable"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <div
+                          class="timeline-panel-body-content-text"
+                        >
+                          <div>
+                            <span
+                              class="text-truncate"
+                            >
+                              <span
+                                class="title"
+                              >
+                                Visited www.liferay0.com
+                              </span>
+                            </span>
+                          </div>
+                          <span
+                            class="text-truncate subtitle"
+                            data-tooltip="false"
+                            title=""
+                          >
+                            <span>
+                              3 Visits
+                            </span>
+                          </span>
+                        </div>
+                        <div
+                          class="timeline-panel-body-content-details"
+                        >
+                          <span
+                            class="item-count"
+                          >
+                            3
+                          </span>
+                          <svg
+                            class="icon-root lexicon-icon lexicon-icon-caret-top"
+                            viewBox=""
+                          >
+                            <use
+                              xlink:href="#caret-top"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <nav
+              class="navbar navbar-root pagination-bar-root"
+            >
+              <div
+                class="container-fluid"
+              >
+                <div
+                  aria-haspopup="true"
+                  class="dropdown dropdown-root pagination-items-per-page"
+                >
+                  <button
+                    class="button-root btn btn-secondary dropdown-toggle show-caret btn-sm"
+                    type="button"
+                  >
+                    <span
+                      class="text-truncate"
+                    >
+                      2 Items
+                    </span>
+                    
+                    <span
+                      class="caret-root"
+                    >
+                      <svg
+                        class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                        viewBox=""
+                      >
+                        <use
+                          xlink:href="#caret-bottom"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+                <div
+                  class="pagination-results"
+                >
+                  Showing 1 to 1 of 1 entry.
+                </div>
+                <ul
+                  class="pagination pagination-root"
+                >
+                  <li
+                    class="page-item disabled"
+                  >
+                    <button
+                      class="button-root btn btn-unstyled page-link"
+                      disabled=""
+                      type="button"
+                    >
+                      <svg
+                        class="icon-root lexicon-icon lexicon-icon-angle-left"
+                        viewBox=""
+                      >
+                        <use
+                          xlink:href="#angle-left"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                  <li
+                    class="page-item active"
+                  >
+                    <button
+                      class="button-root btn btn-unstyled page-link"
+                      type="button"
+                    >
+                      1
+                    </button>
+                  </li>
+                  <li
+                    class="page-item disabled"
+                  >
+                    <button
+                      class="button-root btn btn-unstyled page-link"
+                      disabled=""
+                      type="button"
+                    >
+                      <svg
+                        class="icon-root lexicon-icon lexicon-icon-angle-right"
+                        viewBox=""
+                      >
+                        <use
+                          xlink:href="#angle-right"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="overview-column-side"
+    >
+      <div
+        class="card card-root individual-details-card-root"
+      >
+        <div
+          class="card-body"
+        >
+          <div
+            class="sticker sticker-root sticker-static avatar-root sticker-circle sticker-chartRed sticker-xl"
+          >
+            FB
+          </div>
+          <h4>
+            Foo Bar
+          </h4>
+          <div
+            class="job-title"
+          >
+            Developer
+          </div>
+          <div
+            class="first-seen"
+          >
+            First Seen: July 8, 2018
+          </div>
+        </div>
+        <div
+          class="card-footer"
+        >
+          <a
+            class="button-root btn btn-link btn-sm"
+            href="/workspace/23/contacts/individuals/known-individuals/0/details"
+          >
+            View All Details
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-angle-right"
+              viewBox=""
+            >
+              <use
+                xlink:href="#angle-right"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div
+        class="card card-root individual-interests-card-root"
+      >
+        <div
+          class="card-header"
+        >
+          <h5
+            class="card-title"
+          >
+            Current Interests
+          </h5>
+        </div>
+        <ul
+          class="list-group list-group-root results-container no-border show-quick-actions-on-hover"
+        >
+          <li
+            class="interest list-group-item"
+          >
+            <h4
+              class="list-group-title text-truncate"
+            >
+              <a
+                href="/workspace/23/contacts/individuals/known-individuals/0/interests/Bar0"
+              >
+                Bar0
+              </a>
+            </h4>
+          </li>
+        </ul>
+        <div
+          class="card-footer"
+        >
+          <a
+            class="button-root btn btn-link btn-sm"
+            href="/workspace/23/contacts/individuals/known-individuals/0/interests"
+          >
+            View All Interests
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-angle-right"
+              viewBox=""
+            >
+              <use
+                xlink:href="#angle-right"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div
+        class="card card-root associated-segments-card-root"
+      >
+        <div
+          class="card-header"
+        >
+          <h5
+            class="card-title"
+          >
+            Associated Segments
+          </h5>
+        </div>
+        <div
+          class="card-body"
+        >
+          <div
+            class="input-group"
+          >
+            <div
+              class="input-group-item"
+            >
+              <input
+                class="input-root form-control input-group-inset input-group-inset-after"
+                placeholder="Search"
+                type="text"
+                value=""
+              />
+              <div
+                class="input-group-inset-item input-group-inset-item-after"
+              >
+                <button
+                  class="button-root btn btn-unstyled"
+                  type="button"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-search"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="#search"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content"
+        >
+          <div
+            class="entity-list-root"
+          >
+            <ul
+              class="list-group list-group-root show-quick-actions-on-hover"
+            >
+              <li
+                class="list-group-item list-group-item-flex"
+              >
+                <div
+                  class="autofit-col"
+                >
+                  <div
+                    class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-individual-dynamic-segment"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="#individual-dynamic-segment"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  class="autofit-col autofit-col-expand"
+                >
+                  <span
+                    class="text-truncate"
+                    data-tooltip="false"
+                    title=""
+                  >
+                    <strong>
+                      <a
+                        class="list-group-link"
+                        href="/workspace/23/contacts/segments/0"
+                      >
+                        Seattle0
+                      </a>
+                    </strong>
+                  </span>
+                  <div
+                    class="secondary-info"
+                  >
+                    10 Individuals
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="card-footer"
+        >
+          <a
+            class="button-root btn btn-link btn-sm"
+            href="/workspace/23/contacts/individuals/known-individuals/test/segments"
+          >
+            View All Segments
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-angle-right"
+              viewBox=""
+            >
+              <use
+                xlink:href="#angle-right"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InterestDisplay renders 1`] = `
-<Fragment>
+<div>
   Individual
   <span>
     is
@@ -12,5 +12,5 @@ exports[`InterestDisplay renders 1`] = `
   <b>
     "Tests"
   </b>
-</Fragment>
+</div>
 `;

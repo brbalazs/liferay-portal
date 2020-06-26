@@ -3,7 +3,10 @@ import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import Salesforce from '../Salesforce';
 import {DataSource, User} from 'shared/util/records';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 const {
 	userRoleNames: {administrator}
@@ -21,8 +24,12 @@ const defaultProps = {
 
 describe('Salesforce', () => {
 	it('should render', () => {
-		const component = shallow(<Salesforce {...defaultProps} />);
+		const {container} = render(
+			<StaticRouter>
+				<Salesforce {...defaultProps} />
+			</StaticRouter>
+		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

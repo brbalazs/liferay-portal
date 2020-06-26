@@ -1,129 +1,175 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KnownIndividualsCard should render 1`] = `
-<Card
-  className="known-individuals-card-root"
->
-  <Header>
-    <Title>
-      Known Individuals
-    </Title>
-  </Header>
-  <Table
-    checkDisabled={[Function]}
-    columns={
-      Array [
-        Object {
-          "cellRenderer": [Function],
-          "cellRendererProps": Object {
-            "groupId": "23",
-            "renderSecondaryInfo": [Function],
-            "routeFn": [Function],
-          },
-          "className": "name",
-          "label": "Individual",
-          "sortable": false,
-        },
-        Object {
-          "cellRenderer": [Function],
-          "className": "trendline",
-          "label": "Engagement",
-          "sortable": false,
-        },
-        Object {
-          "accessor": "engagementScore",
-          "className": "score table-column-text-end",
-          "dataFormatter": [Function],
-          "label": null,
-          "sortable": false,
-        },
-      ]
-    }
-    headingNowrap={true}
-    internalSort={false}
-    items={Array []}
-    list={false}
-    loading={true}
-    nestedLevel={0}
-    nowrap={true}
-    onRowDelete={[Function]}
-    onRowSave={[Function]}
-    rowBordered={true}
-    rowIdentifier="id"
-    selectedItemsIOMap={Immutable.OrderedMap {}}
-    showCheckbox={false}
-  />
-  <Footer>
-    <Button
-      display="link"
-      href="/workspace/23/123/contacts/accounts/23/individuals"
-      size="sm"
+<div>
+  <div
+    class="card card-root known-individuals-card-root"
+  >
+    <div
+      class="card-header"
     >
-      View All Individuals
-      <Icon
-        symbol="angle-right"
-      />
-    </Button>
-  </Footer>
-</Card>
+      <h5
+        class="card-title"
+      >
+        Known Individuals
+      </h5>
+    </div>
+    <div
+      class="table-responsive table-root flex-grow-1"
+    >
+      <table
+        class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+      >
+        <thead>
+          <tr
+            class=""
+          >
+            <th
+              class="table-head-title name"
+            >
+              Individual
+            </th>
+            <th
+              class="table-head-title trendline"
+            >
+              Engagement
+            </th>
+            <th
+              class="table-head-title score table-column-text-end"
+            />
+          </tr>
+        </thead>
+      </table>
+      <div
+        class="spinner-root spinner-overlay"
+      >
+        <span
+          class="loading-animation loading-animation-dotted"
+        />
+      </div>
+    </div>
+    <div
+      class="card-footer"
+    >
+      <a
+        class="button-root btn btn-link btn-sm"
+        href="/workspace/23/123/contacts/accounts/23/individuals"
+      >
+        View All Individuals
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-angle-right"
+          viewBox=""
+        >
+          <use
+            xlink:href="#angle-right"
+          />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`KnownIndividualsCard should render w/ ErrorDisplay 1`] = `
-<Card
-  className="known-individuals-card-root"
->
-  <Header>
-    <Title>
-      Known Individuals
-    </Title>
-  </Header>
-  <ErrorDisplay
-    buttonLabel="Reload"
-    key="ERROR_DISPLAY"
-    message="An unexpected error occurred."
-    onReload={[Function]}
-    spacer={true}
-  />
-  <Footer>
-    <Button
-      display="link"
-      href="/workspace/23/123/contacts/accounts/23/individuals"
-      size="sm"
+<div>
+  <div
+    class="card card-root known-individuals-card-root"
+  >
+    <div
+      class="card-header"
     >
-      View All Individuals
-      <Icon
-        symbol="angle-right"
-      />
-    </Button>
-  </Footer>
-</Card>
+      <h5
+        class="card-title"
+      >
+        Known Individuals
+      </h5>
+    </div>
+    <div
+      class="error-display-root error-spacer no-results-root flex-grow-1"
+    >
+      <div
+        class="no-results-content"
+      >
+        <h4
+          class="no-results-title"
+        >
+          An unexpected error occurred.
+        </h4>
+        <button
+          class="button-root btn btn-secondary"
+          type="button"
+        >
+          Reload
+        </button>
+      </div>
+    </div>
+    <div
+      class="card-footer"
+    >
+      <a
+        class="button-root btn btn-link btn-sm"
+        href="/workspace/23/123/contacts/accounts/23/individuals"
+      >
+        View All Individuals
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-angle-right"
+          viewBox=""
+        >
+          <use
+            xlink:href="#angle-right"
+          />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`KnownIndividualsCard should render w/ NoResultsDisplay 1`] = `
-<Card
-  className="known-individuals-card-root"
->
-  <Header>
-    <Title>
-      Known Individuals
-    </Title>
-  </Header>
-  <NoResultsDisplay
-    key="NO_RESULTS_DISPLAY"
-    spacer={true}
-    title="There are no Individuals found."
-  />
-  <Footer>
-    <Button
-      display="link"
-      href="/workspace/23/123/contacts/accounts/23/individuals"
-      size="sm"
+<div>
+  <div
+    class="card card-root known-individuals-card-root"
+  >
+    <div
+      class="card-header"
     >
-      View All Individuals
-      <Icon
-        symbol="angle-right"
-      />
-    </Button>
-  </Footer>
-</Card>
+      <h5
+        class="card-title"
+      >
+        Known Individuals
+      </h5>
+    </div>
+    <div
+      class="no-results-root flex-grow-1"
+    >
+      <div
+        class="no-results-content spacer"
+      >
+        <h4
+          class="no-results-title"
+        >
+          There are no Individuals found.
+        </h4>
+      </div>
+    </div>
+    <div
+      class="card-footer"
+    >
+      <a
+        class="button-root btn btn-link btn-sm"
+        href="/workspace/23/123/contacts/accounts/23/individuals"
+      >
+        View All Individuals
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-angle-right"
+          viewBox=""
+        >
+          <use
+            xlink:href="#angle-right"
+          />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
 `;

@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ItemText should render 1`] = `
-<p
-  className="list-group-text"
-/>
+<div>
+  <p
+    class="list-group-text"
+  />
+</div>
 `;

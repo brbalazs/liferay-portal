@@ -1,25 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DataSourceStatus should render 1`] = `
-<Panel
-  className="data-source-status-root"
-  expandable={false}
-  initialExpanded={false}
-  label={
-    <Label
-      display="info"
-      size="lg"
-      uppercase={true}
+<div>
+  <div
+    class="panel-root data-source-status-root"
+  >
+    <div
+      class="panel-header"
+      role="button"
+      tabindex="0"
     >
-      foo
-    </Label>
-  }
-  title={
-    <div>
-      Current Status:
+      <div
+        class="panel-title"
+      >
+        <div>
+          Current Status:
+        </div>
+      </div>
+      <div
+        class="panel-title-label"
+      >
+        <div
+          class="label label-root label-info label-lg label-uppercase"
+        >
+          <span
+            class="label-item"
+          >
+            foo
+          </span>
+        </div>
+      </div>
     </div>
-  }
->
-  bar
-</Panel>
+    <div
+      class="panel-body"
+    >
+      bar
+    </div>
+  </div>
+</div>
 `;

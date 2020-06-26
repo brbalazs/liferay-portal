@@ -1,92 +1,216 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`KnownIndividuals should render 1`] = `
-<Card
-  pageDisplay={true}
->
-  <SearchableEntityTable
-    bordered={false}
-    checkDisabled={[Function]}
-    columns={
-      Array [
-        Object {
-          "accessor": "name",
-          "cellRenderer": [Function],
-          "cellRendererProps": Object {
-            "renderSecondaryInfo": [Function],
-            "routeFn": [Function],
-          },
-          "className": "table-cell-expand",
-          "label": "Name | Email",
-        },
-        Object {
-          "accessor": "properties.jobTitle",
-          "className": "table-cell-expand",
-          "label": "Job Title",
-        },
-        Object {
-          "accessor": "activitiesCount",
-          "className": "table-column-text-end",
-          "dataFormatter": [Function],
-          "label": "Total Activities",
-        },
-        Object {
-          "accessor": "engagementScore",
-          "className": "table-column-text-end",
-          "dataFormatter": [Function],
-          "label": "30 Day Engagement",
-        },
-        Object {
-          "accessor": "lastActivityDate",
-          "dataFormatter": [Function],
-          "label": "Last Activity",
-        },
-      ]
-    }
-    dataSourceFn={[Function]}
-    dataSourceParams={
-      Object {
-        "channelId": "123123",
-        "groupId": "23",
-        "id": "test",
-      }
-    }
-    delta={2}
-    entityLabel="Individuals"
-    filterBy={Immutable.Map {}}
-    internalSort={false}
-    nowrap={true}
-    orderBy="asc"
-    orderByField="name"
-    orderByOptions={
-      Array [
-        Object {
-          "label": "Name",
-          "value": "name",
-        },
-        Object {
-          "label": "Title",
-          "value": "jobTitle",
-        },
-        Object {
-          "label": "Activities",
-          "value": "activitiesCount",
-        },
-        Object {
-          "label": "30 Day Engagement",
-          "value": "engagementScore",
-        },
-        Object {
-          "label": "Last Activity",
-          "value": "lastActivityDate",
-        },
-      ]
-    }
-    overrideLoading={false}
-    page={1}
-    query=""
-    rowIdentifier="id"
-    showCheckbox={false}
-  />
-</Card>
+<div>
+  <div
+    class="card card-root page-display"
+  >
+    <div
+      class="base-results-root d-flex flex-column flex-grow-1 searchable-table-root searchable-table-borderless"
+    >
+      <div
+        class="toolbar-root"
+      >
+        <nav
+          class="navbar navbar-root management-bar management-bar-light navbar-expand"
+        >
+          <div
+            class="container-fluid"
+          >
+            <ul
+              class="nav-root front-nav navbar-nav"
+              role="tablist"
+            >
+              <li
+                aria-haspopup="true"
+                class="dropdown dropdown-root filter-and-order-root nav-item"
+              >
+                <button
+                  class="button-root btn btn-unstyled dropdown-toggle nav-btn show-caret"
+                  data-testid="filter-and-order-button"
+                  type="button"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Order
+                  </span>
+                  
+                  <span
+                    class="caret-root"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="#caret-bottom"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </li>
+              <li
+                class="nav-item"
+                role="presentation"
+              >
+                <a
+                  class="button-root btn btn-unstyled nav-link nav-link-monospaced btn-outline-borderless"
+                  href="/?orderBy=desc&page=1"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-order-arrow-ascending"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="#order-arrow-ascending"
+                    />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+            <div
+              class="navbar-form navbar-form-autofit"
+            >
+              <div
+                class="input-group search"
+              >
+                <div
+                  class="input-group-item"
+                >
+                  <input
+                    class="input-root form-control input-group-inset input-group-inset-after"
+                    placeholder="Search"
+                    type="text"
+                    value=""
+                  />
+                  <div
+                    class="input-group-inset-item input-group-inset-item-after"
+                  >
+                    <button
+                      class="button-root btn btn-unstyled"
+                      type="button"
+                    >
+                      <svg
+                        class="icon-root lexicon-icon lexicon-icon-search"
+                        viewBox=""
+                      >
+                        <use
+                          xlink:href="#search"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div
+        class="table-responsive table-root flex-grow-1"
+      >
+        <table
+          class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+        >
+          <thead>
+            <tr
+              class=""
+            >
+              <th
+                class="table-head-title table-cell-expand"
+              >
+                <a
+                  class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                  href="/?orderBy=desc&orderByField=name&page=1"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Name | Email
+                  </span>
+                  <span
+                    class="inline-item inline-item-after"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-order-arrow-up"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="#order-arrow-up"
+                      />
+                    </svg>
+                  </span>
+                </a>
+              </th>
+              <th
+                class="table-head-title table-cell-expand"
+              >
+                <a
+                  class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                  href="/?orderBy=asc&orderByField=jobTitle&page=1"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Job Title
+                  </span>
+                </a>
+              </th>
+              <th
+                class="table-head-title table-column-text-end"
+              >
+                <a
+                  class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                  href="/?orderBy=desc&orderByField=activitiesCount&page=1"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Total Activities
+                  </span>
+                </a>
+              </th>
+              <th
+                class="table-head-title table-column-text-end"
+              >
+                <a
+                  class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                  href="/?orderBy=desc&orderByField=engagementScore&page=1"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    30 Day Engagement
+                  </span>
+                </a>
+              </th>
+              <th
+                class="table-head-title"
+              >
+                <a
+                  class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                  href="/?orderBy=desc&orderByField=lastActivityDate&page=1"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Last Activity
+                  </span>
+                </a>
+              </th>
+            </tr>
+          </thead>
+        </table>
+        <div
+          class="spinner-root spinner-overlay"
+        >
+          <span
+            class="loading-animation loading-animation-dotted"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;

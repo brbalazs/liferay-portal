@@ -1,10 +1,12 @@
 import Item from '../Item';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('CohortChartItem', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<Item
 				colorHex='#000000'
 				date='February 20, 2010'
@@ -15,6 +17,6 @@ describe('CohortChartItem', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

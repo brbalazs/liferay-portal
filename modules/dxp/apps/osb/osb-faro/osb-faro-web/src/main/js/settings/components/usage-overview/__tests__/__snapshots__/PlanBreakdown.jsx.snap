@@ -1,86 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PlanBreakdown should render 1`] = `
-<div
-  className="plan-breakdown small"
->
+<div>
   <div
-    className="limits"
+    class="plan-breakdown small"
   >
-    <ul>
-      <li>
-        <Icon
-          symbol="ac-users"
-        />
-        <span
-          className="limit-amount semibold"
-        >
-          Unlimited
-        </span>
-        <span
-          className="text-secondary"
-        >
-          Users
-        </span>
-      </li>
-    </ul>
-  </div>
-  <div
-    className="addons"
-  >
-    <p
-      className="text-secondary semibold addon-list-header"
+    <div
+      class="limits"
     >
-      Add-ons
-    </p>
-    <ul>
-      <li
-        className="extra-small"
-        key="Liferay Analytics Cloud Enterprise Contacts"
-      >
-        <span
-          className="limit-amount semibold"
-        >
-          5,000
-        </span>
-        <span
-          className="text-secondary"
-        >
-          <b
-            className="addon-name"
-            key="individuals"
+      <ul>
+        <li>
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-ac-users"
+            viewBox=""
           >
-            Individuals
-          </b>
-           for 
-          500
-           USD
-        </span>
-      </li>
-      <li
-        className="extra-small"
-        key="Liferay Analytics Cloud Enterprise Tracked Pages"
-      >
-        <span
-          className="limit-amount semibold"
-        >
-          5,000,000
-        </span>
-        <span
-          className="text-secondary"
-        >
-          <b
-            className="addon-name"
-            key="pageViews"
+            <use
+              xlink:href="#ac-users"
+            />
+          </svg>
+          <span
+            class="limit-amount semibold"
           >
-            Page Views
-          </b>
-           for 
-          250
-           USD
-        </span>
-      </li>
-    </ul>
+            Unlimited
+          </span>
+          <span
+            class="text-secondary"
+          >
+            Users
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="addons"
+    >
+      <p
+        class="text-secondary semibold addon-list-header"
+      >
+        Add-ons
+      </p>
+      <ul>
+        <li
+          class="extra-small"
+        >
+          <span
+            class="limit-amount semibold"
+          >
+            5,000
+          </span>
+          <span
+            class="text-secondary"
+          >
+            <b
+              class="addon-name"
+            >
+              Individuals
+            </b>
+             for 
+            500
+             USD
+          </span>
+        </li>
+        <li
+          class="extra-small"
+        >
+          <span
+            class="limit-amount semibold"
+          >
+            5,000,000
+          </span>
+          <span
+            class="text-secondary"
+          >
+            <b
+              class="addon-name"
+            >
+              Page Views
+            </b>
+             for 
+            250
+             USD
+          </span>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 `;

@@ -1,11 +1,15 @@
 import PlansList from '../PlansList';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('PlansList', () => {
+	
 	it('should render', () => {
-		const component = shallow(<PlansList />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<PlansList />);
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with a label in the list of plans for the current plan', () => {
@@ -21,13 +25,13 @@ describe('PlansList', () => {
 			}
 		];
 
-		const component = shallow(
+		const {container} = render(
 			<PlansList
 				currentPlanName={'Liferay Analytics Cloud Business'}
 				plans={mockPlans}
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

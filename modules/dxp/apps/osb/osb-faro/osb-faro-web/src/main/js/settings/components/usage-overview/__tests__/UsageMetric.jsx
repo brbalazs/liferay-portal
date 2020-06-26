@@ -4,12 +4,15 @@ import UsageMetric from '../UsageMetric';
 import {fromJS} from 'immutable';
 import {mockPlan} from 'test/data';
 import {Plan} from 'shared/util/records';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 const {subscriptionStatuses} = FaroConstants;
 
 describe('UsageMetric', () => {
+	
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<UsageMetric
 				currentPlan={new Plan(fromJS(mockPlan()))}
 				metricType={'pageViews'}
@@ -17,11 +20,11 @@ describe('UsageMetric', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render as a warning usage level', () => {
-		const component = shallow(
+		const {container} = render(
 			<UsageMetric
 				currentPlan={
 					new Plan(
@@ -41,11 +44,11 @@ describe('UsageMetric', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render as a danger usage level if metric status is 2', () => {
-		const component = shallow(
+		const {container} = render(
 			<UsageMetric
 				currentPlan={
 					new Plan(
@@ -65,6 +68,6 @@ describe('UsageMetric', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

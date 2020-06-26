@@ -1,7 +1,10 @@
 import AccountEngagement from '../Engagement';
 import React from 'react';
 import {getTimestamp} from 'test/data';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 const mockEngagementData = [
 	{
@@ -16,17 +19,19 @@ const mockEngagementData = [
 
 describe('AccountEngagement', () => {
 	it('should render', () => {
-		const component = shallow(
-			<AccountEngagement
-				channelId={'123'}
-				data={mockEngagementData}
-				groupId={'23'}
-				id={'3'}
-				previousScore={1}
-				score={7}
-			/>
+		const {container} = render(
+			<StaticRouter>
+				<AccountEngagement
+					channelId={'123'}
+					data={mockEngagementData}
+					groupId={'23'}
+					id={'3'}
+					previousScore={1}
+					score={7}
+				/>
+			</StaticRouter>
 		);
 
-		expect(component.shallow()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

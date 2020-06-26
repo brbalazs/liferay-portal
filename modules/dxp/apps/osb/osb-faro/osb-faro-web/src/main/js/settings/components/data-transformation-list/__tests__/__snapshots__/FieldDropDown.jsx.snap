@@ -2,43 +2,73 @@
 
 exports[`FieldDropDown should render 1`] = `
 <div>
-  <SearchableSelect
-    buttonPlaceholder=""
-    caretDouble={true}
-    inputPlaceholder="Search"
-    inputValue=""
-    items={Array []}
-    onSearchChange={[Function]}
-    onSelect={[Function]}
-    selectedItem={Object {}}
-    showSearch={true}
-  />
-  <div
-    className="example-value text-truncate"
-  />
+  <div>
+    <div
+      aria-haspopup="true"
+      class="dropdown dropdown-root searchable-select-root"
+    >
+      <button
+        class="button-root btn btn-secondary dropdown-toggle show-caret"
+        type="button"
+      >
+        
+        
+        <span
+          class="caret-root"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-caret-double"
+            viewBox=""
+          >
+            <use
+              xlink:href="#caret-double"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      class="example-value text-truncate"
+    />
+  </div>
 </div>
 `;
 
 exports[`FieldDropDown should render with a title 1`] = `
 <div>
-  <label
-    className="text-truncate"
-  >
-    FOO BAR
-  </label>
-  <SearchableSelect
-    buttonPlaceholder=""
-    caretDouble={true}
-    inputPlaceholder="Search"
-    inputValue=""
-    items={Array []}
-    onSearchChange={[Function]}
-    onSelect={[Function]}
-    selectedItem={Object {}}
-    showSearch={true}
-  />
-  <div
-    className="example-value text-truncate"
-  />
+  <div>
+    <label
+      class="text-truncate"
+    >
+      FOO BAR
+    </label>
+    <div
+      aria-haspopup="true"
+      class="dropdown dropdown-root searchable-select-root"
+    >
+      <button
+        class="button-root btn btn-secondary dropdown-toggle show-caret"
+        type="button"
+      >
+        
+        
+        <span
+          class="caret-root"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-caret-double"
+            viewBox=""
+          >
+            <use
+              xlink:href="#caret-double"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      class="example-value text-truncate"
+    />
+  </div>
 </div>
 `;

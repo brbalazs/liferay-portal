@@ -1,124 +1,203 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EngagementWithList should render 1`] = `
-<Body
-  className="engagement-chart-list-root"
-  noPadding={true}
->
-  <EngagementChart
-    forwardedRef={
-      Object {
-        "current": null,
-      }
-    }
-    history={
-      Array [
-        Object {
-          "intervalInitDate": 1531177266366,
-          "scoreAvg": 2,
-        },
-        Object {
-          "intervalInitDate": 1531263666366,
-          "scoreAvg": 7,
-        },
-      ]
-    }
-    onAfterInit={[Function]}
-    onPointSelect={[MockFunction]}
-    tooltipRenderRows={[Function]}
-  />
-  <SelectedPointInfo
-    data={
-      Array [
-        Object {
-          "intervalInitDate": 1531177266366,
-          "scoreAvg": 2,
-        },
-        Object {
-          "intervalInitDate": 1531263666366,
-          "scoreAvg": 7,
-        },
-      ]
-    }
-    previousScore={1}
-    scoreLabel="Segment Engagement"
-  />
-  <StatefulPagination
-    checkDisabled={[Function]}
-    columns={
-      Array [
-        Object {
-          "accessor": "name",
-          "label": "Name",
-          "sortable": false,
-          "title": true,
-        },
-        Object {
-          "accessor": "emailAddress",
-          "label": "Email",
-          "sortable": false,
-        },
-        Object {
-          "accessor": "score",
-          "label": "Engagement",
-        },
-      ]
-    }
-    dataSourceFn={[Function]}
-    dataSourceParams={
-      Object {
-        "endDate": 1531263666366,
-        "entityType": 4,
-        "groupId": "23",
-        "id": "3",
-        "startDate": 1531263666366,
-      }
-    }
-    defaultSort={
-      Object {
-        "field": "score",
-        "sortOrder": "desc",
-      }
-    }
-    rowIdentifier="id"
-    toolbarProps={Object {}}
-  />
-</Body>
+<div>
+  <div
+    class="card-body engagement-chart-list-root no-padding"
+  >
+    <div
+      class="chart-root engagement-chart-root selectable"
+    >
+      <div
+        class="chart-labels"
+      >
+        <span>
+          Engagement
+        </span>
+        <span />
+      </div>
+      <div />
+    </div>
+    <div
+      class="selected-point-info"
+    >
+      <h4>
+        Engaged Members as of January 1, 1970
+      </h4>
+      <div
+        class="secondary-info"
+      >
+        <div
+          class="score"
+        >
+          Segment Engagement 
+          <b>
+            0.00
+          </b>
+        </div>
+        <div
+          class="changed-values"
+        >
+          <span
+            class="net-change"
+          >
+            <b>
+              -NaN
+            </b>
+            (0%)
+          </span>
+           vs Previous Day
+        </div>
+      </div>
+    </div>
+    <div
+      class="base-results-root d-flex flex-column flex-grow-1 searchable-table-root searchable-table-borderless"
+    >
+      <div
+        class="toolbar-root"
+      >
+        <nav
+          class="navbar navbar-root management-bar management-bar-light navbar-expand"
+        >
+          <div
+            class="container-fluid"
+          >
+            <ul
+              class="nav-root front-nav navbar-nav"
+              role="tablist"
+            />
+            <div
+              class="navbar-form navbar-form-autofit"
+            >
+              <div
+                class="input-group search"
+              >
+                <div
+                  class="input-group-item"
+                >
+                  <input
+                    class="input-root form-control input-group-inset input-group-inset-after"
+                    placeholder="Search"
+                    type="text"
+                    value=""
+                  />
+                  <div
+                    class="input-group-inset-item input-group-inset-item-after"
+                  >
+                    <button
+                      class="button-root btn btn-unstyled"
+                      type="button"
+                    >
+                      <svg
+                        class="icon-root lexicon-icon lexicon-icon-search"
+                        viewBox=""
+                      >
+                        <use
+                          xlink:href="#search"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div
+        class="table-responsive table-root flex-grow-1"
+      >
+        <table
+          class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+        >
+          <thead>
+            <tr
+              class=""
+            >
+              <th
+                class="table-head-title"
+              >
+                Name
+              </th>
+              <th
+                class="table-head-title"
+              >
+                Email
+              </th>
+              <th
+                class="table-head-title"
+              >
+                <button
+                  class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                  type="button"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Engagement
+                  </span>
+                  <span
+                    class="inline-item inline-item-after"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-order-arrow-down"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="#order-arrow-down"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </th>
+            </tr>
+          </thead>
+        </table>
+        <div
+          class="spinner-root spinner-overlay"
+        >
+          <span
+            class="loading-animation loading-animation-dotted"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`SelectedPointInfo should render 1`] = `
-<div
-  className="selected-point-info"
->
-  <h4>
-    Engaged Members as of July 9, 2018
-  </h4>
+<div>
   <div
-    className="secondary-info"
+    class="selected-point-info"
   >
+    <h4>
+      Engaged Members as of July 9, 2018
+    </h4>
     <div
-      className="score"
+      class="secondary-info"
     >
-      Segment Engagement 
-      <b
-        key="SCORE"
+      <div
+        class="score"
       >
-        2.00
-      </b>
-    </div>
-    <div
-      className="changed-values"
-    >
-      <span
-        className="net-change"
-        key="NET_CHANGE"
-      >
+        Segment Engagement 
         <b>
-          0
+          2.00
         </b>
-        (0%)
-      </span>
-       vs Previous Day
+      </div>
+      <div
+        class="changed-values"
+      >
+        <span
+          class="net-change"
+        >
+          <b>
+            0
+          </b>
+          (0%)
+        </span>
+         vs Previous Day
+      </div>
     </div>
   </div>
 </div>

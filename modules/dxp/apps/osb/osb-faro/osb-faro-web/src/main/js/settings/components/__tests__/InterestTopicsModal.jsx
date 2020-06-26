@@ -1,11 +1,14 @@
 import InterestTopicsModal from '../InterestTopicsModal';
 import React from 'react';
 import {noop} from 'lodash';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('InterestTopicsModal', () => {
 	it('should render', () => {
-		const component = shallow(<InterestTopicsModal onClose={noop} />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<InterestTopicsModal onClose={noop} />);
+
+		expect(container).toMatchSnapshot();
 	});
 });

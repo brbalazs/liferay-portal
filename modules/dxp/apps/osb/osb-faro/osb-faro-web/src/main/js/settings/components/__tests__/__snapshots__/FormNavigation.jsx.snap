@@ -1,21 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FormNavigation should render 1`] = `
-<div
-  className="form-navigation-root"
->
-  <Button
-    className="cancel"
-    href=""
+<div>
+  <div
+    class="form-navigation-root"
   >
-    Cancel
-  </Button>
-  <Button
-    disabled={true}
-    display="primary"
-    type="submit"
-  >
-    Next
-  </Button>
+    <button
+      class="button-root btn btn-secondary cancel"
+      type="button"
+    >
+      Cancel
+    </button>
+    <button
+      class="button-root btn btn-primary"
+      disabled=""
+      type="submit"
+    >
+      Next
+    </button>
+  </div>
 </div>
 `;

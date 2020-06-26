@@ -1,10 +1,13 @@
 import ItemText from '../ItemText';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('ItemText', () => {
 	it('should render', () => {
-		const component = shallow(<ItemText />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<ItemText />);
+
+		expect(container).toMatchSnapshot();
 	});
 });

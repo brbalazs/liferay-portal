@@ -1,17 +1,19 @@
 import Item from '../Item';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('Item', () => {
 	it('should render', () => {
-		const component = shallow(<Item />);
+		const {container} = render(<Item />);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with accentColor', () => {
-		const component = shallow(<Item accentColor='abc' />);
+		const {container} = render(<Item accentColor='abc' />);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

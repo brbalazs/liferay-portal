@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Modal Body should render 1`] = `
-<div
-  className="modal-body"
-/>
+<div>
+  <div
+    class="modal-body"
+  />
+</div>
 `;

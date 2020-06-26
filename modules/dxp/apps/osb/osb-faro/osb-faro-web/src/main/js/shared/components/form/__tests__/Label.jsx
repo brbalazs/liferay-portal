@@ -1,20 +1,26 @@
 import Label from '../Label';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('Label', () => {
+	
 	it('should render', () => {
-		const component = shallow(<Label />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<Label />);
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render as required', () => {
-		const component = shallow(<Label required />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<Label required />);
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with a tooltip and icon', () => {
-		const component = shallow(<Label info={'foo bar baz'} />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<Label info={'foo bar baz'} />);
+
+		expect(container).toMatchSnapshot();
 	});
 });

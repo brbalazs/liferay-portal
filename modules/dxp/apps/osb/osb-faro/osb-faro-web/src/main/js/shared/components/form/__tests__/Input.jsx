@@ -1,20 +1,25 @@
 import Input from '../Input';
 import React from 'react';
 import {mockForm} from 'test/data';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('Input', () => {
+	
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<Input field={{name: 'foo'}} form={mockForm()} />
 		);
-		expect(component).toMatchSnapshot();
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render a masked input', () => {
-		const component = shallow(
+		const {container} = render(
 			<Input field={{name: 'foo'}} form={mockForm()} mask={[]} />
 		);
-		expect(component).toMatchSnapshot();
+
+		expect(container).toMatchSnapshot();
 	});
 });
