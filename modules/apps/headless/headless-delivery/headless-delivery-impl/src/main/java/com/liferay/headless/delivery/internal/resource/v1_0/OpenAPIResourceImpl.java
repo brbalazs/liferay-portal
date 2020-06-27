@@ -58,6 +58,17 @@ public class OpenAPIResourceImpl {
 	public Response getOpenAPI(@PathParam("type") String type)
 		throws Exception {
 
+		try {
+			Class<? extends OpenAPIResource> clazz =
+				_openAPIResource.getClass();
+
+			clazz.getMethod(
+				"getOpenAPI", Set.class, String.class, UriInfo.class);
+		}
+		catch (NoSuchMethodException noSuchMethodException) {
+			return _openAPIResource.getOpenAPI(_resourceClasses, type);
+		}
+
 		return _openAPIResource.getOpenAPI(_resourceClasses, type, _uriInfo);
 	}
 
@@ -74,6 +85,8 @@ public class OpenAPIResourceImpl {
 			add(BlogPostingImageResourceImpl.class);
 
 			add(CommentResourceImpl.class);
+
+			add(ContentElementResourceImpl.class);
 
 			add(ContentSetElementResourceImpl.class);
 
