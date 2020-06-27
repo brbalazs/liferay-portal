@@ -81,9 +81,7 @@ public class ContentElementResourceImpl extends BaseContentElementResourceImpl {
 						searchContext, assetEntryQuery,
 						pagination.getStartPosition(),
 						pagination.getEndPosition())),
-				this::_toContentElement),
-			pagination,
-			_assetHelper.searchCount(searchContext, assetEntryQuery));
+				this::_toContentElement));
 	}
 
 	private SearchContext _getAssetSearchContext(
@@ -146,7 +144,7 @@ public class ContentElementResourceImpl extends BaseContentElementResourceImpl {
 				id = assetEntry.getClassPK();
 				title = assetEntry.getTitle(
 					contextAcceptLanguage.getPreferredLocale());
-				title_i18n = LocalizedMapUtil.getI18nMap(
+				title_i18n = LocalizedMapUtil.getLocalizedMap(
 					contextAcceptLanguage.isAcceptAllLanguages(),
 					assetEntry.getTitleMap());
 
