@@ -42,13 +42,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName("Value")
+@GraphQLName("ContentFieldValue")
 @JsonFilter("Liferay.Vulcan")
-@XmlRootElement(name = "Value")
-public class Value {
+@XmlRootElement(name = "ContentFieldValue")
+public class ContentFieldValue {
 
-	public static Value toDTO(String json) {
-		return ObjectMapperUtil.readValue(Value.class, json);
+	public static ContentFieldValue toDTO(String json) {
+		return ObjectMapperUtil.readValue(ContentFieldValue.class, json);
 	}
 
 	@Schema(description = "The field's content for simple types.")
@@ -230,13 +230,13 @@ public class Value {
 			return true;
 		}
 
-		if (!(object instanceof Value)) {
+		if (!(object instanceof ContentFieldValue)) {
 			return false;
 		}
 
-		Value value = (Value)object;
+		ContentFieldValue contentFieldValue = (ContentFieldValue)object;
 
-		return Objects.equals(toString(), value.toString());
+		return Objects.equals(toString(), contentFieldValue.toString());
 	}
 
 	@Override
@@ -325,7 +325,7 @@ public class Value {
 	}
 
 	@Schema(
-		defaultValue = "com.liferay.headless.delivery.dto.v1_0.Value",
+		defaultValue = "com.liferay.headless.delivery.dto.v1_0.ContentFieldValue",
 		name = "x-class-name"
 	)
 	public String xClassName;
