@@ -42,8 +42,6 @@ import com.liferay.journal.service.JournalArticleService;
 import com.liferay.journal.util.JournalContent;
 import com.liferay.journal.util.JournalConverter;
 import com.liferay.portal.kernel.comment.CommentManager;
-import com.liferay.portal.kernel.service.ClassNameLocalService;
-import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -107,7 +105,7 @@ public class StructuredContentDTOConverter
 					_journalConverter, _layoutLocalService);
 				contentStructureId = ddmStructure.getStructureId();
 				creator = CreatorUtil.toCreator(
-					_portal,
+					_portal, dtoConverterContext.getUriInfoOptional(),
 					_userLocalService.fetchUser(journalArticle.getUserId()));
 				customFields = CustomFieldsUtil.toCustomFields(
 					dtoConverterContext.isAcceptAllLanguages(),
@@ -266,9 +264,6 @@ public class StructuredContentDTOConverter
 	private AssetTagLocalService _assetTagLocalService;
 
 	@Reference
-	private ClassNameLocalService _classNameLocalService;
-
-	@Reference
 	private CommentManager _commentManager;
 
 	@Reference
@@ -279,9 +274,6 @@ public class StructuredContentDTOConverter
 
 	@Reference
 	private FieldsToDDMFormValuesConverter _fieldsToDDMFormValuesConverter;
-
-	@Reference
-	private GroupLocalService _groupLocalService;
 
 	@Reference
 	private JournalArticleService _journalArticleService;

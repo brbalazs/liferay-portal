@@ -29,8 +29,6 @@ import com.liferay.headless.delivery.internal.dto.v1_0.util.TaxonomyCategoryBrie
 import com.liferay.message.boards.model.MBMessage;
 import com.liferay.message.boards.model.MBThread;
 import com.liferay.message.boards.service.MBMessageLocalService;
-import com.liferay.message.boards.service.MBMessageService;
-import com.liferay.message.boards.service.MBStatsUserLocalService;
 import com.liferay.message.boards.service.MBThreadLocalService;
 import com.liferay.message.boards.settings.MBGroupServiceSettings;
 import com.liferay.petra.string.StringPool;
@@ -86,7 +84,8 @@ public class MessageBoardThreadDTOConverter
 					_ratingsStatsLocalService.fetchStats(
 						MBMessage.class.getName(), mbMessage.getMessageId()));
 				articleBody = mbMessage.getBody();
-				creator = CreatorUtil.toCreator(_portal, user);
+				creator = CreatorUtil.toCreator(
+					_portal, dtoConverterContext.getUriInfoOptional(), user);
 				customFields = CustomFieldsUtil.toCustomFields(
 					dtoConverterContext.isAcceptAllLanguages(),
 					MBMessage.class.getName(), mbMessage.getMessageId(),
@@ -164,12 +163,6 @@ public class MessageBoardThreadDTOConverter
 
 	@Reference
 	private MBMessageLocalService _mbMessageLocalService;
-
-	@Reference
-	private MBMessageService _mbMessageService;
-
-	@Reference
-	private MBStatsUserLocalService _mbStatsUserLocalService;
 
 	@Reference
 	private MBThreadLocalService _mbThreadLocalService;

@@ -14,14 +14,14 @@
 
 package com.liferay.headless.delivery.internal.dto.v1_0.converter;
 
-import com.liferay.document.library.kernel.model.DLFolder;
-import com.liferay.document.library.kernel.service.DLAppService;
-import com.liferay.headless.delivery.dto.v1_0.DocumentFolder;
+import com.liferay.headless.delivery.dto.v1_0.MessageBoardSection;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.CreatorUtil;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.CustomFieldsUtil;
-import com.liferay.portal.kernel.repository.model.Folder;
+import com.liferay.message.boards.model.MBCategory;
+import com.liferay.message.boards.service.MBCategoryService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 import com.liferay.subscription.service.SubscriptionLocalService;
@@ -30,55 +30,57 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Rubén Pulido
+ * @author Javier Gamarra
  */
 @Component(
-	property = "dto.class.name=com.liferay.document.library.kernel.model.DLFolder",
-	service = {DocumentFolderDTOConverter.class, DTOConverter.class}
+	property = "dto.class.name=com.liferay.message.boards.model.MBCategory",
+	service = {DTOConverter.class, MessageBoardSectionDTOConverter.class}
 )
-public class DocumentFolderDTOConverter
-	implements DTOConverter<DLFolder, DocumentFolder> {
+public class MessageBoardSectionDTOConverter
+	implements DTOConverter<MBCategory, MessageBoardSection> {
 
 	@Override
 	public String getContentType() {
-		return DocumentFolder.class.getSimpleName();
+		return MessageBoardSection.class.getSimpleName();
 	}
 
 	@Override
-	public DocumentFolder toDTO(DTOConverterContext dtoConverterContext)
+	public MessageBoardSection toDTO(DTOConverterContext dtoConverterContext)
 		throws Exception {
 
-		Folder folder = _dlAppService.getFolder(
+		MBCategory mbCategory = _mbCategoryService.getCategory(
 			(Long)dtoConverterContext.getId());
 
-		return new DocumentFolder() {
+		return new MessageBoardSection() {
 			{
+				actions = dtoConverterContext.getActions();
 				creator = CreatorUtil.toCreator(
 					_portal, dtoConverterContext.getUriInfoOptional(),
-					_userLocalService.fetchUser(folder.getUserId()));
+					_userLocalService.fetchUser(mbCategory.getUserId()));
 				customFields = CustomFieldsUtil.toCustomFields(
 					dtoConverterContext.isAcceptAllLanguages(),
-					DLFolder.class.getName(), folder.getFolderId(),
-					folder.getCompanyId(), dtoConverterContext.getLocale());
-				dateCreated = folder.getCreateDate();
-				dateModified = folder.getModifiedDate();
-				description = folder.getDescription();
-				id = folder.getFolderId();
-				name = folder.getName();
-				numberOfDocumentFolders = _dlAppService.getFoldersCount(
-					folder.getRepositoryId(), folder.getFolderId());
-				numberOfDocuments = _dlAppService.getFileEntriesCount(
-					folder.getRepositoryId(), folder.getFolderId());
-				siteId = folder.getGroupId();
+					MBCategory.class.getName(), mbCategory.getCategoryId(),
+					mbCategory.getCompanyId(), dtoConverterContext.getLocale());
+				dateCreated = mbCategory.getCreateDate();
+				dateModified = mbCategory.getModifiedDate();
+				description = mbCategory.getDescription();
+				id = mbCategory.getCategoryId();
+				numberOfMessageBoardSections =
+					_mbCategoryService.getCategoriesCount(
+						mbCategory.getGroupId(), mbCategory.getCategoryId(),
+						WorkflowConstants.STATUS_APPROVED);
+				numberOfMessageBoardThreads = mbCategory.getThreadCount();
+				siteId = mbCategory.getGroupId();
 				subscribed = _subscriptionLocalService.isSubscribed(
-					folder.getCompanyId(), dtoConverterContext.getUserId(),
-					DLFolder.class.getName(), folder.getFolderId());
+					mbCategory.getCompanyId(), dtoConverterContext.getUserId(),
+					MBCategory.class.getName(), mbCategory.getCategoryId());
+				title = mbCategory.getName();
 			}
 		};
 	}
 
 	@Reference
-	private DLAppService _dlAppService;
+	private MBCategoryService _mbCategoryService;
 
 	@Reference
 	private Portal _portal;

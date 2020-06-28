@@ -32,6 +32,7 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import java.io.Serializable;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -73,6 +74,18 @@ public class KnowledgeBaseFolderResourceImpl
 			parentKnowledgeBaseFolderId);
 
 		return Page.of(
+			HashMapBuilder.put(
+				"create",
+				addAction(
+					"ADD_KB_FOLDER",
+					"postKnowledgeBaseFolderKnowledgeBaseFolder",
+					"com.liferay.knowledge.base.admin", kbFolder.getGroupId())
+			).put(
+				"get",
+				addAction(
+					"VIEW", "getKnowledgeBaseFolderKnowledgeBaseFoldersPage",
+					"com.liferay.knowledge.base.admin", kbFolder.getGroupId())
+			).build(),
 			transform(
 				_kbFolderService.getKBFolders(
 					kbFolder.getGroupId(), parentKnowledgeBaseFolderId,
@@ -89,6 +102,17 @@ public class KnowledgeBaseFolderResourceImpl
 		throws Exception {
 
 		return Page.of(
+			HashMapBuilder.put(
+				"create",
+				addAction(
+					"ADD_KB_FOLDER", "postSiteKnowledgeBaseFolder",
+					"com.liferay.knowledge.base.admin", siteId)
+			).put(
+				"get",
+				addAction(
+					"VIEW", "getSiteKnowledgeBaseFoldersPage",
+					"com.liferay.knowledge.base.admin", siteId)
+			).build(),
 			transform(
 				_kbFolderService.getKBFolders(
 					siteId, 0, pagination.getStartPosition(),
@@ -153,16 +177,6 @@ public class KnowledgeBaseFolderResourceImpl
 					null)));
 	}
 
-	private Map<String, Map<String, String>> _getActions(KBFolder kbFolder) {
-		return HashMapBuilder.<String, Map<String, String>>put(
-			"delete", addAction("DELETE", kbFolder, "deleteKnowledgeBaseFolder")
-		).put(
-			"get", addAction("VIEW", kbFolder, "getKnowledgeBaseFolder")
-		).put(
-			"replace", addAction("UPDATE", kbFolder, "putKnowledgeBaseFolder")
-		).build();
-	}
-
 	private long _getClassNameId() {
 		return _portal.getClassNameId(KBFolder.class.getName());
 	}
@@ -185,9 +199,18 @@ public class KnowledgeBaseFolderResourceImpl
 
 		return new KnowledgeBaseFolder() {
 			{
-				actions = _getActions(kbFolder);
+				actions = HashMapBuilder.put(
+					"delete",
+					addAction("DELETE", kbFolder, "deleteKnowledgeBaseFolder")
+				).put(
+					"get", addAction("VIEW", kbFolder, "getKnowledgeBaseFolder")
+				).put(
+					"replace",
+					addAction("UPDATE", kbFolder, "putKnowledgeBaseFolder")
+				).build();
 				creator = CreatorUtil.toCreator(
-					_portal, _userLocalService.fetchUser(kbFolder.getUserId()));
+					_portal, Optional.of(contextUriInfo),
+					_userLocalService.fetchUser(kbFolder.getUserId()));
 				customFields = CustomFieldsUtil.toCustomFields(
 					contextAcceptLanguage.isAcceptAllLanguages(),
 					KBFolder.class.getName(), kbFolder.getKbFolderId(),

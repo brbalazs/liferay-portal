@@ -55,6 +55,7 @@ public class MessageBoardThreadResourceTest
 			RandomTestUtil.randomString(), serviceContext);
 	}
 
+	@Override
 	@Test
 	public void testGraphQLGetSiteMessageBoardThreadsPage() throws Exception {
 		Long siteId = testGetSiteMessageBoardThreadsPage_getSiteId();

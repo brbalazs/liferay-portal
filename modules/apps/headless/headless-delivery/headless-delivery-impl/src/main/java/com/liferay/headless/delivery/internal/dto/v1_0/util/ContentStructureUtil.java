@@ -59,7 +59,7 @@ public class ContentStructureUtil {
 						ddmStructure.getDDMFormField(fieldName), locale),
 					ContentStructureField.class);
 				creator = CreatorUtil.toCreator(
-					portal,
+					portal, Optional.empty(),
 					userLocalService.fetchUser(ddmStructure.getUserId()));
 				dateCreated = ddmStructure.getCreateDate();
 				dateModified = ddmStructure.getModifiedDate();
