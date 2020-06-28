@@ -360,6 +360,38 @@ public class DocumentResourceImpl
 					documentOptional, groupId)));
 	}
 
+	private Map<String, Map<String, String>> _getActions(FileEntry fileEntry) {
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"delete",
+			addAction(
+				"DELETE", fileEntry.getPrimaryKey(), "deleteDocument",
+				fileEntry.getUserId(),
+				"com.liferay.document.library.kernel.model.DLFileEntry",
+				fileEntry.getGroupId())
+		).put(
+			"get",
+			addAction(
+				"VIEW", fileEntry.getPrimaryKey(), "getDocument",
+				fileEntry.getUserId(),
+				"com.liferay.document.library.kernel.model.DLFileEntry",
+				fileEntry.getGroupId())
+		).put(
+			"replace",
+			addAction(
+				"UPDATE", fileEntry.getPrimaryKey(), "putDocument",
+				fileEntry.getUserId(),
+				"com.liferay.document.library.kernel.model.DLFileEntry",
+				fileEntry.getGroupId())
+		).put(
+			"update",
+			addAction(
+				"UPDATE", fileEntry.getPrimaryKey(), "patchDocument",
+				fileEntry.getUserId(),
+				"com.liferay.document.library.kernel.model.DLFileEntry",
+				fileEntry.getGroupId())
+		).build();
+	}
+
 	private Optional<DLFileEntryType> _getDLFileEntryTypeOptional(
 		long documentFolderId, Optional<Document> documentOptional,
 		Long groupId) {
@@ -395,38 +427,6 @@ public class DocumentResourceImpl
 				return null;
 			}
 		);
-	}
-
-	private Map<String, Map<String, String>> _getActions(FileEntry fileEntry) {
-		return HashMapBuilder.<String, Map<String, String>>put(
-			"delete",
-			addAction(
-				"DELETE", fileEntry.getPrimaryKey(), "deleteDocument",
-				fileEntry.getUserId(),
-				"com.liferay.document.library.kernel.model.DLFileEntry",
-				fileEntry.getGroupId())
-		).put(
-			"get",
-			addAction(
-				"VIEW", fileEntry.getPrimaryKey(), "getDocument",
-				fileEntry.getUserId(),
-				"com.liferay.document.library.kernel.model.DLFileEntry",
-				fileEntry.getGroupId())
-		).put(
-			"replace",
-			addAction(
-				"UPDATE", fileEntry.getPrimaryKey(), "putDocument",
-				fileEntry.getUserId(),
-				"com.liferay.document.library.kernel.model.DLFileEntry",
-				fileEntry.getGroupId())
-		).put(
-			"update",
-			addAction(
-				"UPDATE", fileEntry.getPrimaryKey(), "patchDocument",
-				fileEntry.getUserId(),
-				"com.liferay.document.library.kernel.model.DLFileEntry",
-				fileEntry.getGroupId())
-		).build();
 	}
 
 	private Map<String, Map<String, String>> _getDocumentFolderListActions(
@@ -481,20 +481,6 @@ public class DocumentResourceImpl
 			DLFileEntry.class.getName(), contextCompany.getCompanyId(),
 			_getExpandoBridgeAttributes(documentOptional),
 			contextAcceptLanguage.getPreferredLocale());
-	}
-
-	private Map<String, Map<String, String>> _getSiteListActions(Long siteId) {
-		return HashMapBuilder.<String, Map<String, String>>put(
-			"create",
-			addAction(
-				"ADD_DOCUMENT", "postSiteDocument",
-				"com.liferay.document.library", siteId)
-		).put(
-			"get",
-			addAction(
-				"VIEW", "getSiteDocumentsPage", "com.liferay.document.library",
-				siteId)
-		).build();
 	}
 
 	private ServiceContext _getServiceContext(
@@ -565,6 +551,20 @@ public class DocumentResourceImpl
 		}
 
 		return serviceContext;
+	}
+
+	private Map<String, Map<String, String>> _getSiteListActions(Long siteId) {
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"create",
+			addAction(
+				"ADD_DOCUMENT", "postSiteDocument",
+				"com.liferay.document.library", siteId)
+		).put(
+			"get",
+			addAction(
+				"VIEW", "getSiteDocumentsPage", "com.liferay.document.library",
+				siteId)
+		).build();
 	}
 
 	private SPIRatingResource<Rating> _getSPIRatingResource() {

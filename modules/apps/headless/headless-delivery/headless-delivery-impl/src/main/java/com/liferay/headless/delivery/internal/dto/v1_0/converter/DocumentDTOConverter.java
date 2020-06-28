@@ -31,9 +31,8 @@ import com.liferay.document.library.kernel.model.DLFileEntryMetadata;
 import com.liferay.document.library.kernel.model.DLFileEntryType;
 import com.liferay.document.library.kernel.model.DLFileVersion;
 import com.liferay.document.library.kernel.service.DLAppService;
-import com.liferay.document.library.kernel.util.DLUtil;
 import com.liferay.document.library.kernel.service.DLFileEntryMetadataLocalService;
-import com.liferay.document.library.kernel.service.DLFileEntryService;
+import com.liferay.document.library.kernel.util.DLUtil;
 import com.liferay.dynamic.data.mapping.kernel.DDMStructure;
 import com.liferay.dynamic.data.mapping.kernel.StorageEngineManagerUtil;
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
@@ -286,8 +285,7 @@ public class DocumentDTOConverter
 							ddmFormFieldValue ->
 								ContentFieldUtil.toContentField(
 									ddmFormFieldValue, _dlAppService,
-									dtoConverterContext,
-									_journalArticleService,
+									dtoConverterContext, _journalArticleService,
 									_layoutLocalService),
 							ContentField.class);
 					});

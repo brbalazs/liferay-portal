@@ -75,9 +75,8 @@ public class ContentFieldUtil {
 		return new ContentField() {
 			{
 				contentFieldValue = _toContentFieldValue(
-					ddmFormField, dlAppService,
-					journalArticleService, layoutLocalService,
-					dtoConverterContext.getLocale(),
+					ddmFormField, dlAppService, journalArticleService,
+					layoutLocalService, dtoConverterContext.getLocale(),
 					ddmFormFieldValue.getValue());
 				dataType = ContentStructureUtil.toDataType(ddmFormField);
 				inputControl = ContentStructureUtil.toInputControl(

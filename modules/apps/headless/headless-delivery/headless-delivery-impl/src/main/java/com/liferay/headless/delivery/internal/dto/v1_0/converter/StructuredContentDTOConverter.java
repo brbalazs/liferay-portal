@@ -185,8 +185,8 @@ public class StructuredContentDTOConverter
 		return TransformUtil.transformToArray(
 			ddmFormValues.getDDMFormFieldValues(),
 			ddmFormFieldValue -> ContentFieldUtil.toContentField(
-				ddmFormFieldValue, dlAppService,
-				dtoConverterContext, journalArticleService, layoutLocalService),
+				ddmFormFieldValue, dlAppService, dtoConverterContext,
+				journalArticleService, layoutLocalService),
 			ContentField.class);
 	}
 
