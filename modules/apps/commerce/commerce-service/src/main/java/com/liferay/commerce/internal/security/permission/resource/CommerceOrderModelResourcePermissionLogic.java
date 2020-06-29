@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.internal.security.permission.resource;
 
+import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.constants.CommerceOrderActionKeys;
 import com.liferay.commerce.constants.CommerceOrderConstants;
@@ -62,14 +63,19 @@ public class CommerceOrderModelResourcePermissionLogic
 
 		if (permissionChecker.isCompanyAdmin(commerceOrder.getCompanyId()) ||
 			permissionChecker.isGroupAdmin(commerceOrder.getGroupId()) ||
-			_hasAncestorPermission(
-				permissionChecker, commerceAccount.getCommerceAccountGroupId(),
-				CommerceOrderActionKeys.MANAGE_COMMERCE_ORDERS)) {
+			((commerceAccount.getCommerceAccountId() !=
+				CommerceAccountConstants.ACCOUNT_ID_GUEST) &&
+			 _hasAncestorPermission(
+				 permissionChecker, commerceAccount.getCommerceAccountGroupId(),
+				 CommerceOrderActionKeys.MANAGE_COMMERCE_ORDERS))) {
 
 			return true;
 		}
 
-		if (actionId.equals(CommerceOrderActionKeys.APPROVE_COMMERCE_ORDER)) {
+		if ((commerceAccount.getCommerceAccountId() !=
+				CommerceAccountConstants.ACCOUNT_ID_GUEST) &&
+			actionId.equals(CommerceOrderActionKeys.APPROVE_COMMERCE_ORDER)) {
+
 			return _hasAncestorPermission(
 				permissionChecker, commerceAccount.getCommerceAccountGroupId(),
 				CommerceOrderActionKeys.APPROVE_OPEN_COMMERCE_ORDERS);
