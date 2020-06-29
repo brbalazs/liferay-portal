@@ -66,6 +66,12 @@ CKEDITOR.on('dialogDefinition', function(event) {
 					centerDialog();
 				}, 250)
 			);
+
+			var clearEventHandler = function() {
+				Liferay.detach('resize', boundingWindow);
+            };
+
+            Liferay.once('destroyPortlet', clearEventHandler);
 		});
 	}
 });
