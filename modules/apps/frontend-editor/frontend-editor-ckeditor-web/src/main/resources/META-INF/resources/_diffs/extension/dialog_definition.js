@@ -14,35 +14,47 @@
 
 CKEDITOR.on('dialogDefinition', function(event) {
 	if (event.editor === ckEditor) {
-			var dialogDefinition = event.data.definition;
+		var dialogDefinition = event.data.definition;
 
-			var onShow = dialogDefinition.onShow;
+		var onShow = dialogDefinition.onShow;
 
-			dialogDefinition.onShow = function() {
-				if (typeof onShow === 'function') {
-					onShow.apply(this, arguments);
-				}
+		var dialog;
 
-				var editorElement = this.getParentEditor().container;
+		dialogDefinition.onShow = function() {
+			dialog = this;
 
-				var documentPosition = editorElement.getLast().getDocumentPosition();
+			if (typeof onShow === 'function') {
+				onShow.apply(this, arguments);
+			}
 
-				var dialogSize = this.getSize();
+			centerDialog();
+		};
 
-				var x =
-					documentPosition.x +
-					((editorElement.getLast().getSize('width', true) - dialogSize.width) /
-						2 -
-						window.scrollX);
-				var y =
-					documentPosition.y +
-					((editorElement.getLast().getSize('height', true) -
-						dialogSize.height) /
-						2 -
-						window.scrollY);
+		var centerDialog = function () {
+			var instance = dialog;
 
-				this.move(x, y, false);
-			};
+			var editorElement = instance.getParentEditor().container;
+
+			var documentPosition = editorElement
+				.getLast()
+				.getDocumentPosition();
+
+			var dialogSize = instance.getSize();
+
+			var x =
+				documentPosition.x +
+				((editorElement.getLast().getSize('width', true) -
+					dialogSize.width) /
+					2 -
+					window.scrollX);
+			var y =
+				documentPosition.y +
+				((editorElement.getLast().getSize('height', true) -
+					dialogSize.height) /
+					2 -
+					window.scrollY);
+
+			instance.move(x, y, false);
 		}
 	}
-);
+});
