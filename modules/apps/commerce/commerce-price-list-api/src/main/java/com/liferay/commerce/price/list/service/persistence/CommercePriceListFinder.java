@@ -50,11 +50,6 @@ public interface CommercePriceListFinder {
 
 	public java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceList>
-			findByCommercePricingClassId(
-				long commercePricingClassId, String name, int start, int end);
-
-	public java.util.List
-		<com.liferay.commerce.price.list.model.CommercePriceList>
 			findByCommerceAccountGroupIds(
 				com.liferay.portal.kernel.dao.orm.QueryDefinition
 					<com.liferay.commerce.price.list.model.CommercePriceList>
@@ -66,6 +61,11 @@ public interface CommercePriceListFinder {
 				com.liferay.portal.kernel.dao.orm.QueryDefinition
 					<com.liferay.commerce.price.list.model.CommercePriceList>
 						queryDefinition);
+
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceList>
+			findByCommercePricingClassId(
+				long commercePricingClassId, String name, int start, int end);
 
 	public java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceList>
