@@ -342,10 +342,8 @@ exports[`SearchableTableModalGraphql should render 1`] = `
             <li
               class="page-item disabled"
             >
-              <button
-                class="button-root btn btn-unstyled page-link"
-                disabled=""
-                type="button"
+              <a
+                class="button-root btn btn-unstyled page-link link-disabled"
               >
                 <svg
                   class="icon-root lexicon-icon lexicon-icon-angle-left"
@@ -355,25 +353,23 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                     xlink:href="#angle-left"
                   />
                 </svg>
-              </button>
+              </a>
             </li>
             <li
               class="page-item active"
             >
-              <button
+              <a
                 class="button-root btn btn-unstyled page-link"
-                type="button"
+                href="/?page=1"
               >
                 1
-              </button>
+              </a>
             </li>
             <li
               class="page-item disabled"
             >
-              <button
-                class="button-root btn btn-unstyled page-link"
-                disabled=""
-                type="button"
+              <a
+                class="button-root btn btn-unstyled page-link link-disabled"
               >
                 <svg
                   class="icon-root lexicon-icon lexicon-icon-angle-right"
@@ -383,7 +379,7 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                     xlink:href="#angle-right"
                   />
                 </svg>
-              </button>
+              </a>
             </li>
           </ul>
         </div>

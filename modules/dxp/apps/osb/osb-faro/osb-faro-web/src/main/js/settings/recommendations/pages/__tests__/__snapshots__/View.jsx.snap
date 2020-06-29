@@ -78,6 +78,38 @@ exports[`View should render 1`] = `
         </div>
         <div>
           <div
+            class="card card-root output-versions-card-root"
+          >
+            <div
+              class="card-header d-flex justify-content-between"
+            >
+              <h5
+                class="card-title"
+              >
+                Output Versions
+              </h5>
+              <div
+                class="training-frequency"
+              >
+                Training Frequency
+                <b>
+                  Every 30 days
+                </b>
+              </div>
+            </div>
+            <div
+              class="card-body"
+            >
+              <div
+                class="spinner-root spinner-center spinner-spacer"
+              >
+                <span
+                  class="loading-animation loading-animation-dotted"
+                />
+              </div>
+            </div>
+          </div>
+          <div
             class="card card-root training-items-card-root"
           >
             <div
