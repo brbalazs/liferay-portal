@@ -6,7 +6,7 @@
 	],
 	"env": {
 		"CATALINA_OPTS": "-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true",
-		"FARO_REPOSITORY_SHA": "20200508-fec3870",
+		"FARO_REPOSITORY_SHA": "20200627-c2984e6",
 		"FARO_URL": "https://analytics.liferay.com",
 		"HUBSPOT_ENABLED": "true",
 		"OSB_API_TOKEN": "lwn8C5iAlUi2bvaqSm",
