@@ -366,8 +366,7 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 		HttpSession httpSession = httpServletRequest.getSession();
 
 		httpSession.setAttribute(
-			getCookieName(commerceOrder.getGroupId()),
-			commerceOrder.getUuid());
+			getCookieName(commerceOrder.getGroupId()), commerceOrder.getUuid());
 	}
 
 	@Reference(

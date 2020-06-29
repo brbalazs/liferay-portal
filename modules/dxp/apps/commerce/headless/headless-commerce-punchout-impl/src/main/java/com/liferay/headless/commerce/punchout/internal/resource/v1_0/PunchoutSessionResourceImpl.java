@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * The contents of this file are subject to the terms of the Liferay Enterprise
+ * Subscription License ("License"). You may not use this file except in
+ * compliance with the License. You can obtain a copy of the License by
+ * contacting Liferay, Inc. See the License for the specific language governing
+ * permissions and limitations under the License, including but not limited to
+ * distribution rights of the Software.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *
+ *
  */
 
 package com.liferay.headless.commerce.punchout.internal.resource.v1_0;
@@ -98,8 +98,8 @@ public class PunchoutSessionResourceImpl
 
 		if (!_punchoutEnabled(commerceChannel.getGroupId())) {
 			_log.error(
-			"Punchout request not allowed. Punchout is disabled for channel " +
-				commerceChannel.getName());
+				"Punchout request not allowed. Punchout is disabled for " +
+					"channel " + commerceChannel.getName());
 
 			throw new ForbiddenException("Punchout not allowed for channel");
 		}
@@ -112,9 +112,10 @@ public class PunchoutSessionResourceImpl
 		if (buyerUserInLiferay == null) {
 			_log.error(
 				"Buyer user not found or failed to be created (user email: " +
-						buyerUser.getEmail() + ")");
+					buyerUser.getEmail() + ")");
 
-			throw new InternalServerErrorException("Buyer not found or failed to be created");
+			throw new InternalServerErrorException(
+				"Buyer not found or failed to be created");
 		}
 
 		if (!_userBelongsToGroup(buyerGroup.getGroupId(), buyerUserInLiferay)) {
@@ -122,7 +123,8 @@ public class PunchoutSessionResourceImpl
 				"Buyer user does not belong to group (user email: " +
 					buyerUser.getEmail() + ")");
 
-			throw new BadRequestException("Buyer user does not belong to group");
+			throw new BadRequestException(
+				"Buyer user does not belong to group");
 		}
 
 		CommerceAccount businessCommerceAccount = _fetchBusinessCommerceAccount(
@@ -130,10 +132,12 @@ public class PunchoutSessionResourceImpl
 
 		if (businessCommerceAccount == null) {
 			_log.error(
-				"Business commrece account not found (external reference code: " +
-				punchoutSession.getBuyerAccountReferenceCode() + ")");
+				"Business commrece account not found (external reference " +
+					"code: " + punchoutSession.getBuyerAccountReferenceCode() +
+						")");
 
-			throw new BadRequestException("Business commrece account not found");
+			throw new BadRequestException(
+				"Business commrece account not found");
 		}
 
 		_addBuyerUserToAccount(
@@ -156,7 +160,8 @@ public class PunchoutSessionResourceImpl
 					"Buyer user does not belong to cart (cart ID: " +
 						cart.getId() + ")");
 
-				throw new BadRequestException("Buyer user does not belong to cart");
+				throw new BadRequestException(
+					"Buyer user does not belong to cart");
 			}
 
 			_mergeCartItems(punchoutSession.getCart(), buyerGroup.getGroupId());
@@ -267,8 +272,8 @@ public class PunchoutSessionResourceImpl
 
 		if (!company.isStrangers()) {
 			_log.error(
-				"Strangers are disabled for company (company ID: " +
-					   companyId + ")");
+				"Strangers are disabled for company (company ID: " + companyId +
+					")");
 
 			throw new InternalServerErrorException();
 		}
