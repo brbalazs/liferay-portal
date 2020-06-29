@@ -22,7 +22,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
  * @author Jaclyn Ong
  */
 @ExtendedObjectClassDefinition(
-	category = "punchout", scope = ExtendedObjectClassDefinition.Scope.GROUP
+	category = "third-party", scope = ExtendedObjectClassDefinition.Scope.GROUP
 )
 @Meta.OCD(
 	id = "com.liferay.commerce.punchout.configuration.PunchoutConfiguration",
