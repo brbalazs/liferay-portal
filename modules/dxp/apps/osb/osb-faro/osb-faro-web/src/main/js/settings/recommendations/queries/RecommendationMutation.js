@@ -30,6 +30,12 @@ export const RECOMMENDATION_MUTATION = gql`
 	}
 `;
 
+export const RECOMMENDATION_DELETE_MUTATION = gql`
+	mutation RecommendationDeleteMutation($jobIds: [String]!) {
+		deleteJobs(jobIds: $jobIds)
+	}
+`;
+
 export const RECOMMENDATION_UPDATE_MUTATION = gql`
 	mutation RecommendationUpdateMutation(
 		$jobId: String!
