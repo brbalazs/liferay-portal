@@ -27,6 +27,10 @@ public interface CommerceDiscountFinder {
 		long commercePricingClassId, String title);
 
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
+		findByCommercePricingClassId(
+			long commercePricingClassId, String title, int start, int end);
+
+	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByUnqualifiedProduct(
 			long companyId, long cpDefinitionId, long[] assetCategoryIds,
 			long[] commercePricingClassIds);
@@ -52,10 +56,6 @@ public interface CommerceDiscountFinder {
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByAG_C_C_Order(
 			long[] commerceAccountGroupIds, String commerceDiscountTargetType);
-
-	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
-		findByCommercePricingClassId(
-			long commercePricingClassId, String title, int start, int end);
 
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByC_C_C_Product(
