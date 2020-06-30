@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.dashboard.web.internal.portlet;
 
+import com.liferay.commerce.account.permission.CommerceAccountPermission;
 import com.liferay.commerce.dashboard.web.internal.constants.CommerceDashboardPortletKeys;
 import com.liferay.commerce.dashboard.web.internal.display.context.CommerceDashboardForecastDisplayContext;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -72,6 +73,7 @@ public class CommerceDashboardForecastsChartPortlet extends MVCPortlet {
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
 				new CommerceDashboardForecastDisplayContext(
+					_commerceAccountPermission,
 					_portal.getHttpServletRequest(renderRequest)));
 		}
 		catch (PortalException pe) {
@@ -83,6 +85,9 @@ public class CommerceDashboardForecastsChartPortlet extends MVCPortlet {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceDashboardForecastsChartPortlet.class);
+
+	@Reference
+	private CommerceAccountPermission _commerceAccountPermission;
 
 	@Reference
 	private Portal _portal;

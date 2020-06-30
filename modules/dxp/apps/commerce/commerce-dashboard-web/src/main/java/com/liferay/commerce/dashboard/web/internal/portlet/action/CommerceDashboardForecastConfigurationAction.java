@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.dashboard.web.internal.portlet.action;
 
+import com.liferay.commerce.account.permission.CommerceAccountPermission;
 import com.liferay.commerce.dashboard.web.internal.constants.CommerceDashboardPortletKeys;
 import com.liferay.commerce.dashboard.web.internal.display.context.CommerceDashboardForecastDisplayContext;
 import com.liferay.portal.kernel.log.Log;
@@ -31,6 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Riccardo Ferrari
@@ -53,7 +55,7 @@ public class CommerceDashboardForecastConfigurationAction
 			CommerceDashboardForecastDisplayContext
 				commerceDashboardForecastDisplayContext =
 					new CommerceDashboardForecastDisplayContext(
-						httpServletRequest);
+						_commerceAccountPermission, httpServletRequest);
 
 			httpServletRequest.setAttribute(
 				WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -81,5 +83,8 @@ public class CommerceDashboardForecastConfigurationAction
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceDashboardForecastConfigurationAction.class);
+
+	@Reference
+	private CommerceAccountPermission _commerceAccountPermission;
 
 }
