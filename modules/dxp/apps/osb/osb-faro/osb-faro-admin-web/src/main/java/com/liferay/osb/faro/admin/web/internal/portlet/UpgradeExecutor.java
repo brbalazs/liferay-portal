@@ -311,6 +311,10 @@ public class UpgradeExecutor {
 			return executorService;
 		}
 
+		if (threadCount <= 0) {
+			threadCount = 1;
+		}
+
 		executorService = Executors.newFixedThreadPool(threadCount);
 
 		_executorServices.put(key, executorService);
