@@ -49,6 +49,7 @@ import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerTestRule;
@@ -183,7 +184,7 @@ public class CommerceOrderDiscountTargetGrossTest {
 			_user.getUserId(), commerceInventoryWarehouse,
 			cpInstanceDiscount.getSku(), quantity);
 
-		String couponCode = "SCONTO";
+		String couponCode = StringUtil.randomString();
 
 		CommerceDiscountTestUtil.addCouponDiscount(
 			_group.getGroupId(), 1, couponCode,
@@ -446,7 +447,7 @@ public class CommerceOrderDiscountTargetGrossTest {
 				CommerceDiscountConstants.TARGET_PRODUCT,
 				cpDefinition.getCPDefinitionId());
 
-		String couponCode = "SCONTO";
+		String couponCode = StringUtil.randomString();
 
 		CommerceDiscount commerceDiscount2 =
 			CommerceDiscountTestUtil.addCouponDiscount(
