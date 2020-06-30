@@ -400,7 +400,7 @@
 </tr>
 <tr>
 	<td>CHANNEL_PAYMENT_METHOD_NAME</td>
-	<td>//div/h4[contains(.,'Payment Methods')]/..//a[contains(.,'${key_paymentMethod}')]</td>
+	<td>//div/h4[contains(.,'Payment Methods')]/..//button[contains(.,'${key_paymentMethod}')]</td>
 	<td></td>
 </tr>
 <!--CATALOGS-->
