@@ -39,17 +39,19 @@ if (commerceAccount != null) {
 }
 %>
 
-<div id="<%= forecastChartRootElementId %>">
-	<span aria-hidden="true" class="loading-animation"></span>
-</div>
+<c:if test="<%= commerceDashboardForecastDisplayContext.hasViewPermission() %>">
+	<div id="<%= forecastChartRootElementId %>">
+		<span aria-hidden="true" class="loading-animation"></span>
+	</div>
 
-<aui:script require="commerce-dashboard-web/js/forecast/index.es as chart">
-chart.default('<%= forecastChartRootElementId %>', {
-	APIBaseUrl: `/o/headless-commerce-machine-learning/v1.0/accountCategoryForecasts/by-monthlyRevenue`,
-	accountIds: <%= accountIds %>,
-	categoryIds: <%= categoryIds %>,
-	noAccountErrorMessage: Liferay.Language.get('no-account-selected'),
-	noDataErrorMessage: Liferay.Language.get('no-data-available'),
-	portletId: '<%= portletDisplay.getId() %>'
-});
-</aui:script>
+	<aui:script require="commerce-dashboard-web/js/forecast/index.es as chart">
+	chart.default('<%= forecastChartRootElementId %>', {
+		APIBaseUrl: `/o/headless-commerce-machine-learning/v1.0/accountCategoryForecasts/by-monthlyRevenue`,
+		accountIds: <%= accountIds %>,
+		categoryIds: <%= categoryIds %>,
+		noAccountErrorMessage: Liferay.Language.get('no-account-selected'),
+		noDataErrorMessage: Liferay.Language.get('no-data-available'),
+		portletId: '<%= portletDisplay.getId() %>'
+	});
+	</aui:script>
+</c:if>
