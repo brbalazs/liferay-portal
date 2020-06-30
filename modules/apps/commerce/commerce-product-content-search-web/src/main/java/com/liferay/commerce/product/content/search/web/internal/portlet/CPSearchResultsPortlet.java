@@ -267,40 +267,6 @@ public class CPSearchResultsPortlet
 
 		queryConfig.setHighlightEnabled(false);
 
-		HttpServletRequest httpServletRequest = themeDisplay.getRequest();
-
-		String portletId = ParamUtil.getString(httpServletRequest, "p_p_id");
-
-		String orderByCol = ParamUtil.getString(
-			httpServletRequest,
-			StringBundler.concat(
-				StringPool.UNDERLINE, portletId, StringPool.UNDERLINE,
-				SearchContainer.DEFAULT_ORDER_BY_COL_PARAM));
-
-		if (orderByCol.equals("price-low-to-high")) {
-			searchContext.setSorts(
-				SortFactoryUtil.create(
-					CPField.BASE_PRICE, Sort.DOUBLE_TYPE, false));
-		}
-		else if (orderByCol.equals("price-high-to-low")) {
-			searchContext.setSorts(
-				SortFactoryUtil.create(
-					CPField.BASE_PRICE, Sort.DOUBLE_TYPE, true));
-		}
-		else if (orderByCol.equals("name-ascending")) {
-			searchContext.setSorts(SortFactoryUtil.create(Field.NAME, false));
-		}
-		else if (orderByCol.equals("name-descending")) {
-			searchContext.setSorts(SortFactoryUtil.create(Field.NAME, true));
-		}
-		else if (orderByCol.equals("new-items")) {
-			searchContext.setSorts(
-				SortFactoryUtil.create(Field.CREATE_DATE + "_sortable", true));
-		}
-		else {
-			searchContext.setSorts(SortFactoryUtil.getDefaultSorts());
-		}
-
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 
 		CPSearchResultsPortletInstanceConfiguration
