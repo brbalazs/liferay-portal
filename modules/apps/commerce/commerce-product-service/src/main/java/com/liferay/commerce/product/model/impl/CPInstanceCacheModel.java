@@ -140,8 +140,8 @@ public class CPInstanceCacheModel
 		sb.append(deliverySubscriptionTypeSettings);
 		sb.append(", deliveryMaxSubscriptionCycles=");
 		sb.append(deliveryMaxSubscriptionCycles);
-		sb.append(", UNSPSC=");
-		sb.append(UNSPSC);
+		sb.append(", unspsc=");
+		sb.append(unspsc);
 		sb.append(", status=");
 		sb.append(status);
 		sb.append(", statusByUserId=");
@@ -304,11 +304,11 @@ public class CPInstanceCacheModel
 		cpInstanceImpl.setDeliveryMaxSubscriptionCycles(
 			deliveryMaxSubscriptionCycles);
 
-		if (UNSPSC == null) {
-			cpInstanceImpl.setUNSPSC("");
+		if (unspsc == null) {
+			cpInstanceImpl.setUnspsc("");
 		}
 		else {
-			cpInstanceImpl.setUNSPSC(UNSPSC);
+			cpInstanceImpl.setUnspsc(unspsc);
 		}
 
 		cpInstanceImpl.setStatus(status);
@@ -392,7 +392,7 @@ public class CPInstanceCacheModel
 		deliverySubscriptionTypeSettings = objectInput.readUTF();
 
 		deliveryMaxSubscriptionCycles = objectInput.readLong();
-		UNSPSC = objectInput.readUTF();
+		unspsc = objectInput.readUTF();
 
 		status = objectInput.readInt();
 
@@ -525,11 +525,11 @@ public class CPInstanceCacheModel
 
 		objectOutput.writeLong(deliveryMaxSubscriptionCycles);
 
-		if (UNSPSC == null) {
+		if (unspsc == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(UNSPSC);
+			objectOutput.writeUTF(unspsc);
 		}
 
 		objectOutput.writeInt(status);
@@ -583,9 +583,7 @@ public class CPInstanceCacheModel
 	public String deliverySubscriptionType;
 	public String deliverySubscriptionTypeSettings;
 	public long deliveryMaxSubscriptionCycles;
-
-	public String UNSPSC;
-
+	public String unspsc;
 	public int status;
 	public long statusByUserId;
 	public String statusByUserName;

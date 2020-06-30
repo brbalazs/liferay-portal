@@ -229,7 +229,7 @@ create table CPInstance (
 	deliverySubscriptionType VARCHAR(75) null,
 	deliverySubTypeSettings VARCHAR(75) null,
 	deliveryMaxSubscriptionCycles LONG,
-	UNSPSC VARCHAR(75) null,
+	unspsc VARCHAR(75) null,
 	status INTEGER,
 	statusByUserId LONG,
 	statusByUserName VARCHAR(75) null,

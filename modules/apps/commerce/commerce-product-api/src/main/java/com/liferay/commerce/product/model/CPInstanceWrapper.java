@@ -103,7 +103,7 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 		attributes.put(
 			"deliveryMaxSubscriptionCycles",
 			getDeliveryMaxSubscriptionCycles());
-		attributes.put("UNSPSC", getUNSPSC());
+		attributes.put("unspsc", getUnspsc());
 		attributes.put("status", getStatus());
 		attributes.put("statusByUserId", getStatusByUserId());
 		attributes.put("statusByUserName", getStatusByUserName());
@@ -349,10 +349,10 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 			setDeliveryMaxSubscriptionCycles(deliveryMaxSubscriptionCycles);
 		}
 
-		String UNSPSC = (String)attributes.get("UNSPSC");
+		String unspsc = (String)attributes.get("unspsc");
 
-		if (UNSPSC != null) {
-			setUNSPSC(UNSPSC);
+		if (unspsc != null) {
+			setUnspsc(unspsc);
 		}
 
 		Integer status = (Integer)attributes.get("status");
@@ -821,8 +821,8 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 	 * @return the unspsc of this cp instance
 	 */
 	@Override
-	public String getUNSPSC() {
-		return _cpInstance.getUNSPSC();
+	public String getUnspsc() {
+		return _cpInstance.getUnspsc();
 	}
 
 	/**
@@ -1481,11 +1481,11 @@ public class CPInstanceWrapper implements CPInstance, ModelWrapper<CPInstance> {
 	/**
 	 * Sets the unspsc of this cp instance.
 	 *
-	 * @param UNSPSC the unspsc of this cp instance
+	 * @param unspsc the unspsc of this cp instance
 	 */
 	@Override
-	public void setUNSPSC(String UNSPSC) {
-		_cpInstance.setUNSPSC(UNSPSC);
+	public void setUnspsc(String unspsc) {
+		_cpInstance.setUnspsc(unspsc);
 	}
 
 	/**

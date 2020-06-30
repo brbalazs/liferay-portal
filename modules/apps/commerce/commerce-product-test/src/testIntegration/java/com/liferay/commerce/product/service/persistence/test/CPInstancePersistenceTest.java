@@ -206,7 +206,7 @@ public class CPInstancePersistenceTest {
 		newCPInstance.setDeliveryMaxSubscriptionCycles(
 			RandomTestUtil.nextLong());
 
-		newCPInstance.setUNSPSC(RandomTestUtil.randomString());
+		newCPInstance.setUnspsc(RandomTestUtil.randomString());
 
 		newCPInstance.setStatus(RandomTestUtil.nextInt());
 
@@ -317,7 +317,7 @@ public class CPInstancePersistenceTest {
 			existingCPInstance.getDeliveryMaxSubscriptionCycles(),
 			newCPInstance.getDeliveryMaxSubscriptionCycles());
 		Assert.assertEquals(
-			existingCPInstance.getUNSPSC(), newCPInstance.getUNSPSC());
+			existingCPInstance.getUnspsc(), newCPInstance.getUnspsc());
 		Assert.assertEquals(
 			existingCPInstance.getStatus(), newCPInstance.getStatus());
 		Assert.assertEquals(
@@ -486,7 +486,7 @@ public class CPInstancePersistenceTest {
 			"maxSubscriptionCycles", true, "deliverySubscriptionEnabled", true,
 			"deliverySubscriptionLength", true, "deliverySubscriptionType",
 			true, "deliverySubscriptionTypeSettings", true,
-			"deliveryMaxSubscriptionCycles", true, "UNSPSC", true, "status",
+			"deliveryMaxSubscriptionCycles", true, "unspsc", true, "status",
 			true, "statusByUserId", true, "statusByUserName", true,
 			"statusDate", true);
 	}
@@ -833,7 +833,7 @@ public class CPInstancePersistenceTest {
 
 		cpInstance.setDeliveryMaxSubscriptionCycles(RandomTestUtil.nextLong());
 
-		cpInstance.setUNSPSC(RandomTestUtil.randomString());
+		cpInstance.setUnspsc(RandomTestUtil.randomString());
 
 		cpInstance.setStatus(RandomTestUtil.nextInt());
 

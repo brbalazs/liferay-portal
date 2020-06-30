@@ -672,14 +672,14 @@ public interface CPInstanceModel
 	 * @return the unspsc of this cp instance
 	 */
 	@AutoEscape
-	public String getUNSPSC();
+	public String getUnspsc();
 
 	/**
 	 * Sets the unspsc of this cp instance.
 	 *
-	 * @param UNSPSC the unspsc of this cp instance
+	 * @param unspsc the unspsc of this cp instance
 	 */
-	public void setUNSPSC(String UNSPSC);
+	public void setUnspsc(String unspsc);
 
 	/**
 	 * Returns the status of this cp instance.
