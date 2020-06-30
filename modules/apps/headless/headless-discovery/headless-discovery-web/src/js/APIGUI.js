@@ -133,11 +133,11 @@ const APIGUI = () => {
 
 	window.global = window;
 
-	const mutationObserver = new MutationObserver((mutations) => {
+	const mutationObserver = new MutationObserver(mutations => {
 		mutations.forEach(() => {
 			document
 				.querySelectorAll('.btn.try-out__btn:not(.cancel)')
-				.forEach((div) => {
+				.forEach(div => {
 					div.click();
 					div.style.display = 'none';
 				});
@@ -147,7 +147,7 @@ const APIGUI = () => {
 	mutationObserver.observe(document.documentElement, {
 		attributes: true,
 		childList: true,
-		subtree: true,
+		subtree: true
 	});
 
 	const graphQLFetcher = useCallback(
@@ -162,7 +162,7 @@ const APIGUI = () => {
 		[headers]
 	);
 
-	const requestInterceptor = (req) => {
+	const requestInterceptor = req => {
 		req.headers['x-csrf-token'] = document.querySelector(
 			'meta[name="csrf-token"]'
 		).content;
@@ -303,7 +303,7 @@ const APIGUI = () => {
 							'put',
 							'post',
 							'delete',
-							'patch',
+							'patch'
 						]}
 						url={`/o${new URLSearchParams(
 							window.location.search
