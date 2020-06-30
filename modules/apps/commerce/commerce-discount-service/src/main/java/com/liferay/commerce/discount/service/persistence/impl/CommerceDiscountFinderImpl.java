@@ -215,7 +215,7 @@ public class CommerceDiscountFinderImpl
 		long[] commercePricingClassIds) {
 
 		return _findProductDiscount(
-			FIND_BY_UNQUALIFIED_PRODUCT, companyId, -1, null, -1,
+			FIND_BY_UNQUALIFIED_PRODUCT, companyId, null, null, null,
 			cpDefinitionId, assetCategoryIds, commercePricingClassIds);
 	}
 
@@ -224,7 +224,7 @@ public class CommerceDiscountFinderImpl
 		long companyId, String commerceDiscountTargetType) {
 
 		return _findOrderDiscounts(
-			FIND_BY_UNQUALIFIED_ORDER, companyId, -1, null, -1,
+			FIND_BY_UNQUALIFIED_ORDER, companyId, null, null, null,
 			commerceDiscountTargetType);
 	}
 
@@ -234,7 +234,7 @@ public class CommerceDiscountFinderImpl
 		long[] commercePricingClassIds) {
 
 		return _findProductDiscount(
-			FIND_BY_A_C_C_PRODUCT, -1, commerceAccountId, null, -1,
+			FIND_BY_A_C_C_PRODUCT, null, commerceAccountId, null, null,
 			cpDefinitionId, assetCategoryIds, commercePricingClassIds);
 	}
 
@@ -243,7 +243,7 @@ public class CommerceDiscountFinderImpl
 		long commerceAccountId, String commerceDiscountTargetType) {
 
 		return _findOrderDiscounts(
-			FIND_BY_A_C_C_ORDER, -1, commerceAccountId, null, -1,
+			FIND_BY_A_C_C_ORDER, null, commerceAccountId, null, null,
 			commerceDiscountTargetType);
 	}
 
@@ -253,7 +253,7 @@ public class CommerceDiscountFinderImpl
 		long[] assetCategoryIds, long[] commercePricingClassIds) {
 
 		return _findProductDiscount(
-			FIND_BY_AG_C_C_PRODUCT, -1, -1, commerceAccountGroupIds, -1,
+			FIND_BY_AG_C_C_PRODUCT, null, null, commerceAccountGroupIds, null,
 			cpDefinitionId, assetCategoryIds, commercePricingClassIds);
 	}
 
@@ -262,7 +262,7 @@ public class CommerceDiscountFinderImpl
 		long[] commerceAccountGroupIds, String commerceDiscountTargetType) {
 
 		return _findOrderDiscounts(
-			FIND_BY_AG_C_C_ORDER, -1, -1, commerceAccountGroupIds, -1,
+			FIND_BY_AG_C_C_ORDER, null, null, commerceAccountGroupIds, null,
 			commerceDiscountTargetType);
 	}
 
@@ -272,7 +272,7 @@ public class CommerceDiscountFinderImpl
 		long[] commercePricingClassIds) {
 
 		return _findProductDiscount(
-			FIND_BY_C_C_C_PRODUCT, -1, -1, null, commerceChannelId,
+			FIND_BY_C_C_C_PRODUCT, null, null, null, commerceChannelId,
 			cpDefinitionId, assetCategoryIds, commercePricingClassIds);
 	}
 
@@ -281,7 +281,7 @@ public class CommerceDiscountFinderImpl
 		long commerceChannelId, String commerceDiscountTargetType) {
 
 		return _findOrderDiscounts(
-			FIND_BY_C_C_C_ORDER, -1, -1, null, commerceChannelId,
+			FIND_BY_C_C_C_ORDER, null, null, null, commerceChannelId,
 			commerceDiscountTargetType);
 	}
 
@@ -291,7 +291,7 @@ public class CommerceDiscountFinderImpl
 		long[] assetCategoryIds, long[] commercePricingClassIds) {
 
 		return _findProductDiscount(
-			FIND_BY_A_C_C_C_PRODUCT, -1, commerceAccountId, null,
+			FIND_BY_A_C_C_C_PRODUCT, null, commerceAccountId, null,
 			commerceChannelId, cpDefinitionId, assetCategoryIds,
 			commercePricingClassIds);
 	}
@@ -302,7 +302,7 @@ public class CommerceDiscountFinderImpl
 		String commerceDiscountTargetType) {
 
 		return _findOrderDiscounts(
-			FIND_BY_A_C_C_C_ORDER, -1, commerceAccountId, null,
+			FIND_BY_A_C_C_C_ORDER, null, commerceAccountId, null,
 			commerceChannelId, commerceDiscountTargetType);
 	}
 
@@ -313,7 +313,7 @@ public class CommerceDiscountFinderImpl
 		long[] commercePricingClassIds) {
 
 		return _findProductDiscount(
-			FIND_BY_AG_C_C_C_PRODUCT, -1, -1, commerceAccountGroupIds,
+			FIND_BY_AG_C_C_C_PRODUCT, null, null, commerceAccountGroupIds,
 			commerceChannelId, cpDefinitionId, assetCategoryIds,
 			commercePricingClassIds);
 	}
@@ -324,7 +324,7 @@ public class CommerceDiscountFinderImpl
 		String commerceDiscountTargetType) {
 
 		return _findOrderDiscounts(
-			FIND_BY_AG_C_C_C_ORDER, -1, -1, commerceAccountGroupIds,
+			FIND_BY_AG_C_C_C_ORDER, null, null, commerceAccountGroupIds,
 			commerceChannelId, commerceDiscountTargetType);
 	}
 
@@ -414,8 +414,8 @@ public class CommerceDiscountFinderImpl
 	}
 
 	private List<CommerceDiscount> _findOrderDiscounts(
-		String queryString, long companyId, long commerceAccountId,
-		long[] commerceAccountGroupIds, long commerceChannelId,
+		String queryString, Long companyId, Long commerceAccountId,
+		long[] commerceAccountGroupIds, Long commerceChannelId,
 		String commerceDiscountTargetType) {
 
 		Session session = null;
@@ -443,15 +443,15 @@ public class CommerceDiscountFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			if (companyId != -1) {
+			if (companyId != null) {
 				qPos.add(companyId);
 			}
 
-			if (commerceAccountId != -1) {
+			if (commerceAccountId != null) {
 				qPos.add(commerceAccountId);
 			}
 
-			if (commerceChannelId != -1) {
+			if (commerceChannelId != null) {
 				qPos.add(commerceChannelId);
 			}
 
@@ -469,8 +469,8 @@ public class CommerceDiscountFinderImpl
 	}
 
 	private List<CommerceDiscount> _findProductDiscount(
-		String queryString, long companyId, long commerceAccountId,
-		long[] commerceAccountGroupIds, long commerceChannelId,
+		String queryString, Long companyId, Long commerceAccountId,
+		long[] commerceAccountGroupIds, Long commerceChannelId,
 		long cpDefinitionId, long[] assetCategoryIds,
 		long[] commercePricingClassIds) {
 
@@ -520,15 +520,15 @@ public class CommerceDiscountFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			if (companyId != -1) {
+			if (companyId != null) {
 				qPos.add(companyId);
 			}
 
-			if (commerceAccountId != -1) {
+			if (commerceAccountId != null) {
 				qPos.add(commerceAccountId);
 			}
 
-			if (commerceChannelId != -1) {
+			if (commerceChannelId != null) {
 				qPos.add(commerceChannelId);
 			}
 
