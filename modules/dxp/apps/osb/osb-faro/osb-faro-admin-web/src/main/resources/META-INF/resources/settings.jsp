@@ -19,8 +19,8 @@
 <%
 String redirect = ParamUtil.getString(request, "redirect", currentURL);
 
-String version = PrefsPropsUtil.getString(themeDisplay.getCompanyId(), FaroAdminConstants.REPOSITORY_SHA);
-int threadCount = PrefsPropsUtil.getInteger(themeDisplay.getCompanyId(), FaroAdminConstants.UPGRADE_THREAD_COUNT);
+String version = PrefsPropsUtil.getString(themeDisplay.getCompanyId(), UpgradeConstants.REPOSITORY_SHA);
+int threadCount = PrefsPropsUtil.getInteger(themeDisplay.getCompanyId(), UpgradeConstants.UPGRADE_THREAD_COUNT);
 %>
 
 <liferay-portlet:actionURL var="configurationActionURL" />

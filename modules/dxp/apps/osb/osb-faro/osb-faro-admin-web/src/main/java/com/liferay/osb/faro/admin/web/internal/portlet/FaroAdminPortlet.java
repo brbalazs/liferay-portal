@@ -14,8 +14,8 @@
 
 package com.liferay.osb.faro.admin.web.internal.portlet;
 
-import com.liferay.osb.faro.admin.web.internal.constants.FaroAdminConstants;
 import com.liferay.osb.faro.admin.web.internal.constants.FaroAdminPortletKeys;
+import com.liferay.osb.faro.constants.UpgradeConstants;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -75,13 +75,13 @@ public class FaroAdminPortlet extends MVCPortlet {
 			String version = ParamUtil.getString(actionRequest, "version");
 
 			portletPreferences.setValue(
-				FaroAdminConstants.REPOSITORY_SHA, version);
+				UpgradeConstants.REPOSITORY_SHA, version);
 
 			int threadCount = ParamUtil.getInteger(
 				actionRequest, "threadCount");
 
 			portletPreferences.setValue(
-				FaroAdminConstants.UPGRADE_THREAD_COUNT,
+				UpgradeConstants.UPGRADE_THREAD_COUNT,
 				String.valueOf(threadCount));
 
 			portletPreferences.store();

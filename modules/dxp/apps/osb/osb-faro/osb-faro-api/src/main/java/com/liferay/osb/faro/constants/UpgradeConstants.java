@@ -12,16 +12,16 @@
  *
  */
 
-package com.liferay.osb.faro.admin.web.internal.constants;
+package com.liferay.osb.faro.constants;
 
 /**
  * @author Shinn Lok
  */
-public class FaroAdminConstants {
+public class UpgradeConstants {
 
-	public static final String REPOSITORY_SHA = "osb.faro.admin.repository.sha";
+	public static final String REPOSITORY_SHA = "osb.faro.repository.sha";
 
 	public static final String UPGRADE_THREAD_COUNT =
-		"osb.faro.admin.upgrade.thread.count";
+		"osb.faro.upgrade.thread.count";
 
 }

@@ -14,9 +14,9 @@
 
 package com.liferay.osb.faro.admin.web.internal.portlet.action;
 
-import com.liferay.osb.faro.admin.web.internal.constants.FaroAdminConstants;
 import com.liferay.osb.faro.admin.web.internal.constants.FaroAdminPortletKeys;
 import com.liferay.osb.faro.admin.web.internal.portlet.UpgradeExecutor;
+import com.liferay.osb.faro.constants.UpgradeConstants;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
@@ -61,7 +61,7 @@ public class StartProjectUpgradeMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "version",
 			PrefsPropsUtil.getString(
 				_portal.getCompanyId(actionRequest),
-				FaroAdminConstants.REPOSITORY_SHA));
+				UpgradeConstants.REPOSITORY_SHA));
 		boolean refreshLiferay = ParamUtil.getBoolean(
 			actionRequest, "refreshLiferay");
 		boolean waitForHealthy = ParamUtil.getBoolean(
@@ -76,7 +76,7 @@ public class StartProjectUpgradeMVCActionCommand extends BaseMVCActionCommand {
 				actionRequest, "threadCount",
 				PrefsPropsUtil.getInteger(
 					_portal.getCompanyId(actionRequest),
-					FaroAdminConstants.UPGRADE_THREAD_COUNT));
+					UpgradeConstants.UPGRADE_THREAD_COUNT));
 
 			_upgradeExecutor.upgrade(
 				version, refreshLiferay, threadCount, waitForHealthy);

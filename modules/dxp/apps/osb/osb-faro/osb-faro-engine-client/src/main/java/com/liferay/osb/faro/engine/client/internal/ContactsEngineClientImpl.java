@@ -68,6 +68,7 @@ import com.liferay.osb.faro.engine.client.util.FilterUtil;
 import com.liferay.osb.faro.engine.client.util.OrderByField;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.util.FaroThreadLocal;
+import com.liferay.osb.faro.util.UpgradeUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchPaginationUtil;
 import com.liferay.portal.kernel.model.User;
@@ -2440,7 +2441,9 @@ public class ContactsEngineClientImpl
 
 	@Override
 	public boolean isLatestVersion(FaroProject faroProject) {
-		if (Validator.isNull(_REPOSITORY_SHA)) {
+		String version = UpgradeUtil.getLatestVersion();
+
+		if (Validator.isNull(version)) {
 			return true;
 		}
 
@@ -2469,7 +2472,7 @@ public class ContactsEngineClientImpl
 			return true;
 		}
 
-		String[] parts = StringUtil.split(_REPOSITORY_SHA, StringPool.MINUS);
+		String[] parts = StringUtil.split(version, StringPool.MINUS);
 
 		if (labelVcsRef.startsWith(parts[1])) {
 			return true;
@@ -2841,9 +2844,6 @@ public class ContactsEngineClientImpl
 	private static final String _FARO_URL = System.getenv("FARO_URL");
 
 	private static final int _PAYLOAD_MAX_BYTE_SIZE = 200000;
-
-	private static final String _REPOSITORY_SHA = System.getenv(
-		"FARO_REPOSITORY_SHA");
 
 	private static final DateFormat _dateFormat = new SimpleDateFormat(
 		"yyyy-MM-dd'T'HH:mm:ss'Z'");
