@@ -38,7 +38,7 @@ definition {
 		AssertLocation(value1 = "${portalURL}/web/test-site-name/home");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
 			panel = "Site Administration",
 			portlet = "Pages");
 
@@ -73,7 +73,7 @@ definition {
 		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
 			panel = "Site Administration",
 			portlet = "Pages");
 
