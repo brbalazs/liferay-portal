@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -95,6 +96,14 @@ public class CommerceDiscountFinderImpl
 	public int countByCommercePricingClassId(
 		long commercePricingClassId, String title) {
 
+		return countByCommercePricingClassId(
+			commercePricingClassId, title, false);
+	}
+
+	@Override
+	public int countByCommercePricingClassId(
+		long commercePricingClassId, String title, boolean inlineSQLHelper) {
+
 		Session session = null;
 
 		try {
@@ -102,6 +111,13 @@ public class CommerceDiscountFinderImpl
 
 			String sql = _customSQL.get(
 				getClass(), COUNT_BY_COMMERCE_PRICING_CLASS_ID);
+
+			if (inlineSQLHelper) {
+				sql = InlineSQLHelperUtil.replacePermissionCheck(
+					sql, CommerceDiscount.class.getName(),
+					"CommerceDiscount.commerceDiscountId", null, null,
+					new long[] {0}, null);
+			}
 
 			String[] keywords = _customSQL.keywords(title, true);
 
@@ -158,6 +174,15 @@ public class CommerceDiscountFinderImpl
 	public List<CommerceDiscount> findByCommercePricingClassId(
 		long commercePricingClassId, String title, int start, int end) {
 
+		return findByCommercePricingClassId(
+			commercePricingClassId, title, start, end, false);
+	}
+
+	@Override
+	public List<CommerceDiscount> findByCommercePricingClassId(
+		long commercePricingClassId, String title, int start, int end,
+		boolean inlineSQLHelper) {
+
 		Session session = null;
 
 		try {
@@ -167,6 +192,13 @@ public class CommerceDiscountFinderImpl
 
 			String sql = _customSQL.get(
 				getClass(), FIND_BY_COMMERCE_PRICING_CLASS_ID);
+
+			if (inlineSQLHelper) {
+				sql = InlineSQLHelperUtil.replacePermissionCheck(
+					sql, CommerceDiscount.class.getName(),
+					"CommerceDiscount.commerceDiscountId", null, null,
+					new long[] {0}, null);
+			}
 
 			if (Validator.isNotNull(title)) {
 				sql = _customSQL.replaceKeywords(
@@ -443,17 +475,9 @@ public class CommerceDiscountFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			if (companyId != null) {
-				qPos.add(companyId);
-			}
-
-			if (commerceAccountId != null) {
-				qPos.add(commerceAccountId);
-			}
-
-			if (commerceChannelId != null) {
-				qPos.add(commerceChannelId);
-			}
+			qPos = _setQueryPosDynamicParameters(
+				companyId, commerceAccountId, commerceAccountGroupIds,
+				commerceChannelId, qPos);
 
 			qPos.add(commerceDiscountTargetType);
 
@@ -520,17 +544,9 @@ public class CommerceDiscountFinderImpl
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			if (companyId != null) {
-				qPos.add(companyId);
-			}
-
-			if (commerceAccountId != null) {
-				qPos.add(commerceAccountId);
-			}
-
-			if (commerceChannelId != null) {
-				qPos.add(commerceChannelId);
-			}
+			qPos = _setQueryPosDynamicParameters(
+				companyId, commerceAccountId, commerceAccountGroupIds,
+				commerceChannelId, qPos);
 
 			qPos.add(cpDefinitionId);
 			qPos.add(PortalUtil.getClassNameId(CPDefinition.class.getName()));
@@ -548,6 +564,33 @@ public class CommerceDiscountFinderImpl
 		finally {
 			closeSession(session);
 		}
+	}
+
+	private QueryPos _setQueryPosDynamicParameters(
+		Long companyId, Long commerceAccountId, long[] commerceAccountGroupIds,
+		Long commerceChannelId, QueryPos qPos) {
+
+		if ((commerceChannelId != null) ||
+			((commerceAccountId == null) && (commerceAccountGroupIds == null) &&
+			 (commerceChannelId == null))) {
+
+			qPos.add(
+				PortalUtil.getClassNameId(CommerceDiscount.class.getName()));
+		}
+
+		if (companyId != null) {
+			qPos.add(companyId);
+		}
+
+		if (commerceAccountId != null) {
+			qPos.add(commerceAccountId);
+		}
+
+		if (commerceChannelId != null) {
+			qPos.add(commerceChannelId);
+		}
+
+		return qPos;
 	}
 
 	private static final String _COUNT_VALUE = "COUNT_VALUE";
