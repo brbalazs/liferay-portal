@@ -146,7 +146,7 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 				CPInstance cpInstance = _cpInstanceLocalService.fetchCPInstance(
 					commerceOrderItem.getCPInstanceId());
 
-				cartItemJSONObject.put("unspsc", cpInstance.getUNSPSC());
+				cartItemJSONObject.put("unspsc", cpInstance.getUnspsc());
 
 				DateFormat dateFormat = new SimpleDateFormat(
 					"yyyy-MM-dd'T'HH:mm:ss'Z'");

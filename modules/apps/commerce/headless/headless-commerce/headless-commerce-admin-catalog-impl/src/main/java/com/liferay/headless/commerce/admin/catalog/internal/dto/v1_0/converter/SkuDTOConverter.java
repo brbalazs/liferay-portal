@@ -64,7 +64,7 @@ public class SkuDTOConverter implements DTOConverter<CPInstance, Sku> {
 				published = cpInstance.isPublished();
 				purchasable = cpInstance.isPurchasable();
 				sku = cpInstance.getSku();
-				unspsc = cpInstance.getUNSPSC();
+				unspsc = cpInstance.getUnspsc();
 				weight = cpInstance.getWeight();
 				width = cpInstance.getWidth();
 			}
