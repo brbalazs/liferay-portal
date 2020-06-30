@@ -57,11 +57,6 @@ public class StartProjectUpgradeMVCActionCommand extends BaseMVCActionCommand {
 		}
 
 		long faroProjectId = ParamUtil.getLong(actionRequest, "faroProjectId");
-		String version = ParamUtil.getString(
-			actionRequest, "version",
-			PrefsPropsUtil.getString(
-				_portal.getCompanyId(actionRequest),
-				UpgradeConstants.REPOSITORY_SHA));
 		boolean refreshLiferay = ParamUtil.getBoolean(
 			actionRequest, "refreshLiferay");
 		boolean waitForHealthy = ParamUtil.getBoolean(
@@ -69,7 +64,7 @@ public class StartProjectUpgradeMVCActionCommand extends BaseMVCActionCommand {
 
 		if (faroProjectId > 0) {
 			_upgradeExecutor.upgrade(
-				faroProjectId, version, refreshLiferay, waitForHealthy);
+				faroProjectId, refreshLiferay, waitForHealthy);
 		}
 		else {
 			int threadCount = ParamUtil.getInteger(
@@ -79,7 +74,7 @@ public class StartProjectUpgradeMVCActionCommand extends BaseMVCActionCommand {
 					UpgradeConstants.UPGRADE_THREAD_COUNT));
 
 			_upgradeExecutor.upgrade(
-				version, refreshLiferay, threadCount, waitForHealthy);
+				refreshLiferay, threadCount, waitForHealthy);
 		}
 	}
 

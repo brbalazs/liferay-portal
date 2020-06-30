@@ -20,6 +20,7 @@ import com.liferay.osb.faro.engine.client.model.Workspace;
 import com.liferay.osb.faro.engine.client.model.WorkspaceService;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
+import com.liferay.osb.faro.util.UpgradeUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.log.Log;
@@ -89,26 +90,7 @@ public class UpgradeExecutor {
 	}
 
 	public void upgrade(
-			long faroProjectId, String version, boolean refreshLiferay,
-			boolean waitForHealthy)
-		throws Exception {
-
-		FaroProject faroProject = _faroProjectLocalService.getFaroProject(
-			faroProjectId);
-
-		FutureTask futureTask = _futureTasks.get(faroProject.getWeDeployKey());
-
-		if ((futureTask != null) && !futureTask.isDone()) {
-			throw new Exception("Upgrade currently in progress");
-		}
-
-		_addUpgradeTask(
-			faroProject, version, refreshLiferay, 1, waitForHealthy);
-	}
-
-	public void upgrade(
-			String version, boolean refreshLiferay, int threadCount,
-			boolean waitForHealthy)
+			boolean refreshLiferay, int threadCount, boolean waitForHealthy)
 		throws Exception {
 
 		for (FutureTask futureTask : _futureTasks.values()) {
@@ -119,6 +101,8 @@ public class UpgradeExecutor {
 
 		_futureTasks.clear();
 		_upgradeProgress.clear();
+
+		String version = UpgradeUtil.getLatestVersion();
 
 		for (FaroProject faroProject :
 				ListUtil.sort(
@@ -134,6 +118,24 @@ public class UpgradeExecutor {
 				faroProject, version, refreshLiferay, threadCount,
 				waitForHealthy);
 		}
+	}
+
+	public void upgrade(
+			long faroProjectId, boolean refreshLiferay, boolean waitForHealthy)
+		throws Exception {
+
+		FaroProject faroProject = _faroProjectLocalService.getFaroProject(
+			faroProjectId);
+
+		FutureTask futureTask = _futureTasks.get(faroProject.getWeDeployKey());
+
+		if ((futureTask != null) && !futureTask.isDone()) {
+			throw new Exception("Upgrade currently in progress");
+		}
+
+		_addUpgradeTask(
+			faroProject, UpgradeUtil.getLatestVersion(), refreshLiferay, 1,
+			waitForHealthy);
 	}
 
 	private void _addUpgradeTask(
