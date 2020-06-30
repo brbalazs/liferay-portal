@@ -25,6 +25,7 @@ import com.liferay.commerce.constants.CommerceShipmentConstants;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
 import com.liferay.commerce.exception.CommerceOrderBillingAddressException;
+import com.liferay.commerce.exception.CommerceOrderGuestCheckoutException;
 import com.liferay.commerce.exception.CommerceOrderShippingAddressException;
 import com.liferay.commerce.exception.CommerceOrderShippingMethodException;
 import com.liferay.commerce.exception.CommerceOrderStatusException;
@@ -147,7 +148,7 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 		if (commerceOrder.isGuestOrder() &&
 			!_isGuestCheckoutEnabled(commerceOrder.getGroupId())) {
 
-			return commerceOrder;
+			throw new CommerceOrderGuestCheckoutException();
 		}
 
 		_commerceOrderModelResourcePermission.check(

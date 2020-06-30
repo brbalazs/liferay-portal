@@ -43,6 +43,7 @@ page import="com.liferay.commerce.exception.CommerceAddressNameException" %><%@
 page import="com.liferay.commerce.exception.CommerceAddressStreetException" %><%@
 page import="com.liferay.commerce.exception.CommerceAddressZipException" %><%@
 page import="com.liferay.commerce.exception.CommerceOrderBillingAddressException" %><%@
+page import="com.liferay.commerce.exception.CommerceOrderGuestCheckoutException" %><%@
 page import="com.liferay.commerce.exception.CommerceOrderPaymentMethodException" %><%@
 page import="com.liferay.commerce.exception.CommerceOrderShippingAddressException" %><%@
 page import="com.liferay.commerce.exception.CommerceOrderShippingMethodException" %><%@
