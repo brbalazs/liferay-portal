@@ -3,7 +3,11 @@ import {
 	jobStatuses,
 	jobTrainingFrequencies,
 	jobTrainingPeriods,
-	jobTypes
+	jobTypes,
+	LAST_180_DAYS,
+	LAST_30_DAYS,
+	LAST_7_DAYS,
+	LAST_YEAR
 } from 'shared/util/constants';
 
 export const CANONICAL_URL = 'canonicalUrl';
@@ -102,6 +106,13 @@ export const JOB_TRAINING_PERIODS_LABEL_MAP = {
 	[jobTrainingPeriods.last30Days]: Liferay.Language.get('last-30-days'),
 	[jobTrainingPeriods.last180Days]: Liferay.Language.get('last-180-days'),
 	[jobTrainingPeriods.last365Days]: Liferay.Language.get('last-year')
+};
+
+export const JOB_TRAINING_PERIODS_RANGE_KEY_MAP = {
+	[jobTrainingPeriods.last7Days]: LAST_7_DAYS,
+	[jobTrainingPeriods.last30Days]: LAST_30_DAYS,
+	[jobTrainingPeriods.last180Days]: LAST_180_DAYS,
+	[jobTrainingPeriods.last365Days]: LAST_YEAR
 };
 
 export const JOB_TRAINING_PERIODS_LIST = [

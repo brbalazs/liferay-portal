@@ -9,6 +9,7 @@ import {
 	getPropertiesFromItems,
 	JOB_TRAINING_FREQUENCIES_LABEL_MAP,
 	JOB_TRAINING_PERIODS_LABEL_MAP,
+	JOB_TRAINING_PERIODS_RANGE_KEY_MAP,
 	JOB_TYPES_LABEL_MAP,
 	JobProperty
 } from '../../utils/utils';
@@ -63,6 +64,7 @@ const Summary: React.FC<ISummaryProps> = ({
 			applicationId: 'Page',
 			eventContextPropertyFilters: propertyFilters,
 			eventId: 'pageUnloaded',
+			rangeKey: JOB_TRAINING_PERIODS_RANGE_KEY_MAP[trainingPeriod],
 			size: 0,
 			start: 0
 		}

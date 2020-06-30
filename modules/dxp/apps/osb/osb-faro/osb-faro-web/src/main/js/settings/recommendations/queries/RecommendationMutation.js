@@ -36,6 +36,17 @@ export const RECOMMENDATION_DELETE_MUTATION = gql`
 	}
 `;
 
+export const RECOMMENDATION_RUN_MUTATION = gql`
+	mutation RecommendationRunMutation(
+		$jobId: String!
+		$trainingPeriod: JobTrainingPeriod
+	) {
+		runJob(jobId: $jobId, trainingPeriod: $trainingPeriod) {
+			id
+		}
+	}
+`;
+
 export const RECOMMENDATION_UPDATE_MUTATION = gql`
 	mutation RecommendationUpdateMutation(
 		$jobId: String!

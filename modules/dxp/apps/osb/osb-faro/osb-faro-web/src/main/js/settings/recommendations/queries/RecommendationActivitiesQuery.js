@@ -5,6 +5,7 @@ export default gql`
 		$applicationId: String!
 		$eventContextPropertyFilters: [PropertyFilter]
 		$eventId: String!
+		$rangeKey: Int!
 		$size: Int!
 		$start: Int!
 	) {
@@ -12,6 +13,7 @@ export default gql`
 			applicationId: $applicationId
 			eventContextPropertyFilters: $eventContextPropertyFilters
 			eventId: $eventId
+			rangeKey: $rangeKey
 			size: $size
 			start: $start
 		) {

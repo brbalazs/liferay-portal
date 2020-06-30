@@ -1,6 +1,7 @@
 import BasePage from 'settings/components/BasePage';
 import OutputVersionsCard from '../components/OutputVersionsCard';
 import React from 'react';
+import RecommendationJobRunsQuery from '../queries/RecommendationJobRunsQuery';
 import TrainingItemsCard from '../components/TrainingItemsCard';
 import withRecommendation from 'shared/hoc/WithRecommendation';
 import {addAlert} from 'shared/actions/alerts';
@@ -10,8 +11,12 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Filter, Job} from '../utils/utils';
 import {get} from 'lodash';
+import {getOperationName} from 'apollo-link';
 import {getRecommendations} from 'shared/util/breadcrumbs';
-import {RECOMMENDATION_DELETE_MUTATION} from '../queries/RecommendationMutation';
+import {
+	RECOMMENDATION_DELETE_MUTATION,
+	RECOMMENDATION_RUN_MUTATION
+} from '../queries/RecommendationMutation';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {useMutation} from '@apollo/react-hooks';
@@ -41,6 +46,7 @@ const View: React.FC<IViewProps> = ({
 	const [deleteRecommendationJobs] = useMutation(
 		RECOMMENDATION_DELETE_MUTATION
 	);
+	const [runRecommendationJob] = useMutation(RECOMMENDATION_RUN_MUTATION);
 
 	const itemFilters: Filter[] = get(job, 'parameters', []).filter(
 		({name}) => name !== 'includePreviousPeriod'
@@ -62,7 +68,49 @@ const View: React.FC<IViewProps> = ({
 					groupId={groupId}
 					pageActions={[
 						{
-							label: Liferay.Language.get('retrain')
+							label: Liferay.Language.get('retrain'),
+							onClick: () => {
+								open(modalTypes.MANUALLY_RETRAIN_MODEL_MODAL, {
+									job,
+									onClose: close,
+									onSubmit: ({trainingPeriod}) => {
+										runRecommendationJob({
+											awaitRefetchQueries: true,
+											refetchQueries: [
+												getOperationName(
+													RecommendationJobRunsQuery
+												)
+											],
+											variables: {jobId, trainingPeriod}
+										})
+											.then(() => {
+												addAlert({
+													alertType:
+														Alert.Types.SUCCESS,
+													message: sub(
+														Liferay.Language.get(
+															'x-has-been-deleted'
+														),
+														[name]
+													) as string
+												});
+
+												close();
+											})
+											.catch(() => {
+												addAlert({
+													alertType:
+														Alert.Types.ERROR,
+													message: Liferay.Language.get(
+														'there-was-an-error-processing-your-request.-please-try-again'
+													),
+													timeout: false
+												});
+											});
+									},
+									trainingPeriod: get(job, 'trainingPeriod')
+								});
+							}
 						},
 						{
 							href: toRoute(Routes.SETTINGS_RECOMMENDATION_EDIT, {

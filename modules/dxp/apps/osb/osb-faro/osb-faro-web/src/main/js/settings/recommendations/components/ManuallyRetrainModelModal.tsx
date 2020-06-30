@@ -1,0 +1,145 @@
+import Button from 'shared/components/Button';
+import client from 'shared/apollo/client';
+import Form from 'shared/components/form';
+import Modal from 'shared/components/modal';
+import React from 'react';
+import RecommendationActivitiesQuery from '../queries/RecommendationActivitiesQuery';
+import {
+	Filter,
+	getPropertiesFromItems,
+	Job,
+	JOB_TRAINING_PERIODS_LIST,
+	JOB_TRAINING_PERIODS_RANGE_KEY_MAP,
+	JobProperty
+} from '../utils/utils';
+import {get} from 'lodash';
+import {jobTrainingPeriods} from 'shared/util/constants';
+
+interface IManuallyRetrainModelModalProps {
+	job: Job;
+	onClose: () => void;
+	onSubmit: () => void;
+}
+
+const ManuallyRetrainModelModal = ({job, onClose, onSubmit}) => {
+	const itemFilters: Filter[] = get(job, 'parameters', []).filter(
+		({name}) => name !== 'includePreviousPeriod'
+	);
+
+	const propertyFilters: JobProperty[] = getPropertiesFromItems(itemFilters);
+
+	const validateActivitiesCount = (
+		jobTrainingPeriod: jobTrainingPeriods
+	): Promise<string> => {
+		let error = '';
+
+		return client
+			.query({
+				query: RecommendationActivitiesQuery,
+				variables: {
+					applicationId: 'Page',
+					eventContextPropertyFilters: propertyFilters,
+					eventId: 'pageUnloaded',
+					rangeKey:
+						JOB_TRAINING_PERIODS_RANGE_KEY_MAP[jobTrainingPeriod],
+					size: 0,
+					start: 0
+				}
+			})
+			.then(({data: {activities: {total}}}) => {
+				if (total < 1000) {
+					error = Liferay.Language.get(
+						'the-interaction-period-does-not-meet-the-1000-event-minimum-required-to-train-the-model.-please-add-pages-or-increase-the-period'
+					);
+				}
+
+				return error;
+			});
+	};
+
+	// TODO: LRAC-6220 Replace mock counts with actual values from API
+
+	return (
+		<Modal className='manually-retrain-model-modal-root'>
+			<Modal.Header
+				onClose={onClose}
+				title={Liferay.Language.get('manually-retrain-model')}
+			/>
+
+			<Form
+				initialValues={{trainingPeriod: get(job, 'trainingPeriod')}}
+				onSubmit={onSubmit}
+			>
+				{({handleSubmit}) => (
+					<Form.Form>
+						<Modal.Body>
+							<div className='description'>
+								{Liferay.Language.get(
+									'select-an-interaction-period-for-the-selected-items'
+								)}
+							</div>
+
+							<Form.Group>
+								<Form.GroupItem>
+									<Form.Select
+										label={Liferay.Language.get(
+											'select-interaction-period'
+										)}
+										name='trainingPeriod'
+										validate={validateActivitiesCount}
+									>
+										{JOB_TRAINING_PERIODS_LIST.map(
+											({name, value}) => (
+												<Form.Select.Item
+													key={value}
+													value={value}
+												>
+													{name}
+												</Form.Select.Item>
+											)
+										)}
+									</Form.Select>
+								</Form.GroupItem>
+							</Form.Group>
+
+							<div className='training-allowance'>
+								<div className='title'>
+									{Liferay.Language.get(
+										'monthly-training-allowance'
+									)}
+								</div>
+
+								<div>
+									{`${Liferay.Language.get('scheduled')}:`}
+
+									<span className='count'>{8}</span>
+								</div>
+
+								<div>
+									{`${Liferay.Language.get('remaining')}:`}
+
+									<span className='count'>{8}</span>
+								</div>
+							</div>
+						</Modal.Body>
+
+						<Modal.Footer>
+							<Button onClick={() => onClose()}>
+								{Liferay.Language.get('cancel')}
+							</Button>
+
+							<Button
+								display='primary'
+								onClick={() => handleSubmit()}
+							>
+								{Liferay.Language.get('retrain')}
+							</Button>
+						</Modal.Footer>
+					</Form.Form>
+				)}
+			</Form>
+		</Modal>
+	);
+};
+
+export default ManuallyRetrainModelModal;
