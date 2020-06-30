@@ -1774,7 +1774,7 @@ public class ContactsEngineClientImpl
 	public List<FieldMapping> getIndividualAttributes(
 		FaroProject faroProject, String name) {
 
-		Map<String, Object> uriVariables = new HashMap<>();
+		Map<String, Object> uriVariables = getUriVariables(faroProject);
 
 		if (Validator.isNotNull(name)) {
 			uriVariables.put("name", name);
