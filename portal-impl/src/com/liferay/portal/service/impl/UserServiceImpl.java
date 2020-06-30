@@ -2802,7 +2802,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			Company company = companyPersistence.findByPrimaryKey(
 				user.getCompanyId());
 
-			if (!company.isStrangersWithMx()) {
+			if (company.isStrangers() && !company.isStrangersWithMx()) {
 				throw new UserEmailAddressException.MustNotUseCompanyMx(
 					emailAddress);
 			}
