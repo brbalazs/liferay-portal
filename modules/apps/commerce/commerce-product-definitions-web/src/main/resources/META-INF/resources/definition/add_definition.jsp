@@ -34,14 +34,12 @@
 	</portlet:renderURL>
 
 	<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/modals/index as ModalUtils, commerce-frontend-js/ServiceProvider/index as ServiceProvider">
+		const AdminCatalogResource = ServiceProvider.default.AdminCatalogAPI('v1');
+
 		Liferay.provide(
 			window,
 			'<portlet:namespace/>apiSubmit',
 			function() {
-				const AdminCatalogResource = ServiceProvider.default.AdminCatalogAPI(
-					'v1'
-				);
-
 				const productData = {
 					active: true,
 					catalogId: document.getElementById('<portlet:namespace />catalogId')
