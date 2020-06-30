@@ -213,3 +213,15 @@ app.artifacts-1.0.17=\
 app.change.log-1.0.17=LPS-103091 LPS-103302 LPS-104129 LPS-105380 LPS-106662 LPS-106666 LPS-108386 LPS-109170 LPS-110419
 
 app.git.id-1.0.17=12cb80c0dbcf7b55f291875b1eaa930ebb43dead
+
+#
+# Liferay App Version 1.0.18
+#
+
+app.artifacts-1.0.18=\
+	com.liferay.friendly.url.api-1.0.14.jar,\
+	com.liferay.friendly.url.service-1.0.50.jar
+
+app.change.log-1.0.18=LPS-102906 LPS-105380 LPS-106585 LPS-108386 LPS-109170 LPS-110376 LPS-110419 LPS-111841 LPS-112857 LPS-88893
+
+app.git.id-1.0.18=6e269b3260d3d9b28dd373c524c9aa3bac60311f

@@ -129,3 +129,21 @@ app.artifacts-1.0.6=\
 app.change.log-1.0.6=LPS-102573 LPS-102577 LPS-103874 LPS-104324 LPS-105192 LPS-105193 LPS-105228 LPS-105229 LPS-105233 LPS-105234 LPS-105235 LPS-105237 LPS-105296 LPS-105380 LPS-105982 LPS-106123 LPS-106443 LPS-106468 LPS-106527 LPS-106757 LPS-106758 LPS-107132 LPS-107224 LPS-109159 LPS-109192 LPS-109307 LPS-109908 LPS-110047 LPS-110306 LPS-110347 LPS-110454 LPS-110470 LPS-77699 LPS-91324 LPS-91342 LPS-98387
 
 app.git.id-1.0.6=12cb80c0dbcf7b55f291875b1eaa930ebb43dead
+
+#
+# Liferay App Version 1.0.7
+#
+
+app.artifacts-1.0.7=\
+	com.fasterxml.jackson.dataformat.jackson-dataformat-xml-2.9.8.jar,\
+	com.fasterxml.jackson.jaxrs.jackson-jaxrs-base-2.9.8.jar,\
+	com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider-2.9.8.jar,\
+	com.fasterxml.jackson.module.jackson-module-jaxb-annotations-2.9.6.jar,\
+	com.liferay.portal.vulcan.api-5.13.0.jar,\
+	com.liferay.portal.vulcan.compat.api-1.0.2.jar,\
+	com.liferay.portal.vulcan.impl-2.0.51.jar,\
+	io.swagger.core.v3.swagger-annotations-2.0.5.jar
+
+app.change.log-1.0.7=LPS-101264 LPS-103446 LPS-105380 LPS-105795 LPS-106444 LPS-106886 LPS-107132 LPS-109882 LPS-109908 LPS-110047 LPS-110306 LPS-110454 LPS-110470 LPS-110685 LPS-111235 LPS-111236 LPS-112379 LPS-112507 LPS-112886 LPS-112999 LPS-113149 LPS-113280 LPS-113319 LPS-113619 LPS-113779 LPS-113908 LPS-114479 LPS-114607 LPS-115432 LPS-77699 LPS-98387
+
+app.git.id-1.0.7=6e269b3260d3d9b28dd373c524c9aa3bac60311f

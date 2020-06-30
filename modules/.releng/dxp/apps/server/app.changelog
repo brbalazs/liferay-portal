@@ -195,3 +195,14 @@ app.artifacts-1.0.17=\
 app.change.log-1.0.17=LPS-103302 LPS-105534 LPS-60658 LPS-77699 LPS-98301
 
 app.git.id-1.0.17=12cb80c0dbcf7b55f291875b1eaa930ebb43dead
+
+#
+# Liferay App Version 1.0.18
+#
+
+app.artifacts-1.0.18=\
+	com.liferay.server.admin.web-2.0.35.jar
+
+app.change.log-1.0.18=LPS-105380 LPS-110189 LPS-77699
+
+app.git.id-1.0.18=6e269b3260d3d9b28dd373c524c9aa3bac60311f
