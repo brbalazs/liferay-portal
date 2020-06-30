@@ -93,12 +93,8 @@ public class SaveStepMVCActionCommand extends BaseMVCActionCommand {
 
 		hideDefaultSuccessMessage(actionRequest);
 
-		String redirect = actionResponse.getProperty("redirectURL");
-
-		if (Validator.isBlank(redirect)) {
-			redirect = getRedirect(
-				actionRequest, actionResponse, checkoutStepName);
-		}
+		String redirect = getRedirect(
+			actionRequest, actionResponse, checkoutStepName);
 
 		sendRedirect(actionRequest, actionResponse, redirect);
 	}

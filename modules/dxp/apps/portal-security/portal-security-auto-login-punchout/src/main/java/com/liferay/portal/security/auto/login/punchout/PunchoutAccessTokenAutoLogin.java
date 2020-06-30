@@ -22,7 +22,7 @@ import com.liferay.portal.kernel.security.auto.login.AutoLogin;
 import com.liferay.portal.kernel.security.auto.login.BaseAutoLogin;
 import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.portal.security.auto.login.punchout.internal.PunchoutAutoLoginConstants;
+import com.liferay.portal.security.auto.login.punchout.internal.constants.PunchoutAutoLoginConstants;
 import com.liferay.portal.security.auto.login.punchout.module.configuration.PunchoutAccessTokenAutoLoginConfiguration;
 
 import javax.servlet.http.HttpServletRequest;

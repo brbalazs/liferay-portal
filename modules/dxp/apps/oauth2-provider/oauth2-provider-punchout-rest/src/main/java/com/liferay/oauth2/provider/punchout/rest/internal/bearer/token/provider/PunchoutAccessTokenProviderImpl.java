@@ -133,7 +133,7 @@ public class PunchoutAccessTokenProviderImpl
 	}
 
 	private static void _cleanUp() {
-		while (_punchoutAccessTokenDelayeds.poll() != null);
+		while (_punchoutAccessTokenDelayQueue.poll() != null);
 	}
 
 	private static void _putPunchoutAccessToken(
@@ -141,7 +141,7 @@ public class PunchoutAccessTokenProviderImpl
 
 		_cleanUp();
 
-		_punchoutAccessTokenDelayeds.add(
+		_punchoutAccessTokenDelayQueue.add(
 			new PunchoutAccessTokenDelayed(punchoutAccessToken));
 	}
 
@@ -153,7 +153,7 @@ public class PunchoutAccessTokenProviderImpl
 		AtomicReference<PunchoutAccessToken>
 			punchoutAccessTokenAtomicReference = new AtomicReference<>();
 
-		_punchoutAccessTokenDelayeds.removeIf(
+		_punchoutAccessTokenDelayQueue.removeIf(
 			punchoutAccessTokenDelayed -> {
 				PunchoutAccessToken punchoutAccessToken =
 					punchoutAccessTokenDelayed.getPunchoutAccessToken();
@@ -226,7 +226,7 @@ public class PunchoutAccessTokenProviderImpl
 		_cleanUp();
 
 		for (PunchoutAccessTokenDelayed punchoutAccessTokenDelayed :
-				_punchoutAccessTokenDelayeds) {
+				_punchoutAccessTokenDelayQueue) {
 
 			PunchoutAccessToken punchoutAccessToken =
 				punchoutAccessTokenDelayed.getPunchoutAccessToken();

@@ -15,7 +15,7 @@
 package com.liferay.portal.security.auto.login.punchout.module.configuration.definition;
 
 import com.liferay.portal.kernel.settings.definition.ConfigurationPidMapping;
-import com.liferay.portal.security.auto.login.punchout.internal.PunchoutAutoLoginConstants;
+import com.liferay.portal.security.auto.login.punchout.internal.constants.PunchoutAutoLoginConstants;
 import com.liferay.portal.security.auto.login.punchout.module.configuration.PunchoutAccessTokenAutoLoginConfiguration;
 
 import org.osgi.service.component.annotations.Component;

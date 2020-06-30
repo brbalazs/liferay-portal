@@ -30,15 +30,15 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 public interface PunchoutAccessTokenProviderConfiguration {
 
 	@Meta.AD(
-		deflt = "15", description = "access-token-expires-in-description",
-		id = "access.token.expires.in", name = "access-token-expires-in",
+		deflt = "15", description = "access-token-duration-description",
+		id = "access.token.expires.in", name = "access-token-duration",
 		required = false
 	)
 	public int accessTokenExpiresIn();
 
 	@Meta.AD(
-		deflt = "8", description = "access-token-key-byte-size-description",
-		id = "access.token.key.byte.size", name = "access-token-key-byte-size",
+		deflt = "8", description = "access-token-size-description",
+		id = "access.token.key.byte.size", name = "access-token-size",
 		required = false
 	)
 	public int accessTokenKeyByteSize();

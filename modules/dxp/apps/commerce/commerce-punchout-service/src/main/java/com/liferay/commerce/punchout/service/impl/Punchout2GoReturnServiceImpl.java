@@ -96,11 +96,11 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 				cartItemJSONObject.put(
 					"description", cpDefinition.getDescription());
 
+				StringBundler assetCategorySB = new StringBundler();
+
 				AssetEntry assetEntry = _assetEntryLocalService.getEntry(
 					CPDefinition.class.getName(),
 					cpDefinition.getCPDefinitionId());
-
-				StringBundler assetCategorySB = new StringBundler();
 
 				for (AssetCategory assetCategory : assetEntry.getCategories()) {
 					assetCategorySB.append(assetCategory.getName());

@@ -106,10 +106,10 @@ public class PunchoutSessionResourceImpl
 
 		User buyerUser = punchoutSession.getBuyerUser();
 
-		com.liferay.portal.kernel.model.User buyerLiferayUser=
+		com.liferay.portal.kernel.model.User buyerLiferayUser =
 			_fetchOrCreateBuyerUser(buyerUser, buyerGroup.getGroupId());
 
-		if (buyerUserInLiferay == null) {
+		if (buyerLiferayUser == null) {
 			_log.error(
 				"Buyer user not found or failed to be created (user email: " +
 					buyerUser.getEmail() + ")");
@@ -118,7 +118,7 @@ public class PunchoutSessionResourceImpl
 				"Buyer not found or failed to be created");
 		}
 
-		if (!_userBelongsToGroup(buyerGroup.getGroupId(), buyerUserInLiferay)) {
+		if (!_userBelongsToGroup(buyerGroup.getGroupId(), buyerLiferayUser)) {
 			_log.error(
 				"Buyer user does not belong to group (user email: " +
 					buyerUser.getEmail() + ")");
@@ -141,7 +141,7 @@ public class PunchoutSessionResourceImpl
 		}
 
 		_addBuyerUserToAccount(
-			businessCommerceAccount, buyerUserInLiferay.getUserId(),
+			businessCommerceAccount, buyerLiferayUser.getUserId(),
 			buyerGroup.getGroupId());
 
 		String punchoutSessionType = punchoutSession.getPunchoutSessionType();
@@ -154,7 +154,7 @@ public class PunchoutSessionResourceImpl
 			punchoutSessionType.equalsIgnoreCase(_INSPECT_REQUEST_TYPE)) {
 
 			if (!_userBelongsToCart(
-					buyerUserInLiferay.getUserId(), cart.getId())) {
+					buyerLiferayUser.getUserId(), cart.getId())) {
 
 				_log.error(
 					"Buyer user does not belong to cart (cart ID: " +
@@ -179,7 +179,7 @@ public class PunchoutSessionResourceImpl
 			_punchoutAccessTokenProvider.generatePunchoutAccessToken(
 				buyerGroup.getGroupId(),
 				businessCommerceAccount.getCommerceAccountId(),
-				cart.getCurrencyCode(), buyerUserInLiferay.getEmailAddress(),
+				cart.getCurrencyCode(), buyerLiferayUser.getEmailAddress(),
 				punchoutSession.getPunchoutReturnURL(), commerceOrderUuid);
 
 		byte[] token = punchoutAccessToken.getToken();
