@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.portal.security.auto.login.punchout.internal;
+package com.liferay.portal.security.auto.login.punchout.internal.constants;
 
 /**
  * @author Jaclyn Ong

@@ -251,7 +251,7 @@ public class PunchoutAccessTokenProviderImpl
 			PunchoutAccessTokenProviderImpl.class, "_getPunchoutAccessToken",
 			String.class);
 	private static final DelayQueue<PunchoutAccessTokenDelayed>
-		_punchoutAccessTokenDelayeds = new DelayQueue<>();
+		_punchoutAccessTokenDelayQueue = new DelayQueue<>();
 	private static final MethodKey _putPunchoutAccessTokenMethodKey =
 		new MethodKey(
 			PunchoutAccessTokenProviderImpl.class, "_putPunchoutAccessToken",

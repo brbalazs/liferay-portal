@@ -106,7 +106,7 @@ public class PunchoutSessionResourceImpl
 
 		User buyerUser = punchoutSession.getBuyerUser();
 
-		com.liferay.portal.kernel.model.User buyerUserInLiferay =
+		com.liferay.portal.kernel.model.User buyerLiferayUser=
 			_fetchOrCreateBuyerUser(buyerUser, buyerGroup.getGroupId());
 
 		if (buyerUserInLiferay == null) {
