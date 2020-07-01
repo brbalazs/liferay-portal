@@ -22,7 +22,7 @@ CommercePricingClassDisplayContext commercePricingClassDisplayContext = (Commerc
 CommercePricingClass commercePricingClass = commercePricingClassDisplayContext.getCommercePricingClass();
 
 long commercePricingClassId = commercePricingClass.getCommercePricingClassId();
-boolean isViewOnly = !commercePricingClassDisplayContext.hasPermission();
+boolean isViewOnly = !commercePricingClassDisplayContext.hasPermission(ActionKeys.UPDATE);
 
 boolean hasCustomAttributesAvailable = CustomAttributesUtil.hasCustomAttributes(company.getCompanyId(), CommercePricingClass.class.getName(), commercePricingClassId, null);
 %>
