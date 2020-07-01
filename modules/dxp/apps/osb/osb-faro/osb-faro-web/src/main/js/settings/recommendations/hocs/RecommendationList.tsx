@@ -41,7 +41,7 @@ import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {useMutation} from '@apollo/react-hooks';
 import {User} from 'shared/util/records';
-import {withCrossPageSelect, withCurrentUser, withHistory} from 'shared/hoc';
+import {withCrossPageSelect, withCurrentUser} from 'shared/hoc';
 
 const {
 	pagination: {cur: defaultPage, orderDescending}
@@ -365,7 +365,6 @@ const RecommendationList: React.FC<IRecommendationListProps> = ({
 export default compose<any>(
 	withCurrentUser,
 	withSelectionProvider,
-	withHistory,
 	connect(
 		null,
 		{addAlert, close, open}

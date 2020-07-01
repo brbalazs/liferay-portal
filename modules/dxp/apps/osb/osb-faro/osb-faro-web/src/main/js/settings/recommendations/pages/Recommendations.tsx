@@ -4,10 +4,16 @@ import RecommendationList from '../hocs/RecommendationList';
 import {RouterType} from 'shared/types';
 
 interface IRecommendationsProps {
+	history: {
+		push: (string) => void;
+	};
 	router: RouterType;
 }
 
-const Recommendations: React.FC<IRecommendationsProps> = ({router}) => {
+const Recommendations: React.FC<IRecommendationsProps> = ({
+	history,
+	router
+}) => {
 	const {groupId} = router.params;
 
 	return (
@@ -18,7 +24,11 @@ const Recommendations: React.FC<IRecommendationsProps> = ({router}) => {
 			)}
 			pageTitle={Liferay.Language.get('recommendations')}
 		>
-			<RecommendationList groupId={groupId} router={router} />
+			<RecommendationList
+				groupId={groupId}
+				history={history}
+				router={router}
+			/>
 		</BasePage>
 	);
 };
