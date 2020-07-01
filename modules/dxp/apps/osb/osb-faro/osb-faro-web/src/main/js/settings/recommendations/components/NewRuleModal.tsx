@@ -134,7 +134,10 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 							/>
 
 							<div className='find-matches-button-container d-flex flex-column justify-content-center'>
-								<Button onClick={fetchPageAssets}>
+								<Button
+									disabled={!stringMatch}
+									onClick={fetchPageAssets}
+								>
 									{Liferay.Language.get('find-matches')}
 								</Button>
 							</div>
@@ -213,6 +216,7 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 				</Button>
 
 				<Button
+					disabled={!stringMatch}
 					display='primary'
 					onClick={() =>
 						onSubmit({
