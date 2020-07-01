@@ -26,7 +26,7 @@ public class CPInstanceUpgradeProcess
 	@Override
 	protected void doUpgrade() throws Exception {
 		addColumn(
-			CPInstanceModelImpl.class, CPInstanceModelImpl.TABLE_NAME, "UNSPSC",
+			CPInstanceModelImpl.class, CPInstanceModelImpl.TABLE_NAME, "unspsc",
 			"VARCHAR(75)");
 	}
 

@@ -231,7 +231,7 @@ public class EditCPInstanceMVCActionCommand extends BaseMVCActionCommand {
 		boolean neverExpire = ParamUtil.getBoolean(
 			actionRequest, "neverExpire");
 
-		String unspsc = ParamUtil.getString(actionRequest, "UNSPSC");
+		String unspsc = ParamUtil.getString(actionRequest, "unspsc");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			CPInstance.class.getName(), actionRequest);

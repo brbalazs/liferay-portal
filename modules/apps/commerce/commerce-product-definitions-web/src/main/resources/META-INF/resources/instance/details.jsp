@@ -96,7 +96,7 @@ if ((cpInstance != null) && (cpInstance.getExpirationDate() != null)) {
 
 				<aui:input bean="<%= cpInstance %>" model="<%= CPInstance.class %>" name="manufacturerPartNumber" />
 
-				<aui:input bean="<%= cpInstance %>" label="unspsc" model="<%= CPInstance.class %>" name="UNSPSC" />
+				<aui:input bean="<%= cpInstance %>" label="unspsc" model="<%= CPInstance.class %>" name="unspsc" />
 			</div>
 		</div>
 	</commerce-ui:panel>
