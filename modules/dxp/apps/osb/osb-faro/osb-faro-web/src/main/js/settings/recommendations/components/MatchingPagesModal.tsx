@@ -4,7 +4,7 @@ import MetadataTag from './MetadataTag';
 import Modal from 'shared/components/modal';
 import React from 'react';
 import RecommendationPageAssetsQuery from '../queries/RecommendationPageAssetsQuery';
-import {EXCLUDE, Filter} from '../utils/utils';
+import {EXCLUDE, Filter, getFilterValueBreakdown} from '../utils/utils';
 import {getMapResultToProps} from 'shared/hoc/mappers/metrics';
 import {graphql} from '@apollo/react-hoc';
 import {withBaseResults, withStatefulPagination} from 'shared/hoc';
@@ -96,9 +96,7 @@ const MatchingPagesModal: React.FC<IMatchingPagesModalProps> = ({
 }) => {
 	const {name, value} = itemFilters[0];
 
-	const [rule, exactMatchSign, metadataTag] = value
-		.split(/\s*([=~])\s*/, 3)
-		.reverse();
+	const {exactMatchSign, metadataTag, rule} = getFilterValueBreakdown(value);
 
 	const customFilter = itemFilters.length === 1 && metadataTag;
 

@@ -17,7 +17,6 @@ export const EXCLUDE = 'excludeFilter';
 export const INCLUDE = 'includeFilter';
 
 export type Filter = {
-	count: number;
 	id: string;
 	name: string;
 	value: string;
@@ -138,3 +137,13 @@ export const getPropertiesFromItems = (itemFilters: Filter[]): JobProperty[] =>
 		filter: value,
 		negate: name === EXCLUDE
 	}));
+
+export const getFilterValueBreakdown = (
+	filter: string
+): {exactMatchSign: string; metadataTag: string; rule: string} => {
+	const [rule, exactMatchSign, metadataTag] = filter
+		.split(/\s*([=~])\s*/, 3)
+		.reverse();
+
+	return {exactMatchSign, metadataTag, rule};
+};

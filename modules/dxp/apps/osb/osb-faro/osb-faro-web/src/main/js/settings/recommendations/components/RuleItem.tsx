@@ -1,6 +1,6 @@
 import MetadataTag from './MetadataTag';
 import React from 'react';
-import {RULE_NAME_LABEL_MAP} from '../utils/utils';
+import {getFilterValueBreakdown, RULE_NAME_LABEL_MAP} from '../utils/utils';
 
 interface IRuleItemProps {
 	name: string;
@@ -8,9 +8,7 @@ interface IRuleItemProps {
 }
 
 const RuleItem: React.FC<IRuleItemProps> = ({name, value}) => {
-	const [rule, exactMatchSign, metadataTag] = value
-		.split(/\s*([=~])\s*/, 3)
-		.reverse();
+	const {exactMatchSign, metadataTag, rule} = getFilterValueBreakdown(value);
 
 	const exactMatch = exactMatchSign === '=';
 
