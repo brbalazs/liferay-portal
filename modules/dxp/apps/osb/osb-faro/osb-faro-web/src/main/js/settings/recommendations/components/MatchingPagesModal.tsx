@@ -83,9 +83,7 @@ const TableWithData = withStatefulPagination(
 
 interface IMatchingPagesModalProps {
 	itemFilters: Filter[];
-	name: string;
 	onClose: () => void;
-	value: string;
 }
 
 const MatchingPagesModal: React.FC<IMatchingPagesModalProps> = ({
