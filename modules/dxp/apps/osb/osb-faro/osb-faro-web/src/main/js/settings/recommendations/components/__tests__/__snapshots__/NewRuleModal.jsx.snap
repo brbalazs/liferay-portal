@@ -121,6 +121,7 @@ exports[`NewRuleModal should render 1`] = `
               >
                 <button
                   class="button-root btn btn-secondary"
+                  disabled=""
                   type="button"
                 >
                   Find Matches
@@ -178,6 +179,7 @@ exports[`NewRuleModal should render 1`] = `
         </button>
         <button
           class="button-root btn btn-primary"
+          disabled=""
           type="button"
         >
           Add Rule
