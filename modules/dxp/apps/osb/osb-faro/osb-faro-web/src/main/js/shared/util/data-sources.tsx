@@ -1,5 +1,5 @@
 import * as API from 'shared/api';
-import FaroConstants, {DEVELOPER_MODE} from 'shared/util/constants';
+import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import {alertTypes} from 'shared/actions/alerts';
 import {DataSource} from 'shared/util/records';
@@ -203,12 +203,7 @@ export function getDataSourceDisplayObject(
 	if (!dataSource) {
 		return STATUS_DISPLAY.default;
 	}
-	// Remove the DEVELOPER_MODE flag on LRAC-6119
-	if (
-		DEVELOPER_MODE &&
-		showActionNeededStatus &&
-		hasLegacyDXPConnection(dataSource)
-	) {
+	if (showActionNeededStatus && hasLegacyDXPConnection(dataSource)) {
 		return STATUS_DISPLAY[actionNeeded];
 	}
 

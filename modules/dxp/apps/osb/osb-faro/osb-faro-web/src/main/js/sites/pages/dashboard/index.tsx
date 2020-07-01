@@ -10,7 +10,6 @@ import getCN from 'classnames';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense, useContext, useEffect} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
-import {DEVELOPER_MODE} from 'shared/util/constants';
 import {OAuthUpgradeWarningContext} from 'shared/context/oAuthUpgradeWarning';
 import {Routes, toRoute} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
@@ -162,18 +161,15 @@ export const Dashboard: React.FC<IDashboardProps> = ({currentUser, router}) => {
 					routeParams={{channelId, groupId}}
 				/>
 			</BasePage.Header>
-			{/* Remove the DEVELOPER_MODE flag on LRAC-6119 */}
-			{DEVELOPER_MODE &&
-				showOAuthUpgradeWarning &&
-				currentUser.isAdmin() && (
-					<EmbeddedAlertList
-						alerts={getAlert(
-							channelId,
-							groupId,
-							setShowOAuthUpgradeWarning
-						)}
-					/>
-				)}
+			{showOAuthUpgradeWarning && currentUser.isAdmin() && (
+				<EmbeddedAlertList
+					alerts={getAlert(
+						channelId,
+						groupId,
+						setShowOAuthUpgradeWarning
+					)}
+				/>
+			)}
 
 			<BasePage.Context.Provider
 				value={{

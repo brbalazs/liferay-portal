@@ -10,7 +10,6 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {DataSource, User} from 'shared/util/records';
 import {deleteDataSource} from 'shared/actions/data-sources';
-import {DEVELOPER_MODE} from 'shared/util/constants';
 import {
 	getDataSourceDisplayObject,
 	hasLegacyDXPConnection
@@ -150,9 +149,7 @@ const BaseDataSourcePage: React.FC<IBaseDataSourcePageProps> = ({
 				<div className='content-main'>{passedChildren}</div>
 
 				<div className='content-side'>
-					{/* Remove the DEVELOPER_MODE flag on LRAC-6119 */}
-					{DEVELOPER_MODE &&
-						dataSource &&
+					{dataSource &&
 						currentUser.isAdmin() &&
 						hasLegacyDXPConnection(dataSource) && (
 							<UpgradeConnectionCard
