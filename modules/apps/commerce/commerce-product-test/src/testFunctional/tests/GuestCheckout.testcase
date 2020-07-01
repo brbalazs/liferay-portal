@@ -6,12 +6,12 @@ definition {
 	property portal.upstream = "true";
 	property testray.main.component.name = "Commerce";
 
-    setUp {
+	setUp {
 		Portlet.shutdownServer();
 
 		Portlet.startServer(deleteLiferayHome = "false");
 
-        TestCase.setUpPortalInstance();
+		TestCase.setUpPortalInstance();
 
 		User.firstLoginPG();
 
@@ -23,10 +23,10 @@ definition {
 		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
 
 		Pause(locator1 = "5000");
-    }
+	}
 
-    tearDown {
-        var testPortalInstance = PropsUtil.get("test.portal.instance");
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
 		if ("${testPortalInstance}" == "true") {
 			PortalInstances.tearDownCP();
@@ -44,15 +44,15 @@ definition {
 
 			User.logoutPG();
 		}
-    }
+	}
 
-    test AssertGuestCheckoutAuthenticationPage {
-        property portal.acceptance = "true";
+	test AssertGuestCheckoutAuthenticationPage {
+		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "GuestCheckout#AssertGuestCheckoutAuthenticationPage";
 
-        CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
+		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
-        ProductMenu.gotoPortlet(
+		ProductMenu.gotoPortlet(
 			category = "Commerce",
 			panel = "Control Panel",
 			portlet = "Channels");
@@ -63,19 +63,19 @@ definition {
 
 		Refresh();
 
-        Check.checkToggleSwitch(
+		Check.checkToggleSwitch(
 			key_toggleSwitchLabel = "Guest Checkout",
-            locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
+			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
 
-        Button.clickSave();
+		Button.clickSave();
 
-        AssertChecked.assertCheckedNotVisible(
-            key_toggleSwitchLabel = "Guest Checkout",
-            locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
+		AssertChecked.assertCheckedNotVisible(
+			key_toggleSwitchLabel = "Guest Checkout",
+			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
 
-        Click(
-            key_fixIssueButtonName = "Guest Checkout Authentication",
-            locator1 = "CommerceEntry#FIX_ISSUE_BUTTON");
+		Click(
+			key_fixIssueButtonName = "Guest Checkout Authentication",
+			locator1 = "CommerceEntry#FIX_ISSUE_BUTTON");
 
 		Alert.viewSuccessMessage();
 
@@ -94,11 +94,10 @@ definition {
 		CommerceNavigator.gotoMiniCart();
 
 		Click.clickNoMouseOver(
-            key_text = "Submit",
-            locator1 = "Button#ANY");
+			key_text = "Submit",
+			locator1 = "Button#ANY");
 
 		GuestCheckout.assertGuestCheckoutAuthenticationPage();
-
-    }
+	}
 
 }

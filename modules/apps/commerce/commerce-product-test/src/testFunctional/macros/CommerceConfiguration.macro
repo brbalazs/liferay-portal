@@ -52,7 +52,7 @@ definition {
 				panel = "Control Panel",
 				portlet = "Users and Organizations");
 
-			if(IsElementPresent(key_rowEntry = "${userScreenName}", locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME")) {
+			if (IsElementPresent(key_rowEntry = "${userScreenName}", locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME")) {
 				User.tearDownSpecificUser(userScreenName = "${userScreenName}");
 			}
 		}
@@ -112,11 +112,11 @@ definition {
 		CommerceConfiguration.commerceCatalogsTearDown();
 
 		ProductMenu.gotoPortlet(
-            category = "Commerce",
-            panel = "Control Panel",
-            portlet = "Pricing");
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Pricing");
 
-        CommerceNavigator.gotoCommercePortletNavItem(navItem = "Price Lists");
+		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Price Lists");
 
 		while (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
 			CommerceProducts.deleteEntries(deleteMessage = "Are you sure you want to delete the selected price lists?");
