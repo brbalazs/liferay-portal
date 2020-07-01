@@ -327,6 +327,16 @@ public class DiscountSerDes {
 			sb.append(discount.getLimitationTimes());
 		}
 
+		if (discount.getLimitationTimesPerAccount() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"limitationTimesPerAccount\": ");
+
+			sb.append(discount.getLimitationTimesPerAccount());
+		}
+
 		if (discount.getLimitationType() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -623,6 +633,15 @@ public class DiscountSerDes {
 				String.valueOf(discount.getLimitationTimes()));
 		}
 
+		if (discount.getLimitationTimesPerAccount() == null) {
+			map.put("limitationTimesPerAccount", null);
+		}
+		else {
+			map.put(
+				"limitationTimesPerAccount",
+				String.valueOf(discount.getLimitationTimesPerAccount()));
+		}
+
 		if (discount.getLimitationType() == null) {
 			map.put("limitationType", null);
 		}
@@ -895,6 +914,14 @@ public class DiscountSerDes {
 			else if (Objects.equals(jsonParserFieldName, "limitationTimes")) {
 				if (jsonParserFieldValue != null) {
 					discount.setLimitationTimes(
+						Integer.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "limitationTimesPerAccount")) {
+
+				if (jsonParserFieldValue != null) {
+					discount.setLimitationTimesPerAccount(
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}

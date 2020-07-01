@@ -380,6 +380,31 @@ public class Discount implements Cloneable {
 
 	protected Integer limitationTimes;
 
+	public Integer getLimitationTimesPerAccount() {
+		return limitationTimesPerAccount;
+	}
+
+	public void setLimitationTimesPerAccount(
+		Integer limitationTimesPerAccount) {
+
+		this.limitationTimesPerAccount = limitationTimesPerAccount;
+	}
+
+	public void setLimitationTimesPerAccount(
+		UnsafeSupplier<Integer, Exception>
+			limitationTimesPerAccountUnsafeSupplier) {
+
+		try {
+			limitationTimesPerAccount =
+				limitationTimesPerAccountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Integer limitationTimesPerAccount;
+
 	public String getLimitationType() {
 		return limitationType;
 	}

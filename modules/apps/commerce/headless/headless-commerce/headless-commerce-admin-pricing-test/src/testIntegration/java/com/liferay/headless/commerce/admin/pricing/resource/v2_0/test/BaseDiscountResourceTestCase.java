@@ -723,6 +723,16 @@ public abstract class BaseDiscountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"limitationTimesPerAccount", additionalAssertFieldName)) {
+
+				if (discount.getLimitationTimesPerAccount() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("limitationType", additionalAssertFieldName)) {
 				if (discount.getLimitationType() == null) {
 					valid = false;
@@ -1097,6 +1107,19 @@ public abstract class BaseDiscountResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"limitationTimesPerAccount", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						discount1.getLimitationTimesPerAccount(),
+						discount2.getLimitationTimesPerAccount())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("limitationType", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						discount1.getLimitationType(),
@@ -1464,6 +1487,11 @@ public abstract class BaseDiscountResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("limitationTimesPerAccount")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("limitationType")) {
 			sb.append("'");
 			sb.append(String.valueOf(discount.getLimitationType()));
@@ -1592,6 +1620,7 @@ public abstract class BaseDiscountResourceTestCase {
 				id = RandomTestUtil.randomLong();
 				level = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				limitationTimes = RandomTestUtil.randomInt();
+				limitationTimesPerAccount = RandomTestUtil.randomInt();
 				limitationType = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				neverExpire = RandomTestUtil.randomBoolean();

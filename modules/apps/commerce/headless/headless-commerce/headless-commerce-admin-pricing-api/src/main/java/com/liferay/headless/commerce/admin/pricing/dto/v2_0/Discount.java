@@ -526,6 +526,39 @@ public class Discount {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Integer limitationTimes;
 
+	@DecimalMin("0")
+	@Schema
+	public Integer getLimitationTimesPerAccount() {
+		return limitationTimesPerAccount;
+	}
+
+	public void setLimitationTimesPerAccount(
+		Integer limitationTimesPerAccount) {
+
+		this.limitationTimesPerAccount = limitationTimesPerAccount;
+	}
+
+	@JsonIgnore
+	public void setLimitationTimesPerAccount(
+		UnsafeSupplier<Integer, Exception>
+			limitationTimesPerAccountUnsafeSupplier) {
+
+		try {
+			limitationTimesPerAccount =
+				limitationTimesPerAccountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Integer limitationTimesPerAccount;
+
 	@Schema
 	public String getLimitationType() {
 		return limitationType;
@@ -1183,6 +1216,16 @@ public class Discount {
 			sb.append("\"limitationTimes\": ");
 
 			sb.append(limitationTimes);
+		}
+
+		if (limitationTimesPerAccount != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"limitationTimesPerAccount\": ");
+
+			sb.append(limitationTimesPerAccount);
 		}
 
 		if (limitationType != null) {
