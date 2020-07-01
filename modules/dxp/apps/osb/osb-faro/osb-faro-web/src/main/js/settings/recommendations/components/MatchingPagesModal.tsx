@@ -55,6 +55,10 @@ const withData = () =>
 
 const TableWithData = withStatefulPagination(
 	withBaseResults(withData, {
+		emptyDescription: Liferay.Language.get(
+			'there-were-no-matching-items-for-this-string'
+		),
+		emptyTitle: Liferay.Language.get('no-matches-found'),
 		getColumns: ({secondColumnHeader}) => [
 			{
 				accessor: 'title',
