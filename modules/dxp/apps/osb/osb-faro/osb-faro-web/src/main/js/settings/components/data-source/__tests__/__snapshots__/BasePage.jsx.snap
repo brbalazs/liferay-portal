@@ -44,6 +44,34 @@ exports[`BaseDataSourcePage should render 1`] = `
           class="content-side"
         >
           <div
+            class="panel-root upgrade-connection-card-root"
+          >
+            <div
+              class="panel-header"
+              role="button"
+              tabindex="0"
+            >
+              <div
+                class="panel-title"
+              >
+                Upgrade Your Connection Type
+              </div>
+            </div>
+            <div
+              class="panel-body"
+            >
+              <p>
+                Analytics Cloud now uses a more secure token-based connection that gives you finer control of your data. OAuth connections will be deprecated in a future release. Click the button below to get started with migrating your data source.
+              </p>
+              <button
+                class="button-root btn btn-secondary btn-sm"
+                type="button"
+              >
+                Start Upgrade...
+              </button>
+            </div>
+          </div>
+          <div
             class="panel-root data-source-status-root"
           >
             <div
