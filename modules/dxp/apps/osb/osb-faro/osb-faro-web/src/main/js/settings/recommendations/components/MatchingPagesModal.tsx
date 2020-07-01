@@ -21,7 +21,8 @@ const withData = () =>
 			orderBy,
 			orderByField,
 			page,
-			query
+			query,
+			useNegateValue
 		}: {
 			delta: number;
 			itemFilters: Filter[];
@@ -29,13 +30,14 @@ const withData = () =>
 			orderByField: string;
 			page: number;
 			query: string;
+			useNegateValue: boolean;
 		}) => ({
 			fetchPolicy: 'no-cache',
 			variables: {
 				keywords: query,
 				propertyFilters: itemFilters.map(({name, value}) => ({
 					filter: value,
-					negate: name === EXCLUDE
+					negate: useNegateValue ? name === EXCLUDE : false
 				})),
 				size: delta,
 				sort: {
@@ -84,11 +86,13 @@ const TableWithData = withStatefulPagination(
 interface IMatchingPagesModalProps {
 	itemFilters: Filter[];
 	onClose: () => void;
+	useNegateValue: boolean;
 }
 
 const MatchingPagesModal: React.FC<IMatchingPagesModalProps> = ({
 	itemFilters,
-	onClose
+	onClose,
+	useNegateValue = false
 }) => {
 	const {name, value} = itemFilters[0];
 
@@ -106,7 +110,7 @@ const MatchingPagesModal: React.FC<IMatchingPagesModalProps> = ({
 			/>
 
 			<Modal.Body>
-				{!!customFilter && (
+				{!!customFilter && !useNegateValue && (
 					<div>
 						<span className='include-exclude'>
 							{`${
@@ -129,6 +133,7 @@ const MatchingPagesModal: React.FC<IMatchingPagesModalProps> = ({
 				itemFilters={itemFilters}
 				noResultsProps={{spacer: true}}
 				secondColumnHeader={customFilter}
+				useNegateValue={useNegateValue}
 			/>
 
 			<Modal.Footer>

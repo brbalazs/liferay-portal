@@ -8,8 +8,8 @@ import Spinner from 'shared/components/Spinner';
 import Table from 'shared/components/table';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
-import {EXCLUDE, Filter, getPropertiesFromItems} from '../../utils/utils';
 import {FieldArray} from 'formik';
+import {Filter, getPropertiesFromItems} from '../../utils/utils';
 import {get} from 'lodash';
 import {Modal} from 'shared/types';
 import {useLazyQuery, useQuery} from '@apollo/react-hooks';
@@ -29,7 +29,7 @@ const CountCell: React.FC<{
 			propertyFilters: [
 				{
 					filter: value,
-					negate: name === EXCLUDE
+					negate: false
 				}
 			],
 			size: 0,
@@ -120,7 +120,8 @@ const Items: React.FC<IItemsProps> = ({close, groupId, itemFilters, open}) => {
 					onClick={() => {
 						open(modalTypes.MATCHING_PAGES_MODAL, {
 							itemFilters,
-							onClose: close
+							onClose: close,
+							useNegateValue: true
 						});
 					}}
 				>
