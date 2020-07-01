@@ -20,8 +20,6 @@
 	title='<%= LanguageUtil.get(request, "create-new-product") %>'
 >
 	<aui:form cssClass="container-fluid-1280" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "apiSubmit();" %>'>
-		<aui:input name="locale" type="hidden" value="<%= locale %>" />
-
 		<aui:input autoFocus="<%= true %>" name="name" required="<%= true %>" type="text" />
 
 		<label class="control-label" for="catalogId"><%= LanguageUtil.get(request, "catalog") %></label>
@@ -34,28 +32,21 @@
 	</portlet:renderURL>
 
 	<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/modals/index as ModalUtils, commerce-frontend-js/ServiceProvider/index as ServiceProvider">
+		var <portlet:namespace/>productData = {
+			active: false,
+			name: {},
+			productType: '<%= ParamUtil.getString(request, "productTypeName") %>'
+		};
+
 		const AdminCatalogResource = ServiceProvider.default.AdminCatalogAPI('v1');
 
 		Liferay.provide(
 			window,
 			'<portlet:namespace/>apiSubmit',
 			function() {
-				const productData = {
-					active: true,
-					catalogId: document.getElementById('<portlet:namespace />catalogId')
-						.value,
-					name: {
-						<%= locale %>: document.getElementById(
-							'<portlet:namespace />name'
-						).value
-					},
-					productType:
-						'<%= ParamUtil.getString(request, "productTypeName") %>'
-				};
-
 				ModalUtils.isSubmitting();
 
-				AdminCatalogResource.createProduct(productData)
+				AdminCatalogResource.createProduct(<portlet:namespace/>productData)
 					.then(function(cpDefinition) {
 						const redirectURL = new Liferay.PortletURL.createURL(
 							'<%= editProductDefinitionURL %>'
@@ -86,8 +77,11 @@
 		Liferay.on(events.AUTOCOMPLETE_VALUE_UPDATED, function(e) {
 			if (e.value) {
 				AdminCatalogResource.getCatalogById(e.value).then(function(catalog) {
-					document.getElementById('<portlet:namespace />locale').value =
-						catalog.defaultLanguageId;
+					<portlet:namespace/>productData.catalogId = catalog.id;
+
+					<portlet:namespace/>productData.name[
+						catalog.defaultLanguageId
+					] = document.getElementById('<portlet:namespace />name').value;
 				});
 			}
 		});
