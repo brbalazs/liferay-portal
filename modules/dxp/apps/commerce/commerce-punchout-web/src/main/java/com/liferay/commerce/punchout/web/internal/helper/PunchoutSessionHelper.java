@@ -70,6 +70,10 @@ public class PunchoutSessionHelper {
 		try {
 			CommerceOrder commerceOrder = _getCommerceOrder(httpServletRequest);
 
+			if (commerceOrder == null) {
+				return false;
+			}
+
 			CommerceContext commerceContext =
 				(CommerceContext)httpServletRequest.getAttribute(
 					CommerceWebKeys.COMMERCE_CONTEXT);
