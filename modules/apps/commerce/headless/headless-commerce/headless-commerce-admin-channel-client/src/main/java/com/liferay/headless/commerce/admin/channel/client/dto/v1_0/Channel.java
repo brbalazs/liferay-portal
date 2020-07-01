@@ -28,6 +28,10 @@ import javax.annotation.Generated;
 @Generated("")
 public class Channel implements Cloneable {
 
+	public static Channel toDTO(String json) {
+		return ChannelSerDes.toDTO(json);
+	}
+
 	public String getCurrency() {
 		return currency;
 	}

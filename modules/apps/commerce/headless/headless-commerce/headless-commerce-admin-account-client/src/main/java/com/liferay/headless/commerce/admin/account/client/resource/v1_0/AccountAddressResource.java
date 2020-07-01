@@ -101,10 +101,11 @@ public interface AccountAddressResource {
 			Long id, AccountAddress accountAddress)
 		throws Exception;
 
-	public void nullBatch(Long id, String callbackURL, Object object)
+	public void putAccountAddressBatch(
+			Long id, String callbackURL, Object object)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse nullBatchHttpResponse(
+	public HttpInvoker.HttpResponse putAccountAddressBatchHttpResponse(
 			Long id, String callbackURL, Object object)
 		throws Exception;
 
@@ -678,11 +679,12 @@ public interface AccountAddressResource {
 			return httpInvoker.invoke();
 		}
 
-		public void nullBatch(Long id, String callbackURL, Object object)
+		public void putAccountAddressBatch(
+				Long id, String callbackURL, Object object)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse = nullBatchHttpResponse(
-				id, callbackURL, object);
+			HttpInvoker.HttpResponse httpResponse =
+				putAccountAddressBatchHttpResponse(id, callbackURL, object);
 
 			String content = httpResponse.getContent();
 
@@ -693,7 +695,7 @@ public interface AccountAddressResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse nullBatchHttpResponse(
+		public HttpInvoker.HttpResponse putAccountAddressBatchHttpResponse(
 				Long id, String callbackURL, Object object)
 			throws Exception {
 

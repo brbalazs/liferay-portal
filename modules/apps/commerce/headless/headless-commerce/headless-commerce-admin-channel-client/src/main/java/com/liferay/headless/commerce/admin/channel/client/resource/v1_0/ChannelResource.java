@@ -55,15 +55,23 @@ public interface ChannelResource {
 	public HttpInvoker.HttpResponse postChannelHttpResponse(Channel channel)
 		throws Exception;
 
-	public void nullBatch(String callbackURL, Object object) throws Exception;
+	public void postChannelBatch(String callbackURL, Object object)
+		throws Exception;
 
-	public HttpInvoker.HttpResponse nullBatchHttpResponse(
+	public HttpInvoker.HttpResponse postChannelBatchHttpResponse(
 			String callbackURL, Object object)
 		throws Exception;
 
 	public void deleteChannel(Long channelId) throws Exception;
 
 	public HttpInvoker.HttpResponse deleteChannelHttpResponse(Long channelId)
+		throws Exception;
+
+	public void deleteChannelBatch(String callbackURL, Object object)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse deleteChannelBatchHttpResponse(
+			String callbackURL, Object object)
 		throws Exception;
 
 	public Channel getChannel(Long channelId) throws Exception;
@@ -82,6 +90,13 @@ public interface ChannelResource {
 
 	public HttpInvoker.HttpResponse putChannelHttpResponse(
 			Long channelId, Channel channel)
+		throws Exception;
+
+	public void putChannelBatch(String callbackURL, Object object)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putChannelBatchHttpResponse(
+			String callbackURL, Object object)
 		throws Exception;
 
 	public static class Builder {
@@ -284,11 +299,11 @@ public interface ChannelResource {
 			return httpInvoker.invoke();
 		}
 
-		public void nullBatch(String callbackURL, Object object)
+		public void postChannelBatch(String callbackURL, Object object)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse = nullBatchHttpResponse(
-				callbackURL, object);
+			HttpInvoker.HttpResponse httpResponse =
+				postChannelBatchHttpResponse(callbackURL, object);
 
 			String content = httpResponse.getContent();
 
@@ -299,7 +314,7 @@ public interface ChannelResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse nullBatchHttpResponse(
+		public HttpInvoker.HttpResponse postChannelBatchHttpResponse(
 				String callbackURL, Object object)
 			throws Exception {
 
@@ -396,6 +411,62 @@ public interface ChannelResource {
 					_builder._port +
 						"/o/headless-commerce-admin-channel/v1.0/channels/{channelId}",
 				channelId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void deleteChannelBatch(String callbackURL, Object object)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				deleteChannelBatchHttpResponse(callbackURL, object);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse deleteChannelBatchHttpResponse(
+				String callbackURL, Object object)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.DELETE);
+
+			if (callbackURL != null) {
+				httpInvoker.parameter(
+					"callbackURL", String.valueOf(callbackURL));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/headless-commerce-admin-channel/v1.0/channels/batch");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -586,6 +657,64 @@ public interface ChannelResource {
 					_builder._port +
 						"/o/headless-commerce-admin-channel/v1.0/channels/{channelId}",
 				channelId);
+
+			httpInvoker.userNameAndPassword(
+				_builder._login + ":" + _builder._password);
+
+			return httpInvoker.invoke();
+		}
+
+		public void putChannelBatch(String callbackURL, Object object)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse = putChannelBatchHttpResponse(
+				callbackURL, object);
+
+			String content = httpResponse.getContent();
+
+			_logger.fine("HTTP response content: " + content);
+
+			_logger.fine("HTTP response message: " + httpResponse.getMessage());
+			_logger.fine(
+				"HTTP response status code: " + httpResponse.getStatusCode());
+		}
+
+		public HttpInvoker.HttpResponse putChannelBatchHttpResponse(
+				String callbackURL, Object object)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(object.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			if (callbackURL != null) {
+				httpInvoker.parameter(
+					"callbackURL", String.valueOf(callbackURL));
+			}
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port +
+						"/o/headless-commerce-admin-channel/v1.0/channels/batch");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

@@ -46,10 +46,11 @@ public interface ProductGroupProductResource {
 			Long id)
 		throws Exception;
 
-	public void nullBatch(Long id, String callbackURL, Object object)
+	public void deleteProductGroupProductBatch(
+			Long id, String callbackURL, Object object)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse nullBatchHttpResponse(
+	public HttpInvoker.HttpResponse deleteProductGroupProductBatchHttpResponse(
 			Long id, String callbackURL, Object object)
 		throws Exception;
 
@@ -210,11 +211,13 @@ public interface ProductGroupProductResource {
 			return httpInvoker.invoke();
 		}
 
-		public void nullBatch(Long id, String callbackURL, Object object)
+		public void deleteProductGroupProductBatch(
+				Long id, String callbackURL, Object object)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse = nullBatchHttpResponse(
-				id, callbackURL, object);
+			HttpInvoker.HttpResponse httpResponse =
+				deleteProductGroupProductBatchHttpResponse(
+					id, callbackURL, object);
 
 			String content = httpResponse.getContent();
 
@@ -225,8 +228,9 @@ public interface ProductGroupProductResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse nullBatchHttpResponse(
-				Long id, String callbackURL, Object object)
+		public HttpInvoker.HttpResponse
+				deleteProductGroupProductBatchHttpResponse(
+					Long id, String callbackURL, Object object)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -258,7 +262,7 @@ public interface ProductGroupProductResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-catalog/v1.0/product-group-products/{id}/batch",
+						"/o/headless-commerce-admin-catalog/v1.0/product-group-products/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(

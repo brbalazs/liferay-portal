@@ -57,9 +57,10 @@ public interface ProductGroupResource {
 			ProductGroup productGroup)
 		throws Exception;
 
-	public void nullBatch(String callbackURL, Object object) throws Exception;
+	public void postProductGroupBatch(String callbackURL, Object object)
+		throws Exception;
 
-	public HttpInvoker.HttpResponse nullBatchHttpResponse(
+	public HttpInvoker.HttpResponse postProductGroupBatchHttpResponse(
 			String callbackURL, Object object)
 		throws Exception;
 
@@ -95,10 +96,11 @@ public interface ProductGroupResource {
 	public HttpInvoker.HttpResponse deleteProductGroupHttpResponse(Long id)
 		throws Exception;
 
-	public void nullBatch(Long id, String callbackURL, Object object)
+	public void deleteProductGroupBatch(
+			Long id, String callbackURL, Object object)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse nullBatchHttpResponse(
+	public HttpInvoker.HttpResponse deleteProductGroupBatchHttpResponse(
 			Long id, String callbackURL, Object object)
 		throws Exception;
 
@@ -319,11 +321,11 @@ public interface ProductGroupResource {
 			return httpInvoker.invoke();
 		}
 
-		public void nullBatch(String callbackURL, Object object)
+		public void postProductGroupBatch(String callbackURL, Object object)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse = nullBatchHttpResponse(
-				callbackURL, object);
+			HttpInvoker.HttpResponse httpResponse =
+				postProductGroupBatchHttpResponse(callbackURL, object);
 
 			String content = httpResponse.getContent();
 
@@ -334,7 +336,7 @@ public interface ProductGroupResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse nullBatchHttpResponse(
+		public HttpInvoker.HttpResponse postProductGroupBatchHttpResponse(
 				String callbackURL, Object object)
 			throws Exception {
 
@@ -626,11 +628,12 @@ public interface ProductGroupResource {
 			return httpInvoker.invoke();
 		}
 
-		public void nullBatch(Long id, String callbackURL, Object object)
+		public void deleteProductGroupBatch(
+				Long id, String callbackURL, Object object)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse = nullBatchHttpResponse(
-				id, callbackURL, object);
+			HttpInvoker.HttpResponse httpResponse =
+				deleteProductGroupBatchHttpResponse(id, callbackURL, object);
 
 			String content = httpResponse.getContent();
 
@@ -641,7 +644,7 @@ public interface ProductGroupResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse nullBatchHttpResponse(
+		public HttpInvoker.HttpResponse deleteProductGroupBatchHttpResponse(
 				Long id, String callbackURL, Object object)
 			throws Exception {
 
@@ -674,7 +677,7 @@ public interface ProductGroupResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-catalog/v1.0/product-groups/{id}/batch",
+						"/o/headless-commerce-admin-catalog/v1.0/product-groups/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(

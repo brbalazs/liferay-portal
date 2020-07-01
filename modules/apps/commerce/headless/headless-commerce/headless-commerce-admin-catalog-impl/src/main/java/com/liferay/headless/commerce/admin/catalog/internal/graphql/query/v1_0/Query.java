@@ -1288,34 +1288,6 @@ public class Query {
 	}
 
 	@GraphQLTypeExtension(Catalog.class)
-	public class GetProductByExternalReferenceCodeCatalogTypeExtension {
-
-		public GetProductByExternalReferenceCodeCatalogTypeExtension(
-			Catalog catalog) {
-
-			_catalog = catalog;
-		}
-
-		@GraphQLField
-		public Catalog productByExternalReferenceCodeCatalog(
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_catalogResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				catalogResource ->
-					catalogResource.getProductByExternalReferenceCodeCatalog(
-						_catalog.getExternalReferenceCode(),
-						Pagination.of(page, pageSize)));
-		}
-
-		private Catalog _catalog;
-
-	}
-
-	@GraphQLTypeExtension(Catalog.class)
 	public class
 		GetProductGroupByExternalReferenceCodeProductGroupProductsPageTypeExtension {
 
@@ -1340,6 +1312,34 @@ public class Query {
 						getProductGroupByExternalReferenceCodeProductGroupProductsPage(
 							_catalog.getExternalReferenceCode(),
 							Pagination.of(page, pageSize))));
+		}
+
+		private Catalog _catalog;
+
+	}
+
+	@GraphQLTypeExtension(Catalog.class)
+	public class GetProductByExternalReferenceCodeCatalogTypeExtension {
+
+		public GetProductByExternalReferenceCodeCatalogTypeExtension(
+			Catalog catalog) {
+
+			_catalog = catalog;
+		}
+
+		@GraphQLField
+		public Catalog productByExternalReferenceCodeCatalog(
+				@GraphQLName("pageSize") int pageSize,
+				@GraphQLName("page") int page)
+			throws Exception {
+
+			return _applyComponentServiceObjects(
+				_catalogResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				catalogResource ->
+					catalogResource.getProductByExternalReferenceCodeCatalog(
+						_catalog.getExternalReferenceCode(),
+						Pagination.of(page, pageSize)));
 		}
 
 		private Catalog _catalog;
