@@ -26,6 +26,12 @@ definition {
 				key_fieldName = "City",
 				locator1 = "CommerceAccelerators#CHECKOUT_GENERIC_TEXT_INPUT",
 				value1 = "${newAddressCity}");
+
+			if(isSet(guestEmail)) {
+				Type(
+					locator1 = "CommerceAccelerators#GUEST_CHECKOUT_EMAIL",
+					value1 = "${guestEmail}");
+			}
 		}
 
 		Click(locator1 = "Button#CONTINUE");
