@@ -126,6 +126,11 @@ components:
                     format: int32
                     minimum: 0
                     type: integer
+                limitationTimesPerAccount:
+                    example: 0
+                    format: int32
+                    minimum: 0
+                    type: integer
                 limitationType:
                     example: "unlimited"
                     type: string
