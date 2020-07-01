@@ -60,6 +60,8 @@ public class DiscountDTOConverter
 				id = commerceDiscount.getCommerceDiscountId();
 				level = commerceDiscount.getLevel();
 				limitationTimes = commerceDiscount.getLimitationTimes();
+				limitationTimesPerAccount =
+					commerceDiscount.getLimitationTimesPerAccount();
 				limitationType = commerceDiscount.getLimitationType();
 				maximumDiscountAmount =
 					commerceDiscount.getMaximumDiscountAmount();

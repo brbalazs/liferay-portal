@@ -258,6 +258,9 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 				discount.getLimitationTimes(),
 				commerceDiscount.getLimitationTimes()),
 			GetterUtil.get(
+				discount.getLimitationTimesPerAccount(),
+				commerceDiscount.getLimitationTimesPerAccount()),
+			GetterUtil.get(
 				discount.getRulesConjunction(),
 				commerceDiscount.isRulesConjunction()),
 			GetterUtil.get(discount.getActive(), commerceDiscount.isActive()),
@@ -498,6 +501,7 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 				discount.getPercentageLevel3(), discount.getPercentageLevel4(),
 				discount.getLimitationType(),
 				GetterUtil.getInteger(discount.getLimitationTimes()),
+				GetterUtil.getInteger(discount.getLimitationTimesPerAccount()),
 				GetterUtil.getBoolean(discount.getRulesConjunction()),
 				GetterUtil.getBoolean(discount.getActive()),
 				displayDateConfig.getMonth(), displayDateConfig.getDay(),
