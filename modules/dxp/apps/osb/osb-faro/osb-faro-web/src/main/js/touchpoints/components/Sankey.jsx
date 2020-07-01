@@ -120,9 +120,9 @@ class Sankey extends React.Component {
 	/**
 	 * Lifecycle Component Did Update - ReactJS
 	 */
-	componentDidUpdate() {
+	componentDidUpdate(prevProps) {
 		const {
-			props: {onHeightChange},
+			props: {data, onHeightChange},
 			state: {expandedTouchpoint}
 		} = this;
 
@@ -131,6 +131,14 @@ class Sankey extends React.Component {
 				isExpanded: expandedTouchpoint.index,
 				sankeyElement: this._svgRef.current
 			});
+
+		if (prevProps.data !== data) {
+			if (data && data.nodes && data.links) {
+				this.setState({
+					internalData: this.setInternalData(data)
+				});
+			}
+		}
 	}
 
 	/**
