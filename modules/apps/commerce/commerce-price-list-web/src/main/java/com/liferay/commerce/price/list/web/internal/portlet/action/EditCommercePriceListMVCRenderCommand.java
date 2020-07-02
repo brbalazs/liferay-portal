@@ -18,6 +18,7 @@ import com.liferay.commerce.account.service.CommerceAccountGroupLocalService;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.price.list.constants.CommercePriceListPortletKeys;
+import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListAccountRelService;
 import com.liferay.commerce.price.list.service.CommercePriceListCommerceAccountGroupRelService;
 import com.liferay.commerce.price.list.service.CommercePriceListService;
@@ -26,6 +27,7 @@ import com.liferay.commerce.price.list.web.portlet.action.CommercePriceListActio
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -61,6 +63,7 @@ public class EditCommercePriceListMVCRenderCommand implements MVCRenderCommand {
 				_commerceCurrencyLocalService,
 				_commercePriceListAccountRelService,
 				_commercePriceListCommerceAccountGroupRelService,
+				_commercePriceListModelResourcePermission,
 				_commercePriceListService,
 				_portal.getHttpServletRequest(renderRequest), _itemSelector);
 
@@ -92,6 +95,12 @@ public class EditCommercePriceListMVCRenderCommand implements MVCRenderCommand {
 	@Reference
 	private CommercePriceListCommerceAccountGroupRelService
 		_commercePriceListCommerceAccountGroupRelService;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.price.list.model.CommercePriceList)"
+	)
+	private ModelResourcePermission<CommercePriceList>
+		_commercePriceListModelResourcePermission;
 
 	@Reference
 	private CommercePriceListService _commercePriceListService;
