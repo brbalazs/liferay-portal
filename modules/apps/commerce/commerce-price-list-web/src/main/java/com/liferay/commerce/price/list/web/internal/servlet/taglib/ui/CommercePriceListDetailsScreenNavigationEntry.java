@@ -31,6 +31,10 @@ import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
@@ -82,6 +86,28 @@ public class CommercePriceListDetailsScreenNavigationEntry
 	}
 
 	@Override
+	public boolean isVisible(User user, CommercePriceList commercePriceList) {
+		if (commercePriceList == null) {
+			return true;
+		}
+
+		boolean hasPermission = false;
+
+		try {
+			hasPermission = _commercePriceListModelResourcePermission.contains(
+				PermissionThreadLocal.getPermissionChecker(),
+				commercePriceList.getCommercePriceListId(), ActionKeys.UPDATE);
+		}
+		catch (Exception e) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(e, e);
+			}
+		}
+
+		return hasPermission;
+	}
+
+	@Override
 	public void render(
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse)
@@ -95,6 +121,7 @@ public class CommercePriceListDetailsScreenNavigationEntry
 					_commerceCatalogLocalService, _commerceCurrencyLocalService,
 					_commercePriceListAccountRelService,
 					_commercePriceListCommerceAccountGroupRelService,
+					_commercePriceListModelResourcePermission,
 					_commercePriceListService, httpServletRequest,
 					_itemSelector);
 
@@ -136,6 +163,12 @@ public class CommercePriceListDetailsScreenNavigationEntry
 	@Reference
 	private CommercePriceListCommerceAccountGroupRelService
 		_commercePriceListCommerceAccountGroupRelService;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.price.list.model.CommercePriceList)"
+	)
+	private ModelResourcePermission<CommercePriceList>
+		_commercePriceListModelResourcePermission;
 
 	@Reference
 	private CommercePriceListService _commercePriceListService;
