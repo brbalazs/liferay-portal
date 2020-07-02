@@ -339,6 +339,30 @@ public class ProjectController extends BaseFaroController {
 		projectUtil.deleteGlobalStates(keysFaroParam.getValue());
 	}
 
+	@Path("/{groupId}/recommendations/disable")
+	@POST
+	@RolesAllowed(StringPool.BLANK)
+	public void disableRecommendations(@PathParam("groupId") long groupId) {
+		FaroProject faroProject =
+			_faroProjectLocalService.fetchFaroProjectByGroupId(groupId);
+
+		faroProject.setRecommendationsEnabled(false);
+
+		_faroProjectLocalService.updateFaroProject(faroProject);
+	}
+
+	@Path("/{groupId}/recommendations/enable")
+	@POST
+	@RolesAllowed(StringPool.BLANK)
+	public void enableRecommendations(@PathParam("groupId") long groupId) {
+		FaroProject faroProject =
+			_faroProjectLocalService.fetchFaroProjectByGroupId(groupId);
+
+		faroProject.setRecommendationsEnabled(true);
+
+		_faroProjectLocalService.updateFaroProject(faroProject);
+	}
+
 	@GET
 	@Path("/{groupId}")
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
