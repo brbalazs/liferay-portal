@@ -52,7 +52,7 @@ definition {
 		Click(locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DROPDOWN");
 
 		Click(
-			key_dropdownItem = "My Account",
+			key_dropdownItem = "${dropdownItem}",
 			locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DROPDOWN_ITEM");
 	}
 
