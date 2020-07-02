@@ -62,6 +62,7 @@ const ActiveIndividualsCard = compose<any>(
 					)}
 
 					<DropdownRangeKey
+						legacy={false}
 						onChange={useCallback(newVal => {
 							onRangeSelectorsChange &&
 								onRangeSelectorsChange(newVal);
