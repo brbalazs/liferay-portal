@@ -639,16 +639,16 @@ public class FaroPreferencesModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof FaroPreferences)) {
+		if (!(object instanceof FaroPreferences)) {
 			return false;
 		}
 
-		FaroPreferences faroPreferences = (FaroPreferences)obj;
+		FaroPreferences faroPreferences = (FaroPreferences)object;
 
 		long primaryKey = faroPreferences.getPrimaryKey();
 

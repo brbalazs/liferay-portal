@@ -455,17 +455,17 @@ public class ContactsCardTemplateWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof ContactsCardTemplateWrapper)) {
+		if (!(object instanceof ContactsCardTemplateWrapper)) {
 			return false;
 		}
 
 		ContactsCardTemplateWrapper contactsCardTemplateWrapper =
-			(ContactsCardTemplateWrapper)obj;
+			(ContactsCardTemplateWrapper)object;
 
 		if (Objects.equals(
 				_contactsCardTemplate,

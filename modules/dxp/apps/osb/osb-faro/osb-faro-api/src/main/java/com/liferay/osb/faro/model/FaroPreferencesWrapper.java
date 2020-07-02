@@ -423,17 +423,17 @@ public class FaroPreferencesWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof FaroPreferencesWrapper)) {
+		if (!(object instanceof FaroPreferencesWrapper)) {
 			return false;
 		}
 
 		FaroPreferencesWrapper faroPreferencesWrapper =
-			(FaroPreferencesWrapper)obj;
+			(FaroPreferencesWrapper)object;
 
 		if (Objects.equals(
 				_faroPreferences, faroPreferencesWrapper._faroPreferences)) {

@@ -1066,16 +1066,16 @@ public class FaroProjectModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof FaroProject)) {
+		if (!(object instanceof FaroProject)) {
 			return false;
 		}
 
-		FaroProject faroProject = (FaroProject)obj;
+		FaroProject faroProject = (FaroProject)object;
 
 		long primaryKey = faroProject.getPrimaryKey();
 

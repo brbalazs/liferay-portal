@@ -120,10 +120,13 @@ public abstract class FaroChannelLocalServiceBaseImpl
 	 *
 	 * @param faroChannel the faro channel
 	 * @return the faro channel that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public FaroChannel deleteFaroChannel(FaroChannel faroChannel) {
+	public FaroChannel deleteFaroChannel(FaroChannel faroChannel)
+		throws PortalException {
+
 		return faroChannelPersistence.remove(faroChannel);
 	}
 

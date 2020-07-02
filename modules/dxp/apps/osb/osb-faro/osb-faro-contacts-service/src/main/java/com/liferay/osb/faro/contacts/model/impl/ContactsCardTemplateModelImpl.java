@@ -679,16 +679,17 @@ public class ContactsCardTemplateModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof ContactsCardTemplate)) {
+		if (!(object instanceof ContactsCardTemplate)) {
 			return false;
 		}
 
-		ContactsCardTemplate contactsCardTemplate = (ContactsCardTemplate)obj;
+		ContactsCardTemplate contactsCardTemplate =
+			(ContactsCardTemplate)object;
 
 		long primaryKey = contactsCardTemplate.getPrimaryKey();
 

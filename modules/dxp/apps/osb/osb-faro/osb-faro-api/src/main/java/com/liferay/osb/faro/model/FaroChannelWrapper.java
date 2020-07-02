@@ -476,16 +476,16 @@ public class FaroChannelWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof FaroChannelWrapper)) {
+		if (!(object instanceof FaroChannelWrapper)) {
 			return false;
 		}
 
-		FaroChannelWrapper faroChannelWrapper = (FaroChannelWrapper)obj;
+		FaroChannelWrapper faroChannelWrapper = (FaroChannelWrapper)object;
 
 		if (Objects.equals(_faroChannel, faroChannelWrapper._faroChannel)) {
 			return true;

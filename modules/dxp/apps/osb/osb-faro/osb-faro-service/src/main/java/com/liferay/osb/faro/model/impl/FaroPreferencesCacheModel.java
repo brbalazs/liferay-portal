@@ -34,17 +34,17 @@ public class FaroPreferencesCacheModel
 	implements CacheModel<FaroPreferences>, Externalizable {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof FaroPreferencesCacheModel)) {
+		if (!(object instanceof FaroPreferencesCacheModel)) {
 			return false;
 		}
 
 		FaroPreferencesCacheModel faroPreferencesCacheModel =
-			(FaroPreferencesCacheModel)obj;
+			(FaroPreferencesCacheModel)object;
 
 		if (faroPreferencesId == faroPreferencesCacheModel.faroPreferencesId) {
 			return true;

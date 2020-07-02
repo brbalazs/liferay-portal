@@ -315,18 +315,18 @@ public class FaroProjectEmailAddressDomainWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof FaroProjectEmailAddressDomainWrapper)) {
+		if (!(object instanceof FaroProjectEmailAddressDomainWrapper)) {
 			return false;
 		}
 
 		FaroProjectEmailAddressDomainWrapper
 			faroProjectEmailAddressDomainWrapper =
-				(FaroProjectEmailAddressDomainWrapper)obj;
+				(FaroProjectEmailAddressDomainWrapper)object;
 
 		if (Objects.equals(
 				_faroProjectEmailAddressDomain,

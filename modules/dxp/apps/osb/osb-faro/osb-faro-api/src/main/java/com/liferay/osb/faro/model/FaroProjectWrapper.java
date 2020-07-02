@@ -702,16 +702,16 @@ public class FaroProjectWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof FaroProjectWrapper)) {
+		if (!(object instanceof FaroProjectWrapper)) {
 			return false;
 		}
 
-		FaroProjectWrapper faroProjectWrapper = (FaroProjectWrapper)obj;
+		FaroProjectWrapper faroProjectWrapper = (FaroProjectWrapper)object;
 
 		if (Objects.equals(_faroProject, faroProjectWrapper._faroProject)) {
 			return true;

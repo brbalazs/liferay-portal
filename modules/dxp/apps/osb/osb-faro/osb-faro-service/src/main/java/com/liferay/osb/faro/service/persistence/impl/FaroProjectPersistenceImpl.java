@@ -1803,8 +1803,6 @@ public class FaroProjectPersistenceImpl
 		"(faroProject.weDeployKey IS NULL OR faroProject.weDeployKey = '')";
 
 	public FaroProjectPersistenceImpl() {
-		setModelClass(FaroProject.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("state", "state_");
@@ -1822,6 +1820,8 @@ public class FaroProjectPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(FaroProject.class);
 	}
 
 	/**

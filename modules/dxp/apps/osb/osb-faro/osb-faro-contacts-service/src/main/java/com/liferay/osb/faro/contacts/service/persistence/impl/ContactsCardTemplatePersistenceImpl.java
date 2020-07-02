@@ -589,8 +589,6 @@ public class ContactsCardTemplatePersistenceImpl
 		"contactsCardTemplate.groupId = ?";
 
 	public ContactsCardTemplatePersistenceImpl() {
-		setModelClass(ContactsCardTemplate.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("settings", "settings_");
@@ -609,6 +607,8 @@ public class ContactsCardTemplatePersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(ContactsCardTemplate.class);
 	}
 
 	/**

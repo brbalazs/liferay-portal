@@ -540,16 +540,16 @@ public class FaroUserWrapper implements FaroUser, ModelWrapper<FaroUser> {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof FaroUserWrapper)) {
+		if (!(object instanceof FaroUserWrapper)) {
 			return false;
 		}
 
-		FaroUserWrapper faroUserWrapper = (FaroUserWrapper)obj;
+		FaroUserWrapper faroUserWrapper = (FaroUserWrapper)object;
 
 		if (Objects.equals(_faroUser, faroUserWrapper._faroUser)) {
 			return true;

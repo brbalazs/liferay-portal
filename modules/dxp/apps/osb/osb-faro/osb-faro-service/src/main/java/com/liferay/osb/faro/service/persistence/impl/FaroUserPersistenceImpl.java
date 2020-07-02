@@ -2419,8 +2419,6 @@ public class FaroUserPersistenceImpl
 		"faroUser.status = ?";
 
 	public FaroUserPersistenceImpl() {
-		setModelClass(FaroUser.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("key", "key_");
@@ -2438,6 +2436,8 @@ public class FaroUserPersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(FaroUser.class);
 	}
 
 	/**

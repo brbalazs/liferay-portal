@@ -16,6 +16,8 @@ package com.liferay.osb.faro.service.base;
 
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
+import com.liferay.osb.faro.service.persistence.FaroChannelFinder;
+import com.liferay.osb.faro.service.persistence.FaroChannelPersistence;
 import com.liferay.osb.faro.service.persistence.FaroPreferencesPersistence;
 import com.liferay.osb.faro.service.persistence.FaroProjectEmailAddressDomainPersistence;
 import com.liferay.osb.faro.service.persistence.FaroProjectFinder;
@@ -423,6 +425,67 @@ public abstract class FaroProjectLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the faro channel local service.
+	 *
+	 * @return the faro channel local service
+	 */
+	public com.liferay.osb.faro.service.FaroChannelLocalService
+		getFaroChannelLocalService() {
+
+		return faroChannelLocalService;
+	}
+
+	/**
+	 * Sets the faro channel local service.
+	 *
+	 * @param faroChannelLocalService the faro channel local service
+	 */
+	public void setFaroChannelLocalService(
+		com.liferay.osb.faro.service.FaroChannelLocalService
+			faroChannelLocalService) {
+
+		this.faroChannelLocalService = faroChannelLocalService;
+	}
+
+	/**
+	 * Returns the faro channel persistence.
+	 *
+	 * @return the faro channel persistence
+	 */
+	public FaroChannelPersistence getFaroChannelPersistence() {
+		return faroChannelPersistence;
+	}
+
+	/**
+	 * Sets the faro channel persistence.
+	 *
+	 * @param faroChannelPersistence the faro channel persistence
+	 */
+	public void setFaroChannelPersistence(
+		FaroChannelPersistence faroChannelPersistence) {
+
+		this.faroChannelPersistence = faroChannelPersistence;
+	}
+
+	/**
+	 * Returns the faro channel finder.
+	 *
+	 * @return the faro channel finder
+	 */
+	public FaroChannelFinder getFaroChannelFinder() {
+		return faroChannelFinder;
+	}
+
+	/**
+	 * Sets the faro channel finder.
+	 *
+	 * @param faroChannelFinder the faro channel finder
+	 */
+	public void setFaroChannelFinder(FaroChannelFinder faroChannelFinder) {
+		this.faroChannelFinder = faroChannelFinder;
+	}
+
+	/**
 	 * Returns the faro preferences local service.
 	 *
 	 * @return the faro preferences local service
@@ -761,6 +824,18 @@ public abstract class FaroProjectLocalServiceBaseImpl
 	)
 	protected com.liferay.counter.kernel.service.CounterLocalService
 		counterLocalService;
+
+	@BeanReference(
+		type = com.liferay.osb.faro.service.FaroChannelLocalService.class
+	)
+	protected com.liferay.osb.faro.service.FaroChannelLocalService
+		faroChannelLocalService;
+
+	@BeanReference(type = FaroChannelPersistence.class)
+	protected FaroChannelPersistence faroChannelPersistence;
+
+	@BeanReference(type = FaroChannelFinder.class)
+	protected FaroChannelFinder faroChannelFinder;
 
 	@BeanReference(
 		type = com.liferay.osb.faro.service.FaroPreferencesLocalService.class

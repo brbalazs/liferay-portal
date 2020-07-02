@@ -490,17 +490,17 @@ public class ContactsLayoutTemplateWrapper
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof ContactsLayoutTemplateWrapper)) {
+		if (!(object instanceof ContactsLayoutTemplateWrapper)) {
 			return false;
 		}
 
 		ContactsLayoutTemplateWrapper contactsLayoutTemplateWrapper =
-			(ContactsLayoutTemplateWrapper)obj;
+			(ContactsLayoutTemplateWrapper)object;
 
 		if (Objects.equals(
 				_contactsLayoutTemplate,

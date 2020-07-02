@@ -794,16 +794,16 @@ public class FaroUserModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof FaroUser)) {
+		if (!(object instanceof FaroUser)) {
 			return false;
 		}
 
-		FaroUser faroUser = (FaroUser)obj;
+		FaroUser faroUser = (FaroUser)object;
 
 		long primaryKey = faroUser.getPrimaryKey();
 

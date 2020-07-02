@@ -99,9 +99,11 @@ public interface FaroChannelLocalService
 	 *
 	 * @param faroChannel the faro channel
 	 * @return the faro channel that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
-	public FaroChannel deleteFaroChannel(FaroChannel faroChannel);
+	public FaroChannel deleteFaroChannel(FaroChannel faroChannel)
+		throws PortalException;
 
 	/**
 	 * Deletes the faro channel with the primary key from the database. Also notifies the appropriate model listeners.
@@ -115,6 +117,9 @@ public interface FaroChannelLocalService
 		throws PortalException;
 
 	public FaroChannel deleteFaroChannel(String channelId)
+		throws PortalException;
+
+	public void deleteFaroChannels(long workspaceGroupId)
 		throws PortalException;
 
 	/**

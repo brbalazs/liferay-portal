@@ -92,9 +92,11 @@ public class FaroChannelLocalServiceUtil {
 	 *
 	 * @param faroChannel the faro channel
 	 * @return the faro channel that was removed
+	 * @throws PortalException
 	 */
 	public static com.liferay.osb.faro.model.FaroChannel deleteFaroChannel(
-		com.liferay.osb.faro.model.FaroChannel faroChannel) {
+			com.liferay.osb.faro.model.FaroChannel faroChannel)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().deleteFaroChannel(faroChannel);
 	}
@@ -118,6 +120,12 @@ public class FaroChannelLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().deleteFaroChannel(channelId);
+	}
+
+	public static void deleteFaroChannels(long workspaceGroupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().deleteFaroChannels(workspaceGroupId);
 	}
 
 	/**

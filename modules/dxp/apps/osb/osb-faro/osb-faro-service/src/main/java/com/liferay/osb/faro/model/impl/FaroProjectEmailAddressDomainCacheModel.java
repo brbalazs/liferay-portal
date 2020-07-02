@@ -34,18 +34,18 @@ public class FaroProjectEmailAddressDomainCacheModel
 	implements CacheModel<FaroProjectEmailAddressDomain>, Externalizable {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof FaroProjectEmailAddressDomainCacheModel)) {
+		if (!(object instanceof FaroProjectEmailAddressDomainCacheModel)) {
 			return false;
 		}
 
 		FaroProjectEmailAddressDomainCacheModel
 			faroProjectEmailAddressDomainCacheModel =
-				(FaroProjectEmailAddressDomainCacheModel)obj;
+				(FaroProjectEmailAddressDomainCacheModel)object;
 
 		if (faroProjectEmailAddressDomainId ==
 				faroProjectEmailAddressDomainCacheModel.

@@ -1137,8 +1137,6 @@ public class ContactsLayoutTemplatePersistenceImpl
 		"contactsLayoutTemplate.type = ?";
 
 	public ContactsLayoutTemplatePersistenceImpl() {
-		setModelClass(ContactsLayoutTemplate.class);
-
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("settings", "settings_");
@@ -1157,6 +1155,8 @@ public class ContactsLayoutTemplatePersistenceImpl
 				_log.debug(exception, exception);
 			}
 		}
+
+		setModelClass(ContactsLayoutTemplate.class);
 	}
 
 	/**

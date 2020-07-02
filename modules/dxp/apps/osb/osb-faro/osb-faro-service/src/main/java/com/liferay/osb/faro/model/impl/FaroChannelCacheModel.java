@@ -34,17 +34,17 @@ public class FaroChannelCacheModel
 	implements CacheModel<FaroChannel>, Externalizable {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof FaroChannelCacheModel)) {
+		if (!(object instanceof FaroChannelCacheModel)) {
 			return false;
 		}
 
 		FaroChannelCacheModel faroChannelCacheModel =
-			(FaroChannelCacheModel)obj;
+			(FaroChannelCacheModel)object;
 
 		if (faroChannelId == faroChannelCacheModel.faroChannelId) {
 			return true;
