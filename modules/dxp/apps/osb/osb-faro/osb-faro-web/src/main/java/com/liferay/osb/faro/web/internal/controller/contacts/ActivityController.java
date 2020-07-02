@@ -75,15 +75,17 @@ public class ActivityController extends BaseFaroController {
 			@QueryParam("channelId") String channelId,
 			@QueryParam("contactsEntityId") String contactsEntityId,
 			@QueryParam("contactsEntityType") int contactsEntityType,
-			@QueryParam("interval") String interval, @QueryParam("max") int max)
+			@QueryParam("interval") String interval, @QueryParam("max") int max,
+			@QueryParam("rangeEnd") String rangeEnd,
+			@QueryParam("rangeStart") String rangeStart)
 		throws Exception {
 
 		Results<ActivityAggregation> results =
 			contactsEngineClient.getActivityAggregations(
 				faroProjectLocalService.getFaroProjectByGroupId(groupId),
 				channelId, contactsEntityId,
-				contactsUtil.getOwnerType(contactsEntityType), interval,
-				max * 2);
+				contactsUtil.getOwnerType(contactsEntityType), rangeEnd,
+				rangeStart, interval, max * 2);
 
 		List<ActivityAggregation> activityAggregations = results.getItems();
 
