@@ -72,6 +72,7 @@ public class ProjectDisplay {
 		_friendlyURL = friendlyURL;
 		_groupId = faroProject.getGroupId();
 		_name = faroProject.getName();
+		_recommendationsEnabled = faroProject.isRecommendationsEnabled();
 		_serverLocation = faroProject.getServerLocation();
 		_state = faroProject.getState();
 		_userId = faroProject.getUserId();
@@ -173,6 +174,7 @@ public class ProjectDisplay {
 	private String _friendlyURL;
 	private long _groupId;
 	private String _name;
+	private boolean _recommendationsEnabled;
 	private String _serverLocation;
 	private String _state;
 	private Date _stateEndDate;
