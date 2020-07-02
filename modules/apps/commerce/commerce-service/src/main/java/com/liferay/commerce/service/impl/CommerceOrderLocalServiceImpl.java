@@ -204,9 +204,9 @@ public class CommerceOrderLocalServiceImpl
 		commerceOrder.setSubtotal(subtotal);
 		commerceOrder.setShippingAmount(shippingAmount);
 		commerceOrder.setTotal(total);
-		commerceOrder.setTotal(totalWithTaxAmount);
 		commerceOrder.setSubtotalWithTaxAmount(subtotalWithTaxAmount);
 		commerceOrder.setShippingWithTaxAmount(shippingWithTaxAmount);
+		commerceOrder.setTotalWithTaxAmount(totalWithTaxAmount);
 		commerceOrder.setPaymentStatus(paymentStatus);
 		commerceOrder.setOrderStatus(orderStatus);
 		commerceOrder.setManuallyAdjusted(false);
