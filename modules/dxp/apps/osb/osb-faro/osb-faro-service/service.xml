@@ -140,6 +140,7 @@
 
 		<!-- References -->
 
+		<reference entity="FaroChannel" package-path="com.liferay.osb.faro" />
 		<reference entity="FaroPreferences" package-path="com.liferay.osb.faro" />
 		<reference entity="FaroProjectEmailAddressDomain" package-path="com.liferay.osb.faro" />
 		<reference entity="FaroUser" package-path="com.liferay.osb.faro" />
