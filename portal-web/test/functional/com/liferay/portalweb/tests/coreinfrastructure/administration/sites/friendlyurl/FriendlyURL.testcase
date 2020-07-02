@@ -146,7 +146,7 @@ definition {
 
 		LanguagePortlet.selectLanguagePG(
 			locale = "fr_FR",
-			textIcon = "français-France");
+			textIcon = "français (France)-France");
 
 		Navigator.openWithAppendToBaseURL(urlAppend = "/web/france-site-name/test-page");
 
@@ -154,7 +154,7 @@ definition {
 
 		LanguagePortlet.selectLanguagePG(
 			locale = "fr_CA",
-			textIcon = "français-Canada");
+			textIcon = "français (Canada)-Canada");
 
 		Navigator.openWithAppendToBaseURL(urlAppend = "/web/canada-site-name/test-page");
 
