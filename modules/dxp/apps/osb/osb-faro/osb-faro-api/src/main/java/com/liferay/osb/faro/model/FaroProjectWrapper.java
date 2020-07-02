@@ -67,6 +67,7 @@ public class FaroProjectWrapper
 		attributes.put("corpProjectUuid", getCorpProjectUuid());
 		attributes.put("ipAddresses", getIpAddresses());
 		attributes.put("lastAccessTime", getLastAccessTime());
+		attributes.put("recommendationsEnabled", isRecommendationsEnabled());
 		attributes.put("serverLocation", getServerLocation());
 		attributes.put("services", getServices());
 		attributes.put("state", getState());
@@ -154,6 +155,13 @@ public class FaroProjectWrapper
 
 		if (lastAccessTime != null) {
 			setLastAccessTime(lastAccessTime);
+		}
+
+		Boolean recommendationsEnabled = (Boolean)attributes.get(
+			"recommendationsEnabled");
+
+		if (recommendationsEnabled != null) {
+			setRecommendationsEnabled(recommendationsEnabled);
 		}
 
 		String serverLocation = (String)attributes.get("serverLocation");
@@ -328,6 +336,16 @@ public class FaroProjectWrapper
 	}
 
 	/**
+	 * Returns the recommendations enabled of this faro project.
+	 *
+	 * @return the recommendations enabled of this faro project
+	 */
+	@Override
+	public boolean getRecommendationsEnabled() {
+		return _faroProject.getRecommendationsEnabled();
+	}
+
+	/**
 	 * Returns the server location of this faro project.
 	 *
 	 * @return the server location of this faro project
@@ -430,6 +448,16 @@ public class FaroProjectWrapper
 	@Override
 	public boolean isNew() {
 		return _faroProject.isNew();
+	}
+
+	/**
+	 * Returns <code>true</code> if this faro project is recommendations enabled.
+	 *
+	 * @return <code>true</code> if this faro project is recommendations enabled; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isRecommendationsEnabled() {
+		return _faroProject.isRecommendationsEnabled();
 	}
 
 	@Override
@@ -592,6 +620,16 @@ public class FaroProjectWrapper
 	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_faroProject.setPrimaryKeyObj(primaryKeyObj);
+	}
+
+	/**
+	 * Sets whether this faro project is recommendations enabled.
+	 *
+	 * @param recommendationsEnabled the recommendations enabled of this faro project
+	 */
+	@Override
+	public void setRecommendationsEnabled(boolean recommendationsEnabled) {
+		_faroProject.setRecommendationsEnabled(recommendationsEnabled);
 	}
 
 	/**

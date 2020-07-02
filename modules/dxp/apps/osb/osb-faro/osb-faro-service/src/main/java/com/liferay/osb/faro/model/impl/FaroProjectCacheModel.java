@@ -60,7 +60,7 @@ public class FaroProjectCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(39);
 
 		sb.append("{faroProjectId=");
 		sb.append(faroProjectId);
@@ -88,6 +88,8 @@ public class FaroProjectCacheModel
 		sb.append(ipAddresses);
 		sb.append(", lastAccessTime=");
 		sb.append(lastAccessTime);
+		sb.append(", recommendationsEnabled=");
+		sb.append(recommendationsEnabled);
 		sb.append(", serverLocation=");
 		sb.append(serverLocation);
 		sb.append(", services=");
@@ -164,6 +166,7 @@ public class FaroProjectCacheModel
 		}
 
 		faroProjectImpl.setLastAccessTime(lastAccessTime);
+		faroProjectImpl.setRecommendationsEnabled(recommendationsEnabled);
 
 		if (serverLocation == null) {
 			faroProjectImpl.setServerLocation("");
@@ -225,6 +228,8 @@ public class FaroProjectCacheModel
 		ipAddresses = objectInput.readUTF();
 
 		lastAccessTime = objectInput.readLong();
+
+		recommendationsEnabled = objectInput.readBoolean();
 		serverLocation = objectInput.readUTF();
 		services = objectInput.readUTF();
 		state = objectInput.readUTF();
@@ -295,6 +300,8 @@ public class FaroProjectCacheModel
 
 		objectOutput.writeLong(lastAccessTime);
 
+		objectOutput.writeBoolean(recommendationsEnabled);
+
 		if (serverLocation == null) {
 			objectOutput.writeUTF("");
 		}
@@ -344,6 +351,7 @@ public class FaroProjectCacheModel
 	public String corpProjectUuid;
 	public String ipAddresses;
 	public long lastAccessTime;
+	public boolean recommendationsEnabled;
 	public String serverLocation;
 	public String services;
 	public String state;

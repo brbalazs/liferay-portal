@@ -72,9 +72,11 @@ public class FaroProjectModelImpl
 		{"name", Types.VARCHAR}, {"accountKey", Types.VARCHAR},
 		{"accountName", Types.VARCHAR}, {"corpProjectName", Types.VARCHAR},
 		{"corpProjectUuid", Types.VARCHAR}, {"ipAddresses", Types.VARCHAR},
-		{"lastAccessTime", Types.BIGINT}, {"serverLocation", Types.VARCHAR},
-		{"services", Types.VARCHAR}, {"state_", Types.VARCHAR},
-		{"subscription", Types.VARCHAR}, {"weDeployKey", Types.VARCHAR}
+		{"lastAccessTime", Types.BIGINT},
+		{"recommendationsEnabled", Types.BOOLEAN},
+		{"serverLocation", Types.VARCHAR}, {"services", Types.VARCHAR},
+		{"state_", Types.VARCHAR}, {"subscription", Types.VARCHAR},
+		{"weDeployKey", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -94,6 +96,7 @@ public class FaroProjectModelImpl
 		TABLE_COLUMNS_MAP.put("corpProjectUuid", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("ipAddresses", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("lastAccessTime", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("recommendationsEnabled", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("serverLocation", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("services", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("state_", Types.VARCHAR);
@@ -102,7 +105,7 @@ public class FaroProjectModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table OSBFaro_FaroProject (faroProjectId LONG not null primary key,groupId LONG,userId LONG,userName VARCHAR(75) null,createTime LONG,modifiedTime LONG,name VARCHAR(75) null,accountKey VARCHAR(75) null,accountName VARCHAR(75) null,corpProjectName VARCHAR(75) null,corpProjectUuid VARCHAR(75) null,ipAddresses STRING null,lastAccessTime LONG,serverLocation VARCHAR(75) null,services STRING null,state_ VARCHAR(75) null,subscription STRING null,weDeployKey VARCHAR(75) null)";
+		"create table OSBFaro_FaroProject (faroProjectId LONG not null primary key,groupId LONG,userId LONG,userName VARCHAR(75) null,createTime LONG,modifiedTime LONG,name VARCHAR(75) null,accountKey VARCHAR(75) null,accountName VARCHAR(75) null,corpProjectName VARCHAR(75) null,corpProjectUuid VARCHAR(75) null,ipAddresses STRING null,lastAccessTime LONG,recommendationsEnabled BOOLEAN,serverLocation VARCHAR(75) null,services STRING null,state_ VARCHAR(75) null,subscription STRING null,weDeployKey VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table OSBFaro_FaroProject";
@@ -564,6 +567,30 @@ public class FaroProjectModelImpl
 
 			});
 		attributeGetterFunctions.put(
+			"recommendationsEnabled",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getRecommendationsEnabled();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"recommendationsEnabled",
+			new BiConsumer<FaroProject, Object>() {
+
+				@Override
+				public void accept(
+					FaroProject faroProject,
+					Object recommendationsEnabledObject) {
+
+					faroProject.setRecommendationsEnabled(
+						(Boolean)recommendationsEnabledObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
 			"serverLocation",
 			new Function<FaroProject, Object>() {
 
@@ -896,6 +923,21 @@ public class FaroProjectModelImpl
 	}
 
 	@Override
+	public boolean getRecommendationsEnabled() {
+		return _recommendationsEnabled;
+	}
+
+	@Override
+	public boolean isRecommendationsEnabled() {
+		return _recommendationsEnabled;
+	}
+
+	@Override
+	public void setRecommendationsEnabled(boolean recommendationsEnabled) {
+		_recommendationsEnabled = recommendationsEnabled;
+	}
+
+	@Override
 	public String getServerLocation() {
 		if (_serverLocation == null) {
 			return "";
@@ -1039,6 +1081,7 @@ public class FaroProjectModelImpl
 		faroProjectImpl.setCorpProjectUuid(getCorpProjectUuid());
 		faroProjectImpl.setIpAddresses(getIpAddresses());
 		faroProjectImpl.setLastAccessTime(getLastAccessTime());
+		faroProjectImpl.setRecommendationsEnabled(isRecommendationsEnabled());
 		faroProjectImpl.setServerLocation(getServerLocation());
 		faroProjectImpl.setServices(getServices());
 		faroProjectImpl.setState(getState());
@@ -1199,6 +1242,9 @@ public class FaroProjectModelImpl
 
 		faroProjectCacheModel.lastAccessTime = getLastAccessTime();
 
+		faroProjectCacheModel.recommendationsEnabled =
+			isRecommendationsEnabled();
+
 		faroProjectCacheModel.serverLocation = getServerLocation();
 
 		String serverLocation = faroProjectCacheModel.serverLocation;
@@ -1330,6 +1376,7 @@ public class FaroProjectModelImpl
 	private String _originalCorpProjectUuid;
 	private String _ipAddresses;
 	private long _lastAccessTime;
+	private boolean _recommendationsEnabled;
 	private String _serverLocation;
 	private String _originalServerLocation;
 	private String _services;

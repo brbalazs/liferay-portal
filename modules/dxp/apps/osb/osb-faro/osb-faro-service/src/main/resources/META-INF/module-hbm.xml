@@ -49,6 +49,7 @@
 		<property name="corpProjectUuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="ipAddresses" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="lastAccessTime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="recommendationsEnabled" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="serverLocation" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="services" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property column="state_" name="state" type="com.liferay.portal.dao.orm.hibernate.StringType" />

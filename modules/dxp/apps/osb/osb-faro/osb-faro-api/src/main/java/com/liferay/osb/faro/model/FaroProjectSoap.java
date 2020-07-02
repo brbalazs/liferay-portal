@@ -43,6 +43,7 @@ public class FaroProjectSoap implements Serializable {
 		soapModel.setCorpProjectUuid(model.getCorpProjectUuid());
 		soapModel.setIpAddresses(model.getIpAddresses());
 		soapModel.setLastAccessTime(model.getLastAccessTime());
+		soapModel.setRecommendationsEnabled(model.isRecommendationsEnabled());
 		soapModel.setServerLocation(model.getServerLocation());
 		soapModel.setServices(model.getServices());
 		soapModel.setState(model.getState());
@@ -205,6 +206,18 @@ public class FaroProjectSoap implements Serializable {
 		_lastAccessTime = lastAccessTime;
 	}
 
+	public boolean getRecommendationsEnabled() {
+		return _recommendationsEnabled;
+	}
+
+	public boolean isRecommendationsEnabled() {
+		return _recommendationsEnabled;
+	}
+
+	public void setRecommendationsEnabled(boolean recommendationsEnabled) {
+		_recommendationsEnabled = recommendationsEnabled;
+	}
+
 	public String getServerLocation() {
 		return _serverLocation;
 	}
@@ -258,6 +271,7 @@ public class FaroProjectSoap implements Serializable {
 	private String _corpProjectUuid;
 	private String _ipAddresses;
 	private long _lastAccessTime;
+	private boolean _recommendationsEnabled;
 	private String _serverLocation;
 	private String _services;
 	private String _state;

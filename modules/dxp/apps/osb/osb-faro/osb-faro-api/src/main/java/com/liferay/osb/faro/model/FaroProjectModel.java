@@ -262,6 +262,27 @@ public interface FaroProjectModel extends BaseModel<FaroProject> {
 	public void setLastAccessTime(long lastAccessTime);
 
 	/**
+	 * Returns the recommendations enabled of this faro project.
+	 *
+	 * @return the recommendations enabled of this faro project
+	 */
+	public boolean getRecommendationsEnabled();
+
+	/**
+	 * Returns <code>true</code> if this faro project is recommendations enabled.
+	 *
+	 * @return <code>true</code> if this faro project is recommendations enabled; <code>false</code> otherwise
+	 */
+	public boolean isRecommendationsEnabled();
+
+	/**
+	 * Sets whether this faro project is recommendations enabled.
+	 *
+	 * @param recommendationsEnabled the recommendations enabled of this faro project
+	 */
+	public void setRecommendationsEnabled(boolean recommendationsEnabled);
+
+	/**
 	 * Returns the server location of this faro project.
 	 *
 	 * @return the server location of this faro project
