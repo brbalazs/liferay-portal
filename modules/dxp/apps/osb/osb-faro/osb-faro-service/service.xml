@@ -114,6 +114,7 @@
 		<column name="corpProjectUuid" type="String" />
 		<column name="ipAddresses" type="String" />
 		<column name="lastAccessTime" type="long" />
+		<column name="recommendationsEnabled" type="boolean" />
 		<column name="serverLocation" type="String" />
 		<column name="services" type="String" />
 		<column name="state" type="String" />

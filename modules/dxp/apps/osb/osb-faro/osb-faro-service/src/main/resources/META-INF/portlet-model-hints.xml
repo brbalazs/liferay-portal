@@ -41,6 +41,7 @@
 			<hint-collection name="TEXTAREA" />
 		</field>
 		<field name="lastAccessTime" type="long" />
+		<field name="recommendationsEnabled" type="boolean" />
 		<field name="serverLocation" type="String" />
 		<field name="services" type="String">
 			<hint-collection name="TEXTAREA" />
