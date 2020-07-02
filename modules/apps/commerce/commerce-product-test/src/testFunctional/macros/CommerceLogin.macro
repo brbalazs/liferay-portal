@@ -131,11 +131,7 @@ definition {
 
 		Navigator.openSpecificURL(url = "${specificURL}");
 
-		Click(locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DROPDOWN");
-
-		Click(
-			key_dropdownItem = "Sign In",
-			locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DROPDOWN_ITEM");
+		CommerceNavigator.gotoSpeedwellAccountDropdownItem(dropdownItem = "Sign In");
 
 		CommerceLogin.loginPG(
 			password = "${password}",

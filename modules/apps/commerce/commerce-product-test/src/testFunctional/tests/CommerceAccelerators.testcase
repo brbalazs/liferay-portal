@@ -429,7 +429,7 @@ definition {
 
 		Navigator.openWithAppendToBaseURL(urlAppend = "web/speedwell");
 
-		CommerceNavigator.gotoSpeedwellMyAccountPage();
+		CommerceNavigator.gotoSpeedwellAccountDropdownItem(dropdownItem = "My Account");
 
 		CommerceNavigator.gotoSpeedwellDashboardItem(dashboardItem = "Login & Security");
 
