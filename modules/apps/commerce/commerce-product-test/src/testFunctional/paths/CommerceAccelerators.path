@@ -189,6 +189,37 @@
 	<td>//div[contains(@class,'form-group')]//input[contains(@name,'email')]</td>
 	<td></td>
 </tr>
+<!--MINICART-->
+<tr>
+	<td>MINI_CART_CLOSE</td>
+	<td>//button[@class='mini-cart-close']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MINI_CART_ITEM_NAME</td>
+	<td>//h5[@class='item-name']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MINI_CART_ITEM_SKU</td>
+	<td>//p[@class='item-sku']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MINI_CART_ITEM_QUANTITY</td>
+	<td>//div[@class='mini-cart-item-quantity']//input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MINI_CART_ITEM_PRICE_VALUE</td>
+	<td>//div[@class='mini-cart-item-price']//span[@class='price-value']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MINI_CART_SUMMARY_TABLE_ITEM</td>
+	<td>//div[contains(@class,'summary-table')]//span[contains(.,'${key_summaryTableItem}')]</td>
+	<td></td>
+</tr>
 <!--ORDERS-->
 <tr>
 	<td>ORDER_DETAILS_DISCOUNT</td>
