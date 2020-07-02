@@ -120,8 +120,10 @@ public class FaroProjectLocalServiceImpl
 	public FaroProject deleteFaroProjectByGroupId(long groupId)
 		throws PortalException {
 
+		faroChannelLocalService.deleteFaroChannels(groupId);
 		faroPreferencesLocalService.deleteFaroPreferencesByGroupId(groupId);
 		faroUserLocalService.deleteFaroUsers(groupId);
+
 		groupLocalService.deleteGroup(groupId);
 
 		return faroProjectPersistence.removeByGroupId(groupId);

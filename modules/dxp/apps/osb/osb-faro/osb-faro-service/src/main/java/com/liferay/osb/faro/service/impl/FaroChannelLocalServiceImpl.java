@@ -140,15 +140,32 @@ public class FaroChannelLocalServiceImpl
 	}
 
 	@Override
-	public FaroChannel deleteFaroChannel(String channelId)
+	public FaroChannel deleteFaroChannel(FaroChannel faroChannel)
 		throws PortalException {
-
-		FaroChannel faroChannel = faroChannelPersistence.findByChannelId(
-			channelId);
 
 		groupLocalService.deleteGroup(faroChannel.getGroupId());
 
 		return faroChannelPersistence.remove(faroChannel);
+	}
+
+	@Override
+	public FaroChannel deleteFaroChannel(String channelId)
+		throws PortalException {
+
+		return deleteFaroChannel(
+			faroChannelPersistence.findByChannelId(channelId));
+	}
+
+	@Override
+	public void deleteFaroChannels(long workspaceGroupId)
+		throws PortalException {
+
+		for (FaroChannel faroChannel :
+				faroChannelPersistence.findByWorkspaceGroupId(
+					workspaceGroupId)) {
+
+			deleteFaroChannel(faroChannel);
+		}
 	}
 
 	@Override
