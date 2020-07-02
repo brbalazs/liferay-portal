@@ -21,6 +21,7 @@ import com.liferay.commerce.product.catalog.CPCatalogEntry;
 import com.liferay.commerce.product.constants.CPWebKeys;
 import com.liferay.commerce.product.data.source.CPDataSource;
 import com.liferay.commerce.product.data.source.CPDataSourceResult;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -124,13 +125,20 @@ public class ProductInteractionCommerceMLRecommendationCPDataSourceImpl
 				_log.trace(sb.toString());
 			}
 
-			CPCatalogEntry recommendedCPCatalogEntry =
-				cpDefinitionHelper.getCPCatalogEntry(
-					commerceAccount.getCommerceAccountId(), groupId,
-					recommendedEntryClassPK,
-					portal.getLocale(httpServletRequest));
+			try {
+				CPCatalogEntry recommendedCPCatalogEntry =
+					cpDefinitionHelper.getCPCatalogEntry(
+						commerceAccount.getCommerceAccountId(), groupId,
+						recommendedEntryClassPK,
+						portal.getLocale(httpServletRequest));
 
-			cpCatalogEntries.add(recommendedCPCatalogEntry);
+				cpCatalogEntries.add(recommendedCPCatalogEntry);
+			}
+			catch (PortalException e) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(e, e);
+				}
+			}
 		}
 
 		return new CPDataSourceResult(
