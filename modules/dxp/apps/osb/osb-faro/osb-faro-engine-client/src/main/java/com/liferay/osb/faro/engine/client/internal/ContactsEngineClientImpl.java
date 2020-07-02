@@ -707,7 +707,8 @@ public class ContactsEngineClientImpl
 	@Override
 	public Results<ActivityAggregation> getActivityAggregations(
 		FaroProject faroProject, String channelId, String ownerId,
-		String ownerType, String interval, int delta) {
+		String ownerType, String rangeEnd, String rangeStart,
+		String interval, int delta) {
 
 		Map<String, Object> uriVariables = getUriVariables(
 			faroProject, 1, delta, null);
@@ -728,6 +729,11 @@ public class ContactsEngineClientImpl
 		uriVariables.put("filter", filterBuilder.build());
 
 		uriVariables.put("includeToday", false);
+
+		if ((rangeEnd != null) && (rangeStart != null)) {
+			uriVariables.put("rangeEnd", rangeEnd);
+			uriVariables.put("rangeStart", rangeStart);
+		}
 
 		PagedResources pagedResources = get(
 			faroProject, Rels.ACTIVITIES,

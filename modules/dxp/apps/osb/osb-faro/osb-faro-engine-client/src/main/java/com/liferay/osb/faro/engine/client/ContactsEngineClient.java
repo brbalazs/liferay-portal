@@ -195,7 +195,8 @@ public interface ContactsEngineClient {
 
 	public Results<ActivityAggregation> getActivityAggregations(
 		FaroProject faroProject, String channelId, String ownerId,
-		String ownerType, String interval, int delta);
+		String ownerType, String rangeEnd, String rangeStart, String interval,
+		int delta);
 
 	public Results<ActivityAsset> getActivityAssets(
 		FaroProject faroProject, String query, String applicationId,

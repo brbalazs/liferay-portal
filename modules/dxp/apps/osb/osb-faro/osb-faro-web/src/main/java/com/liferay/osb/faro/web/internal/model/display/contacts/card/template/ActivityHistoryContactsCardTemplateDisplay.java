@@ -54,8 +54,8 @@ public class ActivityHistoryContactsCardTemplateDisplay
 
 		Results<ActivityAggregation> results =
 			contactsEngineClient.getActivityAggregations(
-				faroProject, null, faroEntityDisplay.getId(), null, _interval,
-				_max);
+				faroProject, null, faroEntityDisplay.getId(), null, null, null,
+				_interval, _max);
 
 		contactsCardData.put("activityHistory", results.getItems());
 

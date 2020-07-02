@@ -367,10 +367,12 @@ public abstract class BaseMockContactsEngineClientImpl
 	@Override
 	public Results<ActivityAggregation> getActivityAggregations(
 		FaroProject faroProject, String channelId, String ownerId,
-		String ownerType, String interval, int delta) {
+		String ownerType, String rangeEnd, String rangeStart, String interval,
+		int delta) {
 
 		return contactsEngineClient.getActivityAggregations(
-			faroProject, channelId, ownerId, ownerType, interval, delta);
+			faroProject, channelId, ownerId, ownerType, rangeEnd, rangeStart,
+			interval, delta);
 	}
 
 	@Override
