@@ -30,18 +30,16 @@ contextParams.put("commercePricingClassId", String.valueOf(commercePricingClass.
 %>
 
 <c:if test="<%= hasPermission %>">
-	<div class="container mt-3">
-		<div class="col-12">
-			<commerce-ui:dataset-display
-				contextParams="<%= contextParams %>"
-				dataProviderKey="<%= CommercePricingClassDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_DISCOUNTS %>"
-				id="<%= CommercePricingClassDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_DISCOUNTS %>"
-				itemsPerPage="<%= 10 %>"
-				namespace="<%= renderResponse.getNamespace() %>"
-				pageNumber="<%= 1 %>"
-				portletURL="<%= currentURLObj %>"
-				style="stacked"
-			/>
-		</div>
+	<div class="col-12 pt-4">
+		<commerce-ui:dataset-display
+			contextParams="<%= contextParams %>"
+			dataProviderKey="<%= CommercePricingClassDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_DISCOUNTS %>"
+			id="<%= CommercePricingClassDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_DISCOUNTS %>"
+			itemsPerPage="<%= 10 %>"
+			namespace="<%= renderResponse.getNamespace() %>"
+			pageNumber="<%= 1 %>"
+			portletURL="<%= currentURLObj %>"
+			style="stacked"
+		/>
 	</div>
 </c:if>
