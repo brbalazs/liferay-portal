@@ -174,6 +174,10 @@ public class FaroHooks {
 			}
 			else if (itemCount.equals("1")) {
 				faroSelenium.click("//button[text()='Delete']");
+
+				faroSelenium.waitForLoadingComplete();
+				faroSelenium.waitForPageLoadingComplete();
+
 				faroSelenium.type(
 					"//input[@name='delete' and @type='text']",
 					"Delete " + singleItem);
@@ -182,6 +186,10 @@ public class FaroHooks {
 			}
 			else {
 				faroSelenium.click("//button[text()='Delete']");
+
+				faroSelenium.waitForLoadingComplete();
+				faroSelenium.waitForPageLoadingComplete();
+
 				faroSelenium.type(
 					"//input[@name='delete' and @type='text']",
 					"Delete " + itemCount + " Properties");
