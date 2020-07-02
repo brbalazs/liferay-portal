@@ -258,4 +258,105 @@ definition {
 			shippingMethod = "Standard");
 	}
 
+	test AssertGuestCartIsTransferredToAccount {
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "GuestCheckout#AssertGuestCartIsTransferredToAccount";
+
+		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Channels");
+
+		CommerceNavigator.gotoEntry(entryName = "Speedwell Portal");
+
+		CommerceChannels.activatePaymentMethod(paymentMethod = "Money Order");
+
+		Refresh();
+
+		Check.checkToggleSwitch(
+			key_toggleSwitchLabel = "Guest Checkout",
+			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
+
+		Button.clickSave();
+
+		AssertChecked.assertCheckedNotVisible(
+			key_toggleSwitchLabel = "Guest Checkout",
+			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
+
+		Click(
+			key_fixIssueButtonName = "Guest Checkout Authentication",
+			locator1 = "CommerceEntry#FIX_ISSUE_BUTTON");
+
+		Alert.viewSuccessMessage();
+
+				ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.addCP(
+			userEmailAddress = "buyer@liferay.com",
+			userFirstName = "Buyer",
+			userLastName = "User",
+			userScreenName = "buyer");
+
+		Click(locator1 = "Icon#BACK");
+
+		CommerceLogin.editPasswordCP(
+			newPassword = "ttest",
+			requirePasswordReset = "true",
+			userScreenName = "buyer");
+
+		Click(locator1 = "Icon#BACK");
+
+		User.editUserSiteCP(
+			siteName = "Speedwell",
+			userScreenName = "buyer");
+
+		User.logoutPG();
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/speedwell");
+
+		CommerceNavigator.gotoSpeedwellTopbarItem(menuItem = "Catalog");
+
+		FrontStore.addInitializerProductToCart(
+			productName = "U-Joint",
+			productQuantity = "1");
+
+		Pause(locator1 = "5000");
+
+		CommerceNavigator.gotoMiniCart();
+
+		FrontStore.viewMiniCart(
+			cartItemName = "U-Joint",
+			cartItemPriceValue = "24",
+			cartItemQuantity = "1",
+			cartItemSKU = "SPEED55861");
+
+		Click(locator1 = "CommerceAccelerators#MINI_CART_CLOSE");
+
+		CommerceNavigator.gotoSpeedwellAccountDropdownItem(dropdownItem = "Sign In");
+
+		CommerceLogin.loginPG(
+		password = "ttest",
+		resetPassword = "test",
+		samlEnabled = "true",
+		userEmailAddress = "buyer@liferay.com");
+
+		CommerceNavigator.gotoSpeedwellTopbarItem(menuItem = "Catalog");
+
+		CommerceNavigator.gotoMiniCart();
+
+		FrontStore.viewMiniCart(
+			cartItemName = "U-Joint",
+			cartItemPriceValue = "24",
+			cartItemQuantity = "1",
+			cartItemSKU = "SPEED55861");
+
+		Click(locator1 = "CommerceAccelerators#MINI_CART_CLOSE");
+
+	}
+
 }
