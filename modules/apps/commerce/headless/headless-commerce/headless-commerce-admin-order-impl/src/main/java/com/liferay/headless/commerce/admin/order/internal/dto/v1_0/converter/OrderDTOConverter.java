@@ -337,24 +337,33 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 		CommerceMoney commerceOrderSubtotalMoney =
 			commerceOrder.getSubtotalMoney();
 
-		order.setSubtotalFormatted(commerceOrderSubtotalMoney.format(locale));
+		if (commerceOrderSubtotalMoney != null) {
+			order.setSubtotalFormatted(
+				commerceOrderSubtotalMoney.format(locale));
+		}
 
 		CommerceMoney commerceOrderSubtotalWithTaxAmountMoney =
 			commerceOrder.getSubtotalWithTaxAmountMoney();
 
-		order.setSubtotalWithTaxAmountFormatted(
-			commerceOrderSubtotalWithTaxAmountMoney.format(locale));
+		if (commerceOrderSubtotalWithTaxAmountMoney != null) {
+			order.setSubtotalWithTaxAmountFormatted(
+				commerceOrderSubtotalWithTaxAmountMoney.format(locale));
+		}
 
 		BigDecimal commerceOrderSubtotalValue =
 			commerceOrderSubtotalMoney.getPrice();
 
-		order.setSubtotalAmount(commerceOrderSubtotalValue.doubleValue());
+		if (commerceOrderSubtotalValue != null) {
+			order.setSubtotalAmount(commerceOrderSubtotalValue.doubleValue());
+		}
 
 		BigDecimal commerceOrderSubtotalWithTaxAmountValue =
 			commerceOrderSubtotalWithTaxAmountMoney.getPrice();
 
-		order.setSubtotalWithTaxAmountValue(
-			commerceOrderSubtotalWithTaxAmountValue.doubleValue());
+		if (commerceOrderSubtotalWithTaxAmountValue != null) {
+			order.setSubtotalWithTaxAmountValue(
+				commerceOrderSubtotalWithTaxAmountValue.doubleValue());
+		}
 
 		BigDecimal subtotalDiscountAmount =
 			commerceOrder.getSubtotalDiscountAmount();
@@ -439,23 +448,31 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 
 		CommerceMoney commerceOrderTotalMoney = commerceOrder.getTotalMoney();
 
-		order.setTotalFormatted(commerceOrderTotalMoney.format(locale));
+		if (commerceOrderTotalMoney != null) {
+			order.setTotalFormatted(commerceOrderTotalMoney.format(locale));
+		}
 
 		CommerceMoney commerceOrderTotalWithTaxAmountMoney =
 			commerceOrder.getTotalWithTaxAmountMoney();
 
-		order.setTotalWithTaxAmountFormatted(
-			commerceOrderTotalWithTaxAmountMoney.format(locale));
+		if (commerceOrderTotalWithTaxAmountMoney != null) {
+			order.setTotalWithTaxAmountFormatted(
+				commerceOrderTotalWithTaxAmountMoney.format(locale));
+		}
 
 		BigDecimal commerceOrderTotalValue = commerceOrderTotalMoney.getPrice();
 
-		order.setTotalAmount(commerceOrderTotalValue.doubleValue());
+		if (commerceOrderTotalValue != null) {
+			order.setTotalAmount(commerceOrderTotalValue.doubleValue());
+		}
 
 		BigDecimal commerceOrderTotalWithTaxAmountValue =
 			commerceOrderTotalWithTaxAmountMoney.getPrice();
 
-		order.setTotalWithTaxAmountValue(
-			commerceOrderTotalWithTaxAmountValue.doubleValue());
+		if (commerceOrderTotalWithTaxAmountValue != null) {
+			order.setTotalWithTaxAmountValue(
+				commerceOrderTotalWithTaxAmountValue.doubleValue());
+		}
 
 		BigDecimal totalDiscountAmount = commerceOrder.getTotalDiscountAmount();
 

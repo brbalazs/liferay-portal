@@ -14,6 +14,7 @@
 
 package com.liferay.headless.commerce.admin.order.internal.resource.v1_0;
 
+import com.liferay.commerce.account.exception.NoSuchAccountException;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.constants.CommerceOrderConstants;
@@ -359,11 +360,17 @@ public class OrderResourceImpl
 				order.getAccountId());
 		}
 
-		if (Validator.isNotNull(order.getAccountExternalReferenceCode())) {
+		if ((commerceAccount == null) &&
+			Validator.isNotNull(order.getAccountExternalReferenceCode())) {
+
 			commerceAccount =
 				_commerceAccountService.fetchByExternalReferenceCode(
 					commerceChannel.getCompanyId(),
 					order.getAccountExternalReferenceCode());
+		}
+
+		if (commerceAccount == null) {
+			throw new NoSuchAccountException();
 		}
 
 		CommerceOrder commerceOrder = _commerceOrderService.upsertCommerceOrder(
