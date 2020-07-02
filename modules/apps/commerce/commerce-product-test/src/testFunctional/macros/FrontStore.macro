@@ -61,4 +61,50 @@ definition {
 		}
 	}
 
+	macro viewMiniCart {
+		AssertTextEquals(
+			locator1 = "CommerceAccelerators#MINI_CART_ITEM_NAME",
+			value1 = "${cartItemName}");
+
+		AssertTextEquals(
+			locator1 = "CommerceAccelerators#MINI_CART_ITEM_SKU",
+			value1 = "${cartItemSKU}");
+
+		AssertTextEquals(
+			locator1 = "CommerceAccelerators#MINI_CART_ITEM_QUANTITY",
+			value1 = "${cartItemQuantity}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "CommerceAccelerators#MINI_CART_ITEM_PRICE_VALUE",
+			value1 = "$ ${cartItemPriceValue}");
+
+		if (isSet(cartSummaryQuantity)) {
+			AssertTextEquals(
+				key_summaryTableItem = "Quantity",
+				locator1 = "CommerceAccelerators#MINI_CART_SUMMARY_TABLE_ITEM",
+				value1 = "$ ${cartSummaryQuantity}");
+		}
+
+		if (isSet(cartSummarySubtotal)) {
+			AssertTextEquals.assertPartialText(
+				key_summaryTableItem = "Subtotal",
+				locator1 = "CommerceAccelerators#MINI_CART_SUMMARY_TABLE_ITEM",
+				value1 = "$ ${cartSummarySubtotal}");
+		}
+
+		if (isSet(cartSummaryOrderDiscount)) {
+			AssertTextEquals.assertPartialText(
+				key_summaryTableItem = "Order Discount",
+				locator1 = "CommerceAccelerators#MINI_CART_SUMMARY_TABLE_ITEM",
+				value1 = "$ ${cartSummaryOrderDiscount}");
+		}
+
+		if (isSet(cartSummaryTotal)) {
+			AssertTextEquals.assertPartialText(
+				key_summaryTableItem = "Total"
+				locator1 = "CommerceAccelerators#MINI_CART_SUMMARY_TABLE_ITEM",
+				value1 = "$ ${cartSummaryTotal}");
+		}
+	}
+
 }
