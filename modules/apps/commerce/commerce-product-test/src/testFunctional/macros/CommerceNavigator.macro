@@ -48,7 +48,7 @@ definition {
 			locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DASHBOARD_ITEM");
 	}
 
-	macro gotoSpeedwellMyAccountPage {
+	macro gotoSpeedwellAccountDropdownItem {
 		Click(locator1 = "CommerceAccelerators#SPEEDWELL_ACCOUNT_DROPDOWN");
 
 		Click(
