@@ -122,10 +122,6 @@ AUI.add(
 							item1,
 							function(item2, index2, collection2) {
 								if (isValue(item2)) {
-									if (index2 === 'script') {
-										item2 = Lang.trim(item2);
-									}
-
 									_put(actions, index2, item2, index1);
 								}
 							}
