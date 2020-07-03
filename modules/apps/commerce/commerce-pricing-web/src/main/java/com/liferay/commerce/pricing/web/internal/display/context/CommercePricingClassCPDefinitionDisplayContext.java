@@ -15,9 +15,9 @@
 package com.liferay.commerce.pricing.web.internal.display.context;
 
 import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
+import com.liferay.commerce.pricing.display.context.util.CommercePricingClassRequestHelper;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
-import com.liferay.commerce.pricing.display.context.util.CommercePricingClassRequestHelper;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
