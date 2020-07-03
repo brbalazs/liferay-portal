@@ -150,6 +150,7 @@ public abstract class BaseGroupIdQueryPreFilterContributorTestCase
 
 	protected void assertSearch(
 		long scopeGroupId, List<String> expectedValues) {
+
 		assertSearch(
 			indexingTestHelper -> {
 				indexingTestHelper.define(
