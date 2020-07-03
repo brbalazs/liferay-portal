@@ -82,7 +82,7 @@ definition {
 			AssertTextEquals(
 				key_summaryTableItem = "Quantity",
 				locator1 = "CommerceAccelerators#MINI_CART_SUMMARY_TABLE_ITEM",
-				value1 = "$ ${cartSummaryQuantity}");
+				value1 = "${cartSummaryQuantity}");
 		}
 
 		if (isSet(cartSummarySubtotal)) {
@@ -101,8 +101,7 @@ definition {
 
 		if (isSet(cartSummaryTotal)) {
 			AssertTextEquals.assertPartialText(
-				key_summaryTableItem = "Total"
-				locator1 = "CommerceAccelerators#MINI_CART_SUMMARY_TABLE_ITEM",
+				locator1 = "CommerceAccelerators#MINI_CART_SUMMARY_TABLE_TOTAL",
 				value1 = "$ ${cartSummaryTotal}");
 		}
 	}
