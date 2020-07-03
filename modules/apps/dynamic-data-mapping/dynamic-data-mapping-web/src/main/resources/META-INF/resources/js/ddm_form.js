@@ -202,14 +202,7 @@ AUI.add(
 				if (instance.get('readOnly')) {
 					retVal = true;
 				}
-				else {
-					var form = instance.getForm();
-
-					if (!instance.get('localizable') && form.getDefaultLocale() != instance.get('displayLocale')) {
-						retVal = true;
-					}
-				}
-
+				
 				return retVal;
 			},
 
@@ -3523,12 +3516,16 @@ AUI.add(
 					},
 
 					fillEmptyLocales: function(instance, fields, availableLanguageIds) {
+						var defaultLocale = instance.getDefaultLocale();
+	
+						if (availableLanguageIds.indexOf(defaultLocale) === -1){
+							availableLanguageIds.push(defaultLocale);
+						}
+
 						fields.forEach(
 							function(field) {
 								if (field.get('localizable')) {
 									var localizationMap = field.get('localizationMap');
-
-									var defaultLocale = field.getDefaultLocale();
 
 									availableLanguageIds.forEach(
 										function(locale) {
