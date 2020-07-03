@@ -220,6 +220,11 @@
 	<td>//div[contains(@class,'summary-table')]//span[contains(.,'${key_summaryTableItem}')]/following::span</td>
 	<td></td>
 </tr>
+<tr>
+	<td>MINI_CART_SUMMARY_TABLE_TOTAL</td>
+	<td>//div[contains(@class,'summary-table')]//*[contains(.,'Total')]/following::h4</td>
+	<td></td>
+</tr>
 <!--ORDERS-->
 <tr>
 	<td>ORDER_DETAILS_DISCOUNT</td>
