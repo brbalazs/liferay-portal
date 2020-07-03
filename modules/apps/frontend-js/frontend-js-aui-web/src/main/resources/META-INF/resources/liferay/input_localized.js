@@ -385,9 +385,13 @@ AUI.add(
 
 						var flags = instance._flags.getDOMNode();
 
-						var languageNode = flags.querySelector(
+						var defaultLanguageFlag = flags.querySelector(
 							'[data-languageid="' + defaultLanguageId + '"]'
-						)?.parentElement;
+						);
+
+						if (defaultLanguageFlag) {
+							var languageNode = defaultLanguageFlag.parentElement;
+						}
 
 						if (languageNode) {
 							flags.removeChild(languageNode);
