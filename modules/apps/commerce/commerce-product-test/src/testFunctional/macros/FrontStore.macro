@@ -106,4 +106,26 @@ definition {
 		}
 	}
 
+	macro viewMiniCartItem {
+			AssertTextEquals(
+				key_cartItemSKU = "${cartItemSKU}",
+				locator1 = "CommerceAccelerators#MINI_CART_ITEM_NAME",
+				value1 = "${cartItemName}");
+
+			AssertTextEquals(
+				key_cartItemSKU = "${cartItemSKU}",
+				locator1 = "CommerceAccelerators#MINI_CART_ITEM_SKU",
+				value1 = "${cartItemSKU}");
+
+			AssertTextEquals(
+				key_cartItemSKU = "${cartItemSKU}",
+				locator1 = "CommerceAccelerators#MINI_CART_ITEM_QUANTITY",
+				value1 = "${cartItemQuantity}");
+
+			AssertTextEquals.assertPartialText(
+				key_cartItemSKU = "${cartItemSKU}",
+				locator1 = "CommerceAccelerators#MINI_CART_ITEM_PRICE_VALUE",
+				value1 = "$ ${cartItemPriceValue}");
+	}
+
 }
