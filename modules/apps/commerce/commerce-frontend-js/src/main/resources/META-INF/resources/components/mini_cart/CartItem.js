@@ -60,7 +60,8 @@ function CartItem({item: cartItem}) {
 			updateCartModel
 		} = useContext(MiniCartContext),
 		{id: orderId} = cartState,
-		[itemState, setItemState] = useState(INITIAL_ITEM_STATE);
+		[itemState, setItemState] = useState(INITIAL_ITEM_STATE),
+		[itemPrice, updateItemPrice] = useState(price);
 
 	const options = parseOptions(rawOptions);
 
@@ -128,6 +129,25 @@ function CartItem({item: cartItem}) {
 				quantity
 			})
 				.catch(showErrors)
+				.then(({price: updatedPrice}) => {
+					const {price: updatedPriceValue} = updatedPrice,
+						{price: currentPriceValue} = itemPrice;
+
+					/**
+					 * The unit price of an item may change based
+					 * on the change of its quantity
+					 * @type {boolean}
+					 */
+					const priceValueChanged =
+						!currentPriceValue ||
+						currentPriceValue !== updatedPriceValue;
+
+					if (priceValueChanged) {
+						return updateItemPrice(updatedPrice);
+					}
+
+					return Promise.resolve();
+				})
 				.then(() => updateCartModel({orderId}))
 				.then(() => setIsUpdating(false));
 		}, // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -180,7 +200,7 @@ function CartItem({item: cartItem}) {
 			<div className={'mini-cart-item-price'}>
 				<ItemPriceView
 					displayDiscountLevels={displayDiscountLevels}
-					price={price}
+					price={itemPrice}
 				/>
 			</div>
 

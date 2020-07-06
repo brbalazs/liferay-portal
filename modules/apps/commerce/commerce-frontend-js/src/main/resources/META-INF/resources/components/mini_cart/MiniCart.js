@@ -91,7 +91,7 @@ function MiniCart({
 	}, [updateCartModel]);
 
 	useEffect(() => {
-		if (orderId !== 0) {
+		if (orderId && orderId !== 0) {
 			updateCartModel({orderId});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps

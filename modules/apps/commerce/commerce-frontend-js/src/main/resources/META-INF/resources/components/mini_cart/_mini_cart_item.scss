@@ -86,6 +86,11 @@
 		grid-area: quantity;
 
 		.quantity-selector {
+			.input-group-item {
+				flex-grow: unset;
+				width: unset;
+			}
+
 			input {
 				max-width: 55px;
 			}
