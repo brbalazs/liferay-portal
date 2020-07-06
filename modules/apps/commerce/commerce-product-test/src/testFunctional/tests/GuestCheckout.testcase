@@ -330,10 +330,10 @@ definition {
 		CommerceNavigator.gotoMiniCart();
 
 		FrontStore.viewMiniCart(
-			cartItemName = "U-Joint",
-			cartItemPriceValue = "24",
-			cartItemQuantity = "1",
-			cartItemSKU = "SPEED55861");
+			cartItemNames = "U-Joint,",
+			cartItemPriceValues = "24,",
+			cartItemQuantities = "1,",
+			cartItemSKUs = "SPEED55861,");
 
 		Click(locator1 = "CommerceAccelerators#MINI_CART_CLOSE");
 
@@ -350,10 +350,10 @@ definition {
 		CommerceNavigator.gotoMiniCart();
 
 		FrontStore.viewMiniCart(
-			cartItemName = "U-Joint",
-			cartItemPriceValue = "24",
-			cartItemQuantity = "1",
-			cartItemSKU = "SPEED55861");
+			cartItemNames = "U-Joint,",
+			cartItemPriceValues = "24,",
+			cartItemQuantities = "1,",
+			cartItemSKUs = "SPEED55861,");
 
 		Click(locator1 = "CommerceAccelerators#MINI_CART_CLOSE");
 
@@ -435,10 +435,10 @@ definition {
 		CommerceNavigator.gotoMiniCart();
 
 		FrontStore.viewMiniCart(
-			cartItemName = "U-Joint",
-			cartItemPriceValue = "24",
-			cartItemQuantity = "1",
-			cartItemSKU = "SPEED55861",
+			cartItemNames = "U-Joint,",
+			cartItemPriceValues = "24,",
+			cartItemQuantities = "1,",
+			cartItemSKUs = "SPEED55861,",
 			cartSummaryQuantity = "${cartItemQuantity}",
 			cartSummarySubtotal = "${cartItemPriceValue}",
 			cartSummaryTotal = "${cartSummarySubtotal}");
@@ -460,10 +460,10 @@ definition {
 		CommerceNavigator.gotoMiniCart();
 
 		FrontStore.viewMiniCart(
-			cartItemName = "U-Joint",
-			cartItemPriceValue = "24",
-			cartItemQuantity = "5",
-			cartItemSKU = "SPEED55861",
+			cartItemNames = "U-Joint,",
+			cartItemPriceValues = "24,",
+			cartItemQuantities = "5,",
+			cartItemSKUs = "SPEED55861,",
 			cartSummaryQuantity = "${cartItemQuantity}",
 			cartSummarySubtotal = "120",
 			cartSummaryTotal = "${cartSummarySubtotal}");
@@ -480,10 +480,10 @@ definition {
 		CommerceNavigator.gotoMiniCart();
 
 		FrontStore.viewMiniCart(
-			cartItemName = "U-Joint",
-			cartItemPriceValue = "24",
-			cartItemQuantity = "1",
-			cartItemSKU = "SPEED55861",
+			cartItemNames = "U-Joint,",
+			cartItemPriceValues = "24,",
+			cartItemQuantities = "1,",
+			cartItemSKUs = "SPEED55861,",
 			cartSummaryQuantity = "${cartItemQuantity}",
 			cartSummarySubtotal = "${cartItemPriceValue}",
 			cartSummaryTotal = "${cartSummarySubtotal}");
