@@ -128,4 +128,28 @@ definition {
 				value1 = "$ ${cartItemPriceValue}");
 	}
 
+	macro viewMiniCartItems {
+		var count = StringUtil.count("${cartItemSKUs}", ",");
+
+		while ("${count}" != "0") {
+			var cartItemName = StringUtil.extractFirst("${cartItemNames}", ",");
+			var cartItemPriceValue = StringUtil.extractFirst("${cartItemPriceValues}", ",");
+			var cartItemQuantity = StringUtil.extractFirst("${cartItemQuantities}", ",");
+			var cartItemSKU = StringUtil.extractFirst("${cartItemSKUs}", ",");
+
+			FrontStore.viewMiniCartItem(
+				cartItemName = "${cartItemName}",
+				cartItemPriceValue = "${cartItemPriceValue}",
+				cartItemQuantity = "${cartItemQuantity}",
+				cartItemSKU = "${cartItemSKU}");
+
+			var count = ${count} - 1;
+
+			var cartItemNames = StringUtil.replaceFirst("${cartItemNames}", "${cartItemName},", "");
+			var cartItemPriceValues = StringUtil.replaceFirst("${cartItemPriceValues}", "${cartItemPriceValue},", "");
+			var cartItemQuantities = StringUtil.replaceFirst("${cartItemQuantities}", "${cartItemQuantity},", "");
+			var cartItemSKUs = StringUtil.replaceFirst("${cartItemSKUs}", "${cartItemSKU},", "");	
+		}
+	}
+
 }
