@@ -62,21 +62,11 @@ definition {
 	}
 
 	macro viewMiniCart {
-		AssertTextEquals(
-			locator1 = "CommerceAccelerators#MINI_CART_ITEM_NAME",
-			value1 = "${cartItemName}");
-
-		AssertTextEquals(
-			locator1 = "CommerceAccelerators#MINI_CART_ITEM_SKU",
-			value1 = "${cartItemSKU}");
-
-		AssertTextEquals(
-			locator1 = "CommerceAccelerators#MINI_CART_ITEM_QUANTITY",
-			value1 = "${cartItemQuantity}");
-
-		AssertTextEquals.assertPartialText(
-			locator1 = "CommerceAccelerators#MINI_CART_ITEM_PRICE_VALUE",
-			value1 = "$ ${cartItemPriceValue}");
+		FrontStore.viewMiniCartItems(
+			cartItemNames = "${cartItemNames}",
+			cartItemPriceValues = "${cartItemPriceValues}",
+			cartItemQuantities = "${cartItemQuantities}",
+			cartItemSKUs = "${cartItemSKUs}");
 
 		if (isSet(cartSummaryQuantity)) {
 			AssertTextEquals(
