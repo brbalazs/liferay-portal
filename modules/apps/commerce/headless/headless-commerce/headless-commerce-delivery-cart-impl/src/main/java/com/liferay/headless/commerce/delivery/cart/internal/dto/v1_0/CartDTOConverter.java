@@ -389,7 +389,6 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 					getSubtotalDiscountPercentageLevel4WithTaxAmount();
 		}
 
-		summary.setSubtotal(subtotalDiscountAmount.doubleValue());
 		summary.setSubtotalDiscountPercentages(
 			_getFormattedDiscountPercentages(
 				new BigDecimal[] {
@@ -399,6 +398,7 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 					subtotalDiscountPercentageLevel4
 				},
 				locale));
+		summary.setSubtotalDiscountValue(subtotalDiscountAmount.doubleValue());
 		summary.setSubtotalDiscountValueFormatted(
 			_formatPrice(subtotalDiscountAmount, commerceCurrency, locale));
 	}
@@ -439,7 +439,6 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 				commerceOrder.getTotalDiscountPercentageLevel4WithTaxAmount();
 		}
 
-		summary.setTotal(totalDiscountAmount.doubleValue());
 		summary.setTotalDiscountPercentages(
 			_getFormattedDiscountPercentages(
 				new BigDecimal[] {
@@ -448,6 +447,7 @@ public class CartDTOConverter implements DTOConverter<CommerceOrder, Cart> {
 					totalDiscountPercentageLevel3, totalDiscountPercentageLevel4
 				},
 				locale));
+		summary.setTotalDiscountValue(totalDiscountAmount.doubleValue());
 		summary.setTotalDiscountValueFormatted(
 			_formatPrice(totalDiscountAmount, commerceCurrency, locale));
 	}
