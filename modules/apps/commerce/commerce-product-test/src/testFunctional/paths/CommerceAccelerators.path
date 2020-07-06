@@ -197,22 +197,22 @@
 </tr>
 <tr>
 	<td>MINI_CART_ITEM_NAME</td>
-	<td>//h5[@class='item-name']</td>
+	<td>//p[@class='item-sku' and contains(.,'${key_cartItemSKU}')]/../h5</td>
 	<td></td>
 </tr>
 <tr>
 	<td>MINI_CART_ITEM_SKU</td>
-	<td>//p[@class='item-sku']</td>
+	<td>//p[@class='item-sku' and contains(.,'${key_cartItemSKU}')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>MINI_CART_ITEM_QUANTITY</td>
-	<td>//div[@class='mini-cart-item-quantity']//input</td>
+	<td>//p[@class='item-sku' and contains(.,'${key_cartItemSKU}')]/../../../div[@class='mini-cart-item-quantity']//input</td>
 	<td></td>
 </tr>
 <tr>
 	<td>MINI_CART_ITEM_PRICE_VALUE</td>
-	<td>//div[@class='mini-cart-item-price']//span[@class='price-value']</td>
+	<td>//p[@class='item-sku' and contains(.,'${key_cartItemSKU}')]/../../..//span[@class='price-value']</td>
 	<td></td>
 </tr>
 <tr>
