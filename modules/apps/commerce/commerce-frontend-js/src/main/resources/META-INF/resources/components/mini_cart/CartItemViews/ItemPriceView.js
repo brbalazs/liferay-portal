@@ -21,7 +21,6 @@ import {collectDiscountLevels, isNonnull} from '../util/index';
 function ItemPriceView({displayDiscountLevels, price}) {
 	const {
 		discountPercentage,
-		finalPrice,
 		finalPriceFormatted,
 		priceFormatted,
 		promoPrice,
@@ -32,9 +31,7 @@ function ItemPriceView({displayDiscountLevels, price}) {
 			? collectDiscountLevels(price)
 			: [],
 		hasPromo = isNonnull(promoPrice),
-		hasDiscount =
-			isNonnull(discountPercentage, ...discountLevels) &&
-			isNonnull(finalPrice);
+		hasDiscount = isNonnull(discountPercentage, ...discountLevels);
 
 	return (
 		<div className={'price'}>
