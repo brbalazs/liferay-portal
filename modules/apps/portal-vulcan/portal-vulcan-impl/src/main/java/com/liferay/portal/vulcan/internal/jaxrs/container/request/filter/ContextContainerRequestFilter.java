@@ -132,7 +132,7 @@ public class ContextContainerRequestFilter implements ContainerRequestFilter {
 						Response.status(
 							Response.Status.CONFLICT
 						).entity(
-							"Conflict."
+							"Conflict with " + method.getName()
 						).build());
 				}
 			}
