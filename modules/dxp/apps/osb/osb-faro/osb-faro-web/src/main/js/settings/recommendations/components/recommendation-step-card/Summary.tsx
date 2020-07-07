@@ -1,9 +1,9 @@
 import Constants from 'shared/util/constants';
+import getCN from 'classnames';
+import Icon from 'shared/components/Icon';
 import React from 'react';
 import RecommendationActivitiesQuery from '../../queries/RecommendationActivitiesQuery';
 import RecommendationPageAssetsQuery from '../../queries/RecommendationPageAssetsQuery';
-import Table from 'shared/components/table';
-import {DateCell} from 'shared/components/table/cell-components';
 import {
 	Filter,
 	getPropertiesFromItems,
@@ -14,7 +14,6 @@ import {
 	JobProperty
 } from '../../utils/utils';
 import {get} from 'lodash';
-import {getDate} from 'shared/util/date';
 import {
 	jobTrainingFrequencies,
 	jobTrainingPeriods,
@@ -27,20 +26,18 @@ const {
 } = Constants;
 
 interface ISummaryProps {
-	initialValues: any;
+	includePreviousPeriod: boolean;
 	itemFilters: Filter[];
 	name: string;
-	trainingDate: string;
 	trainingFrequency: jobTrainingFrequencies;
 	trainingPeriod: jobTrainingPeriods;
 	type: jobTypes;
 }
 
 const Summary: React.FC<ISummaryProps> = ({
-	initialValues,
+	includePreviousPeriod,
 	itemFilters,
 	name,
-	trainingDate,
 	trainingFrequency,
 	trainingPeriod,
 	type
@@ -70,108 +67,147 @@ const Summary: React.FC<ISummaryProps> = ({
 		}
 	});
 
-	const trainingFrequencyChanged: boolean =
-		initialValues.trainingFrequency !== trainingFrequency;
+	const {data: activitiesDataWithPrevious} = useQuery(
+		RecommendationActivitiesQuery,
+		{
+			variables: {
+				applicationId: 'Page',
+				eventContextPropertyFilters: propertyFilters,
+				eventId: 'pageUnloaded',
+				rangeKey:
+					Number(JOB_TRAINING_PERIODS_RANGE_KEY_MAP[trainingPeriod]) *
+					2,
+				size: 0,
+				start: 0
+			}
+		}
+	);
+
+	const activitiesTotal: number = get(
+		activitiesData,
+		['activities', 'total'],
+		0
+	);
+
+	const activitiesWithPreviousTotal: number = get(
+		activitiesDataWithPrevious,
+		['activities', 'total'],
+		0
+	);
+
+	const notEnoughActivities: boolean = activitiesTotal < 1000;
+	const notEnoughActivitiesWithPrevious: boolean =
+		activitiesWithPreviousTotal < 1000;
 
 	return (
 		<div className='summary-root'>
 			<div className='title'>{Liferay.Language.get('summary')}</div>
 
-			<table>
+			<table className='summary-table table table-autofit table-nowrap table-row-no-bordered'>
 				<tbody>
 					<tr>
-						<td>{Liferay.Language.get('name')}</td>
+						<td className='summary-name table-cell-expand'>
+							{Liferay.Language.get('name')}
+						</td>
 
-						<td>
-							<span className='summary-value'>{name}</span>
+						<td className='summary-value'>{name}</td>
+					</tr>
+
+					<tr>
+						<td className='summary-name table-cell-expand'>
+							{Liferay.Language.get('model-type')}
+						</td>
+
+						<td className='summary-value'>
+							{JOB_TYPES_LABEL_MAP[type]}
 						</td>
 					</tr>
 
 					<tr>
-						<td>{Liferay.Language.get('model-type')}</td>
+						<td className='summary-name table-cell-expand'>
+							{Liferay.Language.get('training-frequency')}
+						</td>
 
-						<td>
-							<span className='summary-value'>
-								{JOB_TYPES_LABEL_MAP[type]}
-							</span>
+						<td className='summary-value'>
+							{
+								JOB_TRAINING_FREQUENCIES_LABEL_MAP[
+									trainingFrequency
+								]
+							}
 						</td>
 					</tr>
 
 					<tr>
-						<td>{Liferay.Language.get('training-frequency')}</td>
+						<td className='summary-name table-cell-expand'>
+							{Liferay.Language.get('training-period')}
+						</td>
 
-						<td>
-							<span className='summary-value'>
-								{
-									JOB_TRAINING_FREQUENCIES_LABEL_MAP[
-										trainingFrequency
-									]
-								}
-							</span>
+						<td className='summary-value'>
+							{JOB_TRAINING_PERIODS_LABEL_MAP[trainingPeriod]}
 						</td>
 					</tr>
 
-					<tr>
-						<td>{Liferay.Language.get('training-period')}</td>
+					<tr
+						className={getCN({
+							'insufficient-events': notEnoughActivities
+						})}
+					>
+						<td className='summary-name table-cell-expand'>
+							{notEnoughActivities && (
+								<Icon symbol='warning-full' />
+							)}
 
-						<td>
-							<span className='summary-value'>
-								{JOB_TRAINING_PERIODS_LABEL_MAP[trainingPeriod]}
-							</span>
+							{`${Liferay.Language.get(
+								'events'
+							)} (${Liferay.Language.get('as-of-today')})`}
+						</td>
+
+						<td className='summary-value'>
+							{activitiesTotal.toLocaleString()}
+						</td>
+					</tr>
+
+					{includePreviousPeriod && (
+						<tr
+							className={getCN({
+								'insufficient-events': notEnoughActivitiesWithPrevious
+							})}
+						>
+							<td className='summary-name table-cell-expand including-previous-period'>
+								{notEnoughActivitiesWithPrevious && (
+									<Icon symbol='warning-full' />
+								)}
+
+								{`${Liferay.Language.get(
+									'events'
+								)} (${Liferay.Language.get(
+									'including-previous-period'
+								)})`}
+							</td>
+
+							<td className='summary-value'>
+								{activitiesWithPreviousTotal.toLocaleString()}
+							</td>
+						</tr>
+					)}
+
+					<tr>
+						<td className='summary-name table-cell-expand'>
+							{`${Liferay.Language.get(
+								'items'
+							)} (${Liferay.Language.get('as-of-today')})`}
+						</td>
+
+						<td className='summary-value'>
+							{get(
+								pageAssetsData,
+								['pageAssets', 'total'],
+								0
+							).toLocaleString()}
 						</td>
 					</tr>
 				</tbody>
 			</table>
-
-			<Table
-				columns={[
-					{
-						accessor: 'trainingDate',
-						cellRenderer: DateCell,
-						cellRendererProps: {
-							datePath: 'trainingDate'
-						},
-						className: 'table-cell-expand',
-						label: Liferay.Language.get('training-date'),
-						sortable: false
-					},
-					{
-						accessor: 'activitiesData',
-						className: 'table-column-text-end',
-						dataFormatter: data =>
-							get(
-								data,
-								['activities', 'total'],
-								0
-							).toLocaleString(),
-						label: Liferay.Language.get('events'),
-						sortable: false
-					},
-					{
-						accessor: 'pageAssetsData',
-						className: 'table-column-text-end',
-						dataFormatter: data =>
-							get(
-								data,
-								['pageAssets', 'total'],
-								0
-							).toLocaleString(),
-						label: Liferay.Language.get('items'),
-						sortable: false
-					}
-				]}
-				items={[
-					{
-						activitiesData,
-						pageAssetsData,
-						trainingDate:
-							!trainingDate || trainingFrequencyChanged
-								? getDate()
-								: trainingDate
-					}
-				]}
-				rowIdentifier='trainingDate'
-			/>
 		</div>
 	);
 };

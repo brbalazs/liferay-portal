@@ -1,6 +1,8 @@
 .recommendation-step-card-root {
 	.basic-settings-root,
-	.interactions-root {
+	.interactions-root,
+	.items-root,
+	.summary-root {
 		margin: 0 120px;
 	}
 
@@ -46,9 +48,30 @@
 	}
 
 	.summary-root {
-		.summary-value {
-			font-weight: $fontWeightSemiBold;
-			padding-left: 12px;
+		.summary-table {
+			.insufficient-events {
+				color: $warning;
+			}
+
+			.summary-name {
+				&.including-previous-period {
+					padding-left: 16px;
+				}
+
+				.icon-root {
+					margin-right: 8px;
+				}
+			}
+
+			.summary-name,
+			.summary-value {
+				border: 0;
+				padding: 4px 0;
+			}
+
+			.summary-value {
+				font-weight: $fontWeightSemiBold;
+			}
 		}
 
 		.title {

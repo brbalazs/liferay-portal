@@ -23,7 +23,8 @@ describe('Summary', () => {
 			<MockedProvider
 				mocks={[
 					mockRecommendationPageAssetsReq([], {size: 0}),
-					mockRecommendationActivitiesReq([])
+					mockRecommendationActivitiesReq([]),
+					mockRecommendationActivitiesReq([], {rangeKey: 60})
 				]}
 			>
 				<StaticRouter>
@@ -46,6 +47,7 @@ describe('Summary', () => {
 							<Form.Form>
 								<Summary
 									initialValues={initialValues}
+									setFieldValue={jest.fn()}
 									trainingDate={data.getTimestamp()}
 									{...values}
 								/>

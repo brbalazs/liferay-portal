@@ -249,6 +249,7 @@ export function mockRecommendationActivitiesReq(items, mockVariables = {}) {
 					{filter: '.*custom-assets', negate: false}
 				],
 				eventId: 'pageUnloaded',
+				rangeKey: '30',
 				size: 0,
 				start: 0,
 				...mockVariables
