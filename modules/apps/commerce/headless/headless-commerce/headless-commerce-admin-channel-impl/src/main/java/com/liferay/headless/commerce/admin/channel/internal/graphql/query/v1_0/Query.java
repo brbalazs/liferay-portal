@@ -112,7 +112,7 @@ public class Query {
 	@GraphQLField
 	public TaxCategoryPage channelTaxCategories(
 			@GraphQLName("channelId") Long channelId,
-			@GraphQLName("search") String search,
+			@GraphQLName("search") Integer search,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -149,7 +149,7 @@ public class Query {
 
 		@GraphQLField
 		public TaxCategoryPage taxCategories(
-				@GraphQLName("search") String search,
+				@GraphQLName("search") Integer search,
 				@GraphQLName("pageSize") int pageSize,
 				@GraphQLName("page") int page)
 			throws Exception {

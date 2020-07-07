@@ -82,6 +82,8 @@ public class OpenAPIResourceImpl {
 		{
 			add(ChannelResourceImpl.class);
 
+			add(TaxCategoryResourceImpl.class);
+
 			add(OpenAPIResourceImpl.class);
 		}
 	};

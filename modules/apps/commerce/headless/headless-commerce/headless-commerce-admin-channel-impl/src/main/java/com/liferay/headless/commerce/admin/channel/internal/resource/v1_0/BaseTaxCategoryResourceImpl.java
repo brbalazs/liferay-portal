@@ -96,7 +96,7 @@ public abstract class BaseTaxCategoryResourceImpl
 	public Page<TaxCategory> getChannelTaxCategoriesPage(
 			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
 				channelId,
-			@Parameter(hidden = true) @QueryParam("search") String search,
+			@Parameter(hidden = true) @QueryParam("search") Integer search,
 			@Context Pagination pagination)
 		throws Exception {
 

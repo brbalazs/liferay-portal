@@ -41,11 +41,11 @@ public interface TaxCategoryResource {
 	}
 
 	public Page<TaxCategory> getChannelTaxCategoriesPage(
-			Long channelId, String search, Pagination pagination)
+			Long channelId, Integer search, Pagination pagination)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getChannelTaxCategoriesPageHttpResponse(
-			Long channelId, String search, Pagination pagination)
+			Long channelId, Integer search, Pagination pagination)
 		throws Exception;
 
 	public TaxCategory getTaxCategory(Long id) throws Exception;
@@ -109,7 +109,7 @@ public interface TaxCategoryResource {
 	public static class TaxCategoryResourceImpl implements TaxCategoryResource {
 
 		public Page<TaxCategory> getChannelTaxCategoriesPage(
-				Long channelId, String search, Pagination pagination)
+				Long channelId, Integer search, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
@@ -137,7 +137,7 @@ public interface TaxCategoryResource {
 		}
 
 		public HttpInvoker.HttpResponse getChannelTaxCategoriesPageHttpResponse(
-				Long channelId, String search, Pagination pagination)
+				Long channelId, Integer search, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
