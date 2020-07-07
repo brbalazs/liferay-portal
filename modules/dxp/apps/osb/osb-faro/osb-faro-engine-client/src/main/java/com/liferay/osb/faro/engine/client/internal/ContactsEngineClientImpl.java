@@ -707,8 +707,8 @@ public class ContactsEngineClientImpl
 	@Override
 	public Results<ActivityAggregation> getActivityAggregations(
 		FaroProject faroProject, String channelId, String ownerId,
-		String ownerType, String rangeEnd, String rangeStart,
-		String interval, int delta) {
+		String ownerType, String rangeEnd, String rangeStart, String interval,
+		int delta) {
 
 		Map<String, Object> uriVariables = getUriVariables(
 			faroProject, 1, delta, null);
