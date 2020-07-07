@@ -32,26 +32,26 @@ public class Channel implements Cloneable {
 		return ChannelSerDes.toDTO(json);
 	}
 
-	public String getCurrency() {
-		return currency;
+	public String getCurrencyCode() {
+		return currencyCode;
 	}
 
-	public void setCurrency(String currency) {
-		this.currency = currency;
+	public void setCurrencyCode(String currencyCode) {
+		this.currencyCode = currencyCode;
 	}
 
-	public void setCurrency(
-		UnsafeSupplier<String, Exception> currencyUnsafeSupplier) {
+	public void setCurrencyCode(
+		UnsafeSupplier<String, Exception> currencyCodeUnsafeSupplier) {
 
 		try {
-			currency = currencyUnsafeSupplier.get();
+			currencyCode = currencyCodeUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected String currency;
+	protected String currencyCode;
 
 	public String getExternalReferenceCode() {
 		return externalReferenceCode;
