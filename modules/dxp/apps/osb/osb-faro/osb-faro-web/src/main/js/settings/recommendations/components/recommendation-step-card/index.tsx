@@ -254,11 +254,13 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 
 						<Card.Body>
 							<StepComponent
+								currentStep={currentStep}
 								disabled={disabled}
 								errors={errors}
 								groupId={groupId}
 								initialValues={initialValues}
 								onSetDisabled={setDisabled}
+								setStep={setCurrentStep}
 								trainingDate={job ? job.trainingDate : null}
 								{...values}
 							/>

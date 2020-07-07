@@ -51,6 +51,15 @@
 		.summary-table {
 			.insufficient-events {
 				color: $warning;
+
+				.button-root {
+					color: $warning;
+
+					&:active,
+					&:hover {
+						text-decoration: underline;
+					}
+				}
 			}
 
 			.summary-name {

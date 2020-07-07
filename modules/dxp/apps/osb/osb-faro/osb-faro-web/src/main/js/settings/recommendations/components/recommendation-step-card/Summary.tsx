@@ -1,3 +1,4 @@
+import Button from 'shared/components/Button';
 import Constants from 'shared/util/constants';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
@@ -26,18 +27,24 @@ const {
 } = Constants;
 
 interface ISummaryProps {
+	currentStep: number;
 	includePreviousPeriod: boolean;
 	itemFilters: Filter[];
 	name: string;
+	setStep: (step: number) => void;
 	trainingFrequency: jobTrainingFrequencies;
 	trainingPeriod: jobTrainingPeriods;
 	type: jobTypes;
 }
 
+const EVENTS_THRESHOLD: number = 1000;
+
 const Summary: React.FC<ISummaryProps> = ({
+	currentStep,
 	includePreviousPeriod,
 	itemFilters,
 	name,
+	setStep,
 	trainingFrequency,
 	trainingPeriod,
 	type
@@ -95,9 +102,9 @@ const Summary: React.FC<ISummaryProps> = ({
 		0
 	);
 
-	const notEnoughActivities: boolean = activitiesTotal < 1000;
+	const notEnoughActivities: boolean = activitiesTotal < EVENTS_THRESHOLD;
 	const notEnoughActivitiesWithPrevious: boolean =
-		activitiesWithPreviousTotal < 1000;
+		activitiesWithPreviousTotal < EVENTS_THRESHOLD;
 
 	return (
 		<div className='summary-root'>
@@ -163,7 +170,16 @@ const Summary: React.FC<ISummaryProps> = ({
 						</td>
 
 						<td className='summary-value'>
-							{activitiesTotal.toLocaleString()}
+							<Button
+								display='unstyled'
+								onClick={
+									notEnoughActivities
+										? () => setStep(currentStep - 2)
+										: null
+								}
+							>
+								{activitiesTotal.toLocaleString()}
+							</Button>
 						</td>
 					</tr>
 
@@ -186,7 +202,16 @@ const Summary: React.FC<ISummaryProps> = ({
 							</td>
 
 							<td className='summary-value'>
-								{activitiesWithPreviousTotal.toLocaleString()}
+								<Button
+									display='unstyled'
+									onClick={
+										notEnoughActivitiesWithPrevious
+											? () => setStep(currentStep - 2)
+											: null
+									}
+								>
+									{activitiesWithPreviousTotal.toLocaleString()}
+								</Button>
 							</td>
 						</tr>
 					)}
