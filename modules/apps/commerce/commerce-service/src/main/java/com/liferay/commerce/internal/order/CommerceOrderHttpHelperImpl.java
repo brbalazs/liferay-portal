@@ -401,7 +401,32 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 		String commerceOrderUuidWebKey = _getCookieName(
 			commerceOrder.getGroupId());
 
-		if (commerceOrder.isGuestOrder()) {
+		// Remove thread local order when used
+
+		CommerceOrder threadLocalCommerceOrder =
+			_commerceOrderUuidThreadLocal.get();
+
+		if ((threadLocalCommerceOrder != null) &&
+			threadLocalCommerceOrder.isGuestOrder()) {
+
+			CookieKeys.deleteCookies(
+				themeDisplay.getRequest(), themeDisplay.getResponse(), domain,
+				commerceOrderUuidWebKey);
+
+			_commerceOrderUuidThreadLocal.remove();
+		}
+
+		long commerceChannelGroupId =
+			_commerceChannelLocalService.getCommerceChannelGroupIdBySiteGroupId(
+				themeDisplay.getScopeGroupId());
+
+		CommerceOrder userCommerceOrder =
+			_commerceOrderService.fetchCommerceOrder(
+				commerceAccount.getCommerceAccountId(), commerceChannelGroupId,
+				themeDisplay.getUserId(),
+				CommerceOrderConstants.ORDER_STATUS_OPEN);
+
+		if (userCommerceOrder == null) {
 			CookieKeys.deleteCookies(
 				themeDisplay.getRequest(), themeDisplay.getResponse(), domain,
 				commerceOrderUuidWebKey);
@@ -411,40 +436,19 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 				commerceAccount.getCommerceAccountId());
 		}
 
-		String commerceOrderUuid = CookieKeys.getCookie(
-			themeDisplay.getRequest(), commerceOrderUuidWebKey, false);
-
-		if (Validator.isNull(commerceOrderUuid)) {
-			return commerceOrder;
-		}
-
-		long commerceChannelGroupId =
-			_commerceChannelLocalService.getCommerceChannelGroupIdBySiteGroupId(
-				themeDisplay.getScopeGroupId());
-
-		CommerceOrder cookieCommerceOrder =
-			_commerceOrderService.fetchCommerceOrder(
-				commerceOrderUuid, commerceChannelGroupId);
-
-		if ((cookieCommerceOrder == null) ||
-			!cookieCommerceOrder.isGuestOrder()) {
-
-			return commerceOrder;
-		}
-
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			themeDisplay.getRequest());
 
 		_commerceOrderService.mergeGuestCommerceOrder(
-			cookieCommerceOrder.getCommerceOrderId(),
 			commerceOrder.getCommerceOrderId(),
+			userCommerceOrder.getCommerceOrderId(),
 			_getCommerceContext(themeDisplay.getRequest()), serviceContext);
 
 		CookieKeys.deleteCookies(
 			themeDisplay.getRequest(), themeDisplay.getResponse(), domain,
 			commerceOrderUuidWebKey);
 
-		return commerceOrder;
+		return userCommerceOrder;
 	}
 
 	private CommerceContext _getCommerceContext(
