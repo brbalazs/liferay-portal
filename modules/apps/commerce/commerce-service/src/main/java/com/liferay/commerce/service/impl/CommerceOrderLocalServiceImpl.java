@@ -702,7 +702,7 @@ public class CommerceOrderLocalServiceImpl
 				}
 
 				if (found) {
-					break;
+					continue;
 				}
 			}
 
