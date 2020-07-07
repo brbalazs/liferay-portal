@@ -104,6 +104,7 @@ exports[`LiferayDataSource should render 1`] = `
                     >
                       <div
                         class=""
+                        style="flex-basis: 100%; flex-grow: 0;"
                       >
                         <div
                           class="input-group content-after"
@@ -158,6 +159,7 @@ exports[`LiferayDataSource should render 1`] = `
                     >
                       <div
                         class=""
+                        style="flex-basis: 100%; flex-grow: 0;"
                       >
                         <label
                           class="form-control-label label-root"

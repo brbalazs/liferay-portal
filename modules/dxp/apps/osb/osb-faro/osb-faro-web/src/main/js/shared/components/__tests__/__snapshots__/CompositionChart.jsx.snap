@@ -42,6 +42,7 @@ exports[`CompositionLegend should render 1`] = `
       >
         <span
           class="circle"
+          style="background-color: pink;"
         />
         <span
           class="text-truncate"
