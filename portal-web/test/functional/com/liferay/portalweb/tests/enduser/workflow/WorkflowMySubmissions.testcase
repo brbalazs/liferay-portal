@@ -138,7 +138,7 @@ definition {
 			workflowAssetContent = "WC WebContent Content",
 			workflowAssetTitle = "WC WebContent Title",
 			workflowAssetType = "Web Content Article",
-			workflowDefinition = "Single Approver: WC WebContent Title",
+			workflowDefinition = "Single Approver",
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -235,7 +235,7 @@ definition {
 			workflowAssetContent = "WC WebContent Content",
 			workflowAssetTitle = "WC WebContent Title",
 			workflowAssetType = "Web Content Article",
-			workflowDefinition = "Single Approver: WC WebContent Title",
+			workflowDefinition = "Single Approver",
 			workflowTask = "Review");
 
 		Navigator.openURL();
@@ -366,7 +366,7 @@ definition {
 			workflowAssetContent = "WC WebContent Content",
 			workflowAssetTitle = "WC WebContent Title",
 			workflowAssetType = "Web Content Article",
-			workflowDefinition = "Single Approver: WC WebContent Title",
+			workflowDefinition = "Single Approver",
 			workflowTask = "Approved");
 	}
 
