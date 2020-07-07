@@ -72,6 +72,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import javax.portlet.PortletPreferences;
@@ -1594,7 +1595,9 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 
 		Trigger trigger = TriggerFactoryUtil.createTrigger(
 			PortalUUIDUtil.generate(), groupName, schedulerStartDate,
-			schedulerEndDate, cronText);
+			schedulerEndDate, cronText,
+			TimeZone.getTimeZone(
+				MapUtil.getString(parameterMap, "timeZoneId")));
 
 		User user = userPersistence.findByPrimaryKey(getUserId());
 
@@ -1708,7 +1711,9 @@ public class LayoutServiceImpl extends LayoutServiceBaseImpl {
 
 		Trigger trigger = TriggerFactoryUtil.createTrigger(
 			PortalUUIDUtil.generate(), groupName, schedulerStartDate,
-			schedulerEndDate, cronText);
+			schedulerEndDate, cronText,
+			TimeZone.getTimeZone(
+				MapUtil.getString(parameterMap, "timeZoneId")));
 
 		User user = userPersistence.findByPrimaryKey(getUserId());
 
