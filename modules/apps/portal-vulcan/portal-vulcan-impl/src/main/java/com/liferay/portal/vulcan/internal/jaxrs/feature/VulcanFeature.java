@@ -180,20 +180,20 @@ public class VulcanFeature implements Feature {
 	}
 
 	private Map<String, Configuration> _getConfigurations() {
-		Map<String, Configuration> map = new HashMap<>();
+		Map<String, Configuration> configurations = new HashMap<>();
 
 		try {
 			String filterString = String.format(
 				"(service.factoryPid=%s)", VulcanConfiguration.class.getName());
 
-			Configuration[] configurations =
-				_configurationAdmin.listConfigurations(filterString);
+			for (Configuration configuration :
+					_configurationAdmin.listConfigurations(filterString)) {
 
-			for (Configuration configuration : configurations) {
 				Dictionary<String, Object> properties =
 					configuration.getProperties();
 
-				map.put((String)properties.get("path"), configuration);
+				configurations.put(
+					(String)properties.get("path"), configuration);
 			}
 		}
 		catch (Exception exception) {
@@ -202,7 +202,7 @@ public class VulcanFeature implements Feature {
 			}
 		}
 
-		return map;
+		return configurations;
 	}
 
 	private Object _getScopeChecker() {

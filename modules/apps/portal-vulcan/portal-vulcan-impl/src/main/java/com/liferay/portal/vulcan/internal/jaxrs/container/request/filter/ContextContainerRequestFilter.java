@@ -61,7 +61,7 @@ import org.osgi.service.cm.Configuration;
 public class ContextContainerRequestFilter implements ContainerRequestFilter {
 
 	public ContextContainerRequestFilter(
-		Map<String, Configuration> configurationMap,
+		Map<String, Configuration> configurations,
 		GroupLocalService groupLocalService, Language language, Portal portal,
 		ResourceActionLocalService resourceActionLocalService,
 		ResourcePermissionLocalService resourcePermissionLocalService,
@@ -69,7 +69,7 @@ public class ContextContainerRequestFilter implements ContainerRequestFilter {
 		VulcanBatchEngineImportTaskResource
 			vulcanBatchEngineImportTaskResource) {
 
-		_configurationMap = configurationMap;
+		_configurations = configurations;
 		_groupLocalService = groupLocalService;
 		_language = language;
 		_portal = portal;
@@ -103,17 +103,17 @@ public class ContextContainerRequestFilter implements ContainerRequestFilter {
 		ContainerRequestContext containerRequestContext, Object instance,
 		Message message) {
 
+		Class<?> clazz = instance.getClass();
+
+		Method[] methods = clazz.getMethods();
+
 		String path = StringUtil.removeSubstring(
 			(String)message.get(Message.BASE_PATH), "/o");
 
 		path = StringUtil.replaceLast(path, '/', "");
 
-		Class<?> clazz = instance.getClass();
-
-		Method[] methods = clazz.getMethods();
-
-		if (_configurationMap.containsKey(path)) {
-			Configuration configuration = _configurationMap.get(path);
+		if (_configurations.containsKey(path)) {
+			Configuration configuration = _configurations.get(path);
 
 			Dictionary<String, Object> properties =
 				configuration.getProperties();
@@ -243,7 +243,7 @@ public class ContextContainerRequestFilter implements ContainerRequestFilter {
 		}
 	}
 
-	private final Map<String, Configuration> _configurationMap;
+	private final Map<String, Configuration> _configurations;
 	private final GroupLocalService _groupLocalService;
 	private final Language _language;
 	private final Portal _portal;
