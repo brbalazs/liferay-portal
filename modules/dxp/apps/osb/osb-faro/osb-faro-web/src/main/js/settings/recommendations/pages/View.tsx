@@ -89,7 +89,7 @@ const View: React.FC<IViewProps> = ({
 														Alert.Types.SUCCESS,
 													message: sub(
 														Liferay.Language.get(
-															'x-has-been-deleted'
+															'retraining-has-been-started'
 														),
 														[name]
 													) as string
