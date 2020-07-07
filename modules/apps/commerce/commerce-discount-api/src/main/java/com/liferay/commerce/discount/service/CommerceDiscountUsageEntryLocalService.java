@@ -77,6 +77,18 @@ public interface CommerceDiscountUsageEntryLocalService
 			long commerceDiscountId, ServiceContext serviceContext)
 		throws PortalException;
 
+	public int countCommerceDiscountUsageEntryByA_D(
+		long commerceAccountId, long commerceDiscountId);
+
+	public int countCommerceDiscountUsageEntryByA_O_D(
+		long commerceAccountId, long commerceOrderId, long commerceDiscountId);
+
+	public int countCommerceDiscountUsageEntryByDiscountId(
+		long commerceDiscountId);
+
+	public int countCommerceDiscountUsageEntryByO_D(
+		long commerceOrderId, long commerceDiscountId);
+
 	/**
 	 * Creates a new commerce discount usage entry with the primary key. Does not add the commerce discount usage entry to the database.
 	 *
@@ -108,6 +120,11 @@ public interface CommerceDiscountUsageEntryLocalService
 	public CommerceDiscountUsageEntry deleteCommerceDiscountUsageEntry(
 			long commerceDiscountUsageEntryId)
 		throws PortalException;
+
+	public void deleteCommerceUsageEntry(
+		long commerceAccountId, long commerceOrderId, long commerceDiscountId);
+
+	public void deleteCommerceUsageEntryByDiscountId(long commerceDiscountId);
 
 	/**
 	 * @throws PortalException
@@ -251,5 +268,9 @@ public interface CommerceDiscountUsageEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceDiscountUsageEntry updateCommerceDiscountUsageEntry(
 		CommerceDiscountUsageEntry commerceDiscountUsageEntry);
+
+	public boolean validateDiscountLimitationUsage(
+			long commerceAccountId, long commerceDiscountId)
+		throws PortalException;
 
 }

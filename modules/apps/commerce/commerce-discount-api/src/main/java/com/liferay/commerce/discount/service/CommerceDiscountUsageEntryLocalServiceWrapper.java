@@ -65,6 +65,41 @@ public class CommerceDiscountUsageEntryLocalServiceWrapper
 				serviceContext);
 	}
 
+	@Override
+	public int countCommerceDiscountUsageEntryByA_D(
+		long commerceAccountId, long commerceDiscountId) {
+
+		return _commerceDiscountUsageEntryLocalService.
+			countCommerceDiscountUsageEntryByA_D(
+				commerceAccountId, commerceDiscountId);
+	}
+
+	@Override
+	public int countCommerceDiscountUsageEntryByA_O_D(
+		long commerceAccountId, long commerceOrderId, long commerceDiscountId) {
+
+		return _commerceDiscountUsageEntryLocalService.
+			countCommerceDiscountUsageEntryByA_O_D(
+				commerceAccountId, commerceOrderId, commerceDiscountId);
+	}
+
+	@Override
+	public int countCommerceDiscountUsageEntryByDiscountId(
+		long commerceDiscountId) {
+
+		return _commerceDiscountUsageEntryLocalService.
+			countCommerceDiscountUsageEntryByDiscountId(commerceDiscountId);
+	}
+
+	@Override
+	public int countCommerceDiscountUsageEntryByO_D(
+		long commerceOrderId, long commerceDiscountId) {
+
+		return _commerceDiscountUsageEntryLocalService.
+			countCommerceDiscountUsageEntryByO_D(
+				commerceOrderId, commerceDiscountId);
+	}
+
 	/**
 	 * Creates a new commerce discount usage entry with the primary key. Does not add the commerce discount usage entry to the database.
 	 *
@@ -109,6 +144,20 @@ public class CommerceDiscountUsageEntryLocalServiceWrapper
 
 		return _commerceDiscountUsageEntryLocalService.
 			deleteCommerceDiscountUsageEntry(commerceDiscountUsageEntryId);
+	}
+
+	@Override
+	public void deleteCommerceUsageEntry(
+		long commerceAccountId, long commerceOrderId, long commerceDiscountId) {
+
+		_commerceDiscountUsageEntryLocalService.deleteCommerceUsageEntry(
+			commerceAccountId, commerceOrderId, commerceDiscountId);
+	}
+
+	@Override
+	public void deleteCommerceUsageEntryByDiscountId(long commerceDiscountId) {
+		_commerceDiscountUsageEntryLocalService.
+			deleteCommerceUsageEntryByDiscountId(commerceDiscountId);
 	}
 
 	/**
@@ -324,6 +373,16 @@ public class CommerceDiscountUsageEntryLocalServiceWrapper
 
 		return _commerceDiscountUsageEntryLocalService.
 			updateCommerceDiscountUsageEntry(commerceDiscountUsageEntry);
+	}
+
+	@Override
+	public boolean validateDiscountLimitationUsage(
+			long commerceAccountId, long commerceDiscountId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceDiscountUsageEntryLocalService.
+			validateDiscountLimitationUsage(
+				commerceAccountId, commerceDiscountId);
 	}
 
 	@Override
