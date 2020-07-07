@@ -87,12 +87,9 @@ const View: React.FC<IViewProps> = ({
 												addAlert({
 													alertType:
 														Alert.Types.SUCCESS,
-													message: sub(
-														Liferay.Language.get(
-															'retraining-has-been-started'
-														),
-														[name]
-													) as string
+													message: Liferay.Language.get(
+														'retraining-has-been-started'
+													)
 												});
 
 												close();
