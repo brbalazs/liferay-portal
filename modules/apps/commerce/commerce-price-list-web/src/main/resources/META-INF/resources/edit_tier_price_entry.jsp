@@ -30,12 +30,14 @@ long commerceTierPriceEntryId = commerceTierPriceEntryDisplayContext.getCommerce
 BigDecimal price = BigDecimal.ZERO;
 BigDecimal promoPrice = BigDecimal.ZERO;
 
-if (commerceTierPriceEntry.getPrice() != null) {
-	price = commerceTierPriceEntry.getPrice();
-}
+if (commerceTierPriceEntry != null) {
+	if (commerceTierPriceEntry.getPrice() != null) {
+		price = commerceTierPriceEntry.getPrice();
+	}
 
-if (commerceTierPriceEntry.getPromoPrice() != null) {
-	promoPrice = commerceTierPriceEntry.getPromoPrice();
+	if (commerceTierPriceEntry.getPromoPrice() != null) {
+		promoPrice = commerceTierPriceEntry.getPromoPrice();
+	}
 }
 
 CPInstance cpInstance = commercePriceEntry.getCPInstance();
