@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.service.ResourceActionLocalService;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.batch.engine.resource.VulcanBatchEngineImportTaskResource;
@@ -37,6 +38,7 @@ import java.util.Dictionary;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -121,7 +123,7 @@ public class ContextContainerRequestFilter implements ContainerRequestFilter {
 			String excludedOperationIds = (String)properties.get(
 				"excludedOperationIds");
 
-			List<String> excludedOperationIdsList = Arrays.asList(
+			Set<String> excludedOperationIdsList = SetUtil.fromArray(
 				excludedOperationIds.split(","));
 
 			for (Method method : methods) {
