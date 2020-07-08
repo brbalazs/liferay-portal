@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.security.permission.InlineSQLHelperUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -50,6 +51,9 @@ public class CommercePriceListFinderImpl
 		CommercePriceListFinder.class.getName() +
 			".countByCommercePricingClassId";
 
+	public static final String COUNT_BY_CPINSTANCE_UUID =
+		CommercePriceListFinder.class.getName() + ".countByCPInstanceUuid";
+
 	public static final String FIND_BY_EXPIRATION_DATE =
 		CommercePriceListFinder.class.getName() + ".findByExpirationDate";
 
@@ -59,6 +63,9 @@ public class CommercePriceListFinderImpl
 	public static final String FIND_BY_COMMERCE_PRICING_CLASS_ID =
 		CommercePriceListFinder.class.getName() +
 			".findByCommercePricingClassId";
+
+	public static final String FIND_BY_CPINSTANCE_UUID =
+		CommercePriceListFinder.class.getName() + ".findByCPInstanceUuid";
 
 	public static final String FIND_BY_ACCOUNT_AND_CHANNEL_ID =
 		CommercePriceListFinder.class.getName() + ".findByAccountAndChannelId";
@@ -84,6 +91,14 @@ public class CommercePriceListFinderImpl
 	public int countByCommercePricingClassId(
 		long commercePricingClassId, String name) {
 
+		return countByCommercePricingClassId(
+			commercePricingClassId, name, false);
+	}
+
+	@Override
+	public int countByCommercePricingClassId(
+		long commercePricingClassId, String name, boolean inlineSQLHelper) {
+
 		Session session = null;
 
 		try {
@@ -91,6 +106,13 @@ public class CommercePriceListFinderImpl
 
 			String sql = _customSQL.get(
 				getClass(), COUNT_BY_COMMERCE_PRICING_CLASS_ID);
+
+			if (inlineSQLHelper) {
+				sql = InlineSQLHelperUtil.replacePermissionCheck(
+					sql, CommercePriceList.class.getName(),
+					"CommercePriceList.commercePriceListId", null, null,
+					new long[] {0}, null);
+			}
 
 			String[] keywords = _customSQL.keywords(name, true);
 
@@ -122,6 +144,57 @@ public class CommercePriceListFinderImpl
 			if (Validator.isNotNull(name)) {
 				qPos.add(keywords, 2);
 			}
+
+			Iterator<Long> itr = q.iterate();
+
+			if (itr.hasNext()) {
+				Long count = itr.next();
+
+				if (count != null) {
+					return count.intValue();
+				}
+			}
+
+			return 0;
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
+	public int countByCPInstanceUuid(String cpInstanceUuid) {
+		return countByCPInstanceUuid(cpInstanceUuid, false);
+	}
+
+	@Override
+	public int countByCPInstanceUuid(
+		String cpInstanceUuid, boolean inlineSQLHelper) {
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = _customSQL.get(getClass(), COUNT_BY_CPINSTANCE_UUID);
+
+			if (inlineSQLHelper) {
+				sql = InlineSQLHelperUtil.replacePermissionCheck(
+					sql, CommercePriceList.class.getName(),
+					"CommercePriceEntry.commercePriceListId", null, null,
+					new long[] {0}, null);
+			}
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addScalar(_COUNT_VALUE, Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(cpInstanceUuid);
 
 			Iterator<Long> itr = q.iterate();
 
@@ -267,6 +340,15 @@ public class CommercePriceListFinderImpl
 	public List<CommercePriceList> findByCommercePricingClassId(
 		long commercePricingClassId, String name, int start, int end) {
 
+		return findByCommercePricingClassId(
+			commercePricingClassId, name, start, end, false);
+	}
+
+	@Override
+	public List<CommercePriceList> findByCommercePricingClassId(
+		long commercePricingClassId, String name, int start, int end,
+		boolean inlineSQLHelper) {
+
 		Session session = null;
 
 		try {
@@ -276,6 +358,13 @@ public class CommercePriceListFinderImpl
 
 			String sql = _customSQL.get(
 				getClass(), FIND_BY_COMMERCE_PRICING_CLASS_ID);
+
+			if (inlineSQLHelper) {
+				sql = InlineSQLHelperUtil.replacePermissionCheck(
+					sql, CommercePriceList.class.getName(),
+					"CommercePriceList.commercePriceListId", null, null,
+					new long[] {0}, null);
+			}
 
 			if (Validator.isNotNull(name)) {
 				sql = _customSQL.replaceKeywords(
@@ -308,6 +397,52 @@ public class CommercePriceListFinderImpl
 			}
 
 			return (List<CommercePriceList>)QueryUtil.list(
+				q, getDialect(), start, end);
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
+	public List<CommercePriceEntry> findByCPInstanceUuid(
+		String cpInstanceUuid, int start, int end) {
+
+		return findByCPInstanceUuid(cpInstanceUuid, start, end, false);
+	}
+
+	@Override
+	public List<CommercePriceEntry> findByCPInstanceUuid(
+		String cpInstanceUuid, int start, int end, boolean inlineSQLHelper) {
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = _customSQL.get(getClass(), FIND_BY_CPINSTANCE_UUID);
+
+			if (inlineSQLHelper) {
+				sql = InlineSQLHelperUtil.replacePermissionCheck(
+					sql, CommercePriceList.class.getName(),
+					"CommercePriceEntry.commercePriceListId", null, null,
+					new long[] {0}, null);
+			}
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addEntity(
+				CommercePriceEntryImpl.TABLE_NAME,
+				CommercePriceEntryImpl.class);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(cpInstanceUuid);
+
+			return (List<CommercePriceEntry>)QueryUtil.list(
 				q, getDialect(), start, end);
 		}
 		catch (Exception e) {

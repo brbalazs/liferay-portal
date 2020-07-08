@@ -19,6 +19,16 @@
 				(LOWER(CommercePriceList.name) LIKE ? [$AND_OR_NULL_CHECK$])
 		]]>
 	</sql>
+	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.countByCPInstanceUuid">
+		<![CDATA[
+			SELECT
+				COUNT(CommercePriceEntry.*) AS COUNT_VALUE
+			FROM
+				CommercePriceEntry
+			WHERE
+				CommercePriceEntry.CPInstanceUuid = ?
+		]]>
+	</sql>
 	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByExpirationDate">
 		<![CDATA[
 			SELECT
@@ -65,6 +75,16 @@
 				(CommercePriceModifierRel.classNameId = ?) AND
 				(CommercePriceModifierRel.classPK = ?) AND
 				(LOWER(CommercePriceList.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByCPInstanceUuid">
+		<![CDATA[
+			SELECT
+				CommercePriceEntry.*
+			FROM
+				CommercePriceEntry
+			WHERE
+				CommercePriceEntry.CPInstanceUuid = ?
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByAccountAndChannelId">
