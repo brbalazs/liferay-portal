@@ -136,6 +136,15 @@ public class CommerceDiscountServiceImpl
 	}
 
 	@Override
+	public int countByCommercePricingClassId(
+			long commercePricingClassId, String title)
+		throws PrincipalException {
+
+		return commerceDiscountFinder.countByCommercePricingClassId(
+			commercePricingClassId, title, true);
+	}
+
+	@Override
 	public void deleteCommerceDiscount(long commerceDiscountId)
 		throws PortalException {
 
@@ -215,26 +224,12 @@ public class CommerceDiscountServiceImpl
 	}
 
 	@Override
-	public int getCommerceDiscountsCountByPricingClassId(
-			long commercePricingClassId, String title)
-		throws PrincipalException {
-
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommerceDiscountActionKeys.VIEW_COMMERCE_DISCOUNTS);
-
-		return commerceDiscountLocalService.
-			getCommerceDiscountsCountByPricingClassId(
-				commercePricingClassId, title);
-	}
-
-	@Override
 	public List<CommerceDiscount> searchByCommercePricingClassId(
 			long commercePricingClassId, String title, int start, int end)
 		throws PrincipalException {
 
-		return commerceDiscountLocalService.searchByCommercePricingClassId(
-			commercePricingClassId, title, start, end);
+		return commerceDiscountFinder.findByCommercePricingClassId(
+			commercePricingClassId, title, start, end, true);
 	}
 
 	@Override
