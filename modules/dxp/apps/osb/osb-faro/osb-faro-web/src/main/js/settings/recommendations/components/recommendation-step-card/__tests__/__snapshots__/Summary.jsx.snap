@@ -13,107 +13,141 @@ exports[`Summary should render 1`] = `
       >
         Summary
       </div>
-      <table>
+      <table
+        class="summary-table table table-autofit table-nowrap table-row-no-bordered"
+      >
         <tbody>
           <tr>
-            <td>
+            <td
+              class="summary-name table-cell-expand"
+            >
               Name
             </td>
-            <td>
-              <span
-                class="summary-value"
-              >
-                Test Name
-              </span>
+            <td
+              class="summary-value"
+            >
+              Test Name
             </td>
           </tr>
           <tr>
-            <td>
+            <td
+              class="summary-name table-cell-expand"
+            >
               Model Type
             </td>
-            <td>
-              <span
-                class="summary-value"
-              >
-                Item Similarity
-              </span>
+            <td
+              class="summary-value"
+            >
+              Item Similarity
             </td>
           </tr>
           <tr>
-            <td>
+            <td
+              class="summary-name table-cell-expand"
+            >
               Training Frequency
             </td>
-            <td>
-              <span
-                class="summary-value"
-              >
-                Run Manually
-              </span>
+            <td
+              class="summary-value"
+            >
+              Run Manually
             </td>
           </tr>
           <tr>
-            <td>
+            <td
+              class="summary-name table-cell-expand"
+            >
               Training Period
             </td>
-            <td>
-              <span
-                class="summary-value"
+            <td
+              class="summary-value"
+            >
+              Last 30 days
+            </td>
+          </tr>
+          <tr
+            class="insufficient-events"
+          >
+            <td
+              class="summary-name table-cell-expand"
+            >
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-warning-full"
+                viewBox=""
               >
-                Last 30 days
-              </span>
+                <use
+                  xlink:href="#warning-full"
+                />
+              </svg>
+              Events (As of Today)
+            </td>
+            <td
+              class="summary-value"
+            >
+              <button
+                class="button-root btn btn-unstyled"
+                type="button"
+              >
+                0
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="summary-name table-cell-expand"
+            >
+              Items (As of Today)
+            </td>
+            <td
+              class="summary-value"
+            >
+              0
             </td>
           </tr>
         </tbody>
       </table>
       <div
-        class="table-responsive table-root flex-grow-1"
+        class="form-group"
       >
-        <table
-          class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+        <div
+          class="form-group-item"
         >
-          <thead>
-            <tr
-              class=""
+          <div
+            class="custom-control custom-checkbox custom-control-inline"
+          >
+            <label>
+              <input
+                class="custom-control-input"
+                data-testid="auto-start-training-checkbox"
+                form="[object Object]"
+                name="runNow"
+                type="checkbox"
+                value="false"
+              />
+              <span
+                class="custom-control-label"
+              >
+                <span
+                  class="custom-control-label-text"
+                >
+                  Automatically Start Training
+                </span>
+              </span>
+            </label>
+          </div>
+          <span
+            class="info-popover-root auto-start-training-help-icon"
+          >
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-question-circle-full"
+              viewBox=""
             >
-              <th
-                class="table-head-title table-cell-expand"
-              >
-                Training Date
-              </th>
-              <th
-                class="table-head-title table-column-text-end"
-              >
-                Events
-              </th>
-              <th
-                class="table-head-title table-column-text-end"
-              >
-                Items
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              class=""
-            >
-              <td
-                class="table-cell-expand"
-              >
-                Jul 10, 2018
-              </td>
-              <td
-                class=" table-column-text-end"
-              >
-                -
-              </td>
-              <td
-                class=" table-column-text-end"
-              >
-                -
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              <use
+                xlink:href="#question-circle-full"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
     </div>
   </form>
