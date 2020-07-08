@@ -130,7 +130,6 @@ export class SearchableTableWithStaged extends React.Component {
 					...stagedProps
 			  }
 			: {
-					paginationProps: {},
 					toolbarProps,
 					...omitDefinedProps(
 						otherProps,
@@ -175,8 +174,8 @@ export default withStatefulPagination(
 	SearchableTableWithStaged,
 	({defaultOrderByField}) =>
 		defaultOrderByField ? {defaultOrderByField} : {},
-	(props, {toolbarProps}) => ({
-		stagedProps: omit(props, 'onSearchValueChange'),
-		toolbarProps
+	(statefulProps, props) => ({
+		stagedProps: omit(statefulProps, 'onSearchValueChange'),
+		...props
 	})
 );
