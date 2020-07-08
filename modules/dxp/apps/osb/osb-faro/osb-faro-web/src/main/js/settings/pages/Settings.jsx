@@ -179,7 +179,7 @@ export class Settings extends React.Component {
 						})
 					},
 					recommendationsEnabled && {
-						icon: 'circle',
+						icon: 'ac-star',
 						label: Liferay.Language.get('recommendations'),
 						route: Routes.SETTINGS_RECOMMENDATIONS,
 						url: toRoute(Routes.SETTINGS_RECOMMENDATIONS, {groupId})
