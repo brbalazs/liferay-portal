@@ -4,7 +4,7 @@ export default gql`
 	query WebContentList(
 		$channelId: String
 		$keywords: String
-		$rangeKey: Int!
+		$rangeKey: Int
 		$size: Int!
 		$sort: Sort!
 		$start: Int!

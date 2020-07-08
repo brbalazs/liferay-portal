@@ -13,7 +13,7 @@ export default gql`
 		$channelId: String
 		$devices: String
 		$location: String
-		$rangeKey: Int!
+		$rangeKey: Int
 		$title: String
 		$touchpoint: String!
 	) {
