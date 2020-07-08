@@ -4,6 +4,7 @@ export const RECOMMENDATION_MUTATION = gql`
 	mutation RecommendationMutation(
 		$name: String!
 		$parameters: [JobParameterInput]
+		$runNow: Boolean
 		$trainingFrequency: JobTrainingFrequency
 		$trainingPeriod: JobTrainingPeriod
 		$type: JobType!
@@ -11,6 +12,7 @@ export const RECOMMENDATION_MUTATION = gql`
 		createJob(
 			name: $name
 			parameters: $parameters
+			runNow: $runNow
 			trainingFrequency: $trainingFrequency
 			trainingPeriod: $trainingPeriod
 			type: $type
@@ -52,6 +54,7 @@ export const RECOMMENDATION_UPDATE_MUTATION = gql`
 		$jobId: String!
 		$name: String!
 		$parameters: [JobParameterInput]
+		$runNow: Boolean
 		$trainingFrequency: JobTrainingFrequency
 		$trainingPeriod: JobTrainingPeriod
 	) {
@@ -59,6 +62,7 @@ export const RECOMMENDATION_UPDATE_MUTATION = gql`
 			jobId: $jobId
 			name: $name
 			parameters: $parameters
+			runNow: $runNow
 			trainingFrequency: $trainingFrequency
 			trainingPeriod: $trainingPeriod
 		) {

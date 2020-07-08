@@ -44,7 +44,7 @@ interface ISummaryProps {
 	type: jobTypes;
 }
 
-const EVENTS_THRESHOLD: number = 50;
+const EVENTS_THRESHOLD: number = 1000;
 
 const Summary: React.FC<ISummaryProps> = ({
 	currentStep,
