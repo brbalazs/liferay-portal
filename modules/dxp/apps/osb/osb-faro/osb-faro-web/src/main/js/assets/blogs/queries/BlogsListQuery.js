@@ -4,7 +4,7 @@ export default gql`
 	query BlogsList(
 		$channelId: String
 		$keywords: String
-		$rangeKey: Int!
+		$rangeKey: Int
 		$size: Int!
 		$sort: Sort!
 		$start: Int!

@@ -48,6 +48,7 @@ const TableWithData = withRangeKey(
 				route: Routes.CONTACTS_INDIVIDUAL
 			})
 		],
+		legacyDropdownRangeKey: false,
 		rowIdentifier: 'id'
 	})
 );
