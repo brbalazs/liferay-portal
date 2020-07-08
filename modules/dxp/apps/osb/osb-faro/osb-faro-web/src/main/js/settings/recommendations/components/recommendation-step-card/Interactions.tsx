@@ -1,16 +1,33 @@
 import Form from 'shared/components/form';
 import InfoPopover from 'shared/components/InfoPopover';
-import React from 'react';
-import {FormikErrors} from 'formik';
+import React, {useEffect} from 'react';
 import {JOB_TRAINING_PERIODS_LIST} from '../../utils/utils';
+import {jobTrainingFrequencies} from 'shared/util/constants';
 
 interface IInteractionsProps {
-	disabled: boolean;
-	errors: FormikErrors<any>;
-	onSetDisabled: (disabled: boolean) => void;
+	includePreviousPeriod: boolean;
+	setFieldValue: (
+		field: string,
+		value: any,
+		shouldValidate?: boolean
+	) => void;
+	trainingFrequency: jobTrainingFrequencies;
 }
 
-const Interactions: React.FC<IInteractionsProps> = () => {
+const Interactions: React.FC<IInteractionsProps> = ({
+	includePreviousPeriod,
+	setFieldValue,
+	trainingFrequency
+}) => {
+	const manualTrainingFrequency =
+		trainingFrequency === jobTrainingFrequencies.manual;
+
+	useEffect(() => {
+		if (manualTrainingFrequency && includePreviousPeriod) {
+			setFieldValue('includePreviousPeriod', false);
+		}
+	}, []);
+
 	const interactionPeriodLabel = (
 		<div>
 			{Liferay.Language.get('select-interaction-period')}
@@ -42,6 +59,7 @@ const Interactions: React.FC<IInteractionsProps> = () => {
 				<Form.GroupItem>
 					<Form.Checkbox
 						data-testid='include-previous-period-checkbox'
+						disabled={manualTrainingFrequency}
 						displayInline
 						label={Liferay.Language.get(
 							'include-previous-period-in-case-of-insufficient-interactions'
