@@ -88,6 +88,7 @@ Immutable.Map {
         "faroSubscription": Immutable.Map {},
         "groupId": null,
         "percentageComplete": 0,
+        "recommendationsEnabled": false,
         "state": null,
         "stateStartDate": null,
       },

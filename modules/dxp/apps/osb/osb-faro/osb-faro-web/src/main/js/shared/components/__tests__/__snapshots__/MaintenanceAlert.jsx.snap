@@ -61,6 +61,7 @@ Object {
     "faroSubscription": Immutable.Map {},
     "groupId": "23",
     "percentageComplete": 0,
+    "recommendationsEnabled": true,
     "state": "SCHEDULED",
     "stateStartDate": 1531263666366,
   },
