@@ -304,6 +304,14 @@ public class CommerceSubscriptionEntryLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.commerce.model.CommerceSubscriptionEntry>
+		getActiveCommerceSubscriptionEntries(long commerceAccountId) {
+
+		return _commerceSubscriptionEntryLocalService.
+			getActiveCommerceSubscriptionEntries(commerceAccountId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.model.CommerceSubscriptionEntry>
 		getCommerceDeliverySubscriptionEntriesToRenew() {
 
 		return _commerceSubscriptionEntryLocalService.

@@ -281,6 +281,14 @@ public class CommerceSubscriptionEntryLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.model.CommerceSubscriptionEntry>
+			getActiveCommerceSubscriptionEntries(long commerceAccountId) {
+
+		return getService().getActiveCommerceSubscriptionEntries(
+			commerceAccountId);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.model.CommerceSubscriptionEntry>
 			getCommerceDeliverySubscriptionEntriesToRenew() {
 
 		return getService().getCommerceDeliverySubscriptionEntriesToRenew();
