@@ -23,12 +23,15 @@ import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.exportimport.kernel.lar.ExportImportThreadLocal;
 import com.liferay.headless.commerce.admin.order.dto.v1_0.OrderItem;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 
 import java.math.BigDecimal;
+
+import java.util.Date;
 
 /**
  * @author Alessio Antonio Rendina
@@ -63,6 +66,27 @@ public class OrderItemUtil {
 				GetterUtil.get(orderItem.getQuantity(), 0),
 				GetterUtil.get(orderItem.getShippedQuantity(), 0), null,
 				commerceContext, serviceContext);
+
+		Date requestedDeliveryDate = orderItem.getRequestedDeliveryDate();
+
+		if (requestedDeliveryDate != null) {
+			commerceOrderItemService.updateCommerceOrderItemInfo(
+				commerceOrderItem.getCommerceOrderItemId(),
+				GetterUtil.get(orderItem.getDeliveryGroup(), StringPool.BLANK),
+				GetterUtil.get(orderItem.getShippingAddressId(), 0L),
+				GetterUtil.get(orderItem.getPrintedNote(), StringPool.BLANK),
+				requestedDeliveryDate.getMonth(),
+				requestedDeliveryDate.getDay(),
+				requestedDeliveryDate.getYear());
+		}
+		else {
+			commerceOrderItemService.updateCommerceOrderItemInfo(
+				commerceOrderItem.getCommerceOrderItemId(),
+				GetterUtil.get(orderItem.getDeliveryGroup(), StringPool.BLANK),
+				GetterUtil.get(orderItem.getShippingAddressId(), 0L),
+				GetterUtil.get(orderItem.getPrintedNote(), StringPool.BLANK), 0,
+				0, 0);
+		}
 
 		// Pricing
 
