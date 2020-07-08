@@ -48,6 +48,9 @@
 
 				AdminCatalogResource.createProduct(<portlet:namespace/>productData)
 					.then(function(cpDefinition) {
+						if(cpDefinition.status && cpDefinition.status == "BAD_REQUEST")
+							throw new Error();
+
 						const redirectURL = new Liferay.PortletURL.createURL(
 							'<%= editProductDefinitionURL %>'
 						);
@@ -71,7 +74,8 @@
 			inputId: '<portlet:namespace />catalogId',
 			inputName: '<%= renderResponse.getNamespace() %>catalogId',
 			itemsKey: 'id',
-			itemsLabel: 'name'
+			itemsLabel: 'name',
+			required: true
 		});
 
 		Liferay.on(events.AUTOCOMPLETE_VALUE_UPDATED, function(e) {

@@ -116,6 +116,7 @@ function Autocomplete(props) {
 						}
 					}}
 					placeholder={props.inputPlaceholder}
+					required={props.required || false}
 					value={label || query}
 				/>
 				{active && (
@@ -178,7 +179,8 @@ Autocomplete.propTypes = {
 	itemsLabel: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.arrayOf(PropTypes.string)
-	]).isRequired
+	]).isRequired,
+	required: PropTypes.bool
 };
 
 Autocomplete.defaultProps = {
