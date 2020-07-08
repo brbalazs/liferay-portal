@@ -81,6 +81,7 @@ export const ProjectState = new Record({
 	faroSubscription: new Map(),
 	groupId: null,
 	percentageComplete: 0,
+	recommendationsEnabled: false,
 	state: null,
 	stateStartDate: null
 });

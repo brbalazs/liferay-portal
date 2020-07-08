@@ -928,6 +928,7 @@ export function mockProjectState(seed = 1, data = {}) {
 	return {
 		groupId: seed,
 		percentageComplete: 0,
+		recommendationsEnabled: true,
 		state: projectStates.ready,
 		...data
 	};

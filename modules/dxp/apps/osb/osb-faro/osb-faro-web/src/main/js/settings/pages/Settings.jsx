@@ -8,7 +8,6 @@ import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import {compose} from 'shared/hoc';
 import {connect} from 'react-redux';
-import {DEVELOPER_MODE} from 'shared/util/constants';
 import {Link, matchPath, Switch, withRouter} from 'react-router-dom';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
@@ -141,11 +140,12 @@ export class Settings extends React.Component {
 		pageActions: PropTypes.array,
 		pageDescription: PropTypes.node,
 		pageTitle: PropTypes.node,
-		passedChildren: PropTypes.node
+		passedChildren: PropTypes.node,
+		recommendationsEnabled: PropTypes.bool
 	};
 
 	getSidebarSections() {
-		const {currentUser, groupId} = this.props;
+		const {currentUser, groupId, recommendationsEnabled} = this.props;
 
 		return [
 			{
@@ -178,8 +178,7 @@ export class Settings extends React.Component {
 							groupId
 						})
 					},
-					DEVELOPER_MODE && {
-						// TODO: LRAC-6115 Remove developer mode
+					recommendationsEnabled && {
 						icon: 'circle',
 						label: Liferay.Language.get('recommendations'),
 						route: Routes.SETTINGS_RECOMMENDATIONS,
@@ -228,7 +227,8 @@ export class Settings extends React.Component {
 		const {
 			backURL,
 			groupId,
-			location: {pathname}
+			location: {pathname},
+			recommendationsEnabled
 		} = this.props;
 
 		return (
@@ -401,7 +401,7 @@ export class Settings extends React.Component {
 									path={Routes.SETTINGS_APIS}
 								/>
 
-								{DEVELOPER_MODE && ( // TODO: LRAC-6115 Remove developer mode
+								{recommendationsEnabled && ( // TODO: LRAC-6115 Remove developer mode
 									<>
 										<BundleRouter
 											data={RecommendationList}
@@ -456,8 +456,12 @@ export class Settings extends React.Component {
 export default compose(
 	withRouter,
 	checkProjectState,
-	connect(store => ({
-		backURL: store.getIn(['settings', 'backURL'])
+	connect((store, {groupId}) => ({
+		backURL: store.getIn(['settings', 'backURL']),
+		recommendationsEnabled: store.getIn(
+			['projectStates', groupId, 'data', 'recommendationsEnabled'],
+			false
+		)
 	})),
 	withOnboarding
 )(Settings);
