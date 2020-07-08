@@ -48,6 +48,11 @@
 	}
 
 	.summary-root {
+		.auto-start-training-help-icon {
+			color: $mainLighten28;
+			margin-left: 8px;
+		}
+
 		.summary-table {
 			.insufficient-events {
 				color: $warning;

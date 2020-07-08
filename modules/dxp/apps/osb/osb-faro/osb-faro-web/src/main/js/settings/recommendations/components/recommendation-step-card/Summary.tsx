@@ -1,8 +1,10 @@
 import Button from 'shared/components/Button';
 import Constants from 'shared/util/constants';
+import Form from 'shared/components/form';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
-import React from 'react';
+import InfoPopover from 'shared/components/InfoPopover';
+import React, {useEffect, useState} from 'react';
 import RecommendationActivitiesQuery from '../../queries/RecommendationActivitiesQuery';
 import RecommendationPageAssetsQuery from '../../queries/RecommendationPageAssetsQuery';
 import {
@@ -31,24 +33,32 @@ interface ISummaryProps {
 	includePreviousPeriod: boolean;
 	itemFilters: Filter[];
 	name: string;
+	setFieldValue: (
+		field: string,
+		value: any,
+		shouldValidate?: boolean
+	) => void;
 	setStep: (step: number) => void;
 	trainingFrequency: jobTrainingFrequencies;
 	trainingPeriod: jobTrainingPeriods;
 	type: jobTypes;
 }
 
-const EVENTS_THRESHOLD: number = 1000;
+const EVENTS_THRESHOLD: number = 50;
 
 const Summary: React.FC<ISummaryProps> = ({
 	currentStep,
 	includePreviousPeriod,
 	itemFilters,
 	name,
+	setFieldValue,
 	setStep,
 	trainingFrequency,
 	trainingPeriod,
 	type
 }) => {
+	const [disabled, setDisabled] = useState(false);
+
 	const propertyFilters: JobProperty[] = getPropertiesFromItems(itemFilters);
 
 	const {data: pageAssetsData} = useQuery(RecommendationPageAssetsQuery, {
@@ -105,6 +115,23 @@ const Summary: React.FC<ISummaryProps> = ({
 	const notEnoughActivities: boolean = activitiesTotal < EVENTS_THRESHOLD;
 	const notEnoughActivitiesWithPrevious: boolean =
 		activitiesWithPreviousTotal < EVENTS_THRESHOLD;
+
+	useEffect(() => {
+		if (
+			(activitiesData && !includePreviousPeriod && notEnoughActivities) ||
+			(activitiesDataWithPrevious &&
+				includePreviousPeriod &&
+				notEnoughActivitiesWithPrevious)
+		) {
+			setDisabled(true);
+
+			setFieldValue('runNow', false);
+		} else {
+			setDisabled(false);
+
+			setFieldValue('runNow', true);
+		}
+	}, [activitiesDataWithPrevious, activitiesData]);
 
 	return (
 		<div className='summary-root'>
@@ -233,6 +260,27 @@ const Summary: React.FC<ISummaryProps> = ({
 					</tr>
 				</tbody>
 			</table>
+
+			<Form.Group>
+				<Form.GroupItem>
+					<Form.Checkbox
+						data-testid='auto-start-training-checkbox'
+						disabled={disabled}
+						displayInline
+						label={Liferay.Language.get(
+							'automatically-start-training'
+						)}
+						name='runNow'
+					/>
+
+					<InfoPopover
+						className='auto-start-training-help-icon'
+						content={Liferay.Language.get(
+							'start-training-at-a-later-date-by-deselecting-this-option'
+						)}
+					/>
+				</Form.GroupItem>
+			</Form.Group>
 		</div>
 	);
 };

@@ -88,6 +88,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 		includePreviousPeriod,
 		itemFilters,
 		name,
+		runNow,
 		trainingFrequency,
 		trainingPeriod,
 		type
@@ -116,6 +117,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 							jobId: job.id,
 							name,
 							parameters,
+							runNow,
 							trainingFrequency,
 							trainingPeriod
 						}
@@ -125,6 +127,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 						variables: {
 							name,
 							parameters,
+							runNow,
 							trainingFrequency,
 							trainingPeriod,
 							type
@@ -194,6 +197,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 					includePreviousPeriodParameter.value,
 				itemFilters,
 				name,
+				runNow: true,
 				trainingFrequency,
 				trainingPeriod,
 				type
@@ -205,6 +209,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 			includePreviousPeriod: false,
 			itemFilters: [],
 			name: '',
+			runNow: true,
 			trainingFrequency: jobTrainingFrequencies.every7Days,
 			trainingPeriod: jobTrainingPeriods.last30Days,
 			type: jobType
@@ -240,6 +245,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 					handleSubmit,
 					initialValues,
 					isSubmitting,
+					setFieldValue,
 					values
 				}) => (
 					<Form.Form>
@@ -260,6 +266,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 								groupId={groupId}
 								initialValues={initialValues}
 								onSetDisabled={setDisabled}
+								setFieldValue={setFieldValue}
 								setStep={setCurrentStep}
 								trainingDate={job ? job.trainingDate : null}
 								{...values}
