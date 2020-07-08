@@ -147,6 +147,7 @@ class CustomAssetsDashboardPage extends React.Component {
 							id={rowIndex}
 							itemQuery={getQuery(metric)}
 							label={title}
+							legacyDropdownRangeKey={false}
 							panel={{chartType, metric}}
 							rangeSelectors={getRangeSelectorsFromQuery(
 								router.query

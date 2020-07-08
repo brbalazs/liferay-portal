@@ -102,7 +102,15 @@ const defaultProps = {
 	className: 'analytics-custom-metrics-card'
 };
 
-const AssetCard = ({assetId, className, id, itemQuery, label, panel}) => {
+const AssetCard = ({
+	assetId,
+	className,
+	id,
+	itemQuery,
+	label,
+	legacyDropdownRangeKey,
+	panel
+}) => {
 	const AssetComponent = compose(
 		graphql(itemQuery, getMapper(panel)),
 		withLoading({alignCenter: true, page: false}),
@@ -118,7 +126,12 @@ const AssetCard = ({assetId, className, id, itemQuery, label, panel}) => {
 	);
 
 	return (
-		<BaseCard className={className} label={label} minHeight={536}>
+		<BaseCard
+			className={className}
+			label={label}
+			legacyDropdownRangeKey={legacyDropdownRangeKey}
+			minHeight={536}
+		>
 			{({rangeSelectors, router}) => (
 				<Card.Body>
 					<AssetComponent

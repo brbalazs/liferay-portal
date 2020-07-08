@@ -7,7 +7,7 @@ export default metric =>
 			$channelId: String
 			$country: String
 			$deviceType: String
-			$rangeKey: Int!
+			$rangeKey: Int
 			$title: String
 			$touchpoint: String!
 		) {
