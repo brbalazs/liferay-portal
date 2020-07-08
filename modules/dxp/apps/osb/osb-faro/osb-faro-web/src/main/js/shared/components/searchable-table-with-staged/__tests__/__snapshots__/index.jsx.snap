@@ -178,9 +178,9 @@ exports[`SearchableTableWithStaged should show the staged table if showStaged is
               <th
                 class="table-head-title table-cell-expand"
               >
-                <button
+                <a
                   class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                  type="button"
+                  href="/?orderBy=desc&orderByField=name&page=1"
                 >
                   <span
                     class="text-truncate"
@@ -199,21 +199,21 @@ exports[`SearchableTableWithStaged should show the staged table if showStaged is
                       />
                     </svg>
                   </span>
-                </button>
+                </a>
               </th>
               <th
                 class="table-head-title"
               >
-                <button
+                <a
                   class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                  type="button"
+                  href="/?orderBy=asc&orderByField=properties.email&page=1"
                 >
                   <span
                     class="text-truncate"
                   >
                     Email
                   </span>
-                </button>
+                </a>
               </th>
             </tr>
           </thead>
@@ -284,10 +284,8 @@ exports[`SearchableTableWithStaged should show the staged table if showStaged is
             <li
               class="page-item disabled"
             >
-              <button
-                class="button-root btn btn-unstyled page-link"
-                disabled=""
-                type="button"
+              <a
+                class="button-root btn btn-unstyled page-link link-disabled"
               >
                 <svg
                   class="icon-root lexicon-icon lexicon-icon-angle-left"
@@ -297,25 +295,23 @@ exports[`SearchableTableWithStaged should show the staged table if showStaged is
                     xlink:href="#angle-left"
                   />
                 </svg>
-              </button>
+              </a>
             </li>
             <li
               class="page-item active"
             >
-              <button
+              <a
                 class="button-root btn btn-unstyled page-link"
-                type="button"
+                href="/?page=1"
               >
                 1
-              </button>
+              </a>
             </li>
             <li
               class="page-item disabled"
             >
-              <button
-                class="button-root btn btn-unstyled page-link"
-                disabled=""
-                type="button"
+              <a
+                class="button-root btn btn-unstyled page-link link-disabled"
               >
                 <svg
                   class="icon-root lexicon-icon lexicon-icon-angle-right"
@@ -325,7 +321,7 @@ exports[`SearchableTableWithStaged should show the staged table if showStaged is
                     xlink:href="#angle-right"
                   />
                 </svg>
-              </button>
+              </a>
             </li>
           </ul>
         </div>
