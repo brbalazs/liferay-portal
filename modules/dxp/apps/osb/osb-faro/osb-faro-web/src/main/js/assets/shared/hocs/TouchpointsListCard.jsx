@@ -33,8 +33,18 @@ const defaultProps = {
 	className: 'analytics-touchpoints-list-card'
 };
 
-const TouchpointsListBaseCard = ({assetType, className, label}) => (
-	<BaseCard className={className} label={label} minHeight={536}>
+const TouchpointsListBaseCard = ({
+	assetType,
+	className,
+	label,
+	legacyDropdownRangeKey
+}) => (
+	<BaseCard
+		className={className}
+		label={label}
+		legacyDropdownRangeKey={legacyDropdownRangeKey}
+		minHeight={536}
+	>
 		{({filters, rangeSelectors, router}) => (
 			<TouchpointListWithData
 				assetType={assetType}

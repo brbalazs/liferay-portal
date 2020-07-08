@@ -15,7 +15,7 @@ export default (queryName, metricName) => gql`
 			$devices: String
 			$keywords: String
 			$location: String
-			$rangeKey: Int!
+			$rangeKey: Int
 			$size: Int!
 			$start: Int!
 			$title: String

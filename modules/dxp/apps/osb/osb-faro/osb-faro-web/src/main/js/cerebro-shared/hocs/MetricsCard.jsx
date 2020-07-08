@@ -26,7 +26,7 @@ const withMetricsCard = (withMetrics, baseCardProps = {}) => {
 		className: 'analytics-metrics-card'
 	};
 
-	const MetricsCard = ({className, label}) => {
+	const MetricsCard = ({className, label, legacyDropdownRangeKey}) => {
 		const [activeItemIndex, setActiveItemIndex] = useState(0);
 		const [showPrevious, setShowPrevious] = useState(false);
 
@@ -43,6 +43,7 @@ const withMetricsCard = (withMetrics, baseCardProps = {}) => {
 			<BaseCard
 				className={className}
 				label={label}
+				legacyDropdownRangeKey={legacyDropdownRangeKey}
 				minHeight={605}
 				{...baseCardProps}
 			>

@@ -5,7 +5,7 @@ export default gql`
 		$assetType: AssetType!
 		$assetId: String!
 		$channelId: String
-		$rangeKey: Int!
+		$rangeKey: Int
 		$location: String
 		$devices: String
 	) {
