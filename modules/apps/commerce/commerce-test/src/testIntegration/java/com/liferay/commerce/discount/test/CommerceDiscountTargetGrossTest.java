@@ -199,8 +199,11 @@ public class CommerceDiscountTargetGrossTest {
 				commerceDiscount.getLevel1(), taxRate,
 				RoundingMode.valueOf(_commerceCurrency.getRoundingMode()));
 
+		BigDecimal discountAmountPrice = discountAmount.getPrice();
+
 		Assert.assertEquals(
-			discountAmountWithoutTaxAmount, discountAmount.getPrice());
+			discountAmountWithoutTaxAmount.stripTrailingZeros(),
+			discountAmountPrice.stripTrailingZeros());
 
 		BigDecimal price = cpInstance.getPrice();
 
@@ -896,7 +899,9 @@ public class CommerceDiscountTargetGrossTest {
 				commerceDiscount.getLevel1(), taxRate,
 				RoundingMode.valueOf(_commerceCurrency.getRoundingMode()));
 
-		Assert.assertEquals(discountAmountWithoutTaxAmount, discountPrice);
+		Assert.assertEquals(
+			discountAmountWithoutTaxAmount.stripTrailingZeros(),
+			discountPrice.stripTrailingZeros());
 
 		BigDecimal price = cpInstance.getPrice();
 

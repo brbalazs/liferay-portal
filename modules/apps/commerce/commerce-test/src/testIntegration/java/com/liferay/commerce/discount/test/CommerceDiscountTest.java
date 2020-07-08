@@ -161,8 +161,13 @@ public class CommerceDiscountTest {
 
 		CommerceMoney discountAmount = discountValue.getDiscountAmount();
 
+		BigDecimal discountAmountPrice = discountAmount.getPrice();
+
+		BigDecimal commerceDiscountLevel1 = commerceDiscount.getLevel1();
+
 		Assert.assertEquals(
-			commerceDiscount.getLevel1(), discountAmount.getPrice());
+			commerceDiscountLevel1.stripTrailingZeros(),
+			discountAmountPrice.stripTrailingZeros());
 
 		BigDecimal price = cpInstance.getPrice();
 
@@ -644,7 +649,11 @@ public class CommerceDiscountTest {
 			discountPrice = discountAmount.getPrice();
 		}
 
-		Assert.assertEquals(commerceDiscount.getLevel1(), discountPrice);
+		BigDecimal commerceDiscountLevel1 = commerceDiscount.getLevel1();
+
+		Assert.assertEquals(
+			commerceDiscountLevel1.stripTrailingZeros(),
+			discountPrice.stripTrailingZeros());
 
 		BigDecimal price = cpInstance.getPrice();
 
