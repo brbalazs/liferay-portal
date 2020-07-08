@@ -18,6 +18,7 @@ export default function FormsDashboardPage() {
 				<div className='col-sm-12'>
 					<MetricsCard
 						label={Liferay.Language.get('visitors-behavior')}
+						legacyDropdownRangeKey={false}
 					/>
 				</div>
 			</div>
@@ -25,6 +26,7 @@ export default function FormsDashboardPage() {
 				<div className='col-sm-12'>
 					<AudienceReportCard
 						label={Liferay.Language.get('audience')}
+						legacyDropdownRangeKey={false}
 					/>
 				</div>
 			</div>
@@ -32,6 +34,7 @@ export default function FormsDashboardPage() {
 				<div className='col-lg-6 col-md-12'>
 					<LocationsCard
 						label={Liferay.Language.get('submissions-by-location')}
+						legacyDropdownRangeKey={false}
 						metricLabel={Liferay.Language.get('submissions')}
 					/>
 				</div>
@@ -40,6 +43,7 @@ export default function FormsDashboardPage() {
 						label={Liferay.Language.get(
 							'submissions-by-technology'
 						)}
+						legacyDropdownRangeKey={false}
 						metricLabel={Liferay.Language.get('submissions')}
 					/>
 				</div>
@@ -48,6 +52,7 @@ export default function FormsDashboardPage() {
 				<div className='col-sm-12'>
 					<FormAbandonmentCard
 						label={Liferay.Language.get('form-abandonment')}
+						legacyDropdownRangeKey={false}
 					/>
 				</div>
 			</div>
@@ -56,6 +61,7 @@ export default function FormsDashboardPage() {
 					<TouchpointsListCard
 						assetType={'FORM'}
 						label={Liferay.Language.get('asset-appears-on')}
+						legacyDropdownRangeKey={false}
 					/>
 				</div>
 			</div>

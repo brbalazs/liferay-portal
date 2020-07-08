@@ -4,7 +4,7 @@ export default gql`
 	query FormsList(
 		$channelId: String
 		$keywords: String
-		$rangeKey: Int!
+		$rangeKey: Int
 		$size: Int!
 		$sort: Sort!
 		$start: Int!
