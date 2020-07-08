@@ -24,6 +24,7 @@ import com.liferay.commerce.constants.CommerceOrderActionKeys;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
+import com.liferay.commerce.exception.CommerceOrderGuestCheckoutException;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
@@ -226,7 +227,7 @@ public class CommerceCheckoutTest {
 			commerceOrder, user2.getUserId());
 	}
 
-	@Test
+	@Test(expected = CommerceOrderGuestCheckoutException.class)
 	public void testGuestUserCheckoutWithGuestCheckoutDisabled()
 		throws Exception {
 
