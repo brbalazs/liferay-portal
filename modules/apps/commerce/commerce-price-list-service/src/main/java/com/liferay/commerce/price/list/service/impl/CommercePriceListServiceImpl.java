@@ -60,7 +60,7 @@ public class CommercePriceListServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		return commercePriceListService.addCommercePriceList(
+		return addCommercePriceList(
 			groupId, userId, commerceCurrencyId, netPrice,
 			parentCommercePriceListId, name, priority, displayDateMonth,
 			displayDateDay, displayDateYear, displayDateHour, displayDateMinute,
@@ -131,7 +131,7 @@ public class CommercePriceListServiceImpl
 			boolean neverExpire, ServiceContext serviceContext)
 		throws PortalException {
 
-		return commercePriceListService.addCommercePriceList(
+		return addCommercePriceList(
 			groupId, userId, commerceCurrencyId, parentCommercePriceListId,
 			name, priority, displayDateMonth, displayDateDay, displayDateYear,
 			displayDateHour, displayDateMinute, expirationDateMonth,
@@ -175,7 +175,7 @@ public class CommercePriceListServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		return commercePriceListService.addCommercePriceList(
+		return addCommercePriceList(
 			groupId, userId, commerceCurrencyId, 0, name, priority,
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, expirationDateMonth, expirationDateDay,
@@ -194,7 +194,7 @@ public class CommercePriceListServiceImpl
 			boolean neverExpire, ServiceContext serviceContext)
 		throws PortalException {
 
-		return commercePriceListService.addCommercePriceList(
+		return addCommercePriceList(
 			groupId, userId, commerceCurrencyId, 0, name, priority,
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, expirationDateMonth, expirationDateDay,
@@ -288,8 +288,8 @@ public class CommercePriceListServiceImpl
 			long commercePricingClassId, String title)
 		throws PrincipalException {
 
-		return commercePriceListLocalService.getCommercePriceListsCount(
-			commercePricingClassId, title);
+		return commercePriceListFinder.countByCommercePricingClassId(
+			commercePricingClassId, title, true);
 	}
 
 	@Override
@@ -320,8 +320,8 @@ public class CommercePriceListServiceImpl
 			long commercePricingClassId, String name, int start, int end)
 		throws PrincipalException {
 
-		return commercePriceListLocalService.searchByCommercePricingClassId(
-			commercePricingClassId, name, start, end);
+		return commercePriceListFinder.findByCommercePricingClassId(
+			commercePricingClassId, name, start, end, true);
 	}
 
 	@Override
@@ -424,7 +424,7 @@ public class CommercePriceListServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		return commercePriceListService.updateCommercePriceList(
+		return updateCommercePriceList(
 			commercePriceListId, commerceCurrencyId, 0, name, priority,
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, expirationDateMonth, expirationDateDay,
@@ -525,7 +525,7 @@ public class CommercePriceListServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		return commercePriceListService.upsertCommercePriceList(
+		return upsertCommercePriceList(
 			groupId, userId, commercePriceListId, commerceCurrencyId, true,
 			CommercePriceListConstants.TYPE_PRICE_LIST,
 			parentCommercePriceListId, false, name, priority, displayDateMonth,
@@ -547,7 +547,7 @@ public class CommercePriceListServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		return commercePriceListService.upsertCommercePriceList(
+		return upsertCommercePriceList(
 			groupId, userId, commercePriceListId, commerceCurrencyId, 0, name,
 			priority, displayDateMonth, displayDateDay, displayDateYear,
 			displayDateHour, displayDateMinute, expirationDateMonth,

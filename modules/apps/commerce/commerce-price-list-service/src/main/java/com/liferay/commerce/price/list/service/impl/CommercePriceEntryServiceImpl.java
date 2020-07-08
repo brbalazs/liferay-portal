@@ -14,10 +14,11 @@
 
 package com.liferay.commerce.price.list.service.impl;
 
-import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.base.CommercePriceEntryServiceBaseImpl;
+import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
@@ -25,11 +26,12 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.math.BigDecimal;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -169,17 +171,16 @@ public class CommercePriceEntryServiceImpl
 			commercePriceListId, start, end, orderByComparator);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public List<CommercePriceEntry> getCommercePriceEntriesByCompanyId(
 			long companyId, int start, int end)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.VIEW_COMMERCE_PRICE_LISTS);
-
-		return commercePriceEntryLocalService.
-			getCommercePriceEntriesByCompanyId(companyId, start, end);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -193,16 +194,15 @@ public class CommercePriceEntryServiceImpl
 			commercePriceListId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public int getCommercePriceEntriesCountByCompanyId(long companyId)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.VIEW_COMMERCE_PRICE_LISTS);
-
-		return commercePriceEntryLocalService.
-			getCommercePriceEntriesCountByCompanyId(companyId);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -225,38 +225,43 @@ public class CommercePriceEntryServiceImpl
 			long cpInstanceId, int start, int end)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.VIEW_COMMERCE_PRICE_LISTS);
+		CPInstance cpInstance = _cpInstanceService.fetchCPInstance(
+			cpInstanceId);
 
-		return commercePriceEntryLocalService.getInstanceCommercePriceEntries(
-			cpInstanceId, start, end);
+		if (cpInstance == null) {
+			return Collections.emptyList();
+		}
+
+		return commercePriceListFinder.findByCPInstanceUuid(
+			cpInstance.getCPInstanceUuid(), start, end, true);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public List<CommercePriceEntry> getInstanceCommercePriceEntries(
 			long cpInstanceId, int start, int end,
 			OrderByComparator<CommercePriceEntry> orderByComparator)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.VIEW_COMMERCE_PRICE_LISTS);
-
-		return commercePriceEntryLocalService.getInstanceCommercePriceEntries(
-			cpInstanceId, start, end, orderByComparator);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public int getInstanceCommercePriceEntriesCount(long cpInstanceId)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.VIEW_COMMERCE_PRICE_LISTS);
+		CPInstance cpInstance = _cpInstanceService.fetchCPInstance(
+			cpInstanceId);
 
-		return commercePriceEntryLocalService.
-			getInstanceCommercePriceEntriesCount(cpInstanceId);
+		if (cpInstance == null) {
+			return 0;
+		}
+
+		return commercePriceListFinder.countByCPInstanceUuid(
+			cpInstance.getCPInstanceUuid(), true);
 	}
 
 	@Override
@@ -436,5 +441,8 @@ public class CommercePriceEntryServiceImpl
 				CommercePriceEntryServiceImpl.class,
 				"_commercePriceListModelResourcePermission",
 				CommercePriceList.class);
+
+	@ServiceReference(type = CPInstanceService.class)
+	private CPInstanceService _cpInstanceService;
 
 }

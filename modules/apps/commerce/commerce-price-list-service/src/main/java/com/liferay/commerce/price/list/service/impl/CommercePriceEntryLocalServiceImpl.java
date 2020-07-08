@@ -512,7 +512,7 @@ public class CommercePriceEntryLocalServiceImpl
 	public List<CommercePriceEntry> getInstanceCommercePriceEntries(
 		String cpInstanceUuid, int start, int end) {
 
-		return commercePriceEntryPersistence.findByCPInstanceUuid(
+		return commercePriceListFinder.findByCPInstanceUuid(
 			cpInstanceUuid, start, end);
 	}
 
@@ -545,7 +545,7 @@ public class CommercePriceEntryLocalServiceImpl
 
 	@Override
 	public int getInstanceCommercePriceEntriesCount(String cpInstanceUuid) {
-		return commercePriceEntryPersistence.countByCPInstanceUuid(
+		return commercePriceListFinder.countByCPInstanceUuid(
 			cpInstanceUuid);
 	}
 
