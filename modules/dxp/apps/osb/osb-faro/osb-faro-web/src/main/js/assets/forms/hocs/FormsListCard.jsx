@@ -56,6 +56,7 @@ const TableWithData = withBaseResults(withData, {
 		metricsListColumns.abandonmentsMetric,
 		metricsListColumns.completionTimeMetric
 	],
+	legacyDropdownRangeKey: false,
 	rowIdentifier: ['assetId', 'assetTitle']
 });
 

@@ -53,6 +53,7 @@ const TableWithData = withBaseResults(withData, {
 		}),
 		metricsListColumns.viewsMetric
 	],
+	legacyDropdownRangeKey: false,
 	rowIdentifier: ['assetId', 'assetTitle']
 });
 

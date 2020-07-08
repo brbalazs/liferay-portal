@@ -57,6 +57,7 @@ const TableWithData = withBaseResults(withData, {
 		metricsListColumns.commentsMetric,
 		metricsListColumns.ratingsMetric
 	],
+	legacyDropdownRangeKey: false,
 	rowIdentifier: ['assetId', 'assetTitle']
 });
 
