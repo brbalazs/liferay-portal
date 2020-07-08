@@ -34,16 +34,16 @@ import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.model.CommerceChannelRel;
 import com.liferay.commerce.product.service.CPDefinitionLinkLocalService;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
-import com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceChannelRelLocalService;
+import com.liferay.friendly.url.model.FriendlyURLEntry;
+import com.liferay.friendly.url.service.FriendlyURLEntryLocalService;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.search.BaseIndexer;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
@@ -71,6 +71,7 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -334,10 +335,21 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 		long classNameId = _classNameLocalService.getClassNameId(
 			CProduct.class);
 
-		Map<String, String> languageIdToUrlTitleMap =
-			_cpFriendlyURLEntryLocalService.getLanguageIdToUrlTitleMap(
-				GroupConstants.DEFAULT_LIVE_GROUP_ID, classNameId,
-				cpDefinition.getCProductId());
+		Map<String, String> languageIdToUrlTitleMap = new HashMap<>();
+
+		try {
+			FriendlyURLEntry friendlyURLEntry =
+				_friendlyURLEntryLocalService.getMainFriendlyURLEntry(
+					classNameId, cpDefinition.getCProductId());
+
+			languageIdToUrlTitleMap =
+				friendlyURLEntry.getLanguageIdToUrlTitleMap();
+		}
+		catch (Exception e) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(e, e);
+			}
+		}
 
 		for (String languageId : languageIds) {
 			String description = cpDefinition.getDescription(languageId);
@@ -846,10 +858,10 @@ public class CPDefinitionIndexer extends BaseIndexer<CPDefinition> {
 	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 	@Reference
-	private CPFriendlyURLEntryLocalService _cpFriendlyURLEntryLocalService;
+	private CPInstanceLocalService _cpInstanceLocalService;
 
 	@Reference
-	private CPInstanceLocalService _cpInstanceLocalService;
+	private FriendlyURLEntryLocalService _friendlyURLEntryLocalService;
 
 	@Reference
 	private IndexWriterHelper _indexWriterHelper;
