@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.commerce.punchout.service.impl;
+package com.liferay.commerce.punchout.helper;
 
 import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.model.AssetEntry;

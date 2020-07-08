@@ -137,7 +137,7 @@ public class PunchoutSessionResourceImpl
 						")");
 
 			throw new BadRequestException(
-				"Business commrece account not found");
+				"Business commerce account not found");
 		}
 
 		_addBuyerUserToAccount(

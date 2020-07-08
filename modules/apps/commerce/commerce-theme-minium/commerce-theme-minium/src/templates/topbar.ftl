@@ -32,7 +32,7 @@
 
 	<#if show_account_selector || show_mini_cart>
 		<div class="minium-topbar__end">
-			<#if show_account_selector && !punchoutSession>
+			<#if show_account_selector>
 				<div class="minium-topbar__account-selector-wrapper">
 					<@liferay_commerce_ui["account-selector"] />
 				</div>

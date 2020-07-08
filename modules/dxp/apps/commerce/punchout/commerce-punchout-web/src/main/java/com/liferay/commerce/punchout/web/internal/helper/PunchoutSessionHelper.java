@@ -82,7 +82,7 @@ public class PunchoutSessionHelper {
 				commerceContext.getCommerceAccount();
 
 			return _punchoutAccountRoleHelper.hasPunchoutRole(
-				commerceOrder.getCompanyId(), commerceOrder.getUserId(),
+				commerceOrder.getUserId(),
 				commerceAccount.getCommerceAccountId());
 		}
 		catch (Exception e) {

@@ -17,14 +17,7 @@
 	notification_count = commerceThemeMiniumHttpHelper.getNotificationsCount(themeDisplay)
 	back_url = paramUtil.getString(request, "p_r_p_backURL")
 	minium_content_css_class = "minium-content"
-	punchoutSession = commercePunchoutThemeHttpHelper.punchoutSession(request)
 />
-
-<#if punchoutSession>
-	<@liferay_aui.script>
-		$(".control-menu-nav").hide();
-	</@>
-</#if>
 
 <#if wide_layout>
 	<#assign

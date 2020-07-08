@@ -165,7 +165,7 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 	private PunchoutSessionHelper _punchoutSessionHelper;
 
 	@Reference(
-		target = "(osgi.web.symbolicname=com.liferay.commerce.punchout.web)"
+		target = "(osgi.web.symbolicname=com.liferay.punchout.commerce.web)"
 	)
 	private ServletContext _servletContext;
 

@@ -232,6 +232,7 @@ public class CPInstanceIndexer extends BaseIndexer<CPInstance> {
 			CPField.HAS_CHILD_CP_DEFINITIONS,
 			_cpDefinitionLocalService.hasChildCPDefinitions(
 				cpDefinition.getCPDefinitionId()));
+		document.addKeyword(CPField.UNSPSC, cpInstance.getUnspsc());
 
 		if (_log.isDebugEnabled()) {
 			_log.debug("Document " + cpInstance + " indexed successfully");

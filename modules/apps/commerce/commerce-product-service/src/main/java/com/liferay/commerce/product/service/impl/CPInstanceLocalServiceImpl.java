@@ -104,6 +104,52 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			long maxSubscriptionCycles, boolean deliverySubscriptionEnabled,
 			int deliverySubscriptionLength, String deliverySubscriptionType,
 			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
+			long deliveryMaxSubscriptionCycles, ServiceContext serviceContext)
+		throws PortalException {
+
+		return addCPInstance(
+			cpDefinitionId, groupId, sku, gtin,
+			manufacturerPartNumber, purchasable,
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
+			width, height, depth, weight,
+			price, promoPrice, cost,
+			published, externalReferenceCode,
+			displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute,
+			neverExpire, overrideSubscriptionInfo,
+			subscriptionEnabled, subscriptionLength,
+			subscriptionType,
+			subscriptionTypeSettingsProperties,
+			maxSubscriptionCycles, deliverySubscriptionEnabled,
+			deliverySubscriptionLength, deliverySubscriptionType,
+			deliverySubscriptionTypeSettingsProperties,
+			deliveryMaxSubscriptionCycles, null,
+			serviceContext);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CPInstance addCPInstance(
+			long cpDefinitionId, long groupId, String sku, String gtin,
+			String manufacturerPartNumber, boolean purchasable,
+			Map<Long, List<Long>>
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
+			double width, double height, double depth, double weight,
+			BigDecimal price, BigDecimal promoPrice, BigDecimal cost,
+			boolean published, String externalReferenceCode,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, boolean overrideSubscriptionInfo,
+			boolean subscriptionEnabled, int subscriptionLength,
+			String subscriptionType,
+			UnicodeProperties subscriptionTypeSettingsProperties,
+			long maxSubscriptionCycles, boolean deliverySubscriptionEnabled,
+			int deliverySubscriptionLength, String deliverySubscriptionType,
+			UnicodeProperties deliverySubscriptionTypeSettingsProperties,
 			long deliveryMaxSubscriptionCycles, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException {
@@ -260,6 +306,44 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			boolean subscriptionEnabled, int subscriptionLength,
 			String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
+			long maxSubscriptionCycles, ServiceContext serviceContext)
+		throws PortalException {
+
+		return addCPInstance(
+			cpDefinitionId, groupId, sku, gtin,
+			manufacturerPartNumber, purchasable,
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
+			width, height, depth, weight,
+			price, promoPrice, cost,
+			published, externalReferenceCode,
+			displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute,
+			neverExpire, overrideSubscriptionInfo,
+			subscriptionEnabled, subscriptionLength,
+			subscriptionType,
+			subscriptionTypeSettingsProperties,
+			maxSubscriptionCycles, null, serviceContext);
+	}
+
+	@Override
+	public CPInstance addCPInstance(
+			long cpDefinitionId, long groupId, String sku, String gtin,
+			String manufacturerPartNumber, boolean purchasable,
+			Map<Long, List<Long>>
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
+			double width, double height, double depth, double weight,
+			BigDecimal price, BigDecimal promoPrice, BigDecimal cost,
+			boolean published, String externalReferenceCode,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, boolean overrideSubscriptionInfo,
+			boolean subscriptionEnabled, int subscriptionLength,
+			String subscriptionType,
+			UnicodeProperties subscriptionTypeSettingsProperties,
 			long maxSubscriptionCycles, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException {
@@ -308,6 +392,61 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 	 *             String, int, int, int, int, int, int, int, int, int, int,
 	 *             boolean, boolean, boolean, int, String, UnicodeProperties,
 	 *             long, ServiceContext)}
+	 */
+	@Deprecated
+	@Override
+	public CPInstance addCPInstance(
+			long cpDefinitionId, long groupId, String sku, String gtin,
+			String manufacturerPartNumber, boolean purchasable, String json,
+			boolean published, int displayDateMonth, int displayDateDay,
+			int displayDateYear, int displayDateHour, int displayDateMinute,
+			int expirationDateMonth, int expirationDateDay,
+			int expirationDateYear, int expirationDateHour,
+			int expirationDateMinute, boolean neverExpire, 
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return addCPInstance(
+			cpDefinitionId, groupId, sku, gtin,
+			manufacturerPartNumber, purchasable, json,
+			published, displayDateMonth, displayDateDay,
+			displayDateYear, displayDateHour, displayDateMinute,
+			expirationDateMonth, expirationDateDay,
+			expirationDateYear, expirationDateHour,
+			expirationDateMinute, neverExpire, null, serviceContext);
+	}
+	
+	/**
+	 * @param      cpDefinitionId
+	 * @param      groupId
+	 * @param      sku
+	 * @param      gtin
+	 * @param      manufacturerPartNumber
+	 * @param      purchasable
+	 * @param      json
+	 * @param      published
+	 * @param      displayDateMonth
+	 * @param      displayDateDay
+	 * @param      displayDateYear
+	 * @param      displayDateHour
+	 * @param      displayDateMinute
+	 * @param      expirationDateMonth
+	 * @param      expirationDateDay
+	 * @param      expirationDateYear
+	 * @param      expirationDateHour
+	 * @param      expirationDateMinute
+	 * @param      neverExpire
+	 * @param 	   unspsc
+	 * @param      serviceContext
+	 * @return
+	 *
+	 * @throws     PortalException
+	 * @deprecated As of Athanasius (7.3.x), use {@link #addCPInstance(long,
+	 *             long, String, String, String, boolean, Map, double, double,
+	 *             double, double, BigDecimal, BigDecimal, BigDecimal, boolean,
+	 *             String, int, int, int, int, int, int, int, int, int, int,
+	 *             boolean, boolean, boolean, int, String, UnicodeProperties,
+	 *             long, String, ServiceContext)}
 	 */
 	@Deprecated
 	@Override
@@ -402,6 +541,89 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			boolean subscriptionEnabled, int subscriptionLength,
 			String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
+			long maxSubscriptionCycles, 
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return addCPInstance(
+			cpDefinitionId, groupId, sku, gtin,
+			manufacturerPartNumber, purchasable, json,
+			width, height, depth, weight,
+			price, promoPrice, cost,
+			published, externalReferenceCode,
+			displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute,
+			neverExpire, overrideSubscriptionInfo,
+			subscriptionEnabled, subscriptionLength,
+			subscriptionType,
+			subscriptionTypeSettingsProperties,
+			maxSubscriptionCycles, null, serviceContext);
+	}
+
+	/**
+	 * @param      cpDefinitionId
+	 * @param      groupId
+	 * @param      sku
+	 * @param      gtin
+	 * @param      manufacturerPartNumber
+	 * @param      purchasable
+	 * @param      json
+	 * @param      width
+	 * @param      height
+	 * @param      depth
+	 * @param      weight
+	 * @param      price
+	 * @param      promoPrice
+	 * @param      cost
+	 * @param      published
+	 * @param      externalReferenceCode
+	 * @param      displayDateMonth
+	 * @param      displayDateDay
+	 * @param      displayDateYear
+	 * @param      displayDateHour
+	 * @param      displayDateMinute
+	 * @param      expirationDateMonth
+	 * @param      expirationDateDay
+	 * @param      expirationDateYear
+	 * @param      expirationDateHour
+	 * @param      expirationDateMinute
+	 * @param      neverExpire
+	 * @param      overrideSubscriptionInfo
+	 * @param      subscriptionEnabled
+	 * @param      subscriptionLength
+	 * @param      subscriptionType
+	 * @param      subscriptionTypeSettingsProperties
+	 * @param      maxSubscriptionCycles
+	 * @param      unspsc
+	 * @param      serviceContext
+	 * @return
+	 *
+	 * @throws     PortalException
+	 * @deprecated As of Athanasius (7.3.x), use {@link #addCPInstance(long,
+	 *             long, String, String, String, boolean, Map, double, double,
+	 *             double, double, BigDecimal, BigDecimal, BigDecimal, boolean,
+	 *             String, int, int, int, int, int, int, int, int, int, int,
+	 *             boolean, boolean, boolean, int, String, UnicodeProperties,
+	 *             long, String, ServiceContext)}
+	 */
+	@Deprecated
+	@Override
+	public CPInstance addCPInstance(
+			long cpDefinitionId, long groupId, String sku, String gtin,
+			String manufacturerPartNumber, boolean purchasable, String json,
+			double width, double height, double depth, double weight,
+			BigDecimal price, BigDecimal promoPrice, BigDecimal cost,
+			boolean published, String externalReferenceCode,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, boolean overrideSubscriptionInfo,
+			boolean subscriptionEnabled, int subscriptionLength,
+			String subscriptionType,
+			UnicodeProperties subscriptionTypeSettingsProperties,
 			long maxSubscriptionCycles, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException {
@@ -473,6 +695,74 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, ServiceContext serviceContext)
+		throws PortalException {
+
+		return addCPInstance(
+			cpDefinitionId, groupId, sku, gtin,
+			manufacturerPartNumber, purchasable, json,
+			width, height, depth, weight,
+			price, promoPrice, cost,
+			published, externalReferenceCode,
+			displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute,
+			neverExpire, null, serviceContext);
+	}
+
+	/**
+	 * @param      cpDefinitionId
+	 * @param      groupId
+	 * @param      sku
+	 * @param      gtin
+	 * @param      manufacturerPartNumber
+	 * @param      purchasable
+	 * @param      json
+	 * @param      width
+	 * @param      height
+	 * @param      depth
+	 * @param      weight
+	 * @param      price
+	 * @param      promoPrice
+	 * @param      cost
+	 * @param      published
+	 * @param      externalReferenceCode
+	 * @param      displayDateMonth
+	 * @param      displayDateDay
+	 * @param      displayDateYear
+	 * @param      displayDateHour
+	 * @param      displayDateMinute
+	 * @param      expirationDateMonth
+	 * @param      expirationDateDay
+	 * @param      expirationDateYear
+	 * @param      expirationDateHour
+	 * @param      expirationDateMinute
+	 * @param      neverExpire
+	 * @param      unspsc
+	 * @param      serviceContext
+	 * @return
+	 *
+	 * @throws     PortalException
+	 * @deprecated As of Athanasius (7.3.x), use {@link #addCPInstance(long,
+	 *             long, String, String, String, boolean, Map, double, double,
+	 *             double, double, BigDecimal, BigDecimal, BigDecimal, boolean,
+	 *             String, int, int, int, int, int, int, int, int, int, int,
+	 *             boolean, boolean, boolean, int, String, UnicodeProperties,
+	 *             long, String, ServiceContext)}
+	 */
+	@Deprecated
+	@Override
+	public CPInstance addCPInstance(
+			long cpDefinitionId, long groupId, String sku, String gtin,
+			String manufacturerPartNumber, boolean purchasable, String json,
+			double width, double height, double depth, double weight,
+			BigDecimal price, BigDecimal promoPrice, BigDecimal cost,
+			boolean published, String externalReferenceCode,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
 			boolean neverExpire, String unspsc, ServiceContext serviceContext)
 		throws PortalException {
 
@@ -530,7 +820,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 				cpDefinition.getDepth(), cpDefinition.getWeight(),
 				BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, true,
 				cpDefinition.getDisplayDate(), cpDefinition.getExpirationDate(),
-				neverExpire, null, serviceContext);
+				neverExpire, serviceContext);
 		}
 	}
 
@@ -955,6 +1245,27 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
+			int expirationDateMinute, boolean neverExpire, 
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		return updateCPInstance(
+			cpInstanceId, sku, gtin, manufacturerPartNumber, purchasable,
+			published, displayDateMonth, displayDateDay,
+			displayDateYear, displayDateHour, displayDateMinute,
+			expirationDateMonth, expirationDateDay,
+			expirationDateYear, expirationDateHour,
+			expirationDateMinute, neverExpire, null, serviceContext);
+	}
+
+	@Override
+	public CPInstance updateCPInstance(
+			long cpInstanceId, String sku, String gtin,
+			String manufacturerPartNumber, boolean purchasable,
+			boolean published, int displayDateMonth, int displayDateDay,
+			int displayDateYear, int displayDateHour, int displayDateMinute,
+			int expirationDateMonth, int expirationDateDay,
+			int expirationDateYear, int expirationDateHour,
 			int expirationDateMinute, boolean neverExpire, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException {
@@ -971,6 +1282,32 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			displayDateYear, displayDateHour, displayDateMinute,
 			expirationDateMonth, expirationDateDay, expirationDateYear,
 			expirationDateHour, expirationDateMinute, neverExpire, unspsc,
+			serviceContext);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CPInstance updateCPInstance(
+			long cpInstanceId, String sku, String gtin,
+			String manufacturerPartNumber, boolean purchasable, double width,
+			double height, double depth, double weight, BigDecimal price,
+			BigDecimal promoPrice, BigDecimal cost, boolean published,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, ServiceContext serviceContext)
+		throws PortalException {
+		
+		return updateCPInstance(
+			cpInstanceId, sku, gtin,
+			manufacturerPartNumber, purchasable, width,
+			height, depth, weight, price,
+			promoPrice, cost, published,
+			displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute, neverExpire, null, 
 			serviceContext);
 	}
 
@@ -1301,6 +1638,33 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			int displayDateHour, int displayDateMinute, int expirationDateMonth,
 			int expirationDateDay, int expirationDateYear,
 			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, ServiceContext serviceContext)
+		throws PortalException {
+		
+		return upsertCPInstance(
+			cpDefinitionId, groupId, sku, gtin,
+			manufacturerPartNumber, purchasable, json,
+			width, height, depth, weight,
+			price, promoPrice, cost,
+			published, externalReferenceCode,
+			displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear,
+			expirationDateHour, expirationDateMinute,
+			neverExpire, null, serviceContext);
+	}
+
+	@Override
+	public CPInstance upsertCPInstance(
+			long cpDefinitionId, long groupId, String sku, String gtin,
+			String manufacturerPartNumber, boolean purchasable, String json,
+			double width, double height, double depth, double weight,
+			BigDecimal price, BigDecimal promoPrice, BigDecimal cost,
+			boolean published, String externalReferenceCode,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
 			boolean neverExpire, String unspsc, ServiceContext serviceContext)
 		throws PortalException {
 
@@ -1331,6 +1695,27 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			expirationDateMonth, expirationDateDay, expirationDateYear,
 			expirationDateHour, expirationDateMinute, neverExpire, unspsc,
 			serviceContext);
+	}
+
+	protected CPInstance addCPInstance(
+			long cpDefinitionId, long groupId, String sku, String gtin,
+			String manufacturerPartNumber, boolean purchasable,
+			Map<Long, List<Long>>
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
+			double width, double height, double depth, double weight,
+			BigDecimal price, BigDecimal promoPrice, BigDecimal cost,
+			boolean published, Date displayDate, Date expirationDate,
+			boolean neverExpire, ServiceContext serviceContext)
+		throws PortalException {
+
+		return addCPInstance(
+			cpDefinitionId, groupId, sku, gtin,
+			manufacturerPartNumber, purchasable,
+			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
+			width, height, depth, weight,
+			price, promoPrice, cost,
+			published, displayDate, expirationDate,
+			neverExpire, null, serviceContext);
 	}
 
 	protected CPInstance addCPInstance(

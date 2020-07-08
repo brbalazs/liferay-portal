@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.commerce.punchout.service.impl;
+package com.liferay.commerce.punchout.helper;
 
 import com.liferay.commerce.account.model.CommerceAccountUserRel;
 import com.liferay.commerce.account.service.CommerceAccountUserRelLocalService;
@@ -20,11 +20,13 @@ import com.liferay.commerce.punchout.constants.PunchoutConstants;
 import com.liferay.commerce.punchout.service.PunchoutAccountRoleHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserGroupRole;
 import com.liferay.portal.kernel.service.RoleLocalService;
 
 import java.util.List;
 
+import com.liferay.portal.kernel.service.UserLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -37,7 +39,7 @@ public class PunchoutAccountRoleHelperImpl
 
 	@Override
 	public boolean hasPunchoutRole(
-			long companyId, long userId, long commerceAccountId)
+			long userId, long commerceAccountId)
 		throws PortalException {
 
 		List<CommerceAccountUserRel> commerceAccountUserRels =
@@ -48,8 +50,14 @@ public class PunchoutAccountRoleHelperImpl
 			return false;
 		}
 
+		User user = _userLocalService.fetchUser(userId);
+
+		if (user == null) {
+			return false;
+		}
+
 		Role punchoutRole = _roleLocalService.fetchRole(
-			companyId, PunchoutConstants.ROLE_NAME_ACCOUNT_PUNCHOUT);
+			user.getCompanyId(), PunchoutConstants.ROLE_NAME_ACCOUNT_PUNCHOUT);
 
 		if (punchoutRole == null) {
 			return false;
@@ -81,5 +89,8 @@ public class PunchoutAccountRoleHelperImpl
 
 	@Reference
 	private RoleLocalService _roleLocalService;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }

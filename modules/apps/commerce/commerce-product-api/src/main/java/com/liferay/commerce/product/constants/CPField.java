@@ -126,4 +126,6 @@ public class CPField {
 
 	public static final String SUBSCRIPTION_ENABLED = "subscriptionEnabled";
 
+	public static final String UNSPSC = "unspsc";
+
 }

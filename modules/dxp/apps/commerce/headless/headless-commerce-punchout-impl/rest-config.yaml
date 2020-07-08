@@ -5,6 +5,5 @@ application:
     className: "HeadlessCommercePunchoutApplication"
     name: "Liferay.Headless.Commerce.Punchout"
 author: "Jaclyn Ong"
-clientDir: "../headless-commerce-punchout-client/src/main/java"
 forcePredictableSchemaPropertyName: false
-testDir: "../headless-commerce-punchout-test/src/testIntegration/java"
+generateGraphQL: false

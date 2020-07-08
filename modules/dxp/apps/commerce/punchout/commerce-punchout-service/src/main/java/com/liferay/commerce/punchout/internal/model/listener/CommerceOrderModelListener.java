@@ -40,11 +40,10 @@ public class CommerceOrderModelListener
 	@Override
 	public void onAfterUpdate(CommerceOrder commerceOrder) {
 		try {
-			if ((commerceOrder.getStatus() ==
-					WorkflowConstants.STATUS_APPROVED) ||
-				!_punchoutAccountRoleHelper.hasPunchoutRole(
-					commerceOrder.getCompanyId(), commerceOrder.getUserId(),
-					commerceOrder.getCommerceAccountId())) {
+			if ((commerceOrder.getStatus() != WorkflowConstants.STATUS_DRAFT) ||
+				(!_punchoutAccountRoleHelper.hasPunchoutRole(
+					commerceOrder.getUserId(),
+					commerceOrder.getCommerceAccountId()))) {
 
 				return;
 			}
