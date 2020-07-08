@@ -195,10 +195,10 @@ public class CommerceOrganizationResourceUtil {
 	private CommerceAccountService _commerceAccountService;
 
 	@Reference
-	private OrganizationService _organizationService;
+	private OrganizationLocalService _organizationLocalService;
 
 	@Reference
-	private OrganizationLocalService _organizationLocalService;
+	private OrganizationService _organizationService;
 
 	@Reference
 	private UserService _userService;
