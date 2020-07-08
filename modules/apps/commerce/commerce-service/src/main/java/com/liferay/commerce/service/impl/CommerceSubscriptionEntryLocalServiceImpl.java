@@ -30,6 +30,7 @@ import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPSubscriptionType;
 import com.liferay.commerce.product.util.CPSubscriptionTypeRegistry;
 import com.liferay.commerce.service.base.CommerceSubscriptionEntryLocalServiceBaseImpl;
+import com.liferay.commerce.service.persistence.CommerceSubscriptionEntryFinder;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -227,6 +228,15 @@ public class CommerceSubscriptionEntryLocalServiceImpl
 		getActiveCommerceSubscriptionEntries() {
 
 		return commerceSubscriptionEntryPersistence.findBySubscriptionStatus(
+			CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_ACTIVE);
+	}
+
+	@Override
+	public List<CommerceSubscriptionEntry> getActiveCommerceSubscriptionEntries(
+		long commerceAccountId) {
+
+		return commerceSubscriptionEntryFinder.findByA_S(
+			commerceAccountId,
 			CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_ACTIVE);
 	}
 
