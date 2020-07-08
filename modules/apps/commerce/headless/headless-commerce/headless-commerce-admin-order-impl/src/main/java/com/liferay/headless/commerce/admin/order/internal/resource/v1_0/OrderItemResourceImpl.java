@@ -138,7 +138,7 @@ public class OrderItemResourceImpl extends BaseOrderItemResourceImpl {
 			pagination, totalItems);
 	}
 
-	@NestedField(parentClass = Order.class, value = "items")
+	@NestedField(parentClass = Order.class, value = "orderItems")
 	@Override
 	public Page<OrderItem> getOrderIdOrderItemsPage(
 			Long id, Pagination pagination)
