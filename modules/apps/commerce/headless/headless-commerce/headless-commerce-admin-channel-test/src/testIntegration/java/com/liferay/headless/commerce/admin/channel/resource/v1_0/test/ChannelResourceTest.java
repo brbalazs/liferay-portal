@@ -155,7 +155,8 @@ public class ChannelResourceTest extends BaseChannelResourceTestCase {
 		CommerceChannel commerceChannel =
 			CommerceChannelLocalServiceUtil.addCommerceChannel(
 				channel.getSiteGroupId(), channel.getName(), channel.getType(),
-				null, channel.getCurrencyCode(), StringPool.BLANK, _serviceContext);
+				null, channel.getCurrencyCode(), StringPool.BLANK,
+				_serviceContext);
 
 		_commerceChannels.add(commerceChannel);
 
