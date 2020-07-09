@@ -35,7 +35,7 @@ components:
                 type:
                     type: string
             required:
-                - currency
+                - currencyCode
                 - name
                 - type
             type: object
