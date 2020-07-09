@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.pricing.service.impl;
 
-import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.commerce.pricing.service.base.CommercePriceModifierServiceBaseImpl;
@@ -25,7 +24,6 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.math.BigDecimal;
@@ -147,27 +145,25 @@ public class CommercePriceModifierServiceImpl
 			commercePriceListId, start, end, orderByComparator);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public List<CommercePriceModifier> getCommercePriceModifiers(
 			long companyId, String target)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.VIEW_COMMERCE_PRICE_LISTS);
-
-		return commercePriceModifierLocalService.getCommercePriceModifiers(
-			companyId, target);
+		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public int getCommercePriceModifiersCount() throws PortalException {
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.VIEW_COMMERCE_PRICE_LISTS);
-
-		return commercePriceModifierLocalService.
-			getCommercePriceModifiersCount();
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -181,6 +177,10 @@ public class CommercePriceModifierServiceImpl
 			commercePriceListId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public BaseModelSearchResult<CommercePriceModifier>
 			searchCommercePriceModifiers(
@@ -188,11 +188,7 @@ public class CommercePriceModifierServiceImpl
 				Sort sort)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.VIEW_COMMERCE_PRICE_LISTS);
-
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

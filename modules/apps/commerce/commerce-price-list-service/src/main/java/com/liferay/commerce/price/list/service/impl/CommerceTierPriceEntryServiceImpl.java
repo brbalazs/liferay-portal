@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.price.list.service.impl;
 
-import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.model.CommerceTierPriceEntry;
@@ -26,7 +25,6 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -146,17 +144,16 @@ public class CommerceTierPriceEntryServiceImpl
 		return commerceTierPriceEntry;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public List<CommerceTierPriceEntry> fetchCommerceTierPriceEntries(
 			long companyId, int start, int end)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.VIEW_COMMERCE_PRICE_LISTS);
-
-		return commerceTierPriceEntryLocalService.fetchCommerceTierPriceEntries(
-			companyId, start, end);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -231,16 +228,15 @@ public class CommerceTierPriceEntryServiceImpl
 			getCommerceTierPriceEntriesCount(commercePriceEntryId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public int getCommerceTierPriceEntriesCountByCompanyId(long companyId)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.VIEW_COMMERCE_PRICE_LISTS);
-
-		return commerceTierPriceEntryLocalService.
-			getCommerceTierPriceEntriesCountByCompanyId(companyId);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
