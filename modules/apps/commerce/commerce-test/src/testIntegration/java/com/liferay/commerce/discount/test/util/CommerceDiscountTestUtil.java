@@ -276,48 +276,21 @@ public class CommerceDiscountTestUtil {
 	}
 
 	public static CommerceDiscount addCouponDiscount(
-			long groupId, double amount, String couponCode,
-			String limitationType, int limitationTimes,
-			int limitationTimesPerAccount, String target, long... targetIds)
+			long groupId, double amount, String couponCode, String target,
+			long... targetIds)
 		throws Exception {
 
 		CommerceDiscount commerceDiscount = addFixedCommerceDiscount(
 			groupId, amount, target, targetIds);
 
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(groupId);
-
-		User user = UserLocalServiceUtil.getDefaultUser(
-			serviceContext.getCompanyId());
-
-		Calendar calendar = CalendarFactoryUtil.getCalendar(user.getTimeZone());
+		commerceDiscount.setUseCouponCode(true);
+		commerceDiscount.setCouponCode(couponCode);
+		commerceDiscount.setLimitationType(
+			CommerceDiscountConstants.LIMITATION_TYPE_LIMITED);
+		commerceDiscount.setLimitationTimes(1);
 
 		return CommerceDiscountLocalServiceUtil.updateCommerceDiscount(
-			commerceDiscount.getCommerceDiscountId(),
-			commerceDiscount.getTitle(), commerceDiscount.getTarget(), true,
-			couponCode, commerceDiscount.isUsePercentage(),
-			commerceDiscount.getMaximumDiscountAmount(),
-			commerceDiscount.getLevel(), commerceDiscount.getLevel1(),
-			commerceDiscount.getLevel2(), commerceDiscount.getLevel3(),
-			commerceDiscount.getLevel4(), limitationType, limitationTimes,
-			limitationTimesPerAccount, commerceDiscount.isRulesConjunction(),
-			commerceDiscount.isActive(), calendar.get(Calendar.MONTH),
-			calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR),
-			calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
-			calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
-			calendar.get(Calendar.YEAR), calendar.get(Calendar.HOUR_OF_DAY),
-			calendar.get(Calendar.MINUTE), true, serviceContext);
-	}
-
-	public static CommerceDiscount addCouponDiscount(
-			long groupId, double amount, String couponCode, String target,
-			long... targetIds)
-		throws Exception {
-
-		return addCouponDiscount(
-			groupId, amount, couponCode,
-			CommerceDiscountConstants.LIMITATION_TYPE_LIMITED, 1, 0, target,
-			targetIds);
+			commerceDiscount);
 	}
 
 	public static CommerceDiscountCommerceAccountGroupRel
