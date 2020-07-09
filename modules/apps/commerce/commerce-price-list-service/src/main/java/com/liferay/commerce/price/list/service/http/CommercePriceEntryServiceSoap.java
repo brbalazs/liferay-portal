@@ -253,6 +253,10 @@ public class CommercePriceEntryServiceSoap {
 		}
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static com.liferay.commerce.price.list.model.CommercePriceEntrySoap[]
 			getCommercePriceEntriesByCompanyId(
 				long companyId, int start, int end)
@@ -293,6 +297,10 @@ public class CommercePriceEntryServiceSoap {
 		}
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static int getCommercePriceEntriesCountByCompanyId(long companyId)
 		throws RemoteException {
 
@@ -353,6 +361,10 @@ public class CommercePriceEntryServiceSoap {
 		}
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static com.liferay.commerce.price.list.model.CommercePriceEntrySoap[]
 			getInstanceCommercePriceEntries(
 				long cpInstanceId, int start, int end,

@@ -134,6 +134,10 @@ public class CommercePriceEntryServiceUtil {
 			commercePriceListId, start, end, orderByComparator);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceEntry>
 				getCommercePriceEntriesByCompanyId(
@@ -150,6 +154,10 @@ public class CommercePriceEntryServiceUtil {
 		return getService().getCommercePriceEntriesCount(commercePriceListId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static int getCommercePriceEntriesCountByCompanyId(long companyId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -173,6 +181,10 @@ public class CommercePriceEntryServiceUtil {
 			cpInstanceId, start, end);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceEntry>
 				getInstanceCommercePriceEntries(

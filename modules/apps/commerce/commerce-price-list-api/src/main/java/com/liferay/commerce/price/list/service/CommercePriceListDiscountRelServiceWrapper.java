@@ -103,7 +103,7 @@ public class CommercePriceListDiscountRelServiceWrapper
 
 	@Override
 	public int getCommercePriceListDiscountRelsCount(long commercePriceListId)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commercePriceListDiscountRelService.
 			getCommercePriceListDiscountRelsCount(commercePriceListId);

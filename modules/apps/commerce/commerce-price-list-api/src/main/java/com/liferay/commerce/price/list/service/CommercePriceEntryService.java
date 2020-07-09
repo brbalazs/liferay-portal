@@ -112,6 +112,10 @@ public interface CommercePriceEntryService extends BaseService {
 			OrderByComparator<CommercePriceEntry> orderByComparator)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceEntry> getCommercePriceEntriesByCompanyId(
 			long companyId, int start, int end)
@@ -121,6 +125,10 @@ public interface CommercePriceEntryService extends BaseService {
 	public int getCommercePriceEntriesCount(long commercePriceListId)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommercePriceEntriesCountByCompanyId(long companyId)
 		throws PortalException;
@@ -134,6 +142,10 @@ public interface CommercePriceEntryService extends BaseService {
 			long cpInstanceId, int start, int end)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceEntry> getInstanceCommercePriceEntries(
 			long cpInstanceId, int start, int end,

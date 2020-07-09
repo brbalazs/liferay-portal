@@ -102,7 +102,7 @@ public class CommercePriceListChannelRelServiceWrapper
 
 	@Override
 	public int getCommercePriceListChannelRelsCount(long commercePriceListId)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commercePriceListChannelRelService.
 			getCommercePriceListChannelRelsCount(commercePriceListId);

@@ -322,7 +322,7 @@ public class CommercePriceListDiscountRelServiceHttp {
 
 	public static int getCommercePriceListDiscountRelsCount(
 			HttpPrincipal httpPrincipal, long commercePriceListId)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -340,11 +340,10 @@ public class CommercePriceListDiscountRelServiceHttp {
 			}
 			catch (Exception exception) {
 				if (exception instanceof
-						com.liferay.portal.kernel.security.auth.
-							PrincipalException) {
+						com.liferay.portal.kernel.exception.PortalException) {
 
-					throw (com.liferay.portal.kernel.security.auth.
-						PrincipalException)exception;
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(

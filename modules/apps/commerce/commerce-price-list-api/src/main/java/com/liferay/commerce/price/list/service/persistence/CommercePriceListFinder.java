@@ -26,6 +26,14 @@ public interface CommercePriceListFinder {
 	public int countByCommercePricingClassId(
 		long commercePricingClassId, String name);
 
+	public int countByCommercePricingClassId(
+		long commercePricingClassId, String name, boolean inlineSQLHelper);
+
+	public int countByCPInstanceUuid(String cpInstanceUuid);
+
+	public int countByCPInstanceUuid(
+		String cpInstanceUuid, boolean inlineSQLHelper);
+
 	public java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceList>
 			findByCommerceAccountAndChannelId(
@@ -66,6 +74,22 @@ public interface CommercePriceListFinder {
 		<com.liferay.commerce.price.list.model.CommercePriceList>
 			findByCommercePricingClassId(
 				long commercePricingClassId, String name, int start, int end);
+
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceList>
+			findByCommercePricingClassId(
+				long commercePricingClassId, String name, int start, int end,
+				boolean inlineSQLHelper);
+
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceEntry>
+			findByCPInstanceUuid(String cpInstanceUuid, int start, int end);
+
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceEntry>
+			findByCPInstanceUuid(
+				String cpInstanceUuid, int start, int end,
+				boolean inlineSQLHelper);
 
 	public java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceList>

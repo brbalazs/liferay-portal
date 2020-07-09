@@ -140,6 +140,10 @@ public class CommercePriceEntryServiceWrapper
 			commercePriceListId, start, end, orderByComparator);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceEntry>
@@ -159,6 +163,10 @@ public class CommercePriceEntryServiceWrapper
 			commercePriceListId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public int getCommercePriceEntriesCountByCompanyId(long companyId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -187,6 +195,10 @@ public class CommercePriceEntryServiceWrapper
 			cpInstanceId, start, end);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceEntry>

@@ -102,7 +102,7 @@ public class CommercePriceListDiscountRelServiceUtil {
 
 	public static int getCommercePriceListDiscountRelsCount(
 			long commercePriceListId)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getCommercePriceListDiscountRelsCount(
 			commercePriceListId);
