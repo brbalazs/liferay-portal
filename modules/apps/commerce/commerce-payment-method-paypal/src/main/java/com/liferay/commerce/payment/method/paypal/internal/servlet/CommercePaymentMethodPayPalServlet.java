@@ -14,16 +14,20 @@
 
 package com.liferay.commerce.payment.method.paypal.internal.servlet;
 
+import com.liferay.commerce.exception.NoSuchOrderException;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.payment.engine.CommercePaymentEngine;
 import com.liferay.commerce.payment.engine.CommerceSubscriptionEngine;
 import com.liferay.commerce.payment.method.paypal.internal.constants.PayPalCommercePaymentMethodConstants;
+import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.servlet.PortalSessionThreadLocal;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -67,16 +71,32 @@ public class CommercePaymentMethodPayPalServlet extends HttpServlet {
 				PortalSessionThreadLocal.setHttpSession(httpSession);
 			}
 
-			PermissionChecker permissionChecker =
-				PermissionCheckerFactoryUtil.create(
-					_portal.getUser(httpServletRequest));
-
-			PermissionThreadLocal.setPermissionChecker(permissionChecker);
-
 			long groupId = ParamUtil.getLong(httpServletRequest, "groupId");
 			String uuid = ParamUtil.getString(httpServletRequest, "uuid");
 
-			CommerceOrder commerceOrder =
+			User user = _portal.getUser(httpServletRequest);
+
+			CommerceOrder commerceOrder;
+
+			if (user == null) {
+				commerceOrder =
+					_commerceOrderLocalService.
+						fetchCommerceOrderByUuidAndGroupId(uuid, groupId);
+
+				if (commerceOrder == null) {
+					throw new NoSuchOrderException();
+				}
+
+				user = _userLocalService.getDefaultUser(
+					commerceOrder.getCompanyId());
+			}
+
+			PermissionChecker permissionChecker =
+				PermissionCheckerFactoryUtil.create(user);
+
+			PermissionThreadLocal.setPermissionChecker(permissionChecker);
+
+			commerceOrder =
 				_commerceOrderService.getCommerceOrderByUuidAndGroupId(
 					uuid, groupId);
 
@@ -119,6 +139,9 @@ public class CommercePaymentMethodPayPalServlet extends HttpServlet {
 		CommercePaymentMethodPayPalServlet.class);
 
 	@Reference
+	private CommerceOrderLocalService _commerceOrderLocalService;
+
+	@Reference
 	private CommerceOrderService _commerceOrderService;
 
 	@Reference
@@ -129,5 +152,8 @@ public class CommercePaymentMethodPayPalServlet extends HttpServlet {
 
 	@Reference
 	private Portal _portal;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }
