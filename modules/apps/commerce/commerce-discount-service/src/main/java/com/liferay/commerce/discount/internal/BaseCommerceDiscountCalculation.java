@@ -16,7 +16,6 @@ package com.liferay.commerce.discount.internal;
 
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.util.CommerceAccountHelper;
-import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
@@ -33,11 +32,9 @@ public abstract class BaseCommerceDiscountCalculation
 	implements CommerceDiscountCalculation {
 
 	protected List<CommerceDiscount> getOrderCommerceDiscountByHierarchy(
-			long companyId, CommerceContext commerceContext,
-			String commerceDiscountTargetType)
+			long companyId, CommerceAccount commerceAccount,
+			long commerceChannelId, String commerceDiscountTargetType)
 		throws PortalException {
-
-		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
 
 		long commerceAccountId = 0;
 
@@ -46,16 +43,14 @@ public abstract class BaseCommerceDiscountCalculation
 		}
 
 		return _getOrderCommerceDiscountByHierarchy(
-			companyId, commerceAccountId,
-			commerceContext.getCommerceChannelId(), commerceDiscountTargetType);
+			companyId, commerceAccountId, commerceChannelId,
+			commerceDiscountTargetType);
 	}
 
 	protected List<CommerceDiscount> getProductCommerceDiscountByHierarchy(
-			long companyId, CommerceContext commerceContext,
-			long cpDefinitionId)
+			long companyId, CommerceAccount commerceAccount,
+			long commerceChannelId, long cpDefinitionId)
 		throws PortalException {
-
-		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
 
 		long commerceAccountId = 0;
 
@@ -64,8 +59,7 @@ public abstract class BaseCommerceDiscountCalculation
 		}
 
 		return _getProductCommerceDiscountByHierarchy(
-			companyId, commerceAccountId,
-			commerceContext.getCommerceChannelId(), cpDefinitionId);
+			companyId, commerceAccountId, commerceChannelId, cpDefinitionId);
 	}
 
 	@Reference
