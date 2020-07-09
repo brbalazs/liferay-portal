@@ -329,10 +329,9 @@ public class CommerceOrderLocalServiceImpl
 				_commerceDiscountLocalService.getActiveCommerceDiscount(
 					commerceOrder.getCompanyId(), couponCode, true);
 
-			long commerceAccountId = 0;
-
 			CommerceAccount commerceAccount =
 				commerceContext.getCommerceAccount();
+			long commerceAccountId = 0;
 
 			if (commerceAccount != null) {
 				commerceAccountId = commerceAccount.getCommerceAccountId();

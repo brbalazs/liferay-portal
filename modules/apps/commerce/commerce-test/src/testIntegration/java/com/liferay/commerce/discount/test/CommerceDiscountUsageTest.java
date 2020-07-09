@@ -552,12 +552,15 @@ public class CommerceDiscountUsageTest {
 
 			_commerceOrders.add(commerceOrder);
 
-			BigDecimal actualPrice = BigDecimal.ZERO;
-			BigDecimal discountPrice = BigDecimal.ZERO;
-
 			CommerceProductPrice commerceProductPrice =
 				_commerceProductPriceCalculation.getCommerceProductPrice(
 					cpInstance.getCPInstanceId(), 1, commerceContext);
+
+			_commerceOrderEngine.checkoutCommerceOrder(
+				commerceOrder, _user.getUserId());
+
+			BigDecimal actualPrice = BigDecimal.ZERO;
+			BigDecimal discountPrice = BigDecimal.ZERO;
 
 			if (commerceProductPrice != null) {
 				CommerceMoney finalPrice = commerceProductPrice.getFinalPrice();
@@ -586,9 +589,6 @@ public class CommerceDiscountUsageTest {
 			Assert.assertEquals(
 				expectedPrice.stripTrailingZeros(),
 				actualPrice.stripTrailingZeros());
-
-			_commerceOrderEngine.checkoutCommerceOrder(
-				commerceOrder, _user.getUserId());
 		}
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
@@ -608,12 +608,15 @@ public class CommerceDiscountUsageTest {
 		_commerceOrderLocalService.applyCouponCode(
 			commerceOrder.getCommerceOrderId(), couponCode, commerceContext);
 
-		BigDecimal actualPrice = BigDecimal.ZERO;
-		BigDecimal discountPrice = BigDecimal.ZERO;
-
 		CommerceProductPrice commerceProductPrice =
 			_commerceProductPriceCalculation.getCommerceProductPrice(
 				cpInstance.getCPInstanceId(), 1, commerceContext);
+
+		_commerceOrderEngine.checkoutCommerceOrder(
+			commerceOrder, _user.getUserId());
+
+		BigDecimal actualPrice = BigDecimal.ZERO;
+		BigDecimal discountPrice = BigDecimal.ZERO;
 
 		if (commerceProductPrice != null) {
 			CommerceMoney finalPrice = commerceProductPrice.getFinalPrice();
@@ -641,9 +644,6 @@ public class CommerceDiscountUsageTest {
 		Assert.assertEquals(
 			expectedPrice.stripTrailingZeros(),
 			actualPrice.stripTrailingZeros());
-
-		_commerceOrderEngine.checkoutCommerceOrder(
-			commerceOrder, _user.getUserId());
 	}
 
 	private CommerceAccount _commerceAccount;
