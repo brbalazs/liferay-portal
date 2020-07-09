@@ -29,16 +29,6 @@ public class CommerceDiscountConstants {
 
 	public static final String LIMITATION_TYPE_LIMITED = "limited";
 
-	public static final String LIMITATION_TYPE_LIMITED_FOR_ACCOUNTS =
-		"limited-for-accounts";
-
-	public static final String LIMITATION_TYPE_LIMITED_FOR_ACCOUNTS_AND_TOTAL =
-		"limited-for-accounts-and-total";
-
-	/**
-	 * @deprecated As of Athanasius (7.3.x)
-	 */
-	@Deprecated
 	public static final String LIMITATION_TYPE_LIMITED_FOR_USERS =
 		"limited-for-users";
 
@@ -46,8 +36,7 @@ public class CommerceDiscountConstants {
 
 	public static final String[] LIMITATION_TYPES = {
 		LIMITATION_TYPE_UNLIMITED, LIMITATION_TYPE_LIMITED,
-		LIMITATION_TYPE_LIMITED_FOR_ACCOUNTS,
-		LIMITATION_TYPE_LIMITED_FOR_ACCOUNTS_AND_TOTAL
+		LIMITATION_TYPE_LIMITED_FOR_USERS
 	};
 
 	public static final String TARGET_CATEGORIES = "categories";
