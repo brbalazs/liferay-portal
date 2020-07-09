@@ -79,8 +79,6 @@ public class CommerceDiscountWrapper
 		attributes.put("level4", getLevel4());
 		attributes.put("limitationType", getLimitationType());
 		attributes.put("limitationTimes", getLimitationTimes());
-		attributes.put(
-			"limitationTimesPerAccount", getLimitationTimesPerAccount());
 		attributes.put("numberOfUse", getNumberOfUse());
 		attributes.put("rulesConjunction", isRulesConjunction());
 		attributes.put("active", isActive());
@@ -223,13 +221,6 @@ public class CommerceDiscountWrapper
 
 		if (limitationTimes != null) {
 			setLimitationTimes(limitationTimes);
-		}
-
-		Integer limitationTimesPerAccount = (Integer)attributes.get(
-			"limitationTimesPerAccount");
-
-		if (limitationTimesPerAccount != null) {
-			setLimitationTimesPerAccount(limitationTimesPerAccount);
 		}
 
 		Integer numberOfUse = (Integer)attributes.get("numberOfUse");
@@ -464,16 +455,6 @@ public class CommerceDiscountWrapper
 	@Override
 	public int getLimitationTimes() {
 		return _commerceDiscount.getLimitationTimes();
-	}
-
-	/**
-	 * Returns the limitation times per account of this commerce discount.
-	 *
-	 * @return the limitation times per account of this commerce discount
-	 */
-	@Override
-	public int getLimitationTimesPerAccount() {
-		return _commerceDiscount.getLimitationTimesPerAccount();
 	}
 
 	/**
@@ -986,17 +967,6 @@ public class CommerceDiscountWrapper
 	@Override
 	public void setLimitationTimes(int limitationTimes) {
 		_commerceDiscount.setLimitationTimes(limitationTimes);
-	}
-
-	/**
-	 * Sets the limitation times per account of this commerce discount.
-	 *
-	 * @param limitationTimesPerAccount the limitation times per account of this commerce discount
-	 */
-	@Override
-	public void setLimitationTimesPerAccount(int limitationTimesPerAccount) {
-		_commerceDiscount.setLimitationTimesPerAccount(
-			limitationTimesPerAccount);
 	}
 
 	/**

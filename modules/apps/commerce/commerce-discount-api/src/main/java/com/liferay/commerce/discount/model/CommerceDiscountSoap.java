@@ -54,8 +54,6 @@ public class CommerceDiscountSoap implements Serializable {
 		soapModel.setLevel4(model.getLevel4());
 		soapModel.setLimitationType(model.getLimitationType());
 		soapModel.setLimitationTimes(model.getLimitationTimes());
-		soapModel.setLimitationTimesPerAccount(
-			model.getLimitationTimesPerAccount());
 		soapModel.setNumberOfUse(model.getNumberOfUse());
 		soapModel.setRulesConjunction(model.isRulesConjunction());
 		soapModel.setActive(model.isActive());
@@ -303,14 +301,6 @@ public class CommerceDiscountSoap implements Serializable {
 		_limitationTimes = limitationTimes;
 	}
 
-	public int getLimitationTimesPerAccount() {
-		return _limitationTimesPerAccount;
-	}
-
-	public void setLimitationTimesPerAccount(int limitationTimesPerAccount) {
-		_limitationTimesPerAccount = limitationTimesPerAccount;
-	}
-
 	public int getNumberOfUse() {
 		return _numberOfUse;
 	}
@@ -420,7 +410,6 @@ public class CommerceDiscountSoap implements Serializable {
 	private BigDecimal _level4;
 	private String _limitationType;
 	private int _limitationTimes;
-	private int _limitationTimesPerAccount;
 	private int _numberOfUse;
 	private boolean _rulesConjunction;
 	private boolean _active;

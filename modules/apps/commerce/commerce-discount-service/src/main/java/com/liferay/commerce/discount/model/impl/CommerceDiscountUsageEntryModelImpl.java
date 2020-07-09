@@ -119,18 +119,7 @@ public class CommerceDiscountUsageEntryModelImpl
 			"value.object.finder.cache.enabled.com.liferay.commerce.discount.model.CommerceDiscountUsageEntry"),
 		true);
 
-	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(
-		com.liferay.commerce.discount.service.util.ServiceProps.get(
-			"value.object.column.bitmask.enabled.com.liferay.commerce.discount.model.CommerceDiscountUsageEntry"),
-		true);
-
-	public static final long COMMERCEACCOUNTID_COLUMN_BITMASK = 1L;
-
-	public static final long COMMERCEDISCOUNTID_COLUMN_BITMASK = 2L;
-
-	public static final long COMMERCEORDERID_COLUMN_BITMASK = 4L;
-
-	public static final long CREATEDATE_COLUMN_BITMASK = 8L;
+	public static final boolean COLUMN_BITMASK_ENABLED = false;
 
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(
 		com.liferay.commerce.discount.service.util.ServiceProps.get(
@@ -582,8 +571,6 @@ public class CommerceDiscountUsageEntryModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -610,19 +597,7 @@ public class CommerceDiscountUsageEntryModelImpl
 
 	@Override
 	public void setCommerceAccountId(long commerceAccountId) {
-		_columnBitmask |= COMMERCEACCOUNTID_COLUMN_BITMASK;
-
-		if (!_setOriginalCommerceAccountId) {
-			_setOriginalCommerceAccountId = true;
-
-			_originalCommerceAccountId = _commerceAccountId;
-		}
-
 		_commerceAccountId = commerceAccountId;
-	}
-
-	public long getOriginalCommerceAccountId() {
-		return _originalCommerceAccountId;
 	}
 
 	@Override
@@ -632,19 +607,7 @@ public class CommerceDiscountUsageEntryModelImpl
 
 	@Override
 	public void setCommerceOrderId(long commerceOrderId) {
-		_columnBitmask |= COMMERCEORDERID_COLUMN_BITMASK;
-
-		if (!_setOriginalCommerceOrderId) {
-			_setOriginalCommerceOrderId = true;
-
-			_originalCommerceOrderId = _commerceOrderId;
-		}
-
 		_commerceOrderId = commerceOrderId;
-	}
-
-	public long getOriginalCommerceOrderId() {
-		return _originalCommerceOrderId;
 	}
 
 	@Override
@@ -654,23 +617,7 @@ public class CommerceDiscountUsageEntryModelImpl
 
 	@Override
 	public void setCommerceDiscountId(long commerceDiscountId) {
-		_columnBitmask |= COMMERCEDISCOUNTID_COLUMN_BITMASK;
-
-		if (!_setOriginalCommerceDiscountId) {
-			_setOriginalCommerceDiscountId = true;
-
-			_originalCommerceDiscountId = _commerceDiscountId;
-		}
-
 		_commerceDiscountId = commerceDiscountId;
-	}
-
-	public long getOriginalCommerceDiscountId() {
-		return _originalCommerceDiscountId;
-	}
-
-	public long getColumnBitmask() {
-		return _columnBitmask;
 	}
 
 	@Override
@@ -787,25 +734,6 @@ public class CommerceDiscountUsageEntryModelImpl
 			commerceDiscountUsageEntryModelImpl = this;
 
 		commerceDiscountUsageEntryModelImpl._setModifiedDate = false;
-
-		commerceDiscountUsageEntryModelImpl._originalCommerceAccountId =
-			commerceDiscountUsageEntryModelImpl._commerceAccountId;
-
-		commerceDiscountUsageEntryModelImpl._setOriginalCommerceAccountId =
-			false;
-
-		commerceDiscountUsageEntryModelImpl._originalCommerceOrderId =
-			commerceDiscountUsageEntryModelImpl._commerceOrderId;
-
-		commerceDiscountUsageEntryModelImpl._setOriginalCommerceOrderId = false;
-
-		commerceDiscountUsageEntryModelImpl._originalCommerceDiscountId =
-			commerceDiscountUsageEntryModelImpl._commerceDiscountId;
-
-		commerceDiscountUsageEntryModelImpl._setOriginalCommerceDiscountId =
-			false;
-
-		commerceDiscountUsageEntryModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -945,15 +873,8 @@ public class CommerceDiscountUsageEntryModelImpl
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
 	private long _commerceAccountId;
-	private long _originalCommerceAccountId;
-	private boolean _setOriginalCommerceAccountId;
 	private long _commerceOrderId;
-	private long _originalCommerceOrderId;
-	private boolean _setOriginalCommerceOrderId;
 	private long _commerceDiscountId;
-	private long _originalCommerceDiscountId;
-	private boolean _setOriginalCommerceDiscountId;
-	private long _columnBitmask;
 	private CommerceDiscountUsageEntry _escapedModel;
 
 }

@@ -65,34 +65,6 @@ public class CommerceDiscountUsageEntryLocalServiceUtil {
 			serviceContext);
 	}
 
-	public static int countCommerceDiscountUsageEntryByA_D(
-		long commerceAccountId, long commerceDiscountId) {
-
-		return getService().countCommerceDiscountUsageEntryByA_D(
-			commerceAccountId, commerceDiscountId);
-	}
-
-	public static int countCommerceDiscountUsageEntryByA_O_D(
-		long commerceAccountId, long commerceOrderId, long commerceDiscountId) {
-
-		return getService().countCommerceDiscountUsageEntryByA_O_D(
-			commerceAccountId, commerceOrderId, commerceDiscountId);
-	}
-
-	public static int countCommerceDiscountUsageEntryByDiscountId(
-		long commerceDiscountId) {
-
-		return getService().countCommerceDiscountUsageEntryByDiscountId(
-			commerceDiscountId);
-	}
-
-	public static int countCommerceDiscountUsageEntryByO_D(
-		long commerceOrderId, long commerceDiscountId) {
-
-		return getService().countCommerceDiscountUsageEntryByO_D(
-			commerceOrderId, commerceDiscountId);
-	}
-
 	/**
 	 * Creates a new commerce discount usage entry with the primary key. Does not add the commerce discount usage entry to the database.
 	 *
@@ -134,19 +106,6 @@ public class CommerceDiscountUsageEntryLocalServiceUtil {
 
 		return getService().deleteCommerceDiscountUsageEntry(
 			commerceDiscountUsageEntryId);
-	}
-
-	public static void deleteCommerceUsageEntry(
-		long commerceAccountId, long commerceOrderId, long commerceDiscountId) {
-
-		getService().deleteCommerceUsageEntry(
-			commerceAccountId, commerceOrderId, commerceDiscountId);
-	}
-
-	public static void deleteCommerceUsageEntryByDiscountId(
-		long commerceDiscountId) {
-
-		getService().deleteCommerceUsageEntryByDiscountId(commerceDiscountId);
 	}
 
 	/**
@@ -339,14 +298,6 @@ public class CommerceDiscountUsageEntryLocalServiceUtil {
 
 		return getService().updateCommerceDiscountUsageEntry(
 			commerceDiscountUsageEntry);
-	}
-
-	public static boolean validateDiscountLimitationUsage(
-			long commerceAccountId, long commerceDiscountId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return getService().validateDiscountLimitationUsage(
-			commerceAccountId, commerceDiscountId);
 	}
 
 	public static CommerceDiscountUsageEntryLocalService getService() {

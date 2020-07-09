@@ -31,7 +31,6 @@ create table CommerceDiscount (
 	level4 DECIMAL(30, 16) null,
 	limitationType VARCHAR(75) null,
 	limitationTimes INTEGER,
-	limitationTimesPerAccount INTEGER,
 	numberOfUse INTEGER,
 	rulesConjunction BOOLEAN,
 	active_ BOOLEAN,
