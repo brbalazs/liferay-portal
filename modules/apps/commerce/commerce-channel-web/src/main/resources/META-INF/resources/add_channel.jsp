@@ -49,7 +49,7 @@ PortletURL editCommerceChannelRenderURL = commerceChannelDisplayContext.getEditC
 
 			<aui:input autoFocus="<%= true %>" disabled="<%= isViewOnly %>" name="name" value="<%= name %>" />
 
-			<aui:select label="currency" name="currency" required="<%= true %>" title="currency">
+			<aui:select label="currency" name="currencyCode" required="<%= true %>" title="currency">
 
 				<%
 				for (CommerceCurrency commerceCurrency : commerceCurrencies) {
