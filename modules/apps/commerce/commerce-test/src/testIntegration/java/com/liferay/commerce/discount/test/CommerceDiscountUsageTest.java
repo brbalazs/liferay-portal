@@ -300,8 +300,8 @@ public class CommerceDiscountUsageTest {
 			"I insert the correct coupon code in my context the discount is " +
 				"correctly applied"
 		).then(
-			"If i remove the coupon code from the order before checkout the " +
-				"usage count is not changed"
+			"If i remove the coupon code from the order before checkout the usage count is " +
+				"not changed"
 		);
 
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
