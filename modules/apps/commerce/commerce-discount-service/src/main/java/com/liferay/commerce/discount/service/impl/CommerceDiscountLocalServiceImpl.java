@@ -21,7 +21,6 @@ import com.liferay.commerce.discount.constants.CommerceDiscountConstants;
 import com.liferay.commerce.discount.exception.CommerceDiscountCouponCodeException;
 import com.liferay.commerce.discount.exception.CommerceDiscountDisplayDateException;
 import com.liferay.commerce.discount.exception.CommerceDiscountExpirationDateException;
-import com.liferay.commerce.discount.exception.CommerceDiscountLimitationTypeException;
 import com.liferay.commerce.discount.exception.CommerceDiscountTargetException;
 import com.liferay.commerce.discount.exception.CommerceDiscountTitleException;
 import com.liferay.commerce.discount.exception.DuplicateCommerceDiscountException;
@@ -302,12 +301,6 @@ public class CommerceDiscountLocalServiceImpl
 	public CommerceDiscount deleteCommerceDiscount(
 			CommerceDiscount commerceDiscount)
 		throws PortalException {
-
-		// Commerce discount usage entries
-
-		commerceDiscountUsageEntryLocalService.
-			deleteCommerceUsageEntryByDiscountId(
-				commerceDiscount.getCommerceDiscountId());
 
 		// Commerce discount rels
 
@@ -1191,7 +1184,7 @@ public class CommerceDiscountLocalServiceImpl
 		}
 
 		if (Validator.isNull(limitationType)) {
-			throw new CommerceDiscountLimitationTypeException();
+			throw new CommerceDiscountTargetException();
 		}
 	}
 
