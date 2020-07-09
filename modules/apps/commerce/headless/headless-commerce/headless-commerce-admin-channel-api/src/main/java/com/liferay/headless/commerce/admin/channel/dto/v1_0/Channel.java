@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Generated("")
 @GraphQLName("Channel")
 @JsonFilter("Liferay.Vulcan")
-@Schema(requiredProperties = {"currency", "name", "type"})
+@Schema(requiredProperties = {"currencyCode", "name", "type"})
 @XmlRootElement(name = "Channel")
 public class Channel {
 
@@ -78,6 +78,7 @@ public class Channel {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotEmpty
 	protected String currencyCode;
 
 	@Schema
