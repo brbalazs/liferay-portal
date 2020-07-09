@@ -24,10 +24,7 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.discount.exception.CommerceDiscountCouponCodeException;
-import com.liferay.commerce.discount.exception.CommerceDiscountLimitationTimesException;
-import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
-import com.liferay.commerce.discount.service.CommerceDiscountUsageEntryLocalService;
 import com.liferay.commerce.exception.CommerceOrderBillingAddressException;
 import com.liferay.commerce.exception.CommerceOrderDateException;
 import com.liferay.commerce.exception.CommerceOrderPurchaseOrderNumberException;
@@ -73,7 +70,6 @@ import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -314,36 +310,14 @@ public class CommerceOrderLocalServiceImpl
 
 		boolean hasDiscounts = false;
 
-		if (_commerceDiscountLocalService.getActiveCommerceDiscountsCount(
-				commerceOrder.getCompanyId(), couponCode, true) == 0) {
+		if (_commerceDiscountLocalService.getCommerceDiscountsCount(
+				commerceOrder.getCompanyId(), couponCode) == 0) {
 
 			hasDiscounts = true;
 		}
 
 		if (hasDiscounts && Validator.isNotNull(couponCode)) {
 			throw new CommerceDiscountCouponCodeException();
-		}
-
-		if (Validator.isNotNull(couponCode)) {
-			CommerceDiscount commerceDiscount =
-				_commerceDiscountLocalService.getActiveCommerceDiscount(
-					commerceOrder.getCompanyId(), couponCode, true);
-
-			CommerceAccount commerceAccount =
-				commerceContext.getCommerceAccount();
-			long commerceAccountId = 0;
-
-			if (commerceAccount != null) {
-				commerceAccountId = commerceAccount.getCommerceAccountId();
-			}
-
-			if (!_commerceDiscountUsageEntryLocalService.
-					validateDiscountLimitationUsage(
-						commerceAccountId,
-						commerceDiscount.getCommerceDiscountId())) {
-
-				throw new CommerceDiscountLimitationTimesException();
-			}
 		}
 
 		commerceOrder.setCouponCode(couponCode);
@@ -2164,10 +2138,6 @@ public class CommerceOrderLocalServiceImpl
 	@ServiceReference(type = CommerceDiscountLocalService.class)
 	private CommerceDiscountLocalService _commerceDiscountLocalService;
 
-	@ServiceReference(type = CommerceDiscountUsageEntryLocalService.class)
-	private CommerceDiscountUsageEntryLocalService
-		_commerceDiscountUsageEntryLocalService;
-
 	@ServiceReference(type = CommerceOrderConfiguration.class)
 	private CommerceOrderConfiguration _commerceOrderConfiguration;
 
@@ -2180,9 +2150,6 @@ public class CommerceOrderLocalServiceImpl
 
 	@ServiceReference(type = JsonHelper.class)
 	private JsonHelper _jsonHelper;
-
-	@ServiceReference(type = UserLocalService.class)
-	private UserLocalService _userLocalService;
 
 	@ServiceReference(type = WorkflowTaskManager.class)
 	private WorkflowTaskManager _workflowTaskManager;
