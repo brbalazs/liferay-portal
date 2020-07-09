@@ -55,7 +55,6 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerTestRule;
@@ -850,7 +849,7 @@ public class CommerceDiscountTargetGrossTest {
 
 		_cpInstanceLocalService.updateCPInstance(cpInstance);
 
-		String couponCode = StringUtil.randomString();
+		String couponCode = "SCONTO";
 
 		CommerceDiscount commerceDiscount =
 			CommerceDiscountTestUtil.addCouponDiscount(
