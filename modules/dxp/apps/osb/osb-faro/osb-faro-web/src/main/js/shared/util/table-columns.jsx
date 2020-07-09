@@ -581,7 +581,7 @@ export const metricsListColumns = {
 		label: Liferay.Language.get('name-email'),
 		sortable: false
 	}),
-	getTitleId: ({channelId, groupId, label, rangeKey, route}) => ({
+	getTitleId: ({channelId, groupId, label, rangeSelectors, route}) => ({
 		accessor: 'assetTitle',
 		cellRenderer: NameCell,
 		cellRendererProps: {
@@ -592,7 +592,7 @@ export const metricsListColumns = {
 			routeFn: ({data: {assetId, assetTitle, id}}) => {
 				if (assetId && assetTitle) {
 					return setUriQueryValues(
-						pickBy({rangeKey}),
+						pickBy(rangeSelectors),
 						toRoute(route, {
 							assetId,
 							channelId,
