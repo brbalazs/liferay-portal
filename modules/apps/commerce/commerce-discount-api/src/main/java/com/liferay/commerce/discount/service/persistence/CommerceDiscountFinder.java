@@ -26,9 +26,17 @@ public interface CommerceDiscountFinder {
 	public int countByCommercePricingClassId(
 		long commercePricingClassId, String title);
 
+	public int countByCommercePricingClassId(
+		long commercePricingClassId, String title, boolean inlineSQLHelper);
+
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByCommercePricingClassId(
 			long commercePricingClassId, String title, int start, int end);
+
+	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
+		findByCommercePricingClassId(
+			long commercePricingClassId, String title, int start, int end,
+			boolean inlineSQLHelper);
 
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		findByUnqualifiedProduct(
