@@ -62,38 +62,6 @@ public class CommerceDiscountUsageEntryLocalServiceImpl
 	}
 
 	@Override
-	public int countCommerceDiscountUsageEntryByA_D(
-		long commerceAccountId, long commerceDiscountId) {
-
-		return commerceDiscountUsageEntryPersistence.countByA_D(
-			commerceAccountId, commerceDiscountId);
-	}
-
-	@Override
-	public int countCommerceDiscountUsageEntryByA_O_D(
-		long commerceAccountId, long commerceOrderId, long commerceDiscountId) {
-
-		return commerceDiscountUsageEntryPersistence.countByA_O_D(
-			commerceAccountId, commerceOrderId, commerceDiscountId);
-	}
-
-	@Override
-	public int countCommerceDiscountUsageEntryByDiscountId(
-		long commerceDiscountId) {
-
-		return commerceDiscountUsageEntryPersistence.countByCommerceDiscountId(
-			commerceDiscountId);
-	}
-
-	@Override
-	public int countCommerceDiscountUsageEntryByO_D(
-		long commerceOrderId, long commerceDiscountId) {
-
-		return commerceDiscountUsageEntryPersistence.countByO_D(
-			commerceOrderId, commerceDiscountId);
-	}
-
-	@Override
 	public void deleteCommerceUsageEntry(
 		long commerceAccountId, long commerceOrderId, long commerceDiscountId) {
 
@@ -111,6 +79,36 @@ public class CommerceDiscountUsageEntryLocalServiceImpl
 	public void deleteCommerceUsageEntryByDiscountId(long commerceDiscountId) {
 		commerceDiscountUsageEntryPersistence.removeByCommerceDiscountId(
 			commerceDiscountId);
+	}
+
+	@Override
+	public int getCommerceDiscountUsageEntryCount(long commerceDiscountId) {
+		return commerceDiscountUsageEntryPersistence.countByCommerceDiscountId(
+			commerceDiscountId);
+	}
+
+	@Override
+	public int getCommerceDiscountUsageEntryCount(
+		long commerceAccountId, long commerceOrderId, long commerceDiscountId) {
+
+		return commerceDiscountUsageEntryPersistence.countByA_O_D(
+			commerceAccountId, commerceOrderId, commerceDiscountId);
+	}
+
+	@Override
+	public int getCommerceDiscountUsageEntryCountByAccountId(
+		long commerceAccountId, long commerceDiscountId) {
+
+		return commerceDiscountUsageEntryPersistence.countByA_D(
+			commerceAccountId, commerceDiscountId);
+	}
+
+	@Override
+	public int getCommerceDiscountUsageEntryCountByOrderId(
+		long commerceOrderId, long commerceDiscountId) {
+
+		return commerceDiscountUsageEntryPersistence.countByO_D(
+			commerceOrderId, commerceDiscountId);
 	}
 
 	@Override
@@ -136,7 +134,7 @@ public class CommerceDiscountUsageEntryLocalServiceImpl
 				CommerceDiscountConstants.LIMITATION_TYPE_LIMITED)) {
 
 			int commerceDiscountUsageEntriesCount =
-				countCommerceDiscountUsageEntryByDiscountId(commerceDiscountId);
+				getCommerceDiscountUsageEntryCount(commerceDiscountId);
 
 			if (commerceDiscountUsageEntriesCount < limitationTimes) {
 				return true;
@@ -154,7 +152,7 @@ public class CommerceDiscountUsageEntryLocalServiceImpl
 					LIMITATION_TYPE_LIMITED_FOR_ACCOUNTS)) {
 
 			int commerceDiscountUsageEntriesCount =
-				countCommerceDiscountUsageEntryByA_D(
+				getCommerceDiscountUsageEntryCountByAccountId(
 					commerceAccountId, commerceDiscountId);
 
 			if (commerceDiscountUsageEntriesCount < limitationTimesPerAccount) {
@@ -165,14 +163,14 @@ public class CommerceDiscountUsageEntryLocalServiceImpl
 		}
 
 		int commerceDiscountUsageEntriesTotalCount =
-			countCommerceDiscountUsageEntryByDiscountId(commerceDiscountId);
+			getCommerceDiscountUsageEntryCount(commerceDiscountId);
 
 		if (commerceDiscountUsageEntriesTotalCount >= limitationTimes) {
 			return false;
 		}
 
 		int commerceDiscountUsageEntriesUserCount =
-			countCommerceDiscountUsageEntryByA_D(
+			getCommerceDiscountUsageEntryCountByAccountId(
 				commerceAccountId, commerceDiscountId);
 
 		if (commerceDiscountUsageEntriesUserCount >=
