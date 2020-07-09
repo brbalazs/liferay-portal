@@ -24,10 +24,6 @@ import com.liferay.commerce.constants.CommercePaymentConstants;
 import com.liferay.commerce.constants.CommerceShipmentConstants;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.context.CommerceContextFactory;
-import com.liferay.commerce.discount.exception.CommerceDiscountLimitationTimesException;
-import com.liferay.commerce.discount.model.CommerceDiscount;
-import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
-import com.liferay.commerce.discount.service.CommerceDiscountUsageEntryLocalService;
 import com.liferay.commerce.exception.CommerceOrderBillingAddressException;
 import com.liferay.commerce.exception.CommerceOrderGuestCheckoutException;
 import com.liferay.commerce.exception.CommerceOrderShippingAddressException;
@@ -59,7 +55,7 @@ import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.commerce.service.CommerceAddressLocalService;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
-import com.liferay.commerce.service.CommerceOrderLocalService;
+import com.liferay.commerce.service.CommerceOrderLocalServiceUtil;
 import com.liferay.commerce.service.CommerceShipmentLocalService;
 import com.liferay.commerce.service.CommerceShippingMethodLocalService;
 import com.liferay.commerce.stock.activity.CommerceLowStockActivity;
@@ -79,7 +75,6 @@ import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.transaction.Transactional;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -194,12 +189,8 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 
 		_bookQuantities(commerceOrder);
 
-		commerceOrder = _commerceOrderLocalService.recalculatePrice(
+		commerceOrder = CommerceOrderLocalServiceUtil.recalculatePrice(
 			commerceOrderId, commerceContext);
-
-		_updateCommerceDiscountUsageEntry(
-			commerceOrder.getCompanyId(), commerceOrder.getCommerceAccountId(),
-			commerceOrderId, commerceOrder.getCouponCode(), serviceContext);
 
 		// Commerce addresses
 
@@ -487,31 +478,6 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 			});
 	}
 
-	private void _updateCommerceDiscountUsageEntry(
-			long companyId, long commerceAccountId, long commerceOrderId,
-			String couponCode, ServiceContext serviceContext)
-		throws PortalException {
-
-		if (!Validator.isBlank(couponCode)) {
-			CommerceDiscount commerceDiscount =
-				_commerceDiscountLocalService.getActiveCommerceDiscount(
-					companyId, couponCode, true);
-
-			if (!_commerceDiscountUsageEntryLocalService.
-					validateDiscountLimitationUsage(
-						commerceAccountId,
-						commerceDiscount.getCommerceDiscountId())) {
-
-				throw new CommerceDiscountLimitationTimesException();
-			}
-
-			_commerceDiscountUsageEntryLocalService.
-				addCommerceDiscountUsageEntry(
-					commerceAccountId, commerceOrderId,
-					commerceDiscount.getCommerceDiscountId(), serviceContext);
-		}
-	}
-
 	private void _validateCheckout(CommerceOrder commerceOrder)
 		throws PortalException {
 
@@ -560,13 +526,6 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 	private CommerceContextFactory _commerceContextFactory;
 
 	@Reference
-	private CommerceDiscountLocalService _commerceDiscountLocalService;
-
-	@Reference
-	private CommerceDiscountUsageEntryLocalService
-		_commerceDiscountUsageEntryLocalService;
-
-	@Reference
 	private CommerceInventoryBookedQuantityLocalService
 		_commerceInventoryBookedQuantityLocalService;
 
@@ -581,9 +540,6 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 
 	@Reference
 	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
-
-	@Reference
-	private CommerceOrderLocalService _commerceOrderLocalService;
 
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.model.CommerceOrder)"
