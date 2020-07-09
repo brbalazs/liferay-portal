@@ -50,12 +50,14 @@ export type Job = {
 export const JOB_RUN_STATUSES_DISPLAY_MAP = {
 	[jobRunStatuses.completed]: 'success',
 	[jobRunStatuses.failed]: 'danger',
+	[jobRunStatuses.published]: 'primary',
 	[jobRunStatuses.running]: 'warning'
 };
 
 export const JOB_RUN_STATUSES_LABEL_MAP = {
 	[jobRunStatuses.completed]: Liferay.Language.get('completed'),
 	[jobRunStatuses.failed]: Liferay.Language.get('failed'),
+	[jobRunStatuses.published]: Liferay.Language.get('live-version'),
 	[jobRunStatuses.running]: Liferay.Language.get('training')
 };
 

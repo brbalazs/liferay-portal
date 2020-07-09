@@ -196,6 +196,7 @@ export const spritemap = `${window.faroConstants.pathThemeImages}/lexicon/icons.
 export enum jobRunStatuses {
 	completed = 'COMPLETED',
 	failed = 'FAILED',
+	published = 'PUBLISHED',
 	running = 'RUNNING'
 }
 

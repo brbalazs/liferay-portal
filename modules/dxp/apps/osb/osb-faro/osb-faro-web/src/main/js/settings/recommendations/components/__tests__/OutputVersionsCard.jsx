@@ -1,7 +1,7 @@
 import * as data from 'test/data';
 import OutputVersionsCard from '../OutputVersionsCard';
 import React from 'react';
-import {jobTrainingFrequencies} from 'shared/util/constants';
+import {jobRunStatuses, jobTrainingFrequencies} from 'shared/util/constants';
 import {MockedProvider} from '@apollo/react-testing';
 import {mockRecommendationJobRunsReq} from 'test/graphql-data';
 import {render} from '@testing-library/react';
@@ -15,7 +15,16 @@ describe('OutputVersionsCard', () => {
 			<MockedProvider
 				mocks={[
 					mockRecommendationJobRunsReq([
-						data.mockRecommendationRunJob()
+						data.mockRecommendationRunJob(0),
+						data.mockRecommendationRunJob(1, {
+							status: jobRunStatuses.failed
+						}),
+						data.mockRecommendationRunJob(2, {
+							status: jobRunStatuses.published
+						}),
+						data.mockRecommendationRunJob(3, {
+							status: jobRunStatuses.running
+						})
 					])
 				]}
 			>
