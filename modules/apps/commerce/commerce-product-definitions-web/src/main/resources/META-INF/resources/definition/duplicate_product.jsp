@@ -20,49 +20,41 @@
 CPDefinitionsDisplayContext cpDefinitionsDisplayContext = (CPDefinitionsDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CPDefinition cpDefinition = cpDefinitionsDisplayContext.getCPDefinition();
-
-List<CommerceCatalog> commerceCatalogs = cpDefinitionsDisplayContext.getCommerceCatalogs();
 %>
 
 <commerce-ui:modal-content
 	title='<%= LanguageUtil.get(request, "duplicate-product") %>'
 >
-	<aui:form cssClass="container-fluid-1280 p-0" method="post" name="duplicatefm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "apiSubmit(this.form);" %>' useNamespace="<%= false %>">
+	<aui:form cssClass="container-fluid-1280 p-0" method="post" name="duplicatefm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "apiSubmit(this.form);" %>'>
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 
-		<aui:input name="name" type="text" value='<%= LanguageUtil.format(locale, "copy-of-x", cpDefinition.getName(languageId)) %>' />
+		<aui:input name="name" required="<%= true %>" type="text" value='<%= LanguageUtil.format(locale, "copy-of-x", cpDefinition.getName(languageId)) %>' />
 
-		<aui:select label="catalog" name="catalogId" required="<%= true %>">
-			<c:if test="<%= !commerceCatalogs.isEmpty() %>">
+		<label class="control-label" for="catalogId"><%= LanguageUtil.get(request, "catalog") %></label>
 
-				<%
-				for (CommerceCatalog commerceCatalog : commerceCatalogs) {
-				%>
-
-					<aui:option data-languageId="<%= commerceCatalog.getCatalogDefaultLanguageId() %>" label="<%= commerceCatalog.getName() %>" selected="<%= (cpDefinition == null) ? (commerceCatalogs.size() == 1) : cpDefinitionsDisplayContext.isSelectedCatalog(commerceCatalog) %>" value="<%= commerceCatalog.getCommerceCatalogId() %>" />
-
-				<%
-				}
-				%>
-
-			</c:if>
-		</aui:select>
+		<div id="autocomplete-root"></div>
 	</aui:form>
 
 	<portlet:renderURL var="editProductDefinitionURL">
 		<portlet:param name="mvcRenderCommandName" value="editProductDefinition" />
 	</portlet:renderURL>
 
-	<aui:script require="commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/forms/index as FormUtils">
+	<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/forms/index as FormUtils, commerce-frontend-js/ServiceProvider/index as ServiceProvider">
+		var <portlet:namespace />product = {
+			active: false,
+			name: {},
+			productType: '<%= cpDefinition.getProductTypeName() %>'
+		}
+
+		const AdminCatalogResource = ServiceProvider.default.AdminCatalogAPI('v1');
+
 		Liferay.provide(
 			window,
 			'<portlet:namespace/>apiSubmit',
 			function(form) {
-				var name = document.getElementById('name').value;
-
 				var API_URL =
 					'/o/headless-commerce-admin-catalog/v1.0/products/<%= cpDefinition.getCProductId() %>/clone?catalogId=' +
-					document.getElementById('catalogId').value;
+					<portlet:namespace/>product.catalogId;
 
 				FormUtils.apiSubmit(form, API_URL)
 					.then(function(payload) {
@@ -77,12 +69,10 @@ List<CommerceCatalog> commerceCatalogs = cpDefinitionsDisplayContext.getCommerce
 								payload.productId,
 							{
 								body: JSON.stringify({
-									active: payload.active,
-									catalogId: payload.catalogId,
-									name: {
-										<%= locale %>: name
-									},
-									productType: payload.productType
+									active: false,
+									catalogId: <portlet:namespace/>product.catalogId,
+									name: <portlet:namespace/>product.name,
+									productType: <portlet:namespace/>product.productType
 								}),
 								credentials: 'include',
 								headers: headers,
@@ -131,5 +121,26 @@ List<CommerceCatalog> commerceCatalogs = cpDefinitionsDisplayContext.getCommerce
 			},
 			['liferay-portlet-url']
 		);
+
+		autocomplete.default('autocomplete', 'autocomplete-root', {
+			apiUrl: '/o/headless-commerce-admin-catalog/v1.0/catalogs',
+			inputId: '<portlet:namespace />catalogId',
+			inputName: '<%= renderResponse.getNamespace() %>catalogId',
+			itemsKey: 'id',
+			itemsLabel: 'name',
+			required: true
+		});
+
+		Liferay.on(events.AUTOCOMPLETE_VALUE_UPDATED, function(e) {
+			if (e.value) {
+				AdminCatalogResource.getCatalogById(e.value).then(function(catalog) {
+					<portlet:namespace/>product.catalogId = catalog.id;
+
+					<portlet:namespace/>product.name[
+						catalog.defaultLanguageId
+					] = document.getElementById('<portlet:namespace/>name').value;
+				});
+			}
+		});
 	</aui:script>
 </commerce-ui:modal-content>
