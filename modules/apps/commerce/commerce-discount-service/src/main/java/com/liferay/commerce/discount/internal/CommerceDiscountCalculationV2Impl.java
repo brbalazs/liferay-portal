@@ -30,7 +30,6 @@ import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleType;
 import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleTypeRegistry;
 import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
 import com.liferay.commerce.discount.service.CommerceDiscountRuleLocalService;
-import com.liferay.commerce.discount.service.CommerceDiscountUsageEntryLocalService;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.price.list.model.CommercePriceListDiscountRel;
 import com.liferay.commerce.price.list.service.CommercePriceListDiscountRelLocalService;
@@ -319,9 +318,8 @@ public class CommerceDiscountCalculationV2Impl
 		for (CommerceDiscount commerceDiscount : commerceDiscounts) {
 			String discountCouponCode = commerceDiscount.getCouponCode();
 
-			if (!_isValidCouponCode(
-					commerceDiscount.getCommerceDiscountId(), couponCode,
-					discountCouponCode, commerceContext)) {
+			if (!Validator.isBlank(discountCouponCode) &&
+				!Objects.equals(couponCode, discountCouponCode)) {
 
 				continue;
 			}
@@ -634,30 +632,6 @@ public class CommerceDiscountCalculationV2Impl
 			companyId, cpDefinitionId);
 	}
 
-	private boolean _isValidCouponCode(
-			long commerceDiscountId, String couponCode,
-			String discountCouponCode, CommerceContext commerceContext)
-		throws PortalException {
-
-		long commerceAccountId = 0;
-		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
-
-		if (commerceAccount != null) {
-			commerceAccountId = commerceAccount.getCommerceAccountId();
-		}
-
-		if ((Validator.isBlank(discountCouponCode) ||
-			 Objects.equals(couponCode, discountCouponCode)) &&
-			_commerceDiscountUsageEntryLocalService.
-				validateDiscountLimitationUsage(
-					commerceAccountId, commerceDiscountId)) {
-
-			return true;
-		}
-
-		return false;
-	}
-
 	private boolean _isValidDiscount(
 			CommerceContext commerceContext, CommerceDiscount commerceDiscount)
 		throws PortalException {
@@ -714,10 +688,6 @@ public class CommerceDiscountCalculationV2Impl
 
 	@Reference
 	private CommerceDiscountRuleTypeRegistry _commerceDiscountRuleTypeRegistry;
-
-	@Reference
-	private CommerceDiscountUsageEntryLocalService
-		_commerceDiscountUsageEntryLocalService;
 
 	@Reference
 	private CommerceMoneyFactory _commerceMoneyFactory;
