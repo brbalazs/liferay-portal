@@ -216,17 +216,13 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 		};
 	};
 
-	const getSubmitMessage = (
-		lastStep: boolean,
-		trainingFrequency: jobTrainingFrequencies,
-		initialTrainingFrequency: jobTrainingFrequencies
-	): string => {
+	const getSubmitMessage = (lastStep: boolean, runNow: boolean): string => {
 		if (lastStep) {
-			if (job && trainingFrequency === initialTrainingFrequency) {
-				return Liferay.Language.get('save');
+			if (runNow) {
+				return Liferay.Language.get('save-and-train');
 			}
 
-			return Liferay.Language.get('save-and-train');
+			return Liferay.Language.get('save');
 		}
 
 		return Liferay.Language.get('next');
@@ -287,8 +283,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 								}
 								submitMessage={getSubmitMessage(
 									lastStep,
-									values.trainingFrequency,
-									initialValues.trainingFrequency
+									values.runNow
 								)}
 								submitting={isSubmitting}
 							/>
