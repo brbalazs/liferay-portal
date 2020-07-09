@@ -728,7 +728,9 @@ public class ContactsEngineClientImpl
 
 		uriVariables.put("filter", filterBuilder.build());
 
-		uriVariables.put("includeToday", false);
+		if (delta > 0) {
+			uriVariables.put("includeToday", false);
+		}
 
 		if ((rangeEnd != null) && (rangeStart != null)) {
 			uriVariables.put("rangeEnd", rangeEnd);
