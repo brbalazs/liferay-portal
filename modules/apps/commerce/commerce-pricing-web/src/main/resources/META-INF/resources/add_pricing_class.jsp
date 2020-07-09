@@ -20,7 +20,10 @@
 CommercePricingClassDisplayContext commercePricingClassDisplayContext = (CommercePricingClassDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 PortletURL editPricingClassPortletURL = commercePricingClassDisplayContext.getEditCommercePricingClassRenderURL();
-CommercePricingClass commercePricingClass = commercePricingClassDisplayContext.getCommercePricingClass();
+
+Locale defaultLocale = LocaleUtil.getSiteDefault();
+
+String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
 %>
 
 <portlet:actionURL name="editCommercePricingClass" var="editCommercePricingClassActionURL" />
@@ -30,9 +33,9 @@ CommercePricingClass commercePricingClass = commercePricingClassDisplayContext.g
 >
 	<div class="col-12 lfr-form-content">
 		<aui:form cssClass="container-fluid-1280" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "apiSubmit(this.form);" %>' useNamespace="<%= false %>">
-			<aui:input bean="<%= commercePricingClass %>" model="<%= CommercePricingClass.class %>" name="title" required="<%= true %>" />
+			<aui:input name="title" required="<%= true %>" />
 
-			<aui:input localized="<%= true %>" name="description" type="textarea" />
+			<aui:input name="description" type="textarea" />
 		</aui:form>
 
 		<aui:script require="commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/forms/index as FormUtils">
@@ -52,19 +55,13 @@ CommercePricingClass commercePricingClass = commercePricingClassDisplayContext.g
 						isLoading: true
 					});
 
-					var languageId = themeDisplay.getLanguageId();
-
-					var title = form.querySelector(
-						'#<%= renderResponse.getNamespace() %>title_<%= themeDisplay.getLanguageId() %>'
-					).value;
-					var description = form.querySelector(
-						'#<%= renderResponse.getNamespace() %>description_<%= themeDisplay.getLanguageId() %>'
-					).value;
+					var title = form.querySelector('#title').value;
+					var description = form.querySelector('#description').value;
 
 					return fetch(API_URL, {
 						body: JSON.stringify({
-							title: {languageId: title},
-							description: {languageId: description}
+							title: {'<%= defaultLanguageId %>': title},
+							description: {'<%= defaultLanguageId %>': description}
 						}),
 						credentials: 'include',
 						headers: headers,
