@@ -86,20 +86,24 @@ exports[`ManuallyRetrainModelModal should render 1`] = `
             >
               Monthly Training Allowance
             </div>
-            <div>
+            <div
+              class="d-flex"
+            >
               Scheduled:
               <span
                 class="count"
               >
-                8
+                3
               </span>
             </div>
-            <div>
+            <div
+              class="d-flex"
+            >
               Remaining:
               <span
                 class="count"
               >
-                8
+                3
               </span>
             </div>
           </div>
