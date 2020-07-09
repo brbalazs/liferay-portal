@@ -5,7 +5,9 @@ export default gql`
 		$assetType: AssetType!
 		$assetId: String!
 		$channelId: String
+		$rangeEnd: String
 		$rangeKey: Int
+		$rangeStart: String
 		$location: String
 		$devices: String
 	) {
@@ -13,7 +15,9 @@ export default gql`
 			assetType: $assetType
 			assetId: $assetId
 			channelId: $channelId
+			rangeEnd: $rangeEnd
 			rangeKey: $rangeKey
+			rangeStart: $rangeStart
 			country: $location
 			deviceType: $devices
 		) {
