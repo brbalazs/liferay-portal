@@ -189,10 +189,9 @@ public class CommerceOrganizationClayTableDataSetDisplayView
 				pagination.getStartPosition(), pagination.getEndPosition());
 
 		if (organizationList.isEmpty()) {
-			organizationList =
-				_organizationLocalService.getOrganizations(
-					themeDisplay.getUserId(), pagination.getStartPosition(),
-					pagination.getEndPosition(), null);
+			organizationList = _organizationLocalService.getOrganizations(
+				themeDisplay.getUserId(), pagination.getStartPosition(),
+				pagination.getEndPosition(), null);
 		}
 
 		for (com.liferay.portal.kernel.model.Organization organization :
@@ -220,8 +219,8 @@ public class CommerceOrganizationClayTableDataSetDisplayView
 
 		for (int i = 1; i < organizationIds.length; i++) {
 			if (!OrganizationPermissionUtil.contains(
-				permissionChecker, GetterUtil.getLong(organizationIds[i]),
-				ActionKeys.VIEW)) {
+					permissionChecker, GetterUtil.getLong(organizationIds[i]),
+					ActionKeys.VIEW)) {
 
 				continue;
 			}

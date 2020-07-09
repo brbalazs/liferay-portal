@@ -55,10 +55,10 @@ public class CommerceOrganizationResourceUtil {
 
 		if (organization == null) {
 			List<com.liferay.portal.kernel.model.Organization> organizations =
-					_organizationService.getOrganizations(
-						companyId,
-						OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
-						QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+				_organizationService.getOrganizations(
+					companyId,
+					OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
+					QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
 			if (organizations.isEmpty()) {
 				organizations = _organizationLocalService.getOrganizations(
