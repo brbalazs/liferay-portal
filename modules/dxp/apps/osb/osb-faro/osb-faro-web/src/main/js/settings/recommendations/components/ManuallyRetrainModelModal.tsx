@@ -4,6 +4,8 @@ import Form from 'shared/components/form';
 import Modal from 'shared/components/modal';
 import React from 'react';
 import RecommendationActivitiesQuery from '../queries/RecommendationActivitiesQuery';
+import RecommendationJobRunsMonthlyStatisticsQuery from '../queries/RecommendationJobRunsMonthlyStatisticsQuery';
+import Spinner from 'shared/components/Spinner';
 import {
 	Filter,
 	getPropertiesFromItems,
@@ -14,6 +16,9 @@ import {
 } from '../utils/utils';
 import {get} from 'lodash';
 import {jobTrainingPeriods} from 'shared/util/constants';
+import {useQuery} from '@apollo/react-hooks';
+
+const ACTIVITIES_THRESHOLD = 1000;
 
 interface IManuallyRetrainModelModalProps {
 	job: Job;
@@ -22,6 +27,15 @@ interface IManuallyRetrainModelModalProps {
 }
 
 const ManuallyRetrainModelModal = ({job, onClose, onSubmit}) => {
+	const {data, loading} = useQuery(
+		RecommendationJobRunsMonthlyStatisticsQuery,
+		{
+			variables: {
+				jobId: get(job, 'id')
+			}
+		}
+	);
+
 	const itemFilters: Filter[] = get(job, 'parameters', []).filter(
 		({name}) => name !== 'includePreviousPeriod'
 	);
@@ -47,7 +61,7 @@ const ManuallyRetrainModelModal = ({job, onClose, onSubmit}) => {
 				}
 			})
 			.then(({data: {activities: {total}}}) => {
-				if (total < 1000) {
+				if (total < ACTIVITIES_THRESHOLD) {
 					error = Liferay.Language.get(
 						'the-interaction-period-does-not-meet-the-1000-event-minimum-required-to-train-the-model.-please-add-pages-or-increase-the-period'
 					);
@@ -56,8 +70,6 @@ const ManuallyRetrainModelModal = ({job, onClose, onSubmit}) => {
 				return error;
 			});
 	};
-
-	// TODO: LRAC-6220 Replace mock counts with actual values from API
 
 	return (
 		<Modal className='manually-retrain-model-modal-root'>
@@ -109,16 +121,42 @@ const ManuallyRetrainModelModal = ({job, onClose, onSubmit}) => {
 									)}
 								</div>
 
-								<div>
+								<div className='d-flex'>
 									{`${Liferay.Language.get('scheduled')}:`}
 
-									<span className='count'>{8}</span>
+									<span className='count'>
+										{loading ? (
+											<Spinner inline size='sm' />
+										) : (
+											get(
+												data,
+												[
+													'jobRunsMonthlyStatistics',
+													'scheduledJobRuns'
+												],
+												0
+											)
+										)}
+									</span>
 								</div>
 
-								<div>
+								<div className='d-flex'>
 									{`${Liferay.Language.get('remaining')}:`}
 
-									<span className='count'>{8}</span>
+									<span className='count'>
+										{loading ? (
+											<Spinner inline size='sm' />
+										) : (
+											get(
+												data,
+												[
+													'jobRunsMonthlyStatistics',
+													'availableJobRuns'
+												],
+												0
+											)
+										)}
+									</span>
 								</div>
 							</div>
 						</Modal.Body>

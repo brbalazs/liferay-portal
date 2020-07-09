@@ -960,6 +960,17 @@ export function mockRecommendationRunJob(seed = 0, data = {}) {
 	};
 }
 
+export function mockRecommendationJobRunsMonthlyStatistics(data = {}) {
+	return {
+		availableJobRuns: 3,
+		completedJobRuns: 4,
+		failedJobRuns: 1,
+		runningJobRuns: 1,
+		scheduledJobRuns: 3,
+		...data
+	};
+}
+
 export function mockRecommendationPageAsset(seed = 0, data = {}) {
 	return {
 		canonicalUrl: `https://www.test${seed}.com`,
