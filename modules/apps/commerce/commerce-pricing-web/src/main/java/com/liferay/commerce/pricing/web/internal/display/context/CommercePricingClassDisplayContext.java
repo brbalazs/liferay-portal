@@ -90,8 +90,7 @@ public class CommercePricingClassDisplayContext {
 					LanguageUtil.get(
 						commercePricingClassRequestHelper.getRequest(),
 						"add-product-group"),
-					ClayMenuActionItem.
-						CLAY_MENU_ACTION_ITEM_TARGET_MODAL_LARGE));
+					ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
 		}
 
 		return clayCreationMenu;
