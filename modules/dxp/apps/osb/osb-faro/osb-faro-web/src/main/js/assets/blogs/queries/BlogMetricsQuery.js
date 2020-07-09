@@ -13,7 +13,9 @@ export default gql`
 		$channelId: String
 		$devices: String
 		$location: String
+		$rangeEnd: String
 		$rangeKey: Int
+		$rangeStart: String
 		$title: String
 		$touchpoint: String!
 	) {
@@ -22,7 +24,9 @@ export default gql`
 			channelId: $channelId
 			country: $location
 			deviceType: $devices
+			rangeEnd: $rangeEnd
 			rangeKey: $rangeKey
+			rangeStart: $rangeStart
 			title: $title
 			url: $touchpoint
 		) {

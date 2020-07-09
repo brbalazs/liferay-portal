@@ -40,7 +40,7 @@ const TableWithData = withBaseResults(withData, {
 	getColumns: ({
 		router: {
 			params: {channelId, groupId},
-			query: {rangeKey}
+			query
 		}
 	}) => [
 		metricsListColumns.getTitleId({
@@ -49,7 +49,7 @@ const TableWithData = withBaseResults(withData, {
 			label: `${Liferay.Language.get(
 				'blog-name'
 			)} | ${Liferay.Language.get('id').toUpperCase()}`,
-			rangeKey,
+			rangeSelectors: getRangeSelectorsFromQuery(query),
 			route: Routes.ASSETS_BLOGS_DASHBOARD
 		}),
 		metricsListColumns.viewsMetric,
