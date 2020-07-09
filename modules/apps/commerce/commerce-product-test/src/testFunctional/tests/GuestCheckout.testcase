@@ -462,6 +462,135 @@ definition {
 		GuestCheckout.assertGuestCheckoutAuthenticationPage();
 	}
 
+	test AssertGuestsWithSameEmailHaveDifferentAccounts {
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "GuestCheckout#AssertGuestWithSameEmailHaveDifferentAccounts";
+
+		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Channels");
+
+		CommerceNavigator.gotoEntry(entryName = "Speedwell Portal");
+
+		CommerceChannels.activatePaymentMethod(paymentMethod = "Money Order");
+
+		Refresh();
+
+		Check.checkToggleSwitch(
+			key_toggleSwitchLabel = "Guest Checkout",
+			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
+
+		Button.clickSave();
+
+		AssertChecked.assertCheckedNotVisible(
+			key_toggleSwitchLabel = "Guest Checkout",
+			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
+
+		Click(
+			key_fixIssueButtonName = "Guest Checkout Authentication",
+			locator1 = "CommerceEntry#FIX_ISSUE_BUTTON");
+
+		Alert.viewSuccessMessage();
+
+		User.logoutPG();
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/speedwell");
+
+		CommerceNavigator.gotoSpeedwellTopbarItem(menuItem = "Catalog");
+
+		FrontStore.addInitializerProductToCart(
+			productName = "U-Joint",
+			productQuantity = "1");
+
+		Refresh();
+
+		CommerceNavigator.gotoMiniCart();
+
+		Click(
+			key_text = "Submit",
+			locator1 = "Button#ANY");
+
+		Click(
+			key_text = "Continue as a Guest",
+			locator1 = "Button#ANY");
+
+		CommerceCheckout.initializersCheckout(
+			guestEmail = "buyer@liferay.com",
+			newAddressAddress = "Test Address",
+			newAddressCity = "Test City",
+			newAddressCountry = "United States",
+			newAddressName = "Guest Account 1",
+			newAddressZipCode = "Test Zip Code",
+			paymentMethod = "Money Order",
+			productName = "U-Joint",
+			productQuantity = "1",
+			productUnitPrice = "24",
+			shippingMethod = "Standard");
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/speedwell");
+
+		CommerceNavigator.gotoSpeedwellTopbarItem(menuItem = "Catalog");
+
+		FrontStore.addInitializerProductToCart(
+			productName = "U-Joint",
+			productQuantity = "1");
+
+		Refresh();
+
+		CommerceNavigator.gotoMiniCart();
+
+		Click(
+			key_text = "Submit",
+			locator1 = "Button#ANY");
+
+		Click(
+			key_text = "Continue as a Guest",
+			locator1 = "Button#ANY");
+
+		CommerceCheckout.initializersCheckout(
+			guestEmail = "buyer@liferay.com",
+			newAddressAddress = "Test Address",
+			newAddressCity = "Test City",
+			newAddressCountry = "United States",
+			newAddressName = "Guest Account 2",
+			newAddressZipCode = "Test Zip Code",
+			paymentMethod = "Money Order",
+			productName = "U-Joint",
+			productQuantity = "1",
+			productUnitPrice = "24",
+			shippingMethod = "Standard");
+
+		Navigator.openURL();
+
+		User.loginPG();
+
+		ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Accounts");
+
+		CommerceNavigator.gotoEntry(entryName = "Guest Account 1");
+
+		CommerceEntry.viewAccountsEntry(
+			accountEmail = "buyer@liferay.com",
+			accountName = "Guest Account 1",
+			accountType = "Guest",
+			isAccountActive = "true");
+
+		Click(locator1 = "Icon#BACK");
+
+		CommerceNavigator.gotoEntry(entryName = "Guest Account 2");
+
+		CommerceEntry.viewAccountsEntry(
+			accountEmail = "buyer@liferay.com",
+			accountName = "Guest Account 2",
+			accountType = "Guest",
+			isAccountActive = "true");
+	}
+
 	test GuestCheckoutDisabled {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "GuestCheckout#GuestCheckoutDisabled";
@@ -616,135 +745,6 @@ definition {
 			productQuantity = "1",
 			productUnitPrice = "24",
 			shippingMethod = "Standard");
-	}
-
-	test AssertGuestsWithSameEmailHaveDifferentAccounts {
-		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "GuestCheckout#AssertGuestWithSameEmailHaveDifferentAccounts";
-
-		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
-
-		ProductMenu.gotoPortlet(
-			category = "Commerce",
-			panel = "Control Panel",
-			portlet = "Channels");
-
-		CommerceNavigator.gotoEntry(entryName = "Speedwell Portal");
-
-		CommerceChannels.activatePaymentMethod(paymentMethod = "Money Order");
-
-		Refresh();
-
-		Check.checkToggleSwitch(
-			key_toggleSwitchLabel = "Guest Checkout",
-			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
-
-		Button.clickSave();
-
-		AssertChecked.assertCheckedNotVisible(
-			key_toggleSwitchLabel = "Guest Checkout",
-			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
-
-		Click(
-			key_fixIssueButtonName = "Guest Checkout Authentication",
-			locator1 = "CommerceEntry#FIX_ISSUE_BUTTON");
-
-		Alert.viewSuccessMessage();
-
-		User.logoutPG();
-
-		Navigator.openWithAppendToBaseURL(urlAppend = "web/speedwell");
-
-		CommerceNavigator.gotoSpeedwellTopbarItem(menuItem = "Catalog");
-
-		FrontStore.addInitializerProductToCart(
-			productName = "U-Joint",
-			productQuantity = "1");
-
-		Refresh();
-
-		CommerceNavigator.gotoMiniCart();
-
-		Click(
-			key_text = "Submit",
-			locator1 = "Button#ANY");
-
-		Click(
-			key_text = "Continue as a Guest",
-			locator1 = "Button#ANY");
-
-		CommerceCheckout.initializersCheckout(
-			guestEmail = "buyer@liferay.com",
-			newAddressAddress = "Test Address",
-			newAddressCity = "Test City",
-			newAddressCountry = "United States",
-			newAddressName = "Guest Account 1",
-			newAddressZipCode = "Test Zip Code",
-			paymentMethod = "Money Order",
-			productName = "U-Joint",
-			productQuantity = "1",
-			productUnitPrice = "24",
-			shippingMethod = "Standard");
-
-		Navigator.openWithAppendToBaseURL(urlAppend = "web/speedwell");
-
-		CommerceNavigator.gotoSpeedwellTopbarItem(menuItem = "Catalog");
-
-		FrontStore.addInitializerProductToCart(
-			productName = "U-Joint",
-			productQuantity = "1");
-
-		Refresh();
-
-		CommerceNavigator.gotoMiniCart();
-
-		Click(
-			key_text = "Submit",
-			locator1 = "Button#ANY");
-
-		Click(
-			key_text = "Continue as a Guest",
-			locator1 = "Button#ANY");
-
-		CommerceCheckout.initializersCheckout(
-			guestEmail = "buyer@liferay.com",
-			newAddressAddress = "Test Address",
-			newAddressCity = "Test City",
-			newAddressCountry = "United States",
-			newAddressName = "Guest Account 2",
-			newAddressZipCode = "Test Zip Code",
-			paymentMethod = "Money Order",
-			productName = "U-Joint",
-			productQuantity = "1",
-			productUnitPrice = "24",
-			shippingMethod = "Standard");
-
-		Navigator.openURL();
-
-		User.loginPG();
-
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Accounts");
-
-		CommerceNavigator.gotoEntry(entryName = "Guest Account 1");
-
-		CommerceEntry.viewAccountsEntry(
-			accountEmail = "buyer@liferay.com",
-			accountName = "Guest Account 1",
-			accountType = "Guest",
-			isAccountActive = "true");
-
-		Click(locator1 = "Icon#BACK");
-
-		CommerceNavigator.gotoEntry(entryName = "Guest Account 2");
-
-		CommerceEntry.viewAccountsEntry(
-			accountEmail = "buyer@liferay.com",
-			accountName = "Guest Account 2",
-			accountType = "Guest",
-			isAccountActive = "true");
 	}
 
 }

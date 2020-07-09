@@ -595,7 +595,8 @@ definition {
 
 		if ("${isAccountActive}" == "true") {
 			AssertChecked(locator1 = "Checkbox#ACTIVE");
-		} else {
+		}
+		else {
 			AssertNotChecked(locator1 = "Checkbox#ACTIVE");
 		}
 	}
