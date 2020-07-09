@@ -559,6 +559,47 @@ definition {
 		CommerceItemSelector.uploadSingleFile(uploadFileName = "${uploadFileName}");
 	}
 
+	macro viewAccountsEntry {
+		AssertTextEquals(
+			locator1 = "TextInput#NAME",
+			value1 = "${accountName}");
+
+		AssertTextEquals(
+			locator1 = "TextInput#EMAIL",
+			value1 = "${accountEmail}");
+
+		AssertSelectedLabel(
+			locator1 = "Select#TYPE",
+			value1 = "${accountType}");
+
+		if (isSet(accountVATNumber)) {
+			AssertTextEquals(
+				key_fieldLabel = "VAT Number",
+				locator1 = "TextInput#GENERIC_TEXT_INPUT",
+				value1 = "${accountVATNumber}");
+		}
+
+		if (isSet(accountDefaultBilling)) {
+			AssertSelectedLabel(
+				key_fieldLabel = "Default Billing",
+				locator1 = "Select#GENERIC_SELECT_FIELD",
+				value1 = "${accountDefaultBilling}");
+		}
+
+		if (isSet(accountDefaultShipping)) {
+			AssertSelectedLabel(
+				key_fieldLabel = "Default Shipping",
+				locator1 = "Select#GENERIC_SELECT_FIELD",
+				value1 = "${accountDefaultShipping}");
+		}
+
+		if ("${isAccountActive}" == "true") {
+			AssertChecked(locator1 = "Checkbox#ACTIVE");
+		} else {
+			AssertNotChecked(locator1 = "Checkbox#ACTIVE");
+		}
+	}
+
 	macro viewCatalogsEntry {
 		AssertTextEquals(
 			locator1 = "CommerceEntry#NAME_FIELD",
