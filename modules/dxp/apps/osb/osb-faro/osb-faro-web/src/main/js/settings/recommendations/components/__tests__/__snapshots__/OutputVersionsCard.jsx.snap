@@ -95,6 +95,120 @@ exports[`OutputVersionsCard should render 1`] = `
               </td>
             </tr>
           </tbody>
+          <tbody>
+            <tr
+              class=""
+            >
+              <td
+                class=" table-cell-expand"
+              >
+                <h4
+                  class="table-title text-truncate"
+                >
+                  -
+                </h4>
+              </td>
+              <td
+                class=" table-column-text-end"
+              >
+                321
+              </td>
+              <td
+                class=" table-column-text-end"
+              >
+                123
+              </td>
+              <td
+                class="table-column-text-end"
+              >
+                <div
+                  class="label label-root status label-danger label-lg label-uppercase"
+                >
+                  <span
+                    class="label-item"
+                  >
+                    Failed
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr
+              class=""
+            >
+              <td
+                class=" table-cell-expand"
+              >
+                <h4
+                  class="table-title text-truncate"
+                >
+                  -
+                </h4>
+              </td>
+              <td
+                class=" table-column-text-end"
+              >
+                321
+              </td>
+              <td
+                class=" table-column-text-end"
+              >
+                123
+              </td>
+              <td
+                class="table-column-text-end"
+              >
+                <div
+                  class="label label-root status label-primary label-lg label-uppercase"
+                >
+                  <span
+                    class="label-item"
+                  >
+                    Live Version
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr
+              class=""
+            >
+              <td
+                class=" table-cell-expand"
+              >
+                <h4
+                  class="table-title text-truncate"
+                >
+                  -
+                </h4>
+              </td>
+              <td
+                class=" table-column-text-end"
+              >
+                321
+              </td>
+              <td
+                class=" table-column-text-end"
+              >
+                123
+              </td>
+              <td
+                class="table-column-text-end"
+              >
+                <div
+                  class="label label-root status label-warning label-lg label-uppercase"
+                >
+                  <span
+                    class="label-item"
+                  >
+                    Training
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <nav
@@ -106,7 +220,7 @@ exports[`OutputVersionsCard should render 1`] = `
           <div
             class="pagination-results"
           >
-            Showing 1 to 1 of 1 entry.
+            Showing 1 to 4 of 4 entries.
           </div>
           <ul
             class="pagination pagination-root"
