@@ -7,7 +7,7 @@ import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {isHourlyRangeKey} from 'shared/util/time';
 import {RangeSelectors} from 'shared/types';
 
-interface BaseCardHeaderDefaultIProps
+export interface BaseCardHeaderDefaultIProps
 	extends React.HTMLAttributes<HTMLElement> {
 	interval: Interval;
 	label: string;

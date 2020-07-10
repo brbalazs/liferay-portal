@@ -1,8 +1,7 @@
 import BasePage from 'shared/components/base-page';
 import Card from 'shared/components/Card';
-import HeaderDefault from './HeaderDefault';
+import HeaderDefault, {BaseCardHeaderDefaultIProps} from './HeaderDefault';
 import React, {useCallback, useContext, useState} from 'react';
-import {Context} from './types';
 import {getRangeSelectorsFromQuery} from 'shared/util/util';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {RangeSelectors} from 'shared/types';
@@ -10,7 +9,8 @@ import {RangeSelectors} from 'shared/types';
 interface BaseCardIProps extends React.HTMLAttributes<HTMLElement> {
 	className?: string;
 	children: (val) => React.ReactNode;
-	Header?: React.FC<Context>;
+	Header?: React.FC<BaseCardHeaderDefaultIProps>;
+	headerProps?: {[key: string]: any};
 	label: string;
 	legacyDropdownRangeKey: boolean;
 	minHeight?: number;
@@ -21,6 +21,7 @@ const BaseCard: React.FC<BaseCardIProps> = ({
 	className,
 	children,
 	Header = HeaderDefault,
+	headerProps = {},
 	label,
 	legacyDropdownRangeKey = true,
 	minHeight,
@@ -52,6 +53,7 @@ const BaseCard: React.FC<BaseCardIProps> = ({
 				onChangeInterval={handleChangeInterval}
 				onRangeSelectorsChange={handleRangeSelectorsChange}
 				showInterval={showInterval}
+				{...headerProps}
 			/>
 
 			{children({...otherProps})}
