@@ -77,18 +77,6 @@ public interface CommerceDiscountUsageEntryLocalService
 			long commerceDiscountId, ServiceContext serviceContext)
 		throws PortalException;
 
-	public int countCommerceDiscountUsageEntryByA_D(
-		long commerceAccountId, long commerceDiscountId);
-
-	public int countCommerceDiscountUsageEntryByA_O_D(
-		long commerceAccountId, long commerceOrderId, long commerceDiscountId);
-
-	public int countCommerceDiscountUsageEntryByDiscountId(
-		long commerceDiscountId);
-
-	public int countCommerceDiscountUsageEntryByO_D(
-		long commerceOrderId, long commerceDiscountId);
-
 	/**
 	 * Creates a new commerce discount usage entry with the primary key. Does not add the commerce discount usage entry to the database.
 	 *
@@ -228,6 +216,21 @@ public interface CommerceDiscountUsageEntryLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceDiscountUsageEntriesCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceDiscountUsageEntriesCount(long commerceDiscountId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceDiscountUsageEntriesCount(
+		long commerceAccountId, long commerceOrderId, long commerceDiscountId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceDiscountUsageEntriesCountByAccountId(
+		long commerceAccountId, long commerceDiscountId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceDiscountUsageEntriesCountByOrderId(
+		long commerceOrderId, long commerceDiscountId);
 
 	/**
 	 * Returns the commerce discount usage entry with the primary key.

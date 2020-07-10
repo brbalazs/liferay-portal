@@ -59,12 +59,6 @@ public class CommercePricingClassServiceUtil {
 			userId, groupId, title, description, serviceContext);
 	}
 
-	public static int countByCPDefinitionId(long cpDefinitionId, String title)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
-
-		return getService().countByCPDefinitionId(cpDefinitionId, title);
-	}
-
 	public static com.liferay.commerce.pricing.model.CommercePricingClass
 			deleteCommercePricingClass(long commercePricingClassId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -120,6 +114,14 @@ public class CommercePricingClassServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getCommercePricingClassesCount(companyId);
+	}
+
+	public static int getCommercePricingClassesCount(
+			long cpDefinitionId, String title)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().getCommercePricingClassesCount(
+			cpDefinitionId, title);
 	}
 
 	/**

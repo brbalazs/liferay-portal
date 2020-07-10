@@ -255,24 +255,6 @@ public class CommercePriceListServiceSoap {
 		}
 	}
 
-	public static int countByCommercePricingClassId(
-			long commercePricingClassId, String title)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				CommercePriceListServiceUtil.countByCommercePricingClassId(
-					commercePricingClassId, title);
-
-			return returnValue;
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
 	public static void deleteCommercePriceList(long commercePriceListId)
 		throws RemoteException {
 
@@ -364,6 +346,24 @@ public class CommercePriceListServiceSoap {
 
 			return com.liferay.commerce.price.list.model.CommercePriceListSoap.
 				toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommercePriceListsCount(
+			long commercePricingClassId, String title)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommercePriceListServiceUtil.getCommercePriceListsCount(
+					commercePricingClassId, title);
+
+			return returnValue;
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

@@ -49,14 +49,6 @@ public class CommercePricingClassCPDefinitionRelServiceUtil {
 			commercePricingClassId, cpDefinitionId, serviceContext);
 	}
 
-	public static int countByCommercePricingClassId(
-			long commercePricingClassId, String name, String languageId)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
-
-		return getService().countByCommercePricingClassId(
-			commercePricingClassId, name, languageId);
-	}
-
 	public static
 		com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel
 				deleteCommercePricingClassCPDefinitionRel(
@@ -129,6 +121,14 @@ public class CommercePricingClassCPDefinitionRelServiceUtil {
 
 		return getService().getCommercePricingClassCPDefinitionRelsCount(
 			commercePricingClassId);
+	}
+
+	public static int getCommercePricingClassCPDefinitionRelsCount(
+			long commercePricingClassId, String name, String languageId)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().getCommercePricingClassCPDefinitionRelsCount(
+			commercePricingClassId, name, languageId);
 	}
 
 	public static long[] getCPDefinitionIds(long commercePricingClassId)

@@ -143,47 +143,6 @@ public class CommercePricingClassServiceHttp {
 		}
 	}
 
-	public static int countByCPDefinitionId(
-			HttpPrincipal httpPrincipal, long cpDefinitionId, String title)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				CommercePricingClassServiceUtil.class, "countByCPDefinitionId",
-				_countByCPDefinitionIdParameterTypes2);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, cpDefinitionId, title);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.security.auth.
-							PrincipalException) {
-
-					throw (com.liferay.portal.kernel.security.auth.
-						PrincipalException)exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return ((Integer)returnObj).intValue();
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
 	public static com.liferay.commerce.pricing.model.CommercePricingClass
 			deleteCommercePricingClass(
 				HttpPrincipal httpPrincipal, long commercePricingClassId)
@@ -193,7 +152,7 @@ public class CommercePricingClassServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePricingClassServiceUtil.class,
 				"deleteCommercePricingClass",
-				_deleteCommercePricingClassParameterTypes3);
+				_deleteCommercePricingClassParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePricingClassId);
@@ -237,7 +196,7 @@ public class CommercePricingClassServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePricingClassServiceUtil.class,
 				"fetchByExternalReferenceCode",
-				_fetchByExternalReferenceCodeParameterTypes4);
+				_fetchByExternalReferenceCodeParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, externalReferenceCode);
@@ -280,7 +239,7 @@ public class CommercePricingClassServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePricingClassServiceUtil.class,
 				"fetchCommercePricingClass",
-				_fetchCommercePricingClassParameterTypes5);
+				_fetchCommercePricingClassParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePricingClassId);
@@ -323,7 +282,7 @@ public class CommercePricingClassServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePricingClassServiceUtil.class,
 				"getCommercePricingClass",
-				_getCommercePricingClassParameterTypes6);
+				_getCommercePricingClassParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePricingClassId);
@@ -365,7 +324,7 @@ public class CommercePricingClassServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePricingClassServiceUtil.class,
 				"getCommercePricingClassByCPDefinition",
-				_getCommercePricingClassByCPDefinitionParameterTypes7);
+				_getCommercePricingClassByCPDefinitionParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, cpDefinitionId);
@@ -388,6 +347,48 @@ public class CommercePricingClassServiceHttp {
 			}
 
 			return (long[])returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static int getCommercePricingClassesCount(
+			HttpPrincipal httpPrincipal, long cpDefinitionId, String title)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommercePricingClassServiceUtil.class,
+				"getCommercePricingClassesCount",
+				_getCommercePricingClassesCountParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, cpDefinitionId, title);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.security.auth.
+							PrincipalException) {
+
+					throw (com.liferay.portal.kernel.security.auth.
+						PrincipalException)exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Integer)returnObj).intValue();
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {
@@ -784,21 +785,23 @@ public class CommercePricingClassServiceHttp {
 			long.class, long.class, String.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _countByCPDefinitionIdParameterTypes2 =
-		new Class[] {long.class, String.class};
-	private static final Class<?>[] _deleteCommercePricingClassParameterTypes3 =
+	private static final Class<?>[] _deleteCommercePricingClassParameterTypes2 =
 		new Class[] {long.class};
 	private static final Class<?>[]
-		_fetchByExternalReferenceCodeParameterTypes4 = new Class[] {
+		_fetchByExternalReferenceCodeParameterTypes3 = new Class[] {
 			long.class, String.class
 		};
-	private static final Class<?>[] _fetchCommercePricingClassParameterTypes5 =
+	private static final Class<?>[] _fetchCommercePricingClassParameterTypes4 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getCommercePricingClassParameterTypes6 =
+	private static final Class<?>[] _getCommercePricingClassParameterTypes5 =
 		new Class[] {long.class};
 	private static final Class<?>[]
-		_getCommercePricingClassByCPDefinitionParameterTypes7 = new Class[] {
+		_getCommercePricingClassByCPDefinitionParameterTypes6 = new Class[] {
 			long.class
+		};
+	private static final Class<?>[]
+		_getCommercePricingClassesCountParameterTypes7 = new Class[] {
+			long.class, String.class
 		};
 	private static final Class<?>[] _getCommercePricingClassesParameterTypes8 =
 		new Class[] {

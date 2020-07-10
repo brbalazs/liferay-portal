@@ -251,13 +251,6 @@ public class CommercePriceListLocalServiceUtil {
 		getService().cleanPriceListCache(companyId);
 	}
 
-	public static int countByCommercePricingClassId(
-		long commercePricingClassId, String name) {
-
-		return getService().countByCommercePricingClassId(
-			commercePricingClassId, name);
-	}
-
 	/**
 	 * Creates a new commerce price list with the primary key. Does not add the commerce price list to the database.
 	 *
@@ -650,6 +643,13 @@ public class CommercePriceListLocalServiceUtil {
 	 */
 	public static int getCommercePriceListsCount() {
 		return getService().getCommercePriceListsCount();
+	}
+
+	public static int getCommercePriceListsCount(
+		long commercePricingClassId, String name) {
+
+		return getService().getCommercePriceListsCount(
+			commercePricingClassId, name);
 	}
 
 	public static int getCommercePriceListsCount(

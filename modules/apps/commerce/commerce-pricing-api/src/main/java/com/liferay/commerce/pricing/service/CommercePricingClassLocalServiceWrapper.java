@@ -88,12 +88,6 @@ public class CommercePricingClassLocalServiceWrapper
 			serviceContext);
 	}
 
-	@Override
-	public int countByCPDefinitionId(long cpDefinitionId, String title) {
-		return _commercePricingClassLocalService.countByCPDefinitionId(
-			cpDefinitionId, title);
-	}
-
 	/**
 	 * Creates a new commerce pricing class with the primary key. Does not add the commerce pricing class to the database.
 	 *
@@ -438,6 +432,14 @@ public class CommercePricingClassLocalServiceWrapper
 	public int getCommercePricingClassesCount(long companyId) {
 		return _commercePricingClassLocalService.getCommercePricingClassesCount(
 			companyId);
+	}
+
+	@Override
+	public int getCommercePricingClassesCount(
+		long cpDefinitionId, String title) {
+
+		return _commercePricingClassLocalService.getCommercePricingClassesCount(
+			cpDefinitionId, title);
 	}
 
 	@Override

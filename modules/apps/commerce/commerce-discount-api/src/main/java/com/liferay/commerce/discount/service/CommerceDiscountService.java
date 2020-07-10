@@ -107,10 +107,6 @@ public interface CommerceDiscountService extends BaseService {
 			boolean neverExpire, ServiceContext serviceContext)
 		throws PortalException;
 
-	public int countByCommercePricingClassId(
-			long commercePricingClassId, String title)
-		throws PrincipalException;
-
 	public void deleteCommerceDiscount(long commerceDiscountId)
 		throws PortalException;
 
@@ -143,6 +139,11 @@ public interface CommerceDiscountService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceDiscountsCount(long companyId, String couponCode)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceDiscountsCountByPricingClassId(
+			long commercePricingClassId, String title)
+		throws PrincipalException;
 
 	/**
 	 * Returns the OSGi service identifier.

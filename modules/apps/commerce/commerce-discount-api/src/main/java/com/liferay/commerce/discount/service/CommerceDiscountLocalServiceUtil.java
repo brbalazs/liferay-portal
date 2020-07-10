@@ -167,13 +167,6 @@ public class CommerceDiscountLocalServiceUtil {
 		getService().checkCommerceDiscounts();
 	}
 
-	public static int countByCommercePricingClassId(
-		long commercePricingClassId, String title) {
-
-		return getService().countByCommercePricingClassId(
-			commercePricingClassId, title);
-	}
-
 	/**
 	 * Creates a new commerce discount with the primary key. Does not add the commerce discount to the database.
 	 *
@@ -555,6 +548,13 @@ public class CommerceDiscountLocalServiceUtil {
 		long companyId, String couponCode) {
 
 		return getService().getCommerceDiscountsCount(companyId, couponCode);
+	}
+
+	public static int getCommerceDiscountsCountByPricingClassId(
+		long commercePricingClassId, String title) {
+
+		return getService().getCommerceDiscountsCountByPricingClassId(
+			commercePricingClassId, title);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery

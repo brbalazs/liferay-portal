@@ -145,9 +145,6 @@ public interface CommerceDiscountLocalService
 
 	public void checkCommerceDiscounts() throws PortalException;
 
-	public int countByCommercePricingClassId(
-		long commercePricingClassId, String title);
-
 	/**
 	 * Creates a new commerce discount with the primary key. Does not add the commerce discount to the database.
 	 *
@@ -400,6 +397,10 @@ public interface CommerceDiscountLocalService
 	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceDiscountsCount(long companyId, String couponCode);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceDiscountsCountByPricingClassId(
+		long commercePricingClassId, String title);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(

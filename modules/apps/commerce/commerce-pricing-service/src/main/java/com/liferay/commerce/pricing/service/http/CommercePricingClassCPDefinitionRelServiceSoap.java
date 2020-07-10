@@ -89,25 +89,6 @@ public class CommercePricingClassCPDefinitionRelServiceSoap {
 		}
 	}
 
-	public static int countByCommercePricingClassId(
-			long commercePricingClassId, String name, String languageId)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				CommercePricingClassCPDefinitionRelServiceUtil.
-					countByCommercePricingClassId(
-						commercePricingClassId, name, languageId);
-
-			return returnValue;
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
 	public static
 		com.liferay.commerce.pricing.model.
 			CommercePricingClassCPDefinitionRelSoap
@@ -279,6 +260,25 @@ public class CommercePricingClassCPDefinitionRelServiceSoap {
 				CommercePricingClassCPDefinitionRelServiceUtil.
 					getCommercePricingClassCPDefinitionRelsCount(
 						commercePricingClassId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommercePricingClassCPDefinitionRelsCount(
+			long commercePricingClassId, String name, String languageId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommercePricingClassCPDefinitionRelServiceUtil.
+					getCommercePricingClassCPDefinitionRelsCount(
+						commercePricingClassId, name, languageId);
 
 			return returnValue;
 		}

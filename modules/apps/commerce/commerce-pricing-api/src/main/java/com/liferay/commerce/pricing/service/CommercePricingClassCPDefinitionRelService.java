@@ -69,10 +69,6 @@ public interface CommercePricingClassCPDefinitionRelService
 				ServiceContext serviceContext)
 		throws PortalException;
 
-	public int countByCommercePricingClassId(
-			long commercePricingClassId, String name, String languageId)
-		throws PrincipalException;
-
 	public CommercePricingClassCPDefinitionRel
 			deleteCommercePricingClassCPDefinitionRel(
 				CommercePricingClassCPDefinitionRel
@@ -114,6 +110,11 @@ public interface CommercePricingClassCPDefinitionRelService
 	public int getCommercePricingClassCPDefinitionRelsCount(
 			long commercePricingClassId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePricingClassCPDefinitionRelsCount(
+			long commercePricingClassId, String name, String languageId)
+		throws PrincipalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long[] getCPDefinitionIds(long commercePricingClassId)

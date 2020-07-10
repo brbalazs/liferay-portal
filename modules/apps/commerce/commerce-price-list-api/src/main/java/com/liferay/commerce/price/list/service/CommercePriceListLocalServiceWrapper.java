@@ -259,14 +259,6 @@ public class CommercePriceListLocalServiceWrapper
 		_commercePriceListLocalService.cleanPriceListCache(companyId);
 	}
 
-	@Override
-	public int countByCommercePricingClassId(
-		long commercePricingClassId, String name) {
-
-		return _commercePriceListLocalService.countByCommercePricingClassId(
-			commercePricingClassId, name);
-	}
-
 	/**
 	 * Creates a new commerce price list with the primary key. Does not add the commerce price list to the database.
 	 *
@@ -707,6 +699,14 @@ public class CommercePriceListLocalServiceWrapper
 	@Override
 	public int getCommercePriceListsCount() {
 		return _commercePriceListLocalService.getCommercePriceListsCount();
+	}
+
+	@Override
+	public int getCommercePriceListsCount(
+		long commercePricingClassId, String name) {
+
+		return _commercePriceListLocalService.getCommercePriceListsCount(
+			commercePricingClassId, name);
 	}
 
 	@Override

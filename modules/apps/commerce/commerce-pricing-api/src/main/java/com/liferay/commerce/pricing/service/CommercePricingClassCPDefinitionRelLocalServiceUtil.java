@@ -67,13 +67,6 @@ public class CommercePricingClassCPDefinitionRelLocalServiceUtil {
 			commercePricingClassId, cpDefinitionId, serviceContext);
 	}
 
-	public static int countByCommercePricingClassId(
-		long commercePricingClassId, String name, String languageId) {
-
-		return getService().countByCommercePricingClassId(
-			commercePricingClassId, name, languageId);
-	}
-
 	/**
 	 * Creates a new commerce pricing class cp definition rel with the primary key. Does not add the commerce pricing class cp definition rel to the database.
 	 *
@@ -332,6 +325,13 @@ public class CommercePricingClassCPDefinitionRelLocalServiceUtil {
 
 		return getService().getCommercePricingClassCPDefinitionRelsCount(
 			commercePricingClassId);
+	}
+
+	public static int getCommercePricingClassCPDefinitionRelsCount(
+		long commercePricingClassId, String name, String languageId) {
+
+		return getService().getCommercePricingClassCPDefinitionRelsCount(
+			commercePricingClassId, name, languageId);
 	}
 
 	public static long[] getCPDefinitionIds(long commercePricingClassId) {

@@ -88,10 +88,6 @@ public class CommercePricingClassLocalServiceUtil {
 			serviceContext);
 	}
 
-	public static int countByCPDefinitionId(long cpDefinitionId, String title) {
-		return getService().countByCPDefinitionId(cpDefinitionId, title);
-	}
-
 	/**
 	 * Creates a new commerce pricing class with the primary key. Does not add the commerce pricing class to the database.
 	 *
@@ -401,6 +397,13 @@ public class CommercePricingClassLocalServiceUtil {
 
 	public static int getCommercePricingClassesCount(long companyId) {
 		return getService().getCommercePricingClassesCount(companyId);
+	}
+
+	public static int getCommercePricingClassesCount(
+		long cpDefinitionId, String title) {
+
+		return getService().getCommercePricingClassesCount(
+			cpDefinitionId, title);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery

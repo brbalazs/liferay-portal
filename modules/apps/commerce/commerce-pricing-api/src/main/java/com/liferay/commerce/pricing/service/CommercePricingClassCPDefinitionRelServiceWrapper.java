@@ -50,16 +50,6 @@ public class CommercePricingClassCPDefinitionRelServiceWrapper
 	}
 
 	@Override
-	public int countByCommercePricingClassId(
-			long commercePricingClassId, String name, String languageId)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
-
-		return _commercePricingClassCPDefinitionRelService.
-			countByCommercePricingClassId(
-				commercePricingClassId, name, languageId);
-	}
-
-	@Override
 	public
 		com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel
 				deleteCommercePricingClassCPDefinitionRel(
@@ -145,6 +135,16 @@ public class CommercePricingClassCPDefinitionRelServiceWrapper
 		return _commercePricingClassCPDefinitionRelService.
 			getCommercePricingClassCPDefinitionRelsCount(
 				commercePricingClassId);
+	}
+
+	@Override
+	public int getCommercePricingClassCPDefinitionRelsCount(
+			long commercePricingClassId, String name, String languageId)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return _commercePricingClassCPDefinitionRelService.
+			getCommercePricingClassCPDefinitionRelsCount(
+				commercePricingClassId, name, languageId);
 	}
 
 	@Override

@@ -119,15 +119,6 @@ public class CommerceDiscountServiceWrapper
 	}
 
 	@Override
-	public int countByCommercePricingClassId(
-			long commercePricingClassId, String title)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
-
-		return _commerceDiscountService.countByCommercePricingClassId(
-			commercePricingClassId, title);
-	}
-
-	@Override
 	public void deleteCommerceDiscount(long commerceDiscountId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -184,6 +175,16 @@ public class CommerceDiscountServiceWrapper
 
 		return _commerceDiscountService.getCommerceDiscountsCount(
 			companyId, couponCode);
+	}
+
+	@Override
+	public int getCommerceDiscountsCountByPricingClassId(
+			long commercePricingClassId, String title)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return _commerceDiscountService.
+			getCommerceDiscountsCountByPricingClassId(
+				commercePricingClassId, title);
 	}
 
 	/**

@@ -118,23 +118,6 @@ public class CommercePricingClassServiceSoap {
 		}
 	}
 
-	public static int countByCPDefinitionId(long cpDefinitionId, String title)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				CommercePricingClassServiceUtil.countByCPDefinitionId(
-					cpDefinitionId, title);
-
-			return returnValue;
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
 	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
 			deleteCommercePricingClass(long commercePricingClassId)
 		throws RemoteException {
@@ -225,6 +208,24 @@ public class CommercePricingClassServiceSoap {
 			long[] returnValue =
 				CommercePricingClassServiceUtil.
 					getCommercePricingClassByCPDefinition(cpDefinitionId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommercePricingClassesCount(
+			long cpDefinitionId, String title)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommercePricingClassServiceUtil.getCommercePricingClassesCount(
+					cpDefinitionId, title);
 
 			return returnValue;
 		}

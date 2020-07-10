@@ -119,14 +119,6 @@ public class CommerceDiscountServiceUtil {
 			neverExpire, serviceContext);
 	}
 
-	public static int countByCommercePricingClassId(
-			long commercePricingClassId, String title)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
-
-		return getService().countByCommercePricingClassId(
-			commercePricingClassId, title);
-	}
-
 	public static void deleteCommerceDiscount(long commerceDiscountId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -177,6 +169,14 @@ public class CommerceDiscountServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getCommerceDiscountsCount(companyId, couponCode);
+	}
+
+	public static int getCommerceDiscountsCountByPricingClassId(
+			long commercePricingClassId, String title)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().getCommerceDiscountsCountByPricingClassId(
+			commercePricingClassId, title);
 	}
 
 	/**

@@ -80,9 +80,6 @@ public interface CommercePricingClassCPDefinitionRelLocalService
 				ServiceContext serviceContext)
 		throws PortalException;
 
-	public int countByCommercePricingClassId(
-		long commercePricingClassId, String name, String languageId);
-
 	/**
 	 * Creates a new commerce pricing class cp definition rel with the primary key. Does not add the commerce pricing class cp definition rel to the database.
 	 *
@@ -265,6 +262,10 @@ public interface CommercePricingClassCPDefinitionRelLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommercePricingClassCPDefinitionRelsCount(
 		long commercePricingClassId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePricingClassCPDefinitionRelsCount(
+		long commercePricingClassId, String name, String languageId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long[] getCPDefinitionIds(long commercePricingClassId);

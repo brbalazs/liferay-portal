@@ -96,8 +96,6 @@ public interface CommercePricingClassLocalService
 			String externalReferenceCode, ServiceContext serviceContext)
 		throws PortalException;
 
-	public int countByCPDefinitionId(long cpDefinitionId, String title);
-
 	/**
 	 * Creates a new commerce pricing class with the primary key. Does not add the commerce pricing class to the database.
 	 *
@@ -327,6 +325,10 @@ public interface CommercePricingClassLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommercePricingClassesCount(long companyId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePricingClassesCount(
+		long cpDefinitionId, String title);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(

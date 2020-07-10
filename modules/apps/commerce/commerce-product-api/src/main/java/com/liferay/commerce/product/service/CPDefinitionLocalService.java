@@ -144,6 +144,7 @@ public interface CPDefinitionLocalService
 	public CPDefinition copyCPDefinition(long cpDefinitionId)
 		throws PortalException;
 
+	@Indexable(type = IndexableType.REINDEX)
 	public CPDefinition copyCPDefinition(long cpDefinitionId, long groupId)
 		throws PortalException;
 

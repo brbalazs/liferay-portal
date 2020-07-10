@@ -161,14 +161,6 @@ public class CommercePriceListServiceUtil {
 			externalReferenceCode, neverExpire, serviceContext);
 	}
 
-	public static int countByCommercePricingClassId(
-			long commercePricingClassId, String title)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
-
-		return getService().countByCommercePricingClassId(
-			commercePricingClassId, title);
-	}
-
 	public static void deleteCommercePriceList(long commercePriceListId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -215,6 +207,14 @@ public class CommercePriceListServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getCommercePriceListsCount(companyId, status);
+	}
+
+	public static int getCommercePriceListsCount(
+			long commercePricingClassId, String title)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return getService().getCommercePriceListsCount(
+			commercePricingClassId, title);
 	}
 
 	/**

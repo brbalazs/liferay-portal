@@ -169,14 +169,6 @@ public class CommerceDiscountLocalServiceWrapper
 		_commerceDiscountLocalService.checkCommerceDiscounts();
 	}
 
-	@Override
-	public int countByCommercePricingClassId(
-		long commercePricingClassId, String title) {
-
-		return _commerceDiscountLocalService.countByCommercePricingClassId(
-			commercePricingClassId, title);
-	}
-
 	/**
 	 * Creates a new commerce discount with the primary key. Does not add the commerce discount to the database.
 	 *
@@ -590,6 +582,15 @@ public class CommerceDiscountLocalServiceWrapper
 	public int getCommerceDiscountsCount(long companyId, String couponCode) {
 		return _commerceDiscountLocalService.getCommerceDiscountsCount(
 			companyId, couponCode);
+	}
+
+	@Override
+	public int getCommerceDiscountsCountByPricingClassId(
+		long commercePricingClassId, String title) {
+
+		return _commerceDiscountLocalService.
+			getCommerceDiscountsCountByPricingClassId(
+				commercePricingClassId, title);
 	}
 
 	@Override

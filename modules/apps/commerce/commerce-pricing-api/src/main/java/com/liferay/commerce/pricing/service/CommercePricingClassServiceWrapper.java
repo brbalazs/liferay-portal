@@ -58,14 +58,6 @@ public class CommercePricingClassServiceWrapper
 	}
 
 	@Override
-	public int countByCPDefinitionId(long cpDefinitionId, String title)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
-
-		return _commercePricingClassService.countByCPDefinitionId(
-			cpDefinitionId, title);
-	}
-
-	@Override
 	public com.liferay.commerce.pricing.model.CommercePricingClass
 			deleteCommercePricingClass(long commercePricingClassId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -130,6 +122,14 @@ public class CommercePricingClassServiceWrapper
 
 		return _commercePricingClassService.getCommercePricingClassesCount(
 			companyId);
+	}
+
+	@Override
+	public int getCommercePricingClassesCount(long cpDefinitionId, String title)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		return _commercePricingClassService.getCommercePricingClassesCount(
+			cpDefinitionId, title);
 	}
 
 	/**

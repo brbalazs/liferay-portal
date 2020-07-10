@@ -65,34 +65,6 @@ public class CommerceDiscountUsageEntryLocalServiceUtil {
 			serviceContext);
 	}
 
-	public static int countCommerceDiscountUsageEntryByA_D(
-		long commerceAccountId, long commerceDiscountId) {
-
-		return getService().countCommerceDiscountUsageEntryByA_D(
-			commerceAccountId, commerceDiscountId);
-	}
-
-	public static int countCommerceDiscountUsageEntryByA_O_D(
-		long commerceAccountId, long commerceOrderId, long commerceDiscountId) {
-
-		return getService().countCommerceDiscountUsageEntryByA_O_D(
-			commerceAccountId, commerceOrderId, commerceDiscountId);
-	}
-
-	public static int countCommerceDiscountUsageEntryByDiscountId(
-		long commerceDiscountId) {
-
-		return getService().countCommerceDiscountUsageEntryByDiscountId(
-			commerceDiscountId);
-	}
-
-	public static int countCommerceDiscountUsageEntryByO_D(
-		long commerceOrderId, long commerceDiscountId) {
-
-		return getService().countCommerceDiscountUsageEntryByO_D(
-			commerceOrderId, commerceDiscountId);
-	}
-
 	/**
 	 * Creates a new commerce discount usage entry with the primary key. Does not add the commerce discount usage entry to the database.
 	 *
@@ -283,6 +255,34 @@ public class CommerceDiscountUsageEntryLocalServiceUtil {
 	 */
 	public static int getCommerceDiscountUsageEntriesCount() {
 		return getService().getCommerceDiscountUsageEntriesCount();
+	}
+
+	public static int getCommerceDiscountUsageEntriesCount(
+		long commerceDiscountId) {
+
+		return getService().getCommerceDiscountUsageEntriesCount(
+			commerceDiscountId);
+	}
+
+	public static int getCommerceDiscountUsageEntriesCount(
+		long commerceAccountId, long commerceOrderId, long commerceDiscountId) {
+
+		return getService().getCommerceDiscountUsageEntriesCount(
+			commerceAccountId, commerceOrderId, commerceDiscountId);
+	}
+
+	public static int getCommerceDiscountUsageEntriesCountByAccountId(
+		long commerceAccountId, long commerceDiscountId) {
+
+		return getService().getCommerceDiscountUsageEntriesCountByAccountId(
+			commerceAccountId, commerceDiscountId);
+	}
+
+	public static int getCommerceDiscountUsageEntriesCountByOrderId(
+		long commerceOrderId, long commerceDiscountId) {
+
+		return getService().getCommerceDiscountUsageEntriesCountByOrderId(
+			commerceOrderId, commerceDiscountId);
 	}
 
 	/**
