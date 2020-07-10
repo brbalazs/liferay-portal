@@ -23,6 +23,7 @@ import {
 } from 'shared/util/date';
 import {get, omit} from 'lodash';
 import {PropTypes} from 'prop-types';
+import {START_TIME} from 'shared/util/pagination';
 import {sub} from 'shared/util/lang';
 import {withSelectedPoint, withStatefulPagination} from 'shared/hoc';
 
@@ -65,7 +66,7 @@ function getActivities(params) {
 			delta,
 			endDate,
 			groupId,
-			orderByFields: [{fieldName: 'startTime', orderBy: orderDescending}],
+			orderByFields: [{fieldName: START_TIME, orderBy: orderDescending}],
 			query,
 			startDate
 		})
