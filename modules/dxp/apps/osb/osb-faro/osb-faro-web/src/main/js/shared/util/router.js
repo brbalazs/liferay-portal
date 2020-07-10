@@ -141,7 +141,7 @@ export const Routes = buildRoutes({
 												path: '/known-individuals',
 												routes: {
 													CONTACTS_INDIVIDUAL: {
-														path: '/:id',
+														path: `/:id/:tabId(${ACTIVITIES}|${ENGAGEMENT})?`,
 														routes: {
 															CONTACTS_INDIVIDUAL_DETAILS:
 																'/details',
