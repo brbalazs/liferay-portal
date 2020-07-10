@@ -195,6 +195,7 @@ const View: React.FC<IViewProps> = ({
 					pageTitle={name}
 				>
 					<OutputVersionsCard
+						nextTrainingDate={get(job, 'nextTrainingDate')}
 						router={router}
 						trainingFrequency={get(job, 'trainingFrequency')}
 					/>

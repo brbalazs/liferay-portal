@@ -987,6 +987,7 @@ export function mockRecommendationJob(seed = 0, data = {}) {
 	return {
 		id: String(seed),
 		name: `Recommendation Job Name ${seed}`,
+		nextTrainingDate: getTimestamp(0),
 		parameters: [],
 		status: jobStatuses.ready,
 		trainingDate: getTimestamp(-2),

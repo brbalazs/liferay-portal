@@ -5,6 +5,7 @@ export default gql`
 		jobById(id: $jobId) {
 			id
 			name
+			nextTrainingDate
 			parameters {
 				name
 				value

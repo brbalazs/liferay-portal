@@ -18,6 +18,7 @@ import {
 	JOB_TRAINING_FREQUENCIES_LABEL_MAP
 } from '../utils/utils';
 import {RouterType} from 'shared/types';
+import {sub} from 'shared/util/lang';
 import {withEmpty} from 'cerebro-shared/hocs/utils';
 import {
 	withError,
@@ -45,6 +46,7 @@ const getContextItemCount = (contextItemKey: string) => (
 };
 
 interface IOutputVersionsCardProps {
+	nextTrainingDate: string;
 	router: RouterType;
 	trainingFrequency: jobTrainingFrequencies;
 }
@@ -108,6 +110,7 @@ const OutputVersionsListWithData = withStatefulPagination(
 );
 
 const OutputVersionsCard: React.FC<IOutputVersionsCardProps> = ({
+	nextTrainingDate,
 	router,
 	trainingFrequency
 }) => {
@@ -128,6 +131,10 @@ const OutputVersionsCard: React.FC<IOutputVersionsCardProps> = ({
 					<b>
 						{JOB_TRAINING_FREQUENCIES_LABEL_MAP[trainingFrequency]}
 					</b>
+
+					<b>{`(${sub(Liferay.Language.get('next-x'), [
+						moment(nextTrainingDate).fromNow()
+					])})`}</b>
 				</div>
 			</Card.Header>
 
