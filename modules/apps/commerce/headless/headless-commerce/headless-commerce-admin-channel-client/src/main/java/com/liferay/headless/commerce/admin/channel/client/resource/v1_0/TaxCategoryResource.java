@@ -40,12 +40,12 @@ public interface TaxCategoryResource {
 		return new Builder();
 	}
 
-	public Page<TaxCategory> getChannelTaxCategoriesPage(
-			Long channelId, Integer search, Pagination pagination)
+	public Page<TaxCategory> getTaxCategoriesPage(
+			String search, Pagination pagination)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse getChannelTaxCategoriesPageHttpResponse(
-			Long channelId, Integer search, Pagination pagination)
+	public HttpInvoker.HttpResponse getTaxCategoriesPageHttpResponse(
+			String search, Pagination pagination)
 		throws Exception;
 
 	public TaxCategory getTaxCategory(Long id) throws Exception;
@@ -108,13 +108,12 @@ public interface TaxCategoryResource {
 
 	public static class TaxCategoryResourceImpl implements TaxCategoryResource {
 
-		public Page<TaxCategory> getChannelTaxCategoriesPage(
-				Long channelId, Integer search, Pagination pagination)
+		public Page<TaxCategory> getTaxCategoriesPage(
+				String search, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getChannelTaxCategoriesPageHttpResponse(
-					channelId, search, pagination);
+				getTaxCategoriesPageHttpResponse(search, pagination);
 
 			String content = httpResponse.getContent();
 
@@ -136,8 +135,8 @@ public interface TaxCategoryResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse getChannelTaxCategoriesPageHttpResponse(
-				Long channelId, Integer search, Pagination pagination)
+		public HttpInvoker.HttpResponse getTaxCategoriesPageHttpResponse(
+				String search, Pagination pagination)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -175,8 +174,7 @@ public interface TaxCategoryResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-channel/v1.0/channels/{channelId}/tax-categories",
-				channelId);
+						"/o/headless-commerce-admin-channel/v1.0/tax-categories");
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

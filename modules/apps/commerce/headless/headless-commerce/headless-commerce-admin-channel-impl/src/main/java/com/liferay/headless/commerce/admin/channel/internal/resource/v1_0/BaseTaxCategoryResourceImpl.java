@@ -78,25 +78,22 @@ public abstract class BaseTaxCategoryResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-channel/v1.0/channels/{channelId}/tax-categories'  -u 'test@liferay.com:test'
+	 * curl -X 'GET' 'http://localhost:8080/o/headless-commerce-admin-channel/v1.0/tax-categories'  -u 'test@liferay.com:test'
 	 */
 	@Override
 	@GET
 	@Parameters(
 		value = {
-			@Parameter(in = ParameterIn.PATH, name = "channelId"),
 			@Parameter(in = ParameterIn.QUERY, name = "search"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
 		}
 	)
-	@Path("/channels/{channelId}/tax-categories")
+	@Path("/tax-categories")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "TaxCategory")})
-	public Page<TaxCategory> getChannelTaxCategoriesPage(
-			@NotNull @Parameter(hidden = true) @PathParam("channelId") Long
-				channelId,
-			@Parameter(hidden = true) @QueryParam("search") Integer search,
+	public Page<TaxCategory> getTaxCategoriesPage(
+			@Parameter(hidden = true) @QueryParam("search") String search,
 			@Context Pagination pagination)
 		throws Exception {
 

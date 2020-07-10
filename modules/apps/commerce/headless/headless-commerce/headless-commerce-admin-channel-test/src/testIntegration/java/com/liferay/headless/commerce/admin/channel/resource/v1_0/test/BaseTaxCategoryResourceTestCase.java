@@ -185,44 +185,20 @@ public abstract class BaseTaxCategoryResourceTestCase {
 	}
 
 	@Test
-	public void testGetChannelTaxCategoriesPage() throws Exception {
-		Page<TaxCategory> page =
-			taxCategoryResource.getChannelTaxCategoriesPage(
-				testGetChannelTaxCategoriesPage_getChannelId(), null,
-				Pagination.of(1, 2));
+	public void testGetTaxCategoriesPage() throws Exception {
+		Page<TaxCategory> page = taxCategoryResource.getTaxCategoriesPage(
+			RandomTestUtil.randomString(), Pagination.of(1, 2));
 
 		Assert.assertEquals(0, page.getTotalCount());
 
-		Long channelId = testGetChannelTaxCategoriesPage_getChannelId();
-		Long irrelevantChannelId =
-			testGetChannelTaxCategoriesPage_getIrrelevantChannelId();
+		TaxCategory taxCategory1 = testGetTaxCategoriesPage_addTaxCategory(
+			randomTaxCategory());
 
-		if ((irrelevantChannelId != null)) {
-			TaxCategory irrelevantTaxCategory =
-				testGetChannelTaxCategoriesPage_addTaxCategory(
-					irrelevantChannelId, randomIrrelevantTaxCategory());
+		TaxCategory taxCategory2 = testGetTaxCategoriesPage_addTaxCategory(
+			randomTaxCategory());
 
-			page = taxCategoryResource.getChannelTaxCategoriesPage(
-				irrelevantChannelId, null, Pagination.of(1, 2));
-
-			Assert.assertEquals(1, page.getTotalCount());
-
-			assertEquals(
-				Arrays.asList(irrelevantTaxCategory),
-				(List<TaxCategory>)page.getItems());
-			assertValid(page);
-		}
-
-		TaxCategory taxCategory1 =
-			testGetChannelTaxCategoriesPage_addTaxCategory(
-				channelId, randomTaxCategory());
-
-		TaxCategory taxCategory2 =
-			testGetChannelTaxCategoriesPage_addTaxCategory(
-				channelId, randomTaxCategory());
-
-		page = taxCategoryResource.getChannelTaxCategoriesPage(
-			channelId, null, Pagination.of(1, 2));
+		page = taxCategoryResource.getTaxCategoriesPage(
+			null, Pagination.of(1, 2));
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -233,35 +209,26 @@ public abstract class BaseTaxCategoryResourceTestCase {
 	}
 
 	@Test
-	public void testGetChannelTaxCategoriesPageWithPagination()
-		throws Exception {
+	public void testGetTaxCategoriesPageWithPagination() throws Exception {
+		TaxCategory taxCategory1 = testGetTaxCategoriesPage_addTaxCategory(
+			randomTaxCategory());
 
-		Long channelId = testGetChannelTaxCategoriesPage_getChannelId();
+		TaxCategory taxCategory2 = testGetTaxCategoriesPage_addTaxCategory(
+			randomTaxCategory());
 
-		TaxCategory taxCategory1 =
-			testGetChannelTaxCategoriesPage_addTaxCategory(
-				channelId, randomTaxCategory());
+		TaxCategory taxCategory3 = testGetTaxCategoriesPage_addTaxCategory(
+			randomTaxCategory());
 
-		TaxCategory taxCategory2 =
-			testGetChannelTaxCategoriesPage_addTaxCategory(
-				channelId, randomTaxCategory());
-
-		TaxCategory taxCategory3 =
-			testGetChannelTaxCategoriesPage_addTaxCategory(
-				channelId, randomTaxCategory());
-
-		Page<TaxCategory> page1 =
-			taxCategoryResource.getChannelTaxCategoriesPage(
-				channelId, null, Pagination.of(1, 2));
+		Page<TaxCategory> page1 = taxCategoryResource.getTaxCategoriesPage(
+			null, Pagination.of(1, 2));
 
 		List<TaxCategory> taxCategories1 = (List<TaxCategory>)page1.getItems();
 
 		Assert.assertEquals(
 			taxCategories1.toString(), 2, taxCategories1.size());
 
-		Page<TaxCategory> page2 =
-			taxCategoryResource.getChannelTaxCategoriesPage(
-				channelId, null, Pagination.of(2, 2));
+		Page<TaxCategory> page2 = taxCategoryResource.getTaxCategoriesPage(
+			null, Pagination.of(2, 2));
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -270,34 +237,55 @@ public abstract class BaseTaxCategoryResourceTestCase {
 		Assert.assertEquals(
 			taxCategories2.toString(), 1, taxCategories2.size());
 
-		Page<TaxCategory> page3 =
-			taxCategoryResource.getChannelTaxCategoriesPage(
-				channelId, null, Pagination.of(1, 3));
+		Page<TaxCategory> page3 = taxCategoryResource.getTaxCategoriesPage(
+			null, Pagination.of(1, 3));
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(taxCategory1, taxCategory2, taxCategory3),
 			(List<TaxCategory>)page3.getItems());
 	}
 
-	protected TaxCategory testGetChannelTaxCategoriesPage_addTaxCategory(
-			Long channelId, TaxCategory taxCategory)
+	protected TaxCategory testGetTaxCategoriesPage_addTaxCategory(
+			TaxCategory taxCategory)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Long testGetChannelTaxCategoriesPage_getChannelId()
-		throws Exception {
+	@Test
+	public void testGraphQLGetTaxCategoriesPage() throws Exception {
+		GraphQLField graphQLField = new GraphQLField(
+			"taxCategories",
+			new HashMap<String, Object>() {
+				{
+					put("page", 1);
+					put("pageSize", 2);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
 
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
+		JSONObject taxCategoriesJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/taxCategories");
 
-	protected Long testGetChannelTaxCategoriesPage_getIrrelevantChannelId()
-		throws Exception {
+		Assert.assertEquals(0, taxCategoriesJSONObject.get("totalCount"));
 
-		return null;
+		TaxCategory taxCategory1 = testGraphQLTaxCategory_addTaxCategory();
+		TaxCategory taxCategory2 = testGraphQLTaxCategory_addTaxCategory();
+
+		taxCategoriesJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/taxCategories");
+
+		Assert.assertEquals(2, taxCategoriesJSONObject.get("totalCount"));
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(taxCategory1, taxCategory2),
+			Arrays.asList(
+				TaxCategorySerDes.toDTOs(
+					taxCategoriesJSONObject.getString("items"))));
 	}
 
 	@Test

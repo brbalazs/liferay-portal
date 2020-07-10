@@ -46,8 +46,8 @@ public interface TaxCategoryResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<TaxCategory> getChannelTaxCategoriesPage(
-			Long channelId, Integer search, Pagination pagination)
+	public Page<TaxCategory> getTaxCategoriesPage(
+			String search, Pagination pagination)
 		throws Exception;
 
 	public TaxCategory getTaxCategory(Long id) throws Exception;

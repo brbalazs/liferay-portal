@@ -25,7 +25,6 @@ import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
-import com.liferay.portal.vulcan.graphql.annotation.GraphQLTypeExtension;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
@@ -107,12 +106,11 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {channelTaxCategories(channelId: ___, page: ___, pageSize: ___, search: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {taxCategories(page: ___, pageSize: ___, search: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public TaxCategoryPage channelTaxCategories(
-			@GraphQLName("channelId") Long channelId,
-			@GraphQLName("search") Integer search,
+	public TaxCategoryPage taxCategories(
+			@GraphQLName("search") String search,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page)
 		throws Exception {
@@ -121,8 +119,8 @@ public class Query {
 			_taxCategoryResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			taxCategoryResource -> new TaxCategoryPage(
-				taxCategoryResource.getChannelTaxCategoriesPage(
-					channelId, search, Pagination.of(page, pageSize))));
+				taxCategoryResource.getTaxCategoriesPage(
+					search, Pagination.of(page, pageSize))));
 	}
 
 	/**
@@ -138,33 +136,6 @@ public class Query {
 			_taxCategoryResourceComponentServiceObjects,
 			this::_populateResourceContext,
 			taxCategoryResource -> taxCategoryResource.getTaxCategory(id));
-	}
-
-	@GraphQLTypeExtension(Channel.class)
-	public class GetChannelTaxCategoriesPageTypeExtension {
-
-		public GetChannelTaxCategoriesPageTypeExtension(Channel channel) {
-			_channel = channel;
-		}
-
-		@GraphQLField
-		public TaxCategoryPage taxCategories(
-				@GraphQLName("search") Integer search,
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_taxCategoryResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				taxCategoryResource -> new TaxCategoryPage(
-					taxCategoryResource.getChannelTaxCategoriesPage(
-						_channel.getId(), search,
-						Pagination.of(page, pageSize))));
-		}
-
-		private Channel _channel;
-
 	}
 
 	@GraphQLName("ChannelPage")
