@@ -20,6 +20,9 @@ exports[`OutputVersionsCard should render 1`] = `
         <b>
           Every 14 days
         </b>
+        <b>
+          (Next a few seconds ago)
+        </b>
       </div>
     </div>
     <div
