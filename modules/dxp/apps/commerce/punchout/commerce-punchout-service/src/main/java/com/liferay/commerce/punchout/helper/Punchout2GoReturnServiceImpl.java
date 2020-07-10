@@ -18,12 +18,18 @@ import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.service.AssetEntryLocalService;
 import com.liferay.commerce.currency.model.CommerceCurrency;
+import com.liferay.commerce.model.CommerceAddress;
+import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
+import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.punchout.service.PunchoutReturnService;
+import com.liferay.commerce.service.CommerceAddressLocalService;
+import com.liferay.commerce.service.CommerceCountryLocalService;
+import com.liferay.commerce.service.CommerceRegionLocalService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
@@ -40,6 +46,7 @@ import java.net.URL;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -139,39 +146,42 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 					"promoPrice", commerceOrderItem.getPromoPrice());
 				cartItemJSONObject.put(
 					"shippedQuantity", commerceOrderItem.getShippedQuantity());
+
+				//todo: remove
+				commerceOrderItem.setShippingAddressId(53394);
+
+				JSONObject shippingAddressJSONObject =
+					_buildShippingAddressJSONObject(
+						commerceOrderItem.getShippingAddressId());
+
 				cartItemJSONObject.put(
-					"shippingAddressId",
-					commerceOrderItem.getShippingAddressId());
+					"shippingAddress", shippingAddressJSONObject);
 
 				CPInstance cpInstance = _cpInstanceLocalService.fetchCPInstance(
 					commerceOrderItem.getCPInstanceId());
 
 				cartItemJSONObject.put("unspsc", cpInstance.getUnspsc());
 
-				DateFormat dateFormat = new SimpleDateFormat(
-					"yyyy-MM-dd'T'HH:mm:ss'Z'");
+				Date createDate = commerceOrderItem.getCreateDate();
 
-				if (commerceOrderItem.getCreateDate() != null) {
-					String createDateString = dateFormat.format(
-						commerceOrderItem.getCreateDate());
+				String formattedCreateDate = _getDateString(createDate);
 
-					cartItemJSONObject.put("createDate", createDateString);
-				}
+				cartItemJSONObject.put(	"createDate", formattedCreateDate);
 
-				if (commerceOrderItem.getModifiedDate() != null) {
-					String modifiedDateString = dateFormat.format(
-						commerceOrderItem.getModifiedDate());
+				Date modifiedDate = commerceOrderItem.getModifiedDate();
 
-					cartItemJSONObject.put("modifiedDate", modifiedDateString);
-				}
+				String formattedModifiedDate = _getDateString(modifiedDate);
 
-				if (commerceOrderItem.getRequestedDeliveryDate() != null) {
-					String requestedDeliveryDateString = dateFormat.format(
-						commerceOrderItem.getRequestedDeliveryDate());
+				cartItemJSONObject.put("modifiedDate", formattedModifiedDate);
 
-					cartItemJSONObject.put(
-						"requestedDeliveryDate", requestedDeliveryDateString);
-				}
+				Date requestedDeliveryDate =
+					commerceOrderItem.getRequestedDeliveryDate();
+
+				String formattedRequestedDeliveryDate =
+					_getDateString(requestedDeliveryDate);
+
+				cartItemJSONObject.put(
+					"requestedDeliveryDate", formattedRequestedDeliveryDate);
 
 				cartItemJSONArray.put(cartItemJSONObject);
 			}
@@ -179,6 +189,9 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 			cartJSONObject.put("items", cartItemJSONArray);
 
 			String cartJSON = cartJSONObject.toString();
+
+			//todo: remove
+			_log.fatal(cartJSON);
 
 			if (_log.isDebugEnabled()) {
 				_log.debug(
@@ -235,11 +248,175 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 		}
 	}
 
+	private JSONObject _buildCountryJSONObject(long commerceCountryId) {
+		JSONObject countryJSONObject = _jsonFactory.createJSONObject();
+
+		countryJSONObject.put("id", commerceCountryId);
+
+		if (commerceCountryId < 1) {
+			return countryJSONObject;
+		}
+
+		CommerceCountry commerceCountry =
+			_commerceCountryLocalService.fetchCommerceCountry(commerceCountryId);
+
+		if (commerceCountry == null) {
+			return countryJSONObject;
+		}
+
+		countryJSONObject.put("name", commerceCountry.getName());
+
+		countryJSONObject.put(
+			"numericISOCode", commerceCountry.getNumericISOCode());
+
+		countryJSONObject.put(
+			"twoLettersISOCode",
+			commerceCountry.getTwoLettersISOCode());
+
+		countryJSONObject.put(
+			"threeLettersISOCode",
+			commerceCountry.getThreeLettersISOCode());
+
+		return countryJSONObject;
+	}
+
+	private JSONObject _buildRegionJSONObject(long commerceRegionId) {
+		JSONObject regionJSONObject = _jsonFactory.createJSONObject();
+
+		regionJSONObject.put("id", commerceRegionId);
+
+		if (commerceRegionId < 1) {
+			return regionJSONObject;
+		}
+
+		CommerceRegion commerceRegion =
+			_commerceRegionLocalService.fetchCommerceRegion(commerceRegionId);
+
+		if (commerceRegion == null) {
+			return regionJSONObject;
+		}
+
+		regionJSONObject.put("name", commerceRegion.getName());
+
+		regionJSONObject.put("code", commerceRegion.getCode());
+
+		return regionJSONObject;
+	}
+
+	private JSONObject _buildShippingAddressJSONObject(long shippingAddressId) {
+		JSONObject shippingAddressJSONObject = _jsonFactory.createJSONObject();
+
+		shippingAddressJSONObject.put("shippingAddressId", shippingAddressId);
+
+		if (shippingAddressId < 1) {
+			return shippingAddressJSONObject;
+		}
+
+		CommerceAddress shippingAddress =
+			_commerceAddressLocalService.fetchCommerceAddress(shippingAddressId);
+
+		if (shippingAddress == null) {
+			return shippingAddressJSONObject;
+		}
+
+		shippingAddressJSONObject.put("name", shippingAddress.getName());
+
+		shippingAddressJSONObject.put(
+			"externalReferenceCode",
+			shippingAddress.getExternalReferenceCode());
+
+		shippingAddressJSONObject.put(
+			"street1", shippingAddress.getStreet1());
+
+		shippingAddressJSONObject.put(
+			"street2", shippingAddress.getStreet2());
+
+		shippingAddressJSONObject.put(
+			"street3", shippingAddress.getStreet3());
+
+		shippingAddressJSONObject.put("city", shippingAddress.getCity());
+
+		JSONObject regionJSONObject = _buildRegionJSONObject(
+			shippingAddress.getCommerceRegionId());
+
+		shippingAddressJSONObject.put("region", regionJSONObject);
+
+		shippingAddressJSONObject.put("zip", shippingAddress.getZip());
+
+		JSONObject countryJSONObject = _buildCountryJSONObject(
+			shippingAddress.getCommerceCountryId());
+
+		shippingAddressJSONObject.put("country", countryJSONObject);
+
+		shippingAddressJSONObject.put(
+			"isGeolocated", shippingAddress.isGeolocated());
+
+		shippingAddressJSONObject.put(
+			"isDefaultBilling", shippingAddress.getDefaultBilling());
+
+		shippingAddressJSONObject.put(
+			"isDefaultShipping", shippingAddress.getDefaultShipping());
+
+		shippingAddressJSONObject.put(
+			"description", shippingAddress.getDescription());
+
+		shippingAddressJSONObject.put(
+			"companyId", shippingAddress.getCompanyId());
+
+		shippingAddressJSONObject.put(
+			"groupId", shippingAddress.getGroupId());
+
+		shippingAddressJSONObject.put(
+			"latitude", shippingAddress.getLatitude());
+
+		shippingAddressJSONObject.put(
+			"longitude", shippingAddress.getLongitude());
+
+		shippingAddressJSONObject.put(
+			"phoneNumber", shippingAddress.getPhoneNumber());
+
+		shippingAddressJSONObject.put("type", shippingAddress.getType());
+
+		Date createDate = shippingAddress.getCreateDate();
+
+		String formattedCreateDate = _getDateString(createDate);
+
+		shippingAddressJSONObject.put("createDate", formattedCreateDate);
+
+		Date modifiedDate = shippingAddress.getModifiedDate();
+
+		String formattedModifiedDate = _getDateString(modifiedDate);
+
+		shippingAddressJSONObject.put("modifiedDate", formattedModifiedDate);
+
+		return shippingAddressJSONObject;
+	}
+
+	private String _getDateString(Date date) {
+		if (date == null) {
+			return StringPool.BLANK;
+		}
+
+		return _dateFormat.format(date);
+	}
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		Punchout2GoReturnServiceImpl.class);
 
+	private static final DateFormat _dateFormat =
+		new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
 	@Reference
 	private AssetEntryLocalService _assetEntryLocalService;
+
+	@Reference
+	private CommerceAddressLocalService _commerceAddressLocalService;
+
+	@Reference
+	private CommerceCountryLocalService _commerceCountryLocalService;
+
+	@Reference
+	private CommerceRegionLocalService _commerceRegionLocalService;
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;
