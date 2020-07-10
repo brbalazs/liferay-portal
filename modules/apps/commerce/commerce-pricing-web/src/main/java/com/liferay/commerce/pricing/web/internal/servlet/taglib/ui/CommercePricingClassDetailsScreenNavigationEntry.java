@@ -22,6 +22,8 @@ import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -80,6 +82,17 @@ public class CommercePricingClassDetailsScreenNavigationEntry
 	}
 
 	@Override
+	public boolean isVisible(
+		User user, CommercePricingClass commercePricingClass) {
+
+		if (commercePricingClass == null) {
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
 	public void render(
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse)
@@ -87,7 +100,9 @@ public class CommercePricingClassDetailsScreenNavigationEntry
 
 		CommercePricingClassDisplayContext commercePricingClassDisplayContext =
 			new CommercePricingClassDisplayContext(
-				httpServletRequest, _commercePricingClassService, _portal);
+				httpServletRequest,
+				_commercePricingClassModelResourcePermission,
+				_commercePricingClassService, _portal);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -97,6 +112,12 @@ public class CommercePricingClassDetailsScreenNavigationEntry
 			httpServletRequest, httpServletResponse,
 			"/pricing_class/details.jsp");
 	}
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.pricing.model.CommercePricingClass)"
+	)
+	private ModelResourcePermission<CommercePricingClass>
+		_commercePricingClassModelResourcePermission;
 
 	@Reference
 	private CommercePricingClassService _commercePricingClassService;
