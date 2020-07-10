@@ -15,7 +15,6 @@
 package com.liferay.commerce.internal.price;
 
 import com.liferay.commerce.account.model.CommerceAccount;
-import com.liferay.commerce.account.model.CommerceAccountGroup;
 import com.liferay.commerce.account.service.CommerceAccountGroupLocalService;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
@@ -29,6 +28,8 @@ import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
 import com.liferay.commerce.price.CommerceProductPriceRequest;
+import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
+import com.liferay.commerce.price.list.discovery.CommercePriceListDiscovery;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.model.CommerceTierPriceEntry;
@@ -54,7 +55,6 @@ import java.math.RoundingMode;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -461,24 +461,19 @@ public class CommerceProductPriceCalculationImpl
 
 		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
 
-		if (commerceAccount == null) {
-			return Optional.empty();
+		long commerceAccountId = 0;
+
+		if (commerceAccount != null) {
+			commerceAccountId = commerceAccount.getCommerceAccountId();
 		}
 
-		List<CommerceAccountGroup> commerceAccountGroups =
-			_commerceAccountGroupLocalService.
-				getCommerceAccountGroupsByCommerceAccountId(
-					commerceAccount.getCommerceAccountId());
+		CommercePriceList commercePriceList =
+			_commercePriceListDiscovery.getCommercePriceList(
+				groupId, commerceAccountId,
+				commerceContext.getCommerceChannelId(), null,
+				CommercePriceListConstants.TYPE_PRICE_LIST);
 
-		Stream<CommerceAccountGroup> stream = commerceAccountGroups.stream();
-
-		long[] commerceAccountGroupIds = stream.mapToLong(
-			CommerceAccountGroup::getCommerceAccountGroupId
-		).toArray();
-
-		return _commercePriceListLocalService.getCommercePriceList(
-			commerceAccount.getCompanyId(), groupId,
-			commerceAccount.getCommerceAccountId(), commerceAccountGroupIds);
+		return Optional.ofNullable(commercePriceList);
 	}
 
 	private Optional<BigDecimal> _getPriceListPrice(
@@ -597,6 +592,11 @@ public class CommerceProductPriceCalculationImpl
 
 	@Reference
 	private CommercePriceEntryLocalService _commercePriceEntryLocalService;
+
+	@Reference(
+		target = "(commerce.price.list.discovery.key=" + CommercePricingConstants.ORDER_BY_HIERARCHY + ")"
+	)
+	private CommercePriceListDiscovery _commercePriceListDiscovery;
 
 	@Reference
 	private CommercePriceListLocalService _commercePriceListLocalService;
