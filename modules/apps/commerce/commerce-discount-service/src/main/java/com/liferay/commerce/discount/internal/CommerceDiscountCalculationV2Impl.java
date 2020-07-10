@@ -640,6 +640,7 @@ public class CommerceDiscountCalculationV2Impl
 		throws PortalException {
 
 		long commerceAccountId = 0;
+
 		CommerceAccount commerceAccount = commerceContext.getCommerceAccount();
 
 		if (commerceAccount != null) {
