@@ -1,7 +1,11 @@
+import CardTabMetric, {
+	MetricValueType
+} from 'contacts/individual/profile/components/CardTabMetric';
 import ChartTooltip from 'shared/components/ChartTooltip';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
+import {ACTIVITIES, ENGAGEMENT, Routes, toRoute} from 'shared/util/router';
 import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
 import {DEFAULT_ENGAGEMENT_MAX} from 'shared/api/engagement';
 import {formatUTCDateFromUnix} from 'shared/util/date';
@@ -92,6 +96,53 @@ export function buildLegendItems({
 				: sub(Liferay.Language.get('engagement-score-x-10'), [
 						engagementScore.toFixed(2)
 				  ])
+		}
+	];
+}
+
+export function buildTabItems({
+	activityChange,
+	activityCount,
+	channelId,
+	engagementChange,
+	engagementScore,
+	groupId,
+	id
+}) {
+	return [
+		{
+			secondaryInfo: (
+				<CardTabMetric
+					change={activityChange}
+					type={MetricValueType.Number}
+					value={activityCount}
+				/>
+			),
+			tabId: ACTIVITIES,
+			tabUrl: toRoute(Routes.CONTACTS_INDIVIDUAL, {
+				channelId,
+				groupId,
+				id,
+				tabId: ACTIVITIES
+			}),
+			title: Liferay.Language.get('account-activities')
+		},
+		{
+			secondaryInfo: (
+				<CardTabMetric
+					change={engagementChange}
+					type={MetricValueType.Engagement}
+					value={engagementScore}
+				/>
+			),
+			tabId: ENGAGEMENT,
+			tabUrl: toRoute(Routes.CONTACTS_INDIVIDUAL, {
+				channelId,
+				groupId,
+				id,
+				tabId: ENGAGEMENT
+			}),
+			title: Liferay.Language.get('engagement-score')
 		}
 	];
 }
