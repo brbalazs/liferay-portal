@@ -40,6 +40,7 @@ export default class Overview extends React.Component<IOverviewProps> {
 							label={sub(Liferay.Language.get('x-activities'), [
 								channelName
 							])}
+							legacyDropdownRangeKey={false}
 						/>
 					</div>
 				</div>
