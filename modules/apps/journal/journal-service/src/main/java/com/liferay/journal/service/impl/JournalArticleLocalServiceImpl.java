@@ -8882,7 +8882,8 @@ public class JournalArticleLocalServiceImpl
 		}
 
 		AssetEntry assetEntry = assetEntryLocalService.fetchEntry(
-			JournalArticle.class.getName(), journalArticle.getPrimaryKey());
+			JournalArticle.class.getName(),
+			journalArticle.getResourcePrimKey());
 
 		if (assetEntry == null) {
 			return false;
