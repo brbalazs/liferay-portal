@@ -12,10 +12,11 @@ import {
 
 export const CANONICAL_URL = 'canonicalUrl';
 export const DESCRIPTION = 'description';
+export const KEYWORDS = 'keywords';
 export const TITLE = 'title';
 export const URL = 'url';
 
-export const METADATA_TAGS = [CANONICAL_URL, DESCRIPTION, TITLE, URL];
+export const METADATA_TAGS = [CANONICAL_URL, DESCRIPTION, KEYWORDS, TITLE, URL];
 
 export const EXCLUDE = 'excludeFilter';
 export const INCLUDE = 'includeFilter';
