@@ -1,0 +1,4 @@
+Bundle-Name: Liferay Punchout Commerce Web
+Bundle-SymbolicName: com.liferay.punchout.commerce.web
+Bundle-Version: 1.0.0
+Web-ContextPath: /punchout-commerce-web
