@@ -484,19 +484,9 @@ paths:
                         Unexpected error
             summary: Updates a Channel.
             tags: ["Channel"]
-    /channels/{channelId}/tax-categories:
+    /tax-categories:
         get:
             parameters:
-                - in: path
-                  explode: false
-                  name: channelId
-                  required: true
-                  schema:
-                      description:
-                          Channel Id
-                      format: int64
-                      type: integer
-                  style: simple
                 - in: query
                   explode: true
                   name: page
@@ -516,7 +506,7 @@ paths:
                   name: search
                   required: false
                   schema:
-                      type: integer
+                      type: string
                   style: form
             responses:
                 200:
