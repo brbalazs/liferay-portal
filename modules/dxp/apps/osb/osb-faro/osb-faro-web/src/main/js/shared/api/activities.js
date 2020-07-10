@@ -1,5 +1,6 @@
 import FaroConstants from 'shared/util/constants';
 import sendRequest from 'shared/util/request';
+import {pickBy} from 'lodash';
 
 export const DEFAULT_ACTIVITY_MAX = 30;
 
@@ -11,7 +12,9 @@ export function fetchHistory({
 	contactsEntityType,
 	groupId,
 	interval = DEFAULT_ACTIVITY_INTERVAL,
-	max = DEFAULT_ACTIVITY_MAX
+	max = DEFAULT_ACTIVITY_MAX,
+	rangeEnd = null,
+	rangeStart = null
 }) {
 	return sendRequest({
 		data: {
@@ -19,7 +22,11 @@ export function fetchHistory({
 			contactsEntityId,
 			contactsEntityType,
 			interval,
-			max
+			...pickBy({
+				max,
+				rangeEnd,
+				rangeStart
+			})
 		},
 		method: 'GET',
 		path: `contacts/${groupId}/activity/history`
