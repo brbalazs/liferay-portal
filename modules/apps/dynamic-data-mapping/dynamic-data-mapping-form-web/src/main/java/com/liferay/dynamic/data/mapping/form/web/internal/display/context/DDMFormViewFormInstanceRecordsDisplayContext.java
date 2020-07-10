@@ -150,17 +150,19 @@ public class DDMFormViewFormInstanceRecordsDisplayContext {
 
 				@Override
 				public String apply(DDMFormFieldValue formFieldValue) {
-					String valueRendered = fieldValueRenderer.render(
-						formFieldValue, _renderRequest.getLocale());
+					String renderedFormFieldValueString =
+						fieldValueRenderer.render(
+							formFieldValue, _renderRequest.getLocale());
 
-					if (Validator.isNull(valueRendered)) {
+					if (Validator.isNull(renderedFormFieldValueString)) {
 						Value value = formFieldValue.getValue();
 
-						valueRendered = fieldValueRenderer.render(
-							formFieldValue, value.getDefaultLocale());
+						renderedFormFieldValueString =
+							fieldValueRenderer.render(
+								formFieldValue, value.getDefaultLocale());
 					}
 
-					return valueRendered;
+					return renderedFormFieldValueString;
 				}
 
 			});
