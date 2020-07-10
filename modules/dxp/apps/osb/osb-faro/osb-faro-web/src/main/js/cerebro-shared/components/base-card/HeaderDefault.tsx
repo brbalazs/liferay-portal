@@ -30,7 +30,7 @@ const BaseCardHeaderDefault: React.FC<BaseCardHeaderDefaultIProps> = ({
 	const handleRangeSelectorsChange = useCallback(newVal => {
 		onRangeSelectorsChange && onRangeSelectorsChange(newVal);
 
-		if (isHourlyRangeKey(newVal)) {
+		if (isHourlyRangeKey(newVal.rangeKey)) {
 			onChangeInterval(INTERVAL_KEY_MAP.day);
 		}
 	}, []);
