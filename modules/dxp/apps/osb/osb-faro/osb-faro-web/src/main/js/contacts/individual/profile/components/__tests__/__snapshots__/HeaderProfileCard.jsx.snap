@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderProfile should render 1`] = `
+<div>
+  <div
+    class="card-header align-items-center d-flex justify-content-between"
+  >
+    <h5
+      class="card-title"
+    >
+      Title
+    </h5>
+    <div
+      class="d-flex"
+    >
+      <div
+        class="interval-selector-root mr-3 btn-group"
+        role="group"
+      >
+        <button
+          class="interval-option text-uppercase active btn btn-sm btn-secondary"
+          type="button"
+        >
+          D
+        </button>
+        <button
+          class="interval-option text-uppercase btn btn-sm btn-secondary"
+          type="button"
+        >
+          W
+        </button>
+        <button
+          class="interval-option text-uppercase btn btn-sm btn-secondary"
+          type="button"
+        >
+          M
+        </button>
+      </div>
+      <div
+        class="dropdown dropdown-range-key-root"
+      >
+        <button
+          class="dropdown-toggle btn btn-outline-borderless btn-sm btn-outline-secondary"
+          style=""
+          type="button"
+        >
+          Last 30 days
+          <svg
+            class="lexicon-icon lexicon-icon-caret-bottom ml-2"
+            role="presentation"
+          >
+            <use
+              xlink:href="#caret-bottom"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
