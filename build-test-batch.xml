@@ -861,7 +861,7 @@ mariadb.executable=${mariadb.executable}]]></echo>
 				<then>
 					<property name="com.liferay.portal.search.solr7.test.unit.started" value="true" />
 
-					<ant antfile="build-test-solr.xml" target="prepare-solr-suite" />
+					<ant antfile="build-test-solr.xml" target="set-up-solr" />
 				</then>
 			</if>
 		</sequential>
@@ -1660,22 +1660,6 @@ app.server.type=@{app.server.type}]]></echo>
 									dest="${liferay.home}/deploy"
 									src="@{test.plugin.zip.url}"
 								/>
-							</then>
-						</if>
-
-						<if>
-							<isset property="env.CI_TEST_SUITE" />
-							<then>
-								<get-testcase-property property.name="osgi.app.includes" />
-
-								<if>
-									<not>
-										<contains string="${osgi.app.includes}" substring="portal-search-solr7" />
-									</not>
-									<then>
-										<prepare-suite-search-engine suite.name="${env.CI_TEST_SUITE}" />
-									</then>
-								</if>
 							</then>
 						</if>
 
