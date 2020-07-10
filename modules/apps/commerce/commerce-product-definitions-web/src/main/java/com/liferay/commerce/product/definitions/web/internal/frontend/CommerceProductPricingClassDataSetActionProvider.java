@@ -16,7 +16,7 @@ package com.liferay.commerce.product.definitions.web.internal.frontend;
 
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
-import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
+import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel;
 import com.liferay.commerce.pricing.service.CommercePricingClassCPDefinitionRelService;
 import com.liferay.commerce.product.definitions.web.internal.model.ProductPricingClass;
@@ -29,7 +29,8 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
-import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.Portal;
@@ -68,13 +69,11 @@ public class CommerceProductPricingClassDataSetActionProvider
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		if (PortalPermissionUtil.contains(
-				themeDisplay.getPermissionChecker(),
-				CommercePricingClassActionKeys.
-					MANAGE_COMMERCE_PRICING_CLASSES)) {
+		ProductPricingClass productPricingClass = (ProductPricingClass)model;
 
-			ProductPricingClass productPricingClass =
-				(ProductPricingClass)model;
+		if (_commercePricingClassModelResourcePermission.contains(
+				themeDisplay.getPermissionChecker(),
+				productPricingClass.getPricingClassId(), ActionKeys.UPDATE)) {
 
 			PortletURL editURL = _getPricingClassEditURL(
 				productPricingClass.getPricingClassId(), httpServletRequest);
@@ -87,6 +86,11 @@ public class CommerceProductPricingClassDataSetActionProvider
 			editClayDataSetAction.setTarget("sidePanel");
 
 			clayDataSetActions.add(editClayDataSetAction);
+		}
+
+		if (_commercePricingClassModelResourcePermission.contains(
+				themeDisplay.getPermissionChecker(),
+				productPricingClass.getPricingClassId(), ActionKeys.DELETE)) {
 
 			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK,
@@ -152,6 +156,12 @@ public class CommerceProductPricingClassDataSetActionProvider
 	@Reference
 	private CommercePricingClassCPDefinitionRelService
 		_commercePricingClassCPDefinitionRelService;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.pricing.model.CommercePricingClass)"
+	)
+	private ModelResourcePermission<CommercePricingClass>
+		_commercePricingClassModelResourcePermission;
 
 	@Reference
 	private Portal _portal;

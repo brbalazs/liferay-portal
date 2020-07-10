@@ -17,13 +17,14 @@ package com.liferay.commerce.pricing.web.internal.frontend;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
 import com.liferay.commerce.price.list.constants.CommercePriceListPortletKeys;
-import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
+import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClassPriceList;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -59,17 +60,17 @@ public class CommercePricingClassPriceListDataSetActionProvider
 
 		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
+		PricingClassPriceList pricingClassPriceList =
+			(PricingClassPriceList)model;
+
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		if (PortalPermissionUtil.contains(
+		if (_commercePriceListModelResourcePermission.contains(
 				themeDisplay.getPermissionChecker(),
-				CommercePricingClassActionKeys.
-					MANAGE_COMMERCE_PRICING_CLASSES)) {
-
-			PricingClassPriceList pricingClassPriceList =
-				(PricingClassPriceList)model;
+				pricingClassPriceList.getCommercePriceListId(),
+				ActionKeys.UPDATE)) {
 
 			PortletURL editURL = _getPriceListEditURL(
 				pricingClassPriceList.getCommercePriceListId(),
@@ -106,6 +107,12 @@ public class CommercePricingClassPriceListDataSetActionProvider
 
 		return portletURL;
 	}
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.price.list.model.CommercePriceList)"
+	)
+	private ModelResourcePermission<CommercePriceList>
+		_commercePriceListModelResourcePermission;
 
 	@Reference
 	private Portal _portal;

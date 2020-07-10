@@ -14,27 +14,34 @@
 
 package com.liferay.commerce.pricing.web.internal.frontend;
 
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
-import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
 import com.liferay.commerce.pricing.constants.CommercePricingPorletKeys;
+import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClass;
 import com.liferay.commerce.pricing.web.servlet.taglib.ui.CommercePricingClassScreenNavigationConstants;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.portlet.PortletQName;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
+import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -59,16 +66,15 @@ public class CommercePricingClassDataSetActionProvider
 
 		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
+		PricingClass pricingClass = (PricingClass)model;
+
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		if (PortalPermissionUtil.contains(
+		if (_commercePricingClassModelResourcePermission.contains(
 				themeDisplay.getPermissionChecker(),
-				CommercePricingClassActionKeys.
-					MANAGE_COMMERCE_PRICING_CLASSES)) {
-
-			PricingClass pricingClass = (PricingClass)model;
+				pricingClass.getPricingClassId(), ActionKeys.UPDATE)) {
 
 			PortletURL editURL = _getPricingClassEditURL(
 				pricingClass.getPricingClassId(), httpServletRequest);
@@ -79,6 +85,37 @@ public class CommercePricingClassDataSetActionProvider
 				StringPool.BLANK, false, false);
 
 			clayDataSetActions.add(editClayDataSetAction);
+		}
+
+		if (_commercePricingClassModelResourcePermission.contains(
+				themeDisplay.getPermissionChecker(),
+				pricingClass.getPricingClassId(), ActionKeys.PERMISSIONS)) {
+
+			try {
+				PortletURL permissionsURL = _getManageCatalogPermissionsURL(
+					pricingClass, httpServletRequest);
+
+				ClayDataSetAction permissionsClayDataSetAction =
+					new ClayDataSetAction(
+						StringPool.BLANK, permissionsURL.toString(),
+						StringPool.BLANK,
+						LanguageUtil.get(httpServletRequest, "permissions"),
+						StringPool.BLANK, false, false);
+
+				permissionsClayDataSetAction.setTarget(
+					ClayMenuActionItem.
+						CLAY_MENU_ACTION_ITEM_TARGET_MODAL_PERMISSIONS);
+
+				clayDataSetActions.add(permissionsClayDataSetAction);
+			}
+			catch (Exception e) {
+				throw new PortalException(e);
+			}
+		}
+
+		if (_commercePricingClassModelResourcePermission.contains(
+				themeDisplay.getPermissionChecker(),
+				pricingClass.getPricingClassId(), ActionKeys.DELETE)) {
 
 			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK,
@@ -95,6 +132,42 @@ public class CommercePricingClassDataSetActionProvider
 		}
 
 		return clayDataSetActions;
+	}
+
+	private PortletURL _getManageCatalogPermissionsURL(
+			PricingClass pricingClass, HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			httpServletRequest,
+			"com_liferay_portlet_configuration_web_portlet_" +
+				"PortletConfigurationPortlet",
+			ActionRequest.RENDER_PHASE);
+
+		String redirect = ParamUtil.getString(
+			httpServletRequest, "currentUrl",
+			_portal.getCurrentURL(httpServletRequest));
+
+		portletURL.setParameter("mvcPath", "/edit_permissions.jsp");
+		portletURL.setParameter(
+			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
+			redirect);
+		portletURL.setParameter(
+			"modelResource", CommercePricingClass.class.getName());
+		portletURL.setParameter(
+			"modelResourceDescription", pricingClass.getTitle());
+		portletURL.setParameter(
+			"resourcePrimKey",
+			String.valueOf(pricingClass.getPricingClassId()));
+
+		try {
+			portletURL.setWindowState(LiferayWindowState.POP_UP);
+		}
+		catch (WindowStateException wse) {
+			throw new PortalException(wse);
+		}
+
+		return portletURL;
 	}
 
 	private String _getPricingClassDeleteURL(long pricingClassId) {
@@ -120,6 +193,12 @@ public class CommercePricingClassDataSetActionProvider
 
 		return portletURL;
 	}
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.pricing.model.CommercePricingClass)"
+	)
+	private ModelResourcePermission<CommercePricingClass>
+		_commercePricingClassModelResourcePermission;
 
 	@Reference
 	private Portal _portal;

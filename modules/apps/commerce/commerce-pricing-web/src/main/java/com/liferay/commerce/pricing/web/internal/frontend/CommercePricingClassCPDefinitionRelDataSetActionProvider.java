@@ -16,7 +16,9 @@ package com.liferay.commerce.pricing.web.internal.frontend;
 
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
-import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
+import com.liferay.commerce.pricing.model.CommercePricingClass;
+import com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel;
+import com.liferay.commerce.pricing.service.CommercePricingClassCPDefinitionRelLocalService;
 import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClassCPDefinitionRel;
 import com.liferay.commerce.product.model.CPDefinition;
@@ -25,7 +27,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
-import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.Portal;
@@ -59,17 +62,24 @@ public class CommercePricingClassCPDefinitionRelDataSetActionProvider
 
 		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
+		PricingClassCPDefinitionRel pricingClassCPDefinitionRel =
+			(PricingClassCPDefinitionRel)model;
+
+		CommercePricingClassCPDefinitionRel
+			commercePricingClassCPDefinitionRel =
+				_commercePricingClassCPDefinitionRelLocalService.
+					getCommercePricingClassCPDefinitionRel(
+						pricingClassCPDefinitionRel.
+							getPricingClassCPDefinitionRelId());
+
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		if (PortalPermissionUtil.contains(
+		if (_commercePricingClassModelResourcePermission.contains(
 				themeDisplay.getPermissionChecker(),
-				CommercePricingClassActionKeys.
-					MANAGE_COMMERCE_PRICING_CLASSES)) {
-
-			PricingClassCPDefinitionRel pricingClassCPDefinitionRel =
-				(PricingClassCPDefinitionRel)model;
+				commercePricingClassCPDefinitionRel.getCommercePricingClassId(),
+				ActionKeys.UPDATE)) {
 
 			PortletURL editURL = _getCPDefinitionEditURL(
 				pricingClassCPDefinitionRel.getCPDefinitionId(),
@@ -81,6 +91,12 @@ public class CommercePricingClassCPDefinitionRelDataSetActionProvider
 				StringPool.BLANK, false, false);
 
 			clayDataSetActions.add(editClayDataSetAction);
+		}
+
+		if (_commercePricingClassModelResourcePermission.contains(
+				themeDisplay.getPermissionChecker(),
+				commercePricingClassCPDefinitionRel.getCommercePricingClassId(),
+				ActionKeys.DELETE)) {
 
 			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK,
@@ -124,6 +140,16 @@ public class CommercePricingClassCPDefinitionRelDataSetActionProvider
 		return "/o/headless-commerce-admin-catalog/v1.0" +
 			"/product-group-products/" + pricingClassCPDefinitionRelId;
 	}
+
+	@Reference
+	private CommercePricingClassCPDefinitionRelLocalService
+		_commercePricingClassCPDefinitionRelLocalService;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.pricing.model.CommercePricingClass)"
+	)
+	private ModelResourcePermission<CommercePricingClass>
+		_commercePricingClassModelResourcePermission;
 
 	@Reference
 	private Portal _portal;

@@ -15,15 +15,16 @@
 package com.liferay.commerce.pricing.web.internal.frontend;
 
 import com.liferay.commerce.discount.constants.CommerceDiscountPortletKeys;
+import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
-import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
 import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClassDiscount;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -59,17 +60,16 @@ public class CommercePricingClassDiscountDataSetActionProvider
 
 		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
+		PricingClassDiscount pricingClassDiscount = (PricingClassDiscount)model;
+
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		if (PortalPermissionUtil.contains(
+		if (_commerceDiscountModelResourcePermission.contains(
 				themeDisplay.getPermissionChecker(),
-				CommercePricingClassActionKeys.
-					MANAGE_COMMERCE_PRICING_CLASSES)) {
-
-			PricingClassDiscount pricingClassDiscount =
-				(PricingClassDiscount)model;
+				pricingClassDiscount.getCommerceDiscountId(),
+				ActionKeys.UPDATE)) {
 
 			PortletURL editURL = _getDiscountEditURL(
 				pricingClassDiscount.getCommerceDiscountId(),
@@ -104,6 +104,12 @@ public class CommercePricingClassDiscountDataSetActionProvider
 
 		return portletURL;
 	}
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.discount.model.CommerceDiscount)"
+	)
+	private ModelResourcePermission<CommerceDiscount>
+		_commerceDiscountModelResourcePermission;
 
 	@Reference
 	private Portal _portal;
