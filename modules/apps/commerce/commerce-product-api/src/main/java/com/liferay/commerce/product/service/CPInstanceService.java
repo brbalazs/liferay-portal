@@ -76,6 +76,19 @@ public interface CPInstanceService extends BaseService {
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
+			int expirationDateMinute, boolean neverExpire,
+			ServiceContext serviceContext)
+		throws PortalException;
+
+	public CPInstance addCPInstance(
+			long cpDefinitionId, long groupId, String sku, String gtin,
+			String manufacturerPartNumber, boolean purchasable,
+			Map<Long, List<Long>>
+				cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
+			boolean published, int displayDateMonth, int displayDateDay,
+			int displayDateYear, int displayDateHour, int displayDateMinute,
+			int expirationDateMonth, int expirationDateDay,
+			int expirationDateYear, int expirationDateHour,
 			int expirationDateMinute, boolean neverExpire, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException;
@@ -107,6 +120,47 @@ public interface CPInstanceService extends BaseService {
 	 long, String, String, String, boolean, Map, boolean, int,
 	 int, int, int, int, int, int, int, int, int, boolean,
 	 ServiceContext)}
+	 */
+	@Deprecated
+	public CPInstance addCPInstance(
+			long cpDefinitionId, long groupId, String sku, String gtin,
+			String manufacturerPartNumber, boolean purchasable, String json,
+			boolean published, int displayDateMonth, int displayDateDay,
+			int displayDateYear, int displayDateHour, int displayDateMinute,
+			int expirationDateMonth, int expirationDateDay,
+			int expirationDateYear, int expirationDateHour,
+			int expirationDateMinute, boolean neverExpire,
+			ServiceContext serviceContext)
+		throws PortalException;
+
+	/**
+	 * @param cpDefinitionId
+	 * @param groupId
+	 * @param sku
+	 * @param gtin
+	 * @param manufacturerPartNumber
+	 * @param purchasable
+	 * @param json
+	 * @param published
+	 * @param displayDateMonth
+	 * @param displayDateDay
+	 * @param displayDateYear
+	 * @param displayDateHour
+	 * @param displayDateMinute
+	 * @param expirationDateMonth
+	 * @param expirationDateDay
+	 * @param expirationDateYear
+	 * @param expirationDateHour
+	 * @param expirationDateMinute
+	 * @param neverExpire
+	 * @param unspsc
+	 * @param serviceContext
+	 * @return
+	 * @throws PortalException
+	 * @deprecated As of Athanasius (7.3.x), use {@link #addCPInstance(long,
+	 long, String, String, String, boolean, Map, boolean, int,
+	 int, int, int, int, int, int, int, int, int, boolean,
+	 String, ServiceContext)}
 	 */
 	@Deprecated
 	public CPInstance addCPInstance(
@@ -200,6 +254,17 @@ public interface CPInstanceService extends BaseService {
 			int displayDateYear, int displayDateHour, int displayDateMinute,
 			int expirationDateMonth, int expirationDateDay,
 			int expirationDateYear, int expirationDateHour,
+			int expirationDateMinute, boolean neverExpire,
+			ServiceContext serviceContext)
+		throws PortalException;
+
+	public CPInstance updateCPInstance(
+			long cpInstanceId, String sku, String gtin,
+			String manufacturerPartNumber, boolean purchasable,
+			boolean published, int displayDateMonth, int displayDateDay,
+			int displayDateYear, int displayDateHour, int displayDateMinute,
+			int expirationDateMonth, int expirationDateDay,
+			int expirationDateYear, int expirationDateHour,
 			int expirationDateMinute, boolean neverExpire, String unspsc,
 			ServiceContext serviceContext)
 		throws PortalException;
@@ -235,6 +300,19 @@ public interface CPInstanceService extends BaseService {
 			String subscriptionType,
 			UnicodeProperties subscriptionTypeSettingsProperties,
 			long maxSubscriptionCycles, ServiceContext serviceContext)
+		throws PortalException;
+
+	public CPInstance upsertCPInstance(
+			long cpDefinitionId, long groupId, String sku, String gtin,
+			String manufacturerPartNumber, boolean purchasable, String json,
+			double width, double height, double depth, double weight,
+			BigDecimal price, BigDecimal promoPrice, BigDecimal cost,
+			boolean published, String externalReferenceCode,
+			int displayDateMonth, int displayDateDay, int displayDateYear,
+			int displayDateHour, int displayDateMinute, int expirationDateMonth,
+			int expirationDateDay, int expirationDateYear,
+			int expirationDateHour, int expirationDateMinute,
+			boolean neverExpire, ServiceContext serviceContext)
 		throws PortalException;
 
 	public CPInstance upsertCPInstance(
