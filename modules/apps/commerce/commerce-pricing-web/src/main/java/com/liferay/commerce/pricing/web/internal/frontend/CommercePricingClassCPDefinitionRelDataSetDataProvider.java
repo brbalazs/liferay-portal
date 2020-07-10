@@ -68,7 +68,7 @@ public class CommercePricingClassCPDefinitionRelDataSetDataProvider
 				WebKeys.THEME_DISPLAY);
 
 		return _commercePricingClassCPDefinitionRelService.
-			countByCommercePricingClassId(
+			getCommercePricingClassCPDefinitionRelsCount(
 				commercePricingClassId, filter.getKeywords(),
 				themeDisplay.getLanguageId());
 	}

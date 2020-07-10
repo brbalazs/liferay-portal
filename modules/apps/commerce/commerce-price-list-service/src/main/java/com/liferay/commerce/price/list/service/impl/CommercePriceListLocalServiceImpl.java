@@ -356,14 +356,6 @@ public class CommercePriceListLocalServiceImpl
 		MultiVMPoolUtil.removePortalCache("PRICE_LISTS_" + companyId);
 	}
 
-	@Override
-	public int countByCommercePricingClassId(
-		long commercePricingClassId, String name) {
-
-		return commercePriceListFinder.countByCommercePricingClassId(
-			commercePricingClassId, name);
-	}
-
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
@@ -751,6 +743,14 @@ public class CommercePriceListLocalServiceImpl
 
 		return commercePriceListPersistence.findByG_C_S(
 			groupIds, companyId, status, start, end, orderByComparator);
+	}
+
+	@Override
+	public int getCommercePriceListsCount(
+	long commercePricingClassId, String name) {
+
+		return commercePriceListFinder.countByCommercePricingClassId(
+		commercePricingClassId, name);
 	}
 
 	@Override

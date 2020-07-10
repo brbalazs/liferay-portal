@@ -65,15 +65,6 @@ public class CommercePricingClassCPDefinitionRelLocalServiceImpl
 	}
 
 	@Override
-	public int countByCommercePricingClassId(
-		long commercePricingClassId, String name, String languageId) {
-
-		return commercePricingClassCPDefinitionRelFinder.
-			countByCommercePricingClassId(
-				commercePricingClassId, name, languageId);
-	}
-
-	@Override
 	public CommercePricingClassCPDefinitionRel
 			deleteCommercePricingClassCPDefinitionRel(
 				CommercePricingClassCPDefinitionRel
@@ -163,6 +154,15 @@ public class CommercePricingClassCPDefinitionRelLocalServiceImpl
 
 		return commercePricingClassCPDefinitionRelPersistence.
 			countByCommercePricingClassId(commercePricingClassId);
+	}
+
+	@Override
+	public int getCommercePricingClassCPDefinitionRelsCount(
+		long commercePricingClassId, String name, String languageId) {
+
+		return commercePricingClassCPDefinitionRelFinder.
+			countByCommercePricingClassId(
+				commercePricingClassId, name, languageId);
 	}
 
 	@Override

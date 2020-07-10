@@ -168,19 +168,6 @@ public class CommercePriceListServiceImpl
 	}
 
 	@Override
-	public int countByCommercePricingClassId(
-			long commercePricingClassId, String title)
-		throws PrincipalException {
-
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
-
-		return commercePriceListLocalService.countByCommercePricingClassId(
-			commercePricingClassId, title);
-	}
-
-	@Override
 	public void deleteCommercePriceList(long commercePriceListId)
 		throws PortalException {
 
@@ -251,6 +238,19 @@ public class CommercePriceListServiceImpl
 
 		return commercePriceListLocalService.getCommercePriceLists(
 			groupIds, companyId, status, start, end, orderByComparator);
+	}
+
+	@Override
+	public int getCommercePriceListsCount(
+			long commercePricingClassId, String title)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS);
+
+		return commercePriceListLocalService.getCommercePriceListsCount(
+			commercePricingClassId, title);
 	}
 
 	@Override

@@ -63,7 +63,7 @@ public class CommercePricingClassPriceListDataSetDataProvider
 		long commercePricingClassId = ParamUtil.getLong(
 			httpServletRequest, "commercePricingClassId");
 
-		return _commercePriceListService.countByCommercePricingClassId(
+		return _commercePriceListService.getCommercePriceListsCount(
 			commercePricingClassId, filter.getKeywords());
 	}
 

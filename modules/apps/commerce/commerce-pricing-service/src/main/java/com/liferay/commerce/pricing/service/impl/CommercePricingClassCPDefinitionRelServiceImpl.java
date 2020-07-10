@@ -49,20 +49,6 @@ public class CommercePricingClassCPDefinitionRelServiceImpl
 	}
 
 	@Override
-	public int countByCommercePricingClassId(
-			long commercePricingClassId, String name, String languageId)
-		throws PrincipalException {
-
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
-
-		return commercePricingClassCPDefinitionRelLocalService.
-			countByCommercePricingClassId(
-				commercePricingClassId, name, languageId);
-	}
-
-	@Override
 	public CommercePricingClassCPDefinitionRel
 			deleteCommercePricingClassCPDefinitionRel(
 				CommercePricingClassCPDefinitionRel
@@ -166,6 +152,20 @@ public class CommercePricingClassCPDefinitionRelServiceImpl
 		return commercePricingClassCPDefinitionRelLocalService.
 			getCommercePricingClassCPDefinitionRelsCount(
 				commercePricingClassId);
+	}
+
+	@Override
+	public int getCommercePricingClassCPDefinitionRelsCount(
+			long commercePricingClassId, String name, String languageId)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
+
+		return commercePricingClassCPDefinitionRelLocalService.
+			getCommercePricingClassCPDefinitionRelsCount(
+				commercePricingClassId, name, languageId);
 	}
 
 	@Override

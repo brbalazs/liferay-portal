@@ -65,18 +65,6 @@ public class CommercePricingClassServiceImpl
 	}
 
 	@Override
-	public int countByCPDefinitionId(long cpDefinitionId, String title)
-		throws PrincipalException {
-
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
-
-		return commercePricingClassLocalService.countByCPDefinitionId(
-			cpDefinitionId, title);
-	}
-
-	@Override
 	public CommercePricingClass deleteCommercePricingClass(
 			long commercePricingClassId)
 		throws PortalException {
@@ -148,6 +136,18 @@ public class CommercePricingClassServiceImpl
 
 		return commercePricingClassLocalService.
 			getCommercePricingClassByCPDefinition(cpDefinitionId);
+	}
+
+	@Override
+	public int getCommercePricingClassesCount(long cpDefinitionId, String title)
+		throws PrincipalException {
+
+		PortalPermissionUtil.check(
+			getPermissionChecker(),
+			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
+
+		return commercePricingClassLocalService.getCommercePricingClassesCount(
+			cpDefinitionId, title);
 	}
 
 	@Override

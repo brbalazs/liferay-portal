@@ -57,7 +57,7 @@ public class CommerceProductPricingClassDataSetDataProvider
 		long cpDefinitionId = ParamUtil.getLong(
 			httpServletRequest, "cpDefinitionId");
 
-		return _commercePricingClassService.countByCPDefinitionId(
+		return _commercePricingClassService.getCommercePricingClassesCount(
 			cpDefinitionId, filter.getKeywords());
 	}
 
