@@ -82,13 +82,13 @@ public class CommerceDiscountUsageEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getCommerceDiscountUsageEntryCount(long commerceDiscountId) {
+	public int getCommerceDiscountUsageEntriesCount(long commerceDiscountId) {
 		return commerceDiscountUsageEntryPersistence.countByCommerceDiscountId(
 			commerceDiscountId);
 	}
 
 	@Override
-	public int getCommerceDiscountUsageEntryCount(
+	public int getCommerceDiscountUsageEntriesCount(
 		long commerceAccountId, long commerceOrderId, long commerceDiscountId) {
 
 		return commerceDiscountUsageEntryPersistence.countByA_O_D(
@@ -96,7 +96,7 @@ public class CommerceDiscountUsageEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getCommerceDiscountUsageEntryCountByAccountId(
+	public int getCommerceDiscountUsageEntriesCountByAccountId(
 		long commerceAccountId, long commerceDiscountId) {
 
 		return commerceDiscountUsageEntryPersistence.countByA_D(
@@ -104,7 +104,7 @@ public class CommerceDiscountUsageEntryLocalServiceImpl
 	}
 
 	@Override
-	public int getCommerceDiscountUsageEntryCountByOrderId(
+	public int getCommerceDiscountUsageEntriesCountByOrderId(
 		long commerceOrderId, long commerceDiscountId) {
 
 		return commerceDiscountUsageEntryPersistence.countByO_D(
@@ -134,7 +134,7 @@ public class CommerceDiscountUsageEntryLocalServiceImpl
 				CommerceDiscountConstants.LIMITATION_TYPE_LIMITED)) {
 
 			int commerceDiscountUsageEntriesCount =
-				getCommerceDiscountUsageEntryCount(commerceDiscountId);
+				getCommerceDiscountUsageEntriesCount(commerceDiscountId);
 
 			if (commerceDiscountUsageEntriesCount < limitationTimes) {
 				return true;
@@ -152,7 +152,7 @@ public class CommerceDiscountUsageEntryLocalServiceImpl
 					LIMITATION_TYPE_LIMITED_FOR_ACCOUNTS)) {
 
 			int commerceDiscountUsageEntriesCount =
-				getCommerceDiscountUsageEntryCountByAccountId(
+				getCommerceDiscountUsageEntriesCountByAccountId(
 					commerceAccountId, commerceDiscountId);
 
 			if (commerceDiscountUsageEntriesCount < limitationTimesPerAccount) {
@@ -163,14 +163,14 @@ public class CommerceDiscountUsageEntryLocalServiceImpl
 		}
 
 		int commerceDiscountUsageEntriesTotalCount =
-			getCommerceDiscountUsageEntryCount(commerceDiscountId);
+			getCommerceDiscountUsageEntriesCount(commerceDiscountId);
 
 		if (commerceDiscountUsageEntriesTotalCount >= limitationTimes) {
 			return false;
 		}
 
 		int commerceDiscountUsageEntriesUserCount =
-			getCommerceDiscountUsageEntryCountByAccountId(
+			getCommerceDiscountUsageEntriesCountByAccountId(
 				commerceAccountId, commerceDiscountId);
 
 		if (commerceDiscountUsageEntriesUserCount >=
