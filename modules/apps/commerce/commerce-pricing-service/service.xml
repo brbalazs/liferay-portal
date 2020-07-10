@@ -134,10 +134,6 @@
 
 		<column name="commercePricingClassId" primary="true" type="long" />
 
-		<!-- Group instance -->
-
-		<column name="groupId" type="long" />
-
 		<!-- Audit fields -->
 
 		<column name="companyId" type="long" />
@@ -160,9 +156,6 @@
 
 		<!-- Finder methods -->
 
-		<finder name="GroupId" return-type="Collection">
-			<finder-column name="groupId" />
-		</finder>
 		<finder name="CompanyId" return-type="Collection">
 			<finder-column name="companyId" />
 		</finder>
