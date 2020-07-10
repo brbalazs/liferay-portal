@@ -40,8 +40,8 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class TaxCategoryResourceImpl extends BaseTaxCategoryResourceImpl {
 
 	@Override
-	public Page<TaxCategory> getChannelTaxCategoriesPage(
-			Long channelId, String search, Pagination pagination)
+	public Page<TaxCategory> getTaxCategoriesPage(
+			String search, Pagination pagination)
 		throws Exception {
 
 		List<TaxCategory> taxCategories = new ArrayList<>();
