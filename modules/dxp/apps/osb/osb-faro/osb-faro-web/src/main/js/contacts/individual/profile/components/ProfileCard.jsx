@@ -1,35 +1,23 @@
 import * as API from 'shared/api';
+import ActivitiesChart from './ActivitiesChart';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import ChangeLegend from 'contacts/components/ChangeLegend';
-import Chart, {COMBINED_CHART} from 'shared/components/Chart';
-import ErrorDisplay from 'shared/components/ErrorDisplay';
-import FaroConstants from 'shared/util/constants';
-import getCN from 'classnames';
+import CardTabs from 'shared/components/CardTabs';
+import Constants from 'shared/util/constants';
+import EngagementChart from 'contacts/individual/profile/components/EngagementChart';
 import Promise from 'metal-promise';
 import React from 'react';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
-import Spinner from 'shared/components/Spinner';
+import {ACTIVITIES} from 'shared/util/router';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
-import {
-	buildEngagementActivityAxes,
-	buildLegendItems,
-	CHART_ACTIVITY_ID,
-	CHART_ID,
-	formatTickVal,
-	renderTooltipToString
-} from 'shared/util/engagement-activity';
+import {buildTabItems} from 'shared/util/engagement-activity';
 import {
 	formatEngagementAggregation,
 	formatEngagementScore,
 	mergeHistoryByDate
 } from 'shared/util/engagement';
-import {
-	formatSessions,
-	getActivityLabel,
-	getMaxActivitiesValue
-} from 'shared/util/activities';
+import {formatSessions, getActivityLabel} from 'shared/util/activities';
 import {
 	formatUTCDateFromUnix,
 	getDateRangeLabel,
@@ -43,17 +31,25 @@ import {PropTypes} from 'prop-types';
 import {START_TIME} from 'shared/util/pagination';
 import {sub} from 'shared/util/lang';
 import {withSelectedPoint, withStatefulPagination} from 'shared/hoc';
+import {WrapSafeResults} from 'shared/hoc/util';
 
 const {
 	entityTypes: {individual},
-	pagination: {orderDescending}
-} = FaroConstants;
+	pagination: {orderDescending},
+	timeIntervals
+} = Constants;
 
 const SearchableVerticalTimelineHOC = withStatefulPagination(
 	SearchableVerticalTimeline,
 	null,
 	props => omit(props, 'onSearchValueChange')
 );
+
+const INTERVAL_MAP = {
+	D: timeIntervals.day,
+	M: timeIntervals.month,
+	W: timeIntervals.week
+};
 
 function getActivities(params) {
 	const {
@@ -88,17 +84,25 @@ function getActivities(params) {
 
 @hasRequest
 export class IndividualProfileCard extends React.Component {
+	static defaultProps = {
+		tabId: ACTIVITIES
+	};
+
 	static propTypes = {
 		entity: PropTypes.instanceOf(Individual).isRequired,
 		groupId: PropTypes.string.isRequired,
 		hasSelectedPoint: PropTypes.bool,
 		onPointSelect: PropTypes.func.isRequired,
-		selectedPoint: PropTypes.number
+		selectedPoint: PropTypes.number,
+		tabId: PropTypes.string
 	};
 
 	state = {
 		activityChange: 0,
+		activityCount: 0,
+		activityHistory: [],
 		engagementChange: 0,
+		engagementHistory: [],
 		error: false,
 		history: [],
 		loading: true
@@ -115,28 +119,47 @@ export class IndividualProfileCard extends React.Component {
 		this.handleFetchHistory();
 	}
 
+	componentDidUpdate(prevProps) {
+		const {interval, rangeSelectors} = this.props;
+
+		if (
+			prevProps.rangeSelectors !== rangeSelectors ||
+			prevProps.interval !== interval
+		) {
+			this.handleFetchHistory();
+		}
+	}
+
 	@autoCancel
 	@autobind
 	getActivityHistory() {
 		const {
 			channelId,
 			entity: {id},
-			groupId
+			groupId,
+			interval,
+			rangeSelectors
 		} = this.props;
 
 		return API.activities.fetchHistory({
 			channelId,
 			contactsEntityId: id,
 			contactsEntityType: individual,
-			groupId
+			groupId,
+			interval: INTERVAL_MAP[interval],
+			max: rangeSelectors.rangeKey,
+			...rangeSelectors
 		});
 	}
 
 	getDateRange() {
 		const {
-			props: {hasSelectedPoint, selectedPoint},
-			state: {history}
+			props: {hasSelectedPoint, selectedPoint, tabId},
+			state: {activityHistory, engagementHistory}
 		} = this;
+
+		const history =
+			tabId === ACTIVITIES ? activityHistory : engagementHistory;
 
 		if (!hasSelectedPoint) {
 			return {
@@ -163,13 +186,6 @@ export class IndividualProfileCard extends React.Component {
 			contactsEntityType: individual,
 			groupId
 		});
-	}
-
-	@autobind
-	getTooltipContents(data) {
-		const {history} = this.state;
-
-		return renderTooltipToString(data, history);
 	}
 
 	@autobind
@@ -201,7 +217,8 @@ export class IndividualProfileCard extends React.Component {
 			.then(([activity, engagement]) => {
 				const {
 					activityAggregations: activityHistory,
-					change: activityChange
+					change: activityChange,
+					count: activityCount
 				} = activity;
 
 				const {
@@ -215,7 +232,10 @@ export class IndividualProfileCard extends React.Component {
 
 				this.setState({
 					activityChange: getSafeChange(activityChange),
+					activityCount,
+					activityHistory,
 					engagementChange: getSafeChange(engagementChange),
+					engagementHistory,
 					history: mergeHistoryByDate(
 						engagementHistory,
 						activityHistory
@@ -235,123 +255,71 @@ export class IndividualProfileCard extends React.Component {
 
 	renderChart() {
 		const {
-			props: {
-				entity: {activitiesCount, engagementScore},
-				hasSelectedPoint,
-				selectedPoint
-			},
-			state: {activityChange, engagementChange, error, history, loading}
+			_chartRef,
+			props: {hasSelectedPoint, selectedPoint, tabId},
+			state: {activityHistory, engagementHistory}
 		} = this;
 
+		const history =
+			tabId === ACTIVITIES ? activityHistory : engagementHistory;
+		const SelectedChart =
+			tabId === ACTIVITIES ? ActivitiesChart : EngagementChart;
 		const {intervalInitDate, totalElements} = history[selectedPoint] || {};
 
-		if (loading) {
-			return <Spinner className='flex-grow-1' key='LOADING' spacer />;
-		} else if (error) {
-			return (
-				<ErrorDisplay
-					className='flex-grow-1'
-					key='ERROR_DISPLAY'
-					onReload={this.handleFetchHistory}
-					spacer
+		return (
+			<div className='individuals-activities-chart'>
+				<SelectedChart
+					forwardedRef={_chartRef}
+					history={history}
+					onPointSelect={this.handleChartSelect}
 				/>
-			);
-		} else {
-			return (
-				<div className='individuals-activities-chart'>
-					<ChangeLegend
-						items={buildLegendItems({
-							activityChange,
-							activityCount: activitiesCount,
-							engagementChange,
-							engagementScore: formatEngagementScore(
-								engagementScore
-							)
-						})}
-					/>
 
-					<Chart
-						alwaysShowSelectedTooltip
-						axisX={{tick: {format: formatTickVal}}}
-						axisY={{
-							max: getMaxActivitiesValue(history),
-							min: 0,
-							padding: {bottom: 0}
-						}}
-						axisY2={{
-							min: 0,
-							padding: {bottom: 0},
-							show: true
-						}}
-						bar={{width: {ratio: 0.9}}}
-						chartType={COMBINED_CHART}
-						data={buildEngagementActivityAxes(history)}
-						dataId={CHART_ACTIVITY_ID}
-						id={CHART_ID}
-						onPointSelect={this.handleChartSelect}
-						ref={this._chartRef}
-						splineInterpolationType='monotone-x'
-						tooltip={{
-							contents: this.getTooltipContents
-						}}
-						x='date'
-						y2Label={Liferay.Language.get('engagement')}
-						yLabel={Liferay.Language.get('activities')}
-					/>
+				<div className='selected-info'>
+					{hasSelectedPoint ? (
+						<>
+							<h4>
+								{sub(
+									Liferay.Language.get(
+										'individuals-activities-x'
+									),
+									[formatUTCDateFromUnix(intervalInitDate)]
+								)}
+							</h4>
 
-					<div className='selected-info'>
-						{hasSelectedPoint ? (
-							<>
-								<h4>
-									{sub(
+							<Button
+								display='link'
+								onClick={this.handleClearSelection}
+								size='sm'
+							>
+								{Liferay.Language.get('clear-date-selection')}
+							</Button>
+
+							<div className='details'>
+								{getActivityLabel(totalElements)}
+							</div>
+						</>
+					) : (
+						<b>
+							{history.length
+								? sub(
 										Liferay.Language.get(
 											'individuals-activities-x'
 										),
 										[
-											formatUTCDateFromUnix(
-												intervalInitDate
+											getDateRangeLabel(
+												history,
+												'intervalInitDate'
 											)
 										]
-									)}
-								</h4>
-
-								<Button
-									display='link'
-									onClick={this.handleClearSelection}
-									size='sm'
-								>
-									{Liferay.Language.get(
-										'clear-date-selection'
-									)}
-								</Button>
-
-								<div className='details'>
-									{getActivityLabel(totalElements)}
-								</div>
-							</>
-						) : (
-							<b>
-								{history.length
-									? sub(
-											Liferay.Language.get(
-												'individuals-activities-x'
-											),
-											[
-												getDateRangeLabel(
-													history,
-													'intervalInitDate'
-												)
-											]
-									  )
-									: Liferay.Language.get(
-											'individuals-activities'
-									  )}
-							</b>
-						)}
-					</div>
+								  )
+								: Liferay.Language.get(
+										'individuals-activities'
+								  )}
+						</b>
+					)}
 				</div>
-			);
-		}
+			</div>
+		);
 	}
 
 	renderTimeline() {
@@ -390,25 +358,53 @@ export class IndividualProfileCard extends React.Component {
 	}
 
 	render() {
-		const {className} = this.props;
+		const {
+			props: {
+				channelId,
+				entity: {engagementScore, id},
+				groupId,
+				tabId
+			},
+			state: {
+				activityChange,
+				activityCount,
+				engagementChange,
+				error,
+				loading
+			}
+		} = this;
 
 		return (
-			<Card
-				className={getCN('individual-profile-card-root', className)}
-				pageDisplay
-			>
-				<Card.Header>
-					<Card.Title>
-						{Liferay.Language.get('individual-activities')}
-					</Card.Title>
-				</Card.Header>
-
-				<Card.Body noPadding>
+			<Card.Body noPadding>
+				<WrapSafeResults
+					className={'flex-grow-1'}
+					error={error}
+					errorProps={{
+						className: 'flex-grow-1',
+						onReload: this.handleFetchHistory
+					}}
+					loading={loading}
+					pageDisplay={false}
+				>
+					<CardTabs
+						activeTabId={tabId}
+						tabs={buildTabItems({
+							activityChange,
+							activityCount,
+							channelId,
+							engagementChange,
+							engagementScore: formatEngagementScore(
+								engagementScore
+							),
+							groupId,
+							id
+						})}
+					/>
 					{this.renderChart()}
 
 					{this.renderTimeline()}
-				</Card.Body>
-			</Card>
+				</WrapSafeResults>
+			</Card.Body>
 		);
 	}
 }
