@@ -38,7 +38,7 @@ public class CommercePricingClassServiceImpl
 
 	@Override
 	public CommercePricingClass addCommercePricingClass(
-			long userId, long groupId, Map<Locale, String> titleMap,
+			long userId, Map<Locale, String> titleMap,
 			Map<Locale, String> descriptionMap, ServiceContext serviceContext)
 		throws PortalException {
 
@@ -47,12 +47,13 @@ public class CommercePricingClassServiceImpl
 			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassLocalService.addCommercePricingClass(
-			userId, groupId, titleMap, descriptionMap, null, serviceContext);
+			userId, titleMap, descriptionMap, null, serviceContext);
 	}
 
 	@Override
 	public CommercePricingClass addCommercePricingClass(
-			long userId, long groupId, String title, String description,
+			long userId, Map<Locale, String> titleMap,
+			Map<Locale, String> descriptionMap, String externalReferenceCode,
 			ServiceContext serviceContext)
 		throws PortalException {
 
@@ -61,7 +62,7 @@ public class CommercePricingClassServiceImpl
 			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassLocalService.addCommercePricingClass(
-			userId, groupId, title, description, serviceContext);
+			userId, title, description, serviceContext);
 	}
 
 	@Override
@@ -156,11 +157,7 @@ public class CommercePricingClassServiceImpl
 			OrderByComparator<CommercePricingClass> orderByComparator)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
-
-		return commercePricingClassLocalService.getCommercePricingClasses(
+		return commercePricingClassPersistence.filterFindByCompanyId(
 			companyId, start, end, orderByComparator);
 	}
 
@@ -168,11 +165,7 @@ public class CommercePricingClassServiceImpl
 	public int getCommercePricingClassesCount(long companyId)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePricingClassActionKeys.VIEW_COMMERCE_PRICING_CLASSES);
-
-		return commercePricingClassLocalService.getCommercePricingClassesCount(
+		return commercePricingClassPersistence.filterCountByCompanyId(
 			companyId);
 	}
 
@@ -205,7 +198,7 @@ public class CommercePricingClassServiceImpl
 
 	@Override
 	public CommercePricingClass updateCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId,
+			long commercePricingClassId, long userId,
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
 			ServiceContext serviceContext)
 		throws PortalException {
@@ -215,7 +208,7 @@ public class CommercePricingClassServiceImpl
 			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassLocalService.updateCommercePricingClass(
-			commercePricingClassId, userId, groupId, titleMap, descriptionMap,
+			commercePricingClassId, userId, titleMap, descriptionMap,
 			serviceContext);
 	}
 
@@ -230,13 +223,13 @@ public class CommercePricingClassServiceImpl
 			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassLocalService.updateCommercePricingClass(
-			commercePricingClassId, userId, groupId, title, description,
+			commercePricingClassId, userId, titleMap, descriptionMap,
 			serviceContext);
 	}
 
 	@Override
 	public CommercePricingClass upsertCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId,
+			long commercePricingClassId, long userId,
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
 			String externalReferenceCode, ServiceContext serviceContext)
 		throws PortalException {
@@ -246,7 +239,7 @@ public class CommercePricingClassServiceImpl
 			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
 
 		return commercePricingClassLocalService.upsertCommercePricingClass(
-			commercePricingClassId, userId, groupId, titleMap, descriptionMap,
+			commercePricingClassId, userId, titleMap, descriptionMap,
 			externalReferenceCode, serviceContext);
 	}
 
@@ -257,13 +250,45 @@ public class CommercePricingClassServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
-			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
+		if (commercePricingClassId > 0) {
+			try {
+				return updateCommercePricingClass(
+					commercePricingClassId, userId, titleMap,
+					descriptionMap, serviceContext);
+			}
+			catch (NoSuchPricingClassException nspc) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"Unable to find pricing class with ID: " +
+							commercePricingClassId);
+				}
+			}
+		}
 
-		return commercePricingClassLocalService.upsertCommercePricingClass(
-			commercePricingClassId, userId, groupId, title, description,
-			externalReferenceCode, serviceContext);
+		if (!Validator.isBlank(externalReferenceCode)) {
+			CommercePricingClass commercePricingClass =
+				commercePricingClassPersistence.fetchByC_ERC(
+					serviceContext.getCompanyId(), externalReferenceCode);
+
+			if (commercePricingClass != null) {
+				return updateCommercePricingClass(
+					commercePricingClassId, userId, titleMap,
+					descriptionMap, serviceContext);
+			}
+		}
+
+		return addCommercePricingClass(
+			userId, titleMap, descriptionMap, externalReferenceCode,
+			serviceContext);
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommercePricingClassServiceImpl.class);
+
+	private static volatile ModelResourcePermission<CommercePricingClass>
+		_commercePricingClassResourcePermission =
+			ModelResourcePermissionFactory.getInstance(
+				CommercePricingClassServiceImpl.class,
+				"_commercePricingClassResourcePermission",
+				CommercePricingClass.class);
 }
