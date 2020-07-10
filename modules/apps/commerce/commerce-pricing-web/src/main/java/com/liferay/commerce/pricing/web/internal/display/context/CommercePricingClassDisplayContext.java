@@ -28,6 +28,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -51,9 +53,13 @@ public class CommercePricingClassDisplayContext {
 
 	public CommercePricingClassDisplayContext(
 		HttpServletRequest httpServletRequest,
+		ModelResourcePermission<CommercePricingClass>
+			commercePricingClassModelResourcePermission,
 		CommercePricingClassService commercePricingClassService,
 		Portal portal) {
 
+		_commercePricingClassModelResourcePermission =
+			commercePricingClassModelResourcePermission;
 		_commercePricingClassService = commercePricingClassService;
 		_portal = portal;
 
@@ -77,7 +83,7 @@ public class CommercePricingClassDisplayContext {
 	public ClayCreationMenu getClayCreationMenu() throws Exception {
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
-		if (hasPermission()) {
+		if (hasAddPermission()) {
 			clayCreationMenu.addClayCreationMenuActionItem(
 				new ClayCreationMenuActionItem(
 					getAddCommercePricingClassRenderURL(),
@@ -164,7 +170,7 @@ public class CommercePricingClassDisplayContext {
 
 		headerActionModels.add(cancelHeaderActionModel);
 
-		if (hasPermission()) {
+		if (hasPermission(ActionKeys.UPDATE)) {
 			headerActionModels.add(
 				new HeaderActionModel(
 					"btn-primary", renderResponse.getNamespace() + "fm",
@@ -174,15 +180,23 @@ public class CommercePricingClassDisplayContext {
 		return headerActionModels;
 	}
 
-	public boolean hasPermission() {
+	public boolean hasAddPermission() throws PortalException {
 		return PortalPermissionUtil.contains(
 			commercePricingClassRequestHelper.getPermissionChecker(),
-			CommercePricingClassActionKeys.MANAGE_COMMERCE_PRICING_CLASSES);
+			CommercePricingClassActionKeys.ADD_COMMERCE_PRICING_CLASS);
+	}
+
+	public boolean hasPermission(String actionId) throws PortalException {
+		return _commercePricingClassModelResourcePermission.contains(
+			commercePricingClassRequestHelper.getPermissionChecker(),
+			getCommercePricingClassId(), actionId);
 	}
 
 	protected final CommercePricingClassRequestHelper
 		commercePricingClassRequestHelper;
 
+	private final ModelResourcePermission<CommercePricingClass>
+		_commercePricingClassModelResourcePermission;
 	private final CommercePricingClassService _commercePricingClassService;
 	private final Portal _portal;
 
