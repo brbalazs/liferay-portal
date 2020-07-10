@@ -15,7 +15,9 @@ export default (queryName, metricName) => gql`
 			$devices: String
 			$keywords: String
 			$location: String
+			$rangeEnd: String
 			$rangeKey: Int
+			$rangeStart: String
 			$size: Int!
 			$start: Int!
 			$title: String
@@ -26,7 +28,9 @@ export default (queryName, metricName) => gql`
 				channelId: $channelId
 				country: $location
 				deviceType: $devices
+				rangeEnd: $rangeEnd
 				rangeKey: $rangeKey
+				rangeStart: $rangeStart
 				title: $title
 				url: $touchpoint
 			) {
