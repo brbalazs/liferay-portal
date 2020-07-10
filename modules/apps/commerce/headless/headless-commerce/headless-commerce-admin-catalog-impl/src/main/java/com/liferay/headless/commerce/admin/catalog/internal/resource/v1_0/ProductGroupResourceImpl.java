@@ -257,14 +257,13 @@ public class ProductGroupResourceImpl
 			ProductGroup productGroup)
 		throws Exception {
 
-		ServiceContext serviceContext = _serviceContextHelper.getServiceContext(
-			commercePricingClass.getGroupId());
+		ServiceContext serviceContext =
+			_serviceContextHelper.getServiceContext();
 
 		commercePricingClass =
 			_commercePricingClassService.updateCommercePricingClass(
 				commercePricingClass.getCommercePricingClassId(),
 				commercePricingClass.getUserId(),
-				commercePricingClass.getGroupId(),
 				LanguageUtils.getLocalizedMap(productGroup.getTitle()),
 				LanguageUtils.getLocalizedMap(productGroup.getDescription()),
 				serviceContext);
@@ -292,7 +291,7 @@ public class ProductGroupResourceImpl
 
 		CommercePricingClass commercePricingClass =
 			_commercePricingClassService.upsertCommercePricingClass(
-				0L, contextUser.getUserId(), contextUser.getGroupId(),
+				0L, contextUser.getUserId(),
 				LanguageUtils.getLocalizedMap(productGroup.getTitle()),
 				LanguageUtils.getLocalizedMap(productGroup.getDescription()),
 				productGroup.getExternalReferenceCode(), serviceContext);
