@@ -25,6 +25,7 @@ type Item = {
 
 interface DropdownRangeKeyIProps {
 	className: string;
+	disabled: boolean;
 	items: Array<Item>;
 	legacy: boolean;
 	onChange: (rangeSelectors: RangeSelectors) => void;
@@ -33,6 +34,7 @@ interface DropdownRangeKeyIProps {
 
 const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 	className,
+	disabled = false,
 	items,
 	legacy = true, // legacy can be removed once we convert all uses of DropdownRangeKey to include the new values.
 	onChange,
@@ -142,7 +144,12 @@ const DropdownRangeKey: React.FC<DropdownRangeKeyIProps> = ({
 				setShowDatePicker(false);
 			}}
 			trigger={
-				<ClayButton borderless displayType='secondary' small>
+				<ClayButton
+					borderless
+					disabled={disabled}
+					displayType='secondary'
+					small
+				>
 					{selectedItem.label}
 
 					<ClayIcon className='ml-2' symbol='caret-bottom' />
