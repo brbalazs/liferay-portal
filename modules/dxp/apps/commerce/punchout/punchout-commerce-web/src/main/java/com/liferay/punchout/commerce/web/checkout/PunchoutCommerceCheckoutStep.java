@@ -16,15 +16,15 @@ package com.liferay.punchout.commerce.web.checkout;
 
 import com.liferay.commerce.constants.CommerceCheckoutWebKeys;
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.punchout.commerce.constants.PunchoutConstants;
-import com.liferay.punchout.commerce.service.PunchoutReturnService;
-import com.liferay.punchout.commerce.web.internal.helper.PunchoutSessionHelper;
 import com.liferay.commerce.util.BaseCommerceCheckoutStep;
 import com.liferay.commerce.util.CommerceCheckoutStep;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.punchout.commerce.constants.PunchoutConstants;
+import com.liferay.punchout.commerce.service.PunchoutReturnService;
+import com.liferay.punchout.commerce.web.internal.helper.PunchoutSessionHelper;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;

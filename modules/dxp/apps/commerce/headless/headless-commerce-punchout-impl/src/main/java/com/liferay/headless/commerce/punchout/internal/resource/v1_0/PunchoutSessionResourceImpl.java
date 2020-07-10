@@ -23,8 +23,6 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
-import com.liferay.punchout.commerce.configuration.PunchoutConfiguration;
-import com.liferay.punchout.commerce.constants.PunchoutConstants;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
@@ -34,8 +32,6 @@ import com.liferay.headless.commerce.punchout.dto.v1_0.Group;
 import com.liferay.headless.commerce.punchout.dto.v1_0.PunchoutSession;
 import com.liferay.headless.commerce.punchout.dto.v1_0.User;
 import com.liferay.headless.commerce.punchout.resource.v1_0.PunchoutSessionResource;
-import com.liferay.punchout.commerce.oauth2.provider.PunchoutAccessTokenProvider;
-import com.liferay.punchout.commerce.oauth2.provider.model.PunchoutAccessToken;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.NoSuchGroupException;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -54,6 +50,10 @@ import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.punchout.commerce.configuration.PunchoutConfiguration;
+import com.liferay.punchout.commerce.constants.PunchoutConstants;
+import com.liferay.punchout.commerce.oauth2.provider.PunchoutAccessTokenProvider;
+import com.liferay.punchout.commerce.oauth2.provider.model.PunchoutAccessToken;
 
 import java.net.URLEncoder;
 

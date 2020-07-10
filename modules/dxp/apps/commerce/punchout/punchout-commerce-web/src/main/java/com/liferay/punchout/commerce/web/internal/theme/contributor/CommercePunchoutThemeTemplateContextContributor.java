@@ -14,8 +14,8 @@
 
 package com.liferay.punchout.commerce.web.internal.theme.contributor;
 
-import com.liferay.punchout.commerce.web.internal.helper.CommercePunchoutThemeHttpHelper;
 import com.liferay.portal.kernel.template.TemplateContextContributor;
+import com.liferay.punchout.commerce.web.internal.helper.CommercePunchoutThemeHttpHelper;
 
 import java.util.Map;
 
