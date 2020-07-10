@@ -15,9 +15,11 @@
 package com.liferay.commerce.pricing.web.internal.portlet;
 
 import com.liferay.commerce.pricing.constants.CommercePricingPorletKeys;
+import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
 import com.liferay.commerce.pricing.web.internal.display.context.CommercePricingClassDisplayContext;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -65,6 +67,7 @@ public class CommercePricingClassesPortlet extends MVCPortlet {
 		CommercePricingClassDisplayContext commercePricingClassDisplayContext =
 			new CommercePricingClassDisplayContext(
 				_portal.getHttpServletRequest(renderRequest),
+				_commercePricingClassModelResourcePermission,
 				_commercePricingClassService, _portal);
 
 		renderRequest.setAttribute(
@@ -73,6 +76,12 @@ public class CommercePricingClassesPortlet extends MVCPortlet {
 
 		super.render(renderRequest, renderResponse);
 	}
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.pricing.model.CommercePricingClass)"
+	)
+	private ModelResourcePermission<CommercePricingClass>
+		_commercePricingClassModelResourcePermission;
 
 	@Reference
 	private CommercePricingClassService _commercePricingClassService;
