@@ -2,7 +2,7 @@ import * as API from 'shared/api';
 import AssociatedSegmentsCard from 'contacts/components/AssociatedSegmentsCard';
 import DetailsCard from 'contacts/individual/profile/components/DetailsCard';
 import FaroConstants from 'shared/util/constants';
-import IndividualProfileCard from 'contacts/individual/profile/components/ProfileCard';
+import IndividualProfileCard from 'contacts/individual/profile/hoc/ProfileCard';
 import InterestsCard from 'contacts/individual/profile/components/InterestsCard';
 import React from 'react';
 import {Individual} from 'shared/util/records';
@@ -38,11 +38,12 @@ export default class Overview extends React.Component {
 		channelId: PropTypes.string,
 		groupId: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
-		individual: PropTypes.instanceOf(Individual).isRequired
+		individual: PropTypes.instanceOf(Individual).isRequired,
+		tabId: PropTypes.string
 	};
 
 	render() {
-		const {channelId, groupId, id, individual} = this.props;
+		const {channelId, groupId, id, individual, tabId} = this.props;
 
 		return (
 			<div className='overview-layout'>
@@ -51,6 +52,7 @@ export default class Overview extends React.Component {
 						channelId={channelId}
 						entity={individual}
 						groupId={groupId}
+						tabId={tabId}
 					/>
 				</div>
 

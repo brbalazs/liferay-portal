@@ -7,7 +7,7 @@ exports[`IndividualOverview should render 1`] = `
   <div
     className="overview-column-main"
   >
-    <WithSelectedPoint
+    <ProfileCard
       entity={
         Immutable.Record {
           "accountNames": null,
