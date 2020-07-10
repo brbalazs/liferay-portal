@@ -98,6 +98,7 @@
 	<td>//div/button[contains(.,'Sort By')]</td>
 	<td></td>
 </tr>
+<!--SPEEDWELL-->
 <tr>
 	<td>SPEEDWELL_ACCOUNT_DASHBOARD_ITEM</td>
 	<td>//div[contains(@class,'account-dashboard')]//h3[contains(.,'${key_dashboardItem}')]</td>
@@ -111,6 +112,11 @@
 <tr>
 	<td>SPEEDWELL_ACCOUNT_DROPDOWN_ITEM</td>
 	<td>//div[contains(@class,'speedwell-user-nav__')]//div[contains(.,'${key_dropdownItem}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SPEEDWELL_MY_ORDERS_ORDER_ACCOUNT</td>
+	<td>//tbody/tr//td[3][contains(.,'${key_accountName}')]</td>
 	<td></td>
 </tr>
 <tr>
