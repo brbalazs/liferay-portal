@@ -2,12 +2,6 @@ import BasePage from 'shared/components/base-page';
 import React from 'react';
 import Table from 'shared/components/table';
 import TextTruncate from 'shared/components/TextTruncate';
-import {
-	CUSTOM_RANGE,
-	LAST_180_DAYS,
-	LAST_30_DAYS,
-	LAST_YEAR
-} from 'shared/util/constants';
 import {Link} from 'react-router-dom';
 import {pickBy} from 'lodash';
 import {PropTypes} from 'prop-types';
@@ -22,8 +16,6 @@ const ITEMS_SHAPE = PropTypes.shape({
 	title: PropTypes.string,
 	type: PropTypes.string
 });
-// TODO: LRAC-6137 Remove the logic of new range keys
-const NEW_RANGE_KEYS_LIST = [CUSTOM_RANGE, LAST_180_DAYS, LAST_YEAR];
 
 /**
  * Assets List Card
@@ -72,11 +64,9 @@ class AssetsListCard extends React.Component {
 			},
 			pickBy({
 				...query,
-				rangeEnd: null,
-				rangeKey: NEW_RANGE_KEYS_LIST.includes(rangeSelectors.rangeKey)
-					? LAST_30_DAYS
-					: rangeSelectors.rangeKey,
-				rangeStart: null
+				rangeEnd: rangeSelectors.rangeEnd,
+				rangeKey: rangeSelectors.rangeKey,
+				rangeStart: rangeSelectors.rangeStart
 			})
 		);
 	}
