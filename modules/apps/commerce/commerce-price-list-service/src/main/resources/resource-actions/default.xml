@@ -7,13 +7,11 @@
 		<permissions>
 			<supports>
 				<action-key>ADD_COMMERCE_PRICE_LIST</action-key>
-				<action-key>MANAGE_COMMERCE_PRICE_LISTS</action-key>
 			</supports>
 			<site-member-defaults />
 			<guest-defaults />
 			<guest-unsupported>
 				<action-key>ADD_COMMERCE_PRICE_LIST</action-key>
-				<action-key>MANAGE_COMMERCE_PRICE_LISTS</action-key>
 			</guest-unsupported>
 		</permissions>
 	</portlet-resource>

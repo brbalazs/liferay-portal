@@ -22,10 +22,18 @@
 		"actions": [
 			{
 				"actionIds": [
-					"MANAGE_COMMERCE_PRICE_LISTS",
+					"ADD_COMMERCE_PRICE_LIST",
 					"VIEW_CONTROL_PANEL"
 				],
 				"resource": "90"
+			},
+			{
+				"actionIds": [
+					"DELETE",
+					"UPDATE",
+					"VIEW"
+				],
+				"resource": "com.liferay.commerce.price.list.model.CommercePriceList"
 			},
 			{
 				"actionIds": [

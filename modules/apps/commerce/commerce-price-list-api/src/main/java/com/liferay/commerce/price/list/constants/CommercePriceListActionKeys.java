@@ -22,6 +22,4 @@ public class CommercePriceListActionKeys {
 	public static final String ADD_COMMERCE_PRICE_LIST =
 		"ADD_COMMERCE_PRICE_LIST";
 
-	public static final String MANAGE_COMMERCE_PRICE_LISTS =
-		"MANAGE_COMMERCE_PRICE_LISTS";
 }
