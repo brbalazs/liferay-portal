@@ -78,6 +78,12 @@ public class FragmentEntryLinkExportImportContentProcessor
 		JSONObject editableValuesJSONObject = JSONFactoryUtil.createJSONObject(
 			content);
 
+		String portletId = editableValuesJSONObject.getString("portletId");
+
+		if (Validator.isNotNull(portletId)) {
+			return content;
+		}
+
 		Iterator<String> keysIterator = editableValuesJSONObject.keys();
 
 		while (keysIterator.hasNext()) {
@@ -199,6 +205,12 @@ public class FragmentEntryLinkExportImportContentProcessor
 
 		JSONObject editableValuesJSONObject = JSONFactoryUtil.createJSONObject(
 			content);
+
+		String portletId = editableValuesJSONObject.getString("portletId");
+
+		if (Validator.isNotNull(portletId)) {
+			return content;
+		}
 
 		Iterator<String> keysIterator = editableValuesJSONObject.keys();
 
