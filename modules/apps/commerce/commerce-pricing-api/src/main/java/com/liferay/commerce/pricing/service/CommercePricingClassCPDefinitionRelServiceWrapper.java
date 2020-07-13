@@ -139,8 +139,7 @@ public class CommercePricingClassCPDefinitionRelServiceWrapper
 
 	@Override
 	public int getCommercePricingClassCPDefinitionRelsCount(
-			long commercePricingClassId, String name, String languageId)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+		long commercePricingClassId, String name, String languageId) {
 
 		return _commercePricingClassCPDefinitionRelService.
 			getCommercePricingClassCPDefinitionRelsCount(
@@ -172,7 +171,7 @@ public class CommercePricingClassCPDefinitionRelServiceWrapper
 				searchByCommercePricingClassId(
 					long commercePricingClassId, String name, String languageId,
 					int start, int end)
-			throws com.liferay.portal.kernel.security.auth.PrincipalException {
+			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commercePricingClassCPDefinitionRelService.
 			searchByCommercePricingClassId(

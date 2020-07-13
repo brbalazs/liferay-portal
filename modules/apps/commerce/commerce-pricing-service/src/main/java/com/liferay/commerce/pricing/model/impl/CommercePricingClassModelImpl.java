@@ -84,11 +84,11 @@ public class CommercePricingClassModelImpl
 
 	public static final Object[][] TABLE_COLUMNS = {
 		{"uuid_", Types.VARCHAR}, {"externalReferenceCode", Types.VARCHAR},
-		{"commercePricingClassId", Types.BIGINT}, {"groupId", Types.BIGINT},
-		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"userName", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}, {"title", Types.VARCHAR},
-		{"description", Types.VARCHAR}, {"lastPublishDate", Types.TIMESTAMP}
+		{"commercePricingClassId", Types.BIGINT}, {"companyId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"title", Types.VARCHAR}, {"description", Types.VARCHAR},
+		{"lastPublishDate", Types.TIMESTAMP}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -98,7 +98,6 @@ public class CommercePricingClassModelImpl
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("externalReferenceCode", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("commercePricingClassId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("groupId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
@@ -110,7 +109,7 @@ public class CommercePricingClassModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table CommercePricingClass (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,commercePricingClassId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title STRING null,description STRING null,lastPublishDate DATE null)";
+		"create table CommercePricingClass (uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,commercePricingClassId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title STRING null,description STRING null,lastPublishDate DATE null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table CommercePricingClass";
@@ -146,11 +145,9 @@ public class CommercePricingClassModelImpl
 
 	public static final long EXTERNALREFERENCECODE_COLUMN_BITMASK = 2L;
 
-	public static final long GROUPID_COLUMN_BITMASK = 4L;
+	public static final long UUID_COLUMN_BITMASK = 4L;
 
-	public static final long UUID_COLUMN_BITMASK = 8L;
-
-	public static final long CREATEDATE_COLUMN_BITMASK = 16L;
+	public static final long CREATEDATE_COLUMN_BITMASK = 8L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -170,7 +167,6 @@ public class CommercePricingClassModelImpl
 		model.setUuid(soapModel.getUuid());
 		model.setExternalReferenceCode(soapModel.getExternalReferenceCode());
 		model.setCommercePricingClassId(soapModel.getCommercePricingClassId());
-		model.setGroupId(soapModel.getGroupId());
 		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
 		model.setUserName(soapModel.getUserName());
@@ -409,29 +405,6 @@ public class CommercePricingClassModelImpl
 
 					commercePricingClass.setCommercePricingClassId(
 						(Long)commercePricingClassIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<CommercePricingClass, Object>() {
-
-				@Override
-				public Object apply(CommercePricingClass commercePricingClass) {
-					return commercePricingClass.getGroupId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"groupId",
-			new BiConsumer<CommercePricingClass, Object>() {
-
-				@Override
-				public void accept(
-					CommercePricingClass commercePricingClass,
-					Object groupIdObject) {
-
-					commercePricingClass.setGroupId((Long)groupIdObject);
 				}
 
 			});
@@ -694,29 +667,6 @@ public class CommercePricingClassModelImpl
 
 	@JSON
 	@Override
-	public long getGroupId() {
-		return _groupId;
-	}
-
-	@Override
-	public void setGroupId(long groupId) {
-		_columnBitmask |= GROUPID_COLUMN_BITMASK;
-
-		if (!_setOriginalGroupId) {
-			_setOriginalGroupId = true;
-
-			_originalGroupId = _groupId;
-		}
-
-		_groupId = groupId;
-	}
-
-	public long getOriginalGroupId() {
-		return _originalGroupId;
-	}
-
-	@JSON
-	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
@@ -872,7 +822,7 @@ public class CommercePricingClassModelImpl
 
 	@Override
 	public void setTitle(String title, Locale locale) {
-		setTitle(title, locale, LocaleUtil.getSiteDefault());
+		setTitle(title, locale, LocaleUtil.getDefault());
 	}
 
 	@Override
@@ -899,7 +849,7 @@ public class CommercePricingClassModelImpl
 
 	@Override
 	public void setTitleMap(Map<Locale, String> titleMap) {
-		setTitleMap(titleMap, LocaleUtil.getSiteDefault());
+		setTitleMap(titleMap, LocaleUtil.getDefault());
 	}
 
 	@Override
@@ -977,7 +927,7 @@ public class CommercePricingClassModelImpl
 
 	@Override
 	public void setDescription(String description, Locale locale) {
-		setDescription(description, locale, LocaleUtil.getSiteDefault());
+		setDescription(description, locale, LocaleUtil.getDefault());
 	}
 
 	@Override
@@ -1007,7 +957,7 @@ public class CommercePricingClassModelImpl
 
 	@Override
 	public void setDescriptionMap(Map<Locale, String> descriptionMap) {
-		setDescriptionMap(descriptionMap, LocaleUtil.getSiteDefault());
+		setDescriptionMap(descriptionMap, LocaleUtil.getDefault());
 	}
 
 	@Override
@@ -1097,7 +1047,7 @@ public class CommercePricingClassModelImpl
 			return "";
 		}
 
-		Locale defaultLocale = LocaleUtil.getSiteDefault();
+		Locale defaultLocale = LocaleUtil.getDefault();
 
 		return LocalizationUtil.getDefaultLanguageId(xml, defaultLocale);
 	}
@@ -1122,7 +1072,7 @@ public class CommercePricingClassModelImpl
 	public void prepareLocalizedFieldsForImport(Locale defaultImportLocale)
 		throws LocaleException {
 
-		Locale defaultLocale = LocaleUtil.getSiteDefault();
+		Locale defaultLocale = LocaleUtil.getDefault();
 
 		String modelDefaultLanguageId = getDefaultLanguageId();
 
@@ -1172,7 +1122,6 @@ public class CommercePricingClassModelImpl
 			getExternalReferenceCode());
 		commercePricingClassImpl.setCommercePricingClassId(
 			getCommercePricingClassId());
-		commercePricingClassImpl.setGroupId(getGroupId());
 		commercePricingClassImpl.setCompanyId(getCompanyId());
 		commercePricingClassImpl.setUserId(getUserId());
 		commercePricingClassImpl.setUserName(getUserName());
@@ -1251,11 +1200,6 @@ public class CommercePricingClassModelImpl
 		commercePricingClassModelImpl._originalExternalReferenceCode =
 			commercePricingClassModelImpl._externalReferenceCode;
 
-		commercePricingClassModelImpl._originalGroupId =
-			commercePricingClassModelImpl._groupId;
-
-		commercePricingClassModelImpl._setOriginalGroupId = false;
-
 		commercePricingClassModelImpl._originalCompanyId =
 			commercePricingClassModelImpl._companyId;
 
@@ -1293,8 +1237,6 @@ public class CommercePricingClassModelImpl
 
 		commercePricingClassCacheModel.commercePricingClassId =
 			getCommercePricingClassId();
-
-		commercePricingClassCacheModel.groupId = getGroupId();
 
 		commercePricingClassCacheModel.companyId = getCompanyId();
 
@@ -1433,9 +1375,6 @@ public class CommercePricingClassModelImpl
 	private String _externalReferenceCode;
 	private String _originalExternalReferenceCode;
 	private long _commercePricingClassId;
-	private long _groupId;
-	private long _originalGroupId;
-	private boolean _setOriginalGroupId;
 	private long _companyId;
 	private long _originalCompanyId;
 	private boolean _setOriginalCompanyId;

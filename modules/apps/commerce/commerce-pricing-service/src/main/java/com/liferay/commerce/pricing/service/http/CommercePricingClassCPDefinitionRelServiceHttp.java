@@ -419,9 +419,8 @@ public class CommercePricingClassCPDefinitionRelServiceHttp {
 	}
 
 	public static int getCommercePricingClassCPDefinitionRelsCount(
-			HttpPrincipal httpPrincipal, long commercePricingClassId,
-			String name, String languageId)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+		HttpPrincipal httpPrincipal, long commercePricingClassId, String name,
+		String languageId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -438,14 +437,6 @@ public class CommercePricingClassCPDefinitionRelServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.security.auth.
-							PrincipalException) {
-
-					throw (com.liferay.portal.kernel.security.auth.
-						PrincipalException)exception;
-				}
-
 				throw new com.liferay.portal.kernel.exception.SystemException(
 					exception);
 			}
@@ -506,7 +497,7 @@ public class CommercePricingClassCPDefinitionRelServiceHttp {
 				searchByCommercePricingClassId(
 					HttpPrincipal httpPrincipal, long commercePricingClassId,
 					String name, String languageId, int start, int end)
-			throws com.liferay.portal.kernel.security.auth.PrincipalException {
+			throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -525,11 +516,10 @@ public class CommercePricingClassCPDefinitionRelServiceHttp {
 			}
 			catch (Exception exception) {
 				if (exception instanceof
-						com.liferay.portal.kernel.security.auth.
-							PrincipalException) {
+						com.liferay.portal.kernel.exception.PortalException) {
 
-					throw (com.liferay.portal.kernel.security.auth.
-						PrincipalException)exception;
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(

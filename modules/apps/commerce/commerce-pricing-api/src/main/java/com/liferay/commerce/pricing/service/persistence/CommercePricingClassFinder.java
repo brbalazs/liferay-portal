@@ -25,9 +25,18 @@ public interface CommercePricingClassFinder {
 
 	public int countByCPDefinitionId(long cpDefinitionId, String title);
 
+	public int countByCPDefinitionId(
+		long cpDefinitionId, String title, boolean inlineSQLHelper);
+
 	public java.util.List
 		<com.liferay.commerce.pricing.model.CommercePricingClass>
 			findByCPDefinitionId(
 				long cpDefinitionId, String title, int start, int end);
+
+	public java.util.List
+		<com.liferay.commerce.pricing.model.CommercePricingClass>
+			findByCPDefinitionId(
+				long cpDefinitionId, String title, int start, int end,
+				boolean inlineSQLHelper);
 
 }

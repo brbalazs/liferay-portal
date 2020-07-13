@@ -166,6 +166,15 @@ public class CommercePricingClassCPDefinitionRelServiceImpl
 	}
 
 	@Override
+	public int getCommercePricingClassCPDefinitionRelsCount(
+		long commercePricingClassId, String name, String languageId) {
+
+		return commercePricingClassCPDefinitionRelFinder.
+			countByCommercePricingClassId(
+				commercePricingClassId, name, languageId, true);
+	}
+
+	@Override
 	public long[] getCPDefinitionIds(long commercePricingClassId)
 		throws PortalException {
 

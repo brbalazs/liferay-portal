@@ -67,12 +67,13 @@ public interface CommercePricingClassService extends BaseService {
 	 * Never modify or reference this interface directly. Always use {@link CommercePricingClassServiceUtil} to access the commerce pricing class remote service. Add custom service methods to <code>com.liferay.commerce.pricing.service.impl.CommercePricingClassServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public CommercePricingClass addCommercePricingClass(
-			long userId, long groupId, Map<Locale, String> titleMap,
+			long userId, Map<Locale, String> titleMap,
 			Map<Locale, String> descriptionMap, ServiceContext serviceContext)
 		throws PortalException;
 
 	public CommercePricingClass addCommercePricingClass(
-			long userId, long groupId, String title, String description,
+			long userId, Map<Locale, String> titleMap,
+			Map<Locale, String> descriptionMap, String externalReferenceCode,
 			ServiceContext serviceContext)
 		throws PortalException;
 
@@ -96,8 +97,9 @@ public interface CommercePricingClassService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public long[] getCommercePricingClassByCPDefinition(long cpDefinitionId)
-		throws PortalException;
+	public int getCommercePricingClassCountByCPDefinitionId(
+			long cpDefinitionId, String title)
+		throws PrincipalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePricingClass> getCommercePricingClasses(
@@ -121,37 +123,27 @@ public interface CommercePricingClassService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommercePricingClass> searchByCPDefinitionId(
-			long cpDefinitionId, String title, int start, int end)
-		throws PrincipalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public BaseModelSearchResult<CommercePricingClass>
 			searchCommercePricingClasses(
 				long companyId, String keywords, int start, int end, Sort sort)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePricingClass>
+			searchCommercePricingClassesByCPDefinitionId(
+				long cpDefinitionId, String title, int start, int end)
+		throws PrincipalException;
+
 	public CommercePricingClass updateCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId,
+			long commercePricingClassId, long userId,
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
 			ServiceContext serviceContext)
 		throws PortalException;
 
-	public CommercePricingClass updateCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId,
-			String title, String description, ServiceContext serviceContext)
-		throws PortalException;
-
 	public CommercePricingClass upsertCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId,
+			long commercePricingClassId, long userId,
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
 			String externalReferenceCode, ServiceContext serviceContext)
-		throws PortalException;
-
-	public CommercePricingClass upsertCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId,
-			String title, String description, String externalReferenceCode,
-			ServiceContext serviceContext)
 		throws PortalException;
 
 }

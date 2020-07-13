@@ -124,8 +124,7 @@ public class CommercePricingClassCPDefinitionRelServiceUtil {
 	}
 
 	public static int getCommercePricingClassCPDefinitionRelsCount(
-			long commercePricingClassId, String name, String languageId)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+		long commercePricingClassId, String name, String languageId) {
 
 		return getService().getCommercePricingClassCPDefinitionRelsCount(
 			commercePricingClassId, name, languageId);
@@ -151,7 +150,7 @@ public class CommercePricingClassCPDefinitionRelServiceUtil {
 				searchByCommercePricingClassId(
 					long commercePricingClassId, String name, String languageId,
 					int start, int end)
-			throws com.liferay.portal.kernel.security.auth.PrincipalException {
+			throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().searchByCommercePricingClassId(
 			commercePricingClassId, name, languageId, start, end);

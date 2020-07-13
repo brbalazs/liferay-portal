@@ -14,6 +14,4 @@ create index IX_391477EF on CommercePriceModifierRel (classNameId, classPK);
 create unique index IX_89DDF14B on CommercePriceModifierRel (commercePriceModifierId, classNameId, classPK);
 
 create index IX_FCABA3C8 on CommercePricingClass (companyId, externalReferenceCode[$COLUMN_LENGTH:75$]);
-create index IX_8A3D0197 on CommercePricingClass (groupId);
 create index IX_287E2FA7 on CommercePricingClass (uuid_[$COLUMN_LENGTH:75$], companyId);
-create unique index IX_34C73E9 on CommercePricingClass (uuid_[$COLUMN_LENGTH:75$], groupId);

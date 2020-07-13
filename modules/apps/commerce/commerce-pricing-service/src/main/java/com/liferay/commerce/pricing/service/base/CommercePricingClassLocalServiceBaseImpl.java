@@ -244,17 +244,18 @@ public abstract class CommercePricingClassLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the commerce pricing class matching the UUID and group.
+	 * Returns the commerce pricing class with the matching UUID and company.
 	 *
 	 * @param uuid the commerce pricing class's UUID
-	 * @param groupId the primary key of the group
+	 * @param companyId the primary key of the company
 	 * @return the matching commerce pricing class, or <code>null</code> if a matching commerce pricing class could not be found
 	 */
 	@Override
-	public CommercePricingClass fetchCommercePricingClassByUuidAndGroupId(
-		String uuid, long groupId) {
+	public CommercePricingClass fetchCommercePricingClassByUuidAndCompanyId(
+		String uuid, long companyId) {
 
-		return commercePricingClassPersistence.fetchByUUID_G(uuid, groupId);
+		return commercePricingClassPersistence.fetchByUuid_C_First(
+			uuid, companyId, null);
 	}
 
 	/**
@@ -382,9 +383,6 @@ public abstract class CommercePricingClassLocalServiceBaseImpl
 		exportActionableDynamicQuery.setCompanyId(
 			portletDataContext.getCompanyId());
 
-		exportActionableDynamicQuery.setGroupId(
-			portletDataContext.getScopeGroupId());
-
 		exportActionableDynamicQuery.setPerformActionMethod(
 			new ActionableDynamicQuery.PerformActionMethod
 				<CommercePricingClass>() {
@@ -433,54 +431,20 @@ public abstract class CommercePricingClassLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns all the commerce pricing classes matching the UUID and company.
-	 *
-	 * @param uuid the UUID of the commerce pricing classes
-	 * @param companyId the primary key of the company
-	 * @return the matching commerce pricing classes, or an empty list if no matches were found
-	 */
-	@Override
-	public List<CommercePricingClass>
-		getCommercePricingClassesByUuidAndCompanyId(
-			String uuid, long companyId) {
-
-		return commercePricingClassPersistence.findByUuid_C(uuid, companyId);
-	}
-
-	/**
-	 * Returns a range of commerce pricing classes matching the UUID and company.
-	 *
-	 * @param uuid the UUID of the commerce pricing classes
-	 * @param companyId the primary key of the company
-	 * @param start the lower bound of the range of commerce pricing classes
-	 * @param end the upper bound of the range of commerce pricing classes (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the range of matching commerce pricing classes, or an empty list if no matches were found
-	 */
-	@Override
-	public List<CommercePricingClass>
-		getCommercePricingClassesByUuidAndCompanyId(
-			String uuid, long companyId, int start, int end,
-			OrderByComparator<CommercePricingClass> orderByComparator) {
-
-		return commercePricingClassPersistence.findByUuid_C(
-			uuid, companyId, start, end, orderByComparator);
-	}
-
-	/**
-	 * Returns the commerce pricing class matching the UUID and group.
+	 * Returns the commerce pricing class with the matching UUID and company.
 	 *
 	 * @param uuid the commerce pricing class's UUID
-	 * @param groupId the primary key of the group
+	 * @param companyId the primary key of the company
 	 * @return the matching commerce pricing class
 	 * @throws PortalException if a matching commerce pricing class could not be found
 	 */
 	@Override
-	public CommercePricingClass getCommercePricingClassByUuidAndGroupId(
-			String uuid, long groupId)
+	public CommercePricingClass getCommercePricingClassByUuidAndCompanyId(
+			String uuid, long companyId)
 		throws PortalException {
 
-		return commercePricingClassPersistence.findByUUID_G(uuid, groupId);
+		return commercePricingClassPersistence.findByUuid_C_First(
+			uuid, companyId, null);
 	}
 
 	/**

@@ -80,20 +80,15 @@ public interface CommercePricingClassLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public CommercePricingClass addCommercePricingClass(
-			long userId, long groupId, Map<Locale, String> titleMap,
-			Map<Locale, String> descriptionMap, String externalReferenceCode,
-			ServiceContext serviceContext)
-		throws PortalException;
-
-	public CommercePricingClass addCommercePricingClass(
-			long userId, long groupId, String title, String description,
-			ServiceContext serviceContext)
+			long userId, Map<Locale, String> titleMap,
+			Map<Locale, String> descriptionMap, ServiceContext serviceContext)
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
 	public CommercePricingClass addCommercePricingClass(
-			long userId, long groupId, String title, String description,
-			String externalReferenceCode, ServiceContext serviceContext)
+			long userId, Map<Locale, String> titleMap,
+			Map<Locale, String> descriptionMap, String externalReferenceCode,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
@@ -226,15 +221,15 @@ public interface CommercePricingClassLocalService
 		long companyId, String externalReferenceCode);
 
 	/**
-	 * Returns the commerce pricing class matching the UUID and group.
+	 * Returns the commerce pricing class with the matching UUID and company.
 	 *
 	 * @param uuid the commerce pricing class's UUID
-	 * @param groupId the primary key of the group
+	 * @param companyId the primary key of the company
 	 * @return the matching commerce pricing class, or <code>null</code> if a matching commerce pricing class could not be found
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CommercePricingClass fetchCommercePricingClassByUuidAndGroupId(
-		String uuid, long groupId);
+	public CommercePricingClass fetchCommercePricingClassByUuidAndCompanyId(
+		String uuid, long companyId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -255,17 +250,21 @@ public interface CommercePricingClassLocalService
 	public long[] getCommercePricingClassByCPDefinition(long cpDefinitionId);
 
 	/**
-	 * Returns the commerce pricing class matching the UUID and group.
+	 * Returns the commerce pricing class with the matching UUID and company.
 	 *
 	 * @param uuid the commerce pricing class's UUID
-	 * @param groupId the primary key of the group
+	 * @param companyId the primary key of the company
 	 * @return the matching commerce pricing class
 	 * @throws PortalException if a matching commerce pricing class could not be found
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CommercePricingClass getCommercePricingClassByUuidAndGroupId(
-			String uuid, long groupId)
+	public CommercePricingClass getCommercePricingClassByUuidAndCompanyId(
+			String uuid, long companyId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePricingClassCountByCPDefinitionId(
+		long cpDefinitionId, String title);
 
 	/**
 	 * Returns a range of all the commerce pricing classes.
@@ -286,34 +285,6 @@ public interface CommercePricingClassLocalService
 	public List<CommercePricingClass> getCommercePricingClasses(
 		long companyId, int start, int end,
 		OrderByComparator<CommercePricingClass> orderByComparator);
-
-	/**
-	 * Returns all the commerce pricing classes matching the UUID and company.
-	 *
-	 * @param uuid the UUID of the commerce pricing classes
-	 * @param companyId the primary key of the company
-	 * @return the matching commerce pricing classes, or an empty list if no matches were found
-	 */
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommercePricingClass>
-		getCommercePricingClassesByUuidAndCompanyId(
-			String uuid, long companyId);
-
-	/**
-	 * Returns a range of commerce pricing classes matching the UUID and company.
-	 *
-	 * @param uuid the UUID of the commerce pricing classes
-	 * @param companyId the primary key of the company
-	 * @param start the lower bound of the range of commerce pricing classes
-	 * @param end the upper bound of the range of commerce pricing classes (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the range of matching commerce pricing classes, or an empty list if no matches were found
-	 */
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommercePricingClass>
-		getCommercePricingClassesByUuidAndCompanyId(
-			String uuid, long companyId, int start, int end,
-			OrderByComparator<CommercePricingClass> orderByComparator);
 
 	/**
 	 * Returns the number of commerce pricing classes.
@@ -353,14 +324,15 @@ public interface CommercePricingClassLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommercePricingClass> searchByCPDefinitionId(
-		long cpDefinitionId, String title, int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public BaseModelSearchResult<CommercePricingClass>
 			searchCommercePricingClasses(
 				long companyId, String keywords, int start, int end, Sort sort)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePricingClass>
+		searchCommercePricingClassesByCPDefinitionId(
+			long cpDefinitionId, String title, int start, int end);
 
 	/**
 	 * Updates the commerce pricing class in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
@@ -374,27 +346,15 @@ public interface CommercePricingClassLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public CommercePricingClass updateCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId,
+			long commercePricingClassId, long userId,
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
 			ServiceContext serviceContext)
 		throws PortalException;
 
-	@Indexable(type = IndexableType.REINDEX)
-	public CommercePricingClass updateCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId,
-			String title, String description, ServiceContext serviceContext)
-		throws PortalException;
-
 	public CommercePricingClass upsertCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId,
+			long commercePricingClassId, long userId,
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
 			String externalReferenceCode, ServiceContext serviceContext)
-		throws PortalException;
-
-	public CommercePricingClass upsertCommercePricingClass(
-			long commercePricingClassId, long userId, long groupId,
-			String title, String description, String externalReferenceCode,
-			ServiceContext serviceContext)
 		throws PortalException;
 
 }
