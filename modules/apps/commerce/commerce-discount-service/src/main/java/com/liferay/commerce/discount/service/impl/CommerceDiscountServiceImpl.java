@@ -136,15 +136,6 @@ public class CommerceDiscountServiceImpl
 	}
 
 	@Override
-	public int countByCommercePricingClassId(
-			long commercePricingClassId, String title)
-		throws PrincipalException {
-
-		return commerceDiscountFinder.countByCommercePricingClassId(
-			commercePricingClassId, title, true);
-	}
-
-	@Override
 	public void deleteCommerceDiscount(long commerceDiscountId)
 		throws PortalException {
 
@@ -221,6 +212,15 @@ public class CommerceDiscountServiceImpl
 
 		return commerceDiscountPersistence.filterCountByC_C(
 			companyId, couponCode);
+	}
+
+	@Override
+	public int getCommerceDiscountsCountByPricingClassId(
+			long commercePricingClassId, String title)
+		throws PrincipalException {
+
+		return commerceDiscountFinder.countByCommercePricingClassId(
+			commercePricingClassId, title, true);
 	}
 
 	@Override
