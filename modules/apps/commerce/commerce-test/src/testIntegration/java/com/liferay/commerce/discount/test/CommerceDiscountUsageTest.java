@@ -250,7 +250,7 @@ public class CommerceDiscountUsageTest {
 
 		int commerceDiscountUsageCount =
 			_commerceDiscountUsageEntryLocalService.
-				countCommerceDiscountUsageEntryByDiscountId(
+				getCommerceDiscountUsageEntriesCount(
 					commerceDiscount.getCommerceDiscountId());
 
 		Assert.assertEquals(0, commerceDiscountUsageCount);
@@ -272,7 +272,7 @@ public class CommerceDiscountUsageTest {
 
 		commerceDiscountUsageCount =
 			_commerceDiscountUsageEntryLocalService.
-				countCommerceDiscountUsageEntryByDiscountId(
+				getCommerceDiscountUsageEntriesCount(
 					commerceDiscount.getCommerceDiscountId());
 
 		Assert.assertEquals(1, commerceDiscountUsageCount);
@@ -282,7 +282,7 @@ public class CommerceDiscountUsageTest {
 
 		commerceDiscountUsageCount =
 			_commerceDiscountUsageEntryLocalService.
-				countCommerceDiscountUsageEntryByDiscountId(
+				getCommerceDiscountUsageEntriesCount(
 					commerceDiscount.getCommerceDiscountId());
 
 		Assert.assertEquals(1, commerceDiscountUsageCount);
@@ -356,7 +356,7 @@ public class CommerceDiscountUsageTest {
 
 		int commerceDiscountUsageCount =
 			_commerceDiscountUsageEntryLocalService.
-				countCommerceDiscountUsageEntryByDiscountId(
+				getCommerceDiscountUsageEntriesCount(
 					commerceDiscount.getCommerceDiscountId());
 
 		Assert.assertEquals(0, commerceDiscountUsageCount);
@@ -366,7 +366,7 @@ public class CommerceDiscountUsageTest {
 
 		commerceDiscountUsageCount =
 			_commerceDiscountUsageEntryLocalService.
-				countCommerceDiscountUsageEntryByDiscountId(
+				getCommerceDiscountUsageEntriesCount(
 					commerceDiscount.getCommerceDiscountId());
 
 		Assert.assertEquals(0, commerceDiscountUsageCount);
