@@ -27,6 +27,7 @@ import com.liferay.fragment.service.FragmentEntryLinkLocalService;
 import com.liferay.fragment.service.FragmentEntryLocalService;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.xml.Element;
 
 import java.util.Map;
@@ -72,19 +73,25 @@ public class FragmentEntryLinkStagedModelDataHandler
 		Element fragmentEntryLinkElement =
 			portletDataContext.getExportDataElement(fragmentEntryLink);
 
-		String editableValues =
-			_fragmentEntryLinkExportImportContentProcessor.
-				replaceExportContentReferences(
-					portletDataContext, fragmentEntryLink,
-					fragmentEntryLink.getEditableValues(), true, false);
+		String editableValues = fragmentEntryLink.getEditableValues();
+
+		if (Validator.isNotNull(editableValues)) {
+			editableValues =
+				_fragmentEntryLinkExportImportContentProcessor.
+					replaceExportContentReferences(
+						portletDataContext, fragmentEntryLink, editableValues,
+						true, false);
+		}
 
 		fragmentEntryLink.setEditableValues(editableValues);
 
-		String html =
+		String html = fragmentEntryLink.getHtml();
+
+		if (Validator.isNotNull(html)) {
 			_dlReferencesExportImportContentProcessor.
 				replaceExportContentReferences(
-					portletDataContext, fragmentEntryLink,
-					fragmentEntryLink.getHtml(), true, false);
+					portletDataContext, fragmentEntryLink, html, true, false);
+		}
 
 		fragmentEntryLink.setHtml(html);
 
