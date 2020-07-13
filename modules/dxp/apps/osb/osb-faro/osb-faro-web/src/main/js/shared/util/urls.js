@@ -1,5 +1,5 @@
-import {setUriQueryValue, toRoute} from 'shared/util/router';
-
+import {CUSTOM_RANGE} from 'shared/util/constants';
+import {setUriQueryValue, setUriQueryValues, toRoute} from 'shared/util/router';
 /**
  * Get URL
  * @param {string} path
@@ -19,6 +19,20 @@ export const getUrl = (path, {params, query}) => {
 	};
 
 	return rangeKey
-		? setUriQueryValue(toRoute(path, routeParams), 'rangeKey', rangeKey)
+		? setUriQueryInRoute(path, query, routeParams)
 		: toRoute(path, routeParams);
+};
+
+const setUriQueryInRoute = (path, query, routeParams) => {
+	const {rangeKey} = query;
+
+	if (rangeKey === CUSTOM_RANGE) {
+		return setUriQueryValues(query, toRoute(path, routeParams));
+	} else {
+		return setUriQueryValue(
+			toRoute(path, routeParams),
+			'rangeKey',
+			rangeKey
+		);
+	}
 };
