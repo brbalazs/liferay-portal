@@ -133,7 +133,7 @@ const OutputVersionsCard: React.FC<IOutputVersionsCardProps> = ({
 					</b>
 
 					<b>{`(${sub(Liferay.Language.get('next-x'), [
-						moment(nextTrainingDate).fromNow()
+						moment(nextTrainingDate).toNow()
 					])})`}</b>
 				</div>
 			</Card.Header>
