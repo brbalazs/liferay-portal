@@ -22,8 +22,6 @@ Map<String, Object> contextObjects = new HashMap<>();
 CommerceOrderContentDisplayContext commerceOrderContentDisplayContext = (CommerceOrderContentDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 contextObjects.put("commerceOrderContentDisplayContext", commerceOrderContentDisplayContext);
-
-List<CommerceOrder> commerceOrders = commerceOrderContentDisplayContext.getCommerceOrders();
 %>
 
 <liferay-ddm:template-renderer
@@ -31,7 +29,7 @@ List<CommerceOrder> commerceOrders = commerceOrderContentDisplayContext.getComme
 	contextObjects="<%= contextObjects %>"
 	displayStyle="<%= commerceOrderContentDisplayContext.getDisplayStyle(CommercePortletKeys.COMMERCE_ORDER_CONTENT) %>"
 	displayStyleGroupId="<%= commerceOrderContentDisplayContext.getDisplayStyleGroupId(CommercePortletKeys.COMMERCE_ORDER_CONTENT) %>"
-	entries="<%= commerceOrders %>"
+	entries="<%= commerceOrderContentDisplayContext.getCommerceOrders() %>"
 >
 	<commerce-ui:dataset-display
 		dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PLACED_ORDERS %>"

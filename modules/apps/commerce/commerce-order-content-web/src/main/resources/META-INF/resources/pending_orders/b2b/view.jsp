@@ -24,7 +24,6 @@ CommerceOrderContentDisplayContext commerceOrderContentDisplayContext = (Commerc
 contextObjects.put("commerceOrderContentDisplayContext", commerceOrderContentDisplayContext);
 
 CommerceAccount commerceAccount = commerceOrderContentDisplayContext.getCommerceAccount();
-List<CommerceOrder> commerceOrders = commerceOrderContentDisplayContext.getCommerceOrders();
 %>
 
 <liferay-ddm:template-renderer
@@ -32,7 +31,7 @@ List<CommerceOrder> commerceOrders = commerceOrderContentDisplayContext.getComme
 	contextObjects="<%= contextObjects %>"
 	displayStyle="<%= commerceOrderContentDisplayContext.getDisplayStyle(CommercePortletKeys.COMMERCE_OPEN_ORDER_CONTENT) %>"
 	displayStyleGroupId="<%= commerceOrderContentDisplayContext.getDisplayStyleGroupId(CommercePortletKeys.COMMERCE_OPEN_ORDER_CONTENT) %>"
-	entries="<%= commerceOrders %>"
+	entries="<%= commerceOrderContentDisplayContext.getCommerceOrders() %>"
 >
 	<commerce-ui:dataset-display
 		dataProviderKey="<%= CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PENDING_ORDERS %>"
