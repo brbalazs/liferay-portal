@@ -455,9 +455,7 @@ definition {
 
 		CommerceNavigator.gotoMiniCart();
 
-		Click.clickNoMouseOver(
-			key_text = "Submit",
-			locator1 = "Button#ANY");
+		Button.click(button = "Submit");
 
 		GuestCheckout.assertGuestCheckoutAuthenticationPage();
 	}
@@ -509,13 +507,9 @@ definition {
 
 		CommerceNavigator.gotoMiniCart();
 
-		Click(
-			key_text = "Submit",
-			locator1 = "Button#ANY");
+		Button.click(button = "Submit");
 
-		Click(
-			key_text = "Continue as a Guest",
-			locator1 = "Button#ANY");
+		Button.click(button = "Continue as a Guest");
 
 		CommerceCheckout.initializersCheckout(
 			guestEmail = "buyer@liferay.com",
@@ -542,13 +536,9 @@ definition {
 
 		CommerceNavigator.gotoMiniCart();
 
-		Click(
-			key_text = "Submit",
-			locator1 = "Button#ANY");
+		Button.click(button = "Submit");
 
-		Click(
-			key_text = "Continue as a Guest",
-			locator1 = "Button#ANY");
+		Button.click(button = "Continue as a Guest");
 
 		CommerceCheckout.initializersCheckout(
 			guestEmail = "buyer@liferay.com",
@@ -632,13 +622,9 @@ definition {
 
 		CommerceNavigator.gotoMiniCart();
 
-		Click.clickNoMouseOver(
-			key_text = "Submit",
-			locator1 = "Button#ANY");
+		Button.click(button = "Submit");
 
-		Click.clickNoMouseOver(
-			key_text = "Continue as a Guest",
-			locator1 = "Button#ANY");
+		Button.click(button = "Continue as a Guest");
 
 		CommerceCheckout.initializersCheckout(
 			guestEmail = "buyer@liferay.com",
@@ -730,9 +716,7 @@ definition {
 
 		CommerceNavigator.gotoMiniCart();
 
-		Click.clickNoMouseOver(
-			key_text = "Submit",
-			locator1 = "Button#ANY");
+		Button.click(button = "Submit");
 
 		CommerceLogin.loginPG(
 			password = "ttest",
@@ -742,9 +726,7 @@ definition {
 
 		CommerceNavigator.gotoMiniCart();
 
-		Click.clickNoMouseOver(
-			key_text = "Submit",
-			locator1 = "Button#ANY");
+		Button.click(button = "Submit");
 
 		CommerceCheckout.initializersCheckout(
 			guestEmail = "buyer@liferay.com",
@@ -805,13 +787,9 @@ definition {
 
 		CommerceNavigator.gotoMiniCart();
 
-		Click.clickNoMouseOver(
-			key_text = "Submit",
-			locator1 = "Button#ANY");
+		Button.click(button = "Submit");
 
-		Click.clickNoMouseOver(
-			key_text = "Continue as a Guest",
-			locator1 = "Button#ANY");
+		Button.click(button = "Continue as a Guest");
 
 		CommerceCheckout.initializersCheckout(
 			guestEmail = "buyer@liferay.com",
@@ -887,13 +865,9 @@ definition {
 
 		CommerceNavigator.gotoMiniCart();
 
-		Click.clickNoMouseOver(
-			key_text = "Submit",
-			locator1 = "Button#ANY");
+		Button.click(button = "Submit");
 
-		Click.clickNoMouseOver(
-			key_text = "Continue as a Guest",
-			locator1 = "Button#ANY");
+		Button.click(button = "Continue as a Guest");
 
 		AssertElementNotPresent(locator1 = "CommerceAccelerators#CHECKOUT_CHECK_SHIPPING_ADDRESS_LABEL");
 
@@ -952,13 +926,9 @@ definition {
 
 		CommerceNavigator.gotoMiniCart();
 
-		Click.clickNoMouseOver(
-			key_text = "Submit",
-			locator1 = "Button#ANY");
+		Button.click(button = "Submit");
 
-		Click.clickNoMouseOver(
-			key_text = "Continue as a Guest",
-			locator1 = "Button#ANY");
+		Button.click(button = "Continue as a Guest");
 
 		AssertElementPresent(locator1 = "CommerceAccelerators#GUEST_CHECKOUT_CHECK_EMAIL_LABEL");
 
