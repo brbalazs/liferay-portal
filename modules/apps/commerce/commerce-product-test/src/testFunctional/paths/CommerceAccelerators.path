@@ -189,6 +189,16 @@
 	<td>//div[contains(@class,'form-group')]//input[contains(@name,'email')]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>GUEST_CHECKOUT_CHECK_EMAIL_LABEL</td>
+	<td>//div[contains(@class,'form-group')]//label[normalize-space(text()) = 'Email']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHECKOUT_CHECK_SHIPPING_ADDRESS_LABEL</td>
+	<td>//div[@class='multi-step-indicator-label' and contains(.,'Shipping Address')]</td>
+	<td></td>
+</tr>
 <!--MINICART-->
 <tr>
 	<td>MINI_CART_CLOSE</td>
