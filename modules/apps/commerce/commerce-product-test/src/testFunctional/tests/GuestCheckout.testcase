@@ -811,4 +811,89 @@ definition {
 			productUnitPrice = "24",
 			shippingMethod = "Standard");
 	}
+
+	test GuestCheckoutWithNoShippableProduct {
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "GuestCheckout#GuestCheckoutWithNoShippableProduct";
+
+		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Channels");
+
+		CommerceNavigator.gotoEntry(entryName = "Speedwell Portal");
+
+		CommerceChannels.activatePaymentMethod(paymentMethod = "Money Order");
+
+		Refresh();
+
+		Check.checkToggleSwitch(
+			key_toggleSwitchLabel = "Guest Checkout",
+			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
+
+		Button.clickSave();
+
+		Click(
+			key_fixIssueButtonName = "Guest Checkout Authentication",
+			locator1 = "CommerceEntry#FIX_ISSUE_BUTTON");
+
+		Button.clickSave();
+
+		ProductMenu.gotoPortlet(
+			category = "Commerce",
+			panel = "Control Panel",
+			portlet = "Products");
+
+		CommerceProducts.searchProduct(search = "U-Joint");
+
+		CommerceNavigator.gotoEntry(entryName = "U-Joint");
+
+		CommerceEntry.gotoMenuTab(menuTab = "Configuration");
+
+		Uncheck.uncheckToggleSwitch(
+			key_toggleSwitchLabel = "Shippable",
+			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
+
+		Button.clickPublish();
+
+		User.logoutPG();
+
+		Navigator.openSiteURL(siteName = "Speedwell");
+
+		CommerceNavigator.gotoSpeedwellTopbarItem(menuItem = "Catalog");
+
+		FrontStore.addInitializerProductToCart(
+			productName = "U-Joint",
+			productQuantity = "1");
+
+		Refresh();
+
+		CommerceNavigator.gotoMiniCart();
+
+		Click.clickNoMouseOver(
+			key_text = "Submit",
+			locator1 = "Button#ANY");
+
+		Click.clickNoMouseOver(
+			key_text = "Continue as a Guest",
+			locator1 = "Button#ANY");
+
+		AssertElementNotPresent(locator1 = "CommerceAccelerators#CHECKOUT_CHECK_SHIPPING_ADDRESS_LABEL");
+
+		CommerceCheckout.initializersCheckout(
+			guestEmail = "buyer@liferay.com",
+			newAddressAddress = "Test Address",
+			newAddressCity = "Test City",
+			newAddressCountry = "United States",
+			newAddressName = "Address Name",
+			newAddressZipCode = "Test Zip Code",
+			paymentMethod = "Money Order",
+			productName = "U-Joint",
+			productQuantity = "1",
+			productUnitPrice = "24",
+			shippingMethod = "Standard");
+	}
+
 }
