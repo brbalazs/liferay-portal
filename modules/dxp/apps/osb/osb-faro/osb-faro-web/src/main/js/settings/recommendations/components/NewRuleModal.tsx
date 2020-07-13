@@ -8,9 +8,10 @@ import React, {useEffect, useState} from 'react';
 import RecommendationPageAssetsQuery from '../queries/RecommendationPageAssetsQuery';
 import StringMatchInput from './StringMatchInput';
 import Table from 'shared/components/table';
+import {compose} from 'redux';
 import {EXCLUDE, INCLUDE} from '../utils/utils';
 import {useLazyQuery} from '@apollo/react-hooks';
-import {withPaginationBar, withStatefulPagination} from 'shared/hoc';
+import {withEmpty, withPaginationBar, withStatefulPagination} from 'shared/hoc';
 
 const {
 	pagination: {orderDescending}
@@ -84,7 +85,10 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 		fetchPageAssets();
 	}, [delta, orderBy, orderByField, page]);
 
-	const TableWithPagination = withPaginationBar()(Table);
+	const TableWithPagination = compose<any>(
+		withEmpty({spacer: true}),
+		withPaginationBar()
+	)(Table);
 
 	return (
 		<Modal className='new-rule-modal-root' size='lg'>
