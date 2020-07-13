@@ -79,25 +79,33 @@ definition {
 	}
 
 	macro viewCheckoutOrderSummary {
-		AssertTextEquals.assertPartialText(
-			key_addressInfo = "${addressName}",
-			locator1 = "CommerceAccelerators#CHECKOUT_SUMMARY_SHIPPING_ADDRESS",
-			value1 = "${addressName}");
+		if (IsElementPresent(locator1 = "CommerceAccelerators#CHECKOUT_CHECK_SHIPPING_ADDRESS_LABEL")) {
+			AssertTextEquals.assertPartialText(
+				key_addressInfo = "${addressName}",
+				locator1 = "CommerceAccelerators#CHECKOUT_SUMMARY_SHIPPING_ADDRESS",
+				value1 = "${addressName}");
+		}
 
-		AssertTextEquals.assertPartialText(
-			key_addressInfo = "${addressAddress}",
-			locator1 = "CommerceAccelerators#CHECKOUT_SUMMARY_SHIPPING_ADDRESS",
-			value1 = "${addressAddress}");
+		if (IsElementPresent(locator1 = "CommerceAccelerators#CHECKOUT_CHECK_SHIPPING_ADDRESS_LABEL")) {
+			AssertTextEquals.assertPartialText(
+				key_addressInfo = "${addressAddress}",
+				locator1 = "CommerceAccelerators#CHECKOUT_SUMMARY_SHIPPING_ADDRESS",
+				value1 = "${addressAddress}");
+		}
 
-		AssertTextEquals.assertPartialText(
-			key_addressInfo = "${addressCity}",
-			locator1 = "CommerceAccelerators#CHECKOUT_SUMMARY_SHIPPING_ADDRESS",
-			value1 = "${addressCity}");
+		if (IsElementPresent(locator1 = "CommerceAccelerators#CHECKOUT_CHECK_SHIPPING_ADDRESS_LABEL")) {
+			AssertTextEquals.assertPartialText(
+				key_addressInfo = "${addressCity}",
+				locator1 = "CommerceAccelerators#CHECKOUT_SUMMARY_SHIPPING_ADDRESS",
+				value1 = "${addressCity}");
+		}
 
-		AssertTextEquals.assertPartialText(
-			key_addressInfo = "${addressCountry}",
-			locator1 = "CommerceAccelerators#CHECKOUT_SUMMARY_SHIPPING_ADDRESS",
-			value1 = "${addressCountry}");
+		if (IsElementPresent(locator1 = "CommerceAccelerators#CHECKOUT_CHECK_SHIPPING_ADDRESS_LABEL")) {
+			AssertTextEquals.assertPartialText(
+				key_addressInfo = "${addressCountry}",
+				locator1 = "CommerceAccelerators#CHECKOUT_SUMMARY_SHIPPING_ADDRESS",
+				value1 = "${addressCountry}");
+		}
 
 		AssertTextEquals(
 			key_paymentMethod = "${paymentMethod}",
@@ -125,10 +133,12 @@ definition {
 			value1 = "${subtotalValue}");
 
 		if (isSet(deliveryValue)) {
-			AssertTextEquals.assertPartialText(
-				key_deliveryValue = "${deliveryValue}",
-				locator1 = "CommerceAccelerators#CHECKOUT_SUMMARY_DELIVERY",
-				value1 = "${deliveryValue}");
+			if (IsElementPresent(locator1 = "CommerceAccelerators#CHECKOUT_CHECK_SHIPPING_ADDRESS_LABEL")){
+					AssertTextEquals.assertPartialText(
+						key_deliveryValue = "${deliveryValue}",
+						locator1 = "CommerceAccelerators#CHECKOUT_SUMMARY_DELIVERY",
+						value1 = "${deliveryValue}");
+			}
 		}
 
 		if (isSet(taxValue)) {
