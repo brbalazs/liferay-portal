@@ -36,24 +36,31 @@ definition {
 
 		Click(locator1 = "Button#CONTINUE");
 
-		Click(
-			key_radioOption = "${shippingMethod}",
-			locator1 = "CommerceAccelerators#CHECKOUT_SHIPPING_OPTION_RADIO");
+		if(IsElementPresent(locator1 = "CommerceAccelerators#CHECKOUT_CHECK_SHIPPING_ADDRESS_LABEL")){
+			Click(
+				key_radioOption = "${shippingMethod}",
+				locator1 = "CommerceAccelerators#CHECKOUT_SHIPPING_OPTION_RADIO");
 
-		if ("${shippingMethod}" == "Standard") {
-			deliveryValue = "15";
-		}
-		else {
-			if ("${shippingMethod}" == "Expedited") {
-				deliveryValue = "25";
+			if ("${shippingMethod}" == "Standard") {
+				deliveryValue = "15";
 			}
-		}
+			else {
+				if ("${shippingMethod}" == "Expedited") {
+					deliveryValue = "25";
+				}
+			}
 
-		Click(locator1 = "Button#CONTINUE");
+			Click(locator1 = "Button#CONTINUE");
+		}
 
 		subtotal = MathUtil.product("${productUnitPrice}", "${productQuantity}");
 
-		total = MathUtil.sum("${subtotal}", "${deliveryValue}");
+		if(IsElementPresent(locator1 = "CommerceAccelerators#CHECKOUT_CHECK_SHIPPING_ADDRESS_LABEL")){
+			total = MathUtil.sum("${subtotal}", "${deliveryValue}");
+		}
+		else{
+			total = "${subtotal}";
+		}
 
 		CommerceCheckout.viewCheckoutOrderSummary(
 			addressAddress = "${newAddressAddress}",
