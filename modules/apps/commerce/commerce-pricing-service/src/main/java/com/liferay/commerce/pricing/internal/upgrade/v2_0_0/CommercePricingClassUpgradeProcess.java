@@ -80,7 +80,7 @@ public class CommercePricingClassUpgradeProcess
 
 		dropColumn(CommercePricingClassImpl.TABLE_NAME, "groupId");
 	}
-	
+
 	private static final String[] _OWNER_PERMISSIONS = {
 		"DELETE", "PERMISSIONS", "UPDATE", "VIEW"
 	};
