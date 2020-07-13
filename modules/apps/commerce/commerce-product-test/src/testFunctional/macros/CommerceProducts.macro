@@ -45,4 +45,14 @@ definition {
 		Click(locator1 = "Button#RECYCLE_BIN");
 	}
 
+	macro searchProduct {
+		Type(
+			locator1 = "CommerceNavigation#SEARCH_FIELD",
+			value1 = "${search}");
+
+		KeyPress(
+			locator1 = "CommerceNavigation#SEARCH_FIELD",
+			value1 = "\RETURN");
+	}
+
 }
