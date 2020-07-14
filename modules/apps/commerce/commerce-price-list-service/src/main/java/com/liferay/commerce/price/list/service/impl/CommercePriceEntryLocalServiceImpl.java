@@ -545,8 +545,7 @@ public class CommercePriceEntryLocalServiceImpl
 
 	@Override
 	public int getInstanceCommercePriceEntriesCount(String cpInstanceUuid) {
-		return commercePriceListFinder.countByCPInstanceUuid(
-			cpInstanceUuid);
+		return commercePriceListFinder.countByCPInstanceUuid(cpInstanceUuid);
 	}
 
 	@Override

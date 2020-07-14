@@ -758,10 +758,10 @@ public class CommercePriceListLocalServiceImpl
 
 	@Override
 	public int getCommercePriceListsCount(
-	long commercePricingClassId, String name) {
+		long commercePricingClassId, String name) {
 
 		return commercePriceListFinder.countByCommercePricingClassId(
-		commercePricingClassId, name);
+			commercePricingClassId, name);
 	}
 
 	@Override

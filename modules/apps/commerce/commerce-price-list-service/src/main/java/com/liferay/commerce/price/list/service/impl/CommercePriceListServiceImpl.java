@@ -284,15 +284,6 @@ public class CommercePriceListServiceImpl
 	}
 
 	@Override
-	public int getCommercePriceListsCount(
-			long commercePricingClassId, String title)
-		throws PrincipalException {
-
-		return commercePriceListFinder.countByCommercePricingClassId(
-			commercePricingClassId, title, true);
-	}
-
-	@Override
 	public int getCommercePriceListsCount(long companyId, int status)
 		throws PortalException {
 
@@ -313,6 +304,15 @@ public class CommercePriceListServiceImpl
 
 		return commercePriceListPersistence.filterCountByG_C_S(
 			groupIds, companyId, status);
+	}
+
+	@Override
+	public int getCommercePriceListsCount(
+			long commercePricingClassId, String title)
+		throws PrincipalException {
+
+		return commercePriceListFinder.countByCommercePricingClassId(
+			commercePricingClassId, title, true);
 	}
 
 	@Override
