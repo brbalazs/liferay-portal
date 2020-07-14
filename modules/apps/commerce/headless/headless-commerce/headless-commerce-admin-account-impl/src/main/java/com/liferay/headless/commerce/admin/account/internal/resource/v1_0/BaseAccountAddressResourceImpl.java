@@ -516,9 +516,20 @@ public abstract class BaseAccountAddressResourceImpl
 			Object object)
 		throws Exception {
 
-		Response.ResponseBuilder responseBuilder = Response.ok();
+		vulcanBatchEngineImportTaskResource.setContextAcceptLanguage(
+			contextAcceptLanguage);
+		vulcanBatchEngineImportTaskResource.setContextCompany(contextCompany);
+		vulcanBatchEngineImportTaskResource.setContextHttpServletRequest(
+			contextHttpServletRequest);
+		vulcanBatchEngineImportTaskResource.setContextUriInfo(contextUriInfo);
+		vulcanBatchEngineImportTaskResource.setContextUser(contextUser);
 
-		return responseBuilder.build();
+		Response.ResponseBuilder responseBuilder = Response.accepted();
+
+		return responseBuilder.entity(
+			vulcanBatchEngineImportTaskResource.postImportTask(
+				AccountAddress.class.getName(), callbackURL, null, object)
+		).build();
 	}
 
 	@Override
