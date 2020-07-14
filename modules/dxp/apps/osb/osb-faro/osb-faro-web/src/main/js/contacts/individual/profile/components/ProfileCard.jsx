@@ -392,6 +392,7 @@ export class IndividualProfileCard extends React.Component {
 						onReload: this.handleFetchHistory
 					}}
 					loading={loading}
+					page={false}
 					pageDisplay={false}
 				>
 					<CardTabs
