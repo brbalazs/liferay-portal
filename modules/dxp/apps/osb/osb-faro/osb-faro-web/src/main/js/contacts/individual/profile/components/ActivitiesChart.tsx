@@ -1,65 +1,60 @@
 import Chart, {BAR_CHART} from 'shared/components/Chart';
-import ChartTooltip from 'shared/components/ChartTooltip';
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 import {
 	CHART_ACTIVITY_ID,
 	CHART_ID,
-	formatTickVal
+	convertHistoryInitDateToDate,
+	createDateKeysIMap,
+	IProfileCardChartProps,
+	renderTooltip
 } from 'shared/util/engagement-activity';
-import {DataTooltip} from 'shared/util/charts';
-import {formatUTCDateFromUnix} from 'shared/util/date';
-import {get} from 'lodash';
+import {
+	formatXAxisDate,
+	getIntervals,
+	MetricValueType
+} from 'shared/util/charts';
 import {getMaxActivitiesValue} from 'shared/util/activities';
 
-interface IActivitiesChartProps extends React.HTMLAttributes<HTMLElement> {
-	forwardedRef: React.Ref<any>;
-	history: any;
-	onPointSelect: ({index: number}) => void;
-}
-
-const ActivitiesChart: React.FC<IActivitiesChartProps> = ({
+const ActivitiesChart: React.FC<IProfileCardChartProps> = ({
 	forwardedRef,
 	history,
-	onPointSelect
+	interval,
+	onPointSelect,
+	rangeSelectors
 }) => {
-	const buildHistoryData = (dataPoints = []) => [
+	const parsedHistory = convertHistoryInitDateToDate(history);
+	const dateKeysIMap = createDateKeysIMap(interval, parsedHistory);
+
+	const historyData = [
 		{
 			axis: 'y',
-			data: dataPoints.map(({totalElements}) => Number(totalElements)),
+			data: parsedHistory.map(({totalElements}) => Number(totalElements)),
 			id: CHART_ACTIVITY_ID,
 			name: Liferay.Language.get('activity-count'),
 			type: 'bar'
 		},
 		{
-			data: dataPoints.map(({intervalInitDate}) =>
-				Number(intervalInitDate)
-			),
-			id: 'date',
-			name: Liferay.Language.get('date')
+			data: parsedHistory.map(({intervalInitDate}) => intervalInitDate),
+			id: 'x'
 		}
 	];
 
-	const getTooltipContents = (data: [DataTooltip]): string => {
-		const {intervalInitDate, totalElements} = history[
-			get(data, [0, 'index'])
-		];
+	const getTooltipContents = renderTooltip({
+		dateKeysIMap,
+		history: parsedHistory,
+		interval,
+		name: Liferay.Language.get('activities'),
+		rangeSelectors,
+		title: Liferay.Language.get('activities'),
+		type: MetricValueType.Number
+	});
 
-		return ReactDOMServer.renderToString(
-			<ChartTooltip
-				items={[
-					{
-						label:
-							totalElements !== 1
-								? Liferay.Language.get('activities')
-								: Liferay.Language.get('activity'),
-						value: totalElements
-					}
-				]}
-				title={formatUTCDateFromUnix(intervalInitDate)}
-			/>
-		);
-	};
+	const intervals = getIntervals(
+		rangeSelectors.rangeKey,
+		parsedHistory.map(({intervalInitDate}) => intervalInitDate),
+		interval,
+		dateKeysIMap
+	);
 
 	return (
 		<Chart
@@ -67,20 +62,26 @@ const ActivitiesChart: React.FC<IActivitiesChartProps> = ({
 			axisX={{
 				tick: {
 					centered: false,
-					format: formatTickVal,
-					multiline: true,
-					outer: false
-				}
+					format: date =>
+						formatXAxisDate(
+							date,
+							rangeSelectors.rangeKey,
+							interval,
+							dateKeysIMap
+						),
+					values: intervals
+				},
+				type: 'timeseries'
 			}}
 			axisY={{
-				max: getMaxActivitiesValue(history),
+				max: getMaxActivitiesValue(parsedHistory),
 				min: 0,
 				padding: {bottom: 0}
 			}}
 			bar={{width: {ratio: 0.9}}}
 			chartType={BAR_CHART}
 			className='activities-timeline-chart'
-			data={buildHistoryData(history)}
+			data={historyData}
 			dataId={CHART_ACTIVITY_ID}
 			id={CHART_ID}
 			onPointSelect={onPointSelect}
@@ -88,7 +89,7 @@ const ActivitiesChart: React.FC<IActivitiesChartProps> = ({
 			tooltip={{
 				contents: getTooltipContents
 			}}
-			x='date'
+			x='x'
 			yLabel={Liferay.Language.get('activities')}
 		/>
 	);
