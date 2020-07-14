@@ -7,6 +7,7 @@ import {
 	CHART_ID,
 	formatTickVal
 } from 'shared/util/engagement-activity';
+import {DataTooltip} from 'shared/util/charts';
 import {formatUTCDateFromUnix} from 'shared/util/date';
 import {get} from 'lodash';
 import {getMaxActivitiesValue} from 'shared/util/activities';
@@ -39,7 +40,7 @@ const ActivitiesChart: React.FC<IActivitiesChartProps> = ({
 		}
 	];
 
-	const getTooltipContents = data => {
+	const getTooltipContents = (data: [DataTooltip]): string => {
 		const {intervalInitDate, totalElements} = history[
 			get(data, [0, 'index'])
 		];
@@ -49,7 +50,7 @@ const ActivitiesChart: React.FC<IActivitiesChartProps> = ({
 				items={[
 					{
 						label:
-							totalElements === 1
+							totalElements !== 1
 								? Liferay.Language.get('activities')
 								: Liferay.Language.get('activity'),
 						value: totalElements

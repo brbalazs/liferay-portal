@@ -16,6 +16,14 @@ import {INTERVAL_KEY_MAP, isMonthlyRangeKey} from 'shared/util/time';
 import {Map} from 'immutable';
 import {toDuration, toRounded, toThousands} from 'shared/util/numbers';
 
+export type DataTooltip = {
+	id: string;
+	index: number;
+	name: string;
+	value: number;
+	x: number | string | Date;
+};
+
 export const Colors = {
 	gray: '#AEB0BB',
 	mapBluePallete: [
