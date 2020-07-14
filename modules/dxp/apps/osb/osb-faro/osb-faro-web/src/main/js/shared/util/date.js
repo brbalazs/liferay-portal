@@ -47,7 +47,7 @@ export const WEEKDAYS = [
 
 /**
  * Formats unix timestamp to specified moment format
- * @param {number|string} date
+ * @param {number|string|Date} date
  * @param {string|moment.MomentBuiltinFormat} format
  * @param {string|moment.MomentBuiltinFormat} [inputFormatter]
  * @return {string} formatted date
@@ -71,7 +71,7 @@ export function generateDateRange(period = 30, interval = 'days') {
 
 /**
  * Get Date
- * @param {string} [date]
+ * @param {string | number} [date]
  */
 export const getDate = date => moment.utc(date).toDate();
 
