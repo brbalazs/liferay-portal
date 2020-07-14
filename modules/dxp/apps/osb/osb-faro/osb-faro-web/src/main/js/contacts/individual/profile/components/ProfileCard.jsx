@@ -256,7 +256,13 @@ export class IndividualProfileCard extends React.Component {
 	renderChart() {
 		const {
 			_chartRef,
-			props: {hasSelectedPoint, selectedPoint, tabId},
+			props: {
+				hasSelectedPoint,
+				interval,
+				rangeSelectors,
+				selectedPoint,
+				tabId
+			},
 			state: {activityHistory, engagementHistory}
 		} = this;
 
@@ -271,7 +277,9 @@ export class IndividualProfileCard extends React.Component {
 				<SelectedChart
 					forwardedRef={_chartRef}
 					history={history}
+					interval={interval}
 					onPointSelect={this.handleChartSelect}
+					rangeSelectors={rangeSelectors}
 				/>
 
 				<div className='selected-info'>
