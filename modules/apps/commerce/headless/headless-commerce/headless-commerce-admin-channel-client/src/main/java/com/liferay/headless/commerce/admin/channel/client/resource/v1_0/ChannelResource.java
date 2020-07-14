@@ -55,9 +55,10 @@ public interface ChannelResource {
 	public HttpInvoker.HttpResponse postChannelHttpResponse(Channel channel)
 		throws Exception;
 
-	public void nullBatch(String callbackURL, Object object) throws Exception;
+	public void postChannelBatch(String callbackURL, Object object)
+		throws Exception;
 
-	public HttpInvoker.HttpResponse nullBatchHttpResponse(
+	public HttpInvoker.HttpResponse postChannelBatchHttpResponse(
 			String callbackURL, Object object)
 		throws Exception;
 
@@ -66,9 +67,10 @@ public interface ChannelResource {
 	public HttpInvoker.HttpResponse deleteChannelHttpResponse(Long channelId)
 		throws Exception;
 
-	public void nullBatch(String callbackURL, Object object) throws Exception;
+	public void deleteChannelBatch(String callbackURL, Object object)
+		throws Exception;
 
-	public HttpInvoker.HttpResponse nullBatchHttpResponse(
+	public HttpInvoker.HttpResponse deleteChannelBatchHttpResponse(
 			String callbackURL, Object object)
 		throws Exception;
 
@@ -90,9 +92,10 @@ public interface ChannelResource {
 			Long channelId, Channel channel)
 		throws Exception;
 
-	public void nullBatch(String callbackURL, Object object) throws Exception;
+	public void putChannelBatch(String callbackURL, Object object)
+		throws Exception;
 
-	public HttpInvoker.HttpResponse nullBatchHttpResponse(
+	public HttpInvoker.HttpResponse putChannelBatchHttpResponse(
 			String callbackURL, Object object)
 		throws Exception;
 
@@ -296,11 +299,11 @@ public interface ChannelResource {
 			return httpInvoker.invoke();
 		}
 
-		public void nullBatch(String callbackURL, Object object)
+		public void postChannelBatch(String callbackURL, Object object)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse = nullBatchHttpResponse(
-				callbackURL, object);
+			HttpInvoker.HttpResponse httpResponse =
+				postChannelBatchHttpResponse(callbackURL, object);
 
 			String content = httpResponse.getContent();
 
@@ -311,7 +314,7 @@ public interface ChannelResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse nullBatchHttpResponse(
+		public HttpInvoker.HttpResponse postChannelBatchHttpResponse(
 				String callbackURL, Object object)
 			throws Exception {
 
@@ -415,11 +418,11 @@ public interface ChannelResource {
 			return httpInvoker.invoke();
 		}
 
-		public void nullBatch(String callbackURL, Object object)
+		public void deleteChannelBatch(String callbackURL, Object object)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse = nullBatchHttpResponse(
-				callbackURL, object);
+			HttpInvoker.HttpResponse httpResponse =
+				deleteChannelBatchHttpResponse(callbackURL, object);
 
 			String content = httpResponse.getContent();
 
@@ -430,7 +433,7 @@ public interface ChannelResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse nullBatchHttpResponse(
+		public HttpInvoker.HttpResponse deleteChannelBatchHttpResponse(
 				String callbackURL, Object object)
 			throws Exception {
 
@@ -661,10 +664,10 @@ public interface ChannelResource {
 			return httpInvoker.invoke();
 		}
 
-		public void nullBatch(String callbackURL, Object object)
+		public void putChannelBatch(String callbackURL, Object object)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse = nullBatchHttpResponse(
+			HttpInvoker.HttpResponse httpResponse = putChannelBatchHttpResponse(
 				callbackURL, object);
 
 			String content = httpResponse.getContent();
@@ -676,7 +679,7 @@ public interface ChannelResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse nullBatchHttpResponse(
+		public HttpInvoker.HttpResponse putChannelBatchHttpResponse(
 				String callbackURL, Object object)
 			throws Exception {
 
