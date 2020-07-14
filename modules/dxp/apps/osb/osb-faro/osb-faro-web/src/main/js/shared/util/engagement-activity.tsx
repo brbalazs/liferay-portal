@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {ACTIVITIES, ENGAGEMENT, Routes, toRoute} from 'shared/util/router';
+import {ACTIVITIES, ENGAGEMENT, toRoute} from 'shared/util/router';
 import {
 	DataTooltip,
 	getAxisFormatter,
@@ -145,7 +145,8 @@ export function buildTabItems({
 	engagementChange,
 	engagementScore,
 	groupId,
-	id
+	id,
+	route
 }) {
 	return [
 		{
@@ -157,7 +158,7 @@ export function buildTabItems({
 				/>
 			),
 			tabId: ACTIVITIES,
-			tabUrl: toRoute(Routes.CONTACTS_INDIVIDUAL, {
+			tabUrl: toRoute(route, {
 				channelId,
 				groupId,
 				id,
@@ -174,7 +175,7 @@ export function buildTabItems({
 				/>
 			),
 			tabId: ENGAGEMENT,
-			tabUrl: toRoute(Routes.CONTACTS_INDIVIDUAL, {
+			tabUrl: toRoute(route, {
 				channelId,
 				groupId,
 				id,

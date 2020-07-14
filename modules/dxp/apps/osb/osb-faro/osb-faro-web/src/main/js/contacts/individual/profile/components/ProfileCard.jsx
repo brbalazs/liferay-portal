@@ -9,9 +9,8 @@ import EngagementChart from 'contacts/individual/profile/components/EngagementCh
 import Promise from 'metal-promise';
 import React from 'react';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
-import {ACTIVITIES} from 'shared/util/router';
+import {ACTIVITIES, Routes} from 'shared/util/router';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
-import {buildTabItems, getSafeRangeKey} from 'shared/util/engagement-activity';
 import {
 	buildTabItems,
 	getSafeRangeKey,
@@ -404,7 +403,8 @@ export class IndividualProfileCard extends React.Component {
 								engagementScore
 							),
 							groupId,
-							id
+							id,
+							route: Routes.CONTACTS_INDIVIDUAL
 						})}
 					/>
 					{this.renderChart()}
