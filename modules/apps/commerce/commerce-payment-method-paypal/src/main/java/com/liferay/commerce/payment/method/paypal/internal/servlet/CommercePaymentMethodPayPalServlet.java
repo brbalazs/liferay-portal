@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.payment.method.paypal.internal.servlet;
 
+import com.liferay.commerce.exception.NoSuchOrderException;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.payment.engine.CommercePaymentEngine;
 import com.liferay.commerce.payment.engine.CommerceSubscriptionEngine;
@@ -79,8 +80,12 @@ public class CommercePaymentMethodPayPalServlet extends HttpServlet {
 
 			if (user == null) {
 				commerceOrder =
-					_commerceOrderLocalService.getCommerceOrderByUuidAndGroupId(
-						uuid, groupId);
+					_commerceOrderLocalService.
+						fetchCommerceOrderByUuidAndGroupId(uuid, groupId);
+
+				if (commerceOrder == null) {
+					throw new NoSuchOrderException();
+				}
 
 				user = _userLocalService.getDefaultUser(
 					commerceOrder.getCompanyId());
