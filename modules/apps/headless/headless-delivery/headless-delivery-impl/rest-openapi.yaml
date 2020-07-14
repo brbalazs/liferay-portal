@@ -1777,6 +1777,8 @@ components:
                                     An absolute URL to the rendered content.
                                 format: uri
                                 type: string
+                            renderedContentValue:
+                                type: string                                
                             templateName:
                                 description:
                                     The name of the template used to render the content.
