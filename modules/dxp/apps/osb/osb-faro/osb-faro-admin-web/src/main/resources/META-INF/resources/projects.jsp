@@ -18,12 +18,10 @@
 
 <%
 FaroAdminDisplayContext faroAdminDisplayContext = new FaroAdminDisplayContext(renderRequest, renderResponse, request);
-
-FaroAdminManagementToolbarDisplayContext faroAdminManagementToolbarDisplayContext = new FaroAdminManagementToolbarDisplayContext(renderResponse, liferayPortletRequest, liferayPortletResponse, request, faroAdminDisplayContext.getSearchContainer());
 %>
 
 <clay:management-toolbar
-	displayContext="<%= faroAdminManagementToolbarDisplayContext %>"
+	displayContext="<%= new FaroAdminManagementToolbarDisplayContext(renderResponse, liferayPortletRequest, liferayPortletResponse, request, faroAdminDisplayContext.getSearchContainer()) %>"
 />
 
 <div class="closed container-fluid-1280 sidenav-container sidenav-right" id="<portlet:namespace />infoPanelId">
