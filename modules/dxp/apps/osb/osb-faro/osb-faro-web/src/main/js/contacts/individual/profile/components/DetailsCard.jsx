@@ -10,7 +10,7 @@ import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
-export default class DetailsCard extends React.Component {
+export default class DetailsCard extends React.PureComponent {
 	static defaultProps = {
 		entity: new Individual()
 	};

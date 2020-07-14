@@ -74,7 +74,7 @@ const ListWithInterests = compose(
 	})
 )(InterestsList);
 
-export default class InterestsCard extends React.Component {
+export default class InterestsCard extends React.PureComponent {
 	static propTypes = {
 		channelId: PropTypes.string,
 		entity: PropTypes.object.isRequired,
