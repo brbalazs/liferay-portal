@@ -40,6 +40,12 @@ export function getTimestamp(change = 0, unit = 'days') {
 		.valueOf();
 }
 
+export function getDate(change = 0, unit = 'days') {
+	return moment(BASE_TIMESTAMP)
+		.add(change, unit)
+		.toDate();
+}
+
 export function getImmutableMock(Record, mockFn, id, config) {
 	return new Record(fromJS(mockFn(id, config)));
 }

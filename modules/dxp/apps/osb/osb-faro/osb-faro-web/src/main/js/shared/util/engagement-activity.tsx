@@ -1,19 +1,54 @@
-import CardTabMetric, {
-	MetricValueType
-} from 'contacts/individual/profile/components/CardTabMetric';
+import CardTabMetric from 'contacts/individual/profile/components/CardTabMetric';
 import ChartTooltip from 'shared/components/ChartTooltip';
+import moment from 'moment';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
+import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import {ACTIVITIES, ENGAGEMENT, Routes, toRoute} from 'shared/util/router';
+import {
+	DataTooltip,
+	getAxisFormatter,
+	getDateTitle,
+	MetricValueType
+} from './charts';
 import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
 import {DEFAULT_ENGAGEMENT_MAX} from 'shared/api/engagement';
 import {formatUTCDateFromUnix} from 'shared/util/date';
-import {get, isFinite, isNull} from 'lodash/fp';
+import {get, isFinite, isNull} from 'lodash';
+import {getDate} from 'shared/util/date';
+import {Interval, RangeSelectors} from 'shared/types';
+import {Map} from 'immutable';
 import {sub} from 'shared/util/lang';
+
 export const CHART_ACTIVITY_ID = 'activities';
 export const CHART_ENGAGEMENT_ID = 'engagements';
 export const CHART_ID = 'individualActivity';
+
+type TooltipOptions = {
+	dateKeysIMap: Map<Date, [Date, Date?]>;
+	history: Array<ActivitiesEngagementHistory<Date>>;
+	interval: Interval;
+	name: string;
+	rangeSelectors: RangeSelectors;
+	title: string;
+	type: MetricValueType;
+};
+
+interface ActivitiesEngagementHistory<initDate = number> {
+	intervalInitDate: initDate;
+	scoreAvg?: number;
+	totalElements: number;
+}
+
+export interface IProfileCardChartProps
+	extends React.HTMLAttributes<HTMLElement> {
+	forwardedRef: React.Ref<any>;
+	history: Array<ActivitiesEngagementHistory>;
+	interval: Interval;
+	onPointSelect: ({index: number}) => void;
+	rangeSelectors: RangeSelectors;
+}
 
 /**
  * Object containing aggregated engagement and activity information.
@@ -164,7 +199,7 @@ export function formatTickVal(date) {
  */
 export function renderTooltipToString(data, history) {
 	const {intervalInitDate, scoreAvg, totalElements} = history[
-		get([0, 'index'], data)
+		get(data, [0, 'index'])
 	];
 
 	let items = [
@@ -191,3 +226,86 @@ export function renderTooltipToString(data, history) {
 		/>
 	);
 }
+
+export const createDateKeysIMap = (interval: Interval, history: Array<ActivitiesEngagementHistory<Date>>) => {
+	const parserHistory = ({intervalInitDate}) => {
+		const dateEnd =
+		interval === 'W'
+			? moment
+					.utc(intervalInitDate)
+					.add('6', 'days')
+					.toDate()
+			: null;
+
+		return [intervalInitDate, [intervalInitDate, dateEnd]];
+	};
+
+	return Map<Date, [Date, Date?]>(
+		history.map(parserHistory)
+	);
+};
+
+export const convertHistoryInitDateToDate = (
+	history: Array<ActivitiesEngagementHistory>
+): Array<ActivitiesEngagementHistory<Date>> =>
+	history.map(({intervalInitDate, ...others}) => ({
+		intervalInitDate: getDate(intervalInitDate),
+		...others
+	}));
+
+export const renderTooltip = (options: TooltipOptions) => (
+	dataPoints: [DataTooltip]
+): string => {
+	const {
+		dateKeysIMap,
+		history,
+		interval,
+		name,
+		rangeSelectors,
+		title,
+		type
+	} = options;
+
+	const formatter = getAxisFormatter(type);
+	const {intervalInitDate, scoreAvg, totalElements} = history[
+		get(dataPoints, [0, 'index'])
+	];
+
+	const value = type === ENGAGEMENT ? scoreAvg : totalElements;
+
+	const currentPeriodTitle = getDateTitle(
+		dateKeysIMap.get(intervalInitDate),
+		rangeSelectors.rangeKey,
+		interval
+	);
+
+	const header = [
+		{label: title, weight: 'semibold', width: 100},
+		{
+			align: 'right',
+			label: currentPeriodTitle,
+			weight: 'semibold',
+			width: 55
+		}
+	];
+
+	const rows = [
+		{
+			columns: [
+				{
+					label: name,
+					weight: 'normal'
+				},
+				{
+					align: 'right',
+					label: formatter(value),
+					weight: 'semibold'
+				}
+			]
+		}
+	];
+
+	return ReactDOMServer.renderToString(
+		<TooltipChart header={header} rows={rows} />
+	);
+};
