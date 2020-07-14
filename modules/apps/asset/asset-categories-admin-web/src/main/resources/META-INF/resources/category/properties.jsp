@@ -73,8 +73,8 @@ String screenNavigationCategoryKey = ParamUtil.getString(request, "screenNavigat
 
 <portlet:actionURL name="editProperties" var="editPropertiesURL">
 	<portlet:param name="mvcPath" value="/edit_category.jsp" />
-	<portlet:param name="vocabularyId" value="<%= String.valueOf(vocabularyId) %>" />
 	<portlet:param name="screenNavigationCategoryKey" value="<%= screenNavigationCategoryKey %>" />
+	<portlet:param name="vocabularyId" value="<%= String.valueOf(vocabularyId) %>" />
 </portlet:actionURL>
 
 <liferay-frontend:edit-form
