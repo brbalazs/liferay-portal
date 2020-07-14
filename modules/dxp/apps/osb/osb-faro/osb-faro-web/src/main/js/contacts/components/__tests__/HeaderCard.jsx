@@ -1,4 +1,4 @@
-import HeaderProfileCard from '../HeaderProfileCard';
+import HeaderCard from '../HeaderCard';
 import React from 'react';
 import {ACTIVITIES, ENGAGEMENT} from 'shared/util/router';
 import {fireEvent, render} from '@testing-library/react';
@@ -10,7 +10,7 @@ jest.unmock('react-dom');
 
 const DefaultComponent = props => (
 	<MockedProvider mocks={[mockTimeRangeReq()]}>
-		<HeaderProfileCard
+		<HeaderCard
 			label={'Title'}
 			rangeSelectors={{rangeKey: '30'}}
 			tabId={ACTIVITIES}

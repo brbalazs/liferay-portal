@@ -8,8 +8,7 @@ import {Interval} from 'shared/types';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {isHourlyRangeKey} from 'shared/util/time';
 
-interface BaseCardHeaderProfileIProps
-	extends React.HTMLAttributes<HTMLElement> {
+interface BaseCardHeaderIProps extends React.HTMLAttributes<HTMLElement> {
 	interval: Interval;
 	label: string;
 	legacy: boolean;
@@ -21,7 +20,7 @@ interface BaseCardHeaderProfileIProps
 }
 import {RangeSelectors} from 'shared/types';
 
-const BaseCardHeaderProfile: React.FC<BaseCardHeaderProfileIProps> = ({
+const BaseCardHeader: React.FC<BaseCardHeaderIProps> = ({
 	interval,
 	label,
 	legacy,
@@ -69,4 +68,4 @@ const BaseCardHeaderProfile: React.FC<BaseCardHeaderProfileIProps> = ({
 	);
 };
 
-export default BaseCardHeaderProfile;
+export default BaseCardHeader;
