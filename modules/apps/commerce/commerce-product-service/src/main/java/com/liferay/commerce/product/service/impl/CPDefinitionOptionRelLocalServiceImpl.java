@@ -61,6 +61,8 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
+import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -670,6 +672,8 @@ public class CPDefinitionOptionRelLocalServiceImpl
 		cpDefinitionOptionRel = cpDefinitionOptionRelPersistence.update(
 			cpDefinitionOptionRel);
 
+		_updateCPDefinitionOptionValueRels(cpDefinitionOptionRelId, priceType);
+
 		// Commerce product instances
 
 		cpInstanceLocalService.inactivateIncompatibleCPInstances(
@@ -829,6 +833,38 @@ public class CPDefinitionOptionRelLocalServiceImpl
 
 		cpDefinitionLocalService.updateCPDefinitionIgnoreSKUCombinations(
 			cpDefintionId, true, serviceContext);
+	}
+
+	private void _updateCPDefinitionOptionValueRels(
+		long cpDefinitionOptionRelId, String priceType) {
+
+		if (!Objects.equals(
+				priceType, CPConstants.PRODUCT_OPTION_PRICE_TYPE_STATIC)) {
+
+			return;
+		}
+
+		List<CPDefinitionOptionValueRel> cpDefinitionOptionValueRels =
+			cpDefinitionOptionValueRelLocalService.
+				getCPDefinitionOptionValueRels(cpDefinitionOptionRelId);
+
+		if ((cpDefinitionOptionValueRels == null) ||
+			cpDefinitionOptionValueRels.isEmpty()) {
+
+			return;
+		}
+
+		for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
+				cpDefinitionOptionValueRels) {
+
+			if (cpDefinitionOptionValueRel.getPrice() == null) {
+				cpDefinitionOptionValueRel.setPrice(BigDecimal.ZERO);
+
+				cpDefinitionOptionValueRelLocalService.
+					updateCPDefinitionOptionValueRel(
+						cpDefinitionOptionValueRel);
+			}
+		}
 	}
 
 	private void _validateCPDefinitionOptionKey(long cpDefinitionId, String key)
