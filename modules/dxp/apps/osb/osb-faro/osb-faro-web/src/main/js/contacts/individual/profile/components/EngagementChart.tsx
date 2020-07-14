@@ -1,73 +1,94 @@
 import Chart, {SPLINE_CHART} from 'shared/components/Chart';
-import ChartTooltip from 'shared/components/ChartTooltip';
+import Constants from 'shared/util/constants';
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 import {
 	CHART_ENGAGEMENT_ID,
 	CHART_ID,
-	formatTickVal
+	convertHistoryInitDateToDate,
+	createDateKeysIMap,
+	IProfileCardChartProps,
+	renderTooltip
 } from 'shared/util/engagement-activity';
-import {formatUTCDateFromUnix} from 'shared/util/date';
-import {get} from 'lodash';
+import {
+	DEFAULT_ENGAGEMENT_INTERVAL,
+	DEFAULT_ENGAGEMENT_MAX
+} from 'shared/api/engagement';
+import {
+	formatXAxisDate,
+	getIntervals,
+	MetricValueType
+} from 'shared/util/charts';
+import {Interval} from 'shared/types';
 
-interface IEngagementChartProps extends React.HTMLAttributes<HTMLElement> {
-	forwardedRef: React.Ref<any>;
-	history: any;
-	onPointSelect: ({index: number}) => void;
-}
+const {timeIntervals} = Constants;
 
-const EngagementChart: React.FC<IEngagementChartProps> = ({
+const INTERVAL_MAP = {
+	[timeIntervals.day]: 'D',
+	[timeIntervals.month]: 'M',
+	[timeIntervals.week]: 'W'
+};
+
+const EngagementChart: React.FC<IProfileCardChartProps> = ({
 	forwardedRef,
 	history,
 	onPointSelect
 }) => {
-	const buildHistoryData = (dataPoints = []) => [
+	const rangeKey = String(DEFAULT_ENGAGEMENT_MAX);
+	const interval = INTERVAL_MAP[DEFAULT_ENGAGEMENT_INTERVAL] as Interval;
+
+	const parsedHistory = convertHistoryInitDateToDate(history);
+	const dateKeysIMap = createDateKeysIMap(interval, parsedHistory);
+
+
+	const historyDate = [
 		{
-			data: dataPoints.map(item => item.intervalInitDate),
-			id: 'date'
+			data: parsedHistory.map(({scoreAvg}) => scoreAvg),
+			id: 'CHART_ID',
+			name: Liferay.Language.get('engagement')
 		},
 		{
-			data: dataPoints.map(item => item.scoreAvg),
-			id: CHART_ID,
-			name: Liferay.Language.get('engagement')
+			data: parsedHistory.map(({intervalInitDate}) => intervalInitDate),
+			id: 'x'
 		}
 	];
 
-	const getTooltipContents = data => {
-		const {intervalInitDate, scoreAvg} = history[get(data, [0, 'index'])];
+	const intervals = getIntervals(
+		rangeKey,
+		parsedHistory.map(({intervalInitDate}) => intervalInitDate),
+		interval,
+		dateKeysIMap
+	);
 
-		return ReactDOMServer.renderToString(
-			<ChartTooltip
-				items={[
-					{
-						label: Liferay.Language.get('engagement-score'),
-						value: scoreAvg.toFixed(2)
-					}
-				]}
-				title={formatUTCDateFromUnix(intervalInitDate)}
-			/>
-		);
-	};
+	const getTooltipContents = renderTooltip({
+		dateKeysIMap,
+		history: parsedHistory,
+		interval,
+		name: Liferay.Language.get('avg-engagement'),
+		rangeSelectors: {
+			rangeEnd: null,
+			rangeKey,
+			rangeStart: null
+		},
+		title: Liferay.Language.get('engagement'),
+		type: MetricValueType.Engagement
+	});
 
 	return (
 		<Chart
 			alwaysShowSelectedTooltip
 			axisX={{
-				categories: history.map(item =>
-					item.intervalInitDate.toString()
-				),
 				tick: {
 					centered: false,
-					format: formatTickVal,
-					multiline: true,
-					outer: false
+					format: date =>
+						formatXAxisDate(date, rangeKey, interval, dateKeysIMap),
+					values: intervals
 				},
 				type: 'timeseries'
 			}}
 			axisY={{min: 0, padding: {bottom: 0}}}
 			chartType={SPLINE_CHART}
 			className='engagement-chart-root'
-			data={buildHistoryData(history)}
+			data={historyDate}
 			dataId={CHART_ENGAGEMENT_ID}
 			id={CHART_ID}
 			onPointSelect={onPointSelect}
@@ -75,7 +96,7 @@ const EngagementChart: React.FC<IEngagementChartProps> = ({
 			tooltip={{
 				contents: getTooltipContents
 			}}
-			x='date'
+			x='x'
 			yLabel={Liferay.Language.get('engagement')}
 		/>
 	);
