@@ -520,6 +520,25 @@ public class CommerceOrderItemLocalServiceUtil {
 	}
 
 	public static com.liferay.commerce.model.CommerceOrderItem
+			updateCommerceOrderItemDeliveryDate(
+				long commerceOrderItemId, java.util.Date requestedDeliveryDate)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCommerceOrderItemDeliveryDate(
+			commerceOrderItemId, requestedDeliveryDate);
+	}
+
+	public static com.liferay.commerce.model.CommerceOrderItem
+			updateCommerceOrderItemInfo(
+				long commerceOrderItemId, String deliveryGroup,
+				long shippingAddressId, String printedNote)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCommerceOrderItemInfo(
+			commerceOrderItemId, deliveryGroup, shippingAddressId, printedNote);
+	}
+
+	public static com.liferay.commerce.model.CommerceOrderItem
 			updateCommerceOrderItemInfo(
 				long commerceOrderItemId, String deliveryGroup,
 				long shippingAddressId, String printedNote,

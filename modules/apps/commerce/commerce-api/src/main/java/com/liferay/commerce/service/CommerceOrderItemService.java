@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.transaction.Transactional;
 
 import java.math.BigDecimal;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -174,6 +175,15 @@ public interface CommerceOrderItemService extends BaseService {
 	public CommerceOrderItem updateCommerceOrderItem(
 			long commerceOrderItemId, int quantity, String json,
 			CommerceContext commerceContext, ServiceContext serviceContext)
+		throws PortalException;
+
+	public CommerceOrderItem updateCommerceOrderItemDeliveryDate(
+			long commerceOrderItemId, Date requestedDeliveryDate)
+		throws PortalException;
+
+	public CommerceOrderItem updateCommerceOrderItemInfo(
+			long commerceOrderItemId, String deliveryGroup,
+			long shippingAddressId, String printedNote)
 		throws PortalException;
 
 	public CommerceOrderItem updateCommerceOrderItemInfo(

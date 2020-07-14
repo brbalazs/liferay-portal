@@ -42,6 +42,7 @@ import java.io.Serializable;
 
 import java.math.BigDecimal;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -380,6 +381,17 @@ public interface CommerceOrderItemLocalService
 	public CommerceOrderItem updateCommerceOrderItem(
 			long commerceOrderItemId, long bookedQuantityId)
 		throws NoSuchOrderItemException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceOrderItem updateCommerceOrderItemDeliveryDate(
+			long commerceOrderItemId, Date requestedDeliveryDate)
+		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceOrderItem updateCommerceOrderItemInfo(
+			long commerceOrderItemId, String deliveryGroup,
+			long shippingAddressId, String printedNote)
+		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceOrderItem updateCommerceOrderItemInfo(
