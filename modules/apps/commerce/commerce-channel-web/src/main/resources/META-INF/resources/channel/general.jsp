@@ -231,7 +231,7 @@ if (shippingTaxCategory != null) {
 <aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
 	autocomplete.default('autocomplete', 'autocomplete-root', {
 		apiUrl:
-			'/o/headless-commerce-admin-channel/v1.0/channels/<%= commerceChannelId %>/tax-categories',
+			'/o/headless-commerce-admin-channel/v1.0/tax-categories',
 		initialLabel: '<%= shippingTaxCategoryLabel %>',
 		initialValue: '<%= shippingTaxCategoryId %>',
 		inputId: 'shippingTaxCategoryId',
