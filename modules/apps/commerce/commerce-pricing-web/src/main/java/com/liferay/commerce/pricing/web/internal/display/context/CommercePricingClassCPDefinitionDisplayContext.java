@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.pricing.web.internal.display.context;
 
-import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
 import com.liferay.commerce.pricing.web.internal.display.context.util.CommercePricingClassRequestHelper;
