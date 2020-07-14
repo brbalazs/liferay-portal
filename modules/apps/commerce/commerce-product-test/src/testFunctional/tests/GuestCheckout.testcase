@@ -883,16 +883,6 @@ definition {
 
 		Button.click(button = "Submit");
 
-		CommerceLogin.loginPG(
-			password = "ttest",
-			resetPassword = "test",
-			samlEnabled = "true",
-			userEmailAddress = "buyer@liferay.com");
-
-		CommerceNavigator.gotoMiniCart();
-
-		Button.click(button = "Submit");
-
 		CommerceCheckout.initializersCheckout(
 			guestEmail = "buyer@liferay.com",
 			newAddressAddress = "Test Address",
@@ -905,6 +895,31 @@ definition {
 			productQuantity = "1",
 			productUnitPrice = "24",
 			shippingMethod = "Standard");
+
+		Alert.viewErrorMessage(errorMessage = "You must sign in to complete this order.");
+
+		CommerceNavigator.gotoSpeedwellAccountDropdownItem(dropdownItem = "Sign In");
+
+		CommerceLogin.loginPG(
+			password = "ttest",
+			resetPassword = "test",
+			samlEnabled = "true",
+			userEmailAddress = "buyer@liferay.com");
+
+		CommerceCheckout.viewCheckoutOrderSummary(
+			addressAddress = "Test Address",
+			addressCity = "Test City",
+			addressCountry = "United States",
+			addressName = "Address Name",
+			deliveryValue = "15",
+			paymentMethod = "Money Order",
+			productName = "U-Joint",
+			productPrice = "24",
+			productQuantity = "1",
+			subtotalValue = "24",
+			totalValue = "39");
+
+		Click(locator1 = "Button#CONTINUE");
 	}
 
 	test GuestCheckoutEnabled {
