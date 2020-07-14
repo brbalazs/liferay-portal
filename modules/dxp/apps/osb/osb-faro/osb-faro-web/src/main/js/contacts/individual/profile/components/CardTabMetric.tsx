@@ -19,19 +19,33 @@ interface ICardTabMetricProps extends React.HTMLAttributes<HTMLElement> {
 	value: number;
 }
 
+const getTrendOptions = (change: number): {color: string; icon: string} => {
+	let icon;
+	let trendClassification = 'NEUTRAL';
+
+	if (change < 0 && isFinite(change)) {
+		icon = 'caret-bottom';
+		trendClassification = 'NEGATIVE';
+	} else if (change > 0 && isFinite(change)) {
+		icon = 'caret-top';
+		trendClassification = 'POSITIVE';
+	}
+
+	const color = getStatsColor(trendClassification);
+
+	return {color, icon};
+};
+
 const CardTabMetric: React.FC<ICardTabMetricProps> = ({
 	change,
 	type,
 	value
 }) => {
 	const formatter = getMetricFormatter(type);
-	const icon =
-		change === 0 ? undefined : change < 0 ? 'caret-bottom' : 'caret-top';
-	const trendClassification =
-		change === 0 ? 'NEUTRAL' : change < 0 ? 'NEGATIVE' : 'POSITIVE';
-
-	const color = getStatsColor(trendClassification);
-	const changeLabel = `${toRounded(Math.abs(change))}%`;
+	const changeLabel = isFinite(change)
+		? `${toRounded(Math.abs(change))}%`
+		: '--';
+	const {color, icon} = getTrendOptions(change);
 
 	return (
 		<span>
