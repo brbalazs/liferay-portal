@@ -4,23 +4,24 @@ import ActivitiesChartTimeline from 'contacts/components/ActivitiesChartTimeline
 import autobind from 'autobind-decorator';
 import Card from 'shared/components/Card';
 import CardTabs from 'shared/components/CardTabs';
-import ErrorDisplay from 'shared/components/ErrorDisplay';
 import FaroConstants from 'shared/util/constants';
 import Promise from 'metal-promise';
 import React from 'react';
-import Spinner from 'shared/components/Spinner';
 import {Account} from 'shared/util/records';
-import {ACTIVITIES, ENGAGEMENT, Routes, toRoute} from 'shared/util/router';
+import {ACTIVITIES, ENGAGEMENT, Routes} from 'shared/util/router';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
-import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
+import {
+	buildTabItems,
+	getSafeRangeKey,
+	INTERVAL_MAP
+} from 'shared/util/engagement-activity';
 import {
 	formatEngagementAggregation,
 	formatEngagementScore
 } from 'shared/util/engagement';
 import {getSafeChange} from 'shared/util/change';
-import {isNull} from 'lodash';
 import {PropTypes} from 'prop-types';
-import {sub} from 'shared/util/lang';
+import {WrapSafeResults} from 'shared/hoc/util';
 
 const {
 	entityTypes: {account},
@@ -56,64 +57,15 @@ export default class Activities extends React.Component {
 		this.handleFetchHistory();
 	}
 
-	buildCardTabs() {
-		const {
-			account: {activitiesCount, engagementScore, id},
-			channelId,
-			groupId
-		} = this.props;
+	componentDidUpdate(prevProps) {
+		const {interval, rangeSelectors} = this.props;
 
-		const formattedEngagementScore = formatEngagementScore(engagementScore);
-
-		return [
-			{
-				secondaryInfo: sub(
-					Liferay.Language.get('x-last-x-days'),
-					[
-						<span className='primary-content' key='TOTAL'>
-							{activitiesCount.toLocaleString()}
-						</span>,
-						DEFAULT_ACTIVITY_MAX
-					],
-					false
-				),
-				tabId: ACTIVITIES,
-				tabUrl: toRoute(Routes.CONTACTS_ACCOUNT_ACTIVITIES, {
-					channelId,
-					groupId,
-					id,
-					tabId: ACTIVITIES
-				}),
-				title: Liferay.Language.get('account-activities')
-			},
-			{
-				secondaryInfo: sub(
-					Liferay.Language.get('x-avg-member-score'),
-					[
-						<span className='primary-content' key='SCORE'>
-							{isNull(formattedEngagementScore) ? (
-								'--'
-							) : (
-								<>
-									{formattedEngagementScore.toFixed(2)}
-
-									<span className='denominator'>{'/10'}</span>
-								</>
-							)}
-						</span>
-					],
-					false
-				),
-				tabId: ENGAGEMENT,
-				tabUrl: toRoute(Routes.CONTACTS_ACCOUNT_ACTIVITIES, {
-					channelId,
-					groupId,
-					id,
-					tabId: ENGAGEMENT
-				}),
-				title: Liferay.Language.get('account-engagement-score')
-			}
-		];
+		if (
+			prevProps.rangeSelectors !== rangeSelectors ||
+			prevProps.interval !== interval
+		) {
+			this.handleFetchHistory();
+		}
 	}
 
 	@autoCancel
@@ -121,7 +73,9 @@ export default class Activities extends React.Component {
 		const {
 			account: {id},
 			channelId,
-			groupId
+			groupId,
+			interval,
+			rangeSelectors
 		} = this.props;
 
 		return API.activities.fetchHistory({
@@ -129,8 +83,9 @@ export default class Activities extends React.Component {
 			contactsEntityId: id,
 			contactsEntityType: account,
 			groupId,
-			interval: timeIntervals.day,
-			max: DEFAULT_MAX
+			interval: INTERVAL_MAP[interval],
+			max: getSafeRangeKey(rangeSelectors.rangeKey),
+			...rangeSelectors
 		});
 	}
 
@@ -185,17 +140,18 @@ export default class Activities extends React.Component {
 				}
 			});
 	}
-
-	renderContent() {
+	render() {
 		const {
 			props: {
-				account: {id, type},
+				account: {activitiesCount, engagementScore, id, type},
 				channelId,
 				groupId,
 				tabId
 			},
 			state: {
+				activityChange,
 				activityHistory,
+				engagementChange,
 				engagementHistory,
 				engagementPrevScore,
 				error,
@@ -203,20 +159,34 @@ export default class Activities extends React.Component {
 			}
 		} = this;
 
-		if (loading) {
-			return <Spinner className='flex-grow-1' key='LOADING' spacer />;
-		} else if (error) {
-			return (
-				<ErrorDisplay
-					key='ERROR_DISPLAY'
-					onReload={this.handleFetchHistory}
-					spacer
-				/>
-			);
-		} else {
-			return (
-				<>
-					<CardTabs activeTabId={tabId} tabs={this.buildCardTabs()} />
+		return (
+			<Card.Body noPadding>
+				<WrapSafeResults
+					className={'flex-grow-1'}
+					error={error}
+					errorProps={{
+						className: 'flex-grow-1',
+						onReload: this.handleFetchHistory
+					}}
+					loading={loading}
+					page={false}
+					pageDisplay={false}
+				>
+					<CardTabs
+						activeTabId={tabId}
+						tabs={buildTabItems({
+							activityChange,
+							activityCount: activitiesCount,
+							channelId,
+							engagementChange,
+							engagementScore: formatEngagementScore(
+								engagementScore
+							),
+							groupId,
+							id,
+							route: Routes.CONTACTS_ACCOUNT_ACTIVITIES
+						})}
+					/>
 
 					{tabId === ACTIVITIES && activityHistory && (
 						<ActivitiesChartTimeline
@@ -239,12 +209,8 @@ export default class Activities extends React.Component {
 							previousScore={engagementPrevScore}
 						/>
 					)}
-				</>
-			);
-		}
-	}
-
-	render() {
-		return <Card pageDisplay>{this.renderContent()}</Card>;
+				</WrapSafeResults>
+			</Card.Body>
+		);
 	}
 }
