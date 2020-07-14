@@ -3,10 +3,10 @@ import {INDIVIDUALS, PAGEVIEWS} from 'shared/util/subscriptions';
 import {List, Map, Record} from 'immutable';
 
 const {
-	entityTypes,
 	pagination: {orderDefault}
 } = FaroConstants;
 
+export {default as Account} from './Account';
 export {default as CustomValue} from './CustomValue';
 export {default as DataSource} from './DataSource';
 export {default as DistributionTab} from './DistributionTab';
@@ -18,19 +18,6 @@ export {default as PropertyGroup} from './PropertyGroup';
 export {default as PropertySubgroup} from './PropertySubgroup';
 export {default as RemoteData, remoteDataFromList} from './RemoteData';
 export {default as Segment} from './Segment';
-
-export const Account = new Record({
-	activitiesCount: 0,
-	createTime: null,
-	engagementScore: null,
-	id: null,
-	individualCount: 0,
-	name: '',
-	photoURL: '',
-	properties: new Map(),
-	status: null,
-	type: entityTypes.account
-});
 
 export const Changeset = new Record({
 	added: new Map(),
