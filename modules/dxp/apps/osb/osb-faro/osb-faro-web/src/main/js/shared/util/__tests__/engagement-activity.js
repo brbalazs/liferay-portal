@@ -39,9 +39,7 @@ const mockHistory = [
 describe('engagement-activity', () => {
 	describe('buildHistoryData', () => {
 		it('should return an array formatted for use in a chart', () => {
-			expect(
-				buildEngagementActivityAxes(mockHistory)
-			).toMatchSnapshot();
+			expect(buildEngagementActivityAxes(mockHistory)).toMatchSnapshot();
 		});
 	});
 
@@ -116,7 +114,9 @@ describe('engagement-activity', () => {
 		it('should convert intervalInitDates in Date', () => {
 			const parsedHistory = convertHistoryInitDateToDate(mockHistory);
 
-			parsedHistory.forEach(({intervalInitDate}) => expect(intervalInitDate).toBeValidDate());
+			parsedHistory.forEach(({intervalInitDate}) =>
+				expect(intervalInitDate).toBeValidDate()
+			);
 		});
 	});
 
@@ -138,9 +138,7 @@ describe('engagement-activity', () => {
 				type: 'number'
 			};
 
-			expect(
-				renderTooltip(tooltipOptions)(mockData)
-			).toMatchSnapshot();
+			expect(renderTooltip(tooltipOptions)(mockData)).toMatchSnapshot();
 		});
 	});
 });

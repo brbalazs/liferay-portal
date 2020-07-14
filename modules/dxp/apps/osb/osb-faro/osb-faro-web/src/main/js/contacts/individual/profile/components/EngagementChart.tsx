@@ -39,7 +39,6 @@ const EngagementChart: React.FC<IProfileCardChartProps> = ({
 	const parsedHistory = convertHistoryInitDateToDate(history);
 	const dateKeysIMap = createDateKeysIMap(interval, parsedHistory);
 
-
 	const historyDate = [
 		{
 			data: parsedHistory.map(({scoreAvg}) => scoreAvg),

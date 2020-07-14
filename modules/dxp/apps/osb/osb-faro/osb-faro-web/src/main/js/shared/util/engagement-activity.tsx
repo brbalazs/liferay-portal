@@ -227,22 +227,23 @@ export function renderTooltipToString(data, history) {
 	);
 }
 
-export const createDateKeysIMap = (interval: Interval, history: Array<ActivitiesEngagementHistory<Date>>) => {
+export const createDateKeysIMap = (
+	interval: Interval,
+	history: Array<ActivitiesEngagementHistory<Date>>
+) => {
 	const parserHistory = ({intervalInitDate}) => {
 		const dateEnd =
-		interval === 'W'
-			? moment
-					.utc(intervalInitDate)
-					.add('6', 'days')
-					.toDate()
-			: null;
+			interval === 'W'
+				? moment
+						.utc(intervalInitDate)
+						.add('6', 'days')
+						.toDate()
+				: null;
 
 		return [intervalInitDate, [intervalInitDate, dateEnd]];
 	};
 
-	return Map<Date, [Date, Date?]>(
-		history.map(parserHistory)
-	);
+	return Map<Date, [Date, Date?]>(history.map(parserHistory));
 };
 
 export const convertHistoryInitDateToDate = (
