@@ -1,17 +1,9 @@
 import MetricValue from 'cerebro-shared/components/MetricValue';
 import React from 'react';
 import Trend from 'cerebro-shared/components/Trend';
-import {getMetricFormatter} from 'shared/util/charts';
+import {getMetricFormatter, MetricValueType} from 'shared/util/charts';
 import {getStatsColor} from 'shared/util/metrics';
 import {toRounded} from 'shared/util/numbers';
-
-export enum MetricValueType {
-	Number = 'number',
-	Percentage = 'percentage',
-	Time = 'time',
-	Engagement = 'engagement',
-	Ratings = 'ratings'
-}
 
 interface ICardTabMetricProps extends React.HTMLAttributes<HTMLElement> {
 	change: number;

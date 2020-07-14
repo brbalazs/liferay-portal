@@ -24,6 +24,14 @@ export type DataTooltip = {
 	x: number | string | Date;
 };
 
+export enum MetricValueType {
+	Number = 'number',
+	Percentage = 'percentage',
+	Time = 'time',
+	Engagement = 'engagement',
+	Ratings = 'ratings'
+}
+
 export const Colors = {
 	gray: '#AEB0BB',
 	mapBluePallete: [
