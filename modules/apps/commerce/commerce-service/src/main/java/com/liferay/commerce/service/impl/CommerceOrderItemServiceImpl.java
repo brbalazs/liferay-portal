@@ -36,6 +36,7 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.math.BigDecimal;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -360,6 +361,42 @@ public class CommerceOrderItemServiceImpl
 		return commerceOrderItemLocalService.updateCommerceOrderItem(
 			commerceOrderItem.getCommerceOrderItemId(), quantity, json,
 			commerceContext, serviceContext);
+	}
+
+	@Override
+	public CommerceOrderItem updateCommerceOrderItemDeliveryDate(
+			long commerceOrderItemId, Date requestedDeliveryDate)
+		throws PortalException {
+
+		CommerceOrderItem commerceOrderItem =
+			commerceOrderItemLocalService.getCommerceOrderItem(
+				commerceOrderItemId);
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrderItem.getCommerceOrderId(),
+			ActionKeys.UPDATE);
+
+		return commerceOrderItemLocalService.
+			updateCommerceOrderItemDeliveryDate(
+				commerceOrderItemId, requestedDeliveryDate);
+	}
+
+	@Override
+	public CommerceOrderItem updateCommerceOrderItemInfo(
+			long commerceOrderItemId, String deliveryGroup,
+			long shippingAddressId, String printedNote)
+		throws PortalException {
+
+		CommerceOrderItem commerceOrderItem =
+			commerceOrderItemLocalService.getCommerceOrderItem(
+				commerceOrderItemId);
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrderItem.getCommerceOrderId(),
+			ActionKeys.UPDATE);
+
+		return commerceOrderItemLocalService.updateCommerceOrderItemInfo(
+			commerceOrderItemId, deliveryGroup, shippingAddressId, printedNote);
 	}
 
 	@Override

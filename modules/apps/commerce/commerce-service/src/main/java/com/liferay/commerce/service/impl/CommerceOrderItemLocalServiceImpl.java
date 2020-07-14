@@ -572,6 +572,43 @@ public class CommerceOrderItemLocalServiceImpl
 
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
+	public CommerceOrderItem updateCommerceOrderItemDeliveryDate(
+			long commerceOrderItemId, Date requestedDeliveryDate)
+		throws PortalException {
+
+		CommerceOrderItem commerceOrderItem =
+			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
+
+		if ((requestedDeliveryDate != null) &&
+			requestedDeliveryDate.before(new Date())) {
+
+			throw new CommerceOrderItemRequestedDeliveryDateException();
+		}
+
+		commerceOrderItem.setRequestedDeliveryDate(requestedDeliveryDate);
+
+		return commerceOrderItemPersistence.update(commerceOrderItem);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceOrderItem updateCommerceOrderItemInfo(
+			long commerceOrderItemId, String deliveryGroup,
+			long shippingAddressId, String printedNote)
+		throws PortalException {
+
+		CommerceOrderItem commerceOrderItem =
+			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
+
+		commerceOrderItem.setDeliveryGroup(deliveryGroup);
+		commerceOrderItem.setShippingAddressId(shippingAddressId);
+		commerceOrderItem.setPrintedNote(printedNote);
+
+		return commerceOrderItemPersistence.update(commerceOrderItem);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public CommerceOrderItem updateCommerceOrderItemInfo(
 			long commerceOrderItemId, String deliveryGroup,
 			long shippingAddressId, String printedNote,
