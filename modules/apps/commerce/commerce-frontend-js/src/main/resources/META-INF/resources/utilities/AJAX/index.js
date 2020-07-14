@@ -26,16 +26,20 @@ const BASE_OPTIONS = {
 
 function _fetch(url, options = {}) {
 	return fetch(url, {...BASE_OPTIONS, ...options})
-		.catch(error => {
-			throw new Error(error);
-		})
 		.then(response => {
+			if (!response.ok) {
+				return response.json()
+					.catch(parseError => Promise.reject(new Error(parseError)))
+					.then(reason => Promise.reject(reason));
+			}
+
 			if (response.status === 204) {
 				return Promise.resolve();
 			}
 
 			return response.json();
-		});
+		})
+		.catch(error => Promise.reject(error));
 }
 
 const AJAX = {
