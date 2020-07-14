@@ -74,9 +74,9 @@ public class CommercePaymentMethodPayPalServlet extends HttpServlet {
 			long groupId = ParamUtil.getLong(httpServletRequest, "groupId");
 			String uuid = ParamUtil.getString(httpServletRequest, "uuid");
 
-			CommerceOrder commerceOrder = null;
-
 			User user = _portal.getUser(httpServletRequest);
+
+			CommerceOrder commerceOrder;
 
 			if (user == null) {
 				commerceOrder =
