@@ -1,5 +1,6 @@
 import CardTabMetric from 'contacts/individual/profile/components/CardTabMetric';
 import ChartTooltip from 'shared/components/ChartTooltip';
+import Constants from 'shared/util/constants';
 import moment from 'moment';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -24,6 +25,8 @@ import {sub} from 'shared/util/lang';
 export const CHART_ACTIVITY_ID = 'activities';
 export const CHART_ENGAGEMENT_ID = 'engagements';
 export const CHART_ID = 'individualActivity';
+
+const {timeIntervals} = Constants;
 
 type TooltipOptions = {
 	dateKeysIMap: Map<Date, [Date, Date?]>;
@@ -319,4 +322,10 @@ export const getSafeRangeKey = (
 	}
 
 	return rangeKey;
+};
+
+export const INTERVAL_MAP = {
+	D: timeIntervals.day,
+	M: timeIntervals.month,
+	W: timeIntervals.week
 };

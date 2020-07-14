@@ -13,6 +13,11 @@ import {ACTIVITIES} from 'shared/util/router';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {buildTabItems, getSafeRangeKey} from 'shared/util/engagement-activity';
 import {
+	buildTabItems,
+	getSafeRangeKey,
+	INTERVAL_MAP
+} from 'shared/util/engagement-activity';
+import {
 	formatEngagementAggregation,
 	formatEngagementScore,
 	mergeHistoryByDate
@@ -35,8 +40,7 @@ import {WrapSafeResults} from 'shared/hoc/util';
 
 const {
 	entityTypes: {individual},
-	pagination: {orderDescending},
-	timeIntervals
+	pagination: {orderDescending}
 } = Constants;
 
 const SearchableVerticalTimelineHOC = withStatefulPagination(
@@ -44,12 +48,6 @@ const SearchableVerticalTimelineHOC = withStatefulPagination(
 	null,
 	props => omit(props, 'onSearchValueChange')
 );
-
-const INTERVAL_MAP = {
-	D: timeIntervals.day,
-	M: timeIntervals.month,
-	W: timeIntervals.week
-};
 
 function getActivities(params) {
 	const {
