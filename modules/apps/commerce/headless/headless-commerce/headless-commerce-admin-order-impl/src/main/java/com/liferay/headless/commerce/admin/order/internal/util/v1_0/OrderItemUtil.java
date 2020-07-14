@@ -67,25 +67,20 @@ public class OrderItemUtil {
 				GetterUtil.get(orderItem.getShippedQuantity(), 0), null,
 				commerceContext, serviceContext);
 
+		commerceOrderItem =
+			commerceOrderItemService.updateCommerceOrderItemInfo(
+				commerceOrderItem.getCommerceOrderItemId(),
+				GetterUtil.get(orderItem.getDeliveryGroup(), StringPool.BLANK),
+				GetterUtil.get(orderItem.getShippingAddressId(), 0L),
+				GetterUtil.get(orderItem.getPrintedNote(), StringPool.BLANK));
+
 		Date requestedDeliveryDate = orderItem.getRequestedDeliveryDate();
 
 		if (requestedDeliveryDate != null) {
-			commerceOrderItemService.updateCommerceOrderItemInfo(
-				commerceOrderItem.getCommerceOrderItemId(),
-				GetterUtil.get(orderItem.getDeliveryGroup(), StringPool.BLANK),
-				GetterUtil.get(orderItem.getShippingAddressId(), 0L),
-				GetterUtil.get(orderItem.getPrintedNote(), StringPool.BLANK),
-				requestedDeliveryDate.getMonth(),
-				requestedDeliveryDate.getDay(),
-				requestedDeliveryDate.getYear());
-		}
-		else {
-			commerceOrderItemService.updateCommerceOrderItemInfo(
-				commerceOrderItem.getCommerceOrderItemId(),
-				GetterUtil.get(orderItem.getDeliveryGroup(), StringPool.BLANK),
-				GetterUtil.get(orderItem.getShippingAddressId(), 0L),
-				GetterUtil.get(orderItem.getPrintedNote(), StringPool.BLANK), 0,
-				0, 0);
+			commerceOrderItem =
+				commerceOrderItemService.updateCommerceOrderItemDeliveryDate(
+					commerceOrderItem.getCommerceOrderItemId(),
+					requestedDeliveryDate);
 		}
 
 		// Pricing
