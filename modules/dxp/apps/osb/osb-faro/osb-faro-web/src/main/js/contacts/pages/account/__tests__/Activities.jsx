@@ -25,9 +25,7 @@ const DefaultComponent = props => (
 
 describe('Activities', () => {
 	it('should render', () => {
-		const {container} = render(
-			<DefaultComponent />
-		);
+		const {container} = render(<DefaultComponent />);
 
 		jest.runAllTimers();
 
@@ -37,9 +35,7 @@ describe('Activities', () => {
 	it('should render with error display', () => {
 		API.engagement.fetchHistory.mockReturnValueOnce(Promise.reject({}));
 
-		const {getByText} = render(
-			<DefaultComponent />
-		);
+		const {getByText} = render(<DefaultComponent />);
 
 		jest.runAllTimers();
 
@@ -47,9 +43,7 @@ describe('Activities', () => {
 	});
 
 	it('should render with Engagement tab as active', () => {
-		const {container} = render(
-			<DefaultComponent tabId={ENGAGEMENT} />
-		);
+		const {container} = render(<DefaultComponent tabId={ENGAGEMENT} />);
 
 		jest.runAllTimers();
 
