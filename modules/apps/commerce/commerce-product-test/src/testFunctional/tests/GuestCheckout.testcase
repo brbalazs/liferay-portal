@@ -150,7 +150,7 @@ definition {
 
 	test AssertGuestCartItemIsNotTransferredIfSkuIsAlreadyPresent {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "GuestCheckout#AssertGuestCartIsTransferredToAccount";
+		property test.name.skip.portal.instance = "GuestCheckout#AssertGuestCartItemIsNotTransferredIfSkuIsAlreadyPresent";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
@@ -280,7 +280,7 @@ definition {
 
 	test AssertGuestCartItemIsTransferredToExistingCart {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "GuestCheckout#AssertGuestCartIsTransferredToAccount";
+		property test.name.skip.portal.instance = "GuestCheckout#AssertGuestCartItemIsTransferredToExistingCart";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
@@ -462,7 +462,7 @@ definition {
 
 	test AssertGuestsWithSameEmailHaveDifferentAccounts {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "GuestCheckout#AssertGuestWithSameEmailHaveDifferentAccounts";
+		property test.name.skip.portal.instance = "GuestCheckout#AssertGuestsWithSameEmailHaveDifferentAccounts";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
@@ -583,7 +583,7 @@ definition {
 
 	test AssertNewAccountIsCreatedAfterGuestCheckout {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "GuestCheckout#GuestCheckoutWithShippableProduct";
+		property test.name.skip.portal.instance = "GuestCheckout#AssertNewAccountIsCreatedAfterGuestCheckout";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
