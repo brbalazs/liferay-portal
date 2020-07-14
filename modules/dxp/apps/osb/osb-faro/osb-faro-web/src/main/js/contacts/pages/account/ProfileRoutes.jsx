@@ -13,7 +13,7 @@ import {PropTypes} from 'prop-types';
 import {Switch, withRouter} from 'react-router-dom';
 
 const Activities = lazy(() =>
-	import(/* webpackChunkName: "AccountActivities" */ './Activities')
+	import(/* webpackChunkName: "AccountActivities" */ './hoc/Activities')
 );
 const AssociatedSegments = lazy(() =>
 	import(/* webpackChunkName: "AssociatedSegments" */ './AssociatedSegments')
