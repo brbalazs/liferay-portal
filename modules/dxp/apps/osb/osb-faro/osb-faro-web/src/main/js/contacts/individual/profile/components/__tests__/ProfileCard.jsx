@@ -44,7 +44,7 @@ describe('IndividualProfileCard', () => {
 	it('should render w/ loading', () => {
 		const {container} = render(<DefaultComponent />);
 
-		expect(container.querySelector('.loading-root')).toBeTruthy();
+		expect(container.querySelector('.spinner-root')).toBeTruthy();
 	});
 
 	it('should render selected info', () => {
