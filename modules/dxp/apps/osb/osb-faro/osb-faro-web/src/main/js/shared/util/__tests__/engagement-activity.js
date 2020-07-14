@@ -5,6 +5,7 @@ import {
 	convertHistoryInitDateToDate,
 	createDateKeysIMap,
 	formatTickVal,
+	getSafeRangeKey,
 	renderTooltip,
 	renderTooltipToString
 } from '../engagement-activity';
@@ -139,6 +140,20 @@ describe('engagement-activity', () => {
 			};
 
 			expect(renderTooltip(tooltipOptions)(mockData)).toMatchSnapshot();
+		});
+	});
+
+	describe('getSafeRangeKey', () => {
+		it('should return the rangeKey when it is different of CUSTOM', () => {
+			const rangeKey = getSafeRangeKey('30');
+
+			expect(rangeKey).toBe('30');
+		});
+
+		it('should return null when it is CUSTOM', () => {
+			const rangeKey = getSafeRangeKey('CUSTOM');
+
+			expect(rangeKey).toBe(null);
 		});
 	});
 });

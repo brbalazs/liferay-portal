@@ -310,3 +310,13 @@ export const renderTooltip = (options: TooltipOptions) => (
 		<TooltipChart header={header} rows={rows} />
 	);
 };
+
+export const getSafeRangeKey = (
+	rangeKey: RangeSelectors['rangeKey']
+): RangeSelectors['rangeKey'] | null => {
+	if (rangeKey === 'CUSTOM') {
+		return null;
+	}
+
+	return rangeKey;
+};

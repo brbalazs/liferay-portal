@@ -11,7 +11,7 @@ import React from 'react';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
 import {ACTIVITIES} from 'shared/util/router';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
-import {buildTabItems} from 'shared/util/engagement-activity';
+import {buildTabItems, getSafeRangeKey} from 'shared/util/engagement-activity';
 import {
 	formatEngagementAggregation,
 	formatEngagementScore,
@@ -147,7 +147,7 @@ export class IndividualProfileCard extends React.Component {
 			contactsEntityType: individual,
 			groupId,
 			interval: INTERVAL_MAP[interval],
-			max: rangeSelectors.rangeKey,
+			max: getSafeRangeKey(rangeSelectors.rangeKey),
 			...rangeSelectors
 		});
 	}
