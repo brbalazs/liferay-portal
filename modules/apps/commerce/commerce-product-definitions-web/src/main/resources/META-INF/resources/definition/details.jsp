@@ -57,16 +57,8 @@ if ((cpDefinition != null) && (cpDefinition.getExpirationDate() != null)) {
 	<liferay-ui:error exception="<%= CPDefinitionMetaKeywordsException.class %>" message="the-meta-keywords-are-too-long" />
 	<liferay-ui:error exception="<%= CPDefinitionMetaTitleException.class %>" message="the-meta-title-is-too-long" />
 	<liferay-ui:error exception="<%= CPDefinitionNameDefaultLanguageException.class %>" message="please-enter-the-product-name-for-the-default-language" />
+	<liferay-ui:error exception="<%= FriendlyURLLengthException.class %>" message="the-friendly-url-is-too-long" />
 	<liferay-ui:error exception="<%= NoSuchCatalogException.class %>" message="please-select-a-valid-catalog" />
-
-	<liferay-ui:error exception="<%= CPFriendlyURLEntryException.class %>">
-
-		<%
-		CPFriendlyURLEntryException cpfuee = (CPFriendlyURLEntryException)errorException;
-		%>
-
-		<%@ include file="/error_friendly_url_exception.jspf" %>
-	</liferay-ui:error>
 
 	<div class="row">
 		<div class="col-8">
