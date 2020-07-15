@@ -109,7 +109,7 @@ definition {
 		CommerceEntry.clickNoError(menuItem = "Edit");
 
 		CommerceOrders.editOrderItemDetails(
-			orderItemName = "ABS Sensor",
+			orderItemSKU = "MIN93015",
 			orderItemQuantity = "4");
 
 		ProductMenu.gotoPortlet(

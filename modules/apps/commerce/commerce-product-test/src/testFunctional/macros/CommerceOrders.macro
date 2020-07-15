@@ -2,7 +2,7 @@ definition {
 
 	macro editOrderItemDetails {
 		Click(
-			key_productName = "${orderItemName}",
+			key_productSKU = "${orderItemSKU}",
 			locator1 = "CommerceOrders#ORDER_ITEMS_PRODUCT_DETAILS");
 
 		SelectFrame(locator1 = "CommerceEntry#IFRAME_SIDE_PANEL");
