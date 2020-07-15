@@ -463,6 +463,15 @@ public class CommercePricingClassLocalServiceUtil {
 	}
 
 	public static com.liferay.commerce.pricing.model.CommercePricingClass
+			updateCommercePricingClassExternalReferenceCode(
+				long commercePricingClassId, String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCommercePricingClassExternalReferenceCode(
+			commercePricingClassId, externalReferenceCode);
+	}
+
+	public static com.liferay.commerce.pricing.model.CommercePricingClass
 			upsertCommercePricingClass(
 				long commercePricingClassId, long userId,
 				java.util.Map<java.util.Locale, String> titleMap,

@@ -634,6 +634,50 @@ public class CommercePricingClassServiceHttp {
 	}
 
 	public static com.liferay.commerce.pricing.model.CommercePricingClass
+			updateCommercePricingClassExternalReferenceCode(
+				HttpPrincipal httpPrincipal, long commercePricingClassId,
+				String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommercePricingClassServiceUtil.class,
+				"updateCommercePricingClassExternalReferenceCode",
+				_updateCommercePricingClassExternalReferenceCodeParameterTypes13);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commercePricingClassId, externalReferenceCode);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.commerce.pricing.model.CommercePricingClass)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.commerce.pricing.model.CommercePricingClass
 			upsertCommercePricingClass(
 				HttpPrincipal httpPrincipal, long commercePricingClassId,
 				long userId, java.util.Map<java.util.Locale, String> titleMap,
@@ -646,7 +690,7 @@ public class CommercePricingClassServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePricingClassServiceUtil.class,
 				"upsertCommercePricingClass",
-				_upsertCommercePricingClassParameterTypes13);
+				_upsertCommercePricingClassParameterTypes14);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePricingClassId, userId, titleMap,
@@ -734,7 +778,10 @@ public class CommercePricingClassServiceHttp {
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[]
-		_upsertCommercePricingClassParameterTypes13 = new Class[] {
+		_updateCommercePricingClassExternalReferenceCodeParameterTypes13 =
+			new Class[] {long.class, String.class};
+	private static final Class<?>[]
+		_upsertCommercePricingClassParameterTypes14 = new Class[] {
 			long.class, long.class, java.util.Map.class, java.util.Map.class,
 			String.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};

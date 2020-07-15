@@ -344,6 +344,28 @@ public class CommercePricingClassServiceSoap {
 	}
 
 	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
+			updateCommercePricingClassExternalReferenceCode(
+				long commercePricingClassId, String externalReferenceCode)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.pricing.model.CommercePricingClass
+				returnValue =
+					CommercePricingClassServiceUtil.
+						updateCommercePricingClassExternalReferenceCode(
+							commercePricingClassId, externalReferenceCode);
+
+			return com.liferay.commerce.pricing.model.CommercePricingClassSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.pricing.model.CommercePricingClassSoap
 			upsertCommercePricingClass(
 				long commercePricingClassId, long userId,
 				String[] titleMapLanguageIds, String[] titleMapValues,
