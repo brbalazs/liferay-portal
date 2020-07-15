@@ -28,9 +28,20 @@ export const CHART_ID = 'individualActivity';
 
 const {timeIntervals} = Constants;
 
-type TooltipOptions = {
+type TooltipColumnType = {
+	align?: string;
+	label: string;
+	weight?: string;
+	truncated?: boolean;
+};
+
+export type TooltipRowType = {
+	columns: Array<TooltipColumnType>;
+};
+
+export type TooltipOptionsType = {
 	dateKeysIMap: Map<Date, [Date, Date?]>;
-	history: Array<ActivitiesEngagementHistory<Date>>;
+	history: Array<IActivitiesHistory | IEngagementHistory>;
 	interval: Interval;
 	name: string;
 	rangeSelectors: RangeSelectors;
@@ -38,19 +49,24 @@ type TooltipOptions = {
 	type: MetricValueType;
 };
 
-interface ActivitiesEngagementHistory<initDate = number> {
-	intervalInitDate: initDate;
-	scoreAvg?: number;
+export interface IActivitiesHistory<initDateType = Date> {
+	intervalInitDate: initDateType;
 	totalElements: number;
 }
 
-export interface IProfileCardChartProps
-	extends React.HTMLAttributes<HTMLElement> {
+export interface IEngagementHistory<initDateType = Date> {
+	intervalInitDate: initDateType;
+	scoreAvg: number;
+	contributors: number;
+}
+
+export interface IChartProps<T> extends React.HTMLAttributes<HTMLElement> {
 	forwardedRef: React.Ref<any>;
-	history: Array<ActivitiesEngagementHistory>;
-	interval: Interval;
+	history: Array<T>;
+	interval?: Interval;
+	onAfterInit?: () => void;
 	onPointSelect: ({index: number}) => void;
-	rangeSelectors: RangeSelectors;
+	rangeSelectors?: RangeSelectors;
 }
 
 /**
@@ -233,7 +249,7 @@ export function renderTooltipToString(data, history) {
 
 export const createDateKeysIMap = (
 	interval: Interval,
-	history: Array<ActivitiesEngagementHistory<Date>>
+	history: Array<IActivitiesHistory | IEngagementHistory>
 ) => {
 	const parserHistory = ({intervalInitDate}) => {
 		const dateEnd =
@@ -250,15 +266,20 @@ export const createDateKeysIMap = (
 	return Map<Date, [Date, Date?]>(history.map(parserHistory));
 };
 
-export const convertHistoryInitDateToDate = (
-	history: Array<ActivitiesEngagementHistory>
-): Array<ActivitiesEngagementHistory<Date>> =>
-	history.map(({intervalInitDate, ...others}) => ({
+export function convertHistoryInitDateToDate<T>(
+	history: Array<
+		T extends IEngagementHistory<number>
+			? IEngagementHistory<number>
+			: IActivitiesHistory<number>
+	>
+) {
+	return history.map(({intervalInitDate, ...others}) => ({
 		intervalInitDate: getDate(intervalInitDate),
 		...others
 	}));
+}
 
-export const renderTooltip = (options: TooltipOptions) => (
+export const renderTooltip = (options: TooltipOptionsType) => (
 	dataPoints: [DataTooltip]
 ): string => {
 	const {
@@ -272,11 +293,11 @@ export const renderTooltip = (options: TooltipOptions) => (
 	} = options;
 
 	const formatter = getAxisFormatter(type);
-	const {intervalInitDate, scoreAvg, totalElements} = history[
-		get(dataPoints, [0, 'index'])
-	];
+	const data = history[get(dataPoints, [0, 'index'])];
 
-	const value = type === ENGAGEMENT ? scoreAvg : totalElements;
+	const {intervalInitDate} = data;
+
+	const value = 'scoreAvg' in data ? data.scoreAvg : data.totalElements;
 
 	const currentPeriodTitle = getDateTitle(
 		dateKeysIMap.get(intervalInitDate),

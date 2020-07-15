@@ -6,8 +6,10 @@ import {
 	CHART_ID,
 	convertHistoryInitDateToDate,
 	createDateKeysIMap,
-	IProfileCardChartProps,
-	renderTooltip
+	IChartProps,
+	IEngagementHistory,
+	renderTooltip,
+	TooltipRowType
 } from 'shared/util/engagement-activity';
 import {
 	DEFAULT_ENGAGEMENT_INTERVAL,
@@ -28,15 +30,18 @@ const INTERVAL_MAP = {
 	[timeIntervals.week]: 'W'
 };
 
-const EngagementChart: React.FC<IProfileCardChartProps> = ({
+const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 	forwardedRef,
 	history,
+	onAfterInit,
 	onPointSelect
 }) => {
 	const rangeKey = String(DEFAULT_ENGAGEMENT_MAX);
 	const interval = INTERVAL_MAP[DEFAULT_ENGAGEMENT_INTERVAL] as Interval;
 
-	const parsedHistory = convertHistoryInitDateToDate(history);
+	const parsedHistory = convertHistoryInitDateToDate<
+		IEngagementHistory<number>
+	>(history);
 	const dateKeysIMap = createDateKeysIMap(interval, parsedHistory);
 
 	const historyDate = [
@@ -90,6 +95,7 @@ const EngagementChart: React.FC<IProfileCardChartProps> = ({
 			data={historyDate}
 			dataId={CHART_ENGAGEMENT_ID}
 			id={CHART_ID}
+			onafterinit={onAfterInit}
 			onPointSelect={onPointSelect}
 			ref={forwardedRef}
 			tooltip={{

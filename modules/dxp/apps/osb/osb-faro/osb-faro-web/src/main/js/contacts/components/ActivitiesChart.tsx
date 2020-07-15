@@ -5,7 +5,8 @@ import {
 	CHART_ID,
 	convertHistoryInitDateToDate,
 	createDateKeysIMap,
-	IProfileCardChartProps,
+	IActivitiesHistory,
+	IChartProps,
 	renderTooltip
 } from 'shared/util/engagement-activity';
 import {
@@ -15,7 +16,7 @@ import {
 } from 'shared/util/charts';
 import {getMaxActivitiesValue} from 'shared/util/activities';
 
-const ActivitiesChart: React.FC<IProfileCardChartProps> = ({
+const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 	forwardedRef,
 	history,
 	interval,
