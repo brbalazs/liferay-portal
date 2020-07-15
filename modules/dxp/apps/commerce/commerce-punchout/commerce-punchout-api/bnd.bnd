@@ -1,7 +1,7 @@
-Bundle-Name: Liferay Punchout Commerce API
-Bundle-SymbolicName: com.liferay.punchout.commerce.api
+Bundle-Name: Liferay Commerce Punchout API
+Bundle-SymbolicName: com.liferay.commerce.punchout.api
 Bundle-Version: 1.0.0
 Export-Package:\
-	com.liferay.punchout.commerce.configuration,\
-	com.liferay.punchout.commerce.constants,\
-	com.liferay.punchout.commerce.service
+	com.liferay.commerce.punchout.configuration,\
+	com.liferay.commerce.punchout.constants,\
+	com.liferay.commerce.punchout.service

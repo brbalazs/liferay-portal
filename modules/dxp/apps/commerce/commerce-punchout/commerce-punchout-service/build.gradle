@@ -9,5 +9,5 @@ dependencies {
 	compileOnly project(":apps:commerce:commerce-api")
 	compileOnly project(":apps:commerce:commerce-currency-api")
 	compileOnly project(":apps:commerce:commerce-product-api")
-	compileOnly project(":dxp:apps:commerce:punchout:punchout-commerce-api")
+	compileOnly project(":dxp:apps:commerce:commerce-punchout:commerce-punchout-api")
 }

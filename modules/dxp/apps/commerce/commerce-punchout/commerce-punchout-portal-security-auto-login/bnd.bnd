@@ -1,5 +1,5 @@
-Bundle-Name: Liferay Punchout Commerce Portal Security Auto Login
-Bundle-SymbolicName: com.liferay.punchout.commerce.portal.security.auto.login
+Bundle-Name: Liferay Commerce Punchout Portal Security Auto Login
+Bundle-SymbolicName: com.liferay.commerce.punchout.portal.security.auto.login
 Bundle-Version: 1.0.0
 Import-Package:\
 	com.liferay.asset.kernel.model;version="[1.5.0,3.0.0)",\
