@@ -35,23 +35,24 @@ public class CommercePricingClassRequestHelper extends BaseRequestHelper {
 		Object portletRequest = httpServletRequest.getAttribute(
 			JavaConstants.JAVAX_PORTLET_REQUEST);
 
-		if (portletRequest instanceof RenderRequest) {
-			_renderRequest = (RenderRequest)portletRequest;
-		}
-
 		Object portletResponse = httpServletRequest.getAttribute(
 			JavaConstants.JAVAX_PORTLET_RESPONSE);
 
-		if (portletResponse instanceof RenderResponse) {
-			_renderResponse = (RenderResponse)portletResponse;
+		if (!(portletRequest instanceof RenderRequest) ||
+			!(portletResponse instanceof RenderResponse)) {
+
+			throw new IllegalArgumentException();
 		}
+
+		_renderRequest = (RenderRequest)portletRequest;
+		_renderResponse = (RenderResponse)portletResponse;
 	}
 
 	public RenderResponse getRenderResponse() {
 		return _renderResponse;
 	}
 
-	private RenderRequest _renderRequest;
-	private RenderResponse _renderResponse;
+	private final RenderRequest _renderRequest;
+	private final RenderResponse _renderResponse;
 
 }
