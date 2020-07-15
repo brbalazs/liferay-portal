@@ -17,9 +17,12 @@ import {
 	buildEngagementActivityAxes,
 	buildLegendItems,
 	CHART_ACTIVITY_ID,
-	CHART_ID,
-	formatTickVal,
-	renderTooltipToString
+	CHART_ID
+} from 'shared/util/engagement-activity';
+import {
+	convertHistoryInitDateToDate,
+	createDateKeysIMap,
+	renderTooltip
 } from 'shared/util/engagement-activity';
 import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
 import {DEFAULT_ENGAGEMENT_MAX} from 'shared/api/engagement';
@@ -28,6 +31,11 @@ import {
 	formatEngagementScore,
 	mergeHistoryByDate
 } from 'shared/util/engagement';
+import {
+	formatXAxisDate,
+	getIntervals,
+	MetricValueType
+} from 'shared/util/charts';
 import {getMaxActivitiesValue} from 'shared/util/activities';
 import {getSafeChange} from 'shared/util/change';
 import {PropTypes} from 'prop-types';
@@ -95,13 +103,6 @@ export default class ActivitiesCard extends React.Component {
 	}
 
 	@autobind
-	getTooltipContents(data) {
-		const {history} = this.state;
-
-		return renderTooltipToString(data, history);
-	}
-
-	@autobind
 	handleFetchHistory() {
 		this.setState({error: false, loading: true});
 
@@ -138,6 +139,51 @@ export default class ActivitiesCard extends React.Component {
 			});
 	}
 
+	handleChartParams() {
+		const {history} = this.state;
+
+		const parsedHistory = convertHistoryInitDateToDate(history);
+		const dateKeysIMap = createDateKeysIMap('D', parsedHistory);
+
+		const intervals = getIntervals(
+			'30',
+			parsedHistory.map(({intervalInitDate}) => intervalInitDate),
+			'D',
+			dateKeysIMap
+		);
+
+		const addTooltipInfo = ({scoreAvg}) => [
+			{
+				columns: [
+					{
+						label: Liferay.Language.get('avg-engagement'),
+						weight: 'normal'
+					},
+					{
+						align: 'right',
+						label: formatEngagementScore(scoreAvg),
+						weight: 'semibold'
+					}
+				]
+			}
+		];
+
+		const getTooltipContents = renderTooltip({
+			dateKeysIMap,
+			history: parsedHistory,
+			interval: 'D',
+			name: Liferay.Language.get('activities'),
+			rangeSelectors: {
+				rangeKey: '30'
+			},
+			title: Liferay.Language.get('activities'),
+			tooltipRenderRows: addTooltipInfo,
+			type: MetricValueType.Number
+		});
+
+		return {dateKeysIMap, getTooltipContents, intervals};
+	}
+
 	renderChart() {
 		const {
 			props: {
@@ -157,6 +203,11 @@ export default class ActivitiesCard extends React.Component {
 				/>
 			);
 		} else {
+			const {
+				dateKeysIMap,
+				getTooltipContents,
+				intervals
+			} = this.handleChartParams();
 			return (
 				<>
 					<ChangeLegend
@@ -171,7 +222,20 @@ export default class ActivitiesCard extends React.Component {
 					/>
 
 					<Chart
-						axisX={{tick: {format: formatTickVal}}}
+						axisX={{
+							tick: {
+								centered: false,
+								format: date =>
+									formatXAxisDate(
+										date,
+										'30',
+										'D',
+										dateKeysIMap
+									),
+								values: intervals
+							},
+							type: 'timeseries'
+						}}
 						axisY={{
 							max: getMaxActivitiesValue(history),
 							min: 0,
@@ -189,7 +253,7 @@ export default class ActivitiesCard extends React.Component {
 						id={CHART_ID}
 						splineInterpolationType='monotone-x'
 						tooltip={{
-							contents: this.getTooltipContents
+							contents: getTooltipContents
 						}}
 						x='date'
 						y2Label={Liferay.Language.get('engagement')}
