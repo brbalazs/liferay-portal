@@ -45,6 +45,7 @@ export type TooltipOptionsType = {
 	interval: Interval;
 	name: string;
 	rangeSelectors: RangeSelectors;
+	tooltipRenderRows?: (data: {[key: string]: any}) => Array<TooltipRowType>;
 	title: string;
 	type: MetricValueType;
 };
@@ -67,6 +68,7 @@ export interface IChartProps<T> extends React.HTMLAttributes<HTMLElement> {
 	onAfterInit?: () => void;
 	onPointSelect: ({index: number}) => void;
 	rangeSelectors?: RangeSelectors;
+	tooltipRenderRows?: (data: T) => Array<TooltipRowType>;
 }
 
 /**
@@ -291,6 +293,7 @@ export const renderTooltip = (options: TooltipOptionsType) => (
 		name,
 		rangeSelectors,
 		title,
+		tooltipRenderRows,
 		type
 	} = options;
 
@@ -330,8 +333,9 @@ export const renderTooltip = (options: TooltipOptionsType) => (
 					weight: 'semibold'
 				}
 			]
-		}
-	];
+		},
+		...(tooltipRenderRows && tooltipRenderRows(data))
+	].filter(Boolean);
 
 	return ReactDOMServer.renderToString(
 		<TooltipChart header={header} rows={rows} />

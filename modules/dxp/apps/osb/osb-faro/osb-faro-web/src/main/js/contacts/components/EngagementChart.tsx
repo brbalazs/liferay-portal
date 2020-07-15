@@ -8,8 +8,7 @@ import {
 	createDateKeysIMap,
 	IChartProps,
 	IEngagementHistory,
-	renderTooltip,
-	TooltipRowType
+	renderTooltip
 } from 'shared/util/engagement-activity';
 import {
 	DEFAULT_ENGAGEMENT_INTERVAL,
@@ -34,7 +33,8 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 	forwardedRef,
 	history,
 	onAfterInit,
-	onPointSelect
+	onPointSelect,
+	tooltipRenderRows
 }) => {
 	const rangeKey = String(DEFAULT_ENGAGEMENT_MAX);
 	const interval = INTERVAL_MAP[DEFAULT_ENGAGEMENT_INTERVAL] as Interval;
@@ -74,6 +74,7 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 			rangeStart: null
 		},
 		title: Liferay.Language.get('engagement'),
+		tooltipRenderRows,
 		type: MetricValueType.Engagement
 	});
 
