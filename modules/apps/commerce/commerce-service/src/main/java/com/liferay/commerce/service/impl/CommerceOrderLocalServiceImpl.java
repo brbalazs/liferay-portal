@@ -16,6 +16,8 @@ package com.liferay.commerce.service.impl;
 
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.configuration.CommerceOrderConfiguration;
+import com.liferay.commerce.configuration.CommerceOrderFieldsConfiguration;
+import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.constants.CommerceDestinationNames;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.context.CommerceContext;
@@ -28,6 +30,7 @@ import com.liferay.commerce.discount.exception.CommerceDiscountLimitationTimesEx
 import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
 import com.liferay.commerce.discount.service.CommerceDiscountUsageEntryLocalService;
+import com.liferay.commerce.exception.CommerceOrderAccountLimitException;
 import com.liferay.commerce.exception.CommerceOrderBillingAddressException;
 import com.liferay.commerce.exception.CommerceOrderDateException;
 import com.liferay.commerce.exception.CommerceOrderPurchaseOrderNumberException;
@@ -45,6 +48,7 @@ import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceOrderPriceCalculationFactory;
+import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.util.JsonHelper;
 import com.liferay.commerce.search.facet.NegatableMultiValueFacet;
 import com.liferay.commerce.service.base.CommerceOrderLocalServiceBaseImpl;
@@ -59,6 +63,7 @@ import com.liferay.portal.kernel.messaging.MessageBusUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserConstants;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
@@ -74,6 +79,7 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -86,6 +92,7 @@ import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 import com.liferay.portal.kernel.workflow.WorkflowTask;
 import com.liferay.portal.kernel.workflow.WorkflowTaskManager;
 import com.liferay.portal.spring.extender.service.ServiceReference;
+import org.osgi.service.component.annotations.Reference;
 
 import java.io.Serializable;
 
@@ -176,6 +183,7 @@ public class CommerceOrderLocalServiceImpl
 
 		User user = userLocalService.getUser(userId);
 
+		validateAccountOrdersLimit(groupId, commerceAccountId);
 		validateGuestOrders();
 
 		if (commerceCurrencyId <= 0) {
@@ -1971,6 +1979,34 @@ public class CommerceOrderLocalServiceImpl
 		}
 	}
 
+	protected void validateAccountOrdersLimit(
+		long channelGroupId, long commerceAccountId)
+		throws PortalException {
+
+		Group group = groupLocalService.getGroup(channelGroupId);
+
+		int pendingCommerceOrdersCount =
+			(int)commerceOrderLocalService.getCommerceOrdersCount(
+				group.getCompanyId(), channelGroupId, new long[] {commerceAccountId},
+				StringPool.BLANK, new int[] {CommerceOrderConstants.ORDER_STATUS_OPEN},
+				false);
+
+		CommerceOrderFieldsConfiguration commerceOrderFieldsConfiguration = _configurationProvider.getConfiguration(
+			CommerceOrderFieldsConfiguration.class,
+			new GroupServiceSettingsLocator(
+				channelGroupId,
+				CommerceConstants.ORDER_FIELDS_SERVICE_NAME));
+
+
+		if ((commerceOrderFieldsConfiguration.accountCartMaxAllowed() > 0) &&
+			(pendingCommerceOrdersCount >=
+			 commerceOrderFieldsConfiguration.accountCartMaxAllowed())) {
+
+			throw new CommerceOrderAccountLimitException(
+				"The account carts limit was reached");
+		}
+	}
+
 	protected void validatePurchaseOrderNumber(String purchaseOrderNumber)
 		throws PortalException {
 
@@ -2158,6 +2194,9 @@ public class CommerceOrderLocalServiceImpl
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceOrderLocalServiceImpl.class);
+
+	@ServiceReference(type = ConfigurationProvider.class)
+	private ConfigurationProvider _configurationProvider;
 
 	@ServiceReference(type = CommerceCurrencyLocalService.class)
 	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
