@@ -106,7 +106,7 @@ if (portletTitleBasedNavigation) {
 			</p>
 
 			<p>
-				<liferay-ui:message arguments="<%= new String[] {DLFolderConstants.getNameInvalidEndCharacters(PropsValues.DL_CHAR_LAST_BLACKLIST)} %>" key="the-folder-name-cannot-end-with-the-following-characters-x" />
+				<liferay-ui:message arguments="<%= DLFolderConstants.getNameInvalidEndCharacters(PropsValues.DL_CHAR_LAST_BLACKLIST) %>" key="the-folder-name-cannot-end-with-the-following-characters-x" />
 			</p>
 
 			<p>

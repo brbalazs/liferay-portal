@@ -37,7 +37,7 @@ X509Certificate x509Certificate = x509CertificateStatus.getX509Certificate();
 		%>
 
 		<c:if test="<%= now.after(x509Certificate.getNotAfter()) %>">
-			<div class="portlet-msg-alert"><liferay-ui:message arguments="<%= new Object[] {x509Certificate.getNotAfter()} %>" key="certificate-expired-on-x" /></div>
+			<div class="portlet-msg-alert"><liferay-ui:message arguments="<%= x509Certificate.getNotAfter() %>" key="certificate-expired-on-x" /></div>
 		</c:if>
 
 		<dl class="property-list">
