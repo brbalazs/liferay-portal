@@ -1,11 +1,11 @@
 import * as API from 'shared/api';
-import ActivitiesChart from './ActivitiesChart';
+import ActivitiesChart from '../../../components/ActivitiesChart';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import CardTabs from 'shared/components/CardTabs';
 import Constants from 'shared/util/constants';
-import EngagementChart from 'contacts/individual/profile/components/EngagementChart';
+import EngagementChart from 'contacts/components/EngagementChart';
 import Promise from 'metal-promise';
 import React from 'react';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
