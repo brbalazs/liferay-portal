@@ -288,9 +288,7 @@ definition {
 
 		CommerceNavigator.gotoMiniCart();
 
-		Click(
-			key_button = "Checkout",
-			locator1 = "CommerceAccelerators#ANY_BUTTON");
+		Button.click(button = "Submit");
 
 		Pause(locator1 = "3000");
 
@@ -461,9 +459,7 @@ definition {
 
 		CommerceNavigator.gotoMiniCart();
 
-		Click(
-			key_button = "Checkout",
-			locator1 = "CommerceAccelerators#ANY_BUTTON");
+		Button.click(button = "Submit");
 
 		Pause(locator1 = "3000");
 
