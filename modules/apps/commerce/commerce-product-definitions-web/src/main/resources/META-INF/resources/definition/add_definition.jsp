@@ -48,9 +48,6 @@
 
 				AdminCatalogResource.createProduct(<portlet:namespace/>productData)
 					.then(function(cpDefinition) {
-						if(cpDefinition.status && cpDefinition.status === "BAD_REQUEST")
-							throw new Error();
-
 						const redirectURL = new Liferay.PortletURL.createURL(
 							'<%= editProductDefinitionURL %>'
 						);
