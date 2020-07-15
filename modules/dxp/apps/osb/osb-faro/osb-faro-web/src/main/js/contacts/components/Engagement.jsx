@@ -1,41 +1,25 @@
 import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import Card from 'shared/components/Card';
-import Chart, {CHART_COLOR_NAMES, SPLINE_CHART} from 'shared/components/Chart';
-import ChartTooltip from 'shared/components/ChartTooltip';
+import EngagementChart from './EngagementChart';
 import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
-import moment from 'moment';
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
-import {
-	findLastIndex,
-	get,
-	head,
-	isFinite,
-	isNil,
-	isNull,
-	noop
-} from 'lodash/fp';
+import {findLastIndex, get, isFinite, isNil, isNull, noop} from 'lodash/fp';
 import {formatChange, getFinitePercentChange} from 'shared/util/change';
 import {formatEngagementScore} from 'shared/util/engagement';
 import {formatUTCDateFromUnix, getLastDate} from 'shared/util/date';
-import {getLegendCircle} from 'shared/util/charts';
 import {omit} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {SCORE} from 'shared/util/pagination';
 import {sub} from 'shared/util/lang';
+import {toThousands} from 'shared/util/numbers';
 import {withSelectedPoint, withStatefulPagination} from 'shared/hoc';
 
 const {
 	pagination: {orderDescending}
 } = FaroConstants;
-
-const {martell: CHART_GREEN} = CHART_COLOR_NAMES;
-
-const CHART_ID = 'engagement';
-const CHART_DATA_ID = 'engagement-score';
 
 const EngagementTable = withStatefulPagination(
 	SearchableEntityTable,
@@ -97,151 +81,6 @@ function getNetChangeLabel(curVal, prevVal) {
 			{!isNil(percentChange) && `(${percentChange}%)`}
 		</span>
 	);
-}
-
-export class EngagementChart extends React.Component {
-	static propTypes = {
-		data: PropTypes.arrayOf(
-			PropTypes.shape({
-				contributors: PropTypes.number,
-				intervalInitDate: PropTypes.number,
-				scoreAvg: PropTypes.number
-			})
-		).isRequired,
-		hasSelectedPoint: PropTypes.bool,
-		onPointSelect: PropTypes.func,
-		selectedPoint: PropTypes.number,
-		tooltipLabels: PropTypes.shape({
-			scoreLabel: PropTypes.string,
-			subtitleLabel: PropTypes.string
-		}).isRequired
-	};
-
-	constructor() {
-		super();
-
-		this._chartRef = React.createRef();
-	}
-
-	@autobind
-	setInitialPoint() {
-		const {
-			data,
-			hasSelectedPoint,
-			onPointSelect,
-			selectedPoint
-		} = this.props;
-
-		if (onPointSelect && data.length) {
-			const lastIndex = findLastIndex(point => !isNull(point.scoreAvg))(
-				data
-			);
-
-			const indexToSelect = hasSelectedPoint ? selectedPoint : lastIndex;
-
-			this._chartRef.current.select([indexToSelect]);
-
-			onPointSelect({index: indexToSelect});
-		}
-	}
-
-	@autobind
-	getHTMLTooltipString(data) {
-		const {index} = head(data);
-
-		const {scoreLabel, subtitleLabel} = this.props.tooltipLabels;
-
-		const {contributors = 0, intervalInitDate, scoreAvg} = this.props.data[
-			index
-		];
-
-		return ReactDOMServer.renderToString(
-			<ChartTooltip
-				items={[
-					{
-						label: scoreLabel,
-						value: scoreAvg.toFixed(2)
-					}
-				]}
-				subtitle={sub(
-					subtitleLabel,
-					[<b key='MEMBERSHIP'>{contributors.toLocaleString()}</b>],
-					false
-				)}
-				title={sub(Liferay.Language.get('as-of-x'), [
-					formatUTCDateFromUnix(intervalInitDate, 'll')
-				])}
-			/>
-		);
-	}
-
-	render() {
-		const {data, onPointSelect} = this.props;
-
-		return (
-			<>
-				<Chart
-					alwaysShowSelectedTooltip
-					axisX={{
-						categories: data.map(item =>
-							item.intervalInitDate.toString()
-						),
-						tick: {
-							centered: false,
-							format: dateObj =>
-								moment.utc(dateObj).format('M/D'),
-							multiline: true,
-							outer: false
-						},
-						type: 'timeseries'
-					}}
-					axisY={{min: 0, padding: {bottom: 0}}}
-					chartType={SPLINE_CHART}
-					className='engagement-chart-root'
-					data={[
-						{
-							data: data.map(item => item.intervalInitDate),
-							id: 'date'
-						},
-						{
-							color: CHART_GREEN,
-							data: data.map(item => item.scoreAvg),
-							id: CHART_DATA_ID,
-							name: Liferay.Language.get('engagement')
-						}
-					]}
-					dataId={CHART_DATA_ID}
-					id={CHART_ID}
-					legend={{
-						contents: {
-							bindto: '#legend-engagement',
-							template: (_, color) =>
-								`<li class="chart-legend-item">${getLegendCircle(
-									color
-								)} ${Liferay.Language.get('engagement')}</li>`
-						},
-						item: {
-							onclick: () => false
-						},
-						show: true
-					}}
-					onafterinit={this.setInitialPoint}
-					onPointSelect={onPointSelect}
-					otherData={{colors: {[CHART_DATA_ID]: CHART_GREEN}}}
-					ref={this._chartRef}
-					splineInterpolationType='monotone-x'
-					tooltip={{
-						contents: this.getHTMLTooltipString
-					}}
-					unloadBeforeLoad={false}
-					x='date'
-					yLabel={Liferay.Language.get('engagement')}
-				/>
-
-				<div className='chart-legend' id='legend-engagement'></div>
-			</>
-		);
-	}
 }
 
 export class SelectedPointInfo extends React.Component {
@@ -334,6 +173,12 @@ export class EngagementWithList extends React.Component {
 		}).isRequired
 	};
 
+	constructor(props) {
+		super(props);
+
+		this._chartRef = React.createRef();
+	}
+
 	getDateRange() {
 		const {data, hasSelectedPoint, selectedPoint} = this.props;
 
@@ -350,6 +195,27 @@ export class EngagementWithList extends React.Component {
 		return {endDate: intervalInitDate, startDate: intervalInitDate};
 	}
 
+	@autobind
+	handleInitialPoint() {
+		const {
+			data,
+			hasSelectedPoint,
+			onPointSelect,
+			selectedPoint
+		} = this.props;
+
+		if (onPointSelect && data.length) {
+			const lastIndex = findLastIndex(point => !isNull(point.scoreAvg))(
+				data
+			);
+
+			const indexToSelect = hasSelectedPoint ? selectedPoint : lastIndex;
+
+			this._chartRef.current.select([indexToSelect]);
+
+			onPointSelect({index: indexToSelect});
+		}
+	}
 	render() {
 		const {
 			checkDisabledFn,
@@ -365,16 +231,33 @@ export class EngagementWithList extends React.Component {
 			tooltipLabels
 		} = this.props;
 
+		const tooltipRenderRows = ({contributors}) => [
+			{
+				columns: [
+					{
+						label: Liferay.Language.get('active-members'),
+						weight: 'normal'
+					},
+					{
+						align: 'right',
+						label: toThousands(contributors),
+						weight: 'semibold'
+					}
+				]
+			}
+		];
+
 		return (
 			<Card.Body
 				className={getCN('engagement-chart-list-root', className)}
 				noPadding
 			>
 				<EngagementChart
-					data={data}
+					forwardedRef={this._chartRef}
+					history={data}
+					onAfterInit={this.handleInitialPoint}
 					onPointSelect={onPointSelect}
-					selectedPoint={selectedPoint}
-					tooltipLabels={tooltipLabels}
+					tooltipRenderRows={tooltipRenderRows}
 				/>
 
 				<SelectedPointInfo

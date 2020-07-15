@@ -1,27 +1,20 @@
 import * as API from 'shared/api';
+import ActivitiesChart from './ActivitiesChart';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import Chart, {BAR_CHART} from 'shared/components/Chart';
-import ChartTooltip from 'shared/components/ChartTooltip';
 import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
-import moment from 'moment';
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
-import {
-	formatSessions,
-	getActivityLabel,
-	getMaxActivitiesValue
-} from 'shared/util/activities';
+import {formatSessions, getActivityLabel} from 'shared/util/activities';
 import {
 	formatUTCDateFromUnix,
 	getDateRangeLabel,
 	getFirstDate,
 	getLastDate
 } from 'shared/util/date';
-import {get, omit} from 'lodash';
+import {omit} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {START_TIME} from 'shared/util/pagination';
 import {sub} from 'shared/util/lang';
@@ -36,13 +29,6 @@ const SearchableVerticalTimelineHOC = withStatefulPagination(
 const {
 	pagination: {orderDescending}
 } = FaroConstants;
-
-const CHART_ID = 'activity';
-const CHART_ACTIVITY_ID = 'activities';
-
-function formatTickVal(date) {
-	return moment.utc(date).format('M/D');
-}
 
 function getActivities(params) {
 	const {
@@ -99,27 +85,6 @@ export class ActivitiesChartTimeline extends React.Component {
 		this._searchableVerticalTimelineRef = React.createRef();
 	}
 
-	buildHistoryData(dataPoints = []) {
-		return [
-			{
-				axis: 'y',
-				data: dataPoints.map(({totalElements}) =>
-					Number(totalElements)
-				),
-				id: CHART_ACTIVITY_ID,
-				name: Liferay.Language.get('activity-count'),
-				type: 'bar'
-			},
-			{
-				data: dataPoints.map(({intervalInitDate}) =>
-					Number(intervalInitDate)
-				),
-				id: 'date',
-				name: Liferay.Language.get('date')
-			}
-		];
-	}
-
 	getDateRange() {
 		const {hasSelectedPoint, history, selectedPoint} = this.props;
 
@@ -133,30 +98,6 @@ export class ActivitiesChartTimeline extends React.Component {
 		const {intervalInitDate} = history[selectedPoint];
 
 		return {endDate: intervalInitDate, startDate: intervalInitDate};
-	}
-
-	@autobind
-	getTooltipContents(data) {
-		const {history} = this.props;
-
-		const {intervalInitDate, totalElements} = history[
-			get(data, [0, 'index'])
-		];
-
-		return ReactDOMServer.renderToString(
-			<ChartTooltip
-				items={[
-					{
-						label:
-							totalElements === 1
-								? Liferay.Language.get('activities')
-								: Liferay.Language.get('activity'),
-						value: totalElements
-					}
-				]}
-				title={formatUTCDateFromUnix(intervalInitDate)}
-			/>
-		);
 	}
 
 	@autobind
@@ -187,6 +128,8 @@ export class ActivitiesChartTimeline extends React.Component {
 			hasSelectedPoint,
 			history,
 			id,
+			interval,
+			rangeSelectors,
 			selectedPoint
 		} = this.props;
 
@@ -197,34 +140,12 @@ export class ActivitiesChartTimeline extends React.Component {
 				className={getCN('activities-chart-timeline-root', className)}
 				noPadding
 			>
-				<Chart
-					alwaysShowSelectedTooltip
-					axisX={{
-						tick: {
-							centered: false,
-							format: formatTickVal,
-							multiline: true,
-							outer: false
-						}
-					}}
-					axisY={{
-						max: getMaxActivitiesValue(history),
-						min: 0,
-						padding: {bottom: 0}
-					}}
-					bar={{width: {ratio: 0.9}}}
-					chartType={BAR_CHART}
-					className='activities-timeline-chart'
-					data={this.buildHistoryData(history)}
-					dataId={CHART_ACTIVITY_ID}
-					id={CHART_ID}
+				<ActivitiesChart
+					forwardedRef={this._chartRef}
+					history={history}
+					interval={interval}
 					onPointSelect={this.handleChartSelect}
-					ref={this._chartRef}
-					tooltip={{
-						contents: this.getTooltipContents
-					}}
-					x='date'
-					yLabel={Liferay.Language.get('activities')}
+					rangeSelectors={rangeSelectors}
 				/>
 
 				{!!history.length && (
