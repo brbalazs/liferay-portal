@@ -40,7 +40,7 @@
 </tr>
 <tr>
     <td>ORDER_DETAILS_PRODUCT_SKU</td>
-    <td>//div[@class='table-list-title']/a</td>
+    <td>//div[@class='table-list-title']/button</td>
     <td></td>
 </tr>
 <tr>
