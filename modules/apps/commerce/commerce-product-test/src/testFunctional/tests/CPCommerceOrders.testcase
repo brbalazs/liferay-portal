@@ -109,8 +109,8 @@ definition {
 		CommerceEntry.clickNoError(menuItem = "Edit");
 
 		CommerceOrders.editOrderItemDetails(
-			orderItemSKU = "MIN93015",
-			orderItemQuantity = "4");
+			orderItemQuantity = "4",
+			orderItemSKU = "MIN93015");
 
 		ProductMenu.gotoPortlet(
 			category = "Commerce",
