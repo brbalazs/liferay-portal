@@ -51,7 +51,7 @@ public class CommercePricingClassRequestHelper extends BaseRequestHelper {
 		return _renderResponse;
 	}
 
-	private final RenderRequest _renderRequest;
-	private final RenderResponse _renderResponse;
+	private RenderRequest _renderRequest;
+	private RenderResponse _renderResponse;
 
 }
