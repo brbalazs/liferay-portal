@@ -5,15 +5,15 @@ export default gql`
 		jobById(id: $jobId) {
 			id
 			name
-			nextTrainingDate
+			nextRunDate
 			parameters {
 				name
 				value
 			}
 			status
-			trainingDate
-			trainingFrequency
-			trainingPeriod
+			runDate
+			runFrequency
+			runDataPeriod
 			type
 		}
 	}

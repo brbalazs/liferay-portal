@@ -1,7 +1,7 @@
 import Form from 'shared/components/form';
 import Interactions from '../Interactions';
 import React from 'react';
-import {jobTrainingPeriods} from 'shared/util/constants';
+import {jobRunDataPeriods} from 'shared/util/constants';
 import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
@@ -12,7 +12,7 @@ describe('Interactions', () => {
 			<Form
 				initialValues={{
 					includePreviousPeriod: false,
-					trainingPeriod: jobTrainingPeriods.last30Days
+					runDataPeriod: jobRunDataPeriods.last30Days
 				}}
 			>
 				{() => (
@@ -31,7 +31,7 @@ describe('Interactions', () => {
 			<Form
 				initialValues={{
 					includePreviousPeriod: true,
-					trainingPeriod: jobTrainingPeriods.last30Days
+					runDataPeriod: jobRunDataPeriods.last30Days
 				}}
 			>
 				{() => (

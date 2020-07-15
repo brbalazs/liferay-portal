@@ -1,8 +1,8 @@
 import {
+	jobRunDataPeriods,
+	jobRunFrequencies,
 	jobRunStatuses,
 	jobStatuses,
-	jobTrainingFrequencies,
-	jobTrainingPeriods,
 	jobTypes,
 	LAST_180_DAYS,
 	LAST_30_DAYS,
@@ -42,9 +42,9 @@ export type Job = {
 	name: string;
 	parameters: JobParameter[];
 	status: jobStatuses;
-	trainingDate: string;
-	trainingFrequency: jobTrainingFrequencies;
-	trainingPeriod: jobTrainingPeriods;
+	runDate: string;
+	runFrequency: jobRunFrequencies;
+	runDataPeriod: jobRunDataPeriods;
 	type: jobTypes;
 };
 
@@ -78,62 +78,62 @@ export const JOB_STATUSES_LABEL_MAP = {
 	[jobStatuses.training]: Liferay.Language.get('training')
 };
 
-export const JOB_TRAINING_FREQUENCIES_LABEL_MAP = {
-	[jobTrainingFrequencies.every7Days]: Liferay.Language.get('every-7-days'),
-	[jobTrainingFrequencies.every14Days]: Liferay.Language.get('every-14-days'),
-	[jobTrainingFrequencies.every30Days]: Liferay.Language.get('every-30-days'),
-	[jobTrainingFrequencies.manual]: Liferay.Language.get('run-manually')
+export const JOB_RUN_FREQUENCIES_LABEL_MAP = {
+	[jobRunFrequencies.every7Days]: Liferay.Language.get('every-7-days'),
+	[jobRunFrequencies.every14Days]: Liferay.Language.get('every-14-days'),
+	[jobRunFrequencies.every30Days]: Liferay.Language.get('every-30-days'),
+	[jobRunFrequencies.manual]: Liferay.Language.get('run-manually')
 };
 
-export const JOB_TRAINING_FREQUENCIES_LIST = [
+export const JOB_RUN_FREQUENCIES_LIST = [
 	{
 		name: Liferay.Language.get('run-manually'),
-		value: jobTrainingFrequencies.manual
+		value: jobRunFrequencies.manual
 	},
 	{
 		name: Liferay.Language.get('every-7-days'),
-		value: jobTrainingFrequencies.every7Days
+		value: jobRunFrequencies.every7Days
 	},
 	{
 		name: Liferay.Language.get('every-14-days'),
-		value: jobTrainingFrequencies.every14Days
+		value: jobRunFrequencies.every14Days
 	},
 	{
 		name: Liferay.Language.get('every-30-days'),
-		value: jobTrainingFrequencies.every30Days
+		value: jobRunFrequencies.every30Days
 	}
 ];
 
-export const JOB_TRAINING_PERIODS_LABEL_MAP = {
-	[jobTrainingPeriods.last7Days]: Liferay.Language.get('last-7-days'),
-	[jobTrainingPeriods.last30Days]: Liferay.Language.get('last-30-days'),
-	[jobTrainingPeriods.last180Days]: Liferay.Language.get('last-180-days'),
-	[jobTrainingPeriods.last365Days]: Liferay.Language.get('last-year')
+export const JOB_RUN_DATA_PERIODS_LABEL_MAP = {
+	[jobRunDataPeriods.last7Days]: Liferay.Language.get('last-7-days'),
+	[jobRunDataPeriods.last30Days]: Liferay.Language.get('last-30-days'),
+	[jobRunDataPeriods.last180Days]: Liferay.Language.get('last-180-days'),
+	[jobRunDataPeriods.last365Days]: Liferay.Language.get('last-year')
 };
 
-export const JOB_TRAINING_PERIODS_RANGE_KEY_MAP = {
-	[jobTrainingPeriods.last7Days]: LAST_7_DAYS,
-	[jobTrainingPeriods.last30Days]: LAST_30_DAYS,
-	[jobTrainingPeriods.last180Days]: LAST_180_DAYS,
-	[jobTrainingPeriods.last365Days]: LAST_YEAR
+export const JOB_RUN_DATA_PERIODS_RANGE_KEY_MAP = {
+	[jobRunDataPeriods.last7Days]: LAST_7_DAYS,
+	[jobRunDataPeriods.last30Days]: LAST_30_DAYS,
+	[jobRunDataPeriods.last180Days]: LAST_180_DAYS,
+	[jobRunDataPeriods.last365Days]: LAST_YEAR
 };
 
-export const JOB_TRAINING_PERIODS_LIST = [
+export const JOB_RUN_DATA_PERIODS_LIST = [
 	{
 		name: Liferay.Language.get('last-7-days'),
-		value: jobTrainingPeriods.last7Days
+		value: jobRunDataPeriods.last7Days
 	},
 	{
 		name: Liferay.Language.get('last-30-days'),
-		value: jobTrainingPeriods.last30Days
+		value: jobRunDataPeriods.last30Days
 	},
 	{
 		name: Liferay.Language.get('last-180-days'),
-		value: jobTrainingPeriods.last180Days
+		value: jobRunDataPeriods.last180Days
 	},
 	{
 		name: Liferay.Language.get('last-year'),
-		value: jobTrainingPeriods.last365Days
+		value: jobRunDataPeriods.last365Days
 	}
 ];
 

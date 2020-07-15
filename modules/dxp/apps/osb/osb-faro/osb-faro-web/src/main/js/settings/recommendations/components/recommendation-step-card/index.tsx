@@ -14,8 +14,8 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Filter, Job, JobParameter} from '../../utils/utils';
 import {
-	jobTrainingFrequencies,
-	jobTrainingPeriods,
+	jobRunDataPeriods,
+	jobRunFrequencies,
 	jobTypes
 } from 'shared/util/constants';
 import {
@@ -88,9 +88,9 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 		includePreviousPeriod,
 		itemFilters,
 		name,
+		runDataPeriod,
+		runFrequency,
 		runNow,
-		trainingFrequency,
-		trainingPeriod,
 		type
 	}) => {
 		let parameters = [
@@ -117,9 +117,9 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 							jobId: job.id,
 							name,
 							parameters,
-							runNow,
-							trainingFrequency,
-							trainingPeriod
+							runDataPeriod,
+							runFrequency,
+							runNow
 						}
 					})
 			: () =>
@@ -127,9 +127,9 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 						variables: {
 							name,
 							parameters,
+							runDataPeriod,
+							runFrequency,
 							runNow,
-							trainingFrequency,
-							trainingPeriod,
 							type
 						}
 					});
@@ -170,8 +170,8 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 				id,
 				name,
 				parameters,
-				trainingFrequency,
-				trainingPeriod,
+				runDataPeriod,
+				runFrequency,
 				type
 			} = job;
 
@@ -197,9 +197,9 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 					includePreviousPeriodParameter.value,
 				itemFilters,
 				name,
+				runDataPeriod,
+				runFrequency,
 				runNow: true,
-				trainingFrequency,
-				trainingPeriod,
 				type
 			};
 		}
@@ -209,9 +209,9 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 			includePreviousPeriod: false,
 			itemFilters: [],
 			name: '',
+			runDataPeriod: jobRunDataPeriods.last30Days,
+			runFrequency: jobRunFrequencies.every7Days,
 			runNow: true,
-			trainingFrequency: jobTrainingFrequencies.every7Days,
-			trainingPeriod: jobTrainingPeriods.last30Days,
 			type: jobType
 		};
 	};
@@ -262,9 +262,9 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 								groupId={groupId}
 								initialValues={initialValues}
 								onSetDisabled={setDisabled}
+								runDate={job ? job.runDate : null}
 								setFieldValue={setFieldValue}
 								setStep={setCurrentStep}
-								trainingDate={job ? job.trainingDate : null}
 								{...values}
 							/>
 						</Card.Body>

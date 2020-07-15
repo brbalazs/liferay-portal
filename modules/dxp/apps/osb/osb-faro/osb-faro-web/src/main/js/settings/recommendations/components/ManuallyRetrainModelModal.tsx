@@ -10,12 +10,12 @@ import {
 	Filter,
 	getPropertiesFromItems,
 	Job,
-	JOB_TRAINING_PERIODS_LIST,
-	JOB_TRAINING_PERIODS_RANGE_KEY_MAP,
+	JOB_RUN_DATA_PERIODS_LIST,
+	JOB_RUN_DATA_PERIODS_RANGE_KEY_MAP,
 	JobProperty
 } from '../utils/utils';
 import {get} from 'lodash';
-import {jobTrainingPeriods} from 'shared/util/constants';
+import {jobRunDataPeriods} from 'shared/util/constants';
 import {useQuery} from '@apollo/react-hooks';
 
 const ACTIVITIES_THRESHOLD = 1000;
@@ -43,7 +43,7 @@ const ManuallyRetrainModelModal = ({job, onClose, onSubmit}) => {
 	const propertyFilters: JobProperty[] = getPropertiesFromItems(itemFilters);
 
 	const validateActivitiesCount = (
-		jobTrainingPeriod: jobTrainingPeriods
+		JobRunDataPeriod: jobRunDataPeriods
 	): Promise<string> => {
 		let error = '';
 
@@ -55,7 +55,7 @@ const ManuallyRetrainModelModal = ({job, onClose, onSubmit}) => {
 					eventContextPropertyFilters: propertyFilters,
 					eventId: 'pageUnloaded',
 					rangeKey:
-						JOB_TRAINING_PERIODS_RANGE_KEY_MAP[jobTrainingPeriod],
+						JOB_RUN_DATA_PERIODS_RANGE_KEY_MAP[JobRunDataPeriod],
 					size: 0,
 					start: 0
 				}
@@ -79,7 +79,7 @@ const ManuallyRetrainModelModal = ({job, onClose, onSubmit}) => {
 			/>
 
 			<Form
-				initialValues={{trainingPeriod: get(job, 'trainingPeriod')}}
+				initialValues={{runDataPeriod: get(job, 'runDataPeriod')}}
 				onSubmit={onSubmit}
 			>
 				{({handleSubmit}) => (
@@ -97,10 +97,10 @@ const ManuallyRetrainModelModal = ({job, onClose, onSubmit}) => {
 										label={Liferay.Language.get(
 											'select-interaction-period'
 										)}
-										name='trainingPeriod'
+										name='runDataPeriod'
 										validate={validateActivitiesCount}
 									>
-										{JOB_TRAINING_PERIODS_LIST.map(
+										{JOB_RUN_DATA_PERIODS_LIST.map(
 											({name, value}) => (
 												<Form.Select.Item
 													key={value}

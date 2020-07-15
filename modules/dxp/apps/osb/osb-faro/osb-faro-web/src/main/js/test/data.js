@@ -1,7 +1,7 @@
 import FaroConstants, {
+	jobRunDataPeriods,
+	jobRunFrequencies,
 	jobStatuses,
-	jobTrainingFrequencies,
-	jobTrainingPeriods,
 	jobTypes
 } from 'shared/util/constants';
 import moment from 'moment';
@@ -993,12 +993,12 @@ export function mockRecommendationJob(seed = 0, data = {}) {
 	return {
 		id: String(seed),
 		name: `Recommendation Job Name ${seed}`,
-		nextTrainingDate: getTimestamp(0),
+		nextRunDate: getTimestamp(0),
 		parameters: [],
+		runDataPeriod: jobRunDataPeriods.last30Days,
+		runDate: getTimestamp(-2),
+		runFrequency: jobRunFrequencies.every30Days,
 		status: jobStatuses.ready,
-		trainingDate: getTimestamp(-2),
-		trainingFrequency: jobTrainingFrequencies.every30Days,
-		trainingPeriod: jobTrainingPeriods.last30Days,
 		type: jobTypes.itemSimilarity,
 		...data
 	};

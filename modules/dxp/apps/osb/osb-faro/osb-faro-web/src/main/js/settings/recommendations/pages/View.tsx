@@ -81,7 +81,7 @@ const View: React.FC<IViewProps> = ({
 													job,
 													onClose: close,
 													onSubmit: ({
-														trainingPeriod
+														runDataPeriod
 													}) => {
 														runRecommendationJob({
 															awaitRefetchQueries: true,
@@ -92,7 +92,7 @@ const View: React.FC<IViewProps> = ({
 															],
 															variables: {
 																jobId,
-																trainingPeriod
+																runDataPeriod
 															}
 														})
 															.then(() => {
@@ -235,9 +235,9 @@ const View: React.FC<IViewProps> = ({
 					pageTitle={name}
 				>
 					<OutputVersionsCard
-						nextTrainingDate={get(job, 'nextTrainingDate')}
+						nextRunDate={get(job, 'nextRunDate')}
 						router={router}
-						trainingFrequency={get(job, 'trainingFrequency')}
+						runFrequency={get(job, 'runFrequency')}
 					/>
 					<TrainingItemsCard itemFilters={itemFilters} />
 				</BasePage>

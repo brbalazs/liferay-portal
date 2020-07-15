@@ -3,8 +3,8 @@ import Form from 'shared/components/form';
 import React from 'react';
 import Summary from '../Summary';
 import {
-	jobTrainingFrequencies,
-	jobTrainingPeriods,
+	jobRunDataPeriods,
+	jobRunFrequencies,
 	jobTypes
 } from 'shared/util/constants';
 import {MockedProvider} from '@apollo/react-testing';
@@ -38,8 +38,8 @@ describe('Summary', () => {
 								}
 							],
 							name: 'Test Name',
-							trainingFrequency: jobTrainingFrequencies.manual,
-							trainingPeriod: jobTrainingPeriods.last30Days,
+							runDataPeriod: jobRunDataPeriods.last30Days,
+							runFrequency: jobRunFrequencies.manual,
 							type: jobTypes.itemSimilarity
 						}}
 					>
@@ -47,8 +47,8 @@ describe('Summary', () => {
 							<Form.Form>
 								<Summary
 									initialValues={initialValues}
+									runDate={data.getTimestamp()}
 									setFieldValue={jest.fn()}
-									trainingDate={data.getTimestamp()}
 									{...values}
 								/>
 							</Form.Form>

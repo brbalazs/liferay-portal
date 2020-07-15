@@ -1,9 +1,9 @@
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import Constants, {
+	jobRunDataPeriods,
+	jobRunFrequencies,
 	jobStatuses,
-	jobTrainingFrequencies,
-	jobTrainingPeriods,
 	jobTypes
 } from 'shared/util/constants';
 import Label from 'shared/components/Label';
@@ -28,10 +28,10 @@ import {
 } from 'shared/hoc/mappers/metrics';
 import {graphql} from '@apollo/react-hoc';
 import {
+	JOB_RUN_DATA_PERIODS_LABEL_MAP,
+	JOB_RUN_FREQUENCIES_LABEL_MAP,
 	JOB_STATUSES_DISPLAY_MAP,
 	JOB_STATUSES_LABEL_MAP,
-	JOB_TRAINING_FREQUENCIES_LABEL_MAP,
-	JOB_TRAINING_PERIODS_LABEL_MAP,
 	JOB_TYPES_LABEL_MAP
 } from '../utils/utils';
 import {NAME} from 'shared/util/pagination';
@@ -297,19 +297,19 @@ const RecommendationListWithData = withCrossPageSelect(withData, {
 			label: Liferay.Language.get('training-model')
 		},
 		{
-			accessor: 'trainingPeriod',
-			dataFormatter: (type: jobTrainingPeriods) =>
-				JOB_TRAINING_PERIODS_LABEL_MAP[type],
+			accessor: 'runDataPeriod',
+			dataFormatter: (type: jobRunDataPeriods) =>
+				JOB_RUN_DATA_PERIODS_LABEL_MAP[type],
 			label: Liferay.Language.get('training-period')
 		},
 		{
-			accessor: 'trainingFrequency',
-			dataFormatter: (type: jobTrainingFrequencies) =>
-				JOB_TRAINING_FREQUENCIES_LABEL_MAP[type],
+			accessor: 'runFrequency',
+			dataFormatter: (type: jobRunFrequencies) =>
+				JOB_RUN_FREQUENCIES_LABEL_MAP[type],
 			label: Liferay.Language.get('training-frequency')
 		},
 		{
-			accessor: 'trainingDate',
+			accessor: 'runDate',
 			dataFormatter: (date: string) => formatUTCDate(date, 'MM DD, YYYY'),
 			label: Liferay.Language.get('last-trained')
 		},

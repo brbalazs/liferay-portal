@@ -1,8 +1,8 @@
 import Form from 'shared/components/form';
 import InfoPopover from 'shared/components/InfoPopover';
 import React, {useEffect} from 'react';
-import {JOB_TRAINING_PERIODS_LIST} from '../../utils/utils';
-import {jobTrainingFrequencies} from 'shared/util/constants';
+import {JOB_RUN_DATA_PERIODS_LIST} from '../../utils/utils';
+import {jobRunFrequencies} from 'shared/util/constants';
 
 interface IInteractionsProps {
 	includePreviousPeriod: boolean;
@@ -11,19 +11,18 @@ interface IInteractionsProps {
 		value: any,
 		shouldValidate?: boolean
 	) => void;
-	trainingFrequency: jobTrainingFrequencies;
+	runFrequency: jobRunFrequencies;
 }
 
 const Interactions: React.FC<IInteractionsProps> = ({
 	includePreviousPeriod,
-	setFieldValue,
-	trainingFrequency
+	runFrequency,
+	setFieldValue
 }) => {
-	const manualTrainingFrequency =
-		trainingFrequency === jobTrainingFrequencies.manual;
+	const manualRunFequency = runFrequency === jobRunFrequencies.manual;
 
 	useEffect(() => {
-		if (manualTrainingFrequency && includePreviousPeriod) {
+		if (manualRunFequency && includePreviousPeriod) {
 			setFieldValue('includePreviousPeriod', false);
 		}
 	}, []);
@@ -46,9 +45,9 @@ const Interactions: React.FC<IInteractionsProps> = ({
 				<Form.GroupItem>
 					<Form.Select
 						label={interactionPeriodLabel}
-						name='trainingPeriod'
+						name='runDataPeriod'
 					>
-						{JOB_TRAINING_PERIODS_LIST.map(({name, value}) => (
+						{JOB_RUN_DATA_PERIODS_LIST.map(({name, value}) => (
 							<Form.Select.Item key={value} value={value}>
 								{name}
 							</Form.Select.Item>
@@ -59,7 +58,7 @@ const Interactions: React.FC<IInteractionsProps> = ({
 				<Form.GroupItem>
 					<Form.Checkbox
 						data-testid='include-previous-period-checkbox'
-						disabled={manualTrainingFrequency}
+						disabled={manualRunFequency}
 						displayInline
 						label={Liferay.Language.get(
 							'include-previous-period-in-case-of-insufficient-interactions'

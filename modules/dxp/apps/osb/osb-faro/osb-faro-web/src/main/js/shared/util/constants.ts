@@ -208,14 +208,14 @@ export enum jobStatuses {
 	training = 'TRAINING'
 }
 
-export enum jobTrainingFrequencies {
+export enum jobRunFrequencies {
 	every7Days = 'EVERY_7_DAYS',
 	every14Days = 'EVERY_14_DAYS',
 	every30Days = 'EVERY_30_DAYS',
 	manual = 'MANUAL'
 }
 
-export enum jobTrainingPeriods {
+export enum jobRunDataPeriods {
 	last7Days = 'LAST_7_DAYS',
 	last30Days = 'LAST_30_DAYS',
 	last180Days = 'LAST_180_DAYS',

@@ -6,7 +6,7 @@ import Form, {
 } from 'shared/components/form';
 import React, {useEffect} from 'react';
 import {FormikErrors} from 'formik';
-import {JOB_TRAINING_FREQUENCIES_LIST} from '../../utils/utils';
+import {JOB_RUN_FREQUENCIES_LIST} from '../../utils/utils';
 import {RECOMMENDATION_BY_NAME_QUERY} from '../../queries/RecommendationQuery';
 import {sequence} from 'shared/util/promise';
 
@@ -69,9 +69,9 @@ const BasicSettings: React.FC<IBasicSettingsProps> = ({
 			<Form.Group>
 				<Form.Select
 					label={Liferay.Language.get('training-frequency')}
-					name='trainingFrequency'
+					name='runFrequency'
 				>
-					{JOB_TRAINING_FREQUENCIES_LIST.map(({name, value}) => (
+					{JOB_RUN_FREQUENCIES_LIST.map(({name, value}) => (
 						<Form.Select.Item key={value} value={value}>
 							{name}
 						</Form.Select.Item>

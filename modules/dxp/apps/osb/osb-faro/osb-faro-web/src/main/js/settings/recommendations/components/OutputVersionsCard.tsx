@@ -1,7 +1,7 @@
 import Card from 'shared/components/Card';
 import Constants, {
-	jobRunStatuses,
-	jobTrainingFrequencies
+	jobRunFrequencies,
+	jobRunStatuses
 } from 'shared/util/constants';
 import Label from 'shared/components/Label';
 import moment from 'moment';
@@ -13,9 +13,9 @@ import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {getMapResultToProps} from 'shared/hoc/mappers/metrics';
 import {graphql} from '@apollo/react-hoc';
 import {
+	JOB_RUN_FREQUENCIES_LABEL_MAP,
 	JOB_RUN_STATUSES_DISPLAY_MAP,
-	JOB_RUN_STATUSES_LABEL_MAP,
-	JOB_TRAINING_FREQUENCIES_LABEL_MAP
+	JOB_RUN_STATUSES_LABEL_MAP
 } from '../utils/utils';
 import {RouterType} from 'shared/types';
 import {sub} from 'shared/util/lang';
@@ -46,9 +46,9 @@ const getContextItemCount = (contextItemKey: string) => (
 };
 
 interface IOutputVersionsCardProps {
-	nextTrainingDate: string;
+	nextRunDate: string;
 	router: RouterType;
-	trainingFrequency: jobTrainingFrequencies;
+	runFrequency: jobRunFrequencies;
 }
 
 const withData = () =>
@@ -110,9 +110,9 @@ const OutputVersionsListWithData = withStatefulPagination(
 );
 
 const OutputVersionsCard: React.FC<IOutputVersionsCardProps> = ({
-	nextTrainingDate,
+	nextRunDate,
 	router,
-	trainingFrequency
+	runFrequency
 }) => {
 	const {
 		params: {jobId}
@@ -128,12 +128,10 @@ const OutputVersionsCard: React.FC<IOutputVersionsCardProps> = ({
 				<div className='training-frequency'>
 					{Liferay.Language.get('training-frequency')}
 
-					<b>
-						{JOB_TRAINING_FREQUENCIES_LABEL_MAP[trainingFrequency]}
-					</b>
+					<b>{JOB_RUN_FREQUENCIES_LABEL_MAP[runFrequency]}</b>
 
 					<b>{`(${sub(Liferay.Language.get('next-x'), [
-						moment(nextTrainingDate).toNow()
+						moment(nextRunDate).toNow()
 					])})`}</b>
 				</div>
 			</Card.Header>
@@ -142,7 +140,7 @@ const OutputVersionsCard: React.FC<IOutputVersionsCardProps> = ({
 				<OutputVersionsListWithData
 					columns={[
 						{
-							accessor: 'trainingDate',
+							accessor: 'runDate',
 							className: 'table-cell-expand',
 							dataFormatter: val =>
 								moment.utc(val).calendar(null, {

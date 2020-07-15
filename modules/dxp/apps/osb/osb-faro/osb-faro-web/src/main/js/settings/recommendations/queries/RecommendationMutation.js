@@ -5,16 +5,16 @@ export const RECOMMENDATION_MUTATION = gql`
 		$name: String!
 		$parameters: [JobParameterInput]
 		$runNow: Boolean
-		$trainingFrequency: JobTrainingFrequency
-		$trainingPeriod: JobTrainingPeriod
+		$runFrequency: JobRunFrequency
+		$runDataPeriod: JobRunDataPeriod
 		$type: JobType!
 	) {
 		createJob(
 			name: $name
 			parameters: $parameters
 			runNow: $runNow
-			trainingFrequency: $trainingFrequency
-			trainingPeriod: $trainingPeriod
+			runFrequency: $runFrequency
+			runDataPeriod: $runDataPeriod
 			type: $type
 		) {
 			id
@@ -24,9 +24,9 @@ export const RECOMMENDATION_MUTATION = gql`
 				value
 			}
 			status
-			trainingDate
-			trainingFrequency
-			trainingPeriod
+			runDate
+			runFrequency
+			runDataPeriod
 			type
 		}
 	}
@@ -41,9 +41,9 @@ export const RECOMMENDATION_DELETE_MUTATION = gql`
 export const RECOMMENDATION_RUN_MUTATION = gql`
 	mutation RecommendationRunMutation(
 		$jobId: String!
-		$trainingPeriod: JobTrainingPeriod!
+		$runDataPeriod: JobRunDataPeriod!
 	) {
-		runJob(jobId: $jobId, trainingPeriod: $trainingPeriod) {
+		runJob(jobId: $jobId, runDataPeriod: $runDataPeriod) {
 			id
 		}
 	}
@@ -55,16 +55,16 @@ export const RECOMMENDATION_UPDATE_MUTATION = gql`
 		$name: String!
 		$parameters: [JobParameterInput]
 		$runNow: Boolean
-		$trainingFrequency: JobTrainingFrequency
-		$trainingPeriod: JobTrainingPeriod
+		$runFrequency: JobRunFrequency
+		$runDataPeriod: JobRunDataPeriod
 	) {
 		updateJob(
 			jobId: $jobId
 			name: $name
 			parameters: $parameters
 			runNow: $runNow
-			trainingFrequency: $trainingFrequency
-			trainingPeriod: $trainingPeriod
+			runFrequency: $runFrequency
+			runDataPeriod: $runDataPeriod
 		) {
 			id
 			name
@@ -73,9 +73,9 @@ export const RECOMMENDATION_UPDATE_MUTATION = gql`
 				value
 			}
 			status
-			trainingDate
-			trainingFrequency
-			trainingPeriod
+			runDate
+			runFrequency
+			runDataPeriod
 			type
 		}
 	}

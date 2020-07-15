@@ -10,16 +10,16 @@ import RecommendationPageAssetsQuery from '../../queries/RecommendationPageAsset
 import {
 	Filter,
 	getPropertiesFromItems,
-	JOB_TRAINING_FREQUENCIES_LABEL_MAP,
-	JOB_TRAINING_PERIODS_LABEL_MAP,
-	JOB_TRAINING_PERIODS_RANGE_KEY_MAP,
+	JOB_RUN_DATA_PERIODS_LABEL_MAP,
+	JOB_RUN_DATA_PERIODS_RANGE_KEY_MAP,
+	JOB_RUN_FREQUENCIES_LABEL_MAP,
 	JOB_TYPES_LABEL_MAP,
 	JobProperty
 } from '../../utils/utils';
 import {get} from 'lodash';
 import {
-	jobTrainingFrequencies,
-	jobTrainingPeriods,
+	jobRunDataPeriods,
+	jobRunFrequencies,
 	jobTypes
 } from 'shared/util/constants';
 import {useQuery} from '@apollo/react-hooks';
@@ -39,8 +39,8 @@ interface ISummaryProps {
 		shouldValidate?: boolean
 	) => void;
 	setStep: (step: number) => void;
-	trainingFrequency: jobTrainingFrequencies;
-	trainingPeriod: jobTrainingPeriods;
+	runFrequency: jobRunFrequencies;
+	runDataPeriod: jobRunDataPeriods;
 	type: jobTypes;
 }
 
@@ -51,10 +51,10 @@ const Summary: React.FC<ISummaryProps> = ({
 	includePreviousPeriod,
 	itemFilters,
 	name,
+	runDataPeriod,
+	runFrequency,
 	setFieldValue,
 	setStep,
-	trainingFrequency,
-	trainingPeriod,
 	type
 }) => {
 	const [disabled, setDisabled] = useState(false);
@@ -78,7 +78,7 @@ const Summary: React.FC<ISummaryProps> = ({
 			applicationId: 'Page',
 			eventContextPropertyFilters: propertyFilters,
 			eventId: 'pageUnloaded',
-			rangeKey: JOB_TRAINING_PERIODS_RANGE_KEY_MAP[trainingPeriod],
+			rangeKey: JOB_RUN_DATA_PERIODS_RANGE_KEY_MAP[runDataPeriod],
 			size: 0,
 			start: 0
 		}
@@ -92,7 +92,7 @@ const Summary: React.FC<ISummaryProps> = ({
 				eventContextPropertyFilters: propertyFilters,
 				eventId: 'pageUnloaded',
 				rangeKey:
-					Number(JOB_TRAINING_PERIODS_RANGE_KEY_MAP[trainingPeriod]) *
+					Number(JOB_RUN_DATA_PERIODS_RANGE_KEY_MAP[runDataPeriod]) *
 					2,
 				size: 0,
 				start: 0
@@ -163,11 +163,7 @@ const Summary: React.FC<ISummaryProps> = ({
 						</td>
 
 						<td className='summary-value'>
-							{
-								JOB_TRAINING_FREQUENCIES_LABEL_MAP[
-									trainingFrequency
-								]
-							}
+							{JOB_RUN_FREQUENCIES_LABEL_MAP[runFrequency]}
 						</td>
 					</tr>
 
@@ -177,7 +173,7 @@ const Summary: React.FC<ISummaryProps> = ({
 						</td>
 
 						<td className='summary-value'>
-							{JOB_TRAINING_PERIODS_LABEL_MAP[trainingPeriod]}
+							{JOB_RUN_DATA_PERIODS_LABEL_MAP[runDataPeriod]}
 						</td>
 					</tr>
 
