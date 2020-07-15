@@ -146,6 +146,8 @@ export default class Activities extends React.Component {
 				account: {activitiesCount, engagementScore, id, type},
 				channelId,
 				groupId,
+				interval,
+				rangeSelectors,
 				tabId
 			},
 			state: {
@@ -179,6 +181,9 @@ export default class Activities extends React.Component {
 							activityCount: activitiesCount,
 							channelId,
 							engagementChange,
+							engagementLabel: Liferay.Language.get(
+								'avg-member-score'
+							),
 							engagementScore: formatEngagementScore(
 								engagementScore
 							),
@@ -198,6 +203,8 @@ export default class Activities extends React.Component {
 							groupId={groupId}
 							history={activityHistory}
 							id={id}
+							interval={interval}
+							rangeSelectors={rangeSelectors}
 						/>
 					)}
 
@@ -206,7 +213,9 @@ export default class Activities extends React.Component {
 							data={engagementHistory}
 							groupId={groupId}
 							id={id}
+							interval={interval}
 							previousScore={engagementPrevScore}
+							rangeSelectors={rangeSelectors}
 						/>
 					)}
 				</WrapSafeResults>
