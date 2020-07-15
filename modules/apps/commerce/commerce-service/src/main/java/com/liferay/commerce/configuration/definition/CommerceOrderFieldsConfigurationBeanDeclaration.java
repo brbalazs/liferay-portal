@@ -14,9 +14,9 @@
 
 package com.liferay.commerce.configuration.definition;
 
-import com.liferay.commerce.configuration.CommerceOrderConfiguration;
 import com.liferay.commerce.configuration.CommerceOrderFieldsConfiguration;
 import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
+
 import org.osgi.service.component.annotations.Component;
 
 /**

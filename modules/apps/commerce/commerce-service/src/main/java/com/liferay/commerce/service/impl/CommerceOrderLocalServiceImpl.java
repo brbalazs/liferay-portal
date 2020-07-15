@@ -48,7 +48,6 @@ import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceOrderPriceCalculationFactory;
-import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.util.JsonHelper;
 import com.liferay.commerce.search.facet.NegatableMultiValueFacet;
 import com.liferay.commerce.service.base.CommerceOrderLocalServiceBaseImpl;
@@ -92,7 +91,6 @@ import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 import com.liferay.portal.kernel.workflow.WorkflowTask;
 import com.liferay.portal.kernel.workflow.WorkflowTaskManager;
 import com.liferay.portal.spring.extender.service.ServiceReference;
-import org.osgi.service.component.annotations.Reference;
 
 import java.io.Serializable;
 
@@ -1928,6 +1926,34 @@ public class CommerceOrderLocalServiceImpl
 		return commerceOrderPersistence.update(commerceOrder);
 	}
 
+	protected void validateAccountOrdersLimit(
+			long channelGroupId, long commerceAccountId)
+		throws PortalException {
+
+		Group group = groupLocalService.getGroup(channelGroupId);
+
+		int pendingCommerceOrdersCount =
+			(int)commerceOrderLocalService.getCommerceOrdersCount(
+				group.getCompanyId(), channelGroupId,
+				new long[] {commerceAccountId}, StringPool.BLANK,
+				new int[] {CommerceOrderConstants.ORDER_STATUS_OPEN}, false);
+
+		CommerceOrderFieldsConfiguration commerceOrderFieldsConfiguration =
+			_configurationProvider.getConfiguration(
+				CommerceOrderFieldsConfiguration.class,
+				new GroupServiceSettingsLocator(
+					channelGroupId,
+					CommerceConstants.ORDER_FIELDS_SERVICE_NAME));
+
+		if ((commerceOrderFieldsConfiguration.accountCartMaxAllowed() > 0) &&
+			(pendingCommerceOrdersCount >=
+				commerceOrderFieldsConfiguration.accountCartMaxAllowed())) {
+
+			throw new CommerceOrderAccountLimitException(
+				"The account carts limit was reached");
+		}
+	}
+
 	protected void validateCheckout(CommerceOrder commerceOrder)
 		throws PortalException {
 
@@ -1976,34 +2002,6 @@ public class CommerceOrderLocalServiceImpl
 
 		if (count >= _commerceOrderConfiguration.guestCartMaxAllowed()) {
 			throw new GuestCartMaxAllowedException();
-		}
-	}
-
-	protected void validateAccountOrdersLimit(
-		long channelGroupId, long commerceAccountId)
-		throws PortalException {
-
-		Group group = groupLocalService.getGroup(channelGroupId);
-
-		int pendingCommerceOrdersCount =
-			(int)commerceOrderLocalService.getCommerceOrdersCount(
-				group.getCompanyId(), channelGroupId, new long[] {commerceAccountId},
-				StringPool.BLANK, new int[] {CommerceOrderConstants.ORDER_STATUS_OPEN},
-				false);
-
-		CommerceOrderFieldsConfiguration commerceOrderFieldsConfiguration = _configurationProvider.getConfiguration(
-			CommerceOrderFieldsConfiguration.class,
-			new GroupServiceSettingsLocator(
-				channelGroupId,
-				CommerceConstants.ORDER_FIELDS_SERVICE_NAME));
-
-
-		if ((commerceOrderFieldsConfiguration.accountCartMaxAllowed() > 0) &&
-			(pendingCommerceOrdersCount >=
-			 commerceOrderFieldsConfiguration.accountCartMaxAllowed())) {
-
-			throw new CommerceOrderAccountLimitException(
-				"The account carts limit was reached");
 		}
 	}
 
@@ -2195,9 +2193,6 @@ public class CommerceOrderLocalServiceImpl
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceOrderLocalServiceImpl.class);
 
-	@ServiceReference(type = ConfigurationProvider.class)
-	private ConfigurationProvider _configurationProvider;
-
 	@ServiceReference(type = CommerceCurrencyLocalService.class)
 	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
 
@@ -2217,6 +2212,9 @@ public class CommerceOrderLocalServiceImpl
 
 	@ServiceReference(type = CommerceShippingHelper.class)
 	private CommerceShippingHelper _commerceShippingHelper;
+
+	@ServiceReference(type = ConfigurationProvider.class)
+	private ConfigurationProvider _configurationProvider;
 
 	@ServiceReference(type = JsonHelper.class)
 	private JsonHelper _jsonHelper;

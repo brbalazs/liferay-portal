@@ -18,7 +18,6 @@ import com.liferay.commerce.account.configuration.CommerceAccountGroupServiceCon
 import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.channel.web.internal.display.context.util.CommerceChannelRequestHelper;
 import com.liferay.commerce.configuration.CommerceOrderCheckoutConfiguration;
-import com.liferay.commerce.configuration.CommerceOrderConfiguration;
 import com.liferay.commerce.configuration.CommerceOrderFieldsConfiguration;
 import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
@@ -433,7 +432,8 @@ public class CommerceChannelDisplayContext
 		return _commerceAccountGroupServiceConfiguration;
 	}
 
-	protected CommerceOrderFieldsConfiguration getCommerceOrderFieldsConfiguration()
+	protected CommerceOrderFieldsConfiguration
+			getCommerceOrderFieldsConfiguration()
 		throws PortalException {
 
 		if (_commerceOrderFieldsConfiguration != null) {
@@ -442,11 +442,12 @@ public class CommerceChannelDisplayContext
 
 		CommerceChannel commerceChannel = getCommerceChannel();
 
-		_commerceOrderFieldsConfiguration = _configurationProvider.getConfiguration(
-			CommerceOrderFieldsConfiguration.class,
-			new GroupServiceSettingsLocator(
-				commerceChannel.getGroupId(),
-				CommerceConstants.ORDER_SERVICE_NAME));
+		_commerceOrderFieldsConfiguration =
+			_configurationProvider.getConfiguration(
+				CommerceOrderFieldsConfiguration.class,
+				new GroupServiceSettingsLocator(
+					commerceChannel.getGroupId(),
+					CommerceConstants.ORDER_FIELDS_SERVICE_NAME));
 
 		return _commerceOrderFieldsConfiguration;
 	}
