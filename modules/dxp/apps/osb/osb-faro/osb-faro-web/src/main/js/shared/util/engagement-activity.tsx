@@ -181,7 +181,7 @@ export function buildTabItems({
 				id,
 				tabId: ACTIVITIES
 			}),
-			title: Liferay.Language.get('account-activities')
+			title: Liferay.Language.get('activities')
 		},
 		{
 			secondaryInfo: (
