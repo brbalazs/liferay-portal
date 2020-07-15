@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.servlet.DummyHttpServletResponse;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.vulcan.util.UriInfoUtil;
 
 import java.net.URI;
 
@@ -63,7 +64,7 @@ public class RenderedContentValueUtil {
 
 		String content = journalArticleDisplay.getContent();
 
-		UriBuilder uriBuilder = uriInfo.getBaseUriBuilder();
+		UriBuilder uriBuilder = UriInfoUtil.getBaseUriBuilder(uriInfo);
 
 		URI uri = uriBuilder.replacePath(
 			"/"
