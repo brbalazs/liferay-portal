@@ -161,7 +161,7 @@ definition {
 			panel = "Control Panel",
 			portlet = "Products");
 
-		CommerceEntry.viewPaginationResults(results = "Showing 1 to 10 of 50");
+		CommerceEntry.viewPaginationResults(results = "Showing 1 to 10 of 50 entries.");
 
 		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Options");
 
@@ -214,7 +214,7 @@ definition {
 			panel = "Control Panel",
 			portlet = "Products");
 
-		CommerceEntry.viewPaginationResults(results = "Showing 1 to 10 of 50");
+		CommerceEntry.viewPaginationResults(results = "Showing 1 to 10 of 50 entries.");
 
 		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Options");
 
