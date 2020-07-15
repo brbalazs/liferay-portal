@@ -86,26 +86,30 @@ public class ContentElementResourceImpl extends BaseContentElementResourceImpl {
 	}
 
 	private BooleanFilter _getAssetBooleanFilter() {
-		BooleanFilter booleanFilter = new BooleanFilter();
-
-		BooleanFilter journalArticleBooleanFilter = new BooleanFilter();
-
-		journalArticleBooleanFilter.addRequiredTerm(
-			Field.ENTRY_CLASS_NAME, JournalArticle.class.getName());
-		journalArticleBooleanFilter.addRequiredTerm("head", true);
-
-		booleanFilter.add(
-			journalArticleBooleanFilter, BooleanClauseOccur.SHOULD);
-
-		BooleanFilter assetBooleanFilter = new BooleanFilter();
-
-		assetBooleanFilter.addTerm(
-			Field.ENTRY_CLASS_NAME, JournalArticle.class.getName(),
-			BooleanClauseOccur.MUST_NOT);
-
-		booleanFilter.add(assetBooleanFilter, BooleanClauseOccur.SHOULD);
-
-		return booleanFilter;
+		return new BooleanFilter() {
+			{
+				add(
+					new BooleanFilter() {
+						{
+							addRequiredTerm(
+								Field.ENTRY_CLASS_NAME,
+								JournalArticle.class.getName());
+							addRequiredTerm("head", true);
+						}
+					},
+					BooleanClauseOccur.SHOULD);
+				add(
+					new BooleanFilter() {
+						{
+							addTerm(
+								Field.ENTRY_CLASS_NAME,
+								JournalArticle.class.getName(),
+								BooleanClauseOccur.MUST_NOT);
+						}
+					},
+					BooleanClauseOccur.SHOULD);
+			}
+		};
 	}
 
 	private SearchContext _getAssetSearchContext(
