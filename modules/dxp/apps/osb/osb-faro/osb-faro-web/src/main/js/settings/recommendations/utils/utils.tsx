@@ -41,10 +41,10 @@ export type Job = {
 	id: string;
 	name: string;
 	parameters: JobParameter[];
-	status: jobStatuses;
+	runDataPeriod: jobRunDataPeriods;
 	runDate: string;
 	runFrequency: jobRunFrequencies;
-	runDataPeriod: jobRunDataPeriods;
+	status: jobStatuses;
 	type: jobTypes;
 };
 

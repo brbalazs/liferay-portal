@@ -10,10 +10,10 @@ export default gql`
 				name
 				value
 			}
-			status
+			runDataPeriod
 			runDate
 			runFrequency
-			runDataPeriod
+			status
 			type
 		}
 	}

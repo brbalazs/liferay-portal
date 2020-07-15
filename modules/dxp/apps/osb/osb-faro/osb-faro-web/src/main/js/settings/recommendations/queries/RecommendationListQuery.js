@@ -11,10 +11,10 @@ export default gql`
 			jobs {
 				id
 				name
-				status
+				runDataPeriod
 				runDate
 				runFrequency
-				runDataPeriod
+				status
 				type
 			}
 			total

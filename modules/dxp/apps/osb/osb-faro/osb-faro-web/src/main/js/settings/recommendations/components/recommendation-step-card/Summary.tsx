@@ -33,14 +33,14 @@ interface ISummaryProps {
 	includePreviousPeriod: boolean;
 	itemFilters: Filter[];
 	name: string;
+	runDataPeriod: jobRunDataPeriods;
+	runFrequency: jobRunFrequencies;
 	setFieldValue: (
 		field: string,
 		value: any,
 		shouldValidate?: boolean
 	) => void;
 	setStep: (step: number) => void;
-	runFrequency: jobRunFrequencies;
-	runDataPeriod: jobRunDataPeriods;
 	type: jobTypes;
 }
 
