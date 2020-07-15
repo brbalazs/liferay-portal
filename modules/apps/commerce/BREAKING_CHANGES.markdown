@@ -358,7 +358,7 @@ The price lists retrieval in the pricing algorithm
 indexer.
 
 The price lists discovery strategy is `ORDER_BY_HIERARCHY`, searching for the
-active price list that apply to the current context in the following order:
+active price list that applies to the current context in the following order:
 - Accounts and Channels: the price list is associated to specific accounts in
   specific channels.
 - Accounts: the price list is associated to specific accounts.
@@ -382,10 +382,11 @@ No code updates are needed.
 
 #### Why was this change made?
 
-Give flexibility to filter search results in the user interface based on user
-roles without interfering with the pricing business logic.
+Gives the flexibility to filter search results in the user interface based on
+user roles without interfering with the pricing business logic.
 
 ---------------------------------------
+
 ### Price Lists Permission Management
 - **Date:** 2020-Jul-10
 - **JIRA Ticket:** [COMMERCE-3561](https://issues.liferay.com/browse/COMMERCE-4221)
