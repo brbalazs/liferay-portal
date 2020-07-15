@@ -159,7 +159,8 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 		CommerceChannel commerceChannel =
 			_commerceChannelService.getCommerceChannel(commerceChannelId);
 
-		_updatePurchcaseOrderNumber(commerceChannel, actionRequest);
+		_updateAccountCartMaxAllowed(commerceChannel, actionRequest);
+		_updatePurchaseOrderNumber(commerceChannel, actionRequest);
 		_updateShippingTaxCategory(commerceChannel, actionRequest);
 		_updateSiteType(commerceChannel, actionRequest);
 		updateWorkflowDefinitionLinks(commerceChannel, actionRequest);
@@ -200,14 +201,36 @@ public class EditCommerceChannelMVCActionCommand extends BaseMVCActionCommand {
 			workflowDefinitionOVPs);
 	}
 
-	private void _updatePurchcaseOrderNumber(
+	private void _updateAccountCartMaxAllowed(
 			CommerceChannel commerceChannel, ActionRequest actionRequest)
 		throws Exception {
 
 		Settings settings = _settingsFactory.getSettings(
 			new GroupServiceSettingsLocator(
 				commerceChannel.getGroupId(),
-				CommerceConstants.ORDER_SERVICE_NAME));
+				CommerceConstants.ORDER_FIELDS_SERVICE_NAME));
+
+		ModifiableSettings modifiableSettings =
+			settings.getModifiableSettings();
+
+		Map<String, String> parameterMap = PropertiesParamUtil.getProperties(
+			actionRequest, "orderSettings--");
+
+		for (Map.Entry<String, String> entry : parameterMap.entrySet()) {
+			modifiableSettings.setValue(entry.getKey(), entry.getValue());
+		}
+
+		modifiableSettings.store();
+	}
+
+	private void _updatePurchaseOrderNumber(
+			CommerceChannel commerceChannel, ActionRequest actionRequest)
+		throws Exception {
+
+		Settings settings = _settingsFactory.getSettings(
+			new GroupServiceSettingsLocator(
+				commerceChannel.getGroupId(),
+				CommerceConstants.ORDER_FIELDS_SERVICE_NAME));
 
 		ModifiableSettings modifiableSettings =
 			settings.getModifiableSettings();

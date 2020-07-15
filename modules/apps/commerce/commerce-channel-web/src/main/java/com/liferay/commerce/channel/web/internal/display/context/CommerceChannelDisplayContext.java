@@ -18,6 +18,7 @@ import com.liferay.commerce.account.configuration.CommerceAccountGroupServiceCon
 import com.liferay.commerce.account.constants.CommerceAccountConstants;
 import com.liferay.commerce.channel.web.internal.display.context.util.CommerceChannelRequestHelper;
 import com.liferay.commerce.configuration.CommerceOrderCheckoutConfiguration;
+import com.liferay.commerce.configuration.CommerceOrderConfiguration;
 import com.liferay.commerce.configuration.CommerceOrderFieldsConfiguration;
 import com.liferay.commerce.constants.CommerceConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
@@ -114,6 +115,13 @@ public class CommerceChannelDisplayContext
 			httpServletRequest);
 
 		_cpTaxCategoryLocalService = cpTaxCategoryLocalService;
+	}
+
+	public int getAccountCartMaxAllowed() throws PortalException {
+		CommerceOrderFieldsConfiguration commerceOrderFieldsConfiguration =
+			getCommerceOrderFieldsConfiguration();
+
+		return commerceOrderFieldsConfiguration.accountCartMaxAllowed();
 	}
 
 	public CPTaxCategory getActiveShippingTaxCategory() throws PortalException {
@@ -425,6 +433,24 @@ public class CommerceChannelDisplayContext
 		return _commerceAccountGroupServiceConfiguration;
 	}
 
+	protected CommerceOrderFieldsConfiguration getCommerceOrderFieldsConfiguration()
+		throws PortalException {
+
+		if (_commerceOrderFieldsConfiguration != null) {
+			return _commerceOrderFieldsConfiguration;
+		}
+
+		CommerceChannel commerceChannel = getCommerceChannel();
+
+		_commerceOrderFieldsConfiguration = _configurationProvider.getConfiguration(
+			CommerceOrderFieldsConfiguration.class,
+			new GroupServiceSettingsLocator(
+				commerceChannel.getGroupId(),
+				CommerceConstants.ORDER_SERVICE_NAME));
+
+		return _commerceOrderFieldsConfiguration;
+	}
+
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceChannelDisplayContext.class);
 
@@ -438,6 +464,7 @@ public class CommerceChannelDisplayContext
 	private final CommerceChannelService _commerceChannelService;
 	private final CommerceChannelTypeRegistry _commerceChannelTypeRegistry;
 	private final CommerceCurrencyService _commerceCurrencyService;
+	private CommerceOrderFieldsConfiguration _commerceOrderFieldsConfiguration;
 	private final CommercePaymentMethodRegistry _commercePaymentMethodRegistry;
 	private final ConfigurationProvider _configurationProvider;
 	private final CPTaxCategoryLocalService _cpTaxCategoryLocalService;
