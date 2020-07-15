@@ -623,7 +623,7 @@ public class ModulesStructureTest {
 		}
 
 		StringBundler sb = new StringBundler(
-			gitIgnoreLines.size() * 2 + pluginDirNames.size() * 14);
+			(gitIgnoreLines.size() * 2) + (pluginDirNames.size() * 14));
 
 		if (SetUtil.isNotEmpty(gitIgnoreLines)) {
 			for (String line : gitIgnoreLines) {
@@ -704,7 +704,7 @@ public class ModulesStructureTest {
 
 		if (!sortedBuildExtGradleFileNames.isEmpty()) {
 			StringBundler sb = new StringBundler(
-				4 * sortedBuildExtGradleFileNames.size() + 2);
+				(4 * sortedBuildExtGradleFileNames.size()) + 2);
 
 			sb.append(buildGradleTemplate);
 			sb.append(StringPool.NEW_LINE);
@@ -750,7 +750,7 @@ public class ModulesStructureTest {
 
 			});
 
-		StringBundler sb = new StringBundler(pluginNames.size() * 4 - 1);
+		StringBundler sb = new StringBundler((pluginNames.size() * 4) - 1);
 
 		int i = 0;
 
@@ -1215,7 +1215,7 @@ public class ModulesStructureTest {
 				Matcher matcher = gradlePropertiesPattern.matcher(key);
 
 				StringBundler sb = new StringBundler(
-					(_gitRepoGradlePropertiesKeys.size() + 5) * 3 + 8);
+					((_gitRepoGradlePropertiesKeys.size() + 5) * 3) + 8);
 
 				sb.append("Incorrect key \"");
 				sb.append(key);
@@ -1408,7 +1408,7 @@ public class ModulesStructureTest {
 				}
 				else {
 					sb = new StringBundler(
-						allowedConfigurationsMap.size() * 4 + 4);
+						(allowedConfigurationsMap.size() * 4) + 4);
 
 					sb.append("Incorrect configuration of dependency {");
 					sb.append(gradleDependency);

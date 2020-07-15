@@ -67,7 +67,7 @@ public class DocumentumVersionNumber
 	public int hashCode() {
 		int result = major;
 
-		return 31 * result + minor;
+		return (31 * result) + minor;
 	}
 
 	public DocumentumVersionNumber increment(boolean incrementMajor) {

@@ -363,7 +363,7 @@ public class SharepointServerResponseConverter {
 			return StringPool.BLANK;
 		}
 
-		StringBundler sb = new StringBundler(strings.length * 2 - 1);
+		StringBundler sb = new StringBundler((strings.length * 2) - 1);
 
 		sb.append(strings[0]);
 

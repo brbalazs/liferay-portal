@@ -125,7 +125,7 @@ public class CertificateToolImpl implements CertificateTool {
 
 		byte[] digest = messageDigest.digest();
 
-		StringBundler sb = new StringBundler(digest.length * 2 - 1);
+		StringBundler sb = new StringBundler((digest.length * 2) - 1);
 
 		for (int i = 0; i < digest.length; i++) {
 			String hex = String.format("%02X", digest[i]);

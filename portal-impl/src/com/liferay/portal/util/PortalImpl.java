@@ -3818,7 +3818,7 @@ public class PortalImpl implements Portal {
 
 	@Override
 	public String getMailId(String mx, String popPortletPrefix, Object... ids) {
-		StringBundler sb = new StringBundler(ids.length * 2 + 7);
+		StringBundler sb = new StringBundler((ids.length * 2) + 7);
 
 		sb.append(StringPool.LESS_THAN);
 		sb.append(popPortletPrefix);
@@ -8319,7 +8319,7 @@ public class PortalImpl implements Portal {
 
 		Date expirationDate = new Date(
 			System.currentTimeMillis() +
-				PropsValues.SESSION_TIMEOUT * Time.MINUTE);
+				(PropsValues.SESSION_TIMEOUT * Time.MINUTE));
 
 		ticket.setExpirationDate(expirationDate);
 
