@@ -59,23 +59,23 @@ export const JOB_RUN_STATUSES_LABEL_MAP = {
 	[jobRunStatuses.completed]: Liferay.Language.get('completed'),
 	[jobRunStatuses.failed]: Liferay.Language.get('failed'),
 	[jobRunStatuses.published]: Liferay.Language.get('live-version'),
-	[jobRunStatuses.running]: Liferay.Language.get('training')
+	[jobRunStatuses.running]: Liferay.Language.get('running')
 };
 
 export const JOB_STATUSES_DISPLAY_MAP = {
 	[jobStatuses.failed]: 'danger',
 	[jobStatuses.pending]: 'secondary',
 	[jobStatuses.ready]: 'success',
-	[jobStatuses.scheduled]: 'info',
-	[jobStatuses.training]: 'warning'
+	[jobStatuses.running]: 'warning',
+	[jobStatuses.scheduled]: 'info'
 };
 
 export const JOB_STATUSES_LABEL_MAP = {
 	[jobStatuses.failed]: Liferay.Language.get('failed'),
 	[jobStatuses.pending]: Liferay.Language.get('pending'),
 	[jobStatuses.ready]: Liferay.Language.get('ready'),
-	[jobStatuses.scheduled]: Liferay.Language.get('scheduled'),
-	[jobStatuses.training]: Liferay.Language.get('training')
+	[jobStatuses.running]: Liferay.Language.get('running'),
+	[jobStatuses.scheduled]: Liferay.Language.get('scheduled')
 };
 
 export const JOB_RUN_FREQUENCIES_LABEL_MAP = {

@@ -204,8 +204,8 @@ export enum jobStatuses {
 	failed = 'FAILED',
 	pending = 'PENDING',
 	ready = 'READY',
-	scheduled = 'SCHEDULED',
-	training = 'TRAINING'
+	running = 'RUNNING',
+	scheduled = 'SCHEDULED'
 }
 
 export enum jobRunFrequencies {
