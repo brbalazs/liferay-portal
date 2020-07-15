@@ -283,6 +283,22 @@ public class CommercePricingClassLocalServiceImpl
 		return commercePricingClassPersistence.update(commercePricingClass);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommercePricingClass updateCommercePricingClassExternalReferenceCode(
+			long commercePricingClassId, String externalReferenceCode)
+		throws PortalException {
+
+		CommercePricingClass commercePricingClass =
+			commercePricingClassLocalService.getCommercePricingClass(
+				commercePricingClassId);
+
+		commercePricingClass.setExternalReferenceCode(externalReferenceCode);
+
+		return commercePricingClassLocalService.updateCommercePricingClass(
+			commercePricingClass);
+	}
+
 	@Override
 	public CommercePricingClass upsertCommercePricingClass(
 			long commercePricingClassId, long userId,

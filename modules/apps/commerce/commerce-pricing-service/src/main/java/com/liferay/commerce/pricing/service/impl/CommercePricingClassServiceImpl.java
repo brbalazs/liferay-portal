@@ -202,6 +202,19 @@ public class CommercePricingClassServiceImpl
 	}
 
 	@Override
+	public CommercePricingClass updateCommercePricingClassExternalReferenceCode(
+			long commercePricingClassId, String externalReferenceCode)
+		throws PortalException {
+
+		_commercePricingClassResourcePermission.check(
+			getPermissionChecker(), commercePricingClassId, ActionKeys.UPDATE);
+
+		return commercePricingClassLocalService.
+			updateCommercePricingClassExternalReferenceCode(
+				commercePricingClassId, externalReferenceCode);
+	}
+
+	@Override
 	public CommercePricingClass upsertCommercePricingClass(
 			long commercePricingClassId, long userId,
 			Map<Locale, String> titleMap, Map<Locale, String> descriptionMap,
