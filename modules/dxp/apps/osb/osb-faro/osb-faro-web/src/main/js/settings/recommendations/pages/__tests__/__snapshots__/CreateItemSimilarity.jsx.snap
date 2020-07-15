@@ -18,7 +18,7 @@ exports[`Recommendations should render 1`] = `
           class="breadcrumb-link breadcrumb-text-truncate"
           href="/workspace/23/settings/recommendations"
         >
-          Recommentations
+          Recommendations
         </a>
       </li>
       <li
