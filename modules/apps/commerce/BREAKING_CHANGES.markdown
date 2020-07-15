@@ -346,6 +346,46 @@ sorting functionality of product search results.
 
 ---------------------------------------
 
+### Price Lists Retrieval for Pricing Algorithm
+- **Date:** 2020-July-10
+- **JIRA Ticket:** [COMMERCE-4221](https://issues.liferay.com/browse/COMMERCE-4221)
+
+#### What changed?
+
+The price lists retrieval in the pricing algorithm
+(`CommerceProductPriceCalculationImpl`) is performed by means of the
+`CommercePriceListDiscovery` service instead of relying on the price list
+indexer.
+
+The price lists discovery strategy is `ORDER_BY_HIERARCHY`, searching for the
+active price list that apply to the current context in the following order:
+- Accounts and Channels: the price list is associated to specific accounts in
+  specific channels.
+- Accounts: the price list is associated to specific accounts.
+- Account Groups and Channels: the price list is associated to specific account
+  groups in specific channels.
+- Account Groups: the price list is associated to specific account groups.
+- Channels: the price list is associated to a specific channel.
+- Unqualified: the price list is not associated to any specific account, account
+group or channel.
+
+The first matching criteria will stop the search and return the active price
+list.
+
+#### Who is affected?
+
+Anyone who is using the OOB pricing algorithm.
+
+#### How should I update my code?
+
+No code updates are needed.
+
+#### Why was this change made?
+
+Give flexibility to filter search results in the user interface based on user
+roles without interfering with the pricing business logic.
+
+---------------------------------------
 ### Price Lists Permission Management
 - **Date:** 2020-Jul-10
 - **JIRA Ticket:** [COMMERCE-3561](https://issues.liferay.com/browse/COMMERCE-4221)
