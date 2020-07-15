@@ -7,6 +7,7 @@ import {toRounded} from 'shared/util/numbers';
 
 interface ICardTabMetricProps extends React.HTMLAttributes<HTMLElement> {
 	change: number;
+	label?: string;
 	type: MetricValueType;
 	value: number;
 }
@@ -30,6 +31,7 @@ const getTrendOptions = (change: number): {color: string; icon: string} => {
 
 const CardTabMetric: React.FC<ICardTabMetricProps> = ({
 	change,
+	label,
 	type,
 	value
 }) => {
@@ -45,7 +47,9 @@ const CardTabMetric: React.FC<ICardTabMetricProps> = ({
 				<MetricValue type={type} value={formatter(value)} />
 			</span>
 
-			{changeLabel && (
+			{label ? (
+				<span className='text-secondary'>{label}</span>
+			) : (
 				<Trend color={color} icon={icon} label={changeLabel} />
 			)}
 		</span>

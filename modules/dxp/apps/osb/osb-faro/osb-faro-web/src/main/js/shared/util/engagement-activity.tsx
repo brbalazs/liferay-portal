@@ -159,6 +159,7 @@ export function buildTabItems({
 	activityCount,
 	channelId,
 	engagementChange,
+	engagementLabel,
 	engagementScore,
 	groupId,
 	id,
@@ -186,6 +187,7 @@ export function buildTabItems({
 			secondaryInfo: (
 				<CardTabMetric
 					change={engagementChange}
+					label={engagementLabel}
 					type={MetricValueType.Engagement}
 					value={engagementScore}
 				/>
