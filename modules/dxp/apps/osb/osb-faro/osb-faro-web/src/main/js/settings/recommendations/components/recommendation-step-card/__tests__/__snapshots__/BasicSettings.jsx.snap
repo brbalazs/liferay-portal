@@ -37,14 +37,14 @@ exports[`BasicSettings should render 1`] = `
         >
           <label
             class="form-control-label label-root"
-            for="trainingFrequency"
+            for="runFrequency"
           >
             Training Frequency
           </label>
           <select
             class="form-control select-root"
-            id="trainingFrequency"
-            name="trainingFrequency"
+            id="runFrequency"
+            name="runFrequency"
           >
             <option
               class=""

@@ -149,7 +149,7 @@ exports[`RecommendationList should render 1`] = `
             >
               <a
                 class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                href="/?orderBy=asc&orderByField=trainingPeriod&page=1"
+                href="/?orderBy=asc&orderByField=runDataPeriod&page=1"
               >
                 <span
                   class="text-truncate"
@@ -163,7 +163,7 @@ exports[`RecommendationList should render 1`] = `
             >
               <a
                 class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                href="/?orderBy=asc&orderByField=trainingFrequency&page=1"
+                href="/?orderBy=asc&orderByField=runFrequency&page=1"
               >
                 <span
                   class="text-truncate"
@@ -177,7 +177,7 @@ exports[`RecommendationList should render 1`] = `
             >
               <a
                 class="button-root btn btn-unstyled inline-item text-truncate-inline"
-                href="/?orderBy=asc&orderByField=trainingDate&page=1"
+                href="/?orderBy=asc&orderByField=runDate&page=1"
               >
                 <span
                   class="text-truncate"

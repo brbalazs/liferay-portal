@@ -19,7 +19,7 @@ exports[`Interactions should render 1`] = `
           >
             <label
               class="form-control-label label-root"
-              for="trainingPeriod"
+              for="runDataPeriod"
             >
               <div>
                 Select Interaction Period
@@ -32,8 +32,8 @@ exports[`Interactions should render 1`] = `
             </label>
             <select
               class="form-control select-root"
-              id="trainingPeriod"
-              name="trainingPeriod"
+              id="runDataPeriod"
+              name="runDataPeriod"
             >
               <option
                 class=""

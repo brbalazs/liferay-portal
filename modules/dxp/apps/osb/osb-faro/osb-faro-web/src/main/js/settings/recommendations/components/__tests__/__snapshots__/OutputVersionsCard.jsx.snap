@@ -206,7 +206,7 @@ exports[`OutputVersionsCard should render 1`] = `
                   <span
                     class="label-item"
                   >
-                    Training
+                    Running
                   </span>
                 </div>
               </td>

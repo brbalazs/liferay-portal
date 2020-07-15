@@ -41,14 +41,14 @@ exports[`ManuallyRetrainModelModal should render 1`] = `
               >
                 <label
                   class="form-control-label label-root"
-                  for="trainingPeriod"
+                  for="runDataPeriod"
                 >
                   Select Interaction Period
                 </label>
                 <select
                   class="form-control select-root"
-                  id="trainingPeriod"
-                  name="trainingPeriod"
+                  id="runDataPeriod"
+                  name="runDataPeriod"
                 >
                   <option
                     class=""
