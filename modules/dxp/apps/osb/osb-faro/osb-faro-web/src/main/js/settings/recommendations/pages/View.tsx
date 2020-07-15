@@ -20,11 +20,13 @@ import {
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 import {useMutation} from '@apollo/react-hooks';
-import {withHistory} from 'shared/hoc';
+import {User} from 'shared/util/records';
+import {withCurrentUser, withHistory} from 'shared/hoc';
 
 interface IViewProps {
 	addAlert: Alert.AddAlert;
 	close: Modal.close;
+	currentUser: User;
 	history: {
 		push: (string) => void;
 	};
@@ -36,6 +38,7 @@ interface IViewProps {
 const View: React.FC<IViewProps> = ({
 	addAlert,
 	close,
+	currentUser,
 	history,
 	job,
 	open,
@@ -66,131 +69,168 @@ const View: React.FC<IViewProps> = ({
 						}
 					]}
 					groupId={groupId}
-					pageActions={[
-						{
-							label: Liferay.Language.get('retrain'),
-							onClick: () => {
-								open(modalTypes.MANUALLY_RETRAIN_MODEL_MODAL, {
-									job,
-									onClose: close,
-									onSubmit: ({trainingPeriod}) => {
-										runRecommendationJob({
-											awaitRefetchQueries: true,
-											refetchQueries: [
-												getOperationName(
-													RecommendationJobRunsQuery
-												)
-											],
-											variables: {jobId, trainingPeriod}
-										})
-											.then(() => {
-												addAlert({
-													alertType:
-														Alert.Types.SUCCESS,
-													message: Liferay.Language.get(
-														'retraining-has-been-started'
+					pageActions={
+						currentUser.isAdmin()
+							? [
+									{
+										label: Liferay.Language.get('retrain'),
+										onClick: () => {
+											open(
+												modalTypes.MANUALLY_RETRAIN_MODEL_MODAL,
+												{
+													job,
+													onClose: close,
+													onSubmit: ({
+														trainingPeriod
+													}) => {
+														runRecommendationJob({
+															awaitRefetchQueries: true,
+															refetchQueries: [
+																getOperationName(
+																	RecommendationJobRunsQuery
+																)
+															],
+															variables: {
+																jobId,
+																trainingPeriod
+															}
+														})
+															.then(() => {
+																addAlert({
+																	alertType:
+																		Alert
+																			.Types
+																			.SUCCESS,
+																	message: Liferay.Language.get(
+																		'retraining-has-been-started'
+																	)
+																});
+
+																close();
+															})
+															.catch(() => {
+																addAlert({
+																	alertType:
+																		Alert
+																			.Types
+																			.ERROR,
+																	message: Liferay.Language.get(
+																		'there-was-an-error-processing-your-request.-please-try-again'
+																	),
+																	timeout: false
+																});
+															});
+													},
+													trainingPeriod: get(
+														job,
+														'trainingPeriod'
 													)
-												});
-
-												close();
-											})
-											.catch(() => {
-												addAlert({
-													alertType:
-														Alert.Types.ERROR,
-													message: Liferay.Language.get(
-														'there-was-an-error-processing-your-request.-please-try-again'
-													),
-													timeout: false
-												});
-											});
+												}
+											);
+										}
 									},
-									trainingPeriod: get(job, 'trainingPeriod')
-								});
-							}
-						},
-						{
-							href: toRoute(Routes.SETTINGS_RECOMMENDATION_EDIT, {
-								groupId,
-								jobId
-							}),
-							label: Liferay.Language.get('edit')
-						},
-						{
-							label: Liferay.Language.get('delete'),
-							onClick: () => {
-								open(modalTypes.CONFIRMATION_MODAL, {
-									message: (
-										<div>
-											<h4 className='text-secondary'>
-												{sub(
-													Liferay.Language.get(
-														'delete-x-and-its-historical-training-output-data'
-													),
-													[name]
-												)}
-											</h4>
-
-											<p>
-												{Liferay.Language.get(
-													'components-using-this-model-will-need-to-be-reconfigured'
-												)}
-											</p>
-										</div>
-									),
-									modalVariant: 'modal-warning',
-									onClose: close,
-									onSubmit: () => {
-										deleteRecommendationJobs({
-											variables: {
-												jobIds: [jobId]
+									{
+										href: toRoute(
+											Routes.SETTINGS_RECOMMENDATION_EDIT,
+											{
+												groupId,
+												jobId
 											}
-										})
-											.then(() => {
-												addAlert({
-													alertType:
-														Alert.Types.SUCCESS,
-													message: sub(
+										),
+										label: Liferay.Language.get('edit')
+									},
+									{
+										label: Liferay.Language.get('delete'),
+										onClick: () => {
+											open(
+												modalTypes.CONFIRMATION_MODAL,
+												{
+													message: (
+														<div>
+															<h4 className='text-secondary'>
+																{sub(
+																	Liferay.Language.get(
+																		'delete-x-and-its-historical-training-output-data'
+																	),
+																	[name]
+																)}
+															</h4>
+
+															<p>
+																{Liferay.Language.get(
+																	'components-using-this-model-will-need-to-be-reconfigured'
+																)}
+															</p>
+														</div>
+													),
+													modalVariant:
+														'modal-warning',
+													onClose: close,
+													onSubmit: () => {
+														deleteRecommendationJobs(
+															{
+																variables: {
+																	jobIds: [
+																		jobId
+																	]
+																}
+															}
+														)
+															.then(() => {
+																addAlert({
+																	alertType:
+																		Alert
+																			.Types
+																			.SUCCESS,
+																	message: sub(
+																		Liferay.Language.get(
+																			'x-has-been-deleted'
+																		),
+																		[name]
+																	) as string
+																});
+
+																history.push(
+																	toRoute(
+																		Routes.SETTINGS_RECOMMENDATIONS,
+																		{
+																			groupId
+																		}
+																	)
+																);
+															})
+															.catch(() => {
+																addAlert({
+																	alertType:
+																		Alert
+																			.Types
+																			.ERROR,
+																	message: Liferay.Language.get(
+																		'there-was-an-error-processing-your-request.-please-try-again'
+																	),
+																	timeout: false
+																});
+															});
+													},
+													submitButtonDisplay:
+														'warning',
+													submitMessage: Liferay.Language.get(
+														'delete'
+													),
+													title: sub(
 														Liferay.Language.get(
-															'x-has-been-deleted'
+															'deleting-x'
 														),
 														[name]
-													) as string
-												});
-
-												history.push(
-													toRoute(
-														Routes.SETTINGS_RECOMMENDATIONS,
-														{
-															groupId
-														}
-													)
-												);
-											})
-											.catch(() => {
-												addAlert({
-													alertType:
-														Alert.Types.ERROR,
-													message: Liferay.Language.get(
-														'there-was-an-error-processing-your-request.-please-try-again'
 													),
-													timeout: false
-												});
-											});
-									},
-									submitButtonDisplay: 'warning',
-									submitMessage: Liferay.Language.get(
-										'delete'
-									),
-									title: sub(
-										Liferay.Language.get('deleting-x'),
-										[name]
-									),
-									titleIcon: 'warning-full'
-								});
-							}
-						}
-					]}
+													titleIcon: 'warning-full'
+												}
+											);
+										}
+									}
+							  ]
+							: []
+					}
 					pageActionsDisplayLimit={3}
 					pageTitle={name}
 				>
@@ -209,6 +249,7 @@ const View: React.FC<IViewProps> = ({
 export default compose<any>(
 	withRecommendation,
 	withHistory,
+	withCurrentUser,
 	connect(
 		null,
 		{addAlert, close, open}

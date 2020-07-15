@@ -101,8 +101,8 @@ type Router = {
 };
 
 interface IDashboardProps extends React.HTMLAttributes<HTMLDivElement> {
-	router: Router;
 	currentUser: User;
+	router: Router;
 }
 
 export const Dashboard: React.FC<IDashboardProps> = ({currentUser, router}) => {
