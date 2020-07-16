@@ -59,14 +59,15 @@ public class EngagementHistoryDisplay {
 	protected List<EngagementAggregation> filter(
 		List<EngagementAggregation> engagementAggregations) {
 
-		if (engagementAggregations.size() <= _MAX_CALCULATION_DELAY) {
+		int size = engagementAggregations.size();
+
+		if (size <= _MAX_CALCULATION_DELAY) {
 			return engagementAggregations;
 		}
 
 		for (int i = 0; i < _MAX_CALCULATION_DELAY; i++) {
 			EngagementAggregation engagementAggregation =
-				engagementAggregations.get(
-					engagementAggregations.size() - (i + 1));
+				engagementAggregations.get(size - (i + 1));
 
 			if (engagementAggregation.getTotalElements() == 0) {
 				if (i == 0) {
