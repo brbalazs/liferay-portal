@@ -40,7 +40,10 @@ import java.util.Map;
 
 /**
  * @author Marco Leo
+ * @deprecated As of (7.1.x), replaced by {@link
+ * 					 com.liferay.friendly.url.service.impl.FriendlyURLEntryLocalServiceImpl}
  */
+@Deprecated
 public class CPFriendlyURLEntryLocalServiceImpl
 	extends CPFriendlyURLEntryLocalServiceBaseImpl {
 
