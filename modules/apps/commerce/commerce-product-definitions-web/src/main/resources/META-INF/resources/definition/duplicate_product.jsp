@@ -41,7 +41,7 @@ CPDefinition cpDefinition = cpDefinitionsDisplayContext.getCPDefinition();
 
 	<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/forms/index as FormUtils, commerce-frontend-js/ServiceProvider/index as ServiceProvider">
 		var <portlet:namespace />product = {
-			active: false,
+			active: true,
 			name: {},
 			productType: '<%= cpDefinition.getProductTypeName() %>'
 		}

@@ -33,7 +33,7 @@
 
 	<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/modals/index as ModalUtils, commerce-frontend-js/ServiceProvider/index as ServiceProvider">
 		var <portlet:namespace/>productData = {
-			active: false,
+			active: true,
 			name: {},
 			productType: '<%= ParamUtil.getString(request, "productTypeName") %>'
 		};
