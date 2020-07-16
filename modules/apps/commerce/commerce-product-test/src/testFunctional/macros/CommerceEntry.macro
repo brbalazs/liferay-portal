@@ -80,8 +80,6 @@ definition {
 
 		if (isSet(siteName)) {
 
-			CommerceNavigator.gotoEntry(entryName = "${channelName}");
-
 			Click(
 				key_menuTab = "Type",
 				locator1 = "CommerceEntry#MENU_TAB");
