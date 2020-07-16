@@ -68,14 +68,25 @@ export function executeAsyncAction(url, method = 'GET', body = null) {
 }
 
 export function formatActionUrl(url, item) {
-	const regex = new RegExp('{(.*?)}', 'mg');
+	var regex = new RegExp('{(.*?)}', 'mg');
 
-	return url.replace(regex, matched =>
+	var replacedUrl =  url.replace(regex, matched =>
 		getValueFromItem(
 			item,
 			matched.substring(1, matched.length - 1).split('|')
 		)
 	);
+
+	regex = new RegExp('(%7B.*?%7D)', 'mg');
+
+	replacedUrl =  replacedUrl.replace(regex, matched =>
+		getValueFromItem(
+			item,
+			matched.substring(3, matched.length - 3).split('|')
+		)
+	);
+
+	return replacedUrl;
 }
 
 export function getRandomId() {
