@@ -579,6 +579,7 @@ const productsDataSetDisplayProps = {
 				'/o/headless-commerce-admin-catalog/v1.0/products/{productId}',
 			icon: 'trash',
 			id: 'delete',
+			headlessAPIActionPermisisonKey : 'view'
 			label: 'Delete',
 			method: 'delete',
 			permissionKey: 'delete',
