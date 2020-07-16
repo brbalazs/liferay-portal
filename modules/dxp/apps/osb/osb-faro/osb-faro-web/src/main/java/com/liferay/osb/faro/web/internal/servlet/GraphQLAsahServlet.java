@@ -192,7 +192,8 @@ public class GraphQLAsahServlet extends BaseAsahServlet {
 		GraphQLAsahServlet.class);
 
 	private static final List<String> _restrictedGraphQLMethodNames =
-		Arrays.asList("preference");
+		Arrays.asList(
+			"createJob", "deleteJobs", "preference", "runJob", "updateJob");
 
 	@Reference
 	private Portal _portal;
