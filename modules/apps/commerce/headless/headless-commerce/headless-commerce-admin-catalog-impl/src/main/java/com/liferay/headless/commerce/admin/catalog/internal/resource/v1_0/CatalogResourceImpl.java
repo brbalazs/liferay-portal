@@ -27,7 +27,6 @@ import com.liferay.headless.commerce.admin.catalog.internal.odata.entity.v1_0.Ca
 import com.liferay.headless.commerce.admin.catalog.resource.v1_0.CatalogResource;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.petra.function.UnsafeConsumer;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
@@ -125,12 +124,12 @@ public class CatalogResourceImpl
 
 	@Override
 	public Page<Catalog> getCatalogsPage(
-			Filter filter, Pagination pagination, Sort[] sorts)
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception {
 
 		return SearchUtil.search(
 			booleanQuery -> booleanQuery.getPreBooleanFilter(), filter,
-			CommerceCatalog.class, StringPool.BLANK, pagination,
+			CommerceCatalog.class, search, pagination,
 			queryConfig -> queryConfig.setSelectedFieldNames(
 				Field.ENTRY_CLASS_PK),
 			new UnsafeConsumer() {
