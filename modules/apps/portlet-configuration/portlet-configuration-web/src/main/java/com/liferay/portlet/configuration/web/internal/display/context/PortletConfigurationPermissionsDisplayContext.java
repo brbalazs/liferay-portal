@@ -156,7 +156,6 @@ public class PortletConfigurationPermissionsDisplayContext {
 				actions.remove(ActionKeys.DELETE);
 				actions.remove(ActionKeys.PERMISSIONS);
 				actions.remove(ActionKeys.UPDATE);
-				actions.remove(ActionKeys.VIEW);
 			}
 		}
 
