@@ -16,6 +16,7 @@ package com.liferay.commerce.product.definitions.web.internal.frontend;
 
 import com.liferay.commerce.frontend.clay.data.set.ClayAutocompleteDataSetFilter;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetFilter;
+
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -23,13 +24,17 @@ import org.osgi.service.component.annotations.Component;
  */
 @Component(
 	immediate = true,
-	property = {
-		"commerce.data.set.display.name=" + CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITIONS
-	},
+	property = "commerce.data.set.display.name=" + CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITIONS,
 	service = ClayDataSetFilter.class
 )
 public class AssetCategoryClayTableDataSetFilter
 	extends ClayAutocompleteDataSetFilter {
+
+	@Override
+	public String getApiURL() {
+		return "/o/headless-admin-taxonomy/v1.0/taxonomy-categories/0" +
+			"/taxonomy-categories?sort=name:asc";
+	}
 
 	@Override
 	public String getId() {
@@ -37,17 +42,12 @@ public class AssetCategoryClayTableDataSetFilter
 	}
 
 	@Override
-	public String getApiURL() {
-		return "/o/headless-admin-taxonomy/v1.0/taxonomy-categories/0/taxonomy-categories";
-	}
-
-	@Override
-	public String getItemKey(){
+	public String getItemKey() {
 		return "id";
 	}
 
 	@Override
-	public String getItemLabel(){
+	public String getItemLabel() {
 		return "name";
 	}
 
@@ -55,4 +55,5 @@ public class AssetCategoryClayTableDataSetFilter
 	public String getLabel() {
 		return "category";
 	}
+
 }
