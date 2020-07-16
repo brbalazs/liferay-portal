@@ -157,6 +157,8 @@ public class MiniCartTag extends IncludeTag {
 			return commercePriceConfiguration.displayDiscountLevels();
 		}
 		catch (ConfigurationException e) {
+			_log.error(e, e);
+
 			return false;
 		}
 	}
