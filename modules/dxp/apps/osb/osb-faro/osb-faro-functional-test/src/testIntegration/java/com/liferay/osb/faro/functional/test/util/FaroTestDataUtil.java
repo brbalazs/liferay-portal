@@ -155,7 +155,7 @@ public class FaroTestDataUtil {
 
 				if (value == null) {
 					value =
-						System.currentTimeMillis() / 1000 + matcher.group(1);
+						(System.currentTimeMillis() / 1000) + matcher.group(1);
 
 					_placeholders.put(key, value);
 				}

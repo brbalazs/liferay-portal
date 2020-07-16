@@ -57,7 +57,8 @@ public class FaroRequestAudit {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7 + _faroRequestAudits.size() * 3);
+		StringBundler sb = new StringBundler(
+			7 + (_faroRequestAudits.size() * 3));
 
 		sb.append(_method);
 		sb.append(StringPool.SPACE);
