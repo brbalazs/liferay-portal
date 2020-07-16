@@ -347,7 +347,7 @@ sorting functionality of product search results.
 ---------------------------------------
 
 ### Price Lists Retrieval for Pricing Algorithm
-- **Date:** 2020-July-10
+- **Date:** 2020-Jul-10
 - **JIRA Ticket:** [COMMERCE-4221](https://issues.liferay.com/browse/COMMERCE-4221)
 
 #### What changed?
