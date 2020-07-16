@@ -91,11 +91,13 @@ public interface CatalogResource {
 		throws Exception;
 
 	public Page<Catalog> getCatalogsPage(
-			String filterString, Pagination pagination, String sortString)
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getCatalogsPageHttpResponse(
-			String filterString, Pagination pagination, String sortString)
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public Catalog postCatalog(Catalog catalog) throws Exception;
@@ -578,11 +580,12 @@ public interface CatalogResource {
 		}
 
 		public Page<Catalog> getCatalogsPage(
-				String filterString, Pagination pagination, String sortString)
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = getCatalogsPageHttpResponse(
-				filterString, pagination, sortString);
+				search, filterString, pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -605,7 +608,8 @@ public interface CatalogResource {
 		}
 
 		public HttpInvoker.HttpResponse getCatalogsPageHttpResponse(
-				String filterString, Pagination pagination, String sortString)
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -628,6 +632,10 @@ public interface CatalogResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (search != null) {
+				httpInvoker.parameter("search", String.valueOf(search));
+			}
 
 			if (filterString != null) {
 				httpInvoker.parameter("filter", filterString);

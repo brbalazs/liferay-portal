@@ -72,7 +72,7 @@ public interface CatalogResource {
 	public Response patchCatalog(Long id, Catalog catalog) throws Exception;
 
 	public Page<Catalog> getCatalogsPage(
-			Filter filter, Pagination pagination, Sort[] sorts)
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
 	public Catalog postCatalog(Catalog catalog) throws Exception;

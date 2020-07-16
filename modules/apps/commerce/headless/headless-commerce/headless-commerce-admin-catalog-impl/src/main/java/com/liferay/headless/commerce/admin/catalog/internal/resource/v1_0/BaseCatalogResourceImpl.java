@@ -264,6 +264,7 @@ public abstract class BaseCatalogResourceImpl
 	@GET
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "search"),
 			@Parameter(in = ParameterIn.QUERY, name = "filter"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize"),
@@ -274,6 +275,7 @@ public abstract class BaseCatalogResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Catalog")})
 	public Page<Catalog> getCatalogsPage(
+			@Parameter(hidden = true) @QueryParam("search") String search,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -427,7 +429,7 @@ public abstract class BaseCatalogResourceImpl
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
 
-		return getCatalogsPage(filter, pagination, sorts);
+		return getCatalogsPage(search, filter, pagination, sorts);
 	}
 
 	@Override
