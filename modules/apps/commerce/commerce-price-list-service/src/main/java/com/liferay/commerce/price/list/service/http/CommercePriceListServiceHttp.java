@@ -650,9 +650,8 @@ public class CommercePriceListServiceHttp {
 	}
 
 	public static int getCommercePriceListsCount(
-			HttpPrincipal httpPrincipal, long commercePricingClassId,
-			String title)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException {
+			HttpPrincipal httpPrincipal, long companyId, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -661,7 +660,7 @@ public class CommercePriceListServiceHttp {
 				_getCommercePriceListsCountParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commercePricingClassId, title);
+				methodKey, companyId, status);
 
 			Object returnObj = null;
 
@@ -670,11 +669,10 @@ public class CommercePriceListServiceHttp {
 			}
 			catch (Exception exception) {
 				if (exception instanceof
-						com.liferay.portal.kernel.security.auth.
-							PrincipalException) {
+						com.liferay.portal.kernel.exception.PortalException) {
 
-					throw (com.liferay.portal.kernel.security.auth.
-						PrincipalException)exception;
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
@@ -693,8 +691,9 @@ public class CommercePriceListServiceHttp {
 	}
 
 	public static int getCommercePriceListsCount(
-			HttpPrincipal httpPrincipal, long companyId, int status)
-		throws com.liferay.portal.kernel.exception.PortalException {
+			HttpPrincipal httpPrincipal, long commercePricingClassId,
+			String title)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -703,7 +702,7 @@ public class CommercePriceListServiceHttp {
 				_getCommercePriceListsCountParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, status);
+				methodKey, commercePricingClassId, title);
 
 			Object returnObj = null;
 
@@ -712,10 +711,11 @@ public class CommercePriceListServiceHttp {
 			}
 			catch (Exception exception) {
 				if (exception instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
+						com.liferay.portal.kernel.security.auth.
+							PrincipalException) {
 
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
+					throw (com.liferay.portal.kernel.security.auth.
+						PrincipalException)exception;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(
@@ -1336,11 +1336,11 @@ public class CommercePriceListServiceHttp {
 		};
 	private static final Class<?>[]
 		_getCommercePriceListsCountParameterTypes12 = new Class[] {
-			long.class, String.class
+			long.class, int.class
 		};
 	private static final Class<?>[]
 		_getCommercePriceListsCountParameterTypes13 = new Class[] {
-			long.class, int.class
+			long.class, String.class
 		};
 	private static final Class<?>[]
 		_searchByCommercePricingClassIdParameterTypes14 = new Class[] {

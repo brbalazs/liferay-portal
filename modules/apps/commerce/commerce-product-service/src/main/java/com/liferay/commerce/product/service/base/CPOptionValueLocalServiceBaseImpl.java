@@ -106,6 +106,10 @@ public abstract class CPOptionValueLocalServiceBaseImpl
 	/**
 	 * Adds the cp option value to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param cpOptionValue the cp option value
 	 * @return the cp option value that was added
 	 */
@@ -132,6 +136,10 @@ public abstract class CPOptionValueLocalServiceBaseImpl
 	/**
 	 * Deletes the cp option value with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param CPOptionValueId the primary key of the cp option value
 	 * @return the cp option value that was removed
 	 * @throws PortalException if a cp option value with the primary key could not be found
@@ -146,6 +154,10 @@ public abstract class CPOptionValueLocalServiceBaseImpl
 
 	/**
 	 * Deletes the cp option value from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpOptionValue the cp option value
 	 * @return the cp option value that was removed
@@ -473,6 +485,10 @@ public abstract class CPOptionValueLocalServiceBaseImpl
 
 	/**
 	 * Updates the cp option value in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpOptionValue the cp option value
 	 * @return the cp option value that was updated

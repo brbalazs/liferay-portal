@@ -38,6 +38,10 @@ public class CommercePriceListAccountRelLocalServiceWrapper
 	/**
 	 * Adds the commerce price list account rel to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListAccountRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commercePriceListAccountRel the commerce price list account rel
 	 * @return the commerce price list account rel that was added
 	 */
@@ -80,6 +84,10 @@ public class CommercePriceListAccountRelLocalServiceWrapper
 	/**
 	 * Deletes the commerce price list account rel from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListAccountRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commercePriceListAccountRel the commerce price list account rel
 	 * @return the commerce price list account rel that was removed
 	 * @throws PortalException
@@ -97,6 +105,10 @@ public class CommercePriceListAccountRelLocalServiceWrapper
 
 	/**
 	 * Deletes the commerce price list account rel with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListAccountRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commercePriceListAccountRelId the primary key of the commerce price list account rel
 	 * @return the commerce price list account rel that was removed
@@ -402,6 +414,10 @@ public class CommercePriceListAccountRelLocalServiceWrapper
 
 	/**
 	 * Updates the commerce price list account rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListAccountRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commercePriceListAccountRel the commerce price list account rel
 	 * @return the commerce price list account rel that was updated

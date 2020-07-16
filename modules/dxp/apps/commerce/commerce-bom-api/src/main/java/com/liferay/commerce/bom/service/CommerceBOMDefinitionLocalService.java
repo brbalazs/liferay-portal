@@ -66,6 +66,10 @@ public interface CommerceBOMDefinitionLocalService
 	/**
 	 * Adds the commerce bom definition to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceBOMDefinition the commerce bom definition
 	 * @return the commerce bom definition that was added
 	 */
@@ -92,6 +96,10 @@ public interface CommerceBOMDefinitionLocalService
 	/**
 	 * Deletes the commerce bom definition from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceBOMDefinition the commerce bom definition
 	 * @return the commerce bom definition that was removed
 	 * @throws PortalException
@@ -104,6 +112,10 @@ public interface CommerceBOMDefinitionLocalService
 
 	/**
 	 * Deletes the commerce bom definition with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceBOMDefinitionId the primary key of the commerce bom definition
 	 * @return the commerce bom definition that was removed
@@ -252,6 +264,10 @@ public interface CommerceBOMDefinitionLocalService
 
 	/**
 	 * Updates the commerce bom definition in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceBOMDefinition the commerce bom definition
 	 * @return the commerce bom definition that was updated

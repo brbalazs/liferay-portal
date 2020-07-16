@@ -77,6 +77,10 @@ public abstract class CommerceBOMEntryLocalServiceBaseImpl
 	/**
 	 * Adds the commerce bom entry to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceBOMEntry the commerce bom entry
 	 * @return the commerce bom entry that was added
 	 */
@@ -105,6 +109,10 @@ public abstract class CommerceBOMEntryLocalServiceBaseImpl
 	/**
 	 * Deletes the commerce bom entry with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceBOMEntryId the primary key of the commerce bom entry
 	 * @return the commerce bom entry that was removed
 	 * @throws PortalException if a commerce bom entry with the primary key could not be found
@@ -119,6 +127,10 @@ public abstract class CommerceBOMEntryLocalServiceBaseImpl
 
 	/**
 	 * Deletes the commerce bom entry from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceBOMEntry the commerce bom entry
 	 * @return the commerce bom entry that was removed
@@ -335,6 +347,10 @@ public abstract class CommerceBOMEntryLocalServiceBaseImpl
 
 	/**
 	 * Updates the commerce bom entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceBOMEntry the commerce bom entry
 	 * @return the commerce bom entry that was updated

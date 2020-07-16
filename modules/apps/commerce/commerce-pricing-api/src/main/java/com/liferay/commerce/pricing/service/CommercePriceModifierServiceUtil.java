@@ -103,6 +103,10 @@ public class CommercePriceModifierServiceUtil {
 			commercePriceListId, start, end, orderByComparator);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static java.util.List
 		<com.liferay.commerce.pricing.model.CommercePriceModifier>
 				getCommercePriceModifiers(long companyId, String target)
@@ -111,6 +115,10 @@ public class CommercePriceModifierServiceUtil {
 		return getService().getCommercePriceModifiers(companyId, target);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static int getCommercePriceModifiersCount()
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -132,6 +140,10 @@ public class CommercePriceModifierServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static com.liferay.portal.kernel.search.BaseModelSearchResult
 		<com.liferay.commerce.pricing.model.CommercePriceModifier>
 				searchCommercePriceModifiers(

@@ -36,6 +36,10 @@ public class CommerceOrderItemLocalServiceWrapper
 	/**
 	 * Adds the commerce order item to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceOrderItemLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceOrderItem the commerce order item
 	 * @return the commerce order item that was added
 	 */
@@ -83,6 +87,10 @@ public class CommerceOrderItemLocalServiceWrapper
 	/**
 	 * Deletes the commerce order item from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceOrderItemLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceOrderItem the commerce order item
 	 * @return the commerce order item that was removed
 	 * @throws PortalException
@@ -108,6 +116,10 @@ public class CommerceOrderItemLocalServiceWrapper
 
 	/**
 	 * Deletes the commerce order item with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceOrderItemLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceOrderItemId the primary key of the commerce order item
 	 * @return the commerce order item that was removed
@@ -524,6 +536,10 @@ public class CommerceOrderItemLocalServiceWrapper
 
 	/**
 	 * Updates the commerce order item in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceOrderItemLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceOrderItem the commerce order item
 	 * @return the commerce order item that was updated

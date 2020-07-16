@@ -77,6 +77,10 @@ public abstract class CommerceDataIntegrationProcessLocalServiceBaseImpl
 	/**
 	 * Adds the commerce data integration process to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceDataIntegrationProcessLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceDataIntegrationProcess the commerce data integration process
 	 * @return the commerce data integration process that was added
 	 */
@@ -109,6 +113,10 @@ public abstract class CommerceDataIntegrationProcessLocalServiceBaseImpl
 	/**
 	 * Deletes the commerce data integration process with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceDataIntegrationProcessLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceDataIntegrationProcessId the primary key of the commerce data integration process
 	 * @return the commerce data integration process that was removed
 	 * @throws PortalException if a commerce data integration process with the primary key could not be found
@@ -125,6 +133,10 @@ public abstract class CommerceDataIntegrationProcessLocalServiceBaseImpl
 
 	/**
 	 * Deletes the commerce data integration process from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceDataIntegrationProcessLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceDataIntegrationProcess the commerce data integration process
 	 * @return the commerce data integration process that was removed
@@ -361,6 +373,10 @@ public abstract class CommerceDataIntegrationProcessLocalServiceBaseImpl
 
 	/**
 	 * Updates the commerce data integration process in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceDataIntegrationProcessLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceDataIntegrationProcess the commerce data integration process
 	 * @return the commerce data integration process that was updated

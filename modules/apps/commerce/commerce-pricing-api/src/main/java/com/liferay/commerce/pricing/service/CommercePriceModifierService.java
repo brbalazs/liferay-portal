@@ -101,11 +101,19 @@ public interface CommercePriceModifierService extends BaseService {
 			OrderByComparator<CommercePriceModifier> orderByComparator)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceModifier> getCommercePriceModifiers(
 			long companyId, String target)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommercePriceModifiersCount() throws PortalException;
 
@@ -120,6 +128,10 @@ public interface CommercePriceModifierService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public BaseModelSearchResult<CommercePriceModifier>
 			searchCommercePriceModifiers(

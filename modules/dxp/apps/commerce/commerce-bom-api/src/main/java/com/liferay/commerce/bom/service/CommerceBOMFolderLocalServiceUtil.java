@@ -41,6 +41,10 @@ public class CommerceBOMFolderLocalServiceUtil {
 	/**
 	 * Adds the commerce bom folder to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMFolderLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceBOMFolder the commerce bom folder
 	 * @return the commerce bom folder that was added
 	 */
@@ -77,6 +81,10 @@ public class CommerceBOMFolderLocalServiceUtil {
 	/**
 	 * Deletes the commerce bom folder from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMFolderLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceBOMFolder the commerce bom folder
 	 * @return the commerce bom folder that was removed
 	 * @throws PortalException
@@ -92,6 +100,10 @@ public class CommerceBOMFolderLocalServiceUtil {
 
 	/**
 	 * Deletes the commerce bom folder with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMFolderLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceBOMFolderId the primary key of the commerce bom folder
 	 * @return the commerce bom folder that was removed
@@ -287,6 +299,10 @@ public class CommerceBOMFolderLocalServiceUtil {
 
 	/**
 	 * Updates the commerce bom folder in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMFolderLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceBOMFolder the commerce bom folder
 	 * @return the commerce bom folder that was updated

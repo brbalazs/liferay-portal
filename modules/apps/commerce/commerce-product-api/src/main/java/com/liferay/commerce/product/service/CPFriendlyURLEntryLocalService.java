@@ -72,6 +72,10 @@ public interface CPFriendlyURLEntryLocalService
 	/**
 	 * Adds the cp friendly url entry to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPFriendlyURLEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param cpFriendlyURLEntry the cp friendly url entry
 	 * @return the cp friendly url entry that was added
 	 */
@@ -99,6 +103,10 @@ public interface CPFriendlyURLEntryLocalService
 	/**
 	 * Deletes the cp friendly url entry from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPFriendlyURLEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param cpFriendlyURLEntry the cp friendly url entry
 	 * @return the cp friendly url entry that was removed
 	 */
@@ -108,6 +116,10 @@ public interface CPFriendlyURLEntryLocalService
 
 	/**
 	 * Deletes the cp friendly url entry with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPFriendlyURLEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param CPFriendlyURLEntryId the primary key of the cp friendly url entry
 	 * @return the cp friendly url entry that was removed
@@ -334,6 +346,10 @@ public interface CPFriendlyURLEntryLocalService
 
 	/**
 	 * Updates the cp friendly url entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPFriendlyURLEntryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpFriendlyURLEntry the cp friendly url entry
 	 * @return the cp friendly url entry that was updated

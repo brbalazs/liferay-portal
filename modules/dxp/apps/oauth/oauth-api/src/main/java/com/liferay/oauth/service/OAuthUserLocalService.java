@@ -69,6 +69,10 @@ public interface OAuthUserLocalService
 	/**
 	 * Adds the o auth user to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect OAuthUserLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param oAuthUser the o auth user
 	 * @return the o auth user that was added
 	 */
@@ -87,6 +91,10 @@ public interface OAuthUserLocalService
 	/**
 	 * Deletes the o auth user with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect OAuthUserLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param oAuthUserId the primary key of the o auth user
 	 * @return the o auth user that was removed
 	 * @throws PortalException if a o auth user with the primary key could not be found
@@ -99,6 +107,10 @@ public interface OAuthUserLocalService
 
 	/**
 	 * Deletes the o auth user from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect OAuthUserLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param oAuthUser the o auth user
 	 * @return the o auth user that was removed
@@ -272,6 +284,10 @@ public interface OAuthUserLocalService
 
 	/**
 	 * Updates the o auth user in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect OAuthUserLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param oAuthUser the o auth user
 	 * @return the o auth user that was updated

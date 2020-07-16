@@ -107,6 +107,10 @@ public class CommercePriceModifierServiceWrapper
 			commercePriceListId, start, end, orderByComparator);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public java.util.List
 		<com.liferay.commerce.pricing.model.CommercePriceModifier>
@@ -117,6 +121,10 @@ public class CommercePriceModifierServiceWrapper
 			companyId, target);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public int getCommercePriceModifiersCount()
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -142,6 +150,10 @@ public class CommercePriceModifierServiceWrapper
 		return _commercePriceModifierService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public com.liferay.portal.kernel.search.BaseModelSearchResult
 		<com.liferay.commerce.pricing.model.CommercePriceModifier>

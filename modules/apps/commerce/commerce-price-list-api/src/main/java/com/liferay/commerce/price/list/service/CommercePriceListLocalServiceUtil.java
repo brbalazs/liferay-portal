@@ -41,6 +41,10 @@ public class CommercePriceListLocalServiceUtil {
 	/**
 	 * Adds the commerce price list to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commercePriceList the commerce price list
 	 * @return the commerce price list that was added
 	 */
@@ -266,6 +270,10 @@ public class CommercePriceListLocalServiceUtil {
 	/**
 	 * Deletes the commerce price list from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commercePriceList the commerce price list
 	 * @return the commerce price list that was removed
 	 * @throws PortalException
@@ -281,6 +289,10 @@ public class CommercePriceListLocalServiceUtil {
 
 	/**
 	 * Deletes the commerce price list with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commercePriceListId the primary key of the commerce price list
 	 * @return the commerce price list that was removed
@@ -722,6 +734,10 @@ public class CommercePriceListLocalServiceUtil {
 
 	/**
 	 * Updates the commerce price list in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commercePriceList the commerce price list
 	 * @return the commerce price list that was updated

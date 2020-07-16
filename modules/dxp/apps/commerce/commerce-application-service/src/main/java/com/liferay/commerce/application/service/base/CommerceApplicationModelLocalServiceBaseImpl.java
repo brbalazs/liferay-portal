@@ -76,6 +76,10 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	/**
 	 * Adds the commerce application model to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceApplicationModelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceApplicationModel the commerce application model
 	 * @return the commerce application model that was added
 	 */
@@ -108,6 +112,10 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 	/**
 	 * Deletes the commerce application model with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceApplicationModelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceApplicationModelId the primary key of the commerce application model
 	 * @return the commerce application model that was removed
 	 * @throws PortalException if a commerce application model with the primary key could not be found
@@ -124,6 +132,10 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 
 	/**
 	 * Deletes the commerce application model from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceApplicationModelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceApplicationModel the commerce application model
 	 * @return the commerce application model that was removed
@@ -356,6 +368,10 @@ public abstract class CommerceApplicationModelLocalServiceBaseImpl
 
 	/**
 	 * Updates the commerce application model in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceApplicationModelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceApplicationModel the commerce application model
 	 * @return the commerce application model that was updated

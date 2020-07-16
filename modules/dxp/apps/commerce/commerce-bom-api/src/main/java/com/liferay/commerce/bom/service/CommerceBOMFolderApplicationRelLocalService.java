@@ -64,6 +64,10 @@ public interface CommerceBOMFolderApplicationRelLocalService
 	/**
 	 * Adds the commerce bom folder application rel to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMFolderApplicationRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceBOMFolderApplicationRel the commerce bom folder application rel
 	 * @return the commerce bom folder application rel that was added
 	 */
@@ -90,6 +94,10 @@ public interface CommerceBOMFolderApplicationRelLocalService
 	/**
 	 * Deletes the commerce bom folder application rel from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMFolderApplicationRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceBOMFolderApplicationRel the commerce bom folder application rel
 	 * @return the commerce bom folder application rel that was removed
 	 */
@@ -100,6 +108,10 @@ public interface CommerceBOMFolderApplicationRelLocalService
 
 	/**
 	 * Deletes the commerce bom folder application rel with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMFolderApplicationRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceBOMFolderApplicationRelId the primary key of the commerce bom folder application rel
 	 * @return the commerce bom folder application rel that was removed
@@ -270,6 +282,10 @@ public interface CommerceBOMFolderApplicationRelLocalService
 
 	/**
 	 * Updates the commerce bom folder application rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceBOMFolderApplicationRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceBOMFolderApplicationRel the commerce bom folder application rel
 	 * @return the commerce bom folder application rel that was updated

@@ -2216,16 +2216,16 @@ public class CPInstanceModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CPInstance)) {
+		if (!(object instanceof CPInstance)) {
 			return false;
 		}
 
-		CPInstance cpInstance = (CPInstance)obj;
+		CPInstance cpInstance = (CPInstance)object;
 
 		long primaryKey = cpInstance.getPrimaryKey();
 

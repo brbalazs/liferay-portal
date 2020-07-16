@@ -205,6 +205,10 @@ public class CommercePriceModifierServiceSoap {
 		}
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static com.liferay.commerce.pricing.model.CommercePriceModifierSoap[]
 			getCommercePriceModifiers(long companyId, String target)
 		throws RemoteException {
@@ -226,6 +230,10 @@ public class CommercePriceModifierServiceSoap {
 		}
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static int getCommercePriceModifiersCount() throws RemoteException {
 		try {
 			int returnValue =

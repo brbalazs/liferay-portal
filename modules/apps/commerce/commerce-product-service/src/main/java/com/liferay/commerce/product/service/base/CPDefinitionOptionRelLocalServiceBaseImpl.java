@@ -106,6 +106,10 @@ public abstract class CPDefinitionOptionRelLocalServiceBaseImpl
 	/**
 	 * Adds the cp definition option rel to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionOptionRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param cpDefinitionOptionRel the cp definition option rel
 	 * @return the cp definition option rel that was added
 	 */
@@ -136,6 +140,10 @@ public abstract class CPDefinitionOptionRelLocalServiceBaseImpl
 	/**
 	 * Deletes the cp definition option rel with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionOptionRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param CPDefinitionOptionRelId the primary key of the cp definition option rel
 	 * @return the cp definition option rel that was removed
 	 * @throws PortalException if a cp definition option rel with the primary key could not be found
@@ -151,6 +159,10 @@ public abstract class CPDefinitionOptionRelLocalServiceBaseImpl
 
 	/**
 	 * Deletes the cp definition option rel from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionOptionRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpDefinitionOptionRel the cp definition option rel
 	 * @return the cp definition option rel that was removed
@@ -514,6 +526,10 @@ public abstract class CPDefinitionOptionRelLocalServiceBaseImpl
 
 	/**
 	 * Updates the cp definition option rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionOptionRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpDefinitionOptionRel the cp definition option rel
 	 * @return the cp definition option rel that was updated

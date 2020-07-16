@@ -74,6 +74,10 @@ public abstract class SPIDefinitionLocalServiceBaseImpl
 	/**
 	 * Adds the spi definition to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect SPIDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param spiDefinition the spi definition
 	 * @return the spi definition that was added
 	 */
@@ -100,6 +104,10 @@ public abstract class SPIDefinitionLocalServiceBaseImpl
 	/**
 	 * Deletes the spi definition with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect SPIDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param spiDefinitionId the primary key of the spi definition
 	 * @return the spi definition that was removed
 	 * @throws PortalException if a spi definition with the primary key could not be found
@@ -114,6 +122,10 @@ public abstract class SPIDefinitionLocalServiceBaseImpl
 
 	/**
 	 * Deletes the spi definition from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect SPIDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param spiDefinition the spi definition
 	 * @return the spi definition that was removed
@@ -328,6 +340,10 @@ public abstract class SPIDefinitionLocalServiceBaseImpl
 
 	/**
 	 * Updates the spi definition in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect SPIDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param spiDefinition the spi definition
 	 * @return the spi definition that was updated

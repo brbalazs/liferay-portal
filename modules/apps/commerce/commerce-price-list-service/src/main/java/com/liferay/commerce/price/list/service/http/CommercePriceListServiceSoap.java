@@ -389,14 +389,13 @@ public class CommercePriceListServiceSoap {
 		}
 	}
 
-	public static int getCommercePriceListsCount(
-			long commercePricingClassId, String title)
+	public static int getCommercePriceListsCount(long companyId, int status)
 		throws RemoteException {
 
 		try {
 			int returnValue =
 				CommercePriceListServiceUtil.getCommercePriceListsCount(
-					commercePricingClassId, title);
+					companyId, status);
 
 			return returnValue;
 		}
@@ -407,13 +406,14 @@ public class CommercePriceListServiceSoap {
 		}
 	}
 
-	public static int getCommercePriceListsCount(long companyId, int status)
+	public static int getCommercePriceListsCount(
+			long commercePricingClassId, String title)
 		throws RemoteException {
 
 		try {
 			int returnValue =
 				CommercePriceListServiceUtil.getCommercePriceListsCount(
-					companyId, status);
+					commercePricingClassId, title);
 
 			return returnValue;
 		}

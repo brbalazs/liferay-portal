@@ -978,6 +978,49 @@ public class CommerceOrderItemServiceHttp {
 	}
 
 	public static com.liferay.commerce.model.CommerceOrderItem
+			updateCommerceOrderItemDeliveryDate(
+				HttpPrincipal httpPrincipal, long commerceOrderItemId,
+				java.util.Date requestedDeliveryDate)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceOrderItemServiceUtil.class,
+				"updateCommerceOrderItemDeliveryDate",
+				_updateCommerceOrderItemDeliveryDateParameterTypes22);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceOrderItemId, requestedDeliveryDate);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.commerce.model.CommerceOrderItem)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceOrderItem
 			updateCommerceOrderItemInfo(
 				HttpPrincipal httpPrincipal, long commerceOrderItemId,
 				String deliveryGroup, long shippingAddressId,
@@ -988,7 +1031,7 @@ public class CommerceOrderItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceOrderItemServiceUtil.class,
 				"updateCommerceOrderItemInfo",
-				_updateCommerceOrderItemInfoParameterTypes22);
+				_updateCommerceOrderItemInfoParameterTypes23);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceOrderItemId, deliveryGroup,
@@ -1034,55 +1077,12 @@ public class CommerceOrderItemServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceOrderItemServiceUtil.class,
 				"updateCommerceOrderItemInfo",
-				_updateCommerceOrderItemInfoParameterTypes23);
+				_updateCommerceOrderItemInfoParameterTypes24);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceOrderItemId, deliveryGroup,
 				shippingAddressId, printedNote, requestedDeliveryDateMonth,
 				requestedDeliveryDateDay, requestedDeliveryDateYear);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return (com.liferay.commerce.model.CommerceOrderItem)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
-	public static com.liferay.commerce.model.CommerceOrderItem
-			updateCommerceOrderItemDeliveryDate(
-				HttpPrincipal httpPrincipal, long commerceOrderItemId,
-				java.util.Date requestedDeliveryDate)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				CommerceOrderItemServiceUtil.class,
-				"updateCommerceOrderItemDeliveryDate",
-				_updateCommerceOrderItemDeliveryDateParameterTypes24);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, commerceOrderItemId, requestedDeliveryDate);
 
 			Object returnObj = null;
 
@@ -1534,17 +1534,17 @@ public class CommerceOrderItemServiceHttp {
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[]
-		_updateCommerceOrderItemInfoParameterTypes22 = new Class[] {
-			long.class, String.class, long.class, String.class
+		_updateCommerceOrderItemDeliveryDateParameterTypes22 = new Class[] {
+			long.class, java.util.Date.class
 		};
 	private static final Class<?>[]
 		_updateCommerceOrderItemInfoParameterTypes23 = new Class[] {
-			long.class, String.class, long.class, String.class, int.class,
-			int.class, int.class
+			long.class, String.class, long.class, String.class
 		};
 	private static final Class<?>[]
-		_updateCommerceOrderItemDeliveryDateParameterTypes24 = new Class[] {
-			long.class, java.util.Date.class
+		_updateCommerceOrderItemInfoParameterTypes24 = new Class[] {
+			long.class, String.class, long.class, String.class, int.class,
+			int.class, int.class
 		};
 	private static final Class<?>[]
 		_updateCommerceOrderItemInfoParameterTypes25 = new Class[] {
