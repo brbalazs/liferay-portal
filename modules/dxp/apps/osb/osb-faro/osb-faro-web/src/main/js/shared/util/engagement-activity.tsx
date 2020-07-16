@@ -255,7 +255,7 @@ export const createDateKeysIMap = (
 	interval: Interval,
 	history: Array<IActivitiesHistory | IEngagementHistory>
 ) => {
-	const parserHistory = ({intervalInitDate}) => {
+	const parseHistory = ({intervalInitDate}) => {
 		const dateEnd =
 			interval === 'W'
 				? moment
@@ -267,7 +267,7 @@ export const createDateKeysIMap = (
 		return [intervalInitDate, [intervalInitDate, dateEnd]];
 	};
 
-	return Map<Date, [Date, Date?]>(history.map(parserHistory));
+	return Map<Date, [Date, Date?]>(history.map(parseHistory));
 };
 
 export function convertHistoryInitDateToDate<T>(
