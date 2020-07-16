@@ -99,8 +99,8 @@ const OutputVersionsListWithData = withStatefulPagination(
 	TableWithData,
 	{
 		defaultDelta: 5,
-		defaultOrderby: orderDescending,
-		defaultOrderByField: 'completedDate'
+		defaultOrderBy: orderDescending,
+		defaultOrderByField: 'id'
 	},
 	({onOrderByFieldChange, ...otherProps}) => ({
 		onSortChange: onOrderByFieldChange,

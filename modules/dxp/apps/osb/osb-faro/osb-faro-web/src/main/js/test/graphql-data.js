@@ -274,7 +274,7 @@ export function mockRecommendationJobRunsReq(items, mockVariables = {}) {
 			variables: {
 				jobId: '321',
 				size: 5,
-				sort: {column: 'completedDate', type: 'ASC'},
+				sort: {column: 'id', type: 'DESC'},
 				start: 0,
 				...mockVariables
 			}
