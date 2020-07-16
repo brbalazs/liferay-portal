@@ -49,7 +49,6 @@ definition {
 		}
 	}
 
-	@ignore = "true"
 	test CreateNewChannel {
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "CPCommerceChannels#CreateNewChannel";
