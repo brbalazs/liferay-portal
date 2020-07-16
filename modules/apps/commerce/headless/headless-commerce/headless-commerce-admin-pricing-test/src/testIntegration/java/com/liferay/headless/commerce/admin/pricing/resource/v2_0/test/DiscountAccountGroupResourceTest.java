@@ -95,6 +95,15 @@ public class DiscountAccountGroupResourceTest
 
 			iterator.remove();
 		}
+
+		CommerceDiscount commerceDiscount =
+			_commerceDiscountLocalService.fetchByExternalReferenceCode(
+				testCompany.getCompanyId(), "external-reference-code-test");
+
+		if (commerceDiscount != null) {
+			_commerceDiscountLocalService.deleteCommerceDiscount(
+				commerceDiscount.getCommerceDiscountId());
+		}
 	}
 
 	@After
@@ -134,6 +143,15 @@ public class DiscountAccountGroupResourceTest
 
 			iterator.remove();
 		}
+
+		CommerceDiscount commerceDiscount =
+			_commerceDiscountLocalService.fetchByExternalReferenceCode(
+				testCompany.getCompanyId(), "external-reference-code-test");
+
+		if (commerceDiscount != null) {
+			_commerceDiscountLocalService.deleteCommerceDiscount(
+				commerceDiscount.getCommerceDiscountId());
+		}
 	}
 
 	@Override
@@ -162,7 +180,7 @@ public class DiscountAccountGroupResourceTest
 				calendar.get(Calendar.MINUTE), calendar.get(Calendar.MONTH),
 				calendar.get(Calendar.DAY_OF_MONTH),
 				calendar.get(Calendar.YEAR), calendar.get(Calendar.HOUR_OF_DAY),
-				calendar.get(Calendar.MINUTE), "external-reference-code-test",
+				calendar.get(Calendar.MINUTE), RandomTestUtil.randomString(),
 				true, _serviceContext);
 
 		CommerceAccountGroup commerceAccountGroup =
@@ -199,11 +217,15 @@ public class DiscountAccountGroupResourceTest
 				DiscountAccountGroup discountAccountGroup)
 		throws Exception {
 
+		CommerceDiscount commerceDiscount =
+			_commerceDiscountLocalService.fetchByExternalReferenceCode(
+				testCompany.getCompanyId(), externalReferenceCode);
+
 		CommerceDiscountCommerceAccountGroupRel
 			commerceDiscountCommerceAccountGroupRel =
 				CommerceDiscountCommerceAccountGroupRelLocalServiceUtil.
 					addCommerceDiscountCommerceAccountGroupRel(
-						discountAccountGroup.getDiscountId(),
+						commerceDiscount.getCommerceDiscountId(),
 						discountAccountGroup.getAccountGroupId(),
 						_serviceContext);
 
@@ -218,7 +240,30 @@ public class DiscountAccountGroupResourceTest
 			testGetDiscountByExternalReferenceCodeDiscountAccountGroupsPage_getExternalReferenceCode()
 		throws Exception {
 
-		return "external-reference-code-test";
+		if (_commerceDiscount == null) {
+			Calendar calendar = CalendarFactoryUtil.getCalendar(
+				_user.getTimeZone());
+
+			_commerceDiscount =
+				_commerceDiscountLocalService.upsertCommerceDiscount(
+					_user.getUserId(), 0, RandomTestUtil.randomString(),
+					"product", false, null, false, BigDecimal.ZERO,
+					BigDecimal.ONE, BigDecimal.ZERO, BigDecimal.ZERO,
+					BigDecimal.ZERO,
+					CommerceDiscountConstants.LIMITATION_TYPE_UNLIMITED, 0,
+					true, calendar.get(Calendar.MONTH),
+					calendar.get(Calendar.DAY_OF_MONTH),
+					calendar.get(Calendar.YEAR),
+					calendar.get(Calendar.HOUR_OF_DAY),
+					calendar.get(Calendar.MINUTE), calendar.get(Calendar.MONTH),
+					calendar.get(Calendar.DAY_OF_MONTH),
+					calendar.get(Calendar.YEAR),
+					calendar.get(Calendar.HOUR_OF_DAY),
+					calendar.get(Calendar.MINUTE),
+					"external-reference-code-test", true, _serviceContext);
+		}
+
+		return _commerceDiscount.getExternalReferenceCode();
 	}
 
 	@Override
@@ -244,25 +289,38 @@ public class DiscountAccountGroupResourceTest
 	protected Long testGetDiscountIdDiscountAccountGroupsPage_getId()
 		throws Exception {
 
-		Calendar calendar = CalendarFactoryUtil.getCalendar(
-			_user.getTimeZone());
+		if (_commerceDiscount == null) {
+			Calendar calendar = CalendarFactoryUtil.getCalendar(
+				_user.getTimeZone());
 
-		CommerceDiscount commerceDiscount =
-			_commerceDiscountLocalService.upsertCommerceDiscount(
-				_user.getUserId(), 0, RandomTestUtil.randomString(), "product",
-				false, null, false, BigDecimal.ZERO, BigDecimal.ONE,
-				BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
-				CommerceDiscountConstants.LIMITATION_TYPE_UNLIMITED, 0, true,
-				calendar.get(Calendar.MONTH),
-				calendar.get(Calendar.DAY_OF_MONTH),
-				calendar.get(Calendar.YEAR), calendar.get(Calendar.HOUR_OF_DAY),
-				calendar.get(Calendar.MINUTE), calendar.get(Calendar.MONTH),
-				calendar.get(Calendar.DAY_OF_MONTH),
-				calendar.get(Calendar.YEAR), calendar.get(Calendar.HOUR_OF_DAY),
-				calendar.get(Calendar.MINUTE), "external-reference-code-test",
-				true, _serviceContext);
+			_commerceDiscount =
+				_commerceDiscountLocalService.upsertCommerceDiscount(
+					_user.getUserId(), 0, RandomTestUtil.randomString(),
+					"product", false, null, false, BigDecimal.ZERO,
+					BigDecimal.ONE, BigDecimal.ZERO, BigDecimal.ZERO,
+					BigDecimal.ZERO,
+					CommerceDiscountConstants.LIMITATION_TYPE_UNLIMITED, 0,
+					true, calendar.get(Calendar.MONTH),
+					calendar.get(Calendar.DAY_OF_MONTH),
+					calendar.get(Calendar.YEAR),
+					calendar.get(Calendar.HOUR_OF_DAY),
+					calendar.get(Calendar.MINUTE), calendar.get(Calendar.MONTH),
+					calendar.get(Calendar.DAY_OF_MONTH),
+					calendar.get(Calendar.YEAR),
+					calendar.get(Calendar.HOUR_OF_DAY),
+					calendar.get(Calendar.MINUTE),
+					"external-reference-code-test", true, _serviceContext);
+		}
 
-		return commerceDiscount.getCommerceDiscountId();
+		return _commerceDiscount.getCommerceDiscountId();
+	}
+
+	@Override
+	protected Long testGetDiscountIdDiscountAccountGroupsPage_getIrrelevantId()
+		throws Exception {
+
+		return super.
+			testGetDiscountIdDiscountAccountGroupsPage_getIrrelevantId();
 	}
 
 	@Override
@@ -271,6 +329,15 @@ public class DiscountAccountGroupResourceTest
 		throws Exception {
 
 		return _addDiscountAccountGroup(randomDiscountAccountGroup());
+	}
+
+	@Override
+	protected DiscountAccountGroup
+			testPostDiscountByExternalReferenceCodeDiscountAccountGroup_addDiscountAccountGroup(
+				DiscountAccountGroup discountAccountGroup)
+		throws Exception {
+
+		return _addDiscountAccountGroup(discountAccountGroup);
 	}
 
 	@Override
@@ -327,6 +394,7 @@ public class DiscountAccountGroupResourceTest
 		};
 	}
 
+	private CommerceDiscount _commerceDiscount;
 	private final List<CommerceDiscountCommerceAccountGroupRel>
 		_commerceDiscountCommerceAccountGroupRels = new ArrayList<>();
 
