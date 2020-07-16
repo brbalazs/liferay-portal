@@ -140,7 +140,7 @@ const OutputVersionsCard: React.FC<IOutputVersionsCardProps> = ({
 				<OutputVersionsListWithData
 					columns={[
 						{
-							accessor: 'runDate',
+							accessor: 'completedDate',
 							className: 'table-cell-expand',
 							dataFormatter: val =>
 								moment.utc(val).calendar(null, {

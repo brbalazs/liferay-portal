@@ -953,7 +953,7 @@ export function mockProperty(seed = 1, data = {}) {
 	};
 }
 
-export function mockRecommendationRunJob(seed = 0, data = {}) {
+export function mockRecommendationJobRun(seed = 0, data = {}) {
 	return {
 		completedDate: '2020-04-24',
 		context: [

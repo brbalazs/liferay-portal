@@ -15,14 +15,14 @@ describe('OutputVersionsCard', () => {
 			<MockedProvider
 				mocks={[
 					mockRecommendationJobRunsReq([
-						data.mockRecommendationRunJob(0),
-						data.mockRecommendationRunJob(1, {
+						data.mockRecommendationJobRun(0),
+						data.mockRecommendationJobRun(1, {
 							status: jobRunStatuses.failed
 						}),
-						data.mockRecommendationRunJob(2, {
+						data.mockRecommendationJobRun(2, {
 							status: jobRunStatuses.published
 						}),
-						data.mockRecommendationRunJob(3, {
+						data.mockRecommendationJobRun(3, {
 							status: jobRunStatuses.running
 						})
 					])
