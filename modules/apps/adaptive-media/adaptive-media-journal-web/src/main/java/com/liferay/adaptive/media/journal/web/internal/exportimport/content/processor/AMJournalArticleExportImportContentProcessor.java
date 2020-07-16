@@ -55,7 +55,7 @@ public class AMJournalArticleExportImportContentProcessor
 					portletDataContext, stagedModel, content,
 					exportReferencedContent, escapeContent);
 
-		if (!_hasTextHTMLFields(stagedModel)) {
+		if (!_hasTextHTMLDDMFormField(stagedModel)) {
 			return replacedContent;
 		}
 
@@ -79,7 +79,7 @@ public class AMJournalArticleExportImportContentProcessor
 				replaceImportContentReferences(
 					portletDataContext, stagedModel, content);
 
-		if (!_hasTextHTMLFields(stagedModel)) {
+		if (!_hasTextHTMLDDMFormField(stagedModel)) {
 			return replacedContent;
 		}
 
@@ -113,7 +113,7 @@ public class AMJournalArticleExportImportContentProcessor
 		}
 	}
 
-	private boolean _hasTextHTMLFields(StagedModel stagedModel) {
+	private boolean _hasTextHTMLDDMFormField(StagedModel stagedModel) {
 		JournalArticle journalArticle = (JournalArticle)stagedModel;
 
 		DDMStructure ddmStructure = journalArticle.getDDMStructure();
