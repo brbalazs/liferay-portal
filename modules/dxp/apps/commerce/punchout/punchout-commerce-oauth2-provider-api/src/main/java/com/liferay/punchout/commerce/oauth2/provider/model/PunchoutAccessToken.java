@@ -14,6 +14,8 @@
 
 package com.liferay.punchout.commerce.oauth2.provider.model;
 
+import java.util.HashMap;
+
 /**
  * @author Jaclyn Ong
  */
@@ -41,10 +43,6 @@ public class PunchoutAccessToken {
 
 	public long getIssuedAt() {
 		return _issuedAt;
-	}
-
-	public String getPunchoutReturnURL() {
-		return _punchoutReturnURL;
 	}
 
 	public byte[] getToken() {
@@ -79,10 +77,6 @@ public class PunchoutAccessToken {
 		_issuedAt = issuedAt;
 	}
 
-	public void setPunchoutReturnURL(String punchoutReturnURL) {
-		_punchoutReturnURL = punchoutReturnURL;
-	}
-
 	public void setToken(byte[] token) {
 		_token = token;
 	}
@@ -91,13 +85,32 @@ public class PunchoutAccessToken {
 		_userEmailAddress = userEmailAddress;
 	}
 
+	public HashMap<String, Object> getPunchoutSessionAttributes() {
+		return _punchoutSessionAttributes;
+	}
+
+	public Object getPunchoutSessionAttribute(String key) {
+		return _punchoutSessionAttributes.get(key);
+	}
+
+	public void setPunchoutSessionAttribute(String key, Object value) {
+		_punchoutSessionAttributes.put(key, value);
+	}
+
+	public void setPunchoutSessionAttributes(
+		HashMap<String, Object> punchoutSessionAttributes) {
+
+		_punchoutSessionAttributes = punchoutSessionAttributes;
+	}
+
+	private HashMap<String, Object> _punchoutSessionAttributes = new HashMap<>();
+
 	private long _commerceAccountId;
 	private String _commerceOrderUuId;
 	private String _currencyCode;
 	private long _expiresIn;
 	private long _groupId;
 	private long _issuedAt;
-	private String _punchoutReturnURL;
 	private byte[] _token;
 	private String _userEmailAddress;
 

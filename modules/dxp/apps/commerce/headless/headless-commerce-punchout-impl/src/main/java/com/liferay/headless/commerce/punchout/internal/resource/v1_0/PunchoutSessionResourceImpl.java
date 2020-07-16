@@ -31,6 +31,8 @@ import com.liferay.headless.commerce.punchout.dto.v1_0.CartItem;
 import com.liferay.headless.commerce.punchout.dto.v1_0.Group;
 import com.liferay.headless.commerce.punchout.dto.v1_0.PunchoutSession;
 import com.liferay.headless.commerce.punchout.dto.v1_0.User;
+import com.liferay.headless.commerce.punchout.helper.PunchoutContext;
+import com.liferay.headless.commerce.punchout.helper.PunchoutSessionContributor;
 import com.liferay.headless.commerce.punchout.resource.v1_0.PunchoutSessionResource;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.NoSuchGroupException;
@@ -58,6 +60,7 @@ import com.liferay.punchout.commerce.oauth2.provider.model.PunchoutAccessToken;
 import java.net.URLEncoder;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -150,6 +153,8 @@ public class PunchoutSessionResourceImpl
 
 		String commerceOrderUuid = null;
 
+		CommerceOrder editCartCommerceOrder = null;
+
 		if (punchoutSessionType.equalsIgnoreCase(_EDIT_REQUEST_TYPE) ||
 			punchoutSessionType.equalsIgnoreCase(_INSPECT_REQUEST_TYPE)) {
 
@@ -166,21 +171,29 @@ public class PunchoutSessionResourceImpl
 
 			_mergeCartItems(punchoutSession.getCart(), buyerGroup.getGroupId());
 
-			CommerceOrder commerceOrder =
+			editCartCommerceOrder =
 				_commerceOrderLocalService.fetchCommerceOrder(cart.getId());
 
-			commerceOrderUuid = commerceOrder.getUuid();
+			commerceOrderUuid = editCartCommerceOrder.getUuid();
 		}
 
 		String punchoutStartURL = _getPunchoutStartURL(
 			commerceChannel.getGroupId());
+
+		PunchoutContext punchoutContext = new PunchoutContext(
+			businessCommerceAccount, buyerGroup, buyerLiferayUser,
+			commerceChannel, editCartCommerceOrder, punchoutSession);
+
+		HashMap<String, Object> punchoutSessionAttributes =
+			_punchoutSessionContributor.getPunchoutSessionAttributes(
+				punchoutContext);
 
 		PunchoutAccessToken punchoutAccessToken =
 			_punchoutAccessTokenProvider.generatePunchoutAccessToken(
 				buyerGroup.getGroupId(),
 				businessCommerceAccount.getCommerceAccountId(),
 				cart.getCurrencyCode(), buyerLiferayUser.getEmailAddress(),
-				punchoutSession.getPunchoutReturnURL(), commerceOrderUuid);
+				commerceOrderUuid, punchoutSessionAttributes);
 
 		byte[] token = punchoutAccessToken.getToken();
 
@@ -493,6 +506,9 @@ public class PunchoutSessionResourceImpl
 
 	@Reference
 	private PunchoutAccessTokenProvider _punchoutAccessTokenProvider;
+
+	@Reference
+	private PunchoutSessionContributor _punchoutSessionContributor;
 
 	@Reference
 	private RoleLocalService _roleLocalService;

@@ -36,10 +36,10 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.punchout.commerce.constants.PunchoutConstants;
 import com.liferay.punchout.commerce.oauth2.provider.model.PunchoutAccessToken;
 
 import java.util.Collections;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -174,9 +174,12 @@ public class PunchoutLoginPostAction extends Action {
 
 		HttpSession httpSession = httpServletRequest.getSession();
 
-		httpSession.setAttribute(
-			PunchoutConstants.PUNCHOUT_RETURN_URL_ATTRIBUTE_NAME,
-			punchoutAccessToken.getPunchoutReturnURL());
+		for (Map.Entry mapElement :
+			punchoutAccessToken.getPunchoutSessionAttributes().entrySet()) {
+
+			httpSession.setAttribute(
+				(String)mapElement.getKey(), mapElement.getValue());
+		}
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

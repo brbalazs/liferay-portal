@@ -27,6 +27,7 @@ import com.liferay.punchout.commerce.oauth2.provider.model.PunchoutAccessToken;
 import com.liferay.punchout.commerce.oauth2.provider.rest.internal.bearer.token.provider.configuration.PunchoutAccessTokenProviderConfiguration;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
@@ -50,12 +51,12 @@ public class PunchoutAccessTokenProviderImpl
 
 	public PunchoutAccessToken generatePunchoutAccessToken(
 		long groupId, long commerceAccountId, String currencyCode,
-		String userEmailAddress, String punchoutReturnURL,
-		String commerceOrderUuid) {
+		String userEmailAddress, String commerceOrderUuid,
+		HashMap<String, Object> punchoutSessionAttributes) {
 
 		PunchoutAccessToken punchoutAccessToken = _generatePunchoutAccessToken(
 			groupId, commerceAccountId, currencyCode, userEmailAddress,
-			punchoutReturnURL, commerceOrderUuid);
+			commerceOrderUuid, punchoutSessionAttributes);
 
 		if (!_clusterMasterExecutor.isEnabled() ||
 			_clusterMasterExecutor.isMaster()) {
@@ -177,8 +178,8 @@ public class PunchoutAccessTokenProviderImpl
 
 	private PunchoutAccessToken _generatePunchoutAccessToken(
 		long groupId, long commerceAccountId, String currencyCode,
-		String userEmailAddress, String punchoutReturnURL,
-		String commerceOrderUuid) {
+		String userEmailAddress, String commerceOrderUuid,
+		HashMap<String, Object> punchoutSessionAttributes) {
 
 		PunchoutAccessToken punchoutAccessToken = new PunchoutAccessToken();
 
@@ -207,7 +208,8 @@ public class PunchoutAccessTokenProviderImpl
 
 		punchoutAccessToken.setCommerceOrderUuid(commerceOrderUuid);
 
-		punchoutAccessToken.setPunchoutReturnURL(punchoutReturnURL);
+		punchoutAccessToken.setPunchoutSessionAttributes(
+			punchoutSessionAttributes);
 
 		return punchoutAccessToken;
 	}

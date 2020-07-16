@@ -12,24 +12,16 @@
  *
  */
 
-package com.liferay.punchout.commerce.oauth2.provider;
-
-import com.liferay.punchout.commerce.oauth2.provider.model.PunchoutAccessToken;
+package com.liferay.headless.commerce.punchout.helper;
 
 import java.util.HashMap;
 
 /**
  * @author Jaclyn Ong
  */
-public interface PunchoutAccessTokenProvider {
+public interface PunchoutSessionContributor {
 
-	public PunchoutAccessToken generatePunchoutAccessToken(
-		long groupId, long commerceAccountId, String currencyCode,
-		String userEmailAddress, String commerceOrderUuid,
-		HashMap<String, Object> punchoutSessionAttributes);
-
-	public PunchoutAccessToken getPunchoutAccessToken(String token);
-
-	public PunchoutAccessToken removePunchoutAccessToken(String token);
+	public HashMap<String, Object> getPunchoutSessionAttributes(
+		PunchoutContext punchoutContext);
 
 }
