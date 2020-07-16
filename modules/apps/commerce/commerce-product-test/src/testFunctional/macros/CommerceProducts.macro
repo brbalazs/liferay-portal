@@ -10,7 +10,7 @@ definition {
 			locator1 = "MenuItem#DROPDOWN_MENU_ITEM",
 			value1 = "${key_menuItem}");
 
-		if(!(isSet(productCatalog))) {
+		if (!(isSet(productCatalog))) {
 			var productCatalog = "Master";
 		}
 
