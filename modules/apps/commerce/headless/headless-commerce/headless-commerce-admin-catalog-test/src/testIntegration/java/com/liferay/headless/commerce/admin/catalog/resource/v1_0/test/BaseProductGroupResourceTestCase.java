@@ -502,6 +502,11 @@ public abstract class BaseProductGroupResourceTestCase {
 	}
 
 	@Test
+	public void testNullBatch() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testDeleteProductGroupByExternalReferenceCode()
 		throws Exception {
 
@@ -681,6 +686,22 @@ public abstract class BaseProductGroupResourceTestCase {
 
 			Assert.assertTrue(errorsJSONArray.length() > 0);
 		}
+	}
+
+	@Test
+	public void testNullBatch() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		ProductGroup productGroup = testNullBatch_addProductGroup();
+
+		assertHttpResponseStatusCode(
+			204,
+			productGroupResource.nullBatchHttpResponse(
+				productGroup.getId(), null, null));
+	}
+
+	protected ProductGroup testNullBatch_addProductGroup() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test

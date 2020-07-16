@@ -523,6 +523,11 @@ public abstract class BaseAccountAddressResourceTestCase {
 	}
 
 	@Test
+	public void testNullBatch() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testGetAccountByExternalReferenceCodeAccountAddressesPage()
 		throws Exception {
 

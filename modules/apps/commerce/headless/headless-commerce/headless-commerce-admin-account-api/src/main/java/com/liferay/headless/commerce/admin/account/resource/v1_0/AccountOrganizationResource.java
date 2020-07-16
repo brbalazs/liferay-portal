@@ -76,10 +76,6 @@ public interface AccountOrganizationResource {
 			Long id, AccountOrganization accountOrganization)
 		throws Exception;
 
-	public Response postAccountIdAccountOrganizationBatch(
-			Long id, String callbackURL, Object object)
-		throws Exception;
-
 	public Response deleteAccountIdAccountOrganization(
 			Long id, Long organizationId)
 		throws Exception;

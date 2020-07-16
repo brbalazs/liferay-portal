@@ -324,7 +324,7 @@ public abstract class BasePriceEntryResourceTestCase {
 
 		PriceEntry patchPriceEntry =
 			priceEntryResource.patchPriceEntryByExternalReferenceCode(
-				postPriceEntry.getExternalReferenceCode(), randomPatchPriceEntry);
+				postPriceEntry.getId(), randomPatchPriceEntry);
 
 		PriceEntry expectedPatchPriceEntry = postPriceEntry.clone();
 

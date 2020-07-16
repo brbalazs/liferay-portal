@@ -57,10 +57,9 @@ public interface ProductGroupResource {
 			ProductGroup productGroup)
 		throws Exception;
 
-	public void postProductGroupBatch(String callbackURL, Object object)
-		throws Exception;
+	public void nullBatch(String callbackURL, Object object) throws Exception;
 
-	public HttpInvoker.HttpResponse postProductGroupBatchHttpResponse(
+	public HttpInvoker.HttpResponse nullBatchHttpResponse(
 			String callbackURL, Object object)
 		throws Exception;
 
@@ -96,11 +95,10 @@ public interface ProductGroupResource {
 	public HttpInvoker.HttpResponse deleteProductGroupHttpResponse(Long id)
 		throws Exception;
 
-	public void deleteProductGroupBatch(
-			Long id, String callbackURL, Object object)
+	public void nullBatch(Long id, String callbackURL, Object object)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse deleteProductGroupBatchHttpResponse(
+	public HttpInvoker.HttpResponse nullBatchHttpResponse(
 			Long id, String callbackURL, Object object)
 		throws Exception;
 
@@ -321,11 +319,11 @@ public interface ProductGroupResource {
 			return httpInvoker.invoke();
 		}
 
-		public void postProductGroupBatch(String callbackURL, Object object)
+		public void nullBatch(String callbackURL, Object object)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse =
-				postProductGroupBatchHttpResponse(callbackURL, object);
+			HttpInvoker.HttpResponse httpResponse = nullBatchHttpResponse(
+				callbackURL, object);
 
 			String content = httpResponse.getContent();
 
@@ -336,7 +334,7 @@ public interface ProductGroupResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse postProductGroupBatchHttpResponse(
+		public HttpInvoker.HttpResponse nullBatchHttpResponse(
 				String callbackURL, Object object)
 			throws Exception {
 
@@ -628,12 +626,11 @@ public interface ProductGroupResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteProductGroupBatch(
-				Long id, String callbackURL, Object object)
+		public void nullBatch(Long id, String callbackURL, Object object)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse =
-				deleteProductGroupBatchHttpResponse(id, callbackURL, object);
+			HttpInvoker.HttpResponse httpResponse = nullBatchHttpResponse(
+				id, callbackURL, object);
 
 			String content = httpResponse.getContent();
 
@@ -644,7 +641,7 @@ public interface ProductGroupResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse deleteProductGroupBatchHttpResponse(
+		public HttpInvoker.HttpResponse nullBatchHttpResponse(
 				Long id, String callbackURL, Object object)
 			throws Exception {
 

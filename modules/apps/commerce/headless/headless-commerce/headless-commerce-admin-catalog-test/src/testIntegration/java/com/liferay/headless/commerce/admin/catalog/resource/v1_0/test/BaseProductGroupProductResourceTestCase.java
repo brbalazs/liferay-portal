@@ -266,6 +266,25 @@ public abstract class BaseProductGroupProductResourceTestCase {
 	}
 
 	@Test
+	public void testNullBatch() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		ProductGroupProduct productGroupProduct =
+			testNullBatch_addProductGroupProduct();
+
+		assertHttpResponseStatusCode(
+			204,
+			productGroupProductResource.nullBatchHttpResponse(
+				productGroupProduct.getId(), null, null));
+	}
+
+	protected ProductGroupProduct testNullBatch_addProductGroupProduct()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
 	public void testGetProductGroupByExternalReferenceCodeProductGroupProductsPage()
 		throws Exception {
 

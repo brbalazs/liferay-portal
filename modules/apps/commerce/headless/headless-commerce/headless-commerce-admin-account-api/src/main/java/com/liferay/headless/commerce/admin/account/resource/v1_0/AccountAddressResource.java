@@ -97,10 +97,6 @@ public interface AccountAddressResource {
 			Long id, AccountAddress accountAddress)
 		throws Exception;
 
-	public Response postAccountIdAccountAddressBatch(
-			Long id, String callbackURL, Object object)
-		throws Exception;
-
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

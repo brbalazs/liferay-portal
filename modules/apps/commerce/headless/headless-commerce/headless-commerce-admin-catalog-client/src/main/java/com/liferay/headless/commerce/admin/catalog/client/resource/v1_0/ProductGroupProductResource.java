@@ -46,11 +46,10 @@ public interface ProductGroupProductResource {
 			Long id)
 		throws Exception;
 
-	public void deleteProductGroupProductBatch(
-			Long id, String callbackURL, Object object)
+	public void nullBatch(Long id, String callbackURL, Object object)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse deleteProductGroupProductBatchHttpResponse(
+	public HttpInvoker.HttpResponse nullBatchHttpResponse(
 			Long id, String callbackURL, Object object)
 		throws Exception;
 
@@ -92,15 +91,6 @@ public interface ProductGroupProductResource {
 	public HttpInvoker.HttpResponse
 			postProductGroupIdProductGroupProductHttpResponse(
 				Long id, ProductGroupProduct productGroupProduct)
-		throws Exception;
-
-	public void postProductGroupIdProductGroupProductBatch(
-			Long id, String callbackURL, Object object)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			postProductGroupIdProductGroupProductBatchHttpResponse(
-				Long id, String callbackURL, Object object)
 		throws Exception;
 
 	public static class Builder {
@@ -220,13 +210,11 @@ public interface ProductGroupProductResource {
 			return httpInvoker.invoke();
 		}
 
-		public void deleteProductGroupProductBatch(
-				Long id, String callbackURL, Object object)
+		public void nullBatch(Long id, String callbackURL, Object object)
 			throws Exception {
 
-			HttpInvoker.HttpResponse httpResponse =
-				deleteProductGroupProductBatchHttpResponse(
-					id, callbackURL, object);
+			HttpInvoker.HttpResponse httpResponse = nullBatchHttpResponse(
+				id, callbackURL, object);
 
 			String content = httpResponse.getContent();
 
@@ -237,9 +225,8 @@ public interface ProductGroupProductResource {
 				"HTTP response status code: " + httpResponse.getStatusCode());
 		}
 
-		public HttpInvoker.HttpResponse
-				deleteProductGroupProductBatchHttpResponse(
-					Long id, String callbackURL, Object object)
+		public HttpInvoker.HttpResponse nullBatchHttpResponse(
+				Long id, String callbackURL, Object object)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -561,68 +548,6 @@ public interface ProductGroupProductResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/headless-commerce-admin-catalog/v1.0/product-groups/{id}/product-group-products",
-				id);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public void postProductGroupIdProductGroupProductBatch(
-				Long id, String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				postProductGroupIdProductGroupProductBatchHttpResponse(
-					id, callbackURL, object);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-		}
-
-		public HttpInvoker.HttpResponse
-				postProductGroupIdProductGroupProductBatchHttpResponse(
-					Long id, String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(object.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
-
-			if (callbackURL != null) {
-				httpInvoker.parameter(
-					"callbackURL", String.valueOf(callbackURL));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/headless-commerce-admin-catalog/v1.0/product-groups/product-group-products/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(

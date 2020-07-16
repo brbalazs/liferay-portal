@@ -129,14 +129,6 @@ public interface AttachmentResource {
 			Long id, Attachment attachment)
 		throws Exception;
 
-	public void postProductIdAttachmentBatch(
-			Long id, String callbackURL, Object object)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse postProductIdAttachmentBatchHttpResponse(
-			Long id, String callbackURL, Object object)
-		throws Exception;
-
 	public Attachment postProductIdAttachmentByBase64(
 			Long id, AttachmentBase64 attachmentBase64)
 		throws Exception;
@@ -925,68 +917,6 @@ public interface AttachmentResource {
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
 						"/o/headless-commerce-admin-catalog/v1.0/products/{id}/attachments",
-				id);
-
-			httpInvoker.userNameAndPassword(
-				_builder._login + ":" + _builder._password);
-
-			return httpInvoker.invoke();
-		}
-
-		public void postProductIdAttachmentBatch(
-				Long id, String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				postProductIdAttachmentBatchHttpResponse(
-					id, callbackURL, object);
-
-			String content = httpResponse.getContent();
-
-			_logger.fine("HTTP response content: " + content);
-
-			_logger.fine("HTTP response message: " + httpResponse.getMessage());
-			_logger.fine(
-				"HTTP response status code: " + httpResponse.getStatusCode());
-		}
-
-		public HttpInvoker.HttpResponse
-				postProductIdAttachmentBatchHttpResponse(
-					Long id, String callbackURL, Object object)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(object.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
-
-			if (callbackURL != null) {
-				httpInvoker.parameter(
-					"callbackURL", String.valueOf(callbackURL));
-			}
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port +
-						"/o/headless-commerce-admin-catalog/v1.0/products/{id}/attachments/batch",
 				id);
 
 			httpInvoker.userNameAndPassword(
