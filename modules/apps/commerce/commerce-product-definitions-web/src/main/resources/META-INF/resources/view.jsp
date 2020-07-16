@@ -43,7 +43,6 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 			apiUrl="/o/headless-commerce-admin-catalog/v1.0/products?nestedFields=skus,catalog"
 			clayCreationMenu="<%= cpDefinitionsDisplayContext.getClayCreationMenu() %>"
 			clayHeadlessDataSetActionTemplates="<%= cpDefinitionsDisplayContext.getClayHeadlessDataSetActionTemplates() %>"
-			dataProviderKey="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_ALL_PRODUCT_INSTANCES %>"
 			formId="fm"
 			id="<%= CommerceProductDataSetConstants.COMMERCE_DATA_SET_KEY_PRODUCT_DEFINITIONS %>"
 			itemsPerPage="<%= 10 %>"
