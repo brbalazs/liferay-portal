@@ -105,10 +105,6 @@ public abstract class CPOptionCategoryLocalServiceBaseImpl
 	/**
 	 * Adds the cp option category to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpOptionCategory the cp option category
 	 * @return the cp option category that was added
 	 */
@@ -137,10 +133,6 @@ public abstract class CPOptionCategoryLocalServiceBaseImpl
 	/**
 	 * Deletes the cp option category with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param CPOptionCategoryId the primary key of the cp option category
 	 * @return the cp option category that was removed
 	 * @throws PortalException if a cp option category with the primary key could not be found
@@ -155,10 +147,6 @@ public abstract class CPOptionCategoryLocalServiceBaseImpl
 
 	/**
 	 * Deletes the cp option category from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpOptionCategory the cp option category
 	 * @return the cp option category that was removed
@@ -475,10 +463,6 @@ public abstract class CPOptionCategoryLocalServiceBaseImpl
 
 	/**
 	 * Updates the cp option category in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpOptionCategory the cp option category
 	 * @return the cp option category that was updated
@@ -1013,6 +997,7 @@ public abstract class CPOptionCategoryLocalServiceBaseImpl
 	 *
 	 * @return the cp friendly url entry local service
 	 */
+	@SuppressWarnings("deprecation")
 	public com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 		getCPFriendlyURLEntryLocalService() {
 
@@ -1024,6 +1009,7 @@ public abstract class CPOptionCategoryLocalServiceBaseImpl
 	 *
 	 * @param cpFriendlyURLEntryLocalService the cp friendly url entry local service
 	 */
+	@SuppressWarnings("deprecation")
 	public void setCPFriendlyURLEntryLocalService(
 		com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 			cpFriendlyURLEntryLocalService) {
@@ -1799,6 +1785,7 @@ public abstract class CPOptionCategoryLocalServiceBaseImpl
 	@BeanReference(
 		type = com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService.class
 	)
+	@SuppressWarnings("deprecation")
 	protected
 		com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 			cpFriendlyURLEntryLocalService;

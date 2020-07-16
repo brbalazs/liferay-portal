@@ -100,10 +100,6 @@ public abstract class CommerceChannelLocalServiceBaseImpl
 	/**
 	 * Adds the commerce channel to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commerceChannel the commerce channel
 	 * @return the commerce channel that was added
 	 */
@@ -130,10 +126,6 @@ public abstract class CommerceChannelLocalServiceBaseImpl
 	/**
 	 * Deletes the commerce channel with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commerceChannelId the primary key of the commerce channel
 	 * @return the commerce channel that was removed
 	 * @throws PortalException if a commerce channel with the primary key could not be found
@@ -148,10 +140,6 @@ public abstract class CommerceChannelLocalServiceBaseImpl
 
 	/**
 	 * Deletes the commerce channel from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commerceChannel the commerce channel
 	 * @return the commerce channel that was removed
@@ -382,10 +370,6 @@ public abstract class CommerceChannelLocalServiceBaseImpl
 
 	/**
 	 * Updates the commerce channel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commerceChannel the commerce channel
 	 * @return the commerce channel that was updated
@@ -917,6 +901,7 @@ public abstract class CommerceChannelLocalServiceBaseImpl
 	 *
 	 * @return the cp friendly url entry local service
 	 */
+	@SuppressWarnings("deprecation")
 	public com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 		getCPFriendlyURLEntryLocalService() {
 
@@ -928,6 +913,7 @@ public abstract class CommerceChannelLocalServiceBaseImpl
 	 *
 	 * @param cpFriendlyURLEntryLocalService the cp friendly url entry local service
 	 */
+	@SuppressWarnings("deprecation")
 	public void setCPFriendlyURLEntryLocalService(
 		com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 			cpFriendlyURLEntryLocalService) {
@@ -1743,6 +1729,7 @@ public abstract class CommerceChannelLocalServiceBaseImpl
 	@BeanReference(
 		type = com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService.class
 	)
+	@SuppressWarnings("deprecation")
 	protected
 		com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 			cpFriendlyURLEntryLocalService;

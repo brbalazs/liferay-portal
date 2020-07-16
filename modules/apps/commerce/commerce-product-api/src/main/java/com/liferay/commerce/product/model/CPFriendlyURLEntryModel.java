@@ -39,8 +39,11 @@ import java.util.Date;
  *
  * @author Marco Leo
  * @see CPFriendlyURLEntry
+ * @deprecated As of (7.1.x), replaced by {@link
+ com.liferay.friendly.url.model.impl.FriendlyURLEntryImpl}
  * @generated
  */
+@Deprecated
 @ProviderType
 public interface CPFriendlyURLEntryModel
 	extends AttachedModel, BaseModel<CPFriendlyURLEntry>, GroupedModel,

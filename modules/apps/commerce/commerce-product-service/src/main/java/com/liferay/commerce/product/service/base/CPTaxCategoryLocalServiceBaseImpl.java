@@ -99,10 +99,6 @@ public abstract class CPTaxCategoryLocalServiceBaseImpl
 	/**
 	 * Adds the cp tax category to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPTaxCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpTaxCategory the cp tax category
 	 * @return the cp tax category that was added
 	 */
@@ -129,10 +125,6 @@ public abstract class CPTaxCategoryLocalServiceBaseImpl
 	/**
 	 * Deletes the cp tax category with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPTaxCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param CPTaxCategoryId the primary key of the cp tax category
 	 * @return the cp tax category that was removed
 	 * @throws PortalException if a cp tax category with the primary key could not be found
@@ -147,10 +139,6 @@ public abstract class CPTaxCategoryLocalServiceBaseImpl
 
 	/**
 	 * Deletes the cp tax category from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPTaxCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpTaxCategory the cp tax category
 	 * @return the cp tax category that was removed
@@ -365,10 +353,6 @@ public abstract class CPTaxCategoryLocalServiceBaseImpl
 
 	/**
 	 * Updates the cp tax category in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPTaxCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpTaxCategory the cp tax category
 	 * @return the cp tax category that was updated
@@ -901,6 +885,7 @@ public abstract class CPTaxCategoryLocalServiceBaseImpl
 	 *
 	 * @return the cp friendly url entry local service
 	 */
+	@SuppressWarnings("deprecation")
 	public com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 		getCPFriendlyURLEntryLocalService() {
 
@@ -912,6 +897,7 @@ public abstract class CPTaxCategoryLocalServiceBaseImpl
 	 *
 	 * @param cpFriendlyURLEntryLocalService the cp friendly url entry local service
 	 */
+	@SuppressWarnings("deprecation")
 	public void setCPFriendlyURLEntryLocalService(
 		com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 			cpFriendlyURLEntryLocalService) {
@@ -1687,6 +1673,7 @@ public abstract class CPTaxCategoryLocalServiceBaseImpl
 	@BeanReference(
 		type = com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService.class
 	)
+	@SuppressWarnings("deprecation")
 	protected
 		com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 			cpFriendlyURLEntryLocalService;

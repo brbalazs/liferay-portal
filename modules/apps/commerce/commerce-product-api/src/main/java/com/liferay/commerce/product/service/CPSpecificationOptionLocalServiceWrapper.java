@@ -36,10 +36,6 @@ public class CPSpecificationOptionLocalServiceWrapper
 	/**
 	 * Adds the cp specification option to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPSpecificationOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpSpecificationOption the cp specification option
 	 * @return the cp specification option that was added
 	 */
@@ -85,10 +81,6 @@ public class CPSpecificationOptionLocalServiceWrapper
 	/**
 	 * Deletes the cp specification option from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPSpecificationOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpSpecificationOption the cp specification option
 	 * @return the cp specification option that was removed
 	 * @throws PortalException
@@ -106,10 +98,6 @@ public class CPSpecificationOptionLocalServiceWrapper
 
 	/**
 	 * Deletes the cp specification option with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPSpecificationOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param CPSpecificationOptionId the primary key of the cp specification option
 	 * @return the cp specification option that was removed
@@ -414,10 +402,6 @@ public class CPSpecificationOptionLocalServiceWrapper
 
 	/**
 	 * Updates the cp specification option in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPSpecificationOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpSpecificationOption the cp specification option
 	 * @return the cp specification option that was updated

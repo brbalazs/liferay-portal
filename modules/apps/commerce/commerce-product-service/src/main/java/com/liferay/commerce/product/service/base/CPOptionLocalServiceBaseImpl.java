@@ -106,10 +106,6 @@ public abstract class CPOptionLocalServiceBaseImpl
 	/**
 	 * Adds the cp option to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpOption the cp option
 	 * @return the cp option that was added
 	 */
@@ -136,10 +132,6 @@ public abstract class CPOptionLocalServiceBaseImpl
 	/**
 	 * Deletes the cp option with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param CPOptionId the primary key of the cp option
 	 * @return the cp option that was removed
 	 * @throws PortalException if a cp option with the primary key could not be found
@@ -152,10 +144,6 @@ public abstract class CPOptionLocalServiceBaseImpl
 
 	/**
 	 * Deletes the cp option from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpOption the cp option
 	 * @return the cp option that was removed
@@ -474,10 +462,6 @@ public abstract class CPOptionLocalServiceBaseImpl
 
 	/**
 	 * Updates the cp option in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpOption the cp option
 	 * @return the cp option that was updated
@@ -1010,6 +994,7 @@ public abstract class CPOptionLocalServiceBaseImpl
 	 *
 	 * @return the cp friendly url entry local service
 	 */
+	@SuppressWarnings("deprecation")
 	public com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 		getCPFriendlyURLEntryLocalService() {
 
@@ -1021,6 +1006,7 @@ public abstract class CPOptionLocalServiceBaseImpl
 	 *
 	 * @param cpFriendlyURLEntryLocalService the cp friendly url entry local service
 	 */
+	@SuppressWarnings("deprecation")
 	public void setCPFriendlyURLEntryLocalService(
 		com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 			cpFriendlyURLEntryLocalService) {
@@ -1839,6 +1825,7 @@ public abstract class CPOptionLocalServiceBaseImpl
 	@BeanReference(
 		type = com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService.class
 	)
+	@SuppressWarnings("deprecation")
 	protected
 		com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 			cpFriendlyURLEntryLocalService;

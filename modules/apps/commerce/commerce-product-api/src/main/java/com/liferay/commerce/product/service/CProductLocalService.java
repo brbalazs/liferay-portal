@@ -69,10 +69,6 @@ public interface CProductLocalService
 	/**
 	 * Adds the c product to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CProductLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cProduct the c product
 	 * @return the c product that was added
 	 */
@@ -96,10 +92,6 @@ public interface CProductLocalService
 	/**
 	 * Deletes the c product from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CProductLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cProduct the c product
 	 * @return the c product that was removed
 	 * @throws PortalException
@@ -110,10 +102,6 @@ public interface CProductLocalService
 
 	/**
 	 * Deletes the c product with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CProductLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param CProductId the primary key of the c product
 	 * @return the c product that was removed
@@ -322,10 +310,6 @@ public interface CProductLocalService
 
 	/**
 	 * Updates the c product in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CProductLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cProduct the c product
 	 * @return the c product that was updated

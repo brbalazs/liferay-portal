@@ -25,8 +25,11 @@ import com.liferay.portal.kernel.util.Accessor;
  *
  * @author Marco Leo
  * @see CPFriendlyURLEntryModel
+ * @deprecated As of (7.1.x), replaced by {@link
+ com.liferay.friendly.url.model.impl.FriendlyURLEntryImpl}
  * @generated
  */
+@Deprecated
 @ImplementationClassName(
 	"com.liferay.commerce.product.model.impl.CPFriendlyURLEntryImpl"
 )

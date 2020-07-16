@@ -73,10 +73,6 @@ public interface CPOptionLocalService
 	/**
 	 * Adds the cp option to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpOption the cp option
 	 * @return the cp option that was added
 	 */
@@ -104,10 +100,6 @@ public interface CPOptionLocalService
 	/**
 	 * Deletes the cp option from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpOption the cp option
 	 * @return the cp option that was removed
 	 * @throws PortalException
@@ -118,10 +110,6 @@ public interface CPOptionLocalService
 
 	/**
 	 * Deletes the cp option with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param CPOptionId the primary key of the cp option
 	 * @return the cp option that was removed
@@ -325,10 +313,6 @@ public interface CPOptionLocalService
 
 	/**
 	 * Updates the cp option in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpOption the cp option
 	 * @return the cp option that was updated

@@ -36,10 +36,6 @@ public class CommerceChannelRelLocalServiceWrapper
 	/**
 	 * Adds the commerce channel rel to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceChannelRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commerceChannelRel the commerce channel rel
 	 * @return the commerce channel rel that was added
 	 */
@@ -81,10 +77,6 @@ public class CommerceChannelRelLocalServiceWrapper
 	/**
 	 * Deletes the commerce channel rel from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceChannelRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commerceChannelRel the commerce channel rel
 	 * @return the commerce channel rel that was removed
 	 */
@@ -100,10 +92,6 @@ public class CommerceChannelRelLocalServiceWrapper
 
 	/**
 	 * Deletes the commerce channel rel with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceChannelRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commerceChannelRelId the primary key of the commerce channel rel
 	 * @return the commerce channel rel that was removed
@@ -369,10 +357,6 @@ public class CommerceChannelRelLocalServiceWrapper
 
 	/**
 	 * Updates the commerce channel rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceChannelRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commerceChannelRel the commerce channel rel
 	 * @return the commerce channel rel that was updated

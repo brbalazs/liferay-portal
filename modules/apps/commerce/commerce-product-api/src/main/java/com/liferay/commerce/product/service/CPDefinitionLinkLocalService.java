@@ -67,10 +67,6 @@ public interface CPDefinitionLinkLocalService
 	/**
 	 * Adds the cp definition link to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPDefinitionLinkLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpDefinitionLink the cp definition link
 	 * @return the cp definition link that was added
 	 */
@@ -104,10 +100,6 @@ public interface CPDefinitionLinkLocalService
 	/**
 	 * Deletes the cp definition link from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPDefinitionLinkLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpDefinitionLink the cp definition link
 	 * @return the cp definition link that was removed
 	 * @throws PortalException
@@ -119,10 +111,6 @@ public interface CPDefinitionLinkLocalService
 
 	/**
 	 * Deletes the cp definition link with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPDefinitionLinkLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param CPDefinitionLinkId the primary key of the cp definition link
 	 * @return the cp definition link that was removed
@@ -357,10 +345,6 @@ public interface CPDefinitionLinkLocalService
 
 	/**
 	 * Updates the cp definition link in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPDefinitionLinkLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpDefinitionLink the cp definition link
 	 * @return the cp definition link that was updated

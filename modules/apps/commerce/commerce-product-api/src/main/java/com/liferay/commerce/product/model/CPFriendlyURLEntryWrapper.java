@@ -33,8 +33,11 @@ import java.util.Objects;
  *
  * @author Marco Leo
  * @see CPFriendlyURLEntry
+ * @deprecated As of (7.1.x), replaced by {@link
+ com.liferay.friendly.url.model.impl.FriendlyURLEntryImpl}
  * @generated
  */
+@Deprecated
 public class CPFriendlyURLEntryWrapper
 	implements CPFriendlyURLEntry, ModelWrapper<CPFriendlyURLEntry> {
 

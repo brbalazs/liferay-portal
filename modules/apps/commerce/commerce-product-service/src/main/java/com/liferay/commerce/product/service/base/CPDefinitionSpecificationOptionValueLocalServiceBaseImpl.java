@@ -107,10 +107,6 @@ public abstract class CPDefinitionSpecificationOptionValueLocalServiceBaseImpl
 	/**
 	 * Adds the cp definition specification option value to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPDefinitionSpecificationOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpDefinitionSpecificationOptionValue the cp definition specification option value
 	 * @return the cp definition specification option value that was added
 	 */
@@ -146,10 +142,6 @@ public abstract class CPDefinitionSpecificationOptionValueLocalServiceBaseImpl
 	/**
 	 * Deletes the cp definition specification option value with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPDefinitionSpecificationOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param CPDefinitionSpecificationOptionValueId the primary key of the cp definition specification option value
 	 * @return the cp definition specification option value that was removed
 	 * @throws PortalException if a cp definition specification option value with the primary key could not be found
@@ -167,10 +159,6 @@ public abstract class CPDefinitionSpecificationOptionValueLocalServiceBaseImpl
 
 	/**
 	 * Deletes the cp definition specification option value from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPDefinitionSpecificationOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpDefinitionSpecificationOptionValue the cp definition specification option value
 	 * @return the cp definition specification option value that was removed
@@ -557,10 +545,6 @@ public abstract class CPDefinitionSpecificationOptionValueLocalServiceBaseImpl
 
 	/**
 	 * Updates the cp definition specification option value in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPDefinitionSpecificationOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpDefinitionSpecificationOptionValue the cp definition specification option value
 	 * @return the cp definition specification option value that was updated
@@ -1096,6 +1080,7 @@ public abstract class CPDefinitionSpecificationOptionValueLocalServiceBaseImpl
 	 *
 	 * @return the cp friendly url entry local service
 	 */
+	@SuppressWarnings("deprecation")
 	public com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 		getCPFriendlyURLEntryLocalService() {
 
@@ -1107,6 +1092,7 @@ public abstract class CPDefinitionSpecificationOptionValueLocalServiceBaseImpl
 	 *
 	 * @param cpFriendlyURLEntryLocalService the cp friendly url entry local service
 	 */
+	@SuppressWarnings("deprecation")
 	public void setCPFriendlyURLEntryLocalService(
 		com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 			cpFriendlyURLEntryLocalService) {
@@ -1928,6 +1914,7 @@ public abstract class CPDefinitionSpecificationOptionValueLocalServiceBaseImpl
 	@BeanReference(
 		type = com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService.class
 	)
+	@SuppressWarnings("deprecation")
 	protected
 		com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 			cpFriendlyURLEntryLocalService;

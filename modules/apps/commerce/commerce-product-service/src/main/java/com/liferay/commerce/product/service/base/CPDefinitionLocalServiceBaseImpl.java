@@ -123,10 +123,6 @@ public abstract class CPDefinitionLocalServiceBaseImpl
 	/**
 	 * Adds the cp definition to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpDefinition the cp definition
 	 * @return the cp definition that was added
 	 */
@@ -153,10 +149,6 @@ public abstract class CPDefinitionLocalServiceBaseImpl
 	/**
 	 * Deletes the cp definition with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param CPDefinitionId the primary key of the cp definition
 	 * @return the cp definition that was removed
 	 * @throws PortalException if a cp definition with the primary key could not be found
@@ -171,10 +163,6 @@ public abstract class CPDefinitionLocalServiceBaseImpl
 
 	/**
 	 * Deletes the cp definition from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpDefinition the cp definition
 	 * @return the cp definition that was removed
@@ -579,10 +567,6 @@ public abstract class CPDefinitionLocalServiceBaseImpl
 
 	/**
 	 * Updates the cp definition in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpDefinition the cp definition
 	 * @return the cp definition that was updated
@@ -1359,6 +1343,7 @@ public abstract class CPDefinitionLocalServiceBaseImpl
 	 *
 	 * @return the cp friendly url entry local service
 	 */
+	@SuppressWarnings("deprecation")
 	public com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 		getCPFriendlyURLEntryLocalService() {
 
@@ -1370,6 +1355,7 @@ public abstract class CPDefinitionLocalServiceBaseImpl
 	 *
 	 * @param cpFriendlyURLEntryLocalService the cp friendly url entry local service
 	 */
+	@SuppressWarnings("deprecation")
 	public void setCPFriendlyURLEntryLocalService(
 		com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 			cpFriendlyURLEntryLocalService) {
@@ -2360,6 +2346,7 @@ public abstract class CPDefinitionLocalServiceBaseImpl
 	@BeanReference(
 		type = com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService.class
 	)
+	@SuppressWarnings("deprecation")
 	protected
 		com.liferay.commerce.product.service.CPFriendlyURLEntryLocalService
 			cpFriendlyURLEntryLocalService;
