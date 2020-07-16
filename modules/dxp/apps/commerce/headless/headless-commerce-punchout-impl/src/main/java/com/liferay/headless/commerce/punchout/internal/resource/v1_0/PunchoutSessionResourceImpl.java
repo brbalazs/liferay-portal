@@ -203,6 +203,10 @@ public class PunchoutSessionResourceImpl
 			StringPool.QUESTION + _PUNCHOUT_ACCESS_TOKEN_PARAMETER +
 				URLEncoder.encode(tokenString, "UTF-8");
 
+		cart.setChannelId(commerceChannel.getCommerceChannelId());
+
+		punchoutSession.setCart(cart);
+
 		punchoutSession.setPunchoutStartURL(punchoutStartURL);
 
 		return punchoutSession;
