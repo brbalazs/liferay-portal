@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -148,12 +149,9 @@ public class ContentFieldUtil {
 					DDMFormFieldType.DOCUMENT_LIBRARY,
 					ddmFormField.getType())) {
 
-			JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-				valueString);
+			FileEntry fileEntry = _getFileEntry(dlAppService, valueString);
 
-			long classPK = jsonObject.getLong("classPK");
-
-			if (classPK == 0) {
+			if (fileEntry == null) {
 				return new ContentFieldValue();
 			}
 
@@ -271,6 +269,28 @@ public class ContentFieldUtil {
 				data = valueString;
 			}
 		};
+	}
+
+	private static FileEntry _getFileEntry(
+			DLAppService dlAppService, String valueString)
+		throws Exception {
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(valueString);
+
+		long classPK = jsonObject.getLong("classPK");
+
+		if (classPK != 0) {
+			return dlAppService.getFileEntry(classPK);
+		}
+
+		long groupId = jsonObject.getLong("groupId");
+
+		if (groupId == 0) {
+			return null;
+		}
+
+		return dlAppService.getFileEntryByUuidAndGroupId(
+			jsonObject.getString("uuid"), groupId);
 	}
 
 	private static ContentFieldValue _toContentFieldValue(
