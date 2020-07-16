@@ -97,17 +97,7 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 		%>
 
 		<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
-			autocomplete.default('autocomplete', 'autocomplete-root', {
-				apiUrl:
-					'/o/headless-commerce-admin-catalog/v1.0/skus?filter=hasChildCPDefinitions eq false',
-				initialLabel: '<%= cpInstanceLabel %>',
-				initialValue: '<%= cpInstanceId %>',
-				inputId: 'skuId',
-				inputName: '<%= renderResponse.getNamespace() %>cpInstanceId',
-				itemsKey: 'id',
-				itemsLabel: 'sku'
-			});
-
+			var deleteButton = document.getElementById('remove-sku-button');
 			var quantityInput = document.getElementById(
 				'<%= renderResponse.getNamespace() %>quantity'
 			);
@@ -116,15 +106,23 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 				quantityInput.value = 1;
 			}
 
-			Liferay.on(events.AUTOCOMPLETE_VALUE_UPDATED, function(e) {
-				var deleteButton = document.getElementById('remove-sku-button');
-
-				if (e.value) {
-					quantityInput.disabled = false;
-					deleteButton.disabled = false;
-				} else {
-					quantityInput.disabled = true;
-					deleteButton.disabled = true;
+			autocomplete.default('autocomplete', 'autocomplete-root', {
+				apiUrl:
+					'/o/headless-commerce-admin-catalog/v1.0/skus?filter=hasChildCPDefinitions eq false',
+				initialLabel: '<%= cpInstanceLabel %>',
+				initialValue: '<%= cpInstanceId %>',
+				inputId: 'skuId',
+				inputName: '<%= renderResponse.getNamespace() %>cpInstanceId',
+				itemsKey: 'id',
+				itemsLabel: 'sku',
+				onValueUpdated: function(value) {
+					if (value) {
+						quantityInput.disabled = false;
+						deleteButton.disabled = false;
+					} else {
+						quantityInput.disabled = true;
+						deleteButton.disabled = true;
+					}
 				}
 			});
 

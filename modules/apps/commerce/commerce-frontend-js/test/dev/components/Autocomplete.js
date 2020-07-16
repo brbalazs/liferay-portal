@@ -23,5 +23,21 @@ launcher('autocomplete', 'autocomplete-root', {
 	initialValue: 'initial-value',
 	inputName: 'test-name',
 	itemsKey: 'productId',
-	itemsLabel: 'externalReferenceCode'
+	itemsLabel: 'externalReferenceCode',
+	onUpdate: (value, itemData) =>
+		console.log(`Value: ${value}`, `Data: ${JSON.stringify(itemData)}`)
+});
+
+launcher('autocomplete-2', 'autocomplete-root-2', {
+	apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products/',
+	autofill: true,
+	fetchDataDebounce: 1000,
+	id: 'autocomplete-2',
+	initialLabel: 'Initial Label',
+	initialValue: 'initial-value',
+	inputName: 'test-name',
+	itemsKey: 'productId',
+	itemsLabel: 'externalReferenceCode',
+	onUpdate: (value, itemData) =>
+		console.log(`Value: ${value}`, `Data: ${JSON.stringify(itemData)}`)
 });

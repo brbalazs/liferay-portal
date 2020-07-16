@@ -46,8 +46,6 @@ CPDefinition cpDefinition = cpDefinitionsDisplayContext.getCPDefinition();
 			productType: '<%= cpDefinition.getProductTypeName() %>'
 		}
 
-		const AdminCatalogResource = ServiceProvider.default.AdminCatalogAPI('v1');
-
 		Liferay.provide(
 			window,
 			'<portlet:namespace/>apiSubmit',
@@ -128,19 +126,16 @@ CPDefinition cpDefinition = cpDefinitionsDisplayContext.getCPDefinition();
 			inputName: '<%= renderResponse.getNamespace() %>catalogId',
 			itemsKey: 'id',
 			itemsLabel: 'name',
-			required: true
-		});
-
-		Liferay.on(events.AUTOCOMPLETE_VALUE_UPDATED, function(e) {
-			if (e.value) {
-				AdminCatalogResource.getCatalogById(e.value).then(function(catalog) {
-					<portlet:namespace/>product.catalogId = catalog.id;
+			onValueUpdated: function(value, catalogData) {
+				if (value) {
+					<portlet:namespace/>product.catalogId = catalogData.id;
 
 					<portlet:namespace/>product.name[
-						catalog.defaultLanguageId
+						catalogData.defaultLanguageId
 					] = document.getElementById('<portlet:namespace/>name').value;
-				});
-			}
+				}
+			},
+			required: true
 		});
 	</aui:script>
 </commerce-ui:modal-content>

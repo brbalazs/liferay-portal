@@ -72,19 +72,16 @@
 			inputName: '<%= renderResponse.getNamespace() %>catalogId',
 			itemsKey: 'id',
 			itemsLabel: 'name',
-			required: true
-		});
-
-		Liferay.on(events.AUTOCOMPLETE_VALUE_UPDATED, function(e) {
-			if (e.value) {
-				AdminCatalogResource.getCatalogById(e.value).then(function(catalog) {
-					<portlet:namespace/>productData.catalogId = catalog.id;
+			onValueUpdated: function(value, catalogData) {
+				if (value) {
+					<portlet:namespace/>productData.catalogId = catalogData.id;
 
 					<portlet:namespace/>productData.name[
-						catalog.defaultLanguageId
-					] = document.getElementById('<portlet:namespace />name').value;
-				});
-			}
+						catalogData.defaultLanguageId
+					] = document.getElementById('<portlet:namespace/>name').value;
+				}
+			},
+			required: true
 		});
 	</aui:script>
 </commerce-ui:modal-content>

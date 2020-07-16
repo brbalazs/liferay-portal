@@ -28,7 +28,8 @@ function _fetch(url, options = {}) {
 	return fetch(url, {...BASE_OPTIONS, ...options})
 		.then(response => {
 			if (!response.ok) {
-				return response.json()
+				return response
+					.json()
 					.catch(parseError => Promise.reject(new Error(parseError)))
 					.then(reason => Promise.reject(reason));
 			}
