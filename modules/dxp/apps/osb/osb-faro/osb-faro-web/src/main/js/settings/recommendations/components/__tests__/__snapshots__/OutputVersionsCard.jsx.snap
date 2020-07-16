@@ -70,7 +70,7 @@ exports[`OutputVersionsCard should render 1`] = `
                 <h4
                   class="table-title text-truncate"
                 >
-                  -
+                  Apr 24, 2020
                 </h4>
               </td>
               <td
@@ -106,7 +106,7 @@ exports[`OutputVersionsCard should render 1`] = `
                 <h4
                   class="table-title text-truncate"
                 >
-                  -
+                  Apr 24, 2020
                 </h4>
               </td>
               <td
@@ -142,7 +142,7 @@ exports[`OutputVersionsCard should render 1`] = `
                 <h4
                   class="table-title text-truncate"
                 >
-                  -
+                  Apr 24, 2020
                 </h4>
               </td>
               <td
@@ -178,7 +178,7 @@ exports[`OutputVersionsCard should render 1`] = `
                 <h4
                   class="table-title text-truncate"
                 >
-                  -
+                  Apr 24, 2020
                 </h4>
               </td>
               <td
