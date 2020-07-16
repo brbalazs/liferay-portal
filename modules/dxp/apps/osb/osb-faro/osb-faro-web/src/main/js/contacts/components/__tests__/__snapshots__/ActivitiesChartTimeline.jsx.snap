@@ -5,75 +5,25 @@ exports[`ActivitiesChartTimeline should render 1`] = `
   className="activities-chart-timeline-root"
   noPadding={true}
 >
-  <Chart
-    alwaysShowSelectedTooltip={true}
-    axisRotated={false}
-    axisX={
+  <ActivitiesChart
+    forwardedRef={
       Object {
-        "tick": Object {
-          "centered": false,
-          "format": [Function],
-          "multiline": true,
-          "outer": false,
-        },
+        "current": null,
       }
     }
-    axisY={
-      Object {
-        "max": 10,
-        "min": 0,
-        "padding": Object {
-          "bottom": 0,
-        },
-      }
-    }
-    bar={
-      Object {
-        "width": Object {
-          "ratio": 0.9,
-        },
-      }
-    }
-    chartType="bar"
-    className="activities-timeline-chart"
-    data={
+    history={
       Array [
         Object {
-          "axis": "y",
-          "data": Array [
-            1,
-            2,
-          ],
-          "id": "activities",
-          "name": "Activity Count",
-          "type": "bar",
+          "intervalInitDate": 1531177266366,
+          "totalElements": 1,
         },
         Object {
-          "data": Array [
-            1531177266366,
-            1531263666366,
-          ],
-          "id": "date",
-          "name": "Date",
+          "intervalInitDate": 1531263666366,
+          "totalElements": 2,
         },
       ]
     }
-    dataId="activities"
-    height={328}
-    id="activity"
-    legend={Object {}}
-    line={Object {}}
     onPointSelect={[Function]}
-    otherData={Object {}}
-    point={Object {}}
-    tooltip={
-      Object {
-        "contents": [Function],
-      }
-    }
-    unloadBeforeLoad={true}
-    x="date"
-    yLabel="Activities"
   />
   <div
     className="selected-info"

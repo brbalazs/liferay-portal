@@ -103,8 +103,13 @@ exports[`ActivitiesCard should render w/o loading 1`] = `
       axisX={
         Object {
           "tick": Object {
+            "centered": false,
             "format": [Function],
+            "values": Array [
+              2018-07-15T00:00:00.000Z,
+            ],
           },
+          "type": "timeseries",
         }
       }
       axisY={

@@ -1,34 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EngagementChart should render 1`] = `
-Array [
-  <div
-    class="chart-root engagement-chart-root"
-  >
-    <div
-      class="chart-labels"
-    >
-      <span>
-        Engagement
-      </span>
-      <span />
-    </div>
-    <div />
-  </div>,
-  <div
-    class="chart-legend"
-    id="legend-engagement"
-  />,
-]
-`;
-
 exports[`EngagementWithList should render 1`] = `
 <Body
   className="engagement-chart-list-root"
   noPadding={true}
 >
   <EngagementChart
-    data={
+    forwardedRef={
+      Object {
+        "current": null,
+      }
+    }
+    history={
       Array [
         Object {
           "intervalInitDate": 1531177266366,
@@ -40,13 +23,9 @@ exports[`EngagementWithList should render 1`] = `
         },
       ]
     }
+    onAfterInit={[Function]}
     onPointSelect={[MockFunction]}
-    tooltipLabels={
-      Object {
-        "scoreLabel": "Segment Engagement",
-        "subtitleLabel": "subtitle label",
-      }
-    }
+    tooltipRenderRows={[Function]}
   />
   <SelectedPointInfo
     data={

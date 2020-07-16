@@ -18,7 +18,7 @@ exports[`IndividualProfileCard should render 1`] = `
           <span
             class="title"
           >
-            Account Activities
+            Activities
           </span>
           <div>
             <span>

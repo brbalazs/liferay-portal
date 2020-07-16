@@ -18,7 +18,7 @@ exports[`Activities should render 1`] = `
           <span
             class="title"
           >
-            Account Activities
+            Activities
           </span>
           <div>
             <span>
@@ -87,24 +87,11 @@ exports[`Activities should render 1`] = `
                   </span>
                 </div>
               </span>
-              <div
-                class="analytics-trend"
-                style="color: rgb(218, 20, 20);"
+              <span
+                class="text-secondary"
               >
-                <svg
-                  class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                  viewBox=""
-                >
-                  <use
-                    xlink:href="#caret-bottom"
-                  />
-                </svg>
-                <span
-                  class="analytics-trend-percent mb-0"
-                >
-                  0.2%
-                </span>
-              </div>
+                Avg. Member Score
+              </span>
             </span>
           </div>
         </a>
@@ -436,7 +423,7 @@ exports[`Activities should render with Engagement tab as active 1`] = `
           <span
             class="title"
           >
-            Account Activities
+            Activities
           </span>
           <div>
             <span>
@@ -505,24 +492,11 @@ exports[`Activities should render with Engagement tab as active 1`] = `
                   </span>
                 </div>
               </span>
-              <div
-                class="analytics-trend"
-                style="color: rgb(218, 20, 20);"
+              <span
+                class="text-secondary"
               >
-                <svg
-                  class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                  viewBox=""
-                >
-                  <use
-                    xlink:href="#caret-bottom"
-                  />
-                </svg>
-                <span
-                  class="analytics-trend-percent mb-0"
-                >
-                  0.2%
-                </span>
-              </div>
+                Avg. Member Score
+              </span>
             </span>
           </div>
         </a>
@@ -544,10 +518,6 @@ exports[`Activities should render with Engagement tab as active 1`] = `
         </div>
         <div />
       </div>
-      <div
-        class="chart-legend"
-        id="legend-engagement"
-      />
       <div
         class="selected-point-info"
       >
