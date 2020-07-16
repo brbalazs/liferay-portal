@@ -17,11 +17,13 @@ package com.liferay.commerce.frontend.internal.clay.data.set;
 import com.liferay.commerce.frontend.clay.data.set.ClayAutocompleteDataSetFilter;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetFilter;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetFilterContextContributor;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -39,20 +41,28 @@ public class ClayAutocompleteDataSetFilterContextContributor
 		ClayDataSetFilter clayDataSetFilter, Locale locale) {
 
 		if (clayDataSetFilter instanceof ClayAutocompleteDataSetFilter) {
-			return _serialize((ClayAutocompleteDataSetFilter)clayDataSetFilter);
+			return _serialize(
+				(ClayAutocompleteDataSetFilter)clayDataSetFilter, locale);
 		}
 
 		return Collections.emptyMap();
 	}
 
 	private Map<String, Object> _serialize(
-		ClayAutocompleteDataSetFilter clayAutocompleteDataSetFilter) {
+		ClayAutocompleteDataSetFilter clayAutocompleteDataSetFilter,
+		Locale locale) {
+
+		ResourceBundle resourceBundle =
+			clayAutocompleteDataSetFilter.getResourceBundle(locale);
 
 		Map<String, Object> context = new HashMap<>();
 
 		context.put("apiUrl", clayAutocompleteDataSetFilter.getApiURL());
 		context.put(
-			"inputPlaceholder", clayAutocompleteDataSetFilter.getPlaceholder());
+			"inputPlaceholder",
+			ResourceBundleUtil.getString(
+				resourceBundle,
+				clayAutocompleteDataSetFilter.getPlaceholder()));
 		context.put("itemKey", clayAutocompleteDataSetFilter.getItemKey());
 		context.put("itemLabel", clayAutocompleteDataSetFilter.getItemLabel());
 

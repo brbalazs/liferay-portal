@@ -66,7 +66,7 @@ function FiltersDropdown() {
 					type="button"
 				>
 					<span className="navbar-text-truncate">
-						{Liferay.Language.get('set-filters')}
+						{Liferay.Language.get('filter')}
 					</span>
 					{active ? (
 						<Icon className="ml-2" symbol="caret-top" />
