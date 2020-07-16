@@ -1,5 +1,25 @@
 definition {
 
+	macro assertEngineVendorAndVersions {
+		var alertInfo = selenium.getText("//div[contains(@class,'alert alert-info')]");
+
+		var searchEngineVendor = RegexUtil.replace("${alertInfo}", "Vendor: (.*?),", "1");
+		var searchClientVersion = RegexUtil.replace("${alertInfo}", "Client Version: (.*?),", "1");
+		var searchServerVersion = RegexUtil.replace("${alertInfo}", "Nodes:.*\((.*)\)", "1");
+
+		if (!(contains("${searchEngineVendor}", "${engineVendor}"))) {
+			fail("Failed to find correct search engine vendor");
+		}
+
+		if ("${searchClientVersion}" != "${clientVersion}") {
+			fail("Failed to find correct search client version");
+		}
+
+		if ("${searchServerVersion}" != "${serverVersion}") {
+			fail("Failed to find correct search server version");
+		}
+	}
+
 	macro executeSearchActions {
 		AssertTextEquals(
 			locator1 = "Portlet#HEADER",
@@ -8,19 +28,9 @@ definition {
 		var alertInfo = selenium.getText("//div[contains(@class,'alert alert-info')]");
 
 		var vendor = StringUtil.extractFirst("${alertInfo}", ",");
-		var version = StringUtil.extractLast("${alertInfo}", "Version:");
 
-		var searchClientVersion = StringUtil.extractFirst("${version}", ",");
 		var searchEngineVendor = StringUtil.extractLast("${vendor}", "Vendor:");
-
-		if (contains("${searchEngineVendor}", "Elasticsearch")) {
-			if (contains("${searchClientVersion}", "7.") && contains("${searchEngineVendor}", "Embedded")) {
-				var curl = "http://localhost:9201/_tasks";
-			}
-			else {
-				var curl = "http://localhost:9200/_tasks";
-			}
-		}
+		var curl = "http://localhost:9200/_tasks";
 
 		Panel.expandPanel(panel = "Index Actions");
 
