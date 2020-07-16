@@ -46,8 +46,15 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class SiteResourceImpl extends BaseSiteResourceImpl {
 
 	@Override
-	public Page<Site> getMyUserAccountSitesPage(Pagination pagination) {
-		return Page.of(transform(contextUser.getGroups(), this::_toSite));
+	public Page<Site> getMyUserAccountSitesPage(Pagination pagination)
+		throws Exception {
+
+		return Page.of(
+			transform(
+				_groupService.getUserSitesGroups(
+					contextUser.getUserId(), pagination.getStartPosition(),
+					pagination.getEndPosition()),
+				this::_toSite));
 	}
 
 	@Override
