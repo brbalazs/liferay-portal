@@ -352,29 +352,30 @@ sorting functionality of product search results.
 
 #### What changed?
 
-The price lists retrieval in the pricing algorithm
+A price list's retrieval in the pricing algorithm
 (`CommerceProductPriceCalculationImpl`) is performed by means of the
 `CommercePriceListDiscovery` service instead of relying on the price list
 indexer.
 
-The price lists discovery strategy is `ORDER_BY_HIERARCHY`, searching for the
+The price list's discovery strategy is `ORDER_BY_HIERARCHY`, searching for the
 active price list that applies to the current context in the following order:
-- Accounts and Channels: the price list is associated to specific accounts in
-  specific channels.
-- Accounts: the price list is associated to specific accounts.
-- Account Groups and Channels: the price list is associated to specific account
-  groups in specific channels.
-- Account Groups: the price list is associated to specific account groups.
-- Channels: the price list is associated to a specific channel.
-- Unqualified: the price list is not associated to any specific account, account
-group or channel.
+
+1. **Accounts and Channels**: the price list is associated to specific accounts
+   in specific channels.
+2. **Accounts**: the price list is associated to specific accounts.
+3. **Account Groups and Channels**: the price list is associated to specific
+   account groups in specific channels.
+4. **Account Groups**: the price list is associated to specific account groups.
+5. **Channels**: the price list is associated to a specific channel.
+6. **Unqualified**: the price list is not associated to any specific account,
+   account group or channel.
 
 The first matching criteria will stop the search and return the active price
 list.
 
 #### Who is affected?
 
-Anyone who is using the OOB pricing algorithm.
+Anyone who is using the out-of-the-box pricing algorithm.
 
 #### How should I update my code?
 
@@ -382,8 +383,9 @@ No code updates are needed.
 
 #### Why was this change made?
 
-Gives the flexibility to filter search results in the user interface based on
-user roles without interfering with the pricing business logic.
+This change provides the flexibility to filter search results in the user
+interface based on user roles without interfering with the pricing business
+logic.
 
 ---------------------------------------
 
