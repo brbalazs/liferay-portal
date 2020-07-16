@@ -345,3 +345,73 @@ Give administrators more flexibility on whether or not they want to provide
 sorting functionality of product search results.
 
 ---------------------------------------
+
+### Price Lists Permission Management
+- **Date:** 2020-Jul-10
+- **JIRA Ticket:** [COMMERCE-3561](https://issues.liferay.com/browse/COMMERCE-4221)
+
+#### What changed?
+
+Price lists are modelled as Liferay resources therefore using the standard
+permission management.
+
+The generic `MANAGE_COMMERCE_PRICE_LISTS` portlet permission has been removed.
+
+The price lists indexer has been set to support filter search and be permission
+aware.
+
+All service and finder methods used in the user interface to retrieve:
+1. **Price Entries**
+2. **Price Lists**
+3. **Price List Accounts**
+4. **Price List Account Groups**
+5. **Price List Account Channels**
+6. **Price List Discounts**
+7. **Price Modifiers**
+8. **Tier Price Entries**
+are permission aware. (i.e. in `CommercePriceListService` method
+`getCommercePriceListsCount(long, int)`)
+
+As part of the pricing section refactoring the permissions settings for
+price lists have been moved under the menu **Pricing** in the Define Permissions
+tab for the selected role.
+
+In `CommerceTierPriceEntryService` methods:
+1. `fetchCommerceTierPriceEntries(long, int, int)`
+2. `getCommerceTierPriceEntriesCountByCompanyId(long)`
+have been deprecated and no replacement is provided.
+
+In `CommercePriceModifierService` methods:
+1. `getCommercePriceModifiers(long, String)`
+2. `getCommercePriceModifiersCount()`
+have been deprecated and no replacement is provided.
+
+#### Who is affected?
+
+Anyone who is using Commerce Price Lists and related entities.
+
+#### How should I update my code?
+
+The upgrade process will take care of associating resources to existing price
+lists and set the correct permissions.
+
+All references to
+`CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS` shall be updated and
+permission checking must be performed according to the following rules:
+1. `ADD_COMMERCE_PRICE_LIST`: when permission to add a new price list is required
+2. `DELETE/PERMISSIONS/UPDATE/VIEW`: when permission to delete, modify
+permissions, update or view a specific price list or related entities is required.
+
+All calls to unsecure methods:
+1. `com.liferay.commerce.price.list.service.impl.CommerceTierPriceEntryService#fetchCommerceTierPriceEntries(long, int, int)`
+2. `com.liferay.commerce.price.list.service.impl.CommerceTierPriceEntryService#getCommerceTierPriceEntriesCountByCompanyId(long)`
+3. `com.liferay.commerce.pricing.service.impl.CommercePriceModifierService#getCommercePriceModifiers(long, String)`
+4. `com.liferay.commerce.pricing.service.impl.CommercePriceModifierService#getCommercePriceModifiersCount()`
+need to be replaced with permission aware custom finder methods.
+
+#### Why was this change made?
+
+This change gives administrators the possibility to leverage on the Liferay permission
+management thus providing a more fine-grained security access control.
+
+---------------------------------------
