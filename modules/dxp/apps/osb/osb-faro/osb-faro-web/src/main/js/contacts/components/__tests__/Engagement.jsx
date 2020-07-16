@@ -2,7 +2,6 @@ import * as data from 'test/data';
 import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import {
-	EngagementChart,
 	EngagementWithList,
 	SelectedPointInfo
 } from '../Engagement';
@@ -70,19 +69,6 @@ describe('EngagementWithList', () => {
 		);
 
 		expect(component).toBeTruthy();
-	});
-});
-
-describe('EngagementChart', () => {
-	it('should render', () => {
-		const component = shallow(
-			<EngagementChart
-				data={mockEngagementData}
-				tooltipLabels={tooltipLabels}
-			/>
-		);
-
-		expect(component.render()).toMatchSnapshot();
 	});
 });
 
