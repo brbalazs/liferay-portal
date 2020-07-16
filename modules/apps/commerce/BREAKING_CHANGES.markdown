@@ -352,7 +352,7 @@ sorting functionality of product search results.
 
 #### What changed?
 
-Price lists are modelled as Liferay resources therefore using the standard
+Price lists are now modeled as Liferay resources and therefore using the standard
 permission management.
 
 The generic `MANAGE_COMMERCE_PRICE_LISTS` portlet permission has been removed.
@@ -372,7 +372,7 @@ All service and finder methods used in the user interface to retrieve:
 are permission aware. (i.e. in `CommercePriceListService` method
 `getCommercePriceListsCount(long, int)`)
 
-As part of the pricing section refactoring the permissions settings for
+As part of the pricing section refactoring, the permissions settings for
 price lists have been moved under the menu **Pricing** in the Define Permissions
 tab for the selected role.
 
@@ -412,6 +412,6 @@ need to be replaced with permission aware custom finder methods.
 #### Why was this change made?
 
 This change gives administrators the possibility to leverage on the Liferay permission
-management thus providing a more fine-grained security access control.
+management, thus providing a more fine-grained security access control.
 
 ---------------------------------------
