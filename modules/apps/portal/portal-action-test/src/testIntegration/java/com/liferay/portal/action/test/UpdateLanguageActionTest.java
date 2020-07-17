@@ -179,9 +179,17 @@ public class UpdateLanguageActionTest {
 		controlPanelURL += "?queryString";
 
 		_assertRedirect(themeDisplay, controlPanelURL, controlPanelURL);
-		_assertRedirect(
-			themeDisplay, "/" + _sourceLocale.getLanguage() + controlPanelURL,
-			"/" + _sourceLocale.getLanguage() + controlPanelURL);
+
+		if (i18n) {
+			_assertRedirect(
+				themeDisplay, controlPanelURL,
+				"/" + _sourceLocale.getLanguage() + controlPanelURL);
+		}
+		else {
+			_assertRedirect(
+				themeDisplay, "/" + _sourceLocale.getLanguage() + controlPanelURL,
+				"/" + _sourceLocale.getLanguage() + controlPanelURL);
+		}
 	}
 
 	private void _testGetRedirectWithPublicLayoutURL(boolean i18n)
