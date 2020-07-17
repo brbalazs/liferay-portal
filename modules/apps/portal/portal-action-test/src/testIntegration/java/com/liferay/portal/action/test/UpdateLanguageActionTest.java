@@ -117,49 +117,16 @@ public class UpdateLanguageActionTest {
 		_testAssetRedirect(false);
 	}
 
-	private void _testAssetRedirect(boolean i18n) throws PortalException {
-		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(i18n);
-
-		String sourceAssetURL = _getAssetURL(_sourceLocale);
-		String defaultAssetURL = _getAssetURL(_defaultLocale);
-
-		_assertRedirect(themeDisplay, defaultAssetURL, sourceAssetURL);
-		_assertRedirect(
-			themeDisplay, defaultAssetURL, _sourceLocalePrepend + sourceAssetURL);
-	}
-
 	@Test
 	public void testControlPanelRedirect() throws PortalException {
 		_testControlPanelRedirect(true);
 		_testControlPanelRedirect(false);
 	}
 
-	private void _testControlPanelRedirect(boolean i18n) throws PortalException {
-		ThemeDisplay themeDisplay = _getControlPanelThemeDisplay(i18n);
-
-		String controlPanelURL = _getControlPanelURL();
-
-		_assertRedirect(themeDisplay, controlPanelURL, controlPanelURL);
-		_assertRedirect(
-			themeDisplay, _sourceLocalePrepend + controlPanelURL,
-			_sourceLocalePrepend + controlPanelURL);
-	}
-
 	@Test
 	public void testPublicPageRedirect() throws PortalException {
 		_testPublicPageRedirect(true);
 		_testPublicPageRedirect(false);
-	}
-
-	private void _testPublicPageRedirect(boolean i18n) throws PortalException {
-		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(i18n);
-
-		String sourcePublicPageURL = _getPublicPageURL(_sourceLocale);
-		String defaultPublicPageURL = _getPublicPageURL(_defaultLocale);
-
-		_assertRedirect(themeDisplay, defaultPublicPageURL, sourcePublicPageURL);
-		_assertRedirect(
-			themeDisplay, defaultPublicPageURL, _sourceLocalePrepend + sourcePublicPageURL);
 	}
 
 	private void _assertRedirect(
@@ -236,6 +203,44 @@ public class UpdateLanguageActionTest {
 		url += "?queryString";
 
 		return url;
+	}
+
+	private void _testAssetRedirect(boolean i18n) throws PortalException {
+		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(i18n);
+
+		String sourceAssetURL = _getAssetURL(_sourceLocale);
+		String defaultAssetURL = _getAssetURL(_defaultLocale);
+
+		_assertRedirect(themeDisplay, defaultAssetURL, sourceAssetURL);
+		_assertRedirect(
+			themeDisplay, defaultAssetURL,
+			_sourceLocalePrepend + sourceAssetURL);
+	}
+
+	private void _testControlPanelRedirect(boolean i18n)
+		throws PortalException {
+
+		ThemeDisplay themeDisplay = _getControlPanelThemeDisplay(i18n);
+
+		String controlPanelURL = _getControlPanelURL();
+
+		_assertRedirect(themeDisplay, controlPanelURL, controlPanelURL);
+		_assertRedirect(
+			themeDisplay, _sourceLocalePrepend + controlPanelURL,
+			_sourceLocalePrepend + controlPanelURL);
+	}
+
+	private void _testPublicPageRedirect(boolean i18n) throws PortalException {
+		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(i18n);
+
+		String sourcePublicPageURL = _getPublicPageURL(_sourceLocale);
+		String defaultPublicPageURL = _getPublicPageURL(_defaultLocale);
+
+		_assertRedirect(
+			themeDisplay, defaultPublicPageURL, sourcePublicPageURL);
+		_assertRedirect(
+			themeDisplay, defaultPublicPageURL,
+			_sourceLocalePrepend + sourcePublicPageURL);
 	}
 
 	private static Locale _defaultLocale;
