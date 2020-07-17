@@ -352,7 +352,7 @@ sorting functionality of product search results.
 
 #### What changed?
 
-Price lists are now modeled as Liferay resources and therefore using the standard
+Price lists are now modeled as Liferay resources and therefore use the standard
 permission management.
 
 The generic `MANAGE_COMMERCE_PRICE_LISTS` portlet permission has been removed.
@@ -369,7 +369,7 @@ All service and finder methods used in the user interface to retrieve:
 6. **Price List Discounts**
 7. **Price Modifiers**
 8. **Tier Price Entries**
-are permission aware. (i.e. in `CommercePriceListService` method
+are permission-aware. (i.e. in `CommercePriceListService` method
 `getCommercePriceListsCount(long, int)`)
 
 As part of the pricing section refactoring, the permissions settings for
@@ -392,12 +392,12 @@ Anyone who is using Commerce Price Lists and related entities.
 
 #### How should I update my code?
 
-The upgrade process will take care of associating resources to existing price
+An upgrade process will associate resources to existing price
 lists and set the correct permissions.
 
 All references to
-`CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS` shall be updated and
-permission checking must be performed according to the following rules:
+`CommercePriceListActionKeys.MANAGE_COMMERCE_PRICE_LISTS` should be updated and
+permissions should be checked according to the following rules:
 1. `ADD_COMMERCE_PRICE_LIST`: when permission to add a new price list is required
 2. `DELETE/PERMISSIONS/UPDATE/VIEW`: when permission to delete, modify
 permissions, update or view a specific price list or related entities is required.
