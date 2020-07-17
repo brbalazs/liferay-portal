@@ -115,10 +115,8 @@ public class UpdateLanguageActionTest {
 	public void testAssetI18nRedirect() throws PortalException {
 		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(true);
 
-		String[] urls = _getAssetURLs();
-
-		String bareSourceURL = urls[0];
-		String bareDefaultURL = urls[1];
+		String bareSourceURL = _getAssetURL(_sourceLocale);
+		String bareDefaultURL = _getAssetURL(_defaultLocale);
 
 		_assertRedirect(themeDisplay, bareDefaultURL, bareSourceURL);
 		_assertRedirect(
@@ -129,10 +127,8 @@ public class UpdateLanguageActionTest {
 	public void testAssetRedirect() throws PortalException {
 		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(false);
 
-		String[] urls = _getAssetURLs();
-
-		String bareSourceURL = urls[0];
-		String bareDefaultURL = urls[1];
+		String bareSourceURL = _getAssetURL(_sourceLocale);
+		String bareDefaultURL = _getAssetURL(_defaultLocale);
 
 		_assertRedirect(themeDisplay, bareDefaultURL, bareSourceURL);
 		_assertRedirect(
@@ -206,21 +202,14 @@ public class UpdateLanguageActionTest {
 		Assert.assertEquals(expectedRedirect, redirect);
 	}
 
-	private String[] _getAssetURLs() {
-		String bareSourceURL =
+	private String _getAssetURL(Locale locale) {
+		String url =
 			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
-				_group.getFriendlyURL() + _layout.getFriendlyURL(_sourceLocale);
+				_group.getFriendlyURL() + _layout.getFriendlyURL(locale);
 
-		bareSourceURL += Portal.FRIENDLY_URL_SEPARATOR + "asset?queryString";
+		url += Portal.FRIENDLY_URL_SEPARATOR + "asset?queryString";
 
-		String bareDefaultURL =
-			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
-				_group.getFriendlyURL() +
-					_layout.getFriendlyURL(_defaultLocale);
-
-		bareDefaultURL += Portal.FRIENDLY_URL_SEPARATOR + "asset?queryString";
-
-		return new String[] {bareSourceURL, bareDefaultURL};
+		return url;
 	}
 
 	private ThemeDisplay _getControlPanelThemeDisplay(boolean i18n) {
