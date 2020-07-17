@@ -142,7 +142,9 @@ public class UpdateLanguageActionTest {
 		}
 	}
 
-	private void _testGetRedirectWithFriendlyURL(boolean i18n) throws Exception {
+	private void _testGetRedirectWithFriendlyURL(boolean i18n)
+		throws Exception {
+
 		_testGetRedirectWithFriendlyURL(i18n, "");
 		_testGetRedirectWithFriendlyURL(
 			i18n, Portal.FRIENDLY_URL_SEPARATOR + "asset");
