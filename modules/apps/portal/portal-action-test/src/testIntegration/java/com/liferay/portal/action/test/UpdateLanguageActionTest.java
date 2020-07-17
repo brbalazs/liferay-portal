@@ -161,10 +161,8 @@ public class UpdateLanguageActionTest {
 	public void testPublicPageI18nRedirect() throws PortalException {
 		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(true);
 
-		String[] urls = _getPublicPageURLs();
-
-		String bareSourceURL = urls[0];
-		String bareDefaultURL = urls[1];
+		String bareSourceURL = _getPublicPageURL(_sourceLocale);
+		String bareDefaultURL = _getPublicPageURL(_defaultLocale);
 
 		_assertRedirect(themeDisplay, bareDefaultURL, bareSourceURL);
 		_assertRedirect(
@@ -175,10 +173,8 @@ public class UpdateLanguageActionTest {
 	public void testPublicPageRedirect() throws PortalException {
 		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(false);
 
-		String[] urls = _getPublicPageURLs();
-
-		String bareSourceURL = urls[0];
-		String bareDefaultURL = urls[1];
+		String bareSourceURL = _getPublicPageURL(_sourceLocale);
+		String bareDefaultURL = _getPublicPageURL(_defaultLocale);
 
 		_assertRedirect(themeDisplay, bareDefaultURL, bareSourceURL);
 		_assertRedirect(
@@ -251,21 +247,14 @@ public class UpdateLanguageActionTest {
 		return themeDisplay;
 	}
 
-	private String[] _getPublicPageURLs() {
-		String bareSourceURL =
+	private String _getPublicPageURL(Locale locale) {
+		String url =
 			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
-				_group.getFriendlyURL() + _layout.getFriendlyURL(_sourceLocale);
+				_group.getFriendlyURL() + _layout.getFriendlyURL(locale);
 
-		bareSourceURL += "?queryString";
+		url += "?queryString";
 
-		String bareDefaultURL =
-			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
-				_group.getFriendlyURL() +
-					_layout.getFriendlyURL(_defaultLocale);
-
-		bareDefaultURL += "?queryString";
-
-		return new String[] {bareSourceURL, bareDefaultURL};
+		return url;
 	}
 
 	private static Locale _defaultLocale;
