@@ -119,10 +119,6 @@ public class CheckCPInstanceMVCActionCommand extends BaseMVCActionCommand {
 
 				jsonObject.put("sku", cpInstance.getSku());
 
-				PriceModel priceModel = _productHelper.getPrice(
-					cpInstance.getCPInstanceId(), quantity, commerceContext,
-					themeDisplay.getLocale());
-
 				CommercePriceConfiguration commercePriceConfiguration =
 					_configurationProvider.getConfiguration(
 						CommercePriceConfiguration.class,
@@ -132,6 +128,10 @@ public class CheckCPInstanceMVCActionCommand extends BaseMVCActionCommand {
 				jsonObject.put(
 					"displayDiscountLevels",
 					commercePriceConfiguration.displayDiscountLevels());
+
+				PriceModel priceModel = _productHelper.getPrice(
+					cpInstance.getCPInstanceId(), quantity, commerceContext,
+					themeDisplay.getLocale());
 
 				jsonObject.put(
 					"prices",
