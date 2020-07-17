@@ -17,7 +17,6 @@ package com.liferay.portal.action.test;
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.layout.test.util.LayoutTestUtil;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.action.UpdateLanguageAction;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
@@ -64,8 +63,6 @@ public class UpdateLanguageActionTest {
 		LocaleUtil.setDefault(
 			LocaleUtil.US.getLanguage(), LocaleUtil.US.getCountry(),
 			LocaleUtil.US.getVariant());
-
-		_sourceLocalePrepend = StringPool.SLASH + _sourceLocale.getLanguage();
 
 		_group = GroupTestUtil.addGroup();
 
@@ -140,7 +137,7 @@ public class UpdateLanguageActionTest {
 
 		if (i18n) {
 			themeDisplay.setI18nLanguageId(_sourceLocale.getLanguage());
-			themeDisplay.setI18nPath(_sourceLocalePrepend);
+			themeDisplay.setI18nPath("/" + _sourceLocale.getLanguage());
 		}
 
 		themeDisplay.setLayout(_controlPanelLayout);
@@ -164,7 +161,7 @@ public class UpdateLanguageActionTest {
 
 		if (i18n) {
 			themeDisplay.setI18nLanguageId(_sourceLocale.getLanguage());
-			themeDisplay.setI18nPath(_sourceLocalePrepend);
+			themeDisplay.setI18nPath("/" + _sourceLocale.getLanguage());
 		}
 
 		themeDisplay.setLayout(_layout);
@@ -193,7 +190,7 @@ public class UpdateLanguageActionTest {
 		_assertRedirect(themeDisplay, defaultAssetURL, sourceAssetURL);
 		_assertRedirect(
 			themeDisplay, defaultAssetURL,
-			_sourceLocalePrepend + sourceAssetURL);
+			"/" + _sourceLocale.getLanguage() + sourceAssetURL);
 	}
 
 	private void _testGetRedirectWithControlPanelURL(boolean i18n)
@@ -205,8 +202,8 @@ public class UpdateLanguageActionTest {
 
 		_assertRedirect(themeDisplay, controlPanelURL, controlPanelURL);
 		_assertRedirect(
-			themeDisplay, _sourceLocalePrepend + controlPanelURL,
-			_sourceLocalePrepend + controlPanelURL);
+			themeDisplay, "/" + _sourceLocale.getLanguage() + controlPanelURL,
+			"/" + _sourceLocale.getLanguage() + controlPanelURL);
 	}
 
 	private void _testGetRedirectWithPublicPageURL(boolean i18n)
@@ -221,7 +218,7 @@ public class UpdateLanguageActionTest {
 			themeDisplay, defaultPublicPageURL, sourcePublicPageURL);
 		_assertRedirect(
 			themeDisplay, defaultPublicPageURL,
-			_sourceLocalePrepend + sourcePublicPageURL);
+			"/" + _sourceLocale.getLanguage() + sourcePublicPageURL);
 	}
 
 	private Layout _controlPanelLayout;
@@ -232,7 +229,6 @@ public class UpdateLanguageActionTest {
 
 	private Layout _layout;
 	private final Locale _sourceLocale = LocaleUtil.FRANCE;
-	private String _sourceLocalePrepend;
 	private final Locale _targetLocale = LocaleUtil.GERMAN;
 
 }
