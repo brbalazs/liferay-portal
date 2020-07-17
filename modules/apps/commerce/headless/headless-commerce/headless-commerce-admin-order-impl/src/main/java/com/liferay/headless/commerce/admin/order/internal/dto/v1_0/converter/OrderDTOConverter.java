@@ -108,6 +108,7 @@ public class OrderDTOConverter implements DTOConverter<CommerceOrder, Order> {
 				accountExternalReferenceCode =
 					commerceAccount.getExternalReferenceCode();
 				accountId = commerceOrder.getCommerceAccountId();
+				actions = dtoConverterContext.getActions();
 				advanceStatus = commerceOrder.getAdvanceStatus();
 				billingAddressId = commerceOrder.getBillingAddressId();
 				channelExternalReferenceCode =
