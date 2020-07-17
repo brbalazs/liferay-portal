@@ -273,12 +273,13 @@ public class UpdateLanguageActionTest {
 			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
 				_group.getFriendlyURL() + _layout.getFriendlyURL(_sourceLocale);
 
+		String bareSourceURL = sourceLocaleLayoutURL + "?queryString";
+
 		String defaultLocaleLayoutURL =
 			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
 				_group.getFriendlyURL() +
 					_layout.getFriendlyURL(_defaultLocale);
 
-		String bareSourceURL = sourceLocaleLayoutURL + "?queryString";
 		String bareDefaultURL = defaultLocaleLayoutURL + "?queryString";
 
 		return new String[] {bareSourceURL, bareDefaultURL};
