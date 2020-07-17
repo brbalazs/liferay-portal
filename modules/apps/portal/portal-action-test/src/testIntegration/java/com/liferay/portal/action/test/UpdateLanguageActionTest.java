@@ -58,12 +58,6 @@ public class UpdateLanguageActionTest {
 
 	@Before
 	public void setUp() throws Exception {
-		_defaultLocale = LocaleUtil.getDefault();
-
-		LocaleUtil.setDefault(
-			LocaleUtil.US.getLanguage(), LocaleUtil.US.getCountry(),
-			LocaleUtil.US.getVariant());
-
 		_group = GroupTestUtil.addGroup();
 
 		_controlPanelLayout = LayoutLocalServiceUtil.getLayout(
@@ -84,13 +78,6 @@ public class UpdateLanguageActionTest {
 			).put(
 				_targetLocale, "/page-in-target-locale"
 			).build());
-	}
-
-	@After
-	public void tearDown() {
-		LocaleUtil.setDefault(
-			_defaultLocale.getLanguage(), _defaultLocale.getCountry(),
-			_defaultLocale.getVariant());
 	}
 
 	@Test
@@ -222,7 +209,7 @@ public class UpdateLanguageActionTest {
 	}
 
 	private Layout _controlPanelLayout;
-	private Locale _defaultLocale;
+	private Locale _defaultLocale = LocaleUtil.US;
 
 	@DeleteAfterTestRun
 	private Group _group;
