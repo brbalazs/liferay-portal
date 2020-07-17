@@ -228,7 +228,7 @@ public class OrderResourceImpl
 			String methodName, Class clazz)
 		throws NoSuchMethodException, PortalException {
 
-		if (!_commerceCatalogModelResourcePermission.contains(
+		if (!_commerceOrderModelResourcePermission.contains(
 				PermissionThreadLocal.getPermissionChecker(), commerceOrderId,
 				actionId)) {
 
@@ -572,7 +572,7 @@ public class OrderResourceImpl
 		target = "(model.class.name=com.liferay.commerce.model.CommerceOrder)"
 	)
 	private ModelResourcePermission<CommerceOrder>
-		_commerceCatalogModelResourcePermission;
+		_commerceOrderModelResourcePermission;
 
 	@Reference
 	private CommerceChannelLocalService _commerceChannelLocalService;
