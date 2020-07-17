@@ -28,7 +28,9 @@ const DEFAULT_PAGE_SIZE = 10;
 
 function fetchData(apiUrl, searchParam, currentPage = 1) {
 	return fetch(
-		`${apiUrl}?page=${currentPage}&pageSize=${DEFAULT_PAGE_SIZE}${
+		`${apiUrl}${
+			apiUrl.includes('?') ? '&' : '?'
+		}page=${currentPage}&pageSize=${DEFAULT_PAGE_SIZE}${
 			searchParam ? `&search=${encodeURIComponent(searchParam)}` : ''
 		}`,
 		{
