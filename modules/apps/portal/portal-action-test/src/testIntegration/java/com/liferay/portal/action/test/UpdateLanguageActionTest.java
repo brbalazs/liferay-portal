@@ -83,6 +83,8 @@ public class UpdateLanguageActionTest {
 	public void setUp() throws Exception {
 		_group = GroupTestUtil.addGroup();
 
+		_controlPanelLayout = LayoutLocalServiceUtil.getLayout(
+			PortalUtil.getControlPanelPlid(_group.getCompanyId()));
 		_layout = LayoutTestUtil.addLayout(
 			_group.getGroupId(), false,
 			HashMapBuilder.put(
@@ -99,9 +101,6 @@ public class UpdateLanguageActionTest {
 			).put(
 				_targetLocale, "/page-in-target-locale"
 			).build());
-
-		_controlPanelLayout = LayoutLocalServiceUtil.getLayout(
-			PortalUtil.getControlPanelPlid(_group.getCompanyId()));
 	}
 
 	@Test
