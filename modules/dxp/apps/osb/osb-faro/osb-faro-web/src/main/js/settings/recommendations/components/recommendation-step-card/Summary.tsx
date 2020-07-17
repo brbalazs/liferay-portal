@@ -133,6 +133,21 @@ const Summary: React.FC<ISummaryProps> = ({
 		}
 	}, [activitiesDataWithPrevious, activitiesData]);
 
+	const render2StepsBackButton = (
+		children: React.ReactNode
+	): React.ReactNode => (
+		<Button
+			display='unstyled'
+			onClick={
+				notEnoughActivitiesWithPrevious
+					? () => setStep(currentStep - 2)
+					: null
+			}
+		>
+			{children}
+		</Button>
+	);
+
 	return (
 		<div className='summary-root'>
 			<div className='title'>{Liferay.Language.get('summary')}</div>
@@ -187,22 +202,17 @@ const Summary: React.FC<ISummaryProps> = ({
 								<Icon symbol='warning-full' />
 							)}
 
-							{`${Liferay.Language.get(
-								'events'
-							)} (${Liferay.Language.get('as-of-today')})`}
+							{render2StepsBackButton(
+								`${Liferay.Language.get(
+									'events'
+								)} (${Liferay.Language.get('as-of-today')})`
+							)}
 						</td>
 
 						<td className='summary-value'>
-							<Button
-								display='unstyled'
-								onClick={
-									notEnoughActivities
-										? () => setStep(currentStep - 2)
-										: null
-								}
-							>
-								{activitiesTotal.toLocaleString()}
-							</Button>
+							{render2StepsBackButton(
+								activitiesTotal.toLocaleString()
+							)}
 						</td>
 					</tr>
 
@@ -217,24 +227,19 @@ const Summary: React.FC<ISummaryProps> = ({
 									<Icon symbol='warning-full' />
 								)}
 
-								{`${Liferay.Language.get(
-									'events'
-								)} (${Liferay.Language.get(
-									'including-previous-period'
-								)})`}
+								{render2StepsBackButton(
+									`${Liferay.Language.get(
+										'events'
+									)} (${Liferay.Language.get(
+										'including-previous-period'
+									)})`
+								)}
 							</td>
 
 							<td className='summary-value'>
-								<Button
-									display='unstyled'
-									onClick={
-										notEnoughActivitiesWithPrevious
-											? () => setStep(currentStep - 2)
-											: null
-									}
-								>
-									{activitiesWithPreviousTotal.toLocaleString()}
-								</Button>
+								{render2StepsBackButton(
+									activitiesWithPreviousTotal.toLocaleString()
+								)}
 							</td>
 						</tr>
 					)}

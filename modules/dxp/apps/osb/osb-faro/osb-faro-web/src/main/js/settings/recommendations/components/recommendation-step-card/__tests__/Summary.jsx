@@ -60,4 +60,48 @@ describe('Summary', () => {
 
 		expect(container).toMatchSnapshot();
 	});
+
+	it('should render with "Including Previous Period" if includePreviousPeriod is true', () => {
+		const {queryByText} = render(
+			<MockedProvider
+				mocks={[
+					mockRecommendationPageAssetsReq([], {size: 0}),
+					mockRecommendationActivitiesReq([]),
+					mockRecommendationActivitiesReq([], {rangeKey: 60})
+				]}
+			>
+				<StaticRouter>
+					<Form
+						initialValues={{
+							includePreviousPeriod: true,
+							itemFilters: [
+								{
+									id: 'includeFilter - url ~ .*custom-assets',
+									name: 'includeFilter',
+									value: 'url ~ .*custom-assets'
+								}
+							],
+							name: 'Test Name',
+							trainingFrequency: jobTrainingFrequencies.manual,
+							trainingPeriod: jobTrainingPeriods.last30Days,
+							type: jobTypes.itemSimilarity
+						}}
+					>
+						{({initialValues, values}) => (
+							<Form.Form>
+								<Summary
+									initialValues={initialValues}
+									setFieldValue={jest.fn()}
+									trainingDate={data.getTimestamp()}
+									{...values}
+								/>
+							</Form.Form>
+						)}
+					</Form>
+				</StaticRouter>
+			</MockedProvider>
+		);
+
+		expect(queryByText(/Including Previous Period/)).toBeTruthy();
+	});
 });
