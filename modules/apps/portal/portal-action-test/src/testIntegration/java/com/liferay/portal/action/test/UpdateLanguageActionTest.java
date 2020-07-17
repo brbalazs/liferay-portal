@@ -119,30 +119,6 @@ public class UpdateLanguageActionTest {
 		return url;
 	}
 
-	private ThemeDisplay _getControlPanelThemeDisplay(boolean i18n) {
-		ThemeDisplay themeDisplay = new ThemeDisplay();
-
-		if (i18n) {
-			themeDisplay.setI18nLanguageId(_sourceLocale.getLanguage());
-			themeDisplay.setI18nPath("/" + _sourceLocale.getLanguage());
-		}
-
-		themeDisplay.setLayout(_controlPanelLayout);
-
-		return themeDisplay;
-	}
-
-	private String _getControlPanelURL() {
-		String controlPanelLayoutURL = StringBundler.concat(
-			PropsValues.LAYOUT_FRIENDLY_URL_PRIVATE_GROUP_SERVLET_MAPPING,
-			_group.getFriendlyURL(),
-			VirtualLayoutConstants.CANONICAL_URL_SEPARATOR,
-			GroupConstants.CONTROL_PANEL_FRIENDLY_URL,
-			_controlPanelLayout.getFriendlyURL());
-
-		return controlPanelLayoutURL + "?queryString";
-	}
-
 	private ThemeDisplay _getLayoutThemeDisplay(boolean i18n) {
 		ThemeDisplay themeDisplay = new ThemeDisplay();
 
@@ -183,9 +159,23 @@ public class UpdateLanguageActionTest {
 	private void _testGetRedirectWithControlPanelURL(boolean i18n)
 		throws Exception {
 
-		ThemeDisplay themeDisplay = _getControlPanelThemeDisplay(i18n);
+		ThemeDisplay themeDisplay = new ThemeDisplay();
 
-		String controlPanelURL = _getControlPanelURL();
+		if (i18n) {
+			themeDisplay.setI18nLanguageId(_sourceLocale.getLanguage());
+			themeDisplay.setI18nPath("/" + _sourceLocale.getLanguage());
+		}
+
+		themeDisplay.setLayout(_controlPanelLayout);
+
+		String controlPanelURL = StringBundler.concat(
+			PropsValues.LAYOUT_FRIENDLY_URL_PRIVATE_GROUP_SERVLET_MAPPING,
+			_group.getFriendlyURL(),
+			VirtualLayoutConstants.CANONICAL_URL_SEPARATOR,
+			GroupConstants.CONTROL_PANEL_FRIENDLY_URL,
+			_controlPanelLayout.getFriendlyURL());
+
+		controlPanelURL += "?queryString";
 
 		_assertRedirect(themeDisplay, controlPanelURL, controlPanelURL);
 		_assertRedirect(
