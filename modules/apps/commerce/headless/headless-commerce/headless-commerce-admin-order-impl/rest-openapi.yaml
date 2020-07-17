@@ -156,6 +156,13 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    readOnly: true
+                    type: object
                 advanceStatus:
                     example: trasmitted
                     type: string
