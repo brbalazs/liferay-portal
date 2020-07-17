@@ -208,10 +208,6 @@ public interface ContactsEngineClient {
 		String ownerType, String query, Date startDate, Date endDate, int cur,
 		int delta, List<OrderByField> orderByFields);
 
-	public Results<String> getSessionValues(
-		FaroProject faroProject, String channelId, String fieldName,
-		String filter, String query, int cur, int delta);
-
 	public Asset getAsset(FaroProject faroProject, String id)
 		throws FaroEngineClientException;
 
@@ -440,6 +436,10 @@ public interface ContactsEngineClient {
 		int cur, int delta, List<OrderByField> orderByFields);
 
 	public PageVisited getPageVisited(FaroProject faroProject, String id);
+
+	public Results<String> getSessionValues(
+		FaroProject faroProject, String channelId, String fieldName,
+		String filter, String query, int cur, int delta);
 
 	public Results<Individual> getSimilarIndividuals(
 		FaroProject faroProject, String individualId, String query,

@@ -825,35 +825,6 @@ public class ContactsEngineClientImpl
 	}
 
 	@Override
-	public Results<String> getSessionValues(
-		FaroProject faroProject, String channelId, String fieldName,
-		String filter, String query, int cur, int delta) {
-
-		Map<String, Object> uriVariables = getUriVariables(
-			faroProject, cur, delta, null);
-
-		uriVariables.put("fieldName", fieldName);
-
-		FilterBuilder filterBuilder = new FilterBuilder();
-
-		filterBuilder.addFilter(filter);
-		filterBuilder.addFilter(
-			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS, channelId);
-
-		uriVariables.put("filter", filterBuilder.build());
-
-		uriVariables.put("value", query);
-
-		PagedResources pagedResources = get(
-			faroProject, Rels.SESSION_VALUES,
-			new ParameterizedTypeReference<StringPagedResources>() {
-			},
-			uriVariables);
-
-		return pagedResources.getResults();
-	}
-
-	@Override
 	public Asset getAsset(FaroProject faroProject, String id)
 		throws FaroEngineClientException {
 
@@ -2379,6 +2350,35 @@ public class ContactsEngineClientImpl
 	@Override
 	public PageVisited getPageVisited(FaroProject faroProject, String id) {
 		return get(faroProject, Rels.PAGE_VISITED, id, PageVisited.class);
+	}
+
+	@Override
+	public Results<String> getSessionValues(
+		FaroProject faroProject, String channelId, String fieldName,
+		String filter, String query, int cur, int delta) {
+
+		Map<String, Object> uriVariables = getUriVariables(
+			faroProject, cur, delta, null);
+
+		uriVariables.put("fieldName", fieldName);
+
+		FilterBuilder filterBuilder = new FilterBuilder();
+
+		filterBuilder.addFilter(filter);
+		filterBuilder.addFilter(
+			"channelId", FilterConstants.COMPARISON_OPERATOR_EQUALS, channelId);
+
+		uriVariables.put("filter", filterBuilder.build());
+
+		uriVariables.put("value", query);
+
+		PagedResources pagedResources = get(
+			faroProject, Rels.SESSION_VALUES,
+			new ParameterizedTypeReference<StringPagedResources>() {
+			},
+			uriVariables);
+
+		return pagedResources.getResults();
 	}
 
 	@Override

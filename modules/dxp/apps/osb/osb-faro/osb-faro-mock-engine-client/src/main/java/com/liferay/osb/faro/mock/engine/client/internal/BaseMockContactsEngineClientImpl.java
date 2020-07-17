@@ -398,15 +398,6 @@ public abstract class BaseMockContactsEngineClientImpl
 	}
 
 	@Override
-	public Results<String> getSessionValues(
-		FaroProject faroProject, String channelId, String fieldName,
-		String filter, String query, int cur, int delta) {
-
-		return contactsEngineClient.getSessionValues(
-			faroProject, channelId, fieldName, filter, query, cur, delta);
-	}
-
-	@Override
 	public Asset getAsset(FaroProject faroProject, String id) {
 		return contactsEngineClient.getAsset(faroProject, id);
 	}
@@ -928,6 +919,15 @@ public abstract class BaseMockContactsEngineClientImpl
 	@Override
 	public PageVisited getPageVisited(FaroProject faroProject, String id) {
 		return contactsEngineClient.getPageVisited(faroProject, id);
+	}
+
+	@Override
+	public Results<String> getSessionValues(
+		FaroProject faroProject, String channelId, String fieldName,
+		String filter, String query, int cur, int delta) {
+
+		return contactsEngineClient.getSessionValues(
+			faroProject, channelId, fieldName, filter, query, cur, delta);
 	}
 
 	@Override
