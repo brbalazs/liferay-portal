@@ -207,20 +207,18 @@ public class UpdateLanguageActionTest {
 	}
 
 	private String[] _getAssetURLs() {
-		String sourceLocaleLayoutURL =
+		String bareSourceURL =
 			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
 				_group.getFriendlyURL() + _layout.getFriendlyURL(_sourceLocale);
 
-		String defaultLocaleLayoutURL =
+		bareSourceURL += Portal.FRIENDLY_URL_SEPARATOR + "asset?queryString";
+
+		String bareDefaultURL =
 			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
 				_group.getFriendlyURL() +
 					_layout.getFriendlyURL(_defaultLocale);
 
-		String bareSourceURL = StringBundler.concat(
-			sourceLocaleLayoutURL, Portal.FRIENDLY_URL_SEPARATOR, "asset?queryString");
-
-		String bareDefaultURL = StringBundler.concat(
-			defaultLocaleLayoutURL, Portal.FRIENDLY_URL_SEPARATOR, "asset?queryString");
+		bareDefaultURL += Portal.FRIENDLY_URL_SEPARATOR + "asset?queryString";
 
 		return new String[] {bareSourceURL, bareDefaultURL};
 	}
