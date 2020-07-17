@@ -1,47 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WebBrowser should render 1`] = `
-<div
-  class="analytics-web-browser-chart d-flex align-items-center w-100 position-relative"
->
+<div>
   <div
-    class="analytics-web-browser-chart-donut"
+    class="analytics-web-browser-chart d-flex align-items-center w-100 position-relative"
   >
     <div
-      class="chart-root"
+      class="analytics-web-browser-chart-donut"
     >
-      <div />
+      <div
+        class="chart-root"
+      >
+        <div />
+      </div>
     </div>
+    <ul
+      class="analytics-web-browser-chart-legend legend-template"
+      id="webBrowserLegend"
+    />
   </div>
-  <ul
-    class="analytics-web-browser-chart-legend legend-template"
-    id="webBrowserLegend"
-  />
 </div>
 `;
 
 exports[`WebBrowser should render as empty 1`] = `
-<div
-  class="analytics-web-browser-chart d-flex align-items-center w-100 position-relative"
->
+<div>
   <div
-    class="col-7"
+    class="analytics-web-browser-chart d-flex align-items-center w-100 position-relative"
   >
     <div
-      class="analytics-web-browser-chart-donut-empty"
-    />
-  </div>
-  <div
-    class="no-results-root flex-grow-1"
-  >
-    <div
-      class="no-results-content"
+      class="col-7"
     >
-      <h4
-        class="no-results-title"
+      <div
+        class="analytics-web-browser-chart-donut-empty"
+      />
+    </div>
+    <div
+      class="no-results-root flex-grow-1"
+    >
+      <div
+        class="no-results-content"
       >
-        There are no views on the selected period.
-      </h4>
+        <h4
+          class="no-results-title"
+        >
+          There are no views on the selected period.
+        </h4>
+      </div>
     </div>
   </div>
 </div>
