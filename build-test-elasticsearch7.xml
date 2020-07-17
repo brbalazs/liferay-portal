@@ -5,25 +5,76 @@
 
 	<macrodef name="configure-elasticsearch-properties">
 		<sequential>
-			<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}cluster.name: LiferayElasticsearchCluster</echo>
+			<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}bootstrap.system_call_filter: false
+cluster.name: LiferayElasticsearchCluster
+xpack.ml.enabled: false</echo>
 		</sequential>
 	</macrodef>
 
 	<macrodef name="configure-elasticsearch-x-pack-security-properties">
 		<sequential>
 			<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}xpack.security.enabled: true
+xpack.security.http.ssl.certificate: certs/localhost/localhost.crt
+xpack.security.http.ssl.certificate_authorities: [ "certs/ca/ca.crt" ]
 xpack.security.http.ssl.enabled: true
+xpack.security.http.ssl.key: certs/localhost/localhost.key
+xpack.security.transport.ssl.certificate: certs/localhost/localhost.crt
+xpack.security.transport.ssl.certificate_authorities: [ "certs/ca/ca.crt" ]
 xpack.security.transport.ssl.enabled: true
-xpack.security.transport.ssl.verification_mode: certificate
-xpack.ssl.certificate: certs/localhost/localhost.crt
-xpack.ssl.certificate_authorities: [ "certs/ca/ca.crt" ]
-xpack.ssl.key: certs/localhost/localhost.key</echo>
+xpack.security.transport.ssl.key: certs/localhost/localhost.key
+xpack.security.transport.ssl.verification_mode: certificate</echo>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="configure-elasticsearch7-test-properties">
+		<sequential>
+			<var name="elastic.kibana.dir" unset="true" />
+			<var name="elastic.kibana.tar.name.linux" unset="true" />
+			<var name="elastic.kibana.tar.name.mac" unset="true" />
+			<var name="elastic.kibana.tar.url.linux" unset="true" />
+			<var name="elastic.kibana.tar.url.mac" unset="true" />
+			<var name="elastic.kibana.zip.name.windows" unset="true" />
+			<var name="elastic.kibana.zip.url.windows" unset="true" />
+			<var name="elasticsearch.version" unset="true" />
+			<var name="elasticsearch.dir" unset="true" />
+			<var name="elasticsearch.analysis-icu.zip.name" unset="true" />
+			<var name="elasticsearch.analysis-icu.zip.url" unset="true" />
+			<var name="elasticsearch.analysis-kuromoji.zip.name" unset="true" />
+			<var name="elasticsearch.analysis-kuromoji.zip.url" unset="true" />
+			<var name="elasticsearch.analysis-smartcn.zip.name" unset="true" />
+			<var name="elasticsearch.analysis-smartcn.zip.url" unset="true" />
+			<var name="elasticsearch.analysis-stempel.zip.name" unset="true" />
+			<var name="elasticsearch.analysis-stempel.zip.url" unset="true" />
+
+			<property name="elasticsearch.version" value="7.7.0" />
+			<property name="elastic.kibana.dir" value="${app.server.parent.dir}/kibana-${elasticsearch.version}" />
+			<property name="elastic.kibana.tar.name.linux" value="kibana-${elasticsearch.version}-linux-x86_64.tar.gz" />
+			<property name="elastic.kibana.tar.name.mac" value="kibana-${elasticsearch.version}-darwin-x86_64.tar.gz" />
+			<property name="elastic.kibana.tar.url.linux" value="https://artifacts.elastic.co/downloads/kibana/${elastic.kibana.tar.name.linux}" />
+			<property name="elastic.kibana.tar.url.mac" value="https://artifacts.elastic.co/downloads/kibana/${elastic.kibana.tar.name.mac}" />
+			<property name="elastic.kibana.zip.name.windows" value="kibana-${elasticsearch.version}-windows-x86_64.zip" />
+			<property name="elastic.kibana.zip.url.windows" value="https://artifacts.elastic.co/downloads/kibana/${elastic.kibana.zip.name.windows}" />
+			<property name="elasticsearch.dir" value="${app.server.parent.dir}/elasticsearch-${elasticsearch.version}" />
+			<property name="elasticsearch.analysis-icu.zip.name" value="analysis-icu-${elasticsearch.version}.zip" />
+			<property name="elasticsearch.analysis-icu.zip.url" value="https://artifacts.elastic.co/downloads/elasticsearch-plugins/analysis-icu/${elasticsearch.analysis-icu.zip.name}" />
+			<property name="elasticsearch.analysis-kuromoji.zip.name" value="analysis-kuromoji-${elasticsearch.version}.zip" />
+			<property name="elasticsearch.analysis-kuromoji.zip.url" value="https://artifacts.elastic.co/downloads/elasticsearch-plugins/analysis-kuromoji/${elasticsearch.analysis-kuromoji.zip.name}" />
+			<property name="elasticsearch.analysis-smartcn.zip.name" value="analysis-smartcn-${elasticsearch.version}.zip" />
+			<property name="elasticsearch.analysis-smartcn.zip.url" value="https://artifacts.elastic.co/downloads/elasticsearch-plugins/analysis-smartcn/${elasticsearch.analysis-smartcn.zip.name}" />
+			<property name="elasticsearch.analysis-stempel.zip.name" value="analysis-stempel-${elasticsearch.version}.zip" />
+			<property name="elasticsearch.analysis-stempel.zip.url" value="https://artifacts.elastic.co/downloads/elasticsearch-plugins/analysis-stempel/${elasticsearch.analysis-stempel.zip.name}" />
+			<property name="elasticsearch.tar.name.linux" value="elasticsearch-${elasticsearch.version}-linux-x86_64.tar.gz" />
+			<property name="elasticsearch.tar.name.mac" value="elasticsearch-${elasticsearch.version}-darwin-x86_64.tar.gz" />
+			<property name="elasticsearch.zip.name.windows" value="elasticsearch-${elasticsearch.version}-windows-x86_64.zip" />
+			<property name="elasticsearch.tar.url.linux" value="https://artifacts.elastic.co/downloads/elasticsearch/${elasticsearch.tar.name.linux}" />
+			<property name="elasticsearch.tar.url.mac" value="https://artifacts.elastic.co/downloads/elasticsearch/${elasticsearch.tar.name.mac}" />
+			<property name="elasticsearch.zip.url.windows" value="https://artifacts.elastic.co/downloads/elasticsearch/${elasticsearch.zip.name.windows}" />
 		</sequential>
 	</macrodef>
 
 	<macrodef name="configure-kibana-properties">
 		<sequential>
-			<echo append="true" file="${elastic.kibana.dir}/config/kibana.yml">${line.separator}elasticsearch.url: "http://localhost:9200"
+			<echo append="true" file="${elastic.kibana.dir}/config/kibana.yml">${line.separator}elasticsearch.hosts: "http://localhost:9200"
 pid.file: ${elastic.kibana.dir}/bin/pid-kibana
 server.basePath: "/o/portal-search-elasticsearch-xpack-monitoring/xpack-monitoring-proxy"
 server.rewriteBasePath: false</echo>
@@ -32,9 +83,9 @@ server.rewriteBasePath: false</echo>
 
 	<macrodef name="configure-kibana-x-pack-security-properties">
 		<sequential>
-			<echo append="true" file="${elastic.kibana.dir}/config/kibana.yml">${line.separator}elasticsearch.password: "${elastic.xpack.kibana.user.password}"
+			<echo append="true" file="${elastic.kibana.dir}/config/kibana.yml">${line.separator}elasticsearch.password: "${elastic.xpack.elastic.user.password}"
 elasticsearch.ssl.certificateAuthorities: [ "${elasticsearch.dir}-1/config/certs/ca/ca.crt" ]
-elasticsearch.username: "kibana"
+elasticsearch.username: "elastic"
 server.ssl.certificate: ${elasticsearch.dir}-1/config/certs/localhost/localhost.crt
 server.ssl.enabled: true
 server.ssl.key: ${elasticsearch.dir}-1/config/certs/localhost/localhost.key
@@ -44,15 +95,15 @@ xpack.security.sessionTimeout: 600000</echo>
 			<replace
 				file="${elastic.kibana.dir}/config/kibana.yml"
 			>
-				<replacetoken><![CDATA[elasticsearch.url: "http://localhost:9200"]]></replacetoken>
-				<replacevalue><![CDATA[elasticsearch.url: "https://localhost:9200"]]></replacevalue>
+				<replacetoken><![CDATA[elasticsearch.hosts: "http://localhost:9200"]]></replacetoken>
+				<replacevalue><![CDATA[elasticsearch.hosts: "https://localhost:9200"]]></replacevalue>
 			</replace>
 		</sequential>
 	</macrodef>
 
-	<macrodef name="configure-portal-elasticsearch-osgi-properties">
+	<macrodef name="configure-portal-remote-elasticsearch-osgi-properties">
 		<sequential>
-			<echo append="true" file="${liferay.home}/osgi/configs/com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration.config">${line.separator}operationMode="REMOTE"</echo>
+			<echo append="true" file="${liferay.home}/osgi/configs/com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration.config">${line.separator}operationMode="REMOTE"</echo>
 		</sequential>
 	</macrodef>
 
@@ -71,7 +122,7 @@ xpack.security.sessionTimeout: 600000</echo>
 kibanaURL="https://localhost:5601"
 proxyServletLogEnable="true"</echo>
 
-			<echo append="true" file="${liferay.home}/osgi/configs/com.liferay.portal.search.elasticsearch6.xpack.security.internal.configuration.XPackSecurityConfiguration.config">certificateFormat="PEM"
+			<echo append="true" file="${liferay.home}/osgi/configs/com.liferay.portal.search.elasticsearch7.configuration.XPackSecurityConfiguration.config">certificateFormat="PEM"
 password="${osgi.config.elastic.user.password}"
 requiresAuthentication="true"
 sslCertificateAuthoritiesPaths="${elasticsearch.dir}-1/config/certs/ca/ca.crt"
@@ -135,7 +186,7 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 				<then>
 					<exec dir="${elasticsearch.dir}/bin" executable="/bin/bash">
 						<arg value="-c" />
-						<arg value="./elasticsearch-certutil ca --pem --ca-dn CN=localhost --out elastic-stack-ca.zip" />
+						<arg value="./elasticsearch-certutil ca --pem --ca-dn CN=localhost --out ${elasticsearch.dir}/bin/elastic-stack-ca.zip" />
 					</exec>
 				</then>
 				<elseif>
@@ -143,7 +194,7 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 					<then>
 						<exec dir="${elasticsearch.dir}/bin" executable="cmd">
 							<arg value="/c" />
-							<arg value="elasticsearch-certutil ca --pem --ca-dn CN=localhost --out elastic-stack-ca.zip" />
+							<arg value="elasticsearch-certutil ca --pem --ca-dn CN=localhost --out ${elasticsearch.dir}/bin/elastic-stack-ca.zip" />
 						</exec>
 					</then>
 				</elseif>
@@ -159,7 +210,7 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 				<then>
 					<exec dir="${elasticsearch.dir}/bin" executable="/bin/bash">
 						<arg value="-c" />
-						<arg value="./elasticsearch-certutil cert --ca-cert ca/ca.crt --ca-key ca/ca.key --pem --ip 127.0.0.1 --dns localhost --name localhost --out certificate-bundle.zip" />
+						<arg value="./elasticsearch-certutil cert --ca-cert ${elasticsearch.dir}/bin/ca/ca.crt --ca-key ${elasticsearch.dir}/bin/ca/ca.key --pem --ip 127.0.0.1 --dns localhost --name localhost --out ${elasticsearch.dir}/bin/certificate-bundle.zip" />
 					</exec>
 				</then>
 				<elseif>
@@ -167,7 +218,7 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 					<then>
 						<exec dir="${elasticsearch.dir}/bin" executable="cmd">
 							<arg value="/c" />
-							<arg value="elasticsearch-certutil cert --ca-cert ca/ca.crt --ca-key ca/ca.key --pem --ip 127.0.0.1 --dns localhost --name localhost --out certificate-bundle.zip" />
+							<arg value="elasticsearch-certutil cert --ca-cert ${elasticsearch.dir}/bin/ca/ca.crt --ca-key ${elasticsearch.dir}/bin/ca/ca.key --pem --ip 127.0.0.1 --dns localhost --name localhost --out ${elasticsearch.dir}/bin/certificate-bundle.zip" />
 						</exec>
 					</then>
 				</elseif>
@@ -195,12 +246,17 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 
 	<macrodef name="prepare-elasticsearch-analyzers">
 		<sequential>
-			<lstopwatch action="start" name="prepare.elasticsearch" />
+			<lstopwatch action="start" name="prepare.elasticsearch.analyzers" />
 
 			<chmod
-				file="${elasticsearch.dir}/bin/**"
-				perm="a+x"
-			/>
+				maxparallel="10"
+				perm="a+rwx"
+				type="both"
+			>
+				<fileset
+					dir="${elasticsearch.dir}"
+				/>
+			</chmod>
 
 			<if>
 				<not>
@@ -281,25 +337,7 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 				</elseif>
 			</if>
 
-			<lstopwatch action="total" name="prepare.elasticsearch" />
-		</sequential>
-	</macrodef>
-
-	<macrodef name="set-jdk">
-		<attribute name="jdk.version" />
-
-		<sequential>
-			<if>
-				<equals arg1="@{jdk.version}" arg2="openjdk11" />
-				<then>
-					<replace
-						file="${elasticsearch.dir}/bin/elasticsearch-env"
-					>
-						<replacetoken><![CDATA[JAVA="$JAVA_HOME/bin/java"]]></replacetoken>
-						<replacevalue><![CDATA[JAVA="/opt/java/jdk11/bin/java"]]></replacevalue>
-					</replace>
-				</then>
-			</if>
+			<lstopwatch action="total" name="prepare.elasticsearch.analyzers" />
 		</sequential>
 	</macrodef>
 
@@ -327,14 +365,6 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 			<propertyregex
 				input="${elastic.xpack.user.passwords}"
 				override="true"
-				property="elastic.xpack.kibana.user.password"
-				regexp="(PASSWORD kibana = )(\S*)"
-				select="\2"
-			/>
-
-			<propertyregex
-				input="${elastic.xpack.user.passwords}"
-				override="true"
 				property="elastic.xpack.elastic.user.password"
 				regexp="(PASSWORD elastic = )(\S*)"
 				select="\2"
@@ -357,7 +387,7 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 				<arg value="-X POST" />
 				<arg value="-ku" />
 				<arg value="elastic:${elastic.xpack.elastic.user.password}" />
-				<arg value="https://localhost:9200/_xpack/license/start_trial?acknowledge=true&amp;pretty" />
+				<arg value="https://localhost:9200/_license/start_trial?acknowledge=true&amp;pretty" />
 			</exec>
 
 			<echo>${curl.output.trial}</echo>
@@ -382,22 +412,64 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 			<delete dir="${elasticsearch.dir}" />
 
 			<if>
-				<not>
-					<available file="${app.server.parent.dir}/${elasticsearch.zip.name}" />
-				</not>
+				<and>
+					<not>
+						<available file="${app.server.parent.dir}/${elasticsearch.tar.name.linux}" />
+					</not>
+					<os family="unix" />
+				</and>
 				<then>
 					<mirrors-get
-						dest="${app.server.parent.dir}/${elasticsearch.zip.name}"
+						dest="${app.server.parent.dir}/${elasticsearch.tar.name.linux}"
 						skipChecksum="true"
-						src="${elasticsearch.zip.url}"
+						src="${elasticsearch.tar.url.linux}"
+					/>
+					<untar
+						compression="gzip"
+						dest="${app.server.parent.dir}"
+						src="${app.server.parent.dir}/${elasticsearch.tar.name.linux}"
 					/>
 				</then>
+				<elseif>
+					<and>
+						<not>
+							<available file="${app.server.parent.dir}/${elasticsearch.tar.name.mac}" />
+						</not>
+						<os family="mac" />
+					</and>
+					<then>
+						<mirrors-get
+							dest="${app.server.parent.dir}/${elasticsearch.tar.name.mac}"
+							skipChecksum="true"
+							src="${elasticsearch.tar.url.mac}"
+						/>
+						<untar
+							compression="gzip"
+							dest="${app.server.parent.dir}"
+							src="${app.server.parent.dir}/${elasticsearch.tar.name.mac}"
+						/>
+					</then>
+				</elseif>
+				<elseif>
+					<and>
+						<not>
+							<available file="${app.server.parent.dir}/${elasticsearch.zip.name.windows}" />
+						</not>
+						<os family="windows" />
+					</and>
+					<then>
+						<mirrors-get
+							dest="${app.server.parent.dir}/${elasticsearch.zip.name.windows}"
+							skipChecksum="true"
+							src="${elasticsearch.zip.url.windows}"
+						/>
+						<unzip
+							dest="${app.server.parent.dir}"
+							src="${app.server.parent.dir}/${elasticsearch.zip.name.windows}"
+						/>
+					</then>
+				</elseif>
 			</if>
-
-			<unzip
-				dest="${app.server.parent.dir}"
-				src="${app.server.parent.dir}/${elasticsearch.zip.name}"
-			/>
 		</sequential>
 	</macrodef>
 
@@ -524,6 +596,14 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 xpack.monitoring.collection.enabled: true</echo>
 	</target>
 
+	<target name="deploy-elasticsearch7">
+		<gradle-execute dir="${project.dir}/modules/apps/portal-search-elasticsearch7" task="deploy">
+			<arg value="clean" />
+		</gradle-execute>
+
+		<echo file="${liferay.home}/osgi/configs/com.liferay.portal.bundle.blacklist.internal.BundleBlacklistConfiguration.config">blacklistBundleSymbolicNames=&quot;com.liferay.portal.mobile.device.detection.fiftyonedegrees.api,com.liferay.portal.mobile.device.detection.fiftyonedegrees.enterprise,com.liferay.portal.mobile.device.detection.fiftyonedegrees.enterprise.test.data,com.liferay.portal.mobile.device.detection.fiftyonedegrees,com.liferay.portal.search.elasticsearch6.spi,com.liferay.portal.search.elasticsearch6.api,com.liferay.portal.search.elasticsearch6.impl,com.liferay.portal.search.elasticsearch6.xpack.security.impl&quot;</echo>
+	</target>
+
 	<target name="prepare-additional-elasticsearch-dirs">
 		<var name="elasticsearch.node.number" value="0" />
 
@@ -553,9 +633,9 @@ xpack.monitoring.collection.enabled: true</echo>
 	<target name="start-elasticsearch">
 		<lstopwatch action="start" name="start.elasticsearch" />
 
-		<unzip-elasticsearch />
+		<configure-elasticsearch7-test-properties />
 
-		<set-jdk jdk.version="${jdk.version}" />
+		<unzip-elasticsearch />
 
 		<prepare-elasticsearch-analyzers />
 
@@ -572,7 +652,7 @@ xpack.monitoring.collection.enabled: true</echo>
 			</then>
 		</if>
 
-		<configure-portal-elasticsearch-osgi-properties />
+		<configure-portal-remote-elasticsearch-osgi-properties />
 
 		<get-testcase-property property.name="remote.elasticsearch.cluster.size" />
 
@@ -609,11 +689,25 @@ xpack.monitoring.collection.enabled: true</echo>
 				<lstopwatch action="total" name="start.elasticsearch" />
 			</then>
 			<else>
-				<waitfor maxwait="30" maxwaitunit="second" timeoutproperty="elasticsearch.server.not.started">
+				<waitfor maxwait="120" maxwaitunit="second" timeoutproperty="elasticsearch.server.not.started">
 					<http url="http://localhost:9200/" />
 				</waitfor>
 
 				<lstopwatch action="total" name="start.elasticsearch" />
+
+				<var name="elasticsearch.node.number" value="0" />
+
+				<antelope:repeat count="${remote.elasticsearch.cluster.size}">
+					<math
+						datatype="int"
+						operand1="${elasticsearch.node.number}"
+						operand2="1"
+						operation="+"
+						result="elasticsearch.node.number"
+					/>
+
+					<print-file file.name="${elasticsearch.dir}-${elasticsearch.node.number}/logs/LiferayElasticsearchCluster.log" />
+				</antelope:repeat>
 
 				<fail if="elasticsearch.server.not.started" message="Elasticsearch server failed to initialize." />
 			</else>
@@ -652,14 +746,11 @@ xpack.monitoring.collection.enabled: true</echo>
 					<then>
 						<exec dir="${elasticsearch.dir}-${elasticsearch.node.number}/bin" executable="/bin/bash">
 							<arg value="-c" />
-							<arg value="./elasticsearch -d -p pid-elasticsearch" />
+							<arg value="./elasticsearch -d -v -p pid-elasticsearch" />
 						</exec>
 					</then>
 					<elseif>
-						<and>
-							<isset property="env.JENKINS_HOME" />
-							<os family="unix" />
-						</and>
+						<os family="unix" />
 						<then>
 							<exec dir="${elasticsearch.dir}-${elasticsearch.node.number}/bin" executable="/bin/bash">
 								<arg value="-c" />
@@ -668,20 +759,11 @@ xpack.monitoring.collection.enabled: true</echo>
 						</then>
 					</elseif>
 					<elseif>
-						<os family="unix" />
-						<then>
-							<exec dir="${elasticsearch.dir}-${elasticsearch.node.number}/bin" executable="/bin/bash">
-								<arg value="-c" />
-								<arg value="./elasticsearch -d -v -p pid-elasticsearch" />
-							</exec>
-						</then>
-					</elseif>
-					<elseif>
 						<os family="windows" />
 						<then>
 							<exec dir="${elasticsearch.dir}-${elasticsearch.node.number}/bin" executable="cmd" spawn="true">
 								<arg value="/c" />
-								<arg value="elasticsearch -d -p pid-elasticsearch" />
+								<arg value="elasticsearch -d -v -p pid-elasticsearch" />
 							</exec>
 						</then>
 					</elseif>
@@ -694,6 +776,8 @@ xpack.monitoring.collection.enabled: true</echo>
 
 	<target name="start-kibana">
 		<lstopwatch action="start" name="start.kibana" />
+
+		<configure-elasticsearch7-test-properties />
 
 		<unzip-kibana />
 
@@ -714,13 +798,13 @@ xpack.monitoring.collection.enabled: true</echo>
 			</fileset>
 		</chmod>
 
-		<configure-kibana-properties />
-
 		<get-testcase-property property.name="elastic.xpack.enabled" />
 
 		<if>
 			<equals arg1="${elastic.xpack.enabled}" arg2="true" />
 			<then>
+				<configure-kibana-properties />
+
 				<configure-kibana-x-pack-security-properties />
 			</then>
 		</if>
@@ -730,7 +814,7 @@ xpack.monitoring.collection.enabled: true</echo>
 			<then>
 				<exec dir="${elastic.kibana.dir}/bin" executable="/bin/bash">
 					<arg value="-c" />
-					<arg value="./kibana &gt; kibana.log 2&gt;&amp;1 &amp;" />
+					<arg value="./kibana --allow-root &gt; kibana.log 2&gt;&amp;1 &amp;" />
 				</exec>
 			</then>
 			<elseif>
@@ -748,6 +832,8 @@ xpack.monitoring.collection.enabled: true</echo>
 	</target>
 
 	<target name="stop-elasticsearch">
+		<configure-elasticsearch7-test-properties />
+
 		<get-testcase-property property.name="remote.elasticsearch.cluster.size" />
 
 		<if>
@@ -805,6 +891,8 @@ xpack.monitoring.collection.enabled: true</echo>
 			<print-file file.name="${elasticsearch.dir}-${elasticsearch.node.number}/logs/LiferayElasticsearchCluster.log" />
 		</antelope:repeat>
 
+		<get-testcase-property property.name="elastic.xpack.enabled" />
+
 		<if>
 			<equals arg1="${elastic.xpack.enabled}" arg2="true" />
 			<then>
@@ -816,6 +904,8 @@ xpack.monitoring.collection.enabled: true</echo>
 	</target>
 
 	<target name="stop-kibana">
+		<configure-elasticsearch7-test-properties />
+
 		<if>
 			<os family="unix" />
 			<then>

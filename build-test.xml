@@ -2072,12 +2072,6 @@ jdbc.default.password=${database.password}</echo>
 		</sequential>
 	</macrodef>
 
-	<macrodef name="prepare-elasticsearch-configuration">
-		<sequential>
-			<echo file="${liferay.home}/osgi/configs/com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration.config">logExceptionsOnly="false"</echo>
-		</sequential>
-	</macrodef>
-
 	<macrodef name="prepare-gecko-driver">
 		<sequential>
 			<stop-gecko-driver />
@@ -2300,6 +2294,13 @@ jdbc.default.password=${database.password}</echo>
 
 			<delete file="${basedir}/${patching.tool.latest.txt}" />
 			<delete file="${basedir}/${patching.tool.name}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="prepare-portal-elasticsearch-osgi-configuration">
+		<sequential>
+			<echo file="${liferay.home}/osgi/configs/com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration.config">logExceptionsOnly="false"</echo>
+			<echo file="${liferay.home}/osgi/configs/com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration.config">logExceptionsOnly="false"</echo>
 		</sequential>
 	</macrodef>
 
@@ -2908,6 +2909,106 @@ ${tomcat-gc-log}
 				</then>
 				<else>
 					<echo>Unable to read /tmp/tsant-gc.log</echo>
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="print-search-indices">
+		<sequential>
+			<get-testcase-property property.name="solr.enabled" />
+			<propertycopy from="search.engine[${env.CI_TEST_SUITE}]" name="suite.search.engine" silent="true" />
+
+			<if>
+				<or>
+					<equals arg1="${solr.enabled}" arg2="true" />
+					<equals arg1="${suite.search.engine}" arg2="solr" />
+				</or>
+				<then>
+					<ant antfile="build-test-solr.xml" target="print-solr-indices" />
+				</then>
+				<else>
+					<get-testcase-property property.name="test.name.skip.portal.instance" />
+
+					<if>
+						<and>
+							<not>
+								<isset property="test.name.skip.portal.instance" />
+							</not>
+							<equals arg1="test.portal.instance" arg2="true" />
+						</and>
+						<then>
+							<var name="portalInstanceName" value="${env.HOSTNAME}" />
+						</then>
+						<else>
+							<var name="portalInstanceName" value="localhost" />
+						</else>
+					</if>
+
+					<exec executable="curl" outputproperty="companyId">
+						<arg value="http://localhost:8080/api/jsonws/company/get-company-by-virtual-host/virtual-host/${portalInstanceName}" />
+						<arg value="-u" />
+						<arg value="test@liferay.com:test" />
+					</exec>
+
+					<propertyregex
+						input="${companyId}"
+						override="true"
+						property="companyId"
+						regexp="(?&lt;=companyId&quot;:&quot;)(.*)(?=&quot;,&quot;home)"
+						select="\1"
+					/>
+
+					<property name="elasticsearch.print.query">
+						<![CDATA[
+							{
+								"query": {
+									"bool": {
+										"must": [
+											{
+												"match": {
+													"userName": "test test"
+												}
+											}
+										],
+										"must_not": [
+											{
+												"match": {
+													"entryClassName": "com.liferay.calendar.model.Calendar"
+												}
+											},
+											{
+												"match": {
+													"entryClassName": "com.liferay.portal.kernel.model.Layout"
+												}
+											},
+											{
+												"match": {
+													"hidden": "true"
+												}
+											}
+										]
+									}
+								}
+							}
+						]]>
+					</property>
+
+					<exec executable="curl" outputproperty="curl.output.elasticsearch.indices">
+						<arg value="-H" />
+						<arg value="Content-Type: application/json" />
+						<arg value="localhost:9200/liferay-${companyId}/_search?pretty" />
+						<arg value="-d" />
+						<arg value="${elasticsearch.print.query}" />
+					</exec>
+
+					<echo></echo>
+					<echo>##</echo>
+					<echo>## Elasticsearch Indices</echo>
+					<echo>##</echo>
+					<echo></echo>
+					<echo>${curl.output.elasticsearch.indices}</echo>
+					<echo></echo>
 				</else>
 			</if>
 		</sequential>
@@ -3926,6 +4027,36 @@ go</echo>
 						<ant antfile="build-test-elasticsearch6.xml" target="start-elasticsearch" />
 					</then>
 				</elseif>
+			</if>
+
+			<get-testcase-property property.name="hot.deploy.osgi.app.includes" />
+			<get-testcase-property property.name="osgi.app.includes" />
+
+			<if>
+				<and>
+					<contains string="${suite.search.engine}" substring="elasticsearch7" />
+					<not>
+						<equals arg1="${hot.deploy.osgi.app.includes}" arg2="portal-search-elasticsearch7" />
+					</not>
+					<not>
+						<contains string="${osgi.app.includes}" substring="portal-search-elasticsearch7" />
+					</not>
+				</and>
+				<then>
+					<ant antfile="build-test-elasticsearch7.xml" target="deploy-elasticsearch7" />
+				</then>
+			</if>
+
+			<get-testcase-property property.name="remote.elasticsearch7.enabled" />
+
+			<if>
+				<or>
+					<equals arg1="${remote.elasticsearch7.enabled}" arg2="true" />
+					<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch7" />
+				</or>
+				<then>
+					<ant antfile="build-test-elasticsearch7.xml" target="start-elasticsearch" />
+				</then>
 			</if>
 
 			<get-testcase-property property.name="solr.enabled" />
@@ -5468,6 +5599,7 @@ org.apache.catalina.startup.ClassLoaderFactory.level=INFO]]>
 	<macrodef name="stop-remote-search-engine">
 		<sequential>
 			<get-testcase-property property.name="remote.elasticsearch.enabled" />
+			<get-testcase-property property.name="remote.elasticsearch7.enabled" />
 
 			<if>
 				<or>
@@ -5477,6 +5609,16 @@ org.apache.catalina.startup.ClassLoaderFactory.level=INFO]]>
 				</or>
 				<then>
 					<ant antfile="build-test-elasticsearch6.xml" target="stop-elasticsearch" />
+				</then>
+			</if>
+
+			<if>
+				<or>
+					<equals arg1="${remote.elasticsearch7.enabled}" arg2="true" />
+					<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch7" />
+				</or>
+				<then>
+					<ant antfile="build-test-elasticsearch7.xml" target="stop-elasticsearch" />
 				</then>
 			</if>
 
@@ -8490,20 +8632,20 @@ osb.lcs.portlet.oauth.consumer.secret=${osb.lcs.portlet.oauth.consumer.secret}</
 	</category>
 </log4j:configuration>]]></echo>
 
-		<echo file="${liferay.home}/osgi/log4j/com.liferay.portal.search.elasticsearch-log4j-ext.xml"><![CDATA[<?xml version="1.0"?>
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
-
-<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
-	<category name="com.liferay.portal.search.elasticsearch.internal.connection.EmbeddedElasticsearchConnection">
-		<priority value="ERROR" />
-	</category>
-</log4j:configuration>]]></echo>
-
 		<echo file="${liferay.home}/osgi/log4j/com.liferay.portal.search.elasticsearch6.impl-log4j-ext.xml"><![CDATA[<?xml version="1.0"?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 	<category name="com.liferay.portal.search.elasticsearch6.internal.connection.EmbeddedElasticsearchConnection">
+		<priority value="ERROR" />
+	</category>
+</log4j:configuration>]]></echo>
+
+		<echo file="${liferay.home}/osgi/log4j/com.liferay.portal.search.elasticsearch7.impl-log4j-ext.xml"><![CDATA[<?xml version="1.0"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<category name="com.liferay.portal.search.elasticsearch7.internal.connection.EmbeddedElasticsearchConnection">
 		<priority value="ERROR" />
 	</category>
 </log4j:configuration>]]></echo>
@@ -8588,7 +8730,7 @@ osb.lcs.portlet.oauth.consumer.secret=${osb.lcs.portlet.oauth.consumer.secret}</
 			</then>
 		</if>
 
-		<prepare-elasticsearch-configuration />
+		<prepare-portal-elasticsearch-osgi-configuration />
 	</target>
 
 	<target name="prepare-patching-tool">
@@ -13206,72 +13348,10 @@ url=${short.hostname}:8080</echo>
 			</then>
 		</if>
 
+		<print-search-indices />
+
 		<trycatch property="shutdown.error">
 			<try>
-				<get-testcase-property property.name="solr.enabled" />
-
-				<if>
-					<not>
-						<equals arg1="${solr.enabled}" arg2="true" />
-					</not>
-					<then>
-						<get-testcase-property property.name="test.name.skip.portal.instance" />
-
-						<if>
-							<and>
-								<not>
-									<isset property="test.name.skip.portal.instance" />
-								</not>
-								<equals arg1="test.portal.instance" arg2="true" />
-							</and>
-							<then>
-								<var name="portalInstanceName" value="${env.HOSTNAME}" />
-							</then>
-							<else>
-								<var name="portalInstanceName" value="localhost" />
-							</else>
-						</if>
-
-						<exec executable="curl" outputproperty="companyId">
-							<arg value="http://localhost:8080/api/jsonws/company/get-company-by-virtual-host/virtual-host/${portalInstanceName}" />
-							<arg value="-u" />
-							<arg value="test@liferay.com:test" />
-						</exec>
-
-						<propertyregex
-							input="${companyId}"
-							override="true"
-							property="companyId"
-							regexp="(?&lt;=companyId&quot;:&quot;)(.*)(?=&quot;,&quot;home)"
-							select="\1"
-						/>
-
-						<ant antfile="build-test-elasticsearch6.xml" target="print-elasticsearch-indices" />
-					</then>
-				</if>
-
-				<get-testcase-property property.name="solr.enabled" />
-
-				<if>
-					<equals arg1="${solr.enabled}" arg2="true" />
-					<then>
-						<ant antfile="build-test-solr.xml" target="print-solr-indices" />
-					</then>
-					<elseif>
-						<isset property="env.CI_TEST_SUITE" />
-						<then>
-							<propertycopy from="search.engine[${env.CI_TEST_SUITE}]" name="suite.search.engine" silent="true" />
-
-							<if>
-								<equals arg1="${suite.search.engine}" arg2="solr" />
-								<then>
-									<ant antfile="build-test-solr.xml" target="print-solr-indices" />
-								</then>
-							</if>
-						</then>
-					</elseif>
-				</if>
-
 				<antcall target="clean-up-logs" />
 
 				<record action="start" name="${project.dir}/console-shut-down" />

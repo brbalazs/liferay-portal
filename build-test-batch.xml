@@ -844,10 +844,23 @@ mariadb.executable=${mariadb.executable}]]></echo>
 			<propertycopy from="search.engine[@{suite.name}]" name="suite.search.engine" silent="true" />
 
 			<if>
-				<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch6" />
+				<contains string="${suite.search.engine}" substring="elasticsearch7" />
 				<then>
-					<ant antfile="build-test-elasticsearch6.xml" target="start-elasticsearch" />
+					<ant antfile="build-test-elasticsearch7.xml" target="deploy-elasticsearch7" />
+
+					<if>
+						<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch7" />
+						<then>
+							<ant antfile="build-test-elasticsearch7.xml" target="start-elasticsearch" />
+						</then>
+					</if>
 				</then>
+				<elseif>
+					<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch6" />
+					<then>
+						<ant antfile="build-test-elasticsearch6.xml" target="start-elasticsearch" />
+					</then>
+				</elseif>
 				<elseif>
 					<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch6-jdk11" />
 					<then>
@@ -952,7 +965,7 @@ app.server.type=@{app.server.type}]]></echo>
 				</then>
 			</if>
 
-			<prepare-elasticsearch-configuration />
+			<prepare-portal-elasticsearch-osgi-configuration />
 
 			<lstopwatch action="start" name="prepare-test-build-dist.bundles.@{app.server.type}.compile-test" />
 
@@ -1747,18 +1760,7 @@ ${poshi.runner.testsuite.testcase.name}</echo>
 					<antcall inheritAll="false" target="record-test-class-file-names">
 						<param name="test.class.groups.size" value="${test.batch.size}" />
 					</antcall>
-
-					<if>
-						<isset property="env.CI_TEST_SUITE" />
-						<then>
-							<prepare-suite-search-engine suite.name="${env.CI_TEST_SUITE}" />
-						</then>
-					</if>
 				</test-set-up>
-
-				<test-tear-down>
-					<stop-suite-search-engine />
-				</test-tear-down>
 			</run-batch-test>
 		</sequential>
 	</macrodef>
@@ -3181,6 +3183,13 @@ log.sanitizer.enabled=false</echo>
 				</or>
 				<then>
 					<ant antfile="build-test-elasticsearch6.xml" target="stop-elasticsearch" />
+				</then>
+			</if>
+
+			<if>
+				<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch7" />
+				<then>
+					<ant antfile="build-test-elasticsearch7.xml" target="stop-elasticsearch" />
 				</then>
 			</if>
 
