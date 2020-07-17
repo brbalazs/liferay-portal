@@ -459,3 +459,40 @@ This change gives administrators the possibility to leverage on the Liferay perm
 management, thus providing a more fine-grained security access control.
 
 ---------------------------------------
+
+### Migrate From Commerce Friendly URL to Liferay Friendly URL
+- **Date:** 2020-Jul-16
+- **JIRA Ticket:** [COMMERCE-2794](https://issues.liferay.com/browse/COMMERCE-2794)
+- **Version:** 2.1.2
+
+#### What changed?
+
+Commerce has moved from using `Commerce Friendly URL` to
+`Liferay Friendly URL`.
+
+#### Who is affected?
+
+End Users: URL Titles will no longer validate for the following.
+- Validation that prevents adjacent slashes.
+- Validation that prevents friendly URLs ending in slashes.
+- Validation that prevents double slashes.
+- Validation that checks for valid characters
+  `(Aa-Zz, 0-9, -, %, ., +, /, *, _)`.
+
+Developers: Any custom code that is using `CPFriendlyURLEntry` will need to be
+updated to use a different class.
+
+#### How should I update my code?
+
+The classes listed will need to be replaced:
+- `CPFriendlyURLEntry`
+- `CPFriendlyURLEntryLocalService`
+
+Replace with the following new classes:
+- `FriendlyURLEntry`
+- `FriendlyURLEntryLocalService`
+
+#### Why was this change made?
+
+`CPFriendlyURLEntry` is deprecated and `FriendlyURLEntry` is a direct
+replacement.
