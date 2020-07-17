@@ -79,7 +79,12 @@ exports[`Summary should render 1`] = `
                   xlink:href="#warning-full"
                 />
               </svg>
-              Events (As of Today)
+              <button
+                class="button-root btn btn-unstyled"
+                type="button"
+              >
+                Events (As of Today)
+              </button>
             </td>
             <td
               class="summary-value"
