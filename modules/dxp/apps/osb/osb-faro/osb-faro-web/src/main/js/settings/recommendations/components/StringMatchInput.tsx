@@ -8,6 +8,7 @@ import {METADATA_TAGS} from '../utils/utils';
 
 interface IStringMatchInputProps
 	extends React.HTMLAttributes<HTMLInputElement> {
+	focusOnInit?: boolean;
 	metadata: string;
 	onEnterClick: () => void;
 	onMetadataChange: (value: string) => void;
@@ -22,6 +23,7 @@ const getMetadataTag = (value: string): string[] =>
 
 const StringMatchInput: React.FC<IStringMatchInputProps> = ({
 	className,
+	focusOnInit = true,
 	metadata = '',
 	onEnterClick,
 	onMetadataChange,
@@ -84,7 +86,7 @@ const StringMatchInput: React.FC<IStringMatchInputProps> = ({
 					dataSourceFn={query =>
 						Promise.resolve(getMetadataTag(query))
 					}
-					focusOnInit
+					focusOnInit={focusOnInit}
 					inputValue={stringMatch}
 					itemRenderer={value => <MetadataTag value={value} />}
 					menuTitle={Liferay.Language.get('available-metadata')}

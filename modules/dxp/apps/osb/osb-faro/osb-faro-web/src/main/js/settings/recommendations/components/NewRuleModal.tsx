@@ -46,10 +46,15 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 	page,
 	paginationProps
 }) => {
+	const [focusOnInit, setFocusOnInit] = useState(false);
 	const [metadata, setMetadata] = useState('');
 	const [stringMatch, setStringMatch] = useState('');
 	const [exactMatch, setExactMatch] = useState(false);
 	const [includeExclude, setIncludeExclude] = useState(INCLUDE);
+
+	useEffect(() => {
+		setFocusOnInit(true);
+	}, []);
 
 	const [getPageAssets, {data, loading}] = useLazyQuery(
 		RecommendationPageAssetsQuery,
@@ -130,6 +135,7 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 						<div className='d-flex'>
 							<StringMatchInput
 								className='flex-grow-1'
+								focusOnInit={focusOnInit}
 								metadata={metadata}
 								onEnterClick={fetchPageAssets}
 								onMetadataChange={setMetadata}
