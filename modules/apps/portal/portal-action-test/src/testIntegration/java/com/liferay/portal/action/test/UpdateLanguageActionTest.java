@@ -79,14 +79,14 @@ public class UpdateLanguageActionTest {
 
 	@Test
 	public void testGetRedirect() throws Exception {
-		_testGetRedirectWithAssetURL(true);
-		_testGetRedirectWithAssetURL(false);
+		_testGetRedirectWithPublicLayoutURL(true, Portal.FRIENDLY_URL_SEPARATOR + "asset");
+		_testGetRedirectWithPublicLayoutURL(false, Portal.FRIENDLY_URL_SEPARATOR + "asset");
 
 		_testGetRedirectWithControlPanelURL(true);
 		_testGetRedirectWithControlPanelURL(false);
 
-		_testGetRedirectWithPublicLayoutURL(true);
-		_testGetRedirectWithPublicLayoutURL(false);
+		_testGetRedirectWithPublicLayoutURL(true, "");
+		_testGetRedirectWithPublicLayoutURL(false, "");
 	}
 
 	private void _assertRedirect(
@@ -106,26 +106,6 @@ public class UpdateLanguageActionTest {
 		Assert.assertEquals(expectedRedirect, redirect);
 	}
 
-	private String _getAssetURL(Locale locale) {
-		String url =
-			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
-				_group.getFriendlyURL() + _layout.getFriendlyURL(locale);
-
-		url += Portal.FRIENDLY_URL_SEPARATOR + "asset?queryString";
-
-		return url;
-	}
-
-	private String _getPublicLayoutURL(Locale locale) {
-		String url =
-			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
-				_group.getFriendlyURL() + _layout.getFriendlyURL(locale);
-
-		url += "?queryString";
-
-		return url;
-	}
-
 	private ThemeDisplay _getThemeDisplay(boolean i18n) {
 		ThemeDisplay themeDisplay = new ThemeDisplay();
 
@@ -139,18 +119,6 @@ public class UpdateLanguageActionTest {
 		themeDisplay.setSiteGroupId(_group.getGroupId());
 
 		return themeDisplay;
-	}
-
-	private void _testGetRedirectWithAssetURL(boolean i18n) throws Exception {
-		ThemeDisplay themeDisplay = _getThemeDisplay(i18n);
-
-		String defaultAssetURL = _getAssetURL(_defaultLocale);
-		String sourceAssetURL = _getAssetURL(_sourceLocale);
-
-		_assertRedirect(themeDisplay, defaultAssetURL, sourceAssetURL);
-		_assertRedirect(
-			themeDisplay, defaultAssetURL,
-			"/" + _sourceLocale.getLanguage() + sourceAssetURL);
 	}
 
 	private void _testGetRedirectWithControlPanelURL(boolean i18n)
@@ -192,19 +160,27 @@ public class UpdateLanguageActionTest {
 		}
 	}
 
-	private void _testGetRedirectWithPublicLayoutURL(boolean i18n)
+	private void _testGetRedirectWithPublicLayoutURL(boolean i18n, String path)
 		throws Exception {
 
 		ThemeDisplay themeDisplay = _getThemeDisplay(i18n);
 
-		String defaultPublicLayoutURL = _getPublicLayoutURL(_defaultLocale);
-		String sourcePublicLayoutURL = _getPublicLayoutURL(_sourceLocale);
+		String defaultURL =
+			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
+				_group.getFriendlyURL() + _layout.getFriendlyURL(_defaultLocale);
+
+		defaultURL += path + "?queryString";
+
+		String sourceURL =
+			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
+				_group.getFriendlyURL() + _layout.getFriendlyURL(_sourceLocale);
+
+		sourceURL += path + "?queryString";
 
 		_assertRedirect(
-			themeDisplay, defaultPublicLayoutURL, sourcePublicLayoutURL);
+			themeDisplay, defaultURL, sourceURL);
 		_assertRedirect(
-			themeDisplay, defaultPublicLayoutURL,
-			"/" + _sourceLocale.getLanguage() + sourcePublicLayoutURL);
+			themeDisplay, defaultURL, "/" + _sourceLocale.getLanguage() + sourceURL);
 	}
 
 	private final Locale _defaultLocale = LocaleUtil.US;
