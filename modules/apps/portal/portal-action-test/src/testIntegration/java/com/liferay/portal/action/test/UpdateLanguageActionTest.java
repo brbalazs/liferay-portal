@@ -278,10 +278,8 @@ public class UpdateLanguageActionTest {
 				_group.getFriendlyURL() +
 					_layout.getFriendlyURL(_defaultLocale);
 
-		String queryString = StringPool.QUESTION + "queryString";
-
-		String bareSourceURL = sourceLocaleLayoutURL + queryString;
-		String bareDefaultURL = defaultLocaleLayoutURL + queryString;
+		String bareSourceURL = sourceLocaleLayoutURL + "?queryString";
+		String bareDefaultURL = defaultLocaleLayoutURL + "?queryString";
 
 		return new String[] {bareSourceURL, bareDefaultURL};
 	}
