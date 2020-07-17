@@ -37,7 +37,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.punchout.commerce.service.PunchoutReturnService;
+import com.liferay.commerce.punchout.service.PunchoutReturnService;
 
 import java.io.OutputStreamWriter;
 

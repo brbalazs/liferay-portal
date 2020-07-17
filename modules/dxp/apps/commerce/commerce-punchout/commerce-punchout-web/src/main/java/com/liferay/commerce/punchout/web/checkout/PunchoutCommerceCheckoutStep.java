@@ -23,8 +23,8 @@ import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.punchout.commerce.constants.PunchoutConstants;
-import com.liferay.punchout.commerce.service.PunchoutReturnService;
+import com.liferay.commerce.punchout.constants.PunchoutConstants;
+import com.liferay.commerce.punchout.service.PunchoutReturnService;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -165,7 +165,7 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 	private PunchoutSessionHelper _punchoutSessionHelper;
 
 	@Reference(
-		target = "(osgi.web.symbolicname=com.liferay.punchout.commerce.web)"
+		target = "(osgi.web.symbolicname=com.liferay.commerce.punchout.web)"
 	)
 	private ServletContext _servletContext;
 

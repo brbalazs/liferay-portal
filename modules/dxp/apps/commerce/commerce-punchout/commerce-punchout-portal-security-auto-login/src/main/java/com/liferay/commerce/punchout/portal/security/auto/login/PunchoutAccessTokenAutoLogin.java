@@ -35,7 +35,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Jaclyn Ong
  */
 @Component(
-	configurationPid = "com.liferay.punchout.commerce.portal.security.auto.login.module.configuration.PunchoutAccessTokenAutoLoginConfiguration",
+	configurationPid = "com.liferay.commerce.punchout.portal.security.auto.login.module.configuration.PunchoutAccessTokenAutoLoginConfiguration",
 	immediate = true, service = AutoLogin.class
 )
 public class PunchoutAccessTokenAutoLogin extends BaseAutoLogin {

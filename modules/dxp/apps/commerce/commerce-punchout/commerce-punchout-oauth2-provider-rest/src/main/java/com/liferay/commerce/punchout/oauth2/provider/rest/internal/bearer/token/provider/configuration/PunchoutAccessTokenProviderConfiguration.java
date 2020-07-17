@@ -23,7 +23,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
  */
 @ExtendedObjectClassDefinition(category = "oauth2")
 @Meta.OCD(
-	id = "com.liferay.punchout.commerce.oauth2.provider.rest.internal.bearer.token.provider.configuration.PunchoutAccessTokenProviderConfiguration",
+	id = "com.liferay.commerce.punchout.oauth2.provider.rest.internal.bearer.token.provider.configuration.PunchoutAccessTokenProviderConfiguration",
 	localization = "content/Language",
 	name = "punchout-access-token-provider-configuration-name"
 )

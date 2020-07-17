@@ -25,7 +25,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 	category = "third-party", scope = ExtendedObjectClassDefinition.Scope.GROUP
 )
 @Meta.OCD(
-	id = "com.liferay.punchout.commerce.configuration.PunchoutConfiguration",
+	id = "com.liferay.commerce.punchout.configuration.PunchoutConfiguration",
 	localization = "content/Language", name = "punchout-configuration-name"
 )
 public interface PunchoutConfiguration {

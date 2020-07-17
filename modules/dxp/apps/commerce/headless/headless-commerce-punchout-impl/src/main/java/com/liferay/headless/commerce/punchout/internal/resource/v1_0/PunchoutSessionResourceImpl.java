@@ -52,10 +52,10 @@ import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.punchout.commerce.configuration.PunchoutConfiguration;
-import com.liferay.punchout.commerce.constants.PunchoutConstants;
-import com.liferay.punchout.commerce.oauth2.provider.PunchoutAccessTokenProvider;
-import com.liferay.punchout.commerce.oauth2.provider.model.PunchoutAccessToken;
+import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
+import com.liferay.commerce.punchout.constants.PunchoutConstants;
+import com.liferay.commerce.punchout.oauth2.provider.PunchoutAccessTokenProvider;
+import com.liferay.commerce.punchout.oauth2.provider.model.PunchoutAccessToken;
 
 import java.net.URLEncoder;
 

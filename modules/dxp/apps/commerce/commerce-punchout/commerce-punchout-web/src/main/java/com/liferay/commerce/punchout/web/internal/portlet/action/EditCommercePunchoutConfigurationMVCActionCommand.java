@@ -25,7 +25,7 @@ import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsFactory;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.punchout.commerce.constants.PunchoutConstants;
+import com.liferay.commerce.punchout.constants.PunchoutConstants;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;

@@ -26,8 +26,8 @@ import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.punchout.commerce.configuration.PunchoutConfiguration;
-import com.liferay.punchout.commerce.constants.PunchoutConstants;
+import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
+import com.liferay.commerce.punchout.constants.PunchoutConstants;
 import com.liferay.commerce.punchout.web.internal.display.context.CommercePunchoutDisplayContext;
 
 import java.io.IOException;
@@ -146,7 +146,7 @@ public class CommerceChannelPunchoutScreenNavigationEntry
 	private JSPRenderer _jspRenderer;
 
 	@Reference(
-		target = "(osgi.web.symbolicname=com.liferay.punchout.commerce.web)"
+		target = "(osgi.web.symbolicname=com.liferay.commerce.punchout.web)"
 	)
 	private ServletContext _servletContext;
 

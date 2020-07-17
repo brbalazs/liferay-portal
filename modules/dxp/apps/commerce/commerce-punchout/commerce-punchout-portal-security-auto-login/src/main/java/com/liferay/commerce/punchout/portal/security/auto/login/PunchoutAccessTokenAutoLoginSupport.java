@@ -23,8 +23,8 @@ import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.punchout.commerce.oauth2.provider.PunchoutAccessTokenProvider;
-import com.liferay.punchout.commerce.oauth2.provider.model.PunchoutAccessToken;
+import com.liferay.commerce.punchout.oauth2.provider.PunchoutAccessTokenProvider;
+import com.liferay.commerce.punchout.oauth2.provider.model.PunchoutAccessToken;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

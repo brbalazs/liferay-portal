@@ -23,7 +23,7 @@ import com.liferay.portal.kernel.model.BaseModelListener;
 import com.liferay.portal.kernel.model.ModelListener;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.punchout.commerce.service.PunchoutAccountRoleHelper;
+import com.liferay.commerce.punchout.service.PunchoutAccountRoleHelper;
 
 import java.util.Collections;
 

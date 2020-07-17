@@ -15,7 +15,7 @@
 package com.liferay.commerce.punchout.configuration;
 
 import com.liferay.portal.kernel.settings.definition.ConfigurationPidMapping;
-import com.liferay.punchout.commerce.constants.PunchoutConstants;
+import com.liferay.commerce.punchout.constants.PunchoutConstants;
 
 import org.osgi.service.component.annotations.Component;
 

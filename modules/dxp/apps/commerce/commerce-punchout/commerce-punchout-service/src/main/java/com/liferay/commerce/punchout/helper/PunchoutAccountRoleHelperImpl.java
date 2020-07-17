@@ -22,8 +22,8 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserGroupRole;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.punchout.commerce.constants.PunchoutConstants;
-import com.liferay.punchout.commerce.service.PunchoutAccountRoleHelper;
+import com.liferay.commerce.punchout.constants.PunchoutConstants;
+import com.liferay.commerce.punchout.service.PunchoutAccountRoleHelper;
 
 import java.util.List;
 

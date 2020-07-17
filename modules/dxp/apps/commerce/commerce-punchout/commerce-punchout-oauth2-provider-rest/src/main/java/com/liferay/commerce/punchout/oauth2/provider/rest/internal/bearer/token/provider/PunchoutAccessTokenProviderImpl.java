@@ -22,8 +22,8 @@ import com.liferay.portal.kernel.security.SecureRandomUtil;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.MethodHandler;
 import com.liferay.portal.kernel.util.MethodKey;
-import com.liferay.punchout.commerce.oauth2.provider.PunchoutAccessTokenProvider;
-import com.liferay.punchout.commerce.oauth2.provider.model.PunchoutAccessToken;
+import com.liferay.commerce.punchout.oauth2.provider.PunchoutAccessTokenProvider;
+import com.liferay.commerce.punchout.oauth2.provider.model.PunchoutAccessToken;
 import com.liferay.commerce.punchout.oauth2.provider.rest.internal.bearer.token.provider.configuration.PunchoutAccessTokenProviderConfiguration;
 
 import java.util.Comparator;
@@ -43,7 +43,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Jaclyn Ong
  */
 @Component(
-	configurationPid = "com.liferay.punchout.commerce.oauth2.provider.rest.internal.bearer.token.provider.configuration.PunchoutAccessTokenProviderConfiguration",
+	configurationPid = "com.liferay.commerce.punchout.oauth2.provider.rest.internal.bearer.token.provider.configuration.PunchoutAccessTokenProviderConfiguration",
 	property = "timeout:Integer=15", service = PunchoutAccessTokenProvider.class
 )
 public class PunchoutAccessTokenProviderImpl

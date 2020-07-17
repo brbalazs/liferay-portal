@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.punchout.web.internal.display.context;
 
-import com.liferay.punchout.commerce.configuration.PunchoutConfiguration;
+import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
 
 /**
  * @author Jaclyn Ong
