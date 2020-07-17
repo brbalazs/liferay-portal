@@ -82,13 +82,8 @@ public class UpdateLanguageActionTest {
 		_testGetRedirectWithControlPanelURL(false);
 		_testGetRedirectWithControlPanelURL(true);
 
-		_testGetRedirectWithPublicLayoutURL(false, "");
-		_testGetRedirectWithPublicLayoutURL(
-			false, Portal.FRIENDLY_URL_SEPARATOR + "asset");
-
-		_testGetRedirectWithPublicLayoutURL(true, "");
-		_testGetRedirectWithPublicLayoutURL(
-			true, Portal.FRIENDLY_URL_SEPARATOR + "asset");
+		_testGetRedirectWithPublicLayoutURL(false);
+		_testGetRedirectWithPublicLayoutURL(true);
 	}
 
 	private void _assertRedirect(
@@ -145,6 +140,12 @@ public class UpdateLanguageActionTest {
 				"/" + _sourceLocale.getLanguage() + controlPanelURL,
 				"/" + _sourceLocale.getLanguage() + controlPanelURL);
 		}
+	}
+
+	private void _testGetRedirectWithPublicLayoutURL(boolean i18n) throws Exception {
+		_testGetRedirectWithPublicLayoutURL(i18n, "");
+		_testGetRedirectWithPublicLayoutURL(
+			i18n, Portal.FRIENDLY_URL_SEPARATOR + "asset");
 	}
 
 	private void _testGetRedirectWithPublicLayoutURL(boolean i18n, String path)
