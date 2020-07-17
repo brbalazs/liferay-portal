@@ -337,6 +337,21 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public Response createProductIdAttachmentBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_attachmentResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			attachmentResource ->
+				attachmentResource.postProductIdAttachmentBatch(
+					id, callbackURL, object));
+	}
+
+	@GraphQLField
 	public Attachment createProductIdAttachmentByBase64(
 			@GraphQLName("id") Long id,
 			@GraphQLName("attachmentBase64") AttachmentBase64 attachmentBase64)
@@ -689,6 +704,21 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public Response createOptionIdOptionValueBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_optionValueResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			optionValueResource ->
+				optionValueResource.postOptionIdOptionValueBatch(
+					id, callbackURL, object));
+	}
+
+	@GraphQLField
 	public Product createProduct(@GraphQLName("product") Product product)
 		throws Exception {
 
@@ -987,6 +1017,22 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public Response createProductGroupIdProductGroupProductBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productGroupProductResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productGroupProductResource ->
+				productGroupProductResource.
+					postProductGroupIdProductGroupProductBatch(
+						id, callbackURL, object));
+	}
+
+	@GraphQLField
 	public Response deleteProductOption(@GraphQLName("id") Long id)
 		throws Exception {
 
@@ -1082,6 +1128,22 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public Response createProductOptionIdProductOptionValueBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productOptionValueResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productOptionValueResource ->
+				productOptionValueResource.
+					postProductOptionIdProductOptionValueBatch(
+						id, callbackURL, object));
+	}
+
+	@GraphQLField
 	public Response patchProductByExternalReferenceCodeShippingConfiguration(
 			@GraphQLName("externalReferenceCode") String externalReferenceCode,
 			@GraphQLName("productShippingConfiguration")
@@ -1126,6 +1188,22 @@ public class Mutation {
 			productSpecificationResource ->
 				productSpecificationResource.postProductIdProductSpecification(
 					id, productSpecification));
+	}
+
+	@GraphQLField
+	public Response createProductIdProductSpecificationBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_productSpecificationResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			productSpecificationResource ->
+				productSpecificationResource.
+					postProductIdProductSpecificationBatch(
+						id, callbackURL, object));
 	}
 
 	@GraphQLField
@@ -1226,6 +1304,21 @@ public class Mutation {
 	}
 
 	@GraphQLField
+	public Response createProductIdRelatedProductBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_relatedProductResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			relatedProductResource ->
+				relatedProductResource.postProductIdRelatedProductBatch(
+					id, callbackURL, object));
+	}
+
+	@GraphQLField
 	public Response deleteRelatedProduct(@GraphQLName("id") Long id)
 		throws Exception {
 
@@ -1271,6 +1364,19 @@ public class Mutation {
 		return _applyComponentServiceObjects(
 			_skuResourceComponentServiceObjects, this::_populateResourceContext,
 			skuResource -> skuResource.postProductIdSku(id, sku));
+	}
+
+	@GraphQLField
+	public Response createProductIdSkuBatch(
+			@GraphQLName("id") Long id,
+			@GraphQLName("callbackURL") String callbackURL,
+			@GraphQLName("object") Object object)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_skuResourceComponentServiceObjects, this::_populateResourceContext,
+			skuResource -> skuResource.postProductIdSkuBatch(
+				id, callbackURL, object));
 	}
 
 	@GraphQLField

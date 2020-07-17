@@ -71,6 +71,10 @@ public interface PriceListChannelResource {
 			Long id, PriceListChannel priceListChannel)
 		throws Exception;
 
+	public Response postPriceListIdPriceListChannelBatch(
+			Long id, String callbackURL, Object object)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

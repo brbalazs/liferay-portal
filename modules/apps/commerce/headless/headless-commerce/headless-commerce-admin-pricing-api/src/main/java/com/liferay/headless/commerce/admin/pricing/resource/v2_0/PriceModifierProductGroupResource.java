@@ -74,6 +74,10 @@ public interface PriceModifierProductGroupResource {
 				Long id, PriceModifierProductGroup priceModifierProductGroup)
 		throws Exception;
 
+	public Response postPriceModifierIdPriceModifierProductGroupBatch(
+			Long id, String callbackURL, Object object)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

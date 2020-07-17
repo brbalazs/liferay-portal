@@ -72,6 +72,10 @@ public interface ProductGroupProductResource {
 			Long id, ProductGroupProduct productGroupProduct)
 		throws Exception;
 
+	public Response postProductGroupIdProductGroupProductBatch(
+			Long id, String callbackURL, Object object)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

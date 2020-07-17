@@ -71,6 +71,10 @@ public interface PriceListAccountResource {
 			Long id, PriceListAccount priceListAccount)
 		throws Exception;
 
+	public Response postPriceListIdPriceListAccountBatch(
+			Long id, String callbackURL, Object object)
+		throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}
