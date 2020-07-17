@@ -66,7 +66,6 @@ public class UpdateLanguageActionTest {
 			LocaleUtil.US.getVariant());
 
 		_sourceLocalePrepend = StringPool.SLASH + _sourceLocale.getLanguage();
-		_targetLocalePrepend = StringPool.SLASH + _targetLocale.getLanguage();
 
 		_group = GroupTestUtil.addGroup();
 
@@ -235,6 +234,5 @@ public class UpdateLanguageActionTest {
 	private final Locale _sourceLocale = LocaleUtil.FRANCE;
 	private String _sourceLocalePrepend;
 	private final Locale _targetLocale = LocaleUtil.GERMAN;
-	private String _targetLocalePrepend;
 
 }
