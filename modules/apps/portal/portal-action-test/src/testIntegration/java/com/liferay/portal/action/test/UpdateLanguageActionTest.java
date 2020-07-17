@@ -117,7 +117,7 @@ public class UpdateLanguageActionTest {
 		return url;
 	}
 
-	private ThemeDisplay _getLayoutThemeDisplay(boolean i18n) {
+	private ThemeDisplay _getThemeDisplay(boolean i18n) {
 		ThemeDisplay themeDisplay = new ThemeDisplay();
 
 		if (i18n) {
@@ -143,7 +143,7 @@ public class UpdateLanguageActionTest {
 	}
 
 	private void _testGetRedirectWithAssetURL(boolean i18n) throws Exception {
-		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(i18n);
+		ThemeDisplay themeDisplay = _getThemeDisplay(i18n);
 
 		String defaultAssetURL = _getAssetURL(_defaultLocale);
 		String sourceAssetURL = _getAssetURL(_sourceLocale);
@@ -187,7 +187,7 @@ public class UpdateLanguageActionTest {
 	private void _testGetRedirectWithPublicPageURL(boolean i18n)
 		throws Exception {
 
-		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(i18n);
+		ThemeDisplay themeDisplay = _getThemeDisplay(i18n);
 
 		String defaultPublicPageURL = _getPublicPageURL(_defaultLocale);
 		String sourcePublicPageURL = _getPublicPageURL(_sourceLocale);
