@@ -81,9 +81,11 @@ public class UpdateLanguageActionTest {
 	public void testGetRedirect() throws Exception {
 		_testGetRedirectWithControlPanelURL(false);
 		_testGetRedirectWithControlPanelURL(true);
-		_testGetRedirectWithPublicLayoutURL(false, "");
+		
+		_testGetRedirectWithPublicLayoutURL(false, "");		
 		_testGetRedirectWithPublicLayoutURL(
 			false, Portal.FRIENDLY_URL_SEPARATOR + "asset");
+
 		_testGetRedirectWithPublicLayoutURL(true, "");
 		_testGetRedirectWithPublicLayoutURL(
 			true, Portal.FRIENDLY_URL_SEPARATOR + "asset");
