@@ -81,8 +81,8 @@ public class UpdateLanguageActionTest {
 	public void testGetRedirect() throws Exception {
 		_testGetRedirectWithControlPanelURL(false);
 		_testGetRedirectWithControlPanelURL(true);
-		
-		_testGetRedirectWithPublicLayoutURL(false, "");		
+
+		_testGetRedirectWithPublicLayoutURL(false, "");
 		_testGetRedirectWithPublicLayoutURL(
 			false, Portal.FRIENDLY_URL_SEPARATOR + "asset");
 
@@ -163,7 +163,8 @@ public class UpdateLanguageActionTest {
 
 		String defaultURL =
 			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
-				_group.getFriendlyURL() + _layout.getFriendlyURL(_defaultLocale);
+				_group.getFriendlyURL() +
+					_layout.getFriendlyURL(_defaultLocale);
 
 		defaultURL += path + "?queryString";
 
@@ -173,10 +174,10 @@ public class UpdateLanguageActionTest {
 
 		sourceURL += path + "?queryString";
 
+		_assertRedirect(themeDisplay, defaultURL, sourceURL);
 		_assertRedirect(
-			themeDisplay, defaultURL, sourceURL);
-		_assertRedirect(
-			themeDisplay, defaultURL, "/" + _sourceLocale.getLanguage() + sourceURL);
+			themeDisplay, defaultURL,
+			"/" + _sourceLocale.getLanguage() + sourceURL);
 	}
 
 	private final Locale _defaultLocale = LocaleUtil.US;
