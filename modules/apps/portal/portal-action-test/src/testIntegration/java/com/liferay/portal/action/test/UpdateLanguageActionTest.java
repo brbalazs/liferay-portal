@@ -99,14 +99,14 @@ public class UpdateLanguageActionTest {
 
 	@Test
 	public void testGetRedirect() throws Exception {
-		_testAssetRedirect(true);
-		_testAssetRedirect(false);
+		_testGetRedirectWithAssetURL(true);
+		_testGetRedirectWithAssetURL(false);
 
-		_testControlPanelRedirect(true);
-		_testControlPanelRedirect(false);
+		_testGetRedirectWithControlPanelURL(true);
+		_testGetRedirectWithControlPanelURL(false);
 
-		_testPublicPageRedirect(true);
-		_testPublicPageRedirect(false);
+		_testGetRedirectWithPublicPageURL(true);
+		_testGetRedirectWithPublicPageURL(false);
 	}
 
 	private void _assertRedirect(
@@ -185,7 +185,7 @@ public class UpdateLanguageActionTest {
 		return url;
 	}
 
-	private void _testAssetRedirect(boolean i18n) throws Exception {
+	private void _testGetRedirectWithAssetURL(boolean i18n) throws Exception {
 		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(i18n);
 
 		String sourceAssetURL = _getAssetURL(_sourceLocale);
@@ -197,7 +197,7 @@ public class UpdateLanguageActionTest {
 			_sourceLocalePrepend + sourceAssetURL);
 	}
 
-	private void _testControlPanelRedirect(boolean i18n) throws Exception {
+	private void _testGetRedirectWithControlPanelURL(boolean i18n) throws Exception {
 		ThemeDisplay themeDisplay = _getControlPanelThemeDisplay(i18n);
 
 		String controlPanelURL = _getControlPanelURL();
@@ -208,7 +208,7 @@ public class UpdateLanguageActionTest {
 			_sourceLocalePrepend + controlPanelURL);
 	}
 
-	private void _testPublicPageRedirect(boolean i18n) throws Exception {
+	private void _testGetRedirectWithPublicPageURL(boolean i18n) throws Exception {
 		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(i18n);
 
 		String sourcePublicPageURL = _getPublicPageURL(_sourceLocale);
