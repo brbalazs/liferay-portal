@@ -47,9 +47,6 @@ public interface Rels {
 
 	public static final String ADMIN_NANITES = "admin-nanites";
 
-	public static final String ANALYTICS_EVENT_VALUES =
-		"analytics-event-values";
-
 	public static final String ASSET = "asset";
 
 	public static final String ASSETS = "assets";
@@ -192,6 +189,8 @@ public interface Rels {
 
 	public static final String PREVIEW_DISABLED_SEGMENTS =
 		"preview-disabled-segments";
+
+	public static final String SESSION_VALUES = "session-values";
 
 	public static final String WORKSPACE = "workspace";
 
