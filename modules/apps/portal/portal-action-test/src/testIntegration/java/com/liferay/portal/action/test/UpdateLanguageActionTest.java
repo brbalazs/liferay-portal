@@ -193,12 +193,12 @@ public class UpdateLanguageActionTest {
 			ThemeDisplay themeDisplay, String expectedRedirect, String url)
 		throws PortalException {
 
+		UpdateLanguageAction updateLanguageAction = new UpdateLanguageAction();
+
 		MockHttpServletRequest mockHttpServletRequest =
 			new MockHttpServletRequest();
 
 		mockHttpServletRequest.setParameter("redirect", url);
-
-		UpdateLanguageAction updateLanguageAction = new UpdateLanguageAction();
 
 		String redirect = updateLanguageAction.getRedirect(
 			mockHttpServletRequest, themeDisplay, _targetLocale);
