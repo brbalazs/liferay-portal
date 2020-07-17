@@ -63,11 +63,82 @@ components:
             description:
                 Authentication information is missing or invalid
     schemas:
+        Account:
+            properties:
+                id:
+                    example: 30130
+                    format: int64
+                    minimum: 0
+                    type: integer
+                logoId:
+                    example: 20078
+                    format: int64
+                    minimum: 0
+                    type: integer
+                name:
+                    example: Account Name
+                    type: string
+            type: object
+        AccountGroup:
+            properties:
+                id:
+                    example: 30130
+                    format: int64
+                    minimum: 0
+                    readOnly: true
+                    type: integer
+                name:
+                    example: AccountGroup Name
+                    type: string
+            type: object
+        Category:
+            properties:
+                id:
+                    example: 30130
+                    format: int64
+                    minimum: 0
+                    readOnly: true
+                    type: integer
+                name:
+                    example: simple
+                    readOnly: true
+                    type: string
+                path:
+                    example: simple
+                    readOnly: true
+                    type: string
+                vocabulary:
+                    example: Default Vocabulary
+                    readOnly: true
+                    type: string
+            type: object
+        Channel:
+            properties:
+                id:
+                    format: int64
+                    type: integer
+                name:
+                    type: string
+                siteGroupId:
+                    format: int64
+                    type: integer
+                type:
+                    type: string
+            type: object
         Discount:
             properties:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    readOnly: true
+                    type: object
                 active:
                     example: true
                     type: boolean
+                amountFormatted:
+                    type: string
                 couponCode:
                     example: "SAVE20"
                     type: string
@@ -183,12 +254,17 @@ components:
                     example: true
                     type: boolean
             required:
+                - level
                 - limitationType
                 - target
                 - title
+                - usePercentage
             type: object
         DiscountAccount:
             properties:
+                account:
+                    $ref: "#/components/schemas/Account"
+                    readOnly: true
                 accountExternalReferenceCode:
                     example: "PAB-34098-789-N"
                     type: string
@@ -197,9 +273,13 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                accountName:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
                     readOnly: true
-                    type: string
+                    type: object
                 discountExternalReferenceCode:
                     example: "DAB-34098-789-N"
                     type: string
@@ -214,9 +294,15 @@ components:
                     minimum: 0
                     readOnly: true
                     type: integer
+            required:
+                - accountId
+                - discountId
             type: object
         DiscountAccountGroup:
             properties:
+                accountGroup:
+                    $ref: "#/components/schemas/AccountGroup"
+                    readOnly: true
                 accountGroupExternalReferenceCode:
                     example: "PAB-34098-789-N"
                     type: string
@@ -225,9 +311,13 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                accountGroupName:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
                     readOnly: true
-                    type: string
+                    type: object
                 discountExternalReferenceCode:
                     example: "DAB-34098-789-N"
                     type: string
@@ -242,9 +332,22 @@ components:
                     minimum: 0
                     readOnly: true
                     type: integer
+            required:
+                - accountGroupId
+                - discountId
             type: object
         DiscountCategory:
             properties:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    readOnly: true
+                    type: object
+                category:
+                    $ref: "#/components/schemas/Category"
+                    readOnly: true
                 categoryExternalReferenceCode:
                     example: "PAB-34098-789-N"
                     type: string
@@ -253,9 +356,6 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                categoryName:
-                    readOnly: true
-                    type: string
                 discountExternalReferenceCode:
                     example: "DAB-34098-789-N"
                     type: string
@@ -270,9 +370,22 @@ components:
                     minimum: 0
                     readOnly: true
                     type: integer
+            required:
+                - categoryId
+                - discountId
             type: object
         DiscountChannel:
             properties:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    readOnly: true
+                    type: object
+                channel:
+                    $ref: "#/components/schemas/Channel"
+                    readOnly: true
                 channelExternalReferenceCode:
                     example: "PAB-34098-789-N"
                     type: string
@@ -281,9 +394,6 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                channelName:
-                    readOnly: true
-                    type: string
                 discountExternalReferenceCode:
                     example: "DAB-34098-789-N"
                     type: string
@@ -298,9 +408,19 @@ components:
                     minimum: 0
                     readOnly: true
                     type: integer
+            required:
+                - channelId
+                - discountId
             type: object
         DiscountProduct:
             properties:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    readOnly: true
+                    type: object
                 discountExternalReferenceCode:
                     example: "DAB-34098-789-N"
                     type: string
@@ -315,6 +435,9 @@ components:
                     minimum: 0
                     readOnly: true
                     type: integer
+                product:
+                    $ref: "#/components/schemas/Product"
+                    readOnly: true
                 productExternalReferenceCode:
                     example: "PAB-34098-789-N"
                     type: string
@@ -323,12 +446,19 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                productName:
-                    readOnly: true
-                    type: string
+            required:
+                - discountId
+                - productId
             type: object
         DiscountProductGroup:
             properties:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    readOnly: true
+                    type: object
                 discountExternalReferenceCode:
                     example: "DAB-34098-789-N"
                     type: string
@@ -343,6 +473,9 @@ components:
                     minimum: 0
                     readOnly: true
                     type: integer
+                productGroup:
+                    $ref: "#/components/schemas/ProductGroup"
+                    readOnly: true
                 productGroupExternalReferenceCode:
                     example: "PAB-34098-789-N"
                     type: string
@@ -351,12 +484,19 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                productGroupName:
-                    readOnly: true
-                    type: string
+            required:
+                - discountId
+                - productGroupId
             type: object
         DiscountRule:
             properties:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    readOnly: true
+                    type: object
                 discountId:
                     example: 30324
                     format: int64
@@ -412,6 +552,13 @@ components:
             type: object
         PriceEntry:
             properties:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    readOnly: true
+                    type: object
                 active:
                     example: true
                     type: boolean
@@ -479,9 +626,12 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
+                product:
+                    $ref: "#/components/schemas/Product"
+                    readOnly: true
                 sku:
-                    example: BL500IC
-                    type: string
+                    $ref: "#/components/schemas/Sku"
+                    readOnly: true
                 skuExternalReferenceCode:
                     example: CAB-34098-789-N
                     type: string
@@ -496,9 +646,18 @@ components:
                     type: array
             required:
                 - price
+                - priceListId
+                - skuId
             type: object
         PriceList:
             properties:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    readOnly: true
+                    type: object
                 active:
                     example: true
                     type: boolean
@@ -582,11 +741,16 @@ components:
                     example: price-list, promotion, contract
                     type: string
             required:
+                - catalogId
                 - currencyCode
                 - name
+                - type
             type: object
         PriceListAccount:
             properties:
+                account:
+                    $ref: "#/components/schemas/Account"
+                    readOnly: true
                 accountExternalReferenceCode:
                     example: DAB-34098-789-N
                     type: string
@@ -595,9 +759,13 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                accountName:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
                     readOnly: true
-                    type: string
+                    type: object
                 id:
                     example: 30643
                     format: int64
@@ -617,9 +785,15 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
+            required:
+                - accountId
+                - priceListId
             type: object
         PriceListAccountGroup:
             properties:
+                accountGroup:
+                    $ref: "#/components/schemas/AccountGroup"
+                    readOnly: true
                 accountGroupExternalReferenceCode:
                     example: DAB-34098-789-N
                     type: string
@@ -628,9 +802,13 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                accountGroupName:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
                     readOnly: true
-                    type: string
+                    type: object
                 id:
                     example: 30643
                     format: int64
@@ -650,9 +828,22 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
+            required:
+                - accountGroupId
+                - priceListId
             type: object
         PriceListChannel:
             properties:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    readOnly: true
+                    type: object
+                channel:
+                    $ref: "#/components/schemas/Channel"
+                    readOnly: true
                 channelExternalReferenceCode:
                     example: DAB-34098-789-N
                     type: string
@@ -661,9 +852,6 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                channelName:
-                    readOnly: true
-                    type: string
                 id:
                     example: 30643
                     format: int64
@@ -683,6 +871,9 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
+            required:
+                - channelId
+                - priceListId
             type: object
         PriceListDiscount:
             properties:
@@ -716,9 +907,19 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
+            required:
+                - discountId
+                - priceListId
             type: object
         PriceModifier:
             properties:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    readOnly: true
+                    type: object
                 active:
                     example: true
                     type: boolean
@@ -787,6 +988,16 @@ components:
             type: object
         PriceModifierCategory:
             properties:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    readOnly: true
+                    type: object
+                category:
+                    $ref: "#/components/schemas/Category"
+                    readOnly: true
                 categoryExternalReferenceCode:
                     example: "PAB-34098-789-N"
                     type: string
@@ -795,9 +1006,6 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                categoryName:
-                    readOnly: true
-                    type: string
                 id:
                     example: 30643
                     format: int64
@@ -812,9 +1020,19 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
+            required:
+                - categoryId
+                - priceModifierId
             type: object
         PriceModifierProduct:
             properties:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    readOnly: true
+                    type: object
                 id:
                     example: 30643
                     format: int64
@@ -829,6 +1047,9 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
+                product:
+                    $ref: "#/components/schemas/Product"
+                    readOnly: true
                 productExternalReferenceCode:
                     example: "PAB-34098-789-N"
                     type: string
@@ -837,12 +1058,19 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                productName:
-                    readOnly: true
-                    type: string
+            required:
+                - priceModifierId
+                - productId
             type: object
         PriceModifierProductGroup:
             properties:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    readOnly: true
+                    type: object
                 id:
                     example: 30643
                     format: int64
@@ -857,6 +1085,9 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
+                productGroup:
+                    $ref: "#/components/schemas/ProductGroup"
+                    readOnly: true
                 productGroupExternalReferenceCode:
                     example: "PAB-34098-789-N"
                     type: string
@@ -865,12 +1096,88 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
-                productGroupName:
+            required:
+                - priceModifierId
+                - productGroupId
+            type: object
+        Product:
+            properties:
+                id:
+                    example: 30130
+                    format: int64
+                    minimum: 0
+                    readOnly: true
+                    type: integer
+                name:
+                    additionalProperties:
+                        type: string
+                    example:
+                        en_US: Hand Saw
+                        hr_HR: Product Name HR
+                        hu_HU: Product Name HU
+                    type: object
+                sku:
+                    example: simple
+                    readOnly: true
+                    type: string
+                thumbnail:
+                    example: simple
+                    readOnly: true
+                    type: string
+            type: object
+        ProductGroup:
+            properties:
+                id:
+                    example: 30130
+                    format: int64
+                    minimum: 0
+                    type: integer
+                productsCount:
+                    example: 20
+                    format: int32
+                    minimum: 0
+                    type: integer
+                title:
+                    additionalProperties:
+                        type: string
+                    example:
+                        en_US: Title
+                        hr_HR: Title HR
+                        hu_HU: Title HU
+                    type: object
+            type: object
+        Sku:
+            properties:
+                basePrice:
+                    format: double
+                    type: number
+                basePriceFormatted:
+                    type: string
+                basePromoPrice:
+                    format: double
+                    type: number
+                basePromoPriceFormatted:
+                    type: string
+                id:
+                    example: 30130
+                    format: int64
+                    minimum: 0
+                    readOnly: true
+                    type: integer
+                name:
+                    example: simple
                     readOnly: true
                     type: string
             type: object
         TierPrice:
             properties:
+                actions:
+                    additionalProperties:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    readOnly: true
+                    type: object
                 active:
                     example: true
                     type: boolean
@@ -937,6 +1244,10 @@ components:
                     type: integer
                 priceFormatted:
                     type: string
+            required:
+                - minimumQuantity
+                - price
+                - priceEntryId
             type: object
     securitySchemes:
         BasicAuth:
@@ -1395,19 +1706,30 @@ paths:
             operationId: getDiscountsPage
             parameters:
                 - in: query
-                  explode: true
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -3017,6 +3339,266 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Updates a Discount by ID.
             tags: ["Discount"]
+    /discounts/{id}/account:
+        get:
+            operationId: getDiscountIdAccount
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Account"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Account"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets account associated to the pricing object.
+            tags: ["Account"]
+    /discounts/{id}/account-group:
+        get:
+            operationId: getDiscountIdAccountGroup
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/AccountGroup"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/AccountGroup"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets account group associated to the pricing object.
+            tags: ["AccountGroup"]
+    /discounts/{id}/category:
+        get:
+            operationId: getDiscountIdCategoryPage
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Category"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Category"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets category associated to the pricing object.
+            tags: ["Category"]
+    /discounts/{id}/channel:
+        get:
+            operationId: getDiscountIdChannel
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Channel"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Channel"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets channel associated to the pricing object.
+            tags: ["Channel"]
     /discounts/{id}/discount-account-groups:
         get:
             operationId: getDiscountIdDiscountAccountGroupsPage
@@ -3034,19 +3616,30 @@ paths:
                       type: integer
                   style: simple
                 - in: query
-                  explode: true
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -3197,19 +3790,30 @@ paths:
                       type: integer
                   style: simple
                 - in: query
-                  explode: true
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -3360,19 +3964,30 @@ paths:
                       type: integer
                   style: simple
                 - in: query
-                  explode: true
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -3523,19 +4138,30 @@ paths:
                       type: integer
                   style: simple
                 - in: query
-                  explode: true
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -3686,19 +4312,30 @@ paths:
                       type: integer
                   style: simple
                 - in: query
-                  explode: true
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -3849,19 +4486,30 @@ paths:
                       type: integer
                   style: simple
                 - in: query
-                  explode: true
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -4012,19 +4660,30 @@ paths:
                       type: integer
                   style: simple
                 - in: query
-                  explode: true
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -4161,6 +4820,136 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or Updates a Discount Rule.
             tags: ["DiscountRule"]
+    /discounts/{id}/product:
+        get:
+            operationId: getDiscountIdProductPage
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Product"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Product"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets product associated to the pricing object.
+            tags: ["Product"]
+    /discounts/{id}/product-group:
+        get:
+            operationId: getDiscountIdProductGroupPage
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ProductGroup"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/ProductGroup"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets product group associated to the pricing object.
+            tags: ["ProductGroup"]
     /price-entries/by-externalReferenceCode/{externalReferenceCode}:
         delete:
             operationId: deletePriceEntryByExternalReferenceCode
@@ -4684,6 +5473,134 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Updates a Price Entry by ID.
             tags: ["PriceEntry"]
+    /price-entries/{id}/product:
+        get:
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Product"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Product"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets product associated to the pricing object.
+            tags: ["Product"]
+    /price-entries/{id}/sku:
+        get:
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Sku"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Sku"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets sku associated to the pricing object.
+            tags: ["Sku"]
     /price-entries/{id}/tier-prices:
         get:
             operationId: getPriceEntryIdTierPricesPage
@@ -6484,6 +7401,201 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Updates a Price List by ID.
             tags: ["PriceList"]
+    /price-lists/{id}/account:
+        get:
+            operationId: getPriceListIdAccount
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Account"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Account"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets account associated to the pricing object.
+            tags: ["Account"]
+    /price-lists/{id}/account-group:
+        get:
+            operationId: getPriceListIdAccountGroup
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/AccountGroup"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/AccountGroup"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets account group associated to the pricing object.
+            tags: ["AccountGroup"]
+    /price-lists/{id}/channel:
+        get:
+            operationId: getPriceListIdChannel
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Channel"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Channel"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets channel associated to the pricing object.
+            tags: ["Channel"]
     /price-lists/{id}/price-entries:
         get:
             operationId: getPriceListIdPriceEntriesPage
@@ -6679,19 +7791,30 @@ paths:
                       type: integer
                   style: simple
                 - in: query
-                  explode: true
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -6841,19 +7964,30 @@ paths:
                       type: integer
                   style: simple
                 - in: query
-                  explode: true
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -7003,19 +8137,30 @@ paths:
                       type: integer
                   style: simple
                 - in: query
-                  explode: true
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -7329,19 +8474,30 @@ paths:
                       type: integer
                   style: simple
                 - in: query
-                  explode: true
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -8438,6 +9594,71 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Updates a Price Modifier by ID.
             tags: ["PriceModifier"]
+    /price-modifiers/{id}/category:
+        get:
+            operationId: getPriceModifierIdCategory
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Category"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Category"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets category associated to the pricing object.
+            tags: ["Category"]
     /price-modifiers/{id}/price-modifier-categories:
         get:
             operationId: getPriceModifierIdPriceModifierCategoriesPage
@@ -8455,19 +9676,30 @@ paths:
                       type: integer
                   style: simple
                 - in: query
-                  explode: true
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -8618,19 +9850,30 @@ paths:
                       type: integer
                   style: simple
                 - in: query
-                  explode: true
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -8781,19 +10024,30 @@ paths:
                       type: integer
                   style: simple
                 - in: query
-                  explode: true
+                  name: filter
+                  required: false
+                  schema:
+                      type: string
+                - in: query
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
+                - in: query
+                  name: search
+                  required: false
+                  schema:
+                      type: string
+                - in: query
+                  name: sort
+                  required: false
+                  schema:
+                      type: string
             responses:
                 200:
                     content:
@@ -8927,6 +10181,136 @@ paths:
                       - HeadlessCommerceAdminPricing.write
             summary: Creates or updates a Price Modifier Product.
             tags: ["PriceModifierProduct"]
+    /price-modifiers/{id}/product:
+        get:
+            operationId: getPriceModifierIdProduct
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Product"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Product"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets product associated to the pricing object.
+            tags: ["Product"]
+    /price-modifiers/{id}/product-group:
+        get:
+            operationId: getPriceModifierIdProductGroup
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      description:
+                          The resource Id
+                      example: 30130
+                      format: int64
+                      minimum: 0
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ProductGroup"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/ProductGroup"
+                    description:
+                        Successful operation
+                400:
+                    description:
+                        Invalid input
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Authentication information is missing or invalid
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        The specified resource was not found
+                500:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                    description:
+                        Unexpected error
+            security:
+                - BasicAuth: []
+                - BearerAuth: []
+                - OAuth2:
+                      - HeadlessCommerceAdminPricing.read
+            summary: Gets product group associated to the pricing object.
+            tags: ["ProductGroup"]
     /tier-prices/by-externalReferenceCode/{externalReferenceCode}:
         delete:
             operationId: deleteTierPriceByExternalReferenceCode
