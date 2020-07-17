@@ -112,19 +112,13 @@ public class UpdateLanguageActionTest {
 	}
 
 	@Test
-	public void testAssetRedirect() throws PortalException {
+	public void testGetRedirect() throws PortalException {
 		_testAssetRedirect(true);
 		_testAssetRedirect(false);
-	}
 
-	@Test
-	public void testControlPanelRedirect() throws PortalException {
 		_testControlPanelRedirect(true);
 		_testControlPanelRedirect(false);
-	}
 
-	@Test
-	public void testPublicPageRedirect() throws PortalException {
 		_testPublicPageRedirect(true);
 		_testPublicPageRedirect(false);
 	}
