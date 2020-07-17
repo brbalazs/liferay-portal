@@ -825,7 +825,7 @@ public class ContactsEngineClientImpl
 	}
 
 	@Override
-	public Results<String> getAnalyticsEventValues(
+	public Results<String> getSessionValues(
 		FaroProject faroProject, String channelId, String fieldName,
 		String filter, String query, int cur, int delta) {
 
@@ -845,7 +845,7 @@ public class ContactsEngineClientImpl
 		uriVariables.put("value", query);
 
 		PagedResources pagedResources = get(
-			faroProject, Rels.ANALYTICS_EVENT_VALUES,
+			faroProject, Rels.SESSION_VALUES,
 			new ParameterizedTypeReference<StringPagedResources>() {
 			},
 			uriVariables);

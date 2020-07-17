@@ -53,7 +53,7 @@ public class SessionController extends BaseFaroController {
 		throws Exception {
 
 		return new FaroResultsDisplay(
-			contactsEngineClient.getAnalyticsEventValues(
+			contactsEngineClient.getSessionValues(
 				faroProjectLocalService.getFaroProjectByGroupId(groupId),
 				channelId, fieldName, filter, query, cur, delta));
 	}

@@ -398,11 +398,11 @@ public abstract class BaseMockContactsEngineClientImpl
 	}
 
 	@Override
-	public Results<String> getAnalyticsEventValues(
+	public Results<String> getSessionValues(
 		FaroProject faroProject, String channelId, String fieldName,
 		String filter, String query, int cur, int delta) {
 
-		return contactsEngineClient.getAnalyticsEventValues(
+		return contactsEngineClient.getSessionValues(
 			faroProject, channelId, fieldName, filter, query, cur, delta);
 	}
 

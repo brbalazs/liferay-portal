@@ -208,7 +208,7 @@ public interface ContactsEngineClient {
 		String ownerType, String query, Date startDate, Date endDate, int cur,
 		int delta, List<OrderByField> orderByFields);
 
-	public Results<String> getAnalyticsEventValues(
+	public Results<String> getSessionValues(
 		FaroProject faroProject, String channelId, String fieldName,
 		String filter, String query, int cur, int delta);
 
