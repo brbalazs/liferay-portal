@@ -115,70 +115,70 @@ public class UpdateLanguageActionTest {
 	public void testAssetI18nRedirect() throws PortalException {
 		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(true);
 
-		String bareSourceURL = _getAssetURL(_sourceLocale);
-		String bareDefaultURL = _getAssetURL(_defaultLocale);
+		String sourceAssetURL = _getAssetURL(_sourceLocale);
+		String defaultAssetURL = _getAssetURL(_defaultLocale);
 
-		_assertRedirect(themeDisplay, bareDefaultURL, bareSourceURL);
+		_assertRedirect(themeDisplay, defaultAssetURL, sourceAssetURL);
 		_assertRedirect(
-			themeDisplay, bareDefaultURL, _sourceLocalePrepend + bareSourceURL);
+			themeDisplay, defaultAssetURL, _sourceLocalePrepend + sourceAssetURL);
 	}
 
 	@Test
 	public void testAssetRedirect() throws PortalException {
 		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(false);
 
-		String bareSourceURL = _getAssetURL(_sourceLocale);
-		String bareDefaultURL = _getAssetURL(_defaultLocale);
+		String sourceAssetURL = _getAssetURL(_sourceLocale);
+		String defaultAssetURL = _getAssetURL(_defaultLocale);
 
-		_assertRedirect(themeDisplay, bareDefaultURL, bareSourceURL);
+		_assertRedirect(themeDisplay, defaultAssetURL, sourceAssetURL);
 		_assertRedirect(
-			themeDisplay, bareDefaultURL, _sourceLocalePrepend + bareSourceURL);
+			themeDisplay, defaultAssetURL, _sourceLocalePrepend + sourceAssetURL);
 	}
 
 	@Test
 	public void testControlPanelI18nRedirect() throws PortalException {
 		ThemeDisplay themeDisplay = _getControlPanelThemeDisplay(true);
 
-		String bareURL = _getControlPanelURL();
+		String controlPanelURL = _getControlPanelURL();
 
-		_assertRedirect(themeDisplay, bareURL, bareURL);
-		_assertRedirect(themeDisplay, bareURL, _sourceLocalePrepend + bareURL);
+		_assertRedirect(themeDisplay, controlPanelURL, controlPanelURL);
+		_assertRedirect(themeDisplay, controlPanelURL, _sourceLocalePrepend + controlPanelURL);
 	}
 
 	@Test
 	public void testControlPanelRedirect() throws PortalException {
 		ThemeDisplay themeDisplay = _getControlPanelThemeDisplay(false);
 
-		String bareURL = _getControlPanelURL();
+		String controlPanelURL = _getControlPanelURL();
 
-		_assertRedirect(themeDisplay, bareURL, bareURL);
+		_assertRedirect(themeDisplay, controlPanelURL, controlPanelURL);
 		_assertRedirect(
-			themeDisplay, _sourceLocalePrepend + bareURL,
-			_sourceLocalePrepend + bareURL);
+			themeDisplay, _sourceLocalePrepend + controlPanelURL,
+			_sourceLocalePrepend + controlPanelURL);
 	}
 
 	@Test
 	public void testPublicPageI18nRedirect() throws PortalException {
 		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(true);
 
-		String bareSourceURL = _getPublicPageURL(_sourceLocale);
-		String bareDefaultURL = _getPublicPageURL(_defaultLocale);
+		String sourcePublicPageURL = _getPublicPageURL(_sourceLocale);
+		String defaultPublicPageURL = _getPublicPageURL(_defaultLocale);
 
-		_assertRedirect(themeDisplay, bareDefaultURL, bareSourceURL);
+		_assertRedirect(themeDisplay, defaultPublicPageURL, sourcePublicPageURL);
 		_assertRedirect(
-			themeDisplay, bareDefaultURL, _sourceLocalePrepend + bareSourceURL);
+			themeDisplay, defaultPublicPageURL, _sourceLocalePrepend + sourcePublicPageURL);
 	}
 
 	@Test
 	public void testPublicPageRedirect() throws PortalException {
 		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(false);
 
-		String bareSourceURL = _getPublicPageURL(_sourceLocale);
-		String bareDefaultURL = _getPublicPageURL(_defaultLocale);
+		String sourcePublicPageURL = _getPublicPageURL(_sourceLocale);
+		String defaultPublicPageURL = _getPublicPageURL(_defaultLocale);
 
-		_assertRedirect(themeDisplay, bareDefaultURL, bareSourceURL);
+		_assertRedirect(themeDisplay, defaultPublicPageURL, sourcePublicPageURL);
 		_assertRedirect(
-			themeDisplay, bareDefaultURL, _sourceLocalePrepend + bareSourceURL);
+			themeDisplay, defaultPublicPageURL, _sourceLocalePrepend + sourcePublicPageURL);
 	}
 
 	private void _assertRedirect(
