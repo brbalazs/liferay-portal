@@ -260,16 +260,14 @@ class WebBrowser extends React.Component {
 	renderLegendItem(title, color, data) {
 		const {total} = this.props;
 
-		const value = toThousands(data[0].value);
 		const percentage = getPercentageChart(data[0].value, total);
 
-		return `<li data-title=${removeSpacing(title)} class="three-columns">
+		return `<li data-title=${removeSpacing(title)} class="two-columns">
 				<div class='legend-template-column'>
 					<span class='circle' style='background-color: ${color}'></span>
 					<span class='text-truncate'>${removeNumbers(title)}</span>
 				</div>
-				<div class='legend-template-column'>${value}</div>
-				<div class='legend-template-column'>${percentage}%</div>
+				<div class='legend-template-column justify-content-end'>${percentage}%</div>
 			</li>`;
 	}
 
