@@ -35,7 +35,6 @@ import com.liferay.portal.util.PropsValues;
 
 import java.util.Locale;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -117,6 +116,16 @@ public class UpdateLanguageActionTest {
 		return url;
 	}
 
+	private String _getPublicLayoutURL(Locale locale) {
+		String url =
+			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
+				_group.getFriendlyURL() + _layout.getFriendlyURL(locale);
+
+		url += "?queryString";
+
+		return url;
+	}
+
 	private ThemeDisplay _getThemeDisplay(boolean i18n) {
 		ThemeDisplay themeDisplay = new ThemeDisplay();
 
@@ -130,16 +139,6 @@ public class UpdateLanguageActionTest {
 		themeDisplay.setSiteGroupId(_group.getGroupId());
 
 		return themeDisplay;
-	}
-
-	private String _getPublicLayoutURL(Locale locale) {
-		String url =
-			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
-				_group.getFriendlyURL() + _layout.getFriendlyURL(locale);
-
-		url += "?queryString";
-
-		return url;
 	}
 
 	private void _testGetRedirectWithAssetURL(boolean i18n) throws Exception {
@@ -187,7 +186,8 @@ public class UpdateLanguageActionTest {
 		}
 		else {
 			_assertRedirect(
-				themeDisplay, "/" + _sourceLocale.getLanguage() + controlPanelURL,
+				themeDisplay,
+				"/" + _sourceLocale.getLanguage() + controlPanelURL,
 				"/" + _sourceLocale.getLanguage() + controlPanelURL);
 		}
 	}
@@ -207,7 +207,7 @@ public class UpdateLanguageActionTest {
 			"/" + _sourceLocale.getLanguage() + sourcePublicLayoutURL);
 	}
 
-	private Locale _defaultLocale = LocaleUtil.US;
+	private final Locale _defaultLocale = LocaleUtil.US;
 
 	@DeleteAfterTestRun
 	private Group _group;
