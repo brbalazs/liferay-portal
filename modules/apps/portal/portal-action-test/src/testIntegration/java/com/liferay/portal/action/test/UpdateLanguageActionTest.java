@@ -82,8 +82,8 @@ public class UpdateLanguageActionTest {
 		_testGetRedirectWithControlPanelURL(false);
 		_testGetRedirectWithControlPanelURL(true);
 
-		_testGetRedirectWithPublicLayoutURL(false);
-		_testGetRedirectWithPublicLayoutURL(true);
+		_testGetRedirectWithFriendlyURL(false);
+		_testGetRedirectWithFriendlyURL(true);
 	}
 
 	private void _assertRedirect(
@@ -142,13 +142,13 @@ public class UpdateLanguageActionTest {
 		}
 	}
 
-	private void _testGetRedirectWithPublicLayoutURL(boolean i18n) throws Exception {
-		_testGetRedirectWithPublicLayoutURL(i18n, "");
-		_testGetRedirectWithPublicLayoutURL(
+	private void _testGetRedirectWithFriendlyURL(boolean i18n) throws Exception {
+		_testGetRedirectWithFriendlyURL(i18n, "");
+		_testGetRedirectWithFriendlyURL(
 			i18n, Portal.FRIENDLY_URL_SEPARATOR + "asset");
 	}
 
-	private void _testGetRedirectWithPublicLayoutURL(boolean i18n, String path)
+	private void _testGetRedirectWithFriendlyURL(boolean i18n, String path)
 		throws Exception {
 
 		ThemeDisplay themeDisplay = new ThemeDisplay();
