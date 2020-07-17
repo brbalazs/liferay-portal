@@ -250,9 +250,7 @@ public class UpdateLanguageActionTest {
 			GroupConstants.CONTROL_PANEL_FRIENDLY_URL,
 			_controlPanelLayout.getFriendlyURL());
 
-		String queryString = StringPool.QUESTION + "queryString";
-
-		return controlPanelLayoutURL + queryString;
+		return controlPanelLayoutURL + "?queryString";
 	}
 
 	private ThemeDisplay _getLayoutThemeDisplay(boolean i18n) {
