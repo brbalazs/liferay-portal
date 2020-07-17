@@ -219,7 +219,7 @@ exports[`Recommendations should render 1`] = `
                   </a>
                 </th>
                 <th
-                  class="table-head-title table-column-text-end"
+                  class="table-head-title"
                 >
                   <a
                     class="button-root btn btn-unstyled inline-item text-truncate-inline"
@@ -298,9 +298,7 @@ exports[`Recommendations should render 1`] = `
                 >
                   07 08, 2018
                 </td>
-                <td
-                  class="table-column-text-end"
-                >
+                <td>
                   <div
                     class="label label-root status label-success label-lg label-uppercase"
                   >
@@ -377,9 +375,7 @@ exports[`Recommendations should render 1`] = `
                 >
                   07 08, 2018
                 </td>
-                <td
-                  class="table-column-text-end"
-                >
+                <td>
                   <div
                     class="label label-root status label-success label-lg label-uppercase"
                   >
@@ -456,9 +452,7 @@ exports[`Recommendations should render 1`] = `
                 >
                   07 08, 2018
                 </td>
-                <td
-                  class="table-column-text-end"
-                >
+                <td>
                   <div
                     class="label label-root status label-success label-lg label-uppercase"
                   >
@@ -535,9 +529,7 @@ exports[`Recommendations should render 1`] = `
                 >
                   07 08, 2018
                 </td>
-                <td
-                  class="table-column-text-end"
-                >
+                <td>
                   <div
                     class="label label-root status label-success label-lg label-uppercase"
                   >
@@ -614,9 +606,7 @@ exports[`Recommendations should render 1`] = `
                 >
                   07 08, 2018
                 </td>
-                <td
-                  class="table-column-text-end"
-                >
+                <td>
                   <div
                     class="label label-root status label-success label-lg label-uppercase"
                   >
@@ -693,9 +683,7 @@ exports[`Recommendations should render 1`] = `
                 >
                   07 08, 2018
                 </td>
-                <td
-                  class="table-column-text-end"
-                >
+                <td>
                   <div
                     class="label label-root status label-success label-lg label-uppercase"
                   >
@@ -772,9 +760,7 @@ exports[`Recommendations should render 1`] = `
                 >
                   07 08, 2018
                 </td>
-                <td
-                  class="table-column-text-end"
-                >
+                <td>
                   <div
                     class="label label-root status label-success label-lg label-uppercase"
                   >
@@ -851,9 +837,7 @@ exports[`Recommendations should render 1`] = `
                 >
                   07 08, 2018
                 </td>
-                <td
-                  class="table-column-text-end"
-                >
+                <td>
                   <div
                     class="label label-root status label-success label-lg label-uppercase"
                   >
@@ -930,9 +914,7 @@ exports[`Recommendations should render 1`] = `
                 >
                   07 08, 2018
                 </td>
-                <td
-                  class="table-column-text-end"
-                >
+                <td>
                   <div
                     class="label label-root status label-success label-lg label-uppercase"
                   >
@@ -1009,9 +991,7 @@ exports[`Recommendations should render 1`] = `
                 >
                   07 08, 2018
                 </td>
-                <td
-                  class="table-column-text-end"
-                >
+                <td>
                   <div
                     class="label label-root status label-success label-lg label-uppercase"
                   >

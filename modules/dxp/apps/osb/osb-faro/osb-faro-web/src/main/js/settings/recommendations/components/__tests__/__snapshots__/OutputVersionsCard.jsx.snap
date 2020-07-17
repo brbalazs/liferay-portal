@@ -54,7 +54,7 @@ exports[`OutputVersionsCard should render 1`] = `
                 Items
               </th>
               <th
-                class="table-head-title table-column-text-end"
+                class="table-head-title"
               >
                 Status
               </th>
@@ -83,9 +83,7 @@ exports[`OutputVersionsCard should render 1`] = `
               >
                 123
               </td>
-              <td
-                class="table-column-text-end"
-              >
+              <td>
                 <div
                   class="label label-root status label-success label-lg label-uppercase"
                 >
@@ -121,9 +119,7 @@ exports[`OutputVersionsCard should render 1`] = `
               >
                 123
               </td>
-              <td
-                class="table-column-text-end"
-              >
+              <td>
                 <div
                   class="label label-root status label-danger label-lg label-uppercase"
                 >
@@ -159,9 +155,7 @@ exports[`OutputVersionsCard should render 1`] = `
               >
                 123
               </td>
-              <td
-                class="table-column-text-end"
-              >
+              <td>
                 <div
                   class="label label-root status label-primary label-lg label-uppercase"
                 >
@@ -197,9 +191,7 @@ exports[`OutputVersionsCard should render 1`] = `
               >
                 123
               </td>
-              <td
-                class="table-column-text-end"
-              >
+              <td>
                 <div
                   class="label label-root status label-warning label-lg label-uppercase"
                 >
