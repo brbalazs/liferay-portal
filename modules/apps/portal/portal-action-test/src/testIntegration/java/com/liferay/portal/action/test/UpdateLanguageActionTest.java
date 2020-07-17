@@ -216,15 +216,11 @@ public class UpdateLanguageActionTest {
 				_group.getFriendlyURL() +
 					_layout.getFriendlyURL(_defaultLocale);
 
-		String assetFriendlyURL = Portal.FRIENDLY_URL_SEPARATOR + "asset";
-
-		String queryString = StringPool.QUESTION + "queryString";
-
 		String bareSourceURL = StringBundler.concat(
-			sourceLocaleLayoutURL, assetFriendlyURL, queryString);
+			sourceLocaleLayoutURL, Portal.FRIENDLY_URL_SEPARATOR, "asset?queryString");
 
 		String bareDefaultURL = StringBundler.concat(
-			defaultLocaleLayoutURL, assetFriendlyURL, queryString);
+			defaultLocaleLayoutURL, Portal.FRIENDLY_URL_SEPARATOR, "asset?queryString");
 
 		return new String[] {bareSourceURL, bareDefaultURL};
 	}
