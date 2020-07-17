@@ -23,7 +23,6 @@ import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.VirtualLayoutConstants;
 import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
-import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.HashMapBuilder;
@@ -184,10 +183,7 @@ public class UpdateLanguageActionTest {
 	}
 
 	private final Locale _defaultLocale = LocaleUtil.US;
-
-	@DeleteAfterTestRun
 	private Group _group;
-
 	private Layout _layout;
 	private final Locale _sourceLocale = LocaleUtil.FRANCE;
 	private final Locale _targetLocale = LocaleUtil.GERMAN;
