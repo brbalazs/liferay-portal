@@ -333,7 +333,6 @@ const RecommendationListWithData = withCrossPageSelect(withData, {
 					</Label>
 				</td>
 			),
-			className: 'table-column-text-end',
 			label: Liferay.Language.get('status')
 		}
 	],

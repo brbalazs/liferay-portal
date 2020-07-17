@@ -197,7 +197,6 @@ const OutputVersionsCard: React.FC<IOutputVersionsCardProps> = ({
 									</Label>
 								</td>
 							),
-							className: 'table-column-text-end',
 							label: Liferay.Language.get('status'),
 							sortable: false
 						}
