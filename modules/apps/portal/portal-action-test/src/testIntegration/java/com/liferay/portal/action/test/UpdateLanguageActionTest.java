@@ -19,7 +19,6 @@ import com.liferay.layout.test.util.LayoutTestUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.action.UpdateLanguageAction;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
@@ -112,7 +111,7 @@ public class UpdateLanguageActionTest {
 	}
 
 	@Test
-	public void testGetRedirect() throws PortalException {
+	public void testGetRedirect() throws Exception {
 		_testAssetRedirect(true);
 		_testAssetRedirect(false);
 
@@ -125,7 +124,7 @@ public class UpdateLanguageActionTest {
 
 	private void _assertRedirect(
 			ThemeDisplay themeDisplay, String expectedRedirect, String url)
-		throws PortalException {
+		throws Exception {
 
 		UpdateLanguageAction updateLanguageAction = new UpdateLanguageAction();
 
@@ -199,7 +198,7 @@ public class UpdateLanguageActionTest {
 		return url;
 	}
 
-	private void _testAssetRedirect(boolean i18n) throws PortalException {
+	private void _testAssetRedirect(boolean i18n) throws Exception {
 		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(i18n);
 
 		String sourceAssetURL = _getAssetURL(_sourceLocale);
@@ -211,9 +210,7 @@ public class UpdateLanguageActionTest {
 			_sourceLocalePrepend + sourceAssetURL);
 	}
 
-	private void _testControlPanelRedirect(boolean i18n)
-		throws PortalException {
-
+	private void _testControlPanelRedirect(boolean i18n) throws Exception {
 		ThemeDisplay themeDisplay = _getControlPanelThemeDisplay(i18n);
 
 		String controlPanelURL = _getControlPanelURL();
@@ -224,7 +221,7 @@ public class UpdateLanguageActionTest {
 			_sourceLocalePrepend + controlPanelURL);
 	}
 
-	private void _testPublicPageRedirect(boolean i18n) throws PortalException {
+	private void _testPublicPageRedirect(boolean i18n) throws Exception {
 		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(i18n);
 
 		String sourcePublicPageURL = _getPublicPageURL(_sourceLocale);
