@@ -606,6 +606,14 @@ public abstract class BaseOrderResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (order.getActions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("advanceStatus", additionalAssertFieldName)) {
 				if (order.getAdvanceStatus() == null) {
 					valid = false;
@@ -1576,6 +1584,16 @@ public abstract class BaseOrderResourceTestCase {
 			if (Objects.equals("accountId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						order1.getAccountId(), order2.getAccountId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (!equals(
+						(Map)order1.getActions(), (Map)order2.getActions())) {
 
 					return false;
 				}
@@ -2771,6 +2789,11 @@ public abstract class BaseOrderResourceTestCase {
 		}
 
 		if (entityFieldName.equals("accountId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("actions")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}

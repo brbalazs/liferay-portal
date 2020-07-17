@@ -97,6 +97,16 @@ public class OrderSerDes {
 			sb.append(order.getAccountId());
 		}
 
+		if (order.getActions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(order.getActions()));
+		}
+
 		if (order.getAdvanceStatus() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -1132,6 +1142,13 @@ public class OrderSerDes {
 			map.put("accountId", String.valueOf(order.getAccountId()));
 		}
 
+		if (order.getActions() == null) {
+			map.put("actions", null);
+		}
+		else {
+			map.put("actions", String.valueOf(order.getActions()));
+		}
+
 		if (order.getAdvanceStatus() == null) {
 			map.put("advanceStatus", null);
 		}
@@ -1917,6 +1934,12 @@ public class OrderSerDes {
 				if (jsonParserFieldValue != null) {
 					order.setAccountId(
 						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "actions")) {
+				if (jsonParserFieldValue != null) {
+					order.setActions(
+						(Map)OrderSerDes.toMap((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "advanceStatus")) {
