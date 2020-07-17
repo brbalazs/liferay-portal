@@ -18,18 +18,7 @@
 
 <%
 CommerceOrderListDisplayContext commerceOrderListDisplayContext = (CommerceOrderListDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
-String datasetDisplayKey = commerceOrderListDisplayContext.getDatasetDisplayKey();
-
-Map<String, String> contextParams = new HashMap<>();
-
-contextParams.put("activeTab", commerceOrderListDisplayContext.getActiveTab());
 %>
-
-<clay:navigation-bar
-	inverted="<%= true %>"
-	navigationItems="<%= commerceOrderListDisplayContext.getNavigationItems() %>"
-/>
 
 <commerce-ui:dataset-display
 	contextParams="<%= contextParams %>"

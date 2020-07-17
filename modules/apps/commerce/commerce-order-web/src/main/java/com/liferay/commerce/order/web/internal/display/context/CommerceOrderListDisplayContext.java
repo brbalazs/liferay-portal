@@ -52,14 +52,38 @@ public class CommerceOrderListDisplayContext {
 			renderRequest);
 
 		_keywords = ParamUtil.getString(renderRequest, "keywords");
-		_showFilter = ParamUtil.getBoolean(renderRequest, "showFilter");
-		_activeTab = ParamUtil.getString(
-			renderRequest, "activeTab",
-			CommerceOrderPortletConstants.NAVIGATION_ITEM_ALL);
 	}
 
-	public String getActiveTab() {
-		return _activeTab;
+	public List<ClayHeadlessDataSetActionTemplate>
+			getClayHeadlessDataSetActionTemplates()
+		throws PortalException {
+
+		List<ClayHeadlessDataSetActionTemplate>
+			clayHeadlessDataSetActionTemplates = new ArrayList<>();
+
+		PortletURL portletURL = PortletProviderUtil.getPortletURL(
+			_commerceOrderRequestHelper.getRequest(),
+			CommerceOrder.class.getName(), PortletProvider.Action.MANAGE);
+
+		portletURL.setParameter("mvcRenderCommandName", "editCommerceOrder");
+		portletURL.setParameter("commerceOrderId", "{id}");
+
+		clayHeadlessDataSetActionTemplates.add(
+			new ClayHeadlessDataSetActionTemplate(
+				portletURL.toString(), "view", "view",
+				LanguageUtil.get(
+					_commerceOrderRequestHelper.getRequest(), "view"),
+				"get", null, null));
+
+		clayHeadlessDataSetActionTemplates.add(
+			new ClayHeadlessDataSetActionTemplate(
+				"/o/headless-commerce-admin-order/v1.0/orders/{id}", "trash",
+				"delete",
+				LanguageUtil.get(
+					_commerceOrderRequestHelper.getRequest(), "delete"),
+				"delete", "delete", "async"));
+
+		return clayHeadlessDataSetActionTemplates;
 	}
 
 	public int getCommerceOrderNotesCount(CommerceOrder commerceOrder)
@@ -75,49 +99,6 @@ public class CommerceOrderListDisplayContext {
 
 		return _commerceOrderNoteService.getCommerceOrderNotesCount(
 			commerceOrder.getCommerceOrderId(), false);
-	}
-
-	public String getDatasetDisplayKey() {
-		if (_activeTab.equals(
-				CommerceOrderPortletConstants.NAVIGATION_ITEM_ALL)) {
-
-			return CommerceOrderDataSetConstants.
-				COMMERCE_DATA_SET_KEY_ALL_ORDERS;
-		}
-		else if (_activeTab.equals(
-					CommerceOrderPortletConstants.NAVIGATION_ITEM_COMPLETED)) {
-
-			return CommerceOrderDataSetConstants.
-				COMMERCE_DATA_SET_KEY_COMPLETED_ORDERS;
-		}
-		else if (_activeTab.equals(
-					CommerceOrderPortletConstants.NAVIGATION_ITEM_OPEN)) {
-
-			return CommerceOrderDataSetConstants.
-				COMMERCE_DATA_SET_KEY_OPEN_ORDERS;
-		}
-		else if (_activeTab.equals(
-					CommerceOrderPortletConstants.NAVIGATION_ITEM_PENDING)) {
-
-			return CommerceOrderDataSetConstants.
-				COMMERCE_DATA_SET_KEY_PENDING_ORDERS;
-		}
-		else if (_activeTab.equals(
-					CommerceOrderPortletConstants.NAVIGATION_ITEM_PROCESSING)) {
-
-			return CommerceOrderDataSetConstants.
-				COMMERCE_DATA_SET_KEY_PROCESSING_ORDERS;
-		}
-
-		return StringPool.BLANK;
-	}
-
-	public List<NavigationItem> getNavigationItems() {
-		if (_navigationItems == null) {
-			_initNavigationItems();
-		}
-
-		return _navigationItems;
 	}
 
 	public PortletURL getPortletURL() {
@@ -141,9 +122,6 @@ public class CommerceOrderListDisplayContext {
 
 		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
-		portletURL.setParameter("showFilter", String.valueOf(_showFilter));
-		portletURL.setParameter("activeTab", _activeTab);
-
 		if (Validator.isNotNull(_keywords)) {
 			portletURL.setParameter("keywords", _keywords);
 		}
@@ -151,40 +129,8 @@ public class CommerceOrderListDisplayContext {
 		return portletURL;
 	}
 
-	private NavigationItem _buildNavigationItem(String name) {
-		NavigationItem navigationItem = new NavigationItem();
-
-		if (_activeTab.equals(name)) {
-			navigationItem.setActive(true);
-		}
-
-		PortletURL portletURL = getPortletURL();
-
-		portletURL.setParameter("activeTab", name);
-
-		navigationItem.setHref(portletURL);
-
-		navigationItem.setLabel(
-			LanguageUtil.get(_commerceOrderRequestHelper.getRequest(), name));
-
-		return navigationItem;
-	}
-
-	private void _initNavigationItems() {
-		_navigationItems = new ArrayList<>();
-
-		for (String navigationItem :
-				CommerceOrderPortletConstants.NAVIGATION_ITEMS) {
-
-			_navigationItems.add(_buildNavigationItem(navigationItem));
-		}
-	}
-
-	private final String _activeTab;
 	private final CommerceOrderNoteService _commerceOrderNoteService;
 	private final CommerceOrderRequestHelper _commerceOrderRequestHelper;
 	private final String _keywords;
-	private List<NavigationItem> _navigationItems;
-	private final boolean _showFilter;
 
 }
