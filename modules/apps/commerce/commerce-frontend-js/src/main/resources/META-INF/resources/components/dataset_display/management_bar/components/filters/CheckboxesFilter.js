@@ -18,6 +18,8 @@ import {ClayCheckbox, ClayToggle} from '@clayui/form';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
+import {isValuesArrayChanged} from '../../../utilities/filters';
+
 export const formatValue = (value, items, exclude) => {
 	const formattedValue = value
 		? value
@@ -48,21 +50,6 @@ function getOdataString(values, key, exclude = false) {
 		)
 		.join(exclude ? ' and ' : ' or ')})`;
 }
-
-function isValueChanged(prevValue = [], newValue = []) {
-	if (prevValue.length !== newValue.length) return true;
-
-	const sortedPrevValues = prevValue.sort();
-	const sortedNewValues = newValue.sort();
-
-	sortedPrevValues.forEach((element, i) => {
-		if (element !== sortedNewValues[i]) {
-			return true;
-		}
-	});
-
-	return false;
-}
 function CheckboxesFilter(props) {
 	const [itemsValues, setItemsValues] = useState(
 		(props.value && props.value.itemsValues) || []
@@ -92,7 +79,8 @@ function CheckboxesFilter(props) {
 	if (
 		actionType === 'delete' ||
 		(!props.value && itemsValues.length) ||
-		(props.value && isValueChanged(props.value.itemsValues, itemsValues)) ||
+		(props.value &&
+			isValuesArrayChanged(props.value.itemsValues, itemsValues)) ||
 		(props.value && itemsValues.length && props.value.exclude !== exclude)
 	) {
 		submitDisabled = false;

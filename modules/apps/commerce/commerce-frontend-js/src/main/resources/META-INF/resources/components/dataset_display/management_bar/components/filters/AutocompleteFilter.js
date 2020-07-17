@@ -22,6 +22,7 @@ import PropTypes from 'prop-types';
 import React, {useState, useEffect, useCallback, useRef} from 'react';
 
 import {getValueFromItem, fetchParams} from '../../../../../utilities/index';
+import {isValuesArrayChanged} from '../../../utilities/filters';
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -82,22 +83,6 @@ function getOdataString(value, key, selectionType, exclude) {
 					: value[0].value
 		  }`;
 }
-
-function isValueChanged(prevValue = [], newValue = []) {
-	if (prevValue.length !== newValue.length) return true;
-
-	const prevValues = prevValue.map(el => el.value).sort();
-	const newValues = newValue.map(el => el.value).sort();
-
-	prevValues.forEach((element, i) => {
-		if (element !== newValues[i]) {
-			return true;
-		}
-	});
-
-	return false;
-}
-
 function AutocompleteFilter(props) {
 	const [query, setQuery] = useState('');
 	const [search, setSearch] = useState('');
@@ -204,7 +189,8 @@ function AutocompleteFilter(props) {
 	if (
 		actionType === 'delete' ||
 		(!props.value && selectedItems.length) ||
-		(props.value && isValueChanged(props.value.items, selectedItems)) ||
+		(props.value &&
+			isValuesArrayChanged(props.value.items, selectedItems)) ||
 		(props.value && selectedItems.length && props.value.exclude !== exclude)
 	) {
 		submitDisabled = false;
