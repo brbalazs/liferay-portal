@@ -60,8 +60,6 @@ public class UpdateLanguageActionTest {
 	public void setUp() throws Exception {
 		_group = GroupTestUtil.addGroup();
 
-		_controlPanelLayout = LayoutLocalServiceUtil.getLayout(
-			PortalUtil.getControlPanelPlid(_group.getCompanyId()));
 		_layout = LayoutTestUtil.addLayout(
 			_group.getGroupId(), false,
 			HashMapBuilder.put(
@@ -166,14 +164,17 @@ public class UpdateLanguageActionTest {
 			themeDisplay.setI18nPath("/" + _sourceLocale.getLanguage());
 		}
 
-		themeDisplay.setLayout(_controlPanelLayout);
+		Layout controlPanelLayout = LayoutLocalServiceUtil.getLayout(
+			PortalUtil.getControlPanelPlid(_group.getCompanyId()));
+
+		themeDisplay.setLayout(controlPanelLayout);
 
 		String controlPanelURL = StringBundler.concat(
 			PropsValues.LAYOUT_FRIENDLY_URL_PRIVATE_GROUP_SERVLET_MAPPING,
 			_group.getFriendlyURL(),
 			VirtualLayoutConstants.CANONICAL_URL_SEPARATOR,
 			GroupConstants.CONTROL_PANEL_FRIENDLY_URL,
-			_controlPanelLayout.getFriendlyURL());
+			controlPanelLayout.getFriendlyURL());
 
 		controlPanelURL += "?queryString";
 
@@ -198,7 +199,6 @@ public class UpdateLanguageActionTest {
 			"/" + _sourceLocale.getLanguage() + sourcePublicPageURL);
 	}
 
-	private Layout _controlPanelLayout;
 	private Locale _defaultLocale = LocaleUtil.US;
 
 	@DeleteAfterTestRun
