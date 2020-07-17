@@ -100,11 +100,8 @@ public class UpdateLanguageActionTest {
 				_targetLocale, "/page-in-target-locale"
 			).build());
 
-		Company company = CompanyLocalServiceUtil.getCompany(
-			_group.getCompanyId());
-
 		long controlPanelPlid = PortalUtil.getControlPanelPlid(
-			company.getCompanyId());
+			_group.getCompanyId());
 
 		_controlPanelLayout = LayoutLocalServiceUtil.getLayout(
 			controlPanelPlid);
