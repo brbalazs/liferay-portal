@@ -36,6 +36,7 @@ import com.liferay.portal.util.PropsValues;
 
 import java.util.Locale;
 
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
@@ -58,8 +59,15 @@ public class UpdateLanguageActionTest {
 	public static final LiferayIntegrationTestRule liferayIntegrationTestRule =
 		new LiferayIntegrationTestRule();
 
-	@BeforeClass
-	public static void setUpClass() {
+	@After
+	public void tearDown() {
+		LocaleUtil.setDefault(
+			_defaultLocale.getLanguage(), _defaultLocale.getCountry(),
+			_defaultLocale.getVariant());
+	}
+
+	@Before
+	public void setUp() throws Exception {
 		_defaultLocale = LocaleUtil.getDefault();
 
 		LocaleUtil.setDefault(
@@ -68,17 +76,7 @@ public class UpdateLanguageActionTest {
 
 		_sourceLocalePrepend = StringPool.SLASH + _sourceLocale.getLanguage();
 		_targetLocalePrepend = StringPool.SLASH + _targetLocale.getLanguage();
-	}
 
-	@AfterClass
-	public static void tearDownClass() {
-		LocaleUtil.setDefault(
-			_defaultLocale.getLanguage(), _defaultLocale.getCountry(),
-			_defaultLocale.getVariant());
-	}
-
-	@Before
-	public void setUp() throws Exception {
 		_group = GroupTestUtil.addGroup();
 
 		_controlPanelLayout = LayoutLocalServiceUtil.getLayout(
@@ -225,11 +223,11 @@ public class UpdateLanguageActionTest {
 			_sourceLocalePrepend + sourcePublicPageURL);
 	}
 
-	private static Locale _defaultLocale;
-	private static final Locale _sourceLocale = LocaleUtil.FRANCE;
-	private static String _sourceLocalePrepend;
-	private static final Locale _targetLocale = LocaleUtil.GERMAN;
-	private static String _targetLocalePrepend;
+	private Locale _defaultLocale;
+	private final Locale _sourceLocale = LocaleUtil.FRANCE;
+	private String _sourceLocalePrepend;
+	private final Locale _targetLocale = LocaleUtil.GERMAN;
+	private String _targetLocalePrepend;
 
 	private Layout _controlPanelLayout;
 
