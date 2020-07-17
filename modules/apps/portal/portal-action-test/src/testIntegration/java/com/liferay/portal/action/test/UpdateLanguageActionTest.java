@@ -106,21 +106,6 @@ public class UpdateLanguageActionTest {
 		Assert.assertEquals(expectedRedirect, redirect);
 	}
 
-	private ThemeDisplay _getThemeDisplay(boolean i18n) {
-		ThemeDisplay themeDisplay = new ThemeDisplay();
-
-		if (i18n) {
-			themeDisplay.setI18nLanguageId(_sourceLocale.getLanguage());
-			themeDisplay.setI18nPath("/" + _sourceLocale.getLanguage());
-		}
-
-		themeDisplay.setLayout(_layout);
-		themeDisplay.setLayoutSet(_group.getPublicLayoutSet());
-		themeDisplay.setSiteGroupId(_group.getGroupId());
-
-		return themeDisplay;
-	}
-
 	private void _testGetRedirectWithControlPanelURL(boolean i18n)
 		throws Exception {
 
@@ -163,7 +148,16 @@ public class UpdateLanguageActionTest {
 	private void _testGetRedirectWithPublicLayoutURL(boolean i18n, String path)
 		throws Exception {
 
-		ThemeDisplay themeDisplay = _getThemeDisplay(i18n);
+		ThemeDisplay themeDisplay = new ThemeDisplay();
+
+		if (i18n) {
+			themeDisplay.setI18nLanguageId(_sourceLocale.getLanguage());
+			themeDisplay.setI18nPath("/" + _sourceLocale.getLanguage());
+		}
+
+		themeDisplay.setLayout(_layout);
+		themeDisplay.setLayoutSet(_group.getPublicLayoutSet());
+		themeDisplay.setSiteGroupId(_group.getGroupId());
 
 		String defaultURL =
 			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
