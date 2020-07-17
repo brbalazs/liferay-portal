@@ -86,8 +86,8 @@ public class UpdateLanguageActionTest {
 		_testGetRedirectWithControlPanelURL(true);
 		_testGetRedirectWithControlPanelURL(false);
 
-		_testGetRedirectWithPublicPageURL(true);
-		_testGetRedirectWithPublicPageURL(false);
+		_testGetRedirectWithPublicLayoutURL(true);
+		_testGetRedirectWithPublicLayoutURL(false);
 	}
 
 	private void _assertRedirect(
@@ -132,7 +132,7 @@ public class UpdateLanguageActionTest {
 		return themeDisplay;
 	}
 
-	private String _getPublicPageURL(Locale locale) {
+	private String _getPublicLayoutURL(Locale locale) {
 		String url =
 			PropsValues.LAYOUT_FRIENDLY_URL_PUBLIC_SERVLET_MAPPING +
 				_group.getFriendlyURL() + _layout.getFriendlyURL(locale);
@@ -184,19 +184,19 @@ public class UpdateLanguageActionTest {
 			"/" + _sourceLocale.getLanguage() + controlPanelURL);
 	}
 
-	private void _testGetRedirectWithPublicPageURL(boolean i18n)
+	private void _testGetRedirectWithPublicLayoutURL(boolean i18n)
 		throws Exception {
 
 		ThemeDisplay themeDisplay = _getThemeDisplay(i18n);
 
-		String defaultPublicPageURL = _getPublicPageURL(_defaultLocale);
-		String sourcePublicPageURL = _getPublicPageURL(_sourceLocale);
+		String defaultPublicLayoutURL = _getPublicLayoutURL(_defaultLocale);
+		String sourcePublicLayoutURL = _getPublicLayoutURL(_sourceLocale);
 
 		_assertRedirect(
-			themeDisplay, defaultPublicPageURL, sourcePublicPageURL);
+			themeDisplay, defaultPublicLayoutURL, sourcePublicLayoutURL);
 		_assertRedirect(
-			themeDisplay, defaultPublicPageURL,
-			"/" + _sourceLocale.getLanguage() + sourcePublicPageURL);
+			themeDisplay, defaultPublicLayoutURL,
+			"/" + _sourceLocale.getLanguage() + sourcePublicLayoutURL);
 	}
 
 	private Locale _defaultLocale = LocaleUtil.US;
