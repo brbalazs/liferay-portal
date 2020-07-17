@@ -14,10 +14,10 @@
 
 package com.liferay.commerce.frontend.internal.clay.data.set;
 
+import com.liferay.commerce.frontend.clay.data.set.ClayCheckBoxDataSetFilter;
+import com.liferay.commerce.frontend.clay.data.set.ClayCheckBoxDataSetFilterItem;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetFilter;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetFilterContextContributor;
-import com.liferay.commerce.frontend.clay.data.set.ClayRadioDataSetFilter;
-import com.liferay.commerce.frontend.clay.data.set.ClayRadioDataSetFilterItem;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -38,47 +38,47 @@ import org.osgi.service.component.annotations.Reference;
  * @author Marco Leo
  */
 @Component(
-	property = "commerce.data.set.filter.type=radio",
+	property = "commerce.data.set.filter.type=checkbox",
 	service = ClayDataSetFilterContextContributor.class
 )
-public class ClayRadioDataSetFilterContextContributor
+public class ClayCheckBoxDataSetFilterContextContributor
 	implements ClayDataSetFilterContextContributor {
 
 	public Map<String, Object> getClayDataSetFilterContext(
 		ClayDataSetFilter clayDataSetFilter, Locale locale) {
 
-		if (clayDataSetFilter instanceof ClayRadioDataSetFilter) {
+		if (clayDataSetFilter instanceof ClayCheckBoxDataSetFilter) {
 			return _serialize(
-				(ClayRadioDataSetFilter)clayDataSetFilter, locale);
+				(ClayCheckBoxDataSetFilter)clayDataSetFilter, locale);
 		}
 
 		return Collections.emptyMap();
 	}
 
 	private Map<String, Object> _serialize(
-		ClayRadioDataSetFilter clayRadioDataSetFilter, Locale locale) {
+		ClayCheckBoxDataSetFilter clayCheckBoxDataSetFilter, Locale locale) {
 
 		Map<String, Object> context = new HashMap<>();
 
-		List<ClayRadioDataSetFilterItem> clayRadioDataSetFilterItems =
-			clayRadioDataSetFilter.getClayRadioDataSetFilterItems(locale);
+		List<ClayCheckBoxDataSetFilterItem> clayCheckBoxDataSetFilterItems =
+			clayCheckBoxDataSetFilter.getClayCheckBoxDataSetFilterItems(locale);
 
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
 		JSONArray jsonArray = _jsonFactory.createJSONArray();
 
-		for (ClayRadioDataSetFilterItem clayRadioDataSetFilterIte :
-				clayRadioDataSetFilterItems) {
+		for (ClayCheckBoxDataSetFilterItem clayCheckBoxDataSetFilterItem :
+				clayCheckBoxDataSetFilterItems) {
 
 			JSONObject jsonObject = _jsonFactory.createJSONObject();
 
 			String label = LanguageUtil.get(
-				resourceBundle, clayRadioDataSetFilterIte.getLabel());
+				resourceBundle, clayCheckBoxDataSetFilterItem.getLabel());
 
 			jsonObject.put("label", label);
 
-			jsonObject.put("value", clayRadioDataSetFilterIte.getValue());
+			jsonObject.put("value", clayCheckBoxDataSetFilterItem.getValue());
 
 			jsonArray.put(jsonObject);
 		}

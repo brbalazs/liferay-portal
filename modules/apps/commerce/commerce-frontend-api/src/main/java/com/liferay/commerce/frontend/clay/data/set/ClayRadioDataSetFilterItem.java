@@ -14,32 +14,25 @@
 
 package com.liferay.commerce.frontend.clay.data.set;
 
-import com.liferay.portal.kernel.util.ResourceBundleUtil;
-
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
 /**
  * @author Marco Leo
  */
-public abstract class ClayRadioDataSetFilter implements ClayDataSetFilter {
+public class ClayRadioDataSetFilterItem {
 
-	public abstract List<ClayRadioDataSetFilterItem>
-		getClayRadioDataSetFilterItems(Locale locale);
-
-	public String getOperator() {
-		return "eq";
+	public ClayRadioDataSetFilterItem(String label, Object value) {
+		_label = label;
+		_value = value;
 	}
 
-	public ResourceBundle getResourceBundle(Locale locale) {
-		return ResourceBundleUtil.getBundle(
-			"content.Language", locale, getClass());
+	public String getLabel() {
+		return _label;
 	}
 
-	@Override
-	public String getType() {
-		return "radio";
+	public Object getValue() {
+		return _value;
 	}
+
+	private final String _label;
+	private final Object _value;
 
 }

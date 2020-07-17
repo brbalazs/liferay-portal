@@ -23,10 +23,10 @@ import java.util.ResourceBundle;
 /**
  * @author Marco Leo
  */
-public abstract class ClayRadioDataSetFilter implements ClayDataSetFilter {
+public abstract class ClayCheckBoxDataSetFilter implements ClayDataSetFilter {
 
-	public abstract List<ClayRadioDataSetFilterItem>
-		getClayRadioDataSetFilterItems(Locale locale);
+	public abstract List<ClayCheckBoxDataSetFilterItem>
+		getClayCheckBoxDataSetFilterItems(Locale locale);
 
 	public String getOperator() {
 		return "eq";
@@ -39,7 +39,7 @@ public abstract class ClayRadioDataSetFilter implements ClayDataSetFilter {
 
 	@Override
 	public String getType() {
-		return "radio";
+		return "checkbox";
 	}
 
 }
