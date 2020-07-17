@@ -197,7 +197,9 @@ public class UpdateLanguageActionTest {
 			_sourceLocalePrepend + sourceAssetURL);
 	}
 
-	private void _testGetRedirectWithControlPanelURL(boolean i18n) throws Exception {
+	private void _testGetRedirectWithControlPanelURL(boolean i18n)
+		throws Exception {
+
 		ThemeDisplay themeDisplay = _getControlPanelThemeDisplay(i18n);
 
 		String controlPanelURL = _getControlPanelURL();
@@ -208,7 +210,9 @@ public class UpdateLanguageActionTest {
 			_sourceLocalePrepend + controlPanelURL);
 	}
 
-	private void _testGetRedirectWithPublicPageURL(boolean i18n) throws Exception {
+	private void _testGetRedirectWithPublicPageURL(boolean i18n)
+		throws Exception {
+
 		ThemeDisplay themeDisplay = _getLayoutThemeDisplay(i18n);
 
 		String sourcePublicPageURL = _getPublicPageURL(_sourceLocale);
