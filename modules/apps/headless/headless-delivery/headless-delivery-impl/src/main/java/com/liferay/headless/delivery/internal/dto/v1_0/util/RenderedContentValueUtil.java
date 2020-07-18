@@ -14,7 +14,6 @@
 
 package com.liferay.headless.delivery.internal.dto.v1_0.util;
 
-import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.model.DDMTemplate;
 import com.liferay.dynamic.data.mapping.service.DDMTemplateLocalService;
 import com.liferay.journal.model.JournalArticle;
@@ -23,10 +22,6 @@ import com.liferay.journal.service.JournalArticleService;
 import com.liferay.journal.util.JournalContent;
 import com.liferay.portal.events.ServicePreAction;
 import com.liferay.portal.events.ThemeServicePreAction;
-import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
-import com.liferay.portal.kernel.service.ClassNameLocalService;
-import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.servlet.DummyHttpServletResponse;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -48,32 +43,18 @@ import javax.ws.rs.core.UriInfo;
 public class RenderedContentValueUtil {
 
 	public static String renderTemplate(
-			ClassNameLocalService classNameLocalService,
 			DDMTemplateLocalService ddmTemplateLocalService,
-			GroupLocalService groupLocalService,
 			HttpServletRequest httpServletRequest,
 			JournalArticleService journalArticleService,
 			JournalContent journalContent, Locale locale,
-			Long structuredContentId, String templateId, UriInfo uriInfo)
+			Long structuredContentId, Long templateId, UriInfo uriInfo)
 		throws Exception {
 
 		JournalArticle journalArticle = journalArticleService.getLatestArticle(
 			structuredContentId);
 
 		DDMTemplate ddmTemplate = ddmTemplateLocalService.fetchTemplate(
-			journalArticle.getGroupId(),
-			classNameLocalService.getClassNameId(DDMStructure.class),
 			templateId);
-
-		if (ddmTemplate == null) {
-			Group group = groupLocalService.getCompanyGroup(
-				CompanyThreadLocal.getCompanyId());
-
-			ddmTemplate = ddmTemplateLocalService.fetchTemplate(
-				group.getGroupId(),
-				classNameLocalService.getClassNameId(DDMStructure.class),
-				templateId);
-		}
 
 		JournalArticleDisplay journalArticleDisplay = journalContent.getDisplay(
 			journalArticle.getGroupId(), journalArticle.getArticleId(),
