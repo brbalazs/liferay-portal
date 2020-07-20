@@ -58,15 +58,15 @@ public class JournalArticleSitemapURLProvider implements SitemapURLProvider {
 			ThemeDisplay themeDisplay)
 		throws PortalException {
 
-		int end = QueryUtil.ALL_POS;
 		int start = QueryUtil.ALL_POS;
+		int end = QueryUtil.ALL_POS;
 
 		int count = _journalArticleService.getArticlesByLayoutUuidCount(
 			layoutSet.getGroupId(), layoutUuid);
 
 		if (count > Sitemap.MAXIMUM_NUMBER_OF_ENTRIES) {
-			end = count;
 			start = count - Sitemap.MAXIMUM_NUMBER_OF_ENTRIES;
+			end = count;
 		}
 
 		List<JournalArticle> journalArticles =
@@ -81,15 +81,15 @@ public class JournalArticleSitemapURLProvider implements SitemapURLProvider {
 			Element element, LayoutSet layoutSet, ThemeDisplay themeDisplay)
 		throws PortalException {
 
-		int end = QueryUtil.ALL_POS;
 		int start = QueryUtil.ALL_POS;
+		int end = QueryUtil.ALL_POS;
 
 		int count = _journalArticleService.getLayoutArticlesCount(
 			layoutSet.getGroupId());
 
 		if (count > Sitemap.MAXIMUM_NUMBER_OF_ENTRIES) {
-			end = count;
 			start = count - Sitemap.MAXIMUM_NUMBER_OF_ENTRIES;
+			end = count;
 		}
 
 		List<JournalArticle> journalArticles =
