@@ -287,7 +287,7 @@ export class DataSourceList extends React.Component {
 					'please-connect-people-data-sources-to-start-using-analytics-cloud'
 			  )
 			: Liferay.Language.get(
-					'please-contact-your-site-administrator-to-add-people-data-sources'
+					'please-contact-your-workspace-administrator-to-add-data-sources'
 			  );
 
 		if (query) {
