@@ -554,7 +554,7 @@ exports[`DataSourceList should render with a member-specific message to connect 
     <p
       class="no-results-description"
     >
-      Please contact your site administrator to add people data sources.
+      Please contact your workspace administrator to add data sources.
     </p>
   </div>
 </div>
