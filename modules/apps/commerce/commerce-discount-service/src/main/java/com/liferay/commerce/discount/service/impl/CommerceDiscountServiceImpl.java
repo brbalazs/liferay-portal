@@ -338,6 +338,19 @@ public class CommerceDiscountServiceImpl
 	}
 
 	@Override
+	public CommerceDiscount updateCommerceDiscountExternalReferenceCode(
+			long commerceDiscountId, String externalReferenceCode)
+		throws PortalException {
+
+		_commerceDiscountResourcePermission.check(
+			getPermissionChecker(), commerceDiscountId, ActionKeys.UPDATE);
+
+		return commerceDiscountLocalService.
+			updateCommerceDiscountExternalReferenceCode(
+				commerceDiscountId, externalReferenceCode);
+	}
+
+	@Override
 	public CommerceDiscount upsertCommerceDiscount(
 			long userId, long commerceDiscountId, String title, String target,
 			boolean useCouponCode, String couponCode, boolean usePercentage,

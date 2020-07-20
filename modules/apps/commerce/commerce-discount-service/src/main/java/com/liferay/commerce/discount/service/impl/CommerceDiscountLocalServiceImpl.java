@@ -804,6 +804,22 @@ public class CommerceDiscountLocalServiceImpl
 
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
+	public CommerceDiscount updateCommerceDiscountExternalReferenceCode(
+			long commerceDiscountId, String externalReferenceCode)
+		throws PortalException {
+
+		CommerceDiscount commerceDiscount =
+			commerceDiscountLocalService.getCommerceDiscount(
+				commerceDiscountId);
+
+		commerceDiscount.setExternalReferenceCode(externalReferenceCode);
+
+		return commerceDiscountLocalService.updateCommerceDiscount(
+			commerceDiscount);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public CommerceDiscount updateStatus(
 			long userId, long commerceDiscountId, int status,
 			ServiceContext serviceContext,
