@@ -376,7 +376,7 @@ public class SitemapImpl implements Sitemap {
 				sb.append(entriesAttribute.getValue());
 			}
 			else {
-				sb.append("null");
+				sb.append("no");
 			}
 
 			sb.append(" entries and size ");
@@ -389,7 +389,7 @@ public class SitemapImpl implements Sitemap {
 						size, LocaleUtil.fromLanguageId("en_US")));
 			}
 			else {
-				sb.append("null");
+				sb.append("0");
 			}
 
 			_log.debug(sb.toString());
