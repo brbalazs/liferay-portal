@@ -260,6 +260,31 @@ public class SitemapImpl implements Sitemap {
 		}
 	}
 
+	private String _getIndexSitemap(
+			long groupId, boolean privateLayout, ThemeDisplay themeDisplay)
+		throws PortalException {
+
+		Document document = SAXReaderUtil.createDocument();
+
+		document.setXMLEncoding(StringPool.UTF8);
+
+		Element rootElement = document.addElement(
+			"sitemapindex", "http://www.sitemaps.org/schemas/sitemap/0.9");
+
+		rootElement.addAttribute("xmlns:xhtml", "http://www.w3.org/1999/xhtml");
+
+		_initEntriesAndSize(rootElement);
+
+		LayoutSet layoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
+			groupId, privateLayout);
+
+		visitLayoutSet(rootElement, layoutSet, themeDisplay);
+
+		_removeEntriesAndSize(rootElement);
+
+		return document.asXML();
+	}
+
 	private String _getSitemap(
 			String layoutUuid, long groupId, boolean privateLayout,
 			ThemeDisplay themeDisplay)
@@ -302,31 +327,6 @@ public class SitemapImpl implements Sitemap {
 		if (!rootElement.hasContent()) {
 			return StringPool.BLANK;
 		}
-
-		_removeEntriesAndSize(rootElement);
-
-		return document.asXML();
-	}
-
-	private String _getIndexSitemap(
-			long groupId, boolean privateLayout, ThemeDisplay themeDisplay)
-		throws PortalException {
-
-		Document document = SAXReaderUtil.createDocument();
-
-		document.setXMLEncoding(StringPool.UTF8);
-
-		Element rootElement = document.addElement(
-			"sitemapindex", "http://www.sitemaps.org/schemas/sitemap/0.9");
-
-		rootElement.addAttribute("xmlns:xhtml", "http://www.w3.org/1999/xhtml");
-
-		_initEntriesAndSize(rootElement);
-
-		LayoutSet layoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
-			groupId, privateLayout);
-
-		visitLayoutSet(rootElement, layoutSet, themeDisplay);
 
 		_removeEntriesAndSize(rootElement);
 
