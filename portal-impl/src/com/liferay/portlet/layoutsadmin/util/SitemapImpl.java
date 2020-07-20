@@ -274,7 +274,7 @@ public class SitemapImpl implements Sitemap {
 
 			int availableLocalesSize = availableLocales.size();
 
-			offset = availableLocalesSize * _XHTML_ATTRIBUTE.length;
+			offset = (availableLocalesSize + 1) * _XHTML_ATTRIBUTE.length;
 
 			offset += _XMLNS_ATTRIBUTE.length;
 		}
