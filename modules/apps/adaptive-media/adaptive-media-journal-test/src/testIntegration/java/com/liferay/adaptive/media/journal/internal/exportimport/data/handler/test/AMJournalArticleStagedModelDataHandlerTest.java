@@ -295,7 +295,6 @@ public class AMJournalArticleStagedModelDataHandlerTest
 			expectedJournalArticle.getGroupId(),
 			expectedJournalArticle.getArticleId(), Constants.VIEW,
 			expectedJournalArticle.getDefaultLanguageId());
-
 		String actualContent = _journalContent.getContent(
 			actualJournalArticle.getGroupId(),
 			actualJournalArticle.getArticleId(), Constants.VIEW,
