@@ -1,10 +1,7 @@
 import * as data from 'test/data';
 import FaroConstants from 'shared/util/constants';
 import React from 'react';
-import {
-	EngagementWithList,
-	SelectedPointInfo
-} from '../Engagement';
+import {EngagementWithList, SelectedPointInfo} from '../Engagement';
 import {shallow} from 'enzyme';
 
 const {entityTypes} = FaroConstants;
