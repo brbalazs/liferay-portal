@@ -20,7 +20,6 @@ import com.liferay.portal.kernel.search.BooleanClause;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Indexer;
-import com.liferay.portal.kernel.search.IndexerPostProcessor;
 import com.liferay.portal.kernel.search.IndexerRegistry;
 import com.liferay.portal.kernel.search.ParseException;
 import com.liferay.portal.kernel.search.Query;
@@ -224,20 +223,17 @@ public class IndexerQueryBuilderImpl<T extends BaseModel<?>>
 	protected void postProcessFullQuery(
 		BooleanQuery booleanQuery, SearchContext searchContext) {
 
-		Stream<IndexerPostProcessor> stream =
-			_indexerPostProcessorsHolder.stream();
-
-		stream.forEach(
+		_indexerPostProcessorsHolder.forEach(
 			indexerPostProcessor -> {
 				try {
 					indexerPostProcessor.postProcessFullQuery(
 						booleanQuery, searchContext);
 				}
-				catch (RuntimeException re) {
-					throw re;
+				catch (RuntimeException runtimeException) {
+					throw runtimeException;
 				}
-				catch (Exception e) {
-					throw new SystemException(e);
+				catch (Exception exception) {
+					throw new SystemException(exception);
 				}
 			});
 	}
@@ -249,8 +245,8 @@ public class IndexerQueryBuilderImpl<T extends BaseModel<?>>
 		try {
 			booleanQuery.add(query, booleanClauseOccur);
 		}
-		catch (ParseException pe) {
-			throw new SystemException(pe);
+		catch (ParseException parseException) {
+			throw new SystemException(parseException);
 		}
 	}
 
@@ -275,20 +271,17 @@ public class IndexerQueryBuilderImpl<T extends BaseModel<?>>
 		BooleanQuery booleanQuery, BooleanFilter booleanFilter,
 		SearchContext searchContext) {
 
-		Stream<IndexerPostProcessor> stream =
-			_indexerPostProcessorsHolder.stream();
-
-		stream.forEach(
+		_indexerPostProcessorsHolder.forEach(
 			indexerPostProcessor -> {
 				try {
 					indexerPostProcessor.postProcessSearchQuery(
 						booleanQuery, booleanFilter, searchContext);
 				}
-				catch (RuntimeException re) {
-					throw re;
+				catch (RuntimeException runtimeException) {
+					throw runtimeException;
 				}
-				catch (Exception e) {
-					throw new SystemException(e);
+				catch (Exception exception) {
+					throw new SystemException(exception);
 				}
 			});
 	}
@@ -296,8 +289,8 @@ public class IndexerQueryBuilderImpl<T extends BaseModel<?>>
 	private Map<String, Indexer<?>> _getEntryClassNameIndexerMap(
 		String[] entryClassNames, String searchEngineId) {
 
-		Map<String, Indexer<?>> entryClassNameIndexerMap = new LinkedHashMap<>(
-			entryClassNames.length);
+		Map<String, Indexer<?>> entryClassNameIndexerMap =
+			new LinkedHashMap<>();
 
 		for (String entryClassName : entryClassNames) {
 			Indexer<?> indexer = _indexerRegistry.getIndexer(entryClassName);

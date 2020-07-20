@@ -98,24 +98,12 @@ public class SortFieldBuilderImpl implements SortFieldBuilder {
 			_sortFieldNameTranslators.get(entityClassName);
 
 		if (sortFieldNameTranslator == null) {
-			return getSortFieldNameFromIndexer(entityClassName, orderByCol);
+			Indexer<?> indexer = indexerRegistry.getIndexer(entityClassName);
+
+			return indexer.getSortField(orderByCol);
 		}
 
 		return sortFieldNameTranslator.getSortFieldName(orderByCol);
-	}
-
-	/**
-	 * @deprecated As of Judson (7.1.x), used solely to provide backwards
-	 *             compatibility support for {@link
-	 *             Indexer#getSortField(String)}
-	 */
-	@Deprecated
-	protected String getSortFieldNameFromIndexer(
-		String entityClassName, String orderByCol) {
-
-		Indexer<?> indexer = indexerRegistry.getIndexer(entityClassName);
-
-		return indexer.getSortField(orderByCol);
 	}
 
 	protected void removeSortFieldNameTranslator(

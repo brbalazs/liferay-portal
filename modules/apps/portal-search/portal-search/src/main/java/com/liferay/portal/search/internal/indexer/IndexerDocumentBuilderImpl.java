@@ -20,14 +20,11 @@ import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.DocumentContributor;
 import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.IndexerPostProcessor;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.search.indexer.BaseModelDocumentFactory;
 import com.liferay.portal.search.indexer.IndexerDocumentBuilder;
 import com.liferay.portal.search.permission.SearchPermissionDocumentContributor;
 import com.liferay.portal.search.spi.model.index.contributor.ModelDocumentContributor;
-
-import java.util.stream.Stream;
 
 /**
  * @author Michael C. Han
@@ -80,19 +77,17 @@ public class IndexerDocumentBuilderImpl implements IndexerDocumentBuilder {
 	protected <T extends BaseModel<?>> void postProcessDocument(
 		Document document, T baseModel) {
 
-		Stream<IndexerPostProcessor> stream =
-			_indexerPostProcessorsHolder.stream();
-
-		stream.forEach(
+		_indexerPostProcessorsHolder.forEach(
 			indexerPostProcessor -> {
 				try {
 					indexerPostProcessor.postProcessDocument(
 						document, baseModel);
 				}
-				catch (Exception e) {
+				catch (Exception exception) {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
-							"Unable to post process document " + document, e);
+							"Unable to post process document " + document,
+							exception);
 					}
 				}
 			});

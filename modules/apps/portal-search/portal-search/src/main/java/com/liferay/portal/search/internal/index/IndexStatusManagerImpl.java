@@ -54,6 +54,7 @@ public class IndexStatusManagerImpl implements IndexStatusManager {
 		return _indexReadOnlyModels.contains(className);
 	}
 
+	@Override
 	public void requireIndexReadWrite(boolean required) {
 		if (required) {
 			if (_indexReadOnly) {

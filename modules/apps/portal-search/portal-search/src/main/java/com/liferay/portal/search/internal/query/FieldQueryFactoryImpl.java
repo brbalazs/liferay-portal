@@ -18,6 +18,8 @@ import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.query.FieldQueryFactory;
 import com.liferay.portal.search.analysis.FieldQueryBuilder;
 import com.liferay.portal.search.analysis.FieldQueryBuilderFactory;
+import com.liferay.portal.search.engine.SearchEngineInformation;
+import com.liferay.portal.search.internal.analysis.DescriptionFieldQueryBuilder;
 import com.liferay.portal.search.internal.analysis.TitleFieldQueryBuilder;
 
 import java.util.HashSet;
@@ -26,6 +28,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 /**
  * @author Michael C. Han
@@ -43,6 +46,32 @@ public class FieldQueryFactoryImpl implements FieldQueryFactory {
 		return fieldQueryBuilder.build(fieldName, keywords);
 	}
 
+	@Reference(unbind = "-")
+	public void setDescriptionFieldQueryBuilder(
+		DescriptionFieldQueryBuilder descriptionFieldQueryBuilder) {
+
+		_descriptionFieldQueryBuilder = descriptionFieldQueryBuilder;
+	}
+
+	public void setSearchEngineInformation(
+		SearchEngineInformation searchEngineInformation) {
+
+		_searchEngineInformation = searchEngineInformation;
+	}
+
+	@Reference(unbind = "-")
+	public void setTitleFieldQueryBuilder(
+		TitleFieldQueryBuilder titleFieldQueryBuilder) {
+
+		_titleFieldQueryBuilder = titleFieldQueryBuilder;
+	}
+
+	public void unsetSearchEngineInformation(
+		SearchEngineInformation searchEngineInformation) {
+
+		_searchEngineInformation = null;
+	}
+
 	@Reference(
 		cardinality = ReferenceCardinality.MULTIPLE,
 		policy = ReferencePolicy.DYNAMIC
@@ -54,7 +83,19 @@ public class FieldQueryFactoryImpl implements FieldQueryFactory {
 	}
 
 	protected FieldQueryBuilder getDefaultQueryBuilder() {
-		return titleQueryBuilder;
+		if (_searchEngineInformation != null) {
+			String vendor = _searchEngineInformation.getVendorString();
+			String version = _searchEngineInformation.getClientVersionString();
+
+			if ((vendor.startsWith("Elasticsearch") &&
+				 version.startsWith("6")) ||
+				vendor.startsWith("Solr")) {
+
+				return _titleFieldQueryBuilder;
+			}
+		}
+
+		return _descriptionFieldQueryBuilder;
 	}
 
 	protected FieldQueryBuilder getQueryBuilder(String fieldName) {
@@ -78,10 +119,17 @@ public class FieldQueryFactoryImpl implements FieldQueryFactory {
 		_fieldQueryBuilderFactories.remove(fieldQueryBuilderFactory);
 	}
 
-	@Reference
-	protected TitleFieldQueryBuilder titleQueryBuilder;
-
+	private DescriptionFieldQueryBuilder _descriptionFieldQueryBuilder;
 	private final HashSet<FieldQueryBuilderFactory>
 		_fieldQueryBuilderFactories = new HashSet<>();
+
+	@Reference(
+		cardinality = ReferenceCardinality.OPTIONAL,
+		policy = ReferencePolicy.DYNAMIC,
+		policyOption = ReferencePolicyOption.GREEDY
+	)
+	private volatile SearchEngineInformation _searchEngineInformation;
+
+	private TitleFieldQueryBuilder _titleFieldQueryBuilder;
 
 }

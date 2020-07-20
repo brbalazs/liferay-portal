@@ -17,7 +17,6 @@ package com.liferay.portal.search.internal.indexer;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Hits;
-import com.liferay.portal.kernel.search.IndexSearcherHelper;
 import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
@@ -32,6 +31,7 @@ import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.search.indexer.IndexerPermissionPostFilter;
 import com.liferay.portal.search.indexer.IndexerQueryBuilder;
 import com.liferay.portal.search.indexer.IndexerSearcher;
+import com.liferay.portal.search.internal.searcher.IndexSearcherHelper;
 import com.liferay.portal.search.spi.model.query.contributor.QueryConfigContributor;
 import com.liferay.portal.search.spi.model.query.contributor.helper.QueryConfigContributorHelper;
 import com.liferay.portal.search.spi.model.registrar.ModelSearchSettings;
@@ -102,8 +102,8 @@ public class IndexerSearcherImpl<T extends BaseModel<?>>
 		try {
 			_hitsProcessorRegistry.process(searchContext, hits);
 		}
-		catch (SearchException se) {
-			throw new RuntimeException(se);
+		catch (SearchException searchException) {
+			throw new RuntimeException(searchException);
 		}
 
 		return hits;
@@ -137,12 +137,7 @@ public class IndexerSearcherImpl<T extends BaseModel<?>>
 
 		fullQuery.setQueryConfig(queryConfig);
 
-		try {
-			return _indexSearcherHelper.searchCount(searchContext, fullQuery);
-		}
-		catch (SearchException se) {
-			throw new RuntimeException(se);
-		}
+		return _indexSearcherHelper.searchCount(searchContext, fullQuery);
 	}
 
 	protected Hits doSearch(SearchContext searchContext) {
@@ -159,16 +154,9 @@ public class IndexerSearcherImpl<T extends BaseModel<?>>
 			fullQuery.setPreBooleanFilter(preBooleanFilter);
 		}
 
-		QueryConfig queryConfig = searchContext.getQueryConfig();
+		fullQuery.setQueryConfig(searchContext.getQueryConfig());
 
-		fullQuery.setQueryConfig(queryConfig);
-
-		try {
-			return _indexSearcherHelper.search(searchContext, fullQuery);
-		}
-		catch (SearchException se) {
-			throw new RuntimeException(se);
-		}
+		return _indexSearcherHelper.search(searchContext, fullQuery);
 	}
 
 	private Hits _search(SearchContext searchContext) {
@@ -176,7 +164,8 @@ public class IndexerSearcherImpl<T extends BaseModel<?>>
 			PermissionThreadLocal.getPermissionChecker();
 
 		if ((permissionChecker == null) ||
-			!_indexerPermissionPostFilter.isPermissionAware()) {
+			!_indexerPermissionPostFilter.isPermissionAware() ||
+			_modelSearchSettings.isSearchResultPermissionFilterSuppressed()) {
 
 			return doSearch(searchContext);
 		}
@@ -192,8 +181,8 @@ public class IndexerSearcherImpl<T extends BaseModel<?>>
 		try {
 			return searchResultPermissionFilter.search(searchContext);
 		}
-		catch (SearchException se) {
-			throw new RuntimeException(se);
+		catch (SearchException searchException) {
+			throw new RuntimeException(searchException);
 		}
 	}
 

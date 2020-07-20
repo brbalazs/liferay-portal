@@ -40,7 +40,6 @@ import com.liferay.portal.search.spi.model.registrar.ModelSearchSettings;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -100,11 +99,6 @@ public class DefaultIndexer<T extends BaseModel<?>> implements Indexer<T> {
 	}
 
 	@Override
-	public String[] getClassNames() {
-		return getSearchClassNames();
-	}
-
-	@Override
 	public Document getDocument(T baseModel) throws SearchException {
 		return _indexerDocumentBuilder.getDocument(baseModel);
 	}
@@ -126,15 +120,7 @@ public class DefaultIndexer<T extends BaseModel<?>> implements Indexer<T> {
 
 	@Override
 	public IndexerPostProcessor[] getIndexerPostProcessors() {
-		Stream<IndexerPostProcessor> stream =
-			_indexerPostProcessorsHolder.stream();
-
-		return stream.toArray(IndexerPostProcessor[]::new);
-	}
-
-	@Override
-	public String getPortletId() {
-		return StringPool.BLANK;
+		return _indexerPostProcessorsHolder.toArray();
 	}
 
 	@Override
@@ -155,13 +141,6 @@ public class DefaultIndexer<T extends BaseModel<?>> implements Indexer<T> {
 	@Override
 	public String getSortField(String orderByCol, int sortType) {
 		return StringPool.BLANK;
-	}
-
-	@Override
-	public Summary getSummary(Document document, Locale locale, String snippet)
-		throws SearchException {
-
-		return getSummary(document, snippet, null, null);
 	}
 
 	@Override
@@ -204,7 +183,7 @@ public class DefaultIndexer<T extends BaseModel<?>> implements Indexer<T> {
 
 	@Override
 	public boolean isFilterSearch() {
-		return isPermissionAware();
+		return !_modelSearchSettings.isSearchResultPermissionFilterSuppressed();
 	}
 
 	@Override
