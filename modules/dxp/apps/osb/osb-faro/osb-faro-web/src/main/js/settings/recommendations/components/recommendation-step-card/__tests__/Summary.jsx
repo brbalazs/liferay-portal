@@ -82,8 +82,8 @@ describe('Summary', () => {
 								}
 							],
 							name: 'Test Name',
-							trainingFrequency: jobTrainingFrequencies.manual,
-							trainingPeriod: jobTrainingPeriods.last30Days,
+							runDataPeriod: jobRunDataPeriods.last30Days,
+							runFrequency: jobRunFrequencies.manual,
 							type: jobTypes.itemSimilarity
 						}}
 					>
