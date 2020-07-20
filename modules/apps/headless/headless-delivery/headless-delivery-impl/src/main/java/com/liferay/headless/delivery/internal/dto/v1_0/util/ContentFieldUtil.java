@@ -51,6 +51,7 @@ import java.util.Optional;
 import java.util.TimeZone;
 
 import javax.ws.rs.BadRequestException;
+import javax.ws.rs.core.UriInfo;
 
 /**
  * @author Javier Gamarra
@@ -77,6 +78,7 @@ public class ContentFieldUtil {
 				contentFieldValue = _toContentFieldValue(
 					ddmFormField, dlAppService, journalArticleService,
 					layoutLocalService, dtoConverterContext.getLocale(),
+					dtoConverterContext.getUriInfoOptional(),
 					ddmFormFieldValue.getValue());
 				dataType = ContentStructureUtil.toDataType(ddmFormField);
 				inputControl = ContentStructureUtil.toInputControl(
@@ -121,7 +123,9 @@ public class ContentFieldUtil {
 								_getContentFieldValue(
 									ddmFormField, dlAppService,
 									journalArticleService, layoutLocalService,
-									entry.getKey(), entry.getValue()));
+									entry.getKey(),
+									dtoConverterContext.getUriInfoOptional(),
+									entry.getValue()));
 						}
 
 						return map;
@@ -134,7 +138,7 @@ public class ContentFieldUtil {
 		DDMFormField ddmFormField, DLAppService dlAppService,
 		JournalArticleService journalArticleService,
 		LayoutLocalService layoutLocalService, Locale locale,
-		String valueString) {
+		Optional<UriInfo> optionalUriInfo, String valueString) {
 
 		try {
 			if (Objects.equals(DDMFormFieldType.DATE, ddmFormField.getType())) {
@@ -157,7 +161,7 @@ public class ContentFieldUtil {
 				return new ContentFieldValue() {
 					{
 						document = ContentDocumentUtil.toContentDocument(
-							fileEntry);
+							fileEntry, optionalUriInfo);
 					}
 				};
 			}
@@ -195,7 +199,8 @@ public class ContentFieldUtil {
 				return new ContentFieldValue() {
 					{
 						image = ContentDocumentUtil.toContentDocument(
-							dlAppService.getFileEntry(fileEntryId));
+							dlAppService.getFileEntry(fileEntryId),
+							optionalUriInfo);
 
 						image.setDescription(jsonObject.getString("alt"));
 					}
@@ -295,7 +300,8 @@ public class ContentFieldUtil {
 	private static ContentFieldValue _toContentFieldValue(
 		DDMFormField ddmFormField, DLAppService dlAppService,
 		JournalArticleService journalArticleService,
-		LayoutLocalService layoutLocalService, Locale locale, Value value) {
+		LayoutLocalService layoutLocalService, Locale locale,
+		Optional<UriInfo> optionalUriInfo, Value value) {
 
 		if (value == null) {
 			return new ContentFieldValue();
@@ -305,7 +311,7 @@ public class ContentFieldUtil {
 
 		return _getContentFieldValue(
 			ddmFormField, dlAppService, journalArticleService,
-			layoutLocalService, locale, valueString);
+			layoutLocalService, locale, optionalUriInfo, valueString);
 	}
 
 	private static String _toDateString(Locale locale, String valueString) {

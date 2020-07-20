@@ -45,6 +45,7 @@ import com.liferay.headless.delivery.dto.v1_0.DocumentType;
 import com.liferay.headless.delivery.dto.v1_0.TaxonomyCategoryBrief;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.AggregateRatingUtil;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.ContentFieldUtil;
+import com.liferay.headless.delivery.internal.dto.v1_0.util.ContentValueUtil;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.CreatorUtil;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.CustomFieldsUtil;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.RelatedContentUtil;
@@ -70,7 +71,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -101,13 +105,18 @@ public class DocumentDTOConverter
 
 		return new Document() {
 			{
-				adaptedImages = _getAdaptiveMedias(fileEntry);
+				actions = dtoConverterContext.getActions();
+				adaptedImages = _getAdaptiveMedias(
+					dtoConverterContext, fileEntry);
 				aggregateRating = AggregateRatingUtil.toAggregateRating(
 					_ratingsStatsLocalService.fetchStats(
 						DLFileEntry.class.getName(),
 						fileEntry.getFileEntryId()));
 				contentUrl = DLUtil.getPreviewURL(
 					fileEntry, fileVersion, null, "");
+				contentValue = ContentValueUtil.toContentValue(
+					"contentValue", fileEntry.getContentStream(),
+					dtoConverterContext.getUriInfoOptional());
 				creator = CreatorUtil.toCreator(
 					_portal,
 					_userLocalService.fetchUser(fileEntry.getUserId()));
@@ -151,7 +160,8 @@ public class DocumentDTOConverter
 		};
 	}
 
-	private AdaptedImage[] _getAdaptiveMedias(FileEntry fileEntry)
+	private AdaptedImage[] _getAdaptiveMedias(
+			DTOConverterContext dtoConverterContext, FileEntry fileEntry)
 		throws Exception {
 
 		if (!_amImageMimeTypeProvider.isMimeTypeSupported(
@@ -160,7 +170,7 @@ public class DocumentDTOConverter
 			return new AdaptedImage[0];
 		}
 
-		Stream<AdaptiveMedia<AMImageProcessor>> stream =
+		Stream<AdaptiveMedia<AMImageProcessor>> adaptiveMediaStream =
 			_amImageFinder.getAdaptiveMediaStream(
 				amImageQueryBuilder -> amImageQueryBuilder.forFileEntry(
 					fileEntry
@@ -168,11 +178,14 @@ public class DocumentDTOConverter
 					AMImageQueryBuilder.ConfigurationStatus.ANY
 				).done());
 
-		return stream.map(
-			this::_toAdaptedImage
-		).toArray(
-			AdaptedImage[]::new
-		);
+		List<AdaptiveMedia<AMImageProcessor>> adaptiveMedias =
+			adaptiveMediaStream.collect(Collectors.toList());
+
+		return TransformUtil.transformToArray(
+			adaptiveMedias,
+			adaptiveMedia -> _toAdaptedImage(
+				adaptiveMedia, dtoConverterContext.getUriInfoOptional()),
+			AdaptedImage.class);
 	}
 
 	private List<DDMFormValues> _getDDMFormValues(
@@ -209,7 +222,9 @@ public class DocumentDTOConverter
 	}
 
 	private AdaptedImage _toAdaptedImage(
-		AdaptiveMedia<AMImageProcessor> adaptiveMedia) {
+			AdaptiveMedia<AMImageProcessor> adaptiveMedia,
+			Optional<UriInfo> optionalUriInfo)
+		throws Exception {
 
 		if (adaptiveMedia == null) {
 			return null;
@@ -218,6 +233,9 @@ public class DocumentDTOConverter
 		return new AdaptedImage() {
 			{
 				contentUrl = String.valueOf(adaptiveMedia.getURI());
+				contentValue = ContentValueUtil.toContentValue(
+					"adaptedImages.contentValue",
+					adaptiveMedia.getInputStream(), optionalUriInfo);
 				height = _getValue(
 					adaptiveMedia, AMImageAttribute.AM_IMAGE_ATTRIBUTE_HEIGHT);
 				resolutionName = _getValue(
