@@ -92,12 +92,8 @@ public class ResourceBundleUtilTest {
 					resourceBundle, key);
 
 				Assert.assertFalse(
-					value + " should not contain " +
-						LanguageBuilderUtil.AUTOMATIC_COPY,
 					value.endsWith(LanguageBuilderUtil.AUTOMATIC_COPY));
 				Assert.assertFalse(
-					value + " should not contain " +
-						LanguageBuilderUtil.AUTOMATIC_TRANSLATION,
 					value.endsWith(LanguageBuilderUtil.AUTOMATIC_TRANSLATION));
 			});
 	}
