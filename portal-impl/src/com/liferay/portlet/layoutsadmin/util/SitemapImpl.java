@@ -303,7 +303,7 @@ public class SitemapImpl implements Sitemap {
 
 		rootElement.addAttribute("xmlns:xhtml", "http://www.w3.org/1999/xhtml");
 
-		_initSizeAndEntries(rootElement);
+		_initEntriesAndSize(rootElement);
 
 		LayoutSet layoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
 			groupId, privateLayout);
@@ -344,7 +344,7 @@ public class SitemapImpl implements Sitemap {
 
 		rootElement.addAttribute("xmlns:xhtml", "http://www.w3.org/1999/xhtml");
 
-		_initSizeAndEntries(rootElement);
+		_initEntriesAndSize(rootElement);
 
 		LayoutSet layoutSet = LayoutSetLocalServiceUtil.getLayoutSet(
 			groupId, privateLayout);
@@ -356,7 +356,7 @@ public class SitemapImpl implements Sitemap {
 		return document.asXML();
 	}
 
-	private void _initSizeAndEntries(Element rootElement) {
+	private void _initEntriesAndSize(Element rootElement) {
 		int size = _getElementSize(rootElement);
 
 		rootElement.addAttribute(_SIZE, String.valueOf(size));
