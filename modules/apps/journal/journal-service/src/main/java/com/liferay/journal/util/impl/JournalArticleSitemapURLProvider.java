@@ -17,9 +17,11 @@ package com.liferay.journal.util.impl;
 import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.model.JournalArticleConstants;
 import com.liferay.journal.service.JournalArticleService;
+import com.liferay.layouts.admin.kernel.util.Sitemap;
 import com.liferay.layouts.admin.kernel.util.SitemapURLProvider;
 import com.liferay.layouts.admin.kernel.util.SitemapUtil;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutSet;
@@ -56,9 +58,21 @@ public class JournalArticleSitemapURLProvider implements SitemapURLProvider {
 			ThemeDisplay themeDisplay)
 		throws PortalException {
 
+		int end = QueryUtil.ALL_POS;
+		int start = QueryUtil.ALL_POS;
+
+		int journalArticleCount =
+			_journalArticleService.getArticlesByLayoutUuidCount(
+				layoutSet.getGroupId(), layoutUuid);
+
+		if (journalArticleCount > Sitemap.MAXIMUM_NUMBER_OF_ENTRIES) {
+			end = journalArticleCount;
+			start = journalArticleCount - Sitemap.MAXIMUM_NUMBER_OF_ENTRIES;
+		}
+
 		List<JournalArticle> journalArticles =
 			_journalArticleService.getArticlesByLayoutUuid(
-				layoutSet.getGroupId(), layoutUuid);
+				layoutSet.getGroupId(), layoutUuid, start, end);
 
 		visitArticles(element, layoutSet, themeDisplay, journalArticles);
 	}
@@ -68,8 +82,20 @@ public class JournalArticleSitemapURLProvider implements SitemapURLProvider {
 			Element element, LayoutSet layoutSet, ThemeDisplay themeDisplay)
 		throws PortalException {
 
+		int end = QueryUtil.ALL_POS;
+		int start = QueryUtil.ALL_POS;
+
+		int journalArticleCount = _journalArticleService.getLayoutArticlesCount(
+			layoutSet.getGroupId());
+
+		if (journalArticleCount > Sitemap.MAXIMUM_NUMBER_OF_ENTRIES) {
+			end = journalArticleCount;
+			start = journalArticleCount - Sitemap.MAXIMUM_NUMBER_OF_ENTRIES;
+		}
+
 		List<JournalArticle> journalArticles =
-			_journalArticleService.getLayoutArticles(layoutSet.getGroupId());
+			_journalArticleService.getLayoutArticles(
+				layoutSet.getGroupId(), start, end);
 
 		visitArticles(element, layoutSet, themeDisplay, journalArticles);
 	}
