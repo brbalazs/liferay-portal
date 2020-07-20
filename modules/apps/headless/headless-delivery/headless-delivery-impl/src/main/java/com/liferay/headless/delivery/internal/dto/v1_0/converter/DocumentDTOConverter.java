@@ -223,7 +223,7 @@ public class DocumentDTOConverter
 
 	private AdaptedImage _toAdaptedImage(
 			AdaptiveMedia<AMImageProcessor> adaptiveMedia,
-			Optional<UriInfo> optionalUriInfo)
+			Optional<UriInfo> uriInfoOptional)
 		throws Exception {
 
 		if (adaptiveMedia == null) {
@@ -235,7 +235,7 @@ public class DocumentDTOConverter
 				contentUrl = String.valueOf(adaptiveMedia.getURI());
 				contentValue = ContentValueUtil.toContentValue(
 					"adaptedImages.contentValue",
-					adaptiveMedia.getInputStream(), optionalUriInfo);
+					adaptiveMedia.getInputStream(), uriInfoOptional);
 				height = _getValue(
 					adaptiveMedia, AMImageAttribute.AM_IMAGE_ATTRIBUTE_HEIGHT);
 				resolutionName = _getValue(

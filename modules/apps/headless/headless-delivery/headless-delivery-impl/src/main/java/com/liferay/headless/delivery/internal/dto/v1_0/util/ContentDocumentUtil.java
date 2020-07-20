@@ -28,7 +28,7 @@ import javax.ws.rs.core.UriInfo;
 public class ContentDocumentUtil {
 
 	public static ContentDocument toContentDocument(
-			FileEntry fileEntry, Optional<UriInfo> optionalUriInfo)
+			FileEntry fileEntry, Optional<UriInfo> uriInfoOptional)
 		throws Exception {
 
 		return new ContentDocument() {
@@ -39,7 +39,7 @@ public class ContentDocumentUtil {
 					false);
 				contentValue = ContentValueUtil.toContentValue(
 					"image.contentValue", fileEntry.getContentStream(),
-					optionalUriInfo);
+					uriInfoOptional);
 				description = fileEntry.getDescription();
 				encodingFormat = fileEntry.getMimeType();
 				fileExtension = fileEntry.getExtension();

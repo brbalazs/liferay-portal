@@ -138,7 +138,7 @@ public class ContentFieldUtil {
 		DDMFormField ddmFormField, DLAppService dlAppService,
 		JournalArticleService journalArticleService,
 		LayoutLocalService layoutLocalService, Locale locale,
-		Optional<UriInfo> optionalUriInfo, String valueString) {
+		Optional<UriInfo> uriInfoOptional, String valueString) {
 
 		try {
 			if (Objects.equals(DDMFormFieldType.DATE, ddmFormField.getType())) {
@@ -161,7 +161,7 @@ public class ContentFieldUtil {
 				return new ContentFieldValue() {
 					{
 						document = ContentDocumentUtil.toContentDocument(
-							fileEntry, optionalUriInfo);
+							dlURLHelper, uriInfoOptional);
 					}
 				};
 			}
@@ -200,7 +200,7 @@ public class ContentFieldUtil {
 					{
 						image = ContentDocumentUtil.toContentDocument(
 							dlAppService.getFileEntry(fileEntryId),
-							optionalUriInfo);
+							uriInfoOptional);
 
 						image.setDescription(jsonObject.getString("alt"));
 					}
@@ -301,7 +301,7 @@ public class ContentFieldUtil {
 		DDMFormField ddmFormField, DLAppService dlAppService,
 		JournalArticleService journalArticleService,
 		LayoutLocalService layoutLocalService, Locale locale,
-		Optional<UriInfo> optionalUriInfo, Value value) {
+		Optional<UriInfo> uriInfoOptional, Value value) {
 
 		if (value == null) {
 			return new ContentFieldValue();
@@ -311,7 +311,7 @@ public class ContentFieldUtil {
 
 		return _getContentFieldValue(
 			ddmFormField, dlAppService, journalArticleService,
-			layoutLocalService, locale, optionalUriInfo, valueString);
+			layoutLocalService, locale, uriInfoOptional, valueString);
 	}
 
 	private static String _toDateString(Locale locale, String valueString) {
