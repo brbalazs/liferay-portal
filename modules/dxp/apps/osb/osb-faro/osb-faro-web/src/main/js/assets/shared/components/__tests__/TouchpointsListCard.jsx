@@ -8,18 +8,18 @@ import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
-const items = [
+const MOCK_ITEMS = [
 	{
-		title: 'https://www.liferay.com/digital-experience-platform',
-		touchpoint: 'https://www.liferay.com/digital-experience-platform'
+		title: 'Digital Experience Platform 1',
+		touchpoint: 'https://www.liferay.com/digital-experience-platform-1'
 	},
 	{
-		title: 'https://www.liferay.com/digital-experience-platform',
-		touchpoint: 'https://www.liferay.com/digital-experience-platform'
+		title: 'Digital Experience Platform 2',
+		touchpoint: 'https://www.liferay.com/digital-experience-platform-2'
 	},
 	{
-		title: 'https://www.liferay.com/digital-experience-platform',
-		touchpoint: 'https://www.liferay.com/digital-experience-platform'
+		title: 'Digital Experience Platform 3',
+		touchpoint: 'https://www.liferay.com/digital-experience-platform-3'
 	}
 ];
 
@@ -53,8 +53,10 @@ describe('TouchpointsListCard', () => {
 	});
 
 	it('should render with items', () => {
-		const {container} = render(<WrappedComponent items={items} />);
+		const {getByText} = render(<WrappedComponent items={MOCK_ITEMS} />);
 
-		expect(container).toMatchSnapshot();
+		MOCK_ITEMS.forEach(({title}) => {
+			expect(getByText(title)).toBeTruthy();
+		});
 	});
 });
