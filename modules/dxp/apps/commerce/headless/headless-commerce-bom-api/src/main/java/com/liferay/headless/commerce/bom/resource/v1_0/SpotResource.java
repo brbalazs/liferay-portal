@@ -47,6 +47,10 @@ public interface SpotResource {
 
 	public Spot postAreaIdSpot(Long id, Spot spot) throws Exception;
 
+	public Response postAreaIdSpotBatch(
+			Long id, String callbackURL, Object object)
+		throws Exception;
+
 	public Response deleteAreaIdSpot(Long id, Long spotId) throws Exception;
 
 	public Response putAreaIdSpot(Long id, Long spotId, Spot spot)
