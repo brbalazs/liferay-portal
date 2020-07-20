@@ -64,8 +64,8 @@ public class JournalArticleSitemapURLProvider implements SitemapURLProvider {
 		int count = _journalArticleService.getArticlesByLayoutUuidCount(
 			layoutSet.getGroupId(), layoutUuid);
 
-		if (count > Sitemap.MAXIMUM_NUMBER_OF_ENTRIES) {
-			start = count - Sitemap.MAXIMUM_NUMBER_OF_ENTRIES;
+		if (count > Sitemap.MAXIMUM_ENTRIES) {
+			start = count - Sitemap.MAXIMUM_ENTRIES;
 			end = count;
 		}
 
@@ -87,8 +87,8 @@ public class JournalArticleSitemapURLProvider implements SitemapURLProvider {
 		int count = _journalArticleService.getLayoutArticlesCount(
 			layoutSet.getGroupId());
 
-		if (count > Sitemap.MAXIMUM_NUMBER_OF_ENTRIES) {
-			start = count - Sitemap.MAXIMUM_NUMBER_OF_ENTRIES;
+		if (count > Sitemap.MAXIMUM_ENTRIES) {
+			start = count - Sitemap.MAXIMUM_ENTRIES;
 			end = count;
 		}
 

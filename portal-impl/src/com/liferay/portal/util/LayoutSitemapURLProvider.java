@@ -87,8 +87,8 @@ public class LayoutSitemapURLProvider implements SitemapURLProvider {
 				layoutSet.getGroupId(), layoutSet.isPrivateLayout(),
 				entry.getKey());
 
-			if (count > Sitemap.MAXIMUM_NUMBER_OF_ENTRIES) {
-				start = count - Sitemap.MAXIMUM_NUMBER_OF_ENTRIES;
+			if (count > Sitemap.MAXIMUM_ENTRIES) {
+				start = count - Sitemap.MAXIMUM_ENTRIES;
 				end = count;
 			}
 
