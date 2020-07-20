@@ -33,7 +33,7 @@ public class ContentValueUtil {
 			Optional<UriInfo> uriInfoOptional)
 		throws Exception {
 
-		boolean nestField = uriInfoOptional.map(
+		boolean hasNestedFieldsField = uriInfoOptional.map(
 			UriInfo::getQueryParameters
 		).map(
 			parameters -> parameters.getFirst("nestedFields")
@@ -43,7 +43,7 @@ public class ContentValueUtil {
 			false
 		);
 
-		if (nestField) {
+		if (hasNestedFieldsField) {
 			return Base64.encode(StreamUtil.toByteArray(inputStream));
 		}
 
