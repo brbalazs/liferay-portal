@@ -170,7 +170,7 @@ public class DocumentDTOConverter
 			return new AdaptedImage[0];
 		}
 
-		Stream<AdaptiveMedia<AMImageProcessor>> adaptiveMediasStream =
+		Stream<AdaptiveMedia<AMImageProcessor>> adaptiveMediaStream =
 			_amImageFinder.getAdaptiveMediaStream(
 				amImageQueryBuilder -> amImageQueryBuilder.forFileEntry(
 					fileEntry
@@ -179,7 +179,7 @@ public class DocumentDTOConverter
 				).done());
 
 		List<AdaptiveMedia<AMImageProcessor>> adaptiveMedias =
-			adaptiveMediasStream.collect(Collectors.toList());
+			adaptiveMediaStream.collect(Collectors.toList());
 
 		return TransformUtil.transformToArray(
 			adaptiveMedias,
