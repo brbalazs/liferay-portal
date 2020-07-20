@@ -191,7 +191,7 @@ public class SitemapImpl implements Sitemap {
 		if (Validator.isNull(layoutUuid) &&
 			PropsValues.XML_SITEMAP_INDEX_ENABLED) {
 
-			return _getSitemapIndex(groupId, privateLayout, themeDisplay);
+			return _getIndexSitemap(groupId, privateLayout, themeDisplay);
 		}
 
 		return _getSitemap(layoutUuid, groupId, privateLayout, themeDisplay);
@@ -308,7 +308,7 @@ public class SitemapImpl implements Sitemap {
 		return document.asXML();
 	}
 
-	private String _getSitemapIndex(
+	private String _getIndexSitemap(
 			long groupId, boolean privateLayout, ThemeDisplay themeDisplay)
 		throws PortalException {
 
