@@ -2,11 +2,11 @@ import Card from 'shared/components/Card';
 
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import IntervalSelector from 'shared/components/IntervalSelector';
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {ENGAGEMENT} from 'shared/util/router';
-import {Interval} from 'shared/types';
-import {INTERVAL_KEY_MAP} from 'shared/util/time';
-import {isHourlyRangeKey} from 'shared/util/time';
+import {Interval, RangeSelectors} from 'shared/types';
+import {INTERVAL_KEY_MAP, isHourlyRangeKey} from 'shared/util/time';
+import {LAST_30_DAYS} from 'shared/util/constants';
 
 interface BaseCardHeaderIProps extends React.HTMLAttributes<HTMLElement> {
 	interval: Interval;
@@ -18,7 +18,6 @@ interface BaseCardHeaderIProps extends React.HTMLAttributes<HTMLElement> {
 	showInterval: boolean;
 	tabId: string;
 }
-import {RangeSelectors} from 'shared/types';
 
 const BaseCardHeader: React.FC<BaseCardHeaderIProps> = ({
 	interval,
@@ -41,6 +40,22 @@ const BaseCardHeader: React.FC<BaseCardHeaderIProps> = ({
 		newVal => onChangeInterval && onChangeInterval(newVal),
 		[]
 	);
+
+	useEffect(() => {
+		if (
+			tabId === ENGAGEMENT &&
+			(interval !== INTERVAL_KEY_MAP.day ||
+				rangeSelectors.rangeKey !== LAST_30_DAYS)
+		) {
+			onChangeInterval && onChangeInterval(INTERVAL_KEY_MAP.day);
+			onRangeSelectorsChange &&
+				onRangeSelectorsChange({
+					rangeEnd: '',
+					rangeKey: LAST_30_DAYS,
+					rangeStart: ''
+				});
+		}
+	}, [tabId]);
 
 	return (
 		<Card.Header className='align-items-center d-flex justify-content-between'>
