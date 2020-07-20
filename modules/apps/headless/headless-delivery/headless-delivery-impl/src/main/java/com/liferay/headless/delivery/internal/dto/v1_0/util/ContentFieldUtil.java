@@ -157,8 +157,7 @@ public class ContentFieldUtil {
 
 			return new ContentFieldValue() {
 				{
-					document = ContentDocumentUtil.toContentDocument(
-						dlAppService.getFileEntry(classPK));
+					document = ContentDocumentUtil.toContentDocument(fileEntry);
 				}
 			};
 		}
