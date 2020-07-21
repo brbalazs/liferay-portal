@@ -1,284 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown Item should render 1`] = `
-<li>
-  <a
-    className="dropdown-item"
-    href="javascript:;"
-    onClick={[Function]}
-  />
-</li>
-`;
-
-exports[`Dropdown Item should render as active 1`] = `
-<li>
-  <a
-    className="dropdown-item active"
-    href="javascript:;"
-    onClick={[Function]}
-  />
-</li>
-`;
-
-exports[`Dropdown Item should render as disabled 1`] = `
-<li>
-  <a
-    className="dropdown-item disabled"
-    href="javascript:;"
-    onClick={[Function]}
-  />
-</li>
-`;
-
-exports[`Dropdown Item should render w/ Link 1`] = `
-<li>
-  <Link
-    className="dropdown-item"
-    onClick={[Function]}
-    replace={false}
-    to="/touchpoints/123"
-  />
-</li>
-`;
-
-exports[`Dropdown Item should render w/ description 1`] = `
-<li>
-  <a
-    className="dropdown-item"
-    href="javascript:;"
-    onClick={[Function]}
-  >
-    <div
-      className="analytics-dropdown-description"
+<div>
+  <li>
+    <a
+      class="dropdown-item"
+      href="javascript:;"
     >
-      Description
-    </div>
-  </a>
-</li>
-`;
-
-exports[`Dropdown Item should render w/ icon 1`] = `
-<li>
-  <a
-    className="dropdown-item"
-    href="javascript:;"
-    onClick={[Function]}
-  >
-    <div
-      className="dropdown-item-indicator"
-    >
-      <Icon
-        symbol="plus"
-      />
-    </div>
-  </a>
-</li>
-`;
-
-exports[`Dropdown Item should render w/ label 1`] = `
-<li>
-  <a
-    className="dropdown-item"
-    href="javascript:;"
-    onClick={[Function]}
-  >
-    Label
-  </a>
-</li>
-`;
-
-exports[`Dropdown Item should render w/ separator 1`] = `
-<li
-  className="dropdown-divider"
-/>
+      Item 1
+    </a>
+  </li>
+</div>
 `;
 
 exports[`Dropdown should render 1`] = `
-<div
-  className="analytics-dropdown dropdown btn-group"
->
-  <Overlay
-    active={false}
-    alignment="bottomLeft"
-    containerClass="dropdown dropdown-root"
-    forceAlignment={false}
-    hideDelay={400}
-    offset={8}
-    onOutsideClick={[Function]}
-    showDelay={400}
+<div>
+  <div
+    class="analytics-dropdown dropdown btn-group"
   >
-    <Button
-      className="btn-sm dropdown-toggle"
-      disabled={false}
-      display="secondary"
-      icon="caret-bottom"
-      iconAlignment="right"
-      onClick={[Function]}
-    />
-    <div
-      className="dropdown-menu"
-    />
-  </Overlay>
-</div>
-`;
-
-exports[`Dropdown should render a disabled dropdown 1`] = `
-<div
-  className="analytics-dropdown dropdown btn-group"
->
-  <Overlay
-    active={false}
-    alignment="bottomLeft"
-    containerClass="dropdown dropdown-root"
-    forceAlignment={false}
-    hideDelay={400}
-    offset={8}
-    onOutsideClick={[Function]}
-    showDelay={400}
-  >
-    <Button
-      className="btn-sm dropdown-toggle"
-      disabled={true}
-      display="secondary"
-      icon="caret-bottom"
-      iconAlignment="right"
-      onClick={[Function]}
+    <button
+      aria-haspopup="true"
+      class="button-root btn btn-secondary btn-sm dropdown-toggle"
+      type="button"
     >
       Item 1
-    </Button>
-    <div
-      className="dropdown-menu"
-    >
-      <DropdownItem
-        key="0"
-        label="Item 1"
-        onClick={[Function]}
-        value="item1"
-      />
-      <DropdownItem
-        key="1"
-        label="Item 2"
-        onClick={[Function]}
-        value="item2"
-      />
-    </div>
-  </Overlay>
-</div>
-`;
-
-exports[`Dropdown should render dropdown with button text 1`] = `
-<div
-  className="analytics-dropdown dropdown btn-group"
->
-  <Overlay
-    active={false}
-    alignment="bottomLeft"
-    containerClass="dropdown dropdown-root"
-    forceAlignment={false}
-    hideDelay={400}
-    offset={8}
-    onOutsideClick={[Function]}
-    showDelay={400}
-  >
-    <Button
-      className="btn-sm dropdown-toggle"
-      disabled={false}
-      display="secondary"
-      icon="caret-bottom"
-      iconAlignment="right"
-      onClick={[Function]}
-    />
-    <div
-      className="dropdown-menu"
-    />
-  </Overlay>
-</div>
-`;
-
-exports[`Dropdown should render dropdown with items 1`] = `
-<div
-  className="analytics-dropdown dropdown btn-group"
->
-  <Overlay
-    active={false}
-    alignment="bottomLeft"
-    containerClass="dropdown dropdown-root"
-    forceAlignment={false}
-    hideDelay={400}
-    offset={8}
-    onOutsideClick={[Function]}
-    showDelay={400}
-  >
-    <Button
-      className="btn-sm dropdown-toggle"
-      disabled={false}
-      display="secondary"
-      icon="caret-bottom"
-      iconAlignment="right"
-      onClick={[Function]}
-    >
-      Item 1
-    </Button>
-    <div
-      className="dropdown-menu"
-    >
-      <DropdownItem
-        key="0"
-        label="Item 1"
-        onClick={[Function]}
-        value="item1"
-      />
-      <DropdownItem
-        key="1"
-        label="Item 2"
-        onClick={[Function]}
-        value="item2"
-      />
-    </div>
-  </Overlay>
-</div>
-`;
-
-exports[`Dropdown should render w/ forceAlignment 1`] = `
-<div
-  className="analytics-dropdown dropdown btn-group"
->
-  <Overlay
-    active={false}
-    alignment="bottomLeft"
-    containerClass="dropdown dropdown-root"
-    forceAlignment={true}
-    hideDelay={400}
-    offset={8}
-    onOutsideClick={[Function]}
-    showDelay={400}
-  >
-    <Button
-      className="btn-sm dropdown-toggle"
-      disabled={false}
-      display="secondary"
-      icon="caret-bottom"
-      iconAlignment="right"
-      onClick={[Function]}
-    >
-      Item 1
-    </Button>
-    <div
-      className="dropdown-menu"
-    >
-      <DropdownItem
-        key="0"
-        label="Item 1"
-        onClick={[Function]}
-        value="item1"
-      />
-      <DropdownItem
-        key="1"
-        label="Item 2"
-        onClick={[Function]}
-        value="item2"
-      />
-    </div>
-  </Overlay>
+      <span
+        class="inline-item inline-item-after"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+          viewBox=""
+        >
+          <use
+            xlink:href="#caret-bottom"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
 </div>
 `;

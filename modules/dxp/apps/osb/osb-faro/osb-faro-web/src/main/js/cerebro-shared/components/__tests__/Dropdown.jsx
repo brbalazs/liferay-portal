@@ -1,8 +1,15 @@
 import Dropdown, {DropdownItem} from '../Dropdown';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {
+	fireEvent,
+	getByText as getByTextInElement,
+	render
+} from '@testing-library/react';
+import {StaticRouter} from 'react-router-dom';
 
-const twoItems = [
+jest.unmock('react-dom');
+
+const MOCK_ITEMS = [
 	{
 		label: 'Item 1',
 		value: 'item1'
@@ -13,84 +20,100 @@ const twoItems = [
 	}
 ];
 
+const DefaultDropdown = props => <Dropdown items={MOCK_ITEMS} {...props} />;
+
+const DefaultDropdownItem = props => <DropdownItem label='Item 1' {...props} />;
+
 describe('Dropdown', () => {
 	it('should render', () => {
-		const component = shallow(<Dropdown />);
+		const {container} = render(<DefaultDropdown />);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
-	it('should render dropdown with items', () => {
-		const component = shallow(<Dropdown items={twoItems} />);
+	it('should render dropdown with items', async() => {
+		const {baseElement, container} = render(<DefaultDropdown />);
 
-		expect(component).toMatchSnapshot();
+		fireEvent.click(container.querySelector('.button-root'));
+
+		MOCK_ITEMS.forEach(({label}) => {
+			expect(
+				getByTextInElement(
+					baseElement.querySelector('.dropdown-menu'),
+					label
+				)
+			).toBeTruthy();
+		});
 	});
 
-	it('should render dropdown with button text', () => {
-		const component = shallow(<Dropdown value='Dropdown Button' />);
+	it('should render dropdown with a selected value', () => {
+		const {getByText} = render(
+			<DefaultDropdown value={MOCK_ITEMS[1].value} />
+		);
 
-		expect(component).toMatchSnapshot();
+		expect(getByText(MOCK_ITEMS[1].label)).toBeTruthy();
 	});
 
 	it('should render a disabled dropdown', () => {
-		const component = shallow(<Dropdown disabled items={twoItems} />);
+		const {container} = render(<DefaultDropdown disabled />);
 
-		expect(component).toMatchSnapshot();
-	});
-
-	it('should render w/ forceAlignment', () => {
-		const component = shallow(<Dropdown forceAlignment items={twoItems} />);
-
-		expect(component).toMatchSnapshot();
+		expect(container.querySelector('.button-root')).toBeDisabled();
 	});
 });
 
 describe('Dropdown Item', () => {
 	it('should render', () => {
-		const component = shallow(<DropdownItem />);
+		const {container} = render(<DefaultDropdownItem />);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render as active', () => {
-		const component = shallow(<DropdownItem active />);
+		const {container} = render(<DefaultDropdownItem active />);
 
-		expect(component).toMatchSnapshot();
+		expect(container.querySelector('.dropdown-item')).toHaveClass('active');
 	});
 
 	it('should render as disabled', () => {
-		const component = shallow(<DropdownItem disabled />);
+		const {container} = render(<DefaultDropdownItem disabled />);
 
-		expect(component).toMatchSnapshot();
+		expect(container.querySelector('.dropdown-item')).toHaveClass(
+			'disabled'
+		);
 	});
 
 	it('should render w/ description', () => {
-		const component = shallow(<DropdownItem description='Description' />);
+		const {container} = render(
+			<DefaultDropdownItem description='Description' />
+		);
 
-		expect(component).toMatchSnapshot();
-	});
-
-	it('should render w/ label', () => {
-		const component = shallow(<DropdownItem label='Label' />);
-
-		expect(component).toMatchSnapshot();
+		expect(
+			container.querySelector('.analytics-dropdown-description')
+		).toBeTruthy();
 	});
 
 	it('should render w/ separator', () => {
-		const component = shallow(<DropdownItem separator />);
+		const {container} = render(<DropdownItem separator />);
 
-		expect(component).toMatchSnapshot();
+		expect(container.querySelector('.dropdown-divider')).toBeTruthy();
 	});
 
 	it('should render w/ icon', () => {
-		const component = shallow(<DropdownItem icon='plus' />);
+		const {container} = render(<DefaultDropdownItem icon='plus' />);
 
-		expect(component).toMatchSnapshot();
+		expect(container.querySelector('.lexicon-icon-plus')).toBeTruthy();
 	});
 
 	it('should render w/ Link', () => {
-		const component = shallow(<DropdownItem href='/touchpoints/123' />);
+		const {container} = render(
+			<StaticRouter>
+				<DefaultDropdownItem href='/touchpoints/123' />
+			</StaticRouter>
+		);
 
-		expect(component).toMatchSnapshot();
+		expect(container.querySelector('.dropdown-item')).toHaveAttribute(
+			'href',
+			'/touchpoints/123'
+		);
 	});
 });
