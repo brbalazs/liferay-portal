@@ -46,14 +46,14 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 	page,
 	paginationProps
 }) => {
-	const [focusOnInit, setFocusOnInit] = useState(false);
+	const [initialRender, setInitialRender] = useState(true);
 	const [metadata, setMetadata] = useState('');
 	const [stringMatch, setStringMatch] = useState('');
 	const [exactMatch, setExactMatch] = useState(false);
 	const [includeExclude, setIncludeExclude] = useState(INCLUDE);
 
 	useEffect(() => {
-		setFocusOnInit(true);
+		setInitialRender(false);
 	}, []);
 
 	const [getPageAssets, {data, loading}] = useLazyQuery(
@@ -87,7 +87,9 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 	};
 
 	useEffect(() => {
-		fetchPageAssets();
+		if (!initialRender) {
+			fetchPageAssets();
+		}
 	}, [delta, orderBy, orderByField, page]);
 
 	const handleFindMatches = (): void => {
@@ -145,7 +147,7 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 						<div className='d-flex'>
 							<StringMatchInput
 								className='flex-grow-1'
-								focusOnInit={focusOnInit}
+								focusOnInit={!initialRender}
 								metadata={metadata}
 								onEnterClick={handleFindMatches}
 								onMetadataChange={setMetadata}

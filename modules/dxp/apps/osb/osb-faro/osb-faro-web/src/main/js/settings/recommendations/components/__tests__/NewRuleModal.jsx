@@ -5,12 +5,11 @@ import {MockedProvider} from '@apollo/react-testing';
 import {mockRecommendationPageAssetsReq} from 'test/graphql-data';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
-import {waitForLoading} from 'test/helpers';
 
 jest.unmock('react-dom');
 
 describe('NewRuleModal', () => {
-	it('should render', async() => {
+	it('should render', () => {
 		const {container} = render(
 			<MockedProvider mocks={[mockRecommendationPageAssetsReq([])]}>
 				<Provider store={mockStore()}>
@@ -23,8 +22,6 @@ describe('NewRuleModal', () => {
 				</Provider>
 			</MockedProvider>
 		);
-
-		await waitForLoading(container);
 
 		jest.runAllTimers();
 
