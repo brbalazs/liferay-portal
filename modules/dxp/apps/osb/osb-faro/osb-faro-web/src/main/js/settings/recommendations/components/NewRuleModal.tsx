@@ -10,6 +10,7 @@ import StringMatchInput from './StringMatchInput';
 import Table from 'shared/components/table';
 import {compose} from 'redux';
 import {EXCLUDE, INCLUDE} from '../utils/utils';
+import {isArray, isString} from 'lodash';
 import {useLazyQuery} from '@apollo/react-hooks';
 import {withEmpty, withPaginationBar, withStatefulPagination} from 'shared/hoc';
 
@@ -210,6 +211,15 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 									accessor: metadata ? metadata : 'url',
 									className:
 										'table-cell-expand text-truncate',
+									dataFormatter: val => {
+										if (isString(val)) {
+											return val;
+										} else if (isArray(val)) {
+											return val
+												.map(({value}) => value)
+												.join(', ');
+										}
+									},
 									label: metadata ? metadata : 'url',
 									sortable: false
 								}

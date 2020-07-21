@@ -7,6 +7,7 @@ import RecommendationPageAssetsQuery from '../queries/RecommendationPageAssetsQu
 import {EXCLUDE, Filter, getFilterValueBreakdown} from '../utils/utils';
 import {getMapResultToProps} from 'shared/hoc/mappers/metrics';
 import {graphql} from '@apollo/react-hoc';
+import {isArray, isString} from 'lodash';
 import {withBaseResults, withStatefulPagination} from 'shared/hoc';
 
 const {
@@ -68,6 +69,13 @@ const TableWithData = withStatefulPagination(
 			{
 				accessor: secondColumnHeader || 'url',
 				className: 'secondary-info table-cell-expand text-truncate',
+				dataFormatter: val => {
+					if (isString(val)) {
+						return val;
+					} else if (isArray(val)) {
+						return val.map(({value}) => value).join(', ');
+					}
+				},
 				label: secondColumnHeader || 'url',
 				sortable: false
 			}
