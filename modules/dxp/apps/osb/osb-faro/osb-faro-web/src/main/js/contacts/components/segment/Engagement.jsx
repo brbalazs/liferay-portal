@@ -1,6 +1,5 @@
-import EngagementWithList, {
-	EngagementChart
-} from 'contacts/components/Engagement';
+import EngagementChart from 'contacts/components/EngagementChart';
+import EngagementWithList from 'contacts/components/Engagement';
 import FaroConstants from 'shared/util/constants';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
 import React from 'react';
@@ -9,6 +8,7 @@ import {
 	individualsListColumns
 } from 'shared/util/table-columns';
 import {PropTypes} from 'prop-types';
+import {toThousands} from 'shared/util/numbers';
 
 const {entityTypes} = FaroConstants;
 
@@ -21,10 +21,32 @@ const tooltipLabels = {
 	subtitleLabel: Liferay.Language.get('x-individuals-in-segment')
 };
 
+const tooltipRenderRows = ({contributors}) => [
+	{
+		columns: [
+			{
+				label: Liferay.Language.get('active-members'),
+				weight: 'normal'
+			},
+			{
+				align: 'right',
+				label: toThousands(contributors),
+				weight: 'semibold'
+			}
+		]
+	}
+];
+
 export class SegmentEngagementChart extends React.Component {
 	render() {
+		const {data, ...otherProps} = this.props;
+
 		return (
-			<EngagementChart {...this.props} tooltipLabels={tooltipLabels} />
+			<EngagementChart
+				{...otherProps}
+				history={data}
+				tooltipRenderRows={tooltipRenderRows}
+			/>
 		);
 	}
 }
