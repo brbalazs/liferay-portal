@@ -14,7 +14,7 @@ import {useLazyQuery} from '@apollo/react-hooks';
 import {withEmpty, withPaginationBar, withStatefulPagination} from 'shared/hoc';
 
 const {
-	pagination: {orderDescending}
+	pagination: {cur: defaultPage, orderDescending}
 } = Constants;
 
 interface INewRuleModalProps {
@@ -90,6 +90,16 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 		fetchPageAssets();
 	}, [delta, orderBy, orderByField, page]);
 
+	const handleFindMatches = (): void => {
+		const {onPageChange} = paginationProps;
+
+		if (page !== defaultPage) {
+			onPageChange(defaultPage);
+		} else {
+			fetchPageAssets();
+		}
+	};
+
 	const TableWithPagination = compose<any>(
 		withEmpty({spacer: true}),
 		withPaginationBar()
@@ -137,7 +147,7 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 								className='flex-grow-1'
 								focusOnInit={focusOnInit}
 								metadata={metadata}
-								onEnterClick={fetchPageAssets}
+								onEnterClick={handleFindMatches}
 								onMetadataChange={setMetadata}
 								onStringMatchChange={setStringMatch}
 								stringMatch={stringMatch}
@@ -146,7 +156,7 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 							<div className='find-matches-button-container d-flex flex-column justify-content-center'>
 								<Button
 									disabled={!stringMatch || !metadata}
-									onClick={fetchPageAssets}
+									onClick={handleFindMatches}
 								>
 									{Liferay.Language.get('find-matches')}
 								</Button>
