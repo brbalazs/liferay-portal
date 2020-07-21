@@ -156,7 +156,8 @@ public class ContentFieldUtil {
 
 				return new ContentFieldValue() {
 					{
-						document = ContentDocumentUtil.toContentDocument(fileEntry);
+						document = ContentDocumentUtil.toContentDocument(
+							fileEntry);
 					}
 				};
 			}
