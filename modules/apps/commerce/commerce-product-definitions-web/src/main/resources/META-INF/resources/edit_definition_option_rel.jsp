@@ -147,7 +147,7 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 			);
 			var allowedSkuContributorTypeNames =
 				'<%= String.join(StringPool.COMMA, CPConstants.PRODUCT_OPTION_SKU_CONTRIBUTOR_FIELD_TYPES) %>';
-			var allowedSkuContributorFieldTypeSelectOptions = allowedPriceContributorTypeNames.split(
+			var allowedSkuContributorFieldTypeSelectOptions = allowedSkuContributorTypeNames.split(
 				','
 			);
 			var availableTypeNames =
@@ -252,9 +252,17 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 					}
 				}
 
-				if (
-					multipleValuesFieldTypeSelectOptions.includes(formFieldTypeSelect.value)
-				) {
+				var matchFormFieldType = false;
+
+				for (var i = 0; i < multipleValuesFieldTypeSelectOptions.length; i++) {
+					matchFormFieldType = formFieldTypeSelect.value.endsWith(multipleValuesFieldTypeSelectOptions[i]);
+
+					if (matchFormFieldType) {
+						break;
+					}
+				}
+
+				if (matchFormFieldType) {
 					valuesContainer.classList.remove('d-none');
 				} else {
 					valuesContainer.classList.add('d-none');
