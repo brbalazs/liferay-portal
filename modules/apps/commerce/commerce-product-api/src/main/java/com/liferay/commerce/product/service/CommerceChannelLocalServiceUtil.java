@@ -41,6 +41,10 @@ public class CommerceChannelLocalServiceUtil {
 	/**
 	 * Adds the commerce channel to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceChannel the commerce channel
 	 * @return the commerce channel that was added
 	 */
@@ -81,6 +85,10 @@ public class CommerceChannelLocalServiceUtil {
 	/**
 	 * Deletes the commerce channel from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceChannel the commerce channel
 	 * @return the commerce channel that was removed
 	 * @throws PortalException
@@ -96,6 +104,10 @@ public class CommerceChannelLocalServiceUtil {
 
 	/**
 	 * Deletes the commerce channel with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceChannelId the primary key of the commerce channel
 	 * @return the commerce channel that was removed
@@ -380,6 +392,10 @@ public class CommerceChannelLocalServiceUtil {
 
 	/**
 	 * Updates the commerce channel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceChannel the commerce channel
 	 * @return the commerce channel that was updated

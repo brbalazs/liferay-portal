@@ -101,6 +101,10 @@ public abstract class CommerceCatalogLocalServiceBaseImpl
 	/**
 	 * Adds the commerce catalog to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceCatalogLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceCatalog the commerce catalog
 	 * @return the commerce catalog that was added
 	 */
@@ -127,6 +131,10 @@ public abstract class CommerceCatalogLocalServiceBaseImpl
 	/**
 	 * Deletes the commerce catalog with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceCatalogLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceCatalogId the primary key of the commerce catalog
 	 * @return the commerce catalog that was removed
 	 * @throws PortalException if a commerce catalog with the primary key could not be found
@@ -141,6 +149,10 @@ public abstract class CommerceCatalogLocalServiceBaseImpl
 
 	/**
 	 * Deletes the commerce catalog from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceCatalogLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceCatalog the commerce catalog
 	 * @return the commerce catalog that was removed
@@ -371,6 +383,10 @@ public abstract class CommerceCatalogLocalServiceBaseImpl
 
 	/**
 	 * Updates the commerce catalog in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceCatalogLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceCatalog the commerce catalog
 	 * @return the commerce catalog that was updated

@@ -36,6 +36,10 @@ public class CPDefinitionLocalServiceWrapper
 	/**
 	 * Adds the cp definition to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param cpDefinition the cp definition
 	 * @return the cp definition that was added
 	 */
@@ -190,6 +194,10 @@ public class CPDefinitionLocalServiceWrapper
 	/**
 	 * Deletes the cp definition from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param cpDefinition the cp definition
 	 * @return the cp definition that was removed
 	 * @throws PortalException
@@ -204,6 +212,10 @@ public class CPDefinitionLocalServiceWrapper
 
 	/**
 	 * Deletes the cp definition with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param CPDefinitionId the primary key of the cp definition
 	 * @return the cp definition that was removed
@@ -778,6 +790,10 @@ public class CPDefinitionLocalServiceWrapper
 
 	/**
 	 * Updates the cp definition in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpDefinition the cp definition
 	 * @return the cp definition that was updated
