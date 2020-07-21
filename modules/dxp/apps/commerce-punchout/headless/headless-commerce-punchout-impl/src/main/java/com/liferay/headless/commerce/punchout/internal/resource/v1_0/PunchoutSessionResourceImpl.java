@@ -275,6 +275,16 @@ public class PunchoutSessionResourceImpl
 			contextCompany.getCompanyId(),
 			PunchoutConstants.ROLE_NAME_ACCOUNT_PUNCHOUT);
 
+		if (role == null) {
+			String logMessage =
+				PunchoutConstants.ROLE_NAME_ACCOUNT_PUNCHOUT +
+					" role not found";
+
+			_log.error(logMessage);
+
+			throw new InternalServerErrorException(logMessage);
+		}
+
 		long[] roleIds = {role.getRoleId()};
 
 		_commerceAccountUserRelLocalService.addCommerceAccountUserRels(

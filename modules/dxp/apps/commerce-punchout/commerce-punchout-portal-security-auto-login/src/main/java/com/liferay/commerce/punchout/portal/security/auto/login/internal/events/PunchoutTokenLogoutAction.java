@@ -51,12 +51,24 @@ public class PunchoutTokenLogoutAction extends Action {
 				PunchoutConstants.PUNCHOUT_REDIRECT_URL_ATTRIBUTE_NAME);
 
 			if (punchoutReturnUrlObject == null) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						PunchoutConstants.PUNCHOUT_REDIRECT_URL_ATTRIBUTE_NAME +
+						" not found in session");
+				}
+
 				return;
 			}
 
 			String redirectURL = (String)punchoutReturnUrlObject;
 
 			if (Validator.isBlank(redirectURL)) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						PunchoutConstants.PUNCHOUT_REDIRECT_URL_ATTRIBUTE_NAME +
+						" is blank");
+				}
+
 				return;
 			}
 

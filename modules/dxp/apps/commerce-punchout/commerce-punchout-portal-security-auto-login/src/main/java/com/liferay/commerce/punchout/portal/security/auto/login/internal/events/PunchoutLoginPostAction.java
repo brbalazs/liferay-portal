@@ -177,8 +177,15 @@ public class PunchoutLoginPostAction extends Action {
 		for (Map.Entry mapElement :
 			punchoutAccessToken.getPunchoutSessionAttributes().entrySet()) {
 
-			httpSession.setAttribute(
-				(String)mapElement.getKey(), mapElement.getValue());
+			String key = (String)mapElement.getKey();
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(
+					"Adding attribute to session (key: " + key +
+					"; value: " + mapElement.getValue() + ")");
+			}
+
+			httpSession.setAttribute(key, mapElement.getValue());
 		}
 	}
 

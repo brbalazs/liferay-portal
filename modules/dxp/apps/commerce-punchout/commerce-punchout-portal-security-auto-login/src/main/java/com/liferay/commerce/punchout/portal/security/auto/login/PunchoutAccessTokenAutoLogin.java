@@ -63,6 +63,12 @@ public class PunchoutAccessTokenAutoLogin extends BaseAutoLogin {
 			return false;
 		}
 
+		if (_log.isDebugEnabled()) {
+			_log.debug(
+				"Punchout enabled for channel: " +
+		   			punchoutAccessTokenAutoLoginConfiguration.enabled());
+		}
+
 		return punchoutAccessTokenAutoLoginConfiguration.enabled();
 	}
 
