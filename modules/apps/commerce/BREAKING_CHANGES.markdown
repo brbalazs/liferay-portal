@@ -349,6 +349,7 @@ sorting functionality of product search results.
 ### Price Lists Permission Management
 - **Date:** 2020-Jul-10
 - **JIRA Ticket:** [COMMERCE-3561](https://issues.liferay.com/browse/COMMERCE-4221)
+- **Version:** 2.1.2
 
 #### What changed?
 
