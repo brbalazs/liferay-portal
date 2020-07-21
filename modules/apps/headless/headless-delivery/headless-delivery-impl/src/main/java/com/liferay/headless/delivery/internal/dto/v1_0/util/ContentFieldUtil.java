@@ -161,7 +161,8 @@ public class ContentFieldUtil {
 				return new ContentFieldValue() {
 					{
 						document = ContentDocumentUtil.toContentDocument(
-							dlURLHelper, uriInfoOptional);
+							"contentFields.contentFieldValue.document",
+							fileEntry, uriInfoOptional);
 					}
 				};
 			}
@@ -199,6 +200,7 @@ public class ContentFieldUtil {
 				return new ContentFieldValue() {
 					{
 						image = ContentDocumentUtil.toContentDocument(
+							"contentFields.contentFieldValue.image",
 							dlAppService.getFileEntry(fileEntryId),
 							uriInfoOptional);
 
