@@ -52,15 +52,11 @@ public class AssetCategoryModelListener
 			Group companyGroup = _groupLocalService.getCompanyGroup(
 				_portal.getDefaultCompanyId());
 
-			ServiceContext serviceContext = new ServiceContext();
-
-			serviceContext.setUuid(assetCategory.getUuid());
-
 			_friendlyURLEntryLocalService.addFriendlyURLEntry(
 				companyGroup.getGroupId(),
 				_portal.getClassNameId(AssetCategory.class),
 				assetCategory.getCategoryId(),
-				_getUniqueUrlTitles(assetCategory), serviceContext);
+				_getUniqueUrlTitles(assetCategory), new ServiceContext());
 		}
 		catch (PortalException pe) {
 			if (_log.isWarnEnabled()) {

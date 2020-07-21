@@ -230,8 +230,6 @@ public class AssetCategoriesImporter {
 			Map<String, String> urlTitleMap = _getUniqueUrlTitles(
 				assetCategory);
 
-			serviceContext.setUuid(assetCategory.getUuid());
-
 			_friendlyURLEntryLocalService.addFriendlyURLEntry(
 				companyGroup.getGroupId(), classNameId,
 				assetCategory.getCategoryId(), urlTitleMap, serviceContext);
