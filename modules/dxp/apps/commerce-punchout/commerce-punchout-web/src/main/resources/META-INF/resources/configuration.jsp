@@ -1,5 +1,4 @@
-<%@ page
-	import="com.liferay.commerce.punchout.web.internal.display.context.CommercePunchoutDisplayContext" %><%--
+<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *

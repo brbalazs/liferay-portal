@@ -16,16 +16,16 @@ package com.liferay.commerce.punchout.web.checkout;
 
 import com.liferay.commerce.constants.CommerceCheckoutWebKeys;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.punchout.constants.PunchoutConstants;
+import com.liferay.commerce.punchout.service.PunchoutReturnService;
 import com.liferay.commerce.punchout.web.internal.helper.PunchoutSessionHelper;
 import com.liferay.commerce.util.BaseCommerceCheckoutStep;
 import com.liferay.commerce.util.CommerceCheckoutStep;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.Portal;
-import com.liferay.commerce.punchout.constants.PunchoutConstants;
-import com.liferay.commerce.punchout.service.PunchoutReturnService;
+import com.liferay.portal.kernel.util.Validator;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -37,8 +37,6 @@ import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-
-import java.util.Map;
 
 /**
  * @author Jaclyn Ong

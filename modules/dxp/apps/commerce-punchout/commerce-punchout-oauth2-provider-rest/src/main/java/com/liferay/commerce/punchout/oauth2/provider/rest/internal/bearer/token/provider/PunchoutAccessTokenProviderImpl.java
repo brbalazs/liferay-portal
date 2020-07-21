@@ -14,6 +14,9 @@
 
 package com.liferay.commerce.punchout.oauth2.provider.rest.internal.bearer.token.provider;
 
+import com.liferay.commerce.punchout.oauth2.provider.PunchoutAccessTokenProvider;
+import com.liferay.commerce.punchout.oauth2.provider.model.PunchoutAccessToken;
+import com.liferay.commerce.punchout.oauth2.provider.rest.internal.bearer.token.provider.configuration.PunchoutAccessTokenProviderConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.cluster.ClusterMasterExecutor;
 import com.liferay.portal.kernel.log.Log;
@@ -22,9 +25,6 @@ import com.liferay.portal.kernel.security.SecureRandomUtil;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.MethodHandler;
 import com.liferay.portal.kernel.util.MethodKey;
-import com.liferay.commerce.punchout.oauth2.provider.PunchoutAccessTokenProvider;
-import com.liferay.commerce.punchout.oauth2.provider.model.PunchoutAccessToken;
-import com.liferay.commerce.punchout.oauth2.provider.rest.internal.bearer.token.provider.configuration.PunchoutAccessTokenProviderConfiguration;
 
 import java.util.Comparator;
 import java.util.HashMap;

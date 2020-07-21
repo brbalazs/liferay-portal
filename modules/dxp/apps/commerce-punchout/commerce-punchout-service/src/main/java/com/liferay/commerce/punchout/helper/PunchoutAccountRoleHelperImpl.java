@@ -16,14 +16,14 @@ package com.liferay.commerce.punchout.helper;
 
 import com.liferay.commerce.account.model.CommerceAccountUserRel;
 import com.liferay.commerce.account.service.CommerceAccountUserRelLocalService;
+import com.liferay.commerce.punchout.constants.PunchoutConstants;
+import com.liferay.commerce.punchout.service.PunchoutAccountRoleHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserGroupRole;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.commerce.punchout.constants.PunchoutConstants;
-import com.liferay.commerce.punchout.service.PunchoutAccountRoleHelper;
 
 import java.util.List;
 

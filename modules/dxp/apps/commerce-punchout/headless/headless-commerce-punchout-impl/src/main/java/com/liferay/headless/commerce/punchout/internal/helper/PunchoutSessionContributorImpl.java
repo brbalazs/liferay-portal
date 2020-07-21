@@ -14,10 +14,10 @@
 
 package com.liferay.headless.commerce.punchout.internal.helper;
 
+import com.liferay.commerce.punchout.constants.PunchoutConstants;
 import com.liferay.headless.commerce.punchout.dto.v1_0.PunchoutSession;
 import com.liferay.headless.commerce.punchout.helper.PunchoutContext;
 import com.liferay.headless.commerce.punchout.helper.PunchoutSessionContributor;
-import com.liferay.commerce.punchout.constants.PunchoutConstants;
 
 import java.util.HashMap;
 

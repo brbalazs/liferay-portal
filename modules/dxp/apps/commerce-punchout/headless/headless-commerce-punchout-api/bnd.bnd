@@ -6,6 +6,8 @@ Export-Package:\
 	com.liferay.headless.commerce.punchout.helper,\
 	com.liferay.headless.commerce.punchout.resource.v1_0
 Import-Package:\
+	com.fasterxml.jackson.annotation;version="[2.9.0,3.0.0)",\
+	\
 	com.liferay.portal.vulcan.util;version="[2.3.0,3.0.0)",\
 	\
 	*

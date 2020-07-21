@@ -22,6 +22,7 @@ import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
+import com.liferay.commerce.punchout.oauth2.provider.model.PunchoutAccessToken;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.events.Action;
@@ -36,9 +37,9 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.commerce.punchout.oauth2.provider.model.PunchoutAccessToken;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -174,15 +175,16 @@ public class PunchoutLoginPostAction extends Action {
 
 		HttpSession httpSession = httpServletRequest.getSession();
 
-		for (Map.Entry mapElement :
-			punchoutAccessToken.getPunchoutSessionAttributes().entrySet()) {
+		HashMap<String, Object> punchoutSessionAttributes =
+			punchoutAccessToken.getPunchoutSessionAttributes();
 
+		for (Map.Entry mapElement : punchoutSessionAttributes.entrySet()) {
 			String key = (String)mapElement.getKey();
 
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"Adding attribute to session (key: " + key +
-					"; value: " + mapElement.getValue() + ")");
+					"Adding attribute to session (key: " + key + "; value: " +
+						mapElement.getValue() + ")");
 			}
 
 			httpSession.setAttribute(key, mapElement.getValue());

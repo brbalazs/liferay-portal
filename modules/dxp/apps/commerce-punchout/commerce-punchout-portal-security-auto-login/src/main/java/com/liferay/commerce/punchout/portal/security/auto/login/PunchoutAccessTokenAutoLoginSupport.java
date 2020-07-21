@@ -14,6 +14,8 @@
 
 package com.liferay.commerce.punchout.portal.security.auto.login;
 
+import com.liferay.commerce.punchout.oauth2.provider.PunchoutAccessTokenProvider;
+import com.liferay.commerce.punchout.oauth2.provider.model.PunchoutAccessToken;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
@@ -23,8 +25,6 @@ import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.commerce.punchout.oauth2.provider.PunchoutAccessTokenProvider;
-import com.liferay.commerce.punchout.oauth2.provider.model.PunchoutAccessToken;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,8 +53,8 @@ public class PunchoutAccessTokenAutoLoginSupport extends BaseAutoLogin {
 		if (Validator.isNull(punchoutAccessTokenFromParam)) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					_PUNCHOUT_ACCESS_TOKEN_PARAM + "  parameter not " +
-					"found in request");
+					_PUNCHOUT_ACCESS_TOKEN_PARAM + "  parameter not found in " +
+						"request");
 			}
 
 			return null;

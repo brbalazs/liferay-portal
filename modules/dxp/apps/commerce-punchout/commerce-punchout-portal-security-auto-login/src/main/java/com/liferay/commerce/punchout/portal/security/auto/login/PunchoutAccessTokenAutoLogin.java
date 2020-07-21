@@ -66,7 +66,7 @@ public class PunchoutAccessTokenAutoLogin extends BaseAutoLogin {
 		if (_log.isDebugEnabled()) {
 			_log.debug(
 				"Punchout enabled for channel: " +
-		   			punchoutAccessTokenAutoLoginConfiguration.enabled());
+					punchoutAccessTokenAutoLoginConfiguration.enabled());
 		}
 
 		return punchoutAccessTokenAutoLoginConfiguration.enabled();

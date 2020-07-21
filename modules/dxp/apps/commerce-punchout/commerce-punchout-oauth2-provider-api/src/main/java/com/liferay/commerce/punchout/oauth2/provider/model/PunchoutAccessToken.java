@@ -45,6 +45,14 @@ public class PunchoutAccessToken {
 		return _issuedAt;
 	}
 
+	public Object getPunchoutSessionAttribute(String key) {
+		return _punchoutSessionAttributes.get(key);
+	}
+
+	public HashMap<String, Object> getPunchoutSessionAttributes() {
+		return _punchoutSessionAttributes;
+	}
+
 	public byte[] getToken() {
 		return _token;
 	}
@@ -77,22 +85,6 @@ public class PunchoutAccessToken {
 		_issuedAt = issuedAt;
 	}
 
-	public void setToken(byte[] token) {
-		_token = token;
-	}
-
-	public void setUserEmailAddress(String userEmailAddress) {
-		_userEmailAddress = userEmailAddress;
-	}
-
-	public HashMap<String, Object> getPunchoutSessionAttributes() {
-		return _punchoutSessionAttributes;
-	}
-
-	public Object getPunchoutSessionAttribute(String key) {
-		return _punchoutSessionAttributes.get(key);
-	}
-
 	public void setPunchoutSessionAttribute(String key, Object value) {
 		_punchoutSessionAttributes.put(key, value);
 	}
@@ -103,7 +95,13 @@ public class PunchoutAccessToken {
 		_punchoutSessionAttributes = punchoutSessionAttributes;
 	}
 
-	private HashMap<String, Object> _punchoutSessionAttributes = new HashMap<>();
+	public void setToken(byte[] token) {
+		_token = token;
+	}
+
+	public void setUserEmailAddress(String userEmailAddress) {
+		_userEmailAddress = userEmailAddress;
+	}
 
 	private long _commerceAccountId;
 	private String _commerceOrderUuId;
@@ -111,6 +109,8 @@ public class PunchoutAccessToken {
 	private long _expiresIn;
 	private long _groupId;
 	private long _issuedAt;
+	private HashMap<String, Object> _punchoutSessionAttributes =
+		new HashMap<>();
 	private byte[] _token;
 	private String _userEmailAddress;
 

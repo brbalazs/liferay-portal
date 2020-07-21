@@ -15,6 +15,7 @@
 package com.liferay.commerce.punchout.internal.model.listener;
 
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.punchout.service.PunchoutAccountRoleHelper;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -23,7 +24,6 @@ import com.liferay.portal.kernel.model.BaseModelListener;
 import com.liferay.portal.kernel.model.ModelListener;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.commerce.punchout.service.PunchoutAccountRoleHelper;
 
 import java.util.Collections;
 
