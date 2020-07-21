@@ -18,7 +18,6 @@ import {
 } from 'shared/util/engagement-activity';
 import {
 	formatEngagementAggregation,
-	formatEngagementScore,
 	mergeHistoryByDate
 } from 'shared/util/engagement';
 import {formatSessions, getActivityLabel} from 'shared/util/activities';
@@ -399,9 +398,7 @@ export class IndividualProfileCard extends React.Component {
 							activityCount,
 							channelId,
 							engagementChange,
-							engagementScore: formatEngagementScore(
-								engagementScore
-							),
+							engagementScore,
 							groupId,
 							id,
 							route: Routes.CONTACTS_INDIVIDUAL

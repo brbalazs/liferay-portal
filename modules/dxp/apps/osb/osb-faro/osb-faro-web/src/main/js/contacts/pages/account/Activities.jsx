@@ -184,9 +184,7 @@ export default class Activities extends React.Component {
 							engagementLabel: Liferay.Language.get(
 								'avg-member-score'
 							),
-							engagementScore: formatEngagementScore(
-								engagementScore
-							),
+							engagementScore,
 							groupId,
 							id,
 							route: Routes.CONTACTS_ACCOUNT_ACTIVITIES
