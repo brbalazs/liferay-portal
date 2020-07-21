@@ -19,6 +19,9 @@ package com.liferay.commerce.punchout.constants;
  */
 public class PunchoutConstants {
 
+	public static final String PUNCHOUT_REDIRECT_URL_ATTRIBUTE_NAME =
+		"PUNCHOUT_REDIRECT_URL";
+
 	public static final String PUNCHOUT_RETURN_URL_ATTRIBUTE_NAME =
 		"PUNCHOUT_RETURN_URL";
 

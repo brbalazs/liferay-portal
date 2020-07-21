@@ -23,6 +23,7 @@ import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.commerce.punchout.constants.PunchoutConstants;
 import com.liferay.commerce.punchout.service.PunchoutReturnService;
 
@@ -36,6 +37,8 @@ import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
+import java.util.Map;
 
 /**
  * @author Jaclyn Ong
@@ -121,19 +124,22 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 			return;
 		}
 
-		if (_log.isDebugEnabled()) {
-			_log.debug("Redirecting to " + punchoutRedirectURL);
-		}
+		HttpServletRequest originalHttpServletRequest =
+			_portal.getOriginalServletRequest(httpServletRequest);
+
+		HttpSession httpSession = originalHttpServletRequest.getSession();
+
+		httpSession.setAttribute(
+			PunchoutConstants.PUNCHOUT_REDIRECT_URL_ATTRIBUTE_NAME,
+			punchoutRedirectURL);
 
 		httpServletRequest.setAttribute(
-			PunchoutConstants.PUNCHOUT_RETURN_URL_ATTRIBUTE_NAME,
+			PunchoutConstants.PUNCHOUT_REDIRECT_URL_ATTRIBUTE_NAME,
 			punchoutRedirectURL);
 
 		_jspRenderer.renderJSP(
 			_servletContext, httpServletRequest, httpServletResponse,
 			"/checkout_step/punchout.jsp");
-
-		_endPunchoutSession(httpServletRequest);
 	}
 
 	@Override
@@ -144,19 +150,14 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 		return false;
 	}
 
-	private void _endPunchoutSession(HttpServletRequest httpServletRequest) {
-		HttpSession httpSession = _punchoutSessionHelper.getHttpSession(
-			httpServletRequest);
-
-		httpSession.removeAttribute(
-			PunchoutConstants.PUNCHOUT_RETURN_URL_ATTRIBUTE_NAME);
-	}
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		PunchoutCommerceCheckoutStep.class);
 
 	@Reference
 	private JSPRenderer _jspRenderer;
+
+	@Reference
+	private Portal _portal;
 
 	@Reference
 	private PunchoutReturnService _punchoutReturnService;
