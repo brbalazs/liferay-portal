@@ -78,7 +78,7 @@ exports[`IndividualProfileCard should render 1`] = `
                 <div
                   class="metric-value"
                 >
-                  48.99
+                  4.90
                   <span
                     class="metric-value-letter"
                   >
