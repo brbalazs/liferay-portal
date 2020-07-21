@@ -14,7 +14,10 @@
 
 package com.liferay.commerce.punchout.configuration.definition;
 
+<<<<<<< HEAD:modules/dxp/apps/commerce-punchout/commerce-punchout-api/src/main/java/com/liferay/commerce/punchout/configuration/definition/PunchoutCompanyServiceConfigurationPidMapping.java
 import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
+=======
+>>>>>>> COMMERCE-4113 SF:modules/dxp/apps/commerce-punchout/commerce-punchout-service/src/main/java/com/liferay/commerce/punchout/configuration/PunchoutCompanyServiceConfigurationPidMapping.java
 import com.liferay.commerce.punchout.constants.PunchoutConstants;
 import com.liferay.portal.kernel.settings.definition.ConfigurationPidMapping;
 
