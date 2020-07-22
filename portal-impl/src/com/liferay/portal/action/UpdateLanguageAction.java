@@ -53,13 +53,16 @@ public class UpdateLanguageAction extends Action {
 	@Override
 	public ActionForward execute(
 			ActionMapping actionMapping, ActionForm actionForm,
-			HttpServletRequest request, HttpServletResponse response)
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
 		throws Exception {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-			WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
 
-		String languageId = ParamUtil.getString(request, "languageId");
+		String languageId = ParamUtil.getString(
+			httpServletRequest, "languageId");
 
 		Locale locale = LocaleUtil.fromLanguageId(languageId);
 
@@ -67,7 +70,7 @@ public class UpdateLanguageAction extends Action {
 				themeDisplay.getSiteGroupId(), locale)) {
 
 			boolean persistState = ParamUtil.getBoolean(
-				request, "persistState", true);
+				httpServletRequest, "persistState", true);
 
 			if (themeDisplay.isSignedIn() && persistState) {
 				User user = themeDisplay.getUser();
@@ -75,7 +78,7 @@ public class UpdateLanguageAction extends Action {
 				Contact contact = user.getContact();
 
 				AdminUtil.updateUser(
-					request, user.getUserId(), user.getScreenName(),
+					httpServletRequest, user.getUserId(), user.getScreenName(),
 					user.getEmailAddress(), user.getFacebookId(),
 					user.getOpenId(), languageId, user.getTimeZoneId(),
 					user.getGreeting(), user.getComments(), contact.getSmsSn(),
@@ -83,11 +86,12 @@ public class UpdateLanguageAction extends Action {
 					contact.getSkypeSn(), contact.getTwitterSn());
 			}
 
-			HttpSession session = request.getSession();
+			HttpSession session = httpServletRequest.getSession();
 
 			session.setAttribute(Globals.LOCALE_KEY, locale);
 
-			LanguageUtil.updateCookie(request, response, locale);
+			LanguageUtil.updateCookie(
+				httpServletRequest, httpServletResponse, locale);
 		}
 
 		// Send redirect
@@ -104,7 +108,7 @@ public class UpdateLanguageAction extends Action {
 		throws PortalException {
 
 		String redirect = PortalUtil.escapeRedirect(
-			ParamUtil.getString(request, "redirect"));
+			ParamUtil.getString(httpServletRequest, "redirect"));
 
 		String layoutURL = redirect;
 
