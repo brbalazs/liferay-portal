@@ -87,7 +87,7 @@ public class ThemeContributorExtension implements Extension {
 							PortalWebResources.class.getName(),
 							new ThemeContributorPortalWebResources(
 								servletContext),
-							null));
+							properties));
 
 					String contextPath = servletContext.getContextPath();
 
