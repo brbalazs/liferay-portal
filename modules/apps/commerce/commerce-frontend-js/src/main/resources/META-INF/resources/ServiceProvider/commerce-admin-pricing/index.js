@@ -12,18 +12,13 @@
  * details.
  */
 
-import AJAX from '../../../utilities/AJAX/index';
+import {composeAPI} from '../composeAPI';
+import * as v2 from './v2.0/index';
 
-const PRODUCT_GROUPS_PATH = '/product-groups';
+const BASE_ENDPOINT = '/o/headless-commerce-admin-pricing/';
 
-const VERSION = 'v1.0';
+const APIs = {
+	v2
+};
 
-function resolvePath(basePath = '', productGroupId = '') {
-	return `${basePath}${VERSION}${PRODUCT_GROUPS_PATH}/${productGroupId}`;
-}
-
-export default basePath => ({
-	addProductGroup: json => AJAX.POST(`${resolvePath(basePath)}`, json),
-	addProductToProductGroup: (id, json) =>
-		AJAX.POST(`${resolvePath(basePath, id)}/product-group-products`, json)
-});
+export default version => composeAPI(version, APIs, BASE_ENDPOINT);

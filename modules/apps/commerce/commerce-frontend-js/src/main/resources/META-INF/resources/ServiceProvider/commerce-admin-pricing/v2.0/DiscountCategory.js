@@ -14,16 +14,17 @@
 
 import AJAX from '../../../utilities/AJAX/index';
 
-const PRODUCT_GROUPS_PATH = '/product-groups';
+const DISCOUNTS_PATH = '/discounts';
 
-const VERSION = 'v1.0';
+const DISCOUNT_RULES_PATH = '/discount-categories';
 
-function resolvePath(basePath = '', productGroupId = '') {
-	return `${basePath}${VERSION}${PRODUCT_GROUPS_PATH}/${productGroupId}`;
+const VERSION = 'v2.0';
+
+function resolvePath(basePath = '', discountId = '', discountCategoryId = '') {
+	return `${basePath}${VERSION}${DISCOUNTS_PATH}/${discountId}/${DISCOUNT_RULES_PATH}/${discountCategoryId}`;
 }
 
 export default basePath => ({
-	addProductGroup: json => AJAX.POST(`${resolvePath(basePath)}`, json),
-	addProductToProductGroup: (id, json) =>
-		AJAX.POST(`${resolvePath(basePath, id)}/product-group-products`, json)
+	addDiscountCategory: (discountId, json) =>
+		AJAX.POST(resolvePath(basePath, discountId), json)
 });

@@ -12,18 +12,11 @@
  * details.
  */
 
-import AJAX from '../../../utilities/AJAX/index';
-
-const PRODUCT_GROUPS_PATH = '/product-groups';
-
-const VERSION = 'v1.0';
-
-function resolvePath(basePath = '', productGroupId = '') {
-	return `${basePath}${VERSION}${PRODUCT_GROUPS_PATH}/${productGroupId}`;
-}
-
-export default basePath => ({
-	addProductGroup: json => AJAX.POST(`${resolvePath(basePath)}`, json),
-	addProductToProductGroup: (id, json) =>
-		AJAX.POST(`${resolvePath(basePath, id)}/product-group-products`, json)
-});
+export {default as discountAPI} from './Discount';
+export {default as discountAccountAPI} from './DiscountAccount';
+export {default as discountAccountGroupAPI} from './DiscountAccountGroup';
+export {default as discountChannelAPI} from './DiscountChannel';
+export {default as discountRuleAPI} from './DiscountRule';
+export {default as discountProductAPI} from './DiscountProduct';
+export {default as discountProductGroupAPI} from './DiscountProductGroup';
+export {default as discountCategoryAPI} from './DiscountCategory';
