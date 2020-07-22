@@ -35,14 +35,14 @@ const DATE_FORMAT = 'MMM DD, YYYY';
 
 const getContextItemCount = (contextItemKey: string) => (
 	context: {key: string; value: any}[]
-): number => {
+): string => {
 	const contextItem = context.find(({key}) => key === contextItemKey);
 
 	if (contextItem) {
-		return contextItem.value.toLocaleString();
+		return Number(contextItem.value as number).toLocaleString();
 	}
 
-	return 0;
+	return '0';
 };
 
 interface IOutputVersionsCardProps {
