@@ -73,7 +73,7 @@ export function formatActionUrl(url, item) {
 	var replacedUrl = url.replace(regex, matched =>
 		getValueFromItem(
 			item,
-			matched.substring(1, matched.length - 1).split('|')
+			matched.substring(1, matched.length - 1).split('.')
 		)
 	);
 
@@ -82,7 +82,7 @@ export function formatActionUrl(url, item) {
 	replacedUrl = replacedUrl.replace(regex, matched =>
 		getValueFromItem(
 			item,
-			matched.substring(3, matched.length - 3).split('|')
+			matched.substring(3, matched.length - 3).split('.')
 		)
 	);
 
