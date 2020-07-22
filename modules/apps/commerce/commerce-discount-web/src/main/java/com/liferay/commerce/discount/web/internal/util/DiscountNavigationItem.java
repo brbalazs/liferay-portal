@@ -15,18 +15,24 @@
 package com.liferay.commerce.discount.web.internal.util;
 
 import com.liferay.commerce.discount.constants.CommerceDiscountPortletKeys;
+import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.pricing.constants.CommercePricingPortletConstants;
 import com.liferay.commerce.pricing.util.PricingNavigationItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.module.configuration.ConfigurationException;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.permission.PortletPermission;
+import com.liferay.portal.kernel.settings.SystemSettingsLocator;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javax.portlet.PortletRequest;
@@ -60,7 +66,9 @@ public class DiscountNavigationItem implements PricingNavigationItem {
 			themeDisplay.getPermissionChecker(),
 			CommerceDiscountPortletKeys.COMMERCE_DISCOUNT, ActionKeys.VIEW);
 
-		if (!manageCatalogPermission) {
+		if (!manageCatalogPermission ||
+			Objects.equals(_getCommercePricingConfigurationKey(), "v2.0")) {
+
 			return null;
 		}
 
@@ -87,6 +95,21 @@ public class DiscountNavigationItem implements PricingNavigationItem {
 
 		return navigationItem;
 	}
+
+	private String _getCommercePricingConfigurationKey()
+		throws ConfigurationException {
+
+		CommercePricingConfiguration commercePricingConfiguration =
+			_configurationProvider.getConfiguration(
+				CommercePricingConfiguration.class,
+				new SystemSettingsLocator(
+					CommercePricingConstants.SERVICE_NAME));
+
+		return commercePricingConfiguration.commercePricingCalculationKey();
+	}
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private Portal _portal;
