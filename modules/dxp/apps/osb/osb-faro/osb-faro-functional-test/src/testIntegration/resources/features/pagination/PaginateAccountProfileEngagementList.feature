@@ -11,7 +11,7 @@ Feature: Paginate Account profile in Engagement List
 	Scenario: Paginate to second page of engagement list
 		Given I click "Schneider and Sons" in the table
 		And I click the "Activities" tab
-		And I click the "Account Engagement Score" card tab
+		And I click the "Engagement Score" card tab
 		When I set the pagination delta to "5"
 		And I go to page "2" in the creation modal
 		Then I should be on page "2" in the creation modal

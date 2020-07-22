@@ -11,6 +11,6 @@ Feature: Select point on account engagement score graph shows individuals
 	Scenario: Select point on engagement score graph
 		Given I click "Hilll, Gottlieb and Dicki" in the table
 		And I click the "Activities" tab
-		And I click the "Account Engagement Score" card tab
+		And I click the "Engagement Score" card tab
 		When I click row number "1" in the bar graph table
 		Then I should see an element exists in the table

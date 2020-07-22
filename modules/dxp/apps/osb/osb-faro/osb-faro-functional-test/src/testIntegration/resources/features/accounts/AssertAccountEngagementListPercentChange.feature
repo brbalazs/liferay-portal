@@ -11,5 +11,5 @@ Feature: Account activities engagement list percent change
 
 	Scenario: View engagement list percent change
 		Given I click the "Activities" tab
-		When I click the "Account Engagement Score" card tab
+		When I click the "Engagement Score" card tab
 		Then I should see a percent change
