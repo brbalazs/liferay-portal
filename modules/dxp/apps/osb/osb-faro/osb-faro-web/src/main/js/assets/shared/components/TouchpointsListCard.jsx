@@ -4,6 +4,7 @@ import Table from 'shared/components/table';
 import TextTruncate from 'shared/components/TextTruncate';
 import {getUrl} from 'shared/util/urls';
 import {Link} from 'react-router-dom';
+import {pickBy} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {Routes} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
@@ -45,7 +46,12 @@ class TouchpointsListCard extends React.Component {
 	 * @param {string} touchpoint
 	 */
 	getUrl(title, touchpoint) {
-		const {params, query} = this.context.router;
+		const {
+			context: {
+				router: {params, query}
+			},
+			props: {rangeSelectors}
+		} = this;
 
 		const router = {
 			params: {
@@ -53,7 +59,10 @@ class TouchpointsListCard extends React.Component {
 				title,
 				touchpoint: encodeURIComponent(touchpoint)
 			},
-			query
+			query: {
+				...query,
+				...pickBy(rangeSelectors)
+			}
 		};
 
 		return getUrl(Routes.SITES_TOUCHPOINTS_OVERVIEW, router);
