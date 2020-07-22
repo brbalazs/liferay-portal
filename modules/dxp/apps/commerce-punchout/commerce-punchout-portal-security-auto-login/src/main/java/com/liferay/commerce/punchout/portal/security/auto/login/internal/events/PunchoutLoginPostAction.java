@@ -24,6 +24,7 @@ import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.punchout.oauth2.provider.model.PunchoutAccessToken;
 import com.liferay.commerce.service.CommerceOrderLocalService;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.events.Action;
 import com.liferay.portal.kernel.events.LifecycleAction;
@@ -182,9 +183,17 @@ public class PunchoutLoginPostAction extends Action {
 			String key = (String)mapElement.getKey();
 
 			if (_log.isDebugEnabled()) {
-				_log.debug(
-					"Adding attribute to session (key: " + key + "; value: " +
-						mapElement.getValue() + ")");
+				StringBundler sb = new StringBundler();
+
+				sb.append("Adding attribute to session (key=");
+				sb.append(key);
+				sb.append(StringPool.COMMA);
+				sb.append(StringPool.SPACE);
+				sb.append("value=");
+				sb.append(mapElement.getValue());
+				sb.append(StringPool.CLOSE_PARENTHESIS);
+
+				_log.debug(sb.toString());
 			}
 
 			httpSession.setAttribute(key, mapElement.getValue());
