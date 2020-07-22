@@ -20,6 +20,7 @@ import com.liferay.petra.xml.XMLUtil;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringReader;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.language.LanguageBuilderUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -39,7 +40,6 @@ import com.liferay.portal.kernel.util.Tuple;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.Element;
-import com.liferay.portal.language.LanguageResources;
 
 import java.io.Serializable;
 
@@ -1423,7 +1423,7 @@ public class LocalizationImpl implements Localization {
 		}
 
 		if (Validator.isNotNull(value)) {
-			value = LanguageResources.fixValue(value);
+			value = LanguageBuilderUtil.fixValue(value);
 		}
 		else {
 			value = LanguageUtil.get(locale, key, defaultValue);
