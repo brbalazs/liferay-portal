@@ -310,7 +310,8 @@ const RecommendationListWithData = withCrossPageSelect(withData, {
 		},
 		{
 			accessor: 'runDate',
-			dataFormatter: (date: string) => formatUTCDate(date, 'MM DD, YYYY'),
+			dataFormatter: (date: string) =>
+				formatUTCDate(date, 'MMM Do, YYYY'),
 			label: Liferay.Language.get('last-trained')
 		},
 		{
