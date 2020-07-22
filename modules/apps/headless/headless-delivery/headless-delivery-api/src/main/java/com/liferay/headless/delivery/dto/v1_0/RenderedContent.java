@@ -79,7 +79,9 @@ public class RenderedContent {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String renderedContentURL;
 
-	@Schema
+	@Schema(
+		description = "optional field with the rendered content, can be embedded with nestedFields"
+	)
 	public String getRenderedContentValue() {
 		return renderedContentValue;
 	}
@@ -103,7 +105,9 @@ public class RenderedContent {
 		}
 	}
 
-	@GraphQLField
+	@GraphQLField(
+		description = "optional field with the rendered content, can be embedded with nestedFields"
+	)
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String renderedContentValue;
 
