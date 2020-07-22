@@ -16,6 +16,7 @@ package com.liferay.portal.kernel.util;
 
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.language.LanguageBuilderUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.language.UTF8Control;
 import com.liferay.registry.Registry;
@@ -155,7 +156,7 @@ public class ResourceBundleUtil {
 		}
 
 		try {
-			return resourceBundle.getString(key);
+			return LanguageBuilderUtil.fixValue(resourceBundle.getString(key));
 		}
 		catch (MissingResourceException mre) {
 			return null;
