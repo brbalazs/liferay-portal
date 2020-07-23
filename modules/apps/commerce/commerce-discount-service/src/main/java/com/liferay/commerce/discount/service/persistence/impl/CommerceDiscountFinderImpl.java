@@ -15,6 +15,7 @@
 package com.liferay.commerce.discount.service.persistence.impl;
 
 import com.liferay.asset.kernel.model.AssetCategory;
+import com.liferay.commerce.discount.constants.CommerceDiscountConstants;
 import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.model.impl.CommerceDiscountImpl;
 import com.liferay.commerce.discount.service.persistence.CommerceDiscountFinder;
@@ -548,9 +549,12 @@ public class CommerceDiscountFinderImpl
 				companyId, commerceAccountId, commerceAccountGroupIds,
 				commerceChannelId, qPos);
 
+			qPos.add(CommerceDiscountConstants.TARGET_PRODUCT);
 			qPos.add(cpDefinitionId);
 			qPos.add(PortalUtil.getClassNameId(CPDefinition.class.getName()));
+			qPos.add(CommerceDiscountConstants.TARGET_CATEGORIES);
 			qPos.add(PortalUtil.getClassNameId(AssetCategory.class.getName()));
+			qPos.add(CommerceDiscountConstants.TARGET_PRICING_CLASS);
 			qPos.add(
 				PortalUtil.getClassNameId(
 					CommercePricingClass.class.getName()));

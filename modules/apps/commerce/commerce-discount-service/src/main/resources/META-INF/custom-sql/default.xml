@@ -58,14 +58,17 @@
 				(CommerceChannelRel.commerceChannelRelId IS NULL) AND
 				(
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK = ?) AND
 						(CommerceDiscountRel.classNameId = ?)
 					) OR
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK IN ([$CLASS_PK_CATEGORIES$])) AND
 						(CommerceDiscountRel.classNameId = ?)
 					) OR
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK IN ([$CLASS_PK_PRICING_CLASSES$])) AND
 						(CommerceDiscountRel.classNameId = ?)
 					)
@@ -114,14 +117,17 @@
 				(CommerceDiscountAccountRel.commerceAccountId = ?) AND
 				(
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK = ?) AND
 						(CommerceDiscountRel.classNameId = ?)
 					) OR
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK IN ([$CLASS_PK_CATEGORIES$])) AND
 						(CommerceDiscountRel.classNameId = ?)
 					) OR
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK IN ([$CLASS_PK_PRICING_CLASSES$])) AND
 						(CommerceDiscountRel.classNameId = ?)
 					)
@@ -160,14 +166,17 @@
 				(CDiscountCAccountGroupRel.commerceAccountGroupId IN ([$ACCOUNT_GROUP_IDS$])) AND
 				(
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK = ?) AND
 						(CommerceDiscountRel.classNameId = ?)
 					) OR
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK IN ([$CLASS_PK_CATEGORIES$])) AND
 						(CommerceDiscountRel.classNameId = ?)
 					) OR
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK IN ([$CLASS_PK_PRICING_CLASSES$])) AND
 						(CommerceDiscountRel.classNameId = ?)
 					)
@@ -207,14 +216,17 @@
 				(CommerceChannelRel.commerceChannelId = ?) AND
 				(
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK = ?) AND
 						(CommerceDiscountRel.classNameId = ?)
 					) OR
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK IN ([$CLASS_PK_CATEGORIES$])) AND
 						(CommerceDiscountRel.classNameId = ?)
 					) OR
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK IN ([$CLASS_PK_PRICING_CLASSES$])) AND
 						(CommerceDiscountRel.classNameId = ?)
 					)
@@ -259,14 +271,17 @@
 				(CommerceChannelRel.commerceChannelId = ?) AND
 				(
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK = ?) AND
 						(CommerceDiscountRel.classNameId = ?)
 					) OR
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK IN ([$CLASS_PK_CATEGORIES$])) AND
 						(CommerceDiscountRel.classNameId = ?)
 					) OR
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK IN ([$CLASS_PK_PRICING_CLASSES$])) AND
 						(CommerceDiscountRel.classNameId = ?)
 					)
@@ -315,14 +330,17 @@
 				(CommerceChannelRel.commerceChannelId = ?) AND
 				(
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK = ?) AND
 						(CommerceDiscountRel.classNameId = ?)
 					) OR
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK IN ([$CLASS_PK_CATEGORIES$])) AND
 						(CommerceDiscountRel.classNameId = ?)
 					) OR
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK IN ([$CLASS_PK_PRICING_CLASSES$])) AND
 						(CommerceDiscountRel.classNameId = ?)
 					)
@@ -366,14 +384,17 @@
 				(CommercePriceListDiscountRel.commerceDiscountId IN ([$DISCOUNT_IDS$])) AND
 				(
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK = ?) AND
 						(CommerceDiscountRel.classNameId = ?)
 					) OR
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK IN ([$CLASS_PK_CATEGORIES$])) AND
 						(CommerceDiscountRel.classNameId = ?)
 					) OR
 					(
+						(CommerceDiscount.target = ?) AND
 						(CommerceDiscountRel.classPK IN ([$CLASS_PK_PRICING_CLASSES$])) AND
 						(CommerceDiscountRel.classNameId = ?)
 					)

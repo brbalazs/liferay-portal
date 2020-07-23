@@ -658,13 +658,6 @@ public class CommerceDiscountLocalServiceImpl
 			serviceContext.getCompanyId(), commerceDiscountId, title, target,
 			useCouponCode, couponCode, limitationType);
 
-		String currentTarget = commerceDiscount.getTarget();
-
-		if (!currentTarget.equals(target)) {
-			commerceDiscountRelLocalService.deleteCommerceDiscountRels(
-				commerceDiscount.getCommerceDiscountId());
-		}
-
 		Date now = new Date();
 
 		Date displayDate = PortalUtil.getDate(
@@ -741,13 +734,6 @@ public class CommerceDiscountLocalServiceImpl
 		validate(
 			serviceContext.getCompanyId(), commerceDiscountId, title, target,
 			useCouponCode, couponCode, limitationType);
-
-		String currentTarget = commerceDiscount.getTarget();
-
-		if (!currentTarget.equals(target)) {
-			commerceDiscountRelLocalService.deleteCommerceDiscountRels(
-				commerceDiscount.getCommerceDiscountId());
-		}
 
 		Date now = new Date();
 
