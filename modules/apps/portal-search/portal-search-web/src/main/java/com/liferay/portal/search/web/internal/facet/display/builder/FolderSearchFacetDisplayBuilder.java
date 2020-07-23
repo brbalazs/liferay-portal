@@ -49,6 +49,8 @@ public class FolderSearchFacetDisplayBuilder {
 			folderSearchFacetTermDisplayContexts);
 
 		folderSearchFacetDisplayContext.setNothingSelected(isNothingSelected());
+		folderSearchFacetDisplayContext.setPaginationStartParameterName(
+			_paginationStartParameterName);
 		folderSearchFacetDisplayContext.setParameterName(_parameterName);
 		folderSearchFacetDisplayContext.setParameterValue(
 			getFirstParameterValueString());
@@ -79,6 +81,12 @@ public class FolderSearchFacetDisplayBuilder {
 
 	public void setMaxTerms(int maxTerms) {
 		_maxTerms = maxTerms;
+	}
+
+	public void setPaginationStartParameterName(
+		String paginationStartParameterName) {
+
+		_paginationStartParameterName = paginationStartParameterName;
 	}
 
 	public void setParameterName(String parameterName) {
@@ -280,6 +288,7 @@ public class FolderSearchFacetDisplayBuilder {
 	private boolean _frequenciesVisible;
 	private int _frequencyThreshold;
 	private int _maxTerms;
+	private String _paginationStartParameterName;
 	private String _parameterName;
 	private List<Long> _selectedFolderIds = Collections.emptyList();
 
