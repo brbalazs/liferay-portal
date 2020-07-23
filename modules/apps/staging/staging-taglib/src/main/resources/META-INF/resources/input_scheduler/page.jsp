@@ -26,7 +26,7 @@
 
 			<c:choose>
 				<c:when test="<%= schedulerException.getType() == SchedulerException.TYPE_INVALID_START_DATE %>">
-					<liferay-ui:message key="a-wrong-start-date-was-specified-the-scheduled-process-can-not-start-in-the-past" />
+					<liferay-ui:message key="a-wrong-start-date-was-specified-the-scheduled-process-cannot-start-in-the-past" />
 				</c:when>
 				<c:otherwise>
 					<liferay-ui:message key="a-wrong-end-date-was-specified-the-scheduled-process-will-never-run" />
