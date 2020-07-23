@@ -14,9 +14,9 @@
 
 package com.liferay.commerce.punchout.oauth2.provider.rest.internal.bearer.token.provider;
 
-import com.liferay.commerce.punchout.oauth2.provider.PunchoutAccessTokenProvider;
-import com.liferay.commerce.punchout.oauth2.provider.model.PunchoutAccessToken;
-import com.liferay.commerce.punchout.oauth2.provider.rest.internal.bearer.token.provider.configuration.PunchoutAccessTokenProviderConfiguration;
+import com.liferay.commerce.punchout.oauth2.provider.PunchOutAccessTokenProvider;
+import com.liferay.commerce.punchout.oauth2.provider.model.PunchOutAccessToken;
+import com.liferay.commerce.punchout.oauth2.provider.rest.internal.bearer.token.provider.configuration.PunchOutAccessTokenProviderConfiguration;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.cluster.ClusterMasterExecutor;
 import com.liferay.portal.kernel.log.Log;
@@ -44,17 +44,17 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	configurationPid = "com.liferay.commerce.punchout.oauth2.provider.rest.internal.bearer.token.provider.configuration.PunchOutAccessTokenProviderConfiguration",
-	property = "timeout:Integer=15", service = PunchoutAccessTokenProvider.class
+	property = "timeout:Integer=15", service = PunchOutAccessTokenProvider.class
 )
-public class PunchoutAccessTokenProviderImpl
-	implements PunchoutAccessTokenProvider {
+public class PunchOutAccessTokenProviderImpl
+	implements PunchOutAccessTokenProvider {
 
-	public PunchoutAccessToken generatePunchOutAccessToken(
+	public PunchOutAccessToken generatePunchOutAccessToken(
 		long groupId, long commerceAccountId, String currencyCode,
 		String userEmailAddress, String commerceOrderUuid,
 		HashMap<String, Object> punchOutSessionAttributes) {
 
-		PunchoutAccessToken punchOutAccessToken = _generatePunchOutAccessToken(
+		PunchOutAccessToken punchOutAccessToken = _generatePunchOutAccessToken(
 			groupId, commerceAccountId, currencyCode, userEmailAddress,
 			commerceOrderUuid, punchOutSessionAttributes);
 
@@ -80,14 +80,14 @@ public class PunchoutAccessTokenProviderImpl
 		return punchOutAccessToken;
 	}
 
-	public PunchoutAccessToken getPunchOutAccessToken(String token) {
+	public PunchOutAccessToken getPunchOutAccessToken(String token) {
 		if (!_clusterMasterExecutor.isEnabled() ||
 			_clusterMasterExecutor.isMaster()) {
 
 			return _getPunchOutAccessToken(token);
 		}
 
-		Future<PunchoutAccessToken> future =
+		Future<PunchOutAccessToken> future =
 			_clusterMasterExecutor.executeOnMaster(
 				new MethodHandler(_getPunchOutAccessTokenMethodKey, token));
 
@@ -102,14 +102,14 @@ public class PunchoutAccessTokenProviderImpl
 		}
 	}
 
-	public PunchoutAccessToken removePunchOutAccessToken(String token) {
+	public PunchOutAccessToken removePunchOutAccessToken(String token) {
 		if (!_clusterMasterExecutor.isEnabled() ||
 			_clusterMasterExecutor.isMaster()) {
 
 			return _removePunchOutAccessToken(token);
 		}
 
-		Future<PunchoutAccessToken> future =
+		Future<PunchOutAccessToken> future =
 			_clusterMasterExecutor.executeOnMaster(
 				new MethodHandler(_removePunchOutAccessTokenMethodKey, token));
 
@@ -130,7 +130,7 @@ public class PunchoutAccessTokenProviderImpl
 
 		_punchOutAccessTokenProviderConfiguration =
 			ConfigurableUtil.createConfigurable(
-				PunchoutAccessTokenProviderConfiguration.class, properties);
+				PunchOutAccessTokenProviderConfiguration.class, properties);
 	}
 
 	private static void _cleanUp() {
@@ -138,7 +138,7 @@ public class PunchoutAccessTokenProviderImpl
 	}
 
 	private static void _putPunchOutAccessToken(
-		PunchoutAccessToken punchOutAccessToken) {
+		PunchOutAccessToken punchOutAccessToken) {
 
 		_cleanUp();
 
@@ -146,17 +146,17 @@ public class PunchoutAccessTokenProviderImpl
 			new PunchoutAccessTokenDelayed(punchOutAccessToken));
 	}
 
-	private static PunchoutAccessToken _removePunchOutAccessToken(
+	private static PunchOutAccessToken _removePunchOutAccessToken(
 		String token) {
 
 		_cleanUp();
 
-		AtomicReference<PunchoutAccessToken>
+		AtomicReference<PunchOutAccessToken>
 			punchOutAccessTokenAtomicReference = new AtomicReference<>();
 
 		_punchOutAccessTokenDelayQueue.removeIf(
 			punchOutAccessTokenDelayed -> {
-				PunchoutAccessToken punchOutAccessToken =
+				PunchOutAccessToken punchOutAccessToken =
 					punchOutAccessTokenDelayed.getPunchOutAccessToken();
 
 				byte[] tokenBytes = punchOutAccessToken.getToken();
@@ -176,12 +176,12 @@ public class PunchoutAccessTokenProviderImpl
 		return punchOutAccessTokenAtomicReference.get();
 	}
 
-	private PunchoutAccessToken _generatePunchOutAccessToken(
+	private PunchOutAccessToken _generatePunchOutAccessToken(
 		long groupId, long commerceAccountId, String currencyCode,
 		String userEmailAddress, String commerceOrderUuid,
 		HashMap<String, Object> punchOutSessionAttributes) {
 
-		PunchoutAccessToken punchOutAccessToken = new PunchoutAccessToken();
+		PunchOutAccessToken punchOutAccessToken = new PunchOutAccessToken();
 
 		punchOutAccessToken.setGroupId(groupId);
 
@@ -224,13 +224,13 @@ public class PunchoutAccessTokenProviderImpl
 		return bytes;
 	}
 
-	private PunchoutAccessToken _getPunchOutAccessToken(String token) {
+	private PunchOutAccessToken _getPunchOutAccessToken(String token) {
 		_cleanUp();
 
 		for (PunchoutAccessTokenDelayed punchOutAccessTokenDelayed :
 			_punchOutAccessTokenDelayQueue) {
 
-			PunchoutAccessToken punchOutAccessToken =
+			PunchOutAccessToken punchOutAccessToken =
 				punchOutAccessTokenDelayed.getPunchOutAccessToken();
 
 			byte[] tokenBytes = punchOutAccessToken.getToken();
@@ -246,34 +246,34 @@ public class PunchoutAccessTokenProviderImpl
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		PunchoutAccessTokenProviderImpl.class);
+		PunchOutAccessTokenProviderImpl.class);
 
 	private static final MethodKey _getPunchOutAccessTokenMethodKey =
 		new MethodKey(
-			PunchoutAccessTokenProviderImpl.class, "_getPunchOutAccessToken",
+			PunchOutAccessTokenProviderImpl.class, "_getPunchOutAccessToken",
 			String.class);
 	private static final DelayQueue<PunchoutAccessTokenDelayed>
 		_punchOutAccessTokenDelayQueue = new DelayQueue<>();
 	private static final MethodKey _putPunchOutAccessTokenMethodKey =
 		new MethodKey(
-			PunchoutAccessTokenProviderImpl.class, "_putPunchOutAccessToken",
-			PunchoutAccessToken.class);
+			PunchOutAccessTokenProviderImpl.class, "_putPunchOutAccessToken",
+			PunchOutAccessToken.class);
 	private static final MethodKey _removePunchOutAccessTokenMethodKey =
 		new MethodKey(
-			PunchoutAccessTokenProviderImpl.class, "_removePunchOutAccessToken",
+			PunchOutAccessTokenProviderImpl.class, "_removePunchOutAccessToken",
 			String.class);
 
 	@Reference
 	private ClusterMasterExecutor _clusterMasterExecutor;
 
-	private PunchoutAccessTokenProviderConfiguration
+	private PunchOutAccessTokenProviderConfiguration
 		_punchOutAccessTokenProviderConfiguration;
 	private int _timeout;
 
 	private static class PunchoutAccessTokenDelayed implements Delayed {
 
 		public PunchoutAccessTokenDelayed(
-			PunchoutAccessToken punchOutAccessToken) {
+			PunchOutAccessToken punchOutAccessToken) {
 
 			_punchOutAccessToken = punchOutAccessToken;
 		}
@@ -293,7 +293,7 @@ public class PunchoutAccessTokenProviderImpl
 				TimeUnit.MILLISECONDS);
 		}
 
-		public PunchoutAccessToken getPunchOutAccessToken() {
+		public PunchOutAccessToken getPunchOutAccessToken() {
 			return _punchOutAccessToken;
 		}
 
@@ -306,7 +306,7 @@ public class PunchoutAccessTokenProviderImpl
 			_comparator = Comparator.comparing(
 				PunchoutAccessTokenDelayed::_getExpirationTime);
 
-		private final PunchoutAccessToken _punchOutAccessToken;
+		private final PunchOutAccessToken _punchOutAccessToken;
 
 	}
 

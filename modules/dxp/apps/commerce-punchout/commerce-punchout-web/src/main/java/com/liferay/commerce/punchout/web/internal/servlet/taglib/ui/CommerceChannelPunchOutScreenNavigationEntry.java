@@ -16,9 +16,9 @@ package com.liferay.commerce.punchout.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
-import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
-import com.liferay.commerce.punchout.constants.PunchoutConstants;
-import com.liferay.commerce.punchout.web.internal.display.context.CommercePunchoutDisplayContext;
+import com.liferay.commerce.punchout.configuration.PunchOutConfiguration;
+import com.liferay.commerce.punchout.constants.PunchOutConstants;
+import com.liferay.commerce.punchout.web.internal.display.context.CommercePunchOutDisplayContext;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
@@ -51,7 +51,7 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
-public class CommerceChannelPunchoutScreenNavigationEntry
+public class CommerceChannelPunchOutScreenNavigationEntry
 	implements ScreenNavigationCategory,
 			   ScreenNavigationEntry<CommerceChannel> {
 
@@ -84,11 +84,11 @@ public class CommerceChannelPunchoutScreenNavigationEntry
 		CommerceChannel commerceChannel = _getCommerceChannel(
 			httpServletRequest);
 
-		PunchoutConfiguration punchOutConfiguration = _getPunchOutConfiguration(
+		PunchOutConfiguration punchOutConfiguration = _getPunchOutConfiguration(
 			commerceChannel.getGroupId());
 
-		CommercePunchoutDisplayContext commerceShippingMethodsDisplayContext =
-			new CommercePunchoutDisplayContext(
+		CommercePunchOutDisplayContext commerceShippingMethodsDisplayContext =
+			new CommercePunchOutDisplayContext(
 				commerceChannel.getCommerceChannelId(), punchOutConfiguration);
 
 		httpServletRequest.setAttribute(
@@ -117,14 +117,14 @@ public class CommerceChannelPunchoutScreenNavigationEntry
 		return null;
 	}
 
-	private PunchoutConfiguration _getPunchOutConfiguration(
+	private PunchOutConfiguration _getPunchOutConfiguration(
 		long commerceChannelGroupId) {
 
 		try {
 			return _configurationProvider.getConfiguration(
-				PunchoutConfiguration.class,
+				PunchOutConfiguration.class,
 				new GroupServiceSettingsLocator(
-					commerceChannelGroupId, PunchoutConstants.SERVICE_NAME));
+					commerceChannelGroupId, PunchOutConstants.SERVICE_NAME));
 		}
 		catch (Exception e) {
 			_log.error("Unable to get punch out configuration", e);
@@ -134,7 +134,7 @@ public class CommerceChannelPunchoutScreenNavigationEntry
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceChannelPunchoutScreenNavigationEntry.class);
+		CommerceChannelPunchOutScreenNavigationEntry.class);
 
 	@Reference
 	private CommerceChannelLocalService _commerceChannelLocalService;

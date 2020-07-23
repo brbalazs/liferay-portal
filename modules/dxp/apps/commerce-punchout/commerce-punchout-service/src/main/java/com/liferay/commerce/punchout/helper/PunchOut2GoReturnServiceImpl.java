@@ -26,7 +26,7 @@ import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
-import com.liferay.commerce.punchout.service.PunchoutReturnService;
+import com.liferay.commerce.punchout.service.PunchOutReturnService;
 import com.liferay.commerce.service.CommerceAddressLocalService;
 import com.liferay.commerce.service.CommerceCountryLocalService;
 import com.liferay.commerce.service.CommerceRegionLocalService;
@@ -57,9 +57,9 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true, property = "service.ranking:Integer=100",
-	service = PunchoutReturnService.class
+	service = PunchOutReturnService.class
 )
-public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
+public class PunchOut2GoReturnServiceImpl implements PunchOutReturnService {
 
 	public String returnToPunchOutVendor(
 			CommerceOrder commerceOrder, String url)
@@ -392,7 +392,7 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		Punchout2GoReturnServiceImpl.class);
+		PunchOut2GoReturnServiceImpl.class);
 
 	private static final DateFormat _dateFormat = new SimpleDateFormat(
 		"yyyy-MM-dd'T'HH:mm:ss'Z'");

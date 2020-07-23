@@ -15,7 +15,7 @@
 package com.liferay.commerce.punchout.internal.model.listener;
 
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.punchout.service.PunchoutAccountRoleHelper;
+import com.liferay.commerce.punchout.service.PunchOutAccountRoleHelper;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -70,6 +70,6 @@ public class CommerceOrderModelListener
 	private CommerceOrderLocalService _commerceOrderLocalService;
 
 	@Reference
-	private PunchoutAccountRoleHelper _punchOutAccountRoleHelper;
+	private PunchOutAccountRoleHelper _punchOutAccountRoleHelper;
 
 }

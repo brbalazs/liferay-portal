@@ -22,7 +22,7 @@ import com.liferay.portal.kernel.exception.PortalException;
  * @author Jaclyn Ong
  */
 @ProviderType
-public interface PunchoutAccountRoleHelper {
+public interface PunchOutAccountRoleHelper {
 
 	public boolean hasPunchOutRole(long userId, long commerceAccountId)
 		throws PortalException;

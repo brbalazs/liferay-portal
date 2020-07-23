@@ -14,10 +14,10 @@
 
 package com.liferay.headless.commerce.punchout.internal.helper;
 
-import com.liferay.commerce.punchout.constants.PunchoutConstants;
+import com.liferay.commerce.punchout.constants.PunchOutConstants;
 import com.liferay.headless.commerce.punchout.dto.v1_0.PunchOutSession;
-import com.liferay.headless.commerce.punchout.helper.PunchoutContext;
-import com.liferay.headless.commerce.punchout.helper.PunchoutSessionContributor;
+import com.liferay.headless.commerce.punchout.helper.PunchOutContext;
+import com.liferay.headless.commerce.punchout.helper.PunchOutSessionContributor;
 
 import java.util.HashMap;
 
@@ -26,19 +26,19 @@ import org.osgi.service.component.annotations.Component;
 /**
  * @author Jaclyn Ong
  */
-@Component(immediate = true, service = PunchoutSessionContributor.class)
-public class PunchoutSessionContributorImpl
-	implements PunchoutSessionContributor {
+@Component(immediate = true, service = PunchOutSessionContributor.class)
+public class PunchOutSessionContributorImpl
+	implements PunchOutSessionContributor {
 
 	public HashMap<String, Object> getPunchOutSessionAttributes(
-		PunchoutContext punchOutContext) {
+		PunchOutContext punchOutContext) {
 
 		HashMap<String, Object> punchOutSessionAttributes = new HashMap<>();
 
 		PunchOutSession punchOutSession = punchOutContext.getPunchOutSession();
 
 		punchOutSessionAttributes.put(
-			PunchoutConstants.PUNCH_OUT_RETURN_URL_ATTRIBUTE_NAME,
+			PunchOutConstants.PUNCH_OUT_RETURN_URL_ATTRIBUTE_NAME,
 			punchOutSession.getPunchOutReturnURL());
 
 		return punchOutSessionAttributes;

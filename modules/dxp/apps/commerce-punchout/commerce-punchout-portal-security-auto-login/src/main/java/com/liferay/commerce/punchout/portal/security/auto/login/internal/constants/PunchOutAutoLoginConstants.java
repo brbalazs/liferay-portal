@@ -12,21 +12,14 @@
  *
  */
 
-package com.liferay.commerce.punchout.constants;
+package com.liferay.commerce.punchout.portal.security.auto.login.internal.constants;
 
 /**
  * @author Jaclyn Ong
  */
-public class PunchoutConstants {
+public class PunchOutAutoLoginConstants {
 
-	public static final String PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME =
-		"PUNCH_OUT_REDIRECT_URL";
-
-	public static final String PUNCH_OUT_RETURN_URL_ATTRIBUTE_NAME =
-		"PUNCH_OUT_RETURN_URL";
-
-	public static final String ROLE_NAME_ACCOUNT_PUNCH_OUT = "Punch Out";
-
-	public static final String SERVICE_NAME = "com.liferay.commerce.punchout";
+	public static final String SERVICE_NAME =
+		"com.liferay.portal.security.auto.login.punchout";
 
 }

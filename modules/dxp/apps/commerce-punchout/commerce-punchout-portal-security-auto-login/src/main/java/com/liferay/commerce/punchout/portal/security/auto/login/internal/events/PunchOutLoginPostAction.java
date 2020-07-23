@@ -22,7 +22,7 @@ import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
-import com.liferay.commerce.punchout.oauth2.provider.model.PunchoutAccessToken;
+import com.liferay.commerce.punchout.oauth2.provider.model.PunchOutAccessToken;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -58,7 +58,7 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true, property = "key=login.events.post",
 	service = LifecycleAction.class
 )
-public class PunchoutLoginPostAction extends Action {
+public class PunchOutLoginPostAction extends Action {
 
 	@Override
 	public void run(
@@ -78,8 +78,8 @@ public class PunchoutLoginPostAction extends Action {
 				return;
 			}
 
-			PunchoutAccessToken punchOutAccessToken =
-				(PunchoutAccessToken)httpServletRequest.getAttribute(
+			PunchOutAccessToken punchOutAccessToken =
+				(PunchOutAccessToken)httpServletRequest.getAttribute(
 					"punchOutAccessToken");
 
 			long punchOutUserId = (long)httpServletRequest.getAttribute(
@@ -112,7 +112,7 @@ public class PunchoutLoginPostAction extends Action {
 
 	private void _startNewPunchOutSession(
 			long companyId, long groupId, long commerceAccountId,
-			String currencyCode, PunchoutAccessToken punchOutAccessToken,
+			String currencyCode, PunchOutAccessToken punchOutAccessToken,
 			long punchOutUserId, HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse)
 		throws PortalException {
@@ -201,7 +201,7 @@ public class PunchoutLoginPostAction extends Action {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		PunchoutLoginPostAction.class);
+		PunchOutLoginPostAction.class);
 
 	@Reference
 	private CommerceChannelLocalService _commerceChannelLocalService;

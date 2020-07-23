@@ -17,7 +17,7 @@ package com.liferay.commerce.punchout.web.internal.portlet.action;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelService;
-import com.liferay.commerce.punchout.constants.PunchoutConstants;
+import com.liferay.commerce.punchout.constants.PunchOutConstants;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
@@ -44,7 +44,7 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = MVCActionCommand.class
 )
-public class EditCommercePunchoutConfigurationMVCActionCommand
+public class EditCommercePunchOutConfigurationMVCActionCommand
 	extends BaseMVCActionCommand {
 
 	@Override
@@ -70,7 +70,7 @@ public class EditCommercePunchoutConfigurationMVCActionCommand
 
 		Settings settings = _settingsFactory.getSettings(
 			new GroupServiceSettingsLocator(
-				commerceChannel.getGroupId(), PunchoutConstants.SERVICE_NAME));
+				commerceChannel.getGroupId(), PunchOutConstants.SERVICE_NAME));
 
 		ModifiableSettings modifiableSettings =
 			settings.getModifiableSettings();

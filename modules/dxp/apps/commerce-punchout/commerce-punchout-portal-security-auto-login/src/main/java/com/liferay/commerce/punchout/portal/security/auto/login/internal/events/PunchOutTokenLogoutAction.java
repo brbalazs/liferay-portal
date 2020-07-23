@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.punchout.portal.security.auto.login.internal.events;
 
-import com.liferay.commerce.punchout.constants.PunchoutConstants;
+import com.liferay.commerce.punchout.constants.PunchOutConstants;
 import com.liferay.portal.kernel.events.Action;
 import com.liferay.portal.kernel.events.LifecycleAction;
 import com.liferay.portal.kernel.log.Log;
@@ -34,7 +34,7 @@ import org.osgi.service.component.annotations.Component;
 	immediate = true, property = "key=logout.events.pre",
 	service = LifecycleAction.class
 )
-public class PunchoutTokenLogoutAction extends Action {
+public class PunchOutTokenLogoutAction extends Action {
 
 	@Override
 	public void run(HttpServletRequest request, HttpServletResponse response) {
@@ -48,12 +48,12 @@ public class PunchoutTokenLogoutAction extends Action {
 			HttpSession session = request.getSession();
 
 			Object punchOutReturnUrlObject = session.getAttribute(
-				PunchoutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME);
+				PunchOutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME);
 
 			if (punchOutReturnUrlObject == null) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(
-						PunchoutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME +
+						PunchOutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME +
 						" not found in session");
 				}
 
@@ -65,7 +65,7 @@ public class PunchoutTokenLogoutAction extends Action {
 			if (Validator.isBlank(redirectURL)) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(
-						PunchoutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME +
+						PunchOutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME +
 						" is blank");
 				}
 
@@ -84,6 +84,6 @@ public class PunchoutTokenLogoutAction extends Action {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		PunchoutTokenLogoutAction.class);
+		PunchOutTokenLogoutAction.class);
 
 }

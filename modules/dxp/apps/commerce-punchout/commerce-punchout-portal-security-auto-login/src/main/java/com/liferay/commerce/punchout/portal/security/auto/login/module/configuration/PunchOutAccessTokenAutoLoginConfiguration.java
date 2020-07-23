@@ -27,7 +27,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 	localization = "content/Language",
 	name = "punch-out-access-token-auto-login-configuration-name"
 )
-public interface PunchoutAccessTokenAutoLoginConfiguration {
+public interface PunchOutAccessTokenAutoLoginConfiguration {
 
 	@Meta.AD(deflt = "false", name = "enabled", required = false)
 	public boolean enabled();

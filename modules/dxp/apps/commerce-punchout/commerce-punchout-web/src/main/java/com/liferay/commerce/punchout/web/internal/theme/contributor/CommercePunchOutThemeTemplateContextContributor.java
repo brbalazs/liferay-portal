@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.punchout.web.internal.theme.contributor;
 
-import com.liferay.commerce.punchout.web.internal.helper.CommercePunchoutThemeHttpHelper;
+import com.liferay.commerce.punchout.web.internal.helper.CommercePunchOutThemeHttpHelper;
 import com.liferay.portal.kernel.template.TemplateContextContributor;
 
 import java.util.Map;
@@ -32,7 +32,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = "type=" + TemplateContextContributor.TYPE_THEME,
 	service = TemplateContextContributor.class
 )
-public class CommercePunchoutThemeTemplateContextContributor
+public class CommercePunchOutThemeTemplateContextContributor
 	implements TemplateContextContributor {
 
 	@Override
@@ -46,6 +46,6 @@ public class CommercePunchoutThemeTemplateContextContributor
 	}
 
 	@Reference
-	private CommercePunchoutThemeHttpHelper _commercePunchOutThemeHttpHelper;
+	private CommercePunchOutThemeHttpHelper _commercePunchOutThemeHttpHelper;
 
 }

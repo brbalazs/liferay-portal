@@ -1,5 +1,5 @@
 Liferay-Releng-App-Description:
-Liferay-Releng-App-Title: ${liferay.releng.app.title.prefix} Commerce Connector to PunchOut2Go
+Liferay-Releng-App-Title: ${liferay.releng.app.title.prefix} Commerce Connector for Punch Out
 Liferay-Releng-Bundle: false
 Liferay-Releng-Category: Utility
 Liferay-Releng-Demo-Url:

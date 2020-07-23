@@ -20,9 +20,9 @@ import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
-import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
-import com.liferay.commerce.punchout.constants.PunchoutConstants;
-import com.liferay.commerce.punchout.service.PunchoutAccountRoleHelper;
+import com.liferay.commerce.punchout.configuration.PunchOutConfiguration;
+import com.liferay.commerce.punchout.constants.PunchOutConstants;
+import com.liferay.commerce.punchout.service.PunchOutAccountRoleHelper;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -43,8 +43,8 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Jaclyn Ong
  */
-@Component(immediate = true, service = PunchoutSessionHelper.class)
-public class PunchoutSessionHelper {
+@Component(immediate = true, service = PunchOutSessionHelper.class)
+public class PunchOutSessionHelper {
 
 	public HttpSession getHttpSession(HttpServletRequest httpServletRequest) {
 		HttpServletRequest originalHttpServletRequest =
@@ -57,7 +57,7 @@ public class PunchoutSessionHelper {
 		HttpSession httpSession = getHttpSession(httpServletRequest);
 
 		Object punchOutReturnUrlObject = httpSession.getAttribute(
-			PunchoutConstants.PUNCH_OUT_RETURN_URL_ATTRIBUTE_NAME);
+			PunchOutConstants.PUNCH_OUT_RETURN_URL_ATTRIBUTE_NAME);
 
 		if (punchOutReturnUrlObject == null) {
 			return null;
@@ -88,8 +88,8 @@ public class PunchoutSessionHelper {
 		catch (Exception e) {
 			_log.error(
 				"Failed to determine whether user has " +
-					PunchoutConstants.ROLE_NAME_ACCOUNT_PUNCH_OUT  +
-						" role under commerce account");
+				PunchOutConstants.ROLE_NAME_ACCOUNT_PUNCH_OUT +
+				" role under commerce account");
 
 			return false;
 		}
@@ -108,7 +108,7 @@ public class PunchoutSessionHelper {
 				return false;
 			}
 
-			PunchoutConfiguration punchOutConfiguration =
+			PunchOutConfiguration punchOutConfiguration =
 				_getPunchOutConfiguration(commerceChannelGroupId);
 
 			if (punchOutConfiguration != null) {
@@ -149,14 +149,14 @@ public class PunchoutSessionHelper {
 			httpServletRequest);
 	}
 
-	private PunchoutConfiguration _getPunchOutConfiguration(
+	private PunchOutConfiguration _getPunchOutConfiguration(
 		long channelGroupId) {
 
 		try {
 			return _configurationProvider.getConfiguration(
-				PunchoutConfiguration.class,
+				PunchOutConfiguration.class,
 				new GroupServiceSettingsLocator(
-					channelGroupId, PunchoutConstants.SERVICE_NAME));
+					channelGroupId, PunchOutConstants.SERVICE_NAME));
 		}
 		catch (ConfigurationException ce) {
 			_log.error("Unable to get punch out configuration", ce);
@@ -166,7 +166,7 @@ public class PunchoutSessionHelper {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		PunchoutSessionHelper.class);
+		PunchOutSessionHelper.class);
 
 	@Reference
 	private CommerceChannelLocalService _commerceChannelLocalService;
@@ -184,6 +184,6 @@ public class PunchoutSessionHelper {
 	private Portal _portal;
 
 	@Reference
-	private PunchoutAccountRoleHelper _punchOutAccountRoleHelper;
+	private PunchOutAccountRoleHelper _punchOutAccountRoleHelper;
 
 }

@@ -16,8 +16,8 @@ package com.liferay.commerce.punchout.helper;
 
 import com.liferay.commerce.account.model.CommerceAccountUserRel;
 import com.liferay.commerce.account.service.CommerceAccountUserRelLocalService;
-import com.liferay.commerce.punchout.constants.PunchoutConstants;
-import com.liferay.commerce.punchout.service.PunchoutAccountRoleHelper;
+import com.liferay.commerce.punchout.constants.PunchOutConstants;
+import com.liferay.commerce.punchout.service.PunchOutAccountRoleHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
@@ -33,9 +33,9 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Jaclyn Ong
  */
-@Component(immediate = true, service = PunchoutAccountRoleHelper.class)
-public class PunchoutAccountRoleHelperImpl
-	implements PunchoutAccountRoleHelper {
+@Component(immediate = true, service = PunchOutAccountRoleHelper.class)
+public class PunchOutAccountRoleHelperImpl
+	implements PunchOutAccountRoleHelper {
 
 	@Override
 	public boolean hasPunchOutRole(long userId, long commerceAccountId)
@@ -56,7 +56,7 @@ public class PunchoutAccountRoleHelperImpl
 		}
 
 		Role punchOutRole = _roleLocalService.fetchRole(
-			user.getCompanyId(), PunchoutConstants.ROLE_NAME_ACCOUNT_PUNCH_OUT);
+			user.getCompanyId(), PunchOutConstants.ROLE_NAME_ACCOUNT_PUNCH_OUT);
 
 		if (punchOutRole == null) {
 			return false;

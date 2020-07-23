@@ -17,7 +17,8 @@
 <%@ include file="/init.jsp" %>
 
 <%
-CommercePunchoutDisplayContext commercePunchOutDisplayContext = (CommercePunchoutDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+CommercePunchOutDisplayContext
+	commercePunchOutDisplayContext = (CommercePunchOutDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 long commerceChannelId = commercePunchOutDisplayContext.getCommerceChannelId();
 %>

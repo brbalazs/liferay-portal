@@ -14,15 +14,15 @@
 
 package com.liferay.commerce.punchout.web.internal.display.context;
 
-import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
+import com.liferay.commerce.punchout.configuration.PunchOutConfiguration;
 
 /**
  * @author Jaclyn Ong
  */
-public class CommercePunchoutDisplayContext {
+public class CommercePunchOutDisplayContext {
 
-	public CommercePunchoutDisplayContext(
-		long commerceChannelId, PunchoutConfiguration punchOutConfiguration) {
+	public CommercePunchOutDisplayContext(
+		long commerceChannelId, PunchOutConfiguration punchOutConfiguration) {
 
 		_commerceChannelId = commerceChannelId;
 		_punchOutConfiguration = punchOutConfiguration;
@@ -41,6 +41,6 @@ public class CommercePunchoutDisplayContext {
 	}
 
 	private final long _commerceChannelId;
-	private final PunchoutConfiguration _punchOutConfiguration;
+	private final PunchOutConfiguration _punchOutConfiguration;
 
 }

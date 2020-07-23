@@ -24,9 +24,9 @@ import com.liferay.portal.kernel.model.User;
 /**
  * @author Jaclyn Ong
  */
-public class PunchoutContext {
+public class PunchOutContext {
 
-	public PunchoutContext(
+	public PunchOutContext(
 		CommerceAccount businessCommerceAccount, Group buyerGroup,
 		User buyerLiferayUser, CommerceChannel commerceChannel,
 		CommerceOrder editCartCommerceOrder, PunchOutSession punchOutSession) {

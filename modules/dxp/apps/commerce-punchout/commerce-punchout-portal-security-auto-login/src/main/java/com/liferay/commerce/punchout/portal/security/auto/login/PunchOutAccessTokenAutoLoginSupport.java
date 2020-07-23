@@ -14,8 +14,8 @@
 
 package com.liferay.commerce.punchout.portal.security.auto.login;
 
-import com.liferay.commerce.punchout.oauth2.provider.PunchoutAccessTokenProvider;
-import com.liferay.commerce.punchout.oauth2.provider.model.PunchoutAccessToken;
+import com.liferay.commerce.punchout.oauth2.provider.PunchOutAccessTokenProvider;
+import com.liferay.commerce.punchout.oauth2.provider.model.PunchOutAccessToken;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
@@ -40,7 +40,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = {"private.auto.login=true", "type=punchout.access.token"},
 	service = AutoLogin.class
 )
-public class PunchoutAccessTokenAutoLoginSupport extends BaseAutoLogin {
+public class PunchOutAccessTokenAutoLoginSupport extends BaseAutoLogin {
 
 	@Override
 	protected String[] doLogin(
@@ -60,7 +60,7 @@ public class PunchoutAccessTokenAutoLoginSupport extends BaseAutoLogin {
 			return null;
 		}
 
-		PunchoutAccessToken punchOutAccessToken =
+		PunchOutAccessToken punchOutAccessToken =
 			_punchOutAccessTokenProvider.getPunchOutAccessToken(
 				punchOutAccessTokenFromParam);
 
@@ -126,12 +126,12 @@ public class PunchoutAccessTokenAutoLoginSupport extends BaseAutoLogin {
 		"punchOutAccessToken";
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		PunchoutAccessTokenAutoLoginSupport.class);
+		PunchOutAccessTokenAutoLoginSupport.class);
 
 	private Portal _portal;
 
 	@Reference
-	private PunchoutAccessTokenProvider _punchOutAccessTokenProvider;
+	private PunchOutAccessTokenProvider _punchOutAccessTokenProvider;
 
 	private UserLocalService _userLocalService;
 

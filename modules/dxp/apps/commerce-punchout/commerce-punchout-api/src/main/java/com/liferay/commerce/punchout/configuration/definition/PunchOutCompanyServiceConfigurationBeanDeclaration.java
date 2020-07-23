@@ -12,14 +12,23 @@
  *
  */
 
-package com.liferay.commerce.punchout.portal.security.auto.login.internal.constants;
+package com.liferay.commerce.punchout.configuration.definition;
+
+import com.liferay.commerce.punchout.configuration.PunchOutConfiguration;
+import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Jaclyn Ong
  */
-public class PunchoutAutoLoginConstants {
+@Component(service = ConfigurationBeanDeclaration.class)
+public class PunchOutCompanyServiceConfigurationBeanDeclaration
+	implements ConfigurationBeanDeclaration {
 
-	public static final String SERVICE_NAME =
-		"com.liferay.portal.security.auto.login.punchout";
+	@Override
+	public Class<?> getConfigurationBeanClass() {
+		return PunchOutConfiguration.class;
+	}
 
 }

@@ -19,7 +19,7 @@ import com.liferay.commerce.model.CommerceOrder;
 /**
  * @author Jaclyn Ong
  */
-public interface PunchoutReturnService {
+public interface PunchOutReturnService {
 
 	public String returnToPunchOutVendor(
 			CommerceOrder commerceOrder, String url)

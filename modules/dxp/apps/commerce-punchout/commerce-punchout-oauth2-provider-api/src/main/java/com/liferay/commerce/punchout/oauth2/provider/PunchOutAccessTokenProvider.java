@@ -14,22 +14,22 @@
 
 package com.liferay.commerce.punchout.oauth2.provider;
 
-import com.liferay.commerce.punchout.oauth2.provider.model.PunchoutAccessToken;
+import com.liferay.commerce.punchout.oauth2.provider.model.PunchOutAccessToken;
 
 import java.util.HashMap;
 
 /**
  * @author Jaclyn Ong
  */
-public interface PunchoutAccessTokenProvider {
+public interface PunchOutAccessTokenProvider {
 
-	public PunchoutAccessToken generatePunchOutAccessToken(
+	public PunchOutAccessToken generatePunchOutAccessToken(
 		long groupId, long commerceAccountId, String currencyCode,
 		String userEmailAddress, String commerceOrderUuid,
 		HashMap<String, Object> punchOutSessionAttributes);
 
-	public PunchoutAccessToken getPunchOutAccessToken(String token);
+	public PunchOutAccessToken getPunchOutAccessToken(String token);
 
-	public PunchoutAccessToken removePunchOutAccessToken(String token);
+	public PunchOutAccessToken removePunchOutAccessToken(String token);
 
 }

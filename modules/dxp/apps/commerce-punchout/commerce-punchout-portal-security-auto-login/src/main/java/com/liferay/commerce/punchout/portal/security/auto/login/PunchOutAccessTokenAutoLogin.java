@@ -14,8 +14,8 @@
 
 package com.liferay.commerce.punchout.portal.security.auto.login;
 
-import com.liferay.commerce.punchout.portal.security.auto.login.internal.constants.PunchoutAutoLoginConstants;
-import com.liferay.commerce.punchout.portal.security.auto.login.module.configuration.PunchoutAccessTokenAutoLoginConfiguration;
+import com.liferay.commerce.punchout.portal.security.auto.login.internal.constants.PunchOutAutoLoginConstants;
+import com.liferay.commerce.punchout.portal.security.auto.login.module.configuration.PunchOutAccessTokenAutoLoginConfiguration;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
@@ -38,7 +38,7 @@ import org.osgi.service.component.annotations.Reference;
 	configurationPid = "com.liferay.commerce.punchout.portal.security.auto.login.module.configuration.PunchOutAccessTokenAutoLoginConfiguration",
 	immediate = true, service = AutoLogin.class
 )
-public class PunchoutAccessTokenAutoLogin extends BaseAutoLogin {
+public class PunchOutAccessTokenAutoLogin extends BaseAutoLogin {
 
 	@Override
 	protected String[] doLogin(
@@ -55,7 +55,7 @@ public class PunchoutAccessTokenAutoLogin extends BaseAutoLogin {
 	}
 
 	protected boolean isEnabled(long companyId) {
-		PunchoutAccessTokenAutoLoginConfiguration
+		PunchOutAccessTokenAutoLoginConfiguration
 			punchOutAccessTokenAutoLoginConfiguration =
 				_getPunchOutAccessTokenAutoLoginConfiguration(companyId);
 
@@ -84,14 +84,14 @@ public class PunchoutAccessTokenAutoLogin extends BaseAutoLogin {
 		_portal = portal;
 	}
 
-	private PunchoutAccessTokenAutoLoginConfiguration
+	private PunchOutAccessTokenAutoLoginConfiguration
 	_getPunchOutAccessTokenAutoLoginConfiguration(long companyId) {
 
 		try {
 			return _configurationProvider.getConfiguration(
-				PunchoutAccessTokenAutoLoginConfiguration.class,
+				PunchOutAccessTokenAutoLoginConfiguration.class,
 				new CompanyServiceSettingsLocator(
-					companyId, PunchoutAutoLoginConstants.SERVICE_NAME));
+					companyId, PunchOutAutoLoginConstants.SERVICE_NAME));
 		}
 		catch (ConfigurationException ce) {
 			_log.error(
@@ -103,7 +103,7 @@ public class PunchoutAccessTokenAutoLogin extends BaseAutoLogin {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		PunchoutAccessTokenAutoLogin.class);
+		PunchOutAccessTokenAutoLogin.class);
 
 	@Reference(
 		target = "(&(private.auto.login=true)(type=punchout.access.token))"

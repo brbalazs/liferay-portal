@@ -19,7 +19,7 @@ import java.util.HashMap;
 /**
  * @author Jaclyn Ong
  */
-public class PunchoutAccessToken {
+public class PunchOutAccessToken {
 
 	public long getCommerceAccountId() {
 		return _commerceAccountId;

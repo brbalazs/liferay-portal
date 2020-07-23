@@ -28,7 +28,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 	id = "com.liferay.commerce.punchout.configuration.PunchOutConfiguration",
 	localization = "content/Language", name = "punch-out-configuration-name"
 )
-public interface PunchoutConfiguration {
+public interface PunchOutConfiguration {
 
 	@Meta.AD(deflt = "false", name = "enabled", required = false)
 	public boolean enabled();

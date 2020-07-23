@@ -12,13 +12,10 @@
  *
  */
 
-package com.liferay.commerce.punchout.configuration.definition;
+package com.liferay.commerce.punchout.portal.security.auto.login.module.configuration.definition;
 
-<<<<<<< HEAD:modules/dxp/apps/commerce-punchout/commerce-punchout-api/src/main/java/com/liferay/commerce/punchout/configuration/definition/PunchoutCompanyServiceConfigurationPidMapping.java
-import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
-=======
->>>>>>> COMMERCE-4113 SF:modules/dxp/apps/commerce-punchout/commerce-punchout-service/src/main/java/com/liferay/commerce/punchout/configuration/PunchoutCompanyServiceConfigurationPidMapping.java
-import com.liferay.commerce.punchout.constants.PunchoutConstants;
+import com.liferay.commerce.punchout.portal.security.auto.login.internal.constants.PunchOutAutoLoginConstants;
+import com.liferay.commerce.punchout.portal.security.auto.login.module.configuration.PunchOutAccessTokenAutoLoginConfiguration;
 import com.liferay.portal.kernel.settings.definition.ConfigurationPidMapping;
 
 import org.osgi.service.component.annotations.Component;
@@ -27,17 +24,17 @@ import org.osgi.service.component.annotations.Component;
  * @author Jaclyn Ong
  */
 @Component(service = ConfigurationPidMapping.class)
-public class PunchoutCompanyServiceConfigurationPidMapping
+public class PunchOutAccessTokenAutoLoginCompanyServiceConfigurationPidMapping
 	implements ConfigurationPidMapping {
 
 	@Override
 	public Class<?> getConfigurationBeanClass() {
-		return PunchoutConfiguration.class;
+		return PunchOutAccessTokenAutoLoginConfiguration.class;
 	}
 
 	@Override
 	public String getConfigurationPid() {
-		return PunchoutConstants.SERVICE_NAME;
+		return PunchOutAutoLoginConstants.SERVICE_NAME;
 	}
 
 }

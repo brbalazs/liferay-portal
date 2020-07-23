@@ -19,9 +19,9 @@ import java.util.HashMap;
 /**
  * @author Jaclyn Ong
  */
-public interface PunchoutSessionContributor {
+public interface PunchOutSessionContributor {
 
 	public HashMap<String, Object> getPunchOutSessionAttributes(
-		PunchoutContext punchOutContext);
+		PunchOutContext punchOutContext);
 
 }

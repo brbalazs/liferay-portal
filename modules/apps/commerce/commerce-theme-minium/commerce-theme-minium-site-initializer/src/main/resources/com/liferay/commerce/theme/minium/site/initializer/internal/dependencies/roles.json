@@ -150,7 +150,7 @@
 				"resource": "com.liferay.commerce.order"
 			}
 		],
-		"name": "Punchout",
+		"name": "Punch Out",
 		"scope": 3,
 		"type": 2
 	}

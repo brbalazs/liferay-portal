@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.punchout.portal.security.auto.login.module.configuration.definition;
 
-import com.liferay.commerce.punchout.portal.security.auto.login.module.configuration.PunchoutAccessTokenAutoLoginConfiguration;
+import com.liferay.commerce.punchout.portal.security.auto.login.module.configuration.PunchOutAccessTokenAutoLoginConfiguration;
 import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
 
 import org.osgi.service.component.annotations.Component;
@@ -24,12 +24,12 @@ import org.osgi.service.component.annotations.Component;
  */
 @Component(service = ConfigurationBeanDeclaration.class)
 public class
-	PunchoutAccessTokenAutoLoginCompanyServiceConfigurationBeanDeclaration
+PunchOutAccessTokenAutoLoginCompanyServiceConfigurationBeanDeclaration
 		implements ConfigurationBeanDeclaration {
 
 	@Override
 	public Class<?> getConfigurationBeanClass() {
-		return PunchoutAccessTokenAutoLoginConfiguration.class;
+		return PunchOutAccessTokenAutoLoginConfiguration.class;
 	}
 
 }

@@ -16,9 +16,9 @@ package com.liferay.commerce.punchout.web.checkout;
 
 import com.liferay.commerce.constants.CommerceCheckoutWebKeys;
 import com.liferay.commerce.model.CommerceOrder;
-import com.liferay.commerce.punchout.constants.PunchoutConstants;
-import com.liferay.commerce.punchout.service.PunchoutReturnService;
-import com.liferay.commerce.punchout.web.internal.helper.PunchoutSessionHelper;
+import com.liferay.commerce.punchout.constants.PunchOutConstants;
+import com.liferay.commerce.punchout.service.PunchOutReturnService;
+import com.liferay.commerce.punchout.web.internal.helper.PunchOutSessionHelper;
 import com.liferay.commerce.util.BaseCommerceCheckoutStep;
 import com.liferay.commerce.util.CommerceCheckoutStep;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
@@ -44,12 +44,12 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.checkout.step.name=" + PunchoutCommerceCheckoutStep.NAME,
+		"commerce.checkout.step.name=" + PunchOutCommerceCheckoutStep.NAME,
 		"commerce.checkout.step.order:Integer=" + Integer.MIN_VALUE
 	},
 	service = CommerceCheckoutStep.class
 )
-public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
+public class PunchOutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
 	public static final String NAME = "punch-out";
 
@@ -128,11 +128,11 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 		HttpSession httpSession = originalHttpServletRequest.getSession();
 
 		httpSession.setAttribute(
-			PunchoutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME,
+			PunchOutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME,
 			punchOutRedirectURL);
 
 		httpServletRequest.setAttribute(
-			PunchoutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME,
+			PunchOutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME,
 			punchOutRedirectURL);
 
 		_jspRenderer.renderJSP(
@@ -149,7 +149,7 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		PunchoutCommerceCheckoutStep.class);
+		PunchOutCommerceCheckoutStep.class);
 
 	@Reference
 	private JSPRenderer _jspRenderer;
@@ -158,10 +158,10 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 	private Portal _portal;
 
 	@Reference
-	private PunchoutReturnService _punchOutReturnService;
+	private PunchOutReturnService _punchOutReturnService;
 
 	@Reference
-	private PunchoutSessionHelper _punchOutSessionHelper;
+	private PunchOutSessionHelper _punchOutSessionHelper;
 
 	@Reference(
 		target = "(osgi.web.symbolicname=com.liferay.commerce.punchout.web)"

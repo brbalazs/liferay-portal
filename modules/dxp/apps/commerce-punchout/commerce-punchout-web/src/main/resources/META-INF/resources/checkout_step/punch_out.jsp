@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String redirectURL = (String)request.getAttribute(PunchoutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME);
+String redirectURL = (String)request.getAttribute(PunchOutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME);
 String signOutURL = themeDisplay.getURLSignOut();
 %>
 

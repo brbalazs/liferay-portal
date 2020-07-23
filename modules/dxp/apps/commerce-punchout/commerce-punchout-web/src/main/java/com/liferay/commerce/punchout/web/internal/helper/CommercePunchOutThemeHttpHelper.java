@@ -22,8 +22,8 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Jaclyn Ong
  */
-@Component(immediate = true, service = CommercePunchoutThemeHttpHelper.class)
-public class CommercePunchoutThemeHttpHelper {
+@Component(immediate = true, service = CommercePunchOutThemeHttpHelper.class)
+public class CommercePunchOutThemeHttpHelper {
 
 	public boolean punchOutSession(HttpServletRequest httpServletRequest) {
 		if (_punchOutSessionHelper.punchOutEnabled(httpServletRequest) &&
@@ -36,6 +36,6 @@ public class CommercePunchoutThemeHttpHelper {
 	}
 
 	@Reference
-	private PunchoutSessionHelper _punchOutSessionHelper;
+	private PunchOutSessionHelper _punchOutSessionHelper;
 
 }

@@ -27,7 +27,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 	localization = "content/Language",
 	name = "punch-out-access-token-provider-configuration-name"
 )
-public interface PunchoutAccessTokenProviderConfiguration {
+public interface PunchOutAccessTokenProviderConfiguration {
 
 	@Meta.AD(
 		deflt = "15", description = "access-token-duration-description",
