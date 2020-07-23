@@ -23,6 +23,10 @@ import java.util.List;
  */
 public class AssetEntriesSearchFacetDisplayContext implements Serializable {
 
+	public String getPaginationStartParameterName() {
+		return _paginationStartParameterName;
+	}
+
 	public String getParameterName() {
 		return _parameterName;
 	}
@@ -53,6 +57,12 @@ public class AssetEntriesSearchFacetDisplayContext implements Serializable {
 		_nothingSelected = nothingSelected;
 	}
 
+	public void setPaginationStartParameterName(
+		String paginationStartParameterName) {
+
+		_paginationStartParameterName = paginationStartParameterName;
+	}
+
 	public void setParameterName(String parameterName) {
 		_parameterName = parameterName;
 	}
@@ -80,6 +90,7 @@ public class AssetEntriesSearchFacetDisplayContext implements Serializable {
 	private List<AssetEntriesSearchFacetTermDisplayContext>
 		_assetEntriesSearchFacetTermDisplayContext;
 	private boolean _nothingSelected;
+	private String _paginationStartParameterName;
 	private String _parameterName;
 	private String _parameterValue;
 	private List<String> _parameterValues;
