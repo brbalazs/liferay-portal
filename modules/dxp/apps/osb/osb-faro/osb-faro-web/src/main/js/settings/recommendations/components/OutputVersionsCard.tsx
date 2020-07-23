@@ -39,7 +39,7 @@ const getContextItemCount = (contextItemKey: string) => (
 	const contextItem = context.find(({key}) => key === contextItemKey);
 
 	if (contextItem) {
-		return Number(contextItem.value as number).toLocaleString();
+		return Number(contextItem.value).toLocaleString();
 	}
 
 	return '0';
