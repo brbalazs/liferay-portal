@@ -104,7 +104,10 @@ contextParams.put("commerceChannelId", String.valueOf(commerceChannel.getCommerc
 
 				<aui:input checked="<%= commerceChannelDisplayContext.isGuestCheckoutEnabled() %>" helpMessage="configures-whether-a-guest-may-checkout-by-providing-an-email-address-or-if-they-must-sign-in" label="guest-checkout" labelOff="disabled" labelOn="enabled" name="settings--guestCheckoutEnabled--" type="toggle-switch" />
 
-				<aui:input label="maximum-number-of-open-orders-per-account" name="orderSettings--accountCartMaxAllowed--" type="number" value="<%= commerceChannelDisplayContext.getAccountCartMaxAllowed() %>" />
+				<aui:input label="maximum-number-of-open-orders-per-account" name="orderSettings--accountCartMaxAllowed--" type="number" value="<%= commerceChannelDisplayContext.getAccountCartMaxAllowed() %>">
+					<aui:validator name="number" />
+					<aui:validator name="min">0</aui:validator>
+				</aui:input>
 			</commerce-ui:panel>
 		</div>
 
@@ -232,8 +235,7 @@ if (shippingTaxCategory != null) {
 
 <aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
 	autocomplete.default('autocomplete', 'autocomplete-root', {
-		apiUrl:
-			'/o/headless-commerce-admin-channel/v1.0/tax-categories',
+		apiUrl: '/o/headless-commerce-admin-channel/v1.0/tax-categories',
 		initialLabel: '<%= shippingTaxCategoryLabel %>',
 		initialValue: '<%= shippingTaxCategoryId %>',
 		inputId: 'shippingTaxCategoryId',

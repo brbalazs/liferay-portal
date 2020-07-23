@@ -120,7 +120,14 @@ public class CommerceChannelDisplayContext
 		CommerceOrderFieldsConfiguration commerceOrderFieldsConfiguration =
 			getCommerceOrderFieldsConfiguration();
 
-		return commerceOrderFieldsConfiguration.accountCartMaxAllowed();
+		int maxAllowed =
+			commerceOrderFieldsConfiguration.accountCartMaxAllowed();
+
+		if (maxAllowed < 0) {
+			return 0;
+		}
+
+		return maxAllowed;
 	}
 
 	public CPTaxCategory getActiveShippingTaxCategory() throws PortalException {
