@@ -22,7 +22,7 @@ import com.liferay.portal.kernel.exception.PortalException;
  */
 public class SchedulerException extends PortalException {
 
-	public static final int INVALID_START_DATE = 1;
+	public static final int TYPE_INVALID_START_DATE = 1;
 
 	public SchedulerException() {
 	}
