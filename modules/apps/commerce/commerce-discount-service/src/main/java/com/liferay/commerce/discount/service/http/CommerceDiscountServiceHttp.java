@@ -807,6 +807,50 @@ public class CommerceDiscountServiceHttp {
 	}
 
 	public static com.liferay.commerce.discount.model.CommerceDiscount
+			updateCommerceDiscountExternalReferenceCode(
+				HttpPrincipal httpPrincipal, long commerceDiscountId,
+				String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceDiscountServiceUtil.class,
+				"updateCommerceDiscountExternalReferenceCode",
+				_updateCommerceDiscountExternalReferenceCodeParameterTypes15);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceDiscountId, externalReferenceCode);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.commerce.discount.model.CommerceDiscount)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.commerce.discount.model.CommerceDiscount
 			upsertCommerceDiscount(
 				HttpPrincipal httpPrincipal, long userId,
 				long commerceDiscountId, String title, String target,
@@ -827,7 +871,7 @@ public class CommerceDiscountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountServiceUtil.class, "upsertCommerceDiscount",
-				_upsertCommerceDiscountParameterTypes15);
+				_upsertCommerceDiscountParameterTypes16);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, userId, commerceDiscountId, title, target,
@@ -889,7 +933,7 @@ public class CommerceDiscountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountServiceUtil.class, "upsertCommerceDiscount",
-				_upsertCommerceDiscountParameterTypes16);
+				_upsertCommerceDiscountParameterTypes17);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, userId, commerceDiscountId, title, target,
@@ -952,7 +996,7 @@ public class CommerceDiscountServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountServiceUtil.class, "upsertCommerceDiscount",
-				_upsertCommerceDiscountParameterTypes17);
+				_upsertCommerceDiscountParameterTypes18);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, userId, commerceDiscountId, title, target,
@@ -1090,7 +1134,10 @@ public class CommerceDiscountServiceHttp {
 			int.class, int.class, int.class, int.class, boolean.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _upsertCommerceDiscountParameterTypes15 =
+	private static final Class<?>[]
+		_updateCommerceDiscountExternalReferenceCodeParameterTypes15 =
+			new Class[] {long.class, String.class};
+	private static final Class<?>[] _upsertCommerceDiscountParameterTypes16 =
 		new Class[] {
 			long.class, long.class, String.class, String.class, boolean.class,
 			String.class, boolean.class, java.math.BigDecimal.class,
@@ -1101,7 +1148,7 @@ public class CommerceDiscountServiceHttp {
 			int.class, int.class, String.class, boolean.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _upsertCommerceDiscountParameterTypes16 =
+	private static final Class<?>[] _upsertCommerceDiscountParameterTypes17 =
 		new Class[] {
 			long.class, long.class, String.class, String.class, boolean.class,
 			String.class, boolean.class, java.math.BigDecimal.class,
@@ -1113,7 +1160,7 @@ public class CommerceDiscountServiceHttp {
 			String.class, boolean.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _upsertCommerceDiscountParameterTypes17 =
+	private static final Class<?>[] _upsertCommerceDiscountParameterTypes18 =
 		new Class[] {
 			long.class, long.class, String.class, String.class, boolean.class,
 			String.class, boolean.class, java.math.BigDecimal.class,

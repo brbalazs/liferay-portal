@@ -452,6 +452,27 @@ public class CommerceDiscountServiceSoap {
 	}
 
 	public static com.liferay.commerce.discount.model.CommerceDiscountSoap
+			updateCommerceDiscountExternalReferenceCode(
+				long commerceDiscountId, String externalReferenceCode)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.discount.model.CommerceDiscount returnValue =
+				CommerceDiscountServiceUtil.
+					updateCommerceDiscountExternalReferenceCode(
+						commerceDiscountId, externalReferenceCode);
+
+			return com.liferay.commerce.discount.model.CommerceDiscountSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.discount.model.CommerceDiscountSoap
 			upsertCommerceDiscount(
 				long userId, long commerceDiscountId, String title,
 				String target, boolean useCouponCode, String couponCode,

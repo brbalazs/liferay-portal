@@ -82,10 +82,6 @@ public abstract class
 	/**
 	 * Adds the commerce discount commerce account group rel to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountCommerceAccountGroupRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commerceDiscountCommerceAccountGroupRel the commerce discount commerce account group rel
 	 * @return the commerce discount commerce account group rel that was added
 	 */
@@ -121,10 +117,6 @@ public abstract class
 	/**
 	 * Deletes the commerce discount commerce account group rel with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountCommerceAccountGroupRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commerceDiscountCommerceAccountGroupRelId the primary key of the commerce discount commerce account group rel
 	 * @return the commerce discount commerce account group rel that was removed
 	 * @throws PortalException if a commerce discount commerce account group rel with the primary key could not be found
@@ -142,10 +134,6 @@ public abstract class
 
 	/**
 	 * Deletes the commerce discount commerce account group rel from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountCommerceAccountGroupRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commerceDiscountCommerceAccountGroupRel the commerce discount commerce account group rel
 	 * @return the commerce discount commerce account group rel that was removed
@@ -386,10 +374,6 @@ public abstract class
 
 	/**
 	 * Updates the commerce discount commerce account group rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountCommerceAccountGroupRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commerceDiscountCommerceAccountGroupRel the commerce discount commerce account group rel
 	 * @return the commerce discount commerce account group rel that was updated

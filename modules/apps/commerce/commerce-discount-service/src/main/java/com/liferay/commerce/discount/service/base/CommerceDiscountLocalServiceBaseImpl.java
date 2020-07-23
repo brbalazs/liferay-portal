@@ -96,10 +96,6 @@ public abstract class CommerceDiscountLocalServiceBaseImpl
 	/**
 	 * Adds the commerce discount to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commerceDiscount the commerce discount
 	 * @return the commerce discount that was added
 	 */
@@ -128,10 +124,6 @@ public abstract class CommerceDiscountLocalServiceBaseImpl
 	/**
 	 * Deletes the commerce discount with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commerceDiscountId the primary key of the commerce discount
 	 * @return the commerce discount that was removed
 	 * @throws PortalException if a commerce discount with the primary key could not be found
@@ -146,10 +138,6 @@ public abstract class CommerceDiscountLocalServiceBaseImpl
 
 	/**
 	 * Deletes the commerce discount from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commerceDiscount the commerce discount
 	 * @return the commerce discount that was removed
@@ -516,10 +504,6 @@ public abstract class CommerceDiscountLocalServiceBaseImpl
 
 	/**
 	 * Updates the commerce discount in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commerceDiscount the commerce discount
 	 * @return the commerce discount that was updated

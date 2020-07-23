@@ -205,6 +205,10 @@ public interface CommerceDiscountService extends BaseService {
 			ServiceContext serviceContext)
 		throws PortalException;
 
+	public CommerceDiscount updateCommerceDiscountExternalReferenceCode(
+			long commerceDiscountId, String externalReferenceCode)
+		throws PortalException;
+
 	public CommerceDiscount upsertCommerceDiscount(
 			long userId, long commerceDiscountId, String title, String target,
 			boolean useCouponCode, String couponCode, boolean usePercentage,

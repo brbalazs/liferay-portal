@@ -41,10 +41,6 @@ public class CommerceDiscountLocalServiceUtil {
 	/**
 	 * Adds the commerce discount to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commerceDiscount the commerce discount
 	 * @return the commerce discount that was added
 	 */
@@ -186,10 +182,6 @@ public class CommerceDiscountLocalServiceUtil {
 	/**
 	 * Deletes the commerce discount from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commerceDiscount the commerce discount
 	 * @return the commerce discount that was removed
 	 * @throws PortalException
@@ -205,10 +197,6 @@ public class CommerceDiscountLocalServiceUtil {
 
 	/**
 	 * Deletes the commerce discount with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commerceDiscountId the primary key of the commerce discount
 	 * @return the commerce discount that was removed
@@ -672,10 +660,6 @@ public class CommerceDiscountLocalServiceUtil {
 	/**
 	 * Updates the commerce discount in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commerceDiscount the commerce discount
 	 * @return the commerce discount that was updated
 	 */
@@ -766,6 +750,15 @@ public class CommerceDiscountLocalServiceUtil {
 			expirationDateMonth, expirationDateDay, expirationDateYear,
 			expirationDateHour, expirationDateMinute, neverExpire,
 			serviceContext);
+	}
+
+	public static com.liferay.commerce.discount.model.CommerceDiscount
+			updateCommerceDiscountExternalReferenceCode(
+				long commerceDiscountId, String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCommerceDiscountExternalReferenceCode(
+			commerceDiscountId, externalReferenceCode);
 	}
 
 	public static com.liferay.commerce.discount.model.CommerceDiscount

@@ -305,6 +305,17 @@ public class CommerceDiscountServiceWrapper
 
 	@Override
 	public com.liferay.commerce.discount.model.CommerceDiscount
+			updateCommerceDiscountExternalReferenceCode(
+				long commerceDiscountId, String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceDiscountService.
+			updateCommerceDiscountExternalReferenceCode(
+				commerceDiscountId, externalReferenceCode);
+	}
+
+	@Override
+	public com.liferay.commerce.discount.model.CommerceDiscount
 			upsertCommerceDiscount(
 				long userId, long commerceDiscountId, String title,
 				String target, boolean useCouponCode, String couponCode,

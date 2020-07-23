@@ -292,6 +292,15 @@ public class CommerceDiscountServiceUtil {
 	}
 
 	public static com.liferay.commerce.discount.model.CommerceDiscount
+			updateCommerceDiscountExternalReferenceCode(
+				long commerceDiscountId, String externalReferenceCode)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().updateCommerceDiscountExternalReferenceCode(
+			commerceDiscountId, externalReferenceCode);
+	}
+
+	public static com.liferay.commerce.discount.model.CommerceDiscount
 			upsertCommerceDiscount(
 				long userId, long commerceDiscountId, String title,
 				String target, boolean useCouponCode, String couponCode,

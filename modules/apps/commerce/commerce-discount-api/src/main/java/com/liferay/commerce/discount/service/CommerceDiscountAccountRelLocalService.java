@@ -67,10 +67,6 @@ public interface CommerceDiscountAccountRelLocalService
 	/**
 	 * Adds the commerce discount account rel to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountAccountRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commerceDiscountAccountRel the commerce discount account rel
 	 * @return the commerce discount account rel that was added
 	 */
@@ -96,10 +92,6 @@ public interface CommerceDiscountAccountRelLocalService
 	/**
 	 * Deletes the commerce discount account rel from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountAccountRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commerceDiscountAccountRel the commerce discount account rel
 	 * @return the commerce discount account rel that was removed
 	 */
@@ -109,10 +101,6 @@ public interface CommerceDiscountAccountRelLocalService
 
 	/**
 	 * Deletes the commerce discount account rel with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountAccountRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commerceDiscountAccountRelId the primary key of the commerce discount account rel
 	 * @return the commerce discount account rel that was removed
@@ -306,10 +294,6 @@ public interface CommerceDiscountAccountRelLocalService
 
 	/**
 	 * Updates the commerce discount account rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommerceDiscountAccountRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commerceDiscountAccountRel the commerce discount account rel
 	 * @return the commerce discount account rel that was updated
