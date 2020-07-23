@@ -21,11 +21,11 @@
 		<liferay-ui:error exception="<%= SchedulerException.class %>">
 
 			<%
-			SchedulerException se = (SchedulerException)errorException;
+			SchedulerException schedulerException = (SchedulerException)errorException;
 			%>
 
 			<c:choose>
-				<c:when test="<%= se.getType() == SchedulerException.TYPE_INVALID_START_DATE %>">
+				<c:when test="<%= schedulerException.getType() == SchedulerException.TYPE_INVALID_START_DATE %>">
 					<liferay-ui:message key="a-wrong-start-date-was-specified-the-scheduled-process-can-not-start-in-the-past" />
 				</c:when>
 				<c:otherwise>
