@@ -47,6 +47,8 @@ public class ScopeSearchFacetDisplayBuilder {
 			new ScopeSearchFacetDisplayContext();
 
 		scopeSearchFacetDisplayContext.setNothingSelected(isNothingSelected());
+		scopeSearchFacetDisplayContext.setPaginationStartParameterName(
+			_paginationStartParameterName);
 		scopeSearchFacetDisplayContext.setParameterName(_parameterName);
 		scopeSearchFacetDisplayContext.setParameterValue(
 			getFirstParameterValueString());
@@ -89,6 +91,12 @@ public class ScopeSearchFacetDisplayBuilder {
 
 	public void setMaxTerms(int maxTerms) {
 		_maxTerms = maxTerms;
+	}
+
+	public void setPaginationStartParameterName(
+		String paginationStartParameterName) {
+
+		_paginationStartParameterName = paginationStartParameterName;
 	}
 
 	public void setParameterName(String parameterName) {
@@ -303,6 +311,7 @@ public class ScopeSearchFacetDisplayBuilder {
 	private Language _language;
 	private Locale _locale;
 	private int _maxTerms;
+	private String _paginationStartParameterName;
 	private String _parameterName;
 	private List<Long> _selectedGroupIds = Collections.emptyList();
 	private boolean _showCounts;
