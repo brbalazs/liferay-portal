@@ -72,6 +72,8 @@ public class ModifiedFacetDisplayBuilder implements Serializable {
 		modifiedFacetDisplayContext.setModifiedFacetTermDisplayContexts(
 			buildTermDisplayContexts());
 		modifiedFacetDisplayContext.setNothingSelected(isNothingSelected());
+		modifiedFacetDisplayContext.setPaginationStartParameterName(
+			_paginationStartParameterName);
 		modifiedFacetDisplayContext.setParameterName(_parameterName);
 		modifiedFacetDisplayContext.setRenderNothing(isRenderNothing());
 
@@ -92,6 +94,12 @@ public class ModifiedFacetDisplayBuilder implements Serializable {
 
 	public void setLocale(Locale locale) {
 		_locale = locale;
+	}
+
+	public void setPaginationStartParameterName(
+		String paginationStartParameterName) {
+
+		_paginationStartParameterName = paginationStartParameterName;
 	}
 
 	public void setParameterName(String parameterName) {
@@ -234,6 +242,9 @@ public class ModifiedFacetDisplayBuilder implements Serializable {
 
 		String rangeURL = _http.removeParameter(_currentURL, "modified");
 
+		rangeURL = _http.removeParameter(
+			rangeURL, _paginationStartParameterName);
+
 		rangeURL = _http.setParameter(rangeURL, "modifiedFrom", from);
 
 		return _http.setParameter(rangeURL, "modifiedTo", to);
@@ -251,6 +262,9 @@ public class ModifiedFacetDisplayBuilder implements Serializable {
 		String rangeURL = _http.removeParameter(_currentURL, "modifiedFrom");
 
 		rangeURL = _http.removeParameter(rangeURL, "modifiedTo");
+
+		rangeURL = _http.removeParameter(
+			rangeURL, _paginationStartParameterName);
 
 		return _http.setParameter(rangeURL, "modified", label);
 	}
@@ -309,6 +323,7 @@ public class ModifiedFacetDisplayBuilder implements Serializable {
 	private String _from;
 	private final Http _http;
 	private Locale _locale;
+	private String _paginationStartParameterName;
 	private String _parameterName;
 	private List<String> _selectedRanges = Collections.emptyList();
 	private TimeZone _timeZone;
