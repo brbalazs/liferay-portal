@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.search.facet.Facet;
 import com.liferay.portal.kernel.search.facet.SimpleFacet;
 import com.liferay.portal.kernel.search.facet.config.FacetConfiguration;
 import com.liferay.portal.kernel.search.filter.BooleanFilter;
@@ -43,6 +42,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.vulcan.aggregation.Aggregation;
+import com.liferay.portal.vulcan.aggregation.Facet;
 import com.liferay.portal.vulcan.aggregation.FacetUtil;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -190,7 +190,8 @@ public class SearchUtil {
 			Map<String, String> terms = aggregation.getTerms();
 
 			for (Map.Entry<String, String> entry : terms.entrySet()) {
-				Facet facet = new SimpleFacet(this);
+				com.liferay.portal.kernel.search.facet.Facet facet =
+					new SimpleFacet(this);
 
 				facet.setFieldName(entry.getValue());
 
@@ -277,10 +278,9 @@ public class SearchUtil {
 			booleanQuery, BooleanClauseOccur.MUST.getName());
 	}
 
-	private static List<com.liferay.portal.vulcan.aggregation.Facet> _getFacets(
-		SearchContext searchContext) {
-
-		Map<String, Facet> facets = searchContext.getFacets();
+	private static List<Facet> _getFacets(SearchContext searchContext) {
+		Map<String, com.liferay.portal.kernel.search.facet.Facet> facets =
+			searchContext.getFacets();
 
 		return TransformUtil.transform(facets.values(), FacetUtil::toFacet);
 	}
