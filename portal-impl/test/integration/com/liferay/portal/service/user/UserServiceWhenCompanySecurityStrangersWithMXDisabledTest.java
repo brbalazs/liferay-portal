@@ -70,16 +70,7 @@ public class UserServiceWhenCompanySecurityStrangersWithMXDisabledTest {
 				PropsKeys.COMPANY_SECURITY_STRANGERS_WITH_MX,
 				Boolean.FALSE.toString());
 
-			User user = UserTestUtil.addUser(false);
-
-			PrincipalThreadLocal.setName(user.getUserId());
-
-			String emailAddress =
-				"UserServiceTest." + RandomTestUtil.nextLong() + "@liferay.com";
-
-			UserServiceUtil.updateEmailAddress(
-				user.getUserId(), user.getPassword(), emailAddress,
-				emailAddress, new ServiceContext());
+			_updateEmailAddress();
 		}
 		finally {
 			PrincipalThreadLocal.setName(name);
@@ -97,15 +88,76 @@ public class UserServiceWhenCompanySecurityStrangersWithMXDisabledTest {
 				PropsKeys.COMPANY_SECURITY_STRANGERS_WITH_MX,
 				Boolean.FALSE.toString());
 
-			PrincipalThreadLocal.setName(user.getUserId());
-
-			UserTestUtil.updateUser(user);
+			_updateUser();
 		}
 		finally {
 			PrincipalThreadLocal.setName(name);
 
 			UserLocalServiceUtil.deleteUser(user);
 		}
+	}
+
+	@Test
+	public void testShouldUpdateEmailAddress() throws Exception {
+		String name = PrincipalThreadLocal.getName();
+
+		String companySecurityStrangers = PropsUtil.get(
+			PropsKeys.COMPANY_SECURITY_STRANGERS);
+
+		PropsUtil.set(
+			PropsKeys.COMPANY_SECURITY_STRANGERS, Boolean.FALSE.toString());
+
+		try {
+			_updateEmailAddress();
+		}
+		finally {
+			PrincipalThreadLocal.setName(name);
+
+			PropsUtil.set(
+				PropsKeys.COMPANY_SECURITY_STRANGERS, companySecurityStrangers);
+		}
+	}
+
+	@Test
+	public void testShouldUpdateUser() throws Exception {
+		String name = PrincipalThreadLocal.getName();
+
+		String companySecurityStrangers = PropsUtil.get(
+			PropsKeys.COMPANY_SECURITY_STRANGERS);
+
+		PropsUtil.set(
+			PropsKeys.COMPANY_SECURITY_STRANGERS, Boolean.FALSE.toString());
+
+		try {
+			_updateUser();
+		}
+		finally {
+			PrincipalThreadLocal.setName(name);
+
+			PropsUtil.set(
+				PropsKeys.COMPANY_SECURITY_STRANGERS, companySecurityStrangers);
+		}
+	}
+
+	private void _updateEmailAddress() throws Exception {
+		User user = UserTestUtil.addUser(false);
+
+		PrincipalThreadLocal.setName(user.getUserId());
+
+		String emailAddress =
+			"UserServiceTest." + RandomTestUtil.nextLong() + "@liferay.com";
+
+		UserServiceUtil.updateEmailAddress(
+			user.getUserId(), user.getPassword(), emailAddress, emailAddress,
+			new ServiceContext());
+	}
+
+	private void _updateUser() throws Exception {
+		User user = UserTestUtil.addUser(false);
+
+		PrincipalThreadLocal.setName(user.getUserId());
+
+		UserTestUtil.updateUser(user);
 	}
 
 }
