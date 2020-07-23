@@ -17,8 +17,8 @@ package com.liferay.portal.vulcan.aggregation;
 import com.liferay.portal.kernel.search.facet.collector.FacetCollector;
 import com.liferay.portal.kernel.search.facet.collector.TermCollector;
 import com.liferay.portal.kernel.search.facet.config.FacetConfiguration;
+import com.liferay.portal.vulcan.util.TransformUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,23 +37,24 @@ public class FacetUtil {
 			return null;
 		}
 
-		List<Facet.FacetValue> facetValues = new ArrayList<>();
+		return new Facet(
+			_getFacetCriteria(facet),
+			TransformUtil.transform(
+				termCollectors,
+				termCollector -> new Facet.FacetValue(
+					termCollector.getFrequency(), termCollector.getTerm())));
+	}
 
-		for (TermCollector termCollector : termCollectors) {
-			facetValues.add(
-				new Facet.FacetValue(
-					termCollector.getFrequency(), termCollector.getTerm()));
-		}
+	private static String _getFacetCriteria(
+		com.liferay.portal.kernel.search.facet.Facet facet) {
 
 		FacetConfiguration facetConfiguration = facet.getFacetConfiguration();
 
-		String fieldName = facet.getFieldName();
-
 		if (facetConfiguration.getLabel() != null) {
-			fieldName = facetConfiguration.getLabel();
+			return facetConfiguration.getLabel();
 		}
 
-		return new Facet(fieldName, facetValues);
+		return facet.getFieldName();
 	}
 
 }
