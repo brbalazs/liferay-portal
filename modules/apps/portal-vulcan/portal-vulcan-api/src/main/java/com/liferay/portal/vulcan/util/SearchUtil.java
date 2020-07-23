@@ -193,12 +193,12 @@ public class SearchUtil {
 				com.liferay.portal.kernel.search.facet.Facet facet =
 					new SimpleFacet(this);
 
-				facet.setFieldName(entry.getValue());
-
 				FacetConfiguration facetConfiguration =
 					facet.getFacetConfiguration();
 
 				facetConfiguration.setLabel(entry.getKey());
+
+				facet.setFieldName(entry.getValue());
 
 				addFacet(facet);
 			}
