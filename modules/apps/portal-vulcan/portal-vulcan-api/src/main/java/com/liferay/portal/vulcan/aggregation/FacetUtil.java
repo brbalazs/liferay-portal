@@ -42,7 +42,7 @@ public class FacetUtil {
 		for (TermCollector termCollector : termCollectors) {
 			facetValues.add(
 				new Facet.FacetValue(
-					termCollector.getTerm(), termCollector.getFrequency()));
+					termCollector.getFrequency(), termCollector.getTerm()));
 		}
 
 		FacetConfiguration facetConfiguration = facet.getFacetConfiguration();

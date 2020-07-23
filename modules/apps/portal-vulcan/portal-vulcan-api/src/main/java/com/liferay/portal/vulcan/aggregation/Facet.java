@@ -58,9 +58,9 @@ public class Facet {
 		public FacetValue() {
 		}
 
-		public FacetValue(String term, Integer numberOfOccurrences) {
-			_term = term;
+		public FacetValue(Integer numberOfOccurrences, String term) {
 			_numberOfOccurrences = numberOfOccurrences;
+			_term = term;
 		}
 
 		@JsonProperty("numberOfOccurrences")
