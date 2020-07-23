@@ -1,7 +1,5 @@
 import Button from 'shared/components/Button';
-import Checkbox from 'shared/components/Checkbox';
 import Constants from 'shared/util/constants';
-import InfoPopover from 'shared/components/InfoPopover';
 import Modal from 'shared/components/modal';
 import RadioGroup from 'shared/components/RadioGroup';
 import React, {useEffect, useState} from 'react';
@@ -50,7 +48,8 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 	const [initialRender, setInitialRender] = useState(true);
 	const [metadata, setMetadata] = useState('');
 	const [stringMatch, setStringMatch] = useState('');
-	const [exactMatch, setExactMatch] = useState(false);
+	// TODO: LRAC-6335 Re-enable Exact Match checkbox
+	const [exactMatch] = useState(false);
 	const [includeExclude, setIncludeExclude] = useState(INCLUDE);
 
 	useEffect(() => {
@@ -167,24 +166,26 @@ const NewRuleModal: React.FC<INewRuleModalProps> = ({
 						</div>
 					</div>
 
-					<div className='exact-match'>
+					{/* TODO: LRAC-6335 Re-enable Exact Match checkbox
+						<div className='exact-match'>
 						<Checkbox
 							checked={exactMatch}
 							displayInline
 							label={Liferay.Language.get('exact-match')}
 							name='exactMatch'
-							onChange={event =>
-								setExactMatch(event.target.checked)
+						onChange={event =>
+							setExactMatch(event.target.checked)
 							}
 						/>
 
 						<InfoPopover
 							className='exact-match-help-icon'
-							content={Liferay.Language.get(
-								'use-exact-match-to-add-specific-urls'
+						content={Liferay.Language.get(
+							'use-exact-match-to-add-specific-urls'
 							)}
 						/>
-					</div>
+						</div>
+					*/}
 				</div>
 
 				{(loading || data) && (
