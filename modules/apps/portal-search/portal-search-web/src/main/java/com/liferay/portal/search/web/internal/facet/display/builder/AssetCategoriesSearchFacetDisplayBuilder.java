@@ -51,6 +51,8 @@ public class AssetCategoriesSearchFacetDisplayBuilder implements Serializable {
 		assetCategoriesSearchFacetDisplayContext.setCloud(isCloud());
 		assetCategoriesSearchFacetDisplayContext.setNothingSelected(
 			isNothingSelected());
+		assetCategoriesSearchFacetDisplayContext.
+			setPaginationStartParameterName(_paginationStartParameterName);
 		assetCategoriesSearchFacetDisplayContext.setParameterName(
 			_parameterName);
 		assetCategoriesSearchFacetDisplayContext.setParameterValue(
@@ -99,6 +101,12 @@ public class AssetCategoriesSearchFacetDisplayBuilder implements Serializable {
 
 	public void setMaxTerms(int maxTerms) {
 		_maxTerms = maxTerms;
+	}
+
+	public void setPaginationStartParameterName(
+		String paginationStartParameterName) {
+
+		_paginationStartParameterName = paginationStartParameterName;
 	}
 
 	public void setParameterName(String parameterName) {
@@ -346,6 +354,7 @@ public class AssetCategoriesSearchFacetDisplayBuilder implements Serializable {
 	private int _frequencyThreshold;
 	private Locale _locale;
 	private int _maxTerms;
+	private String _paginationStartParameterName;
 	private String _parameterName;
 	private List<Long> _selectedCategoryIds = Collections.emptyList();
 

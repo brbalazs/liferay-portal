@@ -22,6 +22,8 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.facet.category.CategoryFacetFactory;
+import com.liferay.portal.search.searcher.SearchRequest;
+import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.web.internal.category.facet.builder.AssetCategoriesFacetConfiguration;
 import com.liferay.portal.search.web.internal.category.facet.builder.AssetCategoriesFacetConfigurationImpl;
 import com.liferay.portal.search.web.internal.category.facet.constants.CategoryFacetPortletKeys;
@@ -148,6 +150,10 @@ public class CategoryFacetPortlet extends MVCPortlet {
 				parameterName, renderRequest),
 			assetCategoriesSearchFacetDisplayBuilder::setParameterValues);
 
+		assetCategoriesSearchFacetDisplayBuilder.
+			setPaginationStartParameterName(
+				getPaginationStartParameterName(portletSharedSearchResponse));
+
 		return assetCategoriesSearchFacetDisplayBuilder.build();
 	}
 
@@ -161,6 +167,17 @@ public class CategoryFacetPortlet extends MVCPortlet {
 		Facet facet = categoryFacetFactory.newInstance(null);
 
 		return facet.getFieldName();
+	}
+
+	protected String getPaginationStartParameterName(
+		PortletSharedSearchResponse portletSharedSearchResponse) {
+
+		SearchResponse searchResponse =
+			portletSharedSearchResponse.getSearchResponse();
+
+		SearchRequest request = searchResponse.getRequest();
+
+		return request.getPaginationStartParameterName();
 	}
 
 	@Reference
