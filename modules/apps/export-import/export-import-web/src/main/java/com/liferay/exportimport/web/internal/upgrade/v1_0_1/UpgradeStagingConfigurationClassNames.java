@@ -146,8 +146,9 @@ public class UpgradeStagingConfigurationClassNames extends UpgradeProcess {
 							adminStagedKey, "\", value=\"", value, "\""));
 				}
 
-				typeSettingsUnicodeProperties.remove(stagedKey);
 				typeSettingsUnicodeProperties.put(adminStagedKey, value);
+
+				typeSettingsUnicodeProperties.remove(stagedKey);
 
 				changed = true;
 			}
