@@ -66,36 +66,36 @@ public class PunchoutLoginPostAction extends Action {
 		HttpServletResponse httpServletResponse) {
 
 		try {
-			Object punchoutAccessTokenObject = httpServletRequest.getAttribute(
-				"punchoutAccessToken");
+			Object punchOutAccessTokenObject = httpServletRequest.getAttribute(
+				"punchOutAccessToken");
 
-			Object punchoutUserIdObject = httpServletRequest.getAttribute(
-				"punchoutUserId");
+			Object punchOutUserIdObject = httpServletRequest.getAttribute(
+				"punchOutUserId");
 
-			if ((punchoutAccessTokenObject == null) ||
-				(punchoutUserIdObject == null)) {
+			if ((punchOutAccessTokenObject == null) ||
+				(punchOutUserIdObject == null)) {
 
 				return;
 			}
 
-			PunchoutAccessToken punchoutAccessToken =
+			PunchoutAccessToken punchOutAccessToken =
 				(PunchoutAccessToken)httpServletRequest.getAttribute(
-					"punchoutAccessToken");
+					"punchOutAccessToken");
 
-			long punchoutUserId = (long)httpServletRequest.getAttribute(
-				"punchoutUserId");
+			long punchOutUserId = (long)httpServletRequest.getAttribute(
+				"punchOutUserId");
 
 			long companyId = _portal.getCompanyId(httpServletRequest);
 
-			_startNewPunchoutSession(
-				companyId, punchoutAccessToken.getGroupId(),
-				punchoutAccessToken.getCommerceAccountId(),
-				punchoutAccessToken.getCurrencyCode(), punchoutAccessToken,
-				punchoutUserId, httpServletRequest, httpServletResponse);
+			_startNewPunchOutSession(
+				companyId, punchOutAccessToken.getGroupId(),
+				punchOutAccessToken.getCommerceAccountId(),
+				punchOutAccessToken.getCurrencyCode(), punchOutAccessToken,
+				punchOutUserId, httpServletRequest, httpServletResponse);
 
-			httpServletRequest.removeAttribute("punchoutAccessToken");
+			httpServletRequest.removeAttribute("punchOutAccessToken");
 
-			httpServletRequest.removeAttribute("punchoutUserId");
+			httpServletRequest.removeAttribute("punchOutUserId");
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -110,10 +110,10 @@ public class PunchoutLoginPostAction extends Action {
 		};
 	}
 
-	private void _startNewPunchoutSession(
+	private void _startNewPunchOutSession(
 			long companyId, long groupId, long commerceAccountId,
-			String currencyCode, PunchoutAccessToken punchoutAccessToken,
-			long punchoutUserId, HttpServletRequest httpServletRequest,
+			String currencyCode, PunchoutAccessToken punchOutAccessToken,
+			long punchOutUserId, HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse)
 		throws PortalException {
 
@@ -131,7 +131,7 @@ public class PunchoutLoginPostAction extends Action {
 			_commerceChannelLocalService.getCommerceChannelGroupIdBySiteGroupId(
 				groupId);
 
-		String commerceOrderUuid = punchoutAccessToken.getCommerceOrderUuid();
+		String commerceOrderUuid = punchOutAccessToken.getCommerceOrderUuid();
 
 		CommerceOrder commerceOrder;
 
@@ -142,19 +142,19 @@ public class PunchoutLoginPostAction extends Action {
 		}
 		else {
 			commerceOrder = _commerceOrderLocalService.addCommerceOrder(
-				punchoutUserId, commerceChannelGroupId, commerceAccountId,
+				punchOutUserId, commerceChannelGroupId, commerceAccountId,
 				commerceCurrencyId);
 
 			ServiceContext serviceContext = new ServiceContext();
 
 			commerceOrder = _commerceOrderLocalService.updateStatus(
-				punchoutUserId, commerceOrder.getCommerceOrderId(),
+				punchOutUserId, commerceOrder.getCommerceOrderId(),
 				WorkflowConstants.STATUS_APPROVED, serviceContext,
 				Collections.emptyMap());
 		}
 
 		CommerceContext commerceContext = _commerceContextFactory.create(
-			companyId, commerceChannelGroupId, punchoutUserId,
+			companyId, commerceChannelGroupId, punchOutUserId,
 			commerceOrder.getCommerceOrderId(), commerceAccountId);
 
 		httpServletRequest.setAttribute(
@@ -176,10 +176,10 @@ public class PunchoutLoginPostAction extends Action {
 
 		HttpSession httpSession = httpServletRequest.getSession();
 
-		HashMap<String, Object> punchoutSessionAttributes =
-			punchoutAccessToken.getPunchoutSessionAttributes();
+		HashMap<String, Object> punchOutSessionAttributes =
+			punchOutAccessToken.getPunchOutSessionAttributes();
 
-		for (Map.Entry mapElement : punchoutSessionAttributes.entrySet()) {
+		for (Map.Entry mapElement : punchOutSessionAttributes.entrySet()) {
 			String key = (String)mapElement.getKey();
 
 			if (_log.isDebugEnabled()) {

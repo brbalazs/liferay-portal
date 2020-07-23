@@ -41,11 +41,11 @@ public class CommercePunchoutThemeTemplateContextContributor
 		HttpServletRequest httpServletRequest) {
 
 		contextObjects.put(
-			"commercePunchoutThemeHttpHelper",
-			_commercePunchoutThemeHttpHelper);
+			"commercePunchOutThemeHttpHelper",
+			_commercePunchOutThemeHttpHelper);
 	}
 
 	@Reference
-	private CommercePunchoutThemeHttpHelper _commercePunchoutThemeHttpHelper;
+	private CommercePunchoutThemeHttpHelper _commercePunchOutThemeHttpHelper;
 
 }

@@ -21,7 +21,7 @@ import java.util.HashMap;
  */
 public interface PunchoutSessionContributor {
 
-	public HashMap<String, Object> getPunchoutSessionAttributes(
-		PunchoutContext punchoutContext);
+	public HashMap<String, Object> getPunchOutSessionAttributes(
+		PunchoutContext punchOutContext);
 
 }

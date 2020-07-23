@@ -73,7 +73,7 @@ public abstract class BasePunchoutSessionResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/oheadless-commerce-punchout/v1.0/punchout/session/request' -d $'{"buyerAccountReferenceCode": ___, "buyerGroup": ___, "buyerOrganization": ___, "buyerUser": ___, "cart": ___, "punchoutReturnURL": ___, "punchoutSessionType": ___, "punchoutStartURL": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/oheadless-commerce-punchout/v1.0/punchout/session/request' -d $'{"buyerAccountReferenceCode": ___, "buyerGroup": ___, "buyerOrganization": ___, "buyerUser": ___, "cart": ___, "punchoutReturnURL": ___, "punchoutSessionType": ___, "punchOutStartURL": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})

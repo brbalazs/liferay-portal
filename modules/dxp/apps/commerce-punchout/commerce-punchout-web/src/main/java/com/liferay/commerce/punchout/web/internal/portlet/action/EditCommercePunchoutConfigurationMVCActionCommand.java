@@ -40,7 +40,7 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + CPPortletKeys.COMMERCE_CHANNELS,
-		"mvc.command.name=editCommercePunchoutConfiguration"
+		"mvc.command.name=editCommercePunchOutConfiguration"
 	},
 	service = MVCActionCommand.class
 )
@@ -55,11 +55,11 @@ public class EditCommercePunchoutConfigurationMVCActionCommand
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
 		if (cmd.equals(Constants.UPDATE)) {
-			_updatePunchoutConfiguration(actionRequest);
+			_updatePunchOutConfiguration(actionRequest);
 		}
 	}
 
-	private void _updatePunchoutConfiguration(ActionRequest actionRequest)
+	private void _updatePunchOutConfiguration(ActionRequest actionRequest)
 		throws Exception {
 
 		long commerceChannelId = ParamUtil.getLong(
@@ -80,10 +80,10 @@ public class EditCommercePunchoutConfigurationMVCActionCommand
 
 		modifiableSettings.setValue("enabled", enabled);
 
-		String punchoutStartURL = ParamUtil.getString(
-			actionRequest, "settings--punchoutStartURL--");
+		String punchOutStartURL = ParamUtil.getString(
+			actionRequest, "settings--punchOutStartURL--");
 
-		modifiableSettings.setValue("punchoutStartURL", punchoutStartURL);
+		modifiableSettings.setValue("punchOutStartURL", punchOutStartURL);
 
 		modifiableSettings.store();
 	}

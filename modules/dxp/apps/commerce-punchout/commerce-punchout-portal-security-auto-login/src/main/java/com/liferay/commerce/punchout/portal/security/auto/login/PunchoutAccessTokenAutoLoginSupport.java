@@ -47,37 +47,37 @@ public class PunchoutAccessTokenAutoLoginSupport extends BaseAutoLogin {
 			HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
 
-		String punchoutAccessTokenFromParam = ParamUtil.getString(
-			request, _PUNCHOUT_ACCESS_TOKEN_PARAM);
+		String punchOutAccessTokenFromParam = ParamUtil.getString(
+			request, _PUNCH_OUT_ACCESS_TOKEN_PARAM);
 
-		if (Validator.isNull(punchoutAccessTokenFromParam)) {
+		if (Validator.isNull(punchOutAccessTokenFromParam)) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					_PUNCHOUT_ACCESS_TOKEN_PARAM + "  parameter not found in " +
-						"request");
+					_PUNCH_OUT_ACCESS_TOKEN_PARAM + "  parameter not found in " +
+					"request");
 			}
 
 			return null;
 		}
 
-		PunchoutAccessToken punchoutAccessToken =
-			_punchoutAccessTokenProvider.getPunchoutAccessToken(
-				punchoutAccessTokenFromParam);
+		PunchoutAccessToken punchOutAccessToken =
+			_punchOutAccessTokenProvider.getPunchOutAccessToken(
+				punchOutAccessTokenFromParam);
 
-		if (punchoutAccessToken == null) {
+		if (punchOutAccessToken == null) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Punchout access token not found");
+				_log.warn("Punch out access token not found");
 			}
 
 			return null;
 		}
 
-		String userEmailAddress = punchoutAccessToken.getUserEmailAddress();
+		String userEmailAddress = punchOutAccessToken.getUserEmailAddress();
 
 		if (Validator.isBlank(userEmailAddress)) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Blank punchout user email address in punchout access " +
+					"Blank punch out user email address in punch out access " +
 						"token");
 			}
 
@@ -86,27 +86,27 @@ public class PunchoutAccessTokenAutoLoginSupport extends BaseAutoLogin {
 
 		long companyId = _portal.getCompanyId(request);
 
-		User punchoutUser = _userLocalService.getUserByEmailAddress(
+		User punchOutUser = _userLocalService.getUserByEmailAddress(
 			companyId, userEmailAddress);
 
-		if (punchoutUser == null) {
+		if (punchOutUser == null) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Punchout user not found in punchout access token");
+				_log.warn("Punch out user not found in punch out access token");
 			}
 
 			return null;
 		}
 
-		request.setAttribute("punchoutAccessToken", punchoutAccessToken);
-		request.setAttribute("punchoutUserId", punchoutUser.getUserId());
+		request.setAttribute("punchOutAccessToken", punchOutAccessToken);
+		request.setAttribute("punchOutUserId", punchOutUser.getUserId());
 
-		_punchoutAccessTokenProvider.removePunchoutAccessToken(
-			punchoutAccessTokenFromParam);
+		_punchOutAccessTokenProvider.removePunchOutAccessToken(
+			punchOutAccessTokenFromParam);
 
 		String[] credentials = new String[3];
 
-		credentials[0] = String.valueOf(punchoutUser.getUserId());
-		credentials[1] = punchoutUser.getPassword();
+		credentials[0] = String.valueOf(punchOutUser.getUserId());
+		credentials[1] = punchOutUser.getPassword();
 		credentials[2] = Boolean.TRUE.toString();
 
 		return credentials;
@@ -122,8 +122,8 @@ public class PunchoutAccessTokenAutoLoginSupport extends BaseAutoLogin {
 		_userLocalService = userLocalService;
 	}
 
-	private static final String _PUNCHOUT_ACCESS_TOKEN_PARAM =
-		"punchoutAccessToken";
+	private static final String _PUNCH_OUT_ACCESS_TOKEN_PARAM =
+		"punchOutAccessToken";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		PunchoutAccessTokenAutoLoginSupport.class);
@@ -131,7 +131,7 @@ public class PunchoutAccessTokenAutoLoginSupport extends BaseAutoLogin {
 	private Portal _portal;
 
 	@Reference
-	private PunchoutAccessTokenProvider _punchoutAccessTokenProvider;
+	private PunchoutAccessTokenProvider _punchOutAccessTokenProvider;
 
 	private UserLocalService _userLocalService;
 

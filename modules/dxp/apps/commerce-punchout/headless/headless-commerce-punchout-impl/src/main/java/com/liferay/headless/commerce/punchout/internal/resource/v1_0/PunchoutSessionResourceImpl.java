@@ -33,11 +33,11 @@ import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.headless.commerce.punchout.dto.v1_0.Cart;
 import com.liferay.headless.commerce.punchout.dto.v1_0.CartItem;
 import com.liferay.headless.commerce.punchout.dto.v1_0.Group;
-import com.liferay.headless.commerce.punchout.dto.v1_0.PunchoutSession;
+import com.liferay.headless.commerce.punchout.dto.v1_0.PunchOutSession;
 import com.liferay.headless.commerce.punchout.dto.v1_0.User;
 import com.liferay.headless.commerce.punchout.helper.PunchoutContext;
 import com.liferay.headless.commerce.punchout.helper.PunchoutSessionContributor;
-import com.liferay.headless.commerce.punchout.resource.v1_0.PunchoutSessionResource;
+import com.liferay.headless.commerce.punchout.resource.v1_0.PunchOutSessionResource;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.NoSuchGroupException;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -79,18 +79,17 @@ import org.osgi.service.component.annotations.ServiceScope;
  */
 @Component(
 	properties = "OSGI-INF/liferay/rest/v1_0/punchout-session.properties",
-	scope = ServiceScope.PROTOTYPE, service = PunchoutSessionResource.class
+	scope = ServiceScope.PROTOTYPE, service = PunchOutSessionResource.class
 )
 public class PunchoutSessionResourceImpl
-	extends BasePunchoutSessionResourceImpl {
+	extends BasePunchOutSessionResourceImpl {
 
-	@Override
-	public PunchoutSession postPunchoutSessionRequest(
-			@NotNull PunchoutSession punchoutSession)
+	public PunchOutSession postPunchOutSessionRequest(
+			@NotNull PunchOutSession punchOutSession)
 		throws Exception {
 
 		com.liferay.portal.kernel.model.Group buyerGroup = _fetchGroup(
-			punchoutSession.getBuyerGroup());
+			punchOutSession.getBuyerGroup());
 
 		if (buyerGroup == null) {
 			throw new NoSuchGroupException();
@@ -99,15 +98,15 @@ public class PunchoutSessionResourceImpl
 		CommerceChannel commerceChannel = _fetchChannel(
 			buyerGroup.getGroupId());
 
-		if (!_punchoutEnabled(commerceChannel.getGroupId())) {
+		if (!_punchOutEnabled(commerceChannel.getGroupId())) {
 			_log.error(
-				"Punchout request not allowed. Punchout is disabled for " +
+				"Punch out request not allowed. Punch out is disabled for " +
 					"channel " + commerceChannel.getName());
 
-			throw new ForbiddenException("Punchout not allowed for channel");
+			throw new ForbiddenException("Punch out not allowed for channel");
 		}
 
-		User buyerUser = punchoutSession.getBuyerUser();
+		User buyerUser = punchOutSession.getBuyerUser();
 
 		com.liferay.portal.kernel.model.User buyerLiferayUser =
 			_fetchOrCreateBuyerUser(buyerUser, buyerGroup.getGroupId());
@@ -131,12 +130,12 @@ public class PunchoutSessionResourceImpl
 		}
 
 		CommerceAccount businessCommerceAccount = _fetchBusinessCommerceAccount(
-			punchoutSession.getBuyerAccountReferenceCode());
+			punchOutSession.getBuyerAccountReferenceCode());
 
 		if (businessCommerceAccount == null) {
 			_log.error(
 				"Business commrece account not found (external reference " +
-					"code: " + punchoutSession.getBuyerAccountReferenceCode() +
+					"code: " + punchOutSession.getBuyerAccountReferenceCode() +
 						")");
 
 			throw new BadRequestException(
@@ -147,16 +146,16 @@ public class PunchoutSessionResourceImpl
 			businessCommerceAccount, buyerLiferayUser.getUserId(),
 			buyerGroup.getGroupId());
 
-		String punchoutSessionType = punchoutSession.getPunchoutSessionType();
+		String punchOutSessionType = punchOutSession.getPunchOutSessionType();
 
-		Cart cart = punchoutSession.getCart();
+		Cart cart = punchOutSession.getCart();
 
 		String commerceOrderUuid = null;
 
 		CommerceOrder editCartCommerceOrder = null;
 
-		if (punchoutSessionType.equalsIgnoreCase(_EDIT_REQUEST_TYPE) ||
-			punchoutSessionType.equalsIgnoreCase(_INSPECT_REQUEST_TYPE)) {
+		if (punchOutSessionType.equalsIgnoreCase(_EDIT_REQUEST_TYPE) ||
+			punchOutSessionType.equalsIgnoreCase(_INSPECT_REQUEST_TYPE)) {
 
 			if (!_userBelongsToCart(
 					buyerLiferayUser.getUserId(), cart.getId())) {
@@ -169,7 +168,7 @@ public class PunchoutSessionResourceImpl
 					"Buyer user does not belong to cart");
 			}
 
-			_mergeCartItems(punchoutSession.getCart(), buyerGroup.getGroupId());
+			_mergeCartItems(punchOutSession.getCart(), buyerGroup.getGroupId());
 
 			editCartCommerceOrder =
 				_commerceOrderLocalService.fetchCommerceOrder(cart.getId());
@@ -177,39 +176,39 @@ public class PunchoutSessionResourceImpl
 			commerceOrderUuid = editCartCommerceOrder.getUuid();
 		}
 
-		String punchoutStartURL = _getPunchoutStartURL(
+		String punchOutStartURL = _getPunchOutStartURL(
 			commerceChannel.getGroupId());
 
-		PunchoutContext punchoutContext = new PunchoutContext(
+		PunchoutContext punchOutContext = new PunchoutContext(
 			businessCommerceAccount, buyerGroup, buyerLiferayUser,
-			commerceChannel, editCartCommerceOrder, punchoutSession);
+			commerceChannel, editCartCommerceOrder, punchOutSession);
 
-		HashMap<String, Object> punchoutSessionAttributes =
-			_punchoutSessionContributor.getPunchoutSessionAttributes(
-				punchoutContext);
+		HashMap<String, Object> punchOutSessionAttributes =
+			_punchOutSessionContributor.getPunchOutSessionAttributes(
+				punchOutContext);
 
-		PunchoutAccessToken punchoutAccessToken =
-			_punchoutAccessTokenProvider.generatePunchoutAccessToken(
+		PunchoutAccessToken punchOutAccessToken =
+			_punchOutAccessTokenProvider.generatePunchOutAccessToken(
 				buyerGroup.getGroupId(),
 				businessCommerceAccount.getCommerceAccountId(),
 				cart.getCurrencyCode(), buyerLiferayUser.getEmailAddress(),
-				commerceOrderUuid, punchoutSessionAttributes);
+				commerceOrderUuid, punchOutSessionAttributes);
 
-		byte[] token = punchoutAccessToken.getToken();
+		byte[] token = punchOutAccessToken.getToken();
 
 		String tokenString = token.toString();
 
-		punchoutStartURL +=
-			StringPool.QUESTION + _PUNCHOUT_ACCESS_TOKEN_PARAMETER +
-				URLEncoder.encode(tokenString, "UTF-8");
+		punchOutStartURL +=
+			StringPool.QUESTION + _PUNCH_OUT_ACCESS_TOKEN_PARAMETER +
+			URLEncoder.encode(tokenString, "UTF-8");
 
 		cart.setChannelId(commerceChannel.getCommerceChannelId());
 
-		punchoutSession.setCart(cart);
+		punchOutSession.setCart(cart);
 
-		punchoutSession.setPunchoutStartURL(punchoutStartURL);
+		punchOutSession.setPunchOutStartURL(punchOutStartURL);
 
-		return punchoutSession;
+		return punchOutSession;
 	}
 
 	@Reference(unbind = "-")
@@ -273,12 +272,12 @@ public class PunchoutSessionResourceImpl
 
 		Role role = _roleLocalService.fetchRole(
 			contextCompany.getCompanyId(),
-			PunchoutConstants.ROLE_NAME_ACCOUNT_PUNCHOUT);
+			PunchoutConstants.ROLE_NAME_ACCOUNT_PUNCH_OUT);
 
 		if (role == null) {
 			String logMessage =
-				PunchoutConstants.ROLE_NAME_ACCOUNT_PUNCHOUT +
-					" role not found";
+				PunchoutConstants.ROLE_NAME_ACCOUNT_PUNCH_OUT +
+				" role not found";
 
 			_log.error(logMessage);
 
@@ -350,7 +349,7 @@ public class PunchoutSessionResourceImpl
 			user.getFirstName(), user.getMiddleName(), user.getLastName());
 	}
 
-	private PunchoutConfiguration _getPunchoutConfiguration(
+	private PunchoutConfiguration _getPunchOutConfiguration(
 		long commerceChannelGroupId) {
 
 		try {
@@ -360,21 +359,21 @@ public class PunchoutSessionResourceImpl
 					commerceChannelGroupId, PunchoutConstants.SERVICE_NAME));
 		}
 		catch (ConfigurationException ce) {
-			_log.error("Unable to get punchout configuration", ce);
+			_log.error("Unable to get punch out configuration", ce);
 		}
 
 		return null;
 	}
 
-	private String _getPunchoutStartURL(long commerceChannelGroupId) {
-		PunchoutConfiguration punchoutConfiguration = _getPunchoutConfiguration(
+	private String _getPunchOutStartURL(long commerceChannelGroupId) {
+		PunchoutConfiguration punchOutConfiguration = _getPunchOutConfiguration(
 			commerceChannelGroupId);
 
-		if (punchoutConfiguration == null) {
+		if (punchOutConfiguration == null) {
 			return null;
 		}
 
-		return punchoutConfiguration.punchoutStartURL();
+		return punchOutConfiguration.punchOutStartURL();
 	}
 
 	private void _mergeCartItems(Cart cart, long groupId)
@@ -453,15 +452,15 @@ public class PunchoutSessionResourceImpl
 		}
 	}
 
-	private boolean _punchoutEnabled(long commerceChannelGroupId) {
-		PunchoutConfiguration punchoutConfiguration = _getPunchoutConfiguration(
+	private boolean _punchOutEnabled(long commerceChannelGroupId) {
+		PunchoutConfiguration punchOutConfiguration = _getPunchOutConfiguration(
 			commerceChannelGroupId);
 
-		if (punchoutConfiguration == null) {
+		if (punchOutConfiguration == null) {
 			return false;
 		}
 
-		return punchoutConfiguration.enabled();
+		return punchOutConfiguration.enabled();
 	}
 
 	private boolean _userBelongsToCart(long userId, long cartId) {
@@ -485,8 +484,8 @@ public class PunchoutSessionResourceImpl
 
 	private static final String _INSPECT_REQUEST_TYPE = "inspect";
 
-	private static final String _PUNCHOUT_ACCESS_TOKEN_PARAMETER =
-		"punchoutAccessToken=";
+	private static final String _PUNCH_OUT_ACCESS_TOKEN_PARAMETER =
+		"punchOutAccessToken=";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		PunchoutSessionResourceImpl.class);
@@ -519,10 +518,10 @@ public class PunchoutSessionResourceImpl
 	private GroupLocalService _groupLocalService;
 
 	@Reference
-	private PunchoutAccessTokenProvider _punchoutAccessTokenProvider;
+	private PunchoutAccessTokenProvider _punchOutAccessTokenProvider;
 
 	@Reference
-	private PunchoutSessionContributor _punchoutSessionContributor;
+	private PunchoutSessionContributor _punchOutSessionContributor;
 
 	@Reference
 	private RoleLocalService _roleLocalService;

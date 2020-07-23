@@ -43,82 +43,82 @@ import org.osgi.service.component.annotations.Reference;
  * @author Jaclyn Ong
  */
 @Component(
-	configurationPid = "com.liferay.commerce.punchout.oauth2.provider.rest.internal.bearer.token.provider.configuration.PunchoutAccessTokenProviderConfiguration",
+	configurationPid = "com.liferay.commerce.punchout.oauth2.provider.rest.internal.bearer.token.provider.configuration.PunchOutAccessTokenProviderConfiguration",
 	property = "timeout:Integer=15", service = PunchoutAccessTokenProvider.class
 )
 public class PunchoutAccessTokenProviderImpl
 	implements PunchoutAccessTokenProvider {
 
-	public PunchoutAccessToken generatePunchoutAccessToken(
+	public PunchoutAccessToken generatePunchOutAccessToken(
 		long groupId, long commerceAccountId, String currencyCode,
 		String userEmailAddress, String commerceOrderUuid,
-		HashMap<String, Object> punchoutSessionAttributes) {
+		HashMap<String, Object> punchOutSessionAttributes) {
 
-		PunchoutAccessToken punchoutAccessToken = _generatePunchoutAccessToken(
+		PunchoutAccessToken punchOutAccessToken = _generatePunchOutAccessToken(
 			groupId, commerceAccountId, currencyCode, userEmailAddress,
-			commerceOrderUuid, punchoutSessionAttributes);
+			commerceOrderUuid, punchOutSessionAttributes);
 
 		if (!_clusterMasterExecutor.isEnabled() ||
 			_clusterMasterExecutor.isMaster()) {
 
-			_putPunchoutAccessToken(punchoutAccessToken);
+			_putPunchOutAccessToken(punchOutAccessToken);
 		}
 		else {
 			Future<?> future = _clusterMasterExecutor.executeOnMaster(
 				new MethodHandler(
-					_putPunchoutAccessTokenMethodKey, punchoutAccessToken));
+					_putPunchOutAccessTokenMethodKey, punchOutAccessToken));
 
 			try {
 				future.get(_timeout, TimeUnit.SECONDS);
 			}
 			catch (Exception e) {
 				_log.error(
-					"Timeout setting punchout access token to master node");
+					"Timeout setting punch out access token to master node");
 			}
 		}
 
-		return punchoutAccessToken;
+		return punchOutAccessToken;
 	}
 
-	public PunchoutAccessToken getPunchoutAccessToken(String token) {
+	public PunchoutAccessToken getPunchOutAccessToken(String token) {
 		if (!_clusterMasterExecutor.isEnabled() ||
 			_clusterMasterExecutor.isMaster()) {
 
-			return _getPunchoutAccessToken(token);
+			return _getPunchOutAccessToken(token);
 		}
 
 		Future<PunchoutAccessToken> future =
 			_clusterMasterExecutor.executeOnMaster(
-				new MethodHandler(_getPunchoutAccessTokenMethodKey, token));
+				new MethodHandler(_getPunchOutAccessTokenMethodKey, token));
 
 		try {
 			return future.get(_timeout, TimeUnit.SECONDS);
 		}
 		catch (Exception e) {
 			_log.error(
-				"Timeout getting punchout access token from master node");
+				"Timeout getting punch out access token from master node");
 
 			return null;
 		}
 	}
 
-	public PunchoutAccessToken removePunchoutAccessToken(String token) {
+	public PunchoutAccessToken removePunchOutAccessToken(String token) {
 		if (!_clusterMasterExecutor.isEnabled() ||
 			_clusterMasterExecutor.isMaster()) {
 
-			return _removePunchoutAccessToken(token);
+			return _removePunchOutAccessToken(token);
 		}
 
 		Future<PunchoutAccessToken> future =
 			_clusterMasterExecutor.executeOnMaster(
-				new MethodHandler(_removePunchoutAccessTokenMethodKey, token));
+				new MethodHandler(_removePunchOutAccessTokenMethodKey, token));
 
 		try {
 			return future.get(_timeout, TimeUnit.SECONDS);
 		}
 		catch (Exception e) {
 			_log.error(
-				"Timeout removing punchout access token from master node");
+				"Timeout removing punch out access token from master node");
 
 			return null;
 		}
@@ -128,44 +128,44 @@ public class PunchoutAccessTokenProviderImpl
 	protected void activate(Map<String, Object> properties) {
 		_timeout = MapUtil.getInteger(properties, "timeout");
 
-		_punchoutAccessTokenProviderConfiguration =
+		_punchOutAccessTokenProviderConfiguration =
 			ConfigurableUtil.createConfigurable(
 				PunchoutAccessTokenProviderConfiguration.class, properties);
 	}
 
 	private static void _cleanUp() {
-		while (_punchoutAccessTokenDelayQueue.poll() != null);
+		while (_punchOutAccessTokenDelayQueue.poll() != null);
 	}
 
-	private static void _putPunchoutAccessToken(
-		PunchoutAccessToken punchoutAccessToken) {
+	private static void _putPunchOutAccessToken(
+		PunchoutAccessToken punchOutAccessToken) {
 
 		_cleanUp();
 
-		_punchoutAccessTokenDelayQueue.add(
-			new PunchoutAccessTokenDelayed(punchoutAccessToken));
+		_punchOutAccessTokenDelayQueue.add(
+			new PunchoutAccessTokenDelayed(punchOutAccessToken));
 	}
 
-	private static PunchoutAccessToken _removePunchoutAccessToken(
+	private static PunchoutAccessToken _removePunchOutAccessToken(
 		String token) {
 
 		_cleanUp();
 
 		AtomicReference<PunchoutAccessToken>
-			punchoutAccessTokenAtomicReference = new AtomicReference<>();
+			punchOutAccessTokenAtomicReference = new AtomicReference<>();
 
-		_punchoutAccessTokenDelayQueue.removeIf(
-			punchoutAccessTokenDelayed -> {
-				PunchoutAccessToken punchoutAccessToken =
-					punchoutAccessTokenDelayed.getPunchoutAccessToken();
+		_punchOutAccessTokenDelayQueue.removeIf(
+			punchOutAccessTokenDelayed -> {
+				PunchoutAccessToken punchOutAccessToken =
+					punchOutAccessTokenDelayed.getPunchOutAccessToken();
 
-				byte[] tokenBytes = punchoutAccessToken.getToken();
+				byte[] tokenBytes = punchOutAccessToken.getToken();
 
 				String tokenString = tokenBytes.toString();
 
 				if (token.equals(tokenString)) {
-					punchoutAccessTokenAtomicReference.compareAndSet(
-						null, punchoutAccessToken);
+					punchOutAccessTokenAtomicReference.compareAndSet(
+						null, punchOutAccessToken);
 
 					return true;
 				}
@@ -173,45 +173,45 @@ public class PunchoutAccessTokenProviderImpl
 				return false;
 			});
 
-		return punchoutAccessTokenAtomicReference.get();
+		return punchOutAccessTokenAtomicReference.get();
 	}
 
-	private PunchoutAccessToken _generatePunchoutAccessToken(
+	private PunchoutAccessToken _generatePunchOutAccessToken(
 		long groupId, long commerceAccountId, String currencyCode,
 		String userEmailAddress, String commerceOrderUuid,
-		HashMap<String, Object> punchoutSessionAttributes) {
+		HashMap<String, Object> punchOutSessionAttributes) {
 
-		PunchoutAccessToken punchoutAccessToken = new PunchoutAccessToken();
+		PunchoutAccessToken punchOutAccessToken = new PunchoutAccessToken();
 
-		punchoutAccessToken.setGroupId(groupId);
+		punchOutAccessToken.setGroupId(groupId);
 
-		punchoutAccessToken.setCommerceAccountId(commerceAccountId);
+		punchOutAccessToken.setCommerceAccountId(commerceAccountId);
 
-		punchoutAccessToken.setCurrencyCode(currencyCode);
+		punchOutAccessToken.setCurrencyCode(currencyCode);
 
-		punchoutAccessToken.setIssuedAt(System.currentTimeMillis());
+		punchOutAccessToken.setIssuedAt(System.currentTimeMillis());
 
 		int expiresInSeconds =
-			_punchoutAccessTokenProviderConfiguration.accessTokenExpiresIn();
+			_punchOutAccessTokenProviderConfiguration.accessTokenExpiresIn();
 
 		long expiresInMilliseconds = TimeUnit.MILLISECONDS.convert(
 			expiresInSeconds, TimeUnit.SECONDS);
 
-		punchoutAccessToken.setExpiresIn(expiresInMilliseconds);
+		punchOutAccessToken.setExpiresIn(expiresInMilliseconds);
 
 		byte[] token = _generateSecureRandomBytes(
-			_punchoutAccessTokenProviderConfiguration.accessTokenKeyByteSize());
+			_punchOutAccessTokenProviderConfiguration.accessTokenKeyByteSize());
 
-		punchoutAccessToken.setToken(token);
+		punchOutAccessToken.setToken(token);
 
-		punchoutAccessToken.setUserEmailAddress(userEmailAddress);
+		punchOutAccessToken.setUserEmailAddress(userEmailAddress);
 
-		punchoutAccessToken.setCommerceOrderUuid(commerceOrderUuid);
+		punchOutAccessToken.setCommerceOrderUuid(commerceOrderUuid);
 
-		punchoutAccessToken.setPunchoutSessionAttributes(
-			punchoutSessionAttributes);
+		punchOutAccessToken.setPunchOutSessionAttributes(
+			punchOutSessionAttributes);
 
-		return punchoutAccessToken;
+		return punchOutAccessToken;
 	}
 
 	private byte[] _generateSecureRandomBytes(int size) {
@@ -224,21 +224,21 @@ public class PunchoutAccessTokenProviderImpl
 		return bytes;
 	}
 
-	private PunchoutAccessToken _getPunchoutAccessToken(String token) {
+	private PunchoutAccessToken _getPunchOutAccessToken(String token) {
 		_cleanUp();
 
-		for (PunchoutAccessTokenDelayed punchoutAccessTokenDelayed :
-				_punchoutAccessTokenDelayQueue) {
+		for (PunchoutAccessTokenDelayed punchOutAccessTokenDelayed :
+			_punchOutAccessTokenDelayQueue) {
 
-			PunchoutAccessToken punchoutAccessToken =
-				punchoutAccessTokenDelayed.getPunchoutAccessToken();
+			PunchoutAccessToken punchOutAccessToken =
+				punchOutAccessTokenDelayed.getPunchOutAccessToken();
 
-			byte[] tokenBytes = punchoutAccessToken.getToken();
+			byte[] tokenBytes = punchOutAccessToken.getToken();
 
 			String tokenString = tokenBytes.toString();
 
 			if (token.equals(tokenString)) {
-				return punchoutAccessToken;
+				return punchOutAccessToken;
 			}
 		}
 
@@ -248,34 +248,34 @@ public class PunchoutAccessTokenProviderImpl
 	private static final Log _log = LogFactoryUtil.getLog(
 		PunchoutAccessTokenProviderImpl.class);
 
-	private static final MethodKey _getPunchoutAccessTokenMethodKey =
+	private static final MethodKey _getPunchOutAccessTokenMethodKey =
 		new MethodKey(
-			PunchoutAccessTokenProviderImpl.class, "_getPunchoutAccessToken",
+			PunchoutAccessTokenProviderImpl.class, "_getPunchOutAccessToken",
 			String.class);
 	private static final DelayQueue<PunchoutAccessTokenDelayed>
-		_punchoutAccessTokenDelayQueue = new DelayQueue<>();
-	private static final MethodKey _putPunchoutAccessTokenMethodKey =
+		_punchOutAccessTokenDelayQueue = new DelayQueue<>();
+	private static final MethodKey _putPunchOutAccessTokenMethodKey =
 		new MethodKey(
-			PunchoutAccessTokenProviderImpl.class, "_putPunchoutAccessToken",
+			PunchoutAccessTokenProviderImpl.class, "_putPunchOutAccessToken",
 			PunchoutAccessToken.class);
-	private static final MethodKey _removePunchoutAccessTokenMethodKey =
+	private static final MethodKey _removePunchOutAccessTokenMethodKey =
 		new MethodKey(
-			PunchoutAccessTokenProviderImpl.class, "_removePunchoutAccessToken",
+			PunchoutAccessTokenProviderImpl.class, "_removePunchOutAccessToken",
 			String.class);
 
 	@Reference
 	private ClusterMasterExecutor _clusterMasterExecutor;
 
 	private PunchoutAccessTokenProviderConfiguration
-		_punchoutAccessTokenProviderConfiguration;
+		_punchOutAccessTokenProviderConfiguration;
 	private int _timeout;
 
 	private static class PunchoutAccessTokenDelayed implements Delayed {
 
 		public PunchoutAccessTokenDelayed(
-			PunchoutAccessToken punchoutAccessToken) {
+			PunchoutAccessToken punchOutAccessToken) {
 
-			_punchoutAccessToken = punchoutAccessToken;
+			_punchOutAccessToken = punchOutAccessToken;
 		}
 
 		@Override
@@ -293,20 +293,20 @@ public class PunchoutAccessTokenProviderImpl
 				TimeUnit.MILLISECONDS);
 		}
 
-		public PunchoutAccessToken getPunchoutAccessToken() {
-			return _punchoutAccessToken;
+		public PunchoutAccessToken getPunchOutAccessToken() {
+			return _punchOutAccessToken;
 		}
 
 		private long _getExpirationTime() {
-			return _punchoutAccessToken.getIssuedAt() +
-				_punchoutAccessToken.getExpiresIn();
+			return _punchOutAccessToken.getIssuedAt() +
+				   _punchOutAccessToken.getExpiresIn();
 		}
 
 		private static final Comparator<PunchoutAccessTokenDelayed>
 			_comparator = Comparator.comparing(
 				PunchoutAccessTokenDelayed::_getExpirationTime);
 
-		private final PunchoutAccessToken _punchoutAccessToken;
+		private final PunchoutAccessToken _punchOutAccessToken;
 
 	}
 

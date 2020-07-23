@@ -23,13 +23,13 @@ import java.util.HashMap;
  */
 public interface PunchoutAccessTokenProvider {
 
-	public PunchoutAccessToken generatePunchoutAccessToken(
+	public PunchoutAccessToken generatePunchOutAccessToken(
 		long groupId, long commerceAccountId, String currencyCode,
 		String userEmailAddress, String commerceOrderUuid,
-		HashMap<String, Object> punchoutSessionAttributes);
+		HashMap<String, Object> punchOutSessionAttributes);
 
-	public PunchoutAccessToken getPunchoutAccessToken(String token);
+	public PunchoutAccessToken getPunchOutAccessToken(String token);
 
-	public PunchoutAccessToken removePunchoutAccessToken(String token);
+	public PunchoutAccessToken removePunchOutAccessToken(String token);
 
 }

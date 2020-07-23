@@ -35,7 +35,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Jaclyn Ong
  */
 @Component(
-	configurationPid = "com.liferay.commerce.punchout.portal.security.auto.login.module.configuration.PunchoutAccessTokenAutoLoginConfiguration",
+	configurationPid = "com.liferay.commerce.punchout.portal.security.auto.login.module.configuration.PunchOutAccessTokenAutoLoginConfiguration",
 	immediate = true, service = AutoLogin.class
 )
 public class PunchoutAccessTokenAutoLogin extends BaseAutoLogin {
@@ -56,20 +56,20 @@ public class PunchoutAccessTokenAutoLogin extends BaseAutoLogin {
 
 	protected boolean isEnabled(long companyId) {
 		PunchoutAccessTokenAutoLoginConfiguration
-			punchoutAccessTokenAutoLoginConfiguration =
-				_getPunchoutAccessTokenAutoLoginConfiguration(companyId);
+			punchOutAccessTokenAutoLoginConfiguration =
+				_getPunchOutAccessTokenAutoLoginConfiguration(companyId);
 
-		if (punchoutAccessTokenAutoLoginConfiguration == null) {
+		if (punchOutAccessTokenAutoLoginConfiguration == null) {
 			return false;
 		}
 
 		if (_log.isDebugEnabled()) {
 			_log.debug(
-				"Punchout enabled for channel: " +
-					punchoutAccessTokenAutoLoginConfiguration.enabled());
+				"Punch out enabled for channel: " +
+					punchOutAccessTokenAutoLoginConfiguration.enabled());
 		}
 
-		return punchoutAccessTokenAutoLoginConfiguration.enabled();
+		return punchOutAccessTokenAutoLoginConfiguration.enabled();
 	}
 
 	@Reference(unbind = "-")
@@ -85,7 +85,7 @@ public class PunchoutAccessTokenAutoLogin extends BaseAutoLogin {
 	}
 
 	private PunchoutAccessTokenAutoLoginConfiguration
-		_getPunchoutAccessTokenAutoLoginConfiguration(long companyId) {
+	_getPunchOutAccessTokenAutoLoginConfiguration(long companyId) {
 
 		try {
 			return _configurationProvider.getConfiguration(
@@ -95,7 +95,7 @@ public class PunchoutAccessTokenAutoLogin extends BaseAutoLogin {
 		}
 		catch (ConfigurationException ce) {
 			_log.error(
-				"Unable to get punchout access token auto login configuration",
+				"Unable to get punch out access token auto login configuration",
 				ce);
 		}
 

@@ -61,7 +61,7 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 
-	public String returnToPunchoutVendor(
+	public String returnToPunchOutVendor(
 			CommerceOrder commerceOrder, String url)
 		throws Exception {
 
@@ -190,7 +190,7 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"Punchout2Go cart transfer request to " + url +
+					"PunchOut2Go cart transfer request to " + url +
 						"; cart JSON: " + cartJSON);
 			}
 
@@ -219,7 +219,7 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 
 				if (_log.isDebugEnabled()) {
 					_log.debug(
-						"JSON response received from Punchout2Go: " + response);
+						"JSON response received from PunchOut2Go: " + response);
 				}
 
 				JSONArray jsonArray = _jsonFactory.createJSONArray(
@@ -232,12 +232,12 @@ public class Punchout2GoReturnServiceImpl implements PunchoutReturnService {
 			}
 
 			_log.error(
-				"Punchout2Go cart transfer response code: " + responseCode);
+				"PunchOut2Go cart transfer response code: " + responseCode);
 
 			return null;
 		}
 		catch (Exception e) {
-			_log.error("Punchout2Go cart transfer failed", e);
+			_log.error("PunchOut2Go cart transfer failed", e);
 
 			throw e;
 		}

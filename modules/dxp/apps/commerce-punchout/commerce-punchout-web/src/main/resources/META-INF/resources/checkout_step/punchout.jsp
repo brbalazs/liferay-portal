@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String redirectURL = (String)request.getAttribute(PunchoutConstants.PUNCHOUT_REDIRECT_URL_ATTRIBUTE_NAME);
+String redirectURL = (String)request.getAttribute(PunchoutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME);
 String signOutURL = themeDisplay.getURLSignOut();
 %>
 
@@ -26,7 +26,7 @@ String signOutURL = themeDisplay.getURLSignOut();
 		<a href="<%= redirectURL %>"><%= redirectURL %></a>
 	</c:set>
 
-	<liferay-ui:message arguments="${redirectLink}" key="the-punchout-cart-transfer-process-has-been-initiated.-you-should-be-redirected-automatically.-if-the-page-does-not-reload-within-a-few-seconds-please-click-this-link-x" />
+	<liferay-ui:message arguments="${redirectLink}" key="the-punch-out-cart-transfer-process-has-been-initiated.-you-should-be-redirected-automatically.-if-the-page-does-not-reload-within-a-few-seconds-please-click-this-link-x" />
 </div>
 
 <script>

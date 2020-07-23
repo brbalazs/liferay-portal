@@ -249,7 +249,7 @@ components:
                     format: double
                     type: number
             type: object
-        PunchoutSession:
+        PunchOutSession:
             properties:
                 buyerAccountReferenceCode:
                     type: string
@@ -261,17 +261,17 @@ components:
                     $ref: "#/components/schemas/User"
                 cart:
                     $ref: "#/components/schemas/Cart"
-                punchoutReturnURL:
+                punchOutReturnURL:
                     type: string
-                punchoutSessionType:
+                punchOutSessionType:
                     type: string
-                punchoutStartURL:
+                punchOutStartURL:
                     type: string
             required:
                 - buyerAccountReferenceCode
                 - buyerGroup
-                - punchoutReturnURL
-                - punchoutSessionType
+                - punchOutReturnURL
+                - punchOutSessionType
                 - buyerUser
                 - cart
             type: object
@@ -365,37 +365,37 @@ components:
             type: object
 info:
     description:
-        "API for requesting punchout session.. A Java client JAR is available for use with the group ID 'com.liferay',
+        "API for requesting punch out session.. A Java client JAR is available for use with the group ID 'com.liferay',
         artifact ID 'com.liferay.headless.commerce.punchout.client', and version '1.0.0'."
     license:
         name: "Apache 2.0"
         url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-    title: "Liferay Headless Commerce Punchout"
+    title: "Liferay Headless Commerce Punch Out"
     version: v1.0
 openapi: 3.0.1
 paths:
     "/punchout/session/request":
         post:
             description:
-                "Create a punchout session."
-            operationId: postPunchoutSessionRequest
+                "Create a punch out session."
+            operationId: postPunchOutSessionRequest
             requestBody:
                 content:
                     application/json:
                         schema:
-                            $ref: "#/components/schemas/PunchoutSession"
+                            $ref: "#/components/schemas/PunchOutSession"
                     application/xml:
                         schema:
-                            $ref: "#/components/schemas/PunchoutSession"
+                            $ref: "#/components/schemas/PunchOutSession"
             responses:
                 200:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/PunchoutSession"
+                                $ref: "#/components/schemas/PunchOutSession"
                         application/xml:
                             schema:
-                                $ref: "#/components/schemas/PunchoutSession"
+                                $ref: "#/components/schemas/PunchOutSession"
                     description:
                         ""
                 400:
@@ -410,4 +410,4 @@ paths:
                 500:
                     description:
                         Unexpected error
-            tags: ["PunchoutSession"]
+            tags: ["PunchOutSession"]

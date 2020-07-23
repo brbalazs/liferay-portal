@@ -22,25 +22,25 @@ import com.liferay.commerce.punchout.configuration.PunchoutConfiguration;
 public class CommercePunchoutDisplayContext {
 
 	public CommercePunchoutDisplayContext(
-		long commerceChannelId, PunchoutConfiguration punchoutConfiguration) {
+		long commerceChannelId, PunchoutConfiguration punchOutConfiguration) {
 
 		_commerceChannelId = commerceChannelId;
-		_punchoutConfiguration = punchoutConfiguration;
+		_punchOutConfiguration = punchOutConfiguration;
 	}
 
 	public boolean enabled() {
-		return _punchoutConfiguration.enabled();
+		return _punchOutConfiguration.enabled();
 	}
 
 	public long getCommerceChannelId() {
 		return _commerceChannelId;
 	}
 
-	public String getPunchoutStartURL() {
-		return _punchoutConfiguration.punchoutStartURL();
+	public String getPunchOutStartURL() {
+		return _punchOutConfiguration.punchOutStartURL();
 	}
 
 	private final long _commerceChannelId;
-	private final PunchoutConfiguration _punchoutConfiguration;
+	private final PunchoutConfiguration _punchOutConfiguration;
 
 }

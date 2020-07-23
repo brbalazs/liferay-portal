@@ -41,7 +41,7 @@ public class CommerceOrderModelListener
 	public void onAfterUpdate(CommerceOrder commerceOrder) {
 		try {
 			if ((commerceOrder.getStatus() != WorkflowConstants.STATUS_DRAFT) ||
-				!_punchoutAccountRoleHelper.hasPunchoutRole(
+				!_punchOutAccountRoleHelper.hasPunchOutRole(
 					commerceOrder.getUserId(),
 					commerceOrder.getCommerceAccountId())) {
 
@@ -57,7 +57,7 @@ public class CommerceOrderModelListener
 		}
 		catch (PortalException e) {
 			_log.error(
-				"Failed to update workflow status to Approved on punchout " +
+				"Failed to update workflow status to Approved on punch out " +
 					"order (" + commerceOrder.getCommerceOrderId() + ")",
 				e);
 		}
@@ -70,6 +70,6 @@ public class CommerceOrderModelListener
 	private CommerceOrderLocalService _commerceOrderLocalService;
 
 	@Reference
-	private PunchoutAccountRoleHelper _punchoutAccountRoleHelper;
+	private PunchoutAccountRoleHelper _punchOutAccountRoleHelper;
 
 }

@@ -51,7 +51,7 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
-	public static final String NAME = "punchout";
+	public static final String NAME = "punch-out";
 
 	@Override
 	public String getName() {
@@ -63,9 +63,9 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 		HttpServletRequest httpServletRequest,
 		HttpServletResponse httpServletResponse) {
 
-		if (_punchoutSessionHelper.punchoutEnabled(httpServletRequest) &&
-			_punchoutSessionHelper.punchoutAllowed(httpServletRequest) &&
-			_punchoutSessionHelper.punchoutSession(httpServletRequest)) {
+		if (_punchOutSessionHelper.punchOutEnabled(httpServletRequest) &&
+			_punchOutSessionHelper.punchOutAllowed(httpServletRequest) &&
+			_punchOutSessionHelper.punchOutSession(httpServletRequest)) {
 
 			return true;
 		}
@@ -99,7 +99,7 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 			HttpServletResponse httpServletResponse)
 		throws Exception {
 
-		String punchoutReturnURL = _punchoutSessionHelper.getPunchoutReturnURL(
+		String punchOutReturnURL = _punchOutSessionHelper.getPunchOutReturnURL(
 			httpServletRequest);
 
 		CommerceOrder commerceOrder =
@@ -107,17 +107,17 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 				CommerceCheckoutWebKeys.COMMERCE_ORDER);
 
 		if (_log.isDebugEnabled()) {
-			_log.debug("Transferring cart to " + punchoutReturnURL);
+			_log.debug("Transferring cart to " + punchOutReturnURL);
 		}
 
-		String punchoutRedirectURL =
-			_punchoutReturnService.returnToPunchoutVendor(
-				commerceOrder, punchoutReturnURL);
+		String punchOutRedirectURL =
+			_punchOutReturnService.returnToPunchOutVendor(
+				commerceOrder, punchOutReturnURL);
 
-		if (Validator.isBlank(punchoutRedirectURL)) {
+		if (Validator.isBlank(punchOutRedirectURL)) {
 			_jspRenderer.renderJSP(
 				_servletContext, httpServletRequest, httpServletResponse,
-				"/checkout_step/punchout_error.jsp");
+				"/checkout_step/punch_out_error.jsp");
 
 			return;
 		}
@@ -128,16 +128,16 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 		HttpSession httpSession = originalHttpServletRequest.getSession();
 
 		httpSession.setAttribute(
-			PunchoutConstants.PUNCHOUT_REDIRECT_URL_ATTRIBUTE_NAME,
-			punchoutRedirectURL);
+			PunchoutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME,
+			punchOutRedirectURL);
 
 		httpServletRequest.setAttribute(
-			PunchoutConstants.PUNCHOUT_REDIRECT_URL_ATTRIBUTE_NAME,
-			punchoutRedirectURL);
+			PunchoutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME,
+			punchOutRedirectURL);
 
 		_jspRenderer.renderJSP(
 			_servletContext, httpServletRequest, httpServletResponse,
-			"/checkout_step/punchout.jsp");
+			"/checkout_step/punch_out.jsp");
 	}
 
 	@Override
@@ -158,10 +158,10 @@ public class PunchoutCommerceCheckoutStep extends BaseCommerceCheckoutStep {
 	private Portal _portal;
 
 	@Reference
-	private PunchoutReturnService _punchoutReturnService;
+	private PunchoutReturnService _punchOutReturnService;
 
 	@Reference
-	private PunchoutSessionHelper _punchoutSessionHelper;
+	private PunchoutSessionHelper _punchOutSessionHelper;
 
 	@Reference(
 		target = "(osgi.web.symbolicname=com.liferay.commerce.punchout.web)"

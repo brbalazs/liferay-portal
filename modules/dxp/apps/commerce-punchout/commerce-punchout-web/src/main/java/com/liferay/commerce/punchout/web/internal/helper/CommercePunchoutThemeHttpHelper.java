@@ -25,9 +25,9 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = CommercePunchoutThemeHttpHelper.class)
 public class CommercePunchoutThemeHttpHelper {
 
-	public boolean punchoutSession(HttpServletRequest httpServletRequest) {
-		if (_punchoutSessionHelper.punchoutEnabled(httpServletRequest) &&
-			_punchoutSessionHelper.punchoutAllowed(httpServletRequest)) {
+	public boolean punchOutSession(HttpServletRequest httpServletRequest) {
+		if (_punchOutSessionHelper.punchOutEnabled(httpServletRequest) &&
+			_punchOutSessionHelper.punchOutAllowed(httpServletRequest)) {
 
 			return true;
 		}
@@ -36,6 +36,6 @@ public class CommercePunchoutThemeHttpHelper {
 	}
 
 	@Reference
-	private PunchoutSessionHelper _punchoutSessionHelper;
+	private PunchoutSessionHelper _punchOutSessionHelper;
 
 }

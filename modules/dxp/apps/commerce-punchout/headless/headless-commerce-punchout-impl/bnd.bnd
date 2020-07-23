@@ -1,4 +1,4 @@
-Bundle-Name: Liferay Headless Commerce Punchout Implementation
+Bundle-Name: Liferay Headless Commerce Punch Out Implementation
 Bundle-SymbolicName: com.liferay.headless.commerce.punchout.impl
 Bundle-Version: 1.0.4
 Import-Package:\

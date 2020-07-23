@@ -21,7 +21,7 @@ import com.liferay.commerce.model.CommerceOrder;
  */
 public interface PunchoutReturnService {
 
-	public String returnToPunchoutVendor(
+	public String returnToPunchOutVendor(
 			CommerceOrder commerceOrder, String url)
 		throws Exception;
 

@@ -53,20 +53,20 @@ public class PunchoutSessionHelper {
 		return originalHttpServletRequest.getSession();
 	}
 
-	public String getPunchoutReturnURL(HttpServletRequest httpServletRequest) {
+	public String getPunchOutReturnURL(HttpServletRequest httpServletRequest) {
 		HttpSession httpSession = getHttpSession(httpServletRequest);
 
-		Object punchoutReturnUrlObject = httpSession.getAttribute(
-			PunchoutConstants.PUNCHOUT_RETURN_URL_ATTRIBUTE_NAME);
+		Object punchOutReturnUrlObject = httpSession.getAttribute(
+			PunchoutConstants.PUNCH_OUT_RETURN_URL_ATTRIBUTE_NAME);
 
-		if (punchoutReturnUrlObject == null) {
+		if (punchOutReturnUrlObject == null) {
 			return null;
 		}
 
-		return (String)punchoutReturnUrlObject;
+		return (String)punchOutReturnUrlObject;
 	}
 
-	public boolean punchoutAllowed(HttpServletRequest httpServletRequest) {
+	public boolean punchOutAllowed(HttpServletRequest httpServletRequest) {
 		try {
 			CommerceOrder commerceOrder = _getCommerceOrder(httpServletRequest);
 
@@ -81,20 +81,21 @@ public class PunchoutSessionHelper {
 			CommerceAccount commerceAccount =
 				commerceContext.getCommerceAccount();
 
-			return _punchoutAccountRoleHelper.hasPunchoutRole(
+			return _punchOutAccountRoleHelper.hasPunchOutRole(
 				commerceOrder.getUserId(),
 				commerceAccount.getCommerceAccountId());
 		}
 		catch (Exception e) {
 			_log.error(
-				"Failed to determine whether user has Punchout role under " +
-					"commerce account");
+				"Failed to determine whether user has " +
+					PunchoutConstants.ROLE_NAME_ACCOUNT_PUNCH_OUT  +
+						" role under commerce account");
 
 			return false;
 		}
 	}
 
-	public boolean punchoutEnabled(HttpServletRequest httpServletRequest) {
+	public boolean punchOutEnabled(HttpServletRequest httpServletRequest) {
 		try {
 			CommerceContext commerceContext =
 				(CommerceContext)httpServletRequest.getAttribute(
@@ -107,24 +108,24 @@ public class PunchoutSessionHelper {
 				return false;
 			}
 
-			PunchoutConfiguration punchoutConfiguration =
-				_getPunchoutConfiguration(commerceChannelGroupId);
+			PunchoutConfiguration punchOutConfiguration =
+				_getPunchOutConfiguration(commerceChannelGroupId);
 
-			if (punchoutConfiguration != null) {
-				return punchoutConfiguration.enabled();
+			if (punchOutConfiguration != null) {
+				return punchOutConfiguration.enabled();
 			}
 		}
 		catch (Exception e) {
-			_log.error("Failed to load punchout configuration", e);
+			_log.error("Failed to load punch out configuration", e);
 		}
 
 		return false;
 	}
 
-	public boolean punchoutSession(HttpServletRequest request) {
-		String punchoutReturnURL = getPunchoutReturnURL(request);
+	public boolean punchOutSession(HttpServletRequest request) {
+		String punchOutReturnURL = getPunchOutReturnURL(request);
 
-		return !Validator.isBlank(punchoutReturnURL);
+		return !Validator.isBlank(punchOutReturnURL);
 	}
 
 	private CommerceOrder _getCommerceOrder(
@@ -148,7 +149,7 @@ public class PunchoutSessionHelper {
 			httpServletRequest);
 	}
 
-	private PunchoutConfiguration _getPunchoutConfiguration(
+	private PunchoutConfiguration _getPunchOutConfiguration(
 		long channelGroupId) {
 
 		try {
@@ -158,7 +159,7 @@ public class PunchoutSessionHelper {
 					channelGroupId, PunchoutConstants.SERVICE_NAME));
 		}
 		catch (ConfigurationException ce) {
-			_log.error("Unable to get punchout configuration", ce);
+			_log.error("Unable to get punch out configuration", ce);
 		}
 
 		return null;
@@ -183,6 +184,6 @@ public class PunchoutSessionHelper {
 	private Portal _portal;
 
 	@Reference
-	private PunchoutAccountRoleHelper _punchoutAccountRoleHelper;
+	private PunchoutAccountRoleHelper _punchOutAccountRoleHelper;
 
 }

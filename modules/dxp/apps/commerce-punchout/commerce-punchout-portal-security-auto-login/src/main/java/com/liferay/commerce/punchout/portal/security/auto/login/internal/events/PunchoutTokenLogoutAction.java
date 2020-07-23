@@ -47,26 +47,26 @@ public class PunchoutTokenLogoutAction extends Action {
 
 			HttpSession session = request.getSession();
 
-			Object punchoutReturnUrlObject = session.getAttribute(
-				PunchoutConstants.PUNCHOUT_REDIRECT_URL_ATTRIBUTE_NAME);
+			Object punchOutReturnUrlObject = session.getAttribute(
+				PunchoutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME);
 
-			if (punchoutReturnUrlObject == null) {
+			if (punchOutReturnUrlObject == null) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(
-						PunchoutConstants.PUNCHOUT_REDIRECT_URL_ATTRIBUTE_NAME +
-							" not found in session");
+						PunchoutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME +
+						" not found in session");
 				}
 
 				return;
 			}
 
-			String redirectURL = (String)punchoutReturnUrlObject;
+			String redirectURL = (String)punchOutReturnUrlObject;
 
 			if (Validator.isBlank(redirectURL)) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(
-						PunchoutConstants.PUNCHOUT_REDIRECT_URL_ATTRIBUTE_NAME +
-							" is blank");
+						PunchoutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME +
+						" is blank");
 				}
 
 				return;

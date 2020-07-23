@@ -23,9 +23,9 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
  */
 @ExtendedObjectClassDefinition(category = "api-authentication")
 @Meta.OCD(
-	id = "com.liferay.commerce.punchout.portal.security.auto.login.module.configuration.PunchoutAccessTokenAutoLoginConfiguration",
+	id = "com.liferay.commerce.punchout.portal.security.auto.login.module.configuration.PunchOutAccessTokenAutoLoginConfiguration",
 	localization = "content/Language",
-	name = "punchout-access-token-auto-login-configuration-name"
+	name = "punch-out-access-token-auto-login-configuration-name"
 )
 public interface PunchoutAccessTokenAutoLoginConfiguration {
 

@@ -38,7 +38,7 @@ public class PunchoutAccountRoleHelperImpl
 	implements PunchoutAccountRoleHelper {
 
 	@Override
-	public boolean hasPunchoutRole(long userId, long commerceAccountId)
+	public boolean hasPunchOutRole(long userId, long commerceAccountId)
 		throws PortalException {
 
 		List<CommerceAccountUserRel> commerceAccountUserRels =
@@ -55,10 +55,10 @@ public class PunchoutAccountRoleHelperImpl
 			return false;
 		}
 
-		Role punchoutRole = _roleLocalService.fetchRole(
-			user.getCompanyId(), PunchoutConstants.ROLE_NAME_ACCOUNT_PUNCHOUT);
+		Role punchOutRole = _roleLocalService.fetchRole(
+			user.getCompanyId(), PunchoutConstants.ROLE_NAME_ACCOUNT_PUNCH_OUT);
 
-		if (punchoutRole == null) {
+		if (punchOutRole == null) {
 			return false;
 		}
 
@@ -72,7 +72,7 @@ public class PunchoutAccountRoleHelperImpl
 				Role role = userGroupRole.getRole();
 
 				if ((userGroupRole.getUserId() == userId) &&
-					(role.getRoleId() == punchoutRole.getRoleId())) {
+					(role.getRoleId() == punchOutRole.getRoleId())) {
 
 					return true;
 				}

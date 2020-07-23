@@ -25,15 +25,15 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 	category = "third-party", scope = ExtendedObjectClassDefinition.Scope.GROUP
 )
 @Meta.OCD(
-	id = "com.liferay.commerce.punchout.configuration.PunchoutConfiguration",
-	localization = "content/Language", name = "punchout-configuration-name"
+	id = "com.liferay.commerce.punchout.configuration.PunchOutConfiguration",
+	localization = "content/Language", name = "punch-out-configuration-name"
 )
 public interface PunchoutConfiguration {
 
 	@Meta.AD(deflt = "false", name = "enabled", required = false)
 	public boolean enabled();
 
-	@Meta.AD(name = "punchout-start-url", required = false)
-	public String punchoutStartURL();
+	@Meta.AD(name = "punch-out-start-url", required = false)
+	public String punchOutStartURL();
 
 }

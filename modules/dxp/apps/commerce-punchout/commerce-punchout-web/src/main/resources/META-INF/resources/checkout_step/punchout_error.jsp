@@ -17,5 +17,5 @@
 <%@ include file="/init.jsp" %>
 
 <div>
-	<liferay-ui:message key="punchout-cart-transfer-failed-please-try-again" />
+	<liferay-ui:message key="punch-out-cart-transfer-failed-please-try-again" />
 </div>

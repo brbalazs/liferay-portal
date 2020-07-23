@@ -17,7 +17,7 @@ package com.liferay.headless.commerce.punchout.helper;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.headless.commerce.punchout.dto.v1_0.PunchoutSession;
+import com.liferay.headless.commerce.punchout.dto.v1_0.PunchOutSession;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 
@@ -29,14 +29,14 @@ public class PunchoutContext {
 	public PunchoutContext(
 		CommerceAccount businessCommerceAccount, Group buyerGroup,
 		User buyerLiferayUser, CommerceChannel commerceChannel,
-		CommerceOrder editCartCommerceOrder, PunchoutSession punchoutSession) {
+		CommerceOrder editCartCommerceOrder, PunchOutSession punchOutSession) {
 
 		_businessCommerceAccount = businessCommerceAccount;
 		_buyerGroup = buyerGroup;
 		_buyerLiferayUser = buyerLiferayUser;
 		_commerceChannel = commerceChannel;
 		_editCartCommerceOrder = editCartCommerceOrder;
-		_punchoutSession = punchoutSession;
+		_punchOutSession = punchOutSession;
 	}
 
 	public CommerceAccount getBusinessCommerceAccount() {
@@ -59,8 +59,8 @@ public class PunchoutContext {
 		return _editCartCommerceOrder;
 	}
 
-	public PunchoutSession getPunchoutSession() {
-		return _punchoutSession;
+	public PunchOutSession getPunchOutSession() {
+		return _punchOutSession;
 	}
 
 	public void setBusinessCommerceAccount(
@@ -85,8 +85,8 @@ public class PunchoutContext {
 		_editCartCommerceOrder = editCartCommerceOrder;
 	}
 
-	public void setPunchoutSession(PunchoutSession punchoutSession) {
-		_punchoutSession = punchoutSession;
+	public void setPunchOutSession(PunchOutSession punchOutSession) {
+		_punchOutSession = punchOutSession;
 	}
 
 	private CommerceAccount _businessCommerceAccount;
@@ -94,6 +94,6 @@ public class PunchoutContext {
 	private User _buyerLiferayUser;
 	private CommerceChannel _commerceChannel;
 	private CommerceOrder _editCartCommerceOrder;
-	private PunchoutSession _punchoutSession;
+	private PunchOutSession _punchOutSession;
 
 }

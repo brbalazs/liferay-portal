@@ -17,23 +17,28 @@
 <%@ include file="/init.jsp" %>
 
 <%
-CommercePunchoutDisplayContext commercePunchoutDisplayContext = (CommercePunchoutDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+CommercePunchoutDisplayContext commercePunchOutDisplayContext = (CommercePunchoutDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-long commerceChannelId = commercePunchoutDisplayContext.getCommerceChannelId();
+long commerceChannelId = commercePunchOutDisplayContext.getCommerceChannelId();
 %>
 
-<portlet:actionURL name="editCommercePunchoutConfiguration" var="editCommercePunchoutConfigurationActionURL" />
+<portlet:actionURL name="editCommercePunchOutConfiguration" var="editCommercePunchOutConfigurationActionURL" />
 
-<aui:form action="<%= editCommercePunchoutConfigurationActionURL %>" method="post" name="fm">
+<aui:form action="<%= editCommercePunchOutConfigurationActionURL %>" method="post" name="fm">
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
 	<aui:input name="commerceChannelId" type="hidden" value="<%= commerceChannelId %>" />
 
-	<commerce-ui:info-box
-		title='<%= LanguageUtil.get(request, "configuration") %>'
-	>
-		<aui:input checked="<%= commercePunchoutDisplayContext.enabled() %>" label="enabled" name="settings--enabled--" type="checkbox" />
+	<div class="row">
+		<div class="col-12">
+			<commerce-ui:panel
+				bodyClasses="flex-fill"
+				title='<%= LanguageUtil.get(request, "details") %>'
+			>
+				<aui:input checked="<%= commercePunchOutDisplayContext.enabled() %>" label="enabled" labelOff="disabled" labelOn="enabled" name="settings--enabled--" type="toggle-switch" />
 
-		<aui:input label="punchout-start-url" name="settings--punchoutStartURL--" value="<%= commercePunchoutDisplayContext.getPunchoutStartURL() %>" />
-	</commerce-ui:info-box>
+				<aui:input label="punch-out-start-url" name="settings--punchOutStartURL--" value="<%= commercePunchOutDisplayContext.getPunchOutStartURL() %>" />
+			</commerce-ui:panel>
+		</div>
+	</div>
 </aui:form>

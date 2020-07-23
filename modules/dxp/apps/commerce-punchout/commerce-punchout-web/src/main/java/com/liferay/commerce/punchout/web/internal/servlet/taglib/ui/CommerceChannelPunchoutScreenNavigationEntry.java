@@ -57,7 +57,7 @@ public class CommerceChannelPunchoutScreenNavigationEntry
 
 	@Override
 	public String getCategoryKey() {
-		return "punchout";
+		return "punch-out";
 	}
 
 	@Override
@@ -84,12 +84,12 @@ public class CommerceChannelPunchoutScreenNavigationEntry
 		CommerceChannel commerceChannel = _getCommerceChannel(
 			httpServletRequest);
 
-		PunchoutConfiguration punchoutConfiguration = _getPunchoutConfiguration(
+		PunchoutConfiguration punchOutConfiguration = _getPunchOutConfiguration(
 			commerceChannel.getGroupId());
 
 		CommercePunchoutDisplayContext commerceShippingMethodsDisplayContext =
 			new CommercePunchoutDisplayContext(
-				commerceChannel.getCommerceChannelId(), punchoutConfiguration);
+				commerceChannel.getCommerceChannelId(), punchOutConfiguration);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -117,7 +117,7 @@ public class CommerceChannelPunchoutScreenNavigationEntry
 		return null;
 	}
 
-	private PunchoutConfiguration _getPunchoutConfiguration(
+	private PunchoutConfiguration _getPunchOutConfiguration(
 		long commerceChannelGroupId) {
 
 		try {
@@ -127,7 +127,7 @@ public class CommerceChannelPunchoutScreenNavigationEntry
 					commerceChannelGroupId, PunchoutConstants.SERVICE_NAME));
 		}
 		catch (Exception e) {
-			_log.error("Unable to get punchout configuration", e);
+			_log.error("Unable to get punch out configuration", e);
 		}
 
 		return null;

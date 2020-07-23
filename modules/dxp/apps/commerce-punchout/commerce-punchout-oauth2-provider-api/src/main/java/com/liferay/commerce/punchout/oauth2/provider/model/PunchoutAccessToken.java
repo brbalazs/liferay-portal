@@ -45,12 +45,12 @@ public class PunchoutAccessToken {
 		return _issuedAt;
 	}
 
-	public Object getPunchoutSessionAttribute(String key) {
-		return _punchoutSessionAttributes.get(key);
+	public Object getPunchOutSessionAttribute(String key) {
+		return _punchOutSessionAttributes.get(key);
 	}
 
-	public HashMap<String, Object> getPunchoutSessionAttributes() {
-		return _punchoutSessionAttributes;
+	public HashMap<String, Object> getPunchOutSessionAttributes() {
+		return _punchOutSessionAttributes;
 	}
 
 	public byte[] getToken() {
@@ -85,14 +85,14 @@ public class PunchoutAccessToken {
 		_issuedAt = issuedAt;
 	}
 
-	public void setPunchoutSessionAttribute(String key, Object value) {
-		_punchoutSessionAttributes.put(key, value);
+	public void setPunchOutSessionAttribute(String key, Object value) {
+		_punchOutSessionAttributes.put(key, value);
 	}
 
-	public void setPunchoutSessionAttributes(
-		HashMap<String, Object> punchoutSessionAttributes) {
+	public void setPunchOutSessionAttributes(
+		HashMap<String, Object> punchOutSessionAttributes) {
 
-		_punchoutSessionAttributes = punchoutSessionAttributes;
+		_punchOutSessionAttributes = punchOutSessionAttributes;
 	}
 
 	public void setToken(byte[] token) {
@@ -109,7 +109,7 @@ public class PunchoutAccessToken {
 	private long _expiresIn;
 	private long _groupId;
 	private long _issuedAt;
-	private HashMap<String, Object> _punchoutSessionAttributes =
+	private HashMap<String, Object> _punchOutSessionAttributes =
 		new HashMap<>();
 	private byte[] _token;
 	private String _userEmailAddress;
