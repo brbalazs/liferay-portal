@@ -105,39 +105,17 @@ public class SearchUtil {
 			};
 		}
 
-		List<T> items = new ArrayList<>();
-
-		Indexer<?> indexer = IndexerRegistryUtil.getIndexer(indexerClass);
-
 		SearchContext searchContext = _createSearchContext(
 			_getBooleanClause(booleanQueryUnsafeConsumer, filter), keywords,
 			pagination, queryConfigUnsafeConsumer, sorts);
 
 		searchContextUnsafeConsumer.accept(searchContext);
 
-		Hits hits = null;
-
-		if (searchContext.isVulcanCheckPermissions()) {
-			hits = indexer.search(searchContext);
-		}
-		else {
-			hits = IndexSearcherHelperUtil.search(
-				searchContext, indexer.getFullQuery(searchContext));
-		}
-
-		for (Document document : hits.getDocs()) {
-			T item = transformUnsafeFunction.apply(document);
-
-			if (item != null) {
-				items.add(item);
-			}
-		}
-
-		Map<String, Facet> facets = searchContext.getFacets();
+		Indexer<?> indexer = IndexerRegistryUtil.getIndexer(indexerClass);
 
 		return Page.of(
-			actions,
-			TransformUtil.transform(facets.values(), FacetUtil::toFacet), items,
+			actions, _getFacets(searchContext),
+			_getItems(indexer, searchContext, transformUnsafeFunction),
 			pagination, indexer.searchCount(searchContext));
 	}
 
@@ -297,6 +275,42 @@ public class SearchUtil {
 
 		return BooleanClauseFactoryUtil.create(
 			booleanQuery, BooleanClauseOccur.MUST.getName());
+	}
+
+	private static List<com.liferay.portal.vulcan.aggregation.Facet> _getFacets(
+		SearchContext searchContext) {
+
+		Map<String, Facet> facets = searchContext.getFacets();
+
+		return TransformUtil.transform(facets.values(), FacetUtil::toFacet);
+	}
+
+	private static <T> List<T> _getItems(
+			Indexer<?> indexer, SearchContext searchContext,
+			UnsafeFunction<Document, T, Exception> transformUnsafeFunction)
+		throws Exception {
+
+		List<T> items = new ArrayList<>();
+
+		Hits hits = null;
+
+		if (searchContext.isVulcanCheckPermissions()) {
+			hits = indexer.search(searchContext);
+		}
+		else {
+			hits = IndexSearcherHelperUtil.search(
+				searchContext, indexer.getFullQuery(searchContext));
+		}
+
+		for (Document document : hits.getDocs()) {
+			T item = transformUnsafeFunction.apply(document);
+
+			if (item != null) {
+				items.add(item);
+			}
+		}
+
+		return items;
 	}
 
 	private static Object[] _getOrderByComparatorColumns(Sort[] sorts) {
