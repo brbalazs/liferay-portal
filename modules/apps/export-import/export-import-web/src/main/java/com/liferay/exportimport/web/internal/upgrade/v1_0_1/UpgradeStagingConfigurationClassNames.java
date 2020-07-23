@@ -142,8 +142,8 @@ public class UpgradeStagingConfigurationClassNames extends UpgradeProcess {
 				if (_log.isDebugEnabled()) {
 					_log.debug(
 						StringBundler.concat(
-							"Replacing \"", stagedKey, "\" with \"",
-							adminStagedKey, "\", value=\"", value, "\""));
+							"Renaming key \"", stagedKey, "\" to \"",
+							adminStagedKey, "\" with value \"", value, "\""));
 				}
 
 				typeSettingsUnicodeProperties.put(adminStagedKey, value);
