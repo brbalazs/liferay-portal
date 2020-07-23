@@ -50,7 +50,7 @@ public class AggregationContextProvider
 		AcceptLanguage acceptLanguage, EntityModel entityModel,
 		String[] terms) {
 
-		if ((terms == null) || (entityModel == null)) {
+		if ((entityModel == null) || (terms == null)) {
 			return null;
 		}
 
