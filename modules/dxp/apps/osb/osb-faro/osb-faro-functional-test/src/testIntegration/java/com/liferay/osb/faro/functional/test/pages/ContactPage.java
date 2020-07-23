@@ -196,7 +196,7 @@ public class ContactPage {
 	public void assertIndividualOverviewCards() throws Exception {
 		_faroSelenium.waitForElementPresent(
 			"//div[contains(@class,'individual-profile-card')]//*[contains(" +
-				"text(),'Total Activity Count')]");
+				"text(),'Individual Activities')]");
 		_faroSelenium.assertElementPresent(
 			"//div[contains(@class,'individual-profile-card')]//*[contains(" +
 				"text(),'Engagement Score')]");
