@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.commerce.punchout.configuration.definition;
+package com.liferay.commerce.punchout.internal.configuration;
 
 import com.liferay.commerce.punchout.configuration.PunchOutConfiguration;
 import com.liferay.commerce.punchout.constants.PunchOutConstants;
