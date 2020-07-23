@@ -129,43 +129,6 @@ exports[`NewRuleModal should render 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="exact-match"
-          >
-            <div
-              class="custom-control custom-checkbox custom-control-inline"
-            >
-              <label>
-                <input
-                  class="custom-control-input"
-                  name="exactMatch"
-                  type="checkbox"
-                  value="false"
-                />
-                <span
-                  class="custom-control-label"
-                >
-                  <span
-                    class="custom-control-label-text"
-                  >
-                    Exact Match
-                  </span>
-                </span>
-              </label>
-            </div>
-            <span
-              class="info-popover-root exact-match-help-icon"
-            >
-              <svg
-                class="icon-root lexicon-icon lexicon-icon-question-circle-full"
-                viewBox=""
-              >
-                <use
-                  xlink:href="#question-circle-full"
-                />
-              </svg>
-            </span>
-          </div>
         </div>
       </div>
       <div
