@@ -182,7 +182,7 @@ public class SearchUtil {
 	public static class SearchContext
 		extends com.liferay.portal.kernel.search.SearchContext {
 
-		public void addSimpleFacets(Aggregation aggregation) {
+		public void addVulcanAggregation(Aggregation aggregation) {
 			if ((aggregation == null) || (aggregation.getTerms() == null)) {
 				return;
 			}
