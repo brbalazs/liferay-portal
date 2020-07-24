@@ -2054,8 +2054,7 @@ public class GraphQLServletExtender {
 			GraphQLContributor graphQLContributor) {
 
 			Optional.ofNullable(
-				_servletDataServiceRegistrationMap.remove(
-					graphQLContributor)
+				_servletDataServiceRegistrationMap.remove(graphQLContributor)
 			).ifPresent(
 				ServiceRegistration::unregister
 			);
