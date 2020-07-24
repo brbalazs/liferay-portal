@@ -77,6 +77,7 @@ page import="com.liferay.server.admin.web.internal.display.context.ServerDisplay
 
 <%@ page import="java.util.ArrayList" %><%@
 page import="java.util.Collection" %><%@
+page import="java.util.Date" %><%@
 page import="java.util.Enumeration" %><%@
 page import="java.util.Iterator" %><%@
 page import="java.util.List" %><%@

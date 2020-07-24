@@ -65,7 +65,7 @@ List resultRows = searchContainer.getResultRows();
 for (int i = 0; i < results.size(); i++) {
 	String actionId = (String)results.get(i);
 
-	if (role.getName().equals(RoleConstants.GUEST) && guestUnsupportedActions.contains(actionId)) {
+	if (StringUtil.equals(role.getName(), RoleConstants.GUEST) && guestUnsupportedActions.contains(actionId)) {
 		continue;
 	}
 
