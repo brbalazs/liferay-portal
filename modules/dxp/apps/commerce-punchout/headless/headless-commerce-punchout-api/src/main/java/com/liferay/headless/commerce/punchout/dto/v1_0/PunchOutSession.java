@@ -44,19 +44,19 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName("PunchoutSession")
+@GraphQLName("PunchOutSession")
 @JsonFilter("Liferay.Vulcan")
 @Schema(
 	requiredProperties = {
-		"buyerAccountReferenceCode", "buyerGroup", "punchoutReturnURL",
-		"punchoutSessionType", "buyerUser", "cart"
+		"buyerAccountReferenceCode", "buyerGroup", "punchOutReturnURL",
+		"punchOutSessionType", "buyerUser", "cart"
 	}
 )
-@XmlRootElement(name = "PunchoutSession")
-public class PunchoutSession {
+@XmlRootElement(name = "PunchOutSession")
+public class PunchOutSession {
 
-	public static PunchoutSession toDTO(String json) {
-		return ObjectMapperUtil.readValue(PunchoutSession.class, json);
+	public static PunchOutSession toDTO(String json) {
+		return ObjectMapperUtil.readValue(PunchOutSession.class, json);
 	}
 
 	@Schema
@@ -209,20 +209,20 @@ public class PunchoutSession {
 	protected Cart cart;
 
 	@Schema
-	public String getPunchoutReturnURL() {
-		return punchoutReturnURL;
+	public String getPunchOutReturnURL() {
+		return punchOutReturnURL;
 	}
 
-	public void setPunchoutReturnURL(String punchoutReturnURL) {
-		this.punchoutReturnURL = punchoutReturnURL;
+	public void setPunchOutReturnURL(String punchOutReturnURL) {
+		this.punchOutReturnURL = punchOutReturnURL;
 	}
 
 	@JsonIgnore
-	public void setPunchoutReturnURL(
-		UnsafeSupplier<String, Exception> punchoutReturnURLUnsafeSupplier) {
+	public void setPunchOutReturnURL(
+		UnsafeSupplier<String, Exception> punchOutReturnURLUnsafeSupplier) {
 
 		try {
-			punchoutReturnURL = punchoutReturnURLUnsafeSupplier.get();
+			punchOutReturnURL = punchOutReturnURLUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -235,23 +235,23 @@ public class PunchoutSession {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
-	protected String punchoutReturnURL;
+	protected String punchOutReturnURL;
 
 	@Schema
-	public String getPunchoutSessionType() {
-		return punchoutSessionType;
+	public String getPunchOutSessionType() {
+		return punchOutSessionType;
 	}
 
-	public void setPunchoutSessionType(String punchoutSessionType) {
-		this.punchoutSessionType = punchoutSessionType;
+	public void setPunchOutSessionType(String punchOutSessionType) {
+		this.punchOutSessionType = punchOutSessionType;
 	}
 
 	@JsonIgnore
-	public void setPunchoutSessionType(
-		UnsafeSupplier<String, Exception> punchoutSessionTypeUnsafeSupplier) {
+	public void setPunchOutSessionType(
+		UnsafeSupplier<String, Exception> punchOutSessionTypeUnsafeSupplier) {
 
 		try {
-			punchoutSessionType = punchoutSessionTypeUnsafeSupplier.get();
+			punchOutSessionType = punchOutSessionTypeUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -264,23 +264,23 @@ public class PunchoutSession {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
-	protected String punchoutSessionType;
+	protected String punchOutSessionType;
 
 	@Schema
-	public String getPunchoutStartURL() {
-		return punchoutStartURL;
+	public String getPunchOutStartURL() {
+		return punchOutStartURL;
 	}
 
-	public void setPunchoutStartURL(String punchoutStartURL) {
-		this.punchoutStartURL = punchoutStartURL;
+	public void setPunchOutStartURL(String punchOutStartURL) {
+		this.punchOutStartURL = punchOutStartURL;
 	}
 
 	@JsonIgnore
-	public void setPunchoutStartURL(
-		UnsafeSupplier<String, Exception> punchoutStartURLUnsafeSupplier) {
+	public void setPunchOutStartURL(
+		UnsafeSupplier<String, Exception> punchOutStartURLUnsafeSupplier) {
 
 		try {
-			punchoutStartURL = punchoutStartURLUnsafeSupplier.get();
+			punchOutStartURL = punchOutStartURLUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -292,7 +292,7 @@ public class PunchoutSession {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String punchoutStartURL;
+	protected String punchOutStartURL;
 
 	@Override
 	public boolean equals(Object object) {
@@ -300,13 +300,13 @@ public class PunchoutSession {
 			return true;
 		}
 
-		if (!(object instanceof PunchoutSession)) {
+		if (!(object instanceof PunchOutSession)) {
 			return false;
 		}
 
-		PunchoutSession punchoutSession = (PunchoutSession)object;
+		PunchOutSession punchOutSession = (PunchOutSession)object;
 
-		return Objects.equals(toString(), punchoutSession.toString());
+		return Objects.equals(toString(), punchOutSession.toString());
 	}
 
 	@Override
@@ -375,44 +375,44 @@ public class PunchoutSession {
 			sb.append(String.valueOf(cart));
 		}
 
-		if (punchoutReturnURL != null) {
+		if (punchOutReturnURL != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"punchoutReturnURL\": ");
+			sb.append("\"punchOutReturnURL\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(punchoutReturnURL));
+			sb.append(_escape(punchOutReturnURL));
 
 			sb.append("\"");
 		}
 
-		if (punchoutSessionType != null) {
+		if (punchOutSessionType != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"punchoutSessionType\": ");
+			sb.append("\"punchOutSessionType\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(punchoutSessionType));
+			sb.append(_escape(punchOutSessionType));
 
 			sb.append("\"");
 		}
 
-		if (punchoutStartURL != null) {
+		if (punchOutStartURL != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"punchoutStartURL\": ");
+			sb.append("\"punchOutStartURL\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(punchoutStartURL));
+			sb.append(_escape(punchOutStartURL));
 
 			sb.append("\"");
 		}
@@ -423,7 +423,7 @@ public class PunchoutSession {
 	}
 
 	@Schema(
-		defaultValue = "com.liferay.headless.commerce.punchout.dto.v1_0.PunchoutSession",
+		defaultValue = "com.liferay.headless.commerce.punchout.dto.v1_0.PunchOutSession",
 		name = "x-class-name"
 	)
 	public String xClassName;

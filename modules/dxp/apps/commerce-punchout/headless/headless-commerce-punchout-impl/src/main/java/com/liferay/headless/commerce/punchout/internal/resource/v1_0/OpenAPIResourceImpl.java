@@ -47,7 +47,7 @@ import org.osgi.service.component.annotations.Reference;
 )
 @Generated("")
 @OpenAPIDefinition(
-	info = @Info(description = "API for requesting punchout session.. A Java client JAR is available for use with the group ID 'com.liferay', artifact ID 'com.liferay.headless.commerce.punchout.client', and version '1.0.0'.", license = @License(name = "Apache 2.0", url = "http://www.apache.org/licenses/LICENSE-2.0.html"), title = "Liferay Headless Commerce Punchout", version = "v1.0")
+	info = @Info(description = "API for requesting punch out session.. A Java client JAR is available for use with the group ID 'com.liferay', artifact ID 'com.liferay.headless.commerce.punchout.client', and version '1.0.0'.", license = @License(name = "Apache 2.0", url = "http://www.apache.org/licenses/LICENSE-2.0.html"), title = "Liferay Headless Commerce Punch Out", version = "v1.0")
 )
 @Path("/v1.0")
 public class OpenAPIResourceImpl {
@@ -80,7 +80,7 @@ public class OpenAPIResourceImpl {
 
 	private final Set<Class<?>> _resourceClasses = new HashSet<Class<?>>() {
 		{
-			add(PunchoutSessionResourceImpl.class);
+			add(PunchOutSessionResourceImpl.class);
 
 			add(OpenAPIResourceImpl.class);
 		}

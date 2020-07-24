@@ -14,7 +14,7 @@
 
 package com.liferay.headless.commerce.punchout.internal.resource.v1_0.factory;
 
-import com.liferay.headless.commerce.punchout.resource.v1_0.PunchoutSessionResource;
+import com.liferay.headless.commerce.punchout.resource.v1_0.PunchOutSessionResource;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
@@ -50,31 +50,31 @@ import org.osgi.service.component.annotations.ReferenceScope;
  * @author Jaclyn Ong
  * @generated
  */
-@Component(immediate = true, service = PunchoutSessionResource.Factory.class)
+@Component(immediate = true, service = PunchOutSessionResource.Factory.class)
 @Generated("")
-public class PunchoutSessionResourceFactoryImpl
-	implements PunchoutSessionResource.Factory {
+public class PunchOutSessionResourceFactoryImpl
+	implements PunchOutSessionResource.Factory {
 
 	@Override
-	public PunchoutSessionResource.Builder create() {
-		return new PunchoutSessionResource.Builder() {
+	public PunchOutSessionResource.Builder create() {
+		return new PunchOutSessionResource.Builder() {
 
 			@Override
-			public PunchoutSessionResource build() {
+			public PunchOutSessionResource build() {
 				if (_user == null) {
 					throw new IllegalArgumentException("User is not set");
 				}
 
-				return (PunchoutSessionResource)ProxyUtil.newProxyInstance(
-					PunchoutSessionResource.class.getClassLoader(),
-					new Class<?>[] {PunchoutSessionResource.class},
+				return (PunchOutSessionResource)ProxyUtil.newProxyInstance(
+					PunchOutSessionResource.class.getClassLoader(),
+					new Class<?>[] {PunchOutSessionResource.class},
 					(proxy, method, arguments) -> _invoke(
 						method, arguments, _checkPermissions,
 						_httpServletRequest, _preferredLocale, _user));
 			}
 
 			@Override
-			public PunchoutSessionResource.Builder checkPermissions(
+			public PunchOutSessionResource.Builder checkPermissions(
 				boolean checkPermissions) {
 
 				_checkPermissions = checkPermissions;
@@ -83,7 +83,7 @@ public class PunchoutSessionResourceFactoryImpl
 			}
 
 			@Override
-			public PunchoutSessionResource.Builder httpServletRequest(
+			public PunchOutSessionResource.Builder httpServletRequest(
 				HttpServletRequest httpServletRequest) {
 
 				_httpServletRequest = httpServletRequest;
@@ -92,7 +92,7 @@ public class PunchoutSessionResourceFactoryImpl
 			}
 
 			@Override
-			public PunchoutSessionResource.Builder preferredLocale(
+			public PunchOutSessionResource.Builder preferredLocale(
 				Locale preferredLocale) {
 
 				_preferredLocale = preferredLocale;
@@ -101,7 +101,7 @@ public class PunchoutSessionResourceFactoryImpl
 			}
 
 			@Override
-			public PunchoutSessionResource.Builder user(User user) {
+			public PunchOutSessionResource.Builder user(User user) {
 				_user = user;
 
 				return this;
@@ -117,12 +117,12 @@ public class PunchoutSessionResourceFactoryImpl
 
 	@Activate
 	protected void activate() {
-		PunchoutSessionResource.FactoryHolder.factory = this;
+		PunchOutSessionResource.FactoryHolder.factory = this;
 	}
 
 	@Deactivate
 	protected void deactivate() {
-		PunchoutSessionResource.FactoryHolder.factory = null;
+		PunchOutSessionResource.FactoryHolder.factory = null;
 	}
 
 	private Object _invoke(
@@ -147,28 +147,28 @@ public class PunchoutSessionResourceFactoryImpl
 				_liberalPermissionCheckerFactory.create(user));
 		}
 
-		PunchoutSessionResource punchoutSessionResource =
+		PunchOutSessionResource punchOutSessionResource =
 			_componentServiceObjects.getService();
 
-		punchoutSessionResource.setContextAcceptLanguage(
+		punchOutSessionResource.setContextAcceptLanguage(
 			new AcceptLanguageImpl(httpServletRequest, preferredLocale, user));
 
 		Company company = _companyLocalService.getCompany(user.getCompanyId());
 
-		punchoutSessionResource.setContextCompany(company);
+		punchOutSessionResource.setContextCompany(company);
 
-		punchoutSessionResource.setContextHttpServletRequest(
+		punchOutSessionResource.setContextHttpServletRequest(
 			httpServletRequest);
-		punchoutSessionResource.setContextUser(user);
+		punchOutSessionResource.setContextUser(user);
 
 		try {
-			return method.invoke(punchoutSessionResource, arguments);
+			return method.invoke(punchOutSessionResource, arguments);
 		}
 		catch (InvocationTargetException invocationTargetException) {
 			throw invocationTargetException.getTargetException();
 		}
 		finally {
-			_componentServiceObjects.ungetService(punchoutSessionResource);
+			_componentServiceObjects.ungetService(punchOutSessionResource);
 
 			PrincipalThreadLocal.setName(name);
 
@@ -180,7 +180,7 @@ public class PunchoutSessionResourceFactoryImpl
 	private CompanyLocalService _companyLocalService;
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<PunchoutSessionResource>
+	private ComponentServiceObjects<PunchOutSessionResource>
 		_componentServiceObjects;
 
 	@Reference

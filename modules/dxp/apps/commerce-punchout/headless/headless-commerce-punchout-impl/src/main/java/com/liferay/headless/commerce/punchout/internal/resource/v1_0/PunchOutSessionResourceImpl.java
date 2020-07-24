@@ -12,27 +12,20 @@
  *
  */
 
-package com.liferay.headless.commerce.punchout.internal.jaxrs.application;
+package com.liferay.headless.commerce.punchout.internal.resource.v1_0;
 
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.Application;
+import com.liferay.headless.commerce.punchout.resource.v1_0.PunchOutSessionResource;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.ServiceScope;
 
 /**
  * @author Jaclyn Ong
- * @generated
  */
 @Component(
-	property = {
-		"liferay.jackson=false",
-		"osgi.jaxrs.application.base=headless-commerce-punchout",
-		"osgi.jaxrs.extension.select=(osgi.jaxrs.name=Liferay.Vulcan)",
-		"osgi.jaxrs.name=Liferay.Headless.Commerce.Punchout"
-	},
-	service = Application.class
+	properties = "OSGI-INF/liferay/rest/v1_0/punch-out-session.properties",
+	scope = ServiceScope.PROTOTYPE, service = PunchOutSessionResource.class
 )
-@Generated("")
-public class HeadlessCommercePunchoutApplication extends Application {
+public class PunchOutSessionResourceImpl
+	extends BasePunchOutSessionResourceImpl {
 }

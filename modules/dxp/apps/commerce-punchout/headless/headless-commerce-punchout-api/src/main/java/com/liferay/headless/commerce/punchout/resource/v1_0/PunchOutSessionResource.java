@@ -14,7 +14,7 @@
 
 package com.liferay.headless.commerce.punchout.resource.v1_0;
 
-import com.liferay.headless.commerce.punchout.dto.v1_0.PunchoutSession;
+import com.liferay.headless.commerce.punchout.dto.v1_0.PunchOutSession;
 import com.liferay.headless.commerce.punchout.dto.v1_0.User;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 
@@ -39,14 +39,14 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @Generated("")
 @ProviderType
-public interface PunchoutSessionResource {
+public interface PunchOutSessionResource {
 
 	public static Builder builder() {
 		return FactoryHolder.factory.create();
 	}
 
-	public PunchoutSession postPunchoutSessionRequest(
-			PunchoutSession punchoutSession)
+	public PunchOutSession postPunchOutSessionRequest(
+			PunchOutSession punchOutSession)
 		throws Exception;
 
 	public default void setContextAcceptLanguage(
@@ -79,7 +79,7 @@ public interface PunchoutSessionResource {
 	@ProviderType
 	public interface Builder {
 
-		public PunchoutSessionResource build();
+		public PunchOutSessionResource build();
 
 		public Builder checkPermissions(boolean checkPermissions);
 

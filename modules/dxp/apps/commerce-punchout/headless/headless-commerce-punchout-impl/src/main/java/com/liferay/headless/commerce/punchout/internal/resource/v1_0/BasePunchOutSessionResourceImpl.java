@@ -14,9 +14,9 @@
 
 package com.liferay.headless.commerce.punchout.internal.resource.v1_0;
 
-import com.liferay.headless.commerce.punchout.dto.v1_0.PunchoutSession;
+import com.liferay.headless.commerce.punchout.dto.v1_0.PunchOutSession;
 import com.liferay.headless.commerce.punchout.dto.v1_0.User;
-import com.liferay.headless.commerce.punchout.resource.v1_0.PunchoutSessionResource;
+import com.liferay.headless.commerce.punchout.resource.v1_0.PunchOutSessionResource;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.search.Sort;
@@ -66,40 +66,40 @@ import javax.ws.rs.core.UriInfo;
  */
 @Generated("")
 @Path("/v1.0")
-public abstract class BasePunchoutSessionResourceImpl
-	implements PunchoutSessionResource, EntityModelResource,
-			   VulcanBatchEngineTaskItemDelegate<PunchoutSession> {
+public abstract class BasePunchOutSessionResourceImpl
+	implements PunchOutSessionResource, EntityModelResource,
+			   VulcanBatchEngineTaskItemDelegate<PunchOutSession> {
 
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/oheadless-commerce-punchout/v1.0/punchout/session/request' -d $'{"buyerAccountReferenceCode": ___, "buyerGroup": ___, "buyerOrganization": ___, "buyerUser": ___, "cart": ___, "punchoutReturnURL": ___, "punchoutSessionType": ___, "punchOutStartURL": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/oheadless-commerce-punchout/v1.0/punchout/session/request' -d $'{"buyerAccountReferenceCode": ___, "buyerGroup": ___, "buyerOrganization": ___, "buyerUser": ___, "cart": ___, "punchOutReturnURL": ___, "punchOutSessionType": ___, "punchOutStartURL": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
-	@Operation(description = "Create a punchout session.")
+	@Operation(description = "Create a punch out session.")
 	@POST
 	@Path("/punchout/session/request")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "PunchoutSession")})
-	public PunchoutSession postPunchoutSessionRequest(
-			PunchoutSession punchoutSession)
+	@Tags(value = {@Tag(name = "PunchOutSession")})
+	public PunchOutSession postPunchOutSessionRequest(
+			PunchOutSession punchOutSession)
 		throws Exception {
 
-		return new PunchoutSession();
+		return new PunchOutSession();
 	}
 
 	@Override
 	@SuppressWarnings("PMD.UnusedLocalVariable")
 	public void create(
-			java.util.Collection<PunchoutSession> punchoutSessions,
+			java.util.Collection<PunchOutSession> punchOutSessions,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}
 
 	@Override
 	public void delete(
-			java.util.Collection<PunchoutSession> punchoutSessions,
+			java.util.Collection<PunchOutSession> punchOutSessions,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}
@@ -120,7 +120,7 @@ public abstract class BasePunchoutSessionResourceImpl
 	}
 
 	@Override
-	public Page<PunchoutSession> read(
+	public Page<PunchOutSession> read(
 			Filter filter, Pagination pagination, Sort[] sorts,
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
@@ -152,7 +152,7 @@ public abstract class BasePunchoutSessionResourceImpl
 
 	@Override
 	public void update(
-			java.util.Collection<PunchoutSession> punchoutSessions,
+			java.util.Collection<PunchOutSession> punchOutSessions,
 			Map<String, Serializable> parameters)
 		throws Exception {
 	}
