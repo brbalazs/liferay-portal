@@ -21,14 +21,13 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.facet.type.AssetEntriesFacetFactory;
-import com.liferay.portal.search.searcher.SearchRequest;
-import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.web.internal.facet.display.builder.AssetEntriesSearchFacetDisplayBuilder;
 import com.liferay.portal.search.web.internal.facet.display.context.AssetEntriesSearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.type.facet.constants.TypeFacetPortletKeys;
 import com.liferay.portal.search.web.internal.util.SearchOptionalUtil;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchRequest;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchResponse;
+import com.liferay.portal.search.web.search.request.SearchSettings;
 
 import java.io.IOException;
 
@@ -129,8 +128,14 @@ public class TypeFacetPortlet extends MVCPortlet {
 			typeFacetPortletPreferences.isFrequenciesVisible());
 		assetEntriesSearchFacetDisplayBuilder.setLocale(
 			themeDisplay.getLocale());
-		assetEntriesSearchFacetDisplayBuilder.setPaginationStartParameterName(
-			getPaginationStartParameterName(portletSharedSearchResponse));
+
+		SearchSettings searchSettings =
+			portletSharedSearchResponse.getSearchSettings();
+
+		SearchOptionalUtil.copy(
+			searchSettings::getPaginationStartParameterName,
+			assetEntriesSearchFacetDisplayBuilder::
+				setPaginationStartParameterName);
 
 		String parameterName = typeFacetPortletPreferences.getParameterName();
 
@@ -156,17 +161,6 @@ public class TypeFacetPortlet extends MVCPortlet {
 
 		return typeFacetPortletPreferences.getCurrentAssetTypesArray(
 			themeDisplay.getCompanyId());
-	}
-
-	protected String getPaginationStartParameterName(
-		PortletSharedSearchResponse portletSharedSearchResponse) {
-
-		SearchResponse searchResponse =
-			portletSharedSearchResponse.getSearchResponse();
-
-		SearchRequest request = searchResponse.getRequest();
-
-		return request.getPaginationStartParameterName();
 	}
 
 	protected String getFieldName() {

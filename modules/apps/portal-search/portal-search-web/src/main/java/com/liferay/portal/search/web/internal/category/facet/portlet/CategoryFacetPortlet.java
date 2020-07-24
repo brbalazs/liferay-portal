@@ -22,8 +22,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.facet.category.CategoryFacetFactory;
-import com.liferay.portal.search.searcher.SearchRequest;
-import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.web.internal.category.facet.builder.AssetCategoriesFacetConfiguration;
 import com.liferay.portal.search.web.internal.category.facet.builder.AssetCategoriesFacetConfigurationImpl;
 import com.liferay.portal.search.web.internal.category.facet.constants.CategoryFacetPortletKeys;
@@ -33,6 +31,7 @@ import com.liferay.portal.search.web.internal.facet.display.context.AssetCategor
 import com.liferay.portal.search.web.internal.util.SearchOptionalUtil;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchRequest;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchResponse;
+import com.liferay.portal.search.web.search.request.SearchSettings;
 
 import java.io.IOException;
 
@@ -128,9 +127,6 @@ public class CategoryFacetPortlet extends MVCPortlet {
 			assetCategoriesFacetConfiguration.getFrequencyThreshold());
 		assetCategoriesSearchFacetDisplayBuilder.setMaxTerms(
 			assetCategoriesFacetConfiguration.getMaxTerms());
-		assetCategoriesSearchFacetDisplayBuilder.
-			setPaginationStartParameterName(
-				getPaginationStartParameterName(portletSharedSearchResponse));
 
 		ThemeDisplay themeDisplay = portletSharedSearchResponse.getThemeDisplay(
 			renderRequest);
@@ -141,6 +137,14 @@ public class CategoryFacetPortlet extends MVCPortlet {
 			setAssetCategoryPermissionChecker(
 				new AssetCategoryPermissionCheckerImpl(
 					themeDisplay.getPermissionChecker()));
+
+		SearchSettings searchSettings =
+			portletSharedSearchResponse.getSearchSettings();
+
+		SearchOptionalUtil.copy(
+			searchSettings::getPaginationStartParameterName,
+			assetCategoriesSearchFacetDisplayBuilder::
+				setPaginationStartParameterName);
 
 		String parameterName =
 			categoryFacetPortletPreferences.getParameterName();
@@ -166,17 +170,6 @@ public class CategoryFacetPortlet extends MVCPortlet {
 		Facet facet = categoryFacetFactory.newInstance(null);
 
 		return facet.getFieldName();
-	}
-
-	protected String getPaginationStartParameterName(
-		PortletSharedSearchResponse portletSharedSearchResponse) {
-
-		SearchResponse searchResponse =
-			portletSharedSearchResponse.getSearchResponse();
-
-		SearchRequest request = searchResponse.getRequest();
-
-		return request.getPaginationStartParameterName();
 	}
 
 	@Reference

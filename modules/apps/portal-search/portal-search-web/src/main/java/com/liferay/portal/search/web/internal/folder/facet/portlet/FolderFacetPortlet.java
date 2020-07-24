@@ -20,8 +20,6 @@ import com.liferay.portal.kernel.search.facet.Facet;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.facet.folder.FolderFacetFactory;
-import com.liferay.portal.search.searcher.SearchRequest;
-import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.web.internal.facet.display.builder.FolderSearchFacetDisplayBuilder;
 import com.liferay.portal.search.web.internal.facet.display.context.FolderSearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.facet.display.context.FolderTitleLookup;
@@ -30,6 +28,7 @@ import com.liferay.portal.search.web.internal.folder.facet.constants.FolderFacet
 import com.liferay.portal.search.web.internal.util.SearchOptionalUtil;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchRequest;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchResponse;
+import com.liferay.portal.search.web.search.request.SearchSettings;
 
 import java.io.IOException;
 
@@ -121,8 +120,13 @@ public class FolderFacetPortlet extends MVCPortlet {
 			folderFacetConfiguration.getFrequencyThreshold());
 		folderSearchFacetDisplayBuilder.setMaxTerms(
 			folderFacetConfiguration.getMaxTerms());
-		folderSearchFacetDisplayBuilder.setPaginationStartParameterName(
-			getPaginationStartParameterName(portletSharedSearchResponse));
+
+		SearchSettings searchSettings =
+			portletSharedSearchResponse.getSearchSettings();
+
+		SearchOptionalUtil.copy(
+			searchSettings::getPaginationStartParameterName,
+			folderSearchFacetDisplayBuilder::setPaginationStartParameterName);
 
 		String parameterName = folderFacetPortletPreferences.getParameterName();
 
@@ -146,17 +150,6 @@ public class FolderFacetPortlet extends MVCPortlet {
 		Facet facet = folderFacetFactory.newInstance(null);
 
 		return facet.getFieldName();
-	}
-
-	protected String getPaginationStartParameterName(
-		PortletSharedSearchResponse portletSharedSearchResponse) {
-
-		SearchResponse searchResponse =
-			portletSharedSearchResponse.getSearchResponse();
-
-		SearchRequest request = searchResponse.getRequest();
-
-		return request.getPaginationStartParameterName();
 	}
 
 	@Reference

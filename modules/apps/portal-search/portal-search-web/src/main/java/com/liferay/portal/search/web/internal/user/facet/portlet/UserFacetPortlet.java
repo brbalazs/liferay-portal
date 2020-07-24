@@ -20,14 +20,13 @@ import com.liferay.portal.kernel.search.facet.Facet;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.facet.user.UserFacetFactory;
-import com.liferay.portal.search.searcher.SearchRequest;
-import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.web.internal.facet.display.builder.UserSearchFacetDisplayBuilder;
 import com.liferay.portal.search.web.internal.facet.display.context.UserSearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.user.facet.constants.UserFacetPortletKeys;
 import com.liferay.portal.search.web.internal.util.SearchOptionalUtil;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchRequest;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchResponse;
+import com.liferay.portal.search.web.search.request.SearchSettings;
 
 import java.io.IOException;
 
@@ -119,8 +118,13 @@ public class UserFacetPortlet extends MVCPortlet {
 			userFacetConfiguration.getFrequencyThreshold());
 		userSearchFacetDisplayBuilder.setMaxTerms(
 			userFacetConfiguration.getMaxTerms());
-		userSearchFacetDisplayBuilder.setPaginationStartParameterName(
-			getPaginationStartParameterName(portletSharedSearchResponse));
+
+		SearchSettings searchSettings =
+			portletSharedSearchResponse.getSearchSettings();
+
+		SearchOptionalUtil.copy(
+			searchSettings::getPaginationStartParameterName,
+			userSearchFacetDisplayBuilder::setPaginationStartParameterName);
 
 		String parameterName = userFacetPortletPreferences.getParameterName();
 
@@ -144,17 +148,6 @@ public class UserFacetPortlet extends MVCPortlet {
 		Facet facet = userFacetFactory.newInstance(null);
 
 		return facet.getFieldName();
-	}
-
-	protected String getPaginationStartParameterName(
-		PortletSharedSearchResponse portletSharedSearchResponse) {
-
-		SearchResponse searchResponse =
-			portletSharedSearchResponse.getSearchResponse();
-
-		SearchRequest request = searchResponse.getRequest();
-
-		return request.getPaginationStartParameterName();
 	}
 
 	protected Optional<List<String>> getParameterValuesOptional(

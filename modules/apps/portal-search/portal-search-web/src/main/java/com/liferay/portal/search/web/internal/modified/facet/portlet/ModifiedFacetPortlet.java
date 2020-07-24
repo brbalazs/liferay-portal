@@ -25,7 +25,6 @@ import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.facet.modified.ModifiedFacetFactory;
-import com.liferay.portal.search.searcher.SearchRequest;
 import com.liferay.portal.search.web.internal.display.context.PortletRequestThemeDisplaySupplier;
 import com.liferay.portal.search.web.internal.display.context.ThemeDisplaySupplier;
 import com.liferay.portal.search.web.internal.modified.facet.constants.ModifiedFacetPortletKeys;
@@ -34,6 +33,7 @@ import com.liferay.portal.search.web.internal.modified.facet.display.context.Mod
 import com.liferay.portal.search.web.internal.util.SearchOptionalUtil;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchRequest;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchResponse;
+import com.liferay.portal.search.web.search.request.SearchSettings;
 
 import java.io.IOException;
 
@@ -119,8 +119,12 @@ public class ModifiedFacetPortlet extends MVCPortlet {
 
 		modifiedFacetDisplayBuilder.setLocale(themeDisplay.getLocale());
 
-		modifiedFacetDisplayBuilder.setPaginationStartParameterName(
-			getPaginationStartParameterName(portletSharedSearchResponse));
+		SearchSettings searchSettings =
+			portletSharedSearchResponse.getSearchSettings();
+
+		SearchOptionalUtil.copy(
+			searchSettings::getPaginationStartParameterName,
+			modifiedFacetDisplayBuilder::setPaginationStartParameterName);
 
 		String parameterName =
 			modifiedFacetPortletPreferences.getParameterName();
@@ -175,17 +179,6 @@ public class ModifiedFacetPortlet extends MVCPortlet {
 		Facet facet = modifiedFacetFactory.newInstance(null);
 
 		return facet.getFieldName();
-	}
-
-	protected String getPaginationStartParameterName(
-		PortletSharedSearchResponse portletSharedSearchResponse) {
-
-		SearchResponse searchResponse =
-			portletSharedSearchResponse.getSearchResponse();
-
-		SearchRequest request = searchResponse.getRequest();
-
-		return request.getPaginationStartParameterName();
 	}
 
 	protected ModifiedFacetPortletPreferencesImpl getPortletPreferences(

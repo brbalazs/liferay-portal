@@ -18,13 +18,13 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.search.searcher.SearchRequest;
 import com.liferay.portal.search.web.internal.custom.facet.constants.CustomFacetPortletKeys;
 import com.liferay.portal.search.web.internal.custom.facet.display.context.CustomFacetDisplayBuilder;
 import com.liferay.portal.search.web.internal.custom.facet.display.context.CustomFacetDisplayContext;
 import com.liferay.portal.search.web.internal.util.SearchOptionalUtil;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchRequest;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchResponse;
+import com.liferay.portal.search.web.search.request.SearchSettings;
 
 import java.io.IOException;
 
@@ -121,8 +121,13 @@ public class CustomFacetPortlet extends MVCPortlet {
 			customFacetPortletPreferences.getFrequencyThreshold());
 		customFacetDisplayBuilder.setMaxTerms(
 			customFacetPortletPreferences.getMaxTerms());
-		customFacetDisplayBuilder.setPaginationStartParameterName(
-			getPaginationStartParameterName(portletSharedSearchResponse));
+
+		SearchSettings searchSettings =
+			portletSharedSearchResponse.getSearchSettings();
+
+		SearchOptionalUtil.copy(
+			searchSettings::getPaginationStartParameterName,
+			customFacetDisplayBuilder::setPaginationStartParameterName);
 
 		String parameterName = getParameterName(customFacetPortletPreferences);
 
@@ -142,17 +147,6 @@ public class CustomFacetPortlet extends MVCPortlet {
 
 		return customFacetPortletPreferences.getAggregationFieldString() +
 			StringPool.PERIOD + portletId;
-	}
-
-	protected String getPaginationStartParameterName(
-		PortletSharedSearchResponse portletSharedSearchResponse) {
-
-		SearchResponse searchResponse =
-			portletSharedSearchResponse.getSearchResponse();
-
-		SearchRequest request = searchResponse.getRequest();
-
-		return request.getPaginationStartParameterName();
 	}
 
 	protected String getParameterName(

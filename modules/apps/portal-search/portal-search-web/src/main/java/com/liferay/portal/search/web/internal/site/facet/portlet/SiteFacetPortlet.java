@@ -25,8 +25,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.facet.site.SiteFacetFactory;
-import com.liferay.portal.search.searcher.SearchRequest;
-import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.web.internal.facet.display.builder.ScopeSearchFacetDisplayBuilder;
 import com.liferay.portal.search.web.internal.facet.display.context.ScopeSearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.site.facet.constants.SiteFacetPortletKeys;
@@ -137,8 +135,13 @@ public class SiteFacetPortlet extends MVCPortlet {
 			getLocale(portletSharedSearchResponse, renderRequest));
 		scopeSearchFacetDisplayBuilder.setMaxTerms(
 			siteFacetConfiguration.getMaxTerms());
-		scopeSearchFacetDisplayBuilder.setPaginationStartParameterName(
-			getPaginationStartParameterName(portletSharedSearchResponse));
+
+		SearchSettings searchSettings =
+			portletSharedSearchResponse.getSearchSettings();
+
+		SearchOptionalUtil.copy(
+			searchSettings::getPaginationStartParameterName,
+			scopeSearchFacetDisplayBuilder::setPaginationStartParameterName);
 
 		String parameterName = siteFacetPortletPreferences.getParameterName();
 
@@ -195,17 +198,6 @@ public class SiteFacetPortlet extends MVCPortlet {
 			renderRequest);
 
 		return themeDisplay.getLocale();
-	}
-
-	protected String getPaginationStartParameterName(
-		PortletSharedSearchResponse portletSharedSearchResponse) {
-
-		SearchResponse searchResponse =
-			portletSharedSearchResponse.getSearchResponse();
-
-		SearchRequest request = searchResponse.getRequest();
-
-		return request.getPaginationStartParameterName();
 	}
 
 	protected Optional<List<String>> getParameterValuesOptional(
