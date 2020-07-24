@@ -195,12 +195,12 @@ exports[`UpgradeConnectionModal should render 1`] = `
                 <li
                   class="item"
                 >
-                  7.1 Fix Pack 17/SP4
+                  7.1 Fix Pack 18/SP4
                 </li>
                 <li
                   class="item"
                 >
-                  7.0 Fix Pack 90/SP13
+                  7.0 Fix Pack 93/SP13
                 </li>
               </ul>
             </div>
