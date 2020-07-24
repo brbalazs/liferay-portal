@@ -183,7 +183,7 @@ public class PunchoutLoginPostAction extends Action {
 			String key = (String)mapElement.getKey();
 
 			if (_log.isDebugEnabled()) {
-				StringBundler sb = new StringBundler();
+				StringBundler sb = new StringBundler(7);
 
 				sb.append("Adding attribute to session (key=");
 				sb.append(key);

@@ -14,11 +14,6 @@
 
 package com.liferay.commerce.frontend.internal.clay.data.set;
 
-import com.liferay.commerce.frontend.clay.data.set.ClayDataSetContentRendererContextContributor;
-import com.liferay.commerce.frontend.clay.data.set.ClayDataSetContentRendererContextContributorRegistry;
-import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayView;
-import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayViewRegistry;
-import com.liferay.commerce.frontend.clay.data.set.ClayDataSetDisplayViewSerializer;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetFilter;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetFilterContextContributor;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetFilterContextContributorRegistry;
@@ -29,13 +24,14 @@ import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Marco Leo
@@ -48,16 +44,13 @@ public class ClayDataSetFilterSerializerImpl
 	public JSONArray serialize(String dataSetFilterKey, Locale locale) {
 		JSONArray jsonArray = _jsonFactory.createJSONArray();
 
-
 		List<ClayDataSetFilter> clayDataSetFilters =
-			_clayDataSetFilterRegistry.getClayDataSetFilters(
-				dataSetFilterKey);
+			_clayDataSetFilterRegistry.getClayDataSetFilters(dataSetFilterKey);
 
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
 		for (ClayDataSetFilter clayDataSetFilter : clayDataSetFilters) {
-
 			JSONObject jsonObject = _jsonFactory.createJSONObject();
 
 			String label = LanguageUtil.get(
@@ -79,8 +72,7 @@ public class ClayDataSetFilterSerializerImpl
 
 				Map<String, Object> filterContext =
 					clayDataSetFilterContextContributor.
-						getClayDataSetFilterContext(
-							clayDataSetFilter, locale);
+						getClayDataSetFilterContext(clayDataSetFilter, locale);
 
 				if (filterContext == null) {
 					continue;

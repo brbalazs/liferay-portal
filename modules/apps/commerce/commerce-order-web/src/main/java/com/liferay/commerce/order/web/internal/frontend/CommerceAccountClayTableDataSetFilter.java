@@ -16,6 +16,7 @@ package com.liferay.commerce.order.web.internal.frontend;
 
 import com.liferay.commerce.frontend.clay.data.set.ClayAutocompleteDataSetFilter;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetFilter;
+
 import org.osgi.service.component.annotations.Component;
 
 /**

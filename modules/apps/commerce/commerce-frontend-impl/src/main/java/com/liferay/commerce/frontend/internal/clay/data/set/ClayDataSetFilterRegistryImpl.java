@@ -16,22 +16,21 @@ package com.liferay.commerce.frontend.internal.clay.data.set;
 
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetFilter;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetFilterRegistry;
-import com.liferay.commerce.frontend.clay.data.set.ClayDataSetFilter;
-import com.liferay.commerce.frontend.clay.data.set.ClayDataSetFilterRegistry;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerCustomizerFactory;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerCustomizerFactory.ServiceWrapper;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import org.osgi.framework.BundleContext;
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.osgi.framework.BundleContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
 
 /**
  * @author Marco Leo
@@ -43,24 +42,21 @@ public class ClayDataSetFilterRegistryImpl
 	@Override
 	public List<ClayDataSetFilter> getClayDataSetFilters(String key) {
 		List<ServiceWrapper<ClayDataSetFilter>>
-			clayDataSetFilterServiceWrappers =
-				_serviceTrackerMap.getService(key);
+			clayDataSetFilterServiceWrappers = _serviceTrackerMap.getService(
+				key);
 
 		if (clayDataSetFilterServiceWrappers == null) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(
-					"No ClayDataSetFilter registered with key " + key);
+				_log.debug("No ClayDataSetFilter registered with key " + key);
 			}
 
 			return Collections.emptyList();
 		}
 
-		List<ClayDataSetFilter> clayDataSetFilters =
-			new ArrayList<>();
+		List<ClayDataSetFilter> clayDataSetFilters = new ArrayList<>();
 
-		for (ServiceWrapper<ClayDataSetFilter>
-				clayDataSetFilterServiceWrapper :
-					clayDataSetFilterServiceWrappers) {
+		for (ServiceWrapper<ClayDataSetFilter> clayDataSetFilterServiceWrapper :
+				clayDataSetFilterServiceWrappers) {
 
 			clayDataSetFilters.add(
 				clayDataSetFilterServiceWrapper.getService());
@@ -74,8 +70,8 @@ public class ClayDataSetFilterRegistryImpl
 		_serviceTrackerMap = ServiceTrackerMapFactory.openMultiValueMap(
 			bundleContext, ClayDataSetFilter.class,
 			"commerce.data.set.display.name",
-			ServiceTrackerCustomizerFactory.
-				<ClayDataSetFilter>serviceWrapper(bundleContext));
+			ServiceTrackerCustomizerFactory.<ClayDataSetFilter>serviceWrapper(
+				bundleContext));
 	}
 
 	@Deactivate
@@ -86,8 +82,7 @@ public class ClayDataSetFilterRegistryImpl
 	private static final Log _log = LogFactoryUtil.getLog(
 		ClayDataSetFilterRegistryImpl.class);
 
-	private ServiceTrackerMap
-		<String, List<ServiceWrapper<ClayDataSetFilter>>>
-			_serviceTrackerMap;
+	private ServiceTrackerMap<String, List<ServiceWrapper<ClayDataSetFilter>>>
+		_serviceTrackerMap;
 
 }

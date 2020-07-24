@@ -25,11 +25,6 @@ import java.util.ResourceBundle;
 public abstract class ClayAutocompleteDataSetFilter
 	implements ClayDataSetFilter {
 
-	@Override
-	public String getType() {
-		return "autocomplete";
-	}
-
 	public abstract String getApiURL();
 
 	public abstract String getItemKey();
@@ -40,12 +35,18 @@ public abstract class ClayAutocompleteDataSetFilter
 		return "search";
 	}
 
-	public  boolean isMultipleSelection() {
-		return true;
-	}
-
 	public ResourceBundle getResourceBundle(Locale locale) {
 		return ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 	}
+
+	@Override
+	public String getType() {
+		return "autocomplete";
+	}
+
+	public boolean isMultipleSelection() {
+		return true;
+	}
+
 }

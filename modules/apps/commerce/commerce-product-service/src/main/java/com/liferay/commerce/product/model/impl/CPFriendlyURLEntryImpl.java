@@ -29,7 +29,7 @@ import java.util.Locale;
  * @author Marco Leo
  * @author Andrea Di Giorgi
  * @author Alessio Antonio Rendina
- * @deprecated As of (7.1.x), replaced by {@link
+ * @deprecated As of Athanasius (7.3.x), As of (7.1.x), replaced by {@link
  * 					 com.liferay.friendly.url.model.impl.FriendlyURLEntryImpl}
  */
 @Deprecated

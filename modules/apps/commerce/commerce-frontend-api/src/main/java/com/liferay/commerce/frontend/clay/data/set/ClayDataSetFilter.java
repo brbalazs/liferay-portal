@@ -14,10 +14,6 @@
 
 package com.liferay.commerce.frontend.clay.data.set;
 
-import com.liferay.portal.kernel.json.JSONObject;
-
-import java.util.Locale;
-
 /**
  * @author Marco Leo
  */
@@ -28,4 +24,5 @@ public interface ClayDataSetFilter {
 	public String getLabel();
 
 	public String getType();
+
 }

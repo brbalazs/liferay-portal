@@ -15,6 +15,7 @@
 package com.liferay.commerce.frontend.clay.data.set;
 
 import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.json.JSONArray;
 
 import java.util.Locale;

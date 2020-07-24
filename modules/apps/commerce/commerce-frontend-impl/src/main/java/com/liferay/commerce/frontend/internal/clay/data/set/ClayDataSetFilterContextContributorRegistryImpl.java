@@ -22,14 +22,15 @@ import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import org.osgi.framework.BundleContext;
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.osgi.framework.BundleContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
 
 /**
  * @author Marco Leo
@@ -49,9 +50,7 @@ public class ClayDataSetFilterContextContributorRegistryImpl
 			clayDataSetFilterContextContributorServiceWrappers =
 				_serviceTrackerMap.getService(key);
 
-		if (clayDataSetFilterContextContributorServiceWrappers ==
-				null) {
-
+		if (clayDataSetFilterContextContributorServiceWrappers == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					"No ClayDataSetFilterContextContributor " +
@@ -69,8 +68,7 @@ public class ClayDataSetFilterContextContributorRegistryImpl
 					clayDataSetFilterContextContributorServiceWrappers) {
 
 			clayDataSetFilterContextContributors.add(
-				clayDataSetFilterContextContributorServiceWrapper.
-					getService());
+				clayDataSetFilterContextContributorServiceWrapper.getService());
 		}
 
 		return clayDataSetFilterContextContributors;
@@ -95,8 +93,7 @@ public class ClayDataSetFilterContextContributorRegistryImpl
 		ClayDataSetFilterContextContributorRegistryImpl.class);
 
 	private ServiceTrackerMap
-		<String,
-		 List<ServiceWrapper<ClayDataSetFilterContextContributor>>>
+		<String, List<ServiceWrapper<ClayDataSetFilterContextContributor>>>
 			_serviceTrackerMap;
 
 }
