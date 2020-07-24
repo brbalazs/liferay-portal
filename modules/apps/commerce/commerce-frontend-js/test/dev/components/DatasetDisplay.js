@@ -671,6 +671,11 @@ const productsDataSetDisplayProps = {
 						contentRenderer: 'status',
 						fieldName: 'workflowStatusInfo',
 						label: 'Status'
+					},
+					{
+						contentRenderer: 'boolean',
+						fieldName: 'active',
+						label: 'Active'
 					}
 				]
 			}
