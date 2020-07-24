@@ -2036,7 +2036,7 @@ public class GraphQLServletExtender {
 					ServletData.class,
 					ServletDataAdapter.of(graphQLContributor), null);
 
-			_servletDataServiceRegistrationMapping.put(
+			_servletDataServiceRegistrationMap.put(
 				graphQLContributor, servletDataServiceRegistration);
 
 			return graphQLContributor;
@@ -2054,7 +2054,7 @@ public class GraphQLServletExtender {
 			GraphQLContributor graphQLContributor) {
 
 			Optional.ofNullable(
-				_servletDataServiceRegistrationMapping.remove(
+				_servletDataServiceRegistrationMap.remove(
 					graphQLContributor)
 			).ifPresent(
 				ServiceRegistration::unregister
@@ -2064,7 +2064,7 @@ public class GraphQLServletExtender {
 		}
 
 		private final Map<GraphQLContributor, ServiceRegistration<ServletData>>
-			_servletDataServiceRegistrationMapping = new ConcurrentHashMap<>();
+			_servletDataServiceRegistrationMap = new ConcurrentHashMap<>();
 
 	}
 
