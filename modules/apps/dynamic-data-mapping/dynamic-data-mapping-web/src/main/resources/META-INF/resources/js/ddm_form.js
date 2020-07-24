@@ -3133,6 +3133,11 @@ AUI.add(
 
 									if (
 										value ===
+											instance.getFieldDefinition()
+												.predefinedValue[
+												instance.get('displayLocale')
+											] ||
+										value ===
 											localizationMap[
 												instance.get('displayLocale')
 											] ||
