@@ -17,8 +17,8 @@ const BENEFITS = [
 
 const REQUIREMENTS = [
 	`7.2 ${Liferay.Language.get('fix-pack')} 5/SP2`,
-	`7.1 ${Liferay.Language.get('fix-pack')} 17/SP4`,
-	`7.0 ${Liferay.Language.get('fix-pack')} 90/SP13`
+	`7.1 ${Liferay.Language.get('fix-pack')} 18/SP4`,
+	`7.0 ${Liferay.Language.get('fix-pack')} 93/SP13`
 ];
 
 const WARNINGS = [
