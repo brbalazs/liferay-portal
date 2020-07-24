@@ -85,7 +85,7 @@ public class PunchOutSessionResourceImpl
 	extends BasePunchOutSessionResourceImpl {
 
 	public PunchOutSession postPunchOutSessionRequest(
-		@NotNull PunchOutSession punchOutSession)
+			@NotNull PunchOutSession punchOutSession)
 		throws Exception {
 
 		com.liferay.portal.kernel.model.Group buyerGroup = _fetchGroup(
@@ -101,7 +101,7 @@ public class PunchOutSessionResourceImpl
 		if (!_punchOutEnabled(commerceChannel.getGroupId())) {
 			_log.error(
 				"Punch out request not allowed. Punch out is disabled for " +
-				"channel " + commerceChannel.getName());
+					"channel " + commerceChannel.getName());
 
 			throw new ForbiddenException("Punch out not allowed for channel");
 		}
@@ -114,7 +114,7 @@ public class PunchOutSessionResourceImpl
 		if (buyerLiferayUser == null) {
 			_log.error(
 				"Buyer user not found or failed to be created (user email: " +
-				buyerUser.getEmail() + ")");
+					buyerUser.getEmail() + ")");
 
 			throw new InternalServerErrorException(
 				"Buyer not found or failed to be created");
@@ -123,7 +123,7 @@ public class PunchOutSessionResourceImpl
 		if (!_userBelongsToGroup(buyerGroup.getGroupId(), buyerLiferayUser)) {
 			_log.error(
 				"Buyer user does not belong to group (user email: " +
-				buyerUser.getEmail() + ")");
+					buyerUser.getEmail() + ")");
 
 			throw new BadRequestException(
 				"Buyer user does not belong to group");
@@ -135,8 +135,8 @@ public class PunchOutSessionResourceImpl
 		if (businessCommerceAccount == null) {
 			_log.error(
 				"Business commrece account not found (external reference " +
-				"code: " + punchOutSession.getBuyerAccountReferenceCode() +
-				")");
+					"code: " + punchOutSession.getBuyerAccountReferenceCode() +
+						")");
 
 			throw new BadRequestException(
 				"Business commerce account not found");
@@ -158,11 +158,11 @@ public class PunchOutSessionResourceImpl
 			punchOutSessionType.equalsIgnoreCase(_INSPECT_REQUEST_TYPE)) {
 
 			if (!_userBelongsToCart(
-				buyerLiferayUser.getUserId(), cart.getId())) {
+					buyerLiferayUser.getUserId(), cart.getId())) {
 
 				_log.error(
 					"Buyer user does not belong to cart (cart ID: " +
-					cart.getId() + ")");
+						cart.getId() + ")");
 
 				throw new BadRequestException(
 					"Buyer user does not belong to cart");
@@ -200,7 +200,7 @@ public class PunchOutSessionResourceImpl
 
 		punchOutStartURL +=
 			StringPool.QUESTION + _PUNCH_OUT_ACCESS_TOKEN_PARAMETER +
-			URLEncoder.encode(tokenString, "UTF-8");
+				URLEncoder.encode(tokenString, "UTF-8");
 
 		cart.setChannelId(commerceChannel.getCommerceChannelId());
 
@@ -219,8 +219,8 @@ public class PunchOutSessionResourceImpl
 	}
 
 	private com.liferay.portal.kernel.model.User _addBuyerUser(
-		long companyId, long groupId, String email, String firstName,
-		String middleName, String lastName)
+			long companyId, long groupId, String email, String firstName,
+			String middleName, String lastName)
 		throws Exception {
 
 		if (Validator.isBlank(firstName) && Validator.isBlank(lastName)) {
@@ -267,7 +267,7 @@ public class PunchOutSessionResourceImpl
 	}
 
 	private void _addBuyerUserToAccount(
-		CommerceAccount commerceAccount, long userId, long groupId)
+			CommerceAccount commerceAccount, long userId, long groupId)
 		throws PortalException {
 
 		Role role = _roleLocalService.fetchRole(
@@ -277,7 +277,7 @@ public class PunchOutSessionResourceImpl
 		if (role == null) {
 			String logMessage =
 				PunchOutConstants.ROLE_NAME_ACCOUNT_PUNCH_OUT +
-				" role not found";
+					" role not found";
 
 			_log.error(logMessage);
 
@@ -299,7 +299,7 @@ public class PunchOutSessionResourceImpl
 		if (!company.isStrangers()) {
 			_log.error(
 				"Strangers are disabled for company (company ID: " + companyId +
-				")");
+					")");
 
 			throw new InternalServerErrorException();
 		}
@@ -327,7 +327,7 @@ public class PunchOutSessionResourceImpl
 	}
 
 	private com.liferay.portal.kernel.model.User _fetchOrCreateBuyerUser(
-		User user, long groupId)
+			User user, long groupId)
 		throws Exception {
 
 		if (Validator.isBlank(user.getEmail())) {
@@ -403,7 +403,7 @@ public class PunchOutSessionResourceImpl
 
 				for (CommerceOrderItem commerceOrderItem : commerceOrderItems) {
 					if (cartItem.getId() ==
-						commerceOrderItem.getCommerceOrderItemId()) {
+							commerceOrderItem.getCommerceOrderItemId()) {
 
 						found = true;
 
@@ -434,7 +434,7 @@ public class PunchOutSessionResourceImpl
 
 				for (CartItem cartItem : cartItems) {
 					if (cartItem.getId() ==
-						commerceOrderItem.getCommerceOrderItemId()) {
+							commerceOrderItem.getCommerceOrderItemId()) {
 
 						found = true;
 

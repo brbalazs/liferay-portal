@@ -85,7 +85,7 @@ public class PunchOutAccessTokenAutoLogin extends BaseAutoLogin {
 	}
 
 	private PunchOutAccessTokenAutoLoginConfiguration
-	_getPunchOutAccessTokenAutoLoginConfiguration(long companyId) {
+		_getPunchOutAccessTokenAutoLoginConfiguration(long companyId) {
 
 		try {
 			return _configurationProvider.getConfiguration(

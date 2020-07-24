@@ -228,7 +228,7 @@ public class PunchOutAccessTokenProviderImpl
 		_cleanUp();
 
 		for (PunchoutAccessTokenDelayed punchOutAccessTokenDelayed :
-			_punchOutAccessTokenDelayQueue) {
+				_punchOutAccessTokenDelayQueue) {
 
 			PunchOutAccessToken punchOutAccessToken =
 				punchOutAccessTokenDelayed.getPunchOutAccessToken();
@@ -299,7 +299,7 @@ public class PunchOutAccessTokenProviderImpl
 
 		private long _getExpirationTime() {
 			return _punchOutAccessToken.getIssuedAt() +
-				   _punchOutAccessToken.getExpiresIn();
+				_punchOutAccessToken.getExpiresIn();
 		}
 
 		private static final Comparator<PunchoutAccessTokenDelayed>

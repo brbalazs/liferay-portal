@@ -53,8 +53,9 @@ public class PunchOutTokenLogoutAction extends Action {
 			if (punchOutReturnUrlObject == null) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(
-						PunchOutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME +
-						" not found in session");
+						PunchOutConstants.
+							PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME +
+								" not found in session");
 				}
 
 				return;
@@ -65,8 +66,9 @@ public class PunchOutTokenLogoutAction extends Action {
 			if (Validator.isBlank(redirectURL)) {
 				if (_log.isDebugEnabled()) {
 					_log.debug(
-						PunchOutConstants.PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME +
-						" is blank");
+						PunchOutConstants.
+							PUNCH_OUT_REDIRECT_URL_ATTRIBUTE_NAME +
+								" is blank");
 				}
 
 				return;

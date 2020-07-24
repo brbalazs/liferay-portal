@@ -24,7 +24,7 @@ import org.osgi.service.component.annotations.Component;
  */
 @Component(service = ConfigurationBeanDeclaration.class)
 public class
-PunchOutAccessTokenAutoLoginCompanyServiceConfigurationBeanDeclaration
+	PunchOutAccessTokenAutoLoginCompanyServiceConfigurationBeanDeclaration
 		implements ConfigurationBeanDeclaration {
 
 	@Override
