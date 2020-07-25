@@ -3188,6 +3188,13 @@ log.sanitizer.enabled=false</echo>
 	<macrodef name="stop-suite-search-engine">
 		<sequential>
 			<if>
+				<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch6" />
+				<then>
+					<ant antfile="build-test-elasticsearch6.xml" target="stop-elasticsearch" />
+				</then>
+			</if>
+
+			<if>
 				<equals arg1="${suite.search.engine}" arg2="solr" />
 				<then>
 					<ant antfile="build-test-solr.xml" target="stop-solr-core" />
