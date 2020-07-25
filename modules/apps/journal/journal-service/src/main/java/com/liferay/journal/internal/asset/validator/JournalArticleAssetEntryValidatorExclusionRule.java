@@ -29,7 +29,7 @@ import org.osgi.service.component.annotations.Reference;
 	property = "model.class.name=com.liferay.journal.model.JournalArticle",
 	service = AssetEntryValidatorExclusionRule.class
 )
-public class JournalAssetEntryValidatorExclusionRule
+public class JournalArticleAssetEntryValidatorExclusionRule
 	implements AssetEntryValidatorExclusionRule {
 
 	@Override
