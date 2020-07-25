@@ -35,7 +35,7 @@ public class JournalArticleAssetEntryValidatorExclusionRule
 	@Override
 	public boolean isValidationExcluded(
 		long groupId, String className, long classPK, long classTypePK,
-		long[] categoryIds, String[] tagNames) {
+		long[] assetCategoryIds, String[] assetTagNames) {
 
 		JournalArticle article = _journalArticleLocalService.fetchLatestArticle(
 			classPK);

@@ -1038,14 +1038,16 @@ public class AssetEntryLocalServiceImpl extends AssetEntryLocalServiceBaseImpl {
 			return;
 		}
 
-		List<AssetEntryValidatorExclusionRule> exclusionRules =
-			_serviceTrackerMap.getService(className);
+		List<AssetEntryValidatorExclusionRule>
+			assetEntryValidatorExclusionRules = _serviceTrackerMap.getService(
+				className);
 
-		if (exclusionRules != null) {
-			for (AssetEntryValidatorExclusionRule exclusionRule :
-					exclusionRules) {
+		if (assetEntryValidatorExclusionRules != null) {
+			for (AssetEntryValidatorExclusionRule
+					assetEntryValidatorExclusionRule :
+						assetEntryValidatorExclusionRules) {
 
-				if (exclusionRule.isValidationExcluded(
+				if (assetEntryValidatorExclusionRule.isValidationExcluded(
 						groupId, className, classPK, classTypePK, categoryIds,
 						tagNames)) {
 
