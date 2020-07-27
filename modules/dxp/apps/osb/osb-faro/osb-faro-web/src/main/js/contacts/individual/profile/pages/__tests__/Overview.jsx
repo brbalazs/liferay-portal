@@ -20,8 +20,8 @@ describe('IndividualOverview', () => {
 						individual={data.getImmutableMock(
 							Individual,
 							data.mockIndividual
-							)}
-							/>
+						)}
+					/>
 				</StaticRouter>
 			</MockedProvider>
 		);

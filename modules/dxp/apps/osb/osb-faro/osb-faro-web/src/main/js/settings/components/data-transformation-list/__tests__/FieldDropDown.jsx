@@ -16,7 +16,6 @@ const DefaultComponent = props => (
 );
 
 describe('FieldDropDown', () => {
-	
 	it('should render', () => {
 		const {container} = render(<DefaultComponent />);
 

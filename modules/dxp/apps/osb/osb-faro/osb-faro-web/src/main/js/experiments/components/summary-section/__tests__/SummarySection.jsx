@@ -23,7 +23,9 @@ describe('SummarySection', () => {
 
 	describe('Variant', () => {
 		it('should render', () => {
-			const {container} = render(<SummarySection.Variant lift='5%' status='up' />);
+			const {container} = render(
+				<SummarySection.Variant lift='5%' status='up' />
+			);
 
 			expect(container).toMatchSnapshot();
 		});
@@ -31,7 +33,9 @@ describe('SummarySection', () => {
 
 	describe('Description', () => {
 		it('should render', () => {
-			const {container} = render(<SummarySection.Description value='My Summary Description' />);
+			const {container} = render(
+				<SummarySection.Description value='My Summary Description' />
+			);
 
 			expect(container).toMatchSnapshot();
 		});
@@ -39,7 +43,9 @@ describe('SummarySection', () => {
 
 	describe('Heading', () => {
 		it('should render', () => {
-			const {container} = render(<SummarySection.Heading value='My Summary Heading' />);
+			const {container} = render(
+				<SummarySection.Heading value='My Summary Heading' />
+			);
 
 			expect(container).toMatchSnapshot();
 		});
@@ -47,7 +53,9 @@ describe('SummarySection', () => {
 
 	describe('ProgressBar', () => {
 		it('should render', () => {
-			const {container} = render(<SummarySection.ProgressBar value={100} />);
+			const {container} = render(
+				<SummarySection.ProgressBar value={100} />
+			);
 
 			expect(container).toMatchSnapshot();
 		});
@@ -55,7 +63,9 @@ describe('SummarySection', () => {
 
 	describe('MetricType', () => {
 		it('should render', () => {
-			const {container} = render(<SummarySection.MetricType value='Click Rate' />);
+			const {container} = render(
+				<SummarySection.MetricType value='Click Rate' />
+			);
 
 			expect(container).toMatchSnapshot();
 		});

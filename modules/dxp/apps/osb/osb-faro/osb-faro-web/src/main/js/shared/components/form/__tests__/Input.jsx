@@ -16,7 +16,6 @@ const DefaultComponent = props => (
 );
 
 describe('Input', () => {
-	
 	it('should render', () => {
 		const {container} = render(
 			<Input field={{name: 'foo'}} form={mockForm()} inline />

@@ -30,7 +30,6 @@ const DefaultComponent = ({count, limit, status}) => (
 );
 
 describe('UsageMetric', () => {
-	
 	it('should render', () => {
 		const {container} = render(
 			<UsageMetric

@@ -26,7 +26,6 @@ const mockPlans = [
 ];
 
 describe('PlansList', () => {
-	
 	it('should render', () => {
 		const {container} = render(<PlansList />);
 

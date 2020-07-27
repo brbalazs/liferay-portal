@@ -9,7 +9,6 @@ const DefaultComponent = props => (
 );
 
 describe('SubscriptionTitle', () => {
-	
 	it('should render', () => {
 		const {container} = render(<DefaultComponent />);
 

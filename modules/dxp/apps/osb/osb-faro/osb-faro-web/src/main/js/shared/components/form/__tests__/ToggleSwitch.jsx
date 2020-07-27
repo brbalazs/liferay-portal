@@ -4,7 +4,6 @@ import {render} from '@testing-library/react';
 jest.unmock('react-dom');
 
 describe('ToggleSwitch', () => {
-	
 	it('should render', () => {
 		const {container} = render(toggleSwitch({field: {}}));
 

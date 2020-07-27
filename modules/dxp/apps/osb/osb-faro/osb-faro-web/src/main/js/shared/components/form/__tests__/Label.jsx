@@ -5,7 +5,6 @@ import {render} from '@testing-library/react';
 jest.unmock('react-dom');
 
 describe('Label', () => {
-	
 	it('should render', () => {
 		const {container} = render(<Label />);
 
