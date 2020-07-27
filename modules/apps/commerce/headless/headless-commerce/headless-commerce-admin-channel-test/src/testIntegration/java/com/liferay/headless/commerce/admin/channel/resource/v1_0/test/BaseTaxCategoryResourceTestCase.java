@@ -107,7 +107,9 @@ public abstract class BaseTaxCategoryResourceTestCase {
 
 		TaxCategoryResource.Builder builder = TaxCategoryResource.builder();
 
-		taxCategoryResource = builder.locale(
+		taxCategoryResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}

@@ -113,7 +113,9 @@ public abstract class BasePriceListChannelResourceTestCase {
 		PriceListChannelResource.Builder builder =
 			PriceListChannelResource.builder();
 
-		priceListChannelResource = builder.locale(
+		priceListChannelResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}

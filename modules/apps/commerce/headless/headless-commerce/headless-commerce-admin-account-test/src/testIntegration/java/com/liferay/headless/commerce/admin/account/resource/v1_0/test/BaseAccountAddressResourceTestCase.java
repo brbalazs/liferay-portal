@@ -113,7 +113,9 @@ public abstract class BaseAccountAddressResourceTestCase {
 		AccountAddressResource.Builder builder =
 			AccountAddressResource.builder();
 
-		accountAddressResource = builder.locale(
+		accountAddressResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}

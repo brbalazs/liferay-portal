@@ -113,7 +113,9 @@ public abstract class BasePriceModifierResourceTestCase {
 
 		PriceModifierResource.Builder builder = PriceModifierResource.builder();
 
-		priceModifierResource = builder.locale(
+		priceModifierResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}

@@ -113,7 +113,9 @@ public abstract class BaseDiscountChannelResourceTestCase {
 		DiscountChannelResource.Builder builder =
 			DiscountChannelResource.builder();
 
-		discountChannelResource = builder.locale(
+		discountChannelResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}

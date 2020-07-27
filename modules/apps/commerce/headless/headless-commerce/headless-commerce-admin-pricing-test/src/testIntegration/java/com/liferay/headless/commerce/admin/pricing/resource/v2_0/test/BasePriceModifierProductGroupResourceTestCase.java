@@ -113,7 +113,9 @@ public abstract class BasePriceModifierProductGroupResourceTestCase {
 		PriceModifierProductGroupResource.Builder builder =
 			PriceModifierProductGroupResource.builder();
 
-		priceModifierProductGroupResource = builder.locale(
+		priceModifierProductGroupResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}

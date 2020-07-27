@@ -439,6 +439,26 @@ public class Query {
 
 	}
 
+	@GraphQLTypeExtension(CartItem.class)
+	public class ParentCartItemCartItemIdTypeExtension {
+
+		public ParentCartItemCartItemIdTypeExtension(CartItem cartItem) {
+			_cartItem = cartItem;
+		}
+
+		@GraphQLField(description = "Retrive information of the given Cart")
+		public CartItem parentCartItem() throws Exception {
+			return _applyComponentServiceObjects(
+				_cartItemResourceComponentServiceObjects,
+				Query.this::_populateResourceContext,
+				cartItemResource -> cartItemResource.getCartItem(
+					_cartItem.getParentCartItemId()));
+		}
+
+		private CartItem _cartItem;
+
+	}
+
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
 			_applyComponentServiceObjects(
 				ComponentServiceObjects<T> componentServiceObjects,
