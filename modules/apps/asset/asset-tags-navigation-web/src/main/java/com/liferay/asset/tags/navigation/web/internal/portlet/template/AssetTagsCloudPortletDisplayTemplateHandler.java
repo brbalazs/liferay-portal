@@ -14,6 +14,7 @@
 
 package com.liferay.asset.tags.navigation.web.internal.portlet.template;
 
+import com.liferay.asset.kernel.model.AssetTag;
 import com.liferay.asset.tags.navigation.constants.AssetTagsNavigationPortletKeys;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.template.TemplateHandler;
@@ -36,6 +37,11 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class AssetTagsCloudPortletDisplayTemplateHandler
 	extends AssetTagsNavigationPortletDisplayTemplateHandler {
+
+	@Override
+	public String getClassName() {
+		return AssetTag.class.getName();
+	}
 
 	@Override
 	public String getName(Locale locale) {
