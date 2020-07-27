@@ -98,6 +98,8 @@ public class PunchOut2GoReturnServiceImpl implements PunchOutReturnService {
 						commerceOrderItem.getCommerceOrderItemId());
 				cartItemJSONObject.put(
 					"supplierid", commerceOrderItem.getSku());
+				cartItemJSONObject.put(
+					"skuid", commerceOrderItem.getCPInstanceId());
 
 				CPDefinition cpDefinition = commerceOrderItem.getCPDefinition();
 
