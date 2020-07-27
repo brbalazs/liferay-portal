@@ -252,17 +252,7 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 					}
 				}
 
-				var matchFormFieldType = false;
-
-				for (var i = 0; i < multipleValuesFieldTypeSelectOptions.length; i++) {
-					matchFormFieldType = formFieldTypeSelect.value.endsWith(multipleValuesFieldTypeSelectOptions[i]);
-
-					if (matchFormFieldType) {
-						break;
-					}
-				}
-
-				if (matchFormFieldType) {
+				if (endsWith(formFieldTypeSelect.value, multipleValuesFieldTypeSelectOptions)) {
 					valuesContainer.classList.remove('d-none');
 				} else {
 					valuesContainer.classList.add('d-none');
@@ -279,6 +269,16 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 				if (element.getAttribute('disabled')) {
 					element.removeAttribute('disabled');
 				}
+			}
+
+			function endsWith(value, array) {
+				for (var i = 0; i < array.length; i++) {
+					if (value.endsWith(array[i])) {
+						return true;
+					}
+				}
+
+				return false;
 			}
 
 			formFieldTypeSelect.addEventListener(
