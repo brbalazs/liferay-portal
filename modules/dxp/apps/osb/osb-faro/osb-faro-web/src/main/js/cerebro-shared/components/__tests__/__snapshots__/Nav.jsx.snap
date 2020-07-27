@@ -1,100 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Nav should render 1`] = `
-<ul
-  className="nav-root nav"
-  role="tablist"
-/>
-`;
-
-exports[`Nav should render vertically 1`] = `
-<ul
-  className="nav-root flex-column nav"
-  role="tablist"
-/>
-`;
-
-exports[`Nav should render with items 1`] = `
-<ul
-  className="nav-root nav"
-  role="tablist"
->
-  <Item
-    active={true}
-    href="#"
-    key="1"
-    linkMonospaced={false}
-  >
-    foo
-  </Item>
-  <Item
-    active={false}
-    key="2"
-    linkMonospaced={false}
-  >
-    bar
-  </Item>
-  <Item
-    active={false}
-    key="3"
-    linkMonospaced={false}
-  >
-    baz
-  </Item>
-</ul>
-`;
-
-exports[`Nav should render with underline class 1`] = `
-<ul
-  className="nav-root nav nav-underline"
-  role="tablist"
->
-  <Item
-    active={true}
-    href="#"
-    key="1"
-    linkMonospaced={false}
-  >
-    foo
-  </Item>
-  <Item
-    active={false}
-    key="2"
-    linkMonospaced={false}
-  >
-    bar
-  </Item>
-  <Item
-    active={false}
-    key="3"
-    linkMonospaced={false}
-  >
-    baz
-  </Item>
-</ul>
+<div>
+  <ul
+    class="nav-root nav"
+    role="tablist"
+  />
+</div>
 `;
 
 exports[`Nav.Item should render 1`] = `
-<li
-  className="nav-item"
-  role="presentation"
->
-  Child
-</li>
-`;
-
-exports[`Nav.Item should render as monospaced 1`] = `
-<li
-  className="nav-item"
-  role="presentation"
->
-  <Link
-    className="nav-link nav-link-monospaced"
-    replace={false}
-    role="tab"
-    to="www.liferay.com"
+<div>
+  <li
+    class="nav-item"
+    role="presentation"
   >
     Child
-  </Link>
-</li>
+  </li>
+</div>
 `;
