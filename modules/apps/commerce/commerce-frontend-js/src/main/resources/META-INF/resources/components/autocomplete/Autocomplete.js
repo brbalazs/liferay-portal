@@ -24,7 +24,7 @@ import {getValueFromItem, getData} from '../../utilities/index';
 import {showErrorNotification} from '../../utilities/notifications';
 
 function Autocomplete({onValueUpdated, ...props}) {
-	const [query, setQuery] = useState('');
+	const [query, setQuery] = useState(props.initialLabel || '');
 	const [initialised, setInitialised] = useState(false);
 	const [debouncedGetItems, updateDebouncedGetItems] = useState(null);
 	const [active, setActive] = useState(false);
@@ -33,6 +33,7 @@ function Autocomplete({onValueUpdated, ...props}) {
 	const [loading, setLoading] = useState(false);
 	const node = useRef();
 	const dropdownNode = useRef();
+	const inputNode = useRef();
 
 	useEffect(() => {
 		updateDebouncedGetItems(() =>
@@ -50,11 +51,13 @@ function Autocomplete({onValueUpdated, ...props}) {
 	useEffect(() => {
 		const value =
 			selectedItem && getValueFromItem(selectedItem, props.itemsKey);
+
 		Liferay.fire(AUTOCOMPLETE_VALUE_UPDATED, {
 			id: props.id,
 			itemData: selectedItem,
 			value
 		});
+
 		if (onValueUpdated) {
 			onValueUpdated(value, selectedItem);
 		}
@@ -63,7 +66,7 @@ function Autocomplete({onValueUpdated, ...props}) {
 	useEffect(() => {
 		if (initialised) {
 			setLoading(true);
-			setActive(true);
+
 			debouncedGetItems(props.apiUrl, query)
 				.then(jsonResponse => {
 					updateItems(jsonResponse.items);
@@ -82,7 +85,14 @@ function Autocomplete({onValueUpdated, ...props}) {
 					setLoading(false);
 				});
 		}
-	}, [initialised, query, props.apiUrl, debouncedGetItems, props.itemsLabel]);
+	}, [
+		initialised,
+		query,
+		props.apiUrl,
+		debouncedGetItems,
+		props.itemsLabel,
+		props.showErrorNotification
+	]);
 
 	useEffect(() => {
 		if (query) {
@@ -90,23 +100,26 @@ function Autocomplete({onValueUpdated, ...props}) {
 		}
 	}, [query]);
 
-	const handleClick = e => {
-		if (
-			node.current.contains(e.target) ||
-			(dropdownNode.current && dropdownNode.current.contains(e.target))
-		)
-			return;
-
-		setActive(false);
-	};
-
 	useEffect(() => {
-		document.addEventListener('mousedown', handleClick);
+		function handleClick(e) {
+			if (
+				node.current.contains(e.target) ||
+				(dropdownNode.current &&
+					dropdownNode.current.contains(e.target))
+			) {
+				return;
+			}
+
+			setActive(false);
+		}
+		if (active) {
+			document.addEventListener('mousedown', handleClick);
+		}
 
 		return () => {
 			document.removeEventListener('mousedown', handleClick);
 		};
-	}, []);
+	}, [active]);
 
 	const currentValue = selectedItem
 		? getValueFromItem(selectedItem, props.itemsKey)
@@ -131,42 +144,45 @@ function Autocomplete({onValueUpdated, ...props}) {
 							setQuery(event.target.value);
 						}
 					}}
+					onClick={_e => {
+						setActive(true);
+						setInitialised(true);
+					}}
 					placeholder={props.inputPlaceholder}
+					ref={inputNode}
 					required={props.required || false}
 					value={currentLabel || query}
 				/>
-				{active && !loading && (
-					<ClayAutocomplete.DropDown active={true}>
-						<div className="autocomplete-items" ref={dropdownNode}>
-							<ClayDropDown.ItemList className="mb-0">
-								{items && items.length === 0 && (
-									<ClayDropDown.Item className="disabled">
-										{Liferay.Language.get(
-											'no-items-were-found'
+				<ClayAutocomplete.DropDown active={active && !loading}>
+					<div className="autocomplete-items" ref={dropdownNode}>
+						<ClayDropDown.ItemList className="mb-0">
+							{items && items.length === 0 && (
+								<ClayDropDown.Item className="disabled">
+									{Liferay.Language.get(
+										'no-items-were-found'
+									)}
+								</ClayDropDown.Item>
+							)}
+							{items &&
+								items.length > 0 &&
+								items.map(item => (
+									<ClayAutocomplete.Item
+										key={String(item[props.itemsKey])}
+										onClick={() => {
+											updateSelectedItem(item);
+											setActive(false);
+										}}
+										value={String(
+											getValueFromItem(
+												item,
+												props.itemsLabel
+											)
 										)}
-									</ClayDropDown.Item>
-								)}
-								{items &&
-									items.length > 0 &&
-									items.map(item => (
-										<ClayAutocomplete.Item
-											key={String(item[props.itemsKey])}
-											onClick={() => {
-												updateSelectedItem(item);
-												setActive(false);
-											}}
-											value={String(
-												getValueFromItem(
-													item,
-													props.itemsLabel
-												)
-											)}
-										/>
-									))}
-							</ClayDropDown.ItemList>
-						</div>
-					</ClayAutocomplete.DropDown>
-				)}
+									/>
+								))}
+						</ClayDropDown.ItemList>
+					</div>
+				</ClayAutocomplete.DropDown>
 				{loading && <ClayAutocomplete.LoadingIndicator />}
 			</ClayAutocomplete>
 		</FocusScope>

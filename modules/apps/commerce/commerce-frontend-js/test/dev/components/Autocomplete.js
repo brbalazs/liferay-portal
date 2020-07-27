@@ -19,7 +19,7 @@ import '../../../src/main/resources/META-INF/resources/styles/main.scss';
 launcher('autocomplete', 'autocomplete-root', {
 	apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products/',
 	id: 'autocomplete',
-	initialLabel: 'Initial Label',
+	initialLabel: 'Min',
 	initialValue: 'initial-value',
 	inputName: 'test-name',
 	itemsKey: 'productId',
