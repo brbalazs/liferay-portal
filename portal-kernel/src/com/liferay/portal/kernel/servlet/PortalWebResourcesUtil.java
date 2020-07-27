@@ -38,7 +38,7 @@ public class PortalWebResourcesUtil {
 	}
 
 	public static long getLastModified(String resourceType) {
-		PortalWebResources portalWebResources = _resourceTypeMap.getService(
+		PortalWebResources portalWebResources = _resourceTypeServiceTrackerMap.getService(
 			resourceType);
 
 		if (portalWebResources == null) {
@@ -49,7 +49,7 @@ public class PortalWebResourcesUtil {
 	}
 
 	public static String getModuleContextPath(String resourceType) {
-		PortalWebResources portalWebResources = _resourceTypeMap.getService(
+		PortalWebResources portalWebResources = _resourceTypeServiceTrackerMap.getService(
 			resourceType);
 
 		if (portalWebResources == null) {
@@ -62,12 +62,12 @@ public class PortalWebResourcesUtil {
 	public static long getPathLastModified(
 		String requestURI, long defaultValue) {
 
-		for (String contextPath : _contextPathMap.keySet()) {
+		for (String contextPath : _contextPathServiceTrackerMap.keySet()) {
 			if (requestURI.equals(Portal.PATH_MODULE) ||
 				contextPath.startsWith(requestURI)) {
 
 				PortalWebResources portalWebResources =
-					_contextPathMap.getService(contextPath);
+					_contextPathServiceTrackerMap.getService(contextPath);
 
 				return portalWebResources.getLastModified();
 			}
@@ -77,10 +77,10 @@ public class PortalWebResourcesUtil {
 	}
 
 	public static String getPathResourceType(String path) {
-		for (String contextPath : _contextPathMap.keySet()) {
+		for (String contextPath : _contextPathServiceTrackerMap.keySet()) {
 			if (path.contains(contextPath)) {
 				PortalWebResources portalWebResources =
-					_contextPathMap.getService(contextPath);
+					_contextPathServiceTrackerMap.getService(contextPath);
 
 				return portalWebResources.getResourceType();
 			}
@@ -90,8 +90,8 @@ public class PortalWebResourcesUtil {
 	}
 
 	public static ServletContext getPathServletContext(String path) {
-		for (String contextPath : _contextPathMap.keySet()) {
-			PortalWebResources portalWebResources = _contextPathMap.getService(
+		for (String contextPath : _contextPathServiceTrackerMap.keySet()) {
+			PortalWebResources portalWebResources = _contextPathServiceTrackerMap.getService(
 				contextPath);
 
 			ServletContext servletContext =
@@ -110,7 +110,7 @@ public class PortalWebResourcesUtil {
 	public static PortalWebResources getPortalWebResources(
 		String resourceType) {
 
-		return _resourceTypeMap.getService(resourceType);
+		return _resourceTypeServiceTrackerMap.getService(resourceType);
 	}
 
 	public static URL getResource(ServletContext servletContext, String path) {
@@ -144,14 +144,14 @@ public class PortalWebResourcesUtil {
 	}
 
 	public static ServletContext getServletContext(String resourceType) {
-		PortalWebResources portalWebResources = _resourceTypeMap.getService(
+		PortalWebResources portalWebResources = _resourceTypeServiceTrackerMap.getService(
 			resourceType);
 
 		return portalWebResources.getServletContext();
 	}
 
 	public static boolean hasContextPath(String requestURI) {
-		for (String contextPath : _contextPathMap.keySet()) {
+		for (String contextPath : _contextPathServiceTrackerMap.keySet()) {
 			if (requestURI.startsWith(contextPath)) {
 				return true;
 			}
@@ -183,13 +183,13 @@ public class PortalWebResourcesUtil {
 	}
 
 	private static final ServiceTrackerMap<String, PortalWebResources>
-		_contextPathMap = ServiceTrackerCollections.openSingleValueMap(
+		_contextPathServiceTrackerMap = ServiceTrackerCollections.openSingleValueMap(
 			PortalWebResources.class, null,
 			ServiceReferenceMapperFactory.create(
 				(portalWebResources, emitter) -> emitter.emit(
 					portalWebResources.getContextPath())));
 	private static final ServiceTrackerMap<String, PortalWebResources>
-		_resourceTypeMap = ServiceTrackerCollections.openSingleValueMap(
+		_resourceTypeServiceTrackerMap = ServiceTrackerCollections.openSingleValueMap(
 			PortalWebResources.class, null,
 			ServiceReferenceMapperFactory.create(
 				(portalWebResources, emitter) -> emitter.emit(
