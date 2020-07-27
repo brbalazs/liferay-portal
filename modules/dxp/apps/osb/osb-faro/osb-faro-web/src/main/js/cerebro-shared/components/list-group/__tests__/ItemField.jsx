@@ -6,7 +6,7 @@ jest.unmock('react-dom');
 
 describe('ItemField', () => {
 	it('should render', () => {
-		const {container} = render(<ItemField />);
+		const {container} = render(<ItemField children='Children' />);
 
 		expect(container).toMatchSnapshot();
 	});
