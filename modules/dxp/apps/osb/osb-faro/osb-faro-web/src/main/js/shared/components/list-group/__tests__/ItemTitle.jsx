@@ -10,4 +10,16 @@ describe('ItemTitle', () => {
 
 		expect(container).toMatchSnapshot();
 	});
+
+	it('should render with children', () => {
+		const stringToMatch = 'Item title text';
+
+		const {queryByText} = render(
+			<ItemTitle>
+				<span>{stringToMatch}</span>
+			</ItemTitle>
+		);
+
+		expect(queryByText(stringToMatch)).toBeTruthy();
+	});
 });
