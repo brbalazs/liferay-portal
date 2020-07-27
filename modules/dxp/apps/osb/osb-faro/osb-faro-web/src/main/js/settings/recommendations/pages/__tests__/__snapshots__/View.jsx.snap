@@ -58,6 +58,7 @@ exports[`View should render 1`] = `
           >
             <button
               class="button-root btn btn-secondary"
+              disabled=""
               type="button"
             >
               Retrain
