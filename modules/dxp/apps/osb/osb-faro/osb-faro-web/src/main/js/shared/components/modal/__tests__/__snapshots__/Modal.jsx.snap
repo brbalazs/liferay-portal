@@ -1,13 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Modal should render 1`] = `
-<div
-  aria-modal={true}
-  className="modal-dialog"
-  role="dialog"
->
+<div>
   <div
-    className="modal-content"
-  />
+    aria-modal="true"
+    class="modal-dialog"
+    role="dialog"
+  >
+    <div
+      class="modal-content"
+    />
+  </div>
 </div>
 `;
