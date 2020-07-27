@@ -39,7 +39,7 @@ String parentTitle = wikiPage.getParentTitle();
 List<WikiPage> childPages = wikiPage.getViewableChildPages();
 
 boolean preview = false;
-boolean print = ParamUtil.getString(request, "viewMode").equals(Constants.PRINT);
+boolean print = StringUtil.equals(ParamUtil.getString(request, "viewMode"), Constants.PRINT);
 
 PortletURL viewPageURL = renderResponse.createRenderURL();
 
@@ -415,13 +415,13 @@ if (portletTitleBasedNavigation) {
 				</aui:script>
 
 				<%
-				if (!wikiPage.getTitle().equals(wikiGroupServiceConfiguration.frontPageName())) {
+				if (!StringUtil.equals(wikiPage.getTitle(), wikiGroupServiceConfiguration.frontPageName())) {
 					if (!portletName.equals(WikiPortletKeys.WIKI_DISPLAY)) {
 						PortalUtil.setPageSubtitle(wikiPage.getTitle(), request);
 
 						String description = wikiPage.getContent();
 
-						if (wikiPage.getFormat().equals("html")) {
+						if (StringUtil.equals(wikiPage.getFormat(), "html")) {
 							description = HtmlUtil.stripHtml(description);
 						}
 
