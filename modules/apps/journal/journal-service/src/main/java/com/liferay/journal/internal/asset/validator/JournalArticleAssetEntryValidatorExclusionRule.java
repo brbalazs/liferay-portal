@@ -15,8 +15,8 @@
 package com.liferay.journal.internal.asset.validator;
 
 import com.liferay.asset.kernel.validator.AssetEntryValidatorExclusionRule;
-import com.liferay.journal.constants.JournalArticleConstants;
 import com.liferay.journal.model.JournalArticle;
+import com.liferay.journal.model.JournalArticleConstants;
 import com.liferay.journal.service.JournalArticleLocalService;
 
 import org.osgi.service.component.annotations.Component;
@@ -42,7 +42,7 @@ public class JournalArticleAssetEntryValidatorExclusionRule
 
 		if ((article != null) &&
 			(article.getClassNameId() >
-				JournalArticleConstants.CLASS_NAME_ID_DEFAULT)) {
+				JournalArticleConstants.CLASSNAME_ID_DEFAULT)) {
 
 			return true;
 		}
