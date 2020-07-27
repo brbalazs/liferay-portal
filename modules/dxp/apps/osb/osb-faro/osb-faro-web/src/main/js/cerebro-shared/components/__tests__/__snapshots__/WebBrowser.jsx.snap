@@ -21,32 +21,3 @@ exports[`WebBrowser should render 1`] = `
   </div>
 </div>
 `;
-
-exports[`WebBrowser should render as empty 1`] = `
-<div>
-  <div
-    class="analytics-web-browser-chart d-flex align-items-center w-100 position-relative"
-  >
-    <div
-      class="col-7"
-    >
-      <div
-        class="analytics-web-browser-chart-donut-empty"
-      />
-    </div>
-    <div
-      class="no-results-root flex-grow-1"
-    >
-      <div
-        class="no-results-content"
-      >
-        <h4
-          class="no-results-title"
-        >
-          There are no views on the selected period.
-        </h4>
-      </div>
-    </div>
-  </div>
-</div>
-`;
