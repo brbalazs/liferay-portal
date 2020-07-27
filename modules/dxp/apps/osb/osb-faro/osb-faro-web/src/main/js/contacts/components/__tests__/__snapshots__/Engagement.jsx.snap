@@ -152,15 +152,124 @@ exports[`EngagementWithList should render 1`] = `
               </th>
             </tr>
           </thead>
+          <tbody>
+            <tr
+              class=""
+            >
+              <td
+                class=""
+              >
+                <h4
+                  class="table-title text-truncate"
+                >
+                  Test Individual - 0
+                </h4>
+              </td>
+              <td
+                class=""
+              >
+                test0@liferay.com
+              </td>
+              <td
+                class=""
+              >
+                8
+              </td>
+            </tr>
+          </tbody>
         </table>
-        <div
-          class="spinner-root spinner-overlay"
-        >
-          <span
-            class="loading-animation loading-animation-dotted"
-          />
-        </div>
       </div>
+      <nav
+        class="navbar navbar-root pagination-bar-root"
+      >
+        <div
+          class="container-fluid"
+        >
+          <div
+            aria-haspopup="true"
+            class="dropdown dropdown-root pagination-items-per-page"
+          >
+            <button
+              class="button-root btn btn-secondary dropdown-toggle show-caret btn-sm"
+              type="button"
+            >
+              <span
+                class="text-truncate"
+              >
+                2 Items
+              </span>
+              
+              <span
+                class="caret-root"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#caret-bottom"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+          <div
+            class="pagination-results"
+          >
+            Showing 1 to 1 of 1 entry.
+          </div>
+          <ul
+            class="pagination pagination-root"
+          >
+            <li
+              class="page-item disabled"
+            >
+              <button
+                class="button-root btn btn-unstyled page-link"
+                disabled=""
+                type="button"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-angle-left"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#angle-left"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li
+              class="page-item active"
+            >
+              <button
+                class="button-root btn btn-unstyled page-link"
+                type="button"
+              >
+                1
+              </button>
+            </li>
+            <li
+              class="page-item disabled"
+            >
+              <button
+                class="button-root btn btn-unstyled page-link"
+                disabled=""
+                type="button"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-angle-right"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#angle-right"
+                  />
+                </svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </div>
   </div>
 </div>

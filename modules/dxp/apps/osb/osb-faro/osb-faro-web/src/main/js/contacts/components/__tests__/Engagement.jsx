@@ -1,7 +1,10 @@
+import * as API from 'shared/api';
 import * as data from 'test/data';
 import FaroConstants from 'shared/util/constants';
+import Promise from 'metal-promise';
 import React from 'react';
 import {EngagementWithList, SelectedPointInfo} from '../Engagement';
+import {noop} from 'lodash';
 import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router';
 
@@ -65,11 +68,17 @@ describe('EngagementWithList', () => {
 			</StaticRouter>
 		);
 
+		jest.runAllTimers();
+
 		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with empty engagement', () => {
-		const {container} = render(
+		API.engagement.fetch.mockReturnValueOnce(
+			Promise.resolve(data.mockSearch(noop, 0))
+		);
+
+		const {getByText} = render(
 			<StaticRouter>
 				<EngagementWithList
 					{...defaultProps}
@@ -79,7 +88,9 @@ describe('EngagementWithList', () => {
 			</StaticRouter>
 		);
 
-		expect(container).toBeTruthy();
+		jest.runAllTimers();
+
+		expect(getByText('There are no items found.')).toBeTruthy();
 	});
 });
 
