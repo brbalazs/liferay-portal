@@ -14,6 +14,6 @@ describe('Label', () => {
 	it('should render closeable Label', () => {
 		const {container} = render(<Label closeable />);
 
-		expect(container).toMatchSnapshot();
+		expect(container.querySelector('.close')).toBeTruthy();
 	});
 });

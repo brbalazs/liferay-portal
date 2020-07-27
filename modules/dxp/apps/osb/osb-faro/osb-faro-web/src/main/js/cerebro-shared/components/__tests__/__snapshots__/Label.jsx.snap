@@ -13,33 +13,3 @@ exports[`Label should render 1`] = `
   </span>
 </div>
 `;
-
-exports[`Label should render closeable Label 1`] = `
-<div>
-  <span
-    class="label label-secondary label-dismissible"
-  >
-    <span
-      class="label-item label-item-expand"
-    />
-    <span
-      class="label-item label-item-after"
-    >
-      <button
-        aria-label="Close"
-        class="button-root btn btn-unstyled close"
-        type="button"
-      >
-        <svg
-          class="icon-root lexicon-icon lexicon-icon-times"
-          viewBox=""
-        >
-          <use
-            xlink:href="#times"
-          />
-        </svg>
-      </button>
-    </span>
-  </span>
-</div>
-`;
