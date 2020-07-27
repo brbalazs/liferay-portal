@@ -1,21 +1,27 @@
 import React from 'react';
 import Trend from '../Trend';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('Trend', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container, getByText} = render(
 			<Trend color='red' label='Trend component' />
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container.querySelector('.analytics-trend')).toHaveStyle(
+			'color: red'
+		);
+		expect(getByText('Trend component')).toBeTruthy();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render w/ icon', () => {
-		const component = shallow(
+		const {container} = render(
 			<Trend color='red' icon='home' label='Trend component' />
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container.querySelector('.lexicon-icon-home')).toBeTruthy();
 	});
 });
