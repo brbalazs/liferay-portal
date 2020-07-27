@@ -10,4 +10,16 @@ describe('ListGroup', () => {
 
 		expect(container).toMatchSnapshot();
 	});
+
+	it('should render with children', () => {
+		const stringToMatch = 'List Item';
+
+		const {queryByText} = render(
+			<ListGroup>
+				<li>{stringToMatch}</li>
+			</ListGroup>
+		);
+
+		expect(queryByText(stringToMatch)).toBeTruthy();
+	});
 });
