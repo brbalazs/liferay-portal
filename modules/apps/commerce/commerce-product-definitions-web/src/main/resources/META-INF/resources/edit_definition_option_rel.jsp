@@ -216,11 +216,7 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 			}
 
 			function handleFormFieldTypeSelectChanges() {
-				if (
-					allowedPriceContributorFieldTypeSelectOptions.includes(
-						formFieldTypeSelect.value
-					)
-				) {
+				if (endsWith(formFieldTypeSelect.value, allowedPriceContributorFieldTypeSelectOptions)) {
 					enable(priceTypeSelect);
 				} else {
 					if (priceTypeSelect.value == '') {
@@ -234,11 +230,7 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 					}
 				}
 
-				if (
-					allowedSkuContributorFieldTypeSelectOptions.includes(
-						formFieldTypeSelect.value
-					)
-				) {
+				if (endsWith(formFieldTypeSelect.value, allowedSkuContributorFieldTypeSelectOptions)) {
 					enable(skuContributorInput);
 				} else {
 					if (!skuContributorInput.checked) {
