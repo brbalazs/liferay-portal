@@ -209,4 +209,17 @@ definition {
 			value1 = "Schema Version is ${originalSchemaVersion}");
 	}
 
+	@priority = "5"
+	test UpgradeWithoutExecutingUpgradeToolFromArchive72101 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql";
+		property portal.version = "7.2.10.1";
+		property skip.upgrade-legacy-database = "true";
+		property test.assert.warning.exceptions = "true";
+
+		AssertConsoleTextNotPresent(value1 = "You must first upgrade the portal to the required schema version");
+
+		Portlet.assertServerStartup();
+	}
+
 }
