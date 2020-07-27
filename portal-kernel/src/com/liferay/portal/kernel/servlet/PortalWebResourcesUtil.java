@@ -38,8 +38,8 @@ public class PortalWebResourcesUtil {
 	}
 
 	public static long getLastModified(String resourceType) {
-		PortalWebResources portalWebResources = _resourceTypeServiceTrackerMap.getService(
-			resourceType);
+		PortalWebResources portalWebResources =
+			_resourceTypeServiceTrackerMap.getService(resourceType);
 
 		if (portalWebResources == null) {
 			return -1;
@@ -49,8 +49,8 @@ public class PortalWebResourcesUtil {
 	}
 
 	public static String getModuleContextPath(String resourceType) {
-		PortalWebResources portalWebResources = _resourceTypeServiceTrackerMap.getService(
-			resourceType);
+		PortalWebResources portalWebResources =
+			_resourceTypeServiceTrackerMap.getService(resourceType);
 
 		if (portalWebResources == null) {
 			return StringPool.BLANK;
@@ -91,8 +91,8 @@ public class PortalWebResourcesUtil {
 
 	public static ServletContext getPathServletContext(String path) {
 		for (String contextPath : _contextPathServiceTrackerMap.keySet()) {
-			PortalWebResources portalWebResources = _contextPathServiceTrackerMap.getService(
-				contextPath);
+			PortalWebResources portalWebResources =
+				_contextPathServiceTrackerMap.getService(contextPath);
 
 			ServletContext servletContext =
 				portalWebResources.getServletContext();
@@ -144,8 +144,8 @@ public class PortalWebResourcesUtil {
 	}
 
 	public static ServletContext getServletContext(String resourceType) {
-		PortalWebResources portalWebResources = _resourceTypeServiceTrackerMap.getService(
-			resourceType);
+		PortalWebResources portalWebResources =
+			_resourceTypeServiceTrackerMap.getService(resourceType);
 
 		return portalWebResources.getServletContext();
 	}
@@ -183,16 +183,18 @@ public class PortalWebResourcesUtil {
 	}
 
 	private static final ServiceTrackerMap<String, PortalWebResources>
-		_contextPathServiceTrackerMap = ServiceTrackerCollections.openSingleValueMap(
-			PortalWebResources.class, null,
-			ServiceReferenceMapperFactory.create(
-				(portalWebResources, emitter) -> emitter.emit(
-					portalWebResources.getContextPath())));
+		_contextPathServiceTrackerMap =
+			ServiceTrackerCollections.openSingleValueMap(
+				PortalWebResources.class, null,
+				ServiceReferenceMapperFactory.create(
+					(portalWebResources, emitter) -> emitter.emit(
+						portalWebResources.getContextPath())));
 	private static final ServiceTrackerMap<String, PortalWebResources>
-		_resourceTypeServiceTrackerMap = ServiceTrackerCollections.openSingleValueMap(
-			PortalWebResources.class, null,
-			ServiceReferenceMapperFactory.create(
-				(portalWebResources, emitter) -> emitter.emit(
-					portalWebResources.getResourceType())));
+		_resourceTypeServiceTrackerMap =
+			ServiceTrackerCollections.openSingleValueMap(
+				PortalWebResources.class, null,
+				ServiceReferenceMapperFactory.create(
+					(portalWebResources, emitter) -> emitter.emit(
+						portalWebResources.getResourceType())));
 
 }
