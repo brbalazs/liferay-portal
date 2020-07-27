@@ -45,7 +45,6 @@ import com.liferay.headless.commerce.admin.order.resource.v1_0.OrderResource;
 import com.liferay.headless.commerce.core.util.DateConfig;
 import com.liferay.headless.commerce.core.util.ExpandoUtil;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
@@ -162,12 +161,11 @@ public class OrderResourceImpl
 
 	@Override
 	public Page<Order> getOrdersPage(
-			Filter filter, Pagination pagination, Sort[] sorts)
+			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception {
 
 		return _orderHelper.getOrdersPage(
-			contextCompany.getCompanyId(), filter, pagination, StringPool.BLANK,
-			sorts,
+			contextCompany.getCompanyId(), filter, pagination, search, sorts,
 			document -> _orderHelper.toOrder(
 				GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)),
 				contextAcceptLanguage.getPreferredLocale(),
@@ -568,12 +566,6 @@ public class OrderResourceImpl
 	@Reference
 	private CommerceAddressService _commerceAddressService;
 
-	@Reference(
-		target = "(model.class.name=com.liferay.commerce.model.CommerceOrder)"
-	)
-	private ModelResourcePermission<CommerceOrder>
-		_commerceOrderModelResourcePermission;
-
 	@Reference
 	private CommerceChannelLocalService _commerceChannelLocalService;
 
@@ -588,6 +580,12 @@ public class OrderResourceImpl
 
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.model.CommerceOrder)"
+	)
+	private ModelResourcePermission<CommerceOrder>
+		_commerceOrderModelResourcePermission;
 
 	@Reference
 	private CommerceOrderService _commerceOrderService;
