@@ -149,6 +149,10 @@ public class Activity {
 		public ActionObject() {
 		}
 
+		public String getCanonicalUrl() {
+			return _canonicalUrl;
+		}
+
 		public String getDataSourceAssetPK() {
 			return _dataSourceAssetPK;
 		}
@@ -171,6 +175,10 @@ public class Activity {
 
 		public String getUrl() {
 			return _url;
+		}
+
+		public void setCanonicalUrl(String canonicalUrl) {
+			_canonicalUrl = canonicalUrl;
 		}
 
 		public void setDataSourceAssetPK(String dataSourceAssetPK) {
@@ -197,6 +205,7 @@ public class Activity {
 			_url = url;
 		}
 
+		private String _canonicalUrl;
 		private String _dataSourceAssetPK;
 		private String _description;
 		private String _id;

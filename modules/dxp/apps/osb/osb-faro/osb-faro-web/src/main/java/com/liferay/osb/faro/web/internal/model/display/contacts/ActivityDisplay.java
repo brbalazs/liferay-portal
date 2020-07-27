@@ -42,6 +42,7 @@ public class ActivityDisplay extends EntityDisplay {
 
 		Activity.ActionObject actionObject = activity.getObject();
 
+		_canonicalUrl = actionObject.getCanonicalUrl();
 		_dataSourceAssetPK = actionObject.getDataSourceAssetPK();
 		_name = actionObject.getName();
 		_url = actionObject.getUrl();
@@ -50,6 +51,7 @@ public class ActivityDisplay extends EntityDisplay {
 	private int _action;
 	private String _activityKey;
 	private String _assetType;
+	private String _canonicalUrl;
 	private String _dataSourceAssetPK;
 	private Date _day;
 	private String _eventId;
