@@ -1,258 +1,77 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DropdownMenu should render 1`] = `
-<div
-  className="analytics-dropdown-menu dropdown-menu dropdown-menu-indicator-end"
-  onMouseLeave={[Function]}
->
-  <ul
-    className="list-unstyled"
-  />
-</div>
-`;
-
-exports[`DropdownMenu should render w/ items 1`] = `
-<div
-  className="analytics-dropdown-menu dropdown-menu dropdown-menu-indicator-end"
-  onMouseLeave={[Function]}
->
-  <ul
-    className="list-unstyled"
-  >
-    <OptionItem
-      dropdownChildrenParentNode={null}
-      index={0}
-      item={
-        Object {
-          "items": Array [
-            Object {
-              "category": "category1",
-              "checked": true,
-              "inputType": "radio",
-              "label": "label a",
-              "value": "1",
-            },
-            Object {
-              "category": "category1",
-              "checked": false,
-              "inputType": "radio",
-              "label": "label b",
-              "value": "2",
-            },
-            Object {
-              "category": "category1",
-              "checked": false,
-              "inputType": "radio",
-              "label": "label c",
-              "value": "100",
-            },
-            Object {
-              "category": "category1",
-              "checked": false,
-              "inputType": "radio",
-              "label": "label d",
-              "value": "50",
-            },
-          ],
-          "label": "Location",
-          "name": "location",
-          "value": "100",
-        }
-      }
-      key="0"
-      onChildOver={[Function]}
-      onMouseOutSubitem={[Function]}
-      onMouseOverSubitem={[Function]}
-    />
-    <OptionItem
-      dropdownChildrenParentNode={null}
-      index={1}
-      item={
-        Object {
-          "items": Array [
-            Object {
-              "category": "category2",
-              "checked": true,
-              "inputType": "radio",
-              "items": Array [
-                Object {
-                  "category": "category2",
-                  "checked": true,
-                  "inputType": "radio",
-                  "label": "label a",
-                  "value": "1",
-                },
-                Object {
-                  "category": "category2",
-                  "checked": false,
-                  "inputType": "radio",
-                  "label": "label b",
-                  "value": "2",
-                },
-                Object {
-                  "category": "category2",
-                  "checked": false,
-                  "inputType": "radio",
-                  "label": "label c",
-                  "value": "100",
-                },
-                Object {
-                  "category": "category2",
-                  "checked": false,
-                  "inputType": "radio",
-                  "label": "label d",
-                  "value": "50",
-                },
-              ],
-              "label": "label a",
-              "value": "1",
-            },
-            Object {
-              "category": "category2",
-              "checked": false,
-              "inputType": "radio",
-              "label": "label b",
-              "value": "2",
-            },
-            Object {
-              "category": "category2",
-              "checked": false,
-              "inputType": "radio",
-              "label": "label c",
-              "value": "100",
-            },
-            Object {
-              "category": "category2",
-              "checked": false,
-              "inputType": "radio",
-              "label": "label d",
-              "value": "50",
-            },
-          ],
-          "label": "Devices",
-          "name": "devices",
-          "value": "100",
-        }
-      }
-      key="1"
-      onChildOver={[Function]}
-      onMouseOutSubitem={[Function]}
-      onMouseOverSubitem={[Function]}
-    />
-  </ul>
-</div>
-`;
-
-exports[`DropdownMenu should render w/ search 1`] = `
-<div
-  className="analytics-dropdown-menu dropdown-menu dropdown-menu-indicator-end"
-  onMouseLeave={[Function]}
->
+<div>
   <div
-    className="analytics-dropdown-menu-search-container input-group"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
+    class="analytics-dropdown-menu dropdown-menu dropdown-menu-indicator-end"
   >
-    <div
-      className="input-group-item"
-    >
-      <input
-        aria-label="Search"
-        className="form-control input-group-inset input-group-inset-after"
-        onChange={[Function]}
-        placeholder="Search"
-        type="text"
-      />
-      <div
-        className="input-group-inset-item input-group-inset-item-after"
-      >
-        <button
-          className="btn btn-unstyled d-md-none"
-          type="button"
-        >
-          <Icon
-            symbol="times"
-          />
-        </button>
-        <button
-          className="btn btn-unstyled d-none d-md-inline-block"
-          type="button"
-        >
-          <Icon
-            symbol="search"
-          />
-        </button>
-      </div>
-    </div>
+    <ul
+      class="list-unstyled"
+    />
   </div>
-  <ul
-    className="list-unstyled"
-  />
 </div>
 `;
 
 exports[`InputItem should render 1`] = `
-<li
-  className="dropdown-item dropdown-item-custom"
-  onBlur={[Function]}
-  onFocus={[Function]}
-  onMouseOut={[Function]}
-  onMouseOver={[Function]}
->
-  <div
-    className="custom-control custom-undefined"
+<div>
+  <li
+    class="dropdown-item dropdown-item-custom"
   >
-    <label>
-      <input
-        className="custom-control-input"
-        name="location"
-        onChange={[Function]}
-        value="100"
-      />
-      <span
-        className="custom-control-label"
-      >
-        <TextTruncate
-          className="custom-control-label-text"
-          inline={false}
-          title="Location"
+    <div
+      class="custom-control custom-radio"
+    >
+      <label>
+        <input
+          checked=""
+          class="custom-control-input"
+          type="radio"
+          value="1"
         />
-      </span>
-    </label>
-  </div>
-</li>
+        <span
+          class="custom-control-label"
+        >
+          <span
+            class="text-truncate custom-control-label-text"
+            data-tooltip="false"
+            title=""
+          >
+            label a
+          </span>
+        </span>
+      </label>
+    </div>
+  </li>
+</div>
 `;
 
 exports[`OptionItem should render 1`] = `
-<li
-  onBlur={[Function]}
-  onFocus={[Function]}
-  onMouseOut={[Function]}
-  onMouseOver={[Function]}
->
-  <a
-    className="dropdown-item "
-    href="javascript:;"
-  >
-    <TextTruncate
-      inline={false}
-      title="Location"
-    />
-    <div
-      className="dropdown-item-indicator"
+<div>
+  <li>
+    <a
+      class="dropdown-item "
+      href="javascript:;"
     >
-      <ForwardRef
-        displayType="secondary"
-        label="100"
-      />
-      <Icon
-        className="ml-1"
-        symbol="angle-right"
-      />
-    </div>
-  </a>
-</li>
+      <span
+        class="text-truncate"
+        data-tooltip="false"
+        title=""
+      >
+        label a
+      </span>
+      <div
+        class="dropdown-item-indicator"
+      >
+        <span
+          class="badge badge-secondary"
+        >
+          <span
+            class="badge-item badge-item-expand"
+          >
+            1
+          </span>
+        </span>
+      </div>
+    </a>
+  </li>
+</div>
 `;

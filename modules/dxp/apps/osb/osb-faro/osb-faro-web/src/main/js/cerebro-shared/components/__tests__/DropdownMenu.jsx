@@ -1,6 +1,8 @@
 import DropdownMenu, {InputItem, OptionItem} from '../DropdownMenu';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 const MOCK_ITEMS = [
 	{
@@ -105,38 +107,44 @@ const MOCK_ITEMS = [
 	}
 ];
 
+const [INDIVIDUAL_ITEM] = MOCK_ITEMS[0].items;
+
 describe('DropdownMenu', () => {
 	it('should render', () => {
-		const component = shallow(<DropdownMenu />);
+		const {container} = render(<DropdownMenu />);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render w/ search', () => {
-		const component = shallow(<DropdownMenu hasSearch />);
+		const {container} = render(<DropdownMenu hasSearch />);
 
-		expect(component).toMatchSnapshot();
+		expect(
+			container.querySelector('.analytics-dropdown-menu-search-container')
+		).toBeTruthy();
 	});
 
 	it('should render w/ items', () => {
-		const component = shallow(<DropdownMenu items={MOCK_ITEMS} />);
+		const {getByText} = render(<DropdownMenu items={MOCK_ITEMS} />);
 
-		expect(component).toMatchSnapshot();
+		MOCK_ITEMS.forEach(({label}) => {
+			expect(getByText(label)).toBeTruthy();
+		});
 	});
 });
 
 describe('InputItem', () => {
 	it('should render', () => {
-		const component = shallow(<InputItem item={MOCK_ITEMS[0]} />);
+		const {container} = render(<InputItem item={INDIVIDUAL_ITEM} />);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
 
 describe('OptionItem', () => {
 	it('should render', () => {
-		const component = shallow(<OptionItem item={MOCK_ITEMS[0]} />);
+		const {container} = render(<OptionItem item={INDIVIDUAL_ITEM} />);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
