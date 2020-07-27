@@ -108,9 +108,7 @@ public abstract class BaseShippingAddressResourceTestCase {
 		ShippingAddressResource.Builder builder =
 			ShippingAddressResource.builder();
 
-		shippingAddressResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		shippingAddressResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}

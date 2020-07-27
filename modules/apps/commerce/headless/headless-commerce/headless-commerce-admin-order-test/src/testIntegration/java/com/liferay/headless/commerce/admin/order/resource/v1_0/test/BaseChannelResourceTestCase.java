@@ -107,9 +107,7 @@ public abstract class BaseChannelResourceTestCase {
 
 		ChannelResource.Builder builder = ChannelResource.builder();
 
-		channelResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		channelResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}

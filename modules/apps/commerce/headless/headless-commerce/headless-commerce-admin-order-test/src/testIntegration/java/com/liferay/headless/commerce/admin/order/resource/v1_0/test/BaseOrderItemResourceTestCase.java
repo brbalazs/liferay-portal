@@ -113,9 +113,7 @@ public abstract class BaseOrderItemResourceTestCase {
 
 		OrderItemResource.Builder builder = OrderItemResource.builder();
 
-		orderItemResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		orderItemResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
