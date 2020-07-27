@@ -274,9 +274,9 @@ public class DDMFormInstanceVersionPersistenceTest {
 			"DDMFormInstanceVersion", "formInstanceVersionId", true, "groupId",
 			true, "companyId", true, "userId", true, "userName", true,
 			"createDate", true, "formInstanceId", true, "structureVersionId",
-			true, "name", true, "description", true, "version", true, "status",
-			true, "statusByUserId", true, "statusByUserName", true,
-			"statusDate", true);
+			true, "name", true, "version", true, "status", true,
+			"statusByUserId", true, "statusByUserName", true, "statusDate",
+			true);
 	}
 
 	@Test

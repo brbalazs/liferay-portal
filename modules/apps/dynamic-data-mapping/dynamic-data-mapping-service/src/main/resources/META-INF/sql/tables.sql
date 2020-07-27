@@ -48,7 +48,7 @@ create table DDMFormInstance (
 	structureId LONG,
 	version VARCHAR(75) null,
 	name STRING null,
-	description STRING null,
+	description TEXT null,
 	settings_ TEXT null,
 	lastPublishDate DATE null
 );
@@ -99,7 +99,7 @@ create table DDMFormInstanceVersion (
 	formInstanceId LONG,
 	structureVersionId LONG,
 	name STRING null,
-	description STRING null,
+	description TEXT null,
 	settings_ TEXT null,
 	version VARCHAR(75) null,
 	status INTEGER,

@@ -199,7 +199,7 @@ public class DDMFormInstanceVersionCacheModel
 
 		structureVersionId = objectInput.readLong();
 		name = objectInput.readUTF();
-		description = objectInput.readUTF();
+		description = (String)objectInput.readObject();
 		settings = (String)objectInput.readObject();
 		version = objectInput.readUTF();
 
@@ -241,10 +241,10 @@ public class DDMFormInstanceVersionCacheModel
 		}
 
 		if (description == null) {
-			objectOutput.writeUTF("");
+			objectOutput.writeObject("");
 		}
 		else {
-			objectOutput.writeUTF(description);
+			objectOutput.writeObject(description);
 		}
 
 		if (settings == null) {
