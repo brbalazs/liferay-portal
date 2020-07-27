@@ -4,7 +4,7 @@ import checkProjectState from 'shared/hoc/CheckProjectState';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import Loading from 'shared/pages/Loading';
-import React, {lazy, Suspense} from 'react';
+import React, {Fragment, lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import {compose} from 'shared/hoc';
 import {connect} from 'react-redux';
@@ -401,8 +401,8 @@ export class Settings extends React.Component {
 									path={Routes.SETTINGS_APIS}
 								/>
 
-								{recommendationsEnabled && ( // TODO: LRAC-6115 Remove developer mode
-									<>
+								{recommendationsEnabled && (
+									<Fragment key='RECOMMENDATIONS'>
 										<BundleRouter
 											data={RecommendationList}
 											destructured={false}
@@ -440,7 +440,7 @@ export class Settings extends React.Component {
 												Routes.SETTINGS_RECOMMENDATION_MODEL_VIEW
 											}
 										/>
-									</>
+									</Fragment>
 								)}
 
 								<RouteNotFound />
