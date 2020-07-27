@@ -6,14 +6,18 @@ jest.unmock('react-dom');
 
 describe('Item', () => {
 	it('should render', () => {
-		const {container} = render(<Item />);
+		const {container} = render(<Item children='Children' />);
 
 		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with accentColor', () => {
-		const {container} = render(<Item accentColor='abc' />);
+		const {container} = render(
+			<Item accentColor='red' children='Children' />
+		);
 
-		expect(container).toMatchSnapshot();
+		expect(container.querySelector('.list-group-item')).toHaveStyle(
+			'border-left: 4px solid red'
+		);
 	});
 });
