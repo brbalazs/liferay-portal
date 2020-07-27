@@ -111,11 +111,11 @@ public class SearchUtil {
 
 		searchContextUnsafeConsumer.accept(searchContext);
 
-		Indexer<?> indexer = IndexerRegistryUtil.getIndexer(indexerClass);
-
 		List<T> items = new ArrayList<>();
 
 		Hits hits = null;
+
+		Indexer<?> indexer = IndexerRegistryUtil.getIndexer(indexerClass);
 
 		if (searchContext.isVulcanCheckPermissions()) {
 			hits = indexer.search(searchContext);
