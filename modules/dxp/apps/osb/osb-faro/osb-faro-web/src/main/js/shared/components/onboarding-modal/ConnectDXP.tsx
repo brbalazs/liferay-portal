@@ -21,8 +21,9 @@ interface IConnectDXPProps {
 	dataSourceId?: string;
 	dxpConnected: boolean;
 	groupId: string;
+	isUpgrading?: boolean;
 	onboarding?: boolean;
-	onClose: () => void;
+	onClose: (data?: any) => void;
 	onDxpConnected: (dxpConnected: boolean) => void;
 	onNext?: (increment?: number) => void;
 	onPrevious: () => void;
@@ -32,6 +33,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 	dataSourceId,
 	dxpConnected,
 	groupId,
+	isUpgrading,
 	onboarding,
 	onClose,
 	onDxpConnected,
@@ -53,6 +55,26 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 			type: dataSourceTypes.liferay
 		}
 	});
+
+	const getDataSource = () =>
+		API.dataSource
+			.fetch({
+				groupId,
+				id: dataSourceId
+			})
+			.then(dataSource => {
+				setIsALegacyDXPConnection(hasALegacyDXPConnection(dataSource));
+			})
+			.catch(noop);
+
+	const hasALegacyDXPConnection = dataSource =>
+		dataSource &&
+		dataSource.providerType === dataSourceTypes.liferay &&
+		dataSource.credentials.type !== credentialTypes.token;
+
+	const [isALegacyDXPConnection, setIsALegacyDXPConnection] = useState(true);
+
+	const handleClose = () => onClose(isALegacyDXPConnection);
 
 	const [token, setToken] = useState('');
 
@@ -84,6 +106,9 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 				} else {
 					if (onboarding) {
 						onDxpConnected(true);
+					} else if (isUpgrading) {
+						onDxpConnected(true);
+						getDataSource();
 					} else {
 						getDataSources();
 					}
@@ -211,8 +236,12 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 					<Button
 						disabled={!dxpConnected}
 						display='primary'
-						href={onboarding || !dxpConnected ? null : getNavHref()}
-						onClick={onboarding ? () => onNext() : onClose}
+						href={
+							onboarding || !dxpConnected || isUpgrading
+								? null
+								: getNavHref()
+						}
+						onClick={onboarding ? () => onNext() : handleClose}
 					>
 						{onboarding
 							? Liferay.Language.get('next')
