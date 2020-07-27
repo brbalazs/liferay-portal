@@ -1,165 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ChangeLegend should render 1`] = `
-<div
-  className="change-legend-root"
->
+<div>
   <div
-    className="legend-item activities"
-    key="activities"
+    class="change-legend-root"
   >
     <div
-      className="legend-header"
+      class="legend-item activities"
     >
-      <span
-        className="legend-color"
-        style={
-          Object {
-            "backgroundColor": "#4B9BFF",
-          }
-        }
-      />
-      <span
-        className="title"
+      <div
+        class="legend-header"
       >
-        Total Activity Count: 50
-      </span>
-    </div>
-    <div
-      className="secondary-info"
-    >
-      30 Day Total
-      <span
-        className="change increase"
-      >
-        <Icon
-          symbol="caret-top"
+        <span
+          class="legend-color"
+          style="background-color: rgb(75, 155, 255);"
         />
-        200.0%
-      </span>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`ChangeLegend should render with a decrease if change is negative 1`] = `
-<div
-  className="change-legend-root"
->
-  <div
-    className="legend-item activities"
-    key="activities"
-  >
-    <div
-      className="legend-header"
-    >
-      <span
-        className="legend-color"
-        style={
-          Object {
-            "backgroundColor": "#4B9BFF",
-          }
-        }
-      />
-      <span
-        className="title"
+        <span
+          class="title"
+        >
+          Total Activity Count: 50
+        </span>
+      </div>
+      <div
+        class="secondary-info"
       >
-        Total Activity Count: 50
-      </span>
-    </div>
-    <div
-      className="secondary-info"
-    >
-      30 Day Total
-      <span
-        className="change decrease"
-      >
-        <Icon
-          symbol="caret-bottom"
-        />
-        200.0%
-      </span>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`ChangeLegend should render with hypens if change is Infinite 1`] = `
-<div
-  className="change-legend-root"
->
-  <div
-    className="legend-item activities"
-    key="activities"
-  >
-    <div
-      className="legend-header"
-    >
-      <span
-        className="legend-color"
-        style={
-          Object {
-            "backgroundColor": "#4B9BFF",
-          }
-        }
-      />
-      <span
-        className="title"
-      >
-        Total Activity Count: 50
-      </span>
-    </div>
-    <div
-      className="secondary-info"
-    >
-      30 Day Total
-      <span
-        className="change increase"
-      >
-        <Icon
-          symbol="caret-top"
-        />
-        --
-      </span>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`ChangeLegend should render with no icon if change is 0 1`] = `
-<div
-  className="change-legend-root"
->
-  <div
-    className="legend-item activities"
-    key="activities"
-  >
-    <div
-      className="legend-header"
-    >
-      <span
-        className="legend-color"
-        style={
-          Object {
-            "backgroundColor": "#4B9BFF",
-          }
-        }
-      />
-      <span
-        className="title"
-      >
-        Total Activity Count: 50
-      </span>
-    </div>
-    <div
-      className="secondary-info"
-    >
-      30 Day Total
-      <span
-        className="change"
-      >
-        0.0%
-      </span>
+        30 Day Total
+        <span
+          class="change increase"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-caret-top"
+            viewBox=""
+          >
+            <use
+              xlink:href="#caret-top"
+            />
+          </svg>
+          200.0%
+        </span>
+      </div>
     </div>
   </div>
 </div>
