@@ -41,11 +41,13 @@ public interface OrderResource {
 	}
 
 	public Page<Order> getOrdersPage(
-			String filterString, Pagination pagination, String sortString)
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getOrdersPageHttpResponse(
-			String filterString, Pagination pagination, String sortString)
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public Order postOrder(Order order) throws Exception;
@@ -162,11 +164,12 @@ public interface OrderResource {
 	public static class OrderResourceImpl implements OrderResource {
 
 		public Page<Order> getOrdersPage(
-				String filterString, Pagination pagination, String sortString)
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse = getOrdersPageHttpResponse(
-				filterString, pagination, sortString);
+				search, filterString, pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -189,7 +192,8 @@ public interface OrderResource {
 		}
 
 		public HttpInvoker.HttpResponse getOrdersPageHttpResponse(
-				String filterString, Pagination pagination, String sortString)
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -212,6 +216,10 @@ public interface OrderResource {
 			}
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
+
+			if (search != null) {
+				httpInvoker.parameter("search", String.valueOf(search));
+			}
 
 			if (filterString != null) {
 				httpInvoker.parameter("filter", filterString);

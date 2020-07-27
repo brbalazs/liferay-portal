@@ -85,10 +85,6 @@ public interface OrderItemResource {
 	public OrderItem postOrderIdOrderItem(Long id, OrderItem orderItem)
 		throws Exception;
 
-	public Response postOrderIdOrderItemBatch(
-			Long id, String callbackURL, Object object)
-		throws Exception;
-
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

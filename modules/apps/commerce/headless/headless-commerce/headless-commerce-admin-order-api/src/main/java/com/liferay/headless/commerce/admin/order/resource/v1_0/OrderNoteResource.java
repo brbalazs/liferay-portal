@@ -85,10 +85,6 @@ public interface OrderNoteResource {
 	public OrderNote postOrderIdOrderNote(Long id, OrderNote orderNote)
 		throws Exception;
 
-	public Response postOrderIdOrderNoteBatch(
-			Long id, String callbackURL, Object object)
-		throws Exception;
-
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

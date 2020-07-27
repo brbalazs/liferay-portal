@@ -20,7 +20,6 @@ import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
-import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ResourceActionLocalService;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
@@ -90,6 +89,7 @@ public abstract class BaseOrderResourceImpl
 	@GET
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "search"),
 			@Parameter(in = ParameterIn.QUERY, name = "filter"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
 			@Parameter(in = ParameterIn.QUERY, name = "pageSize"),
@@ -100,6 +100,7 @@ public abstract class BaseOrderResourceImpl
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Order")})
 	public Page<Order> getOrdersPage(
+			@Parameter(hidden = true) @QueryParam("search") String search,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
 		throws Exception {
@@ -377,7 +378,7 @@ public abstract class BaseOrderResourceImpl
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
 
-		return getOrdersPage(filter, pagination, sorts);
+		return getOrdersPage(search, filter, pagination, sorts);
 	}
 
 	@Override
@@ -456,15 +457,6 @@ public abstract class BaseOrderResourceImpl
 		return ActionUtil.addAction(
 			actionName, getClass(), id, methodName, contextScopeChecker,
 			ownerId, permissionName, siteId, contextUriInfo);
-	}
-
-	protected Map<String, String> addAction(
-		String actionName, Long id, String methodName,
-		ModelResourcePermission modelResourcePermission) {
-
-		return ActionUtil.addAction(
-			actionName, getClass(), id, methodName, contextScopeChecker,
-			modelResourcePermission, contextUriInfo);
 	}
 
 	protected Map<String, String> addAction(

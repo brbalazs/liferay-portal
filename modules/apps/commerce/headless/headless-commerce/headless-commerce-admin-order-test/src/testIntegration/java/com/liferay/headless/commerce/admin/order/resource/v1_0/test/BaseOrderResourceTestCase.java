@@ -25,8 +25,10 @@ import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import com.liferay.headless.commerce.admin.order.client.dto.v1_0.Order;
 import com.liferay.headless.commerce.admin.order.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.order.client.pagination.Page;
+import com.liferay.headless.commerce.admin.order.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.order.client.resource.v1_0.OrderResource;
 import com.liferay.headless.commerce.admin.order.client.serdes.v1_0.OrderSerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -46,6 +48,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.log.CaptureAppender;
 import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
@@ -54,11 +57,14 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +76,7 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Level;
@@ -248,7 +255,226 @@ public abstract class BaseOrderResourceTestCase {
 
 	@Test
 	public void testGetOrdersPage() throws Exception {
-		Assert.assertTrue(false);
+		Page<Order> page = orderResource.getOrdersPage(
+			RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
+
+		Assert.assertEquals(0, page.getTotalCount());
+
+		Order order1 = testGetOrdersPage_addOrder(randomOrder());
+
+		Order order2 = testGetOrdersPage_addOrder(randomOrder());
+
+		page = orderResource.getOrdersPage(
+			null, null, Pagination.of(1, 2), null);
+
+		Assert.assertEquals(2, page.getTotalCount());
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(order1, order2), (List<Order>)page.getItems());
+		assertValid(page);
+
+		orderResource.deleteOrder(null);
+
+		orderResource.deleteOrder(null);
+	}
+
+	@Test
+	public void testGetOrdersPageWithFilterDateTimeEquals() throws Exception {
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Order order1 = randomOrder();
+
+		order1 = testGetOrdersPage_addOrder(order1);
+
+		for (EntityField entityField : entityFields) {
+			Page<Order> page = orderResource.getOrdersPage(
+				null, getFilterString(entityField, "between", order1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(order1),
+				(List<Order>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetOrdersPageWithFilterStringEquals() throws Exception {
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Order order1 = testGetOrdersPage_addOrder(randomOrder());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Order order2 = testGetOrdersPage_addOrder(randomOrder());
+
+		for (EntityField entityField : entityFields) {
+			Page<Order> page = orderResource.getOrdersPage(
+				null, getFilterString(entityField, "eq", order1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(order1),
+				(List<Order>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetOrdersPageWithPagination() throws Exception {
+		Order order1 = testGetOrdersPage_addOrder(randomOrder());
+
+		Order order2 = testGetOrdersPage_addOrder(randomOrder());
+
+		Order order3 = testGetOrdersPage_addOrder(randomOrder());
+
+		Page<Order> page1 = orderResource.getOrdersPage(
+			null, null, Pagination.of(1, 2), null);
+
+		List<Order> orders1 = (List<Order>)page1.getItems();
+
+		Assert.assertEquals(orders1.toString(), 2, orders1.size());
+
+		Page<Order> page2 = orderResource.getOrdersPage(
+			null, null, Pagination.of(2, 2), null);
+
+		Assert.assertEquals(3, page2.getTotalCount());
+
+		List<Order> orders2 = (List<Order>)page2.getItems();
+
+		Assert.assertEquals(orders2.toString(), 1, orders2.size());
+
+		Page<Order> page3 = orderResource.getOrdersPage(
+			null, null, Pagination.of(1, 3), null);
+
+		assertEqualsIgnoringOrder(
+			Arrays.asList(order1, order2, order3),
+			(List<Order>)page3.getItems());
+	}
+
+	@Test
+	public void testGetOrdersPageWithSortDateTime() throws Exception {
+		testGetOrdersPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, order1, order2) -> {
+				BeanUtils.setProperty(
+					order1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetOrdersPageWithSortInteger() throws Exception {
+		testGetOrdersPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, order1, order2) -> {
+				BeanUtils.setProperty(order1, entityField.getName(), 0);
+				BeanUtils.setProperty(order2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetOrdersPageWithSortString() throws Exception {
+		testGetOrdersPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, order1, order2) -> {
+				Class<?> clazz = order1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanUtils.setProperty(
+						order1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanUtils.setProperty(
+						order2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						order1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						order2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanUtils.setProperty(
+						order1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanUtils.setProperty(
+						order2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetOrdersPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer<EntityField, Order, Order, Exception>
+				unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Order order1 = randomOrder();
+		Order order2 = randomOrder();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(entityField, order1, order2);
+		}
+
+		order1 = testGetOrdersPage_addOrder(order1);
+
+		order2 = testGetOrdersPage_addOrder(order2);
+
+		for (EntityField entityField : entityFields) {
+			Page<Order> ascPage = orderResource.getOrdersPage(
+				null, null, Pagination.of(1, 2),
+				entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(order1, order2), (List<Order>)ascPage.getItems());
+
+			Page<Order> descPage = orderResource.getOrdersPage(
+				null, null, Pagination.of(1, 2),
+				entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(order2, order1),
+				(List<Order>)descPage.getItems());
+		}
+	}
+
+	protected Order testGetOrdersPage_addOrder(Order order) throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
@@ -520,6 +746,9 @@ public abstract class BaseOrderResourceTestCase {
 	public void testPatchOrder() throws Exception {
 		Assert.assertTrue(false);
 	}
+
+	@Rule
+	public SearchTestRule searchTestRule = new SearchTestRule();
 
 	protected Order testGraphQLOrder_addOrder() throws Exception {
 		throw new UnsupportedOperationException(
