@@ -1,4 +1,5 @@
 import BasePage from 'settings/components/BasePage';
+import Constants, {jobRunStatuses} from 'shared/util/constants';
 import OutputVersionsCard from '../components/OutputVersionsCard';
 import React from 'react';
 import RecommendationJobRunsQuery from '../queries/RecommendationJobRunsQuery';
@@ -19,9 +20,13 @@ import {
 } from '../queries/RecommendationMutation';
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
-import {useMutation} from '@apollo/react-hooks';
+import {useMutation, useQuery} from '@apollo/react-hooks';
 import {User} from 'shared/util/records';
 import {withCurrentUser, withHistory} from 'shared/hoc';
+
+const {
+	pagination: {orderDescending}
+} = Constants;
 
 interface IViewProps {
 	addAlert: Alert.AddAlert;
@@ -46,9 +51,30 @@ const View: React.FC<IViewProps> = ({
 }) => {
 	const {groupId, jobId} = router.params;
 
+	const {data: jobRuns, loading} = useQuery(RecommendationJobRunsQuery, {
+		variables: {
+			jobId,
+			size: 1,
+			sort: {
+				column: 'id',
+				type: orderDescending.toUpperCase()
+			},
+			start: 0
+		}
+	});
+
 	const [deleteRecommendationJobs] = useMutation(
 		RECOMMENDATION_DELETE_MUTATION
 	);
+
+	const jobRun =
+		!!jobRuns &&
+		jobRuns.jobRuns.total &&
+		get(jobRuns, ['jobRuns', 'jobRuns', 0], null);
+
+	const jobRunRunning: boolean =
+		get(jobRun, 'status', null) === jobRunStatuses.running;
+
 	const [runRecommendationJob] = useMutation(RECOMMENDATION_RUN_MUTATION);
 
 	const itemFilters: Filter[] = get(job, 'parameters', []).filter(
@@ -73,60 +99,65 @@ const View: React.FC<IViewProps> = ({
 						currentUser.isAdmin()
 							? [
 									{
+										disabled: loading || jobRunRunning,
 										label: Liferay.Language.get('retrain'),
 										onClick: () => {
-											open(
-												modalTypes.MANUALLY_RETRAIN_MODEL_MODAL,
-												{
-													job,
-													onClose: close,
-													onSubmit: ({
-														runDataPeriod
-													}) => {
-														runRecommendationJob({
-															awaitRefetchQueries: true,
-															refetchQueries: [
-																getOperationName(
-																	RecommendationJobRunsQuery
-																)
-															],
-															variables: {
-																jobId,
-																runDataPeriod
-															}
-														})
-															.then(() => {
-																addAlert({
-																	alertType:
-																		Alert
-																			.Types
-																			.SUCCESS,
-																	message: Liferay.Language.get(
-																		'retraining-has-been-started'
-																	)
-																});
-
-																close();
-															})
-															.catch(() => {
-																addAlert({
-																	alertType:
-																		Alert
-																			.Types
-																			.ERROR,
-																	message: Liferay.Language.get(
-																		'there-was-an-error-processing-your-request.-please-try-again'
-																	),
-																	timeout: false
-																});
-															});
-													},
-													trainingPeriod: get(
+											if (!jobRunRunning) {
+												open(
+													modalTypes.MANUALLY_RETRAIN_MODEL_MODAL,
+													{
 														job,
-														'trainingPeriod'
-													)
-												}
-											);
+														onClose: close,
+														onSubmit: ({
+															runDataPeriod
+														}) => {
+															runRecommendationJob(
+																{
+																	awaitRefetchQueries: true,
+																	refetchQueries: [
+																		getOperationName(
+																			RecommendationJobRunsQuery
+																		)
+																	],
+																	variables: {
+																		jobId,
+																		runDataPeriod
+																	}
+																}
+															)
+																.then(() => {
+																	addAlert({
+																		alertType:
+																			Alert
+																				.Types
+																				.SUCCESS,
+																		message: Liferay.Language.get(
+																			'retraining-has-been-started'
+																		)
+																	});
+
+																	close();
+																})
+																.catch(() => {
+																	addAlert({
+																		alertType:
+																			Alert
+																				.Types
+																				.ERROR,
+																		message: Liferay.Language.get(
+																			'there-was-an-error-processing-your-request.-please-try-again'
+																		),
+																		timeout: false
+																	});
+																});
+														},
+														trainingPeriod: get(
+															job,
+															'trainingPeriod'
+														)
+													}
+												);
+											}
 										}
 									},
 									{

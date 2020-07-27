@@ -5,7 +5,10 @@ import React from 'react';
 import View from '../View';
 import {ApolloProvider} from '@apollo/react-components';
 import {MockedProvider} from '@apollo/react-testing';
-import {mockRecommendationReq} from 'test/graphql-data';
+import {
+	mockRecommendationJobRunsReq,
+	mockRecommendationReq
+} from 'test/graphql-data';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router-dom';
@@ -23,6 +26,9 @@ const DefaultComponent = props => (
 			<StaticRouter>
 				<MockedProvider
 					mocks={[
+						mockRecommendationJobRunsReq([
+							data.mockRecommendationJobRun(0)
+						]),
 						mockRecommendationReq(data.mockRecommendationJob('321'))
 					]}
 				>
