@@ -124,7 +124,8 @@ const DefaultComponent = withStatefulPagination(
 		defaultOrderBy: string;
 		defaultOrderByField: string;
 	}) => pickBy({defaultDelta, defaultOrderBy, defaultOrderByField}),
-	(props, {toolbarProps}) => ({
+	(props, {paginationProps, toolbarProps}) => ({
+		paginationProps,
 		stagedProps: omit(props, 'onSearchValueChange'),
 		toolbarProps
 	}),
