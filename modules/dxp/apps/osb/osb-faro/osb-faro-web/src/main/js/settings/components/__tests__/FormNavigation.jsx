@@ -10,4 +10,22 @@ describe('FormNavigation', () => {
 
 		expect(container).toMatchSnapshot();
 	});
+
+	it('should render with a custom submit text', () => {
+		const submitMessage = 'Submit me';
+
+		const {getByText} = render(
+			<FormNavigation submitMessage={submitMessage} />
+		);
+
+		expect(getByText(submitMessage)).toBeTruthy();
+	});
+
+	it('should render with a previous button', () => {
+		const {getByText} = render(
+			<FormNavigation onPreviousStep={() => jest.fn()} />
+		);
+
+		expect(getByText('Previous')).toBeTruthy();
+	});
 });
