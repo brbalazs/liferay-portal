@@ -305,7 +305,7 @@ export const renderTooltip = (options: TooltipOptionsType) => (
 
 	const {intervalInitDate} = data;
 
-	const value = 'scoreAvg' in data ? data.scoreAvg : data.totalElements;
+	const value = 'totalElements' in data ? data.totalElements : data.scoreAvg;
 
 	const currentPeriodTitle = getDateTitle(
 		dateKeysIMap.get(intervalInitDate),
