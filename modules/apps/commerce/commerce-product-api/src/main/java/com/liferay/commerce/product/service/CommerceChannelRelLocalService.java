@@ -244,6 +244,10 @@ public interface CommerceChannelRelLocalService
 		String className, long classPK, int start, int end,
 		OrderByComparator<CommerceChannelRel> orderByComparator);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceChannelRel> getCommerceChannelRels(
+		String className, long classPK, String name, int start, int end);
+
 	/**
 	 * Returns the number of commerce channel rels.
 	 *
@@ -257,6 +261,10 @@ public interface CommerceChannelRelLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceChannelRelsCount(String className, long classPK);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceChannelRelsCount(
+		String className, long classPK, String name);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();

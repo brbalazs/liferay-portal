@@ -296,6 +296,16 @@ public class CommerceChannelRelLocalServiceUtil {
 			className, classPK, start, end, orderByComparator);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.product.model.CommerceChannelRel>
+			getCommerceChannelRels(
+				String className, long classPK, String name, int start,
+				int end) {
+
+		return getService().getCommerceChannelRels(
+			className, classPK, name, start, end);
+	}
+
 	/**
 	 * Returns the number of commerce channel rels.
 	 *
@@ -313,6 +323,13 @@ public class CommerceChannelRelLocalServiceUtil {
 		String className, long classPK) {
 
 		return getService().getCommerceChannelRelsCount(className, classPK);
+	}
+
+	public static int getCommerceChannelRelsCount(
+		String className, long classPK, String name) {
+
+		return getService().getCommerceChannelRelsCount(
+			className, classPK, name);
 	}
 
 	public static

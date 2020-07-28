@@ -98,6 +98,16 @@ public class CommerceChannelRelServiceUtil {
 			className, classPK, start, end, orderByComparator);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.product.model.CommerceChannelRel>
+			getCommerceChannelRels(
+				String className, long classPK, String classPKField,
+				String name, int start, int end) {
+
+		return getService().getCommerceChannelRels(
+			className, classPK, classPKField, name, start, end);
+	}
+
 	public static int getCommerceChannelRelsCount(long commerceChannelId) {
 		return getService().getCommerceChannelRelsCount(commerceChannelId);
 	}
@@ -106,6 +116,13 @@ public class CommerceChannelRelServiceUtil {
 		String className, long classPK) {
 
 		return getService().getCommerceChannelRelsCount(className, classPK);
+	}
+
+	public static int getCommerceChannelRelsCount(
+		String className, long classPK, String classPKField, String name) {
+
+		return getService().getCommerceChannelRelsCount(
+			className, classPK, classPKField, name);
 	}
 
 	/**

@@ -90,10 +90,19 @@ public interface CommerceChannelRelService extends BaseService {
 		OrderByComparator<CommerceChannelRel> orderByComparator);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceChannelRel> getCommerceChannelRels(
+		String className, long classPK, String classPKField, String name,
+		int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceChannelRelsCount(long commerceChannelId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceChannelRelsCount(String className, long classPK);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceChannelRelsCount(
+		String className, long classPK, String classPKField, String name);
 
 	/**
 	 * Returns the OSGi service identifier.

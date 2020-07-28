@@ -316,6 +316,15 @@ public class CommerceChannelRelLocalServiceWrapper
 			className, classPK, start, end, orderByComparator);
 	}
 
+	@Override
+	public java.util.List<com.liferay.commerce.product.model.CommerceChannelRel>
+		getCommerceChannelRels(
+			String className, long classPK, String name, int start, int end) {
+
+		return _commerceChannelRelLocalService.getCommerceChannelRels(
+			className, classPK, name, start, end);
+	}
+
 	/**
 	 * Returns the number of commerce channel rels.
 	 *
@@ -336,6 +345,14 @@ public class CommerceChannelRelLocalServiceWrapper
 	public int getCommerceChannelRelsCount(String className, long classPK) {
 		return _commerceChannelRelLocalService.getCommerceChannelRelsCount(
 			className, classPK);
+	}
+
+	@Override
+	public int getCommerceChannelRelsCount(
+		String className, long classPK, String name) {
+
+		return _commerceChannelRelLocalService.getCommerceChannelRelsCount(
+			className, classPK, name);
 	}
 
 	@Override

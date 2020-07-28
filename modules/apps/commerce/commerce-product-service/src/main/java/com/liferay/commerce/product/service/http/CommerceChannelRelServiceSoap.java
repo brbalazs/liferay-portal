@@ -199,6 +199,29 @@ public class CommerceChannelRelServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.product.model.CommerceChannelRelSoap[]
+			getCommerceChannelRels(
+				String className, long classPK, String classPKField,
+				String name, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.product.model.CommerceChannelRel>
+					returnValue =
+						CommerceChannelRelServiceUtil.getCommerceChannelRels(
+							className, classPK, classPKField, name, start, end);
+
+			return com.liferay.commerce.product.model.CommerceChannelRelSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static int getCommerceChannelRelsCount(long commerceChannelId)
 		throws RemoteException {
 
@@ -224,6 +247,24 @@ public class CommerceChannelRelServiceSoap {
 			int returnValue =
 				CommerceChannelRelServiceUtil.getCommerceChannelRelsCount(
 					className, classPK);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommerceChannelRelsCount(
+			String className, long classPK, String classPKField, String name)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceChannelRelServiceUtil.getCommerceChannelRelsCount(
+					className, classPK, classPKField, name);
 
 			return returnValue;
 		}

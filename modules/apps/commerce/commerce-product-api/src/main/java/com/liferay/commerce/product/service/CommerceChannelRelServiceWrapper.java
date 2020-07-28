@@ -101,6 +101,16 @@ public class CommerceChannelRelServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.commerce.product.model.CommerceChannelRel>
+		getCommerceChannelRels(
+			String className, long classPK, String classPKField, String name,
+			int start, int end) {
+
+		return _commerceChannelRelService.getCommerceChannelRels(
+			className, classPK, classPKField, name, start, end);
+	}
+
+	@Override
 	public int getCommerceChannelRelsCount(long commerceChannelId) {
 		return _commerceChannelRelService.getCommerceChannelRelsCount(
 			commerceChannelId);
@@ -110,6 +120,14 @@ public class CommerceChannelRelServiceWrapper
 	public int getCommerceChannelRelsCount(String className, long classPK) {
 		return _commerceChannelRelService.getCommerceChannelRelsCount(
 			className, classPK);
+	}
+
+	@Override
+	public int getCommerceChannelRelsCount(
+		String className, long classPK, String classPKField, String name) {
+
+		return _commerceChannelRelService.getCommerceChannelRelsCount(
+			className, classPK, classPKField, name);
 	}
 
 	/**

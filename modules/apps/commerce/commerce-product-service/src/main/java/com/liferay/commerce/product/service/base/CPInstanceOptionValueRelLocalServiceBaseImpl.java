@@ -41,6 +41,7 @@ import com.liferay.commerce.product.service.persistence.CPTaxCategoryPersistence
 import com.liferay.commerce.product.service.persistence.CProductPersistence;
 import com.liferay.commerce.product.service.persistence.CommerceCatalogPersistence;
 import com.liferay.commerce.product.service.persistence.CommerceChannelPersistence;
+import com.liferay.commerce.product.service.persistence.CommerceChannelRelFinder;
 import com.liferay.commerce.product.service.persistence.CommerceChannelRelPersistence;
 import com.liferay.exportimport.kernel.lar.ExportImportHelperUtil;
 import com.liferay.exportimport.kernel.lar.ManifestSummary;
@@ -675,6 +676,26 @@ public abstract class CPInstanceOptionValueRelLocalServiceBaseImpl
 		CommerceChannelRelPersistence commerceChannelRelPersistence) {
 
 		this.commerceChannelRelPersistence = commerceChannelRelPersistence;
+	}
+
+	/**
+	 * Returns the commerce channel rel finder.
+	 *
+	 * @return the commerce channel rel finder
+	 */
+	public CommerceChannelRelFinder getCommerceChannelRelFinder() {
+		return commerceChannelRelFinder;
+	}
+
+	/**
+	 * Sets the commerce channel rel finder.
+	 *
+	 * @param commerceChannelRelFinder the commerce channel rel finder
+	 */
+	public void setCommerceChannelRelFinder(
+		CommerceChannelRelFinder commerceChannelRelFinder) {
+
+		this.commerceChannelRelFinder = commerceChannelRelFinder;
 	}
 
 	/**
@@ -1775,6 +1796,9 @@ public abstract class CPInstanceOptionValueRelLocalServiceBaseImpl
 
 	@BeanReference(type = CommerceChannelRelPersistence.class)
 	protected CommerceChannelRelPersistence commerceChannelRelPersistence;
+
+	@BeanReference(type = CommerceChannelRelFinder.class)
+	protected CommerceChannelRelFinder commerceChannelRelFinder;
 
 	@BeanReference(
 		type = com.liferay.commerce.product.service.CPAttachmentFileEntryLocalService.class
