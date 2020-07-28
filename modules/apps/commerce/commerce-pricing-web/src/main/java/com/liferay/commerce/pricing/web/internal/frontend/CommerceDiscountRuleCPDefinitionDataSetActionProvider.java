@@ -14,15 +14,23 @@
 
 package com.liferay.commerce.pricing.web.internal.frontend;
 
-import com.liferay.commerce.discount.constants.CommerceDiscountPortletKeys;
 import com.liferay.commerce.discount.model.CommerceDiscount;
+import com.liferay.commerce.discount.model.CommerceDiscountRule;
+import com.liferay.commerce.discount.service.CommerceDiscountRuleService;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
+import com.liferay.commerce.pricing.constants.CommercePricingPortletKeys;
 import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingDataSetConstants;
-import com.liferay.commerce.pricing.web.internal.model.PricingClassDiscount;
+import com.liferay.commerce.pricing.web.internal.model.DiscountRuleCPDefinition;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.portlet.PortletProvider;
+import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -34,8 +42,10 @@ import com.liferay.portal.kernel.util.WebKeys;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
+import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -47,10 +57,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.provider.key=" + CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_DISCOUNTS,
+	property = "commerce.data.provider.key=" + CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_DISCOUNT_RULE_PRODUCT_DEFINITIONS,
 	service = ClayDataSetActionProvider.class
 )
-public class CommercePricingClassDiscountDataSetActionProvider
+public class CommerceDiscountRuleCPDefinitionDataSetActionProvider
 	implements ClayDataSetActionProvider {
 
 	@Override
@@ -60,7 +70,12 @@ public class CommercePricingClassDiscountDataSetActionProvider
 
 		List<ClayDataSetAction> clayDataSetActions = new ArrayList<>();
 
-		PricingClassDiscount pricingClassDiscount = (PricingClassDiscount)model;
+		DiscountRuleCPDefinition discountRuleCPDefinition =
+			(DiscountRuleCPDefinition)model;
+
+		CommerceDiscountRule commerceDiscountRule =
+			_commerceDiscountRuleService.getCommerceDiscountRule(
+				discountRuleCPDefinition.getDiscountRuleId());
 
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
@@ -68,48 +83,70 @@ public class CommercePricingClassDiscountDataSetActionProvider
 
 		if (_commerceDiscountModelResourcePermission.contains(
 				themeDisplay.getPermissionChecker(),
-				pricingClassDiscount.getCommerceDiscountId(),
+				commerceDiscountRule.getCommerceDiscountId(),
 				ActionKeys.UPDATE)) {
 
-			PortletURL editURL = _getDiscountEditURL(
-				pricingClassDiscount.getCommerceDiscountId(),
+			PortletURL deleteURL = _getDiscountRuleDeleteCPDefinitionURL(
+				discountRuleCPDefinition.getCPDefinitionId(),
+				discountRuleCPDefinition.getDiscountRuleId(),
 				httpServletRequest);
 
-			ClayDataSetAction editClayDataSetAction = new ClayDataSetAction(
-				StringPool.BLANK, editURL.toString(), StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, Constants.EDIT),
+			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
+				StringPool.BLANK, deleteURL.toString(), StringPool.BLANK,
+				LanguageUtil.get(httpServletRequest, Constants.DELETE),
 				StringPool.BLANK, false, false);
 
-			clayDataSetActions.add(editClayDataSetAction);
+			clayDataSetActions.add(deleteClayDataSetAction);
 		}
 
 		return clayDataSetActions;
 	}
 
-	private PortletURL _getDiscountEditURL(
-		long commerceDiscountId, HttpServletRequest httpServletRequest) {
+	private PortletURL _getDiscountRuleDeleteCPDefinitionURL(
+			long cpDefinitionId, long commerceDiscountRuleId,
+			HttpServletRequest httpServletRequest)
+		throws PortalException {
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			httpServletRequest, CommerceDiscountPortletKeys.COMMERCE_DISCOUNT,
-			PortletRequest.RENDER_PHASE);
+			httpServletRequest, CommercePricingPortletKeys.COMMERCE_DISCOUNT,
+			PortletRequest.ACTION_PHASE);
+
+		try {
+			portletURL.setWindowState(LiferayWindowState.POP_UP);
+		}
+		catch (WindowStateException wse) {
+			_log.error(wse, wse);
+		}
+
+		portletURL.setParameter(
+			ActionRequest.ACTION_NAME, "editCommerceDiscountRule");
+		portletURL.setParameter(Constants.CMD, Constants.DELETE);
 
 		String redirect = ParamUtil.getString(
 			httpServletRequest, "currentUrl",
 			_portal.getCurrentURL(httpServletRequest));
 
-		portletURL.setParameter("mvcRenderCommandName", "editCommerceDiscount");
-		portletURL.setParameter(
-			"commerceDiscountId", String.valueOf(commerceDiscountId));
 		portletURL.setParameter("redirect", redirect);
+
+		portletURL.setParameter(
+			"commerceDiscountRuleId", String.valueOf(commerceDiscountRuleId));
+		portletURL.setParameter(
+			"cpDefinitionId", String.valueOf(cpDefinitionId));
 
 		return portletURL;
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceDiscountRuleCPDefinitionDataSetActionProvider.class);
 
 	@Reference(
 		target = "(model.class.name=com.liferay.commerce.discount.model.CommerceDiscount)"
 	)
 	private ModelResourcePermission<CommerceDiscount>
 		_commerceDiscountModelResourcePermission;
+
+	@Reference
+	private CommerceDiscountRuleService _commerceDiscountRuleService;
 
 	@Reference
 	private Portal _portal;

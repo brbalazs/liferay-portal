@@ -18,7 +18,7 @@ import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
 import com.liferay.commerce.price.list.constants.CommercePriceListPortletKeys;
 import com.liferay.commerce.price.list.model.CommercePriceList;
-import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
+import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClassPriceList;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -47,7 +47,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.provider.key=" + CommercePricingClassDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRICE_LISTS,
+	property = "commerce.data.provider.key=" + CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRICE_LISTS,
 	service = ClayDataSetActionProvider.class
 )
 public class CommercePricingClassPriceListDataSetActionProvider

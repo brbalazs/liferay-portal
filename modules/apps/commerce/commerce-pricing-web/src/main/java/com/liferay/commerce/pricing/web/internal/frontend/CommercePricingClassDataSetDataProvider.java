@@ -21,7 +21,7 @@ import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePricingClassCPDefinitionRelService;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
-import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
+import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClass;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -48,7 +48,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.provider.key=" + CommercePricingClassDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASSES,
+	property = "commerce.data.provider.key=" + CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASSES,
 	service = CommerceDataSetDataProvider.class
 )
 public class CommercePricingClassDataSetDataProvider

@@ -20,7 +20,7 @@ import com.liferay.commerce.frontend.Pagination;
 import com.liferay.commerce.frontend.model.ImageField;
 import com.liferay.commerce.pricing.model.CommercePricingClassCPDefinitionRel;
 import com.liferay.commerce.pricing.service.CommercePricingClassCPDefinitionRelService;
-import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
+import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClassCPDefinitionRel;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
@@ -50,7 +50,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.provider.key=" + CommercePricingClassDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRODUCT_DEFINITIONS,
+	property = "commerce.data.provider.key=" + CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRODUCT_DEFINITIONS,
 	service = CommerceDataSetDataProvider.class
 )
 public class CommercePricingClassCPDefinitionRelDataSetDataProvider

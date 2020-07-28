@@ -17,9 +17,9 @@ package com.liferay.commerce.pricing.web.internal.frontend;
 import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
-import com.liferay.commerce.pricing.constants.CommercePricingPorletKeys;
+import com.liferay.commerce.pricing.constants.CommercePricingPortletKeys;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
-import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants;
+import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PricingClass;
 import com.liferay.commerce.pricing.web.servlet.taglib.ui.CommercePricingClassScreenNavigationConstants;
 import com.liferay.petra.string.StringPool;
@@ -53,7 +53,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.provider.key=" + CommercePricingClassDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASSES,
+	property = "commerce.data.provider.key=" + CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASSES,
 	service = ClayDataSetActionProvider.class
 )
 public class CommercePricingClassDataSetActionProvider
@@ -180,7 +180,7 @@ public class CommercePricingClassDataSetActionProvider
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
 			httpServletRequest,
-			CommercePricingPorletKeys.COMMERCE_PRICING_CLASSES,
+			CommercePricingPortletKeys.COMMERCE_PRICING_CLASSES,
 			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter(
