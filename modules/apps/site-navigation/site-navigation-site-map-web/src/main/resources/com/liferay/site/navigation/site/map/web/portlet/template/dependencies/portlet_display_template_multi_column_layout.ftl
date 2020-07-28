@@ -1,7 +1,7 @@
 <#if entries?has_content>
 	<@liferay_aui.row>
 		<#list entries as entry>
-			<#if (getterUtil.getBoolean(showHiddenPages) || !entry.isHidden()) && layoutPermission.containsWithoutViewableGroup(permissionChecker, entry, "VIEW")>
+			<#if (entry.getType() != "asset_display") && (getterUtil.getBoolean(showHiddenPages) || !entry.isHidden()) && layoutPermission.containsWithoutViewableGroup(permissionChecker, entry, "VIEW")>
 				<@liferay_aui.col width=25>
 					<div class="results-header">
 						<h3>
@@ -34,7 +34,7 @@
 	<#if pages?has_content && ((depth < displayDepth?number) || (displayDepth?number == 0))>
 		<ul class="child-pages">
 			<#list pages as page>
-				<#if getterUtil.getBoolean(showHiddenPages) || !page.isHidden()>
+				<#if (page.getType() != "asset_display") && (getterUtil.getBoolean(showHiddenPages) || !page.isHidden())>
 					<li>
 						<a
 
