@@ -1,205 +1,130 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ActivitiesCard should render 1`] = `
-<Card
-  className="account-activities-card-root"
->
-  <Header>
-    <Title>
-      Account Activities
-    </Title>
-  </Header>
-  <Body>
-    <Spinner
-      alignCenter={false}
-      display="dotted"
-      fadeIn={false}
-      inline={false}
-      key="LOADING"
-      light={false}
-      overlay={false}
-      spacer={true}
-    />
-  </Body>
-  <Footer>
-    <Button
-      display="link"
-      href="/workspace/23/contacts/accounts/test/activities"
-      size="sm"
+<div>
+  <div
+    class="card card-root account-activities-card-root"
+  >
+    <div
+      class="card-header"
     >
-      View All Activities
-      <Icon
-        symbol="angle-right"
-      />
-    </Button>
-  </Footer>
-</Card>
-`;
-
-exports[`ActivitiesCard should render w/ ErrorDisplay 1`] = `
-<Card
-  className="account-activities-card-root"
->
-  <Header>
-    <Title>
-      Account Activities
-    </Title>
-  </Header>
-  <Body>
-    <ErrorDisplay
-      buttonLabel="Reload"
-      key="ERROR_DISPLAY"
-      message="An unexpected error occurred."
-      onReload={[Function]}
-      spacer={true}
-    />
-  </Body>
-  <Footer>
-    <Button
-      display="link"
-      href="/workspace/23/contacts/accounts/test/activities"
-      size="sm"
+      <h5
+        class="card-title"
+      >
+        Account Activities
+      </h5>
+    </div>
+    <div
+      class="card-body"
     >
-      View All Activities
-      <Icon
-        symbol="angle-right"
-      />
-    </Button>
-  </Footer>
-</Card>
-`;
-
-exports[`ActivitiesCard should render w/o loading 1`] = `
-<Card
-  className="account-activities-card-root"
->
-  <Header>
-    <Title>
-      Account Activities
-    </Title>
-  </Header>
-  <Body>
-    <ChangeLegend
-      items={
-        Array [
-          Object {
-            "change": 1.28,
-            "id": "activities",
-            "secondaryInfo": "30 Day Change",
-            "title": "Total Activity Count: 100",
-          },
-          Object {
-            "change": -0.2,
-            "id": "engagements",
-            "secondaryInfo": "30 Day Change",
-            "title": "Engagement Score: 4.90/10",
-          },
-        ]
-      }
-    />
-    <Chart
-      alwaysShowSelectedTooltip={false}
-      axisRotated={false}
-      axisX={
-        Object {
-          "tick": Object {
-            "centered": false,
-            "format": [Function],
-            "values": Array [
-              2018-07-15T00:00:00.000Z,
-            ],
-          },
-          "type": "timeseries",
-        }
-      }
-      axisY={
-        Object {
-          "max": 10,
-          "min": 0,
-          "padding": Object {
-            "bottom": 0,
-          },
-        }
-      }
-      axisY2={
-        Object {
-          "min": 0,
-          "padding": Object {
-            "bottom": 0,
-          },
-          "show": true,
-        }
-      }
-      bar={
-        Object {
-          "width": Object {
-            "ratio": 0.9,
-          },
-        }
-      }
-      chartType="combined"
-      data={
-        Array [
-          Object {
-            "axis": "y",
-            "data": Array [
-              1,
-              2,
-            ],
-            "id": "activities",
-            "name": "Activity Count",
-            "type": "bar",
-          },
-          Object {
-            "axis": "y2",
-            "data": Array [
-              2,
-              2.8000000000000003,
-            ],
-            "id": "engagements",
-            "name": "Engagement Score",
-            "type": "spline",
-          },
-          Object {
-            "data": Array [
-              1531177266366,
-              1531263666366,
-            ],
-            "id": "date",
-            "name": "Date",
-          },
-        ]
-      }
-      dataId="activities"
-      height={328}
-      id="individualActivity"
-      legend={Object {}}
-      line={Object {}}
-      otherData={Object {}}
-      point={Object {}}
-      splineInterpolationType="monotone-x"
-      tooltip={
-        Object {
-          "contents": [Function],
-        }
-      }
-      unloadBeforeLoad={true}
-      x="date"
-      y2Label="Engagement"
-      yLabel="Activities"
-    />
-  </Body>
-  <Footer>
-    <Button
-      display="link"
-      href="/workspace/23/contacts/accounts/test/activities"
-      size="sm"
+      <div
+        class="change-legend-root"
+      >
+        <div
+          class="legend-item activities"
+        >
+          <div
+            class="legend-header"
+          >
+            <span
+              class="legend-color"
+              style="background-color: rgb(75, 155, 255);"
+            />
+            <span
+              class="title"
+            >
+              Total Activity Count: 100
+            </span>
+          </div>
+          <div
+            class="secondary-info"
+          >
+            30 Day Change
+            <span
+              class="change increase"
+            >
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-caret-top"
+                viewBox=""
+              >
+                <use
+                  xlink:href="#caret-top"
+                />
+              </svg>
+              128.0%
+            </span>
+          </div>
+        </div>
+        <div
+          class="legend-item engagements"
+        >
+          <div
+            class="legend-header"
+          >
+            <span
+              class="legend-color"
+              style="background-color: rgb(255, 180, 110);"
+            />
+            <span
+              class="title"
+            >
+              Engagement Score: 4.90/10
+            </span>
+          </div>
+          <div
+            class="secondary-info"
+          >
+            30 Day Change
+            <span
+              class="change decrease"
+            >
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                viewBox=""
+              >
+                <use
+                  xlink:href="#caret-bottom"
+                />
+              </svg>
+              20.0%
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="chart-root"
+      >
+        <div
+          class="chart-labels"
+        >
+          <span>
+            Activities
+          </span>
+          <span>
+            Engagement
+          </span>
+        </div>
+        <div />
+      </div>
+    </div>
+    <div
+      class="card-footer"
     >
-      View All Activities
-      <Icon
-        symbol="angle-right"
-      />
-    </Button>
-  </Footer>
-</Card>
+      <a
+        class="button-root btn btn-link btn-sm"
+        href="/workspace/23/contacts/accounts/test/activities"
+      >
+        View All Activities
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-angle-right"
+          viewBox=""
+        >
+          <use
+            xlink:href="#angle-right"
+          />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
 `;
