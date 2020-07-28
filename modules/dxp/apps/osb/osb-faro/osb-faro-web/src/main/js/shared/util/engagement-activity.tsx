@@ -297,7 +297,10 @@ export const renderTooltip = (options: TooltipOptionsType) => (
 		type
 	} = options;
 
-	const formatter = getAxisFormatter(type);
+	const formatter =
+		type === MetricValueType.Engagement
+			? value => value.toFixed(2)
+			: getAxisFormatter(type);
 	const data = history[get(dataPoints, [0, 'index'])];
 
 	const {intervalInitDate} = data;

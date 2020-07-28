@@ -161,7 +161,7 @@ export default class ActivitiesCard extends React.Component {
 					},
 					{
 						align: 'right',
-						label: formatEngagementScore(scoreAvg),
+						label: scoreAvg.toFixed(2),
 						weight: 'semibold'
 					}
 				]
