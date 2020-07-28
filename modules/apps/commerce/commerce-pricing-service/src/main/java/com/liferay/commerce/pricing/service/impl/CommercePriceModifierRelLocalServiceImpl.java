@@ -126,6 +126,25 @@ public class CommercePriceModifierRelLocalServiceImpl
 	}
 
 	@Override
+	public List<CommercePriceModifierRel>
+		getCategoriesByCommercePriceModifierId(
+			long commercePriceModifierId, String name, int start, int end) {
+
+		return commercePriceModifierRelFinder.
+			findCategoriesByCommercePriceModifierId(
+				commercePriceModifierId, name, start, end);
+	}
+
+	@Override
+	public int getCategoriesByCommercePriceModifierIdCount(
+		long commercePriceModifierId, String name) {
+
+		return commercePriceModifierRelFinder.
+			countCategoriesByCommercePriceModifierId(
+				commercePriceModifierId, name);
+	}
+
+	@Override
 	public long[] getClassPKs(long commercePriceModifierId, String className) {
 		return ListUtil.toLongArray(
 			commercePriceModifierRelPersistence.findByCPM_CN(
@@ -169,6 +188,45 @@ public class CommercePriceModifierRelLocalServiceImpl
 
 		return commercePriceModifierRelPersistence.findByCN_CPK(
 			classNameLocalService.getClassNameId(className), classPK);
+	}
+
+	@Override
+	public List<CommercePriceModifierRel>
+		getCommercePricingClassesByCommercePriceModifierId(
+			long commercePriceModifierId, String title, int start, int end) {
+
+		return commercePriceModifierRelFinder.
+			findPricingClassesByCommercePriceModifierId(
+				commercePriceModifierId, title, start, end);
+	}
+
+	@Override
+	public int getCommercePricingClassesByCommercePriceModifierIdCount(
+		long commercePriceModifierId, String title) {
+
+		return commercePriceModifierRelFinder.
+			countPricingClassesByCommercePriceModifierId(
+				commercePriceModifierId, title);
+	}
+
+	@Override
+	public List<CommercePriceModifierRel>
+		getCPDefinitionsByCommercePriceModifierId(
+			long commercePriceModifierId, String name, String languageId,
+			int start, int end) {
+
+		return commercePriceModifierRelFinder.
+			findCPDefinitionsByCommercePriceModifierId(
+				commercePriceModifierId, name, languageId, start, end);
+	}
+
+	@Override
+	public int getCPDefinitionsByCommercePriceModifierIdCount(
+		long commercePriceModifierId, String name, String languageId) {
+
+		return commercePriceModifierRelFinder.
+			countCPDefinitionsByCommercePriceModifierId(
+				commercePriceModifierId, languageId, name);
 	}
 
 }
