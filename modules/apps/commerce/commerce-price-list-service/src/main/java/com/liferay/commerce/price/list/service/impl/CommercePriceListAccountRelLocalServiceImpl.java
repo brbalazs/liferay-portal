@@ -28,6 +28,7 @@ import java.util.List;
 
 /**
  * @author Ethan Bustad
+ * @author Alessio Antonio Rendina
  */
 public class CommercePriceListAccountRelLocalServiceImpl
 	extends CommercePriceListAccountRelLocalServiceBaseImpl {
@@ -106,6 +107,14 @@ public class CommercePriceListAccountRelLocalServiceImpl
 
 	@Override
 	public void deleteCommercePriceListAccountRels(long commercePriceListId) {
+		commercePriceListAccountRelPersistence.removeByCommercePriceListId(
+			commercePriceListId);
+	}
+
+	@Override
+	public void deleteCommercePriceListAccountRelsByCommercePriceListId(
+		long commercePriceListId) {
+
 		commercePriceListAccountRelPersistence.removeByCommercePriceListId(
 			commercePriceListId);
 	}

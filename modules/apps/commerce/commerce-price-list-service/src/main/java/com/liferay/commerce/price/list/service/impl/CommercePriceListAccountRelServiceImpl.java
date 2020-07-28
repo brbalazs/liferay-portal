@@ -28,6 +28,7 @@ import java.util.List;
 
 /**
  * @author Ethan Bustad
+ * @author Alessio Antonio Rendina
  */
 public class CommercePriceListAccountRelServiceImpl
 	extends CommercePriceListAccountRelServiceBaseImpl {
@@ -62,6 +63,19 @@ public class CommercePriceListAccountRelServiceImpl
 
 		commercePriceListAccountRelLocalService.
 			deleteCommercePriceListAccountRel(commercePriceListAccountRel);
+	}
+
+	@Override
+	public void deleteCommercePriceListAccountRelsByCommercePriceListId(
+			long commercePriceListId)
+		throws PortalException {
+
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceListId, ActionKeys.UPDATE);
+
+		commercePriceListAccountRelLocalService.
+			deleteCommercePriceListAccountRelsByCommercePriceListId(
+				commercePriceListId);
 	}
 
 	@Override
