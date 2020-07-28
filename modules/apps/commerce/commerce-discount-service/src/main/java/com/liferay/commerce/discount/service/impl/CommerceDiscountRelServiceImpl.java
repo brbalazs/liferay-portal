@@ -81,6 +81,22 @@ public class CommerceDiscountRelServiceImpl
 	}
 
 	@Override
+	public List<CommerceDiscountRel> getCategoriesByCommerceDiscountId(
+		long commerceDiscountId, String name, int start, int end) {
+
+		return commerceDiscountRelFinder.findCategoriesByCommerceDiscountId(
+			commerceDiscountId, name, start, end, true);
+	}
+
+	@Override
+	public int getCategoriesByCommerceDiscountIdCount(
+		long commerceDiscountId, String name) {
+
+		return commerceDiscountRelFinder.countCategoriesByCommerceDiscountId(
+			commerceDiscountId, name, true);
+	}
+
+	@Override
 	public long[] getClassPKs(long commerceDiscountId, String className)
 		throws PortalException {
 
@@ -142,6 +158,41 @@ public class CommerceDiscountRelServiceImpl
 
 		return commerceDiscountRelLocalService.getCommerceDiscountRelsCount(
 			commerceDiscountId, className);
+	}
+
+	@Override
+	public List<CommerceDiscountRel>
+		getCommercePricingClassesByCommerceDiscountId(
+			long commerceDiscountId, String title, int start, int end) {
+
+		return commerceDiscountRelFinder.findPricingClassesByCommerceDiscountId(
+			commerceDiscountId, title, start, end, true);
+	}
+
+	@Override
+	public int getCommercePricingClassesByCommerceDiscountIdCount(
+		long commerceDiscountId, String title) {
+
+		return commerceDiscountRelFinder.
+			countPricingClassesByCommerceDiscountId(
+				commerceDiscountId, title, true);
+	}
+
+	@Override
+	public List<CommerceDiscountRel> getCPDefinitionsByCommerceDiscountId(
+		long commerceDiscountId, String name, String languageId, int start,
+		int end) {
+
+		return commerceDiscountRelFinder.findCPDefinitionsByCommerceDiscountId(
+			commerceDiscountId, name, languageId, start, end, true);
+	}
+
+	@Override
+	public int getCPDefinitionsByCommerceDiscountIdCount(
+		long commerceDiscountId, String name, String languageId) {
+
+		return commerceDiscountRelFinder.countCPDefinitionsByCommerceDiscountId(
+			commerceDiscountId, name, languageId, true);
 	}
 
 	private static volatile ModelResourcePermission<CommerceDiscount>
