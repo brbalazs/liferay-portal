@@ -582,6 +582,18 @@ public class CommercePriceEntryLocalServiceImpl
 		return searchCommercePriceEntries(searchContext);
 	}
 
+	@Override
+	public int searchCommercePriceEntriesCount(
+			long companyId, long commercePriceListId, String keywords)
+		throws PortalException {
+
+		SearchContext searchContext = buildSearchContext(
+			companyId, commercePriceListId, keywords, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
+
+		return searchCommercePriceEntriesCount(searchContext);
+	}
+
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommercePriceEntry setHasTierPrice(
@@ -1117,6 +1129,15 @@ public class CommercePriceEntryLocalServiceImpl
 
 		throw new SearchException(
 			"Unable to fix the search index after 10 attempts");
+	}
+
+	protected int searchCommercePriceEntriesCount(SearchContext searchContext)
+		throws PortalException {
+
+		Indexer<CommercePriceEntry> indexer =
+			IndexerRegistryUtil.nullSafeGetIndexer(CommercePriceEntry.class);
+
+		return GetterUtil.getInteger(indexer.searchCount(searchContext));
 	}
 
 	protected CommercePriceEntry startWorkflowInstance(

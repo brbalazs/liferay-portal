@@ -286,6 +286,18 @@ public class CommercePriceEntryServiceImpl
 	}
 
 	@Override
+	public int searchCommercePriceEntriesCount(
+			long companyId, long commercePriceListId, String keywords)
+		throws PortalException {
+
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceListId, ActionKeys.VIEW);
+
+		return commercePriceEntryLocalService.searchCommercePriceEntriesCount(
+			companyId, commercePriceListId, keywords);
+	}
+
+	@Override
 	public CommercePriceEntry updateCommercePriceEntry(
 			long commercePriceEntryId, BigDecimal price, BigDecimal promoPrice,
 			ServiceContext serviceContext)
