@@ -12,58 +12,49 @@ const mockIndividualWithEngagementHistory = () => ({
 	engagementHistory: data.mockEngagementData()
 });
 
+const dataSourceFn = total => () =>
+	Promise.resolve(
+		data.mockSearch(mockIndividualWithEngagementHistory, total)
+	);
+
+const DefaultComponent = props => (
+	<StaticRouter>
+		<KnownIndividualsCard
+			channelId='123'
+			dataSourceFn={dataSourceFn(3)}
+			groupId='23'
+			id='23'
+			{...props}
+		/>
+	</StaticRouter>
+);
+
 describe('KnownIndividualsCard', () => {
 	it('should render', () => {
-		const {container} = render(
-			<StaticRouter>
-				<KnownIndividualsCard
-					channelId={'123'}
-					dataSourceFn={() => Promise.resolve()}
-					groupId={'23'}
-					id={'23'}
-				/>
-			</StaticRouter>
-		);
+		const {container} = render(<DefaultComponent />);
+
+		jest.runAllTimers();
 
 		expect(container).toMatchSnapshot();
 	});
 
 	it('should render w/ NoResultsDisplay', () => {
-		const dataSourceFn = () =>
-			Promise.resolve(
-				data.mockSearch(mockIndividualWithEngagementHistory, 0)
-			);
-
-		const {container} = render(
-			<StaticRouter>
-				<KnownIndividualsCard
-					channelId={'123'}
-					dataSourceFn={dataSourceFn}
-					groupId={'23'}
-					id={'23'}
-				/>
-			</StaticRouter>
+		const {getByText} = render(
+			<DefaultComponent dataSourceFn={dataSourceFn(0)} />
 		);
 
 		jest.runAllTimers();
 
-		expect(container).toMatchSnapshot();
+		expect(getByText('There are no Individuals found.')).toBeTruthy();
 	});
 
 	it('should render w/ ErrorDisplay', () => {
-		const {container} = render(
-			<StaticRouter>
-				<KnownIndividualsCard
-					channelId={'123'}
-					dataSourceFn={() => Promise.reject({})}
-					groupId={'23'}
-					id={'23'}
-				/>
-			</StaticRouter>
+		const {getByText} = render(
+			<DefaultComponent dataSourceFn={() => Promise.reject({})} />
 		);
 
 		jest.runAllTimers();
 
-		expect(container).toMatchSnapshot();
+		expect(getByText('An unexpected error occurred.')).toBeTruthy();
 	});
 });
