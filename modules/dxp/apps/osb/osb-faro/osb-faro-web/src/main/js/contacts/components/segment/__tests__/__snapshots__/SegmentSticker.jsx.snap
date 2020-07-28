@@ -1,28 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SegmentSticker should render 1`] = `
-<Sticker
-  circle={false}
-  className="segment-sticker-root"
-  display="light"
-  symbol="individual-static-segment"
-/>
-`;
-
-exports[`SegmentSticker should render with a disabled segment icon 1`] = `
-<Sticker
-  circle={false}
-  className="segment-sticker-root"
-  display="warning"
-  symbol="warning"
-/>
-`;
-
-exports[`SegmentSticker should render with a dynamic segment icon 1`] = `
-<Sticker
-  circle={false}
-  className="segment-sticker-root"
-  display="light"
-  symbol="individual-dynamic-segment"
-/>
+<div>
+  <div
+    class="sticker sticker-root sticker-static segment-sticker-root sticker-rounded sticker-light"
+  >
+    <svg
+      class="icon-root lexicon-icon lexicon-icon-individual-static-segment"
+      viewBox=""
+    >
+      <use
+        xlink:href="#individual-static-segment"
+      />
+    </svg>
+  </div>
+</div>
 `;
