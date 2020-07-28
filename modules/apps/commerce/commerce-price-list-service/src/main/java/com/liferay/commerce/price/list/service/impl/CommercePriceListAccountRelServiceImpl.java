@@ -121,6 +121,23 @@ public class CommercePriceListAccountRelServiceImpl
 	}
 
 	@Override
+	public List<CommercePriceListAccountRel>
+		getCommercePriceListAccountRelsByCommercePriceListId(
+			long commercePriceListId, String name, int start, int end) {
+
+		return commercePriceListAccountRelFinder.findByCommercePriceListId(
+			commercePriceListId, name, start, end, true);
+	}
+
+	@Override
+	public int getCommercePriceListAccountRelsByCommercePriceListIdCount(
+		long commercePriceListId, String name) {
+
+		return commercePriceListAccountRelFinder.countByCommercePriceListId(
+			commercePriceListId, name, true);
+	}
+
+	@Override
 	public int getCommercePriceListAccountRelsCount(long commercePriceListId)
 		throws PortalException {
 
