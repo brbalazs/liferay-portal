@@ -208,6 +208,7 @@ export default class ActivitiesCard extends React.Component {
 				getTooltipContents,
 				intervals
 			} = this.handleChartParams();
+
 			return (
 				<>
 					<ChangeLegend
