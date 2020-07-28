@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.admin.pricing.client.pagination.Page;
 import com.liferay.headless.commerce.admin.pricing.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.pricing.client.resource.v2_0.DiscountRuleResource;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.DiscountRuleSerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -47,6 +48,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.log.CaptureAppender;
 import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
@@ -55,11 +57,14 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +76,9 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Level;
 
 import org.junit.After;
@@ -517,7 +524,7 @@ public abstract class BaseDiscountRuleResourceTestCase {
 		Page<DiscountRule> page =
 			discountRuleResource.getDiscountIdDiscountRulesPage(
 				testGetDiscountIdDiscountRulesPage_getId(),
-				Pagination.of(1, 2));
+				RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 
@@ -531,7 +538,7 @@ public abstract class BaseDiscountRuleResourceTestCase {
 					irrelevantId, randomIrrelevantDiscountRule());
 
 			page = discountRuleResource.getDiscountIdDiscountRulesPage(
-				irrelevantId, Pagination.of(1, 2));
+				irrelevantId, null, null, Pagination.of(1, 2), null);
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -550,7 +557,7 @@ public abstract class BaseDiscountRuleResourceTestCase {
 				id, randomDiscountRule());
 
 		page = discountRuleResource.getDiscountIdDiscountRulesPage(
-			id, Pagination.of(1, 2));
+			id, null, null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -562,6 +569,71 @@ public abstract class BaseDiscountRuleResourceTestCase {
 		discountRuleResource.deleteDiscountRule(null);
 
 		discountRuleResource.deleteDiscountRule(null);
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountRulesPageWithFilterDateTimeEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetDiscountIdDiscountRulesPage_getId();
+
+		DiscountRule discountRule1 = randomDiscountRule();
+
+		discountRule1 = testGetDiscountIdDiscountRulesPage_addDiscountRule(
+			id, discountRule1);
+
+		for (EntityField entityField : entityFields) {
+			Page<DiscountRule> page =
+				discountRuleResource.getDiscountIdDiscountRulesPage(
+					id, null,
+					getFilterString(entityField, "between", discountRule1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(discountRule1),
+				(List<DiscountRule>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountRulesPageWithFilterStringEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetDiscountIdDiscountRulesPage_getId();
+
+		DiscountRule discountRule1 =
+			testGetDiscountIdDiscountRulesPage_addDiscountRule(
+				id, randomDiscountRule());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		DiscountRule discountRule2 =
+			testGetDiscountIdDiscountRulesPage_addDiscountRule(
+				id, randomDiscountRule());
+
+		for (EntityField entityField : entityFields) {
+			Page<DiscountRule> page =
+				discountRuleResource.getDiscountIdDiscountRulesPage(
+					id, null, getFilterString(entityField, "eq", discountRule1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(discountRule1),
+				(List<DiscountRule>)page.getItems());
+		}
 	}
 
 	@Test
@@ -584,7 +656,7 @@ public abstract class BaseDiscountRuleResourceTestCase {
 
 		Page<DiscountRule> page1 =
 			discountRuleResource.getDiscountIdDiscountRulesPage(
-				id, Pagination.of(1, 2));
+				id, null, null, Pagination.of(1, 2), null);
 
 		List<DiscountRule> discountRules1 =
 			(List<DiscountRule>)page1.getItems();
@@ -594,7 +666,7 @@ public abstract class BaseDiscountRuleResourceTestCase {
 
 		Page<DiscountRule> page2 =
 			discountRuleResource.getDiscountIdDiscountRulesPage(
-				id, Pagination.of(2, 2));
+				id, null, null, Pagination.of(2, 2), null);
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -606,11 +678,138 @@ public abstract class BaseDiscountRuleResourceTestCase {
 
 		Page<DiscountRule> page3 =
 			discountRuleResource.getDiscountIdDiscountRulesPage(
-				id, Pagination.of(1, 3));
+				id, null, null, Pagination.of(1, 3), null);
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(discountRule1, discountRule2, discountRule3),
 			(List<DiscountRule>)page3.getItems());
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountRulesPageWithSortDateTime()
+		throws Exception {
+
+		testGetDiscountIdDiscountRulesPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, discountRule1, discountRule2) -> {
+				BeanUtils.setProperty(
+					discountRule1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountRulesPageWithSortInteger()
+		throws Exception {
+
+		testGetDiscountIdDiscountRulesPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, discountRule1, discountRule2) -> {
+				BeanUtils.setProperty(discountRule1, entityField.getName(), 0);
+				BeanUtils.setProperty(discountRule2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountRulesPageWithSortString()
+		throws Exception {
+
+		testGetDiscountIdDiscountRulesPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, discountRule1, discountRule2) -> {
+				Class<?> clazz = discountRule1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanUtils.setProperty(
+						discountRule1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanUtils.setProperty(
+						discountRule2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						discountRule1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						discountRule2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanUtils.setProperty(
+						discountRule1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanUtils.setProperty(
+						discountRule2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetDiscountIdDiscountRulesPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer
+				<EntityField, DiscountRule, DiscountRule, Exception>
+					unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetDiscountIdDiscountRulesPage_getId();
+
+		DiscountRule discountRule1 = randomDiscountRule();
+		DiscountRule discountRule2 = randomDiscountRule();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(entityField, discountRule1, discountRule2);
+		}
+
+		discountRule1 = testGetDiscountIdDiscountRulesPage_addDiscountRule(
+			id, discountRule1);
+
+		discountRule2 = testGetDiscountIdDiscountRulesPage_addDiscountRule(
+			id, discountRule2);
+
+		for (EntityField entityField : entityFields) {
+			Page<DiscountRule> ascPage =
+				discountRuleResource.getDiscountIdDiscountRulesPage(
+					id, null, null, Pagination.of(1, 2),
+					entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(discountRule1, discountRule2),
+				(List<DiscountRule>)ascPage.getItems());
+
+			Page<DiscountRule> descPage =
+				discountRuleResource.getDiscountIdDiscountRulesPage(
+					id, null, null, Pagination.of(1, 2),
+					entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(discountRule2, discountRule1),
+				(List<DiscountRule>)descPage.getItems());
+		}
 	}
 
 	protected DiscountRule testGetDiscountIdDiscountRulesPage_addDiscountRule(
@@ -650,6 +849,9 @@ public abstract class BaseDiscountRuleResourceTestCase {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
+
+	@Rule
+	public SearchTestRule searchTestRule = new SearchTestRule();
 
 	protected DiscountRule testGraphQLDiscountRule_addDiscountRule()
 		throws Exception {
@@ -718,6 +920,14 @@ public abstract class BaseDiscountRuleResourceTestCase {
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
+
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (discountRule.getActions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
 
 			if (Objects.equals("discountId", additionalAssertFieldName)) {
 				if (discountRule.getDiscountId() == null) {
@@ -842,6 +1052,17 @@ public abstract class BaseDiscountRuleResourceTestCase {
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
+
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (!equals(
+						(Map)discountRule1.getActions(),
+						(Map)discountRule2.getActions())) {
+
+					return false;
+				}
+
+				continue;
+			}
 
 			if (Objects.equals("discountId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
@@ -976,6 +1197,11 @@ public abstract class BaseDiscountRuleResourceTestCase {
 		sb.append(" ");
 		sb.append(operator);
 		sb.append(" ");
+
+		if (entityFieldName.equals("actions")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
 
 		if (entityFieldName.equals("discountId")) {
 			throw new IllegalArgumentException(

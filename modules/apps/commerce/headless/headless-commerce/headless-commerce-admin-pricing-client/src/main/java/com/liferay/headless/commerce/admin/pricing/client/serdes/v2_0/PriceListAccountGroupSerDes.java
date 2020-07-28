@@ -55,6 +55,16 @@ public class PriceListAccountGroupSerDes {
 
 		sb.append("{");
 
+		if (priceListAccountGroup.getAccountGroup() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"accountGroup\": ");
+
+			sb.append(String.valueOf(priceListAccountGroup.getAccountGroup()));
+		}
+
 		if (priceListAccountGroup.getAccountGroupExternalReferenceCode() !=
 				null) {
 
@@ -84,18 +94,14 @@ public class PriceListAccountGroupSerDes {
 			sb.append(priceListAccountGroup.getAccountGroupId());
 		}
 
-		if (priceListAccountGroup.getAccountGroupName() != null) {
+		if (priceListAccountGroup.getActions() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountGroupName\": ");
+			sb.append("\"actions\": ");
 
-			sb.append("\"");
-
-			sb.append(_escape(priceListAccountGroup.getAccountGroupName()));
-
-			sb.append("\"");
+			sb.append(_toJSON(priceListAccountGroup.getActions()));
 		}
 
 		if (priceListAccountGroup.getId() != null) {
@@ -165,6 +171,15 @@ public class PriceListAccountGroupSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (priceListAccountGroup.getAccountGroup() == null) {
+			map.put("accountGroup", null);
+		}
+		else {
+			map.put(
+				"accountGroup",
+				String.valueOf(priceListAccountGroup.getAccountGroup()));
+		}
+
 		if (priceListAccountGroup.getAccountGroupExternalReferenceCode() ==
 				null) {
 
@@ -187,13 +202,12 @@ public class PriceListAccountGroupSerDes {
 				String.valueOf(priceListAccountGroup.getAccountGroupId()));
 		}
 
-		if (priceListAccountGroup.getAccountGroupName() == null) {
-			map.put("accountGroupName", null);
+		if (priceListAccountGroup.getActions() == null) {
+			map.put("actions", null);
 		}
 		else {
 			map.put(
-				"accountGroupName",
-				String.valueOf(priceListAccountGroup.getAccountGroupName()));
+				"actions", String.valueOf(priceListAccountGroup.getActions()));
 		}
 
 		if (priceListAccountGroup.getId() == null) {
@@ -250,8 +264,15 @@ public class PriceListAccountGroupSerDes {
 			PriceListAccountGroup priceListAccountGroup,
 			String jsonParserFieldName, Object jsonParserFieldValue) {
 
-			if (Objects.equals(
-					jsonParserFieldName, "accountGroupExternalReferenceCode")) {
+			if (Objects.equals(jsonParserFieldName, "accountGroup")) {
+				if (jsonParserFieldValue != null) {
+					priceListAccountGroup.setAccountGroup(
+						AccountGroupSerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName,
+						"accountGroupExternalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
 					priceListAccountGroup.setAccountGroupExternalReferenceCode(
@@ -264,10 +285,11 @@ public class PriceListAccountGroupSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "accountGroupName")) {
+			else if (Objects.equals(jsonParserFieldName, "actions")) {
 				if (jsonParserFieldValue != null) {
-					priceListAccountGroup.setAccountGroupName(
-						(String)jsonParserFieldValue);
+					priceListAccountGroup.setActions(
+						(Map)PriceListAccountGroupSerDes.toMap(
+							(String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {

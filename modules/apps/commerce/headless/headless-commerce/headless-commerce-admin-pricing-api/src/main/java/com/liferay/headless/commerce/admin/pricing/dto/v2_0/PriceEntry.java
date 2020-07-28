@@ -52,13 +52,43 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Generated("")
 @GraphQLName("PriceEntry")
 @JsonFilter("Liferay.Vulcan")
-@Schema(requiredProperties = {"price"})
+@Schema(requiredProperties = {"price", "priceListId", "skuId"})
 @XmlRootElement(name = "PriceEntry")
 public class PriceEntry {
 
 	public static PriceEntry toDTO(String json) {
 		return ObjectMapperUtil.readValue(PriceEntry.class, json);
 	}
+
+	@Schema
+	@Valid
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
+	}
+
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
+	}
+
+	@JsonIgnore
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
+
+		try {
+			actions = actionsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Map<String, Map<String, String>> actions;
 
 	@Schema
 	public Boolean getActive() {
@@ -576,19 +606,50 @@ public class PriceEntry {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long priceListId;
 
 	@Schema
-	public String getSku() {
+	@Valid
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	@JsonIgnore
+	public void setProduct(
+		UnsafeSupplier<Product, Exception> productUnsafeSupplier) {
+
+		try {
+			product = productUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Product product;
+
+	@Schema
+	@Valid
+	public Sku getSku() {
 		return sku;
 	}
 
-	public void setSku(String sku) {
+	public void setSku(Sku sku) {
 		this.sku = sku;
 	}
 
 	@JsonIgnore
-	public void setSku(UnsafeSupplier<String, Exception> skuUnsafeSupplier) {
+	public void setSku(UnsafeSupplier<Sku, Exception> skuUnsafeSupplier) {
 		try {
 			sku = skuUnsafeSupplier.get();
 		}
@@ -601,8 +662,8 @@ public class PriceEntry {
 	}
 
 	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected String sku;
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Sku sku;
 
 	@Schema
 	public String getSkuExternalReferenceCode() {
@@ -659,6 +720,7 @@ public class PriceEntry {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long skuId;
 
 	@Schema
@@ -719,6 +781,16 @@ public class PriceEntry {
 
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (actions != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(actions));
+		}
 
 		if (active != null) {
 			if (sb.length() > 1) {
@@ -920,6 +992,16 @@ public class PriceEntry {
 			sb.append(priceListId);
 		}
 
+		if (product != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"product\": ");
+
+			sb.append(String.valueOf(product));
+		}
+
 		if (sku != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -927,11 +1009,7 @@ public class PriceEntry {
 
 			sb.append("\"sku\": ");
 
-			sb.append("\"");
-
-			sb.append(_escape(sku));
-
-			sb.append("\"");
+			sb.append(String.valueOf(sku));
 		}
 
 		if (skuExternalReferenceCode != null) {

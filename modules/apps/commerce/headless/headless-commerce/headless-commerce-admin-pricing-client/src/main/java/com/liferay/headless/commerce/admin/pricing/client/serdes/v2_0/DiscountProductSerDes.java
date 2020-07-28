@@ -55,6 +55,16 @@ public class DiscountProductSerDes {
 
 		sb.append("{");
 
+		if (discountProduct.getActions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(discountProduct.getActions()));
+		}
+
 		if (discountProduct.getDiscountExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -90,6 +100,16 @@ public class DiscountProductSerDes {
 			sb.append(discountProduct.getId());
 		}
 
+		if (discountProduct.getProduct() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"product\": ");
+
+			sb.append(String.valueOf(discountProduct.getProduct()));
+		}
+
 		if (discountProduct.getProductExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -115,20 +135,6 @@ public class DiscountProductSerDes {
 			sb.append(discountProduct.getProductId());
 		}
 
-		if (discountProduct.getProductName() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"productName\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(discountProduct.getProductName()));
-
-			sb.append("\"");
-		}
-
 		sb.append("}");
 
 		return sb.toString();
@@ -147,6 +153,13 @@ public class DiscountProductSerDes {
 		}
 
 		Map<String, String> map = new TreeMap<>();
+
+		if (discountProduct.getActions() == null) {
+			map.put("actions", null);
+		}
+		else {
+			map.put("actions", String.valueOf(discountProduct.getActions()));
+		}
 
 		if (discountProduct.getDiscountExternalReferenceCode() == null) {
 			map.put("discountExternalReferenceCode", null);
@@ -173,6 +186,13 @@ public class DiscountProductSerDes {
 			map.put("id", String.valueOf(discountProduct.getId()));
 		}
 
+		if (discountProduct.getProduct() == null) {
+			map.put("product", null);
+		}
+		else {
+			map.put("product", String.valueOf(discountProduct.getProduct()));
+		}
+
 		if (discountProduct.getProductExternalReferenceCode() == null) {
 			map.put("productExternalReferenceCode", null);
 		}
@@ -189,15 +209,6 @@ public class DiscountProductSerDes {
 		else {
 			map.put(
 				"productId", String.valueOf(discountProduct.getProductId()));
-		}
-
-		if (discountProduct.getProductName() == null) {
-			map.put("productName", null);
-		}
-		else {
-			map.put(
-				"productName",
-				String.valueOf(discountProduct.getProductName()));
 		}
 
 		return map;
@@ -221,8 +232,15 @@ public class DiscountProductSerDes {
 			DiscountProduct discountProduct, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(
-					jsonParserFieldName, "discountExternalReferenceCode")) {
+			if (Objects.equals(jsonParserFieldName, "actions")) {
+				if (jsonParserFieldValue != null) {
+					discountProduct.setActions(
+						(Map)DiscountProductSerDes.toMap(
+							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "discountExternalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
 					discountProduct.setDiscountExternalReferenceCode(
@@ -241,6 +259,12 @@ public class DiscountProductSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "product")) {
+				if (jsonParserFieldValue != null) {
+					discountProduct.setProduct(
+						ProductSerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(
 						jsonParserFieldName, "productExternalReferenceCode")) {
 
@@ -253,12 +277,6 @@ public class DiscountProductSerDes {
 				if (jsonParserFieldValue != null) {
 					discountProduct.setProductId(
 						Long.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "productName")) {
-				if (jsonParserFieldValue != null) {
-					discountProduct.setProductName(
-						(String)jsonParserFieldValue);
 				}
 			}
 			else {

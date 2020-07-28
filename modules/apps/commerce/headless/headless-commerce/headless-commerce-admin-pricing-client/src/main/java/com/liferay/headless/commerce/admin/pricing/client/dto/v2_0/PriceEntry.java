@@ -36,6 +36,28 @@ public class PriceEntry implements Cloneable {
 		return PriceEntrySerDes.toDTO(json);
 	}
 
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
+	}
+
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
+	}
+
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
+
+		try {
+			actions = actionsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Map<String, Map<String, String>> actions;
+
 	public Boolean getActive() {
 		return active;
 	}
@@ -416,15 +438,36 @@ public class PriceEntry implements Cloneable {
 
 	protected Long priceListId;
 
-	public String getSku() {
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public void setProduct(
+		UnsafeSupplier<Product, Exception> productUnsafeSupplier) {
+
+		try {
+			product = productUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Product product;
+
+	public Sku getSku() {
 		return sku;
 	}
 
-	public void setSku(String sku) {
+	public void setSku(Sku sku) {
 		this.sku = sku;
 	}
 
-	public void setSku(UnsafeSupplier<String, Exception> skuUnsafeSupplier) {
+	public void setSku(UnsafeSupplier<Sku, Exception> skuUnsafeSupplier) {
 		try {
 			sku = skuUnsafeSupplier.get();
 		}
@@ -433,7 +476,7 @@ public class PriceEntry implements Cloneable {
 		}
 	}
 
-	protected String sku;
+	protected Sku sku;
 
 	public String getSkuExternalReferenceCode() {
 		return skuExternalReferenceCode;

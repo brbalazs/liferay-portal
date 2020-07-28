@@ -55,6 +55,26 @@ public class DiscountCategorySerDes {
 
 		sb.append("{");
 
+		if (discountCategory.getActions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(discountCategory.getActions()));
+		}
+
+		if (discountCategory.getCategory() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"category\": ");
+
+			sb.append(String.valueOf(discountCategory.getCategory()));
+		}
+
 		if (discountCategory.getCategoryExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -78,20 +98,6 @@ public class DiscountCategorySerDes {
 			sb.append("\"categoryId\": ");
 
 			sb.append(discountCategory.getCategoryId());
-		}
-
-		if (discountCategory.getCategoryName() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"categoryName\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(discountCategory.getCategoryName()));
-
-			sb.append("\"");
 		}
 
 		if (discountCategory.getDiscountExternalReferenceCode() != null) {
@@ -148,6 +154,20 @@ public class DiscountCategorySerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (discountCategory.getActions() == null) {
+			map.put("actions", null);
+		}
+		else {
+			map.put("actions", String.valueOf(discountCategory.getActions()));
+		}
+
+		if (discountCategory.getCategory() == null) {
+			map.put("category", null);
+		}
+		else {
+			map.put("category", String.valueOf(discountCategory.getCategory()));
+		}
+
 		if (discountCategory.getCategoryExternalReferenceCode() == null) {
 			map.put("categoryExternalReferenceCode", null);
 		}
@@ -164,15 +184,6 @@ public class DiscountCategorySerDes {
 		else {
 			map.put(
 				"categoryId", String.valueOf(discountCategory.getCategoryId()));
-		}
-
-		if (discountCategory.getCategoryName() == null) {
-			map.put("categoryName", null);
-		}
-		else {
-			map.put(
-				"categoryName",
-				String.valueOf(discountCategory.getCategoryName()));
 		}
 
 		if (discountCategory.getDiscountExternalReferenceCode() == null) {
@@ -221,8 +232,21 @@ public class DiscountCategorySerDes {
 			DiscountCategory discountCategory, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(
-					jsonParserFieldName, "categoryExternalReferenceCode")) {
+			if (Objects.equals(jsonParserFieldName, "actions")) {
+				if (jsonParserFieldValue != null) {
+					discountCategory.setActions(
+						(Map)DiscountCategorySerDes.toMap(
+							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "category")) {
+				if (jsonParserFieldValue != null) {
+					discountCategory.setCategory(
+						CategorySerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "categoryExternalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
 					discountCategory.setCategoryExternalReferenceCode(
@@ -233,12 +257,6 @@ public class DiscountCategorySerDes {
 				if (jsonParserFieldValue != null) {
 					discountCategory.setCategoryId(
 						Long.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "categoryName")) {
-				if (jsonParserFieldValue != null) {
-					discountCategory.setCategoryName(
-						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(

@@ -63,6 +63,16 @@ public class PriceEntrySerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (priceEntry.getActions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(priceEntry.getActions()));
+		}
+
 		if (priceEntry.getActive() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -265,6 +275,16 @@ public class PriceEntrySerDes {
 			sb.append(priceEntry.getPriceListId());
 		}
 
+		if (priceEntry.getProduct() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"product\": ");
+
+			sb.append(String.valueOf(priceEntry.getProduct()));
+		}
+
 		if (priceEntry.getSku() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -272,11 +292,7 @@ public class PriceEntrySerDes {
 
 			sb.append("\"sku\": ");
 
-			sb.append("\"");
-
-			sb.append(_escape(priceEntry.getSku()));
-
-			sb.append("\"");
+			sb.append(String.valueOf(priceEntry.getSku()));
 		}
 
 		if (priceEntry.getSkuExternalReferenceCode() != null) {
@@ -343,6 +359,13 @@ public class PriceEntrySerDes {
 
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+		if (priceEntry.getActions() == null) {
+			map.put("actions", null);
+		}
+		else {
+			map.put("actions", String.valueOf(priceEntry.getActions()));
+		}
 
 		if (priceEntry.getActive() == null) {
 			map.put("active", null);
@@ -492,6 +515,13 @@ public class PriceEntrySerDes {
 			map.put("priceListId", String.valueOf(priceEntry.getPriceListId()));
 		}
 
+		if (priceEntry.getProduct() == null) {
+			map.put("product", null);
+		}
+		else {
+			map.put("product", String.valueOf(priceEntry.getProduct()));
+		}
+
 		if (priceEntry.getSku() == null) {
 			map.put("sku", null);
 		}
@@ -543,7 +573,14 @@ public class PriceEntrySerDes {
 			PriceEntry priceEntry, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "active")) {
+			if (Objects.equals(jsonParserFieldName, "actions")) {
+				if (jsonParserFieldValue != null) {
+					priceEntry.setActions(
+						(Map)PriceEntrySerDes.toMap(
+							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "active")) {
 				if (jsonParserFieldValue != null) {
 					priceEntry.setActive((Boolean)jsonParserFieldValue);
 				}
@@ -652,9 +689,16 @@ public class PriceEntrySerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "product")) {
+				if (jsonParserFieldValue != null) {
+					priceEntry.setProduct(
+						ProductSerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "sku")) {
 				if (jsonParserFieldValue != null) {
-					priceEntry.setSku((String)jsonParserFieldValue);
+					priceEntry.setSku(
+						SkuSerDes.toDTO((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(

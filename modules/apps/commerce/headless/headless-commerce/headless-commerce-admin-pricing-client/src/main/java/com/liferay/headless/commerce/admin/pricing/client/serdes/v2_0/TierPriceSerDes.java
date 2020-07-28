@@ -61,6 +61,16 @@ public class TierPriceSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (tierPrice.getActions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(tierPrice.getActions()));
+		}
+
 		if (tierPrice.getActive() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -274,6 +284,13 @@ public class TierPriceSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (tierPrice.getActions() == null) {
+			map.put("actions", null);
+		}
+		else {
+			map.put("actions", String.valueOf(tierPrice.getActions()));
+		}
+
 		if (tierPrice.getActive() == null) {
 			map.put("active", null);
 		}
@@ -437,7 +454,14 @@ public class TierPriceSerDes {
 			TierPrice tierPrice, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "active")) {
+			if (Objects.equals(jsonParserFieldName, "actions")) {
+				if (jsonParserFieldValue != null) {
+					tierPrice.setActions(
+						(Map)TierPriceSerDes.toMap(
+							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "active")) {
 				if (jsonParserFieldValue != null) {
 					tierPrice.setActive((Boolean)jsonParserFieldValue);
 				}

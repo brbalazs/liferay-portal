@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.admin.pricing.client.dto.v2_0;
 import com.liferay.headless.commerce.admin.pricing.client.function.UnsafeSupplier;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.PriceListAccountGroupSerDes;
 
+import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -31,6 +32,27 @@ public class PriceListAccountGroup implements Cloneable {
 	public static PriceListAccountGroup toDTO(String json) {
 		return PriceListAccountGroupSerDes.toDTO(json);
 	}
+
+	public AccountGroup getAccountGroup() {
+		return accountGroup;
+	}
+
+	public void setAccountGroup(AccountGroup accountGroup) {
+		this.accountGroup = accountGroup;
+	}
+
+	public void setAccountGroup(
+		UnsafeSupplier<AccountGroup, Exception> accountGroupUnsafeSupplier) {
+
+		try {
+			accountGroup = accountGroupUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected AccountGroup accountGroup;
 
 	public String getAccountGroupExternalReferenceCode() {
 		return accountGroupExternalReferenceCode;
@@ -79,26 +101,27 @@ public class PriceListAccountGroup implements Cloneable {
 
 	protected Long accountGroupId;
 
-	public String getAccountGroupName() {
-		return accountGroupName;
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
 	}
 
-	public void setAccountGroupName(String accountGroupName) {
-		this.accountGroupName = accountGroupName;
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
 	}
 
-	public void setAccountGroupName(
-		UnsafeSupplier<String, Exception> accountGroupNameUnsafeSupplier) {
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
 
 		try {
-			accountGroupName = accountGroupNameUnsafeSupplier.get();
+			actions = actionsUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected String accountGroupName;
+	protected Map<String, Map<String, String>> actions;
 
 	public Long getId() {
 		return id;

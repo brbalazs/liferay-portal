@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.admin.pricing.client.pagination.Page;
 import com.liferay.headless.commerce.admin.pricing.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.pricing.client.resource.v2_0.PriceModifierResource;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.PriceModifierSerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -47,6 +48,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.log.CaptureAppender;
 import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
@@ -55,11 +57,14 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +76,7 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Level;
@@ -371,7 +377,7 @@ public abstract class BasePriceModifierResourceTestCase {
 		Page<PriceModifier> page =
 			priceModifierResource.getPriceListIdPriceModifiersPage(
 				testGetPriceListIdPriceModifiersPage_getId(),
-				Pagination.of(1, 2));
+				RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 
@@ -385,7 +391,7 @@ public abstract class BasePriceModifierResourceTestCase {
 					irrelevantId, randomIrrelevantPriceModifier());
 
 			page = priceModifierResource.getPriceListIdPriceModifiersPage(
-				irrelevantId, Pagination.of(1, 2));
+				irrelevantId, null, null, Pagination.of(1, 2), null);
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -404,7 +410,7 @@ public abstract class BasePriceModifierResourceTestCase {
 				id, randomPriceModifier());
 
 		page = priceModifierResource.getPriceListIdPriceModifiersPage(
-			id, Pagination.of(1, 2));
+			id, null, null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -416,6 +422,72 @@ public abstract class BasePriceModifierResourceTestCase {
 		priceModifierResource.deletePriceModifier(null);
 
 		priceModifierResource.deletePriceModifier(null);
+	}
+
+	@Test
+	public void testGetPriceListIdPriceModifiersPageWithFilterDateTimeEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetPriceListIdPriceModifiersPage_getId();
+
+		PriceModifier priceModifier1 = randomPriceModifier();
+
+		priceModifier1 = testGetPriceListIdPriceModifiersPage_addPriceModifier(
+			id, priceModifier1);
+
+		for (EntityField entityField : entityFields) {
+			Page<PriceModifier> page =
+				priceModifierResource.getPriceListIdPriceModifiersPage(
+					id, null,
+					getFilterString(entityField, "between", priceModifier1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(priceModifier1),
+				(List<PriceModifier>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetPriceListIdPriceModifiersPageWithFilterStringEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetPriceListIdPriceModifiersPage_getId();
+
+		PriceModifier priceModifier1 =
+			testGetPriceListIdPriceModifiersPage_addPriceModifier(
+				id, randomPriceModifier());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		PriceModifier priceModifier2 =
+			testGetPriceListIdPriceModifiersPage_addPriceModifier(
+				id, randomPriceModifier());
+
+		for (EntityField entityField : entityFields) {
+			Page<PriceModifier> page =
+				priceModifierResource.getPriceListIdPriceModifiersPage(
+					id, null,
+					getFilterString(entityField, "eq", priceModifier1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(priceModifier1),
+				(List<PriceModifier>)page.getItems());
+		}
 	}
 
 	@Test
@@ -438,7 +510,7 @@ public abstract class BasePriceModifierResourceTestCase {
 
 		Page<PriceModifier> page1 =
 			priceModifierResource.getPriceListIdPriceModifiersPage(
-				id, Pagination.of(1, 2));
+				id, null, null, Pagination.of(1, 2), null);
 
 		List<PriceModifier> priceModifiers1 =
 			(List<PriceModifier>)page1.getItems();
@@ -448,7 +520,7 @@ public abstract class BasePriceModifierResourceTestCase {
 
 		Page<PriceModifier> page2 =
 			priceModifierResource.getPriceListIdPriceModifiersPage(
-				id, Pagination.of(2, 2));
+				id, null, null, Pagination.of(2, 2), null);
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -460,11 +532,139 @@ public abstract class BasePriceModifierResourceTestCase {
 
 		Page<PriceModifier> page3 =
 			priceModifierResource.getPriceListIdPriceModifiersPage(
-				id, Pagination.of(1, 3));
+				id, null, null, Pagination.of(1, 3), null);
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(priceModifier1, priceModifier2, priceModifier3),
 			(List<PriceModifier>)page3.getItems());
+	}
+
+	@Test
+	public void testGetPriceListIdPriceModifiersPageWithSortDateTime()
+		throws Exception {
+
+		testGetPriceListIdPriceModifiersPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, priceModifier1, priceModifier2) -> {
+				BeanUtils.setProperty(
+					priceModifier1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetPriceListIdPriceModifiersPageWithSortInteger()
+		throws Exception {
+
+		testGetPriceListIdPriceModifiersPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, priceModifier1, priceModifier2) -> {
+				BeanUtils.setProperty(priceModifier1, entityField.getName(), 0);
+				BeanUtils.setProperty(priceModifier2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetPriceListIdPriceModifiersPageWithSortString()
+		throws Exception {
+
+		testGetPriceListIdPriceModifiersPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, priceModifier1, priceModifier2) -> {
+				Class<?> clazz = priceModifier1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanUtils.setProperty(
+						priceModifier1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanUtils.setProperty(
+						priceModifier2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						priceModifier1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						priceModifier2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanUtils.setProperty(
+						priceModifier1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanUtils.setProperty(
+						priceModifier2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetPriceListIdPriceModifiersPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer
+				<EntityField, PriceModifier, PriceModifier, Exception>
+					unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetPriceListIdPriceModifiersPage_getId();
+
+		PriceModifier priceModifier1 = randomPriceModifier();
+		PriceModifier priceModifier2 = randomPriceModifier();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(
+				entityField, priceModifier1, priceModifier2);
+		}
+
+		priceModifier1 = testGetPriceListIdPriceModifiersPage_addPriceModifier(
+			id, priceModifier1);
+
+		priceModifier2 = testGetPriceListIdPriceModifiersPage_addPriceModifier(
+			id, priceModifier2);
+
+		for (EntityField entityField : entityFields) {
+			Page<PriceModifier> ascPage =
+				priceModifierResource.getPriceListIdPriceModifiersPage(
+					id, null, null, Pagination.of(1, 2),
+					entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(priceModifier1, priceModifier2),
+				(List<PriceModifier>)ascPage.getItems());
+
+			Page<PriceModifier> descPage =
+				priceModifierResource.getPriceListIdPriceModifiersPage(
+					id, null, null, Pagination.of(1, 2),
+					entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(priceModifier2, priceModifier1),
+				(List<PriceModifier>)descPage.getItems());
+		}
 	}
 
 	protected PriceModifier
@@ -760,6 +960,9 @@ public abstract class BasePriceModifierResourceTestCase {
 		Assert.assertTrue(false);
 	}
 
+	@Rule
+	public SearchTestRule searchTestRule = new SearchTestRule();
+
 	protected PriceModifier testGraphQLPriceModifier_addPriceModifier()
 		throws Exception {
 
@@ -829,6 +1032,14 @@ public abstract class BasePriceModifierResourceTestCase {
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
+
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (priceModifier.getActions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
 
 			if (Objects.equals("active", additionalAssertFieldName)) {
 				if (priceModifier.getActive() == null) {
@@ -1052,6 +1263,17 @@ public abstract class BasePriceModifierResourceTestCase {
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
+
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (!equals(
+						(Map)priceModifier1.getActions(),
+						(Map)priceModifier2.getActions())) {
+
+					return false;
+				}
+
+				continue;
+			}
 
 			if (Objects.equals("active", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
@@ -1319,6 +1541,11 @@ public abstract class BasePriceModifierResourceTestCase {
 		sb.append(" ");
 		sb.append(operator);
 		sb.append(" ");
+
+		if (entityFieldName.equals("actions")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
 
 		if (entityFieldName.equals("active")) {
 			throw new IllegalArgumentException(

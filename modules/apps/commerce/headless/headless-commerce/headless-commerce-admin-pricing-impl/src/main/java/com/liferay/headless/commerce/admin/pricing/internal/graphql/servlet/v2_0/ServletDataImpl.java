@@ -16,6 +16,10 @@ package com.liferay.headless.commerce.admin.pricing.internal.graphql.servlet.v2_
 
 import com.liferay.headless.commerce.admin.pricing.internal.graphql.mutation.v2_0.Mutation;
 import com.liferay.headless.commerce.admin.pricing.internal.graphql.query.v2_0.Query;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.AccountGroupResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.AccountResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.CategoryResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.ChannelResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountAccountGroupResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountAccountResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountCategoryResource;
@@ -34,6 +38,9 @@ import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceModifierCa
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceModifierProductGroupResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceModifierProductResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceModifierResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.ProductGroupResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.ProductResource;
+import com.liferay.headless.commerce.admin.pricing.resource.v2_0.SkuResource;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.TierPriceResource;
 import com.liferay.portal.vulcan.graphql.servlet.ServletData;
 
@@ -95,6 +102,14 @@ public class ServletDataImpl implements ServletData {
 		Mutation.setTierPriceResourceComponentServiceObjects(
 			_tierPriceResourceComponentServiceObjects);
 
+		Query.setAccountResourceComponentServiceObjects(
+			_accountResourceComponentServiceObjects);
+		Query.setAccountGroupResourceComponentServiceObjects(
+			_accountGroupResourceComponentServiceObjects);
+		Query.setCategoryResourceComponentServiceObjects(
+			_categoryResourceComponentServiceObjects);
+		Query.setChannelResourceComponentServiceObjects(
+			_channelResourceComponentServiceObjects);
 		Query.setDiscountResourceComponentServiceObjects(
 			_discountResourceComponentServiceObjects);
 		Query.setDiscountAccountResourceComponentServiceObjects(
@@ -131,6 +146,12 @@ public class ServletDataImpl implements ServletData {
 			_priceModifierProductResourceComponentServiceObjects);
 		Query.setPriceModifierProductGroupResourceComponentServiceObjects(
 			_priceModifierProductGroupResourceComponentServiceObjects);
+		Query.setProductResourceComponentServiceObjects(
+			_productResourceComponentServiceObjects);
+		Query.setProductGroupResourceComponentServiceObjects(
+			_productGroupResourceComponentServiceObjects);
+		Query.setSkuResourceComponentServiceObjects(
+			_skuResourceComponentServiceObjects);
 		Query.setTierPriceResourceComponentServiceObjects(
 			_tierPriceResourceComponentServiceObjects);
 	}
@@ -225,5 +246,33 @@ public class ServletDataImpl implements ServletData {
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<TierPriceResource>
 		_tierPriceResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<AccountResource>
+		_accountResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<AccountGroupResource>
+		_accountGroupResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<CategoryResource>
+		_categoryResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<ChannelResource>
+		_channelResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<ProductResource>
+		_productResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<ProductGroupResource>
+		_productGroupResourceComponentServiceObjects;
+
+	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
+	private ComponentServiceObjects<SkuResource>
+		_skuResourceComponentServiceObjects;
 
 }

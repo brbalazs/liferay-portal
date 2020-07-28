@@ -33,7 +33,9 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -44,12 +46,72 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Generated("")
 @GraphQLName("PriceModifierCategory")
 @JsonFilter("Liferay.Vulcan")
+@Schema(requiredProperties = {"categoryId", "priceModifierId"})
 @XmlRootElement(name = "PriceModifierCategory")
 public class PriceModifierCategory {
 
 	public static PriceModifierCategory toDTO(String json) {
 		return ObjectMapperUtil.readValue(PriceModifierCategory.class, json);
 	}
+
+	@Schema
+	@Valid
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
+	}
+
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
+	}
+
+	@JsonIgnore
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
+
+		try {
+			actions = actionsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Map<String, Map<String, String>> actions;
+
+	@Schema
+	@Valid
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	@JsonIgnore
+	public void setCategory(
+		UnsafeSupplier<Category, Exception> categoryUnsafeSupplier) {
+
+		try {
+			category = categoryUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Category category;
 
 	@Schema
 	public String getCategoryExternalReferenceCode() {
@@ -110,35 +172,8 @@ public class PriceModifierCategory {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long categoryId;
-
-	@Schema
-	public String getCategoryName() {
-		return categoryName;
-	}
-
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-
-	@JsonIgnore
-	public void setCategoryName(
-		UnsafeSupplier<String, Exception> categoryNameUnsafeSupplier) {
-
-		try {
-			categoryName = categoryNameUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected String categoryName;
 
 	@DecimalMin("0")
 	@Schema
@@ -227,6 +262,7 @@ public class PriceModifierCategory {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long priceModifierId;
 
 	@Override
@@ -257,6 +293,26 @@ public class PriceModifierCategory {
 
 		sb.append("{");
 
+		if (actions != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(actions));
+		}
+
+		if (category != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"category\": ");
+
+			sb.append(String.valueOf(category));
+		}
+
 		if (categoryExternalReferenceCode != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -279,20 +335,6 @@ public class PriceModifierCategory {
 			sb.append("\"categoryId\": ");
 
 			sb.append(categoryId);
-		}
-
-		if (categoryName != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"categoryName\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(categoryName));
-
-			sb.append("\"");
 		}
 
 		if (id != null) {

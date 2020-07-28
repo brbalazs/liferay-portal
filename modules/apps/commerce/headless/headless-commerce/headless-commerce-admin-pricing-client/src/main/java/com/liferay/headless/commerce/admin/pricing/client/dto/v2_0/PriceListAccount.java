@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.admin.pricing.client.dto.v2_0;
 import com.liferay.headless.commerce.admin.pricing.client.function.UnsafeSupplier;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.PriceListAccountSerDes;
 
+import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -31,6 +32,27 @@ public class PriceListAccount implements Cloneable {
 	public static PriceListAccount toDTO(String json) {
 		return PriceListAccountSerDes.toDTO(json);
 	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public void setAccount(
+		UnsafeSupplier<Account, Exception> accountUnsafeSupplier) {
+
+		try {
+			account = accountUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Account account;
 
 	public String getAccountExternalReferenceCode() {
 		return accountExternalReferenceCode;
@@ -78,26 +100,27 @@ public class PriceListAccount implements Cloneable {
 
 	protected Long accountId;
 
-	public String getAccountName() {
-		return accountName;
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
 	}
 
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
 	}
 
-	public void setAccountName(
-		UnsafeSupplier<String, Exception> accountNameUnsafeSupplier) {
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
 
 		try {
-			accountName = accountNameUnsafeSupplier.get();
+			actions = actionsUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected String accountName;
+	protected Map<String, Map<String, String>> actions;
 
 	public Long getId() {
 		return id;

@@ -33,7 +33,9 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -44,12 +46,42 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Generated("")
 @GraphQLName("DiscountAccount")
 @JsonFilter("Liferay.Vulcan")
+@Schema(requiredProperties = {"accountId", "discountId"})
 @XmlRootElement(name = "DiscountAccount")
 public class DiscountAccount {
 
 	public static DiscountAccount toDTO(String json) {
 		return ObjectMapperUtil.readValue(DiscountAccount.class, json);
 	}
+
+	@Schema
+	@Valid
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	@JsonIgnore
+	public void setAccount(
+		UnsafeSupplier<Account, Exception> accountUnsafeSupplier) {
+
+		try {
+			account = accountUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Account account;
 
 	@Schema
 	public String getAccountExternalReferenceCode() {
@@ -110,23 +142,26 @@ public class DiscountAccount {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long accountId;
 
 	@Schema
-	public String getAccountName() {
-		return accountName;
+	@Valid
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
 	}
 
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
 	}
 
 	@JsonIgnore
-	public void setAccountName(
-		UnsafeSupplier<String, Exception> accountNameUnsafeSupplier) {
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
 
 		try {
-			accountName = accountNameUnsafeSupplier.get();
+			actions = actionsUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -138,7 +173,7 @@ public class DiscountAccount {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected String accountName;
+	protected Map<String, Map<String, String>> actions;
 
 	@Schema
 	public String getDiscountExternalReferenceCode() {
@@ -199,6 +234,7 @@ public class DiscountAccount {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long discountId;
 
 	@DecimalMin("0")
@@ -255,6 +291,16 @@ public class DiscountAccount {
 
 		sb.append("{");
 
+		if (account != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"account\": ");
+
+			sb.append(String.valueOf(account));
+		}
+
 		if (accountExternalReferenceCode != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -279,18 +325,14 @@ public class DiscountAccount {
 			sb.append(accountId);
 		}
 
-		if (accountName != null) {
+		if (actions != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountName\": ");
+			sb.append("\"actions\": ");
 
-			sb.append("\"");
-
-			sb.append(_escape(accountName));
-
-			sb.append("\"");
+			sb.append(_toJSON(actions));
 		}
 
 		if (discountExternalReferenceCode != null) {

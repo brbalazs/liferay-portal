@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.admin.pricing.client.pagination.Page;
 import com.liferay.headless.commerce.admin.pricing.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.pricing.client.resource.v2_0.DiscountProductResource;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.DiscountProductSerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -47,6 +48,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.log.CaptureAppender;
 import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
@@ -55,11 +57,14 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +76,9 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Level;
 
 import org.junit.After;
@@ -187,7 +194,6 @@ public abstract class BaseDiscountProductResourceTestCase {
 
 		discountProduct.setDiscountExternalReferenceCode(regex);
 		discountProduct.setProductExternalReferenceCode(regex);
-		discountProduct.setProductName(regex);
 
 		String json = DiscountProductSerDes.toJSON(discountProduct);
 
@@ -199,7 +205,6 @@ public abstract class BaseDiscountProductResourceTestCase {
 			regex, discountProduct.getDiscountExternalReferenceCode());
 		Assert.assertEquals(
 			regex, discountProduct.getProductExternalReferenceCode());
-		Assert.assertEquals(regex, discountProduct.getProductName());
 	}
 
 	@Test
@@ -429,7 +434,7 @@ public abstract class BaseDiscountProductResourceTestCase {
 		Page<DiscountProduct> page =
 			discountProductResource.getDiscountIdDiscountProductsPage(
 				testGetDiscountIdDiscountProductsPage_getId(),
-				Pagination.of(1, 2));
+				RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 
@@ -443,7 +448,7 @@ public abstract class BaseDiscountProductResourceTestCase {
 					irrelevantId, randomIrrelevantDiscountProduct());
 
 			page = discountProductResource.getDiscountIdDiscountProductsPage(
-				irrelevantId, Pagination.of(1, 2));
+				irrelevantId, null, null, Pagination.of(1, 2), null);
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -462,7 +467,7 @@ public abstract class BaseDiscountProductResourceTestCase {
 				id, randomDiscountProduct());
 
 		page = discountProductResource.getDiscountIdDiscountProductsPage(
-			id, Pagination.of(1, 2));
+			id, null, null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -474,6 +479,73 @@ public abstract class BaseDiscountProductResourceTestCase {
 		discountProductResource.deleteDiscountProduct(null);
 
 		discountProductResource.deleteDiscountProduct(null);
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountProductsPageWithFilterDateTimeEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetDiscountIdDiscountProductsPage_getId();
+
+		DiscountProduct discountProduct1 = randomDiscountProduct();
+
+		discountProduct1 =
+			testGetDiscountIdDiscountProductsPage_addDiscountProduct(
+				id, discountProduct1);
+
+		for (EntityField entityField : entityFields) {
+			Page<DiscountProduct> page =
+				discountProductResource.getDiscountIdDiscountProductsPage(
+					id, null,
+					getFilterString(entityField, "between", discountProduct1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(discountProduct1),
+				(List<DiscountProduct>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountProductsPageWithFilterStringEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetDiscountIdDiscountProductsPage_getId();
+
+		DiscountProduct discountProduct1 =
+			testGetDiscountIdDiscountProductsPage_addDiscountProduct(
+				id, randomDiscountProduct());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		DiscountProduct discountProduct2 =
+			testGetDiscountIdDiscountProductsPage_addDiscountProduct(
+				id, randomDiscountProduct());
+
+		for (EntityField entityField : entityFields) {
+			Page<DiscountProduct> page =
+				discountProductResource.getDiscountIdDiscountProductsPage(
+					id, null,
+					getFilterString(entityField, "eq", discountProduct1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(discountProduct1),
+				(List<DiscountProduct>)page.getItems());
+		}
 	}
 
 	@Test
@@ -496,7 +568,7 @@ public abstract class BaseDiscountProductResourceTestCase {
 
 		Page<DiscountProduct> page1 =
 			discountProductResource.getDiscountIdDiscountProductsPage(
-				id, Pagination.of(1, 2));
+				id, null, null, Pagination.of(1, 2), null);
 
 		List<DiscountProduct> discountProducts1 =
 			(List<DiscountProduct>)page1.getItems();
@@ -506,7 +578,7 @@ public abstract class BaseDiscountProductResourceTestCase {
 
 		Page<DiscountProduct> page2 =
 			discountProductResource.getDiscountIdDiscountProductsPage(
-				id, Pagination.of(2, 2));
+				id, null, null, Pagination.of(2, 2), null);
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -518,11 +590,143 @@ public abstract class BaseDiscountProductResourceTestCase {
 
 		Page<DiscountProduct> page3 =
 			discountProductResource.getDiscountIdDiscountProductsPage(
-				id, Pagination.of(1, 3));
+				id, null, null, Pagination.of(1, 3), null);
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(discountProduct1, discountProduct2, discountProduct3),
 			(List<DiscountProduct>)page3.getItems());
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountProductsPageWithSortDateTime()
+		throws Exception {
+
+		testGetDiscountIdDiscountProductsPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, discountProduct1, discountProduct2) -> {
+				BeanUtils.setProperty(
+					discountProduct1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountProductsPageWithSortInteger()
+		throws Exception {
+
+		testGetDiscountIdDiscountProductsPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, discountProduct1, discountProduct2) -> {
+				BeanUtils.setProperty(
+					discountProduct1, entityField.getName(), 0);
+				BeanUtils.setProperty(
+					discountProduct2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountProductsPageWithSortString()
+		throws Exception {
+
+		testGetDiscountIdDiscountProductsPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, discountProduct1, discountProduct2) -> {
+				Class<?> clazz = discountProduct1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanUtils.setProperty(
+						discountProduct1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanUtils.setProperty(
+						discountProduct2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						discountProduct1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						discountProduct2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanUtils.setProperty(
+						discountProduct1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanUtils.setProperty(
+						discountProduct2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetDiscountIdDiscountProductsPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer
+				<EntityField, DiscountProduct, DiscountProduct, Exception>
+					unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetDiscountIdDiscountProductsPage_getId();
+
+		DiscountProduct discountProduct1 = randomDiscountProduct();
+		DiscountProduct discountProduct2 = randomDiscountProduct();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(
+				entityField, discountProduct1, discountProduct2);
+		}
+
+		discountProduct1 =
+			testGetDiscountIdDiscountProductsPage_addDiscountProduct(
+				id, discountProduct1);
+
+		discountProduct2 =
+			testGetDiscountIdDiscountProductsPage_addDiscountProduct(
+				id, discountProduct2);
+
+		for (EntityField entityField : entityFields) {
+			Page<DiscountProduct> ascPage =
+				discountProductResource.getDiscountIdDiscountProductsPage(
+					id, null, null, Pagination.of(1, 2),
+					entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(discountProduct1, discountProduct2),
+				(List<DiscountProduct>)ascPage.getItems());
+
+			Page<DiscountProduct> descPage =
+				discountProductResource.getDiscountIdDiscountProductsPage(
+					id, null, null, Pagination.of(1, 2),
+					entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(discountProduct2, discountProduct1),
+				(List<DiscountProduct>)descPage.getItems());
+		}
 	}
 
 	protected DiscountProduct
@@ -567,6 +771,9 @@ public abstract class BaseDiscountProductResourceTestCase {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
+
+	@Rule
+	public SearchTestRule searchTestRule = new SearchTestRule();
 
 	protected DiscountProduct testGraphQLDiscountProduct_addDiscountProduct()
 		throws Exception {
@@ -638,6 +845,14 @@ public abstract class BaseDiscountProductResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (discountProduct.getActions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"discountExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -659,6 +874,14 @@ public abstract class BaseDiscountProductResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("product", additionalAssertFieldName)) {
+				if (discountProduct.getProduct() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"productExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -672,14 +895,6 @@ public abstract class BaseDiscountProductResourceTestCase {
 
 			if (Objects.equals("productId", additionalAssertFieldName)) {
 				if (discountProduct.getProductId() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("productName", additionalAssertFieldName)) {
-				if (discountProduct.getProductName() == null) {
 					valid = false;
 				}
 
@@ -779,6 +994,17 @@ public abstract class BaseDiscountProductResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (!equals(
+						(Map)discountProduct1.getActions(),
+						(Map)discountProduct2.getActions())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"discountExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -814,6 +1040,17 @@ public abstract class BaseDiscountProductResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("product", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						discountProduct1.getProduct(),
+						discountProduct2.getProduct())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"productExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -832,17 +1069,6 @@ public abstract class BaseDiscountProductResourceTestCase {
 				if (!Objects.deepEquals(
 						discountProduct1.getProductId(),
 						discountProduct2.getProductId())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("productName", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						discountProduct1.getProductName(),
-						discountProduct2.getProductName())) {
 
 					return false;
 				}
@@ -933,6 +1159,11 @@ public abstract class BaseDiscountProductResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("actions")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("discountExternalReferenceCode")) {
 			sb.append("'");
 			sb.append(
@@ -953,6 +1184,11 @@ public abstract class BaseDiscountProductResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("product")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("productExternalReferenceCode")) {
 			sb.append("'");
 			sb.append(
@@ -966,14 +1202,6 @@ public abstract class BaseDiscountProductResourceTestCase {
 		if (entityFieldName.equals("productId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("productName")) {
-			sb.append("'");
-			sb.append(String.valueOf(discountProduct.getProductName()));
-			sb.append("'");
-
-			return sb.toString();
 		}
 
 		throw new IllegalArgumentException(
@@ -1027,8 +1255,6 @@ public abstract class BaseDiscountProductResourceTestCase {
 				productExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				productId = RandomTestUtil.randomLong();
-				productName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
 			}
 		};
 	}

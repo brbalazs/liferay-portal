@@ -59,6 +59,16 @@ public class PriceModifierProductGroupSerDes {
 
 		sb.append("{");
 
+		if (priceModifierProductGroup.getActions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(priceModifierProductGroup.getActions()));
+		}
+
 		if (priceModifierProductGroup.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -98,6 +108,17 @@ public class PriceModifierProductGroupSerDes {
 			sb.append(priceModifierProductGroup.getPriceModifierId());
 		}
 
+		if (priceModifierProductGroup.getProductGroup() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"productGroup\": ");
+
+			sb.append(
+				String.valueOf(priceModifierProductGroup.getProductGroup()));
+		}
+
 		if (priceModifierProductGroup.getProductGroupExternalReferenceCode() !=
 				null) {
 
@@ -127,20 +148,6 @@ public class PriceModifierProductGroupSerDes {
 			sb.append(priceModifierProductGroup.getProductGroupId());
 		}
 
-		if (priceModifierProductGroup.getProductGroupName() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"productGroupName\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(priceModifierProductGroup.getProductGroupName()));
-
-			sb.append("\"");
-		}
-
 		sb.append("}");
 
 		return sb.toString();
@@ -162,6 +169,15 @@ public class PriceModifierProductGroupSerDes {
 		}
 
 		Map<String, String> map = new TreeMap<>();
+
+		if (priceModifierProductGroup.getActions() == null) {
+			map.put("actions", null);
+		}
+		else {
+			map.put(
+				"actions",
+				String.valueOf(priceModifierProductGroup.getActions()));
+		}
 
 		if (priceModifierProductGroup.getId() == null) {
 			map.put("id", null);
@@ -192,6 +208,15 @@ public class PriceModifierProductGroupSerDes {
 				String.valueOf(priceModifierProductGroup.getPriceModifierId()));
 		}
 
+		if (priceModifierProductGroup.getProductGroup() == null) {
+			map.put("productGroup", null);
+		}
+		else {
+			map.put(
+				"productGroup",
+				String.valueOf(priceModifierProductGroup.getProductGroup()));
+		}
+
 		if (priceModifierProductGroup.getProductGroupExternalReferenceCode() ==
 				null) {
 
@@ -212,16 +237,6 @@ public class PriceModifierProductGroupSerDes {
 			map.put(
 				"productGroupId",
 				String.valueOf(priceModifierProductGroup.getProductGroupId()));
-		}
-
-		if (priceModifierProductGroup.getProductGroupName() == null) {
-			map.put("productGroupName", null);
-		}
-		else {
-			map.put(
-				"productGroupName",
-				String.valueOf(
-					priceModifierProductGroup.getProductGroupName()));
 		}
 
 		return map;
@@ -245,7 +260,14 @@ public class PriceModifierProductGroupSerDes {
 			PriceModifierProductGroup priceModifierProductGroup,
 			String jsonParserFieldName, Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "id")) {
+			if (Objects.equals(jsonParserFieldName, "actions")) {
+				if (jsonParserFieldValue != null) {
+					priceModifierProductGroup.setActions(
+						(Map)PriceModifierProductGroupSerDes.toMap(
+							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
 					priceModifierProductGroup.setId(
 						Long.valueOf((String)jsonParserFieldValue));
@@ -267,6 +289,12 @@ public class PriceModifierProductGroupSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "productGroup")) {
+				if (jsonParserFieldValue != null) {
+					priceModifierProductGroup.setProductGroup(
+						ProductGroupSerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(
 						jsonParserFieldName,
 						"productGroupExternalReferenceCode")) {
@@ -281,12 +309,6 @@ public class PriceModifierProductGroupSerDes {
 				if (jsonParserFieldValue != null) {
 					priceModifierProductGroup.setProductGroupId(
 						Long.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "productGroupName")) {
-				if (jsonParserFieldValue != null) {
-					priceModifierProductGroup.setProductGroupName(
-						(String)jsonParserFieldValue);
 				}
 			}
 			else {

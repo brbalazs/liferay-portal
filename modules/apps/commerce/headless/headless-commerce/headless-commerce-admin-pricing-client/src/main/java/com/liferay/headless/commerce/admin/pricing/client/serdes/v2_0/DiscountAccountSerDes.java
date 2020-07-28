@@ -55,6 +55,16 @@ public class DiscountAccountSerDes {
 
 		sb.append("{");
 
+		if (discountAccount.getAccount() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"account\": ");
+
+			sb.append(String.valueOf(discountAccount.getAccount()));
+		}
+
 		if (discountAccount.getAccountExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -80,18 +90,14 @@ public class DiscountAccountSerDes {
 			sb.append(discountAccount.getAccountId());
 		}
 
-		if (discountAccount.getAccountName() != null) {
+		if (discountAccount.getActions() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountName\": ");
+			sb.append("\"actions\": ");
 
-			sb.append("\"");
-
-			sb.append(_escape(discountAccount.getAccountName()));
-
-			sb.append("\"");
+			sb.append(_toJSON(discountAccount.getActions()));
 		}
 
 		if (discountAccount.getDiscountExternalReferenceCode() != null) {
@@ -148,6 +154,13 @@ public class DiscountAccountSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (discountAccount.getAccount() == null) {
+			map.put("account", null);
+		}
+		else {
+			map.put("account", String.valueOf(discountAccount.getAccount()));
+		}
+
 		if (discountAccount.getAccountExternalReferenceCode() == null) {
 			map.put("accountExternalReferenceCode", null);
 		}
@@ -166,13 +179,11 @@ public class DiscountAccountSerDes {
 				"accountId", String.valueOf(discountAccount.getAccountId()));
 		}
 
-		if (discountAccount.getAccountName() == null) {
-			map.put("accountName", null);
+		if (discountAccount.getActions() == null) {
+			map.put("actions", null);
 		}
 		else {
-			map.put(
-				"accountName",
-				String.valueOf(discountAccount.getAccountName()));
+			map.put("actions", String.valueOf(discountAccount.getActions()));
 		}
 
 		if (discountAccount.getDiscountExternalReferenceCode() == null) {
@@ -221,8 +232,14 @@ public class DiscountAccountSerDes {
 			DiscountAccount discountAccount, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(
-					jsonParserFieldName, "accountExternalReferenceCode")) {
+			if (Objects.equals(jsonParserFieldName, "account")) {
+				if (jsonParserFieldValue != null) {
+					discountAccount.setAccount(
+						AccountSerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "accountExternalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
 					discountAccount.setAccountExternalReferenceCode(
@@ -235,10 +252,11 @@ public class DiscountAccountSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "accountName")) {
+			else if (Objects.equals(jsonParserFieldName, "actions")) {
 				if (jsonParserFieldValue != null) {
-					discountAccount.setAccountName(
-						(String)jsonParserFieldValue);
+					discountAccount.setActions(
+						(Map)DiscountAccountSerDes.toMap(
+							(String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(

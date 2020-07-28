@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.admin.pricing.client.dto.v2_0;
 import com.liferay.headless.commerce.admin.pricing.client.function.UnsafeSupplier;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.PriceListChannelSerDes;
 
+import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -31,6 +32,49 @@ public class PriceListChannel implements Cloneable {
 	public static PriceListChannel toDTO(String json) {
 		return PriceListChannelSerDes.toDTO(json);
 	}
+
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
+	}
+
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
+	}
+
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
+
+		try {
+			actions = actionsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Map<String, Map<String, String>> actions;
+
+	public Channel getChannel() {
+		return channel;
+	}
+
+	public void setChannel(Channel channel) {
+		this.channel = channel;
+	}
+
+	public void setChannel(
+		UnsafeSupplier<Channel, Exception> channelUnsafeSupplier) {
+
+		try {
+			channel = channelUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Channel channel;
 
 	public String getChannelExternalReferenceCode() {
 		return channelExternalReferenceCode;
@@ -77,27 +121,6 @@ public class PriceListChannel implements Cloneable {
 	}
 
 	protected Long channelId;
-
-	public String getChannelName() {
-		return channelName;
-	}
-
-	public void setChannelName(String channelName) {
-		this.channelName = channelName;
-	}
-
-	public void setChannelName(
-		UnsafeSupplier<String, Exception> channelNameUnsafeSupplier) {
-
-		try {
-			channelName = channelNameUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String channelName;
 
 	public Long getId() {
 		return id;

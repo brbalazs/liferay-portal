@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.admin.pricing.client.pagination.Page;
 import com.liferay.headless.commerce.admin.pricing.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.pricing.client.resource.v2_0.PriceListAccountResource;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.PriceListAccountSerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -47,6 +48,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.log.CaptureAppender;
 import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
@@ -55,11 +57,14 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +76,9 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Level;
 
 import org.junit.After;
@@ -186,7 +193,6 @@ public abstract class BasePriceListAccountResourceTestCase {
 		PriceListAccount priceListAccount = randomPriceListAccount();
 
 		priceListAccount.setAccountExternalReferenceCode(regex);
-		priceListAccount.setAccountName(regex);
 		priceListAccount.setPriceListExternalReferenceCode(regex);
 
 		String json = PriceListAccountSerDes.toJSON(priceListAccount);
@@ -197,7 +203,6 @@ public abstract class BasePriceListAccountResourceTestCase {
 
 		Assert.assertEquals(
 			regex, priceListAccount.getAccountExternalReferenceCode());
-		Assert.assertEquals(regex, priceListAccount.getAccountName());
 		Assert.assertEquals(
 			regex, priceListAccount.getPriceListExternalReferenceCode());
 	}
@@ -430,7 +435,7 @@ public abstract class BasePriceListAccountResourceTestCase {
 		Page<PriceListAccount> page =
 			priceListAccountResource.getPriceListIdPriceListAccountsPage(
 				testGetPriceListIdPriceListAccountsPage_getId(),
-				Pagination.of(1, 2));
+				RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 
@@ -444,7 +449,7 @@ public abstract class BasePriceListAccountResourceTestCase {
 					irrelevantId, randomIrrelevantPriceListAccount());
 
 			page = priceListAccountResource.getPriceListIdPriceListAccountsPage(
-				irrelevantId, Pagination.of(1, 2));
+				irrelevantId, null, null, Pagination.of(1, 2), null);
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -463,7 +468,7 @@ public abstract class BasePriceListAccountResourceTestCase {
 				id, randomPriceListAccount());
 
 		page = priceListAccountResource.getPriceListIdPriceListAccountsPage(
-			id, Pagination.of(1, 2));
+			id, null, null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -475,6 +480,73 @@ public abstract class BasePriceListAccountResourceTestCase {
 		priceListAccountResource.deletePriceListAccount(null);
 
 		priceListAccountResource.deletePriceListAccount(null);
+	}
+
+	@Test
+	public void testGetPriceListIdPriceListAccountsPageWithFilterDateTimeEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetPriceListIdPriceListAccountsPage_getId();
+
+		PriceListAccount priceListAccount1 = randomPriceListAccount();
+
+		priceListAccount1 =
+			testGetPriceListIdPriceListAccountsPage_addPriceListAccount(
+				id, priceListAccount1);
+
+		for (EntityField entityField : entityFields) {
+			Page<PriceListAccount> page =
+				priceListAccountResource.getPriceListIdPriceListAccountsPage(
+					id, null,
+					getFilterString(entityField, "between", priceListAccount1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(priceListAccount1),
+				(List<PriceListAccount>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetPriceListIdPriceListAccountsPageWithFilterStringEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetPriceListIdPriceListAccountsPage_getId();
+
+		PriceListAccount priceListAccount1 =
+			testGetPriceListIdPriceListAccountsPage_addPriceListAccount(
+				id, randomPriceListAccount());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		PriceListAccount priceListAccount2 =
+			testGetPriceListIdPriceListAccountsPage_addPriceListAccount(
+				id, randomPriceListAccount());
+
+		for (EntityField entityField : entityFields) {
+			Page<PriceListAccount> page =
+				priceListAccountResource.getPriceListIdPriceListAccountsPage(
+					id, null,
+					getFilterString(entityField, "eq", priceListAccount1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(priceListAccount1),
+				(List<PriceListAccount>)page.getItems());
+		}
 	}
 
 	@Test
@@ -497,7 +569,7 @@ public abstract class BasePriceListAccountResourceTestCase {
 
 		Page<PriceListAccount> page1 =
 			priceListAccountResource.getPriceListIdPriceListAccountsPage(
-				id, Pagination.of(1, 2));
+				id, null, null, Pagination.of(1, 2), null);
 
 		List<PriceListAccount> priceListAccounts1 =
 			(List<PriceListAccount>)page1.getItems();
@@ -507,7 +579,7 @@ public abstract class BasePriceListAccountResourceTestCase {
 
 		Page<PriceListAccount> page2 =
 			priceListAccountResource.getPriceListIdPriceListAccountsPage(
-				id, Pagination.of(2, 2));
+				id, null, null, Pagination.of(2, 2), null);
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -519,12 +591,144 @@ public abstract class BasePriceListAccountResourceTestCase {
 
 		Page<PriceListAccount> page3 =
 			priceListAccountResource.getPriceListIdPriceListAccountsPage(
-				id, Pagination.of(1, 3));
+				id, null, null, Pagination.of(1, 3), null);
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(
 				priceListAccount1, priceListAccount2, priceListAccount3),
 			(List<PriceListAccount>)page3.getItems());
+	}
+
+	@Test
+	public void testGetPriceListIdPriceListAccountsPageWithSortDateTime()
+		throws Exception {
+
+		testGetPriceListIdPriceListAccountsPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, priceListAccount1, priceListAccount2) -> {
+				BeanUtils.setProperty(
+					priceListAccount1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetPriceListIdPriceListAccountsPageWithSortInteger()
+		throws Exception {
+
+		testGetPriceListIdPriceListAccountsPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, priceListAccount1, priceListAccount2) -> {
+				BeanUtils.setProperty(
+					priceListAccount1, entityField.getName(), 0);
+				BeanUtils.setProperty(
+					priceListAccount2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetPriceListIdPriceListAccountsPageWithSortString()
+		throws Exception {
+
+		testGetPriceListIdPriceListAccountsPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, priceListAccount1, priceListAccount2) -> {
+				Class<?> clazz = priceListAccount1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanUtils.setProperty(
+						priceListAccount1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanUtils.setProperty(
+						priceListAccount2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						priceListAccount1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						priceListAccount2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanUtils.setProperty(
+						priceListAccount1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanUtils.setProperty(
+						priceListAccount2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetPriceListIdPriceListAccountsPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer
+				<EntityField, PriceListAccount, PriceListAccount, Exception>
+					unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetPriceListIdPriceListAccountsPage_getId();
+
+		PriceListAccount priceListAccount1 = randomPriceListAccount();
+		PriceListAccount priceListAccount2 = randomPriceListAccount();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(
+				entityField, priceListAccount1, priceListAccount2);
+		}
+
+		priceListAccount1 =
+			testGetPriceListIdPriceListAccountsPage_addPriceListAccount(
+				id, priceListAccount1);
+
+		priceListAccount2 =
+			testGetPriceListIdPriceListAccountsPage_addPriceListAccount(
+				id, priceListAccount2);
+
+		for (EntityField entityField : entityFields) {
+			Page<PriceListAccount> ascPage =
+				priceListAccountResource.getPriceListIdPriceListAccountsPage(
+					id, null, null, Pagination.of(1, 2),
+					entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(priceListAccount1, priceListAccount2),
+				(List<PriceListAccount>)ascPage.getItems());
+
+			Page<PriceListAccount> descPage =
+				priceListAccountResource.getPriceListIdPriceListAccountsPage(
+					id, null, null, Pagination.of(1, 2),
+					entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(priceListAccount2, priceListAccount1),
+				(List<PriceListAccount>)descPage.getItems());
+		}
 	}
 
 	protected PriceListAccount
@@ -569,6 +773,9 @@ public abstract class BasePriceListAccountResourceTestCase {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
+
+	@Rule
+	public SearchTestRule searchTestRule = new SearchTestRule();
 
 	protected PriceListAccount testGraphQLPriceListAccount_addPriceListAccount()
 		throws Exception {
@@ -643,6 +850,14 @@ public abstract class BasePriceListAccountResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("account", additionalAssertFieldName)) {
+				if (priceListAccount.getAccount() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"accountExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -664,8 +879,8 @@ public abstract class BasePriceListAccountResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("accountName", additionalAssertFieldName)) {
-				if (priceListAccount.getAccountName() == null) {
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (priceListAccount.getActions() == null) {
 					valid = false;
 				}
 
@@ -795,6 +1010,17 @@ public abstract class BasePriceListAccountResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("account", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceListAccount1.getAccount(),
+						priceListAccount2.getAccount())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"accountExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -820,10 +1046,10 @@ public abstract class BasePriceListAccountResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("accountName", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						priceListAccount1.getAccountName(),
-						priceListAccount2.getAccountName())) {
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (!equals(
+						(Map)priceListAccount1.getActions(),
+						(Map)priceListAccount2.getActions())) {
 
 					return false;
 				}
@@ -961,6 +1187,11 @@ public abstract class BasePriceListAccountResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("account")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("accountExternalReferenceCode")) {
 			sb.append("'");
 			sb.append(
@@ -976,12 +1207,9 @@ public abstract class BasePriceListAccountResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("accountName")) {
-			sb.append("'");
-			sb.append(String.valueOf(priceListAccount.getAccountName()));
-			sb.append("'");
-
-			return sb.toString();
+		if (entityFieldName.equals("actions")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("id")) {
@@ -1056,8 +1284,6 @@ public abstract class BasePriceListAccountResourceTestCase {
 				accountExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				accountId = RandomTestUtil.randomLong();
-				accountName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				order = RandomTestUtil.randomInt();
 				priceListExternalReferenceCode = StringUtil.toLowerCase(

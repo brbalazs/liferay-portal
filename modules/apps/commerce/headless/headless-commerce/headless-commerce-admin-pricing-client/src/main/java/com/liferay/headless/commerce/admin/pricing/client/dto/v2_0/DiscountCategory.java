@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.admin.pricing.client.dto.v2_0;
 import com.liferay.headless.commerce.admin.pricing.client.function.UnsafeSupplier;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.DiscountCategorySerDes;
 
+import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -31,6 +32,49 @@ public class DiscountCategory implements Cloneable {
 	public static DiscountCategory toDTO(String json) {
 		return DiscountCategorySerDes.toDTO(json);
 	}
+
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
+	}
+
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
+	}
+
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
+
+		try {
+			actions = actionsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Map<String, Map<String, String>> actions;
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public void setCategory(
+		UnsafeSupplier<Category, Exception> categoryUnsafeSupplier) {
+
+		try {
+			category = categoryUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Category category;
 
 	public String getCategoryExternalReferenceCode() {
 		return categoryExternalReferenceCode;
@@ -77,27 +121,6 @@ public class DiscountCategory implements Cloneable {
 	}
 
 	protected Long categoryId;
-
-	public String getCategoryName() {
-		return categoryName;
-	}
-
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-
-	public void setCategoryName(
-		UnsafeSupplier<String, Exception> categoryNameUnsafeSupplier) {
-
-		try {
-			categoryName = categoryNameUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String categoryName;
 
 	public String getDiscountExternalReferenceCode() {
 		return discountExternalReferenceCode;

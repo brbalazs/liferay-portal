@@ -33,7 +33,9 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -44,12 +46,43 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Generated("")
 @GraphQLName("PriceModifierProduct")
 @JsonFilter("Liferay.Vulcan")
+@Schema(requiredProperties = {"priceModifierId", "productId"})
 @XmlRootElement(name = "PriceModifierProduct")
 public class PriceModifierProduct {
 
 	public static PriceModifierProduct toDTO(String json) {
 		return ObjectMapperUtil.readValue(PriceModifierProduct.class, json);
 	}
+
+	@Schema
+	@Valid
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
+	}
+
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
+	}
+
+	@JsonIgnore
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
+
+		try {
+			actions = actionsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Map<String, Map<String, String>> actions;
 
 	@DecimalMin("0")
 	@Schema
@@ -138,7 +171,37 @@ public class PriceModifierProduct {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long priceModifierId;
+
+	@Schema
+	@Valid
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	@JsonIgnore
+	public void setProduct(
+		UnsafeSupplier<Product, Exception> productUnsafeSupplier) {
+
+		try {
+			product = productUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Product product;
 
 	@Schema
 	public String getProductExternalReferenceCode() {
@@ -199,35 +262,8 @@ public class PriceModifierProduct {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long productId;
-
-	@Schema
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	@JsonIgnore
-	public void setProductName(
-		UnsafeSupplier<String, Exception> productNameUnsafeSupplier) {
-
-		try {
-			productName = productNameUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected String productName;
 
 	@Override
 	public boolean equals(Object object) {
@@ -256,6 +292,16 @@ public class PriceModifierProduct {
 		StringBundler sb = new StringBundler();
 
 		sb.append("{");
+
+		if (actions != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(actions));
+		}
 
 		if (id != null) {
 			if (sb.length() > 1) {
@@ -291,6 +337,16 @@ public class PriceModifierProduct {
 			sb.append(priceModifierId);
 		}
 
+		if (product != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"product\": ");
+
+			sb.append(String.valueOf(product));
+		}
+
 		if (productExternalReferenceCode != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -313,20 +369,6 @@ public class PriceModifierProduct {
 			sb.append("\"productId\": ");
 
 			sb.append(productId);
-		}
-
-		if (productName != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"productName\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(productName));
-
-			sb.append("\"");
 		}
 
 		sb.append("}");

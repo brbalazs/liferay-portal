@@ -55,6 +55,16 @@ public class DiscountAccountGroupSerDes {
 
 		sb.append("{");
 
+		if (discountAccountGroup.getAccountGroup() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"accountGroup\": ");
+
+			sb.append(String.valueOf(discountAccountGroup.getAccountGroup()));
+		}
+
 		if (discountAccountGroup.getAccountGroupExternalReferenceCode() !=
 				null) {
 
@@ -84,18 +94,14 @@ public class DiscountAccountGroupSerDes {
 			sb.append(discountAccountGroup.getAccountGroupId());
 		}
 
-		if (discountAccountGroup.getAccountGroupName() != null) {
+		if (discountAccountGroup.getActions() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountGroupName\": ");
+			sb.append("\"actions\": ");
 
-			sb.append("\"");
-
-			sb.append(_escape(discountAccountGroup.getAccountGroupName()));
-
-			sb.append("\"");
+			sb.append(_toJSON(discountAccountGroup.getActions()));
 		}
 
 		if (discountAccountGroup.getDiscountExternalReferenceCode() != null) {
@@ -155,6 +161,15 @@ public class DiscountAccountGroupSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (discountAccountGroup.getAccountGroup() == null) {
+			map.put("accountGroup", null);
+		}
+		else {
+			map.put(
+				"accountGroup",
+				String.valueOf(discountAccountGroup.getAccountGroup()));
+		}
+
 		if (discountAccountGroup.getAccountGroupExternalReferenceCode() ==
 				null) {
 
@@ -177,13 +192,12 @@ public class DiscountAccountGroupSerDes {
 				String.valueOf(discountAccountGroup.getAccountGroupId()));
 		}
 
-		if (discountAccountGroup.getAccountGroupName() == null) {
-			map.put("accountGroupName", null);
+		if (discountAccountGroup.getActions() == null) {
+			map.put("actions", null);
 		}
 		else {
 			map.put(
-				"accountGroupName",
-				String.valueOf(discountAccountGroup.getAccountGroupName()));
+				"actions", String.valueOf(discountAccountGroup.getActions()));
 		}
 
 		if (discountAccountGroup.getDiscountExternalReferenceCode() == null) {
@@ -233,8 +247,15 @@ public class DiscountAccountGroupSerDes {
 			DiscountAccountGroup discountAccountGroup,
 			String jsonParserFieldName, Object jsonParserFieldValue) {
 
-			if (Objects.equals(
-					jsonParserFieldName, "accountGroupExternalReferenceCode")) {
+			if (Objects.equals(jsonParserFieldName, "accountGroup")) {
+				if (jsonParserFieldValue != null) {
+					discountAccountGroup.setAccountGroup(
+						AccountGroupSerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName,
+						"accountGroupExternalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
 					discountAccountGroup.setAccountGroupExternalReferenceCode(
@@ -247,10 +268,11 @@ public class DiscountAccountGroupSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "accountGroupName")) {
+			else if (Objects.equals(jsonParserFieldName, "actions")) {
 				if (jsonParserFieldValue != null) {
-					discountAccountGroup.setAccountGroupName(
-						(String)jsonParserFieldValue);
+					discountAccountGroup.setActions(
+						(Map)DiscountAccountGroupSerDes.toMap(
+							(String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(

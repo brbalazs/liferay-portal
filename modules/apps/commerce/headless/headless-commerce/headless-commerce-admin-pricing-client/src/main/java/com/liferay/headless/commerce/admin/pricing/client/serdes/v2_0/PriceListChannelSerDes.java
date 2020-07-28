@@ -55,6 +55,26 @@ public class PriceListChannelSerDes {
 
 		sb.append("{");
 
+		if (priceListChannel.getActions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(priceListChannel.getActions()));
+		}
+
+		if (priceListChannel.getChannel() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"channel\": ");
+
+			sb.append(String.valueOf(priceListChannel.getChannel()));
+		}
+
 		if (priceListChannel.getChannelExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -78,20 +98,6 @@ public class PriceListChannelSerDes {
 			sb.append("\"channelId\": ");
 
 			sb.append(priceListChannel.getChannelId());
-		}
-
-		if (priceListChannel.getChannelName() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"channelName\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(priceListChannel.getChannelName()));
-
-			sb.append("\"");
 		}
 
 		if (priceListChannel.getId() != null) {
@@ -158,6 +164,20 @@ public class PriceListChannelSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (priceListChannel.getActions() == null) {
+			map.put("actions", null);
+		}
+		else {
+			map.put("actions", String.valueOf(priceListChannel.getActions()));
+		}
+
+		if (priceListChannel.getChannel() == null) {
+			map.put("channel", null);
+		}
+		else {
+			map.put("channel", String.valueOf(priceListChannel.getChannel()));
+		}
+
 		if (priceListChannel.getChannelExternalReferenceCode() == null) {
 			map.put("channelExternalReferenceCode", null);
 		}
@@ -174,15 +194,6 @@ public class PriceListChannelSerDes {
 		else {
 			map.put(
 				"channelId", String.valueOf(priceListChannel.getChannelId()));
-		}
-
-		if (priceListChannel.getChannelName() == null) {
-			map.put("channelName", null);
-		}
-		else {
-			map.put(
-				"channelName",
-				String.valueOf(priceListChannel.getChannelName()));
 		}
 
 		if (priceListChannel.getId() == null) {
@@ -239,8 +250,21 @@ public class PriceListChannelSerDes {
 			PriceListChannel priceListChannel, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(
-					jsonParserFieldName, "channelExternalReferenceCode")) {
+			if (Objects.equals(jsonParserFieldName, "actions")) {
+				if (jsonParserFieldValue != null) {
+					priceListChannel.setActions(
+						(Map)PriceListChannelSerDes.toMap(
+							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "channel")) {
+				if (jsonParserFieldValue != null) {
+					priceListChannel.setChannel(
+						ChannelSerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "channelExternalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
 					priceListChannel.setChannelExternalReferenceCode(
@@ -251,12 +275,6 @@ public class PriceListChannelSerDes {
 				if (jsonParserFieldValue != null) {
 					priceListChannel.setChannelId(
 						Long.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "channelName")) {
-				if (jsonParserFieldValue != null) {
-					priceListChannel.setChannelName(
-						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {

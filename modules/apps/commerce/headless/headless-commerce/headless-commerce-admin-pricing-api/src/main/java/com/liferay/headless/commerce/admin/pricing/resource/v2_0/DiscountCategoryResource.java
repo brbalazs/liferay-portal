@@ -15,6 +15,8 @@
 package com.liferay.headless.commerce.admin.pricing.resource.v2_0;
 
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.DiscountCategory;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -63,7 +65,8 @@ public interface DiscountCategoryResource {
 		throws Exception;
 
 	public Page<DiscountCategory> getDiscountIdDiscountCategoriesPage(
-			Long id, Pagination pagination)
+			Long id, String search, Filter filter, Pagination pagination,
+			Sort[] sorts)
 		throws Exception;
 
 	public DiscountCategory postDiscountIdDiscountCategory(

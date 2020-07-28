@@ -55,6 +55,16 @@ public class PriceListAccountSerDes {
 
 		sb.append("{");
 
+		if (priceListAccount.getAccount() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"account\": ");
+
+			sb.append(String.valueOf(priceListAccount.getAccount()));
+		}
+
 		if (priceListAccount.getAccountExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -80,18 +90,14 @@ public class PriceListAccountSerDes {
 			sb.append(priceListAccount.getAccountId());
 		}
 
-		if (priceListAccount.getAccountName() != null) {
+		if (priceListAccount.getActions() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountName\": ");
+			sb.append("\"actions\": ");
 
-			sb.append("\"");
-
-			sb.append(_escape(priceListAccount.getAccountName()));
-
-			sb.append("\"");
+			sb.append(_toJSON(priceListAccount.getActions()));
 		}
 
 		if (priceListAccount.getId() != null) {
@@ -158,6 +164,13 @@ public class PriceListAccountSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (priceListAccount.getAccount() == null) {
+			map.put("account", null);
+		}
+		else {
+			map.put("account", String.valueOf(priceListAccount.getAccount()));
+		}
+
 		if (priceListAccount.getAccountExternalReferenceCode() == null) {
 			map.put("accountExternalReferenceCode", null);
 		}
@@ -176,13 +189,11 @@ public class PriceListAccountSerDes {
 				"accountId", String.valueOf(priceListAccount.getAccountId()));
 		}
 
-		if (priceListAccount.getAccountName() == null) {
-			map.put("accountName", null);
+		if (priceListAccount.getActions() == null) {
+			map.put("actions", null);
 		}
 		else {
-			map.put(
-				"accountName",
-				String.valueOf(priceListAccount.getAccountName()));
+			map.put("actions", String.valueOf(priceListAccount.getActions()));
 		}
 
 		if (priceListAccount.getId() == null) {
@@ -239,8 +250,14 @@ public class PriceListAccountSerDes {
 			PriceListAccount priceListAccount, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(
-					jsonParserFieldName, "accountExternalReferenceCode")) {
+			if (Objects.equals(jsonParserFieldName, "account")) {
+				if (jsonParserFieldValue != null) {
+					priceListAccount.setAccount(
+						AccountSerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "accountExternalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
 					priceListAccount.setAccountExternalReferenceCode(
@@ -253,10 +270,11 @@ public class PriceListAccountSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "accountName")) {
+			else if (Objects.equals(jsonParserFieldName, "actions")) {
 				if (jsonParserFieldValue != null) {
-					priceListAccount.setAccountName(
-						(String)jsonParserFieldValue);
+					priceListAccount.setActions(
+						(Map)PriceListAccountSerDes.toMap(
+							(String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {

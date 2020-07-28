@@ -194,7 +194,6 @@ public abstract class BasePriceEntryResourceTestCase {
 		priceEntry.setExternalReferenceCode(regex);
 		priceEntry.setPriceFormatted(regex);
 		priceEntry.setPriceListExternalReferenceCode(regex);
-		priceEntry.setSku(regex);
 		priceEntry.setSkuExternalReferenceCode(regex);
 
 		String json = PriceEntrySerDes.toJSON(priceEntry);
@@ -207,7 +206,6 @@ public abstract class BasePriceEntryResourceTestCase {
 		Assert.assertEquals(regex, priceEntry.getPriceFormatted());
 		Assert.assertEquals(
 			regex, priceEntry.getPriceListExternalReferenceCode());
-		Assert.assertEquals(regex, priceEntry.getSku());
 		Assert.assertEquals(regex, priceEntry.getSkuExternalReferenceCode());
 	}
 
@@ -1046,6 +1044,14 @@ public abstract class BasePriceEntryResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (priceEntry.getActions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("active", additionalAssertFieldName)) {
 				if (priceEntry.getActive() == null) {
 					valid = false;
@@ -1189,6 +1195,14 @@ public abstract class BasePriceEntryResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("product", additionalAssertFieldName)) {
+				if (priceEntry.getProduct() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("sku", additionalAssertFieldName)) {
 				if (priceEntry.getSku() == null) {
 					valid = false;
@@ -1312,6 +1326,17 @@ public abstract class BasePriceEntryResourceTestCase {
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
+
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (!equals(
+						(Map)priceEntry1.getActions(),
+						(Map)priceEntry2.getActions())) {
+
+					return false;
+				}
+
+				continue;
+			}
 
 			if (Objects.equals("active", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
@@ -1515,6 +1540,16 @@ public abstract class BasePriceEntryResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("product", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceEntry1.getProduct(), priceEntry2.getProduct())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("sku", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						priceEntry1.getSku(), priceEntry2.getSku())) {
@@ -1640,6 +1675,11 @@ public abstract class BasePriceEntryResourceTestCase {
 		sb.append(" ");
 		sb.append(operator);
 		sb.append(" ");
+
+		if (entityFieldName.equals("actions")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
 
 		if (entityFieldName.equals("active")) {
 			throw new IllegalArgumentException(
@@ -1795,12 +1835,14 @@ public abstract class BasePriceEntryResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("sku")) {
-			sb.append("'");
-			sb.append(String.valueOf(priceEntry.getSku()));
-			sb.append("'");
+		if (entityFieldName.equals("product")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
 
-			return sb.toString();
+		if (entityFieldName.equals("sku")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("skuExternalReferenceCode")) {
@@ -1881,7 +1923,6 @@ public abstract class BasePriceEntryResourceTestCase {
 				priceListExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				priceListId = RandomTestUtil.randomLong();
-				sku = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				skuExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				skuId = RandomTestUtil.randomLong();

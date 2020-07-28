@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.admin.pricing.client.pagination.Page;
 import com.liferay.headless.commerce.admin.pricing.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.pricing.client.resource.v2_0.DiscountCategoryResource;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.DiscountCategorySerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -47,6 +48,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.log.CaptureAppender;
 import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
@@ -55,11 +57,14 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +76,9 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Level;
 
 import org.junit.After;
@@ -186,7 +193,6 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 		DiscountCategory discountCategory = randomDiscountCategory();
 
 		discountCategory.setCategoryExternalReferenceCode(regex);
-		discountCategory.setCategoryName(regex);
 		discountCategory.setDiscountExternalReferenceCode(regex);
 
 		String json = DiscountCategorySerDes.toJSON(discountCategory);
@@ -197,7 +203,6 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 
 		Assert.assertEquals(
 			regex, discountCategory.getCategoryExternalReferenceCode());
-		Assert.assertEquals(regex, discountCategory.getCategoryName());
 		Assert.assertEquals(
 			regex, discountCategory.getDiscountExternalReferenceCode());
 	}
@@ -430,7 +435,7 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 		Page<DiscountCategory> page =
 			discountCategoryResource.getDiscountIdDiscountCategoriesPage(
 				testGetDiscountIdDiscountCategoriesPage_getId(),
-				Pagination.of(1, 2));
+				RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 
@@ -444,7 +449,7 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 					irrelevantId, randomIrrelevantDiscountCategory());
 
 			page = discountCategoryResource.getDiscountIdDiscountCategoriesPage(
-				irrelevantId, Pagination.of(1, 2));
+				irrelevantId, null, null, Pagination.of(1, 2), null);
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -463,7 +468,7 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 				id, randomDiscountCategory());
 
 		page = discountCategoryResource.getDiscountIdDiscountCategoriesPage(
-			id, Pagination.of(1, 2));
+			id, null, null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -475,6 +480,73 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 		discountCategoryResource.deleteDiscountCategory(null);
 
 		discountCategoryResource.deleteDiscountCategory(null);
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountCategoriesPageWithFilterDateTimeEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetDiscountIdDiscountCategoriesPage_getId();
+
+		DiscountCategory discountCategory1 = randomDiscountCategory();
+
+		discountCategory1 =
+			testGetDiscountIdDiscountCategoriesPage_addDiscountCategory(
+				id, discountCategory1);
+
+		for (EntityField entityField : entityFields) {
+			Page<DiscountCategory> page =
+				discountCategoryResource.getDiscountIdDiscountCategoriesPage(
+					id, null,
+					getFilterString(entityField, "between", discountCategory1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(discountCategory1),
+				(List<DiscountCategory>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountCategoriesPageWithFilterStringEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetDiscountIdDiscountCategoriesPage_getId();
+
+		DiscountCategory discountCategory1 =
+			testGetDiscountIdDiscountCategoriesPage_addDiscountCategory(
+				id, randomDiscountCategory());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		DiscountCategory discountCategory2 =
+			testGetDiscountIdDiscountCategoriesPage_addDiscountCategory(
+				id, randomDiscountCategory());
+
+		for (EntityField entityField : entityFields) {
+			Page<DiscountCategory> page =
+				discountCategoryResource.getDiscountIdDiscountCategoriesPage(
+					id, null,
+					getFilterString(entityField, "eq", discountCategory1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(discountCategory1),
+				(List<DiscountCategory>)page.getItems());
+		}
 	}
 
 	@Test
@@ -497,7 +569,7 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 
 		Page<DiscountCategory> page1 =
 			discountCategoryResource.getDiscountIdDiscountCategoriesPage(
-				id, Pagination.of(1, 2));
+				id, null, null, Pagination.of(1, 2), null);
 
 		List<DiscountCategory> discountCategories1 =
 			(List<DiscountCategory>)page1.getItems();
@@ -507,7 +579,7 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 
 		Page<DiscountCategory> page2 =
 			discountCategoryResource.getDiscountIdDiscountCategoriesPage(
-				id, Pagination.of(2, 2));
+				id, null, null, Pagination.of(2, 2), null);
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -519,12 +591,144 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 
 		Page<DiscountCategory> page3 =
 			discountCategoryResource.getDiscountIdDiscountCategoriesPage(
-				id, Pagination.of(1, 3));
+				id, null, null, Pagination.of(1, 3), null);
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(
 				discountCategory1, discountCategory2, discountCategory3),
 			(List<DiscountCategory>)page3.getItems());
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountCategoriesPageWithSortDateTime()
+		throws Exception {
+
+		testGetDiscountIdDiscountCategoriesPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, discountCategory1, discountCategory2) -> {
+				BeanUtils.setProperty(
+					discountCategory1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountCategoriesPageWithSortInteger()
+		throws Exception {
+
+		testGetDiscountIdDiscountCategoriesPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, discountCategory1, discountCategory2) -> {
+				BeanUtils.setProperty(
+					discountCategory1, entityField.getName(), 0);
+				BeanUtils.setProperty(
+					discountCategory2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountCategoriesPageWithSortString()
+		throws Exception {
+
+		testGetDiscountIdDiscountCategoriesPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, discountCategory1, discountCategory2) -> {
+				Class<?> clazz = discountCategory1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanUtils.setProperty(
+						discountCategory1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanUtils.setProperty(
+						discountCategory2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						discountCategory1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						discountCategory2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanUtils.setProperty(
+						discountCategory1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanUtils.setProperty(
+						discountCategory2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetDiscountIdDiscountCategoriesPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer
+				<EntityField, DiscountCategory, DiscountCategory, Exception>
+					unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetDiscountIdDiscountCategoriesPage_getId();
+
+		DiscountCategory discountCategory1 = randomDiscountCategory();
+		DiscountCategory discountCategory2 = randomDiscountCategory();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(
+				entityField, discountCategory1, discountCategory2);
+		}
+
+		discountCategory1 =
+			testGetDiscountIdDiscountCategoriesPage_addDiscountCategory(
+				id, discountCategory1);
+
+		discountCategory2 =
+			testGetDiscountIdDiscountCategoriesPage_addDiscountCategory(
+				id, discountCategory2);
+
+		for (EntityField entityField : entityFields) {
+			Page<DiscountCategory> ascPage =
+				discountCategoryResource.getDiscountIdDiscountCategoriesPage(
+					id, null, null, Pagination.of(1, 2),
+					entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(discountCategory1, discountCategory2),
+				(List<DiscountCategory>)ascPage.getItems());
+
+			Page<DiscountCategory> descPage =
+				discountCategoryResource.getDiscountIdDiscountCategoriesPage(
+					id, null, null, Pagination.of(1, 2),
+					entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(discountCategory2, discountCategory1),
+				(List<DiscountCategory>)descPage.getItems());
+		}
 	}
 
 	protected DiscountCategory
@@ -569,6 +773,9 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
+
+	@Rule
+	public SearchTestRule searchTestRule = new SearchTestRule();
 
 	protected DiscountCategory testGraphQLDiscountCategory_addDiscountCategory()
 		throws Exception {
@@ -643,6 +850,22 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (discountCategory.getActions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("category", additionalAssertFieldName)) {
+				if (discountCategory.getCategory() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"categoryExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -658,14 +881,6 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 
 			if (Objects.equals("categoryId", additionalAssertFieldName)) {
 				if (discountCategory.getCategoryId() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("categoryName", additionalAssertFieldName)) {
-				if (discountCategory.getCategoryName() == null) {
 					valid = false;
 				}
 
@@ -787,6 +1002,28 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (!equals(
+						(Map)discountCategory1.getActions(),
+						(Map)discountCategory2.getActions())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("category", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						discountCategory1.getCategory(),
+						discountCategory2.getCategory())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"categoryExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -805,17 +1042,6 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 				if (!Objects.deepEquals(
 						discountCategory1.getCategoryId(),
 						discountCategory2.getCategoryId())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("categoryName", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						discountCategory1.getCategoryName(),
-						discountCategory2.getCategoryName())) {
 
 					return false;
 				}
@@ -941,6 +1167,16 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("actions")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("category")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("categoryExternalReferenceCode")) {
 			sb.append("'");
 			sb.append(
@@ -954,14 +1190,6 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 		if (entityFieldName.equals("categoryId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("categoryName")) {
-			sb.append("'");
-			sb.append(String.valueOf(discountCategory.getCategoryName()));
-			sb.append("'");
-
-			return sb.toString();
 		}
 
 		if (entityFieldName.equals("discountExternalReferenceCode")) {
@@ -1031,8 +1259,6 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 				categoryExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				categoryId = RandomTestUtil.randomLong();
-				categoryName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
 				discountExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				discountId = RandomTestUtil.randomLong();

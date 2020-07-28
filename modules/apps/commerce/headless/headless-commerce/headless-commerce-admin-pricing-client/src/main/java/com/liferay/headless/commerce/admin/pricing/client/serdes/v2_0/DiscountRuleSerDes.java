@@ -55,6 +55,16 @@ public class DiscountRuleSerDes {
 
 		sb.append("{");
 
+		if (discountRule.getActions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(discountRule.getActions()));
+		}
+
 		if (discountRule.getDiscountId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -136,6 +146,13 @@ public class DiscountRuleSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (discountRule.getActions() == null) {
+			map.put("actions", null);
+		}
+		else {
+			map.put("actions", String.valueOf(discountRule.getActions()));
+		}
+
 		if (discountRule.getDiscountId() == null) {
 			map.put("discountId", null);
 		}
@@ -193,7 +210,14 @@ public class DiscountRuleSerDes {
 			DiscountRule discountRule, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "discountId")) {
+			if (Objects.equals(jsonParserFieldName, "actions")) {
+				if (jsonParserFieldValue != null) {
+					discountRule.setActions(
+						(Map)DiscountRuleSerDes.toMap(
+							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "discountId")) {
 				if (jsonParserFieldValue != null) {
 					discountRule.setDiscountId(
 						Long.valueOf((String)jsonParserFieldValue));

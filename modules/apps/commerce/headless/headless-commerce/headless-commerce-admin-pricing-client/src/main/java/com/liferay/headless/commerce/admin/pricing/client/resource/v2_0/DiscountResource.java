@@ -40,11 +40,14 @@ public interface DiscountResource {
 		return new Builder();
 	}
 
-	public Page<Discount> getDiscountsPage(Pagination pagination)
+	public Page<Discount> getDiscountsPage(
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getDiscountsPageHttpResponse(
-			Pagination pagination)
+			String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public Discount postDiscount(Discount discount) throws Exception;
@@ -164,11 +167,14 @@ public interface DiscountResource {
 
 	public static class DiscountResourceImpl implements DiscountResource {
 
-		public Page<Discount> getDiscountsPage(Pagination pagination)
+		public Page<Discount> getDiscountsPage(
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getDiscountsPageHttpResponse(pagination);
+				getDiscountsPageHttpResponse(
+					search, filterString, pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -191,7 +197,8 @@ public interface DiscountResource {
 		}
 
 		public HttpInvoker.HttpResponse getDiscountsPageHttpResponse(
-				Pagination pagination)
+				String search, String filterString, Pagination pagination,
+				String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -215,11 +222,23 @@ public interface DiscountResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
 
+			if (search != null) {
+				httpInvoker.parameter("search", String.valueOf(search));
+			}
+
+			if (filterString != null) {
+				httpInvoker.parameter("filter", filterString);
+			}
+
 			if (pagination != null) {
 				httpInvoker.parameter(
 					"page", String.valueOf(pagination.getPage()));
 				httpInvoker.parameter(
 					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			if (sortString != null) {
+				httpInvoker.parameter("sort", sortString);
 			}
 
 			httpInvoker.path(

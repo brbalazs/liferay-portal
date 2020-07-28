@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.admin.pricing.client.dto.v2_0;
 import com.liferay.headless.commerce.admin.pricing.client.function.UnsafeSupplier;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.DiscountProductSerDes;
 
+import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -31,6 +32,28 @@ public class DiscountProduct implements Cloneable {
 	public static DiscountProduct toDTO(String json) {
 		return DiscountProductSerDes.toDTO(json);
 	}
+
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
+	}
+
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
+	}
+
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
+
+		try {
+			actions = actionsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Map<String, Map<String, String>> actions;
 
 	public String getDiscountExternalReferenceCode() {
 		return discountExternalReferenceCode;
@@ -97,6 +120,27 @@ public class DiscountProduct implements Cloneable {
 
 	protected Long id;
 
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public void setProduct(
+		UnsafeSupplier<Product, Exception> productUnsafeSupplier) {
+
+		try {
+			product = productUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Product product;
+
 	public String getProductExternalReferenceCode() {
 		return productExternalReferenceCode;
 	}
@@ -142,27 +186,6 @@ public class DiscountProduct implements Cloneable {
 	}
 
 	protected Long productId;
-
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	public void setProductName(
-		UnsafeSupplier<String, Exception> productNameUnsafeSupplier) {
-
-		try {
-			productName = productNameUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String productName;
 
 	@Override
 	public DiscountProduct clone() throws CloneNotSupportedException {

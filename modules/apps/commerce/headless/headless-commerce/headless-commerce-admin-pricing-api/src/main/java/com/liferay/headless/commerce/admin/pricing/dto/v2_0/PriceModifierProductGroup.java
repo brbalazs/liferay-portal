@@ -33,7 +33,9 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -44,6 +46,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Generated("")
 @GraphQLName("PriceModifierProductGroup")
 @JsonFilter("Liferay.Vulcan")
+@Schema(requiredProperties = {"priceModifierId", "productGroupId"})
 @XmlRootElement(name = "PriceModifierProductGroup")
 public class PriceModifierProductGroup {
 
@@ -51,6 +54,36 @@ public class PriceModifierProductGroup {
 		return ObjectMapperUtil.readValue(
 			PriceModifierProductGroup.class, json);
 	}
+
+	@Schema
+	@Valid
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
+	}
+
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
+	}
+
+	@JsonIgnore
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
+
+		try {
+			actions = actionsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Map<String, Map<String, String>> actions;
 
 	@DecimalMin("0")
 	@Schema
@@ -139,7 +172,37 @@ public class PriceModifierProductGroup {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long priceModifierId;
+
+	@Schema
+	@Valid
+	public ProductGroup getProductGroup() {
+		return productGroup;
+	}
+
+	public void setProductGroup(ProductGroup productGroup) {
+		this.productGroup = productGroup;
+	}
+
+	@JsonIgnore
+	public void setProductGroup(
+		UnsafeSupplier<ProductGroup, Exception> productGroupUnsafeSupplier) {
+
+		try {
+			productGroup = productGroupUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected ProductGroup productGroup;
 
 	@Schema
 	public String getProductGroupExternalReferenceCode() {
@@ -201,35 +264,8 @@ public class PriceModifierProductGroup {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long productGroupId;
-
-	@Schema
-	public String getProductGroupName() {
-		return productGroupName;
-	}
-
-	public void setProductGroupName(String productGroupName) {
-		this.productGroupName = productGroupName;
-	}
-
-	@JsonIgnore
-	public void setProductGroupName(
-		UnsafeSupplier<String, Exception> productGroupNameUnsafeSupplier) {
-
-		try {
-			productGroupName = productGroupNameUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected String productGroupName;
 
 	@Override
 	public boolean equals(Object object) {
@@ -258,6 +294,16 @@ public class PriceModifierProductGroup {
 		StringBundler sb = new StringBundler();
 
 		sb.append("{");
+
+		if (actions != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(actions));
+		}
 
 		if (id != null) {
 			if (sb.length() > 1) {
@@ -293,6 +339,16 @@ public class PriceModifierProductGroup {
 			sb.append(priceModifierId);
 		}
 
+		if (productGroup != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"productGroup\": ");
+
+			sb.append(String.valueOf(productGroup));
+		}
+
 		if (productGroupExternalReferenceCode != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -315,20 +371,6 @@ public class PriceModifierProductGroup {
 			sb.append("\"productGroupId\": ");
 
 			sb.append(productGroupId);
-		}
-
-		if (productGroupName != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"productGroupName\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(productGroupName));
-
-			sb.append("\"");
 		}
 
 		sb.append("}");

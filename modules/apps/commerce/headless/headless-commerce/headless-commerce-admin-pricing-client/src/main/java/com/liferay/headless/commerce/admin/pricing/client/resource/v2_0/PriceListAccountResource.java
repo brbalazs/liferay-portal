@@ -74,12 +74,14 @@ public interface PriceListAccountResource {
 		throws Exception;
 
 	public Page<PriceListAccount> getPriceListIdPriceListAccountsPage(
-			Long id, Pagination pagination)
+			Long id, String search, String filterString, Pagination pagination,
+			String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			getPriceListIdPriceListAccountsPageHttpResponse(
-				Long id, Pagination pagination)
+				Long id, String search, String filterString,
+				Pagination pagination, String sortString)
 		throws Exception;
 
 	public PriceListAccount postPriceListIdPriceListAccount(
@@ -421,11 +423,13 @@ public interface PriceListAccountResource {
 		}
 
 		public Page<PriceListAccount> getPriceListIdPriceListAccountsPage(
-				Long id, Pagination pagination)
+				Long id, String search, String filterString,
+				Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getPriceListIdPriceListAccountsPageHttpResponse(id, pagination);
+				getPriceListIdPriceListAccountsPageHttpResponse(
+					id, search, filterString, pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -449,7 +453,8 @@ public interface PriceListAccountResource {
 
 		public HttpInvoker.HttpResponse
 				getPriceListIdPriceListAccountsPageHttpResponse(
-					Long id, Pagination pagination)
+					Long id, String search, String filterString,
+					Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -473,11 +478,23 @@ public interface PriceListAccountResource {
 
 			httpInvoker.httpMethod(HttpInvoker.HttpMethod.GET);
 
+			if (search != null) {
+				httpInvoker.parameter("search", String.valueOf(search));
+			}
+
+			if (filterString != null) {
+				httpInvoker.parameter("filter", filterString);
+			}
+
 			if (pagination != null) {
 				httpInvoker.parameter(
 					"page", String.valueOf(pagination.getPage()));
 				httpInvoker.parameter(
 					"pageSize", String.valueOf(pagination.getPageSize()));
+			}
+
+			if (sortString != null) {
+				httpInvoker.parameter("sort", sortString);
 			}
 
 			httpInvoker.path(

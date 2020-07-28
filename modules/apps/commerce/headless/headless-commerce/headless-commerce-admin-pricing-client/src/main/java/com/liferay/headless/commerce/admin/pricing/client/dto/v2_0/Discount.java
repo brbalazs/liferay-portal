@@ -36,6 +36,28 @@ public class Discount implements Cloneable {
 		return DiscountSerDes.toDTO(json);
 	}
 
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
+	}
+
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
+	}
+
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
+
+		try {
+			actions = actionsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Map<String, Map<String, String>> actions;
+
 	public Boolean getActive() {
 		return active;
 	}
@@ -56,6 +78,27 @@ public class Discount implements Cloneable {
 	}
 
 	protected Boolean active;
+
+	public String getAmountFormatted() {
+		return amountFormatted;
+	}
+
+	public void setAmountFormatted(String amountFormatted) {
+		this.amountFormatted = amountFormatted;
+	}
+
+	public void setAmountFormatted(
+		UnsafeSupplier<String, Exception> amountFormattedUnsafeSupplier) {
+
+		try {
+			amountFormatted = amountFormattedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String amountFormatted;
 
 	public String getCouponCode() {
 		return couponCode;

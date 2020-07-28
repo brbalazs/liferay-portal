@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.admin.pricing.client.pagination.Page;
 import com.liferay.headless.commerce.admin.pricing.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.pricing.client.resource.v2_0.DiscountAccountGroupResource;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.DiscountAccountGroupSerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -47,6 +48,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.log.CaptureAppender;
 import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
@@ -55,11 +57,14 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +76,9 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Level;
 
 import org.junit.After;
@@ -190,7 +197,6 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 			randomDiscountAccountGroup();
 
 		discountAccountGroup.setAccountGroupExternalReferenceCode(regex);
-		discountAccountGroup.setAccountGroupName(regex);
 		discountAccountGroup.setDiscountExternalReferenceCode(regex);
 
 		String json = DiscountAccountGroupSerDes.toJSON(discountAccountGroup);
@@ -201,7 +207,6 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 
 		Assert.assertEquals(
 			regex, discountAccountGroup.getAccountGroupExternalReferenceCode());
-		Assert.assertEquals(regex, discountAccountGroup.getAccountGroupName());
 		Assert.assertEquals(
 			regex, discountAccountGroup.getDiscountExternalReferenceCode());
 	}
@@ -440,7 +445,7 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 		Page<DiscountAccountGroup> page =
 			discountAccountGroupResource.getDiscountIdDiscountAccountGroupsPage(
 				testGetDiscountIdDiscountAccountGroupsPage_getId(),
-				Pagination.of(1, 2));
+				RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 
@@ -456,7 +461,7 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 			page =
 				discountAccountGroupResource.
 					getDiscountIdDiscountAccountGroupsPage(
-						irrelevantId, Pagination.of(1, 2));
+						irrelevantId, null, null, Pagination.of(1, 2), null);
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -476,7 +481,7 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 
 		page =
 			discountAccountGroupResource.getDiscountIdDiscountAccountGroupsPage(
-				id, Pagination.of(1, 2));
+				id, null, null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -488,6 +493,78 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 		discountAccountGroupResource.deleteDiscountAccountGroup(null);
 
 		discountAccountGroupResource.deleteDiscountAccountGroup(null);
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountAccountGroupsPageWithFilterDateTimeEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetDiscountIdDiscountAccountGroupsPage_getId();
+
+		DiscountAccountGroup discountAccountGroup1 =
+			randomDiscountAccountGroup();
+
+		discountAccountGroup1 =
+			testGetDiscountIdDiscountAccountGroupsPage_addDiscountAccountGroup(
+				id, discountAccountGroup1);
+
+		for (EntityField entityField : entityFields) {
+			Page<DiscountAccountGroup> page =
+				discountAccountGroupResource.
+					getDiscountIdDiscountAccountGroupsPage(
+						id, null,
+						getFilterString(
+							entityField, "between", discountAccountGroup1),
+						Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(discountAccountGroup1),
+				(List<DiscountAccountGroup>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountAccountGroupsPageWithFilterStringEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetDiscountIdDiscountAccountGroupsPage_getId();
+
+		DiscountAccountGroup discountAccountGroup1 =
+			testGetDiscountIdDiscountAccountGroupsPage_addDiscountAccountGroup(
+				id, randomDiscountAccountGroup());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		DiscountAccountGroup discountAccountGroup2 =
+			testGetDiscountIdDiscountAccountGroupsPage_addDiscountAccountGroup(
+				id, randomDiscountAccountGroup());
+
+		for (EntityField entityField : entityFields) {
+			Page<DiscountAccountGroup> page =
+				discountAccountGroupResource.
+					getDiscountIdDiscountAccountGroupsPage(
+						id, null,
+						getFilterString(
+							entityField, "eq", discountAccountGroup1),
+						Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(discountAccountGroup1),
+				(List<DiscountAccountGroup>)page.getItems());
+		}
 	}
 
 	@Test
@@ -510,7 +587,7 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 
 		Page<DiscountAccountGroup> page1 =
 			discountAccountGroupResource.getDiscountIdDiscountAccountGroupsPage(
-				id, Pagination.of(1, 2));
+				id, null, null, Pagination.of(1, 2), null);
 
 		List<DiscountAccountGroup> discountAccountGroups1 =
 			(List<DiscountAccountGroup>)page1.getItems();
@@ -521,7 +598,7 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 
 		Page<DiscountAccountGroup> page2 =
 			discountAccountGroupResource.getDiscountIdDiscountAccountGroupsPage(
-				id, Pagination.of(2, 2));
+				id, null, null, Pagination.of(2, 2), null);
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -534,13 +611,149 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 
 		Page<DiscountAccountGroup> page3 =
 			discountAccountGroupResource.getDiscountIdDiscountAccountGroupsPage(
-				id, Pagination.of(1, 3));
+				id, null, null, Pagination.of(1, 3), null);
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(
 				discountAccountGroup1, discountAccountGroup2,
 				discountAccountGroup3),
 			(List<DiscountAccountGroup>)page3.getItems());
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountAccountGroupsPageWithSortDateTime()
+		throws Exception {
+
+		testGetDiscountIdDiscountAccountGroupsPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, discountAccountGroup1, discountAccountGroup2) -> {
+				BeanUtils.setProperty(
+					discountAccountGroup1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountAccountGroupsPageWithSortInteger()
+		throws Exception {
+
+		testGetDiscountIdDiscountAccountGroupsPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, discountAccountGroup1, discountAccountGroup2) -> {
+				BeanUtils.setProperty(
+					discountAccountGroup1, entityField.getName(), 0);
+				BeanUtils.setProperty(
+					discountAccountGroup2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountAccountGroupsPageWithSortString()
+		throws Exception {
+
+		testGetDiscountIdDiscountAccountGroupsPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, discountAccountGroup1, discountAccountGroup2) -> {
+				Class<?> clazz = discountAccountGroup1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanUtils.setProperty(
+						discountAccountGroup1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanUtils.setProperty(
+						discountAccountGroup2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						discountAccountGroup1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						discountAccountGroup2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanUtils.setProperty(
+						discountAccountGroup1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanUtils.setProperty(
+						discountAccountGroup2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetDiscountIdDiscountAccountGroupsPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer
+				<EntityField, DiscountAccountGroup, DiscountAccountGroup,
+				 Exception> unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetDiscountIdDiscountAccountGroupsPage_getId();
+
+		DiscountAccountGroup discountAccountGroup1 =
+			randomDiscountAccountGroup();
+		DiscountAccountGroup discountAccountGroup2 =
+			randomDiscountAccountGroup();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(
+				entityField, discountAccountGroup1, discountAccountGroup2);
+		}
+
+		discountAccountGroup1 =
+			testGetDiscountIdDiscountAccountGroupsPage_addDiscountAccountGroup(
+				id, discountAccountGroup1);
+
+		discountAccountGroup2 =
+			testGetDiscountIdDiscountAccountGroupsPage_addDiscountAccountGroup(
+				id, discountAccountGroup2);
+
+		for (EntityField entityField : entityFields) {
+			Page<DiscountAccountGroup> ascPage =
+				discountAccountGroupResource.
+					getDiscountIdDiscountAccountGroupsPage(
+						id, null, null, Pagination.of(1, 2),
+						entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(discountAccountGroup1, discountAccountGroup2),
+				(List<DiscountAccountGroup>)ascPage.getItems());
+
+			Page<DiscountAccountGroup> descPage =
+				discountAccountGroupResource.
+					getDiscountIdDiscountAccountGroupsPage(
+						id, null, null, Pagination.of(1, 2),
+						entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(discountAccountGroup2, discountAccountGroup1),
+				(List<DiscountAccountGroup>)descPage.getItems());
+		}
 	}
 
 	protected DiscountAccountGroup
@@ -586,6 +799,9 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
+
+	@Rule
+	public SearchTestRule searchTestRule = new SearchTestRule();
 
 	protected DiscountAccountGroup
 			testGraphQLDiscountAccountGroup_addDiscountAccountGroup()
@@ -668,6 +884,14 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("accountGroup", additionalAssertFieldName)) {
+				if (discountAccountGroup.getAccountGroup() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"accountGroupExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -689,8 +913,8 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("accountGroupName", additionalAssertFieldName)) {
-				if (discountAccountGroup.getAccountGroupName() == null) {
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (discountAccountGroup.getActions() == null) {
 					valid = false;
 				}
 
@@ -812,6 +1036,17 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("accountGroup", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						discountAccountGroup1.getAccountGroup(),
+						discountAccountGroup2.getAccountGroup())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"accountGroupExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -839,10 +1074,10 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 				continue;
 			}
 
-			if (Objects.equals("accountGroupName", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						discountAccountGroup1.getAccountGroupName(),
-						discountAccountGroup2.getAccountGroupName())) {
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (!equals(
+						(Map)discountAccountGroup1.getActions(),
+						(Map)discountAccountGroup2.getActions())) {
 
 					return false;
 				}
@@ -971,6 +1206,11 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("accountGroup")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("accountGroupExternalReferenceCode")) {
 			sb.append("'");
 			sb.append(
@@ -987,13 +1227,9 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
-		if (entityFieldName.equals("accountGroupName")) {
-			sb.append("'");
-			sb.append(
-				String.valueOf(discountAccountGroup.getAccountGroupName()));
-			sb.append("'");
-
-			return sb.toString();
+		if (entityFieldName.equals("actions")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
 		}
 
 		if (entityFieldName.equals("discountExternalReferenceCode")) {
@@ -1065,8 +1301,6 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 				accountGroupExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				accountGroupId = RandomTestUtil.randomLong();
-				accountGroupName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
 				discountExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				discountId = RandomTestUtil.randomLong();

@@ -20,6 +20,7 @@ import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.PriceModif
 import java.math.BigDecimal;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -34,6 +35,28 @@ public class PriceModifier implements Cloneable {
 	public static PriceModifier toDTO(String json) {
 		return PriceModifierSerDes.toDTO(json);
 	}
+
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
+	}
+
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
+	}
+
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
+
+		try {
+			actions = actionsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Map<String, Map<String, String>> actions;
 
 	public Boolean getActive() {
 		return active;

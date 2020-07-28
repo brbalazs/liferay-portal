@@ -55,6 +55,26 @@ public class DiscountChannelSerDes {
 
 		sb.append("{");
 
+		if (discountChannel.getActions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(discountChannel.getActions()));
+		}
+
+		if (discountChannel.getChannel() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"channel\": ");
+
+			sb.append(String.valueOf(discountChannel.getChannel()));
+		}
+
 		if (discountChannel.getChannelExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -78,20 +98,6 @@ public class DiscountChannelSerDes {
 			sb.append("\"channelId\": ");
 
 			sb.append(discountChannel.getChannelId());
-		}
-
-		if (discountChannel.getChannelName() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"channelName\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(discountChannel.getChannelName()));
-
-			sb.append("\"");
 		}
 
 		if (discountChannel.getDiscountExternalReferenceCode() != null) {
@@ -148,6 +154,20 @@ public class DiscountChannelSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (discountChannel.getActions() == null) {
+			map.put("actions", null);
+		}
+		else {
+			map.put("actions", String.valueOf(discountChannel.getActions()));
+		}
+
+		if (discountChannel.getChannel() == null) {
+			map.put("channel", null);
+		}
+		else {
+			map.put("channel", String.valueOf(discountChannel.getChannel()));
+		}
+
 		if (discountChannel.getChannelExternalReferenceCode() == null) {
 			map.put("channelExternalReferenceCode", null);
 		}
@@ -164,15 +184,6 @@ public class DiscountChannelSerDes {
 		else {
 			map.put(
 				"channelId", String.valueOf(discountChannel.getChannelId()));
-		}
-
-		if (discountChannel.getChannelName() == null) {
-			map.put("channelName", null);
-		}
-		else {
-			map.put(
-				"channelName",
-				String.valueOf(discountChannel.getChannelName()));
 		}
 
 		if (discountChannel.getDiscountExternalReferenceCode() == null) {
@@ -221,8 +232,21 @@ public class DiscountChannelSerDes {
 			DiscountChannel discountChannel, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(
-					jsonParserFieldName, "channelExternalReferenceCode")) {
+			if (Objects.equals(jsonParserFieldName, "actions")) {
+				if (jsonParserFieldValue != null) {
+					discountChannel.setActions(
+						(Map)DiscountChannelSerDes.toMap(
+							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "channel")) {
+				if (jsonParserFieldValue != null) {
+					discountChannel.setChannel(
+						ChannelSerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "channelExternalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
 					discountChannel.setChannelExternalReferenceCode(
@@ -233,12 +257,6 @@ public class DiscountChannelSerDes {
 				if (jsonParserFieldValue != null) {
 					discountChannel.setChannelId(
 						Long.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "channelName")) {
-				if (jsonParserFieldValue != null) {
-					discountChannel.setChannelName(
-						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(

@@ -90,14 +90,20 @@ public abstract class BaseDiscountResourceImpl
 	@GET
 	@Parameters(
 		value = {
+			@Parameter(in = ParameterIn.QUERY, name = "search"),
+			@Parameter(in = ParameterIn.QUERY, name = "filter"),
 			@Parameter(in = ParameterIn.QUERY, name = "page"),
-			@Parameter(in = ParameterIn.QUERY, name = "pageSize")
+			@Parameter(in = ParameterIn.QUERY, name = "pageSize"),
+			@Parameter(in = ParameterIn.QUERY, name = "sort")
 		}
 	)
 	@Path("/discounts")
 	@Produces({"application/json", "application/xml"})
 	@Tags(value = {@Tag(name = "Discount")})
-	public Page<Discount> getDiscountsPage(@Context Pagination pagination)
+	public Page<Discount> getDiscountsPage(
+			@Parameter(hidden = true) @QueryParam("search") String search,
+			@Context Filter filter, @Context Pagination pagination,
+			@Context Sort[] sorts)
 		throws Exception {
 
 		return Page.of(Collections.emptyList());
@@ -106,7 +112,7 @@ public abstract class BaseDiscountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts' -d $'{"active": ___, "couponCode": ___, "customFields": ___, "discountAccountGroups": ___, "discountAccounts": ___, "discountCategories": ___, "discountChannels": ___, "discountProductGroups": ___, "discountProducts": ___, "discountRules": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "level": ___, "limitationTimes": ___, "limitationTimesPerAccount": ___, "limitationType": ___, "maximumDiscountAmount": ___, "neverExpire": ___, "numberOfUse": ___, "percentageLevel1": ___, "percentageLevel2": ___, "percentageLevel3": ___, "percentageLevel4": ___, "rulesConjunction": ___, "target": ___, "title": ___, "useCouponCode": ___, "usePercentage": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts' -d $'{"active": ___, "amountFormatted": ___, "couponCode": ___, "customFields": ___, "discountAccountGroups": ___, "discountAccounts": ___, "discountCategories": ___, "discountChannels": ___, "discountProductGroups": ___, "discountProducts": ___, "discountRules": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "level": ___, "limitationTimes": ___, "limitationTimesPerAccount": ___, "limitationType": ___, "maximumDiscountAmount": ___, "neverExpire": ___, "numberOfUse": ___, "percentageLevel1": ___, "percentageLevel2": ___, "percentageLevel3": ___, "percentageLevel4": ___, "rulesConjunction": ___, "target": ___, "title": ___, "useCouponCode": ___, "usePercentage": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -201,7 +207,7 @@ public abstract class BaseDiscountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}' -d $'{"active": ___, "couponCode": ___, "customFields": ___, "discountAccountGroups": ___, "discountAccounts": ___, "discountCategories": ___, "discountChannels": ___, "discountProductGroups": ___, "discountProducts": ___, "discountRules": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "level": ___, "limitationTimes": ___, "limitationTimesPerAccount": ___, "limitationType": ___, "maximumDiscountAmount": ___, "neverExpire": ___, "numberOfUse": ___, "percentageLevel1": ___, "percentageLevel2": ___, "percentageLevel3": ___, "percentageLevel4": ___, "rulesConjunction": ___, "target": ___, "title": ___, "useCouponCode": ___, "usePercentage": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/by-externalReferenceCode/{externalReferenceCode}' -d $'{"active": ___, "amountFormatted": ___, "couponCode": ___, "customFields": ___, "discountAccountGroups": ___, "discountAccounts": ___, "discountCategories": ___, "discountChannels": ___, "discountProductGroups": ___, "discountProducts": ___, "discountRules": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "level": ___, "limitationTimes": ___, "limitationTimesPerAccount": ___, "limitationType": ___, "maximumDiscountAmount": ___, "neverExpire": ___, "numberOfUse": ___, "percentageLevel1": ___, "percentageLevel2": ___, "percentageLevel3": ___, "percentageLevel4": ___, "rulesConjunction": ___, "target": ___, "title": ___, "useCouponCode": ___, "usePercentage": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -300,7 +306,7 @@ public abstract class BaseDiscountResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/{id}' -d $'{"active": ___, "couponCode": ___, "customFields": ___, "discountAccountGroups": ___, "discountAccounts": ___, "discountCategories": ___, "discountChannels": ___, "discountProductGroups": ___, "discountProducts": ___, "discountRules": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "level": ___, "limitationTimes": ___, "limitationTimesPerAccount": ___, "limitationType": ___, "maximumDiscountAmount": ___, "neverExpire": ___, "numberOfUse": ___, "percentageLevel1": ___, "percentageLevel2": ___, "percentageLevel3": ___, "percentageLevel4": ___, "rulesConjunction": ___, "target": ___, "title": ___, "useCouponCode": ___, "usePercentage": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PATCH' 'http://localhost:8080/o/headless-commerce-admin-pricing/v2.0/discounts/{id}' -d $'{"active": ___, "amountFormatted": ___, "couponCode": ___, "customFields": ___, "discountAccountGroups": ___, "discountAccounts": ___, "discountCategories": ___, "discountChannels": ___, "discountProductGroups": ___, "discountProducts": ___, "discountRules": ___, "displayDate": ___, "expirationDate": ___, "externalReferenceCode": ___, "id": ___, "level": ___, "limitationTimes": ___, "limitationTimesPerAccount": ___, "limitationType": ___, "maximumDiscountAmount": ___, "neverExpire": ___, "numberOfUse": ___, "percentageLevel1": ___, "percentageLevel2": ___, "percentageLevel3": ___, "percentageLevel4": ___, "rulesConjunction": ___, "target": ___, "title": ___, "useCouponCode": ___, "usePercentage": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -361,7 +367,7 @@ public abstract class BaseDiscountResourceImpl
 			Map<String, Serializable> parameters, String search)
 		throws Exception {
 
-		return getDiscountsPage(pagination);
+		return getDiscountsPage(search, filter, pagination, sorts);
 	}
 
 	@Override

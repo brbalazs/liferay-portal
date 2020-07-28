@@ -5475,6 +5475,7 @@ paths:
             tags: ["PriceEntry"]
     /price-entries/{id}/product:
         get:
+            operationId: getPriceEntryIdProduct
             parameters:
                 - in: path
                   name: id
@@ -5539,6 +5540,7 @@ paths:
             tags: ["Product"]
     /price-entries/{id}/sku:
         get:
+            operationId: getPriceEntryIdSku
             parameters:
                 - in: path
                   name: id

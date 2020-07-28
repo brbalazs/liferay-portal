@@ -33,7 +33,9 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -44,12 +46,42 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Generated("")
 @GraphQLName("PriceListAccountGroup")
 @JsonFilter("Liferay.Vulcan")
+@Schema(requiredProperties = {"accountGroupId", "priceListId"})
 @XmlRootElement(name = "PriceListAccountGroup")
 public class PriceListAccountGroup {
 
 	public static PriceListAccountGroup toDTO(String json) {
 		return ObjectMapperUtil.readValue(PriceListAccountGroup.class, json);
 	}
+
+	@Schema
+	@Valid
+	public AccountGroup getAccountGroup() {
+		return accountGroup;
+	}
+
+	public void setAccountGroup(AccountGroup accountGroup) {
+		this.accountGroup = accountGroup;
+	}
+
+	@JsonIgnore
+	public void setAccountGroup(
+		UnsafeSupplier<AccountGroup, Exception> accountGroupUnsafeSupplier) {
+
+		try {
+			accountGroup = accountGroupUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected AccountGroup accountGroup;
 
 	@Schema
 	public String getAccountGroupExternalReferenceCode() {
@@ -111,23 +143,26 @@ public class PriceListAccountGroup {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long accountGroupId;
 
 	@Schema
-	public String getAccountGroupName() {
-		return accountGroupName;
+	@Valid
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
 	}
 
-	public void setAccountGroupName(String accountGroupName) {
-		this.accountGroupName = accountGroupName;
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
 	}
 
 	@JsonIgnore
-	public void setAccountGroupName(
-		UnsafeSupplier<String, Exception> accountGroupNameUnsafeSupplier) {
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
 
 		try {
-			accountGroupName = accountGroupNameUnsafeSupplier.get();
+			actions = actionsUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -139,7 +174,7 @@ public class PriceListAccountGroup {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected String accountGroupName;
+	protected Map<String, Map<String, String>> actions;
 
 	@DecimalMin("0")
 	@Schema
@@ -256,6 +291,7 @@ public class PriceListAccountGroup {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long priceListId;
 
 	@Override
@@ -286,6 +322,16 @@ public class PriceListAccountGroup {
 
 		sb.append("{");
 
+		if (accountGroup != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"accountGroup\": ");
+
+			sb.append(String.valueOf(accountGroup));
+		}
+
 		if (accountGroupExternalReferenceCode != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -310,18 +356,14 @@ public class PriceListAccountGroup {
 			sb.append(accountGroupId);
 		}
 
-		if (accountGroupName != null) {
+		if (actions != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"accountGroupName\": ");
+			sb.append("\"actions\": ");
 
-			sb.append("\"");
-
-			sb.append(_escape(accountGroupName));
-
-			sb.append("\"");
+			sb.append(_toJSON(actions));
 		}
 
 		if (id != null) {

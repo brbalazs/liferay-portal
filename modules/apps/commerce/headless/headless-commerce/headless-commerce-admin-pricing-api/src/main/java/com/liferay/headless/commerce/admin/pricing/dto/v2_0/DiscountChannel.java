@@ -33,7 +33,9 @@ import java.util.Set;
 
 import javax.annotation.Generated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -44,12 +46,72 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Generated("")
 @GraphQLName("DiscountChannel")
 @JsonFilter("Liferay.Vulcan")
+@Schema(requiredProperties = {"channelId", "discountId"})
 @XmlRootElement(name = "DiscountChannel")
 public class DiscountChannel {
 
 	public static DiscountChannel toDTO(String json) {
 		return ObjectMapperUtil.readValue(DiscountChannel.class, json);
 	}
+
+	@Schema
+	@Valid
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
+	}
+
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
+	}
+
+	@JsonIgnore
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
+
+		try {
+			actions = actionsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Map<String, Map<String, String>> actions;
+
+	@Schema
+	@Valid
+	public Channel getChannel() {
+		return channel;
+	}
+
+	public void setChannel(Channel channel) {
+		this.channel = channel;
+	}
+
+	@JsonIgnore
+	public void setChannel(
+		UnsafeSupplier<Channel, Exception> channelUnsafeSupplier) {
+
+		try {
+			channel = channelUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Channel channel;
 
 	@Schema
 	public String getChannelExternalReferenceCode() {
@@ -110,35 +172,8 @@ public class DiscountChannel {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long channelId;
-
-	@Schema
-	public String getChannelName() {
-		return channelName;
-	}
-
-	public void setChannelName(String channelName) {
-		this.channelName = channelName;
-	}
-
-	@JsonIgnore
-	public void setChannelName(
-		UnsafeSupplier<String, Exception> channelNameUnsafeSupplier) {
-
-		try {
-			channelName = channelNameUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	protected String channelName;
 
 	@Schema
 	public String getDiscountExternalReferenceCode() {
@@ -199,6 +234,7 @@ public class DiscountChannel {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long discountId;
 
 	@DecimalMin("0")
@@ -255,6 +291,26 @@ public class DiscountChannel {
 
 		sb.append("{");
 
+		if (actions != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(actions));
+		}
+
+		if (channel != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"channel\": ");
+
+			sb.append(String.valueOf(channel));
+		}
+
 		if (channelExternalReferenceCode != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -277,20 +333,6 @@ public class DiscountChannel {
 			sb.append("\"channelId\": ");
 
 			sb.append(channelId);
-		}
-
-		if (channelName != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"channelName\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(channelName));
-
-			sb.append("\"");
 		}
 
 		if (discountExternalReferenceCode != null) {

@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.admin.pricing.client.dto.v2_0;
 import com.liferay.headless.commerce.admin.pricing.client.function.UnsafeSupplier;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.PriceModifierProductGroupSerDes;
 
+import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -31,6 +32,28 @@ public class PriceModifierProductGroup implements Cloneable {
 	public static PriceModifierProductGroup toDTO(String json) {
 		return PriceModifierProductGroupSerDes.toDTO(json);
 	}
+
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
+	}
+
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
+	}
+
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
+
+		try {
+			actions = actionsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Map<String, Map<String, String>> actions;
 
 	public Long getId() {
 		return id;
@@ -98,6 +121,27 @@ public class PriceModifierProductGroup implements Cloneable {
 
 	protected Long priceModifierId;
 
+	public ProductGroup getProductGroup() {
+		return productGroup;
+	}
+
+	public void setProductGroup(ProductGroup productGroup) {
+		this.productGroup = productGroup;
+	}
+
+	public void setProductGroup(
+		UnsafeSupplier<ProductGroup, Exception> productGroupUnsafeSupplier) {
+
+		try {
+			productGroup = productGroupUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected ProductGroup productGroup;
+
 	public String getProductGroupExternalReferenceCode() {
 		return productGroupExternalReferenceCode;
 	}
@@ -144,27 +188,6 @@ public class PriceModifierProductGroup implements Cloneable {
 	}
 
 	protected Long productGroupId;
-
-	public String getProductGroupName() {
-		return productGroupName;
-	}
-
-	public void setProductGroupName(String productGroupName) {
-		this.productGroupName = productGroupName;
-	}
-
-	public void setProductGroupName(
-		UnsafeSupplier<String, Exception> productGroupNameUnsafeSupplier) {
-
-		try {
-			productGroupName = productGroupNameUnsafeSupplier.get();
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	protected String productGroupName;
 
 	@Override
 	public PriceModifierProductGroup clone() throws CloneNotSupportedException {

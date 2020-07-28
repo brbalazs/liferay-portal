@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.admin.pricing.client.pagination.Page;
 import com.liferay.headless.commerce.admin.pricing.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.pricing.client.resource.v2_0.PriceModifierCategoryResource;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.PriceModifierCategorySerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -47,6 +48,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.log.CaptureAppender;
 import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
@@ -55,11 +57,14 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +76,9 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Level;
 
 import org.junit.After;
@@ -192,7 +199,6 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 			randomPriceModifierCategory();
 
 		priceModifierCategory.setCategoryExternalReferenceCode(regex);
-		priceModifierCategory.setCategoryName(regex);
 		priceModifierCategory.setPriceModifierExternalReferenceCode(regex);
 
 		String json = PriceModifierCategorySerDes.toJSON(priceModifierCategory);
@@ -203,7 +209,6 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 
 		Assert.assertEquals(
 			regex, priceModifierCategory.getCategoryExternalReferenceCode());
-		Assert.assertEquals(regex, priceModifierCategory.getCategoryName());
 		Assert.assertEquals(
 			regex,
 			priceModifierCategory.getPriceModifierExternalReferenceCode());
@@ -447,7 +452,8 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 			priceModifierCategoryResource.
 				getPriceModifierIdPriceModifierCategoriesPage(
 					testGetPriceModifierIdPriceModifierCategoriesPage_getId(),
-					Pagination.of(1, 2));
+					RandomTestUtil.randomString(), null, Pagination.of(1, 2),
+					null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 
@@ -463,7 +469,7 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 			page =
 				priceModifierCategoryResource.
 					getPriceModifierIdPriceModifierCategoriesPage(
-						irrelevantId, Pagination.of(1, 2));
+						irrelevantId, null, null, Pagination.of(1, 2), null);
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -484,7 +490,7 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 		page =
 			priceModifierCategoryResource.
 				getPriceModifierIdPriceModifierCategoriesPage(
-					id, Pagination.of(1, 2));
+					id, null, null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -496,6 +502,78 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 		priceModifierCategoryResource.deletePriceModifierCategory(null);
 
 		priceModifierCategoryResource.deletePriceModifierCategory(null);
+	}
+
+	@Test
+	public void testGetPriceModifierIdPriceModifierCategoriesPageWithFilterDateTimeEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetPriceModifierIdPriceModifierCategoriesPage_getId();
+
+		PriceModifierCategory priceModifierCategory1 =
+			randomPriceModifierCategory();
+
+		priceModifierCategory1 =
+			testGetPriceModifierIdPriceModifierCategoriesPage_addPriceModifierCategory(
+				id, priceModifierCategory1);
+
+		for (EntityField entityField : entityFields) {
+			Page<PriceModifierCategory> page =
+				priceModifierCategoryResource.
+					getPriceModifierIdPriceModifierCategoriesPage(
+						id, null,
+						getFilterString(
+							entityField, "between", priceModifierCategory1),
+						Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(priceModifierCategory1),
+				(List<PriceModifierCategory>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetPriceModifierIdPriceModifierCategoriesPageWithFilterStringEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetPriceModifierIdPriceModifierCategoriesPage_getId();
+
+		PriceModifierCategory priceModifierCategory1 =
+			testGetPriceModifierIdPriceModifierCategoriesPage_addPriceModifierCategory(
+				id, randomPriceModifierCategory());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		PriceModifierCategory priceModifierCategory2 =
+			testGetPriceModifierIdPriceModifierCategoriesPage_addPriceModifierCategory(
+				id, randomPriceModifierCategory());
+
+		for (EntityField entityField : entityFields) {
+			Page<PriceModifierCategory> page =
+				priceModifierCategoryResource.
+					getPriceModifierIdPriceModifierCategoriesPage(
+						id, null,
+						getFilterString(
+							entityField, "eq", priceModifierCategory1),
+						Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(priceModifierCategory1),
+				(List<PriceModifierCategory>)page.getItems());
+		}
 	}
 
 	@Test
@@ -519,7 +597,7 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 		Page<PriceModifierCategory> page1 =
 			priceModifierCategoryResource.
 				getPriceModifierIdPriceModifierCategoriesPage(
-					id, Pagination.of(1, 2));
+					id, null, null, Pagination.of(1, 2), null);
 
 		List<PriceModifierCategory> priceModifierCategories1 =
 			(List<PriceModifierCategory>)page1.getItems();
@@ -531,7 +609,7 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 		Page<PriceModifierCategory> page2 =
 			priceModifierCategoryResource.
 				getPriceModifierIdPriceModifierCategoriesPage(
-					id, Pagination.of(2, 2));
+					id, null, null, Pagination.of(2, 2), null);
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -545,13 +623,149 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 		Page<PriceModifierCategory> page3 =
 			priceModifierCategoryResource.
 				getPriceModifierIdPriceModifierCategoriesPage(
-					id, Pagination.of(1, 3));
+					id, null, null, Pagination.of(1, 3), null);
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(
 				priceModifierCategory1, priceModifierCategory2,
 				priceModifierCategory3),
 			(List<PriceModifierCategory>)page3.getItems());
+	}
+
+	@Test
+	public void testGetPriceModifierIdPriceModifierCategoriesPageWithSortDateTime()
+		throws Exception {
+
+		testGetPriceModifierIdPriceModifierCategoriesPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, priceModifierCategory1, priceModifierCategory2) -> {
+				BeanUtils.setProperty(
+					priceModifierCategory1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetPriceModifierIdPriceModifierCategoriesPageWithSortInteger()
+		throws Exception {
+
+		testGetPriceModifierIdPriceModifierCategoriesPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, priceModifierCategory1, priceModifierCategory2) -> {
+				BeanUtils.setProperty(
+					priceModifierCategory1, entityField.getName(), 0);
+				BeanUtils.setProperty(
+					priceModifierCategory2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetPriceModifierIdPriceModifierCategoriesPageWithSortString()
+		throws Exception {
+
+		testGetPriceModifierIdPriceModifierCategoriesPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, priceModifierCategory1, priceModifierCategory2) -> {
+				Class<?> clazz = priceModifierCategory1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanUtils.setProperty(
+						priceModifierCategory1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanUtils.setProperty(
+						priceModifierCategory2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						priceModifierCategory1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						priceModifierCategory2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanUtils.setProperty(
+						priceModifierCategory1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanUtils.setProperty(
+						priceModifierCategory2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetPriceModifierIdPriceModifierCategoriesPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer
+				<EntityField, PriceModifierCategory, PriceModifierCategory,
+				 Exception> unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetPriceModifierIdPriceModifierCategoriesPage_getId();
+
+		PriceModifierCategory priceModifierCategory1 =
+			randomPriceModifierCategory();
+		PriceModifierCategory priceModifierCategory2 =
+			randomPriceModifierCategory();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(
+				entityField, priceModifierCategory1, priceModifierCategory2);
+		}
+
+		priceModifierCategory1 =
+			testGetPriceModifierIdPriceModifierCategoriesPage_addPriceModifierCategory(
+				id, priceModifierCategory1);
+
+		priceModifierCategory2 =
+			testGetPriceModifierIdPriceModifierCategoriesPage_addPriceModifierCategory(
+				id, priceModifierCategory2);
+
+		for (EntityField entityField : entityFields) {
+			Page<PriceModifierCategory> ascPage =
+				priceModifierCategoryResource.
+					getPriceModifierIdPriceModifierCategoriesPage(
+						id, null, null, Pagination.of(1, 2),
+						entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(priceModifierCategory1, priceModifierCategory2),
+				(List<PriceModifierCategory>)ascPage.getItems());
+
+			Page<PriceModifierCategory> descPage =
+				priceModifierCategoryResource.
+					getPriceModifierIdPriceModifierCategoriesPage(
+						id, null, null, Pagination.of(1, 2),
+						entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(priceModifierCategory2, priceModifierCategory1),
+				(List<PriceModifierCategory>)descPage.getItems());
+		}
 	}
 
 	protected PriceModifierCategory
@@ -600,6 +814,9 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
+
+	@Rule
+	public SearchTestRule searchTestRule = new SearchTestRule();
 
 	protected PriceModifierCategory
 			testGraphQLPriceModifierCategory_addPriceModifierCategory()
@@ -683,6 +900,22 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (priceModifierCategory.getActions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("category", additionalAssertFieldName)) {
+				if (priceModifierCategory.getCategory() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"categoryExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -698,14 +931,6 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 
 			if (Objects.equals("categoryId", additionalAssertFieldName)) {
 				if (priceModifierCategory.getCategoryId() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("categoryName", additionalAssertFieldName)) {
-				if (priceModifierCategory.getCategoryName() == null) {
 					valid = false;
 				}
 
@@ -827,6 +1052,28 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (!equals(
+						(Map)priceModifierCategory1.getActions(),
+						(Map)priceModifierCategory2.getActions())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("category", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceModifierCategory1.getCategory(),
+						priceModifierCategory2.getCategory())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"categoryExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -847,17 +1094,6 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 				if (!Objects.deepEquals(
 						priceModifierCategory1.getCategoryId(),
 						priceModifierCategory2.getCategoryId())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("categoryName", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						priceModifierCategory1.getCategoryName(),
-						priceModifierCategory2.getCategoryName())) {
 
 					return false;
 				}
@@ -986,6 +1222,16 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("actions")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("category")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("categoryExternalReferenceCode")) {
 			sb.append("'");
 			sb.append(
@@ -999,14 +1245,6 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 		if (entityFieldName.equals("categoryId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("categoryName")) {
-			sb.append("'");
-			sb.append(String.valueOf(priceModifierCategory.getCategoryName()));
-			sb.append("'");
-
-			return sb.toString();
 		}
 
 		if (entityFieldName.equals("id")) {
@@ -1079,8 +1317,6 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 				categoryExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				categoryId = RandomTestUtil.randomLong();
-				categoryName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				priceModifierExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());

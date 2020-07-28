@@ -34,6 +34,7 @@ import java.util.Set;
 import javax.annotation.Generated;
 
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -44,6 +45,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Generated("")
 @GraphQLName("PriceListDiscount")
 @JsonFilter("Liferay.Vulcan")
+@Schema(requiredProperties = {"discountId", "priceListId"})
 @XmlRootElement(name = "PriceListDiscount")
 public class PriceListDiscount {
 
@@ -110,6 +112,7 @@ public class PriceListDiscount {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long discountId;
 
 	@Schema
@@ -255,6 +258,7 @@ public class PriceListDiscount {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Long priceListId;
 
 	@Override

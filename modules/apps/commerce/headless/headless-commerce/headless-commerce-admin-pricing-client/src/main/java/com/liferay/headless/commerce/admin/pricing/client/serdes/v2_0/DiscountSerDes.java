@@ -69,6 +69,16 @@ public class DiscountSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (discount.getActions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(discount.getActions()));
+		}
+
 		if (discount.getActive() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -77,6 +87,20 @@ public class DiscountSerDes {
 			sb.append("\"active\": ");
 
 			sb.append(discount.getActive());
+		}
+
+		if (discount.getAmountFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"amountFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(discount.getAmountFormatted()));
+
+			sb.append("\"");
 		}
 
 		if (discount.getCouponCode() != null) {
@@ -500,11 +524,27 @@ public class DiscountSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (discount.getActions() == null) {
+			map.put("actions", null);
+		}
+		else {
+			map.put("actions", String.valueOf(discount.getActions()));
+		}
+
 		if (discount.getActive() == null) {
 			map.put("active", null);
 		}
 		else {
 			map.put("active", String.valueOf(discount.getActive()));
+		}
+
+		if (discount.getAmountFormatted() == null) {
+			map.put("amountFormatted", null);
+		}
+		else {
+			map.put(
+				"amountFormatted",
+				String.valueOf(discount.getAmountFormatted()));
 		}
 
 		if (discount.getCouponCode() == null) {
@@ -768,9 +808,21 @@ public class DiscountSerDes {
 			Discount discount, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "active")) {
+			if (Objects.equals(jsonParserFieldName, "actions")) {
+				if (jsonParserFieldValue != null) {
+					discount.setActions(
+						(Map)DiscountSerDes.toMap(
+							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "active")) {
 				if (jsonParserFieldValue != null) {
 					discount.setActive((Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "amountFormatted")) {
+				if (jsonParserFieldValue != null) {
+					discount.setAmountFormatted((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "couponCode")) {

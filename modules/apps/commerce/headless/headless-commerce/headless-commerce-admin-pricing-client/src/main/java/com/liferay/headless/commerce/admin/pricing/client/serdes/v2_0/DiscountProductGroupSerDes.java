@@ -55,6 +55,16 @@ public class DiscountProductGroupSerDes {
 
 		sb.append("{");
 
+		if (discountProductGroup.getActions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(discountProductGroup.getActions()));
+		}
+
 		if (discountProductGroup.getDiscountExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -91,6 +101,16 @@ public class DiscountProductGroupSerDes {
 			sb.append(discountProductGroup.getId());
 		}
 
+		if (discountProductGroup.getProductGroup() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"productGroup\": ");
+
+			sb.append(String.valueOf(discountProductGroup.getProductGroup()));
+		}
+
 		if (discountProductGroup.getProductGroupExternalReferenceCode() !=
 				null) {
 
@@ -120,20 +140,6 @@ public class DiscountProductGroupSerDes {
 			sb.append(discountProductGroup.getProductGroupId());
 		}
 
-		if (discountProductGroup.getProductGroupName() != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"productGroupName\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(discountProductGroup.getProductGroupName()));
-
-			sb.append("\"");
-		}
-
 		sb.append("}");
 
 		return sb.toString();
@@ -154,6 +160,14 @@ public class DiscountProductGroupSerDes {
 		}
 
 		Map<String, String> map = new TreeMap<>();
+
+		if (discountProductGroup.getActions() == null) {
+			map.put("actions", null);
+		}
+		else {
+			map.put(
+				"actions", String.valueOf(discountProductGroup.getActions()));
+		}
 
 		if (discountProductGroup.getDiscountExternalReferenceCode() == null) {
 			map.put("discountExternalReferenceCode", null);
@@ -181,6 +195,15 @@ public class DiscountProductGroupSerDes {
 			map.put("id", String.valueOf(discountProductGroup.getId()));
 		}
 
+		if (discountProductGroup.getProductGroup() == null) {
+			map.put("productGroup", null);
+		}
+		else {
+			map.put(
+				"productGroup",
+				String.valueOf(discountProductGroup.getProductGroup()));
+		}
+
 		if (discountProductGroup.getProductGroupExternalReferenceCode() ==
 				null) {
 
@@ -201,15 +224,6 @@ public class DiscountProductGroupSerDes {
 			map.put(
 				"productGroupId",
 				String.valueOf(discountProductGroup.getProductGroupId()));
-		}
-
-		if (discountProductGroup.getProductGroupName() == null) {
-			map.put("productGroupName", null);
-		}
-		else {
-			map.put(
-				"productGroupName",
-				String.valueOf(discountProductGroup.getProductGroupName()));
 		}
 
 		return map;
@@ -233,8 +247,15 @@ public class DiscountProductGroupSerDes {
 			DiscountProductGroup discountProductGroup,
 			String jsonParserFieldName, Object jsonParserFieldValue) {
 
-			if (Objects.equals(
-					jsonParserFieldName, "discountExternalReferenceCode")) {
+			if (Objects.equals(jsonParserFieldName, "actions")) {
+				if (jsonParserFieldValue != null) {
+					discountProductGroup.setActions(
+						(Map)DiscountProductGroupSerDes.toMap(
+							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "discountExternalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
 					discountProductGroup.setDiscountExternalReferenceCode(
@@ -253,6 +274,12 @@ public class DiscountProductGroupSerDes {
 						Long.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "productGroup")) {
+				if (jsonParserFieldValue != null) {
+					discountProductGroup.setProductGroup(
+						ProductGroupSerDes.toDTO((String)jsonParserFieldValue));
+				}
+			}
 			else if (Objects.equals(
 						jsonParserFieldName,
 						"productGroupExternalReferenceCode")) {
@@ -266,12 +293,6 @@ public class DiscountProductGroupSerDes {
 				if (jsonParserFieldValue != null) {
 					discountProductGroup.setProductGroupId(
 						Long.valueOf((String)jsonParserFieldValue));
-				}
-			}
-			else if (Objects.equals(jsonParserFieldName, "productGroupName")) {
-				if (jsonParserFieldValue != null) {
-					discountProductGroup.setProductGroupName(
-						(String)jsonParserFieldValue);
 				}
 			}
 			else {

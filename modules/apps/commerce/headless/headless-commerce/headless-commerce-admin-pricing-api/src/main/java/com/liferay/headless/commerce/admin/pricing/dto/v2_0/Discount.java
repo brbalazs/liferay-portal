@@ -42,6 +42,7 @@ import javax.annotation.Generated;
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -52,13 +53,47 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Generated("")
 @GraphQLName("Discount")
 @JsonFilter("Liferay.Vulcan")
-@Schema(requiredProperties = {"limitationType", "target", "title"})
+@Schema(
+	requiredProperties = {
+		"level", "limitationType", "target", "title", "usePercentage"
+	}
+)
 @XmlRootElement(name = "Discount")
 public class Discount {
 
 	public static Discount toDTO(String json) {
 		return ObjectMapperUtil.readValue(Discount.class, json);
 	}
+
+	@Schema
+	@Valid
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
+	}
+
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
+	}
+
+	@JsonIgnore
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
+
+		try {
+			actions = actionsUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Map<String, Map<String, String>> actions;
 
 	@Schema
 	public Boolean getActive() {
@@ -87,6 +122,34 @@ public class Discount {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Boolean active;
+
+	@Schema
+	public String getAmountFormatted() {
+		return amountFormatted;
+	}
+
+	public void setAmountFormatted(String amountFormatted) {
+		this.amountFormatted = amountFormatted;
+	}
+
+	@JsonIgnore
+	public void setAmountFormatted(
+		UnsafeSupplier<String, Exception> amountFormattedUnsafeSupplier) {
+
+		try {
+			amountFormatted = amountFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String amountFormatted;
 
 	@Schema
 	public String getCouponCode() {
@@ -495,6 +558,7 @@ public class Discount {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotEmpty
 	protected String level;
 
 	@DecimalMin("0")
@@ -936,6 +1000,7 @@ public class Discount {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@NotNull
 	protected Boolean usePercentage;
 
 	@Override
@@ -968,6 +1033,16 @@ public class Discount {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (actions != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(actions));
+		}
+
 		if (active != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -976,6 +1051,20 @@ public class Discount {
 			sb.append("\"active\": ");
 
 			sb.append(active);
+		}
+
+		if (amountFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"amountFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(amountFormatted));
+
+			sb.append("\"");
 		}
 
 		if (couponCode != null) {

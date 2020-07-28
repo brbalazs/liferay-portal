@@ -66,6 +66,16 @@ public class PriceListSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (priceList.getActions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(priceList.getActions()));
+		}
+
 		if (priceList.getActive() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -386,6 +396,13 @@ public class PriceListSerDes {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (priceList.getActions() == null) {
+			map.put("actions", null);
+		}
+		else {
+			map.put("actions", String.valueOf(priceList.getActions()));
+		}
+
 		if (priceList.getActive() == null) {
 			map.put("active", null);
 		}
@@ -576,7 +593,14 @@ public class PriceListSerDes {
 			PriceList priceList, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "active")) {
+			if (Objects.equals(jsonParserFieldName, "actions")) {
+				if (jsonParserFieldValue != null) {
+					priceList.setActions(
+						(Map)PriceListSerDes.toMap(
+							(String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "active")) {
 				if (jsonParserFieldValue != null) {
 					priceList.setActive((Boolean)jsonParserFieldValue);
 				}

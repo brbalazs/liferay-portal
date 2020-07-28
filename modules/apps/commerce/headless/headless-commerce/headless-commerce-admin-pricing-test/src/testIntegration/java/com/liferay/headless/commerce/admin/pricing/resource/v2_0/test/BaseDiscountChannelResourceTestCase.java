@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.admin.pricing.client.pagination.Page;
 import com.liferay.headless.commerce.admin.pricing.client.pagination.Pagination;
 import com.liferay.headless.commerce.admin.pricing.client.resource.v2_0.DiscountChannelResource;
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.DiscountChannelSerDes;
+import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -47,6 +48,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.log.CaptureAppender;
 import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
@@ -55,11 +57,14 @@ import com.liferay.portal.vulcan.resource.EntityModelResource;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +76,9 @@ import javax.annotation.Generated;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Level;
 
 import org.junit.After;
@@ -186,7 +193,6 @@ public abstract class BaseDiscountChannelResourceTestCase {
 		DiscountChannel discountChannel = randomDiscountChannel();
 
 		discountChannel.setChannelExternalReferenceCode(regex);
-		discountChannel.setChannelName(regex);
 		discountChannel.setDiscountExternalReferenceCode(regex);
 
 		String json = DiscountChannelSerDes.toJSON(discountChannel);
@@ -197,7 +203,6 @@ public abstract class BaseDiscountChannelResourceTestCase {
 
 		Assert.assertEquals(
 			regex, discountChannel.getChannelExternalReferenceCode());
-		Assert.assertEquals(regex, discountChannel.getChannelName());
 		Assert.assertEquals(
 			regex, discountChannel.getDiscountExternalReferenceCode());
 	}
@@ -429,7 +434,7 @@ public abstract class BaseDiscountChannelResourceTestCase {
 		Page<DiscountChannel> page =
 			discountChannelResource.getDiscountIdDiscountChannelsPage(
 				testGetDiscountIdDiscountChannelsPage_getId(),
-				Pagination.of(1, 2));
+				RandomTestUtil.randomString(), null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(0, page.getTotalCount());
 
@@ -443,7 +448,7 @@ public abstract class BaseDiscountChannelResourceTestCase {
 					irrelevantId, randomIrrelevantDiscountChannel());
 
 			page = discountChannelResource.getDiscountIdDiscountChannelsPage(
-				irrelevantId, Pagination.of(1, 2));
+				irrelevantId, null, null, Pagination.of(1, 2), null);
 
 			Assert.assertEquals(1, page.getTotalCount());
 
@@ -462,7 +467,7 @@ public abstract class BaseDiscountChannelResourceTestCase {
 				id, randomDiscountChannel());
 
 		page = discountChannelResource.getDiscountIdDiscountChannelsPage(
-			id, Pagination.of(1, 2));
+			id, null, null, Pagination.of(1, 2), null);
 
 		Assert.assertEquals(2, page.getTotalCount());
 
@@ -474,6 +479,73 @@ public abstract class BaseDiscountChannelResourceTestCase {
 		discountChannelResource.deleteDiscountChannel(null);
 
 		discountChannelResource.deleteDiscountChannel(null);
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountChannelsPageWithFilterDateTimeEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetDiscountIdDiscountChannelsPage_getId();
+
+		DiscountChannel discountChannel1 = randomDiscountChannel();
+
+		discountChannel1 =
+			testGetDiscountIdDiscountChannelsPage_addDiscountChannel(
+				id, discountChannel1);
+
+		for (EntityField entityField : entityFields) {
+			Page<DiscountChannel> page =
+				discountChannelResource.getDiscountIdDiscountChannelsPage(
+					id, null,
+					getFilterString(entityField, "between", discountChannel1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(discountChannel1),
+				(List<DiscountChannel>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountChannelsPageWithFilterStringEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.STRING);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetDiscountIdDiscountChannelsPage_getId();
+
+		DiscountChannel discountChannel1 =
+			testGetDiscountIdDiscountChannelsPage_addDiscountChannel(
+				id, randomDiscountChannel());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		DiscountChannel discountChannel2 =
+			testGetDiscountIdDiscountChannelsPage_addDiscountChannel(
+				id, randomDiscountChannel());
+
+		for (EntityField entityField : entityFields) {
+			Page<DiscountChannel> page =
+				discountChannelResource.getDiscountIdDiscountChannelsPage(
+					id, null,
+					getFilterString(entityField, "eq", discountChannel1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(discountChannel1),
+				(List<DiscountChannel>)page.getItems());
+		}
 	}
 
 	@Test
@@ -496,7 +568,7 @@ public abstract class BaseDiscountChannelResourceTestCase {
 
 		Page<DiscountChannel> page1 =
 			discountChannelResource.getDiscountIdDiscountChannelsPage(
-				id, Pagination.of(1, 2));
+				id, null, null, Pagination.of(1, 2), null);
 
 		List<DiscountChannel> discountChannels1 =
 			(List<DiscountChannel>)page1.getItems();
@@ -506,7 +578,7 @@ public abstract class BaseDiscountChannelResourceTestCase {
 
 		Page<DiscountChannel> page2 =
 			discountChannelResource.getDiscountIdDiscountChannelsPage(
-				id, Pagination.of(2, 2));
+				id, null, null, Pagination.of(2, 2), null);
 
 		Assert.assertEquals(3, page2.getTotalCount());
 
@@ -518,11 +590,143 @@ public abstract class BaseDiscountChannelResourceTestCase {
 
 		Page<DiscountChannel> page3 =
 			discountChannelResource.getDiscountIdDiscountChannelsPage(
-				id, Pagination.of(1, 3));
+				id, null, null, Pagination.of(1, 3), null);
 
 		assertEqualsIgnoringOrder(
 			Arrays.asList(discountChannel1, discountChannel2, discountChannel3),
 			(List<DiscountChannel>)page3.getItems());
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountChannelsPageWithSortDateTime()
+		throws Exception {
+
+		testGetDiscountIdDiscountChannelsPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, discountChannel1, discountChannel2) -> {
+				BeanUtils.setProperty(
+					discountChannel1, entityField.getName(),
+					DateUtils.addMinutes(new Date(), -2));
+			});
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountChannelsPageWithSortInteger()
+		throws Exception {
+
+		testGetDiscountIdDiscountChannelsPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, discountChannel1, discountChannel2) -> {
+				BeanUtils.setProperty(
+					discountChannel1, entityField.getName(), 0);
+				BeanUtils.setProperty(
+					discountChannel2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetDiscountIdDiscountChannelsPageWithSortString()
+		throws Exception {
+
+		testGetDiscountIdDiscountChannelsPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, discountChannel1, discountChannel2) -> {
+				Class<?> clazz = discountChannel1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanUtils.setProperty(
+						discountChannel1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanUtils.setProperty(
+						discountChannel2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanUtils.setProperty(
+						discountChannel1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanUtils.setProperty(
+						discountChannel2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanUtils.setProperty(
+						discountChannel1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanUtils.setProperty(
+						discountChannel2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetDiscountIdDiscountChannelsPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer
+				<EntityField, DiscountChannel, DiscountChannel, Exception>
+					unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Long id = testGetDiscountIdDiscountChannelsPage_getId();
+
+		DiscountChannel discountChannel1 = randomDiscountChannel();
+		DiscountChannel discountChannel2 = randomDiscountChannel();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(
+				entityField, discountChannel1, discountChannel2);
+		}
+
+		discountChannel1 =
+			testGetDiscountIdDiscountChannelsPage_addDiscountChannel(
+				id, discountChannel1);
+
+		discountChannel2 =
+			testGetDiscountIdDiscountChannelsPage_addDiscountChannel(
+				id, discountChannel2);
+
+		for (EntityField entityField : entityFields) {
+			Page<DiscountChannel> ascPage =
+				discountChannelResource.getDiscountIdDiscountChannelsPage(
+					id, null, null, Pagination.of(1, 2),
+					entityField.getName() + ":asc");
+
+			assertEquals(
+				Arrays.asList(discountChannel1, discountChannel2),
+				(List<DiscountChannel>)ascPage.getItems());
+
+			Page<DiscountChannel> descPage =
+				discountChannelResource.getDiscountIdDiscountChannelsPage(
+					id, null, null, Pagination.of(1, 2),
+					entityField.getName() + ":desc");
+
+			assertEquals(
+				Arrays.asList(discountChannel2, discountChannel1),
+				(List<DiscountChannel>)descPage.getItems());
+		}
 	}
 
 	protected DiscountChannel
@@ -567,6 +771,9 @@ public abstract class BaseDiscountChannelResourceTestCase {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
+
+	@Rule
+	public SearchTestRule searchTestRule = new SearchTestRule();
 
 	protected DiscountChannel testGraphQLDiscountChannel_addDiscountChannel()
 		throws Exception {
@@ -638,6 +845,22 @@ public abstract class BaseDiscountChannelResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (discountChannel.getActions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("channel", additionalAssertFieldName)) {
+				if (discountChannel.getChannel() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"channelExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -651,14 +874,6 @@ public abstract class BaseDiscountChannelResourceTestCase {
 
 			if (Objects.equals("channelId", additionalAssertFieldName)) {
 				if (discountChannel.getChannelId() == null) {
-					valid = false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("channelName", additionalAssertFieldName)) {
-				if (discountChannel.getChannelName() == null) {
 					valid = false;
 				}
 
@@ -779,6 +994,28 @@ public abstract class BaseDiscountChannelResourceTestCase {
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
 
+			if (Objects.equals("actions", additionalAssertFieldName)) {
+				if (!equals(
+						(Map)discountChannel1.getActions(),
+						(Map)discountChannel2.getActions())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("channel", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						discountChannel1.getChannel(),
+						discountChannel2.getChannel())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"channelExternalReferenceCode",
 					additionalAssertFieldName)) {
@@ -797,17 +1034,6 @@ public abstract class BaseDiscountChannelResourceTestCase {
 				if (!Objects.deepEquals(
 						discountChannel1.getChannelId(),
 						discountChannel2.getChannelId())) {
-
-					return false;
-				}
-
-				continue;
-			}
-
-			if (Objects.equals("channelName", additionalAssertFieldName)) {
-				if (!Objects.deepEquals(
-						discountChannel1.getChannelName(),
-						discountChannel2.getChannelName())) {
 
 					return false;
 				}
@@ -933,6 +1159,16 @@ public abstract class BaseDiscountChannelResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("actions")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("channel")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		if (entityFieldName.equals("channelExternalReferenceCode")) {
 			sb.append("'");
 			sb.append(
@@ -946,14 +1182,6 @@ public abstract class BaseDiscountChannelResourceTestCase {
 		if (entityFieldName.equals("channelId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
-		}
-
-		if (entityFieldName.equals("channelName")) {
-			sb.append("'");
-			sb.append(String.valueOf(discountChannel.getChannelName()));
-			sb.append("'");
-
-			return sb.toString();
 		}
 
 		if (entityFieldName.equals("discountExternalReferenceCode")) {
@@ -1023,8 +1251,6 @@ public abstract class BaseDiscountChannelResourceTestCase {
 				channelExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				channelId = RandomTestUtil.randomLong();
-				channelName = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
 				discountExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				discountId = RandomTestUtil.randomLong();
