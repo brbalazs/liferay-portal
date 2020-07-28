@@ -21,6 +21,8 @@ public class IndicesExistsIndexRequest
 	implements IndexRequest<IndicesExistsIndexResponse> {
 
 	public IndicesExistsIndexRequest(String... indexNames) {
+		setPreferLocalCluster(true);
+
 		_indexNames = indexNames;
 	}
 
@@ -47,6 +49,15 @@ public class IndicesExistsIndexRequest
 		throw new UnsupportedOperationException();
 	}
 
+	public boolean isPreferLocalCluster() {
+		return _preferLocalCluster;
+	}
+
+	public void setPreferLocalCluster(boolean preferLocalCluster) {
+		_preferLocalCluster = preferLocalCluster;
+	}
+
 	private final String[] _indexNames;
+	private boolean _preferLocalCluster;
 
 }

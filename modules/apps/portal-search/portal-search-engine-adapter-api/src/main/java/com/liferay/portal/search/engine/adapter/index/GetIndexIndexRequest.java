@@ -21,6 +21,8 @@ public class GetIndexIndexRequest
 	implements IndexRequest<GetIndexIndexResponse> {
 
 	public GetIndexIndexRequest(String indexName) {
+		setPreferLocalCluster(true);
+
 		_indexName = indexName;
 	}
 
@@ -29,6 +31,10 @@ public class GetIndexIndexRequest
 		IndexRequestExecutor indexRequestExecutor) {
 
 		return indexRequestExecutor.executeIndexRequest(this);
+	}
+
+	public String getConnectionId() {
+		return _connectionId;
 	}
 
 	@Override
@@ -47,6 +53,20 @@ public class GetIndexIndexRequest
 		throw new UnsupportedOperationException();
 	}
 
+	public boolean isPreferLocalCluster() {
+		return _preferLocalCluster;
+	}
+
+	public void setConnectionId(String connectionId) {
+		_connectionId = connectionId;
+	}
+
+	public void setPreferLocalCluster(boolean preferLocalCluster) {
+		_preferLocalCluster = preferLocalCluster;
+	}
+
+	private String _connectionId;
 	private final String _indexName;
+	private boolean _preferLocalCluster;
 
 }
