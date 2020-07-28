@@ -124,6 +124,15 @@ public class CommerceDiscountRuleServiceImpl
 	}
 
 	@Override
+	public List<CommerceDiscountRule> getCommerceDiscountRules(
+			long commerceDiscountId, String name, int start, int end)
+		throws PortalException {
+
+		return commerceDiscountRuleFinder.findByCommerceDiscountId(
+			commerceDiscountId, name, start, end, true);
+	}
+
+	@Override
 	public int getCommerceDiscountRulesCount(long commerceDiscountId)
 		throws PortalException {
 
@@ -132,6 +141,15 @@ public class CommerceDiscountRuleServiceImpl
 
 		return commerceDiscountRuleLocalService.getCommerceDiscountRulesCount(
 			commerceDiscountId);
+	}
+
+	@Override
+	public int getCommerceDiscountRulesCount(
+			long commerceDiscountId, String name)
+		throws PortalException {
+
+		return commerceDiscountRuleFinder.countByCommerceDiscountId(
+			commerceDiscountId, name, true);
 	}
 
 	@Override
