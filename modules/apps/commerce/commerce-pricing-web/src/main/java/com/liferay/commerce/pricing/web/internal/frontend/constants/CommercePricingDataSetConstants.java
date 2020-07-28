@@ -17,7 +17,39 @@ package com.liferay.commerce.pricing.web.internal.frontend.constants;
 /**
  * @author Riccardo Alberti
  */
-public class CommercePricingClassDataSetConstants {
+public class CommercePricingDataSetConstants {
+
+	public static final String COMMERCE_DATA_SET_KEY_DISCOUNT_CATEGORIES =
+		"commerceDiscountCategories";
+
+	public static final String COMMERCE_DATA_SET_KEY_DISCOUNT_PRICING_CLASSES =
+		"commerceDiscountPricingClasses";
+
+	public static final String
+		COMMERCE_DATA_SET_KEY_DISCOUNT_PRODUCT_DEFINITIONS =
+			"commerceDiscountProductDefinitions";
+
+	public static final String
+		COMMERCE_DATA_SET_KEY_DISCOUNT_QUALIFIER_ACCOUNT_GROUPS =
+			"commerceDiscountQualifierAccountGroups";
+
+	public static final String
+		COMMERCE_DATA_SET_KEY_DISCOUNT_QUALIFIER_ACCOUNTS =
+			"commerceDiscountQualifierAccounts";
+
+	public static final String
+		COMMERCE_DATA_SET_KEY_DISCOUNT_QUALIFIER_CHANNELS =
+			"commerceDiscountQualifierChannels";
+
+	public static final String
+		COMMERCE_DATA_SET_KEY_DISCOUNT_RULE_PRODUCT_DEFINITIONS =
+			"commerceDiscountRuleProductDefinitions";
+
+	public static final String COMMERCE_DATA_SET_KEY_DISCOUNT_RULES =
+		"commerceDiscountRules";
+
+	public static final String COMMERCE_DATA_SET_KEY_DISCOUNTS =
+		"commerceDiscounts";
 
 	public static final String COMMERCE_DATA_SET_KEY_PRICING_CLASS_DISCOUNTS =
 		"commercePricingClassesDiscounts";
