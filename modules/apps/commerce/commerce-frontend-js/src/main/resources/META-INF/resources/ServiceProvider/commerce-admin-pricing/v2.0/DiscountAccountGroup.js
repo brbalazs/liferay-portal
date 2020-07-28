@@ -20,7 +20,11 @@ const DISCOUNT_RULES_PATH = '/discount-account-groups';
 
 const VERSION = 'v2.0';
 
-function resolvePath(basePath = '', discountId = '', discountAccountGroupId = '') {
+function resolvePath(
+	basePath = '',
+	discountId = '',
+	discountAccountGroupId = ''
+) {
 	return `${basePath}${VERSION}${DISCOUNTS_PATH}/${discountId}/${DISCOUNT_RULES_PATH}/${discountAccountGroupId}`;
 }
 
