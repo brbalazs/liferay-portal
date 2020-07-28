@@ -161,6 +161,24 @@ public class CommercePriceListCommerceAccountGroupRelLocalServiceImpl
 	}
 
 	@Override
+	public List<CommercePriceListCommerceAccountGroupRel>
+		getCommercePriceListCommerceAccountGroupRelsByCommercePriceListId(
+			long commercePriceListId, String name, int start, int end) {
+
+		return commercePriceListCommerceAccountGroupRelFinder.
+			findByCommercePriceListId(commercePriceListId, name, start, end);
+	}
+
+	@Override
+	public int
+		getCommercePriceListCommerceAccountGroupRelsByCommercePriceListIdCount(
+			long commercePriceListId, String name) {
+
+		return commercePriceListCommerceAccountGroupRelFinder.
+			countByCommercePriceListId(commercePriceListId, name);
+	}
+
+	@Override
 	public int getCommercePriceListCommerceAccountGroupRelsCount(
 		long commercePriceListId) {
 
