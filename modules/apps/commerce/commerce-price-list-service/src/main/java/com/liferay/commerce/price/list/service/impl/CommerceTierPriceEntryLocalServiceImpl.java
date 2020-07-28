@@ -118,6 +118,7 @@ public class CommerceTierPriceEntryLocalServiceImpl
 			now.get(Calendar.MINUTE), 0, 0, 0, 0, 0, true, serviceContext);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceTierPriceEntry addCommerceTierPriceEntry(
 			long commercePriceEntryId, String externalReferenceCode,
@@ -409,6 +410,19 @@ public class CommerceTierPriceEntryLocalServiceImpl
 		return searchCommerceTierPriceEntries(searchContext);
 	}
 
+	@Override
+	public int searchCommerceTierPriceEntriesCount(
+			long companyId, long commercePriceEntryId, String keywords)
+		throws PortalException {
+
+		SearchContext searchContext = buildSearchContext(
+			companyId, commercePriceEntryId, keywords, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
+
+		return searchCommerceTierPriceEntriesCount(searchContext);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceTierPriceEntry updateCommerceTierPriceEntry(
 			long commerceTierPriceEntryId, BigDecimal price,
@@ -866,6 +880,17 @@ public class CommerceTierPriceEntryLocalServiceImpl
 
 		throw new SearchException(
 			"Unable to fix the search index after 10 attempts");
+	}
+
+	protected int searchCommerceTierPriceEntriesCount(
+			SearchContext searchContext)
+		throws PortalException {
+
+		Indexer<CommerceTierPriceEntry> indexer =
+			IndexerRegistryUtil.nullSafeGetIndexer(
+				CommerceTierPriceEntry.class);
+
+		return GetterUtil.getInteger(indexer.searchCount(searchContext));
 	}
 
 	protected CommerceTierPriceEntry startWorkflowInstance(

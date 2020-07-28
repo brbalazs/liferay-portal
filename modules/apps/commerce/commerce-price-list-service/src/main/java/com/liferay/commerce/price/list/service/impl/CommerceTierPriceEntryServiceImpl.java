@@ -281,6 +281,25 @@ public class CommerceTierPriceEntryServiceImpl
 	}
 
 	@Override
+	public int searchCommerceTierPriceEntriesCount(
+			long companyId, long commercePriceEntryId, String keywords)
+		throws PortalException {
+
+		CommercePriceEntry commercePriceEntry =
+			commercePriceEntryLocalService.getCommercePriceEntry(
+				commercePriceEntryId);
+
+		if (commercePriceEntry != null) {
+			_commercePriceListModelResourcePermission.check(
+				getPermissionChecker(),
+				commercePriceEntry.getCommercePriceListId(), ActionKeys.UPDATE);
+		}
+
+		return commercePriceEntryLocalService.searchCommercePriceEntriesCount(
+			companyId, commercePriceEntryId, keywords);
+	}
+
+	@Override
 	public CommerceTierPriceEntry updateCommerceTierPriceEntry(
 			long commerceTierPriceEntryId, BigDecimal price,
 			BigDecimal promoPrice, int minQuantity,
