@@ -70,6 +70,20 @@ public class CommerceDiscountCommerceAccountGroupRelServiceImpl
 	}
 
 	@Override
+	public void
+			deleteCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+				long commerceDiscountId)
+		throws PortalException {
+
+		_commerceDiscountResourcePermission.check(
+			getPermissionChecker(), commerceDiscountId, ActionKeys.UPDATE);
+
+		commerceDiscountCommerceAccountGroupRelLocalService.
+			deleteCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+				commerceDiscountId);
+	}
+
+	@Override
 	public CommerceDiscountCommerceAccountGroupRel
 			fetchCommerceDiscountCommerceAccountGroupRel(
 				long commerceDiscountId, long commerceAccountGroupId)
@@ -125,6 +139,25 @@ public class CommerceDiscountCommerceAccountGroupRelServiceImpl
 		return commerceDiscountCommerceAccountGroupRelLocalService.
 			getCommerceDiscountCommerceAccountGroupRels(
 				commerceDiscountId, start, end, orderByComparator);
+	}
+
+	@Override
+	public List<CommerceDiscountCommerceAccountGroupRel>
+		getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+			long commerceDiscountId, String name, int start, int end) {
+
+		return commerceDiscountCommerceAccountGroupRelFinder.
+			findByCommerceDiscountId(
+				commerceDiscountId, name, start, end, true);
+	}
+
+	@Override
+	public int
+		getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountIdCount(
+			long commerceDiscountId, String name) {
+
+		return commerceDiscountCommerceAccountGroupRelFinder.
+			countByCommerceDiscountId(commerceDiscountId, name, true);
 	}
 
 	@Override
