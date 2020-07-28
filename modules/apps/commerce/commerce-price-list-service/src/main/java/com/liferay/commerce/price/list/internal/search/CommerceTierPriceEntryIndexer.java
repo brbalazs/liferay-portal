@@ -129,7 +129,7 @@ public class CommerceTierPriceEntryIndexer
 
 		document.addKeyword(
 			FIELD_COMMERCE_PRICE_ENTRY_ID,
-			commerceTierPriceEntry.getCommerceTierPriceEntryId());
+			commerceTierPriceEntry.getCommercePriceEntryId());
 		document.addKeyword(
 			FIELD_EXTERNAL_REFERENCE_CODE,
 			commerceTierPriceEntry.getExternalReferenceCode());
