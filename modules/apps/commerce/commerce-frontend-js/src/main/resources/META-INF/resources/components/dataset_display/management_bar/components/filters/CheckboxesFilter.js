@@ -16,7 +16,7 @@ import ClayButton from '@clayui/button';
 import ClayDropDown from '@clayui/drop-down';
 import {ClayCheckbox, ClayToggle} from '@clayui/form';
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {isValuesArrayChanged} from '../../../utilities/filters';
 
@@ -54,7 +54,9 @@ function CheckboxesFilter(props) {
 	const [itemsValues, setItemsValues] = useState(
 		(props.value && props.value.itemsValues) || []
 	);
-	const [exclude, setExclude] = useState(props.value && props.value.exclude);
+	const [exclude, setExclude] = useState(
+		props.value ? props.value.exclude : false
+	);
 
 	function selectCheckbox(selected) {
 		if (itemsValues.includes(selected)) {
@@ -63,6 +65,11 @@ function CheckboxesFilter(props) {
 
 		return setItemsValues(itemsValues.concat(selected));
 	}
+
+	useEffect(() => {
+		setItemsValues(props.value ? props.value.itemsValues : []);
+		setExclude(props.value ? props.value.exclude : false);
+	}, [props.value]);
 
 	let actionType = 'edit';
 
