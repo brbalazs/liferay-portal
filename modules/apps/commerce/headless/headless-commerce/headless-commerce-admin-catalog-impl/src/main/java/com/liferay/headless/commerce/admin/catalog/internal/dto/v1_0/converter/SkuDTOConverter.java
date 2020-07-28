@@ -14,11 +14,13 @@
 
 package com.liferay.headless.commerce.admin.catalog.internal.dto.v1_0.converter;
 
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CPInstanceOptionValueRel;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.headless.commerce.admin.catalog.dto.v1_0.Sku;
+import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
@@ -47,6 +49,8 @@ public class SkuDTOConverter implements DTOConverter<CPInstance, Sku> {
 		CPInstance cpInstance = _cpInstanceService.getCPInstance(
 			(Long)dtoConverterContext.getId());
 
+		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+
 		return new Sku() {
 			{
 				cost = cpInstance.getCost();
@@ -60,6 +64,9 @@ public class SkuDTOConverter implements DTOConverter<CPInstance, Sku> {
 				manufacturerPartNumber = cpInstance.getManufacturerPartNumber();
 				options = _getOptions(cpInstance);
 				price = cpInstance.getPrice();
+				productId = cpDefinition.getCProductId();
+				productName = LanguageUtils.getLanguageIdMap(
+					cpDefinition.getNameMap());
 				promoPrice = cpInstance.getPromoPrice();
 				published = cpInstance.isPublished();
 				purchasable = cpInstance.isPurchasable();
