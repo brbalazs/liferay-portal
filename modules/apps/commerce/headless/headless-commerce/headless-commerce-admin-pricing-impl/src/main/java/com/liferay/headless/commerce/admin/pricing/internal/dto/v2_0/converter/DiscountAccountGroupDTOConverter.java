@@ -61,7 +61,7 @@ public class DiscountAccountGroupDTOConverter
 					commerceAccountGroup.getExternalReferenceCode();
 				accountGroupId =
 					commerceAccountGroup.getCommerceAccountGroupId();
-				accountGroupName = commerceAccountGroup.getName();
+				actions = dtoConverterContext.getActions();
 				discountExternalReferenceCode =
 					commerceDiscount.getExternalReferenceCode();
 				discountId = commerceDiscount.getCommerceDiscountId();

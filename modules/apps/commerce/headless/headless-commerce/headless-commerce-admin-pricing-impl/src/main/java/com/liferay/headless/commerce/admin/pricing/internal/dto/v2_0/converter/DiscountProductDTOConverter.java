@@ -21,11 +21,8 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.DiscountProduct;
-import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
-
-import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -60,12 +57,9 @@ public class DiscountProductDTOConverter
 		CommerceDiscount commerceDiscount =
 			commerceDiscountRel.getCommerceDiscount();
 
-		Locale locale = dtoConverterContext.getLocale();
-
-		String languageId = LanguageUtil.getLanguageId(locale);
-
 		return new DiscountProduct() {
 			{
+				actions = dtoConverterContext.getActions();
 				discountExternalReferenceCode =
 					commerceDiscount.getExternalReferenceCode();
 				discountId = commerceDiscount.getCommerceDiscountId();
@@ -73,7 +67,6 @@ public class DiscountProductDTOConverter
 				productExternalReferenceCode =
 					cProduct.getExternalReferenceCode();
 				productId = cProduct.getCProductId();
-				productName = cpDefinition.getName(languageId);
 			}
 		};
 	}

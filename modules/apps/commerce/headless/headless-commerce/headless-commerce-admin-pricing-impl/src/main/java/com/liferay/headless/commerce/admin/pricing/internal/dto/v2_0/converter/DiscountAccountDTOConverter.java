@@ -57,7 +57,7 @@ public class DiscountAccountDTOConverter
 				accountExternalReferenceCode =
 					commerceAccount.getExternalReferenceCode();
 				accountId = commerceAccount.getCommerceAccountId();
-				accountName = commerceAccount.getName();
+				actions = dtoConverterContext.getActions();
 				discountExternalReferenceCode =
 					commerceDiscount.getExternalReferenceCode();
 				discountId = commerceDiscount.getCommerceDiscountId();

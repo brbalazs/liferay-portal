@@ -47,6 +47,7 @@ public class DiscountRuleDTOConverter
 
 		return new DiscountRule() {
 			{
+				actions = dtoConverterContext.getActions();
 				discountId = commerceDiscountRule.getCommerceDiscountId();
 				id = commerceDiscountRule.getCommerceDiscountRuleId();
 				name = commerceDiscountRule.getName();

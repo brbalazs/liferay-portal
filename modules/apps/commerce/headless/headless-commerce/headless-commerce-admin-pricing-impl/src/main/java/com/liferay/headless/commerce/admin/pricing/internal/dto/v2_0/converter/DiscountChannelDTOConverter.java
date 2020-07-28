@@ -57,10 +57,10 @@ public class DiscountChannelDTOConverter
 
 		return new DiscountChannel() {
 			{
+				actions = dtoConverterContext.getActions();
 				channelExternalReferenceCode =
 					commerceChannel.getExternalReferenceCode();
 				channelId = commerceChannel.getCommerceChannelId();
-				channelName = commerceChannel.getName();
 				discountExternalReferenceCode =
 					commerceDiscount.getExternalReferenceCode();
 				discountId = commerceDiscount.getCommerceDiscountId();

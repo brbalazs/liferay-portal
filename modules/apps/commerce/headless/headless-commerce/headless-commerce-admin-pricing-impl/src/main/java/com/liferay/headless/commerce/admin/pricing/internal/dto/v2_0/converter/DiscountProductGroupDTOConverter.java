@@ -57,6 +57,7 @@ public class DiscountProductGroupDTOConverter
 
 		return new DiscountProductGroup() {
 			{
+				actions = dtoConverterContext.getActions();
 				discountExternalReferenceCode =
 					commerceDiscount.getExternalReferenceCode();
 				discountId = commerceDiscount.getCommerceDiscountId();
@@ -65,7 +66,6 @@ public class DiscountProductGroupDTOConverter
 					commercePricingClass.getExternalReferenceCode();
 				productGroupId =
 					commercePricingClass.getCommercePricingClassId();
-				productGroupName = commercePricingClass.getTitle();
 			}
 		};
 	}

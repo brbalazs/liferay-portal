@@ -56,10 +56,10 @@ public class DiscountCategoryDTOConverter
 
 		return new DiscountCategory() {
 			{
+				actions = dtoConverterContext.getActions();
 				categoryExternalReferenceCode =
 					assetCategory.getExternalReferenceCode();
 				categoryId = assetCategory.getCategoryId();
-				categoryName = assetCategory.getName();
 				discountExternalReferenceCode =
 					commerceDiscount.getExternalReferenceCode();
 				discountId = commerceDiscount.getCommerceDiscountId();
