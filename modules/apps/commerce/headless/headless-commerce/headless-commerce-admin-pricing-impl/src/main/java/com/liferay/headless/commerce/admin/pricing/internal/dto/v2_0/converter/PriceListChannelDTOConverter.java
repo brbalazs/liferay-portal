@@ -54,10 +54,10 @@ public class PriceListChannelDTOConverter
 
 		return new PriceListChannel() {
 			{
+				actions = dtoConverterContext.getActions();
 				channelExternalReferenceCode =
 					commercechannel.getExternalReferenceCode();
 				channelId = commercechannel.getCommerceChannelId();
-				channelName = commercechannel.getName();
 				id =
 					commercePriceListChannelRel.
 						getCommercePriceListChannelRelId();

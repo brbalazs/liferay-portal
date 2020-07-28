@@ -59,6 +59,7 @@ public class PriceModifierProductGroupDTOConverter
 
 		return new PriceModifierProductGroup() {
 			{
+				actions = dtoConverterContext.getActions();
 				id = commercePriceModifierRel.getCommercePriceModifierRelId();
 				priceModifierExternalReferenceCode =
 					commercePriceModifier.getExternalReferenceCode();
@@ -68,7 +69,6 @@ public class PriceModifierProductGroupDTOConverter
 					commercePricingClass.getExternalReferenceCode();
 				productGroupId =
 					commercePricingClass.getCommercePricingClassId();
-				productGroupName = commercePricingClass.getTitle();
 			}
 		};
 	}

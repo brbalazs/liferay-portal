@@ -53,6 +53,7 @@ public class PriceModifierDTOConverter
 
 		return new PriceModifier() {
 			{
+				actions = dtoConverterContext.getActions();
 				active = !commercePriceModifier.isInactive();
 				displayDate = commercePriceModifier.getDisplayDate();
 				expirationDate = commercePriceModifier.getExpirationDate();

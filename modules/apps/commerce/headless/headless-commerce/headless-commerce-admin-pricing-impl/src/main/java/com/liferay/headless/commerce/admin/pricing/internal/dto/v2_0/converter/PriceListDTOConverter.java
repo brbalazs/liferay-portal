@@ -57,6 +57,7 @@ public class PriceListDTOConverter
 
 		return new PriceList() {
 			{
+				actions = dtoConverterContext.getActions();
 				active = !commercePriceList.isInactive();
 				catalogBasePriceList =
 					commercePriceList.isCatalogBasePriceList();

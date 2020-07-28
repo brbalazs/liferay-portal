@@ -56,10 +56,10 @@ public class PriceModifierCategoryDTOConverter
 
 		return new PriceModifierCategory() {
 			{
+				actions = dtoConverterContext.getActions();
 				categoryExternalReferenceCode =
 					assetCategory.getExternalReferenceCode();
 				categoryId = assetCategory.getCategoryId();
-				categoryName = assetCategory.getName();
 				id = commercePriceModifierRel.getCommercePriceModifierRelId();
 				priceModifierExternalReferenceCode =
 					commercePriceModifier.getExternalReferenceCode();

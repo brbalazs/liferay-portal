@@ -61,7 +61,7 @@ public class PriceListAccountGroupDTOConverter
 					commerceAccountGroup.getExternalReferenceCode();
 				accountGroupId =
 					commerceAccountGroup.getCommerceAccountGroupId();
-				accountGroupName = commerceAccountGroup.getName();
+				actions = dtoConverterContext.getActions();
 				id =
 					commercePriceListCommerceAccountGroupRel.
 						getCommercePriceListCommerceAccountGroupRelId();

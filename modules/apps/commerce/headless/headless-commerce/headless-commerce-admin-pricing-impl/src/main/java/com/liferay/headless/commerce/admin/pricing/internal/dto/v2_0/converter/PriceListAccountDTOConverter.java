@@ -57,7 +57,7 @@ public class PriceListAccountDTOConverter
 				accountExternalReferenceCode =
 					commerceAccount.getExternalReferenceCode();
 				accountId = commerceAccount.getCommerceAccountId();
-				accountName = commerceAccount.getName();
+				actions = dtoConverterContext.getActions();
 				id =
 					commercePriceListAccountRel.
 						getCommercePriceListAccountRelId();

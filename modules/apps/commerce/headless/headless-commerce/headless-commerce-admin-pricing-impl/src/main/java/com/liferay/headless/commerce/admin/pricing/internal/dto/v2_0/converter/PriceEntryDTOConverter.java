@@ -71,6 +71,7 @@ public class PriceEntryDTOConverter
 
 		return new PriceEntry() {
 			{
+				actions = dtoConverterContext.getActions();
 				bulkPricing = commercePriceEntry.isBulkPricing();
 				customFields = expandoBridge.getAttributes();
 				discountDiscovery = commercePriceEntry.isDiscountDiscovery();
@@ -88,7 +89,6 @@ public class PriceEntryDTOConverter
 				priceFormatted = _formatPrice(
 					priceEntryPrice, commerceCurrency, locale);
 				priceListId = commercePriceEntry.getCommercePriceListId();
-				sku = cpInstance.getSku();
 				skuExternalReferenceCode =
 					cpInstance.getExternalReferenceCode();
 				skuId = cpInstance.getCPInstanceId();

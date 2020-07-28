@@ -72,6 +72,7 @@ public class TierPriceDTOConverter
 
 		return new TierPrice() {
 			{
+				actions = dtoConverterContext.getActions();
 				customFields = expandoBridge.getAttributes();
 				discountDiscovery =
 					commerceTierPriceEntry.isDiscountDiscovery();

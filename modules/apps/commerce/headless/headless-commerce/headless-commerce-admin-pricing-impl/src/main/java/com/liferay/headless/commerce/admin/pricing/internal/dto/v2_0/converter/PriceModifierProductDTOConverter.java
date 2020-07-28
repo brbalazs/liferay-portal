@@ -21,11 +21,8 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CProduct;
 import com.liferay.commerce.product.service.CPDefinitionService;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceModifierProduct;
-import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
-
-import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -60,12 +57,9 @@ public class PriceModifierProductDTOConverter
 		CommercePriceModifier commercePriceModifier =
 			commercePriceModifierRel.getCommercePriceModifier();
 
-		Locale locale = dtoConverterContext.getLocale();
-
-		String languageId = LanguageUtil.getLanguageId(locale);
-
 		return new PriceModifierProduct() {
 			{
+				actions = dtoConverterContext.getActions();
 				id = commercePriceModifierRel.getCommercePriceModifierRelId();
 				priceModifierExternalReferenceCode =
 					commercePriceModifier.getExternalReferenceCode();
@@ -74,7 +68,6 @@ public class PriceModifierProductDTOConverter
 				productExternalReferenceCode =
 					cProduct.getExternalReferenceCode();
 				productId = cProduct.getCProductId();
-				productName = cpDefinition.getName(languageId);
 			}
 		};
 	}
