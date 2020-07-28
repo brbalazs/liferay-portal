@@ -21,7 +21,6 @@ import com.liferay.commerce.pricing.web.servlet.taglib.ui.CommercePricingClassSc
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
-import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
@@ -104,7 +103,7 @@ public class CommercePricingClassProductsScreenNavigationEntry
 				new CommercePricingClassCPDefinitionDisplayContext(
 					httpServletRequest,
 					_commercePricingClassModelResourcePermission,
-					_commercePricingClassService, _itemSelector);
+					_commercePricingClassService);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
@@ -123,9 +122,6 @@ public class CommercePricingClassProductsScreenNavigationEntry
 
 	@Reference
 	private CommercePricingClassService _commercePricingClassService;
-
-	@Reference
-	private ItemSelector _itemSelector;
 
 	@Reference
 	private JSPRenderer _jspRenderer;
