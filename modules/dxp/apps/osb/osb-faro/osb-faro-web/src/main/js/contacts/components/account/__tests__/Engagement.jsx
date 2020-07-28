@@ -32,6 +32,8 @@ describe('AccountEngagement', () => {
 			</StaticRouter>
 		);
 
+		jest.runAllTimers();
+
 		expect(container).toMatchSnapshot();
 	});
 });

@@ -19,10 +19,6 @@ exports[`AccountEngagement should render 1`] = `
       <div />
     </div>
     <div
-      class="chart-legend"
-      id="legend-engagement"
-    />
-    <div
       class="selected-point-info"
     >
       <h4>
@@ -179,15 +175,142 @@ exports[`AccountEngagement should render 1`] = `
               </th>
             </tr>
           </thead>
+          <tbody>
+            <tr
+              class=""
+            >
+              <td
+                class="name-cell-root"
+              >
+                <div
+                  class="content-container"
+                >
+                  <div
+                    class="text-truncate"
+                  >
+                    <div
+                      class="table-title text-truncate"
+                    >
+                      <a
+                        class="text-truncate"
+                        href="/workspace/23/123/contacts/individuals/known-individuals/ownerId0"
+                      >
+                        Test Individual - 0
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td
+                class=""
+              >
+                test0@liferay.com
+              </td>
+              <td
+                class=" table-column-text-end"
+              >
+                -
+              </td>
+              <td
+                class=" table-column-text-end"
+              >
+                8.00/10
+              </td>
+            </tr>
+          </tbody>
         </table>
-        <div
-          class="spinner-root spinner-overlay"
-        >
-          <span
-            class="loading-animation loading-animation-dotted"
-          />
-        </div>
       </div>
+      <nav
+        class="navbar navbar-root pagination-bar-root"
+      >
+        <div
+          class="container-fluid"
+        >
+          <div
+            aria-haspopup="true"
+            class="dropdown dropdown-root pagination-items-per-page"
+          >
+            <button
+              class="button-root btn btn-secondary dropdown-toggle show-caret btn-sm"
+              type="button"
+            >
+              <span
+                class="text-truncate"
+              >
+                2 Items
+              </span>
+              
+              <span
+                class="caret-root"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#caret-bottom"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+          <div
+            class="pagination-results"
+          >
+            Showing 1 to 1 of 1 entry.
+          </div>
+          <ul
+            class="pagination pagination-root"
+          >
+            <li
+              class="page-item disabled"
+            >
+              <button
+                class="button-root btn btn-unstyled page-link"
+                disabled=""
+                type="button"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-angle-left"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#angle-left"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li
+              class="page-item active"
+            >
+              <button
+                class="button-root btn btn-unstyled page-link"
+                type="button"
+              >
+                1
+              </button>
+            </li>
+            <li
+              class="page-item disabled"
+            >
+              <button
+                class="button-root btn btn-unstyled page-link"
+                disabled=""
+                type="button"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-angle-right"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#angle-right"
+                  />
+                </svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </div>
   </div>
 </div>
