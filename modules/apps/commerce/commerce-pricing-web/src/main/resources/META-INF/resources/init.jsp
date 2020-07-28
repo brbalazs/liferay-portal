@@ -28,7 +28,8 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %><%@
 taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
-<%@ page import="com.liferay.commerce.discount.constants.CommerceDiscountConstants" %><%@
+<%@ page import="com.liferay.commerce.currency.model.CommerceCurrency" %><%@
+page import="com.liferay.commerce.discount.constants.CommerceDiscountConstants" %><%@
 page import="com.liferay.commerce.discount.exception.CommerceDiscountCouponCodeException" %><%@
 page import="com.liferay.commerce.discount.exception.CommerceDiscountExpirationDateException" %><%@
 page import="com.liferay.commerce.discount.model.CommerceDiscount" %><%@
@@ -36,8 +37,20 @@ page import="com.liferay.commerce.discount.model.CommerceDiscountRule" %><%@
 page import="com.liferay.commerce.discount.rule.type.CommerceDiscountRuleType" %><%@
 page import="com.liferay.commerce.discount.rule.type.CommerceDiscountRuleTypeJSPContributor" %><%@
 page import="com.liferay.commerce.discount.target.CommerceDiscountTarget" %><%@
+page import="com.liferay.commerce.price.list.constants.CommercePriceListActionKeys" %><%@
+page import="com.liferay.commerce.price.list.exception.CommercePriceListCurrencyException" %><%@
+page import="com.liferay.commerce.price.list.exception.CommercePriceListExpirationDateException" %><%@
+page import="com.liferay.commerce.price.list.exception.CommercePriceListParentPriceListGroupIdException" %><%@
+page import="com.liferay.commerce.price.list.exception.DuplicateCommerceTierPriceEntryException" %><%@
+page import="com.liferay.commerce.price.list.model.CommercePriceEntry" %><%@
+page import="com.liferay.commerce.price.list.model.CommercePriceList" %><%@
+page import="com.liferay.commerce.price.list.model.CommerceTierPriceEntry" %><%@
+page import="com.liferay.commerce.pricing.constants.CommercePriceModifierConstants" %><%@
+page import="com.liferay.commerce.pricing.exception.CommercePriceModifierExpirationDateException" %><%@
 page import="com.liferay.commerce.pricing.exception.NoSuchPricingClassException" %><%@
+page import="com.liferay.commerce.pricing.model.CommercePriceModifier" %><%@
 page import="com.liferay.commerce.pricing.model.CommercePricingClass" %><%@
+page import="com.liferay.commerce.pricing.type.CommercePriceModifierType" %><%@
 page import="com.liferay.commerce.pricing.util.PricingNavigationItemRegistryUtil" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.AddedAllCommerceDiscountRuleDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.AddedAnyCommerceDiscountRuleDisplayContext" %><%@
@@ -45,14 +58,21 @@ page import="com.liferay.commerce.pricing.web.internal.display.context.CartTotal
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommerceDiscountDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommerceDiscountQualifiersDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommerceDiscountRuleDisplayContext" %><%@
+page import="com.liferay.commerce.pricing.web.internal.display.context.CommercePriceEntryDisplayContext" %><%@
+page import="com.liferay.commerce.pricing.web.internal.display.context.CommercePriceListDisplayContext" %><%@
+page import="com.liferay.commerce.pricing.web.internal.display.context.CommercePriceListQualifiersDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommercePricingClassCPDefinitionDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommercePricingClassDiscountDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommercePricingClassDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommercePricingClassPriceListDisplayContext" %><%@
+page import="com.liferay.commerce.pricing.web.internal.display.context.CommerceTierCommercePriceEntryDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingDataSetConstants" %><%@
+page import="com.liferay.commerce.pricing.web.internal.servlet.taglib.ui.CommercePriceListScreenNavigationConstants" %><%@
 page import="com.liferay.commerce.pricing.web.servlet.taglib.ui.CommerceDiscountScreenNavigationConstants" %><%@
 page import="com.liferay.commerce.pricing.web.servlet.taglib.ui.CommercePricingClassScreenNavigationConstants" %><%@
+page import="com.liferay.commerce.product.exception.NoSuchCatalogException" %><%@
 page import="com.liferay.commerce.product.model.CPDefinition" %><%@
+page import="com.liferay.commerce.product.model.CommerceCatalog" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
@@ -86,7 +106,7 @@ page import="java.util.Objects" %>
 <portlet:defineObjects />
 
 <%
-	String redirect = ParamUtil.getString(request, "redirect");
+String redirect = ParamUtil.getString(request, "redirect");
 
-	String backURL = ParamUtil.getString(request, "backURL", redirect);
+String backURL = ParamUtil.getString(request, "backURL", redirect);
 %>

@@ -1,0 +1,92 @@
+<%--
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<%
+CommerceCurrency commerceCurrency = commercePriceList.getCommerceCurrency();
+%>
+
+<commerce-ui:panel
+	title='<%= LanguageUtil.get(request, "details") %>'
+>
+	<div class="row">
+		<div class="col-4">
+			<label for="entryBasePrice"><%= LanguageUtil.get(request, "base-price") %></label>
+
+			<p id="entryBasePrice"><%= HtmlUtil.escape(commercePriceEntryDisplayContext.getBasePrice()) %></p>
+
+			<aui:input formName="fm" name="displayDate" />
+		</div>
+
+		<div class="col-4">
+			<aui:input name="price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commercePriceEntry.getPrice()) %>">
+				<aui:validator name="min">0</aui:validator>
+				<aui:validator name="number" />
+			</aui:input>
+
+			<liferay-ui:error exception="<%= CommercePriceListExpirationDateException.class %>" message="please-enter-a-valid-expiration-date" />
+
+			<aui:fieldset>
+				<aui:input dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" name="expirationDate" />
+			</aui:fieldset>
+		</div>
+
+		<div class="col-4">
+			<aui:fieldset label="discount-levels">
+				<div class="row">
+					<div class="col-3">
+						<aui:input label="" name="discountLevel1" type="text" value="<%= commercePriceEntry.getDiscountLevel1() %>">
+							<aui:validator name="min">0</aui:validator>
+							<aui:validator name="number" />
+						</aui:input>
+					</div>
+
+					<div class="col-3">
+						<aui:input label="" name="discountLevel2" type="text" value="<%= commercePriceEntry.getDiscountLevel2() %>">
+							<aui:validator name="min">0</aui:validator>
+							<aui:validator name="number" />
+						</aui:input>
+					</div>
+
+					<div class="col-3">
+						<aui:input label="" name="discountLevel3" type="text" value="<%= commercePriceEntry.getDiscountLevel3() %>">
+							<aui:validator name="min">0</aui:validator>
+							<aui:validator name="number" />
+						</aui:input>
+					</div>
+
+					<div class="col-3">
+						<aui:input label="" name="discountLevel4" type="text" value="<%= commercePriceEntry.getDiscountLevel4() %>">
+							<aui:validator name="min">0</aui:validator>
+							<aui:validator name="number" />
+						</aui:input>
+					</div>
+				</div>
+			</aui:fieldset>
+
+			<div class="row">
+				<div class="col-6">
+					<aui:input label='<%= LanguageUtil.get(request, "override") %>' name="discountDiscovery" />
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-6">
+					<aui:input name="bulkPricing" />
+				</div>
+			</div>
+		</div>
+	</div>
+</commerce-ui:panel>

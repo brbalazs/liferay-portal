@@ -1,0 +1,123 @@
+<%--
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<%@ include file="/init.jsp" %>
+
+<%
+CommercePriceListDisplayContext commercePriceListDisplayContext = (CommercePriceListDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+
+CommercePriceList commercePriceList = commercePriceListDisplayContext.getCommercePriceList();
+CommercePriceModifier commercePriceModifier = commercePriceListDisplayContext.getCommercePriceModifier();
+long commercePriceModifierId = commercePriceListDisplayContext.getCommercePriceModifierId();
+
+CommerceCurrency commerceCurrency = commercePriceList.getCommerceCurrency();
+
+boolean neverExpire = ParamUtil.getBoolean(request, "neverExpire", true);
+
+if ((commercePriceModifier != null) && (commercePriceModifier.getExpirationDate() != null)) {
+	neverExpire = false;
+}
+%>
+
+<portlet:actionURL name="editCommercePriceModifier" var="editCommercePriceModifierActionURL" />
+
+<aui:form action="<%= editCommercePriceModifierActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
+	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
+	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+	<aui:input name="commercePriceListId" type="hidden" value="<%= commercePriceListDisplayContext.getCommercePriceListId() %>" />
+	<aui:input name="commercePriceModifierId" type="hidden" value="<%= commercePriceModifierId %>" />
+
+	<aui:model-context bean="<%= commercePriceModifier %>" model="<%= CommercePriceModifier.class %>" />
+
+	<div class="row sheet">
+		<div class="col-12">
+			<aui:input name="title" required="<%= true %>" />
+
+			<aui:select name="target" required="<%= true %>" showEmptyOption="<%= true %>">
+
+				<%
+				for (String target : CommercePriceModifierConstants.TARGETS) {
+				%>
+
+					<aui:option label="<%= target %>" selected="<%= target.equals(commercePriceModifier.getTarget()) %>" value="<%= target %>" />
+
+				<%
+				}
+				%>
+
+			</aui:select>
+
+			<aui:select label='<%= LanguageUtil.get(request, "modifier") %>' name="modifierType" showEmptyOption="<%= true %>">
+
+				<%
+				for (CommercePriceModifierType commercePriceModifierType : commercePriceListDisplayContext.getCommercePriceModifierTypes()) {
+					String commercePriceModifierTypeKey = commercePriceModifierType.getKey();
+				%>
+
+					<aui:option label="<%= commercePriceModifierType.getLabel(locale) %>" selected="<%= commercePriceModifierTypeKey.equals(commercePriceModifier.getModifierType()) %>" value="<%= commercePriceModifierTypeKey %>" />
+
+				<%
+				}
+				%>
+
+			</aui:select>
+
+			<aui:input label='<%= LanguageUtil.get(request, "amount") %>' name="modifierAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commercePriceModifier.getModifierAmount()) %>">
+				<aui:validator name="min">0</aui:validator>
+				<aui:validator name="number" />
+			</aui:input>
+
+			<aui:input name="priority" />
+
+			<aui:input checked="<%= commercePriceModifier.isActive() %>" name="active" type="toggle-switch" />
+		</div>
+
+		<div class="col-12">
+			<commerce-ui:panel
+				title='<%= LanguageUtil.get(request, "schedule") %>'
+			>
+				<liferay-ui:error exception="<%= CommercePriceModifierExpirationDateException.class %>" message="please-enter-a-valid-expiration-date" />
+
+				<aui:fieldset>
+					<aui:input formName="fm" name="displayDate" />
+
+					<aui:input dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" name="expirationDate" />
+				</aui:fieldset>
+			</commerce-ui:panel>
+		</div>
+
+		<div class="col-12">
+			<c:if test="<%= commercePriceListDisplayContext.hasCustomAttributesAvailable(CommercePriceModifier.class.getName(), commercePriceModifierId) %>">
+				<commerce-ui:panel
+					title='<%= LanguageUtil.get(request, "custom-attribute") %>'
+				>
+					<liferay-expando:custom-attribute-list
+						className="<%= CommercePriceModifier.class.getName() %>"
+						classPK="<%= commercePriceModifierId %>"
+						editable="<%= true %>"
+						label="<%= true %>"
+					/>
+				</commerce-ui:panel>
+			</c:if>
+		</div>
+	</div>
+
+	<aui:button-row cssClass="price-modifier-button-row">
+		<aui:button cssClass="btn-lg" type="submit" />
+
+		<aui:button cssClass="btn-lg" type="cancel" />
+	</aui:button-row>
+</aui:form>
