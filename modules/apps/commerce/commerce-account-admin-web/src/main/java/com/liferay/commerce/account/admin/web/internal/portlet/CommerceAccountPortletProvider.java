@@ -58,8 +58,12 @@ public class CommerceAccountPortletProvider
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		long plid = _portal.getPlidFromPortletId(
-			group.getGroupId(), getPortletName());
+		long plid = 0;
+
+		if (group != null) {
+			plid = _portal.getPlidFromPortletId(
+				group.getGroupId(), getPortletName());
+		}
 
 		long controlPanelPlid = _portal.getControlPanelPlid(
 			themeDisplay.getCompanyId());
