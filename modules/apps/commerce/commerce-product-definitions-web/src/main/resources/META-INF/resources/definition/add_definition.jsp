@@ -32,9 +32,9 @@
 	</portlet:renderURL>
 
 	<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/modals/index as ModalUtils, commerce-frontend-js/ServiceProvider/index as ServiceProvider">
+		var <portlet:namespace/>defaultLanguageId = null;
 		var <portlet:namespace/>productData = {
 			active: true,
-			name: {},
 			productType: '<%= ParamUtil.getString(request, "productTypeName") %>'
 		};
 
@@ -46,7 +46,17 @@
 			function() {
 				ModalUtils.isSubmitting();
 
-				AdminCatalogResource.createProduct(<portlet:namespace/>productData)
+				const formattedData = Object.assign(
+					{},
+					<portlet:namespace/>productData,
+					{
+						name: {
+							[<portlet:namespace/>defaultLanguageId]: document.getElementById('<portlet:namespace/>name').value
+						}
+					}
+				)
+
+				AdminCatalogResource.createProduct(formattedData)
 					.then(function(cpDefinition) {
 						const redirectURL = new Liferay.PortletURL.createURL(
 							'<%= editProductDefinitionURL %>'
@@ -75,10 +85,7 @@
 			onValueUpdated: function(value, catalogData) {
 				if (value) {
 					<portlet:namespace/>productData.catalogId = catalogData.id;
-
-					<portlet:namespace/>productData.name[
-						catalogData.defaultLanguageId
-					] = document.getElementById('<portlet:namespace/>name').value;
+					<portlet:namespace/>defaultLanguageId = catalogData.defaultLanguageId;
 				}
 			},
 			required: true
