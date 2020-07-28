@@ -87,6 +87,15 @@ public class CommerceChannelRelServiceImpl
 	}
 
 	@Override
+	public List<CommerceChannelRel> getCommerceChannelRels(
+		String className, long classPK, String classPKField, String name,
+		int start, int end) {
+
+		return commerceChannelRelFinder.findByC_C(
+			className, classPK, classPKField, name, start, end, true);
+	}
+
+	@Override
 	public int getCommerceChannelRelsCount(long commerceChannelId) {
 		return commerceChannelRelLocalService.getCommerceChannelRelsCount(
 			commerceChannelId);
@@ -96,6 +105,14 @@ public class CommerceChannelRelServiceImpl
 	public int getCommerceChannelRelsCount(String className, long classPK) {
 		return commerceChannelRelLocalService.getCommerceChannelRelsCount(
 			className, classPK);
+	}
+
+	@Override
+	public int getCommerceChannelRelsCount(
+		String className, long classPK, String classPKField, String name) {
+
+		return commerceChannelRelFinder.countByC_C(
+			className, classPK, classPKField, name, true);
 	}
 
 }

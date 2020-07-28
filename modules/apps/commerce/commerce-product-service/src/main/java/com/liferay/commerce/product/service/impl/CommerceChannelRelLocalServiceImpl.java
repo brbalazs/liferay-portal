@@ -102,6 +102,14 @@ public class CommerceChannelRelLocalServiceImpl
 	}
 
 	@Override
+	public List<CommerceChannelRel> getCommerceChannelRels(
+		String className, long classPK, String name, int start, int end) {
+
+		return commerceChannelRelFinder.findByC_C(
+			className, classPK, name, start, end);
+	}
+
+	@Override
 	public int getCommerceChannelRelsCount(long commerceChannelId) {
 		return commerceChannelRelPersistence.countByCommerceChannelId(
 			commerceChannelId);
@@ -111,6 +119,13 @@ public class CommerceChannelRelLocalServiceImpl
 	public int getCommerceChannelRelsCount(String className, long classPK) {
 		return commerceChannelRelPersistence.countByC_C(
 			classNameLocalService.getClassNameId(className), classPK);
+	}
+
+	@Override
+	public int getCommerceChannelRelsCount(
+		String className, long classPK, String name) {
+
+		return commerceChannelRelFinder.countByC_C(className, classPK, name);
 	}
 
 }
