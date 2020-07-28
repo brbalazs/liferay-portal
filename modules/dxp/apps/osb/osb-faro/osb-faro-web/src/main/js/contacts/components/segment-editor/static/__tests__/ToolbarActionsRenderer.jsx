@@ -19,6 +19,18 @@ describe('ToolbarActionsRenderer', () => {
 			/>
 		);
 
-		expect(container).toMatchSnapshot();
+		expect(container.querySelectorAll('button')).toHaveLength(2);
+	});
+
+	it('should not render remove button when showAdded is true', () => {
+		const {container} = render(
+			<ToolbarActionsRenderer
+				selectedItemsIOMap={new OrderedMap([[1, {}], [2, {}]])}
+				showAdded
+			/>
+		);
+
+		expect(container.querySelectorAll('button')).toHaveLength(1);
+		expect(container.querySelector('button')).toHaveTextContent('Undo Changes');
 	});
 });

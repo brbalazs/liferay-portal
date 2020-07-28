@@ -20,30 +20,3 @@ exports[`ToolbarActionsRenderer should render 1`] = `
   </ul>
 </div>
 `;
-
-exports[`ToolbarActionsRenderer should render secondary button actions if items are selected 1`] = `
-<div>
-  <ul
-    class="nav-root nav"
-    role="tablist"
-  >
-    <li
-      class="nav-item"
-      role="presentation"
-    >
-      <button
-        class="button-root btn btn-primary"
-        type="button"
-      >
-        Undo Changes
-      </button>
-      <button
-        class="button-root btn btn-primary"
-        type="button"
-      >
-        Remove Members
-      </button>
-    </li>
-  </ul>
-</div>
-`;
