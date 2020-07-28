@@ -14,9 +14,18 @@
 
 package com.liferay.headless.commerce.admin.pricing.internal.resource.v2_0;
 
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceEntry;
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.Sku;
+import com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter.SkuDTOConverter;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.SkuResource;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
+import com.liferay.portal.vulcan.fields.NestedField;
+import com.liferay.portal.vulcan.fields.NestedFieldId;
+
+import javax.validation.constraints.NotNull;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 /**
@@ -27,4 +36,19 @@ import org.osgi.service.component.annotations.ServiceScope;
 	scope = ServiceScope.PROTOTYPE, service = SkuResource.class
 )
 public class SkuResourceImpl extends BaseSkuResourceImpl {
+
+	@NestedField(parentClass = PriceEntry.class, value = "sku")
+	@Override
+	public Sku getPriceEntryIdSku(
+			@NestedFieldId(value = "skuId") @NotNull Long id)
+		throws Exception {
+
+		return _skuDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				id, contextAcceptLanguage.getPreferredLocale()));
+	}
+
+	@Reference
+	private SkuDTOConverter _skuDTOConverter;
+
 }

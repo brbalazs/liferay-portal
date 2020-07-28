@@ -14,9 +14,19 @@
 
 package com.liferay.headless.commerce.admin.pricing.internal.resource.v2_0;
 
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.DiscountProductGroup;
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceModifierProductGroup;
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.ProductGroup;
+import com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter.ProductGroupDTOConverter;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.ProductGroupResource;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
+import com.liferay.portal.vulcan.fields.NestedField;
+import com.liferay.portal.vulcan.fields.NestedFieldId;
+
+import javax.validation.constraints.NotNull;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 /**
@@ -27,4 +37,34 @@ import org.osgi.service.component.annotations.ServiceScope;
 	scope = ServiceScope.PROTOTYPE, service = ProductGroupResource.class
 )
 public class ProductGroupResourceImpl extends BaseProductGroupResourceImpl {
+
+	@NestedField(
+		parentClass = DiscountProductGroup.class, value = "productGroup"
+	)
+	@Override
+	public ProductGroup getDiscountIdProductGroupPage(
+			@NestedFieldId(value = "productGroupId") @NotNull Long id)
+		throws Exception {
+
+		return _productGroupDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				id, contextAcceptLanguage.getPreferredLocale()));
+	}
+
+	@NestedField(
+		parentClass = PriceModifierProductGroup.class, value = "productGroup"
+	)
+	@Override
+	public ProductGroup getPriceModifierIdProductGroup(
+			@NestedFieldId(value = "productGroupId") @NotNull Long id)
+		throws Exception {
+
+		return _productGroupDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				id, contextAcceptLanguage.getPreferredLocale()));
+	}
+
+	@Reference
+	private ProductGroupDTOConverter _productGroupDTOConverter;
+
 }
