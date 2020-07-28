@@ -30,7 +30,11 @@ import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
@@ -95,7 +99,20 @@ public class CommerceDiscountQualifiersScreenNavigationEntry
 			return false;
 		}
 
-		return true;
+		boolean hasPermission = false;
+
+		try {
+			hasPermission = _commerceDiscountModelResourcePermission.contains(
+				PermissionThreadLocal.getPermissionChecker(),
+				commerceDiscount.getCommerceDiscountId(), ActionKeys.UPDATE);
+		}
+		catch (Exception e) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(e, e);
+			}
+		}
+
+		return hasPermission;
 	}
 
 	@Override
@@ -124,6 +141,9 @@ public class CommerceDiscountQualifiersScreenNavigationEntry
 			httpServletRequest, httpServletResponse,
 			"/discount/qualifiers.jsp");
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommerceDiscountQualifiersScreenNavigationEntry.class);
 
 	@Reference
 	private CommerceChannelRelService _commerceChannelRelService;
