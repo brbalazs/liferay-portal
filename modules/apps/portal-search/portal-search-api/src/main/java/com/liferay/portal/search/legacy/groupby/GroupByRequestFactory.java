@@ -14,10 +14,10 @@
 
 package com.liferay.portal.search.legacy.groupby;
 
-import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.search.GroupBy;
 import com.liferay.portal.search.groupby.GroupByRequest;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * @author Bryan Engler
@@ -28,9 +28,8 @@ public interface GroupByRequestFactory {
 	/**
 	 * Provides a GroupByRequest object based off a legacy GroupBy object.
 	 *
-	 * @param groupBy the legacy GroupBy object to be converted
+	 * @param  groupBy the legacy GroupBy object to be converted
 	 * @return the converted GroupByRequest object
-	 *
 	 * @review
 	 */
 	public GroupByRequest getGroupByRequest(GroupBy groupBy);
