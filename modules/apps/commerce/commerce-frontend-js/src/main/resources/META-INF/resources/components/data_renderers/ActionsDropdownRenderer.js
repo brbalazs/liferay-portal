@@ -190,7 +190,7 @@ function ActionsDropdownRenderer(props) {
 						size: action.size,
 						target: action.target,
 						title: action.title,
-						url: action.href
+						url: formattedHref
 					});
 				}}
 				small
