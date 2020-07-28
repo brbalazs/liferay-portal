@@ -300,27 +300,20 @@ public class LocalProcessExecutorTest {
 			originalProcessConfig);
 
 		Assert.assertSame(Collections.emptyList(), copyBuilder1.getArguments());
-
 		Assert.assertNull(copyBuilder1.getEnvironment());
 
 		ProcessConfig copyProcessConfig1 = copyBuilder1.build();
 
 		Assert.assertSame(
 			Collections.emptyList(), copyProcessConfig1.getArguments());
-
 		Assert.assertSame(
 			bootstrapClassPath, copyProcessConfig1.getBootstrapClassPath());
-
 		Assert.assertNull(copyProcessConfig1.getEnvironment());
-
 		Assert.assertSame(
 			javaExecutable, copyProcessConfig1.getJavaExecutable());
-
 		Assert.assertSame(consumer, copyProcessConfig1.getProcessLogConsumer());
-
 		Assert.assertSame(
 			reactClasssLoader, copyProcessConfig1.getReactClassLoader());
-
 		Assert.assertSame(
 			runtimeClassPath, copyProcessConfig1.getRuntimeClassPath());
 
@@ -343,7 +336,6 @@ public class LocalProcessExecutorTest {
 
 		Assert.assertNotSame(arguments, copyBuilder2.getArguments());
 		Assert.assertEquals(arguments, copyBuilder2.getArguments());
-
 		Assert.assertNotSame(environment, copyBuilder2.getEnvironment());
 		Assert.assertEquals(environment, copyBuilder2.getEnvironment());
 
@@ -351,21 +343,15 @@ public class LocalProcessExecutorTest {
 
 		Assert.assertNotSame(arguments, copyProcessConfig2.getArguments());
 		Assert.assertEquals(arguments, copyProcessConfig2.getArguments());
-
 		Assert.assertSame(
 			bootstrapClassPath, copyProcessConfig2.getBootstrapClassPath());
-
 		Assert.assertNotSame(environment, copyProcessConfig2.getEnvironment());
 		Assert.assertEquals(environment, copyProcessConfig2.getEnvironment());
-
 		Assert.assertSame(
 			javaExecutable, copyProcessConfig2.getJavaExecutable());
-
 		Assert.assertSame(consumer, copyProcessConfig2.getProcessLogConsumer());
-
 		Assert.assertSame(
 			reactClasssLoader, copyProcessConfig2.getReactClassLoader());
-
 		Assert.assertSame(
 			runtimeClassPath, copyProcessConfig2.getRuntimeClassPath());
 	}
