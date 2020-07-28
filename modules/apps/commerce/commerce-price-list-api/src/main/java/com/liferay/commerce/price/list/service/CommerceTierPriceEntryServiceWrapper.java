@@ -208,6 +208,16 @@ public class CommerceTierPriceEntryServiceWrapper
 	}
 
 	@Override
+	public int searchCommerceTierPriceEntriesCount(
+			long companyId, long commercePriceEntryId, String keywords)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceTierPriceEntryService.
+			searchCommerceTierPriceEntriesCount(
+				companyId, commercePriceEntryId, keywords);
+	}
+
+	@Override
 	public com.liferay.commerce.price.list.model.CommerceTierPriceEntry
 			updateCommerceTierPriceEntry(
 				long commerceTierPriceEntryId, java.math.BigDecimal price,

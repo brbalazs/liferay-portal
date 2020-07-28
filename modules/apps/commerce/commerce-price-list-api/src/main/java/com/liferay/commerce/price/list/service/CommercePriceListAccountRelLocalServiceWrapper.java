@@ -130,6 +130,15 @@ public class CommercePriceListAccountRelLocalServiceWrapper
 			deleteCommercePriceListAccountRels(commercePriceListId);
 	}
 
+	@Override
+	public void deleteCommercePriceListAccountRelsByCommercePriceListId(
+		long commercePriceListId) {
+
+		_commercePriceListAccountRelLocalService.
+			deleteCommercePriceListAccountRelsByCommercePriceListId(
+				commercePriceListId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

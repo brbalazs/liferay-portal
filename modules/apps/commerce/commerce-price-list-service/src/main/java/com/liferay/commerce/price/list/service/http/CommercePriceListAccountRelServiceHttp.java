@@ -136,6 +136,43 @@ public class CommercePriceListAccountRelServiceHttp {
 		}
 	}
 
+	public static void deleteCommercePriceListAccountRelsByCommercePriceListId(
+			HttpPrincipal httpPrincipal, long commercePriceListId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommercePriceListAccountRelServiceUtil.class,
+				"deleteCommercePriceListAccountRelsByCommercePriceListId",
+				_deleteCommercePriceListAccountRelsByCommercePriceListIdParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commercePriceListId);
+
+			try {
+				TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static
 		com.liferay.commerce.price.list.model.CommercePriceListAccountRel
 				fetchCommercePriceListAccountRel(
@@ -147,7 +184,7 @@ public class CommercePriceListAccountRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceListAccountRelServiceUtil.class,
 				"fetchCommercePriceListAccountRel",
-				_fetchCommercePriceListAccountRelParameterTypes2);
+				_fetchCommercePriceListAccountRelParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceListId, commerceAccountId);
@@ -192,7 +229,7 @@ public class CommercePriceListAccountRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceListAccountRelServiceUtil.class,
 				"getCommercePriceListAccountRel",
-				_getCommercePriceListAccountRelParameterTypes3);
+				_getCommercePriceListAccountRelParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceListAccountRelId);
@@ -236,7 +273,7 @@ public class CommercePriceListAccountRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceListAccountRelServiceUtil.class,
 				"getCommercePriceListAccountRels",
-				_getCommercePriceListAccountRelsParameterTypes4);
+				_getCommercePriceListAccountRelsParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceListId);
@@ -285,7 +322,7 @@ public class CommercePriceListAccountRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceListAccountRelServiceUtil.class,
 				"getCommercePriceListAccountRels",
-				_getCommercePriceListAccountRelsParameterTypes5);
+				_getCommercePriceListAccountRelsParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceListId, start, end, orderByComparator);
@@ -330,7 +367,7 @@ public class CommercePriceListAccountRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceListAccountRelServiceUtil.class,
 				"getCommercePriceListAccountRelsByCommercePriceListId",
-				_getCommercePriceListAccountRelsByCommercePriceListIdParameterTypes6);
+				_getCommercePriceListAccountRelsByCommercePriceListIdParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceListId, name, start, end);
@@ -365,7 +402,7 @@ public class CommercePriceListAccountRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceListAccountRelServiceUtil.class,
 				"getCommercePriceListAccountRelsByCommercePriceListIdCount",
-				_getCommercePriceListAccountRelsByCommercePriceListIdCountParameterTypes7);
+				_getCommercePriceListAccountRelsByCommercePriceListIdCountParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceListId, name);
@@ -399,7 +436,7 @@ public class CommercePriceListAccountRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceListAccountRelServiceUtil.class,
 				"getCommercePriceListAccountRelsCount",
-				_getCommercePriceListAccountRelsCountParameterTypes8);
+				_getCommercePriceListAccountRelsCountParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceListId);
@@ -445,30 +482,33 @@ public class CommercePriceListAccountRelServiceHttp {
 			long.class
 		};
 	private static final Class<?>[]
-		_fetchCommercePriceListAccountRelParameterTypes2 = new Class[] {
+		_deleteCommercePriceListAccountRelsByCommercePriceListIdParameterTypes2 =
+			new Class[] {long.class};
+	private static final Class<?>[]
+		_fetchCommercePriceListAccountRelParameterTypes3 = new Class[] {
 			long.class, long.class
 		};
 	private static final Class<?>[]
-		_getCommercePriceListAccountRelParameterTypes3 = new Class[] {
-			long.class
-		};
-	private static final Class<?>[]
-		_getCommercePriceListAccountRelsParameterTypes4 = new Class[] {
+		_getCommercePriceListAccountRelParameterTypes4 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
 		_getCommercePriceListAccountRelsParameterTypes5 = new Class[] {
+			long.class
+		};
+	private static final Class<?>[]
+		_getCommercePriceListAccountRelsParameterTypes6 = new Class[] {
 			long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
-		_getCommercePriceListAccountRelsByCommercePriceListIdParameterTypes6 =
+		_getCommercePriceListAccountRelsByCommercePriceListIdParameterTypes7 =
 			new Class[] {long.class, String.class, int.class, int.class};
 	private static final Class<?>[]
-		_getCommercePriceListAccountRelsByCommercePriceListIdCountParameterTypes7 =
+		_getCommercePriceListAccountRelsByCommercePriceListIdCountParameterTypes8 =
 			new Class[] {long.class, String.class};
 	private static final Class<?>[]
-		_getCommercePriceListAccountRelsCountParameterTypes8 = new Class[] {
+		_getCommercePriceListAccountRelsCountParameterTypes9 = new Class[] {
 			long.class
 		};
 

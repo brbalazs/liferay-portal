@@ -508,6 +508,11 @@ public interface CommercePriceListLocalService
 			int start, int end, Sort sort)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int searchCommercePriceListsCount(
+			long companyId, long[] groupIds, String keywords, int status)
+		throws PortalException;
+
 	/**
 	 * Updates the commerce price list in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

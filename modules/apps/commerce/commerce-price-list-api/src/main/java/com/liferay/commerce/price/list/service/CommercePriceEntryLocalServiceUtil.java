@@ -655,6 +655,14 @@ public class CommercePriceEntryLocalServiceUtil {
 			companyId, commercePriceListId, keywords, start, end, sort);
 	}
 
+	public static int searchCommercePriceEntriesCount(
+			long companyId, long commercePriceListId, String keywords)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().searchCommercePriceEntriesCount(
+			companyId, commercePriceListId, keywords);
+	}
+
 	public static com.liferay.commerce.price.list.model.CommercePriceEntry
 			setHasTierPrice(long commercePriceEntryId, boolean hasTierPrice)
 		throws com.liferay.portal.kernel.exception.PortalException {

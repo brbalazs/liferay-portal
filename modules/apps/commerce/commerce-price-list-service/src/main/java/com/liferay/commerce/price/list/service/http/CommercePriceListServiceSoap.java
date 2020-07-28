@@ -447,6 +447,24 @@ public class CommercePriceListServiceSoap {
 		}
 	}
 
+	public static int searchCommercePriceListsCount(
+			long companyId, String keywords, int status)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommercePriceListServiceUtil.searchCommercePriceListsCount(
+					companyId, keywords, status);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.price.list.model.CommercePriceListSoap
 			updateCommercePriceList(
 				long commercePriceListId, long commerceCurrencyId,

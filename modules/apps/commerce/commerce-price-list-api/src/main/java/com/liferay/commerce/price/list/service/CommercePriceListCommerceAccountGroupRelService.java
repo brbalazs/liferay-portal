@@ -68,6 +68,10 @@ public interface CommercePriceListCommerceAccountGroupRelService
 				int order, ServiceContext serviceContext)
 		throws PortalException;
 
+	public void deleteCommercePriceListAccountGroupRelsByCommercePriceListId(
+			long commercePriceListId)
+		throws PortalException;
+
 	public void deleteCommercePriceListCommerceAccountGroupRel(
 			long commercePriceListCommerceAccountGroupRelId)
 		throws PortalException;

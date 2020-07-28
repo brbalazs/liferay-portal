@@ -56,6 +56,16 @@ public class CommercePriceListAccountRelServiceWrapper
 	}
 
 	@Override
+	public void deleteCommercePriceListAccountRelsByCommercePriceListId(
+			long commercePriceListId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_commercePriceListAccountRelService.
+			deleteCommercePriceListAccountRelsByCommercePriceListId(
+				commercePriceListId);
+	}
+
+	@Override
 	public com.liferay.commerce.price.list.model.CommercePriceListAccountRel
 			fetchCommercePriceListAccountRel(
 				long commercePriceListId, long commerceAccountId)

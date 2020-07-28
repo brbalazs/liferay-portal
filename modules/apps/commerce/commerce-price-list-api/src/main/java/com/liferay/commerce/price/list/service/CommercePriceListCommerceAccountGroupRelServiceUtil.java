@@ -50,6 +50,16 @@ public class CommercePriceListCommerceAccountGroupRelServiceUtil {
 			commercePriceListId, commerceAccountGroupId, order, serviceContext);
 	}
 
+	public static void
+			deleteCommercePriceListAccountGroupRelsByCommercePriceListId(
+				long commercePriceListId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().
+			deleteCommercePriceListAccountGroupRelsByCommercePriceListId(
+				commercePriceListId);
+	}
+
 	public static void deleteCommercePriceListCommerceAccountGroupRel(
 			long commercePriceListCommerceAccountGroupRelId)
 		throws com.liferay.portal.kernel.exception.PortalException {

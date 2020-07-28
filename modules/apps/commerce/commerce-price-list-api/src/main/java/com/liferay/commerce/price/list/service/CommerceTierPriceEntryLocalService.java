@@ -104,6 +104,7 @@ public interface CommerceTierPriceEntryLocalService
 			int minQuantity, ServiceContext serviceContext)
 		throws PortalException;
 
+	@Indexable(type = IndexableType.REINDEX)
 	public CommerceTierPriceEntry addCommerceTierPriceEntry(
 			long commercePriceEntryId, String externalReferenceCode,
 			BigDecimal price, BigDecimal promoPrice, int minQuantity,
@@ -393,6 +394,11 @@ public interface CommerceTierPriceEntryLocalService
 				int start, int end, Sort sort)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int searchCommerceTierPriceEntriesCount(
+			long companyId, long commercePriceEntryId, String keywords)
+		throws PortalException;
+
 	/**
 	 * Updates the commerce tier price entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -407,6 +413,7 @@ public interface CommerceTierPriceEntryLocalService
 	public CommerceTierPriceEntry updateCommerceTierPriceEntry(
 		CommerceTierPriceEntry commerceTierPriceEntry);
 
+	@Indexable(type = IndexableType.REINDEX)
 	public CommerceTierPriceEntry updateCommerceTierPriceEntry(
 			long commerceTierPriceEntryId, BigDecimal price,
 			BigDecimal promoPrice, int minQuantity, boolean bulkPricing,

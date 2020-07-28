@@ -798,6 +798,15 @@ public class CommercePriceListLocalServiceWrapper
 			companyId, groupIds, keywords, status, start, end, sort);
 	}
 
+	@Override
+	public int searchCommercePriceListsCount(
+			long companyId, long[] groupIds, String keywords, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListLocalService.searchCommercePriceListsCount(
+			companyId, groupIds, keywords, status);
+	}
+
 	/**
 	 * Updates the commerce price list in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

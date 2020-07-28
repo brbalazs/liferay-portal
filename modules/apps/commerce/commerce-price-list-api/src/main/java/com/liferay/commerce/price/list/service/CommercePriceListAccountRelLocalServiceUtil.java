@@ -134,6 +134,13 @@ public class CommercePriceListAccountRelLocalServiceUtil {
 		getService().deleteCommercePriceListAccountRels(commercePriceListId);
 	}
 
+	public static void deleteCommercePriceListAccountRelsByCommercePriceListId(
+		long commercePriceListId) {
+
+		getService().deleteCommercePriceListAccountRelsByCommercePriceListId(
+			commercePriceListId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

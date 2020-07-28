@@ -715,6 +715,15 @@ public class CommercePriceEntryLocalServiceWrapper
 	}
 
 	@Override
+	public int searchCommercePriceEntriesCount(
+			long companyId, long commercePriceListId, String keywords)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceEntryLocalService.searchCommercePriceEntriesCount(
+			companyId, commercePriceListId, keywords);
+	}
+
+	@Override
 	public com.liferay.commerce.price.list.model.CommercePriceEntry
 			setHasTierPrice(long commercePriceEntryId, boolean hasTierPrice)
 		throws com.liferay.portal.kernel.exception.PortalException {

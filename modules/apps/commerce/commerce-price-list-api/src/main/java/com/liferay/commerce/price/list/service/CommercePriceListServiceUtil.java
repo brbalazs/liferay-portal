@@ -271,6 +271,14 @@ public class CommercePriceListServiceUtil {
 			companyId, keywords, status, start, end, sort);
 	}
 
+	public static int searchCommercePriceListsCount(
+			long companyId, String keywords, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().searchCommercePriceListsCount(
+			companyId, keywords, status);
+	}
+
 	public static com.liferay.commerce.price.list.model.CommercePriceList
 			updateCommercePriceList(
 				long commercePriceListId, long commerceCurrencyId,

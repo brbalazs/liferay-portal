@@ -103,6 +103,22 @@ public class CommercePriceListAccountRelServiceSoap {
 		}
 	}
 
+	public static void deleteCommercePriceListAccountRelsByCommercePriceListId(
+			long commercePriceListId)
+		throws RemoteException {
+
+		try {
+			CommercePriceListAccountRelServiceUtil.
+				deleteCommercePriceListAccountRelsByCommercePriceListId(
+					commercePriceListId);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static
 		com.liferay.commerce.price.list.model.CommercePriceListAccountRelSoap
 				fetchCommercePriceListAccountRel(

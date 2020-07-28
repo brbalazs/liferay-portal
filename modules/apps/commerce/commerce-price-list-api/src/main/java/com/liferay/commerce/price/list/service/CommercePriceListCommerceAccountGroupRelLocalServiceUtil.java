@@ -87,6 +87,15 @@ public class CommercePriceListCommerceAccountGroupRelLocalServiceUtil {
 			commercePriceListCommerceAccountGroupRelId);
 	}
 
+	public static void
+		deleteCommercePriceListAccountGroupRelsByCommercePriceListId(
+			long commercePriceListId) {
+
+		getService().
+			deleteCommercePriceListAccountGroupRelsByCommercePriceListId(
+				commercePriceListId);
+	}
+
 	/**
 	 * Deletes the commerce price list commerce account group rel from the database. Also notifies the appropriate model listeners.
 	 *

@@ -188,6 +188,11 @@ public interface CommercePriceListService extends BaseService {
 			Sort sort)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int searchCommercePriceListsCount(
+			long companyId, String keywords, int status)
+		throws PortalException;
+
 	public CommercePriceList updateCommercePriceList(
 			long commercePriceListId, long commerceCurrencyId, boolean netPrice,
 			long parentCommercePriceListId, String name, double priority,

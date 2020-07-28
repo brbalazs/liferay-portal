@@ -471,6 +471,11 @@ public interface CommercePriceEntryLocalService
 			int start, int end, Sort sort)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int searchCommercePriceEntriesCount(
+			long companyId, long commercePriceListId, String keywords)
+		throws PortalException;
+
 	@Indexable(type = IndexableType.REINDEX)
 	public CommercePriceEntry setHasTierPrice(
 			long commercePriceEntryId, boolean hasTierPrice)

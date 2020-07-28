@@ -51,6 +51,48 @@ import com.liferay.portal.kernel.util.MethodKey;
  */
 public class CommerceTierPriceEntryServiceHttp {
 
+	public static int searchCommerceTierPriceEntriesCount(
+			HttpPrincipal httpPrincipal, long companyId,
+			long commercePriceEntryId, String keywords)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceTierPriceEntryServiceUtil.class,
+				"searchCommerceTierPriceEntriesCount",
+				_searchCommerceTierPriceEntriesCountParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, companyId, commercePriceEntryId, keywords);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static com.liferay.commerce.price.list.model.CommerceTierPriceEntry
 			addCommerceTierPriceEntry(
 				HttpPrincipal httpPrincipal, long commercePriceEntryId,
@@ -63,7 +105,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"addCommerceTierPriceEntry",
-				_addCommerceTierPriceEntryParameterTypes0);
+				_addCommerceTierPriceEntryParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceEntryId, price, promoPrice, minQuantity,
@@ -110,7 +152,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"addCommerceTierPriceEntry",
-				_addCommerceTierPriceEntryParameterTypes1);
+				_addCommerceTierPriceEntryParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceEntryId, externalReferenceCode, price,
@@ -166,7 +208,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"addCommerceTierPriceEntry",
-				_addCommerceTierPriceEntryParameterTypes2);
+				_addCommerceTierPriceEntryParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceEntryId, externalReferenceCode, price,
@@ -214,7 +256,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"deleteCommerceTierPriceEntry",
-				_deleteCommerceTierPriceEntryParameterTypes3);
+				_deleteCommerceTierPriceEntryParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceTierPriceEntryId);
@@ -253,7 +295,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"fetchByExternalReferenceCode",
-				_fetchByExternalReferenceCodeParameterTypes4);
+				_fetchByExternalReferenceCodeParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, externalReferenceCode);
@@ -298,7 +340,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"fetchCommerceTierPriceEntries",
-				_fetchCommerceTierPriceEntriesParameterTypes5);
+				_fetchCommerceTierPriceEntriesParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, start, end);
@@ -342,7 +384,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"fetchCommerceTierPriceEntry",
-				_fetchCommerceTierPriceEntryParameterTypes6);
+				_fetchCommerceTierPriceEntryParameterTypes7);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceTierPriceEntryId);
@@ -387,7 +429,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"getCommerceTierPriceEntries",
-				_getCommerceTierPriceEntriesParameterTypes7);
+				_getCommerceTierPriceEntriesParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceEntryId, start, end);
@@ -436,7 +478,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"getCommerceTierPriceEntries",
-				_getCommerceTierPriceEntriesParameterTypes8);
+				_getCommerceTierPriceEntriesParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceEntryId, start, end, orderByComparator);
@@ -479,7 +521,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"getCommerceTierPriceEntriesCount",
-				_getCommerceTierPriceEntriesCountParameterTypes9);
+				_getCommerceTierPriceEntriesCountParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceEntryId);
@@ -520,7 +562,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"getCommerceTierPriceEntriesCountByCompanyId",
-				_getCommerceTierPriceEntriesCountByCompanyIdParameterTypes10);
+				_getCommerceTierPriceEntriesCountByCompanyIdParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId);
@@ -562,7 +604,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"getCommerceTierPriceEntry",
-				_getCommerceTierPriceEntryParameterTypes11);
+				_getCommerceTierPriceEntryParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceTierPriceEntryId);
@@ -608,7 +650,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"searchCommerceTierPriceEntries",
-				_searchCommerceTierPriceEntriesParameterTypes12);
+				_searchCommerceTierPriceEntriesParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, commercePriceEntryId, keywords, start,
@@ -656,7 +698,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"updateCommerceTierPriceEntry",
-				_updateCommerceTierPriceEntryParameterTypes13);
+				_updateCommerceTierPriceEntryParameterTypes14);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceTierPriceEntryId, price, promoPrice,
@@ -712,7 +754,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"updateCommerceTierPriceEntry",
-				_updateCommerceTierPriceEntryParameterTypes14);
+				_updateCommerceTierPriceEntryParameterTypes15);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceTierPriceEntryId, price, minQuantity,
@@ -764,7 +806,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"updateExternalReferenceCode",
-				_updateExternalReferenceCodeParameterTypes15);
+				_updateExternalReferenceCodeParameterTypes16);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceTierPriceEntry, externalReferenceCode);
@@ -811,7 +853,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"upsertCommerceTierPriceEntry",
-				_upsertCommerceTierPriceEntryParameterTypes16);
+				_upsertCommerceTierPriceEntryParameterTypes17);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceTierPriceEntryId, commercePriceEntryId,
@@ -869,7 +911,7 @@ public class CommerceTierPriceEntryServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceTierPriceEntryServiceUtil.class,
 				"upsertCommerceTierPriceEntry",
-				_upsertCommerceTierPriceEntryParameterTypes17);
+				_upsertCommerceTierPriceEntryParameterTypes18);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceTierPriceEntryId, commercePriceEntryId,
@@ -913,18 +955,22 @@ public class CommerceTierPriceEntryServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(
 		CommerceTierPriceEntryServiceHttp.class);
 
-	private static final Class<?>[] _addCommerceTierPriceEntryParameterTypes0 =
+	private static final Class<?>[]
+		_searchCommerceTierPriceEntriesCountParameterTypes0 = new Class[] {
+			long.class, long.class, String.class
+		};
+	private static final Class<?>[] _addCommerceTierPriceEntryParameterTypes1 =
 		new Class[] {
 			long.class, java.math.BigDecimal.class, java.math.BigDecimal.class,
 			int.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _addCommerceTierPriceEntryParameterTypes1 =
+	private static final Class<?>[] _addCommerceTierPriceEntryParameterTypes2 =
 		new Class[] {
 			long.class, String.class, java.math.BigDecimal.class,
 			java.math.BigDecimal.class, int.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _addCommerceTierPriceEntryParameterTypes2 =
+	private static final Class<?>[] _addCommerceTierPriceEntryParameterTypes3 =
 		new Class[] {
 			long.class, String.class, java.math.BigDecimal.class, int.class,
 			boolean.class, boolean.class, java.math.BigDecimal.class,
@@ -935,47 +981,47 @@ public class CommerceTierPriceEntryServiceHttp {
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[]
-		_deleteCommerceTierPriceEntryParameterTypes3 = new Class[] {long.class};
+		_deleteCommerceTierPriceEntryParameterTypes4 = new Class[] {long.class};
 	private static final Class<?>[]
-		_fetchByExternalReferenceCodeParameterTypes4 = new Class[] {
+		_fetchByExternalReferenceCodeParameterTypes5 = new Class[] {
 			long.class, String.class
 		};
 	private static final Class<?>[]
-		_fetchCommerceTierPriceEntriesParameterTypes5 = new Class[] {
+		_fetchCommerceTierPriceEntriesParameterTypes6 = new Class[] {
 			long.class, int.class, int.class
 		};
 	private static final Class<?>[]
-		_fetchCommerceTierPriceEntryParameterTypes6 = new Class[] {long.class};
-	private static final Class<?>[]
-		_getCommerceTierPriceEntriesParameterTypes7 = new Class[] {
-			long.class, int.class, int.class
-		};
+		_fetchCommerceTierPriceEntryParameterTypes7 = new Class[] {long.class};
 	private static final Class<?>[]
 		_getCommerceTierPriceEntriesParameterTypes8 = new Class[] {
+			long.class, int.class, int.class
+		};
+	private static final Class<?>[]
+		_getCommerceTierPriceEntriesParameterTypes9 = new Class[] {
 			long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
-		_getCommerceTierPriceEntriesCountParameterTypes9 = new Class[] {
+		_getCommerceTierPriceEntriesCountParameterTypes10 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getCommerceTierPriceEntriesCountByCompanyIdParameterTypes10 =
+		_getCommerceTierPriceEntriesCountByCompanyIdParameterTypes11 =
 			new Class[] {long.class};
-	private static final Class<?>[] _getCommerceTierPriceEntryParameterTypes11 =
+	private static final Class<?>[] _getCommerceTierPriceEntryParameterTypes12 =
 		new Class[] {long.class};
 	private static final Class<?>[]
-		_searchCommerceTierPriceEntriesParameterTypes12 = new Class[] {
+		_searchCommerceTierPriceEntriesParameterTypes13 = new Class[] {
 			long.class, long.class, String.class, int.class, int.class,
 			com.liferay.portal.kernel.search.Sort.class
 		};
 	private static final Class<?>[]
-		_updateCommerceTierPriceEntryParameterTypes13 = new Class[] {
+		_updateCommerceTierPriceEntryParameterTypes14 = new Class[] {
 			long.class, java.math.BigDecimal.class, java.math.BigDecimal.class,
 			int.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[]
-		_updateCommerceTierPriceEntryParameterTypes14 = new Class[] {
+		_updateCommerceTierPriceEntryParameterTypes15 = new Class[] {
 			long.class, java.math.BigDecimal.class, int.class, boolean.class,
 			boolean.class, java.math.BigDecimal.class,
 			java.math.BigDecimal.class, java.math.BigDecimal.class,
@@ -985,18 +1031,18 @@ public class CommerceTierPriceEntryServiceHttp {
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[]
-		_updateExternalReferenceCodeParameterTypes15 = new Class[] {
+		_updateExternalReferenceCodeParameterTypes16 = new Class[] {
 			com.liferay.commerce.price.list.model.CommerceTierPriceEntry.class,
 			String.class
 		};
 	private static final Class<?>[]
-		_upsertCommerceTierPriceEntryParameterTypes16 = new Class[] {
+		_upsertCommerceTierPriceEntryParameterTypes17 = new Class[] {
 			long.class, long.class, String.class, java.math.BigDecimal.class,
 			java.math.BigDecimal.class, int.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[]
-		_upsertCommerceTierPriceEntryParameterTypes17 = new Class[] {
+		_upsertCommerceTierPriceEntryParameterTypes18 = new Class[] {
 			long.class, long.class, String.class, java.math.BigDecimal.class,
 			int.class, boolean.class, boolean.class, java.math.BigDecimal.class,
 			java.math.BigDecimal.class, java.math.BigDecimal.class,

@@ -579,6 +579,16 @@ public class CommerceTierPriceEntryLocalServiceWrapper
 				companyId, commercePriceEntryId, keywords, start, end, sort);
 	}
 
+	@Override
+	public int searchCommerceTierPriceEntriesCount(
+			long companyId, long commercePriceEntryId, String keywords)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceTierPriceEntryLocalService.
+			searchCommerceTierPriceEntriesCount(
+				companyId, commercePriceEntryId, keywords);
+	}
+
 	/**
 	 * Updates the commerce tier price entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

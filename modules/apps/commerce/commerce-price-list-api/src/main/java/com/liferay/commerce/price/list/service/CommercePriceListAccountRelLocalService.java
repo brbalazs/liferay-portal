@@ -127,6 +127,9 @@ public interface CommercePriceListAccountRelLocalService
 
 	public void deleteCommercePriceListAccountRels(long commercePriceListId);
 
+	public void deleteCommercePriceListAccountRelsByCommercePriceListId(
+		long commercePriceListId);
+
 	/**
 	 * @throws PortalException
 	 */

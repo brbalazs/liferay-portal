@@ -92,6 +92,15 @@ public class CommercePriceListCommerceAccountGroupRelLocalServiceWrapper
 				commercePriceListCommerceAccountGroupRelId);
 	}
 
+	@Override
+	public void deleteCommercePriceListAccountGroupRelsByCommercePriceListId(
+		long commercePriceListId) {
+
+		_commercePriceListCommerceAccountGroupRelLocalService.
+			deleteCommercePriceListAccountGroupRelsByCommercePriceListId(
+				commercePriceListId);
+	}
+
 	/**
 	 * Deletes the commerce price list commerce account group rel from the database. Also notifies the appropriate model listeners.
 	 *

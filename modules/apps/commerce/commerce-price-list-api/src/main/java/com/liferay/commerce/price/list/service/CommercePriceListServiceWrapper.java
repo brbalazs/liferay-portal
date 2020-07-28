@@ -288,6 +288,15 @@ public class CommercePriceListServiceWrapper
 	}
 
 	@Override
+	public int searchCommercePriceListsCount(
+			long companyId, String keywords, int status)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListService.searchCommercePriceListsCount(
+			companyId, keywords, status);
+	}
+
+	@Override
 	public com.liferay.commerce.price.list.model.CommercePriceList
 			updateCommercePriceList(
 				long commercePriceListId, long commerceCurrencyId,

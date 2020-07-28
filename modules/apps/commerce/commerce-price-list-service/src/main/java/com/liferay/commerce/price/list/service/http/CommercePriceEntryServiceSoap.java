@@ -430,6 +430,24 @@ public class CommercePriceEntryServiceSoap {
 		}
 	}
 
+	public static int searchCommercePriceEntriesCount(
+			long companyId, long commercePriceListId, String keywords)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommercePriceEntryServiceUtil.searchCommercePriceEntriesCount(
+					companyId, commercePriceListId, keywords);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.price.list.model.CommercePriceEntrySoap
 			updateCommercePriceEntry(
 				long commercePriceEntryId, java.math.BigDecimal price,

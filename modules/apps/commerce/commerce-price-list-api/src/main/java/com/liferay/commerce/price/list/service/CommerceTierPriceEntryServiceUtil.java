@@ -198,6 +198,14 @@ public class CommerceTierPriceEntryServiceUtil {
 			companyId, commercePriceEntryId, keywords, start, end, sort);
 	}
 
+	public static int searchCommerceTierPriceEntriesCount(
+			long companyId, long commercePriceEntryId, String keywords)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().searchCommerceTierPriceEntriesCount(
+			companyId, commercePriceEntryId, keywords);
+	}
+
 	public static com.liferay.commerce.price.list.model.CommerceTierPriceEntry
 			updateCommerceTierPriceEntry(
 				long commerceTierPriceEntryId, java.math.BigDecimal price,

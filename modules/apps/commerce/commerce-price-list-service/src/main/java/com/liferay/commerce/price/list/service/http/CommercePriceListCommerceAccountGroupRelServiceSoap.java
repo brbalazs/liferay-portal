@@ -89,6 +89,23 @@ public class CommercePriceListCommerceAccountGroupRelServiceSoap {
 		}
 	}
 
+	public static void
+			deleteCommercePriceListAccountGroupRelsByCommercePriceListId(
+				long commercePriceListId)
+		throws RemoteException {
+
+		try {
+			CommercePriceListCommerceAccountGroupRelServiceUtil.
+				deleteCommercePriceListAccountGroupRelsByCommercePriceListId(
+					commercePriceListId);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static void deleteCommercePriceListCommerceAccountGroupRel(
 			long commercePriceListCommerceAccountGroupRelId)
 		throws RemoteException {
