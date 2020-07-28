@@ -16,12 +16,17 @@ package com.liferay.commerce.pricing.constants;
 
 /**
  * @author Riccardo Alberti
+ * @author Alessio Antonio Rendina
  */
 public class CommercePricingPortletKeys {
 
 	public static final String COMMERCE_DISCOUNT =
 		"com_liferay_commerce_pricing_web_internal_portlet_" +
 			"CommerceDiscountPortlet";
+
+	public static final String COMMERCE_PRICE_LIST =
+		"com_liferay_commerce_pricing_web_internal_portlet_" +
+			"CommercePriceListPortlet";
 
 	public static final String COMMERCE_PRICING_CLASSES =
 		"com_liferay_commerce_pricing_web_internal_portlet_" +
