@@ -88,6 +88,23 @@ public class CommerceDiscountAccountRelLocalServiceImpl
 	}
 
 	@Override
+	public List<CommerceDiscountAccountRel>
+		getCommerceDiscountAccountRelsByCommerceDiscountId(
+			long commerceDiscountId, String name, int start, int end) {
+
+		return commerceDiscountAccountRelFinder.findByCommerceDiscountId(
+			commerceDiscountId, name, start, end);
+	}
+
+	@Override
+	public int getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
+		long commerceDiscountId, String name) {
+
+		return commerceDiscountAccountRelFinder.countByCommerceDiscountId(
+			commerceDiscountId, name);
+	}
+
+	@Override
 	public int getCommerceDiscountAccountRelsCount(long commerceDiscountId) {
 		return commerceDiscountAccountRelPersistence.countByCommerceDiscountId(
 			commerceDiscountId);
