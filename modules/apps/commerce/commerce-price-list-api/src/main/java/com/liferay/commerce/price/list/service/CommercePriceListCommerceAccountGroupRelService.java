@@ -99,6 +99,16 @@ public interface CommercePriceListCommerceAccountGroupRelService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePriceListCommerceAccountGroupRel>
+		getCommercePriceListCommerceAccountGroupRelsByCommercePriceListId(
+			long commercePriceListId, String name, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int
+		getCommercePriceListCommerceAccountGroupRelsByCommercePriceListIdCount(
+			long commercePriceListId, String name);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommercePriceListCommerceAccountGroupRelsCount(
 			long commercePriceListId)
 		throws PortalException;

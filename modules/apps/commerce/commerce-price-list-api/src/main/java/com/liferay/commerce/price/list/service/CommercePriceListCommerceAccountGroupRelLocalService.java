@@ -286,6 +286,16 @@ public interface CommercePriceListCommerceAccountGroupRelLocalService
 			OrderByComparator<CommercePriceListCommerceAccountGroupRel>
 				orderByComparator);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePriceListCommerceAccountGroupRel>
+		getCommercePriceListCommerceAccountGroupRelsByCommercePriceListId(
+			long commercePriceListId, String name, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int
+		getCommercePriceListCommerceAccountGroupRelsByCommercePriceListIdCount(
+			long commercePriceListId, String name);
+
 	/**
 	 * Returns the number of commerce price list commerce account group rels.
 	 *

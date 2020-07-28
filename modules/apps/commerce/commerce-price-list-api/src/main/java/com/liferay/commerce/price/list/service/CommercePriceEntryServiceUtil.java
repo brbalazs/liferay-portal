@@ -171,6 +171,14 @@ public class CommercePriceEntryServiceUtil {
 		return getService().getCommercePriceEntry(commercePriceEntryId);
 	}
 
+	public static com.liferay.commerce.price.list.model.CommercePriceEntry
+		getInstanceBaseCommercePriceEntry(
+			String cpInstanceUuid, String priceListType) {
+
+		return getService().getInstanceBaseCommercePriceEntry(
+			cpInstanceUuid, priceListType);
+	}
+
 	public static java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceEntry>
 				getInstanceCommercePriceEntries(

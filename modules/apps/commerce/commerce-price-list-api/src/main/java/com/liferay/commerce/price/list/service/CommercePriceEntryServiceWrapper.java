@@ -185,6 +185,15 @@ public class CommercePriceEntryServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceEntry
+		getInstanceBaseCommercePriceEntry(
+			String cpInstanceUuid, String priceListType) {
+
+		return _commercePriceEntryService.getInstanceBaseCommercePriceEntry(
+			cpInstanceUuid, priceListType);
+	}
+
+	@Override
 	public java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceEntry>
 				getInstanceCommercePriceEntries(

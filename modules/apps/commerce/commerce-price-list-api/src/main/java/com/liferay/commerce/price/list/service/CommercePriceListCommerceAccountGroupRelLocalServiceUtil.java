@@ -356,6 +356,26 @@ public class CommercePriceListCommerceAccountGroupRelLocalServiceUtil {
 			commercePriceListId, start, end, orderByComparator);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.price.list.model.
+			CommercePriceListCommerceAccountGroupRel>
+				getCommercePriceListCommerceAccountGroupRelsByCommercePriceListId(
+					long commercePriceListId, String name, int start, int end) {
+
+		return getService().
+			getCommercePriceListCommerceAccountGroupRelsByCommercePriceListId(
+				commercePriceListId, name, start, end);
+	}
+
+	public static int
+		getCommercePriceListCommerceAccountGroupRelsByCommercePriceListIdCount(
+			long commercePriceListId, String name) {
+
+		return getService().
+			getCommercePriceListCommerceAccountGroupRelsByCommercePriceListIdCount(
+				commercePriceListId, name);
+	}
+
 	/**
 	 * Returns the number of commerce price list commerce account group rels.
 	 *

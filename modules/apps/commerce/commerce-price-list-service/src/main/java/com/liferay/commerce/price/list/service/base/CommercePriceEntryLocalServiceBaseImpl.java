@@ -17,8 +17,11 @@ package com.liferay.commerce.price.list.service.base;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.service.CommercePriceEntryLocalService;
 import com.liferay.commerce.price.list.service.persistence.CommercePriceEntryPersistence;
+import com.liferay.commerce.price.list.service.persistence.CommercePriceListAccountRelFinder;
 import com.liferay.commerce.price.list.service.persistence.CommercePriceListAccountRelPersistence;
+import com.liferay.commerce.price.list.service.persistence.CommercePriceListChannelRelFinder;
 import com.liferay.commerce.price.list.service.persistence.CommercePriceListChannelRelPersistence;
+import com.liferay.commerce.price.list.service.persistence.CommercePriceListCommerceAccountGroupRelFinder;
 import com.liferay.commerce.price.list.service.persistence.CommercePriceListCommerceAccountGroupRelPersistence;
 import com.liferay.commerce.price.list.service.persistence.CommercePriceListDiscountRelPersistence;
 import com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder;
@@ -698,6 +701,29 @@ public abstract class CommercePriceEntryLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the commerce price list account rel finder.
+	 *
+	 * @return the commerce price list account rel finder
+	 */
+	public CommercePriceListAccountRelFinder
+		getCommercePriceListAccountRelFinder() {
+
+		return commercePriceListAccountRelFinder;
+	}
+
+	/**
+	 * Sets the commerce price list account rel finder.
+	 *
+	 * @param commercePriceListAccountRelFinder the commerce price list account rel finder
+	 */
+	public void setCommercePriceListAccountRelFinder(
+		CommercePriceListAccountRelFinder commercePriceListAccountRelFinder) {
+
+		this.commercePriceListAccountRelFinder =
+			commercePriceListAccountRelFinder;
+	}
+
+	/**
 	 * Returns the commerce price list channel rel local service.
 	 *
 	 * @return the commerce price list channel rel local service
@@ -748,6 +774,29 @@ public abstract class CommercePriceEntryLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the commerce price list channel rel finder.
+	 *
+	 * @return the commerce price list channel rel finder
+	 */
+	public CommercePriceListChannelRelFinder
+		getCommercePriceListChannelRelFinder() {
+
+		return commercePriceListChannelRelFinder;
+	}
+
+	/**
+	 * Sets the commerce price list channel rel finder.
+	 *
+	 * @param commercePriceListChannelRelFinder the commerce price list channel rel finder
+	 */
+	public void setCommercePriceListChannelRelFinder(
+		CommercePriceListChannelRelFinder commercePriceListChannelRelFinder) {
+
+		this.commercePriceListChannelRelFinder =
+			commercePriceListChannelRelFinder;
+	}
+
+	/**
 	 * Returns the commerce price list commerce account group rel local service.
 	 *
 	 * @return the commerce price list commerce account group rel local service
@@ -795,6 +844,30 @@ public abstract class CommercePriceEntryLocalServiceBaseImpl
 
 		this.commercePriceListCommerceAccountGroupRelPersistence =
 			commercePriceListCommerceAccountGroupRelPersistence;
+	}
+
+	/**
+	 * Returns the commerce price list commerce account group rel finder.
+	 *
+	 * @return the commerce price list commerce account group rel finder
+	 */
+	public CommercePriceListCommerceAccountGroupRelFinder
+		getCommercePriceListCommerceAccountGroupRelFinder() {
+
+		return commercePriceListCommerceAccountGroupRelFinder;
+	}
+
+	/**
+	 * Sets the commerce price list commerce account group rel finder.
+	 *
+	 * @param commercePriceListCommerceAccountGroupRelFinder the commerce price list commerce account group rel finder
+	 */
+	public void setCommercePriceListCommerceAccountGroupRelFinder(
+		CommercePriceListCommerceAccountGroupRelFinder
+			commercePriceListCommerceAccountGroupRelFinder) {
+
+		this.commercePriceListCommerceAccountGroupRelFinder =
+			commercePriceListCommerceAccountGroupRelFinder;
 	}
 
 	/**
@@ -1153,6 +1226,10 @@ public abstract class CommercePriceEntryLocalServiceBaseImpl
 	protected CommercePriceListAccountRelPersistence
 		commercePriceListAccountRelPersistence;
 
+	@BeanReference(type = CommercePriceListAccountRelFinder.class)
+	protected CommercePriceListAccountRelFinder
+		commercePriceListAccountRelFinder;
+
 	@BeanReference(
 		type = com.liferay.commerce.price.list.service.CommercePriceListChannelRelLocalService.class
 	)
@@ -1163,6 +1240,10 @@ public abstract class CommercePriceEntryLocalServiceBaseImpl
 	@BeanReference(type = CommercePriceListChannelRelPersistence.class)
 	protected CommercePriceListChannelRelPersistence
 		commercePriceListChannelRelPersistence;
+
+	@BeanReference(type = CommercePriceListChannelRelFinder.class)
+	protected CommercePriceListChannelRelFinder
+		commercePriceListChannelRelFinder;
 
 	@BeanReference(
 		type = com.liferay.commerce.price.list.service.CommercePriceListCommerceAccountGroupRelLocalService.class
@@ -1176,6 +1257,10 @@ public abstract class CommercePriceEntryLocalServiceBaseImpl
 	)
 	protected CommercePriceListCommerceAccountGroupRelPersistence
 		commercePriceListCommerceAccountGroupRelPersistence;
+
+	@BeanReference(type = CommercePriceListCommerceAccountGroupRelFinder.class)
+	protected CommercePriceListCommerceAccountGroupRelFinder
+		commercePriceListCommerceAccountGroupRelFinder;
 
 	@BeanReference(
 		type = com.liferay.commerce.price.list.service.CommercePriceListDiscountRelLocalService.class

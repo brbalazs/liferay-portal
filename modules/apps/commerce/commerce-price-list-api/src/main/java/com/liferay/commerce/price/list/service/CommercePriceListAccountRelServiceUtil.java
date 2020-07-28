@@ -99,6 +99,24 @@ public class CommercePriceListAccountRelServiceUtil {
 			commercePriceListId, start, end, orderByComparator);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceListAccountRel>
+			getCommercePriceListAccountRelsByCommercePriceListId(
+				long commercePriceListId, String name, int start, int end) {
+
+		return getService().
+			getCommercePriceListAccountRelsByCommercePriceListId(
+				commercePriceListId, name, start, end);
+	}
+
+	public static int getCommercePriceListAccountRelsByCommercePriceListIdCount(
+		long commercePriceListId, String name) {
+
+		return getService().
+			getCommercePriceListAccountRelsByCommercePriceListIdCount(
+				commercePriceListId, name);
+	}
+
 	public static int getCommercePriceListAccountRelsCount(
 			long commercePriceListId)
 		throws com.liferay.portal.kernel.exception.PortalException {

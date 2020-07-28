@@ -115,6 +115,28 @@ public class CommercePriceListCommerceAccountGroupRelServiceWrapper
 	}
 
 	@Override
+	public java.util.List
+		<com.liferay.commerce.price.list.model.
+			CommercePriceListCommerceAccountGroupRel>
+				getCommercePriceListCommerceAccountGroupRelsByCommercePriceListId(
+					long commercePriceListId, String name, int start, int end) {
+
+		return _commercePriceListCommerceAccountGroupRelService.
+			getCommercePriceListCommerceAccountGroupRelsByCommercePriceListId(
+				commercePriceListId, name, start, end);
+	}
+
+	@Override
+	public int
+		getCommercePriceListCommerceAccountGroupRelsByCommercePriceListIdCount(
+			long commercePriceListId, String name) {
+
+		return _commercePriceListCommerceAccountGroupRelService.
+			getCommercePriceListCommerceAccountGroupRelsByCommercePriceListIdCount(
+				commercePriceListId, name);
+	}
+
+	@Override
 	public int getCommercePriceListCommerceAccountGroupRelsCount(
 			long commercePriceListId)
 		throws com.liferay.portal.kernel.exception.PortalException {

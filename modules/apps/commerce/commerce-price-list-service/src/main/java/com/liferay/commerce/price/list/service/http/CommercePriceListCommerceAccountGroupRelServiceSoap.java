@@ -208,6 +208,51 @@ public class CommercePriceListCommerceAccountGroupRelServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.price.list.model.
+		CommercePriceListCommerceAccountGroupRelSoap[]
+				getCommercePriceListCommerceAccountGroupRelsByCommercePriceListId(
+					long commercePriceListId, String name, int start, int end)
+			throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.price.list.model.
+					CommercePriceListCommerceAccountGroupRel> returnValue =
+						CommercePriceListCommerceAccountGroupRelServiceUtil.
+							getCommercePriceListCommerceAccountGroupRelsByCommercePriceListId(
+								commercePriceListId, name, start, end);
+
+			return com.liferay.commerce.price.list.model.
+				CommercePriceListCommerceAccountGroupRelSoap.toSoapModels(
+					returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int
+			getCommercePriceListCommerceAccountGroupRelsByCommercePriceListIdCount(
+				long commercePriceListId, String name)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommercePriceListCommerceAccountGroupRelServiceUtil.
+					getCommercePriceListCommerceAccountGroupRelsByCommercePriceListIdCount(
+						commercePriceListId, name);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static int getCommercePriceListCommerceAccountGroupRelsCount(
 			long commercePriceListId)
 		throws RemoteException {

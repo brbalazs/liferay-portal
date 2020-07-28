@@ -545,6 +545,14 @@ public class CommercePriceEntryLocalServiceUtil {
 		return getService().getIndexableActionableDynamicQuery();
 	}
 
+	public static com.liferay.commerce.price.list.model.CommercePriceEntry
+		getInstanceBaseCommercePriceEntry(
+			String cpInstanceUuid, String priceListType) {
+
+		return getService().getInstanceBaseCommercePriceEntry(
+			cpInstanceUuid, priceListType);
+	}
+
 	/**
 	 * @deprecated As of Mueller (7.2.x)
 	 */

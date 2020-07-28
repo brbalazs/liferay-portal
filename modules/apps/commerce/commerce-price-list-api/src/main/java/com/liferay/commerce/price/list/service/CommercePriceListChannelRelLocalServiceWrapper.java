@@ -354,6 +354,26 @@ public class CommercePriceListChannelRelLocalServiceWrapper
 				commercePriceListId, start, end, orderByComparator);
 	}
 
+	@Override
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceListChannelRel>
+			getCommercePriceListChannelRelsByCommercePriceListId(
+				long commercePriceListId, String name, int start, int end) {
+
+		return _commercePriceListChannelRelLocalService.
+			getCommercePriceListChannelRelsByCommercePriceListId(
+				commercePriceListId, name, start, end);
+	}
+
+	@Override
+	public int getCommercePriceListChannelRelsByCommercePriceListIdCount(
+		long commercePriceListId, String name) {
+
+		return _commercePriceListChannelRelLocalService.
+			getCommercePriceListChannelRelsByCommercePriceListIdCount(
+				commercePriceListId, name);
+	}
+
 	/**
 	 * Returns the number of commerce price list channel rels.
 	 *

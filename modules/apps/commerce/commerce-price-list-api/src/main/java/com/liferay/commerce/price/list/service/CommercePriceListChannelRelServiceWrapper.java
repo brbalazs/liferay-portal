@@ -101,6 +101,26 @@ public class CommercePriceListChannelRelServiceWrapper
 	}
 
 	@Override
+	public java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceListChannelRel>
+			getCommercePriceListChannelRelsByCommercePriceListId(
+				long commercePriceListId, String name, int start, int end) {
+
+		return _commercePriceListChannelRelService.
+			getCommercePriceListChannelRelsByCommercePriceListId(
+				commercePriceListId, name, start, end);
+	}
+
+	@Override
+	public int getCommercePriceListChannelRelsByCommercePriceListIdCount(
+		long commercePriceListId, String name) {
+
+		return _commercePriceListChannelRelService.
+			getCommercePriceListChannelRelsByCommercePriceListIdCount(
+				commercePriceListId, name);
+	}
+
+	@Override
 	public int getCommercePriceListChannelRelsCount(long commercePriceListId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

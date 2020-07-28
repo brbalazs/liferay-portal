@@ -320,6 +320,77 @@ public class CommercePriceListChannelRelServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.price.list.model.CommercePriceListChannelRel>
+			getCommercePriceListChannelRelsByCommercePriceListId(
+				HttpPrincipal httpPrincipal, long commercePriceListId,
+				String name, int start, int end) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommercePriceListChannelRelServiceUtil.class,
+				"getCommercePriceListChannelRelsByCommercePriceListId",
+				_getCommercePriceListChannelRelsByCommercePriceListIdParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commercePriceListId, name, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<com.liferay.commerce.price.list.model.
+					CommercePriceListChannelRel>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static int getCommercePriceListChannelRelsByCommercePriceListIdCount(
+		HttpPrincipal httpPrincipal, long commercePriceListId, String name) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommercePriceListChannelRelServiceUtil.class,
+				"getCommercePriceListChannelRelsByCommercePriceListIdCount",
+				_getCommercePriceListChannelRelsByCommercePriceListIdCountParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commercePriceListId, name);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static int getCommercePriceListChannelRelsCount(
 			HttpPrincipal httpPrincipal, long commercePriceListId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -328,7 +399,7 @@ public class CommercePriceListChannelRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceListChannelRelServiceUtil.class,
 				"getCommercePriceListChannelRelsCount",
-				_getCommercePriceListChannelRelsCountParameterTypes6);
+				_getCommercePriceListChannelRelsCountParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceListId);
@@ -391,7 +462,13 @@ public class CommercePriceListChannelRelServiceHttp {
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
-		_getCommercePriceListChannelRelsCountParameterTypes6 = new Class[] {
+		_getCommercePriceListChannelRelsByCommercePriceListIdParameterTypes6 =
+			new Class[] {long.class, String.class, int.class, int.class};
+	private static final Class<?>[]
+		_getCommercePriceListChannelRelsByCommercePriceListIdCountParameterTypes7 =
+			new Class[] {long.class, String.class};
+	private static final Class<?>[]
+		_getCommercePriceListChannelRelsCountParameterTypes8 = new Class[] {
 			long.class
 		};
 
