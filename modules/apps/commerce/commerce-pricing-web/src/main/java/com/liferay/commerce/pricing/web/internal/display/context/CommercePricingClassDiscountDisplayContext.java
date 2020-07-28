@@ -16,7 +16,6 @@ package com.liferay.commerce.pricing.web.internal.display.context;
 
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
-import com.liferay.commerce.pricing.web.internal.display.context.util.CommercePricingClassRequestHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
@@ -27,7 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Riccardo Alberti
  */
-public class CommercePricingClassDiscountDisplayContext {
+public class CommercePricingClassDiscountDisplayContext
+	extends BasePricingDisplayContext {
 
 	public CommercePricingClassDiscountDisplayContext(
 		HttpServletRequest httpServletRequest,
@@ -35,18 +35,18 @@ public class CommercePricingClassDiscountDisplayContext {
 			commercePricingClassModelResourcePermission,
 		CommercePricingClassService commercePricingClassService) {
 
+		super(httpServletRequest);
+
 		_commercePricingClassModelResourcePermission =
 			commercePricingClassModelResourcePermission;
 		_commercePricingClassService = commercePricingClassService;
-		_commercePricingClassRequestHelper =
-			new CommercePricingClassRequestHelper(httpServletRequest);
 	}
 
 	public CommercePricingClass getCommercePricingClass()
 		throws PortalException {
 
 		long commercePricingClassId = ParamUtil.getLong(
-			_commercePricingClassRequestHelper.getRequest(),
+			commercePricingRequestHelper.getRequest(),
 			"commercePricingClassId");
 
 		if (commercePricingClassId == 0) {
@@ -61,14 +61,12 @@ public class CommercePricingClassDiscountDisplayContext {
 		CommercePricingClass commercePricingClass = getCommercePricingClass();
 
 		return _commercePricingClassModelResourcePermission.contains(
-			_commercePricingClassRequestHelper.getPermissionChecker(),
+			commercePricingRequestHelper.getPermissionChecker(),
 			commercePricingClass.getCommercePricingClassId(), ActionKeys.VIEW);
 	}
 
 	private final ModelResourcePermission<CommercePricingClass>
 		_commercePricingClassModelResourcePermission;
-	private final CommercePricingClassRequestHelper
-		_commercePricingClassRequestHelper;
 	private final CommercePricingClassService _commercePricingClassService;
 
 }

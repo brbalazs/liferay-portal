@@ -19,10 +19,9 @@ import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
 import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.pricing.constants.CommercePricingClassActionKeys;
-import com.liferay.commerce.pricing.constants.CommercePricingPorletKeys;
+import com.liferay.commerce.pricing.constants.CommercePricingPortletKeys;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
-import com.liferay.commerce.pricing.web.internal.display.context.util.CommercePricingClassRequestHelper;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -49,7 +48,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Riccardo Alberti
  */
-public class CommercePricingClassDisplayContext {
+public class CommercePricingClassDisplayContext
+	extends BasePricingDisplayContext {
 
 	public CommercePricingClassDisplayContext(
 		HttpServletRequest httpServletRequest,
@@ -58,18 +58,17 @@ public class CommercePricingClassDisplayContext {
 		CommercePricingClassService commercePricingClassService,
 		Portal portal) {
 
+		super(httpServletRequest);
+
 		_commercePricingClassModelResourcePermission =
 			commercePricingClassModelResourcePermission;
 		_commercePricingClassService = commercePricingClassService;
 		_portal = portal;
-
-		commercePricingClassRequestHelper =
-			new CommercePricingClassRequestHelper(httpServletRequest);
 	}
 
 	public String getAddCommercePricingClassRenderURL() throws Exception {
 		LiferayPortletResponse liferayPortletResponse =
-			commercePricingClassRequestHelper.getLiferayPortletResponse();
+			commercePricingRequestHelper.getLiferayPortletResponse();
 
 		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
@@ -88,7 +87,7 @@ public class CommercePricingClassDisplayContext {
 				new ClayCreationMenuActionItem(
 					getAddCommercePricingClassRenderURL(),
 					LanguageUtil.get(
-						commercePricingClassRequestHelper.getRequest(),
+						commercePricingRequestHelper.getRequest(),
 						"add-product-group"),
 					ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_MODAL));
 		}
@@ -100,7 +99,7 @@ public class CommercePricingClassDisplayContext {
 		throws PortalException {
 
 		long commercePricingClassId = ParamUtil.getLong(
-			commercePricingClassRequestHelper.getRequest(),
+			commercePricingRequestHelper.getRequest(),
 			"commercePricingClassId");
 
 		if (commercePricingClassId == 0) {
@@ -129,8 +128,8 @@ public class CommercePricingClassDisplayContext {
 		}
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			commercePricingClassRequestHelper.getRequest(),
-			CommercePricingPorletKeys.COMMERCE_PRICING_CLASSES,
+			commercePricingRequestHelper.getRequest(),
+			CommercePricingPortletKeys.COMMERCE_PRICING_CLASSES,
 			PortletRequest.ACTION_PHASE);
 
 		portletURL.setParameter(
@@ -146,8 +145,8 @@ public class CommercePricingClassDisplayContext {
 
 	public PortletURL getEditCommercePricingClassRenderURL() {
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			commercePricingClassRequestHelper.getRequest(),
-			CommercePricingPorletKeys.COMMERCE_PRICING_CLASSES,
+			commercePricingRequestHelper.getRequest(),
+			CommercePricingPortletKeys.COMMERCE_PRICING_CLASSES,
 			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter(
@@ -160,7 +159,7 @@ public class CommercePricingClassDisplayContext {
 		List<HeaderActionModel> headerActionModels = new ArrayList<>();
 
 		RenderResponse renderResponse =
-			commercePricingClassRequestHelper.getRenderResponse();
+			commercePricingRequestHelper.getRenderResponse();
 
 		RenderURL cancelURL = renderResponse.createRenderURL();
 
@@ -181,18 +180,15 @@ public class CommercePricingClassDisplayContext {
 
 	public boolean hasAddPermission() throws PortalException {
 		return PortalPermissionUtil.contains(
-			commercePricingClassRequestHelper.getPermissionChecker(),
+			commercePricingRequestHelper.getPermissionChecker(),
 			CommercePricingClassActionKeys.ADD_COMMERCE_PRICING_CLASS);
 	}
 
 	public boolean hasPermission(String actionId) throws PortalException {
 		return _commercePricingClassModelResourcePermission.contains(
-			commercePricingClassRequestHelper.getPermissionChecker(),
+			commercePricingRequestHelper.getPermissionChecker(),
 			getCommercePricingClassId(), actionId);
 	}
-
-	protected final CommercePricingClassRequestHelper
-		commercePricingClassRequestHelper;
 
 	private final ModelResourcePermission<CommercePricingClass>
 		_commercePricingClassModelResourcePermission;
