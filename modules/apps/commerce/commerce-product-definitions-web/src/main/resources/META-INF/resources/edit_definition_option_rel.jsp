@@ -166,24 +166,32 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 			);
 			var valuesContainer = document.getElementById('values-container');
 
-			function checkDDMFormFieldType() {
+			function checkDDMFormFieldType(event) {
 				var priceTypeSelectValue =
 					priceTypeSelect.options[priceTypeSelect.selectedIndex].value;
 				var skuContributorInputChecked = skuContributorInput.checked;
 
-				var allowedFieldTypeSelectOptions = availableFieldTypeSelectOptions;
+				enableFormFieldTypeSelectOptionValues(availableFieldTypeSelectOptions);
+
+				debugger;
 
 				if (priceTypeSelectValue != '') {
-					allowedFieldTypeSelectOptions = allowedPriceContributorFieldTypeSelectOptions;
+					enableFormFieldTypeSelectOptionValues(
+						allowedPriceContributorFieldTypeSelectOptions
+					);
 				}
 
 				if (skuContributorInputChecked) {
-					allowedFieldTypeSelectOptions = allowedSkuContributorFieldTypeSelectOptions;
+					enableFormFieldTypeSelectOptionValues(
+						allowedSkuContributorFieldTypeSelectOptions
+					);
 				}
+			}
 
+			function enableFormFieldTypeSelectOptionValues(array) {
 				if (
 					formFieldTypeSelect.value != '' &&
-					!allowedFieldTypeSelectOptions.includes(formFieldTypeSelect.value)
+					!endsWith(formFieldTypeSelect.value, array)
 				) {
 					alert(
 						'<liferay-ui:message key="selected-field-type-price-type-and-sku-contributor-combination-is-not-allowed" />'
@@ -199,11 +207,7 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 						continue;
 					}
 
-					if (
-						allowedFieldTypeSelectOptions.includes(
-							formFieldTypeSelectOption.value
-						)
-					) {
+					if (endsWith(formFieldTypeSelectOption.value, array)) {
 						if (formFieldTypeSelectOption.getAttribute('disabled')) {
 							formFieldTypeSelectOption.removeAttribute('disabled');
 						}
@@ -216,7 +220,12 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 			}
 
 			function handleFormFieldTypeSelectChanges() {
-				if (endsWith(formFieldTypeSelect.value, allowedPriceContributorFieldTypeSelectOptions)) {
+				if (
+					endsWith(
+						formFieldTypeSelect.value,
+						allowedPriceContributorFieldTypeSelectOptions
+					)
+				) {
 					enable(priceTypeSelect);
 				} else {
 					if (priceTypeSelect.value == '') {
@@ -230,7 +239,12 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 					}
 				}
 
-				if (endsWith(formFieldTypeSelect.value, allowedSkuContributorFieldTypeSelectOptions)) {
+				if (
+					endsWith(
+						formFieldTypeSelect.value,
+						allowedSkuContributorFieldTypeSelectOptions
+					)
+				) {
 					enable(skuContributorInput);
 				} else {
 					if (!skuContributorInput.checked) {
@@ -244,7 +258,12 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 					}
 				}
 
-				if (endsWith(formFieldTypeSelect.value, multipleValuesFieldTypeSelectOptions)) {
+				if (
+					endsWith(
+						formFieldTypeSelect.value,
+						multipleValuesFieldTypeSelectOptions
+					)
+				) {
 					valuesContainer.classList.remove('d-none');
 				} else {
 					valuesContainer.classList.add('d-none');
@@ -264,8 +283,10 @@ String defaultLanguageId = cpDefinitionOptionRelDisplayContext.getCatalogDefault
 			}
 
 			function endsWith(value, array) {
+				value = value.toLowerCase();
+
 				for (var i = 0; i < array.length; i++) {
-					if (value.endsWith(array[i])) {
+					if (value.endsWith(array[i].toLowerCase())) {
 						return true;
 					}
 				}
