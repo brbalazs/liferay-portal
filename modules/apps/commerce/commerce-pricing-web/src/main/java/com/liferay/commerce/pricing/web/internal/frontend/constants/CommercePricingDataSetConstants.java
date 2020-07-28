@@ -16,6 +16,7 @@ package com.liferay.commerce.pricing.web.internal.frontend.constants;
 
 /**
  * @author Riccardo Alberti
+ * @author Alessio Antonio Rendina
  */
 public class CommercePricingDataSetConstants {
 
@@ -51,6 +52,38 @@ public class CommercePricingDataSetConstants {
 	public static final String COMMERCE_DATA_SET_KEY_DISCOUNTS =
 		"commerceDiscounts";
 
+	public static final String COMMERCE_DATA_SET_KEY_PRICE_ENTRIES =
+		"commercePriceEntries";
+
+	public static final String
+		COMMERCE_DATA_SET_KEY_PRICE_LIST_QUALIFIER_ACCOUNT_GROUPS =
+			"commercePriceListQualifierAccountGroups";
+
+	public static final String
+		COMMERCE_DATA_SET_KEY_PRICE_LIST_QUALIFIER_ACCOUNTS =
+			"commercePriceListQualifierAccounts";
+
+	public static final String
+		COMMERCE_DATA_SET_KEY_PRICE_LIST_QUALIFIER_CHANNELS =
+			"commercePriceListQualifierChannels";
+
+	public static final String COMMERCE_DATA_SET_KEY_PRICE_LISTS =
+		"commercePriceLists";
+
+	public static final String COMMERCE_DATA_SET_KEY_PRICE_MODIFIER_CATEGORIES =
+		"commercePriceModifierCategories";
+
+	public static final String
+		COMMERCE_DATA_SET_KEY_PRICE_MODIFIER_PRICING_CLASSES =
+			"commercePriceModifierPricingClasses";
+
+	public static final String
+		COMMERCE_DATA_SET_KEY_PRICE_MODIFIER_PRODUCT_DEFINITIONS =
+			"commercePriceModifierProductDefinitions";
+
+	public static final String COMMERCE_DATA_SET_KEY_PRICE_MODIFIERS =
+		"commercePriceModifiers";
+
 	public static final String COMMERCE_DATA_SET_KEY_PRICING_CLASS_DISCOUNTS =
 		"commercePricingClassesDiscounts";
 
@@ -63,5 +96,8 @@ public class CommercePricingDataSetConstants {
 
 	public static final String COMMERCE_DATA_SET_KEY_PRICING_CLASSES =
 		"commercePricingClasses";
+
+	public static final String COMMERCE_DATA_SET_KEY_TIER_PRICE_ENTRIES =
+		"commerceTierPriceEntries";
 
 }
