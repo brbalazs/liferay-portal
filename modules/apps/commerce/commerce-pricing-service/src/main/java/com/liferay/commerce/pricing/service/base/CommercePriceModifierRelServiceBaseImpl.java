@@ -18,6 +18,7 @@ import com.liferay.commerce.pricing.model.CommercePriceModifierRel;
 import com.liferay.commerce.pricing.service.CommercePriceModifierRelService;
 import com.liferay.commerce.pricing.service.persistence.CommercePriceModifierFinder;
 import com.liferay.commerce.pricing.service.persistence.CommercePriceModifierPersistence;
+import com.liferay.commerce.pricing.service.persistence.CommercePriceModifierRelFinder;
 import com.liferay.commerce.pricing.service.persistence.CommercePriceModifierRelPersistence;
 import com.liferay.commerce.pricing.service.persistence.CommercePricingClassCPDefinitionRelFinder;
 import com.liferay.commerce.pricing.service.persistence.CommercePricingClassCPDefinitionRelPersistence;
@@ -221,6 +222,26 @@ public abstract class CommercePriceModifierRelServiceBaseImpl
 
 		this.commercePriceModifierRelPersistence =
 			commercePriceModifierRelPersistence;
+	}
+
+	/**
+	 * Returns the commerce price modifier rel finder.
+	 *
+	 * @return the commerce price modifier rel finder
+	 */
+	public CommercePriceModifierRelFinder getCommercePriceModifierRelFinder() {
+		return commercePriceModifierRelFinder;
+	}
+
+	/**
+	 * Sets the commerce price modifier rel finder.
+	 *
+	 * @param commercePriceModifierRelFinder the commerce price modifier rel finder
+	 */
+	public void setCommercePriceModifierRelFinder(
+		CommercePriceModifierRelFinder commercePriceModifierRelFinder) {
+
+		this.commercePriceModifierRelFinder = commercePriceModifierRelFinder;
 	}
 
 	/**
@@ -665,6 +686,9 @@ public abstract class CommercePriceModifierRelServiceBaseImpl
 	@BeanReference(type = CommercePriceModifierRelPersistence.class)
 	protected CommercePriceModifierRelPersistence
 		commercePriceModifierRelPersistence;
+
+	@BeanReference(type = CommercePriceModifierRelFinder.class)
+	protected CommercePriceModifierRelFinder commercePriceModifierRelFinder;
 
 	@BeanReference(
 		type = com.liferay.commerce.pricing.service.CommercePricingClassLocalService.class

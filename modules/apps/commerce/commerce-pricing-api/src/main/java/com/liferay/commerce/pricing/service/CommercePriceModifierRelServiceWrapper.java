@@ -63,6 +63,26 @@ public class CommercePriceModifierRelServiceWrapper
 	}
 
 	@Override
+	public java.util.List
+		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
+			getCategoriesByCommercePriceModifierId(
+				long commercePriceModifierId, String name, int start, int end) {
+
+		return _commercePriceModifierRelService.
+			getCategoriesByCommercePriceModifierId(
+				commercePriceModifierId, name, start, end);
+	}
+
+	@Override
+	public int getCategoriesByCommercePriceModifierIdCount(
+		long commercePriceModifierId, String name) {
+
+		return _commercePriceModifierRelService.
+			getCategoriesByCommercePriceModifierIdCount(
+				commercePriceModifierId, name);
+	}
+
+	@Override
 	public long[] getClassPKs(long commercePriceModifierRelId, String className)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -114,6 +134,57 @@ public class CommercePriceModifierRelServiceWrapper
 		return _commercePriceModifierRelService.
 			getCommercePriceModifierRelsCount(
 				commercePriceModifierRelId, className);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
+			getCommercePriceModifiersRels(String className, long classPK) {
+
+		return _commercePriceModifierRelService.getCommercePriceModifiersRels(
+			className, classPK);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
+			getCommercePricingClassesByCommercePriceModifierId(
+				long commercePriceModifierId, String title, int start,
+				int end) {
+
+		return _commercePriceModifierRelService.
+			getCommercePricingClassesByCommercePriceModifierId(
+				commercePriceModifierId, title, start, end);
+	}
+
+	@Override
+	public int getCommercePricingClassesByCommercePriceModifierIdCount(
+		long commercePriceModifierId, String title) {
+
+		return _commercePriceModifierRelService.
+			getCommercePricingClassesByCommercePriceModifierIdCount(
+				commercePriceModifierId, title);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
+			getCPDefinitionsByCommercePriceModifierId(
+				long commercePriceModifierId, String name, String languageId,
+				int start, int end) {
+
+		return _commercePriceModifierRelService.
+			getCPDefinitionsByCommercePriceModifierId(
+				commercePriceModifierId, name, languageId, start, end);
+	}
+
+	@Override
+	public int getCPDefinitionsByCommercePriceModifierIdCount(
+		long commercePriceModifierId, String name, String languageId) {
+
+		return _commercePriceModifierRelService.
+			getCPDefinitionsByCommercePriceModifierIdCount(
+				commercePriceModifierId, name, languageId);
 	}
 
 	/**

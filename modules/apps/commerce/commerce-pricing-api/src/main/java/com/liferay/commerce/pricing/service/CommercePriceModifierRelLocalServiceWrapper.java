@@ -270,6 +270,26 @@ public class CommercePriceModifierRelLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List
+		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
+			getCategoriesByCommercePriceModifierId(
+				long commercePriceModifierId, String name, int start, int end) {
+
+		return _commercePriceModifierRelLocalService.
+			getCategoriesByCommercePriceModifierId(
+				commercePriceModifierId, name, start, end);
+	}
+
+	@Override
+	public int getCategoriesByCommercePriceModifierIdCount(
+		long commercePriceModifierId, String name) {
+
+		return _commercePriceModifierRelLocalService.
+			getCategoriesByCommercePriceModifierIdCount(
+				commercePriceModifierId, name);
+	}
+
+	@Override
 	public long[] getClassPKs(long commercePriceModifierId, String className) {
 		return _commercePriceModifierRelLocalService.getClassPKs(
 			commercePriceModifierId, className);
@@ -364,6 +384,48 @@ public class CommercePriceModifierRelLocalServiceWrapper
 
 		return _commercePriceModifierRelLocalService.
 			getCommercePriceModifiersRels(className, classPK);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
+			getCommercePricingClassesByCommercePriceModifierId(
+				long commercePriceModifierId, String title, int start,
+				int end) {
+
+		return _commercePriceModifierRelLocalService.
+			getCommercePricingClassesByCommercePriceModifierId(
+				commercePriceModifierId, title, start, end);
+	}
+
+	@Override
+	public int getCommercePricingClassesByCommercePriceModifierIdCount(
+		long commercePriceModifierId, String title) {
+
+		return _commercePriceModifierRelLocalService.
+			getCommercePricingClassesByCommercePriceModifierIdCount(
+				commercePriceModifierId, title);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
+			getCPDefinitionsByCommercePriceModifierId(
+				long commercePriceModifierId, String name, String languageId,
+				int start, int end) {
+
+		return _commercePriceModifierRelLocalService.
+			getCPDefinitionsByCommercePriceModifierId(
+				commercePriceModifierId, name, languageId, start, end);
+	}
+
+	@Override
+	public int getCPDefinitionsByCommercePriceModifierIdCount(
+		long commercePriceModifierId, String name, String languageId) {
+
+		return _commercePriceModifierRelLocalService.
+			getCPDefinitionsByCommercePriceModifierIdCount(
+				commercePriceModifierId, name, languageId);
 	}
 
 	@Override

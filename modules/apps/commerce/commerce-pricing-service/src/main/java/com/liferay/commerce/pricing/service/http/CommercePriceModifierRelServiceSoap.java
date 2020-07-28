@@ -127,6 +127,50 @@ public class CommercePriceModifierRelServiceSoap {
 		}
 	}
 
+	public static
+		com.liferay.commerce.pricing.model.CommercePriceModifierRelSoap[]
+				getCategoriesByCommercePriceModifierId(
+					long commercePriceModifierId, String name, int start,
+					int end)
+			throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
+					returnValue =
+						CommercePriceModifierRelServiceUtil.
+							getCategoriesByCommercePriceModifierId(
+								commercePriceModifierId, name, start, end);
+
+			return com.liferay.commerce.pricing.model.
+				CommercePriceModifierRelSoap.toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCategoriesByCommercePriceModifierIdCount(
+			long commercePriceModifierId, String name)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommercePriceModifierRelServiceUtil.
+					getCategoriesByCommercePriceModifierIdCount(
+						commercePriceModifierId, name);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static long[] getClassPKs(
 			long commercePriceModifierRelId, String className)
 		throws RemoteException {
@@ -228,6 +272,117 @@ public class CommercePriceModifierRelServiceSoap {
 				CommercePriceModifierRelServiceUtil.
 					getCommercePriceModifierRelsCount(
 						commercePriceModifierRelId, className);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static
+		com.liferay.commerce.pricing.model.CommercePriceModifierRelSoap[]
+				getCommercePriceModifiersRels(String className, long classPK)
+			throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
+					returnValue =
+						CommercePriceModifierRelServiceUtil.
+							getCommercePriceModifiersRels(className, classPK);
+
+			return com.liferay.commerce.pricing.model.
+				CommercePriceModifierRelSoap.toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static
+		com.liferay.commerce.pricing.model.CommercePriceModifierRelSoap[]
+				getCommercePricingClassesByCommercePriceModifierId(
+					long commercePriceModifierId, String title, int start,
+					int end)
+			throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
+					returnValue =
+						CommercePriceModifierRelServiceUtil.
+							getCommercePricingClassesByCommercePriceModifierId(
+								commercePriceModifierId, title, start, end);
+
+			return com.liferay.commerce.pricing.model.
+				CommercePriceModifierRelSoap.toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommercePricingClassesByCommercePriceModifierIdCount(
+			long commercePriceModifierId, String title)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommercePriceModifierRelServiceUtil.
+					getCommercePricingClassesByCommercePriceModifierIdCount(
+						commercePriceModifierId, title);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static
+		com.liferay.commerce.pricing.model.CommercePriceModifierRelSoap[]
+				getCPDefinitionsByCommercePriceModifierId(
+					long commercePriceModifierId, String name,
+					String languageId, int start, int end)
+			throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
+					returnValue =
+						CommercePriceModifierRelServiceUtil.
+							getCPDefinitionsByCommercePriceModifierId(
+								commercePriceModifierId, name, languageId,
+								start, end);
+
+			return com.liferay.commerce.pricing.model.
+				CommercePriceModifierRelSoap.toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCPDefinitionsByCommercePriceModifierIdCount(
+			long commercePriceModifierId, String name, String languageId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommercePriceModifierRelServiceUtil.
+					getCPDefinitionsByCommercePriceModifierIdCount(
+						commercePriceModifierId, name, languageId);
 
 			return returnValue;
 		}

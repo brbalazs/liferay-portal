@@ -251,6 +251,22 @@ public class CommercePriceModifierRelLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
+			getCategoriesByCommercePriceModifierId(
+				long commercePriceModifierId, String name, int start, int end) {
+
+		return getService().getCategoriesByCommercePriceModifierId(
+			commercePriceModifierId, name, start, end);
+	}
+
+	public static int getCategoriesByCommercePriceModifierIdCount(
+		long commercePriceModifierId, String name) {
+
+		return getService().getCategoriesByCommercePriceModifierIdCount(
+			commercePriceModifierId, name);
+	}
+
 	public static long[] getClassPKs(
 		long commercePriceModifierId, String className) {
 
@@ -333,6 +349,41 @@ public class CommercePriceModifierRelLocalServiceUtil {
 			getCommercePriceModifiersRels(String className, long classPK) {
 
 		return getService().getCommercePriceModifiersRels(className, classPK);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
+			getCommercePricingClassesByCommercePriceModifierId(
+				long commercePriceModifierId, String title, int start,
+				int end) {
+
+		return getService().getCommercePricingClassesByCommercePriceModifierId(
+			commercePriceModifierId, title, start, end);
+	}
+
+	public static int getCommercePricingClassesByCommercePriceModifierIdCount(
+		long commercePriceModifierId, String title) {
+
+		return getService().
+			getCommercePricingClassesByCommercePriceModifierIdCount(
+				commercePriceModifierId, title);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
+			getCPDefinitionsByCommercePriceModifierId(
+				long commercePriceModifierId, String name, String languageId,
+				int start, int end) {
+
+		return getService().getCPDefinitionsByCommercePriceModifierId(
+			commercePriceModifierId, name, languageId, start, end);
+	}
+
+	public static int getCPDefinitionsByCommercePriceModifierIdCount(
+		long commercePriceModifierId, String name, String languageId) {
+
+		return getService().getCPDefinitionsByCommercePriceModifierIdCount(
+			commercePriceModifierId, name, languageId);
 	}
 
 	public static

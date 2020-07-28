@@ -214,6 +214,15 @@ public interface CommercePriceModifierRelLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePriceModifierRel>
+		getCategoriesByCommercePriceModifierId(
+			long commercePriceModifierId, String name, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCategoriesByCommercePriceModifierIdCount(
+		long commercePriceModifierId, String name);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long[] getClassPKs(long commercePriceModifierId, String className);
 
 	/**
@@ -267,6 +276,25 @@ public interface CommercePriceModifierRelLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceModifierRel> getCommercePriceModifiersRels(
 		String className, long classPK);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePriceModifierRel>
+		getCommercePricingClassesByCommercePriceModifierId(
+			long commercePriceModifierId, String title, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePricingClassesByCommercePriceModifierIdCount(
+		long commercePriceModifierId, String title);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommercePriceModifierRel>
+		getCPDefinitionsByCommercePriceModifierId(
+			long commercePriceModifierId, String name, String languageId,
+			int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCPDefinitionsByCommercePriceModifierIdCount(
+		long commercePriceModifierId, String name, String languageId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
