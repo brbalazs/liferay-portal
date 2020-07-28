@@ -1,6 +1,108 @@
 <?xml version="1.0"?>
 
 <custom-sql>
+	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListAccountRelFinder.countByCommercePriceListId">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT CommercePriceListAccountRel.commercePriceListAccountRelId) AS COUNT_VALUE
+			FROM
+				CommercePriceListAccountRel
+			JOIN
+				CommercePriceList ON
+					CommercePriceListAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
+			JOIN
+				CommerceAccount ON
+					CommercePriceListAccountRel.commerceAccountId = CommerceAccount.commerceAccountId
+			WHERE
+				(CommercePriceList.commercePriceListId = ?) AND
+				(LOWER(CommerceAccount.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListAccountRelFinder.findByCommercePriceListId">
+		<![CDATA[
+			SELECT
+				DISTINCT CommercePriceListAccountRel.*
+			FROM
+				CommercePriceListAccountRel
+			JOIN
+				CommercePriceList ON
+					CommercePriceListAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
+			JOIN
+				CommerceAccount ON
+					CommercePriceListAccountRel.commerceAccountId = CommerceAccount.commerceAccountId
+			WHERE
+				(CommercePriceList.commercePriceListId = ?) AND
+				(LOWER(CommerceAccount.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListChannelRelFinder.countByCommercePriceListId">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT CommercePriceListChannelRel.CommercePriceListChannelRelId) AS COUNT_VALUE
+			FROM
+				CommercePriceListChannelRel
+			JOIN
+				CommercePriceList ON
+					CommercePriceListChannelRel.commercePriceListId = CommercePriceList.commercePriceListId
+			JOIN
+				CommerceChannel ON
+					CommercePriceListChannelRel.commerceChannelId = CommerceChannel.commerceChannelId
+			WHERE
+				(CommercePriceList.commercePriceListId = ?) AND
+				(LOWER(CommerceChannel.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListChannelRelFinder.findByCommercePriceListId">
+		<![CDATA[
+			SELECT
+				DISTINCT CommercePriceListChannelRel.*
+			FROM
+				CommercePriceListChannelRel
+			JOIN
+				CommercePriceList ON
+					CommercePriceListChannelRel.commercePriceListId = CommercePriceList.commercePriceListId
+			JOIN
+				CommerceChannel ON
+					CommercePriceListChannelRel.commerceChannelId = CommerceChannel.commerceChannelId
+			WHERE
+				(CommercePriceList.commercePriceListId = ?) AND
+				(LOWER(CommerceChannel.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListCommerceAccountGroupRelFinder.countByCommercePriceListId">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT CPLCommerceGroupAccountRel.CPLCommerceAccountGroupRelId) AS COUNT_VALUE
+			FROM
+				CPLCommerceGroupAccountRel
+			JOIN
+				CommercePriceList ON
+					CPLCommerceGroupAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
+			JOIN
+				CommerceAccountGroup ON
+					CPLCommerceGroupAccountRel.commerceAccountGroupId = CommerceAccountGroup.commerceAccountGroupId
+			WHERE
+				(CommercePriceList.commercePriceListId = ?) AND
+				(LOWER(CommerceAccountGroup.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListCommerceAccountGroupRelFinder.findByCommercePriceListId">
+		<![CDATA[
+			SELECT
+				DISTINCT CPLCommerceGroupAccountRel.*
+			FROM
+				CPLCommerceGroupAccountRel
+			JOIN
+				CommercePriceList ON
+					CPLCommerceGroupAccountRel.commercePriceListId = CommercePriceList.commercePriceListId
+			JOIN
+				CommerceAccountGroup ON
+					CPLCommerceGroupAccountRel.commerceAccountGroupId = CommerceAccountGroup.commerceAccountGroupId
+			WHERE
+				(CommercePriceList.commercePriceListId = ?) AND
+				(LOWER(CommerceAccountGroup.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
 	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.countByCommercePricingClassId">
 		<![CDATA[
 			SELECT
@@ -22,11 +124,26 @@
 	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.countByCPInstanceUuid">
 		<![CDATA[
 			SELECT
-				COUNT(CommercePriceEntry.*) AS COUNT_VALUE
+				COUNT(CommercePriceEntry.commercePriceEntryId) AS COUNT_VALUE
 			FROM
 				CommercePriceEntry
 			WHERE
 				CommercePriceEntry.CPInstanceUuid = ?
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findBasePriceEntry">
+		<![CDATA[
+			SELECT
+				CommercePriceEntry.*
+			FROM
+				CommercePriceEntry
+			JOIN
+				CommercePriceList ON
+					CommercePriceEntry.commercePriceListId = CommercePriceList.commercePriceListId
+			WHERE
+				(CommercePriceEntry.CPInstanceUuid = ?) AND
+				(CommercePriceList.type_ = ?) AND
+				(CommercePriceList.catalogBasePriceList = [$TRUE$])
 		]]>
 	</sql>
 	<sql id="com.liferay.commerce.price.list.service.persistence.CommercePriceListFinder.findByExpirationDate">
