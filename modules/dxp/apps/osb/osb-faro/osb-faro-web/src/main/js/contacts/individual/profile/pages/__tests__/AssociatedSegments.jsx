@@ -22,6 +22,8 @@ describe('IndividualAssociatedSegments', () => {
 			</StaticRouter>
 		);
 
+		jest.runAllTimers();
+
 		expect(container).toMatchSnapshot();
 	});
 });
