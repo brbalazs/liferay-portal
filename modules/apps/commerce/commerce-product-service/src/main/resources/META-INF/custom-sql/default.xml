@@ -1,6 +1,36 @@
 <?xml version="1.0"?>
 
 <custom-sql>
+	<sql id="com.liferay.commerce.product.service.persistence.CommerceChannelRelFinder.countByC_C">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT CommerceChannelRel.commerceChannelRelId) AS COUNT_VALUE
+			FROM
+				CommerceChannelRel
+			JOIN
+				CommerceChannel ON
+					CommerceChannelRel.commerceChannelId = CommerceChannel.commerceChannelId
+			WHERE
+				(CommerceChannelRel.classNameId = ?) AND
+				(CommerceChannelRel.classPK = ?) AND
+				(LOWER(CommerceChannel.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.product.service.persistence.CommerceChannelRelFinder.findByC_C">
+		<![CDATA[
+			SELECT
+				DISTINCT CommerceChannelRel.*
+			FROM
+				CommerceChannelRel
+			JOIN
+				CommerceChannel ON
+					CommerceChannelRel.commerceChannelId = CommerceChannel.commerceChannelId
+			WHERE
+				(CommerceChannelRel.classNameId = ?) AND
+				(CommerceChannelRel.classPK = ?) AND
+				(LOWER(CommerceChannel.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
 	<sql id="com.liferay.commerce.product.service.persistence.CPAttachmentFileEntryFinder.findByExpirationDate">
 		<![CDATA[
 			SELECT
