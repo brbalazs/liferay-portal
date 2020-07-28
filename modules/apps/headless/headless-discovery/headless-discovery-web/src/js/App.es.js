@@ -24,7 +24,7 @@ import 'graphiql/graphiql.css';
 
 import '../css/main.css';
 
-const App = (props) => {
+const App = props => {
 	return <APIGUI props={props} />;
 };
 
