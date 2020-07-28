@@ -12,21 +12,17 @@
  * details.
  */
 
-package com.liferay.commerce.price.list.web.internal.util;
+package com.liferay.commerce.pricing.web.internal.util;
 
-import com.liferay.commerce.price.list.constants.CommercePriceListPortletKeys;
-import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
-import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.pricing.constants.CommercePricingPortletConstants;
+import com.liferay.commerce.pricing.constants.CommercePricingPortletKeys;
 import com.liferay.commerce.pricing.util.PricingNavigationItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.permission.PortletPermission;
-import com.liferay.portal.kernel.settings.SystemSettingsLocator;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
@@ -42,13 +38,12 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Marco Leo
  * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
 	property = {
-		"commerce.pricing.navigation.item.key=" + CommercePriceListPortletKeys.COMMERCE_PRICE_LIST,
+		"commerce.pricing.navigation.item.key=" + CommercePricingPortletKeys.COMMERCE_PRICE_LIST,
 		"commerce.pricing.navigation.item.order:Integer=20"
 	},
 	service = PricingNavigationItem.class
@@ -64,10 +59,13 @@ public class PriceListNavigationItem implements PricingNavigationItem {
 
 		boolean manageCatalogPermission = _portletPermission.contains(
 			themeDisplay.getPermissionChecker(),
-			CommercePriceListPortletKeys.COMMERCE_PRICE_LIST, ActionKeys.VIEW);
+			CommercePricingPortletKeys.COMMERCE_PRICE_LIST, ActionKeys.VIEW);
 
 		if (!manageCatalogPermission ||
-			Objects.equals(_getCommercePricingConfigurationKey(), "v2.0")) {
+			!Objects.equals(
+				CommercePricingUtil.getPricingEngineVersion(
+					_configurationProvider),
+				"v2.0")) {
 
 			return null;
 		}
@@ -77,10 +75,10 @@ public class PriceListNavigationItem implements PricingNavigationItem {
 		String portletId = _portal.getPortletId(portletRequest);
 
 		navigationItem.setActive(
-			portletId.equals(CommercePriceListPortletKeys.COMMERCE_PRICE_LIST));
+			portletId.equals(CommercePricingPortletKeys.COMMERCE_PRICE_LIST));
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			portletRequest, CommercePriceListPortletKeys.COMMERCE_PRICE_LIST,
+			portletRequest, CommercePricingPortletKeys.COMMERCE_PRICE_LIST,
 			PortletRequest.ACTION_PHASE);
 
 		navigationItem.setHref(portletURL.toString());
@@ -94,18 +92,6 @@ public class PriceListNavigationItem implements PricingNavigationItem {
 				CommercePricingPortletConstants.NAVIGATION_ITEM_PRICE_LISTS));
 
 		return navigationItem;
-	}
-
-	private String _getCommercePricingConfigurationKey()
-		throws ConfigurationException {
-
-		CommercePricingConfiguration commercePricingConfiguration =
-			_configurationProvider.getConfiguration(
-				CommercePricingConfiguration.class,
-				new SystemSettingsLocator(
-					CommercePricingConstants.SERVICE_NAME));
-
-		return commercePricingConfiguration.commercePricingCalculationKey();
 	}
 
 	@Reference
