@@ -109,7 +109,6 @@ long commercePriceListId = commercePriceEntryDisplayContext.getCommercePriceList
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"
 				portletURL="<%= currentURLObj %>"
-				showManagementBar="<%= false %>"
 			/>
 		</div>
 	</div>
