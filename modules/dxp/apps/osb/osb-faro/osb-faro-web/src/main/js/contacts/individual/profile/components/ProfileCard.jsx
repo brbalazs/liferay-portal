@@ -281,22 +281,30 @@ export class IndividualProfileCard extends React.Component {
 				<div className='selected-info'>
 					{hasSelectedPoint ? (
 						<>
-							<h4>
-								{sub(
-									Liferay.Language.get(
-										'individuals-activities-x'
-									),
-									[formatUTCDateFromUnix(intervalInitDate)]
-								)}
-							</h4>
+							<div className='d-flex align-items-baseline'>
+								<h4>
+									{sub(
+										Liferay.Language.get(
+											'individuals-activities-x'
+										),
+										[
+											formatUTCDateFromUnix(
+												intervalInitDate
+											)
+										]
+									)}
+								</h4>
 
-							<Button
-								display='link'
-								onClick={this.handleClearSelection}
-								size='sm'
-							>
-								{Liferay.Language.get('clear-date-selection')}
-							</Button>
+								<Button
+									display='link'
+									onClick={this.handleClearSelection}
+									size='sm'
+								>
+									{Liferay.Language.get(
+										'clear-date-selection'
+									)}
+								</Button>
+							</div>
 
 							<div className='details'>
 								{getActivityLabel(totalElements)}
