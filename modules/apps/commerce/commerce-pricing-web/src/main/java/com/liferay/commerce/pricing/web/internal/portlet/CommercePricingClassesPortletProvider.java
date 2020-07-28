@@ -12,42 +12,34 @@
  * details.
  */
 
-package com.liferay.commerce.pricing.web.internal.application.list;
+package com.liferay.commerce.pricing.web.internal.portlet;
 
-import com.liferay.application.list.BasePanelApp;
-import com.liferay.application.list.PanelApp;
-import com.liferay.commerce.application.list.constants.CommercePanelCategoryKeys;
 import com.liferay.commerce.pricing.constants.CommercePricingPortletKeys;
-import com.liferay.portal.kernel.model.Portlet;
+import com.liferay.portal.kernel.portlet.BasePortletProvider;
+import com.liferay.portal.kernel.portlet.EditPortletProvider;
+import com.liferay.portal.kernel.portlet.ManagePortletProvider;
+import com.liferay.portal.kernel.portlet.ViewPortletProvider;
 
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Riccardo Alberti
+ * @author Marco Leo
  */
 @Component(
 	immediate = true,
-	property = {
-		"panel.app.order:Integer=350",
-		"panel.category.key=" + CommercePanelCategoryKeys.CONTROL_PANEL_COMMERCE
-	},
-	service = PanelApp.class
-)
-public class CommercePricingClassPanelApp extends BasePanelApp {
-
-	@Override
-	public String getPortletId() {
-		return CommercePricingPortletKeys.COMMERCE_PRICING_CLASSES;
+	property = "model.class.name=com.liferay.commerce.pricing.model.CommercePricingClass",
+	service = {
+		EditPortletProvider.class, ManagePortletProvider.class,
+		ViewPortletProvider.class
 	}
+)
+public class CommercePricingClassesPortletProvider
+	extends BasePortletProvider
+	implements EditPortletProvider, ManagePortletProvider, ViewPortletProvider {
 
 	@Override
-	@Reference(
-		target = "(javax.portlet.name=" + CommercePricingPortletKeys.COMMERCE_PRICING_CLASSES + ")",
-		unbind = "-"
-	)
-	public void setPortlet(Portlet portlet) {
-		super.setPortlet(portlet);
+	public String getPortletName() {
+		return CommercePricingPortletKeys.COMMERCE_PRICING_CLASSES;
 	}
 
 }

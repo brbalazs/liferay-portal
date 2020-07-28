@@ -14,7 +14,7 @@
 
 package com.liferay.commerce.pricing.web.internal.portlet;
 
-import com.liferay.commerce.pricing.constants.CommercePricingPorletKeys;
+import com.liferay.commerce.pricing.constants.CommercePricingPortletKeys;
 import com.liferay.commerce.pricing.model.CommercePricingClass;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
 import com.liferay.commerce.pricing.web.internal.display.context.CommercePricingClassDisplayContext;
@@ -50,8 +50,8 @@ import org.osgi.service.component.annotations.Reference;
 		"com.liferay.portlet.scopeable=true",
 		"javax.portlet.display-name=Pricing",
 		"javax.portlet.expiration-cache=0",
-		"javax.portlet.init-param.view-template=/view.jsp",
-		"javax.portlet.name=" + CommercePricingPorletKeys.COMMERCE_PRICING_CLASSES,
+		"javax.portlet.init-param.view-template=/pricing_class/view.jsp",
+		"javax.portlet.name=" + CommercePricingPortletKeys.COMMERCE_PRICING_CLASSES,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user"
 	},
