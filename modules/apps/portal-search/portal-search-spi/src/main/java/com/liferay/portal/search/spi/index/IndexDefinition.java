@@ -12,18 +12,16 @@
  * details.
  */
 
-package com.liferay.portal.search.spi.model.query.contributor;
-
-import com.liferay.portal.kernel.search.SearchContext;
-import com.liferay.portal.search.spi.model.query.contributor.helper.SearchContextContributorHelper;
+package com.liferay.portal.search.spi.index;
 
 /**
- * @author Michael C. Han
+ * @author André de Oliveira
  */
-public interface SearchContextContributor {
+public interface IndexDefinition {
 
-	public void contribute(
-		SearchContext searchContext,
-		SearchContextContributorHelper searchContextContributorHelper);
+	public static final String PROPERTY_KEY_INDEX_NAME = "index.name";
+
+	public static final String PROPERTY_KEY_INDEX_SETTINGS_RESOURCE_NAME =
+		"index.settings.resource.name";
 
 }

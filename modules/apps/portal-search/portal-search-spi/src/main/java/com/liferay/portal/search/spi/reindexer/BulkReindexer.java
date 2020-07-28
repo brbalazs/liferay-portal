@@ -12,18 +12,15 @@
  * details.
  */
 
-package com.liferay.portal.search.spi.model.query.contributor;
+package com.liferay.portal.search.spi.reindexer;
 
-import com.liferay.portal.kernel.search.SearchContext;
-import com.liferay.portal.search.spi.model.query.contributor.helper.SearchContextContributorHelper;
+import java.util.Collection;
 
 /**
- * @author Michael C. Han
+ * @author André de Oliveira
  */
-public interface SearchContextContributor {
+public interface BulkReindexer {
 
-	public void contribute(
-		SearchContext searchContext,
-		SearchContextContributorHelper searchContextContributorHelper);
+	public void reindex(long companyId, Collection<Long> classPKs);
 
 }

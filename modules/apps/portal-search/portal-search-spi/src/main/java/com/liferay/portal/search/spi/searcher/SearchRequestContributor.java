@@ -12,18 +12,15 @@
  * details.
  */
 
-package com.liferay.portal.search.spi.model.query.contributor;
+package com.liferay.portal.search.spi.searcher;
 
-import com.liferay.portal.kernel.search.SearchContext;
-import com.liferay.portal.search.spi.model.query.contributor.helper.SearchContextContributorHelper;
+import com.liferay.portal.search.searcher.SearchRequest;
 
 /**
- * @author Michael C. Han
+ * @author André de Oliveira
  */
-public interface SearchContextContributor {
+public interface SearchRequestContributor {
 
-	public void contribute(
-		SearchContext searchContext,
-		SearchContextContributorHelper searchContextContributorHelper);
+	public SearchRequest contribute(SearchRequest searchRequest);
 
 }
