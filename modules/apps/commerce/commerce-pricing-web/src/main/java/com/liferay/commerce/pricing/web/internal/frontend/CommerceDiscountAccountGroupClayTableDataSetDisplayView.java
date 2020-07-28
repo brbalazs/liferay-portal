@@ -30,10 +30,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.set.display.name=" + CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRICE_LISTS,
+	property = "commerce.data.set.display.name=" + CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_DISCOUNT_QUALIFIER_ACCOUNT_GROUPS,
 	service = ClayDataSetDisplayView.class
 )
-public class CommercePricingClassPriceListClayTableDataSetDisplayView
+public class CommerceDiscountAccountGroupClayTableDataSetDisplayView
 	extends ClayTableDataSetDisplayView {
 
 	@Override
@@ -42,18 +42,9 @@ public class CommercePricingClassPriceListClayTableDataSetDisplayView
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
 		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
-			"name", "name");
+			"accountGroup.name", "name");
 
 		nameField.setContentRenderer("actionLink");
-
-		clayTableSchemaBuilder.addField("catalog", "catalog");
-
-		clayTableSchemaBuilder.addField("createDate", "create-date");
-
-		ClayTableSchemaField statusField = clayTableSchemaBuilder.addField(
-			"status", "status");
-
-		statusField.setContentRenderer("label");
 
 		return clayTableSchemaBuilder.build();
 	}

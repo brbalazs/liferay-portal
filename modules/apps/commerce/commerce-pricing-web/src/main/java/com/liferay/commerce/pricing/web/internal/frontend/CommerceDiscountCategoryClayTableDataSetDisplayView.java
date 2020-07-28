@@ -19,7 +19,6 @@ import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
-import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
 import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingDataSetConstants;
 
 import org.osgi.service.component.annotations.Component;
@@ -30,10 +29,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.set.display.name=" + CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRICE_LISTS,
+	property = "commerce.data.set.display.name=" + CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_DISCOUNT_CATEGORIES,
 	service = ClayDataSetDisplayView.class
 )
-public class CommercePricingClassPriceListClayTableDataSetDisplayView
+public class CommerceDiscountCategoryClayTableDataSetDisplayView
 	extends ClayTableDataSetDisplayView {
 
 	@Override
@@ -41,19 +40,11 @@ public class CommercePricingClassPriceListClayTableDataSetDisplayView
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
-			"name", "name");
+		clayTableSchemaBuilder.addField("category.name", "name");
 
-		nameField.setContentRenderer("actionLink");
+		clayTableSchemaBuilder.addField("category.vocabulary", "vocabulary");
 
-		clayTableSchemaBuilder.addField("catalog", "catalog");
-
-		clayTableSchemaBuilder.addField("createDate", "create-date");
-
-		ClayTableSchemaField statusField = clayTableSchemaBuilder.addField(
-			"status", "status");
-
-		statusField.setContentRenderer("label");
+		clayTableSchemaBuilder.addField("category.path", "path");
 
 		return clayTableSchemaBuilder.build();
 	}

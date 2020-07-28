@@ -30,10 +30,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.set.display.name=" + CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRICE_LISTS,
+	property = "commerce.data.set.display.name=" + CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_DISCOUNTS,
 	service = ClayDataSetDisplayView.class
 )
-public class CommercePricingClassPriceListClayTableDataSetDisplayView
+public class CommerceDiscountClayTableDataSetDisplayView
 	extends ClayTableDataSetDisplayView {
 
 	@Override
@@ -42,18 +42,20 @@ public class CommercePricingClassPriceListClayTableDataSetDisplayView
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
 		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
-			"name", "name");
+			"title", "title");
 
 		nameField.setContentRenderer("actionLink");
 
-		clayTableSchemaBuilder.addField("catalog", "catalog");
+		clayTableSchemaBuilder.addField("target", "target");
 
-		clayTableSchemaBuilder.addField("createDate", "create-date");
+		clayTableSchemaBuilder.addField("amountFormatted", "amount");
 
-		ClayTableSchemaField statusField = clayTableSchemaBuilder.addField(
-			"status", "status");
+		clayTableSchemaBuilder.addField("level", "discount-level");
 
-		statusField.setContentRenderer("label");
+		ClayTableSchemaField activeField = clayTableSchemaBuilder.addField(
+			"active", "active");
+
+		activeField.setContentRenderer("boolean");
 
 		return clayTableSchemaBuilder.build();
 	}
