@@ -66,6 +66,7 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderResponse;
 import javax.portlet.RenderURL;
+import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -249,6 +250,27 @@ public class CPDefinitionsDisplayContext
 				"trash", "delete",
 				LanguageUtil.get(httpServletRequest, "delete"), "delete",
 				"delete", "async"));
+
+		PortletURL duplicateURL = PortletURLFactoryUtil.create(
+			cpRequestHelper.getRenderRequest(), cpRequestHelper.getPortletId(),
+			PortletRequest.RENDER_PHASE);
+
+		duplicateURL.setParameter(
+			"mvcRenderCommandName", "duplicateCPDefinition");
+		duplicateURL.setParameter("cpDefinitionId", "{id}");
+
+		try {
+			duplicateURL.setWindowState(LiferayWindowState.POP_UP);
+		}
+		catch (WindowStateException wse) {
+			throw new PortalException(wse);
+		}
+
+		clayHeadlessDataSetActionTemplates.add(
+			new ClayHeadlessDataSetActionTemplate(
+				duplicateURL.toString(), "paste", "duplicate",
+				LanguageUtil.get(httpServletRequest, "duplicate"), "post",
+				"update", "modal"));
 
 		return clayHeadlessDataSetActionTemplates;
 	}
