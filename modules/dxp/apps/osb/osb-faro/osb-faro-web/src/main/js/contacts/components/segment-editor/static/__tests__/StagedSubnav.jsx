@@ -1,28 +1,27 @@
 import React from 'react';
 import StagedSubnav from '../StagedSubnav';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
+
+const DefaultComponent = props => (
+	<StagedSubnav
+		viewCurrentLinkText={'view current items'}
+		viewStagedLinkText={'view added items'}
+		{...props}
+	/>
+);
 
 describe('StagedSubnav', () => {
 	it('should render', () => {
-		const component = shallow(
-			<StagedSubnav
-				viewCurrentLinkText={'view current items'}
-				viewStagedLinkText={'view added items'}
-			/>
-		);
+		const {container} = render(<DefaultComponent />);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with the showStaged active labels', () => {
-		const component = shallow(
-			<StagedSubnav
-				showStaged
-				viewCurrentLinkText={'view current items'}
-				viewStagedLinkText={'view added items'}
-			/>
-		);
+		const {getByText} = render(<DefaultComponent showStaged />);
 
-		expect(component).toMatchSnapshot();
+		expect(getByText('Showing only selected items.')).toBeTruthy();
 	});
 });

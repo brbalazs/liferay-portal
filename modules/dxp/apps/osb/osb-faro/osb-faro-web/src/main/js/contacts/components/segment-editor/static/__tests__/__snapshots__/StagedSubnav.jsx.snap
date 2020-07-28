@@ -1,53 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StagedSubnav should render 1`] = `
-<SubnavTbar
-  display=""
->
-  <TbarItem
-    expand={false}
+<div>
+  <nav
+    class="subnav-tbar subnav-tbar-root tbar"
   >
-    <Label
-      display="success"
-      size="lg"
-      uppercase={true}
-    />
-  </TbarItem>
-  <TbarItem
-    expand={true}
-  >
-    <Button
-      borderless={true}
-      display="unstyled"
-      onClick={[Function]}
+    <div
+      class="container-fluid"
     >
-      view added items
-    </Button>
-  </TbarItem>
-</SubnavTbar>
-`;
-
-exports[`StagedSubnav should render with the showStaged active labels 1`] = `
-<SubnavTbar
-  display=""
->
-  <TbarItem
-    expand={false}
-  >
-    <span>
-      Showing only selected items.
-    </span>
-  </TbarItem>
-  <TbarItem
-    expand={true}
-  >
-    <Button
-      borderless={true}
-      display="unstyled"
-      onClick={[Function]}
-    >
-      view current items
-    </Button>
-  </TbarItem>
-</SubnavTbar>
+      <div
+        class="tbar-nav"
+      >
+        <div
+          class="tbar-item"
+        >
+          <div
+            class="tbar-section text-truncate"
+          >
+            <div
+              class="label label-root label-success label-lg label-uppercase"
+            >
+              <span
+                class="label-item"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="tbar-item tbar-item-expand"
+        >
+          <div
+            class="tbar-section text-truncate"
+          >
+            <button
+              class="button-root btn btn-unstyled btn-outline-borderless"
+              type="button"
+            >
+              view added items
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
 `;
