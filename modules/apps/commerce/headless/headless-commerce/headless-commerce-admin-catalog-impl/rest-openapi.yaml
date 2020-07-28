@@ -1,5 +1,13 @@
 components:
     parameters:
+        catalogIdQueryParam:
+            in: query
+            explode: true
+            name: catalogId
+            required: false
+            schema:
+                type: integer
+            style: form
         externalReferenceCodePathParam:
             in: path
             explode: false
@@ -40,6 +48,14 @@ components:
             required: false
             schema:
                 type: integer
+            style: form
+        searchQueryParam:
+            in: query
+            explode: true
+            name: search
+            required: false
+            schema:
+                type: string
             style: form
     responses:
         NotFound:
@@ -84,6 +100,7 @@ components:
                     example: 30130
                     format: int64
                     minimum: 0
+                    readOnly: true
                     type: integer
                 neverExpire:
                     example: true
@@ -617,7 +634,8 @@ components:
                         hu_HU: product-url-hu
                     type: object
                 workflowStatusInfo:
-                    $ref: "#/components/schemas/Status"
+                    allOf:
+                        - $ref: "#/components/schemas/Status"
                     readOnly: true
             required:
                 - active
@@ -716,10 +734,10 @@ components:
                     minimum: 0
                     type: integer
                 productExternalReferenceCode:
-                    example: "PAB-34098-789-N"
+                    example: PAB-34098-789-N
                     type: string
                 productGroupExternalReferenceCode:
-                    example: "DAB-34098-789-N"
+                    example: DAB-34098-789-N
                     type: string
                 productGroupId:
                     example: 30324
@@ -954,6 +972,7 @@ components:
                     example: 30130
                     format: int64
                     minimum: 0
+                    readOnly: true
                     type: integer
                 priority:
                     example: 1.2
@@ -1040,6 +1059,15 @@ components:
                     minimum: 0
                     readOnly: true
                     type: integer
+                productName:
+                    additionalProperties:
+                        type: string
+                    example:
+                        en_US: Croatia
+                        hr_HR: Hrvatska
+                        hu_HU: Horvatorszag
+                    readOnly: true
+                    type: object
                 promoPrice:
                     example: 202
                     format: bigdecimal
