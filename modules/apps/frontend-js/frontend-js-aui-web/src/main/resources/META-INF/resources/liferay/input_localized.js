@@ -380,7 +380,7 @@ AUI.add(
 						return '#' + namespace + id + '_' + languageId;
 					},
 
-					_moveDefaultLanguageFlagToFirstPosition(defaultLanguageId) {
+					_moveDefaultLanguageFlagToFirstPosition: function(defaultLanguageId) {
 						var instance = this;
 
 						var flags = instance._flags.getDOMNode();
