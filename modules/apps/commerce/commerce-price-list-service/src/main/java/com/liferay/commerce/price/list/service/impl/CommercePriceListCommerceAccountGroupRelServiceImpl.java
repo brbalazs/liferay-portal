@@ -49,6 +49,19 @@ public class CommercePriceListCommerceAccountGroupRelServiceImpl
 	}
 
 	@Override
+	public void deleteCommercePriceListAccountGroupRelsByCommercePriceListId(
+			long commercePriceListId)
+		throws PortalException {
+
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceListId, ActionKeys.UPDATE);
+
+		commercePriceListCommerceAccountGroupRelLocalService.
+			deleteCommercePriceListAccountGroupRelsByCommercePriceListId(
+				commercePriceListId);
+	}
+
+	@Override
 	public void deleteCommercePriceListCommerceAccountGroupRel(
 			long commercePriceListCommerceAccountGroupRelId)
 		throws PortalException {

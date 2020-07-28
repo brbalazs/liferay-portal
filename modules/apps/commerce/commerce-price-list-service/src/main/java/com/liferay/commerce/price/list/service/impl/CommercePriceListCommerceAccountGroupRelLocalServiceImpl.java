@@ -78,6 +78,14 @@ public class CommercePriceListCommerceAccountGroupRelLocalServiceImpl
 	}
 
 	@Override
+	public void deleteCommercePriceListAccountGroupRelsByCommercePriceListId(
+		long commercePriceListId) {
+
+		commercePriceListCommerceAccountGroupRelPersistence.
+			removeByCommercePriceListId(commercePriceListId);
+	}
+
+	@Override
 	public CommercePriceListCommerceAccountGroupRel
 			deleteCommercePriceListCommerceAccountGroupRel(
 				CommercePriceListCommerceAccountGroupRel
