@@ -143,7 +143,7 @@ public class CommercePriceListDisplayContext
 			commerceAccountGroupItemSelectorCriterion);
 
 		String checkedCommerceAccountGroupIds = StringUtil.merge(
-			getCheckedcommerceAccountGroupIds());
+			getCheckedCommerceAccountGroupIds());
 
 		itemSelectorURL.setParameter(
 			"checkedCommerceAccountGroupIds", checkedCommerceAccountGroupIds);
@@ -374,7 +374,7 @@ public class CommercePriceListDisplayContext
 		return false;
 	}
 
-	protected long[] getCheckedcommerceAccountGroupIds()
+	protected long[] getCheckedCommerceAccountGroupIds()
 		throws PortalException {
 
 		List<CommercePriceListCommerceAccountGroupRel>
