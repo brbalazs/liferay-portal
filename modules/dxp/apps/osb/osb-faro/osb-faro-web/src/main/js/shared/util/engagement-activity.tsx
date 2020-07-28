@@ -1,5 +1,4 @@
 import CardTabMetric from 'contacts/individual/profile/components/CardTabMetric';
-import ChartTooltip from 'shared/components/ChartTooltip';
 import Constants from 'shared/util/constants';
 import moment from 'moment';
 import React from 'react';
@@ -16,7 +15,7 @@ import {
 import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
 import {DEFAULT_ENGAGEMENT_MAX} from 'shared/api/engagement';
 import {formatUTCDateFromUnix} from 'shared/util/date';
-import {get, isFinite, isNull} from 'lodash';
+import {get, isNull} from 'lodash';
 import {getDate} from 'shared/util/date';
 import {Interval, RangeSelectors} from 'shared/types';
 import {Map} from 'immutable';
@@ -213,42 +212,6 @@ export function buildTabItems({
  */
 export function formatTickVal(date) {
 	return formatUTCDateFromUnix(date, 'M/D');
-}
-
-/**
- * Return the chart tooltip contents rendered to string.
- * @param {Array.<Object>} data - The array of active items.
- * @param {Array.<HistoryItem>} history - History data points.
- * @returns {string} The tooltip as a string.
- */
-export function renderTooltipToString(data, history) {
-	const {intervalInitDate, scoreAvg, totalElements} = history[
-		get(data, [0, 'index'])
-	];
-
-	let items = [
-		{
-			label:
-				totalElements === 1
-					? Liferay.Language.get('activities')
-					: Liferay.Language.get('activity'),
-			value: totalElements
-		}
-	];
-
-	if (isFinite(scoreAvg)) {
-		items = items.concat({
-			label: Liferay.Language.get('engagement-score'),
-			value: scoreAvg.toFixed(2)
-		});
-	}
-
-	return ReactDOMServer.renderToString(
-		<ChartTooltip
-			items={items}
-			title={formatUTCDateFromUnix(intervalInitDate)}
-		/>
-	);
 }
 
 export const createDateKeysIMap = (

@@ -6,8 +6,7 @@ import {
 	createDateKeysIMap,
 	formatTickVal,
 	getSafeRangeKey,
-	renderTooltip,
-	renderTooltipToString
+	renderTooltip
 } from '../engagement-activity';
 import {Map} from 'immutable';
 
@@ -73,24 +72,6 @@ describe('engagement-activity', () => {
 			const mockDate = data.getTimestamp();
 
 			expect(formatTickVal(mockDate)).toMatchSnapshot();
-		});
-	});
-
-	describe('renderTooltipToString', () => {
-		it('should render', () => {
-			const mockData = [{index: 0}];
-
-			const mockHistory = [
-				{
-					intervalInitDate: data.getTimestamp(-2),
-					scoreAvg: 2.1,
-					totalElements: 10
-				}
-			];
-
-			expect(
-				renderTooltipToString(mockData, mockHistory)
-			).toMatchSnapshot();
 		});
 	});
 
