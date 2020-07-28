@@ -469,6 +469,14 @@ public class CommercePriceEntryLocalServiceImpl
 		return commercePriceEntryPersistence.countByCompanyId(companyId);
 	}
 
+	@Override
+	public CommercePriceEntry getInstanceBaseCommercePriceEntry(
+		String cpInstanceUuid, String priceListType) {
+
+		return commercePriceListFinder.findBasePriceEntry(
+			cpInstanceUuid, priceListType);
+	}
+
 	/**
 	 * @deprecated As of Mueller (7.2.x)
 	 */

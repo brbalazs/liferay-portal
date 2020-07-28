@@ -54,6 +54,9 @@ public class CommercePriceListFinderImpl
 	public static final String COUNT_BY_CPINSTANCE_UUID =
 		CommercePriceListFinder.class.getName() + ".countByCPInstanceUuid";
 
+	public static final String FIND_BASE_PRICE_ENTRY =
+		CommercePriceListFinder.class.getName() + ".findBasePriceEntry";
+
 	public static final String FIND_BY_EXPIRATION_DATE =
 		CommercePriceListFinder.class.getName() + ".findByExpirationDate";
 
@@ -207,6 +210,58 @@ public class CommercePriceListFinderImpl
 			}
 
 			return 0;
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
+	public CommercePriceEntry findBasePriceEntry(
+		String cpInstanceUuid, String priceListType) {
+
+		return findBasePriceEntry(cpInstanceUuid, priceListType, false);
+	}
+
+	@Override
+	public CommercePriceEntry findBasePriceEntry(
+		String cpInstanceUuid, String priceListType, boolean inlineSQLHelper) {
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			String sql = _customSQL.get(getClass(), FIND_BASE_PRICE_ENTRY);
+
+			if (inlineSQLHelper) {
+				sql = InlineSQLHelperUtil.replacePermissionCheck(
+					sql, CommercePriceList.class.getName(),
+					"CommercePriceEntry.commercePriceListId", null, null,
+					new long[] {0}, null);
+			}
+
+			SQLQuery q = session.createSynchronizedSQLQuery(sql);
+
+			q.addEntity(
+				CommercePriceEntryImpl.TABLE_NAME,
+				CommercePriceEntryImpl.class);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(cpInstanceUuid);
+			qPos.add(priceListType);
+
+			List<CommercePriceEntry> commercePriceEntries = q.list();
+
+			if (!commercePriceEntries.isEmpty()) {
+				return commercePriceEntries.get(0);
+			}
+
+			return null;
 		}
 		catch (Exception e) {
 			throw new SystemException(e);

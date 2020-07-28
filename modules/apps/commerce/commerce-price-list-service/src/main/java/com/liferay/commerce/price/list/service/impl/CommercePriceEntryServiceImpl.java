@@ -221,6 +221,14 @@ public class CommercePriceEntryServiceImpl
 	}
 
 	@Override
+	public CommercePriceEntry getInstanceBaseCommercePriceEntry(
+		String cpInstanceUuid, String priceListType) {
+
+		return commercePriceListFinder.findBasePriceEntry(
+			cpInstanceUuid, priceListType, true);
+	}
+
+	@Override
 	public List<CommercePriceEntry> getInstanceCommercePriceEntries(
 			long cpInstanceId, int start, int end)
 		throws PortalException {
