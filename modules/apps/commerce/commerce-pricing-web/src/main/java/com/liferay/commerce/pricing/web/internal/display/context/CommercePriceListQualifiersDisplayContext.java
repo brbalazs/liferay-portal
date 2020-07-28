@@ -15,16 +15,11 @@
 package com.liferay.commerce.pricing.web.internal.display.context;
 
 import com.liferay.commerce.account.model.CommerceAccount;
-import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
-import com.liferay.commerce.discount.model.CommerceDiscount;
-import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleTypeRegistry;
-import com.liferay.commerce.discount.service.CommerceDiscountAccountRelService;
-import com.liferay.commerce.discount.service.CommerceDiscountCommerceAccountGroupRelService;
-import com.liferay.commerce.discount.service.CommerceDiscountRuleService;
-import com.liferay.commerce.discount.service.CommerceDiscountService;
-import com.liferay.commerce.discount.target.CommerceDiscountTargetRegistry;
 import com.liferay.commerce.frontend.clay.data.set.ClayHeadlessDataSetActionTemplate;
-import com.liferay.commerce.percentage.PercentageFormatter;
+import com.liferay.commerce.price.list.model.CommercePriceList;
+import com.liferay.commerce.price.list.service.CommercePriceListAccountRelService;
+import com.liferay.commerce.price.list.service.CommercePriceListCommerceAccountGroupRelService;
+import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelRelService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -32,7 +27,6 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.util.Portal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,54 +38,47 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Alessio Antonio Rendina
  */
-public class CommerceDiscountQualifiersDisplayContext
-	extends CommerceDiscountDisplayContext {
+public class CommercePriceListQualifiersDisplayContext
+	extends BaseCommercePriceListDisplayContext {
 
-	public CommerceDiscountQualifiersDisplayContext(
+	public CommercePriceListQualifiersDisplayContext(
 		CommerceChannelRelService commerceChannelRelService,
-		CommerceCurrencyLocalService commerceCurrencyLocalService,
-		ModelResourcePermission<CommerceDiscount>
-			commerceDiscountModelResourcePermission,
-		CommerceDiscountAccountRelService commerceDiscountAccountRelService,
-		CommerceDiscountCommerceAccountGroupRelService
-			commerceDiscountCommerceAccountGroupRelService,
-		CommerceDiscountService commerceDiscountService,
-		CommerceDiscountRuleService commerceDiscountRuleService,
-		CommerceDiscountRuleTypeRegistry commerceDiscountRuleTypeRegistry,
-		CommerceDiscountTargetRegistry commerceDiscountTargetRegistry,
-		PercentageFormatter percentageFormatter,
-		HttpServletRequest httpServletRequest, Portal portal) {
+		CommercePriceListAccountRelService commercePriceListAccountRelService,
+		CommercePriceListCommerceAccountGroupRelService
+			commercePriceListCommerceAccountGroupRelService,
+		ModelResourcePermission<CommercePriceList>
+			commercePriceListModelResourcePermission,
+		CommercePriceListService commercePriceListService,
+		HttpServletRequest httpServletRequest) {
 
 		super(
-			commerceCurrencyLocalService,
-			commerceDiscountModelResourcePermission, commerceDiscountService,
-			commerceDiscountRuleService, commerceDiscountRuleTypeRegistry,
-			commerceDiscountTargetRegistry, percentageFormatter,
-			httpServletRequest, portal);
+			commercePriceListModelResourcePermission, commercePriceListService,
+			httpServletRequest);
 
 		_commerceChannelRelService = commerceChannelRelService;
-		_commerceDiscountAccountRelService = commerceDiscountAccountRelService;
-		_commerceDiscountCommerceAccountGroupRelService =
-			commerceDiscountCommerceAccountGroupRelService;
+		_commercePriceListAccountRelService =
+			commercePriceListAccountRelService;
+		_commercePriceListCommerceAccountGroupRelService =
+			commercePriceListCommerceAccountGroupRelService;
 	}
 
 	public String getActiveAccountEligibility() throws PortalException {
-		long commerceDiscountId = getCommerceDiscountId();
+		long commercePriceListId = getCommercePriceListId();
 
-		long commerceDiscountAccountRelsCount =
-			_commerceDiscountAccountRelService.
-				getCommerceDiscountAccountRelsCount(commerceDiscountId);
+		long commercePriceListAccountRelsCount =
+			_commercePriceListAccountRelService.
+				getCommercePriceListAccountRelsCount(commercePriceListId);
 
-		if (commerceDiscountAccountRelsCount > 0) {
+		if (commercePriceListAccountRelsCount > 0) {
 			return "accounts";
 		}
 
-		long commerceDiscountAccountGroupRelsCount =
-			_commerceDiscountCommerceAccountGroupRelService.
-				getCommerceDiscountCommerceAccountGroupRelsCount(
-					commerceDiscountId);
+		long commercePriceListAccountGroupRelsCount =
+			_commercePriceListCommerceAccountGroupRelService.
+				getCommercePriceListCommerceAccountGroupRelsCount(
+					commercePriceListId);
 
-		if (commerceDiscountAccountGroupRelsCount > 0) {
+		if (commercePriceListAccountGroupRelsCount > 0) {
 			return "accountGroups";
 		}
 
@@ -99,11 +86,11 @@ public class CommerceDiscountQualifiersDisplayContext
 	}
 
 	public String getActiveChannelEligibility() throws PortalException {
-		long commerceDiscountId = getCommerceDiscountId();
+		long commercePriceListId = getCommercePriceListId();
 
 		long commerceChannelRelsCount =
 			_commerceChannelRelService.getCommerceChannelRelsCount(
-				CommerceDiscount.class.getName(), commerceDiscountId);
+				CommercePriceList.class.getName(), commercePriceListId);
 
 		if (commerceChannelRelsCount > 0) {
 			return "channels";
@@ -113,7 +100,7 @@ public class CommerceDiscountQualifiersDisplayContext
 	}
 
 	public List<ClayHeadlessDataSetActionTemplate>
-			getClayHeadlessDataSetActionDiscountAccountGroupTemplates()
+			getClayHeadlessDataSetActionPriceListAccountGroupTemplates()
 		throws PortalException {
 
 		List<ClayHeadlessDataSetActionTemplate>
@@ -129,7 +116,7 @@ public class CommerceDiscountQualifiersDisplayContext
 	}
 
 	public List<ClayHeadlessDataSetActionTemplate>
-			getClayHeadlessDataSetActionDiscountAccountTemplates()
+			getClayHeadlessDataSetActionPriceListAccountTemplates()
 		throws PortalException {
 
 		PortletURL portletURL = PortletProviderUtil.getPortletURL(
@@ -146,7 +133,7 @@ public class CommerceDiscountQualifiersDisplayContext
 	}
 
 	public List<ClayHeadlessDataSetActionTemplate>
-			getClayHeadlessDataSetActionDiscountChannelTemplates()
+			getClayHeadlessDataSetActionPriceListChannelTemplates()
 		throws PortalException {
 
 		PortletURL portletURL = PortletProviderUtil.getPortletURL(
@@ -162,26 +149,28 @@ public class CommerceDiscountQualifiersDisplayContext
 			portletURL.toString(), false);
 	}
 
-	public String getDiscountAccountGroupsApiUrl() throws PortalException {
-		return "/o/headless-commerce-admin-pricing/v2.0/discounts/" +
-			getCommerceDiscountId() +
-				"/discount-account-groups?nestedFields=accountGroup";
+	public String getPriceListAccountGroupsApiUrl() throws PortalException {
+		return "/o/headless-commerce-admin-pricing/v2.0/price-lists/" +
+			getCommercePriceListId() +
+				"/price-list-account-groups?nestedFields=accountGroup";
 	}
 
-	public String getDiscountAccountsApiUrl() throws PortalException {
-		return "/o/headless-commerce-admin-pricing/v2.0/discounts/" +
-			getCommerceDiscountId() + "/discount-accounts?nestedFields=account";
+	public String getPriceListAccountsApiUrl() throws PortalException {
+		return "/o/headless-commerce-admin-pricing/v2.0/price-lists/" +
+			getCommercePriceListId() +
+				"/price-list-accounts?nestedFields=account";
 	}
 
-	public String getDiscountChannelsApiUrl() throws PortalException {
-		return "/o/headless-commerce-admin-pricing/v2.0/discounts/" +
-			getCommerceDiscountId() + "/discount-channels?nestedFields=channel";
+	public String getPriceListChannelsApiUrl() throws PortalException {
+		return "/o/headless-commerce-admin-pricing/v2.0/price-lists/" +
+			getCommercePriceListId() +
+				"/price-list-channels?nestedFields=channel";
 	}
 
 	private final CommerceChannelRelService _commerceChannelRelService;
-	private final CommerceDiscountAccountRelService
-		_commerceDiscountAccountRelService;
-	private final CommerceDiscountCommerceAccountGroupRelService
-		_commerceDiscountCommerceAccountGroupRelService;
+	private final CommercePriceListAccountRelService
+		_commercePriceListAccountRelService;
+	private final CommercePriceListCommerceAccountGroupRelService
+		_commercePriceListCommerceAccountGroupRelService;
 
 }

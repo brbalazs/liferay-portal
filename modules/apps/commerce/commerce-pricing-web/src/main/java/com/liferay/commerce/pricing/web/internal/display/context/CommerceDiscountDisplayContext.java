@@ -186,6 +186,8 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 
 		portletURL.setParameter(
 			"mvcRenderCommandName", "editProductDefinition");
+		portletURL.setParameter(
+			"redirect", commercePricingRequestHelper.getCurrentURL());
 		portletURL.setParameter("cpDefinitionId", "{product.id}");
 		portletURL.setParameter("screenNavigationCategoryKey", "details");
 
@@ -203,6 +205,8 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 
 		portletURL.setParameter(
 			"mvcRenderCommandName", "editCommercePricingClass");
+		portletURL.setParameter(
+			"redirect", commercePricingRequestHelper.getCurrentURL());
 		portletURL.setParameter("commercePricingClassId", "{productGroupId}");
 		portletURL.setParameter("screenNavigationCategoryKey", "details");
 
@@ -220,6 +224,8 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 
 		portletURL.setParameter(
 			"mvcRenderCommandName", "editCommerceDiscountRule");
+		portletURL.setParameter(
+			"redirect", commercePricingRequestHelper.getCurrentURL());
 		portletURL.setParameter("commerceDiscountRuleId", "{id}");
 		portletURL.setParameter(
 			"screenNavigationCategoryKey",
@@ -245,6 +251,8 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 			PortletProvider.Action.MANAGE);
 
 		portletURL.setParameter("mvcRenderCommandName", "editCommerceDiscount");
+		portletURL.setParameter(
+			"redirect", commercePricingRequestHelper.getCurrentURL());
 		portletURL.setParameter("commerceDiscountId", "{id}");
 		portletURL.setParameter("usePercentage", "{usePercentage}");
 		portletURL.setParameter(
