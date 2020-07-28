@@ -143,7 +143,7 @@ public class EditCommercePriceListMVCActionCommand
 
 		PortletURL portletURL = PortletProviderUtil.getPortletURL(
 			actionRequest, themeDisplay.getScopeGroup(),
-			CommercePriceList.class.getName(), PortletProvider.Action.EDIT);
+			CommercePriceList.class.getName(), PortletProvider.Action.MANAGE);
 
 		portletURL.setParameter(
 			"mvcRenderCommandName", "editCommercePriceList");
