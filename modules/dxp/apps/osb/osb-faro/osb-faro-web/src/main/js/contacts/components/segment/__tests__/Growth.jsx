@@ -1,39 +1,48 @@
 import * as data from 'test/data';
 import React from 'react';
+import {render} from '@testing-library/react';
 import {
 	SegmentGrowthChart,
 	SegmentGrowthWithList,
 	SelectedPointInfo
 } from '../Growth';
-import {shallow} from 'enzyme';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 describe('SegmentGrowthWithList', () => {
 	it('should render', () => {
-		const component = shallow(
-			<SegmentGrowthWithList
-				channelId={'123'}
-				data={[]}
-				groupId={'23'}
-				id={'3'}
-				onPointSelect={jest.fn()}
-			/>
+		const {container} = render(
+			<StaticRouter>
+				<SegmentGrowthWithList
+					channelId='123'
+					data={[]}
+					groupId='23'
+					id='3'
+					onPointSelect={jest.fn()}
+				/>
+			</StaticRouter>
 		);
-		expect(component).toMatchSnapshot();
+
+		jest.runAllTimers();
+
+		expect(container).toMatchSnapshot();
 	});
 });
 
 describe('SegmentGrowthChart', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<SegmentGrowthChart data={[]} onPointSelect={jest.fn()} />
 		);
-		expect(component).toBeTruthy();
+
+		expect(container).toMatchSnapshot();
 	});
 });
 
 describe('SelectedPointInfo', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<SelectedPointInfo
 				data={[
 					{
@@ -47,6 +56,6 @@ describe('SelectedPointInfo', () => {
 				selectedPoint={0}
 			/>
 		);
-		expect(component.shallow()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
