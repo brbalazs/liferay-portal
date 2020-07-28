@@ -1,6 +1,74 @@
 <?xml version="1.0"?>
 
 <custom-sql>
+	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountAccountRelFinder.countByCommerceDiscountId">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT CommerceDiscountAccountRel.commerceDiscountAccountRelId) AS COUNT_VALUE
+			FROM
+				CommerceDiscountAccountRel
+			JOIN
+				CommerceDiscount ON
+					CommerceDiscountAccountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
+			JOIN
+				CommerceAccount ON
+					CommerceDiscountAccountRel.commerceAccountId = CommerceAccount.commerceAccountId
+			WHERE
+				(CommerceDiscount.commerceDiscountId = ?) AND
+				(LOWER(CommerceAccount.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountAccountRelFinder.findByCommerceDiscountId">
+		<![CDATA[
+			SELECT
+				DISTINCT CommerceDiscountAccountRel.*
+			FROM
+				CommerceDiscountAccountRel
+			JOIN
+				CommerceDiscount ON
+					CommerceDiscountAccountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
+			JOIN
+				CommerceAccount ON
+					CommerceDiscountAccountRel.commerceAccountId = CommerceAccount.commerceAccountId
+			WHERE
+				(CommerceDiscount.commerceDiscountId = ?) AND
+				(LOWER(CommerceAccount.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountCommerceAccountGroupRelFinder.countByCommerceDiscountId">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT CDiscountCAccountGroupRel.CDiscountCAccountGroupRelId) AS COUNT_VALUE
+			FROM
+				CDiscountCAccountGroupRel
+			JOIN
+				CommerceDiscount ON
+					CDiscountCAccountGroupRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
+			JOIN
+				CommerceAccountGroup ON
+					CDiscountCAccountGroupRel.commerceAccountGroupId = CommerceAccountGroup.commerceAccountGroupId
+			WHERE
+				(CommerceDiscount.commerceDiscountId = ?) AND
+				(LOWER(CommerceAccountGroup.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountCommerceAccountGroupRelFinder.findByCommerceDiscountId">
+		<![CDATA[
+			SELECT
+				DISTINCT CDiscountCAccountGroupRel.*
+			FROM
+				CDiscountCAccountGroupRel
+			JOIN
+				CommerceDiscount ON
+					CDiscountCAccountGroupRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
+			JOIN
+				CommerceAccountGroup ON
+					CDiscountCAccountGroupRel.commerceAccountGroupId = CommerceAccountGroup.commerceAccountGroupId
+			WHERE
+				(CommerceDiscount.commerceDiscountId = ?) AND
+				(LOWER(CommerceAccountGroup.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
 	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountFinder.countByCommercePricingClassId">
 		<![CDATA[
 			SELECT
@@ -399,6 +467,146 @@
 						(CommerceDiscountRel.classNameId = ?)
 					)
 				)
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountRelFinder.countCategoriesByCommerceDiscountId">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT CommerceDiscountRel.commerceDiscountRelId) AS COUNT_VALUE
+			FROM
+				CommerceDiscountRel
+			JOIN
+				CommerceDiscount ON
+					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
+			JOIN
+				AssetCategory ON
+					CommerceDiscountRel.classPK = AssetCategory.categoryId
+			WHERE
+				(CommerceDiscount.commerceDiscountId = ?) AND
+				(CommerceDiscountRel.classNameId = ?) AND
+				(LOWER(AssetCategory.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountRelFinder.countCPDefinitionsByCommerceDiscountId">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT CommerceDiscountRel.commerceDiscountRelId) AS COUNT_VALUE
+			FROM
+				CommerceDiscountRel
+			JOIN
+				CommerceDiscount ON
+					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
+			INNER JOIN
+				CPDefinition ON
+					CPDefinition.CPDefinitionId = CommerceDiscountRel.classPK
+			LEFT JOIN
+				CPDefinitionLocalization
+			ON
+				(CPDefinition.CPDefinitionId = CPDefinitionLocalization.CPDefinitionId) AND
+				(CPDefinitionLocalization.languageId = ?)
+			WHERE
+				(CommerceDiscount.commerceDiscountId = ?) AND
+				(CommerceDiscountRel.classNameId = ?) AND
+				(LOWER(CPDefinitionLocalization.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountRelFinder.countPricingClassesByCommerceDiscountId">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT CommerceDiscountRel.commerceDiscountRelId) AS COUNT_VALUE
+			FROM
+				CommerceDiscountRel
+			JOIN
+				CommerceDiscount ON
+					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
+			JOIN
+				CommercePricingClass ON
+					CommerceDiscountRel.classPK = CommercePricingClass.commercePricingClassId
+			WHERE
+				(CommerceDiscount.commerceDiscountId = ?) AND
+				(CommerceDiscountRel.classNameId = ?) AND
+				(LOWER(CommercePricingClass.title) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountRelFinder.findCategoriesByCommerceDiscountId">
+		<![CDATA[
+			SELECT
+				DISTINCT CommerceDiscountRel.*
+			FROM
+				CommerceDiscountRel
+			JOIN
+				CommerceDiscount ON
+					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
+			JOIN
+				AssetCategory ON
+					CommerceDiscountRel.classPK = AssetCategory.categoryId
+			WHERE
+				(CommerceDiscount.commerceDiscountId = ?) AND
+				(CommerceDiscountRel.classNameId = ?) AND
+				(LOWER(AssetCategory.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountRelFinder.findCPDefinitionsByCommerceDiscountId">
+		<![CDATA[
+			SELECT
+				DISTINCT CommerceDiscountRel.*
+			FROM
+				CommerceDiscountRel
+			JOIN
+				CommerceDiscount ON
+					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
+			INNER JOIN
+				CPDefinition ON
+					CPDefinition.CPDefinitionId = CommerceDiscountRel.classPK
+			LEFT JOIN
+				CPDefinitionLocalization
+			ON
+				(CPDefinition.CPDefinitionId = CPDefinitionLocalization.CPDefinitionId) AND
+				(CPDefinitionLocalization.languageId = ?)
+			WHERE
+				(CommerceDiscount.commerceDiscountId = ?) AND
+				(CommerceDiscountRel.classNameId = ?) AND
+				(LOWER(CPDefinitionLocalization.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountRelFinder.findPricingClassesByCommerceDiscountId">
+		<![CDATA[
+			SELECT
+				DISTINCT CommerceDiscountRel.*
+			FROM
+				CommerceDiscountRel
+			JOIN
+				CommerceDiscount ON
+					CommerceDiscountRel.commerceDiscountId = CommerceDiscount.commerceDiscountId
+			JOIN
+				CommercePricingClass ON
+					CommerceDiscountRel.classPK = CommercePricingClass.commercePricingClassId
+			WHERE
+				(CommerceDiscount.commerceDiscountId = ?) AND
+				(CommerceDiscountRel.classNameId = ?) AND
+				(LOWER(CommercePricingClass.title) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountRuleFinder.countByCommerceDiscountId">
+		<![CDATA[
+			SELECT
+				COUNT(DISTINCT CommerceDiscountRule.commerceDiscountRuleId) AS COUNT_VALUE
+			FROM
+				CommerceDiscountRule
+			WHERE
+				(CommerceDiscountRule.commerceDiscountId = ?) AND
+				(LOWER(CommerceDiscountRule.name) LIKE ? [$AND_OR_NULL_CHECK$])
+		]]>
+	</sql>
+	<sql id="com.liferay.commerce.discount.service.persistence.CommerceDiscountRuleFinder.findByCommerceDiscountId">
+		<![CDATA[
+			SELECT
+				DISTINCT CommerceDiscountRule.*
+			FROM
+				CommerceDiscountRule
+			WHERE
+				(CommerceDiscountRule.commerceDiscountId = ?) AND
+				(LOWER(CommerceDiscountRule.name) LIKE ? [$AND_OR_NULL_CHECK$])
 		]]>
 	</sql>
 </custom-sql>
