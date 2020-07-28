@@ -367,8 +367,10 @@ AUI.add(
 	
 						if (name) {
 							var nativeEditor = instance.getNativeEditor();
-	
-							return nativeEditor.pasteFilter.check(name);
+
+							return nativeEditor.pasteFilter
+								? nativeEditor.pasteFilter.check(name)
+								: true;
 						}
 					},
 
