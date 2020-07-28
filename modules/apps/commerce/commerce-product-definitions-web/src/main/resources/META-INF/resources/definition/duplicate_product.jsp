@@ -40,9 +40,9 @@ CPDefinition cpDefinition = cpDefinitionsDisplayContext.getCPDefinition();
 	</portlet:renderURL>
 
 	<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/forms/index as FormUtils, commerce-frontend-js/ServiceProvider/index as ServiceProvider">
+		var <portlet:namespace/>defaultLanguageId = null;
 		var <portlet:namespace />product = {
 			active: true,
-			name: {},
 			productType: '<%= cpDefinition.getProductTypeName() %>'
 		}
 
@@ -62,16 +62,20 @@ CPDefinition cpDefinition = cpDefinitionsDisplayContext.getCPDefinition();
 							'x-csrf-token': Liferay.authToken
 						});
 
+						var formattedData = {
+							active: false,
+							catalogId: <portlet:namespace/>product.catalogId,
+							name: {
+								[<portlet:namespace/>defaultLanguageId]: document.getElementById('<portlet:namespace/>name').value;
+							},
+							productType: <portlet:namespace/>product.productType
+						};
+
 						fetch(
 							'/o/headless-commerce-admin-catalog/v1.0/products/' +
 								payload.productId,
 							{
-								body: JSON.stringify({
-									active: false,
-									catalogId: <portlet:namespace/>product.catalogId,
-									name: <portlet:namespace/>product.name,
-									productType: <portlet:namespace/>product.productType
-								}),
+								body: JSON.stringify(formattedData),
 								credentials: 'include',
 								headers: headers,
 								method: 'patch'
@@ -129,10 +133,7 @@ CPDefinition cpDefinition = cpDefinitionsDisplayContext.getCPDefinition();
 			onValueUpdated: function(value, catalogData) {
 				if (value) {
 					<portlet:namespace/>product.catalogId = catalogData.id;
-
-					<portlet:namespace/>product.name[
-						catalogData.defaultLanguageId
-					] = document.getElementById('<portlet:namespace/>name').value;
+					<portlet:namespace/>defaultLanguageId = catalogData.defaultLanguageId;
 				}
 			},
 			required: true
