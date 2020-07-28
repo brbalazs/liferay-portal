@@ -134,6 +134,43 @@ public class CommerceDiscountAccountRelServiceHttp {
 		}
 	}
 
+	public static void deleteCommerceDiscountAccountRelsByCommerceDiscountId(
+			HttpPrincipal httpPrincipal, long commerceDiscountId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceDiscountAccountRelServiceUtil.class,
+				"deleteCommerceDiscountAccountRelsByCommerceDiscountId",
+				_deleteCommerceDiscountAccountRelsByCommerceDiscountIdParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceDiscountId);
+
+			try {
+				TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static com.liferay.commerce.discount.model.CommerceDiscountAccountRel
 			fetchCommerceDiscountAccountRel(
 				HttpPrincipal httpPrincipal, long commerceDiscountId,
@@ -144,7 +181,7 @@ public class CommerceDiscountAccountRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountAccountRelServiceUtil.class,
 				"fetchCommerceDiscountAccountRel",
-				_fetchCommerceDiscountAccountRelParameterTypes2);
+				_fetchCommerceDiscountAccountRelParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceDiscountId, commerceAccountId);
@@ -187,7 +224,7 @@ public class CommerceDiscountAccountRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountAccountRelServiceUtil.class,
 				"getCommerceDiscountAccountRel",
-				_getCommerceDiscountAccountRelParameterTypes3);
+				_getCommerceDiscountAccountRelParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceDiscountAccountRelId);
@@ -235,7 +272,7 @@ public class CommerceDiscountAccountRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountAccountRelServiceUtil.class,
 				"getCommerceDiscountAccountRels",
-				_getCommerceDiscountAccountRelsParameterTypes4);
+				_getCommerceDiscountAccountRelsParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceDiscountId, start, end, orderByComparator);
@@ -270,6 +307,77 @@ public class CommerceDiscountAccountRelServiceHttp {
 		}
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscountAccountRel>
+			getCommerceDiscountAccountRelsByCommerceDiscountId(
+				HttpPrincipal httpPrincipal, long commerceDiscountId,
+				String name, int start, int end) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceDiscountAccountRelServiceUtil.class,
+				"getCommerceDiscountAccountRelsByCommerceDiscountId",
+				_getCommerceDiscountAccountRelsByCommerceDiscountIdParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceDiscountId, name, start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<com.liferay.commerce.discount.model.
+					CommerceDiscountAccountRel>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static int getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
+		HttpPrincipal httpPrincipal, long commerceDiscountId, String name) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CommerceDiscountAccountRelServiceUtil.class,
+				"getCommerceDiscountAccountRelsByCommerceDiscountIdCount",
+				_getCommerceDiscountAccountRelsByCommerceDiscountIdCountParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, commerceDiscountId, name);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Integer)returnObj).intValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static int getCommerceDiscountAccountRelsCount(
 			HttpPrincipal httpPrincipal, long commerceDiscountId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -278,7 +386,7 @@ public class CommerceDiscountAccountRelServiceHttp {
 			MethodKey methodKey = new MethodKey(
 				CommerceDiscountAccountRelServiceUtil.class,
 				"getCommerceDiscountAccountRelsCount",
-				_getCommerceDiscountAccountRelsCountParameterTypes5);
+				_getCommerceDiscountAccountRelsCountParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceDiscountId);
@@ -324,20 +432,29 @@ public class CommerceDiscountAccountRelServiceHttp {
 			long.class
 		};
 	private static final Class<?>[]
-		_fetchCommerceDiscountAccountRelParameterTypes2 = new Class[] {
+		_deleteCommerceDiscountAccountRelsByCommerceDiscountIdParameterTypes2 =
+			new Class[] {long.class};
+	private static final Class<?>[]
+		_fetchCommerceDiscountAccountRelParameterTypes3 = new Class[] {
 			long.class, long.class
 		};
 	private static final Class<?>[]
-		_getCommerceDiscountAccountRelParameterTypes3 = new Class[] {
+		_getCommerceDiscountAccountRelParameterTypes4 = new Class[] {
 			long.class
 		};
 	private static final Class<?>[]
-		_getCommerceDiscountAccountRelsParameterTypes4 = new Class[] {
+		_getCommerceDiscountAccountRelsParameterTypes5 = new Class[] {
 			long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
 	private static final Class<?>[]
-		_getCommerceDiscountAccountRelsCountParameterTypes5 = new Class[] {
+		_getCommerceDiscountAccountRelsByCommerceDiscountIdParameterTypes6 =
+			new Class[] {long.class, String.class, int.class, int.class};
+	private static final Class<?>[]
+		_getCommerceDiscountAccountRelsByCommerceDiscountIdCountParameterTypes7 =
+			new Class[] {long.class, String.class};
+	private static final Class<?>[]
+		_getCommerceDiscountAccountRelsCountParameterTypes8 = new Class[] {
 			long.class
 		};
 

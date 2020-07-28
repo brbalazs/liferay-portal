@@ -117,6 +117,48 @@ public class CommerceDiscountRelServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.discount.model.CommerceDiscountRelSoap[]
+			getCategoriesByCommerceDiscountId(
+				long commerceDiscountId, String name, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.discount.model.CommerceDiscountRel>
+					returnValue =
+						CommerceDiscountRelServiceUtil.
+							getCategoriesByCommerceDiscountId(
+								commerceDiscountId, name, start, end);
+
+			return com.liferay.commerce.discount.model.CommerceDiscountRelSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCategoriesByCommerceDiscountIdCount(
+			long commerceDiscountId, String name)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceDiscountRelServiceUtil.
+					getCategoriesByCommerceDiscountIdCount(
+						commerceDiscountId, name);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static long[] getClassPKs(long commerceDiscountId, String className)
 		throws RemoteException {
 
@@ -208,6 +250,92 @@ public class CommerceDiscountRelServiceSoap {
 			int returnValue =
 				CommerceDiscountRelServiceUtil.getCommerceDiscountRelsCount(
 					commerceDiscountId, className);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.discount.model.CommerceDiscountRelSoap[]
+			getCommercePricingClassesByCommerceDiscountId(
+				long commerceDiscountId, String title, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.discount.model.CommerceDiscountRel>
+					returnValue =
+						CommerceDiscountRelServiceUtil.
+							getCommercePricingClassesByCommerceDiscountId(
+								commerceDiscountId, title, start, end);
+
+			return com.liferay.commerce.discount.model.CommerceDiscountRelSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommercePricingClassesByCommerceDiscountIdCount(
+			long commerceDiscountId, String title)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceDiscountRelServiceUtil.
+					getCommercePricingClassesByCommerceDiscountIdCount(
+						commerceDiscountId, title);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.discount.model.CommerceDiscountRelSoap[]
+			getCPDefinitionsByCommerceDiscountId(
+				long commerceDiscountId, String name, String languageId,
+				int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.discount.model.CommerceDiscountRel>
+					returnValue =
+						CommerceDiscountRelServiceUtil.
+							getCPDefinitionsByCommerceDiscountId(
+								commerceDiscountId, name, languageId, start,
+								end);
+
+			return com.liferay.commerce.discount.model.CommerceDiscountRelSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCPDefinitionsByCommerceDiscountIdCount(
+			long commerceDiscountId, String name, String languageId)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceDiscountRelServiceUtil.
+					getCPDefinitionsByCommerceDiscountIdCount(
+						commerceDiscountId, name, languageId);
 
 			return returnValue;
 		}

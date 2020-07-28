@@ -188,6 +188,29 @@ public class CommerceDiscountRuleServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.discount.model.CommerceDiscountRuleSoap[]
+			getCommerceDiscountRules(
+				long commerceDiscountId, String name, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.discount.model.CommerceDiscountRule>
+					returnValue =
+						CommerceDiscountRuleServiceUtil.
+							getCommerceDiscountRules(
+								commerceDiscountId, name, start, end);
+
+			return com.liferay.commerce.discount.model.CommerceDiscountRuleSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static int getCommerceDiscountRulesCount(long commerceDiscountId)
 		throws RemoteException {
 
@@ -195,6 +218,24 @@ public class CommerceDiscountRuleServiceSoap {
 			int returnValue =
 				CommerceDiscountRuleServiceUtil.getCommerceDiscountRulesCount(
 					commerceDiscountId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommerceDiscountRulesCount(
+			long commerceDiscountId, String name)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceDiscountRuleServiceUtil.getCommerceDiscountRulesCount(
+					commerceDiscountId, name);
 
 			return returnValue;
 		}

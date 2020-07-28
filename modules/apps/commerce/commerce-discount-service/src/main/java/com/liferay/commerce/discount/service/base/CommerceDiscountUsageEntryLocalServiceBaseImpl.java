@@ -16,11 +16,15 @@ package com.liferay.commerce.discount.service.base;
 
 import com.liferay.commerce.discount.model.CommerceDiscountUsageEntry;
 import com.liferay.commerce.discount.service.CommerceDiscountUsageEntryLocalService;
+import com.liferay.commerce.discount.service.persistence.CommerceDiscountAccountRelFinder;
 import com.liferay.commerce.discount.service.persistence.CommerceDiscountAccountRelPersistence;
+import com.liferay.commerce.discount.service.persistence.CommerceDiscountCommerceAccountGroupRelFinder;
 import com.liferay.commerce.discount.service.persistence.CommerceDiscountCommerceAccountGroupRelPersistence;
 import com.liferay.commerce.discount.service.persistence.CommerceDiscountFinder;
 import com.liferay.commerce.discount.service.persistence.CommerceDiscountPersistence;
+import com.liferay.commerce.discount.service.persistence.CommerceDiscountRelFinder;
 import com.liferay.commerce.discount.service.persistence.CommerceDiscountRelPersistence;
+import com.liferay.commerce.discount.service.persistence.CommerceDiscountRuleFinder;
 import com.liferay.commerce.discount.service.persistence.CommerceDiscountRulePersistence;
 import com.liferay.commerce.discount.service.persistence.CommerceDiscountUsageEntryPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
@@ -486,6 +490,29 @@ public abstract class CommerceDiscountUsageEntryLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the commerce discount account rel finder.
+	 *
+	 * @return the commerce discount account rel finder
+	 */
+	public CommerceDiscountAccountRelFinder
+		getCommerceDiscountAccountRelFinder() {
+
+		return commerceDiscountAccountRelFinder;
+	}
+
+	/**
+	 * Sets the commerce discount account rel finder.
+	 *
+	 * @param commerceDiscountAccountRelFinder the commerce discount account rel finder
+	 */
+	public void setCommerceDiscountAccountRelFinder(
+		CommerceDiscountAccountRelFinder commerceDiscountAccountRelFinder) {
+
+		this.commerceDiscountAccountRelFinder =
+			commerceDiscountAccountRelFinder;
+	}
+
+	/**
 	 * Returns the commerce discount commerce account group rel local service.
 	 *
 	 * @return the commerce discount commerce account group rel local service
@@ -536,6 +563,30 @@ public abstract class CommerceDiscountUsageEntryLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the commerce discount commerce account group rel finder.
+	 *
+	 * @return the commerce discount commerce account group rel finder
+	 */
+	public CommerceDiscountCommerceAccountGroupRelFinder
+		getCommerceDiscountCommerceAccountGroupRelFinder() {
+
+		return commerceDiscountCommerceAccountGroupRelFinder;
+	}
+
+	/**
+	 * Sets the commerce discount commerce account group rel finder.
+	 *
+	 * @param commerceDiscountCommerceAccountGroupRelFinder the commerce discount commerce account group rel finder
+	 */
+	public void setCommerceDiscountCommerceAccountGroupRelFinder(
+		CommerceDiscountCommerceAccountGroupRelFinder
+			commerceDiscountCommerceAccountGroupRelFinder) {
+
+		this.commerceDiscountCommerceAccountGroupRelFinder =
+			commerceDiscountCommerceAccountGroupRelFinder;
+	}
+
+	/**
 	 * Returns the commerce discount rel local service.
 	 *
 	 * @return the commerce discount rel local service
@@ -576,6 +627,26 @@ public abstract class CommerceDiscountUsageEntryLocalServiceBaseImpl
 		CommerceDiscountRelPersistence commerceDiscountRelPersistence) {
 
 		this.commerceDiscountRelPersistence = commerceDiscountRelPersistence;
+	}
+
+	/**
+	 * Returns the commerce discount rel finder.
+	 *
+	 * @return the commerce discount rel finder
+	 */
+	public CommerceDiscountRelFinder getCommerceDiscountRelFinder() {
+		return commerceDiscountRelFinder;
+	}
+
+	/**
+	 * Sets the commerce discount rel finder.
+	 *
+	 * @param commerceDiscountRelFinder the commerce discount rel finder
+	 */
+	public void setCommerceDiscountRelFinder(
+		CommerceDiscountRelFinder commerceDiscountRelFinder) {
+
+		this.commerceDiscountRelFinder = commerceDiscountRelFinder;
 	}
 
 	/**
@@ -623,6 +694,26 @@ public abstract class CommerceDiscountUsageEntryLocalServiceBaseImpl
 		CommerceDiscountRulePersistence commerceDiscountRulePersistence) {
 
 		this.commerceDiscountRulePersistence = commerceDiscountRulePersistence;
+	}
+
+	/**
+	 * Returns the commerce discount rule finder.
+	 *
+	 * @return the commerce discount rule finder
+	 */
+	public CommerceDiscountRuleFinder getCommerceDiscountRuleFinder() {
+		return commerceDiscountRuleFinder;
+	}
+
+	/**
+	 * Sets the commerce discount rule finder.
+	 *
+	 * @param commerceDiscountRuleFinder the commerce discount rule finder
+	 */
+	public void setCommerceDiscountRuleFinder(
+		CommerceDiscountRuleFinder commerceDiscountRuleFinder) {
+
+		this.commerceDiscountRuleFinder = commerceDiscountRuleFinder;
 	}
 
 	/**
@@ -880,6 +971,9 @@ public abstract class CommerceDiscountUsageEntryLocalServiceBaseImpl
 	protected CommerceDiscountAccountRelPersistence
 		commerceDiscountAccountRelPersistence;
 
+	@BeanReference(type = CommerceDiscountAccountRelFinder.class)
+	protected CommerceDiscountAccountRelFinder commerceDiscountAccountRelFinder;
+
 	@BeanReference(
 		type = com.liferay.commerce.discount.service.CommerceDiscountCommerceAccountGroupRelLocalService.class
 	)
@@ -893,6 +987,10 @@ public abstract class CommerceDiscountUsageEntryLocalServiceBaseImpl
 	protected CommerceDiscountCommerceAccountGroupRelPersistence
 		commerceDiscountCommerceAccountGroupRelPersistence;
 
+	@BeanReference(type = CommerceDiscountCommerceAccountGroupRelFinder.class)
+	protected CommerceDiscountCommerceAccountGroupRelFinder
+		commerceDiscountCommerceAccountGroupRelFinder;
+
 	@BeanReference(
 		type = com.liferay.commerce.discount.service.CommerceDiscountRelLocalService.class
 	)
@@ -903,6 +1001,9 @@ public abstract class CommerceDiscountUsageEntryLocalServiceBaseImpl
 	@BeanReference(type = CommerceDiscountRelPersistence.class)
 	protected CommerceDiscountRelPersistence commerceDiscountRelPersistence;
 
+	@BeanReference(type = CommerceDiscountRelFinder.class)
+	protected CommerceDiscountRelFinder commerceDiscountRelFinder;
+
 	@BeanReference(
 		type = com.liferay.commerce.discount.service.CommerceDiscountRuleLocalService.class
 	)
@@ -912,6 +1013,9 @@ public abstract class CommerceDiscountUsageEntryLocalServiceBaseImpl
 
 	@BeanReference(type = CommerceDiscountRulePersistence.class)
 	protected CommerceDiscountRulePersistence commerceDiscountRulePersistence;
+
+	@BeanReference(type = CommerceDiscountRuleFinder.class)
+	protected CommerceDiscountRuleFinder commerceDiscountRuleFinder;
 
 	@BeanReference(type = CommerceDiscountUsageEntryLocalService.class)
 	protected CommerceDiscountUsageEntryLocalService

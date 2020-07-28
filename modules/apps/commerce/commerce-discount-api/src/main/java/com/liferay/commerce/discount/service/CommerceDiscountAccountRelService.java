@@ -70,6 +70,10 @@ public interface CommerceDiscountAccountRelService extends BaseService {
 			long commerceDiscountAccountRelId)
 		throws PortalException;
 
+	public void deleteCommerceDiscountAccountRelsByCommerceDiscountId(
+			long commerceDiscountId)
+		throws PortalException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceDiscountAccountRel fetchCommerceDiscountAccountRel(
 			long commerceDiscountId, long commerceAccountId)
@@ -85,6 +89,15 @@ public interface CommerceDiscountAccountRelService extends BaseService {
 			long commerceDiscountId, int start, int end,
 			OrderByComparator<CommerceDiscountAccountRel> orderByComparator)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscountAccountRel>
+		getCommerceDiscountAccountRelsByCommerceDiscountId(
+			long commerceDiscountId, String name, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
+		long commerceDiscountId, String name);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceDiscountAccountRelsCount(long commerceDiscountId)

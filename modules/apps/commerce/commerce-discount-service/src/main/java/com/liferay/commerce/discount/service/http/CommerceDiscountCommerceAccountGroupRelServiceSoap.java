@@ -104,6 +104,23 @@ public class CommerceDiscountCommerceAccountGroupRelServiceSoap {
 		}
 	}
 
+	public static void
+			deleteCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+				long commerceDiscountId)
+		throws RemoteException {
+
+		try {
+			CommerceDiscountCommerceAccountGroupRelServiceUtil.
+				deleteCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+					commerceDiscountId);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static com.liferay.commerce.discount.model.
 		CommerceDiscountCommerceAccountGroupRelSoap
 				fetchCommerceDiscountCommerceAccountGroupRel(
@@ -174,6 +191,51 @@ public class CommerceDiscountCommerceAccountGroupRelServiceSoap {
 			return com.liferay.commerce.discount.model.
 				CommerceDiscountCommerceAccountGroupRelSoap.toSoapModels(
 					returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.discount.model.
+		CommerceDiscountCommerceAccountGroupRelSoap[]
+				getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+					long commerceDiscountId, String name, int start, int end)
+			throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.discount.model.
+					CommerceDiscountCommerceAccountGroupRel> returnValue =
+						CommerceDiscountCommerceAccountGroupRelServiceUtil.
+							getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+								commerceDiscountId, name, start, end);
+
+			return com.liferay.commerce.discount.model.
+				CommerceDiscountCommerceAccountGroupRelSoap.toSoapModels(
+					returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int
+			getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountIdCount(
+				long commerceDiscountId, String name)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceDiscountCommerceAccountGroupRelServiceUtil.
+					getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountIdCount(
+						commerceDiscountId, name);
+
+			return returnValue;
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

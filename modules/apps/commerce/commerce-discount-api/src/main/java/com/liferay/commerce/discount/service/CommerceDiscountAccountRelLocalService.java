@@ -259,6 +259,15 @@ public interface CommerceDiscountAccountRelLocalService
 		long commerceDiscountId, int start, int end,
 		OrderByComparator<CommerceDiscountAccountRel> orderByComparator);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscountAccountRel>
+		getCommerceDiscountAccountRelsByCommerceDiscountId(
+			long commerceDiscountId, String name, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
+		long commerceDiscountId, String name);
+
 	/**
 	 * Returns the number of commerce discount account rels.
 	 *

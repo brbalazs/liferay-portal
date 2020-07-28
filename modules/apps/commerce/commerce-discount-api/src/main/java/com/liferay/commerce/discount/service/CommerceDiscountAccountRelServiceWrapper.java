@@ -54,6 +54,16 @@ public class CommerceDiscountAccountRelServiceWrapper
 	}
 
 	@Override
+	public void deleteCommerceDiscountAccountRelsByCommerceDiscountId(
+			long commerceDiscountId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_commerceDiscountAccountRelService.
+			deleteCommerceDiscountAccountRelsByCommerceDiscountId(
+				commerceDiscountId);
+	}
+
+	@Override
 	public com.liferay.commerce.discount.model.CommerceDiscountAccountRel
 			fetchCommerceDiscountAccountRel(
 				long commerceDiscountId, long commerceAccountId)
@@ -86,6 +96,26 @@ public class CommerceDiscountAccountRelServiceWrapper
 		return _commerceDiscountAccountRelService.
 			getCommerceDiscountAccountRels(
 				commerceDiscountId, start, end, orderByComparator);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscountAccountRel>
+			getCommerceDiscountAccountRelsByCommerceDiscountId(
+				long commerceDiscountId, String name, int start, int end) {
+
+		return _commerceDiscountAccountRelService.
+			getCommerceDiscountAccountRelsByCommerceDiscountId(
+				commerceDiscountId, name, start, end);
+	}
+
+	@Override
+	public int getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
+		long commerceDiscountId, String name) {
+
+		return _commerceDiscountAccountRelService.
+			getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
+				commerceDiscountId, name);
 	}
 
 	@Override

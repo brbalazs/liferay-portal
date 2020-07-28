@@ -314,6 +314,23 @@ public class CommerceDiscountAccountRelLocalServiceUtil {
 			commerceDiscountId, start, end, orderByComparator);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscountAccountRel>
+			getCommerceDiscountAccountRelsByCommerceDiscountId(
+				long commerceDiscountId, String name, int start, int end) {
+
+		return getService().getCommerceDiscountAccountRelsByCommerceDiscountId(
+			commerceDiscountId, name, start, end);
+	}
+
+	public static int getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
+		long commerceDiscountId, String name) {
+
+		return getService().
+			getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
+				commerceDiscountId, name);
+	}
+
 	/**
 	 * Returns the number of commerce discount account rels.
 	 *

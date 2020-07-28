@@ -231,6 +231,22 @@ public class CommerceDiscountRelLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscountRel>
+			getCategoriesByCommerceDiscountId(
+				long commerceDiscountId, String name, int start, int end) {
+
+		return getService().getCategoriesByCommerceDiscountId(
+			commerceDiscountId, name, start, end);
+	}
+
+	public static int getCategoriesByCommerceDiscountIdCount(
+		long commerceDiscountId, String name) {
+
+		return getService().getCategoriesByCommerceDiscountIdCount(
+			commerceDiscountId, name);
+	}
+
 	public static long[] getClassPKs(
 		long commerceDiscountId, String className) {
 
@@ -303,6 +319,39 @@ public class CommerceDiscountRelLocalServiceUtil {
 
 		return getService().getCommerceDiscountRelsCount(
 			commerceDiscountId, className);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscountRel>
+			getCommercePricingClassesByCommerceDiscountId(
+				long commerceDiscountId, String title, int start, int end) {
+
+		return getService().getCommercePricingClassesByCommerceDiscountId(
+			commerceDiscountId, title, start, end);
+	}
+
+	public static int getCommercePricingClassesByCommerceDiscountIdCount(
+		long commerceDiscountId, String title) {
+
+		return getService().getCommercePricingClassesByCommerceDiscountIdCount(
+			commerceDiscountId, title);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscountRel>
+			getCPDefinitionsByCommerceDiscountId(
+				long commerceDiscountId, String name, String languageId,
+				int start, int end) {
+
+		return getService().getCPDefinitionsByCommerceDiscountId(
+			commerceDiscountId, name, languageId, start, end);
+	}
+
+	public static int getCPDefinitionsByCommerceDiscountIdCount(
+		long commerceDiscountId, String name, String languageId) {
+
+		return getService().getCPDefinitionsByCommerceDiscountIdCount(
+			commerceDiscountId, name, languageId);
 	}
 
 	public static

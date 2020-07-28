@@ -345,6 +345,28 @@ public class CommerceDiscountCommerceAccountGroupRelLocalServiceWrapper
 				commerceDiscountId, start, end, orderByComparator);
 	}
 
+	@Override
+	public java.util.List
+		<com.liferay.commerce.discount.model.
+			CommerceDiscountCommerceAccountGroupRel>
+				getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+					long commerceDiscountId, String name, int start, int end) {
+
+		return _commerceDiscountCommerceAccountGroupRelLocalService.
+			getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+				commerceDiscountId, name, start, end);
+	}
+
+	@Override
+	public int
+		getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountIdCount(
+			long commerceDiscountId, String name) {
+
+		return _commerceDiscountCommerceAccountGroupRelLocalService.
+			getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountIdCount(
+				commerceDiscountId, name);
+	}
+
 	/**
 	 * Returns the number of commerce discount commerce account group rels.
 	 *

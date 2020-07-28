@@ -72,6 +72,11 @@ public interface CommerceDiscountCommerceAccountGroupRelService
 			long commerceDiscountCommerceAccountGroupRelId)
 		throws PortalException;
 
+	public void
+			deleteCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+				long commerceDiscountId)
+		throws PortalException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommerceDiscountCommerceAccountGroupRel
 			fetchCommerceDiscountCommerceAccountGroupRel(
@@ -91,6 +96,16 @@ public interface CommerceDiscountCommerceAccountGroupRelService
 				OrderByComparator<CommerceDiscountCommerceAccountGroupRel>
 					orderByComparator)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscountCommerceAccountGroupRel>
+		getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+			long commerceDiscountId, String name, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int
+		getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountIdCount(
+			long commerceDiscountId, String name);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceDiscountCommerceAccountGroupRelsCount(

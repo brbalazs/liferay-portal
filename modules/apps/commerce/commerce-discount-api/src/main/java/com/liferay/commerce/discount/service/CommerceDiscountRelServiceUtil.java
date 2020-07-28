@@ -60,6 +60,22 @@ public class CommerceDiscountRelServiceUtil {
 		return getService().fetchCommerceDiscountRel(className, classPK);
 	}
 
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscountRel>
+			getCategoriesByCommerceDiscountId(
+				long commerceDiscountId, String name, int start, int end) {
+
+		return getService().getCategoriesByCommerceDiscountId(
+			commerceDiscountId, name, start, end);
+	}
+
+	public static int getCategoriesByCommerceDiscountIdCount(
+		long commerceDiscountId, String name) {
+
+		return getService().getCategoriesByCommerceDiscountIdCount(
+			commerceDiscountId, name);
+	}
+
 	public static long[] getClassPKs(long commerceDiscountId, String className)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -103,6 +119,39 @@ public class CommerceDiscountRelServiceUtil {
 
 		return getService().getCommerceDiscountRelsCount(
 			commerceDiscountId, className);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscountRel>
+			getCommercePricingClassesByCommerceDiscountId(
+				long commerceDiscountId, String title, int start, int end) {
+
+		return getService().getCommercePricingClassesByCommerceDiscountId(
+			commerceDiscountId, title, start, end);
+	}
+
+	public static int getCommercePricingClassesByCommerceDiscountIdCount(
+		long commerceDiscountId, String title) {
+
+		return getService().getCommercePricingClassesByCommerceDiscountIdCount(
+			commerceDiscountId, title);
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscountRel>
+			getCPDefinitionsByCommerceDiscountId(
+				long commerceDiscountId, String name, String languageId,
+				int start, int end) {
+
+		return getService().getCPDefinitionsByCommerceDiscountId(
+			commerceDiscountId, name, languageId, start, end);
+	}
+
+	public static int getCPDefinitionsByCommerceDiscountIdCount(
+		long commerceDiscountId, String name, String languageId) {
+
+		return getService().getCPDefinitionsByCommerceDiscountIdCount(
+			commerceDiscountId, name, languageId);
 	}
 
 	/**

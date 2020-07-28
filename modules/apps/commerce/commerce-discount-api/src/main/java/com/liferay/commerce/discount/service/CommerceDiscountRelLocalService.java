@@ -202,6 +202,14 @@ public interface CommerceDiscountRelLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscountRel> getCategoriesByCommerceDiscountId(
+		long commerceDiscountId, String name, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCategoriesByCommerceDiscountIdCount(
+		long commerceDiscountId, String name);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long[] getClassPKs(long commerceDiscountId, String className);
 
 	/**
@@ -251,6 +259,24 @@ public interface CommerceDiscountRelLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceDiscountRelsCount(
 		long commerceDiscountId, String className);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscountRel>
+		getCommercePricingClassesByCommerceDiscountId(
+			long commerceDiscountId, String title, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePricingClassesByCommerceDiscountIdCount(
+		long commerceDiscountId, String title);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CommerceDiscountRel> getCPDefinitionsByCommerceDiscountId(
+		long commerceDiscountId, String name, String languageId, int start,
+		int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCPDefinitionsByCommerceDiscountIdCount(
+		long commerceDiscountId, String name, String languageId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();

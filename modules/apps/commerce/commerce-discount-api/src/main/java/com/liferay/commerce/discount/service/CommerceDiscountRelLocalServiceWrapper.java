@@ -251,6 +251,25 @@ public class CommerceDiscountRelLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscountRel>
+			getCategoriesByCommerceDiscountId(
+				long commerceDiscountId, String name, int start, int end) {
+
+		return _commerceDiscountRelLocalService.
+			getCategoriesByCommerceDiscountId(
+				commerceDiscountId, name, start, end);
+	}
+
+	@Override
+	public int getCategoriesByCommerceDiscountIdCount(
+		long commerceDiscountId, String name) {
+
+		return _commerceDiscountRelLocalService.
+			getCategoriesByCommerceDiscountIdCount(commerceDiscountId, name);
+	}
+
+	@Override
 	public long[] getClassPKs(long commerceDiscountId, String className) {
 		return _commerceDiscountRelLocalService.getClassPKs(
 			commerceDiscountId, className);
@@ -330,6 +349,47 @@ public class CommerceDiscountRelLocalServiceWrapper
 
 		return _commerceDiscountRelLocalService.getCommerceDiscountRelsCount(
 			commerceDiscountId, className);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscountRel>
+			getCommercePricingClassesByCommerceDiscountId(
+				long commerceDiscountId, String title, int start, int end) {
+
+		return _commerceDiscountRelLocalService.
+			getCommercePricingClassesByCommerceDiscountId(
+				commerceDiscountId, title, start, end);
+	}
+
+	@Override
+	public int getCommercePricingClassesByCommerceDiscountIdCount(
+		long commerceDiscountId, String title) {
+
+		return _commerceDiscountRelLocalService.
+			getCommercePricingClassesByCommerceDiscountIdCount(
+				commerceDiscountId, title);
+	}
+
+	@Override
+	public java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscountRel>
+			getCPDefinitionsByCommerceDiscountId(
+				long commerceDiscountId, String name, String languageId,
+				int start, int end) {
+
+		return _commerceDiscountRelLocalService.
+			getCPDefinitionsByCommerceDiscountId(
+				commerceDiscountId, name, languageId, start, end);
+	}
+
+	@Override
+	public int getCPDefinitionsByCommerceDiscountIdCount(
+		long commerceDiscountId, String name, String languageId) {
+
+		return _commerceDiscountRelLocalService.
+			getCPDefinitionsByCommerceDiscountIdCount(
+				commerceDiscountId, name, languageId);
 	}
 
 	@Override

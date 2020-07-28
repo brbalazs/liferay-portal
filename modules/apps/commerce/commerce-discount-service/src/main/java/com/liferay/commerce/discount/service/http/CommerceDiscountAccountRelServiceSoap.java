@@ -102,6 +102,22 @@ public class CommerceDiscountAccountRelServiceSoap {
 		}
 	}
 
+	public static void deleteCommerceDiscountAccountRelsByCommerceDiscountId(
+			long commerceDiscountId)
+		throws RemoteException {
+
+		try {
+			CommerceDiscountAccountRelServiceUtil.
+				deleteCommerceDiscountAccountRelsByCommerceDiscountId(
+					commerceDiscountId);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static
 		com.liferay.commerce.discount.model.CommerceDiscountAccountRelSoap
 				fetchCommerceDiscountAccountRel(
@@ -167,6 +183,49 @@ public class CommerceDiscountAccountRelServiceSoap {
 
 			return com.liferay.commerce.discount.model.
 				CommerceDiscountAccountRelSoap.toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static
+		com.liferay.commerce.discount.model.CommerceDiscountAccountRelSoap[]
+				getCommerceDiscountAccountRelsByCommerceDiscountId(
+					long commerceDiscountId, String name, int start, int end)
+			throws RemoteException {
+
+		try {
+			java.util.List
+				<com.liferay.commerce.discount.model.CommerceDiscountAccountRel>
+					returnValue =
+						CommerceDiscountAccountRelServiceUtil.
+							getCommerceDiscountAccountRelsByCommerceDiscountId(
+								commerceDiscountId, name, start, end);
+
+			return com.liferay.commerce.discount.model.
+				CommerceDiscountAccountRelSoap.toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
+			long commerceDiscountId, String name)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceDiscountAccountRelServiceUtil.
+					getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
+						commerceDiscountId, name);
+
+			return returnValue;
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

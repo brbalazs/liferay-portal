@@ -97,11 +97,31 @@ public class CommerceDiscountRuleServiceWrapper
 	}
 
 	@Override
+	public java.util.List
+		<com.liferay.commerce.discount.model.CommerceDiscountRule>
+				getCommerceDiscountRules(
+					long commerceDiscountId, String name, int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceDiscountRuleService.getCommerceDiscountRules(
+			commerceDiscountId, name, start, end);
+	}
+
+	@Override
 	public int getCommerceDiscountRulesCount(long commerceDiscountId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _commerceDiscountRuleService.getCommerceDiscountRulesCount(
 			commerceDiscountId);
+	}
+
+	@Override
+	public int getCommerceDiscountRulesCount(
+			long commerceDiscountId, String name)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceDiscountRuleService.getCommerceDiscountRulesCount(
+			commerceDiscountId, name);
 	}
 
 	/**
