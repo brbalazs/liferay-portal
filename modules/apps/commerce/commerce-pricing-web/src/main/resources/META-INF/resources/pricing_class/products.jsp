@@ -32,7 +32,9 @@ boolean hasPermission = commercePricingClassCPDefinitionDisplayContext.hasPermis
 			<div id="item-finder-root"></div>
 
 			<aui:script require="commerce-frontend-js/components/item_finder/entry as itemFinder, commerce-frontend-js/utilities/slugify as slugify, commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/ServiceProvider/index as ServiceProvider">
-				const CommerceProductGroupsResource = ServiceProvider.default.AdminCatalogAPI('v1');
+				const CommerceProductGroupsResource = ServiceProvider.default.AdminCatalogAPI(
+					'v1'
+				);
 
 				var id = <%= commercePricingClass.getCommercePricingClassId() %>;
 				var pricingClassExternalReferenceCode =
@@ -49,13 +51,16 @@ boolean hasPermission = commercePricingClassCPDefinitionDisplayContext.hasPermis
 					return CommerceProductGroupsResource.addProductToProductGroup(
 						id,
 						productData
-					).then(function() {
-						Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
-							id: '<%= CommercePricingClassDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRODUCT_DEFINITIONS %>'
+					)
+						.then(function() {
+							Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
+								id:
+									'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRODUCT_DEFINITIONS %>'
+							});
+						})
+						.catch(function(error) {
+							return Promise.reject(error);
 						});
-					}).catch(function(error) {
-						return Promise.reject(error);
-					});
 				}
 
 				function getSelectedItems() {
@@ -69,7 +74,7 @@ boolean hasPermission = commercePricingClassCPDefinitionDisplayContext.hasPermis
 					inputPlaceholder: '<%= LanguageUtil.get(request, "find-a-product") %>',
 					itemSelectedMessage: '<%= LanguageUtil.get(request, "product-selected") %>',
 					linkedDatasetsId: [
-						'<%= CommercePricingClassDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRODUCT_DEFINITIONS %>'
+						'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRODUCT_DEFINITIONS %>'
 					],
 					itemCreation: false,
 					itemsKey: 'id',
@@ -108,9 +113,9 @@ boolean hasPermission = commercePricingClassCPDefinitionDisplayContext.hasPermis
 
 				<commerce-ui:dataset-display
 					contextParams="<%= contextParams %>"
-					dataProviderKey="<%= CommercePricingClassDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRODUCT_DEFINITIONS %>"
+					dataProviderKey="<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRODUCT_DEFINITIONS %>"
 					formId="fm"
-					id="<%= CommercePricingClassDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRODUCT_DEFINITIONS %>"
+					id="<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRODUCT_DEFINITIONS %>"
 					itemsPerPage="<%= 10 %>"
 					namespace="<%= renderResponse.getNamespace() %>"
 					pageNumber="<%= 1 %>"

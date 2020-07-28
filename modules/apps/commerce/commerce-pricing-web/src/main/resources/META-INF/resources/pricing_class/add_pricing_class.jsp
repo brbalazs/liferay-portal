@@ -38,44 +38,24 @@ String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
 			<aui:input name="description" type="textarea" />
 		</aui:form>
 
-		<aui:script require="commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/forms/index as FormUtils">
-			var headers = new Headers({
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-				'x-csrf-token': Liferay.authToken
-			});
+		<aui:script require="commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/utilities/forms/index as FormUtils, commerce-frontend-js/ServiceProvider/index as ServiceProvider">
+			const CommerceProductGroupsResource = ServiceProvider.default.AdminCatalogAPI(
+				'v1'
+			);
 
 			Liferay.provide(
 				window,
 				'<portlet:namespace/>apiSubmit',
 				function(form) {
-					var API_URL = '/o/headless-commerce-admin-catalog/v1.0/product-groups';
-
-					window.parent.Liferay.fire(events.IS_LOADING_MODAL, {
-						isLoading: true
-					});
-
 					var title = form.querySelector('#title').value;
 					var description = form.querySelector('#description').value;
 
-					return fetch(API_URL, {
-						body: JSON.stringify({
-							title: {'<%= defaultLanguageId %>': title},
-							description: {'<%= defaultLanguageId %>': description}
-						}),
-						credentials: 'include',
-						headers: headers,
-						method: 'POST'
-					})
-						.then(function(response) {
-							if (response.ok) {
-								return response.json();
-							}
+					var productGroupData = {
+						title: {<%= defaultLanguageId %>: title},
+						description: {<%= defaultLanguageId %>: description}
+					};
 
-							return response.json().then(function(data) {
-								return Promise.reject(data.message);
-							});
-						})
+					return CommerceProductGroupsResource.addProductGroup(productGroupData)
 						.then(function(payload) {
 							var redirectURL = new Liferay.PortletURL.createURL(
 								'<%= editPricingClassPortletURL.toString() %>'
@@ -93,24 +73,8 @@ String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
 								}
 							});
 						})
-						.catch(function() {
-							window.parent.Liferay.fire(events.IS_LOADING_MODAL, {
-								isLoading: false
-							});
-
-							new Liferay.Notification({
-								closeable: true,
-								delay: {
-									hide: 5000,
-									show: 0
-								},
-								duration: 500,
-								message:
-									'<liferay-ui:message key="an-unexpected-error-occurred" />',
-								render: true,
-								title: '<liferay-ui:message key="danger" />',
-								type: 'danger'
-							});
+						.catch(function(error) {
+							return Promise.reject(error);
 						});
 				},
 				['liferay-portlet-url']

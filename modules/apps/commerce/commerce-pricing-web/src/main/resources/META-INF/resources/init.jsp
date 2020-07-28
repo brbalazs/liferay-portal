@@ -25,29 +25,57 @@ taglib uri="http://liferay.com/tld/expando" prefix="liferay-expando" %><%@
 taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
 taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %><%@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
-taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
+taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %><%@
+taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
-<%@ page import="com.liferay.commerce.pricing.exception.NoSuchPricingClassException" %><%@
+<%@ page import="com.liferay.commerce.discount.constants.CommerceDiscountConstants" %><%@
+page import="com.liferay.commerce.discount.exception.CommerceDiscountCouponCodeException" %><%@
+page import="com.liferay.commerce.discount.exception.CommerceDiscountExpirationDateException" %><%@
+page import="com.liferay.commerce.discount.model.CommerceDiscount" %><%@
+page import="com.liferay.commerce.discount.model.CommerceDiscountRule" %><%@
+page import="com.liferay.commerce.discount.rule.type.CommerceDiscountRuleType" %><%@
+page import="com.liferay.commerce.discount.rule.type.CommerceDiscountRuleTypeJSPContributor" %><%@
+page import="com.liferay.commerce.discount.target.CommerceDiscountTarget" %><%@
+page import="com.liferay.commerce.pricing.exception.NoSuchPricingClassException" %><%@
 page import="com.liferay.commerce.pricing.model.CommercePricingClass" %><%@
 page import="com.liferay.commerce.pricing.util.PricingNavigationItemRegistryUtil" %><%@
+page import="com.liferay.commerce.pricing.web.internal.display.context.AddedAllCommerceDiscountRuleDisplayContext" %><%@
+page import="com.liferay.commerce.pricing.web.internal.display.context.AddedAnyCommerceDiscountRuleDisplayContext" %><%@
+page import="com.liferay.commerce.pricing.web.internal.display.context.CartTotalCommerceDiscountRuleDisplayContext" %><%@
+page import="com.liferay.commerce.pricing.web.internal.display.context.CommerceDiscountDisplayContext" %><%@
+page import="com.liferay.commerce.pricing.web.internal.display.context.CommerceDiscountQualifiersDisplayContext" %><%@
+page import="com.liferay.commerce.pricing.web.internal.display.context.CommerceDiscountRuleDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommercePricingClassCPDefinitionDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommercePricingClassDiscountDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommercePricingClassDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommercePricingClassPriceListDisplayContext" %><%@
-page import="com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingClassDataSetConstants" %><%@
+page import="com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingDataSetConstants" %><%@
+page import="com.liferay.commerce.pricing.web.servlet.taglib.ui.CommerceDiscountScreenNavigationConstants" %><%@
 page import="com.liferay.commerce.pricing.web.servlet.taglib.ui.CommercePricingClassScreenNavigationConstants" %><%@
+page import="com.liferay.commerce.product.model.CPDefinition" %><%@
+page import="com.liferay.petra.string.StringPool" %><%@
+page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
 page import="com.liferay.portal.kernel.security.permission.ActionKeys" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
+page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.LocaleUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
+page import="com.liferay.portal.kernel.util.UnicodeProperties" %><%@
+page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
+page import="com.liferay.portal.kernel.workflow.WorkflowConstants" %><%@
+page import="com.liferay.taglib.servlet.PipingServletResponse" %><%@
 page import="com.liferay.taglib.util.CustomAttributesUtil" %>
 
+<%@ page import="java.math.BigDecimal" %>
+
 <%@ page import="java.util.HashMap" %><%@
+page import="java.util.List" %><%@
 page import="java.util.Locale" %><%@
-page import="java.util.Map" %>
+page import="java.util.Map" %><%@
+page import="java.util.Objects" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
 
