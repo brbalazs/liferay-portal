@@ -20,6 +20,7 @@ import com.liferay.commerce.pricing.util.PricingNavigationItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.permission.PortletPermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -27,6 +28,7 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javax.portlet.PortletRequest;
@@ -36,18 +38,17 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Marco Leo
- * @author Alessio Antonio Rendina
+ * @author Riccardo Alberti
  */
 @Component(
 	immediate = true,
 	property = {
-		"commerce.pricing.navigation.item.key=" + CommercePricingPortletKeys.COMMERCE_PRICING_CLASSES,
-		"commerce.pricing.navigation.item.order:Integer=10"
+		"commerce.pricing.navigation.item.key=" + CommercePricingPortletKeys.COMMERCE_DISCOUNT,
+		"commerce.pricing.navigation.item.order:Integer=30"
 	},
 	service = PricingNavigationItem.class
 )
-public class PricingClassNavigationItem implements PricingNavigationItem {
+public class DiscountNavigationItem implements PricingNavigationItem {
 
 	@Override
 	public NavigationItem getNavigationItem(PortletRequest portletRequest)
@@ -58,10 +59,14 @@ public class PricingClassNavigationItem implements PricingNavigationItem {
 
 		boolean manageCatalogPermission = _portletPermission.contains(
 			themeDisplay.getPermissionChecker(),
-			CommercePricingPortletKeys.COMMERCE_PRICING_CLASSES,
-			ActionKeys.VIEW);
+			CommercePricingPortletKeys.COMMERCE_DISCOUNT, ActionKeys.VIEW);
 
-		if (!manageCatalogPermission) {
+		if (!manageCatalogPermission ||
+			!Objects.equals(
+				CommercePricingUtil.getPricingEngineVersion(
+					_configurationProvider),
+				"v2.0")) {
+
 			return null;
 		}
 
@@ -70,11 +75,10 @@ public class PricingClassNavigationItem implements PricingNavigationItem {
 		String portletId = _portal.getPortletId(portletRequest);
 
 		navigationItem.setActive(
-			portletId.equals(
-				CommercePricingPortletKeys.COMMERCE_PRICING_CLASSES));
+			portletId.equals(CommercePricingPortletKeys.COMMERCE_DISCOUNT));
 
 		PortletURL portletURL = _portal.getControlPanelPortletURL(
-			portletRequest, CommercePricingPortletKeys.COMMERCE_PRICING_CLASSES,
+			portletRequest, CommercePricingPortletKeys.COMMERCE_DISCOUNT,
 			PortletRequest.ACTION_PHASE);
 
 		navigationItem.setHref(portletURL.toString());
@@ -85,11 +89,13 @@ public class PricingClassNavigationItem implements PricingNavigationItem {
 		navigationItem.setLabel(
 			LanguageUtil.get(
 				resourceBundle,
-				CommercePricingPortletConstants.
-					NAVIGATION_ITEM_PRICING_CLASSES));
+				CommercePricingPortletConstants.NAVIGATION_ITEM_DISCOUNTS));
 
 		return navigationItem;
 	}
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private Portal _portal;
