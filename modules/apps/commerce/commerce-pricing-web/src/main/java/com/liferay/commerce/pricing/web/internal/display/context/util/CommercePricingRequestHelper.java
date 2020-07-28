@@ -25,11 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Riccardo Alberti
  */
-public class CommercePricingClassRequestHelper extends BaseRequestHelper {
+public class CommercePricingRequestHelper extends BaseRequestHelper {
 
-	public CommercePricingClassRequestHelper(
-		HttpServletRequest httpServletRequest) {
-
+	public CommercePricingRequestHelper(HttpServletRequest httpServletRequest) {
 		super(httpServletRequest);
 
 		Object portletRequest = httpServletRequest.getAttribute(
