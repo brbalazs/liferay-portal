@@ -25,12 +25,19 @@ import com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter.D
 import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.DiscountAccountGroupUtil;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountAccountGroupResource;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -88,19 +95,21 @@ public class DiscountAccountGroupResourceImpl
 
 	@Override
 	public Page<DiscountAccountGroup> getDiscountIdDiscountAccountGroupsPage(
-			Long id, Pagination pagination)
+			Long id, String search, Filter filter, Pagination pagination,
+			Sort[] sorts)
 		throws Exception {
 
 		List<CommerceDiscountCommerceAccountGroupRel>
 			commerceDiscountCommerceAccountGroupRels =
 				_commerceDiscountCommerceAccountGroupRelService.
-					getCommerceDiscountCommerceAccountGroupRels(
-						id, pagination.getStartPosition(),
-						pagination.getEndPosition(), null);
+					getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+						id, search, pagination.getStartPosition(),
+						pagination.getEndPosition());
 
 		int totalItems =
 			_commerceDiscountCommerceAccountGroupRelService.
-				getCommerceDiscountCommerceAccountGroupRelsCount(id);
+				getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountIdCount(
+					id, search);
 
 		return Page.of(
 			_toDiscountAccountGroups(commerceDiscountCommerceAccountGroupRels),
@@ -158,14 +167,46 @@ public class DiscountAccountGroupResourceImpl
 				getCommerceDiscountCommerceAccountGroupRelId());
 	}
 
+	private Map<String, Map<String, String>> _getActions(
+			CommerceDiscountCommerceAccountGroupRel
+				commerceDiscountCommerceAccountGroupRel)
+		throws PortalException {
+
+		ServiceContext serviceContext =
+			_serviceContextHelper.getServiceContext();
+
+		CommerceDiscount commerceDiscount =
+			commerceDiscountCommerceAccountGroupRel.getCommerceDiscount();
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"delete",
+			addAction(
+				"UPDATE", commerceDiscount.getCommerceDiscountId(),
+				"deleteDiscountAccountGroup",
+				commerceDiscountCommerceAccountGroupRel.getUserId(),
+				"com.liferay.commerce.discount.model.CommerceDiscount",
+				serviceContext.getScopeGroupId())
+		).build();
+	}
+
 	private DiscountAccountGroup _toDiscountAccountGroup(
 			Long commerceDiscountCommerceAccountGroupRelId)
 		throws Exception {
 
+		CommerceDiscountCommerceAccountGroupRel
+			commerceDiscountCommerceAccountGroupRel =
+				_commerceDiscountCommerceAccountGroupRelService.
+					getCommerceDiscountCommerceAccountGroupRel(
+						commerceDiscountCommerceAccountGroupRelId);
+
 		return _discountAccountGroupDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
+				contextAcceptLanguage.isAcceptAllLanguages(),
+				_getActions(commerceDiscountCommerceAccountGroupRel),
+				_dtoConverterRegistry,
 				commerceDiscountCommerceAccountGroupRelId,
-				contextAcceptLanguage.getPreferredLocale()));
+				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
+				contextUser));
 	}
 
 	private List<DiscountAccountGroup> _toDiscountAccountGroups(
@@ -200,6 +241,9 @@ public class DiscountAccountGroupResourceImpl
 
 	@Reference
 	private DiscountAccountGroupDTOConverter _discountAccountGroupDTOConverter;
+
+	@Reference
+	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;

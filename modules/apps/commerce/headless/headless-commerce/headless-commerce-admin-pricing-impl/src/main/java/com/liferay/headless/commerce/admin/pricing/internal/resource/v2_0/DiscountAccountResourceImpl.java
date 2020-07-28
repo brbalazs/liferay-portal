@@ -25,12 +25,19 @@ import com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter.D
 import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.DiscountAccountUtil;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountAccountResource;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -85,17 +92,20 @@ public class DiscountAccountResourceImpl
 
 	@Override
 	public Page<DiscountAccount> getDiscountIdDiscountAccountsPage(
-			Long id, Pagination pagination)
+			Long id, String search, Filter filter, Pagination pagination,
+			Sort[] sorts)
 		throws Exception {
 
 		List<CommerceDiscountAccountRel> commerceDiscountAccountRels =
-			_commerceDiscountAccountRelService.getCommerceDiscountAccountRels(
-				id, pagination.getStartPosition(), pagination.getEndPosition(),
-				null);
+			_commerceDiscountAccountRelService.
+				getCommerceDiscountAccountRelsByCommerceDiscountId(
+					id, search, pagination.getStartPosition(),
+					pagination.getEndPosition());
 
 		int totalItems =
 			_commerceDiscountAccountRelService.
-				getCommerceDiscountAccountRelsCount(id);
+				getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
+					id, search);
 
 		return Page.of(
 			_toDiscountAccounts(commerceDiscountAccountRels), pagination,
@@ -142,14 +152,41 @@ public class DiscountAccountResourceImpl
 			commerceDiscountAccountRel.getCommerceDiscountAccountRelId());
 	}
 
+	private Map<String, Map<String, String>> _getActions(
+			CommerceDiscountAccountRel commerceDiscountAccountRel)
+		throws PortalException {
+
+		ServiceContext serviceContext =
+			_serviceContextHelper.getServiceContext();
+
+		CommerceDiscount commerceDiscount =
+			commerceDiscountAccountRel.getCommerceDiscount();
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"delete",
+			addAction(
+				"UPDATE", commerceDiscount.getCommerceDiscountId(),
+				"deleteDiscountAccount", commerceDiscountAccountRel.getUserId(),
+				"com.liferay.commerce.discount.model.CommerceDiscount",
+				serviceContext.getScopeGroupId())
+		).build();
+	}
+
 	private DiscountAccount _toDiscountAccount(
 			Long commerceDiscountAccountRelId)
 		throws Exception {
 
+		CommerceDiscountAccountRel commerceDiscountAccountRel =
+			_commerceDiscountAccountRelService.getCommerceDiscountAccountRel(
+				commerceDiscountAccountRelId);
+
 		return _discountAccountDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
+				contextAcceptLanguage.isAcceptAllLanguages(),
+				_getActions(commerceDiscountAccountRel), _dtoConverterRegistry,
 				commerceDiscountAccountRelId,
-				contextAcceptLanguage.getPreferredLocale()));
+				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
+				contextUser));
 	}
 
 	private List<DiscountAccount> _toDiscountAccounts(
@@ -182,6 +219,9 @@ public class DiscountAccountResourceImpl
 
 	@Reference
 	private DiscountAccountDTOConverter _discountAccountDTOConverter;
+
+	@Reference
+	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;

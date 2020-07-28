@@ -24,13 +24,20 @@ import com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter.D
 import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.DiscountRuleUtil;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountRuleResource;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -82,16 +89,18 @@ public class DiscountRuleResourceImpl extends BaseDiscountRuleResourceImpl {
 
 	@Override
 	public Page<DiscountRule> getDiscountIdDiscountRulesPage(
-			Long id, Pagination pagination)
+			Long id, String search, Filter filter, Pagination pagination,
+			Sort[] sorts)
 		throws Exception {
 
 		List<CommerceDiscountRule> commerceDiscountRules =
 			_commerceDiscountRuleService.getCommerceDiscountRules(
-				id, pagination.getStartPosition(), pagination.getEndPosition(),
-				null);
+				id, search, pagination.getStartPosition(),
+				pagination.getEndPosition());
 
 		int totalItems =
-			_commerceDiscountRuleService.getCommerceDiscountRulesCount(id);
+			_commerceDiscountRuleService.getCommerceDiscountRulesCount(
+				id, search);
 
 		return Page.of(
 			_toDiscountRules(commerceDiscountRules), pagination, totalItems);
@@ -157,6 +166,41 @@ public class DiscountRuleResourceImpl extends BaseDiscountRuleResourceImpl {
 			commerceDiscountRule.getCommerceDiscountRuleId());
 	}
 
+	private Map<String, Map<String, String>> _getActions(
+			CommerceDiscountRule commerceDiscountRule)
+		throws PortalException {
+
+		ServiceContext serviceContext =
+			_serviceContextHelper.getServiceContext();
+
+		CommerceDiscount commerceDiscount =
+			_commerceDiscountService.getCommerceDiscount(
+				commerceDiscountRule.getCommerceDiscountId());
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"delete",
+			addAction(
+				"UPDATE", commerceDiscount.getCommerceDiscountId(),
+				"deleteDiscountRule", commerceDiscountRule.getUserId(),
+				"com.liferay.commerce.discount.model.CommerceDiscount",
+				serviceContext.getScopeGroupId())
+		).put(
+			"get",
+			addAction(
+				"VIEW", commerceDiscount.getCommerceDiscountId(),
+				"getDiscountRule", commerceDiscountRule.getUserId(),
+				"com.liferay.commerce.discount.model.CommerceDiscount",
+				serviceContext.getScopeGroupId())
+		).put(
+			"update",
+			addAction(
+				"UPDATE", commerceDiscount.getCommerceDiscountId(),
+				"patchDiscountRule", commerceDiscountRule.getUserId(),
+				"com.liferay.commerce.discount.model.CommerceDiscount",
+				serviceContext.getScopeGroupId())
+		).build();
+	}
+
 	private DiscountRule _toDiscountRule(
 			CommerceDiscountRule commerceDiscountRule)
 		throws Exception {
@@ -165,10 +209,20 @@ public class DiscountRuleResourceImpl extends BaseDiscountRuleResourceImpl {
 			commerceDiscountRule.getCommerceDiscountRuleId());
 	}
 
-	private DiscountRule _toDiscountRule(Long discountId) throws Exception {
+	private DiscountRule _toDiscountRule(Long commerceDiscountRuleId)
+		throws Exception {
+
+		CommerceDiscountRule commerceDiscountRule =
+			_commerceDiscountRuleService.getCommerceDiscountRule(
+				commerceDiscountRuleId);
+
 		return _discountRuleDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
-				discountId, contextAcceptLanguage.getPreferredLocale()));
+				contextAcceptLanguage.isAcceptAllLanguages(),
+				_getActions(commerceDiscountRule), _dtoConverterRegistry,
+				commerceDiscountRuleId,
+				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
+				contextUser));
 	}
 
 	private List<DiscountRule> _toDiscountRules(
@@ -196,6 +250,9 @@ public class DiscountRuleResourceImpl extends BaseDiscountRuleResourceImpl {
 
 	@Reference
 	private DiscountRuleDTOConverter _discountRuleDTOConverter;
+
+	@Reference
+	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;

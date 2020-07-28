@@ -26,12 +26,19 @@ import com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter.D
 import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.DiscountProductGroupUtil;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountProductGroupResource;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -87,18 +94,19 @@ public class DiscountProductGroupResourceImpl
 
 	@Override
 	public Page<DiscountProductGroup> getDiscountIdDiscountProductGroupsPage(
-			Long id, Pagination pagination)
+			Long id, String search, Filter filter, Pagination pagination,
+			Sort[] sorts)
 		throws Exception {
 
 		List<CommerceDiscountRel> commerceDiscountRels =
-			_commerceDiscountRelService.getCommerceDiscountRels(
-				id, CommercePricingClass.class.getName(),
-				pagination.getStartPosition(), pagination.getEndPosition(),
-				null);
+			_commerceDiscountRelService.
+				getCommercePricingClassesByCommerceDiscountId(
+					id, search, pagination.getStartPosition(),
+					pagination.getEndPosition());
 
 		int totalItems =
-			_commerceDiscountRelService.getCommerceDiscountRelsCount(
-				id, CommercePricingClass.class.getName());
+			_commerceDiscountRelService.
+				getCommercePricingClassesByCommerceDiscountIdCount(id, search);
 
 		return Page.of(
 			_toDiscountProductGroups(commerceDiscountRels), pagination,
@@ -147,14 +155,41 @@ public class DiscountProductGroupResourceImpl
 			commerceDiscountRel.getCommerceDiscountRelId());
 	}
 
+	private Map<String, Map<String, String>> _getActions(
+			CommerceDiscountRel commerceDiscountRel)
+		throws PortalException {
+
+		ServiceContext serviceContext =
+			_serviceContextHelper.getServiceContext();
+
+		CommerceDiscount commerceDiscount =
+			commerceDiscountRel.getCommerceDiscount();
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"delete",
+			addAction(
+				"UPDATE", commerceDiscount.getCommerceDiscountId(),
+				"deleteDiscountProductGroup", commerceDiscountRel.getUserId(),
+				"com.liferay.commerce.discount.model.CommerceDiscount",
+				serviceContext.getScopeGroupId())
+		).build();
+	}
+
 	private DiscountProductGroup _toDiscountProductGroup(
 			Long commerceDiscountRelId)
 		throws Exception {
 
+		CommerceDiscountRel commerceDiscountRel =
+			_commerceDiscountRelService.getCommerceDiscountRel(
+				commerceDiscountRelId);
+
 		return _discountProductGroupDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
+				contextAcceptLanguage.isAcceptAllLanguages(),
+				_getActions(commerceDiscountRel), _dtoConverterRegistry,
 				commerceDiscountRelId,
-				contextAcceptLanguage.getPreferredLocale()));
+				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
+				contextUser));
 	}
 
 	private List<DiscountProductGroup> _toDiscountProductGroups(
@@ -183,6 +218,9 @@ public class DiscountProductGroupResourceImpl
 
 	@Reference
 	private DiscountProductGroupDTOConverter _discountProductGroupDTOConverter;
+
+	@Reference
+	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;
