@@ -27,6 +27,10 @@ public class CommerceDiscountConstants {
 
 	public static final String LEVEL_L4 = "L4";
 
+	public static final String[] LEVELS = {
+		LEVEL_L1, LEVEL_L2, LEVEL_L3, LEVEL_L4
+	};
+
 	public static final String LIMITATION_TYPE_LIMITED = "limited";
 
 	public static final String LIMITATION_TYPE_LIMITED_FOR_ACCOUNTS =
@@ -61,5 +65,11 @@ public class CommerceDiscountConstants {
 	public static final String TARGET_SUBTOTAL = "subtotal";
 
 	public static final String TARGET_TOTAL = "total";
+
+	public static final String TYPE_ABSOLUTE = "absolute";
+
+	public static final String TYPE_PERCENTAGE = "percentage";
+
+	public static final String[] TYPES = {TYPE_PERCENTAGE, TYPE_ABSOLUTE};
 
 }
