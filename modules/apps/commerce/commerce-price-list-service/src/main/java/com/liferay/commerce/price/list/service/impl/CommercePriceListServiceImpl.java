@@ -345,6 +345,25 @@ public class CommercePriceListServiceImpl
 	}
 
 	@Override
+	public int searchCommercePriceListsCount(
+			long companyId, String keywords, int status)
+		throws PortalException {
+
+		List<CommerceCatalog> commerceCatalogs =
+			_commerceCatalogService.searchCommerceCatalogs(
+				companyId, null, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+
+		Stream<CommerceCatalog> stream = commerceCatalogs.stream();
+
+		long[] groupIds = stream.mapToLong(
+			CommerceCatalog::getGroupId
+		).toArray();
+
+		return commercePriceListLocalService.searchCommercePriceListsCount(
+			companyId, groupIds, keywords, status);
+	}
+
+	@Override
 	public CommercePriceList updateCommercePriceList(
 			long commercePriceListId, long commerceCurrencyId, boolean netPrice,
 			long parentCommercePriceListId, String name, double priority,

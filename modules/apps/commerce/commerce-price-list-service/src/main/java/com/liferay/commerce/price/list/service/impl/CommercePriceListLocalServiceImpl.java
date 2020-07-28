@@ -810,6 +810,18 @@ public class CommercePriceListLocalServiceImpl
 		return searchCommercePriceLists(searchContext);
 	}
 
+	@Override
+	public int searchCommercePriceListsCount(
+			long companyId, long[] groupIds, String keywords, int status)
+		throws PortalException {
+
+		SearchContext searchContext = buildSearchContext(
+			companyId, groupIds, keywords, status, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
+
+		return searchCommercePriceListsCount(searchContext);
+	}
+
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommercePriceList updateCommercePriceList(
@@ -1423,6 +1435,15 @@ public class CommercePriceListLocalServiceImpl
 
 		throw new SearchException(
 			"Unable to fix the search index after 10 attempts");
+	}
+
+	protected int searchCommercePriceListsCount(SearchContext searchContext)
+		throws PortalException {
+
+		Indexer<CommercePriceList> indexer =
+			IndexerRegistryUtil.nullSafeGetIndexer(CommercePriceList.class);
+
+		return GetterUtil.getInteger(indexer.searchCount(searchContext));
 	}
 
 	protected CommercePriceList startWorkflowInstance(
