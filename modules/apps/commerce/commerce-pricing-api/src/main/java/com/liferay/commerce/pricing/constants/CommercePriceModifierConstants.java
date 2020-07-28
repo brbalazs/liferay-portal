@@ -16,6 +16,7 @@ package com.liferay.commerce.pricing.constants;
 
 /**
  * @author Riccardo Alberti
+ * @author Alessio Antonio Rendina
  */
 public class CommercePriceModifierConstants {
 
@@ -32,5 +33,9 @@ public class CommercePriceModifierConstants {
 	public static final String TARGET_PRICING_CLASS = "pricing-classes";
 
 	public static final String TARGET_PRODUCT = "product";
+
+	public static final String[] TARGETS = {
+		TARGET_CATALOG, TARGET_CATEGORIES, TARGET_PRICING_CLASS, TARGET_PRODUCT
+	};
 
 }
