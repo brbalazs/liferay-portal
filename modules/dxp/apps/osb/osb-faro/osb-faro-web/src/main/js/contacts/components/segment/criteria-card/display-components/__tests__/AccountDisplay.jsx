@@ -8,7 +8,9 @@ import {
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {List, Map} from 'immutable';
 import {Property} from 'shared/util/records';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('AccountDisplay', () => {
 	const propertyName = 'organization/description/value';
@@ -38,14 +40,14 @@ describe('AccountDisplay', () => {
 	});
 
 	it('renders', () => {
-		const component = shallow(
+		const {container} = render(
 			<AccountDisplay criterion={mockCriterion} property={mockProperty} />
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
-	it('renders w/ a knownType', () => {
+	it('renders w/ a unknownType', () => {
 		const criterion = {...mockCriterion};
 
 		criterion.value = criterion.value.setIn(
@@ -53,10 +55,10 @@ describe('AccountDisplay', () => {
 			null
 		);
 
-		const component = shallow(
+		const {container} = render(
 			<AccountDisplay criterion={criterion} property={mockProperty} />
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toHaveTextContent(/is unknown/);
 	});
 });
