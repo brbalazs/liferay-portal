@@ -11,8 +11,8 @@ describe('SelectFieldInput', () => {
 			<FormSelectFieldInput
 				field={{name: 'foo'}}
 				form={data.mockForm()}
-				groupId={'23'}
-				name={'foo'}
+				groupId='23'
+				name='foo'
 			/>
 		);
 
@@ -20,16 +20,18 @@ describe('SelectFieldInput', () => {
 	});
 
 	it('should render with a label', () => {
-		const {container} = render(
+		const label = 'bar';
+
+		const {getByText} = render(
 			<FormSelectFieldInput
 				field={{name: 'foo'}}
 				form={data.mockForm()}
-				groupId={'23'}
-				label={'bar'}
-				name={'foo'}
+				groupId='23'
+				label={label}
+				name='foo'
 			/>
 		);
 
-		expect(container).toMatchSnapshot();
+		expect(getByText(label)).toBeTruthy();
 	});
 });
