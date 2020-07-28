@@ -45,10 +45,10 @@ public class TierPriceUtil {
 		ServiceContext serviceContext =
 			serviceContextHelper.getServiceContext();
 
-		DateConfig displayDateConfig = _getDateConfig(
+		DateConfig displayDateConfig = _getDisplayDateConfig(
 			tierPrice.getDisplayDate(), serviceContext.getTimeZone());
 
-		DateConfig expirationDateConfig = _getDateConfig(
+		DateConfig expirationDateConfig = _getExpirationDateConfig(
 			tierPrice.getExpirationDate(), serviceContext.getTimeZone());
 
 		return commerceTierPriceEntryService.upsertCommerceTierPriceEntry(
@@ -57,19 +57,44 @@ public class TierPriceUtil {
 			tierPrice.getExternalReferenceCode(),
 			BigDecimal.valueOf(tierPrice.getPrice()),
 			tierPrice.getMinimumQuantity(), commercePriceEntry.isBulkPricing(),
-			tierPrice.getDiscountDiscovery(), tierPrice.getDiscountLevel1(),
-			tierPrice.getDiscountLevel2(), tierPrice.getDiscountLevel3(),
-			tierPrice.getDiscountLevel4(), displayDateConfig.getMonth(),
-			displayDateConfig.getDay(), displayDateConfig.getYear(),
-			displayDateConfig.getHour(), displayDateConfig.getMinute(),
-			expirationDateConfig.getMonth(), expirationDateConfig.getDay(),
-			expirationDateConfig.getYear(), expirationDateConfig.getHour(),
-			expirationDateConfig.getMinute(),
+			GetterUtil.getBoolean(tierPrice.getDiscountDiscovery(), true),
+			tierPrice.getDiscountLevel1(), tierPrice.getDiscountLevel2(),
+			tierPrice.getDiscountLevel3(), tierPrice.getDiscountLevel4(),
+			displayDateConfig.getMonth(), displayDateConfig.getDay(),
+			displayDateConfig.getYear(), displayDateConfig.getHour(),
+			displayDateConfig.getMinute(), expirationDateConfig.getMonth(),
+			expirationDateConfig.getDay(), expirationDateConfig.getYear(),
+			expirationDateConfig.getHour(), expirationDateConfig.getMinute(),
 			GetterUtil.getBoolean(tierPrice.getNeverExpire(), true),
 			tierPrice.getPriceEntryExternalReferenceCode(), serviceContext);
 	}
 
-	private static DateConfig _getDateConfig(Date date, TimeZone timeZone) {
+	private static DateConfig _getDisplayDateConfig(
+		Date date, TimeZone timeZone) {
+
+		if (date == null) {
+			return new DateConfig(CalendarFactoryUtil.getCalendar(timeZone));
+		}
+
+		long time = date.getTime();
+
+		Calendar calendar = CalendarFactoryUtil.getCalendar(time, timeZone);
+
+		return new DateConfig(calendar);
+	}
+
+	private static DateConfig _getExpirationDateConfig(
+		Date date, TimeZone timeZone) {
+
+		if (date == null) {
+			Calendar expirationCalendar = CalendarFactoryUtil.getCalendar(
+				timeZone);
+
+			expirationCalendar.add(Calendar.MONTH, 1);
+
+			return new DateConfig(expirationCalendar);
+		}
+
 		long time = date.getTime();
 
 		Calendar calendar = CalendarFactoryUtil.getCalendar(time, timeZone);

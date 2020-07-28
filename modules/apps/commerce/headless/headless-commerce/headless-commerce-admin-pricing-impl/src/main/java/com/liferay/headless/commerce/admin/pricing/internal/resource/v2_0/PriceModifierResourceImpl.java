@@ -31,9 +31,13 @@ import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceModifierRe
 import com.liferay.headless.commerce.core.util.DateConfig;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -42,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.ws.rs.core.Response;
@@ -115,7 +120,8 @@ public class PriceModifierResourceImpl extends BasePriceModifierResourceImpl {
 
 	@Override
 	public Page<PriceModifier> getPriceListIdPriceModifiersPage(
-			Long id, Pagination pagination)
+			Long id, String search, Filter filter, Pagination pagination,
+			Sort[] sorts)
 		throws Exception {
 
 		List<CommercePriceModifier> commercePriceModifiers =
@@ -229,7 +235,56 @@ public class PriceModifierResourceImpl extends BasePriceModifierResourceImpl {
 			commercePriceModifier.getCommercePriceModifierId());
 	}
 
-	private DateConfig _getDateConfig(Date date, TimeZone timeZone) {
+	private Map<String, Map<String, String>> _getActions(
+			CommercePriceModifier commercePriceModifier)
+		throws PortalException {
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"delete",
+			addAction(
+				"UPDATE", commercePriceModifier.getCommercePriceListId(),
+				"deletePriceModifier", commercePriceModifier.getUserId(),
+				"com.liferay.commerce.price.list.model.CommercePriceList",
+				commercePriceModifier.getGroupId())
+		).put(
+			"get",
+			addAction(
+				"VIEW", commercePriceModifier.getCommercePriceListId(),
+				"getPriceModifier", commercePriceModifier.getUserId(),
+				"com.liferay.commerce.price.list.model.CommercePriceList",
+				commercePriceModifier.getGroupId())
+		).put(
+			"update",
+			addAction(
+				"UPDATE", commercePriceModifier.getCommercePriceListId(),
+				"patchPriceModifier", commercePriceModifier.getUserId(),
+				"com.liferay.commerce.price.list.model.CommercePriceList",
+				commercePriceModifier.getGroupId())
+		).build();
+	}
+
+	private DateConfig _getDisplayDateConfig(Date date, TimeZone timeZone) {
+		if (date == null) {
+			return new DateConfig(CalendarFactoryUtil.getCalendar(timeZone));
+		}
+
+		long time = date.getTime();
+
+		Calendar calendar = CalendarFactoryUtil.getCalendar(time, timeZone);
+
+		return new DateConfig(calendar);
+	}
+
+	private DateConfig _getExpirationDateConfig(Date date, TimeZone timeZone) {
+		if (date == null) {
+			Calendar expirationCalendar = CalendarFactoryUtil.getCalendar(
+				timeZone);
+
+			expirationCalendar.add(Calendar.MONTH, 1);
+
+			return new DateConfig(expirationCalendar);
+		}
+
 		long time = date.getTime();
 
 		Calendar calendar = CalendarFactoryUtil.getCalendar(time, timeZone);
@@ -240,10 +295,17 @@ public class PriceModifierResourceImpl extends BasePriceModifierResourceImpl {
 	private PriceModifier _toPriceModifier(Long commercePriceModifierId)
 		throws Exception {
 
+		CommercePriceModifier commercePriceModifier =
+			_commercePriceModifierService.getCommercePriceModifier(
+				commercePriceModifierId);
+
 		return _priceModifierDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
+				contextAcceptLanguage.isAcceptAllLanguages(),
+				_getActions(commercePriceModifier), _dtoConverterRegistry,
 				commercePriceModifierId,
-				contextAcceptLanguage.getPreferredLocale()));
+				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
+				contextUser));
 	}
 
 	private List<PriceModifier> _toPriceModifiers(
@@ -282,10 +344,10 @@ public class PriceModifierResourceImpl extends BasePriceModifierResourceImpl {
 		ServiceContext serviceContext =
 			_serviceContextHelper.getServiceContext();
 
-		DateConfig displayDateConfig = _getDateConfig(
+		DateConfig displayDateConfig = _getDisplayDateConfig(
 			priceModifier.getDisplayDate(), serviceContext.getTimeZone());
 
-		DateConfig expirationDateConfig = _getDateConfig(
+		DateConfig expirationDateConfig = _getExpirationDateConfig(
 			priceModifier.getExpirationDate(), serviceContext.getTimeZone());
 
 		commercePriceModifier =
@@ -318,10 +380,10 @@ public class PriceModifierResourceImpl extends BasePriceModifierResourceImpl {
 		ServiceContext serviceContext = _serviceContextHelper.getServiceContext(
 			commercePriceList.getGroupId());
 
-		DateConfig displayDateConfig = _getDateConfig(
+		DateConfig displayDateConfig = _getDisplayDateConfig(
 			priceModifier.getDisplayDate(), serviceContext.getTimeZone());
 
-		DateConfig expirationDateConfig = _getDateConfig(
+		DateConfig expirationDateConfig = _getExpirationDateConfig(
 			priceModifier.getExpirationDate(), serviceContext.getTimeZone());
 
 		CommercePriceModifier commercePriceModifier =
@@ -332,7 +394,8 @@ public class PriceModifierResourceImpl extends BasePriceModifierResourceImpl {
 				priceModifier.getTarget(),
 				commercePriceList.getCommercePriceListId(),
 				priceModifier.getModifierType(),
-				priceModifier.getModifierAmount(), priceModifier.getPriority(),
+				priceModifier.getModifierAmount(),
+				GetterUtil.get(priceModifier.getPriority(), 0D),
 				GetterUtil.getBoolean(priceModifier.getActive(), true),
 				displayDateConfig.getMonth(), displayDateConfig.getDay(),
 				displayDateConfig.getYear(), displayDateConfig.getHour(),
@@ -368,6 +431,9 @@ public class PriceModifierResourceImpl extends BasePriceModifierResourceImpl {
 
 	@Reference
 	private CProductLocalService _cProductLocalService;
+
+	@Reference
+	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
 	private PriceModifierDTOConverter _priceModifierDTOConverter;

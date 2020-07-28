@@ -26,12 +26,20 @@ import com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter.P
 import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.PriceModifierProductUtil;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceModifierProductResource;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -87,17 +95,24 @@ public class PriceModifierProductResourceImpl
 	@Override
 	public Page<PriceModifierProduct>
 			getPriceModifierIdPriceModifierProductsPage(
-				Long id, Pagination pagination)
+				Long id, String search, Filter filter, Pagination pagination,
+				Sort[] sorts)
 		throws Exception {
 
+		Locale locale = contextAcceptLanguage.getPreferredLocale();
+
+		String languageId = LocaleUtil.toLanguageId(locale);
+
 		List<CommercePriceModifierRel> commercePriceModifierRels =
-			_commercePriceModifierRelService.getCommercePriceModifierRels(
-				id, CPDefinition.class.getName(), pagination.getStartPosition(),
-				pagination.getEndPosition(), null);
+			_commercePriceModifierRelService.
+				getCPDefinitionsByCommercePriceModifierId(
+					id, search, languageId, pagination.getStartPosition(),
+					pagination.getEndPosition());
 
 		int totalItems =
-			_commercePriceModifierRelService.getCommercePriceModifierRelsCount(
-				id, CPDefinition.class.getName());
+			_commercePriceModifierRelService.
+				getCPDefinitionsByCommercePriceModifierIdCount(
+					id, search, languageId);
 
 		return Page.of(
 			_toPriceModifierProducts(commercePriceModifierRels), pagination,
@@ -147,14 +162,38 @@ public class PriceModifierProductResourceImpl
 			commercePriceModifierRel.getCommercePriceModifierRelId());
 	}
 
+	private Map<String, Map<String, String>> _getActions(
+			CommercePriceModifierRel commercePriceModifierRel)
+		throws PortalException {
+
+		CommercePriceModifier commercePriceModifier =
+			commercePriceModifierRel.getCommercePriceModifier();
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"delete",
+			addAction(
+				"UPDATE", commercePriceModifier.getCommercePriceListId(),
+				"deletePriceModifierProduct", commercePriceModifier.getUserId(),
+				"com.liferay.commerce.price.list.model.CommercePriceList",
+				commercePriceModifier.getGroupId())
+		).build();
+	}
+
 	private PriceModifierProduct _toPriceModifierProduct(
 			Long commercePriceModifierRelId)
 		throws Exception {
 
+		CommercePriceModifierRel commercePriceModifierRel =
+			_commercePriceModifierRelService.getCommercePriceModifierRel(
+				commercePriceModifierRelId);
+
 		return _priceModifierProductDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
+				contextAcceptLanguage.isAcceptAllLanguages(),
+				_getActions(commercePriceModifierRel), _dtoConverterRegistry,
 				commercePriceModifierRelId,
-				contextAcceptLanguage.getPreferredLocale()));
+				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
+				contextUser));
 	}
 
 	private List<PriceModifierProduct> _toPriceModifierProducts(
@@ -182,6 +221,9 @@ public class PriceModifierProductResourceImpl
 
 	@Reference
 	private CProductLocalService _cProductLocalService;
+
+	@Reference
+	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
 	private PriceModifierProductDTOConverter _priceModifierProductDTOConverter;

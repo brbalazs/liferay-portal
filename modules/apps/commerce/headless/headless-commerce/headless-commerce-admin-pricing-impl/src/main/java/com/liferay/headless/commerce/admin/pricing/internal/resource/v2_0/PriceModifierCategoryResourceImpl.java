@@ -26,12 +26,18 @@ import com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter.P
 import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.PriceModifierCategoryUtil;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceModifierCategoryResource;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -88,18 +94,19 @@ public class PriceModifierCategoryResourceImpl
 	@Override
 	public Page<PriceModifierCategory>
 			getPriceModifierIdPriceModifierCategoriesPage(
-				Long id, Pagination pagination)
+				Long id, String search, Filter filter, Pagination pagination,
+				Sort[] sorts)
 		throws Exception {
 
 		List<CommercePriceModifierRel> commercePriceModifierRels =
-			_commercePriceModifierRelService.getCommercePriceModifierRels(
-				id, AssetCategory.class.getName(),
-				pagination.getStartPosition(), pagination.getEndPosition(),
-				null);
+			_commercePriceModifierRelService.
+				getCategoriesByCommercePriceModifierId(
+					id, search, pagination.getStartPosition(),
+					pagination.getEndPosition());
 
 		int totalItems =
-			_commercePriceModifierRelService.getCommercePriceModifierRelsCount(
-				id, AssetCategory.class.getName());
+			_commercePriceModifierRelService.
+				getCategoriesByCommercePriceModifierIdCount(id, search);
 
 		return Page.of(
 			_toPriceModifierCategories(commercePriceModifierRels), pagination,
@@ -149,6 +156,24 @@ public class PriceModifierCategoryResourceImpl
 			commercePriceModifierRel.getCommercePriceModifierRelId());
 	}
 
+	private Map<String, Map<String, String>> _getActions(
+			CommercePriceModifierRel commercePriceModifierRel)
+		throws PortalException {
+
+		CommercePriceModifier commercePriceModifier =
+			commercePriceModifierRel.getCommercePriceModifier();
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"delete",
+			addAction(
+				"UPDATE", commercePriceModifier.getCommercePriceListId(),
+				"deletePriceModifierCategory",
+				commercePriceModifier.getUserId(),
+				"com.liferay.commerce.price.list.model.CommercePriceList",
+				commercePriceModifier.getGroupId())
+		).build();
+	}
+
 	private List<PriceModifierCategory> _toPriceModifierCategories(
 			List<CommercePriceModifierRel> commercePriceModifierRels)
 		throws Exception {
@@ -170,10 +195,17 @@ public class PriceModifierCategoryResourceImpl
 			Long commercePriceModifierRelId)
 		throws Exception {
 
+		CommercePriceModifierRel commercePriceModifierRel =
+			_commercePriceModifierRelService.getCommercePriceModifierRel(
+				commercePriceModifierRelId);
+
 		return _priceModifierCategoryDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
+				contextAcceptLanguage.isAcceptAllLanguages(),
+				_getActions(commercePriceModifierRel), _dtoConverterRegistry,
 				commercePriceModifierRelId,
-				contextAcceptLanguage.getPreferredLocale()));
+				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
+				contextUser));
 	}
 
 	@Reference
@@ -184,6 +216,9 @@ public class PriceModifierCategoryResourceImpl
 
 	@Reference
 	private CommercePriceModifierService _commercePriceModifierService;
+
+	@Reference
+	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
 	private PriceModifierCategoryDTOConverter

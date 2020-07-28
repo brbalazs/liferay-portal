@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.admin.pricing.internal.resource.v2_0;
 import com.liferay.commerce.price.list.exception.NoSuchPriceEntryException;
 import com.liferay.commerce.price.list.exception.NoSuchTierPriceEntryException;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
+import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.model.CommerceTierPriceEntry;
 import com.liferay.commerce.price.list.service.CommercePriceEntryService;
 import com.liferay.commerce.price.list.service.CommerceTierPriceEntryService;
@@ -30,6 +31,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -40,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.ws.rs.core.Response;
@@ -230,7 +234,62 @@ public class TierPriceResourceImpl extends BaseTierPriceResourceImpl {
 			commerceTierPriceEntry.getCommerceTierPriceEntryId());
 	}
 
-	private DateConfig _getDateConfig(Date date, TimeZone timeZone) {
+	private Map<String, Map<String, String>> _getActions(
+			CommerceTierPriceEntry commerceTierPriceEntry)
+		throws PortalException {
+
+		CommercePriceEntry commercePriceEntry =
+			commerceTierPriceEntry.getCommercePriceEntry();
+
+		CommercePriceList commercePriceList =
+			commercePriceEntry.getCommercePriceList();
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"delete",
+			addAction(
+				"UPDATE", commercePriceList.getCommercePriceListId(),
+				"deleteTierPrice", commerceTierPriceEntry.getUserId(),
+				"com.liferay.commerce.price.list.model.CommercePriceList",
+				commercePriceList.getGroupId())
+		).put(
+			"get",
+			addAction(
+				"VIEW", commercePriceList.getCommercePriceListId(),
+				"getTierPrice", commerceTierPriceEntry.getUserId(),
+				"com.liferay.commerce.price.list.model.CommercePriceList",
+				commercePriceList.getGroupId())
+		).put(
+			"update",
+			addAction(
+				"UPDATE", commercePriceList.getCommercePriceListId(),
+				"patchTierPrice", commerceTierPriceEntry.getUserId(),
+				"com.liferay.commerce.price.list.model.CommercePriceList",
+				commercePriceList.getGroupId())
+		).build();
+	}
+
+	private DateConfig _getDisplayDateConfig(Date date, TimeZone timeZone) {
+		if (date == null) {
+			return new DateConfig(CalendarFactoryUtil.getCalendar(timeZone));
+		}
+
+		long time = date.getTime();
+
+		Calendar calendar = CalendarFactoryUtil.getCalendar(time, timeZone);
+
+		return new DateConfig(calendar);
+	}
+
+	private DateConfig _getExpirationDateConfig(Date date, TimeZone timeZone) {
+		if (date == null) {
+			Calendar expirationCalendar = CalendarFactoryUtil.getCalendar(
+				timeZone);
+
+			expirationCalendar.add(Calendar.MONTH, 1);
+
+			return new DateConfig(expirationCalendar);
+		}
+
 		long time = date.getTime();
 
 		Calendar calendar = CalendarFactoryUtil.getCalendar(time, timeZone);
@@ -241,10 +300,17 @@ public class TierPriceResourceImpl extends BaseTierPriceResourceImpl {
 	private TierPrice _toTierPrice(Long commerceTierPriceEntryId)
 		throws Exception {
 
+		CommerceTierPriceEntry commerceTierPriceEntry =
+			_commerceTierPriceEntryService.getCommerceTierPriceEntry(
+				commerceTierPriceEntryId);
+
 		return _tierPriceDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
+				contextAcceptLanguage.isAcceptAllLanguages(),
+				_getActions(commerceTierPriceEntry), _dtoConverterRegistry,
 				commerceTierPriceEntryId,
-				contextAcceptLanguage.getPreferredLocale()));
+				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
+				contextUser));
 	}
 
 	private List<TierPrice> _toTierPrices(
@@ -274,10 +340,10 @@ public class TierPriceResourceImpl extends BaseTierPriceResourceImpl {
 		CommercePriceEntry commercePriceEntry =
 			commerceTierPriceEntry.getCommercePriceEntry();
 
-		DateConfig displayDateConfig = _getDateConfig(
+		DateConfig displayDateConfig = _getDisplayDateConfig(
 			tierPrice.getDisplayDate(), serviceContext.getTimeZone());
 
-		DateConfig expirationDateConfig = _getDateConfig(
+		DateConfig expirationDateConfig = _getExpirationDateConfig(
 			tierPrice.getExpirationDate(), serviceContext.getTimeZone());
 
 		return _commerceTierPriceEntryService.updateCommerceTierPriceEntry(
@@ -287,14 +353,14 @@ public class TierPriceResourceImpl extends BaseTierPriceResourceImpl {
 				tierPrice.getMinimumQuantity(),
 				commerceTierPriceEntry.getMinQuantity()),
 			commercePriceEntry.isBulkPricing(),
-			tierPrice.getDiscountDiscovery(), tierPrice.getDiscountLevel1(),
-			tierPrice.getDiscountLevel2(), tierPrice.getDiscountLevel3(),
-			tierPrice.getDiscountLevel4(), displayDateConfig.getMonth(),
-			displayDateConfig.getDay(), displayDateConfig.getYear(),
-			displayDateConfig.getHour(), displayDateConfig.getMinute(),
-			expirationDateConfig.getMonth(), expirationDateConfig.getDay(),
-			expirationDateConfig.getYear(), expirationDateConfig.getHour(),
-			expirationDateConfig.getMinute(),
+			GetterUtil.getBoolean(tierPrice.getDiscountDiscovery(), true),
+			tierPrice.getDiscountLevel1(), tierPrice.getDiscountLevel2(),
+			tierPrice.getDiscountLevel3(), tierPrice.getDiscountLevel4(),
+			displayDateConfig.getMonth(), displayDateConfig.getDay(),
+			displayDateConfig.getYear(), displayDateConfig.getHour(),
+			displayDateConfig.getMinute(), expirationDateConfig.getMonth(),
+			expirationDateConfig.getDay(), expirationDateConfig.getYear(),
+			expirationDateConfig.getHour(), expirationDateConfig.getMinute(),
 			GetterUtil.getBoolean(tierPrice.getNeverExpire(), true),
 			serviceContext);
 	}
@@ -304,6 +370,9 @@ public class TierPriceResourceImpl extends BaseTierPriceResourceImpl {
 
 	@Reference
 	private CommerceTierPriceEntryService _commerceTierPriceEntryService;
+
+	@Reference
+	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
 	private ServiceContextHelper _serviceContextHelper;

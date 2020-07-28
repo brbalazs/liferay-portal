@@ -25,12 +25,18 @@ import com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter.P
 import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.PriceListAccountUtil;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListAccountResource;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -86,17 +92,20 @@ public class PriceListAccountResourceImpl
 
 	@Override
 	public Page<PriceListAccount> getPriceListIdPriceListAccountsPage(
-			Long id, Pagination pagination)
+			Long id, String search, Filter filter, Pagination pagination,
+			Sort[] sorts)
 		throws Exception {
 
 		List<CommercePriceListAccountRel> commercePriceListAccountRels =
-			_commercePriceListAccountRelService.getCommercePriceListAccountRels(
-				id, pagination.getStartPosition(), pagination.getEndPosition(),
-				null);
+			_commercePriceListAccountRelService.
+				getCommercePriceListAccountRelsByCommercePriceListId(
+					id, search, pagination.getStartPosition(),
+					pagination.getEndPosition());
 
 		int totalItems =
 			_commercePriceListAccountRelService.
-				getCommercePriceListAccountRelsCount(id);
+				getCommercePriceListAccountRelsByCommercePriceListIdCount(
+					id, search);
 
 		return Page.of(
 			_toPriceListAccounts(commercePriceListAccountRels), pagination,
@@ -145,14 +154,38 @@ public class PriceListAccountResourceImpl
 			commercePriceListAccountRel.getCommercePriceListAccountRelId());
 	}
 
+	private Map<String, Map<String, String>> _getActions(
+			CommercePriceListAccountRel commercePriceListAccountRel)
+		throws PortalException {
+
+		CommercePriceList commercePriceList =
+			commercePriceListAccountRel.getCommercePriceList();
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"delete",
+			addAction(
+				"UPDATE", commercePriceList.getCommercePriceListId(),
+				"deletePriceListAccount", commercePriceList.getUserId(),
+				"com.liferay.commerce.price.list.model.CommercePriceList",
+				commercePriceList.getGroupId())
+		).build();
+	}
+
 	private PriceListAccount _toPriceListAccount(
 			Long commercePriceListAccountRelId)
 		throws Exception {
 
+		CommercePriceListAccountRel commercePriceListAccountRel =
+			_commercePriceListAccountRelService.getCommercePriceListAccountRel(
+				commercePriceListAccountRelId);
+
 		return _priceListAccountDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
+				contextAcceptLanguage.isAcceptAllLanguages(),
+				_getActions(commercePriceListAccountRel), _dtoConverterRegistry,
 				commercePriceListAccountRelId,
-				contextAcceptLanguage.getPreferredLocale()));
+				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
+				contextUser));
 	}
 
 	private List<PriceListAccount> _toPriceListAccounts(
@@ -182,6 +215,9 @@ public class PriceListAccountResourceImpl
 
 	@Reference
 	private CommercePriceListService _commercePriceListService;
+
+	@Reference
+	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
 	private PriceListAccountDTOConverter _priceListAccountDTOConverter;

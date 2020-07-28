@@ -25,12 +25,18 @@ import com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter.P
 import com.liferay.headless.commerce.admin.pricing.internal.util.v2_0.PriceListChannelUtil;
 import com.liferay.headless.commerce.admin.pricing.resource.v2_0.PriceListChannelResource;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -86,17 +92,20 @@ public class PriceListChannelResourceImpl
 
 	@Override
 	public Page<PriceListChannel> getPriceListIdPriceListChannelsPage(
-			Long id, Pagination pagination)
+			Long id, String search, Filter filter, Pagination pagination,
+			Sort[] sorts)
 		throws Exception {
 
 		List<CommercePriceListChannelRel> commercePriceListChannelRels =
-			_commercePriceListChannelRelService.getCommercePriceListChannelRels(
-				id, pagination.getStartPosition(), pagination.getEndPosition(),
-				null);
+			_commercePriceListChannelRelService.
+				getCommercePriceListChannelRelsByCommercePriceListId(
+					id, search, pagination.getStartPosition(),
+					pagination.getEndPosition());
 
 		int totalItems =
 			_commercePriceListChannelRelService.
-				getCommercePriceListChannelRelsCount(id);
+				getCommercePriceListChannelRelsByCommercePriceListIdCount(
+					id, search);
 
 		return Page.of(
 			_toPriceListChannels(commercePriceListChannelRels), pagination,
@@ -145,14 +154,38 @@ public class PriceListChannelResourceImpl
 			commercePriceListChannelRel.getCommercePriceListChannelRelId());
 	}
 
+	private Map<String, Map<String, String>> _getActions(
+			CommercePriceListChannelRel commercePriceListChannelRel)
+		throws PortalException {
+
+		CommercePriceList commercePriceList =
+			commercePriceListChannelRel.getCommercePriceList();
+
+		return HashMapBuilder.<String, Map<String, String>>put(
+			"delete",
+			addAction(
+				"UPDATE", commercePriceList.getCommercePriceListId(),
+				"deletePriceListChannel", commercePriceList.getUserId(),
+				"com.liferay.commerce.price.list.model.CommercePriceList",
+				commercePriceList.getGroupId())
+		).build();
+	}
+
 	private PriceListChannel _toPriceListChannel(
 			Long commercePriceListChannelRelId)
 		throws Exception {
 
+		CommercePriceListChannelRel commercePriceListChannelRel =
+			_commercePriceListChannelRelService.getCommercePriceListChannelRel(
+				commercePriceListChannelRelId);
+
 		return _priceListChannelDTOConverter.toDTO(
 			new DefaultDTOConverterContext(
+				contextAcceptLanguage.isAcceptAllLanguages(),
+				_getActions(commercePriceListChannelRel), _dtoConverterRegistry,
 				commercePriceListChannelRelId,
-				contextAcceptLanguage.getPreferredLocale()));
+				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
+				contextUser));
 	}
 
 	private List<PriceListChannel> _toPriceListChannels(
@@ -182,6 +215,9 @@ public class PriceListChannelResourceImpl
 
 	@Reference
 	private CommercePriceListService _commercePriceListService;
+
+	@Reference
+	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
 	private PriceListChannelDTOConverter _priceListChannelDTOConverter;
