@@ -5,25 +5,36 @@ import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
+const DefaultComponent = props => (
+	<FieldDropDown
+		buttonPlaceholder='Search'
+		dataIMap={new Map()}
+		inputPlaceholder='Search here'
+		searchItems={[]}
+		{...props}
+	/>
+);
+
 describe('FieldDropDown', () => {
 	
 	it('should render', () => {
-		const {container} = render(
-			<FieldDropDown dataIMap={new Map()} searchItems={[]} />
-		);
+		const {container} = render(<DefaultComponent />);
 
 		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with a title', () => {
-		const {container} = render(
-			<FieldDropDown
-				dataIMap={new Map()}
-				searchItems={[]}
-				title={'FOO BAR'}
-			/>
+		const {getByText} = render(<DefaultComponent title='FOO BAR' />);
+
+		expect(getByText('FOO BAR')).toBeTruthy();
+	});
+
+	it('should render with data', () => {
+		const {getByText} = render(
+			<DefaultComponent dataIMap={new Map({name: 'foo', value: 450})} />
 		);
 
-		expect(container).toMatchSnapshot();
+		expect(getByText('foo')).toBeTruthy();
+		expect(getByText('450')).toBeTruthy();
 	});
 });
