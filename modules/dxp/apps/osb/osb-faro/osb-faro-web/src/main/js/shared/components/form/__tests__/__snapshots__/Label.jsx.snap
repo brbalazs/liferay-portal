@@ -7,30 +7,3 @@ exports[`Label should render 1`] = `
   />
 </div>
 `;
-
-exports[`Label should render as required 1`] = `
-<div>
-  <label
-    class="form-control-label label-root required"
-  />
-</div>
-`;
-
-exports[`Label should render with a tooltip and icon 1`] = `
-<div>
-  <label
-    class="form-control-label label-root"
-    data-tooltip="true"
-    title="foo bar baz"
-  >
-    <svg
-      class="icon-root lexicon-icon lexicon-icon-question-circle-full info"
-      viewBox=""
-    >
-      <use
-        xlink:href="#question-circle-full"
-      />
-    </svg>
-  </label>
-</div>
-`;
