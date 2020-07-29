@@ -17,7 +17,6 @@ package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.elasticsearch6.internal.document.ElasticsearchDocumentFactory;
 import com.liferay.portal.search.elasticsearch6.internal.legacy.query.ElasticsearchQueryTranslatorFixture;
-import com.liferay.portal.search.engine.adapter.document.BulkableDocumentRequestTranslator;
 import com.liferay.portal.search.engine.adapter.document.DocumentRequestExecutor;
 
 /**
@@ -34,12 +33,12 @@ public class DocumentRequestExecutorFixture {
 			_elasticsearchClientResolver, _elasticsearchDocumentFactory);
 	}
 
-	protected static BulkableDocumentRequestTranslator
+	protected static ElasticsearchBulkableDocumentRequestTranslator
 		createBulkableDocumentRequestTranslator(
 			ElasticsearchClientResolver elasticsearchClientResolver,
 			ElasticsearchDocumentFactory elasticsearchDocumentFactory) {
 
-		return new ElasticsearchBulkableDocumentRequestTranslator() {
+		return new ElasticsearchBulkableDocumentRequestTranslatorImpl() {
 			{
 				setElasticsearchClientResolver(elasticsearchClientResolver);
 				setElasticsearchDocumentFactory(elasticsearchDocumentFactory);
@@ -50,13 +49,13 @@ public class DocumentRequestExecutorFixture {
 	protected static BulkDocumentRequestExecutor
 		createBulkDocumentRequestExecutor(
 			ElasticsearchClientResolver elasticsearchClientResolver,
-			BulkableDocumentRequestTranslator
-				bulkableDocumentRequestTranslator) {
+			ElasticsearchBulkableDocumentRequestTranslator
+				elasticsearchBulkableDocumentRequestTranslator) {
 
 		return new BulkDocumentRequestExecutorImpl() {
 			{
 				setBulkableDocumentRequestTranslator(
-					bulkableDocumentRequestTranslator);
+					elasticsearchBulkableDocumentRequestTranslator);
 				setElasticsearchClientResolver(elasticsearchClientResolver);
 			}
 		};
@@ -83,13 +82,13 @@ public class DocumentRequestExecutorFixture {
 
 	protected static DeleteDocumentRequestExecutor
 		createDeleteDocumentRequestExecutor(
-			BulkableDocumentRequestTranslator
-				bulkableDocumentRequestTranslator) {
+			ElasticsearchBulkableDocumentRequestTranslator
+				elasticsearchBulkableDocumentRequestTranslator) {
 
 		return new DeleteDocumentRequestExecutorImpl() {
 			{
 				setBulkableDocumentRequestTranslator(
-					bulkableDocumentRequestTranslator);
+					elasticsearchBulkableDocumentRequestTranslator);
 			}
 		};
 	}
@@ -98,44 +97,45 @@ public class DocumentRequestExecutorFixture {
 		ElasticsearchClientResolver elasticsearchClientResolver,
 		ElasticsearchDocumentFactory elasticsearchDocumentFactory) {
 
-		BulkableDocumentRequestTranslator bulkableDocumentRequestTranslator =
-			createBulkableDocumentRequestTranslator(
-				elasticsearchClientResolver, elasticsearchDocumentFactory);
+		ElasticsearchBulkableDocumentRequestTranslator
+			elasticsearchBulkableDocumentRequestTranslator =
+				createBulkableDocumentRequestTranslator(
+					elasticsearchClientResolver, elasticsearchDocumentFactory);
 
 		return new ElasticsearchDocumentRequestExecutor() {
 			{
 				setBulkDocumentRequestExecutor(
 					createBulkDocumentRequestExecutor(
 						elasticsearchClientResolver,
-						bulkableDocumentRequestTranslator));
+						elasticsearchBulkableDocumentRequestTranslator));
 				setDeleteByQueryDocumentRequestExecutor(
 					createDeleteByQueryDocumentRequestExecutor(
 						elasticsearchClientResolver));
 				setDeleteDocumentRequestExecutor(
 					createDeleteDocumentRequestExecutor(
-						bulkableDocumentRequestTranslator));
+						elasticsearchBulkableDocumentRequestTranslator));
 				setIndexDocumentRequestExecutor(
 					createIndexDocumentRequestExecutor(
-						bulkableDocumentRequestTranslator));
+						elasticsearchBulkableDocumentRequestTranslator));
 				setUpdateByQueryDocumentRequestExecutor(
 					createUpdateByQueryDocumentRequestExecutor(
 						elasticsearchClientResolver));
 				setUpdateDocumentRequestExecutor(
 					createUpdateDocumentRequestExecutor(
-						bulkableDocumentRequestTranslator));
+						elasticsearchBulkableDocumentRequestTranslator));
 			}
 		};
 	}
 
 	protected static IndexDocumentRequestExecutor
 		createIndexDocumentRequestExecutor(
-			BulkableDocumentRequestTranslator
-				bulkableDocumentRequestTranslator) {
+			ElasticsearchBulkableDocumentRequestTranslator
+				elasticsearchBulkableDocumentRequestTranslator) {
 
 		return new IndexDocumentRequestExecutorImpl() {
 			{
 				setBulkableDocumentRequestTranslator(
-					bulkableDocumentRequestTranslator);
+					elasticsearchBulkableDocumentRequestTranslator);
 			}
 		};
 	}
@@ -161,13 +161,13 @@ public class DocumentRequestExecutorFixture {
 
 	protected static UpdateDocumentRequestExecutor
 		createUpdateDocumentRequestExecutor(
-			BulkableDocumentRequestTranslator
-				bulkableDocumentRequestTranslator) {
+			ElasticsearchBulkableDocumentRequestTranslator
+				elasticsearchBulkableDocumentRequestTranslator) {
 
 		return new UpdateDocumentRequestExecutorImpl() {
 			{
 				setBulkableDocumentRequestTranslator(
-					bulkableDocumentRequestTranslator);
+					elasticsearchBulkableDocumentRequestTranslator);
 			}
 		};
 	}

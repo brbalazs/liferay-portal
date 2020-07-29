@@ -21,7 +21,6 @@ import com.liferay.portal.search.elasticsearch6.internal.connection.Elasticsearc
 import com.liferay.portal.search.elasticsearch6.internal.document.DefaultElasticsearchDocumentFactory;
 import com.liferay.portal.search.elasticsearch6.internal.document.ElasticsearchDocumentFactory;
 import com.liferay.portal.search.engine.adapter.document.BulkDocumentRequest;
-import com.liferay.portal.search.engine.adapter.document.BulkableDocumentRequestTranslator;
 import com.liferay.portal.search.engine.adapter.document.DeleteDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.IndexDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.UpdateDocumentRequest;
@@ -47,20 +46,21 @@ public class BulkDocumentRequestExecutorTest {
 		ElasticsearchDocumentFactory elasticsearchDocumentFactory =
 			new DefaultElasticsearchDocumentFactory();
 
-		BulkableDocumentRequestTranslator bulkableDocumentRequestTranslator =
-			new ElasticsearchBulkableDocumentRequestTranslator() {
-				{
-					setElasticsearchClientResolver(elasticsearchFixture);
-					setElasticsearchDocumentFactory(
-						elasticsearchDocumentFactory);
-				}
-			};
+		ElasticsearchBulkableDocumentRequestTranslator
+			elasticsearchBulkableDocumentRequestTranslator =
+				new ElasticsearchBulkableDocumentRequestTranslatorImpl() {
+					{
+						setElasticsearchClientResolver(elasticsearchFixture);
+						setElasticsearchDocumentFactory(
+							elasticsearchDocumentFactory);
+					}
+				};
 
 		_bulkDocumentRequestExecutorImpl =
 			new BulkDocumentRequestExecutorImpl() {
 				{
 					setBulkableDocumentRequestTranslator(
-						bulkableDocumentRequestTranslator);
+						elasticsearchBulkableDocumentRequestTranslator);
 					setElasticsearchClientResolver(elasticsearchFixture);
 				}
 			};

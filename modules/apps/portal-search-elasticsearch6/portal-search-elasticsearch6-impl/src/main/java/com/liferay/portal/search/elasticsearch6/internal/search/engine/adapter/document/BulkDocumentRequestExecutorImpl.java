@@ -22,7 +22,6 @@ import com.liferay.portal.search.engine.adapter.document.BulkDocumentItemRespons
 import com.liferay.portal.search.engine.adapter.document.BulkDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.BulkDocumentResponse;
 import com.liferay.portal.search.engine.adapter.document.BulkableDocumentRequest;
-import com.liferay.portal.search.engine.adapter.document.BulkableDocumentRequestTranslator;
 import com.liferay.portal.search.engine.adapter.document.DeleteDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.IndexDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.UpdateDocumentRequest;
@@ -118,22 +117,22 @@ public class BulkDocumentRequestExecutorImpl
 				request -> {
 					if (request instanceof DeleteDocumentRequest) {
 						DeleteRequestBuilder deleteRequestBuilder =
-							_bulkableDocumentRequestTranslator.translate(
-								(DeleteDocumentRequest)request);
+							_elasticsearchBulkableDocumentRequestTranslator.
+								translate((DeleteDocumentRequest)request);
 
 						bulkRequestBuilder.add(deleteRequestBuilder);
 					}
 					else if (request instanceof IndexDocumentRequest) {
 						IndexRequestBuilder indexRequestBuilder =
-							_bulkableDocumentRequestTranslator.translate(
-								(IndexDocumentRequest)request);
+							_elasticsearchBulkableDocumentRequestTranslator.
+								translate((IndexDocumentRequest)request);
 
 						bulkRequestBuilder.add(indexRequestBuilder);
 					}
 					else if (request instanceof UpdateDocumentRequest) {
 						UpdateRequestBuilder updateRequestBuilder =
-							_bulkableDocumentRequestTranslator.translate(
-								(UpdateDocumentRequest)request);
+							_elasticsearchBulkableDocumentRequestTranslator.
+								translate((UpdateDocumentRequest)request);
 
 						bulkRequestBuilder.add(updateRequestBuilder);
 					}
@@ -149,9 +148,11 @@ public class BulkDocumentRequestExecutorImpl
 
 	@Reference(target = "(search.engine.impl=Elasticsearch)", unbind = "-")
 	protected void setBulkableDocumentRequestTranslator(
-		BulkableDocumentRequestTranslator bulkableDocumentRequestTranslator) {
+		ElasticsearchBulkableDocumentRequestTranslator
+			elasticsearchBulkableDocumentRequestTranslator) {
 
-		_bulkableDocumentRequestTranslator = bulkableDocumentRequestTranslator;
+		_elasticsearchBulkableDocumentRequestTranslator =
+			elasticsearchBulkableDocumentRequestTranslator;
 	}
 
 	@Reference(unbind = "-")
@@ -164,8 +165,8 @@ public class BulkDocumentRequestExecutorImpl
 	private static final Log _log = LogFactoryUtil.getLog(
 		BulkDocumentRequestExecutorImpl.class);
 
-	private BulkableDocumentRequestTranslator
-		_bulkableDocumentRequestTranslator;
+	private ElasticsearchBulkableDocumentRequestTranslator
+		_elasticsearchBulkableDocumentRequestTranslator;
 	private ElasticsearchClientResolver _elasticsearchClientResolver;
 
 }
