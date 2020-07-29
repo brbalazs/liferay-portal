@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.Constants;
@@ -58,6 +59,7 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + CommercePricingPortletKeys.COMMERCE_PRICE_LIST,
+		"javax.portlet.name=" + CommercePricingPortletKeys.COMMERCE_PROMOTION,
 		"mvc.command.name=editCommercePriceList"
 	},
 	service = MVCActionCommand.class
@@ -143,9 +145,29 @@ public class EditCommercePriceListMVCActionCommand
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			actionRequest, themeDisplay.getScopeGroup(),
-			CommercePriceList.class.getName(), PortletProvider.Action.EDIT);
+		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
+
+		String portletName = portletDisplay.getPortletName();
+
+		PortletURL portletURL = null;
+
+		if (portletName.equals(
+				CommercePricingPortletKeys.COMMERCE_PRICE_LIST)) {
+
+			portletURL = PortletProviderUtil.getPortletURL(
+				actionRequest, themeDisplay.getScopeGroup(),
+				CommercePriceList.class.getName(), PortletProvider.Action.EDIT);
+		}
+		else if (portletName.equals(
+					CommercePricingPortletKeys.COMMERCE_PROMOTION)) {
+
+			portletURL = PortletProviderUtil.getPortletURL(
+				actionRequest, themeDisplay.getScopeGroup(),
+				CommercePriceList.class.getName(), PortletProvider.Action.VIEW);
+		}
+		else {
+			return ParamUtil.getString(actionRequest, "redirect");
+		}
 
 		portletURL.setParameter(
 			"mvcRenderCommandName", "editCommercePriceList");
@@ -167,12 +189,14 @@ public class EditCommercePriceListMVCActionCommand
 			actionRequest, "commerceCatalogGroupId");
 		long commerceCurrencyId = ParamUtil.getLong(
 			actionRequest, "commerceCurrencyId");
-		boolean netPrice = ParamUtil.getBoolean(actionRequest, "netPrice");
+		boolean netPrice = ParamUtil.getBoolean(
+			actionRequest, "netPrice", true);
 		long parentCommercePriceListId = ParamUtil.getLong(
 			actionRequest, "parentCommercePriceListId");
 
 		String name = ParamUtil.getString(actionRequest, "name");
 		double priority = ParamUtil.getDouble(actionRequest, "priority");
+		String type = ParamUtil.getString(actionRequest, "type");
 
 		Date now = new Date();
 
@@ -224,11 +248,12 @@ public class EditCommercePriceListMVCActionCommand
 		if (commercePriceListId <= 0) {
 			commercePriceList = _commercePriceListService.addCommercePriceList(
 				commerceCatalogGroupId, serviceContext.getUserId(),
-				commerceCurrencyId, netPrice, parentCommercePriceListId, name,
-				priority, displayDateMonth, displayDateDay, displayDateYear,
-				displayDateHour, displayDateMinute, expirationDateMonth,
-				expirationDateDay, expirationDateYear, expirationDateHour,
-				expirationDateMinute, neverExpire, serviceContext);
+				commerceCurrencyId, netPrice, type, parentCommercePriceListId,
+				false, name, priority, displayDateMonth, displayDateDay,
+				displayDateYear, displayDateHour, displayDateMinute,
+				expirationDateMonth, expirationDateDay, expirationDateYear,
+				expirationDateHour, expirationDateMinute, null, neverExpire,
+				serviceContext);
 		}
 		else {
 			commercePriceList =

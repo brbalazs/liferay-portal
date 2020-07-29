@@ -19,6 +19,7 @@ import com.liferay.commerce.price.list.service.CommercePriceEntryService;
 import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.commerce.pricing.constants.CommercePricingPortletKeys;
 import com.liferay.commerce.pricing.web.internal.display.context.CommercePriceEntryDisplayContext;
+import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.Portal;
@@ -38,6 +39,7 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + CommercePricingPortletKeys.COMMERCE_PRICE_LIST,
+		"javax.portlet.name=" + CommercePricingPortletKeys.COMMERCE_PROMOTION,
 		"mvc.command.name=editCommercePriceEntry"
 	},
 	service = MVCRenderCommand.class
@@ -52,7 +54,7 @@ public class EditCommercePriceEntryMVCRenderCommand
 
 		CommercePriceEntryDisplayContext commercePriceEntryDisplayContext =
 			new CommercePriceEntryDisplayContext(
-				_commercePriceEntryService,
+				_commerceCatalogService, _commercePriceEntryService,
 				_commercePriceListModelResourcePermission,
 				_commercePriceListService,
 				_portal.getHttpServletRequest(renderRequest));
@@ -62,6 +64,9 @@ public class EditCommercePriceEntryMVCRenderCommand
 
 		return "/price_lists/edit_price_entry.jsp";
 	}
+
+	@Reference
+	private CommerceCatalogService _commerceCatalogService;
 
 	@Reference
 	private CommercePriceEntryService _commercePriceEntryService;
