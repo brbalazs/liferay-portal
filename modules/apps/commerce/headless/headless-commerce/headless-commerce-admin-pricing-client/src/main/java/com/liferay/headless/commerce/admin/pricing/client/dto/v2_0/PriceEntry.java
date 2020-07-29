@@ -226,6 +226,29 @@ public class PriceEntry implements Cloneable {
 
 	protected BigDecimal discountLevel4;
 
+	public String getDiscountLevelsFormatted() {
+		return discountLevelsFormatted;
+	}
+
+	public void setDiscountLevelsFormatted(String discountLevelsFormatted) {
+		this.discountLevelsFormatted = discountLevelsFormatted;
+	}
+
+	public void setDiscountLevelsFormatted(
+		UnsafeSupplier<String, Exception>
+			discountLevelsFormattedUnsafeSupplier) {
+
+		try {
+			discountLevelsFormatted =
+				discountLevelsFormattedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String discountLevelsFormatted;
+
 	public Date getDisplayDate() {
 		return displayDate;
 	}

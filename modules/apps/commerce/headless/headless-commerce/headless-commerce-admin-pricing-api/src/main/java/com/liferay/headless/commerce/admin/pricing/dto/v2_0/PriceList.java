@@ -120,6 +120,34 @@ public class PriceList {
 	protected Boolean active;
 
 	@Schema
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	@JsonIgnore
+	public void setAuthor(
+		UnsafeSupplier<String, Exception> authorUnsafeSupplier) {
+
+		try {
+			author = authorUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String author;
+
+	@Schema
 	public Boolean getCatalogBasePriceList() {
 		return catalogBasePriceList;
 	}
@@ -176,6 +204,62 @@ public class PriceList {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotNull
 	protected Long catalogId;
+
+	@Schema
+	public String getCatalogName() {
+		return catalogName;
+	}
+
+	public void setCatalogName(String catalogName) {
+		this.catalogName = catalogName;
+	}
+
+	@JsonIgnore
+	public void setCatalogName(
+		UnsafeSupplier<String, Exception> catalogNameUnsafeSupplier) {
+
+		try {
+			catalogName = catalogNameUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String catalogName;
+
+	@Schema
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	@JsonIgnore
+	public void setCreateDate(
+		UnsafeSupplier<Date, Exception> createDateUnsafeSupplier) {
+
+		try {
+			createDate = createDateUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected Date createDate;
 
 	@Schema
 	public String getCurrencyCode() {
@@ -704,6 +788,35 @@ public class PriceList {
 	@NotNull
 	protected Type type;
 
+	@Schema
+	@Valid
+	public Status getWorkflowStatusInfo() {
+		return workflowStatusInfo;
+	}
+
+	public void setWorkflowStatusInfo(Status workflowStatusInfo) {
+		this.workflowStatusInfo = workflowStatusInfo;
+	}
+
+	@JsonIgnore
+	public void setWorkflowStatusInfo(
+		UnsafeSupplier<Status, Exception> workflowStatusInfoUnsafeSupplier) {
+
+		try {
+			workflowStatusInfo = workflowStatusInfoUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Status workflowStatusInfo;
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
@@ -754,6 +867,20 @@ public class PriceList {
 			sb.append(active);
 		}
 
+		if (author != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"author\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(author));
+
+			sb.append("\"");
+		}
+
 		if (catalogBasePriceList != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -772,6 +899,34 @@ public class PriceList {
 			sb.append("\"catalogId\": ");
 
 			sb.append(catalogId);
+		}
+
+		if (catalogName != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"catalogName\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(catalogName));
+
+			sb.append("\"");
+		}
+
+		if (createDate != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"createDate\": ");
+
+			sb.append("\"");
+
+			sb.append(liferayToJSONDateFormat.format(createDate));
+
+			sb.append("\"");
 		}
 
 		if (currencyCode != null) {
@@ -1036,6 +1191,16 @@ public class PriceList {
 			sb.append(type);
 
 			sb.append("\"");
+		}
+
+		if (workflowStatusInfo != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"workflowStatusInfo\": ");
+
+			sb.append(String.valueOf(workflowStatusInfo));
 		}
 
 		sb.append("}");

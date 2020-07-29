@@ -191,6 +191,7 @@ public abstract class BasePriceEntryResourceTestCase {
 
 		PriceEntry priceEntry = randomPriceEntry();
 
+		priceEntry.setDiscountLevelsFormatted(regex);
 		priceEntry.setExternalReferenceCode(regex);
 		priceEntry.setPriceFormatted(regex);
 		priceEntry.setPriceListExternalReferenceCode(regex);
@@ -202,6 +203,7 @@ public abstract class BasePriceEntryResourceTestCase {
 
 		priceEntry = PriceEntrySerDes.toDTO(json);
 
+		Assert.assertEquals(regex, priceEntry.getDiscountLevelsFormatted());
 		Assert.assertEquals(regex, priceEntry.getExternalReferenceCode());
 		Assert.assertEquals(regex, priceEntry.getPriceFormatted());
 		Assert.assertEquals(
@@ -1118,6 +1120,16 @@ public abstract class BasePriceEntryResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"discountLevelsFormatted", additionalAssertFieldName)) {
+
+				if (priceEntry.getDiscountLevelsFormatted() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("displayDate", additionalAssertFieldName)) {
 				if (priceEntry.getDisplayDate() == null) {
 					valid = false;
@@ -1427,6 +1439,19 @@ public abstract class BasePriceEntryResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"discountLevelsFormatted", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						priceEntry1.getDiscountLevelsFormatted(),
+						priceEntry2.getDiscountLevelsFormatted())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("displayDate", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						priceEntry1.getDisplayDate(),
@@ -1721,6 +1746,14 @@ public abstract class BasePriceEntryResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("discountLevelsFormatted")) {
+			sb.append("'");
+			sb.append(String.valueOf(priceEntry.getDiscountLevelsFormatted()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("displayDate")) {
 			if (operator.equals("between")) {
 				sb = new StringBundler();
@@ -1910,6 +1943,8 @@ public abstract class BasePriceEntryResourceTestCase {
 				active = RandomTestUtil.randomBoolean();
 				bulkPricing = RandomTestUtil.randomBoolean();
 				discountDiscovery = RandomTestUtil.randomBoolean();
+				discountLevelsFormatted = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				displayDate = RandomTestUtil.nextDate();
 				expirationDate = RandomTestUtil.nextDate();
 				externalReferenceCode = StringUtil.toLowerCase(

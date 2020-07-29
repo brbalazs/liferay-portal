@@ -191,6 +191,8 @@ public abstract class BasePriceListResourceTestCase {
 
 		PriceList priceList = randomPriceList();
 
+		priceList.setAuthor(regex);
+		priceList.setCatalogName(regex);
 		priceList.setCurrencyCode(regex);
 		priceList.setExternalReferenceCode(regex);
 		priceList.setName(regex);
@@ -201,6 +203,8 @@ public abstract class BasePriceListResourceTestCase {
 
 		priceList = PriceListSerDes.toDTO(json);
 
+		Assert.assertEquals(regex, priceList.getAuthor());
+		Assert.assertEquals(regex, priceList.getCatalogName());
 		Assert.assertEquals(regex, priceList.getCurrencyCode());
 		Assert.assertEquals(regex, priceList.getExternalReferenceCode());
 		Assert.assertEquals(regex, priceList.getName());
@@ -854,6 +858,14 @@ public abstract class BasePriceListResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("author", additionalAssertFieldName)) {
+				if (priceList.getAuthor() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"catalogBasePriceList", additionalAssertFieldName)) {
 
@@ -866,6 +878,22 @@ public abstract class BasePriceListResourceTestCase {
 
 			if (Objects.equals("catalogId", additionalAssertFieldName)) {
 				if (priceList.getCatalogId() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("catalogName", additionalAssertFieldName)) {
+				if (priceList.getCatalogName() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("createDate", additionalAssertFieldName)) {
+				if (priceList.getCreateDate() == null) {
 					valid = false;
 				}
 
@@ -1020,6 +1048,16 @@ public abstract class BasePriceListResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"workflowStatusInfo", additionalAssertFieldName)) {
+
+				if (priceList.getWorkflowStatusInfo() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -1131,6 +1169,16 @@ public abstract class BasePriceListResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("author", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceList1.getAuthor(), priceList2.getAuthor())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals(
 					"catalogBasePriceList", additionalAssertFieldName)) {
 
@@ -1147,6 +1195,28 @@ public abstract class BasePriceListResourceTestCase {
 			if (Objects.equals("catalogId", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						priceList1.getCatalogId(), priceList2.getCatalogId())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("catalogName", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceList1.getCatalogName(),
+						priceList2.getCatalogName())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("createDate", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						priceList1.getCreateDate(),
+						priceList2.getCreateDate())) {
 
 					return false;
 				}
@@ -1359,6 +1429,19 @@ public abstract class BasePriceListResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"workflowStatusInfo", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						priceList1.getWorkflowStatusInfo(),
+						priceList2.getWorkflowStatusInfo())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -1451,6 +1534,14 @@ public abstract class BasePriceListResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("author")) {
+			sb.append("'");
+			sb.append(String.valueOf(priceList.getAuthor()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("catalogBasePriceList")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1459,6 +1550,45 @@ public abstract class BasePriceListResourceTestCase {
 		if (entityFieldName.equals("catalogId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("catalogName")) {
+			sb.append("'");
+			sb.append(String.valueOf(priceList.getCatalogName()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("createDate")) {
+			if (operator.equals("between")) {
+				sb = new StringBundler();
+
+				sb.append("(");
+				sb.append(entityFieldName);
+				sb.append(" gt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(priceList.getCreateDate(), -2)));
+				sb.append(" and ");
+				sb.append(entityFieldName);
+				sb.append(" lt ");
+				sb.append(
+					_dateFormat.format(
+						DateUtils.addSeconds(priceList.getCreateDate(), 2)));
+				sb.append(")");
+			}
+			else {
+				sb.append(entityFieldName);
+
+				sb.append(" ");
+				sb.append(operator);
+				sb.append(" ");
+
+				sb.append(_dateFormat.format(priceList.getCreateDate()));
+			}
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("currencyCode")) {
@@ -1614,6 +1744,11 @@ public abstract class BasePriceListResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("workflowStatusInfo")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		throw new IllegalArgumentException(
 			"Invalid entity field " + entityFieldName);
 	}
@@ -1659,8 +1794,12 @@ public abstract class BasePriceListResourceTestCase {
 		return new PriceList() {
 			{
 				active = RandomTestUtil.randomBoolean();
+				author = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				catalogBasePriceList = RandomTestUtil.randomBoolean();
 				catalogId = RandomTestUtil.randomLong();
+				catalogName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				createDate = RandomTestUtil.nextDate();
 				currencyCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				displayDate = RandomTestUtil.nextDate();

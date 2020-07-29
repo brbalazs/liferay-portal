@@ -86,6 +86,20 @@ public class PriceListSerDes {
 			sb.append(priceList.getActive());
 		}
 
+		if (priceList.getAuthor() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"author\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(priceList.getAuthor()));
+
+			sb.append("\"");
+		}
+
 		if (priceList.getCatalogBasePriceList() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -104,6 +118,35 @@ public class PriceListSerDes {
 			sb.append("\"catalogId\": ");
 
 			sb.append(priceList.getCatalogId());
+		}
+
+		if (priceList.getCatalogName() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"catalogName\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(priceList.getCatalogName()));
+
+			sb.append("\"");
+		}
+
+		if (priceList.getCreateDate() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"createDate\": ");
+
+			sb.append("\"");
+
+			sb.append(
+				liferayToJSONDateFormat.format(priceList.getCreateDate()));
+
+			sb.append("\"");
 		}
 
 		if (priceList.getCurrencyCode() != null) {
@@ -375,6 +418,16 @@ public class PriceListSerDes {
 			sb.append("\"");
 		}
 
+		if (priceList.getWorkflowStatusInfo() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"workflowStatusInfo\": ");
+
+			sb.append(String.valueOf(priceList.getWorkflowStatusInfo()));
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -410,6 +463,13 @@ public class PriceListSerDes {
 			map.put("active", String.valueOf(priceList.getActive()));
 		}
 
+		if (priceList.getAuthor() == null) {
+			map.put("author", null);
+		}
+		else {
+			map.put("author", String.valueOf(priceList.getAuthor()));
+		}
+
 		if (priceList.getCatalogBasePriceList() == null) {
 			map.put("catalogBasePriceList", null);
 		}
@@ -424,6 +484,22 @@ public class PriceListSerDes {
 		}
 		else {
 			map.put("catalogId", String.valueOf(priceList.getCatalogId()));
+		}
+
+		if (priceList.getCatalogName() == null) {
+			map.put("catalogName", null);
+		}
+		else {
+			map.put("catalogName", String.valueOf(priceList.getCatalogName()));
+		}
+
+		if (priceList.getCreateDate() == null) {
+			map.put("createDate", null);
+		}
+		else {
+			map.put(
+				"createDate",
+				liferayToJSONDateFormat.format(priceList.getCreateDate()));
 		}
 
 		if (priceList.getCurrencyCode() == null) {
@@ -573,6 +649,15 @@ public class PriceListSerDes {
 			map.put("type", String.valueOf(priceList.getType()));
 		}
 
+		if (priceList.getWorkflowStatusInfo() == null) {
+			map.put("workflowStatusInfo", null);
+		}
+		else {
+			map.put(
+				"workflowStatusInfo",
+				String.valueOf(priceList.getWorkflowStatusInfo()));
+		}
+
 		return map;
 	}
 
@@ -605,6 +690,11 @@ public class PriceListSerDes {
 					priceList.setActive((Boolean)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "author")) {
+				if (jsonParserFieldValue != null) {
+					priceList.setAuthor((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(
 						jsonParserFieldName, "catalogBasePriceList")) {
 
@@ -617,6 +707,17 @@ public class PriceListSerDes {
 				if (jsonParserFieldValue != null) {
 					priceList.setCatalogId(
 						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "catalogName")) {
+				if (jsonParserFieldValue != null) {
+					priceList.setCatalogName((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "createDate")) {
+				if (jsonParserFieldValue != null) {
+					priceList.setCreateDate(
+						toDate((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "currencyCode")) {
@@ -767,6 +868,14 @@ public class PriceListSerDes {
 				if (jsonParserFieldValue != null) {
 					priceList.setType(
 						PriceList.Type.create((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "workflowStatusInfo")) {
+
+				if (jsonParserFieldValue != null) {
+					priceList.setWorkflowStatusInfo(
+						StatusSerDes.toDTO((String)jsonParserFieldValue));
 				}
 			}
 			else {

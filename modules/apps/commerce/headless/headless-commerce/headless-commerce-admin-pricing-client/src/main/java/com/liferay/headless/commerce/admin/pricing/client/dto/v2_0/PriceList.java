@@ -77,6 +77,27 @@ public class PriceList implements Cloneable {
 
 	protected Boolean active;
 
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public void setAuthor(
+		UnsafeSupplier<String, Exception> authorUnsafeSupplier) {
+
+		try {
+			author = authorUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String author;
+
 	public Boolean getCatalogBasePriceList() {
 		return catalogBasePriceList;
 	}
@@ -118,6 +139,48 @@ public class PriceList implements Cloneable {
 	}
 
 	protected Long catalogId;
+
+	public String getCatalogName() {
+		return catalogName;
+	}
+
+	public void setCatalogName(String catalogName) {
+		this.catalogName = catalogName;
+	}
+
+	public void setCatalogName(
+		UnsafeSupplier<String, Exception> catalogNameUnsafeSupplier) {
+
+		try {
+			catalogName = catalogNameUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String catalogName;
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public void setCreateDate(
+		UnsafeSupplier<Date, Exception> createDateUnsafeSupplier) {
+
+		try {
+			createDate = createDateUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Date createDate;
 
 	public String getCurrencyCode() {
 		return currencyCode;
@@ -505,6 +568,27 @@ public class PriceList implements Cloneable {
 	}
 
 	protected Type type;
+
+	public Status getWorkflowStatusInfo() {
+		return workflowStatusInfo;
+	}
+
+	public void setWorkflowStatusInfo(Status workflowStatusInfo) {
+		this.workflowStatusInfo = workflowStatusInfo;
+	}
+
+	public void setWorkflowStatusInfo(
+		UnsafeSupplier<Status, Exception> workflowStatusInfoUnsafeSupplier) {
+
+		try {
+			workflowStatusInfo = workflowStatusInfoUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Status workflowStatusInfo;
 
 	@Override
 	public PriceList clone() throws CloneNotSupportedException {

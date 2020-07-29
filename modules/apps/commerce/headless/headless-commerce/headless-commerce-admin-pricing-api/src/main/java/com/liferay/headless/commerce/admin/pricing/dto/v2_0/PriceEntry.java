@@ -324,6 +324,36 @@ public class PriceEntry {
 	protected BigDecimal discountLevel4;
 
 	@Schema
+	public String getDiscountLevelsFormatted() {
+		return discountLevelsFormatted;
+	}
+
+	public void setDiscountLevelsFormatted(String discountLevelsFormatted) {
+		this.discountLevelsFormatted = discountLevelsFormatted;
+	}
+
+	@JsonIgnore
+	public void setDiscountLevelsFormatted(
+		UnsafeSupplier<String, Exception>
+			discountLevelsFormattedUnsafeSupplier) {
+
+		try {
+			discountLevelsFormatted =
+				discountLevelsFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String discountLevelsFormatted;
+
+	@Schema
 	public Date getDisplayDate() {
 		return displayDate;
 	}
@@ -870,6 +900,20 @@ public class PriceEntry {
 			sb.append("\"discountLevel4\": ");
 
 			sb.append(discountLevel4);
+		}
+
+		if (discountLevelsFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountLevelsFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(discountLevelsFormatted));
+
+			sb.append("\"");
 		}
 
 		if (displayDate != null) {

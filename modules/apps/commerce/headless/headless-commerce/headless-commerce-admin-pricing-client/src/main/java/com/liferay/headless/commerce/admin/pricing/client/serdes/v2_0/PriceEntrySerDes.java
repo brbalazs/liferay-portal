@@ -153,6 +153,20 @@ public class PriceEntrySerDes {
 			sb.append(priceEntry.getDiscountLevel4());
 		}
 
+		if (priceEntry.getDiscountLevelsFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"discountLevelsFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(priceEntry.getDiscountLevelsFormatted()));
+
+			sb.append("\"");
+		}
+
 		if (priceEntry.getDisplayDate() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -434,6 +448,15 @@ public class PriceEntrySerDes {
 				String.valueOf(priceEntry.getDiscountLevel4()));
 		}
 
+		if (priceEntry.getDiscountLevelsFormatted() == null) {
+			map.put("discountLevelsFormatted", null);
+		}
+		else {
+			map.put(
+				"discountLevelsFormatted",
+				String.valueOf(priceEntry.getDiscountLevelsFormatted()));
+		}
+
 		if (priceEntry.getDisplayDate() == null) {
 			map.put("displayDate", null);
 		}
@@ -625,6 +648,14 @@ public class PriceEntrySerDes {
 				if (jsonParserFieldValue != null) {
 					priceEntry.setDiscountLevel4(
 						(BigDecimal)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "discountLevelsFormatted")) {
+
+				if (jsonParserFieldValue != null) {
+					priceEntry.setDiscountLevelsFormatted(
+						(String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "displayDate")) {
