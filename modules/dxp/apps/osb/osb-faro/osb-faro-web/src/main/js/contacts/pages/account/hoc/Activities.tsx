@@ -13,7 +13,7 @@ interface IActivitiesProps extends React.HTMLAttributes<HTMLElement> {
 
 const ActivitiesPage: React.FC<IActivitiesProps> = ({tabId, ...props}) => (
 	<BaseCard
-		className={'account-activities-card page-display'}
+		className='account-activities-card page-display'
 		Header={HeaderCard}
 		headerProps={{
 			tabId
