@@ -4,6 +4,8 @@ exports[`ItemText should render 1`] = `
 <div>
   <p
     class="list-group-text"
-  />
+  >
+    Content
+  </p>
 </div>
 `;
