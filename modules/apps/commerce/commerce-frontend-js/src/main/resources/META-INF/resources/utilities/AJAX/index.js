@@ -12,8 +12,11 @@
  * details.
  */
 
+import {getAcceptLanguageHeaderParam} from '../index';
+
 const DEFAULT_HEADERS = new Headers({
 	Accept: 'application/json',
+	'Accept-Language': getAcceptLanguageHeaderParam(),
 	'Content-Type': 'application/json',
 	'x-csrf-token': Liferay.authToken
 });
