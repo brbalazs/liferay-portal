@@ -22,27 +22,3 @@ exports[`ToggleSwitch should render 1`] = `
   </label>
 </div>
 `;
-
-exports[`ToggleSwitch should render with an initial value 1`] = `
-<div>
-  <label
-    class="toggle-switch toggle-switch-root"
-  >
-    <input
-      checked=""
-      class="toggle-switch-check"
-      data-testid="toggle-switch-input"
-      type="checkbox"
-      value="true"
-    />
-    <span
-      aria-hidden="true"
-      class="toggle-switch-bar"
-    >
-      <span
-        class="toggle-switch-handle"
-      />
-    </span>
-  </label>
-</div>
-`;

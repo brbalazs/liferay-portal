@@ -1,25 +1,22 @@
-import React from 'react';
 import toggleSwitch from '../ToggleSwitch';
 import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
-const DefaultComponent = props => toggleSwitch({field: {}, ...props});
-
 describe('ToggleSwitch', () => {
 	
 	it('should render', () => {
-		const {container} = render(<DefaultComponent />);
+		const {container} = render(toggleSwitch({field: {}}));
 
 		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with an initial value', () => {
-		const CheckedComponent = props =>
-			toggleSwitch({field: {value: true}, ...props});
+		const {getByTestId} = render(toggleSwitch({field: {value: true}}));
 
-		const {container} = render(<CheckedComponent />);
-
-		expect(container).toMatchSnapshot();
+		expect(getByTestId('toggle-switch-input')).toHaveAttribute(
+			'value',
+			'true'
+		);
 	});
 });
