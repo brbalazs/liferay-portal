@@ -187,11 +187,11 @@ public class SearchSearchRequestAssemblerImpl
 		SearchRequestBuilder searchRequestBuilder,
 		SearchSearchRequest searchSearchRequest) {
 
-		if (searchSearchRequest.getStart() != null) {
+		if (searchSearchRequest.isSizeSet()) {
 			searchRequestBuilder.setFrom(searchSearchRequest.getStart());
 		}
 
-		if (searchSearchRequest.getSize() != null) {
+		if (searchSearchRequest.isSizeSet()) {
 			searchRequestBuilder.setSize(searchSearchRequest.getSize());
 		}
 	}
@@ -225,12 +225,12 @@ public class SearchSearchRequestAssemblerImpl
 		SearchRequestBuilder searchRequestBuilder,
 		SearchSearchRequest searchSearchRequest) {
 
-		for (Sort sort : searchSearchRequest.getSorts()) {
+		for (Sort sort : searchSearchRequest.getSorts72()) {
 			searchRequestBuilder.addSort(_sortFieldTranslator.translate(sort));
 		}
 
 		_sortTranslator.translate(
-			searchRequestBuilder, searchSearchRequest.getSorts71());
+			searchRequestBuilder, searchSearchRequest.getSorts());
 	}
 
 	@Reference(unbind = "-")

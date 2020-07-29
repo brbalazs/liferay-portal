@@ -136,8 +136,8 @@ public class CommonSearchRequestBuilderAssemblerImpl
 		BaseSearchRequest baseSearchRequest) {
 
 		QueryBuilder queryBuilder1 = combine(
-			translateQuery(baseSearchRequest.getQuery()),
-			translateQuery(baseSearchRequest.getQuery71()));
+			translateQuery(baseSearchRequest.getQuery72()),
+			translateQuery(baseSearchRequest.getQuery()));
 
 		List<ComplexQueryPart> complexQueryParts =
 			baseSearchRequest.getComplexQueryParts();
@@ -223,7 +223,7 @@ public class CommonSearchRequestBuilderAssemblerImpl
 		BaseSearchRequest baseSearchRequest) {
 
 		_facetTranslator.translate(
-			searchRequestBuilder, baseSearchRequest.getQuery71(),
+			searchRequestBuilder, baseSearchRequest.getQuery(),
 			baseSearchRequest.getFacets(),
 			baseSearchRequest.isBasicFacetSelection());
 	}
@@ -270,7 +270,7 @@ public class CommonSearchRequestBuilderAssemblerImpl
 		SearchRequestBuilder searchRequestBuilder,
 		BaseSearchRequest baseSearchRequest) {
 
-		if (baseSearchRequest.getMinimumScore() != null) {
+		if (baseSearchRequest.getMinimumScore() > 0) {
 			searchRequestBuilder.setMinScore(
 				baseSearchRequest.getMinimumScore());
 		}
@@ -410,7 +410,7 @@ public class CommonSearchRequestBuilderAssemblerImpl
 		SearchRequestBuilder searchRequestBuilder,
 		BaseSearchRequest baseSearchRequest) {
 
-		if (baseSearchRequest.getTimeoutInMilliseconds() != null) {
+		if (baseSearchRequest.getTimeoutInMilliseconds() > 0) {
 			searchRequestBuilder.setTimeout(
 				TimeValue.timeValueMillis(
 					baseSearchRequest.getTimeoutInMilliseconds()));
@@ -421,7 +421,7 @@ public class CommonSearchRequestBuilderAssemblerImpl
 		SearchRequestBuilder searchRequestBuilder,
 		BaseSearchRequest baseSearchRequest) {
 
-		if (baseSearchRequest.getTrackTotalHits() != null) {
+		if (baseSearchRequest.getTrackTotalHits()) {
 			searchRequestBuilder.setTrackTotalHits(
 				baseSearchRequest.getTrackTotalHits());
 		}
