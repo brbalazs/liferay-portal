@@ -10,4 +10,10 @@ describe('ItemField', () => {
 
 		expect(container).toMatchSnapshot();
 	});
+
+	it('should render with expanded column', () => {
+		const {container} = render(<ItemField expand />);
+
+		expect(container.querySelector('.autofit-col-expand')).toBeTruthy();
+	});
 });
