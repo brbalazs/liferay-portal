@@ -17,8 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-CommercePriceListDisplayContext
-	commercePriceListDisplayContext = (CommercePriceListDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+CommercePriceListDisplayContext commercePriceListDisplayContext = (CommercePriceListDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 List<CommerceCatalog> commerceCatalogs = commercePriceListDisplayContext.getCommerceCatalogs();
 CommercePriceList commercePriceList = commercePriceListDisplayContext.getCommercePriceList();
@@ -33,6 +32,7 @@ CommercePriceList commercePriceList = commercePriceListDisplayContext.getCommerc
 		<aui:form action="<%= editCommercePriceListActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
 			<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.ADD %>" />
 			<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+			<aui:input name="type" type="hidden" value="<%= commercePriceListDisplayContext.getCommercePriceListType(portletName) %>" />
 
 			<aui:model-context bean="<%= commercePriceList %>" model="<%= CommercePriceList.class %>" />
 

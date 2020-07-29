@@ -32,7 +32,7 @@ CommercePriceListDisplayContext commercePriceListDisplayContext = (CommercePrice
 		<aui:input name="deletePriceLists" type="hidden" />
 
 		<commerce-ui:headless-dataset-display
-			apiUrl="/o/headless-commerce-admin-pricing/v2.0/price-lists"
+			apiUrl="<%= commercePriceListDisplayContext.getPriceListsApiUrl(portletName) %>"
 			clayCreationMenu="<%= commercePriceListDisplayContext.getClayCreationPriceListMenu() %>"
 			clayHeadlessDataSetActionTemplates="<%= commercePriceListDisplayContext.getClayHeadlessDataSetActionPriceListTemplates() %>"
 			formId="fm"
