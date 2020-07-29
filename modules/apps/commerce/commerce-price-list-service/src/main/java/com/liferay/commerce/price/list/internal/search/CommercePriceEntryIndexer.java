@@ -16,6 +16,7 @@ package com.liferay.commerce.price.list.internal.search;
 
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.service.CommercePriceEntryLocalService;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -93,6 +94,10 @@ public class CommercePriceEntryIndexer extends BaseIndexer<CommercePriceEntry> {
 		addSearchTerm(
 			searchQuery, searchContext, FIELD_EXTERNAL_REFERENCE_CODE, false);
 
+		addSearchTerm(searchQuery, searchContext, "sku", false);
+		addSearchLocalizedTerm(
+			searchQuery, searchContext, "cpDefinitionName", false);
+
 		LinkedHashMap<String, Object> params =
 			(LinkedHashMap<String, Object>)searchContext.getAttribute("params");
 
@@ -134,7 +139,12 @@ public class CommercePriceEntryIndexer extends BaseIndexer<CommercePriceEntry> {
 
 		CPInstance cpInstance = commercePriceEntry.getCPInstance();
 
+		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+
 		document.addKeyword("cpInstanceId", cpInstance.getCPInstanceId());
+		document.addKeyword("sku", cpInstance.getSku());
+		document.addLocalizedKeyword(
+			"cpDefinitionName", cpDefinition.getNameMap());
 
 		if (_log.isDebugEnabled()) {
 			_log.debug(
