@@ -547,7 +547,7 @@ public class CommerceProductPriceCalculationV2Impl
 
 		CommercePriceEntry commercePriceEntry =
 			_commercePriceEntryLocalService.fetchCommercePriceEntry(
-				commercePriceListId, cpInstance.getCPInstanceUuid(), false);
+				commercePriceListId, cpInstance.getCPInstanceUuid(), true);
 
 		BigDecimal[] values = new BigDecimal[4];
 
@@ -995,7 +995,7 @@ public class CommerceProductPriceCalculationV2Impl
 
 		CommercePriceEntry commercePriceEntry =
 			_commercePriceEntryLocalService.fetchCommercePriceEntry(
-				commercePriceListId, cpInstance.getCPInstanceUuid(), false);
+				commercePriceListId, cpInstance.getCPInstanceUuid(), true);
 
 		if (commercePriceEntry == null) {
 			CommercePriceEntry commerceBasePriceEntry =

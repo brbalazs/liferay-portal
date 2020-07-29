@@ -487,7 +487,7 @@ public class CommerceProductPriceCalculationImpl
 		CommercePriceEntry commercePriceEntry =
 			_commercePriceEntryLocalService.fetchCommercePriceEntry(
 				commercePriceList.getCommercePriceListId(),
-				cpInstance.getCPInstanceUuid());
+				cpInstance.getCPInstanceUuid(), true);
 
 		if (commercePriceEntry == null) {
 			return Optional.empty();
@@ -557,13 +557,13 @@ public class CommerceProductPriceCalculationImpl
 			CommercePriceEntry commercePriceEntry =
 				_commercePriceEntryLocalService.fetchCommercePriceEntry(
 					commercePriceListActive.getCommercePriceListId(),
-					cpInstance.getCPInstanceUuid());
+					cpInstance.getCPInstanceUuid(), true);
 
 			if (commercePriceEntry == null) {
 				return 0;
 			}
 
-			return commercePriceListActive.getCommercePriceListId();
+			return commercePriceEntry.getCommercePriceListId();
 		}
 
 		return 0;
