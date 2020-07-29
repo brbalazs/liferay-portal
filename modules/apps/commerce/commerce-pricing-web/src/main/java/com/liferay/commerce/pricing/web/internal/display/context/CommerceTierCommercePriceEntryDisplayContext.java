@@ -24,6 +24,7 @@ import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.commerce.price.list.service.CommerceTierPriceEntryService;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
@@ -42,6 +43,7 @@ public class CommerceTierCommercePriceEntryDisplayContext
 	extends BaseCommercePriceListDisplayContext {
 
 	public CommerceTierCommercePriceEntryDisplayContext(
+		CommerceCatalogService commerceCatalogService,
 		CommercePriceEntryService commercePriceEntryService,
 		ModelResourcePermission<CommercePriceList>
 			commercePriceListModelResourcePermission,
@@ -50,8 +52,8 @@ public class CommerceTierCommercePriceEntryDisplayContext
 		HttpServletRequest httpServletRequest) {
 
 		super(
-			commercePriceListModelResourcePermission, commercePriceListService,
-			httpServletRequest);
+			commerceCatalogService, commercePriceListModelResourcePermission,
+			commercePriceListService, httpServletRequest);
 
 		_commercePriceEntryService = commercePriceEntryService;
 		_commerceTierPriceEntryService = commerceTierPriceEntryService;

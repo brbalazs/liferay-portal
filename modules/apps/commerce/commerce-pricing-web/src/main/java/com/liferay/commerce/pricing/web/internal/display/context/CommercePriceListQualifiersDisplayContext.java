@@ -21,6 +21,7 @@ import com.liferay.commerce.price.list.service.CommercePriceListAccountRelServic
 import com.liferay.commerce.price.list.service.CommercePriceListCommerceAccountGroupRelService;
 import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.commerce.product.service.CommerceChannelRelService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -42,6 +43,7 @@ public class CommercePriceListQualifiersDisplayContext
 	extends BaseCommercePriceListDisplayContext {
 
 	public CommercePriceListQualifiersDisplayContext(
+		CommerceCatalogService commerceCatalogService,
 		CommerceChannelRelService commerceChannelRelService,
 		CommercePriceListAccountRelService commercePriceListAccountRelService,
 		CommercePriceListCommerceAccountGroupRelService
@@ -52,8 +54,8 @@ public class CommercePriceListQualifiersDisplayContext
 		HttpServletRequest httpServletRequest) {
 
 		super(
-			commercePriceListModelResourcePermission, commercePriceListService,
-			httpServletRequest);
+			commerceCatalogService, commercePriceListModelResourcePermission,
+			commercePriceListService, httpServletRequest);
 
 		_commerceChannelRelService = commerceChannelRelService;
 		_commercePriceListAccountRelService =

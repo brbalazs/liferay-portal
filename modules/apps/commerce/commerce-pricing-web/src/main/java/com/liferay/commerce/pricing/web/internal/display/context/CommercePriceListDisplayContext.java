@@ -33,12 +33,12 @@ import com.liferay.commerce.pricing.web.internal.servlet.taglib.ui.CommercePrice
 import com.liferay.commerce.product.display.context.util.CPRequestHelper;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
+import com.liferay.petra.string.StringBundler;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
-import com.liferay.portal.kernel.portlet.PortletProvider;
-import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalServiceUtil;
@@ -57,6 +57,7 @@ import javax.portlet.RenderResponse;
 import javax.portlet.RenderURL;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Alessio Antonio Rendina
@@ -75,10 +76,9 @@ public class CommercePriceListDisplayContext
 		HttpServletRequest httpServletRequest) {
 
 		super(
-			commercePriceListModelResourcePermission, commercePriceListService,
-			httpServletRequest);
+			commerceCatalogService, commercePriceListModelResourcePermission,
+			commercePriceListService, httpServletRequest);
 
-		_commerceCatalogService = commerceCatalogService;
 		_commerceCurrencyService = commerceCurrencyService;
 		_commercePriceModifierService = commercePriceModifierService;
 		_commercePriceModifierTypeRegistry = commercePriceModifierTypeRegistry;
@@ -127,9 +127,10 @@ public class CommercePriceListDisplayContext
 			getClayHeadlessDataSetActionPriceListTemplates()
 		throws PortalException {
 
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, CommercePriceList.class.getName(),
-			PortletProvider.Action.EDIT);
+		RenderResponse renderResponse =
+			commercePricingRequestHelper.getRenderResponse();
+
+		RenderURL portletURL = renderResponse.createRenderURL();
 
 		portletURL.setParameter(
 			"mvcRenderCommandName", "editCommercePriceList");
@@ -197,7 +198,7 @@ public class CommercePriceListDisplayContext
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		return _commerceCatalogService.searchCommerceCatalogs(
+		return commerceCatalogService.searchCommerceCatalogs(
 			themeDisplay.getCompanyId(), null, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
 	}
@@ -325,6 +326,20 @@ public class CommercePriceListDisplayContext
 		return commercePriceList.getParentCommercePriceListId();
 	}
 
+	public String getPriceListsApiUrl(String portletName) {
+		StringBundler sb = new StringBundler(7);
+
+		sb.append("/o/headless-commerce-admin-pricing/v2.0/price-lists");
+		sb.append("?filter=type eq ");
+		sb.append(StringPool.BACK_SLASH);
+		sb.append(StringPool.APOSTROPHE);
+		sb.append(getCommercePriceListType(portletName));
+		sb.append(StringPool.BACK_SLASH);
+		sb.append(StringPool.APOSTROPHE);
+
+		return sb.toString();
+	}
+
 	public String getPriceModifierCategoriesApiUrl() throws PortalException {
 		return "/o/headless-commerce-admin-pricing/v2.0/price-modifiers/" +
 			getCommercePriceModifierId() +
@@ -382,7 +397,6 @@ public class CommercePriceListDisplayContext
 		return false;
 	}
 
-	private final CommerceCatalogService _commerceCatalogService;
 	private final CommerceCurrencyService _commerceCurrencyService;
 	private CommercePriceModifier _commercePriceModifier;
 	private final CommercePriceModifierService _commercePriceModifierService;

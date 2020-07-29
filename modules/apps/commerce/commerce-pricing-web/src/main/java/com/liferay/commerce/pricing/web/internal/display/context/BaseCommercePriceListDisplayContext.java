@@ -15,13 +15,19 @@
 package com.liferay.commerce.pricing.web.internal.display.context;
 
 import com.liferay.commerce.frontend.clay.data.set.ClayHeadlessDataSetActionTemplate;
+import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListService;
+import com.liferay.commerce.pricing.constants.CommercePricingPortletKeys;
+import com.liferay.commerce.product.model.CommerceCatalog;
+import com.liferay.commerce.product.service.CommerceCatalogService;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +41,7 @@ public abstract class BaseCommercePriceListDisplayContext
 	extends BasePricingDisplayContext {
 
 	public BaseCommercePriceListDisplayContext(
+		CommerceCatalogService commerceCatalogService,
 		ModelResourcePermission<CommercePriceList>
 			commercePriceListModelResourcePermission,
 		CommercePriceListService commercePriceListService,
@@ -42,9 +49,24 @@ public abstract class BaseCommercePriceListDisplayContext
 
 		super(httpServletRequest);
 
+		this.commerceCatalogService = commerceCatalogService;
 		this.commercePriceListModelResourcePermission =
 			commercePriceListModelResourcePermission;
 		this.commercePriceListService = commercePriceListService;
+	}
+
+	public long getCommerceCatalogId() throws PortalException {
+		CommercePriceList commercePriceList = getCommercePriceList();
+
+		CommerceCatalog commerceCatalog =
+			commerceCatalogService.fetchCommerceCatalogByGroupId(
+				commercePriceList.getGroupId());
+
+		if (commerceCatalog == null) {
+			return 0;
+		}
+
+		return commerceCatalog.getCommerceCatalogId();
 	}
 
 	public CommercePriceList getCommercePriceList() throws PortalException {
@@ -71,6 +93,25 @@ public abstract class BaseCommercePriceListDisplayContext
 		}
 
 		return commercePriceList.getCommercePriceListId();
+	}
+
+	public String getCommercePriceListType(String portletName) {
+		if (Validator.isNull(portletName)) {
+			return StringPool.BLANK;
+		}
+
+		if (portletName.equals(
+				CommercePricingPortletKeys.COMMERCE_PRICE_LIST)) {
+
+			return CommercePriceListConstants.TYPE_PRICE_LIST;
+		}
+		else if (portletName.equals(
+					CommercePricingPortletKeys.COMMERCE_PROMOTION)) {
+
+			return CommercePriceListConstants.TYPE_PROMOTION;
+		}
+
+		return StringPool.BLANK;
 	}
 
 	public boolean hasPermission(long commercePriceListId, String actionId)
@@ -115,6 +156,7 @@ public abstract class BaseCommercePriceListDisplayContext
 		return clayHeadlessDataSetActionTemplates;
 	}
 
+	protected CommerceCatalogService commerceCatalogService;
 	protected CommercePriceList commercePriceList;
 	protected final ModelResourcePermission<CommercePriceList>
 		commercePriceListModelResourcePermission;
