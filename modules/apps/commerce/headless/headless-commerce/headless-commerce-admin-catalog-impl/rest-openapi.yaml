@@ -4653,19 +4653,15 @@ paths:
                       type: string
                   style: simple
                 - in: query
-                  explode: true
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
             responses:
                 200:
                     content:
@@ -6830,19 +6826,15 @@ paths:
                       type: integer
                   style: simple
                 - in: query
-                  explode: true
                   name: page
                   required: false
                   schema:
                       type: integer
-                  style: form
                 - in: query
-                  explode: true
                   name: pageSize
                   required: false
                   schema:
                       type: integer
-                  style: form
             responses:
                 200:
                     content:
