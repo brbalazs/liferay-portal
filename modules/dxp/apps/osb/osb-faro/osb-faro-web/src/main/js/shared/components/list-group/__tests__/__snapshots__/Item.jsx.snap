@@ -7,11 +7,3 @@ exports[`Item should render 1`] = `
   />
 </div>
 `;
-
-exports[`Item should render as active 1`] = `
-<div>
-  <li
-    class="active list-group-item"
-  />
-</div>
-`;
