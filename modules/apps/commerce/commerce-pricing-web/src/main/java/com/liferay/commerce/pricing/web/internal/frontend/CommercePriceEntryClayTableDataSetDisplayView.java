@@ -21,6 +21,7 @@ import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
 import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingDataSetConstants;
+import com.liferay.petra.string.StringPool;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -42,24 +43,28 @@ public class CommercePriceEntryClayTableDataSetDisplayView
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
 		ClayTableSchemaField imageField = clayTableSchemaBuilder.addField(
-			"image", "");
+			"product.thumbnail", StringPool.BLANK);
 
 		imageField.setContentRenderer("image");
 
 		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
-			"name", "name");
+			"product.name.LANG", "name");
 
 		nameField.setContentRenderer("actionLink");
 
-		clayTableSchemaBuilder.addField("sku", "sku");
+		clayTableSchemaBuilder.addField("sku.name", "sku");
 
-		clayTableSchemaBuilder.addField("basePrice", "base-price");
+		clayTableSchemaBuilder.addField("sku.basePrice", "base-price");
 
-		clayTableSchemaBuilder.addField("unitPrice", "unit-price");
+		clayTableSchemaBuilder.addField("price", "unit-price");
 
-		clayTableSchemaBuilder.addField("unitDiscount", "unit-discount");
+		clayTableSchemaBuilder.addField(
+			"discountLevelsFormatted", "unit-discount");
 
-		clayTableSchemaBuilder.addField("tieredPrice", "tiered-price");
+		ClayTableSchemaField tieredPrice = clayTableSchemaBuilder.addField(
+			"hasTierPrice", "tiered-price");
+
+		tieredPrice.setContentRenderer("boolean");
 
 		return clayTableSchemaBuilder.build();
 	}

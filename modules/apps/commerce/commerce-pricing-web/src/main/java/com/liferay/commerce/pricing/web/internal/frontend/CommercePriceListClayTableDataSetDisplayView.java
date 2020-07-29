@@ -48,16 +48,20 @@ public class CommercePriceListClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("author", "author");
 
-		clayTableSchemaBuilder.addField("catalog", "catalog");
+		clayTableSchemaBuilder.addField("catalogName", "catalog");
 
 		clayTableSchemaBuilder.addField("priority", "priority");
 
-		clayTableSchemaBuilder.addField("createDate", "create-date");
+		ClayTableSchemaField dateclayTableSchemaField =
+			clayTableSchemaBuilder.addField("createDate", "create-date");
 
-		ClayTableSchemaField statusField = clayTableSchemaBuilder.addField(
-			"status", "status");
+		dateclayTableSchemaField.setContentRenderer("date");
+		dateclayTableSchemaField.setSortable(true);
 
-		statusField.setContentRenderer("label");
+		ClayTableSchemaField clayTableSchemaField =
+			clayTableSchemaBuilder.addField("workflowStatusInfo", "status");
+
+		clayTableSchemaField.setContentRenderer("status");
 
 		return clayTableSchemaBuilder.build();
 	}
