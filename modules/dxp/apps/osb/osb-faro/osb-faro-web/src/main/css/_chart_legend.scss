@@ -82,6 +82,11 @@
 			grid-template-columns: 60% 40%;
 		}
 
+		&.three-columns {
+			display: grid;
+			grid-template-columns: 40% 30% 30%;
+		}
+
 		&:last-child {
 			padding-bottom: 0;
 		}

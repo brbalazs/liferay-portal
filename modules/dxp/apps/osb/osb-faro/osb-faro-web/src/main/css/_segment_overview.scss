@@ -29,10 +29,6 @@
 					&:not(:last-child) {
 						padding-bottom: 1rem;
 					}
-
-					&.three-columns {
-						grid-template-columns: 40% 30% 30%;
-					}
 				}
 			}
 		}
