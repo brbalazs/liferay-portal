@@ -134,6 +134,7 @@ public class CommercePriceEntryLocalServiceImpl
 			promoPrice, serviceContext);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommercePriceEntry addCommercePriceEntry(
 			long cProductId, String cpInstanceUuid, long commercePriceListId,
@@ -626,6 +627,7 @@ public class CommercePriceEntryLocalServiceImpl
 		return commercePriceEntryPersistence.update(commercePriceEntry);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommercePriceEntry updateCommercePriceEntry(
 			long commercePriceEntryId, BigDecimal price, BigDecimal promoPrice,
