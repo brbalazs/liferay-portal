@@ -17,6 +17,7 @@ package com.liferay.commerce.product.internal.search;
 import com.liferay.commerce.product.constants.CPField;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
@@ -233,6 +234,11 @@ public class CPInstanceIndexer extends BaseIndexer<CPInstance> {
 			_cpDefinitionLocalService.hasChildCPDefinitions(
 				cpDefinition.getCPDefinitionId()));
 		document.addKeyword(CPField.UNSPSC, cpInstance.getUnspsc());
+
+		CommerceCatalog commerceCatalog = cpDefinition.getCommerceCatalog();
+
+		document.addKeyword(
+			"commerceCatalogId", commerceCatalog.getCommerceCatalogId());
 
 		if (_log.isDebugEnabled()) {
 			_log.debug("Document " + cpInstance + " indexed successfully");
