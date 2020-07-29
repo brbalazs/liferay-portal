@@ -57,8 +57,10 @@ import com.liferay.headless.commerce.admin.pricing.resource.v2_0.DiscountResourc
 import com.liferay.headless.commerce.core.util.DateConfig;
 import com.liferay.headless.commerce.core.util.ExpandoUtil;
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
+import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.search.BaseModelSearchResult;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -70,13 +72,12 @@ import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
+import com.liferay.portal.vulcan.util.SearchUtil;
 
 import java.math.BigDecimal;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -145,16 +146,25 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 			String search, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception {
 
-		BaseModelSearchResult<CommerceDiscount>
-			commerceDiscountBaseModelSearchResult =
-				_commerceDiscountService.searchCommerceDiscounts(
-					contextCompany.getCompanyId(), search,
-					WorkflowConstants.STATUS_ANY, pagination.getStartPosition(),
-					pagination.getEndPosition(), null);
+		return SearchUtil.search(
+			null, booleanQuery -> booleanQuery.getPreBooleanFilter(), filter,
+			CommerceDiscount.class, search, pagination,
+			queryConfig -> queryConfig.setSelectedFieldNames(
+				Field.ENTRY_CLASS_PK),
+			new UnsafeConsumer() {
 
-		return Page.of(
-			_toDiscounts(commerceDiscountBaseModelSearchResult.getBaseModels()),
-			pagination, commerceDiscountBaseModelSearchResult.getLength());
+				public void accept(Object o) throws Exception {
+					SearchContext searchContext = (SearchContext)o;
+
+					searchContext.setCompanyId(contextCompany.getCompanyId());
+					searchContext.setAttribute(
+						"status", WorkflowConstants.STATUS_ANY);
+				}
+
+			},
+			sorts,
+			document -> _toDiscount(
+				GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))));
 	}
 
 	@Override
@@ -265,20 +275,6 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 				_getActions(commerceDiscount), _dtoConverterRegistry,
 				commerceDiscountId, contextAcceptLanguage.getPreferredLocale(),
 				contextUriInfo, contextUser));
-	}
-
-	private List<Discount> _toDiscounts(
-			List<CommerceDiscount> commerceDiscounts)
-		throws Exception {
-
-		List<Discount> discounts = new ArrayList<>();
-
-		for (CommerceDiscount commerceDiscount : commerceDiscounts) {
-			discounts.add(
-				_toDiscount(commerceDiscount.getCommerceDiscountId()));
-		}
-
-		return discounts;
 	}
 
 	private CommerceDiscount _updateDiscount(

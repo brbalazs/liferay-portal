@@ -18,6 +18,7 @@ import com.liferay.commerce.product.constants.CPField;
 import com.liferay.portal.odata.entity.BooleanEntityField;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.odata.entity.IntegerEntityField;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -31,6 +32,7 @@ public class SkuEntityModel implements EntityModel {
 
 	public SkuEntityModel() {
 		_entityFieldsMap = Stream.of(
+			new IntegerEntityField("catalogId", locale -> "commerceCatalogId"),
 			new BooleanEntityField(
 				CPField.HAS_CHILD_CP_DEFINITIONS,
 				locale -> CPField.HAS_CHILD_CP_DEFINITIONS)

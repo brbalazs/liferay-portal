@@ -73,6 +73,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
@@ -172,6 +173,8 @@ public class PriceListResourceImpl extends BasePriceListResourceImpl {
 					SearchContext searchContext = (SearchContext)o;
 
 					searchContext.setCompanyId(contextCompany.getCompanyId());
+					searchContext.setAttribute(
+						"status", WorkflowConstants.STATUS_ANY);
 				}
 
 			},
