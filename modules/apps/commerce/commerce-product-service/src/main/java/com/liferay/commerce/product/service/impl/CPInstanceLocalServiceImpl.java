@@ -83,7 +83,6 @@ import java.util.Map;
  */
 public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 
-	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CPInstance addCPInstance(
 			long cpDefinitionId, long groupId, String sku, String gtin,
@@ -107,7 +106,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			long deliveryMaxSubscriptionCycles, ServiceContext serviceContext)
 		throws PortalException {
 
-		return addCPInstance(
+		return cpInstanceLocalService.addCPInstance(
 			cpDefinitionId, groupId, sku, gtin, manufacturerPartNumber,
 			purchasable, cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
 			width, height, depth, weight, price, promoPrice, cost, published,
@@ -303,7 +302,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			long maxSubscriptionCycles, ServiceContext serviceContext)
 		throws PortalException {
 
-		return addCPInstance(
+		return cpInstanceLocalService.addCPInstance(
 			cpDefinitionId, groupId, sku, gtin, manufacturerPartNumber,
 			purchasable, cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds,
 			width, height, depth, weight, price, promoPrice, cost, published,
@@ -395,7 +394,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		return addCPInstance(
+		return cpInstanceLocalService.addCPInstance(
 			cpDefinitionId, groupId, sku, gtin, manufacturerPartNumber,
 			purchasable, json, published, displayDateMonth, displayDateDay,
 			displayDateYear, displayDateHour, displayDateMinute,
@@ -532,7 +531,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			long maxSubscriptionCycles, ServiceContext serviceContext)
 		throws PortalException {
 
-		return addCPInstance(
+		return cpInstanceLocalService.addCPInstance(
 			cpDefinitionId, groupId, sku, gtin, manufacturerPartNumber,
 			purchasable, json, width, height, depth, weight, price, promoPrice,
 			cost, published, externalReferenceCode, displayDateMonth,
@@ -680,7 +679,7 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			boolean neverExpire, ServiceContext serviceContext)
 		throws PortalException {
 
-		return addCPInstance(
+		return cpInstanceLocalService.addCPInstance(
 			cpDefinitionId, groupId, sku, gtin, manufacturerPartNumber,
 			purchasable, json, width, height, depth, weight, price, promoPrice,
 			cost, published, externalReferenceCode, displayDateMonth,
