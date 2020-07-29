@@ -1346,7 +1346,7 @@
     find-root "^1.1.0"
     source-map "^0.7.2"
 
-"@emotion/cache@^10.0.15", "@emotion/cache@^10.0.27":
+"@emotion/cache@^10.0.27":
   version "10.0.29"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-10.0.29.tgz#87e7e64f412c060102d589fe7c6dc042e6f9d1e0"
   integrity sha512-fU2VtSVlHiF27empSbxi1O2JFdNWZO+2NFHfwO0pxgTep6Xa3uGb+3pVKfLww2l/IBGLNEZl5Xf/++A4wAYDYQ==
@@ -1368,7 +1368,7 @@
     "@emotion/sheet" "0.9.4"
     "@emotion/utils" "0.11.3"
 
-"@emotion/css@^10.0.14", "@emotion/css@^10.0.27":
+"@emotion/css@^10.0.27":
   version "10.0.27"
   resolved "https://registry.yarnpkg.com/@emotion/css/-/css-10.0.27.tgz#3a7458198fbbebb53b01b2b87f64e5e21241e14c"
   integrity sha512-6wZjsvYeBhyZQYNrGoR5yPMYbMBNEnanDrqmsqS1mzDm1cOTu12shvl2j4QHNS36UaTE0USIJawCH9C8oW34Zw==
@@ -1376,11 +1376,6 @@
     "@emotion/serialize" "^0.11.15"
     "@emotion/utils" "0.11.3"
     babel-plugin-emotion "^10.0.27"
-
-"@emotion/hash@0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.7.2.tgz#53211e564604beb9befa7a4400ebf8147473eeef"
-  integrity sha512-RMtr1i6E8MXaBWwhXL3yeOU8JXRnz8GNxHvaUfVvwxokvayUY0zoBeWbKw1S9XkufmGEEdQd228pSZXFkAln8Q==
 
 "@emotion/hash@0.8.0":
   version "0.8.0"
@@ -1392,24 +1387,12 @@
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.6.6.tgz#62266c5f0eac6941fece302abad69f2ee7e25e44"
   integrity sha512-ojhgxzUHZ7am3D2jHkMzPpsBAiB005GF5YU4ea+8DNPybMk01JJUM9V9YRlF/GE95tcOm8DxQvWA2jq19bGalQ==
 
-"@emotion/is-prop-valid@0.8.2":
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/@emotion/is-prop-valid/-/is-prop-valid-0.8.2.tgz#b9692080da79041683021fcc32f96b40c54c59dc"
-  integrity sha512-ZQIMAA2kLUWiUeMZNJDTeCwYRx1l8SQL0kHktze4COT22occKpDML1GDUXP5/sxhOMrZO8vZw773ni4H5Snrsg==
-  dependencies:
-    "@emotion/memoize" "0.7.2"
-
 "@emotion/is-prop-valid@0.8.8", "@emotion/is-prop-valid@^0.8.1":
   version "0.8.8"
   resolved "https://registry.yarnpkg.com/@emotion/is-prop-valid/-/is-prop-valid-0.8.8.tgz#db28b1c4368a259b60a97311d6a952d4fd01ac1a"
   integrity sha512-u5WtneEAr5IDG2Wv65yhunPSMLIpuKsbuOktRojfrEiEvRyC85LgPMZI63cr7NUqT8ZIGdSVg8ZKGxIug4lXcA==
   dependencies:
     "@emotion/memoize" "0.7.4"
-
-"@emotion/memoize@0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.2.tgz#7f4c71b7654068dfcccad29553520f984cc66b30"
-  integrity sha512-hnHhwQzvPCW1QjBWFyBtsETdllOM92BfrKWbUTmh9aeOlcVOiXvlPsK4104xH8NsaKfg86PTFsWkueQeUfMA/w==
 
 "@emotion/memoize@0.7.4", "@emotion/memoize@^0.7.1":
   version "0.7.4"
@@ -1421,7 +1404,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.6.6.tgz#004b98298d04c7ca3b4f50ca2035d4f60d2eed1b"
   integrity sha512-h4t4jFjtm1YV7UirAFuSuFGyLa+NNxjdkq6DpFLANNQY5rHueFZHVY+8Cu1HYVP6DrheB0kv4m5xPjo7eKT7yQ==
 
-"@emotion/serialize@^0.11.15", "@emotion/serialize@^0.11.16", "@emotion/serialize@^0.11.8", "@emotion/serialize@^0.11.9":
+"@emotion/serialize@^0.11.15", "@emotion/serialize@^0.11.16":
   version "0.11.16"
   resolved "https://registry.yarnpkg.com/@emotion/serialize/-/serialize-0.11.16.tgz#dee05f9e96ad2fb25a5206b6d759b2d1ed3379ad"
   integrity sha512-G3J4o8by0VRrO+PFeSc3js2myYNOXVJ3Ya+RGVxnshRYgsvErfAOglKAiy1Eo1vhzxqtUvjCyS5gtewzkmvSSg==
@@ -1442,17 +1425,12 @@
     "@emotion/unitless" "^0.6.7"
     "@emotion/utils" "^0.8.2"
 
-"@emotion/sheet@0.9.3":
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/@emotion/sheet/-/sheet-0.9.3.tgz#689f135ecf87d3c650ed0c4f5ddcbe579883564a"
-  integrity sha512-c3Q6V7Df7jfwSq5AzQWbXHa5soeE4F5cbqi40xn0CzXxWW9/6Mxq48WJEtqfWzbZtW9odZdnRAkwCQwN12ob4A==
-
 "@emotion/sheet@0.9.4":
   version "0.9.4"
   resolved "https://registry.yarnpkg.com/@emotion/sheet/-/sheet-0.9.4.tgz#894374bea39ec30f489bbfc3438192b9774d32e5"
   integrity sha512-zM9PFmgVSqBw4zL101Q0HrBVTGmpAxFZH/pYx/cjJT5advXguvcgjHFTCaIO3enL/xr89vK2bh0Mfyj9aa0ANA==
 
-"@emotion/styled-base@^10.0.15", "@emotion/styled-base@^10.0.27":
+"@emotion/styled-base@^10.0.27":
   version "10.0.31"
   resolved "https://registry.yarnpkg.com/@emotion/styled-base/-/styled-base-10.0.31.tgz#940957ee0aa15c6974adc7d494ff19765a2f742a"
   integrity sha512-wTOE1NcXmqMWlyrtwdkqg87Mu6Rj1MaukEoEmEkHirO5IoHDJ8LgCQL4MjJODgxWxXibGR3opGp1p7YvkNEdXQ==
@@ -1470,11 +1448,6 @@
     "@emotion/styled-base" "^10.0.27"
     babel-plugin-emotion "^10.0.27"
 
-"@emotion/stylis@0.8.4":
-  version "0.8.4"
-  resolved "https://registry.yarnpkg.com/@emotion/stylis/-/stylis-0.8.4.tgz#6c51afdf1dd0d73666ba09d2eb6c25c220d6fe4c"
-  integrity sha512-TLmkCVm8f8gH0oLv+HWKiu7e8xmBIaokhxcEKPh1m8pXiV/akCiq50FvYgOwY42rjejck8nsdQxZlXZ7pmyBUQ==
-
 "@emotion/stylis@0.8.5":
   version "0.8.5"
   resolved "https://registry.yarnpkg.com/@emotion/stylis/-/stylis-0.8.5.tgz#deacb389bd6ee77d1e7fcaccce9e16c5c7e78e04"
@@ -1485,11 +1458,6 @@
   resolved "https://registry.yarnpkg.com/@emotion/stylis/-/stylis-0.7.1.tgz#50f63225e712d99e2b2b39c19c70fff023793ca5"
   integrity sha512-/SLmSIkN13M//53TtNxgxo57mcJk/UJIDFRKwOiLIBEyBHEcipgR6hNMQ/59Sl4VjCJ0Z/3zeAZyvnSLPG/1HQ==
 
-"@emotion/unitless@0.7.4":
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.4.tgz#a87b4b04e5ae14a88d48ebef15015f6b7d1f5677"
-  integrity sha512-kBa+cDHOR9jpRJ+kcGMsysrls0leukrm68DmFQoMIWQcXdr2cZvyvypWuGYT7U+9kAExUE7+T7r6G3C3A6L8MQ==
-
 "@emotion/unitless@0.7.5":
   version "0.7.5"
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
@@ -1499,11 +1467,6 @@
   version "0.6.7"
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.6.7.tgz#53e9f1892f725b194d5e6a1684a7b394df592397"
   integrity sha512-Arj1hncvEVqQ2p7Ega08uHLr1JuRYBuO5cIvcA+WWEQ5+VmkOE3ZXzl04NbQxeQpWX78G7u6MqxKuNX3wvYZxg==
-
-"@emotion/utils@0.11.2":
-  version "0.11.2"
-  resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.11.2.tgz#713056bfdffb396b0a14f1c8f18e7b4d0d200183"
-  integrity sha512-UHX2XklLl3sIaP6oiMmlVzT0J+2ATTVpf0dHQVyPJHTkOITvXfaSqnRk6mdDhV9pR8T/tHc3cex78IKXssmzrA==
 
 "@emotion/utils@0.11.3":
   version "0.11.3"
@@ -3602,7 +3565,7 @@ babel-plugin-dynamic-import-node@2.3.0, babel-plugin-dynamic-import-node@^2.3.0:
   dependencies:
     object.assign "^4.1.0"
 
-babel-plugin-emotion@^10.0.14, babel-plugin-emotion@^10.0.15, babel-plugin-emotion@^10.0.27, babel-plugin-emotion@^10.0.9:
+babel-plugin-emotion@^10.0.27, babel-plugin-emotion@^10.0.9:
   version "10.0.33"
   resolved "https://registry.yarnpkg.com/babel-plugin-emotion/-/babel-plugin-emotion-10.0.33.tgz#ce1155dcd1783bbb9286051efee53f4e2be63e03"
   integrity sha512-bxZbTTGz0AJQDHm8k6Rf3RQJ8tX2scsfsRyKVgAbiUPUNIRtlK+7JxP+TAd1kRLABFxe0CFm2VdK4ePkoA9FxQ==
@@ -7320,7 +7283,7 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-dnd-core@10.0.1, dnd-core@^10.0.1:
+dnd-core@^10.0.1:
   version "10.0.1"
   resolved "https://registry.yarnpkg.com/dnd-core/-/dnd-core-10.0.1.tgz#151d95cd3a7fa47b210905c301364c0828203029"
   integrity sha512-PokpWzFSKbpmJSWbSIfVJtIsRdx3DP5e3//agNNzV8L1k9T4/IFKtgjjwKeLKmP9qMuTXdZZGSS40w+eZ8MmUg==
@@ -11906,6 +11869,39 @@ karma-threshold-reporter@^0.1.15:
   dependencies:
     istanbul "~0.3.2"
 
+karma@1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/karma/-/karma-1.7.1.tgz#85cc08e9e0a22d7ce9cca37c4a1be824f6a2b1ae"
+  integrity sha512-k5pBjHDhmkdaUccnC7gE3mBzZjcxyxYsYVaqiL2G5AqlfLyBO5nw2VdNK+O16cveEPd/gIOWULH7gkiYYwVNHg==
+  dependencies:
+    bluebird "^3.3.0"
+    body-parser "^1.16.1"
+    chokidar "^1.4.1"
+    colors "^1.1.0"
+    combine-lists "^1.0.0"
+    connect "^3.6.0"
+    core-js "^2.2.0"
+    di "^0.0.1"
+    dom-serialize "^2.2.0"
+    expand-braces "^0.1.1"
+    glob "^7.1.1"
+    graceful-fs "^4.1.2"
+    http-proxy "^1.13.0"
+    isbinaryfile "^3.0.0"
+    lodash "^3.8.0"
+    log4js "^0.6.31"
+    mime "^1.3.4"
+    minimatch "^3.0.2"
+    optimist "^0.6.1"
+    qjobs "^1.1.4"
+    range-parser "^1.2.0"
+    rimraf "^2.6.0"
+    safe-buffer "^5.0.1"
+    socket.io "1.7.3"
+    source-map "^0.5.3"
+    tmp "0.0.31"
+    useragent "^2.1.12"
+
 karma@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/karma/-/karma-4.0.0.tgz#f28e38a2b66243fde3f98e12a8dcaa2c6ff8ca9c"
@@ -11972,39 +11968,6 @@ karma@>=0.13:
     source-map "^0.6.1"
     tmp "0.0.33"
     useragent "2.3.0"
-
-karma@^1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/karma/-/karma-1.7.1.tgz#85cc08e9e0a22d7ce9cca37c4a1be824f6a2b1ae"
-  integrity sha512-k5pBjHDhmkdaUccnC7gE3mBzZjcxyxYsYVaqiL2G5AqlfLyBO5nw2VdNK+O16cveEPd/gIOWULH7gkiYYwVNHg==
-  dependencies:
-    bluebird "^3.3.0"
-    body-parser "^1.16.1"
-    chokidar "^1.4.1"
-    colors "^1.1.0"
-    combine-lists "^1.0.0"
-    connect "^3.6.0"
-    core-js "^2.2.0"
-    di "^0.0.1"
-    dom-serialize "^2.2.0"
-    expand-braces "^0.1.1"
-    glob "^7.1.1"
-    graceful-fs "^4.1.2"
-    http-proxy "^1.13.0"
-    isbinaryfile "^3.0.0"
-    lodash "^3.8.0"
-    log4js "^0.6.31"
-    mime "^1.3.4"
-    minimatch "^3.0.2"
-    optimist "^0.6.1"
-    qjobs "^1.1.4"
-    range-parser "^1.2.0"
-    rimraf "^2.6.0"
-    safe-buffer "^5.0.1"
-    socket.io "1.7.3"
-    source-map "^0.5.3"
-    tmp "0.0.31"
-    useragent "^2.1.12"
 
 keyv@3.0.0:
   version "3.0.0"
@@ -12205,10 +12168,10 @@ liferay-jest-junit-reporter@1.0.1:
     strip-ansi "^5.0.0"
     xml "^1.0.1"
 
-liferay-karma-alloy-config@0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/liferay-karma-alloy-config/-/liferay-karma-alloy-config-0.0.15.tgz#68644190af94fc6f29f36bb1032b6951ad862a14"
-  integrity sha512-WFW5Ectq9dv4K0d5M4xlr30Tf7JbT0p+aF3eAYzCgnRqmjp0vRgoRqAevwsn7aDLYNDjetae9L4BdefV+R+3MA==
+liferay-karma-alloy-config@0.0.14:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/liferay-karma-alloy-config/-/liferay-karma-alloy-config-0.0.14.tgz#237e5ea1c0b2b5e5c5990174d6de68aaf2e54c9e"
+  integrity sha1-I35eocCyteXFmQF01t5oqvLlTJ4=
   dependencies:
     alloy-ui "^3.1.0-deprecated.1"
     chai "^3.5.0"
@@ -12229,10 +12192,10 @@ liferay-karma-alloy-config@0.0.15:
     run-sequence "^1.1.0"
     sinon "^1.15.3"
 
-liferay-karma-alloy-config@^0.0.14:
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/liferay-karma-alloy-config/-/liferay-karma-alloy-config-0.0.14.tgz#237e5ea1c0b2b5e5c5990174d6de68aaf2e54c9e"
-  integrity sha1-I35eocCyteXFmQF01t5oqvLlTJ4=
+liferay-karma-alloy-config@0.0.15:
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/liferay-karma-alloy-config/-/liferay-karma-alloy-config-0.0.15.tgz#68644190af94fc6f29f36bb1032b6951ad862a14"
+  integrity sha512-WFW5Ectq9dv4K0d5M4xlr30Tf7JbT0p+aF3eAYzCgnRqmjp0vRgoRqAevwsn7aDLYNDjetae9L4BdefV+R+3MA==
   dependencies:
     alloy-ui "^3.1.0-deprecated.1"
     chai "^3.5.0"
@@ -13760,11 +13723,6 @@ miller-rabin@^4.0.0:
   dependencies:
     bn.js "^4.0.0"
     brorand "^1.0.1"
-
-mime-db@1.40.0:
-  version "1.40.0"
-  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.40.0.tgz#a65057e998db090f732a68f6c276d387d4126c32"
-  integrity sha512-jYdeOMPy9vnxEqFRRo6ZvTZ8d9oPb+k18PKoYNYUe2stVEBPPwsln/qWzdbmaIvnhZ9v2P+CuecK+fpUfsV2mA==
 
 mime-db@1.44.0, "mime-db@>= 1.40.0 < 2":
   version "1.44.0"
