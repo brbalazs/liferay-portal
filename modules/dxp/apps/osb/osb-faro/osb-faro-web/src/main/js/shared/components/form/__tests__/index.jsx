@@ -18,15 +18,9 @@ describe('Form', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render an inline Form Group', () => {
-		const {container} = render(<Form.Group inline />);
-
-		expect(container).toMatchSnapshot();
-	});
-
 	it('should render an autofit Form Group', () => {
 		const {container} = render(<Form.Group autoFit />);
 
-		expect(container).toMatchSnapshot();
+		expect(container.querySelector('.form-group-autofit')).toBeTruthy();
 	});
 });

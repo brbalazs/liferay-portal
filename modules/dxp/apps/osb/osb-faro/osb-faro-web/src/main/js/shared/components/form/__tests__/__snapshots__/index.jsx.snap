@@ -9,19 +9,3 @@ exports[`Form should render a Form Group 1`] = `
   />
 </div>
 `;
-
-exports[`Form should render an autofit Form Group 1`] = `
-<div>
-  <div
-    class="form-group form-group-autofit"
-  />
-</div>
-`;
-
-exports[`Form should render an inline Form Group 1`] = `
-<div>
-  <div
-    class="form-group"
-  />
-</div>
-`;
