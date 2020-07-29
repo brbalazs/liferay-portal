@@ -224,6 +224,10 @@ public class CommerceDiscountDisplayContext {
 			_commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(
 				commerceDiscountRequestHelper.getCompanyId());
 
+		if (percentage == null) {
+			percentage = BigDecimal.ZERO;
+		}
+
 		String localizedPercentage =
 			_percentageFormatter.getLocalizedPercentage(
 				locale, commerceCurrency.getMaxFractionDigits(),
@@ -366,6 +370,10 @@ public class CommerceDiscountDisplayContext {
 		CommerceCurrency commerceCurrency =
 			_commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(
 				commerceDiscountRequestHelper.getCompanyId());
+
+		if (value == null) {
+			value = BigDecimal.ZERO;
+		}
 
 		if (commerceCurrency == null) {
 			return value;

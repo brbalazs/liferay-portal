@@ -50,9 +50,9 @@ String level3 = StringPool.BLANK;
 String level4 = StringPool.BLANK;
 
 if (commerceDiscount != null) {
-	level2Disabled = commerceDiscount.getLevel2().doubleValue() <= 0;
-	level3Disabled = commerceDiscount.getLevel3().doubleValue() <= 0;
-	level4Disabled = commerceDiscount.getLevel4().doubleValue() <= 0;
+	level2Disabled = (commerceDiscount.getLevel2() == null) || (commerceDiscount.getLevel2().doubleValue() <= 0);
+	level3Disabled = (commerceDiscount.getLevel3() == null) || (commerceDiscount.getLevel3().doubleValue() <= 0);
+	level4Disabled = (commerceDiscount.getLevel4() == null) || (commerceDiscount.getLevel4().doubleValue() <= 0);
 
 	if (usePercentage) {
 		level1 = commerceDiscountDisplayContext.getLocalizedPercentage(commerceDiscount.getLevel1(), locale);
