@@ -29,6 +29,7 @@ import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.commerce.pricing.service.CommercePriceModifierService;
 import com.liferay.commerce.pricing.type.CommercePriceModifierType;
 import com.liferay.commerce.pricing.type.CommercePriceModifierTypeRegistry;
+import com.liferay.commerce.pricing.web.internal.servlet.taglib.ui.CommercePriceListScreenNavigationConstants;
 import com.liferay.commerce.product.display.context.util.CPRequestHelper;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
@@ -36,6 +37,8 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.portlet.PortletProvider;
+import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalServiceUtil;
@@ -102,7 +105,7 @@ public class CommercePriceListDisplayContext
 		return portletURL.toString();
 	}
 
-	public ClayCreationMenu getClayCreationMenu() throws Exception {
+	public ClayCreationMenu getClayCreationPriceListMenu() throws Exception {
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
 		if (hasPermission(
@@ -118,6 +121,27 @@ public class CommercePriceListDisplayContext
 		}
 
 		return clayCreationMenu;
+	}
+
+	public List<ClayHeadlessDataSetActionTemplate>
+			getClayHeadlessDataSetActionPriceListTemplates()
+		throws PortalException {
+
+		PortletURL portletURL = PortletProviderUtil.getPortletURL(
+			httpServletRequest, CommercePriceList.class.getName(),
+			PortletProvider.Action.EDIT);
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "editCommercePriceList");
+		portletURL.setParameter(
+			"redirect", commercePricingRequestHelper.getCurrentURL());
+		portletURL.setParameter("commercePriceListId", "{id}");
+		portletURL.setParameter(
+			"screenNavigationCategoryKey",
+			CommercePriceListScreenNavigationConstants.CATEGORY_KEY_DETAILS);
+
+		return getClayHeadlessDataSetActionTemplates(
+			portletURL.toString(), false);
 	}
 
 	public List<ClayHeadlessDataSetActionTemplate>

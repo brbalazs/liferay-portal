@@ -18,6 +18,7 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.frontend.ClayCreationMenu;
 import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
 import com.liferay.commerce.frontend.ClayMenuActionItem;
+import com.liferay.commerce.frontend.clay.data.set.ClayHeadlessDataSetActionTemplate;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceEntryService;
@@ -25,12 +26,19 @@ import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
+import com.liferay.portal.kernel.portlet.PortletProvider;
+import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.ParamUtil;
 
+import java.util.List;
+
 import javax.portlet.PortletURL;
+import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -103,6 +111,33 @@ public class CommercePriceEntryDisplayContext
 		return clayCreationMenu;
 	}
 
+	public List<ClayHeadlessDataSetActionTemplate>
+			getClayHeadlessDataSetActionPriceEntriesTemplates()
+		throws PortalException {
+
+		PortletURL portletURL = PortletProviderUtil.getPortletURL(
+			httpServletRequest, CommercePriceList.class.getName(),
+			PortletProvider.Action.EDIT);
+
+		portletURL.setParameter(
+			"mvcRenderCommandName", "editCommercePriceEntry");
+		portletURL.setParameter(
+			"redirect", commercePricingRequestHelper.getCurrentURL());
+		portletURL.setParameter(
+			"commercePriceListId", String.valueOf(getCommercePriceListId()));
+		portletURL.setParameter("commercePriceEntryId", "{id}");
+
+		try {
+			portletURL.setWindowState(LiferayWindowState.POP_UP);
+		}
+		catch (WindowStateException wse) {
+			_log.error(wse, wse);
+		}
+
+		return getClayHeadlessDataSetActionTemplates(
+			portletURL.toString(), true);
+	}
+
 	public CommercePriceEntry getCommercePriceEntry() throws PortalException {
 		if (_commercePriceEntry != null) {
 			return _commercePriceEntry;
@@ -129,6 +164,15 @@ public class CommercePriceEntryDisplayContext
 
 		return commercePriceEntry.getCommercePriceEntryId();
 	}
+
+	public String getPriceEntryApiUrl() throws PortalException {
+		return "/o/headless-commerce-admin-pricing/v2.0/price-lists/" +
+			getCommercePriceListId() +
+				"/price-entries?nestedFields=product,sku";
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommercePriceEntryDisplayContext.class);
 
 	private CommercePriceEntry _commercePriceEntry;
 	private final CommercePriceEntryService _commercePriceEntryService;
