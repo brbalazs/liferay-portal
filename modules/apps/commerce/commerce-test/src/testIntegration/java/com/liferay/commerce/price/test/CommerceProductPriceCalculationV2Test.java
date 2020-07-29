@@ -26,8 +26,10 @@ import com.liferay.commerce.discount.test.util.CommerceDiscountTestUtil;
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceRequest;
+import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
+import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.price.list.test.util.CommercePriceEntryTestUtil;
 import com.liferay.commerce.price.list.test.util.CommercePriceListTestUtil;
 import com.liferay.commerce.pricing.constants.CommercePriceModifierConstants;
@@ -1883,6 +1885,76 @@ public class CommerceProductPriceCalculationV2Test {
 			finalPrice.stripTrailingZeros());
 	}
 
+	@Test
+	public void testCalculatePriceWithParentPriceEntry() throws Exception {
+		frutillaRule.scenario(
+			"The price of a product is calculated"
+		).given(
+			"A product with a price entry in a parent price list"
+		).when(
+			"The price of the product is calculated"
+		).then(
+			"The correct price is returned given the quantity"
+		);
+
+		CommerceCatalog catalog =
+			_commerceCatalogLocalService.addCommerceCatalog(
+				RandomTestUtil.randomString(), _commerceCurrency.getCode(),
+				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
+
+		CommercePriceList parentPriceList =
+			CommercePriceListTestUtil.addCommercePriceList(
+				catalog.getGroupId(), 0.0);
+
+		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
+			catalog.getGroupId());
+
+		BigDecimal cpInstancePrice = BigDecimal.valueOf(35);
+
+		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+
+		CProduct cProduct = cpDefinition.getCProduct();
+
+		CommercePriceEntryTestUtil.addCommercePriceEntry(
+			cProduct.getCProductId(), cpInstance.getCPInstanceUuid(),
+			parentPriceList.getCommercePriceListId(), StringPool.BLANK,
+			cpInstancePrice);
+
+		CommerceAccount commerceAccount1 =
+			_commerceAccountLocalService.getPersonalCommerceAccount(
+				_user.getUserId());
+
+		CommercePriceList childPriceList =
+			CommercePriceListTestUtil.addAccountPriceList(
+				catalog.getGroupId(), commerceAccount1.getCommerceAccountId(),
+				CommercePriceListConstants.TYPE_PRICE_LIST);
+
+		childPriceList.setParentCommercePriceListId(
+			parentPriceList.getCommercePriceListId());
+
+		_commercePriceListLocalService.updateCommercePriceList(childPriceList);
+
+		CommerceContext commerceContext = new TestCommerceContext(
+			_commerceCurrency, null, _user, _group, _commerceAccount, null);
+
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(
+			cpInstance.getCPInstanceId());
+		commerceProductPriceRequest.setQuantity(1);
+		commerceProductPriceRequest.setSecure(true);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+
+		CommerceProductPrice commerceProductPrice =
+			_commerceProductPriceCalculation.getCommerceProductPrice(
+				commerceProductPriceRequest);
+
+		Assert.assertEquals(
+			parentPriceList.getCommercePriceListId(),
+			commerceProductPrice.getCommercePriceListId());
+	}
+
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
@@ -1920,6 +1992,9 @@ public class CommerceProductPriceCalculationV2Test {
 	private CommerceCatalogLocalService _commerceCatalogLocalService;
 
 	private CommerceCurrency _commerceCurrency;
+
+	@Inject
+	private CommercePriceListLocalService _commercePriceListLocalService;
 
 	@Inject
 	private CommercePriceModifierLocalService

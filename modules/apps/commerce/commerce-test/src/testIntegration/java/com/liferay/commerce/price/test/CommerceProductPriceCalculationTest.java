@@ -28,7 +28,9 @@ import com.liferay.commerce.price.CommerceProductOptionValueRelativePriceRequest
 import com.liferay.commerce.price.CommerceProductPrice;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceRequest;
+import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.model.CommercePriceList;
+import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.price.list.test.util.CommercePriceEntryTestUtil;
 import com.liferay.commerce.price.list.test.util.CommercePriceListTestUtil;
 import com.liferay.commerce.product.CommerceProductTestUtil;
@@ -1166,6 +1168,72 @@ public class CommerceProductPriceCalculationTest {
 	}
 
 	@Test
+	public void testCalculatePriceWithParentPriceEntry() throws Exception {
+		frutillaRule.scenario(
+			"The price of a product is calculated"
+		).given(
+			"A product with a price entry in a parent price list"
+		).when(
+			"The price of the product is calculated"
+		).then(
+			"The correct price is returned given the quantity"
+		);
+
+		CPInstance cpInstance = CPTestUtil.addCPInstanceFromCatalog(
+			_commerceCatalog.getGroupId(), BigDecimal.valueOf(35));
+
+		CommercePriceList parentPriceList =
+			CommercePriceListTestUtil.addCommercePriceList(
+				_commerceCatalog.getGroupId(), 0.0);
+
+		BigDecimal cpInstancePrice = BigDecimal.valueOf(50);
+
+		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+
+		CProduct cProduct = cpDefinition.getCProduct();
+
+		CommercePriceEntryTestUtil.addCommercePriceEntry(
+			cProduct.getCProductId(), cpInstance.getCPInstanceUuid(),
+			parentPriceList.getCommercePriceListId(), StringPool.BLANK,
+			cpInstancePrice);
+
+		CommerceAccount commerceAccount1 =
+			_commerceAccountLocalService.getPersonalCommerceAccount(
+				_user.getUserId());
+
+		CommercePriceList childPriceList =
+			CommercePriceListTestUtil.addAccountPriceList(
+				_commerceCatalog.getGroupId(),
+				commerceAccount1.getCommerceAccountId(),
+				CommercePriceListConstants.TYPE_PRICE_LIST);
+
+		childPriceList.setParentCommercePriceListId(
+			parentPriceList.getCommercePriceListId());
+
+		_commercePriceListLocalService.updateCommercePriceList(childPriceList);
+
+		CommerceContext commerceContext = new TestCommerceContext(
+			_commerceCurrency, null, _user, _group, commerceAccount1, null);
+
+		CommerceProductPriceRequest commerceProductPriceRequest =
+			new CommerceProductPriceRequest();
+
+		commerceProductPriceRequest.setCpInstanceId(
+			cpInstance.getCPInstanceId());
+		commerceProductPriceRequest.setQuantity(1);
+		commerceProductPriceRequest.setSecure(true);
+		commerceProductPriceRequest.setCommerceContext(commerceContext);
+
+		CommerceProductPrice commerceProductPrice =
+			_commerceProductPriceCalculation.getCommerceProductPrice(
+				commerceProductPriceRequest);
+
+		Assert.assertEquals(
+			parentPriceList.getCommercePriceListId(),
+			commerceProductPrice.getCommercePriceListId());
+	}
+
+	@Test
 	public void testGetCPDefinitionMinimumPrice() throws Exception {
 		frutillaRule.scenario(
 			"Calculate a minimum price of a product definition based on its " +
@@ -1890,6 +1958,9 @@ public class CommerceProductPriceCalculationTest {
 
 	@Inject
 	private CommerceDiscountLocalService _commerceDiscountLocalService;
+
+	@Inject
+	private CommercePriceListLocalService _commercePriceListLocalService;
 
 	@Inject(filter = "commerce.price.calculation.key=v1.0")
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;

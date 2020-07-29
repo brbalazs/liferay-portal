@@ -20,6 +20,7 @@ import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.model.CommercePriceList;
+import com.liferay.commerce.price.list.service.CommercePriceListAccountRelLocalServiceUtil;
 import com.liferay.commerce.price.list.service.CommercePriceListCommerceAccountGroupRelServiceUtil;
 import com.liferay.commerce.price.list.service.CommercePriceListLocalServiceUtil;
 import com.liferay.portal.kernel.model.User;
@@ -40,6 +41,24 @@ import java.util.stream.Stream;
  * @author Ethan Bustad
  */
 public class CommercePriceListTestUtil {
+
+	public static CommercePriceList addAccountPriceList(
+		long groupId, long commerceAccountId, String type)
+		throws Exception {
+
+		CommercePriceList commercePriceList = addCommercePriceList(
+			groupId, false, type, 1.0);
+
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext(groupId);
+
+		CommercePriceListAccountRelLocalServiceUtil.
+			addCommercePriceListAccountRel(
+				commercePriceList.getCommercePriceListId(), commerceAccountId,
+				0, serviceContext);
+
+		return commercePriceList;
+	}
 
 	public static CommercePriceList addCommercePriceList(
 			long groupId, boolean catalogBasePriceList, double priority)
