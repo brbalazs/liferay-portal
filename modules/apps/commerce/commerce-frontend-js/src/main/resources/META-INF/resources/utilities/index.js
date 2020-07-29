@@ -115,7 +115,6 @@ export const fetchHeaders = new Headers({
 
 export const fetchParams = {
 	credentials: 'include',
-
 	headers: Liferay.staticEnvHeaders || fetchHeaders
 };
 

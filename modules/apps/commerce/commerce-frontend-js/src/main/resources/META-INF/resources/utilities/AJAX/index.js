@@ -12,18 +12,10 @@
  * details.
  */
 
-import {getAcceptLanguageHeaderParam} from '../index';
-
-const DEFAULT_HEADERS = new Headers({
-	Accept: 'application/json',
-	'Accept-Language': getAcceptLanguageHeaderParam(),
-	'Content-Type': 'application/json',
-	'x-csrf-token': Liferay.authToken
-});
+import {fetchParams} from '../index';
 
 const BASE_OPTIONS = {
-	credentials: 'include',
-	headers: Liferay.staticEnvHeaders || DEFAULT_HEADERS,
+	...fetchParams,
 	method: 'GET'
 };
 
