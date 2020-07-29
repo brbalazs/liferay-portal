@@ -17,7 +17,6 @@ package com.liferay.portal.search.solr7.internal.search.engine.adapter.document;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.search.document.DocumentBuilder;
 import com.liferay.portal.search.document.DocumentBuilderFactory;
-import com.liferay.portal.search.engine.adapter.document.BulkableDocumentRequestTranslator;
 import com.liferay.portal.search.engine.adapter.document.GetDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.GetDocumentResponse;
 import com.liferay.portal.search.solr7.internal.connection.SolrClientManager;
@@ -92,7 +91,8 @@ public class GetDocumentRequestExecutorImpl
 
 	@Reference(target = "(search.engine.impl=Solr)", unbind = "-")
 	protected void setBulkableDocumentRequestTranslator(
-		BulkableDocumentRequestTranslator bulkableDocumentRequestTranslator) {
+		SolrBulkableDocumentRequestTranslator
+			bulkableDocumentRequestTranslator) {
 
 		_bulkableDocumentRequestTranslator = bulkableDocumentRequestTranslator;
 	}
@@ -111,7 +111,7 @@ public class GetDocumentRequestExecutorImpl
 
 	private static final String _VERSION_FIELD = "_version_";
 
-	private BulkableDocumentRequestTranslator
+	private SolrBulkableDocumentRequestTranslator
 		_bulkableDocumentRequestTranslator;
 	private DocumentBuilderFactory _documentBuilderFactory;
 	private SolrClientManager _solrClientManager;

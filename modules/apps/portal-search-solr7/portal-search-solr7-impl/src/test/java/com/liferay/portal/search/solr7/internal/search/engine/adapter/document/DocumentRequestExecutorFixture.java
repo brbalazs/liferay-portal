@@ -15,7 +15,6 @@
 package com.liferay.portal.search.solr7.internal.search.engine.adapter.document;
 
 import com.liferay.portal.kernel.search.query.QueryTranslator;
-import com.liferay.portal.search.engine.adapter.document.BulkableDocumentRequestTranslator;
 import com.liferay.portal.search.engine.adapter.document.DocumentRequestExecutor;
 import com.liferay.portal.search.internal.document.DocumentBuilderFactoryImpl;
 import com.liferay.portal.search.solr7.internal.connection.SolrClientManager;
@@ -37,7 +36,7 @@ public class DocumentRequestExecutorFixture {
 			_queryTranslator, _solrClientManager, _solrDocumentFactory);
 	}
 
-	protected static BulkableDocumentRequestTranslator
+	protected static SolrBulkableDocumentRequestTranslator
 		createBulkableDocumentRequestTranslator(
 			SolrDocumentFactory solrDocumentFactory) {
 
@@ -80,7 +79,8 @@ public class DocumentRequestExecutorFixture {
 
 	protected static DeleteDocumentRequestExecutor
 		createDeleteDocumentRequestExecutor(
-			BulkableDocumentRequestTranslator bulkableDocumentRequestTranslator,
+			SolrBulkableDocumentRequestTranslator
+				bulkableDocumentRequestTranslator,
 			SolrClientManager solrClientManager) {
 
 		return new DeleteDocumentRequestExecutorImpl() {
@@ -97,8 +97,9 @@ public class DocumentRequestExecutorFixture {
 		SolrClientManager solrClientManager,
 		SolrDocumentFactory solrDocumentFactory) {
 
-		BulkableDocumentRequestTranslator bulkableDocumentRequestTranslator =
-			createBulkableDocumentRequestTranslator(solrDocumentFactory);
+		SolrBulkableDocumentRequestTranslator
+			bulkableDocumentRequestTranslator =
+				createBulkableDocumentRequestTranslator(solrDocumentFactory);
 
 		return new SolrDocumentRequestExecutor() {
 			{
@@ -128,7 +129,8 @@ public class DocumentRequestExecutorFixture {
 
 	protected static GetDocumentRequestExecutor
 		createGetDocumentRequestExecutor(
-			BulkableDocumentRequestTranslator bulkableDocumentRequestTranslator,
+			SolrBulkableDocumentRequestTranslator
+				bulkableDocumentRequestTranslator,
 			SolrClientManager solrClientManager) {
 
 		return new GetDocumentRequestExecutorImpl() {
@@ -143,7 +145,8 @@ public class DocumentRequestExecutorFixture {
 
 	protected static IndexDocumentRequestExecutor
 		createIndexDocumentRequestExecutor(
-			BulkableDocumentRequestTranslator bulkableDocumentRequestTranslator,
+			SolrBulkableDocumentRequestTranslator
+				bulkableDocumentRequestTranslator,
 			SolrClientManager solrClientManager) {
 
 		return new IndexDocumentRequestExecutorImpl() {
@@ -163,7 +166,8 @@ public class DocumentRequestExecutorFixture {
 
 	protected static UpdateDocumentRequestExecutor
 		createUpdateDocumentRequestExecutor(
-			BulkableDocumentRequestTranslator bulkableDocumentRequestTranslator,
+			SolrBulkableDocumentRequestTranslator
+				bulkableDocumentRequestTranslator,
 			SolrClientManager solrClientManager) {
 
 		return new UpdateDocumentRequestExecutorImpl() {

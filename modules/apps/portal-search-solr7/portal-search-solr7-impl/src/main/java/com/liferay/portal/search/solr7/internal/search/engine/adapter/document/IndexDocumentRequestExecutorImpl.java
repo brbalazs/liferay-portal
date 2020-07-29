@@ -14,7 +14,6 @@
 
 package com.liferay.portal.search.solr7.internal.search.engine.adapter.document;
 
-import com.liferay.portal.search.engine.adapter.document.BulkableDocumentRequestTranslator;
 import com.liferay.portal.search.engine.adapter.document.IndexDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.IndexDocumentResponse;
 import com.liferay.portal.search.solr7.internal.connection.SolrClientManager;
@@ -61,7 +60,8 @@ public class IndexDocumentRequestExecutorImpl
 
 	@Reference(target = "(search.engine.impl=Solr)", unbind = "-")
 	protected void setBulkableDocumentRequestTranslator(
-		BulkableDocumentRequestTranslator bulkableDocumentRequestTranslator) {
+		SolrBulkableDocumentRequestTranslator
+			bulkableDocumentRequestTranslator) {
 
 		_bulkableDocumentRequestTranslator = bulkableDocumentRequestTranslator;
 	}
@@ -71,7 +71,7 @@ public class IndexDocumentRequestExecutorImpl
 		_solrClientManager = solrClientManager;
 	}
 
-	private BulkableDocumentRequestTranslator
+	private SolrBulkableDocumentRequestTranslator
 		_bulkableDocumentRequestTranslator;
 	private SolrClientManager _solrClientManager;
 

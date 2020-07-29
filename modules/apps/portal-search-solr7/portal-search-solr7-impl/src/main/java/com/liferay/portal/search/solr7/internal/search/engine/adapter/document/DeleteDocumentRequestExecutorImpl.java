@@ -14,7 +14,6 @@
 
 package com.liferay.portal.search.solr7.internal.search.engine.adapter.document;
 
-import com.liferay.portal.search.engine.adapter.document.BulkableDocumentRequestTranslator;
 import com.liferay.portal.search.engine.adapter.document.DeleteDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.DeleteDocumentResponse;
 import com.liferay.portal.search.solr7.internal.connection.SolrClientManager;
@@ -60,7 +59,8 @@ public class DeleteDocumentRequestExecutorImpl
 
 	@Reference(target = "(search.engine.impl=Solr)", unbind = "-")
 	protected void setBulkableDocumentRequestTranslator(
-		BulkableDocumentRequestTranslator bulkableDocumentRequestTranslator) {
+		SolrBulkableDocumentRequestTranslator
+			bulkableDocumentRequestTranslator) {
 
 		_bulkableDocumentRequestTranslator = bulkableDocumentRequestTranslator;
 	}
@@ -70,7 +70,7 @@ public class DeleteDocumentRequestExecutorImpl
 		_solrClientManager = solrClientManager;
 	}
 
-	private BulkableDocumentRequestTranslator
+	private SolrBulkableDocumentRequestTranslator
 		_bulkableDocumentRequestTranslator;
 	private SolrClientManager _solrClientManager;
 
