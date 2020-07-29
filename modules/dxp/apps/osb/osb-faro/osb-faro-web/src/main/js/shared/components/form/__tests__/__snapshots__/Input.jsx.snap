@@ -3,23 +3,7 @@
 exports[`Input should render 1`] = `
 <div>
   <div
-    class=""
-  >
-    <input
-      class="input-root form-control"
-      id="foo"
-      name="foo"
-      type="text"
-      value=""
-    />
-  </div>
-</div>
-`;
-
-exports[`Input should render a masked input 1`] = `
-<div>
-  <div
-    class=""
+    class="form-inline-group"
   >
     <input
       class="input-root form-control"
