@@ -66,7 +66,7 @@ CPDefinition cpDefinition = cpDefinitionsDisplayContext.getCPDefinition();
 							active: false,
 							catalogId: <portlet:namespace/>product.catalogId,
 							name: {
-								[<portlet:namespace/>defaultLanguageId]: document.getElementById('<portlet:namespace/>name').value;
+								[<portlet:namespace/>defaultLanguageId]: document.getElementById('<portlet:namespace/>name').value
 							},
 							productType: <portlet:namespace/>product.productType
 						};
