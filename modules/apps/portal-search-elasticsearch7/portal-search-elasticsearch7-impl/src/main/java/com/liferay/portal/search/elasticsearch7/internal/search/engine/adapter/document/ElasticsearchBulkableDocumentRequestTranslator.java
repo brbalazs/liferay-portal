@@ -162,15 +162,15 @@ public class ElasticsearchBulkableDocumentRequestTranslator
 			return uid;
 		}
 
-		if (indexDocumentRequest.getDocument() != null) {
-			Document document = indexDocumentRequest.getDocument();
+		if (indexDocumentRequest.getDocument72() != null) {
+			Document document = indexDocumentRequest.getDocument72();
 
 			return document.getString(Field.UID);
 		}
 
 		@SuppressWarnings("deprecation")
 		com.liferay.portal.kernel.search.Document document =
-			indexDocumentRequest.getDocument71();
+			indexDocumentRequest.getDocument();
 
 		Field field = document.getField(Field.UID);
 
@@ -188,15 +188,15 @@ public class ElasticsearchBulkableDocumentRequestTranslator
 			return uid;
 		}
 
-		if (updateDocumentRequest.getDocument() != null) {
-			Document document = updateDocumentRequest.getDocument();
+		if (updateDocumentRequest.getDocument72() != null) {
+			Document document = updateDocumentRequest.getDocument72();
 
 			return document.getString(Field.UID);
 		}
 
 		@SuppressWarnings("deprecation")
 		com.liferay.portal.kernel.search.Document document =
-			updateDocumentRequest.getDocument71();
+			updateDocumentRequest.getDocument();
 
 		Field field = document.getField(Field.UID);
 
@@ -211,10 +211,10 @@ public class ElasticsearchBulkableDocumentRequestTranslator
 		UpdateRequestBuilder updateRequestBuilder,
 		UpdateDocumentRequest updateDocumentRequest) {
 
-		if (updateDocumentRequest.getDocument() != null) {
+		if (updateDocumentRequest.getDocument72() != null) {
 			XContentBuilder xContentBuilder =
 				_elasticsearchDocumentFactory.getElasticsearchDocument(
-					updateDocumentRequest.getDocument());
+					updateDocumentRequest.getDocument72());
 
 			updateRequestBuilder.setDoc(xContentBuilder);
 		}
@@ -222,7 +222,7 @@ public class ElasticsearchBulkableDocumentRequestTranslator
 			@SuppressWarnings("deprecation")
 			String elasticsearchDocument =
 				_elasticsearchDocumentFactory.getElasticsearchDocument(
-					updateDocumentRequest.getDocument71());
+					updateDocumentRequest.getDocument());
 
 			updateRequestBuilder.setDoc(
 				elasticsearchDocument, XContentType.JSON);
@@ -242,10 +242,10 @@ public class ElasticsearchBulkableDocumentRequestTranslator
 		IndexRequestBuilder indexRequestBuilder,
 		IndexDocumentRequest indexDocumentRequest) {
 
-		if (indexDocumentRequest.getDocument() != null) {
+		if (indexDocumentRequest.getDocument72() != null) {
 			XContentBuilder xContentBuilder =
 				_elasticsearchDocumentFactory.getElasticsearchDocument(
-					indexDocumentRequest.getDocument());
+					indexDocumentRequest.getDocument72());
 
 			indexRequestBuilder.setSource(xContentBuilder);
 		}
@@ -253,7 +253,7 @@ public class ElasticsearchBulkableDocumentRequestTranslator
 			@SuppressWarnings("deprecation")
 			String elasticsearchDocument =
 				_elasticsearchDocumentFactory.getElasticsearchDocument(
-					indexDocumentRequest.getDocument71());
+					indexDocumentRequest.getDocument());
 
 			indexRequestBuilder.setSource(
 				elasticsearchDocument, XContentType.JSON);
