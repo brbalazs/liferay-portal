@@ -27,6 +27,7 @@ const ConnectDXPModal: React.FC<IConnectDXPModalProps> = ({
 				dataSourceId={id}
 				dxpConnected={dxpConnected}
 				groupId={groupId}
+				isUpgrading={false}
 				onClose={onClose}
 				onDxpConnected={setDxpConnected}
 				onNext={(increment = 1) => setStep(step + increment)}

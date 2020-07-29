@@ -9,6 +9,7 @@ import Icon from 'shared/components/Icon';
 import Input from 'shared/components/Input';
 import Modal from '../modal';
 import React, {useEffect, useRef, useState} from 'react';
+import urlConstants from 'shared/util/url-constants';
 import {connect} from 'react-redux';
 import {DataSource} from 'shared/util/records';
 import {fetchDataSource} from 'shared/actions/data-sources';
@@ -17,7 +18,7 @@ import {Routes, toRoute} from 'shared/util/router';
 import {useLazyQuery} from '@apollo/react-hooks';
 
 const {credentialTypes, dataSourceTypes} = Constants;
-
+const {HELP_LIFERAY} = urlConstants;
 const TIMEOUT_INTERVAL = 5000;
 
 interface IConnectDXPProps {
@@ -31,6 +32,7 @@ interface IConnectDXPProps {
 		id: string;
 	}) => DataSource;
 	groupId: string;
+	isUpgrading: boolean;
 	onboarding?: boolean;
 	onClose: () => void;
 	onDxpConnected: (dxpConnected: boolean) => void;
@@ -43,6 +45,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 	dxpConnected,
 	fetchDataSource,
 	groupId,
+	isUpgrading,
 	onboarding,
 	onClose,
 	onDxpConnected,
@@ -172,11 +175,19 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 								)}
 							</div>
 
-							<div>
-								{Liferay.Language.get(
-									'then-choose-what-sites-youd-like-to-sync-to-analytics-cloud'
-								)}
-							</div>
+							{isUpgrading ? (
+								<div>
+									{Liferay.Language.get(
+										'then-verify-your-sites-and-contacts-configuration-once-connected'
+									)}
+								</div>
+							) : (
+								<div>
+									{Liferay.Language.get(
+										'then-choose-what-sites-youd-like-to-sync-to-analytics-cloud'
+									)}
+								</div>
+							)}
 						</div>
 
 						<Input.Group>
@@ -195,6 +206,15 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 								</Input.Inset>
 							</Input.GroupItem>
 						</Input.Group>
+						{isUpgrading && (
+							<a
+								className='mt-4 more-information-container'
+								href={HELP_LIFERAY}
+								target='_blank'
+							>
+								{Liferay.Language.get('more-information')}
+							</a>
+						)}
 					</>
 				)}
 			</Modal.Body>
