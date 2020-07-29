@@ -32,4 +32,8 @@ public class CommercePricingPortletKeys {
 		"com_liferay_commerce_pricing_web_internal_portlet_" +
 			"CommercePricingClassesPortlet";
 
+	public static final String COMMERCE_PROMOTION =
+		"com_liferay_commerce_pricing_web_internal_portlet_" +
+			"CommercePromotionPortlet";
+
 }

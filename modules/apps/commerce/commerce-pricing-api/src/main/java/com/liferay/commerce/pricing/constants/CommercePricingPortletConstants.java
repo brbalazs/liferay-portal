@@ -26,4 +26,6 @@ public class CommercePricingPortletConstants {
 	public static final String NAVIGATION_ITEM_PRICING_CLASSES =
 		"product-groups";
 
+	public static final String NAVIGATION_ITEM_PROMOTIONS = "promotions";
+
 }
