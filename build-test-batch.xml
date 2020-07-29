@@ -652,10 +652,10 @@ mariadb.executable=${mariadb.executable}]]></echo>
 					<equals arg1="${app.server.type}" arg2="tomcat" />
 					<equals arg1="${test.batch.code.coverage}" arg2="true" />
 					<not>
-						<os family="windows" />
+						<contains string="${test.batch.name}" substring="functional" />
 					</not>
 					<not>
-						<contains string="${test.batch.name}" substring="functional" />
+						<os family="windows" />
 					</not>
 				</and>
 				<then>
