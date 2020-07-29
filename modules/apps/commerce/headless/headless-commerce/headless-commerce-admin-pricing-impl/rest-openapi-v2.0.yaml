@@ -591,6 +591,9 @@ components:
                     format: bigdecimal
                     minimum: 0
                     type: number
+                discountLevelsFormatted:
+                    example: 10 | 10 | 10 | 10
+                    type: string
                 displayDate:
                     example: 2017-07-21
                     format: date
@@ -661,6 +664,9 @@ components:
                 active:
                     example: true
                     type: boolean
+                author:
+                    example: admin
+                    type: string
                 catalogBasePriceList:
                     example: true
                     type: boolean
@@ -669,6 +675,13 @@ components:
                     format: int64
                     minimum: 0
                     type: integer
+                catalogName:
+                    example: catalog
+                    type: string
+                createDate:
+                    example: 2017-07-21
+                    format: date
+                    type: string
                 currencyCode:
                     example: EUR
                     type: string
@@ -740,6 +753,10 @@ components:
                         - contract
                     example: price-list, promotion, contract
                     type: string
+                workflowStatusInfo:
+                    allOf:
+                        - $ref: "#/components/schemas/Status"
+                    readOnly: true
             required:
                 - catalogId
                 - currencyCode
@@ -1167,6 +1184,19 @@ components:
                 name:
                     example: simple
                     readOnly: true
+                    type: string
+            type: object
+        Status:
+            properties:
+                code:
+                    format: int32
+                    readOnly: true
+                    type: integer
+                label:
+                    example: black
+                    type: string
+                label_i18n:
+                    example: black
                     type: string
             type: object
         TierPrice:
