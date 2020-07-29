@@ -16,7 +16,6 @@ package com.liferay.portal.search.internal.indexer;
 
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Document;
@@ -47,7 +46,8 @@ import javax.portlet.PortletResponse;
 /**
  * @author Michael C. Han
  */
-public class DefaultIndexer<T extends BaseModel<?>> implements Indexer<T> {
+public class DefaultIndexer<T extends BaseModel<?>>
+	extends DefaultDeprecatedMethodsIndexer<T> {
 
 	public DefaultIndexer(
 		ModelSearchSettings modelSearchSettings,
@@ -134,16 +134,6 @@ public class DefaultIndexer<T extends BaseModel<?>> implements Indexer<T> {
 	}
 
 	@Override
-	public String getSortField(String orderByCol) {
-		return StringPool.BLANK;
-	}
-
-	@Override
-	public String getSortField(String orderByCol, int sortType) {
-		return StringPool.BLANK;
-	}
-
-	@Override
 	public Summary getSummary(
 			Document document, String snippet, PortletRequest portletRequest,
 			PortletResponse portletResponse)
@@ -207,25 +197,12 @@ public class DefaultIndexer<T extends BaseModel<?>> implements Indexer<T> {
 	}
 
 	@Override
-	public boolean isVisibleRelatedEntry(long classPK, int status)
-		throws Exception {
-
-		return true;
-	}
-
-	@Override
 	public void postProcessContextBooleanFilter(
 			BooleanFilter contextBooleanFilter, SearchContext searchContext)
 		throws Exception {
 
 		_indexerQueryBuilderImpl.addPreFiltersFromModel(
 			contextBooleanFilter, _modelSearchSettings, searchContext);
-	}
-
-	@Override
-	public void postProcessContextQuery(
-			BooleanQuery contextQuery, SearchContext searchContext)
-		throws Exception {
 	}
 
 	@Override
@@ -236,12 +213,6 @@ public class DefaultIndexer<T extends BaseModel<?>> implements Indexer<T> {
 
 		_indexerQueryBuilderImpl.addSearchTermsFromModel(
 			searchQuery, searchContext);
-	}
-
-	@Override
-	public void postProcessSearchQuery(
-			BooleanQuery searchQuery, SearchContext searchContext)
-		throws Exception {
 	}
 
 	@Override
