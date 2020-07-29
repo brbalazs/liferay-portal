@@ -18,6 +18,7 @@ import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceEntryService;
 import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.commerce.pricing.web.internal.display.context.CommercePriceEntryDisplayContext;
+import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
@@ -109,7 +110,7 @@ public class CommercePriceListEntriesScreenNavigationEntry
 		try {
 			CommercePriceEntryDisplayContext commercePriceEntryDisplayContext =
 				new CommercePriceEntryDisplayContext(
-					_commercePriceEntryService,
+					_commerceCatalogService, _commercePriceEntryService,
 					_commercePriceListModelResourcePermission,
 					_commercePriceListService, httpServletRequest);
 
@@ -128,6 +129,9 @@ public class CommercePriceListEntriesScreenNavigationEntry
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommercePriceListEntriesScreenNavigationEntry.class);
+
+	@Reference
+	private CommerceCatalogService _commerceCatalogService;
 
 	@Reference
 	private CommercePriceEntryService _commercePriceEntryService;

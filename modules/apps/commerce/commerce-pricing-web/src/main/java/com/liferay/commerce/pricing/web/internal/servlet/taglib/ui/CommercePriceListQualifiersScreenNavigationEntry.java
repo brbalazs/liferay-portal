@@ -19,6 +19,7 @@ import com.liferay.commerce.price.list.service.CommercePriceListAccountRelServic
 import com.liferay.commerce.price.list.service.CommercePriceListCommerceAccountGroupRelService;
 import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.commerce.pricing.web.internal.display.context.CommercePriceListQualifiersDisplayContext;
+import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.commerce.product.service.CommerceChannelRelService;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
@@ -119,7 +120,7 @@ public class CommercePriceListQualifiersScreenNavigationEntry
 			CommercePriceListQualifiersDisplayContext
 				commercePriceListQualifiersDisplayContext =
 					new CommercePriceListQualifiersDisplayContext(
-						_commerceChannelRelService,
+						_commerceCatalogService, _commerceChannelRelService,
 						_commercePriceListAccountRelService,
 						_commercePriceListCommerceAccountGroupRelService,
 						_commercePriceListModelResourcePermission,
@@ -140,6 +141,9 @@ public class CommercePriceListQualifiersScreenNavigationEntry
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommercePriceListQualifiersScreenNavigationEntry.class);
+
+	@Reference
+	private CommerceCatalogService _commerceCatalogService;
 
 	@Reference
 	private CommerceChannelRelService _commerceChannelRelService;
