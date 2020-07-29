@@ -43,6 +43,26 @@ describe('ConnectDXP', () => {
 		expect(queryByText('Connected')).not.toBeNull();
 	});
 
+	it('renders More information button and new text when isUpgrading is true', () => {
+		const {queryByText} = render(
+			<StaticRouter>
+				<ConnectDXP
+					groupId='123'
+					isUpgrading
+					onClose={noop}
+					onNext={noop}
+				/>
+			</StaticRouter>
+		);
+
+		expect(queryByText('More Information')).toBeTruthy();
+		expect(
+			queryByText(
+				'Then verify your sites and contacts configuration once connected.'
+			)
+		).toBeTruthy();
+	});
+
 	it('fires "setDxpConnected" when the token value changes', () => {
 		const spy = jest.fn();
 
