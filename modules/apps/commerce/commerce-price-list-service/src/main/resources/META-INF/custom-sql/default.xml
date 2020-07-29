@@ -340,7 +340,7 @@
 					(CommercePriceListAccountRel.commercePriceListAccountRelId IS NULL)
 				) AND
 				(
-					(CPLCommerceGroupAccountRel.commerceAccountGroupId = ([$ACCOUNT_GROUP_IDS$])) OR
+					(CPLCommerceGroupAccountRel.commerceAccountGroupId IN ([$ACCOUNT_GROUP_IDS$])) OR
 					(CPLCommerceGroupAccountRel.cPLCommerceAccountGroupRelId IS NULL)
 				) AND
 				(
