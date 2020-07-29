@@ -105,10 +105,6 @@ public abstract class CPMeasurementUnitLocalServiceBaseImpl
 	/**
 	 * Adds the cp measurement unit to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPMeasurementUnitLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpMeasurementUnit the cp measurement unit
 	 * @return the cp measurement unit that was added
 	 */
@@ -137,10 +133,6 @@ public abstract class CPMeasurementUnitLocalServiceBaseImpl
 	/**
 	 * Deletes the cp measurement unit with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPMeasurementUnitLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param CPMeasurementUnitId the primary key of the cp measurement unit
 	 * @return the cp measurement unit that was removed
 	 * @throws PortalException if a cp measurement unit with the primary key could not be found
@@ -155,10 +147,6 @@ public abstract class CPMeasurementUnitLocalServiceBaseImpl
 
 	/**
 	 * Deletes the cp measurement unit from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPMeasurementUnitLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpMeasurementUnit the cp measurement unit
 	 * @return the cp measurement unit that was removed
@@ -509,10 +497,6 @@ public abstract class CPMeasurementUnitLocalServiceBaseImpl
 
 	/**
 	 * Updates the cp measurement unit in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPMeasurementUnitLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpMeasurementUnit the cp measurement unit
 	 * @return the cp measurement unit that was updated

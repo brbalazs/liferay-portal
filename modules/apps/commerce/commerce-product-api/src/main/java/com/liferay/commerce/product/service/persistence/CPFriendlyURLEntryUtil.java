@@ -38,7 +38,7 @@ import org.osgi.util.tracker.ServiceTracker;
  *
  * @author Marco Leo
  * @see CPFriendlyURLEntryPersistence
- * @deprecated As of (7.1.x), replaced by {@link
+ * @deprecated As of Athanasius (7.3.x), replaced by {@link
  com.liferay.friendly.url.model.impl.FriendlyURLEntryImpl}
  * @generated
  */

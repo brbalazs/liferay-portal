@@ -41,10 +41,6 @@ public class CPTaxCategoryLocalServiceUtil {
 	/**
 	 * Adds the cp tax category to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPTaxCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpTaxCategory the cp tax category
 	 * @return the cp tax category that was added
 	 */
@@ -91,10 +87,6 @@ public class CPTaxCategoryLocalServiceUtil {
 	/**
 	 * Deletes the cp tax category from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPTaxCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpTaxCategory the cp tax category
 	 * @return the cp tax category that was removed
 	 * @throws PortalException
@@ -109,10 +101,6 @@ public class CPTaxCategoryLocalServiceUtil {
 
 	/**
 	 * Deletes the cp tax category with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPTaxCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param CPTaxCategoryId the primary key of the cp tax category
 	 * @return the cp tax category that was removed
@@ -333,10 +321,6 @@ public class CPTaxCategoryLocalServiceUtil {
 
 	/**
 	 * Updates the cp tax category in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPTaxCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpTaxCategory the cp tax category
 	 * @return the cp tax category that was updated

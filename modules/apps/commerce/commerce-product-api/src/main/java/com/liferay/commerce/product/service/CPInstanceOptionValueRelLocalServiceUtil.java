@@ -41,10 +41,6 @@ public class CPInstanceOptionValueRelLocalServiceUtil {
 	/**
 	 * Adds the cp instance option value rel to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPInstanceOptionValueRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpInstanceOptionValueRel the cp instance option value rel
 	 * @return the cp instance option value rel that was added
 	 */
@@ -85,10 +81,6 @@ public class CPInstanceOptionValueRelLocalServiceUtil {
 	/**
 	 * Deletes the cp instance option value rel from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPInstanceOptionValueRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpInstanceOptionValueRel the cp instance option value rel
 	 * @return the cp instance option value rel that was removed
 	 */
@@ -103,10 +95,6 @@ public class CPInstanceOptionValueRelLocalServiceUtil {
 
 	/**
 	 * Deletes the cp instance option value rel with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPInstanceOptionValueRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param CPInstanceOptionValueRelId the primary key of the cp instance option value rel
 	 * @return the cp instance option value rel that was removed
@@ -456,10 +444,6 @@ public class CPInstanceOptionValueRelLocalServiceUtil {
 
 	/**
 	 * Updates the cp instance option value rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPInstanceOptionValueRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpInstanceOptionValueRel the cp instance option value rel
 	 * @return the cp instance option value rel that was updated

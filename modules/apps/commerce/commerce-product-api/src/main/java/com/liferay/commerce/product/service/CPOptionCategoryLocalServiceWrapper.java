@@ -36,10 +36,6 @@ public class CPOptionCategoryLocalServiceWrapper
 	/**
 	 * Adds the cp option category to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpOptionCategory the cp option category
 	 * @return the cp option category that was added
 	 */
@@ -90,10 +86,6 @@ public class CPOptionCategoryLocalServiceWrapper
 	/**
 	 * Deletes the cp option category from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param cpOptionCategory the cp option category
 	 * @return the cp option category that was removed
 	 * @throws PortalException
@@ -111,10 +103,6 @@ public class CPOptionCategoryLocalServiceWrapper
 
 	/**
 	 * Deletes the cp option category with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param CPOptionCategoryId the primary key of the cp option category
 	 * @return the cp option category that was removed
@@ -401,10 +389,6 @@ public class CPOptionCategoryLocalServiceWrapper
 
 	/**
 	 * Updates the cp option category in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CPOptionCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param cpOptionCategory the cp option category
 	 * @return the cp option category that was updated
