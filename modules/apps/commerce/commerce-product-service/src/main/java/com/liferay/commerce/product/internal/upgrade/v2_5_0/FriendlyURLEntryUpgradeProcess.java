@@ -98,7 +98,7 @@ public class FriendlyURLEntryUpgradeProcess extends UpgradeProcess {
 					ps1.setLong(9, classNameId);
 					ps1.setLong(10, classPK);
 
-					ps1.addBatch();
+					ps1.execute();
 				}
 
 				long friendlyURLEntryMappingId = _getFriendlyURLEntryMappingId(
@@ -113,7 +113,7 @@ public class FriendlyURLEntryUpgradeProcess extends UpgradeProcess {
 					ps2.setLong(4, classPK);
 					ps2.setLong(5, friendlyURLEntryId);
 
-					ps2.addBatch();
+					ps2.execute();
 				}
 
 				long friendlyURLEntryLocalizationId =
@@ -143,9 +143,6 @@ public class FriendlyURLEntryUpgradeProcess extends UpgradeProcess {
 					ps3.execute();
 				}
 			}
-
-			ps1.executeBatch();
-			ps2.executeBatch();
 		}
 	}
 
