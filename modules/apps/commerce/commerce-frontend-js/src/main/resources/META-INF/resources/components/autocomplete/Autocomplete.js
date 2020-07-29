@@ -144,9 +144,16 @@ function Autocomplete({onValueUpdated, ...props}) {
 							setQuery(event.target.value);
 						}
 					}}
-					onClick={_e => {
+					onFocus={_e => {
 						setActive(true);
 						setInitialised(true);
+					}}
+					onKeyUp={e => {
+						if (e.keyCode === 27) {
+							setActive(false);
+						} else {
+							setActive(true);
+						}
 					}}
 					placeholder={props.inputPlaceholder}
 					ref={inputNode}
