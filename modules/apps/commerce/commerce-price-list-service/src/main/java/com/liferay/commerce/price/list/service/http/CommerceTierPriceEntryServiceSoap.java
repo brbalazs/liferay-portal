@@ -61,25 +61,6 @@ import java.rmi.RemoteException;
  */
 public class CommerceTierPriceEntryServiceSoap {
 
-	public static int searchCommerceTierPriceEntriesCount(
-			long companyId, long commercePriceEntryId, String keywords)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				CommerceTierPriceEntryServiceUtil.
-					searchCommerceTierPriceEntriesCount(
-						companyId, commercePriceEntryId, keywords);
-
-			return returnValue;
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
 	public static
 		com.liferay.commerce.price.list.model.CommerceTierPriceEntrySoap
 				addCommerceTierPriceEntry(
@@ -367,6 +348,25 @@ public class CommerceTierPriceEntryServiceSoap {
 
 			return com.liferay.commerce.price.list.model.
 				CommerceTierPriceEntrySoap.toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int searchCommerceTierPriceEntriesCount(
+			long companyId, long commercePriceEntryId, String keywords)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceTierPriceEntryServiceUtil.
+					searchCommerceTierPriceEntriesCount(
+						companyId, commercePriceEntryId, keywords);
+
+			return returnValue;
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
