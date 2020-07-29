@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -199,13 +200,13 @@ public abstract class BaseGroupByTestCase extends BaseIndexingTestCase {
 
 		Set<Map.Entry<String, Integer>> entries = map1.entrySet();
 
-		Map<String, String> map2 = entries.stream(
-		).collect(
+		Stream<Map.Entry<String, Integer>> stream = entries.stream();
+
+		Map<String, String> map2 = stream.collect(
 			Collectors.toMap(
 				Map.Entry::getKey,
 				entry -> getCountPairString(
-					entry.getValue(), entry.getValue() - 1))
-		);
+					entry.getValue(), entry.getValue() - 1)));
 
 		assertSearch(
 			indexingTestHelper -> {
@@ -249,30 +250,25 @@ public abstract class BaseGroupByTestCase extends BaseIndexingTestCase {
 
 		Set<Map.Entry<String, Integer>> entries = map1.entrySet();
 
-		Map<String, String> map2 = entries.stream(
-		).collect(
+		Stream<Map.Entry<String, Integer>> stream = entries.stream();
+
+		Map<String, String> map2 = stream.collect(
 			Collectors.toMap(
 				Map.Entry::getKey,
-				entry -> getCountPairString(entry.getValue(), entry.getValue()))
-		);
+				entry -> getCountPairString(
+					entry.getValue(), entry.getValue())));
 
 		assertSearch(
 			indexingTestHelper -> {
-				indexingTestHelper.define(
-					searchContext -> {
+				indexingTestHelper.defineRequest(
+					searchRequestBuilder -> {
 						GroupByRequest groupByRequest =
 							groupByRequestFactory.getGroupByRequest(
 								GROUP_FIELD);
 
 						setTermsSortsAndDocsSize(groupByRequest);
 
-						ArrayList<GroupByRequest> groupByRequests =
-							new ArrayList<>();
-
-						groupByRequests.add(groupByRequest);
-
-						searchContext.setAttribute(
-							"groupByRequests", groupByRequests);
+						searchRequestBuilder.groupByRequests(groupByRequest);
 					});
 
 				indexingTestHelper.search();
@@ -289,8 +285,8 @@ public abstract class BaseGroupByTestCase extends BaseIndexingTestCase {
 
 		assertSearch(
 			indexingTestHelper -> {
-				indexingTestHelper.define(
-					searchContext -> {
+				indexingTestHelper.defineRequest(
+					searchRequestBuilder -> {
 						GroupByRequest groupByRequest =
 							groupByRequestFactory.getGroupByRequest(
 								GROUP_FIELD);
@@ -299,16 +295,21 @@ public abstract class BaseGroupByTestCase extends BaseIndexingTestCase {
 
 						setTermsSortsAndDocsSize(groupByRequest);
 
-						ArrayList<GroupByRequest> groupByRequests =
-							new ArrayList<>();
-
-						groupByRequests.add(groupByRequest);
-
-						searchContext.setAttribute(
-							"groupByRequests", groupByRequests);
+						searchRequestBuilder.groupByRequests(groupByRequest);
 					});
 
-				indexingTestHelper.search();
+				try {
+					indexingTestHelper.search();
+				}
+				catch (RuntimeException runtimeException) {
+					if (_shouldIgnoreSearchEngineGlitchAndRetry(
+							runtimeException)) {
+
+						Assert.fail(runtimeException.getMessage());
+					}
+
+					throw runtimeException;
+				}
 
 				indexingTestHelper.verify(
 					hits -> assertGroups(
@@ -338,17 +339,18 @@ public abstract class BaseGroupByTestCase extends BaseIndexingTestCase {
 
 		Set<Map.Entry<String, Integer>> entries = map1.entrySet();
 
-		Map<String, String> map2 = entries.stream(
-		).collect(
+		Stream<Map.Entry<String, Integer>> stream = entries.stream();
+
+		Map<String, String> map2 = stream.collect(
 			Collectors.toMap(
 				Map.Entry::getKey,
-				entry -> getCountPairString(entry.getValue(), entry.getValue()))
-		);
+				entry -> getCountPairString(
+					entry.getValue(), entry.getValue())));
 
 		assertSearch(
 			indexingTestHelper -> {
-				indexingTestHelper.define(
-					searchContext -> {
+				indexingTestHelper.defineRequest(
+					searchRequestBuilder -> {
 						GroupByRequest groupByRequest =
 							groupByRequestFactory.getGroupByRequest(
 								GROUP_FIELD);
@@ -357,13 +359,7 @@ public abstract class BaseGroupByTestCase extends BaseIndexingTestCase {
 
 						setTermsSortsAndDocsSize(groupByRequest);
 
-						ArrayList<GroupByRequest> groupByRequests =
-							new ArrayList<>();
-
-						groupByRequests.add(groupByRequest);
-
-						searchContext.setAttribute(
-							"groupByRequests", groupByRequests);
+						searchRequestBuilder.groupByRequests(groupByRequest);
 					});
 
 				indexingTestHelper.search();
@@ -380,8 +376,8 @@ public abstract class BaseGroupByTestCase extends BaseIndexingTestCase {
 
 		assertSearch(
 			indexingTestHelper -> {
-				indexingTestHelper.define(
-					searchContext -> {
+				indexingTestHelper.defineRequest(
+					searchRequestBuilder -> {
 						GroupByRequest groupByRequest =
 							groupByRequestFactory.getGroupByRequest(
 								GROUP_FIELD);
@@ -391,13 +387,7 @@ public abstract class BaseGroupByTestCase extends BaseIndexingTestCase {
 
 						groupByRequest.setTermsStart(1);
 
-						ArrayList<GroupByRequest> groupByRequests =
-							new ArrayList<>();
-
-						groupByRequests.add(groupByRequest);
-
-						searchContext.setAttribute(
-							"groupByRequests", groupByRequests);
+						searchRequestBuilder.groupByRequests(groupByRequest);
 					});
 
 				indexingTestHelper.search();
@@ -440,14 +430,15 @@ public abstract class BaseGroupByTestCase extends BaseIndexingTestCase {
 						searchContext.setGroupBy(groupBy);
 					});
 
-				BooleanQueryImpl booleanQuery = new BooleanQueryImpl();
+				BooleanQueryImpl booleanQueryImpl = new BooleanQueryImpl();
 
-				booleanQuery.addExactTerm(SORT_FIELD, "3");
-				booleanQuery.addExactTerm(SORT_FIELD, "2");
+				booleanQueryImpl.addExactTerm(SORT_FIELD, "3");
+				booleanQueryImpl.addExactTerm(SORT_FIELD, "2");
 
-				booleanQuery.add(getDefaultQuery(), BooleanClauseOccur.MUST);
+				booleanQueryImpl.add(
+					getDefaultQuery(), BooleanClauseOccur.MUST);
 
-				indexingTestHelper.setQuery(booleanQuery);
+				indexingTestHelper.setQuery(booleanQueryImpl);
 
 				indexingTestHelper.search();
 
@@ -495,7 +486,7 @@ public abstract class BaseGroupByTestCase extends BaseIndexingTestCase {
 		Hits groupedHits = groupedHitsMap.get(key);
 
 		Assert.assertEquals(
-			indexingTestHelper.getQueryString(), sort(expectedFieldNames),
+			indexingTestHelper.getRequestString(), sort(expectedFieldNames),
 			sort(getFieldNames(groupedHits)));
 	}
 
@@ -507,15 +498,15 @@ public abstract class BaseGroupByTestCase extends BaseIndexingTestCase {
 
 		Collection<Map.Entry<String, Hits>> entries = hitsMap.entrySet();
 
-		Map<String, String> actualCountsMap = entries.stream(
-		).collect(
+		Stream<Map.Entry<String, Hits>> stream = entries.stream();
+
+		Map<String, String> actualCountsMap = stream.collect(
 			Collectors.toMap(
 				Map.Entry::getKey,
-				entry -> getCountPairString(entry.getValue()))
-		);
+				entry -> getCountPairString(entry.getValue())));
 
 		AssertUtils.assertEquals(
-			indexingTestHelper.getQueryString(), expectedCountsMap,
+			indexingTestHelper.getRequestString(), expectedCountsMap,
 			actualCountsMap);
 	}
 
@@ -531,7 +522,7 @@ public abstract class BaseGroupByTestCase extends BaseIndexingTestCase {
 		}
 
 		AssertUtils.assertEquals(
-			indexingTestHelper.getQueryString(), expectedCountsList,
+			indexingTestHelper.getRequestString(), expectedCountsList,
 			actualCountsList);
 	}
 
@@ -627,11 +618,11 @@ public abstract class BaseGroupByTestCase extends BaseIndexingTestCase {
 					DocumentCreationHelpers.twoKeywords(
 						field, name, SORT_FIELD, String.valueOf(i)));
 			}
-			catch (RuntimeException re) {
-				throw re;
+			catch (RuntimeException runtimeException) {
+				throw runtimeException;
 			}
-			catch (Exception e) {
-				throw new RuntimeException(e);
+			catch (Exception exception) {
+				throw new RuntimeException(exception);
 			}
 		}
 	}
@@ -650,5 +641,24 @@ public abstract class BaseGroupByTestCase extends BaseIndexingTestCase {
 
 	protected final GroupByRequestFactory groupByRequestFactory =
 		new GroupByRequestFactoryImpl();
+
+	private boolean _shouldIgnoreSearchEngineGlitchAndRetry(
+		RuntimeException runtimeException) {
+
+		Throwable t1 = runtimeException.getCause();
+
+		Throwable t2 = t1.getCause();
+
+		String message = t2.getMessage();
+
+		if (message.equals(
+				"numHits must be > 0; please use TotalHitCountCollector if " +
+					"you just need the total hit count")) {
+
+			return true;
+		}
+
+		return false;
+	}
 
 }

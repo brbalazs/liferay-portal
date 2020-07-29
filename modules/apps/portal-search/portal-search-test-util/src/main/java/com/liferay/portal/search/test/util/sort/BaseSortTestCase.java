@@ -14,25 +14,21 @@
 
 package com.liferay.portal.search.test.util.sort;
 
+import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Query;
-import com.liferay.portal.kernel.search.QueryConfig;
-import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactory;
+import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
 import com.liferay.portal.search.internal.SortFactoryImpl;
 import com.liferay.portal.search.test.util.DocumentsAssert;
-import com.liferay.portal.search.test.util.IdempotentRetryAssert;
 import com.liferay.portal.search.test.util.indexing.BaseIndexingTestCase;
 import com.liferay.portal.search.test.util.indexing.DocumentCreationHelper;
 import com.liferay.portal.search.test.util.indexing.DocumentCreationHelpers;
 
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 
@@ -44,24 +40,18 @@ public abstract class BaseSortTestCase extends BaseIndexingTestCase {
 
 	@Test
 	public void testDefaultSorts() throws Exception {
-		double[] values = {1, 2, 3};
-
 		addDocuments(
 			value -> document -> {
 				document.addDate(
 					Field.MODIFIED_DATE, new Date(value.longValue()));
 				document.addNumber(Field.PRIORITY, value);
 			},
-			values);
-
-		SearchContext searchContext = createSearchContext();
+			new double[] {1, 2, 3});
 
 		SortFactory sortFactory = new SortFactoryImpl();
 
-		searchContext.setSorts(sortFactory.getDefaultSorts());
-
 		assertOrder(
-			Field.PRIORITY, searchContext, Arrays.asList("3.0", "2.0", "1.0"));
+			sortFactory.getDefaultSorts(), Field.PRIORITY, "[3.0, 2.0, 1.0]");
 	}
 
 	@Test
@@ -74,6 +64,30 @@ public abstract class BaseSortTestCase extends BaseIndexingTestCase {
 		testDoubleFieldSortable(Field.PRIORITY);
 	}
 
+	@Test
+	public void testScore() throws Exception {
+		String fieldName = "testField";
+
+		addDocuments(
+			value -> DocumentCreationHelpers.singleText(fieldName, value),
+			Stream.of("alpha", "charlie"));
+
+		Query query = getScoredQuery(fieldName, "charlie");
+
+		assertOrder(
+			getScoreSortArray(Sort.CUSTOM_TYPE, false), fieldName,
+			"[charlie, alpha]", query);
+		assertOrder(
+			getScoreSortArray(Sort.CUSTOM_TYPE, true), fieldName,
+			"[alpha, charlie]", query);
+		assertOrder(
+			getScoreSortArray(Sort.SCORE_TYPE, false), fieldName,
+			"[charlie, alpha]", query);
+		assertOrder(
+			getScoreSortArray(Sort.SCORE_TYPE, true), fieldName,
+			"[alpha, charlie]", query);
+	}
+
 	protected void addDocuments(
 			Function<Double, DocumentCreationHelper> function, double... values)
 		throws Exception {
@@ -84,40 +98,54 @@ public abstract class BaseSortTestCase extends BaseIndexingTestCase {
 	}
 
 	protected void assertOrder(
-			String fieldName, int sortType, List<String> expectedValues)
-		throws Exception {
+		Sort[] sorts, String fieldName, String expected) {
 
-		SearchContext searchContext = createSearchContext();
-
-		searchContext.setSorts(new Sort(fieldName, sortType, false));
-
-		assertOrder(fieldName, searchContext, expectedValues);
+		assertOrder(sorts, fieldName, expected, null);
 	}
 
 	protected void assertOrder(
-			String fieldName, SearchContext searchContext,
-			List<String> expectedValues)
-		throws Exception {
+		Sort[] sorts, String fieldName, String expected, Query query) {
 
-		QueryConfig queryConfig = searchContext.getQueryConfig();
+		assertSearch(
+			indexingTestHelper -> {
+				indexingTestHelper.define(
+					searchContext -> searchContext.setSorts(sorts));
 
-		queryConfig.addSelectedFieldNames(fieldName);
+				if (query != null) {
+					indexingTestHelper.setQuery(query);
+				}
 
-		Query query = getDefaultQuery();
+				indexingTestHelper.search();
 
-		query.setQueryConfig(queryConfig);
-
-		IdempotentRetryAssert.retryAssert(
-			5, TimeUnit.SECONDS,
-			() -> {
-				Hits hits = search(searchContext, query);
-
-				DocumentsAssert.assertValues(
-					(String)searchContext.getAttribute("queryString"),
-					hits.getDocs(), fieldName, expectedValues);
-
-				return null;
+				indexingTestHelper.verify(
+					hits -> DocumentsAssert.assertValues(
+						indexingTestHelper.getRequestString(), hits.getDocs(),
+						fieldName, expected));
 			});
+	}
+
+	protected void assertOrder(
+		String fieldName, int sortType, boolean reverse, String expected) {
+
+		assertOrder(
+			new Sort[] {new Sort(fieldName, sortType, reverse)}, fieldName,
+			expected);
+	}
+
+	protected Query getScoredQuery(String fieldName, String fieldValue) {
+		BooleanQueryImpl booleanQueryImpl = new BooleanQueryImpl();
+
+		booleanQueryImpl.addExactTerm(fieldName, fieldValue);
+
+		booleanQueryImpl.add(getDefaultQuery(), BooleanClauseOccur.SHOULD);
+
+		return booleanQueryImpl;
+	}
+
+	protected abstract String getScoreParameter();
+
+	protected Sort[] getScoreSortArray(int type, boolean reverse) {
+		return new Sort[] {new Sort(getScoreParameter(), type, reverse)};
 	}
 
 	protected void testDoubleField(String fieldName) throws Exception {
@@ -130,13 +158,12 @@ public abstract class BaseSortTestCase extends BaseIndexingTestCase {
 			String fieldName, Function<Double, DocumentCreationHelper> function)
 		throws Exception {
 
-		double[] values = {10, 1, 40, 5.3};
-
-		addDocuments(function, values);
+		addDocuments(function, new double[] {10, 1, 40, 5.3});
 
 		assertOrder(
-			fieldName, Sort.DOUBLE_TYPE,
-			Arrays.asList("1.0", "5.3", "10.0", "40.0"));
+			fieldName, Sort.DOUBLE_TYPE, false, "[1.0, 5.3, 10.0, 40.0]");
+		assertOrder(
+			fieldName, Sort.DOUBLE_TYPE, true, "[40.0, 10.0, 5.3, 1.0]");
 	}
 
 	protected void testDoubleFieldSortable(String fieldName) throws Exception {

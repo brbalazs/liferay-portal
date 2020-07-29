@@ -14,11 +14,13 @@
 
 package com.liferay.portal.search.test.util;
 
+import com.liferay.asset.kernel.AssetRendererFactoryRegistryUtil;
+import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.asset.kernel.model.AssetRendererFactory;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.Role;
-import com.liferay.portal.kernel.model.RoleConstants;
-import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.model.role.RoleConstants;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.SearchEngine;
 import com.liferay.portal.kernel.search.SearchEngineHelper;
@@ -26,6 +28,9 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.search.document.Document;
+import com.liferay.portal.search.document.DocumentBuilder;
+import com.liferay.portal.search.document.DocumentBuilderFactory;
 
 import java.text.Format;
 
@@ -47,6 +52,17 @@ public class IndexedFieldsFixture {
 
 		_resourcePermissionLocalService = resourcePermissionLocalService;
 		_searchEngineHelper = searchEngineHelper;
+		_documentBuilderFactory = null;
+	}
+
+	public IndexedFieldsFixture(
+		ResourcePermissionLocalService resourcePermissionLocalService,
+		SearchEngineHelper searchEngineHelper,
+		DocumentBuilderFactory documentBuilderFactory) {
+
+		_resourcePermissionLocalService = resourcePermissionLocalService;
+		_searchEngineHelper = searchEngineHelper;
+		_documentBuilderFactory = documentBuilderFactory;
 	}
 
 	public void populateDate(
@@ -66,9 +82,16 @@ public class IndexedFieldsFixture {
 	}
 
 	public void populatePriority(String priority, Map<String, String> map) {
+		populatePriority(priority, map, false);
+	}
+
+	public void populatePriority(
+		String priority, Map<String, String> map,
+		boolean sourceFilteringEnabled) {
+
 		map.put(Field.PRIORITY, priority);
 
-		if (_isSearchEngineSolr()) {
+		if (sourceFilteringEnabled || _isSearchEngineSolr()) {
 			map.put(Field.PRIORITY.concat("_sortable"), priority);
 		}
 	}
@@ -110,10 +133,41 @@ public class IndexedFieldsFixture {
 		map.put(Field.UID, modelClassName + "_PORTLET_" + id);
 	}
 
-	public void postProcessDocument(Document document) {
+	public void populateViewCount(
+			Class<?> clazz, long classPK, Map<String, String> map)
+		throws Exception {
+
+		AssetRendererFactory assetRendererFactory =
+			AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClass(
+				clazz);
+
+		AssetEntry assetEntry = assetRendererFactory.getAssetEntry(
+			clazz.getName(), classPK);
+
+		map.put("viewCount", String.valueOf(assetEntry.getViewCount()));
+		map.put(
+			"viewCount_sortable", String.valueOf(assetEntry.getViewCount()));
+	}
+
+	public void postProcessDocument(
+		com.liferay.portal.kernel.search.Document document) {
+
 		if (_isSearchEngineSolr()) {
 			document.remove("score");
 		}
+	}
+
+	public Document postProcessDocument(Document document) {
+		if (_isSearchEngineSolr()) {
+			DocumentBuilder documentBuilder = _documentBuilderFactory.builder(
+				document);
+
+			documentBuilder.unsetValue("score");
+
+			return documentBuilder.build();
+		}
+
+		return document;
 	}
 
 	protected void populateRoleIds(
@@ -144,6 +198,7 @@ public class IndexedFieldsFixture {
 
 	private final Format _dateFormat =
 		FastDateFormatFactoryUtil.getSimpleDateFormat("yyyyMMddHHmmss");
+	private final DocumentBuilderFactory _documentBuilderFactory;
 	private final ResourcePermissionLocalService
 		_resourcePermissionLocalService;
 	private final SearchEngineHelper _searchEngineHelper;

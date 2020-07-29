@@ -17,7 +17,7 @@ package com.liferay.portal.search.test.util;
 import com.liferay.portal.kernel.test.rule.MethodTestRule;
 import com.liferay.portal.search.index.IndexStatusManager;
 import com.liferay.portal.test.rule.Inject;
-import com.liferay.portal.test.rule.callback.InjectTestBag;
+import com.liferay.portal.test.rule.InjectTestBag;
 
 import org.junit.runner.Description;
 

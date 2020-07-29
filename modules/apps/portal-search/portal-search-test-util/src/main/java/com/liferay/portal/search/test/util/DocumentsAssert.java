@@ -14,9 +14,13 @@
 
 package com.liferay.portal.search.test.util;
 
-import com.liferay.portal.kernel.search.Document;
+import com.liferay.petra.string.StringBundler;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.search.document.Document;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -31,50 +35,143 @@ import org.junit.Assert;
 public class DocumentsAssert {
 
 	public static void assertCount(
-		String message, Document[] documents, String field, int expectedCount) {
+		String message, com.liferay.portal.kernel.search.Document[] documents,
+		String fieldName, int expectedCount) {
 
 		if (documents.length == expectedCount) {
 			return;
 		}
 
-		List<String> actualValues = _getValues(field, documents);
+		List<String> actualValues = _getFieldValueStrings(fieldName, documents);
 
 		Assert.assertEquals(
 			message + "->" + actualValues, expectedCount, documents.length);
 	}
 
 	public static void assertValues(
-		String message, Document[] documents, String field,
-		List<String> expectedValues) {
+		String message, com.liferay.portal.kernel.search.Document[] documents,
+		String fieldName, List<String> expectedValues) {
 
-		List<String> actualValues = _getValues(field, documents);
+		assertValues(
+			message, documents, fieldName, String.valueOf(expectedValues));
+	}
+
+	public static void assertValues(
+		String message, com.liferay.portal.kernel.search.Document[] documents,
+		String fieldName, String expected) {
+
+		List<String> actualValues = _getFieldValueStrings(fieldName, documents);
 
 		Assert.assertEquals(
-			message + "->" + actualValues, expectedValues.toString(),
-			actualValues.toString());
+			_getMessage(message, documents, actualValues), expected,
+			String.valueOf(actualValues));
+	}
+
+	public static void assertValues(
+		String message, Stream<Document> stream, String fieldName,
+		String expected) {
+
+		Document[] documents = stream.toArray(Document[]::new);
+
+		List<String> actualValues = _getFieldValueStrings(fieldName, documents);
+
+		Assert.assertEquals(
+			_getMessage(message, documents, actualValues), expected,
+			String.valueOf(actualValues));
 	}
 
 	public static void assertValuesIgnoreRelevance(
-		String message, Document[] documents, String field,
-		Collection<String> expectedValues) {
+		String message, com.liferay.portal.kernel.search.Document[] documents,
+		String fieldName, Collection<String> expectedValues) {
 
-		List<String> actualValues = _getValues(field, documents);
+		List<String> actualValues = _getFieldValueStrings(fieldName, documents);
 
 		Assert.assertEquals(
-			message + "->" + actualValues, _sort(expectedValues),
+			_getMessage(message, documents, actualValues),
+			_sort(expectedValues), _sort(actualValues));
+	}
+
+	public static void assertValuesIgnoreRelevance(
+		String message, Stream<Document> stream, String fieldName,
+		Stream<?> expectedValues) {
+
+		Document[] documents = stream.toArray(Document[]::new);
+
+		List<String> actualValues = _getFieldValueStrings(fieldName, documents);
+
+		Assert.assertEquals(
+			_getMessage(message, documents, actualValues),
+			_sort(expectedValues), _sort(actualValues));
+	}
+
+	public static void assertValuesIgnoreRelevance(
+		String message, Stream<Document> stream, String fieldName,
+		String expected) {
+
+		Document[] documents = stream.toArray(Document[]::new);
+
+		List<String> actualValues = _getFieldValueStrings(fieldName, documents);
+
+		Assert.assertEquals(
+			_getMessage(message, documents, actualValues), expected,
 			_sort(actualValues));
 	}
 
-	private static List<String> _getValues(
-		String field, Document... documents) {
+	private static List<Object> _getFieldValues(
+		String fieldName, com.liferay.portal.kernel.search.Document document) {
 
-		return Stream.of(
-			documents
-		).map(
-			document -> document.get(field)
+		return Arrays.asList((Object[])document.getValues(fieldName));
+	}
+
+	private static String _getFieldValueString(List<Object> fieldValues) {
+		if (fieldValues.isEmpty()) {
+			return StringPool.BLANK;
+		}
+
+		if (fieldValues.size() == 1) {
+			return String.valueOf(fieldValues.get(0));
+		}
+
+		return _sort(fieldValues.stream());
+	}
+
+	private static List<String> _getFieldValueStrings(
+		Stream<List<Object>> stream) {
+
+		return stream.map(
+			DocumentsAssert::_getFieldValueString
 		).collect(
 			Collectors.toList()
 		);
+	}
+
+	private static List<String> _getFieldValueStrings(
+		String fieldName,
+		com.liferay.portal.kernel.search.Document... documents) {
+
+		Stream<com.liferay.portal.kernel.search.Document> stream = Stream.of(
+			documents);
+
+		return _getFieldValueStrings(
+			stream.map(document -> _getFieldValues(fieldName, document)));
+	}
+
+	private static List<String> _getFieldValueStrings(
+		String fieldName, Document... documents) {
+
+		return _getFieldValueStrings(
+			Stream.of(
+				documents
+			).map(
+				document -> document.getValues(fieldName)
+			));
+	}
+
+	private static String _getMessage(
+		String message, Object[] objects, Collection<String> values) {
+
+		return StringBundler.concat(
+			message, "->", StringUtil.merge(objects), "->", values);
 	}
 
 	private static String _sort(Collection<String> collection) {
@@ -83,6 +180,15 @@ public class DocumentsAssert {
 		Collections.sort(list);
 
 		return list.toString();
+	}
+
+	private static String _sort(Stream<?> stream) {
+		return stream.map(
+			String::valueOf
+		).sorted(
+		).collect(
+			Collectors.toList()
+		).toString();
 	}
 
 }
