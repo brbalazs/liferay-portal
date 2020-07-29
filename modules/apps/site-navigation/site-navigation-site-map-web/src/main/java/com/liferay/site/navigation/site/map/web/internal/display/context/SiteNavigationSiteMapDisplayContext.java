@@ -302,7 +302,7 @@ public class SiteNavigationSiteMapDisplayContext {
 	}
 
 	private boolean _isAssetDisplayPage(Layout layout) {
-		return "asset-display".equals(layout.getType());
+		return "asset_display".equals(layout.getType());
 	}
 
 	private Long _displayStyleGroupId;
