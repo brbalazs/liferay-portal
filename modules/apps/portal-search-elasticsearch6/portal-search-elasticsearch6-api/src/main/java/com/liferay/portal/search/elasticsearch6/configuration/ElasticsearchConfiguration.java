@@ -18,6 +18,8 @@ import aQute.bnd.annotation.metatype.Meta;
 
 import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 
+import org.osgi.annotation.versioning.ProviderType;
+
 /**
  * @author Michael C. Han
  */
@@ -27,6 +29,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 	localization = "content/Language",
 	name = "elasticsearch6-configuration-name"
 )
+@ProviderType
 public interface ElasticsearchConfiguration {
 
 	@Meta.AD(
@@ -71,6 +74,12 @@ public interface ElasticsearchConfiguration {
 		name = "log-exceptions-only", required = false
 	)
 	public boolean logExceptionsOnly();
+
+	@Meta.AD(
+		deflt = "ERROR", description = "rest-client-logger-level-help",
+		name = "rest-client-logger-level", required = false
+	)
+	public RESTClientLoggerLevel restClientLoggerLevel();
 
 	@Meta.AD(
 		deflt = "5", description = "retry-on-conflict-help",
@@ -193,11 +202,5 @@ public interface ElasticsearchConfiguration {
 		name = "override-type-mappings", required = false
 	)
 	public String overrideTypeMappings();
-
-	@Meta.AD(
-		deflt = "true", description = "sync-search-help", name = "sync-search",
-		required = false
-	)
-	public boolean syncSearch();
 
 }

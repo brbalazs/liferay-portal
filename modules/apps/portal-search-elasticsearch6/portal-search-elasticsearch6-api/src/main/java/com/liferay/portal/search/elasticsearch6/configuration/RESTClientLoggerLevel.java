@@ -12,16 +12,13 @@
  * details.
  */
 
-package com.liferay.portal.search.elasticsearch6.settings;
-
-import org.osgi.annotation.versioning.ProviderType;
+package com.liferay.portal.search.elasticsearch6.configuration;
 
 /**
  * @author Bryan Engler
  */
-@ProviderType
-public interface XPackSecuritySettings {
+public enum RESTClientLoggerLevel {
 
-	public boolean requiresXPackSecurity();
+	ALL, DEBUG, ERROR, FATAL, INFO, OFF, TRACE, WARN
 
 }
