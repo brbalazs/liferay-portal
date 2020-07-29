@@ -1,9 +1,9 @@
 import * as data from 'test/data';
-import client from 'shared/apollo/client';
 import Overview from '../Overview';
 import React from 'react';
-import {ApolloProvider} from '@apollo/react-hoc';
 import {Individual} from 'shared/util/records';
+import {MockedProvider} from '@apollo/react-testing';
+import {mockTimeRangeReq} from 'test/graphql-data';
 import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router';
 
@@ -12,18 +12,18 @@ jest.unmock('react-dom');
 describe('IndividualOverview', () => {
 	it('should render', () => {
 		const {container} = render(
-			<ApolloProvider client={client}>
+			<MockedProvider mocks={[mockTimeRangeReq()]}>
 				<StaticRouter>
 					<Overview
-						groupId={'23'}
-						id={'test'}
+						groupId='23'
+						id='test'
 						individual={data.getImmutableMock(
 							Individual,
 							data.mockIndividual
 							)}
 							/>
 				</StaticRouter>
-			</ApolloProvider>
+			</MockedProvider>
 		);
 
 		jest.runAllTimers();

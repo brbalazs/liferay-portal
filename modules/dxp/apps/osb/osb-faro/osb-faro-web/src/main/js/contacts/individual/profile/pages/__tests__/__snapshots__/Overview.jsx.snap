@@ -46,11 +46,23 @@ exports[`IndividualOverview should render 1`] = `
               </button>
             </div>
             <div
-              class="spinner-root spinner-inline"
+              class="dropdown dropdown-range-key-root"
             >
-              <span
-                class="loading-animation loading-animation-dotted"
-              />
+              <button
+                class="dropdown-toggle btn btn-outline-borderless btn-sm btn-outline-secondary"
+                style=""
+                type="button"
+              >
+                Last 30 days
+                <svg
+                  class="lexicon-icon lexicon-icon-caret-bottom ml-2"
+                  role="presentation"
+                >
+                  <use
+                    xlink:href="#caret-bottom"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
@@ -130,7 +142,7 @@ exports[`IndividualOverview should render 1`] = `
                       <div
                         class="metric-value"
                       >
-                        48.99
+                        4.90
                         <span
                           class="metric-value-letter"
                         >
