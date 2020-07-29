@@ -102,15 +102,15 @@ String type = BeanParamUtil.getString(commerceDiscountRule, request, "type");
 			)
 				.then(function() {
 					NotificationUtils.showNotification(
-						'<liferay-ui:message key="your-request-completed-successfully" />',
+						'<liferay-ui:message key="your-request-completed-successfully" />'
 					);
 
 					return;
 				})
 				.catch(function() {
 					alert(
-						'<liferay-ui:message key="your-request-failed-to-complete"/>'
-						);
+						'<liferay-ui:message key="your-request-failed-to-complete" />'
+					);
 
 					return;
 				});

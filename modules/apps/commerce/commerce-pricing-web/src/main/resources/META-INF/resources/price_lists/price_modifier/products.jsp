@@ -45,7 +45,10 @@ long commercePriceModifierId = commercePriceListDisplayContext.getCommercePriceM
 						priceModifierId: id
 					};
 
-					return CommercePriceModifierProductsResource.addPriceModifierProduct(id, productData)
+					return CommercePriceModifierProductsResource.addPriceModifierProduct(
+						id,
+						productData
+					)
 						.then(function() {
 							Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
 								id:
@@ -62,8 +65,7 @@ long commercePriceModifierId = commercePriceListDisplayContext.getCommercePriceM
 				}
 
 				itemFinder.default('itemFinder', 'item-finder-root', {
-					apiUrl:
-						'/o/headless-commerce-admin-catalog/v1.0/products',
+					apiUrl: '/o/headless-commerce-admin-catalog/v1.0/products',
 					getSelectedItems: getSelectedItems,
 					inputPlaceholder: '<%= LanguageUtil.get(request, "find-a-product") %>',
 					itemSelectedMessage: '<%= LanguageUtil.get(request, "product-selected") %>',

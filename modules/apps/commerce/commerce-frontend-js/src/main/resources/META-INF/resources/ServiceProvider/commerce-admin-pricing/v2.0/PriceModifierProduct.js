@@ -20,7 +20,11 @@ const PRICE_MODIFIER_RULES_PATH = '/price-modifier-products';
 
 const VERSION = 'v2.0';
 
-function resolvePath(basePath = '', priceModifierId = '', priceModifierProductId = '') {
+function resolvePath(
+	basePath = '',
+	priceModifierId = '',
+	priceModifierProductId = ''
+) {
 	return `${basePath}${VERSION}${PRICE_MODIFIERS_PATH}/${priceModifierId}/${PRICE_MODIFIER_RULES_PATH}/${priceModifierProductId}`;
 }
 

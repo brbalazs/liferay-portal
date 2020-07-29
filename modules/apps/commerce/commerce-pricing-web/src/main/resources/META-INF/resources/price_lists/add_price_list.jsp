@@ -82,14 +82,13 @@ CommercePriceList commercePriceList = commercePriceListDisplayContext.getCommerc
 
 			<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
 				autocomplete.default('autocomplete', 'autocomplete-root', {
-				apiUrl: '/o/headless-commerce-admin-pricing/v2.0/price-lists',
-				initialLabel: '',
-				initialValue: '0',
-				inputId: 'parentCommercePriceListId',
-				inputName:
-				'<%= renderResponse.getNamespace() %>parentCommercePriceListId',
-				itemsKey: 'id',
-				itemsLabel: 'name'
+					apiUrl: '/o/headless-commerce-admin-pricing/v2.0/price-lists',
+					initialLabel: '',
+					initialValue: '0',
+					inputId: 'parentCommercePriceListId',
+					inputName: '<%= renderResponse.getNamespace() %>parentCommercePriceListId',
+					itemsKey: 'id',
+					itemsLabel: 'name'
 				});
 			</aui:script>
 		</aui:form>

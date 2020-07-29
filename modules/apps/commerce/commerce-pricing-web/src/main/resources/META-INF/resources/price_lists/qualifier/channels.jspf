@@ -36,7 +36,10 @@
 						priceListId: id
 					};
 
-					return CommercePriceListChannelsResource.addPriceListChannel(id, channelData)
+					return CommercePriceListChannelsResource.addPriceListChannel(
+						id,
+						channelData
+					)
 						.then(function() {
 							Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
 								id:
@@ -53,8 +56,7 @@
 				}
 
 				itemFinder.default('itemFinder', 'item-finder-root-channel', {
-					apiUrl:
-						'/o/headless-commerce-admin-channel/v1.0/channels',
+					apiUrl: '/o/headless-commerce-admin-channel/v1.0/channels',
 					getSelectedItems: getSelectedItems,
 					inputPlaceholder: '<%= LanguageUtil.get(request, "find-a-channel") %>',
 					itemSelectedMessage: '<%= LanguageUtil.get(request, "channel-selected") %>',

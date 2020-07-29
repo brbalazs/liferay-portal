@@ -36,7 +36,10 @@
 						priceListId: id
 					};
 
-					return CommercePriceListAccountsResource.addPriceListAccount(id, accountData)
+					return CommercePriceListAccountsResource.addPriceListAccount(
+						id,
+						accountData
+					)
 						.then(function() {
 							Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
 								id:
@@ -53,8 +56,7 @@
 				}
 
 				itemFinder.default('itemFinder', 'item-finder-root', {
-					apiUrl:
-						'/o/headless-commerce-admin-account/v1.0/accounts/',
+					apiUrl: '/o/headless-commerce-admin-account/v1.0/accounts/',
 					getSelectedItems: getSelectedItems,
 					inputPlaceholder: '<%= LanguageUtil.get(request, "find-an-account") %>',
 					itemSelectedMessage: '<%= LanguageUtil.get(request, "account-selected") %>',

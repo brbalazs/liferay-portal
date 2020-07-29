@@ -149,9 +149,8 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 			commerceDiscountBaseModelSearchResult =
 				_commerceDiscountService.searchCommerceDiscounts(
 					contextCompany.getCompanyId(), search,
-					WorkflowConstants.STATUS_ANY,
-					pagination.getStartPosition(), pagination.getEndPosition(),
-					null);
+					WorkflowConstants.STATUS_ANY, pagination.getStartPosition(),
+					pagination.getEndPosition(), null);
 
 		return Page.of(
 			_toDiscounts(commerceDiscountBaseModelSearchResult.getBaseModels()),

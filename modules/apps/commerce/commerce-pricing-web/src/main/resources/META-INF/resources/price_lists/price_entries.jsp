@@ -35,59 +35,54 @@ long commercePriceListId = commercePriceEntryDisplayContext.getCommercePriceList
 
 				var id = <%= commercePriceListId %>;
 				var priceListExternalReferenceCode =
-				'<%= commercePriceList.getExternalReferenceCode() %>';
+					'<%= commercePriceList.getExternalReferenceCode() %>';
 
 				function selectItem(sku) {
-				var priceEntryData = {
-					price: '0.0',
-					priceListExternalReferenceCode: priceListExternalReferenceCode,
-					priceListId: id,
-					skuExternalReferenceCode: sku.externalReferenceCode,
-					skuId: sku.id
-				};
+					var priceEntryData = {
+						price: '0.0',
+						priceListExternalReferenceCode: priceListExternalReferenceCode,
+						priceListId: id,
+						skuExternalReferenceCode: sku.externalReferenceCode,
+						skuId: sku.id
+					};
 
-				return CommercePriceEntriesResource.addPriceEntry(
-				id,
-				priceEntryData
-				)
-				.then(function() {
-				Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
-				id:
-				'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_ENTRIES %>'
-				});
-				})
-				.catch(function(error) {
-				return Promise.reject(error);
-				});
+					return CommercePriceEntriesResource.addPriceEntry(id, priceEntryData)
+						.then(function() {
+							Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
+								id:
+									'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_ENTRIES %>'
+							});
+						})
+						.catch(function(error) {
+							return Promise.reject(error);
+						});
 				}
 
 				function getSelectedItems() {
-				return Promise.resolve([]);
+					return Promise.resolve([]);
 				}
 
 				itemFinder.default('itemFinder', 'item-finder-root', {
-				apiUrl: '/o/headless-commerce-admin-catalog/v1.0/skus',
-				getSelectedItems: getSelectedItems,
-				inputPlaceholder:
-				'<%= LanguageUtil.get(request, "find-a-product") %>',
-				itemSelectedMessage:
-				'<%= LanguageUtil.get(request, "product-selected") %>',
-				linkedDatasetsId: [
-				'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_ENTRIES %>'
-				],
-				itemCreation: false,
-				itemsKey: 'id',
-				onItemSelected: selectItem,
-				pageSize: 10,
-				panelHeaderLabel: '<%= LanguageUtil.get(request, "add-products") %>',
-				portletId: '<%= portletDisplay.getRootPortletId() %>',
-				schema: [
-				{
-				fieldName: ['productName', 'LANG']
-				}
-				],
-				spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
-				titleLabel: '<%= LanguageUtil.get(request, "add-existing-product") %>'
+					apiUrl: '/o/headless-commerce-admin-catalog/v1.0/skus',
+					getSelectedItems: getSelectedItems,
+					inputPlaceholder: '<%= LanguageUtil.get(request, "find-a-product") %>',
+					itemSelectedMessage: '<%= LanguageUtil.get(request, "product-selected") %>',
+					linkedDatasetsId: [
+						'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_ENTRIES %>'
+					],
+					itemCreation: false,
+					itemsKey: 'id',
+					onItemSelected: selectItem,
+					pageSize: 10,
+					panelHeaderLabel: '<%= LanguageUtil.get(request, "add-products") %>',
+					portletId: '<%= portletDisplay.getRootPortletId() %>',
+					schema: [
+						{
+							fieldName: ['productName', 'LANG']
+						}
+					],
+					spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
+					titleLabel: '<%= LanguageUtil.get(request, "add-existing-product") %>'
 				});
 			</aui:script>
 		</div>

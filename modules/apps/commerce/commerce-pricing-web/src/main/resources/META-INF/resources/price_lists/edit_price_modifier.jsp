@@ -18,13 +18,11 @@
 
 <%
 CommercePriceListDisplayContext commercePriceListDisplayContext = (CommercePriceListDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
-CommercePriceModifier commercePriceModifier = commercePriceListDisplayContext.getCommercePriceModifier();
 %>
 
 <commerce-ui:side-panel-content
 	screenNavigatorKey="<%= CommercePriceListScreenNavigationConstants.SCREEN_NAVIGATION_KEY_COMMERCE_PRICE_MODIFIER_GENERAL %>"
-	screenNavigatorModelBean="<%= commercePriceModifier %>"
+	screenNavigatorModelBean="<%= commercePriceListDisplayContext.getCommercePriceModifier() %>"
 	screenNavigatorPortletURL="<%= currentURLObj %>"
 	title='<%= LanguageUtil.get(request, "edit-price-modifier") %>'
 />

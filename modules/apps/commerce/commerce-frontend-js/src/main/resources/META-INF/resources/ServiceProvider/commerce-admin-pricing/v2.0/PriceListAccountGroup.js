@@ -20,7 +20,11 @@ const PRICE_LIST_RULES_PATH = '/price-list-account-groups';
 
 const VERSION = 'v2.0';
 
-function resolvePath(basePath = '', priceListId = '', priceListAccountGroupId = '') {
+function resolvePath(
+	basePath = '',
+	priceListId = '',
+	priceListAccountGroupId = ''
+) {
 	return `${basePath}${VERSION}${PRICE_LISTS_PATH}/${priceListId}/${PRICE_LIST_RULES_PATH}/${priceListAccountGroupId}`;
 }
 
