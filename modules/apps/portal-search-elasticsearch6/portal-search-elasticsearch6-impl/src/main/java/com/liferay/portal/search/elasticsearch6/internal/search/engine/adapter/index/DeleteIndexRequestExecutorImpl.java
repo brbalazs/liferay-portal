@@ -14,7 +14,7 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.index;
 
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.index.DeleteIndexRequest;
 import com.liferay.portal.search.engine.adapter.index.DeleteIndexResponse;
 
@@ -22,6 +22,7 @@ import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequestBuilder;
 import org.elasticsearch.action.support.IndicesOptions;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.client.AdminClient;
+import org.elasticsearch.client.Client;
 import org.elasticsearch.client.IndicesAdminClient;
 
 import org.osgi.service.component.annotations.Component;
@@ -48,8 +49,9 @@ public class DeleteIndexRequestExecutorImpl
 	protected DeleteIndexRequestBuilder createDeleteIndexRequestBuilder(
 		DeleteIndexRequest deleteIndexRequest) {
 
-		AdminClient adminClient =
-			elasticsearchConnectionManager.getAdminClient();
+		Client client = _elasticsearchClientResolver.getClient(false);
+
+		AdminClient adminClient = client.admin();
 
 		IndicesAdminClient indicesAdminClient = adminClient.indices();
 
@@ -57,7 +59,7 @@ public class DeleteIndexRequestExecutorImpl
 			indicesAdminClient.prepareDelete(
 				deleteIndexRequest.getIndexNames());
 
-		IndicesOptions indicesOptions = indicesOptionsTranslator.translate(
+		IndicesOptions indicesOptions = _indicesOptionsTranslator.translate(
 			deleteIndexRequest.getIndicesOptions());
 
 		deleteIndexRequestBuilder.setIndicesOptions(indicesOptions);
@@ -65,10 +67,21 @@ public class DeleteIndexRequestExecutorImpl
 		return deleteIndexRequestBuilder;
 	}
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
 
-	@Reference
-	protected IndicesOptionsTranslator indicesOptionsTranslator;
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	@Reference(unbind = "-")
+	protected void setIndicesOptionsTranslator(
+		IndicesOptionsTranslator indicesOptionsTranslator) {
+
+		_indicesOptionsTranslator = indicesOptionsTranslator;
+	}
+
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
+	private IndicesOptionsTranslator _indicesOptionsTranslator;
 
 }

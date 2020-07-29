@@ -15,9 +15,7 @@
 package com.liferay.portal.search.elasticsearch6.internal.filter;
 
 import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.search.elasticsearch6.internal.ElasticsearchIndexingFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.LiferayIndexCreator;
+import com.liferay.portal.search.elasticsearch6.internal.LiferayElasticsearchIndexingFixtureFactory;
 import com.liferay.portal.search.filter.FilterBuilders;
 import com.liferay.portal.search.filter.TermsSetFilter;
 import com.liferay.portal.search.filter.TermsSetFilterBuilder;
@@ -78,12 +76,7 @@ public class TermsSetFilterTest extends BaseIndexingTestCase {
 
 	@Override
 	protected IndexingFixture createIndexingFixture() throws Exception {
-		ElasticsearchFixture elasticsearchFixture = new ElasticsearchFixture(
-			TermsFilterTest.class.getSimpleName());
-
-		return new ElasticsearchIndexingFixture(
-			elasticsearchFixture, BaseIndexingTestCase.COMPANY_ID,
-			new LiferayIndexCreator(elasticsearchFixture));
+		return LiferayElasticsearchIndexingFixtureFactory.getInstance();
 	}
 
 	private static final String _CONCAT_KEYWORD_FIELD = "screenName";

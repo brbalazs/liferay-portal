@@ -92,8 +92,8 @@ public abstract class BaseElasticsearchConnection
 		try {
 			return future.get();
 		}
-		catch (Exception e) {
-			throw new IllegalStateException(e);
+		catch (Exception exception) {
+			throw new IllegalStateException(exception);
 		}
 	}
 
@@ -122,8 +122,10 @@ public abstract class BaseElasticsearchConnection
 	}
 
 	protected void loadAdditionalConfigurations() {
-		settingsBuilder.loadFromSource(
-			elasticsearchConfiguration.additionalConfigurations());
+		if (elasticsearchConfiguration != null) {
+			settingsBuilder.loadFromSource(
+				elasticsearchConfiguration.additionalConfigurations());
+		}
 	}
 
 	protected void loadOptionalDefaultConfigurations() {

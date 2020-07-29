@@ -14,10 +14,7 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.pagination;
 
-import com.liferay.portal.search.elasticsearch6.internal.ElasticsearchIndexingFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.LiferayIndexCreator;
-import com.liferay.portal.search.test.util.indexing.BaseIndexingTestCase;
+import com.liferay.portal.search.elasticsearch6.internal.LiferayElasticsearchIndexingFixtureFactory;
 import com.liferay.portal.search.test.util.indexing.IndexingFixture;
 import com.liferay.portal.search.test.util.pagination.BasePermissionFilteredPaginationTestCase;
 
@@ -29,13 +26,7 @@ public class ElasticsearchPermissionFilteredPaginationTest
 
 	@Override
 	protected IndexingFixture createIndexingFixture() {
-		ElasticsearchFixture elasticsearchFixture = new ElasticsearchFixture(
-			ElasticsearchPermissionFilteredPaginationTest.class.
-				getSimpleName());
-
-		return new ElasticsearchIndexingFixture(
-			elasticsearchFixture, BaseIndexingTestCase.COMPANY_ID,
-			new LiferayIndexCreator(elasticsearchFixture));
+		return LiferayElasticsearchIndexingFixtureFactory.getInstance();
 	}
 
 }

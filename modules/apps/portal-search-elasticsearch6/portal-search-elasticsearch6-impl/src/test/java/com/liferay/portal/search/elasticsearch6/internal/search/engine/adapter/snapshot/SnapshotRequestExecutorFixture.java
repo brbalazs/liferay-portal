@@ -14,7 +14,7 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.snapshot;
 
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.snapshot.SnapshotRequestExecutor;
 
 /**
@@ -22,96 +22,107 @@ import com.liferay.portal.search.engine.adapter.snapshot.SnapshotRequestExecutor
  */
 public class SnapshotRequestExecutorFixture {
 
-	public SnapshotRequestExecutorFixture(
-		ElasticsearchConnectionManager elasticsearchConnectionManager) {
-
-		_elasticsearchConnectionManager = elasticsearchConnectionManager;
+	public SnapshotRequestExecutor getSnapshotRequestExecutor() {
+		return _snapshotRequestExecutor;
 	}
 
-	public SnapshotRequestExecutor createExecutor() {
-		return new ElasticsearchSnapshotRequestExecutor() {
+	public void setUp() {
+		_snapshotRequestExecutor = new ElasticsearchSnapshotRequestExecutor() {
 			{
 				createSnapshotRepositoryRequestExecutor =
-					createCreateSnapshotRepositoryRequestExecutor();
+					createCreateSnapshotRepositoryRequestExecutor(
+						_elasticsearchClientResolver);
 				createSnapshotRequestExecutor =
-					createCreateSnapshotRequestExecutor();
+					createCreateSnapshotRequestExecutor(
+						_elasticsearchClientResolver);
 				deleteSnapshotRequestExecutor =
-					createDeleteSnapshotRequestExecutor();
+					createDeleteSnapshotRequestExecutor(
+						_elasticsearchClientResolver);
 				getSnapshotRepositoriesRequestExecutor =
-					createGetSnapshotRepositoriesRequestExecutor();
-				getSnapshotsRequestExecutor =
-					createGetSnapshotsRequestExecutor();
+					createGetSnapshotRepositoriesRequestExecutor(
+						_elasticsearchClientResolver);
+				getSnapshotsRequestExecutor = createGetSnapshotsRequestExecutor(
+					_elasticsearchClientResolver);
 				restoreSnapshotRequestExecutor =
-					createRestoreSnapshotRequestExecutor();
+					createRestoreSnapshotRequestExecutor(
+						_elasticsearchClientResolver);
 			}
 		};
 	}
 
-	protected CreateSnapshotRepositoryRequestExecutor
-		createCreateSnapshotRepositoryRequestExecutor() {
+	protected static CreateSnapshotRepositoryRequestExecutor
+		createCreateSnapshotRepositoryRequestExecutor(
+			ElasticsearchClientResolver elasticsearchClientResolver) {
 
 		return new CreateSnapshotRepositoryRequestExecutorImpl() {
 			{
-				elasticsearchConnectionManager =
-					_elasticsearchConnectionManager;
+				setElasticsearchClientResolver(elasticsearchClientResolver);
 			}
 		};
 	}
 
-	protected CreateSnapshotRequestExecutor
-		createCreateSnapshotRequestExecutor() {
+	protected static CreateSnapshotRequestExecutor
+		createCreateSnapshotRequestExecutor(
+			ElasticsearchClientResolver elasticsearchClientResolver) {
 
 		return new CreateSnapshotRequestExecutorImpl() {
 			{
-				elasticsearchConnectionManager =
-					_elasticsearchConnectionManager;
+				setElasticsearchClientResolver(elasticsearchClientResolver);
 			}
 		};
 	}
 
-	protected DeleteSnapshotRequestExecutor
-		createDeleteSnapshotRequestExecutor() {
+	protected static DeleteSnapshotRequestExecutor
+		createDeleteSnapshotRequestExecutor(
+			ElasticsearchClientResolver elasticsearchClientResolver) {
 
 		return new DeleteSnapshotRequestExecutorImpl() {
 			{
-				elasticsearchConnectionManager =
-					_elasticsearchConnectionManager;
+				setElasticsearchClientResolver(elasticsearchClientResolver);
 			}
 		};
 	}
 
-	protected GetSnapshotRepositoriesRequestExecutor
-		createGetSnapshotRepositoriesRequestExecutor() {
+	protected static GetSnapshotRepositoriesRequestExecutor
+		createGetSnapshotRepositoriesRequestExecutor(
+			ElasticsearchClientResolver elasticsearchClientResolver) {
 
 		return new GetSnapshotRepositoriesRequestExecutorImpl() {
 			{
-				elasticsearchConnectionManager =
-					_elasticsearchConnectionManager;
+				setElasticsearchClientResolver(elasticsearchClientResolver);
 			}
 		};
 	}
 
-	protected GetSnapshotsRequestExecutor createGetSnapshotsRequestExecutor() {
+	protected static GetSnapshotsRequestExecutor
+		createGetSnapshotsRequestExecutor(
+			ElasticsearchClientResolver elasticsearchClientResolver) {
+
 		return new GetSnapshotsRequestExecutorImpl() {
 			{
-				elasticsearchConnectionManager =
-					_elasticsearchConnectionManager;
+				setElasticsearchClientResolver(elasticsearchClientResolver);
 			}
 		};
 	}
 
-	protected RestoreSnapshotRequestExecutor
-		createRestoreSnapshotRequestExecutor() {
+	protected static RestoreSnapshotRequestExecutor
+		createRestoreSnapshotRequestExecutor(
+			ElasticsearchClientResolver elasticsearchClientResolver) {
 
 		return new RestoreSnapshotRequestExecutorImpl() {
 			{
-				elasticsearchConnectionManager =
-					_elasticsearchConnectionManager;
+				setElasticsearchClientResolver(elasticsearchClientResolver);
 			}
 		};
 	}
 
-	private final ElasticsearchConnectionManager
-		_elasticsearchConnectionManager;
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
+
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
+	private SnapshotRequestExecutor _snapshotRequestExecutor;
 
 }

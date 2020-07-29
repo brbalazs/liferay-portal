@@ -14,7 +14,7 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.snapshot;
 
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.snapshot.DeleteSnapshotRequest;
 import com.liferay.portal.search.engine.adapter.snapshot.DeleteSnapshotResponse;
 
@@ -51,7 +51,7 @@ public class DeleteSnapshotRequestExecutorImpl
 
 		DeleteSnapshotRequestBuilder deleteSnapshotRequestBuilder =
 			DeleteSnapshotAction.INSTANCE.newRequestBuilder(
-				elasticsearchConnectionManager.getClient());
+				_elasticsearchClientResolver.getClient(false));
 
 		deleteSnapshotRequestBuilder.setRepository(
 			deleteSnapshotRequest.getRepositoryName());
@@ -61,7 +61,13 @@ public class DeleteSnapshotRequestExecutorImpl
 		return deleteSnapshotRequestBuilder;
 	}
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
+
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
 
 }

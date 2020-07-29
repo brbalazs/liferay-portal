@@ -32,12 +32,12 @@ import com.liferay.portal.kernel.search.suggest.SuggestionConstants;
 import com.liferay.portal.kernel.util.Localization;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.PortalRunMode;
-import com.liferay.portal.search.elasticsearch6.internal.index.IndexNameBuilder;
 import com.liferay.portal.search.elasticsearch6.internal.util.DocumentTypes;
 import com.liferay.portal.search.engine.adapter.SearchEngineAdapter;
 import com.liferay.portal.search.engine.adapter.document.BulkDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.DeleteByQueryDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.IndexDocumentRequest;
+import com.liferay.portal.search.index.IndexNameBuilder;
 import com.liferay.portal.search.suggest.BaseGenericSpellCheckIndexWriter;
 
 import java.util.Collection;
@@ -64,8 +64,9 @@ public class ElasticsearchSpellCheckIndexWriter
 			deleteDocuments(
 				searchContext, SuggestionConstants.TYPE_QUERY_SUGGESTION);
 		}
-		catch (Exception e) {
-			throw new SearchException("Unable to clear query suggestions", e);
+		catch (Exception exception) {
+			throw new SearchException(
+				"Unable to clear query suggestions", exception);
 		}
 	}
 
@@ -77,8 +78,9 @@ public class ElasticsearchSpellCheckIndexWriter
 			deleteDocuments(
 				searchContext, SuggestionConstants.TYPE_SPELL_CHECKER);
 		}
-		catch (Exception e) {
-			throw new SearchException("Unable to to clear spell checks", e);
+		catch (Exception exception) {
+			throw new SearchException(
+				"Unable to to clear spell checks", exception);
 		}
 	}
 
@@ -86,7 +88,7 @@ public class ElasticsearchSpellCheckIndexWriter
 	protected void addDocument(
 		String documentType, SearchContext searchContext, Document document) {
 
-		String indexName = indexNameBuilder.getIndexName(
+		String indexName = _indexNameBuilder.getIndexName(
 			searchContext.getCompanyId());
 
 		IndexDocumentRequest indexDocumentRequest = new IndexDocumentRequest(
@@ -94,7 +96,7 @@ public class ElasticsearchSpellCheckIndexWriter
 
 		indexDocumentRequest.setType(DocumentTypes.LIFERAY);
 
-		searchEngineAdapter.execute(indexDocumentRequest);
+		_searchEngineAdapter.execute(indexDocumentRequest);
 	}
 
 	@Override
@@ -102,7 +104,7 @@ public class ElasticsearchSpellCheckIndexWriter
 		String documentType, SearchContext searchContext,
 		Collection<Document> documents) {
 
-		String indexName = indexNameBuilder.getIndexName(
+		String indexName = _indexNameBuilder.getIndexName(
 			searchContext.getCompanyId());
 
 		BulkDocumentRequest bulkDocumentRequest = new BulkDocumentRequest();
@@ -118,7 +120,7 @@ public class ElasticsearchSpellCheckIndexWriter
 					indexDocumentRequest);
 			});
 
-		searchEngineAdapter.execute(bulkDocumentRequest);
+		_searchEngineAdapter.execute(bulkDocumentRequest);
 	}
 
 	@Override
@@ -152,7 +154,7 @@ public class ElasticsearchSpellCheckIndexWriter
 		SearchContext searchContext, String typeFieldValue) {
 
 		try {
-			String indexName = indexNameBuilder.getIndexName(
+			String indexName = _indexNameBuilder.getIndexName(
 				searchContext.getCompanyId());
 
 			Filter termFilter = new TermFilter(Field.TYPE, typeFieldValue);
@@ -178,10 +180,10 @@ public class ElasticsearchSpellCheckIndexWriter
 				deleteByQueryDocumentRequest.setRefresh(true);
 			}
 
-			searchEngineAdapter.execute(deleteByQueryDocumentRequest);
+			_searchEngineAdapter.execute(deleteByQueryDocumentRequest);
 		}
-		catch (ParseException pe) {
-			throw new SystemException(pe);
+		catch (ParseException parseException) {
+			throw new SystemException(parseException);
 		}
 	}
 
@@ -189,19 +191,31 @@ public class ElasticsearchSpellCheckIndexWriter
 
 		// See LPS-72507 and LPS-76500
 
-		if (localization != null) {
-			return localization;
+		if (_localization != null) {
+			return _localization;
 		}
 
 		return LocalizationUtil.getLocalization();
 	}
 
 	@Reference(unbind = "-")
-	protected IndexNameBuilder indexNameBuilder;
+	protected void setIndexNameBuilder(IndexNameBuilder indexNameBuilder) {
+		_indexNameBuilder = indexNameBuilder;
+	}
 
-	protected Localization localization;
+	protected void setLocalization(Localization localization) {
+		_localization = localization;
+	}
 
-	@Reference(target = "(search.engine.impl=Elasticsearch)")
-	protected SearchEngineAdapter searchEngineAdapter;
+	@Reference(target = "(search.engine.impl=Elasticsearch)", unbind = "-")
+	protected void setSearchEngineAdapter(
+		SearchEngineAdapter searchEngineAdapter) {
+
+		_searchEngineAdapter = searchEngineAdapter;
+	}
+
+	private IndexNameBuilder _indexNameBuilder;
+	private Localization _localization;
+	private SearchEngineAdapter _searchEngineAdapter;
 
 }

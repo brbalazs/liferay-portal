@@ -76,13 +76,13 @@ public class PluginManagerImpl implements PluginManager {
 					try {
 						main(args);
 					}
-					catch (Exception e) {
-						throw new SystemException(e);
+					catch (Exception exception) {
+						throw new SystemException(exception);
 					}
 				});
 		}
-		catch (SystemException se) {
-			throw (Exception)se.getCause();
+		catch (SystemException systemException) {
+			throw (Exception)systemException.getCause();
 		}
 	}
 
@@ -95,14 +95,14 @@ public class PluginManagerImpl implements PluginManager {
 
 			return pluginVersion.equals(Version.CURRENT);
 		}
-		catch (IllegalArgumentException iae) {
-			String message = iae.getMessage();
+		catch (IllegalArgumentException illegalArgumentException) {
+			String message = illegalArgumentException.getMessage();
 
 			if ((message != null) && message.contains("designed for version")) {
 				return false;
 			}
 
-			throw iae;
+			throw illegalArgumentException;
 		}
 	}
 
@@ -110,12 +110,11 @@ public class PluginManagerImpl implements PluginManager {
 	public void remove(String name) throws Exception {
 		Settings settings = _environment.settings();
 
-		String[] args = {
-			"remove", name, "-Epath.home=" + settings.get("path.home"),
-			"--silent"
-		};
-
-		main(args);
+		main(
+			new String[] {
+				"remove", name, "-Epath.home=" + settings.get("path.home"),
+				"--silent"
+			});
 	}
 
 	protected void main(String... args) throws Exception {

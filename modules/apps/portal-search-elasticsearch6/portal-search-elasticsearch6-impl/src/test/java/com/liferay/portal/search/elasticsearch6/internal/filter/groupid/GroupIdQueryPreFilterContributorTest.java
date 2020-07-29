@@ -14,11 +14,8 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.filter.groupid;
 
-import com.liferay.portal.search.elasticsearch6.internal.ElasticsearchIndexingFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.LiferayIndexCreator;
+import com.liferay.portal.search.elasticsearch6.internal.LiferayElasticsearchIndexingFixtureFactory;
 import com.liferay.portal.search.test.util.filter.groupid.BaseGroupIdQueryPreFilterContributorTestCase;
-import com.liferay.portal.search.test.util.indexing.BaseIndexingTestCase;
 import com.liferay.portal.search.test.util.indexing.IndexingFixture;
 
 /**
@@ -29,14 +26,7 @@ public class GroupIdQueryPreFilterContributorTest
 
 	@Override
 	protected IndexingFixture createIndexingFixture() throws Exception {
-		Class<?> testClass = getClass();
-
-		ElasticsearchFixture elasticsearchFixture = new ElasticsearchFixture(
-			testClass.getSimpleName());
-
-		return new ElasticsearchIndexingFixture(
-			elasticsearchFixture, BaseIndexingTestCase.COMPANY_ID,
-			new LiferayIndexCreator(elasticsearchFixture));
+		return LiferayElasticsearchIndexingFixtureFactory.getInstance();
 	}
 
 }

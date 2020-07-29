@@ -15,7 +15,7 @@
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.index;
 
 import com.liferay.portal.kernel.util.ArrayUtil;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.index.FlushIndexRequest;
 import com.liferay.portal.search.engine.adapter.index.FlushIndexResponse;
 import com.liferay.portal.search.engine.adapter.index.IndexRequestShardFailure;
@@ -24,7 +24,6 @@ import org.elasticsearch.action.ShardOperationFailedException;
 import org.elasticsearch.action.admin.indices.flush.FlushAction;
 import org.elasticsearch.action.admin.indices.flush.FlushRequestBuilder;
 import org.elasticsearch.action.admin.indices.flush.FlushResponse;
-import org.elasticsearch.client.Client;
 import org.elasticsearch.rest.RestStatus;
 
 import org.osgi.service.component.annotations.Component;
@@ -63,7 +62,7 @@ public class FlushIndexRequestExecutorImpl
 					shardOperationFailedExceptions) {
 
 				IndexRequestShardFailure indexRequestShardFailure =
-					indexRequestShardFailureTranslator.translate(
+					_indexRequestShardFailureTranslator.translate(
 						shardOperationFailedException);
 
 				flushIndexResponse.addIndexRequestShardFailure(
@@ -77,10 +76,9 @@ public class FlushIndexRequestExecutorImpl
 	protected FlushRequestBuilder createFlushRequestBuilder(
 		FlushIndexRequest flushIndexRequest) {
 
-		Client client = elasticsearchConnectionManager.getClient();
-
 		FlushRequestBuilder flushRequestBuilder =
-			FlushAction.INSTANCE.newRequestBuilder(client);
+			FlushAction.INSTANCE.newRequestBuilder(
+				_elasticsearchClientResolver.getClient(false));
 
 		flushRequestBuilder.setIndices(flushIndexRequest.getIndexNames());
 		flushRequestBuilder.setForce(flushIndexRequest.isForce());
@@ -90,11 +88,23 @@ public class FlushIndexRequestExecutorImpl
 		return flushRequestBuilder;
 	}
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
 
-	@Reference
-	protected IndexRequestShardFailureTranslator
-		indexRequestShardFailureTranslator;
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	@Reference(unbind = "-")
+	protected void setIndexRequestShardFailureTranslator(
+		IndexRequestShardFailureTranslator indexRequestShardFailureTranslator) {
+
+		_indexRequestShardFailureTranslator =
+			indexRequestShardFailureTranslator;
+	}
+
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
+	private IndexRequestShardFailureTranslator
+		_indexRequestShardFailureTranslator;
 
 }

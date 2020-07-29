@@ -14,13 +14,14 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.index;
 
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.kernel.json.JSONFactory;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.index.CreateIndexRequest;
 import com.liferay.portal.search.engine.adapter.index.CreateIndexResponse;
 
 import org.elasticsearch.action.admin.indices.create.CreateIndexAction;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
-import org.elasticsearch.client.Client;
 import org.elasticsearch.common.xcontent.XContentType;
 
 import org.osgi.service.component.annotations.Component;
@@ -48,19 +49,52 @@ public class CreateIndexRequestExecutorImpl
 	protected CreateIndexRequestBuilder createCreateIndexRequestBuilder(
 		CreateIndexRequest createIndexRequest) {
 
-		Client client = elasticsearchConnectionManager.getClient();
-
 		CreateIndexRequestBuilder createIndexRequestBuilder =
-			CreateIndexAction.INSTANCE.newRequestBuilder(client);
+			CreateIndexAction.INSTANCE.newRequestBuilder(
+				_elasticsearchClientResolver.getClient(false));
 
 		createIndexRequestBuilder.setIndex(createIndexRequest.getIndexName());
+
+		try {
+			JSONObject jsonObject = _jsonFactory.createJSONObject(
+				createIndexRequest.getSource());
+
+			JSONObject settingsJsonObject = _jsonFactory.createJSONObject(
+				jsonObject.getString("settings"));
+
+			if (settingsJsonObject == null) {
+				settingsJsonObject = _jsonFactory.createJSONObject();
+			}
+
+			settingsJsonObject.put("index.soft_deletes.enabled", "true");
+
+			jsonObject.put("settings", settingsJsonObject);
+
+			createIndexRequest.setSource(jsonObject.toString());
+		}
+		catch (Exception exception) {
+			throw new RuntimeException(exception);
+		}
+
 		createIndexRequestBuilder.setSource(
 			createIndexRequest.getSource(), XContentType.JSON);
 
 		return createIndexRequestBuilder;
 	}
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
+
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	@Reference(unbind = "-")
+	protected void setJsonFactory(JSONFactory jsonFactory) {
+		_jsonFactory = jsonFactory;
+	}
+
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
+	private JSONFactory _jsonFactory;
 
 }

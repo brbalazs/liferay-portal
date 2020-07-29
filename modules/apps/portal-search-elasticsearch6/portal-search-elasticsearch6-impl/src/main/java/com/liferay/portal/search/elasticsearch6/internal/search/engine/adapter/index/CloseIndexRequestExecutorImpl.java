@@ -14,7 +14,7 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.index;
 
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.index.CloseIndexRequest;
 import com.liferay.portal.search.engine.adapter.index.CloseIndexResponse;
 import com.liferay.portal.search.engine.adapter.index.IndicesOptions;
@@ -50,7 +50,7 @@ public class CloseIndexRequestExecutorImpl
 
 		CloseIndexRequestBuilder closeIndexRequestBuilder =
 			CloseIndexAction.INSTANCE.newRequestBuilder(
-				elasticsearchConnectionManager.getClient());
+				_elasticsearchClientResolver.getClient(false));
 
 		closeIndexRequestBuilder.setIndices(closeIndexRequest.getIndexNames());
 
@@ -58,7 +58,7 @@ public class CloseIndexRequestExecutorImpl
 
 		if (indicesOptions != null) {
 			closeIndexRequestBuilder.setIndicesOptions(
-				indicesOptionsTranslator.translate(indicesOptions));
+				_indicesOptionsTranslator.translate(indicesOptions));
 		}
 
 		if (closeIndexRequest.getTimeout() > 0) {
@@ -72,10 +72,21 @@ public class CloseIndexRequestExecutorImpl
 		return closeIndexRequestBuilder;
 	}
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
 
-	@Reference
-	protected IndicesOptionsTranslator indicesOptionsTranslator;
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	@Reference(unbind = "-")
+	protected void setIndicesOptionsTranslator(
+		IndicesOptionsTranslator indicesOptionsTranslator) {
+
+		_indicesOptionsTranslator = indicesOptionsTranslator;
+	}
+
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
+	private IndicesOptionsTranslator _indicesOptionsTranslator;
 
 }

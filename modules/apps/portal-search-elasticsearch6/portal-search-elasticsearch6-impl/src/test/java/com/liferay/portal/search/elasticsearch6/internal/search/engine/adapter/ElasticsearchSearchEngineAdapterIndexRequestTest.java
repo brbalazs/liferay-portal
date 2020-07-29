@@ -15,10 +15,12 @@
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter;
 
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.json.JSONFactoryImpl;
 import com.liferay.portal.kernel.json.JSONException;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.TestElasticsearchConnectionManager;
 import com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.index.IndexRequestExecutorFixture;
 import com.liferay.portal.search.engine.adapter.SearchEngineAdapter;
 import com.liferay.portal.search.engine.adapter.index.CloseIndexRequest;
@@ -49,6 +51,7 @@ import com.liferay.portal.search.engine.adapter.index.UpdateIndexSettingsIndexRe
 import com.liferay.portal.search.engine.adapter.index.UpdateIndexSettingsIndexResponse;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import org.elasticsearch.action.admin.cluster.state.ClusterStateAction;
 import org.elasticsearch.action.admin.cluster.state.ClusterStateRequestBuilder;
@@ -65,6 +68,7 @@ import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequestBuild
 import org.elasticsearch.action.admin.indices.settings.get.GetSettingsRequestBuilder;
 import org.elasticsearch.action.admin.indices.settings.get.GetSettingsResponse;
 import org.elasticsearch.client.AdminClient;
+import org.elasticsearch.client.Client;
 import org.elasticsearch.client.IndicesAdminClient;
 import org.elasticsearch.cluster.ClusterState;
 import org.elasticsearch.cluster.metadata.IndexMetaData;
@@ -86,22 +90,21 @@ public class ElasticsearchSearchEngineAdapterIndexRequestTest {
 
 	@Before
 	public void setUp() throws Exception {
+		setUpJSONFactoryUtil();
+
 		_elasticsearchFixture = new ElasticsearchFixture(
 			ElasticsearchSearchEngineAdapterIndexRequestTest.class.
 				getSimpleName());
 
 		_elasticsearchFixture.setUp();
 
-		ElasticsearchConnectionManager elasticsearchConnectionManager =
-			new TestElasticsearchConnectionManager(_elasticsearchFixture);
+		Client client = _elasticsearchFixture.getClient();
 
-		AdminClient adminClient =
-			elasticsearchConnectionManager.getAdminClient();
+		AdminClient adminClient = client.admin();
 
 		_indicesAdminClient = adminClient.indices();
 
-		_searchEngineAdapter = createSearchEngineAdapter(
-			elasticsearchConnectionManager);
+		_searchEngineAdapter = createSearchEngineAdapter(_elasticsearchFixture);
 
 		createIndex();
 	}
@@ -212,9 +215,8 @@ public class ElasticsearchSearchEngineAdapterIndexRequestTest {
 		Assert.assertEquals(0, flushIndexResponse.getFailedShards());
 	}
 
-	@Ignore
 	@Test
-	public void testExecuteGetFieldMappingIndexRequest() {
+	public void testExecuteGetFieldMappingIndexRequest() throws Exception {
 		String mappingName = "testGetFieldMapping";
 		String mappingSource =
 			"{\"properties\":{\"testField\":{\"type\":\"keyword\"}, " +
@@ -231,10 +233,17 @@ public class ElasticsearchSearchEngineAdapterIndexRequestTest {
 		GetFieldMappingIndexResponse getFieldMappingIndexResponse =
 			_searchEngineAdapter.execute(getFieldMappingIndexRequest);
 
-		String fieldMappings = String.valueOf(
-			getFieldMappingIndexResponse.getFieldMappings());
+		Map<String, String> fieldMappings =
+			getFieldMappingIndexResponse.getFieldMappings();
 
-		Assert.assertTrue(fieldMappings.contains(mappingSource));
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+			fieldMappings.get(_INDEX_NAME));
+
+		String fieldMapping = jsonObject.getString("otherTestField");
+
+		Assert.assertTrue(
+			fieldMapping,
+			fieldMapping.equals("{\"otherTestField\":{\"type\":\"keyword\"}}"));
 	}
 
 	@Test
@@ -410,6 +419,38 @@ public class ElasticsearchSearchEngineAdapterIndexRequestTest {
 		assertIndexMetaDataState(_INDEX_NAME, IndexMetaData.State.OPEN);
 	}
 
+	protected static IndexRequestExecutor createIndexRequestExecutor(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
+
+		IndexRequestExecutorFixture indexRequestExecutorFixture =
+			new IndexRequestExecutorFixture() {
+				{
+					setElasticsearchClientResolver(elasticsearchClientResolver);
+				}
+			};
+
+		indexRequestExecutorFixture.setUp();
+
+		return indexRequestExecutorFixture.getIndexRequestExecutor();
+	}
+
+	protected static SearchEngineAdapter createSearchEngineAdapter(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
+
+		return new ElasticsearchSearchEngineAdapterImpl() {
+			{
+				setIndexRequestExecutor(
+					createIndexRequestExecutor(elasticsearchClientResolver));
+			}
+		};
+	}
+
+	protected static void setUpJSONFactoryUtil() {
+		JSONFactoryUtil jsonFactoryUtil = new JSONFactoryUtil();
+
+		jsonFactoryUtil.setJSONFactory(new JSONFactoryImpl());
+	}
+
 	protected void assertIndexMetaDataState(
 		String indexName, IndexMetaData.State indexMetaDataState) {
 
@@ -439,26 +480,6 @@ public class ElasticsearchSearchEngineAdapterIndexRequestTest {
 			_indicesAdminClient.prepareCreate(_INDEX_NAME);
 
 		createIndexRequestBuilder.get();
-	}
-
-	protected IndexRequestExecutor createIndexRequestExecutor(
-		ElasticsearchConnectionManager elasticsearchConnectionManager) {
-
-		IndexRequestExecutorFixture indexRequestExecutorFixture =
-			new IndexRequestExecutorFixture(elasticsearchConnectionManager);
-
-		return indexRequestExecutorFixture.createExecutor();
-	}
-
-	protected SearchEngineAdapter createSearchEngineAdapter(
-		ElasticsearchConnectionManager elasticsearchConnectionManager) {
-
-		return new ElasticsearchSearchEngineAdapterImpl() {
-			{
-				indexRequestExecutor = createIndexRequestExecutor(
-					elasticsearchConnectionManager);
-			}
-		};
 	}
 
 	protected void deleteIndex() {

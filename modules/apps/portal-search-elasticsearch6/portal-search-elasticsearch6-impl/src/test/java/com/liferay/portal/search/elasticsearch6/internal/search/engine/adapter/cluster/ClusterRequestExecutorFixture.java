@@ -14,7 +14,7 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.cluster;
 
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.cluster.ClusterRequestExecutor;
 
 /**
@@ -22,60 +22,75 @@ import com.liferay.portal.search.engine.adapter.cluster.ClusterRequestExecutor;
  */
 public class ClusterRequestExecutorFixture {
 
-	public ClusterRequestExecutorFixture(
-		ElasticsearchConnectionManager elasticsearchConnectionManager) {
-
-		_elasticsearchConnectionManager = elasticsearchConnectionManager;
+	public ClusterRequestExecutor getClusterRequestExecutor() {
+		return _clusterRequestExecutor;
 	}
 
-	public ClusterRequestExecutor createExecutor() {
-		return new ElasticsearchClusterRequestExecutor() {
+	public void setUp() {
+		ClusterHealthStatusTranslator clusterHealthStatusTranslator =
+			new ClusterHealthStatusTranslatorImpl();
+
+		_clusterRequestExecutor = new ElasticsearchClusterRequestExecutor() {
 			{
-				healthClusterRequestExecutor =
-					createHealthClusterRequestExecutor();
-				stateClusterRequestExecutor =
-					createStateClusterRequestExecutor();
-				statsClusterRequestExecutor =
-					createStatsClusterRequestExecutor();
+				setHealthClusterRequestExecutor(
+					createHealthClusterRequestExecutor(
+						clusterHealthStatusTranslator,
+						_elasticsearchClientResolver));
+				setStateClusterRequestExecutor(
+					createStateClusterRequestExecutor(
+						_elasticsearchClientResolver));
+				setStatsClusterRequestExecutor(
+					createStatsClusterRequestExecutor(
+						clusterHealthStatusTranslator,
+						_elasticsearchClientResolver));
 			}
 		};
 	}
 
-	protected HealthClusterRequestExecutor
-		createHealthClusterRequestExecutor() {
+	protected static HealthClusterRequestExecutor
+		createHealthClusterRequestExecutor(
+			ClusterHealthStatusTranslator clusterHealthStatusTranslator,
+			ElasticsearchClientResolver elasticsearchClientResolver) {
 
 		return new HealthClusterRequestExecutorImpl() {
 			{
-				clusterHealthStatusTranslator = _clusterHealthStatusTranslator;
-				elasticsearchConnectionManager =
-					_elasticsearchConnectionManager;
+				setClusterHealthStatusTranslator(clusterHealthStatusTranslator);
+				setElasticsearchClientResolver(elasticsearchClientResolver);
 			}
 		};
 	}
 
-	protected StateClusterRequestExecutor createStateClusterRequestExecutor() {
+	protected static StateClusterRequestExecutor
+		createStateClusterRequestExecutor(
+			ElasticsearchClientResolver elasticsearchClientResolver) {
+
 		return new StateClusterRequestExecutorImpl() {
 			{
-				elasticsearchConnectionManager =
-					_elasticsearchConnectionManager;
+				setElasticsearchClientResolver(elasticsearchClientResolver);
 			}
 		};
 	}
 
-	protected StatsClusterRequestExecutor createStatsClusterRequestExecutor() {
+	protected static StatsClusterRequestExecutor
+		createStatsClusterRequestExecutor(
+			ClusterHealthStatusTranslator clusterHealthStatusTranslator,
+			ElasticsearchClientResolver elasticsearchClientResolver) {
+
 		return new StatsClusterRequestExecutorImpl() {
 			{
-				clusterHealthStatusTranslator = _clusterHealthStatusTranslator;
-
-				elasticsearchConnectionManager =
-					_elasticsearchConnectionManager;
+				setClusterHealthStatusTranslator(clusterHealthStatusTranslator);
+				setElasticsearchClientResolver(elasticsearchClientResolver);
 			}
 		};
 	}
 
-	private final ClusterHealthStatusTranslator _clusterHealthStatusTranslator =
-		new ClusterHealthStatusTranslatorImpl();
-	private final ElasticsearchConnectionManager
-		_elasticsearchConnectionManager;
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
+
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	private ClusterRequestExecutor _clusterRequestExecutor;
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
 
 }

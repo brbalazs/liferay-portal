@@ -14,14 +14,13 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.index;
 
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.index.IndicesExistsIndexRequest;
 import com.liferay.portal.search.engine.adapter.index.IndicesExistsIndexResponse;
 
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsAction;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequestBuilder;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
-import org.elasticsearch.client.Client;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -49,10 +48,10 @@ public class IndicesExistsIndexRequestExecutorImpl
 	protected IndicesExistsRequestBuilder createIndicesExistsRequestBuilder(
 		IndicesExistsIndexRequest indicesExistsIndexRequest) {
 
-		Client client = elasticsearchConnectionManager.getClient();
-
 		IndicesExistsRequestBuilder indicesExistsRequestBuilder =
-			IndicesExistsAction.INSTANCE.newRequestBuilder(client);
+			IndicesExistsAction.INSTANCE.newRequestBuilder(
+				_elasticsearchClientResolver.getClient(
+					indicesExistsIndexRequest.isPreferLocalCluster()));
 
 		indicesExistsRequestBuilder.setIndices(
 			indicesExistsIndexRequest.getIndexNames());
@@ -60,7 +59,13 @@ public class IndicesExistsIndexRequestExecutorImpl
 		return indicesExistsRequestBuilder;
 	}
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
+
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
 
 }

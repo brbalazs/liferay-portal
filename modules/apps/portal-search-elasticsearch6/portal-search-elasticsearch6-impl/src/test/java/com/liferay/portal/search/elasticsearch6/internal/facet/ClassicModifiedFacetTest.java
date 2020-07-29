@@ -14,11 +14,8 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.facet;
 
-import com.liferay.portal.search.elasticsearch6.internal.ElasticsearchIndexingFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.LiferayIndexCreator;
+import com.liferay.portal.search.elasticsearch6.internal.LiferayElasticsearchIndexingFixtureFactory;
 import com.liferay.portal.search.test.util.facet.BaseClassicModifiedFacetTestCase;
-import com.liferay.portal.search.test.util.indexing.BaseIndexingTestCase;
 import com.liferay.portal.search.test.util.indexing.IndexingFixture;
 
 /**
@@ -28,18 +25,10 @@ public class ClassicModifiedFacetTest extends BaseClassicModifiedFacetTestCase {
 
 	@Override
 	protected IndexingFixture createIndexingFixture() throws Exception {
-		ElasticsearchFixture elasticsearchFixture = new ElasticsearchFixture(
-			getClass());
-
-		ElasticsearchIndexingFixture elasticsearchIndexingFixture =
-			new ElasticsearchIndexingFixture(
-				elasticsearchFixture, BaseIndexingTestCase.COMPANY_ID,
-				new LiferayIndexCreator(elasticsearchFixture));
-
-		elasticsearchIndexingFixture.setFacetProcessor(
-			new ModifiedFacetProcessor());
-
-		return elasticsearchIndexingFixture;
+		return LiferayElasticsearchIndexingFixtureFactory.builder(
+		).facetProcessor(
+			new ModifiedFacetProcessor()
+		).build();
 	}
 
 }

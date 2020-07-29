@@ -14,6 +14,7 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.document;
 
+import com.liferay.portal.search.document.Document;
 import com.liferay.portal.search.engine.adapter.document.DeleteByQueryDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.DeleteDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.IndexDocumentRequest;
@@ -39,16 +40,16 @@ public class ElasticsearchDocumentRequestExecutorTest {
 		_elasticsearchDocumentRequestExecutor =
 			new ElasticsearchDocumentRequestExecutor() {
 				{
-					deleteByQueryDocumentRequestExecutor =
-						_deleteByQueryDocumentRequestExecutor;
-					deleteDocumentRequestExecutor =
-						_deleteDocumentRequestExecutor;
-					indexDocumentRequestExecutor =
-						_indexDocumentRequestExecutor;
-					updateByQueryDocumentRequestExecutor =
-						_updateByQueryDocumentRequestExecutor;
-					updateDocumentRequestExecutor =
-						_updateDocumentRequestExecutor;
+					setDeleteByQueryDocumentRequestExecutor(
+						_deleteByQueryDocumentRequestExecutor);
+					setDeleteDocumentRequestExecutor(
+						_deleteDocumentRequestExecutor);
+					setIndexDocumentRequestExecutor(
+						_indexDocumentRequestExecutor);
+					setUpdateByQueryDocumentRequestExecutor(
+						_updateByQueryDocumentRequestExecutor);
+					setUpdateDocumentRequestExecutor(
+						_updateDocumentRequestExecutor);
 				}
 			};
 	}
@@ -56,7 +57,7 @@ public class ElasticsearchDocumentRequestExecutorTest {
 	@Test
 	public void testExecuteDeleteByQueryDocumentRequest() {
 		DeleteByQueryDocumentRequest deleteByQueryDocumentRequest =
-			new DeleteByQueryDocumentRequest(null, null);
+			new DeleteByQueryDocumentRequest(null);
 
 		_elasticsearchDocumentRequestExecutor.executeDocumentRequest(
 			deleteByQueryDocumentRequest);
@@ -71,7 +72,7 @@ public class ElasticsearchDocumentRequestExecutorTest {
 	@Test
 	public void testExecuteDeleteDocumentRequest() {
 		DeleteDocumentRequest deleteDocumentRequest = new DeleteDocumentRequest(
-			null, null, null);
+			null, null);
 
 		_elasticsearchDocumentRequestExecutor.executeDocumentRequest(
 			deleteDocumentRequest);
@@ -86,7 +87,7 @@ public class ElasticsearchDocumentRequestExecutorTest {
 	@Test
 	public void testExecuteIndexDocumentRequest() {
 		IndexDocumentRequest indexDocumentRequest = new IndexDocumentRequest(
-			null, null);
+			null, (Document)null);
 
 		_elasticsearchDocumentRequestExecutor.executeDocumentRequest(
 			indexDocumentRequest);
@@ -101,7 +102,7 @@ public class ElasticsearchDocumentRequestExecutorTest {
 	@Test
 	public void testExecuteUpdateByQueryDocumentRequest() {
 		UpdateByQueryDocumentRequest updateByQueryDocumentRequest =
-			new UpdateByQueryDocumentRequest(null, null, null);
+			new UpdateByQueryDocumentRequest(null, null);
 
 		_elasticsearchDocumentRequestExecutor.executeDocumentRequest(
 			updateByQueryDocumentRequest);
@@ -116,7 +117,7 @@ public class ElasticsearchDocumentRequestExecutorTest {
 	@Test
 	public void testExecuteUpdateDocumentRequest() {
 		UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest(
-			null, null, null);
+			null, null, (Document)null);
 
 		_elasticsearchDocumentRequestExecutor.executeDocumentRequest(
 			updateDocumentRequest);

@@ -14,20 +14,11 @@
 
 package com.liferay.portal.search.elasticsearch6.internal;
 
-import com.liferay.portal.json.JSONFactoryImpl;
 import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnection;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.TestElasticsearchConnectionManager;
-import com.liferay.portal.search.elasticsearch6.internal.facet.DefaultFacetProcessor;
-import com.liferay.portal.search.elasticsearch6.internal.facet.FacetProcessor;
-import com.liferay.portal.search.elasticsearch6.internal.index.CompanyIdIndexNameBuilder;
-import com.liferay.portal.search.elasticsearch6.internal.index.CompanyIndexFactory;
-import com.liferay.portal.search.elasticsearch6.internal.index.IndexNameBuilder;
-import com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.ElasticsearchEngineAdapterFixture;
-import com.liferay.portal.search.engine.adapter.SearchEngineAdapter;
 
 import java.util.List;
 
@@ -38,7 +29,6 @@ import org.elasticsearch.action.admin.cluster.snapshots.delete.DeleteSnapshotReq
 import org.elasticsearch.action.admin.cluster.snapshots.get.GetSnapshotsAction;
 import org.elasticsearch.action.admin.cluster.snapshots.get.GetSnapshotsRequestBuilder;
 import org.elasticsearch.action.admin.cluster.snapshots.get.GetSnapshotsResponse;
-import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.snapshots.SnapshotInfo;
 
 import org.junit.After;
@@ -53,32 +43,25 @@ public class ElasticsearchSearchEngineTest {
 
 	@Before
 	public void setUp() throws Exception {
-		_elasticsearchFixture = new ElasticsearchFixture(
-			ElasticsearchSearchEngineTest.class.getSimpleName());
+		_elasticsearchSearchEngineFixture =
+			new ElasticsearchSearchEngineFixture(
+				ElasticsearchSearchEngineTest.class.getSimpleName());
 
-		_elasticsearchFixture.setUp();
+		_elasticsearchSearchEngineFixture.setUp();
 
-		_elasticsearchConnectionManager =
-			new TestElasticsearchConnectionManager(_elasticsearchFixture);
-
-		ElasticsearchEngineAdapterFixture elasticsearchEngineAdapterFixture =
-			new ElasticsearchEngineAdapterFixture(
-				_elasticsearchConnectionManager, _facetProcessor);
-
-		_searchEngineAdapter =
-			elasticsearchEngineAdapterFixture.getSearchEngineAdapter();
+		_elasticsearchFixture =
+			_elasticsearchSearchEngineFixture.getElasticsearchFixture();
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		_elasticsearchFixture.tearDown();
+		_elasticsearchSearchEngineFixture.tearDown();
 	}
 
 	@Test
 	public void testBackup() throws SearchException {
 		ElasticsearchSearchEngine elasticsearchSearchEngine =
-			createElasticsearchSearchEngine(
-				_elasticsearchConnectionManager, _searchEngineAdapter);
+			_elasticsearchSearchEngineFixture.getElasticsearchSearchEngine();
 
 		long companyId = RandomTestUtil.randomLong();
 
@@ -114,14 +97,15 @@ public class ElasticsearchSearchEngineTest {
 	@Test
 	public void testInitializeAfterReconnect() {
 		ElasticsearchSearchEngine elasticsearchSearchEngine =
-			createElasticsearchSearchEngine(
-				_elasticsearchConnectionManager, _searchEngineAdapter);
+			_elasticsearchSearchEngineFixture.getElasticsearchSearchEngine();
 
 		long companyId = RandomTestUtil.randomLong();
 
 		elasticsearchSearchEngine.initialize(companyId);
 
-		reconnect(_elasticsearchConnectionManager);
+		reconnect(
+			_elasticsearchSearchEngineFixture.
+				getElasticsearchConnectionManager());
 
 		elasticsearchSearchEngine.initialize(companyId);
 	}
@@ -129,8 +113,7 @@ public class ElasticsearchSearchEngineTest {
 	@Test
 	public void testRestore() throws SearchException {
 		ElasticsearchSearchEngine elasticsearchSearchEngine =
-			createElasticsearchSearchEngine(
-				_elasticsearchConnectionManager, _searchEngineAdapter);
+			_elasticsearchSearchEngineFixture.getElasticsearchSearchEngine();
 
 		long companyId = RandomTestUtil.randomLong();
 
@@ -161,44 +144,6 @@ public class ElasticsearchSearchEngineTest {
 		deleteSnapshotRequestBuilder.get();
 	}
 
-	protected CompanyIndexFactory createCompanyIndexFactory() {
-		return new CompanyIndexFactory() {
-			{
-				indexNameBuilder = createIndexNameBuilder();
-				jsonFactory = new JSONFactoryImpl();
-			}
-		};
-	}
-
-	protected ElasticsearchConnectionManager
-		createElasticsearchConnectionManager() {
-
-		return new TestElasticsearchConnectionManager(_elasticsearchFixture);
-	}
-
-	protected ElasticsearchSearchEngine createElasticsearchSearchEngine(
-		final ElasticsearchConnectionManager elasticsearchConnectionManager2,
-		final SearchEngineAdapter searchEngineAdapter1) {
-
-		return new ElasticsearchSearchEngine() {
-			{
-				elasticsearchConnectionManager =
-					elasticsearchConnectionManager2;
-				indexFactory = createCompanyIndexFactory();
-				indexNameBuilder = String::valueOf;
-				searchEngineAdapter = searchEngineAdapter1;
-			}
-		};
-	}
-
-	protected IndexNameBuilder createIndexNameBuilder() {
-		return new CompanyIdIndexNameBuilder() {
-			{
-				setIndexNamePrefix(null);
-			}
-		};
-	}
-
 	protected void reconnect(
 		ElasticsearchConnectionManager elasticsearchConnectionManager) {
 
@@ -210,10 +155,7 @@ public class ElasticsearchSearchEngineTest {
 		elasticsearchConnectionManager.connect();
 	}
 
-	private ElasticsearchConnectionManager _elasticsearchConnectionManager;
 	private ElasticsearchFixture _elasticsearchFixture;
-	private final FacetProcessor<SearchRequestBuilder> _facetProcessor =
-		new DefaultFacetProcessor();
-	private SearchEngineAdapter _searchEngineAdapter;
+	private ElasticsearchSearchEngineFixture _elasticsearchSearchEngineFixture;
 
 }

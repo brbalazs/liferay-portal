@@ -21,6 +21,8 @@ import com.liferay.portal.search.engine.adapter.document.DeleteByQueryDocumentRe
 import com.liferay.portal.search.engine.adapter.document.DeleteDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.DeleteDocumentResponse;
 import com.liferay.portal.search.engine.adapter.document.DocumentRequestExecutor;
+import com.liferay.portal.search.engine.adapter.document.GetDocumentRequest;
+import com.liferay.portal.search.engine.adapter.document.GetDocumentResponse;
 import com.liferay.portal.search.engine.adapter.document.IndexDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.IndexDocumentResponse;
 import com.liferay.portal.search.engine.adapter.document.UpdateByQueryDocumentRequest;
@@ -45,14 +47,14 @@ public class ElasticsearchDocumentRequestExecutor
 	public BulkDocumentResponse executeBulkDocumentRequest(
 		BulkDocumentRequest bulkDocumentRequest) {
 
-		return bulkDocumentRequestExecutor.execute(bulkDocumentRequest);
+		return _bulkDocumentRequestExecutor.execute(bulkDocumentRequest);
 	}
 
 	@Override
 	public DeleteByQueryDocumentResponse executeDocumentRequest(
 		DeleteByQueryDocumentRequest deleteByQueryDocumentRequest) {
 
-		return deleteByQueryDocumentRequestExecutor.execute(
+		return _deleteByQueryDocumentRequestExecutor.execute(
 			deleteByQueryDocumentRequest);
 	}
 
@@ -60,21 +62,28 @@ public class ElasticsearchDocumentRequestExecutor
 	public DeleteDocumentResponse executeDocumentRequest(
 		DeleteDocumentRequest deleteDocumentRequest) {
 
-		return deleteDocumentRequestExecutor.execute(deleteDocumentRequest);
+		return _deleteDocumentRequestExecutor.execute(deleteDocumentRequest);
+	}
+
+	@Override
+	public GetDocumentResponse executeDocumentRequest(
+		GetDocumentRequest getDocumentRequest) {
+
+		return _getDocumentRequestExecutor.execute(getDocumentRequest);
 	}
 
 	@Override
 	public IndexDocumentResponse executeDocumentRequest(
 		IndexDocumentRequest indexDocumentRequest) {
 
-		return indexDocumentRequestExecutor.execute(indexDocumentRequest);
+		return _indexDocumentRequestExecutor.execute(indexDocumentRequest);
 	}
 
 	@Override
 	public UpdateByQueryDocumentResponse executeDocumentRequest(
 		UpdateByQueryDocumentRequest updateByQueryDocumentRequest) {
 
-		return updateByQueryDocumentRequestExecutor.execute(
+		return _updateByQueryDocumentRequestExecutor.execute(
 			updateByQueryDocumentRequest);
 	}
 
@@ -82,27 +91,70 @@ public class ElasticsearchDocumentRequestExecutor
 	public UpdateDocumentResponse executeDocumentRequest(
 		UpdateDocumentRequest updateDocumentRequest) {
 
-		return updateDocumentRequestExecutor.execute(updateDocumentRequest);
+		return _updateDocumentRequestExecutor.execute(updateDocumentRequest);
 	}
 
-	@Reference
-	protected BulkDocumentRequestExecutor bulkDocumentRequestExecutor;
+	@Reference(unbind = "-")
+	protected void setBulkDocumentRequestExecutor(
+		BulkDocumentRequestExecutor bulkDocumentRequestExecutor) {
 
-	@Reference
-	protected DeleteByQueryDocumentRequestExecutor
-		deleteByQueryDocumentRequestExecutor;
+		_bulkDocumentRequestExecutor = bulkDocumentRequestExecutor;
+	}
 
-	@Reference
-	protected DeleteDocumentRequestExecutor deleteDocumentRequestExecutor;
+	@Reference(unbind = "-")
+	protected void setDeleteByQueryDocumentRequestExecutor(
+		DeleteByQueryDocumentRequestExecutor
+			deleteByQueryDocumentRequestExecutor) {
 
-	@Reference
-	protected IndexDocumentRequestExecutor indexDocumentRequestExecutor;
+		_deleteByQueryDocumentRequestExecutor =
+			deleteByQueryDocumentRequestExecutor;
+	}
 
-	@Reference
-	protected UpdateByQueryDocumentRequestExecutor
-		updateByQueryDocumentRequestExecutor;
+	@Reference(unbind = "-")
+	protected void setDeleteDocumentRequestExecutor(
+		DeleteDocumentRequestExecutor deleteDocumentRequestExecutor) {
 
-	@Reference
-	protected UpdateDocumentRequestExecutor updateDocumentRequestExecutor;
+		_deleteDocumentRequestExecutor = deleteDocumentRequestExecutor;
+	}
+
+	@Reference(unbind = "-")
+	protected void setGetDocumentRequestExecutor(
+		GetDocumentRequestExecutor getDocumentRequestExecutor) {
+
+		_getDocumentRequestExecutor = getDocumentRequestExecutor;
+	}
+
+	@Reference(unbind = "-")
+	protected void setIndexDocumentRequestExecutor(
+		IndexDocumentRequestExecutor indexDocumentRequestExecutor) {
+
+		_indexDocumentRequestExecutor = indexDocumentRequestExecutor;
+	}
+
+	@Reference(unbind = "-")
+	protected void setUpdateByQueryDocumentRequestExecutor(
+		UpdateByQueryDocumentRequestExecutor
+			updateByQueryDocumentRequestExecutor) {
+
+		_updateByQueryDocumentRequestExecutor =
+			updateByQueryDocumentRequestExecutor;
+	}
+
+	@Reference(unbind = "-")
+	protected void setUpdateDocumentRequestExecutor(
+		UpdateDocumentRequestExecutor updateDocumentRequestExecutor) {
+
+		_updateDocumentRequestExecutor = updateDocumentRequestExecutor;
+	}
+
+	private BulkDocumentRequestExecutor _bulkDocumentRequestExecutor;
+	private DeleteByQueryDocumentRequestExecutor
+		_deleteByQueryDocumentRequestExecutor;
+	private DeleteDocumentRequestExecutor _deleteDocumentRequestExecutor;
+	private GetDocumentRequestExecutor _getDocumentRequestExecutor;
+	private IndexDocumentRequestExecutor _indexDocumentRequestExecutor;
+	private UpdateByQueryDocumentRequestExecutor
+		_updateByQueryDocumentRequestExecutor;
+	private UpdateDocumentRequestExecutor _updateDocumentRequestExecutor;
 
 }

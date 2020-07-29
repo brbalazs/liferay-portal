@@ -14,6 +14,8 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.connection;
 
+import com.liferay.portal.kernel.util.HashMapBuilder;
+
 import java.util.HashMap;
 
 import org.junit.Assert;
@@ -35,19 +37,15 @@ public class ElasticsearchConnectionManagerTest {
 
 		resetMockConnections();
 
-		_elasticsearchConnectionManager = new ElasticsearchConnectionManager();
-
-		_elasticsearchConnectionManager.setEmbeddedElasticsearchConnection(
-			_embeddedElasticsearchConnection);
-		_elasticsearchConnectionManager.setRemoteElasticsearchConnection(
-			_remoteElasticsearchConnection);
+		_elasticsearchConnectionManager = createElasticsearchConnectionManager(
+			_embeddedElasticsearchConnection, _remoteElasticsearchConnection);
 	}
 
 	@Test
 	public void testActivateMustNotOpenAnyConnection() {
-		HashMap<String, Object> properties = new HashMap<>();
-
-		properties.put("operationMode", OperationMode.EMBEDDED.name());
+		HashMap<String, Object> properties = HashMapBuilder.<String, Object>put(
+			"operationMode", OperationMode.EMBEDDED.name()
+		).build();
 
 		_elasticsearchConnectionManager.activate(properties);
 
@@ -57,9 +55,9 @@ public class ElasticsearchConnectionManagerTest {
 
 	@Test
 	public void testActivateThenConnect() {
-		HashMap<String, Object> properties = new HashMap<>();
-
-		properties.put("operationMode", OperationMode.EMBEDDED.name());
+		HashMap<String, Object> properties = HashMapBuilder.<String, Object>put(
+			"operationMode", OperationMode.EMBEDDED.name()
+		).build();
 
 		_elasticsearchConnectionManager.activate(properties);
 
@@ -95,15 +93,16 @@ public class ElasticsearchConnectionManagerTest {
 
 			Assert.fail();
 		}
-		catch (ElasticsearchConnectionNotInitializedException ecnie) {
+		catch (ElasticsearchConnectionNotInitializedException
+					elasticsearchConnectionNotInitializedException) {
 		}
 	}
 
 	@Test
 	public void testSetModifiedOperationModeResetsConnection() {
-		HashMap<String, Object> properties = new HashMap<>();
-
-		properties.put("operationMode", OperationMode.EMBEDDED.name());
+		HashMap<String, Object> properties = HashMapBuilder.<String, Object>put(
+			"operationMode", OperationMode.EMBEDDED.name()
+		).build();
 
 		_elasticsearchConnectionManager.activate(properties);
 
@@ -132,8 +131,8 @@ public class ElasticsearchConnectionManagerTest {
 
 			Assert.fail();
 		}
-		catch (MissingOperationModeException mome) {
-			String message = mome.getMessage();
+		catch (MissingOperationModeException missingOperationModeException) {
+			String message = missingOperationModeException.getMessage();
 
 			Assert.assertTrue(
 				message,
@@ -217,7 +216,7 @@ public class ElasticsearchConnectionManagerTest {
 
 			Assert.fail();
 		}
-		catch (IllegalStateException ise) {
+		catch (IllegalStateException illegalStateException) {
 		}
 
 		Assert.assertSame(
@@ -226,6 +225,22 @@ public class ElasticsearchConnectionManagerTest {
 
 		verifyConnectNeverClose(_remoteElasticsearchConnection);
 		verifyNeverCloseNeverConnect(_embeddedElasticsearchConnection);
+	}
+
+	protected ElasticsearchConnectionManager
+		createElasticsearchConnectionManager(
+			ElasticsearchConnection embeddedElasticsearchConnection,
+			ElasticsearchConnection remoteElasticsearchConnection) {
+
+		ElasticsearchConnectionManager elasticsearchConnectionManager =
+			new ElasticsearchConnectionManager();
+
+		elasticsearchConnectionManager.setEmbeddedElasticsearchConnection(
+			embeddedElasticsearchConnection);
+		elasticsearchConnectionManager.setRemoteElasticsearchConnection(
+			remoteElasticsearchConnection);
+
+		return elasticsearchConnectionManager;
 	}
 
 	protected void modify(OperationMode operationMode) {
@@ -240,6 +255,11 @@ public class ElasticsearchConnectionManagerTest {
 			_embeddedElasticsearchConnection.getOperationMode()
 		).thenReturn(
 			OperationMode.EMBEDDED
+		);
+		Mockito.when(
+			_remoteElasticsearchConnection.getConnectionId()
+		).thenReturn(
+			RemoteElasticsearchConnection.CONNECTION_ID
 		);
 		Mockito.when(
 			_remoteElasticsearchConnection.getOperationMode()

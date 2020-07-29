@@ -14,13 +14,11 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.document;
 
-import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.query.QueryTranslator;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.document.DeleteByQueryDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.DeleteByQueryDocumentResponse;
 
-import org.elasticsearch.client.Client;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.reindex.BulkByScrollResponse;
@@ -58,14 +56,12 @@ public class DeleteByQueryDocumentRequestExecutorImpl
 	protected DeleteByQueryRequestBuilder createDeleteByQueryRequestBuilder(
 		DeleteByQueryDocumentRequest deleteByQueryDocumentRequest) {
 
-		Client client = elasticsearchConnectionManager.getClient();
-
 		DeleteByQueryRequestBuilder deleteByQueryRequestBuilder =
-			DeleteByQueryAction.INSTANCE.newRequestBuilder(client);
+			DeleteByQueryAction.INSTANCE.newRequestBuilder(
+				_elasticsearchClientResolver.getClient(false));
 
-		Query query = deleteByQueryDocumentRequest.getQuery();
-
-		QueryBuilder queryBuilder = queryTranslator.translate(query, null);
+		QueryBuilder queryBuilder = _queryTranslator.translate(
+			deleteByQueryDocumentRequest.getQuery(), null);
 
 		deleteByQueryRequestBuilder.filter(queryBuilder);
 
@@ -77,10 +73,21 @@ public class DeleteByQueryDocumentRequestExecutorImpl
 		return deleteByQueryRequestBuilder;
 	}
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
 
-	@Reference(target = "(search.engine.impl=Elasticsearch)")
-	protected QueryTranslator<QueryBuilder> queryTranslator;
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	@Reference(target = "(search.engine.impl=Elasticsearch)", unbind = "-")
+	protected void setQueryTranslator(
+		QueryTranslator<QueryBuilder> queryTranslator) {
+
+		_queryTranslator = queryTranslator;
+	}
+
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
+	private QueryTranslator<QueryBuilder> _queryTranslator;
 
 }

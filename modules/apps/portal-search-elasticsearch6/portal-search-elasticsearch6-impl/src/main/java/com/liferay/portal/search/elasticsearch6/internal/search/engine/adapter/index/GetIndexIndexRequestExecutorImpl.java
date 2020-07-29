@@ -16,7 +16,7 @@ package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.
 
 import com.carrotsearch.hppc.cursors.ObjectObjectCursor;
 
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.index.GetIndexIndexRequest;
 import com.liferay.portal.search.engine.adapter.index.GetIndexIndexResponse;
 
@@ -27,7 +27,6 @@ import java.util.Map;
 import org.elasticsearch.action.admin.indices.get.GetIndexAction;
 import org.elasticsearch.action.admin.indices.get.GetIndexRequestBuilder;
 import org.elasticsearch.action.admin.indices.get.GetIndexResponse;
-import org.elasticsearch.client.Client;
 import org.elasticsearch.cluster.metadata.MappingMetaData;
 import org.elasticsearch.common.collect.ImmutableOpenMap;
 import org.elasticsearch.common.compress.CompressedXContent;
@@ -138,17 +137,24 @@ public class GetIndexIndexRequestExecutorImpl
 	protected GetIndexRequestBuilder createGetIndexRequestBuilder(
 		GetIndexIndexRequest getIndexIndexRequest) {
 
-		Client client = elasticsearchConnectionManager.getClient();
-
 		GetIndexRequestBuilder getIndexRequestBuilder =
-			GetIndexAction.INSTANCE.newRequestBuilder(client);
+			GetIndexAction.INSTANCE.newRequestBuilder(
+				_elasticsearchClientResolver.getClient(
+					getIndexIndexRequest.getConnectionId(),
+					getIndexIndexRequest.isPreferLocalCluster()));
 
 		getIndexRequestBuilder.setIndices(getIndexIndexRequest.getIndexNames());
 
 		return getIndexRequestBuilder;
 	}
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
+
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
 
 }

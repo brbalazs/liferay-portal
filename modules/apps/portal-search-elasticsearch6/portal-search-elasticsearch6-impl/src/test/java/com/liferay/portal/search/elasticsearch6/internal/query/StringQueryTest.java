@@ -14,10 +14,7 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.query;
 
-import com.liferay.portal.search.elasticsearch6.internal.ElasticsearchIndexingFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.LiferayIndexCreator;
-import com.liferay.portal.search.test.util.indexing.BaseIndexingTestCase;
+import com.liferay.portal.search.elasticsearch6.internal.LiferayElasticsearchIndexingFixtureFactory;
 import com.liferay.portal.search.test.util.indexing.IndexingFixture;
 import com.liferay.portal.search.test.util.query.BaseStringQueryTestCase;
 
@@ -26,7 +23,7 @@ import java.util.Arrays;
 import org.junit.Test;
 
 /**
- * @author André de Oliveira
+ * @author Michael C. Han
  */
 public class StringQueryTest extends BaseStringQueryTestCase {
 
@@ -45,20 +42,15 @@ public class StringQueryTest extends BaseStringQueryTestCase {
 
 		assertSearch(
 			"(-bravo) OR (alpha)",
-			Arrays.asList("alpha charlie", "charlie delta", "alpha bravo"));
+			Arrays.asList("alpha bravo", "alpha charlie", "charlie delta"));
 		assertSearch(
 			"(-bravo) OR alpha",
-			Arrays.asList("alpha charlie", "charlie delta", "alpha bravo"));
+			Arrays.asList("alpha bravo", "alpha charlie", "charlie delta"));
 	}
 
 	@Override
-	protected IndexingFixture createIndexingFixture() {
-		ElasticsearchFixture elasticsearchFixture = new ElasticsearchFixture(
-			StringQueryTest.class.getSimpleName());
-
-		return new ElasticsearchIndexingFixture(
-			elasticsearchFixture, BaseIndexingTestCase.COMPANY_ID,
-			new LiferayIndexCreator(elasticsearchFixture));
+	protected IndexingFixture createIndexingFixture() throws Exception {
+		return LiferayElasticsearchIndexingFixtureFactory.getInstance();
 	}
 
 }

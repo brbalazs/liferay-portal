@@ -116,8 +116,8 @@ public class LiferayDocumentTypeFactory implements TypeMappingsHelper {
 		try {
 			return _jsonFactory.createJSONObject(mappings);
 		}
-		catch (JSONException jsone) {
-			throw new RuntimeException(jsone);
+		catch (JSONException jsonException) {
+			throw new RuntimeException(jsonException);
 		}
 	}
 
@@ -174,9 +174,8 @@ public class LiferayDocumentTypeFactory implements TypeMappingsHelper {
 			return sourceJSONObject.toString();
 		}
 
-		String mappings = getMappings(indexName, typeName);
-
-		JSONObject mappingsJSONObject = createJSONObject(mappings);
+		JSONObject mappingsJSONObject = createJSONObject(
+			getMappings(indexName, typeName));
 
 		JSONObject typeJSONObject = mappingsJSONObject.getJSONObject(typeName);
 

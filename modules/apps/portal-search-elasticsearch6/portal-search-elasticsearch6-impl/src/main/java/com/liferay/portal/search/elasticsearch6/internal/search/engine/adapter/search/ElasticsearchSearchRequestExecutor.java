@@ -21,6 +21,8 @@ import com.liferay.portal.search.engine.adapter.search.MultisearchSearchResponse
 import com.liferay.portal.search.engine.adapter.search.SearchRequestExecutor;
 import com.liferay.portal.search.engine.adapter.search.SearchSearchRequest;
 import com.liferay.portal.search.engine.adapter.search.SearchSearchResponse;
+import com.liferay.portal.search.engine.adapter.search.SuggestSearchRequest;
+import com.liferay.portal.search.engine.adapter.search.SuggestSearchResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -29,7 +31,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Michael C. Han
  */
 @Component(
-	immediate = true, property = "search.engine.impl=Elasticsearch",
+	property = "search.engine.impl=Elasticsearch",
 	service = SearchRequestExecutor.class
 )
 public class ElasticsearchSearchRequestExecutor
@@ -39,14 +41,14 @@ public class ElasticsearchSearchRequestExecutor
 	public CountSearchResponse executeSearchRequest(
 		CountSearchRequest countSearchRequest) {
 
-		return countSearchRequestExecutor.execute(countSearchRequest);
+		return _countSearchRequestExecutor.execute(countSearchRequest);
 	}
 
 	@Override
 	public MultisearchSearchResponse executeSearchRequest(
 		MultisearchSearchRequest multisearchSearchRequest) {
 
-		return multisearchSearchRequestExecutor.execute(
+		return _multisearchSearchRequestExecutor.execute(
 			multisearchSearchRequest);
 	}
 
@@ -54,16 +56,47 @@ public class ElasticsearchSearchRequestExecutor
 	public SearchSearchResponse executeSearchRequest(
 		SearchSearchRequest searchSearchRequest) {
 
-		return searchSearchRequestExecutor.execute(searchSearchRequest);
+		return _searchSearchRequestExecutor.execute(searchSearchRequest);
 	}
 
-	@Reference
-	protected CountSearchRequestExecutor countSearchRequestExecutor;
+	@Override
+	public SuggestSearchResponse executeSearchRequest(
+		SuggestSearchRequest suggestSearchRequest) {
 
-	@Reference
-	protected MultisearchSearchRequestExecutor multisearchSearchRequestExecutor;
+		return _suggestSearchRequestExecutor.execute(suggestSearchRequest);
+	}
 
-	@Reference
-	protected SearchSearchRequestExecutor searchSearchRequestExecutor;
+	@Reference(unbind = "-")
+	protected void setCountSearchRequestExecutor(
+		CountSearchRequestExecutor countSearchRequestExecutor) {
+
+		_countSearchRequestExecutor = countSearchRequestExecutor;
+	}
+
+	@Reference(unbind = "-")
+	protected void setMultisearchSearchRequestExecutor(
+		MultisearchSearchRequestExecutor multisearchSearchRequestExecutor) {
+
+		_multisearchSearchRequestExecutor = multisearchSearchRequestExecutor;
+	}
+
+	@Reference(unbind = "-")
+	protected void setSearchSearchRequestExecutor(
+		SearchSearchRequestExecutor searchSearchRequestExecutor) {
+
+		_searchSearchRequestExecutor = searchSearchRequestExecutor;
+	}
+
+	@Reference(unbind = "-")
+	protected void setSuggestSearchRequestExecutor(
+		SuggestSearchRequestExecutor suggestSearchRequestExecutor) {
+
+		_suggestSearchRequestExecutor = suggestSearchRequestExecutor;
+	}
+
+	private CountSearchRequestExecutor _countSearchRequestExecutor;
+	private MultisearchSearchRequestExecutor _multisearchSearchRequestExecutor;
+	private SearchSearchRequestExecutor _searchSearchRequestExecutor;
+	private SuggestSearchRequestExecutor _suggestSearchRequestExecutor;
 
 }

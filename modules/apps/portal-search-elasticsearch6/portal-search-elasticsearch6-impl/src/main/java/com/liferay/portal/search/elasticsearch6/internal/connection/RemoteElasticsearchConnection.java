@@ -61,6 +61,13 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
 )
 public class RemoteElasticsearchConnection extends BaseElasticsearchConnection {
 
+	public static final String CONNECTION_ID = "REMOTE";
+
+	@Override
+	public String getConnectionId() {
+		return CONNECTION_ID;
+	}
+
 	@Override
 	public OperationMode getOperationMode() {
 		return OperationMode.REMOTE;
@@ -133,12 +140,12 @@ public class RemoteElasticsearchConnection extends BaseElasticsearchConnection {
 				try {
 					addTransportAddress(transportClient, transportAddress);
 				}
-				catch (Exception e) {
+				catch (Exception exception) {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
 							"Unable to add transport address " +
 								transportAddress,
-							e);
+							exception);
 					}
 				}
 			}

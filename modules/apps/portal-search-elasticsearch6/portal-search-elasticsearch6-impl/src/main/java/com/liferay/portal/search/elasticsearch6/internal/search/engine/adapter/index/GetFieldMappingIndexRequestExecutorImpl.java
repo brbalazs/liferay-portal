@@ -14,7 +14,9 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.index;
 
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.index.GetFieldMappingIndexRequest;
 import com.liferay.portal.search.engine.adapter.index.GetFieldMappingIndexResponse;
 
@@ -24,6 +26,7 @@ import java.util.Map;
 import org.elasticsearch.action.admin.indices.mapping.get.GetFieldMappingsRequestBuilder;
 import org.elasticsearch.action.admin.indices.mapping.get.GetFieldMappingsResponse;
 import org.elasticsearch.client.AdminClient;
+import org.elasticsearch.client.Client;
 import org.elasticsearch.client.IndicesAdminClient;
 
 import org.osgi.service.component.annotations.Component;
@@ -66,7 +69,18 @@ public class GetFieldMappingIndexRequestExecutorImpl
 			Map<String, GetFieldMappingsResponse.FieldMappingMetaData> map2 =
 				map1.get(getFieldMappingIndexRequest.getMappingName());
 
-			fieldMappings.put(indexName, map2.toString());
+			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+			for (String fieldName : getFieldMappingIndexRequest.getFields()) {
+				GetFieldMappingsResponse.FieldMappingMetaData
+					fieldMappingMetaData = map2.get(fieldName);
+
+				Map<String, Object> source = fieldMappingMetaData.sourceAsMap();
+
+				jsonObject.put(fieldName, source);
+			}
+
+			fieldMappings.put(indexName, jsonObject.toString());
 		}
 
 		return new GetFieldMappingIndexResponse(fieldMappings);
@@ -76,8 +90,9 @@ public class GetFieldMappingIndexRequestExecutorImpl
 		createGetFieldMappingsRequestBuilder(
 			GetFieldMappingIndexRequest getFieldMappingIndexRequest) {
 
-		AdminClient adminClient =
-			elasticsearchConnectionManager.getAdminClient();
+		Client client = _elasticsearchClientResolver.getClient(true);
+
+		AdminClient adminClient = client.admin();
 
 		IndicesAdminClient indicesAdminClient = adminClient.indices();
 
@@ -93,7 +108,13 @@ public class GetFieldMappingIndexRequestExecutorImpl
 		return getFieldMappingsRequestBuilder;
 	}
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
+
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
 
 }

@@ -72,6 +72,8 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
 public class EmbeddedElasticsearchConnection
 	extends BaseElasticsearchConnection {
 
+	public static final String CONNECTION_ID = "EMBEDDED";
+
 	@Override
 	public void close() {
 		super.close();
@@ -83,14 +85,14 @@ public class EmbeddedElasticsearchConnection
 		try {
 			Class.forName(ByteBufUtil.class.getName());
 		}
-		catch (ClassNotFoundException cnfe) {
+		catch (ClassNotFoundException classNotFoundException) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					StringBundler.concat(
 						"Unable to preload ", ByteBufUtil.class,
 						" to prevent Netty shutdown concurrent class loading ",
 						"interruption issue"),
-					cnfe);
+					classNotFoundException);
 			}
 		}
 
@@ -115,9 +117,11 @@ public class EmbeddedElasticsearchConnection
 			try {
 				scheduledExecutorService.awaitTermination(1, TimeUnit.HOURS);
 			}
-			catch (InterruptedException ie) {
+			catch (InterruptedException interruptedException) {
 				if (_log.isWarnEnabled()) {
-					_log.warn("Thread pool shutdown wait was interrupted", ie);
+					_log.warn(
+						"Thread pool shutdown wait was interrupted",
+						interruptedException);
 				}
 			}
 		}
@@ -125,13 +129,18 @@ public class EmbeddedElasticsearchConnection
 		try {
 			_node.close();
 		}
-		catch (IOException ioe) {
-			throw new RuntimeException(ioe);
+		catch (IOException ioException) {
+			throw new RuntimeException(ioException);
 		}
 
 		_node = null;
 
 		_file.deltree(_jnaTmpDirName);
+	}
+
+	@Override
+	public String getConnectionId() {
+		return CONNECTION_ID;
 	}
 
 	public Node getNode() {
@@ -290,8 +299,6 @@ public class EmbeddedElasticsearchConnection
 
 		Settings settings = settingsBuilder.build();
 
-		installPlugins(settings);
-
 		if (_log.isDebugEnabled()) {
 			_log.debug(
 				"Starting embedded Elasticsearch cluster " +
@@ -303,8 +310,8 @@ public class EmbeddedElasticsearchConnection
 		try {
 			_node.start();
 		}
-		catch (NodeValidationException nve) {
-			throw new RuntimeException(nve);
+		catch (NodeValidationException nodeValidationException) {
+			throw new RuntimeException(nodeValidationException);
 		}
 
 		Client client = _node.client();
@@ -345,6 +352,8 @@ public class EmbeddedElasticsearchConnection
 		System.setProperty("jna.tmpdir", _jnaTmpDirName);
 
 		try {
+			installPlugins(settings);
+
 			return EmbeddedElasticsearchNode.newInstance(settings);
 		}
 		finally {
@@ -371,9 +380,9 @@ public class EmbeddedElasticsearchConnection
 		try {
 			embeddedElasticsearchPluginManager.install();
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			throw new RuntimeException(
-				"Unable to install " + name + " plugin", e);
+				"Unable to install " + name + " plugin", exception);
 		}
 	}
 
@@ -423,9 +432,9 @@ public class EmbeddedElasticsearchConnection
 		try {
 			embeddedElasticsearchPluginManager.removeObsoletePlugin();
 		}
-		catch (Exception ioe) {
+		catch (Exception exception) {
 			throw new RuntimeException(
-				"Unable to remove " + name + " plugin", ioe);
+				"Unable to remove " + name + " plugin", exception);
 		}
 	}
 

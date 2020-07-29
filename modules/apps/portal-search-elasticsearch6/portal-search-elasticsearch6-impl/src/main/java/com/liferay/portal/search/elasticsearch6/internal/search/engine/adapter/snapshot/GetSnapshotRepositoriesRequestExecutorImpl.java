@@ -16,7 +16,7 @@ package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.snapshot.GetSnapshotRepositoriesRequest;
 import com.liferay.portal.search.engine.adapter.snapshot.GetSnapshotRepositoriesResponse;
 import com.liferay.portal.search.engine.adapter.snapshot.SnapshotRepositoryDetails;
@@ -73,9 +73,10 @@ public class GetSnapshotRepositoriesRequestExecutorImpl
 							snapshotRepositoryDetails);
 				});
 		}
-		catch (RepositoryMissingException rme) {
+		catch (RepositoryMissingException repositoryMissingException) {
 			if (_log.isDebugEnabled()) {
-				_log.debug(rme, rme);
+				_log.debug(
+					repositoryMissingException, repositoryMissingException);
 			}
 		}
 		finally {
@@ -88,7 +89,7 @@ public class GetSnapshotRepositoriesRequestExecutorImpl
 
 		GetRepositoriesRequestBuilder getRepositoriesRequestBuilder =
 			GetRepositoriesAction.INSTANCE.newRequestBuilder(
-				elasticsearchConnectionManager.getClient());
+				_elasticsearchClientResolver.getClient(false));
 
 		getRepositoriesRequestBuilder.addRepositories(
 			getSnapshotRepositoriesRequest.getRepositoryNames());
@@ -96,10 +97,16 @@ public class GetSnapshotRepositoriesRequestExecutorImpl
 		return getRepositoriesRequestBuilder;
 	}
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
+
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		GetSnapshotRepositoriesRequestExecutorImpl.class);
+
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
 
 }

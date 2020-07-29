@@ -17,9 +17,9 @@ package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.DocumentImpl;
 import com.liferay.portal.kernel.search.Field;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.TestElasticsearchConnectionManager;
 import com.liferay.portal.search.elasticsearch6.internal.document.DefaultElasticsearchDocumentFactory;
 import com.liferay.portal.search.elasticsearch6.internal.document.ElasticsearchDocumentFactory;
 import com.liferay.portal.search.engine.adapter.document.DeleteDocumentRequest;
@@ -52,24 +52,26 @@ public class ElasticsearchBulkableDocumentRequestTranslatorTest {
 
 	@Before
 	public void setUp() throws Exception {
-		_elasticsearchFixture = new ElasticsearchFixture(
-			ElasticsearchBulkableDocumentRequestTranslatorTest.class.
-				getSimpleName());
+		ElasticsearchFixture elasticsearchFixture = new ElasticsearchFixture(
+			getClass());
 
-		_elasticsearchFixture.setUp();
+		ElasticsearchDocumentFactory elasticsearchDocumentFactory =
+			createElasticsearchDocumentFactory();
 
-		_elasticsearchConnectionManager =
-			new TestElasticsearchConnectionManager(_elasticsearchFixture);
-
-		_documentFixture.setUp();
+		ElasticsearchBulkableDocumentRequestTranslator
+			elasticsearchBulkableDocumentRequestTranslator =
+				createElasticsearchBulkableDocumentRequestTranslator(
+					elasticsearchFixture, elasticsearchDocumentFactory);
 
 		_elasticsearchBulkableDocumentRequestTranslator =
-			new ElasticsearchBulkableDocumentRequestTranslator() {
-				{
-					elasticsearchConnectionManager =
-						_elasticsearchConnectionManager;
-				}
-			};
+			elasticsearchBulkableDocumentRequestTranslator;
+
+		_elasticsearchDocumentFactory = elasticsearchDocumentFactory;
+
+		_elasticsearchFixture = elasticsearchFixture;
+
+		_documentFixture.setUp();
+		_elasticsearchFixture.setUp();
 	}
 
 	@After
@@ -96,7 +98,15 @@ public class ElasticsearchBulkableDocumentRequestTranslatorTest {
 		throws Exception {
 
 		doTestIndexDocumentRequestTranslation(
-			false, WriteRequest.RefreshPolicy.NONE);
+			"1", false, WriteRequest.RefreshPolicy.NONE);
+	}
+
+	@Test
+	public void testIndexDocumentRequestTranslationWithNoRefreshNoId()
+		throws Exception {
+
+		doTestIndexDocumentRequestTranslation(
+			null, false, WriteRequest.RefreshPolicy.NONE);
 	}
 
 	@Test
@@ -104,7 +114,15 @@ public class ElasticsearchBulkableDocumentRequestTranslatorTest {
 		throws Exception {
 
 		doTestIndexDocumentRequestTranslation(
-			true, WriteRequest.RefreshPolicy.IMMEDIATE);
+			"1", true, WriteRequest.RefreshPolicy.IMMEDIATE);
+	}
+
+	@Test
+	public void testIndexDocumentRequestTranslationWithRefreshNoId()
+		throws Exception {
+
+		doTestIndexDocumentRequestTranslation(
+			null, true, WriteRequest.RefreshPolicy.IMMEDIATE);
 	}
 
 	@Test
@@ -112,7 +130,15 @@ public class ElasticsearchBulkableDocumentRequestTranslatorTest {
 		throws Exception {
 
 		doTestUpdateDocumentRequestTranslation(
-			false, WriteRequest.RefreshPolicy.NONE);
+			"1", false, WriteRequest.RefreshPolicy.NONE);
+	}
+
+	@Test
+	public void testUpdateDocumentRequestTranslationWithNoRefreshNoId()
+		throws Exception {
+
+		doTestUpdateDocumentRequestTranslation(
+			null, false, WriteRequest.RefreshPolicy.NONE);
 	}
 
 	@Test
@@ -120,7 +146,34 @@ public class ElasticsearchBulkableDocumentRequestTranslatorTest {
 		throws Exception {
 
 		doTestUpdateDocumentRequestTranslation(
-			true, WriteRequest.RefreshPolicy.IMMEDIATE);
+			"1", true, WriteRequest.RefreshPolicy.IMMEDIATE);
+	}
+
+	@Test
+	public void testUpdateDocumentRequestTranslationWithRefreshNoId()
+		throws Exception {
+
+		doTestUpdateDocumentRequestTranslation(
+			null, true, WriteRequest.RefreshPolicy.IMMEDIATE);
+	}
+
+	protected static ElasticsearchBulkableDocumentRequestTranslator
+		createElasticsearchBulkableDocumentRequestTranslator(
+			ElasticsearchClientResolver elasticsearchClientResolver,
+			ElasticsearchDocumentFactory elasticsearchDocumentFactory) {
+
+		return new ElasticsearchBulkableDocumentRequestTranslator() {
+			{
+				setElasticsearchClientResolver(elasticsearchClientResolver);
+				setElasticsearchDocumentFactory(elasticsearchDocumentFactory);
+			}
+		};
+	}
+
+	protected static ElasticsearchDocumentFactory
+		createElasticsearchDocumentFactory() {
+
+		return new DefaultElasticsearchDocumentFactory();
 	}
 
 	protected void doTestDeleteDocumentRequestTranslation(
@@ -137,7 +190,7 @@ public class ElasticsearchBulkableDocumentRequestTranslatorTest {
 
 		DeleteRequestBuilder deleteRequestBuilder =
 			_elasticsearchBulkableDocumentRequestTranslator.translate(
-				deleteDocumentRequest, null);
+				deleteDocumentRequest);
 
 		DeleteRequest deleteRequest = deleteRequestBuilder.request();
 
@@ -147,27 +200,26 @@ public class ElasticsearchBulkableDocumentRequestTranslatorTest {
 		Assert.assertEquals(_MAPPING_NAME, deleteRequest.type());
 		Assert.assertEquals(id, deleteRequest.id());
 
-		Client client = _elasticsearchConnectionManager.getClient();
+		Client client = _elasticsearchFixture.getClient();
 
 		BulkRequestBuilder bulkRequestBuilder =
 			BulkAction.INSTANCE.newRequestBuilder(client);
 
-		_elasticsearchBulkableDocumentRequestTranslator.translate(
-			deleteDocumentRequest, bulkRequestBuilder);
+		bulkRequestBuilder.add(
+			_elasticsearchBulkableDocumentRequestTranslator.translate(
+				deleteDocumentRequest));
 
 		Assert.assertEquals(1, bulkRequestBuilder.numberOfActions());
 	}
 
 	protected void doTestIndexDocumentRequestTranslation(
-			boolean refreshPolicy,
+			String id, boolean refreshPolicy,
 			WriteRequest.RefreshPolicy expectedRefreshPolicy)
 		throws Exception {
 
-		String id = "1";
-
 		Document document = new DocumentImpl();
 
-		document.addKeyword(Field.UID, id);
+		_setUid(document, id);
 
 		IndexDocumentRequest indexDocumentRequest = new IndexDocumentRequest(
 			_INDEX_NAME, document);
@@ -177,7 +229,7 @@ public class ElasticsearchBulkableDocumentRequestTranslatorTest {
 
 		IndexRequestBuilder indexRequestBuilder =
 			_elasticsearchBulkableDocumentRequestTranslator.translate(
-				indexDocumentRequest, null);
+				indexDocumentRequest);
 
 		IndexRequest indexRequest = indexRequestBuilder.request();
 
@@ -187,37 +239,33 @@ public class ElasticsearchBulkableDocumentRequestTranslatorTest {
 		Assert.assertEquals(_MAPPING_NAME, indexRequest.type());
 		Assert.assertEquals(id, indexRequest.id());
 
-		ElasticsearchDocumentFactory elasticsearchDocumentFactory =
-			new DefaultElasticsearchDocumentFactory();
-
 		String source = XContentHelper.convertToJson(
 			indexRequest.source(), false, XContentType.JSON);
 
 		Assert.assertEquals(
-			elasticsearchDocumentFactory.getElasticsearchDocument(document),
+			_elasticsearchDocumentFactory.getElasticsearchDocument(document),
 			source);
 
-		Client client = _elasticsearchConnectionManager.getClient();
+		Client client = _elasticsearchFixture.getClient();
 
 		BulkRequestBuilder bulkRequestBuilder =
 			BulkAction.INSTANCE.newRequestBuilder(client);
 
-		_elasticsearchBulkableDocumentRequestTranslator.translate(
-			indexDocumentRequest, bulkRequestBuilder);
+		bulkRequestBuilder.add(
+			_elasticsearchBulkableDocumentRequestTranslator.translate(
+				indexDocumentRequest));
 
 		Assert.assertEquals(1, bulkRequestBuilder.numberOfActions());
 	}
 
 	protected void doTestUpdateDocumentRequestTranslation(
-			boolean refreshPolicy,
+			String id, boolean refreshPolicy,
 			WriteRequest.RefreshPolicy expectedRefreshPolicy)
 		throws Exception {
 
-		String id = "1";
-
 		Document document = new DocumentImpl();
 
-		document.addKeyword(Field.UID, id);
+		_setUid(document, id);
 
 		UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest(
 			_INDEX_NAME, id, document);
@@ -227,7 +275,7 @@ public class ElasticsearchBulkableDocumentRequestTranslatorTest {
 
 		UpdateRequestBuilder updateRequestBuilder =
 			_elasticsearchBulkableDocumentRequestTranslator.translate(
-				updateDocumentRequest, null);
+				updateDocumentRequest);
 
 		UpdateRequest updateRequest = updateRequestBuilder.request();
 
@@ -236,27 +284,31 @@ public class ElasticsearchBulkableDocumentRequestTranslatorTest {
 		Assert.assertEquals(_INDEX_NAME, updateRequest.index());
 		Assert.assertEquals(id, updateRequest.id());
 
-		ElasticsearchDocumentFactory elasticsearchDocumentFactory =
-			new DefaultElasticsearchDocumentFactory();
-
 		IndexRequest indexRequest = updateRequest.doc();
 
 		String source = XContentHelper.convertToJson(
 			indexRequest.source(), false, XContentType.JSON);
 
 		Assert.assertEquals(
-			elasticsearchDocumentFactory.getElasticsearchDocument(document),
+			_elasticsearchDocumentFactory.getElasticsearchDocument(document),
 			source);
 
-		Client client = _elasticsearchConnectionManager.getClient();
+		Client client = _elasticsearchFixture.getClient();
 
 		BulkRequestBuilder bulkRequestBuilder =
 			BulkAction.INSTANCE.newRequestBuilder(client);
 
-		_elasticsearchBulkableDocumentRequestTranslator.translate(
-			updateDocumentRequest, bulkRequestBuilder);
+		bulkRequestBuilder.add(
+			_elasticsearchBulkableDocumentRequestTranslator.translate(
+				updateDocumentRequest));
 
 		Assert.assertEquals(1, bulkRequestBuilder.numberOfActions());
+	}
+
+	private void _setUid(Document document, String uid) {
+		if (!Validator.isBlank(uid)) {
+			document.addKeyword(Field.UID, uid);
+		}
 	}
 
 	private static final String _INDEX_NAME = "test_request_index";
@@ -266,7 +318,7 @@ public class ElasticsearchBulkableDocumentRequestTranslatorTest {
 	private final DocumentFixture _documentFixture = new DocumentFixture();
 	private ElasticsearchBulkableDocumentRequestTranslator
 		_elasticsearchBulkableDocumentRequestTranslator;
-	private ElasticsearchConnectionManager _elasticsearchConnectionManager;
+	private ElasticsearchDocumentFactory _elasticsearchDocumentFactory;
 	private ElasticsearchFixture _elasticsearchFixture;
 
 }

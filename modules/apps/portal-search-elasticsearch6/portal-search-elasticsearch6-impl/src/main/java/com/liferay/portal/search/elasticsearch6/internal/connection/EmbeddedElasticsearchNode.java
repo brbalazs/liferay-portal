@@ -31,6 +31,7 @@ import org.elasticsearch.index.mapper.MapperExtrasPlugin;
 import org.elasticsearch.index.reindex.ReindexPlugin;
 import org.elasticsearch.node.InternalSettingsPreparer;
 import org.elasticsearch.node.Node;
+import org.elasticsearch.painless.PainlessPlugin;
 import org.elasticsearch.plugins.Plugin;
 import org.elasticsearch.transport.Netty4Plugin;
 
@@ -45,14 +46,16 @@ public class EmbeddedElasticsearchNode extends Node {
 
 		List<Class<? extends Plugin>> classpathPlugins = Arrays.asList(
 			CommonAnalysisPlugin.class, MapperExtrasPlugin.class,
-			Netty4Plugin.class, ReindexPlugin.class);
+			Netty4Plugin.class, PainlessPlugin.class, ReindexPlugin.class);
 
 		try {
+			LogConfigurator.registerErrorListener();
+
 			LogConfigurator.configure(environment);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (_log.isDebugEnabled()) {
-				_log.debug("Unable to find log4j2.properties", e);
+				_log.debug("Unable to find log4j2.properties", exception);
 			}
 		}
 
@@ -72,7 +75,7 @@ public class EmbeddedElasticsearchNode extends Node {
 		try {
 			LogConfigurator.setNodeName(nodeName);
 		}
-		catch (SetOnce.AlreadySetException soase) {
+		catch (SetOnce.AlreadySetException alreadySetException) {
 			if (_log.isDebugEnabled()) {
 				_log.debug("Node name has already been set");
 			}

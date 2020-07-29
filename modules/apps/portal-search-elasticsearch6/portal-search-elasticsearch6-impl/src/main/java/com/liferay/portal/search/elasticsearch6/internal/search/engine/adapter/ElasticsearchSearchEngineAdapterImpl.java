@@ -52,58 +52,147 @@ public class ElasticsearchSearchEngineAdapterImpl
 	public <T extends ClusterResponse> T execute(
 		ClusterRequest<T> clusterRequest) {
 
-		return clusterRequestExecutor.execute(clusterRequest);
+		try {
+			return _clusterRequestExecutor.execute(clusterRequest);
+		}
+		catch (RuntimeException runtimeException) {
+			throw _getRuntimeException(runtimeException);
+		}
 	}
 
 	@Override
 	public <S extends DocumentResponse> S execute(
 		DocumentRequest<S> documentRequest) {
 
-		return documentRequest.accept(documentRequestExecutor);
+		try {
+			return documentRequest.accept(_documentRequestExecutor);
+		}
+		catch (RuntimeException runtimeException) {
+			throw _getRuntimeException(runtimeException);
+		}
 	}
 
 	@Override
 	public <U extends IndexResponse> U execute(IndexRequest<U> indexRequest) {
-		return indexRequest.accept(indexRequestExecutor);
+		try {
+			return indexRequest.accept(_indexRequestExecutor);
+		}
+		catch (RuntimeException runtimeException) {
+			throw _getRuntimeException(runtimeException);
+		}
 	}
 
 	@Override
 	public <V extends SearchResponse> V execute(
 		SearchRequest<V> searchRequest) {
 
-		return searchRequest.accept(searchRequestExecutor);
+		try {
+			return searchRequest.accept(_searchRequestExecutor);
+		}
+		catch (RuntimeException runtimeException) {
+			throw _getRuntimeException(runtimeException);
+		}
 	}
 
 	@Override
 	public <W extends SnapshotResponse> W execute(
 		SnapshotRequest<W> snapshotRequest) {
 
-		return snapshotRequest.accept(snapshotRequestExecutor);
+		try {
+			return snapshotRequest.accept(_snapshotRequestExecutor);
+		}
+		catch (RuntimeException runtimeException) {
+			throw _getRuntimeException(runtimeException);
+		}
 	}
 
 	@Override
 	public String getQueryString(Query query) {
-		QueryBuilder queryBuilder = queryTranslator.translate(query, null);
+		try {
+			QueryBuilder queryBuilder = _queryTranslator.translate(query, null);
 
-		return queryBuilder.toString();
+			return queryBuilder.toString();
+		}
+		catch (RuntimeException runtimeException) {
+			throw _getRuntimeException(runtimeException);
+		}
 	}
 
-	@Reference(target = "(search.engine.impl=Elasticsearch)")
-	protected ClusterRequestExecutor clusterRequestExecutor;
+	@Reference(target = "(search.engine.impl=Elasticsearch)", unbind = "-")
+	protected void setClusterRequestExecutor(
+		ClusterRequestExecutor clusterRequestExecutor) {
 
-	@Reference(target = "(search.engine.impl=Elasticsearch)")
-	protected DocumentRequestExecutor documentRequestExecutor;
+		_clusterRequestExecutor = clusterRequestExecutor;
+	}
 
-	@Reference(target = "(search.engine.impl=Elasticsearch)")
-	protected IndexRequestExecutor indexRequestExecutor;
+	@Reference(target = "(search.engine.impl=Elasticsearch)", unbind = "-")
+	protected void setDocumentRequestExecutor(
+		DocumentRequestExecutor documentRequestExecutor) {
 
-	@Reference(target = "(search.engine.impl=Elasticsearch)")
-	protected QueryTranslator<QueryBuilder> queryTranslator;
+		_documentRequestExecutor = documentRequestExecutor;
+	}
 
-	@Reference(target = "(search.engine.impl=Elasticsearch)")
-	protected SearchRequestExecutor searchRequestExecutor;
+	@Reference(target = "(search.engine.impl=Elasticsearch)", unbind = "-")
+	protected void setIndexRequestExecutor(
+		IndexRequestExecutor indexRequestExecutor) {
 
-	@Reference(target = "(search.engine.impl=Elasticsearch)")
-	protected SnapshotRequestExecutor snapshotRequestExecutor;
+		_indexRequestExecutor = indexRequestExecutor;
+	}
+
+	@Reference(target = "(search.engine.impl=Elasticsearch)", unbind = "-")
+	protected void setQueryTranslator(
+		QueryTranslator<QueryBuilder> queryTranslator) {
+
+		_queryTranslator = queryTranslator;
+	}
+
+	@Reference(target = "(search.engine.impl=Elasticsearch)", unbind = "-")
+	protected void setSearchRequestExecutor(
+		SearchRequestExecutor searchRequestExecutor) {
+
+		_searchRequestExecutor = searchRequestExecutor;
+	}
+
+	@Reference(target = "(search.engine.impl=Elasticsearch)", unbind = "-")
+	protected void setSnapshotRequestExecutor(
+		SnapshotRequestExecutor snapshotRequestExecutor) {
+
+		_snapshotRequestExecutor = snapshotRequestExecutor;
+	}
+
+	protected void setThrowOriginalExceptions(boolean throwOriginalExceptions) {
+		_throwOriginalExceptions = throwOriginalExceptions;
+	}
+
+	private RuntimeException _getRuntimeException(
+		RuntimeException runtimeException1) {
+
+		if (_throwOriginalExceptions) {
+			return runtimeException1;
+		}
+
+		Class<?> clazz = runtimeException1.getClass();
+
+		String name = clazz.getName();
+
+		if (name.startsWith("org.elasticsearch")) {
+			RuntimeException runtimeException2 = new RuntimeException(
+				name + ": " + runtimeException1.toString());
+
+			runtimeException2.setStackTrace(runtimeException1.getStackTrace());
+
+			return runtimeException2;
+		}
+
+		return runtimeException1;
+	}
+
+	private ClusterRequestExecutor _clusterRequestExecutor;
+	private DocumentRequestExecutor _documentRequestExecutor;
+	private IndexRequestExecutor _indexRequestExecutor;
+	private QueryTranslator<QueryBuilder> _queryTranslator;
+	private SearchRequestExecutor _searchRequestExecutor;
+	private SnapshotRequestExecutor _snapshotRequestExecutor;
+	private boolean _throwOriginalExceptions;
 
 }

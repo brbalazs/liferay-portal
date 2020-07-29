@@ -14,9 +14,7 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.query.string;
 
-import com.liferay.portal.search.elasticsearch6.internal.ElasticsearchIndexingFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
-import com.liferay.portal.search.test.util.indexing.BaseIndexingTestCase;
+import com.liferay.portal.search.elasticsearch6.internal.ElasticsearchIndexingFixtureFactory;
 import com.liferay.portal.search.test.util.indexing.IndexingFixture;
 import com.liferay.portal.search.test.util.query.string.BaseQueryStringTestCase;
 
@@ -27,9 +25,12 @@ public class QueryStringTest extends BaseQueryStringTestCase {
 
 	@Override
 	protected IndexingFixture createIndexingFixture() throws Exception {
-		return new ElasticsearchIndexingFixture(
-			new ElasticsearchFixture(getClass()),
-			BaseIndexingTestCase.COMPANY_ID);
+		return ElasticsearchIndexingFixtureFactory.getInstance();
+	}
+
+	@Override
+	protected String getExpectedPartOfResponseString() {
+		return "\"hits\":{\"total\":1,";
 	}
 
 }

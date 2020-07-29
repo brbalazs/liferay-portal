@@ -15,6 +15,7 @@
 package com.liferay.portal.search.elasticsearch6.internal.connection;
 
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.Props;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.SystemProperties;
@@ -28,7 +29,6 @@ import com.liferay.portal.util.FileImpl;
 import java.io.File;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -44,6 +44,7 @@ import org.elasticsearch.client.AdminClient;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.ClusterAdminClient;
 import org.elasticsearch.client.IndicesAdminClient;
+import org.elasticsearch.cluster.health.ClusterHealthStatus;
 import org.elasticsearch.common.unit.TimeValue;
 
 import org.mockito.Mockito;
@@ -53,10 +54,10 @@ import org.osgi.framework.BundleContext;
 /**
  * @author André de Oliveira
  */
-public class ElasticsearchFixture implements IndicesAdminClientSupplier {
+public class ElasticsearchFixture implements ElasticsearchClientResolver {
 
 	public ElasticsearchFixture(Class clazz) {
-		this(clazz.getSimpleName());
+		this(getSimpleName(clazz));
 	}
 
 	public ElasticsearchFixture(String subdirName) {
@@ -97,7 +98,18 @@ public class ElasticsearchFixture implements IndicesAdminClientSupplier {
 		return client.admin();
 	}
 
+	@Override
 	public Client getClient() {
+		return _embeddedElasticsearchConnection.getClient();
+	}
+
+	@Override
+	public Client getClient(boolean preferLocalCluster) {
+		return _embeddedElasticsearchConnection.getClient();
+	}
+
+	@Override
+	public Client getClient(String connectionId, boolean preferLocalCluster) {
 		return _embeddedElasticsearchConnection.getClient();
 	}
 
@@ -116,16 +128,16 @@ public class ElasticsearchFixture implements IndicesAdminClientSupplier {
 
 		clusterHealthRequest.timeout(new TimeValue(10, TimeUnit.MINUTES));
 		clusterHealthRequest.waitForActiveShards(
-			healthExpectations.activeShards);
+			healthExpectations.getActiveShards());
 		clusterHealthRequest.waitForNodes(
-			String.valueOf(healthExpectations.numberOfNodes));
+			String.valueOf(healthExpectations.getNumberOfNodes()));
 		clusterHealthRequest.waitForNoRelocatingShards(true);
-		clusterHealthRequest.waitForStatus(healthExpectations.status);
+		clusterHealthRequest.waitForStatus(healthExpectations.getStatus());
 
-		ActionFuture<ClusterHealthResponse> health = clusterAdminClient.health(
-			clusterHealthRequest);
+		ActionFuture<ClusterHealthResponse> healthActionFuture =
+			clusterAdminClient.health(clusterHealthRequest);
 
-		return health.actionGet();
+		return healthActionFuture.actionGet();
 	}
 
 	public Map<String, Object> getElasticsearchConfigurationProperties() {
@@ -149,7 +161,6 @@ public class ElasticsearchFixture implements IndicesAdminClientSupplier {
 		return getIndexRequestBuilder.get();
 	}
 
-	@Override
 	public IndicesAdminClient getIndicesAdminClient() {
 		AdminClient adminClient = getAdminClient();
 
@@ -168,6 +179,28 @@ public class ElasticsearchFixture implements IndicesAdminClientSupplier {
 
 	public void tearDown() throws Exception {
 		destroyNode();
+	}
+
+	public void waitForElasticsearchToStart() {
+		getClusterHealthResponse(
+			new HealthExpectations() {
+				{
+					setActivePrimaryShards(0);
+					setActiveShards(0);
+					setNumberOfDataNodes(1);
+					setNumberOfNodes(1);
+					setStatus(ClusterHealthStatus.GREEN);
+					setUnassignedShards(0);
+				}
+			});
+	}
+
+	protected static String getSimpleName(Class clazz) {
+		while (clazz.isAnonymousClass()) {
+			clazz = clazz.getEnclosingClass();
+		}
+
+		return clazz.getSimpleName();
 	}
 
 	protected void addClusterLoggingThresholdContributor(
@@ -228,11 +261,13 @@ public class ElasticsearchFixture implements IndicesAdminClientSupplier {
 	protected Map<String, Object> createElasticsearchConfigurationProperties(
 		Map<String, Object> elasticsearchConfigurationProperties) {
 
-		Map<String, Object> map = new HashMap<>();
-
-		map.put("configurationPid", ElasticsearchConfiguration.class.getName());
-		map.put("httpCORSAllowOrigin", "*");
-		map.put("logExceptionsOnly", false);
+		Map<String, Object> map = HashMapBuilder.<String, Object>put(
+			"configurationPid", ElasticsearchConfiguration.class.getName()
+		).put(
+			"httpCORSAllowOrigin", "*"
+		).put(
+			"logExceptionsOnly", false
+		).build();
 
 		map.putAll(elasticsearchConfigurationProperties);
 

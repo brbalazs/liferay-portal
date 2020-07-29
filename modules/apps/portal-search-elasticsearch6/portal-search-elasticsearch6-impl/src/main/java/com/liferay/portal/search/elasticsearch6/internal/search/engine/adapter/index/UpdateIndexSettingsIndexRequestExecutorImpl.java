@@ -14,7 +14,7 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.index;
 
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.index.IndicesOptions;
 import com.liferay.portal.search.engine.adapter.index.UpdateIndexSettingsIndexRequest;
 import com.liferay.portal.search.engine.adapter.index.UpdateIndexSettingsIndexResponse;
@@ -22,7 +22,6 @@ import com.liferay.portal.search.engine.adapter.index.UpdateIndexSettingsIndexRe
 import org.elasticsearch.action.admin.indices.settings.put.UpdateSettingsAction;
 import org.elasticsearch.action.admin.indices.settings.put.UpdateSettingsRequestBuilder;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
-import org.elasticsearch.client.Client;
 import org.elasticsearch.common.xcontent.XContentType;
 
 import org.osgi.service.component.annotations.Component;
@@ -52,10 +51,9 @@ public class UpdateIndexSettingsIndexRequestExecutorImpl
 	protected UpdateSettingsRequestBuilder createUpdateSettingsRequestBuilder(
 		UpdateIndexSettingsIndexRequest updateIndexSettingsIndexRequest) {
 
-		Client client = elasticsearchConnectionManager.getClient();
-
 		UpdateSettingsRequestBuilder updateSettingsRequestBuilder =
-			UpdateSettingsAction.INSTANCE.newRequestBuilder(client);
+			UpdateSettingsAction.INSTANCE.newRequestBuilder(
+				_elasticsearchClientResolver.getClient(false));
 
 		updateSettingsRequestBuilder.setIndices(
 			updateIndexSettingsIndexRequest.getIndexNames());
@@ -68,16 +66,27 @@ public class UpdateIndexSettingsIndexRequestExecutorImpl
 
 		if (indicesOptions != null) {
 			updateSettingsRequestBuilder.setIndicesOptions(
-				indicesOptionsTranslator.translate(indicesOptions));
+				_indicesOptionsTranslator.translate(indicesOptions));
 		}
 
 		return updateSettingsRequestBuilder;
 	}
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
 
-	@Reference
-	protected IndicesOptionsTranslator indicesOptionsTranslator;
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	@Reference(unbind = "-")
+	protected void setIndicesOptionsTranslator(
+		IndicesOptionsTranslator indicesOptionsTranslator) {
+
+		_indicesOptionsTranslator = indicesOptionsTranslator;
+	}
+
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
+	private IndicesOptionsTranslator _indicesOptionsTranslator;
 
 }

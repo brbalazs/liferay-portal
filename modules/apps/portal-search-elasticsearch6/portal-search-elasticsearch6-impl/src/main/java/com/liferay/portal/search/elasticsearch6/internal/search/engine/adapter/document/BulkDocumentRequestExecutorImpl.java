@@ -16,7 +16,7 @@ package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.elasticsearch6.internal.util.LogUtil;
 import com.liferay.portal.search.engine.adapter.document.BulkDocumentItemResponse;
 import com.liferay.portal.search.engine.adapter.document.BulkDocumentRequest;
@@ -35,7 +35,6 @@ import org.elasticsearch.action.delete.DeleteRequestBuilder;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.support.WriteRequest;
 import org.elasticsearch.action.update.UpdateRequestBuilder;
-import org.elasticsearch.client.Client;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.rest.RestStatus;
 
@@ -103,10 +102,9 @@ public class BulkDocumentRequestExecutorImpl
 	protected BulkRequestBuilder createBulkRequestBuilder(
 		BulkDocumentRequest bulkDocumentRequest) {
 
-		Client client = elasticsearchConnectionManager.getClient();
-
 		BulkRequestBuilder bulkRequestBuilder =
-			BulkAction.INSTANCE.newRequestBuilder(client);
+			BulkAction.INSTANCE.newRequestBuilder(
+				_elasticsearchClientResolver.getClient(false));
 
 		if (bulkDocumentRequest.isRefresh()) {
 			bulkRequestBuilder.setRefreshPolicy(
@@ -119,16 +117,25 @@ public class BulkDocumentRequestExecutorImpl
 			bulkableDocumentRequest.accept(
 				request -> {
 					if (request instanceof DeleteDocumentRequest) {
-						bulkableDocumentRequestTranslator.translate(
-							(DeleteDocumentRequest)request, bulkRequestBuilder);
+						DeleteRequestBuilder deleteRequestBuilder =
+							_bulkableDocumentRequestTranslator.translate(
+								(DeleteDocumentRequest)request);
+
+						bulkRequestBuilder.add(deleteRequestBuilder);
 					}
 					else if (request instanceof IndexDocumentRequest) {
-						bulkableDocumentRequestTranslator.translate(
-							(IndexDocumentRequest)request, bulkRequestBuilder);
+						IndexRequestBuilder indexRequestBuilder =
+							_bulkableDocumentRequestTranslator.translate(
+								(IndexDocumentRequest)request);
+
+						bulkRequestBuilder.add(indexRequestBuilder);
 					}
 					else if (request instanceof UpdateDocumentRequest) {
-						bulkableDocumentRequestTranslator.translate(
-							(UpdateDocumentRequest)request, bulkRequestBuilder);
+						UpdateRequestBuilder updateRequestBuilder =
+							_bulkableDocumentRequestTranslator.translate(
+								(UpdateDocumentRequest)request);
+
+						bulkRequestBuilder.add(updateRequestBuilder);
 					}
 					else {
 						throw new IllegalArgumentException(
@@ -140,15 +147,25 @@ public class BulkDocumentRequestExecutorImpl
 		return bulkRequestBuilder;
 	}
 
-	@Reference(target = "(search.engine.impl=Elasticsearch)")
-	protected BulkableDocumentRequestTranslator
-		<DeleteRequestBuilder, IndexRequestBuilder, UpdateRequestBuilder,
-		 BulkRequestBuilder> bulkableDocumentRequestTranslator;
+	@Reference(target = "(search.engine.impl=Elasticsearch)", unbind = "-")
+	protected void setBulkableDocumentRequestTranslator(
+		BulkableDocumentRequestTranslator bulkableDocumentRequestTranslator) {
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+		_bulkableDocumentRequestTranslator = bulkableDocumentRequestTranslator;
+	}
+
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
+
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		BulkDocumentRequestExecutorImpl.class);
+
+	private BulkableDocumentRequestTranslator
+		_bulkableDocumentRequestTranslator;
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
 
 }

@@ -14,9 +14,7 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.snapshot;
 
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.TestElasticsearchConnectionManager;
 import com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.index.AnalyzeIndexRequestExecutorTest;
 import com.liferay.portal.search.engine.adapter.snapshot.GetSnapshotsRequest;
 
@@ -38,9 +36,6 @@ public class GetSnapshotsRequestExecutorImplTest {
 			AnalyzeIndexRequestExecutorTest.class.getSimpleName());
 
 		_elasticsearchFixture.setUp();
-
-		_elasticsearchConnectionManager =
-			new TestElasticsearchConnectionManager(_elasticsearchFixture);
 	}
 
 	@After
@@ -57,16 +52,15 @@ public class GetSnapshotsRequestExecutorImplTest {
 		getSnapshotsRequest.setSnapshotNames("snapshot1", "snapshot2");
 		getSnapshotsRequest.setVerbose(true);
 
-		GetSnapshotsRequestExecutorImpl getSnapshotRepositoriesRequestImpl =
+		GetSnapshotsRequestExecutorImpl getSnapshotsRequestExecutorImpl =
 			new GetSnapshotsRequestExecutorImpl() {
 				{
-					elasticsearchConnectionManager =
-						_elasticsearchConnectionManager;
+					setElasticsearchClientResolver(_elasticsearchFixture);
 				}
 			};
 
 		GetSnapshotsRequestBuilder getSnapshotsRequestBuilder =
-			getSnapshotRepositoriesRequestImpl.createGetSnapshotsRequest(
+			getSnapshotsRequestExecutorImpl.createGetSnapshotsRequest(
 				getSnapshotsRequest);
 
 		org.elasticsearch.action.admin.cluster.snapshots.get.GetSnapshotsRequest
@@ -87,7 +81,6 @@ public class GetSnapshotsRequestExecutorImplTest {
 			elasticsearchGetSnapshotsRequest.verbose());
 	}
 
-	private ElasticsearchConnectionManager _elasticsearchConnectionManager;
 	private ElasticsearchFixture _elasticsearchFixture;
 
 }

@@ -18,7 +18,6 @@ import com.liferay.portal.search.elasticsearch6.internal.connection.Elasticsearc
 import com.liferay.portal.search.elasticsearch6.internal.connection.Index;
 import com.liferay.portal.search.elasticsearch6.internal.connection.IndexCreator;
 import com.liferay.portal.search.elasticsearch6.internal.connection.IndexName;
-import com.liferay.portal.search.elasticsearch6.internal.connection.LiferayIndexCreator;
 
 import java.util.Map;
 
@@ -59,6 +58,14 @@ public class LiferayIndexFixture {
 		return _index;
 	}
 
+	public void index(Map<String, Object> map) {
+		IndexRequestBuilder indexRequestBuilder = getIndexRequestBuilder();
+
+		indexRequestBuilder.setSource(map);
+
+		indexRequestBuilder.get();
+	}
+
 	public void setUp() throws Exception {
 		_elasticsearchFixture.setUp();
 
@@ -70,8 +77,12 @@ public class LiferayIndexFixture {
 	}
 
 	protected Index createIndex() {
-		IndexCreator indexCreator = new LiferayIndexCreator(
-			_elasticsearchFixture);
+		IndexCreator indexCreator = new IndexCreator() {
+			{
+				setElasticsearchClientResolver(_elasticsearchFixture);
+				setLiferayMappingsAddedToIndex(true);
+			}
+		};
 
 		return indexCreator.createIndex(_indexName);
 	}
@@ -82,14 +93,6 @@ public class LiferayIndexFixture {
 		return client.prepareIndex(
 			_index.getName(),
 			LiferayTypeMappingsConstants.LIFERAY_DOCUMENT_TYPE);
-	}
-
-	protected void index(Map<String, Object> map) {
-		IndexRequestBuilder indexRequestBuilder = getIndexRequestBuilder();
-
-		indexRequestBuilder.setSource(map);
-
-		indexRequestBuilder.get();
 	}
 
 	private final ElasticsearchFixture _elasticsearchFixture;

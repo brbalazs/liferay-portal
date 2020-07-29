@@ -17,7 +17,7 @@ package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.elasticsearch6.internal.io.StringOutputStream;
 import com.liferay.portal.search.engine.adapter.index.AnalysisIndexResponseToken;
 import com.liferay.portal.search.engine.adapter.index.AnalyzeIndexRequest;
@@ -29,7 +29,6 @@ import org.elasticsearch.action.admin.indices.analyze.AnalyzeAction;
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeRequestBuilder;
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeResponse;
 import org.elasticsearch.action.admin.indices.analyze.DetailAnalyzeResponse;
-import org.elasticsearch.client.Client;
 import org.elasticsearch.common.io.stream.OutputStreamStreamOutput;
 
 import org.osgi.service.component.annotations.Component;
@@ -83,10 +82,9 @@ public class AnalyzeIndexRequestExecutorImpl
 	protected AnalyzeRequestBuilder createAnalyzeRequestBuilder(
 		AnalyzeIndexRequest analyzeIndexRequest) {
 
-		Client client = elasticsearchConnectionManager.getClient();
-
 		AnalyzeRequestBuilder analyzeRequestBuilder =
-			AnalyzeAction.INSTANCE.newRequestBuilder(client);
+			AnalyzeAction.INSTANCE.newRequestBuilder(
+				_elasticsearchClientResolver.getClient(true));
 
 		if (Validator.isNotNull(analyzeIndexRequest.getAnalyzer())) {
 			analyzeRequestBuilder.setAnalyzer(
@@ -141,18 +139,18 @@ public class AnalyzeIndexRequestExecutorImpl
 
 				outputStreamStreamOutput.flush();
 			}
-			catch (IOException ioe) {
+			catch (IOException ioException) {
 				if (_log.isDebugEnabled()) {
-					_log.debug(ioe, ioe);
+					_log.debug(ioException, ioException);
 				}
 			}
 			finally {
 				try {
 					outputStreamStreamOutput.close();
 				}
-				catch (IOException ioe) {
+				catch (IOException ioException) {
 					if (_log.isDebugEnabled()) {
-						_log.debug(ioe, ioe);
+						_log.debug(ioException, ioException);
 					}
 				}
 			}
@@ -162,10 +160,16 @@ public class AnalyzeIndexRequestExecutorImpl
 		}
 	}
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
+
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		AnalyzeIndexRequestExecutorImpl.class);
+
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
 
 }

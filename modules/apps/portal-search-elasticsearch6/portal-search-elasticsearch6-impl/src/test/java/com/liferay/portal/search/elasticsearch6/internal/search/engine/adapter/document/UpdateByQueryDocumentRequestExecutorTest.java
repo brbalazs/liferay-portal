@@ -18,10 +18,8 @@ import com.liferay.portal.json.JSONObjectImpl;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.TestElasticsearchConnectionManager;
-import com.liferay.portal.search.elasticsearch6.internal.query.ElasticsearchQueryTranslatorFixture;
+import com.liferay.portal.search.elasticsearch6.internal.legacy.query.ElasticsearchQueryTranslatorFixture;
 import com.liferay.portal.search.engine.adapter.document.UpdateByQueryDocumentRequest;
 
 import org.elasticsearch.index.reindex.UpdateByQueryRequest;
@@ -43,9 +41,6 @@ public class UpdateByQueryDocumentRequestExecutorTest {
 			UpdateByQueryDocumentRequestExecutorTest.class.getSimpleName());
 
 		_elasticsearchFixture.setUp();
-
-		_elasticsearchConnectionManager =
-			new TestElasticsearchConnectionManager(_elasticsearchFixture);
 	}
 
 	@After
@@ -80,16 +75,15 @@ public class UpdateByQueryDocumentRequestExecutorTest {
 			updateByQueryDocumentRequestExecutorImpl =
 				new UpdateByQueryDocumentRequestExecutorImpl() {
 					{
-						elasticsearchConnectionManager =
-							_elasticsearchConnectionManager;
+						setElasticsearchClientResolver(_elasticsearchFixture);
 
 						ElasticsearchQueryTranslatorFixture
 							elasticsearchQueryTranslatorFixture =
 								new ElasticsearchQueryTranslatorFixture();
 
-						queryTranslator =
+						setQueryTranslator(
 							elasticsearchQueryTranslatorFixture.
-								getElasticsearchQueryTranslator();
+								getElasticsearchQueryTranslator());
 					}
 				};
 
@@ -118,7 +112,6 @@ public class UpdateByQueryDocumentRequestExecutorTest {
 
 	private static final String _INDEX_NAME = "test_request_index";
 
-	private ElasticsearchConnectionManager _elasticsearchConnectionManager;
 	private ElasticsearchFixture _elasticsearchFixture;
 
 }

@@ -14,7 +14,7 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.index;
 
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.index.IndicesOptions;
 import com.liferay.portal.search.engine.adapter.index.OpenIndexRequest;
 import com.liferay.portal.search.engine.adapter.index.OpenIndexResponse;
@@ -49,7 +49,7 @@ public class OpenIndexRequestExecutorImpl implements OpenIndexRequestExecutor {
 
 		OpenIndexRequestBuilder openIndexRequestBuilder =
 			OpenIndexAction.INSTANCE.newRequestBuilder(
-				elasticsearchConnectionManager.getClient());
+				_elasticsearchClientResolver.getClient(false));
 
 		openIndexRequestBuilder.setIndices(openIndexRequest.getIndexNames());
 
@@ -57,7 +57,7 @@ public class OpenIndexRequestExecutorImpl implements OpenIndexRequestExecutor {
 
 		if (indicesOptions != null) {
 			openIndexRequestBuilder.setIndicesOptions(
-				indicesOptionsTranslator.translate(indicesOptions));
+				_indicesOptionsTranslator.translate(indicesOptions));
 		}
 
 		if (openIndexRequest.getTimeout() > 0) {
@@ -76,10 +76,21 @@ public class OpenIndexRequestExecutorImpl implements OpenIndexRequestExecutor {
 		return openIndexRequestBuilder;
 	}
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
 
-	@Reference
-	protected IndicesOptionsTranslator indicesOptionsTranslator;
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	@Reference(unbind = "-")
+	protected void setIndicesOptionsTranslator(
+		IndicesOptionsTranslator indicesOptionsTranslator) {
+
+		_indicesOptionsTranslator = indicesOptionsTranslator;
+	}
+
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
+	private IndicesOptionsTranslator _indicesOptionsTranslator;
 
 }

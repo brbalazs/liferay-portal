@@ -21,7 +21,6 @@ import com.liferay.portal.search.elasticsearch6.internal.connection.IndexName;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -29,7 +28,6 @@ import org.junit.rules.TestName;
 /**
  * @author André de Oliveira
  */
-@Ignore
 public class Cluster1InstanceTest {
 
 	@Before
@@ -55,7 +53,11 @@ public class Cluster1InstanceTest {
 	public TestName testName = new TestName();
 
 	protected Index createIndex(ElasticsearchFixture elasticsearchFixture) {
-		IndexCreator indexCreator = new IndexCreator(elasticsearchFixture);
+		IndexCreator indexCreator = new IndexCreator() {
+			{
+				setElasticsearchClientResolver(elasticsearchFixture);
+			}
+		};
 
 		return indexCreator.createIndex(
 			new IndexName(testName.getMethodName()));

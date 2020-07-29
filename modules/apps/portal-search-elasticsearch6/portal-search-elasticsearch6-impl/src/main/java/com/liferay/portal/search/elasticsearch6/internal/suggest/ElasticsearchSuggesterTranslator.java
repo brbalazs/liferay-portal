@@ -23,7 +23,7 @@ import com.liferay.portal.kernel.search.suggest.SuggesterTranslator;
 import com.liferay.portal.kernel.search.suggest.SuggesterVisitor;
 import com.liferay.portal.kernel.search.suggest.TermSuggester;
 
-import org.elasticsearch.search.suggest.SuggestBuilder;
+import org.elasticsearch.search.suggest.SuggestionBuilder;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -36,46 +36,59 @@ import org.osgi.service.component.annotations.Reference;
 	service = SuggesterTranslator.class
 )
 public class ElasticsearchSuggesterTranslator
-	implements SuggesterTranslator<SuggestBuilder>,
-			   SuggesterVisitor<SuggestBuilder> {
+	implements SuggesterTranslator<SuggestionBuilder>,
+			   SuggesterVisitor<SuggestionBuilder> {
 
 	@Override
-	public SuggestBuilder translate(
+	public SuggestionBuilder translate(
 		Suggester suggester, SearchContext searchContext) {
 
 		return suggester.accept(this);
 	}
 
 	@Override
-	public SuggestBuilder visit(AggregateSuggester aggregateSuggester) {
-		return aggregateSuggesteTranslator.translate(aggregateSuggester, this);
+	public SuggestionBuilder visit(AggregateSuggester aggregateSuggester) {
+		return null;
 	}
 
 	@Override
-	public SuggestBuilder visit(CompletionSuggester completionSuggester) {
-		return completionSuggesterTranslator.translate(completionSuggester);
+	public SuggestionBuilder visit(CompletionSuggester completionSuggester) {
+		return _completionSuggesterTranslator.translate(completionSuggester);
 	}
 
 	@Override
-	public SuggestBuilder visit(PhraseSuggester phraseSuggester) {
-		return phraseSuggesterTranslator.translate(phraseSuggester);
+	public SuggestionBuilder visit(PhraseSuggester phraseSuggester) {
+		return _phraseSuggesterTranslator.translate(phraseSuggester);
 	}
 
 	@Override
-	public SuggestBuilder visit(TermSuggester termSuggester) {
-		return termSuggesterTranslator.translate(termSuggester);
+	public SuggestionBuilder visit(TermSuggester termSuggester) {
+		return _termSuggesterTranslator.translate(termSuggester);
 	}
 
-	@Reference
-	protected AggregateSuggesterTranslator aggregateSuggesteTranslator;
+	@Reference(unbind = "-")
+	protected void setCompletionSuggesterTranslator(
+		CompletionSuggesterTranslator completionSuggesterTranslator) {
 
-	@Reference
-	protected CompletionSuggesterTranslator completionSuggesterTranslator;
+		_completionSuggesterTranslator = completionSuggesterTranslator;
+	}
 
-	@Reference
-	protected PhraseSuggesterTranslator phraseSuggesterTranslator;
+	@Reference(unbind = "-")
+	protected void setPhraseSuggesterTranslator(
+		PhraseSuggesterTranslator phraseSuggesterTranslator) {
 
-	@Reference
-	protected TermSuggesterTranslator termSuggesterTranslator;
+		_phraseSuggesterTranslator = phraseSuggesterTranslator;
+	}
+
+	@Reference(unbind = "-")
+	protected void setTermSuggesterTranslator(
+		TermSuggesterTranslator termSuggesterTranslator) {
+
+		_termSuggesterTranslator = termSuggesterTranslator;
+	}
+
+	private CompletionSuggesterTranslator _completionSuggesterTranslator;
+	private PhraseSuggesterTranslator _phraseSuggesterTranslator;
+	private TermSuggesterTranslator _termSuggesterTranslator;
 
 }

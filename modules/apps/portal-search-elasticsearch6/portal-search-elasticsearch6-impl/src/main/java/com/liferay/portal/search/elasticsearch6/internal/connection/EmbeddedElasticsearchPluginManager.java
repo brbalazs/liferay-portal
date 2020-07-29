@@ -25,8 +25,6 @@ import java.nio.file.Path;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 import org.elasticsearch.Version;
 
@@ -66,13 +64,13 @@ public class EmbeddedElasticsearchPluginManager {
 		PluginManager pluginManager =
 			_pluginManagerFactory.createPluginManager();
 
-		Optional<Path> pathOptional = getInstalledPluginPath(pluginManager);
+		Path path = getInstalledPluginPath(pluginManager);
 
-		if (!pathOptional.isPresent()) {
+		if (path == null) {
 			return;
 		}
 
-		if (pluginManager.isCurrentVersion(pathOptional.get())) {
+		if (pluginManager.isCurrentVersion(path)) {
 			return;
 		}
 
@@ -97,29 +95,31 @@ public class EmbeddedElasticsearchPluginManager {
 		try {
 			pluginManager.install(_pluginName);
 		}
-		catch (IOException ioe) {
-			if (!handle(ioe)) {
-				throw ioe;
+		catch (IOException ioException) {
+			if (!handle(ioException)) {
+				throw ioException;
 			}
 		}
 	}
 
-	protected Optional<Path> getInstalledPluginPath(PluginManager pluginManager)
+	protected Path getInstalledPluginPath(PluginManager pluginManager)
 		throws IOException {
 
-		return Stream.of(
-			pluginManager.getInstalledPluginsPaths()
-		).filter(
-			path -> path.endsWith(_pluginName)
-		).findAny();
+		for (Path path : pluginManager.getInstalledPluginsPaths()) {
+			if (path.endsWith(_pluginName)) {
+				return path;
+			}
+		}
+
+		return null;
 	}
 
 	protected String getPluginZipFileName(String pluginName) {
 		return _pluginZipFileNames.get(pluginName);
 	}
 
-	protected boolean handle(IOException ioe) {
-		String message = ioe.getMessage();
+	protected boolean handle(IOException ioException) {
+		String message = ioException.getMessage();
 
 		if (message == null) {
 			return false;
@@ -132,7 +132,7 @@ public class EmbeddedElasticsearchPluginManager {
 				_log.debug(
 					"Skipping plugin " + _pluginName +
 						" because it is already installed",
-					ioe);
+					ioException);
 			}
 
 			return true;
@@ -145,13 +145,13 @@ public class EmbeddedElasticsearchPluginManager {
 		PluginManager pluginManager =
 			_pluginManagerFactory.createPluginManager();
 
-		Optional<Path> pathOptional = getInstalledPluginPath(pluginManager);
+		Path path = getInstalledPluginPath(pluginManager);
 
-		if (pathOptional.isPresent()) {
-			return true;
+		if (path == null) {
+			return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

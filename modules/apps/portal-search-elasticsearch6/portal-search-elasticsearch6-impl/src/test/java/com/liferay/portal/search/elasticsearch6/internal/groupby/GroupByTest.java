@@ -16,17 +16,14 @@ package com.liferay.portal.search.elasticsearch6.internal.groupby;
 
 import com.liferay.portal.kernel.search.GroupBy;
 import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.search.elasticsearch6.internal.ElasticsearchIndexingFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.LiferayIndexCreator;
+import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.search.elasticsearch6.internal.LiferayElasticsearchIndexingFixtureFactory;
 import com.liferay.portal.search.groupby.GroupByRequest;
 import com.liferay.portal.search.groupby.GroupByResponse;
 import com.liferay.portal.search.test.util.groupby.BaseGroupByTestCase;
-import com.liferay.portal.search.test.util.indexing.BaseIndexingTestCase;
 import com.liferay.portal.search.test.util.indexing.IndexingFixture;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -168,15 +165,17 @@ public class GroupByTest extends BaseGroupByTestCase {
 		sortFieldOrderedResults.add("2|2|2");
 		sortFieldOrderedResults.add("3|1|1");
 
-		Map<String, List<String>> orderedResultsMap = new HashMap<>();
-
-		orderedResultsMap.put(GROUP_FIELD, groupFieldOrderedResults);
-		orderedResultsMap.put(SORT_FIELD, sortFieldOrderedResults);
+		Map<String, List<String>> orderedResultsMap =
+			HashMapBuilder.<String, List<String>>put(
+				GROUP_FIELD, groupFieldOrderedResults
+			).put(
+				SORT_FIELD, sortFieldOrderedResults
+			).build();
 
 		assertSearch(
 			indexingTestHelper -> {
-				indexingTestHelper.define(
-					searchContext -> {
+				indexingTestHelper.defineRequest(
+					searchRequestBuilder -> {
 						GroupByRequest groupByRequest =
 							groupByRequestFactory.getGroupByRequest(
 								GROUP_FIELD);
@@ -184,23 +183,16 @@ public class GroupByTest extends BaseGroupByTestCase {
 						GroupByRequest groupByRequest2 =
 							groupByRequestFactory.getGroupByRequest(SORT_FIELD);
 
-						ArrayList<GroupByRequest> groupByRequests =
-							new ArrayList<>();
-
-						groupByRequests.add(groupByRequest);
-						groupByRequests.add(groupByRequest2);
-
-						searchContext.setAttribute(
-							"groupByRequests", groupByRequests);
+						searchRequestBuilder.groupByRequests(
+							groupByRequest, groupByRequest2);
 					});
 
 				indexingTestHelper.search();
 
-				indexingTestHelper.verifyGroupByResponses(
-					searchContext -> {
+				indexingTestHelper.verifyResponse(
+					searchResponse -> {
 						List<GroupByResponse> groupByResponses =
-							(List<GroupByResponse>)searchContext.getAttribute(
-								"groupByResponses");
+							searchResponse.getGroupByResponses();
 
 						Assert.assertEquals(
 							groupByResponses.toString(), 2,
@@ -221,8 +213,8 @@ public class GroupByTest extends BaseGroupByTestCase {
 
 		assertSearch(
 			indexingTestHelper -> {
-				indexingTestHelper.define(
-					searchContext -> {
+				indexingTestHelper.defineRequest(
+					searchRequestBuilder -> {
 						Sort[] sorts = new Sort[2];
 
 						sorts[0] = new Sort("_count", countDesc);
@@ -234,13 +226,7 @@ public class GroupByTest extends BaseGroupByTestCase {
 
 						groupByRequest.setTermsSorts(sorts);
 
-						ArrayList<GroupByRequest> groupByRequests =
-							new ArrayList<>();
-
-						groupByRequests.add(groupByRequest);
-
-						searchContext.setAttribute(
-							"groupByRequests", groupByRequests);
+						searchRequestBuilder.groupByRequests(groupByRequest);
 					});
 
 				indexingTestHelper.search();
@@ -250,11 +236,10 @@ public class GroupByTest extends BaseGroupByTestCase {
 						orderedResults, hits.getGroupedHits(),
 						indexingTestHelper));
 
-				indexingTestHelper.verifyGroupByResponses(
-					searchContext -> {
+				indexingTestHelper.verifyResponse(
+					searchResponse -> {
 						List<GroupByResponse> groupByResponses =
-							(List<GroupByResponse>)searchContext.getAttribute(
-								"groupByResponses");
+							searchResponse.getGroupByResponses();
 
 						Assert.assertEquals(
 							groupByResponses.toString(), 1,
@@ -272,12 +257,7 @@ public class GroupByTest extends BaseGroupByTestCase {
 
 	@Override
 	protected IndexingFixture createIndexingFixture() {
-		ElasticsearchFixture elasticsearchFixture = new ElasticsearchFixture(
-			getClass());
-
-		return new ElasticsearchIndexingFixture(
-			elasticsearchFixture, BaseIndexingTestCase.COMPANY_ID,
-			new LiferayIndexCreator(elasticsearchFixture));
+		return LiferayElasticsearchIndexingFixtureFactory.getInstance();
 	}
 
 	protected void indexTermsSortsDuplicates() {

@@ -15,7 +15,7 @@
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.cluster;
 
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.cluster.StateClusterRequest;
 import com.liferay.portal.search.engine.adapter.cluster.StateClusterResponse;
 
@@ -64,8 +64,8 @@ public class StateClusterRequestExecutorImpl
 
 			return new StateClusterResponse(Strings.toString(xContentBuilder));
 		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+		catch (IOException ioException) {
+			throw new SystemException(ioException);
 		}
 	}
 
@@ -74,7 +74,7 @@ public class StateClusterRequestExecutorImpl
 
 		ClusterStateRequestBuilder clusterStateRequestBuilder =
 			ClusterStateAction.INSTANCE.newRequestBuilder(
-				elasticsearchConnectionManager.getClient());
+				_elasticsearchClientResolver.getClient(true));
 
 		clusterStateRequestBuilder.setIndices(
 			stateClusterRequest.getIndexNames());
@@ -82,7 +82,13 @@ public class StateClusterRequestExecutorImpl
 		return clusterStateRequestBuilder;
 	}
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
+
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
 
 }

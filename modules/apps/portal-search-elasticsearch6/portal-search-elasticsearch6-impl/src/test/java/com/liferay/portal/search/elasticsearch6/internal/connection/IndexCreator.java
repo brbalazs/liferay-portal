@@ -17,6 +17,8 @@ package com.liferay.portal.search.elasticsearch6.internal.connection;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequestBuilder;
 import org.elasticsearch.action.support.IndicesOptions;
+import org.elasticsearch.client.AdminClient;
+import org.elasticsearch.client.Client;
 import org.elasticsearch.client.IndicesAdminClient;
 import org.elasticsearch.common.settings.Settings;
 
@@ -26,10 +28,6 @@ import org.mockito.Mockito;
  * @author André de Oliveira
  */
 public class IndexCreator {
-
-	public IndexCreator(IndicesAdminClientSupplier indicesAdminClientSupplier) {
-		_indicesAdminClientSupplier = indicesAdminClientSupplier;
-	}
 
 	public Index createIndex(IndexName indexName) {
 		IndicesAdminClient indicesAdminClient = getIndicesAdminClient();
@@ -47,11 +45,7 @@ public class IndexCreator {
 		CreateIndexRequestBuilder createIndexRequestBuilder =
 			indicesAdminClient.prepareCreate(name);
 
-		IndexCreationHelper indexCreationHelper = _indexCreationHelper;
-
-		if (indexCreationHelper == null) {
-			indexCreationHelper = Mockito.mock(IndexCreationHelper.class);
-		}
+		IndexCreationHelper indexCreationHelper = getIndexCreationHelper();
 
 		indexCreationHelper.contribute(createIndexRequestBuilder);
 
@@ -71,17 +65,79 @@ public class IndexCreator {
 		return new Index(indexName);
 	}
 
-	public void setIndexCreationHelper(
+	protected IndexCreationHelper getIndexCreationHelper() {
+		if (!_liferayMappingsAddedToIndex) {
+			if (_indexCreationHelper != null) {
+				return _indexCreationHelper;
+			}
+
+			return Mockito.mock(IndexCreationHelper.class);
+		}
+
+		LiferayIndexCreationHelper liferayIndexCreationHelper =
+			new LiferayIndexCreationHelper(_elasticsearchClientResolver);
+
+		if (_indexCreationHelper == null) {
+			return liferayIndexCreationHelper;
+		}
+
+		return new IndexCreationHelper() {
+
+			@Override
+			public void contribute(
+				CreateIndexRequestBuilder createIndexRequestBuilder) {
+
+				_indexCreationHelper.contribute(createIndexRequestBuilder);
+
+				liferayIndexCreationHelper.contribute(
+					createIndexRequestBuilder);
+			}
+
+			@Override
+			public void contributeIndexSettings(Settings.Builder builder) {
+				_indexCreationHelper.contributeIndexSettings(builder);
+
+				liferayIndexCreationHelper.contributeIndexSettings(builder);
+			}
+
+			@Override
+			public void whenIndexCreated(String indexName) {
+				_indexCreationHelper.whenIndexCreated(indexName);
+
+				liferayIndexCreationHelper.whenIndexCreated(indexName);
+			}
+
+		};
+	}
+
+	protected final IndicesAdminClient getIndicesAdminClient() {
+		Client client = _elasticsearchClientResolver.getClient();
+
+		AdminClient adminClient = client.admin();
+
+		return adminClient.indices();
+	}
+
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
+
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	protected void setIndexCreationHelper(
 		IndexCreationHelper indexCreationHelper) {
 
 		_indexCreationHelper = indexCreationHelper;
 	}
 
-	protected final IndicesAdminClient getIndicesAdminClient() {
-		return _indicesAdminClientSupplier.getIndicesAdminClient();
+	protected void setLiferayMappingsAddedToIndex(
+		boolean liferayMappingsAddedToIndex) {
+
+		_liferayMappingsAddedToIndex = liferayMappingsAddedToIndex;
 	}
 
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
 	private IndexCreationHelper _indexCreationHelper;
-	private final IndicesAdminClientSupplier _indicesAdminClientSupplier;
+	private boolean _liferayMappingsAddedToIndex;
 
 }

@@ -14,7 +14,8 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.cluster;
 
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
+import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchClientResolver;
 import com.liferay.portal.search.engine.adapter.cluster.HealthClusterRequest;
 import com.liferay.portal.search.engine.adapter.cluster.HealthClusterResponse;
 
@@ -48,7 +49,7 @@ public class HealthClusterRequestExecutorImpl
 			clusterHealthResponse.getStatus();
 
 		return new HealthClusterResponse(
-			clusterHealthStatusTranslator.translate(clusterHealthStatus),
+			_clusterHealthStatusTranslator.translate(clusterHealthStatus),
 			clusterHealthResponse.toString());
 	}
 
@@ -57,10 +58,12 @@ public class HealthClusterRequestExecutorImpl
 
 		ClusterHealthRequestBuilder clusterHealthRequestBuilder =
 			ClusterHealthAction.INSTANCE.newRequestBuilder(
-				elasticsearchConnectionManager.getClient());
+				_elasticsearchClientResolver.getClient(true));
 
-		clusterHealthRequestBuilder.setIndices(
-			healthClusterRequest.getIndexNames());
+		if (ArrayUtil.isNotEmpty(healthClusterRequest.getIndexNames())) {
+			clusterHealthRequestBuilder.setIndices(
+				healthClusterRequest.getIndexNames());
+		}
 
 		long timeout = healthClusterRequest.getTimeout();
 
@@ -73,17 +76,28 @@ public class HealthClusterRequestExecutorImpl
 
 		if (healthClusterRequest.getWaitForClusterHealthStatus() != null) {
 			clusterHealthRequestBuilder.setWaitForStatus(
-				clusterHealthStatusTranslator.translate(
+				_clusterHealthStatusTranslator.translate(
 					healthClusterRequest.getWaitForClusterHealthStatus()));
 		}
 
 		return clusterHealthRequestBuilder;
 	}
 
-	@Reference
-	protected ClusterHealthStatusTranslator clusterHealthStatusTranslator;
+	@Reference(unbind = "-")
+	protected void setClusterHealthStatusTranslator(
+		ClusterHealthStatusTranslator clusterHealthStatusTranslator) {
 
-	@Reference
-	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
+		_clusterHealthStatusTranslator = clusterHealthStatusTranslator;
+	}
+
+	@Reference(unbind = "-")
+	protected void setElasticsearchClientResolver(
+		ElasticsearchClientResolver elasticsearchClientResolver) {
+
+		_elasticsearchClientResolver = elasticsearchClientResolver;
+	}
+
+	private ClusterHealthStatusTranslator _clusterHealthStatusTranslator;
+	private ElasticsearchClientResolver _elasticsearchClientResolver;
 
 }

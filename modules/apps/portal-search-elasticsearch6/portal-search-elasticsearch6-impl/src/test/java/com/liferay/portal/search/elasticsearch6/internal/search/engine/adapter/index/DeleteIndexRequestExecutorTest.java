@@ -14,9 +14,7 @@
 
 package com.liferay.portal.search.elasticsearch6.internal.search.engine.adapter.index;
 
-import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchConnectionManager;
 import com.liferay.portal.search.elasticsearch6.internal.connection.ElasticsearchFixture;
-import com.liferay.portal.search.elasticsearch6.internal.connection.TestElasticsearchConnectionManager;
 import com.liferay.portal.search.engine.adapter.index.DeleteIndexRequest;
 import com.liferay.portal.search.engine.adapter.index.IndicesOptions;
 
@@ -40,9 +38,6 @@ public class DeleteIndexRequestExecutorTest {
 			DeleteIndexRequestExecutorTest.class.getSimpleName());
 
 		_elasticsearchFixture.setUp();
-
-		_elasticsearchConnectionManager =
-			new TestElasticsearchConnectionManager(_elasticsearchFixture);
 
 		_indicesOptionsTranslator = new IndicesOptionsTranslatorImpl();
 	}
@@ -69,9 +64,8 @@ public class DeleteIndexRequestExecutorTest {
 		DeleteIndexRequestExecutorImpl deleteIndexRequestExecutorImpl =
 			new DeleteIndexRequestExecutorImpl() {
 				{
-					elasticsearchConnectionManager =
-						_elasticsearchConnectionManager;
-					indicesOptionsTranslator = _indicesOptionsTranslator;
+					setElasticsearchClientResolver(_elasticsearchFixture);
+					setIndicesOptionsTranslator(_indicesOptionsTranslator);
 				}
 			};
 
@@ -115,7 +109,6 @@ public class DeleteIndexRequestExecutorTest {
 
 	private static final String _INDEX_NAME_2 = "test_request_index2";
 
-	private ElasticsearchConnectionManager _elasticsearchConnectionManager;
 	private ElasticsearchFixture _elasticsearchFixture;
 	private IndicesOptionsTranslator _indicesOptionsTranslator;
 
