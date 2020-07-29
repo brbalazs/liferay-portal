@@ -88,22 +88,16 @@ long commercePriceListId = commercePriceEntryDisplayContext.getCommercePriceList
 		</div>
 
 		<div class="col-12">
-
-			<%
-			Map<String, String> contextParams = new HashMap<>();
-
-			contextParams.put("commercePriceListId", String.valueOf(commercePriceListId));
-			%>
-
-			<commerce-ui:dataset-display
-				contextParams="<%= contextParams %>"
-				dataProviderKey="<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_ENTRIES %>"
+			<commerce-ui:headless-dataset-display
+				apiUrl="<%= commercePriceEntryDisplayContext.getPriceEntryApiUrl() %>"
+				clayHeadlessDataSetActionTemplates="<%= commercePriceEntryDisplayContext.getClayHeadlessDataSetActionPriceEntriesTemplates() %>"
 				formId="fm"
 				id="<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_ENTRIES %>"
 				itemsPerPage="<%= 10 %>"
 				namespace="<%= renderResponse.getNamespace() %>"
 				pageNumber="<%= 1 %>"
 				portletURL="<%= currentURLObj %>"
+				style="stacked"
 			/>
 		</div>
 	</div>

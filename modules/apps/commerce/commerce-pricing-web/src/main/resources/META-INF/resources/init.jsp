@@ -37,7 +37,6 @@ page import="com.liferay.commerce.discount.model.CommerceDiscountRule" %><%@
 page import="com.liferay.commerce.discount.rule.type.CommerceDiscountRuleType" %><%@
 page import="com.liferay.commerce.discount.rule.type.CommerceDiscountRuleTypeJSPContributor" %><%@
 page import="com.liferay.commerce.discount.target.CommerceDiscountTarget" %><%@
-page import="com.liferay.commerce.price.list.constants.CommercePriceListActionKeys" %><%@
 page import="com.liferay.commerce.price.list.exception.CommercePriceListCurrencyException" %><%@
 page import="com.liferay.commerce.price.list.exception.CommercePriceListExpirationDateException" %><%@
 page import="com.liferay.commerce.price.list.exception.CommercePriceListParentPriceListGroupIdException" %><%@
