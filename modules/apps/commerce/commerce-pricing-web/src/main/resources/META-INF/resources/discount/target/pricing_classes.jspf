@@ -30,10 +30,10 @@ var discountExternalReferenceCode =
 
 function selectItem(productGroup) {
 	var productGroupData = {
-		productGroupExternalReferenceCode: productGroup.externalReferenceCode,
-		productGroupId: productGroup.id,
 		discountExternalReferenceCode: discountExternalReferenceCode,
-		discountId: id
+		discountId: id,
+		productGroupExternalReferenceCode: productGroup.externalReferenceCode,
+		productGroupId: productGroup.id
 	};
 
 	return CommerceDiscountProductGroupsResource.addDiscountProductGroup(
@@ -60,10 +60,10 @@ itemFinder.default('itemFinder', 'item-finder-root', {
 	getSelectedItems: getSelectedItems,
 	inputPlaceholder:
 		'<%= LanguageUtil.get(request, "find-a-product-group") %>',
+	itemCreation: false,
 	itemSelectedMessage:
 		'<%= LanguageUtil.get(request, "product-group-selected") %>',
 	itemsKey: 'id',
-	itemCreation: false,
 	linkedDatasetsId: [
 		'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_DISCOUNT_PRICING_CLASSES %>'
 	],

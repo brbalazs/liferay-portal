@@ -91,46 +91,48 @@ public class EditCommerceDiscountMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "commerceDiscountId");
 
 		String title = ParamUtil.getString(actionRequest, "title");
+
 		String target = ParamUtil.getString(actionRequest, "target");
 
 		boolean useCouponCode = ParamUtil.getBoolean(
 			actionRequest, "useCouponCode");
+
 		String couponCode = ParamUtil.getString(actionRequest, "couponCode");
-
-		int limitationTimes = ParamUtil.getInteger(
-			actionRequest, "limitationTimes");
-		int limitationTimesPerAccount = ParamUtil.getInteger(
-			actionRequest, "limitationTimesPerAccount");
-
-		String limitationType = _getLimitationType(
-			limitationTimes, limitationTimesPerAccount);
-
-		boolean rulesConjunction = ParamUtil.getBoolean(
-			actionRequest, "rulesConjunction");
 
 		boolean usePercentage = ParamUtil.getBoolean(
 			actionRequest, "usePercentage");
+
 		BigDecimal maximumDiscountAmount = (BigDecimal)ParamUtil.getNumber(
 			actionRequest, "maximumDiscountAmount", BigDecimal.ZERO);
 
 		String level = ParamUtil.getString(actionRequest, "level");
+
 		BigDecimal amount = (BigDecimal)ParamUtil.getNumber(
 			actionRequest, "amount", BigDecimal.ZERO);
 
 		BigDecimal[] discountLevels = _getDiscountLevels(level, amount);
 
+		int limitationTimes = ParamUtil.getInteger(
+			actionRequest, "limitationTimes");
+		int limitationTimesPerAccount = ParamUtil.getInteger(
+			actionRequest, "limitationTimesPerAccount");
+		boolean rulesConjunction = ParamUtil.getBoolean(
+			actionRequest, "rulesConjunction");
+
 		boolean active = ParamUtil.getBoolean(actionRequest, "active");
 
 		int displayDateMonth = ParamUtil.getInteger(
 			actionRequest, "displayDateMonth");
+
 		int displayDateDay = ParamUtil.getInteger(
 			actionRequest, "displayDateDay");
+
 		int displayDateYear = ParamUtil.getInteger(
 			actionRequest, "displayDateYear");
+
 		int displayDateHour = ParamUtil.getInteger(
 			actionRequest, "displayDateHour");
-		int displayDateMinute = ParamUtil.getInteger(
-			actionRequest, "displayDateMinute");
+
 		int displayDateAmPm = ParamUtil.getInteger(
 			actionRequest, "displayDateAmPm");
 
@@ -138,22 +140,30 @@ public class EditCommerceDiscountMVCActionCommand extends BaseMVCActionCommand {
 			displayDateHour += 12;
 		}
 
+		int displayDateMinute = ParamUtil.getInteger(
+			actionRequest, "displayDateMinute");
+
 		int expirationDateMonth = ParamUtil.getInteger(
 			actionRequest, "expirationDateMonth");
+
 		int expirationDateDay = ParamUtil.getInteger(
 			actionRequest, "expirationDateDay");
+
 		int expirationDateYear = ParamUtil.getInteger(
 			actionRequest, "expirationDateYear");
+
 		int expirationDateHour = ParamUtil.getInteger(
 			actionRequest, "expirationDateHour");
-		int expirationDateMinute = ParamUtil.getInteger(
-			actionRequest, "expirationDateMinute");
+
 		int expirationDateAmPm = ParamUtil.getInteger(
 			actionRequest, "expirationDateAmPm");
 
 		if (expirationDateAmPm == Calendar.PM) {
 			expirationDateHour += 12;
 		}
+
+		int expirationDateMinute = ParamUtil.getInteger(
+			actionRequest, "expirationDateMinute");
 
 		String externalReferenceCode = ParamUtil.getString(
 			actionRequest, "externalReferenceCode");
@@ -168,12 +178,14 @@ public class EditCommerceDiscountMVCActionCommand extends BaseMVCActionCommand {
 			serviceContext.getUserId(), commerceDiscountId, title, target,
 			useCouponCode, couponCode, usePercentage, maximumDiscountAmount,
 			level, discountLevels[0], discountLevels[1], discountLevels[2],
-			discountLevels[3], limitationType, limitationTimes,
-			limitationTimesPerAccount, rulesConjunction, active,
-			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
-			displayDateMinute, expirationDateMonth, expirationDateDay,
-			expirationDateYear, expirationDateHour, expirationDateMinute,
-			externalReferenceCode, neverExpire, serviceContext);
+			discountLevels[3],
+			_getLimitationType(limitationTimes, limitationTimesPerAccount),
+			limitationTimes, limitationTimesPerAccount, rulesConjunction,
+			active, displayDateMonth, displayDateDay, displayDateYear,
+			displayDateHour, displayDateMinute, expirationDateMonth,
+			expirationDateDay, expirationDateYear, expirationDateHour,
+			expirationDateMinute, externalReferenceCode, neverExpire,
+			serviceContext);
 	}
 
 	private BigDecimal[] _getDiscountLevels(String level, BigDecimal amount) {

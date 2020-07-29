@@ -24,9 +24,9 @@
 					'v2'
 				);
 
-				var id = <%= commerceDiscountId %>;
 				var discountExternalReferenceCode =
 					'<%= commerceDiscount.getExternalReferenceCode() %>';
+				var id = <%= commerceDiscountId %>;
 
 				function selectItem(account) {
 					var accountData = {
@@ -56,12 +56,12 @@
 					apiUrl: '/o/headless-commerce-admin-account/v1.0/accounts/',
 					getSelectedItems: getSelectedItems,
 					inputPlaceholder: '<%= LanguageUtil.get(request, "find-an-account") %>',
+					itemCreation: false,
 					itemSelectedMessage: '<%= LanguageUtil.get(request, "account-selected") %>',
+					itemsKey: 'id',
 					linkedDatasetsId: [
 						'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_DISCOUNT_QUALIFIER_ACCOUNTS %>'
 					],
-					itemCreation: false,
-					itemsKey: 'id',
 					onItemSelected: selectItem,
 					pageSize: 10,
 					panelHeaderLabel: '<%= LanguageUtil.get(request, "add-accounts") %>',

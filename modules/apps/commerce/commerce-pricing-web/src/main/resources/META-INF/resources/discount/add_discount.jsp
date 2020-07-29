@@ -69,20 +69,22 @@ CommerceDiscount commerceDiscount = commerceDiscountDisplayContext.getCommerceDi
 				window,
 				'<portlet:namespace/>apiSubmit',
 				function(form) {
-					var title = form.querySelector('#title').value;
-					var commerceDiscountType = form.querySelector('#commerceDiscountType')
-						.value;
 					var commerceDiscountTarget = form.querySelector(
 						'#commerceDiscountTarget'
 					).value;
+
+					var title = form.querySelector('#title').value;
+
+					var commerceDiscountType = form.querySelector('#commerceDiscountType')
+						.value;
 
 					var discountData = {
 						level: '<%= CommerceDiscountConstants.LEVEL_L1 %>',
 						limitationType:
 							'<%= CommerceDiscountConstants.LIMITATION_TYPE_UNLIMITED %>',
-						usePercentage: commerceDiscountType,
 						target: commerceDiscountTarget,
-						title: title
+						title: title,
+						usePercentage: commerceDiscountType
 					};
 
 					return CommerceDiscountResource.addDiscount(discountData)

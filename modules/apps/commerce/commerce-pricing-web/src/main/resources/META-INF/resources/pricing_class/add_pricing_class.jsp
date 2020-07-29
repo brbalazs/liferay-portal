@@ -47,12 +47,12 @@ String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
 				window,
 				'<portlet:namespace/>apiSubmit',
 				function(form) {
-					var title = form.querySelector('#title').value;
 					var description = form.querySelector('#description').value;
+					var title = form.querySelector('#title').value;
 
 					var productGroupData = {
-						title: {<%= defaultLanguageId %>: title},
-						description: {<%= defaultLanguageId %>: description}
+						description: {<%= defaultLanguageId %>: description},
+						title: {<%= defaultLanguageId %>: title}
 					};
 
 					return CommerceProductGroupsResource.addProductGroup(productGroupData)
@@ -67,9 +67,9 @@ String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
 							window.parent.Liferay.fire(events.CLOSE_MODAL, {
 								redirectURL: redirectURL.toString(),
 								successNotification: {
-									showSuccessNotification: true,
 									message:
-										'<liferay-ui:message key="your-request-completed-successfully" />'
+										'<liferay-ui:message key="your-request-completed-successfully" />',
+									showSuccessNotification: true
 								}
 							});
 						})

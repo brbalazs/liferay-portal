@@ -76,9 +76,6 @@ public class EditCommerceDiscountQualifiersMVCActionCommand
 		String accountQualifiers = ParamUtil.getString(
 			actionRequest, "accountQualifiers");
 
-		String channelQualifiers = ParamUtil.getString(
-			actionRequest, "channelQualifiers");
-
 		if (Objects.equals(accountQualifiers, "all")) {
 			_deleteCommerceDiscountAccountRels(commerceDiscountId);
 			_deleteCommerceDiscountAccountGroupRels(commerceDiscountId);
@@ -89,6 +86,9 @@ public class EditCommerceDiscountQualifiersMVCActionCommand
 		else {
 			_deleteCommerceDiscountAccountRels(commerceDiscountId);
 		}
+
+		String channelQualifiers = ParamUtil.getString(
+			actionRequest, "channelQualifiers");
 
 		if (Objects.equals(channelQualifiers, "all")) {
 			_commerceChannelRelService.deleteCommerceChannelRels(

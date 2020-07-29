@@ -33,8 +33,8 @@ contextParams.put("commercePricingClassId", String.valueOf(commercePricingClass.
 	<div class="col-12 pt-4">
 		<commerce-ui:dataset-display
 			contextParams="<%= contextParams %>"
-			dataProviderKey="<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_DISCOUNTS %>"
-			id="<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASS_DISCOUNTS %>"
+			dataProviderKey="<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASSES_DISCOUNTS %>"
+			id="<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICING_CLASSES_DISCOUNTS %>"
 			itemsPerPage="<%= 10 %>"
 			namespace="<%= renderResponse.getNamespace() %>"
 			pageNumber="<%= 1 %>"

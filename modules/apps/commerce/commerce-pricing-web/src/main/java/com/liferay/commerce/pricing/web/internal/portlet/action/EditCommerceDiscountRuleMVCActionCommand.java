@@ -55,9 +55,6 @@ public class EditCommerceDiscountRuleMVCActionCommand
 		long commerceDiscountRuleId = ParamUtil.getLong(
 			actionRequest, "commerceDiscountRuleId");
 
-		long cpDefinitionId = ParamUtil.getLong(
-			actionRequest, "cpDefinitionId");
-
 		CommerceDiscountRule commerceDiscountRule =
 			_commerceDiscountRuleService.getCommerceDiscountRule(
 				commerceDiscountRuleId);
@@ -67,6 +64,9 @@ public class EditCommerceDiscountRuleMVCActionCommand
 		String typeSettings = commerceDiscountRule.getSettingsProperty(type);
 
 		String[] typeSettingsArray = StringUtil.split(typeSettings);
+
+		long cpDefinitionId = ParamUtil.getLong(
+			actionRequest, "cpDefinitionId");
 
 		typeSettingsArray = ArrayUtil.remove(
 			typeSettingsArray, String.valueOf(cpDefinitionId));
@@ -100,25 +100,24 @@ public class EditCommerceDiscountRuleMVCActionCommand
 	protected void updateCommerceDiscountRule(ActionRequest actionRequest)
 		throws Exception {
 
-		long commerceDiscountRuleId = ParamUtil.getLong(
-			actionRequest, "commerceDiscountRuleId");
-
-		long commerceDiscountId = ParamUtil.getLong(
-			actionRequest, "commerceDiscountId");
-
 		String type = ParamUtil.getString(actionRequest, "type");
-
 		String typeSettings = ParamUtil.getString(
 			actionRequest, "typeSettings");
 
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			CommerceDiscountRule.class.getName(), actionRequest);
+		long commerceDiscountRuleId = ParamUtil.getLong(
+			actionRequest, "commerceDiscountRuleId");
 
 		if (commerceDiscountRuleId > 0) {
 			_commerceDiscountRuleService.updateCommerceDiscountRule(
 				commerceDiscountRuleId, type, typeSettings);
 		}
 		else {
+			long commerceDiscountId = ParamUtil.getLong(
+				actionRequest, "commerceDiscountId");
+
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(
+				CommerceDiscountRule.class.getName(), actionRequest);
+
 			_commerceDiscountRuleService.addCommerceDiscountRule(
 				commerceDiscountId, type, typeSettings, serviceContext);
 		}

@@ -33,6 +33,7 @@ String typeSettings = unicodeProperties.getProperty(commerceDiscountRule.getType
 		var form = document.getElementById('<portlet:namespace/>fm');
 
 		var name = form.querySelector('#<portlet:namespace/>name').value;
+
 		var commerceDiscountRuleType = form.querySelector('#<portlet:namespace/>type')
 			.value;
 		var typeSettings = form.querySelector('#<portlet:namespace/>typeSettings')
@@ -84,11 +85,11 @@ String typeSettings = unicodeProperties.getProperty(commerceDiscountRule.getType
 				'/o/headless-commerce-admin-catalog/v1.0/products?nestedFields=catalog',
 			getSelectedItems: getSelectedItems,
 			inputPlaceholder: '<%= LanguageUtil.get(request, "find-a-product") %>',
-			itemSelectedMessage: '<%= LanguageUtil.get(request, "product-selected") %>',
 			linkedDatasetsId: [
 				'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_DISCOUNT_RULE_PRODUCT_DEFINITIONS %>'
 			],
 			itemCreation: false,
+			itemSelectedMessage: '<%= LanguageUtil.get(request, "product-selected") %>',
 			itemsKey: 'id',
 			onItemSelected: selectItem,
 			pageSize: 10,

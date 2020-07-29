@@ -56,6 +56,7 @@ List<CommerceDiscountRuleType> commerceDiscountRuleTypes = commerceDiscountDispl
 				'<portlet:namespace/>apiSubmit',
 				function(form) {
 					var name = form.querySelector('#name').value;
+
 					var commerceDiscountRuleType = form.querySelector('#type').value;
 
 					var discountRuleData = {
@@ -70,9 +71,9 @@ List<CommerceDiscountRuleType> commerceDiscountRuleTypes = commerceDiscountDispl
 						.then(function(payload) {
 							window.parent.Liferay.fire(events.CLOSE_MODAL, {
 								successNotification: {
-									showSuccessNotification: true,
 									message:
-										'<liferay-ui:message key="your-request-completed-successfully" />'
+										'<liferay-ui:message key="your-request-completed-successfully" />',
+									showSuccessNotification: true
 								}
 							});
 						})

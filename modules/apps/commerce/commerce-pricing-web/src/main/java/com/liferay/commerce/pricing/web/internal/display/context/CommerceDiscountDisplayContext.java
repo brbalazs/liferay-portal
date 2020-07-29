@@ -459,14 +459,9 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 
 		headerActionModels.add(cancelHeaderActionModel);
 
-		CommerceDiscount commerceDiscount = getCommerceDiscount();
-
-		ActionURL actionURL = renderResponse.createActionURL();
-
-		actionURL.setParameter(
-			ActionRequest.ACTION_NAME, "editCommerceDiscount");
-
 		String saveButtonLabel = "save";
+
+		CommerceDiscount commerceDiscount = getCommerceDiscount();
 
 		if ((commerceDiscount == null) || commerceDiscount.isDraft() ||
 			commerceDiscount.isApproved() || commerceDiscount.isExpired() ||
@@ -474,6 +469,11 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 
 			saveButtonLabel = "save-as-draft";
 		}
+
+		ActionURL actionURL = renderResponse.createActionURL();
+
+		actionURL.setParameter(
+			ActionRequest.ACTION_NAME, "editCommerceDiscount");
 
 		HeaderActionModel saveAsDraftHeaderActionModel = new HeaderActionModel(
 			null, renderResponse.getNamespace() + "fm", actionURL.toString(),
