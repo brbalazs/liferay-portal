@@ -178,17 +178,17 @@ public class BulkDocumentRequestExecutorImpl
 		for (IndexDocumentRequest indexDocumentRequest :
 				indexDocumentRequests) {
 
-			if (indexDocumentRequest.getDocument() != null) {
+			if (indexDocumentRequest.getDocument72() != null) {
 				SolrInputDocument solrInputDocument =
 					_solrDocumentFactory.getSolrInputDocument(
-						indexDocumentRequest.getDocument());
+						indexDocumentRequest.getDocument72());
 
 				updateRequest.add(solrInputDocument);
 			}
 			else {
 				SolrInputDocument solrInputDocument =
 					_solrDocumentFactory.getSolrInputDocument(
-						indexDocumentRequest.getDocument71());
+						indexDocumentRequest.getDocument());
 
 				updateRequest.add(solrInputDocument);
 			}
@@ -209,10 +209,10 @@ public class BulkDocumentRequestExecutorImpl
 		for (UpdateDocumentRequest updateDocumentRequest :
 				updateDocumentRequests) {
 
-			if (updateDocumentRequest.getDocument() != null) {
+			if (updateDocumentRequest.getDocument72() != null) {
 				SolrInputDocument solrInputDocument =
 					_solrDocumentFactory.getSolrInputDocument(
-						updateDocumentRequest.getDocument());
+						updateDocumentRequest.getDocument72());
 
 				updateRequest.add(
 					SolrInputDocumentAtomicUpdateTranslator.translate(
@@ -221,7 +221,7 @@ public class BulkDocumentRequestExecutorImpl
 			else {
 				SolrInputDocument solrInputDocument =
 					_solrDocumentFactory.getSolrInputDocument(
-						updateDocumentRequest.getDocument71());
+						updateDocumentRequest.getDocument());
 
 				updateRequest.add(
 					SolrInputDocumentAtomicUpdateTranslator.translate(

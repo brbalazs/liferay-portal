@@ -126,13 +126,13 @@ public class BaseSolrQueryAssemblerImpl implements BaseSolrQueryAssembler {
 
 	protected String getQueryString(BaseSearchRequest baseSearchRequest) {
 		com.liferay.portal.search.query.Query query =
-			baseSearchRequest.getQuery();
+			baseSearchRequest.getQuery72();
 
 		if (query != null) {
 			return _solrQueryTranslator.translate(query);
 		}
 
-		Query legacyQuery = baseSearchRequest.getQuery71();
+		Query legacyQuery = baseSearchRequest.getQuery();
 
 		if (legacyQuery != null) {
 			return _queryTranslator.translate(legacyQuery, null);
@@ -200,7 +200,7 @@ public class BaseSolrQueryAssemblerImpl implements BaseSolrQueryAssembler {
 
 		List<String> filterQueries = new ArrayList<>();
 
-		Query query = baseSearchRequest.getQuery71();
+		Query query = baseSearchRequest.getQuery();
 
 		if (query != null) {
 			_add(filterQueries, query.getPreBooleanFilter());

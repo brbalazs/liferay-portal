@@ -253,7 +253,7 @@ public class SearchSolrQueryAssemblerImpl implements SearchSolrQueryAssembler {
 	protected void setSorts(
 		SolrQuery solrQuery, SearchSearchRequest searchSearchRequest) {
 
-		List<Sort> sorts = searchSearchRequest.getSorts();
+		List<Sort> sorts = searchSearchRequest.getSorts72();
 
 		Stream<Sort> stream = sorts.stream();
 
@@ -264,7 +264,7 @@ public class SearchSolrQueryAssemblerImpl implements SearchSolrQueryAssembler {
 		);
 
 		com.liferay.portal.kernel.search.Sort[] sorts71 =
-			searchSearchRequest.getSorts71();
+			searchSearchRequest.getSorts();
 
 		if (ArrayUtil.isEmpty(sorts71)) {
 			return;

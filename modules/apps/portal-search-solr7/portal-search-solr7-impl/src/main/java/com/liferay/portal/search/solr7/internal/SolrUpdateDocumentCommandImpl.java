@@ -112,7 +112,7 @@ public class SolrUpdateDocumentCommandImpl
 				UpdateResponse updateResponse = solrClient.deleteById(
 					_defaultCollection, uids);
 
-				LogUtil.logSolrResponseBase(_log, updateResponse);
+				LogUtil.logSolrResponse(_log, updateResponse);
 			}
 
 			UpdateResponse updateResponse = solrClient.add(
@@ -122,7 +122,7 @@ public class SolrUpdateDocumentCommandImpl
 				solrClient.commit(_defaultCollection);
 			}
 
-			LogUtil.logSolrResponseBase(_log, updateResponse);
+			LogUtil.logSolrResponse(_log, updateResponse);
 
 			return updateResponse;
 		}

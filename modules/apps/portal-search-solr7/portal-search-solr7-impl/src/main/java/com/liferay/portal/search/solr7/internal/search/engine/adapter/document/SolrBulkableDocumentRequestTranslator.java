@@ -72,17 +72,17 @@ public class SolrBulkableDocumentRequestTranslator
 	public UpdateRequest translate(IndexDocumentRequest indexDocumentRequest) {
 		UpdateRequest updateRequest = new UpdateRequest();
 
-		if (indexDocumentRequest.getDocument() != null) {
+		if (indexDocumentRequest.getDocument72() != null) {
 			SolrInputDocument solrInputDocument =
 				_solrDocumentFactory.getSolrInputDocument(
-					indexDocumentRequest.getDocument());
+					indexDocumentRequest.getDocument72());
 
 			updateRequest.add(solrInputDocument);
 		}
 		else {
 			SolrInputDocument solrInputDocument =
 				_solrDocumentFactory.getSolrInputDocument(
-					indexDocumentRequest.getDocument71());
+					indexDocumentRequest.getDocument());
 
 			updateRequest.add(solrInputDocument);
 		}
@@ -98,10 +98,10 @@ public class SolrBulkableDocumentRequestTranslator
 	public SolrRequest translate(UpdateDocumentRequest updateDocumentRequest) {
 		UpdateRequest updateRequest = new UpdateRequest();
 
-		if (updateDocumentRequest.getDocument() != null) {
+		if (updateDocumentRequest.getDocument72() != null) {
 			SolrInputDocument solrInputDocument =
 				_solrDocumentFactory.getSolrInputDocument(
-					updateDocumentRequest.getDocument());
+					updateDocumentRequest.getDocument72());
 
 			updateRequest.add(
 				SolrInputDocumentAtomicUpdateTranslator.translate(
@@ -110,7 +110,7 @@ public class SolrBulkableDocumentRequestTranslator
 		else {
 			SolrInputDocument solrInputDocument =
 				_solrDocumentFactory.getSolrInputDocument(
-					updateDocumentRequest.getDocument71());
+					updateDocumentRequest.getDocument());
 
 			updateRequest.add(
 				SolrInputDocumentAtomicUpdateTranslator.translate(

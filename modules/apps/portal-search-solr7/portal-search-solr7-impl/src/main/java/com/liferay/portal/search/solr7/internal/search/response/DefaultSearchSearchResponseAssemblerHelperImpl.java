@@ -92,12 +92,12 @@ public class DefaultSearchSearchResponseAssemblerHelperImpl
 			searchSearchResponse, queryResponse, searchSearchRequest, hits);
 		updateStatsResults(queryResponse, searchSearchRequest, hits);
 
-		hits.setQuery(searchSearchRequest.getQuery71());
+		hits.setQuery(searchSearchRequest.getQuery());
 		hits.setSearchTime(queryResponse.getQTime());
 
 		processSearchHits(
 			queryResponse, queryResponse.getResults(),
-			searchSearchRequest.getQuery71(), hits, searchSearchResponse);
+			searchSearchRequest.getQuery(), hits, searchSearchResponse);
 	}
 
 	protected void addSnippets(
@@ -395,7 +395,7 @@ public class DefaultSearchSearchResponseAssemblerHelperImpl
 
 				processSearchHits(
 					queryResponse, group.getResult(),
-					searchSearchRequest.getQuery71(), groupedHits,
+					searchSearchRequest.getQuery(), groupedHits,
 					searchSearchResponse);
 
 				hits.addGroupedHits(group.getGroupValue(), groupedHits);
