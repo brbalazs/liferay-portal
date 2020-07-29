@@ -71,6 +71,12 @@ const ManuallyRetrainModelModal = ({job, onClose, onSubmit}) => {
 			});
 	};
 
+	const availableJobRuns = get(
+		data,
+		['jobRunsMonthlyStatistics', 'availableJobRuns'],
+		0
+	);
+
 	return (
 		<Modal className='manually-retrain-model-modal-root'>
 			<Modal.Header
@@ -147,14 +153,7 @@ const ManuallyRetrainModelModal = ({job, onClose, onSubmit}) => {
 										{loading ? (
 											<Spinner inline size='sm' />
 										) : (
-											get(
-												data,
-												[
-													'jobRunsMonthlyStatistics',
-													'availableJobRuns'
-												],
-												0
-											)
+											availableJobRuns
 										)}
 									</span>
 								</div>
@@ -167,6 +166,7 @@ const ManuallyRetrainModelModal = ({job, onClose, onSubmit}) => {
 							</Button>
 
 							<Button
+								disabled={availableJobRuns <= 0}
 								display='primary'
 								onClick={() => handleSubmit()}
 							>

@@ -102,62 +102,58 @@ const View: React.FC<IViewProps> = ({
 										disabled: loading || jobRunRunning,
 										label: Liferay.Language.get('retrain'),
 										onClick: () => {
-											if (!jobRunRunning) {
-												open(
-													modalTypes.MANUALLY_RETRAIN_MODEL_MODAL,
-													{
-														job,
-														onClose: close,
-														onSubmit: ({
-															runDataPeriod
-														}) => {
-															runRecommendationJob(
-																{
-																	awaitRefetchQueries: true,
-																	refetchQueries: [
-																		getOperationName(
-																			RecommendationJobRunsQuery
-																		)
-																	],
-																	variables: {
-																		jobId,
-																		runDataPeriod
-																	}
-																}
-															)
-																.then(() => {
-																	addAlert({
-																		alertType:
-																			Alert
-																				.Types
-																				.SUCCESS,
-																		message: Liferay.Language.get(
-																			'retraining-has-been-started'
-																		)
-																	});
-
-																	close();
-																})
-																.catch(() => {
-																	addAlert({
-																		alertType:
-																			Alert
-																				.Types
-																				.ERROR,
-																		message: Liferay.Language.get(
-																			'there-was-an-error-processing-your-request.-please-try-again'
-																		),
-																		timeout: false
-																	});
+											open(
+												modalTypes.MANUALLY_RETRAIN_MODEL_MODAL,
+												{
+													job,
+													onClose: close,
+													onSubmit: ({
+														runDataPeriod
+													}) => {
+														runRecommendationJob({
+															awaitRefetchQueries: true,
+															refetchQueries: [
+																getOperationName(
+																	RecommendationJobRunsQuery
+																)
+															],
+															variables: {
+																jobId,
+																runDataPeriod
+															}
+														})
+															.then(() => {
+																addAlert({
+																	alertType:
+																		Alert
+																			.Types
+																			.SUCCESS,
+																	message: Liferay.Language.get(
+																		'retraining-has-been-started'
+																	)
 																});
-														},
-														trainingPeriod: get(
-															job,
-															'trainingPeriod'
-														)
-													}
-												);
-											}
+
+																close();
+															})
+															.catch(() => {
+																addAlert({
+																	alertType:
+																		Alert
+																			.Types
+																			.ERROR,
+																	message: Liferay.Language.get(
+																		'there-was-an-error-processing-your-request.-please-try-again'
+																	),
+																	timeout: false
+																});
+															});
+													},
+													trainingPeriod: get(
+														job,
+														'trainingPeriod'
+													)
+												}
+											);
 										}
 									},
 									{
