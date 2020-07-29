@@ -50,6 +50,7 @@
 					{},
 					<portlet:namespace/>productData,
 					{
+						defaultSku: "<%= CPInstanceConstants.DEFAULT_SKU %>",
 						name: {
 							[<portlet:namespace/>defaultLanguageId]: document.getElementById('<portlet:namespace/>name').value
 						}

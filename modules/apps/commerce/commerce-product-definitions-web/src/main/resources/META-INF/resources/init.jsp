@@ -92,6 +92,7 @@ page import="com.liferay.commerce.product.model.CPDefinitionOptionValueRel" %><%
 page import="com.liferay.commerce.product.model.CPDefinitionSpecificationOptionValue" %><%@
 page import="com.liferay.commerce.product.model.CPDisplayLayout" %><%@
 page import="com.liferay.commerce.product.model.CPInstance" %><%@
+page import="com.liferay.commerce.product.model.CPInstanceConstants" %><%@
 page import="com.liferay.commerce.product.model.CPMeasurementUnitConstants" %><%@
 page import="com.liferay.commerce.product.model.CPOptionCategory" %><%@
 page import="com.liferay.commerce.product.model.CPSpecificationOption" %><%@
