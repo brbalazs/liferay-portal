@@ -50,7 +50,9 @@ public class CommercePriceModifierClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("modifier", "modifier");
 
-		clayTableSchemaBuilder.addField("schedule", "schedule");
+		clayTableSchemaBuilder.addField("startDate", "start-date");
+
+		clayTableSchemaBuilder.addField("endDate", "end-date");
 
 		return clayTableSchemaBuilder.build();
 	}

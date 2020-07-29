@@ -30,15 +30,18 @@ long commercePriceListId = commercePriceListDisplayContext.getCommercePriceListI
 	contextParams.put("commercePriceListId", String.valueOf(commercePriceListId));
 	%>
 
-	<commerce-ui:dataset-display
-		clayCreationMenu="<%= commercePriceListDisplayContext.getPriceModifiersClayCreationMenu() %>"
-		contextParams="<%= contextParams %>"
-		dataProviderKey="<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_MODIFIERS %>"
-		formId="fm"
-		id="<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_MODIFIERS %>"
-		itemsPerPage="<%= 10 %>"
-		namespace="<%= renderResponse.getNamespace() %>"
-		pageNumber="<%= 1 %>"
-		portletURL="<%= currentURLObj %>"
-	/>
+	<div class="pt-4">
+		<commerce-ui:dataset-display
+			clayCreationMenu="<%= commercePriceListDisplayContext.getPriceModifiersClayCreationMenu() %>"
+			contextParams="<%= contextParams %>"
+			dataProviderKey="<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_MODIFIERS %>"
+			formId="fm"
+			id="<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_MODIFIERS %>"
+			itemsPerPage="<%= 10 %>"
+			namespace="<%= renderResponse.getNamespace() %>"
+			pageNumber="<%= 1 %>"
+			portletURL="<%= currentURLObj %>"
+			style="stacked"
+		/>
+	</div>
 </c:if>

@@ -21,12 +21,22 @@ import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.commerce.pricing.service.CommercePriceModifierService;
 import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingDataSetConstants;
 import com.liferay.commerce.pricing.web.internal.model.PriceModifier;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.kernel.util.WebKeys;
+
+import java.text.DateFormat;
+import java.text.Format;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -63,6 +73,17 @@ public class CommercePriceModifierDataSetDataProvider
 
 		List<PriceModifier> priceModifiers = new ArrayList<>();
 
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
+			"content.Language", themeDisplay.getLocale(), getClass());
+
+		Format dateTimeFormat = FastDateFormatFactoryUtil.getDateTime(
+			DateFormat.MEDIUM, DateFormat.MEDIUM, themeDisplay.getLocale(),
+			themeDisplay.getTimeZone());
+
 		long commercePriceListId = ParamUtil.getLong(
 			httpServletRequest, "commercePriceListId");
 
@@ -74,17 +95,31 @@ public class CommercePriceModifierDataSetDataProvider
 		for (CommercePriceModifier commercePriceModifier :
 				commercePriceModifiers) {
 
-			// TODO schedule
-
 			priceModifiers.add(
 				new PriceModifier(
-					commercePriceModifier.getModifierType(),
+					_getEndDate(commercePriceModifier, dateTimeFormat),
+					LanguageUtil.get(
+						resourceBundle,
+						commercePriceModifier.getModifierType()),
 					commercePriceModifier.getTitle(),
-					commercePriceModifier.getCommercePriceModifierId(), null,
-					commercePriceModifier.getTarget()));
+					commercePriceModifier.getCommercePriceModifierId(),
+					dateTimeFormat.format(
+						commercePriceModifier.getDisplayDate()),
+					LanguageUtil.get(
+						resourceBundle, commercePriceModifier.getTarget())));
 		}
 
 		return priceModifiers;
+	}
+
+	private String _getEndDate(
+		CommercePriceModifier commercePriceModifier, Format dateTimeFormat) {
+
+		if (commercePriceModifier.getExpirationDate() == null) {
+			return StringPool.BLANK;
+		}
+
+		return dateTimeFormat.format(commercePriceModifier.getExpirationDate());
 	}
 
 	@Reference

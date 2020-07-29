@@ -20,14 +20,19 @@ package com.liferay.commerce.pricing.web.internal.model;
 public class PriceModifier {
 
 	public PriceModifier(
-		String modifier, String name, long priceModifierId, String schedule,
-		String target) {
+		String endDate, String modifier, String name, long priceModifierId,
+		String startDate, String target) {
 
+		_endDate = endDate;
 		_modifier = modifier;
 		_name = name;
 		_priceModifierId = priceModifierId;
-		_schedule = schedule;
+		_startDate = startDate;
 		_target = target;
+	}
+
+	public String getEndDate() {
+		return _endDate;
 	}
 
 	public String getModifier() {
@@ -42,18 +47,19 @@ public class PriceModifier {
 		return _priceModifierId;
 	}
 
-	public String getSchedule() {
-		return _schedule;
+	public String getStartDate() {
+		return _startDate;
 	}
 
 	public String getTarget() {
 		return _target;
 	}
 
+	private final String _endDate;
 	private final String _modifier;
 	private final String _name;
 	private final long _priceModifierId;
-	private final String _schedule;
+	private final String _startDate;
 	private final String _target;
 
 }
