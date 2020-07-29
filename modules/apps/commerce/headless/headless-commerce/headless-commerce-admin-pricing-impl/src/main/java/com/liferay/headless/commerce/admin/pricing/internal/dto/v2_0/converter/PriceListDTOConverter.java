@@ -21,9 +21,17 @@ import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceList;
+import com.liferay.headless.commerce.admin.pricing.dto.v2_0.Status;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.language.LanguageResources;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -53,15 +61,30 @@ public class PriceListDTOConverter
 		CommerceCurrency commerceCurrency =
 			commercePriceList.getCommerceCurrency();
 
+		String priceListStatusLabel = WorkflowConstants.getStatusLabel(
+			commercePriceList.getStatus());
+
+		Locale locale = dtoConverterContext.getLocale();
+
+		ResourceBundle resourceBundle = LanguageResources.getResourceBundle(
+			locale);
+
+		String priceListStatusLabelI18n = LanguageUtil.get(
+			resourceBundle,
+			WorkflowConstants.getStatusLabel(commercePriceList.getStatus()));
+
 		ExpandoBridge expandoBridge = commercePriceList.getExpandoBridge();
 
 		return new PriceList() {
 			{
 				actions = dtoConverterContext.getActions();
 				active = !commercePriceList.isInactive();
+				author = commercePriceList.getUserName();
 				catalogBasePriceList =
 					commercePriceList.isCatalogBasePriceList();
 				catalogId = _getCatalogId(commercePriceList);
+				catalogName = _getCatalogName(commercePriceList);
+				createDate = commercePriceList.getCreateDate();
 				currencyCode = commerceCurrency.getCode();
 				customFields = expandoBridge.getAttributes();
 				displayDate = commercePriceList.getDisplayDate();
@@ -75,6 +98,9 @@ public class PriceListDTOConverter
 					commercePriceList.getParentCommercePriceListId();
 				priority = commercePriceList.getPriority();
 				type = Type.create(commercePriceList.getType());
+				workflowStatusInfo = _getWorkflowStatusInfo(
+					commercePriceList.getStatus(), priceListStatusLabel,
+					priceListStatusLabelI18n);
 			}
 		};
 	}
@@ -91,6 +117,33 @@ public class PriceListDTOConverter
 		}
 
 		return commerceCatalog.getCommerceCatalogId();
+	}
+
+	private String _getCatalogName(CommercePriceList commercePriceList)
+		throws PortalException {
+
+		CommerceCatalog commerceCatalog =
+			_commerceCatalogService.fetchCommerceCatalogByGroupId(
+				commercePriceList.getGroupId());
+
+		if (commerceCatalog == null) {
+			return StringPool.BLANK;
+		}
+
+		return commerceCatalog.getName();
+	}
+
+	private Status _getWorkflowStatusInfo(
+		int statusCode, String priceListStatusLabel,
+		String priceListStatusLabelI18n) {
+
+		return new Status() {
+			{
+				code = statusCode;
+				label = priceListStatusLabel;
+				label_i18n = priceListStatusLabelI18n;
+			}
+		};
 	}
 
 	@Reference
