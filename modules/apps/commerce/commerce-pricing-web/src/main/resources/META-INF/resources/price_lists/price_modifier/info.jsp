@@ -42,78 +42,74 @@ if ((commercePriceModifier != null) && (commercePriceModifier.getExpirationDate(
 
 	<aui:model-context bean="<%= commercePriceModifier %>" model="<%= CommercePriceModifier.class %>" />
 
-	<div class="row sheet">
-		<div class="col-12">
-			<aui:input name="title" required="<%= true %>" />
+	<commerce-ui:panel
+		title='<%= LanguageUtil.get(request, "details") %>'
+	>
+		<aui:input name="title" required="<%= true %>" />
 
-			<aui:select name="target" required="<%= true %>" showEmptyOption="<%= true %>">
+		<aui:select name="target" required="<%= true %>" showEmptyOption="<%= true %>">
 
-				<%
-				for (String target : CommercePriceModifierConstants.TARGETS) {
-				%>
+			<%
+			for (String target : CommercePriceModifierConstants.TARGETS) {
+			%>
 
-					<aui:option label="<%= target %>" selected="<%= target.equals(commercePriceModifier.getTarget()) %>" value="<%= target %>" />
+				<aui:option label="<%= target %>" selected="<%= target.equals(commercePriceModifier.getTarget()) %>" value="<%= target %>" />
 
-				<%
-				}
-				%>
+			<%
+			}
+			%>
 
-			</aui:select>
+		</aui:select>
 
-			<aui:select label='<%= LanguageUtil.get(request, "modifier") %>' name="modifierType" showEmptyOption="<%= true %>">
+		<aui:select label='<%= LanguageUtil.get(request, "modifier") %>' name="modifierType" showEmptyOption="<%= true %>">
 
-				<%
-				for (CommercePriceModifierType commercePriceModifierType : commercePriceListDisplayContext.getCommercePriceModifierTypes()) {
-					String commercePriceModifierTypeKey = commercePriceModifierType.getKey();
-				%>
+			<%
+			for (CommercePriceModifierType commercePriceModifierType : commercePriceListDisplayContext.getCommercePriceModifierTypes()) {
+				String commercePriceModifierTypeKey = commercePriceModifierType.getKey();
+			%>
 
-					<aui:option label="<%= commercePriceModifierType.getLabel(locale) %>" selected="<%= commercePriceModifierTypeKey.equals(commercePriceModifier.getModifierType()) %>" value="<%= commercePriceModifierTypeKey %>" />
+				<aui:option label="<%= commercePriceModifierType.getLabel(locale) %>" selected="<%= commercePriceModifierTypeKey.equals(commercePriceModifier.getModifierType()) %>" value="<%= commercePriceModifierTypeKey %>" />
 
-				<%
-				}
-				%>
+			<%
+			}
+			%>
 
-			</aui:select>
+		</aui:select>
 
-			<aui:input label='<%= LanguageUtil.get(request, "amount") %>' name="modifierAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commercePriceModifier.getModifierAmount()) %>">
-				<aui:validator name="min">0</aui:validator>
-				<aui:validator name="number" />
-			</aui:input>
+		<aui:input label='<%= LanguageUtil.get(request, "amount") %>' name="modifierAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commercePriceModifier.getModifierAmount()) %>">
+			<aui:validator name="min">0</aui:validator>
+			<aui:validator name="number" />
+		</aui:input>
 
-			<aui:input name="priority" />
+		<aui:input name="priority" />
 
-			<aui:input checked="<%= commercePriceModifier.isActive() %>" name="active" type="toggle-switch" />
-		</div>
+		<aui:input checked="<%= commercePriceModifier.isActive() %>" name="active" type="toggle-switch" />
+	</commerce-ui:panel>
 
-		<div class="col-12">
-			<commerce-ui:panel
-				title='<%= LanguageUtil.get(request, "schedule") %>'
-			>
-				<liferay-ui:error exception="<%= CommercePriceModifierExpirationDateException.class %>" message="please-enter-a-valid-expiration-date" />
+	<commerce-ui:panel
+		title='<%= LanguageUtil.get(request, "schedule") %>'
+	>
+		<liferay-ui:error exception="<%= CommercePriceModifierExpirationDateException.class %>" message="please-enter-a-valid-expiration-date" />
 
-				<aui:fieldset>
-					<aui:input formName="fm" name="displayDate" />
+		<aui:fieldset>
+			<aui:input formName="fm" name="displayDate" />
 
-					<aui:input dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" name="expirationDate" />
-				</aui:fieldset>
-			</commerce-ui:panel>
-		</div>
+			<aui:input dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" name="expirationDate" />
+		</aui:fieldset>
+	</commerce-ui:panel>
 
-		<div class="col-12">
-			<c:if test="<%= commercePriceListDisplayContext.hasCustomAttributesAvailable(CommercePriceModifier.class.getName(), commercePriceModifierId) %>">
-				<commerce-ui:panel
-					title='<%= LanguageUtil.get(request, "custom-attribute") %>'
-				>
-					<liferay-expando:custom-attribute-list
-						className="<%= CommercePriceModifier.class.getName() %>"
-						classPK="<%= commercePriceModifierId %>"
-						editable="<%= true %>"
-						label="<%= true %>"
-					/>
-				</commerce-ui:panel>
-			</c:if>
-		</div>
-	</div>
+	<c:if test="<%= commercePriceListDisplayContext.hasCustomAttributesAvailable(CommercePriceModifier.class.getName(), commercePriceModifierId) %>">
+		<commerce-ui:panel
+			title='<%= LanguageUtil.get(request, "custom-attribute") %>'
+		>
+			<liferay-expando:custom-attribute-list
+				className="<%= CommercePriceModifier.class.getName() %>"
+				classPK="<%= commercePriceModifierId %>"
+				editable="<%= true %>"
+				label="<%= true %>"
+			/>
+		</commerce-ui:panel>
+	</c:if>
 
 	<aui:button-row cssClass="price-modifier-button-row">
 		<aui:button cssClass="btn-lg" type="submit" />

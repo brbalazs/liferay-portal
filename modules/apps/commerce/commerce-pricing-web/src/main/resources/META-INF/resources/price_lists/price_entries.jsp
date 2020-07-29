@@ -17,88 +17,105 @@
 <%@ include file="/init.jsp" %>
 
 <%
-CommercePriceEntryDisplayContext commercePriceEntryDisplayContext = (CommercePriceEntryDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+	CommercePriceEntryDisplayContext commercePriceEntryDisplayContext =
+		(CommercePriceEntryDisplayContext) request.getAttribute(
+			WebKeys.PORTLET_DISPLAY_CONTEXT);
 
-CommercePriceList commercePriceList = commercePriceEntryDisplayContext.getCommercePriceList();
-long commercePriceListId = commercePriceEntryDisplayContext.getCommercePriceListId();
+	CommercePriceList commercePriceList =
+		commercePriceEntryDisplayContext.getCommercePriceList();
+	long commercePriceListId =
+		commercePriceEntryDisplayContext.getCommercePriceListId();
 %>
 
-<c:if test="<%= commercePriceEntryDisplayContext.hasPermission(commercePriceListId, ActionKeys.UPDATE) %>">
-	<div class="row">
+<c:if
+	test="<%= commercePriceEntryDisplayContext.hasPermission(commercePriceListId, ActionKeys.UPDATE) %>">
+	<div class="pt-4 row">
 		<div class="col-12">
 			<div id="item-finder-root"></div>
 
-			<aui:script require="commerce-frontend-js/components/item_finder/entry as itemFinder, commerce-frontend-js/utilities/slugify as slugify, commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/ServiceProvider/index as ServiceProvider">
+			<aui:script
+				require="commerce-frontend-js/components/item_finder/entry as itemFinder, commerce-frontend-js/utilities/slugify as slugify, commerce-frontend-js/utilities/eventsDefinitions as events, commerce-frontend-js/ServiceProvider/index as ServiceProvider">
 				const CommercePriceEntriesResource = ServiceProvider.default.AdminPricingAPI(
-					'v2'
+				'v2'
 				);
 
 				var id = <%= commercePriceListId %>;
 				var priceListExternalReferenceCode =
-					'<%= commercePriceList.getExternalReferenceCode() %>';
+				'<%= commercePriceList.getExternalReferenceCode() %>';
 
 				function selectItem(sku) {
-					var priceEntryData = {
-						price: '0.0',
-						priceListExternalReferenceCode: priceListExternalReferenceCode,
-						priceListId: id,
-						skuExternalReferenceCode: sku.externalReferenceCode,
-						skuId: sku.id
-					};
+				var priceEntryData = {
+				price: '0.0',
+				priceListExternalReferenceCode: priceListExternalReferenceCode,
+				priceListId: id,
+				skuExternalReferenceCode: sku.externalReferenceCode,
+				skuId: sku.id
+				};
 
-					return CommercePriceEntriesResource.addPriceEntry(id, priceEntryData)
-						.then(function() {
-							Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
-								id:
-									'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_ENTRIES %>'
-							});
-						})
-						.catch(function(error) {
-							return Promise.reject(error);
-						});
+				return CommercePriceEntriesResource.addPriceEntry(
+				id,
+				priceEntryData
+				)
+				.then(function() {
+				Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
+				id:
+				'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_ENTRIES %>'
+				});
+				})
+				.catch(function(error) {
+				return Promise.reject(error);
+				});
 				}
 
 				function getSelectedItems() {
-					return Promise.resolve([]);
+				return Promise.resolve([]);
 				}
 
 				itemFinder.default('itemFinder', 'item-finder-root', {
-					apiUrl: '/o/headless-commerce-admin-catalog/v1.0/skus',
-					getSelectedItems: getSelectedItems,
-					inputPlaceholder: '<%= LanguageUtil.get(request, "find-a-product") %>',
-					itemSelectedMessage: '<%= LanguageUtil.get(request, "product-selected") %>',
-					linkedDatasetsId: [
-						'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_ENTRIES %>'
-					],
-					itemCreation: false,
-					itemsKey: 'id',
-					onItemSelected: selectItem,
-					pageSize: 10,
-					panelHeaderLabel: '<%= LanguageUtil.get(request, "add-products") %>',
-					portletId: '<%= portletDisplay.getRootPortletId() %>',
-					schema: [
-						{
-							fieldName: ['productName', 'LANG']
-						}
-					],
-					spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
-					titleLabel: '<%= LanguageUtil.get(request, "add-existing-product") %>'
+				apiUrl: '/o/headless-commerce-admin-catalog/v1.0/skus',
+				getSelectedItems: getSelectedItems,
+				inputPlaceholder:
+				'<%= LanguageUtil.get(request, "find-a-product") %>',
+				itemSelectedMessage:
+				'<%= LanguageUtil.get(request, "product-selected") %>',
+				linkedDatasetsId: [
+				'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_ENTRIES %>'
+				],
+				itemCreation: false,
+				itemsKey: 'id',
+				onItemSelected: selectItem,
+				pageSize: 10,
+				panelHeaderLabel: '<%= LanguageUtil.get(
+				request, "add-products") %>',
+				portletId: '<%= portletDisplay.getRootPortletId() %>',
+				schema: [
+				{
+				fieldName: ['productName', 'LANG']
+				}
+				],
+				spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
+				titleLabel: '<%= LanguageUtil.get(
+				request, "add-existing-product") %>'
 				});
 			</aui:script>
 		</div>
 
 		<div class="col-12">
-			<commerce-ui:headless-dataset-display
-				apiUrl="<%= commercePriceEntryDisplayContext.getPriceEntryApiUrl() %>"
-				clayHeadlessDataSetActionTemplates="<%= commercePriceEntryDisplayContext.getClayHeadlessDataSetActionPriceEntriesTemplates() %>"
-				formId="fm"
-				id="<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_ENTRIES %>"
-				itemsPerPage="<%= 10 %>"
-				namespace="<%= renderResponse.getNamespace() %>"
-				pageNumber="<%= 1 %>"
-				portletURL="<%= currentURLObj %>"
-				style="stacked"
-			/>
+			<commerce-ui:panel
+				bodyClasses="p-0"
+				title='<%= LanguageUtil.get(request, "entries") %>'
+			>
+				<commerce-ui:headless-dataset-display
+					apiUrl="<%= commercePriceEntryDisplayContext.getPriceEntryApiUrl() %>"
+					clayHeadlessDataSetActionTemplates="<%= commercePriceEntryDisplayContext.getClayHeadlessDataSetActionPriceEntriesTemplates() %>"
+					formId="fm"
+					id="<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_ENTRIES %>"
+					itemsPerPage="<%= 10 %>"
+					namespace="<%= renderResponse.getNamespace() %>"
+					pageNumber="<%= 1 %>"
+					portletURL="<%= currentURLObj %>"
+				/>
+			</commerce-ui:panel>
 		</div>
 	</div>
 </c:if>

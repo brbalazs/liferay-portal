@@ -90,31 +90,6 @@ boolean hasPermission = commercePriceListQualifiersDisplayContext.hasPermission(
 </aui:form>
 
 <aui:script>
-	document
-		.getElementById('<portlet:namespace />publishButton')
-		.addEventListener('click', function(e) {
-			e.preventDefault();
-
-			var form = document.getElementById('<portlet:namespace />fm');
-
-			if (!form) {
-				throw new Error('Form with id: <portlet:namespace />fm not found!');
-			}
-
-			var workflowActionInput = document.getElementById(
-				'<portlet:namespace />workflowAction'
-			);
-
-			if (workflowActionInput) {
-				workflowActionInput.value =
-					'<%= WorkflowConstants.ACTION_PUBLISH %>';
-			}
-
-			submitForm(form);
-		});
-</aui:script>
-
-<aui:script>
 	Liferay.provide(
 		window,
 		'<portlet:namespace/>chooseAccountQualifiers',
