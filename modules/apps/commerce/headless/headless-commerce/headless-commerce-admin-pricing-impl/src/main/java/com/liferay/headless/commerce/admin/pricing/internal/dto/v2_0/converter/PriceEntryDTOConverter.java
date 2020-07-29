@@ -22,6 +22,7 @@ import com.liferay.commerce.price.list.service.CommercePriceEntryService;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.PriceEntry;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
@@ -79,6 +80,8 @@ public class PriceEntryDTOConverter
 				discountLevel2 = commercePriceEntry.getDiscountLevel2();
 				discountLevel3 = commercePriceEntry.getDiscountLevel3();
 				discountLevel4 = commercePriceEntry.getDiscountLevel4();
+				discountLevelsFormatted = _getDiscountLevelsFormatted(
+					commercePriceEntry);
 				displayDate = commercePriceEntry.getDisplayDate();
 				expirationDate = commercePriceEntry.getExpirationDate();
 				externalReferenceCode =
@@ -105,6 +108,42 @@ public class PriceEntryDTOConverter
 		}
 
 		return _commercePriceFormatter.format(commerceCurrency, price, locale);
+	}
+
+	private String _getDiscountLevelFormatted(BigDecimal discountLevel) {
+		if (discountLevel == null) {
+			return StringPool.BLANK;
+		}
+
+		return String.valueOf(discountLevel.doubleValue());
+	}
+
+	private String _getDiscountLevelsFormatted(
+		CommercePriceEntry commercePriceEntry) {
+
+		if ((commercePriceEntry.getDiscountLevel1() == null) &&
+			(commercePriceEntry.getDiscountLevel2() == null) &&
+			(commercePriceEntry.getDiscountLevel3() == null) &&
+			(commercePriceEntry.getDiscountLevel4() == null)) {
+
+			return StringPool.BLANK;
+		}
+
+		StringBuffer sb = new StringBuffer();
+
+		sb.append(
+			_getDiscountLevelFormatted(commercePriceEntry.getDiscountLevel1()));
+		sb.append(" | ");
+		sb.append(
+			_getDiscountLevelFormatted(commercePriceEntry.getDiscountLevel2()));
+		sb.append(" | ");
+		sb.append(
+			_getDiscountLevelFormatted(commercePriceEntry.getDiscountLevel3()));
+		sb.append(" | ");
+		sb.append(
+			_getDiscountLevelFormatted(commercePriceEntry.getDiscountLevel4()));
+
+		return sb.toString();
 	}
 
 	@Reference
