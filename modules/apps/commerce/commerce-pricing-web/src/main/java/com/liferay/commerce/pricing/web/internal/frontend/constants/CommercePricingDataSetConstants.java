@@ -84,20 +84,20 @@ public class CommercePricingDataSetConstants {
 	public static final String COMMERCE_DATA_SET_KEY_PRICE_MODIFIERS =
 		"commercePriceModifiers";
 
-	public static final String COMMERCE_DATA_SET_KEY_PRICING_CLASS_DISCOUNTS =
-		"commercePricingClassesDiscounts";
-
-	public static final String COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRICE_LISTS =
-		"commercePricingClassesPriceLists";
-
-	public static final String
-		COMMERCE_DATA_SET_KEY_PRICING_CLASS_PRODUCT_DEFINITIONS =
-			"commercePricingClassesCPDefinitions";
-
 	public static final String COMMERCE_DATA_SET_KEY_PRICING_CLASSES =
 		"commercePricingClasses";
 
+	public static final String COMMERCE_DATA_SET_KEY_PRICING_CLASSES_DISCOUNTS =
+		"commercePricingClassesDiscounts";
+
+	public static final String
+		COMMERCE_DATA_SET_KEY_PRICING_CLASSES_PRICE_LISTS =
+			"commercePricingClassesPriceLists";
+
+	public static final String
+		COMMERCE_DATA_SET_KEY_PRICING_CLASSES_PRODUCT_DEFINITIONS =
+			"commercePricingClassesCPDefinitions";
+
 	public static final String COMMERCE_DATA_SET_KEY_TIER_PRICE_ENTRIES =
 		"commerceTierPriceEntries";
-
 }
