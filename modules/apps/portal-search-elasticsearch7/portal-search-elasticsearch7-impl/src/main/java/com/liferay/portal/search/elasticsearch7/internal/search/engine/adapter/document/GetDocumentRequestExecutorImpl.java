@@ -17,7 +17,6 @@ package com.liferay.portal.search.elasticsearch7.internal.search.engine.adapter.
 import com.liferay.portal.search.document.DocumentBuilder;
 import com.liferay.portal.search.document.DocumentBuilderFactory;
 import com.liferay.portal.search.elasticsearch7.internal.document.DocumentFieldsTranslator;
-import com.liferay.portal.search.engine.adapter.document.BulkableDocumentRequestTranslator;
 import com.liferay.portal.search.engine.adapter.document.GetDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.GetDocumentResponse;
 import com.liferay.portal.search.geolocation.GeoBuilders;
@@ -67,9 +66,10 @@ public class GetDocumentRequestExecutorImpl
 
 	@Reference(target = "(search.engine.impl=Elasticsearch)", unbind = "-")
 	protected void setBulkableDocumentRequestTranslator(
-		BulkableDocumentRequestTranslator bulkableDocumentRequestTranslator) {
+		ElasticsearchBulkableDocumentRequestTranslator
+			eulkableDocumentRequestTranslator) {
 
-		_bulkableDocumentRequestTranslator = bulkableDocumentRequestTranslator;
+		_bulkableDocumentRequestTranslator = eulkableDocumentRequestTranslator;
 	}
 
 	@Reference(unbind = "-")
@@ -84,7 +84,7 @@ public class GetDocumentRequestExecutorImpl
 		_geoBuilders = geoBuilders;
 	}
 
-	private BulkableDocumentRequestTranslator
+	private ElasticsearchBulkableDocumentRequestTranslator
 		_bulkableDocumentRequestTranslator;
 	private DocumentBuilderFactory _documentBuilderFactory;
 	private GeoBuilders _geoBuilders;

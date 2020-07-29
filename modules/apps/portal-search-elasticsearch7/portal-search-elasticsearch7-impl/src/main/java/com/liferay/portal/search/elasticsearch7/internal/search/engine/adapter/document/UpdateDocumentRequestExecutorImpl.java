@@ -14,7 +14,6 @@
 
 package com.liferay.portal.search.elasticsearch7.internal.search.engine.adapter.document;
 
-import com.liferay.portal.search.engine.adapter.document.BulkableDocumentRequestTranslator;
 import com.liferay.portal.search.engine.adapter.document.UpdateDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.UpdateDocumentResponse;
 
@@ -48,12 +47,13 @@ public class UpdateDocumentRequestExecutorImpl
 
 	@Reference(target = "(search.engine.impl=Elasticsearch)", unbind = "-")
 	protected void setBulkableDocumentRequestTranslator(
-		BulkableDocumentRequestTranslator bulkableDocumentRequestTranslator) {
+		ElasticsearchBulkableDocumentRequestTranslator
+			eulkableDocumentRequestTranslator) {
 
-		_bulkableDocumentRequestTranslator = bulkableDocumentRequestTranslator;
+		_bulkableDocumentRequestTranslator = eulkableDocumentRequestTranslator;
 	}
 
-	private BulkableDocumentRequestTranslator
+	private ElasticsearchBulkableDocumentRequestTranslator
 		_bulkableDocumentRequestTranslator;
 
 }
