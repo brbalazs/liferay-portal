@@ -15,7 +15,9 @@
 package com.liferay.commerce.discount.internal.search;
 
 import com.liferay.commerce.discount.model.CommerceDiscount;
+import com.liferay.commerce.discount.model.CommerceDiscountAccountRel;
 import com.liferay.commerce.discount.model.CommerceDiscountCommerceAccountGroupRel;
+import com.liferay.commerce.discount.service.CommerceDiscountAccountRelLocalService;
 import com.liferay.commerce.discount.service.CommerceDiscountCommerceAccountGroupRelLocalService;
 import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
 import com.liferay.commerce.discount.target.CommerceDiscountOrderTarget;
@@ -320,6 +322,23 @@ public class CommerceDiscountIndexer extends BaseIndexer<CommerceDiscount> {
 		document.addKeyword(
 			FIELD_USE_COUPON_CODE, commerceDiscount.isUseCouponCode());
 
+		List<CommerceDiscountAccountRel> commerceDiscountAccountRels =
+			_commerceDiscountAccountRelLocalService.
+				getCommerceDiscountAccountRels(
+					commerceDiscount.getCommerceDiscountId(), QueryUtil.ALL_POS,
+					QueryUtil.ALL_POS, null);
+
+		Stream<CommerceDiscountAccountRel> commerceDiscountAccountRelStream =
+			commerceDiscountAccountRels.stream();
+
+		LongStream commerceAccountIdStream =
+			commerceDiscountAccountRelStream.mapToLong(
+				CommerceDiscountAccountRel::getCommerceAccountId);
+
+		long[] commerceAccountIds = commerceAccountIdStream.toArray();
+
+		document.addNumber("commerceAccountId", commerceAccountIds);
+
 		List<CommerceDiscountCommerceAccountGroupRel>
 			commerceDiscountCommerceAccountGroupRels =
 				_commerceDiscountCommerceAccountGroupRelLocalService.
@@ -338,11 +357,12 @@ public class CommerceDiscountIndexer extends BaseIndexer<CommerceDiscount> {
 
 		long[] commerceAccountGroupIds = commerceAccountGroupIdStream.toArray();
 
-		document.addNumber("commerceAccountGroupIds", commerceAccountGroupIds);
+		document.addNumber("commerceAccountIds", commerceAccountGroupIds);
 		document.addNumber(
 			"commerceAccountGroupIds_required_matches",
 			commerceAccountGroupIds.length);
 
+		List<Long> channelIdList = new ArrayList<>();
 		List<Long> groupIdList = new ArrayList<>();
 
 		List<CommerceChannelRel> commerceChannelRels =
@@ -360,12 +380,21 @@ public class CommerceDiscountIndexer extends BaseIndexer<CommerceDiscount> {
 				continue;
 			}
 
+			channelIdList.add(commerceChannel.getCommerceChannelId());
 			groupIdList.add(commerceChannel.getGroupId());
 		}
 
-		Stream<Long> stream = groupIdList.stream();
+		Stream<Long> channelIdStream = channelIdList.stream();
 
-		long[] groupIds = stream.mapToLong(
+		long[] channelIds = channelIdStream.mapToLong(
+			l -> l
+		).toArray();
+
+		document.addNumber("commerceChannelId", channelIds);
+
+		Stream<Long> groupIdStream = groupIdList.stream();
+
+		long[] groupIds = groupIdStream.mapToLong(
 			l -> l
 		).toArray();
 
@@ -500,6 +529,10 @@ public class CommerceDiscountIndexer extends BaseIndexer<CommerceDiscount> {
 
 	@Reference
 	private CommerceChannelRelLocalService _commerceChannelRelLocalService;
+
+	@Reference
+	private CommerceDiscountAccountRelLocalService
+		_commerceDiscountAccountRelLocalService;
 
 	@Reference
 	private CommerceDiscountCommerceAccountGroupRelLocalService
