@@ -15,7 +15,6 @@
 package com.liferay.commerce.pricing.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.currency.service.CommerceCurrencyService;
-import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.commerce.pricing.service.CommercePriceModifierService;
@@ -93,12 +92,6 @@ public class CommercePriceListPriceModifiersScreenNavigationEntry
 	@Override
 	public boolean isVisible(User user, CommercePriceList commercePriceList) {
 		if (commercePriceList == null) {
-			return false;
-		}
-
-		if (CommercePriceListConstants.TYPE_PROMOTION.equals(
-				commercePriceList.getType())) {
-
 			return false;
 		}
 
