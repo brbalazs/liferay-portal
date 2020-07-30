@@ -94,10 +94,12 @@ public interface CommerceDiscountAccountRelLocalService
 	 *
 	 * @param commerceDiscountAccountRel the commerce discount account rel
 	 * @return the commerce discount account rel that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public CommerceDiscountAccountRel deleteCommerceDiscountAccountRel(
-		CommerceDiscountAccountRel commerceDiscountAccountRel);
+			CommerceDiscountAccountRel commerceDiscountAccountRel)
+		throws PortalException;
 
 	/**
 	 * Deletes the commerce discount account rel with the primary key from the database. Also notifies the appropriate model listeners.
@@ -111,11 +113,16 @@ public interface CommerceDiscountAccountRelLocalService
 			long commerceDiscountAccountRelId)
 		throws PortalException;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public void deleteCommerceDiscountAccountRelsBycommerceAccountId(
 		long commerceAccountId);
 
 	public void deleteCommerceDiscountAccountRelsByCommerceDiscountId(
-		long commerceDiscountId);
+			long commerceDiscountId)
+		throws PortalException;
 
 	/**
 	 * @throws PortalException

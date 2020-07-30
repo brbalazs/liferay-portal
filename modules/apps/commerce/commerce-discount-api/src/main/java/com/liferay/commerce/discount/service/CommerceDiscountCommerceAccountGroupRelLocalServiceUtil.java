@@ -90,14 +90,16 @@ public class CommerceDiscountCommerceAccountGroupRelLocalServiceUtil {
 	 *
 	 * @param commerceDiscountCommerceAccountGroupRel the commerce discount commerce account group rel
 	 * @return the commerce discount commerce account group rel that was removed
+	 * @throws PortalException
 	 */
 	public static
 		com.liferay.commerce.discount.model.
 			CommerceDiscountCommerceAccountGroupRel
-				deleteCommerceDiscountCommerceAccountGroupRel(
-					com.liferay.commerce.discount.model.
-						CommerceDiscountCommerceAccountGroupRel
-							commerceDiscountCommerceAccountGroupRel) {
+					deleteCommerceDiscountCommerceAccountGroupRel(
+						com.liferay.commerce.discount.model.
+							CommerceDiscountCommerceAccountGroupRel
+								commerceDiscountCommerceAccountGroupRel)
+				throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().deleteCommerceDiscountCommerceAccountGroupRel(
 			commerceDiscountCommerceAccountGroupRel);
@@ -121,6 +123,10 @@ public class CommerceDiscountCommerceAccountGroupRelLocalServiceUtil {
 			commerceDiscountCommerceAccountGroupRelId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static void
 		deleteCommerceDiscountCommerceAccountGroupRelsBycommerceAccountGroupId(
 			long commerceAccountGroupId) {
@@ -131,8 +137,9 @@ public class CommerceDiscountCommerceAccountGroupRelLocalServiceUtil {
 	}
 
 	public static void
-		deleteCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
-			long commerceDiscountId) {
+			deleteCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+				long commerceDiscountId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		getService().
 			deleteCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(

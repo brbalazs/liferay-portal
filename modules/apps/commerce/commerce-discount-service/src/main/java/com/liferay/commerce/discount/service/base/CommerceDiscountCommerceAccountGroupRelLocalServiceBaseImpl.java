@@ -141,13 +141,15 @@ public abstract class
 	 *
 	 * @param commerceDiscountCommerceAccountGroupRel the commerce discount commerce account group rel
 	 * @return the commerce discount commerce account group rel that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CommerceDiscountCommerceAccountGroupRel
-		deleteCommerceDiscountCommerceAccountGroupRel(
-			CommerceDiscountCommerceAccountGroupRel
-				commerceDiscountCommerceAccountGroupRel) {
+			deleteCommerceDiscountCommerceAccountGroupRel(
+				CommerceDiscountCommerceAccountGroupRel
+					commerceDiscountCommerceAccountGroupRel)
+		throws PortalException {
 
 		return commerceDiscountCommerceAccountGroupRelPersistence.remove(
 			commerceDiscountCommerceAccountGroupRel);

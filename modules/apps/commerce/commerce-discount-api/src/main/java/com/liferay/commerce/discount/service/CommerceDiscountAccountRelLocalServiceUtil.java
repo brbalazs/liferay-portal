@@ -81,11 +81,13 @@ public class CommerceDiscountAccountRelLocalServiceUtil {
 	 *
 	 * @param commerceDiscountAccountRel the commerce discount account rel
 	 * @return the commerce discount account rel that was removed
+	 * @throws PortalException
 	 */
 	public static com.liferay.commerce.discount.model.CommerceDiscountAccountRel
-		deleteCommerceDiscountAccountRel(
-			com.liferay.commerce.discount.model.CommerceDiscountAccountRel
-				commerceDiscountAccountRel) {
+			deleteCommerceDiscountAccountRel(
+				com.liferay.commerce.discount.model.CommerceDiscountAccountRel
+					commerceDiscountAccountRel)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().deleteCommerceDiscountAccountRel(
 			commerceDiscountAccountRel);
@@ -106,6 +108,10 @@ public class CommerceDiscountAccountRelLocalServiceUtil {
 			commerceDiscountAccountRelId);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	public static void deleteCommerceDiscountAccountRelsBycommerceAccountId(
 		long commerceAccountId) {
 
@@ -114,7 +120,8 @@ public class CommerceDiscountAccountRelLocalServiceUtil {
 	}
 
 	public static void deleteCommerceDiscountAccountRelsByCommerceDiscountId(
-		long commerceDiscountId) {
+			long commerceDiscountId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		getService().deleteCommerceDiscountAccountRelsByCommerceDiscountId(
 			commerceDiscountId);

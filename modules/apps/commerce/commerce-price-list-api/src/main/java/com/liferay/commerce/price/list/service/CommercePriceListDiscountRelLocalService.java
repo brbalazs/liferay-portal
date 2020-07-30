@@ -67,10 +67,6 @@ public interface CommercePriceListDiscountRelLocalService
 	/**
 	 * Adds the commerce price list discount rel to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceListDiscountRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commercePriceListDiscountRel the commerce price list discount rel
 	 * @return the commerce price list discount rel that was added
 	 */
@@ -96,10 +92,6 @@ public interface CommercePriceListDiscountRelLocalService
 	/**
 	 * Deletes the commerce price list discount rel from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceListDiscountRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commercePriceListDiscountRel the commerce price list discount rel
 	 * @return the commerce price list discount rel that was removed
 	 * @throws PortalException
@@ -111,10 +103,6 @@ public interface CommercePriceListDiscountRelLocalService
 
 	/**
 	 * Deletes the commerce price list discount rel with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceListDiscountRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commercePriceListDiscountRelId the primary key of the commerce price list discount rel
 	 * @return the commerce price list discount rel that was removed
@@ -308,10 +296,6 @@ public interface CommercePriceListDiscountRelLocalService
 
 	/**
 	 * Updates the commerce price list discount rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceListDiscountRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commercePriceListDiscountRel the commerce price list discount rel
 	 * @return the commerce price list discount rel that was updated
