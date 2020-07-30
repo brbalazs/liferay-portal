@@ -1,9 +1,11 @@
 import * as API from 'shared/api';
 import ConnectDXP from '../ConnectDXP';
+import mockStore from 'test/mock-store';
 import Promise from 'metal-promise';
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import {noop} from 'lodash';
+import {Provider} from 'react-redux';
 import {StaticRouter} from 'react-router-dom';
 
 jest.unmock('react-dom');
@@ -13,9 +15,11 @@ describe('ConnectDXP', () => {
 
 	it('renders', () => {
 		const {container} = render(
-			<StaticRouter>
-				<ConnectDXP groupId='123' onClose={noop} onNext={noop} />
-			</StaticRouter>
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<ConnectDXP groupId='123' onClose={noop} onNext={noop} />
+				</StaticRouter>
+			</Provider>
 		);
 
 		expect(container).toMatchSnapshot();
@@ -23,14 +27,16 @@ describe('ConnectDXP', () => {
 
 	it('renders "Connected" when dxpConnected is true', () => {
 		const {queryByText} = render(
-			<StaticRouter>
-				<ConnectDXP
-					dxpConnected
-					groupId='123'
-					onClose={noop}
-					onNext={noop}
-				/>
-			</StaticRouter>
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<ConnectDXP
+						dxpConnected
+						groupId='123'
+						onClose={noop}
+						onNext={noop}
+					/>
+				</StaticRouter>
+			</Provider>
 		);
 
 		expect(queryByText('Back')).toBeNull();
@@ -41,15 +47,17 @@ describe('ConnectDXP', () => {
 		const spy = jest.fn();
 
 		render(
-			<StaticRouter>
-				<ConnectDXP
-					groupId='123'
-					onboarding
-					onClose={noop}
-					onDxpConnected={spy}
-					onNext={noop}
-				/>
-			</StaticRouter>
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<ConnectDXP
+						groupId='123'
+						onboarding
+						onClose={noop}
+						onDxpConnected={spy}
+						onNext={noop}
+					/>
+				</StaticRouter>
+			</Provider>
 		);
 
 		expect(spy).not.toBeCalled();
