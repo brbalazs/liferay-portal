@@ -9,6 +9,26 @@ import {render} from '@testing-library/react';
 jest.unmock('react-dom');
 const {subscriptionStatuses} = FaroConstants;
 
+const DefaultComponent = ({count, limit, status}) => (
+	<UsageMetric
+		currentPlan={
+			new Plan(
+				fromJS(
+					mockPlan({
+						pageViews: {
+							count,
+							limit,
+							status
+						}
+					})
+				)
+			)
+		}
+		metricType={'pageViews'}
+		planType={'enterprise'}
+	/>
+);
+
 describe('UsageMetric', () => {
 	
 	it('should render', () => {
@@ -24,50 +44,26 @@ describe('UsageMetric', () => {
 	});
 
 	it('should render as a warning usage level', () => {
-		const {container} = render(
-			<UsageMetric
-				currentPlan={
-					new Plan(
-						fromJS(
-							mockPlan({
-								pageViews: {
-									count: 6500000,
-									limit: 7000000,
-									status: subscriptionStatuses.approaching
-								}
-							})
-						)
-					)
-				}
-				metricType={'pageViews'}
-				planType={'enterprise'}
-			/>
-		);
+		const props = {
+			count: 6500000,
+			limit: 7000000,
+			status: subscriptionStatuses.approaching
+		};
 
-		expect(container).toMatchSnapshot();
+		const {container} = render(<DefaultComponent {...props} />);
+
+		expect(container.querySelector('.bar-warning')).toBeTruthy();
 	});
 
 	it('should render as a danger usage level if metric status is 2', () => {
-		const {container} = render(
-			<UsageMetric
-				currentPlan={
-					new Plan(
-						fromJS(
-							mockPlan({
-								pageViews: {
-									count: 7500000,
-									limit: 7000000,
-									status: subscriptionStatuses.over
-								}
-							})
-						)
-					)
-				}
-				metricType={'pageViews'}
-				planType={'enterprise'}
-			/>
-		);
+		const props = {
+			count: 7500000,
+			limit: 7000000,
+			status: subscriptionStatuses.over
+		};
 
-		expect(container).toMatchSnapshot();
+		const {container} = render(<DefaultComponent {...props} />);
+
+		expect(container.querySelector('.bar-danger')).toBeTruthy();
 	});
 });
