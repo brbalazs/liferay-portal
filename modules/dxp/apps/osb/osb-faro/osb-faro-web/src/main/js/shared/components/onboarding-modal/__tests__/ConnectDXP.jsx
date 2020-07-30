@@ -45,14 +45,16 @@ describe('ConnectDXP', () => {
 
 	it('renders More information button and new text when isUpgrading is true', () => {
 		const {queryByText} = render(
-			<StaticRouter>
-				<ConnectDXP
-					groupId='123'
-					isUpgrading
-					onClose={noop}
-					onNext={noop}
-				/>
-			</StaticRouter>
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<ConnectDXP
+						groupId='123'
+						isUpgrading
+						onClose={noop}
+						onNext={noop}
+					/>
+				</StaticRouter>
+			</Provider>
 		);
 
 		expect(queryByText('More Information')).toBeTruthy();
