@@ -73,12 +73,12 @@ exports[`CompositionCard should render 1`] = `
               </span>
             </div>
             <div
-              class="legend-template-column"
+              class="legend-template-column justify-content-end"
             >
               20
             </div>
             <div
-              class="legend-template-column"
+              class="legend-template-column justify-content-end"
             >
               <b>
                 20%
@@ -102,12 +102,12 @@ exports[`CompositionCard should render 1`] = `
               </span>
             </div>
             <div
-              class="legend-template-column"
+              class="legend-template-column justify-content-end"
             >
               50
             </div>
             <div
-              class="legend-template-column"
+              class="legend-template-column justify-content-end"
             >
               <b>
                 50%

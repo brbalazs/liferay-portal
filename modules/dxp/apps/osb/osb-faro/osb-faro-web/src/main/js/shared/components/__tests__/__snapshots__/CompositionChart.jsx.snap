@@ -22,12 +22,12 @@ exports[`CompositionLegend should render 1`] = `
         </span>
       </div>
       <div
-        class="legend-template-column"
+        class="legend-template-column justify-content-end"
       >
         25
       </div>
       <div
-        class="legend-template-column"
+        class="legend-template-column justify-content-end"
       >
         <b>
           25%
@@ -51,12 +51,12 @@ exports[`CompositionLegend should render 1`] = `
         </span>
       </div>
       <div
-        class="legend-template-column"
+        class="legend-template-column justify-content-end"
       >
         75
       </div>
       <div
-        class="legend-template-column"
+        class="legend-template-column justify-content-end"
       >
         <b>
           75%
