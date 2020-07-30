@@ -75,8 +75,7 @@ itemFinder.default('itemFinder', 'item-finder-root', {
 	itemsKey: 'id',
 	onItemSelected: selectItem,
 	pageSize: 10,
-	panelHeaderLabel: '<%= LanguageUtil.get(
-				request, "add-products") %>',
+	panelHeaderLabel: '<%= LanguageUtil.get(request, "add-products") %>',
 	portletId: '<%= portletDisplay.getRootPortletId() %>',
 	schema: [
 		{
@@ -84,9 +83,7 @@ itemFinder.default('itemFinder', 'item-finder-root', {
 		}
 	],
 	spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
-	titleLabel: '<%= LanguageUtil.get(
-				request, "add-existing-product")
-%>'
+	titleLabel: '<%= LanguageUtil.get(request, "add-existing-product") %>'
 });
 			</aui:script>
 		</div>

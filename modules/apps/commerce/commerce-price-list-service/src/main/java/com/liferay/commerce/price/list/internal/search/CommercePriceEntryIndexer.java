@@ -139,10 +139,11 @@ public class CommercePriceEntryIndexer extends BaseIndexer<CommercePriceEntry> {
 
 		CPInstance cpInstance = commercePriceEntry.getCPInstance();
 
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
-
 		document.addKeyword("cpInstanceId", cpInstance.getCPInstanceId());
 		document.addKeyword("sku", cpInstance.getSku());
+
+		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+
 		document.addLocalizedKeyword(
 			"cpDefinitionName", cpDefinition.getNameMap());
 

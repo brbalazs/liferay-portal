@@ -68,8 +68,7 @@ long commercePriceModifierId = commercePriceListDisplayContext.getCommercePriceM
 					apiUrl: '/o/headless-commerce-admin-catalog/v1.0/product-groups',
 					getSelectedItems: getSelectedItems,
 					inputPlaceholder:
-						'<%= LanguageUtil.get(
-								request, "find-a-product-group") %>',
+						'<%= LanguageUtil.get(request, "find-a-product-group") %>',
 					itemSelectedMessage:
 						'<%= LanguageUtil.get(request, "product-group-selected") %>',
 					itemsKey: 'id',
@@ -88,10 +87,7 @@ long commercePriceModifierId = commercePriceListDisplayContext.getCommercePriceM
 						}
 					],
 					spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
-					titleLabel:
-						'<%= LanguageUtil.get(
-								request, "add-existing-product-group")
-				%>'
+					titleLabel: '<%= LanguageUtil.get(request, "add-existing-product-group") %>'
 				});
 			</aui:script>
 		</div>

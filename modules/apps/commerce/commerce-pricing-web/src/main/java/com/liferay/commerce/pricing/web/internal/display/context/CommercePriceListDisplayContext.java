@@ -57,7 +57,6 @@ import javax.portlet.RenderResponse;
 import javax.portlet.RenderURL;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Alessio Antonio Rendina

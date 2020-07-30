@@ -68,9 +68,7 @@ itemFinder.default('itemFinder', 'item-finder-root', {
 	apiUrl:
 		'/o/headless-admin-taxonomy/v1.0/taxonomy-categories/0/taxonomy-categories',
 	getSelectedItems: getSelectedItems,
-	inputPlaceholder:
-		'<%= LanguageUtil.get(
-				request, "find-a-category") %>',
+	inputPlaceholder: '<%= LanguageUtil.get(request, "find-a-category") %>',
 	itemSelectedMessage:
 		'<%= LanguageUtil.get(request, "category-selected") %>',
 	itemsKey: 'id',
@@ -88,9 +86,7 @@ itemFinder.default('itemFinder', 'item-finder-root', {
 		}
 	],
 	spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
-	titleLabel: '<%= LanguageUtil.get(
-				request, "add-existing-category")
-%>'
+	titleLabel: '<%= LanguageUtil.get(request, "add-existing-category") %>'
 });
 			</aui:script>
 		</div>
