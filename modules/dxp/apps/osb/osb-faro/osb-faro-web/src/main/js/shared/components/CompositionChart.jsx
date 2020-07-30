@@ -57,11 +57,11 @@ export class CompositionLegend extends React.Component {
 								<span className='text-truncate'>{label}</span>
 							</div>
 
-							<div className='legend-template-column'>
+							<div className='legend-template-column justify-content-end'>
 								{getSafeDisplayValue(toThousands(value))}
 							</div>
 
-							<div className='legend-template-column'>
+							<div className='legend-template-column justify-content-end'>
 								<b>
 									{isNull(displayValue)
 										? '-'
