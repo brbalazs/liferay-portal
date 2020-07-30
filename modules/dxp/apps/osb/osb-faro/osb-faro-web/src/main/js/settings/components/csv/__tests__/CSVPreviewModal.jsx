@@ -20,4 +20,20 @@ describe('CSVPreviewModal', () => {
 
 		expect(container).toMatchSnapshot();
 	});
+
+	it('should render with a title on the heading', () => {
+		const {getByText} = render(
+			<CSVPreviewModal
+				fileName='test'
+				groupId='23'
+				id='test'
+				name='Liferay Test'
+				onClose={noop}
+			/>
+		);
+
+		jest.runAllTimers();
+
+		expect(getByText('Data Preview "Liferay Test"')).toBeTruthy();
+	});
 });
