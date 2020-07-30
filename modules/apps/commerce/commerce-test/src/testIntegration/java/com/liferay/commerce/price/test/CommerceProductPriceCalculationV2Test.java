@@ -1953,6 +1953,11 @@ public class CommerceProductPriceCalculationV2Test {
 		Assert.assertEquals(
 			parentPriceList.getCommercePriceListId(),
 			commerceProductPrice.getCommercePriceListId());
+
+		CommerceMoney finalPrice = commerceProductPrice.getFinalPrice();
+
+		Assert.assertEquals(
+			cpInstancePrice, finalPrice.getPrice());
 	}
 
 	@Rule

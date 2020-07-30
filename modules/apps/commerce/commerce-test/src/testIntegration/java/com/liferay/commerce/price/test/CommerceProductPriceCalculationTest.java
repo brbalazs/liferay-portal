@@ -1231,6 +1231,11 @@ public class CommerceProductPriceCalculationTest {
 		Assert.assertEquals(
 			parentPriceList.getCommercePriceListId(),
 			commerceProductPrice.getCommercePriceListId());
+
+		CommerceMoney finalPrice = commerceProductPrice.getFinalPrice();
+
+		Assert.assertEquals(
+			cpInstancePrice, finalPrice.getPrice());
 	}
 
 	@Test

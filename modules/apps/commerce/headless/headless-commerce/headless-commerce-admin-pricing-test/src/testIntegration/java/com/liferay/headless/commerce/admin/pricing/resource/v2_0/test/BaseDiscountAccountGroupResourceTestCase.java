@@ -244,7 +244,7 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 						new HashMap<String, Object>() {
 							{
 								put(
-									"discountAccountGroupId",
+									"id",
 									discountAccountGroup.getId());
 							}
 						})),
@@ -328,10 +328,6 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 			Arrays.asList(discountAccountGroup1, discountAccountGroup2),
 			(List<DiscountAccountGroup>)page.getItems());
 		assertValid(page);
-
-		discountAccountGroupResource.deleteDiscountAccountGroup(null);
-
-		discountAccountGroupResource.deleteDiscountAccountGroup(null);
 	}
 
 	@Test
@@ -489,10 +485,6 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 			Arrays.asList(discountAccountGroup1, discountAccountGroup2),
 			(List<DiscountAccountGroup>)page.getItems());
 		assertValid(page);
-
-		discountAccountGroupResource.deleteDiscountAccountGroup(null);
-
-		discountAccountGroupResource.deleteDiscountAccountGroup(null);
 	}
 
 	@Test
