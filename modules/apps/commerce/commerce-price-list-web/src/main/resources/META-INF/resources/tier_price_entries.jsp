@@ -59,8 +59,7 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 renderResponse.setTitle(LanguageUtil.get(request, "price-lists"));
 %>
 
-<c:if test="<%= commerceTierPriceEntryDisplayContext.hasPermission(commercePriceListId,
-	ActionKeys.VIEW) %>">
+<c:if test="<%= commerceTierPriceEntryDisplayContext.hasPermission(commercePriceListId, ActionKeys.VIEW) %>">
 	<%@ include file="/breadcrumb.jspf" %>
 	<%@ include file="/price_entry_navbar.jspf" %>
 

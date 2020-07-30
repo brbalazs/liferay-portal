@@ -207,8 +207,8 @@ public class InputPermissionsParamsTag extends TagSupport {
 	}
 
 	private static boolean _hasPrivateLayoutsExceptControlPanel(Group group) {
-		List<Layout> privateLayouts =
-			LayoutLocalServiceUtil.getLayouts(group.getGroupId(), true);
+		List<Layout> privateLayouts = LayoutLocalServiceUtil.getLayouts(
+			group.getGroupId(), true);
 
 		return !privateLayouts.isEmpty();
 	}

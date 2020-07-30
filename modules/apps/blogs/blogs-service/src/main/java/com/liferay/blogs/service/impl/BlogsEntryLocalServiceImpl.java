@@ -2436,11 +2436,12 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 		if (Stream.of(
 				PrefsPropsUtil.getStringArray(
-					PropsKeys.BLOGS_IMAGE_EXTENSIONS, StringPool.COMMA)).
-						anyMatch(
-							extension ->
-								extension.equals(StringPool.STAR) ||
-								extensions.contains(extension))) {
+					PropsKeys.BLOGS_IMAGE_EXTENSIONS, StringPool.COMMA)
+			).anyMatch(
+				extension ->
+					extension.equals(StringPool.STAR) ||
+					extensions.contains(extension)
+			)) {
 
 			return true;
 		}

@@ -53,8 +53,8 @@ public class ClayDataSetFilterContextContributorRegistryImpl
 		if (clayDataSetFilterContextContributorServiceWrappers == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"No ClayDataSetFilterContextContributor " +
-						"registered with key " + key);
+					"No ClayDataSetFilterContextContributor registered with " +
+						"key " + key);
 			}
 
 			return Collections.emptyList();
