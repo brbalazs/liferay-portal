@@ -14,11 +14,14 @@ describe('BaseConfigurationOverview', () => {
 			}
 		];
 
-		const {container} = render(
+		const {container, queryByText} = render(
 			<BaseConfigurationOverview
 				configurationItems={mockConfigurationItems}
 			/>
 		);
+
+		expect(queryByText('foo title')).toBeTruthy();
+		expect(queryByText('foo description')).toBeTruthy();
 
 		expect(container).toMatchSnapshot();
 	});
