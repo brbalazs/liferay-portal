@@ -28,17 +28,17 @@ public class ServletDataAdapter implements ServletData {
 
 	@Override
 	public Object getMutation() {
-		return _graphQLContributor.getMutationContribution();
+		return _graphQLContributor.getMutation();
 	}
 
 	@Override
 	public String getPath() {
-		return _graphQLContributor.getContributionPath();
+		return _graphQLContributor.getPath();
 	}
 
 	@Override
 	public Object getQuery() {
-		return _graphQLContributor.getQueryContribution();
+		return _graphQLContributor.getQuery();
 	}
 
 	private ServletDataAdapter(GraphQLContributor graphQLContributor) {
