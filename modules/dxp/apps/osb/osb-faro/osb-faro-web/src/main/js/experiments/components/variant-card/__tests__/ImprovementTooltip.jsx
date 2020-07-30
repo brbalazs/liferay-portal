@@ -12,8 +12,13 @@ describe('Unique Visitors Tooltip', () => {
 	});
 
 	it('should render negative improvements', () => {
-		const {container} = render(<ImprovementTooltip improvement={-10} />);
+		const {container, getByText} = render(
+			<ImprovementTooltip improvement={-10} />
+		);
 
-		expect(container).toMatchSnapshot();
+		expect(getByText(/-10/)).toBeTruthy();
+		expect(container.querySelector('.analytics-trend')).toHaveStyle(
+			'color: rgb(218, 20, 20)'
+		);
 	});
 });
