@@ -106,17 +106,36 @@ public class CommercePriceListAccountRelLocalServiceImpl
 	}
 
 	@Override
-	public void deleteCommercePriceListAccountRels(long commercePriceListId) {
-		commercePriceListAccountRelPersistence.removeByCommercePriceListId(
-			commercePriceListId);
+	public void deleteCommercePriceListAccountRels(long commercePriceListId)
+		throws PortalException {
+
+		List<CommercePriceListAccountRel> commercePriceListAccountRels =
+			commercePriceListAccountRelPersistence.findByCommercePriceListId(
+				commercePriceListId);
+
+		for (CommercePriceListAccountRel commercePriceListAccountRel :
+				commercePriceListAccountRels) {
+
+			commercePriceListAccountRelLocalService.
+				deleteCommercePriceListAccountRel(commercePriceListAccountRel);
+		}
 	}
 
 	@Override
 	public void deleteCommercePriceListAccountRelsByCommercePriceListId(
-		long commercePriceListId) {
+			long commercePriceListId)
+		throws PortalException {
 
-		commercePriceListAccountRelPersistence.removeByCommercePriceListId(
-			commercePriceListId);
+		List<CommercePriceListAccountRel> commercePriceListAccountRels =
+			commercePriceListAccountRelPersistence.findByCommercePriceListId(
+				commercePriceListId);
+
+		for (CommercePriceListAccountRel commercePriceListAccountRel :
+				commercePriceListAccountRels) {
+
+			commercePriceListAccountRelLocalService.
+				deleteCommercePriceListAccountRel(commercePriceListAccountRel);
+		}
 	}
 
 	@Override

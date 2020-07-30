@@ -14,10 +14,13 @@
 
 package com.liferay.commerce.price.list.service.impl;
 
+import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.model.CommercePriceListChannelRel;
 import com.liferay.commerce.price.list.service.base.CommercePriceListChannelRelLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
@@ -50,6 +53,10 @@ public class CommercePriceListChannelRelLocalServiceImpl
 		commercePriceListChannelRel.setOrder(order);
 		commercePriceListChannelRel.setExpandoBridgeAttributes(serviceContext);
 
+		// Commerce price list
+
+		reindexCommercePriceList(commercePriceListId);
+
 		// Cache
 
 		commercePriceListLocalService.cleanPriceListCache(
@@ -66,6 +73,11 @@ public class CommercePriceListChannelRelLocalServiceImpl
 
 		commercePriceListChannelRelPersistence.remove(
 			commercePriceListChannelRel);
+
+		// Commerce price list
+
+		reindexCommercePriceList(
+			commercePriceListChannelRel.getCommercePriceListId());
 
 		// Cache
 
@@ -89,9 +101,19 @@ public class CommercePriceListChannelRelLocalServiceImpl
 	}
 
 	@Override
-	public void deleteCommercePriceListChannelRels(long commercePriceListId) {
-		commercePriceListChannelRelPersistence.removeByCommercePriceListId(
-			commercePriceListId);
+	public void deleteCommercePriceListChannelRels(long commercePriceListId)
+		throws PortalException {
+
+		List<CommercePriceListChannelRel> commercePriceListChannelRels =
+			commercePriceListChannelRelPersistence.findByCommercePriceListId(
+				commercePriceListId);
+
+		for (CommercePriceListChannelRel commercePriceListChannelRel :
+				commercePriceListChannelRels) {
+
+			commercePriceListChannelRelLocalService.
+				deleteCommercePriceListChannelRel(commercePriceListChannelRel);
+		}
 	}
 
 	@Override
@@ -140,6 +162,15 @@ public class CommercePriceListChannelRelLocalServiceImpl
 	public int getCommercePriceListChannelRelsCount(long commercePriceListId) {
 		return commercePriceListChannelRelPersistence.
 			countByCommercePriceListId(commercePriceListId);
+	}
+
+	protected void reindexCommercePriceList(long commercePriceListId)
+		throws PortalException {
+
+		Indexer<CommercePriceList> indexer =
+			IndexerRegistryUtil.nullSafeGetIndexer(CommercePriceList.class);
+
+		indexer.reindex(CommercePriceList.class.getName(), commercePriceListId);
 	}
 
 }

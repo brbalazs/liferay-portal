@@ -133,10 +133,22 @@ public class CommercePriceListCommerceAccountGroupRelLocalServiceImpl
 
 	@Override
 	public void deleteCommercePriceListCommerceAccountGroupRels(
-		long commercePriceListId) {
+			long commercePriceListId)
+		throws PortalException {
 
-		commercePriceListCommerceAccountGroupRelPersistence.
-			removeByCommercePriceListId(commercePriceListId);
+		List<CommercePriceListCommerceAccountGroupRel>
+			commercePriceListCommerceAccountGroupRels =
+				commercePriceListCommerceAccountGroupRelPersistence.
+					findByCommercePriceListId(commercePriceListId);
+
+		for (CommercePriceListCommerceAccountGroupRel
+				commercePriceListCommerceAccountGroupRel :
+					commercePriceListCommerceAccountGroupRels) {
+
+			commercePriceListCommerceAccountGroupRelLocalService.
+				deleteCommercePriceListCommerceAccountGroupRel(
+					commercePriceListCommerceAccountGroupRel);
+		}
 	}
 
 	@Override
