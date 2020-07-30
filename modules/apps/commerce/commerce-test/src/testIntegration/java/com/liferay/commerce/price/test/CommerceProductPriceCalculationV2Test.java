@@ -1956,8 +1956,7 @@ public class CommerceProductPriceCalculationV2Test {
 
 		CommerceMoney finalPrice = commerceProductPrice.getFinalPrice();
 
-		Assert.assertEquals(
-			cpInstancePrice, finalPrice.getPrice());
+		Assert.assertEquals(cpInstancePrice, finalPrice.getPrice());
 	}
 
 	@Rule

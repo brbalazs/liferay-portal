@@ -43,7 +43,7 @@ import java.util.stream.Stream;
 public class CommercePriceListTestUtil {
 
 	public static CommercePriceList addAccountPriceList(
-		long groupId, long commerceAccountId, String type)
+			long groupId, long commerceAccountId, String type)
 		throws Exception {
 
 		CommercePriceList commercePriceList = addCommercePriceList(
