@@ -705,6 +705,9 @@ export class Distribution extends React.Component {
 												/>
 
 												<YAxis
+													axisLine={{
+														stroke: '#E5E5EB'
+													}}
 													dataKey='graphValue'
 													domain={[
 														yAxisTicks[0],
@@ -745,6 +748,9 @@ export class Distribution extends React.Component {
 												/>
 
 												<YAxis
+													axisLine={{
+														stroke: '#E5E5EB'
+													}}
 													dataKey='graphValue'
 													domain={[
 														yAxisTicks[0],
@@ -760,6 +766,9 @@ export class Distribution extends React.Component {
 												/>
 
 												<XAxis
+													axisLine={{
+														stroke: '#E5E5EB'
+													}}
 													dataKey={CHART_DATA_ID}
 													domain={[
 														0,
@@ -772,6 +781,9 @@ export class Distribution extends React.Component {
 												/>
 
 												<XAxis
+													axisLine={{
+														stroke: '#E5E5EB'
+													}}
 													dataKey={CHART_DATA_ID}
 													domain={[
 														0,
