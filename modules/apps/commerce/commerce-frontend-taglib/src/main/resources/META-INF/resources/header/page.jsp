@@ -47,7 +47,16 @@ String myWorkflowTasksPortletNamespace = PortalUtil.getPortletNamespace(PortletK
 
 					<div class="col">
 						<div class="row">
-							<div class="border-left col-auto">
+
+							<%
+							String headerTitleWrapperCssClass = "col-auto";
+
+							if (Validator.isNotNull(thumbnailUrl)) {
+								headerTitleWrapperCssClass += " border-left";
+							}
+							%>
+
+							<div class="<%= headerTitleWrapperCssClass %>">
 								<h3 class="commerce-header-title mb-0 truncate-text">
 									<%= HtmlUtil.escape(title) %>
 								</h3>
