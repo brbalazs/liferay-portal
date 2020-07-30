@@ -201,15 +201,148 @@ exports[`KnownIndividuals should render 1`] = `
               </th>
             </tr>
           </thead>
+          <tbody>
+            <tr
+              class=""
+            >
+              <td
+                class="name-cell-root table-cell-expand"
+              >
+                <div
+                  class="content-container"
+                >
+                  <div
+                    class="text-truncate"
+                  >
+                    <div
+                      class="table-title text-truncate"
+                    >
+                      <a
+                        class="text-truncate"
+                        href="/workspace/23/123123/contacts/individuals/known-individuals/0"
+                      >
+                        Foo Bar
+                      </a>
+                    </div>
+                    <div
+                      class="secondary-info text-truncate"
+                    >
+                      -
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td
+                class=" table-cell-expand"
+              >
+                Developer
+              </td>
+              <td
+                class=" table-column-text-end"
+              >
+                1,000
+              </td>
+              <td
+                class=" table-column-text-end"
+              >
+                4.90/10
+              </td>
+              <td
+                class=""
+              >
+                Jul 10, 2018
+              </td>
+            </tr>
+          </tbody>
         </table>
-        <div
-          class="spinner-root spinner-overlay"
-        >
-          <span
-            class="loading-animation loading-animation-dotted"
-          />
-        </div>
       </div>
+      <nav
+        class="navbar navbar-root pagination-bar-root"
+      >
+        <div
+          class="container-fluid"
+        >
+          <div
+            aria-haspopup="true"
+            class="dropdown dropdown-root pagination-items-per-page"
+          >
+            <button
+              class="button-root btn btn-secondary dropdown-toggle show-caret btn-sm"
+              type="button"
+            >
+              <span
+                class="text-truncate"
+              >
+                2 Items
+              </span>
+              
+              <span
+                class="caret-root"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#caret-bottom"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+          <div
+            class="pagination-results"
+          >
+            Showing 1 to 1 of 1 entry.
+          </div>
+          <ul
+            class="pagination pagination-root"
+          >
+            <li
+              class="page-item disabled"
+            >
+              <a
+                class="button-root btn btn-unstyled page-link link-disabled"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-angle-left"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#angle-left"
+                  />
+                </svg>
+              </a>
+            </li>
+            <li
+              class="page-item active"
+            >
+              <a
+                class="button-root btn btn-unstyled page-link"
+                href="/?page=1"
+              >
+                1
+              </a>
+            </li>
+            <li
+              class="page-item disabled"
+            >
+              <a
+                class="button-root btn btn-unstyled page-link link-disabled"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-angle-right"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#angle-right"
+                  />
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </div>
   </div>
 </div>

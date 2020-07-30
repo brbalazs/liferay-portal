@@ -20,6 +20,8 @@ describe('KnownIndividuals', () => {
 			</StaticRouter>
 		);
 
+		jest.runAllTimers();
+
 		expect(container).toMatchSnapshot();
 	});
 });
