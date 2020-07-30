@@ -108,9 +108,7 @@ public abstract class BaseProductTaxConfigurationResourceTestCase {
 		ProductTaxConfigurationResource.Builder builder =
 			ProductTaxConfigurationResource.builder();
 
-		productTaxConfigurationResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		productTaxConfigurationResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}

@@ -327,6 +327,28 @@ public class Sku implements Cloneable {
 
 	protected Long productId;
 
+	public Map<String, String> getProductName() {
+		return productName;
+	}
+
+	public void setProductName(Map<String, String> productName) {
+		this.productName = productName;
+	}
+
+	public void setProductName(
+		UnsafeSupplier<Map<String, String>, Exception>
+			productNameUnsafeSupplier) {
+
+		try {
+			productName = productNameUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Map<String, String> productName;
+
 	public BigDecimal getPromoPrice() {
 		return promoPrice;
 	}

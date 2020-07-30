@@ -458,6 +458,36 @@ public class Sku {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long productId;
 
+	@Schema
+	@Valid
+	public Map<String, String> getProductName() {
+		return productName;
+	}
+
+	public void setProductName(Map<String, String> productName) {
+		this.productName = productName;
+	}
+
+	@JsonIgnore
+	public void setProductName(
+		UnsafeSupplier<Map<String, String>, Exception>
+			productNameUnsafeSupplier) {
+
+		try {
+			productName = productNameUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	protected Map<String, String> productName;
+
 	@DecimalMin("0")
 	@Schema
 	@Valid
@@ -847,6 +877,16 @@ public class Sku {
 			sb.append(productId);
 		}
 
+		if (productName != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"productName\": ");
+
+			sb.append(_toJSON(productName));
+		}
+
 		if (promoPrice != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -942,16 +982,6 @@ public class Sku {
 		return string.replaceAll("\"", "\\\\\"");
 	}
 
-	private static boolean _isArray(Object value) {
-		if (value == null) {
-			return false;
-		}
-
-		Class<?> clazz = value.getClass();
-
-		return clazz.isArray();
-	}
-
 	private static String _toJSON(Map<String, ?> map) {
 		StringBuilder sb = new StringBuilder("{");
 
@@ -970,7 +1000,9 @@ public class Sku {
 
 			Object value = entry.getValue();
 
-			if (_isArray(value)) {
+			Class<?> clazz = value.getClass();
+
+			if (clazz.isArray()) {
 				sb.append("[");
 
 				Object[] valueArray = (Object[])value;

@@ -119,9 +119,7 @@ public abstract class BaseSkuResourceTestCase {
 
 		SkuResource.Builder builder = SkuResource.builder();
 
-		skuResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		skuResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -1082,6 +1080,14 @@ public abstract class BaseSkuResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("productName", additionalAssertFieldName)) {
+				if (sku.getProductName() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("promoPrice", additionalAssertFieldName)) {
 				if (sku.getPromoPrice() == null) {
 					valid = false;
@@ -1360,6 +1366,17 @@ public abstract class BaseSkuResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("productName", additionalAssertFieldName)) {
+				if (!equals(
+						(Map)sku1.getProductName(),
+						(Map)sku2.getProductName())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("promoPrice", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						sku1.getPromoPrice(), sku2.getPromoPrice())) {
@@ -1631,6 +1648,11 @@ public abstract class BaseSkuResourceTestCase {
 		}
 
 		if (entityFieldName.equals("productId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("productName")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}

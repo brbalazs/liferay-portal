@@ -108,9 +108,7 @@ public abstract class BaseOptionValueResourceTestCase {
 
 		OptionValueResource.Builder builder = OptionValueResource.builder();
 
-		optionValueResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		optionValueResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}

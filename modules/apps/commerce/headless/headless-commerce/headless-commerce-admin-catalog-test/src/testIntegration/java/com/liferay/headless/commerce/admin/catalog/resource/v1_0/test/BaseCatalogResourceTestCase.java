@@ -119,9 +119,7 @@ public abstract class BaseCatalogResourceTestCase {
 
 		CatalogResource.Builder builder = CatalogResource.builder();
 
-		catalogResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		catalogResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}

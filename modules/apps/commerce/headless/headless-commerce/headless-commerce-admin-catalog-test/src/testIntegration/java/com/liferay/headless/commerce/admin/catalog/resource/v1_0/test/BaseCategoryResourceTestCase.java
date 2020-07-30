@@ -108,9 +108,7 @@ public abstract class BaseCategoryResourceTestCase {
 
 		CategoryResource.Builder builder = CategoryResource.builder();
 
-		categoryResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		categoryResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}

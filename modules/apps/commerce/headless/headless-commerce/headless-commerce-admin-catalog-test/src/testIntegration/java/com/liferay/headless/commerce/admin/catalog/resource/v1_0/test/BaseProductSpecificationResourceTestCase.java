@@ -109,9 +109,7 @@ public abstract class BaseProductSpecificationResourceTestCase {
 		ProductSpecificationResource.Builder builder =
 			ProductSpecificationResource.builder();
 
-		productSpecificationResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		productSpecificationResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
