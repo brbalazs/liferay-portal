@@ -44,7 +44,7 @@ CPDefinition cpDefinition = cpDefinitionsDisplayContext.getCPDefinition();
 		var <portlet:namespace />product = {
 			active: true,
 			productType: '<%= cpDefinition.getProductTypeName() %>'
-		}
+		};
 
 		Liferay.provide(
 			window,
@@ -66,7 +66,9 @@ CPDefinition cpDefinition = cpDefinitionsDisplayContext.getCPDefinition();
 							active: false,
 							catalogId: <portlet:namespace/>product.catalogId,
 							name: {
-								[<portlet:namespace/>defaultLanguageId]: document.getElementById('<portlet:namespace/>name').value
+								[<portlet:namespace/>defaultLanguageId]: document.getElementById(
+									'<portlet:namespace/>name'
+								).value
 							},
 							productType: <portlet:namespace/>product.productType
 						};
@@ -133,7 +135,8 @@ CPDefinition cpDefinition = cpDefinitionsDisplayContext.getCPDefinition();
 			onValueUpdated: function(value, catalogData) {
 				if (value) {
 					<portlet:namespace/>product.catalogId = catalogData.id;
-					<portlet:namespace/>defaultLanguageId = catalogData.defaultLanguageId;
+					<portlet:namespace/>defaultLanguageId =
+						catalogData.defaultLanguageId;
 				}
 			},
 			required: true

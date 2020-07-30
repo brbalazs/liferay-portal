@@ -50,12 +50,14 @@
 					{},
 					<portlet:namespace/>productData,
 					{
-						defaultSku: "<%= CPInstanceConstants.DEFAULT_SKU %>",
+						defaultSku: '<%= CPInstanceConstants.DEFAULT_SKU %>',
 						name: {
-							[<portlet:namespace/>defaultLanguageId]: document.getElementById('<portlet:namespace/>name').value
+							[<portlet:namespace/>defaultLanguageId]: document.getElementById(
+								'<portlet:namespace/>name'
+							).value
 						}
 					}
-				)
+				);
 
 				AdminCatalogResource.createProduct(formattedData)
 					.then(function(cpDefinition) {
@@ -86,7 +88,8 @@
 			onValueUpdated: function(value, catalogData) {
 				if (value) {
 					<portlet:namespace/>productData.catalogId = catalogData.id;
-					<portlet:namespace/>defaultLanguageId = catalogData.defaultLanguageId;
+					<portlet:namespace/>defaultLanguageId =
+						catalogData.defaultLanguageId;
 				}
 			},
 			required: true
