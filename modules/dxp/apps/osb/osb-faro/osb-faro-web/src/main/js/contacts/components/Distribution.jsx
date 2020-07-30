@@ -744,6 +744,21 @@ export class Distribution extends React.Component {
 													}
 												/>
 
+												<YAxis
+													dataKey='graphValue'
+													domain={[
+														yAxisTicks[0],
+														yAxisTicks[
+															yAxisTicks.length -
+																1
+														]
+													]}
+													orientation='right'
+													tick={false}
+													tickLine={false}
+													yAxisId='right'
+												/>
+
 												<XAxis
 													dataKey={CHART_DATA_ID}
 													domain={[
@@ -754,6 +769,17 @@ export class Distribution extends React.Component {
 													scale='linear'
 													tickLine={false}
 													type='number'
+												/>
+
+												<XAxis
+													dataKey={CHART_DATA_ID}
+													domain={[
+														0,
+														dataMax => dataMax * 1.1
+													]}
+													tick={false}
+													tickLine={false}
+													xAxisId='bottom'
 												/>
 
 												<Bar
@@ -773,6 +799,7 @@ export class Distribution extends React.Component {
 															hoverIndex: -1
 														})
 													}
+													radius={[0, 10, 10, 0]}
 												>
 													{formattedChartData.map(
 														(item, index) => (
@@ -807,6 +834,7 @@ export class Distribution extends React.Component {
 						</Card.Body>
 					</Card>
 				</BasePage.Body>
+
 				{fieldMappingSelected && hasSelectedPoint && (
 					<CollapsibleOverlay
 						onClose={this.handleOverlayClose}
