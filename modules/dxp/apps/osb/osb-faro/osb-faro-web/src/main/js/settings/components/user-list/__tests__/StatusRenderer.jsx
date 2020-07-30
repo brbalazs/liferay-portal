@@ -10,4 +10,12 @@ describe('StatusRenderer', () => {
 
 		expect(container).toMatchSnapshot();
 	});
+
+	it('should render with custom class', () => {
+		const {container} = render(
+			<StatusRenderer className={'custom-class'} />
+		);
+
+		expect(container.querySelector('.custom-class')).toBeTruthy();
+	});
 });
