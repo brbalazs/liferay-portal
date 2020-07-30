@@ -14,7 +14,7 @@
 
 package com.liferay.portal.vulcan.internal.graphql.servlet;
 
-import com.liferay.portal.vulcan.graphql.servlet.GraphQLContributor;
+import com.liferay.portal.vulcan.graphql.contributor.GraphQLContributor;
 import com.liferay.portal.vulcan.graphql.servlet.ServletData;
 
 /**
