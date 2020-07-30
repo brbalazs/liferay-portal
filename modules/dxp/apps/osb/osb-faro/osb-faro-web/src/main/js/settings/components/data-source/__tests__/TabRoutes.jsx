@@ -7,14 +7,17 @@ jest.unmock('react-dom');
 
 describe('TabRoutes', () => {
 	it('should render', () => {
-		const {container} = render(
-			<StaticRouter>
+		const Component = () => <div>{'Foo Bar'}</div>;
+
+		const {container, getByText} = render(
+			<StaticRouter location='foo/path'>
 				<TabRoutes
-					routes={[{component: jest.fn(), path: 'foo/path'}]}
+					routes={[{component: Component, path: 'foo/path'}]}
 				/>
 			</StaticRouter>
 		);
 
+		expect(getByText('Foo Bar')).toBeTruthy();
 		expect(container).toMatchSnapshot();
 	});
 });

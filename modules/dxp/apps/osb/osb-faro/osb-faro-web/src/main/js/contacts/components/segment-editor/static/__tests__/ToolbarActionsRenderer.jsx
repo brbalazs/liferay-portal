@@ -31,6 +31,8 @@ describe('ToolbarActionsRenderer', () => {
 		);
 
 		expect(container.querySelectorAll('button')).toHaveLength(1);
-		expect(container.querySelector('button')).toHaveTextContent('Undo Changes');
+		expect(container.querySelector('button')).toHaveTextContent(
+			'Undo Changes'
+		);
 	});
 });
