@@ -522,19 +522,17 @@ public class StagedModelDataHandlerUtil {
 			}
 		}
 
-		boolean findReference = false;
-
 		try {
 			importStagedModel(portletDataContext, referenceElement);
-		}
-		catch (PortletDataException pde) {
-			if (pde.getCause() instanceof NullPointerException) {
-				findReference = true;
-			}
-		}
 
-		if (!findReference) {
 			return;
+		}
+		catch (PortletDataException portletDataException) {
+			if (!(portletDataException.getCause() instanceof
+					NullPointerException)) {
+
+				throw portletDataException;
+			}
 		}
 
 		Element importDataRootElement =
