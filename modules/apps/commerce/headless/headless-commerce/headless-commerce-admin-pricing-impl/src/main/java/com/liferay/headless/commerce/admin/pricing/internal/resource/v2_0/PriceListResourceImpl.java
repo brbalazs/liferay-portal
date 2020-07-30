@@ -236,6 +236,13 @@ public class PriceListResourceImpl extends BasePriceListResourceImpl {
 				"com.liferay.commerce.price.list.model.CommercePriceList",
 				commercePriceList.getGroupId())
 		).put(
+			"permissions",
+			addAction(
+				"PERMISSIONS", commercePriceList.getCommercePriceListId(),
+				"patchPriceList", commercePriceList.getUserId(),
+				"com.liferay.commerce.price.list.model.CommercePriceList",
+				commercePriceList.getGroupId())
+		).put(
 			"update",
 			addAction(
 				"UPDATE", commercePriceList.getCommercePriceListId(),

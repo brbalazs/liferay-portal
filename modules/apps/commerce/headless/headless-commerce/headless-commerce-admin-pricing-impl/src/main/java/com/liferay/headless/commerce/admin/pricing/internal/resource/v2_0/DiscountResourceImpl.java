@@ -221,6 +221,13 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 				"com.liferay.commerce.discount.model.CommerceDiscount",
 				serviceContext.getScopeGroupId())
 		).put(
+			"permissions",
+			addAction(
+				"PERMISSIONS", commerceDiscount.getCommerceDiscountId(),
+				"patchDiscount", commerceDiscount.getUserId(),
+				"com.liferay.commerce.discount.model.CommerceDiscount",
+				serviceContext.getScopeGroupId())
+		).put(
 			"update",
 			addAction(
 				"UPDATE", commerceDiscount.getCommerceDiscountId(),

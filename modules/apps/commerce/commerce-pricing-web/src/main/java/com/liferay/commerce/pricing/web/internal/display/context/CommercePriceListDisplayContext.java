@@ -57,6 +57,7 @@ import javax.portlet.ActionURL;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderResponse;
 import javax.portlet.RenderURL;
+import javax.portlet.WindowStateException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -142,8 +143,20 @@ public class CommercePriceListDisplayContext
 			"screenNavigationCategoryKey",
 			CommercePriceListScreenNavigationConstants.CATEGORY_KEY_DETAILS);
 
-		return getClayHeadlessDataSetActionTemplates(
-			portletURL.toString(), false);
+		List<ClayHeadlessDataSetActionTemplate>
+			clayHeadlessDataSetActionTemplates =
+				getClayHeadlessDataSetActionTemplates(
+					portletURL.toString(), false);
+
+		clayHeadlessDataSetActionTemplates.add(
+			new ClayHeadlessDataSetActionTemplate(
+				_getManagePriceListPermissionsURL(), null, "permissions",
+				LanguageUtil.get(httpServletRequest, "permissions"), "get",
+				"permissions",
+				ClayMenuActionItem.
+					CLAY_MENU_ACTION_ITEM_TARGET_MODAL_PERMISSIONS));
+
+		return clayHeadlessDataSetActionTemplates;
 	}
 
 	public List<ClayHeadlessDataSetActionTemplate>
@@ -330,20 +343,21 @@ public class CommercePriceListDisplayContext
 	public String getPriceListsApiUrl(String portletName) {
 		StringBundler filterSB = new StringBundler(4);
 
-		filterSB.append("?filter=type eq ");
+		filterSB.append("type eq ");
 		filterSB.append(StringPool.APOSTROPHE);
 		filterSB.append(getCommercePriceListType(portletName));
 		filterSB.append(StringPool.APOSTROPHE);
 
 		String encodedFilter = URLCodec.encodeURL(filterSB.toString(), true);
 
-		StringBundler apiSB = new StringBundler(3);
+		StringBundler apiUrlSB = new StringBundler(4);
 
-		apiSB.append(PortalUtil.getPortalURL(httpServletRequest));
-		apiSB.append("/o/headless-commerce-admin-pricing/v2.0/price-lists");
-		apiSB.append(encodedFilter);
+		apiUrlSB.append(PortalUtil.getPortalURL(httpServletRequest));
+		apiUrlSB.append("/o/headless-commerce-admin-pricing/v2.0/price-lists");
+		apiUrlSB.append("?filter=");
+		apiUrlSB.append(encodedFilter);
 
-		return apiSB.toString();
+		return apiUrlSB.toString();
 	}
 
 	public String getPriceModifierCategoriesApiUrl() throws PortalException {
@@ -401,6 +415,31 @@ public class CommercePriceListDisplayContext
 		}
 
 		return false;
+	}
+
+	private String _getManagePriceListPermissionsURL() throws PortalException {
+		PortletURL portletURL = PortalUtil.getControlPanelPortletURL(
+			httpServletRequest,
+			"com_liferay_portlet_configuration_web_portlet_" +
+				"PortletConfigurationPortlet",
+			ActionRequest.RENDER_PHASE);
+
+		portletURL.setParameter("mvcPath", "/edit_permissions.jsp");
+		portletURL.setParameter(
+			"redirect", commercePricingRequestHelper.getCurrentURL());
+		portletURL.setParameter(
+			"modelResource", CommercePriceList.class.getName());
+		portletURL.setParameter("modelResourceDescription", "{name}");
+		portletURL.setParameter("resourcePrimKey", "{id}");
+
+		try {
+			portletURL.setWindowState(LiferayWindowState.POP_UP);
+		}
+		catch (WindowStateException wse) {
+			throw new PortalException(wse);
+		}
+
+		return portletURL.toString();
 	}
 
 	private final CommerceCurrencyService _commerceCurrencyService;

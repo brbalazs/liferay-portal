@@ -259,8 +259,20 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 			"screenNavigationCategoryKey",
 			CommerceDiscountScreenNavigationConstants.CATEGORY_KEY_INFO);
 
-		return getClayHeadlessDataSetActionTemplates(
-			portletURL.toString(), false);
+		List<ClayHeadlessDataSetActionTemplate>
+			clayHeadlessDataSetActionTemplates =
+				getClayHeadlessDataSetActionTemplates(
+					portletURL.toString(), false);
+
+		clayHeadlessDataSetActionTemplates.add(
+			new ClayHeadlessDataSetActionTemplate(
+				_getManageDiscountPermissionsURL(), null, "permissions",
+				LanguageUtil.get(httpServletRequest, "permissions"), "get",
+				"permissions",
+				ClayMenuActionItem.
+					CLAY_MENU_ACTION_ITEM_TARGET_MODAL_PERMISSIONS));
+
+		return clayHeadlessDataSetActionTemplates;
 	}
 
 	public CommerceDiscount getCommerceDiscount() throws PortalException {
@@ -641,6 +653,31 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 		}
 
 		return String.valueOf(round(commerceDiscountAmount));
+	}
+
+	private String _getManageDiscountPermissionsURL() throws PortalException {
+		PortletURL portletURL = _portal.getControlPanelPortletURL(
+			httpServletRequest,
+			"com_liferay_portlet_configuration_web_portlet_" +
+				"PortletConfigurationPortlet",
+			ActionRequest.RENDER_PHASE);
+
+		portletURL.setParameter("mvcPath", "/edit_permissions.jsp");
+		portletURL.setParameter(
+			"redirect", commercePricingRequestHelper.getCurrentURL());
+		portletURL.setParameter(
+			"modelResource", CommerceDiscount.class.getName());
+		portletURL.setParameter("modelResourceDescription", "{name}");
+		portletURL.setParameter("resourcePrimKey", "{id}");
+
+		try {
+			portletURL.setWindowState(LiferayWindowState.POP_UP);
+		}
+		catch (WindowStateException wse) {
+			throw new PortalException(wse);
+		}
+
+		return portletURL.toString();
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
