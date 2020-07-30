@@ -132,31 +132,62 @@ export function createSortingString(values) {
 		.join(',');
 }
 
+export function getFiltersString(filters, providedFilters) {
+	let filtersString = '';
+
+	if (filters.length || providedFilters) {
+		filtersString = '&filter=';
+	}
+
+	if (providedFilters) {
+		filtersString += providedFilters;
+	}
+
+	if (providedFilters && filters.length) {
+		filtersString += ' and ';
+	}
+
+	if (filters.length) {
+		filtersString += createOdataFilter(filters);
+	}
+
+	return filtersString;
+}
+
 export function loadData(
 	apiUrl,
 	currentUrl,
 	filters,
-	searchParam,
+	searchQuery,
 	delta,
 	page = 1,
 	sorting = []
 ) {
-	const authString = `p_auth=${window.Liferay.authToken}`;
-	const currentUrlString = `&currentUrl=${encodeURIComponent(currentUrl)}`;
-	const paginationString = `&pageSize=${delta}&page=${page}`;
-	const searchParamString = searchParam ? `&search=${searchParam}` : '';
-	const sortingString = sorting.length
+	let formattedUrl = apiUrl;
+	let providedFilters = '';
+	const authParam = `p_auth=${window.Liferay.authToken}`;
+	const currentUrlParam = `&currentUrl=${encodeURIComponent(currentUrl)}`;
+	const pageSizeParam = `&pageSize=${delta}`;
+	const pageParam = `&page=${page}`;
+	const searchParam = searchQuery ? `&search=${searchQuery}` : '';
+	const sortingParam = sorting.length
 		? `&sort=${sorting
 				.map(item => `${item.key}:${item.direction}`)
 				.join(',')}`
 		: ``;
-	const filtersString = filters.length
-		? `&filter=${createOdataFilter(filters)}`
-		: '';
 
-	const url = `${apiUrl}${
-		apiUrl.indexOf('?') > -1 ? '&' : '?'
-	}${authString}${currentUrlString}${paginationString}${sortingString}${filtersString}${searchParamString}`;
+	const regex = new RegExp('[?|&]filter=(.*)[&.+]?', 'mg');
+
+	formattedUrl = formattedUrl.replace(regex, matched => {
+		providedFilters = matched.replace(/[?|&]filter=/, '');
+		return '';
+	});
+
+	const filtersParam = getFiltersString(filters, providedFilters);
+
+	const url = `${formattedUrl}${
+		formattedUrl.indexOf('?') > -1 ? '&' : '?'
+	}${authParam}${currentUrlParam}${pageSizeParam}${pageParam}${sortingParam}${searchParam}${filtersParam}`;
 
 	return executeAsyncAction(url, 'GET').then(response => response.json());
 }

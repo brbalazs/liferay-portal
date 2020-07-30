@@ -490,7 +490,7 @@ const ordersDataSetDisplayProps = {
 
 const productsDataSetDisplayProps = {
 	apiUrl:
-		'/o/headless-commerce-admin-catalog/v1.0/products?nestedFields=skus,catalog',
+		'/o/headless-commerce-admin-catalog/v1.0/products?nestedFields=skus,catalog&filter=(categoryIds/any(x:(x eq 41315)))',
 	bulkActions: [
 		{
 			href: '/delete',
