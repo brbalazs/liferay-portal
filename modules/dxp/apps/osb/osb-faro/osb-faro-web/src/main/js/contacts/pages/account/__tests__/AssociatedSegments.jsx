@@ -19,6 +19,8 @@ describe('AccountAssociatedSegments', () => {
 			</StaticRouter>
 		);
 
+		jest.runAllTimers();
+
 		expect(container).toMatchSnapshot();
 	});
 });
