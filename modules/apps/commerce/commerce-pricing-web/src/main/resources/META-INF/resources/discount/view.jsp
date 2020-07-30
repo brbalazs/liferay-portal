@@ -17,8 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-CommerceDiscountDisplayContext
-	commerceDiscountDisplayContext = (CommerceDiscountDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+CommerceDiscountDisplayContext commerceDiscountDisplayContext = (CommerceDiscountDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 PortletURL portletURL = commerceDiscountDisplayContext.getPortletURL();
 %>
