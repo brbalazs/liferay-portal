@@ -14,10 +14,13 @@
 
 package com.liferay.commerce.discount.service.impl;
 
+import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.model.CommerceDiscountCommerceAccountGroupRel;
 import com.liferay.commerce.discount.service.base.CommerceDiscountCommerceAccountGroupRelLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
@@ -55,10 +58,55 @@ public class CommerceDiscountCommerceAccountGroupRelLocalServiceImpl
 		commerceDiscountCommerceAccountGroupRel.setCommerceAccountGroupId(
 			commerceAccountGroupId);
 
-		return commerceDiscountCommerceAccountGroupRelPersistence.update(
-			commerceDiscountCommerceAccountGroupRel);
+		commerceDiscountCommerceAccountGroupRel =
+			commerceDiscountCommerceAccountGroupRelPersistence.update(
+				commerceDiscountCommerceAccountGroupRel);
+
+		// Commerce discount
+
+		reindexCommerceDiscount(commerceDiscountId);
+
+		return commerceDiscountCommerceAccountGroupRel;
 	}
 
+	@Override
+	public CommerceDiscountCommerceAccountGroupRel
+			deleteCommerceDiscountCommerceAccountGroupRel(
+				CommerceDiscountCommerceAccountGroupRel
+					commerceDiscountCommerceAccountGroupRel)
+		throws PortalException {
+
+		commerceDiscountAccountRelPersistence.remove(
+			commerceDiscountCommerceAccountGroupRel);
+
+		// Commerce discount
+
+		reindexCommerceDiscount(
+			commerceDiscountCommerceAccountGroupRel.getCommerceDiscountId());
+
+		return commerceDiscountCommerceAccountGroupRel;
+	}
+
+	@Override
+	public CommerceDiscountCommerceAccountGroupRel
+			deleteCommerceDiscountCommerceAccountGroupRel(
+				long commerceDiscountCommerceAccountGroupRelId)
+		throws PortalException {
+
+		CommerceDiscountCommerceAccountGroupRel
+			commerceDiscountCommerceAccountGroupRel =
+				commerceDiscountCommerceAccountGroupRelPersistence.
+					findByPrimaryKey(commerceDiscountCommerceAccountGroupRelId);
+
+		return commerceDiscountCommerceAccountGroupRelLocalService.
+			deleteCommerceDiscountCommerceAccountGroupRel(
+				commerceDiscountCommerceAccountGroupRel);
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public void
 		deleteCommerceDiscountCommerceAccountGroupRelsBycommerceAccountGroupId(
@@ -70,11 +118,23 @@ public class CommerceDiscountCommerceAccountGroupRelLocalServiceImpl
 
 	@Override
 	public void
-		deleteCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
-			long commerceDiscountId) {
+			deleteCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+				long commerceDiscountId)
+		throws PortalException {
 
-		commerceDiscountCommerceAccountGroupRelPersistence.
-			removeByCommerceDiscountId(commerceDiscountId);
+		List<CommerceDiscountCommerceAccountGroupRel>
+			commerceDiscountCommerceAccountGroupRels =
+				commerceDiscountCommerceAccountGroupRelPersistence.
+					findByCommerceDiscountId(commerceDiscountId);
+
+		for (CommerceDiscountCommerceAccountGroupRel
+				commerceDiscountCommerceAccountGroupRel :
+					commerceDiscountCommerceAccountGroupRels) {
+
+			commerceDiscountCommerceAccountGroupRelLocalService.
+				deleteCommerceDiscountCommerceAccountGroupRel(
+					commerceDiscountCommerceAccountGroupRel);
+		}
 	}
 
 	@Override
@@ -122,6 +182,15 @@ public class CommerceDiscountCommerceAccountGroupRelLocalServiceImpl
 
 		return commerceDiscountCommerceAccountGroupRelPersistence.
 			countByCommerceDiscountId(commerceDiscountId);
+	}
+
+	protected void reindexCommerceDiscount(long commerceDiscountId)
+		throws PortalException {
+
+		Indexer<CommerceDiscount> indexer =
+			IndexerRegistryUtil.nullSafeGetIndexer(CommerceDiscount.class);
+
+		indexer.reindex(CommerceDiscount.class.getName(), commerceDiscountId);
 	}
 
 }
