@@ -22,6 +22,7 @@ import com.liferay.osb.faro.functional.test.util.FaroTransformer;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.poshi.runner.util.GetterUtil;
 
 import cucumber.api.DataTable;
 import cucumber.api.Transform;
@@ -107,6 +108,26 @@ public class Table {
 
 			Assert.assertEquals(sortedNames, tableNames);
 		}
+	}
+
+	@Then("^I should see (.*) columns in the bar graph table$")
+	public void assertBarGraphColumnAmount(
+			@Transform(FaroTransformer.class) String number)
+		throws Exception {
+
+		int columnTotal = GetterUtil.getInteger(number) - 1;
+
+		number = String.valueOf(columnTotal);
+
+		StringBundler sb = new StringBundler(5);
+
+		sb.append("//div[@class='bb']//*[name()='svg']/*[name()='g']");
+		sb.append("/*[name()='g' and @class='bb-chart']/*[name()='g']");
+		sb.append("/*[name()='rect' and contains(@class, '");
+		sb.append(number);
+		sb.append("')]");
+
+		_faroSelenium.assertElementPresent(sb.toString());
 	}
 
 	/**
