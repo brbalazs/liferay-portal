@@ -44,6 +44,8 @@ import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermi
 import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.URLCodec;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.util.CustomAttributesUtil;
 
@@ -326,17 +328,22 @@ public class CommercePriceListDisplayContext
 	}
 
 	public String getPriceListsApiUrl(String portletName) {
-		StringBundler sb = new StringBundler(7);
+		StringBundler filterSB = new StringBundler(4);
 
-		sb.append("/o/headless-commerce-admin-pricing/v2.0/price-lists");
-		sb.append("?filter=type eq ");
-		sb.append(StringPool.BACK_SLASH);
-		sb.append(StringPool.APOSTROPHE);
-		sb.append(getCommercePriceListType(portletName));
-		sb.append(StringPool.BACK_SLASH);
-		sb.append(StringPool.APOSTROPHE);
+		filterSB.append("?filter=type eq ");
+		filterSB.append(StringPool.APOSTROPHE);
+		filterSB.append(getCommercePriceListType(portletName));
+		filterSB.append(StringPool.APOSTROPHE);
 
-		return sb.toString();
+		String encodedFilter = URLCodec.encodeURL(filterSB.toString(), true);
+
+		StringBundler apiSB = new StringBundler(3);
+
+		apiSB.append(PortalUtil.getPortalURL(httpServletRequest));
+		apiSB.append("/o/headless-commerce-admin-pricing/v2.0/price-lists");
+		apiSB.append(encodedFilter);
+
+		return apiSB.toString();
 	}
 
 	public String getPriceModifierCategoriesApiUrl() throws PortalException {
