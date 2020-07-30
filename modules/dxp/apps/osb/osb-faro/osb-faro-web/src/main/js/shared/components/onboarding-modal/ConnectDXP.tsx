@@ -208,7 +208,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 						</Input.Group>
 						{isUpgrading && (
 							<a
-								className='mt-4 more-information-container'
+								className='more-information-link'
 								href={HELP_LIFERAY}
 								target='_blank'
 							>
