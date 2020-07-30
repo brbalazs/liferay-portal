@@ -1,7 +1,7 @@
 import BasePage from 'settings/components/BasePage';
 import DataSourceStatus from './DataSourceStatus';
 import getCN from 'classnames';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import UpgradeConnectionCard from './UpgradeConnectionCard';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert, Modal} from 'shared/types';
@@ -71,13 +71,6 @@ const BaseDataSourcePage: React.FC<IBaseDataSourcePageProps> = ({
 	...otherProps
 }) => {
 	const name = dataSource ? dataSource.name : '';
-	const [isALegacyDXPConnection, setIsALegacyDXPConnection] = useState(false);
-
-	useEffect(() => {
-		if (dataSource) {
-			setIsALegacyDXPConnection(hasLegacyDXPConnection(dataSource));
-		}
-	}, [dataSource]);
 
 	const handleDeleteClick = () => {
 		open(modalTypes.DELETE_CONFIRMATION_MODAL, {
@@ -158,7 +151,7 @@ const BaseDataSourcePage: React.FC<IBaseDataSourcePageProps> = ({
 				<div className='content-side'>
 					{dataSource &&
 						currentUser.isAdmin() &&
-						isALegacyDXPConnection && (
+						hasLegacyDXPConnection(dataSource) && (
 							<UpgradeConnectionCard
 								action={{
 									label: Liferay.Language.get(
@@ -170,12 +163,7 @@ const BaseDataSourcePage: React.FC<IBaseDataSourcePageProps> = ({
 											{
 												groupId,
 												id,
-												onClose: legacyDXPConnection => {
-													setIsALegacyDXPConnection(
-														legacyDXPConnection
-													);
-													close();
-												}
+												onClose: close
 											}
 										)
 								}}

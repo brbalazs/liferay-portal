@@ -27,7 +27,6 @@ const UpgradeConnectionModal: React.FC<IUpgradeConnectionModalProps> = ({
 				dataSourceId={id}
 				dxpConnected={dxpConnected}
 				groupId={groupId}
-				isUpgrading
 				onClose={onClose}
 				onDxpConnected={setDxpConnected}
 				onNext={(increment = 1) => setStep(step + increment)}
