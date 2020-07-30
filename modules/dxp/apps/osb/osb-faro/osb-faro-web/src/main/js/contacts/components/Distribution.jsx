@@ -2,12 +2,12 @@ import * as API from 'shared/api';
 import autobind from 'autobind-decorator';
 import BasePage from 'shared/components/base-page';
 import Card from 'shared/components/Card';
-import Chart, {BAR_CHART} from 'shared/components/Chart';
+import ChartTooltip from 'shared/components/ChartTooltip';
 import CollapsibleOverlay from 'shared/components/CollapsibleOverlay';
 import FaroConstants from 'shared/util/constants';
 import Form from 'shared/components/form';
 import FormSelectFieldInput from 'contacts/components/form/SelectFieldInput';
-import HistogramChart from 'shared/components/HistogramChart';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import Spinner from 'shared/components/Spinner';
@@ -23,6 +23,17 @@ import {
 	individualsListColumns
 } from 'shared/util/table-columns';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
+import {AXIS, getTextWidth} from 'shared/util/clay-recharts';
+import {
+	Bar,
+	CartesianGrid,
+	Cell,
+	ComposedChart,
+	ResponsiveContainer,
+	Tooltip,
+	XAxis,
+	YAxis
+} from 'recharts';
 import {ClaySelectWithOption} from '@clayui/select';
 import {compose, withSelectedPoint, withStatefulPagination} from 'shared/hoc';
 import {
@@ -37,6 +48,7 @@ import {List, Map} from 'immutable';
 import {noop, omit, pickBy, truncate} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {setUriQueryValues} from 'shared/util/router';
+
 import {sub} from 'shared/util/lang';
 
 const {
@@ -81,10 +93,10 @@ export function getContextLabel(context) {
 	return contextOption ? contextOption.label : null;
 }
 
-const CHART_ID = 'DISTRIBUTION_CHART';
 const CHART_DATA_ID = 'count';
 const CHART_PADDING = 60;
 const DEFAULT_NUMBER_OF_BINS = 10;
+const PADDING_FOR_PERCENTAGE = getTextWidth(' - 100.0%');
 
 const DEFAULT_SELECTED_POINT = 0;
 const BAR_WIDTH = 60;
@@ -127,7 +139,6 @@ export class Distribution extends React.Component {
 
 	static propTypes = {
 		...paginationConfig,
-		channelId: PropTypes.string,
 		contextOptions: PropTypes.arrayOf(
 			PropTypes.shape({label: PropTypes.string, value: PropTypes.string})
 		),
@@ -151,6 +162,7 @@ export class Distribution extends React.Component {
 	state = {
 		fieldMappingSelected: null,
 		histogram: false,
+		hoverIndex: -1,
 		selectedContext: demographics,
 		showIndividualsPreview: false
 	};
@@ -312,11 +324,10 @@ export class Distribution extends React.Component {
 		page,
 		query
 	}) {
-		const {channelId, groupId, id} = this.props;
+		const {groupId, id} = this.props;
 
 		return API.individuals.search(
 			pickBy({
-				channelId,
 				delta,
 				filter,
 				groupId,
@@ -343,55 +354,20 @@ export class Distribution extends React.Component {
 		this._formSelectFieldInputRef.current.focus();
 	}
 
-	getAxisXConfig() {
-		const {
-			props: {fieldDistributionIList, knownIndividualCount},
-			state: {histogram, selectedContext}
-		} = this;
+	formatChartData(fieldDistributions) {
+		const {histogram} = this.state;
 
-		return {
-			tick: {
-				format: (index, name) =>
-					formatTickVal(
-						name,
-						getFinitePercent(
-							fieldDistributionIList.getIn([index, 'count']),
-							knownIndividualCount
-						),
-						!histogram && selectedContext === demographics
-					),
-				multiline: false
-			},
-			type: 'category'
-		};
+		return fieldDistributions.map(({count, values}) => ({
+			count,
+			graphValue: histogram ? (values[0] + values[1]) / 2 : values[0],
+			values
+		}));
 	}
 
 	getNumberOfBins() {
 		const {numberOfBins} = this.props;
 
 		return Number(numberOfBins);
-	}
-
-	getChartData() {
-		const {fieldDistributionIList, knownIndividualCount} = this.props;
-
-		const fieldDistributionList = fieldDistributionIList.toJS();
-
-		return fieldDistributionList.length && knownIndividualCount
-			? [
-					{
-						axis: 'y2',
-						data: fieldDistributionList.map(({count}) => count),
-						id: 'count'
-					},
-					{
-						data: fieldDistributionList.map(({values}) =>
-							values.length > 1 ? values[1] : values[0]
-						),
-						id: 'value'
-					}
-			  ]
-			: [];
 	}
 
 	getFilter() {
@@ -412,6 +388,17 @@ export class Distribution extends React.Component {
 			.toJS();
 
 		return buildFn(distributionValues);
+	}
+
+	getYAxisTicks(fieldDistributions) {
+		const {histogram} = this.state;
+
+		return [
+			...fieldDistributions.map(item => item.values[0]),
+			histogram &&
+				fieldDistributions.length &&
+				fieldDistributions[fieldDistributions.length - 1].values[1]
+		].filter(Boolean);
 	}
 
 	@autobind
@@ -458,7 +445,7 @@ export class Distribution extends React.Component {
 	}
 
 	@autobind
-	handleChartSelect({index}) {
+	handleChartSelect(index) {
 		const {onPointSelect, selectedPoint} = this.props;
 
 		const alreadySelected = selectedPoint === index;
@@ -486,15 +473,12 @@ export class Distribution extends React.Component {
 	@autobind
 	handleOverlayClose() {
 		const {onPointSelect} = this.props;
-		const chartRef = this._chartRef.current._chartRef.current;
 
 		this.setState({
 			showIndividualsPreview: false
 		});
 
 		onPointSelect({index: null});
-
-		chartRef && chartRef.chart.unselect();
 	}
 
 	@autobind
@@ -523,6 +507,7 @@ export class Distribution extends React.Component {
 				fieldDistributionIList,
 				groupId,
 				hasSelectedPoint,
+				knownIndividualCount,
 				loading,
 				selectedPoint,
 				title
@@ -537,7 +522,19 @@ export class Distribution extends React.Component {
 
 		const numberOfBins = this.getNumberOfBins();
 
-		const ChartComponent = histogram ? HistogramChart : Chart;
+		const fieldDistributions = fieldDistributionIList.toJS();
+
+		const yAxisTicks = this.getYAxisTicks(fieldDistributions);
+
+		const formattedChartData = this.formatChartData(fieldDistributions);
+
+		const fieldDistributionsCount = fieldDistributions.length;
+
+		const yAxisWidth = yAxisTicks.reduce((acc, item) => {
+			const textWidth = getTextWidth(item.toString());
+
+			return textWidth > acc ? textWidth : acc;
+		}, 60);
 
 		return (
 			<>
@@ -583,7 +580,6 @@ export class Distribution extends React.Component {
 												</Form.GroupItem>
 											</>
 										)}
-
 										<Form.GroupItem shrink>
 											<FormSelectFieldInput
 												context={selectedContext}
@@ -614,7 +610,10 @@ export class Distribution extends React.Component {
 													</Form.Label>
 												</Form.GroupItem>
 
-												<Form.GroupItem className='chart-options-bins-input'>
+												<Form.GroupItem
+													className='chart-options-bins-input'
+													shrink
+												>
 													{/* eslint-disable */}
 													<Form.Input
 														mask={numberOfBinsMask}
@@ -637,42 +636,177 @@ export class Distribution extends React.Component {
 								<Spinner spacer />
 							) : (
 								<div className='chart-container'>
-									<ChartComponent
-										{...getChartSizeConfig(
-											fieldDistributionIList.size,
-											histogram
-										)}
-										axisRotated
-										axisX={this.getAxisXConfig()}
-										axisY={{
-											tick: {
-												show: false,
-												text: {
-													show: false
-												}
+									{!fieldDistributionsCount && (
+										<NoResultsDisplay
+											icon={{symbol: 'document'}}
+										/>
+									)}
+
+									{!!fieldDistributionsCount && (
+										<ResponsiveContainer
+											height={
+												BAR_WIDTH *
+													fieldDistributionIList.size +
+												CHART_PADDING
 											}
-										}}
-										axisY2={{show: true}}
-										bar={{radius: {ratio: 0.1}}}
-										chartType={BAR_CHART}
-										data={this.getChartData()}
-										dataId={CHART_DATA_ID}
-										id={CHART_ID}
-										initialSelectedIndexes={[selectedPoint]}
-										loading={loading}
-										noResultsProps={{
-											icon: {symbol: 'document'}
-										}}
-										onPointSelect={this.handleChartSelect}
-										ref={this._chartRef}
-										x='value'
-									/>
+										>
+											<ComposedChart
+												data={formattedChartData}
+												layout='vertical'
+											>
+												<CartesianGrid
+													horizontal={false}
+													stroke={AXIS.gridStroke}
+													strokeDasharray='3 3'
+												/>
+
+												<Tooltip
+													content={({
+														active,
+														payload
+													}) => {
+														if (active && payload) {
+															const data =
+																payload[0]
+																	.payload;
+
+															const items = [
+																{
+																	label:
+																		payload[0]
+																			.name,
+																	value:
+																		data.count
+																}
+															];
+
+															return (
+																<div
+																	className='bb-tooltip-container'
+																	style={{
+																		position:
+																			'static'
+																	}}
+																>
+																	<ChartTooltip
+																		items={
+																			items
+																		}
+																		title={data.values.join(
+																			' - '
+																		)}
+																	/>
+																</div>
+															);
+														}
+
+														return null;
+													}}
+												/>
+
+												<YAxis
+													dataKey='graphValue'
+													domain={[
+														yAxisTicks[0],
+														yAxisTicks[
+															yAxisTicks.length -
+																1
+														]
+													]}
+													tickFormatter={val =>
+														formatTickVal(
+															val,
+															getFinitePercent(
+																fieldDistributionIList.getIn(
+																	[
+																		yAxisTicks.indexOf(
+																			val
+																		),
+																		CHART_DATA_ID
+																	]
+																),
+																knownIndividualCount
+															),
+															!histogram &&
+																selectedContext ===
+																	demographics
+														)
+													}
+													ticks={yAxisTicks}
+													type={
+														histogram
+															? 'number'
+															: 'category'
+													}
+													width={
+														yAxisWidth +
+														PADDING_FOR_PERCENTAGE
+													}
+												/>
+
+												<XAxis
+													dataKey={CHART_DATA_ID}
+													domain={[
+														0,
+														dataMax => dataMax * 1.1
+													]}
+													orientation='top'
+													scale='linear'
+													tickLine={false}
+													type='number'
+												/>
+
+												<Bar
+													dataKey={CHART_DATA_ID}
+													onClick={(e, index) =>
+														this.handleChartSelect(
+															index
+														)
+													}
+													onMouseEnter={(e, index) =>
+														this.setState({
+															hoverIndex: index
+														})
+													}
+													onMouseLeave={() =>
+														this.setState({
+															hoverIndex: -1
+														})
+													}
+												>
+													{formattedChartData.map(
+														(item, index) => (
+															<Cell
+																fill={
+																	index ===
+																	selectedPoint
+																		? '#4B9BFF'
+																		: '#97C5FF'
+																}
+																key={`cell-${index}`}
+																opacity={
+																	index ===
+																	this.state
+																		.hoverIndex
+																		? 0.75
+																		: 1
+																}
+																style={{
+																	cursor:
+																		'pointer'
+																}}
+															/>
+														)
+													)}
+												</Bar>
+											</ComposedChart>
+										</ResponsiveContainer>
+									)}
 								</div>
 							)}
 						</Card.Body>
 					</Card>
 				</BasePage.Body>
-
 				{fieldMappingSelected && hasSelectedPoint && (
 					<CollapsibleOverlay
 						onClose={this.handleOverlayClose}

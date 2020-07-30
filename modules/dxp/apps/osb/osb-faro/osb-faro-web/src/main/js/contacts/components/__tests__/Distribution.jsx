@@ -26,10 +26,18 @@ describe('SegmentDistribution', () => {
 
 	it('should render a Chart component if loading is false', () => {
 		const {container} = render(
-			<Distribution {...defaultProps} loading={false} />
+			<Distribution
+				{...defaultProps}
+				fieldDistributionIList={
+					new List([{count: 3, values: ['stuff']}])
+				}
+				loading={false}
+			/>
 		);
 
-		expect(container.querySelector('.chart-root')).toBeTruthy();
+		expect(
+			container.querySelector('.recharts-responsive-container')
+		).toBeTruthy();
 	});
 
 	it('should not render a dropdown of context items if contextOptions is less than 2', () => {
