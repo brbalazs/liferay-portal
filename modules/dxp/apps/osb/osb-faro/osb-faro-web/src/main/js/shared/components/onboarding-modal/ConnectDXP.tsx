@@ -9,6 +9,9 @@ import Icon from 'shared/components/Icon';
 import Input from 'shared/components/Input';
 import Modal from '../modal';
 import React, {useEffect, useRef, useState} from 'react';
+import {connect} from 'react-redux';
+import {DataSource} from 'shared/util/records';
+import {fetchDataSource} from 'shared/actions/data-sources';
 import {get, noop} from 'lodash';
 import {Routes, toRoute} from 'shared/util/router';
 import {useLazyQuery} from '@apollo/react-hooks';
@@ -20,10 +23,16 @@ const TIMEOUT_INTERVAL = 5000;
 interface IConnectDXPProps {
 	dataSourceId?: string;
 	dxpConnected: boolean;
+	fetchDataSource: ({
+		groupId,
+		id
+	}: {
+		groupId: string;
+		id: string;
+	}) => DataSource;
 	groupId: string;
-	isUpgrading?: boolean;
 	onboarding?: boolean;
-	onClose: (data?: any) => void;
+	onClose: () => void;
 	onDxpConnected: (dxpConnected: boolean) => void;
 	onNext?: (increment?: number) => void;
 	onPrevious: () => void;
@@ -32,8 +41,8 @@ interface IConnectDXPProps {
 const ConnectDXP: React.FC<IConnectDXPProps> = ({
 	dataSourceId,
 	dxpConnected,
+	fetchDataSource,
 	groupId,
-	isUpgrading,
 	onboarding,
 	onClose,
 	onDxpConnected,
@@ -55,26 +64,6 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 			type: dataSourceTypes.liferay
 		}
 	});
-
-	const getDataSource = () =>
-		API.dataSource
-			.fetch({
-				groupId,
-				id: dataSourceId
-			})
-			.then(dataSource => {
-				setIsALegacyDXPConnection(hasALegacyDXPConnection(dataSource));
-			})
-			.catch(noop);
-
-	const hasALegacyDXPConnection = dataSource =>
-		dataSource &&
-		dataSource.providerType === dataSourceTypes.liferay &&
-		dataSource.credentials.type !== credentialTypes.token;
-
-	const [isALegacyDXPConnection, setIsALegacyDXPConnection] = useState(true);
-
-	const handleClose = () => onClose(isALegacyDXPConnection);
 
 	const [token, setToken] = useState('');
 
@@ -106,10 +95,8 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 				} else {
 					if (onboarding) {
 						onDxpConnected(true);
-					} else if (isUpgrading) {
-						onDxpConnected(true);
-						getDataSource();
 					} else {
+						fetchDataSource({groupId, id: dataSourceId});
 						getDataSources();
 					}
 				}
@@ -236,12 +223,8 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 					<Button
 						disabled={!dxpConnected}
 						display='primary'
-						href={
-							onboarding || !dxpConnected || isUpgrading
-								? null
-								: getNavHref()
-						}
-						onClick={onboarding ? () => onNext() : handleClose}
+						href={onboarding || !dxpConnected ? null : getNavHref()}
+						onClick={onboarding ? () => onNext() : onClose}
 					>
 						{onboarding
 							? Liferay.Language.get('next')
@@ -253,4 +236,9 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 	);
 };
 
-export default ConnectDXP;
+export default connect(
+	null,
+	{
+		fetchDataSource
+	}
+)(ConnectDXP);
