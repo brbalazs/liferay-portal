@@ -16,8 +16,10 @@ package com.liferay.commerce.price.list.internal.search;
 
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.model.CommercePriceListAccountRel;
+import com.liferay.commerce.price.list.model.CommercePriceListChannelRel;
 import com.liferay.commerce.price.list.model.CommercePriceListCommerceAccountGroupRel;
 import com.liferay.commerce.price.list.service.CommercePriceListAccountRelLocalService;
+import com.liferay.commerce.price.list.service.CommercePriceListChannelRelLocalService;
 import com.liferay.commerce.price.list.service.CommercePriceListCommerceAccountGroupRelLocalService;
 import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.product.model.CommerceCatalog;
@@ -239,6 +241,20 @@ public class CommercePriceListIndexer extends BaseIndexer<CommercePriceList> {
 
 		document.addNumber("commerceAccountId", commerceAccountIds);
 
+		List<CommercePriceListChannelRel> commercePriceListChannelRels =
+			_commercePriceListChannelRelLocalService.
+				getCommercePriceListChannelRels(
+					commercePriceList.getCommercePriceListId());
+
+		Stream<CommercePriceListChannelRel> commercePriceListChannelRelStream =
+			commercePriceListChannelRels.stream();
+
+		long[] commerceChannelIds = commercePriceListChannelRelStream.mapToLong(
+			CommercePriceListChannelRel::getCommerceChannelId
+		).toArray();
+
+		document.addNumber("commerceChannelId", commerceChannelIds);
+
 		List<CommercePriceListCommerceAccountGroupRel>
 			commercePriceListCommerceAccountGroupRels =
 				_commercePriceListCommerceAccountGroupRelLocalService.
@@ -355,6 +371,10 @@ public class CommercePriceListIndexer extends BaseIndexer<CommercePriceList> {
 	@Reference
 	private CommercePriceListAccountRelLocalService
 		_commercePriceListAccountRelLocalService;
+
+	@Reference
+	private CommercePriceListChannelRelLocalService
+		_commercePriceListChannelRelLocalService;
 
 	@Reference
 	private CommercePriceListCommerceAccountGroupRelLocalService
