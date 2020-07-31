@@ -221,20 +221,28 @@ exports[`DistributionCard renders 1`] = `
     >
       <div>
         <div
-          class="chart-root"
+          class="no-results-root flex-grow-1"
         >
           <div
-            class="no-results-root flex-grow-1"
+            class="no-results-content"
           >
             <div
-              class="no-results-content spacer"
+              class="no-results-icon no-results-icon-border"
             >
-              <h4
-                class="no-results-title"
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-document icon-size-xxl"
+                viewBox=""
               >
-                There are no items found.
-              </h4>
+                <use
+                  xlink:href="#document"
+                />
+              </svg>
             </div>
+            <h4
+              class="no-results-title"
+            >
+              There are no items found.
+            </h4>
           </div>
         </div>
       </div>

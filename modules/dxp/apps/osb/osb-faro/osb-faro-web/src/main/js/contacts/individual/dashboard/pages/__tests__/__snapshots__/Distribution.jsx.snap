@@ -81,32 +81,28 @@ exports[`Individuals Dashboard Distribution renders 1`] = `
                   class="chart-container"
                 >
                   <div
-                    class="chart-root selectable"
+                    class="no-results-root flex-grow-1"
                   >
                     <div
-                      class="no-results-root flex-grow-1"
+                      class="no-results-content"
                     >
                       <div
-                        class="no-results-content"
+                        class="no-results-icon no-results-icon-border"
                       >
-                        <div
-                          class="no-results-icon no-results-icon-border"
+                        <svg
+                          class="icon-root lexicon-icon lexicon-icon-document icon-size-xxl"
+                          viewBox=""
                         >
-                          <svg
-                            class="icon-root lexicon-icon lexicon-icon-document icon-size-xxl"
-                            viewBox=""
-                          >
-                            <use
-                              xlink:href="#document"
-                            />
-                          </svg>
-                        </div>
-                        <h4
-                          class="no-results-title"
-                        >
-                          There are no items found.
-                        </h4>
+                          <use
+                            xlink:href="#document"
+                          />
+                        </svg>
                       </div>
+                      <h4
+                        class="no-results-title"
+                      >
+                        There are no items found.
+                      </h4>
                     </div>
                   </div>
                 </div>
