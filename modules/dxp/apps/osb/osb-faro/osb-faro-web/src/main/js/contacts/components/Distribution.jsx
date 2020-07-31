@@ -4,6 +4,7 @@ import BasePage from 'shared/components/base-page';
 import Card from 'shared/components/Card';
 import ChartTooltip from 'shared/components/ChartTooltip';
 import CollapsibleOverlay from 'shared/components/CollapsibleOverlay';
+import ErrorDisplay from 'shared/components/ErrorDisplay';
 import FaroConstants from 'shared/util/constants';
 import Form from 'shared/components/form';
 import FormSelectFieldInput from 'contacts/components/form/SelectFieldInput';
@@ -143,6 +144,7 @@ export class Distribution extends React.Component {
 			PropTypes.shape({label: PropTypes.string, value: PropTypes.string})
 		),
 		distributionsKey: PropTypes.string.isRequired,
+		error: PropTypes.bool,
 		fetchDistribution: PropTypes.func.isRequired,
 		fieldDistributionIList: PropTypes.instanceOf(List),
 		fieldMappingId: PropTypes.string,
@@ -187,7 +189,7 @@ export class Distribution extends React.Component {
 			fieldMappingSelected.rawType === number;
 
 		if (fieldMappingSelectedChanged || histogramNumberOfBinsChanged) {
-			this.fetchDistributionData();
+			this.handleFetchDistributionData();
 		}
 	}
 
@@ -258,7 +260,7 @@ export class Distribution extends React.Component {
 	}
 
 	@autoCancel
-	fetchDistributionData() {
+	handleFetchDistributionData() {
 		const {
 			props: {
 				channelId,
@@ -290,7 +292,11 @@ export class Distribution extends React.Component {
 		const {fieldMappingId, groupId, history} = this.props;
 
 		const fieldMappingFn = fieldMappingId
-			? () => API.fieldMappings.fetch({fieldMappingId, groupId})
+			? () =>
+					API.fieldMappings.fetch({
+						fieldMappingId,
+						groupId
+					})
 			: () => API.fieldMappings.fetchDefault(groupId);
 
 		return fieldMappingFn()
@@ -309,7 +315,7 @@ export class Distribution extends React.Component {
 						histogram: fieldMapping.rawType === number,
 						selectedContext: fieldMapping.context
 					},
-					() => this.fetchDistributionData()
+					() => this.handleFetchDistributionData()
 				);
 			})
 			.catch(noop);
@@ -519,6 +525,7 @@ export class Distribution extends React.Component {
 			props: {
 				channelId,
 				contextOptions,
+				error,
 				fieldDistributionIList,
 				groupId,
 				hasSelectedPoint,
@@ -647,9 +654,16 @@ export class Distribution extends React.Component {
 								</Form.Form>
 							</Form>
 
-							{loading ? (
-								<Spinner spacer />
-							) : (
+							{error && (
+								<ErrorDisplay
+									onReload={this.handleFetchDistributionData}
+									spacer
+								/>
+							)}
+
+							{loading && <Spinner spacer />}
+
+							{!error && !loading && (
 								<div className='chart-container'>
 									{!fieldDistributionsCount && (
 										<NoResultsDisplay
@@ -925,6 +939,7 @@ export default compose(
 			);
 
 			return {
+				error: distributionIMap.get('error'),
 				fieldDistributionIList:
 					distributionIMap.getIn(['data', 'items']) || new List(),
 				fieldMappingId:
