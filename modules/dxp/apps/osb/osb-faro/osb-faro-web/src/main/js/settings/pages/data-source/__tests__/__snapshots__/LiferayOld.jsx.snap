@@ -1,3 +1,372 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LiferayDataSourceOld should render 1`] = `<div />`;
+exports[`LiferayDataSourceOld should render 1`] = `
+<div>
+  <div
+    class="settings-base-page-root data-source-base-page-root liferay-data-source-old-root"
+  >
+    <div
+      class="maintenance-alert-root"
+    />
+    <ol
+      class="breadcrumb breadcrumbs-root"
+    >
+      <li
+        class="breadcrumb-item"
+      >
+        <a
+          class="breadcrumb-link breadcrumb-text-truncate"
+          href="/workspace/foo/settings/data-source"
+        >
+          Data Sources
+        </a>
+      </li>
+      <li
+        class="breadcrumb-item active"
+      >
+        <span
+          class="breadcrumb-text-truncate"
+        >
+          Liferay1
+        </span>
+      </li>
+    </ol>
+    <div
+      class="content-header has-page-actions"
+    >
+      <div
+        class="header-text"
+      >
+        <h3>
+          <span
+            class="text-truncate"
+            data-tooltip="false"
+            title=""
+          >
+            Configure Liferay DXP
+          </span>
+        </h3>
+        <div
+          class="description"
+        >
+          Liferay1 - https://www.faro-1.io
+        </div>
+      </div>
+      <div
+        class="page-actions-container"
+      >
+        <button
+          class="button-root btn btn-secondary"
+          type="button"
+        >
+          Delete Data Source
+        </button>
+      </div>
+    </div>
+    <div>
+      <div
+        class="page-container"
+      >
+        <div
+          class="content-main"
+        >
+          <div
+            class="sheet data-source-base-tabs-root page-display"
+          >
+            <div
+              class="sheet-body"
+            >
+              <ul
+                class="nav-root nav nav-underline"
+                role="tablist"
+              >
+                <li
+                  class="nav-item active"
+                  role="presentation"
+                >
+                  <a
+                    class="nav-link active"
+                    href="/workspace/foo/settings/data-source/test"
+                    role="tab"
+                  >
+                    <h4>
+                      Authorization
+                    </h4>
+                  </a>
+                </li>
+                <li
+                  class="nav-item"
+                  role="presentation"
+                >
+                  <a
+                    class="nav-link"
+                    href="/workspace/foo/settings/data-source/test/liferay/configuration-status"
+                    role="tab"
+                  >
+                    <h4>
+                      Configure Data Source
+                    </h4>
+                    <span
+                      class="badge badge-primary ml-2"
+                    >
+                      <span
+                        class="badge-item badge-item-expand"
+                      >
+                        2
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <form
+              class="form-root oauth-form-root"
+            >
+              <div
+                class="sheet-body"
+              >
+                <div
+                  class="sheet-section"
+                >
+                  <div
+                    class="sheet-text"
+                  >
+                    Please enter the URL of the target instance to start configuring the 
+                    Liferay
+                     Data Source. You will need to enter the credentials of the data source's administrator. If you need help setting this up, please refer to the 
+                    <a
+                      href="https://help.liferay.com/hc/en-us/articles/360006653472-Adding-a-Liferay-DXP-Data-Source"
+                    >
+                      documentation
+                    </a>
+                    .
+                  </div>
+                  <div
+                    class="callback-url"
+                  >
+                    <b>
+                      Analytics Cloud Callback URL:
+                    </b>
+                    <pre>
+                      http://liferay.com/oauth/receive
+                    </pre>
+                  </div>
+                </div>
+                <div
+                  class="sheet-section"
+                >
+                  <h3
+                    class="sheet-subtitle"
+                  >
+                    Data Source
+                  </h3>
+                  <div
+                    class=""
+                  >
+                    <label
+                      class="form-control-label label-root required"
+                      for="dataSourceName"
+                    >
+                      Name
+                    </label>
+                    <input
+                      class="input-root form-control"
+                      disabled=""
+                      id="dataSourceName"
+                      name="dataSourceName"
+                      type="text"
+                      value="Liferay1"
+                    />
+                  </div>
+                  <div
+                    class=""
+                  >
+                    <label
+                      class="form-control-label label-root required"
+                      for="url"
+                    >
+                      URL
+                    </label>
+                    <input
+                      class="input-root form-control"
+                      disabled=""
+                      id="url"
+                      name="url"
+                      type="text"
+                      value="https://www.faro-1.io"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="sheet-section"
+                >
+                  <h3
+                    class="sheet-subtitle"
+                  >
+                    Client Credentials
+                  </h3>
+                  <div
+                    class=""
+                  >
+                    <label
+                      class="form-control-label label-root required"
+                      for="consumerKey"
+                    >
+                      Consumer Key/Client ID
+                    </label>
+                    <input
+                      autocomplete="new-password"
+                      class="input-root form-control"
+                      disabled=""
+                      id="consumerKey"
+                      name="consumerKey"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class=""
+                  >
+                    <label
+                      class="form-control-label label-root required"
+                      for="consumerSecret"
+                    >
+                      Consumer Secret/Client Secret
+                    </label>
+                    <div
+                      class="input-group"
+                    >
+                      <div
+                        class="input-group-item"
+                      >
+                        <input
+                          autocomplete="new-password"
+                          class="input-root form-control input-group-inset input-group-inset-after"
+                          disabled=""
+                          id="consumerSecret"
+                          name="consumerSecret"
+                          type="password"
+                          value=""
+                        />
+                        <div
+                          class="input-group-inset-item input-group-inset-item-after"
+                        >
+                          <button
+                            class="button-root btn btn-unstyled"
+                            disabled=""
+                            type="button"
+                          >
+                            <svg
+                              class="icon-root lexicon-icon lexicon-icon-view"
+                              viewBox=""
+                            >
+                              <use
+                                xlink:href="#view"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="sheet-section"
+                >
+                  <h5>
+                    OAuth Owner
+                  </h5>
+                  <div
+                    class="oauth-owner disabled"
+                  >
+                    <em>
+                      Authorize to add a new owner.
+                    </em>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="sheet-footer form-actions"
+              >
+                <button
+                  class="button-root btn btn-secondary edit"
+                  type="button"
+                >
+                  Edit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div
+          class="content-side"
+        >
+          <div
+            class="panel-root upgrade-connection-card-root"
+          >
+            <div
+              class="panel-header"
+              role="button"
+              tabindex="0"
+            >
+              <div
+                class="panel-title"
+              >
+                Upgrade Your Connection Type
+              </div>
+            </div>
+            <div
+              class="panel-body"
+            >
+              <p>
+                Analytics Cloud now uses a more secure token-based connection that gives you finer control of your data. OAuth connections will be deprecated in a future release. Click the button below to get started with migrating your data source.
+              </p>
+              <button
+                class="button-root btn btn-secondary btn-sm"
+                type="button"
+              >
+                Start Upgrade...
+              </button>
+            </div>
+          </div>
+          <div
+            class="panel-root data-source-status-root"
+          >
+            <div
+              class="panel-header"
+              role="button"
+              tabindex="0"
+            >
+              <div
+                class="panel-title"
+              >
+                <div>
+                  Current Status:
+                </div>
+              </div>
+              <div
+                class="panel-title-label"
+              >
+                <div
+                  class="label label-root label-info label-lg label-uppercase"
+                >
+                  <span
+                    class="label-item"
+                  >
+                    Authenticated
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="panel-body"
+            >
+              You have successfully authenticated your client id and secret with you data source. You can now configure your data.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
