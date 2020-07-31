@@ -3883,6 +3883,10 @@ AUI.add(
 							else if (event.type === 'liferay-ddm-field:remove') {
 								delete validatorRules[field.getRuleInputName()];
 
+								delete liferayForm.formValidator.errors[
+									field.getRuleInputName()
+								];
+
 								var inputNode = field.getInputNode();
 
 								if (inputNode) {
