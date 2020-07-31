@@ -79,15 +79,10 @@ public class CPOptionsMVCResourceCommand extends BaseMVCResourceCommand {
 			jsonObject.put(
 				"name", cpOption.getName(themeDisplay.getLanguageId()));
 
-			Map<String, Object> properties =
-				_ddmFormFieldTypeServicesTracker.getDDMFormFieldTypeProperties(
-					cpOption.getDDMFormFieldTypeName());
-
-			String fieldTypeDataDomain = MapUtil.getString(
-				properties, "ddm.form.field.type.data.domain");
-
-			if (Validator.isNotNull(fieldTypeDataDomain) &&
-				fieldTypeDataDomain.equals("list")) {
+			if (_hasDDMFormFieldTypeProperties(
+					cpOption.getDDMFormFieldTypeName()) &&
+				_isListFieldTypeDataDomain(
+					cpOption.getDDMFormFieldTypeName())) {
 
 				jsonObject.put("hasValues", true);
 			}
@@ -101,6 +96,35 @@ public class CPOptionsMVCResourceCommand extends BaseMVCResourceCommand {
 		httpServletResponse.setContentType(ContentTypes.APPLICATION_JSON);
 
 		ServletResponseUtil.write(httpServletResponse, jsonArray.toString());
+	}
+
+	private boolean _hasDDMFormFieldTypeProperties(
+		String ddmFormFieldTypeName) {
+
+		if (_ddmFormFieldTypeServicesTracker.getDDMFormFieldTypeProperties(
+				ddmFormFieldTypeName) == null) {
+
+			return false;
+		}
+
+		return true;
+	}
+
+	private boolean _isListFieldTypeDataDomain(String ddmFormFieldTypeName) {
+		Map<String, Object> properties =
+			_ddmFormFieldTypeServicesTracker.getDDMFormFieldTypeProperties(
+				ddmFormFieldTypeName);
+
+		String fieldTypeDataDomain = MapUtil.getString(
+			properties, "ddm.form.field.type.data.domain");
+
+		if (Validator.isNotNull(fieldTypeDataDomain) &&
+			fieldTypeDataDomain.equals("list")) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	@Reference
