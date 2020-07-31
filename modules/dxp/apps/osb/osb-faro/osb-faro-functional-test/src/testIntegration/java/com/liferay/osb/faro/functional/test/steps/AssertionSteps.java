@@ -142,6 +142,37 @@ public class AssertionSteps {
 		_faroSelenium.assertElementPresent(sb.toString());
 	}
 
+	@Then("^I should see granularity starts (.*) and ends (.*) in (.*) card$")
+	public void assertChartGranularity(
+			@Transform(FaroTransformer.class) String start,
+			@Transform(FaroTransformer.class) String end,
+			@Transform(FaroTransformer.class) String card)
+		throws Exception {
+
+		_faroSelenium.waitForElementPresent(
+			"//h5[text()='" + card +
+				"']/parent::div/parent::div//*[name()='g' and @class='bb-" +
+					"axis bb-axis-x']/*[name()='g'][1]//*[name()='tspan' and " +
+						"text()='" + start + "']");
+
+		_faroSelenium.waitForElementPresent(
+			"//h5[text()='" + card +
+				"']/parent::div/parent::div//*[name()='g' and @class='bb-" +
+					"axis bb-axis-x']/*[name()='g'][last()]//*[name()='tspan" +
+						"' and text()='" + end + "']");
+	}
+
+	@Then("^I should see time filter (.*) in (.*) card$")
+	public void assertDateTimeFilter(
+			@Transform(FaroTransformer.class) String date,
+			@Transform(FaroTransformer.class) String card)
+		throws Exception {
+
+		_faroSelenium.waitForElementPresent(
+			"//h5[text()='" + card + "']/parent::div//button[text()='" + date +
+				"']");
+	}
+
 	/**
 	 * Asserts the presence of options in a dropdown menu.
 	 *
