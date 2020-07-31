@@ -19,7 +19,8 @@ import {User} from 'shared/util/records';
 import {withCurrentUser} from 'shared/hoc';
 
 const {
-	credentialTypes: {oAuth1, oAuth2}
+	credentialTypes: {oAuth1, oAuth2},
+	dataSourceTypes: {liferay}
 } = FaroConstants;
 
 const InterestDetails = lazy(() =>
@@ -116,10 +117,10 @@ export const Dashboard: React.FC<IDashboardProps> = ({currentUser, router}) => {
 	);
 
 	const {data: oAuth1Data} = useQuery(DataSourceQuery, {
-		variables: {credentialsType: oAuth1}
+		variables: {credentialsType: oAuth1, type: liferay}
 	});
 	const {data: oAuth2Data} = useQuery(DataSourceQuery, {
-		variables: {credentialsType: oAuth2}
+		variables: {credentialsType: oAuth2, type: liferay}
 	});
 
 	useEffect(() => {
