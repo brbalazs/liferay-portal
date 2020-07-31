@@ -19,6 +19,8 @@ describe('Interests', () => {
 			</StaticRouter>
 		);
 
+		jest.runAllTimers();
+
 		expect(container).toMatchSnapshot();
 	});
 });
@@ -28,7 +30,6 @@ describe('ContributionsCell', () => {
 		const {container} = render(
 			<ContributionsCell data={{relatedPagesCount: 8}} />
 		);
-
 		expect(container).toMatchSnapshot();
 	});
 });
