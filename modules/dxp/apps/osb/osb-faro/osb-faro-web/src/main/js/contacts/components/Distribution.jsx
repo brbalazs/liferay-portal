@@ -23,7 +23,7 @@ import {
 	individualsListColumns
 } from 'shared/util/table-columns';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
-import {AXIS, getTextWidth} from 'shared/util/clay-recharts';
+import {AXIS, BAR, getTextWidth} from 'shared/util/clay-recharts';
 import {
 	Bar,
 	CartesianGrid,
@@ -362,6 +362,21 @@ export class Distribution extends React.Component {
 			graphValue: histogram ? (values[0] + values[1]) / 2 : values[0],
 			values
 		}));
+	}
+
+	getBarColor(index) {
+		const {
+			props: {selectedPoint},
+			state: {hoverIndex}
+		} = this;
+
+		if (index === selectedPoint) {
+			return BAR.selectedFill;
+		} else if (index === hoverIndex) {
+			return BAR.hoverFill;
+		}
+
+		return BAR.defaultFill;
 	}
 
 	getNumberOfBins() {
@@ -706,7 +721,8 @@ export class Distribution extends React.Component {
 
 												<YAxis
 													axisLine={{
-														stroke: '#E5E5EB'
+														stroke:
+															AXIS.borderStroke
 													}}
 													dataKey='graphValue'
 													domain={[
@@ -749,7 +765,8 @@ export class Distribution extends React.Component {
 
 												<YAxis
 													axisLine={{
-														stroke: '#E5E5EB'
+														stroke:
+															AXIS.borderStroke
 													}}
 													dataKey='graphValue'
 													domain={[
@@ -767,7 +784,8 @@ export class Distribution extends React.Component {
 
 												<XAxis
 													axisLine={{
-														stroke: '#E5E5EB'
+														stroke:
+															AXIS.borderStroke
 													}}
 													dataKey={CHART_DATA_ID}
 													domain={[
@@ -782,7 +800,8 @@ export class Distribution extends React.Component {
 
 												<XAxis
 													axisLine={{
-														stroke: '#E5E5EB'
+														stroke:
+															AXIS.borderStroke
 													}}
 													dataKey={CHART_DATA_ID}
 													domain={[
@@ -816,20 +835,10 @@ export class Distribution extends React.Component {
 													{formattedChartData.map(
 														(item, index) => (
 															<Cell
-																fill={
-																	index ===
-																	selectedPoint
-																		? '#4B9BFF'
-																		: '#97C5FF'
-																}
+																fill={this.getBarColor(
+																	index
+																)}
 																key={`cell-${index}`}
-																opacity={
-																	index ===
-																	this.state
-																		.hoverIndex
-																		? 0.75
-																		: 1
-																}
 																style={{
 																	cursor:
 																		'pointer'
