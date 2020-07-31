@@ -1,4 +1,8 @@
 .output-versions-card-root {
+	.pagination-bar-root {
+		padding: 0;
+	}
+
 	.training-frequency {
 		color: $mainLighten28;
 		> b {
