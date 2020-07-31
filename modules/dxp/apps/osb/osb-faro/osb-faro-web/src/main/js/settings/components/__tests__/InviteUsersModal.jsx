@@ -11,4 +11,12 @@ describe('InviteUsersModal', () => {
 
 		expect(container).toMatchSnapshot();
 	});
+
+	it('should render with custom class', () => {
+		const {container} = render(
+			<InviteUsersModal className='custom-class' onClose={noop} />
+		);
+
+		expect(container.querySelector('.custom-class')).toBeTruthy();
+	});
 });
