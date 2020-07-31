@@ -1,27 +1,38 @@
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import Chart, {BAR_CHART} from 'shared/components/Chart';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
 import FaroConstants from 'shared/util/constants';
-import HistogramChart from 'shared/components/HistogramChart';
 import Icon from 'shared/components/Icon';
+import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import Promise from 'metal-promise';
 import React from 'react';
+import Spinner from 'shared/components/Spinner';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
+import {AXIS, BAR, getTextWidth} from 'shared/util/clay-recharts';
+import {
+	Bar,
+	CartesianGrid,
+	Cell,
+	ComposedChart,
+	ResponsiveContainer,
+	XAxis,
+	YAxis
+} from 'recharts';
 import {connect} from 'react-redux';
 import {DistributionTab} from 'shared/util/records';
-import {getChartSizeConfig} from 'contacts/components/Distribution';
 import {hasChanges} from 'shared/util/react';
 import {List, Map} from 'immutable';
-import {noop, pickBy, truncate} from 'lodash';
+import {noop, pickBy} from 'lodash';
 
 const {
 	fieldTypes: {number}
 } = FaroConstants;
 
-const BAR_PADDING = 10;
-const BB_CHART_HEIGHT = 320;
+const BAR_WIDTH = 30;
+const CHART_DATA_ID = 'count';
+const CHART_PADDING = 60;
+const MAX_BARS = 10;
 
 interface IDistributionChartProps {
 	channelId: string;
@@ -38,6 +49,10 @@ interface IDistributionChartProps {
 
 @hasRequest
 class DistributionChart extends React.Component<IDistributionChartProps> {
+	state = {
+		hoverIndex: -1
+	};
+
 	componentDidMount() {
 		this.handleFetchChartData();
 	}
@@ -46,6 +61,33 @@ class DistributionChart extends React.Component<IDistributionChartProps> {
 		if (hasChanges(prevProps, this.props, 'selectedTab')) {
 			this.handleFetchChartData();
 		}
+	}
+
+	formatChartData(fieldDistributions, histogram) {
+		return fieldDistributions.map(({count, values}) => ({
+			count,
+			graphValue: histogram ? (values[0] + values[1]) / 2 : values[0],
+			values
+		}));
+	}
+
+	getBarColor(index) {
+		const {hoverIndex} = this.state;
+
+		if (index === hoverIndex) {
+			return BAR.hoverFill;
+		}
+
+		return BAR.defaultFill;
+	}
+
+	getYAxisTicks(fieldDistributions, histogram) {
+		return [
+			...fieldDistributions.map(item => item.values[0]),
+			histogram &&
+				fieldDistributions.length &&
+				fieldDistributions[fieldDistributions.length - 1].values[1]
+		].filter(Boolean);
 	}
 
 	@autoCancel
@@ -63,7 +105,7 @@ class DistributionChart extends React.Component<IDistributionChartProps> {
 			pickBy({
 				channelId,
 				context,
-				count: 10,
+				count: MAX_BARS,
 				fieldMappingId: propertyId,
 				groupId,
 				id,
@@ -78,7 +120,7 @@ class DistributionChart extends React.Component<IDistributionChartProps> {
 			error,
 			individualFieldDistributionIList,
 			loading,
-			selectedTab: {numberOfBins, propertyType},
+			selectedTab: {propertyType},
 			viewAllLink
 		} = this.props;
 
@@ -86,7 +128,23 @@ class DistributionChart extends React.Component<IDistributionChartProps> {
 
 		const histogram = propertyType === number;
 
-		const ChartComponent = histogram ? HistogramChart : Chart;
+		const yAxisTicks = this.getYAxisTicks(
+			individualFieldDistribution,
+			histogram
+		);
+
+		const formattedChartData = this.formatChartData(
+			individualFieldDistribution,
+			histogram
+		);
+
+		const fieldDistributionsCount = individualFieldDistribution.length;
+
+		const yAxisWidth = yAxisTicks.reduce((acc, item) => {
+			const textWidth = getTextWidth(item.toString());
+
+			return textWidth > acc ? textWidth : acc;
+		}, 60);
 
 		return (
 			<>
@@ -98,68 +156,126 @@ class DistributionChart extends React.Component<IDistributionChartProps> {
 						/>
 					)}
 
-					{!error && (
-						<ChartComponent
-							{...getChartSizeConfig(
-								individualFieldDistribution.length,
-								histogram
+					{loading && <Spinner spacer />}
+
+					{!error && !loading && (
+						<>
+							{!fieldDistributionsCount && (
+								<NoResultsDisplay icon={{symbol: 'document'}} />
 							)}
-							axisRotated
-							axisX={{
-								tick: {
-									format: (_, name) =>
-										truncate(name, {length: 25}),
-									multiline: false
-								},
-								type: 'category'
-							}}
-							axisY={{show: false}}
-							axisY2={{
-								show: true,
-								text: {show: true}
-							}}
-							bar={pickBy({
-								padding: histogram ? BAR_PADDING : null,
-								radius: {ratio: 0.1},
-								width: histogram
-									? BB_CHART_HEIGHT / numberOfBins -
-									  BAR_PADDING
-									: null
-							})}
-							chartType={BAR_CHART}
-							data={
-								individualFieldDistribution.length
-									? [
-											{
-												axis: 'y2',
-												data: individualFieldDistribution.map(
-													({count}) => count
-												),
-												id: 'count'
-											},
-											{
-												data: individualFieldDistribution.map(
-													({values}) =>
-														values.length > 1
-															? values[1]
-															: values[0]
-												),
-												id: 'value'
+
+							{!!fieldDistributionsCount && (
+								<ResponsiveContainer
+									height={
+										BAR_WIDTH * MAX_BARS + CHART_PADDING
+									}
+								>
+									<ComposedChart
+										data={formattedChartData}
+										layout='vertical'
+									>
+										<CartesianGrid
+											horizontal={false}
+											stroke={AXIS.gridStroke}
+											strokeDasharray='3 3'
+										/>
+
+										<YAxis
+											axisLine={{
+												stroke: AXIS.borderStroke
+											}}
+											dataKey='graphValue'
+											domain={[
+												yAxisTicks[0],
+												yAxisTicks[
+													yAxisTicks.length - 1
+												]
+											]}
+											tickFormatter={val => val}
+											ticks={yAxisTicks}
+											type={
+												histogram
+													? 'number'
+													: 'category'
 											}
-									  ]
-									: []
-							}
-							dataId='DISTRIBUTION'
-							generateChartOnLoad
-							height={352}
-							histogram={histogram}
-							id='DISTRIBUTION_CARD'
-							loading={loading}
-							noResultsProps={{spacer: true}}
-							padding={{bottom: 10}}
-							tooltip={{show: false}}
-							x='value'
-						/>
+											width={yAxisWidth}
+										/>
+
+										<YAxis
+											axisLine={{
+												stroke: AXIS.borderStroke
+											}}
+											dataKey='graphValue'
+											domain={[
+												yAxisTicks[0],
+												yAxisTicks[
+													yAxisTicks.length - 1
+												]
+											]}
+											orientation='right'
+											tick={false}
+											tickLine={false}
+											yAxisId='right'
+										/>
+
+										<XAxis
+											axisLine={{
+												stroke: AXIS.borderStroke
+											}}
+											dataKey={CHART_DATA_ID}
+											domain={[
+												0,
+												dataMax => dataMax * 1.1
+											]}
+											orientation='top'
+											scale='linear'
+											tickLine={false}
+											type='number'
+										/>
+
+										<XAxis
+											axisLine={{
+												stroke: AXIS.borderStroke
+											}}
+											dataKey={CHART_DATA_ID}
+											domain={[
+												0,
+												dataMax => dataMax * 1.1
+											]}
+											tick={false}
+											tickLine={false}
+											xAxisId='bottom'
+										/>
+
+										<Bar
+											dataKey={CHART_DATA_ID}
+											onMouseEnter={(e, index) =>
+												this.setState({
+													hoverIndex: index
+												})
+											}
+											onMouseLeave={() =>
+												this.setState({
+													hoverIndex: -1
+												})
+											}
+											radius={[0, 10, 10, 0]}
+										>
+											{formattedChartData.map(
+												(item, index) => (
+													<Cell
+														fill={this.getBarColor(
+															index
+														)}
+														key={`cell-${index}`}
+													/>
+												)
+											)}
+										</Bar>
+									</ComposedChart>
+								</ResponsiveContainer>
+							)}
+						</>
 					)}
 				</Card.Body>
 
