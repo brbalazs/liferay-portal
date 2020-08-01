@@ -61,11 +61,15 @@ public interface CPInstanceOptionValueRelLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CPInstanceOptionValueRelLocalServiceUtil} to access the cp instance option value rel local service. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPInstanceOptionValueRelLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPInstanceOptionValueRelLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the cp instance option value rel local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CPInstanceOptionValueRelLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**
 	 * Adds the cp instance option value rel to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPInstanceOptionValueRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpInstanceOptionValueRel the cp instance option value rel
 	 * @return the cp instance option value rel that was added
@@ -93,6 +97,10 @@ public interface CPInstanceOptionValueRelLocalService
 	/**
 	 * Deletes the cp instance option value rel from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPInstanceOptionValueRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param cpInstanceOptionValueRel the cp instance option value rel
 	 * @return the cp instance option value rel that was removed
 	 */
@@ -102,6 +110,10 @@ public interface CPInstanceOptionValueRelLocalService
 
 	/**
 	 * Deletes the cp instance option value rel with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPInstanceOptionValueRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param CPInstanceOptionValueRelId the primary key of the cp instance option value rel
 	 * @return the cp instance option value rel that was removed
@@ -345,6 +357,10 @@ public interface CPInstanceOptionValueRelLocalService
 
 	/**
 	 * Updates the cp instance option value rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPInstanceOptionValueRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpInstanceOptionValueRel the cp instance option value rel
 	 * @return the cp instance option value rel that was updated

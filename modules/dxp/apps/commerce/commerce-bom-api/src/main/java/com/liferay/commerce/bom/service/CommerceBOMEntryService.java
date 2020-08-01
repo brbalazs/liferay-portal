@@ -57,7 +57,7 @@ public interface CommerceBOMEntryService extends BaseService {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceBOMEntryServiceUtil} to access the commerce bom entry remote service. Add custom service methods to <code>com.liferay.commerce.bom.service.impl.CommerceBOMEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.bom.service.impl.CommerceBOMEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the commerce bom entry remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CommerceBOMEntryServiceUtil} if injection and service tracking are not available.
 	 */
 	public CommerceBOMEntry addCommerceBOMEntry(
 			long userId, int number, String cpInstanceUuid, long cProductId,

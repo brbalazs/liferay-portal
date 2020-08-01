@@ -59,7 +59,7 @@ public interface CPDefinitionGroupedEntryService extends BaseService {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CPDefinitionGroupedEntryServiceUtil} to access the cp definition grouped entry remote service. Add custom service methods to <code>com.liferay.commerce.product.type.grouped.service.impl.CPDefinitionGroupedEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.product.type.grouped.service.impl.CPDefinitionGroupedEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the cp definition grouped entry remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CPDefinitionGroupedEntryServiceUtil} if injection and service tracking are not available.
 	 */
 	public void addCPDefinitionGroupedEntries(
 			long cpDefinitionId, long[] entryCPDefinitionIds,

@@ -61,11 +61,15 @@ public interface CPDefinitionLinkLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CPDefinitionLinkLocalServiceUtil} to access the cp definition link local service. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPDefinitionLinkLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPDefinitionLinkLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the cp definition link local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CPDefinitionLinkLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**
 	 * Adds the cp definition link to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionLinkLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpDefinitionLink the cp definition link
 	 * @return the cp definition link that was added
@@ -100,6 +104,10 @@ public interface CPDefinitionLinkLocalService
 	/**
 	 * Deletes the cp definition link from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionLinkLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param cpDefinitionLink the cp definition link
 	 * @return the cp definition link that was removed
 	 * @throws PortalException
@@ -111,6 +119,10 @@ public interface CPDefinitionLinkLocalService
 
 	/**
 	 * Deletes the cp definition link with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionLinkLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param CPDefinitionLinkId the primary key of the cp definition link
 	 * @return the cp definition link that was removed
@@ -345,6 +357,10 @@ public interface CPDefinitionLinkLocalService
 
 	/**
 	 * Updates the cp definition link in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionLinkLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpDefinitionLink the cp definition link
 	 * @return the cp definition link that was updated

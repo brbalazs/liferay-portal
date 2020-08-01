@@ -56,7 +56,7 @@ public interface ClusterGroupLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link ClusterGroupLocalServiceUtil} to access the cluster group local service. Add custom service methods to <code>com.liferay.portal.service.impl.ClusterGroupLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.portal.service.impl.ClusterGroupLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the cluster group local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ClusterGroupLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**

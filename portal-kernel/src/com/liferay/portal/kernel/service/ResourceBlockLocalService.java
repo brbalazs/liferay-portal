@@ -64,7 +64,7 @@ public interface ResourceBlockLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link ResourceBlockLocalServiceUtil} to access the resource block local service. Add custom service methods to <code>com.liferay.portal.service.impl.ResourceBlockLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.portal.service.impl.ResourceBlockLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the resource block local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ResourceBlockLocalServiceUtil} if injection and service tracking are not available.
 	 */
 	public void addCompanyScopePermission(
 			long companyId, String name, long roleId, String actionId)

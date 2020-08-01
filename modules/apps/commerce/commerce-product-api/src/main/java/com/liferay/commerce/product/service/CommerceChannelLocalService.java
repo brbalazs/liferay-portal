@@ -64,11 +64,15 @@ public interface CommerceChannelLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceChannelLocalServiceUtil} to access the commerce channel local service. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CommerceChannelLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CommerceChannelLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the commerce channel local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CommerceChannelLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**
 	 * Adds the commerce channel to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceChannel the commerce channel
 	 * @return the commerce channel that was added
@@ -96,6 +100,10 @@ public interface CommerceChannelLocalService
 	/**
 	 * Deletes the commerce channel from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commerceChannel the commerce channel
 	 * @return the commerce channel that was removed
 	 * @throws PortalException
@@ -108,6 +116,10 @@ public interface CommerceChannelLocalService
 
 	/**
 	 * Deletes the commerce channel with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceChannelId the primary key of the commerce channel
 	 * @return the commerce channel that was removed
@@ -301,6 +313,10 @@ public interface CommerceChannelLocalService
 
 	/**
 	 * Updates the commerce channel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommerceChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commerceChannel the commerce channel
 	 * @return the commerce channel that was updated

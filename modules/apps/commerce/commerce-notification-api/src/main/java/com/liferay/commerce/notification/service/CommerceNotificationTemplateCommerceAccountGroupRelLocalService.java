@@ -59,7 +59,7 @@ public interface CommerceNotificationTemplateCommerceAccountGroupRelLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceNotificationTemplateCommerceAccountGroupRelLocalServiceUtil} to access the commerce notification template commerce account group rel local service. Add custom service methods to <code>com.liferay.commerce.notification.service.impl.CommerceNotificationTemplateCommerceAccountGroupRelLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.notification.service.impl.CommerceNotificationTemplateCommerceAccountGroupRelLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the commerce notification template commerce account group rel local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CommerceNotificationTemplateCommerceAccountGroupRelLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**

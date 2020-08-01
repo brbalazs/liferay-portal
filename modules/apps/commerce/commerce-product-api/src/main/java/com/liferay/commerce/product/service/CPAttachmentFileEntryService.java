@@ -63,7 +63,7 @@ public interface CPAttachmentFileEntryService extends BaseService {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CPAttachmentFileEntryServiceUtil} to access the cp attachment file entry remote service. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPAttachmentFileEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPAttachmentFileEntryServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the cp attachment file entry remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CPAttachmentFileEntryServiceUtil} if injection and service tracking are not available.
 	 */
 	public CPAttachmentFileEntry addCPAttachmentFileEntry(
 			long userId, long groupId, long classNameId, long classPK,

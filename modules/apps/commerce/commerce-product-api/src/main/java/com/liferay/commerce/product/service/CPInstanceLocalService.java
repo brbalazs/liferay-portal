@@ -71,11 +71,15 @@ public interface CPInstanceLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CPInstanceLocalServiceUtil} to access the cp instance local service. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPInstanceLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPInstanceLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the cp instance local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CPInstanceLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**
 	 * Adds the cp instance to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPInstanceLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpInstance the cp instance
 	 * @return the cp instance that was added
@@ -506,6 +510,10 @@ public interface CPInstanceLocalService
 	/**
 	 * Deletes the cp instance from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPInstanceLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param cpInstance the cp instance
 	 * @return the cp instance that was removed
 	 * @throws PortalException
@@ -517,6 +525,10 @@ public interface CPInstanceLocalService
 
 	/**
 	 * Deletes the cp instance with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPInstanceLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param CPInstanceId the primary key of the cp instance
 	 * @return the cp instance that was removed
@@ -841,6 +853,10 @@ public interface CPInstanceLocalService
 
 	/**
 	 * Updates the cp instance in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPInstanceLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpInstance the cp instance
 	 * @return the cp instance that was updated

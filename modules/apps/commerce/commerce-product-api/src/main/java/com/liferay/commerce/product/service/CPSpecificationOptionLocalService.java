@@ -67,11 +67,15 @@ public interface CPSpecificationOptionLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CPSpecificationOptionLocalServiceUtil} to access the cp specification option local service. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPSpecificationOptionLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPSpecificationOptionLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the cp specification option local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CPSpecificationOptionLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**
 	 * Adds the cp specification option to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPSpecificationOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpSpecificationOption the cp specification option
 	 * @return the cp specification option that was added
@@ -100,6 +104,10 @@ public interface CPSpecificationOptionLocalService
 	/**
 	 * Deletes the cp specification option from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPSpecificationOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param cpSpecificationOption the cp specification option
 	 * @return the cp specification option that was removed
 	 * @throws PortalException
@@ -112,6 +120,10 @@ public interface CPSpecificationOptionLocalService
 
 	/**
 	 * Deletes the cp specification option with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPSpecificationOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param CPSpecificationOptionId the primary key of the cp specification option
 	 * @return the cp specification option that was removed
@@ -308,6 +320,10 @@ public interface CPSpecificationOptionLocalService
 
 	/**
 	 * Updates the cp specification option in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPSpecificationOptionLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpSpecificationOption the cp specification option
 	 * @return the cp specification option that was updated

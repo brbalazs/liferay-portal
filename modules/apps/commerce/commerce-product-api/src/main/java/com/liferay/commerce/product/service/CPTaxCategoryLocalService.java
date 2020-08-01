@@ -63,11 +63,15 @@ public interface CPTaxCategoryLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CPTaxCategoryLocalServiceUtil} to access the cp tax category local service. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPTaxCategoryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPTaxCategoryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the cp tax category local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CPTaxCategoryLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**
 	 * Adds the cp tax category to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPTaxCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpTaxCategory the cp tax category
 	 * @return the cp tax category that was added
@@ -96,6 +100,10 @@ public interface CPTaxCategoryLocalService
 	/**
 	 * Deletes the cp tax category from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPTaxCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param cpTaxCategory the cp tax category
 	 * @return the cp tax category that was removed
 	 * @throws PortalException
@@ -107,6 +115,10 @@ public interface CPTaxCategoryLocalService
 
 	/**
 	 * Deletes the cp tax category with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPTaxCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param CPTaxCategoryId the primary key of the cp tax category
 	 * @return the cp tax category that was removed
@@ -262,6 +274,10 @@ public interface CPTaxCategoryLocalService
 
 	/**
 	 * Updates the cp tax category in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPTaxCategoryLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpTaxCategory the cp tax category
 	 * @return the cp tax category that was updated

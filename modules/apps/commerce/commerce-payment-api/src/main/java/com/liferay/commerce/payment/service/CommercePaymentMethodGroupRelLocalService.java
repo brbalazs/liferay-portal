@@ -64,7 +64,7 @@ public interface CommercePaymentMethodGroupRelLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommercePaymentMethodGroupRelLocalServiceUtil} to access the commerce payment method group rel local service. Add custom service methods to <code>com.liferay.commerce.payment.service.impl.CommercePaymentMethodGroupRelLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.payment.service.impl.CommercePaymentMethodGroupRelLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the commerce payment method group rel local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CommercePaymentMethodGroupRelLocalServiceUtil} if injection and service tracking are not available.
 	 */
 	public CommerceAddressRestriction addCommerceAddressRestriction(
 			long userId, long groupId, long commercePaymentMethodGroupRelId,

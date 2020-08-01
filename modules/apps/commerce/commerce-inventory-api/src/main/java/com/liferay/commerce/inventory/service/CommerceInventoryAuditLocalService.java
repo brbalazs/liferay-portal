@@ -59,7 +59,7 @@ public interface CommerceInventoryAuditLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceInventoryAuditLocalServiceUtil} to access the commerce inventory audit local service. Add custom service methods to <code>com.liferay.commerce.inventory.service.impl.CommerceInventoryAuditLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.inventory.service.impl.CommerceInventoryAuditLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the commerce inventory audit local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CommerceInventoryAuditLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**

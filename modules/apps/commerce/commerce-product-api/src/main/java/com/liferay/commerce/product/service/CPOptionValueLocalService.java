@@ -69,11 +69,15 @@ public interface CPOptionValueLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CPOptionValueLocalServiceUtil} to access the cp option value local service. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPOptionValueLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPOptionValueLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the cp option value local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CPOptionValueLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**
 	 * Adds the cp option value to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpOptionValue the cp option value
 	 * @return the cp option value that was added
@@ -106,6 +110,10 @@ public interface CPOptionValueLocalService
 	/**
 	 * Deletes the cp option value from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param cpOptionValue the cp option value
 	 * @return the cp option value that was removed
 	 * @throws PortalException
@@ -117,6 +125,10 @@ public interface CPOptionValueLocalService
 
 	/**
 	 * Deletes the cp option value with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param CPOptionValueId the primary key of the cp option value
 	 * @return the cp option value that was removed
@@ -328,6 +340,10 @@ public interface CPOptionValueLocalService
 
 	/**
 	 * Updates the cp option value in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpOptionValue the cp option value
 	 * @return the cp option value that was updated

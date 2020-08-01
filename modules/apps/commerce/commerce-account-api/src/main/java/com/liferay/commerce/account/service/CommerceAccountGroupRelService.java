@@ -59,7 +59,7 @@ public interface CommerceAccountGroupRelService extends BaseService {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceAccountGroupRelServiceUtil} to access the commerce account group rel remote service. Add custom service methods to <code>com.liferay.commerce.account.service.impl.CommerceAccountGroupRelServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.account.service.impl.CommerceAccountGroupRelServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the commerce account group rel remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CommerceAccountGroupRelServiceUtil} if injection and service tracking are not available.
 	 */
 	public CommerceAccountGroupRel addCommerceAccountGroupRel(
 			String className, long classPK, long commerceAccountGroupId,

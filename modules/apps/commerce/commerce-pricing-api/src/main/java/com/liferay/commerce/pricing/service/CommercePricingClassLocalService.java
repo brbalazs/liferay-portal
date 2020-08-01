@@ -65,7 +65,7 @@ public interface CommercePricingClassLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommercePricingClassLocalServiceUtil} to access the commerce pricing class local service. Add custom service methods to <code>com.liferay.commerce.pricing.service.impl.CommercePricingClassLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.pricing.service.impl.CommercePricingClassLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the commerce pricing class local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CommercePricingClassLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**

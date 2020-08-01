@@ -59,7 +59,7 @@ public interface CommerceAccountOrganizationRelService extends BaseService {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceAccountOrganizationRelServiceUtil} to access the commerce account organization rel remote service. Add custom service methods to <code>com.liferay.commerce.account.service.impl.CommerceAccountOrganizationRelServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.account.service.impl.CommerceAccountOrganizationRelServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the commerce account organization rel remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CommerceAccountOrganizationRelServiceUtil} if injection and service tracking are not available.
 	 */
 	public CommerceAccountOrganizationRel addCommerceAccountOrganizationRel(
 			long commerceAccountId, long organizationId,

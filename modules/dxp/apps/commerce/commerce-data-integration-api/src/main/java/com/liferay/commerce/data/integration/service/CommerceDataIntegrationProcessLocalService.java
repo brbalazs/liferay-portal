@@ -61,7 +61,7 @@ public interface CommerceDataIntegrationProcessLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommerceDataIntegrationProcessLocalServiceUtil} to access the commerce data integration process local service. Add custom service methods to <code>com.liferay.commerce.data.integration.service.impl.CommerceDataIntegrationProcessLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.data.integration.service.impl.CommerceDataIntegrationProcessLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the commerce data integration process local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CommerceDataIntegrationProcessLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**

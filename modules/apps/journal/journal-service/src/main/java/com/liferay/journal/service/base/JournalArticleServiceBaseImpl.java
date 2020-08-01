@@ -926,49 +926,6 @@ public abstract class JournalArticleServiceBaseImpl
 	}
 
 	/**
-	 * Returns the ratings stats local service.
-	 *
-	 * @return the ratings stats local service
-	 */
-	public com.liferay.ratings.kernel.service.RatingsStatsLocalService
-		getRatingsStatsLocalService() {
-
-		return ratingsStatsLocalService;
-	}
-
-	/**
-	 * Sets the ratings stats local service.
-	 *
-	 * @param ratingsStatsLocalService the ratings stats local service
-	 */
-	public void setRatingsStatsLocalService(
-		com.liferay.ratings.kernel.service.RatingsStatsLocalService
-			ratingsStatsLocalService) {
-
-		this.ratingsStatsLocalService = ratingsStatsLocalService;
-	}
-
-	/**
-	 * Returns the ratings stats persistence.
-	 *
-	 * @return the ratings stats persistence
-	 */
-	public RatingsStatsPersistence getRatingsStatsPersistence() {
-		return ratingsStatsPersistence;
-	}
-
-	/**
-	 * Sets the ratings stats persistence.
-	 *
-	 * @param ratingsStatsPersistence the ratings stats persistence
-	 */
-	public void setRatingsStatsPersistence(
-		RatingsStatsPersistence ratingsStatsPersistence) {
-
-		this.ratingsStatsPersistence = ratingsStatsPersistence;
-	}
-
-	/**
 	 * Returns the trash entry local service.
 	 *
 	 * @return the trash entry local service
@@ -1278,6 +1235,49 @@ public abstract class JournalArticleServiceBaseImpl
 		this.journalFolderFinder = journalFolderFinder;
 	}
 
+	/**
+	 * Returns the ratings stats local service.
+	 *
+	 * @return the ratings stats local service
+	 */
+	public com.liferay.ratings.kernel.service.RatingsStatsLocalService
+		getRatingsStatsLocalService() {
+
+		return ratingsStatsLocalService;
+	}
+
+	/**
+	 * Sets the ratings stats local service.
+	 *
+	 * @param ratingsStatsLocalService the ratings stats local service
+	 */
+	public void setRatingsStatsLocalService(
+		com.liferay.ratings.kernel.service.RatingsStatsLocalService
+			ratingsStatsLocalService) {
+
+		this.ratingsStatsLocalService = ratingsStatsLocalService;
+	}
+
+	/**
+	 * Returns the ratings stats persistence.
+	 *
+	 * @return the ratings stats persistence
+	 */
+	public RatingsStatsPersistence getRatingsStatsPersistence() {
+		return ratingsStatsPersistence;
+	}
+
+	/**
+	 * Sets the ratings stats persistence.
+	 *
+	 * @param ratingsStatsPersistence the ratings stats persistence
+	 */
+	public void setRatingsStatsPersistence(
+		RatingsStatsPersistence ratingsStatsPersistence) {
+
+		this.ratingsStatsPersistence = ratingsStatsPersistence;
+	}
+
 	public void afterPropertiesSet() {
 	}
 
@@ -1517,15 +1517,6 @@ public abstract class JournalArticleServiceBaseImpl
 	protected ExpandoRowPersistence expandoRowPersistence;
 
 	@ServiceReference(
-		type = com.liferay.ratings.kernel.service.RatingsStatsLocalService.class
-	)
-	protected com.liferay.ratings.kernel.service.RatingsStatsLocalService
-		ratingsStatsLocalService;
-
-	@ServiceReference(type = RatingsStatsPersistence.class)
-	protected RatingsStatsPersistence ratingsStatsPersistence;
-
-	@ServiceReference(
 		type = com.liferay.trash.kernel.service.TrashEntryLocalService.class
 	)
 	protected com.liferay.trash.kernel.service.TrashEntryLocalService
@@ -1589,5 +1580,14 @@ public abstract class JournalArticleServiceBaseImpl
 
 	@BeanReference(type = JournalFolderFinder.class)
 	protected JournalFolderFinder journalFolderFinder;
+
+	@ServiceReference(
+		type = com.liferay.ratings.kernel.service.RatingsStatsLocalService.class
+	)
+	protected com.liferay.ratings.kernel.service.RatingsStatsLocalService
+		ratingsStatsLocalService;
+
+	@ServiceReference(type = RatingsStatsPersistence.class)
+	protected RatingsStatsPersistence ratingsStatsPersistence;
 
 }

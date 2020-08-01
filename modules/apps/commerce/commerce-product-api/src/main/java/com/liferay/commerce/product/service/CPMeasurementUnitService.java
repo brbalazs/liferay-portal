@@ -61,7 +61,7 @@ public interface CPMeasurementUnitService extends BaseService {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CPMeasurementUnitServiceUtil} to access the cp measurement unit remote service. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPMeasurementUnitServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPMeasurementUnitServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the cp measurement unit remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CPMeasurementUnitServiceUtil} if injection and service tracking are not available.
 	 */
 	public CPMeasurementUnit addCPMeasurementUnit(
 			Map<Locale, String> nameMap, String key, double rate,

@@ -64,7 +64,7 @@ public interface OrganizationLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link OrganizationLocalServiceUtil} to access the organization local service. Add custom service methods to <code>com.liferay.portal.service.impl.OrganizationLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.portal.service.impl.OrganizationLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the organization local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link OrganizationLocalServiceUtil} if injection and service tracking are not available.
 	 */
 	public void addGroupOrganization(long groupId, long organizationId);
 

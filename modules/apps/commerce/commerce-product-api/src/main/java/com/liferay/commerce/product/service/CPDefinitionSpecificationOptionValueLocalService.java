@@ -63,11 +63,15 @@ public interface CPDefinitionSpecificationOptionValueLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CPDefinitionSpecificationOptionValueLocalServiceUtil} to access the cp definition specification option value local service. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPDefinitionSpecificationOptionValueLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.product.service.impl.CPDefinitionSpecificationOptionValueLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the cp definition specification option value local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CPDefinitionSpecificationOptionValueLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**
 	 * Adds the cp definition specification option value to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionSpecificationOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpDefinitionSpecificationOptionValue the cp definition specification option value
 	 * @return the cp definition specification option value that was added
@@ -99,6 +103,10 @@ public interface CPDefinitionSpecificationOptionValueLocalService
 	/**
 	 * Deletes the cp definition specification option value from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionSpecificationOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param cpDefinitionSpecificationOptionValue the cp definition specification option value
 	 * @return the cp definition specification option value that was removed
 	 * @throws PortalException
@@ -112,6 +120,10 @@ public interface CPDefinitionSpecificationOptionValueLocalService
 
 	/**
 	 * Deletes the cp definition specification option value with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionSpecificationOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param CPDefinitionSpecificationOptionValueId the primary key of the cp definition specification option value
 	 * @return the cp definition specification option value that was removed
@@ -365,6 +377,10 @@ public interface CPDefinitionSpecificationOptionValueLocalService
 
 	/**
 	 * Updates the cp definition specification option value in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CPDefinitionSpecificationOptionValueLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param cpDefinitionSpecificationOptionValue the cp definition specification option value
 	 * @return the cp definition specification option value that was updated
