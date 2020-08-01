@@ -9,7 +9,7 @@ import Promise from 'metal-promise';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
-import {AXIS, BAR, getTextWidth} from 'shared/util/clay-recharts';
+import {AXIS, BAR_COLORS, getTextWidth} from 'shared/util/clay-recharts';
 import {
 	Bar,
 	CartesianGrid,
@@ -75,10 +75,10 @@ class DistributionChart extends React.Component<IDistributionChartProps> {
 		const {hoverIndex} = this.state;
 
 		if (index === hoverIndex) {
-			return BAR.hoverFill;
+			return BAR_COLORS.hover;
 		}
 
-		return BAR.defaultFill;
+		return BAR_COLORS.default;
 	}
 
 	getYAxisTicks(fieldDistributions, histogram) {

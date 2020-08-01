@@ -24,7 +24,7 @@ import {
 	individualsListColumns
 } from 'shared/util/table-columns';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
-import {AXIS, BAR, getTextWidth} from 'shared/util/clay-recharts';
+import {AXIS, BAR_COLORS, getTextWidth} from 'shared/util/clay-recharts';
 import {
 	Bar,
 	CartesianGrid,
@@ -45,8 +45,8 @@ import {connect} from 'react-redux';
 import {createNumberMask} from 'text-mask-addons';
 import {getFinitePercent} from 'shared/util/change';
 import {hasChanges} from 'shared/util/react';
+import {isNumber, noop, omit, pickBy, truncate} from 'lodash';
 import {List, Map} from 'immutable';
-import {noop, omit, pickBy, truncate} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {setUriQueryValues} from 'shared/util/router';
 
@@ -376,13 +376,15 @@ export class Distribution extends React.Component {
 			state: {hoverIndex}
 		} = this;
 
-		if (index === selectedPoint) {
-			return BAR.selectedFill;
+		if (selectedPoint === index) {
+			return BAR_COLORS.selected;
 		} else if (index === hoverIndex) {
-			return BAR.hoverFill;
+			return BAR_COLORS.hover;
+		} else if (isNumber(selectedPoint)) {
+			return BAR_COLORS.notSelected;
 		}
 
-		return BAR.defaultFill;
+		return BAR_COLORS.default;
 	}
 
 	getNumberOfBins() {

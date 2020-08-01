@@ -14,10 +14,11 @@ export const AXIS = {
 	textColor: '#6B6C7E'
 };
 
-export const BAR = {
-	defaultFill: '#97C5FF',
-	hoverFill: '#4B9BFF',
-	selectedFill: '#0071FD'
+export const BAR_COLORS = {
+	default: '#4B9BFF',
+	hover: '#318DFF',
+	notSelected: '#97C5FF',
+	selected: '#0071FD'
 };
 
 export function getTextWidth(text, font = '14px Source Sans Pro') {
