@@ -46,11 +46,10 @@ public class AggregationContextProvider
 		_portal = portal;
 	}
 
-	public Aggregation createContext(
-		AcceptLanguage acceptLanguage, EntityModel entityModel,
-		String[] aggregationTerms) {
+	private Aggregation _createContext(
+		AcceptLanguage acceptLanguage, String[] aggregationTerms, EntityModel entityModel) {
 
-		if ((entityModel == null) || (aggregationTerms == null)) {
+		if ((aggregationTerms == null) || (entityModel == null)) {
 			return null;
 		}
 
@@ -92,11 +91,11 @@ public class AggregationContextProvider
 			HttpServletRequest httpServletRequest =
 				ContextProviderUtil.getHttpServletRequest(message);
 
-			return createContext(
+			return _createContext(
 				new AcceptLanguageImpl(httpServletRequest, _language, _portal),
-				ContextProviderUtil.getEntityModel(message),
 				ParamUtil.getStringValues(
-					httpServletRequest, "aggregationTerms"));
+					httpServletRequest, "aggregationTerms"),
+				ContextProviderUtil.getEntityModel(message));
 		}
 		catch (Exception exception) {
 			throw new ServerErrorException(500, exception);
