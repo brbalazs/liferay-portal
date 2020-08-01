@@ -64,10 +64,10 @@ public class AggregationContextProvider
 	}
 
 	private Aggregation _createContext(
-		AcceptLanguage acceptLanguage, String[] aggregationTerms,
+		AcceptLanguage acceptLanguage, String[] aggregationTermsArray,
 		EntityModel entityModel) {
 
-		if ((aggregationTerms == null) || (entityModel == null)) {
+		if ((aggregationTermsArray == null) || (entityModel == null)) {
 			return null;
 		}
 
@@ -76,10 +76,10 @@ public class AggregationContextProvider
 
 		Aggregation aggregation = new Aggregation();
 
-		Map<String, String> aggregationTermsMap =
+		Map<String, String> aggregationTerms =
 			aggregation.getAggregationTerms();
 
-		for (String aggregationTerm : aggregationTerms) {
+		for (String aggregationTerm : aggregationTermsArray) {
 			if (entityFieldsMap.containsKey(aggregationTerm)) {
 				EntityField entityField = entityFieldsMap.get(aggregationTerm);
 
@@ -90,13 +90,13 @@ public class AggregationContextProvider
 					entityField = collectionEntityField.getEntityField();
 				}
 
-				aggregationTermsMap.put(
+				aggregationTerms.put(
 					aggregationTerm,
 					entityField.getFilterableName(
 						acceptLanguage.getPreferredLocale()));
 			}
 			else {
-				aggregationTermsMap.put(aggregationTerm, aggregationTerm);
+				aggregationTerms.put(aggregationTerm, aggregationTerm);
 			}
 		}
 
