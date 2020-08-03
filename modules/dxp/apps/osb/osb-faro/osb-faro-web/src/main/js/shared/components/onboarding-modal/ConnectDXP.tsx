@@ -18,7 +18,7 @@ import {Routes, toRoute} from 'shared/util/router';
 import {useLazyQuery} from '@apollo/react-hooks';
 
 const {credentialTypes, dataSourceTypes} = Constants;
-const {HELP_LIFERAY} = urlConstants;
+const {HELP_CONNECT_DXP} = urlConstants;
 const TIMEOUT_INTERVAL = 5000;
 
 interface IConnectDXPProps {
@@ -209,7 +209,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 						{isUpgrading && (
 							<a
 								className='more-information-link'
-								href={HELP_LIFERAY}
+								href={HELP_CONNECT_DXP}
 								target='_blank'
 							>
 								{Liferay.Language.get('more-information')}
