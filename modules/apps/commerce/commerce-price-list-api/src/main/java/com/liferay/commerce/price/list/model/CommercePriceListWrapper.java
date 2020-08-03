@@ -239,6 +239,11 @@ public class CommercePriceListWrapper
 		return _commercePriceList.compareTo(commercePriceList);
 	}
 
+	@Override
+	public CommercePriceList fetchParentCommercePriceList() {
+		return _commercePriceList.fetchParentCommercePriceList();
+	}
+
 	/**
 	 * Returns the catalog base price list of this commerce price list.
 	 *

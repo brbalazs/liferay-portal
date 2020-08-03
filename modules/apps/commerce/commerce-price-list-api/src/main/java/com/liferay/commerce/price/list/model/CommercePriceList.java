@@ -64,4 +64,6 @@ public interface CommercePriceList
 			getCommerceCurrency()
 		throws com.liferay.portal.kernel.exception.PortalException;
 
+	public CommercePriceList fetchParentCommercePriceList();
+
 }
