@@ -208,11 +208,6 @@ public class CPDefinitionLocalServiceImpl
 		cpDefinition.setTelcoOrElectronics(telcoOrElectronics);
 		cpDefinition.setDDMStructureKey(ddmStructureKey);
 		cpDefinition.setPublished(published);
-
-		Locale locale = LocaleUtil.getSiteDefault();
-
-		cpDefinition.setDefaultLanguageId(LocaleUtil.toLanguageId(locale));
-
 		cpDefinition.setDisplayDate(displayDate);
 		cpDefinition.setExpirationDate(expirationDate);
 		cpDefinition.setSubscriptionEnabled(subscriptionEnabled);

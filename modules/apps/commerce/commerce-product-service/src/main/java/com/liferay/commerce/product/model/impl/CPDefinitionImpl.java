@@ -40,6 +40,7 @@ import com.liferay.friendly.url.service.FriendlyURLEntryLocalServiceUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.ModelHintsUtil;
 import com.liferay.portal.kernel.service.ClassNameLocalServiceUtil;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
@@ -240,6 +241,17 @@ public class CPDefinitionImpl extends CPDefinitionBaseImpl {
 
 		return CommerceMediaResolverUtil.getThumbnailUrl(
 			cpAttachmentFileEntry.getCPAttachmentFileEntryId());
+	}
+
+	@Override
+	public String getDefaultLanguageId() {
+		CommerceCatalog commerceCatalog = getCommerceCatalog();
+
+		if (commerceCatalog == null) {
+			return LanguageUtil.getLanguageId(LocaleUtil.getSiteDefault());
+		}
+
+		return commerceCatalog.getCatalogDefaultLanguageId();
 	}
 
 	@Override
