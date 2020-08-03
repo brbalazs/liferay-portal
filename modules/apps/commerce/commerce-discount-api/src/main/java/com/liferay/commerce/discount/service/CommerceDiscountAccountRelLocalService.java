@@ -267,13 +267,8 @@ public interface CommerceDiscountAccountRelLocalService
 		OrderByComparator<CommerceDiscountAccountRel> orderByComparator);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommerceDiscountAccountRel>
-		getCommerceDiscountAccountRelsByCommerceDiscountId(
-			long commerceDiscountId, String name, int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
-		long commerceDiscountId, String name);
+	public List<CommerceDiscountAccountRel> getCommerceDiscountAccountRels(
+		long commerceDiscountId, String name, int start, int end);
 
 	/**
 	 * Returns the number of commerce discount account rels.
@@ -285,6 +280,10 @@ public interface CommerceDiscountAccountRelLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceDiscountAccountRelsCount(long commerceDiscountId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceDiscountAccountRelsCount(
+		long commerceDiscountId, String name);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(

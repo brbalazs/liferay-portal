@@ -104,18 +104,17 @@ public interface CommercePriceListCommerceAccountGroupRelService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceListCommerceAccountGroupRel>
-		getCommercePriceListCommerceAccountGroupRelsByCommercePriceListId(
+		getCommercePriceListCommerceAccountGroupRels(
 			long commercePriceListId, String name, int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int
-		getCommercePriceListCommerceAccountGroupRelsByCommercePriceListIdCount(
-			long commercePriceListId, String name);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommercePriceListCommerceAccountGroupRelsCount(
 			long commercePriceListId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePriceListCommerceAccountGroupRelsCount(
+		long commercePriceListId, String name);
 
 	/**
 	 * Returns the OSGi service identifier.

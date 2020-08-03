@@ -129,7 +129,7 @@ public class CommercePriceModifierRelServiceSoap {
 
 	public static
 		com.liferay.commerce.pricing.model.CommercePriceModifierRelSoap[]
-				getCategoriesByCommercePriceModifierId(
+				getCategoriesCommercePriceModifierRels(
 					long commercePriceModifierId, String name, int start,
 					int end)
 			throws RemoteException {
@@ -139,7 +139,7 @@ public class CommercePriceModifierRelServiceSoap {
 				<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
 					returnValue =
 						CommercePriceModifierRelServiceUtil.
-							getCategoriesByCommercePriceModifierId(
+							getCategoriesCommercePriceModifierRels(
 								commercePriceModifierId, name, start, end);
 
 			return com.liferay.commerce.pricing.model.
@@ -152,14 +152,14 @@ public class CommercePriceModifierRelServiceSoap {
 		}
 	}
 
-	public static int getCategoriesByCommercePriceModifierIdCount(
+	public static int getCategoriesCommercePriceModifierRelsCount(
 			long commercePriceModifierId, String name)
 		throws RemoteException {
 
 		try {
 			int returnValue =
 				CommercePriceModifierRelServiceUtil.
-					getCategoriesByCommercePriceModifierIdCount(
+					getCategoriesCommercePriceModifierRelsCount(
 						commercePriceModifierId, name);
 
 			return returnValue;
@@ -306,7 +306,7 @@ public class CommercePriceModifierRelServiceSoap {
 
 	public static
 		com.liferay.commerce.pricing.model.CommercePriceModifierRelSoap[]
-				getCommercePricingClassesByCommercePriceModifierId(
+				getCommercePricingClassesCommercePriceModifierRels(
 					long commercePriceModifierId, String title, int start,
 					int end)
 			throws RemoteException {
@@ -316,7 +316,7 @@ public class CommercePriceModifierRelServiceSoap {
 				<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
 					returnValue =
 						CommercePriceModifierRelServiceUtil.
-							getCommercePricingClassesByCommercePriceModifierId(
+							getCommercePricingClassesCommercePriceModifierRels(
 								commercePriceModifierId, title, start, end);
 
 			return com.liferay.commerce.pricing.model.
@@ -329,14 +329,14 @@ public class CommercePriceModifierRelServiceSoap {
 		}
 	}
 
-	public static int getCommercePricingClassesByCommercePriceModifierIdCount(
+	public static int getCommercePricingClassesCommercePriceModifierRelsCount(
 			long commercePriceModifierId, String title)
 		throws RemoteException {
 
 		try {
 			int returnValue =
 				CommercePriceModifierRelServiceUtil.
-					getCommercePricingClassesByCommercePriceModifierIdCount(
+					getCommercePricingClassesCommercePriceModifierRelsCount(
 						commercePriceModifierId, title);
 
 			return returnValue;
@@ -350,7 +350,7 @@ public class CommercePriceModifierRelServiceSoap {
 
 	public static
 		com.liferay.commerce.pricing.model.CommercePriceModifierRelSoap[]
-				getCPDefinitionsByCommercePriceModifierId(
+				getCPDefinitionsCommercePriceModifierRels(
 					long commercePriceModifierId, String name,
 					String languageId, int start, int end)
 			throws RemoteException {
@@ -360,7 +360,7 @@ public class CommercePriceModifierRelServiceSoap {
 				<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
 					returnValue =
 						CommercePriceModifierRelServiceUtil.
-							getCPDefinitionsByCommercePriceModifierId(
+							getCPDefinitionsCommercePriceModifierRels(
 								commercePriceModifierId, name, languageId,
 								start, end);
 
@@ -374,14 +374,14 @@ public class CommercePriceModifierRelServiceSoap {
 		}
 	}
 
-	public static int getCPDefinitionsByCommercePriceModifierIdCount(
+	public static int getCPDefinitionsCommercePriceModifierRelsCount(
 			long commercePriceModifierId, String name, String languageId)
 		throws RemoteException {
 
 		try {
 			int returnValue =
 				CommercePriceModifierRelServiceUtil.
-					getCPDefinitionsByCommercePriceModifierIdCount(
+					getCPDefinitionsCommercePriceModifierRelsCount(
 						commercePriceModifierId, name, languageId);
 
 			return returnValue;

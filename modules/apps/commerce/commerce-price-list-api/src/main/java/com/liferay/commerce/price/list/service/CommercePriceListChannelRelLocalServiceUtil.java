@@ -334,20 +334,11 @@ public class CommercePriceListChannelRelLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceListChannelRel>
-			getCommercePriceListChannelRelsByCommercePriceListId(
+			getCommercePriceListChannelRels(
 				long commercePriceListId, String name, int start, int end) {
 
-		return getService().
-			getCommercePriceListChannelRelsByCommercePriceListId(
-				commercePriceListId, name, start, end);
-	}
-
-	public static int getCommercePriceListChannelRelsByCommercePriceListIdCount(
-		long commercePriceListId, String name) {
-
-		return getService().
-			getCommercePriceListChannelRelsByCommercePriceListIdCount(
-				commercePriceListId, name);
+		return getService().getCommercePriceListChannelRels(
+			commercePriceListId, name, start, end);
 	}
 
 	/**
@@ -364,6 +355,13 @@ public class CommercePriceListChannelRelLocalServiceUtil {
 
 		return getService().getCommercePriceListChannelRelsCount(
 			commercePriceListId);
+	}
+
+	public static int getCommercePriceListChannelRelsCount(
+		long commercePriceListId, String name) {
+
+		return getService().getCommercePriceListChannelRelsCount(
+			commercePriceListId, name);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery

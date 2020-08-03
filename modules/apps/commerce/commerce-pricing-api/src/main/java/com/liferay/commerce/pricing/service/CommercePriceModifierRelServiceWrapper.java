@@ -65,20 +65,20 @@ public class CommercePriceModifierRelServiceWrapper
 	@Override
 	public java.util.List
 		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
-			getCategoriesByCommercePriceModifierId(
+			getCategoriesCommercePriceModifierRels(
 				long commercePriceModifierId, String name, int start, int end) {
 
 		return _commercePriceModifierRelService.
-			getCategoriesByCommercePriceModifierId(
+			getCategoriesCommercePriceModifierRels(
 				commercePriceModifierId, name, start, end);
 	}
 
 	@Override
-	public int getCategoriesByCommercePriceModifierIdCount(
+	public int getCategoriesCommercePriceModifierRelsCount(
 		long commercePriceModifierId, String name) {
 
 		return _commercePriceModifierRelService.
-			getCategoriesByCommercePriceModifierIdCount(
+			getCategoriesCommercePriceModifierRelsCount(
 				commercePriceModifierId, name);
 	}
 
@@ -148,42 +148,42 @@ public class CommercePriceModifierRelServiceWrapper
 	@Override
 	public java.util.List
 		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
-			getCommercePricingClassesByCommercePriceModifierId(
+			getCommercePricingClassesCommercePriceModifierRels(
 				long commercePriceModifierId, String title, int start,
 				int end) {
 
 		return _commercePriceModifierRelService.
-			getCommercePricingClassesByCommercePriceModifierId(
+			getCommercePricingClassesCommercePriceModifierRels(
 				commercePriceModifierId, title, start, end);
 	}
 
 	@Override
-	public int getCommercePricingClassesByCommercePriceModifierIdCount(
+	public int getCommercePricingClassesCommercePriceModifierRelsCount(
 		long commercePriceModifierId, String title) {
 
 		return _commercePriceModifierRelService.
-			getCommercePricingClassesByCommercePriceModifierIdCount(
+			getCommercePricingClassesCommercePriceModifierRelsCount(
 				commercePriceModifierId, title);
 	}
 
 	@Override
 	public java.util.List
 		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
-			getCPDefinitionsByCommercePriceModifierId(
+			getCPDefinitionsCommercePriceModifierRels(
 				long commercePriceModifierId, String name, String languageId,
 				int start, int end) {
 
 		return _commercePriceModifierRelService.
-			getCPDefinitionsByCommercePriceModifierId(
+			getCPDefinitionsCommercePriceModifierRels(
 				commercePriceModifierId, name, languageId, start, end);
 	}
 
 	@Override
-	public int getCPDefinitionsByCommercePriceModifierIdCount(
+	public int getCPDefinitionsCommercePriceModifierRelsCount(
 		long commercePriceModifierId, String name, String languageId) {
 
 		return _commercePriceModifierRelService.
-			getCPDefinitionsByCommercePriceModifierIdCount(
+			getCPDefinitionsCommercePriceModifierRelsCount(
 				commercePriceModifierId, name, languageId);
 	}
 

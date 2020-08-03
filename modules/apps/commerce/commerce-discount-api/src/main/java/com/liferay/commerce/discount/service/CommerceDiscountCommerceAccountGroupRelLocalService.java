@@ -254,13 +254,8 @@ public interface CommerceDiscountCommerceAccountGroupRelLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceDiscountCommerceAccountGroupRel>
-		getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+		getCommerceDiscountCommerceAccountGroupRels(
 			long commerceDiscountId, String name, int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int
-		getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountIdCount(
-			long commerceDiscountId, String name);
 
 	/**
 	 * Returns the number of commerce discount commerce account group rels.
@@ -273,6 +268,10 @@ public interface CommerceDiscountCommerceAccountGroupRelLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommerceDiscountCommerceAccountGroupRelsCount(
 		long commerceDiscountId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommerceDiscountCommerceAccountGroupRelsCount(
+		long commerceDiscountId, String name);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();

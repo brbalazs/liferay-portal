@@ -109,20 +109,11 @@ public class CommercePriceListAccountRelServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceListAccountRel>
-			getCommercePriceListAccountRelsByCommercePriceListId(
+			getCommercePriceListAccountRels(
 				long commercePriceListId, String name, int start, int end) {
 
-		return getService().
-			getCommercePriceListAccountRelsByCommercePriceListId(
-				commercePriceListId, name, start, end);
-	}
-
-	public static int getCommercePriceListAccountRelsByCommercePriceListIdCount(
-		long commercePriceListId, String name) {
-
-		return getService().
-			getCommercePriceListAccountRelsByCommercePriceListIdCount(
-				commercePriceListId, name);
+		return getService().getCommercePriceListAccountRels(
+			commercePriceListId, name, start, end);
 	}
 
 	public static int getCommercePriceListAccountRelsCount(
@@ -131,6 +122,13 @@ public class CommercePriceListAccountRelServiceUtil {
 
 		return getService().getCommercePriceListAccountRelsCount(
 			commercePriceListId);
+	}
+
+	public static int getCommercePriceListAccountRelsCount(
+		long commercePriceListId, String name) {
+
+		return getService().getCommercePriceListAccountRelsCount(
+			commercePriceListId, name);
 	}
 
 	/**

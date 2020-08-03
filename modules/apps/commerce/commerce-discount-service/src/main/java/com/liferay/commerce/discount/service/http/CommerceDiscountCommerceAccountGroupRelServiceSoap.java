@@ -201,7 +201,7 @@ public class CommerceDiscountCommerceAccountGroupRelServiceSoap {
 
 	public static com.liferay.commerce.discount.model.
 		CommerceDiscountCommerceAccountGroupRelSoap[]
-				getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+				getCommerceDiscountCommerceAccountGroupRels(
 					long commerceDiscountId, String name, int start, int end)
 			throws RemoteException {
 
@@ -210,32 +210,12 @@ public class CommerceDiscountCommerceAccountGroupRelServiceSoap {
 				<com.liferay.commerce.discount.model.
 					CommerceDiscountCommerceAccountGroupRel> returnValue =
 						CommerceDiscountCommerceAccountGroupRelServiceUtil.
-							getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+							getCommerceDiscountCommerceAccountGroupRels(
 								commerceDiscountId, name, start, end);
 
 			return com.liferay.commerce.discount.model.
 				CommerceDiscountCommerceAccountGroupRelSoap.toSoapModels(
 					returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static int
-			getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountIdCount(
-				long commerceDiscountId, String name)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				CommerceDiscountCommerceAccountGroupRelServiceUtil.
-					getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountIdCount(
-						commerceDiscountId, name);
-
-			return returnValue;
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -253,6 +233,25 @@ public class CommerceDiscountCommerceAccountGroupRelServiceSoap {
 				CommerceDiscountCommerceAccountGroupRelServiceUtil.
 					getCommerceDiscountCommerceAccountGroupRelsCount(
 						commerceDiscountId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommerceDiscountCommerceAccountGroupRelsCount(
+			long commerceDiscountId, String name)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceDiscountCommerceAccountGroupRelServiceUtil.
+					getCommerceDiscountCommerceAccountGroupRelsCount(
+						commerceDiscountId, name);
 
 			return returnValue;
 		}

@@ -98,10 +98,6 @@ public abstract class CommercePriceModifierLocalServiceBaseImpl
 	/**
 	 * Adds the commerce price modifier to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceModifierLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commercePriceModifier the commerce price modifier
 	 * @return the commerce price modifier that was added
 	 */
@@ -132,10 +128,6 @@ public abstract class CommercePriceModifierLocalServiceBaseImpl
 	/**
 	 * Deletes the commerce price modifier with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceModifierLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commercePriceModifierId the primary key of the commerce price modifier
 	 * @return the commerce price modifier that was removed
 	 * @throws PortalException if a commerce price modifier with the primary key could not be found
@@ -151,10 +143,6 @@ public abstract class CommercePriceModifierLocalServiceBaseImpl
 
 	/**
 	 * Deletes the commerce price modifier from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceModifierLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commercePriceModifier the commerce price modifier
 	 * @return the commerce price modifier that was removed
@@ -594,10 +582,6 @@ public abstract class CommercePriceModifierLocalServiceBaseImpl
 
 	/**
 	 * Updates the commerce price modifier in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceModifierLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commercePriceModifier the commerce price modifier
 	 * @return the commerce price modifier that was updated

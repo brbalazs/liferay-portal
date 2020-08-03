@@ -180,15 +180,15 @@ public class CommercePriceModifierRelServiceHttp {
 
 	public static java.util.List
 		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
-			getCategoriesByCommercePriceModifierId(
+			getCategoriesCommercePriceModifierRels(
 				HttpPrincipal httpPrincipal, long commercePriceModifierId,
 				String name, int start, int end) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceModifierRelServiceUtil.class,
-				"getCategoriesByCommercePriceModifierId",
-				_getCategoriesByCommercePriceModifierIdParameterTypes3);
+				"getCategoriesCommercePriceModifierRels",
+				_getCategoriesCommercePriceModifierRelsParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceModifierId, name, start, end);
@@ -216,15 +216,15 @@ public class CommercePriceModifierRelServiceHttp {
 		}
 	}
 
-	public static int getCategoriesByCommercePriceModifierIdCount(
+	public static int getCategoriesCommercePriceModifierRelsCount(
 		HttpPrincipal httpPrincipal, long commercePriceModifierId,
 		String name) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceModifierRelServiceUtil.class,
-				"getCategoriesByCommercePriceModifierIdCount",
-				_getCategoriesByCommercePriceModifierIdCountParameterTypes4);
+				"getCategoriesCommercePriceModifierRelsCount",
+				_getCategoriesCommercePriceModifierRelsCountParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceModifierId, name);
@@ -512,15 +512,15 @@ public class CommercePriceModifierRelServiceHttp {
 
 	public static java.util.List
 		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
-			getCommercePricingClassesByCommercePriceModifierId(
+			getCommercePricingClassesCommercePriceModifierRels(
 				HttpPrincipal httpPrincipal, long commercePriceModifierId,
 				String title, int start, int end) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceModifierRelServiceUtil.class,
-				"getCommercePricingClassesByCommercePriceModifierId",
-				_getCommercePricingClassesByCommercePriceModifierIdParameterTypes11);
+				"getCommercePricingClassesCommercePriceModifierRels",
+				_getCommercePricingClassesCommercePriceModifierRelsParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceModifierId, title, start, end);
@@ -548,15 +548,15 @@ public class CommercePriceModifierRelServiceHttp {
 		}
 	}
 
-	public static int getCommercePricingClassesByCommercePriceModifierIdCount(
+	public static int getCommercePricingClassesCommercePriceModifierRelsCount(
 		HttpPrincipal httpPrincipal, long commercePriceModifierId,
 		String title) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceModifierRelServiceUtil.class,
-				"getCommercePricingClassesByCommercePriceModifierIdCount",
-				_getCommercePricingClassesByCommercePriceModifierIdCountParameterTypes12);
+				"getCommercePricingClassesCommercePriceModifierRelsCount",
+				_getCommercePricingClassesCommercePriceModifierRelsCountParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceModifierId, title);
@@ -584,15 +584,15 @@ public class CommercePriceModifierRelServiceHttp {
 
 	public static java.util.List
 		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
-			getCPDefinitionsByCommercePriceModifierId(
+			getCPDefinitionsCommercePriceModifierRels(
 				HttpPrincipal httpPrincipal, long commercePriceModifierId,
 				String name, String languageId, int start, int end) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceModifierRelServiceUtil.class,
-				"getCPDefinitionsByCommercePriceModifierId",
-				_getCPDefinitionsByCommercePriceModifierIdParameterTypes13);
+				"getCPDefinitionsCommercePriceModifierRels",
+				_getCPDefinitionsCommercePriceModifierRelsParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceModifierId, name, languageId, start,
@@ -621,15 +621,15 @@ public class CommercePriceModifierRelServiceHttp {
 		}
 	}
 
-	public static int getCPDefinitionsByCommercePriceModifierIdCount(
+	public static int getCPDefinitionsCommercePriceModifierRelsCount(
 		HttpPrincipal httpPrincipal, long commercePriceModifierId, String name,
 		String languageId) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommercePriceModifierRelServiceUtil.class,
-				"getCPDefinitionsByCommercePriceModifierIdCount",
-				_getCPDefinitionsByCommercePriceModifierIdCountParameterTypes14);
+				"getCPDefinitionsCommercePriceModifierRelsCount",
+				_getCPDefinitionsCommercePriceModifierRelsCountParameterTypes14);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePriceModifierId, name, languageId);
@@ -672,11 +672,11 @@ public class CommercePriceModifierRelServiceHttp {
 			long.class, String.class, long.class
 		};
 	private static final Class<?>[]
-		_getCategoriesByCommercePriceModifierIdParameterTypes3 = new Class[] {
+		_getCategoriesCommercePriceModifierRelsParameterTypes3 = new Class[] {
 			long.class, String.class, int.class, int.class
 		};
 	private static final Class<?>[]
-		_getCategoriesByCommercePriceModifierIdCountParameterTypes4 =
+		_getCategoriesCommercePriceModifierRelsCountParameterTypes4 =
 			new Class[] {long.class, String.class};
 	private static final Class<?>[] _getClassPKsParameterTypes5 = new Class[] {
 		long.class, String.class
@@ -701,18 +701,18 @@ public class CommercePriceModifierRelServiceHttp {
 			String.class, long.class
 		};
 	private static final Class<?>[]
-		_getCommercePricingClassesByCommercePriceModifierIdParameterTypes11 =
+		_getCommercePricingClassesCommercePriceModifierRelsParameterTypes11 =
 			new Class[] {long.class, String.class, int.class, int.class};
 	private static final Class<?>[]
-		_getCommercePricingClassesByCommercePriceModifierIdCountParameterTypes12 =
+		_getCommercePricingClassesCommercePriceModifierRelsCountParameterTypes12 =
 			new Class[] {long.class, String.class};
 	private static final Class<?>[]
-		_getCPDefinitionsByCommercePriceModifierIdParameterTypes13 =
+		_getCPDefinitionsCommercePriceModifierRelsParameterTypes13 =
 			new Class[] {
 				long.class, String.class, String.class, int.class, int.class
 			};
 	private static final Class<?>[]
-		_getCPDefinitionsByCommercePriceModifierIdCountParameterTypes14 =
+		_getCPDefinitionsCommercePriceModifierRelsCountParameterTypes14 =
 			new Class[] {long.class, String.class, String.class};
 
 }

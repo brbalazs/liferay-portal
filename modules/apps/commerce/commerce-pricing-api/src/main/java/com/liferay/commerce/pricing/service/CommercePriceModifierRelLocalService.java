@@ -65,10 +65,6 @@ public interface CommercePriceModifierRelLocalService
 	/**
 	 * Adds the commerce price modifier rel to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceModifierRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commercePriceModifierRel the commerce price modifier rel
 	 * @return the commerce price modifier rel that was added
 	 */
@@ -94,10 +90,6 @@ public interface CommercePriceModifierRelLocalService
 	/**
 	 * Deletes the commerce price modifier rel from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceModifierRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commercePriceModifierRel the commerce price modifier rel
 	 * @return the commerce price modifier rel that was removed
 	 * @throws PortalException
@@ -109,10 +101,6 @@ public interface CommercePriceModifierRelLocalService
 
 	/**
 	 * Deletes the commerce price modifier rel with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceModifierRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commercePriceModifierRelId the primary key of the commerce price modifier rel
 	 * @return the commerce price modifier rel that was removed
@@ -215,11 +203,11 @@ public interface CommercePriceModifierRelLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceModifierRel>
-		getCategoriesByCommercePriceModifierId(
+		getCategoriesCommercePriceModifierRels(
 			long commercePriceModifierId, String name, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCategoriesByCommercePriceModifierIdCount(
+	public int getCategoriesCommercePriceModifierRelsCount(
 		long commercePriceModifierId, String name);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -279,21 +267,21 @@ public interface CommercePriceModifierRelLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceModifierRel>
-		getCommercePricingClassesByCommercePriceModifierId(
+		getCommercePricingClassesCommercePriceModifierRels(
 			long commercePriceModifierId, String title, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommercePricingClassesByCommercePriceModifierIdCount(
+	public int getCommercePricingClassesCommercePriceModifierRelsCount(
 		long commercePriceModifierId, String title);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceModifierRel>
-		getCPDefinitionsByCommercePriceModifierId(
+		getCPDefinitionsCommercePriceModifierRels(
 			long commercePriceModifierId, String name, String languageId,
 			int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCPDefinitionsByCommercePriceModifierIdCount(
+	public int getCPDefinitionsCommercePriceModifierRelsCount(
 		long commercePriceModifierId, String name, String languageId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -316,10 +304,6 @@ public interface CommercePriceModifierRelLocalService
 
 	/**
 	 * Updates the commerce price modifier rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceModifierRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commercePriceModifierRel the commerce price modifier rel
 	 * @return the commerce price modifier rel that was updated

@@ -71,10 +71,6 @@ public interface CommercePricingClassLocalService
 	/**
 	 * Adds the commerce pricing class to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePricingClassLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commercePricingClass the commerce pricing class
 	 * @return the commerce pricing class that was added
 	 */
@@ -108,10 +104,6 @@ public interface CommercePricingClassLocalService
 	/**
 	 * Deletes the commerce pricing class from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePricingClassLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commercePricingClass the commerce pricing class
 	 * @return the commerce pricing class that was removed
 	 * @throws PortalException
@@ -123,10 +115,6 @@ public interface CommercePricingClassLocalService
 
 	/**
 	 * Deletes the commerce pricing class with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePricingClassLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commercePricingClassId the primary key of the commerce pricing class
 	 * @return the commerce pricing class that was removed
@@ -348,10 +336,6 @@ public interface CommercePricingClassLocalService
 
 	/**
 	 * Updates the commerce pricing class in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePricingClassLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commercePricingClass the commerce pricing class
 	 * @return the commerce pricing class that was updated

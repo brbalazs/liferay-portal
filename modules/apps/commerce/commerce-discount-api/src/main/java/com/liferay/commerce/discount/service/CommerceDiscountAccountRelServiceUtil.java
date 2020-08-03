@@ -95,19 +95,11 @@ public class CommerceDiscountAccountRelServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.discount.model.CommerceDiscountAccountRel>
-			getCommerceDiscountAccountRelsByCommerceDiscountId(
+			getCommerceDiscountAccountRels(
 				long commerceDiscountId, String name, int start, int end) {
 
-		return getService().getCommerceDiscountAccountRelsByCommerceDiscountId(
+		return getService().getCommerceDiscountAccountRels(
 			commerceDiscountId, name, start, end);
-	}
-
-	public static int getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
-		long commerceDiscountId, String name) {
-
-		return getService().
-			getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
-				commerceDiscountId, name);
 	}
 
 	public static int getCommerceDiscountAccountRelsCount(
@@ -116,6 +108,13 @@ public class CommerceDiscountAccountRelServiceUtil {
 
 		return getService().getCommerceDiscountAccountRelsCount(
 			commerceDiscountId);
+	}
+
+	public static int getCommerceDiscountAccountRelsCount(
+		long commerceDiscountId, String name) {
+
+		return getService().getCommerceDiscountAccountRelsCount(
+			commerceDiscountId, name);
 	}
 
 	/**

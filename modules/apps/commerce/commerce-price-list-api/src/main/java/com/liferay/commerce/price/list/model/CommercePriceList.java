@@ -60,10 +60,10 @@ public interface CommercePriceList
 
 			};
 
+	public CommercePriceList fetchParentCommercePriceList();
+
 	public com.liferay.commerce.currency.model.CommerceCurrency
 			getCommerceCurrency()
 		throws com.liferay.portal.kernel.exception.PortalException;
-
-	public CommercePriceList fetchParentCommercePriceList();
 
 }

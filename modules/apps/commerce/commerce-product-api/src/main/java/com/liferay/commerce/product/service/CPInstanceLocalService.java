@@ -87,7 +87,6 @@ public interface CPInstanceLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public CPInstance addCPInstance(CPInstance cpInstance);
 
-	@Indexable(type = IndexableType.REINDEX)
 	public CPInstance addCPInstance(
 			long cpDefinitionId, long groupId, String sku, String gtin,
 			String manufacturerPartNumber, boolean purchasable,

@@ -103,21 +103,12 @@ public class CommercePriceListChannelRelServiceWrapper
 	@Override
 	public java.util.List
 		<com.liferay.commerce.price.list.model.CommercePriceListChannelRel>
-			getCommercePriceListChannelRelsByCommercePriceListId(
+			getCommercePriceListChannelRels(
 				long commercePriceListId, String name, int start, int end) {
 
 		return _commercePriceListChannelRelService.
-			getCommercePriceListChannelRelsByCommercePriceListId(
+			getCommercePriceListChannelRels(
 				commercePriceListId, name, start, end);
-	}
-
-	@Override
-	public int getCommercePriceListChannelRelsByCommercePriceListIdCount(
-		long commercePriceListId, String name) {
-
-		return _commercePriceListChannelRelService.
-			getCommercePriceListChannelRelsByCommercePriceListIdCount(
-				commercePriceListId, name);
 	}
 
 	@Override
@@ -126,6 +117,14 @@ public class CommercePriceListChannelRelServiceWrapper
 
 		return _commercePriceListChannelRelService.
 			getCommercePriceListChannelRelsCount(commercePriceListId);
+	}
+
+	@Override
+	public int getCommercePriceListChannelRelsCount(
+		long commercePriceListId, String name) {
+
+		return _commercePriceListChannelRelService.
+			getCommercePriceListChannelRelsCount(commercePriceListId, name);
 	}
 
 	/**

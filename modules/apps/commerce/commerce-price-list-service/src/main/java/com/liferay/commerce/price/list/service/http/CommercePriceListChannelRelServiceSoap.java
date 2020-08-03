@@ -202,7 +202,7 @@ public class CommercePriceListChannelRelServiceSoap {
 
 	public static
 		com.liferay.commerce.price.list.model.CommercePriceListChannelRelSoap[]
-				getCommercePriceListChannelRelsByCommercePriceListId(
+				getCommercePriceListChannelRels(
 					long commercePriceListId, String name, int start, int end)
 			throws RemoteException {
 
@@ -211,30 +211,11 @@ public class CommercePriceListChannelRelServiceSoap {
 				<com.liferay.commerce.price.list.model.
 					CommercePriceListChannelRel> returnValue =
 						CommercePriceListChannelRelServiceUtil.
-							getCommercePriceListChannelRelsByCommercePriceListId(
+							getCommercePriceListChannelRels(
 								commercePriceListId, name, start, end);
 
 			return com.liferay.commerce.price.list.model.
 				CommercePriceListChannelRelSoap.toSoapModels(returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static int getCommercePriceListChannelRelsByCommercePriceListIdCount(
-			long commercePriceListId, String name)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				CommercePriceListChannelRelServiceUtil.
-					getCommercePriceListChannelRelsByCommercePriceListIdCount(
-						commercePriceListId, name);
-
-			return returnValue;
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -251,6 +232,25 @@ public class CommercePriceListChannelRelServiceSoap {
 			int returnValue =
 				CommercePriceListChannelRelServiceUtil.
 					getCommercePriceListChannelRelsCount(commercePriceListId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommercePriceListChannelRelsCount(
+			long commercePriceListId, String name)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommercePriceListChannelRelServiceUtil.
+					getCommercePriceListChannelRelsCount(
+						commercePriceListId, name);
 
 			return returnValue;
 		}

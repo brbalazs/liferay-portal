@@ -41,10 +41,6 @@ public class CommercePriceModifierRelLocalServiceUtil {
 	/**
 	 * Adds the commerce price modifier rel to the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceModifierRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commercePriceModifierRel the commerce price modifier rel
 	 * @return the commerce price modifier rel that was added
 	 */
@@ -83,10 +79,6 @@ public class CommercePriceModifierRelLocalServiceUtil {
 	/**
 	 * Deletes the commerce price modifier rel from the database. Also notifies the appropriate model listeners.
 	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceModifierRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
-	 *
 	 * @param commercePriceModifierRel the commerce price modifier rel
 	 * @return the commerce price modifier rel that was removed
 	 * @throws PortalException
@@ -103,10 +95,6 @@ public class CommercePriceModifierRelLocalServiceUtil {
 
 	/**
 	 * Deletes the commerce price modifier rel with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceModifierRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commercePriceModifierRelId the primary key of the commerce price modifier rel
 	 * @return the commerce price modifier rel that was removed
@@ -253,17 +241,17 @@ public class CommercePriceModifierRelLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
-			getCategoriesByCommercePriceModifierId(
+			getCategoriesCommercePriceModifierRels(
 				long commercePriceModifierId, String name, int start, int end) {
 
-		return getService().getCategoriesByCommercePriceModifierId(
+		return getService().getCategoriesCommercePriceModifierRels(
 			commercePriceModifierId, name, start, end);
 	}
 
-	public static int getCategoriesByCommercePriceModifierIdCount(
+	public static int getCategoriesCommercePriceModifierRelsCount(
 		long commercePriceModifierId, String name) {
 
-		return getService().getCategoriesByCommercePriceModifierIdCount(
+		return getService().getCategoriesCommercePriceModifierRelsCount(
 			commercePriceModifierId, name);
 	}
 
@@ -353,36 +341,36 @@ public class CommercePriceModifierRelLocalServiceUtil {
 
 	public static java.util.List
 		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
-			getCommercePricingClassesByCommercePriceModifierId(
+			getCommercePricingClassesCommercePriceModifierRels(
 				long commercePriceModifierId, String title, int start,
 				int end) {
 
-		return getService().getCommercePricingClassesByCommercePriceModifierId(
+		return getService().getCommercePricingClassesCommercePriceModifierRels(
 			commercePriceModifierId, title, start, end);
 	}
 
-	public static int getCommercePricingClassesByCommercePriceModifierIdCount(
+	public static int getCommercePricingClassesCommercePriceModifierRelsCount(
 		long commercePriceModifierId, String title) {
 
 		return getService().
-			getCommercePricingClassesByCommercePriceModifierIdCount(
+			getCommercePricingClassesCommercePriceModifierRelsCount(
 				commercePriceModifierId, title);
 	}
 
 	public static java.util.List
 		<com.liferay.commerce.pricing.model.CommercePriceModifierRel>
-			getCPDefinitionsByCommercePriceModifierId(
+			getCPDefinitionsCommercePriceModifierRels(
 				long commercePriceModifierId, String name, String languageId,
 				int start, int end) {
 
-		return getService().getCPDefinitionsByCommercePriceModifierId(
+		return getService().getCPDefinitionsCommercePriceModifierRels(
 			commercePriceModifierId, name, languageId, start, end);
 	}
 
-	public static int getCPDefinitionsByCommercePriceModifierIdCount(
+	public static int getCPDefinitionsCommercePriceModifierRelsCount(
 		long commercePriceModifierId, String name, String languageId) {
 
-		return getService().getCPDefinitionsByCommercePriceModifierIdCount(
+		return getService().getCPDefinitionsCommercePriceModifierRelsCount(
 			commercePriceModifierId, name, languageId);
 	}
 
@@ -414,10 +402,6 @@ public class CommercePriceModifierRelLocalServiceUtil {
 
 	/**
 	 * Updates the commerce price modifier rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * <p>
-	 * <strong>Important:</strong> Inspect CommercePriceModifierRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
-	 * </p>
 	 *
 	 * @param commercePriceModifierRel the commerce price modifier rel
 	 * @return the commerce price modifier rel that was updated

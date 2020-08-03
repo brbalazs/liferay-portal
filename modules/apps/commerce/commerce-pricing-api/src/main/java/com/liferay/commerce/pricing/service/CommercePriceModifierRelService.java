@@ -76,11 +76,11 @@ public interface CommercePriceModifierRelService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceModifierRel>
-		getCategoriesByCommercePriceModifierId(
+		getCategoriesCommercePriceModifierRels(
 			long commercePriceModifierId, String name, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCategoriesByCommercePriceModifierIdCount(
+	public int getCategoriesCommercePriceModifierRelsCount(
 		long commercePriceModifierId, String name);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -115,21 +115,21 @@ public interface CommercePriceModifierRelService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceModifierRel>
-		getCommercePricingClassesByCommercePriceModifierId(
+		getCommercePricingClassesCommercePriceModifierRels(
 			long commercePriceModifierId, String title, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommercePricingClassesByCommercePriceModifierIdCount(
+	public int getCommercePricingClassesCommercePriceModifierRelsCount(
 		long commercePriceModifierId, String title);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommercePriceModifierRel>
-		getCPDefinitionsByCommercePriceModifierId(
+		getCPDefinitionsCommercePriceModifierRels(
 			long commercePriceModifierId, String name, String languageId,
 			int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCPDefinitionsByCommercePriceModifierIdCount(
+	public int getCPDefinitionsCommercePriceModifierRelsCount(
 		long commercePriceModifierId, String name, String languageId);
 
 	/**

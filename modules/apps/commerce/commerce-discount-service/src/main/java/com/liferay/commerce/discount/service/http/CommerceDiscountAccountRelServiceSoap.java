@@ -193,7 +193,7 @@ public class CommerceDiscountAccountRelServiceSoap {
 
 	public static
 		com.liferay.commerce.discount.model.CommerceDiscountAccountRelSoap[]
-				getCommerceDiscountAccountRelsByCommerceDiscountId(
+				getCommerceDiscountAccountRels(
 					long commerceDiscountId, String name, int start, int end)
 			throws RemoteException {
 
@@ -202,30 +202,11 @@ public class CommerceDiscountAccountRelServiceSoap {
 				<com.liferay.commerce.discount.model.CommerceDiscountAccountRel>
 					returnValue =
 						CommerceDiscountAccountRelServiceUtil.
-							getCommerceDiscountAccountRelsByCommerceDiscountId(
+							getCommerceDiscountAccountRels(
 								commerceDiscountId, name, start, end);
 
 			return com.liferay.commerce.discount.model.
 				CommerceDiscountAccountRelSoap.toSoapModels(returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	public static int getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
-			long commerceDiscountId, String name)
-		throws RemoteException {
-
-		try {
-			int returnValue =
-				CommerceDiscountAccountRelServiceUtil.
-					getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
-						commerceDiscountId, name);
-
-			return returnValue;
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -242,6 +223,25 @@ public class CommerceDiscountAccountRelServiceSoap {
 			int returnValue =
 				CommerceDiscountAccountRelServiceUtil.
 					getCommerceDiscountAccountRelsCount(commerceDiscountId);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static int getCommerceDiscountAccountRelsCount(
+			long commerceDiscountId, String name)
+		throws RemoteException {
+
+		try {
+			int returnValue =
+				CommerceDiscountAccountRelServiceUtil.
+					getCommerceDiscountAccountRelsCount(
+						commerceDiscountId, name);
 
 			return returnValue;
 		}

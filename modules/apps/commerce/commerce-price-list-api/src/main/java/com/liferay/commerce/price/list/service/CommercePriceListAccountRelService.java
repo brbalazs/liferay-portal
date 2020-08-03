@@ -96,17 +96,16 @@ public interface CommercePriceListAccountRelService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<CommercePriceListAccountRel>
-		getCommercePriceListAccountRelsByCommercePriceListId(
-			long commercePriceListId, String name, int start, int end);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCommercePriceListAccountRelsByCommercePriceListIdCount(
-		long commercePriceListId, String name);
+	public List<CommercePriceListAccountRel> getCommercePriceListAccountRels(
+		long commercePriceListId, String name, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCommercePriceListAccountRelsCount(long commercePriceListId)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCommercePriceListAccountRelsCount(
+		long commercePriceListId, String name);
 
 	/**
 	 * Returns the OSGi service identifier.

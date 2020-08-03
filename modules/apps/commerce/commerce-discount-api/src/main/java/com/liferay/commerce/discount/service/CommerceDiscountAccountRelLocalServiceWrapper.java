@@ -352,21 +352,12 @@ public class CommerceDiscountAccountRelLocalServiceWrapper
 	@Override
 	public java.util.List
 		<com.liferay.commerce.discount.model.CommerceDiscountAccountRel>
-			getCommerceDiscountAccountRelsByCommerceDiscountId(
+			getCommerceDiscountAccountRels(
 				long commerceDiscountId, String name, int start, int end) {
 
 		return _commerceDiscountAccountRelLocalService.
-			getCommerceDiscountAccountRelsByCommerceDiscountId(
+			getCommerceDiscountAccountRels(
 				commerceDiscountId, name, start, end);
-	}
-
-	@Override
-	public int getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
-		long commerceDiscountId, String name) {
-
-		return _commerceDiscountAccountRelLocalService.
-			getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
-				commerceDiscountId, name);
 	}
 
 	/**
@@ -384,6 +375,14 @@ public class CommerceDiscountAccountRelLocalServiceWrapper
 	public int getCommerceDiscountAccountRelsCount(long commerceDiscountId) {
 		return _commerceDiscountAccountRelLocalService.
 			getCommerceDiscountAccountRelsCount(commerceDiscountId);
+	}
+
+	@Override
+	public int getCommerceDiscountAccountRelsCount(
+		long commerceDiscountId, String name) {
+
+		return _commerceDiscountAccountRelLocalService.
+			getCommerceDiscountAccountRelsCount(commerceDiscountId, name);
 	}
 
 	@Override

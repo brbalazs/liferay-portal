@@ -118,22 +118,12 @@ public class CommerceDiscountCommerceAccountGroupRelServiceWrapper
 	public java.util.List
 		<com.liferay.commerce.discount.model.
 			CommerceDiscountCommerceAccountGroupRel>
-				getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+				getCommerceDiscountCommerceAccountGroupRels(
 					long commerceDiscountId, String name, int start, int end) {
 
 		return _commerceDiscountCommerceAccountGroupRelService.
-			getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+			getCommerceDiscountCommerceAccountGroupRels(
 				commerceDiscountId, name, start, end);
-	}
-
-	@Override
-	public int
-		getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountIdCount(
-			long commerceDiscountId, String name) {
-
-		return _commerceDiscountCommerceAccountGroupRelService.
-			getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountIdCount(
-				commerceDiscountId, name);
 	}
 
 	@Override
@@ -144,6 +134,15 @@ public class CommerceDiscountCommerceAccountGroupRelServiceWrapper
 		return _commerceDiscountCommerceAccountGroupRelService.
 			getCommerceDiscountCommerceAccountGroupRelsCount(
 				commerceDiscountId);
+	}
+
+	@Override
+	public int getCommerceDiscountCommerceAccountGroupRelsCount(
+		long commerceDiscountId, String name) {
+
+		return _commerceDiscountCommerceAccountGroupRelService.
+			getCommerceDiscountCommerceAccountGroupRelsCount(
+				commerceDiscountId, name);
 	}
 
 	/**
