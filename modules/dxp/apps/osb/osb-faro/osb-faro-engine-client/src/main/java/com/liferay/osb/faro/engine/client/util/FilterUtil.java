@@ -70,14 +70,12 @@ public class FilterUtil {
 
 			Stream<?> stream = values.stream();
 
-			String valueString = stream.map(
-				String::valueOf
-			).collect(
-				Collectors.joining(StringPool.COMMA)
-			);
-
 			value = StringPool.OPEN_BRACKET.concat(
-				valueString
+				stream.map(
+					String::valueOf
+				).collect(
+					Collectors.joining(StringPool.COMMA)
+				)
 			).concat(
 				StringPool.CLOSE_BRACKET
 			);

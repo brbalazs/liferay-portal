@@ -204,14 +204,13 @@ public class FieldMappingController extends BaseFaroController {
 
 		Stream<FieldMapping> stream = fieldMappings.stream();
 
-		List<String> fieldNames = stream.map(
-			FieldMapping::getFieldName
-		).collect(
-			Collectors.toList()
-		);
-
 		List<List<Field>> fieldsList = contactsEngineClient.getFieldsList(
-			faroProject, FieldMappingConstants.CONTEXT_DEMOGRAPHICS, fieldNames,
+			faroProject, FieldMappingConstants.CONTEXT_DEMOGRAPHICS,
+			stream.map(
+				FieldMapping::getFieldName
+			).collect(
+				Collectors.toList()
+			),
 			1, 1, null);
 
 		for (int i = 0; i < fieldMappings.size(); i++) {

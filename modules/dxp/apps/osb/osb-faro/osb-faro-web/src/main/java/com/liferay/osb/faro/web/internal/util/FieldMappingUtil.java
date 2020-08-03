@@ -41,14 +41,14 @@ public class FieldMappingUtil {
 		Stream<FieldMappingMap> fieldMappingMapsStream =
 			fieldMappingMaps.stream();
 
-		List<String> fieldNames = fieldMappingMapsStream.map(
-			FieldMappingMap::getName
-		).collect(
-			Collectors.toList()
-		);
-
 		Results<FieldMapping> results = contactsEngineClient.getFieldMappings(
-			faroProject, context, fieldNames, 1, 10000, null);
+			faroProject, context,
+			fieldMappingMapsStream.map(
+				FieldMappingMap::getName
+			).collect(
+				Collectors.toList()
+			),
+			1, 10000, null);
 
 		List<FieldMapping> fieldMappings = results.getItems();
 

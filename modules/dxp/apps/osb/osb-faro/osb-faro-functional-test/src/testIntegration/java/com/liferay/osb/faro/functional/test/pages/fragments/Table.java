@@ -153,13 +153,13 @@ public class Table {
 
 		Stream<WebElement> stream = rowWebElements.stream();
 
-		List<String> rowNames = stream.map(
-			WebElement::getText
-		).collect(
-			Collectors.toList()
-		);
-
-		Assert.assertEquals(dataTable.asList(String.class), rowNames);
+		Assert.assertEquals(
+			dataTable.asList(String.class),
+			stream.map(
+				WebElement::getText
+			).collect(
+				Collectors.toList()
+			));
 	}
 
 	@Then("^I should see \"(.*)\" in the card list \"(.*)\"$")
