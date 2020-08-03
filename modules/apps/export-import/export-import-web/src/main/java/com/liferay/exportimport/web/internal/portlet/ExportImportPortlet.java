@@ -71,7 +71,7 @@ public class ExportImportPortlet extends MVCPortlet {
 	}
 
 	@Reference(
-		target = "(&(release.bundle.symbolic.name=com.liferay.exportimport.web)(release.schema.version=1.0.0))",
+		target = "(&(release.bundle.symbolic.name=com.liferay.exportimport.web)(release.schema.version=1.0.1))",
 		unbind = "-"
 	)
 	protected void setRelease(Release release) {
