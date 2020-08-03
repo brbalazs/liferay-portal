@@ -27,6 +27,19 @@ function date {
 	fi
 }
 
+function download {
+	local file_name=${2##*/}
+
+	mkdir -p downloads
+
+	if [ ! -e downloads/${file_name} ]
+	then
+		curl -o downloads/${file_name} ${2}
+	fi
+
+	cp downloads/${file_name} "${1}"
+}
+
 function fix_tomcat_setenv {
 	local jvm_opts="-Xms2560m -Xmx2560m -XX:MaxNewSize=1536m -XX:MaxMetaspaceSize=512m -XX:MetaspaceSize=512m -XX:NewSize=1536m -XX:SurvivorRatio=7"
 
@@ -91,7 +104,7 @@ function install_fix_pack {
 
 	local patching_tool_name="patching-tool-$(curl --silent http://mirrors.lax.liferay.com/files.liferay.com/private/ee/fix-packs/patching-tool/LATEST-2.0.txt).zip"
 
-	curl -o ${patching_tool_name} http://mirrors.lax.liferay.com/files.liferay.com/private/ee/fix-packs/patching-tool/${patching_tool_name}
+	download ${patching_tool_name} http://mirrors.lax.liferay.com/files.liferay.com/private/ee/fix-packs/patching-tool/${patching_tool_name}
 
 	unzip -q ${patching_tool_name} -d ${timestamp}/${commerce_bundle_name}
 
@@ -117,7 +130,7 @@ function install_fix_pack {
 	echo "Download fix pack."
 	echo ""
 
-	curl -o ${timestamp}/${commerce_bundle_name}/patching-tool/patches/patch.zip http://mirrors.lax.liferay.com/${fix_pack_url}
+	download ${timestamp}/${commerce_bundle_name}/patching-tool/patches/patch.zip http://mirrors.lax.liferay.com/${fix_pack_url}
 
 	echo ""
 	echo "Install fix pack."
@@ -159,7 +172,7 @@ function main {
 
 	local portal_bundle_name=${portal_bundle_url##*/}
 
-	curl -o ${timestamp}/${portal_bundle_name} ${portal_bundle_url}
+	download ${timestamp}/${portal_bundle_name} ${portal_bundle_url}
 
 	if [[ ${portal_bundle_name} == *.7z ]]
 	then
@@ -209,7 +222,7 @@ function main {
 	# Download Commerce.
 	#
 
-	curl -o "${timestamp}/${commerce_bundle_name}/osgi/marketplace/Liferay Commerce.lpkg" ${commerce_lpkg_url}
+	download "${timestamp}/${commerce_bundle_name}/osgi/marketplace/Liferay Commerce.lpkg" ${commerce_lpkg_url}
 
 	#
 	# Start Tomcat.
