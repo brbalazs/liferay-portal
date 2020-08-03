@@ -244,7 +244,7 @@ AUI.add(
 					) {
 						const xmlUser = XMLUtil.createObj('user');
 
-						dataAssignments.emailAddress.forEach((item, index) => {
+						dataAssignments.emailAddress.forEach(function(item, index) {
 							buffer.push(xmlUser.open);
 
 							if (isValue(item)) {
@@ -278,7 +278,7 @@ AUI.add(
 					) {
 						const xmlUser = XMLUtil.createObj('user');
 
-						dataAssignments.screenName.forEach((item, index) => {
+						dataAssignments.screenName.forEach(function(item, index) {
 							buffer.push(xmlUser.open);
 
 							if (isValue(item)) {
@@ -312,7 +312,7 @@ AUI.add(
 					) {
 						const xmlUser = XMLUtil.createObj('user');
 
-						dataAssignments.userId.forEach((item, index) => {
+						dataAssignments.userId.forEach(function(item, index) {
 							buffer.push(xmlUser.open);
 
 							if (isValue(item)) {

@@ -42,8 +42,8 @@ AUI.add(
 					assignments.emailAddress,
 					null,
 					null,
-					data => {
-						AArray.each(data, item => {
+					function(data) {
+						AArray.each(data, function(item) {
 							if (item) {
 								var index = assignments.emailAddress.indexOf(
 									item.emailAddress
@@ -63,8 +63,8 @@ AUI.add(
 					null,
 					assignments.screenName,
 					null,
-					data => {
-						AArray.each(data, item => {
+					function(data) {
+						AArray.each(data, function(item) {
 							if (item) {
 								var index = assignments.screenName.indexOf(
 									item.screenName
@@ -84,8 +84,8 @@ AUI.add(
 					null,
 					null,
 					assignments.userId,
-					data => {
-						AArray.each(data, item => {
+					function(data) {
+						AArray.each(data, function(item) {
 							if (item) {
 								var index = assignments.userId.indexOf(
 									item.userId
