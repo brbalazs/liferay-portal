@@ -86,6 +86,13 @@
 			"avoid-escape"
 		],
 		"react/jsx-boolean-value": 2,
+		"react/jsx-curly-brace-presence": [
+			2,
+			{
+				"children": "ignore",
+				"props": "never"
+			}
+		],
 		"react/jsx-fragments": [
 			2,
 			"syntax"
