@@ -52,6 +52,13 @@ const items = (devMode: boolean = false): ListItem[] => [
 				),
 				route: Routes.SETTINGS_DEFINITIONS_BEHAVIORS,
 				title: Liferay.Language.get('behaviors')
+			},
+			{
+				description: Liferay.Language.get(
+					'define-the-search-query-parameters-specific-to-your-properties'
+				),
+				route: Routes.SETTINGS_DEFINITIONS_BEHAVIORS,
+				title: Liferay.Language.get('search')
 			}
 		]
 	},
