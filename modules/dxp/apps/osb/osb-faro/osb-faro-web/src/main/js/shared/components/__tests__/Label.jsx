@@ -13,7 +13,7 @@ describe('Label', () => {
 	});
 
 	it('should render a primary label', () => {
-		const {container} = render(<Label display={'primary'} />);
+		const {container} = render(<Label display='primary' />);
 		expect(container.querySelector('.label-primary')).toBeTruthy();
 	});
 });

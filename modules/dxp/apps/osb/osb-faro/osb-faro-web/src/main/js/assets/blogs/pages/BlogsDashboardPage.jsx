@@ -46,7 +46,7 @@ export default function BlogsDashboardPage() {
 			<div className='row'>
 				<div className='col-sm-12'>
 					<TouchpointsListCard
-						assetType={'BLOG'}
+						assetType='BLOG'
 						label={Liferay.Language.get('asset-appears-on')}
 						legacyDropdownRangeKey={false}
 					/>

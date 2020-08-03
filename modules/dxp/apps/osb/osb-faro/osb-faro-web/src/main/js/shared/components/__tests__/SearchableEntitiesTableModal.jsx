@@ -26,7 +26,7 @@ const DefaultComponent = props => (
 				}
 			]}
 			dataSourceFn={() => Promise.resolve()}
-			groupId={'23'}
+			groupId='23'
 			onClose={noop}
 			{...props}
 		/>

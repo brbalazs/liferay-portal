@@ -55,7 +55,7 @@ describe('SelectEntityInput', () => {
 			<DefaultComponent
 				entityType={EntityType.Organizations}
 				onChange={jest.fn()}
-				value={'123'}
+				value='123'
 			/>
 		);
 

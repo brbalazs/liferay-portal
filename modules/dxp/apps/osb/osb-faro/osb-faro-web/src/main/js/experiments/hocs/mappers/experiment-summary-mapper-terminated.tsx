@@ -92,7 +92,7 @@ export default ({
 									bestVariant.improvement,
 									2
 								)}%`}
-								status={'up'}
+								status='up'
 							/>
 						)}
 					</SummarySection>

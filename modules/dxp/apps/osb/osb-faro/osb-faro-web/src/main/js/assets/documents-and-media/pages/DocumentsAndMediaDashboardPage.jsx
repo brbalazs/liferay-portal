@@ -48,7 +48,7 @@ export default function DocumentsAndMediaDashboardPage() {
 			<div className='row'>
 				<div className='col-sm-12'>
 					<TouchpointsListCard
-						assetType={'DOCUMENT'}
+						assetType='DOCUMENT'
 						label={Liferay.Language.get('asset-appears-on')}
 						legacyDropdownRangeKey={false}
 					/>

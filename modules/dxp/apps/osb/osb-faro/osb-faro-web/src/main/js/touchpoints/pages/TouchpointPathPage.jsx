@@ -57,7 +57,7 @@ export default function TouchpointPathPage({pathRangeSelectors}) {
 					renderTouchpointComponent={renderTouchpointComponent}
 					router={router}
 					touchpoint={touchpoint}
-					width={'100%'}
+					width='100%'
 				/>
 			</div>
 		</div>

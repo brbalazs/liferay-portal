@@ -154,7 +154,7 @@ export default ({
 										winnerVariant.improvement,
 										2
 									)}%`}
-									status={'up'}
+									status='up'
 								/>
 							)}
 						</SummarySection>

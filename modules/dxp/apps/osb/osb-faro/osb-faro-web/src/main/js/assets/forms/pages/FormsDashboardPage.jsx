@@ -59,7 +59,7 @@ export default function FormsDashboardPage() {
 			<div className='row'>
 				<div className='col-sm-12'>
 					<TouchpointsListCard
-						assetType={'FORM'}
+						assetType='FORM'
 						label={Liferay.Language.get('asset-appears-on')}
 						legacyDropdownRangeKey={false}
 					/>

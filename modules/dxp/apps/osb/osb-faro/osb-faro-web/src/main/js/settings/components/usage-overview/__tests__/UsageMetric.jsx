@@ -24,8 +24,8 @@ const DefaultComponent = ({count, limit, status}) => (
 				)
 			)
 		}
-		metricType={'pageViews'}
-		planType={'enterprise'}
+		metricType='pageViews'
+		planType='enterprise'
 	/>
 );
 
@@ -34,8 +34,8 @@ describe('UsageMetric', () => {
 		const {container} = render(
 			<UsageMetric
 				currentPlan={new Plan(fromJS(mockPlan()))}
-				metricType={'pageViews'}
-				planType={'enterprise'}
+				metricType='pageViews'
+				planType='enterprise'
 			/>
 		);
 

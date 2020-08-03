@@ -610,11 +610,11 @@ class Sankey extends React.Component {
 						width={width}
 					>
 						{mainTouchpointItems && (
-							<g fill={'none'} ref={'linksGroup'}>
+							<g fill='none' ref='linksGroup'>
 								{this.renderPaths()}
 							</g>
 						)}
-						<g className={'svg'}>{this.renderNodes()}</g>
+						<g className='svg'>{this.renderNodes()}</g>
 					</svg>
 				);
 			}

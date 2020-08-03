@@ -24,7 +24,7 @@ const OrganizationSelectInput: React.FC<IOrganizationSelectProps> = ({
 	...otherProps
 }) => (
 	<CustomSelectEntityInput
-		className={'organization-select-input-root'}
+		className='organization-select-input-root'
 		columns={organizationsListColumns}
 		entityLabel={Liferay.Language.get('organizations')}
 		entityType={EntityType.Organizations}

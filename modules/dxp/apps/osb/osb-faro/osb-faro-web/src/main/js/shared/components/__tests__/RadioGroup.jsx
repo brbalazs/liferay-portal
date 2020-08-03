@@ -18,7 +18,7 @@ describe('RadioGroup.Option', () => {
 	});
 
 	it('should render Option with label', () => {
-		const {queryByText} = render(<RadioGroup.Option label={'foo bar'} />);
+		const {queryByText} = render(<RadioGroup.Option label='foo bar' />);
 		expect(queryByText('foo bar')).toBeTruthy();
 	});
 

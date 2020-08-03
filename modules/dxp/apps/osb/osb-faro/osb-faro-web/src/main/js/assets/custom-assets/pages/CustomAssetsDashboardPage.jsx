@@ -180,7 +180,7 @@ class CustomAssetsDashboardPage extends React.Component {
 			<div className='row'>
 				<div className='col-sm-12'>
 					<div className='mt-3 mb-3 text-secondary text-center'>
-						<Icon className={'mr-2'} symbol='warning' />
+						<Icon className='mr-2' symbol='warning' />
 
 						{Liferay.Language.get(
 							'this-dashboard-has-reached-the-limit-of-10-reports'

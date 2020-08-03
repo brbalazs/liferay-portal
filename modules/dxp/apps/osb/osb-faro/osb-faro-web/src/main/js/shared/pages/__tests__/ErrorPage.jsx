@@ -9,7 +9,7 @@ describe('ErrorPage', () => {
 	});
 
 	it('should render a custom message', () => {
-		const component = shallow(<ErrorPage message={'foo bar'} />);
+		const component = shallow(<ErrorPage message='foo bar' />);
 		expect(component).toMatchSnapshot();
 	});
 });

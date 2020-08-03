@@ -53,7 +53,7 @@ describe('SearchableTableModalGraphql', () => {
 	});
 
 	it('should render with a custom title', () => {
-		const {container} = render(<DefaultComponent title={'Custom Title'} />);
+		const {container} = render(<DefaultComponent title='Custom Title' />);
 
 		expect(container.querySelector('.modal-title')).toHaveTextContent(
 			'Custom Title'
@@ -62,7 +62,7 @@ describe('SearchableTableModalGraphql', () => {
 
 	it('should render with a custom submit button message', () => {
 		const {container} = render(
-			<DefaultComponent submitMessage={'Custom Submit Message'} />
+			<DefaultComponent submitMessage='Custom Submit Message' />
 		);
 
 		expect(container.querySelector('.btn-primary')).toHaveTextContent(

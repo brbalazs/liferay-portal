@@ -12,8 +12,8 @@ describe('IndividualAssociatedSegments', () => {
 		const {container} = render(
 			<StaticRouter>
 				<AssociatedSegments
-					groupId={'23'}
-					id={'test'}
+					groupId='23'
+					id='test'
 					individual={data.getImmutableMock(
 						Individual,
 						data.mockIndividual

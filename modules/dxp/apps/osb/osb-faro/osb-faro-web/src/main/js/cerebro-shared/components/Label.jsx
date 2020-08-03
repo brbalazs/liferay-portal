@@ -144,11 +144,11 @@ class Label extends React.Component {
 				{closeable && (
 					<span className='label-item label-item-after'>
 						<Button
-							aria-label={'Close'}
-							className={'close'}
-							display={'unstyled'}
-							icon={'times'}
-							iconAlignment={'right'}
+							aria-label='Close'
+							className='close'
+							display='unstyled'
+							icon='times'
+							iconAlignment='right'
 							onClick={this.handleClick}
 						/>
 					</span>

@@ -16,7 +16,7 @@ describe('SourceCell', () => {
 						dataSourceId: '456',
 						dataSourceName: 'Test Data Source'
 					}}
-					groupId={'123'}
+					groupId='123'
 				/>
 			</StaticRouter>
 		);
@@ -31,7 +31,7 @@ describe('SourceCell', () => {
 					data={{
 						dataSourceName: 'Test Data Source'
 					}}
-					groupId={'123'}
+					groupId='123'
 				/>
 			</StaticRouter>
 		);

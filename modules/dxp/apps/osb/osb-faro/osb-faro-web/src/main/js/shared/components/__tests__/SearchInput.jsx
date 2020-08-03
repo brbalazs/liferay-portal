@@ -53,7 +53,7 @@ describe('SearchInput', () => {
 	});
 
 	it('should render a button to clear input', () => {
-		const {container} = render(<SearchInput value={'foo'} />);
+		const {container} = render(<SearchInput value='foo' />);
 		expect(container.querySelector('.lexicon-icon-times')).toBeTruthy();
 	});
 });

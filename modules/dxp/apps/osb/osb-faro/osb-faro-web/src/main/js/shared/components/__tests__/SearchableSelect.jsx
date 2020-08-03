@@ -13,8 +13,8 @@ describe('SearchableSelect', () => {
 	it('should render', () => {
 		const {getByText} = render(
 			<SearchableSelect
-				buttonPlaceholder={'Bar'}
-				inputPlaceholder={'Foo'}
+				buttonPlaceholder='Bar'
+				inputPlaceholder='Foo'
 				items={items}
 			/>
 		);
@@ -27,8 +27,8 @@ describe('SearchableSelect', () => {
 	it('should render with a subheader', () => {
 		const {getByText} = render(
 			<SearchableSelect
-				buttonPlaceholder={'Bar'}
-				inputPlaceholder={'Foo'}
+				buttonPlaceholder='Bar'
+				inputPlaceholder='Foo'
 				items={[{name: 'foo bar', subheader: true}, ...items]}
 			/>
 		);

@@ -37,7 +37,7 @@ export default ({
 	{
 		accessor: 'median',
 		cellRenderer: ({data: {median}}) => (
-			<Cell className={'text-right'} title={false}>
+			<Cell className='text-right' title={false}>
 				{`${getFormattedMedian(median, metric)}${metricUnit}`}
 			</Cell>
 		),
@@ -48,7 +48,7 @@ export default ({
 	{
 		accessor: 'confidenceInterval',
 		cellRenderer: ({data: {confidenceInterval}}) => (
-			<Cell className={'text-right'} title={false}>
+			<Cell className='text-right' title={false}>
 				{`${getFormattedMedian(
 					confidenceInterval[0],
 					metric
@@ -65,10 +65,7 @@ export default ({
 	{
 		accessor: 'improvement',
 		cellRenderer: ({data: {improvement}}) => (
-			<ImprovementCell
-				className={'text-right'}
-				improvement={improvement}
-			/>
+			<ImprovementCell className='text-right' improvement={improvement} />
 		),
 		className: 'text-right',
 		label: Liferay.Language.get('improvement'),
@@ -77,7 +74,7 @@ export default ({
 	{
 		accessor: 'probabilityToWin',
 		cellRenderer: ({data: {probabilityToWin}}) => (
-			<Cell className={'text-right'} title={false}>
+			<Cell className='text-right' title={false}>
 				{`${getFormattedProbabilityToWin(probabilityToWin)}%`}
 			</Cell>
 		),
@@ -89,7 +86,7 @@ export default ({
 		accessor: 'uniqueVisitors',
 		cellRenderer: ({data: {trafficSplit, uniqueVisitors}}) => (
 			<UniqueVisitorCell
-				className={'text-right'}
+				className='text-right'
 				trafficSplit={trafficSplit}
 				uniqueVisitors={uniqueVisitors}
 			/>

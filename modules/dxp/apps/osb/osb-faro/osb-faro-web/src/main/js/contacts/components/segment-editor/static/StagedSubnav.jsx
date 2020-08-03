@@ -52,7 +52,7 @@ class StagedSubnav extends React.Component {
 					{showStaged ? (
 						<span>{stagedMessage}</span>
 					) : (
-						<Label display={'success'} size='lg' uppercase>
+						<Label display='success' size='lg' uppercase>
 							{selectedCountMessage}
 						</Label>
 					)}

@@ -9,7 +9,7 @@ describe('CardTabMetric', () => {
 	it('should render', () => {
 		const {container} = render(
 			<StaticRouter>
-				<CardTabMetric change={2} type={'number'} value={10} />
+				<CardTabMetric change={2} type='number' value={10} />
 			</StaticRouter>
 		);
 
@@ -21,7 +21,7 @@ describe('CardTabMetric', () => {
 	it('should render in a give format type', () => {
 		const {container} = render(
 			<StaticRouter>
-				<CardTabMetric change={2} type={'engagement'} value={0.85} />
+				<CardTabMetric change={2} type='engagement' value={0.85} />
 			</StaticRouter>
 		);
 

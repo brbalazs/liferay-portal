@@ -38,7 +38,7 @@ class InputKit extends React.Component {
 				<Row>
 					<Input.Group>
 						<InputList
-							errorMessage={'Items must be three letters long.'}
+							errorMessage='Items must be three letters long.'
 							inputValue={this.state.inputValue}
 							items={this.state.items}
 							onInputChange={this.handleInputChange}

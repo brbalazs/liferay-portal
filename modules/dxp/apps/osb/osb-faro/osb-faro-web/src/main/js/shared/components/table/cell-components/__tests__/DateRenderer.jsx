@@ -24,7 +24,7 @@ describe('DateRenderer', () => {
 					dateAdded: getTimestamp(),
 					dateCreated: 0
 				}}
-				datePath={'dateAdded'}
+				datePath='dateAdded'
 			/>
 		);
 

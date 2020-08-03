@@ -14,8 +14,8 @@ describe('KnownIndividuals', () => {
 				<KnownIndividuals
 					account={data.getImmutableMock(Account, data.mockAccount)}
 					channelId='123123'
-					groupId={'23'}
-					id={'test'}
+					groupId='23'
+					id='test'
 				/>
 			</StaticRouter>
 		);

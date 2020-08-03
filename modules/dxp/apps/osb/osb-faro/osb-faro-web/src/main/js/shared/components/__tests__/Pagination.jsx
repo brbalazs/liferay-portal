@@ -12,7 +12,7 @@ describe('Pagination', () => {
 
 	it('should render', () => {
 		const {container} = render(
-			<DefaultComponent href={''} page={1} total={1} />
+			<DefaultComponent href='' page={1} total={1} />
 		);
 		expect(container).toMatchSnapshot();
 	});
@@ -26,21 +26,21 @@ describe('Pagination', () => {
 
 	it('should render with a lot of pages', () => {
 		const {container} = render(
-			<DefaultComponent href={''} page={1} total={100} />
+			<DefaultComponent href='' page={1} total={100} />
 		);
 		expect(container).toMatchSnapshot();
 	});
 
 	it('should render a lot of pages with a middle page active', () => {
 		const {container} = render(
-			<DefaultComponent href={''} page={50} total={100} />
+			<DefaultComponent href='' page={50} total={100} />
 		);
 		expect(container).toMatchSnapshot();
 	});
 
 	it('should render a lot of pages with the end page active', () => {
 		const {container} = render(
-			<DefaultComponent href={''} page={100} total={100} />
+			<DefaultComponent href='' page={100} total={100} />
 		);
 		expect(container).toMatchSnapshot();
 	});

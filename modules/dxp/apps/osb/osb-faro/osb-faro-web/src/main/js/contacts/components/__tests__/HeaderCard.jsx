@@ -11,7 +11,7 @@ jest.unmock('react-dom');
 const DefaultComponent = props => (
 	<MockedProvider mocks={[mockTimeRangeReq()]}>
 		<HeaderCard
-			label={'Title'}
+			label='Title'
 			rangeSelectors={{rangeKey: '30'}}
 			tabId={ACTIVITIES}
 			{...props}

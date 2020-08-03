@@ -8,7 +8,7 @@ describe('Sticker', () => {
 	afterEach(cleanup);
 
 	it('should render', () => {
-		const {container} = render(<Sticker symbol={'file'} />);
+		const {container} = render(<Sticker symbol='file' />);
 		expect(container).toMatchSnapshot();
 	});
 });

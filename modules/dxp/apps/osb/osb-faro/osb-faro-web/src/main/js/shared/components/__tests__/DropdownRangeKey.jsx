@@ -42,7 +42,7 @@ describe('DropdownRangeKey', () => {
 
 	it('should render', () => {
 		const {container} = render(
-			<DropdownRangeKey items={MOCK_ITEMS} rangeKey={'30'} />
+			<DropdownRangeKey items={MOCK_ITEMS} rangeKey='30' />
 		);
 
 		expect(container).toMatchSnapshot();

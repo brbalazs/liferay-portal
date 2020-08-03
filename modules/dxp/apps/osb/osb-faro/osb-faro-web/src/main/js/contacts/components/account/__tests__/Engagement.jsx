@@ -22,10 +22,10 @@ describe('AccountEngagement', () => {
 		const {container} = render(
 			<StaticRouter>
 				<AccountEngagement
-					channelId={'123'}
+					channelId='123'
 					data={mockEngagementData}
-					groupId={'23'}
-					id={'3'}
+					groupId='23'
+					id='3'
 					previousScore={1}
 					score={7}
 				/>

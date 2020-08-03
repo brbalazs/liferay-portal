@@ -13,7 +13,7 @@ const PublishVariant: React.FC<IPublishVariantProps> = ({
 	link
 }) => (
 	<>
-		<div className={'mb-3 font-size-md font-weight-semibold'}>
+		<div className='mb-3 font-size-md font-weight-semibold'>
 			{sub(Liferay.Language.get('are-you-sure-you-want-to-publish-x'), [
 				dxpVariantName
 			])}

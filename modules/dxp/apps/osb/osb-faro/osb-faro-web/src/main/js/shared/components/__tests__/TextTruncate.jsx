@@ -9,7 +9,7 @@ describe('TextTruncate', () => {
 	afterEach(cleanup);
 
 	it('should render', () => {
-		const {container} = render(<TextTruncate title={'foo'} />);
+		const {container} = render(<TextTruncate title='foo' />);
 
 		expect(container).toMatchSnapshot();
 	});

@@ -12,7 +12,7 @@ describe('SegmentEditStatic', () => {
 	it('should render', () => {
 		const {container} = render(
 			<StaticRouter>
-				<SegmentEditStatic changeset={new Changeset()} groupId={'23'} />
+				<SegmentEditStatic changeset={new Changeset()} groupId='23' />
 			</StaticRouter>
 		);
 

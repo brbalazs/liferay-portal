@@ -15,8 +15,8 @@ const DefaultComponent = props => (
 		<Activities
 			account={data.getImmutableMock(Account, data.mockAccount)}
 			channelId='123123'
-			groupId={'23'}
-			interval={'D'}
+			groupId='23'
+			interval='D'
 			rangeSelectors={{rangeKey: 30}}
 			{...props}
 		/>

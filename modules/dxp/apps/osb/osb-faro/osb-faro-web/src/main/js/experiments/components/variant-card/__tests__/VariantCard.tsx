@@ -50,10 +50,10 @@ describe('VariantCard', () => {
 					bestVariant={data[0]}
 					data={data}
 					label={Liferay.Language.get('variant-report')}
-					metric={'CLICK_RATE'}
-					metricUnit={'%'}
-					status={'RUNNING'}
-					winnerDXPVariantId={'DEFAULT'}
+					metric='CLICK_RATE'
+					metricUnit='%'
+					status='RUNNING'
+					winnerDXPVariantId='DEFAULT'
 				/>
 			</StateProvider>
 		);

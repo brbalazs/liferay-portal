@@ -19,7 +19,7 @@ Object.assign(API.dataSource.fetchMappings, () =>
 const DefaultDataTransformation = (props = {}) => (
 	<DataTransformation
 		addAlert={noop}
-		groupId={'23'}
+		groupId='23'
 		onSubmit={noop}
 		{...props}
 	/>

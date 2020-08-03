@@ -771,7 +771,7 @@ class SankeyTouchpoint extends React.Component {
 				<text
 					className={`${CLASSNAME}-numbers-of-views`}
 					dy={5}
-					textAnchor={'middle'}
+					textAnchor='middle'
 					x={100}
 					y={rectPosition + 4 + height - height / 2}
 				>
@@ -916,7 +916,7 @@ class SankeyTouchpoint extends React.Component {
 						fill={SANKEY_COLORS.bgShapeMain}
 						fillOpacity={0.8}
 						height={this.getSize(toRounded(height) - 20)}
-						stroke={'none'}
+						stroke='none'
 						width={this.getSize(x1 - x0 - 20)}
 						x={10}
 						y={rectPosition + 10}
@@ -946,7 +946,7 @@ class SankeyTouchpoint extends React.Component {
 							className={`${CLASSNAME}-title`}
 							dy={-14}
 							fill={SANKEY_COLORS.directTraffic}
-							textAnchor={'middle'}
+							textAnchor='middle'
 							x={100}
 							y={rectPosition}
 						>
@@ -974,7 +974,7 @@ class SankeyTouchpoint extends React.Component {
 				<text
 					className={`${CLASSNAME}-numbers-of-views`}
 					dy={5}
-					textAnchor={'middle'}
+					textAnchor='middle'
 					x={100}
 					y={rectPosition + 4 + height - height / 2}
 				>

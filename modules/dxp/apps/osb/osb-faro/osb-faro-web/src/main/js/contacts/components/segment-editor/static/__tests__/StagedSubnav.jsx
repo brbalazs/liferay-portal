@@ -6,8 +6,8 @@ jest.unmock('react-dom');
 
 const DefaultComponent = props => (
 	<StagedSubnav
-		viewCurrentLinkText={'view current items'}
-		viewStagedLinkText={'view added items'}
+		viewCurrentLinkText='view current items'
+		viewStagedLinkText='view added items'
 		{...props}
 	/>
 );

@@ -10,7 +10,7 @@ describe('StepList', () => {
 
 	it('should render with secondaryInfo and steps', () => {
 		const component = shallow(
-			<StepList secondaryInfo={'test'} steps={['test', 'test 2']} />
+			<StepList secondaryInfo='test' steps={['test', 'test 2']} />
 		);
 		expect(component).toMatchSnapshot();
 	});
@@ -19,7 +19,7 @@ describe('StepList', () => {
 		const component = shallow(
 			<StepList
 				hideBullets
-				secondaryInfo={'test'}
+				secondaryInfo='test'
 				steps={['test', 'test 2']}
 			/>
 		);

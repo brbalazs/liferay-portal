@@ -10,7 +10,7 @@ const WrappedComponent = () => (
 
 describe('CardWithRangeKey', () => {
 	it('render', () => {
-		const component = shallow(<WrappedComponent rangeKey={'30'} />);
+		const component = shallow(<WrappedComponent rangeKey='30' />);
 
 		expect(
 			component

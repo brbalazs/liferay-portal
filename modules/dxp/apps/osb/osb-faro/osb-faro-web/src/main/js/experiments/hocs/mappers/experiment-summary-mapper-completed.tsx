@@ -115,7 +115,7 @@ export default ({
 											publishedVariant.improvement,
 											2
 										)}%`}
-										status={'up'}
+										status='up'
 									/>
 								)}
 						</SummarySection>

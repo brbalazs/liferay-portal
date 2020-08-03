@@ -22,7 +22,7 @@ describe('CardTabs', () => {
 
 	it('should render', () => {
 		const {container} = render(
-			<CardTabs activeTabId={'bar'} tabs={mockTabs} />
+			<CardTabs activeTabId='bar' tabs={mockTabs} />
 		);
 
 		expect(container).toMatchSnapshot();
@@ -33,7 +33,7 @@ describe('CardTabs', () => {
 
 		const {getByText} = render(
 			<CardTabs
-				activeTabId={'bar'}
+				activeTabId='bar'
 				onChange={onChangeSpy}
 				tabs={mockTabs}
 			/>

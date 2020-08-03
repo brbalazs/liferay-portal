@@ -8,7 +8,7 @@ jest.unmock('react-dom');
 const DefaultComponent = props => (
 	<StaticRouter>
 		<PaginationBar
-			href={''}
+			href=''
 			page={3}
 			selectedDelta={10}
 			totalItems={100}

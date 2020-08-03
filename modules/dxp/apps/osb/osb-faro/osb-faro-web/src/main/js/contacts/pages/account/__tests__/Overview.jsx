@@ -9,8 +9,8 @@ describe('AccountOverview', () => {
 		const component = shallow(
 			<Overview
 				account={data.getImmutableMock(Account, data.mockAccount)}
-				groupId={'23'}
-				id={'test'}
+				groupId='23'
+				id='test'
 			/>
 		);
 

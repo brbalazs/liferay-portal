@@ -17,7 +17,7 @@ describe('SearchableVerticalTimeline', () => {
 		const {container} = render(
 			<DefaultComponent
 				dataSourceFn={() => Promise.resolve(data.mockSearch(noop, 0))}
-				groupId={'23'}
+				groupId='23'
 			/>
 		);
 

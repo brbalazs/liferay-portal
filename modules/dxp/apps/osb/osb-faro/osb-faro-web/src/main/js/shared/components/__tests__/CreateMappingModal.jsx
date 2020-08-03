@@ -6,7 +6,7 @@ import {shallow} from 'enzyme';
 describe('CreateMappingModal', () => {
 	it('should render', () => {
 		const component = shallow(
-			<CreateMappingModal groupId={'23'} onClose={noop} />
+			<CreateMappingModal groupId='23' onClose={noop} />
 		);
 		expect(component).toMatchSnapshot();
 	});
@@ -15,7 +15,7 @@ describe('CreateMappingModal', () => {
 		const onSubmit = jest.fn();
 		const component = shallow(
 			<CreateMappingModal
-				groupId={'23'}
+				groupId='23'
 				onClose={noop}
 				onSubmit={onSubmit}
 			/>

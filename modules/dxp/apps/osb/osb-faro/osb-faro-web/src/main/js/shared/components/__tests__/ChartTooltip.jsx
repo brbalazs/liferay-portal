@@ -11,8 +11,8 @@ describe('ChartTooltip', () => {
 		const {container} = render(
 			<ChartTooltip
 				items={[{label: 'Test Label', value: 'Test Value'}]}
-				subtitle={'Test Subtitle'}
-				title={'Test Title'}
+				subtitle='Test Subtitle'
+				title='Test Title'
 			/>
 		);
 

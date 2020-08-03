@@ -24,7 +24,7 @@ describe('ConfirmationModal', () => {
 		const message = 'This is a message.';
 
 		const {getByText} = render(
-			<DefaultComponent message={'This is a message.'} />
+			<DefaultComponent message='This is a message.' />
 		);
 
 		expect(getByText(message)).toBeTruthy();
@@ -33,8 +33,8 @@ describe('ConfirmationModal', () => {
 	it('should render with a warning submit button', () => {
 		const {container, getByText} = render(
 			<ConfirmationModal
-				submitButtonDisplay={'warning'}
-				submitMessage={'delete'}
+				submitButtonDisplay='warning'
+				submitMessage='delete'
 			/>
 		);
 

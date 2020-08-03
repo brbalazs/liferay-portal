@@ -114,7 +114,7 @@ export class DropdownItem extends React.Component {
 				</li>
 			);
 		} else {
-			return <li className={'dropdown-divider'} />;
+			return <li className='dropdown-divider' />;
 		}
 	}
 }

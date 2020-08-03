@@ -4,7 +4,7 @@ import {shallow} from 'enzyme';
 
 describe('SummarySection MetricType', () => {
 	it('should render component', () => {
-		const component = shallow(<MetricType value={'Click rate'} />);
+		const component = shallow(<MetricType value='Click rate' />);
 
 		expect(
 			component.hasClass('analytics-summary-section-metric-type')

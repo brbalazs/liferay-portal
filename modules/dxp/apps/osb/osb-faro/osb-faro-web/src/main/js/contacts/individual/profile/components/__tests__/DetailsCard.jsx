@@ -14,7 +14,7 @@ describe('IndividualDetailsCard', () => {
 			<StaticRouter>
 				<IndividualDetailsCard
 					entity={new Individual(fromJS(mockIndividual()))}
-					groupId={'23'}
+					groupId='23'
 				/>
 			</StaticRouter>
 		);

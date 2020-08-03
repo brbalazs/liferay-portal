@@ -19,7 +19,7 @@ describe('WithInterval', () => {
 	it('should pass interval as a prop to the wrapped component', () => {
 		const WrappedComponent = withInterval(IntervalSelector);
 
-		const {getByText} = render(<WrappedComponent activeInterval={'W'} />);
+		const {getByText} = render(<WrappedComponent activeInterval='W' />);
 
 		expect(getByText('W').classList.contains('active')).toBe(true);
 	});

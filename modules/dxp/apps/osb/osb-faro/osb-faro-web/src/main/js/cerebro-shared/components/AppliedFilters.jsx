@@ -87,7 +87,7 @@ class AppliedFilters extends React.Component {
 						key={`${index}_subItems`}
 						label={getDeviceLabel(label) || label}
 						onRemove={this.handleRemoveFilter}
-						size={'lg'}
+						size='lg'
 					/>
 				))}
 			</div>
@@ -112,11 +112,11 @@ class AppliedFilters extends React.Component {
 
 				{isClearFilterVisible(filters) && (
 					<Button
-						className={'ml-4'}
+						className='ml-4'
 						display='secondary'
-						icon={'trash'}
+						icon='trash'
 						onClick={this.handleRemoveAllFilters}
-						size={'sm'}
+						size='sm'
 					>
 						{Liferay.Language.get('clear-filter')}
 					</Button>

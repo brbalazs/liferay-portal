@@ -50,7 +50,7 @@ describe('Avatar', () => {
 
 	it('should render with a specific size', () => {
 		const {container} = render(
-			<Avatar entity={mockIndividual()} size={'xl'} />
+			<Avatar entity={mockIndividual()} size='xl' />
 		);
 		expect(container.querySelector('.sticker-xl')).toBeTruthy();
 	});

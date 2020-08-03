@@ -13,7 +13,7 @@ describe('Checkbox', () => {
 	});
 
 	it('should render with a label', () => {
-		const {queryByText} = render(<Checkbox label={'foo'} />);
+		const {queryByText} = render(<Checkbox label='foo' />);
 		expect(queryByText('foo')).toBeTruthy();
 	});
 });

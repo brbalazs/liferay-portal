@@ -50,8 +50,8 @@ describe('SegmentEngagementWithList', () => {
 					columns={MOCK_COLUMNS}
 					data={MOCK_DATA}
 					entityType={entityTypes.individualsSegment}
-					groupId={'23'}
-					id={'3'}
+					groupId='23'
+					id='3'
 					previousScore={1}
 					score={7}
 				/>

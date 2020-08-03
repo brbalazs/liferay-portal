@@ -21,14 +21,14 @@ describe('Button', () => {
 	});
 
 	it('should render with a different type', () => {
-		const {getByText} = render(<DefaultComponent type={'submit'} />);
+		const {getByText} = render(<DefaultComponent type='submit' />);
 		expect(getByText('foo').type).toBe('submit');
 	});
 
 	it('should render as an anchor link', () => {
 		const {getByText} = render(
 			<StaticRouter>
-				<DefaultComponent href={'https://www.liferay.com'} />
+				<DefaultComponent href='https://www.liferay.com' />
 			</StaticRouter>
 		);
 		expect(getByText('foo')).toHaveAttribute('href');
@@ -47,7 +47,7 @@ describe('Button', () => {
 
 	it('should render a button link as disabled', () => {
 		const {getByText} = render(
-			<DefaultComponent disabled href={'https://www.liferay.com'} />
+			<DefaultComponent disabled href='https://www.liferay.com' />
 		);
 		expect(getByText('foo')).toHaveClass('link-disabled');
 	});

@@ -9,7 +9,7 @@ describe('List', () => {
 		const component = shallow(
 			<List
 				currentUser={data.getImmutableMock(User, data.mockUser)}
-				groupId={'23'}
+				groupId='23'
 			/>
 		);
 

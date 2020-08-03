@@ -15,7 +15,7 @@ describe('IntervalSelector', () => {
 
 	it('should render with an active item', () => {
 		const {getByText} = render(
-			<IntervalSelector activeInterval={'W'} onChange={jest.fn()} />
+			<IntervalSelector activeInterval='W' onChange={jest.fn()} />
 		);
 
 		expect(getByText('W')).not.toHaveClass('.active');

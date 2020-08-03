@@ -23,10 +23,10 @@ class DropdownKit extends React.Component {
 				}
 			>
 				<Row>
-					<Dropdown label={'Nested'}>
+					<Dropdown label='Nested'>
 						<Dropdown.Item href='#'>{'One'}</Dropdown.Item>
 
-						<Dropdown label={'more'}>
+						<Dropdown label='more'>
 							<Dropdown.Item href='#'>{'Three'}</Dropdown.Item>
 
 							<Dropdown.Item href='#'>{'Four'}</Dropdown.Item>

@@ -19,7 +19,7 @@ describe('Select', () => {
 
 	it('renders w/ label', () => {
 		const {container} = render(
-			<Select field={{name: 'test'}} form={mockForm()} label={'foo'} />
+			<Select field={{name: 'test'}} form={mockForm()} label='foo' />
 		);
 		expect(container.querySelector('label')).not.toBeNull();
 	});

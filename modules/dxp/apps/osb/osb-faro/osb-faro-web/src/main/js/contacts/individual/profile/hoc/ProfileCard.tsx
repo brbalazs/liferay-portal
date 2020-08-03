@@ -13,7 +13,7 @@ interface IProfileCardProps extends React.HTMLAttributes<HTMLElement> {
 
 const ProfileCard: React.FC<IProfileCardProps> = ({tabId, ...props}) => (
 	<BaseCard
-		className={'individual-profile-card-root page-display'}
+		className='individual-profile-card-root page-display'
 		Header={HeaderCard}
 		headerProps={{
 			tabId

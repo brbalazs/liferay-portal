@@ -9,8 +9,8 @@ describe('SegmentProfileCard', () => {
 	it('should render', () => {
 		const component = shallow(
 			<SegmentProfileCard
-				channelId={'123'}
-				groupId={'23'}
+				channelId='123'
+				groupId='23'
 				segment={data.getImmutableMock(Segment, data.mockSegment, '3')}
 			/>
 		);
@@ -21,8 +21,8 @@ describe('SegmentProfileCard', () => {
 	it('should render with Engagement tab as active', () => {
 		const component = shallow(
 			<SegmentProfileCard
-				channelId={'123'}
-				groupId={'23'}
+				channelId='123'
+				groupId='23'
 				segment={data.getImmutableMock(Segment, data.mockSegment, '3')}
 				tabId={ENGAGEMENT}
 			/>

@@ -21,7 +21,7 @@ describe('SelectItemsModal', () => {
 		const {container} = render(
 			<SelectItemsModal
 				dataSourceFn={() => Promise.resolve()}
-				groupId={'23'}
+				groupId='23'
 			/>
 		);
 
@@ -32,8 +32,8 @@ describe('SelectItemsModal', () => {
 		const {container} = render(
 			<SelectItemsModal
 				dataSourceFn={() => Promise.resolve()}
-				groupId={'23'}
-				title={'Custom Title'}
+				groupId='23'
+				title='Custom Title'
 			/>
 		);
 
@@ -44,8 +44,8 @@ describe('SelectItemsModal', () => {
 		const {container} = render(
 			<SelectItemsModal
 				dataSourceFn={() => Promise.resolve()}
-				groupId={'23'}
-				submitMessage={'Custom Submit Message'}
+				groupId='23'
+				submitMessage='Custom Submit Message'
 			/>
 		);
 
@@ -57,7 +57,7 @@ describe('SelectItemsModal', () => {
 			<SelectItemsModal
 				dataSourceFn={() => Promise.resolve()}
 				entityType={4}
-				groupId={'23'}
+				groupId='23'
 			/>
 		);
 
@@ -68,7 +68,7 @@ describe('SelectItemsModal', () => {
 		const {container} = render(
 			<SelectItemsModal
 				dataSourceFn={() => Promise.resolve()}
-				groupId={'23'}
+				groupId='23'
 				showSortButton={false}
 			/>
 		);
@@ -80,7 +80,7 @@ describe('SelectItemsModal', () => {
 		const {container} = render(
 			<SelectItemsModal
 				dataSourceFn={() => Promise.resolve()}
-				groupId={'23'}
+				groupId='23'
 				showToolbar={false}
 			/>
 		);
@@ -92,7 +92,7 @@ describe('SelectItemsModal', () => {
 		const {container} = render(
 			<SelectItemsModal
 				dataSourceFn={() => Promise.resolve()}
-				groupId={'23'}
+				groupId='23'
 				selectedItems={SELECTED_ITEMS_MOCK}
 			/>
 		);
@@ -107,7 +107,7 @@ describe('SelectItemsModal', () => {
 				disabledSelectedDataSourceFn={() =>
 					Promise.resolve({items: SELECTED_ITEMS_MOCK})
 				}
-				groupId={'23'}
+				groupId='23'
 			/>
 		);
 
@@ -120,7 +120,7 @@ describe('SelectItemsModal', () => {
 		const {container, getByText} = render(
 			<SelectItemsModal
 				dataSourceFn={() => Promise.resolve()}
-				groupId={'23'}
+				groupId='23'
 				onClose={noop}
 				onSubmit={() => Promise.resolve()}
 				requireSelection={false}
@@ -137,7 +137,7 @@ describe('SelectItemsModal', () => {
 		const {container, getByText} = render(
 			<SelectItemsModal
 				dataSourceFn={() => Promise.resolve()}
-				groupId={'23'}
+				groupId='23'
 				onClose={noop}
 				onSubmit={() =>
 					Promise.reject({IS_CANCELLATION_ERROR: 'error'})
@@ -156,7 +156,7 @@ describe('SelectItemsModal', () => {
 		const {container, getByText} = render(
 			<SelectItemsModal
 				dataSourceFn={() => Promise.resolve()}
-				groupId={'23'}
+				groupId='23'
 				onClose={noop}
 				onSubmit={noop({IS_CANCELLATION_ERROR: 'error'})}
 				requireSelection={false}
@@ -182,7 +182,7 @@ describe('SelectItemsModal', () => {
 
 		it('should render with a custom className', () => {
 			const {container} = render(
-				<ItemComponent className={'test'} item={ITEM_COMPONENT_MOCK} />
+				<ItemComponent className='test' item={ITEM_COMPONENT_MOCK} />
 			);
 
 			expect(container).toMatchSnapshot();

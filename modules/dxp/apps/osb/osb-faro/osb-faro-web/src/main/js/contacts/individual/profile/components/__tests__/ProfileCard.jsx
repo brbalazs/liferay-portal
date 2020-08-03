@@ -14,8 +14,8 @@ const DefaultComponent = props => (
 		<IndividualProfileCard
 			channelId='123123'
 			entity={new Individual(data.mockIndividual())}
-			groupId={'23'}
-			interval={'D'}
+			groupId='23'
+			interval='D'
 			rangeSelectors={{rangeKey: 30}}
 			{...props}
 		/>

@@ -117,7 +117,7 @@ export default class UserActionsRenderer extends React.Component {
 								onClick={this.handleDelete}
 								size='sm'
 							>
-								<Icon symbol={'trash'} />
+								<Icon symbol='trash' />
 							</Button>
 						</>
 					))}

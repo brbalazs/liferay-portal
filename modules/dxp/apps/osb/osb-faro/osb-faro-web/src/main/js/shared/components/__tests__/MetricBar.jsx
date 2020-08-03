@@ -18,7 +18,7 @@ describe('MetricBar', () => {
 	});
 
 	it('should render small MetricBar', () => {
-		const {container} = render(<MetricBar size={'sm'} />);
+		const {container} = render(<MetricBar size='sm' />);
 		expect(container).toMatchSnapshot();
 	});
 

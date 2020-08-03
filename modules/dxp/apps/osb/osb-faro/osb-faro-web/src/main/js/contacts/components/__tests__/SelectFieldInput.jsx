@@ -6,7 +6,7 @@ jest.unmock('react-dom');
 
 describe('SelectFieldInput', () => {
 	it('should render', () => {
-		const {container} = render(<SelectFieldInput groupId={'23'} />);
+		const {container} = render(<SelectFieldInput groupId='23' />);
 
 		expect(container).toMatchSnapshot();
 	});

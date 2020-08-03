@@ -186,7 +186,7 @@ class AddReport extends React.Component {
 					onBlur={this.handleBlurSelectMetric}
 					onChange={this.handleChangeSelectMetric}
 				>
-					<option defaultValue value={''}>
+					<option defaultValue value=''>
 						{Liferay.Language.get('select-a-metric')}
 					</option>
 
@@ -255,7 +255,7 @@ class AddReport extends React.Component {
 				<Card.Body>{this.renderFormAddReport()}</Card.Body>
 				<Card.Footer>
 					<Button
-						className={'mr-4'}
+						className='mr-4'
 						disabled={!isEnableToSave}
 						display='primary'
 						onClick={

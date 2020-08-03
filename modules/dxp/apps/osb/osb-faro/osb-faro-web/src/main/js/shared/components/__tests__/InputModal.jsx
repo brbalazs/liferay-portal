@@ -10,7 +10,7 @@ describe('InputModal', () => {
 
 	it('should render', () => {
 		const {container} = render(
-			<InputModal onClose={noop} placeholder={'foo'} title={'bar'} />
+			<InputModal onClose={noop} placeholder='foo' title='bar' />
 		);
 		expect(container).toMatchSnapshot();
 	});

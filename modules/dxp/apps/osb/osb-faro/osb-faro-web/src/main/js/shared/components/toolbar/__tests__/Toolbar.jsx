@@ -39,7 +39,7 @@ describe('Toolbar', () => {
 		const component = render(
 			<DefaultComponent
 				alwaysShowSearch
-				query={'Test'}
+				query='Test'
 				selectEntirePageIndeterminate
 			/>
 		);

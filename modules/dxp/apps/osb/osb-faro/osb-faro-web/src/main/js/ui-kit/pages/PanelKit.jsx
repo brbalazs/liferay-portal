@@ -10,10 +10,10 @@ class PanelKit extends React.Component {
 				}
 			>
 				<div>
-					<Panel title={'Panel Title'}>{'Panel Content'}</Panel>
+					<Panel title='Panel Title'>{'Panel Content'}</Panel>
 				</div>
 				<div>
-					<Panel expandable title={'Expandable Panel Title'}>
+					<Panel expandable title='Expandable Panel Title'>
 						{'Expandable Panel Content'}
 					</Panel>
 				</div>
@@ -21,7 +21,7 @@ class PanelKit extends React.Component {
 					<Panel
 						expandable
 						initialExpanded
-						title={'Initially Expanded Expandable Panel Title'}
+						title='Initially Expanded Expandable Panel Title'
 					>
 						{'Initially Expanded Expandable Panel Content'}
 					</Panel>

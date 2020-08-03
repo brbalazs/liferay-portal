@@ -18,7 +18,7 @@ const SuccessDisplay = ({friendlyURL}) => {
 	return (
 		<WorkspacesBasePage title={Liferay.Language.get('new-workspace')}>
 			<Sheet>
-				<Sheet.Header className={'mb-4'}>
+				<Sheet.Header className='mb-4'>
 					<h3 className='title'>
 						{Liferay.Language.get(
 							'your-workspace-is-being-created'

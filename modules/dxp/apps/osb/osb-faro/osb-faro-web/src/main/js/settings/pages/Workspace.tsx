@@ -72,7 +72,7 @@ export const Workspace: React.FC<IWorkspaceProps> = ({
 			backURL={toRoute(Routes.SETTINGS_ADD_DATA_SOURCE, {
 				groupId
 			})}
-			className={'workspace-settings'}
+			className='workspace-settings'
 			groupId={groupId}
 			key='workspaceSettingsPage'
 			pageDescription={Liferay.Language.get(

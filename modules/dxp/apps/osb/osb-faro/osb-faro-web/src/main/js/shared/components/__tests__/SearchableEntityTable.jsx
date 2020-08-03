@@ -49,8 +49,8 @@ describe('SearchableEntityTable', () => {
 				dataSourceFn={() =>
 					Promise.resolve({items: INDIVIDUALS, total: TOTAL})
 				}
-				groupId={'23'}
-				rowIdentifier={'id'}
+				groupId='23'
+				rowIdentifier='id'
 			/>
 		);
 
@@ -65,8 +65,8 @@ describe('SearchableEntityTable', () => {
 					dataSourceFn={() =>
 						Promise.resolve({items: INDIVIDUALS, total: TOTAL})
 					}
-					groupId={'23'}
-					rowIdentifier={'id'}
+					groupId='23'
+					rowIdentifier='id'
 					showCheckbox
 				/>
 			</SelectionProvider>
@@ -88,9 +88,9 @@ describe('SearchableEntityTable', () => {
 					dataSourceFn={() =>
 						Promise.resolve({items: INDIVIDUALS, total: TOTAL})
 					}
-					groupId={'23'}
+					groupId='23'
 					overrideLoading
-					rowIdentifier={'id'}
+					rowIdentifier='id'
 					showCheckbox
 				/>
 			</SelectionProvider>

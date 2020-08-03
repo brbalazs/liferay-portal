@@ -39,7 +39,7 @@ describe('Dropdown', () => {
 	it('should render items as links when href is passed to an item', () => {
 		const {container} = render(
 			<StaticRouter>
-				<Dropdown.Item href={'#foo'} />
+				<Dropdown.Item href='#foo' />
 			</StaticRouter>
 		);
 

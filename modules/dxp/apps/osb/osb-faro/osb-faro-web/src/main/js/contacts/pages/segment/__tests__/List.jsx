@@ -26,9 +26,9 @@ const DefaultComponent = props => (
 			>
 				<ChannelContext.Provider value={mockChannelContext()}>
 					<List
-						channelId={'123'}
+						channelId='123'
 						currentUser={data.getImmutableMock(User, data.mockUser)}
-						groupId={'23'}
+						groupId='23'
 						{...props}
 					/>
 				</ChannelContext.Provider>

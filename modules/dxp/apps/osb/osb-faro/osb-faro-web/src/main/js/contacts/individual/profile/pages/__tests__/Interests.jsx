@@ -13,8 +13,8 @@ describe('Interests', () => {
 			<StaticRouter>
 				<Interests
 					entity={new Individual(data.mockIndividual())}
-					groupId={'23'}
-					id={'test'}
+					groupId='23'
+					id='test'
 				/>
 			</StaticRouter>
 		);

@@ -13,14 +13,14 @@ describe('VariantTitle', () => {
 	});
 
 	it('should render VariantTitle', () => {
-		component = shallow(<VariantTitle title={'Variant Title'} />);
+		component = shallow(<VariantTitle title='Variant Title' />);
 
 		expect(component).toMatchSnapshot();
 	});
 
 	it('should render label component when a label prop is set', () => {
 		component = shallow(
-			<VariantTitle label={'winner'} title={'Variant Title'} />
+			<VariantTitle label='winner' title='Variant Title' />
 		);
 
 		expect(component.exists(Label)).toBe(true);
@@ -29,8 +29,8 @@ describe('VariantTitle', () => {
 	it('should render truncated text when it is a big title', () => {
 		component = shallow(
 			<VariantTitle
-				label={'winner'}
-				title={'Variant Title with a big title should be truncated'}
+				label='winner'
+				title='Variant Title with a big title should be truncated'
 			/>
 		);
 

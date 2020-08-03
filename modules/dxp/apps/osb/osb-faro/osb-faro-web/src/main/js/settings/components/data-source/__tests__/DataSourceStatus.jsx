@@ -7,7 +7,7 @@ jest.unmock('react-dom');
 describe('DataSourceStatus', () => {
 	it('should render', () => {
 		const {container} = render(
-			<DataSourceStatus display={'info'} label={'foo'} message={'bar'} />
+			<DataSourceStatus display='info' label='foo' message='bar' />
 		);
 
 		expect(container).toMatchSnapshot();

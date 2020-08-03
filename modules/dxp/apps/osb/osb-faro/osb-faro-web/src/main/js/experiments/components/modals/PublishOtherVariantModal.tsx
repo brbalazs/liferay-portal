@@ -10,7 +10,7 @@ import {useStateValue} from 'experiments/state';
 
 const ChooseVariant = ({dxpVariant, dxpVariants, link, setDxpVariant}) => (
 	<>
-		<div className={'mb-3 font-size-md font-weight-semibold'}>
+		<div className='mb-3 font-size-md font-weight-semibold'>
 			{Liferay.Language.get('which-variant-do-you-want-to-publish')}
 		</div>
 

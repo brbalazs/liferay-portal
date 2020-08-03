@@ -19,7 +19,7 @@ class InviteUsersModalKit extends React.Component {
 			>
 				<Provider store={store}>
 					<InviteUsersModal
-						message={'this is the message'}
+						message='this is the message'
 						onClose={handleClose}
 						onSubmit={handleSubmit}
 					/>

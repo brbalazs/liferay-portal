@@ -31,7 +31,7 @@ const DeleteExperimentModal = ({experimentId, history, observer, onClose}) => {
 			onClose={onClose}
 			onSubmit={onSubmit}
 			onSuccess={onSuccess}
-			status={'warning'}
+			status='warning'
 			submitMessage={Liferay.Language.get('delete')}
 			title={Liferay.Language.get('deleting-test')}
 		>

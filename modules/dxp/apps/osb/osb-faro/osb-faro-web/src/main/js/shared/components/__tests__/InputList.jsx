@@ -29,14 +29,14 @@ describe('InputList', () => {
 	});
 
 	it('should render with an error message', () => {
-		const {container} = render(<InputList errorMessage={'error'} />);
+		const {container} = render(<InputList errorMessage='error' />);
 
 		jest.runAllTimers();
 		expect(container).toMatchSnapshot();
 	});
 
 	it('should render without an error message if no content', () => {
-		const {container} = render(<InputList errorMessage={'error'} />);
+		const {container} = render(<InputList errorMessage='error' />);
 
 		fireEvent.keyDown(container.querySelector('.form-control-inset'), {
 			keyCode: 13,

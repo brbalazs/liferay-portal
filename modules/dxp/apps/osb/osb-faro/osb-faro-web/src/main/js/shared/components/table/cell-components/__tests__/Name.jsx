@@ -15,7 +15,7 @@ describe('Name', () => {
 			<Name
 				data={{id: 'test', name: 'foo'}}
 				disabled
-				groupId={'23'}
+				groupId='23'
 				routeFn={({data: {id}}) => `/foo/${id}`}
 			/>
 		);
@@ -27,7 +27,7 @@ describe('Name', () => {
 		const component = shallow(
 			<Name
 				data={{id: 'test', name: 'foo'}}
-				groupId={'23'}
+				groupId='23'
 				routeFn={({data: {id}}) => `/foo/${id}`}
 			/>
 		);
@@ -38,7 +38,7 @@ describe('Name', () => {
 		const component = shallow(
 			<Name
 				data={{id: 'test', name: 'foo'}}
-				groupId={'23'}
+				groupId='23'
 				renderSecondaryInfo={() => 'bar'}
 				routeFn={({data: {id}}) => `/foo/${id}`}
 			/>
@@ -51,7 +51,7 @@ describe('Name', () => {
 		const component = shallow(
 			<Name
 				data={{id: 'test', name: 'foo'}}
-				groupId={'23'}
+				groupId='23'
 				renderIcon={() => <div>{'foo icon'}</div>}
 			/>
 		);
@@ -61,7 +61,7 @@ describe('Name', () => {
 
 	it('should render using the nameKey', () => {
 		const component = shallow(
-			<Name data={{id: 'test', title: 'foo'}} nameKey={'title'} />
+			<Name data={{id: 'test', title: 'foo'}} nameKey='title' />
 		);
 
 		expect(component.render().text()).toEqual('foo');

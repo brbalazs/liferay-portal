@@ -13,7 +13,7 @@ const {segmentTypes} = FaroConstants;
 describe('StaticSegmentEdit', () => {
 	it('should render', () => {
 		const component = shallow(
-			<StaticSegmentEdit groupId={'23'} type={INDIVIDUALS} />
+			<StaticSegmentEdit groupId='23' type={INDIVIDUALS} />
 		);
 
 		expect(component).toMatchSnapshot();
@@ -22,7 +22,7 @@ describe('StaticSegmentEdit', () => {
 	it('should render a navigation warning', () => {
 		const component = shallow(
 			<StaticSegmentEdit
-				groupId={'23'}
+				groupId='23'
 				segment={data.getImmutableMock(Segment, data.mockSegment, 1, {
 					segmentType: segmentTypes.static
 				})}
@@ -39,7 +39,7 @@ describe('StaticSegmentEdit', () => {
 
 	it('should not render a navigation warning after being changed back to the original value', () => {
 		const component = shallow(
-			<StaticSegmentEdit groupId={'23'} type={INDIVIDUALS} />
+			<StaticSegmentEdit groupId='23' type={INDIVIDUALS} />
 		);
 
 		component.setState({

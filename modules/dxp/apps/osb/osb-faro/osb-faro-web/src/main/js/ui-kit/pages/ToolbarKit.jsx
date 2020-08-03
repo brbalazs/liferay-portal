@@ -14,8 +14,8 @@ const DefaultToolbar = (props = {}) => (
 		onSelectAll={noop}
 		onSelectEntirePage={noop}
 		order={FaroConstants.orderAscending}
-		orderBy={''}
-		selectedMessage={''}
+		orderBy=''
+		selectedMessage=''
 		{...props}
 	/>
 );
@@ -66,14 +66,14 @@ export default class ToolbarKit extends React.Component {
 					<h3>{'Search values'}</h3>
 
 					<div>
-						<DefaultToolbar placeholder={'Placeholder'} />
+						<DefaultToolbar placeholder='Placeholder' />
 					</div>
 
 					<div>
 						<DefaultToolbar
-							placeholder={'Placeholder'}
-							query={'cat pictures'}
-							searchValue={'dog pictures'}
+							placeholder='Placeholder'
+							query='cat pictures'
+							searchValue='dog pictures'
 							total={42}
 						/>
 					</div>
@@ -92,9 +92,9 @@ export default class ToolbarKit extends React.Component {
 
 					<div>
 						<DefaultToolbar
-							placeholder={'Placeholder'}
-							query={'cat pictures'}
-							searchValue={'dog pictures'}
+							placeholder='Placeholder'
+							query='cat pictures'
+							searchValue='dog pictures'
 							selectEntirePageIndeterminate
 							total={42}
 						/>

@@ -269,7 +269,7 @@ class BarChartHTML extends React.Component {
 		return (
 			<div className={`${CLASSNAME}-column`} key={index}>
 				{icon && this.renderIcon({color, icon})}
-				<div className={'text-truncate w-100'}>
+				<div className='text-truncate w-100'>
 					{this.renderLabel(label)}
 				</div>
 			</div>
@@ -389,7 +389,7 @@ class BarChartHTML extends React.Component {
 				data-index={index}
 				onClick={this.handleClickToggleList}
 			>
-				<Icon className={'icon'} symbol={expanded ? 'hr' : 'plus'} />
+				<Icon className='icon' symbol={expanded ? 'hr' : 'plus'} />
 			</button>
 		);
 	}
@@ -453,9 +453,7 @@ class BarChartHTML extends React.Component {
 	}
 
 	renderArrowDownIcon() {
-		return (
-			<Icon className={'icon text-l-secondary '} symbol={'angle-down'} />
-		);
+		return <Icon className='icon text-l-secondary ' symbol='angle-down' />;
 	}
 
 	renderGrid() {

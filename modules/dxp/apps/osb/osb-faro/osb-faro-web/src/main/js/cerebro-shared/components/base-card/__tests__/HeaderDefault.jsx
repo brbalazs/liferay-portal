@@ -9,7 +9,7 @@ jest.unmock('react-dom');
 
 const DefaultComponent = props => (
 	<MockedProvider mocks={[mockTimeRangeReq()]}>
-		<HeaderDefault label={'Title'} {...props} />
+		<HeaderDefault label='Title' {...props} />
 	</MockedProvider>
 );
 describe('HeaderDefault', () => {

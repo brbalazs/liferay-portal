@@ -11,7 +11,7 @@ describe('IndividualLinkCell', () => {
 					id: '456',
 					name: 'Test Test'
 				}}
-				groupId={'123'}
+				groupId='123'
 			/>
 		).shallow();
 
@@ -27,7 +27,7 @@ describe('IndividualLinkCell', () => {
 					individualId: 'individual456',
 					individualName: 'individual Test'
 				}}
-				groupId={'123'}
+				groupId='123'
 			/>
 		).shallow();
 
@@ -43,7 +43,7 @@ describe('IndividualLinkCell', () => {
 					individualId: 'individual456',
 					individualName: 'individual Test'
 				}}
-				groupId={'123'}
+				groupId='123'
 			/>
 		).shallow();
 
@@ -58,7 +58,7 @@ describe('IndividualLinkCell', () => {
 					individualId: 'individual456',
 					individualName: 'individual Test'
 				}}
-				groupId={'123'}
+				groupId='123'
 			/>
 		).shallow();
 
@@ -77,7 +77,7 @@ describe('IndividualLinkCell', () => {
 					individualId,
 					individualName: 'individual Test'
 				}}
-				groupId={'123'}
+				groupId='123'
 			/>
 		);
 

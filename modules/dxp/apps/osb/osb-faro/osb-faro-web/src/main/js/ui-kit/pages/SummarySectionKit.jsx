@@ -8,13 +8,10 @@ export default () => (
 		<Row>
 			<Item>
 				<SummarySection title='Summary Section with Progress'>
-					<SummarySection.ProgressBar
-						className={'mb-1'}
-						value={100}
-					/>
-					<SummarySection.ProgressBar className={'mb-1'} value={50} />
-					<SummarySection.ProgressBar className={'mb-1'} value={25} />
-					<SummarySection.ProgressBar className={'mb-1'} value={0} />
+					<SummarySection.ProgressBar className='mb-1' value={100} />
+					<SummarySection.ProgressBar className='mb-1' value={50} />
+					<SummarySection.ProgressBar className='mb-1' value={25} />
+					<SummarySection.ProgressBar className='mb-1' value={0} />
 				</SummarySection>
 			</Item>
 		</Row>

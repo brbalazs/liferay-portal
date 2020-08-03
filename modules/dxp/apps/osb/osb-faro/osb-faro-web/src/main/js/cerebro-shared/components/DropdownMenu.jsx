@@ -161,10 +161,7 @@ export class OptionItem extends React.Component {
 							<ClayBadge displayType='secondary' label={value} />
 
 							{items && !!items.length && (
-								<Icon
-									className={'ml-1'}
-									symbol={'angle-right'}
-								/>
+								<Icon className='ml-1' symbol='angle-right' />
 							)}
 						</div>
 					)}
@@ -502,13 +499,13 @@ class DropdownMenu extends React.Component {
 							className='btn btn-unstyled d-md-none'
 							type='button'
 						>
-							<Icon symbol={'times'} />
+							<Icon symbol='times' />
 						</button>
 						<button
 							className='btn btn-unstyled d-none d-md-inline-block'
 							type='button'
 						>
-							<Icon symbol={'search'} />
+							<Icon symbol='search' />
 						</button>
 					</div>
 				</div>

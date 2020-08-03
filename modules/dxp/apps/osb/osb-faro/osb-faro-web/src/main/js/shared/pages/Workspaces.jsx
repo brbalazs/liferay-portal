@@ -75,7 +75,7 @@ const Workspaces = ({
 		<div className='mt-4'>
 			<Button
 				className='mr-2'
-				display={'primary'}
+				display='primary'
 				onClick={() =>
 					open(modalTypes.CONTACT_SALES_MODAL, {
 						onClose: close

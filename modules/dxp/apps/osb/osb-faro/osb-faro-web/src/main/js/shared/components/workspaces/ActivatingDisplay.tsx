@@ -12,7 +12,7 @@ const {projectStates} = Constants;
 const ActivatingDisplay = () => (
 	<WorkspacesBasePage title={Liferay.Language.get('activating-workspace')}>
 		<Sheet>
-			<Sheet.Header className={'mb-4'}>
+			<Sheet.Header className='mb-4'>
 				<h3 className='title'>
 					{Liferay.Language.get('your-workspace-is-being-activated')}
 				</h3>

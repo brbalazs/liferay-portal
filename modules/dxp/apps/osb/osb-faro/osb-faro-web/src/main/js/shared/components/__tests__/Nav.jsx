@@ -31,22 +31,22 @@ describe('Nav', () => {
 	});
 
 	it('should render stacked', () => {
-		const {container} = render(<DefaultComponent display={'stacked'} />);
+		const {container} = render(<DefaultComponent display='stacked' />);
 		expect(container.querySelector('.nav-stacked')).toBeTruthy();
 	});
 
 	it('should render with items as pills', () => {
-		const {container} = render(<DefaultComponent display={'pills'} />);
+		const {container} = render(<DefaultComponent display='pills' />);
 		expect(container.querySelector('.nav-pills')).toBeTruthy();
 	});
 
 	it('should render with items as tabs', () => {
-		const {container} = render(<DefaultComponent display={'tabs'} />);
+		const {container} = render(<DefaultComponent display='tabs' />);
 		expect(container.querySelector('.nav-tabs')).toBeTruthy();
 	});
 
 	it('should render with underline class', () => {
-		const {container} = render(<DefaultComponent display={'underline'} />);
+		const {container} = render(<DefaultComponent display='underline' />);
 		expect(container.querySelector('.nav-underline')).toBeTruthy();
 	});
 });

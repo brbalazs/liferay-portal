@@ -30,7 +30,7 @@ export default class DropdownRangeKeyKit extends React.Component {
 					>
 						<DropdownRangeKey
 							items={mockItems}
-							rangeKey={'foo value1'}
+							rangeKey='foo value1'
 						/>
 					</BasePage.Context.Provider>
 				</Row>

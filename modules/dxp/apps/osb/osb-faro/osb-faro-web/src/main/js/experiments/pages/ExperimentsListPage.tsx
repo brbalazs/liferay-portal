@@ -97,7 +97,7 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({router}) => {
 														<Icon
 															className='font-size-md-2x'
 															key='test-icon'
-															symbol={'test'}
+															symbol='test'
 														/>
 													],
 													false

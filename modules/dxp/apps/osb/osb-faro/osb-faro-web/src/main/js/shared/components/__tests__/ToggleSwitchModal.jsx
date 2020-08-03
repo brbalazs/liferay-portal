@@ -12,10 +12,10 @@ describe('ToggleSwitchModal', () => {
 		const {container} = render(
 			<ToggleSwitchModal
 				items={['foo', 'bar', 'baz']}
-				message={'Select which items you want to toggle'}
+				message='Select which items you want to toggle'
 				onClose={noop}
 				onSubmit={jest.fn()}
-				title={'Toggle some options!'}
+				title='Toggle some options!'
 			/>
 		);
 

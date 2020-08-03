@@ -389,7 +389,7 @@ export class IndividualProfileCard extends React.Component {
 		return (
 			<Card.Body noPadding>
 				<WrapSafeResults
-					className={'flex-grow-1'}
+					className='flex-grow-1'
 					error={error}
 					errorProps={{
 						className: 'flex-grow-1',

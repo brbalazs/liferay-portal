@@ -40,7 +40,7 @@ const IntervalSelector: React.FC<IntervalSelectorIProps> = ({
 						active: interval === activeInterval
 					})}
 					disabled={disabled}
-					displayType={'secondary'}
+					displayType='secondary'
 					key={interval}
 					onClick={() => onChange(interval)}
 					small

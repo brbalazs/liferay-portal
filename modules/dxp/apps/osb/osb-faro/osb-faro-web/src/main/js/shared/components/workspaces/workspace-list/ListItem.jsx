@@ -220,7 +220,7 @@ export default class WorkspaceListItem extends React.Component {
 					<span className='pr-2'>
 						{Liferay.Language.get('access-requested')}
 					</span>
-					<Icon size='md' symbol={'envelope-close'} />
+					<Icon size='md' symbol='envelope-close' />
 				</div>
 			);
 		} else {

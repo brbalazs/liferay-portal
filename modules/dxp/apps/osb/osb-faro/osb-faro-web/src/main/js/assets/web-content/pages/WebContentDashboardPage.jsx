@@ -46,7 +46,7 @@ export default function WebContentDashboardPage() {
 			<div className='row'>
 				<div className='col-sm-12'>
 					<TouchpointsListCard
-						assetType={'JOURNAL'}
+						assetType='JOURNAL'
 						label={Liferay.Language.get('asset-appears-on')}
 						legacyDropdownRangeKey={false}
 					/>

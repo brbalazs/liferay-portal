@@ -17,7 +17,7 @@ describe('WorkspacesBasePage', () => {
 					<p key='1'>{'Test Details'}</p>,
 					<p key='2'>{'More Test Details'}</p>
 				]}
-				title={'Test Title'}
+				title='Test Title'
 			/>
 		);
 
@@ -29,7 +29,7 @@ describe('WorkspacesBasePage', () => {
 			<WorkspacesBasePage
 				currentUser={currentUser}
 				details={<b>{'test'}</b>}
-				title={'Test Title'}
+				title='Test Title'
 			/>
 		);
 		expect(component).toMatchSnapshot();
@@ -39,8 +39,8 @@ describe('WorkspacesBasePage', () => {
 		const component = shallow(
 			<WorkspacesBasePage
 				currentUser={currentUser}
-				details={'Test Details'}
-				title={'Test Title'}
+				details='Test Details'
+				title='Test Title'
 			/>
 		);
 		expect(component).toMatchSnapshot();
@@ -49,11 +49,11 @@ describe('WorkspacesBasePage', () => {
 	it('should render with back button', () => {
 		const component = shallow(
 			<WorkspacesBasePage
-				backLabel={'Back to Test'}
-				backURL={'#'}
+				backLabel='Back to Test'
+				backURL='#'
 				currentUser={currentUser}
 				details={['Test Details. ', 'More Test Details']}
-				title={'Test Title'}
+				title='Test Title'
 			/>
 		);
 

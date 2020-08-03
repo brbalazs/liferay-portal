@@ -65,14 +65,14 @@ const GROUPS = [
 describe('Table', () => {
 	it('should render', () => {
 		const component = shallow(
-			<Table columns={COLUMNS} items={INDIVIDUALS} rowIdentifier={'id'} />
+			<Table columns={COLUMNS} items={INDIVIDUALS} rowIdentifier='id' />
 		);
 		expect(component).toMatchSnapshot();
 	});
 
 	it('should render without items', () => {
 		const component = shallow(
-			<Table columns={COLUMNS} rowIdentifier={'id'} />
+			<Table columns={COLUMNS} rowIdentifier='id' />
 		);
 		expect(component).toMatchSnapshot();
 	});
@@ -83,7 +83,7 @@ describe('Table', () => {
 				bordered
 				columns={COLUMNS}
 				items={INDIVIDUALS}
-				rowIdentifier={'id'}
+				rowIdentifier='id'
 			/>
 		);
 
@@ -96,7 +96,7 @@ describe('Table', () => {
 				columns={COLUMNS}
 				headingNowrap
 				items={INDIVIDUALS}
-				rowIdentifier={'id'}
+				rowIdentifier='id'
 			/>
 		);
 
@@ -109,7 +109,7 @@ describe('Table', () => {
 				columns={COLUMNS}
 				items={INDIVIDUALS}
 				nowrap
-				rowIdentifier={'id'}
+				rowIdentifier='id'
 			/>
 		);
 
@@ -127,7 +127,7 @@ describe('Table', () => {
 				columns={COLUMNS}
 				defaultSort={defaultSort}
 				items={INDIVIDUALS}
-				rowIdentifier={'id'}
+				rowIdentifier='id'
 			/>
 		);
 
@@ -173,7 +173,7 @@ describe('Table', () => {
 						rowIdentifier: 'id'
 					}
 				]}
-				rowIdentifier={'id'}
+				rowIdentifier='id'
 			/>
 		);
 
@@ -186,7 +186,7 @@ describe('Table', () => {
 				columns={COLUMNS}
 				items={INDIVIDUALS}
 				loading
-				rowIdentifier={'id'}
+				rowIdentifier='id'
 			/>
 		);
 

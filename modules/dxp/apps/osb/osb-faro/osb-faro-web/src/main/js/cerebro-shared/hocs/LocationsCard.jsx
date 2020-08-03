@@ -67,7 +67,7 @@ const withLocationsCard = (withLocations, withCountries) => {
 						metricLabel={metricLabel}
 						rangeSelectors={rangeSelectors}
 						router={router}
-						width={'calc(60% - 2rem)'}
+						width='calc(60% - 2rem)'
 					/>
 				</Card.Body>
 			)}

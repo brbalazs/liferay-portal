@@ -314,7 +314,7 @@ export class InterestTopics extends React.Component {
 				onClick={this.handleDeleteKeyword([id])}
 				size='sm'
 			>
-				<Icon symbol={'trash'} />
+				<Icon symbol='trash' />
 			</Button>
 		);
 	}

@@ -30,7 +30,7 @@ describe('BaseResults', () => {
 				dataSourceFn={() =>
 					Promise.resolve({items: INDIVIDUALS, total: TOTAL})
 				}
-				groupId={'23'}
+				groupId='23'
 				resultsRenderer={noop}
 			/>
 		);
@@ -42,7 +42,7 @@ describe('BaseResults', () => {
 		const {getByText} = render(
 			<DefaultComponent
 				dataSourceFn={() => Promise.reject({})}
-				groupId={'23'}
+				groupId='23'
 				resultsRenderer={noop}
 			/>
 		);
@@ -56,8 +56,8 @@ describe('BaseResults', () => {
 		const {getByText} = render(
 			<DefaultComponent
 				dataSourceFn={() => Promise.resolve({items: [], total: 0})}
-				groupId={'23'}
-				query={'non-existent query'}
+				groupId='23'
+				query='non-existent query'
 				resultsRenderer={noop}
 			/>
 		);
@@ -72,7 +72,7 @@ describe('BaseResults', () => {
 				dataSourceFn={() =>
 					Promise.resolve({items: INDIVIDUALS, total: TOTAL})
 				}
-				groupId={'23'}
+				groupId='23'
 				maxLength={MAX_LENGTH}
 				query={Array(2000).join('a')}
 				resultsRenderer={noop}
@@ -89,7 +89,7 @@ describe('BaseResults', () => {
 		const {queryByText} = render(
 			<DefaultComponent
 				dataSourceFn={() => Promise.reject(new Error())}
-				groupId={'23'}
+				groupId='23'
 				renderSubnav={() => <div>{'subnav content'}</div>}
 				resultsRenderer={noop}
 			/>
@@ -109,7 +109,7 @@ describe('BaseResults', () => {
 						total: TOTAL
 					})
 				}
-				groupId={'23'}
+				groupId='23'
 				resultsRenderer={noop}
 			/>
 		);
@@ -125,7 +125,7 @@ describe('BaseResults', () => {
 				dataSourceFn={() =>
 					Promise.resolve({items: INDIVIDUALS, total: TOTAL})
 				}
-				groupId={'23'}
+				groupId='23'
 				resultsRenderer={noop}
 				showCheckbox
 			/>

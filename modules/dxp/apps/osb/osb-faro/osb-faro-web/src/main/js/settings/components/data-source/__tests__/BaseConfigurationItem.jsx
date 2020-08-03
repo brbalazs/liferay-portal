@@ -6,8 +6,8 @@ describe('BaseConfigurationItem', () => {
 	it('should render', () => {
 		const component = shallow(
 			<BaseConfigurationItem
-				description={'Test description'}
-				title={'Test Test'}
+				description='Test description'
+				title='Test Test'
 			/>
 		);
 
@@ -18,8 +18,8 @@ describe('BaseConfigurationItem', () => {
 		const component = shallow(
 			<BaseConfigurationItem
 				buttonParams={{disabled: true}}
-				description={'Test description'}
-				title={'Test Test'}
+				description='Test description'
+				title='Test Test'
 			/>
 		);
 
@@ -30,9 +30,9 @@ describe('BaseConfigurationItem', () => {
 		const component = shallow(
 			<BaseConfigurationItem
 				buttonParams={{disabled: true}}
-				description={'Test description'}
-				statusMessage={'Test Status Message'}
-				title={'Test Test'}
+				description='Test description'
+				statusMessage='Test Status Message'
+				title='Test Test'
 			/>
 		);
 
@@ -44,10 +44,10 @@ describe('BaseConfigurationItem', () => {
 			<BaseConfigurationItem
 				buttonParams={{disabled: true}}
 				completion={0.8}
-				description={'Test description'}
+				description='Test description'
 				showBar
-				statusMessage={'Test Status Message'}
-				title={'Test Test'}
+				statusMessage='Test Status Message'
+				title='Test Test'
 			/>
 		);
 

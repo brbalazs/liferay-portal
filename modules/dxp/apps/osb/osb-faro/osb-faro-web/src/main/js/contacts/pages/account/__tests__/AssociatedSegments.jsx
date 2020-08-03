@@ -13,8 +13,8 @@ describe('AccountAssociatedSegments', () => {
 			<StaticRouter>
 				<AssociatedSegments
 					account={data.getImmutableMock(Account, data.mockAccount)}
-					groupId={'23'}
-					id={'test'}
+					groupId='23'
+					id='test'
 				/>
 			</StaticRouter>
 		);

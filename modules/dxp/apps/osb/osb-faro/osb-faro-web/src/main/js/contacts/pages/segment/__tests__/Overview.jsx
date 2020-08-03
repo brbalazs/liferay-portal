@@ -8,8 +8,8 @@ describe('SegmentOverview', () => {
 	it('should render', () => {
 		const component = shallow(
 			<Overview
-				groupId={'23'}
-				id={'test'}
+				groupId='23'
+				id='test'
 				segment={data.getImmutableMock(Segment, data.mockSegment)}
 			/>
 		);

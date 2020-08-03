@@ -14,7 +14,7 @@ describe('InputWithEditToggle', () => {
 
 	it('should render with a label and value', () => {
 		const {getByDisplayValue, getByText} = render(
-			<InputWithEditToggle label={'foo'} value={'bar'} />
+			<InputWithEditToggle label='foo' value='bar' />
 		);
 
 		expect(getByText('foo')).toBeTruthy();
