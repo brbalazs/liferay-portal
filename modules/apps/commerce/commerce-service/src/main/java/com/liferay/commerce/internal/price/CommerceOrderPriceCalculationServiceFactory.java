@@ -17,11 +17,17 @@ package com.liferay.commerce.internal.price;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceOrderPriceCalculationFactory;
 
+import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceFactory;
 import org.osgi.framework.ServiceRegistration;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
+
+import java.util.Hashtable;
 
 /**
  * @author Riccardo Alberti
@@ -29,6 +35,18 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = ServiceFactory.class)
 public class CommerceOrderPriceCalculationServiceFactory
 	implements ServiceFactory<CommerceOrderPriceCalculation> {
+
+	@Activate
+	public void activate(BundleContext bundleContext) {
+		_serviceRegistration = bundleContext.registerService(
+			CommerceOrderPriceCalculation.class, this,
+			new Hashtable<String, Object>());
+	}
+
+	@Deactivate
+	public void deactivate() {
+		_serviceRegistration.unregister();
+	}
 
 	@Override
 	public CommerceOrderPriceCalculation getService(
@@ -50,5 +68,8 @@ public class CommerceOrderPriceCalculationServiceFactory
 	@Reference
 	private CommerceOrderPriceCalculationFactory
 		_commerceOrderPriceCalculationFactory;
+
+	private ServiceRegistration<CommerceOrderPriceCalculation>
+		_serviceRegistration;
 
 }
