@@ -183,9 +183,10 @@ public class Table {
 			@Transform(FaroTransformer.class) String date)
 		throws Exception {
 
-		StringBundler sb = new StringBundler(3);
+		StringBundler sb = new StringBundler(4);
 
-		sb.append("//div[@class='bb-tooltip-container']/table/thead/tr/td[2]/div[text()='");
+		sb.append("//div[@class='bb-tooltip-container']/table/thead/tr/td[2]");
+		sb.append("/div[text()='");
 		sb.append(date);
 		sb.append("']");
 
@@ -697,7 +698,9 @@ public class Table {
 		sb.append("]");
 
 		_faroSelenium.mouseOver(sb.toString());
-		_faroSelenium.waitForElementPresent("//div[@class='bb-tooltip-container']/table");
+
+		_faroSelenium.waitForElementPresent(
+			"//div[@class='bb-tooltip-container']/table");
 	}
 
 	/**
