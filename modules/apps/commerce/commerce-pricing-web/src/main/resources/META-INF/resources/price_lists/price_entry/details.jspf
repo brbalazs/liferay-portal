@@ -16,6 +16,8 @@
 
 <%
 CommerceCurrency commerceCurrency = commercePriceList.getCommerceCurrency();
+
+boolean discountDiscovery = BeanParamUtil.getBoolean(commercePriceEntry, request, "discountDiscovery", true);
 %>
 
 <commerce-ui:panel
@@ -39,22 +41,22 @@ CommerceCurrency commerceCurrency = commercePriceList.getCommerceCurrency();
 			<label class="control-label" for="<%= renderResponse.getNamespace() %>discountLevel1"><%= LanguageUtil.get(request, "discount-levels") %></label>
 
 			<div class="d-flex">
-				<aui:input ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel1" type="text" value="<%= commercePriceEntry.getDiscountLevel1() %>" wrapperCssClass="pr-2">
+				<aui:input disabled="<%= discountDiscovery %>" ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel1" type="text" value="<%= commercePriceEntry.getDiscountLevel1() %>" wrapperCssClass="pr-2">
 					<aui:validator name="min">0</aui:validator>
 					<aui:validator name="number" />
 				</aui:input>
 
-				<aui:input ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel2" type="text" value="<%= commercePriceEntry.getDiscountLevel2() %>" wrapperCssClass="pr-2">
+				<aui:input disabled="<%= discountDiscovery %>" ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel2" type="text" value="<%= commercePriceEntry.getDiscountLevel2() %>" wrapperCssClass="pr-2">
 					<aui:validator name="min">0</aui:validator>
 					<aui:validator name="number" />
 				</aui:input>
 
-				<aui:input ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel3" type="text" value="<%= commercePriceEntry.getDiscountLevel3() %>" wrapperCssClass="pr-2">
+				<aui:input disabled="<%= discountDiscovery %>" ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel3" type="text" value="<%= commercePriceEntry.getDiscountLevel3() %>" wrapperCssClass="pr-2">
 					<aui:validator name="min">0</aui:validator>
 					<aui:validator name="number" />
 				</aui:input>
 
-				<aui:input ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel4" type="text" value="<%= commercePriceEntry.getDiscountLevel4() %>">
+				<aui:input disabled="<%= discountDiscovery %>" ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel4" type="text" value="<%= commercePriceEntry.getDiscountLevel4() %>">
 					<aui:validator name="min">0</aui:validator>
 					<aui:validator name="number" />
 				</aui:input>
@@ -77,16 +79,40 @@ CommerceCurrency commerceCurrency = commercePriceList.getCommerceCurrency();
 
 		<div class="col-4">
 			<div class="mt-2 row">
-				<div class="col-6">
-					<aui:input label='<%= LanguageUtil.get(request, "override") %>' name="discountDiscovery" />
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-6">
-					<aui:input name="bulkPricing" />
+				<div class="col-12">
+					<aui:input ignoreRequestValue="<%= true %>" label='<%= LanguageUtil.get(request, "override-discount") %>' name="overrideDiscount" type="checkbox" value="<%= !discountDiscovery %>" />
 				</div>
 			</div>
 		</div>
 	</div>
 </commerce-ui:panel>
+
+<aui:script use="aui-base">
+	A.one('#<portlet:namespace />overrideDiscount').on('change', function(event) {
+		if (this.attr('checked')) {
+			A.one('#<portlet:namespace />discountLevel1').attr('disabled', false);
+			A.one('#<portlet:namespace />discountLevel1').removeClass('disabled');
+
+			A.one('#<portlet:namespace />discountLevel2').attr('disabled', false);
+			A.one('#<portlet:namespace />discountLevel2').removeClass('disabled');
+
+			A.one('#<portlet:namespace />discountLevel3').attr('disabled', false);
+			A.one('#<portlet:namespace />discountLevel3').removeClass('disabled');
+
+			A.one('#<portlet:namespace />discountLevel4').attr('disabled', false);
+			A.one('#<portlet:namespace />discountLevel4').removeClass('disabled');
+		} else {
+			A.one('#<portlet:namespace />discountLevel1').attr('disabled', true);
+			A.one('#<portlet:namespace />discountLevel1').addClass('disabled');
+
+			A.one('#<portlet:namespace />discountLevel2').attr('disabled', true);
+			A.one('#<portlet:namespace />discountLevel2').addClass('disabled');
+
+			A.one('#<portlet:namespace />discountLevel3').attr('disabled', true);
+			A.one('#<portlet:namespace />discountLevel3').addClass('disabled');
+
+			A.one('#<portlet:namespace />discountLevel4').attr('disabled', true);
+			A.one('#<portlet:namespace />discountLevel4').addClass('disabled');
+		}
+	});
+</aui:script>

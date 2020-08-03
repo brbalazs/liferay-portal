@@ -17,12 +17,13 @@
 <%@ include file="/init.jsp" %>
 
 <%
-CommercePriceListDisplayContext
-	commercePriceListDisplayContext = (CommercePriceListDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+CommercePriceListDisplayContext commercePriceListDisplayContext = (CommercePriceListDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommercePriceList commercePriceList = commercePriceListDisplayContext.getCommercePriceList();
 long commercePriceListId = commercePriceListDisplayContext.getCommercePriceListId();
 List<CommerceCatalog> commerceCatalogs = commercePriceListDisplayContext.getCommerceCatalogs();
+
+CommercePriceList parentCommercePriceList = commercePriceList.fetchParentCommercePriceList();
 
 boolean neverExpire = ParamUtil.getBoolean(request, "neverExpire", true);
 
@@ -96,6 +97,34 @@ if ((commercePriceList != null) && (commercePriceList.getExpirationDate() != nul
 				<aui:input name="priority">
 					<aui:validator name="number" />
 				</aui:input>
+
+				<label class="control-label" for="parentCommercePriceListId"><%= LanguageUtil.get(request, "parent-price-list") %></label>
+
+				<div class="mb-4" id="autocomplete-root"></div>
+
+				<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
+					autocomplete.default('autocomplete', 'autocomplete-root', {
+						apiUrl:
+							'<%= commercePriceListDisplayContext.getPriceListsApiUrl(portletName) %>',
+						initialLabel:
+							'<%= (parentCommercePriceList == null) ? StringPool.BLANK : parentCommercePriceList.getName() %>',
+						initialValue:
+							'<%= (parentCommercePriceList == null) ? 0 : parentCommercePriceList.getCommercePriceListId() %>',
+						inputId: 'parentCommercePriceListId',
+						inputName: '<%= renderResponse.getNamespace() %>parentCommercePriceListId',
+						itemsKey: 'id',
+						itemsLabel: 'name',
+						onValueUpdated: function(value, priceListData) {
+							if (value) {
+								$('#<portlet:namespace />parentCommercePriceListId').val(
+									priceListData.id
+								);
+							} else {
+								$('#<portlet:namespace />parentCommercePriceListId').val(0);
+							}
+						}
+					});
+				</aui:script>
 
 				<aui:select label="price-type" name="netPrice">
 

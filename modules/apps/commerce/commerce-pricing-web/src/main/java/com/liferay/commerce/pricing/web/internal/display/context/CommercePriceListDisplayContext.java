@@ -25,6 +25,7 @@ import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.price.list.constants.CommercePriceListActionKeys;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListService;
+import com.liferay.commerce.pricing.constants.CommercePricingPortletKeys;
 import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.commerce.pricing.service.CommercePriceModifierService;
 import com.liferay.commerce.pricing.type.CommercePriceModifierType;
@@ -328,6 +329,23 @@ public class CommercePriceListDisplayContext
 		headerActionModels.add(publishHeaderActionModel);
 
 		return headerActionModels;
+	}
+
+	public String getModalContextTitle(String portletName) {
+		String title = StringPool.BLANK;
+
+		if (portletName.equals(
+				CommercePricingPortletKeys.COMMERCE_PRICE_LIST)) {
+
+			title = "create-new-price-list";
+		}
+		else if (portletName.equals(
+					CommercePricingPortletKeys.COMMERCE_PROMOTION)) {
+
+			title = "create-new-promotion";
+		}
+
+		return LanguageUtil.get(httpServletRequest, title);
 	}
 
 	public long getParentCommercePriceListId() throws PortalException {

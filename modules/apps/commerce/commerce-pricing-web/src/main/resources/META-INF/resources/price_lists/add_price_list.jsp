@@ -26,7 +26,7 @@ CommercePriceList commercePriceList = commercePriceListDisplayContext.getCommerc
 <portlet:actionURL name="editCommercePriceList" var="editCommercePriceListActionURL" />
 
 <commerce-ui:modal-content
-	title='<%= LanguageUtil.get(request, "create-new-price-list") %>'
+	title="<%= commercePriceListDisplayContext.getModalContextTitle(portletName) %>"
 >
 	<div class="col-12 lfr-form-content">
 		<aui:form action="<%= editCommercePriceListActionURL %>" cssClass="container-fluid-1280" method="post" name="fm">
@@ -82,7 +82,8 @@ CommercePriceList commercePriceList = commercePriceListDisplayContext.getCommerc
 
 			<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
 				autocomplete.default('autocomplete', 'autocomplete-root', {
-					apiUrl: '/o/headless-commerce-admin-pricing/v2.0/price-lists',
+					apiUrl:
+						'<%= commercePriceListDisplayContext.getPriceListsApiUrl(portletName) %>',
 					initialLabel: '',
 					initialValue: '0',
 					inputId: 'parentCommercePriceListId',

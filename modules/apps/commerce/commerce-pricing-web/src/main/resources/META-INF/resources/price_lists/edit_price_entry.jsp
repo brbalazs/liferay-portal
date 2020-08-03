@@ -58,6 +58,15 @@ if ((commercePriceEntry != null) && (commercePriceEntry.getExpirationDate() != n
 					bodyClasses="p-0"
 					title='<%= LanguageUtil.get(request, "price-tiers") %>'
 				>
+					<div class="align-items-center d-flex justify-content-end px-3">
+						<div class="mr-3">
+							<aui:input checked="<%= commercePriceEntry.isBulkPricing() %>" label="bulk-pricing" name="bulkPricing" type="radio" value="<%= true %>" />
+						</div>
+
+						<div>
+							<aui:input checked="<%= !commercePriceEntry.isBulkPricing() %>" label="tiered-pricing" name="bulkPricing" type="radio" value="<%= false %>" />
+						</div>
+					</div>
 
 					<%
 					Map<String, String> contextParams = new HashMap<>();

@@ -188,8 +188,8 @@ public class EditCommerceTierPriceEntryMVCActionCommand
 		BigDecimal price = (BigDecimal)ParamUtil.getNumber(
 			actionRequest, "price", BigDecimal.ZERO);
 		int minQuantity = ParamUtil.getInteger(actionRequest, "minQuantity");
-		boolean discountDiscovery = ParamUtil.getBoolean(
-			actionRequest, "discountDiscovery");
+		boolean overrideDiscount = ParamUtil.getBoolean(
+			actionRequest, "overrideDiscount");
 		BigDecimal discountLevel1 = (BigDecimal)ParamUtil.getNumber(
 			actionRequest, "discountLevel1", BigDecimal.ZERO);
 		BigDecimal discountLevel2 = (BigDecimal)ParamUtil.getNumber(
@@ -250,7 +250,7 @@ public class EditCommerceTierPriceEntryMVCActionCommand
 			commerceTierPriceEntry =
 				_commerceTierPriceEntryService.addCommerceTierPriceEntry(
 					commercePriceEntryId, null, price, minQuantity,
-					commercePriceEntry.isBulkPricing(), discountDiscovery,
+					commercePriceEntry.isBulkPricing(), !overrideDiscount,
 					discountLevel1, discountLevel2, discountLevel3,
 					discountLevel4, displayDateMonth, displayDateDay,
 					displayDateYear, displayDateHour, displayDateMinute,
@@ -262,7 +262,7 @@ public class EditCommerceTierPriceEntryMVCActionCommand
 			commerceTierPriceEntry =
 				_commerceTierPriceEntryService.updateCommerceTierPriceEntry(
 					commerceTierPriceEntryId, price, minQuantity,
-					commercePriceEntry.isBulkPricing(), discountDiscovery,
+					commercePriceEntry.isBulkPricing(), !overrideDiscount,
 					discountLevel1, discountLevel2, discountLevel3,
 					discountLevel4, displayDateMonth, displayDateDay,
 					displayDateYear, displayDateHour, displayDateMinute,

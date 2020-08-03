@@ -52,7 +52,7 @@ public class CommerceTierPriceEntryClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("endDate", "end-date");
 
-		clayTableSchemaBuilder.addField("override", "override");
+		clayTableSchemaBuilder.addField("override", "override-discount");
 
 		clayTableSchemaBuilder.addField("discountLevels", "discount-levels");
 

@@ -167,8 +167,8 @@ public class EditCommercePriceEntryMVCActionCommand
 
 		BigDecimal price = (BigDecimal)ParamUtil.getNumber(
 			actionRequest, "price", BigDecimal.ZERO);
-		boolean discountDiscovery = ParamUtil.getBoolean(
-			actionRequest, "discountDiscovery");
+		boolean overrideDiscount = ParamUtil.getBoolean(
+			actionRequest, "overrideDiscount");
 		BigDecimal discountLevel1 = (BigDecimal)ParamUtil.getNumber(
 			actionRequest, "discountLevel1", BigDecimal.ZERO);
 		BigDecimal discountLevel2 = (BigDecimal)ParamUtil.getNumber(
@@ -221,7 +221,7 @@ public class EditCommercePriceEntryMVCActionCommand
 			CommercePriceEntry.class.getName(), actionRequest);
 
 		return _commercePriceEntryService.updateCommercePriceEntry(
-			commercePriceEntryId, price, discountDiscovery, discountLevel1,
+			commercePriceEntryId, price, !overrideDiscount, discountLevel1,
 			discountLevel2, discountLevel3, discountLevel4, bulkPricing,
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, expirationDateMonth, expirationDateDay,
