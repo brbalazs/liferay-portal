@@ -178,6 +178,20 @@ public class Table {
 		_faroSelenium.assertElementPresent(sb.toString());
 	}
 
+	@Then("^I should see chart popover date (.*)$")
+	public void assertChartPopoverDateFormat(
+			@Transform(FaroTransformer.class) String date)
+		throws Exception {
+
+		StringBundler sb = new StringBundler(3);
+
+		sb.append("//div[@class='bb-tooltip-container']/table/thead/tr/td[2]/div[text()='");
+		sb.append(date);
+		sb.append("']");
+
+		_faroSelenium.assertElementPresent(sb.toString());
+	}
+
 	/**
 	 * Asserts the presence of a Data Source by name within an table.
 	 *
@@ -661,6 +675,29 @@ public class Table {
 		}
 
 		_faroSelenium.get(url);
+	}
+
+	@When("^I mouse over row (.*) in (.*) card$")
+	public void mouseOverTable(
+			@Transform(FaroTransformer.class) String rowNumber,
+			@Transform(FaroTransformer.class) String card)
+		throws Exception {
+
+		_faroSelenium.waitForPageLoadingComplete();
+		_faroSelenium.waitForLoadingComplete();
+
+		StringBundler sb = new StringBundler(7);
+
+		sb.append("//h5[text()='");
+		sb.append(card);
+		sb.append("']/parent::div/parent::div//*[");
+		sb.append("name()='g' and @class='bb-chart']/*[name()='g']");
+		sb.append("/*[name()='rect'][");
+		sb.append(rowNumber);
+		sb.append("]");
+
+		_faroSelenium.mouseOver(sb.toString());
+		_faroSelenium.waitForElementPresent("//div[@class='bb-tooltip-container']/table");
 	}
 
 	/**
