@@ -38,7 +38,6 @@ import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.price.list.service.CommerceTierPriceEntryLocalService;
 import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
-import com.liferay.commerce.pricing.exception.CommerceUndefinedBasePriceListException;
 import com.liferay.commerce.pricing.modifier.CommercePriceModifierHelper;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
@@ -240,11 +239,13 @@ public class CommerceProductPriceCalculationV2Impl
 		long commercePriceListId = _getCommercePriceListId(
 			cpInstanceId, commerceContext);
 
-		CommercePriceList commercePriceList =
-			_commercePriceListLocalService.getCommercePriceList(
-				commercePriceListId);
+		if (commercePriceListId > 0) {
+			CommercePriceList commercePriceList =
+				_commercePriceListLocalService.getCommercePriceList(
+					commercePriceListId);
 
-		calculateTax = calculateTax || !commercePriceList.isNetPrice();
+			calculateTax = calculateTax || !commercePriceList.isNetPrice();
+		}
 
 		long commercePromoPriceListId = _getCommercePromoPriceListId(
 			cpInstanceId, commerceContext);
@@ -507,7 +508,10 @@ public class CommerceProductPriceCalculationV2Impl
 			return basePriceList.getCommercePriceListId();
 		}
 
-		throw new CommerceUndefinedBasePriceListException();
+		_log.error(
+			"There is no base price list configured for the current catalog");
+
+		return 0;
 	}
 
 	private CommerceDiscountApplicationStrategy
@@ -985,6 +989,11 @@ public class CommerceProductPriceCalculationV2Impl
 			long commercePriceListId, long cpInstanceId, int quantity,
 			CommerceContext commerceContext)
 		throws PortalException {
+
+		if (commercePriceListId == 0) {
+			return commerceMoneyFactory.create(
+				commerceContext.getCommerceCurrency(), BigDecimal.ZERO);
+		}
 
 		CommercePriceList commercePriceList =
 			_commercePriceListLocalService.getCommercePriceList(
