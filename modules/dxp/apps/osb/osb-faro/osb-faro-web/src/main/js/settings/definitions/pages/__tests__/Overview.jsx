@@ -43,6 +43,10 @@ describe('Definitions Overview', () => {
 
 		expect(
 			container.querySelectorAll('.list-group-title a')[3]
+		).toHaveTextContent('Search');
+
+		expect(
+			container.querySelectorAll('.list-group-title a')[4]
 		).toHaveTextContent('Interests');
 	});
 
