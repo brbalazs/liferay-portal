@@ -100,4 +100,5 @@ public class CommercePricingDataSetConstants {
 
 	public static final String COMMERCE_DATA_SET_KEY_TIER_PRICE_ENTRIES =
 		"commerceTierPriceEntries";
+
 }
