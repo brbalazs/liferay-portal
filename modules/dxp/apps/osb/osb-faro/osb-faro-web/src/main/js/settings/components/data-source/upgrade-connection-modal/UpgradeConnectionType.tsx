@@ -7,12 +7,9 @@ import {ClayButtonWithIcon} from '@clayui/button';
 
 const BENEFITS = [
 	Liferay.Language.get(
-		'data-will-resume-syncing-as-soon-as-your-data-source-is-connected-with-the-token'
+		'data-syncing-resumes-immediately-after-configuration'
 	),
-	Liferay.Language.get(
-		'your-sites-and-contacts-configurations-will-stay-the-same'
-	),
-	Liferay.Language.get('your-field-mappings-will-be-maintained')
+	Liferay.Language.get('existing-field-mappings-are-maintained')
 ];
 
 const REQUIREMENTS = [
@@ -22,7 +19,7 @@ const REQUIREMENTS = [
 ];
 
 const WARNINGS = [
-	Liferay.Language.get('sites-and-contacts-are-now-configured-in-dxp'),
+	Liferay.Language.get('sites-and-contacts-must-be-reconfigured-in-dxp'),
 	Liferay.Language.get(
 		'field-mappings-will-not-be-editable-until-a-future-update'
 	)
