@@ -989,18 +989,18 @@ This target has been renamed to "snapshot-bundle". Please call "snapshot-bundle"
 			</condition>
 		</fail>
 
-		<delete dir="${user.home}/.m2/repository/com/liferay/portal/com.liferay.portal.dxp.${dxp.dir.name}" />
+		<delete dir="${user.home}/.m2/repository/com/liferay/portal/com.liferay.portal.dxp.apps.${dxp.dir.name}" />
 
 		<gradle-execute failonerror="false" forcedcacheenabled="true" outputproperty="dxp.zip.file" setupbinariescache="@{setupbinariescache}" task="printDependencyPath">
 			<arg value="--build-file=${project.dir}/modules/util.gradle" />
 			<arg value="--quiet" />
 			<arg value="-Dorg.gradle.internal.launcher.welcomeMessageEnabled=false" />
-			<arg value="-PdependencyNotation=com.liferay.portal:com.liferay.portal.dxp.${dxp.dir.name}:latest.release" />
+			<arg value="-PdependencyNotation=com.liferay.portal:com.liferay.portal.dxp.apps.${dxp.dir.name}:latest.release" />
 		</gradle-execute>
 
 		<if>
 			<not>
-				<contains string="${dxp.zip.file.error}" substring="no versions of com.liferay.portal:com.liferay.portal.dxp.${dxp.dir.name} are available" />
+				<contains string="${dxp.zip.file.error}" substring="no versions of com.liferay.portal:com.liferay.portal.dxp.apps.${dxp.dir.name} are available" />
 			</not>
 			<then>
 				<propertyregex
@@ -1046,7 +1046,7 @@ This target has been renamed to "snapshot-bundle". Please call "snapshot-bundle"
 			</else>
 		</if>
 
-		<property name="dxp.name" value="com.liferay.portal.dxp.${dxp.dir.name}-${dxp.version.current}" />
+		<property name="dxp.name" value="com.liferay.portal.dxp.apps.${dxp.dir.name}-${dxp.version.current}" />
 
 		<mkdir dir="${project.dir}/dist" />
 
@@ -1076,7 +1076,7 @@ This target has been renamed to "snapshot-bundle". Please call "snapshot-bundle"
 
 		<delete file="${project.dir}/modules/dxp/apps/${dxp.dir.name}/git-commit-${dxp.dir.name}" />
 
-		<artifact:pom artifactId="com.liferay.portal.dxp.${dxp.dir.name}" groupId="com.liferay.portal" id="dxp.${dxp.dir.name}.pom" packaging="zip" version="${dxp.version.current}" />
+		<artifact:pom artifactId="com.liferay.portal.dxp.apps.${dxp.dir.name}" groupId="com.liferay.portal" id="dxp.${dxp.dir.name}.pom" packaging="zip" version="${dxp.version.current}" />
 
 		<artifact:writepom file="dist/dxp.${dxp.dir.name}.pom" pomRefId="dxp.${dxp.dir.name}.pom" />
 
@@ -1087,7 +1087,7 @@ This target has been renamed to "snapshot-bundle". Please call "snapshot-bundle"
 			</remoteRepository>
 		</artifact:deploy>
 
-		<delete dir="${user.home}/.m2/repository/com/liferay/portal/com.liferay.portal.dxp.${dxp.dir.name}" />
+		<delete dir="${user.home}/.m2/repository/com/liferay/portal/com.liferay.portal.dxp.apps.${dxp.dir.name}" />
 		<delete file="${project.dir}/dist/dxp.${dxp.dir.name}.pom" />
 	</target>
 
