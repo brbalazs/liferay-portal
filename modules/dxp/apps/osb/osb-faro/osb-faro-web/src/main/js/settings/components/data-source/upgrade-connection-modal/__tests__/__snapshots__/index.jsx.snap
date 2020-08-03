@@ -57,7 +57,7 @@ exports[`UpgradeConnectionModal should render 1`] = `
                       />
                     </svg>
                     <span>
-                      Data will resume syncing as soon as your data source is connected with the token.
+                      Data syncing resumes immediately after configuration.
                     </span>
                   </li>
                   <li
@@ -72,22 +72,7 @@ exports[`UpgradeConnectionModal should render 1`] = `
                       />
                     </svg>
                     <span>
-                      Your sites and contacts configurations will stay the same.
-                    </span>
-                  </li>
-                  <li
-                    class="item"
-                  >
-                    <svg
-                      class="icon-root lexicon-icon lexicon-icon-check-circle benefits-check"
-                      viewBox=""
-                    >
-                      <use
-                        xlink:href="#check-circle"
-                      />
-                    </svg>
-                    <span>
-                      Your field mappings will be maintained.
+                      Existing field mappings are maintained.
                     </span>
                   </li>
                 </ul>
@@ -108,7 +93,7 @@ exports[`UpgradeConnectionModal should render 1`] = `
                       />
                     </svg>
                     <span>
-                      Sites and contacts are now configured in DXP.
+                      Sites and contacts must be reconfigured in DXP.
                     </span>
                   </li>
                   <li
