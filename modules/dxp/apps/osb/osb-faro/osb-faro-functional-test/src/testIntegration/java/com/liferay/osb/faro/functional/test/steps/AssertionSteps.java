@@ -17,6 +17,7 @@ package com.liferay.osb.faro.functional.test.steps;
 import com.liferay.osb.faro.functional.test.driver.FaroSelenium;
 import com.liferay.osb.faro.functional.test.util.FaroPagePool;
 import com.liferay.osb.faro.functional.test.util.FaroSeleniumUtil;
+import com.liferay.osb.faro.functional.test.util.FaroTestDataUtil;
 import com.liferay.osb.faro.functional.test.util.FaroTransformer;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -25,6 +26,10 @@ import cucumber.api.Transform;
 import cucumber.api.java.en.Then;
 
 import java.util.List;
+
+import org.junit.Assert;
+
+import org.openqa.selenium.WebElement;
 
 /**
  * @author Cheryl Tang
@@ -196,6 +201,21 @@ public class AssertionSteps {
 				"//div[contains(@class,'dropdown-menu show')]/*[text()='" +
 					option + "']");
 		}
+	}
+
+	@Then("^I should see standardized granularity of \"([^\"]*)\"$")
+	public void assertGraphGranularity(
+		@Transform(FaroTransformer.class) String pattern) {
+
+		WebElement chartXAxis = _faroSelenium.findElement(
+			"//div[@class='analytics-metrics-chart']//*[name()='g' and " +
+				"@class='bb-axis bb-axis-x']/*[name()='g']" +
+					"[1]//*[name()='tspan']");
+
+		String chartXAxisValue = chartXAxis.getText();
+
+		Assert.assertTrue(
+			FaroTestDataUtil.assertDateFormat(chartXAxisValue, pattern));
 	}
 
 	@Then("^I should see (.*) graph selected$")

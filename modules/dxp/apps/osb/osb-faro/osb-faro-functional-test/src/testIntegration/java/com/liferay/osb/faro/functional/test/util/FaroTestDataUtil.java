@@ -19,6 +19,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.liferay.poshi.runner.util.StringPool;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -42,6 +45,41 @@ public class FaroTestDataUtil {
 		_removeId(_segmentIds, id);
 
 		_segmentIds.put(name, id);
+	}
+
+	/**
+	 * Asserts if a date is following a given SimpleDate pattern
+	 *
+	 * @param  dateToValidate the string of the date to be validated
+	 * @param  pattern the pattern to check against the date
+	 * @return true if the date is following the pattern and false if not
+	 */
+	public static boolean assertDateFormat(
+		String dateToValidate, String pattern) {
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+		simpleDateFormat.setLenient(false);
+
+		try {
+			simpleDateFormat.parse(dateToValidate);
+
+			return true;
+		}
+		catch (ParseException firstException) {
+			try {
+				simpleDateFormat = new SimpleDateFormat("MMM d - MMM d");
+
+				simpleDateFormat.setLenient(false);
+
+				simpleDateFormat.parse(dateToValidate);
+
+				return true;
+			}
+			catch (ParseException secondException) {
+				return false;
+			}
+		}
 	}
 
 	/**
