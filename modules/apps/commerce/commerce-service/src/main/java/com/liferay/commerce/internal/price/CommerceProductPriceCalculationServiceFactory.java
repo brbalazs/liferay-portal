@@ -83,7 +83,10 @@ public class CommerceProductPriceCalculationServiceFactory
 		ServiceRegistration<CommerceProductPriceCalculation>
 			serviceRegistration) {
 
-		if (Objects.equals(_commercePricingCalculationKey, "v2.0")) {
+		if (Objects.equals(
+				_commercePricingCalculationKey,
+				CommercePricingConstants.VERSION_2_0)) {
+
 			return new CommerceProductPriceCalculationV2Impl(
 				_commerceChannelLocalService, _commerceCurrencyLocalService,
 				_commerceDiscountCalculationV2, _commerceMoneyFactory,

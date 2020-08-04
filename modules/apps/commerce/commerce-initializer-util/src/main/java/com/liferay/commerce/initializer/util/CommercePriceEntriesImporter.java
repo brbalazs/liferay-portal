@@ -68,7 +68,7 @@ public class CommercePriceEntriesImporter {
 
 		if (!Objects.equals(
 				commercePricingConfiguration.commercePricingCalculationKey(),
-				"v2.0")) {
+				CommercePricingConstants.VERSION_2_0)) {
 
 			return;
 		}

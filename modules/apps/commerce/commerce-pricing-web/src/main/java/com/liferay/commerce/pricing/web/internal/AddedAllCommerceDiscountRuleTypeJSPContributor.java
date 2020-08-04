@@ -17,6 +17,7 @@ package com.liferay.commerce.pricing.web.internal;
 import com.liferay.commerce.discount.constants.CommerceDiscountRuleConstants;
 import com.liferay.commerce.discount.rule.type.CommerceDiscountRuleTypeJSPContributor;
 import com.liferay.commerce.discount.service.CommerceDiscountRuleService;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.pricing.web.internal.display.context.AddedAllCommerceDiscountRuleDisplayContext;
 import com.liferay.commerce.pricing.web.internal.util.CommercePricingUtil;
 import com.liferay.commerce.product.service.CPDefinitionService;
@@ -64,7 +65,7 @@ public class AddedAllCommerceDiscountRuleTypeJSPContributor
 		if (Objects.equals(
 				CommercePricingUtil.getPricingEngineVersion(
 					_configurationProvider),
-				"v1.0")) {
+				CommercePricingConstants.VERSION_1_0)) {
 
 			_jspRenderer.renderJSP(
 				_servletContext, httpServletRequest, httpServletResponse,

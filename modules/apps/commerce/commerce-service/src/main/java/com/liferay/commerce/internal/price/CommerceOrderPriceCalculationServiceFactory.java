@@ -17,6 +17,7 @@ package com.liferay.commerce.internal.price;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.commerce.tax.CommerceTaxCalculation;
@@ -67,7 +68,10 @@ public class CommerceOrderPriceCalculationServiceFactory
 		ServiceRegistration<CommerceOrderPriceCalculation>
 			serviceRegistration) {
 
-		if (Objects.equals(_commercePricingCalculationKey, "v2.0")) {
+		if (Objects.equals(
+				_commercePricingCalculationKey,
+				CommercePricingConstants.VERSION_2_0)) {
+
 			return new CommerceOrderPriceCalculationV2Impl(
 				_commerceChannelLocalService, _commerceDiscountCalculationV2,
 				_commerceMoneyFactory, _commerceOrderItemLocalService,

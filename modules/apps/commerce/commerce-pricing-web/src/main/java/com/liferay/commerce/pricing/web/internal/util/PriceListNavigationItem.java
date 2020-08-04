@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.pricing.web.internal.util;
 
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.pricing.constants.CommercePricingPortletConstants;
 import com.liferay.commerce.pricing.constants.CommercePricingPortletKeys;
 import com.liferay.commerce.pricing.util.PricingNavigationItem;
@@ -65,7 +66,7 @@ public class PriceListNavigationItem implements PricingNavigationItem {
 			!Objects.equals(
 				CommercePricingUtil.getPricingEngineVersion(
 					_configurationProvider),
-				"v2.0")) {
+				CommercePricingConstants.VERSION_2_0)) {
 
 			return null;
 		}

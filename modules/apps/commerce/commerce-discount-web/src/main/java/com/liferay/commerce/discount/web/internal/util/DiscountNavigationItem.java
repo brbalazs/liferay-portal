@@ -67,7 +67,9 @@ public class DiscountNavigationItem implements PricingNavigationItem {
 			CommerceDiscountPortletKeys.COMMERCE_DISCOUNT, ActionKeys.VIEW);
 
 		if (!manageCatalogPermission ||
-			Objects.equals(_getCommercePricingConfigurationKey(), "v2.0")) {
+			Objects.equals(
+				_getCommercePricingConfigurationKey(),
+				CommercePricingConstants.VERSION_2_0)) {
 
 			return null;
 		}

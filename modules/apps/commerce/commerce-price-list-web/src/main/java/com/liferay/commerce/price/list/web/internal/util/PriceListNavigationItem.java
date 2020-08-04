@@ -67,7 +67,9 @@ public class PriceListNavigationItem implements PricingNavigationItem {
 			CommercePriceListPortletKeys.COMMERCE_PRICE_LIST, ActionKeys.VIEW);
 
 		if (!manageCatalogPermission ||
-			Objects.equals(_getCommercePricingConfigurationKey(), "v2.0")) {
+			Objects.equals(
+				_getCommercePricingConfigurationKey(),
+				CommercePricingConstants.VERSION_2_0)) {
 
 			return null;
 		}

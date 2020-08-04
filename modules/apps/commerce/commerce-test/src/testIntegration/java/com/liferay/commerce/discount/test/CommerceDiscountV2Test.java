@@ -108,7 +108,9 @@ public class CommerceDiscountV2Test {
 
 		_properties = new Hashtable<>();
 
-		_properties.put("commercePricingCalculationKey", "v2.0");
+		_properties.put(
+			"commercePricingCalculationKey",
+			CommercePricingConstants.VERSION_2_0);
 
 		ConfigurationProviderUtil.saveSystemConfiguration(
 			CommercePricingConfiguration.class, _properties);
@@ -126,7 +128,9 @@ public class CommerceDiscountV2Test {
 		GroupTestUtil.deleteGroup(_group);
 		_userLocalService.deleteUser(_user);
 
-		_properties.put("commercePricingCalculationKey", "v1.0");
+		_properties.put(
+			"commercePricingCalculationKey",
+			CommercePricingConstants.VERSION_1_0);
 
 		ConfigurationProviderUtil.saveSystemConfiguration(
 			CommercePricingConfiguration.class, _properties);

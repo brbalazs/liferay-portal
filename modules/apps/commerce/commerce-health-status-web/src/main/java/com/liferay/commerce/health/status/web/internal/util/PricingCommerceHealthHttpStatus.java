@@ -136,7 +136,7 @@ public class PricingCommerceHealthHttpStatus
 
 		if (Objects.equals(
 				commercePricingConfiguration.commercePricingCalculationKey(),
-				"v2.0")) {
+				CommercePricingConstants.VERSION_2_0)) {
 
 			List<CommerceCatalog> commerceCatalogs =
 				_commerceCatalogLocalService.searchCommerceCatalogs(companyId);
@@ -268,7 +268,7 @@ public class PricingCommerceHealthHttpStatus
 			if (Objects.equals(
 					commercePricingConfiguration.
 						commercePricingCalculationKey(),
-					"v2.0")) {
+					CommercePricingConstants.VERSION_2_0)) {
 
 				List<CommerceCatalog> commerceCatalogs =
 					_commerceCatalogLocalService.searchCommerceCatalogs(

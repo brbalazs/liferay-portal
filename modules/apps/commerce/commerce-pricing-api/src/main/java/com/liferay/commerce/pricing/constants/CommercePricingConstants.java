@@ -16,6 +16,7 @@ package com.liferay.commerce.pricing.constants;
 
 /**
  * @author Riccardo Alberti
+ * @author Alessio Antonio Rendina
  */
 public class CommercePricingConstants {
 
@@ -45,5 +46,9 @@ public class CommercePricingConstants {
 	public static final int TAX_INCLUDED_IN_FINAL_PRICE = 0;
 
 	public static final String TAX_INCLUDED_IN_PRICE = "tax-included";
+
+	public static final String VERSION_1_0 = "v1.0";
+
+	public static final String VERSION_2_0 = "v2.0";
 
 }
