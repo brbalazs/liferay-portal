@@ -22,8 +22,8 @@ import com.liferay.commerce.discount.service.CommerceDiscountService;
 import com.liferay.commerce.discount.target.CommerceDiscountTargetRegistry;
 import com.liferay.commerce.discount.web.internal.display.context.CommerceDiscountDisplayContext;
 import com.liferay.commerce.percentage.PercentageFormatter;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.service.CommerceChannelRelService;
-import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
@@ -75,7 +75,7 @@ public class CommerceDiscountPortlet extends MVCPortlet {
 
 		CommerceDiscountDisplayContext commerceDiscountDisplayContext =
 			new CommerceDiscountDisplayContext(
-				_commerceChannelRelService, _commerceChannelService,
+				_commerceChannelRelService, _commerceChannelLocalService,
 				_commerceCurrencyLocalService,
 				_commerceDiscountModelResourcePermission,
 				_commerceDiscountService, _commerceDiscountTargetRegistry,
@@ -90,10 +90,10 @@ public class CommerceDiscountPortlet extends MVCPortlet {
 	}
 
 	@Reference
-	private CommerceChannelRelService _commerceChannelRelService;
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
-	private CommerceChannelService _commerceChannelService;
+	private CommerceChannelRelService _commerceChannelRelService;
 
 	@Reference
 	private CommerceCurrencyLocalService _commerceCurrencyLocalService;

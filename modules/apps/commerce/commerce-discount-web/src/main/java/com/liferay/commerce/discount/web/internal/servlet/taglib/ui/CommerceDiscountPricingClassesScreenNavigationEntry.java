@@ -25,8 +25,8 @@ import com.liferay.commerce.discount.web.internal.display.context.CommerceDiscou
 import com.liferay.commerce.percentage.PercentageFormatter;
 import com.liferay.commerce.pricing.service.CommercePricingClassService;
 import com.liferay.commerce.product.service.CPDefinitionService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.service.CommerceChannelRelService;
-import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
@@ -115,7 +115,7 @@ public class CommerceDiscountPricingClassesScreenNavigationEntry
 
 		CommerceDiscountRelDisplayContext commerceDiscountRelDisplayContext =
 			new CommerceDiscountRelDisplayContext(
-				_commerceChannelRelService, _commerceChannelService,
+				_commerceChannelRelService, _commerceChannelLocalService,
 				_commerceCurrencyLocalService,
 				_commerceDiscountModelResourcePermission,
 				_commerceDiscountRelService, _commerceDiscountService,
@@ -133,10 +133,10 @@ public class CommerceDiscountPricingClassesScreenNavigationEntry
 	}
 
 	@Reference
-	private CommerceChannelRelService _commerceChannelRelService;
+	private CommerceChannelLocalService _commerceChannelLocalService;
 
 	@Reference
-	private CommerceChannelService _commerceChannelService;
+	private CommerceChannelRelService _commerceChannelRelService;
 
 	@Reference
 	private CommerceCurrencyLocalService _commerceCurrencyLocalService;

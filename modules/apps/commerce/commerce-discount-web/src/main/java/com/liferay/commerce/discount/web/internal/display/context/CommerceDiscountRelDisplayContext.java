@@ -31,8 +31,8 @@ import com.liferay.commerce.pricing.service.CommercePricingClassService;
 import com.liferay.commerce.product.item.selector.criterion.CPDefinitionItemSelectorCriterion;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.service.CPDefinitionService;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.service.CommerceChannelRelService;
-import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.criteria.UUIDItemSelectorReturnType;
@@ -66,7 +66,7 @@ public class CommerceDiscountRelDisplayContext
 
 	public CommerceDiscountRelDisplayContext(
 		CommerceChannelRelService commerceChannelRelService,
-		CommerceChannelService commerceChannelService,
+		CommerceChannelLocalService commerceChannelLocalService,
 		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		ModelResourcePermission<CommerceDiscount>
 			commerceDiscountModelResourcePermission,
@@ -81,7 +81,7 @@ public class CommerceDiscountRelDisplayContext
 		HttpServletRequest httpServletRequest, ItemSelector itemSelector) {
 
 		super(
-			commerceChannelRelService, commerceChannelService,
+			commerceChannelRelService, commerceChannelLocalService,
 			commerceCurrencyLocalService,
 			commerceDiscountModelResourcePermission, commerceDiscountService,
 			commerceDiscountTargetRegistry,
