@@ -11,6 +11,7 @@ dependencies {
 	compileOnly project(":apps:commerce:commerce-initializer-util")
 	compileOnly project(":apps:commerce:commerce-inventory-api")
 	compileOnly project(":apps:commerce:commerce-media-api")
+	compileOnly project(":apps:commerce:commerce-price-list-api")
 	compileOnly project(":apps:commerce:commerce-product-api")
 	compileOnly project(":apps:commerce:commerce-shipping-engine-fixed-api")
 }

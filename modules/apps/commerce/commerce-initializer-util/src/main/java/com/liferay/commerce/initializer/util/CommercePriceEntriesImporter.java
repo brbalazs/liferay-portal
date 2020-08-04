@@ -14,34 +14,98 @@
 
 package com.liferay.commerce.initializer.util;
 
+import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.exception.NoSuchPriceListException;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceEntryLocalService;
 import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
+import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.exception.NoSuchCPInstanceException;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
+import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.settings.SystemSettingsLocator;
 import com.liferay.portal.kernel.util.FriendlyURLNormalizerUtil;
 
 import java.math.BigDecimal;
+
+import java.util.List;
+import java.util.Objects;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Alec Sloan
+ * @author Alessio Antonio Rendina
  */
 @Component(service = CommercePriceEntriesImporter.class)
 public class CommercePriceEntriesImporter {
+
+	public void importBaseCommercePriceListEntries(
+			CommerceCatalog commerceCatalog, List<CPDefinition> cpDefinitions,
+			String priceListType)
+		throws PortalException {
+
+		CommercePricingConfiguration commercePricingConfiguration =
+			_configurationProvider.getConfiguration(
+				CommercePricingConfiguration.class,
+				new SystemSettingsLocator(
+					CommercePricingConstants.SERVICE_NAME));
+
+		if (!Objects.equals(
+				commercePricingConfiguration.commercePricingCalculationKey(),
+				"v2.0")) {
+
+			return;
+		}
+
+		CommercePriceList commerceCatalogBasePriceList =
+			_commercePriceListLocalService.
+				fetchCommerceCatalogBasePriceListByType(
+					commerceCatalog.getGroupId(), priceListType);
+
+		if (commerceCatalogBasePriceList == null) {
+			if (_log.isWarnEnabled()) {
+				if (priceListType.equals(
+						CommercePriceListConstants.TYPE_PRICE_LIST)) {
+
+					_log.warn("Catalog base price list is not present");
+				}
+				else if (priceListType.equals(
+							CommercePriceListConstants.TYPE_PROMOTION)) {
+
+					_log.warn("Catalog base promotion is not present");
+				}
+			}
+
+			return;
+		}
+
+		ServiceContext serviceContext = new ServiceContext();
+
+		serviceContext.setScopeGroupId(commerceCatalog.getGroupId());
+		serviceContext.setUserId(commerceCatalog.getUserId());
+		serviceContext.setCompanyId(commerceCatalog.getCompanyId());
+
+		for (CPDefinition cpDefinition : cpDefinitions) {
+			_importBaseCommercePriceListEntries(
+				cpDefinition, commerceCatalogBasePriceList, serviceContext);
+		}
+	}
 
 	public void importCommercePriceEntries(
 			JSONArray jsonArray, long scopeGroupId, long userId)
@@ -58,6 +122,31 @@ public class CommercePriceEntriesImporter {
 		for (int i = 0; i < jsonArray.length(); i++) {
 			_importCommercePriceEntry(
 				jsonArray.getJSONObject(i), serviceContext);
+		}
+	}
+
+	private void _importBaseCommercePriceListEntries(
+			CPDefinition cpDefinition, CommercePriceList commercePriceList,
+			ServiceContext serviceContext)
+		throws PortalException {
+
+		List<CPInstance> cpInstances =
+			_cpInstanceLocalService.getCPDefinitionApprovedCPInstances(
+				cpDefinition.getCPDefinitionId());
+
+		for (CPInstance cpInstance : cpInstances) {
+			BigDecimal price = cpInstance.getPrice();
+
+			if (CommercePriceListConstants.TYPE_PROMOTION.equals(
+					commercePriceList.getType())) {
+
+				price = cpInstance.getPromoPrice();
+			}
+
+			_commercePriceEntryLocalService.addCommercePriceEntry(
+				cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
+				commercePriceList.getCommercePriceListId(), price,
+				BigDecimal.ZERO, serviceContext);
 		}
 	}
 
@@ -114,11 +203,17 @@ public class CommercePriceEntriesImporter {
 			serviceContext);
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		CommercePriceEntriesImporter.class);
+
 	@Reference
 	private CommercePriceEntryLocalService _commercePriceEntryLocalService;
 
 	@Reference
 	private CommercePriceListLocalService _commercePriceListLocalService;
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private CPDefinitionLocalService _cpDefinitionLocalService;

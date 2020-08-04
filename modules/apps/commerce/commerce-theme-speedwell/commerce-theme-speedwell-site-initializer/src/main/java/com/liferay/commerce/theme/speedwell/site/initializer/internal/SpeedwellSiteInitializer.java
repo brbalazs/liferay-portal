@@ -40,6 +40,7 @@ import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.media.CommerceCatalogDefaultImage;
 import com.liferay.commerce.model.CommerceShippingEngine;
 import com.liferay.commerce.model.CommerceShippingMethod;
+import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.product.importer.CPFileImporter;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPOption;
@@ -217,6 +218,8 @@ public class SpeedwellSiteInitializer implements SiteInitializer {
 			_importCommercePriceLists(catalogGroupId, serviceContext);
 
 			_importCommercePriceEntries(catalogGroupId, serviceContext);
+
+			_importBaseCommercePriceListEntries(commerceCatalog, cpDefinitions);
 
 			_importCommerceUsers(serviceContext);
 
@@ -593,6 +596,26 @@ public class SpeedwellSiteInitializer implements SiteInitializer {
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Asset Categories successfully imported");
+		}
+	}
+
+	private void _importBaseCommercePriceListEntries(
+			CommerceCatalog commerceCatalog, List<CPDefinition> cpDefinitions)
+		throws Exception {
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Importing base commerce price list entries...");
+		}
+
+		_commercePriceEntriesImporter.importBaseCommercePriceListEntries(
+			commerceCatalog, cpDefinitions,
+			CommercePriceListConstants.TYPE_PRICE_LIST);
+		_commercePriceEntriesImporter.importBaseCommercePriceListEntries(
+			commerceCatalog, cpDefinitions,
+			CommercePriceListConstants.TYPE_PROMOTION);
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Base commerce price list entries successfully imported");
 		}
 	}
 

@@ -39,6 +39,7 @@ import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.media.CommerceCatalogDefaultImage;
 import com.liferay.commerce.model.CommerceShippingEngine;
 import com.liferay.commerce.model.CommerceShippingMethod;
+import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.product.importer.CPFileImporter;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPOption;
@@ -72,6 +73,7 @@ import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.Theme;
 import com.liferay.portal.kernel.model.ThemeSetting;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.CompanyLocalService;
@@ -223,6 +225,8 @@ public class MiniumSiteInitializer implements SiteInitializer {
 			_importCommercePriceLists(catalogGroupId, serviceContext);
 
 			_importCommercePriceEntries(catalogGroupId, serviceContext);
+
+			_importBaseCommercePriceListEntries(commerceCatalog, cpDefinitions);
 
 			_importCommerceUsers(serviceContext);
 
@@ -591,6 +595,26 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 		if (_log.isInfoEnabled()) {
 			_log.info("Asset categories successfully imported");
+		}
+	}
+
+	private void _importBaseCommercePriceListEntries(
+			CommerceCatalog commerceCatalog, List<CPDefinition> cpDefinitions)
+		throws Exception {
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Importing base commerce price list entries...");
+		}
+
+		_commercePriceEntriesImporter.importBaseCommercePriceListEntries(
+			commerceCatalog, cpDefinitions,
+			CommercePriceListConstants.TYPE_PRICE_LIST);
+		_commercePriceEntriesImporter.importBaseCommercePriceListEntries(
+			commerceCatalog, cpDefinitions,
+			CommercePriceListConstants.TYPE_PROMOTION);
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Base commerce price list entries successfully imported");
 		}
 	}
 
@@ -1034,6 +1058,9 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private CompanyLocalService _companyLocalService;
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private CPDefinitionLinkLocalService _cpDefinitionLinkLocalService;
