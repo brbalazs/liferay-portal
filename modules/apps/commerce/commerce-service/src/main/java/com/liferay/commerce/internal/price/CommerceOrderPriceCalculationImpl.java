@@ -23,28 +23,36 @@ import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.price.CommerceOrderPrice;
-import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.CommerceOrderPriceImpl;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
+import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.commerce.tax.CommerceTaxCalculation;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.math.BigDecimal;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-
 /**
  * @author Alessio Antonio Rendina
  * @author Marco Leo
  */
-@Component(
-	property = "commerce.price.calculation.key=v1.0",
-	service = CommerceOrderPriceCalculation.class
-)
 public class CommerceOrderPriceCalculationImpl
 	extends BaseCommerceOrderPriceCalculation {
+
+	public CommerceOrderPriceCalculationImpl(
+		CommerceChannelLocalService commerceChannelLocalService,
+		CommerceDiscountCalculation commerceDiscountCalculation,
+		CommerceMoneyFactory commerceMoneyFactory,
+		CommerceOrderItemLocalService commerceOrderItemLocalService,
+		CommerceTaxCalculation commerceTaxCalculation) {
+
+		super(
+			commerceChannelLocalService, commerceMoneyFactory,
+			commerceOrderItemLocalService);
+
+		_commerceDiscountCalculation = commerceDiscountCalculation;
+		_commerceTaxCalculation = commerceTaxCalculation;
+	}
 
 	@Override
 	public CommerceOrderPrice getCommerceOrderPrice(
@@ -101,7 +109,7 @@ public class CommerceOrderPriceCalculationImpl
 		boolean discountsTargetNetPrice = true;
 
 		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.fetchCommerceChannel(
+			commerceChannelLocalService.fetchCommerceChannel(
 				commerceContext.getCommerceChannelId());
 
 		if (commerceChannel != null) {
@@ -241,22 +249,22 @@ public class CommerceOrderPriceCalculationImpl
 			commerceOrderPriceImpl, commerceOrder);
 
 		commerceOrderPriceImpl.setShippingValue(
-			_commerceMoneyFactory.create(
+			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(), shippingAmount));
 		commerceOrderPriceImpl.setShippingValueWithTaxAmount(
-			_commerceMoneyFactory.create(
+			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(), shippingWithTaxAmount));
 		commerceOrderPriceImpl.setSubtotal(subtotalMoney);
 		commerceOrderPriceImpl.setSubtotalWithTaxAmount(
-			_commerceMoneyFactory.create(
+			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(), subtotalWithTaxAmount));
 		commerceOrderPriceImpl.setTaxValue(taxValue);
 		commerceOrderPriceImpl.setTotal(
-			_commerceMoneyFactory.create(
+			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(),
 				totalAmount.add(taxValue.getPrice())));
 		commerceOrderPriceImpl.setTotalWithTaxAmount(
-			_commerceMoneyFactory.create(
+			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(), totalWithTaxAmount));
 
 		setDiscountValuesWithTaxAmount(
@@ -287,12 +295,12 @@ public class CommerceOrderPriceCalculationImpl
 		BigDecimal subtotal = BigDecimal.ZERO;
 
 		if (commerceOrder == null) {
-			return _commerceMoneyFactory.create(
+			return commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(), subtotal);
 		}
 
 		if (!commerceOrder.isOpen()) {
-			return _commerceMoneyFactory.create(
+			return commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(),
 				commerceOrder.getSubtotal());
 		}
@@ -303,7 +311,7 @@ public class CommerceOrderPriceCalculationImpl
 			subtotal = subtotal.add(commerceOrderItem.getFinalPrice());
 		}
 
-		return _commerceMoneyFactory.create(
+		return commerceMoneyFactory.create(
 			commerceContext.getCommerceCurrency(), subtotal);
 	}
 
@@ -322,12 +330,12 @@ public class CommerceOrderPriceCalculationImpl
 		throws PortalException {
 
 		if (commerceOrder == null) {
-			return _commerceMoneyFactory.create(
+			return commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(), BigDecimal.ZERO);
 		}
 
 		if (!commerceOrder.isOpen()) {
-			return _commerceMoneyFactory.create(
+			return commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(),
 				commerceOrder.getTaxAmount());
 		}
@@ -351,7 +359,7 @@ public class CommerceOrderPriceCalculationImpl
 		throws PortalException {
 
 		if (!commerceOrder.isOpen()) {
-			return _commerceMoneyFactory.create(
+			return commerceMoneyFactory.create(
 				commerceContext.getCommerceCurrency(),
 				commerceOrder.getTotal());
 		}
@@ -370,16 +378,7 @@ public class CommerceOrderPriceCalculationImpl
 		return getTotal(commerceOrder, true, commerceContext);
 	}
 
-	@Reference
-	private CommerceChannelLocalService _commerceChannelLocalService;
-
-	@Reference(target = "(commerce.discount.calculation.key=v1.0)")
-	private CommerceDiscountCalculation _commerceDiscountCalculation;
-
-	@Reference
-	private CommerceMoneyFactory _commerceMoneyFactory;
-
-	@Reference
-	private CommerceTaxCalculation _commerceTaxCalculation;
+	private final CommerceDiscountCalculation _commerceDiscountCalculation;
+	private final CommerceTaxCalculation _commerceTaxCalculation;
 
 }

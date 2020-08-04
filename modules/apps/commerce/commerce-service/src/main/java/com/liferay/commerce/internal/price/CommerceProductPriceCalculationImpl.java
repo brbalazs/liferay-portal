@@ -24,7 +24,6 @@ import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.internal.util.CommercePriceConverterUtil;
 import com.liferay.commerce.price.CommerceProductPrice;
-import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
 import com.liferay.commerce.price.CommerceProductPriceRequest;
 import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
@@ -39,9 +38,11 @@ import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
+import com.liferay.commerce.tax.CommerceTaxCalculation;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -53,18 +54,40 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-
 /**
  * @author Marco Leo
  */
-@Component(
-	property = "commerce.price.calculation.key=v1.0",
-	service = CommerceProductPriceCalculation.class
-)
 public class CommerceProductPriceCalculationImpl
 	extends BaseCommerceProductPriceCalculation {
+
+	public CommerceProductPriceCalculationImpl(
+		CommerceCatalogLocalService commerceCatalogLocalService,
+		CommerceChannelLocalService commerceChannelLocalService,
+		CommerceCurrencyLocalService commerceCurrencyLocalService,
+		CommerceDiscountCalculation commerceDiscountCalculation,
+		CommerceMoneyFactory commerceMoneyFactory,
+		CommercePriceEntryLocalService commercePriceEntryLocalService,
+		CommercePriceListDiscovery commercePriceListDiscovery,
+		CommercePriceListLocalService commercePriceListLocalService,
+		CommerceTierPriceEntryLocalService commerceTierPriceEntryLocalService,
+		CommerceTaxCalculation commerceTaxCalculation,
+		CPDefinitionOptionRelLocalService cpDefinitionOptionRelLocalService,
+		CPInstanceLocalService cpInstanceLocalService) {
+
+		super(
+			commerceMoneyFactory, commerceTaxCalculation,
+			cpDefinitionOptionRelLocalService, cpInstanceLocalService);
+
+		_commerceCatalogLocalService = commerceCatalogLocalService;
+		_commerceChannelLocalService = commerceChannelLocalService;
+		_commerceCurrencyLocalService = commerceCurrencyLocalService;
+		_commerceDiscountCalculation = commerceDiscountCalculation;
+		_commercePriceEntryLocalService = commercePriceEntryLocalService;
+		_commercePriceListDiscovery = commercePriceListDiscovery;
+		_commercePriceListLocalService = commercePriceListLocalService;
+		_commerceTierPriceEntryLocalService =
+			commerceTierPriceEntryLocalService;
+	}
 
 	@Override
 	public CommerceProductPrice getCommerceProductPrice(
@@ -187,7 +210,7 @@ public class CommerceProductPriceCalculationImpl
 				CommercePriceConverterUtil.getConvertedCommerceDiscountValue(
 					commerceDiscountValue,
 					updatedPrices[2].multiply(BigDecimal.valueOf(quantity)),
-					finalPrice, _commerceMoneyFactory,
+					finalPrice, commerceMoneyFactory,
 					RoundingMode.valueOf(commerceCurrency.getRoundingMode())));
 		}
 
@@ -479,7 +502,7 @@ public class CommerceProductPriceCalculationImpl
 			CommerceContext commerceContext, boolean promo)
 		throws PortalException {
 
-		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
+		CPInstance cpInstance = cpInstanceLocalService.getCPInstance(
 			cpInstanceId);
 
 		BigDecimal price = null;
@@ -545,7 +568,7 @@ public class CommerceProductPriceCalculationImpl
 			long cpInstanceId, CommerceContext commerceContext)
 		throws PortalException {
 
-		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
+		CPInstance cpInstance = cpInstanceLocalService.getCPInstance(
 			cpInstanceId);
 
 		Optional<CommercePriceList> commercePriceList = _getPriceList(
@@ -569,37 +592,15 @@ public class CommerceProductPriceCalculationImpl
 		return 0;
 	}
 
-	@Reference
-	private CommerceCatalogLocalService _commerceCatalogLocalService;
-
-	@Reference
-	private CommerceChannelLocalService _commerceChannelLocalService;
-
-	@Reference
-	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
-
-	@Reference(target = "(commerce.discount.calculation.key=v1.0)")
-	private CommerceDiscountCalculation _commerceDiscountCalculation;
-
-	@Reference
-	private CommerceMoneyFactory _commerceMoneyFactory;
-
-	@Reference
-	private CommercePriceEntryLocalService _commercePriceEntryLocalService;
-
-	@Reference(
-		target = "(commerce.price.list.discovery.key=" + CommercePricingConstants.ORDER_BY_HIERARCHY + ")"
-	)
-	private CommercePriceListDiscovery _commercePriceListDiscovery;
-
-	@Reference
-	private CommercePriceListLocalService _commercePriceListLocalService;
-
-	@Reference
-	private CommerceTierPriceEntryLocalService
+	private final CommerceCatalogLocalService _commerceCatalogLocalService;
+	private final CommerceChannelLocalService _commerceChannelLocalService;
+	private final CommerceCurrencyLocalService _commerceCurrencyLocalService;
+	private final CommerceDiscountCalculation _commerceDiscountCalculation;
+	private final CommercePriceEntryLocalService
+		_commercePriceEntryLocalService;
+	private final CommercePriceListDiscovery _commercePriceListDiscovery;
+	private final CommercePriceListLocalService _commercePriceListLocalService;
+	private final CommerceTierPriceEntryLocalService
 		_commerceTierPriceEntryLocalService;
-
-	@Reference
-	private CPInstanceLocalService _cpInstanceLocalService;
 
 }

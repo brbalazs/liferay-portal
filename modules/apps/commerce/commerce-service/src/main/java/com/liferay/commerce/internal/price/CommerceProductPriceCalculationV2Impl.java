@@ -25,7 +25,6 @@ import com.liferay.commerce.discount.CommerceDiscountValue;
 import com.liferay.commerce.discount.application.strategy.CommerceDiscountApplicationStrategy;
 import com.liferay.commerce.internal.util.CommercePriceConverterUtil;
 import com.liferay.commerce.price.CommerceProductPrice;
-import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.price.CommerceProductPriceImpl;
 import com.liferay.commerce.price.CommerceProductPriceRequest;
 import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
@@ -42,14 +41,16 @@ import com.liferay.commerce.pricing.modifier.CommercePriceModifierHelper;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
+import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
+import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
+import com.liferay.commerce.tax.CommerceTaxCalculation;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.math.BigDecimal;
@@ -59,23 +60,47 @@ import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
-import org.osgi.service.component.annotations.ReferencePolicy;
-import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 /**
  * @author Riccardo Alberti
  */
-@Component(
-	property = "commerce.price.calculation.key=v2.0",
-	service = CommerceProductPriceCalculation.class
-)
 public class CommerceProductPriceCalculationV2Impl
 	extends BaseCommerceProductPriceCalculation {
+
+	public CommerceProductPriceCalculationV2Impl(
+		CommerceChannelLocalService commerceChannelLocalService,
+		CommerceCurrencyLocalService commerceCurrencyLocalService,
+		CommerceDiscountCalculation commerceDiscountCalculation,
+		CommerceMoneyFactory commerceMoneyFactory,
+		CommercePriceEntryLocalService commercePriceEntryLocalService,
+		CommercePriceListLocalService commercePriceListLocalService,
+		CommercePriceModifierHelper commercePriceModifierHelper,
+		CommerceTierPriceEntryLocalService commerceTierPriceEntryLocalService,
+		CommerceTaxCalculation commerceTaxCalculation,
+		ConfigurationProvider configurationProvider,
+		CPDefinitionOptionRelLocalService cpDefinitionOptionRelLocalService,
+		CPInstanceLocalService cpInstanceLocalService,
+		Map<String, CommerceDiscountApplicationStrategy>
+			commerceDiscountApplicationStrategyMap,
+		Map<String, CommercePriceListDiscovery> commercePriceListDiscoveryMap) {
+
+		super(
+			commerceMoneyFactory, commerceTaxCalculation,
+			cpDefinitionOptionRelLocalService, cpInstanceLocalService);
+
+		_commerceChannelLocalService = commerceChannelLocalService;
+		_commerceCurrencyLocalService = commerceCurrencyLocalService;
+		_commerceDiscountCalculation = commerceDiscountCalculation;
+		_commercePriceEntryLocalService = commercePriceEntryLocalService;
+		_commercePriceListLocalService = commercePriceListLocalService;
+		_commercePriceModifierHelper = commercePriceModifierHelper;
+		_commerceTierPriceEntryLocalService =
+			commerceTierPriceEntryLocalService;
+		_configurationProvider = configurationProvider;
+		_commerceDiscountApplicationStrategyMap =
+			commerceDiscountApplicationStrategyMap;
+		_commercePriceListDiscoveryMap = commercePriceListDiscoveryMap;
+	}
 
 	@Override
 	public CommerceProductPrice getCommerceProductPrice(
@@ -200,7 +225,7 @@ public class CommerceProductPriceCalculationV2Impl
 				CommercePriceConverterUtil.getConvertedCommerceDiscountValue(
 					commerceDiscountValue,
 					updatedPrices[2].multiply(BigDecimal.valueOf(quantity)),
-					finalPrice, _commerceMoneyFactory,
+					finalPrice, commerceMoneyFactory,
 					RoundingMode.valueOf(commerceCurrency.getRoundingMode())));
 		}
 
@@ -404,60 +429,6 @@ public class CommerceProductPriceCalculationV2Impl
 
 		return _getUnitPrice(
 			commercePriceListId, cpInstanceId, quantity, commerceContext);
-	}
-
-	public void unsetCommerceDiscountApplicationStrategy(
-		CommerceDiscountApplicationStrategy commerceDiscountApplicationStrategy,
-		Map<String, Object> properties) {
-
-		String commerceDiscountApplicationStrategyKey = GetterUtil.getString(
-			properties.get("commerce.discount.application.strategy.key"));
-
-		_commerceDiscountApplicationStrategyMap.remove(
-			commerceDiscountApplicationStrategyKey);
-	}
-
-	public void unsetCommercePriceListDiscovery(
-		CommercePriceListDiscovery commercePriceListDiscovery,
-		Map<String, Object> properties) {
-
-		String commercePriceListDiscoveryKey = GetterUtil.getString(
-			properties.get("commerce.price.list.discovery.key"));
-
-		_commercePriceListDiscoveryMap.remove(commercePriceListDiscoveryKey);
-	}
-
-	@Reference(
-		cardinality = ReferenceCardinality.MULTIPLE,
-		policy = ReferencePolicy.DYNAMIC,
-		policyOption = ReferencePolicyOption.GREEDY
-	)
-	protected void setCommerceDiscountApplicationStrategy(
-		CommerceDiscountApplicationStrategy commerceDiscountApplicationStrategy,
-		Map<String, Object> properties) {
-
-		String commerceDiscountApplicationStrategyKey = GetterUtil.getString(
-			properties.get("commerce.discount.application.strategy.key"));
-
-		_commerceDiscountApplicationStrategyMap.put(
-			commerceDiscountApplicationStrategyKey,
-			commerceDiscountApplicationStrategy);
-	}
-
-	@Reference(
-		cardinality = ReferenceCardinality.MULTIPLE,
-		policy = ReferencePolicy.DYNAMIC,
-		policyOption = ReferencePolicyOption.GREEDY
-	)
-	protected void setCommercePriceListDiscovery(
-		CommercePriceListDiscovery commercePriceListDiscovery,
-		Map<String, Object> properties) {
-
-		String commercePriceListDiscoveryKey = GetterUtil.getString(
-			properties.get("commerce.price.list.discovery.key"));
-
-		_commercePriceListDiscoveryMap.put(
-			commercePriceListDiscoveryKey, commercePriceListDiscovery);
 	}
 
 	private CommerceDiscountValue _calculateCommerceDiscountValue(
@@ -1048,38 +1019,19 @@ public class CommerceProductPriceCalculationV2Impl
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommerceProductPriceCalculationV2Impl.class);
 
-	@Reference
-	private CommerceChannelLocalService _commerceChannelLocalService;
-
-	@Reference
-	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
-
+	private final CommerceChannelLocalService _commerceChannelLocalService;
+	private final CommerceCurrencyLocalService _commerceCurrencyLocalService;
 	private final Map<String, CommerceDiscountApplicationStrategy>
-		_commerceDiscountApplicationStrategyMap = new ConcurrentHashMap<>();
-
-	@Reference(target = "(commerce.discount.calculation.key=v2.0)")
-	private CommerceDiscountCalculation _commerceDiscountCalculation;
-
-	@Reference
-	private CommerceMoneyFactory _commerceMoneyFactory;
-
-	@Reference
-	private CommercePriceEntryLocalService _commercePriceEntryLocalService;
-
+		_commerceDiscountApplicationStrategyMap;
+	private final CommerceDiscountCalculation _commerceDiscountCalculation;
+	private final CommercePriceEntryLocalService
+		_commercePriceEntryLocalService;
 	private final Map<String, CommercePriceListDiscovery>
-		_commercePriceListDiscoveryMap = new ConcurrentHashMap<>();
-
-	@Reference
-	private CommercePriceListLocalService _commercePriceListLocalService;
-
-	@Reference
-	private CommercePriceModifierHelper _commercePriceModifierHelper;
-
-	@Reference
-	private CommerceTierPriceEntryLocalService
+		_commercePriceListDiscoveryMap;
+	private final CommercePriceListLocalService _commercePriceListLocalService;
+	private final CommercePriceModifierHelper _commercePriceModifierHelper;
+	private final CommerceTierPriceEntryLocalService
 		_commerceTierPriceEntryLocalService;
-
-	@Reference
-	private ConfigurationProvider _configurationProvider;
+	private final ConfigurationProvider _configurationProvider;
 
 }

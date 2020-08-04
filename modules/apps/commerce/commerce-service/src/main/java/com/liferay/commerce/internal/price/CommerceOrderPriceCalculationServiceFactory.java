@@ -14,10 +14,17 @@
 
 package com.liferay.commerce.internal.price;
 
+import com.liferay.commerce.currency.model.CommerceMoneyFactory;
+import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
-import com.liferay.commerce.price.CommerceOrderPriceCalculationFactory;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
+import com.liferay.commerce.service.CommerceOrderItemLocalService;
+import com.liferay.commerce.tax.CommerceTaxCalculation;
 
-import com.liferay.commerce.price.CommerceProductPriceCalculation;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Objects;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceFactory;
@@ -27,20 +34,26 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 
-import java.util.Hashtable;
-
 /**
  * @author Riccardo Alberti
  */
-@Component(immediate = true, service = ServiceFactory.class)
+@Component(
+	configurationPid = "com.liferay.commerce.pricing.configuration.CommercePricingConfiguration",
+	immediate = true, service = ServiceFactory.class
+)
 public class CommerceOrderPriceCalculationServiceFactory
 	implements ServiceFactory<CommerceOrderPriceCalculation> {
 
 	@Activate
-	public void activate(BundleContext bundleContext) {
+	public void activate(
+		BundleContext bundleContext, Map<String, Object> properties) {
+
 		_serviceRegistration = bundleContext.registerService(
 			CommerceOrderPriceCalculation.class, this,
 			new Hashtable<String, Object>());
+
+		_commercePricingCalculationKey = (String)properties.get(
+			"commercePricingCalculationKey");
 	}
 
 	@Deactivate
@@ -54,8 +67,17 @@ public class CommerceOrderPriceCalculationServiceFactory
 		ServiceRegistration<CommerceOrderPriceCalculation>
 			serviceRegistration) {
 
-		return _commerceOrderPriceCalculationFactory.
-			getCommerceOrderPriceCalculation();
+		if (Objects.equals(_commercePricingCalculationKey, "v2.0")) {
+			return new CommerceOrderPriceCalculationV2Impl(
+				_commerceChannelLocalService, _commerceDiscountCalculationV2,
+				_commerceMoneyFactory, _commerceOrderItemLocalService,
+				_commerceTaxCalculation);
+		}
+
+		return new CommerceOrderPriceCalculationImpl(
+			_commerceChannelLocalService, _commerceDiscountCalculation,
+			_commerceMoneyFactory, _commerceOrderItemLocalService,
+			_commerceTaxCalculation);
 	}
 
 	@Override
@@ -66,8 +88,24 @@ public class CommerceOrderPriceCalculationServiceFactory
 	}
 
 	@Reference
-	private CommerceOrderPriceCalculationFactory
-		_commerceOrderPriceCalculationFactory;
+	private CommerceChannelLocalService _commerceChannelLocalService;
+
+	@Reference(target = "(commerce.discount.calculation.key=v1.0)")
+	private CommerceDiscountCalculation _commerceDiscountCalculation;
+
+	@Reference(target = "(commerce.discount.calculation.key=v2.0)")
+	private CommerceDiscountCalculation _commerceDiscountCalculationV2;
+
+	@Reference
+	private CommerceMoneyFactory _commerceMoneyFactory;
+
+	@Reference
+	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
+
+	private String _commercePricingCalculationKey;
+
+	@Reference
+	private CommerceTaxCalculation _commerceTaxCalculation;
 
 	private ServiceRegistration<CommerceOrderPriceCalculation>
 		_serviceRegistration;
