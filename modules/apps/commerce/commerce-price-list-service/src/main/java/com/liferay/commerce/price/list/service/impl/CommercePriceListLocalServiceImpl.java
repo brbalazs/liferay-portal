@@ -59,6 +59,7 @@ import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -73,6 +74,7 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -87,6 +89,30 @@ import java.util.Optional;
  */
 public class CommercePriceListLocalServiceImpl
 	extends CommercePriceListLocalServiceBaseImpl {
+
+	@Override
+	public CommercePriceList addCommerceCatalogBasePriceList(
+			long groupId, long userId, long commerceCurrencyId, String type,
+			String name, ServiceContext serviceContext)
+		throws PortalException {
+
+		Date now = new Date();
+
+		Calendar calendar = CalendarFactoryUtil.getCalendar(now.getTime());
+
+		int displayDateHour = calendar.get(Calendar.HOUR);
+
+		if (calendar.get(Calendar.AM_PM) == Calendar.PM) {
+			displayDateHour += 12;
+		}
+
+		return commercePriceListLocalService.addCommercePriceList(
+			groupId, userId, commerceCurrencyId, true, type, 0L, true, name, 0D,
+			calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+			calendar.get(Calendar.YEAR), displayDateHour,
+			calendar.get(Calendar.MINUTE), 0, 0, 0, 0, 0, null, true,
+			serviceContext);
+	}
 
 	@Override
 	public CommercePriceList addCommercePriceList(
@@ -1513,7 +1539,8 @@ public class CommercePriceListLocalServiceImpl
 
 		if (catalogBasePriceList) {
 			CommercePriceList basePriceList =
-				commercePriceListPersistence.fetchByG_C_T(groupId, true, type);
+				commercePriceListPersistence.fetchByCatalogBasePriceListByType(
+					groupId, true, type);
 
 			if ((basePriceList != null) &&
 				(basePriceList.getCommercePriceListId() !=
