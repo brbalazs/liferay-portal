@@ -1798,7 +1798,7 @@ artifact.url=${remote.repository.url}/com/liferay/portal/com.liferay.${processed
 		<attribute name="appname" />
 
 		<sequential>
-			<gradle-execute outputproperty="dxp.app.zip.file" task="printDependencyPath">
+			<gradle-execute outputproperty="dxp.app.zip.file" setupbinariescache="false" task="printDependencyPath">
 				<arg value="--build-file=${project.dir}/modules/util.gradle" />
 				<arg value="--quiet" />
 				<arg value="-Dorg.gradle.internal.launcher.welcomeMessageEnabled=false" />
