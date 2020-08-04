@@ -23,9 +23,19 @@
 			{
 				"actionIds": [
 					"ADD_COMMERCE_PRICE_LIST",
+					"ADD_COMMERCE_DISCOUNT",
+					"VIEW_COMMERCE_DISCOUNTS",
 					"VIEW_CONTROL_PANEL"
 				],
 				"resource": "90"
+			},
+			{
+				"actionIds": [
+					"DELETE",
+					"UPDATE",
+					"VIEW"
+				],
+				"resource": "com.liferay.commerce.discount.model.CommerceDiscount"
 			},
 			{
 				"actionIds": [
@@ -39,7 +49,7 @@
 				"actionIds": [
 					"ACCESS_IN_CONTROL_PANEL"
 				],
-				"resource": "com_liferay_commerce_price_list_web_internal_portlet_CommercePriceListPortlet"
+				"resource": "com_liferay_commerce_pricing_web_internal_portlet_CommercePricingClassesPortlet"
 			}
 		],
 		"name": "Discount Manager",
