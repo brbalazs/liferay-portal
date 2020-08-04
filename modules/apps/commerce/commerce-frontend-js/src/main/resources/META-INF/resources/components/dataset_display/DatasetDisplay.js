@@ -133,10 +133,10 @@ function DatasetDisplay(props) {
 	function getData(
 		apiUrl,
 		currentUrl,
-		filters,
-		searchParam,
 		delta,
+		filters,
 		pageNumber,
+		searchParam,
 		sorting,
 		successNotification = {}
 	) {
@@ -144,10 +144,10 @@ function DatasetDisplay(props) {
 		return loadData(
 			apiUrl,
 			currentUrl,
-			filters,
-			searchParam,
 			delta,
+			filters,
 			pageNumber,
+			searchParam,
 			sorting
 		)
 			.then(updateDatasetItems)
@@ -180,10 +180,10 @@ function DatasetDisplay(props) {
 			getData(
 				props.apiUrl,
 				props.currentUrl,
-				filters.filter(e => !!e.value),
-				searchParam,
 				delta,
+				filters.filter(e => !!e.value),
 				pageNumber,
+				searchParam,
 				sorting,
 				false
 			);
@@ -247,10 +247,10 @@ function DatasetDisplay(props) {
 		getData(
 			props.apiUrl,
 			props.currentUrl,
-			filters.filter(e => !!e.value),
-			searchParam,
 			delta,
+			filters.filter(e => !!e.value),
 			pageNumber,
+			searchParam,
 			sorting,
 			successNotification
 		);

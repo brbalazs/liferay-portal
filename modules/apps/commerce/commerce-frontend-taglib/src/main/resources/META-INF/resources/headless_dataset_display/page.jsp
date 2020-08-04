@@ -32,6 +32,7 @@
 		id: '<%= id %>',
 		itemsActions: <%= jsonSerializer.serializeDeep(clayHeadlessDataSetActionTemplates) %>,
 		filters: <%= jsonSerializer.serializeDeep(clayDataSetFiltersContext) %>,
+
 		<%
 		if (Validator.isNotNull(nestedItemsKey)) {
 		%>

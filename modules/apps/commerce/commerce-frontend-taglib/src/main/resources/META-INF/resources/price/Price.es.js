@@ -19,22 +19,14 @@ import template from './Price.soy';
 
 class Price extends Component {
 	created() {
-		window.Liferay.on(
-			'priceUpdated',
-			this._updatePrice,
-			this
-		);
+		window.Liferay.on('priceUpdated', this._updatePrice, this);
 	}
 
 	detached() {
-		window.Liferay.detach(
-			'priceUpdated',
-			this._updatePrice,
-			this
-		);
+		window.Liferay.detach('priceUpdated', this._updatePrice, this);
 	}
 	_updatePrice(e) {
-		if(e.id === this.id) {
+		if (e.id === this.id) {
 			this.displayDiscountLevels = e.displayDiscountLevels;
 			this.prices = e.prices;
 		}
