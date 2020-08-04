@@ -31,8 +31,23 @@ public class Aggregation {
 		return _aggregationTerms;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public Map<String, String> getTerms() {
+		return _aggregationTerms;
+	}
+
 	public void setAggregationTerms(Map<String, String> aggregationTerms) {
 		_aggregationTerms = aggregationTerms;
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public void setTerms(Map<String, String> terms) {
 	}
 
 	private Map<String, String> _aggregationTerms = new HashMap<>();
