@@ -162,15 +162,23 @@ public class AssertionSteps {
 						"' and text()='" + end + "']");
 	}
 
-	@Then("^I should see time filter (.*) in (.*) card$")
+	@Then("^I should see time filter (.*) in( \"(.*)\")?\\s? card$")
 	public void assertDateTimeFilter(
 			@Transform(FaroTransformer.class) String date,
+			@Transform(FaroTransformer.class) String cardBool,
 			@Transform(FaroTransformer.class) String card)
 		throws Exception {
 
-		_faroSelenium.waitForElementPresent(
-			"//h5[text()='" + card + "']/parent::div//button[text()='" + date +
-				"']");
+		if (cardBool != null) {
+			_faroSelenium.waitForElementPresent(
+				"//h5[text()='" + card + "']/parent::div//button[text()='" +
+					date + "']");
+		}
+		else {
+			_faroSelenium.waitForElementPresent(
+				"//div[contains(@class,'dropdown')]/button[text()='" + date +
+					"']");
+		}
 	}
 
 	/**
