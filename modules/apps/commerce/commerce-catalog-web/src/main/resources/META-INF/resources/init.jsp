@@ -28,6 +28,9 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 page import="com.liferay.commerce.catalog.web.internal.frontend.CommerceCatalogDataSetConstants" %><%@
 page import="com.liferay.commerce.catalog.web.internal.servlet.taglib.ui.CommerceCatalogScreenNavigationConstants" %><%@
 page import="com.liferay.commerce.currency.model.CommerceCurrency" %><%@
+page import="com.liferay.commerce.price.list.constants.CommercePriceListConstants" %><%@
+page import="com.liferay.commerce.price.list.exception.NoSuchPriceListException" %><%@
+page import="com.liferay.commerce.price.list.model.CommercePriceList" %><%@
 page import="com.liferay.commerce.product.exception.CommerceCatalogProductsException" %><%@
 page import="com.liferay.commerce.product.exception.NoSuchCatalogException" %><%@
 page import="com.liferay.commerce.product.model.CommerceCatalog" %><%@
@@ -42,8 +45,7 @@ page import="com.liferay.portal.kernel.security.permission.ActionKeys" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.LocaleUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
-page import="com.liferay.portal.kernel.util.WebKeys" %><%@ page import="com.liferay.commerce.price.list.constants.CommercePriceListConstants" %><%@ page import="com.liferay.commerce.price.list.model.CommercePriceList" %>
-<%@ page import="com.liferay.commerce.price.list.exception.NoSuchPriceListException" %>
+page import="com.liferay.portal.kernel.util.WebKeys" %>
 
 <%@ page import="java.util.HashMap" %><%@
 page import="java.util.List" %><%@

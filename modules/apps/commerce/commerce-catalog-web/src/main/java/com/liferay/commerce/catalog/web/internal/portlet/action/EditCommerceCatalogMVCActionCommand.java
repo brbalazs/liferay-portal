@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.catalog.web.internal.portlet.action;
 
-import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.media.constants.CommerceMediaConstants;
 import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.exception.NoSuchPriceListException;
@@ -25,8 +24,6 @@ import com.liferay.commerce.product.exception.CommerceCatalogSystemException;
 import com.liferay.commerce.product.exception.NoSuchCatalogException;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
-import com.liferay.commerce.product.service.CommerceChannelRelService;
-import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -46,13 +43,13 @@ import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 
+import java.util.concurrent.Callable;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-
-import java.util.concurrent.Callable;
 
 /**
  * @author Alec Sloan
@@ -137,30 +134,6 @@ public class EditCommerceCatalogMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(
-		EditCommerceCatalogMVCActionCommand.class);
-
-	private static final TransactionConfig _transactionConfig =
-		TransactionConfig.Factory.create(
-			Propagation.REQUIRED, new Class<?>[] {Exception.class});
-
-	private class CommerceCatalogCallable implements Callable<Object> {
-
-		@Override
-		public Object call() throws Exception {
-			updateCommerceCatalog(_actionRequest);
-
-			return null;
-		}
-
-		private CommerceCatalogCallable(ActionRequest actionRequest) {
-			_actionRequest = actionRequest;
-		}
-
-		private final ActionRequest _actionRequest;
-
-	}
-
 	protected CommerceCatalog updateCommerceCatalog(ActionRequest actionRequest)
 		throws Exception {
 
@@ -227,16 +200,40 @@ public class EditCommerceCatalogMVCActionCommand extends BaseMVCActionCommand {
 		return commerceCatalog;
 	}
 
-	@Reference
-	private CommercePriceListService _commercePriceListService;
+	private static final Log _log = LogFactoryUtil.getLog(
+		EditCommerceCatalogMVCActionCommand.class);
+
+	private static final TransactionConfig _transactionConfig =
+		TransactionConfig.Factory.create(
+			Propagation.REQUIRED, new Class<?>[] {Exception.class});
 
 	@Reference
 	private CommerceCatalogService _commerceCatalogService;
+
+	@Reference
+	private CommercePriceListService _commercePriceListService;
 
 	@Reference
 	private Portal _portal;
 
 	@Reference
 	private SettingsFactory _settingsFactory;
+
+	private class CommerceCatalogCallable implements Callable<Object> {
+
+		@Override
+		public Object call() throws Exception {
+			updateCommerceCatalog(_actionRequest);
+
+			return null;
+		}
+
+		private CommerceCatalogCallable(ActionRequest actionRequest) {
+			_actionRequest = actionRequest;
+		}
+
+		private final ActionRequest _actionRequest;
+
+	}
 
 }

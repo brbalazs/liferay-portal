@@ -96,6 +96,18 @@ public class CommerceCatalogDisplayContext {
 		cpRequestHelper = new CPRequestHelper(httpServletRequest);
 	}
 
+	public String getAddCommerceCatalogRenderURL() throws Exception {
+		LiferayPortletResponse liferayPortletResponse =
+			cpRequestHelper.getLiferayPortletResponse();
+
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
+
+		portletURL.setParameter("mvcRenderCommandName", "addCommerceCatalog");
+		portletURL.setWindowState(LiferayWindowState.POP_UP);
+
+		return portletURL.toString();
+	}
+
 	public CommercePriceList getBaseCommercePriceList(String type)
 		throws PortalException {
 
@@ -107,50 +119,14 @@ public class CommerceCatalogDisplayContext {
 	}
 
 	public long getBaseCommercePriceListId(String type) throws PortalException {
-		CommercePriceList baseCommercePriceList =
-			getBaseCommercePriceList(type);
+		CommercePriceList baseCommercePriceList = getBaseCommercePriceList(
+			type);
 
 		if (baseCommercePriceList == null) {
 			return 0;
 		}
 
 		return baseCommercePriceList.getCommercePriceListId();
-	}
-
-	private final CommercePriceListService _commercePriceListService;
-
-	public String getPriceListsApiUrl(String type) throws PortalException {
-		StringBundler filterSB = new StringBundler(6);
-
-		filterSB.append("(catalogId/any(x:(x eq ");
-		filterSB.append(getCommerceCatalogId());
-		filterSB.append("))) and type eq ");
-		filterSB.append(StringPool.APOSTROPHE);
-		filterSB.append(type);
-		filterSB.append(StringPool.APOSTROPHE);
-
-		String encodedFilter = URLCodec.encodeURL(filterSB.toString(), true);
-
-		StringBundler apiUrlSB = new StringBundler(4);
-
-		apiUrlSB.append(_portal.getPortalURL(cpRequestHelper.getRequest()));
-		apiUrlSB.append("/o/headless-commerce-admin-pricing/v2.0/price-lists");
-		apiUrlSB.append("?filter=");
-		apiUrlSB.append(encodedFilter);
-
-		return apiUrlSB.toString();
-	}
-
-	public String getAddCommerceCatalogRenderURL() throws Exception {
-		LiferayPortletResponse liferayPortletResponse =
-			cpRequestHelper.getLiferayPortletResponse();
-
-		PortletURL portletURL = liferayPortletResponse.createRenderURL();
-
-		portletURL.setParameter("mvcRenderCommandName", "addCommerceCatalog");
-		portletURL.setWindowState(LiferayWindowState.POP_UP);
-
-		return portletURL.toString();
 	}
 
 	public ClayCreationMenu getClayCreationMenu() throws Exception {
@@ -337,6 +313,28 @@ public class CommerceCatalogDisplayContext {
 		return portletURL;
 	}
 
+	public String getPriceListsApiUrl(String type) throws PortalException {
+		StringBundler filterSB = new StringBundler(6);
+
+		filterSB.append("(catalogId/any(x:(x eq ");
+		filterSB.append(getCommerceCatalogId());
+		filterSB.append("))) and type eq ");
+		filterSB.append(StringPool.APOSTROPHE);
+		filterSB.append(type);
+		filterSB.append(StringPool.APOSTROPHE);
+
+		String encodedFilter = URLCodec.encodeURL(filterSB.toString(), true);
+
+		StringBundler apiUrlSB = new StringBundler(4);
+
+		apiUrlSB.append(_portal.getPortalURL(cpRequestHelper.getRequest()));
+		apiUrlSB.append("/o/headless-commerce-admin-pricing/v2.0/price-lists");
+		apiUrlSB.append("?filter=");
+		apiUrlSB.append(encodedFilter);
+
+		return apiUrlSB.toString();
+	}
+
 	public boolean hasAddCatalogPermission() {
 		return PortalPermissionUtil.contains(
 			cpRequestHelper.getPermissionChecker(),
@@ -359,6 +357,7 @@ public class CommerceCatalogDisplayContext {
 		_commerceCatalogModelResourcePermission;
 	private final CommerceCatalogService _commerceCatalogService;
 	private final CommerceCurrencyLocalService _commerceCurrencyLocalService;
+	private final CommercePriceListService _commercePriceListService;
 	private final DLAppService _dlAppService;
 	private final ItemSelector _itemSelector;
 	private final Portal _portal;

@@ -85,9 +85,6 @@ public class EditCommerceCatalogExternalReferenceCodeMVCRenderCommand
 	private volatile AttachmentsConfiguration _attachmentsConfiguration;
 
 	@Reference
-	private CommercePriceListService _commercePriceListService;
-
-	@Reference
 	private CommerceCatalogDefaultImage _commerceCatalogDefaultImage;
 
 	@Reference(
@@ -101,6 +98,9 @@ public class EditCommerceCatalogExternalReferenceCodeMVCRenderCommand
 
 	@Reference
 	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
+
+	@Reference
+	private CommercePriceListService _commercePriceListService;
 
 	@Reference
 	private DLAppService _dlAppService;

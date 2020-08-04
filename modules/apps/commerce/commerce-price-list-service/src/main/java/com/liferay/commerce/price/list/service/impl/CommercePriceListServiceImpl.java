@@ -236,8 +236,8 @@ public class CommercePriceListServiceImpl
 		throws PortalException {
 
 		CommercePriceList commercePriceList =
-			commercePriceListLocalService.fetchCommerceCatalogBasePriceListByType(
-				groupId, type);
+			commercePriceListLocalService.
+				fetchCommerceCatalogBasePriceListByType(groupId, type);
 
 		if (commercePriceList != null) {
 			_commercePriceListModelResourcePermission.check(
@@ -362,18 +362,6 @@ public class CommercePriceListServiceImpl
 	}
 
 	@Override
-	public void setCatalogBasePriceList(
-			long groupId, long commercePriceListId, String type)
-		throws PortalException {
-
-		_commercePriceListModelResourcePermission.check(
-			getPermissionChecker(), commercePriceListId, ActionKeys.UPDATE);
-
-		commercePriceListLocalService.setCatalogBasePriceList(
-			groupId, commercePriceListId, type);
-	}
-
-	@Override
 	public int searchCommercePriceListsCount(
 			long companyId, String keywords, int status)
 		throws PortalException {
@@ -390,6 +378,18 @@ public class CommercePriceListServiceImpl
 
 		return commercePriceListLocalService.searchCommercePriceListsCount(
 			companyId, groupIds, keywords, status);
+	}
+
+	@Override
+	public void setCatalogBasePriceList(
+			long groupId, long commercePriceListId, String type)
+		throws PortalException {
+
+		_commercePriceListModelResourcePermission.check(
+			getPermissionChecker(), commercePriceListId, ActionKeys.UPDATE);
+
+		commercePriceListLocalService.setCatalogBasePriceList(
+			groupId, commercePriceListId, type);
 	}
 
 	@Override

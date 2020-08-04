@@ -889,6 +889,37 @@ public class CommercePriceListLocalServiceImpl
 
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
+	public CommercePriceList setCatalogBasePriceList(
+			long commercePriceListId, boolean catalogBasePriceList)
+		throws PortalException {
+
+		CommercePriceList commercePriceList =
+			commercePriceListPersistence.findByPrimaryKey(commercePriceListId);
+
+		commercePriceList.setCatalogBasePriceList(catalogBasePriceList);
+
+		return commercePriceListPersistence.update(commercePriceList);
+	}
+
+	@Override
+	public void setCatalogBasePriceList(
+			long groupId, long commercePriceListId, String type)
+		throws PortalException {
+
+		CommercePriceList baseCommercePriceList =
+			commercePriceListPersistence.fetchByG_C_T(groupId, true, type);
+
+		if (baseCommercePriceList != null) {
+			commercePriceListLocalService.setCatalogBasePriceList(
+				baseCommercePriceList.getCommercePriceListId(), false);
+		}
+
+		commercePriceListLocalService.setCatalogBasePriceList(
+			commercePriceListId, true);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public CommercePriceList updateCommercePriceList(
 			long commercePriceListId, long commerceCurrencyId, boolean netPrice,
 			long parentCommercePriceListId, String name, double priority,
@@ -1072,35 +1103,6 @@ public class CommercePriceListLocalServiceImpl
 
 			doReindex(commercePriceList.getCommercePriceListId());
 		}
-	}
-
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public CommercePriceList setCatalogBasePriceList(
-			long commercePriceListId, boolean catalogBasePriceList)
-		throws PortalException {
-
-		CommercePriceList commercePriceList =
-			commercePriceListPersistence.findByPrimaryKey(commercePriceListId);
-
-		commercePriceList.setCatalogBasePriceList(catalogBasePriceList);
-
-		return commercePriceListPersistence.update(commercePriceList);
-	}
-
-	@Override
-	public void setCatalogBasePriceList(
-			long groupId, long commercePriceListId, String type)
-		throws PortalException {
-
-		CommercePriceList baseCommercePriceList =
-			commercePriceListPersistence.fetchByG_C_T(groupId, true, type);
-
-		if (baseCommercePriceList != null) {
-			commercePriceListLocalService.setCatalogBasePriceList(baseCommercePriceList.getCommercePriceListId(), false);
-		}
-
-		commercePriceListLocalService.setCatalogBasePriceList(commercePriceListId, true);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
