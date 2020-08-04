@@ -157,14 +157,15 @@ export function getFiltersString(filters, providedFilters) {
 export function loadData(
 	apiUrl,
 	currentUrl,
-	filters,
-	searchQuery,
 	delta,
+	filters,
 	page = 1,
+	searchQuery,
 	sorting = []
 ) {
 	let formattedUrl = apiUrl;
 	let providedFilters = '';
+
 	const authParam = `p_auth=${window.Liferay.authToken}`;
 	const currentUrlParam = `&currentUrl=${encodeURIComponent(currentUrl)}`;
 	const pageSizeParam = `&pageSize=${delta}`;
