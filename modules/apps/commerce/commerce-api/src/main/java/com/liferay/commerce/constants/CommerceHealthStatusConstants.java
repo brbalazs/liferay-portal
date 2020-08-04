@@ -93,4 +93,10 @@ public class CommerceHealthStatusConstants {
 	public static final String MEASUREMENT_UNITS_COMMERCE_HEALTH_STATUS_KEY =
 		"measurement.units.commerce.health.status.key";
 
+	public static final String PRICING_COMMERCE_HEALTH_STATUS_DESCRIPTION =
+		"pricing.commerce.health.status.description";
+
+	public static final String PRICING_COMMERCE_HEALTH_STATUS_KEY =
+		"pricing.commerce.health.status.key";
+
 }
