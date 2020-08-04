@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.ResourceActionLocalService;
 import com.liferay.portal.kernel.service.ResourceLocalService;
+import com.liferay.portal.kernel.upgrade.DummyUpgradeProcess;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 
 import org.osgi.service.component.annotations.Component;
@@ -86,6 +87,10 @@ public class CommercePriceListUpgradeStepRegistrator
 				CommercePriceListUpgradeProcess(
 					_resourceActionLocalService, _resourceLocalService));
 
+		registry.register(
+			_SCHEMA_VERSION_2_1_2, _SCHEMA_VERSION_2_1_3,
+			new DummyUpgradeProcess());
+
 		if (_log.isInfoEnabled()) {
 			_log.info("COMMERCE PRICE LIST UPGRADE STEP REGISTRATOR FINISHED");
 		}
@@ -104,6 +109,8 @@ public class CommercePriceListUpgradeStepRegistrator
 	private static final String _SCHEMA_VERSION_2_1_1 = "2.1.1";
 
 	private static final String _SCHEMA_VERSION_2_1_2 = "2.1.2";
+
+	private static final String _SCHEMA_VERSION_2_1_3 = "2.1.3";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommercePriceListUpgradeStepRegistrator.class);
