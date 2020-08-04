@@ -550,8 +550,6 @@ public class AssetHelperImpl implements AssetHelper {
 
 		_searchRequestBuilderFactory.builder(
 			searchContext
-		).fetchSource(
-			true
 		).sorts(
 			_getSearchSorts(assetEntryQuery, searchContext.getLocale())
 		);
