@@ -237,6 +237,13 @@ public class AssertionSteps {
 		_faroSelenium.assertElementPresent(xpath);
 	}
 
+	@Then("^I should see maximum range warning message$")
+	public void assertMaximumCustomRange() throws Exception {
+		_faroSelenium.assertElementPresent(
+			"//div[@class='range-warning' and text()='This exceeds the " +
+				"maximum range of 365 days.']");
+	}
+
 	@Then("^I should see (.*) displayed top of the page$")
 	public void assertNameTopOfPage(
 			@Transform(FaroTransformer.class) String targetName)
