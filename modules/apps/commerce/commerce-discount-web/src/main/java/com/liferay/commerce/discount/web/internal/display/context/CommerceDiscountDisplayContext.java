@@ -20,6 +20,7 @@ import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.model.CommerceDiscountCommerceAccountGroupRel;
 import com.liferay.commerce.discount.service.CommerceDiscountCommerceAccountGroupRelService;
+import com.liferay.commerce.discount.service.CommerceDiscountLocalServiceUtil;
 import com.liferay.commerce.discount.service.CommerceDiscountService;
 import com.liferay.commerce.discount.target.CommerceDiscountTarget;
 import com.liferay.commerce.discount.target.CommerceDiscountTargetRegistry;
@@ -29,8 +30,8 @@ import com.liferay.commerce.discount.web.internal.util.CommerceDiscountPortletUt
 import com.liferay.commerce.percentage.PercentageFormatter;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.model.CommerceChannelRel;
+import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.service.CommerceChannelRelService;
-import com.liferay.commerce.product.service.CommerceChannelService;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.criteria.UUIDItemSelectorReturnType;
@@ -76,7 +77,7 @@ public class CommerceDiscountDisplayContext {
 
 	public CommerceDiscountDisplayContext(
 		CommerceChannelRelService commerceChannelRelService,
-		CommerceChannelService commerceChannelService,
+		CommerceChannelLocalService commerceChannelLocalService,
 		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		ModelResourcePermission<CommerceDiscount>
 			commerceDiscountModelResourcePermission,
@@ -88,7 +89,7 @@ public class CommerceDiscountDisplayContext {
 		HttpServletRequest httpServletRequest, ItemSelector itemSelector) {
 
 		_commerceChannelRelService = commerceChannelRelService;
-		_commerceChannelService = commerceChannelService;
+		_commerceChannelLocalService = commerceChannelLocalService;
 		_commerceCurrencyLocalService = commerceCurrencyLocalService;
 		_commerceDiscountModelResourcePermission =
 			commerceDiscountModelResourcePermission;
@@ -129,7 +130,7 @@ public class CommerceDiscountDisplayContext {
 	}
 
 	public List<CommerceChannel> getCommerceChannels() throws PortalException {
-		return _commerceChannelService.getCommerceChannels(
+		return _commerceChannelLocalService.getCommerceChannels(
 			commerceDiscountRequestHelper.getCompanyId());
 	}
 
@@ -335,9 +336,20 @@ public class CommerceDiscountDisplayContext {
 			_searchContainer.getOrderByCol(),
 			_searchContainer.getOrderByType());
 
+		long companyId = commerceDiscountRequestHelper.getCompanyId();
+
+		List<CommerceChannel> commerceChannels =
+			_commerceChannelLocalService.searchCommerceChannels(companyId);
+
+		Stream<CommerceChannel> stream = commerceChannels.stream();
+
+		long[] commerceChannelGroupIds = stream.mapToLong(
+			CommerceChannel::getGroupId
+		).toArray();
+
 		BaseModelSearchResult<CommerceDiscount> baseModelSearchResult =
-			_commerceDiscountService.searchCommerceDiscounts(
-				commerceDiscountRequestHelper.getCompanyId(), getKeywords(),
+			CommerceDiscountLocalServiceUtil.searchCommerceDiscounts(
+				companyId, commerceChannelGroupIds, getKeywords(),
 				WorkflowConstants.STATUS_ANY, _searchContainer.getStart(),
 				_searchContainer.getEnd(), sort);
 
@@ -469,8 +481,8 @@ public class CommerceDiscountDisplayContext {
 	protected final ItemSelector itemSelector;
 	protected final PortalPreferences portalPreferences;
 
+	private final CommerceChannelLocalService _commerceChannelLocalService;
 	private final CommerceChannelRelService _commerceChannelRelService;
-	private final CommerceChannelService _commerceChannelService;
 	private final CommerceCurrencyLocalService _commerceCurrencyLocalService;
 	private CommerceDiscount _commerceDiscount;
 	private final CommerceDiscountCommerceAccountGroupRelService
