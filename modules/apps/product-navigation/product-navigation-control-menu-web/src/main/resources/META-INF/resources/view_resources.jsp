@@ -207,7 +207,7 @@ if (Validator.isNotNull(keywords)) {
 						</c:when>
 						<c:otherwise>
 							<li class="drag-content-item entry-display-style lfr-content-item list-group-item" <%= AUIUtil.buildData(itemData) %>>
-								<div class=" list-group-item-field">
+								<div class="list-group-item-field">
 									<c:choose>
 										<c:when test="<%= Validator.isNotNull(thumbnailPath) %>">
 											<div class="user-icon user-icon-square user-icon-xl">
@@ -225,7 +225,7 @@ if (Validator.isNotNull(keywords)) {
 									</c:choose>
 								</div>
 
-								<div class=" list-group-item-content">
+								<div class="list-group-item-content">
 									<h1><%= title %></h1>
 
 									<%
