@@ -102,14 +102,13 @@ public class DiscountAccountGroupResourceImpl
 		List<CommerceDiscountCommerceAccountGroupRel>
 			commerceDiscountCommerceAccountGroupRels =
 				_commerceDiscountCommerceAccountGroupRelService.
-					getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountId(
+					getCommerceDiscountCommerceAccountGroupRels(
 						id, search, pagination.getStartPosition(),
 						pagination.getEndPosition());
 
 		int totalItems =
 			_commerceDiscountCommerceAccountGroupRelService.
-				getCommerceDiscountCommerceAccountGroupRelsByCommerceDiscountIdCount(
-					id, search);
+				getCommerceDiscountCommerceAccountGroupRelsCount(id, search);
 
 		return Page.of(
 			_toDiscountAccountGroups(commerceDiscountCommerceAccountGroupRels),

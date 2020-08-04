@@ -97,15 +97,13 @@ public class PriceListAccountResourceImpl
 		throws Exception {
 
 		List<CommercePriceListAccountRel> commercePriceListAccountRels =
-			_commercePriceListAccountRelService.
-				getCommercePriceListAccountRelsByCommercePriceListId(
-					id, search, pagination.getStartPosition(),
-					pagination.getEndPosition());
+			_commercePriceListAccountRelService.getCommercePriceListAccountRels(
+				id, search, pagination.getStartPosition(),
+				pagination.getEndPosition());
 
 		int totalItems =
 			_commercePriceListAccountRelService.
-				getCommercePriceListAccountRelsByCommercePriceListIdCount(
-					id, search);
+				getCommercePriceListAccountRelsCount(id, search);
 
 		return Page.of(
 			_toPriceListAccounts(commercePriceListAccountRels), pagination,

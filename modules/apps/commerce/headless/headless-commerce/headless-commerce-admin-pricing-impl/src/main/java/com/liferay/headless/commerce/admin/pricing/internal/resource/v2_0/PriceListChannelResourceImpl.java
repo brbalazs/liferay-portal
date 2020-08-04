@@ -97,15 +97,13 @@ public class PriceListChannelResourceImpl
 		throws Exception {
 
 		List<CommercePriceListChannelRel> commercePriceListChannelRels =
-			_commercePriceListChannelRelService.
-				getCommercePriceListChannelRelsByCommercePriceListId(
-					id, search, pagination.getStartPosition(),
-					pagination.getEndPosition());
+			_commercePriceListChannelRelService.getCommercePriceListChannelRels(
+				id, search, pagination.getStartPosition(),
+				pagination.getEndPosition());
 
 		int totalItems =
 			_commercePriceListChannelRelService.
-				getCommercePriceListChannelRelsByCommercePriceListIdCount(
-					id, search);
+				getCommercePriceListChannelRelsCount(id, search);
 
 		return Page.of(
 			_toPriceListChannels(commercePriceListChannelRels), pagination,

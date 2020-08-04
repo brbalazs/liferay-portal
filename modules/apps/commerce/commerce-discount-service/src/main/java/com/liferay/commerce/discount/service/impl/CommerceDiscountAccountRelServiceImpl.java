@@ -130,20 +130,11 @@ public class CommerceDiscountAccountRelServiceImpl
 	}
 
 	@Override
-	public List<CommerceDiscountAccountRel>
-		getCommerceDiscountAccountRelsByCommerceDiscountId(
-			long commerceDiscountId, String name, int start, int end) {
+	public List<CommerceDiscountAccountRel> getCommerceDiscountAccountRels(
+		long commerceDiscountId, String name, int start, int end) {
 
 		return commerceDiscountAccountRelFinder.findByCommerceDiscountId(
 			commerceDiscountId, name, start, end, true);
-	}
-
-	@Override
-	public int getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
-		long commerceDiscountId, String name) {
-
-		return commerceDiscountAccountRelFinder.countByCommerceDiscountId(
-			commerceDiscountId, name, true);
 	}
 
 	@Override
@@ -155,6 +146,14 @@ public class CommerceDiscountAccountRelServiceImpl
 
 		return commerceDiscountAccountRelLocalService.
 			getCommerceDiscountAccountRelsCount(commerceDiscountId);
+	}
+
+	@Override
+	public int getCommerceDiscountAccountRelsCount(
+		long commerceDiscountId, String name) {
+
+		return commerceDiscountAccountRelFinder.countByCommerceDiscountId(
+			commerceDiscountId, name, true);
 	}
 
 	private static volatile ModelResourcePermission<CommerceDiscount>

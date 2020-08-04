@@ -122,20 +122,11 @@ public class CommercePriceListChannelRelServiceImpl
 	}
 
 	@Override
-	public List<CommercePriceListChannelRel>
-		getCommercePriceListChannelRelsByCommercePriceListId(
-			long commercePriceListId, String name, int start, int end) {
+	public List<CommercePriceListChannelRel> getCommercePriceListChannelRels(
+		long commercePriceListId, String name, int start, int end) {
 
 		return commercePriceListChannelRelFinder.findByCommercePriceListId(
 			commercePriceListId, name, start, end, true);
-	}
-
-	@Override
-	public int getCommercePriceListChannelRelsByCommercePriceListIdCount(
-		long commercePriceListId, String name) {
-
-		return commercePriceListChannelRelFinder.countByCommercePriceListId(
-			commercePriceListId, name, true);
 	}
 
 	@Override
@@ -147,6 +138,14 @@ public class CommercePriceListChannelRelServiceImpl
 
 		return commercePriceListChannelRelLocalService.
 			getCommercePriceListChannelRelsCount(commercePriceListId);
+	}
+
+	@Override
+	public int getCommercePriceListChannelRelsCount(
+		long commercePriceListId, String name) {
+
+		return commercePriceListChannelRelFinder.countByCommercePriceListId(
+			commercePriceListId, name, true);
 	}
 
 	private static volatile ModelResourcePermission<CommercePriceList>

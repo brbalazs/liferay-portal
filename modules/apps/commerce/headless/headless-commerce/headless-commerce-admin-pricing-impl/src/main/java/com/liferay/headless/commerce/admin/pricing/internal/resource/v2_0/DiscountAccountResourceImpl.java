@@ -97,15 +97,13 @@ public class DiscountAccountResourceImpl
 		throws Exception {
 
 		List<CommerceDiscountAccountRel> commerceDiscountAccountRels =
-			_commerceDiscountAccountRelService.
-				getCommerceDiscountAccountRelsByCommerceDiscountId(
-					id, search, pagination.getStartPosition(),
-					pagination.getEndPosition());
+			_commerceDiscountAccountRelService.getCommerceDiscountAccountRels(
+				id, search, pagination.getStartPosition(),
+				pagination.getEndPosition());
 
 		int totalItems =
 			_commerceDiscountAccountRelService.
-				getCommerceDiscountAccountRelsByCommerceDiscountIdCount(
-					id, search);
+				getCommerceDiscountAccountRelsCount(id, search);
 
 		return Page.of(
 			_toDiscountAccounts(commerceDiscountAccountRels), pagination,

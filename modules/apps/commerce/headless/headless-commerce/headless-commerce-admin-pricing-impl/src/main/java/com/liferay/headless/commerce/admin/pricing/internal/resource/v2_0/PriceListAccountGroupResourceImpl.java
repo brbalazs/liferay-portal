@@ -111,14 +111,13 @@ public class PriceListAccountGroupResourceImpl
 		List<CommercePriceListCommerceAccountGroupRel>
 			commercePriceListCommerceAccountGroupRels =
 				_commercePriceListCommerceAccountGroupRelService.
-					getCommercePriceListCommerceAccountGroupRelsByCommercePriceListId(
+					getCommercePriceListCommerceAccountGroupRels(
 						id, search, pagination.getStartPosition(),
 						pagination.getEndPosition());
 
 		int totalItems =
 			_commercePriceListCommerceAccountGroupRelService.
-				getCommercePriceListCommerceAccountGroupRelsByCommercePriceListIdCount(
-					id, search);
+				getCommercePriceListCommerceAccountGroupRelsCount(id, search);
 
 		return Page.of(
 			_toPriceListAccountGroups(

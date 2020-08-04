@@ -135,20 +135,11 @@ public class CommercePriceListAccountRelServiceImpl
 	}
 
 	@Override
-	public List<CommercePriceListAccountRel>
-		getCommercePriceListAccountRelsByCommercePriceListId(
-			long commercePriceListId, String name, int start, int end) {
+	public List<CommercePriceListAccountRel> getCommercePriceListAccountRels(
+		long commercePriceListId, String name, int start, int end) {
 
 		return commercePriceListAccountRelFinder.findByCommercePriceListId(
 			commercePriceListId, name, start, end, true);
-	}
-
-	@Override
-	public int getCommercePriceListAccountRelsByCommercePriceListIdCount(
-		long commercePriceListId, String name) {
-
-		return commercePriceListAccountRelFinder.countByCommercePriceListId(
-			commercePriceListId, name, true);
 	}
 
 	@Override
@@ -160,6 +151,14 @@ public class CommercePriceListAccountRelServiceImpl
 
 		return commercePriceListAccountRelLocalService.
 			getCommercePriceListAccountRelsCount(commercePriceListId);
+	}
+
+	@Override
+	public int getCommercePriceListAccountRelsCount(
+		long commercePriceListId, String name) {
+
+		return commercePriceListAccountRelFinder.countByCommercePriceListId(
+			commercePriceListId, name, true);
 	}
 
 	private static volatile ModelResourcePermission<CommercePriceList>

@@ -100,13 +100,13 @@ public class PriceModifierCategoryResourceImpl
 
 		List<CommercePriceModifierRel> commercePriceModifierRels =
 			_commercePriceModifierRelService.
-				getCategoriesByCommercePriceModifierId(
+				getCategoriesCommercePriceModifierRels(
 					id, search, pagination.getStartPosition(),
 					pagination.getEndPosition());
 
 		int totalItems =
 			_commercePriceModifierRelService.
-				getCategoriesByCommercePriceModifierIdCount(id, search);
+				getCategoriesCommercePriceModifierRelsCount(id, search);
 
 		return Page.of(
 			_toPriceModifierCategories(commercePriceModifierRels), pagination,

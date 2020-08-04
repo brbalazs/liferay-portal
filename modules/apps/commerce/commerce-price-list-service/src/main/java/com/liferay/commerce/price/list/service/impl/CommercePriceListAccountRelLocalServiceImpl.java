@@ -164,26 +164,25 @@ public class CommercePriceListAccountRelLocalServiceImpl
 	}
 
 	@Override
-	public List<CommercePriceListAccountRel>
-		getCommercePriceListAccountRelsByCommercePriceListId(
-			long commercePriceListId, String name, int start, int end) {
+	public List<CommercePriceListAccountRel> getCommercePriceListAccountRels(
+		long commercePriceListId, String name, int start, int end) {
 
 		return commercePriceListAccountRelFinder.findByCommercePriceListId(
 			commercePriceListId, name, start, end);
 	}
 
 	@Override
-	public int getCommercePriceListAccountRelsByCommercePriceListIdCount(
+	public int getCommercePriceListAccountRelsCount(long commercePriceListId) {
+		return commercePriceListAccountRelPersistence.
+			countByCommercePriceListId(commercePriceListId);
+	}
+
+	@Override
+	public int getCommercePriceListAccountRelsCount(
 		long commercePriceListId, String name) {
 
 		return commercePriceListAccountRelFinder.countByCommercePriceListId(
 			commercePriceListId, name);
-	}
-
-	@Override
-	public int getCommercePriceListAccountRelsCount(long commercePriceListId) {
-		return commercePriceListAccountRelPersistence.
-			countByCommercePriceListId(commercePriceListId);
 	}
 
 	protected void reindexCommercePriceList(long commercePriceListId)
