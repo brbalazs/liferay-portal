@@ -142,23 +142,23 @@ public class PricingCommerceHealthHttpStatus
 				_commerceCatalogLocalService.searchCommerceCatalogs(companyId);
 
 			for (CommerceCatalog commerceCatalog : commerceCatalogs) {
-				CommercePriceList commerceCatalogBasePriceList =
+				CommercePriceList commercePriceList =
 					_commercePriceListLocalService.
 						fetchCommerceCatalogBasePriceListByType(
 							commerceCatalog.getGroupId(),
 							CommercePriceListConstants.TYPE_PRICE_LIST);
 
-				if (commerceCatalogBasePriceList == null) {
+				if (commercePriceList == null) {
 					return false;
 				}
 
-				CommercePriceList commerceCatalogBasePromotion =
+				commercePriceList =
 					_commercePriceListLocalService.
 						fetchCommerceCatalogBasePriceListByType(
 							commerceCatalog.getGroupId(),
 							CommercePriceListConstants.TYPE_PROMOTION);
 
-				if (commerceCatalogBasePromotion == null) {
+				if (commercePriceList == null) {
 					return false;
 				}
 			}
@@ -197,18 +197,18 @@ public class PricingCommerceHealthHttpStatus
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		CommercePriceList commerceCatalogBasePriceList =
+		CommercePriceList commercePriceList =
 			_commercePriceListLocalService.
 				fetchCommerceCatalogBasePriceListByType(
 					commerceCatalog.getGroupId(), type);
 
-		if (commerceCatalogBasePriceList == null) {
+		if (commercePriceList == null) {
 			CommerceCurrency commerceCurrency =
 				_commerceCurrencyLocalService.getCommerceCurrency(
 					serviceContext.getCompanyId(),
 					commerceCatalog.getCommerceCurrencyCode());
 
-			commerceCatalogBasePriceList =
+			commercePriceList =
 				_commercePriceListLocalService.addCommerceCatalogBasePriceList(
 					commerceCatalog.getGroupId(), serviceContext.getUserId(),
 					commerceCurrency.getCommerceCurrencyId(), type, name,
@@ -222,7 +222,7 @@ public class PricingCommerceHealthHttpStatus
 
 			for (CPDefinition cpDefinition : cpDefinitions) {
 				_addBaseCommercePriceListEntries(
-					cpDefinition, commerceCatalogBasePriceList, serviceContext);
+					cpDefinition, commercePriceList, serviceContext);
 			}
 		}
 	}
