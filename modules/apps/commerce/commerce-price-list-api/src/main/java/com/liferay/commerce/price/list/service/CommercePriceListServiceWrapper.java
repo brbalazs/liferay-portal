@@ -206,6 +206,15 @@ public class CommercePriceListServiceWrapper
 
 	@Override
 	public com.liferay.commerce.price.list.model.CommercePriceList
+			fetchCommerceCatalogBasePriceListByType(long groupId, String type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListService.
+			fetchCommerceCatalogBasePriceListByType(groupId, type);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
 			fetchCommercePriceList(long commercePriceListId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -294,6 +303,15 @@ public class CommercePriceListServiceWrapper
 
 		return _commercePriceListService.searchCommercePriceListsCount(
 			companyId, keywords, status);
+	}
+
+	@Override
+	public void setCatalogBasePriceList(
+			long groupId, long commercePriceListId, String type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_commercePriceListService.setCatalogBasePriceList(
+			groupId, commercePriceListId, type);
 	}
 
 	@Override

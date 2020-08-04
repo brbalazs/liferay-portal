@@ -33,6 +33,18 @@ public class CommercePriceListLocalServiceWrapper
 		_commercePriceListLocalService = commercePriceListLocalService;
 	}
 
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
+			addCommerceCatalogBasePriceList(
+				long groupId, long userId, long commerceCurrencyId, String type,
+				String name,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListLocalService.addCommerceCatalogBasePriceList(
+			groupId, userId, commerceCurrencyId, type, name, serviceContext);
+	}
+
 	/**
 	 * Adds the commerce price list to the database. Also notifies the appropriate model listeners.
 	 *
@@ -819,6 +831,25 @@ public class CommercePriceListLocalServiceWrapper
 
 		return _commercePriceListLocalService.searchCommercePriceListsCount(
 			companyId, groupIds, keywords, status);
+	}
+
+	@Override
+	public com.liferay.commerce.price.list.model.CommercePriceList
+			setCatalogBasePriceList(
+				long commercePriceListId, boolean catalogBasePriceList)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceListLocalService.setCatalogBasePriceList(
+			commercePriceListId, catalogBasePriceList);
+	}
+
+	@Override
+	public void setCatalogBasePriceList(
+			long groupId, long commercePriceListId, String type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_commercePriceListLocalService.setCatalogBasePriceList(
+			groupId, commercePriceListId, type);
 	}
 
 	/**

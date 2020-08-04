@@ -37,6 +37,16 @@ public class CommercePriceListLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.commerce.price.list.service.impl.CommercePriceListLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.commerce.price.list.model.CommercePriceList
+			addCommerceCatalogBasePriceList(
+				long groupId, long userId, long commerceCurrencyId, String type,
+				String name,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().addCommerceCatalogBasePriceList(
+			groupId, userId, commerceCurrencyId, type, name, serviceContext);
+	}
 
 	/**
 	 * Adds the commerce price list to the database. Also notifies the appropriate model listeners.
@@ -748,6 +758,23 @@ public class CommercePriceListLocalServiceUtil {
 
 		return getService().searchCommercePriceListsCount(
 			companyId, groupIds, keywords, status);
+	}
+
+	public static com.liferay.commerce.price.list.model.CommercePriceList
+			setCatalogBasePriceList(
+				long commercePriceListId, boolean catalogBasePriceList)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().setCatalogBasePriceList(
+			commercePriceListId, catalogBasePriceList);
+	}
+
+	public static void setCatalogBasePriceList(
+			long groupId, long commercePriceListId, String type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().setCatalogBasePriceList(
+			groupId, commercePriceListId, type);
 	}
 
 	/**

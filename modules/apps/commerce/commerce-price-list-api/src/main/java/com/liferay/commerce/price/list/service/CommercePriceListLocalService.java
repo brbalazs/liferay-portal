@@ -69,8 +69,12 @@ public interface CommercePriceListLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.price.list.service.impl.CommercePriceListLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the commerce price list local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CommercePriceListLocalServiceUtil} if injection and service tracking are not available.
+	 * Never modify or reference this interface directly. Always use {@link CommercePriceListLocalServiceUtil} to access the commerce price list local service. Add custom service methods to <code>com.liferay.commerce.price.list.service.impl.CommercePriceListLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public CommercePriceList addCommerceCatalogBasePriceList(
+			long groupId, long userId, long commerceCurrencyId, String type,
+			String name, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Adds the commerce price list to the database. Also notifies the appropriate model listeners.
@@ -512,6 +516,15 @@ public interface CommercePriceListLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int searchCommercePriceListsCount(
 			long companyId, long[] groupIds, String keywords, int status)
+		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CommercePriceList setCatalogBasePriceList(
+			long commercePriceListId, boolean catalogBasePriceList)
+		throws PortalException;
+
+	public void setCatalogBasePriceList(
+			long groupId, long commercePriceListId, String type)
 		throws PortalException;
 
 	/**

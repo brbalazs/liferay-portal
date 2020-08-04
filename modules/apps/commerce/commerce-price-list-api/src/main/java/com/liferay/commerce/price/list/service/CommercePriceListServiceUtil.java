@@ -200,6 +200,14 @@ public class CommercePriceListServiceUtil {
 	}
 
 	public static com.liferay.commerce.price.list.model.CommercePriceList
+			fetchCommerceCatalogBasePriceListByType(long groupId, String type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return getService().fetchCommerceCatalogBasePriceListByType(
+			groupId, type);
+	}
+
+	public static com.liferay.commerce.price.list.model.CommercePriceList
 			fetchCommercePriceList(long commercePriceListId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -277,6 +285,14 @@ public class CommercePriceListServiceUtil {
 
 		return getService().searchCommercePriceListsCount(
 			companyId, keywords, status);
+	}
+
+	public static void setCatalogBasePriceList(
+			long groupId, long commercePriceListId, String type)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		getService().setCatalogBasePriceList(
+			groupId, commercePriceListId, type);
 	}
 
 	public static com.liferay.commerce.price.list.model.CommercePriceList

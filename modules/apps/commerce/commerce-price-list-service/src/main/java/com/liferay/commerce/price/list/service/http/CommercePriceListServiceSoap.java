@@ -326,6 +326,26 @@ public class CommercePriceListServiceSoap {
 	}
 
 	public static com.liferay.commerce.price.list.model.CommercePriceListSoap
+			fetchCommerceCatalogBasePriceListByType(long groupId, String type)
+		throws RemoteException {
+
+		try {
+			com.liferay.commerce.price.list.model.CommercePriceList
+				returnValue =
+					CommercePriceListServiceUtil.
+						fetchCommerceCatalogBasePriceListByType(groupId, type);
+
+			return com.liferay.commerce.price.list.model.CommercePriceListSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.price.list.model.CommercePriceListSoap
 			fetchCommercePriceList(long commercePriceListId)
 		throws RemoteException {
 
@@ -439,6 +459,21 @@ public class CommercePriceListServiceSoap {
 
 			return com.liferay.commerce.price.list.model.CommercePriceListSoap.
 				toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static void setCatalogBasePriceList(
+			long groupId, long commercePriceListId, String type)
+		throws RemoteException {
+
+		try {
+			CommercePriceListServiceUtil.setCatalogBasePriceList(
+				groupId, commercePriceListId, type);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

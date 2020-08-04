@@ -62,7 +62,7 @@ public interface CommercePriceListService extends BaseService {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.price.list.service.impl.CommercePriceListServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the commerce price list remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CommercePriceListServiceUtil} if injection and service tracking are not available.
+	 * Never modify or reference this interface directly. Always use {@link CommercePriceListServiceUtil} to access the commerce price list remote service. Add custom service methods to <code>com.liferay.commerce.price.list.service.impl.CommercePriceListServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 	public CommercePriceList addCommercePriceList(
 			long groupId, long userId, long commerceCurrencyId,
@@ -148,6 +148,11 @@ public interface CommercePriceListService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CommercePriceList fetchCommerceCatalogBasePriceListByType(
+			long groupId, String type)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CommercePriceList fetchCommercePriceList(long commercePriceListId)
 		throws PortalException;
 
@@ -191,6 +196,10 @@ public interface CommercePriceListService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int searchCommercePriceListsCount(
 			long companyId, String keywords, int status)
+		throws PortalException;
+
+	public void setCatalogBasePriceList(
+			long groupId, long commercePriceListId, String type)
 		throws PortalException;
 
 	public CommercePriceList updateCommercePriceList(

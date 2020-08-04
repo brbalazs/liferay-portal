@@ -61,7 +61,7 @@ public interface CommercePriceListAccountRelLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.price.list.service.impl.CommercePriceListAccountRelLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the commerce price list account rel local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CommercePriceListAccountRelLocalServiceUtil} if injection and service tracking are not available.
+	 * Never modify or reference this interface directly. Always use {@link CommercePriceListAccountRelLocalServiceUtil} to access the commerce price list account rel local service. Add custom service methods to <code>com.liferay.commerce.price.list.service.impl.CommercePriceListAccountRelLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 
 	/**
