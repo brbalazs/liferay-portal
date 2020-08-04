@@ -231,6 +231,12 @@ function main {
 	start_tomcat ${timestamp}
 
 	#
+	# Download licenses.
+	#
+
+	~/dev/projects/github/liferay-docker/download_trial_dxp_license.sh ${timestamp}/${commerce_bundle_name} $(date "${CURRENT_DATE}" "+%s%3N") ${commerce_bundle_name}
+
+	#
 	# Build bundle.
 	#
 
