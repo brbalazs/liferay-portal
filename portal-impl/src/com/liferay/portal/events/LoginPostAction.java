@@ -140,6 +140,12 @@ public class LoginPostAction extends Action {
 		Date now = new Date();
 
 		if (user.getPasswordModifiedDate() == null) {
+			HttpSession session = httpServletRequest.getSession(false);
+
+			if (session != null) {
+				now = new Date(session.getCreationTime());
+			}
+
 			user.setPasswordModifiedDate(now);
 
 			UserLocalServiceUtil.updateUser(user);
