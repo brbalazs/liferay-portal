@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector.operation;
 
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -269,8 +270,9 @@ public class GetSharepointObjectsByQueryOperation extends BaseOperation {
 			getListItemsResponseGetListItemsResult);
 
 		_log.debug(
-			"Query: " + query + "\nQuery options: " + queryOptionsList +
-				"\nResult: " + xmlHelper.toString(element));
+			StringBundler.concat(
+				"Query: ", query, "\nQuery options: ", queryOptionsList,
+				"\nResult: ", xmlHelper.toString(element)));
 	}
 
 	protected Date parseDate(String dateString) {

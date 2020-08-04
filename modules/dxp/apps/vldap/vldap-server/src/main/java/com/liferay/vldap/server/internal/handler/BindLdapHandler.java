@@ -14,6 +14,7 @@
 
 package com.liferay.vldap.server.internal.handler;
 
+import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.NoSuchCompanyException;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -71,8 +72,9 @@ public class BindLdapHandler extends BaseLdapHandler {
 
 		if (_log.isDebugEnabled()) {
 			_log.debug(
-				"Bind request from " + ioSession.getRemoteAddress() + " for " +
-					bindRequest.getName());
+				StringBundler.concat(
+					"Bind request from ", ioSession.getRemoteAddress(), " for ",
+					bindRequest.getName()));
 		}
 
 		String saslMechanism = GetterUtil.getString(

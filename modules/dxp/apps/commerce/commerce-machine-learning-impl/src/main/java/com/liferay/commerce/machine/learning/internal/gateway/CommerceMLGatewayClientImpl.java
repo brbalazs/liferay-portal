@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liferay.commerce.machine.learning.internal.configuration.CommerceMLConfiguration;
 import com.liferay.petra.json.web.service.client.JSONWebServiceClient;
 import com.liferay.petra.json.web.service.client.JSONWebServiceClientFactory;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -177,8 +178,9 @@ public class CommerceMLGatewayClientImpl implements CommerceMLGatewayClient {
 
 			if ((statusCode < 200) || (statusCode >= 300)) {
 				throw new IOException(
-					"HTTP " + statusCode + " - Error during upload of file: " +
-						statusLine.getReasonPhrase());
+					StringBundler.concat(
+						"HTTP ", statusCode, " - Error during upload of file: ",
+						statusLine.getReasonPhrase()));
 			}
 
 			if (_log.isDebugEnabled()) {
