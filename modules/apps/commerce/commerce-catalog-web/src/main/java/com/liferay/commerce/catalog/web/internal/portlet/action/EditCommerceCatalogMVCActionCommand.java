@@ -14,13 +14,19 @@
 
 package com.liferay.commerce.catalog.web.internal.portlet.action;
 
+import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.media.constants.CommerceMediaConstants;
+import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
+import com.liferay.commerce.price.list.exception.NoSuchPriceListException;
+import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.exception.CommerceCatalogProductsException;
 import com.liferay.commerce.product.exception.CommerceCatalogSystemException;
 import com.liferay.commerce.product.exception.NoSuchCatalogException;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
+import com.liferay.commerce.product.service.CommerceChannelRelService;
+import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -33,6 +39,9 @@ import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsFactory;
+import com.liferay.portal.kernel.transaction.Propagation;
+import com.liferay.portal.kernel.transaction.TransactionConfig;
+import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -42,6 +51,8 @@ import javax.portlet.ActionResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
+import java.util.concurrent.Callable;
 
 /**
  * @author Alec Sloan
@@ -92,35 +103,62 @@ public class EditCommerceCatalogMVCActionCommand extends BaseMVCActionCommand {
 			else if (cmd.equals(Constants.ADD) ||
 					 cmd.equals(Constants.UPDATE)) {
 
-				updateCommerceCatalog(actionRequest);
+				Callable<Object> commerceCatalogCallable =
+					new CommerceCatalogCallable(actionRequest);
+
+				TransactionInvokerUtil.invoke(
+					_transactionConfig, commerceCatalogCallable);
 			}
 		}
-		catch (Exception e) {
-			if (e instanceof CommerceCatalogProductsException ||
-				e instanceof CommerceCatalogSystemException) {
+		catch (Throwable t) {
+			if (t instanceof CommerceCatalogProductsException ||
+				t instanceof CommerceCatalogSystemException ||
+				t instanceof NoSuchPriceListException) {
 
 				hideDefaultErrorMessage(actionRequest);
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, t.getClass());
 
 				String redirect = ParamUtil.getString(
 					actionRequest, "redirect");
 
 				sendRedirect(actionRequest, actionResponse, redirect);
 			}
-			else if (e instanceof NoSuchCatalogException ||
-					 e instanceof PrincipalException) {
+			else if (t instanceof NoSuchCatalogException ||
+					 t instanceof PrincipalException) {
 
-				SessionErrors.add(actionRequest, e.getClass());
+				SessionErrors.add(actionRequest, t.getClass());
 
 				actionResponse.setRenderParameter("mvcPath", "/error.jsp");
 			}
 			else {
-				_log.error(e, e);
-
-				throw e;
+				_log.error(t, t);
 			}
 		}
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		EditCommerceCatalogMVCActionCommand.class);
+
+	private static final TransactionConfig _transactionConfig =
+		TransactionConfig.Factory.create(
+			Propagation.REQUIRED, new Class<?>[] {Exception.class});
+
+	private class CommerceCatalogCallable implements Callable<Object> {
+
+		@Override
+		public Object call() throws Exception {
+			updateCommerceCatalog(_actionRequest);
+
+			return null;
+		}
+
+		private CommerceCatalogCallable(ActionRequest actionRequest) {
+			_actionRequest = actionRequest;
+		}
+
+		private final ActionRequest _actionRequest;
+
 	}
 
 	protected CommerceCatalog updateCommerceCatalog(ActionRequest actionRequest)
@@ -168,11 +206,29 @@ public class EditCommerceCatalogMVCActionCommand extends BaseMVCActionCommand {
 
 		modifiableSettings.store();
 
+		// Base price list
+
+		long baseCommercePriceListId = ParamUtil.getLong(
+			actionRequest, "baseCommercePriceListId");
+
+		_commercePriceListService.setCatalogBasePriceList(
+			commerceCatalog.getGroupId(), baseCommercePriceListId,
+			CommercePriceListConstants.TYPE_PRICE_LIST);
+
+		// Base promotion
+
+		long basePromotionCommercePriceListId = ParamUtil.getLong(
+			actionRequest, "basePromotionCommercePriceListId");
+
+		_commercePriceListService.setCatalogBasePriceList(
+			commerceCatalog.getGroupId(), basePromotionCommercePriceListId,
+			CommercePriceListConstants.TYPE_PROMOTION);
+
 		return commerceCatalog;
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(
-		EditCommerceCatalogMVCActionCommand.class);
+	@Reference
+	private CommercePriceListService _commercePriceListService;
 
 	@Reference
 	private CommerceCatalogService _commerceCatalogService;

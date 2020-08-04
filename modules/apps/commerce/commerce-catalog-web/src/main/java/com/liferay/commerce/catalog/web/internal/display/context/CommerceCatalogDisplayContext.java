@@ -21,6 +21,8 @@ import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
 import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.media.CommerceCatalogDefaultImage;
+import com.liferay.commerce.price.list.model.CommercePriceList;
+import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.commerce.product.configuration.AttachmentsConfiguration;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPPortletKeys;
@@ -32,6 +34,7 @@ import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.criteria.FileEntryItemSelectorReturnType;
 import com.liferay.item.selector.criteria.image.criterion.ImageItemSelectorCriterion;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -47,6 +50,7 @@ import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.URLCodec;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
@@ -75,6 +79,7 @@ public class CommerceCatalogDisplayContext {
 		ModelResourcePermission<CommerceCatalog>
 			commerceCatalogModelResourcePermission,
 		CommerceCurrencyLocalService commerceCurrencyLocalService,
+		CommercePriceListService commercePriceListService,
 		DLAppService dlAppService, ItemSelector itemSelector, Portal portal) {
 
 		_attachmentsConfiguration = attachmentsConfiguration;
@@ -83,11 +88,57 @@ public class CommerceCatalogDisplayContext {
 		_commerceCatalogModelResourcePermission =
 			commerceCatalogModelResourcePermission;
 		_commerceCurrencyLocalService = commerceCurrencyLocalService;
+		_commercePriceListService = commercePriceListService;
 		_dlAppService = dlAppService;
 		_itemSelector = itemSelector;
 		_portal = portal;
 
 		cpRequestHelper = new CPRequestHelper(httpServletRequest);
+	}
+
+	public CommercePriceList getBaseCommercePriceList(String type)
+		throws PortalException {
+
+		CommerceCatalog commerceCatalog = getCommerceCatalog();
+
+		return _commercePriceListService.
+			fetchCommerceCatalogBasePriceListByType(
+				commerceCatalog.getGroupId(), type);
+	}
+
+	public long getBaseCommercePriceListId(String type) throws PortalException {
+		CommercePriceList baseCommercePriceList =
+			getBaseCommercePriceList(type);
+
+		if (baseCommercePriceList == null) {
+			return 0;
+		}
+
+		return baseCommercePriceList.getCommercePriceListId();
+	}
+
+	private final CommercePriceListService _commercePriceListService;
+
+	public String getPriceListsApiUrl(String type) throws PortalException {
+		StringBundler filterSB = new StringBundler(6);
+
+		filterSB.append("(catalogId/any(x:(x eq ");
+		filterSB.append(getCommerceCatalogId());
+		filterSB.append("))) and type eq ");
+		filterSB.append(StringPool.APOSTROPHE);
+		filterSB.append(type);
+		filterSB.append(StringPool.APOSTROPHE);
+
+		String encodedFilter = URLCodec.encodeURL(filterSB.toString(), true);
+
+		StringBundler apiUrlSB = new StringBundler(4);
+
+		apiUrlSB.append(_portal.getPortalURL(cpRequestHelper.getRequest()));
+		apiUrlSB.append("/o/headless-commerce-admin-pricing/v2.0/price-lists");
+		apiUrlSB.append("?filter=");
+		apiUrlSB.append(encodedFilter);
+
+		return apiUrlSB.toString();
 	}
 
 	public String getAddCommerceCatalogRenderURL() throws Exception {

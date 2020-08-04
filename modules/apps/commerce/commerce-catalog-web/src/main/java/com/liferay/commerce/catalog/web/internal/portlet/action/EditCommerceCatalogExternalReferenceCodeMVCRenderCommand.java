@@ -17,6 +17,7 @@ package com.liferay.commerce.catalog.web.internal.portlet.action;
 import com.liferay.commerce.catalog.web.internal.display.context.CommerceCatalogDisplayContext;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.media.CommerceCatalogDefaultImage;
+import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.commerce.product.configuration.AttachmentsConfiguration;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.model.CommerceCatalog;
@@ -65,8 +66,8 @@ public class EditCommerceCatalogExternalReferenceCodeMVCRenderCommand
 				_portal.getHttpServletRequest(renderRequest),
 				_commerceCatalogDefaultImage, _commerceCatalogService,
 				_commerceCatalogModelResourcePermission,
-				_commerceCurrencyLocalService, _dlAppService, _itemSelector,
-				_portal);
+				_commerceCurrencyLocalService, _commercePriceListService,
+				_dlAppService, _itemSelector, _portal);
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceCatalogDisplayContext);
@@ -82,6 +83,9 @@ public class EditCommerceCatalogExternalReferenceCodeMVCRenderCommand
 	}
 
 	private volatile AttachmentsConfiguration _attachmentsConfiguration;
+
+	@Reference
+	private CommercePriceListService _commercePriceListService;
 
 	@Reference
 	private CommerceCatalogDefaultImage _commerceCatalogDefaultImage;

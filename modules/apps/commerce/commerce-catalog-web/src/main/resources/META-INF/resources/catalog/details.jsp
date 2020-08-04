@@ -23,6 +23,9 @@ CommerceCatalog commerceCatalog = commerceCatalogDisplayContext.getCommerceCatal
 List<CommerceCurrency> commerceCurrencies = commerceCatalogDisplayContext.getCommerceCurrencies();
 FileEntry fileEntry = commerceCatalogDisplayContext.getDefaultFileEntry();
 
+CommercePriceList baseCommercePriceList = commerceCatalogDisplayContext.getBaseCommercePriceList(CommercePriceListConstants.TYPE_PRICE_LIST);
+CommercePriceList basePromotionCommercePriceList = commerceCatalogDisplayContext.getBaseCommercePriceList(CommercePriceListConstants.TYPE_PROMOTION);
+
 long fileEntryId = BeanParamUtil.getLong(fileEntry, request, "fileEntryId");
 
 boolean isViewOnly = !commerceCatalogDisplayContext.hasPermission(commerceCatalog.getCommerceCatalogId(), ActionKeys.UPDATE);
@@ -33,9 +36,12 @@ boolean isViewOnly = !commerceCatalogDisplayContext.hasPermission(commerceCatalo
 <aui:form action="<%= editCommerceCatalogActionURL %>" method="post" name="fm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commerceCatalog == null) ? Constants.ADD : Constants.UPDATE %>" />
 	<aui:input name="redirect" type="hidden" value="<%= backURL %>" />
+	<aui:input name="baseCommercePriceListId" type="hidden" value="<%= commerceCatalogDisplayContext.getBaseCommercePriceListId(CommercePriceListConstants.TYPE_PRICE_LIST) %>" />
+	<aui:input name="basePromotionCommercePriceListId" type="hidden" value="<%= commerceCatalogDisplayContext.getBaseCommercePriceListId(CommercePriceListConstants.TYPE_PROMOTION) %>" />
 	<aui:input name="commerceCatalogId" type="hidden" value="<%= (commerceCatalog == null) ? 0 : commerceCatalog.getCommerceCatalogId() %>" />
 
 	<liferay-ui:error exception="<%= NoSuchFileEntryException.class %>" message="please-select-an-existing-file" />
+	<liferay-ui:error exception="<%= NoSuchPriceListException.class %>" message="please-select-an-existing-price-list-or-promotion" />
 
 	<div class="row">
 		<div class="col-8">
@@ -82,6 +88,65 @@ boolean isViewOnly = !commerceCatalogDisplayContext.hasPermission(commerceCatalo
 						%>
 
 					</aui:select>
+
+					<label class="control-label" for="baseCommercePriceListId"><%= LanguageUtil.get(request, "base-price-list") %></label>
+
+					<div class="mb-4" id="base-price-list-autocomplete-root"></div>
+
+					<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
+						autocomplete.default('autocomplete', 'base-price-list-autocomplete-root', {
+							apiUrl:
+								'<%= commerceCatalogDisplayContext.getPriceListsApiUrl(CommercePriceListConstants.TYPE_PRICE_LIST) %>',
+							initialLabel:
+								'<%= (baseCommercePriceList == null) ? StringPool.BLANK : baseCommercePriceList.getName() %>',
+							initialValue:
+								'<%= (baseCommercePriceList == null) ? 0 : baseCommercePriceList.getCommercePriceListId() %>',
+							inputId: 'baseCommercePriceListId',
+							inputName: '<%= renderResponse.getNamespace() %>baseCommercePriceListId',
+							itemsKey: 'id',
+							itemsLabel: 'name',
+							onValueUpdated: function(value, priceListData) {
+								if (value) {
+									$('#<portlet:namespace />baseCommercePriceListId').val(
+										priceListData.id
+									);
+								} else {
+									$('#<portlet:namespace />baseCommercePriceListId').val(0);
+								}
+							},
+							required: true
+						});
+					</aui:script>
+
+					<label class="control-label" for="basePromotionCommercePriceListId"><%= LanguageUtil.get(request, "base-promotion") %></label>
+
+					<div class="mb-4" id="base-promotion-autocomplete-root"></div>
+
+					<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
+						autocomplete.default('autocomplete', 'base-promotion-autocomplete-root', {
+							apiUrl:
+								'<%= commerceCatalogDisplayContext.getPriceListsApiUrl(CommercePriceListConstants.TYPE_PROMOTION) %>',
+							initialLabel:
+								'<%= (basePromotionCommercePriceList == null) ? StringPool.BLANK : basePromotionCommercePriceList.getName() %>',
+							initialValue:
+								'<%= (basePromotionCommercePriceList == null) ? 0 : basePromotionCommercePriceList.getCommercePriceListId() %>',
+							inputId: 'basePromotionCommercePriceListId',
+							inputName:
+								'<%= renderResponse.getNamespace() %>basePromotionCommercePriceListId',
+							itemsKey: 'id',
+							itemsLabel: 'name',
+							onValueUpdated: function(value, priceListData) {
+								if (value) {
+									$('#<portlet:namespace />basePromotionCommercePriceListId').val(
+										priceListData.id
+									);
+								} else {
+									$('#<portlet:namespace />basePromotionCommercePriceListId').val(0);
+								}
+							},
+							required: true
+						});
+					</aui:script>
 				</div>
 			</commerce-ui:panel>
 		</div>
