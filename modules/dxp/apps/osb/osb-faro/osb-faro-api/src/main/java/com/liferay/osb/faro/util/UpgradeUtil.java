@@ -40,7 +40,7 @@ public class UpgradeUtil {
 		String[] parts1 = StringUtil.split(version, StringPool.MINUS);
 		String[] parts2 = StringUtil.split(_REPOSITORY_SHA, StringPool.MINUS);
 
-		if (parts1[0].compareTo(parts2[0]) > 0) {
+		if (parts1[0].compareTo(parts2[0]) >= 0) {
 			return version;
 		}
 
