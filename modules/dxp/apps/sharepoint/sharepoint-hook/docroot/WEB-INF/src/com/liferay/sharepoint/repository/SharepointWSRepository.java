@@ -32,6 +32,7 @@ import com.liferay.document.library.repository.external.ExtRepositorySearchResul
 import com.liferay.document.library.repository.external.cache.ConnectionBuilder;
 import com.liferay.document.library.repository.external.cache.ConnectionCache;
 import com.liferay.document.library.repository.external.search.ExtRepositoryQueryMapper;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -991,9 +992,10 @@ public class SharepointWSRepository
 		if (sharepointObject.isFile()) {
 			if (extRepositoryObjectType == ExtRepositoryObjectType.FOLDER) {
 				throw new NoSuchFolderException(
-					"Invalid external repository object type " +
-						extRepositoryObjectType + " for Sharepoint object " +
-							sharepointObject);
+					StringBundler.concat(
+						"Invalid external repository object type ",
+						extRepositoryObjectType, " for Sharepoint object ",
+						sharepointObject));
 			}
 
 			return (T)new SharepointWSFileEntry(sharepointObject);
@@ -1001,9 +1003,10 @@ public class SharepointWSRepository
 
 		if (extRepositoryObjectType == ExtRepositoryObjectType.FILE) {
 			throw new NoSuchFileEntryException(
-				"Invalid external repository object type " +
-					extRepositoryObjectType + " for Sharepoint object " +
-						sharepointObject);
+				StringBundler.concat(
+					"Invalid external repository object type ",
+					extRepositoryObjectType, " for Sharepoint object ",
+					sharepointObject));
 		}
 
 		return (T)new SharepointWSFolder(sharepointObject);
