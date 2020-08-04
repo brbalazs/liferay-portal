@@ -64,14 +64,7 @@ Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(locale, timeZo
 									User commerceOrderNoteUser = commerceOrderNote.getUser();
 									%>
 
-									<aui:a
-										cssClass="author-link"
-										href="<%=
-											((commerceOrderNoteUser != null) && commerceOrderNoteUser.isActive())
-												? commerceOrderNoteUser.getDisplayURL(themeDisplay)
-												: null
-										%>"
-									>
+									<aui:a cssClass="author-link" href="<%= ((commerceOrderNoteUser != null) && commerceOrderNoteUser.isActive()) ? commerceOrderNoteUser.getDisplayURL(themeDisplay) : null %>">
 										<%= commerceOrderNote.getUserName() %>
 
 										<c:if test="<%= commerceOrderNote.getUserId() == user.getUserId() %>">
