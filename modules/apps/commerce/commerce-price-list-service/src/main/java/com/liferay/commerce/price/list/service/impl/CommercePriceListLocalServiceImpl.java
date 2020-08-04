@@ -1539,8 +1539,7 @@ public class CommercePriceListLocalServiceImpl
 
 		if (catalogBasePriceList) {
 			CommercePriceList basePriceList =
-				commercePriceListPersistence.fetchByCatalogBasePriceListByType(
-					groupId, true, type);
+				commercePriceListPersistence.fetchByG_C_T(groupId, true, type);
 
 			if ((basePriceList != null) &&
 				(basePriceList.getCommercePriceListId() !=
