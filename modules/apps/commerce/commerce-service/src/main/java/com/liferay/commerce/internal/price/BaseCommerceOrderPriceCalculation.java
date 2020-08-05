@@ -28,7 +28,6 @@ import com.liferay.commerce.price.CommerceOrderPriceImpl;
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
-import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.math.BigDecimal;
@@ -45,12 +44,10 @@ public abstract class BaseCommerceOrderPriceCalculation
 
 	public BaseCommerceOrderPriceCalculation(
 		CommerceChannelLocalService commerceChannelLocalService,
-		CommerceMoneyFactory commerceMoneyFactory,
-		CommerceOrderItemLocalService commerceOrderItemLocalService) {
+		CommerceMoneyFactory commerceMoneyFactory) {
 
 		this.commerceChannelLocalService = commerceChannelLocalService;
 		this.commerceMoneyFactory = commerceMoneyFactory;
-		this.commerceOrderItemLocalService = commerceOrderItemLocalService;
 	}
 
 	@Override
@@ -298,7 +295,6 @@ public abstract class BaseCommerceOrderPriceCalculation
 
 	protected final CommerceChannelLocalService commerceChannelLocalService;
 	protected final CommerceMoneyFactory commerceMoneyFactory;
-	protected final CommerceOrderItemLocalService commerceOrderItemLocalService;
 
 	private CommerceDiscountValue _createCommerceDiscountValue(
 		BigDecimal amount, CommerceCurrency commerceCurrency,
@@ -400,8 +396,7 @@ public abstract class BaseCommerceOrderPriceCalculation
 		BigDecimal discountAmount = discountAmountMoney.getPrice();
 
 		List<CommerceOrderItem> childCommerceOrderItems =
-			commerceOrderItemLocalService.getChildCommerceOrderItems(
-				commerceOrderItem.getCommerceOrderItemId());
+			commerceOrderItem.getChildCommerceOrderItems();
 
 		for (CommerceOrderItem childCommerceOrderItem :
 				childCommerceOrderItems) {
