@@ -19,7 +19,6 @@ import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
-import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.commerce.tax.CommerceTaxCalculation;
 
 import java.util.Hashtable;
@@ -74,14 +73,12 @@ public class CommerceOrderPriceCalculationServiceFactory
 
 			return new CommerceOrderPriceCalculationV2Impl(
 				_commerceChannelLocalService, _commerceDiscountCalculationV2,
-				_commerceMoneyFactory, _commerceOrderItemLocalService,
-				_commerceTaxCalculation);
+				_commerceMoneyFactory, _commerceTaxCalculation);
 		}
 
 		return new CommerceOrderPriceCalculationImpl(
 			_commerceChannelLocalService, _commerceDiscountCalculation,
-			_commerceMoneyFactory, _commerceOrderItemLocalService,
-			_commerceTaxCalculation);
+			_commerceMoneyFactory, _commerceTaxCalculation);
 	}
 
 	@Override
@@ -102,9 +99,6 @@ public class CommerceOrderPriceCalculationServiceFactory
 
 	@Reference
 	private CommerceMoneyFactory _commerceMoneyFactory;
-
-	@Reference
-	private CommerceOrderItemLocalService _commerceOrderItemLocalService;
 
 	private String _commercePricingCalculationKey;
 
