@@ -73,6 +73,23 @@
 			},
 			{
 				"actionIds": [
+					"ADD_CATEGORY",
+					"DELETE",
+					"UPDATE",
+					"VIEW"
+				],
+				"resource": "com.liferay.asset.kernel.model.AssetCategory"
+			},
+			{
+				"actionIds": [
+					"DELETE",
+					"UPDATE",
+					"VIEW"
+				],
+				"resource": "com.liferay.asset.kernel.model.AssetVocabulary"
+			},
+			{
+				"actionIds": [
 					"UPDATE",
 					"VIEW"
 				],
