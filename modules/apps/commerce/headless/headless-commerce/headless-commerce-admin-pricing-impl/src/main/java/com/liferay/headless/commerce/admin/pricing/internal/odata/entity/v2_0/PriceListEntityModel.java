@@ -17,6 +17,7 @@ package com.liferay.headless.commerce.admin.pricing.internal.odata.entity.v2_0;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.odata.entity.BooleanEntityField;
 import com.liferay.portal.odata.entity.CollectionEntityField;
+import com.liferay.portal.odata.entity.DateTimeEntityField;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.odata.entity.IntegerEntityField;
@@ -49,7 +50,11 @@ public class PriceListEntityModel implements EntityModel {
 				"name", locale -> Field.getSortableFieldName("name")),
 			new BooleanEntityField(
 				"catalogBasePriceList", locale -> "catalogBasePriceList"),
-			new StringEntityField("type", locale -> "type")
+			new StringEntityField("type", locale -> "type"),
+			new DateTimeEntityField(
+				"createDate",
+				locale -> Field.getSortableFieldName(Field.CREATE_DATE),
+				locale -> Field.CREATE_DATE)
 		).collect(
 			Collectors.toMap(EntityField::getName, Function.identity())
 		);
