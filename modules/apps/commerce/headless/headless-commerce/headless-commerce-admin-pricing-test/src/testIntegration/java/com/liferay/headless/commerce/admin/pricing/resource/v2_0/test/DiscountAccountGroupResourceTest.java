@@ -194,7 +194,6 @@ public class DiscountAccountGroupResourceTest
 					RandomTestUtil.randomString());
 				accountGroupId =
 					commerceAccountGroup.getCommerceAccountGroupId();
-				accountGroupName = commerceAccountGroup.getName();
 				discountExternalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				discountId = commerceDiscount.getCommerceDiscountId();
@@ -383,7 +382,6 @@ public class DiscountAccountGroupResourceTest
 					commerceAccountGroup.getExternalReferenceCode();
 				accountGroupId =
 					commerceAccountGroup.getCommerceAccountGroupId();
-				accountGroupName = commerceAccountGroup.getName();
 				discountExternalReferenceCode =
 					commerceDiscount.getExternalReferenceCode();
 				discountId = commerceDiscount.getCommerceDiscountId();
