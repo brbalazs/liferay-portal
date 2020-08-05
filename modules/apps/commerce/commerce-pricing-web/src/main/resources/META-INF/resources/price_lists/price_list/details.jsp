@@ -62,7 +62,7 @@ if ((commercePriceList != null) && (commercePriceList.getExpirationDate() != nul
 			<commerce-ui:panel
 				title='<%= LanguageUtil.get(request, "details") %>'
 			>
-				<aui:input name="name" />
+				<aui:input name="name" required="<%= true %>" />
 
 				<aui:select disabled="<%= commercePriceList != null %>" label="catalog" name="commerceCatalogGroupId" required="<%= true %>" showEmptyOption="<%= true %>">
 
@@ -78,7 +78,7 @@ if ((commercePriceList != null) && (commercePriceList.getExpirationDate() != nul
 
 				</aui:select>
 
-				<aui:select label="currency" name="commerceCurrencyId" showEmptyOption="<%= true %>">
+				<aui:select label="currency" name="commerceCurrencyId" required="<%= true %>" showEmptyOption="<%= true %>">
 
 					<%
 					List<CommerceCurrency> commerceCurrencies = commercePriceListDisplayContext.getCommerceCurrencies();

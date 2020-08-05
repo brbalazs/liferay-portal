@@ -40,7 +40,7 @@ CommercePriceList commercePriceList = commercePriceListDisplayContext.getCommerc
 			<liferay-ui:error exception="<%= CommercePriceListParentPriceListGroupIdException.class %>" message="please-select-a-valid-parent-price-list-for-the-selected-catalog" />
 			<liferay-ui:error exception="<%= NoSuchCatalogException.class %>" message="please-select-a-valid-catalog" />
 
-			<aui:input name="name" />
+			<aui:input name="name" required="<%= true %>" />
 
 			<aui:select disabled="<%= commercePriceList != null %>" label="catalog" name="commerceCatalogGroupId" required="<%= true %>" showEmptyOption="<%= true %>">
 
@@ -56,7 +56,7 @@ CommercePriceList commercePriceList = commercePriceListDisplayContext.getCommerc
 
 			</aui:select>
 
-			<aui:select label="currency" name="commerceCurrencyId" showEmptyOption="<%= true %>">
+			<aui:select label="currency" name="commerceCurrencyId" required="<%= true %>" showEmptyOption="<%= true %>">
 
 				<%
 				List<CommerceCurrency> commerceCurrencies = commercePriceListDisplayContext.getCommerceCurrencies();
@@ -71,27 +71,6 @@ CommercePriceList commercePriceList = commercePriceListDisplayContext.getCommerc
 				%>
 
 			</aui:select>
-
-			<aui:input name="priority">
-				<aui:validator name="number" />
-			</aui:input>
-
-			<label class="control-label" for="parentCommercePriceListId"><%= LanguageUtil.get(request, "parent-price-list") %></label>
-
-			<div class="mb-4" id="autocomplete-root"></div>
-
-			<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
-				autocomplete.default('autocomplete', 'autocomplete-root', {
-					apiUrl:
-						'<%= commercePriceListDisplayContext.getPriceListsApiUrl(portletName) %>',
-					initialLabel: '',
-					initialValue: '0',
-					inputId: 'parentCommercePriceListId',
-					inputName: '<%= renderResponse.getNamespace() %>parentCommercePriceListId',
-					itemsKey: 'id',
-					itemsLabel: 'name'
-				});
-			</aui:script>
 		</aui:form>
 	</div>
 </commerce-ui:modal-content>
