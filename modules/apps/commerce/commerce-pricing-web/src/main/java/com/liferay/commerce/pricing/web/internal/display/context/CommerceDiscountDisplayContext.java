@@ -230,7 +230,7 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 		portletURL.setParameter("commerceDiscountRuleId", "{id}");
 		portletURL.setParameter(
 			"screenNavigationCategoryKey",
-			CommerceDiscountScreenNavigationConstants.CATEGORY_KEY_INFO);
+			CommerceDiscountScreenNavigationConstants.CATEGORY_KEY_DETAILS);
 
 		try {
 			portletURL.setWindowState(LiferayWindowState.POP_UP);
@@ -258,7 +258,7 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 		portletURL.setParameter("usePercentage", "{usePercentage}");
 		portletURL.setParameter(
 			"screenNavigationCategoryKey",
-			CommerceDiscountScreenNavigationConstants.CATEGORY_KEY_INFO);
+			CommerceDiscountScreenNavigationConstants.CATEGORY_KEY_DETAILS);
 
 		List<ClayHeadlessDataSetActionTemplate>
 			clayHeadlessDataSetActionTemplates =
@@ -620,8 +620,8 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 
 		ClayHeadlessDataSetActionTemplate clayHeadlessDataSetActionTemplate =
 			new ClayHeadlessDataSetActionTemplate(
-				portletURL, "view", "view",
-				LanguageUtil.get(httpServletRequest, "view"), "get", null,
+				portletURL, "pencil", "edit",
+				LanguageUtil.get(httpServletRequest, "edit"), "get", null,
 				null);
 
 		if (isSidePanel) {

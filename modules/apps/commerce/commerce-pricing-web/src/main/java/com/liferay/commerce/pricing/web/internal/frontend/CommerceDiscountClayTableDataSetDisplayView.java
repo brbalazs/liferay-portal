@@ -42,11 +42,14 @@ public class CommerceDiscountClayTableDataSetDisplayView
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
 		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
-			"title", "title");
+			"title", "name");
 
 		nameField.setContentRenderer("actionLink");
 
-		clayTableSchemaBuilder.addField("target", "target");
+		ClayTableSchemaField targetField = clayTableSchemaBuilder.addField(
+			"target", "target");
+
+		targetField.setContentRenderer("localizedField");
 
 		clayTableSchemaBuilder.addField("amountFormatted", "amount");
 

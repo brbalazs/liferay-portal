@@ -65,7 +65,7 @@ boolean hasPermission = commerceDiscountDisplayContext.hasPermission(ActionKeys.
 			>
 				<div class="row">
 					<div class="col-10">
-						<aui:input autoFocus="<%= true %>" name="title" />
+						<aui:input autoFocus="<%= true %>" label="name" name="title" />
 					</div>
 
 					<div class="col-2">
@@ -91,7 +91,7 @@ boolean hasPermission = commerceDiscountDisplayContext.hasPermission(ActionKeys.
 					</div>
 
 					<div class="col-6">
-						<aui:select label="target" name="target" onChange='<%= renderResponse.getNamespace() + "selectTarget();" %>' required="<%= true %>">
+						<aui:select label="apply-to" name="target" onChange='<%= renderResponse.getNamespace() + "selectTarget();" %>' required="<%= true %>">
 
 							<%
 							for (CommerceDiscountTarget commerceDiscountTarget : commerceDiscountDisplayContext.getCommerceDiscountTargets()) {
@@ -150,7 +150,7 @@ boolean hasPermission = commerceDiscountDisplayContext.hasPermission(ActionKeys.
 			>
 				<liferay-ui:error exception="<%= CommerceDiscountExpirationDateException.class %>" message="please-select-a-valid-expiration-date" />
 
-				<aui:input formName="fm" name="displayDate" />
+				<aui:input formName="fm" label="publish-date" name="displayDate" />
 
 				<aui:input dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" name="expirationDate" />
 			</commerce-ui:panel>

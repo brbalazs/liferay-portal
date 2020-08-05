@@ -46,7 +46,10 @@ public class CommerceDiscountRuleClayTableDataSetDisplayView
 
 		nameField.setContentRenderer("actionLink");
 
-		clayTableSchemaBuilder.addField("type", "type");
+		ClayTableSchemaField typeField = clayTableSchemaBuilder.addField(
+			"type", "type");
+
+		typeField.setContentRenderer("localizedField");
 
 		return clayTableSchemaBuilder.build();
 	}

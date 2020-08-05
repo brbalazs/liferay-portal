@@ -58,18 +58,18 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
-public class CommerceDiscountInfoScreenNavigationEntry
+public class CommerceDiscountDetailsScreenNavigationEntry
 	implements ScreenNavigationCategory,
 			   ScreenNavigationEntry<CommerceDiscount> {
 
 	@Override
 	public String getCategoryKey() {
-		return CommerceDiscountScreenNavigationConstants.CATEGORY_KEY_INFO;
+		return CommerceDiscountScreenNavigationConstants.CATEGORY_KEY_DETAILS;
 	}
 
 	@Override
 	public String getEntryKey() {
-		return CommerceDiscountScreenNavigationConstants.CATEGORY_KEY_INFO;
+		return CommerceDiscountScreenNavigationConstants.CATEGORY_KEY_DETAILS;
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class CommerceDiscountInfoScreenNavigationEntry
 
 		return LanguageUtil.get(
 			resourceBundle,
-			CommerceDiscountScreenNavigationConstants.CATEGORY_KEY_INFO);
+			CommerceDiscountScreenNavigationConstants.CATEGORY_KEY_DETAILS);
 	}
 
 	@Override
@@ -129,11 +129,11 @@ public class CommerceDiscountInfoScreenNavigationEntry
 			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceDiscountDisplayContext);
 
 		_jspRenderer.renderJSP(
-			httpServletRequest, httpServletResponse, "/discount/info.jsp");
+			httpServletRequest, httpServletResponse, "/discount/details.jsp");
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CommerceDiscountInfoScreenNavigationEntry.class);
+		CommerceDiscountDetailsScreenNavigationEntry.class);
 
 	@Reference
 	private CommerceCurrencyLocalService _commerceCurrencyLocalService;

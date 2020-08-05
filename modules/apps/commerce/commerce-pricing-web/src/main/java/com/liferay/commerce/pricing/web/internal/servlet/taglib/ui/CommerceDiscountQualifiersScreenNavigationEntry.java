@@ -82,9 +82,7 @@ public class CommerceDiscountQualifiersScreenNavigationEntry
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
-		return LanguageUtil.get(
-			resourceBundle,
-			CommerceDiscountScreenNavigationConstants.CATEGORY_KEY_QUALIFIERS);
+		return LanguageUtil.get(resourceBundle, "eligibility");
 	}
 
 	@Override

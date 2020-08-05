@@ -44,7 +44,21 @@ String type = BeanParamUtil.getString(commerceDiscountRule, request, "type");
 					title='<%= LanguageUtil.get(request, "details") %>'
 				>
 					<aui:input autoFocus="<%= true %>" name="name" required="<%= true %>" />
-					<aui:input disabled="<%= true %>" name="type" value="<%= commerceDiscountRuleDisplayContext.getCommerceDiscountRuleTypeLabel(locale) %>" />
+
+					<aui:select disabled="<%= true %>" name="type" required="<%= true %>">
+
+						<%
+						for (CommerceDiscountRuleType commerceDiscountRuleType : commerceDiscountRuleDisplayContext.getCommerceDiscountRuleTypes()) {
+							String key = commerceDiscountRuleType.getKey();
+						%>
+
+							<aui:option label="<%= commerceDiscountRuleType.getLabel(locale) %>" selected="<%= key.equals(commerceDiscountRule.getType()) %>" value="<%= key %>" />
+
+						<%
+						}
+						%>
+
+					</aui:select>
 				</commerce-ui:panel>
 			</div>
 		</div>

@@ -31,7 +31,7 @@ CommerceDiscount commerceDiscount = commerceDiscountDisplayContext.getCommerceDi
 >
 	<div class="col-12 lfr-form-content">
 		<aui:form cssClass="container-fluid-1280" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "apiSubmit(this.form);" %>' useNamespace="<%= false %>">
-			<aui:input bean="<%= commerceDiscount %>" model="<%= CommerceDiscount.class %>" name="title" required="<%= true %>" />
+			<aui:input bean="<%= commerceDiscount %>" label="name" model="<%= CommerceDiscount.class %>" name="title" required="<%= true %>" />
 
 			<aui:select label="type" name="commerceDiscountType" required="<%= true %>">
 
@@ -47,7 +47,7 @@ CommerceDiscount commerceDiscount = commerceDiscountDisplayContext.getCommerceDi
 
 			</aui:select>
 
-			<aui:select label="target" name="commerceDiscountTarget" required="<%= true %>">
+			<aui:select label="apply-to" name="commerceDiscountTarget" required="<%= true %>">
 
 				<%
 				for (CommerceDiscountTarget commerceDiscountTarget : commerceDiscountDisplayContext.getCommerceDiscountTargets()) {

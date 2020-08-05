@@ -107,6 +107,10 @@ public class CommerceDiscountRuleDisplayContext
 		return commerceDiscountRule.getType();
 	}
 
+	public List<CommerceDiscountRuleType> getCommerceDiscountRuleTypes() {
+		return _commerceDiscountRuleTypeRegistry.getCommerceDiscountRuleTypes();
+	}
+
 	private CommerceDiscountRule _commerceDiscountRule;
 	private final CommerceDiscountRuleService _commerceDiscountRuleService;
 	private final CommerceDiscountRuleTypeJSPContributorRegistry

@@ -85,7 +85,7 @@ public class ApplyToProductCommerceDiscountTargetImpl
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
-		return LanguageUtil.get(resourceBundle, "apply-to-product");
+		return LanguageUtil.get(resourceBundle, "products");
 	}
 
 	@Override

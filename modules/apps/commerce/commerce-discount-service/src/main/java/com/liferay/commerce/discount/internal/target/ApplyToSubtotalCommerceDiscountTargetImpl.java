@@ -49,7 +49,8 @@ public class ApplyToSubtotalCommerceDiscountTargetImpl
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
-		return LanguageUtil.get(resourceBundle, "apply-to-subtotal");
+		return LanguageUtil.get(
+			resourceBundle, CommerceDiscountConstants.TARGET_SUBTOTAL);
 	}
 
 	@Override

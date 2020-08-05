@@ -49,7 +49,8 @@ public class ApplyToTotalCommerceDiscountTargetImpl
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
-		return LanguageUtil.get(resourceBundle, "apply-to-total");
+		return LanguageUtil.get(
+			resourceBundle, CommerceDiscountConstants.TARGET_TOTAL);
 	}
 
 	@Override

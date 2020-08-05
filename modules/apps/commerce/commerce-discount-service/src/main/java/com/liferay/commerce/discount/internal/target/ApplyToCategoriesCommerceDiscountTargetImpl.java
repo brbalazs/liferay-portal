@@ -95,7 +95,8 @@ public class ApplyToCategoriesCommerceDiscountTargetImpl
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
-		return LanguageUtil.get(resourceBundle, "apply-to-categories");
+		return LanguageUtil.get(
+			resourceBundle, CommerceDiscountConstants.TARGET_CATEGORIES);
 	}
 
 	@Override
