@@ -96,7 +96,6 @@ String type = BeanParamUtil.getString(commerceDiscountRule, request, "type");
 		window,
 		'<portlet:namespace/>apiSubmit',
 		function() {
-			debugger;
 			var form = document.getElementById('<portlet:namespace/>fm');
 			var name = form.querySelector('#<portlet:namespace/>name').value;
 
@@ -118,6 +117,11 @@ String type = BeanParamUtil.getString(commerceDiscountRule, request, "type");
 					NotificationUtils.showNotification(
 						'<liferay-ui:message key="your-request-completed-successfully" />'
 					);
+
+					window.parent.Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
+						id:
+							'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_DISCOUNT_RULES %>'
+					});
 
 					return;
 				})

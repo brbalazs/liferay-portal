@@ -121,6 +121,8 @@ public class DiscountRuleResourceImpl extends BaseDiscountRuleResourceImpl {
 		return _toDiscountRule(
 			_commerceDiscountRuleService.updateCommerceDiscountRule(
 				commerceDiscountRule.getCommerceDiscountRuleId(),
+				GetterUtil.get(
+					discountRule.getName(), commerceDiscountRule.getName()),
 				discountRule.getType(),
 				GetterUtil.get(
 					discountRule.getTypeSettings(),
