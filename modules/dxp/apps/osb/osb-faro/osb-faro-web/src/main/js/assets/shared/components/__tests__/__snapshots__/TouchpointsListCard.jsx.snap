@@ -22,7 +22,7 @@ exports[`TouchpointsListCard should render 1`] = `
           <th
             class="table-head-title"
           >
-            URL
+            Canonical URL
           </th>
         </tr>
       </thead>
@@ -53,7 +53,7 @@ exports[`TouchpointsListCard should render with items 1`] = `
           <th
             class="table-head-title"
           >
-            URL
+            Canonical URL
           </th>
         </tr>
       </thead>

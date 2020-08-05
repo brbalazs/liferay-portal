@@ -164,7 +164,7 @@ exports[`Sites Dashboard Overview render 1`] = `
                     >
                       Page Title
 			|
-			URL
+			Canonical URL
                     </th>
                     <th
                       class="table-head-title table-column-text-end"

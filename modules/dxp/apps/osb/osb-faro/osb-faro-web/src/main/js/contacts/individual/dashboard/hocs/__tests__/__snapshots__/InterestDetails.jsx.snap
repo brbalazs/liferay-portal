@@ -96,7 +96,7 @@ exports[`InterestDetails renders 1`] = `
             <th
               class="table-head-title table-cell-expand"
             >
-              Page Title | URL
+              Page Title | Canonical URL
             </th>
             <th
               class="table-head-title table-column-text-end"

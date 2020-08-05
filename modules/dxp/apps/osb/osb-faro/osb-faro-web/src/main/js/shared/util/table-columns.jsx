@@ -714,7 +714,7 @@ export const sitePagesListColumns = {
 		},
 		className: 'table-cell-expand',
 		label: `${Liferay.Language.get('page-title')} | ${Liferay.Language.get(
-			'url'
+			'canonical-url'
 		)}`,
 		sortable: false
 	})

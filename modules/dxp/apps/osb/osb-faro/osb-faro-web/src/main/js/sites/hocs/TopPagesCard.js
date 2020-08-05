@@ -17,7 +17,7 @@ const ASSET_TITLE_COLUMN = {
 	className: 'table-cell-expand',
 	label: `${Liferay.Language.get('page-title')}
 			|
-			${Liferay.Language.get('url')}`,
+			${Liferay.Language.get('canonical-url')}`,
 	sortable: false
 };
 

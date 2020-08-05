@@ -136,7 +136,7 @@ class TouchpointsListCard extends React.Component {
 			{
 				accessor: 'url',
 				cellRenderer: ({data}) => this.renderTouchpointColumn(data),
-				label: Liferay.Language.get('url'),
+				label: Liferay.Language.get('canonical-url'),
 				sortable: false
 			}
 		];
