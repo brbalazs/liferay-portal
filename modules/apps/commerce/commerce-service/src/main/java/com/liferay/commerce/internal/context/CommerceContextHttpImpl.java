@@ -152,10 +152,6 @@ public class CommerceContextHttpImpl implements CommerceContext {
 
 	@Override
 	public CommerceOrder getCommerceOrder() throws PortalException {
-		if (_commerceOrder != null) {
-			return _commerceOrder;
-		}
-
 		_commerceOrder = _commerceOrderHttpHelper.getCurrentCommerceOrder(
 			_httpServletRequest);
 

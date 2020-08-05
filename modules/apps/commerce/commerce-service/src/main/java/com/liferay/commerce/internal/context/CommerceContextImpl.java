@@ -147,10 +147,6 @@ public class CommerceContextImpl implements CommerceContext {
 
 	@Override
 	public CommerceOrder getCommerceOrder() throws PortalException {
-		if (_commerceOrder != null) {
-			return _commerceOrder;
-		}
-
 		_commerceOrder = _commerceOrderService.fetchCommerceOrder(_orderId);
 
 		return _commerceOrder;
