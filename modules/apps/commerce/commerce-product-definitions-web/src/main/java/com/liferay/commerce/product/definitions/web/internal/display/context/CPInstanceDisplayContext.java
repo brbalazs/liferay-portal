@@ -233,6 +233,10 @@ public class CPInstanceDisplayContext extends BaseCPDefinitionsDisplayContext {
 	public BigDecimal getPromoPrice() throws PortalException {
 		CPInstance cpInstance = getCPInstance();
 
+		if (cpInstance == null) {
+			return BigDecimal.ZERO;
+		}
+
 		CommerceMoney commerceMoney =
 			_commerceProductPriceCalculation.getBasePromoPrice(
 				cpInstance.getCPInstanceId(), getCommerceCurrency());
