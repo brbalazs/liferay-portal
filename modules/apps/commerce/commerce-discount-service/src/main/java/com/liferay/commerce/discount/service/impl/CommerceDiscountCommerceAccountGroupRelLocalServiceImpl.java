@@ -76,7 +76,7 @@ public class CommerceDiscountCommerceAccountGroupRelLocalServiceImpl
 					commerceDiscountCommerceAccountGroupRel)
 		throws PortalException {
 
-		commerceDiscountAccountRelPersistence.remove(
+		commerceDiscountCommerceAccountGroupRelPersistence.remove(
 			commerceDiscountCommerceAccountGroupRel);
 
 		// Commerce discount

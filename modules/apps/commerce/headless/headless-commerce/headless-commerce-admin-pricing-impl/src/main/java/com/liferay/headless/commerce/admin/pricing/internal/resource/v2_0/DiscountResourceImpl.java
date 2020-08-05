@@ -163,6 +163,8 @@ public class DiscountResourceImpl extends BaseDiscountResourceImpl {
 					searchContext.setCompanyId(contextCompany.getCompanyId());
 					searchContext.setAttribute(
 						"status", WorkflowConstants.STATUS_ANY);
+					searchContext.setAttribute(
+						"skipCommerceAccountGroupValidation", Boolean.TRUE);
 				}
 
 			},

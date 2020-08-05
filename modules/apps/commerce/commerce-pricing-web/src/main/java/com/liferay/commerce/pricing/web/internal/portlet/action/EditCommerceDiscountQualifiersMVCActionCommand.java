@@ -80,7 +80,7 @@ public class EditCommerceDiscountQualifiersMVCActionCommand
 			_deleteCommerceDiscountAccountRels(commerceDiscountId);
 			_deleteCommerceDiscountAccountGroupRels(commerceDiscountId);
 		}
-		else if (Objects.equals(accountQualifiers, "account")) {
+		else if (Objects.equals(accountQualifiers, "accounts")) {
 			_deleteCommerceDiscountAccountGroupRels(commerceDiscountId);
 		}
 		else {

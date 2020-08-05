@@ -357,7 +357,7 @@ public class CommerceDiscountIndexer extends BaseIndexer<CommerceDiscount> {
 
 		long[] commerceAccountGroupIds = commerceAccountGroupIdStream.toArray();
 
-		document.addNumber("commerceAccountIds", commerceAccountGroupIds);
+		document.addNumber("commerceAccountGroupIds", commerceAccountGroupIds);
 		document.addNumber(
 			"commerceAccountGroupIds_required_matches",
 			commerceAccountGroupIds.length);

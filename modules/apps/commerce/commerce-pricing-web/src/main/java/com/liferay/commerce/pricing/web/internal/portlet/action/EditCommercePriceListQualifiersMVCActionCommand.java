@@ -85,7 +85,7 @@ public class EditCommercePriceListQualifiersMVCActionCommand
 			_deleteCommercePriceListAccountRels(commercePriceListId);
 			_deleteCommercePriceListAccountGroupRels(commercePriceListId);
 		}
-		else if (Objects.equals(accountQualifiers, "account")) {
+		else if (Objects.equals(accountQualifiers, "accounts")) {
 			_deleteCommercePriceListAccountGroupRels(commercePriceListId);
 		}
 		else {
