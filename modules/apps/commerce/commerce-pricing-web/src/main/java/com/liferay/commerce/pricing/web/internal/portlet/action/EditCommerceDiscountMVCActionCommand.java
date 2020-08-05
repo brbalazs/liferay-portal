@@ -99,6 +99,10 @@ public class EditCommerceDiscountMVCActionCommand extends BaseMVCActionCommand {
 
 		String couponCode = ParamUtil.getString(actionRequest, "couponCode");
 
+		if (!useCouponCode) {
+			couponCode = null;
+		}
+
 		boolean usePercentage = ParamUtil.getBoolean(
 			actionRequest, "usePercentage");
 
