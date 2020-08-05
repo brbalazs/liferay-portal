@@ -61,7 +61,7 @@ if ((commercePriceModifier != null) && (commercePriceModifier.getExpirationDate(
 
 		</aui:select>
 
-		<aui:select label='<%= LanguageUtil.get(request, "modifier") %>' name="modifierType" showEmptyOption="<%= true %>">
+		<aui:select label="modifier" name="modifierType" required="<%= true %>" showEmptyOption="<%= true %>">
 
 			<%
 			for (CommercePriceModifierType commercePriceModifierType : commercePriceListDisplayContext.getCommercePriceModifierTypes()) {

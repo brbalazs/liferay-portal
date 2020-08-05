@@ -49,7 +49,7 @@ CommercePriceListDisplayContext commercePriceListDisplayContext = (CommercePrice
 
 			</aui:select>
 
-			<aui:select name="modifierType" showEmptyOption="<%= true %>">
+			<aui:select label="modifier" name="modifierType" required="<%= true %>" showEmptyOption="<%= true %>">
 
 				<%
 				for (CommercePriceModifierType commercePriceModifierType : commercePriceListDisplayContext.getCommercePriceModifierTypes()) {

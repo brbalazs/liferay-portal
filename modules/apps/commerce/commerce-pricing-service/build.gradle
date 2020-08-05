@@ -1,3 +1,5 @@
+apply plugin: "com.liferay.lang.merger"
+
 buildService {
 	apiDir = "../commerce-pricing-api/src/main/java"
 	testDir = "../commerce-pricing-test/src/testIntegration/java"
