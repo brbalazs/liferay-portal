@@ -23,6 +23,8 @@ import com.liferay.commerce.frontend.model.HeaderActionModel;
 import com.liferay.commerce.media.CommerceCatalogDefaultImage;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListService;
+import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.configuration.AttachmentsConfiguration;
 import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.constants.CPPortletKeys;
@@ -39,6 +41,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
@@ -47,6 +50,7 @@ import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+import com.liferay.portal.kernel.settings.SystemSettingsLocator;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -56,6 +60,7 @@ import com.liferay.portal.kernel.util.Validator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequest;
@@ -80,7 +85,8 @@ public class CommerceCatalogDisplayContext {
 			commerceCatalogModelResourcePermission,
 		CommerceCurrencyLocalService commerceCurrencyLocalService,
 		CommercePriceListService commercePriceListService,
-		DLAppService dlAppService, ItemSelector itemSelector, Portal portal) {
+		ConfigurationProvider configurationProvider, DLAppService dlAppService,
+		ItemSelector itemSelector, Portal portal) {
 
 		_attachmentsConfiguration = attachmentsConfiguration;
 		_commerceCatalogDefaultImage = commerceCatalogDefaultImage;
@@ -89,6 +95,7 @@ public class CommerceCatalogDisplayContext {
 			commerceCatalogModelResourcePermission;
 		_commerceCurrencyLocalService = commerceCurrencyLocalService;
 		_commercePriceListService = commercePriceListService;
+		_configurationProvider = configurationProvider;
 		_dlAppService = dlAppService;
 		_itemSelector = itemSelector;
 		_portal = portal;
@@ -349,6 +356,18 @@ public class CommerceCatalogDisplayContext {
 			actionId);
 	}
 
+	public boolean showBasePriceListInputs() throws PortalException {
+		CommercePricingConfiguration commercePricingConfiguration =
+			_configurationProvider.getConfiguration(
+				CommercePricingConfiguration.class,
+				new SystemSettingsLocator(
+					CommercePricingConstants.SERVICE_NAME));
+
+		return Objects.equals(
+			commercePricingConfiguration.commercePricingCalculationKey(),
+			CommercePricingConstants.VERSION_2_0);
+	}
+
 	protected final CPRequestHelper cpRequestHelper;
 
 	private final AttachmentsConfiguration _attachmentsConfiguration;
@@ -358,6 +377,7 @@ public class CommerceCatalogDisplayContext {
 	private final CommerceCatalogService _commerceCatalogService;
 	private final CommerceCurrencyLocalService _commerceCurrencyLocalService;
 	private final CommercePriceListService _commercePriceListService;
+	private final ConfigurationProvider _configurationProvider;
 	private final DLAppService _dlAppService;
 	private final ItemSelector _itemSelector;
 	private final Portal _portal;

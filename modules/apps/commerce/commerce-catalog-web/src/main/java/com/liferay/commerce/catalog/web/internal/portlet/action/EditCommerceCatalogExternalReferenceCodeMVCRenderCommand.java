@@ -25,6 +25,7 @@ import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.document.library.kernel.service.DLAppService;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.Portal;
@@ -67,7 +68,7 @@ public class EditCommerceCatalogExternalReferenceCodeMVCRenderCommand
 				_commerceCatalogDefaultImage, _commerceCatalogService,
 				_commerceCatalogModelResourcePermission,
 				_commerceCurrencyLocalService, _commercePriceListService,
-				_dlAppService, _itemSelector, _portal);
+				_configurationProvider, _dlAppService, _itemSelector, _portal);
 
 		renderRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceCatalogDisplayContext);
@@ -101,6 +102,9 @@ public class EditCommerceCatalogExternalReferenceCodeMVCRenderCommand
 
 	@Reference
 	private CommercePriceListService _commercePriceListService;
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private DLAppService _dlAppService;

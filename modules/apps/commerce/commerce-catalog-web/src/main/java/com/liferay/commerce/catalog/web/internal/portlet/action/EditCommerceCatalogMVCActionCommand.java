@@ -18,14 +18,18 @@ import com.liferay.commerce.media.constants.CommerceMediaConstants;
 import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.exception.NoSuchPriceListException;
 import com.liferay.commerce.price.list.service.CommercePriceListService;
+import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.exception.CommerceCatalogProductsException;
 import com.liferay.commerce.product.exception.CommerceCatalogSystemException;
 import com.liferay.commerce.product.exception.NoSuchCatalogException;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
@@ -36,6 +40,7 @@ import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsFactory;
+import com.liferay.portal.kernel.settings.SystemSettingsLocator;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionConfig;
 import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
@@ -43,6 +48,7 @@ import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 
+import java.util.Objects;
 import java.util.concurrent.Callable;
 
 import javax.portlet.ActionRequest;
@@ -179,6 +185,30 @@ public class EditCommerceCatalogMVCActionCommand extends BaseMVCActionCommand {
 
 		modifiableSettings.store();
 
+		// Base price list and promotion
+
+		_updateBasePriceListAndPromotion(actionRequest, commerceCatalog);
+
+		return commerceCatalog;
+	}
+
+	private void _updateBasePriceListAndPromotion(
+			ActionRequest actionRequest, CommerceCatalog commerceCatalog)
+		throws PortalException {
+
+		CommercePricingConfiguration commercePricingConfiguration =
+			_configurationProvider.getConfiguration(
+				CommercePricingConfiguration.class,
+				new SystemSettingsLocator(
+					CommercePricingConstants.SERVICE_NAME));
+
+		if (!Objects.equals(
+				commercePricingConfiguration.commercePricingCalculationKey(),
+				CommercePricingConstants.VERSION_2_0)) {
+
+			return;
+		}
+
 		// Base price list
 
 		long baseCommercePriceListId = ParamUtil.getLong(
@@ -196,8 +226,6 @@ public class EditCommerceCatalogMVCActionCommand extends BaseMVCActionCommand {
 		_commercePriceListService.setCatalogBasePriceList(
 			commerceCatalog.getGroupId(), basePromotionCommercePriceListId,
 			CommercePriceListConstants.TYPE_PROMOTION);
-
-		return commerceCatalog;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
@@ -212,6 +240,9 @@ public class EditCommerceCatalogMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private CommercePriceListService _commercePriceListService;
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private Portal _portal;

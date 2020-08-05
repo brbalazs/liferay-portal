@@ -89,64 +89,66 @@ boolean isViewOnly = !commerceCatalogDisplayContext.hasPermission(commerceCatalo
 
 					</aui:select>
 
-					<label class="control-label" for="baseCommercePriceListId"><%= LanguageUtil.get(request, "base-price-list") %></label>
+					<c:if test="<%= commerceCatalogDisplayContext.showBasePriceListInputs() %>">
+						<label class="control-label" for="baseCommercePriceListId"><%= LanguageUtil.get(request, "base-price-list") %></label>
 
-					<div class="mb-4" id="base-price-list-autocomplete-root"></div>
+						<div class="mb-4" id="base-price-list-autocomplete-root"></div>
 
-					<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
-						autocomplete.default('autocomplete', 'base-price-list-autocomplete-root', {
-							apiUrl:
-								'<%= commerceCatalogDisplayContext.getPriceListsApiUrl(CommercePriceListConstants.TYPE_PRICE_LIST) %>',
-							initialLabel:
-								'<%= (baseCommercePriceList == null) ? StringPool.BLANK : baseCommercePriceList.getName() %>',
-							initialValue:
-								'<%= (baseCommercePriceList == null) ? 0 : baseCommercePriceList.getCommercePriceListId() %>',
-							inputId: 'baseCommercePriceListId',
-							inputName: '<%= renderResponse.getNamespace() %>baseCommercePriceListId',
-							itemsKey: 'id',
-							itemsLabel: 'name',
-							onValueUpdated: function(value, priceListData) {
-								if (value) {
-									$('#<portlet:namespace />baseCommercePriceListId').val(
-										priceListData.id
-									);
-								} else {
-									$('#<portlet:namespace />baseCommercePriceListId').val(0);
-								}
-							},
-							required: true
-						});
-					</aui:script>
+						<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
+							autocomplete.default('autocomplete', 'base-price-list-autocomplete-root', {
+								apiUrl:
+									'<%= commerceCatalogDisplayContext.getPriceListsApiUrl(CommercePriceListConstants.TYPE_PRICE_LIST) %>',
+								initialLabel:
+									'<%= (baseCommercePriceList == null) ? StringPool.BLANK : baseCommercePriceList.getName() %>',
+								initialValue:
+									'<%= (baseCommercePriceList == null) ? 0 : baseCommercePriceList.getCommercePriceListId() %>',
+								inputId: 'baseCommercePriceListId',
+								inputName: '<%= renderResponse.getNamespace() %>baseCommercePriceListId',
+								itemsKey: 'id',
+								itemsLabel: 'name',
+								onValueUpdated: function(value, priceListData) {
+									if (value) {
+										$('#<portlet:namespace />baseCommercePriceListId').val(
+											priceListData.id
+										);
+									} else {
+										$('#<portlet:namespace />baseCommercePriceListId').val(0);
+									}
+								},
+								required: true
+							});
+						</aui:script>
 
-					<label class="control-label" for="basePromotionCommercePriceListId"><%= LanguageUtil.get(request, "base-promotion") %></label>
+						<label class="control-label" for="basePromotionCommercePriceListId"><%= LanguageUtil.get(request, "base-promotion") %></label>
 
-					<div class="mb-4" id="base-promotion-autocomplete-root"></div>
+						<div class="mb-4" id="base-promotion-autocomplete-root"></div>
 
-					<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
-						autocomplete.default('autocomplete', 'base-promotion-autocomplete-root', {
-							apiUrl:
-								'<%= commerceCatalogDisplayContext.getPriceListsApiUrl(CommercePriceListConstants.TYPE_PROMOTION) %>',
-							initialLabel:
-								'<%= (basePromotionCommercePriceList == null) ? StringPool.BLANK : basePromotionCommercePriceList.getName() %>',
-							initialValue:
-								'<%= (basePromotionCommercePriceList == null) ? 0 : basePromotionCommercePriceList.getCommercePriceListId() %>',
-							inputId: 'basePromotionCommercePriceListId',
-							inputName:
-								'<%= renderResponse.getNamespace() %>basePromotionCommercePriceListId',
-							itemsKey: 'id',
-							itemsLabel: 'name',
-							onValueUpdated: function(value, priceListData) {
-								if (value) {
-									$('#<portlet:namespace />basePromotionCommercePriceListId').val(
-										priceListData.id
-									);
-								} else {
-									$('#<portlet:namespace />basePromotionCommercePriceListId').val(0);
-								}
-							},
-							required: true
-						});
-					</aui:script>
+						<aui:script require="commerce-frontend-js/components/autocomplete/entry as autocomplete, commerce-frontend-js/utilities/eventsDefinitions as events">
+							autocomplete.default('autocomplete', 'base-promotion-autocomplete-root', {
+								apiUrl:
+									'<%= commerceCatalogDisplayContext.getPriceListsApiUrl(CommercePriceListConstants.TYPE_PROMOTION) %>',
+								initialLabel:
+									'<%= (basePromotionCommercePriceList == null) ? StringPool.BLANK : basePromotionCommercePriceList.getName() %>',
+								initialValue:
+									'<%= (basePromotionCommercePriceList == null) ? 0 : basePromotionCommercePriceList.getCommercePriceListId() %>',
+								inputId: 'basePromotionCommercePriceListId',
+								inputName:
+									'<%= renderResponse.getNamespace() %>basePromotionCommercePriceListId',
+								itemsKey: 'id',
+								itemsLabel: 'name',
+								onValueUpdated: function(value, priceListData) {
+									if (value) {
+										$('#<portlet:namespace />basePromotionCommercePriceListId').val(
+											priceListData.id
+										);
+									} else {
+										$('#<portlet:namespace />basePromotionCommercePriceListId').val(0);
+									}
+								},
+								required: true
+							});
+						</aui:script>
+					</c:if>
 				</div>
 			</commerce-ui:panel>
 		</div>
