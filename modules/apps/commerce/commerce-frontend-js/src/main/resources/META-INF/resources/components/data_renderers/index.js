@@ -26,6 +26,7 @@ import ListRenderer from './ListRenderer';
 import QuantitySelectorRenderer from './QuantitySelectorRenderer';
 import StatusRenderer from './StatusRenderer';
 import TooltipPriceRenderer from './TooltipPriceRenderer';
+import LocalizedFieldRenderer from "./LocalizedFieldRenderer";
 
 const dataRenderers = {
 	actionLink: ActionsLinkRenderer,
@@ -38,6 +39,7 @@ const dataRenderers = {
 	label: LabelRenderer,
 	link: LinkRenderer,
 	list: ListRenderer,
+	localizedField: LocalizedFieldRenderer,
 	quantitySelector: QuantitySelectorRenderer,
 	status: StatusRenderer,
 	tooltipPrice: TooltipPriceRenderer
