@@ -120,18 +120,23 @@ public abstract class BaseCommerceOrderPriceCalculation
 				commerceOrder.
 					getSubtotalDiscountPercentageLevel4WithTaxAmount());
 
+		BigDecimal total = commerceOrder.getTotal();
+
 		CommerceDiscountValue totalDiscountValue = _createCommerceDiscountValue(
-			commerceOrder.getTotal(), commerceCurrency,
+			total.add(commerceOrder.getTotalDiscountAmount()), commerceCurrency,
 			commerceOrder.getTotalDiscountAmount(),
 			commerceOrder.getTotalDiscountPercentageLevel1(),
 			commerceOrder.getTotalDiscountPercentageLevel2(),
 			commerceOrder.getTotalDiscountPercentageLevel3(),
 			commerceOrder.getTotalDiscountPercentageLevel4());
 
+		BigDecimal totalWithTaxAmount = commerceOrder.getTotalWithTaxAmount();
+
 		CommerceDiscountValue totalDiscountValueWithTaxAmount =
 			_createCommerceDiscountValue(
-				commerceOrder.getTotalWithTaxAmount(), commerceCurrency,
-				commerceOrder.getTotalDiscountWithTaxAmount(),
+				totalWithTaxAmount.add(
+					commerceOrder.getTotalDiscountWithTaxAmount()),
+				commerceCurrency, commerceOrder.getTotalDiscountWithTaxAmount(),
 				commerceOrder.getTotalDiscountPercentageLevel1WithTaxAmount(),
 				commerceOrder.getTotalDiscountPercentageLevel2WithTaxAmount(),
 				commerceOrder.getTotalDiscountPercentageLevel3WithTaxAmount(),
