@@ -62,7 +62,7 @@ public interface CPDefinitionInventoryLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.service.impl.CPDefinitionInventoryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the cp definition inventory local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CPDefinitionInventoryLocalServiceUtil} if injection and service tracking are not available.
+	 * Never modify or reference this interface directly. Always use {@link CPDefinitionInventoryLocalServiceUtil} to access the cp definition inventory local service. Add custom service methods to <code>com.liferay.commerce.service.impl.CPDefinitionInventoryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 
 	/**

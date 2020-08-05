@@ -63,7 +63,7 @@ public interface CommerceRegionLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.service.impl.CommerceRegionLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the commerce region local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CommerceRegionLocalServiceUtil} if injection and service tracking are not available.
+	 * Never modify or reference this interface directly. Always use {@link CommerceRegionLocalServiceUtil} to access the commerce region local service. Add custom service methods to <code>com.liferay.commerce.service.impl.CommerceRegionLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 
 	/**

@@ -421,6 +421,11 @@ public class CommerceOrderItemWrapper
 	}
 
 	@Override
+	public java.util.List<CommerceOrderItem> getChildCommerceOrderItems() {
+		return _commerceOrderItem.getChildCommerceOrderItems();
+	}
+
+	@Override
 	public CommerceOrder getCommerceOrder()
 		throws com.liferay.portal.kernel.exception.PortalException {
 

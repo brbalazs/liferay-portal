@@ -119,6 +119,8 @@ public interface CommerceOrderItem
 			getUnitPriceWithTaxAmountMoney()
 		throws com.liferay.portal.kernel.exception.PortalException;
 
+	public java.util.List<CommerceOrderItem> getChildCommerceOrderItems();
+
 	public boolean hasParentCommerceOrderItem();
 
 }
