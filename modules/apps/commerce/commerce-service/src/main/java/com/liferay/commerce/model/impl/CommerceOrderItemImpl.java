@@ -27,6 +27,8 @@ import com.liferay.commerce.service.CommerceOrderItemLocalServiceUtil;
 import com.liferay.commerce.service.CommerceOrderLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.List;
+
 /**
  * @author Marco Leo
  * @author Alessio Antonio Rendina
@@ -45,6 +47,12 @@ public class CommerceOrderItemImpl extends CommerceOrderItemBaseImpl {
 	@Override
 	public CProduct fetchCProduct() {
 		return CProductLocalServiceUtil.fetchCProduct(getCProductId());
+	}
+
+	@Override
+	public List<CommerceOrderItem> getChildCommerceOrderItems() {
+		return CommerceOrderItemLocalServiceUtil.getChildCommerceOrderItems(
+			getCommerceOrderItemId());
 	}
 
 	@Override
