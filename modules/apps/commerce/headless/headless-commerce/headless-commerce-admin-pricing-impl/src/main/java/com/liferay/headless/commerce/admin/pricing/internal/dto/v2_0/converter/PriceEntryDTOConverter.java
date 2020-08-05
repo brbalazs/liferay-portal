@@ -133,13 +133,13 @@ public class PriceEntryDTOConverter
 
 		sb.append(
 			_getDiscountLevelFormatted(commercePriceEntry.getDiscountLevel1()));
-		sb.append(" | ");
+		sb.append(" - ");
 		sb.append(
 			_getDiscountLevelFormatted(commercePriceEntry.getDiscountLevel2()));
-		sb.append(" | ");
+		sb.append(" - ");
 		sb.append(
 			_getDiscountLevelFormatted(commercePriceEntry.getDiscountLevel3()));
-		sb.append(" | ");
+		sb.append(" - ");
 		sb.append(
 			_getDiscountLevelFormatted(commercePriceEntry.getDiscountLevel4()));
 
