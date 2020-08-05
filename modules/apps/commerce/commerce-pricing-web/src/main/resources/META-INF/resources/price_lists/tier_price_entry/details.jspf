@@ -26,7 +26,7 @@ boolean discountDiscovery = BeanParamUtil.getBoolean(commerceTierPriceEntry, req
 	<aui:validator name="number" />
 </aui:input>
 
-<div class='<%= discountDiscovery ? "hide" : StringPool.BLANK %>' id="<%= renderResponse.getNamespace() %>discountLevels">
+<div class="<%= discountDiscovery ? "hide" : StringPool.BLANK %>" id="<%= renderResponse.getNamespace() %>discountLevels">
 	<label class="control-label" for="<%= renderResponse.getNamespace() %>discountLevel1"><%= LanguageUtil.get(request, "discount-levels") %></label>
 
 	<div class="d-flex">
@@ -52,12 +52,12 @@ boolean discountDiscovery = BeanParamUtil.getBoolean(commerceTierPriceEntry, req
 	</div>
 </div>
 
-<aui:input ignoreRequestValue="<%= true %>" label='<%= LanguageUtil.get(request, "override-discount") %>' name="overrideDiscount" type="toggle-switch" value="<%= !discountDiscovery %>" />
+<aui:input helpMessage="override-discount-help" ignoreRequestValue="<%= true %>" label='<%= LanguageUtil.get(request, "override-discount") %>' name="overrideDiscount" type="toggle-switch" value="<%= !discountDiscovery %>" />
 
 <liferay-ui:error exception="<%= CommercePriceListExpirationDateException.class %>" message="please-enter-a-valid-expiration-date" />
 
 <aui:fieldset>
-	<aui:input label="publish-date" formName="fm" name="displayDate" />
+	<aui:input formName="fm" label="publish-date" name="displayDate" />
 
 	<aui:input dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" name="expirationDate" />
 </aui:fieldset>

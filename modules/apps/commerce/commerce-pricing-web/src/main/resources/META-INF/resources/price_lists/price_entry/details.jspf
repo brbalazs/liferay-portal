@@ -38,7 +38,7 @@ boolean discountDiscovery = BeanParamUtil.getBoolean(commercePriceEntry, request
 		</div>
 
 		<div class="col-4">
-			<div class='<%= discountDiscovery ? "hide" : StringPool.BLANK %>' id="<%= renderResponse.getNamespace() %>discountLevels">
+			<div class="<%= discountDiscovery ? "hide" : StringPool.BLANK %>" id="<%= renderResponse.getNamespace() %>discountLevels">
 				<label class="control-label" for="<%= renderResponse.getNamespace() %>discountLevel1"><%= LanguageUtil.get(request, "discount-levels") %></label>
 
 				<div class="d-flex">
@@ -68,7 +68,7 @@ boolean discountDiscovery = BeanParamUtil.getBoolean(commercePriceEntry, request
 
 	<div class="row">
 		<div class="col-4">
-			<aui:input label="publish-date" cssClass="mb-2" formName="fm" name="displayDate" />
+			<aui:input cssClass="mb-2" formName="fm" label="publish-date" name="displayDate" />
 		</div>
 
 		<div class="col-4">
@@ -82,7 +82,7 @@ boolean discountDiscovery = BeanParamUtil.getBoolean(commercePriceEntry, request
 		<div class="col-4">
 			<div class="row">
 				<div class="col-12">
-					<aui:input ignoreRequestValue="<%= true %>" label='<%= LanguageUtil.get(request, "override-discount") %>' name="overrideDiscount" type="toggle-switch" value="<%= !discountDiscovery %>" />
+					<aui:input helpMessage="override-discount-help" ignoreRequestValue="<%= true %>" label='<%= LanguageUtil.get(request, "override-discount") %>' name="overrideDiscount" type="toggle-switch" value="<%= !discountDiscovery %>" />
 				</div>
 			</div>
 		</div>
