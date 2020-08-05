@@ -594,10 +594,10 @@ public class CommerceProductPriceCalculationV2Impl
 
 		BigDecimal[] values = new BigDecimal[4];
 
-		if ((commercePriceEntry != null) &&
-			!commercePriceEntry.isDiscountDiscovery()) {
+		if (commercePriceEntry != null) {
+			if (!commercePriceEntry.isHasTierPrice() &&
+				!commercePriceEntry.isDiscountDiscovery()) {
 
-			if (!commercePriceEntry.isHasTierPrice()) {
 				values[0] = commercePriceEntry.getDiscountLevel1();
 				values[1] = commercePriceEntry.getDiscountLevel2();
 				values[2] = commercePriceEntry.getDiscountLevel3();
@@ -606,16 +606,17 @@ public class CommerceProductPriceCalculationV2Impl
 				return _calculateCommerceDiscountValue(
 					values, quantity, finalPrice, commerceContext);
 			}
-			else if (commercePriceEntry.isHasTierPrice() &&
-					 commercePriceEntry.isBulkPricing()) {
 
+			if (commercePriceEntry.isBulkPricing()) {
 				CommerceTierPriceEntry commerceTierPriceEntry =
 					_commerceTierPriceEntryLocalService.
 						findClosestCommerceTierPriceEntry(
 							commercePriceEntry.getCommercePriceEntryId(),
 							quantity);
 
-				if (commerceTierPriceEntry != null) {
+				if ((commerceTierPriceEntry != null) &&
+					!commerceTierPriceEntry.isDiscountDiscovery()) {
+
 					values[0] = commerceTierPriceEntry.getDiscountLevel1();
 					values[1] = commerceTierPriceEntry.getDiscountLevel2();
 					values[2] = commerceTierPriceEntry.getDiscountLevel3();
@@ -1000,6 +1001,13 @@ public class CommerceProductPriceCalculationV2Impl
 				return _getCommerceMoney(
 					commercePriceListId, commerceContext.getCommerceCurrency(),
 					promoPrice);
+			}
+
+			if (!_commercePriceModifierHelper.hasCommercePriceModifiers(
+					commercePriceListId, cpInstance.getCPDefinitionId())) {
+
+				return commerceMoneyFactory.create(
+					commerceContext.getCommerceCurrency(), BigDecimal.ZERO);
 			}
 
 			CommerceMoney unitPrice = getUnitPrice(
