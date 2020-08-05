@@ -50,9 +50,9 @@ public class CommercePriceModifierClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("modifier", "modifier");
 
-		clayTableSchemaBuilder.addField("startDate", "start-date");
+		clayTableSchemaBuilder.addField("startDate", "publish-date");
 
-		clayTableSchemaBuilder.addField("endDate", "end-date");
+		clayTableSchemaBuilder.addField("endDate", "expiration-date");
 
 		return clayTableSchemaBuilder.build();
 	}

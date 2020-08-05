@@ -77,9 +77,7 @@ public class CommercePriceListQualifiersScreenNavigationEntry
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
-		return LanguageUtil.get(
-			resourceBundle,
-			CommercePriceListScreenNavigationConstants.CATEGORY_KEY_QUALIFIERS);
+		return LanguageUtil.get(resourceBundle, "eligibility");
 	}
 
 	@Override

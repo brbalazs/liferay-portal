@@ -78,7 +78,7 @@ if ((commercePriceList != null) && (commercePriceList.getExpirationDate() != nul
 
 				</aui:select>
 
-				<aui:select label="store-currency" name="commerceCurrencyId" showEmptyOption="<%= true %>">
+				<aui:select label="currency" name="commerceCurrencyId" showEmptyOption="<%= true %>">
 
 					<%
 					List<CommerceCurrency> commerceCurrencies = commercePriceListDisplayContext.getCommerceCurrencies();
@@ -149,7 +149,7 @@ if ((commercePriceList != null) && (commercePriceList.getExpirationDate() != nul
 				<liferay-ui:error exception="<%= CommercePriceListExpirationDateException.class %>" message="please-enter-a-valid-expiration-date" />
 
 				<aui:fieldset>
-					<aui:input formName="fm" name="displayDate" />
+					<aui:input formName="fm" label="publish-date" name="displayDate" />
 
 					<aui:input dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" name="expirationDate" />
 				</aui:fieldset>

@@ -33,7 +33,7 @@ CommercePriceListDisplayContext commercePriceListDisplayContext = (CommercePrice
 
 			<aui:model-context model="<%= CommercePriceModifier.class %>" />
 
-			<aui:input name="title" required="<%= true %>" />
+			<aui:input label="name" name="title" required="<%= true %>" />
 
 			<aui:select name="target" required="<%= true %>" showEmptyOption="<%= true %>">
 

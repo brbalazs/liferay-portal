@@ -14,6 +14,7 @@
 
 package com.liferay.commerce.pricing.web.internal.display.context;
 
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.clay.data.set.ClayHeadlessDataSetActionTemplate;
 import com.liferay.commerce.price.list.constants.CommercePriceListConstants;
 import com.liferay.commerce.price.list.model.CommercePriceList;
@@ -136,12 +137,13 @@ public abstract class BaseCommercePriceListDisplayContext
 
 		ClayHeadlessDataSetActionTemplate clayHeadlessDataSetActionTemplate =
 			new ClayHeadlessDataSetActionTemplate(
-				portletURL, "view", "view",
-				LanguageUtil.get(httpServletRequest, "view"), "get", null,
+				portletURL, "pencil", "edit",
+				LanguageUtil.get(httpServletRequest, "edit"), "get", null,
 				null);
 
 		if (isSidePanel) {
-			clayHeadlessDataSetActionTemplate.setTarget("sidePanel");
+			clayHeadlessDataSetActionTemplate.setTarget(
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL);
 		}
 
 		clayHeadlessDataSetActionTemplates.add(
@@ -151,7 +153,8 @@ public abstract class BaseCommercePriceListDisplayContext
 			new ClayHeadlessDataSetActionTemplate(
 				null, "trash", "delete",
 				LanguageUtil.get(httpServletRequest, "delete"), "delete",
-				"delete", "headless"));
+				"delete",
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS));
 
 		return clayHeadlessDataSetActionTemplates;
 	}

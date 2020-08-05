@@ -44,13 +44,13 @@ public class CommerceTierPriceEntryClayTableDataSetDisplayView
 		clayTableSchemaBuilder.addField("quantity", "quantity");
 
 		ClayTableSchemaField priceField = clayTableSchemaBuilder.addField(
-			"price", "price");
+			"price", "tier-price");
 
 		priceField.setContentRenderer("actionLink");
 
-		clayTableSchemaBuilder.addField("startDate", "start-date");
+		clayTableSchemaBuilder.addField("startDate", "publish-date");
 
-		clayTableSchemaBuilder.addField("endDate", "end-date");
+		clayTableSchemaBuilder.addField("endDate", "expiration-date");
 
 		clayTableSchemaBuilder.addField("override", "override-discount");
 

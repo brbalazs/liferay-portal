@@ -45,7 +45,7 @@ if ((commercePriceModifier != null) && (commercePriceModifier.getExpirationDate(
 	<commerce-ui:panel
 		title='<%= LanguageUtil.get(request, "details") %>'
 	>
-		<aui:input name="title" required="<%= true %>" />
+		<aui:input label="name" name="title" required="<%= true %>" />
 
 		<aui:select name="target" required="<%= true %>" showEmptyOption="<%= true %>">
 
@@ -92,7 +92,7 @@ if ((commercePriceModifier != null) && (commercePriceModifier.getExpirationDate(
 		<liferay-ui:error exception="<%= CommercePriceModifierExpirationDateException.class %>" message="please-enter-a-valid-expiration-date" />
 
 		<aui:fieldset>
-			<aui:input formName="fm" name="displayDate" />
+			<aui:input formName="fm" label="publish-date" name="displayDate" />
 
 			<aui:input dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" name="expirationDate" />
 		</aui:fieldset>

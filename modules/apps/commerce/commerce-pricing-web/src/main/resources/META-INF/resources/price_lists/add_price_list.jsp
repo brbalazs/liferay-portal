@@ -56,7 +56,7 @@ CommercePriceList commercePriceList = commercePriceListDisplayContext.getCommerc
 
 			</aui:select>
 
-			<aui:select label="store-currency" name="commerceCurrencyId" showEmptyOption="<%= true %>">
+			<aui:select label="currency" name="commerceCurrencyId" showEmptyOption="<%= true %>">
 
 				<%
 				List<CommerceCurrency> commerceCurrencies = commercePriceListDisplayContext.getCommerceCurrencies();
