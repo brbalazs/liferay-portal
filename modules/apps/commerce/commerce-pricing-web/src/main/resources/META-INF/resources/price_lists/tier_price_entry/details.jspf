@@ -26,36 +26,38 @@ boolean discountDiscovery = BeanParamUtil.getBoolean(commerceTierPriceEntry, req
 	<aui:validator name="number" />
 </aui:input>
 
-<label class="control-label" for="<%= renderResponse.getNamespace() %>discountLevel1"><%= LanguageUtil.get(request, "discount-levels") %></label>
+<div class='<%= discountDiscovery ? "hide" : StringPool.BLANK %>' id="<%= renderResponse.getNamespace() %>discountLevels">
+	<label class="control-label" for="<%= renderResponse.getNamespace() %>discountLevel1"><%= LanguageUtil.get(request, "discount-levels") %></label>
 
-<div class="d-flex">
-	<aui:input disabled="<%= discountDiscovery %>" ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel1" type="text" value="<%= (commerceTierPriceEntry == null) ? StringPool.BLANK : commerceTierPriceEntry.getDiscountLevel1() %>" wrapperCssClass="pr-2">
-		<aui:validator name="min">0</aui:validator>
-		<aui:validator name="number" />
-	</aui:input>
+	<div class="d-flex">
+		<aui:input disabled="<%= discountDiscovery %>" ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel1" type="text" value="<%= (commerceTierPriceEntry == null) ? StringPool.BLANK : commerceTierPriceEntry.getDiscountLevel1() %>" wrapperCssClass="pr-2">
+			<aui:validator name="min">0</aui:validator>
+			<aui:validator name="number" />
+		</aui:input>
 
-	<aui:input disabled="<%= discountDiscovery %>" ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel2" type="text" value="<%= (commerceTierPriceEntry == null) ? StringPool.BLANK : commerceTierPriceEntry.getDiscountLevel2() %>" wrapperCssClass="pr-2">
-		<aui:validator name="min">0</aui:validator>
-		<aui:validator name="number" />
-	</aui:input>
+		<aui:input disabled="<%= discountDiscovery %>" ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel2" type="text" value="<%= (commerceTierPriceEntry == null) ? StringPool.BLANK : commerceTierPriceEntry.getDiscountLevel2() %>" wrapperCssClass="pr-2">
+			<aui:validator name="min">0</aui:validator>
+			<aui:validator name="number" />
+		</aui:input>
 
-	<aui:input disabled="<%= discountDiscovery %>" ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel3" type="text" value="<%= (commerceTierPriceEntry == null) ? StringPool.BLANK : commerceTierPriceEntry.getDiscountLevel3() %>" wrapperCssClass="pr-2">
-		<aui:validator name="min">0</aui:validator>
-		<aui:validator name="number" />
-	</aui:input>
+		<aui:input disabled="<%= discountDiscovery %>" ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel3" type="text" value="<%= (commerceTierPriceEntry == null) ? StringPool.BLANK : commerceTierPriceEntry.getDiscountLevel3() %>" wrapperCssClass="pr-2">
+			<aui:validator name="min">0</aui:validator>
+			<aui:validator name="number" />
+		</aui:input>
 
-	<aui:input disabled="<%= discountDiscovery %>" ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel4" type="text" value="<%= (commerceTierPriceEntry == null) ? StringPool.BLANK : commerceTierPriceEntry.getDiscountLevel4() %>">
-		<aui:validator name="min">0</aui:validator>
-		<aui:validator name="number" />
-	</aui:input>
+		<aui:input disabled="<%= discountDiscovery %>" ignoreRequestValue="<%= true %>" inlineField="<%= true %>" label="" name="discountLevel4" type="text" value="<%= (commerceTierPriceEntry == null) ? StringPool.BLANK : commerceTierPriceEntry.getDiscountLevel4() %>">
+			<aui:validator name="min">0</aui:validator>
+			<aui:validator name="number" />
+		</aui:input>
+	</div>
 </div>
 
-<aui:input ignoreRequestValue="<%= true %>" label='<%= LanguageUtil.get(request, "override-discount") %>' name="overrideDiscount" type="checkbox" value="<%= !discountDiscovery %>" />
+<aui:input ignoreRequestValue="<%= true %>" label='<%= LanguageUtil.get(request, "override-discount") %>' name="overrideDiscount" type="toggle-switch" value="<%= !discountDiscovery %>" />
 
 <liferay-ui:error exception="<%= CommercePriceListExpirationDateException.class %>" message="please-enter-a-valid-expiration-date" />
 
 <aui:fieldset>
-	<aui:input formName="fm" name="displayDate" />
+	<aui:input label="publish-date" formName="fm" name="displayDate" />
 
 	<aui:input dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" name="expirationDate" />
 </aui:fieldset>
@@ -63,6 +65,8 @@ boolean discountDiscovery = BeanParamUtil.getBoolean(commerceTierPriceEntry, req
 <aui:script use="aui-base">
 	A.one('#<portlet:namespace />overrideDiscount').on('change', function(event) {
 		if (this.attr('checked')) {
+			A.one('#<portlet:namespace />discountLevels').show();
+
 			A.one('#<portlet:namespace />discountLevel1').attr('disabled', false);
 			A.one('#<portlet:namespace />discountLevel1').removeClass('disabled');
 
@@ -75,6 +79,8 @@ boolean discountDiscovery = BeanParamUtil.getBoolean(commerceTierPriceEntry, req
 			A.one('#<portlet:namespace />discountLevel4').attr('disabled', false);
 			A.one('#<portlet:namespace />discountLevel4').removeClass('disabled');
 		} else {
+			A.one('#<portlet:namespace />discountLevels').hide();
+
 			A.one('#<portlet:namespace />discountLevel1').attr('disabled', true);
 			A.one('#<portlet:namespace />discountLevel1').addClass('disabled');
 
