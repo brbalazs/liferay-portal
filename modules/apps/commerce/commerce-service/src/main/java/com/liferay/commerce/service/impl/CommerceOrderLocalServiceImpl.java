@@ -2036,15 +2036,15 @@ public class CommerceOrderLocalServiceImpl
 			}
 
 			if (percentages.length >= 2) {
-				discountPercentageLevel1 = percentages[1];
+				discountPercentageLevel2 = percentages[1];
 			}
 
 			if (percentages.length >= 3) {
-				discountPercentageLevel1 = percentages[2];
+				discountPercentageLevel3 = percentages[2];
 			}
 
 			if (percentages.length >= 4) {
-				discountPercentageLevel1 = percentages[3];
+				discountPercentageLevel4 = percentages[3];
 			}
 		}
 
@@ -2154,15 +2154,15 @@ public class CommerceOrderLocalServiceImpl
 			}
 
 			if (percentages.length >= 2) {
-				discountPercentageLevel1 = percentages[1];
+				discountPercentageLevel2 = percentages[1];
 			}
 
 			if (percentages.length >= 3) {
-				discountPercentageLevel1 = percentages[2];
+				discountPercentageLevel3 = percentages[2];
 			}
 
 			if (percentages.length >= 4) {
-				discountPercentageLevel1 = percentages[3];
+				discountPercentageLevel4 = percentages[3];
 			}
 		}
 
