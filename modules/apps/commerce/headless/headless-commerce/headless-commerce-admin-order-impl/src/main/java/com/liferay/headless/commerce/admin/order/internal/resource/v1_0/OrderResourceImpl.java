@@ -74,6 +74,7 @@ import java.util.Map;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.annotations.Component;
@@ -239,12 +240,15 @@ public class OrderResourceImpl
 
 		return HashMapBuilder.put(
 			"href",
-			uriInfo.getBaseUriBuilder(
-			).path(
-				_getVersion(uriInfo)
-			).path(
-				clazz.getSuperclass(), methodName
-			).toTemplate()
+			() -> {
+				UriBuilder uriBuilder = uriInfo.getBaseUriBuilder();
+
+				return uriBuilder.path(
+					_getVersion(uriInfo)
+				).path(
+					clazz.getSuperclass(), methodName
+				).toTemplate();
+			}
 		).put(
 			"method", httpMethodName
 		).build();

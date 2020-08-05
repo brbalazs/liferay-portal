@@ -379,21 +379,19 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 	}
 
 	private JSONArray _addToJSONArray(
-		JSONArray jsonArray, String optionKey, String optionValueKey) {
+		JSONArray jsonArray1, String optionKey, String optionValueKey) {
 
 		JSONObject jsonObject = _jsonFactory.createJSONObject();
+
+		JSONArray jsonArray2 = _jsonFactory.createJSONArray();
 
 		jsonObject.put(
 			"key", optionKey
 		).put(
-			"value",
-			_jsonFactory.createJSONArray(
-			).put(
-				optionValueKey
-			)
+			"value", jsonArray2.put(optionValueKey)
 		);
 
-		return jsonArray.put(jsonObject);
+		return jsonArray1.put(jsonObject);
 	}
 
 	private List<CPDefinitionOptionValueRel>
@@ -645,10 +643,10 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 	}
 
 	private boolean _updateJSONArray(
-		String key, String value, JSONArray jsonArray) {
+		String key, String value, JSONArray jsonArray1) {
 
-		for (int i = 0; i < jsonArray.length(); i++) {
-			JSONObject jsonObject = jsonArray.getJSONObject(i);
+		for (int i = 0; i < jsonArray1.length(); i++) {
+			JSONObject jsonObject = jsonArray1.getJSONObject(i);
 
 			String keyValue = jsonObject.getString("key");
 
@@ -656,12 +654,9 @@ public class CommerceProductInstanceOptionsValuesDataProvider
 				continue;
 			}
 
-			jsonObject.put(
-				"value",
-				_jsonFactory.createJSONArray(
-				).put(
-					value
-				));
+			JSONArray jsonArray2 = _jsonFactory.createJSONArray();
+
+			jsonObject.put("value", jsonArray2.put(value));
 
 			return true;
 		}
