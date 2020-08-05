@@ -35,7 +35,6 @@ import com.liferay.commerce.price.list.service.CommercePriceListDiscountRelLocal
 import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
-import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -301,9 +300,6 @@ public class CommerceDiscountCalculationV2Impl
 			CommerceOrder commerceOrder = commerceContext.getCommerceOrder();
 
 			if (commerceOrder != null) {
-				commerceOrder = _commerceOrderLocalService.getCommerceOrder(
-					commerceOrder.getCommerceOrderId());
-
 				couponCode = commerceOrder.getCouponCode();
 			}
 		}
@@ -523,6 +519,10 @@ public class CommerceDiscountCalculationV2Impl
 				commerceDiscount.getCommerceDiscountId(), QueryUtil.ALL_POS,
 				QueryUtil.ALL_POS, null);
 
+		if (commerceDiscountRules.isEmpty()) {
+			return true;
+		}
+
 		for (CommerceDiscountRule commerceDiscountRule :
 				commerceDiscountRules) {
 
@@ -571,9 +571,6 @@ public class CommerceDiscountCalculationV2Impl
 
 	@Reference
 	private CommerceMoneyFactory _commerceMoneyFactory;
-
-	@Reference
-	private CommerceOrderLocalService _commerceOrderLocalService;
 
 	@Reference
 	private CommercePriceListDiscountRelLocalService
