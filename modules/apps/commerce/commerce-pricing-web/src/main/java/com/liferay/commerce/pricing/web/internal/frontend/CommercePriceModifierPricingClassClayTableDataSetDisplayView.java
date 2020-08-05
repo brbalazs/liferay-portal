@@ -19,7 +19,6 @@ import com.liferay.commerce.frontend.clay.table.ClayTableDataSetDisplayView;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchema;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilder;
 import com.liferay.commerce.frontend.clay.table.ClayTableSchemaBuilderFactory;
-import com.liferay.commerce.frontend.clay.table.ClayTableSchemaField;
 import com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingDataSetConstants;
 
 import org.osgi.service.component.annotations.Component;
@@ -41,10 +40,7 @@ public class CommercePriceModifierPricingClassClayTableDataSetDisplayView
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
-			"productGroup.title.LANG", "title");
-
-		nameField.setContentRenderer("actionLink");
+		clayTableSchemaBuilder.addField("productGroup.title.LANG", "title");
 
 		clayTableSchemaBuilder.addField(
 			"productGroup.productsCount", "number-of-products");

@@ -47,10 +47,7 @@ public class CommercePriceModifierCPDefinitionClayTableDataSetDisplayView
 
 		imageField.setContentRenderer("image");
 
-		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
-			"product.name.LANG", "name");
-
-		nameField.setContentRenderer("actionLink");
+		clayTableSchemaBuilder.addField("product.name.LANG", "name");
 
 		clayTableSchemaBuilder.addField("product.sku", "sku");
 
