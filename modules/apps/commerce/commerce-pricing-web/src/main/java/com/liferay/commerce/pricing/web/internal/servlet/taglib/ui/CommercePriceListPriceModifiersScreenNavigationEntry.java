@@ -91,7 +91,9 @@ public class CommercePriceListPriceModifiersScreenNavigationEntry
 
 	@Override
 	public boolean isVisible(User user, CommercePriceList commercePriceList) {
-		if (commercePriceList == null) {
+		if ((commercePriceList == null) ||
+			commercePriceList.isCatalogBasePriceList()) {
+
 			return false;
 		}
 
