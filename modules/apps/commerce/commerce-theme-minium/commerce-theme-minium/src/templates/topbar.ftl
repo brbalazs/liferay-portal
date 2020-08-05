@@ -1,7 +1,7 @@
 <div class="commerce-topbar minium-topbar">
 	<div class="minium-topbar__start">
 		<#if back_url?has_content>
-			<a class="commerce-topbar-button" href="${back_url}">
+			<a class="commerce-topbar-button" href="${htmlUtil.escape(back_url)}">
 				<svg class="commerce-icon commerce-topbar-button__icon lexicon-icon lexicon-icon-arrow-back">
 					<use href="${themeDisplay.getPathThemeImages()}/icons.svg#arrow-back" />
 				</svg>
