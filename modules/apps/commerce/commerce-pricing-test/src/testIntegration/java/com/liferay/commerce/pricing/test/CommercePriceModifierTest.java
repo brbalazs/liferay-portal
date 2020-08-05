@@ -371,7 +371,7 @@ public class CommercePriceModifierTest {
 		CommercePriceModifier commercePriceModifier =
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
-				CommercePriceModifierConstants.TARGET_PRODUCT,
+				CommercePriceModifierConstants.TARGET_PRODUCTS,
 				commercePriceList.getCommercePriceListId(),
 				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
 				true);

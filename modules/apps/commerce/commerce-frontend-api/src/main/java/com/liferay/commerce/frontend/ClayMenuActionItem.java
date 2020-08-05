@@ -21,6 +21,9 @@ public class ClayMenuActionItem {
 
 	public static final String CLAY_MENU_ACTION_ITEM_TARGET_EVENT = "event";
 
+	public static final String CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS =
+		"headless";
+
 	public static final String CLAY_MENU_ACTION_ITEM_TARGET_INLINE = "inline";
 
 	public static final String CLAY_MENU_ACTION_ITEM_TARGET_LINK = "";

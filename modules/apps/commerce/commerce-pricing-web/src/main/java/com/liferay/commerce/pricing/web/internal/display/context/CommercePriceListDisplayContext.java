@@ -171,7 +171,8 @@ public class CommercePriceListDisplayContext
 			new ClayHeadlessDataSetActionTemplate(
 				null, "trash", "delete",
 				LanguageUtil.get(httpServletRequest, "delete"), "delete",
-				"delete", "headless"));
+				"delete",
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS));
 
 		return clayHeadlessDataSetActionTemplates;
 	}
@@ -187,7 +188,8 @@ public class CommercePriceListDisplayContext
 			new ClayHeadlessDataSetActionTemplate(
 				null, "trash", "delete",
 				LanguageUtil.get(httpServletRequest, "delete"), "delete",
-				"delete", "headless"));
+				"delete",
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS));
 
 		return clayHeadlessDataSetActionTemplates;
 	}
@@ -203,7 +205,8 @@ public class CommercePriceListDisplayContext
 			new ClayHeadlessDataSetActionTemplate(
 				null, "trash", "delete",
 				LanguageUtil.get(httpServletRequest, "delete"), "delete",
-				"delete", "headless"));
+				"delete",
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS));
 
 		return clayHeadlessDataSetActionTemplates;
 	}

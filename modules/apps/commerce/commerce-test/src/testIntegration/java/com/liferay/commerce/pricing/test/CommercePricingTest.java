@@ -534,7 +534,7 @@ public class CommercePricingTest {
 
 		CommercePriceModifier commercePriceModifier = _addCommercePriceModifier(
 			commercePriceList1.getGroupId(),
-			CommercePriceModifierConstants.TARGET_PRODUCT,
+			CommercePriceModifierConstants.TARGET_PRODUCTS,
 			commercePriceList1.getCommercePriceListId(),
 			CommercePriceModifierConstants.MODIFIER_TYPE_ABSOLUTE,
 			BigDecimal.valueOf(-10), true);

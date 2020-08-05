@@ -1079,7 +1079,7 @@ public class CommerceProductPriceCalculationV2Test {
 
 		CommercePriceModifier commercePriceModifier = _addCommercePriceModifier(
 			commercePriceList.getGroupId(),
-			CommercePriceModifierConstants.TARGET_PRODUCT,
+			CommercePriceModifierConstants.TARGET_PRODUCTS,
 			commercePriceList.getCommercePriceListId(),
 			CommercePriceModifierConstants.MODIFIER_TYPE_ABSOLUTE,
 			modifierAmount, true);

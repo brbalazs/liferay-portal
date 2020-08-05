@@ -32,10 +32,10 @@ public class CommercePriceModifierConstants {
 
 	public static final String TARGET_PRICING_CLASS = "pricing-classes";
 
-	public static final String TARGET_PRODUCT = "product";
+	public static final String TARGET_PRODUCTS = "products";
 
 	public static final String[] TARGETS = {
-		TARGET_CATALOG, TARGET_CATEGORIES, TARGET_PRICING_CLASS, TARGET_PRODUCT
+		TARGET_CATALOG, TARGET_CATEGORIES, TARGET_PRICING_CLASS, TARGET_PRODUCTS
 	};
 
 }

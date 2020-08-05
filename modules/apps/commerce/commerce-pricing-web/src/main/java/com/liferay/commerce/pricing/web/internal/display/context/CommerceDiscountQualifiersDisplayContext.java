@@ -23,6 +23,7 @@ import com.liferay.commerce.discount.service.CommerceDiscountCommerceAccountGrou
 import com.liferay.commerce.discount.service.CommerceDiscountRuleService;
 import com.liferay.commerce.discount.service.CommerceDiscountService;
 import com.liferay.commerce.discount.target.CommerceDiscountTargetRegistry;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.clay.data.set.ClayHeadlessDataSetActionTemplate;
 import com.liferay.commerce.percentage.PercentageFormatter;
 import com.liferay.commerce.product.model.CommerceChannel;
@@ -123,7 +124,8 @@ public class CommerceDiscountQualifiersDisplayContext
 			new ClayHeadlessDataSetActionTemplate(
 				null, "trash", "delete",
 				LanguageUtil.get(httpServletRequest, "delete"), "delete",
-				"delete", "headless"));
+				"delete",
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS));
 
 		return clayHeadlessDataSetActionTemplates;
 	}

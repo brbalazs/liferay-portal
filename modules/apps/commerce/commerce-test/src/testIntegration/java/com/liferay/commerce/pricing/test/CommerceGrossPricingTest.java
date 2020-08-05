@@ -642,7 +642,7 @@ public class CommerceGrossPricingTest {
 
 		CommercePriceModifier commercePriceModifier = _addCommercePriceModifier(
 			commercePriceList1.getGroupId(),
-			CommercePriceModifierConstants.TARGET_PRODUCT,
+			CommercePriceModifierConstants.TARGET_PRODUCTS,
 			commercePriceList1.getCommercePriceListId(),
 			CommercePriceModifierConstants.MODIFIER_TYPE_ABSOLUTE,
 			BigDecimal.valueOf(modifierAmount), true);
@@ -879,7 +879,7 @@ public class CommerceGrossPricingTest {
 
 		CommercePriceModifier commercePriceModifier = _addCommercePriceModifier(
 			commercePriceList1.getGroupId(),
-			CommercePriceModifierConstants.TARGET_PRODUCT,
+			CommercePriceModifierConstants.TARGET_PRODUCTS,
 			commercePriceList1.getCommercePriceListId(),
 			CommercePriceModifierConstants.MODIFIER_TYPE_ABSOLUTE,
 			BigDecimal.valueOf(modifierAmount), true);

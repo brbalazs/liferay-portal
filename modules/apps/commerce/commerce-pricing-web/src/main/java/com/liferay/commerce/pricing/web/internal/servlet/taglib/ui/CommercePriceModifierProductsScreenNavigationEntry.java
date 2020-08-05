@@ -91,7 +91,7 @@ public class CommercePriceModifierProductsScreenNavigationEntry
 			return false;
 		}
 
-		if (!CommercePriceModifierConstants.TARGET_PRODUCT.equals(
+		if (!CommercePriceModifierConstants.TARGET_PRODUCTS.equals(
 				commercePriceModifier.getTarget())) {
 
 			return false;

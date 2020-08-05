@@ -329,7 +329,7 @@ public class CommercePriceModifierLocalServiceTest {
 
 		CommercePriceModifierTestUtil.addCommercePriceModifier(
 			catalog.getGroupId(), null,
-			CommercePriceModifierConstants.TARGET_PRODUCT,
+			CommercePriceModifierConstants.TARGET_PRODUCTS,
 			commercePriceList.getCommercePriceListId(),
 			CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
 			true);
@@ -467,7 +467,7 @@ public class CommercePriceModifierLocalServiceTest {
 		CommercePriceModifier commercePriceModifier1 =
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
-				CommercePriceModifierConstants.TARGET_PRODUCT,
+				CommercePriceModifierConstants.TARGET_PRODUCTS,
 				commercePriceList.getCommercePriceListId(),
 				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
 				true);
@@ -489,7 +489,7 @@ public class CommercePriceModifierLocalServiceTest {
 			commercePriceModifier2.getCommercePriceModifierId());
 
 		Assert.assertEquals(
-			CommercePriceModifierConstants.TARGET_PRODUCT,
+			CommercePriceModifierConstants.TARGET_PRODUCTS,
 			commercePriceModifier2.getTarget());
 
 		List<CommercePriceModifierRel> commercePriceModifierRels =
@@ -539,7 +539,7 @@ public class CommercePriceModifierLocalServiceTest {
 		CommercePriceModifier commercePriceModifier1 =
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
-				CommercePriceModifierConstants.TARGET_PRODUCT,
+				CommercePriceModifierConstants.TARGET_PRODUCTS,
 				commercePriceList.getCommercePriceListId(),
 				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
 				true);
@@ -608,7 +608,7 @@ public class CommercePriceModifierLocalServiceTest {
 		CommercePriceModifier commercePriceModifier1 =
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
-				CommercePriceModifierConstants.TARGET_PRODUCT,
+				CommercePriceModifierConstants.TARGET_PRODUCTS,
 				commercePriceList.getCommercePriceListId(),
 				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
 				true);

@@ -15,6 +15,7 @@
 package com.liferay.commerce.pricing.web.internal.display.context;
 
 import com.liferay.commerce.account.model.CommerceAccount;
+import com.liferay.commerce.frontend.ClayMenuActionItem;
 import com.liferay.commerce.frontend.clay.data.set.ClayHeadlessDataSetActionTemplate;
 import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListAccountRelService;
@@ -112,7 +113,8 @@ public class CommercePriceListQualifiersDisplayContext
 			new ClayHeadlessDataSetActionTemplate(
 				null, "trash", "delete",
 				LanguageUtil.get(httpServletRequest, "delete"), "delete",
-				"delete", "headless"));
+				"delete",
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS));
 
 		return clayHeadlessDataSetActionTemplates;
 	}
