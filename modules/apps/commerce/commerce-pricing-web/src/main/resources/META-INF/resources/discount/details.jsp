@@ -157,22 +157,22 @@ boolean hasPermission = commerceDiscountDisplayContext.hasPermission(ActionKeys.
 		</div>
 	</div>
 
+	<c:if test="<%= Objects.equals(target, CommerceDiscountConstants.TARGET_PRODUCT) %>">
+		<%@ include file="/discount/target/products.jspf" %>
+	</c:if>
+
+	<c:if test="<%= Objects.equals(target, CommerceDiscountConstants.TARGET_CATEGORIES) %>">
+		<%@ include file="/discount/target/categories.jspf" %>
+	</c:if>
+
+	<c:if test="<%= Objects.equals(target, CommerceDiscountConstants.TARGET_PRICING_CLASS) %>">
+		<%@ include file="/discount/target/pricing_classes.jspf" %>
+	</c:if>
+
 	<%@ include file="/discount/coupon_code.jspf" %>
 
 	<%@ include file="/discount/rules.jspf" %>
 </aui:form>
-
-<c:if test="<%= Objects.equals(target, CommerceDiscountConstants.TARGET_PRODUCTS) %>">
-	<%@ include file="/discount/target/products.jspf" %>
-</c:if>
-
-<c:if test="<%= Objects.equals(target, CommerceDiscountConstants.TARGET_CATEGORIES) %>">
-	<%@ include file="/discount/target/categories.jspf" %>
-</c:if>
-
-<c:if test="<%= Objects.equals(target, CommerceDiscountConstants.TARGET_PRODUCT_GROUPS) %>">
-	<%@ include file="/discount/target/pricing_classes.jspf" %>
-</c:if>
 
 <aui:script>
 	Liferay.provide(
