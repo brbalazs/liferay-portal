@@ -159,10 +159,10 @@ public class CommerceTierPriceEntryDataSetDataProvider
 		HttpServletRequest httpServletRequest) {
 
 		if (commerceTierPriceEntry.isDiscountDiscovery()) {
-			return LanguageUtil.get(httpServletRequest, "yes");
+			return LanguageUtil.get(httpServletRequest, "no");
 		}
 
-		return LanguageUtil.get(httpServletRequest, "no");
+		return LanguageUtil.get(httpServletRequest, "yes");
 	}
 
 	@Reference
