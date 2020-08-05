@@ -23,10 +23,10 @@ import ImageRenderer from './ImageRenderer';
 import LabelRenderer from './LabelRenderer';
 import LinkRenderer from './LinkRenderer';
 import ListRenderer from './ListRenderer';
+import LocalizedFieldRenderer from './LocalizedFieldRenderer';
 import QuantitySelectorRenderer from './QuantitySelectorRenderer';
 import StatusRenderer from './StatusRenderer';
 import TooltipPriceRenderer from './TooltipPriceRenderer';
-import LocalizedFieldRenderer from "./LocalizedFieldRenderer";
 
 const dataRenderers = {
 	actionLink: ActionsLinkRenderer,
