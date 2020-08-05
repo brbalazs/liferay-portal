@@ -30,6 +30,14 @@ boolean neverExpire = ParamUtil.getBoolean(request, "neverExpire", true);
 if ((commercePriceModifier != null) && (commercePriceModifier.getExpirationDate() != null)) {
 	neverExpire = false;
 }
+
+String amountSuffix = HtmlUtil.escape(commerceCurrency.getCode());
+
+String modifierType = ParamUtil.getString(request, "modifierType", commercePriceModifier.getModifierType());
+
+if (modifierType.equals(CommercePriceModifierConstants.MODIFIER_TYPE_PERCENTAGE)) {
+	amountSuffix = StringPool.PERCENT;
+}
 %>
 
 <portlet:actionURL name="editCommercePriceModifier" var="editCommercePriceModifierActionURL" />
@@ -61,7 +69,7 @@ if ((commercePriceModifier != null) && (commercePriceModifier.getExpirationDate(
 
 		</aui:select>
 
-		<aui:select label="modifier" name="modifierType" required="<%= true %>" showEmptyOption="<%= true %>">
+		<aui:select label='<%= LanguageUtil.get(request, "modifier") %>' name="modifierType" onChange='<%= renderResponse.getNamespace() + "selectType();" %>' showEmptyOption="<%= true %>">
 
 			<%
 			for (CommercePriceModifierType commercePriceModifierType : commercePriceListDisplayContext.getCommercePriceModifierTypes()) {
@@ -76,8 +84,7 @@ if ((commercePriceModifier != null) && (commercePriceModifier.getExpirationDate(
 
 		</aui:select>
 
-		<aui:input label='<%= LanguageUtil.get(request, "amount") %>' name="modifierAmount" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commercePriceModifier.getModifierAmount()) %>">
-			<aui:validator name="min">0</aui:validator>
+		<aui:input label='<%= LanguageUtil.get(request, "amount") %>' name="modifierAmount" suffix="<%= amountSuffix %>" type="text" value="<%= commerceCurrency.round(commercePriceModifier.getModifierAmount()) %>">
 			<aui:validator name="number" />
 		</aui:input>
 
@@ -117,3 +124,24 @@ if ((commercePriceModifier != null) && (commercePriceModifier.getExpirationDate(
 		<aui:button cssClass="btn-lg" type="cancel" />
 	</aui:button-row>
 </aui:form>
+
+<aui:script>
+	Liferay.provide(
+		window,
+		'<portlet:namespace/>selectType',
+		function() {
+			var A = AUI();
+
+			var type = A.one('#<portlet:namespace/>modifierType').val();
+
+			var portletURL = new Liferay.PortletURL.createURL(
+				'<%= currentURLObj %>'
+			);
+
+			portletURL.setParameter('modifierType', type);
+
+			window.location.replace(portletURL.toString());
+		},
+		['liferay-portlet-url']
+	);
+</aui:script>
