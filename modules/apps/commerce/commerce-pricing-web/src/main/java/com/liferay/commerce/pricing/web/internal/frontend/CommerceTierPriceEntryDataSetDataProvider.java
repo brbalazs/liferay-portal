@@ -130,6 +130,10 @@ public class CommerceTierPriceEntryDataSetDataProvider
 	private String _getDiscountLevels(
 		CommerceTierPriceEntry commerceTierPriceEntry) {
 
+		if (commerceTierPriceEntry.isDiscountDiscovery()) {
+			return StringPool.BLANK;
+		}
+
 		StringBundler sb = new StringBundler(7);
 
 		sb.append(commerceTierPriceEntry.getDiscountLevel1());

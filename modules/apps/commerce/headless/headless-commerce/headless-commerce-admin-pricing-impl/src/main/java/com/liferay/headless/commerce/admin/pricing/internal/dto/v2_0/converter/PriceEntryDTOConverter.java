@@ -121,10 +121,11 @@ public class PriceEntryDTOConverter
 	private String _getDiscountLevelsFormatted(
 		CommercePriceEntry commercePriceEntry) {
 
-		if ((commercePriceEntry.getDiscountLevel1() == null) &&
-			(commercePriceEntry.getDiscountLevel2() == null) &&
-			(commercePriceEntry.getDiscountLevel3() == null) &&
-			(commercePriceEntry.getDiscountLevel4() == null)) {
+		if (commercePriceEntry.isDiscountDiscovery() ||
+			((commercePriceEntry.getDiscountLevel1() == null) &&
+			 (commercePriceEntry.getDiscountLevel2() == null) &&
+			 (commercePriceEntry.getDiscountLevel3() == null) &&
+			 (commercePriceEntry.getDiscountLevel4() == null))) {
 
 			return StringPool.BLANK;
 		}
