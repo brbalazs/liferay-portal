@@ -172,7 +172,19 @@ AUI.add(
 						var fieldName = settingsFormFieldContext.fieldName;
 
 						if (settingsFormFieldContext.localizable) {
-							var localizedValue = settingsFormFieldContext.localizedValue[locale] || settingsFormFieldContext.localizedValue[defaultLocale] || settingsFormFieldContext.value;
+							var localizedValue = "";
+
+							if (settingsFormFieldContext.fieldName == "predefinedValue" || settingsFormFieldContext.fieldName == "label" ) {
+								if (settingsFormFieldContext.localizedValue[locale] == "") {
+									localizedValue = settingsFormFieldContext.localizedValue[locale];
+								}
+								else {
+									localizedValue = settingsFormFieldContext.localizedValue[locale] || settingsFormFieldContext.value;
+								}
+							}
+							else {
+							  localizedValue = settingsFormFieldContext.localizedValue[locale] || settingsFormFieldContext.localizedValue[defaultLocale] || settingsFormFieldContext.value;
+							}
 
 							settings[fieldName] = localizedValue;
 
