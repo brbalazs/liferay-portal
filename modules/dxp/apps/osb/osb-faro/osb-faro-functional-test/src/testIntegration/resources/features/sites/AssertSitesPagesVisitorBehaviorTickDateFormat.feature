@@ -6,18 +6,20 @@ Feature: Assert Chart ticks for pages Visitor Behavior standardized
         * I go to the "Home" page
         * I login as "test@faro.io:test"
         * I should see the "Sites" page
-        * I click the "Pages" tab
-        * I click "mesh synergistic schemas" in the table
 
     Scenario Outline: Visitor Behavior hour format
-        Given I click the "Last 30 days" dropdown in the "Visitors Behavior" card
-        When I click the "More Preset Periods" button
+        Given I go to the "Sites" page
+        And I click the "Pages" tab
+        And I click "mesh synergistic schemas" in the table
+        When I click the "Last 30 days" dropdown in the "Visitors Behavior" card
+        And I click the "More Preset Periods" button
         And I click the "<dateRange>" button
         And I should see standardized granularity of "h a"
 
         Examples:
             |         dateRange         |
             |        Last 24 hours      |
+            |          Yesterday        |
 
     Scenario Outline: Visitors Behavior day, week, month format
         Given I go to the "Sites" page
