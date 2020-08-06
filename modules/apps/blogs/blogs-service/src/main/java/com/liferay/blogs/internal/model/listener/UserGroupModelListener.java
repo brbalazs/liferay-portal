@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.user.groups.admin.internal.modellistener;
+package com.liferay.blogs.internal.model.listener;
 
 import com.liferay.blogs.service.BlogsEntryLocalService;
 import com.liferay.portal.kernel.exception.ModelListenerException;
