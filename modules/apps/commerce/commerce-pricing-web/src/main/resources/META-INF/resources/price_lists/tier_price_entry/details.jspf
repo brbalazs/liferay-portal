@@ -15,8 +15,8 @@
 --%>
 
 <%
-boolean discountDiscovery = BeanParamUtil.getBoolean(commerceTierPriceEntry, request, "discountDiscovery", true);
 CommercePriceEntry commercePriceEntry = commerceTierPriceEntryDisplayContext.getCommercePriceEntry();
+boolean discountDiscovery = BeanParamUtil.getBoolean(commerceTierPriceEntry, request, "discountDiscovery", true);
 %>
 
 <aui:model-context bean="<%= commerceTierPriceEntry %>" model="<%= CommerceTierPriceEntry.class %>" />
