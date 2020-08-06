@@ -299,7 +299,7 @@ public class CommerceOrderDiscountTargetGrossTest {
 		CommerceDiscount commerceDiscount1 =
 			CommerceDiscountTestUtil.addFixedCommerceDiscount(
 				_group.getGroupId(), 10,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition.getCPDefinitionId());
 
 		CommerceDiscount commerceDiscount2 =
@@ -444,7 +444,7 @@ public class CommerceOrderDiscountTargetGrossTest {
 		CommerceDiscount commerceDiscount1 =
 			CommerceDiscountTestUtil.addFixedCommerceDiscount(
 				_group.getGroupId(), 10,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition.getCPDefinitionId());
 
 		String couponCode = StringUtil.randomString();

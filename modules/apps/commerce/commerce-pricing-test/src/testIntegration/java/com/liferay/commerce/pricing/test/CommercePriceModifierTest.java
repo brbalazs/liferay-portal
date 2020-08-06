@@ -158,7 +158,7 @@ public class CommercePriceModifierTest {
 		CommercePriceModifier commercePriceModifier =
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
-				CommercePriceModifierConstants.TARGET_PRICING_CLASS,
+				CommercePriceModifierConstants.TARGET_PRODUCT_GROUPS,
 				commercePriceList.getCommercePriceListId(),
 				CommercePriceModifierConstants.MODIFIER_TYPE_ABSOLUTE, amount,
 				true);

@@ -189,7 +189,7 @@ public class CommercePriceModifierLocalServiceTest {
 
 		CommercePriceModifierTestUtil.addCommercePriceModifier(
 			catalog.getGroupId(),
-			CommercePriceModifierConstants.TARGET_PRICING_CLASS,
+			CommercePriceModifierConstants.TARGET_PRODUCT_GROUPS,
 			commercePriceList.getCommercePriceListId(),
 			CommercePriceModifierConstants.MODIFIER_TYPE_PERCENTAGE, null,
 			true);
@@ -252,7 +252,7 @@ public class CommercePriceModifierLocalServiceTest {
 
 		CommercePriceModifierTestUtil.addCommercePriceModifier(
 			catalog.getGroupId(),
-			CommercePriceModifierConstants.TARGET_PRICING_CLASS,
+			CommercePriceModifierConstants.TARGET_PRODUCT_GROUPS,
 			commercePriceList.getCommercePriceListId(),
 			RandomTestUtil.randomString(), amount, true);
 	}
@@ -380,7 +380,7 @@ public class CommercePriceModifierLocalServiceTest {
 		CommercePriceModifier commercePriceModifier1 =
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
-				CommercePriceModifierConstants.TARGET_PRICING_CLASS,
+				CommercePriceModifierConstants.TARGET_PRODUCT_GROUPS,
 				commercePriceList.getCommercePriceListId(),
 				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
 				true);
@@ -403,7 +403,7 @@ public class CommercePriceModifierLocalServiceTest {
 			commercePriceModifier2.getCommercePriceModifierId());
 
 		Assert.assertEquals(
-			CommercePriceModifierConstants.TARGET_PRICING_CLASS,
+			CommercePriceModifierConstants.TARGET_PRODUCT_GROUPS,
 			commercePriceModifier2.getTarget());
 
 		List<CommercePriceModifierRel> commercePriceModifierRels =
@@ -638,7 +638,7 @@ public class CommercePriceModifierLocalServiceTest {
 			CommercePriceModifierTestUtil.updateCommercePriceModifier(
 				catalog.getGroupId(),
 				commercePriceModifier1.getCommercePriceModifierId(),
-				CommercePriceModifierConstants.TARGET_PRICING_CLASS);
+				CommercePriceModifierConstants.TARGET_PRODUCT_GROUPS);
 
 		commercePriceModifierRels =
 			_commercePriceModifierRelLocalService.getCommercePriceModifierRels(

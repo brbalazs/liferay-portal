@@ -152,7 +152,7 @@ public class CommerceDiscountLocalServiceTest {
 		CommerceDiscount commerceDiscount =
 			CommerceDiscountTestUtil.addFixedCommerceDiscount(
 				_user.getGroupId(), RandomTestUtil.nextDouble(),
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition.getCPDefinitionId());
 
 		List<CommerceDiscount> commerceDiscounts =
@@ -191,7 +191,7 @@ public class CommerceDiscountLocalServiceTest {
 				_user.getGroupId(),
 				BigDecimal.valueOf(RandomTestUtil.randomDouble()),
 				CommerceDiscountConstants.LEVEL_L1,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition.getCPDefinitionId());
 
 		List<CommerceDiscount> commerceDiscounts =
@@ -227,7 +227,7 @@ public class CommerceDiscountLocalServiceTest {
 				_user.getGroupId(),
 				BigDecimal.valueOf(RandomTestUtil.randomDouble()),
 				CommerceDiscountConstants.LEVEL_L2,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition.getCPDefinitionId());
 
 		_productAssertEquals(

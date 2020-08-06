@@ -143,7 +143,7 @@ public class CommerceDiscountTest {
 		CommerceDiscount commerceDiscount =
 			CommerceDiscountTestUtil.addFixedCommerceDiscount(
 				_group.getGroupId(), 10,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition.getCPDefinitionId());
 
 		CommerceDiscountTestUtil.addDiscountCommerceAccountGroupRel(
@@ -208,7 +208,7 @@ public class CommerceDiscountTest {
 		CommerceDiscount commerceDiscount =
 			CommerceDiscountTestUtil.addFixedCommerceDiscount(
 				_group.getGroupId(), 10,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition.getCPDefinitionId());
 
 		CommerceContext commerceContext = new TestCommerceContext(
@@ -292,7 +292,7 @@ public class CommerceDiscountTest {
 			_group.getGroupId(), category2CPDefinitionIds);
 
 		CommerceDiscountTestUtil.addFixedCommerceDiscount(
-			_group.getGroupId(), 11, CommerceDiscountConstants.TARGET_PRODUCT,
+			_group.getGroupId(), 11, CommerceDiscountConstants.TARGET_PRODUCTS,
 			cpDefinition1.getCPDefinitionId());
 
 		CommerceDiscount commerceDiscount2 =
@@ -467,7 +467,7 @@ public class CommerceDiscountTest {
 		CommerceDiscount commerceDiscount1 =
 			CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 				_group.getGroupId(), 10, 15, 20, 0,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition1.getCPDefinitionId());
 
 		CommerceDiscount commerceDiscount2 =
@@ -613,7 +613,7 @@ public class CommerceDiscountTest {
 		CommerceDiscount commerceDiscount =
 			CommerceDiscountTestUtil.addCouponDiscount(
 				_group.getGroupId(), 10, couponCode,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition.getCPDefinitionId());
 
 		CommerceContext commerceContext = new TestCommerceContext(

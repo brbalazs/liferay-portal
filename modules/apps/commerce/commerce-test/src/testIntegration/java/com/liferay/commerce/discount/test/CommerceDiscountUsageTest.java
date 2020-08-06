@@ -237,7 +237,7 @@ public class CommerceDiscountUsageTest {
 			CommerceDiscountTestUtil.addCouponDiscount(
 				_group.getGroupId(), 10, couponCode,
 				CommerceDiscountConstants.LIMITATION_TYPE_LIMITED, 3, 0,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition.getCPDefinitionId());
 
 		commerceProductPrice =
@@ -346,7 +346,7 @@ public class CommerceDiscountUsageTest {
 		CommerceDiscount commerceDiscount =
 			CommerceDiscountTestUtil.addCouponDiscount(
 				_group.getGroupId(), 10, couponCode,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition.getCPDefinitionId());
 
 		CommerceContext commerceContext = new TestCommerceContext(
@@ -533,7 +533,7 @@ public class CommerceDiscountUsageTest {
 			CommerceDiscountTestUtil.addCouponDiscount(
 				_group.getGroupId(), 10, couponCode, limitationType,
 				limitationTimes, limitationTimesPerAccount,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition.getCPDefinitionId());
 
 		for (int i = 0; i < numberOfOrders; i++) {

@@ -30,12 +30,19 @@ public class CommercePriceModifierConstants {
 
 	public static final String TARGET_CATEGORIES = "categories";
 
-	public static final String TARGET_PRICING_CLASS = "pricing-classes";
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public static final String TARGET_PRICING_CLASS = "product-groups";
+
+	public static final String TARGET_PRODUCT_GROUPS = "product-groups";
 
 	public static final String TARGET_PRODUCTS = "products";
 
 	public static final String[] TARGETS = {
-		TARGET_CATALOG, TARGET_CATEGORIES, TARGET_PRICING_CLASS, TARGET_PRODUCTS
+		TARGET_CATALOG, TARGET_CATEGORIES, TARGET_PRODUCT_GROUPS,
+		TARGET_PRODUCTS
 	};
 
 }

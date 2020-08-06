@@ -29,7 +29,7 @@ public class CommercePriceListScreenNavigationConstants {
 
 	public static final String CATEGORY_KEY_PRICE_MODIFIERS = "price-modifiers";
 
-	public static final String CATEGORY_KEY_PRICING_CLASSES = "pricing-classes";
+	public static final String CATEGORY_KEY_PRICING_CLASSES = "product-groups";
 
 	public static final String CATEGORY_KEY_PRODUCTS = "products";
 

@@ -436,7 +436,7 @@ public class CommerceProductPriceCalculationTest {
 
 		CommerceDiscountTestUtil.addFixedCommerceDiscount(
 			_group.getGroupId(), discountAmount,
-			CommerceDiscountConstants.TARGET_PRODUCT,
+			CommerceDiscountConstants.TARGET_PRODUCTS,
 			cpDefinition.getCPDefinitionId());
 
 		CPInstance cpInstance1 = CPTestUtil.addCPInstanceFromCatalog(
@@ -560,7 +560,7 @@ public class CommerceProductPriceCalculationTest {
 
 		CommerceDiscountTestUtil.addFixedCommerceDiscount(
 			_group.getGroupId(), discountAmount,
-			CommerceDiscountConstants.TARGET_PRODUCT,
+			CommerceDiscountConstants.TARGET_PRODUCTS,
 			cpDefinition.getCPDefinitionId());
 
 		CPInstance cpInstance3 = CPTestUtil.addCPInstanceFromCatalog(

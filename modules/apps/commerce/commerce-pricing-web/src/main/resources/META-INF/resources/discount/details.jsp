@@ -162,7 +162,7 @@ boolean hasPermission = commerceDiscountDisplayContext.hasPermission(ActionKeys.
 	<%@ include file="/discount/rules.jspf" %>
 </aui:form>
 
-<c:if test="<%= Objects.equals(target, CommerceDiscountConstants.TARGET_PRODUCT) %>">
+<c:if test="<%= Objects.equals(target, CommerceDiscountConstants.TARGET_PRODUCTS) %>">
 	<%@ include file="/discount/target/products.jspf" %>
 </c:if>
 

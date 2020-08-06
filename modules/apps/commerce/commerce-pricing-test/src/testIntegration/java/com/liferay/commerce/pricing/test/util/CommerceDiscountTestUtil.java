@@ -222,7 +222,7 @@ public class CommerceDiscountTestUtil {
 			_addDiscountCategoryRel(commerceDiscount, targetIds);
 		}
 
-		if (CommerceDiscountConstants.TARGET_PRODUCT.equals(target)) {
+		if (CommerceDiscountConstants.TARGET_PRODUCTS.equals(target)) {
 			_addDiscountProductRel(commerceDiscount, targetIds);
 		}
 	}

@@ -525,7 +525,7 @@ public class CommercePriceModifierLocalServiceImpl
 
 		if (!CommercePriceModifierConstants.TARGET_CATALOG.equals(target) &&
 			!CommercePriceModifierConstants.TARGET_CATEGORIES.equals(target) &&
-			!CommercePriceModifierConstants.TARGET_PRICING_CLASS.equals(
+			!CommercePriceModifierConstants.TARGET_PRODUCT_GROUPS.equals(
 				target) &&
 			!CommercePriceModifierConstants.TARGET_PRODUCTS.equals(target)) {
 

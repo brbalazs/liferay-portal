@@ -216,7 +216,7 @@ public class CommerceDiscountTargetGrossV2Test {
 		CommerceDiscount commerceDiscount =
 			CommerceDiscountTestUtil.addFixedCommerceDiscount(
 				_group.getGroupId(), 10,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition.getCPDefinitionId());
 
 		CommerceDiscountTestUtil.addDiscountCommerceAccountGroupRel(
@@ -324,7 +324,7 @@ public class CommerceDiscountTargetGrossV2Test {
 		CommerceDiscount commerceDiscount =
 			CommerceDiscountTestUtil.addFixedCommerceDiscount(
 				_group.getGroupId(), 10,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition.getCPDefinitionId());
 
 		CommerceContext commerceContext = new TestCommerceContext(
@@ -490,7 +490,7 @@ public class CommerceDiscountTargetGrossV2Test {
 			_group.getGroupId(), category2CPDefinitionIds);
 
 		CommerceDiscountTestUtil.addFixedCommerceDiscount(
-			_group.getGroupId(), 11, CommerceDiscountConstants.TARGET_PRODUCT,
+			_group.getGroupId(), 11, CommerceDiscountConstants.TARGET_PRODUCTS,
 			cpDefinition1.getCPDefinitionId());
 
 		CommerceDiscount commerceDiscount2 =
@@ -775,27 +775,27 @@ public class CommerceDiscountTargetGrossV2Test {
 			CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 				_group.getGroupId(), BigDecimal.valueOf(10),
 				CommerceDiscountConstants.LEVEL_L1,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition1.getCPDefinitionId());
 
 		CommerceDiscount commerceDiscount12 =
 			CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 				_group.getGroupId(), BigDecimal.valueOf(15),
 				CommerceDiscountConstants.LEVEL_L2,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition1.getCPDefinitionId());
 
 		CommerceDiscount commerceDiscount13 =
 			CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 				_group.getGroupId(), BigDecimal.valueOf(20),
 				CommerceDiscountConstants.LEVEL_L3,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition1.getCPDefinitionId());
 
 		CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 			_group.getGroupId(), BigDecimal.valueOf(0),
 			CommerceDiscountConstants.LEVEL_L4,
-			CommerceDiscountConstants.TARGET_PRODUCT,
+			CommerceDiscountConstants.TARGET_PRODUCTS,
 			cpDefinition1.getCPDefinitionId());
 
 		CommerceDiscount commerceDiscount21 =
@@ -1052,7 +1052,7 @@ public class CommerceDiscountTargetGrossV2Test {
 		CommerceDiscount commerceDiscount =
 			CommerceDiscountTestUtil.addCouponDiscount(
 				_group.getGroupId(), 10, couponCode,
-				CommerceDiscountConstants.TARGET_PRODUCT,
+				CommerceDiscountConstants.TARGET_PRODUCTS,
 				cpDefinition.getCPDefinitionId());
 
 		CommerceContext commerceContext = new TestCommerceContext(
@@ -1409,7 +1409,7 @@ public class CommerceDiscountTargetGrossV2Test {
 
 		CommerceDiscountTestUtil.addFixedCommerceDiscount(
 			_group.getGroupId(), discount1.doubleValue(),
-			CommerceDiscountConstants.TARGET_PRODUCT,
+			CommerceDiscountConstants.TARGET_PRODUCTS,
 			cpDefinition.getCPDefinitionId());
 
 		BigDecimal percentage1 = BigDecimal.valueOf(5);
@@ -1417,7 +1417,7 @@ public class CommerceDiscountTargetGrossV2Test {
 		CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 			_group.getGroupId(), percentage1,
 			CommerceDiscountConstants.LEVEL_L1,
-			CommerceDiscountConstants.TARGET_PRODUCT,
+			CommerceDiscountConstants.TARGET_PRODUCTS,
 			cpDefinition.getCPDefinitionId());
 
 		BigDecimal percentage3 = BigDecimal.valueOf(70);
@@ -1425,7 +1425,7 @@ public class CommerceDiscountTargetGrossV2Test {
 		CommerceDiscountTestUtil.addPercentageCommerceDiscount(
 			_group.getGroupId(), percentage3,
 			CommerceDiscountConstants.LEVEL_L3,
-			CommerceDiscountConstants.TARGET_PRODUCT,
+			CommerceDiscountConstants.TARGET_PRODUCTS,
 			cpDefinition.getCPDefinitionId());
 
 		CommerceContext commerceContext = new TestCommerceContext(

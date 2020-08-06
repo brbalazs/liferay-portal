@@ -56,9 +56,21 @@ public class CommerceDiscountConstants {
 
 	public static final String TARGET_CATEGORIES = "categories";
 
-	public static final String TARGET_PRICING_CLASS = "pricing-class";
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public static final String TARGET_PRICING_CLASS = "product-groups";
 
-	public static final String TARGET_PRODUCT = "product";
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public static final String TARGET_PRODUCT = "products";
+
+	public static final String TARGET_PRODUCT_GROUPS = "product-groups";
+
+	public static final String TARGET_PRODUCTS = "products";
 
 	public static final String TARGET_SHIPPING = "shipping";
 

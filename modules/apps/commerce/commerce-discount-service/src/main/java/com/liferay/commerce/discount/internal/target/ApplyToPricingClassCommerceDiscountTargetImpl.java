@@ -48,7 +48,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.discount.target.key=" + CommerceDiscountConstants.TARGET_PRICING_CLASS,
+		"commerce.discount.target.key=" + CommerceDiscountConstants.TARGET_PRODUCT_GROUPS,
 		"commerce.discount.target.order:Integer=10"
 	},
 	service = {
@@ -79,7 +79,7 @@ public class ApplyToPricingClassCommerceDiscountTargetImpl
 
 	@Override
 	public String getKey() {
-		return CommerceDiscountConstants.TARGET_PRICING_CLASS;
+		return CommerceDiscountConstants.TARGET_PRODUCT_GROUPS;
 	}
 
 	@Override

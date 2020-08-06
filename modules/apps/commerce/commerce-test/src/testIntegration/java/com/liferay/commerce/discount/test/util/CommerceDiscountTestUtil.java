@@ -48,7 +48,7 @@ public class CommerceDiscountTestUtil {
 
 		CommerceDiscount commerceDiscount = addPercentageCommerceDiscount(
 			groupId, BigDecimal.valueOf(RandomTestUtil.randomDouble()), level,
-			CommerceDiscountConstants.TARGET_PRODUCT, cpDefinitionId);
+			CommerceDiscountConstants.TARGET_PRODUCTS, cpDefinitionId);
 
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(groupId);
@@ -97,7 +97,7 @@ public class CommerceDiscountTestUtil {
 
 		CommerceDiscount commerceDiscount = addPercentageCommerceDiscount(
 			groupId, BigDecimal.valueOf(RandomTestUtil.randomDouble()), level,
-			CommerceDiscountConstants.TARGET_PRODUCT, cpDefinitionId);
+			CommerceDiscountConstants.TARGET_PRODUCTS, cpDefinitionId);
 
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(groupId);
@@ -117,7 +117,7 @@ public class CommerceDiscountTestUtil {
 
 		CommerceDiscount commerceDiscount = addPercentageCommerceDiscount(
 			groupId, BigDecimal.valueOf(RandomTestUtil.randomDouble()), level,
-			CommerceDiscountConstants.TARGET_PRODUCT, cpDefinitionId);
+			CommerceDiscountConstants.TARGET_PRODUCTS, cpDefinitionId);
 
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(groupId);
@@ -170,7 +170,7 @@ public class CommerceDiscountTestUtil {
 
 		CommerceDiscount commerceDiscount = addPercentageCommerceDiscount(
 			groupId, BigDecimal.valueOf(RandomTestUtil.randomDouble()), level,
-			CommerceDiscountConstants.TARGET_PRODUCT, cpDefinitionId);
+			CommerceDiscountConstants.TARGET_PRODUCTS, cpDefinitionId);
 
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(groupId);
@@ -244,7 +244,7 @@ public class CommerceDiscountTestUtil {
 
 		CommerceDiscount commerceDiscount = addPercentageCommerceDiscount(
 			groupId, BigDecimal.valueOf(RandomTestUtil.randomDouble()), level,
-			CommerceDiscountConstants.TARGET_PRODUCT, cpDefinitionId);
+			CommerceDiscountConstants.TARGET_PRODUCTS, cpDefinitionId);
 
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(groupId);
@@ -471,7 +471,7 @@ public class CommerceDiscountTestUtil {
 			_addDiscountCategoryRel(commerceDiscount, targetIds);
 		}
 
-		if (CommerceDiscountConstants.TARGET_PRODUCT.equals(target)) {
+		if (CommerceDiscountConstants.TARGET_PRODUCTS.equals(target)) {
 			_addDiscountProductRel(commerceDiscount, targetIds);
 		}
 	}

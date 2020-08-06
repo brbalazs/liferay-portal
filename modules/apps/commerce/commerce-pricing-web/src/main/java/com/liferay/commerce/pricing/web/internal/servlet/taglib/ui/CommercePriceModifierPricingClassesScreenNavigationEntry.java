@@ -99,7 +99,7 @@ public class CommercePriceModifierPricingClassesScreenNavigationEntry
 			return false;
 		}
 
-		if (!CommercePriceModifierConstants.TARGET_PRICING_CLASS.equals(
+		if (!CommercePriceModifierConstants.TARGET_PRODUCT_GROUPS.equals(
 				commercePriceModifier.getTarget())) {
 
 			return false;

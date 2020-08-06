@@ -762,7 +762,7 @@ public class CommerceGrossPricingTest {
 
 		CommercePriceModifier commercePriceModifier = _addCommercePriceModifier(
 			commercePriceList1.getGroupId(),
-			CommercePriceModifierConstants.TARGET_PRICING_CLASS,
+			CommercePriceModifierConstants.TARGET_PRODUCT_GROUPS,
 			commercePriceList1.getCommercePriceListId(),
 			CommercePriceModifierConstants.MODIFIER_TYPE_PERCENTAGE,
 			BigDecimal.valueOf(-10), true);

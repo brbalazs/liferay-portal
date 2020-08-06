@@ -549,12 +549,12 @@ public class CommerceDiscountFinderImpl
 				companyId, commerceAccountId, commerceAccountGroupIds,
 				commerceChannelId, qPos);
 
-			qPos.add(CommerceDiscountConstants.TARGET_PRODUCT);
+			qPos.add(CommerceDiscountConstants.TARGET_PRODUCTS);
 			qPos.add(cpDefinitionId);
 			qPos.add(PortalUtil.getClassNameId(CPDefinition.class.getName()));
 			qPos.add(CommerceDiscountConstants.TARGET_CATEGORIES);
 			qPos.add(PortalUtil.getClassNameId(AssetCategory.class.getName()));
-			qPos.add(CommerceDiscountConstants.TARGET_PRICING_CLASS);
+			qPos.add(CommerceDiscountConstants.TARGET_PRODUCT_GROUPS);
 			qPos.add(
 				PortalUtil.getClassNameId(
 					CommercePricingClass.class.getName()));

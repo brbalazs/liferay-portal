@@ -98,7 +98,7 @@ public class CommerceDiscountPricingClassesScreenNavigationEntry
 			return false;
 		}
 
-		if (CommerceDiscountConstants.TARGET_PRICING_CLASS.equals(
+		if (CommerceDiscountConstants.TARGET_PRODUCT_GROUPS.equals(
 				commerceDiscount.getTarget())) {
 
 			return true;

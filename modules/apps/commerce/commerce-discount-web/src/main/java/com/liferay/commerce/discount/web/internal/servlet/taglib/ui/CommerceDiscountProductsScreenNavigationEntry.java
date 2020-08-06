@@ -97,7 +97,7 @@ public class CommerceDiscountProductsScreenNavigationEntry
 			return false;
 		}
 
-		if (CommerceDiscountConstants.TARGET_PRODUCT.equals(
+		if (CommerceDiscountConstants.TARGET_PRODUCTS.equals(
 				commerceDiscount.getTarget())) {
 
 			return true;
