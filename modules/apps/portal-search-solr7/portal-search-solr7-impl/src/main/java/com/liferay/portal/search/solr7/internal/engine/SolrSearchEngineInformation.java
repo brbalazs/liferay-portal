@@ -19,11 +19,13 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.search.engine.ConnectionInformation;
 import com.liferay.portal.search.engine.SearchEngineInformation;
 import com.liferay.portal.search.solr7.configuration.SolrConfiguration;
 import com.liferay.portal.search.solr7.internal.SolrSearchEngine;
 import com.liferay.portal.search.solr7.internal.connection.SolrClientManager;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.lucene.util.Version;
@@ -50,6 +52,11 @@ public class SolrSearchEngineInformation implements SearchEngineInformation {
 	@Override
 	public String getClientVersionString() {
 		return Version.LATEST.toString();
+	}
+
+	@Override
+	public List<ConnectionInformation> getConnectionInformationList() {
+		return null;
 	}
 
 	@Override

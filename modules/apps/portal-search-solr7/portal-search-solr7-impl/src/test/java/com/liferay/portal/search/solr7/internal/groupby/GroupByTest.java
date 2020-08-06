@@ -157,11 +157,10 @@ public class GroupByTest extends BaseGroupByTestCase {
 						orderedResults, hits.getGroupedHits(),
 						indexingTestHelper));
 
-				indexingTestHelper.verifyGroupByResponses(
-					searchContext -> {
+				indexingTestHelper.verifyResponse(
+					searchResponse -> {
 						List<GroupByResponse> groupByResponses =
-							(List<GroupByResponse>)searchContext.getAttribute(
-								"groupByResponses");
+							searchResponse.getGroupByResponses();
 
 						Assert.assertEquals(
 							groupByResponses.toString(), 1,
@@ -210,11 +209,10 @@ public class GroupByTest extends BaseGroupByTestCase {
 						orderedResults, hits.getGroupedHits(),
 						indexingTestHelper));
 
-				indexingTestHelper.verifyGroupByResponses(
-					searchContext -> {
+				indexingTestHelper.verifyResponse(
+					searchResponse -> {
 						List<GroupByResponse> groupByResponses =
-							(List<GroupByResponse>)searchContext.getAttribute(
-								"groupByResponses");
+							searchResponse.getGroupByResponses();
 
 						Assert.assertEquals(
 							groupByResponses.toString(), 1,

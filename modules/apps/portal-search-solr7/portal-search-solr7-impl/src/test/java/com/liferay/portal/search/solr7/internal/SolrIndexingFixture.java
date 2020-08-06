@@ -19,10 +19,12 @@ import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.search.IndexSearcher;
 import com.liferay.portal.kernel.search.IndexWriter;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
+import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.Digester;
 import com.liferay.portal.kernel.util.Localization;
 import com.liferay.portal.kernel.util.Props;
 import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.search.engine.adapter.SearchEngineAdapter;
 import com.liferay.portal.search.internal.groupby.GroupByResponseFactoryImpl;
 import com.liferay.portal.search.internal.legacy.groupby.GroupByRequestFactoryImpl;
 import com.liferay.portal.search.solr7.internal.connection.SolrClientManager;
@@ -86,6 +88,11 @@ public class SolrIndexingFixture implements IndexingFixture {
 	}
 
 	@Override
+	public long getCompanyId() {
+		return _COMPANY_ID;
+	}
+
+	@Override
 	public IndexSearcher getIndexSearcher() {
 		return _indexSearcher;
 	}
@@ -93,6 +100,11 @@ public class SolrIndexingFixture implements IndexingFixture {
 	@Override
 	public IndexWriter getIndexWriter() {
 		return _indexWriter;
+	}
+
+	@Override
+	public SearchEngineAdapter getSearchEngineAdapter() {
+		return _searchEngineAdapter;
 	}
 
 	@Override
@@ -329,11 +341,14 @@ public class SolrIndexingFixture implements IndexingFixture {
 		};
 	}
 
+	private static final long _COMPANY_ID = RandomTestUtil.randomLong();
+
 	private FacetProcessor<SolrQuery> _facetProcessor;
 	private IndexSearcher _indexSearcher;
 	private IndexWriter _indexWriter;
 	private final JSONFactory _jsonFactory = new JSONFactoryImpl();
 	private final Localization _localization = new LocalizationImpl();
 	private final Map<String, Object> _properties;
+	private SearchEngineAdapter _searchEngineAdapter;
 
 }
