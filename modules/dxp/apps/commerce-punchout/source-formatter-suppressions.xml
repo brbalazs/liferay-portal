@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-
-<suppressions>
-	<source-check>
-		<suppress checks="JavaModuleComponentCheck" files="commerce-punchout-api/src/main/java/com/liferay/commerce/punchout/configuration/definition/PunchoutCompanyServiceConfigurationBeanDeclaration\.java" />
-		<suppress checks="JavaModuleComponentCheck" files="commerce-punchout-api/src/main/java/com/liferay/commerce/punchout/configuration/definition/PunchoutCompanyServiceConfigurationPidMapping\.java" />
-	</source-check>
-</suppressions>
