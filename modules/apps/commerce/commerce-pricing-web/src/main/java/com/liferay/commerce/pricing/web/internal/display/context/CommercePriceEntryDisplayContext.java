@@ -30,12 +30,11 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
-import com.liferay.portal.kernel.portlet.PortletProvider;
-import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.ParamUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.portlet.PortletURL;
@@ -117,9 +116,10 @@ public class CommercePriceEntryDisplayContext
 			getClayHeadlessDataSetActionPriceEntriesTemplates()
 		throws PortalException {
 
-		PortletURL portletURL = PortletProviderUtil.getPortletURL(
-			httpServletRequest, CommercePriceList.class.getName(),
-			PortletProvider.Action.EDIT);
+		List<ClayHeadlessDataSetActionTemplate>
+			clayHeadlessDataSetActionTemplates = new ArrayList<>();
+
+		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
 		portletURL.setParameter(
 			"mvcRenderCommandName", "editCommercePriceEntry");
@@ -136,8 +136,20 @@ public class CommercePriceEntryDisplayContext
 			_log.error(wse, wse);
 		}
 
-		return getClayHeadlessDataSetActionTemplates(
-			portletURL.toString(), true);
+		clayHeadlessDataSetActionTemplates.add(
+			new ClayHeadlessDataSetActionTemplate(
+				portletURL.toString(), "pencil", "edit",
+				LanguageUtil.get(httpServletRequest, "edit"), "get", null,
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_SIDE_PANEL));
+
+		clayHeadlessDataSetActionTemplates.add(
+			new ClayHeadlessDataSetActionTemplate(
+				null, "trash", "remove",
+				LanguageUtil.get(httpServletRequest, "remove"), "delete",
+				"delete",
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS));
+
+		return clayHeadlessDataSetActionTemplates;
 	}
 
 	public CommercePriceEntry getCommercePriceEntry() throws PortalException {

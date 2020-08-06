@@ -247,6 +247,9 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 			getClayHeadlessDataSetActionDiscountTemplates()
 		throws PortalException {
 
+		List<ClayHeadlessDataSetActionTemplate>
+			clayHeadlessDataSetActionTemplates = new ArrayList<>();
+
 		PortletURL portletURL = PortletProviderUtil.getPortletURL(
 			httpServletRequest, CommerceDiscount.class.getName(),
 			PortletProvider.Action.MANAGE);
@@ -260,10 +263,18 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 			"screenNavigationCategoryKey",
 			CommerceDiscountScreenNavigationConstants.CATEGORY_KEY_DETAILS);
 
-		List<ClayHeadlessDataSetActionTemplate>
-			clayHeadlessDataSetActionTemplates =
-				getClayHeadlessDataSetActionTemplates(
-					portletURL.toString(), false);
+		clayHeadlessDataSetActionTemplates.add(
+			new ClayHeadlessDataSetActionTemplate(
+				portletURL.toString(), "pencil", "edit",
+				LanguageUtil.get(httpServletRequest, "edit"), "get", null,
+				null));
+
+		clayHeadlessDataSetActionTemplates.add(
+			new ClayHeadlessDataSetActionTemplate(
+				null, "trash", "delete",
+				LanguageUtil.get(httpServletRequest, "delete"), "delete",
+				"delete",
+				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS));
 
 		clayHeadlessDataSetActionTemplates.add(
 			new ClayHeadlessDataSetActionTemplate(
@@ -633,8 +644,8 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 
 		clayHeadlessDataSetActionTemplates.add(
 			new ClayHeadlessDataSetActionTemplate(
-				null, "trash", "delete",
-				LanguageUtil.get(httpServletRequest, "delete"), "delete",
+				null, "trash", "remove",
+				LanguageUtil.get(httpServletRequest, "remove"), "delete",
 				"delete",
 				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS));
 

@@ -90,7 +90,7 @@ public class CommerceDiscountRuleCPDefinitionDataSetActionProvider
 
 			ClayDataSetAction deleteClayDataSetAction = new ClayDataSetAction(
 				StringPool.BLANK, deleteURL.toString(), StringPool.BLANK,
-				LanguageUtil.get(httpServletRequest, Constants.DELETE),
+				LanguageUtil.get(httpServletRequest, Constants.REMOVE),
 				StringPool.BLANK, false, false);
 
 			clayDataSetActions.add(deleteClayDataSetAction);

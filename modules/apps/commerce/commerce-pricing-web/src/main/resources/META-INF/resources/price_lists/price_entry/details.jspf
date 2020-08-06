@@ -17,6 +17,12 @@
 <%
 CommerceCurrency commerceCurrency = commercePriceList.getCommerceCurrency();
 
+String priceInputLabel = "price-list-price";
+
+if (CommercePriceListConstants.TYPE_PROMOTION.equals(commercePriceEntryDisplayContext.getCommercePriceListType(portletName))) {
+	priceInputLabel = "promotion-price";
+}
+
 boolean discountDiscovery = BeanParamUtil.getBoolean(commercePriceEntry, request, "discountDiscovery", true);
 %>
 
@@ -31,7 +37,7 @@ boolean discountDiscovery = BeanParamUtil.getBoolean(commercePriceEntry, request
 		</div>
 
 		<div class="col-4">
-			<aui:input label="price-list-price" name="price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commercePriceEntry.getPrice()) %>">
+			<aui:input label="<%= priceInputLabel %>" name="price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(commercePriceEntry.getPrice()) %>">
 				<aui:validator name="min">0</aui:validator>
 				<aui:validator name="number" />
 			</aui:input>

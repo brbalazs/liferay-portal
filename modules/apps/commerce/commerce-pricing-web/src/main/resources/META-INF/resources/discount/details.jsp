@@ -170,7 +170,7 @@ boolean hasPermission = commerceDiscountDisplayContext.hasPermission(ActionKeys.
 	<%@ include file="/discount/target/categories.jspf" %>
 </c:if>
 
-<c:if test="<%= Objects.equals(target, CommerceDiscountConstants.TARGET_PRICING_CLASS) %>">
+<c:if test="<%= Objects.equals(target, CommerceDiscountConstants.TARGET_PRODUCT_GROUPS) %>">
 	<%@ include file="/discount/target/pricing_classes.jspf" %>
 </c:if>
 

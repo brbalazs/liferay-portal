@@ -21,6 +21,12 @@ CommercePriceEntryDisplayContext commercePriceEntryDisplayContext = (CommercePri
 
 CommercePriceList commercePriceList = commercePriceEntryDisplayContext.getCommercePriceList();
 long commercePriceListId = commercePriceEntryDisplayContext.getCommercePriceListId();
+
+String datasetId = CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_LIST_ENTRIES;
+
+if (CommercePriceListConstants.TYPE_PROMOTION.equals(commercePriceEntryDisplayContext.getCommercePriceListType(portletName))) {
+	datasetId = CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PROMOTION_ENTRIES;
+}
 %>
 
 <c:if test="<%= commercePriceEntryDisplayContext.hasPermission(commercePriceListId, ActionKeys.UPDATE) %>">
@@ -49,8 +55,7 @@ long commercePriceListId = commercePriceEntryDisplayContext.getCommercePriceList
 					return CommercePriceEntriesResource.addPriceEntry(id, priceEntryData)
 						.then(function() {
 							Liferay.fire(events.UPDATE_DATASET_DISPLAY, {
-								id:
-									'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_ENTRIES %>'
+								id: '<%= datasetId %>'
 							});
 						})
 						.catch(function(error) {
@@ -68,9 +73,7 @@ long commercePriceListId = commercePriceEntryDisplayContext.getCommercePriceList
 					getSelectedItems: getSelectedItems,
 					inputPlaceholder: '<%= LanguageUtil.get(request, "find-a-product") %>',
 					itemSelectedMessage: '<%= LanguageUtil.get(request, "product-selected") %>',
-					linkedDatasetsId: [
-						'<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_ENTRIES %>'
-					],
+					linkedDatasetsId: ['<%= datasetId %>' ],
 					itemCreation: false,
 					itemsKey: 'id',
 					onItemSelected: selectItem,
@@ -97,7 +100,7 @@ long commercePriceListId = commercePriceEntryDisplayContext.getCommercePriceList
 					apiUrl="<%= commercePriceEntryDisplayContext.getPriceEntryApiUrl() %>"
 					clayHeadlessDataSetActionTemplates="<%= commercePriceEntryDisplayContext.getClayHeadlessDataSetActionPriceEntriesTemplates() %>"
 					formId="fm"
-					id="<%= CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_ENTRIES %>"
+					id="<%= datasetId %>"
 					itemsPerPage="<%= 10 %>"
 					namespace="<%= renderResponse.getNamespace() %>"
 					pageNumber="<%= 1 %>"

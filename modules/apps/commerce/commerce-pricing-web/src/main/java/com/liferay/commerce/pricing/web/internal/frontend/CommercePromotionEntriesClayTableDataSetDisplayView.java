@@ -31,10 +31,10 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = "commerce.data.set.display.name=" + CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PRICE_LIST_ENTRIES,
+	property = "commerce.data.set.display.name=" + CommercePricingDataSetConstants.COMMERCE_DATA_SET_KEY_PROMOTION_ENTRIES,
 	service = ClayDataSetDisplayView.class
 )
-public class CommercePriceEntryClayTableDataSetDisplayView
+public class CommercePromotionEntriesClayTableDataSetDisplayView
 	extends ClayTableDataSetDisplayView {
 
 	@Override
@@ -54,9 +54,10 @@ public class CommercePriceEntryClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("sku.name", "sku");
 
-		clayTableSchemaBuilder.addField("sku.basePrice", "base-price");
+		clayTableSchemaBuilder.addField(
+			"sku.basePromoPriceFormatted", "base-promotion-price");
 
-		clayTableSchemaBuilder.addField("price", "price-list-price");
+		clayTableSchemaBuilder.addField("priceFormatted", "promotion-price");
 
 		clayTableSchemaBuilder.addField(
 			"discountLevelsFormatted", "unit-discount");
