@@ -16,6 +16,7 @@
 
 <%
 CommercePriceEntry commercePriceEntry = commerceTierPriceEntryDisplayContext.getCommercePriceEntry();
+
 boolean discountDiscovery = BeanParamUtil.getBoolean(commerceTierPriceEntry, request, "discountDiscovery", true);
 %>
 
@@ -23,7 +24,7 @@ boolean discountDiscovery = BeanParamUtil.getBoolean(commerceTierPriceEntry, req
 
 <aui:input label='<%= LanguageUtil.get(request, "quantity") %>' name="minQuantity" />
 
-<aui:input name="tier-price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(price) %>">
+<aui:input label="tier-price" name="price" suffix="<%= HtmlUtil.escape(commerceCurrency.getCode()) %>" type="text" value="<%= commerceCurrency.round(price) %>">
 	<aui:validator name="number" />
 </aui:input>
 
@@ -65,36 +66,38 @@ boolean discountDiscovery = BeanParamUtil.getBoolean(commerceTierPriceEntry, req
 	<aui:input dateTogglerCheckboxLabel="never-expire" disabled="<%= neverExpire %>" formName="fm" name="expirationDate" />
 </aui:fieldset>
 
-<aui:script use="aui-base">
-	A.one('#<portlet:namespace />overrideDiscount').on('change', function(event) {
-		if (this.attr('checked')) {
-			A.one('#<portlet:namespace />discountLevels').show();
+<c:if test="<%= commercePriceEntry.isBulkPricing() %>">
+	<aui:script use="aui-base">
+		A.one('#<portlet:namespace />overrideDiscount').on('change', function(event) {
+			if (this.attr('checked')) {
+				A.one('#<portlet:namespace />discountLevels').show();
 
-			A.one('#<portlet:namespace />discountLevel1').attr('disabled', false);
-			A.one('#<portlet:namespace />discountLevel1').removeClass('disabled');
+				A.one('#<portlet:namespace />discountLevel1').attr('disabled', false);
+				A.one('#<portlet:namespace />discountLevel1').removeClass('disabled');
 
-			A.one('#<portlet:namespace />discountLevel2').attr('disabled', false);
-			A.one('#<portlet:namespace />discountLevel2').removeClass('disabled');
+				A.one('#<portlet:namespace />discountLevel2').attr('disabled', false);
+				A.one('#<portlet:namespace />discountLevel2').removeClass('disabled');
 
-			A.one('#<portlet:namespace />discountLevel3').attr('disabled', false);
-			A.one('#<portlet:namespace />discountLevel3').removeClass('disabled');
+				A.one('#<portlet:namespace />discountLevel3').attr('disabled', false);
+				A.one('#<portlet:namespace />discountLevel3').removeClass('disabled');
 
-			A.one('#<portlet:namespace />discountLevel4').attr('disabled', false);
-			A.one('#<portlet:namespace />discountLevel4').removeClass('disabled');
-		} else {
-			A.one('#<portlet:namespace />discountLevels').hide();
+				A.one('#<portlet:namespace />discountLevel4').attr('disabled', false);
+				A.one('#<portlet:namespace />discountLevel4').removeClass('disabled');
+			} else {
+				A.one('#<portlet:namespace />discountLevels').hide();
 
-			A.one('#<portlet:namespace />discountLevel1').attr('disabled', true);
-			A.one('#<portlet:namespace />discountLevel1').addClass('disabled');
+				A.one('#<portlet:namespace />discountLevel1').attr('disabled', true);
+				A.one('#<portlet:namespace />discountLevel1').addClass('disabled');
 
-			A.one('#<portlet:namespace />discountLevel2').attr('disabled', true);
-			A.one('#<portlet:namespace />discountLevel2').addClass('disabled');
+				A.one('#<portlet:namespace />discountLevel2').attr('disabled', true);
+				A.one('#<portlet:namespace />discountLevel2').addClass('disabled');
 
-			A.one('#<portlet:namespace />discountLevel3').attr('disabled', true);
-			A.one('#<portlet:namespace />discountLevel3').addClass('disabled');
+				A.one('#<portlet:namespace />discountLevel3').attr('disabled', true);
+				A.one('#<portlet:namespace />discountLevel3').addClass('disabled');
 
-			A.one('#<portlet:namespace />discountLevel4').attr('disabled', true);
-			A.one('#<portlet:namespace />discountLevel4').addClass('disabled');
-		}
-	});
-</aui:script>
+				A.one('#<portlet:namespace />discountLevel4').attr('disabled', true);
+				A.one('#<portlet:namespace />discountLevel4').addClass('disabled');
+			}
+		});
+	</aui:script>
+</c:if>
