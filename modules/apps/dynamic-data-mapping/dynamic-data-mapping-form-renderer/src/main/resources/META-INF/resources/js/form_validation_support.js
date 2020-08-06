@@ -63,7 +63,7 @@ AUI.add(
 
 				fields.forEach(
 					function(field) {
-						if (field.get('required') && (!field.get('value') || field.get('value').length == 0)) {
+						if (field.get('required') && (!field.get('value') || field.get('value').length == 0) && field.get('visible')) {
 							field.set('errorMessage', Liferay.Language.get('this-field-is-required'));
 							field.set('valid', false);
 
