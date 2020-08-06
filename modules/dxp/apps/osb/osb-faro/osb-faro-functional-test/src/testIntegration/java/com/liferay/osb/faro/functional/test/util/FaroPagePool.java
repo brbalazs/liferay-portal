@@ -54,6 +54,8 @@ public class FaroPagePool {
 
 	public static final String SEGMENTS = "/contacts/segments";
 
+	public static final String SITE_PAGES = "/sites/pages";
+
 	public static final String SITES = "/sites";
 
 	public static final String TOUCHPOINTS = "/web/analytics/touchpoints";
