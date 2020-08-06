@@ -9613,6 +9613,7 @@ session.cookie.use.full.hostname=true
 				<prepare-edge-driver />
 
 				<echo append="true" file="${test.ext.properties.file}">
+					selenium.edge.driver.executable=${selenium.edge.driver.executable}
 					selenium.executable.dir.name=${selenium.executable.dir.name}
 				</echo>
 			</then>
