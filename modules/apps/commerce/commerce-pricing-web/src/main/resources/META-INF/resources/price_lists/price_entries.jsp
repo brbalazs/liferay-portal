@@ -73,7 +73,7 @@ if (CommercePriceListConstants.TYPE_PROMOTION.equals(commercePriceEntryDisplayCo
 					getSelectedItems: getSelectedItems,
 					inputPlaceholder: '<%= LanguageUtil.get(request, "find-a-product") %>',
 					itemSelectedMessage: '<%= LanguageUtil.get(request, "product-selected") %>',
-					linkedDatasetsId: ['<%= datasetId %>' ],
+					linkedDatasetsId: ['<%= datasetId %>'],
 					itemCreation: false,
 					itemsKey: 'id',
 					onItemSelected: selectItem,
