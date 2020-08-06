@@ -54,9 +54,9 @@ public class CommercePriceEntryClayTableDataSetDisplayView
 
 		clayTableSchemaBuilder.addField("sku.name", "sku");
 
-		clayTableSchemaBuilder.addField("sku.basePrice", "base-price");
+		clayTableSchemaBuilder.addField("sku.basePriceFormatted", "base-price");
 
-		clayTableSchemaBuilder.addField("price", "price-list-price");
+		clayTableSchemaBuilder.addField("priceFormatted", "price-list-price");
 
 		clayTableSchemaBuilder.addField(
 			"discountLevelsFormatted", "unit-discount");
