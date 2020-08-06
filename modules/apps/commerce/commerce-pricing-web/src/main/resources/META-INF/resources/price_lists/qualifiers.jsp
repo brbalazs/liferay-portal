@@ -33,6 +33,8 @@ boolean hasPermission = commercePriceListQualifiersDisplayContext.hasPermission(
 <aui:form action="<%= editCommercePriceListQualifiersActionURL %>" cssClass="pt-4" method="post" name="fm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (commercePriceList == null) ? Constants.ADD : Constants.UPDATE %>" />
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+	<aui:input name="accountQualifiers" type="hidden" value="<%= accountQualifiers %>" />
+	<aui:input name="channelQualifiers" type="hidden" value="<%= channelQualifiers %>" />
 	<aui:input name="commercePriceListId" type="hidden" value="<%= commercePriceListId %>" />
 	<aui:input name="externalReferenceCode" type="hidden" value="<%= commercePriceList.getExternalReferenceCode() %>" />
 	<aui:input name="workflowAction" type="hidden" value="<%= String.valueOf(WorkflowConstants.ACTION_SAVE_DRAFT) %>" />
