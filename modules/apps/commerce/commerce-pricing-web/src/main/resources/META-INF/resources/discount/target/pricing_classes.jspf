@@ -97,7 +97,6 @@ itemFinder.default('itemFinder', 'item-finder-root', {
 					namespace="<%= renderResponse.getNamespace() %>"
 					pageNumber="<%= 1 %>"
 					portletURL="<%= portletDiscountRuleURL %>"
-					style="stacked"
 				/>
 			</commerce-ui:panel>
 		</div>

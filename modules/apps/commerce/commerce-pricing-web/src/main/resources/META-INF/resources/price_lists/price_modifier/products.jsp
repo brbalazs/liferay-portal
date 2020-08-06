@@ -107,7 +107,6 @@ long commercePriceModifierId = commercePriceListDisplayContext.getCommercePriceM
 					namespace="<%= renderResponse.getNamespace() %>"
 					pageNumber="<%= 1 %>"
 					portletURL="<%= currentURLObj %>"
-					style="stacked"
 				/>
 			</commerce-ui:panel>
 		</div>

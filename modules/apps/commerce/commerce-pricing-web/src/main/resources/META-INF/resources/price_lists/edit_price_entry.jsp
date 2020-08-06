@@ -86,7 +86,6 @@ if ((commercePriceEntry != null) && (commercePriceEntry.getExpirationDate() != n
 						portletURL="<%= currentURLObj %>"
 						showManagementBar="<%= true %>"
 						showSearch="<%= false %>"
-						style="stacked"
 					/>
 				</commerce-ui:panel>
 			</div>
