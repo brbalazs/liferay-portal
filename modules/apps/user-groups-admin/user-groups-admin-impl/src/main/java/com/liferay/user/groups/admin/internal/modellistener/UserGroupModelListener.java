@@ -70,8 +70,8 @@ public class UserGroupModelListener extends BaseModelListener<UserGroup> {
 		}
 	}
 
-	public void unsubscribeDeletedGroupFromSite(
-		long groupId, long userGroupId) {
+	public void unsubscribeDeletedGroupFromSite(long groupId, long userGroupId)
+		throws PortalException {
 
 		long[] userIds = _userGroupLocalService.getUserPrimaryKeys(userGroupId);
 		long[] groupIds = {groupId};
@@ -80,7 +80,8 @@ public class UserGroupModelListener extends BaseModelListener<UserGroup> {
 	}
 
 	public void unsubscribeDeletedGroupMemberFromSite(
-		long userId, long userGroupId) {
+			long userId, long userGroupId)
+		throws PortalException {
 
 		long[] groupIds = _userGroupLocalService.getGroupPrimaryKeys(
 			userGroupId);
@@ -90,7 +91,8 @@ public class UserGroupModelListener extends BaseModelListener<UserGroup> {
 	}
 
 	public void unsubscribeUserFromSite(
-		long userGroupId, long[] userIds, long[] groupIds) {
+			long userGroupId, long[] userIds, long[] groupIds)
+		throws PortalException {
 
 		for (long userId : userIds) {
 			Map<Long, long[]> userGroupGroupIds = new HashMap<>();
@@ -132,14 +134,7 @@ public class UserGroupModelListener extends BaseModelListener<UserGroup> {
 						x -> x == userId
 					)) {
 
-					try {
-						_blogsEntryLocalService.unsubscribe(userId, groupId);
-					}
-					catch (PortalException portalException) {
-						_log.error(
-							"Unsubscribe user from site failed:" +
-								userId);
-					}
+					_blogsEntryLocalService.unsubscribe(userId, groupId);
 				}
 			}
 		}
