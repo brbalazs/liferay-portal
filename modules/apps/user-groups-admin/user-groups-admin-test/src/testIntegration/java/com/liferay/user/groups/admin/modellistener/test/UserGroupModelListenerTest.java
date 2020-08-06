@@ -54,6 +54,7 @@ public class UserGroupModelListenerTest {
 	@Before
 	public void setUp() throws Exception {
 		_group = GroupTestUtil.addGroup();
+		addLayouts(false, false);
 	}
 
 	@After
@@ -80,7 +81,6 @@ public class UserGroupModelListenerTest {
 			SubscriptionLocalServiceUtil.isSubscribed(
 				_group.getCompanyId(), _userId, BlogsEntry.class.getName(),
 				_group.getGroupId()));
-		System.out.println("9");
 	}
 
 	@Test
