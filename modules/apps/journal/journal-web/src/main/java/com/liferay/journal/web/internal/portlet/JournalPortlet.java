@@ -1424,6 +1424,8 @@ public class JournalPortlet extends MVCPortlet {
 			}
 		}
 
+		WindowState windowState = actionRequest.getWindowState();
+
 		if ((actionName.equals("deleteArticle") ||
 			 actionName.equals("deleteArticles")) &&
 			!ActionUtil.hasArticle(actionRequest)) {
@@ -1431,10 +1433,20 @@ public class JournalPortlet extends MVCPortlet {
 			ThemeDisplay themeDisplay =
 				(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-			redirect = String.valueOf(
-				PortletURLFactoryUtil.create(
-					actionRequest, themeDisplay.getPpid(),
-					PortletRequest.RENDER_PHASE));
+			PortletURL portletURL = PortletURLFactoryUtil.create(
+				actionRequest, themeDisplay.getPpid(),
+				PortletRequest.RENDER_PHASE);
+
+			if (windowState.equals(LiferayWindowState.POP_UP)) {
+				portletURL.setParameter(
+					"referringPortletResource",
+					actionRequest.getParameter("referringPortletResource"));
+				portletURL.setParameter(
+					"mvcPath", "/close_view_article_history_redirect.jsp");
+				portletURL.setWindowState(LiferayWindowState.POP_UP);
+			}
+
+			redirect = portletURL.toString();
 		}
 
 		if ((article != null) &&
@@ -1449,22 +1461,18 @@ public class JournalPortlet extends MVCPortlet {
 				hideDefaultSuccessMessage(actionRequest);
 			}
 		}
-		else {
-			WindowState windowState = actionRequest.getWindowState();
+		else if (windowState.equals(LiferayWindowState.POP_UP)) {
+			redirect = _portal.escapeRedirect(redirect);
 
-			if (windowState.equals(LiferayWindowState.POP_UP)) {
-				redirect = _portal.escapeRedirect(redirect);
+			if (Validator.isNotNull(redirect) &&
+				actionName.equals("addArticle") && (article != null)) {
 
-				if (Validator.isNotNull(redirect) &&
-					actionName.equals("addArticle") && (article != null)) {
-
-					redirect = _http.addParameter(
-						redirect, namespace + "className",
-						JournalArticle.class.getName());
-					redirect = _http.addParameter(
-						redirect, namespace + "classPK",
-						JournalArticleAssetRenderer.getClassPK(article));
-				}
+				redirect = _http.addParameter(
+					redirect, namespace + "className",
+					JournalArticle.class.getName());
+				redirect = _http.addParameter(
+					redirect, namespace + "classPK",
+					JournalArticleAssetRenderer.getClassPK(article));
 			}
 		}
 
