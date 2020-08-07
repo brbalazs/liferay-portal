@@ -27,6 +27,12 @@ public class CommercePriceModifierUpgradeProcess
 		runSQL(
 			"update CommercePriceModifier set target = 'product-groups' " +
 				"where target = 'pricing-classes'");
+		runSQL(
+			"update CommercePriceModifier set modifierType = 'fixed-amount' " +
+				"where modifierType = 'absolute'");
+		runSQL(
+			"update CommercePriceModifier set modifierType = 'replace' where " +
+				"modifierType = 'override'");
 	}
 
 }
