@@ -122,8 +122,8 @@ public class CommerceDiscountQualifiersDisplayContext
 
 		clayHeadlessDataSetActionTemplates.add(
 			new ClayHeadlessDataSetActionTemplate(
-				null, "trash", "delete",
-				LanguageUtil.get(httpServletRequest, "delete"), "delete",
+				null, "trash", "remove",
+				LanguageUtil.get(httpServletRequest, "remove"), "delete",
 				"delete",
 				ClayMenuActionItem.CLAY_MENU_ACTION_ITEM_TARGET_HEADLESS));
 
