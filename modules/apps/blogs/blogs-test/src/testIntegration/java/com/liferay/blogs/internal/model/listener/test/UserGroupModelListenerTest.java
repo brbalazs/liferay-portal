@@ -54,7 +54,7 @@ public class UserGroupModelListenerTest {
 	@Before
 	public void setUp() throws Exception {
 		_group = GroupTestUtil.addGroup();
-		addLayouts(false, false);
+		addLayouts(false);
 	}
 
 	@After
@@ -73,7 +73,7 @@ public class UserGroupModelListenerTest {
 		addUserGroups();
 		UserGroupLocalServiceUtil.addUserUserGroup(_userId, _userGroupIds[0]);
 		GroupLocalServiceUtil.addUserGroupGroup(_userGroupIds[0], _group);
-		addLayouts(true, false);
+		addLayouts(true);
 		BlogsEntryLocalServiceUtil.subscribe(_userId, _group.getGroupId());
 		GroupLocalServiceUtil.deleteUserGroupGroup(
 			_userGroupIds[0], _group.getGroupId());
@@ -98,7 +98,7 @@ public class UserGroupModelListenerTest {
 
 		GroupLocalServiceUtil.addUserGroupGroup(_userGroupIds[1], _group);
 
-		addLayouts(true, false);
+		addLayouts(true);
 
 		BlogsEntryLocalServiceUtil.subscribe(_userId, _group.getGroupId());
 
@@ -124,7 +124,7 @@ public class UserGroupModelListenerTest {
 
 		GroupLocalServiceUtil.addUserGroupGroup(_userGroupIds[0], _group);
 
-		addLayouts(true, false);
+		addLayouts(true);
 
 		BlogsEntryLocalServiceUtil.subscribe(_userId, _group.getGroupId());
 
@@ -148,7 +148,7 @@ public class UserGroupModelListenerTest {
 
 		GroupLocalServiceUtil.addUserGroupGroup(_userGroupIds[0], _group);
 
-		addLayouts(true, false);
+		addLayouts(true);
 
 		BlogsEntryLocalServiceUtil.subscribe(_userId, _group.getGroupId());
 
@@ -176,7 +176,7 @@ public class UserGroupModelListenerTest {
 
 		GroupLocalServiceUtil.addUserGroupGroup(_userGroupIds[1], _group);
 
-		addLayouts(true, false);
+		addLayouts(true);
 
 		BlogsEntryLocalServiceUtil.subscribe(_userId, _group.getGroupId());
 
@@ -202,7 +202,7 @@ public class UserGroupModelListenerTest {
 
 		GroupLocalServiceUtil.addUserGroupGroup(_userGroupIds[0], _group);
 
-		addLayouts(true, false);
+		addLayouts(true);
 
 		BlogsEntryLocalServiceUtil.subscribe(_userId, _group.getGroupId());
 
@@ -215,10 +215,7 @@ public class UserGroupModelListenerTest {
 				_group.getGroupId()));
 	}
 
-	protected void addLayouts(
-			boolean portletExists, boolean blogEntryWithDifferentGroup)
-		throws Exception {
-
+	protected void addLayouts(boolean portletExists) throws Exception {
 		_blogLayout = LayoutTestUtil.addLayout(_group);
 		_assetLayout = LayoutTestUtil.addLayout(_group);
 
