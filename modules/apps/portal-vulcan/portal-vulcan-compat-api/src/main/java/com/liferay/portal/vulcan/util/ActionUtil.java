@@ -159,21 +159,13 @@ public class ActionUtil {
 			}
 		}
 
-		List<String> matchedURIs = uriInfo.getMatchedURIs();
-
-		String version = "";
-
-		if (!matchedURIs.isEmpty()) {
-			version = matchedURIs.get(matchedURIs.size() - 1);
-		}
-
 		return HashMapBuilder.put(
 			"href",
 			() -> {
 				UriBuilder uriBuilder = uriInfo.getBaseUriBuilder();
 
 				return uriBuilder.path(
-					version
+					_getVersion(uriInfo)
 				).path(
 					clazz.getSuperclass(), methodName
 				).toTemplate();
@@ -212,6 +204,18 @@ public class ActionUtil {
 		}
 
 		return null;
+	}
+
+	private static String _getVersion(UriInfo uriInfo) {
+		String version = "";
+
+		List<String> matchedURIs = uriInfo.getMatchedURIs();
+
+		if (!matchedURIs.isEmpty()) {
+			version = matchedURIs.get(matchedURIs.size() - 1);
+		}
+
+		return version;
 	}
 
 	private static boolean _hasPermission(
