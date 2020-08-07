@@ -34,12 +34,12 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.price.modifier.type.key=" + CommercePriceModifierConstants.MODIFIER_TYPE_ABSOLUTE,
+		"commerce.price.modifier.type.key=" + CommercePriceModifierConstants.MODIFIER_TYPE_FIXED_AMOUNT,
 		"commerce.price.modifier.type.order:Integer=20"
 	},
 	service = CommercePriceModifierType.class
 )
-public class AbsoluteCommercePriceModifierTypeImpl
+public class FixedAmountCommercePriceModifierTypeImpl
 	implements CommercePriceModifierType {
 
 	@Override
@@ -61,7 +61,7 @@ public class AbsoluteCommercePriceModifierTypeImpl
 
 	@Override
 	public String getKey() {
-		return CommercePriceModifierConstants.MODIFIER_TYPE_ABSOLUTE;
+		return CommercePriceModifierConstants.MODIFIER_TYPE_FIXED_AMOUNT;
 	}
 
 	@Override
@@ -69,7 +69,9 @@ public class AbsoluteCommercePriceModifierTypeImpl
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
-		return LanguageUtil.get(resourceBundle, "absolute");
+		return LanguageUtil.get(
+			resourceBundle,
+			CommercePriceModifierConstants.MODIFIER_TYPE_FIXED_AMOUNT);
 	}
 
 }

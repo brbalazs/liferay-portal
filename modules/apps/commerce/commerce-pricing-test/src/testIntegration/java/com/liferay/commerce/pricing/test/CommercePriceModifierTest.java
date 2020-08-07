@@ -160,8 +160,8 @@ public class CommercePriceModifierTest {
 				catalog.getGroupId(),
 				CommercePriceModifierConstants.TARGET_PRODUCT_GROUPS,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierConstants.MODIFIER_TYPE_ABSOLUTE, amount,
-				true);
+				CommercePriceModifierConstants.MODIFIER_TYPE_FIXED_AMOUNT,
+				amount, true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(
 			commercePriceModifier.getGroupId(),
@@ -373,7 +373,7 @@ public class CommercePriceModifierTest {
 				catalog.getGroupId(),
 				CommercePriceModifierConstants.TARGET_PRODUCTS,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+				CommercePriceModifierConstants.MODIFIER_TYPE_REPLACE, amount,
 				true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(

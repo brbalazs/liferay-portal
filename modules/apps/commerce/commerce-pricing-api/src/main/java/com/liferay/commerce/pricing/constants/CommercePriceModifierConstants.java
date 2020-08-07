@@ -20,11 +20,23 @@ package com.liferay.commerce.pricing.constants;
  */
 public class CommercePriceModifierConstants {
 
-	public static final String MODIFIER_TYPE_ABSOLUTE = "absolute";
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public static final String MODIFIER_TYPE_ABSOLUTE = "fixed-amount";
 
-	public static final String MODIFIER_TYPE_OVERRIDE = "override";
+	public static final String MODIFIER_TYPE_FIXED_AMOUNT = "fixed-amount";
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public static final String MODIFIER_TYPE_OVERRIDE = "replace";
 
 	public static final String MODIFIER_TYPE_PERCENTAGE = "percentage";
+
+	public static final String MODIFIER_TYPE_REPLACE = "replace";
 
 	public static final String TARGET_CATALOG = "catalog";
 

@@ -1081,7 +1081,7 @@ public class CommerceProductPriceCalculationV2Test {
 			commercePriceList.getGroupId(),
 			CommercePriceModifierConstants.TARGET_PRODUCTS,
 			commercePriceList.getCommercePriceListId(),
-			CommercePriceModifierConstants.MODIFIER_TYPE_ABSOLUTE,
+			CommercePriceModifierConstants.MODIFIER_TYPE_FIXED_AMOUNT,
 			modifierAmount, true);
 
 		_commercePriceModifierRelLocalService.addCommercePriceModifierRel(

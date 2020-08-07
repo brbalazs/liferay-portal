@@ -34,12 +34,12 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	immediate = true,
 	property = {
-		"commerce.price.modifier.type.key=" + CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE,
+		"commerce.price.modifier.type.key=" + CommercePriceModifierConstants.MODIFIER_TYPE_REPLACE,
 		"commerce.price.modifier.type.order:Integer=20"
 	},
 	service = CommercePriceModifierType.class
 )
-public class OverrideCommercePriceModifierTypeImpl
+public class ReplaceCommercePriceModifierTypeImpl
 	implements CommercePriceModifierType {
 
 	@Override
@@ -61,7 +61,7 @@ public class OverrideCommercePriceModifierTypeImpl
 
 	@Override
 	public String getKey() {
-		return CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE;
+		return CommercePriceModifierConstants.MODIFIER_TYPE_REPLACE;
 	}
 
 	@Override
@@ -69,7 +69,9 @@ public class OverrideCommercePriceModifierTypeImpl
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
-		return LanguageUtil.get(resourceBundle, "override");
+		return LanguageUtil.get(
+			resourceBundle,
+			CommercePriceModifierConstants.MODIFIER_TYPE_REPLACE);
 	}
 
 }

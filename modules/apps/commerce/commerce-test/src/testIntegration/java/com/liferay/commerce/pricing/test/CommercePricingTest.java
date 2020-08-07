@@ -459,7 +459,7 @@ public class CommercePricingTest {
 				commercePriceList1.getGroupId(),
 				CommercePriceModifierConstants.TARGET_CATEGORIES,
 				commercePriceList1.getCommercePriceListId(),
-				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE,
+				CommercePriceModifierConstants.MODIFIER_TYPE_REPLACE,
 				BigDecimal.valueOf(19), true);
 
 		_commercePriceModifierRelLocalService.addCommercePriceModifierRel(
@@ -536,7 +536,7 @@ public class CommercePricingTest {
 			commercePriceList1.getGroupId(),
 			CommercePriceModifierConstants.TARGET_PRODUCTS,
 			commercePriceList1.getCommercePriceListId(),
-			CommercePriceModifierConstants.MODIFIER_TYPE_ABSOLUTE,
+			CommercePriceModifierConstants.MODIFIER_TYPE_FIXED_AMOUNT,
 			BigDecimal.valueOf(-10), true);
 
 		_commercePriceModifierRelLocalService.addCommercePriceModifierRel(

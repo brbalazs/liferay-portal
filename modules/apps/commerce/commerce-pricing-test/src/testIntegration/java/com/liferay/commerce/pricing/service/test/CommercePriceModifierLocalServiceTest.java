@@ -129,7 +129,7 @@ public class CommercePriceModifierLocalServiceTest {
 				catalog.getGroupId(),
 				CommercePriceModifierConstants.TARGET_CATEGORIES,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+				CommercePriceModifierConstants.MODIFIER_TYPE_REPLACE, amount,
 				true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(
@@ -222,8 +222,7 @@ public class CommercePriceModifierLocalServiceTest {
 		CommercePriceModifierTestUtil.addCommercePriceModifier(
 			catalog.getGroupId(), RandomTestUtil.randomString(),
 			commercePriceList.getCommercePriceListId(),
-			CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
-			true);
+			CommercePriceModifierConstants.MODIFIER_TYPE_REPLACE, amount, true);
 	}
 
 	@Test(expected = CommercePriceModifierTypeException.class)
@@ -284,7 +283,7 @@ public class CommercePriceModifierLocalServiceTest {
 			CommercePriceModifierTestUtil.addCommercePriceModifier(
 				catalog.getGroupId(),
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+				CommercePriceModifierConstants.MODIFIER_TYPE_REPLACE, amount,
 				true);
 
 		List<CommercePriceModifier> commercePriceModifiers =
@@ -331,8 +330,7 @@ public class CommercePriceModifierLocalServiceTest {
 			catalog.getGroupId(), null,
 			CommercePriceModifierConstants.TARGET_PRODUCTS,
 			commercePriceList.getCommercePriceListId(),
-			CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
-			true);
+			CommercePriceModifierConstants.MODIFIER_TYPE_REPLACE, amount, true);
 	}
 
 	@Test
@@ -382,7 +380,7 @@ public class CommercePriceModifierLocalServiceTest {
 				catalog.getGroupId(),
 				CommercePriceModifierConstants.TARGET_PRODUCT_GROUPS,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+				CommercePriceModifierConstants.MODIFIER_TYPE_REPLACE, amount,
 				true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(
@@ -469,7 +467,7 @@ public class CommercePriceModifierLocalServiceTest {
 				catalog.getGroupId(),
 				CommercePriceModifierConstants.TARGET_PRODUCTS,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+				CommercePriceModifierConstants.MODIFIER_TYPE_REPLACE, amount,
 				true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(
@@ -541,7 +539,7 @@ public class CommercePriceModifierLocalServiceTest {
 				catalog.getGroupId(),
 				CommercePriceModifierConstants.TARGET_PRODUCTS,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+				CommercePriceModifierConstants.MODIFIER_TYPE_REPLACE, amount,
 				true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(
@@ -610,7 +608,7 @@ public class CommercePriceModifierLocalServiceTest {
 				catalog.getGroupId(),
 				CommercePriceModifierConstants.TARGET_PRODUCTS,
 				commercePriceList.getCommercePriceListId(),
-				CommercePriceModifierConstants.MODIFIER_TYPE_OVERRIDE, amount,
+				CommercePriceModifierConstants.MODIFIER_TYPE_REPLACE, amount,
 				true);
 
 		CommercePriceModifierTestUtil.addCommercePriceModifierRel(
