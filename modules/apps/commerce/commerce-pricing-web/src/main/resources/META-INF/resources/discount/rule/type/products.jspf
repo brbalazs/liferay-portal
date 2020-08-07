@@ -100,7 +100,7 @@ String typeSettings = unicodeProperties.getProperty(commerceDiscountRule.getType
 					fieldName: ['name', 'LANG']
 				},
 				{
-					fieldName: 'productId'
+					fieldName: 'skuFormatted'
 				},
 				{
 					fieldName: ['catalog', 'name']
