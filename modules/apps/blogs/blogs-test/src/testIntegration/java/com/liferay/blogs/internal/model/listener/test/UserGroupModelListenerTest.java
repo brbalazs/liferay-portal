@@ -16,259 +16,204 @@ package com.liferay.blogs.internal.model.listener.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.blogs.model.BlogsEntry;
-import com.liferay.blogs.service.BlogsEntryLocalServiceUtil;
-import com.liferay.layout.test.util.LayoutTestUtil;
+import com.liferay.blogs.service.BlogsEntryLocalService;
 import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserGroup;
-import com.liferay.portal.kernel.portlet.PortletIdCodec;
-import com.liferay.portal.kernel.portlet.PortletProvider;
-import com.liferay.portal.kernel.portlet.PortletProviderUtil;
-import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
-import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
-import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
-import com.liferay.portal.kernel.service.UserGroupLocalServiceUtil;
-import com.liferay.portal.kernel.service.UserLocalServiceUtil;
-import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
+import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.UserGroupLocalService;
+import com.liferay.portal.kernel.test.rule.AggregateTestRule;
+import com.liferay.portal.kernel.test.rule.DataGuard;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.UserGroupTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
-import com.liferay.portal.kernel.util.HashMapBuilder;
-import com.liferay.subscription.service.SubscriptionLocalServiceUtil;
+import com.liferay.portal.test.rule.Inject;
+import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
+import com.liferay.subscription.service.SubscriptionLocalService;
 
-import java.util.Map;
-
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
  * @author Marcell Gyöpös
  */
+@DataGuard(scope = DataGuard.Scope.METHOD)
 @RunWith(Arquillian.class)
 public class UserGroupModelListenerTest {
+
+	@ClassRule
+	@Rule
+	public static final AggregateTestRule aggregateTestRule =
+		new LiferayIntegrationTestRule();
 
 	@Before
 	public void setUp() throws Exception {
 		_group = GroupTestUtil.addGroup();
-		addLayouts(false);
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		UserLocalServiceUtil.deleteUser(_userId);
-		UserGroupLocalServiceUtil.deleteUserGroup(_userGroupIds[0]);
-		UserGroupLocalServiceUtil.deleteUserGroup(_userGroupIds[1]);
-		_userGroupIds = new long[2];
 	}
 
 	@Test
-	public void testDeleteUserGroupFromSiteWhenUserDoesntHaveAnotherGroupAndDirectMembership()
+	public void testRemoveUserFromUserGroupWhenUserHasSiteMembershipFromOtherGroups()
 		throws Exception {
 
-		addUsers();
-		addUserGroups();
-		UserGroupLocalServiceUtil.addUserUserGroup(_userId, _userGroupIds[0]);
-		GroupLocalServiceUtil.addUserGroupGroup(_userGroupIds[0], _group);
-		addLayouts(true);
-		BlogsEntryLocalServiceUtil.subscribe(_userId, _group.getGroupId());
-		GroupLocalServiceUtil.deleteUserGroupGroup(
-			_userGroupIds[0], _group.getGroupId());
-		Assert.assertFalse(
-			SubscriptionLocalServiceUtil.isSubscribed(
-				_group.getCompanyId(), _userId, BlogsEntry.class.getName(),
-				_group.getGroupId()));
-	}
+		UserGroup userGroup1 = _addGroupUserGroup(_group.getGroupId());
+		UserGroup userGroup2 = _addGroupUserGroup(_group.getGroupId());
 
-	@Test
-	public void testDeleteUserGroupFromSiteWhenUserHasAnotherGroup()
-		throws Exception {
+		User user = _addUserGroupUser(
+			userGroup1.getUserGroupId(), userGroup2.getUserGroupId());
 
-		addUsers();
-		addUserGroups();
+		_blogsEntryLocalService.subscribe(
+			user.getUserId(), _group.getGroupId());
 
-		UserGroupLocalServiceUtil.addUserUserGroup(_userId, _userGroupIds[0]);
-
-		UserGroupLocalServiceUtil.addUserUserGroup(_userId, _userGroupIds[1]);
-
-		GroupLocalServiceUtil.addUserGroupGroup(_userGroupIds[0], _group);
-
-		GroupLocalServiceUtil.addUserGroupGroup(_userGroupIds[1], _group);
-
-		addLayouts(true);
-
-		BlogsEntryLocalServiceUtil.subscribe(_userId, _group.getGroupId());
-
-		GroupLocalServiceUtil.deleteUserGroupGroup(
-			_userGroupIds[0], _group.getGroupId());
+		_userGroupLocalService.deleteUserUserGroup(
+			user.getUserId(), userGroup1.getUserGroupId());
 
 		Assert.assertTrue(
-			SubscriptionLocalServiceUtil.isSubscribed(
-				_group.getCompanyId(), _userId, BlogsEntry.class.getName(),
-				_group.getGroupId()));
+			_subscriptionLocalService.isSubscribed(
+				_group.getCompanyId(), user.getUserId(),
+				BlogsEntry.class.getName(), _group.getGroupId()));
 	}
 
 	@Test
-	public void testDeleteUserGroupFromSiteWhenUserHasDirectMembership()
+	public void testRemoveUserFromUserGroupWhenUserLostSiteMembership()
 		throws Exception {
 
-		addUsers();
-		addUserGroups();
+		UserGroup userGroup = _addGroupUserGroup(_group.getGroupId());
 
-		UserGroupLocalServiceUtil.addUserUserGroup(_userId, _userGroupIds[0]);
+		User user = _addUserGroupUser(userGroup.getUserGroupId());
 
-		GroupLocalServiceUtil.addUserGroup(_userId, _group);
+		_blogsEntryLocalService.subscribe(
+			user.getUserId(), _group.getGroupId());
 
-		GroupLocalServiceUtil.addUserGroupGroup(_userGroupIds[0], _group);
-
-		addLayouts(true);
-
-		BlogsEntryLocalServiceUtil.subscribe(_userId, _group.getGroupId());
-
-		GroupLocalServiceUtil.deleteUserGroupGroup(
-			_userGroupIds[0], _group.getGroupId());
-
-		Assert.assertTrue(
-			SubscriptionLocalServiceUtil.isSubscribed(
-				_group.getCompanyId(), _userId, BlogsEntry.class.getName(),
-				_group.getGroupId()));
-	}
-
-	@Test
-	public void testDeleteUsersFromGroupWhenUserDoesntHaveAnotherGroupAndDirectMembership()
-		throws Exception {
-
-		addUsers();
-		addUserGroups();
-
-		UserGroupLocalServiceUtil.addUserUserGroup(_userId, _userGroupIds[0]);
-
-		GroupLocalServiceUtil.addUserGroupGroup(_userGroupIds[0], _group);
-
-		addLayouts(true);
-
-		BlogsEntryLocalServiceUtil.subscribe(_userId, _group.getGroupId());
-
-		UserGroupLocalServiceUtil.deleteUserUserGroup(
-			_userId, _userGroupIds[0]);
+		_userGroupLocalService.deleteUserUserGroup(
+			user.getUserId(), userGroup.getUserGroupId());
 
 		Assert.assertFalse(
-			SubscriptionLocalServiceUtil.isSubscribed(
-				_group.getCompanyId(), _userId, BlogsEntry.class.getName(),
-				_group.getGroupId()));
+			_subscriptionLocalService.isSubscribed(
+				_group.getCompanyId(), user.getUserId(),
+				BlogsEntry.class.getName(), _group.getGroupId()));
 	}
 
 	@Test
-	public void testDeleteUsersFromGroupWhenUserHasAnotherGroup()
+	public void testRemoveUserGroupFromSiteWhenUserHasDirectSiteMembership()
 		throws Exception {
 
-		addUsers();
-		addUserGroups();
+		UserGroup userGroup = _addGroupUserGroup(_group.getGroupId());
 
-		UserGroupLocalServiceUtil.addUserUserGroup(_userId, _userGroupIds[0]);
+		User user = _addUserGroupUser(userGroup.getUserGroupId());
 
-		UserGroupLocalServiceUtil.addUserUserGroup(_userId, _userGroupIds[1]);
+		_groupLocalService.addUserGroup(user.getUserId(), _group);
 
-		GroupLocalServiceUtil.addUserGroupGroup(_userGroupIds[0], _group);
+		_blogsEntryLocalService.subscribe(
+			user.getUserId(), _group.getGroupId());
 
-		GroupLocalServiceUtil.addUserGroupGroup(_userGroupIds[1], _group);
-
-		addLayouts(true);
-
-		BlogsEntryLocalServiceUtil.subscribe(_userId, _group.getGroupId());
-
-		UserGroupLocalServiceUtil.deleteUserUserGroup(
-			_userId, _userGroupIds[0]);
+		_groupLocalService.deleteUserGroupGroup(
+			userGroup.getUserGroupId(), _group.getGroupId());
 
 		Assert.assertTrue(
-			SubscriptionLocalServiceUtil.isSubscribed(
-				_group.getCompanyId(), _userId, BlogsEntry.class.getName(),
-				_group.getGroupId()));
+			_subscriptionLocalService.isSubscribed(
+				_group.getCompanyId(), user.getUserId(),
+				BlogsEntry.class.getName(), _group.getGroupId()));
 	}
 
 	@Test
-	public void testDeleteUsersFromGroupWhenUserHasDirectMembership()
+	public void testRemoveUserGroupFromSiteWhenUserHasSiteMembershipFromOtherGroups()
 		throws Exception {
 
-		addUsers();
-		addUserGroups();
+		UserGroup userGroup1 = _addGroupUserGroup(_group.getGroupId());
+		UserGroup userGroup2 = _addGroupUserGroup(_group.getGroupId());
 
-		UserGroupLocalServiceUtil.addUserUserGroup(_userId, _userGroupIds[0]);
+		User user = _addUserGroupUser(
+			userGroup1.getUserGroupId(), userGroup2.getUserGroupId());
 
-		GroupLocalServiceUtil.addUserGroup(_userId, _group);
+		_blogsEntryLocalService.subscribe(
+			user.getUserId(), _group.getGroupId());
 
-		GroupLocalServiceUtil.addUserGroupGroup(_userGroupIds[0], _group);
-
-		addLayouts(true);
-
-		BlogsEntryLocalServiceUtil.subscribe(_userId, _group.getGroupId());
-
-		UserGroupLocalServiceUtil.deleteUserUserGroup(
-			_userId, _userGroupIds[0]);
+		_groupLocalService.deleteUserGroupGroup(
+			userGroup1.getUserGroupId(), _group.getGroupId());
 
 		Assert.assertTrue(
-			SubscriptionLocalServiceUtil.isSubscribed(
-				_group.getCompanyId(), _userId, BlogsEntry.class.getName(),
-				_group.getGroupId()));
+			_subscriptionLocalService.isSubscribed(
+				_group.getCompanyId(), user.getUserId(),
+				BlogsEntry.class.getName(), _group.getGroupId()));
 	}
 
-	protected void addLayouts(boolean portletExists) throws Exception {
-		_blogLayout = LayoutTestUtil.addLayout(_group);
-		_assetLayout = LayoutTestUtil.addLayout(_group);
+	@Test
+	public void testRemoveUserGroupFromSiteWhenUserLostSiteMembership()
+		throws Exception {
 
-		if (portletExists) {
-			String portletId = PortletProviderUtil.getPortletId(
-				BlogsEntry.class.getName(), PortletProvider.Action.VIEW);
+		UserGroup userGroup = _addGroupUserGroup(_group.getGroupId());
 
-			LayoutTestUtil.addPortletToLayout(_blogLayout, portletId);
-		}
+		User user = _addUserGroupUser(userGroup.getUserGroupId());
 
-		Map<String, String[]> preferenceMap = HashMapBuilder.put(
-			"assetLinkBehavior", new String[] {"viewInPortlet"}
-		).build();
+		_blogsEntryLocalService.subscribe(
+			user.getUserId(), _group.getGroupId());
 
-		_testPortletId = PortletIdCodec.encode(
-			"com_liferay_hello_world_web_portlet_HelloWorldPortlet");
+		_groupLocalService.deleteUserGroupGroup(
+			userGroup.getUserGroupId(), _group.getGroupId());
 
-		User user = UserTestUtil.addUser(_group.getGroupId());
-
-		PermissionThreadLocal.setPermissionChecker(
-			PermissionCheckerFactoryUtil.create(user));
-
-		LayoutTestUtil.addPortletToLayout(
-			user.getUserId(), _assetLayout, _testPortletId, "column-1",
-			preferenceMap);
+		Assert.assertFalse(
+			_subscriptionLocalService.isSubscribed(
+				_group.getCompanyId(), user.getUserId(),
+				BlogsEntry.class.getName(), _group.getGroupId()));
 	}
 
-	protected void addUserGroups() throws Exception {
-		UserGroup userGroup1 = UserGroupTestUtil.addUserGroup();
-		UserGroup userGroup2 = UserGroupTestUtil.addUserGroup();
-		_userGroupIds[0] = userGroup1.getUserGroupId();
-		_userGroupIds[1] = userGroup2.getUserGroupId();
+	@Test
+	public void testRemoveUsersFromUserGroupWhenUserHasDirectSiteMembership()
+		throws Exception {
+
+		UserGroup userGroup = _addGroupUserGroup(_group.getGroupId());
+
+		User user = _addUserGroupUser(userGroup.getUserGroupId());
+
+		_groupLocalService.addUserGroup(user.getUserId(), _group);
+
+		_blogsEntryLocalService.subscribe(
+			user.getUserId(), _group.getGroupId());
+
+		_userGroupLocalService.deleteUserUserGroup(
+			user.getUserId(), userGroup.getUserGroupId());
+
+		Assert.assertTrue(
+			_subscriptionLocalService.isSubscribed(
+				_group.getCompanyId(), user.getUserId(),
+				BlogsEntry.class.getName(), _group.getGroupId()));
 	}
 
-	protected void addUsers() throws Exception {
+	private UserGroup _addGroupUserGroup(long groupId) throws Exception {
+		UserGroup userGroup = UserGroupTestUtil.addUserGroup();
+
+		_userGroupLocalService.addGroupUserGroup(groupId, userGroup);
+
+		return userGroup;
+	}
+
+	private User _addUserGroupUser(long... userGroupIds) throws Exception {
 		User user = UserTestUtil.addUser();
 
-		_userId = user.getUserId();
+		for (long userGroupId : userGroupIds) {
+			_userGroupLocalService.addUserUserGroup(
+				user.getUserId(), userGroupId);
+		}
+
+		return user;
 	}
 
-	private static long[] _userGroupIds = new long[2];
-	private static long _userId;
+	@Inject
+	private BlogsEntryLocalService _blogsEntryLocalService;
 
-	@DeleteAfterTestRun
-	private Layout _assetLayout;
-
-	@DeleteAfterTestRun
-	private Layout _blogLayout;
-
-	@DeleteAfterTestRun
 	private Group _group;
 
-	@DeleteAfterTestRun
-	private String _testPortletId;
+	@Inject
+	private GroupLocalService _groupLocalService;
+
+	@Inject
+	private SubscriptionLocalService _subscriptionLocalService;
+
+	@Inject
+	private UserGroupLocalService _userGroupLocalService;
 
 }
