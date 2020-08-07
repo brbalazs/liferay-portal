@@ -51,10 +51,6 @@ public class UserGroupModelListener extends BaseModelListener<UserGroup> {
 			}
 		}
 		catch (PortalException portalException) {
-			_log.error(
-				"Unsubscribe user from group failed because:\n" +
-					portalException);
-
 			throw new ModelListenerException(portalException);
 		}
 
@@ -65,10 +61,6 @@ public class UserGroupModelListener extends BaseModelListener<UserGroup> {
 			}
 		}
 		catch (PortalException portalException) {
-			_log.error(
-				"Unsubscribe user group from site failed because:\n" +
-					portalException);
-
 			throw new ModelListenerException(portalException);
 		}
 	}
