@@ -11,5 +11,5 @@ Feature: Assert 180 Day time period filter in Sites
         Given I go to the "Sites" page
         When I click the "Last 30 days" dropdown in the "LIFERAY-DATASOURCE-FARO-EXAMPLE Activities" card
         And I click the "More Preset Periods" button
-        And I click the "Last 180 Days" button
+        And I click the "Last 180 days" button
         Then I should see "180" columns in the bar graph table

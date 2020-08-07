@@ -12,5 +12,5 @@ Feature: Assert Sites Page Overview time filter changes to 180 days
     Scenario: Change time filter in Page Overview
         Given I click the "Last 30 days" dropdown in the "Visitors Behavior" card
         When I click the "More Preset Periods" button
-        And I click the "Last 180 Days" button
+        And I click the "Last 180 days" button
         Then I should see "180" columns in the bar graph table

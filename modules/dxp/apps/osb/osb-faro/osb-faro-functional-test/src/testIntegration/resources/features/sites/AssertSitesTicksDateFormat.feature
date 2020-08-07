@@ -42,9 +42,9 @@ Feature: Assert Chart ticks for Site Metrics standardized
       |    Last 90 days    |       D      |   MMM d   |
       |    Last 90 days    |       W      | MMM d - d |
       |    Last 90 days    |       M      |    MMM    |
-      |    Last 180 Days   |       D      |   MMM d   |
-      |    Last 180 Days   |       W      | MMM d - d |
-      |    Last 180 Days   |       M      |    MMM    |
+      |    Last 180 days   |       D      |   MMM d   |
+      |    Last 180 days   |       W      | MMM d - d |
+      |    Last 180 days   |       M      |    MMM    |
       |    Last Year       |       D      |   MMM d   |
       |    Last Year       |       W      | MMM d - d |
       |    Last Year       |       M      |    MMM    |

@@ -36,5 +36,5 @@ Feature: Assert Chart ticks for pages Visitor Behavior standardized
             |    Last 28 days    |   MMM d   |
             |    Last 30 days    |   MMM d   |
             |    Last 90 days    |   MMM d   |
-            |    Last 180 Days   |   MMM d   |
+            |    Last 180 days   |   MMM d   |
             |    Last Year       |   MMM d   |
