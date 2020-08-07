@@ -82,6 +82,9 @@ if (CommercePriceListConstants.TYPE_PROMOTION.equals(commercePriceEntryDisplayCo
 					portletId: '<%= portletDisplay.getRootPortletId() %>',
 					schema: [
 						{
+							fieldName: 'sku'
+						},
+						{
 							fieldName: ['productName', 'LANG']
 						}
 					],
