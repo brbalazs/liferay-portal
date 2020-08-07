@@ -193,6 +193,7 @@ public abstract class BaseProductResourceTestCase {
 		product.setExternalReferenceCode(regex);
 		product.setProductType(regex);
 		product.setProductTypeI18n(regex);
+		product.setSkuFormatted(regex);
 		product.setThumbnail(regex);
 
 		String json = ProductSerDes.toJSON(product);
@@ -205,6 +206,7 @@ public abstract class BaseProductResourceTestCase {
 		Assert.assertEquals(regex, product.getExternalReferenceCode());
 		Assert.assertEquals(regex, product.getProductType());
 		Assert.assertEquals(regex, product.getProductTypeI18n());
+		Assert.assertEquals(regex, product.getSkuFormatted());
 		Assert.assertEquals(regex, product.getThumbnail());
 	}
 
@@ -1059,6 +1061,14 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("skuFormatted", additionalAssertFieldName)) {
+				if (product.getSkuFormatted() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("skus", additionalAssertFieldName)) {
 				if (product.getSkus() == null) {
 					valid = false;
@@ -1538,6 +1548,17 @@ public abstract class BaseProductResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("skuFormatted", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						product1.getSkuFormatted(),
+						product2.getSkuFormatted())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("skus", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						product1.getSkus(), product2.getSkus())) {
@@ -1966,6 +1987,14 @@ public abstract class BaseProductResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("skuFormatted")) {
+			sb.append("'");
+			sb.append(String.valueOf(product.getSkuFormatted()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("skus")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -2065,6 +2094,8 @@ public abstract class BaseProductResourceTestCase {
 				productType = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				productTypeI18n = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				skuFormatted = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				thumbnail = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());

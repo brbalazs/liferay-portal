@@ -473,6 +473,20 @@ public class ProductSerDes {
 			sb.append(_toJSON(product.getShortDescription()));
 		}
 
+		if (product.getSkuFormatted() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"skuFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(product.getSkuFormatted()));
+
+			sb.append("\"");
+		}
+
 		if (product.getSkus() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -834,6 +848,13 @@ public class ProductSerDes {
 				String.valueOf(product.getShortDescription()));
 		}
 
+		if (product.getSkuFormatted() == null) {
+			map.put("skuFormatted", null);
+		}
+		else {
+			map.put("skuFormatted", String.valueOf(product.getSkuFormatted()));
+		}
+
 		if (product.getSkus() == null) {
 			map.put("skus", null);
 		}
@@ -1131,6 +1152,11 @@ public class ProductSerDes {
 				if (jsonParserFieldValue != null) {
 					product.setShortDescription(
 						(Map)ProductSerDes.toMap((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "skuFormatted")) {
+				if (jsonParserFieldValue != null) {
+					product.setSkuFormatted((String)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "skus")) {

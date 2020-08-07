@@ -698,6 +698,27 @@ public class Product implements Cloneable {
 
 	protected Map<String, String> shortDescription;
 
+	public String getSkuFormatted() {
+		return skuFormatted;
+	}
+
+	public void setSkuFormatted(String skuFormatted) {
+		this.skuFormatted = skuFormatted;
+	}
+
+	public void setSkuFormatted(
+		UnsafeSupplier<String, Exception> skuFormattedUnsafeSupplier) {
+
+		try {
+			skuFormatted = skuFormattedUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String skuFormatted;
+
 	public Sku[] getSkus() {
 		return skus;
 	}

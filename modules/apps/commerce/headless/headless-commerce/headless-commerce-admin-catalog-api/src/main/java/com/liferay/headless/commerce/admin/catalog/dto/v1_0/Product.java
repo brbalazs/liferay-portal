@@ -964,6 +964,34 @@ public class Product {
 	protected Map<String, String> shortDescription;
 
 	@Schema
+	public String getSkuFormatted() {
+		return skuFormatted;
+	}
+
+	public void setSkuFormatted(String skuFormatted) {
+		this.skuFormatted = skuFormatted;
+	}
+
+	@JsonIgnore
+	public void setSkuFormatted(
+		UnsafeSupplier<String, Exception> skuFormattedUnsafeSupplier) {
+
+		try {
+			skuFormatted = skuFormattedUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String skuFormatted;
+
+	@Schema
 	@Valid
 	public Sku[] getSkus() {
 		return skus;
@@ -1597,6 +1625,20 @@ public class Product {
 			sb.append("\"shortDescription\": ");
 
 			sb.append(_toJSON(shortDescription));
+		}
+
+		if (skuFormatted != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"skuFormatted\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(skuFormatted));
+
+			sb.append("\"");
 		}
 
 		if (skus != null) {
