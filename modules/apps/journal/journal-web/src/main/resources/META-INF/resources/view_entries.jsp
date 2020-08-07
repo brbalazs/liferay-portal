@@ -90,9 +90,16 @@ String displayStyle = journalDisplayContext.getDisplayStyle();
 
 				<c:choose>
 					<c:when test='<%= displayStyle.equals("descriptive") %>'>
+
+						<%
+						List<JournalArticle> articles = JournalArticleLocalServiceUtil.getArticles(curArticle.getGroupId(), curArticle.getArticleId(), 0, 1, new ArticleVersionComparator(true));
+
+						JournalArticle article = articles.get(0);
+						%>
+
 						<liferay-ui:search-container-column-text>
 							<liferay-ui:user-portrait
-								userId="<%= curArticle.getUserId() %>"
+								userId="<%= article.getUserId() %>"
 							/>
 						</liferay-ui:search-container-column-text>
 
@@ -204,10 +211,14 @@ String displayStyle = journalDisplayContext.getDisplayStyle();
 							/>
 						</c:if>
 
+						<%
+						List<JournalArticle> articles = JournalArticleLocalServiceUtil.getArticles(curArticle.getGroupId(), curArticle.getArticleId(), 0, 1, new ArticleVersionComparator(true));
+						%>
+
 						<liferay-ui:search-container-column-text
 							cssClass="table-cell-expand-smallest table-cell-minw-100"
 							name="author"
-							value="<%= HtmlUtil.escape(PortalUtil.getUserName(curArticle)) %>"
+							value="<%= HtmlUtil.escape(PortalUtil.getUserName(articles.get(0))) %>"
 						/>
 
 						<liferay-ui:search-container-column-status
