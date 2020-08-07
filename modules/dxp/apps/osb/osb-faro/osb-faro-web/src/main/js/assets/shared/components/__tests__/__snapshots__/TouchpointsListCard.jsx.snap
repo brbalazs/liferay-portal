@@ -15,11 +15,20 @@ exports[`TouchpointsListCard should render 1`] = `
           <tr
             class=""
           >
-            Canonical URL
-          </th>
-        </tr>
-      </thead>
-    </table>
+            <th
+              class="table-head-title"
+            >
+              Page Name
+            </th>
+            <th
+              class="table-head-title"
+            >
+              Canonical URL
+            </th>
+          </tr>
+        </thead>
+      </table>
+    </div>
   </div>
 </div>
 `;
