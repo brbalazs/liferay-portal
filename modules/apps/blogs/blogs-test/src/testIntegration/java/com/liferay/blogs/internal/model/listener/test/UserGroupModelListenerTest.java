@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.user.groups.admin.modellistener.test;
+package com.liferay.blogs.internal.model.listener.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.blogs.model.BlogsEntry;
