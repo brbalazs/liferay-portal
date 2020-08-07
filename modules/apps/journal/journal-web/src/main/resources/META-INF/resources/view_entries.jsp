@@ -114,7 +114,7 @@ String displayStyle = journalDisplayContext.getDisplayStyle();
 							%>
 
 							<h6 class="text-default">
-								<liferay-ui:message arguments="<%= new String[] {HtmlUtil.escape(curArticle.getUserName()), modifiedDateDescription} %>" key="x-modified-x-ago" />
+								<liferay-ui:message arguments="<%= new String[] {modifiedDateDescription, HtmlUtil.escape(curArticle.getUserName())} %>" key="modified-x-ago-by-x" />
 							</h6>
 
 							<h5>
@@ -236,7 +236,7 @@ String displayStyle = journalDisplayContext.getDisplayStyle();
 							String modifiedDateDescription = LanguageUtil.getTimeDescription(request, System.currentTimeMillis() - createDate.getTime(), true);
 							%>
 
-							<liferay-ui:message arguments="<%= new String[] {HtmlUtil.escape(curArticle.getUserName()), modifiedDateDescription} %>" key="x-modified-x-ago" />
+							<liferay-ui:message arguments="<%= new String[] {modifiedDateDescription, HtmlUtil.escape(curArticle.getUserName())} %>" key="modified-x-ago-by-x" />
 						</liferay-ui:search-container-column-text>
 
 						<liferay-ui:search-container-column-date
