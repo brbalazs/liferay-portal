@@ -497,10 +497,11 @@ public class JournalDisplayContext {
 									ddmStructure.getStructureKey());
 
 								dropdownItem.setLabel(
-									ddmStructure.getUnambiguousName(
-										ddmStructures,
-										_themeDisplay.getScopeGroupId(),
-										_themeDisplay.getLocale()));
+									HtmlUtil.escape(
+										ddmStructure.getUnambiguousName(
+											ddmStructures,
+											_themeDisplay.getScopeGroupId(),
+											_themeDisplay.getLocale())));
 							});
 
 						if (ArrayUtil.contains(

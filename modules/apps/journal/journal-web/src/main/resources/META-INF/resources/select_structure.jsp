@@ -56,11 +56,13 @@ SearchContainer<DDMStructure> structureSearch = journalSelectDDMStructureDisplay
 					<c:when test="<%= structure.getStructureId() != journalSelectDDMStructureDisplayContext.getClassPK() %>">
 
 						<%
-						Map<String, Object> data = new HashMap<>();
-
-						data.put("ddmstructureid", structure.getStructureId());
-						data.put("ddmstructurekey", structure.getStructureKey());
-						data.put("name", structure.getName(locale));
+						Map<String, Object> data = HashMapBuilder.<String, Object>put(
+							"ddmstructureid", structure.getStructureId()
+						).put(
+							"ddmstructurekey", structure.getStructureKey()
+						).put(
+							"name", HtmlUtil.escape(structure.getName(locale))
+						).build();
 						%>
 
 						<aui:a cssClass="selector-button" data="<%= data %>" href="javascript:;">
