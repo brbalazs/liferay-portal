@@ -1003,7 +1003,7 @@ public class JournalDisplayContext {
 		return orderColumns;
 	}
 
-	public String getOriginalAuthor(JournalArticle article) {
+	public String getOriginalAuthorUser(JournalArticle article) {
 		long classPK = JournalArticleAssetRenderer.getClassPK(article);
 
 		AssetEntry assetEntry = AssetEntryLocalServiceUtil.fetchEntry(
