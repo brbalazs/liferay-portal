@@ -455,6 +455,10 @@ public class CommerceDiscountCalculationV2Impl
 		currentDiscountAmount = currentDiscountAmount.setScale(
 			_SCALE, roundingMode);
 
+		if (currentDiscountAmount.compareTo(BigDecimal.ZERO) == 0) {
+			return null;
+		}
+
 		CommerceMoney discountAmount = _commerceMoneyFactory.create(
 			commerceCurrency,
 			currentDiscountAmount.multiply(new BigDecimal(quantity)));
