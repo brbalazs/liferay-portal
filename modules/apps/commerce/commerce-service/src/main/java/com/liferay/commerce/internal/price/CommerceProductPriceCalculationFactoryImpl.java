@@ -24,6 +24,7 @@ import com.liferay.commerce.price.list.discovery.CommercePriceListDiscovery;
 import com.liferay.commerce.price.list.service.CommercePriceEntryLocalService;
 import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.price.list.service.CommerceTierPriceEntryLocalService;
+import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.pricing.modifier.CommercePriceModifierHelper;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
@@ -31,6 +32,7 @@ import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.tax.CommerceTaxCalculation;
+import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.util.GetterUtil;
 
@@ -59,16 +61,17 @@ public class CommerceProductPriceCalculationFactoryImpl
 	@Activate
 	@Modified
 	public void activate(Map<String, Object> properties) {
-		_commercePricingCalculationKey = (String)properties.get(
-			"commercePricingCalculationKey");
+		_commercePricingConfiguration = ConfigurableUtil.createConfigurable(
+			CommercePricingConfiguration.class, properties);
 	}
 
 	@Override
 	public CommerceProductPriceCalculation
 		getCommerceProductPriceCalculation() {
 
-		if (Objects.equals(
-				_commercePricingCalculationKey,
+		if ((_commercePricingConfiguration == null) ||
+			Objects.equals(
+				_commercePricingConfiguration.commercePricingCalculationKey(),
 				CommercePricingConstants.VERSION_2_0)) {
 
 			return new CommerceProductPriceCalculationV2Impl(
@@ -185,7 +188,7 @@ public class CommerceProductPriceCalculationFactoryImpl
 	@Reference
 	private CommercePriceModifierHelper _commercePriceModifierHelper;
 
-	private String _commercePricingCalculationKey;
+	private volatile CommercePricingConfiguration _commercePricingConfiguration;
 
 	@Reference
 	private CommerceTaxCalculation _commerceTaxCalculation;

@@ -17,9 +17,11 @@ package com.liferay.commerce.internal.price;
 import com.liferay.commerce.currency.model.CommerceMoneyFactory;
 import com.liferay.commerce.discount.CommerceDiscountCalculation;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
+import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
 import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.tax.CommerceTaxCalculation;
+import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -52,8 +54,8 @@ public class CommerceOrderPriceCalculationServiceFactory
 			CommerceOrderPriceCalculation.class, this,
 			new Hashtable<String, Object>());
 
-		_commercePricingCalculationKey = (String)properties.get(
-			"commercePricingCalculationKey");
+		_commercePricingConfiguration = ConfigurableUtil.createConfigurable(
+			CommercePricingConfiguration.class, properties);
 	}
 
 	@Deactivate
@@ -67,8 +69,9 @@ public class CommerceOrderPriceCalculationServiceFactory
 		ServiceRegistration<CommerceOrderPriceCalculation>
 			serviceRegistration) {
 
-		if (Objects.equals(
-				_commercePricingCalculationKey,
+		if ((_commercePricingConfiguration == null) ||
+			Objects.equals(
+				_commercePricingConfiguration.commercePricingCalculationKey(),
 				CommercePricingConstants.VERSION_2_0)) {
 
 			return new CommerceOrderPriceCalculationV2Impl(
@@ -100,7 +103,7 @@ public class CommerceOrderPriceCalculationServiceFactory
 	@Reference
 	private CommerceMoneyFactory _commerceMoneyFactory;
 
-	private String _commercePricingCalculationKey;
+	private volatile CommercePricingConfiguration _commercePricingConfiguration;
 
 	@Reference
 	private CommerceTaxCalculation _commerceTaxCalculation;
