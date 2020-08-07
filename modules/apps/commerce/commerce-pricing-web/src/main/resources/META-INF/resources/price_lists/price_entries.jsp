@@ -71,14 +71,14 @@ if (CommercePriceListConstants.TYPE_PROMOTION.equals(commercePriceEntryDisplayCo
 					apiUrl:
 						'/o/headless-commerce-admin-catalog/v1.0/skus?filter=catalogId eq <%= commercePriceEntryDisplayContext.getCommerceCatalogId() %>',
 					getSelectedItems: getSelectedItems,
-					inputPlaceholder: '<%= LanguageUtil.get(request, "find-a-product") %>',
-					itemSelectedMessage: '<%= LanguageUtil.get(request, "product-selected") %>',
+					inputPlaceholder: '<%= LanguageUtil.get(request, "find-a-sku") %>',
+					itemSelectedMessage: '<%= LanguageUtil.get(request, "sku-selected") %>',
 					linkedDatasetsId: ['<%= datasetId %>'],
 					itemCreation: false,
 					itemsKey: 'id',
 					onItemSelected: selectItem,
 					pageSize: 10,
-					panelHeaderLabel: '<%= LanguageUtil.get(request, "add-products") %>',
+					panelHeaderLabel: '<%= LanguageUtil.get(request, "add-skus") %>',
 					portletId: '<%= portletDisplay.getRootPortletId() %>',
 					schema: [
 						{
@@ -89,7 +89,7 @@ if (CommercePriceListConstants.TYPE_PROMOTION.equals(commercePriceEntryDisplayCo
 						}
 					],
 					spritemap: '<%= themeDisplay.getPathThemeImages() %>/lexicon/icons.svg',
-					titleLabel: '<%= LanguageUtil.get(request, "add-existing-product") %>'
+					titleLabel: '<%= LanguageUtil.get(request, "add-existing-sku") %>'
 				});
 			</aui:script>
 		</div>

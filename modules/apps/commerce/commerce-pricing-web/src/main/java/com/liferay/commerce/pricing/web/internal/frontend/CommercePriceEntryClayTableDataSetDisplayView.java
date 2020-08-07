@@ -47,12 +47,12 @@ public class CommercePriceEntryClayTableDataSetDisplayView
 
 		imageField.setContentRenderer("image");
 
-		ClayTableSchemaField nameField = clayTableSchemaBuilder.addField(
-			"product.name.LANG", "name");
+		ClayTableSchemaField skuField = clayTableSchemaBuilder.addField(
+			"sku.name", "sku");
 
-		nameField.setContentRenderer("actionLink");
+		skuField.setContentRenderer("actionLink");
 
-		clayTableSchemaBuilder.addField("sku.name", "sku");
+		clayTableSchemaBuilder.addField("product.name.LANG", "name");
 
 		clayTableSchemaBuilder.addField("sku.basePriceFormatted", "base-price");
 
