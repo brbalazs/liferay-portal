@@ -45,6 +45,7 @@ public class CommercePriceListClayTableDataSetDisplayView
 			"name", "name");
 
 		nameField.setContentRenderer("actionLink");
+		nameField.setSortable(true);
 
 		clayTableSchemaBuilder.addField("author", "author");
 
