@@ -238,15 +238,17 @@ public class OrderResourceImpl
 
 		String httpMethodName = _getHttpMethodName(clazz, method);
 
-		UriBuilder uriBuilder = uriInfo.getBaseUriBuilder();
-
 		return HashMapBuilder.put(
 			"href",
-			uriBuilder.path(
-				_getVersion(uriInfo)
-			).path(
-				clazz.getSuperclass(), methodName
-			).toTemplate()
+			() -> {
+				UriBuilder uriBuilder = uriInfo.getBaseUriBuilder();
+
+				return uriBuilder.path(
+					_getVersion(uriInfo)
+				).path(
+					clazz.getSuperclass(), methodName
+				).toTemplate();
+			}
 		).put(
 			"method", httpMethodName
 		).build();
