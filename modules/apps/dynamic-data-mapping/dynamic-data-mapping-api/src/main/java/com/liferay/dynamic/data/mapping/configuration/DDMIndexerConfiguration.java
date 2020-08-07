@@ -29,7 +29,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 public interface DDMIndexerConfiguration {
 
 	@Meta.AD(
-		deflt = "false",
+		deflt = "true",
 		description = "enable-legacy-ddm-index-fields-description",
 		name = "enable-legacy-ddm-index-fields", required = false
 	)
