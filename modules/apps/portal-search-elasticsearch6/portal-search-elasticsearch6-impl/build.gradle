@@ -11,6 +11,7 @@ dependencies {
 	annotationProcessor group: "org.apache.logging.log4j", name: "log4j-core", version: "2.11.2"
 
 	compileInclude group: "com.carrotsearch", name: "hppc", version: "0.7.1"
+	compileInclude group: "com.fasterxml.jackson.core", name: "jackson-core", version: "2.10.3"
 	compileInclude group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-cbor", version: "2.9.8"
 	compileInclude group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-smile", version: "2.9.8"
 	compileInclude group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-yaml", version: "2.9.8"
@@ -77,7 +78,6 @@ dependencies {
 	compileInclude group: "org.ow2.asm", name: "asm-debug-all", version: "5.1"
 	compileInclude group: "org.yaml", name: "snakeyaml", version: "1.17"
 
-	compileOnly group: "com.fasterxml.jackson.core", name: "jackson-core", version: "2.10.3"
 	compileOnly group: "com.ibm.icu", name: "icu4j", version: "61.1"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "default"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
