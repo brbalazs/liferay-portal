@@ -78,10 +78,16 @@ public class CommerceDiscountConstants {
 
 	public static final String TARGET_TOTAL = "total";
 
-	public static final String TYPE_ABSOLUTE = "absolute";
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
+	public static final String TYPE_ABSOLUTE = "fixed-amount";
+
+	public static final String TYPE_FIXED_AMOUNT = "fixed-amount";
 
 	public static final String TYPE_PERCENTAGE = "percentage";
 
-	public static final String[] TYPES = {TYPE_PERCENTAGE, TYPE_ABSOLUTE};
+	public static final String[] TYPES = {TYPE_PERCENTAGE, TYPE_FIXED_AMOUNT};
 
 }
