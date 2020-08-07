@@ -429,6 +429,19 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 		}
 	}
 
+
+		TransactionCommitCallbackUtil.registerCallback(
+			new Callable<Void>() {
+
+				@Override
+				public Void call() throws Exception {
+					_bookQuantities(commerceOrderId);
+
+					return null;
+				}
+
+			});
+
 	private boolean _isGuestCheckoutEnabled(long groupId)
 		throws PortalException {
 
