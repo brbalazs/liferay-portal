@@ -78,7 +78,8 @@ import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
-import com.liferay.portal.kernel.transaction.Transactional;
+import com.liferay.portal.kernel.transaction.TransactionConfig;
+import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
@@ -97,161 +98,38 @@ import org.osgi.service.component.annotations.Reference;
 public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 
 	@Override
-	@Transactional(
-		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
-	)
 	public CommerceOrder checkCommerceOrderShipmentStatus(
 			CommerceOrder commerceOrder)
 		throws PortalException {
 
-		CommerceOrderStatus shippedCommerceOrderStatus =
-			_commerceOrderStatusRegistry.getCommerceOrderStatus(
-				ShippedCommerceOrderStatusImpl.KEY);
+		return _executeInTransaction(
+			new Callable<CommerceOrder>() {
 
-		CommerceOrderStatus completedCommerceOrderStatus =
-			_commerceOrderStatusRegistry.getCommerceOrderStatus(
-				CompletedCommerceOrderStatusImpl.KEY);
+				@Override
+				public CommerceOrder call() throws Exception {
+					return _checkCommerceOrderShipmentStatus(commerceOrder);
+				}
 
-		int[] commerceShipmentStatuses =
-			_commerceShipmentLocalService.
-				getCommerceShipmentStatusesByCommerceOrderId(
-					commerceOrder.getCommerceOrderId());
-
-		if (completedCommerceOrderStatus.isTransitionCriteriaMet(
-				commerceOrder) &&
-			(commerceShipmentStatuses.length == 1) &&
-			(commerceShipmentStatuses[0] ==
-				CommerceShipmentConstants.SHIPMENT_STATUS_DELIVERED)) {
-
-			commerceOrder = transitionCommerceOrder(
-				commerceOrder, CommerceOrderConstants.ORDER_STATUS_COMPLETED,
-				0);
-		}
-		else if (shippedCommerceOrderStatus.isTransitionCriteriaMet(
-					commerceOrder)) {
-
-			commerceOrder = transitionCommerceOrder(
-				commerceOrder, CommerceOrderConstants.ORDER_STATUS_SHIPPED, 0);
-		}
-		else {
-			commerceOrder = transitionCommerceOrder(
-				commerceOrder,
-				CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED, 0);
-		}
-
-		return commerceOrder;
+			});
 	}
 
 	@Override
-	@Transactional(
-		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
-	)
 	public CommerceOrder checkoutCommerceOrder(
 			CommerceOrder commerceOrder, long userId)
 		throws PortalException {
 
-		if (commerceOrder.isGuestOrder() &&
-			!_isGuestCheckoutEnabled(commerceOrder.getGroupId())) {
+		return _executeInTransaction(
+			new Callable<CommerceOrder>() {
 
-			throw new CommerceOrderGuestCheckoutException();
-		}
+				@Override
+				public CommerceOrder call() throws Exception {
+					return _checkoutCommerceOrder(commerceOrder, userId);
+				}
 
-		_commerceOrderModelResourcePermission.check(
-			PermissionThreadLocal.getPermissionChecker(), commerceOrder,
-			CommerceOrderActionKeys.CHECKOUT_COMMERCE_ORDER);
-
-		CommerceOrderStatus currentCommerceOrderStatus =
-			_commerceOrderStatusRegistry.getCommerceOrderStatus(
-				commerceOrder.getOrderStatus());
-
-		if ((currentCommerceOrderStatus == null) ||
-			(currentCommerceOrderStatus.getKey() !=
-				CommerceOrderConstants.ORDER_STATUS_OPEN)) {
-
-			throw new CommerceOrderStatusException();
-		}
-
-		_validateCheckout(commerceOrder);
-
-		ServiceContext serviceContext = new ServiceContext();
-
-		serviceContext.setScopeGroupId(commerceOrder.getGroupId());
-
-		if (userId == 0) {
-			User defaultUser = _userLocalService.getDefaultUser(
-				commerceOrder.getCompanyId());
-
-			userId = defaultUser.getUserId();
-		}
-
-		serviceContext.setUserId(userId);
-
-		long commerceOrderId = commerceOrder.getCommerceOrderId();
-
-		CommerceContext commerceContext = _commerceContextFactory.create(
-			commerceOrder.getCompanyId(), commerceOrder.getGroupId(), userId,
-			commerceOrderId, commerceOrder.getCommerceAccountId());
-
-		_bookQuantities(commerceOrder);
-
-		commerceOrder = _commerceOrderLocalService.recalculatePrice(
-			commerceOrderId, commerceContext);
-
-		_updateCommerceDiscountUsageEntry(
-			commerceOrder.getCompanyId(), commerceOrder.getCommerceAccountId(),
-			commerceOrderId, commerceOrder.getCouponCode(), serviceContext);
-
-		// Commerce addresses
-
-		if (commerceOrder.getBillingAddressId() > 0) {
-			CommerceAddress commerceAddress =
-				_commerceAddressLocalService.copyCommerceAddress(
-					commerceOrder.getBillingAddressId(),
-					commerceOrder.getModelClassName(), commerceOrderId,
-					serviceContext);
-
-			commerceOrder.setBillingAddressId(
-				commerceAddress.getCommerceAddressId());
-		}
-
-		if (commerceOrder.getShippingAddressId() > 0) {
-			CommerceAddress commerceAddress =
-				_commerceAddressLocalService.copyCommerceAddress(
-					commerceOrder.getShippingAddressId(),
-					commerceOrder.getModelClassName(), commerceOrderId,
-					serviceContext);
-
-			commerceOrder.setShippingAddressId(
-				commerceAddress.getCommerceAddressId());
-		}
-
-		CommercePaymentMethod commercePaymentMethod =
-			_commercePaymentMethodRegistry.getCommercePaymentMethod(
-				commerceOrder.getCommercePaymentMethodKey());
-
-		if ((commerceOrder.getPaymentStatus() ==
-				CommerceOrderConstants.PAYMENT_STATUS_PAID) ||
-			((commercePaymentMethod != null) &&
-			 (commercePaymentMethod.getPaymentType() ==
-				 CommercePaymentConstants.
-					 COMMERCE_PAYMENT_METHOD_TYPE_OFFLINE) &&
-			 (commerceOrder.getPaymentStatus() ==
-				 CommerceOrderConstants.PAYMENT_STATUS_PENDING))) {
-
-			return transitionCommerceOrder(
-				commerceOrder, CommerceOrderConstants.ORDER_STATUS_PENDING,
-				userId);
-		}
-
-		return transitionCommerceOrder(
-			commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
-			userId);
+			});
 	}
 
 	@Override
-	@Transactional(
-		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
-	)
 	public CommerceOrderStatus getCurrentCommerceOrderStatus(
 		CommerceOrder commerceOrder) {
 
@@ -260,9 +138,6 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 	}
 
 	@Override
-	@Transactional(
-		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
-	)
 	public List<CommerceOrderStatus> getNextCommerceOrderStatuses(
 			CommerceOrder commerceOrder)
 		throws PortalException {
@@ -321,43 +196,25 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 	}
 
 	@Override
-	@Transactional(
-		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
-	)
 	public CommerceOrder transitionCommerceOrder(
 			CommerceOrder commerceOrder, int orderStatus, long userId)
 		throws PortalException {
 
-		CommerceOrderStatus commerceOrderStatus =
-			_commerceOrderStatusRegistry.getCommerceOrderStatus(orderStatus);
+		return _executeInTransaction(
+			new Callable<CommerceOrder>() {
 
-		if (commerceOrderStatus == null) {
-			throw new CommerceOrderStatusException();
-		}
+				@Override
+				public CommerceOrder call() throws Exception {
+					return _transitionCommerceOrder(
+						commerceOrder, orderStatus, userId);
+				}
 
-		CommerceOrderStatus currentCommerceOrderStatus =
-			_commerceOrderStatusRegistry.getCommerceOrderStatus(
-				commerceOrder.getOrderStatus());
-
-		if (!currentCommerceOrderStatus.isComplete(commerceOrder) ||
-			!commerceOrderStatus.isTransitionCriteriaMet(commerceOrder) ||
-			((currentCommerceOrderStatus.getKey() ==
-				CommerceOrderConstants.ORDER_STATUS_ON_HOLD) &&
-			 (commerceOrderStatus.getKey() !=
-				 CommerceOrderConstants.ORDER_STATUS_ON_HOLD) &&
-			 (commerceOrderStatus.getKey() !=
-				 CommerceOrderConstants.ORDER_STATUS_PROCESSING))) {
-
-			throw new CommerceOrderStatusException();
-		}
-
-		_sendOrderStatusMessage(commerceOrder, commerceOrderStatus.getKey());
-
-		return commerceOrderStatus.doTransition(commerceOrder, userId);
+			});
 	}
 
-	private void _bookQuantities(CommerceOrder commerceOrder)
-		throws PortalException {
+	private void _bookQuantities(long commerceOrderId) throws PortalException {
+		CommerceOrder commerceOrder =
+			_commerceOrderLocalService.getCommerceOrder(commerceOrderId);
 
 		List<CommerceOrderItem> commerceOrderItems =
 			commerceOrder.getCommerceOrderItems();
@@ -429,6 +286,93 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 		}
 	}
 
+	private CommerceOrder _checkCommerceOrderShipmentStatus(
+			CommerceOrder commerceOrder)
+		throws PortalException {
+
+		CommerceOrderStatus shippedCommerceOrderStatus =
+			_commerceOrderStatusRegistry.getCommerceOrderStatus(
+				ShippedCommerceOrderStatusImpl.KEY);
+
+		CommerceOrderStatus completedCommerceOrderStatus =
+			_commerceOrderStatusRegistry.getCommerceOrderStatus(
+				CompletedCommerceOrderStatusImpl.KEY);
+
+		int[] commerceShipmentStatuses =
+			_commerceShipmentLocalService.
+				getCommerceShipmentStatusesByCommerceOrderId(
+					commerceOrder.getCommerceOrderId());
+
+		if (completedCommerceOrderStatus.isTransitionCriteriaMet(
+				commerceOrder) &&
+			(commerceShipmentStatuses.length == 1) &&
+			(commerceShipmentStatuses[0] ==
+				CommerceShipmentConstants.SHIPMENT_STATUS_DELIVERED)) {
+
+			commerceOrder = transitionCommerceOrder(
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_COMPLETED,
+				0);
+		}
+		else if (shippedCommerceOrderStatus.isTransitionCriteriaMet(
+					commerceOrder)) {
+
+			commerceOrder = transitionCommerceOrder(
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_SHIPPED, 0);
+		}
+		else {
+			commerceOrder = transitionCommerceOrder(
+				commerceOrder,
+				CommerceOrderConstants.ORDER_STATUS_PARTIALLY_SHIPPED, 0);
+		}
+
+		return commerceOrder;
+	}
+
+	private CommerceOrder _checkoutCommerceOrder(
+			CommerceOrder commerceOrder, long userId)
+		throws PortalException {
+
+		if (commerceOrder.isGuestOrder() &&
+			!_isGuestCheckoutEnabled(commerceOrder.getGroupId())) {
+
+			throw new CommerceOrderGuestCheckoutException();
+		}
+
+		_commerceOrderModelResourcePermission.check(
+			PermissionThreadLocal.getPermissionChecker(), commerceOrder,
+			CommerceOrderActionKeys.CHECKOUT_COMMERCE_ORDER);
+
+		CommerceOrderStatus currentCommerceOrderStatus =
+			_commerceOrderStatusRegistry.getCommerceOrderStatus(
+				commerceOrder.getOrderStatus());
+
+		if ((currentCommerceOrderStatus == null) ||
+			(currentCommerceOrderStatus.getKey() !=
+				CommerceOrderConstants.ORDER_STATUS_OPEN)) {
+
+			throw new CommerceOrderStatusException();
+		}
+
+		_validateCheckout(commerceOrder);
+
+		ServiceContext serviceContext = new ServiceContext();
+
+		serviceContext.setScopeGroupId(commerceOrder.getGroupId());
+
+		if (userId == 0) {
+			User defaultUser = _userLocalService.getDefaultUser(
+				commerceOrder.getCompanyId());
+
+			userId = defaultUser.getUserId();
+		}
+
+		serviceContext.setUserId(userId);
+
+		long commerceOrderId = commerceOrder.getCommerceOrderId();
+
+		CommerceContext commerceContext = _commerceContextFactory.create(
+			commerceOrder.getCompanyId(), commerceOrder.getGroupId(), userId,
+			commerceOrderId, commerceOrder.getCommerceAccountId());
 
 		TransactionCommitCallbackUtil.registerCallback(
 			new Callable<Void>() {
@@ -442,6 +386,72 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 
 			});
 
+		commerceOrder = _commerceOrderLocalService.recalculatePrice(
+			commerceOrderId, commerceContext);
+
+		_updateCommerceDiscountUsageEntry(
+			commerceOrder.getCompanyId(), commerceOrder.getCommerceAccountId(),
+			commerceOrderId, commerceOrder.getCouponCode(), serviceContext);
+
+		// Commerce addresses
+
+		if (commerceOrder.getBillingAddressId() > 0) {
+			CommerceAddress commerceAddress =
+				_commerceAddressLocalService.copyCommerceAddress(
+					commerceOrder.getBillingAddressId(),
+					commerceOrder.getModelClassName(), commerceOrderId,
+					serviceContext);
+
+			commerceOrder.setBillingAddressId(
+				commerceAddress.getCommerceAddressId());
+		}
+
+		if (commerceOrder.getShippingAddressId() > 0) {
+			CommerceAddress commerceAddress =
+				_commerceAddressLocalService.copyCommerceAddress(
+					commerceOrder.getShippingAddressId(),
+					commerceOrder.getModelClassName(), commerceOrderId,
+					serviceContext);
+
+			commerceOrder.setShippingAddressId(
+				commerceAddress.getCommerceAddressId());
+		}
+
+		CommercePaymentMethod commercePaymentMethod =
+			_commercePaymentMethodRegistry.getCommercePaymentMethod(
+				commerceOrder.getCommercePaymentMethodKey());
+
+		if ((commerceOrder.getPaymentStatus() ==
+				CommerceOrderConstants.PAYMENT_STATUS_PAID) ||
+			((commercePaymentMethod != null) &&
+			 (commercePaymentMethod.getPaymentType() ==
+				 CommercePaymentConstants.
+					 COMMERCE_PAYMENT_METHOD_TYPE_OFFLINE) &&
+			 (commerceOrder.getPaymentStatus() ==
+				 CommerceOrderConstants.PAYMENT_STATUS_PENDING))) {
+
+			return transitionCommerceOrder(
+				commerceOrder, CommerceOrderConstants.ORDER_STATUS_PENDING,
+				userId);
+		}
+
+		return transitionCommerceOrder(
+			commerceOrder, CommerceOrderConstants.ORDER_STATUS_IN_PROGRESS,
+			userId);
+	}
+
+	private CommerceOrder _executeInTransaction(
+			Callable<CommerceOrder> callable)
+		throws PortalException {
+
+		try {
+			return TransactionInvokerUtil.invoke(_transactionConfig, callable);
+		}
+		catch (Throwable t) {
+			throw new PortalException(t);
+		}
+	}
+
 	private boolean _isGuestCheckoutEnabled(long groupId)
 		throws PortalException {
 
@@ -454,9 +464,6 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 		return commerceOrderCheckoutConfiguration.guestCheckoutEnabled();
 	}
 
-	@Transactional(
-		propagation = Propagation.REQUIRED, rollbackFor = Exception.class
-	)
 	private void _sendOrderStatusMessage(
 		CommerceOrder commerceOrder, int orderStatus) {
 
@@ -498,6 +505,38 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 				}
 
 			});
+	}
+
+	private CommerceOrder _transitionCommerceOrder(
+			CommerceOrder commerceOrder, int orderStatus, long userId)
+		throws PortalException {
+
+		CommerceOrderStatus commerceOrderStatus =
+			_commerceOrderStatusRegistry.getCommerceOrderStatus(orderStatus);
+
+		if (commerceOrderStatus == null) {
+			throw new CommerceOrderStatusException();
+		}
+
+		CommerceOrderStatus currentCommerceOrderStatus =
+			_commerceOrderStatusRegistry.getCommerceOrderStatus(
+				commerceOrder.getOrderStatus());
+
+		if (!currentCommerceOrderStatus.isComplete(commerceOrder) ||
+			!commerceOrderStatus.isTransitionCriteriaMet(commerceOrder) ||
+			((currentCommerceOrderStatus.getKey() ==
+				CommerceOrderConstants.ORDER_STATUS_ON_HOLD) &&
+			 (commerceOrderStatus.getKey() !=
+				 CommerceOrderConstants.ORDER_STATUS_ON_HOLD) &&
+			 (commerceOrderStatus.getKey() !=
+				 CommerceOrderConstants.ORDER_STATUS_PROCESSING))) {
+
+			throw new CommerceOrderStatusException();
+		}
+
+		_sendOrderStatusMessage(commerceOrder, commerceOrderStatus.getKey());
+
+		return commerceOrderStatus.doTransition(commerceOrder, userId);
 	}
 
 	private void _updateCommerceDiscountUsageEntry(
@@ -565,6 +604,10 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 			throw new CommerceOrderShippingMethodException();
 		}
 	}
+
+	private static final TransactionConfig _transactionConfig =
+		TransactionConfig.Factory.create(
+			Propagation.REQUIRED, new Class<?>[] {Exception.class});
 
 	@Reference
 	private CommerceAddressLocalService _commerceAddressLocalService;
