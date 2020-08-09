@@ -40,6 +40,7 @@ page import="com.liferay.oauth.util.OAuthUtil" %><%@
 page import="com.liferay.oauth.util.OAuthWebKeys" %><%@
 page import="com.liferay.oauth.web.internal.search.OAuthApplicationDisplayTerms" %><%@
 page import="com.liferay.oauth.web.internal.search.OAuthApplicationSearch" %><%@
+page import="com.liferay.petra.string.StringBundler" %><%@
 page import="com.liferay.portal.kernel.exception.ImageTypeException" %><%@
 page import="com.liferay.portal.kernel.exception.RequiredFieldException" %><%@
 page import="com.liferay.portal.kernel.oauth.OAuthException" %><%@
