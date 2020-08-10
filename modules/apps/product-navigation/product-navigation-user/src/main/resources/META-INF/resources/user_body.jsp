@@ -38,7 +38,10 @@ UserPanelCategory userPanelCategory = (UserPanelCategory)request.getAttribute(Ap
 		String changeLanguageMessage = null;
 		String doAsUserLanguageId = null;
 
-		if (locale.getLanguage().equals(realUserLocale.getLanguage()) && locale.getCountry().equals(realUserLocale.getCountry())) {
+		String country = locale.getCountry();
+		String language = locale.getLanguage();
+
+		if (language.equals(realUserLocale.getLanguage()) && country.equals(realUserLocale.getCountry())) {
 			changeLanguageMessage = LanguageUtil.format(realUserLocale, "use-x's-preferred-language-(x)", new String[] {HtmlUtil.escape(user.getFullName()), userLocale.getDisplayLanguage(realUserLocale)}, false);
 			doAsUserLanguageId = userLocale.getLanguage() + "_" + userLocale.getCountry();
 		}

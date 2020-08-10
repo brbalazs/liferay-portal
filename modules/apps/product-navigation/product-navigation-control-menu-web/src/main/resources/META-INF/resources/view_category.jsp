@@ -146,7 +146,7 @@ if (!categories.isEmpty() || !portlets.isEmpty()) {
 								data.put("instanceable", portletInstanceable);
 								data.put("plid", plid);
 								data.put("portlet-id", portlet.getPortletId());
-								data.put("search", sb.toString().replace(':', '-'));
+								data.put("search", StringUtil.replace(sb.toString(), ':', '-'));
 								data.put("title", PortalUtil.getPortletTitle(portlet, application, locale));
 
 								String cssClass = "drag-content-item";
@@ -200,7 +200,7 @@ if (!categories.isEmpty() || !portlets.isEmpty()) {
 											portletItemData.put("plid", plid);
 											portletItemData.put("portlet-id", portlet.getPortletId());
 											portletItemData.put("portlet-item-id", portletItem.getPortletItemId());
-											portletItemData.put("search", sb.toString().replace(':', '-'));
+											portletItemData.put("search", StringUtil.replace(sb.toString(), ':', '-'));
 											portletItemData.put("title", HtmlUtil.escape(portletItem.getName()));
 										%>
 
