@@ -79,6 +79,7 @@ Object {
   "SETTINGS_DEFINITIONS_BEHAVIORS": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/behaviors",
   "SETTINGS_DEFINITIONS_INDIVIDUAL_ATTRIBUTES": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/individual-attributes",
   "SETTINGS_DEFINITIONS_INTEREST_TOPICS": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/interest-topics",
+  "SETTINGS_DEFINITIONS_SEARCH": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/search",
   "SETTINGS_LIFERAY_ADD": "/workspace/:groupId([\\\\w._-]+)/settings/data-source/liferay",
   "SETTINGS_LIFERAY_ANALYTICS": "/workspace/:groupId([\\\\w._-]+)/settings/data-source/:id/liferay/analytics",
   "SETTINGS_LIFERAY_CONFIGURATION_STATUS": "/workspace/:groupId([\\\\w._-]+)/settings/data-source/:id/liferay/configuration-status",
