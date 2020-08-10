@@ -18,13 +18,11 @@
 
 <%
 CommerceDataIntegrationProcessDisplayContext commerceDataIntegrationProcessDisplayContext = (CommerceDataIntegrationProcessDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
-String searchContainerId = ParamUtil.getString(request, "searchContainerId", "commerceDataIntegrationProcesses");
 %>
 
 <liferay-frontend:management-bar
 	includeCheckBox="<%= true %>"
-	searchContainerId="<%= searchContainerId %>"
+	searchContainerId='<%= ParamUtil.getString(request, "searchContainerId", "commerceDataIntegrationProcesses") %>'
 >
 	<liferay-frontend:management-bar-buttons>
 		<liferay-frontend:management-bar-display-buttons

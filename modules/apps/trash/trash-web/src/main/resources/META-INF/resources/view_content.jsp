@@ -90,13 +90,11 @@ renderResponse.setTitle(trashRenderer.getTitle(locale));
 				iteratorURL.setParameter("mvcPath", "/view_content.jsp");
 				iteratorURL.setParameter("classNameId", String.valueOf(trashDisplayContext.getClassNameId()));
 				iteratorURL.setParameter("classPK", String.valueOf(classPK));
-
-				String emptyResultsMessage = LanguageUtil.format(request, "this-x-does-not-contain-an-entry", ResourceActionsUtil.getModelResource(locale, trashDisplayContext.getClassName()), false);
 				%>
 
 				<liferay-ui:search-container
 					deltaConfigurable="<%= false %>"
-					emptyResultsMessage="<%= emptyResultsMessage %>"
+					emptyResultsMessage='<%= LanguageUtil.format(request, "this-x-does-not-contain-an-entry", ResourceActionsUtil.getModelResource(locale, trashDisplayContext.getClassName()), false) %>'
 					id="trash"
 					iteratorURL="<%= iteratorURL %>"
 					total="<%= trashHandler.getTrashModelsCount(classPK) %>"

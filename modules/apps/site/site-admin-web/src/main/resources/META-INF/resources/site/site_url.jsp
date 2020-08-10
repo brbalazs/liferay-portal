@@ -141,19 +141,15 @@ String privateVirtualHost = ParamUtil.getString(request, "privateVirtualHost", B
 
 		<%
 		LayoutSet stagingPublicLayoutSet = LayoutSetLocalServiceUtil.getLayoutSet(stagingGroupId, false);
-
-		String stagingPublicVirtualHost = ParamUtil.getString(request, "stagingPublicVirtualHost", stagingPublicLayoutSet.getVirtualHostname());
 		%>
 
-		<aui:input label="staging-public-pages" maxlength="200" name="stagingPublicVirtualHost" type="text" value="<%= stagingPublicVirtualHost %>" />
+		<aui:input label="staging-public-pages" maxlength="200" name="stagingPublicVirtualHost" type="text" value='<%= ParamUtil.getString(request, "stagingPublicVirtualHost", stagingPublicLayoutSet.getVirtualHostname()) %>' />
 
 		<%
 		LayoutSet stagingPrivateLayoutSet = LayoutSetLocalServiceUtil.getLayoutSet(stagingGroupId, true);
-
-		String stagingPrivateVirtualHost = ParamUtil.getString(request, "stagingPrivateVirtualHost", stagingPrivateLayoutSet.getVirtualHostname());
 		%>
 
-		<aui:input label="staging-private-pages" maxlength="200" name="stagingPrivateVirtualHost" type="text" value="<%= stagingPrivateVirtualHost %>">
+		<aui:input label="staging-private-pages" maxlength="200" name="stagingPrivateVirtualHost" type="text" value='<%= ParamUtil.getString(request, "stagingPrivateVirtualHost", stagingPrivateLayoutSet.getVirtualHostname()) %>'>
 			<aui:validator errorMessage="please-enter-a-unique-virtual-host" name="custom">
 				function(val, fieldNode, ruleValue) {
 					return (val != A.one('#<portlet:namespace />stagingPublicVirtualHost').val());

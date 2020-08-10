@@ -22,7 +22,6 @@ String eventName = GetterUtil.getString(request.getAttribute("liferay-site:site-
 List<Group> groups = (List<Group>)request.getAttribute("liferay-site:site-browser:groups");
 int groupsCount = GetterUtil.getInteger(request.getAttribute("liferay-site:site-browser:groupsCount"));
 long[] selectedGroupIds = GetterUtil.getLongValues(request.getAttribute("liferay-site:site-browser:selectedGroupIds"));
-boolean showSearch = GetterUtil.getBoolean(request.getAttribute("liferay-site:site-browser:showSearch"));
 %>
 
 <clay:management-toolbar
@@ -31,7 +30,7 @@ boolean showSearch = GetterUtil.getBoolean(request.getAttribute("liferay-site:si
 	itemsTotal="<%= groupsCount %>"
 	searchActionURL="<%= siteBrowserDisplayContext.getSearchActionURL() %>"
 	selectable="<%= false %>"
-	showSearch="<%= showSearch %>"
+	showSearch='<%= GetterUtil.getBoolean(request.getAttribute("liferay-site:site-browser:showSearch")) %>'
 	sortingOrder="<%= siteBrowserDisplayContext.getOrderByType() %>"
 	sortingURL="<%= siteBrowserDisplayContext.getSortingURL() %>"
 	viewTypeItems="<%= siteBrowserDisplayContext.getViewTypeItems() %>"

@@ -16,10 +16,6 @@
 
 <%@ include file="/init.jsp" %>
 
-<%
-String searchContainerId = ParamUtil.getString(request, "searchContainerId");
-%>
-
 <clay:management-toolbar
 	actionDropdownItems="<%= journalDisplayContext.getActionDropdownItems() %>"
 	clearResultsURL="<%= journalDisplayContext.getClearResultsURL() %>"
@@ -31,7 +27,7 @@ String searchContainerId = ParamUtil.getString(request, "searchContainerId");
 	infoPanelId="infoPanelId"
 	itemsTotal="<%= journalDisplayContext.getTotalItems() %>"
 	searchActionURL="<%= journalDisplayContext.getSearchActionURL() %>"
-	searchContainerId="<%= searchContainerId %>"
+	searchContainerId='<%= ParamUtil.getString(request, "searchContainerId") %>'
 	searchFormName="fm1"
 	showCreationMenu="<%= journalDisplayContext.isShowAddButton() %>"
 	showInfoButton="<%= journalDisplayContext.isShowInfoButton() %>"

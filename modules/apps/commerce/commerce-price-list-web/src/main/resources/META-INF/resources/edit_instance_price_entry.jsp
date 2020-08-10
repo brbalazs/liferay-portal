@@ -22,13 +22,11 @@ CPInstanceCommercePriceEntryDisplayContext cpInstanceCommercePriceEntryDisplayCo
 CommercePriceEntry commercePriceEntry = cpInstanceCommercePriceEntryDisplayContext.getCommercePriceEntry();
 
 CommercePriceList commercePriceList = commercePriceEntry.getCommercePriceList();
-
-String title = commercePriceList.getName();
 %>
 
 <commerce-ui:side-panel-content
 	screenNavigatorKey="<%= CommercePriceListScreenNavigationConstants.SCREEN_NAVIGATION_KEY_COMMERCE_INSTANCE_PRICE_ENTRY_GENERAL %>"
 	screenNavigatorModelBean="<%= commercePriceEntry %>"
 	screenNavigatorPortletURL="<%= currentURLObj %>"
-	title="<%= title %>"
+	title="<%= commercePriceList.getName() %>"
 />

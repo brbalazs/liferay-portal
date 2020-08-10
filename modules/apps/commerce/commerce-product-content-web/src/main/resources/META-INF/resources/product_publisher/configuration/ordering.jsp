@@ -22,12 +22,7 @@ CPPublisherConfigurationDisplayContext cpPublisherConfigurationDisplayContext = 
 
 <aui:row id="ordering">
 	<aui:col width="<%= 50 %>">
-
-		<%
-		String orderByColumn1 = cpPublisherConfigurationDisplayContext.getOrderByColumn1();
-		%>
-
-		<aui:select label="order-by" name="preferences--orderByColumn1--" value="<%= orderByColumn1 %>" wrapperCssClass="field-inline w90">
+		<aui:select label="order-by" name="preferences--orderByColumn1--" value="<%= cpPublisherConfigurationDisplayContext.getOrderByColumn1() %>" wrapperCssClass="field-inline w90">
 			<aui:option label="title" />
 			<aui:option label="create-date" value="createDate" />
 			<aui:option label="modified-date" value="modifiedDate" />

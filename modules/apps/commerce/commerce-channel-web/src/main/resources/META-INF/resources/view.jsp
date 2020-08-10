@@ -24,14 +24,9 @@ PortletURL portletURL = commerceChannelDisplayContext.getPortletURL();
 
 <div class="row">
 	<div class="col-12">
-
-		<%
-		Map<String, String> contextParams = new HashMap<>();
-		%>
-
 		<commerce-ui:dataset-display
 			clayCreationMenu="<%= commerceChannelDisplayContext.getClayCreationMenu() %>"
-			contextParams="<%= contextParams %>"
+			contextParams="<%= new HashMap<>() %>"
 			dataProviderKey="<%= CommerceChannelClayTable.NAME %>"
 			id="<%= CommerceChannelClayTable.NAME %>"
 			itemsPerPage="<%= 10 %>"
