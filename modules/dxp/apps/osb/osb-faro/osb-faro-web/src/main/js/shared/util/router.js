@@ -258,7 +258,9 @@ export const Routes = buildRoutes({
 									SETTINGS_DEFINITIONS_INDIVIDUAL_ATTRIBUTES:
 										'/individual-attributes',
 									SETTINGS_DEFINITIONS_INTEREST_TOPICS:
-										'/interest-topics'
+										'/interest-topics',
+									SETTINGS_DEFINITIONS_SEARCH:
+										'/search'
 								}
 							},
 							SETTINGS_LIFERAY_ADD: `/data-source/${LIFERAY}`,
