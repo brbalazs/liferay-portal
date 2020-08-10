@@ -340,7 +340,15 @@
 
 			newElement.replace(replaceContainer);
 
-			var nextElement = newElement.getNext();
+			var nextElement = newElement.getNext(function () {
+				return (
+					this.type !== CKEDITOR.NODE_TEXT || this.getText().trim()
+				);
+			});
+
+			if (nextElement && nextElement.$.nodeName === 'BR') {
+				nextElement = null;
+			}
 
 			if (nextElement) {
 				var containerAscendant = instance._getContainerAscendant(prevTriggerPosition.container);
