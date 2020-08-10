@@ -17,7 +17,7 @@ export const Search: React.FC<ISearchProps> = ({groupId}) => (
 			'collect-your-propertys-search-data-by-defining-search-query-parameters'
 		)}
 		pageTitle={Liferay.Language.get('search')}
-	></BasePage>
+	/>
 );
 
 export default Search;

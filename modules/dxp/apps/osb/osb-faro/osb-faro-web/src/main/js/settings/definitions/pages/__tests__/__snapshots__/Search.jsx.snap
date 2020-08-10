@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`InterestTopics should render 1`] = `
+exports[`Search should render 1`] = `
 <div>
   <div
     class="settings-base-page-root"

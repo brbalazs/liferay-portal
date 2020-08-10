@@ -7,7 +7,7 @@ import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
 
-describe('InterestTopics', () => {
+describe('Search', () => {
 	it('should render', () => {
 		const {container} = render(
 			<Provider store={mockStore()}>
