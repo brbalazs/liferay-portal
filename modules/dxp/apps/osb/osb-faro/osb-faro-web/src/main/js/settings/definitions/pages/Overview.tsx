@@ -57,7 +57,7 @@ const items = (devMode: boolean = false): ListItem[] => [
 				description: Liferay.Language.get(
 					'define-the-search-query-parameters-specific-to-your-properties'
 				),
-				route: Routes.SETTINGS_DEFINITIONS_BEHAVIORS,
+				route: Routes.SETTINGS_DEFINITIONS_SEARCH,
 				title: Liferay.Language.get('search')
 			}
 		]
