@@ -178,19 +178,39 @@ public class Table {
 		_faroSelenium.assertElementPresent(sb.toString());
 	}
 
-	@Then("^I should see chart popover date (.*)$")
+	@Then("^I should see chart popover (date (.*)|formatted YYYY MMM DD)$")
 	public void assertChartPopoverDateFormat(
+			@Transform(FaroTransformer.class) String assertionType,
 			@Transform(FaroTransformer.class) String date)
 		throws Exception {
 
-		StringBundler sb = new StringBundler(4);
+		if (assertionType.equals("date")) {
+			StringBundler sb = new StringBundler(4);
 
-		sb.append("//div[@class='bb-tooltip-container']/table/thead/tr/td[2]");
-		sb.append("/div[text()='");
-		sb.append(date);
-		sb.append("']");
+			sb.append("//div[@class='bb-tooltip-container']/table/thead/tr");
+			sb.append("/td[2]/div[text()='");
+			sb.append(date);
+			sb.append("']");
 
-		_faroSelenium.assertElementPresent(sb.toString());
+			_faroSelenium.assertElementPresent(sb.toString());
+		}
+		else if (assertionType.contains("format")) {
+			String dateString = _faroSelenium.getText(
+				"//div[@class='bb-tooltip-container']/table/thead/tr/td[2]" +
+					"/div[text()]");
+
+			String[] splitDate = dateString.split("\\s+");
+
+			String year = splitDate[0];
+			String month = splitDate[1];
+			String day = splitDate[2];
+
+			Assert.assertTrue(year.matches("\\d{4}"));
+			Assert.assertTrue(
+				month.matches(
+					"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"));
+			Assert.assertTrue(day.matches("\\d{1,2}"));
+		}
 	}
 
 	/**
