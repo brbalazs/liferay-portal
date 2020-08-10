@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.headless.commerce.admin.pricing.client.aggregation;
+package com.liferay.headless.commerce.admin.catalog.client.aggregation;
 
 import java.util.HashMap;
 import java.util.Map;
