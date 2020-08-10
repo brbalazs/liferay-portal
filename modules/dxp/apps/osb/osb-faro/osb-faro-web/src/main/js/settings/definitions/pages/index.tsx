@@ -26,9 +26,7 @@ const TrackedBehaviors = lazy(() =>
 	import(/* webpackChunkName: "TrackedBehaviors" */ './TrackedBehaviors')
 );
 
-const Search = lazy(() =>
-	import(/* webpackChunkName: "Search" */ './Search')
-);
+const Search = lazy(() => import(/* webpackChunkName: "Search" */ './Search'));
 
 interface IDefinitionsProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -64,7 +62,6 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 						path={Routes.SETTINGS_DEFINITIONS_SEARCH}
 					/>
 				</Switch>
-
 			)}
 			<RouteNotFound />
 		</Switch>

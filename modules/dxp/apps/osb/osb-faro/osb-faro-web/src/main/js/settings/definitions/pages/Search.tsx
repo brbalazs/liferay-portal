@@ -6,9 +6,7 @@ interface ISearchProps {
 	groupId: string;
 }
 
-export const Search: React.FC<ISearchProps> = ({
-	groupId
-}) => (
+export const Search: React.FC<ISearchProps> = ({groupId}) => (
 	<BasePage
 		breadcrumbItems={[
 			getDefinitions({groupId}),
@@ -19,8 +17,7 @@ export const Search: React.FC<ISearchProps> = ({
 			'collect-your-propertys-search-data-by-defining-search-query-parameters'
 		)}
 		pageTitle={Liferay.Language.get('search')}
-	>
-	</BasePage>
+	></BasePage>
 );
 
 export default Search;

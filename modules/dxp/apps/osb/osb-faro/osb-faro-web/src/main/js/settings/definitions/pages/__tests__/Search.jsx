@@ -9,13 +9,13 @@ jest.unmock('react-dom');
 
 describe('InterestTopics', () => {
 	it('should render', () => {
-        const {container} = render(
-            <Provider store={mockStore()}>
-                <StaticRouter>
-                    <Search groupId='23' />
-                </StaticRouter>
-            </Provider>
-        );
+		const {container} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<Search groupId='23' />
+				</StaticRouter>
+			</Provider>
+		);
 
 		expect(container).toMatchSnapshot();
 	});
