@@ -207,9 +207,8 @@ public class AssertionSteps {
 		@Transform(FaroTransformer.class) String pattern) {
 
 		WebElement chartXAxis = _faroSelenium.findElement(
-			"//div[@class='analytics-metrics-chart']//*[name()='g' and " +
-				"@class='bb-axis bb-axis-x']/*[name()='g']" +
-					"[1]//*[name()='tspan']");
+			"//*[name()='g' and @class='bb-axis bb-axis-x']/*[name()='g']" +
+				"[1]//*[name()='tspan']");
 
 		String chartXAxisValue = chartXAxis.getText();
 
