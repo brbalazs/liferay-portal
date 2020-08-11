@@ -17,6 +17,8 @@
 <%@ page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
 page import="com.liferay.portal.util.MaintenanceUtil" %>
 
+<%@ page import="java.util.Objects" %>
+
 <%
 boolean invokingSession = false;
 
