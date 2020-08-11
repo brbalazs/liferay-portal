@@ -1096,7 +1096,6 @@ definition {
 		Navigator.openStagingSiteURL(siteName = "Site Name");
 
 		Staging.addRepeatEvent(
-			endOnDate = "true",
 			failureExpected = "true",
 			frequency = "Monthly",
 			scheduleTitleName = "Event Monthly Name");
