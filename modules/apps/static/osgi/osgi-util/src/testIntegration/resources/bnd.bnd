@@ -4,8 +4,12 @@ Bundle-Version: 3.0.0
 Import-Package:\
 	!com.liferay.petra.concurrent,\
 	!com.liferay.petra.function,\
+	!com.liferay.petra.reflect,\
 	!com.liferay.petra.string,\
+	!com.liferay.portal.kernel.concurrent,\
 	!com.liferay.portal.kernel.util,\
+	!com.liferay.portal.lpkg.deployer,\
+	!com.liferay.portal.osgi.web.wab.generator,\
 	\
 	!org.junit.experimental.runners,\
 	\
