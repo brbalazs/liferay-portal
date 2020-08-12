@@ -192,8 +192,9 @@ public class SegmentPage {
 		_faroSelenium.click("//div[contains(@class,'input-group')]/div/input");
 
 		_faroSelenium.click(
-			"//button[contains(@class,'dropdown-item')]/div/div[@class='" +
-				"field-details']/span[text()='" + distribution + "']");
+			StringBundler.concat(
+				"//button[contains(@class,'dropdown-item')]/div/div[@class='",
+				"field-details']/span[text()='", distribution, "']"));
 
 		if (numberProp != null) {
 			WebElement binWebElement = _faroSelenium.findElement(

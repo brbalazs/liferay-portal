@@ -132,9 +132,10 @@ public class FaroWebDriverImpl
 		Stream<String> stream = bufferedReader.lines();
 
 		jse.executeScript(
-			stream.collect(Collectors.joining(" ")) +
-				"DndSimulator.simulate('" + fromElement + "', '" + toElement +
-					"');");
+			StringBundler.concat(
+				stream.collect(Collectors.joining(" ")),
+				"DndSimulator.simulate('", fromElement, "', '", toElement,
+				"');"));
 	}
 
 	@Override

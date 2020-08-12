@@ -212,9 +212,10 @@ public class SegmentForm {
 					yearSelector.selectByVisibleText(year);
 
 					_faroSelenium.click(
-						"//table[@class='calendar-root']//butto" +
-							"n[@class='button-root btn btn-unstyled day-root" +
-								"' and text()='" + day + "']");
+						StringBundler.concat(
+							"//table[@class='calendar-root']//butto",
+							"n[@class='button-root btn btn-unstyled day-root",
+							"' and text()='", day, "']"));
 				}
 				else if ((dateFlag != null) &&
 						 dateFlag.equals("Web Behavior")) {
@@ -335,9 +336,10 @@ public class SegmentForm {
 							yearSelector1.selectByVisibleText(year1);
 
 							_faroSelenium.click(
-								"//table[@class='calendar-root']//butto" +
-									"n[@class='button-root btn btn-unstyled " +
-										"day-root' and text()='" + day1 + "']");
+								StringBundler.concat(
+									"//table[@class='calendar-root']//butto",
+									"n[@class='button-root btn btn-unstyled ",
+									"day-root' and text()='", day1, "']"));
 
 							if (criteriaOption.equals("between")) {
 								String itemOption1 = row.get(7);
@@ -368,10 +370,11 @@ public class SegmentForm {
 								yearSelector2.selectByVisibleText(year2);
 
 								_faroSelenium.click(
-									"//table[@class='calendar-root']//butto" +
-										"n[@class='button-root btn btn-" +
-											"unstyled day-root' and text()='" +
-												day2 + "']");
+									StringBundler.concat(
+										"//table[@class='calendar-root'",
+										"]//button[@class='button-root btn ",
+										"btn-unstyled day-root' and text()='",
+										day2, "']"));
 							}
 						}
 					}
@@ -392,9 +395,10 @@ public class SegmentForm {
 								"//input[@type='number']")) {
 
 							_faroSelenium.click(
-								"//ul[contains(@class,'dropdown-menu " +
-									"show')]//button[text()='" + criteriaValue +
-										"']");
+								StringBundler.concat(
+									"//ul[contains(@class,'dropdown-menu ",
+									"show')]//button[text()='", criteriaValue,
+									"']"));
 						}
 					}
 

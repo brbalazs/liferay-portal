@@ -14,6 +14,8 @@
 
 package com.liferay.osb.faro.functional.test.util;
 
+import com.liferay.petra.string.StringBundler;
+
 /**
  * For storing long, ambiguous, or version specific DXP XPath or URL path strings
  *
@@ -42,11 +44,11 @@ public class DxpStringPool {
 	public static final String ADD_OAUTH_APP_BUTTON_XPATH =
 		"//a[@title='Add OAuth 2 Application']";
 
-	public static final String ADD_SITES_URL_PATH =
-		"/group/control_panel/manage/-/sites/sites/select_site?_com_liferay_" +
-			"site_admin_web_portlet_SiteAdminPortlet_redirect=%2Fgroup%" +
-				"2Fcontrol_panel%2Fmanage%2F-%2Fsites%2Fsites%3Fp_p_auth%" +
-					"3DR83NOhx7&p_p_auth=R83NOhx7";
+	public static final String ADD_SITES_URL_PATH = StringBundler.concat(
+		"/group/control_panel/manage/-/sites/sites/select_site?_com_liferay_",
+		"site_admin_web_portlet_SiteAdminPortlet_redirect=%2Fgroup%",
+		"3DR83NOhx7&p_p_auth=R83NOhx7",
+		"2Fcontrol_panel%2Fmanage%2F-%2Fsites%2Fsites%3Fp_p_auth%");
 
 	public static final String ANALYTICS_SCOPE_EXPANDED_XPATH =
 		"//span[text()='Analytics']/parent::a[@aria-expanded='true']";

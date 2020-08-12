@@ -17,6 +17,7 @@ package com.liferay.osb.faro.functional.test.pages.fragments;
 import com.liferay.osb.faro.functional.test.driver.FaroSelenium;
 import com.liferay.osb.faro.functional.test.util.FaroSeleniumUtil;
 import com.liferay.osb.faro.functional.test.util.FaroTransformer;
+import com.liferay.petra.string.StringBundler;
 
 import cucumber.api.Transform;
 import cucumber.api.java.en.Then;
@@ -62,9 +63,10 @@ public class TimeFilter {
 		yearSelector.selectByVisibleText(startYear);
 
 		_faroSelenium.click(
-			"//table[@class='calendar-root']//butto" +
-				"n[@class='button-root btn btn-unstyled day-root" +
-					"' and text()='" + startDay + "']");
+			StringBundler.concat(
+				"//table[@class='calendar-root']//butto",
+				"n[@class='button-root btn btn-unstyled day-root",
+				"' and text()='", startDay, "']"));
 
 		monthSelector = new Select(
 			_faroSelenium.findElement(
@@ -79,9 +81,10 @@ public class TimeFilter {
 		yearSelector.selectByVisibleText(endYear);
 
 		_faroSelenium.click(
-			"//table[@class='calendar-root']//butto" +
-				"n[@class='button-root btn btn-unstyled day-root" +
-					"' and text()='" + endDay + "']");
+			StringBundler.concat(
+				"//table[@class='calendar-root']//butto",
+				"n[@class='button-root btn btn-unstyled day-root",
+				"' and text()='", endDay, "']"));
 	}
 
 	/**

@@ -147,8 +147,9 @@ public class ClickSteps {
 		@Transform(FaroTransformer.class) String targetName) {
 
 		WebElement webElement = _faroSelenium.findElement(
-			"//button[contains(@class, 'dropdown-toggle')]" +
-				"/span[normalize-space(text())='" + targetName + "']");
+			StringBundler.concat(
+				"//button[contains(@class, 'dropdown-toggle')]",
+				"/span[normalize-space(text())='", targetName, "']"));
 
 		webElement.click();
 	}
@@ -168,8 +169,9 @@ public class ClickSteps {
 
 		if (cardName != null) {
 			webElement = _faroSelenium.findElement(
-				"//h5[text()='" + cardName + "']/parent::div//button[text()='" +
-					targetName + "']");
+				StringBundler.concat(
+					"//h5[text()='", cardName,
+					"']/parent::div//button[text()='", targetName, "']"));
 		}
 		else {
 			webElement = _faroSelenium.findElement(

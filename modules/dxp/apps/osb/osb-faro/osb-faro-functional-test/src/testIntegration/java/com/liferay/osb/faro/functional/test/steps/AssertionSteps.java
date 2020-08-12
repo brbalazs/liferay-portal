@@ -155,16 +155,18 @@ public class AssertionSteps {
 		throws Exception {
 
 		_faroSelenium.waitForElementPresent(
-			"//h5[text()='" + card +
-				"']/parent::div/parent::div//*[name()='g' and @class='bb-" +
-					"axis bb-axis-x']/*[name()='g'][1]//*[name()='tspan' and " +
-						"text()='" + start + "']");
+			StringBundler.concat(
+				"//h5[text()='", card,
+				"']/parent::div/parent::div//*[name()='g' and @class='bb-axis ",
+				"bb-axis-x']/*[name()='g'][1]//*[name()='tspan' and ",
+				"text()='", start, "']"));
 
 		_faroSelenium.waitForElementPresent(
-			"//h5[text()='" + card +
-				"']/parent::div/parent::div//*[name()='g' and @class='bb-" +
-					"axis bb-axis-x']/*[name()='g'][last()]//*[name()='tspan" +
-						"' and text()='" + end + "']");
+			StringBundler.concat(
+				"//h5[text()='", card,
+				"']/parent::div/parent::div//*[name()='g' and @class='bb-axis ",
+				"bb-axis-x']/*[name()='g'][last()]//*[name()='tspan",
+				"' and text()='", end, "']"));
 	}
 
 	@Then("^I should see time filter (.*) in(?: \"(.*)\")? card$")
@@ -175,8 +177,9 @@ public class AssertionSteps {
 
 		if (card != null) {
 			_faroSelenium.waitForElementPresent(
-				"//h5[text()='" + card + "']/parent::div//button[text()='" +
-					date + "']");
+				StringBundler.concat(
+					"//h5[text()='", card, "']/parent::div//button[text()='",
+					date, "']"));
 		}
 		else {
 			_faroSelenium.waitForElementPresent(

@@ -92,7 +92,8 @@ public class Toolbar {
 
 		Assert.assertTrue(
 			searchResultsHeaderText.contains(
-				resultsCount + " Results for \"" + query + "\""));
+				StringBundler.concat(
+					resultsCount, " Results for \"", query, "\"")));
 	}
 
 	/**

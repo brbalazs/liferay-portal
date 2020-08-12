@@ -213,10 +213,10 @@ public class DataSourcePage {
 		}
 
 		if (_faroSelenium.isNotPartialText(syncTextXPath, "Last Sync:")) {
-			syncTextXPath =
-				"//b[contains(text(),'" + dataType +
-					"')]/following::div[@class='status' and contains(text()," +
-						"'Last Sync:')]";
+			syncTextXPath = StringBundler.concat(
+				"//b[contains(text(),'", dataType,
+				"')]/following::div[@class='status' and contains(text(),",
+				"'Last Sync:')]");
 
 			_faroSelenium.refreshUntilElementPresent(120, 20, syncTextXPath);
 		}
@@ -700,8 +700,10 @@ public class DataSourcePage {
 		throws Exception {
 
 		_faroSelenium.javaScriptClick(
-			"//h4[@class='list-group-title' and text()='Sync By " + syncOption +
-				"']|//p[contains(text(),'Sync by " + syncOption + "')]");
+			StringBundler.concat(
+				"//h4[@class='list-group-title' and text()='Sync By ",
+				syncOption, "']|//p[contains(text(),'Sync by ", syncOption,
+				"')]"));
 
 		_faroSelenium.waitForLoadingComplete();
 		_faroSelenium.waitForPageLoadingComplete();

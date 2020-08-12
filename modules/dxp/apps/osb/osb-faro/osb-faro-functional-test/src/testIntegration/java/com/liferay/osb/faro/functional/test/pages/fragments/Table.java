@@ -795,8 +795,9 @@ public class Table {
 		throws Exception {
 
 		_faroSelenium.assertText(
-			"//h5[text()='" + cardTitle + "']/ancestor::div[contains" +
-				"(@class,'interest')]//tbody[1]//span[text()='" + result + "']",
+			StringBundler.concat(
+				"//h5[text()='", cardTitle, "']/ancestor::div[contains",
+				"(@class,'interest')]//tbody[1]//span[text()='", result, "']"),
 			result);
 	}
 
