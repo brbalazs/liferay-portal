@@ -19,13 +19,13 @@ MBMessage replyMessage = null;
 
 long messageId = 0;
 
-Message message = messageDisplay.getMessage();
+MBMessage currentMessage = messageDisplay.getMessage();
 
-long categoryId = message.getCategoryId();
-long threadId = message.getThreadId();
-long parentMessageId = message.getMessageId();
+long categoryId = currentMessage.getCategoryId();
+long threadId = currentMessage.getThreadId();
+long parentMessageId = currentMessage.getMessageId();
 String subject = BeanParamUtil.getString(replyMessage, request, "subject");
-double priority = message.getPriority();
+double priority = currentMessage.getPriority();
 
 MBMessage curParentMessage = null;
 
@@ -34,9 +34,9 @@ if (threadId > 0) {
 		curParentMessage = MBMessageLocalServiceUtil.getMessage(parentMessageId);
 
 		if (Validator.isNull(subject)) {
-			String subject = curParentMessage.getSubject();
+			String curParentMessageSubject = curParentMessage.getSubject();
 
-			if (subject.startsWith(MBMessageConstants.MESSAGE_SUBJECT_PREFIX_RE)) {
+			if (curParentMessageSubject.startsWith(MBMessageConstants.MESSAGE_SUBJECT_PREFIX_RE)) {
 				subject = curParentMessage.getSubject();
 			}
 			else {
