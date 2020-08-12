@@ -66,8 +66,8 @@ public class SegmentPage {
 	/**
 	 * Asserts segment composition individuals count
 	 *
-	 * @param number amount of individuals
-	 * @param type active or known individuals
+	 * @param  number amount of individuals
+	 * @param  type active or known individuals
 	 * @throws Exception if an exception occurred
 	 */
 	@Then(
@@ -122,8 +122,8 @@ public class SegmentPage {
 	}
 
 	/**
-	 * Asserts the Segment Profile's cards and checks that there is some
-	 * text for the Membership count and Engagement Score.
+	 * Asserts the Segment Profile's cards and checks that there is some text
+	 * for the Membership count and Engagement Score.
 	 *
 	 * @throws Exception if an exception occurred
 	 */

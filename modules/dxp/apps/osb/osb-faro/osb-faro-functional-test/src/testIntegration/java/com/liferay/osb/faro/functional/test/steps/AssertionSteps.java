@@ -191,7 +191,7 @@ public class AssertionSteps {
 	/**
 	 * Asserts the presence of options in a dropdown menu.
 	 *
-	 * @param optionsList the list of options to expect
+	 * @param  optionsList the list of options to expect
 	 * @throws Exception if an exception occurred
 	 */
 	@Then("^I should see the following options in the dropdown menu$")
@@ -283,7 +283,7 @@ public class AssertionSteps {
 	/**
 	 * Asserts that the expected text is present anywhere on the page.
 	 *
-	 * @param expectedText the text to expect on the page
+	 * @param  expectedText the text to expect on the page
 	 * @throws Exception if an exception occurred
 	 */
 	@Then("^I should see text saying (.*) on the page$")

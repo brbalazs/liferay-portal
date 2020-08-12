@@ -258,7 +258,8 @@ public class FaroWebDriverImpl
 	 * Refreshes the page using a provided timeout and polling interval to
 	 * assert the absence of a WebElement.
 	 *
-	 * @param timeout the maximum time to wait for the web element to not be present
+	 * @param timeout the maximum time to wait for the web element to not be
+	 *        present
 	 * @param pollInterval the interval to refresh and recheck for the
 	 *        WebElement
 	 * @param xpath the xpath of the WebElement to check

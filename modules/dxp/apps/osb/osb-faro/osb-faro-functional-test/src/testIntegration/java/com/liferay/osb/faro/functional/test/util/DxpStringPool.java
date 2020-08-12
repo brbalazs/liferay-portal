@@ -17,7 +17,8 @@ package com.liferay.osb.faro.functional.test.util;
 import com.liferay.petra.string.StringBundler;
 
 /**
- * For storing long, ambiguous, or version specific DXP XPath or URL path strings
+ * For storing long, ambiguous, or version specific DXP XPath or URL path
+ * strings
  *
  * @author Cheryl Tang
  */

@@ -46,8 +46,8 @@ public class DxpSteps {
 
 	/**
 	 * Connects AC to a local DXP instance using OAuth2, then stores the
-	 * generated Client and Secret in {@link FaroTestDataUtil#_placeholders}
-	 * for use by subsequent steps.
+	 * generated Client and Secret in {@link FaroTestDataUtil#_placeholders} for
+	 * use by subsequent steps.
 	 *
 	 * @throws Exception if an exception occurred
 	 */
@@ -195,7 +195,9 @@ public class DxpSteps {
 	}
 
 	/**
-	 * Uses the auth token set in {@link com.liferay.osb.faro.functional.test.pages.DataSourcePage#copyDXPAuthenticationToken} to connect AC to DXP
+	 * Uses the auth token set in {@link
+	 * com.liferay.osb.faro.functional.test.pages.DataSourcePage#copyDXPAuthenticationToken}
+	 * to connect AC to DXP
 	 *
 	 * @throws Exception if an exception occurred
 	 */
@@ -234,7 +236,7 @@ public class DxpSteps {
 	/**
 	 * Creates a page on DXP and generates click activity
 	 *
-	 * @param pageName name of the page to create
+	 * @param  pageName name of the page to create
 	 * @throws Exception if an exception occurred
 	 */
 	@And("^I create a dummy page called (.*) on the local DXP instance$")

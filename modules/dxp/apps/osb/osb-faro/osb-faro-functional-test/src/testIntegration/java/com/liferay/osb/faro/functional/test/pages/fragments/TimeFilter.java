@@ -88,8 +88,8 @@ public class TimeFilter {
 	}
 
 	/**
-	 * Asserts that the Custom Range date picker dropdown shows an error
-	 * message when a date range exceeding 365 days is selected.
+	 * Asserts that the Custom Range date picker dropdown shows an error message
+	 * when a date range exceeding 365 days is selected.
 	 *
 	 * @throws Exception
 	 */

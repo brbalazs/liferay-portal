@@ -77,11 +77,11 @@ public class Table {
 	}
 
 	/**
-	 * Asserts that a list of items in a Table is sorted using a
-	 * specified {@code sortMethod}.
+	 * Asserts that a list of items in a Table is sorted using a specified
+	 * {@code sortMethod}.
 	 *
-	 * @param sortMethod the sorting direction used to assert the list of
-	 *                   items, either ascending or descending
+	 * @param sortMethod the sorting direction used to assert the list of items,
+	 *        either ascending or descending
 	 */
 	@Then(
 		"^I should see the (?:.*) sorted in (ascending|descending) alphabetical order$"
@@ -133,7 +133,7 @@ public class Table {
 	/**
 	 * Asserts breakdown name matches first result
 	 *
-	 * @param dataTable the ordered table items
+	 * @param  dataTable the ordered table items
 	 * @throws Exception if an exception occurred
 	 */
 	@Then("^I should see the following names in breakdown:$")
@@ -245,8 +245,8 @@ public class Table {
 	 * Checks for the presence of the 'disabled' warning icon in the table row
 	 * of a specified table item.
 	 *
-	 * @param name the disabled item to check for
-	 * @param negation negation to check if an item is enabled
+	 * @param  name the disabled item to check for
+	 * @param  negation negation to check if an item is enabled
 	 * @throws Exception if an exception occurred
 	 */
 	@And("^I should see that (.*) is (not )?disabled$")
@@ -270,10 +270,9 @@ public class Table {
 	 * Asserts the name and number of items contained by a single entity within
 	 * an table.
 	 *
-	 * @param  type the type of the entity, either 'Account' or 'Segment'
-	 * @param  name the name that should exclusively be in
-	 * @param  count the number of child items expected within an entity
-	 * @throws Exception if an exception occurred
+	 * @param type the type of the entity, either 'Account' or 'Segment'
+	 * @param name the name that should exclusively be in
+	 * @param count the number of child items expected within an entity
 	 */
 	@Then("^I should see a (.*) named (.*) with (.*) items$")
 	public void assertEntityChildrenCount(
@@ -369,7 +368,7 @@ public class Table {
 	/**
 	 * Assert item appears on expanded session
 	 *
-	 * @param name the name of the item
+	 * @param  name the name of the item
 	 * @throws Exception if an exception occurred
 	 */
 	@Then(
@@ -410,8 +409,8 @@ public class Table {
 	/**
 	 * Asserts that a table column's items are in a specified order.
 	 *
-	 * @param colNum the number of the column to assert, from left to right
-	 * @param dataTable the ordered table of items to assert against
+	 * @param  colNum the number of the column to assert, from left to right
+	 * @param  dataTable the ordered table of items to assert against
 	 * @throws Exception if an exception occured
 	 */
 	@Then("^I should see the following ordered rows in column (.*):$")
@@ -465,7 +464,7 @@ public class Table {
 	/**
 	 * Asserts that a user is on a specified page in a paginated table.
 	 *
-	 * @param pageNumber the page the user should be on
+	 * @param  pageNumber the page the user should be on
 	 * @throws Exception if an exception occurs
 	 */
 	@Given("^I should be on page \"(\\d+)\" in the table$")
@@ -597,7 +596,7 @@ public class Table {
 	/**
 	 * Clicks a bar graph in the table
 	 *
-	 * @param rowNumber selects the bar graph in that row
+	 * @param  rowNumber selects the bar graph in that row
 	 * @throws Exception if an exception occurred
 	 */
 	@And("^I click row number \"(.*)\" in the bar graph table$")
@@ -621,8 +620,8 @@ public class Table {
 	/**
 	 * Clicks an inline button for an item in a table.
 	 *
-	 * @param button the inline button to click
-	 * @param name the item to click an inline button for
+	 * @param  button the inline button to click
+	 * @param  name the item to click an inline button for
 	 * @throws Exception if an exception occurred
 	 */
 	@And("^I click the inlined (.*) button for the (.*) row$")
@@ -752,8 +751,8 @@ public class Table {
 	/**
 	 * Sorts a table by a column header in a desired order.
 	 *
-	 * @param columnHeader the table column header to sort by
-	 * @param sortOrder the order to sort in, either ascending or descending
+	 * @param  columnHeader the table column header to sort by
+	 * @param  sortOrder the order to sort in, either ascending or descending
 	 * @throws Exception if an exception occurred
 	 */
 	@And(

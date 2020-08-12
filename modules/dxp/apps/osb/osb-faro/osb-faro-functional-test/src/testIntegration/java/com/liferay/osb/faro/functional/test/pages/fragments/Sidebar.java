@@ -59,7 +59,7 @@ public class Sidebar {
 	/**
 	 * Asserts that the workspace is scoped by a specified Property.
 	 *
-	 * @param propertyName the name of the Property
+	 * @param  propertyName the name of the Property
 	 * @throws Exception if an exception occurred
 	 */
 	@Then("^(?i)I should see that (.*) is the current active Property$")
@@ -75,7 +75,8 @@ public class Sidebar {
 	 * Asserts the list of Properties in the Property Menu.
 	 *
 	 * @param negation to negatively assert
-	 * @param dataTable the list of Properties that should be in the Property Menu
+	 * @param dataTable the list of Properties that should be in the Property
+	 *        Menu
 	 */
 	@And(
 		"^(?i)I should (not )?see the following Properties in the Property Dropdown Menu:$"
@@ -113,7 +114,7 @@ public class Sidebar {
 	/**
 	 * Clicks a Property in the Property Dropdown Menu
 	 *
-	 * @param propertyName the name of the Property
+	 * @param  propertyName the name of the Property
 	 * @throws Exception if an exception occurred
 	 */
 	@When("^(?i)I click (.*) in the Property Dropdown Menu$")
@@ -127,7 +128,7 @@ public class Sidebar {
 	}
 
 	/**
-	 * @param propertyName the name of the Property
+	 * @param  propertyName the name of the Property
 	 * @return the Xpath for a Property in the Property Dropdown Menu
 	 */
 	private static String _generatePropertyMenuItemXpath(String propertyName) {

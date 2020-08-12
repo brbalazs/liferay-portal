@@ -143,8 +143,8 @@ public class Toolbar {
 	/**
 	 * Selects search bar under card title
 	 *
+	 * @param  input text to enter in the search bar
 	 * @param  searchBar card title above search bar
-	 * @param input text to enter in the search bar
 	 * @throws Exception if an exception occurred
 	 */
 	@When("^I search for \"(.*)\" in the (.*) card$")

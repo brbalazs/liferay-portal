@@ -161,7 +161,8 @@ public class ContactPage {
 	}
 
 	/**
-	 * Asserts the Individuals count on the Individuals dashboard quick overview.
+	 * Asserts the Individuals count on the Individuals dashboard quick
+	 * overview.
 	 *
 	 * @param name the name of the card
 	 * @param count the number of individuals to assert
@@ -293,8 +294,8 @@ public class ContactPage {
 	}
 
 	/**
-	 * Asserts the Sites Page Overview tab's card and checks that there is
-	 * some text for the Site's Page details card
+	 * Asserts the Sites Page Overview tab's card and checks that there is some
+	 * text for the Site's Page details card
 	 *
 	 * @throws Exception if an exception occurred
 	 */

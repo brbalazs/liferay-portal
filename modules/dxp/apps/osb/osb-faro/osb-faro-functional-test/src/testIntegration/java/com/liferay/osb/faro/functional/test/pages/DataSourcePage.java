@@ -52,7 +52,7 @@ public class DataSourcePage {
 	 * Asserts message detailing what data will be affected by Data Source
 	 * Deletion on the Data Source Deletion Page
 	 *
-	 * @param affectedData the number and type of data that will be affected,
+	 * @param  affectedData the number and type of data that will be affected,
 	 * @throws Exception if an exception occurred
 	 */
 	@Then(
@@ -187,7 +187,7 @@ public class DataSourcePage {
 	/**
 	 * Asserts that a Data Source's data has finished syncing.
 	 *
-	 * @param dataType the synced data to assert
+	 * @param  dataType the synced data to assert
 	 * @throws Exception if an exception occurred
 	 */
 	@Then(
@@ -348,7 +348,7 @@ public class DataSourcePage {
 	 * Clicks an item to view details on how data will be affected by data
 	 * source deletion
 	 *
-	 * @param affectedData the kind of a data to see details for
+	 * @param  affectedData the kind of a data to see details for
 	 * @throws Exception if an exception occurred
 	 */
 	@When("^I click the affected (.*) on the Data Source deletion page$")
@@ -387,8 +387,9 @@ public class DataSourcePage {
 	}
 
 	/**
-	 * Stores the auth token in {@link FaroTestDataUtil#_placeholders}
-	 * for later use by {@link com.liferay.osb.faro.functional.test.steps.DxpSteps#connectDxpWithAuthToken}
+	 * Stores the auth token in {@link FaroTestDataUtil#_placeholders} for later
+	 * use by {@link
+	 * com.liferay.osb.faro.functional.test.steps.DxpSteps#connectDxpWithAuthToken}
 	 */
 	@And("^I copy the DXP Authentication Token$")
 	public void copyDXPAuthenticationToken() {

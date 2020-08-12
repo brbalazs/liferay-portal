@@ -52,7 +52,8 @@ public class FaroTestDataUtil {
 	 *
 	 * @param  dateToValidate the string of the date to be validated
 	 * @param  pattern the pattern to check against the date
-	 * @return true if the date is following the pattern and false if not
+	 * @return <code>true</code> if the date is following the pattern and
+	 *         <code>false</code> if not
 	 */
 	public static boolean assertDateFormat(
 		String dateToValidate, String pattern) {
