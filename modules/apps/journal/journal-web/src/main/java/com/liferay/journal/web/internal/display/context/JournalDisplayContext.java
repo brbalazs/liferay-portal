@@ -1130,7 +1130,6 @@ public class JournalDisplayContext {
 		PortletURL portletURL = _liferayPortletResponse.createRenderURL();
 
 		portletURL.setParameter("folderId", String.valueOf(getFolderId()));
-		portletURL.setParameter("navigation", getNavigation());
 		portletURL.setParameter("orderByCol", getOrderByCol());
 		portletURL.setParameter("orderByType", getOrderByType());
 		portletURL.setParameter("status", String.valueOf(getStatus()));
@@ -1859,10 +1858,14 @@ public class JournalDisplayContext {
 	private Consumer<DropdownItem> _getFilterNavigationDropdownItem(
 		final boolean active, final String navigation) {
 
+		PortletURL portletURL = getPortletURL();
+
+		portletURL.setParameter("keywords", StringPool.BLANK);
+
 		return dropdownItem -> {
 			dropdownItem.setActive(active);
 
-			dropdownItem.setHref(getPortletURL(), "navigation", navigation);
+			dropdownItem.setHref(portletURL, "navigation", navigation);
 
 			dropdownItem.setLabel(LanguageUtil.get(_request, navigation));
 		};
