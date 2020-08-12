@@ -26,7 +26,7 @@ FileVersion fileVersion = (FileVersion)request.getAttribute(WebKeys.DOCUMENT_LIB
 
 boolean showThumbnail = false;
 
-if (fileEntry.getVersion().equals(fileVersion.getVersion())) {
+if (Objects.equals(fileEntry.getVersion(), fileVersion.getVersion())) {
 	showThumbnail = true;
 }
 %>

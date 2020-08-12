@@ -30,7 +30,7 @@ String type = ParamUtil.getString(request, "type");
 long groupId = ParamUtil.getLong(request, "groupId", scopeGroupId);
 String urlTitle = ParamUtil.getString(request, "urlTitle");
 
-boolean print = ParamUtil.getString(request, "viewMode").equals(Constants.PRINT);
+boolean print = Objects.equals(ParamUtil.getString(request, "viewMode"), Constants.PRINT);
 
 AssetEntry assetEntry = null;
 

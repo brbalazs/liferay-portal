@@ -84,7 +84,7 @@ boolean updateVersionDetails = ParamUtil.getBoolean(request, "updateVersionDetai
 
 long assetClassPK = 0;
 
-if ((fileVersion != null) && !fileVersion.isApproved() && Validator.isNotNull(fileVersion.getVersion()) && !fileVersion.getVersion().equals(DLFileEntryConstants.VERSION_DEFAULT)) {
+if ((fileVersion != null) && !fileVersion.isApproved() && Validator.isNotNull(fileVersion.getVersion()) && !Objects.equals(fileVersion.getVersion(), DLFileEntryConstants.VERSION_DEFAULT)) {
 	assetClassPK = fileVersion.getFileVersionId();
 }
 else if (fileEntry != null) {

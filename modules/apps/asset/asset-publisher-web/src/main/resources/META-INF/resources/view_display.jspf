@@ -28,7 +28,7 @@ if (!ArrayUtil.contains(assetPublisherDisplayContext.getDisplayStyles(), assetPu
 }
 else {
 	for (String curDisplayStyle : assetPublisherDisplayContext.getDisplayStyles()) {
-		if (assetPublisherDisplayContext.getDisplayStyle().equals(curDisplayStyle)) {
+		if (Objects.equals(assetPublisherDisplayContext.getDisplayStyle(), curDisplayStyle)) {
 %>
 
 			<liferay-util:include page='<%= "/display/" + TextFormatter.format(curDisplayStyle, TextFormatter.N) + ".jsp" %>' servletContext="<%= application %>" />

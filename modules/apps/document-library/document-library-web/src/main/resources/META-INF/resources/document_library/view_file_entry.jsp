@@ -61,7 +61,7 @@ com.liferay.portal.kernel.lock.Lock lock = fileEntry.getLock();
 
 long assetClassPK = 0;
 
-if (!fileVersion.isApproved() && !fileVersion.getVersion().equals(DLFileEntryConstants.VERSION_DEFAULT) && !fileEntry.isInTrash()) {
+if (!fileVersion.isApproved() && !Objects.equals(fileVersion.getVersion(), DLFileEntryConstants.VERSION_DEFAULT) && !fileEntry.isInTrash()) {
 	assetClassPK = fileVersion.getFileVersionId();
 }
 else {

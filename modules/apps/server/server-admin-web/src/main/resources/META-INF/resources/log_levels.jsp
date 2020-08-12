@@ -97,8 +97,10 @@ serverURL.setParameter("tabs2", tabs2);
 			while (enu.hasMoreElements()) {
 				Logger logger = (Logger)enu.nextElement();
 
-				if (Validator.isNull(keywords) || logger.getName().contains(keywords)) {
-					currentLoggerNames.put(logger.getName(), logger);
+				String name = logger.getName();
+
+				if (Validator.isNull(keywords) || name.contains(keywords)) {
+					currentLoggerNames.put(name, logger);
 				}
 			}
 

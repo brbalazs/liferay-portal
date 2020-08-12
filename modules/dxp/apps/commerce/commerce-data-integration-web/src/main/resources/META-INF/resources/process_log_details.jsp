@@ -21,9 +21,12 @@ CommerceDataIntegrationProcessLogDisplayContext commerceDataIntegrationProcessLo
 
 CommerceDataIntegrationProcessLog commerceDataIntegrationProcessLog = commerceDataIntegrationProcessLogDisplayContext.getCommerceDataIntegrationProcessLog();
 
-long timeMillis = commerceDataIntegrationProcessLog.getEndDate().getTime() - commerceDataIntegrationProcessLog.getStartDate().getTime();
+Date logEndDate = commerceDataIntegrationProcessLog.getEndDate();
+Date logStartDate = commerceDataIntegrationProcessLog.getStartDate();
 
-String startDate = commerceDataIntegrationProcessLogDisplayContext.getFormattedDate(commerceDataIntegrationProcessLog.getStartDate());
+long timeMillis = logEndDate.getTime() - logStartDate.getTime();
+
+String startDate = commerceDataIntegrationProcessLogDisplayContext.getFormattedDate(logStartDate);
 %>
 
 <portlet:actionURL name="editCommerceDataIntegrationProcessLog" var="editCommerceDataIntegrationProcessLogActionURL" />

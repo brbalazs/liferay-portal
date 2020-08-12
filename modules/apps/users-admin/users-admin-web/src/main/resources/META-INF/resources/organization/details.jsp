@@ -156,7 +156,9 @@ if ((organization == null) && (parentOrganizationId == OrganizationConstants.DEF
 	}
 
 	if (manageableOrganizations.size() == 1) {
-		parentOrganizationId = manageableOrganizations.get(0).getOrganizationId();
+		Organization organization = manageableOrganizations.get(0);
+
+		parentOrganizationId = organization.getOrganizationId();
 	}
 }
 
