@@ -178,7 +178,7 @@ public class Table {
 		_faroSelenium.assertElementPresent(sb.toString());
 	}
 
-	@Then("^I should see chart popover (date (.*)|formatted YYYY MMM DD)$")
+	@Then("^I should see chart popover (date |formatted YYYY MMM DD)(?:(.*))?$")
 	public void assertChartPopoverDateFormat(
 			@Transform(FaroTransformer.class) String assertionType,
 			@Transform(FaroTransformer.class) String date)
