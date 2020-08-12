@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Commerce Punch Out Web
 Bundle-SymbolicName: com.liferay.commerce.punchout.web
-Bundle-Version: 1.0.8
+Bundle-Version: 1.0.9
 Import-Package:\
 	com.liferay.commerce.model;version="[5.3,6)",\
 	\
