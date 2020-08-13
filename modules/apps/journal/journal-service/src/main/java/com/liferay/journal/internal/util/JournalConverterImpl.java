@@ -49,6 +49,7 @@ import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.util.AggregateResourceBundle;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.GroupThreadLocal;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -144,6 +145,14 @@ public class JournalConverterImpl implements JournalConverter {
 		rootElement.addAttribute("available-locales", availableLocales);
 
 		Locale defaultLocale = ddmFields.getDefaultLocale();
+
+		Long groupId = GroupThreadLocal.getGroupId();
+
+		Locale defaultLocale = ddmFields.getDefaultLocale();
+
+		if (!LanguageUtil.isAvailableLocale(groupId, defaultLocale)) {
+			defaultLocale = LocaleUtil.getSiteDefault();
+		}
 
 		rootElement.addAttribute(
 			"default-locale", LocaleUtil.toLanguageId(defaultLocale));
