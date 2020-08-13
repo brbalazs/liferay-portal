@@ -27,7 +27,7 @@ const TrackedBehaviors = lazy(() =>
 );
 
 const Search = lazy(() =>
-	import(/* webpackChunkName: "DefinitionsSearch" */ './Search')
+	import(/* webpackChunkName: "DefinitionsSearch" */ './search/Search')
 );
 
 interface IDefinitionsProps extends React.HTMLAttributes<HTMLDivElement> {}
