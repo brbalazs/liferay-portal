@@ -27,6 +27,7 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 <%@ page import="com.liferay.analytics.settings.configuration.AnalyticsConfiguration" %><%@
 page import="com.liferay.analytics.settings.web.internal.constants.AnalyticsSettingsWebKeys" %><%@
 page import="com.liferay.analytics.settings.web.internal.display.context.ChannelDisplayContext" %><%@
+page import="com.liferay.analytics.settings.web.internal.display.context.FieldDisplayContext" %><%@
 page import="com.liferay.analytics.settings.web.internal.display.context.GroupDisplayContext" %><%@
 page import="com.liferay.analytics.settings.web.internal.display.context.OrganizationDisplayContext" %><%@
 page import="com.liferay.analytics.settings.web.internal.display.context.UserGroupDisplayContext" %><%@
