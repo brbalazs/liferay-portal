@@ -69,6 +69,7 @@ CustomFacetDisplayContext customFacetDisplayContext = (CustomFacetDisplayContext
 				<aui:form method="post" name="customFacetForm">
 					<aui:input autocomplete="off" name="<%= HtmlUtil.escapeAttribute(customFacetDisplayContext.getParameterName()) %>" type="hidden" value="<%= customFacetDisplayContext.getParameterValue() %>" />
 					<aui:input cssClass="facet-parameter-name" name="facet-parameter-name" type="hidden" value="<%= customFacetDisplayContext.getParameterName() %>" />
+					<aui:input cssClass="start-parameter-name" name="start-parameter-name" type="hidden" value="<%= customFacetDisplayContext.getPaginationStartParameterName() %>" />
 
 					<aui:fieldset>
 						<ul class="list-unstyled">
