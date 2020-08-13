@@ -91,6 +91,10 @@ public abstract class CommercePriceListChannelRelLocalServiceBaseImpl
 	/**
 	 * Adds the commerce price list channel rel to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListChannelRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commercePriceListChannelRel the commerce price list channel rel
 	 * @return the commerce price list channel rel that was added
 	 */
@@ -123,6 +127,10 @@ public abstract class CommercePriceListChannelRelLocalServiceBaseImpl
 	/**
 	 * Deletes the commerce price list channel rel with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListChannelRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param CommercePriceListChannelRelId the primary key of the commerce price list channel rel
 	 * @return the commerce price list channel rel that was removed
 	 * @throws PortalException if a commerce price list channel rel with the primary key could not be found
@@ -139,6 +147,10 @@ public abstract class CommercePriceListChannelRelLocalServiceBaseImpl
 
 	/**
 	 * Deletes the commerce price list channel rel from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListChannelRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commercePriceListChannelRel the commerce price list channel rel
 	 * @return the commerce price list channel rel that was removed
@@ -474,6 +486,10 @@ public abstract class CommercePriceListChannelRelLocalServiceBaseImpl
 
 	/**
 	 * Updates the commerce price list channel rel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListChannelRelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commercePriceListChannelRel the commerce price list channel rel
 	 * @return the commerce price list channel rel that was updated

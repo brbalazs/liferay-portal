@@ -64,6 +64,8 @@ public interface CommerceOrderItem
 
 	public com.liferay.commerce.product.model.CProduct fetchCProduct();
 
+	public java.util.List<CommerceOrderItem> getChildCommerceOrderItems();
+
 	public CommerceOrder getCommerceOrder()
 		throws com.liferay.portal.kernel.exception.PortalException;
 
@@ -118,8 +120,6 @@ public interface CommerceOrderItem
 	public com.liferay.commerce.currency.model.CommerceMoney
 			getUnitPriceWithTaxAmountMoney()
 		throws com.liferay.portal.kernel.exception.PortalException;
-
-	public java.util.List<CommerceOrderItem> getChildCommerceOrderItems();
 
 	public boolean hasParentCommerceOrderItem();
 

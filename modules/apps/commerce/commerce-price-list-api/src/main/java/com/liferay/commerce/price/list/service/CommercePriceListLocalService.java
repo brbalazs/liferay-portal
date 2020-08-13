@@ -69,7 +69,7 @@ public interface CommercePriceListLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link CommercePriceListLocalServiceUtil} to access the commerce price list local service. Add custom service methods to <code>com.liferay.commerce.price.list.service.impl.CommercePriceListLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.commerce.price.list.service.impl.CommercePriceListLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the commerce price list local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CommercePriceListLocalServiceUtil} if injection and service tracking are not available.
 	 */
 	public CommercePriceList addCommerceCatalogBasePriceList(
 			long groupId, long userId, long commerceCurrencyId, String type,
@@ -78,6 +78,10 @@ public interface CommercePriceListLocalService
 
 	/**
 	 * Adds the commerce price list to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commercePriceList the commerce price list
 	 * @return the commerce price list that was added
@@ -200,6 +204,10 @@ public interface CommercePriceListLocalService
 	/**
 	 * Deletes the commerce price list from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param commercePriceList the commerce price list
 	 * @return the commerce price list that was removed
 	 * @throws PortalException
@@ -212,6 +220,10 @@ public interface CommercePriceListLocalService
 
 	/**
 	 * Deletes the commerce price list with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commercePriceListId the primary key of the commerce price list
 	 * @return the commerce price list that was removed
@@ -529,6 +541,10 @@ public interface CommercePriceListLocalService
 
 	/**
 	 * Updates the commerce price list in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CommercePriceListLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param commercePriceList the commerce price list
 	 * @return the commerce price list that was updated
