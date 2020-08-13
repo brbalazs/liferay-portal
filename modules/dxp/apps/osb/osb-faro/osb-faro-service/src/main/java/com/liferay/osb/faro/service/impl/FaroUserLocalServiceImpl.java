@@ -22,6 +22,7 @@ import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.model.FaroUser;
 import com.liferay.osb.faro.service.base.FaroUserLocalServiceBaseImpl;
 import com.liferay.osb.faro.util.EmailUtil;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -372,8 +373,9 @@ public class FaroUserLocalServiceImpl extends FaroUserLocalServiceBaseImpl {
 				_language.format(
 					resourceBundle, "x-has-requested-to-join-the-x-workspace",
 					new String[] {
-						"<strong>" + senderUser.getFullName() + "</strong> (" +
-							senderUser.getEmailAddress() + ")",
+						StringBundler.concat(
+							"<strong>", senderUser.getFullName(), "</strong> (",
+							senderUser.getEmailAddress(), ")"),
 						faroProject.getName()
 					}),
 				EmailUtil.getTitleIconURL()

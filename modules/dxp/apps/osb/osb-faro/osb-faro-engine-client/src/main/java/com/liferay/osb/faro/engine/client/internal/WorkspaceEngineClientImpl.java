@@ -420,8 +420,9 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 
 				if (_log.isDebugEnabled()) {
 					_log.debug(
-						"Unable to deploy to " + workspace.getWeDeployKey() +
-							". Retry " + (i + 1) + ".");
+						StringBundler.concat(
+							"Unable to deploy to ", workspace.getWeDeployKey(),
+							". Retry ", i + 1, "."));
 				}
 
 				updateWorkspace(workspace.getWeDeployKey(), _sha, _trial);

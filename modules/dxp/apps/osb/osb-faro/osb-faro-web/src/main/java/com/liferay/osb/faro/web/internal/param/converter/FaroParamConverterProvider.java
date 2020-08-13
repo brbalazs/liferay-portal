@@ -16,6 +16,7 @@ package com.liferay.osb.faro.web.internal.param.converter;
 
 import com.liferay.osb.faro.web.internal.param.FaroParam;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
@@ -100,8 +101,9 @@ public class FaroParamConverterProvider implements ParamConverterProvider {
 					}
 					catch (Exception e) {
 						throw new ProcessingException(
-							"Unable to deserialize value " + value + " to " +
-								rawType.getSimpleName(),
+							StringBundler.concat(
+								"Unable to deserialize value ", value, " to ",
+								rawType.getSimpleName()),
 							e);
 					}
 				}

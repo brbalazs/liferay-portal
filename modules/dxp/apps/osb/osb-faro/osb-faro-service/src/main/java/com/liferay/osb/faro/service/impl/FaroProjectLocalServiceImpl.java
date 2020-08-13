@@ -22,6 +22,7 @@ import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.base.FaroProjectLocalServiceBaseImpl;
 import com.liferay.osb.faro.util.EmailUtil;
 import com.liferay.petra.string.CharPool;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.Language;
@@ -239,8 +240,9 @@ public class FaroProjectLocalServiceImpl
 							DocumentationConstants.BASE_URL + "\">",
 						"</a>"
 					}),
-				"<a class=\"body-link\" href=\"" + workspaceURL + "\">" +
-					workspaceURL + "</a>",
+				StringBundler.concat(
+					"<a class=\"body-link\" href=\"", workspaceURL, "\">",
+					workspaceURL, "</a>"),
 				EmailUtil.getLogoIconURL(),
 				_language.get(
 					resourceBundle, "your-new-workspace-is-ready-to-use"),
