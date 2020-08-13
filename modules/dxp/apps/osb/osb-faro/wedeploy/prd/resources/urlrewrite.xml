@@ -8,7 +8,7 @@
 	</rule>
 	<rule>
 		<from>^/api(.*)</from>
-		<to type="redirect">/o/analytics-cloud-api$1</to>
+		<to>/o/analytics-cloud-api$1</to>
 	</rule>
 	<rule>
 		<from>^/favicon.ico$</from>
