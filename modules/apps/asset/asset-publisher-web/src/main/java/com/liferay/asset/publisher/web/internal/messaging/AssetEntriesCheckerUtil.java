@@ -145,6 +145,10 @@ public class AssetEntriesCheckerUtil {
 			}
 		}
 
+		if (newAssetEntries.isEmpty()) {
+			return;
+		}
+
 		List<Subscription> subscriptions =
 			_subscriptionLocalService.getSubscriptions(
 				portletPreferencesModel.getCompanyId(),
