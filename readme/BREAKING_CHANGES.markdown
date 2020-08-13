@@ -281,6 +281,38 @@ configuration changes.
 
 ---------------------------------------
 
+### No More Exceptions Are Thrown When a DDMStructure Is Fetched
+- **Date:** 2017-Mar-31
+- **JIRA Ticket:** LPS-52675
+
+#### What changed?
+
+The following methods don’t throw `PortalException` anymore:
+```
+public DDMStructure fetchStructure(
+  long groupId, long classNameId, String structureKey,
+  boolean includeAncestorStructures)
+
+public DDMStructure fetchStructureByUuidAndGroupId(
+  String uuid, long groupId, boolean includeAncestorStructures)
+```
+
+#### Who is affected?
+
+This affects anyone using these methods.
+
+#### How should I update my code?
+
+Keep using these methods, but be aware that no exceptions will be thrown.
+
+#### Why was this change made?
+
+The current implementation of these methods won't generate any exception during
+their execution, therefore doesn't make sense keep `PortalException` on the
+method signature.
+
+---------------------------------------
+
 ### Removed Indexation of Fields ratings and viewCount
 - **Date:** 2017-May-16
 - **JIRA Ticket:** LPS-70724
@@ -665,6 +697,30 @@ This change provides the latest jQuery and Lodash versions available.
 
 ---------------------------------------
 
+### Removed Constant VALIDATE_DDM_FORM_VALUES from DDMWebKeys
+- **Date:** 2018-Feb-22
+- **JIRA Ticket:** LPS-77168
+
+#### What changed?
+
+The constant `VALIDATE_DDM_FORM_VALUES` isn't available on `DDMWebKeys`.
+
+#### Who is affected?
+
+This affects anyone using this constant.
+
+#### How should I update my code?
+
+Use the String `validateDDMFormValues`, which is the value of the constant
+`VALIDATE_DDM_FORM_VALUES`.
+
+#### Why was this change made?
+
+Actually, this constant was added only to 7.0 in order to improve code
+legibility and maintainability, therefore you won't get access to it on 7.1.
+
+---------------------------------------
+
 ### Removed JavaScript Minification Properties minifier.javascript.impl and yui.compressor.* from portal.properties
 - **Date:** 2018-Feb-28
 - **JIRA Ticket:** LPS-74375
@@ -725,6 +781,40 @@ If you are setting the `showDisableCheckbox` argument to `true` to hide the
 
 The behavior did not match with the name of the argument and was
 counter-intuitive.
+
+---------------------------------------
+
+### DDLExporterFactory Became an Interface
+- **Date:** 2018-Apr-20
+- **JIRA Ticket:** LPS-79221
+
+#### What changed?
+
+`DDLExporterFactory` was renamed to `DDLExporterFactoryImpl` and moved to the
+module `dynamic-data-lists-service`, once this class holds the logic associated
+to the DDL exporters management. On the other hand, a new interface named
+`DDLExporterFactory` was created on the module `dynamic-data-lists-api` and
+`DDLExporterFactoryImpl` is implementing it.
+
+#### Who is affected?
+
+This affects anyone who is using `DDLExporterFactory` to manipulate (add, get
+and remove) the DDL exporters.
+
+#### How should I update my code?
+
+At a first moment, isn't expected the developer use `DDLExporterFactory` to
+manipulate the DDL exporters. Actually, there is just one extension point
+dedicated to the DDL exporters, the possibility to export the data in formats
+not provided by default. In order to export the data to a new format, the
+developer will need to create a new Java class that extends the abstract class
+`BaseDDLExporter`.
+
+#### Why was this change made?
+
+To encapsulate the default implementation of `DDLExporterFactory`, which doesn't
+need to be exposed, and also to keep on the module `dynamic-data-lists-api` only
+interfaces.
 
 ---------------------------------------
 
