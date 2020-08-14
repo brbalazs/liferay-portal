@@ -1,5 +1,3 @@
-apply plugin: "com.liferay.lang.merger"
-
 dependencies {
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.util.taglib", version: "default"
@@ -11,11 +9,4 @@ dependencies {
 	compileOnly project(":apps:portal-security-audit:portal-security-audit-api")
 	compileOnly project(":apps:portal-security-audit:portal-security-audit-storage-api")
 	compileOnly project(":core:petra:petra-lang")
-}
-
-mergeLang {
-	sourceDirs = [
-		"../../../../apps/monitoring/monitoring-web/src/main/resources/content",
-		"src/main/resources/content"
-	]
 }
