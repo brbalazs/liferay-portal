@@ -1,20 +1,31 @@
+import client from 'shared/apollo/client';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import Search from '../Search';
+import {MockedProvider} from '@apollo/react-testing';
+import {mockSearchStringListReq} from 'test/graphql-data';
 import {Provider} from 'react-redux';
-import {render} from '@testing-library/react';
+import {render, waitForElementToBeRemoved} from '@testing-library/react';
 import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
 
+jest.useRealTimers();
+
 describe('Search', () => {
-	it('should render', () => {
+	it('should render', async() => {
 		const {container} = render(
-			<Provider store={mockStore()}>
-				<StaticRouter>
-					<Search groupId='23' />
-				</StaticRouter>
-			</Provider>
+			<MockedProvider mocks={[mockSearchStringListReq()]}>
+				<Provider store={mockStore()}>
+					<StaticRouter>
+						<Search groupId='23' />
+					</StaticRouter>
+				</Provider>
+			</MockedProvider>
+		);
+
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
 		);
 
 		expect(container).toMatchSnapshot();

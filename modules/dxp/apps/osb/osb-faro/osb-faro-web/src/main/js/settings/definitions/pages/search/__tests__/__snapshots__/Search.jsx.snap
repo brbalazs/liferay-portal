@@ -56,7 +56,86 @@ exports[`Search should render 1`] = `
         class="page-actions-container"
       />
     </div>
-    <div />
+    <div>
+      <div
+        class="card card-root query-card-root"
+      >
+        <div
+          class="card-header mb-1"
+        >
+          <h5
+            class="card-title"
+          >
+            Query String
+          </h5>
+        </div>
+        <div
+          class="card-body"
+        >
+          <form
+            class="form-root"
+          >
+            <div
+              class="form-inline mb-3"
+            >
+              <div
+                class="query-input"
+              >
+                <input
+                  class="input-root form-control"
+                  id="queryStringList.0"
+                  name="queryStringList.0"
+                  type="text"
+                  value="jackson"
+                />
+              </div>
+              <button
+                class="button-root btn btn-secondary ml-1 btn-outline-borderless"
+                type="button"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-trash"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#trash"
+                  />
+                </svg>
+              </button>
+              <button
+                class="button-root btn btn-secondary ml-1 btn-outline-borderless"
+                type="button"
+              >
+                <svg
+                  class="icon-root lexicon-icon lexicon-icon-plus"
+                  viewBox=""
+                >
+                  <use
+                    xlink:href="#plus"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              class="mt-4"
+            >
+              <button
+                class="button-root btn btn-primary"
+                type="submit"
+              >
+                Save
+              </button>
+              <button
+                class="button-root btn btn-secondary ml-4"
+                type="button"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
