@@ -7,7 +7,7 @@ import MaskedInput from '../MaskedInput';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {FieldProps} from 'formik';
+import {FieldProps, FormikErrors, FormikTouched} from 'formik';
 import {isEmpty, isNumber, mapValues, pickBy} from 'lodash';
 
 const APPEND_POSITIONS = ['append', 'prepend'];
@@ -112,6 +112,22 @@ export default class FormInput extends React.Component<IFormInputProps> {
 		}
 	}
 
+	extractProperty = (
+		object: FormikErrors<any> | FormikTouched<any>,
+		path: string
+	) =>
+		path
+			.replace(/\[/g, '.')
+			.replace(/]/g, '')
+			.split('.')
+			.reduce(
+				(currentObjectValue, propToAcess) =>
+					currentObjectValue
+						? currentObjectValue[propToAcess]
+						: undefined,
+				object
+			);
+
 	renderInput(inputProps) {
 		const {contentAfter, inset, mask, text} = this.props;
 
@@ -189,8 +205,8 @@ export default class FormInput extends React.Component<IFormInputProps> {
 
 		const {name} = field;
 
-		const error = form.errors[name];
-		const touched = form.touched[name];
+		const error = this.extractProperty(form.errors, name);
+		const touched = this.extractProperty(form.touched, name);
 
 		const classes = getCN(className, {
 			'form-inline-group': inline,
