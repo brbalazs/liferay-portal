@@ -21,6 +21,7 @@ import com.liferay.osb.faro.engine.client.model.Workspace;
 import com.liferay.osb.faro.engine.client.model.WorkspaceService;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
+import com.liferay.osb.faro.util.UpgradeUtil;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -270,7 +271,7 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 						sb.append(StringPool.SLASH);
 
 						if (Validator.isNull(sha)) {
-							sb.append(_REPOSITORY_SHA);
+							sb.append(UpgradeUtil.getLatestVersion());
 						}
 						else {
 							sb.append(sha);
@@ -349,9 +350,6 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 	private static final String _PROJECT_API_URL = GetterUtil.getString(
 		System.getenv("FARO_DXP_CLOUD_API_URL"),
 		"https://api.liferay.cloud/projects/");
-
-	private static final String _REPOSITORY_SHA = System.getenv(
-		"FARO_REPOSITORY_SHA");
 
 	private static final String _REPOSITORY_TOKEN = System.getenv(
 		"FARO_REPOSITORY_TOKEN");
