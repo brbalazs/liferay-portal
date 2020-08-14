@@ -1,6 +1,7 @@
 import IndividualMetricsQuery from 'contacts/individual/dashboard/queries/IndividualMetricsQuery';
 import InterestsQuery from 'contacts/individual/dashboard/queries/InterestsQuery';
 import OrganizationsQuery from 'contacts/components/segment-editor/dynamic/queries/OrganizationsQuery';
+import PreferenceQuery from 'settings/data-privacy/queries/PreferenceQuery';
 import RecommendationActivitiesQuery from 'settings/recommendations/queries/RecommendationActivitiesQuery';
 import RecommendationJobRunsQuery from 'settings/recommendations/queries/RecommendationJobRunsQuery';
 import RecommendationPageAssetsQuery from 'settings/recommendations/queries/RecommendationPageAssetsQuery';
@@ -309,6 +310,24 @@ export function mockRecommendationPageAssetsReq(items, mockVariables = {}) {
 					__typename: 'PageAssetBag',
 					pageAssets: items,
 					total: items.length
+				}
+			}
+		}
+	};
+}
+
+export function mockSearchStringListReq() {
+	return {
+		request: {
+			query: PreferenceQuery,
+			variables: {
+				key: 'search-query-strings'
+			}
+		},
+		result: {
+			data: {
+				preference: {
+					value: JSON.stringify(['jackson'])
 				}
 			}
 		}
