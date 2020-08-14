@@ -290,14 +290,6 @@ gradle.beforeProject {
 			}
 		}
 
-		pluginManager.withPlugin("com.liferay.lang.merger") {
-			mergeLang {
-				outputs.cacheIf {
-					false
-				}
-			}
-		}
-
 		pluginManager.withPlugin("com.liferay.osgi.plugin") {
 			configurations {
 				xmltask
