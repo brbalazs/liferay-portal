@@ -107,7 +107,8 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			ResponseEntity<String> responseEntity = getRestTemplate().exchange(
 				StringBundler.concat(
 					_PROJECT_API_URL, getProjectId(weDeployKey),
-					"/activities/builds-deployments?limit=1&shouldGroup=true"),
+					"/activities/builds-deployments?limit=1&shouldGroup=true",
+					"&type=BUILD_SUCCEEDED"),
 				HttpMethod.GET, null, String.class);
 
 			JSONArray jsonArray = JSONFactoryUtil.createJSONArray(
