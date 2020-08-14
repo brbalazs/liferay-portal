@@ -484,8 +484,6 @@ public class FaroWebDriverImpl
 
 		Thread.sleep(250);
 
-		TargetLocator targetLocator = switchTo();
-
 		Set<String> windowHandles = getWindowHandles();
 
 		windowHandles.remove(_mainWindowHandle);
@@ -496,6 +494,8 @@ public class FaroWebDriverImpl
 			(first, second) -> second);
 
 		if (handleOptional.isPresent()) {
+			TargetLocator targetLocator = switchTo();
+
 			targetLocator.window(handleOptional.get());
 		}
 		else {

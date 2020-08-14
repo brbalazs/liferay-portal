@@ -213,9 +213,6 @@ public class ChannelController extends BaseFaroController {
 			@FormParam("permissionType") Integer permissionType)
 		throws PortalException {
 
-		FaroProject faroProject =
-			faroProjectLocalService.getFaroProjectByGroupId(groupId);
-
 		FaroChannel faroChannel = _faroChannelLocalService.getFaroChannel(id);
 
 		if (permissionType != null) {
@@ -236,6 +233,9 @@ public class ChannelController extends BaseFaroController {
 		}
 
 		if ((name != null) && !name.isEmpty()) {
+			FaroProject faroProject =
+				faroProjectLocalService.getFaroProjectByGroupId(groupId);
+
 			Channel channel = contactsEngineClient.patchChannel(
 				faroProject, id, name);
 
