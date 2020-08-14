@@ -192,7 +192,9 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 															}
 															validate={sequence([
 																validateRequired,
-																validateMaxLength(50)
+																validateMaxLength(
+																	50
+																)
 															])}
 														/>
 

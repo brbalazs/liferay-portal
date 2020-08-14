@@ -1,4 +1,3 @@
-import client from 'shared/apollo/client';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import Search from '../Search';
