@@ -17,6 +17,9 @@ Import-Package:\
 	\
 	*
 Provide-Capability:\
+	liferay.resource.bundle;\
+		resource.bundle.aggregate:String="(bundle.symbolic.name=com.liferay.commerce.lang)";\
+		resource.bundle.base.name="content.Language",\
 	soy;\
 		type="commerce-theme-minium-impl";\
 		version:Version="${Bundle-Version}"

@@ -11,4 +11,8 @@ Import-Package:\
 	com.liferay.portal.kernel.util;version="[8.0.0,10.0.0)",\
 	\
 	*
+Provide-Capability:\
+	liferay.resource.bundle;\
+		resource.bundle.aggregate:String="(bundle.symbolic.name=com.liferay.commerce.lang)";\
+		resource.bundle.base.name="content.Language"
 Web-ContextPath: /commerce-theme-minium-site-initializer

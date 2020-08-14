@@ -1,5 +1,3 @@
-apply plugin: "com.liferay.lang.merger"
-
 buildService {
 	apiDir = "../commerce-product-type-virtual-api/src/main/java"
 	testDir = "../commerce-product-type-virtual-test/src/testIntegration/java"

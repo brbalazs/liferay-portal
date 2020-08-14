@@ -6,4 +6,8 @@ Import-Package:\
 	com.liferay.taglib.util;version="[7.4.0,9.0.0)",\
 	\
 	*
+Provide-Capability:\
+	liferay.resource.bundle;\
+		resource.bundle.aggregate:String="(bundle.symbolic.name=com.liferay.commerce.lang)";\
+		resource.bundle.base.name="content.Language"
 Web-ContextPath: /commerce-notification-web
