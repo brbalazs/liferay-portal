@@ -36,7 +36,6 @@ interface IFormInputProps
 	};
 	label: string;
 	mask: any;
-	onBlur: (event) => void;
 	onChange: (event) => void;
 	required: boolean;
 	showHelpBlock: boolean;
@@ -85,7 +84,6 @@ export default class FormInput extends React.Component<IFormInputProps> {
 				pipe: PropTypes.func
 			})
 		]),
-		onBlur: PropTypes.func,
 		onChange: PropTypes.func,
 		required: PropTypes.bool,
 		showHelpBlock: PropTypes.bool,
