@@ -131,6 +131,11 @@ public class JournalConverterImpl implements JournalConverter {
 		_journalTypesToDDMTypes.put("text_box", "textarea");
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getContent(DDMStructure, Fields, long)}
+	 */
+	@Deprecated
 	@Override
 	public String getContent(DDMStructure ddmStructure, Fields ddmFields)
 		throws Exception {
