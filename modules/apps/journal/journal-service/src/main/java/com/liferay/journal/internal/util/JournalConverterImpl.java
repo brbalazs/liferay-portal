@@ -49,7 +49,6 @@ import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.util.AggregateResourceBundle;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.GroupThreadLocal;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -136,6 +135,14 @@ public class JournalConverterImpl implements JournalConverter {
 	public String getContent(DDMStructure ddmStructure, Fields ddmFields)
 		throws Exception {
 
+		return getContent(ddmStructure, ddmFields, ddmStructure.getGroupId());
+	}
+
+	@Override
+	public String getContent(
+			DDMStructure ddmStructure, Fields ddmFields, long groupId)
+		throws Exception {
+
 		Document document = SAXReaderUtil.createDocument();
 
 		Element rootElement = document.addElement("root");
@@ -145,8 +152,6 @@ public class JournalConverterImpl implements JournalConverter {
 		rootElement.addAttribute("available-locales", availableLocales);
 
 		Locale defaultLocale = ddmFields.getDefaultLocale();
-
-		Long groupId = GroupThreadLocal.getGroupId();
 
 		Locale defaultLocale = ddmFields.getDefaultLocale();
 

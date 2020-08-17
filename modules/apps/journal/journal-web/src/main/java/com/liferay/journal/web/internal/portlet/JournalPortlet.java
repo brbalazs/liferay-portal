@@ -727,9 +727,8 @@ public class JournalPortlet extends MVCPortlet {
 		Fields fields = DDMUtil.getFields(
 			ddmStructure.getStructureId(), serviceContext);
 
-		GroupThreadLocal.setGroupId(groupId);
-
-		String content = _journalConverter.getContent(ddmStructure, fields);
+		String content = _journalConverter.getContent(
+			ddmStructure, fields, groupId);
 
 		Locale articleDefaultLocale = LocaleUtil.fromLanguageId(
 			LocalizationUtil.getDefaultLanguageId(content));
