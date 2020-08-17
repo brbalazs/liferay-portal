@@ -190,7 +190,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 														'create-a-new-free-trial-workspace'
 												  )
 												: Liferay.Language.get(
-														'create-a-new-workspace'
+														'configure-your-new-workspace'
 												  )}
 										</h3>
 										<p>

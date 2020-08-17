@@ -145,7 +145,7 @@ export default class WorkspaceListItem extends React.Component {
 
 	@autobind
 	renderContent() {
-		const {configured, name} = this.props;
+		const {configured, corpProjectName, name} = this.props;
 
 		return (
 			<div className='autofit-col autofit-col-expand'>
@@ -155,9 +155,30 @@ export default class WorkspaceListItem extends React.Component {
 							{configured ? (
 								<TextTruncate title={name} />
 							) : (
-								Liferay.Language.get('unconfigured')
+								<>
+									<span className='configuration-required-info'>
+										{Liferay.Language.get(
+											'configuration-required'
+										)}
+									</span>
+									<div>
+										<span>
+											{Liferay.Language.get(
+												'new-unnamed-workspace'
+											)}
+										</span>
+									</div>
+								</>
 							)}
 						</div>
+
+						{corpProjectName && (
+							<div>
+								<span className='corporation-project-name'>
+									{corpProjectName}
+								</span>
+							</div>
+						)}
 
 						{this.renderMessage()}
 					</div>
