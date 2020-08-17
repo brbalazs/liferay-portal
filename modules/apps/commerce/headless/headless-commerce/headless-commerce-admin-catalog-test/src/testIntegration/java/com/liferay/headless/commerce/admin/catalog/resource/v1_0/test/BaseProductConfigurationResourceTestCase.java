@@ -310,7 +310,9 @@ public abstract class BaseProductConfigurationResourceTestCase {
 		}
 	}
 
-	protected void assertValid(ProductConfiguration productConfiguration) {
+	protected void assertValid(ProductConfiguration productConfiguration)
+		throws Exception {
+
 		boolean valid = true;
 
 		for (String additionalAssertFieldName :

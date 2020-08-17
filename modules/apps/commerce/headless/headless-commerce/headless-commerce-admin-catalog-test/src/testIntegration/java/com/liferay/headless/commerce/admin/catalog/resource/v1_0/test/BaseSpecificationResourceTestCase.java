@@ -708,7 +708,7 @@ public abstract class BaseSpecificationResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Specification specification) {
+	protected void assertValid(Specification specification) throws Exception {
 		boolean valid = true;
 
 		if (specification.getId() == null) {

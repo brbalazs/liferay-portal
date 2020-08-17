@@ -1348,7 +1348,7 @@ public abstract class BaseDocumentFolderResourceTestCase {
 		}
 	}
 
-	protected void assertValid(DocumentFolder documentFolder) {
+	protected void assertValid(DocumentFolder documentFolder) throws Exception {
 		boolean valid = true;
 
 		if (documentFolder.getDateCreated() == null) {

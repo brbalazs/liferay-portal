@@ -381,7 +381,7 @@ public abstract class BaseAddressResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Address address) {
+	protected void assertValid(Address address) throws Exception {
 		boolean valid = true;
 
 		if (address.getId() == null) {

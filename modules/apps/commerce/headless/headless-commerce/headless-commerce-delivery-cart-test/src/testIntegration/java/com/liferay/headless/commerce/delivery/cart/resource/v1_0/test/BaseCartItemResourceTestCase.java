@@ -572,7 +572,7 @@ public abstract class BaseCartItemResourceTestCase {
 		}
 	}
 
-	protected void assertValid(CartItem cartItem) {
+	protected void assertValid(CartItem cartItem) throws Exception {
 		boolean valid = true;
 
 		if (cartItem.getId() == null) {

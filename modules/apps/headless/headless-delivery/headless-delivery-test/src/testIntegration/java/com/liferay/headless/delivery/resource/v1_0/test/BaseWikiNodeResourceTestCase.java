@@ -875,7 +875,7 @@ public abstract class BaseWikiNodeResourceTestCase {
 		}
 	}
 
-	protected void assertValid(WikiNode wikiNode) {
+	protected void assertValid(WikiNode wikiNode) throws Exception {
 		boolean valid = true;
 
 		if (wikiNode.getDateCreated() == null) {

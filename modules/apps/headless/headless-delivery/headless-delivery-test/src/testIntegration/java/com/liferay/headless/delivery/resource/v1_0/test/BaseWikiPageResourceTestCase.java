@@ -834,7 +834,7 @@ public abstract class BaseWikiPageResourceTestCase {
 		}
 	}
 
-	protected void assertValid(WikiPage wikiPage) {
+	protected void assertValid(WikiPage wikiPage) throws Exception {
 		boolean valid = true;
 
 		if (wikiPage.getDateCreated() == null) {

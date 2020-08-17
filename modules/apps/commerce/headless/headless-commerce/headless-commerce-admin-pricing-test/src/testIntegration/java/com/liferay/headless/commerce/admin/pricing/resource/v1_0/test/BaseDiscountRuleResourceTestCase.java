@@ -684,7 +684,7 @@ public abstract class BaseDiscountRuleResourceTestCase {
 		}
 	}
 
-	protected void assertValid(DiscountRule discountRule) {
+	protected void assertValid(DiscountRule discountRule) throws Exception {
 		boolean valid = true;
 
 		if (discountRule.getId() == null) {

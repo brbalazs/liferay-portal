@@ -425,8 +425,8 @@ public abstract class BaseProductTaxConfigurationResourceTestCase {
 		}
 	}
 
-	protected void assertValid(
-		ProductTaxConfiguration productTaxConfiguration) {
+	protected void assertValid(ProductTaxConfiguration productTaxConfiguration)
+		throws Exception {
 
 		boolean valid = true;
 

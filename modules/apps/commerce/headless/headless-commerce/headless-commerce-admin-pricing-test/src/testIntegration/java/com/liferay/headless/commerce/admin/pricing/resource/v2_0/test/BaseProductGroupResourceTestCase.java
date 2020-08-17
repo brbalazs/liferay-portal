@@ -371,7 +371,7 @@ public abstract class BaseProductGroupResourceTestCase {
 		}
 	}
 
-	protected void assertValid(ProductGroup productGroup) {
+	protected void assertValid(ProductGroup productGroup) throws Exception {
 		boolean valid = true;
 
 		if (productGroup.getId() == null) {

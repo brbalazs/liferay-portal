@@ -26,6 +26,8 @@ import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
@@ -448,6 +450,10 @@ public class Query {
 
 		@GraphQLField(description = "Retrive information of the given Cart")
 		public CartItem parentCartItem() throws Exception {
+			if (_cartItem.getParentCartItemId() == null) {
+				return null;
+			}
+
 			return _applyComponentServiceObjects(
 				_cartItemResourceComponentServiceObjects,
 				Query.this::_populateResourceContext,
@@ -487,6 +493,8 @@ public class Query {
 		addressResource.setContextHttpServletResponse(_httpServletResponse);
 		addressResource.setContextUriInfo(_uriInfo);
 		addressResource.setContextUser(_user);
+		addressResource.setGroupLocalService(_groupLocalService);
+		addressResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(CartResource cartResource)
@@ -498,6 +506,8 @@ public class Query {
 		cartResource.setContextHttpServletResponse(_httpServletResponse);
 		cartResource.setContextUriInfo(_uriInfo);
 		cartResource.setContextUser(_user);
+		cartResource.setGroupLocalService(_groupLocalService);
+		cartResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -510,6 +520,8 @@ public class Query {
 		cartCommentResource.setContextHttpServletResponse(_httpServletResponse);
 		cartCommentResource.setContextUriInfo(_uriInfo);
 		cartCommentResource.setContextUser(_user);
+		cartCommentResource.setGroupLocalService(_groupLocalService);
+		cartCommentResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(CartItemResource cartItemResource)
@@ -521,6 +533,8 @@ public class Query {
 		cartItemResource.setContextHttpServletResponse(_httpServletResponse);
 		cartItemResource.setContextUriInfo(_uriInfo);
 		cartItemResource.setContextUser(_user);
+		cartItemResource.setGroupLocalService(_groupLocalService);
+		cartItemResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private static ComponentServiceObjects<AddressResource>
@@ -533,12 +547,14 @@ public class Query {
 		_cartItemResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
-	private BiFunction<Object, String, Filter> _filterBiFunction;
-	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
 	private com.liferay.portal.kernel.model.Company _company;
-	private com.liferay.portal.kernel.model.User _user;
+	private BiFunction<Object, String, Filter> _filterBiFunction;
+	private GroupLocalService _groupLocalService;
 	private HttpServletRequest _httpServletRequest;
 	private HttpServletResponse _httpServletResponse;
+	private RoleLocalService _roleLocalService;
+	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
 	private UriInfo _uriInfo;
+	private com.liferay.portal.kernel.model.User _user;
 
 }

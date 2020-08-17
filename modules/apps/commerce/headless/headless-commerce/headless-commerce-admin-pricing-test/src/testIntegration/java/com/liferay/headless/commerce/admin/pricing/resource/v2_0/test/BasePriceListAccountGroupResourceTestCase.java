@@ -888,7 +888,9 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceListAccountGroup priceListAccountGroup) {
+	protected void assertValid(PriceListAccountGroup priceListAccountGroup)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (priceListAccountGroup.getId() == null) {

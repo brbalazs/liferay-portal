@@ -22,6 +22,8 @@ import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
@@ -212,6 +214,9 @@ public class Query {
 			_httpServletResponse);
 		accountCategoryForecastResource.setContextUriInfo(_uriInfo);
 		accountCategoryForecastResource.setContextUser(_user);
+		accountCategoryForecastResource.setGroupLocalService(
+			_groupLocalService);
+		accountCategoryForecastResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -226,6 +231,8 @@ public class Query {
 			_httpServletResponse);
 		accountForecastResource.setContextUriInfo(_uriInfo);
 		accountForecastResource.setContextUser(_user);
+		accountForecastResource.setGroupLocalService(_groupLocalService);
+		accountForecastResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private static ComponentServiceObjects<AccountCategoryForecastResource>
@@ -234,12 +241,14 @@ public class Query {
 		_accountForecastResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
-	private BiFunction<Object, String, Filter> _filterBiFunction;
-	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
 	private com.liferay.portal.kernel.model.Company _company;
-	private com.liferay.portal.kernel.model.User _user;
+	private BiFunction<Object, String, Filter> _filterBiFunction;
+	private GroupLocalService _groupLocalService;
 	private HttpServletRequest _httpServletRequest;
 	private HttpServletResponse _httpServletResponse;
+	private RoleLocalService _roleLocalService;
+	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
 	private UriInfo _uriInfo;
+	private com.liferay.portal.kernel.model.User _user;
 
 }

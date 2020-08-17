@@ -638,7 +638,9 @@ public abstract class BasePriceListDiscountResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceListDiscount priceListDiscount) {
+	protected void assertValid(PriceListDiscount priceListDiscount)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (priceListDiscount.getId() == null) {

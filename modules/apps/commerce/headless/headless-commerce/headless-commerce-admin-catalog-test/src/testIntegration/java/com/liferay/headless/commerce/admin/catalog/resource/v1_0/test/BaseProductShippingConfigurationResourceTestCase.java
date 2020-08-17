@@ -321,7 +321,8 @@ public abstract class BaseProductShippingConfigurationResourceTestCase {
 	}
 
 	protected void assertValid(
-		ProductShippingConfiguration productShippingConfiguration) {
+			ProductShippingConfiguration productShippingConfiguration)
+		throws Exception {
 
 		boolean valid = true;
 

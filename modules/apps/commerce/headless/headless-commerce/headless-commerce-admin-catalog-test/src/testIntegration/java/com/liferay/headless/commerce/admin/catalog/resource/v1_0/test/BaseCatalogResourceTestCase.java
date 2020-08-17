@@ -899,7 +899,7 @@ public abstract class BaseCatalogResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Catalog catalog) {
+	protected void assertValid(Catalog catalog) throws Exception {
 		boolean valid = true;
 
 		if (catalog.getId() == null) {

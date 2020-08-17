@@ -369,7 +369,7 @@ public abstract class BaseCategoryResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Category category) {
+	protected void assertValid(Category category) throws Exception {
 		boolean valid = true;
 
 		if (category.getId() == null) {

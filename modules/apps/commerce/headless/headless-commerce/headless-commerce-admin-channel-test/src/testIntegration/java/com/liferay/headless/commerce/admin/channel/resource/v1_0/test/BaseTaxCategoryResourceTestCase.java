@@ -404,7 +404,7 @@ public abstract class BaseTaxCategoryResourceTestCase {
 		}
 	}
 
-	protected void assertValid(TaxCategory taxCategory) {
+	protected void assertValid(TaxCategory taxCategory) throws Exception {
 		boolean valid = true;
 
 		if (taxCategory.getId() == null) {

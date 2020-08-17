@@ -765,7 +765,7 @@ public abstract class BaseTierPriceResourceTestCase {
 		}
 	}
 
-	protected void assertValid(TierPrice tierPrice) {
+	protected void assertValid(TierPrice tierPrice) throws Exception {
 		boolean valid = true;
 
 		if (tierPrice.getId() == null) {

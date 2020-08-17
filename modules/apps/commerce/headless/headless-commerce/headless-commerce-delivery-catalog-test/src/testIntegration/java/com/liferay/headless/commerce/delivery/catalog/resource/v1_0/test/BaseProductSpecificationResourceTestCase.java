@@ -429,7 +429,9 @@ public abstract class BaseProductSpecificationResourceTestCase {
 		}
 	}
 
-	protected void assertValid(ProductSpecification productSpecification) {
+	protected void assertValid(ProductSpecification productSpecification)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (productSpecification.getId() == null) {

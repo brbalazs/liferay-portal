@@ -840,7 +840,9 @@ public abstract class BasePriceListChannelResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceListChannel priceListChannel) {
+	protected void assertValid(PriceListChannel priceListChannel)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (priceListChannel.getId() == null) {

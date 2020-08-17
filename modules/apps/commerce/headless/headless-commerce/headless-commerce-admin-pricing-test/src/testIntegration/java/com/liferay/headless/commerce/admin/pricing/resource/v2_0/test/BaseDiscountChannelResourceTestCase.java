@@ -835,7 +835,9 @@ public abstract class BaseDiscountChannelResourceTestCase {
 		}
 	}
 
-	protected void assertValid(DiscountChannel discountChannel) {
+	protected void assertValid(DiscountChannel discountChannel)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (discountChannel.getId() == null) {

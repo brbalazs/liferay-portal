@@ -914,7 +914,8 @@ public abstract class BasePriceModifierProductGroupResourceTestCase {
 	}
 
 	protected void assertValid(
-		PriceModifierProductGroup priceModifierProductGroup) {
+			PriceModifierProductGroup priceModifierProductGroup)
+		throws Exception {
 
 		boolean valid = true;
 

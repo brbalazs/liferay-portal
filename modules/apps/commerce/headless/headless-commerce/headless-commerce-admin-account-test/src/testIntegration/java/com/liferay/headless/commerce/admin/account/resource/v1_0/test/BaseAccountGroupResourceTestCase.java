@@ -559,7 +559,7 @@ public abstract class BaseAccountGroupResourceTestCase {
 		}
 	}
 
-	protected void assertValid(AccountGroup accountGroup) {
+	protected void assertValid(AccountGroup accountGroup) throws Exception {
 		boolean valid = true;
 
 		if (accountGroup.getId() == null) {

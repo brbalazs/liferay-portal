@@ -840,7 +840,9 @@ public abstract class BasePriceListAccountResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceListAccount priceListAccount) {
+	protected void assertValid(PriceListAccount priceListAccount)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (priceListAccount.getId() == null) {

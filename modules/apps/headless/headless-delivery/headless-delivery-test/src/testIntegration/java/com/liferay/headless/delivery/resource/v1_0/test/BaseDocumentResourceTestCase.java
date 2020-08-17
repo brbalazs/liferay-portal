@@ -1286,7 +1286,7 @@ public abstract class BaseDocumentResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Document document) {
+	protected void assertValid(Document document) throws Exception {
 		boolean valid = true;
 
 		if (document.getDateCreated() == null) {

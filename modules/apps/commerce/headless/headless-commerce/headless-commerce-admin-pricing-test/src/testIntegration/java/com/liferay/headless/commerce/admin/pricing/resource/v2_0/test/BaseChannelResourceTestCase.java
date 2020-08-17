@@ -359,7 +359,7 @@ public abstract class BaseChannelResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Channel channel) {
+	protected void assertValid(Channel channel) throws Exception {
 		boolean valid = true;
 
 		if (channel.getId() == null) {

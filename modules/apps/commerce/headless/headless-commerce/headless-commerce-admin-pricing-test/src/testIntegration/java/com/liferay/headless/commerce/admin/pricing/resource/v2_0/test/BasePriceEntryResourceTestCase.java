@@ -1036,7 +1036,7 @@ public abstract class BasePriceEntryResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceEntry priceEntry) {
+	protected void assertValid(PriceEntry priceEntry) throws Exception {
 		boolean valid = true;
 
 		if (priceEntry.getId() == null) {

@@ -874,7 +874,9 @@ public abstract class BaseDiscountProductGroupResourceTestCase {
 		}
 	}
 
-	protected void assertValid(DiscountProductGroup discountProductGroup) {
+	protected void assertValid(DiscountProductGroup discountProductGroup)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (discountProductGroup.getId() == null) {

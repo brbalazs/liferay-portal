@@ -761,7 +761,7 @@ public abstract class BaseOrderItemResourceTestCase {
 		}
 	}
 
-	protected void assertValid(OrderItem orderItem) {
+	protected void assertValid(OrderItem orderItem) throws Exception {
 		boolean valid = true;
 
 		if (orderItem.getId() == null) {

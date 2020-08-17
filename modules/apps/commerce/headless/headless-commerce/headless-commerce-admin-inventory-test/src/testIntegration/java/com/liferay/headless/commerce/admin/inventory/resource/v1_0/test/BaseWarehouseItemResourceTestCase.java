@@ -926,7 +926,7 @@ public abstract class BaseWarehouseItemResourceTestCase {
 		}
 	}
 
-	protected void assertValid(WarehouseItem warehouseItem) {
+	protected void assertValid(WarehouseItem warehouseItem) throws Exception {
 		boolean valid = true;
 
 		if (warehouseItem.getId() == null) {

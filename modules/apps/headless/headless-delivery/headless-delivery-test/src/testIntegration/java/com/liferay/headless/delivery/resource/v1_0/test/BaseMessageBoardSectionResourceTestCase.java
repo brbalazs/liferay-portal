@@ -1424,7 +1424,9 @@ public abstract class BaseMessageBoardSectionResourceTestCase {
 		}
 	}
 
-	protected void assertValid(MessageBoardSection messageBoardSection) {
+	protected void assertValid(MessageBoardSection messageBoardSection)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (messageBoardSection.getDateCreated() == null) {

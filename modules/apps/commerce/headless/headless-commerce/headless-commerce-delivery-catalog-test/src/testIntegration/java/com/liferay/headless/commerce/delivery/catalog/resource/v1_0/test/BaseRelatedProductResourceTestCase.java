@@ -397,7 +397,7 @@ public abstract class BaseRelatedProductResourceTestCase {
 		}
 	}
 
-	protected void assertValid(RelatedProduct relatedProduct) {
+	protected void assertValid(RelatedProduct relatedProduct) throws Exception {
 		boolean valid = true;
 
 		if (relatedProduct.getId() == null) {

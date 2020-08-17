@@ -754,7 +754,7 @@ public abstract class BaseOptionResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Option option) {
+	protected void assertValid(Option option) throws Exception {
 		boolean valid = true;
 
 		if (option.getId() == null) {

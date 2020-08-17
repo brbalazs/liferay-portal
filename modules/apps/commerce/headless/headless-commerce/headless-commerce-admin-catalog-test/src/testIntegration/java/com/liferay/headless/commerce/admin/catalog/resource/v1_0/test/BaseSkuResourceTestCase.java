@@ -964,7 +964,7 @@ public abstract class BaseSkuResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Sku sku) {
+	protected void assertValid(Sku sku) throws Exception {
 		boolean valid = true;
 
 		if (sku.getId() == null) {

@@ -985,7 +985,9 @@ public abstract class BaseTaxonomyVocabularyResourceTestCase {
 		}
 	}
 
-	protected void assertValid(TaxonomyVocabulary taxonomyVocabulary) {
+	protected void assertValid(TaxonomyVocabulary taxonomyVocabulary)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (taxonomyVocabulary.getDateCreated() == null) {

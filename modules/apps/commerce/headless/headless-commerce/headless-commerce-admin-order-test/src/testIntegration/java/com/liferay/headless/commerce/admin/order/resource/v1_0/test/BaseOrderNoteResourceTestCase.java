@@ -756,7 +756,7 @@ public abstract class BaseOrderNoteResourceTestCase {
 		}
 	}
 
-	protected void assertValid(OrderNote orderNote) {
+	protected void assertValid(OrderNote orderNote) throws Exception {
 		boolean valid = true;
 
 		if (orderNote.getId() == null) {

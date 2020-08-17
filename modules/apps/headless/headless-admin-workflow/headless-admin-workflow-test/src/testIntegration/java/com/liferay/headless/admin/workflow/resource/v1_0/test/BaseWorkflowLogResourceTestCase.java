@@ -431,7 +431,7 @@ public abstract class BaseWorkflowLogResourceTestCase {
 		}
 	}
 
-	protected void assertValid(WorkflowLog workflowLog) {
+	protected void assertValid(WorkflowLog workflowLog) throws Exception {
 		boolean valid = true;
 
 		if (workflowLog.getDateCreated() == null) {

@@ -692,7 +692,9 @@ public abstract class BaseContentStructureResourceTestCase {
 		}
 	}
 
-	protected void assertValid(ContentStructure contentStructure) {
+	protected void assertValid(ContentStructure contentStructure)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (contentStructure.getDateCreated() == null) {

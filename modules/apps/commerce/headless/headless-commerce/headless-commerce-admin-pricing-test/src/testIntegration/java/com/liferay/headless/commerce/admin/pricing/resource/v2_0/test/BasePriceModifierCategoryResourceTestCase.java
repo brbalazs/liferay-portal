@@ -890,7 +890,9 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceModifierCategory priceModifierCategory) {
+	protected void assertValid(PriceModifierCategory priceModifierCategory)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (priceModifierCategory.getId() == null) {

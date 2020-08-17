@@ -884,7 +884,9 @@ public abstract class BasePriceModifierProductResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceModifierProduct priceModifierProduct) {
+	protected void assertValid(PriceModifierProduct priceModifierProduct)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (priceModifierProduct.getId() == null) {

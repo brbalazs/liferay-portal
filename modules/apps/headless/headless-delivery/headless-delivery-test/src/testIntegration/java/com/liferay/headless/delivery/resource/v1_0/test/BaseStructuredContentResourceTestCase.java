@@ -2005,7 +2005,9 @@ public abstract class BaseStructuredContentResourceTestCase {
 		}
 	}
 
-	protected void assertValid(StructuredContent structuredContent) {
+	protected void assertValid(StructuredContent structuredContent)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (structuredContent.getDateCreated() == null) {

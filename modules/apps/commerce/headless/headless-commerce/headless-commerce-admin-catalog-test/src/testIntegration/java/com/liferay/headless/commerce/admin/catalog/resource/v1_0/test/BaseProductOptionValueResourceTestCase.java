@@ -415,7 +415,9 @@ public abstract class BaseProductOptionValueResourceTestCase {
 		}
 	}
 
-	protected void assertValid(ProductOptionValue productOptionValue) {
+	protected void assertValid(ProductOptionValue productOptionValue)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (productOptionValue.getId() == null) {

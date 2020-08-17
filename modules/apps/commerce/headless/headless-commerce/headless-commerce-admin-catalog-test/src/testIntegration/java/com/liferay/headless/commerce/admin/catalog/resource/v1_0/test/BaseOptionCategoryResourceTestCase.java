@@ -450,7 +450,7 @@ public abstract class BaseOptionCategoryResourceTestCase {
 		}
 	}
 
-	protected void assertValid(OptionCategory optionCategory) {
+	protected void assertValid(OptionCategory optionCategory) throws Exception {
 		boolean valid = true;
 
 		if (optionCategory.getId() == null) {

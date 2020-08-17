@@ -331,7 +331,8 @@ public abstract class BaseProductSubscriptionConfigurationResourceTestCase {
 	}
 
 	protected void assertValid(
-		ProductSubscriptionConfiguration productSubscriptionConfiguration) {
+			ProductSubscriptionConfiguration productSubscriptionConfiguration)
+		throws Exception {
 
 		boolean valid = true;
 

@@ -510,7 +510,7 @@ public abstract class BaseAttachmentResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Attachment attachment) {
+	protected void assertValid(Attachment attachment) throws Exception {
 		boolean valid = true;
 
 		if (attachment.getId() == null) {

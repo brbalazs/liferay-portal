@@ -840,7 +840,9 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 		}
 	}
 
-	protected void assertValid(DiscountCategory discountCategory) {
+	protected void assertValid(DiscountCategory discountCategory)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (discountCategory.getId() == null) {

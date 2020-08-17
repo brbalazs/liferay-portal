@@ -888,7 +888,7 @@ public abstract class BaseAccountAddressResourceTestCase {
 		}
 	}
 
-	protected void assertValid(AccountAddress accountAddress) {
+	protected void assertValid(AccountAddress accountAddress) throws Exception {
 		boolean valid = true;
 
 		if (accountAddress.getId() == null) {

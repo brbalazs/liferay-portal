@@ -272,7 +272,7 @@ public abstract class BaseUserResourceTestCase {
 		}
 	}
 
-	protected void assertValid(User user) {
+	protected void assertValid(User user) throws Exception {
 		boolean valid = true;
 
 		if (user.getId() == null) {

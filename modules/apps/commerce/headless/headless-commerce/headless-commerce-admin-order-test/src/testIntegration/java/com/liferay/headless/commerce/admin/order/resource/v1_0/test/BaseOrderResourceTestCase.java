@@ -800,7 +800,7 @@ public abstract class BaseOrderResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Order order) {
+	protected void assertValid(Order order) throws Exception {
 		boolean valid = true;
 
 		if (order.getId() == null) {

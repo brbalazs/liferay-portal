@@ -571,7 +571,9 @@ public abstract class BaseAvailabilityEstimateResourceTestCase {
 		}
 	}
 
-	protected void assertValid(AvailabilityEstimate availabilityEstimate) {
+	protected void assertValid(AvailabilityEstimate availabilityEstimate)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (availabilityEstimate.getId() == null) {

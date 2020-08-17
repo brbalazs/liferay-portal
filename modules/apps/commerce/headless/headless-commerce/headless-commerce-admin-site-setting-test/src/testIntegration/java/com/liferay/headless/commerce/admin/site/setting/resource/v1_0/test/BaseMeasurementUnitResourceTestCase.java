@@ -554,7 +554,9 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 		}
 	}
 
-	protected void assertValid(MeasurementUnit measurementUnit) {
+	protected void assertValid(MeasurementUnit measurementUnit)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (measurementUnit.getId() == null) {

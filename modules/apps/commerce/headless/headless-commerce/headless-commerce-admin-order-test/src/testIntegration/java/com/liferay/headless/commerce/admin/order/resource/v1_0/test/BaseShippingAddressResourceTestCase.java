@@ -428,7 +428,9 @@ public abstract class BaseShippingAddressResourceTestCase {
 		}
 	}
 
-	protected void assertValid(ShippingAddress shippingAddress) {
+	protected void assertValid(ShippingAddress shippingAddress)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (shippingAddress.getId() == null) {

@@ -426,7 +426,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 		}
 	}
 
-	protected void assertValid(BillingAddress billingAddress) {
+	protected void assertValid(BillingAddress billingAddress) throws Exception {
 		boolean valid = true;
 
 		if (billingAddress.getId() == null) {
