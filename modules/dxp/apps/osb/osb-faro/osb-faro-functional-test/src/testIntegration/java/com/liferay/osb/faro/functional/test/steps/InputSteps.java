@@ -87,6 +87,8 @@ public class InputSteps {
 		sb.append(targetName);
 		sb.append("')]/parent::div/input");
 
+		_faroSelenium.waitForElementPresent(sb.toString());
+
 		_faroSelenium.sendKeys(sb.toString(), input);
 	}
 

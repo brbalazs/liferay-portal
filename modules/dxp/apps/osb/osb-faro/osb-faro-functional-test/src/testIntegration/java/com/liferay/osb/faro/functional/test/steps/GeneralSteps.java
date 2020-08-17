@@ -81,9 +81,12 @@ public class GeneralSteps {
 	}
 
 	@And("^I close the alert$")
-	public void closeAlert() {
-		WebElement webElement = _faroSelenium.findElement(
-			"//button[@class='close']");
+	public void closeAlert() throws Exception {
+		String closeAlert = "//button[@class='close']";
+
+		_faroSelenium.waitForElementPresent(closeAlert);
+
+		WebElement webElement = _faroSelenium.findElement(closeAlert);
 
 		webElement.click();
 	}

@@ -100,6 +100,18 @@ public class FaroWebDriverImpl
 	}
 
 	@Override
+	public void click(String locator) {
+		try {
+			waitForElementPresent(locator);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		super.click(locator);
+	}
+
+	@Override
 	public void click(WebElement webElement) {
 		try {
 			webElement.click();
@@ -266,7 +278,8 @@ public class FaroWebDriverImpl
 	 */
 	@Override
 	public void refreshUntilElementNotPresent(
-		int timeout, int pollInterval, String xpath) {
+			int timeout, int pollInterval, String xpath)
+		throws Exception {
 
 		if (isElementNotPresent(xpath)) {
 			return;
@@ -291,11 +304,12 @@ public class FaroWebDriverImpl
 
 			try {
 				waitForLoadingComplete();
+
+				return isElementNotPresent(xpath);
 			}
 			catch (Exception e) {
+				return false;
 			}
-
-			return isElementNotPresent(xpath);
 		};
 
 		wait.until(function);
@@ -312,7 +326,8 @@ public class FaroWebDriverImpl
 	 */
 	@Override
 	public void refreshUntilElementPresent(
-		int timeout, int pollInterval, String xpath) {
+			int timeout, int pollInterval, String xpath)
+		throws Exception {
 
 		if (isElementPresent(xpath)) {
 			return;
@@ -337,11 +352,12 @@ public class FaroWebDriverImpl
 
 			try {
 				waitForLoadingComplete();
+
+				return isElementPresent(xpath);
 			}
 			catch (Exception e) {
+				return false;
 			}
-
-			return isElementPresent(xpath);
 		};
 
 		wait.until(function);
@@ -359,7 +375,8 @@ public class FaroWebDriverImpl
 	 */
 	@Override
 	public void refreshUntilTextAsserted(
-		int timeout, int pollInterval, String xpath, String expectedValue) {
+			int timeout, int pollInterval, String xpath, String expectedValue)
+		throws Exception {
 
 		FluentWait fluentWait = new FluentWait(this);
 
@@ -502,6 +519,14 @@ public class FaroWebDriverImpl
 		else {
 			throw new Exception("There is no other window to switch to");
 		}
+	}
+
+	public void waitForElementNotPresent(String locator) throws Exception {
+		super.waitForElementNotPresent(locator, "false");
+	}
+
+	public void waitForElementPresent(String locator) throws Exception {
+		super.waitForElementPresent(locator, "false");
 	}
 
 	/**

@@ -272,7 +272,7 @@ public class SegmentForm {
 					numberTimesWebElement.sendKeys(
 						Keys.chord(Keys.CONTROL, "a"));
 
-					numberTimesWebElement.sendKeys(Keys.DELETE);
+					numberTimesWebElement.sendKeys(Keys.BACK_SPACE);
 
 					numberTimesWebElement.sendKeys(row.get(4));
 
@@ -506,6 +506,8 @@ public class SegmentForm {
 	@When("^I name the segment (.*)$")
 	public void nameSegment(@Transform(FaroTransformer.class) String name)
 		throws Exception {
+
+		_faroSelenium.waitForElementPresent("//h1/following-sibling::div");
 
 		if (_faroSelenium.isPartialText(
 				"//h1/following-sibling::div", "DYNAMIC")) {

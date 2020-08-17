@@ -28,6 +28,8 @@ public interface FaroSelenium extends LiferaySelenium, WebDriver {
 
 	public void assertWebElementHasAnyText(String xpath);
 
+	public void click(String locator);
+
 	public void click(WebElement webElement);
 
 	public void clickIcon(String className);
@@ -50,13 +52,16 @@ public interface FaroSelenium extends LiferaySelenium, WebDriver {
 	public String getWorkspaceIdFromURL() throws Exception;
 
 	public void refreshUntilElementNotPresent(
-		int timeout, int pollInterval, String xpath);
+			int timeout, int pollInterval, String xpath)
+		throws Exception;
 
 	public void refreshUntilElementPresent(
-		int timeout, int pollInterval, String xpath);
+			int timeout, int pollInterval, String xpath)
+		throws Exception;
 
 	public void refreshUntilTextAsserted(
-		int timeout, int pollInterval, String xpath, String expectedValue);
+			int timeout, int pollInterval, String xpath, String expectedValue)
+		throws Exception;
 
 	public void sendKeys(String locator, String value) throws Exception;
 
@@ -65,6 +70,10 @@ public interface FaroSelenium extends LiferaySelenium, WebDriver {
 	public void switchToMainWindow();
 
 	public void switchToPopupWindow() throws Exception;
+
+	public void waitForElementNotPresent(String locator) throws Exception;
+
+	public void waitForElementPresent(String locator) throws Exception;
 
 	public void waitForLoadingComplete() throws Exception;
 

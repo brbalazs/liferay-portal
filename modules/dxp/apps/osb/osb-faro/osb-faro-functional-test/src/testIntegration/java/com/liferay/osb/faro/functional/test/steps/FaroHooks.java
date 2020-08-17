@@ -28,7 +28,6 @@ import cucumber.api.java.After;
 import cucumber.api.java.Before;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -42,14 +41,6 @@ public class FaroHooks {
 	@Before
 	public static void setUp() {
 		SeleniumUtil.getSelenium();
-
-		FaroSelenium faroSelenium = FaroSeleniumUtil.getFaroSelenium();
-
-		WebDriver.Options options = faroSelenium.manage();
-
-		WebDriver.Timeouts timeouts = options.timeouts();
-
-		timeouts.implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
 	@After

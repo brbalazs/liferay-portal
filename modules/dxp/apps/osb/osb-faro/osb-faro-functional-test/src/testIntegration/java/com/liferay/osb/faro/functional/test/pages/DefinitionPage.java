@@ -35,7 +35,7 @@ import org.openqa.selenium.WebElement;
 public class DefinitionPage {
 
 	@When("^I click keyword \"(.*)\" checkbox$")
-	public void clickKeywordCheckbox(String name) {
+	public void clickKeywordCheckbox(String name) throws Exception {
 		StringBundler sb = new StringBundler(3);
 
 		sb.append("//h4[text()='");
@@ -43,6 +43,8 @@ public class DefinitionPage {
 		sb.append("']/../preceding-sibling::td/div/label/input");
 
 		String xpath = sb.toString();
+
+		_faroSelenium.waitForElementPresent(xpath);
 
 		WebElement webElement = _faroSelenium.findElement(xpath);
 

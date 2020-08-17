@@ -195,6 +195,10 @@ public class Table {
 			_faroSelenium.assertElementPresent(sb.toString());
 		}
 		else if (assertionType.contains("format")) {
+			_faroSelenium.waitForElementPresent(
+				"//div[@class='bb-tooltip-container']/table/thead/tr/td[2]" +
+					"/div[text()]");
+
 			String dateString = _faroSelenium.getText(
 				"//div[@class='bb-tooltip-container']/table/thead/tr/td[2]" +
 					"/div[text()]");
@@ -276,9 +280,10 @@ public class Table {
 	 */
 	@Then("^I should see a (.*) named (.*) with (.*) items$")
 	public void assertEntityChildrenCount(
-		@Transform(FaroTransformer.class) String type,
-		@Transform(FaroTransformer.class) String name,
-		@Transform(FaroTransformer.class) String count) {
+			@Transform(FaroTransformer.class) String type,
+			@Transform(FaroTransformer.class) String name,
+			@Transform(FaroTransformer.class) String count)
+		throws Exception {
 
 		_faroSelenium.refreshUntilTextAsserted(
 			60, 15, "//a[text()='" + name + "']//ancestor::tr/td[2]", count);
@@ -490,9 +495,10 @@ public class Table {
 	 */
 	@And("^I should see that the (.*) for (.*) is (.*)$")
 	public void assertRowsColumnValue(
-		@Transform(FaroTransformer.class) String headerName,
-		@Transform(FaroTransformer.class) String rowName,
-		@Transform(FaroTransformer.class) String value) {
+			@Transform(FaroTransformer.class) String headerName,
+			@Transform(FaroTransformer.class) String rowName,
+			@Transform(FaroTransformer.class) String value)
+		throws Exception {
 
 		List<WebElement> tableHeaders = _faroSelenium.findElements(
 			"//thead//th");
@@ -715,6 +721,8 @@ public class Table {
 		sb.append("/*[name()='rect'][");
 		sb.append(rowNumber);
 		sb.append("]");
+
+		_faroSelenium.waitForElementPresent(sb.toString());
 
 		_faroSelenium.mouseOver(sb.toString());
 
