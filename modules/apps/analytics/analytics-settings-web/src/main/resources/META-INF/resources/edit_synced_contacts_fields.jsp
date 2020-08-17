@@ -17,6 +17,13 @@
 <%@ include file="/init.jsp" %>
 
 <%
+PortletURL portletURL = renderResponse.createRenderURL();
+
+portletURL.setParameter("mvcRenderCommandName", "/view_configuration_screen");
+portletURL.setParameter("configurationScreenKey", "synced-contact-data");
+
+String redirect = portletURL.toString();
+
 AnalyticsConfiguration analyticsConfiguration = (AnalyticsConfiguration)request.getAttribute(AnalyticsSettingsWebKeys.ANALYTICS_CONFIGURATION);
 
 String[] syncedContactFieldNames = new String[0];
@@ -26,13 +33,6 @@ if (analyticsConfiguration != null) {
 	syncedContactFieldNames = analyticsConfiguration.syncedContactFieldNames();
 	syncedUserFieldNames = analyticsConfiguration.syncedUserFieldNames();
 }
-
-PortletURL portletURL = renderResponse.createRenderURL();
-
-portletURL.setParameter("mvcRenderCommandName", "/view_configuration_screen");
-portletURL.setParameter("configurationScreenKey", "synced-contact-data");
-
-String redirect = portletURL.toString();
 %>
 
 <portlet:actionURL name="/analytics_settings/edit_synced_contacts_fields" var="editSyncedContactsFieldsURL" />
