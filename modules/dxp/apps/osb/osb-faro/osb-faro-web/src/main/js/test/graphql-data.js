@@ -327,6 +327,8 @@ export function mockSearchStringListReq() {
 		result: {
 			data: {
 				preference: {
+					__typename: 'Preference',
+					key: 'search-query-strings',
 					value: JSON.stringify(['jackson'])
 				}
 			}

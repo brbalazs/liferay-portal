@@ -2,14 +2,14 @@
     width: 70%;
 
     .form-inline {
+        .button-root {
+            align-self: baseline;
+        }
+
         .query-input {
             input {
                 min-width: 400px;
             }
-        }
-
-        .button-root {
-            align-self: baseline;
         }
     }
 }

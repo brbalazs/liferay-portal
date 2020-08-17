@@ -14,13 +14,13 @@ jest.useRealTimers();
 describe('SearchCard', () => {
 	it('should render', async() => {
 		const {container} = render(
-			<MockedProvider mocks={[mockSearchStringListReq()]}>
-				<Provider store={mockStore()}>
-					<StaticRouter>
+			<StaticRouter>
+				<MockedProvider mocks={[mockSearchStringListReq()]}>
+					<Provider store={mockStore()}>
 						<SearchCard groupId='23' />
-					</StaticRouter>
-				</Provider>
-			</MockedProvider>
+					</Provider>
+				</MockedProvider>
+			</StaticRouter>
 		);
 
 		await waitForElementToBeRemoved(() =>

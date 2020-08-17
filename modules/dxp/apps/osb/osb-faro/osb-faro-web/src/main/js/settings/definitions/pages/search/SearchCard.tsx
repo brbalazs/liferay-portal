@@ -8,9 +8,8 @@ import Icon from 'shared/components/Icon';
 import PreferenceMutation from 'settings/data-privacy/queries/PreferenceMutation';
 import PreferenceQuery from 'settings/data-privacy/queries/PreferenceQuery';
 import React, {useRef} from 'react';
-import Spinner from 'shared/components/Spinner';
 import {addAlert} from 'shared/actions/alerts';
-import {Alert} from 'shared/types';
+import {Alert, Modal} from 'shared/types';
 import {
 	ArrayHelpers,
 	FieldArray,
@@ -24,17 +23,18 @@ import {connect} from 'react-redux';
 import {Routes, toRoute} from 'shared/util/router';
 import {sequence} from 'shared/util/promise';
 import {useMutation, useQuery} from '@apollo/react-hooks';
+import {WrapSafeResults} from 'shared/hoc/util';
 
 const SEARCH_QUERY_STRINGS_KEY = 'search-query-strings';
 
 interface ISearchCardProps {
 	addAlert: Alert.AddAlert;
-	close: () => void;
+	close: Modal.close;
 	groupId: string;
 	history: {
-		push: (string) => void;
+		push: (path: string) => void;
 	};
-	open: (string, object) => void;
+	open: Modal.open;
 }
 
 export const SearchCard: React.FC<ISearchCardProps> = ({
@@ -44,19 +44,33 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 	history,
 	open
 }) => {
-	const {data: searchQueryStringsData, loading} = useQuery(PreferenceQuery, {
-		fetchPolicy: 'no-cache',
-		variables: {key: SEARCH_QUERY_STRINGS_KEY}
-	});
+	const {data: searchQueryStringsData, error, loading} = useQuery(
+		PreferenceQuery,
+		{
+			variables: {key: SEARCH_QUERY_STRINGS_KEY}
+		}
+	);
 
 	const [updatePreference] = useMutation(PreferenceMutation);
 
 	const _formRef = useRef<Formik>();
 
-	const handleSubmit = ({queryStringList}) => {
+	const getQueryStrings = (): Array<string> =>
+		searchQueryStringsData && searchQueryStringsData.preference.value
+			? JSON.parse(searchQueryStringsData.preference.value)
+			: [''];
+
+	const handleSubmit = ({queryStringList}): void => {
 		const currentForm = _formRef.current;
 
 		updatePreference({
+			update: (cache, {data}) => {
+				cache.writeQuery({
+					data,
+					query: PreferenceQuery,
+					variables: {key: SEARCH_QUERY_STRINGS_KEY}
+				});
+			},
 			variables: {
 				key: SEARCH_QUERY_STRINGS_KEY,
 				value: JSON.stringify(queryStringList)
@@ -86,16 +100,13 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 		arrayHelpers: ArrayHelpers,
 		index: number,
 		currentLength: number
-	) => {
-		const apiResult =
-			JSON.parse(searchQueryStringsData.preference.value) || [];
-
-		apiResult.length === 1 && currentLength === 1
+	): void => {
+		getQueryStrings().length === 1 && currentLength === 1
 			? arrayHelpers.replace(index, '')
 			: arrayHelpers.remove(index);
 	};
 
-	const handleCancel = (touchedFields: FormikTouched<FormikValues>) => {
+	const handleCancel = (touchedFields: FormikTouched<FormikValues>): void => {
 		Object.keys(touchedFields).length > 0
 			? open(modalTypes.CONFIRMATION_MODAL, {
 					cancelMessage: Liferay.Language.get('cancel'),
@@ -122,24 +133,15 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 		fieldValue: string,
 		setFieldValue: Function,
 		setFieldTouched: Function
-	) => {
+	): void => {
 		setFieldValue(fieldIdentifier, fieldValue.replace(/[^\w\s]/gi, ''));
 		setFieldTouched(fieldIdentifier, true);
 	};
 
 	const shouldRenderAddButton = (
-		currentIndex: number,
+		index: number,
 		currentLength: number
-	) => currentIndex === currentLength - 1 && currentLength <= 4;
-
-	const shouldRenderRemoveButton = (currentLength: number) => {
-		const apiResult =
-			JSON.parse(searchQueryStringsData.preference.value) || [];
-
-		return (
-			(apiResult.length === 1 && currentLength === 1) || currentLength > 1
-		);
-	};
+	): boolean => index === currentLength - 1 && currentLength <= 4;
 
 	return (
 		<Card className='query-card-root'>
@@ -148,14 +150,19 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 			</Card.Header>
 
 			<Card.Body>
-				{loading ? (
-					<Spinner alignCenter spacer />
-				) : (
+				<WrapSafeResults
+					className='flex-grow-1'
+					error={error}
+					errorProps={{
+						className: 'flex-grow-1'
+					}}
+					loading={loading}
+					page={false}
+					pageDisplay={false}
+				>
 					<Form
 						initialValues={{
-							queryStringList: JSON.parse(
-								searchQueryStringsData.preference.value
-							) || ['']
+							queryStringList: getQueryStrings()
 						}}
 						onSubmit={handleSubmit}
 						ref={_formRef}
@@ -198,31 +205,25 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 															])}
 														/>
 
-														{shouldRenderRemoveButton(
-															values
-																.queryStringList
-																.length
-														) && (
-															<Button
-																borderless
-																className='ml-1'
-																disabled={
-																	isSubmitting
-																}
-																display='secondary'
-																onClick={() =>
-																	handleRemoveField(
-																		arrayHelpers,
-																		index,
-																		values
-																			.queryStringList
-																			.length
-																	)
-																}
-															>
-																<Icon symbol='trash' />
-															</Button>
-														)}
+														<Button
+															borderless
+															className='ml-1'
+															disabled={
+																isSubmitting
+															}
+															display='secondary'
+															onClick={() =>
+																handleRemoveField(
+																	arrayHelpers,
+																	index,
+																	values
+																		.queryStringList
+																		.length
+																)
+															}
+														>
+															<Icon symbol='trash' />
+														</Button>
 
 														{shouldRenderAddButton(
 															index,
@@ -263,7 +264,7 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 									</Button>
 
 									<Button
-										className={'ml-4'}
+										className='ml-4'
 										display='secondary'
 										onClick={() => handleCancel(touched)}
 									>
@@ -273,7 +274,7 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 							</Form.Form>
 						)}
 					</Form>
-				)}
+				</WrapSafeResults>
 			</Card.Body>
 		</Card>
 	);

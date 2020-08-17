@@ -112,11 +112,11 @@ export default class FormInput extends React.Component<IFormInputProps> {
 		}
 	}
 
-	extractProperty = (
+	extractProperty(
 		object: FormikErrors<any> | FormikTouched<any>,
 		path: string
-	) =>
-		path
+	): any {
+		return path
 			.replace(/\[/g, '.')
 			.replace(/]/g, '')
 			.split('.')
@@ -127,6 +127,7 @@ export default class FormInput extends React.Component<IFormInputProps> {
 						: undefined,
 				object
 			);
+	}
 
 	renderInput(inputProps) {
 		const {contentAfter, inset, mask, text} = this.props;
