@@ -60,14 +60,14 @@ public class LoginPostAction extends Action {
 				_log.debug("Running " + request.getRemoteUser());
 			}
 
-			HttpSession session = request.getSession();
+			HttpSession httpSession = request.getSession();
 
 			long companyId = PortalUtil.getCompanyId(request);
 			long userId = 0;
 
 			// Language
 
-			session.removeAttribute(Globals.LOCALE_KEY);
+			httpSession.removeAttribute(Globals.LOCALE_KEY);
 
 			// Live users
 
@@ -86,7 +86,7 @@ public class LoginPostAction extends Action {
 				jsonObject.put("companyId", companyId);
 				jsonObject.put("remoteAddr", request.getRemoteAddr());
 				jsonObject.put("remoteHost", request.getRemoteHost());
-				jsonObject.put("sessionId", session.getId());
+				jsonObject.put("sessionId", httpSession.getId());
 
 				String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
 
@@ -140,10 +140,10 @@ public class LoginPostAction extends Action {
 		Date now = new Date();
 
 		if (user.getPasswordModifiedDate() == null) {
-			HttpSession session = httpServletRequest.getSession(false);
+			HttpSession httpSession = request.getSession(false);
 
-			if (session != null) {
-				now = new Date(session.getCreationTime());
+			if (httpSession != null) {
+				now = new Date(httpSession.getCreationTime());
 			}
 
 			user.setPasswordModifiedDate(now);
