@@ -17,12 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-PortletURL portletURL = renderResponse.createRenderURL();
-
-portletURL.setParameter("mvcRenderCommandName", "/view_configuration_screen");
-portletURL.setParameter("configurationScreenKey", "synced-contact-data");
-
-String redirect = portletURL.toString();
+String redirect = ParamUtil.getString(request, "redirect");
 
 AnalyticsConfiguration analyticsConfiguration = (AnalyticsConfiguration)request.getAttribute(AnalyticsSettingsWebKeys.ANALYTICS_CONFIGURATION);
 
@@ -37,9 +32,7 @@ if (analyticsConfiguration != null) {
 
 <portlet:actionURL name="/analytics_settings/edit_synced_contacts_fields" var="editSyncedContactsFieldsURL" />
 
-<clay:sheet
-	cssClass="portlet-analytics-settings"
->
+<div class="pb-2 portlet-analytics-settings sheet sheet-lg">
 	<h2>
 		<liferay-ui:message key="sync-data-fields" />
 	</h2>
@@ -56,14 +49,14 @@ if (analyticsConfiguration != null) {
 			refresh="<%= false %>"
 		>
 			<liferay-ui:section>
+				<liferay-frontend:management-bar
+					includeCheckBox="<%= true %>"
+					searchContainerId="selectContactsFields"
+				/>
 
 				<%
 				FieldDisplayContext fieldDisplayContext = new FieldDisplayContext("/analytics_settings/edit_synced_contacts_fields", renderRequest, renderResponse);
 				%>
-
-				<clay:management-toolbar
-					displayContext="<%= new FieldManagementToolbarDisplayContext(fieldDisplayContext, request, liferayPortletRequest, liferayPortletResponse) %>"
-				/>
 
 				<liferay-ui:search-container
 					id="selectContactsFields"
@@ -104,14 +97,14 @@ if (analyticsConfiguration != null) {
 			</liferay-ui:section>
 
 			<liferay-ui:section>
+				<liferay-frontend:management-bar
+					includeCheckBox="<%= true %>"
+					searchContainerId="selectUsersFields"
+				/>
 
 				<%
 				FieldDisplayContext fieldDisplayContext = new FieldDisplayContext("/analytics_settings/edit_synced_users_fields", renderRequest, renderResponse);
 				%>
-
-				<clay:management-toolbar
-					displayContext="<%= new FieldManagementToolbarDisplayContext(fieldDisplayContext, request, liferayPortletRequest, liferayPortletResponse) %>"
-				/>
 
 				<liferay-ui:search-container
 					id="selectUsersFields"
@@ -157,4 +150,4 @@ if (analyticsConfiguration != null) {
 			<aui:button href="<%= redirect %>" type="cancel" value="cancel" />
 		</aui:button-row>
 	</aui:form>
-</clay:sheet>
+</div>
