@@ -21,7 +21,16 @@ exports[`WorkspaceListItem should render 1`] = `
             <div
               class="workspace-name"
             >
-              Unconfigured
+              <span
+                class="configuration-required-info"
+              >
+                Configuration Required
+              </span>
+              <div>
+                <span>
+                  New Unnamed Workspace
+                </span>
+              </div>
             </div>
             <div
               class="workspace-info"

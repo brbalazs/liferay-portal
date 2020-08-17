@@ -131,6 +131,13 @@ exports[`SelectWorkspaceAccount should render 1`] = `
                             Project C
                           </span>
                         </div>
+                        <div>
+                          <span
+                            class="corporation-project-name"
+                          >
+                            corpProjectName126
+                          </span>
+                        </div>
                         <div
                           class="workspace-info"
                         >
@@ -168,7 +175,23 @@ exports[`SelectWorkspaceAccount should render 1`] = `
                         <div
                           class="workspace-name"
                         >
-                          Unconfigured
+                          <span
+                            class="configuration-required-info"
+                          >
+                            Configuration Required
+                          </span>
+                          <div>
+                            <span>
+                              New Unnamed Workspace
+                            </span>
+                          </div>
+                        </div>
+                        <div>
+                          <span
+                            class="corporation-project-name"
+                          >
+                            corpProjectName0
+                          </span>
                         </div>
                         <div
                           class="workspace-info"

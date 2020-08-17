@@ -127,6 +127,13 @@ exports[`Workspaces should render a list of projects if there is only one projec
                             project23
                           </span>
                         </div>
+                        <div>
+                          <span
+                            class="corporation-project-name"
+                          >
+                            corpProjectName23
+                          </span>
+                        </div>
                         <div
                           class="workspace-info"
                         >
@@ -452,6 +459,13 @@ exports[`Workspaces should render with a message that all basic tier plans have 
                             project123
                           </span>
                         </div>
+                        <div>
+                          <span
+                            class="corporation-project-name"
+                          >
+                            corpProjectName123
+                          </span>
+                        </div>
                         <div
                           class="workspace-info"
                         >
@@ -495,6 +509,13 @@ exports[`Workspaces should render with a message that all basic tier plans have 
                             title=""
                           >
                             project124
+                          </span>
+                        </div>
+                        <div>
+                          <span
+                            class="corporation-project-name"
+                          >
+                            corpProjectName124
                           </span>
                         </div>
                         <div
@@ -667,6 +688,13 @@ exports[`Workspaces should render with a message that one or more basic tier wor
                             project124
                           </span>
                         </div>
+                        <div>
+                          <span
+                            class="corporation-project-name"
+                          >
+                            corpProjectName124
+                          </span>
+                        </div>
                         <div
                           class="workspace-info"
                         >
@@ -710,6 +738,13 @@ exports[`Workspaces should render with a message that one or more basic tier wor
                             title=""
                           >
                             project123
+                          </span>
+                        </div>
+                        <div>
+                          <span
+                            class="corporation-project-name"
+                          >
+                            corpProjectName123
                           </span>
                         </div>
                         <div

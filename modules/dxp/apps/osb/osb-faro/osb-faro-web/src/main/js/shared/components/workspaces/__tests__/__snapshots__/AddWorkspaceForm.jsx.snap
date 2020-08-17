@@ -17,7 +17,7 @@ exports[`AddWorkspaceForm should render 1`] = `
           <h3
             class="title"
           >
-            Create a new workspace
+            Configure your new workspace
           </h3>
           <p>
              will be the owner of this workspace
