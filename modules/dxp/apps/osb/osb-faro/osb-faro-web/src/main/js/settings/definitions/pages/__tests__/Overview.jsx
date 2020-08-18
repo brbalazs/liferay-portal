@@ -1,20 +1,14 @@
 import * as Constants from 'shared/util/constants';
 import mockStore from 'test/mock-store';
 import React from 'react';
-import {cleanup, render} from '@testing-library/react';
 import {Overview} from '../Overview';
 import {Provider} from 'react-redux';
+import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router-dom';
 
 jest.unmock('react-dom');
 
 describe('Definitions Overview', () => {
-	afterEach(() => {
-		Constants.DEVELOPER_MODE = false;
-
-		cleanup();
-	});
-
 	it('should render a list of definitions that includes individuals, accounts, behaviors, and interests', () => {
 		// TODO: LRAC-4511 Remove DEVELOPER_MODE
 		Constants.DEVELOPER_MODE = true;
@@ -50,7 +44,9 @@ describe('Definitions Overview', () => {
 		).toHaveTextContent('Interests');
 	});
 
-	it('should render a list of definitions that includes interests when DEVELOPER_MODE is false', () => {
+	it('should render a list of definitions that includes interests and search when DEVELOPER_MODE is false', () => {
+		Constants.DEVELOPER_MODE = false;
+
 		const {container} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>
@@ -63,6 +59,10 @@ describe('Definitions Overview', () => {
 
 		expect(
 			container.querySelectorAll('.list-group-title a')[1]
+		).toHaveTextContent('Search');
+
+		expect(
+			container.querySelectorAll('.list-group-title a')[2]
 		).toHaveTextContent('Interests');
 	});
 });
