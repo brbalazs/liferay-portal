@@ -243,8 +243,8 @@ public class Validator_IW {
 		return Validator.isNotNull(l);
 	}
 
-	public boolean isNotNull(java.lang.Object obj) {
-		return Validator.isNotNull(obj);
+	public boolean isNotNull(java.lang.Object object) {
+		return Validator.isNotNull(object);
 	}
 
 	/**
@@ -263,8 +263,8 @@ public class Validator_IW {
 		return Validator.isNull(l);
 	}
 
-	public boolean isNull(java.lang.Object obj) {
-		return Validator.isNull(obj);
+	public boolean isNull(java.lang.Object object) {
+		return Validator.isNull(object);
 	}
 
 	/**
