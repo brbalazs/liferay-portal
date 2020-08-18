@@ -168,9 +168,8 @@ public class SplitPackagesTest {
 						Iterator<Path> iterator = directoryStream.iterator();
 
 						if (iterator.hasNext()) {
-							Path relativePath = path.relativize(dirPath);
-
-							String relativePathString = relativePath.toString();
+							String relativePathString = String.valueOf(
+								path.relativize(dirPath));
 
 							packageNames.add(
 								relativePathString.replace('/', '.'));
