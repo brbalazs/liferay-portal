@@ -43,10 +43,10 @@ const items = (devMode: boolean = false): ListItem[] => [
 			}
 		]
 	},
-	devMode && {
+	{
 		header: Liferay.Language.get('activities'),
 		items: [
-			{
+			devMode && {
 				description: Liferay.Language.get(
 					'view-and-manage-the-tracked-behaviors-in-analytics-cloud.-you-will-also-find-instructions-for-tagging-non-liferay-assets-to-track-them-in-analytics-cloud'
 				),
