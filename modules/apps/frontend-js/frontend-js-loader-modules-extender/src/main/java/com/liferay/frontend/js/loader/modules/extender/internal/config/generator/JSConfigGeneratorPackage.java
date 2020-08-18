@@ -59,9 +59,7 @@ public class JSConfigGeneratorPackage {
 		_bundle = bundle;
 		_contextPath = contextPath;
 
-		Version version = _bundle.getVersion();
-
-		_version = version.toString();
+		_version = String.valueOf(_bundle.getVersion());
 
 		BundleWiring bundleWiring = _bundle.adapt(BundleWiring.class);
 
