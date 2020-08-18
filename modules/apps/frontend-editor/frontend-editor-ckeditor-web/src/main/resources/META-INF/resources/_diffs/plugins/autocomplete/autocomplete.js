@@ -350,8 +350,14 @@
 
 			var replaceContainer = instance._getContainerAscendant(prevTriggerPosition.container, 'span');
 
-			if (!replaceContainer || !replaceContainer.hasClass('lfr-ac-content')) {
-				replaceContainer = prevTriggerPosition.container.split(prevTriggerPosition.index);
+			if (
+				!replaceContainer ||
+				!replaceContainer.hasClass('lfr-ac-content') ||
+				prevTriggerPosition.value
+			) {
+				replaceContainer = prevTriggerPosition.container.split(
+					prevTriggerPosition.index
+				);
 			}
 
 			var newElement = CKEDITOR.dom.element.createFromHtml(
