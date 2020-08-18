@@ -42,22 +42,22 @@
 			display: flex;
 			justify-content: space-between;
 
-			.configuration-required-info {
-				color: $primary;
-				font-size: $fontSizeExtraSmall;
-				font-weight: $fontWeightSemiBold;
-				line-height: 23px;
-			}
-
-			.corporation-project-name {
-				color: $secondary;
-				font-size: $fontSizeExtraSmall;
-				font-weight: $fontWeightSemiBold;
-				line-height: 23px;
-			}
-
 			.icon-root {
 				color: $mainLighten52;
+			}
+
+			.info-wrapper {
+				font-size: $fontSizeExtraSmall;
+				font-weight: $fontWeightSemiBold;
+				line-height: 23px;
+
+				&.configuration-required {
+					color: $primary;
+				}
+	
+				&.corporation-project-name {
+					color: $secondary;
+				}
 			}
 
 			.project-name {

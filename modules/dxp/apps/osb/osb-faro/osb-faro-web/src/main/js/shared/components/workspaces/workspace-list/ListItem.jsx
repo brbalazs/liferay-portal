@@ -156,7 +156,7 @@ export default class WorkspaceListItem extends React.Component {
 								<TextTruncate title={name} />
 							) : (
 								<>
-									<span className='configuration-required-info'>
+									<span className='info-wrapper configuration-required'>
 										{Liferay.Language.get(
 											'configuration-required'
 										)}
@@ -174,7 +174,7 @@ export default class WorkspaceListItem extends React.Component {
 
 						{corpProjectName && (
 							<div>
-								<span className='corporation-project-name'>
+								<span className='info-wrapper corporation-project-name'>
 									{corpProjectName}
 								</span>
 							</div>
