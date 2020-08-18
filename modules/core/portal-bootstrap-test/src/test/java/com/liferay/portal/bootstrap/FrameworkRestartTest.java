@@ -156,9 +156,8 @@ public class FrameworkRestartTest {
 							BasicFileAttributes basicFileAttributes)
 						throws IOException {
 
-						Path fileNamePath = filePath.getFileName();
-
-						String fileNameString = fileNamePath.toString();
+						String fileNameString = String.valueOf(
+							filePath.getFileName());
 
 						if (fileNameString.equals("bundleFile")) {
 							Files.delete(filePath);
