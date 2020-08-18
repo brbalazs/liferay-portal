@@ -129,7 +129,7 @@ exports[`Workspaces should render a list of projects if there is only one projec
                         </div>
                         <div>
                           <span
-                            class="corporation-project-name"
+                            class="info-wrapper corporation-project-name"
                           >
                             corpProjectName23
                           </span>
@@ -461,7 +461,7 @@ exports[`Workspaces should render with a message that all basic tier plans have 
                         </div>
                         <div>
                           <span
-                            class="corporation-project-name"
+                            class="info-wrapper corporation-project-name"
                           >
                             corpProjectName123
                           </span>
@@ -513,7 +513,7 @@ exports[`Workspaces should render with a message that all basic tier plans have 
                         </div>
                         <div>
                           <span
-                            class="corporation-project-name"
+                            class="info-wrapper corporation-project-name"
                           >
                             corpProjectName124
                           </span>
@@ -690,7 +690,7 @@ exports[`Workspaces should render with a message that one or more basic tier wor
                         </div>
                         <div>
                           <span
-                            class="corporation-project-name"
+                            class="info-wrapper corporation-project-name"
                           >
                             corpProjectName124
                           </span>
@@ -742,7 +742,7 @@ exports[`Workspaces should render with a message that one or more basic tier wor
                         </div>
                         <div>
                           <span
-                            class="corporation-project-name"
+                            class="info-wrapper corporation-project-name"
                           >
                             corpProjectName123
                           </span>

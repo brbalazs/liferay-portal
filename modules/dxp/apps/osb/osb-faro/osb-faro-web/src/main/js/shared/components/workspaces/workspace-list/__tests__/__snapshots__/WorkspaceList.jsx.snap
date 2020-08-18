@@ -37,7 +37,7 @@ exports[`WorkspaceList should render 1`] = `
                 </div>
                 <div>
                   <span
-                    class="corporation-project-name"
+                    class="info-wrapper corporation-project-name"
                   >
                     corpProjectName0
                   </span>
@@ -89,7 +89,7 @@ exports[`WorkspaceList should render 1`] = `
                 </div>
                 <div>
                   <span
-                    class="corporation-project-name"
+                    class="info-wrapper corporation-project-name"
                   >
                     corpProjectName1
                   </span>
@@ -141,7 +141,7 @@ exports[`WorkspaceList should render 1`] = `
                 </div>
                 <div>
                   <span
-                    class="corporation-project-name"
+                    class="info-wrapper corporation-project-name"
                   >
                     corpProjectName2
                   </span>
@@ -197,7 +197,7 @@ exports[`WorkspaceList should render WorkspaceList with friendlyURL 1`] = `
                   class="workspace-name"
                 >
                   <span
-                    class="configuration-required-info"
+                    class="info-wrapper configuration-required"
                   >
                     Configuration Required
                   </span>
@@ -209,7 +209,7 @@ exports[`WorkspaceList should render WorkspaceList with friendlyURL 1`] = `
                 </div>
                 <div>
                   <span
-                    class="corporation-project-name"
+                    class="info-wrapper corporation-project-name"
                   >
                     corpProjectName0
                   </span>
@@ -252,7 +252,7 @@ exports[`WorkspaceList should render WorkspaceList with friendlyURL 1`] = `
                   class="workspace-name"
                 >
                   <span
-                    class="configuration-required-info"
+                    class="info-wrapper configuration-required"
                   >
                     Configuration Required
                   </span>
@@ -264,7 +264,7 @@ exports[`WorkspaceList should render WorkspaceList with friendlyURL 1`] = `
                 </div>
                 <div>
                   <span
-                    class="corporation-project-name"
+                    class="info-wrapper corporation-project-name"
                   >
                     corpProjectName1
                   </span>

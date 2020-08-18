@@ -22,7 +22,7 @@ exports[`WorkspaceListItem should render 1`] = `
               class="workspace-name"
             >
               <span
-                class="configuration-required-info"
+                class="info-wrapper configuration-required"
               >
                 Configuration Required
               </span>
