@@ -35,12 +35,10 @@ exports[`WorkspaceList should render 1`] = `
                     mockProject_AccountA 0
                   </span>
                 </div>
-                <div>
-                  <span
-                    class="info-wrapper corporation-project-name"
-                  >
-                    corpProjectName0
-                  </span>
+                <div
+                  class="info-wrapper corporation-project-name"
+                >
+                  corpProjectName0
                 </div>
                 <div
                   class="workspace-info"
@@ -87,12 +85,10 @@ exports[`WorkspaceList should render 1`] = `
                     mockProject_AccountA 1
                   </span>
                 </div>
-                <div>
-                  <span
-                    class="info-wrapper corporation-project-name"
-                  >
-                    corpProjectName1
-                  </span>
+                <div
+                  class="info-wrapper corporation-project-name"
+                >
+                  corpProjectName1
                 </div>
                 <div
                   class="workspace-info"
@@ -139,12 +135,10 @@ exports[`WorkspaceList should render 1`] = `
                     mockProject_AccountA 2
                   </span>
                 </div>
-                <div>
-                  <span
-                    class="info-wrapper corporation-project-name"
-                  >
-                    corpProjectName2
-                  </span>
+                <div
+                  class="info-wrapper corporation-project-name"
+                >
+                  corpProjectName2
                 </div>
                 <div
                   class="workspace-info"
@@ -196,23 +190,17 @@ exports[`WorkspaceList should render WorkspaceList with friendlyURL 1`] = `
                 <div
                   class="workspace-name"
                 >
-                  <span
+                  <div
                     class="info-wrapper configuration-required"
                   >
                     Configuration Required
-                  </span>
-                  <div>
-                    <span>
-                      New Unnamed Workspace
-                    </span>
                   </div>
+                  New Unnamed Workspace
                 </div>
-                <div>
-                  <span
-                    class="info-wrapper corporation-project-name"
-                  >
-                    corpProjectName0
-                  </span>
+                <div
+                  class="info-wrapper corporation-project-name"
+                >
+                  corpProjectName0
                 </div>
                 <div
                   class="workspace-info"
@@ -251,23 +239,17 @@ exports[`WorkspaceList should render WorkspaceList with friendlyURL 1`] = `
                 <div
                   class="workspace-name"
                 >
-                  <span
+                  <div
                     class="info-wrapper configuration-required"
                   >
                     Configuration Required
-                  </span>
-                  <div>
-                    <span>
-                      New Unnamed Workspace
-                    </span>
                   </div>
+                  New Unnamed Workspace
                 </div>
-                <div>
-                  <span
-                    class="info-wrapper corporation-project-name"
-                  >
-                    corpProjectName1
-                  </span>
+                <div
+                  class="info-wrapper corporation-project-name"
+                >
+                  corpProjectName1
                 </div>
                 <div
                   class="workspace-info"
