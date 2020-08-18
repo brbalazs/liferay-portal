@@ -156,27 +156,21 @@ export default class WorkspaceListItem extends React.Component {
 								<TextTruncate title={name} />
 							) : (
 								<>
-									<span className='info-wrapper configuration-required'>
+									<div className='info-wrapper configuration-required'>
 										{Liferay.Language.get(
 											'configuration-required'
 										)}
-									</span>
-									<div>
-										<span>
-											{Liferay.Language.get(
-												'new-unnamed-workspace'
-											)}
-										</span>
 									</div>
+									{Liferay.Language.get(
+										'new-unnamed-workspace'
+									)}
 								</>
 							)}
 						</div>
 
 						{corpProjectName && (
-							<div>
-								<span className='info-wrapper corporation-project-name'>
-									{corpProjectName}
-								</span>
+							<div className='info-wrapper corporation-project-name'>
+								{corpProjectName}
 							</div>
 						)}
 
