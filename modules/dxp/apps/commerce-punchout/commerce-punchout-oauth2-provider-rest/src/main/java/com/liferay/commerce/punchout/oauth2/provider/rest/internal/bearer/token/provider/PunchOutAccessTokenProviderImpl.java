@@ -159,9 +159,8 @@ public class PunchOutAccessTokenProviderImpl
 				PunchOutAccessToken punchOutAccessToken =
 					punchOutAccessTokenDelayed.getPunchOutAccessToken();
 
-				byte[] tokenBytes = punchOutAccessToken.getToken();
-
-				String tokenString = tokenBytes.toString();
+				String tokenString = String.valueOf(
+					punchOutAccessToken.getToken());
 
 				if (token.equals(tokenString)) {
 					punchOutAccessTokenAtomicReference.compareAndSet(
@@ -233,9 +232,7 @@ public class PunchOutAccessTokenProviderImpl
 			PunchOutAccessToken punchOutAccessToken =
 				punchOutAccessTokenDelayed.getPunchOutAccessToken();
 
-			byte[] tokenBytes = punchOutAccessToken.getToken();
-
-			String tokenString = tokenBytes.toString();
+			String tokenString = String.valueOf(punchOutAccessToken.getToken());
 
 			if (token.equals(tokenString)) {
 				return punchOutAccessToken;

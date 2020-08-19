@@ -91,9 +91,8 @@ public class UniqueList<E> extends ArrayList<E> {
 		StackTraceElement[] stackTraceElements = currentThread.getStackTrace();
 
 		if (stackTraceElements.length >= 4) {
-			StackTraceElement stackTraceElement = stackTraceElements[3];
-
-			String stackTraceElementString = stackTraceElement.toString();
+			String stackTraceElementString = String.valueOf(
+				stackTraceElements[3]);
 
 			if (stackTraceElementString.contains(_STACK_TRACE_COLLECTIONS)) {
 				return super.set(index, e);

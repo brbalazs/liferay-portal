@@ -64,8 +64,6 @@ page import="java.util.HashMap" %><%@
 page import="java.util.List" %><%@
 page import="java.util.Map" %>
 
-<%@ page import="javax.portlet.PortletURL" %>
-
 <liferay-frontend:defineObjects />
 
 <liferay-theme:defineObjects />
@@ -75,9 +73,7 @@ page import="java.util.Map" %>
 <%
 String lifecycle = (String)request.getAttribute(liferayPortletRequest.LIFECYCLE_PHASE);
 
-PortletURL shipmentsURLObj = PortalUtil.getControlPanelPortletURL(request, CommercePortletKeys.COMMERCE_SHIPMENT, lifecycle);
-
-String shipmentsURL = shipmentsURLObj.toString();
+String shipmentsURL = String.valueOf(PortalUtil.getControlPanelPortletURL(request, CommercePortletKeys.COMMERCE_SHIPMENT, lifecycle));
 
 String redirect = ParamUtil.getString(request, "redirect", shipmentsURL);
 %>

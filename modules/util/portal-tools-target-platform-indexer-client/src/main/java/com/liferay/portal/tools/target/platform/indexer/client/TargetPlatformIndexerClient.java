@@ -212,9 +212,8 @@ public class TargetPlatformIndexerClient {
 								BasicFileAttributes basicFileAttributes)
 							throws IOException {
 
-							Path fileNamePath = filePath.getFileName();
-
-							String fileName = fileNamePath.toString();
+							String fileName = String.valueOf(
+								filePath.getFileName());
 
 							if (!fileName.endsWith(".xml")) {
 								return FileVisitResult.CONTINUE;

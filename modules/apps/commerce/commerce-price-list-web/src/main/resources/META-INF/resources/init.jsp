@@ -100,9 +100,7 @@ page import="java.util.Map" %>
 <%
 String lifecycle = (String)request.getAttribute(liferayPortletRequest.LIFECYCLE_PHASE);
 
-PortletURL priceListsURLObj = PortalUtil.getControlPanelPortletURL(request, CommercePriceListPortletKeys.COMMERCE_PRICE_LIST, lifecycle);
-
-String priceListsURL = priceListsURLObj.toString();
+String priceListsURL = String.valueOf(PortalUtil.getControlPanelPortletURL(request, CommercePriceListPortletKeys.COMMERCE_PRICE_LIST, lifecycle));
 
 String languageId = LanguageUtil.getLanguageId(locale);
 %>

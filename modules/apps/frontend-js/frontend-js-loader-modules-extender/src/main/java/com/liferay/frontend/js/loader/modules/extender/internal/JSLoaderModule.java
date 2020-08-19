@@ -58,9 +58,7 @@ public class JSLoaderModule {
 		_bundle = bundle;
 		_contextPath = contextPath;
 
-		Version version = _bundle.getVersion();
-
-		String jsVersion = version.toString();
+		String jsVersion = String.valueOf(_bundle.getVersion());
 
 		int index = jsVersion.indexOf(".hotfix");
 
