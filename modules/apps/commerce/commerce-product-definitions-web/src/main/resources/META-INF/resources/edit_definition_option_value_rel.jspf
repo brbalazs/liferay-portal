@@ -32,6 +32,7 @@ long cpDefinitionOptionValueRelId = cpDefinitionOptionValueRelDisplayContext.get
 <liferay-ui:error exception="<%= CPDefinitionOptionValueRelCPInstanceException.class %>" message="please-select-a-valid-sku" />
 <liferay-ui:error exception="<%= CPDefinitionOptionValueRelKeyException.class %>" message="that-key-is-already-being-used" />
 <liferay-ui:error exception="<%= CPDefinitionOptionValueRelPriceException.class %>" message="please-enter-a-valid-price" />
+<liferay-ui:error exception="<%= CPDefinitionOptionValueRelQuantityException.class %>" message="please-enter-a-valid-quantity" />
 
 <aui:input defaultLanguageId="<%= cpDefinitionOptionValueRelDisplayContext.getCatalogDefaultLanguageId() %>" id="optionValueName" name="name" />
 
