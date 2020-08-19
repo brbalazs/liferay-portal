@@ -118,7 +118,11 @@ definition {
 				deleteLiferayHome = "true",
 				keepCachedAppServerData = "true");
 
-			SignIn.signIn();
+			if (IsElementPresent(locator1 = "UserBar#USER_SIGN_IN", value1 = "Sign In")) {
+				User.loginPG(
+					password = "test",
+					userEmailAddress = "test@liferay.com");
+			}
 
 			JSONBlog.addEntry(
 				entryContent = "Blogs Entry Content",
@@ -144,7 +148,11 @@ definition {
 				deleteLiferayHome = "true",
 				keepCachedAppServerData = "true");
 
-			SignIn.signIn();
+			if (IsElementPresent(locator1 = "UserBar#USER_SIGN_IN", value1 = "Sign In")) {
+				User.loginPG(
+					password = "test",
+					userEmailAddress = "test@liferay.com");
+			}
 
 			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
 
