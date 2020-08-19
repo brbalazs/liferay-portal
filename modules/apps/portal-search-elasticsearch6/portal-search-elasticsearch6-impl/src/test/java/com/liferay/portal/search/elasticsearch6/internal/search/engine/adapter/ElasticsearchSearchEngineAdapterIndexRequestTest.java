@@ -49,7 +49,6 @@ import com.liferay.portal.search.engine.adapter.index.UpdateIndexSettingsIndexRe
 import com.liferay.portal.search.engine.adapter.index.UpdateIndexSettingsIndexResponse;
 
 import java.util.Arrays;
-import java.util.Map;
 
 import org.elasticsearch.action.admin.cluster.state.ClusterStateAction;
 import org.elasticsearch.action.admin.cluster.state.ClusterStateRequestBuilder;
