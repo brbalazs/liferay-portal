@@ -60,6 +60,14 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 			? JSON.parse(searchQueryStringsData.preference.value)
 			: [''];
 
+	const removeSpecialCharacters = (originalValue: string): string =>
+		originalValue.split('=')[0].replace(/[^\w\s]/gi, '');
+
+	const shouldRenderAddButton = (
+		index: number,
+		currentLength: number
+	): boolean => index === currentLength - 1 && currentLength <= 4;
+
 	const handleSubmit = ({queryStringList}): void => {
 		const currentForm = _formRef.current;
 
@@ -73,7 +81,9 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 			},
 			variables: {
 				key: SEARCH_QUERY_STRINGS_KEY,
-				value: JSON.stringify(queryStringList)
+				value: JSON.stringify(
+					queryStringList.map(removeSpecialCharacters)
+				)
 			}
 		})
 			.then(() => {
@@ -134,14 +144,9 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 		setFieldValue: Function,
 		setFieldTouched: Function
 	): void => {
-		setFieldValue(fieldIdentifier, fieldValue.replace(/[^\w\s]/gi, ''));
+		setFieldValue(fieldIdentifier, removeSpecialCharacters(fieldValue));
 		setFieldTouched(fieldIdentifier, true);
 	};
-
-	const shouldRenderAddButton = (
-		index: number,
-		currentLength: number
-	): boolean => index === currentLength - 1 && currentLength <= 4;
 
 	return (
 		<Card className='query-card-root'>
