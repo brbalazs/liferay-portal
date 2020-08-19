@@ -287,7 +287,7 @@ configuration changes.
 
 #### What changed?
 
-The following methods don’t throw `PortalException` anymore:
+The following methods don't throw `PortalException` anymore:
 ```
 public DDMStructure fetchStructure(
   long groupId, long classNameId, String structureKey,
