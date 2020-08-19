@@ -57,7 +57,7 @@ public class InputSteps {
 			String fieldType)
 		throws Exception {
 
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("//div[contains(.,'");
 		sb.append(targetName);
@@ -83,7 +83,9 @@ public class InputSteps {
 		sb.append(fieldType);
 		sb.append("[@name='");
 		sb.append(targetName);
-		sb.append("']");
+		sb.append("']|//label[contains(text(),'");
+		sb.append(targetName);
+		sb.append("')]/parent::div/input");
 
 		_faroSelenium.sendKeys(sb.toString(), input);
 	}
