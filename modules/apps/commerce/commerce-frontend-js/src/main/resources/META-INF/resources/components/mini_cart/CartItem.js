@@ -61,6 +61,7 @@ function CartItem({item: cartItem}) {
 		} = useContext(MiniCartContext),
 		{id: orderId} = cartState,
 		[itemState, setItemState] = useState(INITIAL_ITEM_STATE),
+		[itemQuantity, setItemQuantity] = useState(quantity),
 		[itemPrice, updateItemPrice] = useState(price);
 
 	const options = parseOptions(rawOptions);
@@ -122,34 +123,44 @@ function CartItem({item: cartItem}) {
 
 	const updateItemQuantity = useCallback(
 		quantity => {
-			setIsUpdating(true);
+			if (quantity !== itemQuantity) {
+				setIsUpdating(true);
 
-			AJAX.updateItemById(cartItemId, {
-				...cartItem,
-				quantity
-			})
-				.catch(showErrors)
-				.then(({price: updatedPrice}) => {
-					const {price: updatedPriceValue} = updatedPrice,
-						{price: currentPriceValue} = itemPrice;
-
-					/**
-					 * The unit price of an item may change based
-					 * on the change of its quantity
-					 * @type {boolean}
-					 */
-					const priceValueChanged =
-						!currentPriceValue ||
-						currentPriceValue !== updatedPriceValue;
-
-					if (priceValueChanged) {
-						return updateItemPrice(updatedPrice);
-					}
-
-					return Promise.resolve();
+				AJAX.updateItemById(cartItemId, {
+					...cartItem,
+					quantity
 				})
-				.then(() => updateCartModel({orderId}))
-				.then(() => setIsUpdating(false));
+					.catch(showErrors)
+					.then(({quantity: updatedQuantity, ...updatedItem}) => {
+						setItemQuantity(updatedQuantity);
+
+						return Promise.resolve(updatedItem);
+					})
+					.then(({price: updatedPrice}) => {
+						const {price: updatedPriceValue} = updatedPrice,
+							{price: currentPriceValue} = itemPrice;
+
+						/**
+						 * The unit price of an item may change based
+						 * on the change of its quantity
+						 * @type {boolean}
+						 */
+
+						const priceValueChanged =
+							!currentPriceValue ||
+							currentPriceValue !== updatedPriceValue;
+
+						if (priceValueChanged) {
+							return updateItemPrice(updatedPrice);
+						}
+
+						return Promise.resolve();
+					})
+					.then(() => updateCartModel({orderId}))
+					.then(() => setIsUpdating(false));
+			}
+
+			return Promise.resolve();
 		}, // eslint-disable-next-line react-hooks/exhaustive-deps
 		[AJAX, cartItem, cartItemId, orderId]
 	);
@@ -189,10 +200,11 @@ function CartItem({item: cartItem}) {
 
 			<div className={'mini-cart-item-quantity'}>
 				<QuantitySelector
+					onUpdate={updateItemQuantity}
 					quantity={quantity}
 					size={'small'}
 					spritemap={spritemap}
-					updateQuantity={updateItemQuantity}
+					throttleOnUpdate={true}
 					{...settings}
 				/>
 			</div>

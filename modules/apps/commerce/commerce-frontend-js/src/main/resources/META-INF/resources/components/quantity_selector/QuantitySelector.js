@@ -33,6 +33,7 @@ function QuantitySelector(props) {
 	const [prevAvailable, setPrevAvailable] = useState(
 		currentQuantity - props.multipleQuantity >= props.minQuantity
 	);
+	const [isThrottling, setIsThrottling] = useState(false);
 
 	const inputRef = createRef();
 
@@ -41,12 +42,15 @@ function QuantitySelector(props) {
 	}, [props.quantity, setCurrentQuantity]);
 
 	useEffect(() => {
-		if (props.updateQuantity) {
-			props.updateQuantity(currentQuantity);
-		}
+		if (props.throttleOnUpdate) {
+			setIsThrottling(true);
 
+			props.onUpdate(currentQuantity).then(() => setIsThrottling(false));
+		} else {
+			props.onUpdate(currentQuantity);
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [currentQuantity, props.quantity]);
+	}, [currentQuantity]);
 
 	useEffect(() => {
 		setNextAvailable(
@@ -203,7 +207,9 @@ function QuantitySelector(props) {
 								'btn btn-monospaced btn-secondary',
 								btnSizeClass
 							)}
-							disabled={props.disabled || !prevAvailable}
+							disabled={
+								isThrottling || props.disabled || !prevAvailable
+							}
 							onClick={decreaseQuantity}
 							type={'button'}
 						>
@@ -236,7 +242,9 @@ function QuantitySelector(props) {
 								'btn btn-monospaced btn-secondary',
 								btnSizeClass
 							)}
-							disabled={props.disabled || !nextAvailable}
+							disabled={
+								isThrottling || props.disabled || !nextAvailable
+							}
 							onClick={increaseQuantity}
 							type={'button'}
 						>
@@ -266,13 +274,18 @@ QuantitySelector.propTypes = {
 	maxQuantity: PropTypes.number,
 	minQuantity: PropTypes.number,
 	multipleQuantity: PropTypes.number,
+	/**
+	 * if 'throttleOnUpdate' is true,
+	 * 'onUpdate' must return a <Promise>.
+	 */
+	onUpdate: PropTypes.func,
 	prependedIcon: PropTypes.string,
 	prependedText: PropTypes.string,
 	quantity: PropTypes.number,
 	size: PropTypes.oneOf(['large', 'medium', 'small']),
 	spritemap: PropTypes.string,
 	style: PropTypes.oneOf(['default', 'simple']),
-	updateQuantity: PropTypes.func
+	throttleOnUpdate: PropTypes.bool
 };
 
 QuantitySelector.defaultProps = {
@@ -280,7 +293,9 @@ QuantitySelector.defaultProps = {
 	maxQuantity: 99999999,
 	minQuantity: 1,
 	multipleQuantity: 1,
-	style: 'default'
+	onUpdate: () => {},
+	style: 'default',
+	throttleOnUpdate: false
 };
 
 export default QuantitySelector;
