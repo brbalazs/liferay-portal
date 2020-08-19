@@ -15,8 +15,12 @@
 package com.liferay.headless.commerce.admin.pricing.internal.dto.v2_0.converter;
 
 import com.liferay.commerce.account.model.CommerceAccount;
+import com.liferay.commerce.account.service.CommerceAccountLocalService;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.headless.commerce.admin.pricing.dto.v2_0.Account;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
@@ -41,9 +45,24 @@ public class AccountDTOConverter
 	public Account toDTO(DTOConverterContext dtoConverterContext)
 		throws Exception {
 
-		CommerceAccount commerceAccount =
-			_commerceAccountService.fetchCommerceAccount(
+		CommerceAccount commerceAccount;
+
+		if ((Long)dtoConverterContext.getId() == -1) {
+			User user = dtoConverterContext.getUser();
+
+			if (user == null) {
+				user = _userLocalService.getUserById(
+					PrincipalThreadLocal.getUserId());
+			}
+
+			commerceAccount =
+				_commerceAccountLocalService.getGuestCommerceAccount(
+					user.getCompanyId());
+		}
+		else {
+			commerceAccount = _commerceAccountService.getCommerceAccount(
 				(Long)dtoConverterContext.getId());
+		}
 
 		return new Account() {
 			{
@@ -55,6 +74,12 @@ public class AccountDTOConverter
 	}
 
 	@Reference
+	private CommerceAccountLocalService _commerceAccountLocalService;
+
+	@Reference
 	private CommerceAccountService _commerceAccountService;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }
