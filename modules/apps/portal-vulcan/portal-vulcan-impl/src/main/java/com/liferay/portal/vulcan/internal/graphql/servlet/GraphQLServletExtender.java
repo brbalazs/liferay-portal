@@ -284,7 +284,7 @@ public class GraphQLServletExtender {
 		GraphQLTypeRetriever graphQLTypeRetriever = new GraphQLTypeRetriever() {
 
 			public GraphQLType getGraphQLType(
-					Class<?> object,
+					Class<?> clazz,
 					ProcessingElementsContainer processingElementsContainer,
 					boolean isInput)
 				throws CannotCastMemberException, GraphQLAnnotationsException {
@@ -294,14 +294,14 @@ public class GraphQLServletExtender {
 
 				String typeName = _getTypeName(
 					isInput, processingElementsContainer,
-					graphQLObjectInfoRetriever.getTypeName(object));
+					graphQLObjectInfoRetriever.getTypeName(clazz));
 
 				GraphQLType graphQLType = graphQLTypes.get(typeName);
 
 				if ((graphQLType != null) &&
-					!_typeKeys.contains(object.getName())) {
+					!_typeKeys.contains(clazz.getName())) {
 
-					String name = object.getName();
+					String name = clazz.getName();
 
 					name = name.replaceAll("\\.", "_");
 
@@ -325,30 +325,30 @@ public class GraphQLServletExtender {
 
 				processingStack.push(typeName);
 
-				_typeKeys.add(object.getName());
+				_typeKeys.add(clazz.getName());
 
-				if (object.getAnnotation(GraphQLUnion.class) != null) {
+				if (clazz.getAnnotation(GraphQLUnion.class) != null) {
 					graphQLType = new UnionBuilder(
 						graphQLObjectInfoRetriever
 					).getUnionBuilder(
-						object, processingElementsContainer
+						clazz, processingElementsContainer
 					).build();
 				}
-				else if (object.isAnnotationPresent(
+				else if (clazz.isAnnotationPresent(
 							GraphQLTypeResolver.class)) {
 
 					graphQLType = new InterfaceBuilder(
 						graphQLObjectInfoRetriever, _graphQLFieldRetriever,
 						graphQLExtensionsHandler
 					).getInterfaceBuilder(
-						object, processingElementsContainer
+						clazz, processingElementsContainer
 					).build();
 				}
-				else if (Enum.class.isAssignableFrom(object)) {
+				else if (Enum.class.isAssignableFrom(clazz)) {
 					graphQLType = new EnumBuilder(
 						graphQLObjectInfoRetriever
 					).getEnumBuilder(
-						object
+						clazz
 					).build();
 				}
 				else {
@@ -357,7 +357,7 @@ public class GraphQLServletExtender {
 							graphQLObjectInfoRetriever, parentalSearch,
 							breadthFirstSearch, _graphQLFieldRetriever
 						).getInputObjectBuilder(
-							object, processingElementsContainer
+							clazz, processingElementsContainer
 						).build();
 					}
 					else {
@@ -366,7 +366,7 @@ public class GraphQLServletExtender {
 							breadthFirstSearch, _graphQLFieldRetriever,
 							graphQLInterfaceRetriever, graphQLExtensionsHandler
 						).getOutputObjectBuilder(
-							object, processingElementsContainer
+							clazz, processingElementsContainer
 						).build();
 					}
 				}
@@ -377,13 +377,14 @@ public class GraphQLServletExtender {
 							graphQLType)) {
 
 						try {
-							Class<? extends GraphQLType> clazz =
+							Class<? extends GraphQLType> graphQLTypeClass =
 								graphQLType.getClass();
 
-							Field name = clazz.getDeclaredField("name");
+							Field field = graphQLTypeClass.getDeclaredField("name");
 
-							name.setAccessible(true);
-							name.set(graphQLType, typeName);
+							field.setAccessible(true);
+
+							field.set(graphQLType, typeName);
 						}
 						catch (Exception exception) {
 							if (_log.isDebugEnabled()) {
@@ -404,7 +405,7 @@ public class GraphQLServletExtender {
 				graphQLType = directiveWirer.wire(
 					(GraphQLDirectiveContainer)graphQLType,
 					directiveWiringMapRetriever.getDirectiveWiringMap(
-						object, processingElementsContainer),
+						clazz, processingElementsContainer),
 					processingElementsContainer.getCodeRegistryBuilder(), null);
 
 				graphQLTypes.put(graphQLType.getName(), graphQLType);
