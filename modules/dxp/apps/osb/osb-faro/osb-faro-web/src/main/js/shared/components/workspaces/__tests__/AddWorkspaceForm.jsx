@@ -32,6 +32,7 @@ describe('AddWorkspaceForm', () => {
 			<Provider store={mockStore()}>
 				<StaticRouter>
 					<AddWorkspaceForm
+						editing
 						project={data.getImmutableMock(
 							Project,
 							data.mockProject
