@@ -9,7 +9,7 @@ import Form, {
 } from 'shared/components/form';
 import getCN from 'classnames';
 import NavigationWarning from 'shared/components/NavigationWarning';
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import Sheet from 'shared/components/Sheet';
 import urlConstants from 'shared/util/url-constants';
 import {BasePageContext} from './BasePage';
@@ -60,6 +60,7 @@ export const emailDomainValidationArr = (items, inputListValue) => {
 interface IAddWorkspaceFormProps extends React.HTMLAttributes<HTMLElement> {
 	close: Modal.close;
 	disabled: boolean;
+	editing: boolean;
 	emailAddressDomains: string[];
 	onSubmit: (values) => Promise<any>;
 	open: Modal.open;
@@ -70,12 +71,12 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 	className,
 	close,
 	disabled = false,
+	editing = false,
 	emailAddressDomains,
 	onSubmit,
 	open,
 	project
 }) => {
-	const [editing, setEditing] = useState(false);
 	const {currentUser} = useContext(BasePageContext);
 	const formRef = useRef<Formik>();
 	const isTrialPath = matchPath(location.pathname, {
@@ -84,12 +85,6 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 	});
 
 	const [inputListValue, setInputListValue] = useState();
-
-	useEffect(() => {
-		if (project) {
-			setEditing(true);
-		}
-	}, []);
 
 	const handleSubmit = (
 		values,
@@ -229,7 +224,11 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 								<Sheet.Section className='input-server'>
 									<Form.Select
 										data-testid='server-location-input'
-										disabled={disabled || editing}
+										disabled={
+											disabled ||
+											editing ||
+											(project && project.serverLocation)
+										}
 										label={
 											<>
 												{Liferay.Language.get(
