@@ -146,7 +146,6 @@
 		<reference entity="FaroProjectEmailAddressDomain" package-path="com.liferay.osb.faro" />
 		<reference entity="FaroUser" package-path="com.liferay.osb.faro" />
 		<reference entity="Group" package-path="com.liferay.portal" />
-		<reference entity="Role" package-path="com.liferay.portal" />
 		<reference entity="User" package-path="com.liferay.portal" />
 	</entity>
 	<entity local-service="true" name="FaroProjectEmailAddressDomain" remote-service="false">

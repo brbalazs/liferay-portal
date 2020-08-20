@@ -17,7 +17,6 @@ package com.liferay.osb.faro.service.impl;
 import com.liferay.mail.kernel.model.MailMessage;
 import com.liferay.mail.kernel.service.MailService;
 import com.liferay.osb.faro.constants.DocumentationConstants;
-import com.liferay.osb.faro.constants.FaroUserConstants;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.base.FaroProjectLocalServiceBaseImpl;
 import com.liferay.osb.faro.util.EmailUtil;
@@ -28,13 +27,10 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
-import com.liferay.portal.kernel.model.Role;
-import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -106,8 +102,6 @@ public class FaroProjectLocalServiceImpl
 		faroProject.setState(state);
 		faroProject.setSubscription(subscription);
 		faroProject.setWeDeployKey(weDeployKey);
-
-		addFaroUser(userId, groupId);
 
 		faroProjectEmailAddressDomainLocalService.
 			addFaroProjectEmailAddressDomains(
@@ -294,19 +288,6 @@ public class FaroProjectLocalServiceImpl
 		faroProject.setSubscription(subscription);
 
 		return faroProjectPersistence.update(faroProject);
-	}
-
-	protected void addFaroUser(long userId, long groupId)
-		throws PortalException {
-
-		Role role = roleLocalService.getRole(
-			PortalUtil.getDefaultCompanyId(), RoleConstants.SITE_OWNER);
-
-		User user = userLocalService.getUser(userId);
-
-		faroUserLocalService.addFaroUser(
-			userId, groupId, userId, role.getRoleId(), user.getEmailAddress(),
-			FaroUserConstants.STATUS_APPROVED, false);
 	}
 
 	@ServiceReference(type = Language.class)
