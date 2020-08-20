@@ -560,6 +560,10 @@ export class Distribution extends React.Component {
 			return textWidth > acc ? textWidth : acc;
 		}, 60);
 
+		const yAxisDomain = histogram
+			? [yAxisTicks[0], yAxisTicks[yAxisTicks.length - 1]]
+			: [0, 'auto'];
+
 		return (
 			<>
 				<BasePage.Body>
@@ -741,13 +745,7 @@ export class Distribution extends React.Component {
 															AXIS.borderStroke
 													}}
 													dataKey='graphValue'
-													domain={[
-														yAxisTicks[0],
-														yAxisTicks[
-															yAxisTicks.length -
-																1
-														]
-													]}
+													domain={yAxisDomain}
 													tickFormatter={val =>
 														formatTickVal(
 															val,
@@ -785,13 +783,7 @@ export class Distribution extends React.Component {
 															AXIS.borderStroke
 													}}
 													dataKey='graphValue'
-													domain={[
-														yAxisTicks[0],
-														yAxisTicks[
-															yAxisTicks.length -
-																1
-														]
-													]}
+													domain={yAxisDomain}
 													orientation='right'
 													tick={false}
 													tickLine={false}
