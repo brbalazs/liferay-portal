@@ -164,6 +164,44 @@ public class ProjectController extends BaseFaroController {
 		_faroProjectLocalService.updateFaroProject(faroProject);
 	}
 
+	@Path("/{groupId}/configure")
+	@PUT
+	@RolesAllowed(RoleConstants.SITE_ADMINISTRATOR)
+	public ProjectDisplay configure(
+			@FormParam("friendlyURL") String friendlyURL,
+			@PathParam("groupId") long groupId,
+			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
+			@FormParam("emailAddressDomains")
+				FaroParam<List<String>> emailAddressDomainsFaroParam,
+			@FormParam("name") String name)
+		throws Exception {
+
+		FaroProject faroProject =
+			faroProjectLocalService.getFaroProjectByGroupId(groupId);
+
+		User user = getUser();
+
+		_provisioningClient.addCorpProjectUsers(
+			faroProject.getCorpProjectUuid(),
+			new String[] {user.getUserUuid()});
+
+		_provisioningClient.addUserCorpProjectRoles(
+			faroProject.getCorpProjectUuid(), new String[] {user.getUserUuid()},
+			CorpProjectConstants.ROLE_OWNER);
+
+		_hubSpotEngineClient.submitWorkspaceUserForm(
+			faroProject,
+			_faroUserLocalService.getFaroUser(
+				faroProject.getGroupId(), user.getUserId()),
+			true);
+
+		faroProject.setState(ProjectConstants.STATE_NOT_READY);
+
+		faroProjectLocalService.updateFaroProject(faroProject);
+
+		return update(friendlyURL, groupId, emailAddressDomainsFaroParam, name);
+	}
+
 	@POST
 	public ProjectDisplay create(
 			@FormParam("name") String name,
@@ -206,7 +244,7 @@ public class ProjectController extends BaseFaroController {
 
 		faroProject = _create(
 			corpProjectUuid, name, emailAddressDomainsFaroParam.getValue(),
-			friendlyURL, serverLocation);
+			friendlyURL, serverLocation, ProjectConstants.STATE_NOT_READY);
 
 		Role role = _roleLocalService.getRole(
 			user.getCompanyId(), RoleConstants.SITE_OWNER);
@@ -231,7 +269,8 @@ public class ProjectController extends BaseFaroController {
 		User user = getUser();
 
 		FaroProject faroProject = _create(
-			corpProjectUuid, null, null, null, serverLocation);
+			corpProjectUuid, null, null, null, serverLocation,
+			ProjectConstants.STATE_UNCONFIGURED);
 
 		Role role = _roleLocalService.getRole(
 			user.getCompanyId(), RoleConstants.SITE_OWNER);
@@ -703,6 +742,12 @@ public class ProjectController extends BaseFaroController {
 		throws Exception {
 
 		if (StringUtil.equals(
+				faroProject.getState(), ProjectConstants.STATE_UNCONFIGURED)) {
+
+			return new ProjectDisplay(faroProject);
+		}
+
+		if (StringUtil.equals(
 				faroProject.getState(), ProjectConstants.STATE_NOT_READY)) {
 
 			try {
@@ -861,7 +906,7 @@ public class ProjectController extends BaseFaroController {
 	private FaroProject _create(
 			String corpProjectUuid, String name,
 			List<String> emailAddressDomains, String friendlyURL,
-			String serverLocation)
+			String serverLocation, String state)
 		throws Exception {
 
 		OSBAccountEntry osbAccountEntry =
@@ -879,8 +924,7 @@ public class ProjectController extends BaseFaroController {
 				user.getUserId(), name, osbAccountEntry.getDossieraAccountKey(),
 				osbAccountEntry.getCorpEntryName(), osbAccountEntry.getName(),
 				corpProjectUuid, emailAddressDomains, friendlyURL,
-				serverLocation, JSONConstants.NULL_JSON_ARRAY,
-				ProjectConstants.STATE_NOT_READY,
+				serverLocation, JSONConstants.NULL_JSON_ARRAY, state,
 				JSONUtil.writeValueAsString(faroSubscriptionDisplay), null);
 		}
 		catch (EmailAddressDomainException eade) {

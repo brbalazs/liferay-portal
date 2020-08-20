@@ -39,6 +39,8 @@ public class ProjectConstants {
 
 	public static final String STATE_UNAVAILABLE = "UNAVAILABLE";
 
+	public static final String STATE_UNCONFIGURED = "UNCONFIGURED";
+
 	public static Map<String, String> getLocations() {
 		return _locations;
 	}
@@ -67,6 +69,7 @@ public class ProjectConstants {
 				put("ready", STATE_READY);
 				put("scheduled", STATE_SCHEDULED);
 				put("unavailable", STATE_UNAVAILABLE);
+				put("unconfigured", STATE_UNCONFIGURED);
 			}
 		};
 
