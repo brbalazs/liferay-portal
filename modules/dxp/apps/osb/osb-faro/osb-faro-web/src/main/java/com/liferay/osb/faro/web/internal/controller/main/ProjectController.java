@@ -166,7 +166,7 @@ public class ProjectController extends BaseFaroController {
 
 	@Path("/{groupId}/configure")
 	@PUT
-	@RolesAllowed(RoleConstants.SITE_ADMINISTRATOR)
+	@RolesAllowed(RoleConstants.SITE_OWNER)
 	public ProjectDisplay configure(
 			@FormParam("friendlyURL") String friendlyURL,
 			@PathParam("groupId") long groupId,
@@ -178,6 +178,12 @@ public class ProjectController extends BaseFaroController {
 
 		FaroProject faroProject =
 			faroProjectLocalService.getFaroProjectByGroupId(groupId);
+
+		if (!StringUtil.equals(
+				faroProject.getState(), ProjectConstants.STATE_UNCONFIGURED)) {
+
+			return new ProjectDisplay(faroProject);
+		}
 
 		User user = getUser();
 
@@ -269,8 +275,8 @@ public class ProjectController extends BaseFaroController {
 		User user = getUser();
 
 		FaroProject faroProject = _create(
-			corpProjectUuid, null, null, null, serverLocation,
-			ProjectConstants.STATE_UNCONFIGURED);
+			corpProjectUuid, null, Collections.emptyList(), null,
+			serverLocation, ProjectConstants.STATE_UNCONFIGURED);
 
 		Role role = _roleLocalService.getRole(
 			user.getCompanyId(), RoleConstants.SITE_OWNER);
