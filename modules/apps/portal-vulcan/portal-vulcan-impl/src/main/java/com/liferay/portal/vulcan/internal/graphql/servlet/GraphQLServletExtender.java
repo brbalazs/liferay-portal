@@ -378,7 +378,7 @@ public class GraphQLServletExtender {
 				}
 
 				if (!StringUtil.equals(graphQLType.getName(), typeName)) {
-					if (!_typesAreEqual(
+					if (!_equals(
 							graphQLTypes.get(graphQLType.getName()),
 							graphQLType)) {
 
@@ -437,7 +437,7 @@ public class GraphQLServletExtender {
 				return typeName;
 			}
 
-			private boolean _typesAreEqual(
+			private boolean _equals(
 				GraphQLType graphQLType1, GraphQLType graphQLType2) {
 
 				List<GraphQLType> childrenGraphQLType1 =
