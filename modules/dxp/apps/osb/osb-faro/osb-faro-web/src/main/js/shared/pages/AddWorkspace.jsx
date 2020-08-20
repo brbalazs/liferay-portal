@@ -77,8 +77,10 @@ export class AddWorkspace extends React.Component {
 	}
 
 	render() {
-		const {className} = this.props;
-		const {friendlyURL, redirectToWorkspace} = this.state;
+		const {
+			props: {className, project},
+			state: {friendlyURL, redirectToWorkspace}
+		} = this;
 
 		return (
 			<div
@@ -95,7 +97,10 @@ export class AddWorkspace extends React.Component {
 					<WorkspacesBasePage
 						title={Liferay.Language.get('new-workspace')}
 					>
-						<AddWorkspaceForm onSubmit={this.handleSubmit} />
+						<AddWorkspaceForm
+							onSubmit={this.handleSubmit}
+							project={project}
+						/>
 					</WorkspacesBasePage>
 				)}
 			</div>

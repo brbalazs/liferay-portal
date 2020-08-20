@@ -83,6 +83,7 @@ export const Workspace: React.FC<IWorkspaceProps> = ({
 			<AddWorkspaceForm
 				className='add-workspace-root col-lg-7 pl-0'
 				disabled={!currentUser.isAdmin()}
+				editing
 				emailAddressDomains={emailAddressDomains}
 				onSubmit={handleSubmit}
 				project={project}
