@@ -342,9 +342,7 @@ public class GraphQLServletExtender {
 						clazz, processingElementsContainer
 					).build();
 				}
-				else if (clazz.isAnnotationPresent(
-							GraphQLTypeResolver.class)) {
-
+				else if (clazz.isAnnotationPresent(GraphQLTypeResolver.class)) {
 					graphQLType = new InterfaceBuilder(
 						graphQLObjectInfoRetriever, _graphQLFieldRetriever,
 						graphQLExtensionsHandler
@@ -388,7 +386,8 @@ public class GraphQLServletExtender {
 							Class<? extends GraphQLType> graphQLTypeClass =
 								graphQLType.getClass();
 
-							Field field = graphQLTypeClass.getDeclaredField("name");
+							Field field = graphQLTypeClass.getDeclaredField(
+								"name");
 
 							field.setAccessible(true);
 
