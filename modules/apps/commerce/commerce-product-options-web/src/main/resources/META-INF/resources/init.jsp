@@ -90,9 +90,6 @@ page import="java.util.Set" %>
 <%
 String lifecycle = (String)request.getAttribute(liferayPortletRequest.LIFECYCLE_PHASE);
 
-PortletURL optionCategoriesURLObj = PortalUtil.getControlPanelPortletURL(request, CPPortletKeys.CP_OPTION_CATEGORIES, lifecycle);
-PortletURL specificationOptionsURLObj = PortalUtil.getControlPanelPortletURL(request, CPPortletKeys.CP_SPECIFICATION_OPTIONS, lifecycle);
-
-String optionCategoriesURL = optionCategoriesURLObj.toString();
-String specificationOptionsURL = specificationOptionsURLObj.toString();
+String optionCategoriesURL = String.valueOf(PortalUtil.getControlPanelPortletURL(request, CPPortletKeys.CP_OPTION_CATEGORIES, lifecycle));
+String specificationOptionsURL = String.valueOf(PortalUtil.getControlPanelPortletURL(request, CPPortletKeys.CP_SPECIFICATION_OPTIONS, lifecycle));
 %>

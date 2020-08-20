@@ -161,10 +161,8 @@ public class Version implements Comparable<Version>, Serializable {
 			return false;
 		}
 
-		Version version = (Version)obj;
-
 		String versionString1 = toString();
-		String versionString2 = version.toString();
+		String versionString2 = String.valueOf((Version)obj);
 
 		if (versionString1.equals(UNKNOWN) || versionString2.equals(UNKNOWN)) {
 			return false;
