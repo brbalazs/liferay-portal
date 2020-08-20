@@ -442,7 +442,6 @@ public class GraphQLServletExtender {
 
 				List<GraphQLType> childrenGraphQLType1 =
 					graphQLType1.getChildren();
-
 				List<GraphQLType> childrenGraphQLType2 =
 					graphQLType2.getChildren();
 
