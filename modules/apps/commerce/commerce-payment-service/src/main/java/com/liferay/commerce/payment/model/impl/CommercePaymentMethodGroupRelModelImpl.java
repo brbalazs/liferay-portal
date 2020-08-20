@@ -1077,8 +1077,6 @@ public class CommercePaymentMethodGroupRelModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1320,25 +1318,19 @@ public class CommercePaymentMethodGroupRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommercePaymentMethodGroupRelModelImpl
-			commercePaymentMethodGroupRelModelImpl = this;
+		_originalGroupId = _groupId;
 
-		commercePaymentMethodGroupRelModelImpl._originalGroupId =
-			commercePaymentMethodGroupRelModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		commercePaymentMethodGroupRelModelImpl._setOriginalGroupId = false;
+		_setModifiedDate = false;
 
-		commercePaymentMethodGroupRelModelImpl._setModifiedDate = false;
+		_originalEngineKey = _engineKey;
 
-		commercePaymentMethodGroupRelModelImpl._originalEngineKey =
-			commercePaymentMethodGroupRelModelImpl._engineKey;
+		_originalActive = _active;
 
-		commercePaymentMethodGroupRelModelImpl._originalActive =
-			commercePaymentMethodGroupRelModelImpl._active;
+		_setOriginalActive = false;
 
-		commercePaymentMethodGroupRelModelImpl._setOriginalActive = false;
-
-		commercePaymentMethodGroupRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

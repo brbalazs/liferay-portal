@@ -47,7 +47,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -639,12 +638,11 @@ public class CommerceDiscountPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCommerceDiscount, "getOriginalCompanyId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceDiscount.getCouponCode(),
-				ReflectionTestUtil.invoke(
-					existingCommerceDiscount, "getOriginalCouponCode",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceDiscount.getCouponCode(),
+			ReflectionTestUtil.invoke(
+				existingCommerceDiscount, "getOriginalCouponCode",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Boolean.valueOf(existingCommerceDiscount.getActive()),
 			ReflectionTestUtil.<Boolean>invoke(
@@ -656,12 +654,11 @@ public class CommerceDiscountPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCommerceDiscount, "getOriginalCompanyId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceDiscount.getExternalReferenceCode(),
-				ReflectionTestUtil.invoke(
-					existingCommerceDiscount,
-					"getOriginalExternalReferenceCode", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceDiscount.getExternalReferenceCode(),
+			ReflectionTestUtil.invoke(
+				existingCommerceDiscount, "getOriginalExternalReferenceCode",
+				new Class<?>[0]));
 	}
 
 	protected CommerceDiscount addCommerceDiscount() throws Exception {

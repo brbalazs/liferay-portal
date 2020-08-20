@@ -768,8 +768,6 @@ public class CommerceChannelModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1023,24 +1021,18 @@ public class CommerceChannelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceChannelModelImpl commerceChannelModelImpl = this;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commerceChannelModelImpl._originalExternalReferenceCode =
-			commerceChannelModelImpl._externalReferenceCode;
+		_originalCompanyId = _companyId;
 
-		commerceChannelModelImpl._originalCompanyId =
-			commerceChannelModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceChannelModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalSiteGroupId = _siteGroupId;
 
-		commerceChannelModelImpl._setModifiedDate = false;
+		_setOriginalSiteGroupId = false;
 
-		commerceChannelModelImpl._originalSiteGroupId =
-			commerceChannelModelImpl._siteGroupId;
-
-		commerceChannelModelImpl._setOriginalSiteGroupId = false;
-
-		commerceChannelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

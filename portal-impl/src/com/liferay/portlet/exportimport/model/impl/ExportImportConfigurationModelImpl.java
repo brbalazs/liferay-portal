@@ -892,8 +892,6 @@ public class ExportImportConfigurationModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1403,32 +1401,25 @@ public class ExportImportConfigurationModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ExportImportConfigurationModelImpl exportImportConfigurationModelImpl =
-			this;
+		_originalGroupId = _groupId;
 
-		exportImportConfigurationModelImpl._originalGroupId =
-			exportImportConfigurationModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		exportImportConfigurationModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		exportImportConfigurationModelImpl._originalCompanyId =
-			exportImportConfigurationModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		exportImportConfigurationModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		exportImportConfigurationModelImpl._setModifiedDate = false;
+		_originalType = _type;
 
-		exportImportConfigurationModelImpl._originalType =
-			exportImportConfigurationModelImpl._type;
+		_setOriginalType = false;
 
-		exportImportConfigurationModelImpl._setOriginalType = false;
+		_originalStatus = _status;
 
-		exportImportConfigurationModelImpl._originalStatus =
-			exportImportConfigurationModelImpl._status;
+		_setOriginalStatus = false;
 
-		exportImportConfigurationModelImpl._setOriginalStatus = false;
-
-		exportImportConfigurationModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

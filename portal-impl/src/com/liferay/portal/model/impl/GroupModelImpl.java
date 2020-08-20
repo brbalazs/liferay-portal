@@ -1213,7 +1213,7 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -1773,59 +1773,57 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 
 	@Override
 	public void resetOriginalValues() {
-		GroupModelImpl groupModelImpl = this;
+		_originalUuid = _uuid;
 
-		groupModelImpl._originalUuid = groupModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		groupModelImpl._originalGroupId = groupModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		groupModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		groupModelImpl._originalCompanyId = groupModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		groupModelImpl._setOriginalCompanyId = false;
+		_originalClassNameId = _classNameId;
 
-		groupModelImpl._originalClassNameId = groupModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		groupModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		groupModelImpl._originalClassPK = groupModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		groupModelImpl._setOriginalClassPK = false;
+		_originalParentGroupId = _parentGroupId;
 
-		groupModelImpl._originalParentGroupId = groupModelImpl._parentGroupId;
+		_setOriginalParentGroupId = false;
 
-		groupModelImpl._setOriginalParentGroupId = false;
+		_originalLiveGroupId = _liveGroupId;
 
-		groupModelImpl._originalLiveGroupId = groupModelImpl._liveGroupId;
+		_setOriginalLiveGroupId = false;
 
-		groupModelImpl._setOriginalLiveGroupId = false;
+		_originalTreePath = _treePath;
 
-		groupModelImpl._originalTreePath = groupModelImpl._treePath;
+		_originalGroupKey = _groupKey;
 
-		groupModelImpl._originalGroupKey = groupModelImpl._groupKey;
+		_originalName = _name;
 
-		groupModelImpl._originalName = groupModelImpl._name;
+		_originalType = _type;
 
-		groupModelImpl._originalType = groupModelImpl._type;
+		_setOriginalType = false;
 
-		groupModelImpl._setOriginalType = false;
+		_originalFriendlyURL = _friendlyURL;
 
-		groupModelImpl._originalFriendlyURL = groupModelImpl._friendlyURL;
+		_originalSite = _site;
 
-		groupModelImpl._originalSite = groupModelImpl._site;
+		_setOriginalSite = false;
 
-		groupModelImpl._setOriginalSite = false;
+		_originalInheritContent = _inheritContent;
 
-		groupModelImpl._originalInheritContent = groupModelImpl._inheritContent;
+		_setOriginalInheritContent = false;
 
-		groupModelImpl._setOriginalInheritContent = false;
+		_originalActive = _active;
 
-		groupModelImpl._originalActive = groupModelImpl._active;
+		_setOriginalActive = false;
 
-		groupModelImpl._setOriginalActive = false;
-
-		groupModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

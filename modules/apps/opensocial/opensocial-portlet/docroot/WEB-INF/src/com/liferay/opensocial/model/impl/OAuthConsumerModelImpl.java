@@ -544,7 +544,7 @@ public class OAuthConsumerModelImpl
 
 	@Override
 	public void setServiceName(String serviceName) {
-		_columnBitmask = -1L;
+		_columnBitmask |= SERVICENAME_COLUMN_BITMASK;
 
 		if (_originalServiceName == null) {
 			_originalServiceName = _serviceName;
@@ -705,17 +705,12 @@ public class OAuthConsumerModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		OAuthConsumerModelImpl oAuthConsumerModelImpl = this;
+		_setModifiedDate = false;
+		_originalGadgetKey = _gadgetKey;
 
-		oAuthConsumerModelImpl._setModifiedDate = false;
+		_originalServiceName = _serviceName;
 
-		oAuthConsumerModelImpl._originalGadgetKey =
-			oAuthConsumerModelImpl._gadgetKey;
-
-		oAuthConsumerModelImpl._originalServiceName =
-			oAuthConsumerModelImpl._serviceName;
-
-		oAuthConsumerModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

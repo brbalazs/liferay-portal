@@ -44,7 +44,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -528,12 +527,10 @@ public class AssetVocabularyPersistenceTest {
 		AssetVocabulary existingAssetVocabulary = _persistence.findByPrimaryKey(
 			newAssetVocabulary.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingAssetVocabulary.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingAssetVocabulary, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingAssetVocabulary.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingAssetVocabulary, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingAssetVocabulary.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -545,24 +542,21 @@ public class AssetVocabularyPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingAssetVocabulary, "getOriginalGroupId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingAssetVocabulary.getName(),
-				ReflectionTestUtil.invoke(
-					existingAssetVocabulary, "getOriginalName",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingAssetVocabulary.getName(),
+			ReflectionTestUtil.invoke(
+				existingAssetVocabulary, "getOriginalName", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingAssetVocabulary.getCompanyId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingAssetVocabulary, "getOriginalCompanyId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingAssetVocabulary.getExternalReferenceCode(),
-				ReflectionTestUtil.invoke(
-					existingAssetVocabulary, "getOriginalExternalReferenceCode",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingAssetVocabulary.getExternalReferenceCode(),
+			ReflectionTestUtil.invoke(
+				existingAssetVocabulary, "getOriginalExternalReferenceCode",
+				new Class<?>[0]));
 	}
 
 	protected AssetVocabulary addAssetVocabulary() throws Exception {

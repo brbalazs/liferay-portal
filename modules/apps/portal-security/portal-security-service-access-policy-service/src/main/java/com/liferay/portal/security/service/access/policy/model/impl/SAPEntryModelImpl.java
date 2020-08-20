@@ -1092,24 +1092,21 @@ public class SAPEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SAPEntryModelImpl sapEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		sapEntryModelImpl._originalUuid = sapEntryModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		sapEntryModelImpl._originalCompanyId = sapEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		sapEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		sapEntryModelImpl._setModifiedDate = false;
+		_originalDefaultSAPEntry = _defaultSAPEntry;
 
-		sapEntryModelImpl._originalDefaultSAPEntry =
-			sapEntryModelImpl._defaultSAPEntry;
+		_setOriginalDefaultSAPEntry = false;
 
-		sapEntryModelImpl._setOriginalDefaultSAPEntry = false;
+		_originalName = _name;
 
-		sapEntryModelImpl._originalName = sapEntryModelImpl._name;
-
-		sapEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

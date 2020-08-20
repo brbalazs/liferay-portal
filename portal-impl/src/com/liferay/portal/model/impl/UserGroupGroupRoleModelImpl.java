@@ -596,24 +596,19 @@ public class UserGroupGroupRoleModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		UserGroupGroupRoleModelImpl userGroupGroupRoleModelImpl = this;
+		_originalUserGroupId = _userGroupId;
 
-		userGroupGroupRoleModelImpl._originalUserGroupId =
-			userGroupGroupRoleModelImpl._userGroupId;
+		_setOriginalUserGroupId = false;
 
-		userGroupGroupRoleModelImpl._setOriginalUserGroupId = false;
+		_originalGroupId = _groupId;
 
-		userGroupGroupRoleModelImpl._originalGroupId =
-			userGroupGroupRoleModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		userGroupGroupRoleModelImpl._setOriginalGroupId = false;
+		_originalRoleId = _roleId;
 
-		userGroupGroupRoleModelImpl._originalRoleId =
-			userGroupGroupRoleModelImpl._roleId;
+		_setOriginalRoleId = false;
 
-		userGroupGroupRoleModelImpl._setOriginalRoleId = false;
-
-		userGroupGroupRoleModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

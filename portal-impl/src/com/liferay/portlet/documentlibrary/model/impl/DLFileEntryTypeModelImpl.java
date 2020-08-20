@@ -1234,26 +1234,20 @@ public class DLFileEntryTypeModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DLFileEntryTypeModelImpl dlFileEntryTypeModelImpl = this;
+		_originalUuid = _uuid;
 
-		dlFileEntryTypeModelImpl._originalUuid = dlFileEntryTypeModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		dlFileEntryTypeModelImpl._originalGroupId =
-			dlFileEntryTypeModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		dlFileEntryTypeModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		dlFileEntryTypeModelImpl._originalCompanyId =
-			dlFileEntryTypeModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		dlFileEntryTypeModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalFileEntryTypeKey = _fileEntryTypeKey;
 
-		dlFileEntryTypeModelImpl._setModifiedDate = false;
-
-		dlFileEntryTypeModelImpl._originalFileEntryTypeKey =
-			dlFileEntryTypeModelImpl._fileEntryTypeKey;
-
-		dlFileEntryTypeModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

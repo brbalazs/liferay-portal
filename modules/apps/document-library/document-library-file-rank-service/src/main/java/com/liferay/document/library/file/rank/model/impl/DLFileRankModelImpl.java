@@ -517,8 +517,6 @@ public class DLFileRankModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -674,30 +672,27 @@ public class DLFileRankModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DLFileRankModelImpl dlFileRankModelImpl = this;
+		_originalGroupId = _groupId;
 
-		dlFileRankModelImpl._originalGroupId = dlFileRankModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		dlFileRankModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		dlFileRankModelImpl._originalCompanyId = dlFileRankModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		dlFileRankModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		dlFileRankModelImpl._originalUserId = dlFileRankModelImpl._userId;
+		_setOriginalUserId = false;
 
-		dlFileRankModelImpl._setOriginalUserId = false;
+		_originalFileEntryId = _fileEntryId;
 
-		dlFileRankModelImpl._originalFileEntryId =
-			dlFileRankModelImpl._fileEntryId;
+		_setOriginalFileEntryId = false;
 
-		dlFileRankModelImpl._setOriginalFileEntryId = false;
+		_originalActive = _active;
 
-		dlFileRankModelImpl._originalActive = dlFileRankModelImpl._active;
+		_setOriginalActive = false;
 
-		dlFileRankModelImpl._setOriginalActive = false;
-
-		dlFileRankModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

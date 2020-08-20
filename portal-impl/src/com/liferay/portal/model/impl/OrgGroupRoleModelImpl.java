@@ -519,17 +519,15 @@ public class OrgGroupRoleModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		OrgGroupRoleModelImpl orgGroupRoleModelImpl = this;
+		_originalGroupId = _groupId;
 
-		orgGroupRoleModelImpl._originalGroupId = orgGroupRoleModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		orgGroupRoleModelImpl._setOriginalGroupId = false;
+		_originalRoleId = _roleId;
 
-		orgGroupRoleModelImpl._originalRoleId = orgGroupRoleModelImpl._roleId;
+		_setOriginalRoleId = false;
 
-		orgGroupRoleModelImpl._setOriginalRoleId = false;
-
-		orgGroupRoleModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

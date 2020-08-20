@@ -983,8 +983,6 @@ public class KaleoActionModelImpl
 
 	@Override
 	public void setPriority(int priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1109,32 +1107,24 @@ public class KaleoActionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoActionModelImpl kaleoActionModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		kaleoActionModelImpl._originalCompanyId =
-			kaleoActionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kaleoActionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalKaleoClassName = _kaleoClassName;
 
-		kaleoActionModelImpl._setModifiedDate = false;
+		_originalKaleoClassPK = _kaleoClassPK;
 
-		kaleoActionModelImpl._originalKaleoClassName =
-			kaleoActionModelImpl._kaleoClassName;
+		_setOriginalKaleoClassPK = false;
 
-		kaleoActionModelImpl._originalKaleoClassPK =
-			kaleoActionModelImpl._kaleoClassPK;
+		_originalKaleoDefinitionVersionId = _kaleoDefinitionVersionId;
 
-		kaleoActionModelImpl._setOriginalKaleoClassPK = false;
+		_setOriginalKaleoDefinitionVersionId = false;
 
-		kaleoActionModelImpl._originalKaleoDefinitionVersionId =
-			kaleoActionModelImpl._kaleoDefinitionVersionId;
+		_originalExecutionType = _executionType;
 
-		kaleoActionModelImpl._setOriginalKaleoDefinitionVersionId = false;
-
-		kaleoActionModelImpl._originalExecutionType =
-			kaleoActionModelImpl._executionType;
-
-		kaleoActionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

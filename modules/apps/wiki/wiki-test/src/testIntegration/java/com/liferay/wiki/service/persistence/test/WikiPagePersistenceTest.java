@@ -46,7 +46,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -807,11 +806,10 @@ public class WikiPagePersistenceTest {
 		WikiPage existingWikiPage = _persistence.findByPrimaryKey(
 			newWikiPage.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingWikiPage.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingWikiPage, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingWikiPage.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingWikiPage, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingWikiPage.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -835,11 +833,10 @@ public class WikiPagePersistenceTest {
 			Long.valueOf(existingWikiPage.getNodeId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingWikiPage, "getOriginalNodeId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingWikiPage.getTitle(),
-				ReflectionTestUtil.invoke(
-					existingWikiPage, "getOriginalTitle", new Class<?>[0])));
+		Assert.assertEquals(
+			existingWikiPage.getTitle(),
+			ReflectionTestUtil.invoke(
+				existingWikiPage, "getOriginalTitle", new Class<?>[0]));
 		AssertUtils.assertEquals(
 			existingWikiPage.getVersion(),
 			ReflectionTestUtil.<Double>invoke(

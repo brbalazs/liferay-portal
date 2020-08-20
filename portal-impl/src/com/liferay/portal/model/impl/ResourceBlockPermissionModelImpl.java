@@ -611,20 +611,15 @@ public class ResourceBlockPermissionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ResourceBlockPermissionModelImpl resourceBlockPermissionModelImpl =
-			this;
+		_originalResourceBlockId = _resourceBlockId;
 
-		resourceBlockPermissionModelImpl._originalResourceBlockId =
-			resourceBlockPermissionModelImpl._resourceBlockId;
+		_setOriginalResourceBlockId = false;
 
-		resourceBlockPermissionModelImpl._setOriginalResourceBlockId = false;
+		_originalRoleId = _roleId;
 
-		resourceBlockPermissionModelImpl._originalRoleId =
-			resourceBlockPermissionModelImpl._roleId;
+		_setOriginalRoleId = false;
 
-		resourceBlockPermissionModelImpl._setOriginalRoleId = false;
-
-		resourceBlockPermissionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -1080,7 +1080,7 @@ public class SyncDLObjectModelImpl
 
 	@Override
 	public void setModifiedTime(long modifiedTime) {
-		_columnBitmask = -1L;
+		_columnBitmask |= MODIFIEDTIME_COLUMN_BITMASK;
 
 		if (!_setOriginalModifiedTime) {
 			_setOriginalModifiedTime = true;
@@ -1103,7 +1103,7 @@ public class SyncDLObjectModelImpl
 
 	@Override
 	public void setRepositoryId(long repositoryId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= REPOSITORYID_COLUMN_BITMASK;
 
 		if (!_setOriginalRepositoryId) {
 			_setOriginalRepositoryId = true;
@@ -1644,37 +1644,31 @@ public class SyncDLObjectModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SyncDLObjectModelImpl syncDLObjectModelImpl = this;
+		_originalModifiedTime = _modifiedTime;
 
-		syncDLObjectModelImpl._originalModifiedTime =
-			syncDLObjectModelImpl._modifiedTime;
+		_setOriginalModifiedTime = false;
 
-		syncDLObjectModelImpl._setOriginalModifiedTime = false;
+		_originalRepositoryId = _repositoryId;
 
-		syncDLObjectModelImpl._originalRepositoryId =
-			syncDLObjectModelImpl._repositoryId;
+		_setOriginalRepositoryId = false;
 
-		syncDLObjectModelImpl._setOriginalRepositoryId = false;
+		_originalParentFolderId = _parentFolderId;
 
-		syncDLObjectModelImpl._originalParentFolderId =
-			syncDLObjectModelImpl._parentFolderId;
+		_setOriginalParentFolderId = false;
 
-		syncDLObjectModelImpl._setOriginalParentFolderId = false;
+		_originalTreePath = _treePath;
 
-		syncDLObjectModelImpl._originalTreePath =
-			syncDLObjectModelImpl._treePath;
+		_originalVersion = _version;
 
-		syncDLObjectModelImpl._originalVersion = syncDLObjectModelImpl._version;
+		_originalEvent = _event;
 
-		syncDLObjectModelImpl._originalEvent = syncDLObjectModelImpl._event;
+		_originalType = _type;
 
-		syncDLObjectModelImpl._originalType = syncDLObjectModelImpl._type;
+		_originalTypePK = _typePK;
 
-		syncDLObjectModelImpl._originalTypePK = syncDLObjectModelImpl._typePK;
+		_setOriginalTypePK = false;
 
-		syncDLObjectModelImpl._setOriginalTypePK = false;
-
-		syncDLObjectModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

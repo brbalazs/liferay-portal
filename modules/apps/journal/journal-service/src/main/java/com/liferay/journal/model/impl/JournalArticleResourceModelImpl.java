@@ -601,25 +601,19 @@ public class JournalArticleResourceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		JournalArticleResourceModelImpl journalArticleResourceModelImpl = this;
+		_originalUuid = _uuid;
 
-		journalArticleResourceModelImpl._originalUuid =
-			journalArticleResourceModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		journalArticleResourceModelImpl._originalGroupId =
-			journalArticleResourceModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		journalArticleResourceModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		journalArticleResourceModelImpl._originalCompanyId =
-			journalArticleResourceModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		journalArticleResourceModelImpl._setOriginalCompanyId = false;
+		_originalArticleId = _articleId;
 
-		journalArticleResourceModelImpl._originalArticleId =
-			journalArticleResourceModelImpl._articleId;
-
-		journalArticleResourceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

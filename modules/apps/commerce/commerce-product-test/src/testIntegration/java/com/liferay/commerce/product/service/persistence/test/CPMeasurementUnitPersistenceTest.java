@@ -46,7 +46,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -528,12 +527,10 @@ public class CPMeasurementUnitPersistenceTest {
 		CPMeasurementUnit existingCPMeasurementUnit =
 			_persistence.findByPrimaryKey(newCPMeasurementUnit.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPMeasurementUnit.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCPMeasurementUnit, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPMeasurementUnit.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCPMeasurementUnit, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCPMeasurementUnit.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -545,12 +542,10 @@ public class CPMeasurementUnitPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCPMeasurementUnit, "getOriginalCompanyId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPMeasurementUnit.getKey(),
-				ReflectionTestUtil.invoke(
-					existingCPMeasurementUnit, "getOriginalKey",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPMeasurementUnit.getKey(),
+			ReflectionTestUtil.invoke(
+				existingCPMeasurementUnit, "getOriginalKey", new Class<?>[0]));
 		Assert.assertEquals(
 			Integer.valueOf(existingCPMeasurementUnit.getType()),
 			ReflectionTestUtil.<Integer>invoke(

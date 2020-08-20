@@ -684,8 +684,6 @@ public class CommerceAddressRestrictionModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -909,28 +907,20 @@ public class CommerceAddressRestrictionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceAddressRestrictionModelImpl
-			commerceAddressRestrictionModelImpl = this;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		commerceAddressRestrictionModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		commerceAddressRestrictionModelImpl._originalClassNameId =
-			commerceAddressRestrictionModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		commerceAddressRestrictionModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		commerceAddressRestrictionModelImpl._originalClassPK =
-			commerceAddressRestrictionModelImpl._classPK;
+		_originalCommerceCountryId = _commerceCountryId;
 
-		commerceAddressRestrictionModelImpl._setOriginalClassPK = false;
+		_setOriginalCommerceCountryId = false;
 
-		commerceAddressRestrictionModelImpl._originalCommerceCountryId =
-			commerceAddressRestrictionModelImpl._commerceCountryId;
-
-		commerceAddressRestrictionModelImpl._setOriginalCommerceCountryId =
-			false;
-
-		commerceAddressRestrictionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -579,8 +579,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 	@Override
 	public void setFullName(String fullName) {
-		_columnBitmask = -1L;
-
 		_fullName = fullName;
 	}
 
@@ -728,17 +726,15 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 	@Override
 	public void resetOriginalValues() {
-		EntryModelImpl entryModelImpl = this;
+		_originalUserId = _userId;
 
-		entryModelImpl._originalUserId = entryModelImpl._userId;
+		_setOriginalUserId = false;
 
-		entryModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
 
-		entryModelImpl._setModifiedDate = false;
+		_originalEmailAddress = _emailAddress;
 
-		entryModelImpl._originalEmailAddress = entryModelImpl._emailAddress;
-
-		entryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

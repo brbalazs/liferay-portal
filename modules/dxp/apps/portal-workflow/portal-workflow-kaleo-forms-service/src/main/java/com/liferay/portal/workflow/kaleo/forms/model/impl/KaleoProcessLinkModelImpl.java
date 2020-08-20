@@ -518,17 +518,13 @@ public class KaleoProcessLinkModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoProcessLinkModelImpl kaleoProcessLinkModelImpl = this;
+		_originalKaleoProcessId = _kaleoProcessId;
 
-		kaleoProcessLinkModelImpl._originalKaleoProcessId =
-			kaleoProcessLinkModelImpl._kaleoProcessId;
+		_setOriginalKaleoProcessId = false;
 
-		kaleoProcessLinkModelImpl._setOriginalKaleoProcessId = false;
+		_originalWorkflowTaskName = _workflowTaskName;
 
-		kaleoProcessLinkModelImpl._originalWorkflowTaskName =
-			kaleoProcessLinkModelImpl._workflowTaskName;
-
-		kaleoProcessLinkModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

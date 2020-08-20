@@ -47,7 +47,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -627,24 +626,22 @@ public class CommercePriceEntryPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCommercePriceEntry, "getOriginalCommercePriceListId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommercePriceEntry.getCPInstanceUuid(),
-				ReflectionTestUtil.invoke(
-					existingCommercePriceEntry, "getOriginalCPInstanceUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommercePriceEntry.getCPInstanceUuid(),
+			ReflectionTestUtil.invoke(
+				existingCommercePriceEntry, "getOriginalCPInstanceUuid",
+				new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingCommercePriceEntry.getCommercePriceListId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingCommercePriceEntry, "getOriginalCommercePriceListId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommercePriceEntry.getCPInstanceUuid(),
-				ReflectionTestUtil.invoke(
-					existingCommercePriceEntry, "getOriginalCPInstanceUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommercePriceEntry.getCPInstanceUuid(),
+			ReflectionTestUtil.invoke(
+				existingCommercePriceEntry, "getOriginalCPInstanceUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Integer.valueOf(existingCommercePriceEntry.getStatus()),
 			ReflectionTestUtil.<Integer>invoke(
@@ -656,12 +653,11 @@ public class CommercePriceEntryPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCommercePriceEntry, "getOriginalCompanyId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommercePriceEntry.getExternalReferenceCode(),
-				ReflectionTestUtil.invoke(
-					existingCommercePriceEntry,
-					"getOriginalExternalReferenceCode", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommercePriceEntry.getExternalReferenceCode(),
+			ReflectionTestUtil.invoke(
+				existingCommercePriceEntry, "getOriginalExternalReferenceCode",
+				new Class<?>[0]));
 	}
 
 	protected CommercePriceEntry addCommercePriceEntry() throws Exception {

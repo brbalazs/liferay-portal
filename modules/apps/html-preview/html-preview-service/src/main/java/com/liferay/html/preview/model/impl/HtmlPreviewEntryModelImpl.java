@@ -787,26 +787,20 @@ public class HtmlPreviewEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		HtmlPreviewEntryModelImpl htmlPreviewEntryModelImpl = this;
+		_originalGroupId = _groupId;
 
-		htmlPreviewEntryModelImpl._originalGroupId =
-			htmlPreviewEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		htmlPreviewEntryModelImpl._setOriginalGroupId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		htmlPreviewEntryModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		htmlPreviewEntryModelImpl._originalClassNameId =
-			htmlPreviewEntryModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		htmlPreviewEntryModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		htmlPreviewEntryModelImpl._originalClassPK =
-			htmlPreviewEntryModelImpl._classPK;
-
-		htmlPreviewEntryModelImpl._setOriginalClassPK = false;
-
-		htmlPreviewEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

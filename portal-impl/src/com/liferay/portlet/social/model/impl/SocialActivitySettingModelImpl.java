@@ -762,27 +762,21 @@ public class SocialActivitySettingModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SocialActivitySettingModelImpl socialActivitySettingModelImpl = this;
+		_originalGroupId = _groupId;
 
-		socialActivitySettingModelImpl._originalGroupId =
-			socialActivitySettingModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		socialActivitySettingModelImpl._setOriginalGroupId = false;
+		_originalClassNameId = _classNameId;
 
-		socialActivitySettingModelImpl._originalClassNameId =
-			socialActivitySettingModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		socialActivitySettingModelImpl._setOriginalClassNameId = false;
+		_originalActivityType = _activityType;
 
-		socialActivitySettingModelImpl._originalActivityType =
-			socialActivitySettingModelImpl._activityType;
+		_setOriginalActivityType = false;
 
-		socialActivitySettingModelImpl._setOriginalActivityType = false;
+		_originalName = _name;
 
-		socialActivitySettingModelImpl._originalName =
-			socialActivitySettingModelImpl._name;
-
-		socialActivitySettingModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

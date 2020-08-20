@@ -628,8 +628,6 @@ public class ReadingTimeEntryModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -990,34 +988,26 @@ public class ReadingTimeEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ReadingTimeEntryModelImpl readingTimeEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		readingTimeEntryModelImpl._originalUuid =
-			readingTimeEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		readingTimeEntryModelImpl._originalGroupId =
-			readingTimeEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		readingTimeEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		readingTimeEntryModelImpl._originalCompanyId =
-			readingTimeEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		readingTimeEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		readingTimeEntryModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		readingTimeEntryModelImpl._originalClassNameId =
-			readingTimeEntryModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		readingTimeEntryModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		readingTimeEntryModelImpl._originalClassPK =
-			readingTimeEntryModelImpl._classPK;
-
-		readingTimeEntryModelImpl._setOriginalClassPK = false;
-
-		readingTimeEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

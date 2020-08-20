@@ -626,30 +626,23 @@ public class WikiPageResourceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		WikiPageResourceModelImpl wikiPageResourceModelImpl = this;
+		_originalUuid = _uuid;
 
-		wikiPageResourceModelImpl._originalUuid =
-			wikiPageResourceModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		wikiPageResourceModelImpl._originalGroupId =
-			wikiPageResourceModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		wikiPageResourceModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		wikiPageResourceModelImpl._originalCompanyId =
-			wikiPageResourceModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		wikiPageResourceModelImpl._setOriginalCompanyId = false;
+		_originalNodeId = _nodeId;
 
-		wikiPageResourceModelImpl._originalNodeId =
-			wikiPageResourceModelImpl._nodeId;
+		_setOriginalNodeId = false;
 
-		wikiPageResourceModelImpl._setOriginalNodeId = false;
+		_originalTitle = _title;
 
-		wikiPageResourceModelImpl._originalTitle =
-			wikiPageResourceModelImpl._title;
-
-		wikiPageResourceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

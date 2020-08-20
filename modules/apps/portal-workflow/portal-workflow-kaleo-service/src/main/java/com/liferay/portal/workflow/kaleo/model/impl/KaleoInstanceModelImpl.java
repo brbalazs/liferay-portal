@@ -661,7 +661,7 @@ public class KaleoInstanceModelImpl
 
 	@Override
 	public void setKaleoInstanceId(long kaleoInstanceId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= KALEOINSTANCEID_COLUMN_BITMASK;
 
 		if (!_setOriginalKaleoInstanceId) {
 			_setOriginalKaleoInstanceId = true;
@@ -1096,54 +1096,42 @@ public class KaleoInstanceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoInstanceModelImpl kaleoInstanceModelImpl = this;
+		_originalKaleoInstanceId = _kaleoInstanceId;
 
-		kaleoInstanceModelImpl._originalKaleoInstanceId =
-			kaleoInstanceModelImpl._kaleoInstanceId;
+		_setOriginalKaleoInstanceId = false;
 
-		kaleoInstanceModelImpl._setOriginalKaleoInstanceId = false;
+		_originalCompanyId = _companyId;
 
-		kaleoInstanceModelImpl._originalCompanyId =
-			kaleoInstanceModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kaleoInstanceModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		kaleoInstanceModelImpl._originalUserId = kaleoInstanceModelImpl._userId;
+		_setOriginalUserId = false;
 
-		kaleoInstanceModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalKaleoDefinitionVersionId = _kaleoDefinitionVersionId;
 
-		kaleoInstanceModelImpl._setModifiedDate = false;
+		_setOriginalKaleoDefinitionVersionId = false;
 
-		kaleoInstanceModelImpl._originalKaleoDefinitionVersionId =
-			kaleoInstanceModelImpl._kaleoDefinitionVersionId;
+		_originalKaleoDefinitionName = _kaleoDefinitionName;
 
-		kaleoInstanceModelImpl._setOriginalKaleoDefinitionVersionId = false;
+		_originalKaleoDefinitionVersion = _kaleoDefinitionVersion;
 
-		kaleoInstanceModelImpl._originalKaleoDefinitionName =
-			kaleoInstanceModelImpl._kaleoDefinitionName;
+		_setOriginalKaleoDefinitionVersion = false;
 
-		kaleoInstanceModelImpl._originalKaleoDefinitionVersion =
-			kaleoInstanceModelImpl._kaleoDefinitionVersion;
+		_originalClassName = _className;
 
-		kaleoInstanceModelImpl._setOriginalKaleoDefinitionVersion = false;
+		_originalClassPK = _classPK;
 
-		kaleoInstanceModelImpl._originalClassName =
-			kaleoInstanceModelImpl._className;
+		_setOriginalClassPK = false;
 
-		kaleoInstanceModelImpl._originalClassPK =
-			kaleoInstanceModelImpl._classPK;
+		_originalCompleted = _completed;
 
-		kaleoInstanceModelImpl._setOriginalClassPK = false;
+		_setOriginalCompleted = false;
 
-		kaleoInstanceModelImpl._originalCompleted =
-			kaleoInstanceModelImpl._completed;
+		_originalCompletionDate = _completionDate;
 
-		kaleoInstanceModelImpl._setOriginalCompleted = false;
-
-		kaleoInstanceModelImpl._originalCompletionDate =
-			kaleoInstanceModelImpl._completionDate;
-
-		kaleoInstanceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

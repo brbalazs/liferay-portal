@@ -585,8 +585,6 @@ public class CommerceAccountUserRelModelImpl
 
 	@Override
 	public void setUserId(long userId) {
-		_columnBitmask = -1L;
-
 		_userId = userId;
 	}
 
@@ -750,22 +748,17 @@ public class CommerceAccountUserRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceAccountUserRelModelImpl commerceAccountUserRelModelImpl = this;
+		_originalCommerceAccountId = _commerceAccountId;
 
-		commerceAccountUserRelModelImpl._originalCommerceAccountId =
-			commerceAccountUserRelModelImpl._commerceAccountId;
+		_setOriginalCommerceAccountId = false;
 
-		commerceAccountUserRelModelImpl._setOriginalCommerceAccountId = false;
+		_originalCommerceAccountUserId = _commerceAccountUserId;
 
-		commerceAccountUserRelModelImpl._originalCommerceAccountUserId =
-			commerceAccountUserRelModelImpl._commerceAccountUserId;
+		_setOriginalCommerceAccountUserId = false;
 
-		commerceAccountUserRelModelImpl._setOriginalCommerceAccountUserId =
-			false;
+		_setModifiedDate = false;
 
-		commerceAccountUserRelModelImpl._setModifiedDate = false;
-
-		commerceAccountUserRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

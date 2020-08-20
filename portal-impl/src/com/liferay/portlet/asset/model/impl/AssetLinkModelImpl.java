@@ -592,8 +592,6 @@ public class AssetLinkModelImpl
 
 	@Override
 	public void setWeight(int weight) {
-		_columnBitmask = -1L;
-
 		_weight = weight;
 	}
 
@@ -708,21 +706,19 @@ public class AssetLinkModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AssetLinkModelImpl assetLinkModelImpl = this;
+		_originalEntryId1 = _entryId1;
 
-		assetLinkModelImpl._originalEntryId1 = assetLinkModelImpl._entryId1;
+		_setOriginalEntryId1 = false;
 
-		assetLinkModelImpl._setOriginalEntryId1 = false;
+		_originalEntryId2 = _entryId2;
 
-		assetLinkModelImpl._originalEntryId2 = assetLinkModelImpl._entryId2;
+		_setOriginalEntryId2 = false;
 
-		assetLinkModelImpl._setOriginalEntryId2 = false;
+		_originalType = _type;
 
-		assetLinkModelImpl._originalType = assetLinkModelImpl._type;
+		_setOriginalType = false;
 
-		assetLinkModelImpl._setOriginalType = false;
-
-		assetLinkModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

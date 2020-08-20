@@ -712,7 +712,7 @@ public class MicroblogsEntryModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
+		_columnBitmask |= CREATEDATE_COLUMN_BITMASK;
 
 		if (_originalCreateDate == null) {
 			_originalCreateDate = _createDate;
@@ -983,48 +983,38 @@ public class MicroblogsEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		MicroblogsEntryModelImpl microblogsEntryModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		microblogsEntryModelImpl._originalCompanyId =
-			microblogsEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		microblogsEntryModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		microblogsEntryModelImpl._originalUserId =
-			microblogsEntryModelImpl._userId;
+		_setOriginalUserId = false;
 
-		microblogsEntryModelImpl._setOriginalUserId = false;
+		_originalCreateDate = _createDate;
 
-		microblogsEntryModelImpl._originalCreateDate =
-			microblogsEntryModelImpl._createDate;
+		_setModifiedDate = false;
+		_originalCreatorClassNameId = _creatorClassNameId;
 
-		microblogsEntryModelImpl._setModifiedDate = false;
+		_setOriginalCreatorClassNameId = false;
 
-		microblogsEntryModelImpl._originalCreatorClassNameId =
-			microblogsEntryModelImpl._creatorClassNameId;
+		_originalCreatorClassPK = _creatorClassPK;
 
-		microblogsEntryModelImpl._setOriginalCreatorClassNameId = false;
+		_setOriginalCreatorClassPK = false;
 
-		microblogsEntryModelImpl._originalCreatorClassPK =
-			microblogsEntryModelImpl._creatorClassPK;
+		_originalType = _type;
 
-		microblogsEntryModelImpl._setOriginalCreatorClassPK = false;
+		_setOriginalType = false;
 
-		microblogsEntryModelImpl._originalType = microblogsEntryModelImpl._type;
+		_originalParentMicroblogsEntryId = _parentMicroblogsEntryId;
 
-		microblogsEntryModelImpl._setOriginalType = false;
+		_setOriginalParentMicroblogsEntryId = false;
 
-		microblogsEntryModelImpl._originalParentMicroblogsEntryId =
-			microblogsEntryModelImpl._parentMicroblogsEntryId;
+		_originalSocialRelationType = _socialRelationType;
 
-		microblogsEntryModelImpl._setOriginalParentMicroblogsEntryId = false;
+		_setOriginalSocialRelationType = false;
 
-		microblogsEntryModelImpl._originalSocialRelationType =
-			microblogsEntryModelImpl._socialRelationType;
-
-		microblogsEntryModelImpl._setOriginalSocialRelationType = false;
-
-		microblogsEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

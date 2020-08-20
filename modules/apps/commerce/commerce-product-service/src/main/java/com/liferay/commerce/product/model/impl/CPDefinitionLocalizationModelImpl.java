@@ -837,18 +837,13 @@ public class CPDefinitionLocalizationModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPDefinitionLocalizationModelImpl cpDefinitionLocalizationModelImpl =
-			this;
+		_originalCPDefinitionId = _CPDefinitionId;
 
-		cpDefinitionLocalizationModelImpl._originalCPDefinitionId =
-			cpDefinitionLocalizationModelImpl._CPDefinitionId;
+		_setOriginalCPDefinitionId = false;
 
-		cpDefinitionLocalizationModelImpl._setOriginalCPDefinitionId = false;
+		_originalLanguageId = _languageId;
 
-		cpDefinitionLocalizationModelImpl._originalLanguageId =
-			cpDefinitionLocalizationModelImpl._languageId;
-
-		cpDefinitionLocalizationModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

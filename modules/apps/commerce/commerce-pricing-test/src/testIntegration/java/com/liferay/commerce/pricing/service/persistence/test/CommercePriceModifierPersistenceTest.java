@@ -48,7 +48,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -658,12 +657,11 @@ public class CommercePriceModifierPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newCommercePriceModifier.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommercePriceModifier.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCommercePriceModifier, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommercePriceModifier.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCommercePriceModifier, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCommercePriceModifier.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -675,12 +673,11 @@ public class CommercePriceModifierPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCommercePriceModifier, "getOriginalCompanyId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommercePriceModifier.getExternalReferenceCode(),
-				ReflectionTestUtil.invoke(
-					existingCommercePriceModifier,
-					"getOriginalExternalReferenceCode", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommercePriceModifier.getExternalReferenceCode(),
+			ReflectionTestUtil.invoke(
+				existingCommercePriceModifier,
+				"getOriginalExternalReferenceCode", new Class<?>[0]));
 	}
 
 	protected CommercePriceModifier addCommercePriceModifier()

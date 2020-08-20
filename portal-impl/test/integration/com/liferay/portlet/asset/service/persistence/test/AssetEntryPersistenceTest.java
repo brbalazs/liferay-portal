@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -575,12 +574,10 @@ public class AssetEntryPersistenceTest {
 			Long.valueOf(existingAssetEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingAssetEntry, "getOriginalGroupId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingAssetEntry.getClassUuid(),
-				ReflectionTestUtil.invoke(
-					existingAssetEntry, "getOriginalClassUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingAssetEntry.getClassUuid(),
+			ReflectionTestUtil.invoke(
+				existingAssetEntry, "getOriginalClassUuid", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingAssetEntry.getClassNameId()),

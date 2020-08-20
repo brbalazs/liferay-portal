@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -504,12 +503,11 @@ public class OAuthApplicationPersistenceTest {
 		OAuthApplication existingOAuthApplication =
 			_persistence.findByPrimaryKey(newOAuthApplication.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingOAuthApplication.getConsumerKey(),
-				ReflectionTestUtil.invoke(
-					existingOAuthApplication, "getOriginalConsumerKey",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingOAuthApplication.getConsumerKey(),
+			ReflectionTestUtil.invoke(
+				existingOAuthApplication, "getOriginalConsumerKey",
+				new Class<?>[0]));
 	}
 
 	protected OAuthApplication addOAuthApplication() throws Exception {

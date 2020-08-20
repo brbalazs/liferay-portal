@@ -679,21 +679,19 @@ public class StatusModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		StatusModelImpl statusModelImpl = this;
+		_originalUserId = _userId;
 
-		statusModelImpl._originalUserId = statusModelImpl._userId;
+		_setOriginalUserId = false;
 
-		statusModelImpl._setOriginalUserId = false;
+		_originalModifiedDate = _modifiedDate;
 
-		statusModelImpl._originalModifiedDate = statusModelImpl._modifiedDate;
+		_setOriginalModifiedDate = false;
 
-		statusModelImpl._setOriginalModifiedDate = false;
+		_originalOnline = _online;
 
-		statusModelImpl._originalOnline = statusModelImpl._online;
+		_setOriginalOnline = false;
 
-		statusModelImpl._setOriginalOnline = false;
-
-		statusModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

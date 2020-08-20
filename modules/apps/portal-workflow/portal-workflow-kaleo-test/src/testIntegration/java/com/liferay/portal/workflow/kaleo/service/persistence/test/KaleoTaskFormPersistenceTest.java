@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -524,12 +523,10 @@ public class KaleoTaskFormPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingKaleoTaskForm, "getOriginalKaleoTaskId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingKaleoTaskForm.getFormUuid(),
-				ReflectionTestUtil.invoke(
-					existingKaleoTaskForm, "getOriginalFormUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingKaleoTaskForm.getFormUuid(),
+			ReflectionTestUtil.invoke(
+				existingKaleoTaskForm, "getOriginalFormUuid", new Class<?>[0]));
 	}
 
 	protected KaleoTaskForm addKaleoTaskForm() throws Exception {

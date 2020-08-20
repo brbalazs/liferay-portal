@@ -1160,8 +1160,6 @@ public class CommerceCountryModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1414,41 +1412,33 @@ public class CommerceCountryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceCountryModelImpl commerceCountryModelImpl = this;
+		_originalUuid = _uuid;
 
-		commerceCountryModelImpl._originalUuid = commerceCountryModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		commerceCountryModelImpl._originalCompanyId =
-			commerceCountryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceCountryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		commerceCountryModelImpl._setModifiedDate = false;
+		_originalBillingAllowed = _billingAllowed;
 
-		commerceCountryModelImpl._originalBillingAllowed =
-			commerceCountryModelImpl._billingAllowed;
+		_setOriginalBillingAllowed = false;
 
-		commerceCountryModelImpl._setOriginalBillingAllowed = false;
+		_originalShippingAllowed = _shippingAllowed;
 
-		commerceCountryModelImpl._originalShippingAllowed =
-			commerceCountryModelImpl._shippingAllowed;
+		_setOriginalShippingAllowed = false;
 
-		commerceCountryModelImpl._setOriginalShippingAllowed = false;
+		_originalTwoLettersISOCode = _twoLettersISOCode;
 
-		commerceCountryModelImpl._originalTwoLettersISOCode =
-			commerceCountryModelImpl._twoLettersISOCode;
+		_originalNumericISOCode = _numericISOCode;
 
-		commerceCountryModelImpl._originalNumericISOCode =
-			commerceCountryModelImpl._numericISOCode;
+		_setOriginalNumericISOCode = false;
 
-		commerceCountryModelImpl._setOriginalNumericISOCode = false;
+		_originalActive = _active;
 
-		commerceCountryModelImpl._originalActive =
-			commerceCountryModelImpl._active;
+		_setOriginalActive = false;
 
-		commerceCountryModelImpl._setOriginalActive = false;
-
-		commerceCountryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

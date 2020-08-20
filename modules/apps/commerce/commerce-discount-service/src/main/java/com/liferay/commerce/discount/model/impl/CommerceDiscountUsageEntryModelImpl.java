@@ -582,8 +582,6 @@ public class CommerceDiscountUsageEntryModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -783,29 +781,20 @@ public class CommerceDiscountUsageEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceDiscountUsageEntryModelImpl
-			commerceDiscountUsageEntryModelImpl = this;
+		_setModifiedDate = false;
+		_originalCommerceAccountId = _commerceAccountId;
 
-		commerceDiscountUsageEntryModelImpl._setModifiedDate = false;
+		_setOriginalCommerceAccountId = false;
 
-		commerceDiscountUsageEntryModelImpl._originalCommerceAccountId =
-			commerceDiscountUsageEntryModelImpl._commerceAccountId;
+		_originalCommerceOrderId = _commerceOrderId;
 
-		commerceDiscountUsageEntryModelImpl._setOriginalCommerceAccountId =
-			false;
+		_setOriginalCommerceOrderId = false;
 
-		commerceDiscountUsageEntryModelImpl._originalCommerceOrderId =
-			commerceDiscountUsageEntryModelImpl._commerceOrderId;
+		_originalCommerceDiscountId = _commerceDiscountId;
 
-		commerceDiscountUsageEntryModelImpl._setOriginalCommerceOrderId = false;
+		_setOriginalCommerceDiscountId = false;
 
-		commerceDiscountUsageEntryModelImpl._originalCommerceDiscountId =
-			commerceDiscountUsageEntryModelImpl._commerceDiscountId;
-
-		commerceDiscountUsageEntryModelImpl._setOriginalCommerceDiscountId =
-			false;
-
-		commerceDiscountUsageEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

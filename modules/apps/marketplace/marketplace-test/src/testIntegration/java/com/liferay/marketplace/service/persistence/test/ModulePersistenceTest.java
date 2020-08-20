@@ -44,7 +44,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -459,29 +458,24 @@ public class ModulePersistenceTest {
 			Long.valueOf(existingModule.getAppId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingModule, "getOriginalAppId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingModule.getContextName(),
-				ReflectionTestUtil.invoke(
-					existingModule, "getOriginalContextName",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingModule.getContextName(),
+			ReflectionTestUtil.invoke(
+				existingModule, "getOriginalContextName", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingModule.getAppId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingModule, "getOriginalAppId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingModule.getBundleSymbolicName(),
-				ReflectionTestUtil.invoke(
-					existingModule, "getOriginalBundleSymbolicName",
-					new Class<?>[0])));
-		Assert.assertTrue(
-			Objects.equals(
-				existingModule.getBundleVersion(),
-				ReflectionTestUtil.invoke(
-					existingModule, "getOriginalBundleVersion",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingModule.getBundleSymbolicName(),
+			ReflectionTestUtil.invoke(
+				existingModule, "getOriginalBundleSymbolicName",
+				new Class<?>[0]));
+		Assert.assertEquals(
+			existingModule.getBundleVersion(),
+			ReflectionTestUtil.invoke(
+				existingModule, "getOriginalBundleVersion", new Class<?>[0]));
 	}
 
 	protected Module addModule() throws Exception {

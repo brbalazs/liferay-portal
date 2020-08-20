@@ -654,30 +654,25 @@ public class SocialRelationModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SocialRelationModelImpl socialRelationModelImpl = this;
+		_originalUuid = _uuid;
 
-		socialRelationModelImpl._originalUuid = socialRelationModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		socialRelationModelImpl._originalCompanyId =
-			socialRelationModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		socialRelationModelImpl._setOriginalCompanyId = false;
+		_originalUserId1 = _userId1;
 
-		socialRelationModelImpl._originalUserId1 =
-			socialRelationModelImpl._userId1;
+		_setOriginalUserId1 = false;
 
-		socialRelationModelImpl._setOriginalUserId1 = false;
+		_originalUserId2 = _userId2;
 
-		socialRelationModelImpl._originalUserId2 =
-			socialRelationModelImpl._userId2;
+		_setOriginalUserId2 = false;
 
-		socialRelationModelImpl._setOriginalUserId2 = false;
+		_originalType = _type;
 
-		socialRelationModelImpl._originalType = socialRelationModelImpl._type;
+		_setOriginalType = false;
 
-		socialRelationModelImpl._setOriginalType = false;
-
-		socialRelationModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

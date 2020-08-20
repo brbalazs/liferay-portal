@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -528,12 +527,11 @@ public class CommerceWishListItemPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCommerceWishListItem, "getOriginalCommerceWishListId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceWishListItem.getCPInstanceUuid(),
-				ReflectionTestUtil.invoke(
-					existingCommerceWishListItem, "getOriginalCPInstanceUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceWishListItem.getCPInstanceUuid(),
+			ReflectionTestUtil.invoke(
+				existingCommerceWishListItem, "getOriginalCPInstanceUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCommerceWishListItem.getCProductId()),
 			ReflectionTestUtil.<Long>invoke(

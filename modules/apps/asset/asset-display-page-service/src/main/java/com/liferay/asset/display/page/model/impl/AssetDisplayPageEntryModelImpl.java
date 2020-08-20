@@ -1026,40 +1026,30 @@ public class AssetDisplayPageEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AssetDisplayPageEntryModelImpl assetDisplayPageEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		assetDisplayPageEntryModelImpl._originalUuid =
-			assetDisplayPageEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		assetDisplayPageEntryModelImpl._originalGroupId =
-			assetDisplayPageEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		assetDisplayPageEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		assetDisplayPageEntryModelImpl._originalCompanyId =
-			assetDisplayPageEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		assetDisplayPageEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		assetDisplayPageEntryModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		assetDisplayPageEntryModelImpl._originalClassNameId =
-			assetDisplayPageEntryModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		assetDisplayPageEntryModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		assetDisplayPageEntryModelImpl._originalClassPK =
-			assetDisplayPageEntryModelImpl._classPK;
+		_originalLayoutPageTemplateEntryId = _layoutPageTemplateEntryId;
 
-		assetDisplayPageEntryModelImpl._setOriginalClassPK = false;
+		_setOriginalLayoutPageTemplateEntryId = false;
 
-		assetDisplayPageEntryModelImpl._originalLayoutPageTemplateEntryId =
-			assetDisplayPageEntryModelImpl._layoutPageTemplateEntryId;
-
-		assetDisplayPageEntryModelImpl._setOriginalLayoutPageTemplateEntryId =
-			false;
-
-		assetDisplayPageEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

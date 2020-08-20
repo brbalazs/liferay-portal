@@ -870,8 +870,6 @@ public class CPOptionValueModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -927,8 +925,6 @@ public class CPOptionValueModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1162,28 +1158,22 @@ public class CPOptionValueModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPOptionValueModelImpl cpOptionValueModelImpl = this;
+		_originalUuid = _uuid;
 
-		cpOptionValueModelImpl._originalUuid = cpOptionValueModelImpl._uuid;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		cpOptionValueModelImpl._originalExternalReferenceCode =
-			cpOptionValueModelImpl._externalReferenceCode;
+		_originalCompanyId = _companyId;
 
-		cpOptionValueModelImpl._originalCompanyId =
-			cpOptionValueModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpOptionValueModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCPOptionId = _CPOptionId;
 
-		cpOptionValueModelImpl._setModifiedDate = false;
+		_setOriginalCPOptionId = false;
 
-		cpOptionValueModelImpl._originalCPOptionId =
-			cpOptionValueModelImpl._CPOptionId;
+		_originalKey = _key;
 
-		cpOptionValueModelImpl._setOriginalCPOptionId = false;
-
-		cpOptionValueModelImpl._originalKey = cpOptionValueModelImpl._key;
-
-		cpOptionValueModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

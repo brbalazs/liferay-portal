@@ -970,21 +970,19 @@ public class DDMContentModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDMContentModelImpl ddmContentModelImpl = this;
+		_originalUuid = _uuid;
 
-		ddmContentModelImpl._originalUuid = ddmContentModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		ddmContentModelImpl._originalGroupId = ddmContentModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		ddmContentModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		ddmContentModelImpl._originalCompanyId = ddmContentModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		ddmContentModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		ddmContentModelImpl._setModifiedDate = false;
-
-		ddmContentModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

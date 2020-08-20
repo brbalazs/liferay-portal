@@ -793,8 +793,6 @@ public class DefinitionModelImpl
 	public void setModifiedDate(Date modifiedDate) {
 		_setModifiedDate = true;
 
-		_columnBitmask = -1L;
-
 		_modifiedDate = modifiedDate;
 	}
 
@@ -1266,21 +1264,19 @@ public class DefinitionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DefinitionModelImpl definitionModelImpl = this;
+		_originalUuid = _uuid;
 
-		definitionModelImpl._originalUuid = definitionModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		definitionModelImpl._originalGroupId = definitionModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		definitionModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		definitionModelImpl._originalCompanyId = definitionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		definitionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		definitionModelImpl._setModifiedDate = false;
-
-		definitionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -1050,8 +1050,6 @@ public class CommerceShippingMethodModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1291,24 +1289,19 @@ public class CommerceShippingMethodModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceShippingMethodModelImpl commerceShippingMethodModelImpl = this;
+		_originalGroupId = _groupId;
 
-		commerceShippingMethodModelImpl._originalGroupId =
-			commerceShippingMethodModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		commerceShippingMethodModelImpl._setOriginalGroupId = false;
+		_setModifiedDate = false;
 
-		commerceShippingMethodModelImpl._setModifiedDate = false;
+		_originalEngineKey = _engineKey;
 
-		commerceShippingMethodModelImpl._originalEngineKey =
-			commerceShippingMethodModelImpl._engineKey;
+		_originalActive = _active;
 
-		commerceShippingMethodModelImpl._originalActive =
-			commerceShippingMethodModelImpl._active;
+		_setOriginalActive = false;
 
-		commerceShippingMethodModelImpl._setOriginalActive = false;
-
-		commerceShippingMethodModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

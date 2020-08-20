@@ -662,29 +662,22 @@ public class OAuth2ScopeGrantModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		OAuth2ScopeGrantModelImpl oAuth2ScopeGrantModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		oAuth2ScopeGrantModelImpl._originalCompanyId =
-			oAuth2ScopeGrantModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		oAuth2ScopeGrantModelImpl._setOriginalCompanyId = false;
+		_originalOAuth2ApplicationScopeAliasesId =
+			_oAuth2ApplicationScopeAliasesId;
 
-		oAuth2ScopeGrantModelImpl._originalOAuth2ApplicationScopeAliasesId =
-			oAuth2ScopeGrantModelImpl._oAuth2ApplicationScopeAliasesId;
+		_setOriginalOAuth2ApplicationScopeAliasesId = false;
 
-		oAuth2ScopeGrantModelImpl._setOriginalOAuth2ApplicationScopeAliasesId =
-			false;
+		_originalApplicationName = _applicationName;
 
-		oAuth2ScopeGrantModelImpl._originalApplicationName =
-			oAuth2ScopeGrantModelImpl._applicationName;
+		_originalBundleSymbolicName = _bundleSymbolicName;
 
-		oAuth2ScopeGrantModelImpl._originalBundleSymbolicName =
-			oAuth2ScopeGrantModelImpl._bundleSymbolicName;
+		_originalScope = _scope;
 
-		oAuth2ScopeGrantModelImpl._originalScope =
-			oAuth2ScopeGrantModelImpl._scope;
-
-		oAuth2ScopeGrantModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

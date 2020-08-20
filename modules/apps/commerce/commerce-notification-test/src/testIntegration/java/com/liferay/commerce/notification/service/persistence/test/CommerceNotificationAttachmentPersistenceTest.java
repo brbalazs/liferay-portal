@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -541,12 +540,11 @@ public class CommerceNotificationAttachmentPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newCommerceNotificationAttachment.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceNotificationAttachment.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCommerceNotificationAttachment, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceNotificationAttachment.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCommerceNotificationAttachment, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCommerceNotificationAttachment.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

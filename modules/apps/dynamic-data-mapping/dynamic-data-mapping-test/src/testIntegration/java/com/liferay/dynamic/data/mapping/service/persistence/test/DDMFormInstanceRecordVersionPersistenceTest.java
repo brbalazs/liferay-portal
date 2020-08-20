@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -574,12 +573,11 @@ public class DDMFormInstanceRecordVersionPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingDDMFormInstanceRecordVersion,
 				"getOriginalFormInstanceRecordId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingDDMFormInstanceRecordVersion.getVersion(),
-				ReflectionTestUtil.invoke(
-					existingDDMFormInstanceRecordVersion, "getOriginalVersion",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingDDMFormInstanceRecordVersion.getVersion(),
+			ReflectionTestUtil.invoke(
+				existingDDMFormInstanceRecordVersion, "getOriginalVersion",
+				new Class<?>[0]));
 	}
 
 	protected DDMFormInstanceRecordVersion addDDMFormInstanceRecordVersion()

@@ -46,7 +46,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -945,12 +944,10 @@ public class JournalArticlePersistenceTest {
 		JournalArticle existingJournalArticle = _persistence.findByPrimaryKey(
 			newJournalArticle.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingJournalArticle.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingJournalArticle, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingJournalArticle.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingJournalArticle, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingJournalArticle.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -965,23 +962,21 @@ public class JournalArticlePersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingJournalArticle, "getOriginalClassNameId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingJournalArticle.getDDMStructureKey(),
-				ReflectionTestUtil.invoke(
-					existingJournalArticle, "getOriginalDDMStructureKey",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingJournalArticle.getDDMStructureKey(),
+			ReflectionTestUtil.invoke(
+				existingJournalArticle, "getOriginalDDMStructureKey",
+				new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingJournalArticle.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingJournalArticle, "getOriginalGroupId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingJournalArticle.getArticleId(),
-				ReflectionTestUtil.invoke(
-					existingJournalArticle, "getOriginalArticleId",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingJournalArticle.getArticleId(),
+			ReflectionTestUtil.invoke(
+				existingJournalArticle, "getOriginalArticleId",
+				new Class<?>[0]));
 		AssertUtils.assertEquals(
 			existingJournalArticle.getVersion(),
 			ReflectionTestUtil.<Double>invoke(

@@ -579,24 +579,19 @@ public class DDMTemplateLinkModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDMTemplateLinkModelImpl ddmTemplateLinkModelImpl = this;
+		_originalClassNameId = _classNameId;
 
-		ddmTemplateLinkModelImpl._originalClassNameId =
-			ddmTemplateLinkModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		ddmTemplateLinkModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		ddmTemplateLinkModelImpl._originalClassPK =
-			ddmTemplateLinkModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		ddmTemplateLinkModelImpl._setOriginalClassPK = false;
+		_originalTemplateId = _templateId;
 
-		ddmTemplateLinkModelImpl._originalTemplateId =
-			ddmTemplateLinkModelImpl._templateId;
+		_setOriginalTemplateId = false;
 
-		ddmTemplateLinkModelImpl._setOriginalTemplateId = false;
-
-		ddmTemplateLinkModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

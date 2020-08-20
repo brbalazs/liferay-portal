@@ -1031,7 +1031,7 @@ public class JournalFeedModelImpl
 
 	@Override
 	public void setFeedId(String feedId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= FEEDID_COLUMN_BITMASK;
 
 		if (_originalFeedId == null) {
 			_originalFeedId = _feedId;
@@ -1377,24 +1377,20 @@ public class JournalFeedModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		JournalFeedModelImpl journalFeedModelImpl = this;
+		_originalUuid = _uuid;
 
-		journalFeedModelImpl._originalUuid = journalFeedModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		journalFeedModelImpl._originalGroupId = journalFeedModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		journalFeedModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		journalFeedModelImpl._originalCompanyId =
-			journalFeedModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		journalFeedModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalFeedId = _feedId;
 
-		journalFeedModelImpl._setModifiedDate = false;
-
-		journalFeedModelImpl._originalFeedId = journalFeedModelImpl._feedId;
-
-		journalFeedModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

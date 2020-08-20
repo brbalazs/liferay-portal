@@ -832,25 +832,20 @@ public class PortletItemModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		PortletItemModelImpl portletItemModelImpl = this;
+		_originalGroupId = _groupId;
 
-		portletItemModelImpl._originalGroupId = portletItemModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		portletItemModelImpl._setOriginalGroupId = false;
+		_setModifiedDate = false;
+		_originalName = _name;
 
-		portletItemModelImpl._setModifiedDate = false;
+		_originalPortletId = _portletId;
 
-		portletItemModelImpl._originalName = portletItemModelImpl._name;
+		_originalClassNameId = _classNameId;
 
-		portletItemModelImpl._originalPortletId =
-			portletItemModelImpl._portletId;
+		_setOriginalClassNameId = false;
 
-		portletItemModelImpl._originalClassNameId =
-			portletItemModelImpl._classNameId;
-
-		portletItemModelImpl._setOriginalClassNameId = false;
-
-		portletItemModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

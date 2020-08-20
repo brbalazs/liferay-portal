@@ -1024,8 +1024,6 @@ public class CommerceShippingFixedOptionModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1238,18 +1236,12 @@ public class CommerceShippingFixedOptionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceShippingFixedOptionModelImpl
-			commerceShippingFixedOptionModelImpl = this;
+		_setModifiedDate = false;
+		_originalCommerceShippingMethodId = _commerceShippingMethodId;
 
-		commerceShippingFixedOptionModelImpl._setModifiedDate = false;
+		_setOriginalCommerceShippingMethodId = false;
 
-		commerceShippingFixedOptionModelImpl._originalCommerceShippingMethodId =
-			commerceShippingFixedOptionModelImpl._commerceShippingMethodId;
-
-		commerceShippingFixedOptionModelImpl.
-			_setOriginalCommerceShippingMethodId = false;
-
-		commerceShippingFixedOptionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -676,27 +676,21 @@ public class ResourceTypePermissionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ResourceTypePermissionModelImpl resourceTypePermissionModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		resourceTypePermissionModelImpl._originalCompanyId =
-			resourceTypePermissionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		resourceTypePermissionModelImpl._setOriginalCompanyId = false;
+		_originalGroupId = _groupId;
 
-		resourceTypePermissionModelImpl._originalGroupId =
-			resourceTypePermissionModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		resourceTypePermissionModelImpl._setOriginalGroupId = false;
+		_originalName = _name;
 
-		resourceTypePermissionModelImpl._originalName =
-			resourceTypePermissionModelImpl._name;
+		_originalRoleId = _roleId;
 
-		resourceTypePermissionModelImpl._originalRoleId =
-			resourceTypePermissionModelImpl._roleId;
+		_setOriginalRoleId = false;
 
-		resourceTypePermissionModelImpl._setOriginalRoleId = false;
-
-		resourceTypePermissionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

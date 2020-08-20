@@ -659,8 +659,6 @@ public class KaleoTransitionModelImpl
 
 	@Override
 	public void setKaleoTransitionId(long kaleoTransitionId) {
-		_columnBitmask = -1L;
-
 		_kaleoTransitionId = kaleoTransitionId;
 	}
 
@@ -1045,33 +1043,26 @@ public class KaleoTransitionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoTransitionModelImpl kaleoTransitionModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		kaleoTransitionModelImpl._originalCompanyId =
-			kaleoTransitionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kaleoTransitionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalKaleoDefinitionVersionId = _kaleoDefinitionVersionId;
 
-		kaleoTransitionModelImpl._setModifiedDate = false;
+		_setOriginalKaleoDefinitionVersionId = false;
 
-		kaleoTransitionModelImpl._originalKaleoDefinitionVersionId =
-			kaleoTransitionModelImpl._kaleoDefinitionVersionId;
+		_originalKaleoNodeId = _kaleoNodeId;
 
-		kaleoTransitionModelImpl._setOriginalKaleoDefinitionVersionId = false;
+		_setOriginalKaleoNodeId = false;
 
-		kaleoTransitionModelImpl._originalKaleoNodeId =
-			kaleoTransitionModelImpl._kaleoNodeId;
+		_originalName = _name;
 
-		kaleoTransitionModelImpl._setOriginalKaleoNodeId = false;
+		_originalDefaultTransition = _defaultTransition;
 
-		kaleoTransitionModelImpl._originalName = kaleoTransitionModelImpl._name;
+		_setOriginalDefaultTransition = false;
 
-		kaleoTransitionModelImpl._originalDefaultTransition =
-			kaleoTransitionModelImpl._defaultTransition;
-
-		kaleoTransitionModelImpl._setOriginalDefaultTransition = false;
-
-		kaleoTransitionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -867,8 +867,6 @@ public class CommercePriceListCommerceAccountGroupRelModelImpl
 
 	@Override
 	public void setOrder(int order) {
-		_columnBitmask = -1L;
-
 		_order = order;
 	}
 
@@ -1024,38 +1022,22 @@ public class CommercePriceListCommerceAccountGroupRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommercePriceListCommerceAccountGroupRelModelImpl
-			commercePriceListCommerceAccountGroupRelModelImpl = this;
+		_originalUuid = _uuid;
 
-		commercePriceListCommerceAccountGroupRelModelImpl._originalUuid =
-			commercePriceListCommerceAccountGroupRelModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		commercePriceListCommerceAccountGroupRelModelImpl._originalCompanyId =
-			commercePriceListCommerceAccountGroupRelModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commercePriceListCommerceAccountGroupRelModelImpl.
-			_setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCommercePriceListId = _commercePriceListId;
 
-		commercePriceListCommerceAccountGroupRelModelImpl._setModifiedDate =
-			false;
+		_setOriginalCommercePriceListId = false;
 
-		commercePriceListCommerceAccountGroupRelModelImpl.
-			_originalCommercePriceListId =
-				commercePriceListCommerceAccountGroupRelModelImpl.
-					_commercePriceListId;
+		_originalCommerceAccountGroupId = _commerceAccountGroupId;
 
-		commercePriceListCommerceAccountGroupRelModelImpl.
-			_setOriginalCommercePriceListId = false;
+		_setOriginalCommerceAccountGroupId = false;
 
-		commercePriceListCommerceAccountGroupRelModelImpl.
-			_originalCommerceAccountGroupId =
-				commercePriceListCommerceAccountGroupRelModelImpl.
-					_commerceAccountGroupId;
-
-		commercePriceListCommerceAccountGroupRelModelImpl.
-			_setOriginalCommerceAccountGroupId = false;
-
-		commercePriceListCommerceAccountGroupRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -43,7 +43,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -437,17 +436,15 @@ public class CompanyPersistenceTest {
 		Company existingCompany = _persistence.findByPrimaryKey(
 			newCompany.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCompany.getWebId(),
-				ReflectionTestUtil.invoke(
-					existingCompany, "getOriginalWebId", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCompany.getWebId(),
+			ReflectionTestUtil.invoke(
+				existingCompany, "getOriginalWebId", new Class<?>[0]));
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCompany.getMx(),
-				ReflectionTestUtil.invoke(
-					existingCompany, "getOriginalMx", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCompany.getMx(),
+			ReflectionTestUtil.invoke(
+				existingCompany, "getOriginalMx", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingCompany.getLogoId()),

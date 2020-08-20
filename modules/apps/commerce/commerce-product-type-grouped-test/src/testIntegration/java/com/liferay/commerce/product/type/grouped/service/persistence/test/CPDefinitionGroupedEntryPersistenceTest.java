@@ -46,7 +46,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -532,12 +531,11 @@ public class CPDefinitionGroupedEntryPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newCPDefinitionGroupedEntry.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPDefinitionGroupedEntry.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCPDefinitionGroupedEntry, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPDefinitionGroupedEntry.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCPDefinitionGroupedEntry, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCPDefinitionGroupedEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

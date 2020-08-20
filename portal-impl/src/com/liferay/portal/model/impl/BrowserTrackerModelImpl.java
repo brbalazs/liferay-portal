@@ -547,14 +547,11 @@ public class BrowserTrackerModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		BrowserTrackerModelImpl browserTrackerModelImpl = this;
+		_originalUserId = _userId;
 
-		browserTrackerModelImpl._originalUserId =
-			browserTrackerModelImpl._userId;
+		_setOriginalUserId = false;
 
-		browserTrackerModelImpl._setOriginalUserId = false;
-
-		browserTrackerModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

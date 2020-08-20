@@ -941,36 +941,28 @@ public class CPDisplayLayoutModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPDisplayLayoutModelImpl cpDisplayLayoutModelImpl = this;
+		_originalUuid = _uuid;
 
-		cpDisplayLayoutModelImpl._originalUuid = cpDisplayLayoutModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		cpDisplayLayoutModelImpl._originalGroupId =
-			cpDisplayLayoutModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		cpDisplayLayoutModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		cpDisplayLayoutModelImpl._originalCompanyId =
-			cpDisplayLayoutModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpDisplayLayoutModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		cpDisplayLayoutModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		cpDisplayLayoutModelImpl._originalClassNameId =
-			cpDisplayLayoutModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		cpDisplayLayoutModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		cpDisplayLayoutModelImpl._originalClassPK =
-			cpDisplayLayoutModelImpl._classPK;
+		_originalLayoutUuid = _layoutUuid;
 
-		cpDisplayLayoutModelImpl._setOriginalClassPK = false;
-
-		cpDisplayLayoutModelImpl._originalLayoutUuid =
-			cpDisplayLayoutModelImpl._layoutUuid;
-
-		cpDisplayLayoutModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

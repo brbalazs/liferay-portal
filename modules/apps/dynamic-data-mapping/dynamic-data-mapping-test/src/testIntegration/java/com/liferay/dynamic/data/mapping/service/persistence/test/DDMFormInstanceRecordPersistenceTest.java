@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -558,12 +557,11 @@ public class DDMFormInstanceRecordPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newDDMFormInstanceRecord.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingDDMFormInstanceRecord.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingDDMFormInstanceRecord, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingDDMFormInstanceRecord.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingDDMFormInstanceRecord, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingDDMFormInstanceRecord.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

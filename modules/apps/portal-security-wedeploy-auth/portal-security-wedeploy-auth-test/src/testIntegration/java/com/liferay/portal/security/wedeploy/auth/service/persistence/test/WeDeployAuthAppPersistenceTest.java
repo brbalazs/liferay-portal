@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -452,31 +451,27 @@ public class WeDeployAuthAppPersistenceTest {
 		WeDeployAuthApp existingWeDeployAuthApp = _persistence.findByPrimaryKey(
 			newWeDeployAuthApp.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingWeDeployAuthApp.getRedirectURI(),
-				ReflectionTestUtil.invoke(
-					existingWeDeployAuthApp, "getOriginalRedirectURI",
-					new Class<?>[0])));
-		Assert.assertTrue(
-			Objects.equals(
-				existingWeDeployAuthApp.getClientId(),
-				ReflectionTestUtil.invoke(
-					existingWeDeployAuthApp, "getOriginalClientId",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingWeDeployAuthApp.getRedirectURI(),
+			ReflectionTestUtil.invoke(
+				existingWeDeployAuthApp, "getOriginalRedirectURI",
+				new Class<?>[0]));
+		Assert.assertEquals(
+			existingWeDeployAuthApp.getClientId(),
+			ReflectionTestUtil.invoke(
+				existingWeDeployAuthApp, "getOriginalClientId",
+				new Class<?>[0]));
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingWeDeployAuthApp.getClientId(),
-				ReflectionTestUtil.invoke(
-					existingWeDeployAuthApp, "getOriginalClientId",
-					new Class<?>[0])));
-		Assert.assertTrue(
-			Objects.equals(
-				existingWeDeployAuthApp.getClientSecret(),
-				ReflectionTestUtil.invoke(
-					existingWeDeployAuthApp, "getOriginalClientSecret",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingWeDeployAuthApp.getClientId(),
+			ReflectionTestUtil.invoke(
+				existingWeDeployAuthApp, "getOriginalClientId",
+				new Class<?>[0]));
+		Assert.assertEquals(
+			existingWeDeployAuthApp.getClientSecret(),
+			ReflectionTestUtil.invoke(
+				existingWeDeployAuthApp, "getOriginalClientSecret",
+				new Class<?>[0]));
 	}
 
 	protected WeDeployAuthApp addWeDeployAuthApp() throws Exception {

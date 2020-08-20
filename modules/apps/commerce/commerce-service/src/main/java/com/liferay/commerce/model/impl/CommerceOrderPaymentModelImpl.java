@@ -608,8 +608,6 @@ public class CommerceOrderPaymentModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -804,16 +802,12 @@ public class CommerceOrderPaymentModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceOrderPaymentModelImpl commerceOrderPaymentModelImpl = this;
+		_setModifiedDate = false;
+		_originalCommerceOrderId = _commerceOrderId;
 
-		commerceOrderPaymentModelImpl._setModifiedDate = false;
+		_setOriginalCommerceOrderId = false;
 
-		commerceOrderPaymentModelImpl._originalCommerceOrderId =
-			commerceOrderPaymentModelImpl._commerceOrderId;
-
-		commerceOrderPaymentModelImpl._setOriginalCommerceOrderId = false;
-
-		commerceOrderPaymentModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

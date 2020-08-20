@@ -431,7 +431,7 @@ public class PasswordTrackerModelImpl
 
 	@Override
 	public void setUserId(long userId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= USERID_COLUMN_BITMASK;
 
 		if (!_setOriginalUserId) {
 			_setOriginalUserId = true;
@@ -469,8 +469,6 @@ public class PasswordTrackerModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -608,14 +606,11 @@ public class PasswordTrackerModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		PasswordTrackerModelImpl passwordTrackerModelImpl = this;
+		_originalUserId = _userId;
 
-		passwordTrackerModelImpl._originalUserId =
-			passwordTrackerModelImpl._userId;
+		_setOriginalUserId = false;
 
-		passwordTrackerModelImpl._setOriginalUserId = false;
-
-		passwordTrackerModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

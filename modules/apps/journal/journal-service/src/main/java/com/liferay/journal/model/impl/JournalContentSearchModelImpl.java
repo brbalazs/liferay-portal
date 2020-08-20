@@ -694,35 +694,27 @@ public class JournalContentSearchModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		JournalContentSearchModelImpl journalContentSearchModelImpl = this;
+		_originalGroupId = _groupId;
 
-		journalContentSearchModelImpl._originalGroupId =
-			journalContentSearchModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		journalContentSearchModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		journalContentSearchModelImpl._originalCompanyId =
-			journalContentSearchModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		journalContentSearchModelImpl._setOriginalCompanyId = false;
+		_originalPrivateLayout = _privateLayout;
 
-		journalContentSearchModelImpl._originalPrivateLayout =
-			journalContentSearchModelImpl._privateLayout;
+		_setOriginalPrivateLayout = false;
 
-		journalContentSearchModelImpl._setOriginalPrivateLayout = false;
+		_originalLayoutId = _layoutId;
 
-		journalContentSearchModelImpl._originalLayoutId =
-			journalContentSearchModelImpl._layoutId;
+		_setOriginalLayoutId = false;
 
-		journalContentSearchModelImpl._setOriginalLayoutId = false;
+		_originalPortletId = _portletId;
 
-		journalContentSearchModelImpl._originalPortletId =
-			journalContentSearchModelImpl._portletId;
+		_originalArticleId = _articleId;
 
-		journalContentSearchModelImpl._originalArticleId =
-			journalContentSearchModelImpl._articleId;
-
-		journalContentSearchModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

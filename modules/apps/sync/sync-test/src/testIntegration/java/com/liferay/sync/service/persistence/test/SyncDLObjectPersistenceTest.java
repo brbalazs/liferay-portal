@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -626,11 +625,10 @@ public class SyncDLObjectPersistenceTest {
 		SyncDLObject existingSyncDLObject = _persistence.findByPrimaryKey(
 			newSyncDLObject.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingSyncDLObject.getType(),
-				ReflectionTestUtil.invoke(
-					existingSyncDLObject, "getOriginalType", new Class<?>[0])));
+		Assert.assertEquals(
+			existingSyncDLObject.getType(),
+			ReflectionTestUtil.invoke(
+				existingSyncDLObject, "getOriginalType", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingSyncDLObject.getTypePK()),
 			ReflectionTestUtil.<Long>invoke(

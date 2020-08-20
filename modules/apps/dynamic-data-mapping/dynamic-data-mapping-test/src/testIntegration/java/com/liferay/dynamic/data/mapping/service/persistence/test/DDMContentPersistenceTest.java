@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -463,11 +462,10 @@ public class DDMContentPersistenceTest {
 		DDMContent existingDDMContent = _persistence.findByPrimaryKey(
 			newDDMContent.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingDDMContent.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingDDMContent, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingDDMContent.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingDDMContent, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingDDMContent.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

@@ -798,8 +798,6 @@ public class KBCommentModelImpl
 	public void setModifiedDate(Date modifiedDate) {
 		_setModifiedDate = true;
 
-		_columnBitmask = -1L;
-
 		_modifiedDate = modifiedDate;
 	}
 
@@ -1048,38 +1046,34 @@ public class KBCommentModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KBCommentModelImpl kbCommentModelImpl = this;
+		_originalUuid = _uuid;
 
-		kbCommentModelImpl._originalUuid = kbCommentModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		kbCommentModelImpl._originalGroupId = kbCommentModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		kbCommentModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		kbCommentModelImpl._originalCompanyId = kbCommentModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kbCommentModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		kbCommentModelImpl._originalUserId = kbCommentModelImpl._userId;
+		_setOriginalUserId = false;
 
-		kbCommentModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		kbCommentModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		kbCommentModelImpl._originalClassNameId =
-			kbCommentModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		kbCommentModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		kbCommentModelImpl._originalClassPK = kbCommentModelImpl._classPK;
+		_originalStatus = _status;
 
-		kbCommentModelImpl._setOriginalClassPK = false;
+		_setOriginalStatus = false;
 
-		kbCommentModelImpl._originalStatus = kbCommentModelImpl._status;
-
-		kbCommentModelImpl._setOriginalStatus = false;
-
-		kbCommentModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -654,18 +654,15 @@ public class UserIdMapperModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		UserIdMapperModelImpl userIdMapperModelImpl = this;
+		_originalUserId = _userId;
 
-		userIdMapperModelImpl._originalUserId = userIdMapperModelImpl._userId;
+		_setOriginalUserId = false;
 
-		userIdMapperModelImpl._setOriginalUserId = false;
+		_originalType = _type;
 
-		userIdMapperModelImpl._originalType = userIdMapperModelImpl._type;
+		_originalExternalUserId = _externalUserId;
 
-		userIdMapperModelImpl._originalExternalUserId =
-			userIdMapperModelImpl._externalUserId;
-
-		userIdMapperModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

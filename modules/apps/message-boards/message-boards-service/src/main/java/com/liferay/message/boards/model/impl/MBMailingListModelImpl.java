@@ -1422,32 +1422,26 @@ public class MBMailingListModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		MBMailingListModelImpl mbMailingListModelImpl = this;
+		_originalUuid = _uuid;
 
-		mbMailingListModelImpl._originalUuid = mbMailingListModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		mbMailingListModelImpl._originalGroupId =
-			mbMailingListModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		mbMailingListModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		mbMailingListModelImpl._originalCompanyId =
-			mbMailingListModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		mbMailingListModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCategoryId = _categoryId;
 
-		mbMailingListModelImpl._setModifiedDate = false;
+		_setOriginalCategoryId = false;
 
-		mbMailingListModelImpl._originalCategoryId =
-			mbMailingListModelImpl._categoryId;
+		_originalActive = _active;
 
-		mbMailingListModelImpl._setOriginalCategoryId = false;
+		_setOriginalActive = false;
 
-		mbMailingListModelImpl._originalActive = mbMailingListModelImpl._active;
-
-		mbMailingListModelImpl._setOriginalActive = false;
-
-		mbMailingListModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

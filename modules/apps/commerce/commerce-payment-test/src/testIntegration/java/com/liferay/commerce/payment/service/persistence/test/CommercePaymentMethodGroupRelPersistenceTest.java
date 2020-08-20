@@ -46,7 +46,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -543,12 +542,11 @@ public class CommercePaymentMethodGroupRelPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCommercePaymentMethodGroupRel, "getOriginalGroupId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommercePaymentMethodGroupRel.getEngineKey(),
-				ReflectionTestUtil.invoke(
-					existingCommercePaymentMethodGroupRel,
-					"getOriginalEngineKey", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommercePaymentMethodGroupRel.getEngineKey(),
+			ReflectionTestUtil.invoke(
+				existingCommercePaymentMethodGroupRel, "getOriginalEngineKey",
+				new Class<?>[0]));
 	}
 
 	protected CommercePaymentMethodGroupRel addCommercePaymentMethodGroupRel()

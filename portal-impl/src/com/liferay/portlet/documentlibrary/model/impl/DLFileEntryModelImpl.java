@@ -1296,7 +1296,7 @@ public class DLFileEntryModelImpl
 
 	@Override
 	public void setFolderId(long folderId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= FOLDERID_COLUMN_BITMASK;
 
 		if (!_setOriginalFolderId) {
 			_setOriginalFolderId = true;
@@ -1340,7 +1340,7 @@ public class DLFileEntryModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -1955,68 +1955,59 @@ public class DLFileEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DLFileEntryModelImpl dlFileEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		dlFileEntryModelImpl._originalUuid = dlFileEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		dlFileEntryModelImpl._originalGroupId = dlFileEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		dlFileEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		dlFileEntryModelImpl._originalCompanyId =
-			dlFileEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		dlFileEntryModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		dlFileEntryModelImpl._originalUserId = dlFileEntryModelImpl._userId;
+		_setOriginalUserId = false;
 
-		dlFileEntryModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
 
-		dlFileEntryModelImpl._setModifiedDate = false;
+		_originalRepositoryId = _repositoryId;
 
-		dlFileEntryModelImpl._originalRepositoryId =
-			dlFileEntryModelImpl._repositoryId;
+		_setOriginalRepositoryId = false;
 
-		dlFileEntryModelImpl._setOriginalRepositoryId = false;
+		_originalFolderId = _folderId;
 
-		dlFileEntryModelImpl._originalFolderId = dlFileEntryModelImpl._folderId;
+		_setOriginalFolderId = false;
 
-		dlFileEntryModelImpl._setOriginalFolderId = false;
+		_originalName = _name;
 
-		dlFileEntryModelImpl._originalName = dlFileEntryModelImpl._name;
+		_originalFileName = _fileName;
 
-		dlFileEntryModelImpl._originalFileName = dlFileEntryModelImpl._fileName;
+		_originalMimeType = _mimeType;
 
-		dlFileEntryModelImpl._originalMimeType = dlFileEntryModelImpl._mimeType;
+		_originalTitle = _title;
 
-		dlFileEntryModelImpl._originalTitle = dlFileEntryModelImpl._title;
+		_originalFileEntryTypeId = _fileEntryTypeId;
 
-		dlFileEntryModelImpl._originalFileEntryTypeId =
-			dlFileEntryModelImpl._fileEntryTypeId;
+		_setOriginalFileEntryTypeId = false;
 
-		dlFileEntryModelImpl._setOriginalFileEntryTypeId = false;
+		_originalSmallImageId = _smallImageId;
 
-		dlFileEntryModelImpl._originalSmallImageId =
-			dlFileEntryModelImpl._smallImageId;
+		_setOriginalSmallImageId = false;
 
-		dlFileEntryModelImpl._setOriginalSmallImageId = false;
+		_originalLargeImageId = _largeImageId;
 
-		dlFileEntryModelImpl._originalLargeImageId =
-			dlFileEntryModelImpl._largeImageId;
+		_setOriginalLargeImageId = false;
 
-		dlFileEntryModelImpl._setOriginalLargeImageId = false;
+		_originalCustom1ImageId = _custom1ImageId;
 
-		dlFileEntryModelImpl._originalCustom1ImageId =
-			dlFileEntryModelImpl._custom1ImageId;
+		_setOriginalCustom1ImageId = false;
 
-		dlFileEntryModelImpl._setOriginalCustom1ImageId = false;
+		_originalCustom2ImageId = _custom2ImageId;
 
-		dlFileEntryModelImpl._originalCustom2ImageId =
-			dlFileEntryModelImpl._custom2ImageId;
+		_setOriginalCustom2ImageId = false;
 
-		dlFileEntryModelImpl._setOriginalCustom2ImageId = false;
-
-		dlFileEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

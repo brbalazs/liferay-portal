@@ -803,23 +803,18 @@ public class OAuthUserModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		OAuthUserModelImpl oAuthUserModelImpl = this;
+		_originalUserId = _userId;
 
-		oAuthUserModelImpl._originalUserId = oAuthUserModelImpl._userId;
+		_setOriginalUserId = false;
 
-		oAuthUserModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalOAuthApplicationId = _oAuthApplicationId;
 
-		oAuthUserModelImpl._setModifiedDate = false;
+		_setOriginalOAuthApplicationId = false;
 
-		oAuthUserModelImpl._originalOAuthApplicationId =
-			oAuthUserModelImpl._oAuthApplicationId;
+		_originalAccessToken = _accessToken;
 
-		oAuthUserModelImpl._setOriginalOAuthApplicationId = false;
-
-		oAuthUserModelImpl._originalAccessToken =
-			oAuthUserModelImpl._accessToken;
-
-		oAuthUserModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

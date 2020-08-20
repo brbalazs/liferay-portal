@@ -797,31 +797,26 @@ public class MBThreadFlagModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		MBThreadFlagModelImpl mbThreadFlagModelImpl = this;
+		_originalUuid = _uuid;
 
-		mbThreadFlagModelImpl._originalUuid = mbThreadFlagModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		mbThreadFlagModelImpl._originalGroupId = mbThreadFlagModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		mbThreadFlagModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		mbThreadFlagModelImpl._originalCompanyId =
-			mbThreadFlagModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		mbThreadFlagModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		mbThreadFlagModelImpl._originalUserId = mbThreadFlagModelImpl._userId;
+		_setOriginalUserId = false;
 
-		mbThreadFlagModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalThreadId = _threadId;
 
-		mbThreadFlagModelImpl._setModifiedDate = false;
+		_setOriginalThreadId = false;
 
-		mbThreadFlagModelImpl._originalThreadId =
-			mbThreadFlagModelImpl._threadId;
-
-		mbThreadFlagModelImpl._setOriginalThreadId = false;
-
-		mbThreadFlagModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

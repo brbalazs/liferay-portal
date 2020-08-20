@@ -808,7 +808,7 @@ public class FragmentCollectionModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -964,30 +964,22 @@ public class FragmentCollectionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		FragmentCollectionModelImpl fragmentCollectionModelImpl = this;
+		_originalUuid = _uuid;
 
-		fragmentCollectionModelImpl._originalUuid =
-			fragmentCollectionModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		fragmentCollectionModelImpl._originalGroupId =
-			fragmentCollectionModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		fragmentCollectionModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		fragmentCollectionModelImpl._originalCompanyId =
-			fragmentCollectionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		fragmentCollectionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalFragmentCollectionKey = _fragmentCollectionKey;
 
-		fragmentCollectionModelImpl._setModifiedDate = false;
+		_originalName = _name;
 
-		fragmentCollectionModelImpl._originalFragmentCollectionKey =
-			fragmentCollectionModelImpl._fragmentCollectionKey;
-
-		fragmentCollectionModelImpl._originalName =
-			fragmentCollectionModelImpl._name;
-
-		fragmentCollectionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

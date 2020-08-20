@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -476,12 +475,11 @@ public class CommerceOrderNotePersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCommerceOrderNote, "getOriginalCompanyId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceOrderNote.getExternalReferenceCode(),
-				ReflectionTestUtil.invoke(
-					existingCommerceOrderNote,
-					"getOriginalExternalReferenceCode", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceOrderNote.getExternalReferenceCode(),
+			ReflectionTestUtil.invoke(
+				existingCommerceOrderNote, "getOriginalExternalReferenceCode",
+				new Class<?>[0]));
 	}
 
 	protected CommerceOrderNote addCommerceOrderNote() throws Exception {

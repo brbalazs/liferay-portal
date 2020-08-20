@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -560,25 +559,22 @@ public class CommerceInventoryWarehouseItemPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCommerceInventoryWarehouseItem,
 				"getOriginalCommerceInventoryWarehouseId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceInventoryWarehouseItem.getSku(),
-				ReflectionTestUtil.invoke(
-					existingCommerceInventoryWarehouseItem, "getOriginalSku",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceInventoryWarehouseItem.getSku(),
+			ReflectionTestUtil.invoke(
+				existingCommerceInventoryWarehouseItem, "getOriginalSku",
+				new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingCommerceInventoryWarehouseItem.getCompanyId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingCommerceInventoryWarehouseItem, "getOriginalCompanyId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceInventoryWarehouseItem.
-					getExternalReferenceCode(),
-				ReflectionTestUtil.invoke(
-					existingCommerceInventoryWarehouseItem,
-					"getOriginalExternalReferenceCode", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceInventoryWarehouseItem.getExternalReferenceCode(),
+			ReflectionTestUtil.invoke(
+				existingCommerceInventoryWarehouseItem,
+				"getOriginalExternalReferenceCode", new Class<?>[0]));
 	}
 
 	protected CommerceInventoryWarehouseItem addCommerceInventoryWarehouseItem()

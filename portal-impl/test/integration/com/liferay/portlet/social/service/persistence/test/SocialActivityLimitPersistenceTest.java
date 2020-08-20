@@ -43,7 +43,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -496,12 +495,11 @@ public class SocialActivityLimitPersistenceTest {
 			ReflectionTestUtil.<Integer>invoke(
 				existingSocialActivityLimit, "getOriginalActivityType",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingSocialActivityLimit.getActivityCounterName(),
-				ReflectionTestUtil.invoke(
-					existingSocialActivityLimit,
-					"getOriginalActivityCounterName", new Class<?>[0])));
+		Assert.assertEquals(
+			existingSocialActivityLimit.getActivityCounterName(),
+			ReflectionTestUtil.invoke(
+				existingSocialActivityLimit, "getOriginalActivityCounterName",
+				new Class<?>[0]));
 	}
 
 	protected SocialActivityLimit addSocialActivityLimit() throws Exception {

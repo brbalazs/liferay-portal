@@ -46,7 +46,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -514,12 +513,10 @@ public class CPDefinitionLinkPersistenceTest {
 		CPDefinitionLink existingCPDefinitionLink =
 			_persistence.findByPrimaryKey(newCPDefinitionLink.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPDefinitionLink.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCPDefinitionLink, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPDefinitionLink.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCPDefinitionLink, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCPDefinitionLink.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -536,12 +533,10 @@ public class CPDefinitionLinkPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCPDefinitionLink, "getOriginalCProductId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPDefinitionLink.getType(),
-				ReflectionTestUtil.invoke(
-					existingCPDefinitionLink, "getOriginalType",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPDefinitionLink.getType(),
+			ReflectionTestUtil.invoke(
+				existingCPDefinitionLink, "getOriginalType", new Class<?>[0]));
 	}
 
 	protected CPDefinitionLink addCPDefinitionLink() throws Exception {

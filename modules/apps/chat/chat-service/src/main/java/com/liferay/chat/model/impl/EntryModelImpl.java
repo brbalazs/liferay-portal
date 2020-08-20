@@ -391,7 +391,7 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 	@Override
 	public void setCreateDate(long createDate) {
-		_columnBitmask = -1L;
+		_columnBitmask |= CREATEDATE_COLUMN_BITMASK;
 
 		if (!_setOriginalCreateDate) {
 			_setOriginalCreateDate = true;
@@ -627,23 +627,21 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 	@Override
 	public void resetOriginalValues() {
-		EntryModelImpl entryModelImpl = this;
+		_originalCreateDate = _createDate;
 
-		entryModelImpl._originalCreateDate = entryModelImpl._createDate;
+		_setOriginalCreateDate = false;
 
-		entryModelImpl._setOriginalCreateDate = false;
+		_originalFromUserId = _fromUserId;
 
-		entryModelImpl._originalFromUserId = entryModelImpl._fromUserId;
+		_setOriginalFromUserId = false;
 
-		entryModelImpl._setOriginalFromUserId = false;
+		_originalToUserId = _toUserId;
 
-		entryModelImpl._originalToUserId = entryModelImpl._toUserId;
+		_setOriginalToUserId = false;
 
-		entryModelImpl._setOriginalToUserId = false;
+		_originalContent = _content;
 
-		entryModelImpl._originalContent = entryModelImpl._content;
-
-		entryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

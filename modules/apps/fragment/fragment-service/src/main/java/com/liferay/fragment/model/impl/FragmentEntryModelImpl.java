@@ -1022,7 +1022,7 @@ public class FragmentEntryModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -1382,37 +1382,30 @@ public class FragmentEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		FragmentEntryModelImpl fragmentEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		fragmentEntryModelImpl._originalUuid = fragmentEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		fragmentEntryModelImpl._originalGroupId =
-			fragmentEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		fragmentEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		fragmentEntryModelImpl._originalCompanyId =
-			fragmentEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		fragmentEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalFragmentCollectionId = _fragmentCollectionId;
 
-		fragmentEntryModelImpl._setModifiedDate = false;
+		_setOriginalFragmentCollectionId = false;
 
-		fragmentEntryModelImpl._originalFragmentCollectionId =
-			fragmentEntryModelImpl._fragmentCollectionId;
+		_originalFragmentEntryKey = _fragmentEntryKey;
 
-		fragmentEntryModelImpl._setOriginalFragmentCollectionId = false;
+		_originalName = _name;
 
-		fragmentEntryModelImpl._originalFragmentEntryKey =
-			fragmentEntryModelImpl._fragmentEntryKey;
+		_originalStatus = _status;
 
-		fragmentEntryModelImpl._originalName = fragmentEntryModelImpl._name;
+		_setOriginalStatus = false;
 
-		fragmentEntryModelImpl._originalStatus = fragmentEntryModelImpl._status;
-
-		fragmentEntryModelImpl._setOriginalStatus = false;
-
-		fragmentEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

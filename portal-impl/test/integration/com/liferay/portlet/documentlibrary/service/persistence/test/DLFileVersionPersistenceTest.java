@@ -44,7 +44,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -610,12 +609,10 @@ public class DLFileVersionPersistenceTest {
 		DLFileVersion existingDLFileVersion = _persistence.findByPrimaryKey(
 			newDLFileVersion.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingDLFileVersion.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingDLFileVersion, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingDLFileVersion.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingDLFileVersion, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingDLFileVersion.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -626,12 +623,10 @@ public class DLFileVersionPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingDLFileVersion, "getOriginalFileEntryId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingDLFileVersion.getVersion(),
-				ReflectionTestUtil.invoke(
-					existingDLFileVersion, "getOriginalVersion",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingDLFileVersion.getVersion(),
+			ReflectionTestUtil.invoke(
+				existingDLFileVersion, "getOriginalVersion", new Class<?>[0]));
 	}
 
 	protected DLFileVersion addDLFileVersion() throws Exception {

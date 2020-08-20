@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -661,11 +660,10 @@ public class DDMTemplatePersistenceTest {
 		DDMTemplate existingDDMTemplate = _persistence.findByPrimaryKey(
 			newDDMTemplate.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingDDMTemplate.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingDDMTemplate, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingDDMTemplate.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingDDMTemplate, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingDDMTemplate.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -686,12 +684,11 @@ public class DDMTemplatePersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingDDMTemplate, "getOriginalClassNameId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingDDMTemplate.getTemplateKey(),
-				ReflectionTestUtil.invoke(
-					existingDDMTemplate, "getOriginalTemplateKey",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingDDMTemplate.getTemplateKey(),
+			ReflectionTestUtil.invoke(
+				existingDDMTemplate, "getOriginalTemplateKey",
+				new Class<?>[0]));
 	}
 
 	protected DDMTemplate addDDMTemplate() throws Exception {

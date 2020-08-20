@@ -44,7 +44,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -424,12 +423,11 @@ public class ReleasePersistenceTest {
 		Release existingRelease = _persistence.findByPrimaryKey(
 			newRelease.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingRelease.getServletContextName(),
-				ReflectionTestUtil.invoke(
-					existingRelease, "getOriginalServletContextName",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingRelease.getServletContextName(),
+			ReflectionTestUtil.invoke(
+				existingRelease, "getOriginalServletContextName",
+				new Class<?>[0]));
 	}
 
 	protected Release addRelease() throws Exception {

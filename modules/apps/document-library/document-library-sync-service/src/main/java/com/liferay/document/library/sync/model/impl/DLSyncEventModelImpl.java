@@ -411,7 +411,7 @@ public class DLSyncEventModelImpl
 
 	@Override
 	public void setModifiedTime(long modifiedTime) {
-		_columnBitmask = -1L;
+		_columnBitmask |= MODIFIEDTIME_COLUMN_BITMASK;
 
 		if (!_setOriginalModifiedTime) {
 			_setOriginalModifiedTime = true;
@@ -586,18 +586,15 @@ public class DLSyncEventModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DLSyncEventModelImpl dlSyncEventModelImpl = this;
+		_originalModifiedTime = _modifiedTime;
 
-		dlSyncEventModelImpl._originalModifiedTime =
-			dlSyncEventModelImpl._modifiedTime;
+		_setOriginalModifiedTime = false;
 
-		dlSyncEventModelImpl._setOriginalModifiedTime = false;
+		_originalTypePK = _typePK;
 
-		dlSyncEventModelImpl._originalTypePK = dlSyncEventModelImpl._typePK;
+		_setOriginalTypePK = false;
 
-		dlSyncEventModelImpl._setOriginalTypePK = false;
-
-		dlSyncEventModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

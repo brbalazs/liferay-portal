@@ -48,7 +48,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -613,12 +612,11 @@ public class CPDefinitionOptionValueRelPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newCPDefinitionOptionValueRel.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPDefinitionOptionValueRel.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCPDefinitionOptionValueRel, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPDefinitionOptionValueRel.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCPDefinitionOptionValueRel, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCPDefinitionOptionValueRel.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -632,12 +630,11 @@ public class CPDefinitionOptionValueRelPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCPDefinitionOptionValueRel,
 				"getOriginalCPDefinitionOptionRelId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPDefinitionOptionValueRel.getKey(),
-				ReflectionTestUtil.invoke(
-					existingCPDefinitionOptionValueRel, "getOriginalKey",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPDefinitionOptionValueRel.getKey(),
+			ReflectionTestUtil.invoke(
+				existingCPDefinitionOptionValueRel, "getOriginalKey",
+				new Class<?>[0]));
 	}
 
 	protected CPDefinitionOptionValueRel addCPDefinitionOptionValueRel()

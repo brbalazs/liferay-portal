@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -462,11 +461,10 @@ public class MDRRulePersistenceTest {
 		MDRRule existingMDRRule = _persistence.findByPrimaryKey(
 			newMDRRule.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingMDRRule.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingMDRRule, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingMDRRule.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingMDRRule, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingMDRRule.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

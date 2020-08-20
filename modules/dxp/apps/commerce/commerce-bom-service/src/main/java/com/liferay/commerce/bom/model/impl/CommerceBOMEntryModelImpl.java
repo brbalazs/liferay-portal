@@ -726,8 +726,6 @@ public class CommerceBOMEntryModelImpl
 
 	@Override
 	public void setNumber(int number) {
-		_columnBitmask = -1L;
-
 		_number = number;
 	}
 
@@ -930,16 +928,13 @@ public class CommerceBOMEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceBOMEntryModelImpl commerceBOMEntryModelImpl = this;
+		_setModifiedDate = false;
 
-		commerceBOMEntryModelImpl._setModifiedDate = false;
+		_originalCommerceBOMDefinitionId = _commerceBOMDefinitionId;
 
-		commerceBOMEntryModelImpl._originalCommerceBOMDefinitionId =
-			commerceBOMEntryModelImpl._commerceBOMDefinitionId;
+		_setOriginalCommerceBOMDefinitionId = false;
 
-		commerceBOMEntryModelImpl._setOriginalCommerceBOMDefinitionId = false;
-
-		commerceBOMEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

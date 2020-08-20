@@ -695,8 +695,6 @@ public class CommerceBOMFolderModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -833,22 +831,16 @@ public class CommerceBOMFolderModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceBOMFolderModelImpl commerceBOMFolderModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		commerceBOMFolderModelImpl._originalCompanyId =
-			commerceBOMFolderModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceBOMFolderModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalParentCommerceBOMFolderId = _parentCommerceBOMFolderId;
 
-		commerceBOMFolderModelImpl._setModifiedDate = false;
+		_setOriginalParentCommerceBOMFolderId = false;
 
-		commerceBOMFolderModelImpl._originalParentCommerceBOMFolderId =
-			commerceBOMFolderModelImpl._parentCommerceBOMFolderId;
-
-		commerceBOMFolderModelImpl._setOriginalParentCommerceBOMFolderId =
-			false;
-
-		commerceBOMFolderModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

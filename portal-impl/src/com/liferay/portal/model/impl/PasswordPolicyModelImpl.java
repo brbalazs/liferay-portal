@@ -1843,25 +1843,20 @@ public class PasswordPolicyModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		PasswordPolicyModelImpl passwordPolicyModelImpl = this;
+		_originalUuid = _uuid;
 
-		passwordPolicyModelImpl._originalUuid = passwordPolicyModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		passwordPolicyModelImpl._originalCompanyId =
-			passwordPolicyModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		passwordPolicyModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalDefaultPolicy = _defaultPolicy;
 
-		passwordPolicyModelImpl._setModifiedDate = false;
+		_setOriginalDefaultPolicy = false;
 
-		passwordPolicyModelImpl._originalDefaultPolicy =
-			passwordPolicyModelImpl._defaultPolicy;
+		_originalName = _name;
 
-		passwordPolicyModelImpl._setOriginalDefaultPolicy = false;
-
-		passwordPolicyModelImpl._originalName = passwordPolicyModelImpl._name;
-
-		passwordPolicyModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

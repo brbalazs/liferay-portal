@@ -754,8 +754,6 @@ public class KaleoTaskAssignmentInstanceModelImpl
 	public void setKaleoTaskAssignmentInstanceId(
 		long kaleoTaskAssignmentInstanceId) {
 
-		_columnBitmask = -1L;
-
 		_kaleoTaskAssignmentInstanceId = kaleoTaskAssignmentInstanceId;
 	}
 
@@ -1180,49 +1178,34 @@ public class KaleoTaskAssignmentInstanceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoTaskAssignmentInstanceModelImpl
-			kaleoTaskAssignmentInstanceModelImpl = this;
+		_originalGroupId = _groupId;
 
-		kaleoTaskAssignmentInstanceModelImpl._originalGroupId =
-			kaleoTaskAssignmentInstanceModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		kaleoTaskAssignmentInstanceModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		kaleoTaskAssignmentInstanceModelImpl._originalCompanyId =
-			kaleoTaskAssignmentInstanceModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kaleoTaskAssignmentInstanceModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalKaleoDefinitionVersionId = _kaleoDefinitionVersionId;
 
-		kaleoTaskAssignmentInstanceModelImpl._setModifiedDate = false;
+		_setOriginalKaleoDefinitionVersionId = false;
 
-		kaleoTaskAssignmentInstanceModelImpl._originalKaleoDefinitionVersionId =
-			kaleoTaskAssignmentInstanceModelImpl._kaleoDefinitionVersionId;
+		_originalKaleoInstanceId = _kaleoInstanceId;
 
-		kaleoTaskAssignmentInstanceModelImpl.
-			_setOriginalKaleoDefinitionVersionId = false;
+		_setOriginalKaleoInstanceId = false;
 
-		kaleoTaskAssignmentInstanceModelImpl._originalKaleoInstanceId =
-			kaleoTaskAssignmentInstanceModelImpl._kaleoInstanceId;
+		_originalKaleoTaskInstanceTokenId = _kaleoTaskInstanceTokenId;
 
-		kaleoTaskAssignmentInstanceModelImpl._setOriginalKaleoInstanceId =
-			false;
+		_setOriginalKaleoTaskInstanceTokenId = false;
 
-		kaleoTaskAssignmentInstanceModelImpl._originalKaleoTaskInstanceTokenId =
-			kaleoTaskAssignmentInstanceModelImpl._kaleoTaskInstanceTokenId;
+		_originalAssigneeClassName = _assigneeClassName;
 
-		kaleoTaskAssignmentInstanceModelImpl.
-			_setOriginalKaleoTaskInstanceTokenId = false;
+		_originalAssigneeClassPK = _assigneeClassPK;
 
-		kaleoTaskAssignmentInstanceModelImpl._originalAssigneeClassName =
-			kaleoTaskAssignmentInstanceModelImpl._assigneeClassName;
+		_setOriginalAssigneeClassPK = false;
 
-		kaleoTaskAssignmentInstanceModelImpl._originalAssigneeClassPK =
-			kaleoTaskAssignmentInstanceModelImpl._assigneeClassPK;
-
-		kaleoTaskAssignmentInstanceModelImpl._setOriginalAssigneeClassPK =
-			false;
-
-		kaleoTaskAssignmentInstanceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

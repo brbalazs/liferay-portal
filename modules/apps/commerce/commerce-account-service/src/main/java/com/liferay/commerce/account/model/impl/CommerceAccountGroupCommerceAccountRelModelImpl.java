@@ -917,40 +917,22 @@ public class CommerceAccountGroupCommerceAccountRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceAccountGroupCommerceAccountRelModelImpl
-			commerceAccountGroupCommerceAccountRelModelImpl = this;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commerceAccountGroupCommerceAccountRelModelImpl.
-			_originalExternalReferenceCode =
-				commerceAccountGroupCommerceAccountRelModelImpl.
-					_externalReferenceCode;
+		_originalCompanyId = _companyId;
 
-		commerceAccountGroupCommerceAccountRelModelImpl._originalCompanyId =
-			commerceAccountGroupCommerceAccountRelModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceAccountGroupCommerceAccountRelModelImpl._setOriginalCompanyId =
-			false;
+		_setModifiedDate = false;
+		_originalCommerceAccountGroupId = _commerceAccountGroupId;
 
-		commerceAccountGroupCommerceAccountRelModelImpl._setModifiedDate =
-			false;
+		_setOriginalCommerceAccountGroupId = false;
 
-		commerceAccountGroupCommerceAccountRelModelImpl.
-			_originalCommerceAccountGroupId =
-				commerceAccountGroupCommerceAccountRelModelImpl.
-					_commerceAccountGroupId;
+		_originalCommerceAccountId = _commerceAccountId;
 
-		commerceAccountGroupCommerceAccountRelModelImpl.
-			_setOriginalCommerceAccountGroupId = false;
+		_setOriginalCommerceAccountId = false;
 
-		commerceAccountGroupCommerceAccountRelModelImpl.
-			_originalCommerceAccountId =
-				commerceAccountGroupCommerceAccountRelModelImpl.
-					_commerceAccountId;
-
-		commerceAccountGroupCommerceAccountRelModelImpl.
-			_setOriginalCommerceAccountId = false;
-
-		commerceAccountGroupCommerceAccountRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

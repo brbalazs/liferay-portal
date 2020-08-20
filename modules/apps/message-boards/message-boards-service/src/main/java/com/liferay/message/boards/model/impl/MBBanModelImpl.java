@@ -845,29 +845,26 @@ public class MBBanModelImpl extends BaseModelImpl<MBBan> implements MBBanModel {
 
 	@Override
 	public void resetOriginalValues() {
-		MBBanModelImpl mbBanModelImpl = this;
+		_originalUuid = _uuid;
 
-		mbBanModelImpl._originalUuid = mbBanModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		mbBanModelImpl._originalGroupId = mbBanModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		mbBanModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		mbBanModelImpl._originalCompanyId = mbBanModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		mbBanModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		mbBanModelImpl._originalUserId = mbBanModelImpl._userId;
+		_setOriginalUserId = false;
 
-		mbBanModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalBanUserId = _banUserId;
 
-		mbBanModelImpl._setModifiedDate = false;
+		_setOriginalBanUserId = false;
 
-		mbBanModelImpl._originalBanUserId = mbBanModelImpl._banUserId;
-
-		mbBanModelImpl._setOriginalBanUserId = false;
-
-		mbBanModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -851,7 +851,7 @@ public class WorkflowDefinitionLinkModelImpl
 
 	@Override
 	public void setWorkflowDefinitionName(String workflowDefinitionName) {
-		_columnBitmask = -1L;
+		_columnBitmask |= WORKFLOWDEFINITIONNAME_COLUMN_BITMASK;
 
 		if (_originalWorkflowDefinitionName == null) {
 			_originalWorkflowDefinitionName = _workflowDefinitionName;
@@ -1000,45 +1000,34 @@ public class WorkflowDefinitionLinkModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		WorkflowDefinitionLinkModelImpl workflowDefinitionLinkModelImpl = this;
+		_originalGroupId = _groupId;
 
-		workflowDefinitionLinkModelImpl._originalGroupId =
-			workflowDefinitionLinkModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		workflowDefinitionLinkModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		workflowDefinitionLinkModelImpl._originalCompanyId =
-			workflowDefinitionLinkModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		workflowDefinitionLinkModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		workflowDefinitionLinkModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		workflowDefinitionLinkModelImpl._originalClassNameId =
-			workflowDefinitionLinkModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		workflowDefinitionLinkModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		workflowDefinitionLinkModelImpl._originalClassPK =
-			workflowDefinitionLinkModelImpl._classPK;
+		_originalTypePK = _typePK;
 
-		workflowDefinitionLinkModelImpl._setOriginalClassPK = false;
+		_setOriginalTypePK = false;
 
-		workflowDefinitionLinkModelImpl._originalTypePK =
-			workflowDefinitionLinkModelImpl._typePK;
+		_originalWorkflowDefinitionName = _workflowDefinitionName;
 
-		workflowDefinitionLinkModelImpl._setOriginalTypePK = false;
+		_originalWorkflowDefinitionVersion = _workflowDefinitionVersion;
 
-		workflowDefinitionLinkModelImpl._originalWorkflowDefinitionName =
-			workflowDefinitionLinkModelImpl._workflowDefinitionName;
+		_setOriginalWorkflowDefinitionVersion = false;
 
-		workflowDefinitionLinkModelImpl._originalWorkflowDefinitionVersion =
-			workflowDefinitionLinkModelImpl._workflowDefinitionVersion;
-
-		workflowDefinitionLinkModelImpl._setOriginalWorkflowDefinitionVersion =
-			false;
-
-		workflowDefinitionLinkModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

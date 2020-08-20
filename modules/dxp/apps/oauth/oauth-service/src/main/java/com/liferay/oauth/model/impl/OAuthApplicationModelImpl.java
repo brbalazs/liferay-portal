@@ -1067,27 +1067,20 @@ public class OAuthApplicationModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		OAuthApplicationModelImpl oAuthApplicationModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		oAuthApplicationModelImpl._originalCompanyId =
-			oAuthApplicationModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		oAuthApplicationModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		oAuthApplicationModelImpl._originalUserId =
-			oAuthApplicationModelImpl._userId;
+		_setOriginalUserId = false;
 
-		oAuthApplicationModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalName = _name;
 
-		oAuthApplicationModelImpl._setModifiedDate = false;
+		_originalConsumerKey = _consumerKey;
 
-		oAuthApplicationModelImpl._originalName =
-			oAuthApplicationModelImpl._name;
-
-		oAuthApplicationModelImpl._originalConsumerKey =
-			oAuthApplicationModelImpl._consumerKey;
-
-		oAuthApplicationModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

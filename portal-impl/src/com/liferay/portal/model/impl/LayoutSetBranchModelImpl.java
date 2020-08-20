@@ -946,7 +946,7 @@ public class LayoutSetBranchModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -1229,28 +1229,22 @@ public class LayoutSetBranchModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		LayoutSetBranchModelImpl layoutSetBranchModelImpl = this;
+		_originalGroupId = _groupId;
 
-		layoutSetBranchModelImpl._originalGroupId =
-			layoutSetBranchModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		layoutSetBranchModelImpl._setOriginalGroupId = false;
+		_setModifiedDate = false;
+		_originalPrivateLayout = _privateLayout;
 
-		layoutSetBranchModelImpl._setModifiedDate = false;
+		_setOriginalPrivateLayout = false;
 
-		layoutSetBranchModelImpl._originalPrivateLayout =
-			layoutSetBranchModelImpl._privateLayout;
+		_originalName = _name;
 
-		layoutSetBranchModelImpl._setOriginalPrivateLayout = false;
+		_originalMaster = _master;
 
-		layoutSetBranchModelImpl._originalName = layoutSetBranchModelImpl._name;
+		_setOriginalMaster = false;
 
-		layoutSetBranchModelImpl._originalMaster =
-			layoutSetBranchModelImpl._master;
-
-		layoutSetBranchModelImpl._setOriginalMaster = false;
-
-		layoutSetBranchModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

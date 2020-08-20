@@ -1124,30 +1124,23 @@ public class OAuth2AuthorizationModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		OAuth2AuthorizationModelImpl oAuth2AuthorizationModelImpl = this;
+		_originalUserId = _userId;
 
-		oAuth2AuthorizationModelImpl._originalUserId =
-			oAuth2AuthorizationModelImpl._userId;
+		_setOriginalUserId = false;
 
-		oAuth2AuthorizationModelImpl._setOriginalUserId = false;
+		_originalOAuth2ApplicationId = _oAuth2ApplicationId;
 
-		oAuth2AuthorizationModelImpl._originalOAuth2ApplicationId =
-			oAuth2AuthorizationModelImpl._oAuth2ApplicationId;
+		_setOriginalOAuth2ApplicationId = false;
 
-		oAuth2AuthorizationModelImpl._setOriginalOAuth2ApplicationId = false;
+		_originalAccessTokenContentHash = _accessTokenContentHash;
 
-		oAuth2AuthorizationModelImpl._originalAccessTokenContentHash =
-			oAuth2AuthorizationModelImpl._accessTokenContentHash;
+		_setOriginalAccessTokenContentHash = false;
 
-		oAuth2AuthorizationModelImpl._setOriginalAccessTokenContentHash = false;
+		_originalRefreshTokenContentHash = _refreshTokenContentHash;
 
-		oAuth2AuthorizationModelImpl._originalRefreshTokenContentHash =
-			oAuth2AuthorizationModelImpl._refreshTokenContentHash;
+		_setOriginalRefreshTokenContentHash = false;
 
-		oAuth2AuthorizationModelImpl._setOriginalRefreshTokenContentHash =
-			false;
-
-		oAuth2AuthorizationModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -852,7 +852,7 @@ public class AssetVocabularyModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -1308,28 +1308,22 @@ public class AssetVocabularyModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AssetVocabularyModelImpl assetVocabularyModelImpl = this;
+		_originalUuid = _uuid;
 
-		assetVocabularyModelImpl._originalUuid = assetVocabularyModelImpl._uuid;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		assetVocabularyModelImpl._originalExternalReferenceCode =
-			assetVocabularyModelImpl._externalReferenceCode;
+		_originalGroupId = _groupId;
 
-		assetVocabularyModelImpl._originalGroupId =
-			assetVocabularyModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		assetVocabularyModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		assetVocabularyModelImpl._originalCompanyId =
-			assetVocabularyModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		assetVocabularyModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalName = _name;
 
-		assetVocabularyModelImpl._setModifiedDate = false;
-
-		assetVocabularyModelImpl._originalName = assetVocabularyModelImpl._name;
-
-		assetVocabularyModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

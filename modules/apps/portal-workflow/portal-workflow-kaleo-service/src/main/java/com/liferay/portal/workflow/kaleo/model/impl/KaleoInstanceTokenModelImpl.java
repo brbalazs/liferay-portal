@@ -671,8 +671,6 @@ public class KaleoInstanceTokenModelImpl
 
 	@Override
 	public void setKaleoInstanceTokenId(long kaleoInstanceTokenId) {
-		_columnBitmask = -1L;
-
 		_kaleoInstanceTokenId = kaleoInstanceTokenId;
 	}
 
@@ -1054,36 +1052,26 @@ public class KaleoInstanceTokenModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoInstanceTokenModelImpl kaleoInstanceTokenModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		kaleoInstanceTokenModelImpl._originalCompanyId =
-			kaleoInstanceTokenModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kaleoInstanceTokenModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalKaleoDefinitionVersionId = _kaleoDefinitionVersionId;
 
-		kaleoInstanceTokenModelImpl._setModifiedDate = false;
+		_setOriginalKaleoDefinitionVersionId = false;
 
-		kaleoInstanceTokenModelImpl._originalKaleoDefinitionVersionId =
-			kaleoInstanceTokenModelImpl._kaleoDefinitionVersionId;
+		_originalKaleoInstanceId = _kaleoInstanceId;
 
-		kaleoInstanceTokenModelImpl._setOriginalKaleoDefinitionVersionId =
-			false;
+		_setOriginalKaleoInstanceId = false;
 
-		kaleoInstanceTokenModelImpl._originalKaleoInstanceId =
-			kaleoInstanceTokenModelImpl._kaleoInstanceId;
+		_originalParentKaleoInstanceTokenId = _parentKaleoInstanceTokenId;
 
-		kaleoInstanceTokenModelImpl._setOriginalKaleoInstanceId = false;
+		_setOriginalParentKaleoInstanceTokenId = false;
 
-		kaleoInstanceTokenModelImpl._originalParentKaleoInstanceTokenId =
-			kaleoInstanceTokenModelImpl._parentKaleoInstanceTokenId;
+		_originalCompletionDate = _completionDate;
 
-		kaleoInstanceTokenModelImpl._setOriginalParentKaleoInstanceTokenId =
-			false;
-
-		kaleoInstanceTokenModelImpl._originalCompletionDate =
-			kaleoInstanceTokenModelImpl._completionDate;
-
-		kaleoInstanceTokenModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -512,12 +511,11 @@ public class FragmentCollectionPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newFragmentCollection.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingFragmentCollection.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingFragmentCollection, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingFragmentCollection.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingFragmentCollection, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingFragmentCollection.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -529,12 +527,11 @@ public class FragmentCollectionPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingFragmentCollection, "getOriginalGroupId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingFragmentCollection.getFragmentCollectionKey(),
-				ReflectionTestUtil.invoke(
-					existingFragmentCollection,
-					"getOriginalFragmentCollectionKey", new Class<?>[0])));
+		Assert.assertEquals(
+			existingFragmentCollection.getFragmentCollectionKey(),
+			ReflectionTestUtil.invoke(
+				existingFragmentCollection, "getOriginalFragmentCollectionKey",
+				new Class<?>[0]));
 	}
 
 	protected FragmentCollection addFragmentCollection() throws Exception {

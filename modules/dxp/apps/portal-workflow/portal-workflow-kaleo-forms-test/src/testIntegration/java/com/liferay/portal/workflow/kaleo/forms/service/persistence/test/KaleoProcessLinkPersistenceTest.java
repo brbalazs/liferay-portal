@@ -44,7 +44,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -425,12 +424,11 @@ public class KaleoProcessLinkPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingKaleoProcessLink, "getOriginalKaleoProcessId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingKaleoProcessLink.getWorkflowTaskName(),
-				ReflectionTestUtil.invoke(
-					existingKaleoProcessLink, "getOriginalWorkflowTaskName",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingKaleoProcessLink.getWorkflowTaskName(),
+			ReflectionTestUtil.invoke(
+				existingKaleoProcessLink, "getOriginalWorkflowTaskName",
+				new Class<?>[0]));
 	}
 
 	protected KaleoProcessLink addKaleoProcessLink() throws Exception {

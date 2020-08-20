@@ -570,14 +570,11 @@ public class UserTrackerPathModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		UserTrackerPathModelImpl userTrackerPathModelImpl = this;
+		_originalUserTrackerId = _userTrackerId;
 
-		userTrackerPathModelImpl._originalUserTrackerId =
-			userTrackerPathModelImpl._userTrackerId;
+		_setOriginalUserTrackerId = false;
 
-		userTrackerPathModelImpl._setOriginalUserTrackerId = false;
-
-		userTrackerPathModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

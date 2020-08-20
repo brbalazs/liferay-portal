@@ -1024,8 +1024,6 @@ public class CPMeasurementUnitModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1253,37 +1251,29 @@ public class CPMeasurementUnitModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPMeasurementUnitModelImpl cpMeasurementUnitModelImpl = this;
+		_originalUuid = _uuid;
 
-		cpMeasurementUnitModelImpl._originalUuid =
-			cpMeasurementUnitModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		cpMeasurementUnitModelImpl._originalGroupId =
-			cpMeasurementUnitModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		cpMeasurementUnitModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		cpMeasurementUnitModelImpl._originalCompanyId =
-			cpMeasurementUnitModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpMeasurementUnitModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		cpMeasurementUnitModelImpl._setModifiedDate = false;
+		_originalKey = _key;
 
-		cpMeasurementUnitModelImpl._originalKey =
-			cpMeasurementUnitModelImpl._key;
+		_originalPrimary = _primary;
 
-		cpMeasurementUnitModelImpl._originalPrimary =
-			cpMeasurementUnitModelImpl._primary;
+		_setOriginalPrimary = false;
 
-		cpMeasurementUnitModelImpl._setOriginalPrimary = false;
+		_originalType = _type;
 
-		cpMeasurementUnitModelImpl._originalType =
-			cpMeasurementUnitModelImpl._type;
+		_setOriginalType = false;
 
-		cpMeasurementUnitModelImpl._setOriginalType = false;
-
-		cpMeasurementUnitModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

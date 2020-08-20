@@ -902,36 +902,30 @@ public class MBDiscussionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		MBDiscussionModelImpl mbDiscussionModelImpl = this;
+		_originalUuid = _uuid;
 
-		mbDiscussionModelImpl._originalUuid = mbDiscussionModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		mbDiscussionModelImpl._originalGroupId = mbDiscussionModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		mbDiscussionModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		mbDiscussionModelImpl._originalCompanyId =
-			mbDiscussionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		mbDiscussionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		mbDiscussionModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		mbDiscussionModelImpl._originalClassNameId =
-			mbDiscussionModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		mbDiscussionModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		mbDiscussionModelImpl._originalClassPK = mbDiscussionModelImpl._classPK;
+		_originalThreadId = _threadId;
 
-		mbDiscussionModelImpl._setOriginalClassPK = false;
+		_setOriginalThreadId = false;
 
-		mbDiscussionModelImpl._originalThreadId =
-			mbDiscussionModelImpl._threadId;
-
-		mbDiscussionModelImpl._setOriginalThreadId = false;
-
-		mbDiscussionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

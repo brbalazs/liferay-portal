@@ -1386,25 +1386,21 @@ public class DDMFormInstanceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDMFormInstanceModelImpl ddmFormInstanceModelImpl = this;
+		_originalUuid = _uuid;
 
-		ddmFormInstanceModelImpl._originalUuid = ddmFormInstanceModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		ddmFormInstanceModelImpl._originalGroupId =
-			ddmFormInstanceModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		ddmFormInstanceModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		ddmFormInstanceModelImpl._originalCompanyId =
-			ddmFormInstanceModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		ddmFormInstanceModelImpl._setOriginalCompanyId = false;
-
-		ddmFormInstanceModelImpl._setModifiedDate = false;
+		_setModifiedDate = false;
 
 		setDDMFormValues(null);
 
-		ddmFormInstanceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

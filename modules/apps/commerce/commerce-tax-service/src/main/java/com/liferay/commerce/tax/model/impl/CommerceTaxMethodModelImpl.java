@@ -708,8 +708,6 @@ public class CommerceTaxMethodModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1211,24 +1209,19 @@ public class CommerceTaxMethodModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceTaxMethodModelImpl commerceTaxMethodModelImpl = this;
+		_originalGroupId = _groupId;
 
-		commerceTaxMethodModelImpl._originalGroupId =
-			commerceTaxMethodModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		commerceTaxMethodModelImpl._setOriginalGroupId = false;
+		_setModifiedDate = false;
 
-		commerceTaxMethodModelImpl._setModifiedDate = false;
+		_originalEngineKey = _engineKey;
 
-		commerceTaxMethodModelImpl._originalEngineKey =
-			commerceTaxMethodModelImpl._engineKey;
+		_originalActive = _active;
 
-		commerceTaxMethodModelImpl._originalActive =
-			commerceTaxMethodModelImpl._active;
+		_setOriginalActive = false;
 
-		commerceTaxMethodModelImpl._setOriginalActive = false;
-
-		commerceTaxMethodModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

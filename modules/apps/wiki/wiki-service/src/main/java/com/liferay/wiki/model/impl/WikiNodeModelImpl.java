@@ -841,7 +841,7 @@ public class WikiNodeModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -1334,27 +1334,24 @@ public class WikiNodeModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		WikiNodeModelImpl wikiNodeModelImpl = this;
+		_originalUuid = _uuid;
 
-		wikiNodeModelImpl._originalUuid = wikiNodeModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		wikiNodeModelImpl._originalGroupId = wikiNodeModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		wikiNodeModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		wikiNodeModelImpl._originalCompanyId = wikiNodeModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		wikiNodeModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalName = _name;
 
-		wikiNodeModelImpl._setModifiedDate = false;
+		_originalStatus = _status;
 
-		wikiNodeModelImpl._originalName = wikiNodeModelImpl._name;
+		_setOriginalStatus = false;
 
-		wikiNodeModelImpl._originalStatus = wikiNodeModelImpl._status;
-
-		wikiNodeModelImpl._setOriginalStatus = false;
-
-		wikiNodeModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

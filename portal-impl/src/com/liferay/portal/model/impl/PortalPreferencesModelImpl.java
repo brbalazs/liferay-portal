@@ -554,19 +554,15 @@ public class PortalPreferencesModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		PortalPreferencesModelImpl portalPreferencesModelImpl = this;
+		_originalOwnerId = _ownerId;
 
-		portalPreferencesModelImpl._originalOwnerId =
-			portalPreferencesModelImpl._ownerId;
+		_setOriginalOwnerId = false;
 
-		portalPreferencesModelImpl._setOriginalOwnerId = false;
+		_originalOwnerType = _ownerType;
 
-		portalPreferencesModelImpl._originalOwnerType =
-			portalPreferencesModelImpl._ownerType;
+		_setOriginalOwnerType = false;
 
-		portalPreferencesModelImpl._setOriginalOwnerType = false;
-
-		portalPreferencesModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

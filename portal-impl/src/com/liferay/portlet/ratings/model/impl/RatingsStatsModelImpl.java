@@ -631,18 +631,15 @@ public class RatingsStatsModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		RatingsStatsModelImpl ratingsStatsModelImpl = this;
+		_originalClassNameId = _classNameId;
 
-		ratingsStatsModelImpl._originalClassNameId =
-			ratingsStatsModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		ratingsStatsModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		ratingsStatsModelImpl._originalClassPK = ratingsStatsModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		ratingsStatsModelImpl._setOriginalClassPK = false;
-
-		ratingsStatsModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

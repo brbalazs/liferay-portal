@@ -582,8 +582,6 @@ public class CPTaxCategoryModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1008,16 +1006,13 @@ public class CPTaxCategoryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPTaxCategoryModelImpl cpTaxCategoryModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		cpTaxCategoryModelImpl._originalCompanyId =
-			cpTaxCategoryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpTaxCategoryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		cpTaxCategoryModelImpl._setModifiedDate = false;
-
-		cpTaxCategoryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

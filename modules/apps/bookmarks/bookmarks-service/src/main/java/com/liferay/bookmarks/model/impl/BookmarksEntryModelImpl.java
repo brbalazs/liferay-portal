@@ -981,7 +981,7 @@ public class BookmarksEntryModelImpl
 
 	@Override
 	public void setFolderId(long folderId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= FOLDERID_COLUMN_BITMASK;
 
 		if (!_setOriginalFolderId) {
 			_setOriginalFolderId = true;
@@ -1025,8 +1025,6 @@ public class BookmarksEntryModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -1531,38 +1529,30 @@ public class BookmarksEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		BookmarksEntryModelImpl bookmarksEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		bookmarksEntryModelImpl._originalUuid = bookmarksEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		bookmarksEntryModelImpl._originalGroupId =
-			bookmarksEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		bookmarksEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		bookmarksEntryModelImpl._originalCompanyId =
-			bookmarksEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		bookmarksEntryModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		bookmarksEntryModelImpl._originalUserId =
-			bookmarksEntryModelImpl._userId;
+		_setOriginalUserId = false;
 
-		bookmarksEntryModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalFolderId = _folderId;
 
-		bookmarksEntryModelImpl._setModifiedDate = false;
+		_setOriginalFolderId = false;
 
-		bookmarksEntryModelImpl._originalFolderId =
-			bookmarksEntryModelImpl._folderId;
+		_originalStatus = _status;
 
-		bookmarksEntryModelImpl._setOriginalFolderId = false;
+		_setOriginalStatus = false;
 
-		bookmarksEntryModelImpl._originalStatus =
-			bookmarksEntryModelImpl._status;
-
-		bookmarksEntryModelImpl._setOriginalStatus = false;
-
-		bookmarksEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

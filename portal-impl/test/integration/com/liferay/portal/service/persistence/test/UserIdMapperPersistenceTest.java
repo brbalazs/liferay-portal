@@ -43,7 +43,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -438,23 +437,20 @@ public class UserIdMapperPersistenceTest {
 			Long.valueOf(existingUserIdMapper.getUserId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingUserIdMapper, "getOriginalUserId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingUserIdMapper.getType(),
-				ReflectionTestUtil.invoke(
-					existingUserIdMapper, "getOriginalType", new Class<?>[0])));
+		Assert.assertEquals(
+			existingUserIdMapper.getType(),
+			ReflectionTestUtil.invoke(
+				existingUserIdMapper, "getOriginalType", new Class<?>[0]));
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingUserIdMapper.getType(),
-				ReflectionTestUtil.invoke(
-					existingUserIdMapper, "getOriginalType", new Class<?>[0])));
-		Assert.assertTrue(
-			Objects.equals(
-				existingUserIdMapper.getExternalUserId(),
-				ReflectionTestUtil.invoke(
-					existingUserIdMapper, "getOriginalExternalUserId",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingUserIdMapper.getType(),
+			ReflectionTestUtil.invoke(
+				existingUserIdMapper, "getOriginalType", new Class<?>[0]));
+		Assert.assertEquals(
+			existingUserIdMapper.getExternalUserId(),
+			ReflectionTestUtil.invoke(
+				existingUserIdMapper, "getOriginalExternalUserId",
+				new Class<?>[0]));
 	}
 
 	protected UserIdMapper addUserIdMapper() throws Exception {

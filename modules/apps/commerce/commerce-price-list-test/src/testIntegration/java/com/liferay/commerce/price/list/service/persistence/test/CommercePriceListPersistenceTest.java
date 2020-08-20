@@ -46,7 +46,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -650,12 +649,10 @@ public class CommercePriceListPersistenceTest {
 		CommercePriceList existingCommercePriceList =
 			_persistence.findByPrimaryKey(newCommercePriceList.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommercePriceList.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCommercePriceList, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommercePriceList.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCommercePriceList, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCommercePriceList.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -692,24 +689,21 @@ public class CommercePriceListPersistenceTest {
 			ReflectionTestUtil.<Boolean>invoke(
 				existingCommercePriceList, "getOriginalCatalogBasePriceList",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommercePriceList.getType(),
-				ReflectionTestUtil.invoke(
-					existingCommercePriceList, "getOriginalType",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommercePriceList.getType(),
+			ReflectionTestUtil.invoke(
+				existingCommercePriceList, "getOriginalType", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingCommercePriceList.getCompanyId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingCommercePriceList, "getOriginalCompanyId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommercePriceList.getExternalReferenceCode(),
-				ReflectionTestUtil.invoke(
-					existingCommercePriceList,
-					"getOriginalExternalReferenceCode", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommercePriceList.getExternalReferenceCode(),
+			ReflectionTestUtil.invoke(
+				existingCommercePriceList, "getOriginalExternalReferenceCode",
+				new Class<?>[0]));
 	}
 
 	protected CommercePriceList addCommercePriceList() throws Exception {

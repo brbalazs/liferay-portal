@@ -1145,40 +1145,29 @@ public class SiteNavigationMenuItemModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SiteNavigationMenuItemModelImpl siteNavigationMenuItemModelImpl = this;
+		_originalUuid = _uuid;
 
-		siteNavigationMenuItemModelImpl._originalUuid =
-			siteNavigationMenuItemModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		siteNavigationMenuItemModelImpl._originalGroupId =
-			siteNavigationMenuItemModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		siteNavigationMenuItemModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		siteNavigationMenuItemModelImpl._originalCompanyId =
-			siteNavigationMenuItemModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		siteNavigationMenuItemModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalSiteNavigationMenuId = _siteNavigationMenuId;
 
-		siteNavigationMenuItemModelImpl._setModifiedDate = false;
+		_setOriginalSiteNavigationMenuId = false;
 
-		siteNavigationMenuItemModelImpl._originalSiteNavigationMenuId =
-			siteNavigationMenuItemModelImpl._siteNavigationMenuId;
+		_originalParentSiteNavigationMenuItemId =
+			_parentSiteNavigationMenuItemId;
 
-		siteNavigationMenuItemModelImpl._setOriginalSiteNavigationMenuId =
-			false;
+		_setOriginalParentSiteNavigationMenuItemId = false;
 
-		siteNavigationMenuItemModelImpl.
-			_originalParentSiteNavigationMenuItemId =
-				siteNavigationMenuItemModelImpl._parentSiteNavigationMenuItemId;
+		_originalName = _name;
 
-		siteNavigationMenuItemModelImpl.
-			_setOriginalParentSiteNavigationMenuItemId = false;
-
-		siteNavigationMenuItemModelImpl._originalName =
-			siteNavigationMenuItemModelImpl._name;
-
-		siteNavigationMenuItemModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

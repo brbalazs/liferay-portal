@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -501,12 +500,10 @@ public class CommerceWishListPersistenceTest {
 		CommerceWishList existingCommerceWishList =
 			_persistence.findByPrimaryKey(newCommerceWishList.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceWishList.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCommerceWishList, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceWishList.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCommerceWishList, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCommerceWishList.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

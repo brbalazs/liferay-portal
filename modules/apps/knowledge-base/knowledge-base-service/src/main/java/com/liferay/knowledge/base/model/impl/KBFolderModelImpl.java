@@ -974,30 +974,26 @@ public class KBFolderModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KBFolderModelImpl kbFolderModelImpl = this;
+		_originalUuid = _uuid;
 
-		kbFolderModelImpl._originalUuid = kbFolderModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		kbFolderModelImpl._originalGroupId = kbFolderModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		kbFolderModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		kbFolderModelImpl._originalCompanyId = kbFolderModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kbFolderModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalParentKBFolderId = _parentKBFolderId;
 
-		kbFolderModelImpl._setModifiedDate = false;
+		_setOriginalParentKBFolderId = false;
 
-		kbFolderModelImpl._originalParentKBFolderId =
-			kbFolderModelImpl._parentKBFolderId;
+		_originalName = _name;
 
-		kbFolderModelImpl._setOriginalParentKBFolderId = false;
+		_originalUrlTitle = _urlTitle;
 
-		kbFolderModelImpl._originalName = kbFolderModelImpl._name;
-
-		kbFolderModelImpl._originalUrlTitle = kbFolderModelImpl._urlTitle;
-
-		kbFolderModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

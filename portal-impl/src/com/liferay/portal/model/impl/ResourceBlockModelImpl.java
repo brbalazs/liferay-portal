@@ -704,24 +704,19 @@ public class ResourceBlockModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ResourceBlockModelImpl resourceBlockModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		resourceBlockModelImpl._originalCompanyId =
-			resourceBlockModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		resourceBlockModelImpl._setOriginalCompanyId = false;
+		_originalGroupId = _groupId;
 
-		resourceBlockModelImpl._originalGroupId =
-			resourceBlockModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		resourceBlockModelImpl._setOriginalGroupId = false;
+		_originalName = _name;
 
-		resourceBlockModelImpl._originalName = resourceBlockModelImpl._name;
+		_originalPermissionsHash = _permissionsHash;
 
-		resourceBlockModelImpl._originalPermissionsHash =
-			resourceBlockModelImpl._permissionsHash;
-
-		resourceBlockModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

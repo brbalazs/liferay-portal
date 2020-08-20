@@ -900,34 +900,26 @@ public class FriendlyURLEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		FriendlyURLEntryModelImpl friendlyURLEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		friendlyURLEntryModelImpl._originalUuid =
-			friendlyURLEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		friendlyURLEntryModelImpl._originalGroupId =
-			friendlyURLEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		friendlyURLEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		friendlyURLEntryModelImpl._originalCompanyId =
-			friendlyURLEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		friendlyURLEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		friendlyURLEntryModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		friendlyURLEntryModelImpl._originalClassNameId =
-			friendlyURLEntryModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		friendlyURLEntryModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		friendlyURLEntryModelImpl._originalClassPK =
-			friendlyURLEntryModelImpl._classPK;
-
-		friendlyURLEntryModelImpl._setOriginalClassPK = false;
-
-		friendlyURLEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -700,8 +700,6 @@ public class KaleoTaskAssignmentModelImpl
 
 	@Override
 	public void setKaleoTaskAssignmentId(long kaleoTaskAssignmentId) {
-		_columnBitmask = -1L;
-
 		_kaleoTaskAssignmentId = kaleoTaskAssignmentId;
 	}
 
@@ -1109,33 +1107,24 @@ public class KaleoTaskAssignmentModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoTaskAssignmentModelImpl kaleoTaskAssignmentModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		kaleoTaskAssignmentModelImpl._originalCompanyId =
-			kaleoTaskAssignmentModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kaleoTaskAssignmentModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalKaleoClassName = _kaleoClassName;
 
-		kaleoTaskAssignmentModelImpl._setModifiedDate = false;
+		_originalKaleoClassPK = _kaleoClassPK;
 
-		kaleoTaskAssignmentModelImpl._originalKaleoClassName =
-			kaleoTaskAssignmentModelImpl._kaleoClassName;
+		_setOriginalKaleoClassPK = false;
 
-		kaleoTaskAssignmentModelImpl._originalKaleoClassPK =
-			kaleoTaskAssignmentModelImpl._kaleoClassPK;
+		_originalKaleoDefinitionVersionId = _kaleoDefinitionVersionId;
 
-		kaleoTaskAssignmentModelImpl._setOriginalKaleoClassPK = false;
+		_setOriginalKaleoDefinitionVersionId = false;
 
-		kaleoTaskAssignmentModelImpl._originalKaleoDefinitionVersionId =
-			kaleoTaskAssignmentModelImpl._kaleoDefinitionVersionId;
+		_originalAssigneeClassName = _assigneeClassName;
 
-		kaleoTaskAssignmentModelImpl._setOriginalKaleoDefinitionVersionId =
-			false;
-
-		kaleoTaskAssignmentModelImpl._originalAssigneeClassName =
-			kaleoTaskAssignmentModelImpl._assigneeClassName;
-
-		kaleoTaskAssignmentModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -702,28 +702,21 @@ public class SocialActivityAchievementModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SocialActivityAchievementModelImpl socialActivityAchievementModelImpl =
-			this;
+		_originalGroupId = _groupId;
 
-		socialActivityAchievementModelImpl._originalGroupId =
-			socialActivityAchievementModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		socialActivityAchievementModelImpl._setOriginalGroupId = false;
+		_originalUserId = _userId;
 
-		socialActivityAchievementModelImpl._originalUserId =
-			socialActivityAchievementModelImpl._userId;
+		_setOriginalUserId = false;
 
-		socialActivityAchievementModelImpl._setOriginalUserId = false;
+		_originalName = _name;
 
-		socialActivityAchievementModelImpl._originalName =
-			socialActivityAchievementModelImpl._name;
+		_originalFirstInGroup = _firstInGroup;
 
-		socialActivityAchievementModelImpl._originalFirstInGroup =
-			socialActivityAchievementModelImpl._firstInGroup;
+		_setOriginalFirstInGroup = false;
 
-		socialActivityAchievementModelImpl._setOriginalFirstInGroup = false;
-
-		socialActivityAchievementModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

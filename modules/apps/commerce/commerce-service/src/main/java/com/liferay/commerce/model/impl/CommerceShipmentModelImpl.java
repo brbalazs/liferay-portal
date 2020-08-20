@@ -807,8 +807,6 @@ public class CommerceShipmentModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1081,26 +1079,21 @@ public class CommerceShipmentModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceShipmentModelImpl commerceShipmentModelImpl = this;
+		_originalGroupId = _groupId;
 
-		commerceShipmentModelImpl._originalGroupId =
-			commerceShipmentModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		commerceShipmentModelImpl._setOriginalGroupId = false;
+		_setModifiedDate = false;
 
-		commerceShipmentModelImpl._setModifiedDate = false;
+		_originalCommerceAddressId = _commerceAddressId;
 
-		commerceShipmentModelImpl._originalCommerceAddressId =
-			commerceShipmentModelImpl._commerceAddressId;
+		_setOriginalCommerceAddressId = false;
 
-		commerceShipmentModelImpl._setOriginalCommerceAddressId = false;
+		_originalStatus = _status;
 
-		commerceShipmentModelImpl._originalStatus =
-			commerceShipmentModelImpl._status;
+		_setOriginalStatus = false;
 
-		commerceShipmentModelImpl._setOriginalStatus = false;
-
-		commerceShipmentModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

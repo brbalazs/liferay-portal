@@ -1390,8 +1390,6 @@ public class CalendarBookingModelImpl
 
 	@Override
 	public void setTitle(String title) {
-		_columnBitmask = -1L;
-
 		_title = title;
 	}
 
@@ -1573,8 +1571,6 @@ public class CalendarBookingModelImpl
 
 	@Override
 	public void setStartTime(long startTime) {
-		_columnBitmask = -1L;
-
 		_startTime = startTime;
 	}
 
@@ -2222,51 +2218,40 @@ public class CalendarBookingModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CalendarBookingModelImpl calendarBookingModelImpl = this;
+		_originalUuid = _uuid;
 
-		calendarBookingModelImpl._originalUuid = calendarBookingModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		calendarBookingModelImpl._originalGroupId =
-			calendarBookingModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		calendarBookingModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		calendarBookingModelImpl._originalCompanyId =
-			calendarBookingModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		calendarBookingModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCalendarId = _calendarId;
 
-		calendarBookingModelImpl._setModifiedDate = false;
+		_setOriginalCalendarId = false;
 
-		calendarBookingModelImpl._originalCalendarId =
-			calendarBookingModelImpl._calendarId;
+		_originalCalendarResourceId = _calendarResourceId;
 
-		calendarBookingModelImpl._setOriginalCalendarId = false;
+		_setOriginalCalendarResourceId = false;
 
-		calendarBookingModelImpl._originalCalendarResourceId =
-			calendarBookingModelImpl._calendarResourceId;
+		_originalParentCalendarBookingId = _parentCalendarBookingId;
 
-		calendarBookingModelImpl._setOriginalCalendarResourceId = false;
+		_setOriginalParentCalendarBookingId = false;
 
-		calendarBookingModelImpl._originalParentCalendarBookingId =
-			calendarBookingModelImpl._parentCalendarBookingId;
+		_originalRecurringCalendarBookingId = _recurringCalendarBookingId;
 
-		calendarBookingModelImpl._setOriginalParentCalendarBookingId = false;
+		_setOriginalRecurringCalendarBookingId = false;
 
-		calendarBookingModelImpl._originalRecurringCalendarBookingId =
-			calendarBookingModelImpl._recurringCalendarBookingId;
+		_originalVEventUid = _vEventUid;
 
-		calendarBookingModelImpl._setOriginalRecurringCalendarBookingId = false;
+		_originalStatus = _status;
 
-		calendarBookingModelImpl._originalVEventUid =
-			calendarBookingModelImpl._vEventUid;
+		_setOriginalStatus = false;
 
-		calendarBookingModelImpl._originalStatus =
-			calendarBookingModelImpl._status;
-
-		calendarBookingModelImpl._setOriginalStatus = false;
-
-		calendarBookingModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

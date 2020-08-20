@@ -696,7 +696,7 @@ public class AssetCategoryPropertyModelImpl
 
 	@Override
 	public void setKey(String key) {
-		_columnBitmask = -1L;
+		_columnBitmask |= KEY_COLUMN_BITMASK;
 
 		if (_originalKey == null) {
 			_originalKey = _key;
@@ -832,24 +832,18 @@ public class AssetCategoryPropertyModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AssetCategoryPropertyModelImpl assetCategoryPropertyModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		assetCategoryPropertyModelImpl._originalCompanyId =
-			assetCategoryPropertyModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		assetCategoryPropertyModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCategoryId = _categoryId;
 
-		assetCategoryPropertyModelImpl._setModifiedDate = false;
+		_setOriginalCategoryId = false;
 
-		assetCategoryPropertyModelImpl._originalCategoryId =
-			assetCategoryPropertyModelImpl._categoryId;
+		_originalKey = _key;
 
-		assetCategoryPropertyModelImpl._setOriginalCategoryId = false;
-
-		assetCategoryPropertyModelImpl._originalKey =
-			assetCategoryPropertyModelImpl._key;
-
-		assetCategoryPropertyModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

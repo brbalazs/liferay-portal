@@ -44,7 +44,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -529,12 +528,10 @@ public class LayoutSetBranchPersistenceTest {
 			ReflectionTestUtil.<Boolean>invoke(
 				existingLayoutSetBranch, "getOriginalPrivateLayout",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayoutSetBranch.getName(),
-				ReflectionTestUtil.invoke(
-					existingLayoutSetBranch, "getOriginalName",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingLayoutSetBranch.getName(),
+			ReflectionTestUtil.invoke(
+				existingLayoutSetBranch, "getOriginalName", new Class<?>[0]));
 	}
 
 	protected LayoutSetBranch addLayoutSetBranch() throws Exception {

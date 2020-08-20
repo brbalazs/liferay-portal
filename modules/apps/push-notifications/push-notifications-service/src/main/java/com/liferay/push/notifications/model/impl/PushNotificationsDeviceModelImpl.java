@@ -708,21 +708,15 @@ public class PushNotificationsDeviceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		PushNotificationsDeviceModelImpl pushNotificationsDeviceModelImpl =
-			this;
+		_originalUserId = _userId;
 
-		pushNotificationsDeviceModelImpl._originalUserId =
-			pushNotificationsDeviceModelImpl._userId;
+		_setOriginalUserId = false;
 
-		pushNotificationsDeviceModelImpl._setOriginalUserId = false;
+		_originalPlatform = _platform;
 
-		pushNotificationsDeviceModelImpl._originalPlatform =
-			pushNotificationsDeviceModelImpl._platform;
+		_originalToken = _token;
 
-		pushNotificationsDeviceModelImpl._originalToken =
-			pushNotificationsDeviceModelImpl._token;
-
-		pushNotificationsDeviceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

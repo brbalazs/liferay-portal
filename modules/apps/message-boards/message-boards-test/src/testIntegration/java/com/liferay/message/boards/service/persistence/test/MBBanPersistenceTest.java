@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -461,11 +460,10 @@ public class MBBanPersistenceTest {
 		MBBan existingMBBan = _persistence.findByPrimaryKey(
 			newMBBan.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingMBBan.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingMBBan, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingMBBan.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingMBBan, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingMBBan.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

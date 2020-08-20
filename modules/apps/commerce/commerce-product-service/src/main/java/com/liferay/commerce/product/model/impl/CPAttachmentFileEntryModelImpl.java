@@ -1405,8 +1405,6 @@ public class CPAttachmentFileEntryModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1804,55 +1802,42 @@ public class CPAttachmentFileEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPAttachmentFileEntryModelImpl cpAttachmentFileEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		cpAttachmentFileEntryModelImpl._originalUuid =
-			cpAttachmentFileEntryModelImpl._uuid;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		cpAttachmentFileEntryModelImpl._originalExternalReferenceCode =
-			cpAttachmentFileEntryModelImpl._externalReferenceCode;
+		_originalGroupId = _groupId;
 
-		cpAttachmentFileEntryModelImpl._originalGroupId =
-			cpAttachmentFileEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		cpAttachmentFileEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		cpAttachmentFileEntryModelImpl._originalCompanyId =
-			cpAttachmentFileEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpAttachmentFileEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		cpAttachmentFileEntryModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		cpAttachmentFileEntryModelImpl._originalClassNameId =
-			cpAttachmentFileEntryModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		cpAttachmentFileEntryModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		cpAttachmentFileEntryModelImpl._originalClassPK =
-			cpAttachmentFileEntryModelImpl._classPK;
+		_originalFileEntryId = _fileEntryId;
 
-		cpAttachmentFileEntryModelImpl._setOriginalClassPK = false;
+		_setOriginalFileEntryId = false;
 
-		cpAttachmentFileEntryModelImpl._originalFileEntryId =
-			cpAttachmentFileEntryModelImpl._fileEntryId;
+		_originalDisplayDate = _displayDate;
 
-		cpAttachmentFileEntryModelImpl._setOriginalFileEntryId = false;
+		_originalType = _type;
 
-		cpAttachmentFileEntryModelImpl._originalDisplayDate =
-			cpAttachmentFileEntryModelImpl._displayDate;
+		_setOriginalType = false;
 
-		cpAttachmentFileEntryModelImpl._originalType =
-			cpAttachmentFileEntryModelImpl._type;
+		_originalStatus = _status;
 
-		cpAttachmentFileEntryModelImpl._setOriginalType = false;
+		_setOriginalStatus = false;
 
-		cpAttachmentFileEntryModelImpl._originalStatus =
-			cpAttachmentFileEntryModelImpl._status;
-
-		cpAttachmentFileEntryModelImpl._setOriginalStatus = false;
-
-		cpAttachmentFileEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

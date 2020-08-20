@@ -478,8 +478,6 @@ public class ImageModelImpl extends BaseModelImpl<Image> implements ImageModel {
 
 	@Override
 	public void setImageId(long imageId) {
-		_columnBitmask = -1L;
-
 		_imageId = imageId;
 	}
 
@@ -676,13 +674,11 @@ public class ImageModelImpl extends BaseModelImpl<Image> implements ImageModel {
 
 	@Override
 	public void resetOriginalValues() {
-		ImageModelImpl imageModelImpl = this;
+		_originalSize = _size;
 
-		imageModelImpl._originalSize = imageModelImpl._size;
+		_setOriginalSize = false;
 
-		imageModelImpl._setOriginalSize = false;
-
-		imageModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

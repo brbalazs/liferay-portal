@@ -1555,22 +1555,17 @@ public class DDMTemplateVersionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDMTemplateVersionModelImpl ddmTemplateVersionModelImpl = this;
+		_originalTemplateId = _templateId;
 
-		ddmTemplateVersionModelImpl._originalTemplateId =
-			ddmTemplateVersionModelImpl._templateId;
+		_setOriginalTemplateId = false;
 
-		ddmTemplateVersionModelImpl._setOriginalTemplateId = false;
+		_originalVersion = _version;
 
-		ddmTemplateVersionModelImpl._originalVersion =
-			ddmTemplateVersionModelImpl._version;
+		_originalStatus = _status;
 
-		ddmTemplateVersionModelImpl._originalStatus =
-			ddmTemplateVersionModelImpl._status;
+		_setOriginalStatus = false;
 
-		ddmTemplateVersionModelImpl._setOriginalStatus = false;
-
-		ddmTemplateVersionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

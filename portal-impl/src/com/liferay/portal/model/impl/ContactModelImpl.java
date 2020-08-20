@@ -977,8 +977,6 @@ public class ContactModelImpl
 
 	@Override
 	public void setContactId(long contactId) {
-		_columnBitmask = -1L;
-
 		_contactId = contactId;
 	}
 
@@ -1581,27 +1579,24 @@ public class ContactModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ContactModelImpl contactModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		contactModelImpl._originalCompanyId = contactModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		contactModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		contactModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		contactModelImpl._originalClassNameId = contactModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		contactModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		contactModelImpl._originalClassPK = contactModelImpl._classPK;
+		_originalAccountId = _accountId;
 
-		contactModelImpl._setOriginalClassPK = false;
+		_setOriginalAccountId = false;
 
-		contactModelImpl._originalAccountId = contactModelImpl._accountId;
-
-		contactModelImpl._setOriginalAccountId = false;
-
-		contactModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -812,36 +812,28 @@ public class ChangesetEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ChangesetEntryModelImpl changesetEntryModelImpl = this;
+		_originalGroupId = _groupId;
 
-		changesetEntryModelImpl._originalGroupId =
-			changesetEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		changesetEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		changesetEntryModelImpl._originalCompanyId =
-			changesetEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		changesetEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalChangesetCollectionId = _changesetCollectionId;
 
-		changesetEntryModelImpl._setModifiedDate = false;
+		_setOriginalChangesetCollectionId = false;
 
-		changesetEntryModelImpl._originalChangesetCollectionId =
-			changesetEntryModelImpl._changesetCollectionId;
+		_originalClassNameId = _classNameId;
 
-		changesetEntryModelImpl._setOriginalChangesetCollectionId = false;
+		_setOriginalClassNameId = false;
 
-		changesetEntryModelImpl._originalClassNameId =
-			changesetEntryModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		changesetEntryModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		changesetEntryModelImpl._originalClassPK =
-			changesetEntryModelImpl._classPK;
-
-		changesetEntryModelImpl._setOriginalClassPK = false;
-
-		changesetEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

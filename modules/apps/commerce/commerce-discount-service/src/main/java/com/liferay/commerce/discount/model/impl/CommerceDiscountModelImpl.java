@@ -1272,8 +1272,6 @@ public class CommerceDiscountModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1900,41 +1898,31 @@ public class CommerceDiscountModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceDiscountModelImpl commerceDiscountModelImpl = this;
+		_originalUuid = _uuid;
 
-		commerceDiscountModelImpl._originalUuid =
-			commerceDiscountModelImpl._uuid;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commerceDiscountModelImpl._originalExternalReferenceCode =
-			commerceDiscountModelImpl._externalReferenceCode;
+		_originalCompanyId = _companyId;
 
-		commerceDiscountModelImpl._originalCompanyId =
-			commerceDiscountModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceDiscountModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		commerceDiscountModelImpl._setModifiedDate = false;
+		_originalCouponCode = _couponCode;
 
-		commerceDiscountModelImpl._originalCouponCode =
-			commerceDiscountModelImpl._couponCode;
+		_originalActive = _active;
 
-		commerceDiscountModelImpl._originalActive =
-			commerceDiscountModelImpl._active;
+		_setOriginalActive = false;
 
-		commerceDiscountModelImpl._setOriginalActive = false;
+		_originalDisplayDate = _displayDate;
 
-		commerceDiscountModelImpl._originalDisplayDate =
-			commerceDiscountModelImpl._displayDate;
+		_originalExpirationDate = _expirationDate;
 
-		commerceDiscountModelImpl._originalExpirationDate =
-			commerceDiscountModelImpl._expirationDate;
+		_originalStatus = _status;
 
-		commerceDiscountModelImpl._originalStatus =
-			commerceDiscountModelImpl._status;
+		_setOriginalStatus = false;
 
-		commerceDiscountModelImpl._setOriginalStatus = false;
-
-		commerceDiscountModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -532,12 +531,11 @@ public class SiteNavigationMenuPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newSiteNavigationMenu.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingSiteNavigationMenu.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingSiteNavigationMenu, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingSiteNavigationMenu.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingSiteNavigationMenu, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingSiteNavigationMenu.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -549,12 +547,11 @@ public class SiteNavigationMenuPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingSiteNavigationMenu, "getOriginalGroupId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingSiteNavigationMenu.getName(),
-				ReflectionTestUtil.invoke(
-					existingSiteNavigationMenu, "getOriginalName",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingSiteNavigationMenu.getName(),
+			ReflectionTestUtil.invoke(
+				existingSiteNavigationMenu, "getOriginalName",
+				new Class<?>[0]));
 	}
 
 	protected SiteNavigationMenu addSiteNavigationMenu() throws Exception {

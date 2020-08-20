@@ -803,37 +803,29 @@ public class SocialActivityLimitModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SocialActivityLimitModelImpl socialActivityLimitModelImpl = this;
+		_originalGroupId = _groupId;
 
-		socialActivityLimitModelImpl._originalGroupId =
-			socialActivityLimitModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		socialActivityLimitModelImpl._setOriginalGroupId = false;
+		_originalUserId = _userId;
 
-		socialActivityLimitModelImpl._originalUserId =
-			socialActivityLimitModelImpl._userId;
+		_setOriginalUserId = false;
 
-		socialActivityLimitModelImpl._setOriginalUserId = false;
+		_originalClassNameId = _classNameId;
 
-		socialActivityLimitModelImpl._originalClassNameId =
-			socialActivityLimitModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		socialActivityLimitModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		socialActivityLimitModelImpl._originalClassPK =
-			socialActivityLimitModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		socialActivityLimitModelImpl._setOriginalClassPK = false;
+		_originalActivityType = _activityType;
 
-		socialActivityLimitModelImpl._originalActivityType =
-			socialActivityLimitModelImpl._activityType;
+		_setOriginalActivityType = false;
 
-		socialActivityLimitModelImpl._setOriginalActivityType = false;
+		_originalActivityCounterName = _activityCounterName;
 
-		socialActivityLimitModelImpl._originalActivityCounterName =
-			socialActivityLimitModelImpl._activityCounterName;
-
-		socialActivityLimitModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

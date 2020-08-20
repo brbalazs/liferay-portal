@@ -1057,8 +1057,6 @@ public class CommerceAccountModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -1466,28 +1464,23 @@ public class CommerceAccountModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceAccountModelImpl commerceAccountModelImpl = this;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commerceAccountModelImpl._originalExternalReferenceCode =
-			commerceAccountModelImpl._externalReferenceCode;
+		_originalCompanyId = _companyId;
 
-		commerceAccountModelImpl._originalCompanyId =
-			commerceAccountModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceAccountModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		commerceAccountModelImpl._originalUserId =
-			commerceAccountModelImpl._userId;
+		_setOriginalUserId = false;
 
-		commerceAccountModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
 
-		commerceAccountModelImpl._setModifiedDate = false;
+		_originalType = _type;
 
-		commerceAccountModelImpl._originalType = commerceAccountModelImpl._type;
+		_setOriginalType = false;
 
-		commerceAccountModelImpl._setOriginalType = false;
-
-		commerceAccountModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

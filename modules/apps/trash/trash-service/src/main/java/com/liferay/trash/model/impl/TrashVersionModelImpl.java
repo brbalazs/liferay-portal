@@ -650,22 +650,19 @@ public class TrashVersionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		TrashVersionModelImpl trashVersionModelImpl = this;
+		_originalEntryId = _entryId;
 
-		trashVersionModelImpl._originalEntryId = trashVersionModelImpl._entryId;
+		_setOriginalEntryId = false;
 
-		trashVersionModelImpl._setOriginalEntryId = false;
+		_originalClassNameId = _classNameId;
 
-		trashVersionModelImpl._originalClassNameId =
-			trashVersionModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		trashVersionModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		trashVersionModelImpl._originalClassPK = trashVersionModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		trashVersionModelImpl._setOriginalClassPK = false;
-
-		trashVersionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

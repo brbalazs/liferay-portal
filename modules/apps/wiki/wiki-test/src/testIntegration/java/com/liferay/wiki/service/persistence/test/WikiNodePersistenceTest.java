@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -514,11 +513,10 @@ public class WikiNodePersistenceTest {
 		WikiNode existingWikiNode = _persistence.findByPrimaryKey(
 			newWikiNode.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingWikiNode.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingWikiNode, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingWikiNode.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingWikiNode, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingWikiNode.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -528,11 +526,10 @@ public class WikiNodePersistenceTest {
 			Long.valueOf(existingWikiNode.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingWikiNode, "getOriginalGroupId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingWikiNode.getName(),
-				ReflectionTestUtil.invoke(
-					existingWikiNode, "getOriginalName", new Class<?>[0])));
+		Assert.assertEquals(
+			existingWikiNode.getName(),
+			ReflectionTestUtil.invoke(
+				existingWikiNode, "getOriginalName", new Class<?>[0]));
 	}
 
 	protected WikiNode addWikiNode() throws Exception {

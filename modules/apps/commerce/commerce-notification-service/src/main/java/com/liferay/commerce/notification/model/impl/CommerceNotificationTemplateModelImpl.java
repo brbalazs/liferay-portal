@@ -1016,8 +1016,6 @@ public class CommerceNotificationTemplateModelImpl
 	public void setModifiedDate(Date modifiedDate) {
 		_setModifiedDate = true;
 
-		_columnBitmask = -1L;
-
 		_modifiedDate = modifiedDate;
 	}
 
@@ -1034,8 +1032,6 @@ public class CommerceNotificationTemplateModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -1737,33 +1733,25 @@ public class CommerceNotificationTemplateModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceNotificationTemplateModelImpl
-			commerceNotificationTemplateModelImpl = this;
+		_originalUuid = _uuid;
 
-		commerceNotificationTemplateModelImpl._originalUuid =
-			commerceNotificationTemplateModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		commerceNotificationTemplateModelImpl._originalGroupId =
-			commerceNotificationTemplateModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		commerceNotificationTemplateModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		commerceNotificationTemplateModelImpl._originalCompanyId =
-			commerceNotificationTemplateModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceNotificationTemplateModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		commerceNotificationTemplateModelImpl._setModifiedDate = false;
+		_originalType = _type;
 
-		commerceNotificationTemplateModelImpl._originalType =
-			commerceNotificationTemplateModelImpl._type;
+		_originalEnabled = _enabled;
 
-		commerceNotificationTemplateModelImpl._originalEnabled =
-			commerceNotificationTemplateModelImpl._enabled;
+		_setOriginalEnabled = false;
 
-		commerceNotificationTemplateModelImpl._setOriginalEnabled = false;
-
-		commerceNotificationTemplateModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

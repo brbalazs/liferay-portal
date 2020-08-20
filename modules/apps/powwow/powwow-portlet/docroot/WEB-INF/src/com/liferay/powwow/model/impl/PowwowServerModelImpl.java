@@ -631,8 +631,6 @@ public class PowwowServerModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -839,18 +837,15 @@ public class PowwowServerModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		PowwowServerModelImpl powwowServerModelImpl = this;
+		_setModifiedDate = false;
 
-		powwowServerModelImpl._setModifiedDate = false;
+		_originalProviderType = _providerType;
 
-		powwowServerModelImpl._originalProviderType =
-			powwowServerModelImpl._providerType;
+		_originalActive = _active;
 
-		powwowServerModelImpl._originalActive = powwowServerModelImpl._active;
+		_setOriginalActive = false;
 
-		powwowServerModelImpl._setOriginalActive = false;
-
-		powwowServerModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -964,7 +964,7 @@ public class CalendarResourceModelImpl
 
 	@Override
 	public void setCode(String code) {
-		_columnBitmask = -1L;
+		_columnBitmask |= CODE_COLUMN_BITMASK;
 
 		if (_originalCode == null) {
 			_originalCode = _code;
@@ -1433,42 +1433,32 @@ public class CalendarResourceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CalendarResourceModelImpl calendarResourceModelImpl = this;
+		_originalUuid = _uuid;
 
-		calendarResourceModelImpl._originalUuid =
-			calendarResourceModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		calendarResourceModelImpl._originalGroupId =
-			calendarResourceModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		calendarResourceModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		calendarResourceModelImpl._originalCompanyId =
-			calendarResourceModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		calendarResourceModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		calendarResourceModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		calendarResourceModelImpl._originalClassNameId =
-			calendarResourceModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		calendarResourceModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		calendarResourceModelImpl._originalClassPK =
-			calendarResourceModelImpl._classPK;
+		_originalCode = _code;
 
-		calendarResourceModelImpl._setOriginalClassPK = false;
+		_originalActive = _active;
 
-		calendarResourceModelImpl._originalCode =
-			calendarResourceModelImpl._code;
+		_setOriginalActive = false;
 
-		calendarResourceModelImpl._originalActive =
-			calendarResourceModelImpl._active;
-
-		calendarResourceModelImpl._setOriginalActive = false;
-
-		calendarResourceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

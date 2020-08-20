@@ -1460,22 +1460,17 @@ public class DDLRecordSetVersionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDLRecordSetVersionModelImpl ddlRecordSetVersionModelImpl = this;
+		_originalRecordSetId = _recordSetId;
 
-		ddlRecordSetVersionModelImpl._originalRecordSetId =
-			ddlRecordSetVersionModelImpl._recordSetId;
+		_setOriginalRecordSetId = false;
 
-		ddlRecordSetVersionModelImpl._setOriginalRecordSetId = false;
+		_originalVersion = _version;
 
-		ddlRecordSetVersionModelImpl._originalVersion =
-			ddlRecordSetVersionModelImpl._version;
+		_originalStatus = _status;
 
-		ddlRecordSetVersionModelImpl._originalStatus =
-			ddlRecordSetVersionModelImpl._status;
+		_setOriginalStatus = false;
 
-		ddlRecordSetVersionModelImpl._setOriginalStatus = false;
-
-		ddlRecordSetVersionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

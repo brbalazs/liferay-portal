@@ -982,23 +982,20 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 
 	@Override
 	public void resetOriginalValues() {
-		AppModelImpl appModelImpl = this;
+		_originalUuid = _uuid;
 
-		appModelImpl._originalUuid = appModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		appModelImpl._originalCompanyId = appModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		appModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalRemoteAppId = _remoteAppId;
 
-		appModelImpl._setModifiedDate = false;
+		_setOriginalRemoteAppId = false;
 
-		appModelImpl._originalRemoteAppId = appModelImpl._remoteAppId;
+		_originalCategory = _category;
 
-		appModelImpl._setOriginalRemoteAppId = false;
-
-		appModelImpl._originalCategory = appModelImpl._category;
-
-		appModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

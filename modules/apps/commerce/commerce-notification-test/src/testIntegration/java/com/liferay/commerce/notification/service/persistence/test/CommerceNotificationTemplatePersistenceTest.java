@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -601,12 +600,11 @@ public class CommerceNotificationTemplatePersistenceTest {
 			_persistence.findByPrimaryKey(
 				newCommerceNotificationTemplate.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceNotificationTemplate.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCommerceNotificationTemplate, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceNotificationTemplate.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCommerceNotificationTemplate, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCommerceNotificationTemplate.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

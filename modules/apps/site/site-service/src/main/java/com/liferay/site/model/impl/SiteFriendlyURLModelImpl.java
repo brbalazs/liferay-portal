@@ -843,29 +843,22 @@ public class SiteFriendlyURLModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SiteFriendlyURLModelImpl siteFriendlyURLModelImpl = this;
+		_originalUuid = _uuid;
 
-		siteFriendlyURLModelImpl._originalUuid = siteFriendlyURLModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		siteFriendlyURLModelImpl._originalCompanyId =
-			siteFriendlyURLModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		siteFriendlyURLModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalGroupId = _groupId;
 
-		siteFriendlyURLModelImpl._setModifiedDate = false;
+		_setOriginalGroupId = false;
 
-		siteFriendlyURLModelImpl._originalGroupId =
-			siteFriendlyURLModelImpl._groupId;
+		_originalFriendlyURL = _friendlyURL;
 
-		siteFriendlyURLModelImpl._setOriginalGroupId = false;
+		_originalLanguageId = _languageId;
 
-		siteFriendlyURLModelImpl._originalFriendlyURL =
-			siteFriendlyURLModelImpl._friendlyURL;
-
-		siteFriendlyURLModelImpl._originalLanguageId =
-			siteFriendlyURLModelImpl._languageId;
-
-		siteFriendlyURLModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

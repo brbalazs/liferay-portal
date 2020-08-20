@@ -706,8 +706,6 @@ public class SPIDefinitionModelImpl
 
 	@Override
 	public void setSpiDefinitionId(long spiDefinitionId) {
-		_columnBitmask = -1L;
-
 		_spiDefinitionId = spiDefinitionId;
 	}
 
@@ -1117,30 +1115,24 @@ public class SPIDefinitionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SPIDefinitionModelImpl spiDefinitionModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		spiDefinitionModelImpl._originalCompanyId =
-			spiDefinitionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		spiDefinitionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalName = _name;
 
-		spiDefinitionModelImpl._setModifiedDate = false;
+		_originalConnectorAddress = _connectorAddress;
 
-		spiDefinitionModelImpl._originalName = spiDefinitionModelImpl._name;
+		_originalConnectorPort = _connectorPort;
 
-		spiDefinitionModelImpl._originalConnectorAddress =
-			spiDefinitionModelImpl._connectorAddress;
+		_setOriginalConnectorPort = false;
 
-		spiDefinitionModelImpl._originalConnectorPort =
-			spiDefinitionModelImpl._connectorPort;
+		_originalStatus = _status;
 
-		spiDefinitionModelImpl._setOriginalConnectorPort = false;
+		_setOriginalStatus = false;
 
-		spiDefinitionModelImpl._originalStatus = spiDefinitionModelImpl._status;
-
-		spiDefinitionModelImpl._setOriginalStatus = false;
-
-		spiDefinitionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

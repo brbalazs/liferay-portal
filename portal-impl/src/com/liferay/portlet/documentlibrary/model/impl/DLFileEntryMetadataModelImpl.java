@@ -673,32 +673,25 @@ public class DLFileEntryMetadataModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DLFileEntryMetadataModelImpl dlFileEntryMetadataModelImpl = this;
+		_originalUuid = _uuid;
 
-		dlFileEntryMetadataModelImpl._originalUuid =
-			dlFileEntryMetadataModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		dlFileEntryMetadataModelImpl._originalCompanyId =
-			dlFileEntryMetadataModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		dlFileEntryMetadataModelImpl._setOriginalCompanyId = false;
+		_originalDDMStructureId = _DDMStructureId;
 
-		dlFileEntryMetadataModelImpl._originalDDMStructureId =
-			dlFileEntryMetadataModelImpl._DDMStructureId;
+		_setOriginalDDMStructureId = false;
 
-		dlFileEntryMetadataModelImpl._setOriginalDDMStructureId = false;
+		_originalFileEntryId = _fileEntryId;
 
-		dlFileEntryMetadataModelImpl._originalFileEntryId =
-			dlFileEntryMetadataModelImpl._fileEntryId;
+		_setOriginalFileEntryId = false;
 
-		dlFileEntryMetadataModelImpl._setOriginalFileEntryId = false;
+		_originalFileVersionId = _fileVersionId;
 
-		dlFileEntryMetadataModelImpl._originalFileVersionId =
-			dlFileEntryMetadataModelImpl._fileVersionId;
+		_setOriginalFileVersionId = false;
 
-		dlFileEntryMetadataModelImpl._setOriginalFileVersionId = false;
-
-		dlFileEntryMetadataModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

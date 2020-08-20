@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -702,12 +701,11 @@ public class CommerceSubscriptionEntryPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newCommerceSubscriptionEntry.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceSubscriptionEntry.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCommerceSubscriptionEntry, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceSubscriptionEntry.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCommerceSubscriptionEntry, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCommerceSubscriptionEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -721,12 +719,11 @@ public class CommerceSubscriptionEntryPersistenceTest {
 				existingCommerceSubscriptionEntry,
 				"getOriginalCommerceOrderItemId", new Class<?>[0]));
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceSubscriptionEntry.getCPInstanceUuid(),
-				ReflectionTestUtil.invoke(
-					existingCommerceSubscriptionEntry,
-					"getOriginalCPInstanceUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceSubscriptionEntry.getCPInstanceUuid(),
+			ReflectionTestUtil.invoke(
+				existingCommerceSubscriptionEntry, "getOriginalCPInstanceUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCommerceSubscriptionEntry.getCProductId()),
 			ReflectionTestUtil.<Long>invoke(

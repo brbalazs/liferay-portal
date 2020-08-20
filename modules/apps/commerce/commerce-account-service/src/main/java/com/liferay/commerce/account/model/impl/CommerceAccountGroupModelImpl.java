@@ -723,8 +723,6 @@ public class CommerceAccountGroupModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -877,30 +875,23 @@ public class CommerceAccountGroupModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceAccountGroupModelImpl commerceAccountGroupModelImpl = this;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commerceAccountGroupModelImpl._originalExternalReferenceCode =
-			commerceAccountGroupModelImpl._externalReferenceCode;
+		_originalCommerceAccountGroupId = _commerceAccountGroupId;
 
-		commerceAccountGroupModelImpl._originalCommerceAccountGroupId =
-			commerceAccountGroupModelImpl._commerceAccountGroupId;
+		_setOriginalCommerceAccountGroupId = false;
 
-		commerceAccountGroupModelImpl._setOriginalCommerceAccountGroupId =
-			false;
+		_originalCompanyId = _companyId;
 
-		commerceAccountGroupModelImpl._originalCompanyId =
-			commerceAccountGroupModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceAccountGroupModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		commerceAccountGroupModelImpl._setModifiedDate = false;
+		_originalType = _type;
 
-		commerceAccountGroupModelImpl._originalType =
-			commerceAccountGroupModelImpl._type;
+		_setOriginalType = false;
 
-		commerceAccountGroupModelImpl._setOriginalType = false;
-
-		commerceAccountGroupModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

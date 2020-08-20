@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -549,12 +548,11 @@ public class CPInstanceOptionValueRelPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newCPInstanceOptionValueRel.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPInstanceOptionValueRel.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCPInstanceOptionValueRel, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPInstanceOptionValueRel.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCPInstanceOptionValueRel, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCPInstanceOptionValueRel.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

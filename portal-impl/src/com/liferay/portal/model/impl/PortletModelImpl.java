@@ -626,15 +626,13 @@ public class PortletModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		PortletModelImpl portletModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		portletModelImpl._originalCompanyId = portletModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		portletModelImpl._setOriginalCompanyId = false;
+		_originalPortletId = _portletId;
 
-		portletModelImpl._originalPortletId = portletModelImpl._portletId;
-
-		portletModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

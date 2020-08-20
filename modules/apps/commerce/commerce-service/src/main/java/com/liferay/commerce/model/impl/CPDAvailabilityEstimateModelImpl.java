@@ -906,33 +906,23 @@ public class CPDAvailabilityEstimateModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPDAvailabilityEstimateModelImpl cpdAvailabilityEstimateModelImpl =
-			this;
+		_originalUuid = _uuid;
 
-		cpdAvailabilityEstimateModelImpl._originalUuid =
-			cpdAvailabilityEstimateModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		cpdAvailabilityEstimateModelImpl._originalCompanyId =
-			cpdAvailabilityEstimateModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpdAvailabilityEstimateModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCommerceAvailabilityEstimateId =
+			_commerceAvailabilityEstimateId;
 
-		cpdAvailabilityEstimateModelImpl._setModifiedDate = false;
+		_setOriginalCommerceAvailabilityEstimateId = false;
 
-		cpdAvailabilityEstimateModelImpl.
-			_originalCommerceAvailabilityEstimateId =
-				cpdAvailabilityEstimateModelImpl.
-					_commerceAvailabilityEstimateId;
+		_originalCProductId = _CProductId;
 
-		cpdAvailabilityEstimateModelImpl.
-			_setOriginalCommerceAvailabilityEstimateId = false;
+		_setOriginalCProductId = false;
 
-		cpdAvailabilityEstimateModelImpl._originalCProductId =
-			cpdAvailabilityEstimateModelImpl._CProductId;
-
-		cpdAvailabilityEstimateModelImpl._setOriginalCProductId = false;
-
-		cpdAvailabilityEstimateModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

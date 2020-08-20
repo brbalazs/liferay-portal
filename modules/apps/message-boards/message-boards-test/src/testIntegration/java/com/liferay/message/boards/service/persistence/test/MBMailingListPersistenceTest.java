@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -554,12 +553,10 @@ public class MBMailingListPersistenceTest {
 		MBMailingList existingMBMailingList = _persistence.findByPrimaryKey(
 			newMBMailingList.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingMBMailingList.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingMBMailingList, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingMBMailingList.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingMBMailingList, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingMBMailingList.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

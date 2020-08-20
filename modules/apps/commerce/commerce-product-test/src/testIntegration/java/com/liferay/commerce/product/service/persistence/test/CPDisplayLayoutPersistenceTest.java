@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -497,12 +496,10 @@ public class CPDisplayLayoutPersistenceTest {
 		CPDisplayLayout existingCPDisplayLayout = _persistence.findByPrimaryKey(
 			newCPDisplayLayout.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPDisplayLayout.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCPDisplayLayout, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPDisplayLayout.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCPDisplayLayout, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCPDisplayLayout.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

@@ -41,7 +41,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -473,12 +472,11 @@ public class CPDefinitionLocalizationPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCPDefinitionLocalization, "getOriginalCPDefinitionId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPDefinitionLocalization.getLanguageId(),
-				ReflectionTestUtil.invoke(
-					existingCPDefinitionLocalization, "getOriginalLanguageId",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPDefinitionLocalization.getLanguageId(),
+			ReflectionTestUtil.invoke(
+				existingCPDefinitionLocalization, "getOriginalLanguageId",
+				new Class<?>[0]));
 	}
 
 	protected CPDefinitionLocalization addCPDefinitionLocalization()

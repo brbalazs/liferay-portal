@@ -1355,22 +1355,16 @@ public class KaleoDefinitionVersionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoDefinitionVersionModelImpl kaleoDefinitionVersionModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		kaleoDefinitionVersionModelImpl._originalCompanyId =
-			kaleoDefinitionVersionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kaleoDefinitionVersionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalName = _name;
 
-		kaleoDefinitionVersionModelImpl._setModifiedDate = false;
+		_originalVersion = _version;
 
-		kaleoDefinitionVersionModelImpl._originalName =
-			kaleoDefinitionVersionModelImpl._name;
-
-		kaleoDefinitionVersionModelImpl._originalVersion =
-			kaleoDefinitionVersionModelImpl._version;
-
-		kaleoDefinitionVersionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

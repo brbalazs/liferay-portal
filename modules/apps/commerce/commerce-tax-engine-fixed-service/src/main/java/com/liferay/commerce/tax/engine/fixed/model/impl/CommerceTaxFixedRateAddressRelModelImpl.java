@@ -800,8 +800,6 @@ public class CommerceTaxFixedRateAddressRelModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1049,30 +1047,20 @@ public class CommerceTaxFixedRateAddressRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceTaxFixedRateAddressRelModelImpl
-			commerceTaxFixedRateAddressRelModelImpl = this;
+		_setModifiedDate = false;
+		_originalCommerceTaxMethodId = _commerceTaxMethodId;
 
-		commerceTaxFixedRateAddressRelModelImpl._setModifiedDate = false;
+		_setOriginalCommerceTaxMethodId = false;
 
-		commerceTaxFixedRateAddressRelModelImpl._originalCommerceTaxMethodId =
-			commerceTaxFixedRateAddressRelModelImpl._commerceTaxMethodId;
+		_originalCPTaxCategoryId = _CPTaxCategoryId;
 
-		commerceTaxFixedRateAddressRelModelImpl.
-			_setOriginalCommerceTaxMethodId = false;
+		_setOriginalCPTaxCategoryId = false;
 
-		commerceTaxFixedRateAddressRelModelImpl._originalCPTaxCategoryId =
-			commerceTaxFixedRateAddressRelModelImpl._CPTaxCategoryId;
+		_originalCommerceCountryId = _commerceCountryId;
 
-		commerceTaxFixedRateAddressRelModelImpl._setOriginalCPTaxCategoryId =
-			false;
+		_setOriginalCommerceCountryId = false;
 
-		commerceTaxFixedRateAddressRelModelImpl._originalCommerceCountryId =
-			commerceTaxFixedRateAddressRelModelImpl._commerceCountryId;
-
-		commerceTaxFixedRateAddressRelModelImpl._setOriginalCommerceCountryId =
-			false;
-
-		commerceTaxFixedRateAddressRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

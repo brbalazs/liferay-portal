@@ -945,26 +945,22 @@ public class OAuthTokenModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		OAuthTokenModelImpl oAuthTokenModelImpl = this;
+		_originalUserId = _userId;
 
-		oAuthTokenModelImpl._originalUserId = oAuthTokenModelImpl._userId;
+		_setOriginalUserId = false;
 
-		oAuthTokenModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalGadgetKey = _gadgetKey;
 
-		oAuthTokenModelImpl._setModifiedDate = false;
+		_originalServiceName = _serviceName;
 
-		oAuthTokenModelImpl._originalGadgetKey = oAuthTokenModelImpl._gadgetKey;
+		_originalModuleId = _moduleId;
 
-		oAuthTokenModelImpl._originalServiceName =
-			oAuthTokenModelImpl._serviceName;
+		_setOriginalModuleId = false;
 
-		oAuthTokenModelImpl._originalModuleId = oAuthTokenModelImpl._moduleId;
+		_originalTokenName = _tokenName;
 
-		oAuthTokenModelImpl._setOriginalModuleId = false;
-
-		oAuthTokenModelImpl._originalTokenName = oAuthTokenModelImpl._tokenName;
-
-		oAuthTokenModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

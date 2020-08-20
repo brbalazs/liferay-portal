@@ -760,8 +760,6 @@ public class PollsQuestionModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1232,23 +1230,19 @@ public class PollsQuestionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		PollsQuestionModelImpl pollsQuestionModelImpl = this;
+		_originalUuid = _uuid;
 
-		pollsQuestionModelImpl._originalUuid = pollsQuestionModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		pollsQuestionModelImpl._originalGroupId =
-			pollsQuestionModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		pollsQuestionModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		pollsQuestionModelImpl._originalCompanyId =
-			pollsQuestionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		pollsQuestionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		pollsQuestionModelImpl._setModifiedDate = false;
-
-		pollsQuestionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

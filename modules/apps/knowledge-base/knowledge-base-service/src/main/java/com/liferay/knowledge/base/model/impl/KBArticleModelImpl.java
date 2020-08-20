@@ -1187,8 +1187,6 @@ public class KBArticleModelImpl
 	public void setModifiedDate(Date modifiedDate) {
 		_setModifiedDate = true;
 
-		_columnBitmask = -1L;
-
 		_modifiedDate = modifiedDate;
 	}
 
@@ -1780,55 +1778,51 @@ public class KBArticleModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KBArticleModelImpl kbArticleModelImpl = this;
+		_originalUuid = _uuid;
 
-		kbArticleModelImpl._originalUuid = kbArticleModelImpl._uuid;
+		_originalResourcePrimKey = _resourcePrimKey;
 
-		kbArticleModelImpl._originalResourcePrimKey =
-			kbArticleModelImpl._resourcePrimKey;
+		_setOriginalResourcePrimKey = false;
 
-		kbArticleModelImpl._setOriginalResourcePrimKey = false;
+		_originalGroupId = _groupId;
 
-		kbArticleModelImpl._originalGroupId = kbArticleModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		kbArticleModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		kbArticleModelImpl._originalCompanyId = kbArticleModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kbArticleModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		kbArticleModelImpl._setModifiedDate = false;
+		_originalParentResourcePrimKey = _parentResourcePrimKey;
 
-		kbArticleModelImpl._originalParentResourcePrimKey =
-			kbArticleModelImpl._parentResourcePrimKey;
+		_setOriginalParentResourcePrimKey = false;
 
-		kbArticleModelImpl._setOriginalParentResourcePrimKey = false;
+		_originalKbFolderId = _kbFolderId;
 
-		kbArticleModelImpl._originalKbFolderId = kbArticleModelImpl._kbFolderId;
+		_setOriginalKbFolderId = false;
 
-		kbArticleModelImpl._setOriginalKbFolderId = false;
+		_originalVersion = _version;
 
-		kbArticleModelImpl._originalVersion = kbArticleModelImpl._version;
+		_setOriginalVersion = false;
 
-		kbArticleModelImpl._setOriginalVersion = false;
+		_originalUrlTitle = _urlTitle;
 
-		kbArticleModelImpl._originalUrlTitle = kbArticleModelImpl._urlTitle;
+		_originalSections = _sections;
 
-		kbArticleModelImpl._originalSections = kbArticleModelImpl._sections;
+		_originalLatest = _latest;
 
-		kbArticleModelImpl._originalLatest = kbArticleModelImpl._latest;
+		_setOriginalLatest = false;
 
-		kbArticleModelImpl._setOriginalLatest = false;
+		_originalMain = _main;
 
-		kbArticleModelImpl._originalMain = kbArticleModelImpl._main;
+		_setOriginalMain = false;
 
-		kbArticleModelImpl._setOriginalMain = false;
+		_originalStatus = _status;
 
-		kbArticleModelImpl._originalStatus = kbArticleModelImpl._status;
+		_setOriginalStatus = false;
 
-		kbArticleModelImpl._setOriginalStatus = false;
-
-		kbArticleModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

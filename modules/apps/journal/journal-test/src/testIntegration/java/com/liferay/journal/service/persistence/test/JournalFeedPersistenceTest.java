@@ -46,7 +46,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -534,11 +533,10 @@ public class JournalFeedPersistenceTest {
 		JournalFeed existingJournalFeed = _persistence.findByPrimaryKey(
 			newJournalFeed.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingJournalFeed.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingJournalFeed, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingJournalFeed.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingJournalFeed, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingJournalFeed.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -548,12 +546,10 @@ public class JournalFeedPersistenceTest {
 			Long.valueOf(existingJournalFeed.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingJournalFeed, "getOriginalGroupId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingJournalFeed.getFeedId(),
-				ReflectionTestUtil.invoke(
-					existingJournalFeed, "getOriginalFeedId",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingJournalFeed.getFeedId(),
+			ReflectionTestUtil.invoke(
+				existingJournalFeed, "getOriginalFeedId", new Class<?>[0]));
 	}
 
 	protected JournalFeed addJournalFeed() throws Exception {

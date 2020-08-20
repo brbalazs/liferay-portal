@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -427,18 +426,16 @@ public class SamlSpMessagePersistenceTest {
 		SamlSpMessage existingSamlSpMessage = _persistence.findByPrimaryKey(
 			newSamlSpMessage.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingSamlSpMessage.getSamlIdpEntityId(),
-				ReflectionTestUtil.invoke(
-					existingSamlSpMessage, "getOriginalSamlIdpEntityId",
-					new Class<?>[0])));
-		Assert.assertTrue(
-			Objects.equals(
-				existingSamlSpMessage.getSamlIdpResponseKey(),
-				ReflectionTestUtil.invoke(
-					existingSamlSpMessage, "getOriginalSamlIdpResponseKey",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingSamlSpMessage.getSamlIdpEntityId(),
+			ReflectionTestUtil.invoke(
+				existingSamlSpMessage, "getOriginalSamlIdpEntityId",
+				new Class<?>[0]));
+		Assert.assertEquals(
+			existingSamlSpMessage.getSamlIdpResponseKey(),
+			ReflectionTestUtil.invoke(
+				existingSamlSpMessage, "getOriginalSamlIdpResponseKey",
+				new Class<?>[0]));
 	}
 
 	protected SamlSpMessage addSamlSpMessage() throws Exception {

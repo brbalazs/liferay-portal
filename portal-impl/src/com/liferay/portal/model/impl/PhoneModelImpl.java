@@ -745,8 +745,6 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1019,33 +1017,30 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 
 	@Override
 	public void resetOriginalValues() {
-		PhoneModelImpl phoneModelImpl = this;
+		_originalUuid = _uuid;
 
-		phoneModelImpl._originalUuid = phoneModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		phoneModelImpl._originalCompanyId = phoneModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		phoneModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		phoneModelImpl._originalUserId = phoneModelImpl._userId;
+		_setOriginalUserId = false;
 
-		phoneModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		phoneModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		phoneModelImpl._originalClassNameId = phoneModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		phoneModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		phoneModelImpl._originalClassPK = phoneModelImpl._classPK;
+		_originalPrimary = _primary;
 
-		phoneModelImpl._setOriginalClassPK = false;
+		_setOriginalPrimary = false;
 
-		phoneModelImpl._originalPrimary = phoneModelImpl._primary;
-
-		phoneModelImpl._setOriginalPrimary = false;
-
-		phoneModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

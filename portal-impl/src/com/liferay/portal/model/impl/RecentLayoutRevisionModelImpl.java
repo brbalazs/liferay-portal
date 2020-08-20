@@ -726,34 +726,27 @@ public class RecentLayoutRevisionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		RecentLayoutRevisionModelImpl recentLayoutRevisionModelImpl = this;
+		_originalGroupId = _groupId;
 
-		recentLayoutRevisionModelImpl._originalGroupId =
-			recentLayoutRevisionModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		recentLayoutRevisionModelImpl._setOriginalGroupId = false;
+		_originalUserId = _userId;
 
-		recentLayoutRevisionModelImpl._originalUserId =
-			recentLayoutRevisionModelImpl._userId;
+		_setOriginalUserId = false;
 
-		recentLayoutRevisionModelImpl._setOriginalUserId = false;
+		_originalLayoutRevisionId = _layoutRevisionId;
 
-		recentLayoutRevisionModelImpl._originalLayoutRevisionId =
-			recentLayoutRevisionModelImpl._layoutRevisionId;
+		_setOriginalLayoutRevisionId = false;
 
-		recentLayoutRevisionModelImpl._setOriginalLayoutRevisionId = false;
+		_originalLayoutSetBranchId = _layoutSetBranchId;
 
-		recentLayoutRevisionModelImpl._originalLayoutSetBranchId =
-			recentLayoutRevisionModelImpl._layoutSetBranchId;
+		_setOriginalLayoutSetBranchId = false;
 
-		recentLayoutRevisionModelImpl._setOriginalLayoutSetBranchId = false;
+		_originalPlid = _plid;
 
-		recentLayoutRevisionModelImpl._originalPlid =
-			recentLayoutRevisionModelImpl._plid;
+		_setOriginalPlid = false;
 
-		recentLayoutRevisionModelImpl._setOriginalPlid = false;
-
-		recentLayoutRevisionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

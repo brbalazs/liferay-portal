@@ -732,18 +732,13 @@ public class SharepointOAuth2TokenEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SharepointOAuth2TokenEntryModelImpl
-			sharepointOAuth2TokenEntryModelImpl = this;
+		_originalUserId = _userId;
 
-		sharepointOAuth2TokenEntryModelImpl._originalUserId =
-			sharepointOAuth2TokenEntryModelImpl._userId;
+		_setOriginalUserId = false;
 
-		sharepointOAuth2TokenEntryModelImpl._setOriginalUserId = false;
+		_originalConfigurationPid = _configurationPid;
 
-		sharepointOAuth2TokenEntryModelImpl._originalConfigurationPid =
-			sharepointOAuth2TokenEntryModelImpl._configurationPid;
-
-		sharepointOAuth2TokenEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

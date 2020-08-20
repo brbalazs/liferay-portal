@@ -980,43 +980,30 @@ public class CPInstanceOptionValueRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPInstanceOptionValueRelModelImpl cpInstanceOptionValueRelModelImpl =
-			this;
+		_originalUuid = _uuid;
 
-		cpInstanceOptionValueRelModelImpl._originalUuid =
-			cpInstanceOptionValueRelModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		cpInstanceOptionValueRelModelImpl._originalGroupId =
-			cpInstanceOptionValueRelModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		cpInstanceOptionValueRelModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		cpInstanceOptionValueRelModelImpl._originalCompanyId =
-			cpInstanceOptionValueRelModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpInstanceOptionValueRelModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCPDefinitionOptionRelId = _CPDefinitionOptionRelId;
 
-		cpInstanceOptionValueRelModelImpl._setModifiedDate = false;
+		_setOriginalCPDefinitionOptionRelId = false;
 
-		cpInstanceOptionValueRelModelImpl._originalCPDefinitionOptionRelId =
-			cpInstanceOptionValueRelModelImpl._CPDefinitionOptionRelId;
+		_originalCPDefinitionOptionValueRelId = _CPDefinitionOptionValueRelId;
 
-		cpInstanceOptionValueRelModelImpl._setOriginalCPDefinitionOptionRelId =
-			false;
+		_setOriginalCPDefinitionOptionValueRelId = false;
 
-		cpInstanceOptionValueRelModelImpl.
-			_originalCPDefinitionOptionValueRelId =
-				cpInstanceOptionValueRelModelImpl._CPDefinitionOptionValueRelId;
+		_originalCPInstanceId = _CPInstanceId;
 
-		cpInstanceOptionValueRelModelImpl.
-			_setOriginalCPDefinitionOptionValueRelId = false;
+		_setOriginalCPInstanceId = false;
 
-		cpInstanceOptionValueRelModelImpl._originalCPInstanceId =
-			cpInstanceOptionValueRelModelImpl._CPInstanceId;
-
-		cpInstanceOptionValueRelModelImpl._setOriginalCPInstanceId = false;
-
-		cpInstanceOptionValueRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

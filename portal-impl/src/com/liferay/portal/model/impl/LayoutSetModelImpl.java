@@ -1038,31 +1038,26 @@ public class LayoutSetModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		LayoutSetModelImpl layoutSetModelImpl = this;
+		_originalGroupId = _groupId;
 
-		layoutSetModelImpl._originalGroupId = layoutSetModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		layoutSetModelImpl._setOriginalGroupId = false;
+		_setModifiedDate = false;
+		_originalPrivateLayout = _privateLayout;
 
-		layoutSetModelImpl._setModifiedDate = false;
+		_setOriginalPrivateLayout = false;
 
-		layoutSetModelImpl._originalPrivateLayout =
-			layoutSetModelImpl._privateLayout;
+		_originalLogoId = _logoId;
 
-		layoutSetModelImpl._setOriginalPrivateLayout = false;
+		_setOriginalLogoId = false;
 
-		layoutSetModelImpl._originalLogoId = layoutSetModelImpl._logoId;
-
-		layoutSetModelImpl._setOriginalLogoId = false;
-
-		layoutSetModelImpl._originalLayoutSetPrototypeUuid =
-			layoutSetModelImpl._layoutSetPrototypeUuid;
+		_originalLayoutSetPrototypeUuid = _layoutSetPrototypeUuid;
 
 		setCompanyFallbackVirtualHostname(null);
 
 		setVirtualHostname(null);
 
-		layoutSetModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

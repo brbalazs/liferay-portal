@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -445,16 +444,14 @@ public class LockPersistenceTest {
 		Lock existingLock = _persistence.findByPrimaryKey(
 			newLock.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingLock.getClassName(),
-				ReflectionTestUtil.invoke(
-					existingLock, "getOriginalClassName", new Class<?>[0])));
-		Assert.assertTrue(
-			Objects.equals(
-				existingLock.getKey(),
-				ReflectionTestUtil.invoke(
-					existingLock, "getOriginalKey", new Class<?>[0])));
+		Assert.assertEquals(
+			existingLock.getClassName(),
+			ReflectionTestUtil.invoke(
+				existingLock, "getOriginalClassName", new Class<?>[0]));
+		Assert.assertEquals(
+			existingLock.getKey(),
+			ReflectionTestUtil.invoke(
+				existingLock, "getOriginalKey", new Class<?>[0]));
 	}
 
 	protected Lock addLock() throws Exception {

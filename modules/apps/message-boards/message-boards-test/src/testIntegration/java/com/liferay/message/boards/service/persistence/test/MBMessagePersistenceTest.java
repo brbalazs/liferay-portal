@@ -46,7 +46,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -754,11 +753,10 @@ public class MBMessagePersistenceTest {
 		MBMessage existingMBMessage = _persistence.findByPrimaryKey(
 			newMBMessage.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingMBMessage.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingMBMessage, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingMBMessage.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingMBMessage, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingMBMessage.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

@@ -1055,8 +1055,6 @@ public class CommerceShippingFixedOptionRelModelImpl
 
 	@Override
 	public void setCommerceCountryId(long commerceCountryId) {
-		_columnBitmask = -1L;
-
 		_commerceCountryId = commerceCountryId;
 	}
 
@@ -1279,28 +1277,16 @@ public class CommerceShippingFixedOptionRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceShippingFixedOptionRelModelImpl
-			commerceShippingFixedOptionRelModelImpl = this;
+		_setModifiedDate = false;
+		_originalCommerceShippingMethodId = _commerceShippingMethodId;
 
-		commerceShippingFixedOptionRelModelImpl._setModifiedDate = false;
+		_setOriginalCommerceShippingMethodId = false;
 
-		commerceShippingFixedOptionRelModelImpl.
-			_originalCommerceShippingMethodId =
-				commerceShippingFixedOptionRelModelImpl.
-					_commerceShippingMethodId;
+		_originalCommerceShippingFixedOptionId = _commerceShippingFixedOptionId;
 
-		commerceShippingFixedOptionRelModelImpl.
-			_setOriginalCommerceShippingMethodId = false;
+		_setOriginalCommerceShippingFixedOptionId = false;
 
-		commerceShippingFixedOptionRelModelImpl.
-			_originalCommerceShippingFixedOptionId =
-				commerceShippingFixedOptionRelModelImpl.
-					_commerceShippingFixedOptionId;
-
-		commerceShippingFixedOptionRelModelImpl.
-			_setOriginalCommerceShippingFixedOptionId = false;
-
-		commerceShippingFixedOptionRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

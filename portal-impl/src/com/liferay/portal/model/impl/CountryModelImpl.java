@@ -524,7 +524,7 @@ public class CountryModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -770,19 +770,17 @@ public class CountryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CountryModelImpl countryModelImpl = this;
+		_originalName = _name;
 
-		countryModelImpl._originalName = countryModelImpl._name;
+		_originalA2 = _a2;
 
-		countryModelImpl._originalA2 = countryModelImpl._a2;
+		_originalA3 = _a3;
 
-		countryModelImpl._originalA3 = countryModelImpl._a3;
+		_originalActive = _active;
 
-		countryModelImpl._originalActive = countryModelImpl._active;
+		_setOriginalActive = false;
 
-		countryModelImpl._setOriginalActive = false;
-
-		countryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

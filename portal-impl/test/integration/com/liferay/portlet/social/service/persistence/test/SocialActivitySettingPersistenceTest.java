@@ -43,7 +43,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -500,12 +499,11 @@ public class SocialActivitySettingPersistenceTest {
 			ReflectionTestUtil.<Integer>invoke(
 				existingSocialActivitySetting, "getOriginalActivityType",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingSocialActivitySetting.getName(),
-				ReflectionTestUtil.invoke(
-					existingSocialActivitySetting, "getOriginalName",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingSocialActivitySetting.getName(),
+			ReflectionTestUtil.invoke(
+				existingSocialActivitySetting, "getOriginalName",
+				new Class<?>[0]));
 	}
 
 	protected SocialActivitySetting addSocialActivitySetting()

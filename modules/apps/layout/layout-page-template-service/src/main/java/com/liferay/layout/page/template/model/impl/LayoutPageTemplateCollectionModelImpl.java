@@ -797,7 +797,7 @@ public class LayoutPageTemplateCollectionModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -956,28 +956,20 @@ public class LayoutPageTemplateCollectionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		LayoutPageTemplateCollectionModelImpl
-			layoutPageTemplateCollectionModelImpl = this;
+		_originalUuid = _uuid;
 
-		layoutPageTemplateCollectionModelImpl._originalUuid =
-			layoutPageTemplateCollectionModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		layoutPageTemplateCollectionModelImpl._originalGroupId =
-			layoutPageTemplateCollectionModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		layoutPageTemplateCollectionModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		layoutPageTemplateCollectionModelImpl._originalCompanyId =
-			layoutPageTemplateCollectionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		layoutPageTemplateCollectionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalName = _name;
 
-		layoutPageTemplateCollectionModelImpl._setModifiedDate = false;
-
-		layoutPageTemplateCollectionModelImpl._originalName =
-			layoutPageTemplateCollectionModelImpl._name;
-
-		layoutPageTemplateCollectionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

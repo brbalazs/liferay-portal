@@ -756,8 +756,6 @@ public class MDRRuleModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1257,25 +1255,22 @@ public class MDRRuleModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		MDRRuleModelImpl mdrRuleModelImpl = this;
+		_originalUuid = _uuid;
 
-		mdrRuleModelImpl._originalUuid = mdrRuleModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		mdrRuleModelImpl._originalGroupId = mdrRuleModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		mdrRuleModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		mdrRuleModelImpl._originalCompanyId = mdrRuleModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		mdrRuleModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalRuleGroupId = _ruleGroupId;
 
-		mdrRuleModelImpl._setModifiedDate = false;
+		_setOriginalRuleGroupId = false;
 
-		mdrRuleModelImpl._originalRuleGroupId = mdrRuleModelImpl._ruleGroupId;
-
-		mdrRuleModelImpl._setOriginalRuleGroupId = false;
-
-		mdrRuleModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

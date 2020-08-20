@@ -916,23 +916,21 @@ public class SyncDeviceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SyncDeviceModelImpl syncDeviceModelImpl = this;
+		_originalUuid = _uuid;
 
-		syncDeviceModelImpl._originalUuid = syncDeviceModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		syncDeviceModelImpl._originalCompanyId = syncDeviceModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		syncDeviceModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		syncDeviceModelImpl._originalUserId = syncDeviceModelImpl._userId;
+		_setOriginalUserId = false;
 
-		syncDeviceModelImpl._setOriginalUserId = false;
+		_originalUserName = _userName;
 
-		syncDeviceModelImpl._originalUserName = syncDeviceModelImpl._userName;
+		_setModifiedDate = false;
 
-		syncDeviceModelImpl._setModifiedDate = false;
-
-		syncDeviceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -825,26 +825,16 @@ public class CommerceApplicationModelCProductRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceApplicationModelCProductRelModelImpl
-			commerceApplicationModelCProductRelModelImpl = this;
+		_setModifiedDate = false;
+		_originalCommerceApplicationModelId = _commerceApplicationModelId;
 
-		commerceApplicationModelCProductRelModelImpl._setModifiedDate = false;
+		_setOriginalCommerceApplicationModelId = false;
 
-		commerceApplicationModelCProductRelModelImpl.
-			_originalCommerceApplicationModelId =
-				commerceApplicationModelCProductRelModelImpl.
-					_commerceApplicationModelId;
+		_originalCProductId = _CProductId;
 
-		commerceApplicationModelCProductRelModelImpl.
-			_setOriginalCommerceApplicationModelId = false;
+		_setOriginalCProductId = false;
 
-		commerceApplicationModelCProductRelModelImpl._originalCProductId =
-			commerceApplicationModelCProductRelModelImpl._CProductId;
-
-		commerceApplicationModelCProductRelModelImpl._setOriginalCProductId =
-			false;
-
-		commerceApplicationModelCProductRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -1499,22 +1499,17 @@ public class DDMFormInstanceVersionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDMFormInstanceVersionModelImpl ddmFormInstanceVersionModelImpl = this;
+		_originalFormInstanceId = _formInstanceId;
 
-		ddmFormInstanceVersionModelImpl._originalFormInstanceId =
-			ddmFormInstanceVersionModelImpl._formInstanceId;
+		_setOriginalFormInstanceId = false;
 
-		ddmFormInstanceVersionModelImpl._setOriginalFormInstanceId = false;
+		_originalVersion = _version;
 
-		ddmFormInstanceVersionModelImpl._originalVersion =
-			ddmFormInstanceVersionModelImpl._version;
+		_originalStatus = _status;
 
-		ddmFormInstanceVersionModelImpl._originalStatus =
-			ddmFormInstanceVersionModelImpl._status;
+		_setOriginalStatus = false;
 
-		ddmFormInstanceVersionModelImpl._setOriginalStatus = false;
-
-		ddmFormInstanceVersionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

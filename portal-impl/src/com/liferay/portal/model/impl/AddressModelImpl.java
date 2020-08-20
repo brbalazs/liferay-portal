@@ -889,8 +889,6 @@ public class AddressModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1269,37 +1267,34 @@ public class AddressModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AddressModelImpl addressModelImpl = this;
+		_originalUuid = _uuid;
 
-		addressModelImpl._originalUuid = addressModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		addressModelImpl._originalCompanyId = addressModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		addressModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		addressModelImpl._originalUserId = addressModelImpl._userId;
+		_setOriginalUserId = false;
 
-		addressModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		addressModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		addressModelImpl._originalClassNameId = addressModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		addressModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		addressModelImpl._originalClassPK = addressModelImpl._classPK;
+		_originalMailing = _mailing;
 
-		addressModelImpl._setOriginalClassPK = false;
+		_setOriginalMailing = false;
 
-		addressModelImpl._originalMailing = addressModelImpl._mailing;
+		_originalPrimary = _primary;
 
-		addressModelImpl._setOriginalMailing = false;
+		_setOriginalPrimary = false;
 
-		addressModelImpl._originalPrimary = addressModelImpl._primary;
-
-		addressModelImpl._setOriginalPrimary = false;
-
-		addressModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

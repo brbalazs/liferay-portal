@@ -715,8 +715,6 @@ public class SystemEventModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -990,31 +988,27 @@ public class SystemEventModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SystemEventModelImpl systemEventModelImpl = this;
+		_originalGroupId = _groupId;
 
-		systemEventModelImpl._originalGroupId = systemEventModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		systemEventModelImpl._setOriginalGroupId = false;
+		_originalClassNameId = _classNameId;
 
-		systemEventModelImpl._originalClassNameId =
-			systemEventModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		systemEventModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		systemEventModelImpl._originalClassPK = systemEventModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		systemEventModelImpl._setOriginalClassPK = false;
+		_originalSystemEventSetKey = _systemEventSetKey;
 
-		systemEventModelImpl._originalSystemEventSetKey =
-			systemEventModelImpl._systemEventSetKey;
+		_setOriginalSystemEventSetKey = false;
 
-		systemEventModelImpl._setOriginalSystemEventSetKey = false;
+		_originalType = _type;
 
-		systemEventModelImpl._originalType = systemEventModelImpl._type;
+		_setOriginalType = false;
 
-		systemEventModelImpl._setOriginalType = false;
-
-		systemEventModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

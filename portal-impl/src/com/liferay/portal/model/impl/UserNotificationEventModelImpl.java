@@ -756,8 +756,6 @@ public class UserNotificationEventModelImpl
 
 	@Override
 	public void setTimestamp(long timestamp) {
-		_columnBitmask = -1L;
-
 		_timestamp = timestamp;
 	}
 
@@ -1010,45 +1008,35 @@ public class UserNotificationEventModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		UserNotificationEventModelImpl userNotificationEventModelImpl = this;
+		_originalUuid = _uuid;
 
-		userNotificationEventModelImpl._originalUuid =
-			userNotificationEventModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		userNotificationEventModelImpl._originalCompanyId =
-			userNotificationEventModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		userNotificationEventModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		userNotificationEventModelImpl._originalUserId =
-			userNotificationEventModelImpl._userId;
+		_setOriginalUserId = false;
 
-		userNotificationEventModelImpl._setOriginalUserId = false;
+		_originalType = _type;
 
-		userNotificationEventModelImpl._originalType =
-			userNotificationEventModelImpl._type;
+		_originalDeliveryType = _deliveryType;
 
-		userNotificationEventModelImpl._originalDeliveryType =
-			userNotificationEventModelImpl._deliveryType;
+		_setOriginalDeliveryType = false;
 
-		userNotificationEventModelImpl._setOriginalDeliveryType = false;
+		_originalDelivered = _delivered;
 
-		userNotificationEventModelImpl._originalDelivered =
-			userNotificationEventModelImpl._delivered;
+		_setOriginalDelivered = false;
 
-		userNotificationEventModelImpl._setOriginalDelivered = false;
+		_originalActionRequired = _actionRequired;
 
-		userNotificationEventModelImpl._originalActionRequired =
-			userNotificationEventModelImpl._actionRequired;
+		_setOriginalActionRequired = false;
 
-		userNotificationEventModelImpl._setOriginalActionRequired = false;
+		_originalArchived = _archived;
 
-		userNotificationEventModelImpl._originalArchived =
-			userNotificationEventModelImpl._archived;
+		_setOriginalArchived = false;
 
-		userNotificationEventModelImpl._setOriginalArchived = false;
-
-		userNotificationEventModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

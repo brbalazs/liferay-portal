@@ -1548,24 +1548,19 @@ public class DDMStructureVersionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDMStructureVersionModelImpl ddmStructureVersionModelImpl = this;
+		_originalStructureId = _structureId;
 
-		ddmStructureVersionModelImpl._originalStructureId =
-			ddmStructureVersionModelImpl._structureId;
+		_setOriginalStructureId = false;
 
-		ddmStructureVersionModelImpl._setOriginalStructureId = false;
+		_originalVersion = _version;
 
-		ddmStructureVersionModelImpl._originalVersion =
-			ddmStructureVersionModelImpl._version;
+		_originalStatus = _status;
 
-		ddmStructureVersionModelImpl._originalStatus =
-			ddmStructureVersionModelImpl._status;
-
-		ddmStructureVersionModelImpl._setOriginalStatus = false;
+		_setOriginalStatus = false;
 
 		setDDMForm(null);
 
-		ddmStructureVersionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

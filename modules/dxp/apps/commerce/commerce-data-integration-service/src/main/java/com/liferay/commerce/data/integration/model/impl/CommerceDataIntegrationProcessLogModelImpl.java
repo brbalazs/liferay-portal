@@ -780,8 +780,6 @@ public class CommerceDataIntegrationProcessLogModelImpl
 	public void setModifiedDate(Date modifiedDate) {
 		_setModifiedDate = true;
 
-		_columnBitmask = -1L;
-
 		_modifiedDate = modifiedDate;
 	}
 
@@ -1005,25 +1003,16 @@ public class CommerceDataIntegrationProcessLogModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceDataIntegrationProcessLogModelImpl
-			commerceDataIntegrationProcessLogModelImpl = this;
+		_setModifiedDate = false;
+		_originalCDataIntegrationProcessId = _CDataIntegrationProcessId;
 
-		commerceDataIntegrationProcessLogModelImpl._setModifiedDate = false;
+		_setOriginalCDataIntegrationProcessId = false;
 
-		commerceDataIntegrationProcessLogModelImpl.
-			_originalCDataIntegrationProcessId =
-				commerceDataIntegrationProcessLogModelImpl.
-					_CDataIntegrationProcessId;
+		_originalStatus = _status;
 
-		commerceDataIntegrationProcessLogModelImpl.
-			_setOriginalCDataIntegrationProcessId = false;
+		_setOriginalStatus = false;
 
-		commerceDataIntegrationProcessLogModelImpl._originalStatus =
-			commerceDataIntegrationProcessLogModelImpl._status;
-
-		commerceDataIntegrationProcessLogModelImpl._setOriginalStatus = false;
-
-		commerceDataIntegrationProcessLogModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -513,8 +513,6 @@ public class KaleoTaskModelImpl
 
 	@Override
 	public void setKaleoTaskId(long kaleoTaskId) {
-		_columnBitmask = -1L;
-
 		_kaleoTaskId = kaleoTaskId;
 	}
 
@@ -805,25 +803,20 @@ public class KaleoTaskModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoTaskModelImpl kaleoTaskModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		kaleoTaskModelImpl._originalCompanyId = kaleoTaskModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kaleoTaskModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalKaleoDefinitionVersionId = _kaleoDefinitionVersionId;
 
-		kaleoTaskModelImpl._setModifiedDate = false;
+		_setOriginalKaleoDefinitionVersionId = false;
 
-		kaleoTaskModelImpl._originalKaleoDefinitionVersionId =
-			kaleoTaskModelImpl._kaleoDefinitionVersionId;
+		_originalKaleoNodeId = _kaleoNodeId;
 
-		kaleoTaskModelImpl._setOriginalKaleoDefinitionVersionId = false;
+		_setOriginalKaleoNodeId = false;
 
-		kaleoTaskModelImpl._originalKaleoNodeId =
-			kaleoTaskModelImpl._kaleoNodeId;
-
-		kaleoTaskModelImpl._setOriginalKaleoNodeId = false;
-
-		kaleoTaskModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

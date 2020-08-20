@@ -426,7 +426,7 @@ public class ServiceComponentModelImpl
 
 	@Override
 	public void setBuildNamespace(String buildNamespace) {
-		_columnBitmask = -1L;
+		_columnBitmask |= BUILDNAMESPACE_COLUMN_BITMASK;
 
 		if (_originalBuildNamespace == null) {
 			_originalBuildNamespace = _buildNamespace;
@@ -446,7 +446,7 @@ public class ServiceComponentModelImpl
 
 	@Override
 	public void setBuildNumber(long buildNumber) {
-		_columnBitmask = -1L;
+		_columnBitmask |= BUILDNUMBER_COLUMN_BITMASK;
 
 		if (!_setOriginalBuildNumber) {
 			_setOriginalBuildNumber = true;
@@ -605,17 +605,13 @@ public class ServiceComponentModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ServiceComponentModelImpl serviceComponentModelImpl = this;
+		_originalBuildNamespace = _buildNamespace;
 
-		serviceComponentModelImpl._originalBuildNamespace =
-			serviceComponentModelImpl._buildNamespace;
+		_originalBuildNumber = _buildNumber;
 
-		serviceComponentModelImpl._originalBuildNumber =
-			serviceComponentModelImpl._buildNumber;
+		_setOriginalBuildNumber = false;
 
-		serviceComponentModelImpl._setOriginalBuildNumber = false;
-
-		serviceComponentModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

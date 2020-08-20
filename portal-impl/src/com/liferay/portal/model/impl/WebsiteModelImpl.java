@@ -754,8 +754,6 @@ public class WebsiteModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1024,33 +1022,30 @@ public class WebsiteModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		WebsiteModelImpl websiteModelImpl = this;
+		_originalUuid = _uuid;
 
-		websiteModelImpl._originalUuid = websiteModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		websiteModelImpl._originalCompanyId = websiteModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		websiteModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		websiteModelImpl._originalUserId = websiteModelImpl._userId;
+		_setOriginalUserId = false;
 
-		websiteModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		websiteModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		websiteModelImpl._originalClassNameId = websiteModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		websiteModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		websiteModelImpl._originalClassPK = websiteModelImpl._classPK;
+		_originalPrimary = _primary;
 
-		websiteModelImpl._setOriginalClassPK = false;
+		_setOriginalPrimary = false;
 
-		websiteModelImpl._originalPrimary = websiteModelImpl._primary;
-
-		websiteModelImpl._setOriginalPrimary = false;
-
-		websiteModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

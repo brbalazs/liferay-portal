@@ -1076,7 +1076,7 @@ public class WikiPageModelImpl
 
 	@Override
 	public void setNodeId(long nodeId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NODEID_COLUMN_BITMASK;
 
 		if (!_setOriginalNodeId) {
 			_setOriginalNodeId = true;
@@ -1104,7 +1104,7 @@ public class WikiPageModelImpl
 
 	@Override
 	public void setTitle(String title) {
-		_columnBitmask = -1L;
+		_columnBitmask |= TITLE_COLUMN_BITMASK;
 
 		if (_originalTitle == null) {
 			_originalTitle = _title;
@@ -1125,7 +1125,7 @@ public class WikiPageModelImpl
 
 	@Override
 	public void setVersion(double version) {
-		_columnBitmask = -1L;
+		_columnBitmask |= VERSION_COLUMN_BITMASK;
 
 		if (!_setOriginalVersion) {
 			_setOriginalVersion = true;
@@ -1787,55 +1787,50 @@ public class WikiPageModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		WikiPageModelImpl wikiPageModelImpl = this;
+		_originalUuid = _uuid;
 
-		wikiPageModelImpl._originalUuid = wikiPageModelImpl._uuid;
+		_originalResourcePrimKey = _resourcePrimKey;
 
-		wikiPageModelImpl._originalResourcePrimKey =
-			wikiPageModelImpl._resourcePrimKey;
+		_setOriginalResourcePrimKey = false;
 
-		wikiPageModelImpl._setOriginalResourcePrimKey = false;
+		_originalGroupId = _groupId;
 
-		wikiPageModelImpl._originalGroupId = wikiPageModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		wikiPageModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		wikiPageModelImpl._originalCompanyId = wikiPageModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		wikiPageModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		wikiPageModelImpl._originalUserId = wikiPageModelImpl._userId;
+		_setOriginalUserId = false;
 
-		wikiPageModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalNodeId = _nodeId;
 
-		wikiPageModelImpl._setModifiedDate = false;
+		_setOriginalNodeId = false;
 
-		wikiPageModelImpl._originalNodeId = wikiPageModelImpl._nodeId;
+		_originalTitle = _title;
 
-		wikiPageModelImpl._setOriginalNodeId = false;
+		_originalVersion = _version;
 
-		wikiPageModelImpl._originalTitle = wikiPageModelImpl._title;
+		_setOriginalVersion = false;
 
-		wikiPageModelImpl._originalVersion = wikiPageModelImpl._version;
+		_originalFormat = _format;
 
-		wikiPageModelImpl._setOriginalVersion = false;
+		_originalHead = _head;
 
-		wikiPageModelImpl._originalFormat = wikiPageModelImpl._format;
+		_setOriginalHead = false;
 
-		wikiPageModelImpl._originalHead = wikiPageModelImpl._head;
+		_originalParentTitle = _parentTitle;
 
-		wikiPageModelImpl._setOriginalHead = false;
+		_originalRedirectTitle = _redirectTitle;
 
-		wikiPageModelImpl._originalParentTitle = wikiPageModelImpl._parentTitle;
+		_originalStatus = _status;
 
-		wikiPageModelImpl._originalRedirectTitle =
-			wikiPageModelImpl._redirectTitle;
+		_setOriginalStatus = false;
 
-		wikiPageModelImpl._originalStatus = wikiPageModelImpl._status;
-
-		wikiPageModelImpl._setOriginalStatus = false;
-
-		wikiPageModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

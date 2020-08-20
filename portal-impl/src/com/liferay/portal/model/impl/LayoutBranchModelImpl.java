@@ -879,24 +879,21 @@ public class LayoutBranchModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		LayoutBranchModelImpl layoutBranchModelImpl = this;
+		_originalLayoutSetBranchId = _layoutSetBranchId;
 
-		layoutBranchModelImpl._originalLayoutSetBranchId =
-			layoutBranchModelImpl._layoutSetBranchId;
+		_setOriginalLayoutSetBranchId = false;
 
-		layoutBranchModelImpl._setOriginalLayoutSetBranchId = false;
+		_originalPlid = _plid;
 
-		layoutBranchModelImpl._originalPlid = layoutBranchModelImpl._plid;
+		_setOriginalPlid = false;
 
-		layoutBranchModelImpl._setOriginalPlid = false;
+		_originalName = _name;
 
-		layoutBranchModelImpl._originalName = layoutBranchModelImpl._name;
+		_originalMaster = _master;
 
-		layoutBranchModelImpl._originalMaster = layoutBranchModelImpl._master;
+		_setOriginalMaster = false;
 
-		layoutBranchModelImpl._setOriginalMaster = false;
-
-		layoutBranchModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

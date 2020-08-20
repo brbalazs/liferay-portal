@@ -44,7 +44,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -519,11 +518,10 @@ public class RolePersistenceTest {
 			Long.valueOf(existingRole.getCompanyId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingRole, "getOriginalCompanyId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingRole.getName(),
-				ReflectionTestUtil.invoke(
-					existingRole, "getOriginalName", new Class<?>[0])));
+		Assert.assertEquals(
+			existingRole.getName(),
+			ReflectionTestUtil.invoke(
+				existingRole, "getOriginalName", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingRole.getCompanyId()),

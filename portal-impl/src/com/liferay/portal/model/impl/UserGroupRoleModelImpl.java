@@ -603,22 +603,19 @@ public class UserGroupRoleModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		UserGroupRoleModelImpl userGroupRoleModelImpl = this;
+		_originalUserId = _userId;
 
-		userGroupRoleModelImpl._originalUserId = userGroupRoleModelImpl._userId;
+		_setOriginalUserId = false;
 
-		userGroupRoleModelImpl._setOriginalUserId = false;
+		_originalGroupId = _groupId;
 
-		userGroupRoleModelImpl._originalGroupId =
-			userGroupRoleModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		userGroupRoleModelImpl._setOriginalGroupId = false;
+		_originalRoleId = _roleId;
 
-		userGroupRoleModelImpl._originalRoleId = userGroupRoleModelImpl._roleId;
+		_setOriginalRoleId = false;
 
-		userGroupRoleModelImpl._setOriginalRoleId = false;
-
-		userGroupRoleModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -932,7 +932,7 @@ public class AccountModelImpl
 
 	@Override
 	public void setAddress(String address) {
-		_columnBitmask = -1L;
+		_columnBitmask |= ADDRESS_COLUMN_BITMASK;
 
 		if (_originalAddress == null) {
 			_originalAddress = _address;
@@ -1320,17 +1320,14 @@ public class AccountModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AccountModelImpl accountModelImpl = this;
+		_originalUserId = _userId;
 
-		accountModelImpl._originalUserId = accountModelImpl._userId;
+		_setOriginalUserId = false;
 
-		accountModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalAddress = _address;
 
-		accountModelImpl._setModifiedDate = false;
-
-		accountModelImpl._originalAddress = accountModelImpl._address;
-
-		accountModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

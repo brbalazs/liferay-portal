@@ -748,8 +748,6 @@ public class TasksEntryModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -794,8 +792,6 @@ public class TasksEntryModelImpl
 
 	@Override
 	public void setPriority(int priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -885,8 +881,6 @@ public class TasksEntryModelImpl
 
 	@Override
 	public void setDueDate(Date dueDate) {
-		_columnBitmask = -1L;
-
 		_dueDate = dueDate;
 	}
 
@@ -1052,33 +1046,29 @@ public class TasksEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		TasksEntryModelImpl tasksEntryModelImpl = this;
+		_originalGroupId = _groupId;
 
-		tasksEntryModelImpl._originalGroupId = tasksEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		tasksEntryModelImpl._setOriginalGroupId = false;
+		_originalUserId = _userId;
 
-		tasksEntryModelImpl._originalUserId = tasksEntryModelImpl._userId;
+		_setOriginalUserId = false;
 
-		tasksEntryModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
 
-		tasksEntryModelImpl._setModifiedDate = false;
+		_originalAssigneeUserId = _assigneeUserId;
 
-		tasksEntryModelImpl._originalAssigneeUserId =
-			tasksEntryModelImpl._assigneeUserId;
+		_setOriginalAssigneeUserId = false;
 
-		tasksEntryModelImpl._setOriginalAssigneeUserId = false;
+		_originalResolverUserId = _resolverUserId;
 
-		tasksEntryModelImpl._originalResolverUserId =
-			tasksEntryModelImpl._resolverUserId;
+		_setOriginalResolverUserId = false;
 
-		tasksEntryModelImpl._setOriginalResolverUserId = false;
+		_originalStatus = _status;
 
-		tasksEntryModelImpl._originalStatus = tasksEntryModelImpl._status;
+		_setOriginalStatus = false;
 
-		tasksEntryModelImpl._setOriginalStatus = false;
-
-		tasksEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

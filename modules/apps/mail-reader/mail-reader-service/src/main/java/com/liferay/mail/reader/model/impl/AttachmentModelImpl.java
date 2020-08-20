@@ -688,13 +688,11 @@ public class AttachmentModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AttachmentModelImpl attachmentModelImpl = this;
+		_originalMessageId = _messageId;
 
-		attachmentModelImpl._originalMessageId = attachmentModelImpl._messageId;
+		_setOriginalMessageId = false;
 
-		attachmentModelImpl._setOriginalMessageId = false;
-
-		attachmentModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

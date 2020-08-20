@@ -992,7 +992,7 @@ public class AssetCategoryModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -1477,38 +1477,30 @@ public class AssetCategoryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AssetCategoryModelImpl assetCategoryModelImpl = this;
+		_originalUuid = _uuid;
 
-		assetCategoryModelImpl._originalUuid = assetCategoryModelImpl._uuid;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		assetCategoryModelImpl._originalExternalReferenceCode =
-			assetCategoryModelImpl._externalReferenceCode;
+		_originalGroupId = _groupId;
 
-		assetCategoryModelImpl._originalGroupId =
-			assetCategoryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		assetCategoryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		assetCategoryModelImpl._originalCompanyId =
-			assetCategoryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		assetCategoryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalParentCategoryId = _parentCategoryId;
 
-		assetCategoryModelImpl._setModifiedDate = false;
+		_setOriginalParentCategoryId = false;
 
-		assetCategoryModelImpl._originalParentCategoryId =
-			assetCategoryModelImpl._parentCategoryId;
+		_originalName = _name;
 
-		assetCategoryModelImpl._setOriginalParentCategoryId = false;
+		_originalVocabularyId = _vocabularyId;
 
-		assetCategoryModelImpl._originalName = assetCategoryModelImpl._name;
+		_setOriginalVocabularyId = false;
 
-		assetCategoryModelImpl._originalVocabularyId =
-			assetCategoryModelImpl._vocabularyId;
-
-		assetCategoryModelImpl._setOriginalVocabularyId = false;
-
-		assetCategoryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -917,31 +917,24 @@ public class RepositoryEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		RepositoryEntryModelImpl repositoryEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		repositoryEntryModelImpl._originalUuid = repositoryEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		repositoryEntryModelImpl._originalGroupId =
-			repositoryEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		repositoryEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		repositoryEntryModelImpl._originalCompanyId =
-			repositoryEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		repositoryEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalRepositoryId = _repositoryId;
 
-		repositoryEntryModelImpl._setModifiedDate = false;
+		_setOriginalRepositoryId = false;
 
-		repositoryEntryModelImpl._originalRepositoryId =
-			repositoryEntryModelImpl._repositoryId;
+		_originalMappedId = _mappedId;
 
-		repositoryEntryModelImpl._setOriginalRepositoryId = false;
-
-		repositoryEntryModelImpl._originalMappedId =
-			repositoryEntryModelImpl._mappedId;
-
-		repositoryEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

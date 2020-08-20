@@ -573,8 +573,6 @@ public class KaleoNodeModelImpl
 
 	@Override
 	public void setKaleoNodeId(long kaleoNodeId) {
-		_columnBitmask = -1L;
-
 		_kaleoNodeId = kaleoNodeId;
 	}
 
@@ -906,20 +904,16 @@ public class KaleoNodeModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoNodeModelImpl kaleoNodeModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		kaleoNodeModelImpl._originalCompanyId = kaleoNodeModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kaleoNodeModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalKaleoDefinitionVersionId = _kaleoDefinitionVersionId;
 
-		kaleoNodeModelImpl._setModifiedDate = false;
+		_setOriginalKaleoDefinitionVersionId = false;
 
-		kaleoNodeModelImpl._originalKaleoDefinitionVersionId =
-			kaleoNodeModelImpl._kaleoDefinitionVersionId;
-
-		kaleoNodeModelImpl._setOriginalKaleoDefinitionVersionId = false;
-
-		kaleoNodeModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

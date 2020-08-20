@@ -670,7 +670,7 @@ public class CommerceInventoryAuditModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
+		_columnBitmask |= CREATEDATE_COLUMN_BITMASK;
 
 		if (_originalCreateDate == null) {
 			_originalCreateDate = _createDate;
@@ -880,22 +880,16 @@ public class CommerceInventoryAuditModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceInventoryAuditModelImpl commerceInventoryAuditModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		commerceInventoryAuditModelImpl._originalCompanyId =
-			commerceInventoryAuditModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceInventoryAuditModelImpl._setOriginalCompanyId = false;
+		_originalCreateDate = _createDate;
 
-		commerceInventoryAuditModelImpl._originalCreateDate =
-			commerceInventoryAuditModelImpl._createDate;
+		_setModifiedDate = false;
+		_originalSku = _sku;
 
-		commerceInventoryAuditModelImpl._setModifiedDate = false;
-
-		commerceInventoryAuditModelImpl._originalSku =
-			commerceInventoryAuditModelImpl._sku;
-
-		commerceInventoryAuditModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

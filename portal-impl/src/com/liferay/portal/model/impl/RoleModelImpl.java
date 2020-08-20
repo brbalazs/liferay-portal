@@ -892,7 +892,7 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -1370,33 +1370,30 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 
 	@Override
 	public void resetOriginalValues() {
-		RoleModelImpl roleModelImpl = this;
+		_originalUuid = _uuid;
 
-		roleModelImpl._originalUuid = roleModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		roleModelImpl._originalCompanyId = roleModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		roleModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		roleModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		roleModelImpl._originalClassNameId = roleModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		roleModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		roleModelImpl._originalClassPK = roleModelImpl._classPK;
+		_originalName = _name;
 
-		roleModelImpl._setOriginalClassPK = false;
+		_originalType = _type;
 
-		roleModelImpl._originalName = roleModelImpl._name;
+		_setOriginalType = false;
 
-		roleModelImpl._originalType = roleModelImpl._type;
+		_originalSubtype = _subtype;
 
-		roleModelImpl._setOriginalType = false;
-
-		roleModelImpl._originalSubtype = roleModelImpl._subtype;
-
-		roleModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

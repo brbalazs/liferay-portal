@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -475,11 +474,10 @@ public class SourcePersistenceTest {
 		Source existingSource = _persistence.findByPrimaryKey(
 			newSource.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingSource.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingSource, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingSource.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingSource, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingSource.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

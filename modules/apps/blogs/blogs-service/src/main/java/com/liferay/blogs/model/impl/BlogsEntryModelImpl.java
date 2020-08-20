@@ -1164,8 +1164,6 @@ public class BlogsEntryModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1284,7 +1282,7 @@ public class BlogsEntryModelImpl
 
 	@Override
 	public void setDisplayDate(Date displayDate) {
-		_columnBitmask = -1L;
+		_columnBitmask |= DISPLAYDATE_COLUMN_BITMASK;
 
 		if (_originalDisplayDate == null) {
 			_originalDisplayDate = _displayDate;
@@ -1898,34 +1896,31 @@ public class BlogsEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		BlogsEntryModelImpl blogsEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		blogsEntryModelImpl._originalUuid = blogsEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		blogsEntryModelImpl._originalGroupId = blogsEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		blogsEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		blogsEntryModelImpl._originalCompanyId = blogsEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		blogsEntryModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		blogsEntryModelImpl._originalUserId = blogsEntryModelImpl._userId;
+		_setOriginalUserId = false;
 
-		blogsEntryModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
 
-		blogsEntryModelImpl._setModifiedDate = false;
+		_originalUrlTitle = _urlTitle;
 
-		blogsEntryModelImpl._originalUrlTitle = blogsEntryModelImpl._urlTitle;
+		_originalDisplayDate = _displayDate;
 
-		blogsEntryModelImpl._originalDisplayDate =
-			blogsEntryModelImpl._displayDate;
+		_originalStatus = _status;
 
-		blogsEntryModelImpl._originalStatus = blogsEntryModelImpl._status;
+		_setOriginalStatus = false;
 
-		blogsEntryModelImpl._setOriginalStatus = false;
-
-		blogsEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

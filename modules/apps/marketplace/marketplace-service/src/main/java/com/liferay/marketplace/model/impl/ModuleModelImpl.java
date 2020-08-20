@@ -660,26 +660,23 @@ public class ModuleModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ModuleModelImpl moduleModelImpl = this;
+		_originalUuid = _uuid;
 
-		moduleModelImpl._originalUuid = moduleModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		moduleModelImpl._originalCompanyId = moduleModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		moduleModelImpl._setOriginalCompanyId = false;
+		_originalAppId = _appId;
 
-		moduleModelImpl._originalAppId = moduleModelImpl._appId;
+		_setOriginalAppId = false;
 
-		moduleModelImpl._setOriginalAppId = false;
+		_originalBundleSymbolicName = _bundleSymbolicName;
 
-		moduleModelImpl._originalBundleSymbolicName =
-			moduleModelImpl._bundleSymbolicName;
+		_originalBundleVersion = _bundleVersion;
 
-		moduleModelImpl._originalBundleVersion = moduleModelImpl._bundleVersion;
+		_originalContextName = _contextName;
 
-		moduleModelImpl._originalContextName = moduleModelImpl._contextName;
-
-		moduleModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

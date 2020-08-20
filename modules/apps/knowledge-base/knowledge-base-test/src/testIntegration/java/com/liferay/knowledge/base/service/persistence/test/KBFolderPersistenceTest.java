@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -485,11 +484,10 @@ public class KBFolderPersistenceTest {
 		KBFolder existingKBFolder = _persistence.findByPrimaryKey(
 			newKBFolder.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingKBFolder.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingKBFolder, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingKBFolder.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingKBFolder, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingKBFolder.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -504,11 +502,10 @@ public class KBFolderPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingKBFolder, "getOriginalParentKBFolderId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingKBFolder.getName(),
-				ReflectionTestUtil.invoke(
-					existingKBFolder, "getOriginalName", new Class<?>[0])));
+		Assert.assertEquals(
+			existingKBFolder.getName(),
+			ReflectionTestUtil.invoke(
+				existingKBFolder, "getOriginalName", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingKBFolder.getGroupId()),
@@ -519,11 +516,10 @@ public class KBFolderPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingKBFolder, "getOriginalParentKBFolderId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingKBFolder.getUrlTitle(),
-				ReflectionTestUtil.invoke(
-					existingKBFolder, "getOriginalUrlTitle", new Class<?>[0])));
+		Assert.assertEquals(
+			existingKBFolder.getUrlTitle(),
+			ReflectionTestUtil.invoke(
+				existingKBFolder, "getOriginalUrlTitle", new Class<?>[0]));
 	}
 
 	protected KBFolder addKBFolder() throws Exception {

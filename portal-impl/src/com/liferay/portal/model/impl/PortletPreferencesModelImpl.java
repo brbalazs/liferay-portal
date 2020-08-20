@@ -770,32 +770,25 @@ public class PortletPreferencesModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		PortletPreferencesModelImpl portletPreferencesModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		portletPreferencesModelImpl._originalCompanyId =
-			portletPreferencesModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		portletPreferencesModelImpl._setOriginalCompanyId = false;
+		_originalOwnerId = _ownerId;
 
-		portletPreferencesModelImpl._originalOwnerId =
-			portletPreferencesModelImpl._ownerId;
+		_setOriginalOwnerId = false;
 
-		portletPreferencesModelImpl._setOriginalOwnerId = false;
+		_originalOwnerType = _ownerType;
 
-		portletPreferencesModelImpl._originalOwnerType =
-			portletPreferencesModelImpl._ownerType;
+		_setOriginalOwnerType = false;
 
-		portletPreferencesModelImpl._setOriginalOwnerType = false;
+		_originalPlid = _plid;
 
-		portletPreferencesModelImpl._originalPlid =
-			portletPreferencesModelImpl._plid;
+		_setOriginalPlid = false;
 
-		portletPreferencesModelImpl._setOriginalPlid = false;
+		_originalPortletId = _portletId;
 
-		portletPreferencesModelImpl._originalPortletId =
-			portletPreferencesModelImpl._portletId;
-
-		portletPreferencesModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

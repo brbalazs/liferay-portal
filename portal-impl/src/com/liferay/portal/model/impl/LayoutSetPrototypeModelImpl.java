@@ -1221,24 +1221,19 @@ public class LayoutSetPrototypeModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		LayoutSetPrototypeModelImpl layoutSetPrototypeModelImpl = this;
+		_originalUuid = _uuid;
 
-		layoutSetPrototypeModelImpl._originalUuid =
-			layoutSetPrototypeModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		layoutSetPrototypeModelImpl._originalCompanyId =
-			layoutSetPrototypeModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		layoutSetPrototypeModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		layoutSetPrototypeModelImpl._setModifiedDate = false;
+		_originalActive = _active;
 
-		layoutSetPrototypeModelImpl._originalActive =
-			layoutSetPrototypeModelImpl._active;
+		_setOriginalActive = false;
 
-		layoutSetPrototypeModelImpl._setOriginalActive = false;
-
-		layoutSetPrototypeModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

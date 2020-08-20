@@ -48,7 +48,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -549,12 +548,10 @@ public class CommerceCurrencyPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCommerceCurrency, "getOriginalCompanyId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceCurrency.getCode(),
-				ReflectionTestUtil.invoke(
-					existingCommerceCurrency, "getOriginalCode",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceCurrency.getCode(),
+			ReflectionTestUtil.invoke(
+				existingCommerceCurrency, "getOriginalCode", new Class<?>[0]));
 	}
 
 	protected CommerceCurrency addCommerceCurrency() throws Exception {

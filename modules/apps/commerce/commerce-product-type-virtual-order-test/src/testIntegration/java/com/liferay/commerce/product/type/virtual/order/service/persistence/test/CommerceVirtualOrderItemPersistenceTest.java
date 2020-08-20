@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -557,12 +556,11 @@ public class CommerceVirtualOrderItemPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newCommerceVirtualOrderItem.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceVirtualOrderItem.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCommerceVirtualOrderItem, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceVirtualOrderItem.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCommerceVirtualOrderItem, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCommerceVirtualOrderItem.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

@@ -817,8 +817,6 @@ public class CPDefinitionLinkModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -968,37 +966,28 @@ public class CPDefinitionLinkModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPDefinitionLinkModelImpl cpDefinitionLinkModelImpl = this;
+		_originalUuid = _uuid;
 
-		cpDefinitionLinkModelImpl._originalUuid =
-			cpDefinitionLinkModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		cpDefinitionLinkModelImpl._originalGroupId =
-			cpDefinitionLinkModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		cpDefinitionLinkModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		cpDefinitionLinkModelImpl._originalCompanyId =
-			cpDefinitionLinkModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpDefinitionLinkModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCPDefinitionId = _CPDefinitionId;
 
-		cpDefinitionLinkModelImpl._setModifiedDate = false;
+		_setOriginalCPDefinitionId = false;
 
-		cpDefinitionLinkModelImpl._originalCPDefinitionId =
-			cpDefinitionLinkModelImpl._CPDefinitionId;
+		_originalCProductId = _CProductId;
 
-		cpDefinitionLinkModelImpl._setOriginalCPDefinitionId = false;
+		_setOriginalCProductId = false;
 
-		cpDefinitionLinkModelImpl._originalCProductId =
-			cpDefinitionLinkModelImpl._CProductId;
+		_originalType = _type;
 
-		cpDefinitionLinkModelImpl._setOriginalCProductId = false;
-
-		cpDefinitionLinkModelImpl._originalType =
-			cpDefinitionLinkModelImpl._type;
-
-		cpDefinitionLinkModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

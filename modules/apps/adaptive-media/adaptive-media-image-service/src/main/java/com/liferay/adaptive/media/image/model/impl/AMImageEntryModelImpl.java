@@ -802,28 +802,23 @@ public class AMImageEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AMImageEntryModelImpl amImageEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		amImageEntryModelImpl._originalUuid = amImageEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		amImageEntryModelImpl._originalGroupId = amImageEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		amImageEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		amImageEntryModelImpl._originalCompanyId =
-			amImageEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		amImageEntryModelImpl._setOriginalCompanyId = false;
+		_originalConfigurationUuid = _configurationUuid;
 
-		amImageEntryModelImpl._originalConfigurationUuid =
-			amImageEntryModelImpl._configurationUuid;
+		_originalFileVersionId = _fileVersionId;
 
-		amImageEntryModelImpl._originalFileVersionId =
-			amImageEntryModelImpl._fileVersionId;
+		_setOriginalFileVersionId = false;
 
-		amImageEntryModelImpl._setOriginalFileVersionId = false;
-
-		amImageEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

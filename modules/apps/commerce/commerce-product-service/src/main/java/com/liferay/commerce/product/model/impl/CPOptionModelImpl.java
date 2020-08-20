@@ -890,8 +890,6 @@ public class CPOptionModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -1355,22 +1353,19 @@ public class CPOptionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPOptionModelImpl cpOptionModelImpl = this;
+		_originalUuid = _uuid;
 
-		cpOptionModelImpl._originalUuid = cpOptionModelImpl._uuid;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		cpOptionModelImpl._originalExternalReferenceCode =
-			cpOptionModelImpl._externalReferenceCode;
+		_originalCompanyId = _companyId;
 
-		cpOptionModelImpl._originalCompanyId = cpOptionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpOptionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		cpOptionModelImpl._setModifiedDate = false;
+		_originalKey = _key;
 
-		cpOptionModelImpl._originalKey = cpOptionModelImpl._key;
-
-		cpOptionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

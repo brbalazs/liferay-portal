@@ -863,8 +863,6 @@ public class CPDefinitionGroupedEntryModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1004,35 +1002,26 @@ public class CPDefinitionGroupedEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPDefinitionGroupedEntryModelImpl cpDefinitionGroupedEntryModelImpl =
-			this;
+		_originalUuid = _uuid;
 
-		cpDefinitionGroupedEntryModelImpl._originalUuid =
-			cpDefinitionGroupedEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		cpDefinitionGroupedEntryModelImpl._originalGroupId =
-			cpDefinitionGroupedEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		cpDefinitionGroupedEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		cpDefinitionGroupedEntryModelImpl._originalCompanyId =
-			cpDefinitionGroupedEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpDefinitionGroupedEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCPDefinitionId = _CPDefinitionId;
 
-		cpDefinitionGroupedEntryModelImpl._setModifiedDate = false;
+		_setOriginalCPDefinitionId = false;
 
-		cpDefinitionGroupedEntryModelImpl._originalCPDefinitionId =
-			cpDefinitionGroupedEntryModelImpl._CPDefinitionId;
+		_originalEntryCProductId = _entryCProductId;
 
-		cpDefinitionGroupedEntryModelImpl._setOriginalCPDefinitionId = false;
+		_setOriginalEntryCProductId = false;
 
-		cpDefinitionGroupedEntryModelImpl._originalEntryCProductId =
-			cpDefinitionGroupedEntryModelImpl._entryCProductId;
-
-		cpDefinitionGroupedEntryModelImpl._setOriginalEntryCProductId = false;
-
-		cpDefinitionGroupedEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

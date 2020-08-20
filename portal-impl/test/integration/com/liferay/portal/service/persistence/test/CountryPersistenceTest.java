@@ -40,7 +40,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -404,23 +403,20 @@ public class CountryPersistenceTest {
 		Country existingCountry = _persistence.findByPrimaryKey(
 			newCountry.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCountry.getName(),
-				ReflectionTestUtil.invoke(
-					existingCountry, "getOriginalName", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCountry.getName(),
+			ReflectionTestUtil.invoke(
+				existingCountry, "getOriginalName", new Class<?>[0]));
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCountry.getA2(),
-				ReflectionTestUtil.invoke(
-					existingCountry, "getOriginalA2", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCountry.getA2(),
+			ReflectionTestUtil.invoke(
+				existingCountry, "getOriginalA2", new Class<?>[0]));
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCountry.getA3(),
-				ReflectionTestUtil.invoke(
-					existingCountry, "getOriginalA3", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCountry.getA3(),
+			ReflectionTestUtil.invoke(
+				existingCountry, "getOriginalA3", new Class<?>[0]));
 	}
 
 	protected Country addCountry() throws Exception {

@@ -880,8 +880,6 @@ public class MessageModelImpl
 
 	@Override
 	public void setSentDate(Date sentDate) {
-		_columnBitmask = -1L;
-
 		_sentDate = sentDate;
 	}
 
@@ -1106,24 +1104,21 @@ public class MessageModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		MessageModelImpl messageModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		messageModelImpl._originalCompanyId = messageModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		messageModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		messageModelImpl._setModifiedDate = false;
+		_originalFolderId = _folderId;
 
-		messageModelImpl._originalFolderId = messageModelImpl._folderId;
+		_setOriginalFolderId = false;
 
-		messageModelImpl._setOriginalFolderId = false;
+		_originalRemoteMessageId = _remoteMessageId;
 
-		messageModelImpl._originalRemoteMessageId =
-			messageModelImpl._remoteMessageId;
+		_setOriginalRemoteMessageId = false;
 
-		messageModelImpl._setOriginalRemoteMessageId = false;
-
-		messageModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

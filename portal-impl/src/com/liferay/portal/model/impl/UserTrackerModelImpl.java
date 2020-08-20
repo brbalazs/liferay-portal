@@ -730,21 +730,17 @@ public class UserTrackerModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		UserTrackerModelImpl userTrackerModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		userTrackerModelImpl._originalCompanyId =
-			userTrackerModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		userTrackerModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		userTrackerModelImpl._originalUserId = userTrackerModelImpl._userId;
+		_setOriginalUserId = false;
 
-		userTrackerModelImpl._setOriginalUserId = false;
+		_originalSessionId = _sessionId;
 
-		userTrackerModelImpl._originalSessionId =
-			userTrackerModelImpl._sessionId;
-
-		userTrackerModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

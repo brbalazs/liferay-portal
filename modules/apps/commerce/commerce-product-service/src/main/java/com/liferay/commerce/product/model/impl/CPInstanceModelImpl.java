@@ -1513,8 +1513,6 @@ public class CPInstanceModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1761,7 +1759,7 @@ public class CPInstanceModelImpl
 
 	@Override
 	public void setDisplayDate(Date displayDate) {
-		_columnBitmask = -1L;
+		_columnBitmask |= DISPLAYDATE_COLUMN_BITMASK;
 
 		if (_originalDisplayDate == null) {
 			_originalDisplayDate = _displayDate;
@@ -2294,41 +2292,34 @@ public class CPInstanceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPInstanceModelImpl cpInstanceModelImpl = this;
+		_originalUuid = _uuid;
 
-		cpInstanceModelImpl._originalUuid = cpInstanceModelImpl._uuid;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		cpInstanceModelImpl._originalExternalReferenceCode =
-			cpInstanceModelImpl._externalReferenceCode;
+		_originalGroupId = _groupId;
 
-		cpInstanceModelImpl._originalGroupId = cpInstanceModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		cpInstanceModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		cpInstanceModelImpl._originalCompanyId = cpInstanceModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpInstanceModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCPDefinitionId = _CPDefinitionId;
 
-		cpInstanceModelImpl._setModifiedDate = false;
+		_setOriginalCPDefinitionId = false;
 
-		cpInstanceModelImpl._originalCPDefinitionId =
-			cpInstanceModelImpl._CPDefinitionId;
+		_originalCPInstanceUuid = _CPInstanceUuid;
 
-		cpInstanceModelImpl._setOriginalCPDefinitionId = false;
+		_originalSku = _sku;
 
-		cpInstanceModelImpl._originalCPInstanceUuid =
-			cpInstanceModelImpl._CPInstanceUuid;
+		_originalDisplayDate = _displayDate;
 
-		cpInstanceModelImpl._originalSku = cpInstanceModelImpl._sku;
+		_originalStatus = _status;
 
-		cpInstanceModelImpl._originalDisplayDate =
-			cpInstanceModelImpl._displayDate;
+		_setOriginalStatus = false;
 
-		cpInstanceModelImpl._originalStatus = cpInstanceModelImpl._status;
-
-		cpInstanceModelImpl._setOriginalStatus = false;
-
-		cpInstanceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

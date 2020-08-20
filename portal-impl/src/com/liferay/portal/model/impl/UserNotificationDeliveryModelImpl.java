@@ -817,33 +817,25 @@ public class UserNotificationDeliveryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		UserNotificationDeliveryModelImpl userNotificationDeliveryModelImpl =
-			this;
+		_originalUserId = _userId;
 
-		userNotificationDeliveryModelImpl._originalUserId =
-			userNotificationDeliveryModelImpl._userId;
+		_setOriginalUserId = false;
 
-		userNotificationDeliveryModelImpl._setOriginalUserId = false;
+		_originalPortletId = _portletId;
 
-		userNotificationDeliveryModelImpl._originalPortletId =
-			userNotificationDeliveryModelImpl._portletId;
+		_originalClassNameId = _classNameId;
 
-		userNotificationDeliveryModelImpl._originalClassNameId =
-			userNotificationDeliveryModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		userNotificationDeliveryModelImpl._setOriginalClassNameId = false;
+		_originalNotificationType = _notificationType;
 
-		userNotificationDeliveryModelImpl._originalNotificationType =
-			userNotificationDeliveryModelImpl._notificationType;
+		_setOriginalNotificationType = false;
 
-		userNotificationDeliveryModelImpl._setOriginalNotificationType = false;
+		_originalDeliveryType = _deliveryType;
 
-		userNotificationDeliveryModelImpl._originalDeliveryType =
-			userNotificationDeliveryModelImpl._deliveryType;
+		_setOriginalDeliveryType = false;
 
-		userNotificationDeliveryModelImpl._setOriginalDeliveryType = false;
-
-		userNotificationDeliveryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

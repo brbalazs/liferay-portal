@@ -1473,7 +1473,7 @@ public class JournalArticleModelImpl
 
 	@Override
 	public void setArticleId(String articleId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= ARTICLEID_COLUMN_BITMASK;
 
 		if (_originalArticleId == null) {
 			_originalArticleId = _articleId;
@@ -1494,7 +1494,7 @@ public class JournalArticleModelImpl
 
 	@Override
 	public void setVersion(double version) {
-		_columnBitmask = -1L;
+		_columnBitmask |= VERSION_COLUMN_BITMASK;
 
 		if (!_setOriginalVersion) {
 			_setOriginalVersion = true;
@@ -2253,91 +2253,70 @@ public class JournalArticleModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		JournalArticleModelImpl journalArticleModelImpl = this;
+		_originalUuid = _uuid;
 
-		journalArticleModelImpl._originalUuid = journalArticleModelImpl._uuid;
+		_originalResourcePrimKey = _resourcePrimKey;
 
-		journalArticleModelImpl._originalResourcePrimKey =
-			journalArticleModelImpl._resourcePrimKey;
+		_setOriginalResourcePrimKey = false;
 
-		journalArticleModelImpl._setOriginalResourcePrimKey = false;
+		_originalGroupId = _groupId;
 
-		journalArticleModelImpl._originalGroupId =
-			journalArticleModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		journalArticleModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		journalArticleModelImpl._originalCompanyId =
-			journalArticleModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		journalArticleModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		journalArticleModelImpl._originalUserId =
-			journalArticleModelImpl._userId;
+		_setOriginalUserId = false;
 
-		journalArticleModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalFolderId = _folderId;
 
-		journalArticleModelImpl._setModifiedDate = false;
+		_setOriginalFolderId = false;
 
-		journalArticleModelImpl._originalFolderId =
-			journalArticleModelImpl._folderId;
+		_originalClassNameId = _classNameId;
 
-		journalArticleModelImpl._setOriginalFolderId = false;
+		_setOriginalClassNameId = false;
 
-		journalArticleModelImpl._originalClassNameId =
-			journalArticleModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		journalArticleModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		journalArticleModelImpl._originalClassPK =
-			journalArticleModelImpl._classPK;
+		_originalArticleId = _articleId;
 
-		journalArticleModelImpl._setOriginalClassPK = false;
+		_originalVersion = _version;
 
-		journalArticleModelImpl._originalArticleId =
-			journalArticleModelImpl._articleId;
+		_setOriginalVersion = false;
 
-		journalArticleModelImpl._originalVersion =
-			journalArticleModelImpl._version;
+		_originalUrlTitle = _urlTitle;
 
-		journalArticleModelImpl._setOriginalVersion = false;
+		_originalDDMStructureKey = _DDMStructureKey;
 
-		journalArticleModelImpl._originalUrlTitle =
-			journalArticleModelImpl._urlTitle;
+		_originalDDMTemplateKey = _DDMTemplateKey;
 
-		journalArticleModelImpl._originalDDMStructureKey =
-			journalArticleModelImpl._DDMStructureKey;
+		_originalLayoutUuid = _layoutUuid;
 
-		journalArticleModelImpl._originalDDMTemplateKey =
-			journalArticleModelImpl._DDMTemplateKey;
+		_originalDisplayDate = _displayDate;
 
-		journalArticleModelImpl._originalLayoutUuid =
-			journalArticleModelImpl._layoutUuid;
+		_originalExpirationDate = _expirationDate;
 
-		journalArticleModelImpl._originalDisplayDate =
-			journalArticleModelImpl._displayDate;
+		_originalIndexable = _indexable;
 
-		journalArticleModelImpl._originalExpirationDate =
-			journalArticleModelImpl._expirationDate;
+		_setOriginalIndexable = false;
 
-		journalArticleModelImpl._originalIndexable =
-			journalArticleModelImpl._indexable;
+		_originalSmallImageId = _smallImageId;
 
-		journalArticleModelImpl._setOriginalIndexable = false;
+		_setOriginalSmallImageId = false;
 
-		journalArticleModelImpl._originalSmallImageId =
-			journalArticleModelImpl._smallImageId;
+		_originalStatus = _status;
 
-		journalArticleModelImpl._setOriginalSmallImageId = false;
-
-		journalArticleModelImpl._originalStatus =
-			journalArticleModelImpl._status;
-
-		journalArticleModelImpl._setOriginalStatus = false;
+		_setOriginalStatus = false;
 
 		setDocument(null);
 
-		journalArticleModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

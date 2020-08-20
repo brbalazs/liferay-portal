@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -620,11 +619,10 @@ public class MBCategoryPersistenceTest {
 		MBCategory existingMBCategory = _persistence.findByPrimaryKey(
 			newMBCategory.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingMBCategory.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingMBCategory, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingMBCategory.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingMBCategory, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingMBCategory.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

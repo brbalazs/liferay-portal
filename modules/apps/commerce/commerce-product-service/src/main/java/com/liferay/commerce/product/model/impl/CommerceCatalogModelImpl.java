@@ -691,8 +691,6 @@ public class CommerceCatalogModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -900,24 +898,19 @@ public class CommerceCatalogModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceCatalogModelImpl commerceCatalogModelImpl = this;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commerceCatalogModelImpl._originalExternalReferenceCode =
-			commerceCatalogModelImpl._externalReferenceCode;
+		_originalCompanyId = _companyId;
 
-		commerceCatalogModelImpl._originalCompanyId =
-			commerceCatalogModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceCatalogModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		commerceCatalogModelImpl._setModifiedDate = false;
+		_originalSystem = _system;
 
-		commerceCatalogModelImpl._originalSystem =
-			commerceCatalogModelImpl._system;
+		_setOriginalSystem = false;
 
-		commerceCatalogModelImpl._setOriginalSystem = false;
-
-		commerceCatalogModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -707,8 +707,6 @@ public class CommerceOrderNoteModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -907,29 +905,22 @@ public class CommerceOrderNoteModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceOrderNoteModelImpl commerceOrderNoteModelImpl = this;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commerceOrderNoteModelImpl._originalExternalReferenceCode =
-			commerceOrderNoteModelImpl._externalReferenceCode;
+		_originalCompanyId = _companyId;
 
-		commerceOrderNoteModelImpl._originalCompanyId =
-			commerceOrderNoteModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceOrderNoteModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCommerceOrderId = _commerceOrderId;
 
-		commerceOrderNoteModelImpl._setModifiedDate = false;
+		_setOriginalCommerceOrderId = false;
 
-		commerceOrderNoteModelImpl._originalCommerceOrderId =
-			commerceOrderNoteModelImpl._commerceOrderId;
+		_originalRestricted = _restricted;
 
-		commerceOrderNoteModelImpl._setOriginalCommerceOrderId = false;
+		_setOriginalRestricted = false;
 
-		commerceOrderNoteModelImpl._originalRestricted =
-			commerceOrderNoteModelImpl._restricted;
-
-		commerceOrderNoteModelImpl._setOriginalRestricted = false;
-
-		commerceOrderNoteModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

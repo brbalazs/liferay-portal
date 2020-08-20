@@ -739,8 +739,6 @@ public class CommercePricingClassModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1192,22 +1190,17 @@ public class CommercePricingClassModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommercePricingClassModelImpl commercePricingClassModelImpl = this;
+		_originalUuid = _uuid;
 
-		commercePricingClassModelImpl._originalUuid =
-			commercePricingClassModelImpl._uuid;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commercePricingClassModelImpl._originalExternalReferenceCode =
-			commercePricingClassModelImpl._externalReferenceCode;
+		_originalCompanyId = _companyId;
 
-		commercePricingClassModelImpl._originalCompanyId =
-			commercePricingClassModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commercePricingClassModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		commercePricingClassModelImpl._setModifiedDate = false;
-
-		commercePricingClassModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

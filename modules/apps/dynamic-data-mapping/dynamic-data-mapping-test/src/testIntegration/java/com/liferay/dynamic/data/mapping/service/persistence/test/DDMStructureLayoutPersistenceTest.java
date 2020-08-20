@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -479,12 +478,11 @@ public class DDMStructureLayoutPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newDDMStructureLayout.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingDDMStructureLayout.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingDDMStructureLayout, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingDDMStructureLayout.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingDDMStructureLayout, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingDDMStructureLayout.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

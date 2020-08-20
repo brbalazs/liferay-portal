@@ -44,7 +44,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -618,12 +617,10 @@ public class AssetCategoryPersistenceTest {
 		AssetCategory existingAssetCategory = _persistence.findByPrimaryKey(
 			newAssetCategory.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingAssetCategory.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingAssetCategory, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingAssetCategory.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingAssetCategory, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingAssetCategory.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -634,12 +631,10 @@ public class AssetCategoryPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingAssetCategory, "getOriginalParentCategoryId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingAssetCategory.getName(),
-				ReflectionTestUtil.invoke(
-					existingAssetCategory, "getOriginalName",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingAssetCategory.getName(),
+			ReflectionTestUtil.invoke(
+				existingAssetCategory, "getOriginalName", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingAssetCategory.getVocabularyId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -651,12 +646,11 @@ public class AssetCategoryPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingAssetCategory, "getOriginalCompanyId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingAssetCategory.getExternalReferenceCode(),
-				ReflectionTestUtil.invoke(
-					existingAssetCategory, "getOriginalExternalReferenceCode",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingAssetCategory.getExternalReferenceCode(),
+			ReflectionTestUtil.invoke(
+				existingAssetCategory, "getOriginalExternalReferenceCode",
+				new Class<?>[0]));
 	}
 
 	protected AssetCategory addAssetCategory() throws Exception {

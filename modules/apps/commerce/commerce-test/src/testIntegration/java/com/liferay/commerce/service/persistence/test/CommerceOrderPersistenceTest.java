@@ -47,7 +47,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -941,12 +940,10 @@ public class CommerceOrderPersistenceTest {
 		CommerceOrder existingCommerceOrder = _persistence.findByPrimaryKey(
 			newCommerceOrder.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceOrder.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCommerceOrder, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceOrder.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCommerceOrder, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCommerceOrder.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -957,12 +954,11 @@ public class CommerceOrderPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCommerceOrder, "getOriginalCompanyId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceOrder.getExternalReferenceCode(),
-				ReflectionTestUtil.invoke(
-					existingCommerceOrder, "getOriginalExternalReferenceCode",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceOrder.getExternalReferenceCode(),
+			ReflectionTestUtil.invoke(
+				existingCommerceOrder, "getOriginalExternalReferenceCode",
+				new Class<?>[0]));
 	}
 
 	protected CommerceOrder addCommerceOrder() throws Exception {

@@ -741,17 +741,13 @@ public class AnnouncementsDeliveryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AnnouncementsDeliveryModelImpl announcementsDeliveryModelImpl = this;
+		_originalUserId = _userId;
 
-		announcementsDeliveryModelImpl._originalUserId =
-			announcementsDeliveryModelImpl._userId;
+		_setOriginalUserId = false;
 
-		announcementsDeliveryModelImpl._setOriginalUserId = false;
+		_originalType = _type;
 
-		announcementsDeliveryModelImpl._originalType =
-			announcementsDeliveryModelImpl._type;
-
-		announcementsDeliveryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

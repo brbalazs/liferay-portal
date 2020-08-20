@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -568,12 +567,11 @@ public class CalendarNotificationTemplatePersistenceTest {
 			_persistence.findByPrimaryKey(
 				newCalendarNotificationTemplate.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCalendarNotificationTemplate.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCalendarNotificationTemplate, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCalendarNotificationTemplate.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCalendarNotificationTemplate, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCalendarNotificationTemplate.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -585,19 +583,16 @@ public class CalendarNotificationTemplatePersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCalendarNotificationTemplate, "getOriginalCalendarId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCalendarNotificationTemplate.getNotificationType(),
-				ReflectionTestUtil.invoke(
-					existingCalendarNotificationTemplate,
-					"getOriginalNotificationType", new Class<?>[0])));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCalendarNotificationTemplate.
-					getNotificationTemplateType(),
-				ReflectionTestUtil.invoke(
-					existingCalendarNotificationTemplate,
-					"getOriginalNotificationTemplateType", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCalendarNotificationTemplate.getNotificationType(),
+			ReflectionTestUtil.invoke(
+				existingCalendarNotificationTemplate,
+				"getOriginalNotificationType", new Class<?>[0]));
+		Assert.assertEquals(
+			existingCalendarNotificationTemplate.getNotificationTemplateType(),
+			ReflectionTestUtil.invoke(
+				existingCalendarNotificationTemplate,
+				"getOriginalNotificationTemplateType", new Class<?>[0]));
 	}
 
 	protected CalendarNotificationTemplate addCalendarNotificationTemplate()

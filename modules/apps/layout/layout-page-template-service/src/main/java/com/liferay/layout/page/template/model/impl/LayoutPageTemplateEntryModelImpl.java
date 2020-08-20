@@ -1182,7 +1182,7 @@ public class LayoutPageTemplateEntryModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -1578,66 +1578,49 @@ public class LayoutPageTemplateEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		LayoutPageTemplateEntryModelImpl layoutPageTemplateEntryModelImpl =
-			this;
+		_originalUuid = _uuid;
 
-		layoutPageTemplateEntryModelImpl._originalUuid =
-			layoutPageTemplateEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		layoutPageTemplateEntryModelImpl._originalGroupId =
-			layoutPageTemplateEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		layoutPageTemplateEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		layoutPageTemplateEntryModelImpl._originalCompanyId =
-			layoutPageTemplateEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		layoutPageTemplateEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalLayoutPageTemplateCollectionId =
+			_layoutPageTemplateCollectionId;
 
-		layoutPageTemplateEntryModelImpl._setModifiedDate = false;
+		_setOriginalLayoutPageTemplateCollectionId = false;
 
-		layoutPageTemplateEntryModelImpl.
-			_originalLayoutPageTemplateCollectionId =
-				layoutPageTemplateEntryModelImpl.
-					_layoutPageTemplateCollectionId;
+		_originalClassNameId = _classNameId;
 
-		layoutPageTemplateEntryModelImpl.
-			_setOriginalLayoutPageTemplateCollectionId = false;
+		_setOriginalClassNameId = false;
 
-		layoutPageTemplateEntryModelImpl._originalClassNameId =
-			layoutPageTemplateEntryModelImpl._classNameId;
+		_originalClassTypeId = _classTypeId;
 
-		layoutPageTemplateEntryModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassTypeId = false;
 
-		layoutPageTemplateEntryModelImpl._originalClassTypeId =
-			layoutPageTemplateEntryModelImpl._classTypeId;
+		_originalName = _name;
 
-		layoutPageTemplateEntryModelImpl._setOriginalClassTypeId = false;
+		_originalType = _type;
 
-		layoutPageTemplateEntryModelImpl._originalName =
-			layoutPageTemplateEntryModelImpl._name;
+		_setOriginalType = false;
 
-		layoutPageTemplateEntryModelImpl._originalType =
-			layoutPageTemplateEntryModelImpl._type;
+		_originalDefaultTemplate = _defaultTemplate;
 
-		layoutPageTemplateEntryModelImpl._setOriginalType = false;
+		_setOriginalDefaultTemplate = false;
 
-		layoutPageTemplateEntryModelImpl._originalDefaultTemplate =
-			layoutPageTemplateEntryModelImpl._defaultTemplate;
+		_originalLayoutPrototypeId = _layoutPrototypeId;
 
-		layoutPageTemplateEntryModelImpl._setOriginalDefaultTemplate = false;
+		_setOriginalLayoutPrototypeId = false;
 
-		layoutPageTemplateEntryModelImpl._originalLayoutPrototypeId =
-			layoutPageTemplateEntryModelImpl._layoutPrototypeId;
+		_originalStatus = _status;
 
-		layoutPageTemplateEntryModelImpl._setOriginalLayoutPrototypeId = false;
+		_setOriginalStatus = false;
 
-		layoutPageTemplateEntryModelImpl._originalStatus =
-			layoutPageTemplateEntryModelImpl._status;
-
-		layoutPageTemplateEntryModelImpl._setOriginalStatus = false;
-
-		layoutPageTemplateEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

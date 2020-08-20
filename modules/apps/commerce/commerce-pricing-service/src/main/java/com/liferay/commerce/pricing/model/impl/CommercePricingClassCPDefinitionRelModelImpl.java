@@ -645,8 +645,6 @@ public class CommercePricingClassCPDefinitionRelModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -832,26 +830,16 @@ public class CommercePricingClassCPDefinitionRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommercePricingClassCPDefinitionRelModelImpl
-			commercePricingClassCPDefinitionRelModelImpl = this;
+		_setModifiedDate = false;
+		_originalCommercePricingClassId = _commercePricingClassId;
 
-		commercePricingClassCPDefinitionRelModelImpl._setModifiedDate = false;
+		_setOriginalCommercePricingClassId = false;
 
-		commercePricingClassCPDefinitionRelModelImpl.
-			_originalCommercePricingClassId =
-				commercePricingClassCPDefinitionRelModelImpl.
-					_commercePricingClassId;
+		_originalCPDefinitionId = _CPDefinitionId;
 
-		commercePricingClassCPDefinitionRelModelImpl.
-			_setOriginalCommercePricingClassId = false;
+		_setOriginalCPDefinitionId = false;
 
-		commercePricingClassCPDefinitionRelModelImpl._originalCPDefinitionId =
-			commercePricingClassCPDefinitionRelModelImpl._CPDefinitionId;
-
-		commercePricingClassCPDefinitionRelModelImpl.
-			_setOriginalCPDefinitionId = false;
-
-		commercePricingClassCPDefinitionRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

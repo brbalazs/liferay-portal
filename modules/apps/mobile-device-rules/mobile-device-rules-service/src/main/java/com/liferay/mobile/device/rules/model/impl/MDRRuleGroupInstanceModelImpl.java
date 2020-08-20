@@ -1037,39 +1037,30 @@ public class MDRRuleGroupInstanceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		MDRRuleGroupInstanceModelImpl mdrRuleGroupInstanceModelImpl = this;
+		_originalUuid = _uuid;
 
-		mdrRuleGroupInstanceModelImpl._originalUuid =
-			mdrRuleGroupInstanceModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		mdrRuleGroupInstanceModelImpl._originalGroupId =
-			mdrRuleGroupInstanceModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		mdrRuleGroupInstanceModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		mdrRuleGroupInstanceModelImpl._originalCompanyId =
-			mdrRuleGroupInstanceModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		mdrRuleGroupInstanceModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		mdrRuleGroupInstanceModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		mdrRuleGroupInstanceModelImpl._originalClassNameId =
-			mdrRuleGroupInstanceModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		mdrRuleGroupInstanceModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		mdrRuleGroupInstanceModelImpl._originalClassPK =
-			mdrRuleGroupInstanceModelImpl._classPK;
+		_originalRuleGroupId = _ruleGroupId;
 
-		mdrRuleGroupInstanceModelImpl._setOriginalClassPK = false;
+		_setOriginalRuleGroupId = false;
 
-		mdrRuleGroupInstanceModelImpl._originalRuleGroupId =
-			mdrRuleGroupInstanceModelImpl._ruleGroupId;
-
-		mdrRuleGroupInstanceModelImpl._setOriginalRuleGroupId = false;
-
-		mdrRuleGroupInstanceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

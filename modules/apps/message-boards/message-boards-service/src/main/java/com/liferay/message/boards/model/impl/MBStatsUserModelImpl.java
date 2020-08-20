@@ -495,7 +495,7 @@ public class MBStatsUserModelImpl
 
 	@Override
 	public void setMessageCount(int messageCount) {
-		_columnBitmask = -1L;
+		_columnBitmask |= MESSAGECOUNT_COLUMN_BITMASK;
 
 		if (!_setOriginalMessageCount) {
 			_setOriginalMessageCount = true;
@@ -630,22 +630,19 @@ public class MBStatsUserModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		MBStatsUserModelImpl mbStatsUserModelImpl = this;
+		_originalGroupId = _groupId;
 
-		mbStatsUserModelImpl._originalGroupId = mbStatsUserModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		mbStatsUserModelImpl._setOriginalGroupId = false;
+		_originalUserId = _userId;
 
-		mbStatsUserModelImpl._originalUserId = mbStatsUserModelImpl._userId;
+		_setOriginalUserId = false;
 
-		mbStatsUserModelImpl._setOriginalUserId = false;
+		_originalMessageCount = _messageCount;
 
-		mbStatsUserModelImpl._originalMessageCount =
-			mbStatsUserModelImpl._messageCount;
+		_setOriginalMessageCount = false;
 
-		mbStatsUserModelImpl._setOriginalMessageCount = false;
-
-		mbStatsUserModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

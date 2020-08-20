@@ -881,7 +881,7 @@ public class CommerceMLForecastAlertEntryModelImpl
 
 	@Override
 	public void setTimestamp(Date timestamp) {
-		_columnBitmask = -1L;
+		_columnBitmask |= TIMESTAMP_COLUMN_BITMASK;
 
 		if (_originalTimestamp == null) {
 			_originalTimestamp = _timestamp;
@@ -1062,40 +1062,28 @@ public class CommerceMLForecastAlertEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceMLForecastAlertEntryModelImpl
-			commerceMLForecastAlertEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		commerceMLForecastAlertEntryModelImpl._originalUuid =
-			commerceMLForecastAlertEntryModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		commerceMLForecastAlertEntryModelImpl._originalCompanyId =
-			commerceMLForecastAlertEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceMLForecastAlertEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCommerceAccountId = _commerceAccountId;
 
-		commerceMLForecastAlertEntryModelImpl._setModifiedDate = false;
+		_setOriginalCommerceAccountId = false;
 
-		commerceMLForecastAlertEntryModelImpl._originalCommerceAccountId =
-			commerceMLForecastAlertEntryModelImpl._commerceAccountId;
+		_originalTimestamp = _timestamp;
 
-		commerceMLForecastAlertEntryModelImpl._setOriginalCommerceAccountId =
-			false;
+		_originalRelativeChange = _relativeChange;
 
-		commerceMLForecastAlertEntryModelImpl._originalTimestamp =
-			commerceMLForecastAlertEntryModelImpl._timestamp;
+		_setOriginalRelativeChange = false;
 
-		commerceMLForecastAlertEntryModelImpl._originalRelativeChange =
-			commerceMLForecastAlertEntryModelImpl._relativeChange;
+		_originalStatus = _status;
 
-		commerceMLForecastAlertEntryModelImpl._setOriginalRelativeChange =
-			false;
+		_setOriginalStatus = false;
 
-		commerceMLForecastAlertEntryModelImpl._originalStatus =
-			commerceMLForecastAlertEntryModelImpl._status;
-
-		commerceMLForecastAlertEntryModelImpl._setOriginalStatus = false;
-
-		commerceMLForecastAlertEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

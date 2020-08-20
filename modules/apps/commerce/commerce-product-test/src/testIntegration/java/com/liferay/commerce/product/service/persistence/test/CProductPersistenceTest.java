@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -467,11 +466,10 @@ public class CProductPersistenceTest {
 		CProduct existingCProduct = _persistence.findByPrimaryKey(
 			newCProduct.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCProduct.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCProduct, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCProduct.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCProduct, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCProduct.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -481,12 +479,11 @@ public class CProductPersistenceTest {
 			Long.valueOf(existingCProduct.getCompanyId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingCProduct, "getOriginalCompanyId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCProduct.getExternalReferenceCode(),
-				ReflectionTestUtil.invoke(
-					existingCProduct, "getOriginalExternalReferenceCode",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCProduct.getExternalReferenceCode(),
+			ReflectionTestUtil.invoke(
+				existingCProduct, "getOriginalExternalReferenceCode",
+				new Class<?>[0]));
 	}
 
 	protected CProduct addCProduct() throws Exception {

@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -472,11 +471,10 @@ public class MemberRequestPersistenceTest {
 		MemberRequest existingMemberRequest = _persistence.findByPrimaryKey(
 			newMemberRequest.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingMemberRequest.getKey(),
-				ReflectionTestUtil.invoke(
-					existingMemberRequest, "getOriginalKey", new Class<?>[0])));
+		Assert.assertEquals(
+			existingMemberRequest.getKey(),
+			ReflectionTestUtil.invoke(
+				existingMemberRequest, "getOriginalKey", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingMemberRequest.getGroupId()),

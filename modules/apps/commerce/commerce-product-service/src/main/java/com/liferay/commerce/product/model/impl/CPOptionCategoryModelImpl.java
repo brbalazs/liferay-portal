@@ -799,8 +799,6 @@ public class CPOptionCategoryModelImpl
 
 	@Override
 	public void setTitle(String title) {
-		_columnBitmask = -1L;
-
 		_title = title;
 	}
 
@@ -966,8 +964,6 @@ public class CPOptionCategoryModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1222,21 +1218,17 @@ public class CPOptionCategoryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPOptionCategoryModelImpl cpOptionCategoryModelImpl = this;
+		_originalUuid = _uuid;
 
-		cpOptionCategoryModelImpl._originalUuid =
-			cpOptionCategoryModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		cpOptionCategoryModelImpl._originalCompanyId =
-			cpOptionCategoryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpOptionCategoryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		cpOptionCategoryModelImpl._setModifiedDate = false;
+		_originalKey = _key;
 
-		cpOptionCategoryModelImpl._originalKey = cpOptionCategoryModelImpl._key;
-
-		cpOptionCategoryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

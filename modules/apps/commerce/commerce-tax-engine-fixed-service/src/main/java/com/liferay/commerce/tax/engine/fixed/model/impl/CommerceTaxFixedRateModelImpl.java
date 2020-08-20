@@ -648,8 +648,6 @@ public class CommerceTaxFixedRateModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -839,21 +837,16 @@ public class CommerceTaxFixedRateModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceTaxFixedRateModelImpl commerceTaxFixedRateModelImpl = this;
+		_setModifiedDate = false;
+		_originalCPTaxCategoryId = _CPTaxCategoryId;
 
-		commerceTaxFixedRateModelImpl._setModifiedDate = false;
+		_setOriginalCPTaxCategoryId = false;
 
-		commerceTaxFixedRateModelImpl._originalCPTaxCategoryId =
-			commerceTaxFixedRateModelImpl._CPTaxCategoryId;
+		_originalCommerceTaxMethodId = _commerceTaxMethodId;
 
-		commerceTaxFixedRateModelImpl._setOriginalCPTaxCategoryId = false;
+		_setOriginalCommerceTaxMethodId = false;
 
-		commerceTaxFixedRateModelImpl._originalCommerceTaxMethodId =
-			commerceTaxFixedRateModelImpl._commerceTaxMethodId;
-
-		commerceTaxFixedRateModelImpl._setOriginalCommerceTaxMethodId = false;
-
-		commerceTaxFixedRateModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

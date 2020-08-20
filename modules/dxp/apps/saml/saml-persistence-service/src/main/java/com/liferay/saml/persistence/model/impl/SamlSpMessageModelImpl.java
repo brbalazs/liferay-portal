@@ -598,18 +598,13 @@ public class SamlSpMessageModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SamlSpMessageModelImpl samlSpMessageModelImpl = this;
+		_originalSamlIdpEntityId = _samlIdpEntityId;
 
-		samlSpMessageModelImpl._originalSamlIdpEntityId =
-			samlSpMessageModelImpl._samlIdpEntityId;
+		_originalSamlIdpResponseKey = _samlIdpResponseKey;
 
-		samlSpMessageModelImpl._originalSamlIdpResponseKey =
-			samlSpMessageModelImpl._samlIdpResponseKey;
+		_originalExpirationDate = _expirationDate;
 
-		samlSpMessageModelImpl._originalExpirationDate =
-			samlSpMessageModelImpl._expirationDate;
-
-		samlSpMessageModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

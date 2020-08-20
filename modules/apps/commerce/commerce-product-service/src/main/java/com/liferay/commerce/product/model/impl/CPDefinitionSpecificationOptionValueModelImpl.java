@@ -1126,8 +1126,6 @@ public class CPDefinitionSpecificationOptionValueModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1351,57 +1349,35 @@ public class CPDefinitionSpecificationOptionValueModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPDefinitionSpecificationOptionValueModelImpl
-			cpDefinitionSpecificationOptionValueModelImpl = this;
+		_originalUuid = _uuid;
 
-		cpDefinitionSpecificationOptionValueModelImpl._originalUuid =
-			cpDefinitionSpecificationOptionValueModelImpl._uuid;
+		_originalCPDefinitionSpecificationOptionValueId =
+			_CPDefinitionSpecificationOptionValueId;
 
-		cpDefinitionSpecificationOptionValueModelImpl.
-			_originalCPDefinitionSpecificationOptionValueId =
-				cpDefinitionSpecificationOptionValueModelImpl.
-					_CPDefinitionSpecificationOptionValueId;
+		_setOriginalCPDefinitionSpecificationOptionValueId = false;
 
-		cpDefinitionSpecificationOptionValueModelImpl.
-			_setOriginalCPDefinitionSpecificationOptionValueId = false;
+		_originalGroupId = _groupId;
 
-		cpDefinitionSpecificationOptionValueModelImpl._originalGroupId =
-			cpDefinitionSpecificationOptionValueModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		cpDefinitionSpecificationOptionValueModelImpl._setOriginalGroupId =
-			false;
+		_originalCompanyId = _companyId;
 
-		cpDefinitionSpecificationOptionValueModelImpl._originalCompanyId =
-			cpDefinitionSpecificationOptionValueModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpDefinitionSpecificationOptionValueModelImpl._setOriginalCompanyId =
-			false;
+		_setModifiedDate = false;
+		_originalCPDefinitionId = _CPDefinitionId;
 
-		cpDefinitionSpecificationOptionValueModelImpl._setModifiedDate = false;
+		_setOriginalCPDefinitionId = false;
 
-		cpDefinitionSpecificationOptionValueModelImpl._originalCPDefinitionId =
-			cpDefinitionSpecificationOptionValueModelImpl._CPDefinitionId;
+		_originalCPSpecificationOptionId = _CPSpecificationOptionId;
 
-		cpDefinitionSpecificationOptionValueModelImpl.
-			_setOriginalCPDefinitionId = false;
+		_setOriginalCPSpecificationOptionId = false;
 
-		cpDefinitionSpecificationOptionValueModelImpl.
-			_originalCPSpecificationOptionId =
-				cpDefinitionSpecificationOptionValueModelImpl.
-					_CPSpecificationOptionId;
+		_originalCPOptionCategoryId = _CPOptionCategoryId;
 
-		cpDefinitionSpecificationOptionValueModelImpl.
-			_setOriginalCPSpecificationOptionId = false;
+		_setOriginalCPOptionCategoryId = false;
 
-		cpDefinitionSpecificationOptionValueModelImpl.
-			_originalCPOptionCategoryId =
-				cpDefinitionSpecificationOptionValueModelImpl.
-					_CPOptionCategoryId;
-
-		cpDefinitionSpecificationOptionValueModelImpl.
-			_setOriginalCPOptionCategoryId = false;
-
-		cpDefinitionSpecificationOptionValueModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -471,12 +470,10 @@ public class FriendlyURLEntryPersistenceTest {
 		FriendlyURLEntry existingFriendlyURLEntry =
 			_persistence.findByPrimaryKey(newFriendlyURLEntry.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingFriendlyURLEntry.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingFriendlyURLEntry, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingFriendlyURLEntry.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingFriendlyURLEntry, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingFriendlyURLEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

@@ -1035,9 +1035,7 @@ public class AccountModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AccountModelImpl accountModelImpl = this;
-
-		accountModelImpl._setModifiedDate = false;
+		_setModifiedDate = false;
 	}
 
 	@Override

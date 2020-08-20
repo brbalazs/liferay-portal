@@ -965,7 +965,7 @@ public class MBCategoryModelImpl
 
 	@Override
 	public void setParentCategoryId(long parentCategoryId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= PARENTCATEGORYID_COLUMN_BITMASK;
 
 		if (!_setOriginalParentCategoryId) {
 			_setOriginalParentCategoryId = true;
@@ -993,8 +993,6 @@ public class MBCategoryModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -1535,35 +1533,30 @@ public class MBCategoryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		MBCategoryModelImpl mbCategoryModelImpl = this;
+		_originalUuid = _uuid;
 
-		mbCategoryModelImpl._originalUuid = mbCategoryModelImpl._uuid;
+		_originalCategoryId = _categoryId;
 
-		mbCategoryModelImpl._originalCategoryId =
-			mbCategoryModelImpl._categoryId;
+		_setOriginalCategoryId = false;
 
-		mbCategoryModelImpl._setOriginalCategoryId = false;
+		_originalGroupId = _groupId;
 
-		mbCategoryModelImpl._originalGroupId = mbCategoryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		mbCategoryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		mbCategoryModelImpl._originalCompanyId = mbCategoryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		mbCategoryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalParentCategoryId = _parentCategoryId;
 
-		mbCategoryModelImpl._setModifiedDate = false;
+		_setOriginalParentCategoryId = false;
 
-		mbCategoryModelImpl._originalParentCategoryId =
-			mbCategoryModelImpl._parentCategoryId;
+		_originalStatus = _status;
 
-		mbCategoryModelImpl._setOriginalParentCategoryId = false;
+		_setOriginalStatus = false;
 
-		mbCategoryModelImpl._originalStatus = mbCategoryModelImpl._status;
-
-		mbCategoryModelImpl._setOriginalStatus = false;
-
-		mbCategoryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

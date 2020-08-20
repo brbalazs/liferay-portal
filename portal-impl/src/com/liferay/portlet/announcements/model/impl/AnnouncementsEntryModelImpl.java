@@ -885,8 +885,6 @@ public class AnnouncementsEntryModelImpl
 	public void setModifiedDate(Date modifiedDate) {
 		_setModifiedDate = true;
 
-		_columnBitmask = -1L;
-
 		_modifiedDate = modifiedDate;
 	}
 
@@ -1050,8 +1048,6 @@ public class AnnouncementsEntryModelImpl
 
 	@Override
 	public void setPriority(int priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1219,39 +1215,30 @@ public class AnnouncementsEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AnnouncementsEntryModelImpl announcementsEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		announcementsEntryModelImpl._originalUuid =
-			announcementsEntryModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		announcementsEntryModelImpl._originalCompanyId =
-			announcementsEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		announcementsEntryModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		announcementsEntryModelImpl._originalUserId =
-			announcementsEntryModelImpl._userId;
+		_setOriginalUserId = false;
 
-		announcementsEntryModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		announcementsEntryModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		announcementsEntryModelImpl._originalClassNameId =
-			announcementsEntryModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		announcementsEntryModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		announcementsEntryModelImpl._originalClassPK =
-			announcementsEntryModelImpl._classPK;
+		_originalAlert = _alert;
 
-		announcementsEntryModelImpl._setOriginalClassPK = false;
+		_setOriginalAlert = false;
 
-		announcementsEntryModelImpl._originalAlert =
-			announcementsEntryModelImpl._alert;
-
-		announcementsEntryModelImpl._setOriginalAlert = false;
-
-		announcementsEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -1255,25 +1255,19 @@ public class DDMDataProviderInstanceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDMDataProviderInstanceModelImpl ddmDataProviderInstanceModelImpl =
-			this;
+		_originalUuid = _uuid;
 
-		ddmDataProviderInstanceModelImpl._originalUuid =
-			ddmDataProviderInstanceModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		ddmDataProviderInstanceModelImpl._originalGroupId =
-			ddmDataProviderInstanceModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		ddmDataProviderInstanceModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		ddmDataProviderInstanceModelImpl._originalCompanyId =
-			ddmDataProviderInstanceModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		ddmDataProviderInstanceModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		ddmDataProviderInstanceModelImpl._setModifiedDate = false;
-
-		ddmDataProviderInstanceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

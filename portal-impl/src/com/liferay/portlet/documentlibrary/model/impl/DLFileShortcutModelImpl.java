@@ -1451,43 +1451,35 @@ public class DLFileShortcutModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DLFileShortcutModelImpl dlFileShortcutModelImpl = this;
+		_originalUuid = _uuid;
 
-		dlFileShortcutModelImpl._originalUuid = dlFileShortcutModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		dlFileShortcutModelImpl._originalGroupId =
-			dlFileShortcutModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		dlFileShortcutModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		dlFileShortcutModelImpl._originalCompanyId =
-			dlFileShortcutModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		dlFileShortcutModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		dlFileShortcutModelImpl._setModifiedDate = false;
+		_originalFolderId = _folderId;
 
-		dlFileShortcutModelImpl._originalFolderId =
-			dlFileShortcutModelImpl._folderId;
+		_setOriginalFolderId = false;
 
-		dlFileShortcutModelImpl._setOriginalFolderId = false;
+		_originalToFileEntryId = _toFileEntryId;
 
-		dlFileShortcutModelImpl._originalToFileEntryId =
-			dlFileShortcutModelImpl._toFileEntryId;
+		_setOriginalToFileEntryId = false;
 
-		dlFileShortcutModelImpl._setOriginalToFileEntryId = false;
+		_originalActive = _active;
 
-		dlFileShortcutModelImpl._originalActive =
-			dlFileShortcutModelImpl._active;
+		_setOriginalActive = false;
 
-		dlFileShortcutModelImpl._setOriginalActive = false;
+		_originalStatus = _status;
 
-		dlFileShortcutModelImpl._originalStatus =
-			dlFileShortcutModelImpl._status;
+		_setOriginalStatus = false;
 
-		dlFileShortcutModelImpl._setOriginalStatus = false;
-
-		dlFileShortcutModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

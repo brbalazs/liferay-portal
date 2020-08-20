@@ -389,8 +389,6 @@ public class DLFileVersionPreviewModelImpl
 
 	@Override
 	public void setDlFileVersionPreviewId(long dlFileVersionPreviewId) {
-		_columnBitmask = -1L;
-
 		_dlFileVersionPreviewId = dlFileVersionPreviewId;
 	}
 
@@ -586,24 +584,19 @@ public class DLFileVersionPreviewModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DLFileVersionPreviewModelImpl dlFileVersionPreviewModelImpl = this;
+		_originalFileEntryId = _fileEntryId;
 
-		dlFileVersionPreviewModelImpl._originalFileEntryId =
-			dlFileVersionPreviewModelImpl._fileEntryId;
+		_setOriginalFileEntryId = false;
 
-		dlFileVersionPreviewModelImpl._setOriginalFileEntryId = false;
+		_originalFileVersionId = _fileVersionId;
 
-		dlFileVersionPreviewModelImpl._originalFileVersionId =
-			dlFileVersionPreviewModelImpl._fileVersionId;
+		_setOriginalFileVersionId = false;
 
-		dlFileVersionPreviewModelImpl._setOriginalFileVersionId = false;
+		_originalPreviewStatus = _previewStatus;
 
-		dlFileVersionPreviewModelImpl._originalPreviewStatus =
-			dlFileVersionPreviewModelImpl._previewStatus;
+		_setOriginalPreviewStatus = false;
 
-		dlFileVersionPreviewModelImpl._setOriginalPreviewStatus = false;
-
-		dlFileVersionPreviewModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

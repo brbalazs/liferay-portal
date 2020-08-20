@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -755,11 +754,10 @@ public class BlogsEntryPersistenceTest {
 		BlogsEntry existingBlogsEntry = _persistence.findByPrimaryKey(
 			newBlogsEntry.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingBlogsEntry.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingBlogsEntry, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingBlogsEntry.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingBlogsEntry, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingBlogsEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -769,12 +767,10 @@ public class BlogsEntryPersistenceTest {
 			Long.valueOf(existingBlogsEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingBlogsEntry, "getOriginalGroupId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingBlogsEntry.getUrlTitle(),
-				ReflectionTestUtil.invoke(
-					existingBlogsEntry, "getOriginalUrlTitle",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingBlogsEntry.getUrlTitle(),
+			ReflectionTestUtil.invoke(
+				existingBlogsEntry, "getOriginalUrlTitle", new Class<?>[0]));
 	}
 
 	protected BlogsEntry addBlogsEntry() throws Exception {

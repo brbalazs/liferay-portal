@@ -46,7 +46,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -634,12 +633,11 @@ public class CPAttachmentFileEntryPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newCPAttachmentFileEntry.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPAttachmentFileEntry.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCPAttachmentFileEntry, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPAttachmentFileEntry.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCPAttachmentFileEntry, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCPAttachmentFileEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -667,12 +665,11 @@ public class CPAttachmentFileEntryPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCPAttachmentFileEntry, "getOriginalCompanyId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPAttachmentFileEntry.getExternalReferenceCode(),
-				ReflectionTestUtil.invoke(
-					existingCPAttachmentFileEntry,
-					"getOriginalExternalReferenceCode", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPAttachmentFileEntry.getExternalReferenceCode(),
+			ReflectionTestUtil.invoke(
+				existingCPAttachmentFileEntry,
+				"getOriginalExternalReferenceCode", new Class<?>[0]));
 	}
 
 	protected CPAttachmentFileEntry addCPAttachmentFileEntry()

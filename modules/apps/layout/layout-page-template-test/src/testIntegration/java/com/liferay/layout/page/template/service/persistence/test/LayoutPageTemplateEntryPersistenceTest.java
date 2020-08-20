@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -745,12 +744,11 @@ public class LayoutPageTemplateEntryPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newLayoutPageTemplateEntry.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayoutPageTemplateEntry.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingLayoutPageTemplateEntry, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingLayoutPageTemplateEntry.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingLayoutPageTemplateEntry, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingLayoutPageTemplateEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -762,12 +760,11 @@ public class LayoutPageTemplateEntryPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingLayoutPageTemplateEntry, "getOriginalGroupId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayoutPageTemplateEntry.getName(),
-				ReflectionTestUtil.invoke(
-					existingLayoutPageTemplateEntry, "getOriginalName",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingLayoutPageTemplateEntry.getName(),
+			ReflectionTestUtil.invoke(
+				existingLayoutPageTemplateEntry, "getOriginalName",
+				new Class<?>[0]));
 	}
 
 	protected LayoutPageTemplateEntry addLayoutPageTemplateEntry()

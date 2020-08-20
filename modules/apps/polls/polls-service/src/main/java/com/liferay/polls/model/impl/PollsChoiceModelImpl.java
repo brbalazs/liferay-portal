@@ -759,7 +759,7 @@ public class PollsChoiceModelImpl
 
 	@Override
 	public void setQuestionId(long questionId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= QUESTIONID_COLUMN_BITMASK;
 
 		if (!_setOriginalQuestionId) {
 			_setOriginalQuestionId = true;
@@ -787,7 +787,7 @@ public class PollsChoiceModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -1113,29 +1113,24 @@ public class PollsChoiceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		PollsChoiceModelImpl pollsChoiceModelImpl = this;
+		_originalUuid = _uuid;
 
-		pollsChoiceModelImpl._originalUuid = pollsChoiceModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		pollsChoiceModelImpl._originalGroupId = pollsChoiceModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		pollsChoiceModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		pollsChoiceModelImpl._originalCompanyId =
-			pollsChoiceModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		pollsChoiceModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalQuestionId = _questionId;
 
-		pollsChoiceModelImpl._setModifiedDate = false;
+		_setOriginalQuestionId = false;
 
-		pollsChoiceModelImpl._originalQuestionId =
-			pollsChoiceModelImpl._questionId;
+		_originalName = _name;
 
-		pollsChoiceModelImpl._setOriginalQuestionId = false;
-
-		pollsChoiceModelImpl._originalName = pollsChoiceModelImpl._name;
-
-		pollsChoiceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

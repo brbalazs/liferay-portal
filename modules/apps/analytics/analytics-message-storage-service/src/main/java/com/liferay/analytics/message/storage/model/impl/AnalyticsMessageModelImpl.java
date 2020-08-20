@@ -440,8 +440,6 @@ public class AnalyticsMessageModelImpl
 
 	@Override
 	public void setAnalyticsMessageId(long analyticsMessageId) {
-		_columnBitmask = -1L;
-
 		_analyticsMessageId = analyticsMessageId;
 	}
 
@@ -662,16 +660,13 @@ public class AnalyticsMessageModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AnalyticsMessageModelImpl analyticsMessageModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		analyticsMessageModelImpl._originalCompanyId =
-			analyticsMessageModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		analyticsMessageModelImpl._setOriginalCompanyId = false;
+		_bodyBlobModel = null;
 
-		analyticsMessageModelImpl._bodyBlobModel = null;
-
-		analyticsMessageModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

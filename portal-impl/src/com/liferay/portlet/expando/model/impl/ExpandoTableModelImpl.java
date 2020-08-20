@@ -534,21 +534,17 @@ public class ExpandoTableModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ExpandoTableModelImpl expandoTableModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		expandoTableModelImpl._originalCompanyId =
-			expandoTableModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		expandoTableModelImpl._setOriginalCompanyId = false;
+		_originalClassNameId = _classNameId;
 
-		expandoTableModelImpl._originalClassNameId =
-			expandoTableModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		expandoTableModelImpl._setOriginalClassNameId = false;
+		_originalName = _name;
 
-		expandoTableModelImpl._originalName = expandoTableModelImpl._name;
-
-		expandoTableModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

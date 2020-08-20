@@ -644,8 +644,6 @@ public class CommercePriceModifierRelModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -866,28 +864,20 @@ public class CommercePriceModifierRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommercePriceModifierRelModelImpl commercePriceModifierRelModelImpl =
-			this;
+		_setModifiedDate = false;
+		_originalCommercePriceModifierId = _commercePriceModifierId;
 
-		commercePriceModifierRelModelImpl._setModifiedDate = false;
+		_setOriginalCommercePriceModifierId = false;
 
-		commercePriceModifierRelModelImpl._originalCommercePriceModifierId =
-			commercePriceModifierRelModelImpl._commercePriceModifierId;
+		_originalClassNameId = _classNameId;
 
-		commercePriceModifierRelModelImpl._setOriginalCommercePriceModifierId =
-			false;
+		_setOriginalClassNameId = false;
 
-		commercePriceModifierRelModelImpl._originalClassNameId =
-			commercePriceModifierRelModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		commercePriceModifierRelModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		commercePriceModifierRelModelImpl._originalClassPK =
-			commercePriceModifierRelModelImpl._classPK;
-
-		commercePriceModifierRelModelImpl._setOriginalClassPK = false;
-
-		commercePriceModifierRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

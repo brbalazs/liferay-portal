@@ -833,8 +833,6 @@ public class CommerceRegionModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -999,30 +997,24 @@ public class CommerceRegionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceRegionModelImpl commerceRegionModelImpl = this;
+		_originalUuid = _uuid;
 
-		commerceRegionModelImpl._originalUuid = commerceRegionModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		commerceRegionModelImpl._originalCompanyId =
-			commerceRegionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceRegionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCommerceCountryId = _commerceCountryId;
 
-		commerceRegionModelImpl._setModifiedDate = false;
+		_setOriginalCommerceCountryId = false;
 
-		commerceRegionModelImpl._originalCommerceCountryId =
-			commerceRegionModelImpl._commerceCountryId;
+		_originalCode = _code;
 
-		commerceRegionModelImpl._setOriginalCommerceCountryId = false;
+		_originalActive = _active;
 
-		commerceRegionModelImpl._originalCode = commerceRegionModelImpl._code;
+		_setOriginalActive = false;
 
-		commerceRegionModelImpl._originalActive =
-			commerceRegionModelImpl._active;
-
-		commerceRegionModelImpl._setOriginalActive = false;
-
-		commerceRegionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

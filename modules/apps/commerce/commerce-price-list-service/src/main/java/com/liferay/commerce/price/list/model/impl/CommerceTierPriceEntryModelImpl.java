@@ -1265,7 +1265,7 @@ public class CommerceTierPriceEntryModelImpl
 
 	@Override
 	public void setMinQuantity(int minQuantity) {
-		_columnBitmask = -1L;
+		_columnBitmask |= MINQUANTITY_COLUMN_BITMASK;
 
 		if (!_setOriginalMinQuantity) {
 			_setOriginalMinQuantity = true;
@@ -1596,33 +1596,24 @@ public class CommerceTierPriceEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceTierPriceEntryModelImpl commerceTierPriceEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		commerceTierPriceEntryModelImpl._originalUuid =
-			commerceTierPriceEntryModelImpl._uuid;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commerceTierPriceEntryModelImpl._originalExternalReferenceCode =
-			commerceTierPriceEntryModelImpl._externalReferenceCode;
+		_originalCompanyId = _companyId;
 
-		commerceTierPriceEntryModelImpl._originalCompanyId =
-			commerceTierPriceEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceTierPriceEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCommercePriceEntryId = _commercePriceEntryId;
 
-		commerceTierPriceEntryModelImpl._setModifiedDate = false;
+		_setOriginalCommercePriceEntryId = false;
 
-		commerceTierPriceEntryModelImpl._originalCommercePriceEntryId =
-			commerceTierPriceEntryModelImpl._commercePriceEntryId;
+		_originalMinQuantity = _minQuantity;
 
-		commerceTierPriceEntryModelImpl._setOriginalCommercePriceEntryId =
-			false;
+		_setOriginalMinQuantity = false;
 
-		commerceTierPriceEntryModelImpl._originalMinQuantity =
-			commerceTierPriceEntryModelImpl._minQuantity;
-
-		commerceTierPriceEntryModelImpl._setOriginalMinQuantity = false;
-
-		commerceTierPriceEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

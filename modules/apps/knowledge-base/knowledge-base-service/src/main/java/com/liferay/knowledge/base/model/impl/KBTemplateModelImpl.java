@@ -712,8 +712,6 @@ public class KBTemplateModelImpl
 	public void setModifiedDate(Date modifiedDate) {
 		_setModifiedDate = true;
 
-		_columnBitmask = -1L;
-
 		_modifiedDate = modifiedDate;
 	}
 
@@ -874,21 +872,19 @@ public class KBTemplateModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KBTemplateModelImpl kbTemplateModelImpl = this;
+		_originalUuid = _uuid;
 
-		kbTemplateModelImpl._originalUuid = kbTemplateModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		kbTemplateModelImpl._originalGroupId = kbTemplateModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		kbTemplateModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		kbTemplateModelImpl._originalCompanyId = kbTemplateModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kbTemplateModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		kbTemplateModelImpl._setModifiedDate = false;
-
-		kbTemplateModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

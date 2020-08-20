@@ -1172,24 +1172,19 @@ public class BatchEngineExportTaskModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		BatchEngineExportTaskModelImpl batchEngineExportTaskModelImpl = this;
+		_originalUuid = _uuid;
 
-		batchEngineExportTaskModelImpl._originalUuid =
-			batchEngineExportTaskModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		batchEngineExportTaskModelImpl._originalCompanyId =
-			batchEngineExportTaskModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		batchEngineExportTaskModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		batchEngineExportTaskModelImpl._setModifiedDate = false;
+		_contentBlobModel = null;
 
-		batchEngineExportTaskModelImpl._contentBlobModel = null;
+		_originalExecuteStatus = _executeStatus;
 
-		batchEngineExportTaskModelImpl._originalExecuteStatus =
-			batchEngineExportTaskModelImpl._executeStatus;
-
-		batchEngineExportTaskModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

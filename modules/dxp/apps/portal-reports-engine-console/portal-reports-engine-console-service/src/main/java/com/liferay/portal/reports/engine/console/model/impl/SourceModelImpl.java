@@ -1131,21 +1131,19 @@ public class SourceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SourceModelImpl sourceModelImpl = this;
+		_originalUuid = _uuid;
 
-		sourceModelImpl._originalUuid = sourceModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		sourceModelImpl._originalGroupId = sourceModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		sourceModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		sourceModelImpl._originalCompanyId = sourceModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		sourceModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		sourceModelImpl._setModifiedDate = false;
-
-		sourceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

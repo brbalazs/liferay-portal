@@ -1171,37 +1171,26 @@ public class CalendarNotificationTemplateModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CalendarNotificationTemplateModelImpl
-			calendarNotificationTemplateModelImpl = this;
+		_originalUuid = _uuid;
 
-		calendarNotificationTemplateModelImpl._originalUuid =
-			calendarNotificationTemplateModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		calendarNotificationTemplateModelImpl._originalGroupId =
-			calendarNotificationTemplateModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		calendarNotificationTemplateModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		calendarNotificationTemplateModelImpl._originalCompanyId =
-			calendarNotificationTemplateModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		calendarNotificationTemplateModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCalendarId = _calendarId;
 
-		calendarNotificationTemplateModelImpl._setModifiedDate = false;
+		_setOriginalCalendarId = false;
 
-		calendarNotificationTemplateModelImpl._originalCalendarId =
-			calendarNotificationTemplateModelImpl._calendarId;
+		_originalNotificationType = _notificationType;
 
-		calendarNotificationTemplateModelImpl._setOriginalCalendarId = false;
+		_originalNotificationTemplateType = _notificationTemplateType;
 
-		calendarNotificationTemplateModelImpl._originalNotificationType =
-			calendarNotificationTemplateModelImpl._notificationType;
-
-		calendarNotificationTemplateModelImpl.
-			_originalNotificationTemplateType =
-				calendarNotificationTemplateModelImpl._notificationTemplateType;
-
-		calendarNotificationTemplateModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -564,12 +563,10 @@ public class FragmentEntryPersistenceTest {
 		FragmentEntry existingFragmentEntry = _persistence.findByPrimaryKey(
 			newFragmentEntry.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingFragmentEntry.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingFragmentEntry, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingFragmentEntry.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingFragmentEntry, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingFragmentEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -579,12 +576,11 @@ public class FragmentEntryPersistenceTest {
 			Long.valueOf(existingFragmentEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingFragmentEntry, "getOriginalGroupId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingFragmentEntry.getFragmentEntryKey(),
-				ReflectionTestUtil.invoke(
-					existingFragmentEntry, "getOriginalFragmentEntryKey",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingFragmentEntry.getFragmentEntryKey(),
+			ReflectionTestUtil.invoke(
+				existingFragmentEntry, "getOriginalFragmentEntryKey",
+				new Class<?>[0]));
 	}
 
 	protected FragmentEntry addFragmentEntry() throws Exception {

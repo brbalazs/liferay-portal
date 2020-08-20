@@ -764,7 +764,7 @@ public class SocialActivityModelImpl
 
 	@Override
 	public void setCreateDate(long createDate) {
-		_columnBitmask = -1L;
+		_columnBitmask |= CREATEDATE_COLUMN_BITMASK;
 
 		if (!_setOriginalCreateDate) {
 			_setOriginalCreateDate = true;
@@ -1109,58 +1109,47 @@ public class SocialActivityModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SocialActivityModelImpl socialActivityModelImpl = this;
+		_originalGroupId = _groupId;
 
-		socialActivityModelImpl._originalGroupId =
-			socialActivityModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		socialActivityModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		socialActivityModelImpl._originalCompanyId =
-			socialActivityModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		socialActivityModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		socialActivityModelImpl._originalUserId =
-			socialActivityModelImpl._userId;
+		_setOriginalUserId = false;
 
-		socialActivityModelImpl._setOriginalUserId = false;
+		_originalCreateDate = _createDate;
 
-		socialActivityModelImpl._originalCreateDate =
-			socialActivityModelImpl._createDate;
+		_setOriginalCreateDate = false;
 
-		socialActivityModelImpl._setOriginalCreateDate = false;
+		_originalActivitySetId = _activitySetId;
 
-		socialActivityModelImpl._originalActivitySetId =
-			socialActivityModelImpl._activitySetId;
+		_setOriginalActivitySetId = false;
 
-		socialActivityModelImpl._setOriginalActivitySetId = false;
+		_originalMirrorActivityId = _mirrorActivityId;
 
-		socialActivityModelImpl._originalMirrorActivityId =
-			socialActivityModelImpl._mirrorActivityId;
+		_setOriginalMirrorActivityId = false;
 
-		socialActivityModelImpl._setOriginalMirrorActivityId = false;
+		_originalClassNameId = _classNameId;
 
-		socialActivityModelImpl._originalClassNameId =
-			socialActivityModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		socialActivityModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		socialActivityModelImpl._originalClassPK =
-			socialActivityModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		socialActivityModelImpl._setOriginalClassPK = false;
+		_originalType = _type;
 
-		socialActivityModelImpl._originalType = socialActivityModelImpl._type;
+		_setOriginalType = false;
 
-		socialActivityModelImpl._setOriginalType = false;
+		_originalReceiverUserId = _receiverUserId;
 
-		socialActivityModelImpl._originalReceiverUserId =
-			socialActivityModelImpl._receiverUserId;
+		_setOriginalReceiverUserId = false;
 
-		socialActivityModelImpl._setOriginalReceiverUserId = false;
-
-		socialActivityModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

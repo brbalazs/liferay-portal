@@ -657,8 +657,6 @@ public class KaleoTimerModelImpl
 
 	@Override
 	public void setKaleoTimerId(long kaleoTimerId) {
-		_columnBitmask = -1L;
-
 		_kaleoTimerId = kaleoTimerId;
 	}
 
@@ -1033,23 +1031,18 @@ public class KaleoTimerModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoTimerModelImpl kaleoTimerModelImpl = this;
+		_setModifiedDate = false;
+		_originalKaleoClassName = _kaleoClassName;
 
-		kaleoTimerModelImpl._setModifiedDate = false;
+		_originalKaleoClassPK = _kaleoClassPK;
 
-		kaleoTimerModelImpl._originalKaleoClassName =
-			kaleoTimerModelImpl._kaleoClassName;
+		_setOriginalKaleoClassPK = false;
 
-		kaleoTimerModelImpl._originalKaleoClassPK =
-			kaleoTimerModelImpl._kaleoClassPK;
+		_originalBlocking = _blocking;
 
-		kaleoTimerModelImpl._setOriginalKaleoClassPK = false;
+		_setOriginalBlocking = false;
 
-		kaleoTimerModelImpl._originalBlocking = kaleoTimerModelImpl._blocking;
-
-		kaleoTimerModelImpl._setOriginalBlocking = false;
-
-		kaleoTimerModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -1237,38 +1237,27 @@ public class DDMFormInstanceRecordVersionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDMFormInstanceRecordVersionModelImpl
-			ddmFormInstanceRecordVersionModelImpl = this;
+		_originalUserId = _userId;
 
-		ddmFormInstanceRecordVersionModelImpl._originalUserId =
-			ddmFormInstanceRecordVersionModelImpl._userId;
+		_setOriginalUserId = false;
 
-		ddmFormInstanceRecordVersionModelImpl._setOriginalUserId = false;
+		_originalFormInstanceId = _formInstanceId;
 
-		ddmFormInstanceRecordVersionModelImpl._originalFormInstanceId =
-			ddmFormInstanceRecordVersionModelImpl._formInstanceId;
+		_setOriginalFormInstanceId = false;
 
-		ddmFormInstanceRecordVersionModelImpl._setOriginalFormInstanceId =
-			false;
+		_originalFormInstanceVersion = _formInstanceVersion;
 
-		ddmFormInstanceRecordVersionModelImpl._originalFormInstanceVersion =
-			ddmFormInstanceRecordVersionModelImpl._formInstanceVersion;
+		_originalFormInstanceRecordId = _formInstanceRecordId;
 
-		ddmFormInstanceRecordVersionModelImpl._originalFormInstanceRecordId =
-			ddmFormInstanceRecordVersionModelImpl._formInstanceRecordId;
+		_setOriginalFormInstanceRecordId = false;
 
-		ddmFormInstanceRecordVersionModelImpl._setOriginalFormInstanceRecordId =
-			false;
+		_originalVersion = _version;
 
-		ddmFormInstanceRecordVersionModelImpl._originalVersion =
-			ddmFormInstanceRecordVersionModelImpl._version;
+		_originalStatus = _status;
 
-		ddmFormInstanceRecordVersionModelImpl._originalStatus =
-			ddmFormInstanceRecordVersionModelImpl._status;
+		_setOriginalStatus = false;
 
-		ddmFormInstanceRecordVersionModelImpl._setOriginalStatus = false;
-
-		ddmFormInstanceRecordVersionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

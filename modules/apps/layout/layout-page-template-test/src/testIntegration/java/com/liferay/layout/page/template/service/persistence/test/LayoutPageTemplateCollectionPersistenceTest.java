@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -559,12 +558,11 @@ public class LayoutPageTemplateCollectionPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newLayoutPageTemplateCollection.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayoutPageTemplateCollection.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingLayoutPageTemplateCollection, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingLayoutPageTemplateCollection.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingLayoutPageTemplateCollection, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingLayoutPageTemplateCollection.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -576,12 +574,11 @@ public class LayoutPageTemplateCollectionPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingLayoutPageTemplateCollection, "getOriginalGroupId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingLayoutPageTemplateCollection.getName(),
-				ReflectionTestUtil.invoke(
-					existingLayoutPageTemplateCollection, "getOriginalName",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingLayoutPageTemplateCollection.getName(),
+			ReflectionTestUtil.invoke(
+				existingLayoutPageTemplateCollection, "getOriginalName",
+				new Class<?>[0]));
 	}
 
 	protected LayoutPageTemplateCollection addLayoutPageTemplateCollection()

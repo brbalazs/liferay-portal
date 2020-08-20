@@ -727,8 +727,6 @@ public class CommerceNotificationAttachmentModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -920,33 +918,23 @@ public class CommerceNotificationAttachmentModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceNotificationAttachmentModelImpl
-			commerceNotificationAttachmentModelImpl = this;
+		_originalUuid = _uuid;
 
-		commerceNotificationAttachmentModelImpl._originalUuid =
-			commerceNotificationAttachmentModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		commerceNotificationAttachmentModelImpl._originalGroupId =
-			commerceNotificationAttachmentModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		commerceNotificationAttachmentModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		commerceNotificationAttachmentModelImpl._originalCompanyId =
-			commerceNotificationAttachmentModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceNotificationAttachmentModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCommerceNotificationQueueEntryId =
+			_commerceNotificationQueueEntryId;
 
-		commerceNotificationAttachmentModelImpl._setModifiedDate = false;
+		_setOriginalCommerceNotificationQueueEntryId = false;
 
-		commerceNotificationAttachmentModelImpl.
-			_originalCommerceNotificationQueueEntryId =
-				commerceNotificationAttachmentModelImpl.
-					_commerceNotificationQueueEntryId;
-
-		commerceNotificationAttachmentModelImpl.
-			_setOriginalCommerceNotificationQueueEntryId = false;
-
-		commerceNotificationAttachmentModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

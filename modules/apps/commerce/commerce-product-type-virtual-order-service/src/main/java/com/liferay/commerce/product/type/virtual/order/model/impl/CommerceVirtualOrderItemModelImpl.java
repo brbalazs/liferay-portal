@@ -958,8 +958,6 @@ public class CommerceVirtualOrderItemModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1240,31 +1238,22 @@ public class CommerceVirtualOrderItemModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceVirtualOrderItemModelImpl commerceVirtualOrderItemModelImpl =
-			this;
+		_originalUuid = _uuid;
 
-		commerceVirtualOrderItemModelImpl._originalUuid =
-			commerceVirtualOrderItemModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		commerceVirtualOrderItemModelImpl._originalGroupId =
-			commerceVirtualOrderItemModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		commerceVirtualOrderItemModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		commerceVirtualOrderItemModelImpl._originalCompanyId =
-			commerceVirtualOrderItemModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceVirtualOrderItemModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCommerceOrderItemId = _commerceOrderItemId;
 
-		commerceVirtualOrderItemModelImpl._setModifiedDate = false;
+		_setOriginalCommerceOrderItemId = false;
 
-		commerceVirtualOrderItemModelImpl._originalCommerceOrderItemId =
-			commerceVirtualOrderItemModelImpl._commerceOrderItemId;
-
-		commerceVirtualOrderItemModelImpl._setOriginalCommerceOrderItemId =
-			false;
-
-		commerceVirtualOrderItemModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

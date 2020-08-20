@@ -1232,7 +1232,7 @@ public class LayoutModelImpl
 
 	@Override
 	public void setParentLayoutId(long parentLayoutId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= PARENTLAYOUTID_COLUMN_BITMASK;
 
 		if (!_setOriginalParentLayoutId) {
 			_setOriginalParentLayoutId = true;
@@ -1953,7 +1953,7 @@ public class LayoutModelImpl
 
 	@Override
 	public void setPriority(int priority) {
-		_columnBitmask = -1L;
+		_columnBitmask |= PRIORITY_COLUMN_BITMASK;
 
 		if (!_setOriginalPriority) {
 			_setOriginalPriority = true;
@@ -2352,56 +2352,50 @@ public class LayoutModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		LayoutModelImpl layoutModelImpl = this;
+		_originalUuid = _uuid;
 
-		layoutModelImpl._originalUuid = layoutModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		layoutModelImpl._originalGroupId = layoutModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		layoutModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		layoutModelImpl._originalCompanyId = layoutModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		layoutModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalPrivateLayout = _privateLayout;
 
-		layoutModelImpl._setModifiedDate = false;
+		_setOriginalPrivateLayout = false;
 
-		layoutModelImpl._originalPrivateLayout = layoutModelImpl._privateLayout;
+		_originalLayoutId = _layoutId;
 
-		layoutModelImpl._setOriginalPrivateLayout = false;
+		_setOriginalLayoutId = false;
 
-		layoutModelImpl._originalLayoutId = layoutModelImpl._layoutId;
+		_originalParentLayoutId = _parentLayoutId;
 
-		layoutModelImpl._setOriginalLayoutId = false;
+		_setOriginalParentLayoutId = false;
 
-		layoutModelImpl._originalParentLayoutId =
-			layoutModelImpl._parentLayoutId;
+		_originalType = _type;
 
-		layoutModelImpl._setOriginalParentLayoutId = false;
+		_originalHidden = _hidden;
 
-		layoutModelImpl._originalType = layoutModelImpl._type;
+		_setOriginalHidden = false;
 
-		layoutModelImpl._originalHidden = layoutModelImpl._hidden;
+		_originalFriendlyURL = _friendlyURL;
 
-		layoutModelImpl._setOriginalHidden = false;
+		_originalIconImageId = _iconImageId;
 
-		layoutModelImpl._originalFriendlyURL = layoutModelImpl._friendlyURL;
+		_setOriginalIconImageId = false;
 
-		layoutModelImpl._originalIconImageId = layoutModelImpl._iconImageId;
+		_originalPriority = _priority;
 
-		layoutModelImpl._setOriginalIconImageId = false;
+		_setOriginalPriority = false;
 
-		layoutModelImpl._originalPriority = layoutModelImpl._priority;
+		_originalLayoutPrototypeUuid = _layoutPrototypeUuid;
 
-		layoutModelImpl._setOriginalPriority = false;
+		_originalSourcePrototypeLayoutUuid = _sourcePrototypeLayoutUuid;
 
-		layoutModelImpl._originalLayoutPrototypeUuid =
-			layoutModelImpl._layoutPrototypeUuid;
-
-		layoutModelImpl._originalSourcePrototypeLayoutUuid =
-			layoutModelImpl._sourcePrototypeLayoutUuid;
-
-		layoutModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

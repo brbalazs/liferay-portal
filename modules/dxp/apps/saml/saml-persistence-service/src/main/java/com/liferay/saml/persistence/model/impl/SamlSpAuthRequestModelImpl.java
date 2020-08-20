@@ -573,18 +573,13 @@ public class SamlSpAuthRequestModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SamlSpAuthRequestModelImpl samlSpAuthRequestModelImpl = this;
+		_originalCreateDate = _createDate;
 
-		samlSpAuthRequestModelImpl._originalCreateDate =
-			samlSpAuthRequestModelImpl._createDate;
+		_originalSamlIdpEntityId = _samlIdpEntityId;
 
-		samlSpAuthRequestModelImpl._originalSamlIdpEntityId =
-			samlSpAuthRequestModelImpl._samlIdpEntityId;
+		_originalSamlSpAuthRequestKey = _samlSpAuthRequestKey;
 
-		samlSpAuthRequestModelImpl._originalSamlSpAuthRequestKey =
-			samlSpAuthRequestModelImpl._samlSpAuthRequestKey;
-
-		samlSpAuthRequestModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

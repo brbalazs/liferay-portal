@@ -582,24 +582,19 @@ public class DDMStructureLinkModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDMStructureLinkModelImpl ddmStructureLinkModelImpl = this;
+		_originalClassNameId = _classNameId;
 
-		ddmStructureLinkModelImpl._originalClassNameId =
-			ddmStructureLinkModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		ddmStructureLinkModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		ddmStructureLinkModelImpl._originalClassPK =
-			ddmStructureLinkModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		ddmStructureLinkModelImpl._setOriginalClassPK = false;
+		_originalStructureId = _structureId;
 
-		ddmStructureLinkModelImpl._originalStructureId =
-			ddmStructureLinkModelImpl._structureId;
+		_setOriginalStructureId = false;
 
-		ddmStructureLinkModelImpl._setOriginalStructureId = false;
-
-		ddmStructureLinkModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

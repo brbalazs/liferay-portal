@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -574,12 +573,10 @@ public class JournalFolderPersistenceTest {
 		JournalFolder existingJournalFolder = _persistence.findByPrimaryKey(
 			newJournalFolder.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingJournalFolder.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingJournalFolder, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingJournalFolder.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingJournalFolder, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingJournalFolder.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -589,12 +586,10 @@ public class JournalFolderPersistenceTest {
 			Long.valueOf(existingJournalFolder.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingJournalFolder, "getOriginalGroupId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingJournalFolder.getName(),
-				ReflectionTestUtil.invoke(
-					existingJournalFolder, "getOriginalName",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingJournalFolder.getName(),
+			ReflectionTestUtil.invoke(
+				existingJournalFolder, "getOriginalName", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingJournalFolder.getGroupId()),
@@ -605,12 +600,10 @@ public class JournalFolderPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingJournalFolder, "getOriginalParentFolderId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingJournalFolder.getName(),
-				ReflectionTestUtil.invoke(
-					existingJournalFolder, "getOriginalName",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingJournalFolder.getName(),
+			ReflectionTestUtil.invoke(
+				existingJournalFolder, "getOriginalName", new Class<?>[0]));
 	}
 
 	protected JournalFolder addJournalFolder() throws Exception {

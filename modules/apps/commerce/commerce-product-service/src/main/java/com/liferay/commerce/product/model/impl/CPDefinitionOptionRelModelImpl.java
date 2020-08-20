@@ -1292,8 +1292,6 @@ public class CPDefinitionOptionRelModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1634,47 +1632,36 @@ public class CPDefinitionOptionRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPDefinitionOptionRelModelImpl cpDefinitionOptionRelModelImpl = this;
+		_originalUuid = _uuid;
 
-		cpDefinitionOptionRelModelImpl._originalUuid =
-			cpDefinitionOptionRelModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		cpDefinitionOptionRelModelImpl._originalGroupId =
-			cpDefinitionOptionRelModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		cpDefinitionOptionRelModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		cpDefinitionOptionRelModelImpl._originalCompanyId =
-			cpDefinitionOptionRelModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpDefinitionOptionRelModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCPDefinitionId = _CPDefinitionId;
 
-		cpDefinitionOptionRelModelImpl._setModifiedDate = false;
+		_setOriginalCPDefinitionId = false;
 
-		cpDefinitionOptionRelModelImpl._originalCPDefinitionId =
-			cpDefinitionOptionRelModelImpl._CPDefinitionId;
+		_originalCPOptionId = _CPOptionId;
 
-		cpDefinitionOptionRelModelImpl._setOriginalCPDefinitionId = false;
+		_setOriginalCPOptionId = false;
 
-		cpDefinitionOptionRelModelImpl._originalCPOptionId =
-			cpDefinitionOptionRelModelImpl._CPOptionId;
+		_originalRequired = _required;
 
-		cpDefinitionOptionRelModelImpl._setOriginalCPOptionId = false;
+		_setOriginalRequired = false;
 
-		cpDefinitionOptionRelModelImpl._originalRequired =
-			cpDefinitionOptionRelModelImpl._required;
+		_originalSkuContributor = _skuContributor;
 
-		cpDefinitionOptionRelModelImpl._setOriginalRequired = false;
+		_setOriginalSkuContributor = false;
 
-		cpDefinitionOptionRelModelImpl._originalSkuContributor =
-			cpDefinitionOptionRelModelImpl._skuContributor;
+		_originalKey = _key;
 
-		cpDefinitionOptionRelModelImpl._setOriginalSkuContributor = false;
-
-		cpDefinitionOptionRelModelImpl._originalKey =
-			cpDefinitionOptionRelModelImpl._key;
-
-		cpDefinitionOptionRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

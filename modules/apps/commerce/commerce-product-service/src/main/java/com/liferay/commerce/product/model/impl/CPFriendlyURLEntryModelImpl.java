@@ -763,7 +763,7 @@ public class CPFriendlyURLEntryModelImpl
 
 	@Override
 	public void setClassNameId(long classNameId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= CLASSNAMEID_COLUMN_BITMASK;
 
 		if (!_setOriginalClassNameId) {
 			_setOriginalClassNameId = true;
@@ -785,7 +785,7 @@ public class CPFriendlyURLEntryModelImpl
 
 	@Override
 	public void setClassPK(long classPK) {
-		_columnBitmask = -1L;
+		_columnBitmask |= CLASSPK_COLUMN_BITMASK;
 
 		if (!_setOriginalClassPK) {
 			_setOriginalClassPK = true;
@@ -837,7 +837,7 @@ public class CPFriendlyURLEntryModelImpl
 
 	@Override
 	public void setUrlTitle(String urlTitle) {
-		_columnBitmask = -1L;
+		_columnBitmask |= URLTITLE_COLUMN_BITMASK;
 
 		if (_originalUrlTitle == null) {
 			_originalUrlTitle = _urlTitle;
@@ -1022,45 +1022,34 @@ public class CPFriendlyURLEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPFriendlyURLEntryModelImpl cpFriendlyURLEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		cpFriendlyURLEntryModelImpl._originalUuid =
-			cpFriendlyURLEntryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		cpFriendlyURLEntryModelImpl._originalGroupId =
-			cpFriendlyURLEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		cpFriendlyURLEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		cpFriendlyURLEntryModelImpl._originalCompanyId =
-			cpFriendlyURLEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpFriendlyURLEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		cpFriendlyURLEntryModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		cpFriendlyURLEntryModelImpl._originalClassNameId =
-			cpFriendlyURLEntryModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		cpFriendlyURLEntryModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		cpFriendlyURLEntryModelImpl._originalClassPK =
-			cpFriendlyURLEntryModelImpl._classPK;
+		_originalLanguageId = _languageId;
 
-		cpFriendlyURLEntryModelImpl._setOriginalClassPK = false;
+		_originalUrlTitle = _urlTitle;
 
-		cpFriendlyURLEntryModelImpl._originalLanguageId =
-			cpFriendlyURLEntryModelImpl._languageId;
+		_originalMain = _main;
 
-		cpFriendlyURLEntryModelImpl._originalUrlTitle =
-			cpFriendlyURLEntryModelImpl._urlTitle;
+		_setOriginalMain = false;
 
-		cpFriendlyURLEntryModelImpl._originalMain =
-			cpFriendlyURLEntryModelImpl._main;
-
-		cpFriendlyURLEntryModelImpl._setOriginalMain = false;
-
-		cpFriendlyURLEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

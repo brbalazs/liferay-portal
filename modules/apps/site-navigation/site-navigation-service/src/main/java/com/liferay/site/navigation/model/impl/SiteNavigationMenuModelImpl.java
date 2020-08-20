@@ -975,37 +975,28 @@ public class SiteNavigationMenuModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SiteNavigationMenuModelImpl siteNavigationMenuModelImpl = this;
+		_originalUuid = _uuid;
 
-		siteNavigationMenuModelImpl._originalUuid =
-			siteNavigationMenuModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		siteNavigationMenuModelImpl._originalGroupId =
-			siteNavigationMenuModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		siteNavigationMenuModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		siteNavigationMenuModelImpl._originalCompanyId =
-			siteNavigationMenuModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		siteNavigationMenuModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalName = _name;
 
-		siteNavigationMenuModelImpl._setModifiedDate = false;
+		_originalType = _type;
 
-		siteNavigationMenuModelImpl._originalName =
-			siteNavigationMenuModelImpl._name;
+		_setOriginalType = false;
 
-		siteNavigationMenuModelImpl._originalType =
-			siteNavigationMenuModelImpl._type;
+		_originalAuto = _auto;
 
-		siteNavigationMenuModelImpl._setOriginalType = false;
+		_setOriginalAuto = false;
 
-		siteNavigationMenuModelImpl._originalAuto =
-			siteNavigationMenuModelImpl._auto;
-
-		siteNavigationMenuModelImpl._setOriginalAuto = false;
-
-		siteNavigationMenuModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -748,8 +748,6 @@ public class CommerceWishListModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -892,37 +890,29 @@ public class CommerceWishListModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceWishListModelImpl commerceWishListModelImpl = this;
+		_originalUuid = _uuid;
 
-		commerceWishListModelImpl._originalUuid =
-			commerceWishListModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		commerceWishListModelImpl._originalGroupId =
-			commerceWishListModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		commerceWishListModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		commerceWishListModelImpl._originalCompanyId =
-			commerceWishListModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceWishListModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		commerceWishListModelImpl._originalUserId =
-			commerceWishListModelImpl._userId;
+		_setOriginalUserId = false;
 
-		commerceWishListModelImpl._setOriginalUserId = false;
+		_originalCreateDate = _createDate;
 
-		commerceWishListModelImpl._originalCreateDate =
-			commerceWishListModelImpl._createDate;
+		_setModifiedDate = false;
 
-		commerceWishListModelImpl._setModifiedDate = false;
+		_originalDefaultWishList = _defaultWishList;
 
-		commerceWishListModelImpl._originalDefaultWishList =
-			commerceWishListModelImpl._defaultWishList;
+		_setOriginalDefaultWishList = false;
 
-		commerceWishListModelImpl._setOriginalDefaultWishList = false;
-
-		commerceWishListModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

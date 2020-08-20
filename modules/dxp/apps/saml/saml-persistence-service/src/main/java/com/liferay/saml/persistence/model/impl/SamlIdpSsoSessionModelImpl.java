@@ -654,17 +654,12 @@ public class SamlIdpSsoSessionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SamlIdpSsoSessionModelImpl samlIdpSsoSessionModelImpl = this;
+		_originalCreateDate = _createDate;
 
-		samlIdpSsoSessionModelImpl._originalCreateDate =
-			samlIdpSsoSessionModelImpl._createDate;
+		_setModifiedDate = false;
+		_originalSamlIdpSsoSessionKey = _samlIdpSsoSessionKey;
 
-		samlIdpSsoSessionModelImpl._setModifiedDate = false;
-
-		samlIdpSsoSessionModelImpl._originalSamlIdpSsoSessionKey =
-			samlIdpSsoSessionModelImpl._samlIdpSsoSessionKey;
-
-		samlIdpSsoSessionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

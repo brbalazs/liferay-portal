@@ -1690,35 +1690,26 @@ public class CPDefinitionVirtualSettingModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPDefinitionVirtualSettingModelImpl
-			cpDefinitionVirtualSettingModelImpl = this;
+		_originalUuid = _uuid;
 
-		cpDefinitionVirtualSettingModelImpl._originalUuid =
-			cpDefinitionVirtualSettingModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		cpDefinitionVirtualSettingModelImpl._originalGroupId =
-			cpDefinitionVirtualSettingModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		cpDefinitionVirtualSettingModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		cpDefinitionVirtualSettingModelImpl._originalCompanyId =
-			cpDefinitionVirtualSettingModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpDefinitionVirtualSettingModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		cpDefinitionVirtualSettingModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		cpDefinitionVirtualSettingModelImpl._originalClassNameId =
-			cpDefinitionVirtualSettingModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		cpDefinitionVirtualSettingModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		cpDefinitionVirtualSettingModelImpl._originalClassPK =
-			cpDefinitionVirtualSettingModelImpl._classPK;
-
-		cpDefinitionVirtualSettingModelImpl._setOriginalClassPK = false;
-
-		cpDefinitionVirtualSettingModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

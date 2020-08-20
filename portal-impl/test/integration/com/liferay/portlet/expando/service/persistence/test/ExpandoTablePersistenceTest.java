@@ -43,7 +43,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -416,11 +415,10 @@ public class ExpandoTablePersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingExpandoTable, "getOriginalClassNameId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingExpandoTable.getName(),
-				ReflectionTestUtil.invoke(
-					existingExpandoTable, "getOriginalName", new Class<?>[0])));
+		Assert.assertEquals(
+			existingExpandoTable.getName(),
+			ReflectionTestUtil.invoke(
+				existingExpandoTable, "getOriginalName", new Class<?>[0]));
 	}
 
 	protected ExpandoTable addExpandoTable() throws Exception {

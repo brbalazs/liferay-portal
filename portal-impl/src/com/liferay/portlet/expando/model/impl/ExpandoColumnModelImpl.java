@@ -515,7 +515,7 @@ public class ExpandoColumnModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -659,16 +659,13 @@ public class ExpandoColumnModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ExpandoColumnModelImpl expandoColumnModelImpl = this;
+		_originalTableId = _tableId;
 
-		expandoColumnModelImpl._originalTableId =
-			expandoColumnModelImpl._tableId;
+		_setOriginalTableId = false;
 
-		expandoColumnModelImpl._setOriginalTableId = false;
+		_originalName = _name;
 
-		expandoColumnModelImpl._originalName = expandoColumnModelImpl._name;
-
-		expandoColumnModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

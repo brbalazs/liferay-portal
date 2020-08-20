@@ -1265,8 +1265,6 @@ public class CommerceCurrencyModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1525,32 +1523,24 @@ public class CommerceCurrencyModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceCurrencyModelImpl commerceCurrencyModelImpl = this;
+		_originalUuid = _uuid;
 
-		commerceCurrencyModelImpl._originalUuid =
-			commerceCurrencyModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		commerceCurrencyModelImpl._originalCompanyId =
-			commerceCurrencyModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceCurrencyModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCode = _code;
 
-		commerceCurrencyModelImpl._setModifiedDate = false;
+		_originalPrimary = _primary;
 
-		commerceCurrencyModelImpl._originalCode =
-			commerceCurrencyModelImpl._code;
+		_setOriginalPrimary = false;
 
-		commerceCurrencyModelImpl._originalPrimary =
-			commerceCurrencyModelImpl._primary;
+		_originalActive = _active;
 
-		commerceCurrencyModelImpl._setOriginalPrimary = false;
+		_setOriginalActive = false;
 
-		commerceCurrencyModelImpl._originalActive =
-			commerceCurrencyModelImpl._active;
-
-		commerceCurrencyModelImpl._setOriginalActive = false;
-
-		commerceCurrencyModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

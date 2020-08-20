@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -507,22 +506,20 @@ public class AMImageEntryPersistenceTest {
 		AMImageEntry existingAMImageEntry = _persistence.findByPrimaryKey(
 			newAMImageEntry.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingAMImageEntry.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingAMImageEntry, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingAMImageEntry.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingAMImageEntry, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingAMImageEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingAMImageEntry, "getOriginalGroupId", new Class<?>[0]));
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingAMImageEntry.getConfigurationUuid(),
-				ReflectionTestUtil.invoke(
-					existingAMImageEntry, "getOriginalConfigurationUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingAMImageEntry.getConfigurationUuid(),
+			ReflectionTestUtil.invoke(
+				existingAMImageEntry, "getOriginalConfigurationUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingAMImageEntry.getFileVersionId()),
 			ReflectionTestUtil.<Long>invoke(

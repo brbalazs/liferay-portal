@@ -742,8 +742,6 @@ public class AuditEventModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1013,13 +1011,11 @@ public class AuditEventModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AuditEventModelImpl auditEventModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		auditEventModelImpl._originalCompanyId = auditEventModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		auditEventModelImpl._setOriginalCompanyId = false;
-
-		auditEventModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

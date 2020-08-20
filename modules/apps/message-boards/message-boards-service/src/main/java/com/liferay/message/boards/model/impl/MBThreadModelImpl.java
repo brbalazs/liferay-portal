@@ -1149,7 +1149,7 @@ public class MBThreadModelImpl
 
 	@Override
 	public void setLastPostDate(Date lastPostDate) {
-		_columnBitmask = -1L;
+		_columnBitmask |= LASTPOSTDATE_COLUMN_BITMASK;
 
 		if (_originalLastPostDate == null) {
 			_originalLastPostDate = _lastPostDate;
@@ -1170,7 +1170,7 @@ public class MBThreadModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
+		_columnBitmask |= PRIORITY_COLUMN_BITMASK;
 
 		if (!_setOriginalPriority) {
 			_setOriginalPriority = true;
@@ -1682,41 +1682,36 @@ public class MBThreadModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		MBThreadModelImpl mbThreadModelImpl = this;
+		_originalUuid = _uuid;
 
-		mbThreadModelImpl._originalUuid = mbThreadModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		mbThreadModelImpl._originalGroupId = mbThreadModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		mbThreadModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		mbThreadModelImpl._originalCompanyId = mbThreadModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		mbThreadModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCategoryId = _categoryId;
 
-		mbThreadModelImpl._setModifiedDate = false;
+		_setOriginalCategoryId = false;
 
-		mbThreadModelImpl._originalCategoryId = mbThreadModelImpl._categoryId;
+		_originalRootMessageId = _rootMessageId;
 
-		mbThreadModelImpl._setOriginalCategoryId = false;
+		_setOriginalRootMessageId = false;
 
-		mbThreadModelImpl._originalRootMessageId =
-			mbThreadModelImpl._rootMessageId;
+		_originalLastPostDate = _lastPostDate;
 
-		mbThreadModelImpl._setOriginalRootMessageId = false;
+		_originalPriority = _priority;
 
-		mbThreadModelImpl._originalLastPostDate =
-			mbThreadModelImpl._lastPostDate;
+		_setOriginalPriority = false;
 
-		mbThreadModelImpl._originalPriority = mbThreadModelImpl._priority;
+		_originalStatus = _status;
 
-		mbThreadModelImpl._setOriginalPriority = false;
+		_setOriginalStatus = false;
 
-		mbThreadModelImpl._originalStatus = mbThreadModelImpl._status;
-
-		mbThreadModelImpl._setOriginalStatus = false;
-
-		mbThreadModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

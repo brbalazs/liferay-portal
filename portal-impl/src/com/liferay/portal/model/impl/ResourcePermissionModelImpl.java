@@ -914,40 +914,31 @@ public class ResourcePermissionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ResourcePermissionModelImpl resourcePermissionModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		resourcePermissionModelImpl._originalCompanyId =
-			resourcePermissionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		resourcePermissionModelImpl._setOriginalCompanyId = false;
+		_originalName = _name;
 
-		resourcePermissionModelImpl._originalName =
-			resourcePermissionModelImpl._name;
+		_originalScope = _scope;
 
-		resourcePermissionModelImpl._originalScope =
-			resourcePermissionModelImpl._scope;
+		_setOriginalScope = false;
 
-		resourcePermissionModelImpl._setOriginalScope = false;
+		_originalPrimKey = _primKey;
 
-		resourcePermissionModelImpl._originalPrimKey =
-			resourcePermissionModelImpl._primKey;
+		_originalPrimKeyId = _primKeyId;
 
-		resourcePermissionModelImpl._originalPrimKeyId =
-			resourcePermissionModelImpl._primKeyId;
+		_setOriginalPrimKeyId = false;
 
-		resourcePermissionModelImpl._setOriginalPrimKeyId = false;
+		_originalRoleId = _roleId;
 
-		resourcePermissionModelImpl._originalRoleId =
-			resourcePermissionModelImpl._roleId;
+		_setOriginalRoleId = false;
 
-		resourcePermissionModelImpl._setOriginalRoleId = false;
+		_originalViewActionId = _viewActionId;
 
-		resourcePermissionModelImpl._originalViewActionId =
-			resourcePermissionModelImpl._viewActionId;
+		_setOriginalViewActionId = false;
 
-		resourcePermissionModelImpl._setOriginalViewActionId = false;
-
-		resourcePermissionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -759,8 +759,6 @@ public class EmailAddressModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1018,35 +1016,30 @@ public class EmailAddressModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		EmailAddressModelImpl emailAddressModelImpl = this;
+		_originalUuid = _uuid;
 
-		emailAddressModelImpl._originalUuid = emailAddressModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		emailAddressModelImpl._originalCompanyId =
-			emailAddressModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		emailAddressModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		emailAddressModelImpl._originalUserId = emailAddressModelImpl._userId;
+		_setOriginalUserId = false;
 
-		emailAddressModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		emailAddressModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		emailAddressModelImpl._originalClassNameId =
-			emailAddressModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		emailAddressModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		emailAddressModelImpl._originalClassPK = emailAddressModelImpl._classPK;
+		_originalPrimary = _primary;
 
-		emailAddressModelImpl._setOriginalClassPK = false;
+		_setOriginalPrimary = false;
 
-		emailAddressModelImpl._originalPrimary = emailAddressModelImpl._primary;
-
-		emailAddressModelImpl._setOriginalPrimary = false;
-
-		emailAddressModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

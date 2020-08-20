@@ -987,29 +987,22 @@ public class PowwowParticipantModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		PowwowParticipantModelImpl powwowParticipantModelImpl = this;
+		_setModifiedDate = false;
+		_originalPowwowMeetingId = _powwowMeetingId;
 
-		powwowParticipantModelImpl._setModifiedDate = false;
+		_setOriginalPowwowMeetingId = false;
 
-		powwowParticipantModelImpl._originalPowwowMeetingId =
-			powwowParticipantModelImpl._powwowMeetingId;
+		_originalParticipantUserId = _participantUserId;
 
-		powwowParticipantModelImpl._setOriginalPowwowMeetingId = false;
+		_setOriginalParticipantUserId = false;
 
-		powwowParticipantModelImpl._originalParticipantUserId =
-			powwowParticipantModelImpl._participantUserId;
+		_originalEmailAddress = _emailAddress;
 
-		powwowParticipantModelImpl._setOriginalParticipantUserId = false;
+		_originalType = _type;
 
-		powwowParticipantModelImpl._originalEmailAddress =
-			powwowParticipantModelImpl._emailAddress;
+		_setOriginalType = false;
 
-		powwowParticipantModelImpl._originalType =
-			powwowParticipantModelImpl._type;
-
-		powwowParticipantModelImpl._setOriginalType = false;
-
-		powwowParticipantModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

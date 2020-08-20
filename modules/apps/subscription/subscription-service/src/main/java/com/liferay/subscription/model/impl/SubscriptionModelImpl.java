@@ -847,33 +847,28 @@ public class SubscriptionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SubscriptionModelImpl subscriptionModelImpl = this;
+		_originalGroupId = _groupId;
 
-		subscriptionModelImpl._originalGroupId = subscriptionModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		subscriptionModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		subscriptionModelImpl._originalCompanyId =
-			subscriptionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		subscriptionModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		subscriptionModelImpl._originalUserId = subscriptionModelImpl._userId;
+		_setOriginalUserId = false;
 
-		subscriptionModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		subscriptionModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		subscriptionModelImpl._originalClassNameId =
-			subscriptionModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		subscriptionModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		subscriptionModelImpl._originalClassPK = subscriptionModelImpl._classPK;
-
-		subscriptionModelImpl._setOriginalClassPK = false;
-
-		subscriptionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

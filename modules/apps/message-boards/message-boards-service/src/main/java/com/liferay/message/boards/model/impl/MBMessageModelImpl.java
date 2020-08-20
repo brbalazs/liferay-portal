@@ -968,8 +968,6 @@ public class MBMessageModelImpl
 
 	@Override
 	public void setMessageId(long messageId) {
-		_columnBitmask = -1L;
-
 		_messageId = messageId;
 	}
 
@@ -1082,8 +1080,6 @@ public class MBMessageModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1826,55 +1822,50 @@ public class MBMessageModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		MBMessageModelImpl mbMessageModelImpl = this;
+		_originalUuid = _uuid;
 
-		mbMessageModelImpl._originalUuid = mbMessageModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		mbMessageModelImpl._originalGroupId = mbMessageModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		mbMessageModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		mbMessageModelImpl._originalCompanyId = mbMessageModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		mbMessageModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		mbMessageModelImpl._originalUserId = mbMessageModelImpl._userId;
+		_setOriginalUserId = false;
 
-		mbMessageModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		mbMessageModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		mbMessageModelImpl._originalClassNameId =
-			mbMessageModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		mbMessageModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		mbMessageModelImpl._originalClassPK = mbMessageModelImpl._classPK;
+		_originalCategoryId = _categoryId;
 
-		mbMessageModelImpl._setOriginalClassPK = false;
+		_setOriginalCategoryId = false;
 
-		mbMessageModelImpl._originalCategoryId = mbMessageModelImpl._categoryId;
+		_originalThreadId = _threadId;
 
-		mbMessageModelImpl._setOriginalCategoryId = false;
+		_setOriginalThreadId = false;
 
-		mbMessageModelImpl._originalThreadId = mbMessageModelImpl._threadId;
+		_originalParentMessageId = _parentMessageId;
 
-		mbMessageModelImpl._setOriginalThreadId = false;
+		_setOriginalParentMessageId = false;
 
-		mbMessageModelImpl._originalParentMessageId =
-			mbMessageModelImpl._parentMessageId;
+		_originalAnswer = _answer;
 
-		mbMessageModelImpl._setOriginalParentMessageId = false;
+		_setOriginalAnswer = false;
 
-		mbMessageModelImpl._originalAnswer = mbMessageModelImpl._answer;
+		_originalStatus = _status;
 
-		mbMessageModelImpl._setOriginalAnswer = false;
+		_setOriginalStatus = false;
 
-		mbMessageModelImpl._originalStatus = mbMessageModelImpl._status;
-
-		mbMessageModelImpl._setOriginalStatus = false;
-
-		mbMessageModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

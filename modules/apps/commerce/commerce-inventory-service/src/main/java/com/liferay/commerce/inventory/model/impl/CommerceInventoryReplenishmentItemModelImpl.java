@@ -983,32 +983,20 @@ public class CommerceInventoryReplenishmentItemModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceInventoryReplenishmentItemModelImpl
-			commerceInventoryReplenishmentItemModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		commerceInventoryReplenishmentItemModelImpl._originalCompanyId =
-			commerceInventoryReplenishmentItemModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceInventoryReplenishmentItemModelImpl._setOriginalCompanyId =
-			false;
+		_setModifiedDate = false;
+		_originalCommerceInventoryWarehouseId = _commerceInventoryWarehouseId;
 
-		commerceInventoryReplenishmentItemModelImpl._setModifiedDate = false;
+		_setOriginalCommerceInventoryWarehouseId = false;
 
-		commerceInventoryReplenishmentItemModelImpl.
-			_originalCommerceInventoryWarehouseId =
-				commerceInventoryReplenishmentItemModelImpl.
-					_commerceInventoryWarehouseId;
+		_originalSku = _sku;
 
-		commerceInventoryReplenishmentItemModelImpl.
-			_setOriginalCommerceInventoryWarehouseId = false;
+		_originalAvailabilityDate = _availabilityDate;
 
-		commerceInventoryReplenishmentItemModelImpl._originalSku =
-			commerceInventoryReplenishmentItemModelImpl._sku;
-
-		commerceInventoryReplenishmentItemModelImpl._originalAvailabilityDate =
-			commerceInventoryReplenishmentItemModelImpl._availabilityDate;
-
-		commerceInventoryReplenishmentItemModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -540,20 +540,15 @@ public class AssetEntryAssetCategoryRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AssetEntryAssetCategoryRelModelImpl
-			assetEntryAssetCategoryRelModelImpl = this;
+		_originalAssetEntryId = _assetEntryId;
 
-		assetEntryAssetCategoryRelModelImpl._originalAssetEntryId =
-			assetEntryAssetCategoryRelModelImpl._assetEntryId;
+		_setOriginalAssetEntryId = false;
 
-		assetEntryAssetCategoryRelModelImpl._setOriginalAssetEntryId = false;
+		_originalAssetCategoryId = _assetCategoryId;
 
-		assetEntryAssetCategoryRelModelImpl._originalAssetCategoryId =
-			assetEntryAssetCategoryRelModelImpl._assetCategoryId;
+		_setOriginalAssetCategoryId = false;
 
-		assetEntryAssetCategoryRelModelImpl._setOriginalAssetCategoryId = false;
-
-		assetEntryAssetCategoryRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

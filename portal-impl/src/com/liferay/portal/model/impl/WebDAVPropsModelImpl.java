@@ -677,20 +677,16 @@ public class WebDAVPropsModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		WebDAVPropsModelImpl webDAVPropsModelImpl = this;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		webDAVPropsModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		webDAVPropsModelImpl._originalClassNameId =
-			webDAVPropsModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		webDAVPropsModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		webDAVPropsModelImpl._originalClassPK = webDAVPropsModelImpl._classPK;
-
-		webDAVPropsModelImpl._setOriginalClassPK = false;
-
-		webDAVPropsModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -465,11 +464,10 @@ public class KBTemplatePersistenceTest {
 		KBTemplate existingKBTemplate = _persistence.findByPrimaryKey(
 			newKBTemplate.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingKBTemplate.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingKBTemplate, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingKBTemplate.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingKBTemplate, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingKBTemplate.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

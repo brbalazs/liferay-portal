@@ -706,8 +706,6 @@ public class CommerceApplicationModelModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -835,23 +833,16 @@ public class CommerceApplicationModelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceApplicationModelModelImpl commerceApplicationModelModelImpl =
-			this;
+		_originalCompanyId = _companyId;
 
-		commerceApplicationModelModelImpl._originalCompanyId =
-			commerceApplicationModelModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceApplicationModelModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCommerceApplicationBrandId = _commerceApplicationBrandId;
 
-		commerceApplicationModelModelImpl._setModifiedDate = false;
+		_setOriginalCommerceApplicationBrandId = false;
 
-		commerceApplicationModelModelImpl._originalCommerceApplicationBrandId =
-			commerceApplicationModelModelImpl._commerceApplicationBrandId;
-
-		commerceApplicationModelModelImpl.
-			_setOriginalCommerceApplicationBrandId = false;
-
-		commerceApplicationModelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

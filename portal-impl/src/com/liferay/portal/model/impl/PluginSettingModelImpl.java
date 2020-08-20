@@ -698,20 +698,15 @@ public class PluginSettingModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		PluginSettingModelImpl pluginSettingModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		pluginSettingModelImpl._originalCompanyId =
-			pluginSettingModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		pluginSettingModelImpl._setOriginalCompanyId = false;
+		_originalPluginId = _pluginId;
 
-		pluginSettingModelImpl._originalPluginId =
-			pluginSettingModelImpl._pluginId;
+		_originalPluginType = _pluginType;
 
-		pluginSettingModelImpl._originalPluginType =
-			pluginSettingModelImpl._pluginType;
-
-		pluginSettingModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

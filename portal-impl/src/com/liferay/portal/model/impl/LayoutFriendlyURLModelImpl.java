@@ -990,40 +990,30 @@ public class LayoutFriendlyURLModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		LayoutFriendlyURLModelImpl layoutFriendlyURLModelImpl = this;
+		_originalUuid = _uuid;
 
-		layoutFriendlyURLModelImpl._originalUuid =
-			layoutFriendlyURLModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		layoutFriendlyURLModelImpl._originalGroupId =
-			layoutFriendlyURLModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		layoutFriendlyURLModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		layoutFriendlyURLModelImpl._originalCompanyId =
-			layoutFriendlyURLModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		layoutFriendlyURLModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalPlid = _plid;
 
-		layoutFriendlyURLModelImpl._setModifiedDate = false;
+		_setOriginalPlid = false;
 
-		layoutFriendlyURLModelImpl._originalPlid =
-			layoutFriendlyURLModelImpl._plid;
+		_originalPrivateLayout = _privateLayout;
 
-		layoutFriendlyURLModelImpl._setOriginalPlid = false;
+		_setOriginalPrivateLayout = false;
 
-		layoutFriendlyURLModelImpl._originalPrivateLayout =
-			layoutFriendlyURLModelImpl._privateLayout;
+		_originalFriendlyURL = _friendlyURL;
 
-		layoutFriendlyURLModelImpl._setOriginalPrivateLayout = false;
+		_originalLanguageId = _languageId;
 
-		layoutFriendlyURLModelImpl._originalFriendlyURL =
-			layoutFriendlyURLModelImpl._friendlyURL;
-
-		layoutFriendlyURLModelImpl._originalLanguageId =
-			layoutFriendlyURLModelImpl._languageId;
-
-		layoutFriendlyURLModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

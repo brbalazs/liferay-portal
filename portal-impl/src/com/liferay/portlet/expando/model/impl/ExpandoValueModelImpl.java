@@ -521,7 +521,7 @@ public class ExpandoValueModelImpl
 
 	@Override
 	public void setTableId(long tableId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= TABLEID_COLUMN_BITMASK;
 
 		if (!_setOriginalTableId) {
 			_setOriginalTableId = true;
@@ -544,7 +544,7 @@ public class ExpandoValueModelImpl
 
 	@Override
 	public void setColumnId(long columnId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= COLUMNID_COLUMN_BITMASK;
 
 		if (!_setOriginalColumnId) {
 			_setOriginalColumnId = true;
@@ -567,7 +567,7 @@ public class ExpandoValueModelImpl
 
 	@Override
 	public void setRowId(long rowId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= ROWID_COLUMN_BITMASK;
 
 		if (!_setOriginalRowId) {
 			_setOriginalRowId = true;
@@ -799,33 +799,29 @@ public class ExpandoValueModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ExpandoValueModelImpl expandoValueModelImpl = this;
+		_originalTableId = _tableId;
 
-		expandoValueModelImpl._originalTableId = expandoValueModelImpl._tableId;
+		_setOriginalTableId = false;
 
-		expandoValueModelImpl._setOriginalTableId = false;
+		_originalColumnId = _columnId;
 
-		expandoValueModelImpl._originalColumnId =
-			expandoValueModelImpl._columnId;
+		_setOriginalColumnId = false;
 
-		expandoValueModelImpl._setOriginalColumnId = false;
+		_originalRowId = _rowId;
 
-		expandoValueModelImpl._originalRowId = expandoValueModelImpl._rowId;
+		_setOriginalRowId = false;
 
-		expandoValueModelImpl._setOriginalRowId = false;
+		_originalClassNameId = _classNameId;
 
-		expandoValueModelImpl._originalClassNameId =
-			expandoValueModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		expandoValueModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		expandoValueModelImpl._originalClassPK = expandoValueModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		expandoValueModelImpl._setOriginalClassPK = false;
+		_originalData = _data;
 
-		expandoValueModelImpl._originalData = expandoValueModelImpl._data;
-
-		expandoValueModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

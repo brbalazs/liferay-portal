@@ -651,8 +651,6 @@ public class WorkflowInstanceLinkModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -858,31 +856,24 @@ public class WorkflowInstanceLinkModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		WorkflowInstanceLinkModelImpl workflowInstanceLinkModelImpl = this;
+		_originalGroupId = _groupId;
 
-		workflowInstanceLinkModelImpl._originalGroupId =
-			workflowInstanceLinkModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		workflowInstanceLinkModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		workflowInstanceLinkModelImpl._originalCompanyId =
-			workflowInstanceLinkModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		workflowInstanceLinkModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		workflowInstanceLinkModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		workflowInstanceLinkModelImpl._originalClassNameId =
-			workflowInstanceLinkModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		workflowInstanceLinkModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		workflowInstanceLinkModelImpl._originalClassPK =
-			workflowInstanceLinkModelImpl._classPK;
-
-		workflowInstanceLinkModelImpl._setOriginalClassPK = false;
-
-		workflowInstanceLinkModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

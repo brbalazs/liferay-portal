@@ -1065,8 +1065,6 @@ public class CommerceInventoryWarehouseModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -1399,28 +1397,21 @@ public class CommerceInventoryWarehouseModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceInventoryWarehouseModelImpl
-			commerceInventoryWarehouseModelImpl = this;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commerceInventoryWarehouseModelImpl._originalExternalReferenceCode =
-			commerceInventoryWarehouseModelImpl._externalReferenceCode;
+		_originalCompanyId = _companyId;
 
-		commerceInventoryWarehouseModelImpl._originalCompanyId =
-			commerceInventoryWarehouseModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceInventoryWarehouseModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		commerceInventoryWarehouseModelImpl._setModifiedDate = false;
+		_originalActive = _active;
 
-		commerceInventoryWarehouseModelImpl._originalActive =
-			commerceInventoryWarehouseModelImpl._active;
+		_setOriginalActive = false;
 
-		commerceInventoryWarehouseModelImpl._setOriginalActive = false;
+		_originalCountryTwoLettersISOCode = _countryTwoLettersISOCode;
 
-		commerceInventoryWarehouseModelImpl._originalCountryTwoLettersISOCode =
-			commerceInventoryWarehouseModelImpl._countryTwoLettersISOCode;
-
-		commerceInventoryWarehouseModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

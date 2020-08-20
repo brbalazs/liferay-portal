@@ -793,8 +793,6 @@ public class CommerceAvailabilityEstimateModelImpl
 
 	@Override
 	public void setTitle(String title) {
-		_columnBitmask = -1L;
-
 		_title = title;
 	}
 
@@ -1050,20 +1048,15 @@ public class CommerceAvailabilityEstimateModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceAvailabilityEstimateModelImpl
-			commerceAvailabilityEstimateModelImpl = this;
+		_originalUuid = _uuid;
 
-		commerceAvailabilityEstimateModelImpl._originalUuid =
-			commerceAvailabilityEstimateModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		commerceAvailabilityEstimateModelImpl._originalCompanyId =
-			commerceAvailabilityEstimateModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceAvailabilityEstimateModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		commerceAvailabilityEstimateModelImpl._setModifiedDate = false;
-
-		commerceAvailabilityEstimateModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

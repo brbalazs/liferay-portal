@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -470,11 +469,10 @@ public class PollsChoicePersistenceTest {
 		PollsChoice existingPollsChoice = _persistence.findByPrimaryKey(
 			newPollsChoice.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingPollsChoice.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingPollsChoice, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingPollsChoice.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingPollsChoice, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingPollsChoice.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -484,11 +482,10 @@ public class PollsChoicePersistenceTest {
 			Long.valueOf(existingPollsChoice.getQuestionId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingPollsChoice, "getOriginalQuestionId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingPollsChoice.getName(),
-				ReflectionTestUtil.invoke(
-					existingPollsChoice, "getOriginalName", new Class<?>[0])));
+		Assert.assertEquals(
+			existingPollsChoice.getName(),
+			ReflectionTestUtil.invoke(
+				existingPollsChoice, "getOriginalName", new Class<?>[0]));
 	}
 
 	protected PollsChoice addPollsChoice() throws Exception {

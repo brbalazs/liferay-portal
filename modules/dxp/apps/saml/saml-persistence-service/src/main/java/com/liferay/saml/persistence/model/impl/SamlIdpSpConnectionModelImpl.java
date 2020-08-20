@@ -1151,19 +1151,14 @@ public class SamlIdpSpConnectionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SamlIdpSpConnectionModelImpl samlIdpSpConnectionModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		samlIdpSpConnectionModelImpl._originalCompanyId =
-			samlIdpSpConnectionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		samlIdpSpConnectionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalSamlSpEntityId = _samlSpEntityId;
 
-		samlIdpSpConnectionModelImpl._setModifiedDate = false;
-
-		samlIdpSpConnectionModelImpl._originalSamlSpEntityId =
-			samlIdpSpConnectionModelImpl._samlSpEntityId;
-
-		samlIdpSpConnectionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

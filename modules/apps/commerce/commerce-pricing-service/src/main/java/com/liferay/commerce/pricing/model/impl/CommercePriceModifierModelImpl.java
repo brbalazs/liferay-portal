@@ -1133,8 +1133,6 @@ public class CommercePriceModifierModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1255,8 +1253,6 @@ public class CommercePriceModifierModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1285,7 +1281,7 @@ public class CommercePriceModifierModelImpl
 
 	@Override
 	public void setDisplayDate(Date displayDate) {
-		_columnBitmask = -1L;
+		_columnBitmask |= DISPLAYDATE_COLUMN_BITMASK;
 
 		if (_originalDisplayDate == null) {
 			_originalDisplayDate = _displayDate;
@@ -1644,46 +1640,34 @@ public class CommercePriceModifierModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommercePriceModifierModelImpl commercePriceModifierModelImpl = this;
+		_originalUuid = _uuid;
 
-		commercePriceModifierModelImpl._originalUuid =
-			commercePriceModifierModelImpl._uuid;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commercePriceModifierModelImpl._originalExternalReferenceCode =
-			commercePriceModifierModelImpl._externalReferenceCode;
+		_originalGroupId = _groupId;
 
-		commercePriceModifierModelImpl._originalGroupId =
-			commercePriceModifierModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		commercePriceModifierModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		commercePriceModifierModelImpl._originalCompanyId =
-			commercePriceModifierModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commercePriceModifierModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCommercePriceListId = _commercePriceListId;
 
-		commercePriceModifierModelImpl._setModifiedDate = false;
+		_setOriginalCommercePriceListId = false;
 
-		commercePriceModifierModelImpl._originalCommercePriceListId =
-			commercePriceModifierModelImpl._commercePriceListId;
+		_originalTarget = _target;
 
-		commercePriceModifierModelImpl._setOriginalCommercePriceListId = false;
+		_originalDisplayDate = _displayDate;
 
-		commercePriceModifierModelImpl._originalTarget =
-			commercePriceModifierModelImpl._target;
+		_originalExpirationDate = _expirationDate;
 
-		commercePriceModifierModelImpl._originalDisplayDate =
-			commercePriceModifierModelImpl._displayDate;
+		_originalStatus = _status;
 
-		commercePriceModifierModelImpl._originalExpirationDate =
-			commercePriceModifierModelImpl._expirationDate;
+		_setOriginalStatus = false;
 
-		commercePriceModifierModelImpl._originalStatus =
-			commercePriceModifierModelImpl._status;
-
-		commercePriceModifierModelImpl._setOriginalStatus = false;
-
-		commercePriceModifierModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

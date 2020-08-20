@@ -44,7 +44,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -505,22 +504,20 @@ public class UserGroupPersistenceTest {
 			Long.valueOf(existingUserGroup.getCompanyId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingUserGroup, "getOriginalCompanyId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingUserGroup.getName(),
-				ReflectionTestUtil.invoke(
-					existingUserGroup, "getOriginalName", new Class<?>[0])));
+		Assert.assertEquals(
+			existingUserGroup.getName(),
+			ReflectionTestUtil.invoke(
+				existingUserGroup, "getOriginalName", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingUserGroup.getCompanyId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingUserGroup, "getOriginalCompanyId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingUserGroup.getExternalReferenceCode(),
-				ReflectionTestUtil.invoke(
-					existingUserGroup, "getOriginalExternalReferenceCode",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingUserGroup.getExternalReferenceCode(),
+			ReflectionTestUtil.invoke(
+				existingUserGroup, "getOriginalExternalReferenceCode",
+				new Class<?>[0]));
 	}
 
 	protected UserGroup addUserGroup() throws Exception {

@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -540,18 +539,16 @@ public class KaleoDefinitionVersionPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingKaleoDefinitionVersion, "getOriginalCompanyId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingKaleoDefinitionVersion.getName(),
-				ReflectionTestUtil.invoke(
-					existingKaleoDefinitionVersion, "getOriginalName",
-					new Class<?>[0])));
-		Assert.assertTrue(
-			Objects.equals(
-				existingKaleoDefinitionVersion.getVersion(),
-				ReflectionTestUtil.invoke(
-					existingKaleoDefinitionVersion, "getOriginalVersion",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingKaleoDefinitionVersion.getName(),
+			ReflectionTestUtil.invoke(
+				existingKaleoDefinitionVersion, "getOriginalName",
+				new Class<?>[0]));
+		Assert.assertEquals(
+			existingKaleoDefinitionVersion.getVersion(),
+			ReflectionTestUtil.invoke(
+				existingKaleoDefinitionVersion, "getOriginalVersion",
+				new Class<?>[0]));
 	}
 
 	protected KaleoDefinitionVersion addKaleoDefinitionVersion()

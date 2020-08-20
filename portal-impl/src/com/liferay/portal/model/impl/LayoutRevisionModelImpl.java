@@ -1150,8 +1150,6 @@ public class LayoutRevisionModelImpl
 	public void setModifiedDate(Date modifiedDate) {
 		_setModifiedDate = true;
 
-		_columnBitmask = -1L;
-
 		_modifiedDate = modifiedDate;
 	}
 
@@ -2348,39 +2346,32 @@ public class LayoutRevisionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		LayoutRevisionModelImpl layoutRevisionModelImpl = this;
+		_setModifiedDate = false;
+		_originalLayoutSetBranchId = _layoutSetBranchId;
 
-		layoutRevisionModelImpl._setModifiedDate = false;
+		_setOriginalLayoutSetBranchId = false;
 
-		layoutRevisionModelImpl._originalLayoutSetBranchId =
-			layoutRevisionModelImpl._layoutSetBranchId;
+		_originalLayoutBranchId = _layoutBranchId;
 
-		layoutRevisionModelImpl._setOriginalLayoutSetBranchId = false;
+		_setOriginalLayoutBranchId = false;
 
-		layoutRevisionModelImpl._originalLayoutBranchId =
-			layoutRevisionModelImpl._layoutBranchId;
+		_originalParentLayoutRevisionId = _parentLayoutRevisionId;
 
-		layoutRevisionModelImpl._setOriginalLayoutBranchId = false;
+		_setOriginalParentLayoutRevisionId = false;
 
-		layoutRevisionModelImpl._originalParentLayoutRevisionId =
-			layoutRevisionModelImpl._parentLayoutRevisionId;
+		_originalHead = _head;
 
-		layoutRevisionModelImpl._setOriginalParentLayoutRevisionId = false;
+		_setOriginalHead = false;
 
-		layoutRevisionModelImpl._originalHead = layoutRevisionModelImpl._head;
+		_originalPlid = _plid;
 
-		layoutRevisionModelImpl._setOriginalHead = false;
+		_setOriginalPlid = false;
 
-		layoutRevisionModelImpl._originalPlid = layoutRevisionModelImpl._plid;
+		_originalStatus = _status;
 
-		layoutRevisionModelImpl._setOriginalPlid = false;
+		_setOriginalStatus = false;
 
-		layoutRevisionModelImpl._originalStatus =
-			layoutRevisionModelImpl._status;
-
-		layoutRevisionModelImpl._setOriginalStatus = false;
-
-		layoutRevisionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

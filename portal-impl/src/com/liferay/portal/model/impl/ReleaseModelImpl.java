@@ -739,14 +739,10 @@ public class ReleaseModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ReleaseModelImpl releaseModelImpl = this;
+		_setModifiedDate = false;
+		_originalServletContextName = _servletContextName;
 
-		releaseModelImpl._setModifiedDate = false;
-
-		releaseModelImpl._originalServletContextName =
-			releaseModelImpl._servletContextName;
-
-		releaseModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

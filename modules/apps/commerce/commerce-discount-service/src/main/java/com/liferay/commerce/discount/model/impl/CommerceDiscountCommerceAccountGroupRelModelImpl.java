@@ -654,8 +654,6 @@ public class CommerceDiscountCommerceAccountGroupRelModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -845,29 +843,16 @@ public class CommerceDiscountCommerceAccountGroupRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceDiscountCommerceAccountGroupRelModelImpl
-			commerceDiscountCommerceAccountGroupRelModelImpl = this;
+		_setModifiedDate = false;
+		_originalCommerceDiscountId = _commerceDiscountId;
 
-		commerceDiscountCommerceAccountGroupRelModelImpl._setModifiedDate =
-			false;
+		_setOriginalCommerceDiscountId = false;
 
-		commerceDiscountCommerceAccountGroupRelModelImpl.
-			_originalCommerceDiscountId =
-				commerceDiscountCommerceAccountGroupRelModelImpl.
-					_commerceDiscountId;
+		_originalCommerceAccountGroupId = _commerceAccountGroupId;
 
-		commerceDiscountCommerceAccountGroupRelModelImpl.
-			_setOriginalCommerceDiscountId = false;
+		_setOriginalCommerceAccountGroupId = false;
 
-		commerceDiscountCommerceAccountGroupRelModelImpl.
-			_originalCommerceAccountGroupId =
-				commerceDiscountCommerceAccountGroupRelModelImpl.
-					_commerceAccountGroupId;
-
-		commerceDiscountCommerceAccountGroupRelModelImpl.
-			_setOriginalCommerceAccountGroupId = false;
-
-		commerceDiscountCommerceAccountGroupRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

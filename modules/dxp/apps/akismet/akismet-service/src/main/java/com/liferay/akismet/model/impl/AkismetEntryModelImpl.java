@@ -778,21 +778,17 @@ public class AkismetEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AkismetEntryModelImpl akismetEntryModelImpl = this;
+		_originalModifiedDate = _modifiedDate;
 
-		akismetEntryModelImpl._originalModifiedDate =
-			akismetEntryModelImpl._modifiedDate;
+		_originalClassNameId = _classNameId;
 
-		akismetEntryModelImpl._originalClassNameId =
-			akismetEntryModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		akismetEntryModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		akismetEntryModelImpl._originalClassPK = akismetEntryModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		akismetEntryModelImpl._setOriginalClassPK = false;
-
-		akismetEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

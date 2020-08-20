@@ -676,27 +676,21 @@ public class SyncDLFileVersionDiffModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SyncDLFileVersionDiffModelImpl syncDLFileVersionDiffModelImpl = this;
+		_originalFileEntryId = _fileEntryId;
 
-		syncDLFileVersionDiffModelImpl._originalFileEntryId =
-			syncDLFileVersionDiffModelImpl._fileEntryId;
+		_setOriginalFileEntryId = false;
 
-		syncDLFileVersionDiffModelImpl._setOriginalFileEntryId = false;
+		_originalSourceFileVersionId = _sourceFileVersionId;
 
-		syncDLFileVersionDiffModelImpl._originalSourceFileVersionId =
-			syncDLFileVersionDiffModelImpl._sourceFileVersionId;
+		_setOriginalSourceFileVersionId = false;
 
-		syncDLFileVersionDiffModelImpl._setOriginalSourceFileVersionId = false;
+		_originalTargetFileVersionId = _targetFileVersionId;
 
-		syncDLFileVersionDiffModelImpl._originalTargetFileVersionId =
-			syncDLFileVersionDiffModelImpl._targetFileVersionId;
+		_setOriginalTargetFileVersionId = false;
 
-		syncDLFileVersionDiffModelImpl._setOriginalTargetFileVersionId = false;
+		_originalExpirationDate = _expirationDate;
 
-		syncDLFileVersionDiffModelImpl._originalExpirationDate =
-			syncDLFileVersionDiffModelImpl._expirationDate;
-
-		syncDLFileVersionDiffModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -530,7 +530,7 @@ public class DLContentModelImpl
 
 	@Override
 	public void setVersion(String version) {
-		_columnBitmask = -1L;
+		_columnBitmask |= VERSION_COLUMN_BITMASK;
 
 		if (_originalVersion == null) {
 			_originalVersion = _version;
@@ -686,24 +686,21 @@ public class DLContentModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DLContentModelImpl dlContentModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		dlContentModelImpl._originalCompanyId = dlContentModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		dlContentModelImpl._setOriginalCompanyId = false;
+		_originalRepositoryId = _repositoryId;
 
-		dlContentModelImpl._originalRepositoryId =
-			dlContentModelImpl._repositoryId;
+		_setOriginalRepositoryId = false;
 
-		dlContentModelImpl._setOriginalRepositoryId = false;
+		_originalPath = _path;
 
-		dlContentModelImpl._originalPath = dlContentModelImpl._path;
+		_originalVersion = _version;
 
-		dlContentModelImpl._originalVersion = dlContentModelImpl._version;
+		_dataBlobModel = null;
 
-		dlContentModelImpl._dataBlobModel = null;
-
-		dlContentModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -466,12 +465,10 @@ public class ReadingTimeEntryPersistenceTest {
 		ReadingTimeEntry existingReadingTimeEntry =
 			_persistence.findByPrimaryKey(newReadingTimeEntry.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingReadingTimeEntry.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingReadingTimeEntry, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingReadingTimeEntry.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingReadingTimeEntry, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingReadingTimeEntry.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

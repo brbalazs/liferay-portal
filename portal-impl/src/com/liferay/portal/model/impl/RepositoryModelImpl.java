@@ -1108,25 +1108,23 @@ public class RepositoryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		RepositoryModelImpl repositoryModelImpl = this;
+		_originalUuid = _uuid;
 
-		repositoryModelImpl._originalUuid = repositoryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		repositoryModelImpl._originalGroupId = repositoryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		repositoryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		repositoryModelImpl._originalCompanyId = repositoryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		repositoryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		repositoryModelImpl._setModifiedDate = false;
+		_originalName = _name;
 
-		repositoryModelImpl._originalName = repositoryModelImpl._name;
+		_originalPortletId = _portletId;
 
-		repositoryModelImpl._originalPortletId = repositoryModelImpl._portletId;
-
-		repositoryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

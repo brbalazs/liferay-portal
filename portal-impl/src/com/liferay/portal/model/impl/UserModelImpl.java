@@ -2319,56 +2319,52 @@ public class UserModelImpl extends BaseModelImpl<User> implements UserModel {
 
 	@Override
 	public void resetOriginalValues() {
-		UserModelImpl userModelImpl = this;
+		_originalUuid = _uuid;
 
-		userModelImpl._originalUuid = userModelImpl._uuid;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		userModelImpl._originalExternalReferenceCode =
-			userModelImpl._externalReferenceCode;
+		_originalUserId = _userId;
 
-		userModelImpl._originalUserId = userModelImpl._userId;
+		_setOriginalUserId = false;
 
-		userModelImpl._setOriginalUserId = false;
+		_originalCompanyId = _companyId;
 
-		userModelImpl._originalCompanyId = userModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		userModelImpl._setOriginalCompanyId = false;
+		_originalCreateDate = _createDate;
 
-		userModelImpl._originalCreateDate = userModelImpl._createDate;
+		_originalModifiedDate = _modifiedDate;
 
-		userModelImpl._originalModifiedDate = userModelImpl._modifiedDate;
+		_setModifiedDate = false;
+		_originalDefaultUser = _defaultUser;
 
-		userModelImpl._setModifiedDate = false;
+		_setOriginalDefaultUser = false;
 
-		userModelImpl._originalDefaultUser = userModelImpl._defaultUser;
+		_originalContactId = _contactId;
 
-		userModelImpl._setOriginalDefaultUser = false;
+		_setOriginalContactId = false;
 
-		userModelImpl._originalContactId = userModelImpl._contactId;
+		_originalScreenName = _screenName;
 
-		userModelImpl._setOriginalContactId = false;
+		_originalEmailAddress = _emailAddress;
 
-		userModelImpl._originalScreenName = userModelImpl._screenName;
+		_originalFacebookId = _facebookId;
 
-		userModelImpl._originalEmailAddress = userModelImpl._emailAddress;
+		_setOriginalFacebookId = false;
 
-		userModelImpl._originalFacebookId = userModelImpl._facebookId;
+		_originalGoogleUserId = _googleUserId;
 
-		userModelImpl._setOriginalFacebookId = false;
+		_originalOpenId = _openId;
 
-		userModelImpl._originalGoogleUserId = userModelImpl._googleUserId;
+		_originalPortraitId = _portraitId;
 
-		userModelImpl._originalOpenId = userModelImpl._openId;
+		_setOriginalPortraitId = false;
 
-		userModelImpl._originalPortraitId = userModelImpl._portraitId;
+		_originalStatus = _status;
 
-		userModelImpl._setOriginalPortraitId = false;
+		_setOriginalStatus = false;
 
-		userModelImpl._originalStatus = userModelImpl._status;
-
-		userModelImpl._setOriginalStatus = false;
-
-		userModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

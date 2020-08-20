@@ -676,8 +676,6 @@ public class CommerceWishListItemModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -898,24 +896,18 @@ public class CommerceWishListItemModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceWishListItemModelImpl commerceWishListItemModelImpl = this;
+		_setModifiedDate = false;
+		_originalCommerceWishListId = _commerceWishListId;
 
-		commerceWishListItemModelImpl._setModifiedDate = false;
+		_setOriginalCommerceWishListId = false;
 
-		commerceWishListItemModelImpl._originalCommerceWishListId =
-			commerceWishListItemModelImpl._commerceWishListId;
+		_originalCPInstanceUuid = _CPInstanceUuid;
 
-		commerceWishListItemModelImpl._setOriginalCommerceWishListId = false;
+		_originalCProductId = _CProductId;
 
-		commerceWishListItemModelImpl._originalCPInstanceUuid =
-			commerceWishListItemModelImpl._CPInstanceUuid;
+		_setOriginalCProductId = false;
 
-		commerceWishListItemModelImpl._originalCProductId =
-			commerceWishListItemModelImpl._CProductId;
-
-		commerceWishListItemModelImpl._setOriginalCProductId = false;
-
-		commerceWishListItemModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

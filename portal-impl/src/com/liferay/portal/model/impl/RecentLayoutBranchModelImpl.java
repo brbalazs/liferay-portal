@@ -721,34 +721,27 @@ public class RecentLayoutBranchModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		RecentLayoutBranchModelImpl recentLayoutBranchModelImpl = this;
+		_originalGroupId = _groupId;
 
-		recentLayoutBranchModelImpl._originalGroupId =
-			recentLayoutBranchModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		recentLayoutBranchModelImpl._setOriginalGroupId = false;
+		_originalUserId = _userId;
 
-		recentLayoutBranchModelImpl._originalUserId =
-			recentLayoutBranchModelImpl._userId;
+		_setOriginalUserId = false;
 
-		recentLayoutBranchModelImpl._setOriginalUserId = false;
+		_originalLayoutBranchId = _layoutBranchId;
 
-		recentLayoutBranchModelImpl._originalLayoutBranchId =
-			recentLayoutBranchModelImpl._layoutBranchId;
+		_setOriginalLayoutBranchId = false;
 
-		recentLayoutBranchModelImpl._setOriginalLayoutBranchId = false;
+		_originalLayoutSetBranchId = _layoutSetBranchId;
 
-		recentLayoutBranchModelImpl._originalLayoutSetBranchId =
-			recentLayoutBranchModelImpl._layoutSetBranchId;
+		_setOriginalLayoutSetBranchId = false;
 
-		recentLayoutBranchModelImpl._setOriginalLayoutSetBranchId = false;
+		_originalPlid = _plid;
 
-		recentLayoutBranchModelImpl._originalPlid =
-			recentLayoutBranchModelImpl._plid;
+		_setOriginalPlid = false;
 
-		recentLayoutBranchModelImpl._setOriginalPlid = false;
-
-		recentLayoutBranchModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -1306,29 +1306,22 @@ public class CPDefinitionInventoryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPDefinitionInventoryModelImpl cpDefinitionInventoryModelImpl = this;
+		_originalUuid = _uuid;
 
-		cpDefinitionInventoryModelImpl._originalUuid =
-			cpDefinitionInventoryModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		cpDefinitionInventoryModelImpl._originalGroupId =
-			cpDefinitionInventoryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		cpDefinitionInventoryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		cpDefinitionInventoryModelImpl._originalCompanyId =
-			cpDefinitionInventoryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpDefinitionInventoryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCPDefinitionId = _CPDefinitionId;
 
-		cpDefinitionInventoryModelImpl._setModifiedDate = false;
+		_setOriginalCPDefinitionId = false;
 
-		cpDefinitionInventoryModelImpl._originalCPDefinitionId =
-			cpDefinitionInventoryModelImpl._CPDefinitionId;
-
-		cpDefinitionInventoryModelImpl._setOriginalCPDefinitionId = false;
-
-		cpDefinitionInventoryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

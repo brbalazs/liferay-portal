@@ -46,7 +46,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -553,12 +552,11 @@ public class CommerceCountryPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCommerceCountry, "getOriginalCompanyId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceCountry.getTwoLettersISOCode(),
-				ReflectionTestUtil.invoke(
-					existingCommerceCountry, "getOriginalTwoLettersISOCode",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceCountry.getTwoLettersISOCode(),
+			ReflectionTestUtil.invoke(
+				existingCommerceCountry, "getOriginalTwoLettersISOCode",
+				new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingCommerceCountry.getCompanyId()),

@@ -629,8 +629,6 @@ public class MemberRequestModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -864,27 +862,22 @@ public class MemberRequestModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		MemberRequestModelImpl memberRequestModelImpl = this;
+		_originalGroupId = _groupId;
 
-		memberRequestModelImpl._originalGroupId =
-			memberRequestModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		memberRequestModelImpl._setOriginalGroupId = false;
+		_setModifiedDate = false;
+		_originalKey = _key;
 
-		memberRequestModelImpl._setModifiedDate = false;
+		_originalReceiverUserId = _receiverUserId;
 
-		memberRequestModelImpl._originalKey = memberRequestModelImpl._key;
+		_setOriginalReceiverUserId = false;
 
-		memberRequestModelImpl._originalReceiverUserId =
-			memberRequestModelImpl._receiverUserId;
+		_originalStatus = _status;
 
-		memberRequestModelImpl._setOriginalReceiverUserId = false;
+		_setOriginalStatus = false;
 
-		memberRequestModelImpl._originalStatus = memberRequestModelImpl._status;
-
-		memberRequestModelImpl._setOriginalStatus = false;
-
-		memberRequestModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

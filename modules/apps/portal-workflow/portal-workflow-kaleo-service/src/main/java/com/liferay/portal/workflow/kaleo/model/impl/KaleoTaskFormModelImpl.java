@@ -1044,8 +1044,6 @@ public class KaleoTaskFormModelImpl
 
 	@Override
 	public void setPriority(int priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1172,34 +1170,26 @@ public class KaleoTaskFormModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoTaskFormModelImpl kaleoTaskFormModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		kaleoTaskFormModelImpl._originalCompanyId =
-			kaleoTaskFormModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kaleoTaskFormModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalKaleoDefinitionVersionId = _kaleoDefinitionVersionId;
 
-		kaleoTaskFormModelImpl._setModifiedDate = false;
+		_setOriginalKaleoDefinitionVersionId = false;
 
-		kaleoTaskFormModelImpl._originalKaleoDefinitionVersionId =
-			kaleoTaskFormModelImpl._kaleoDefinitionVersionId;
+		_originalKaleoNodeId = _kaleoNodeId;
 
-		kaleoTaskFormModelImpl._setOriginalKaleoDefinitionVersionId = false;
+		_setOriginalKaleoNodeId = false;
 
-		kaleoTaskFormModelImpl._originalKaleoNodeId =
-			kaleoTaskFormModelImpl._kaleoNodeId;
+		_originalKaleoTaskId = _kaleoTaskId;
 
-		kaleoTaskFormModelImpl._setOriginalKaleoNodeId = false;
+		_setOriginalKaleoTaskId = false;
 
-		kaleoTaskFormModelImpl._originalKaleoTaskId =
-			kaleoTaskFormModelImpl._kaleoTaskId;
+		_originalFormUuid = _formUuid;
 
-		kaleoTaskFormModelImpl._setOriginalKaleoTaskId = false;
-
-		kaleoTaskFormModelImpl._originalFormUuid =
-			kaleoTaskFormModelImpl._formUuid;
-
-		kaleoTaskFormModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

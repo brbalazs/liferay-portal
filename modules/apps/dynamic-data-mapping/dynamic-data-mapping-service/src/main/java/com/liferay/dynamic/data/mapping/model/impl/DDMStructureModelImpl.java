@@ -1604,44 +1604,36 @@ public class DDMStructureModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDMStructureModelImpl ddmStructureModelImpl = this;
+		_originalUuid = _uuid;
 
-		ddmStructureModelImpl._originalUuid = ddmStructureModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		ddmStructureModelImpl._originalGroupId = ddmStructureModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		ddmStructureModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		ddmStructureModelImpl._originalCompanyId =
-			ddmStructureModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		ddmStructureModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalParentStructureId = _parentStructureId;
 
-		ddmStructureModelImpl._setModifiedDate = false;
+		_setOriginalParentStructureId = false;
 
-		ddmStructureModelImpl._originalParentStructureId =
-			ddmStructureModelImpl._parentStructureId;
+		_originalClassNameId = _classNameId;
 
-		ddmStructureModelImpl._setOriginalParentStructureId = false;
+		_setOriginalClassNameId = false;
 
-		ddmStructureModelImpl._originalClassNameId =
-			ddmStructureModelImpl._classNameId;
+		_originalStructureKey = _structureKey;
 
-		ddmStructureModelImpl._setOriginalClassNameId = false;
+		_originalName = _name;
 
-		ddmStructureModelImpl._originalStructureKey =
-			ddmStructureModelImpl._structureKey;
-
-		ddmStructureModelImpl._originalName = ddmStructureModelImpl._name;
-
-		ddmStructureModelImpl._originalDescription =
-			ddmStructureModelImpl._description;
+		_originalDescription = _description;
 
 		setClassName(null);
 
 		setDDMForm(null);
 
-		ddmStructureModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

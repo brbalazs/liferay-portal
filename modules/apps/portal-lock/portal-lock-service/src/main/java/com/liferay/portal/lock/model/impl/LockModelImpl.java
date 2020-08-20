@@ -832,21 +832,19 @@ public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 
 	@Override
 	public void resetOriginalValues() {
-		LockModelImpl lockModelImpl = this;
+		_originalUuid = _uuid;
 
-		lockModelImpl._originalUuid = lockModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		lockModelImpl._originalCompanyId = lockModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		lockModelImpl._setOriginalCompanyId = false;
+		_originalClassName = _className;
 
-		lockModelImpl._originalClassName = lockModelImpl._className;
+		_originalKey = _key;
 
-		lockModelImpl._originalKey = lockModelImpl._key;
+		_originalExpirationDate = _expirationDate;
 
-		lockModelImpl._originalExpirationDate = lockModelImpl._expirationDate;
-
-		lockModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

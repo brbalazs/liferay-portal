@@ -2339,7 +2339,7 @@ public class CommerceOrderModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
+		_columnBitmask |= CREATEDATE_COLUMN_BITMASK;
 
 		if (_originalCreateDate == null) {
 			_originalCreateDate = _createDate;
@@ -3484,56 +3484,44 @@ public class CommerceOrderModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceOrderModelImpl commerceOrderModelImpl = this;
+		_originalUuid = _uuid;
 
-		commerceOrderModelImpl._originalUuid = commerceOrderModelImpl._uuid;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commerceOrderModelImpl._originalExternalReferenceCode =
-			commerceOrderModelImpl._externalReferenceCode;
+		_originalGroupId = _groupId;
 
-		commerceOrderModelImpl._originalGroupId =
-			commerceOrderModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		commerceOrderModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		commerceOrderModelImpl._originalCompanyId =
-			commerceOrderModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceOrderModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		commerceOrderModelImpl._originalUserId = commerceOrderModelImpl._userId;
+		_setOriginalUserId = false;
 
-		commerceOrderModelImpl._setOriginalUserId = false;
+		_originalCreateDate = _createDate;
 
-		commerceOrderModelImpl._originalCreateDate =
-			commerceOrderModelImpl._createDate;
+		_setModifiedDate = false;
+		_originalCommerceAccountId = _commerceAccountId;
 
-		commerceOrderModelImpl._setModifiedDate = false;
+		_setOriginalCommerceAccountId = false;
 
-		commerceOrderModelImpl._originalCommerceAccountId =
-			commerceOrderModelImpl._commerceAccountId;
+		_originalBillingAddressId = _billingAddressId;
 
-		commerceOrderModelImpl._setOriginalCommerceAccountId = false;
+		_setOriginalBillingAddressId = false;
 
-		commerceOrderModelImpl._originalBillingAddressId =
-			commerceOrderModelImpl._billingAddressId;
+		_originalShippingAddressId = _shippingAddressId;
 
-		commerceOrderModelImpl._setOriginalBillingAddressId = false;
+		_setOriginalShippingAddressId = false;
 
-		commerceOrderModelImpl._originalShippingAddressId =
-			commerceOrderModelImpl._shippingAddressId;
+		_originalCommercePaymentMethodKey = _commercePaymentMethodKey;
 
-		commerceOrderModelImpl._setOriginalShippingAddressId = false;
+		_originalOrderStatus = _orderStatus;
 
-		commerceOrderModelImpl._originalCommercePaymentMethodKey =
-			commerceOrderModelImpl._commercePaymentMethodKey;
+		_setOriginalOrderStatus = false;
 
-		commerceOrderModelImpl._originalOrderStatus =
-			commerceOrderModelImpl._orderStatus;
-
-		commerceOrderModelImpl._setOriginalOrderStatus = false;
-
-		commerceOrderModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

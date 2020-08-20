@@ -765,29 +765,22 @@ public class ChangesetCollectionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ChangesetCollectionModelImpl changesetCollectionModelImpl = this;
+		_originalGroupId = _groupId;
 
-		changesetCollectionModelImpl._originalGroupId =
-			changesetCollectionModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		changesetCollectionModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		changesetCollectionModelImpl._originalCompanyId =
-			changesetCollectionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		changesetCollectionModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		changesetCollectionModelImpl._originalUserId =
-			changesetCollectionModelImpl._userId;
+		_setOriginalUserId = false;
 
-		changesetCollectionModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalName = _name;
 
-		changesetCollectionModelImpl._setModifiedDate = false;
-
-		changesetCollectionModelImpl._originalName =
-			changesetCollectionModelImpl._name;
-
-		changesetCollectionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -48,7 +48,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -709,11 +708,10 @@ public class CPInstancePersistenceTest {
 		CPInstance existingCPInstance = _persistence.findByPrimaryKey(
 			newCPInstance.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPInstance.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCPInstance, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPInstance.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCPInstance, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCPInstance.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -724,34 +722,31 @@ public class CPInstancePersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCPInstance, "getOriginalCPDefinitionId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPInstance.getCPInstanceUuid(),
-				ReflectionTestUtil.invoke(
-					existingCPInstance, "getOriginalCPInstanceUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPInstance.getCPInstanceUuid(),
+			ReflectionTestUtil.invoke(
+				existingCPInstance, "getOriginalCPInstanceUuid",
+				new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingCPInstance.getCPDefinitionId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingCPInstance, "getOriginalCPDefinitionId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPInstance.getSku(),
-				ReflectionTestUtil.invoke(
-					existingCPInstance, "getOriginalSku", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPInstance.getSku(),
+			ReflectionTestUtil.invoke(
+				existingCPInstance, "getOriginalSku", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingCPInstance.getCompanyId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingCPInstance, "getOriginalCompanyId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPInstance.getExternalReferenceCode(),
-				ReflectionTestUtil.invoke(
-					existingCPInstance, "getOriginalExternalReferenceCode",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPInstance.getExternalReferenceCode(),
+			ReflectionTestUtil.invoke(
+				existingCPInstance, "getOriginalExternalReferenceCode",
+				new Class<?>[0]));
 	}
 
 	protected CPInstance addCPInstance() throws Exception {

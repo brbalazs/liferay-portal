@@ -1362,26 +1362,23 @@ public class MDRActionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		MDRActionModelImpl mdrActionModelImpl = this;
+		_originalUuid = _uuid;
 
-		mdrActionModelImpl._originalUuid = mdrActionModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		mdrActionModelImpl._originalGroupId = mdrActionModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		mdrActionModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		mdrActionModelImpl._originalCompanyId = mdrActionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		mdrActionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		mdrActionModelImpl._setModifiedDate = false;
+		_originalRuleGroupInstanceId = _ruleGroupInstanceId;
 
-		mdrActionModelImpl._originalRuleGroupInstanceId =
-			mdrActionModelImpl._ruleGroupInstanceId;
+		_setOriginalRuleGroupInstanceId = false;
 
-		mdrActionModelImpl._setOriginalRuleGroupInstanceId = false;
-
-		mdrActionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

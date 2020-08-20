@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -492,22 +491,20 @@ public class CPOptionPersistenceTest {
 			Long.valueOf(existingCPOption.getCompanyId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingCPOption, "getOriginalCompanyId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPOption.getKey(),
-				ReflectionTestUtil.invoke(
-					existingCPOption, "getOriginalKey", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPOption.getKey(),
+			ReflectionTestUtil.invoke(
+				existingCPOption, "getOriginalKey", new Class<?>[0]));
 
 		Assert.assertEquals(
 			Long.valueOf(existingCPOption.getCompanyId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingCPOption, "getOriginalCompanyId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCPOption.getExternalReferenceCode(),
-				ReflectionTestUtil.invoke(
-					existingCPOption, "getOriginalExternalReferenceCode",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCPOption.getExternalReferenceCode(),
+			ReflectionTestUtil.invoke(
+				existingCPOption, "getOriginalExternalReferenceCode",
+				new Class<?>[0]));
 	}
 
 	protected CPOption addCPOption() throws Exception {

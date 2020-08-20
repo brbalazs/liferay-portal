@@ -780,8 +780,6 @@ public class PowwowMeetingModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1051,29 +1049,24 @@ public class PowwowMeetingModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		PowwowMeetingModelImpl powwowMeetingModelImpl = this;
+		_originalGroupId = _groupId;
 
-		powwowMeetingModelImpl._originalGroupId =
-			powwowMeetingModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		powwowMeetingModelImpl._setOriginalGroupId = false;
+		_originalUserId = _userId;
 
-		powwowMeetingModelImpl._originalUserId = powwowMeetingModelImpl._userId;
+		_setOriginalUserId = false;
 
-		powwowMeetingModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalPowwowServerId = _powwowServerId;
 
-		powwowMeetingModelImpl._setModifiedDate = false;
+		_setOriginalPowwowServerId = false;
 
-		powwowMeetingModelImpl._originalPowwowServerId =
-			powwowMeetingModelImpl._powwowServerId;
+		_originalStatus = _status;
 
-		powwowMeetingModelImpl._setOriginalPowwowServerId = false;
+		_setOriginalStatus = false;
 
-		powwowMeetingModelImpl._originalStatus = powwowMeetingModelImpl._status;
-
-		powwowMeetingModelImpl._setOriginalStatus = false;
-
-		powwowMeetingModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

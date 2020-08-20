@@ -842,20 +842,15 @@ public class WeDeployAuthAppModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		WeDeployAuthAppModelImpl weDeployAuthAppModelImpl = this;
+		_setModifiedDate = false;
 
-		weDeployAuthAppModelImpl._setModifiedDate = false;
+		_originalRedirectURI = _redirectURI;
 
-		weDeployAuthAppModelImpl._originalRedirectURI =
-			weDeployAuthAppModelImpl._redirectURI;
+		_originalClientId = _clientId;
 
-		weDeployAuthAppModelImpl._originalClientId =
-			weDeployAuthAppModelImpl._clientId;
+		_originalClientSecret = _clientSecret;
 
-		weDeployAuthAppModelImpl._originalClientSecret =
-			weDeployAuthAppModelImpl._clientSecret;
-
-		weDeployAuthAppModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

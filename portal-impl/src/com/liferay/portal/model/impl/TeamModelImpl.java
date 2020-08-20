@@ -769,7 +769,7 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -921,23 +921,20 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 
 	@Override
 	public void resetOriginalValues() {
-		TeamModelImpl teamModelImpl = this;
+		_originalUuid = _uuid;
 
-		teamModelImpl._originalUuid = teamModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		teamModelImpl._originalCompanyId = teamModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		teamModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalGroupId = _groupId;
 
-		teamModelImpl._setModifiedDate = false;
+		_setOriginalGroupId = false;
 
-		teamModelImpl._originalGroupId = teamModelImpl._groupId;
+		_originalName = _name;
 
-		teamModelImpl._setOriginalGroupId = false;
-
-		teamModelImpl._originalName = teamModelImpl._name;
-
-		teamModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

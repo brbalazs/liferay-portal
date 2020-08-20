@@ -1177,19 +1177,15 @@ public class OAuth2ApplicationModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		OAuth2ApplicationModelImpl oAuth2ApplicationModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		oAuth2ApplicationModelImpl._originalCompanyId =
-			oAuth2ApplicationModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		oAuth2ApplicationModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		oAuth2ApplicationModelImpl._setModifiedDate = false;
+		_originalClientId = _clientId;
 
-		oAuth2ApplicationModelImpl._originalClientId =
-			oAuth2ApplicationModelImpl._clientId;
-
-		oAuth2ApplicationModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

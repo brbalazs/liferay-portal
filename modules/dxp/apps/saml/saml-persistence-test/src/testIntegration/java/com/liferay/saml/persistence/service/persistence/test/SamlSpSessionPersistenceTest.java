@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -500,26 +499,23 @@ public class SamlSpSessionPersistenceTest {
 		SamlSpSession existingSamlSpSession = _persistence.findByPrimaryKey(
 			newSamlSpSession.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingSamlSpSession.getSamlSpSessionKey(),
-				ReflectionTestUtil.invoke(
-					existingSamlSpSession, "getOriginalSamlSpSessionKey",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingSamlSpSession.getSamlSpSessionKey(),
+			ReflectionTestUtil.invoke(
+				existingSamlSpSession, "getOriginalSamlSpSessionKey",
+				new Class<?>[0]));
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingSamlSpSession.getJSessionId(),
-				ReflectionTestUtil.invoke(
-					existingSamlSpSession, "getOriginalJSessionId",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingSamlSpSession.getJSessionId(),
+			ReflectionTestUtil.invoke(
+				existingSamlSpSession, "getOriginalJSessionId",
+				new Class<?>[0]));
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingSamlSpSession.getSessionIndex(),
-				ReflectionTestUtil.invoke(
-					existingSamlSpSession, "getOriginalSessionIndex",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingSamlSpSession.getSessionIndex(),
+			ReflectionTestUtil.invoke(
+				existingSamlSpSession, "getOriginalSessionIndex",
+				new Class<?>[0]));
 	}
 
 	protected SamlSpSession addSamlSpSession() throws Exception {

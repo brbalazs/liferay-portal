@@ -627,18 +627,13 @@ public class JournalArticleLocalizationModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		JournalArticleLocalizationModelImpl
-			journalArticleLocalizationModelImpl = this;
+		_originalArticlePK = _articlePK;
 
-		journalArticleLocalizationModelImpl._originalArticlePK =
-			journalArticleLocalizationModelImpl._articlePK;
+		_setOriginalArticlePK = false;
 
-		journalArticleLocalizationModelImpl._setOriginalArticlePK = false;
+		_originalLanguageId = _languageId;
 
-		journalArticleLocalizationModelImpl._originalLanguageId =
-			journalArticleLocalizationModelImpl._languageId;
-
-		journalArticleLocalizationModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

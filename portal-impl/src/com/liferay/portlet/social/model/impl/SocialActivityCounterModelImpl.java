@@ -973,42 +973,33 @@ public class SocialActivityCounterModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SocialActivityCounterModelImpl socialActivityCounterModelImpl = this;
+		_originalGroupId = _groupId;
 
-		socialActivityCounterModelImpl._originalGroupId =
-			socialActivityCounterModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		socialActivityCounterModelImpl._setOriginalGroupId = false;
+		_originalClassNameId = _classNameId;
 
-		socialActivityCounterModelImpl._originalClassNameId =
-			socialActivityCounterModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		socialActivityCounterModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		socialActivityCounterModelImpl._originalClassPK =
-			socialActivityCounterModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		socialActivityCounterModelImpl._setOriginalClassPK = false;
+		_originalName = _name;
 
-		socialActivityCounterModelImpl._originalName =
-			socialActivityCounterModelImpl._name;
+		_originalOwnerType = _ownerType;
 
-		socialActivityCounterModelImpl._originalOwnerType =
-			socialActivityCounterModelImpl._ownerType;
+		_setOriginalOwnerType = false;
 
-		socialActivityCounterModelImpl._setOriginalOwnerType = false;
+		_originalStartPeriod = _startPeriod;
 
-		socialActivityCounterModelImpl._originalStartPeriod =
-			socialActivityCounterModelImpl._startPeriod;
+		_setOriginalStartPeriod = false;
 
-		socialActivityCounterModelImpl._setOriginalStartPeriod = false;
+		_originalEndPeriod = _endPeriod;
 
-		socialActivityCounterModelImpl._originalEndPeriod =
-			socialActivityCounterModelImpl._endPeriod;
+		_setOriginalEndPeriod = false;
 
-		socialActivityCounterModelImpl._setOriginalEndPeriod = false;
-
-		socialActivityCounterModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

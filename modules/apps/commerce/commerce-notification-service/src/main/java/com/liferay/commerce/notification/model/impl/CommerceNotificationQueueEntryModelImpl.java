@@ -1308,8 +1308,6 @@ public class CommerceNotificationQueueEntryModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1495,43 +1493,31 @@ public class CommerceNotificationQueueEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceNotificationQueueEntryModelImpl
-			commerceNotificationQueueEntryModelImpl = this;
+		_originalGroupId = _groupId;
 
-		commerceNotificationQueueEntryModelImpl._originalGroupId =
-			commerceNotificationQueueEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		commerceNotificationQueueEntryModelImpl._setOriginalGroupId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		commerceNotificationQueueEntryModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		commerceNotificationQueueEntryModelImpl._originalClassNameId =
-			commerceNotificationQueueEntryModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		commerceNotificationQueueEntryModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		commerceNotificationQueueEntryModelImpl._originalClassPK =
-			commerceNotificationQueueEntryModelImpl._classPK;
+		_originalCommerceNotificationTemplateId =
+			_commerceNotificationTemplateId;
 
-		commerceNotificationQueueEntryModelImpl._setOriginalClassPK = false;
+		_setOriginalCommerceNotificationTemplateId = false;
 
-		commerceNotificationQueueEntryModelImpl.
-			_originalCommerceNotificationTemplateId =
-				commerceNotificationQueueEntryModelImpl.
-					_commerceNotificationTemplateId;
+		_originalSent = _sent;
 
-		commerceNotificationQueueEntryModelImpl.
-			_setOriginalCommerceNotificationTemplateId = false;
+		_setOriginalSent = false;
 
-		commerceNotificationQueueEntryModelImpl._originalSent =
-			commerceNotificationQueueEntryModelImpl._sent;
+		_originalSentDate = _sentDate;
 
-		commerceNotificationQueueEntryModelImpl._setOriginalSent = false;
-
-		commerceNotificationQueueEntryModelImpl._originalSentDate =
-			commerceNotificationQueueEntryModelImpl._sentDate;
-
-		commerceNotificationQueueEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

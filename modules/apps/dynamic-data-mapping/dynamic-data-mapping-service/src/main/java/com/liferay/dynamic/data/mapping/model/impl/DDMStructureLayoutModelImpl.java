@@ -815,31 +815,24 @@ public class DDMStructureLayoutModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDMStructureLayoutModelImpl ddmStructureLayoutModelImpl = this;
+		_originalUuid = _uuid;
 
-		ddmStructureLayoutModelImpl._originalUuid =
-			ddmStructureLayoutModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		ddmStructureLayoutModelImpl._originalGroupId =
-			ddmStructureLayoutModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		ddmStructureLayoutModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		ddmStructureLayoutModelImpl._originalCompanyId =
-			ddmStructureLayoutModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		ddmStructureLayoutModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalStructureVersionId = _structureVersionId;
 
-		ddmStructureLayoutModelImpl._setModifiedDate = false;
-
-		ddmStructureLayoutModelImpl._originalStructureVersionId =
-			ddmStructureLayoutModelImpl._structureVersionId;
-
-		ddmStructureLayoutModelImpl._setOriginalStructureVersionId = false;
+		_setOriginalStructureVersionId = false;
 
 		setDDMFormLayout(null);
 
-		ddmStructureLayoutModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

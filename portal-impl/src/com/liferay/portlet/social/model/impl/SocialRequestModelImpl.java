@@ -662,8 +662,6 @@ public class SocialRequestModelImpl
 
 	@Override
 	public void setRequestId(long requestId) {
-		_columnBitmask = -1L;
-
 		_requestId = requestId;
 	}
 
@@ -1058,48 +1056,41 @@ public class SocialRequestModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SocialRequestModelImpl socialRequestModelImpl = this;
+		_originalUuid = _uuid;
 
-		socialRequestModelImpl._originalUuid = socialRequestModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		socialRequestModelImpl._originalGroupId =
-			socialRequestModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		socialRequestModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		socialRequestModelImpl._originalCompanyId =
-			socialRequestModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		socialRequestModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		socialRequestModelImpl._originalUserId = socialRequestModelImpl._userId;
+		_setOriginalUserId = false;
 
-		socialRequestModelImpl._setOriginalUserId = false;
+		_originalClassNameId = _classNameId;
 
-		socialRequestModelImpl._originalClassNameId =
-			socialRequestModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		socialRequestModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		socialRequestModelImpl._originalClassPK =
-			socialRequestModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		socialRequestModelImpl._setOriginalClassPK = false;
+		_originalType = _type;
 
-		socialRequestModelImpl._originalType = socialRequestModelImpl._type;
+		_setOriginalType = false;
 
-		socialRequestModelImpl._setOriginalType = false;
+		_originalReceiverUserId = _receiverUserId;
 
-		socialRequestModelImpl._originalReceiverUserId =
-			socialRequestModelImpl._receiverUserId;
+		_setOriginalReceiverUserId = false;
 
-		socialRequestModelImpl._setOriginalReceiverUserId = false;
+		_originalStatus = _status;
 
-		socialRequestModelImpl._originalStatus = socialRequestModelImpl._status;
+		_setOriginalStatus = false;
 
-		socialRequestModelImpl._setOriginalStatus = false;
-
-		socialRequestModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

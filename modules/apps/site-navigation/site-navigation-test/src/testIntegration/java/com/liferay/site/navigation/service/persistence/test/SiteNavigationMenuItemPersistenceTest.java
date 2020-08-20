@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -560,12 +559,11 @@ public class SiteNavigationMenuItemPersistenceTest {
 			_persistence.findByPrimaryKey(
 				newSiteNavigationMenuItem.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingSiteNavigationMenuItem.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingSiteNavigationMenuItem, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingSiteNavigationMenuItem.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingSiteNavigationMenuItem, "getOriginalUuid",
+				new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingSiteNavigationMenuItem.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(

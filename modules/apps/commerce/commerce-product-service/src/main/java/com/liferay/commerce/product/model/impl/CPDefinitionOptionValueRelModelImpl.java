@@ -1141,8 +1141,6 @@ public class CPDefinitionOptionValueRelModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1422,42 +1420,30 @@ public class CPDefinitionOptionValueRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPDefinitionOptionValueRelModelImpl
-			cpDefinitionOptionValueRelModelImpl = this;
+		_originalUuid = _uuid;
 
-		cpDefinitionOptionValueRelModelImpl._originalUuid =
-			cpDefinitionOptionValueRelModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		cpDefinitionOptionValueRelModelImpl._originalGroupId =
-			cpDefinitionOptionValueRelModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		cpDefinitionOptionValueRelModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		cpDefinitionOptionValueRelModelImpl._originalCompanyId =
-			cpDefinitionOptionValueRelModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpDefinitionOptionValueRelModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCPDefinitionOptionRelId = _CPDefinitionOptionRelId;
 
-		cpDefinitionOptionValueRelModelImpl._setModifiedDate = false;
+		_setOriginalCPDefinitionOptionRelId = false;
 
-		cpDefinitionOptionValueRelModelImpl._originalCPDefinitionOptionRelId =
-			cpDefinitionOptionValueRelModelImpl._CPDefinitionOptionRelId;
+		_originalCPInstanceUuid = _CPInstanceUuid;
 
-		cpDefinitionOptionValueRelModelImpl.
-			_setOriginalCPDefinitionOptionRelId = false;
+		_originalKey = _key;
 
-		cpDefinitionOptionValueRelModelImpl._originalCPInstanceUuid =
-			cpDefinitionOptionValueRelModelImpl._CPInstanceUuid;
+		_originalPreselected = _preselected;
 
-		cpDefinitionOptionValueRelModelImpl._originalKey =
-			cpDefinitionOptionValueRelModelImpl._key;
+		_setOriginalPreselected = false;
 
-		cpDefinitionOptionValueRelModelImpl._originalPreselected =
-			cpDefinitionOptionValueRelModelImpl._preselected;
-
-		cpDefinitionOptionValueRelModelImpl._setOriginalPreselected = false;
-
-		cpDefinitionOptionValueRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

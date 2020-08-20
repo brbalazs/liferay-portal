@@ -863,19 +863,17 @@ public class CompanyModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CompanyModelImpl companyModelImpl = this;
+		_originalWebId = _webId;
 
-		companyModelImpl._originalWebId = companyModelImpl._webId;
+		_originalMx = _mx;
 
-		companyModelImpl._originalMx = companyModelImpl._mx;
+		_originalLogoId = _logoId;
 
-		companyModelImpl._originalLogoId = companyModelImpl._logoId;
+		_setOriginalLogoId = false;
 
-		companyModelImpl._setOriginalLogoId = false;
+		_originalSystem = _system;
 
-		companyModelImpl._originalSystem = companyModelImpl._system;
-
-		companyModelImpl._setOriginalSystem = false;
+		_setOriginalSystem = false;
 
 		setCompanySecurityBag(null);
 
@@ -883,7 +881,7 @@ public class CompanyModelImpl
 
 		setVirtualHostname(null);
 
-		companyModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

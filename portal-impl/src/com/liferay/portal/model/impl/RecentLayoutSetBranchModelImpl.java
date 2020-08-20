@@ -692,29 +692,23 @@ public class RecentLayoutSetBranchModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		RecentLayoutSetBranchModelImpl recentLayoutSetBranchModelImpl = this;
+		_originalGroupId = _groupId;
 
-		recentLayoutSetBranchModelImpl._originalGroupId =
-			recentLayoutSetBranchModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		recentLayoutSetBranchModelImpl._setOriginalGroupId = false;
+		_originalUserId = _userId;
 
-		recentLayoutSetBranchModelImpl._originalUserId =
-			recentLayoutSetBranchModelImpl._userId;
+		_setOriginalUserId = false;
 
-		recentLayoutSetBranchModelImpl._setOriginalUserId = false;
+		_originalLayoutSetBranchId = _layoutSetBranchId;
 
-		recentLayoutSetBranchModelImpl._originalLayoutSetBranchId =
-			recentLayoutSetBranchModelImpl._layoutSetBranchId;
+		_setOriginalLayoutSetBranchId = false;
 
-		recentLayoutSetBranchModelImpl._setOriginalLayoutSetBranchId = false;
+		_originalLayoutSetId = _layoutSetId;
 
-		recentLayoutSetBranchModelImpl._originalLayoutSetId =
-			recentLayoutSetBranchModelImpl._layoutSetId;
+		_setOriginalLayoutSetId = false;
 
-		recentLayoutSetBranchModelImpl._setOriginalLayoutSetId = false;
-
-		recentLayoutSetBranchModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

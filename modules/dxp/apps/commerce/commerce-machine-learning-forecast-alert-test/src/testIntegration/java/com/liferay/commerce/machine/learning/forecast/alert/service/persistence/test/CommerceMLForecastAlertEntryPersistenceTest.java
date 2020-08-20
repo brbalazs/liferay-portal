@@ -46,7 +46,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -602,12 +601,11 @@ public class CommerceMLForecastAlertEntryPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCommerceMLForecastAlertEntry,
 				"getOriginalCommerceAccountId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCommerceMLForecastAlertEntry.getTimestamp(),
-				ReflectionTestUtil.invoke(
-					existingCommerceMLForecastAlertEntry,
-					"getOriginalTimestamp", new Class<?>[0])));
+		Assert.assertEquals(
+			existingCommerceMLForecastAlertEntry.getTimestamp(),
+			ReflectionTestUtil.invoke(
+				existingCommerceMLForecastAlertEntry, "getOriginalTimestamp",
+				new Class<?>[0]));
 	}
 
 	protected CommerceMLForecastAlertEntry addCommerceMLForecastAlertEntry()

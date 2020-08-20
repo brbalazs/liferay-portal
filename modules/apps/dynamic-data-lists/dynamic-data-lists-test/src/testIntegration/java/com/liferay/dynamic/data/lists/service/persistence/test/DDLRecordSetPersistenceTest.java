@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -526,11 +525,10 @@ public class DDLRecordSetPersistenceTest {
 		DDLRecordSet existingDDLRecordSet = _persistence.findByPrimaryKey(
 			newDDLRecordSet.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingDDLRecordSet.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingDDLRecordSet, "getOriginalUuid", new Class<?>[0])));
+		Assert.assertEquals(
+			existingDDLRecordSet.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingDDLRecordSet, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingDDLRecordSet.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -540,12 +538,11 @@ public class DDLRecordSetPersistenceTest {
 			Long.valueOf(existingDDLRecordSet.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
 				existingDDLRecordSet, "getOriginalGroupId", new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingDDLRecordSet.getRecordSetKey(),
-				ReflectionTestUtil.invoke(
-					existingDDLRecordSet, "getOriginalRecordSetKey",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingDDLRecordSet.getRecordSetKey(),
+			ReflectionTestUtil.invoke(
+				existingDDLRecordSet, "getOriginalRecordSetKey",
+				new Class<?>[0]));
 	}
 
 	protected DDLRecordSet addDDLRecordSet() throws Exception {

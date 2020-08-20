@@ -674,7 +674,7 @@ public class TrashEntryModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
+		_columnBitmask |= CREATEDATE_COLUMN_BITMASK;
 
 		if (_originalCreateDate == null) {
 			_originalCreateDate = _createDate;
@@ -898,29 +898,25 @@ public class TrashEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		TrashEntryModelImpl trashEntryModelImpl = this;
+		_originalGroupId = _groupId;
 
-		trashEntryModelImpl._originalGroupId = trashEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		trashEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		trashEntryModelImpl._originalCompanyId = trashEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		trashEntryModelImpl._setOriginalCompanyId = false;
+		_originalCreateDate = _createDate;
 
-		trashEntryModelImpl._originalCreateDate =
-			trashEntryModelImpl._createDate;
+		_originalClassNameId = _classNameId;
 
-		trashEntryModelImpl._originalClassNameId =
-			trashEntryModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		trashEntryModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		trashEntryModelImpl._originalClassPK = trashEntryModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		trashEntryModelImpl._setOriginalClassPK = false;
-
-		trashEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

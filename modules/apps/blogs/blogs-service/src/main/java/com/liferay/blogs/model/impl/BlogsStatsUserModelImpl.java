@@ -589,7 +589,7 @@ public class BlogsStatsUserModelImpl
 
 	@Override
 	public void setEntryCount(int entryCount) {
-		_columnBitmask = -1L;
+		_columnBitmask |= ENTRYCOUNT_COLUMN_BITMASK;
 
 		if (!_setOriginalEntryCount) {
 			_setOriginalEntryCount = true;
@@ -767,32 +767,25 @@ public class BlogsStatsUserModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		BlogsStatsUserModelImpl blogsStatsUserModelImpl = this;
+		_originalGroupId = _groupId;
 
-		blogsStatsUserModelImpl._originalGroupId =
-			blogsStatsUserModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		blogsStatsUserModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		blogsStatsUserModelImpl._originalCompanyId =
-			blogsStatsUserModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		blogsStatsUserModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		blogsStatsUserModelImpl._originalUserId =
-			blogsStatsUserModelImpl._userId;
+		_setOriginalUserId = false;
 
-		blogsStatsUserModelImpl._setOriginalUserId = false;
+		_originalEntryCount = _entryCount;
 
-		blogsStatsUserModelImpl._originalEntryCount =
-			blogsStatsUserModelImpl._entryCount;
+		_setOriginalEntryCount = false;
 
-		blogsStatsUserModelImpl._setOriginalEntryCount = false;
+		_originalLastPostDate = _lastPostDate;
 
-		blogsStatsUserModelImpl._originalLastPostDate =
-			blogsStatsUserModelImpl._lastPostDate;
-
-		blogsStatsUserModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

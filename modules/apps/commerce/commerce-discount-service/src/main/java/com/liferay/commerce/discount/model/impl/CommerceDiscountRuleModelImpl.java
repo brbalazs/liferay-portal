@@ -635,8 +635,6 @@ public class CommerceDiscountRuleModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -839,16 +837,13 @@ public class CommerceDiscountRuleModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceDiscountRuleModelImpl commerceDiscountRuleModelImpl = this;
+		_setModifiedDate = false;
 
-		commerceDiscountRuleModelImpl._setModifiedDate = false;
+		_originalCommerceDiscountId = _commerceDiscountId;
 
-		commerceDiscountRuleModelImpl._originalCommerceDiscountId =
-			commerceDiscountRuleModelImpl._commerceDiscountId;
+		_setOriginalCommerceDiscountId = false;
 
-		commerceDiscountRuleModelImpl._setOriginalCommerceDiscountId = false;
-
-		commerceDiscountRuleModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

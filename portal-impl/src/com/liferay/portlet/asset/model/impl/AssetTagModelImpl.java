@@ -731,7 +731,7 @@ public class AssetTagModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -877,23 +877,20 @@ public class AssetTagModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AssetTagModelImpl assetTagModelImpl = this;
+		_originalUuid = _uuid;
 
-		assetTagModelImpl._originalUuid = assetTagModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		assetTagModelImpl._originalGroupId = assetTagModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		assetTagModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		assetTagModelImpl._originalCompanyId = assetTagModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		assetTagModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalName = _name;
 
-		assetTagModelImpl._setModifiedDate = false;
-
-		assetTagModelImpl._originalName = assetTagModelImpl._name;
-
-		assetTagModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

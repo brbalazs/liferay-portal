@@ -959,23 +959,16 @@ public class CommerceInventoryBookedQuantityModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceInventoryBookedQuantityModelImpl
-			commerceInventoryBookedQuantityModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		commerceInventoryBookedQuantityModelImpl._originalCompanyId =
-			commerceInventoryBookedQuantityModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceInventoryBookedQuantityModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalSku = _sku;
 
-		commerceInventoryBookedQuantityModelImpl._setModifiedDate = false;
+		_originalExpirationDate = _expirationDate;
 
-		commerceInventoryBookedQuantityModelImpl._originalSku =
-			commerceInventoryBookedQuantityModelImpl._sku;
-
-		commerceInventoryBookedQuantityModelImpl._originalExpirationDate =
-			commerceInventoryBookedQuantityModelImpl._expirationDate;
-
-		commerceInventoryBookedQuantityModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -1021,31 +1021,20 @@ public class CommerceInventoryWarehouseItemModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceInventoryWarehouseItemModelImpl
-			commerceInventoryWarehouseItemModelImpl = this;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commerceInventoryWarehouseItemModelImpl._originalExternalReferenceCode =
-			commerceInventoryWarehouseItemModelImpl._externalReferenceCode;
+		_originalCompanyId = _companyId;
 
-		commerceInventoryWarehouseItemModelImpl._originalCompanyId =
-			commerceInventoryWarehouseItemModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceInventoryWarehouseItemModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCommerceInventoryWarehouseId = _commerceInventoryWarehouseId;
 
-		commerceInventoryWarehouseItemModelImpl._setModifiedDate = false;
+		_setOriginalCommerceInventoryWarehouseId = false;
 
-		commerceInventoryWarehouseItemModelImpl.
-			_originalCommerceInventoryWarehouseId =
-				commerceInventoryWarehouseItemModelImpl.
-					_commerceInventoryWarehouseId;
+		_originalSku = _sku;
 
-		commerceInventoryWarehouseItemModelImpl.
-			_setOriginalCommerceInventoryWarehouseId = false;
-
-		commerceInventoryWarehouseItemModelImpl._originalSku =
-			commerceInventoryWarehouseItemModelImpl._sku;
-
-		commerceInventoryWarehouseItemModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

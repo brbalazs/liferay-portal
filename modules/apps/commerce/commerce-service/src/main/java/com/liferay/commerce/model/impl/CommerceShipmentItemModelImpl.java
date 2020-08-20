@@ -694,8 +694,6 @@ public class CommerceShipmentItemModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -913,32 +911,24 @@ public class CommerceShipmentItemModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceShipmentItemModelImpl commerceShipmentItemModelImpl = this;
+		_originalGroupId = _groupId;
 
-		commerceShipmentItemModelImpl._originalGroupId =
-			commerceShipmentItemModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		commerceShipmentItemModelImpl._setOriginalGroupId = false;
+		_setModifiedDate = false;
+		_originalCommerceShipmentId = _commerceShipmentId;
 
-		commerceShipmentItemModelImpl._setModifiedDate = false;
+		_setOriginalCommerceShipmentId = false;
 
-		commerceShipmentItemModelImpl._originalCommerceShipmentId =
-			commerceShipmentItemModelImpl._commerceShipmentId;
+		_originalCommerceOrderItemId = _commerceOrderItemId;
 
-		commerceShipmentItemModelImpl._setOriginalCommerceShipmentId = false;
+		_setOriginalCommerceOrderItemId = false;
 
-		commerceShipmentItemModelImpl._originalCommerceOrderItemId =
-			commerceShipmentItemModelImpl._commerceOrderItemId;
+		_originalCommerceInventoryWarehouseId = _commerceInventoryWarehouseId;
 
-		commerceShipmentItemModelImpl._setOriginalCommerceOrderItemId = false;
+		_setOriginalCommerceInventoryWarehouseId = false;
 
-		commerceShipmentItemModelImpl._originalCommerceInventoryWarehouseId =
-			commerceShipmentItemModelImpl._commerceInventoryWarehouseId;
-
-		commerceShipmentItemModelImpl._setOriginalCommerceInventoryWarehouseId =
-			false;
-
-		commerceShipmentItemModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

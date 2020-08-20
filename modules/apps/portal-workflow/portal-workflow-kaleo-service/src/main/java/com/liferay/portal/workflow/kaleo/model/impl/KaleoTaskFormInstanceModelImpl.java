@@ -737,8 +737,6 @@ public class KaleoTaskFormInstanceModelImpl
 
 	@Override
 	public void setKaleoTaskFormInstanceId(long kaleoTaskFormInstanceId) {
-		_columnBitmask = -1L;
-
 		_kaleoTaskFormInstanceId = kaleoTaskFormInstanceId;
 	}
 
@@ -1147,43 +1145,32 @@ public class KaleoTaskFormInstanceModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoTaskFormInstanceModelImpl kaleoTaskFormInstanceModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		kaleoTaskFormInstanceModelImpl._originalCompanyId =
-			kaleoTaskFormInstanceModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kaleoTaskFormInstanceModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalKaleoDefinitionVersionId = _kaleoDefinitionVersionId;
 
-		kaleoTaskFormInstanceModelImpl._setModifiedDate = false;
+		_setOriginalKaleoDefinitionVersionId = false;
 
-		kaleoTaskFormInstanceModelImpl._originalKaleoDefinitionVersionId =
-			kaleoTaskFormInstanceModelImpl._kaleoDefinitionVersionId;
+		_originalKaleoInstanceId = _kaleoInstanceId;
 
-		kaleoTaskFormInstanceModelImpl._setOriginalKaleoDefinitionVersionId =
-			false;
+		_setOriginalKaleoInstanceId = false;
 
-		kaleoTaskFormInstanceModelImpl._originalKaleoInstanceId =
-			kaleoTaskFormInstanceModelImpl._kaleoInstanceId;
+		_originalKaleoTaskId = _kaleoTaskId;
 
-		kaleoTaskFormInstanceModelImpl._setOriginalKaleoInstanceId = false;
+		_setOriginalKaleoTaskId = false;
 
-		kaleoTaskFormInstanceModelImpl._originalKaleoTaskId =
-			kaleoTaskFormInstanceModelImpl._kaleoTaskId;
+		_originalKaleoTaskInstanceTokenId = _kaleoTaskInstanceTokenId;
 
-		kaleoTaskFormInstanceModelImpl._setOriginalKaleoTaskId = false;
+		_setOriginalKaleoTaskInstanceTokenId = false;
 
-		kaleoTaskFormInstanceModelImpl._originalKaleoTaskInstanceTokenId =
-			kaleoTaskFormInstanceModelImpl._kaleoTaskInstanceTokenId;
+		_originalKaleoTaskFormId = _kaleoTaskFormId;
 
-		kaleoTaskFormInstanceModelImpl._setOriginalKaleoTaskInstanceTokenId =
-			false;
+		_setOriginalKaleoTaskFormId = false;
 
-		kaleoTaskFormInstanceModelImpl._originalKaleoTaskFormId =
-			kaleoTaskFormInstanceModelImpl._kaleoTaskFormId;
-
-		kaleoTaskFormInstanceModelImpl._setOriginalKaleoTaskFormId = false;
-
-		kaleoTaskFormInstanceModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

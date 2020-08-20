@@ -782,22 +782,16 @@ public class SamlIdpSpSessionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SamlIdpSpSessionModelImpl samlIdpSpSessionModelImpl = this;
+		_originalCreateDate = _createDate;
 
-		samlIdpSpSessionModelImpl._originalCreateDate =
-			samlIdpSpSessionModelImpl._createDate;
+		_setModifiedDate = false;
+		_originalSamlIdpSsoSessionId = _samlIdpSsoSessionId;
 
-		samlIdpSpSessionModelImpl._setModifiedDate = false;
+		_setOriginalSamlIdpSsoSessionId = false;
 
-		samlIdpSpSessionModelImpl._originalSamlIdpSsoSessionId =
-			samlIdpSpSessionModelImpl._samlIdpSsoSessionId;
+		_originalSamlSpEntityId = _samlSpEntityId;
 
-		samlIdpSpSessionModelImpl._setOriginalSamlIdpSsoSessionId = false;
-
-		samlIdpSpSessionModelImpl._originalSamlSpEntityId =
-			samlIdpSpSessionModelImpl._samlSpEntityId;
-
-		samlIdpSpSessionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

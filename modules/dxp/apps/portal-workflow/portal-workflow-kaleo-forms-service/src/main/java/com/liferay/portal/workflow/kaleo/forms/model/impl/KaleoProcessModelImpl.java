@@ -930,27 +930,22 @@ public class KaleoProcessModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoProcessModelImpl kaleoProcessModelImpl = this;
+		_originalUuid = _uuid;
 
-		kaleoProcessModelImpl._originalUuid = kaleoProcessModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		kaleoProcessModelImpl._originalGroupId = kaleoProcessModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		kaleoProcessModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		kaleoProcessModelImpl._originalCompanyId =
-			kaleoProcessModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kaleoProcessModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalDDLRecordSetId = _DDLRecordSetId;
 
-		kaleoProcessModelImpl._setModifiedDate = false;
+		_setOriginalDDLRecordSetId = false;
 
-		kaleoProcessModelImpl._originalDDLRecordSetId =
-			kaleoProcessModelImpl._DDLRecordSetId;
-
-		kaleoProcessModelImpl._setOriginalDDLRecordSetId = false;
-
-		kaleoProcessModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

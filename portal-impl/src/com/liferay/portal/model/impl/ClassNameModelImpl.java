@@ -527,11 +527,9 @@ public class ClassNameModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ClassNameModelImpl classNameModelImpl = this;
+		_originalValue = _value;
 
-		classNameModelImpl._originalValue = classNameModelImpl._value;
-
-		classNameModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

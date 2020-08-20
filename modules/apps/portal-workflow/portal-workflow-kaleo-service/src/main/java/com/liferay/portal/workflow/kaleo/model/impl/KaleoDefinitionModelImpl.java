@@ -915,7 +915,7 @@ public class KaleoDefinitionModelImpl
 
 	@Override
 	public void setVersion(int version) {
-		_columnBitmask = -1L;
+		_columnBitmask |= VERSION_COLUMN_BITMASK;
 
 		if (!_setOriginalVersion) {
 			_setOriginalVersion = true;
@@ -1142,28 +1142,22 @@ public class KaleoDefinitionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoDefinitionModelImpl kaleoDefinitionModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		kaleoDefinitionModelImpl._originalCompanyId =
-			kaleoDefinitionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		kaleoDefinitionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalName = _name;
 
-		kaleoDefinitionModelImpl._setModifiedDate = false;
+		_originalVersion = _version;
 
-		kaleoDefinitionModelImpl._originalName = kaleoDefinitionModelImpl._name;
+		_setOriginalVersion = false;
 
-		kaleoDefinitionModelImpl._originalVersion =
-			kaleoDefinitionModelImpl._version;
+		_originalActive = _active;
 
-		kaleoDefinitionModelImpl._setOriginalVersion = false;
+		_setOriginalActive = false;
 
-		kaleoDefinitionModelImpl._originalActive =
-			kaleoDefinitionModelImpl._active;
-
-		kaleoDefinitionModelImpl._setOriginalActive = false;
-
-		kaleoDefinitionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

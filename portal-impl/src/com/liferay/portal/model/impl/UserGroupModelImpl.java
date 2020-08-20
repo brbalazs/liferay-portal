@@ -879,7 +879,7 @@ public class UserGroupModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -1038,32 +1038,26 @@ public class UserGroupModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		UserGroupModelImpl userGroupModelImpl = this;
+		_originalUuid = _uuid;
 
-		userGroupModelImpl._originalUuid = userGroupModelImpl._uuid;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		userGroupModelImpl._originalExternalReferenceCode =
-			userGroupModelImpl._externalReferenceCode;
+		_originalUserGroupId = _userGroupId;
 
-		userGroupModelImpl._originalUserGroupId =
-			userGroupModelImpl._userGroupId;
+		_setOriginalUserGroupId = false;
 
-		userGroupModelImpl._setOriginalUserGroupId = false;
+		_originalCompanyId = _companyId;
 
-		userGroupModelImpl._originalCompanyId = userGroupModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		userGroupModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalParentUserGroupId = _parentUserGroupId;
 
-		userGroupModelImpl._setModifiedDate = false;
+		_setOriginalParentUserGroupId = false;
 
-		userGroupModelImpl._originalParentUserGroupId =
-			userGroupModelImpl._parentUserGroupId;
+		_originalName = _name;
 
-		userGroupModelImpl._setOriginalParentUserGroupId = false;
-
-		userGroupModelImpl._originalName = userGroupModelImpl._name;
-
-		userGroupModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

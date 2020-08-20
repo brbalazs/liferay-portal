@@ -893,8 +893,6 @@ public class CPSpecificationOptionModelImpl
 
 	@Override
 	public void setTitle(String title) {
-		_columnBitmask = -1L;
-
 		_title = title;
 	}
 
@@ -1312,27 +1310,20 @@ public class CPSpecificationOptionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CPSpecificationOptionModelImpl cpSpecificationOptionModelImpl = this;
+		_originalUuid = _uuid;
 
-		cpSpecificationOptionModelImpl._originalUuid =
-			cpSpecificationOptionModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		cpSpecificationOptionModelImpl._originalCompanyId =
-			cpSpecificationOptionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cpSpecificationOptionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCPOptionCategoryId = _CPOptionCategoryId;
 
-		cpSpecificationOptionModelImpl._setModifiedDate = false;
+		_setOriginalCPOptionCategoryId = false;
 
-		cpSpecificationOptionModelImpl._originalCPOptionCategoryId =
-			cpSpecificationOptionModelImpl._CPOptionCategoryId;
+		_originalKey = _key;
 
-		cpSpecificationOptionModelImpl._setOriginalCPOptionCategoryId = false;
-
-		cpSpecificationOptionModelImpl._originalKey =
-			cpSpecificationOptionModelImpl._key;
-
-		cpSpecificationOptionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

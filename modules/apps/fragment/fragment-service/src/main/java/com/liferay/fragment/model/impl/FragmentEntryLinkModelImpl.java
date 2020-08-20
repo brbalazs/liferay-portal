@@ -961,7 +961,7 @@ public class FragmentEntryLinkModelImpl
 
 	@Override
 	public void setClassNameId(long classNameId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= CLASSNAMEID_COLUMN_BITMASK;
 
 		if (!_setOriginalClassNameId) {
 			_setOriginalClassNameId = true;
@@ -983,7 +983,7 @@ public class FragmentEntryLinkModelImpl
 
 	@Override
 	public void setClassPK(long classPK) {
-		_columnBitmask = -1L;
+		_columnBitmask |= CLASSPK_COLUMN_BITMASK;
 
 		if (!_setOriginalClassPK) {
 			_setOriginalClassPK = true;
@@ -1065,8 +1065,6 @@ public class FragmentEntryLinkModelImpl
 
 	@Override
 	public void setPosition(int position) {
-		_columnBitmask = -1L;
-
 		_position = position;
 	}
 
@@ -1264,39 +1262,31 @@ public class FragmentEntryLinkModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		FragmentEntryLinkModelImpl fragmentEntryLinkModelImpl = this;
+		_originalUuid = _uuid;
 
-		fragmentEntryLinkModelImpl._originalUuid =
-			fragmentEntryLinkModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		fragmentEntryLinkModelImpl._originalGroupId =
-			fragmentEntryLinkModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		fragmentEntryLinkModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		fragmentEntryLinkModelImpl._originalCompanyId =
-			fragmentEntryLinkModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		fragmentEntryLinkModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		fragmentEntryLinkModelImpl._setModifiedDate = false;
+		_originalFragmentEntryId = _fragmentEntryId;
 
-		fragmentEntryLinkModelImpl._originalFragmentEntryId =
-			fragmentEntryLinkModelImpl._fragmentEntryId;
+		_setOriginalFragmentEntryId = false;
 
-		fragmentEntryLinkModelImpl._setOriginalFragmentEntryId = false;
+		_originalClassNameId = _classNameId;
 
-		fragmentEntryLinkModelImpl._originalClassNameId =
-			fragmentEntryLinkModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		fragmentEntryLinkModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		fragmentEntryLinkModelImpl._originalClassPK =
-			fragmentEntryLinkModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		fragmentEntryLinkModelImpl._setOriginalClassPK = false;
-
-		fragmentEntryLinkModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

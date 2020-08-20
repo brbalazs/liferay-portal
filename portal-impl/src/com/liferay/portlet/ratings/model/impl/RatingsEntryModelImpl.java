@@ -895,35 +895,30 @@ public class RatingsEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		RatingsEntryModelImpl ratingsEntryModelImpl = this;
+		_originalUuid = _uuid;
 
-		ratingsEntryModelImpl._originalUuid = ratingsEntryModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		ratingsEntryModelImpl._originalCompanyId =
-			ratingsEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		ratingsEntryModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		ratingsEntryModelImpl._originalUserId = ratingsEntryModelImpl._userId;
+		_setOriginalUserId = false;
 
-		ratingsEntryModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		ratingsEntryModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		ratingsEntryModelImpl._originalClassNameId =
-			ratingsEntryModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		ratingsEntryModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		ratingsEntryModelImpl._originalClassPK = ratingsEntryModelImpl._classPK;
+		_originalScore = _score;
 
-		ratingsEntryModelImpl._setOriginalClassPK = false;
+		_setOriginalScore = false;
 
-		ratingsEntryModelImpl._originalScore = ratingsEntryModelImpl._score;
-
-		ratingsEntryModelImpl._setOriginalScore = false;
-
-		ratingsEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

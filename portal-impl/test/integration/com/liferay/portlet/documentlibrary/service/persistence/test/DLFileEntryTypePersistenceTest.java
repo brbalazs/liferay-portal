@@ -44,7 +44,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -492,12 +491,10 @@ public class DLFileEntryTypePersistenceTest {
 		DLFileEntryType existingDLFileEntryType = _persistence.findByPrimaryKey(
 			newDLFileEntryType.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingDLFileEntryType.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingDLFileEntryType, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingDLFileEntryType.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingDLFileEntryType, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingDLFileEntryType.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -509,12 +506,11 @@ public class DLFileEntryTypePersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingDLFileEntryType, "getOriginalGroupId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingDLFileEntryType.getFileEntryTypeKey(),
-				ReflectionTestUtil.invoke(
-					existingDLFileEntryType, "getOriginalFileEntryTypeKey",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingDLFileEntryType.getFileEntryTypeKey(),
+			ReflectionTestUtil.invoke(
+				existingDLFileEntryType, "getOriginalFileEntryTypeKey",
+				new Class<?>[0]));
 	}
 
 	protected DLFileEntryType addDLFileEntryType() throws Exception {

@@ -1101,7 +1101,7 @@ public class DLFolderModelImpl
 
 	@Override
 	public void setParentFolderId(long parentFolderId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= PARENTFOLDERID_COLUMN_BITMASK;
 
 		if (!_setOriginalParentFolderId) {
 			_setOriginalParentFolderId = true;
@@ -1155,7 +1155,7 @@ public class DLFolderModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -1721,51 +1721,46 @@ public class DLFolderModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DLFolderModelImpl dlFolderModelImpl = this;
+		_originalUuid = _uuid;
 
-		dlFolderModelImpl._originalUuid = dlFolderModelImpl._uuid;
+		_originalFolderId = _folderId;
 
-		dlFolderModelImpl._originalFolderId = dlFolderModelImpl._folderId;
+		_setOriginalFolderId = false;
 
-		dlFolderModelImpl._setOriginalFolderId = false;
+		_originalGroupId = _groupId;
 
-		dlFolderModelImpl._originalGroupId = dlFolderModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		dlFolderModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		dlFolderModelImpl._originalCompanyId = dlFolderModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		dlFolderModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalRepositoryId = _repositoryId;
 
-		dlFolderModelImpl._setModifiedDate = false;
+		_setOriginalRepositoryId = false;
 
-		dlFolderModelImpl._originalRepositoryId =
-			dlFolderModelImpl._repositoryId;
+		_originalMountPoint = _mountPoint;
 
-		dlFolderModelImpl._setOriginalRepositoryId = false;
+		_setOriginalMountPoint = false;
 
-		dlFolderModelImpl._originalMountPoint = dlFolderModelImpl._mountPoint;
+		_originalParentFolderId = _parentFolderId;
 
-		dlFolderModelImpl._setOriginalMountPoint = false;
+		_setOriginalParentFolderId = false;
 
-		dlFolderModelImpl._originalParentFolderId =
-			dlFolderModelImpl._parentFolderId;
+		_originalTreePath = _treePath;
 
-		dlFolderModelImpl._setOriginalParentFolderId = false;
+		_originalName = _name;
 
-		dlFolderModelImpl._originalTreePath = dlFolderModelImpl._treePath;
+		_originalHidden = _hidden;
 
-		dlFolderModelImpl._originalName = dlFolderModelImpl._name;
+		_setOriginalHidden = false;
 
-		dlFolderModelImpl._originalHidden = dlFolderModelImpl._hidden;
+		_originalStatus = _status;
 
-		dlFolderModelImpl._setOriginalHidden = false;
+		_setOriginalStatus = false;
 
-		dlFolderModelImpl._originalStatus = dlFolderModelImpl._status;
-
-		dlFolderModelImpl._setOriginalStatus = false;
-
-		dlFolderModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

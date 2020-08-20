@@ -520,17 +520,15 @@ public class ExpandoRowModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ExpandoRowModelImpl expandoRowModelImpl = this;
+		_originalTableId = _tableId;
 
-		expandoRowModelImpl._originalTableId = expandoRowModelImpl._tableId;
+		_setOriginalTableId = false;
 
-		expandoRowModelImpl._setOriginalTableId = false;
+		_originalClassPK = _classPK;
 
-		expandoRowModelImpl._originalClassPK = expandoRowModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		expandoRowModelImpl._setOriginalClassPK = false;
-
-		expandoRowModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -1136,8 +1136,6 @@ public class DLFileVersionModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1200,7 +1198,7 @@ public class DLFileVersionModelImpl
 
 	@Override
 	public void setFileEntryId(long fileEntryId) {
-		_columnBitmask = -1L;
+		_columnBitmask |= FILEENTRYID_COLUMN_BITMASK;
 
 		if (!_setOriginalFileEntryId) {
 			_setOriginalFileEntryId = true;
@@ -1742,45 +1740,37 @@ public class DLFileVersionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DLFileVersionModelImpl dlFileVersionModelImpl = this;
+		_originalUuid = _uuid;
 
-		dlFileVersionModelImpl._originalUuid = dlFileVersionModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		dlFileVersionModelImpl._originalGroupId =
-			dlFileVersionModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		dlFileVersionModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		dlFileVersionModelImpl._originalCompanyId =
-			dlFileVersionModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		dlFileVersionModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		dlFileVersionModelImpl._setModifiedDate = false;
+		_originalFolderId = _folderId;
 
-		dlFileVersionModelImpl._originalFolderId =
-			dlFileVersionModelImpl._folderId;
+		_setOriginalFolderId = false;
 
-		dlFileVersionModelImpl._setOriginalFolderId = false;
+		_originalFileEntryId = _fileEntryId;
 
-		dlFileVersionModelImpl._originalFileEntryId =
-			dlFileVersionModelImpl._fileEntryId;
+		_setOriginalFileEntryId = false;
 
-		dlFileVersionModelImpl._setOriginalFileEntryId = false;
+		_originalMimeType = _mimeType;
 
-		dlFileVersionModelImpl._originalMimeType =
-			dlFileVersionModelImpl._mimeType;
+		_originalTitle = _title;
 
-		dlFileVersionModelImpl._originalTitle = dlFileVersionModelImpl._title;
+		_originalVersion = _version;
 
-		dlFileVersionModelImpl._originalVersion =
-			dlFileVersionModelImpl._version;
+		_originalStatus = _status;
 
-		dlFileVersionModelImpl._originalStatus = dlFileVersionModelImpl._status;
+		_setOriginalStatus = false;
 
-		dlFileVersionModelImpl._setOriginalStatus = false;
-
-		dlFileVersionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

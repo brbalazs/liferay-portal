@@ -1076,8 +1076,6 @@ public class CommerceAddressModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1564,58 +1562,46 @@ public class CommerceAddressModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceAddressModelImpl commerceAddressModelImpl = this;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commerceAddressModelImpl._originalExternalReferenceCode =
-			commerceAddressModelImpl._externalReferenceCode;
+		_originalGroupId = _groupId;
 
-		commerceAddressModelImpl._originalGroupId =
-			commerceAddressModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		commerceAddressModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		commerceAddressModelImpl._originalCompanyId =
-			commerceAddressModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceAddressModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		commerceAddressModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		commerceAddressModelImpl._originalClassNameId =
-			commerceAddressModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		commerceAddressModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		commerceAddressModelImpl._originalClassPK =
-			commerceAddressModelImpl._classPK;
+		_originalCommerceRegionId = _commerceRegionId;
 
-		commerceAddressModelImpl._setOriginalClassPK = false;
+		_setOriginalCommerceRegionId = false;
 
-		commerceAddressModelImpl._originalCommerceRegionId =
-			commerceAddressModelImpl._commerceRegionId;
+		_originalCommerceCountryId = _commerceCountryId;
 
-		commerceAddressModelImpl._setOriginalCommerceRegionId = false;
+		_setOriginalCommerceCountryId = false;
 
-		commerceAddressModelImpl._originalCommerceCountryId =
-			commerceAddressModelImpl._commerceCountryId;
+		_originalDefaultBilling = _defaultBilling;
 
-		commerceAddressModelImpl._setOriginalCommerceCountryId = false;
+		_setOriginalDefaultBilling = false;
 
-		commerceAddressModelImpl._originalDefaultBilling =
-			commerceAddressModelImpl._defaultBilling;
+		_originalDefaultShipping = _defaultShipping;
 
-		commerceAddressModelImpl._setOriginalDefaultBilling = false;
+		_setOriginalDefaultShipping = false;
 
-		commerceAddressModelImpl._originalDefaultShipping =
-			commerceAddressModelImpl._defaultShipping;
+		_originalType = _type;
 
-		commerceAddressModelImpl._setOriginalDefaultShipping = false;
+		_setOriginalType = false;
 
-		commerceAddressModelImpl._originalType = commerceAddressModelImpl._type;
-
-		commerceAddressModelImpl._setOriginalType = false;
-
-		commerceAddressModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

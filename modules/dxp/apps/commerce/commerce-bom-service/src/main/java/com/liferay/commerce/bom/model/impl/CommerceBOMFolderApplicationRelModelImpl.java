@@ -820,26 +820,16 @@ public class CommerceBOMFolderApplicationRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceBOMFolderApplicationRelModelImpl
-			commerceBOMFolderApplicationRelModelImpl = this;
+		_setModifiedDate = false;
+		_originalCommerceBOMFolderId = _commerceBOMFolderId;
 
-		commerceBOMFolderApplicationRelModelImpl._setModifiedDate = false;
+		_setOriginalCommerceBOMFolderId = false;
 
-		commerceBOMFolderApplicationRelModelImpl._originalCommerceBOMFolderId =
-			commerceBOMFolderApplicationRelModelImpl._commerceBOMFolderId;
+		_originalCommerceApplicationModelId = _commerceApplicationModelId;
 
-		commerceBOMFolderApplicationRelModelImpl.
-			_setOriginalCommerceBOMFolderId = false;
+		_setOriginalCommerceApplicationModelId = false;
 
-		commerceBOMFolderApplicationRelModelImpl.
-			_originalCommerceApplicationModelId =
-				commerceBOMFolderApplicationRelModelImpl.
-					_commerceApplicationModelId;
-
-		commerceBOMFolderApplicationRelModelImpl.
-			_setOriginalCommerceApplicationModelId = false;
-
-		commerceBOMFolderApplicationRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

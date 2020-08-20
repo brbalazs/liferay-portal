@@ -1999,43 +1999,36 @@ public class AssetEntryModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		AssetEntryModelImpl assetEntryModelImpl = this;
+		_originalGroupId = _groupId;
 
-		assetEntryModelImpl._originalGroupId = assetEntryModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		assetEntryModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		assetEntryModelImpl._originalCompanyId = assetEntryModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		assetEntryModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		assetEntryModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		assetEntryModelImpl._originalClassNameId =
-			assetEntryModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		assetEntryModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		assetEntryModelImpl._originalClassPK = assetEntryModelImpl._classPK;
+		_originalClassUuid = _classUuid;
 
-		assetEntryModelImpl._setOriginalClassPK = false;
+		_originalVisible = _visible;
 
-		assetEntryModelImpl._originalClassUuid = assetEntryModelImpl._classUuid;
+		_setOriginalVisible = false;
 
-		assetEntryModelImpl._originalVisible = assetEntryModelImpl._visible;
+		_originalPublishDate = _publishDate;
 
-		assetEntryModelImpl._setOriginalVisible = false;
+		_originalExpirationDate = _expirationDate;
 
-		assetEntryModelImpl._originalPublishDate =
-			assetEntryModelImpl._publishDate;
+		_originalLayoutUuid = _layoutUuid;
 
-		assetEntryModelImpl._originalExpirationDate =
-			assetEntryModelImpl._expirationDate;
-
-		assetEntryModelImpl._originalLayoutUuid =
-			assetEntryModelImpl._layoutUuid;
-
-		assetEntryModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

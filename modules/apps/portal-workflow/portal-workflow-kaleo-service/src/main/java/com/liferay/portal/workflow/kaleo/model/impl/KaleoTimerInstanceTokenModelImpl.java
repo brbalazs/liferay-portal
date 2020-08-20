@@ -824,8 +824,6 @@ public class KaleoTimerInstanceTokenModelImpl
 
 	@Override
 	public void setKaleoTimerInstanceTokenId(long kaleoTimerInstanceTokenId) {
-		_columnBitmask = -1L;
-
 		_kaleoTimerInstanceTokenId = kaleoTimerInstanceTokenId;
 	}
 
@@ -1280,38 +1278,29 @@ public class KaleoTimerInstanceTokenModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		KaleoTimerInstanceTokenModelImpl kaleoTimerInstanceTokenModelImpl =
-			this;
+		_setModifiedDate = false;
 
-		kaleoTimerInstanceTokenModelImpl._setModifiedDate = false;
+		_originalKaleoInstanceId = _kaleoInstanceId;
 
-		kaleoTimerInstanceTokenModelImpl._originalKaleoInstanceId =
-			kaleoTimerInstanceTokenModelImpl._kaleoInstanceId;
+		_setOriginalKaleoInstanceId = false;
 
-		kaleoTimerInstanceTokenModelImpl._setOriginalKaleoInstanceId = false;
+		_originalKaleoInstanceTokenId = _kaleoInstanceTokenId;
 
-		kaleoTimerInstanceTokenModelImpl._originalKaleoInstanceTokenId =
-			kaleoTimerInstanceTokenModelImpl._kaleoInstanceTokenId;
+		_setOriginalKaleoInstanceTokenId = false;
 
-		kaleoTimerInstanceTokenModelImpl._setOriginalKaleoInstanceTokenId =
-			false;
+		_originalKaleoTimerId = _kaleoTimerId;
 
-		kaleoTimerInstanceTokenModelImpl._originalKaleoTimerId =
-			kaleoTimerInstanceTokenModelImpl._kaleoTimerId;
+		_setOriginalKaleoTimerId = false;
 
-		kaleoTimerInstanceTokenModelImpl._setOriginalKaleoTimerId = false;
+		_originalBlocking = _blocking;
 
-		kaleoTimerInstanceTokenModelImpl._originalBlocking =
-			kaleoTimerInstanceTokenModelImpl._blocking;
+		_setOriginalBlocking = false;
 
-		kaleoTimerInstanceTokenModelImpl._setOriginalBlocking = false;
+		_originalCompleted = _completed;
 
-		kaleoTimerInstanceTokenModelImpl._originalCompleted =
-			kaleoTimerInstanceTokenModelImpl._completed;
+		_setOriginalCompleted = false;
 
-		kaleoTimerInstanceTokenModelImpl._setOriginalCompleted = false;
-
-		kaleoTimerInstanceTokenModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

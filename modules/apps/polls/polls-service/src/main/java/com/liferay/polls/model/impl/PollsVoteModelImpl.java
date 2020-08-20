@@ -928,33 +928,30 @@ public class PollsVoteModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		PollsVoteModelImpl pollsVoteModelImpl = this;
+		_originalUuid = _uuid;
 
-		pollsVoteModelImpl._originalUuid = pollsVoteModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		pollsVoteModelImpl._originalGroupId = pollsVoteModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		pollsVoteModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		pollsVoteModelImpl._originalCompanyId = pollsVoteModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		pollsVoteModelImpl._setOriginalCompanyId = false;
+		_originalUserId = _userId;
 
-		pollsVoteModelImpl._originalUserId = pollsVoteModelImpl._userId;
+		_setOriginalUserId = false;
 
-		pollsVoteModelImpl._setOriginalUserId = false;
+		_setModifiedDate = false;
+		_originalQuestionId = _questionId;
 
-		pollsVoteModelImpl._setModifiedDate = false;
+		_setOriginalQuestionId = false;
 
-		pollsVoteModelImpl._originalQuestionId = pollsVoteModelImpl._questionId;
+		_originalChoiceId = _choiceId;
 
-		pollsVoteModelImpl._setOriginalQuestionId = false;
+		_setOriginalChoiceId = false;
 
-		pollsVoteModelImpl._originalChoiceId = pollsVoteModelImpl._choiceId;
-
-		pollsVoteModelImpl._setOriginalChoiceId = false;
-
-		pollsVoteModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

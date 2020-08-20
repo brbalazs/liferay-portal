@@ -582,7 +582,7 @@ public class FolderModelImpl
 
 	@Override
 	public void setFullName(String fullName) {
-		_columnBitmask = -1L;
+		_columnBitmask |= FULLNAME_COLUMN_BITMASK;
 
 		if (_originalFullName == null) {
 			_originalFullName = _fullName;
@@ -724,17 +724,14 @@ public class FolderModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		FolderModelImpl folderModelImpl = this;
+		_setModifiedDate = false;
+		_originalAccountId = _accountId;
 
-		folderModelImpl._setModifiedDate = false;
+		_setOriginalAccountId = false;
 
-		folderModelImpl._originalAccountId = folderModelImpl._accountId;
+		_originalFullName = _fullName;
 
-		folderModelImpl._setOriginalAccountId = false;
-
-		folderModelImpl._originalFullName = folderModelImpl._fullName;
-
-		folderModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -621,24 +621,19 @@ public class PasswordPolicyRelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		PasswordPolicyRelModelImpl passwordPolicyRelModelImpl = this;
+		_originalPasswordPolicyId = _passwordPolicyId;
 
-		passwordPolicyRelModelImpl._originalPasswordPolicyId =
-			passwordPolicyRelModelImpl._passwordPolicyId;
+		_setOriginalPasswordPolicyId = false;
 
-		passwordPolicyRelModelImpl._setOriginalPasswordPolicyId = false;
+		_originalClassNameId = _classNameId;
 
-		passwordPolicyRelModelImpl._originalClassNameId =
-			passwordPolicyRelModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		passwordPolicyRelModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		passwordPolicyRelModelImpl._originalClassPK =
-			passwordPolicyRelModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		passwordPolicyRelModelImpl._setOriginalClassPK = false;
-
-		passwordPolicyRelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

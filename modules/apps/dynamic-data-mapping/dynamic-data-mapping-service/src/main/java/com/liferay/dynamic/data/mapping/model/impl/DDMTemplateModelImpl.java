@@ -1879,47 +1879,40 @@ public class DDMTemplateModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDMTemplateModelImpl ddmTemplateModelImpl = this;
+		_originalUuid = _uuid;
 
-		ddmTemplateModelImpl._originalUuid = ddmTemplateModelImpl._uuid;
+		_originalGroupId = _groupId;
 
-		ddmTemplateModelImpl._originalGroupId = ddmTemplateModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		ddmTemplateModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		ddmTemplateModelImpl._originalCompanyId =
-			ddmTemplateModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		ddmTemplateModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalClassNameId = _classNameId;
 
-		ddmTemplateModelImpl._setModifiedDate = false;
+		_setOriginalClassNameId = false;
 
-		ddmTemplateModelImpl._originalClassNameId =
-			ddmTemplateModelImpl._classNameId;
+		_originalClassPK = _classPK;
 
-		ddmTemplateModelImpl._setOriginalClassNameId = false;
+		_setOriginalClassPK = false;
 
-		ddmTemplateModelImpl._originalClassPK = ddmTemplateModelImpl._classPK;
+		_originalTemplateKey = _templateKey;
 
-		ddmTemplateModelImpl._setOriginalClassPK = false;
+		_originalType = _type;
 
-		ddmTemplateModelImpl._originalTemplateKey =
-			ddmTemplateModelImpl._templateKey;
+		_originalMode = _mode;
 
-		ddmTemplateModelImpl._originalType = ddmTemplateModelImpl._type;
+		_originalLanguage = _language;
 
-		ddmTemplateModelImpl._originalMode = ddmTemplateModelImpl._mode;
+		_originalSmallImageId = _smallImageId;
 
-		ddmTemplateModelImpl._originalLanguage = ddmTemplateModelImpl._language;
-
-		ddmTemplateModelImpl._originalSmallImageId =
-			ddmTemplateModelImpl._smallImageId;
-
-		ddmTemplateModelImpl._setOriginalSmallImageId = false;
+		_setOriginalSmallImageId = false;
 
 		setResourceClassName(null);
 
-		ddmTemplateModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

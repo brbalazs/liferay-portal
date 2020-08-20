@@ -657,8 +657,6 @@ public class CProductModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -811,24 +809,21 @@ public class CProductModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CProductModelImpl cProductModelImpl = this;
+		_originalUuid = _uuid;
 
-		cProductModelImpl._originalUuid = cProductModelImpl._uuid;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		cProductModelImpl._originalExternalReferenceCode =
-			cProductModelImpl._externalReferenceCode;
+		_originalGroupId = _groupId;
 
-		cProductModelImpl._originalGroupId = cProductModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		cProductModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		cProductModelImpl._originalCompanyId = cProductModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		cProductModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		cProductModelImpl._setModifiedDate = false;
-
-		cProductModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

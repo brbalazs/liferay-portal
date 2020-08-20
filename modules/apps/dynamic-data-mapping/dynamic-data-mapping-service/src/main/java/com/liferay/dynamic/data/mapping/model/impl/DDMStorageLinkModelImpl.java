@@ -678,31 +678,25 @@ public class DDMStorageLinkModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDMStorageLinkModelImpl ddmStorageLinkModelImpl = this;
+		_originalUuid = _uuid;
 
-		ddmStorageLinkModelImpl._originalUuid = ddmStorageLinkModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		ddmStorageLinkModelImpl._originalCompanyId =
-			ddmStorageLinkModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		ddmStorageLinkModelImpl._setOriginalCompanyId = false;
+		_originalClassPK = _classPK;
 
-		ddmStorageLinkModelImpl._originalClassPK =
-			ddmStorageLinkModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		ddmStorageLinkModelImpl._setOriginalClassPK = false;
+		_originalStructureId = _structureId;
 
-		ddmStorageLinkModelImpl._originalStructureId =
-			ddmStorageLinkModelImpl._structureId;
+		_setOriginalStructureId = false;
 
-		ddmStorageLinkModelImpl._setOriginalStructureId = false;
+		_originalStructureVersionId = _structureVersionId;
 
-		ddmStorageLinkModelImpl._originalStructureVersionId =
-			ddmStorageLinkModelImpl._structureVersionId;
+		_setOriginalStructureVersionId = false;
 
-		ddmStorageLinkModelImpl._setOriginalStructureVersionId = false;
-
-		ddmStorageLinkModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

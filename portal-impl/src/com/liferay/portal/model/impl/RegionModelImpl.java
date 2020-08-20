@@ -503,8 +503,6 @@ public class RegionModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -637,19 +635,17 @@ public class RegionModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		RegionModelImpl regionModelImpl = this;
+		_originalCountryId = _countryId;
 
-		regionModelImpl._originalCountryId = regionModelImpl._countryId;
+		_setOriginalCountryId = false;
 
-		regionModelImpl._setOriginalCountryId = false;
+		_originalRegionCode = _regionCode;
 
-		regionModelImpl._originalRegionCode = regionModelImpl._regionCode;
+		_originalActive = _active;
 
-		regionModelImpl._originalActive = regionModelImpl._active;
+		_setOriginalActive = false;
 
-		regionModelImpl._setOriginalActive = false;
-
-		regionModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

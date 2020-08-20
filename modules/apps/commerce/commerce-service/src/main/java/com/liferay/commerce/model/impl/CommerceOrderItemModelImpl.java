@@ -1537,8 +1537,6 @@ public class CommerceOrderItemModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -2356,50 +2354,38 @@ public class CommerceOrderItemModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommerceOrderItemModelImpl commerceOrderItemModelImpl = this;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commerceOrderItemModelImpl._originalExternalReferenceCode =
-			commerceOrderItemModelImpl._externalReferenceCode;
+		_originalCompanyId = _companyId;
 
-		commerceOrderItemModelImpl._originalCompanyId =
-			commerceOrderItemModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commerceOrderItemModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCommerceOrderId = _commerceOrderId;
 
-		commerceOrderItemModelImpl._setModifiedDate = false;
+		_setOriginalCommerceOrderId = false;
 
-		commerceOrderItemModelImpl._originalCommerceOrderId =
-			commerceOrderItemModelImpl._commerceOrderId;
+		_originalCProductId = _CProductId;
 
-		commerceOrderItemModelImpl._setOriginalCommerceOrderId = false;
+		_setOriginalCProductId = false;
 
-		commerceOrderItemModelImpl._originalCProductId =
-			commerceOrderItemModelImpl._CProductId;
+		_originalCPInstanceId = _CPInstanceId;
 
-		commerceOrderItemModelImpl._setOriginalCProductId = false;
+		_setOriginalCPInstanceId = false;
 
-		commerceOrderItemModelImpl._originalCPInstanceId =
-			commerceOrderItemModelImpl._CPInstanceId;
+		_originalParentCommerceOrderItemId = _parentCommerceOrderItemId;
 
-		commerceOrderItemModelImpl._setOriginalCPInstanceId = false;
+		_setOriginalParentCommerceOrderItemId = false;
 
-		commerceOrderItemModelImpl._originalParentCommerceOrderItemId =
-			commerceOrderItemModelImpl._parentCommerceOrderItemId;
+		_originalSubscription = _subscription;
 
-		commerceOrderItemModelImpl._setOriginalParentCommerceOrderItemId =
-			false;
+		_setOriginalSubscription = false;
 
-		commerceOrderItemModelImpl._originalSubscription =
-			commerceOrderItemModelImpl._subscription;
+		_originalBookedQuantityId = _bookedQuantityId;
 
-		commerceOrderItemModelImpl._setOriginalSubscription = false;
+		_setOriginalBookedQuantityId = false;
 
-		commerceOrderItemModelImpl._originalBookedQuantityId =
-			commerceOrderItemModelImpl._bookedQuantityId;
-
-		commerceOrderItemModelImpl._setOriginalBookedQuantityId = false;
-
-		commerceOrderItemModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

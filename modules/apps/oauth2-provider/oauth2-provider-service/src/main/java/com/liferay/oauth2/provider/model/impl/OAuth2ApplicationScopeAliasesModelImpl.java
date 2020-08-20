@@ -750,27 +750,19 @@ public class OAuth2ApplicationScopeAliasesModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		OAuth2ApplicationScopeAliasesModelImpl
-			oAuth2ApplicationScopeAliasesModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		oAuth2ApplicationScopeAliasesModelImpl._originalCompanyId =
-			oAuth2ApplicationScopeAliasesModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		oAuth2ApplicationScopeAliasesModelImpl._setOriginalCompanyId = false;
+		_originalOAuth2ApplicationId = _oAuth2ApplicationId;
 
-		oAuth2ApplicationScopeAliasesModelImpl._originalOAuth2ApplicationId =
-			oAuth2ApplicationScopeAliasesModelImpl._oAuth2ApplicationId;
+		_setOriginalOAuth2ApplicationId = false;
 
-		oAuth2ApplicationScopeAliasesModelImpl._setOriginalOAuth2ApplicationId =
-			false;
+		_originalScopeAliasesHash = _scopeAliasesHash;
 
-		oAuth2ApplicationScopeAliasesModelImpl._originalScopeAliasesHash =
-			oAuth2ApplicationScopeAliasesModelImpl._scopeAliasesHash;
+		_setOriginalScopeAliasesHash = false;
 
-		oAuth2ApplicationScopeAliasesModelImpl._setOriginalScopeAliasesHash =
-			false;
-
-		oAuth2ApplicationScopeAliasesModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

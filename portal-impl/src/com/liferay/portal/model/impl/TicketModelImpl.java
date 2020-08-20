@@ -481,8 +481,6 @@ public class TicketModelImpl
 
 	@Override
 	public void setTicketId(long ticketId) {
-		_columnBitmask = -1L;
-
 		_ticketId = ticketId;
 	}
 
@@ -766,27 +764,25 @@ public class TicketModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		TicketModelImpl ticketModelImpl = this;
+		_originalCompanyId = _companyId;
 
-		ticketModelImpl._originalCompanyId = ticketModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		ticketModelImpl._setOriginalCompanyId = false;
+		_originalClassNameId = _classNameId;
 
-		ticketModelImpl._originalClassNameId = ticketModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		ticketModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		ticketModelImpl._originalClassPK = ticketModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		ticketModelImpl._setOriginalClassPK = false;
+		_originalKey = _key;
 
-		ticketModelImpl._originalKey = ticketModelImpl._key;
+		_originalType = _type;
 
-		ticketModelImpl._originalType = ticketModelImpl._type;
+		_setOriginalType = false;
 
-		ticketModelImpl._setOriginalType = false;
-
-		ticketModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

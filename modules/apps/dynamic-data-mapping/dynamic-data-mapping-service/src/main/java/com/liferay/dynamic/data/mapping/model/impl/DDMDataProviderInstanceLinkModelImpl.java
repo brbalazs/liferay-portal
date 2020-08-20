@@ -541,21 +541,15 @@ public class DDMDataProviderInstanceLinkModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		DDMDataProviderInstanceLinkModelImpl
-			ddmDataProviderInstanceLinkModelImpl = this;
+		_originalDataProviderInstanceId = _dataProviderInstanceId;
 
-		ddmDataProviderInstanceLinkModelImpl._originalDataProviderInstanceId =
-			ddmDataProviderInstanceLinkModelImpl._dataProviderInstanceId;
+		_setOriginalDataProviderInstanceId = false;
 
-		ddmDataProviderInstanceLinkModelImpl.
-			_setOriginalDataProviderInstanceId = false;
+		_originalStructureId = _structureId;
 
-		ddmDataProviderInstanceLinkModelImpl._originalStructureId =
-			ddmDataProviderInstanceLinkModelImpl._structureId;
+		_setOriginalStructureId = false;
 
-		ddmDataProviderInstanceLinkModelImpl._setOriginalStructureId = false;
-
-		ddmDataProviderInstanceLinkModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

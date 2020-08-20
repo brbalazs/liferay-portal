@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -631,12 +630,10 @@ public class CalendarBookingPersistenceTest {
 		CalendarBooking existingCalendarBooking = _persistence.findByPrimaryKey(
 			newCalendarBooking.getPrimaryKey());
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCalendarBooking.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCalendarBooking, "getOriginalUuid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCalendarBooking.getUuid(),
+			ReflectionTestUtil.invoke(
+				existingCalendarBooking, "getOriginalUuid", new Class<?>[0]));
 		Assert.assertEquals(
 			Long.valueOf(existingCalendarBooking.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
@@ -659,12 +656,11 @@ public class CalendarBookingPersistenceTest {
 			ReflectionTestUtil.<Long>invoke(
 				existingCalendarBooking, "getOriginalCalendarId",
 				new Class<?>[0]));
-		Assert.assertTrue(
-			Objects.equals(
-				existingCalendarBooking.getVEventUid(),
-				ReflectionTestUtil.invoke(
-					existingCalendarBooking, "getOriginalVEventUid",
-					new Class<?>[0])));
+		Assert.assertEquals(
+			existingCalendarBooking.getVEventUid(),
+			ReflectionTestUtil.invoke(
+				existingCalendarBooking, "getOriginalVEventUid",
+				new Class<?>[0]));
 	}
 
 	protected CalendarBooking addCalendarBooking() throws Exception {

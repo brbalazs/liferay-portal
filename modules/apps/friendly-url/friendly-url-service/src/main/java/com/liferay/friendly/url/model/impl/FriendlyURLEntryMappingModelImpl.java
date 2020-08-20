@@ -595,20 +595,15 @@ public class FriendlyURLEntryMappingModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		FriendlyURLEntryMappingModelImpl friendlyURLEntryMappingModelImpl =
-			this;
+		_originalClassNameId = _classNameId;
 
-		friendlyURLEntryMappingModelImpl._originalClassNameId =
-			friendlyURLEntryMappingModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		friendlyURLEntryMappingModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		friendlyURLEntryMappingModelImpl._originalClassPK =
-			friendlyURLEntryMappingModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		friendlyURLEntryMappingModelImpl._setOriginalClassPK = false;
-
-		friendlyURLEntryMappingModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -1073,8 +1073,6 @@ public class CommercePriceListModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		_columnBitmask = -1L;
-
 		_createDate = createDate;
 	}
 
@@ -1237,8 +1235,6 @@ public class CommercePriceListModelImpl
 
 	@Override
 	public void setPriority(double priority) {
-		_columnBitmask = -1L;
-
 		_priority = priority;
 	}
 
@@ -1250,7 +1246,7 @@ public class CommercePriceListModelImpl
 
 	@Override
 	public void setDisplayDate(Date displayDate) {
-		_columnBitmask = -1L;
+		_columnBitmask |= DISPLAYDATE_COLUMN_BITMASK;
 
 		if (_originalDisplayDate == null) {
 			_originalDisplayDate = _displayDate;
@@ -1596,54 +1592,40 @@ public class CommercePriceListModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		CommercePriceListModelImpl commercePriceListModelImpl = this;
+		_originalUuid = _uuid;
 
-		commercePriceListModelImpl._originalUuid =
-			commercePriceListModelImpl._uuid;
+		_originalExternalReferenceCode = _externalReferenceCode;
 
-		commercePriceListModelImpl._originalExternalReferenceCode =
-			commercePriceListModelImpl._externalReferenceCode;
+		_originalGroupId = _groupId;
 
-		commercePriceListModelImpl._originalGroupId =
-			commercePriceListModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		commercePriceListModelImpl._setOriginalGroupId = false;
+		_originalCompanyId = _companyId;
 
-		commercePriceListModelImpl._originalCompanyId =
-			commercePriceListModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		commercePriceListModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
+		_originalCommerceCurrencyId = _commerceCurrencyId;
 
-		commercePriceListModelImpl._setModifiedDate = false;
+		_setOriginalCommerceCurrencyId = false;
 
-		commercePriceListModelImpl._originalCommerceCurrencyId =
-			commercePriceListModelImpl._commerceCurrencyId;
+		_originalParentCommercePriceListId = _parentCommercePriceListId;
 
-		commercePriceListModelImpl._setOriginalCommerceCurrencyId = false;
+		_setOriginalParentCommercePriceListId = false;
 
-		commercePriceListModelImpl._originalParentCommercePriceListId =
-			commercePriceListModelImpl._parentCommercePriceListId;
+		_originalCatalogBasePriceList = _catalogBasePriceList;
 
-		commercePriceListModelImpl._setOriginalParentCommercePriceListId =
-			false;
+		_setOriginalCatalogBasePriceList = false;
 
-		commercePriceListModelImpl._originalCatalogBasePriceList =
-			commercePriceListModelImpl._catalogBasePriceList;
+		_originalType = _type;
 
-		commercePriceListModelImpl._setOriginalCatalogBasePriceList = false;
+		_originalDisplayDate = _displayDate;
 
-		commercePriceListModelImpl._originalType =
-			commercePriceListModelImpl._type;
+		_originalStatus = _status;
 
-		commercePriceListModelImpl._originalDisplayDate =
-			commercePriceListModelImpl._displayDate;
+		_setOriginalStatus = false;
 
-		commercePriceListModelImpl._originalStatus =
-			commercePriceListModelImpl._status;
-
-		commercePriceListModelImpl._setOriginalStatus = false;
-
-		commercePriceListModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -626,8 +626,6 @@ public class SocialActivitySetModelImpl
 
 	@Override
 	public void setModifiedDate(long modifiedDate) {
-		_columnBitmask = -1L;
-
 		_modifiedDate = modifiedDate;
 	}
 
@@ -858,34 +856,27 @@ public class SocialActivitySetModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		SocialActivitySetModelImpl socialActivitySetModelImpl = this;
+		_originalGroupId = _groupId;
 
-		socialActivitySetModelImpl._originalGroupId =
-			socialActivitySetModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		socialActivitySetModelImpl._setOriginalGroupId = false;
+		_originalUserId = _userId;
 
-		socialActivitySetModelImpl._originalUserId =
-			socialActivitySetModelImpl._userId;
+		_setOriginalUserId = false;
 
-		socialActivitySetModelImpl._setOriginalUserId = false;
+		_originalClassNameId = _classNameId;
 
-		socialActivitySetModelImpl._originalClassNameId =
-			socialActivitySetModelImpl._classNameId;
+		_setOriginalClassNameId = false;
 
-		socialActivitySetModelImpl._setOriginalClassNameId = false;
+		_originalClassPK = _classPK;
 
-		socialActivitySetModelImpl._originalClassPK =
-			socialActivitySetModelImpl._classPK;
+		_setOriginalClassPK = false;
 
-		socialActivitySetModelImpl._setOriginalClassPK = false;
+		_originalType = _type;
 
-		socialActivitySetModelImpl._originalType =
-			socialActivitySetModelImpl._type;
+		_setOriginalType = false;
 
-		socialActivitySetModelImpl._setOriginalType = false;
-
-		socialActivitySetModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

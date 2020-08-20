@@ -597,8 +597,6 @@ public class GadgetModelImpl
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
-
 		_name = name;
 	}
 
@@ -764,19 +762,17 @@ public class GadgetModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		GadgetModelImpl gadgetModelImpl = this;
+		_originalUuid = _uuid;
 
-		gadgetModelImpl._originalUuid = gadgetModelImpl._uuid;
+		_originalCompanyId = _companyId;
 
-		gadgetModelImpl._originalCompanyId = gadgetModelImpl._companyId;
+		_setOriginalCompanyId = false;
 
-		gadgetModelImpl._setOriginalCompanyId = false;
+		_setModifiedDate = false;
 
-		gadgetModelImpl._setModifiedDate = false;
+		_originalUrl = _url;
 
-		gadgetModelImpl._originalUrl = gadgetModelImpl._url;
-
-		gadgetModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override
