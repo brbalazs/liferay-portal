@@ -92,3 +92,8 @@ be46bf95ac702f75000f896e3e7d4c94ebbe7047^..c0fc8eac2ec4ef4adb43733ee654bce24ea51
 # Bundle Version 2.0.36
 #
 c0fc8eac2ec4ef4adb43733ee654bce24ea51683^..7fe43ee93f09ad804e6bad1d83c6fdb047fed9ef=COMMERCE-4266
+
+#
+# Bundle Version 2.0.39
+#
+7fe43ee93f09ad804e6bad1d83c6fdb047fed9ef^..c3ee4c657792612c9b20818aa32dd65825751dd7=LPS-117975
