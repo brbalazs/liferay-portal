@@ -207,6 +207,19 @@ public class ProjectController extends BaseFaroController {
 			friendlyURL, serverLocation);
 	}
 
+	@Path("/provisioned")
+	@POST
+	@RolesAllowed(StringPool.BLANK)
+	public ProjectDisplay createProvisioned(
+			@FormParam("corpProjectUuid") String corpProjectUuid,
+			@FormParam("ownerEmailAddress") String ownerEmailAddress,
+			@FormParam("serverLocation") String serverLocation)
+		throws Exception {
+
+		return _create(
+			corpProjectUuid, null, null, null, serverLocation);
+	}
+
 	@Path("/trial")
 	@POST
 	public ProjectDisplay createTrial(
