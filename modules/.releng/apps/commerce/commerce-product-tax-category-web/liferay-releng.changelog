@@ -12,3 +12,8 @@
 # Bundle Version 1.0.23
 #
 49ce1116c1b0e18f925084e3d431a4a98290fd3b^..4f9b94eccccd6bd31a1b4ea83d84c8004738a03c=COMMERCE-2702 COMMERCE-3148
+
+#
+# Bundle Version 1.0.29
+#
+4f9b94eccccd6bd31a1b4ea83d84c8004738a03c^..cc980d88c9ddeabe30c1a23eedbc3ba3d173fb54=LPS-117975
