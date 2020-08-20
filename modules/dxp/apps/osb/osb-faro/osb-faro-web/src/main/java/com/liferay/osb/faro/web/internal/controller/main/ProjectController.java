@@ -55,10 +55,12 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserConstants;
 import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
@@ -202,9 +204,19 @@ public class ProjectController extends BaseFaroController {
 				faroProject.getGroupId(), user.getUserId()),
 			true);
 
-		return _create(
+		faroProject = _create(
 			corpProjectUuid, name, emailAddressDomainsFaroParam.getValue(),
 			friendlyURL, serverLocation);
+
+		Role role = _roleLocalService.getRole(
+			user.getCompanyId(), RoleConstants.SITE_OWNER);
+
+		_faroUserLocalService.addFaroUser(
+			user.getUserId(), faroProject.getGroupId(), user.getUserId(),
+			role.getRoleId(), user.getEmailAddress(),
+			FaroUserConstants.STATUS_APPROVED, false);
+
+		return new ProjectDisplay(faroProject, friendlyURL);
 	}
 
 	@Path("/provisioned")
@@ -216,8 +228,19 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("serverLocation") String serverLocation)
 		throws Exception {
 
-		return _create(
+		User user = getUser();
+
+		FaroProject faroProject = _create(
 			corpProjectUuid, null, null, null, serverLocation);
+
+		Role role = _roleLocalService.getRole(
+			user.getCompanyId(), RoleConstants.SITE_OWNER);
+
+		_faroUserLocalService.addFaroUser(
+			getUserId(), faroProject.getGroupId(), 0, role.getRoleId(),
+			ownerEmailAddress, FaroUserConstants.STATUS_PENDING, false);
+
+		return new ProjectDisplay(faroProject);
 	}
 
 	@Path("/trial")
@@ -835,7 +858,7 @@ public class ProjectController extends BaseFaroController {
 		}
 	}
 
-	private ProjectDisplay _create(
+	private FaroProject _create(
 			String corpProjectUuid, String name,
 			List<String> emailAddressDomains, String friendlyURL,
 			String serverLocation)
@@ -888,9 +911,7 @@ public class ProjectController extends BaseFaroController {
 
 		faroProject.setWeDeployKey(weDeployKey);
 
-		return new ProjectDisplay(
-			_faroProjectLocalService.updateFaroProject(faroProject),
-			friendlyURL);
+		return _faroProjectLocalService.updateFaroProject(faroProject);
 	}
 
 	private ProjectDisplay _createUnprovisioned(
@@ -1029,5 +1050,8 @@ public class ProjectController extends BaseFaroController {
 		policyOption = ReferencePolicyOption.GREEDY
 	)
 	private volatile ProvisioningClient _provisioningClient;
+
+	@Reference
+	private RoleLocalService _roleLocalService;
 
 }
