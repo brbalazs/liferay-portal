@@ -51,7 +51,6 @@ definition {
 	@priority = "4"
 	test PublishArticleCreatedByDeletedUserAfterUpgrade70106 {
 		property data.archive.type = "data-archive-staging-with-deleted-user";
-		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
 		property portal.version = "7.0.10.6";
 
 		WebContent.openWebContentAdmin(siteURLKey = "site-name-staging");
@@ -119,7 +118,6 @@ definition {
 	@priority = "5"
 	test ViewStagingDefaultSettingAfterUpgrade70106 {
 		property data.archive.type = "data-archive-staging-with-default-setting";
-		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
 		property portal.version = "7.0.10.6";
 
 		Staging.openStagingAdmin(siteURLKey = "site-name-staging");
