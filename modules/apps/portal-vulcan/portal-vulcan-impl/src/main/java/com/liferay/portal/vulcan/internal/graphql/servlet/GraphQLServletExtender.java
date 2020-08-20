@@ -282,6 +282,14 @@ public class GraphQLServletExtender {
 			};
 
 		GraphQLTypeRetriever graphQLTypeRetriever = new GraphQLTypeRetriever() {
+			{
+				setExtensionsHandler(graphQLExtensionsHandler);
+				setFieldSearchAlgorithm(parentalSearch);
+				setGraphQLFieldRetriever(_graphQLFieldRetriever);
+				setGraphQLInterfaceRetriever(graphQLInterfaceRetriever);
+				setGraphQLObjectInfoRetriever(graphQLObjectInfoRetriever);
+				setMethodSearchAlgorithm(breadthFirstSearch);
+			}
 
 			public GraphQLType getGraphQLType(
 					Class<?> clazz,
@@ -469,14 +477,6 @@ public class GraphQLServletExtender {
 
 			private final Set<String> _classNames = new HashSet<>();
 
-			{
-				setExtensionsHandler(graphQLExtensionsHandler);
-				setFieldSearchAlgorithm(parentalSearch);
-				setGraphQLFieldRetriever(_graphQLFieldRetriever);
-				setGraphQLInterfaceRetriever(graphQLInterfaceRetriever);
-				setGraphQLObjectInfoRetriever(graphQLObjectInfoRetriever);
-				setMethodSearchAlgorithm(breadthFirstSearch);
-			}
 		};
 
 		// Handle Circular reference between GraphQLInterfaceRetriever and
