@@ -196,58 +196,15 @@ public class ProjectController extends BaseFaroController {
 			corpProjectUuid, new String[] {user.getUserUuid()},
 			CorpProjectConstants.ROLE_OWNER);
 
-		OSBAccountEntry osbAccountEntry =
-			_provisioningClient.getOSBAccountEntry(corpProjectUuid);
-
-		FaroSubscriptionDisplay faroSubscriptionDisplay =
-			new FaroSubscriptionDisplay(osbAccountEntry);
-
-		try {
-			faroProject = _faroProjectLocalService.addFaroProject(
-				user.getUserId(), name, osbAccountEntry.getDossieraAccountKey(),
-				osbAccountEntry.getCorpEntryName(), osbAccountEntry.getName(),
-				corpProjectUuid, emailAddressDomainsFaroParam.getValue(),
-				friendlyURL, serverLocation, JSONConstants.NULL_JSON_ARRAY,
-				ProjectConstants.STATE_NOT_READY,
-				JSONUtil.writeValueAsString(faroSubscriptionDisplay), null);
-		}
-		catch (EmailAddressDomainException eade) {
-			throw new FaroValidationException(
-				"emailAddressDomains",
-				getEmailAddressDomainsErrorMessage(
-					eade.getInvalidEmailAddressDomains()));
-		}
-		catch (GroupFriendlyURLException gfurle) {
-			_log.error(gfurle, gfurle);
-
-			throw new FaroValidationException(
-				"friendlyURL",
-				getFriendlyURLErrorMessage(gfurle.getType(), user));
-		}
-
 		_hubSpotEngineClient.submitWorkspaceUserForm(
 			faroProject,
 			_faroUserLocalService.getFaroUser(
 				faroProject.getGroupId(), user.getUserId()),
 			true);
 
-		String weDeployKey = null;
-
-		if (corpProjectUuid.equals(_PROJECT_ID)) {
-			weDeployKey = _DEFAULT_WE_DEPLOY_KEY;
-		}
-		else {
-			Workspace workspace = workspaceEngineClient.createWorkspace(
-				serverLocation, faroProject.isTrial());
-
-			weDeployKey = workspace.getWeDeployKey();
-		}
-
-		faroProject.setWeDeployKey(weDeployKey);
-
-		return new ProjectDisplay(
-			_faroProjectLocalService.updateFaroProject(faroProject),
-			friendlyURL);
+		return _create(
+			corpProjectUuid, name, emailAddressDomainsFaroParam.getValue(),
+			friendlyURL, serverLocation);
 	}
 
 	@Path("/trial")
@@ -863,6 +820,64 @@ public class ProjectController extends BaseFaroController {
 			throw new FaroValidationException(
 				"friendlyURL", getFriendlyURLErrorMessage(0, getUser()));
 		}
+	}
+
+	private ProjectDisplay _create(
+			String corpProjectUuid, String name,
+			List<String> emailAddressDomains, String friendlyURL,
+			String serverLocation)
+		throws Exception {
+
+		OSBAccountEntry osbAccountEntry =
+			_provisioningClient.getOSBAccountEntry(corpProjectUuid);
+
+		FaroSubscriptionDisplay faroSubscriptionDisplay =
+			new FaroSubscriptionDisplay(osbAccountEntry);
+
+		User user = getUser();
+
+		FaroProject faroProject = null;
+
+		try {
+			faroProject = _faroProjectLocalService.addFaroProject(
+				user.getUserId(), name, osbAccountEntry.getDossieraAccountKey(),
+				osbAccountEntry.getCorpEntryName(), osbAccountEntry.getName(),
+				corpProjectUuid, emailAddressDomains, friendlyURL,
+				serverLocation, JSONConstants.NULL_JSON_ARRAY,
+				ProjectConstants.STATE_NOT_READY,
+				JSONUtil.writeValueAsString(faroSubscriptionDisplay), null);
+		}
+		catch (EmailAddressDomainException eade) {
+			throw new FaroValidationException(
+				"emailAddressDomains",
+				getEmailAddressDomainsErrorMessage(
+					eade.getInvalidEmailAddressDomains()));
+		}
+		catch (GroupFriendlyURLException gfurle) {
+			_log.error(gfurle, gfurle);
+
+			throw new FaroValidationException(
+				"friendlyURL",
+				getFriendlyURLErrorMessage(gfurle.getType(), user));
+		}
+
+		String weDeployKey = null;
+
+		if (corpProjectUuid.equals(_PROJECT_ID)) {
+			weDeployKey = _DEFAULT_WE_DEPLOY_KEY;
+		}
+		else {
+			Workspace workspace = workspaceEngineClient.createWorkspace(
+				serverLocation, faroProject.isTrial());
+
+			weDeployKey = workspace.getWeDeployKey();
+		}
+
+		faroProject.setWeDeployKey(weDeployKey);
+
+		return new ProjectDisplay(
+			_faroProjectLocalService.updateFaroProject(faroProject),
+			friendlyURL);
 	}
 
 	private ProjectDisplay _createUnprovisioned(
