@@ -1147,26 +1147,21 @@ public class FaroProjectModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		FaroProjectModelImpl faroProjectModelImpl = this;
+		_originalGroupId = _groupId;
 
-		faroProjectModelImpl._originalGroupId = faroProjectModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		faroProjectModelImpl._setOriginalGroupId = false;
+		_originalUserId = _userId;
 
-		faroProjectModelImpl._originalUserId = faroProjectModelImpl._userId;
+		_setOriginalUserId = false;
 
-		faroProjectModelImpl._setOriginalUserId = false;
+		_originalCorpProjectUuid = _corpProjectUuid;
 
-		faroProjectModelImpl._originalCorpProjectUuid =
-			faroProjectModelImpl._corpProjectUuid;
+		_originalServerLocation = _serverLocation;
 
-		faroProjectModelImpl._originalServerLocation =
-			faroProjectModelImpl._serverLocation;
+		_originalWeDeployKey = _weDeployKey;
 
-		faroProjectModelImpl._originalWeDeployKey =
-			faroProjectModelImpl._weDeployKey;
-
-		faroProjectModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

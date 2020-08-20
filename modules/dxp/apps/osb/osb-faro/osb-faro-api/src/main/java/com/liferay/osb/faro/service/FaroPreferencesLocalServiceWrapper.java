@@ -36,6 +36,10 @@ public class FaroPreferencesLocalServiceWrapper
 	/**
 	 * Adds the faro preferences to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroPreferencesLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param faroPreferences the faro preferences
 	 * @return the faro preferences that was added
 	 */
@@ -63,6 +67,10 @@ public class FaroPreferencesLocalServiceWrapper
 	/**
 	 * Deletes the faro preferences from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroPreferencesLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param faroPreferences the faro preferences
 	 * @return the faro preferences that was removed
 	 */
@@ -76,6 +84,10 @@ public class FaroPreferencesLocalServiceWrapper
 
 	/**
 	 * Deletes the faro preferences with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroPreferencesLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param faroPreferencesId the primary key of the faro preferences
 	 * @return the faro preferences that was removed
@@ -313,6 +325,10 @@ public class FaroPreferencesLocalServiceWrapper
 
 	/**
 	 * Updates the faro preferences in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroPreferencesLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param faroPreferences the faro preferences
 	 * @return the faro preferences that was updated

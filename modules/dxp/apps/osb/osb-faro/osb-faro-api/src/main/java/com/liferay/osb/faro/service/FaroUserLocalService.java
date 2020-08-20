@@ -58,12 +58,16 @@ public interface FaroUserLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link FaroUserLocalServiceUtil} to access the faro user local service. Add custom service methods to <code>com.liferay.osb.faro.service.impl.FaroUserLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.osb.faro.service.impl.FaroUserLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the faro user local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link FaroUserLocalServiceUtil} if injection and service tracking are not available.
 	 */
 	public List<FaroUser> acceptInvitations(long userId, String key);
 
 	/**
 	 * Adds the faro user to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroUserLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param faroUser the faro user
 	 * @return the faro user that was added
@@ -88,6 +92,10 @@ public interface FaroUserLocalService
 	/**
 	 * Deletes the faro user from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroUserLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param faroUser the faro user
 	 * @return the faro user that was removed
 	 */
@@ -96,6 +104,10 @@ public interface FaroUserLocalService
 
 	/**
 	 * Deletes the faro user with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroUserLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param faroUserId the primary key of the faro user
 	 * @return the faro user that was removed
@@ -254,6 +266,10 @@ public interface FaroUserLocalService
 
 	/**
 	 * Updates the faro user in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroUserLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param faroUser the faro user
 	 * @return the faro user that was updated

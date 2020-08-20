@@ -36,6 +36,10 @@ public class FaroProjectLocalServiceWrapper
 	/**
 	 * Adds the faro project to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroProjectLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param faroProject the faro project
 	 * @return the faro project that was added
 	 */
@@ -77,6 +81,10 @@ public class FaroProjectLocalServiceWrapper
 	/**
 	 * Deletes the faro project from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroProjectLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param faroProject the faro project
 	 * @return the faro project that was removed
 	 */
@@ -89,6 +97,10 @@ public class FaroProjectLocalServiceWrapper
 
 	/**
 	 * Deletes the faro project with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroProjectLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param faroProjectId the primary key of the faro project
 	 * @return the faro project that was removed
@@ -373,6 +385,10 @@ public class FaroProjectLocalServiceWrapper
 
 	/**
 	 * Updates the faro project in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroProjectLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param faroProject the faro project
 	 * @return the faro project that was updated

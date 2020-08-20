@@ -73,6 +73,10 @@ public abstract class FaroProjectEmailAddressDomainLocalServiceBaseImpl
 	/**
 	 * Adds the faro project email address domain to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroProjectEmailAddressDomainLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param faroProjectEmailAddressDomain the faro project email address domain
 	 * @return the faro project email address domain that was added
 	 */
@@ -105,6 +109,10 @@ public abstract class FaroProjectEmailAddressDomainLocalServiceBaseImpl
 	/**
 	 * Deletes the faro project email address domain with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroProjectEmailAddressDomainLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param faroProjectEmailAddressDomainId the primary key of the faro project email address domain
 	 * @return the faro project email address domain that was removed
 	 * @throws PortalException if a faro project email address domain with the primary key could not be found
@@ -121,6 +129,10 @@ public abstract class FaroProjectEmailAddressDomainLocalServiceBaseImpl
 
 	/**
 	 * Deletes the faro project email address domain from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroProjectEmailAddressDomainLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param faroProjectEmailAddressDomain the faro project email address domain
 	 * @return the faro project email address domain that was removed
@@ -353,6 +365,10 @@ public abstract class FaroProjectEmailAddressDomainLocalServiceBaseImpl
 
 	/**
 	 * Updates the faro project email address domain in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroProjectEmailAddressDomainLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param faroProjectEmailAddressDomain the faro project email address domain
 	 * @return the faro project email address domain that was updated

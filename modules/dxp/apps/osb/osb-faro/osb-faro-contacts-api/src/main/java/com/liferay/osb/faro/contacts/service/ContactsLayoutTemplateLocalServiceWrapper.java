@@ -37,6 +37,10 @@ public class ContactsLayoutTemplateLocalServiceWrapper
 	/**
 	 * Adds the contacts layout template to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactsLayoutTemplateLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param contactsLayoutTemplate the contacts layout template
 	 * @return the contacts layout template that was added
 	 */
@@ -78,6 +82,10 @@ public class ContactsLayoutTemplateLocalServiceWrapper
 	/**
 	 * Deletes the contacts layout template from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactsLayoutTemplateLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param contactsLayoutTemplate the contacts layout template
 	 * @return the contacts layout template that was removed
 	 */
@@ -93,6 +101,10 @@ public class ContactsLayoutTemplateLocalServiceWrapper
 
 	/**
 	 * Deletes the contacts layout template with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactsLayoutTemplateLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param contactsLayoutTemplateId the primary key of the contacts layout template
 	 * @return the contacts layout template that was removed
@@ -321,6 +333,10 @@ public class ContactsLayoutTemplateLocalServiceWrapper
 
 	/**
 	 * Updates the contacts layout template in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactsLayoutTemplateLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param contactsLayoutTemplate the contacts layout template
 	 * @return the contacts layout template that was updated

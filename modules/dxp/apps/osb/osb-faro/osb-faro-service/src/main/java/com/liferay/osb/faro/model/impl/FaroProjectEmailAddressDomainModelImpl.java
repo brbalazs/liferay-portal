@@ -554,21 +554,15 @@ public class FaroProjectEmailAddressDomainModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		FaroProjectEmailAddressDomainModelImpl
-			faroProjectEmailAddressDomainModelImpl = this;
+		_originalGroupId = _groupId;
 
-		faroProjectEmailAddressDomainModelImpl._originalGroupId =
-			faroProjectEmailAddressDomainModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		faroProjectEmailAddressDomainModelImpl._setOriginalGroupId = false;
+		_originalFaroProjectId = _faroProjectId;
 
-		faroProjectEmailAddressDomainModelImpl._originalFaroProjectId =
-			faroProjectEmailAddressDomainModelImpl._faroProjectId;
+		_setOriginalFaroProjectId = false;
 
-		faroProjectEmailAddressDomainModelImpl._setOriginalFaroProjectId =
-			false;
-
-		faroProjectEmailAddressDomainModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -800,19 +800,15 @@ public class ContactsLayoutTemplateModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ContactsLayoutTemplateModelImpl contactsLayoutTemplateModelImpl = this;
+		_originalGroupId = _groupId;
 
-		contactsLayoutTemplateModelImpl._originalGroupId =
-			contactsLayoutTemplateModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		contactsLayoutTemplateModelImpl._setOriginalGroupId = false;
+		_originalType = _type;
 
-		contactsLayoutTemplateModelImpl._originalType =
-			contactsLayoutTemplateModelImpl._type;
+		_setOriginalType = false;
 
-		contactsLayoutTemplateModelImpl._setOriginalType = false;
-
-		contactsLayoutTemplateModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

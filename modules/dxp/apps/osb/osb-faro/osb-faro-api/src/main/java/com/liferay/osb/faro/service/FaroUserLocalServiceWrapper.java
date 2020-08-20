@@ -42,6 +42,10 @@ public class FaroUserLocalServiceWrapper
 	/**
 	 * Adds the faro user to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroUserLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param faroUser the faro user
 	 * @return the faro user that was added
 	 */
@@ -77,6 +81,10 @@ public class FaroUserLocalServiceWrapper
 	/**
 	 * Deletes the faro user from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroUserLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param faroUser the faro user
 	 * @return the faro user that was removed
 	 */
@@ -89,6 +97,10 @@ public class FaroUserLocalServiceWrapper
 
 	/**
 	 * Deletes the faro user with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroUserLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param faroUserId the primary key of the faro user
 	 * @return the faro user that was removed
@@ -330,6 +342,10 @@ public class FaroUserLocalServiceWrapper
 
 	/**
 	 * Updates the faro user in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroUserLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param faroUser the faro user
 	 * @return the faro user that was updated

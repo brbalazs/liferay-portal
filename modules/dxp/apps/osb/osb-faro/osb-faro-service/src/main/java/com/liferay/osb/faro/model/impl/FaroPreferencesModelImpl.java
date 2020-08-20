@@ -677,19 +677,15 @@ public class FaroPreferencesModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		FaroPreferencesModelImpl faroPreferencesModelImpl = this;
+		_originalGroupId = _groupId;
 
-		faroPreferencesModelImpl._originalGroupId =
-			faroPreferencesModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		faroPreferencesModelImpl._setOriginalGroupId = false;
+		_originalOwnerId = _ownerId;
 
-		faroPreferencesModelImpl._originalOwnerId =
-			faroPreferencesModelImpl._ownerId;
+		_setOriginalOwnerId = false;
 
-		faroPreferencesModelImpl._setOriginalOwnerId = false;
-
-		faroPreferencesModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -832,26 +832,23 @@ public class FaroUserModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		FaroUserModelImpl faroUserModelImpl = this;
+		_originalGroupId = _groupId;
 
-		faroUserModelImpl._originalGroupId = faroUserModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		faroUserModelImpl._setOriginalGroupId = false;
+		_originalLiveUserId = _liveUserId;
 
-		faroUserModelImpl._originalLiveUserId = faroUserModelImpl._liveUserId;
+		_setOriginalLiveUserId = false;
 
-		faroUserModelImpl._setOriginalLiveUserId = false;
+		_originalEmailAddress = _emailAddress;
 
-		faroUserModelImpl._originalEmailAddress =
-			faroUserModelImpl._emailAddress;
+		_originalKey = _key;
 
-		faroUserModelImpl._originalKey = faroUserModelImpl._key;
+		_originalStatus = _status;
 
-		faroUserModelImpl._originalStatus = faroUserModelImpl._status;
+		_setOriginalStatus = false;
 
-		faroUserModelImpl._setOriginalStatus = false;
-
-		faroUserModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

@@ -773,25 +773,21 @@ public class FaroChannelModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		FaroChannelModelImpl faroChannelModelImpl = this;
+		_originalGroupId = _groupId;
 
-		faroChannelModelImpl._originalGroupId = faroChannelModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		faroChannelModelImpl._setOriginalGroupId = false;
+		_originalUserId = _userId;
 
-		faroChannelModelImpl._originalUserId = faroChannelModelImpl._userId;
+		_setOriginalUserId = false;
 
-		faroChannelModelImpl._setOriginalUserId = false;
+		_originalChannelId = _channelId;
 
-		faroChannelModelImpl._originalChannelId =
-			faroChannelModelImpl._channelId;
+		_originalWorkspaceGroupId = _workspaceGroupId;
 
-		faroChannelModelImpl._originalWorkspaceGroupId =
-			faroChannelModelImpl._workspaceGroupId;
+		_setOriginalWorkspaceGroupId = false;
 
-		faroChannelModelImpl._setOriginalWorkspaceGroupId = false;
-
-		faroChannelModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

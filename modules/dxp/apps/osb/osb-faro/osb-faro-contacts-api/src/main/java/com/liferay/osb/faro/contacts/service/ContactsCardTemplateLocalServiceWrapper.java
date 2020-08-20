@@ -36,6 +36,10 @@ public class ContactsCardTemplateLocalServiceWrapper
 	/**
 	 * Adds the contacts card template to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactsCardTemplateLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param contactsCardTemplate the contacts card template
 	 * @return the contacts card template that was added
 	 */
@@ -75,6 +79,10 @@ public class ContactsCardTemplateLocalServiceWrapper
 	/**
 	 * Deletes the contacts card template from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactsCardTemplateLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param contactsCardTemplate the contacts card template
 	 * @return the contacts card template that was removed
 	 */
@@ -90,6 +98,10 @@ public class ContactsCardTemplateLocalServiceWrapper
 
 	/**
 	 * Deletes the contacts card template with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactsCardTemplateLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param contactsCardTemplateId the primary key of the contacts card template
 	 * @return the contacts card template that was removed
@@ -316,6 +328,10 @@ public class ContactsCardTemplateLocalServiceWrapper
 
 	/**
 	 * Updates the contacts card template in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactsCardTemplateLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param contactsCardTemplate the contacts card template
 	 * @return the contacts card template that was updated

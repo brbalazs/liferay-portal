@@ -718,14 +718,11 @@ public class ContactsCardTemplateModelImpl
 
 	@Override
 	public void resetOriginalValues() {
-		ContactsCardTemplateModelImpl contactsCardTemplateModelImpl = this;
+		_originalGroupId = _groupId;
 
-		contactsCardTemplateModelImpl._originalGroupId =
-			contactsCardTemplateModelImpl._groupId;
+		_setOriginalGroupId = false;
 
-		contactsCardTemplateModelImpl._setOriginalGroupId = false;
-
-		contactsCardTemplateModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override

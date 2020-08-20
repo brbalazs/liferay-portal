@@ -58,11 +58,15 @@ public interface ContactsCardTemplateLocalService
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link ContactsCardTemplateLocalServiceUtil} to access the contacts card template local service. Add custom service methods to <code>com.liferay.osb.faro.contacts.service.impl.ContactsCardTemplateLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.osb.faro.contacts.service.impl.ContactsCardTemplateLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the contacts card template local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ContactsCardTemplateLocalServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**
 	 * Adds the contacts card template to the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactsCardTemplateLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param contactsCardTemplate the contacts card template
 	 * @return the contacts card template that was added
@@ -87,6 +91,10 @@ public interface ContactsCardTemplateLocalService
 	/**
 	 * Deletes the contacts card template from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactsCardTemplateLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param contactsCardTemplate the contacts card template
 	 * @return the contacts card template that was removed
 	 */
@@ -96,6 +104,10 @@ public interface ContactsCardTemplateLocalService
 
 	/**
 	 * Deletes the contacts card template with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactsCardTemplateLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param contactsCardTemplateId the primary key of the contacts card template
 	 * @return the contacts card template that was removed
@@ -247,6 +259,10 @@ public interface ContactsCardTemplateLocalService
 
 	/**
 	 * Updates the contacts card template in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect ContactsCardTemplateLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param contactsCardTemplate the contacts card template
 	 * @return the contacts card template that was updated

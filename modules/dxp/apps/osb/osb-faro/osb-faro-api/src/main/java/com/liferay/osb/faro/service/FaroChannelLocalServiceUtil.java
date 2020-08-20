@@ -41,6 +41,10 @@ public class FaroChannelLocalServiceUtil {
 	/**
 	 * Adds the faro channel to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param faroChannel the faro channel
 	 * @return the faro channel that was added
 	 */
@@ -90,6 +94,10 @@ public class FaroChannelLocalServiceUtil {
 	/**
 	 * Deletes the faro channel from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param faroChannel the faro channel
 	 * @return the faro channel that was removed
 	 * @throws PortalException
@@ -103,6 +111,10 @@ public class FaroChannelLocalServiceUtil {
 
 	/**
 	 * Deletes the faro channel with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param faroChannelId the primary key of the faro channel
 	 * @return the faro channel that was removed
@@ -344,6 +356,10 @@ public class FaroChannelLocalServiceUtil {
 
 	/**
 	 * Updates the faro channel in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect FaroChannelLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param faroChannel the faro channel
 	 * @return the faro channel that was updated
