@@ -8,12 +8,13 @@ import {LAST_30_DAYS} from 'shared/util/constants';
 
 const {entityTypes} = faroConstants;
 
-Object.assign(API.activities.fetchGroup, () =>
-	Promise.resolve({
-		items: [data.mockActivity(2)],
-		total: 1
-	})
-);
+Object.assign(API.activities, {
+	fetchGroup: () =>
+		Promise.resolve({
+			items: [data.mockActivity(2)],
+			total: 1
+		})
+});
 
 const activityHistory = Array.from({length: 30}, (_, i) => ({
 	intervalInitDate: new Date(2019, 0, i + 1).getTime(),
