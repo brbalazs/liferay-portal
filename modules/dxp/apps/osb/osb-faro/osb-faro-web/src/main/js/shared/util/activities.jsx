@@ -58,19 +58,19 @@ function formatActivities(activities, groupId, channelId) {
 			({
 				action,
 				assetType,
+				canonicalUrl,
 				dataSourceAssetPK,
 				id,
 				name,
-				startTime,
-				url
+				startTime
 			}) => {
 				const assetRoute = getAssetRoute(assetType);
 
 				const assetURL = assetRoute
 					? `${toRoute(assetRoute, {
 							assetId:
-								assetType === assetTypes.webPage && url
-									? url
+								assetType === assetTypes.webPage && canonicalUrl
+									? canonicalUrl
 									: dataSourceAssetPK,
 							channelId,
 							groupId,
@@ -78,14 +78,14 @@ function formatActivities(activities, groupId, channelId) {
 							touchpoint:
 								assetType !== assetTypes.webPage
 									? 'Any'
-									: url
-									? encodeURIComponent(url)
+									: canonicalUrl
+									? encodeURIComponent(canonicalUrl)
 									: dataSourceAssetPK
 					  })}`
 					: null;
 
 				return {
-					subtitle: url,
+					subtitle: canonicalUrl,
 					symbol: getObjectTypeIcon(assetType),
 					time: startTime,
 					title: sub(
