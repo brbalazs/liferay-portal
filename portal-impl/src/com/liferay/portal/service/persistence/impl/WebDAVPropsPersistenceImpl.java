@@ -608,7 +608,7 @@ public class WebDAVPropsPersistenceImpl
 		try {
 			session = openSession();
 
-			if (webDAVProps.isNew()) {
+			if (isNew) {
 				session.save(webDAVProps);
 
 				webDAVProps.setNew(false);
@@ -1077,6 +1077,7 @@ public class WebDAVPropsPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(WebDAVPropsImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

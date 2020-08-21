@@ -2690,7 +2690,7 @@ public class TrashEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (trashEntry.isNew()) {
+			if (isNew) {
 				session.save(trashEntry);
 
 				trashEntry.setNew(false);
@@ -3327,6 +3327,7 @@ public class TrashEntryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(TrashEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -3338,7 +3339,7 @@ public class TrashEntryPersistenceImpl
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
-	private Long _getTime(Date date) {
+	private static Long _getTime(Date date) {
 		if (date == null) {
 			return null;
 		}

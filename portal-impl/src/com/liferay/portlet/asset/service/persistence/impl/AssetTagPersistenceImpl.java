@@ -5794,7 +5794,7 @@ public class AssetTagPersistenceImpl
 		try {
 			session = openSession();
 
-			if (assetTag.isNew()) {
+			if (isNew) {
 				session.save(assetTag);
 
 				assetTag.setNew(false);
@@ -6831,6 +6831,7 @@ public class AssetTagPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(AssetTagImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

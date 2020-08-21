@@ -2070,7 +2070,7 @@ public class CommerceAvailabilityEstimatePersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceAvailabilityEstimate.isNew()) {
+			if (isNew) {
 				session.save(commerceAvailabilityEstimate);
 
 				commerceAvailabilityEstimate.setNew(false);
@@ -2726,6 +2726,7 @@ public class CommerceAvailabilityEstimatePersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			CommerceAvailabilityEstimateImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -6619,7 +6619,7 @@ public class SocialRequestPersistenceImpl
 		try {
 			session = openSession();
 
-			if (socialRequest.isNew()) {
+			if (isNew) {
 				session.save(socialRequest);
 
 				socialRequest.setNew(false);
@@ -7712,6 +7712,7 @@ public class SocialRequestPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(SocialRequestImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

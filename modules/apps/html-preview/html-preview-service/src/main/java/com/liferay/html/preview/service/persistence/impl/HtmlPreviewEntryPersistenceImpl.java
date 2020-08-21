@@ -664,7 +664,7 @@ public class HtmlPreviewEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (htmlPreviewEntry.isNew()) {
+			if (isNew) {
 				session.save(htmlPreviewEntry);
 
 				htmlPreviewEntry.setNew(false);
@@ -1145,6 +1145,7 @@ public class HtmlPreviewEntryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(HtmlPreviewEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

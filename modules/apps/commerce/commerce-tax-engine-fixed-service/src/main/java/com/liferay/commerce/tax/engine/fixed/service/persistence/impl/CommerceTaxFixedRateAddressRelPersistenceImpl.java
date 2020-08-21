@@ -1974,7 +1974,7 @@ public class CommerceTaxFixedRateAddressRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceTaxFixedRateAddressRel.isNew()) {
+			if (isNew) {
 				session.save(commerceTaxFixedRateAddressRel);
 
 				commerceTaxFixedRateAddressRel.setNew(false);
@@ -2645,6 +2645,7 @@ public class CommerceTaxFixedRateAddressRelPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			CommerceTaxFixedRateAddressRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

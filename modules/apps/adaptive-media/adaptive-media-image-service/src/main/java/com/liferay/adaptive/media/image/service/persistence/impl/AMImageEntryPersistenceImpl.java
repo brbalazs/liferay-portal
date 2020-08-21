@@ -4719,7 +4719,7 @@ public class AMImageEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (amImageEntry.isNew()) {
+			if (isNew) {
 				session.save(amImageEntry);
 
 				amImageEntry.setNew(false);
@@ -5557,6 +5557,7 @@ public class AMImageEntryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(AMImageEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

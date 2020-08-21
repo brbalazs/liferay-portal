@@ -837,7 +837,7 @@ public class CPTaxCategoryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (cpTaxCategory.isNew()) {
+			if (isNew) {
 				session.save(cpTaxCategory);
 
 				cpTaxCategory.setNew(false);
@@ -1344,6 +1344,7 @@ public class CPTaxCategoryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CPTaxCategoryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

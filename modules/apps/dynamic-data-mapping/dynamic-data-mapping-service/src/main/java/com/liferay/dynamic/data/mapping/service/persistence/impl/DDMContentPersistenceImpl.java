@@ -2780,7 +2780,7 @@ public class DDMContentPersistenceImpl
 		try {
 			session = openSession();
 
-			if (ddmContent.isNew()) {
+			if (isNew) {
 				session.save(ddmContent);
 
 				ddmContent.setNew(false);
@@ -3450,6 +3450,7 @@ public class DDMContentPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(DDMContentImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

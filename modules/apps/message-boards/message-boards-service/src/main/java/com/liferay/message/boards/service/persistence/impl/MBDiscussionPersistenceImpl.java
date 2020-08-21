@@ -2789,7 +2789,7 @@ public class MBDiscussionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (mbDiscussion.isNew()) {
+			if (isNew) {
 				session.save(mbDiscussion);
 
 				mbDiscussion.setNew(false);
@@ -3439,6 +3439,7 @@ public class MBDiscussionPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(MBDiscussionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

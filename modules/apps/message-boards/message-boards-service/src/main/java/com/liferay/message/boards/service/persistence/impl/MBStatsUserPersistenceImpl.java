@@ -2143,7 +2143,7 @@ public class MBStatsUserPersistenceImpl
 		try {
 			session = openSession();
 
-			if (mbStatsUser.isNew()) {
+			if (isNew) {
 				session.save(mbStatsUser);
 
 				mbStatsUser.setNew(false);
@@ -2726,6 +2726,7 @@ public class MBStatsUserPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(MBStatsUserImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

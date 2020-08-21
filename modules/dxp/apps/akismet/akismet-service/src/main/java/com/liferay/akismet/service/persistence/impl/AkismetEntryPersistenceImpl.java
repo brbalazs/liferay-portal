@@ -1152,7 +1152,7 @@ public class AkismetEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (akismetEntry.isNew()) {
+			if (isNew) {
 				session.save(akismetEntry);
 
 				akismetEntry.setNew(false);
@@ -1639,6 +1639,7 @@ public class AkismetEntryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(AkismetEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -1650,7 +1651,7 @@ public class AkismetEntryPersistenceImpl
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
-	private Long _getTime(Date date) {
+	private static Long _getTime(Date date) {
 		if (date == null) {
 			return null;
 		}

@@ -5644,7 +5644,7 @@ public class LayoutFriendlyURLPersistenceImpl
 		try {
 			session = openSession();
 
-			if (layoutFriendlyURL.isNew()) {
+			if (isNew) {
 				session.save(layoutFriendlyURL);
 
 				layoutFriendlyURL.setNew(false);
@@ -6605,6 +6605,7 @@ public class LayoutFriendlyURLPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(LayoutFriendlyURLImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

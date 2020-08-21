@@ -2209,7 +2209,7 @@ public class CommerceBOMFolderPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceBOMFolder.isNew()) {
+			if (isNew) {
 				session.save(commerceBOMFolder);
 
 				commerceBOMFolder.setNew(false);
@@ -2783,6 +2783,7 @@ public class CommerceBOMFolderPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceBOMFolderImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

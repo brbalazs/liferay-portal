@@ -4853,7 +4853,7 @@ public class CommerceNotificationTemplatePersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceNotificationTemplate.isNew()) {
+			if (isNew) {
 				session.save(commerceNotificationTemplate);
 
 				commerceNotificationTemplate.setNew(false);
@@ -5662,6 +5662,7 @@ public class CommerceNotificationTemplatePersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			CommerceNotificationTemplateImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

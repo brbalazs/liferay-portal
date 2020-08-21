@@ -5055,7 +5055,7 @@ public class CPDefinitionOptionRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (cpDefinitionOptionRel.isNew()) {
+			if (isNew) {
 				session.save(cpDefinitionOptionRel);
 
 				cpDefinitionOptionRel.setNew(false);
@@ -5966,6 +5966,7 @@ public class CPDefinitionOptionRelPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CPDefinitionOptionRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

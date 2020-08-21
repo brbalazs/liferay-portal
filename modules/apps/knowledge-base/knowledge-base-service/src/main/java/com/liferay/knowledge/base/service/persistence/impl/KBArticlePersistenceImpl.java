@@ -34262,7 +34262,7 @@ public class KBArticlePersistenceImpl
 		try {
 			session = openSession();
 
-			if (kbArticle.isNew()) {
+			if (isNew) {
 				session.save(kbArticle);
 
 				kbArticle.setNew(false);
@@ -36567,6 +36567,7 @@ public class KBArticlePersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(KBArticleImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

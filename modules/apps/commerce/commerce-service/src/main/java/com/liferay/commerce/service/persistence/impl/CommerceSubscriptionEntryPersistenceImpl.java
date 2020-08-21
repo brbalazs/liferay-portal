@@ -5156,7 +5156,7 @@ public class CommerceSubscriptionEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceSubscriptionEntry.isNew()) {
+			if (isNew) {
 				session.save(commerceSubscriptionEntry);
 
 				commerceSubscriptionEntry.setNew(false);
@@ -6100,6 +6100,7 @@ public class CommerceSubscriptionEntryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceSubscriptionEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

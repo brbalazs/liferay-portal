@@ -3101,7 +3101,7 @@ public class ExportImportConfigurationPersistenceImpl
 		try {
 			session = openSession();
 
-			if (exportImportConfiguration.isNew()) {
+			if (isNew) {
 				session.save(exportImportConfiguration);
 
 				exportImportConfiguration.setNew(false);
@@ -3881,6 +3881,7 @@ public class ExportImportConfigurationPersistenceImpl
 	public void destroy() {
 		EntityCacheUtil.removeCache(
 			ExportImportConfigurationImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

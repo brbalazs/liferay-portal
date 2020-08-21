@@ -3621,7 +3621,7 @@ public class CommerceAccountGroupPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceAccountGroup.isNew()) {
+			if (isNew) {
 				session.save(commerceAccountGroup);
 
 				commerceAccountGroup.setNew(false);
@@ -4295,6 +4295,7 @@ public class CommerceAccountGroupPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceAccountGroupImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

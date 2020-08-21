@@ -3636,7 +3636,7 @@ public class CommercePricingClassPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commercePricingClass.isNew()) {
+			if (isNew) {
 				session.save(commercePricingClass);
 
 				commercePricingClass.setNew(false);
@@ -4288,6 +4288,7 @@ public class CommercePricingClassPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommercePricingClassImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

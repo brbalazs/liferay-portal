@@ -2452,7 +2452,7 @@ public class MembershipRequestPersistenceImpl
 		try {
 			session = openSession();
 
-			if (membershipRequest.isNew()) {
+			if (isNew) {
 				session.save(membershipRequest);
 
 				membershipRequest.setNew(false);
@@ -3143,6 +3143,7 @@ public class MembershipRequestPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(MembershipRequestImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

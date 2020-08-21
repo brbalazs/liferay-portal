@@ -1999,7 +1999,7 @@ public class ExpandoColumnPersistenceImpl
 		try {
 			session = openSession();
 
-			if (expandoColumn.isNew()) {
+			if (isNew) {
 				session.save(expandoColumn);
 
 				expandoColumn.setNew(false);
@@ -2586,6 +2586,7 @@ public class ExpandoColumnPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(ExpandoColumnImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

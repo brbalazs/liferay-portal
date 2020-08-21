@@ -3061,7 +3061,7 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (ddmFormInstanceRecordVersion.isNew()) {
+			if (isNew) {
 				session.save(ddmFormInstanceRecordVersion);
 
 				ddmFormInstanceRecordVersion.setNew(false);
@@ -3828,6 +3828,7 @@ public class DDMFormInstanceRecordVersionPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			DDMFormInstanceRecordVersionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

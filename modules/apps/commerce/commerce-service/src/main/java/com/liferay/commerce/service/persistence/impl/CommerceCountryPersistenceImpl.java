@@ -4317,7 +4317,7 @@ public class CommerceCountryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceCountry.isNew()) {
+			if (isNew) {
 				session.save(commerceCountry);
 
 				commerceCountry.setNew(false);
@@ -5168,6 +5168,7 @@ public class CommerceCountryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceCountryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -346,7 +346,7 @@ public class AccountPersistenceImpl
 		try {
 			session = openSession();
 
-			if (account.isNew()) {
+			if (isNew) {
 				session.save(account);
 
 				account.setNew(false);
@@ -797,6 +797,7 @@ public class AccountPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(AccountImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

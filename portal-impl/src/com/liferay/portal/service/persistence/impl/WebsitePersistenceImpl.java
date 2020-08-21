@@ -4224,7 +4224,7 @@ public class WebsitePersistenceImpl
 		try {
 			session = openSession();
 
-			if (website.isNew()) {
+			if (isNew) {
 				session.save(website);
 
 				website.setNew(false);
@@ -5070,6 +5070,7 @@ public class WebsitePersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(WebsiteImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -2013,7 +2013,7 @@ public class MemberRequestPersistenceImpl
 		try {
 			session = openSession();
 
-			if (memberRequest.isNew()) {
+			if (isNew) {
 				session.save(memberRequest);
 
 				memberRequest.setNew(false);
@@ -2625,6 +2625,7 @@ public class MemberRequestPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(MemberRequestImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

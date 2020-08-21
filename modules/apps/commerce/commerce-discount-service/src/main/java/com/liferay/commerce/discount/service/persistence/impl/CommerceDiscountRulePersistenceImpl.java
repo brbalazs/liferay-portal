@@ -890,7 +890,7 @@ public class CommerceDiscountRulePersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceDiscountRule.isNew()) {
+			if (isNew) {
 				session.save(commerceDiscountRule);
 
 				commerceDiscountRule.setNew(false);
@@ -1419,6 +1419,7 @@ public class CommerceDiscountRulePersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceDiscountRuleImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

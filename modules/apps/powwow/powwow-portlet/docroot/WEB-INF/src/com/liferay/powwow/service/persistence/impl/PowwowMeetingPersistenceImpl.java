@@ -3317,7 +3317,7 @@ public class PowwowMeetingPersistenceImpl
 		try {
 			session = openSession();
 
-			if (powwowMeeting.isNew()) {
+			if (isNew) {
 				session.save(powwowMeeting);
 
 				powwowMeeting.setNew(false);
@@ -4045,6 +4045,7 @@ public class PowwowMeetingPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(PowwowMeetingImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -1535,7 +1535,7 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceDataIntegrationProcessLog.isNew()) {
+			if (isNew) {
 				session.save(commerceDataIntegrationProcessLog);
 
 				commerceDataIntegrationProcessLog.setNew(false);
@@ -2170,6 +2170,7 @@ public class CommerceDataIntegrationProcessLogPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			CommerceDataIntegrationProcessLogImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

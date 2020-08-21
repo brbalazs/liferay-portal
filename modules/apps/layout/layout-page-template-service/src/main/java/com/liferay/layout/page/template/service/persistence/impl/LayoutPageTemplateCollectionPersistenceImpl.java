@@ -4118,7 +4118,7 @@ public class LayoutPageTemplateCollectionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (layoutPageTemplateCollection.isNew()) {
+			if (isNew) {
 				session.save(layoutPageTemplateCollection);
 
 				layoutPageTemplateCollection.setNew(false);
@@ -4826,6 +4826,7 @@ public class LayoutPageTemplateCollectionPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			LayoutPageTemplateCollectionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -2308,7 +2308,7 @@ public class AssetCategoryPropertyPersistenceImpl
 		try {
 			session = openSession();
 
-			if (assetCategoryProperty.isNew()) {
+			if (isNew) {
 				session.save(assetCategoryProperty);
 
 				assetCategoryProperty.setNew(false);
@@ -2968,6 +2968,7 @@ public class AssetCategoryPropertyPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(AssetCategoryPropertyImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

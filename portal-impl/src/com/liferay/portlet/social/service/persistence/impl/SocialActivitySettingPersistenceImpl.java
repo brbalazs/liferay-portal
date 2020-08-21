@@ -2925,7 +2925,7 @@ public class SocialActivitySettingPersistenceImpl
 		try {
 			session = openSession();
 
-			if (socialActivitySetting.isNew()) {
+			if (isNew) {
 				session.save(socialActivitySetting);
 
 				socialActivitySetting.setNew(false);
@@ -3657,6 +3657,7 @@ public class SocialActivitySettingPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(SocialActivitySettingImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

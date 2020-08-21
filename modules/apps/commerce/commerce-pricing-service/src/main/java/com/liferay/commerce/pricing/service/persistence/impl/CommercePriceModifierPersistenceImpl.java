@@ -6718,7 +6718,7 @@ public class CommercePriceModifierPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commercePriceModifier.isNew()) {
+			if (isNew) {
 				session.save(commercePriceModifier);
 
 				commercePriceModifier.setNew(false);
@@ -7652,6 +7652,7 @@ public class CommercePriceModifierPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommercePriceModifierImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -7663,7 +7664,7 @@ public class CommercePriceModifierPersistenceImpl
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
-	private Long _getTime(Date date) {
+	private static Long _getTime(Date date) {
 		if (date == null) {
 			return null;
 		}

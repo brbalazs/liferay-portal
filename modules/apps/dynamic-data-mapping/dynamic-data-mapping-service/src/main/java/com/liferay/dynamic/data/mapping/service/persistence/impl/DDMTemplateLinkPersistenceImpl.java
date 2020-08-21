@@ -1604,7 +1604,7 @@ public class DDMTemplateLinkPersistenceImpl
 		try {
 			session = openSession();
 
-			if (ddmTemplateLink.isNew()) {
+			if (isNew) {
 				session.save(ddmTemplateLink);
 
 				ddmTemplateLink.setNew(false);
@@ -2180,6 +2180,7 @@ public class DDMTemplateLinkPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(DDMTemplateLinkImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

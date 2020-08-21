@@ -1495,7 +1495,7 @@ public class CommerceShippingFixedOptionRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceShippingFixedOptionRel.isNew()) {
+			if (isNew) {
 				session.save(commerceShippingFixedOptionRel);
 
 				commerceShippingFixedOptionRel.setNew(false);
@@ -2127,6 +2127,7 @@ public class CommerceShippingFixedOptionRelPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			CommerceShippingFixedOptionRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

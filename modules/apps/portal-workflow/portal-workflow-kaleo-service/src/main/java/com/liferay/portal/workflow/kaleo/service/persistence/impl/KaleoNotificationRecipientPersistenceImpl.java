@@ -1946,7 +1946,7 @@ public class KaleoNotificationRecipientPersistenceImpl
 		try {
 			session = openSession();
 
-			if (kaleoNotificationRecipient.isNew()) {
+			if (isNew) {
 				session.save(kaleoNotificationRecipient);
 
 				kaleoNotificationRecipient.setNew(false);
@@ -2608,6 +2608,7 @@ public class KaleoNotificationRecipientPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(KaleoNotificationRecipientImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -1719,7 +1719,7 @@ public class CommerceTaxMethodPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceTaxMethod.isNew()) {
+			if (isNew) {
 				session.save(commerceTaxMethod);
 
 				commerceTaxMethod.setNew(false);
@@ -2313,6 +2313,7 @@ public class CommerceTaxMethodPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceTaxMethodImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

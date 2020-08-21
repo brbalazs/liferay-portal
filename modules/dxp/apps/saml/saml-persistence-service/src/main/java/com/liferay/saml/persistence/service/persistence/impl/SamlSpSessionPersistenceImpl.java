@@ -1755,7 +1755,7 @@ public class SamlSpSessionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (samlSpSession.isNew()) {
+			if (isNew) {
 				session.save(samlSpSession);
 
 				samlSpSession.setNew(false);
@@ -2308,6 +2308,7 @@ public class SamlSpSessionPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(SamlSpSessionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -2111,7 +2111,7 @@ public class CommerceInventoryBookedQuantityPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceInventoryBookedQuantity.isNew()) {
+			if (isNew) {
 				session.save(commerceInventoryBookedQuantity);
 
 				commerceInventoryBookedQuantity.setNew(false);
@@ -2733,6 +2733,7 @@ public class CommerceInventoryBookedQuantityPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			CommerceInventoryBookedQuantityImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -2744,7 +2745,7 @@ public class CommerceInventoryBookedQuantityPersistenceImpl
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
-	private Long _getTime(Date date) {
+	private static Long _getTime(Date date) {
 		if (date == null) {
 			return null;
 		}

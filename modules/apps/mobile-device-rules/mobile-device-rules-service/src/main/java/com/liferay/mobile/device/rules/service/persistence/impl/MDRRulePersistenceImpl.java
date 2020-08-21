@@ -2275,7 +2275,7 @@ public class MDRRulePersistenceImpl
 		try {
 			session = openSession();
 
-			if (mdrRule.isNew()) {
+			if (isNew) {
 				session.save(mdrRule);
 
 				mdrRule.setNew(false);
@@ -2895,6 +2895,7 @@ public class MDRRulePersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(MDRRuleImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -1579,7 +1579,7 @@ public class OAuth2ApplicationPersistenceImpl
 		try {
 			session = openSession();
 
-			if (oAuth2Application.isNew()) {
+			if (isNew) {
 				session.save(oAuth2Application);
 
 				oAuth2Application.setNew(false);
@@ -2111,6 +2111,7 @@ public class OAuth2ApplicationPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(OAuth2ApplicationImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

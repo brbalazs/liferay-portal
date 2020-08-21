@@ -12920,7 +12920,7 @@ public class BookmarksEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (bookmarksEntry.isNew()) {
+			if (isNew) {
 				session.save(bookmarksEntry);
 
 				bookmarksEntry.setNew(false);
@@ -13988,6 +13988,7 @@ public class BookmarksEntryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(BookmarksEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

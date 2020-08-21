@@ -7459,7 +7459,7 @@ public class ResourcePermissionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (resourcePermission.isNew()) {
+			if (isNew) {
 				session.save(resourcePermission);
 
 				resourcePermission.setNew(false);
@@ -8583,6 +8583,7 @@ public class ResourcePermissionPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(ResourcePermissionImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

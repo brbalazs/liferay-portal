@@ -276,7 +276,7 @@ public class CounterPersistenceImpl
 		try {
 			session = openSession();
 
-			if (counter.isNew()) {
+			if (isNew) {
 				session.save(counter);
 
 				counter.setNew(false);
@@ -726,6 +726,7 @@ public class CounterPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(CounterImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

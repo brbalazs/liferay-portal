@@ -3173,7 +3173,7 @@ public class CommerceNotificationQueueEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceNotificationQueueEntry.isNew()) {
+			if (isNew) {
 				session.save(commerceNotificationQueueEntry);
 
 				commerceNotificationQueueEntry.setNew(false);
@@ -3937,6 +3937,7 @@ public class CommerceNotificationQueueEntryPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			CommerceNotificationQueueEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -3948,7 +3949,7 @@ public class CommerceNotificationQueueEntryPersistenceImpl
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
-	private Long _getTime(Date date) {
+	private static Long _getTime(Date date) {
 		if (date == null) {
 			return null;
 		}

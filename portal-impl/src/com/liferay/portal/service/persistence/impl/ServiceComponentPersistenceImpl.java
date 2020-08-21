@@ -1202,7 +1202,7 @@ public class ServiceComponentPersistenceImpl
 		try {
 			session = openSession();
 
-			if (serviceComponent.isNew()) {
+			if (isNew) {
 				session.save(serviceComponent);
 
 				serviceComponent.setNew(false);
@@ -1743,6 +1743,7 @@ public class ServiceComponentPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(ServiceComponentImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

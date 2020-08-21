@@ -3373,7 +3373,7 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceInventoryReplenishmentItem.isNew()) {
+			if (isNew) {
 				session.save(commerceInventoryReplenishmentItem);
 
 				commerceInventoryReplenishmentItem.setNew(false);
@@ -4190,6 +4190,7 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			CommerceInventoryReplenishmentItemImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -4201,7 +4202,7 @@ public class CommerceInventoryReplenishmentItemPersistenceImpl
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
-	private Long _getTime(Date date) {
+	private static Long _getTime(Date date) {
 		if (date == null) {
 			return null;
 		}

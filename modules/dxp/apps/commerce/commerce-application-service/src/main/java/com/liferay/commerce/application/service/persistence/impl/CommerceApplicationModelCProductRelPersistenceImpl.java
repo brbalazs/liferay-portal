@@ -1520,7 +1520,7 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceApplicationModelCProductRel.isNew()) {
+			if (isNew) {
 				session.save(commerceApplicationModelCProductRel);
 
 				commerceApplicationModelCProductRel.setNew(false);
@@ -2156,6 +2156,7 @@ public class CommerceApplicationModelCProductRelPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			CommerceApplicationModelCProductRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

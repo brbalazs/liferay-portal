@@ -3995,7 +3995,7 @@ public class CommerceCurrencyPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceCurrency.isNew()) {
+			if (isNew) {
 				session.save(commerceCurrency);
 
 				commerceCurrency.setNew(false);
@@ -4822,6 +4822,7 @@ public class CommerceCurrencyPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceCurrencyImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

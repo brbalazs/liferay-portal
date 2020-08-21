@@ -12879,7 +12879,7 @@ public class GroupPersistenceImpl
 		try {
 			session = openSession();
 
-			if (group.isNew()) {
+			if (isNew) {
 				session.save(group);
 
 				group.setNew(false);
@@ -15587,6 +15587,7 @@ public class GroupPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(GroupImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

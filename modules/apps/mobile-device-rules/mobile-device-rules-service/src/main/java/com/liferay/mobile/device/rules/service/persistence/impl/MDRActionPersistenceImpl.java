@@ -2295,7 +2295,7 @@ public class MDRActionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (mdrAction.isNew()) {
+			if (isNew) {
 				session.save(mdrAction);
 
 				mdrAction.setNew(false);
@@ -2924,6 +2924,7 @@ public class MDRActionPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(MDRActionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

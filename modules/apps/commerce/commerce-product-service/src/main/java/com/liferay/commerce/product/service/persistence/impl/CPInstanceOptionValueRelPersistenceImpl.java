@@ -4105,7 +4105,7 @@ public class CPInstanceOptionValueRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (cpInstanceOptionValueRel.isNew()) {
+			if (isNew) {
 				session.save(cpInstanceOptionValueRel);
 
 				cpInstanceOptionValueRel.setNew(false);
@@ -4932,6 +4932,7 @@ public class CPInstanceOptionValueRelPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CPInstanceOptionValueRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

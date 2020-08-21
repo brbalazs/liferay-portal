@@ -3576,7 +3576,7 @@ public class CPOptionCategoryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (cpOptionCategory.isNew()) {
+			if (isNew) {
 				session.save(cpOptionCategory);
 
 				cpOptionCategory.setNew(false);
@@ -4219,6 +4219,7 @@ public class CPOptionCategoryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CPOptionCategoryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

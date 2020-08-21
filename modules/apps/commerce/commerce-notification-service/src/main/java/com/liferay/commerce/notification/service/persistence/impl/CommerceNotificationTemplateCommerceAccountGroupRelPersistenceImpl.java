@@ -1935,7 +1935,7 @@ public class CommerceNotificationTemplateCommerceAccountGroupRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceNotificationTemplateCommerceAccountGroupRel.isNew()) {
+			if (isNew) {
 				session.save(
 					commerceNotificationTemplateCommerceAccountGroupRel);
 
@@ -2662,6 +2662,7 @@ public class CommerceNotificationTemplateCommerceAccountGroupRelPersistenceImpl
 		entityCache.removeCache(
 			CommerceNotificationTemplateCommerceAccountGroupRelImpl.class.
 				getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

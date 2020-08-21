@@ -4827,7 +4827,7 @@ public class CommerceMLForecastAlertEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceMLForecastAlertEntry.isNew()) {
+			if (isNew) {
 				session.save(commerceMLForecastAlertEntry);
 
 				commerceMLForecastAlertEntry.setNew(false);
@@ -5581,6 +5581,7 @@ public class CommerceMLForecastAlertEntryPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			CommerceMLForecastAlertEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -5592,7 +5593,7 @@ public class CommerceMLForecastAlertEntryPersistenceImpl
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
-	private Long _getTime(Date date) {
+	private static Long _getTime(Date date) {
 		if (date == null) {
 			return null;
 		}

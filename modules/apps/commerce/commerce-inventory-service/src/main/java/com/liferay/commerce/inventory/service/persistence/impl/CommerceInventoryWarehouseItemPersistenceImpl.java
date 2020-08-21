@@ -2729,7 +2729,7 @@ public class CommerceInventoryWarehouseItemPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceInventoryWarehouseItem.isNew()) {
+			if (isNew) {
 				session.save(commerceInventoryWarehouseItem);
 
 				commerceInventoryWarehouseItem.setNew(false);
@@ -3439,6 +3439,7 @@ public class CommerceInventoryWarehouseItemPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			CommerceInventoryWarehouseItemImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

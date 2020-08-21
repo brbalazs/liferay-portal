@@ -2329,7 +2329,7 @@ public class CommercePriceModifierRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commercePriceModifierRel.isNew()) {
+			if (isNew) {
 				session.save(commercePriceModifierRel);
 
 				commercePriceModifierRel.setNew(false);
@@ -3015,6 +3015,7 @@ public class CommercePriceModifierRelPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommercePriceModifierRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

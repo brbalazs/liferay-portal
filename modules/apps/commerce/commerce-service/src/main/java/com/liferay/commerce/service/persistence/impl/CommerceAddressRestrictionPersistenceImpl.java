@@ -1766,7 +1766,7 @@ public class CommerceAddressRestrictionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceAddressRestriction.isNew()) {
+			if (isNew) {
 				session.save(commerceAddressRestriction);
 
 				commerceAddressRestriction.setNew(false);
@@ -2390,6 +2390,7 @@ public class CommerceAddressRestrictionPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceAddressRestrictionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

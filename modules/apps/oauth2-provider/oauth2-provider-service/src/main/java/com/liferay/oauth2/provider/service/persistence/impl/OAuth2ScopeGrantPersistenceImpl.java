@@ -1366,7 +1366,7 @@ public class OAuth2ScopeGrantPersistenceImpl
 		try {
 			session = openSession();
 
-			if (oAuth2ScopeGrant.isNew()) {
+			if (isNew) {
 				session.save(oAuth2ScopeGrant);
 
 				oAuth2ScopeGrant.setNew(false);
@@ -2286,6 +2286,7 @@ public class OAuth2ScopeGrantPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(OAuth2ScopeGrantImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

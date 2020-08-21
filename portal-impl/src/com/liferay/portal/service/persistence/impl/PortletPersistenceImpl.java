@@ -1120,7 +1120,7 @@ public class PortletPersistenceImpl
 		try {
 			session = openSession();
 
-			if (portlet.isNew()) {
+			if (isNew) {
 				session.save(portlet);
 
 				portlet.setNew(false);
@@ -1638,6 +1638,7 @@ public class PortletPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(PortletImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

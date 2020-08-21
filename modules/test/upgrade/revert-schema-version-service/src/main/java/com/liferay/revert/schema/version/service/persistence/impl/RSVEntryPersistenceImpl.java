@@ -279,7 +279,7 @@ public class RSVEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (rsvEntry.isNew()) {
+			if (isNew) {
 				session.save(rsvEntry);
 
 				rsvEntry.setNew(false);
@@ -725,6 +725,7 @@ public class RSVEntryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(RSVEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

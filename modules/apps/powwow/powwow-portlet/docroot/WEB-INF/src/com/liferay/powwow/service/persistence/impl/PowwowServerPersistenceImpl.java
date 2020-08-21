@@ -941,7 +941,7 @@ public class PowwowServerPersistenceImpl
 		try {
 			session = openSession();
 
-			if (powwowServer.isNew()) {
+			if (isNew) {
 				session.save(powwowServer);
 
 				powwowServer.setNew(false);
@@ -1456,6 +1456,7 @@ public class PowwowServerPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(PowwowServerImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

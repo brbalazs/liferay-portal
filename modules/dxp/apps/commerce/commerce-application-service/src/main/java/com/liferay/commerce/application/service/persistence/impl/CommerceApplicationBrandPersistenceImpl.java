@@ -1260,7 +1260,7 @@ public class CommerceApplicationBrandPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceApplicationBrand.isNew()) {
+			if (isNew) {
 				session.save(commerceApplicationBrand);
 
 				commerceApplicationBrand.setNew(false);
@@ -1788,6 +1788,7 @@ public class CommerceApplicationBrandPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceApplicationBrandImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

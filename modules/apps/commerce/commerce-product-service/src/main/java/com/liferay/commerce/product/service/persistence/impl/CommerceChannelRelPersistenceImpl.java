@@ -1727,7 +1727,7 @@ public class CommerceChannelRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceChannelRel.isNew()) {
+			if (isNew) {
 				session.save(commerceChannelRel);
 
 				commerceChannelRel.setNew(false);
@@ -2329,6 +2329,7 @@ public class CommerceChannelRelPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceChannelRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

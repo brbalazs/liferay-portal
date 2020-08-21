@@ -298,7 +298,7 @@ public class TestEntityPersistenceImpl
 		try {
 			session = openSession();
 
-			if (testEntity.isNew()) {
+			if (isNew) {
 				session.save(testEntity);
 
 				testEntity.setNew(false);
@@ -750,6 +750,7 @@ public class TestEntityPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(TestEntityImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

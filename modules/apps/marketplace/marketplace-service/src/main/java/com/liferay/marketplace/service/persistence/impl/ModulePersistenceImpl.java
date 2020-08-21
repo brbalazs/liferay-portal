@@ -3728,7 +3728,7 @@ public class ModulePersistenceImpl
 		try {
 			session = openSession();
 
-			if (module.isNew()) {
+			if (isNew) {
 				session.save(module);
 
 				module.setNew(false);
@@ -4462,6 +4462,7 @@ public class ModulePersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(ModuleImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

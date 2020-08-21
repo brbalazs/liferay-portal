@@ -2303,7 +2303,7 @@ public class AssetCategoryPropertyPersistenceImpl
 		try {
 			session = openSession();
 
-			if (assetCategoryProperty.isNew()) {
+			if (isNew) {
 				session.save(assetCategoryProperty);
 
 				assetCategoryProperty.setNew(false);
@@ -2959,6 +2959,7 @@ public class AssetCategoryPropertyPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(AssetCategoryPropertyImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

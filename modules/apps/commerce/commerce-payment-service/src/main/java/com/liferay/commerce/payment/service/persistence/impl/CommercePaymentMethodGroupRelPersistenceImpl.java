@@ -1785,7 +1785,7 @@ public class CommercePaymentMethodGroupRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commercePaymentMethodGroupRel.isNew()) {
+			if (isNew) {
 				session.save(commercePaymentMethodGroupRel);
 
 				commercePaymentMethodGroupRel.setNew(false);
@@ -2405,6 +2405,7 @@ public class CommercePaymentMethodGroupRelPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			CommercePaymentMethodGroupRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

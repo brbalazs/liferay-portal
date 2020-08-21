@@ -1589,7 +1589,7 @@ public class ExpandoRowPersistenceImpl
 		try {
 			session = openSession();
 
-			if (expandoRow.isNew()) {
+			if (isNew) {
 				session.save(expandoRow);
 
 				expandoRow.setNew(false);
@@ -2156,6 +2156,7 @@ public class ExpandoRowPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(ExpandoRowImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

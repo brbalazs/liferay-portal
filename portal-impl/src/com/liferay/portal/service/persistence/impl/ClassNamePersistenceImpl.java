@@ -569,7 +569,7 @@ public class ClassNamePersistenceImpl
 		try {
 			session = openSession();
 
-			if (className.isNew()) {
+			if (isNew) {
 				session.save(className);
 
 				className.setNew(false);
@@ -1037,6 +1037,7 @@ public class ClassNamePersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(ClassNameImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

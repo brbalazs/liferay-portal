@@ -2087,7 +2087,7 @@ public class StatusPersistenceImpl
 		try {
 			session = openSession();
 
-			if (status.isNew()) {
+			if (isNew) {
 				session.save(status);
 
 				status.setNew(false);
@@ -2703,6 +2703,7 @@ public class StatusPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(StatusImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

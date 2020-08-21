@@ -5345,7 +5345,7 @@ public class CommerceAddressPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceAddress.isNew()) {
+			if (isNew) {
 				session.save(commerceAddress);
 
 				commerceAddress.setNew(false);
@@ -6353,6 +6353,7 @@ public class CommerceAddressPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceAddressImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

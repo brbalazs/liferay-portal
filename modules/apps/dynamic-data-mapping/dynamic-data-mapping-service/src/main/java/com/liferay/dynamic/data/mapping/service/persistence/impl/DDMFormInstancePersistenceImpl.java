@@ -3162,7 +3162,7 @@ public class DDMFormInstancePersistenceImpl
 		try {
 			session = openSession();
 
-			if (ddmFormInstance.isNew()) {
+			if (isNew) {
 				session.save(ddmFormInstance);
 
 				ddmFormInstance.setNew(false);
@@ -3806,6 +3806,7 @@ public class DDMFormInstancePersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(DDMFormInstanceImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

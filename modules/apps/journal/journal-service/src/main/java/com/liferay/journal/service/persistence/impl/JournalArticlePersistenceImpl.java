@@ -32851,7 +32851,7 @@ public class JournalArticlePersistenceImpl
 		try {
 			session = openSession();
 
-			if (journalArticle.isNew()) {
+			if (isNew) {
 				session.save(journalArticle);
 
 				journalArticle.setNew(false);
@@ -35434,6 +35434,7 @@ public class JournalArticlePersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(JournalArticleImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -35445,7 +35446,7 @@ public class JournalArticlePersistenceImpl
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
-	private Long _getTime(Date date) {
+	private static Long _getTime(Date date) {
 		if (date == null) {
 			return null;
 		}

@@ -3207,7 +3207,7 @@ public class FragmentCollectionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (fragmentCollection.isNew()) {
+			if (isNew) {
 				session.save(fragmentCollection);
 
 				fragmentCollection.setNew(false);
@@ -3887,6 +3887,7 @@ public class FragmentCollectionPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(FragmentCollectionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

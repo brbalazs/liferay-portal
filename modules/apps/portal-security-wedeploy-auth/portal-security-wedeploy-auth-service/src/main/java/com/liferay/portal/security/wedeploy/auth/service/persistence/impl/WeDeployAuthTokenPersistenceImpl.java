@@ -1052,7 +1052,7 @@ public class WeDeployAuthTokenPersistenceImpl
 		try {
 			session = openSession();
 
-			if (weDeployAuthToken.isNew()) {
+			if (isNew) {
 				session.save(weDeployAuthToken);
 
 				weDeployAuthToken.setNew(false);
@@ -1556,6 +1556,7 @@ public class WeDeployAuthTokenPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(WeDeployAuthTokenImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

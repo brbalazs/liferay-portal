@@ -2639,7 +2639,7 @@ public class CommerceDiscountUsageEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceDiscountUsageEntry.isNew()) {
+			if (isNew) {
 				session.save(commerceDiscountUsageEntry);
 
 				commerceDiscountUsageEntry.setNew(false);
@@ -3377,6 +3377,7 @@ public class CommerceDiscountUsageEntryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceDiscountUsageEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

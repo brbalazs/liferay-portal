@@ -5493,7 +5493,7 @@ public class CPAttachmentFileEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (cpAttachmentFileEntry.isNew()) {
+			if (isNew) {
 				session.save(cpAttachmentFileEntry);
 
 				cpAttachmentFileEntry.setNew(false);
@@ -6324,6 +6324,7 @@ public class CPAttachmentFileEntryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CPAttachmentFileEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -6335,7 +6336,7 @@ public class CPAttachmentFileEntryPersistenceImpl
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
-	private Long _getTime(Date date) {
+	private static Long _getTime(Date date) {
 		if (date == null) {
 			return null;
 		}

@@ -3236,7 +3236,7 @@ public class KaleoTaskFormInstancePersistenceImpl
 		try {
 			session = openSession();
 
-			if (kaleoTaskFormInstance.isNew()) {
+			if (isNew) {
 				session.save(kaleoTaskFormInstance);
 
 				kaleoTaskFormInstance.setNew(false);
@@ -4014,6 +4014,7 @@ public class KaleoTaskFormInstancePersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(KaleoTaskFormInstanceImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -6989,7 +6989,7 @@ public class CommerceDiscountPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceDiscount.isNew()) {
+			if (isNew) {
 				session.save(commerceDiscount);
 
 				commerceDiscount.setNew(false);
@@ -7745,6 +7745,7 @@ public class CommerceDiscountPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceDiscountImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -7756,7 +7757,7 @@ public class CommerceDiscountPersistenceImpl
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
-	private Long _getTime(Date date) {
+	private static Long _getTime(Date date) {
 		if (date == null) {
 			return null;
 		}

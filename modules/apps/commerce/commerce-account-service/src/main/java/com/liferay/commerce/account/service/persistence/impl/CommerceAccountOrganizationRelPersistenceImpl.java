@@ -1423,7 +1423,7 @@ public class CommerceAccountOrganizationRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceAccountOrganizationRel.isNew()) {
+			if (isNew) {
 				session.save(commerceAccountOrganizationRel);
 
 				commerceAccountOrganizationRel.setNew(false);
@@ -1947,6 +1947,7 @@ public class CommerceAccountOrganizationRelPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			CommerceAccountOrganizationRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

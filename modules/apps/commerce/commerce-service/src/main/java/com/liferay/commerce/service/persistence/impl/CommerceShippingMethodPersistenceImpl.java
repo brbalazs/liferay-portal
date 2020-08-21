@@ -1748,7 +1748,7 @@ public class CommerceShippingMethodPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceShippingMethod.isNew()) {
+			if (isNew) {
 				session.save(commerceShippingMethod);
 
 				commerceShippingMethod.setNew(false);
@@ -2355,6 +2355,7 @@ public class CommerceShippingMethodPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceShippingMethodImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

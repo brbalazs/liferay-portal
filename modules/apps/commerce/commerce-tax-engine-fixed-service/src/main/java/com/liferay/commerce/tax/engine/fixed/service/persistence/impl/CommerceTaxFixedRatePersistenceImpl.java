@@ -1681,7 +1681,7 @@ public class CommerceTaxFixedRatePersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceTaxFixedRate.isNew()) {
+			if (isNew) {
 				session.save(commerceTaxFixedRate);
 
 				commerceTaxFixedRate.setNew(false);
@@ -2281,6 +2281,7 @@ public class CommerceTaxFixedRatePersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceTaxFixedRateImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

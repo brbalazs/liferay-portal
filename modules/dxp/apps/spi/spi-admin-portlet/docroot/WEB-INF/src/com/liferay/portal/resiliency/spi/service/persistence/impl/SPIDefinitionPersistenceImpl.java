@@ -3320,7 +3320,7 @@ public class SPIDefinitionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (spiDefinition.isNew()) {
+			if (isNew) {
 				session.save(spiDefinition);
 
 				spiDefinition.setNew(false);
@@ -3923,6 +3923,7 @@ public class SPIDefinitionPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(SPIDefinitionImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

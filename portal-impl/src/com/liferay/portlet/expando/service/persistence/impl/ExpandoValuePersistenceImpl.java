@@ -5192,7 +5192,7 @@ public class ExpandoValuePersistenceImpl
 		try {
 			session = openSession();
 
-			if (expandoValue.isNew()) {
+			if (isNew) {
 				session.save(expandoValue);
 
 				expandoValue.setNew(false);
@@ -6131,6 +6131,7 @@ public class ExpandoValuePersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(ExpandoValueImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

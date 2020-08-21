@@ -1154,7 +1154,7 @@ public class AccountPersistenceImpl
 		try {
 			session = openSession();
 
-			if (account.isNew()) {
+			if (isNew) {
 				session.save(account);
 
 				account.setNew(false);
@@ -1673,6 +1673,7 @@ public class AccountPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(AccountImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

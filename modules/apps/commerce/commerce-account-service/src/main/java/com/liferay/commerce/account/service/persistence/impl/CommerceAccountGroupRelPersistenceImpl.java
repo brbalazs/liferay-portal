@@ -1758,7 +1758,7 @@ public class CommerceAccountGroupRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceAccountGroupRel.isNew()) {
+			if (isNew) {
 				session.save(commerceAccountGroupRel);
 
 				commerceAccountGroupRel.setNew(false);
@@ -2379,6 +2379,7 @@ public class CommerceAccountGroupRelPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceAccountGroupRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

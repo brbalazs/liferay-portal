@@ -2084,7 +2084,7 @@ public class BatchEngineImportTaskPersistenceImpl
 		try {
 			session = openSession();
 
-			if (batchEngineImportTask.isNew()) {
+			if (isNew) {
 				session.save(batchEngineImportTask);
 
 				batchEngineImportTask.setNew(false);
@@ -2724,6 +2724,7 @@ public class BatchEngineImportTaskPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(BatchEngineImportTaskImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

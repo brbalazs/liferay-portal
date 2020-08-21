@@ -2142,7 +2142,7 @@ public class CPDefinitionVirtualSettingPersistenceImpl
 		try {
 			session = openSession();
 
-			if (cpDefinitionVirtualSetting.isNew()) {
+			if (isNew) {
 				session.save(cpDefinitionVirtualSetting);
 
 				cpDefinitionVirtualSetting.setNew(false);
@@ -2774,6 +2774,7 @@ public class CPDefinitionVirtualSettingPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CPDefinitionVirtualSettingImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

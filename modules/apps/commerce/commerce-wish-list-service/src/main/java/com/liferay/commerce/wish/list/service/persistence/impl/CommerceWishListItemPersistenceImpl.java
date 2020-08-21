@@ -3470,7 +3470,7 @@ public class CommerceWishListItemPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceWishListItem.isNew()) {
+			if (isNew) {
 				session.save(commerceWishListItem);
 
 				commerceWishListItem.setNew(false);
@@ -4247,6 +4247,7 @@ public class CommerceWishListItemPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceWishListItemImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

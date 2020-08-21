@@ -1937,7 +1937,7 @@ public class DLFileVersionPreviewPersistenceImpl
 		try {
 			session = openSession();
 
-			if (dlFileVersionPreview.isNew()) {
+			if (isNew) {
 				session.save(dlFileVersionPreview);
 
 				dlFileVersionPreview.setNew(false);
@@ -2549,6 +2549,7 @@ public class DLFileVersionPreviewPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(DLFileVersionPreviewImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

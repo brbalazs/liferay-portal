@@ -3131,7 +3131,7 @@ public class SourcePersistenceImpl
 		try {
 			session = openSession();
 
-			if (source.isNew()) {
+			if (isNew) {
 				session.save(source);
 
 				source.setNew(false);
@@ -3794,6 +3794,7 @@ public class SourcePersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(SourceImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

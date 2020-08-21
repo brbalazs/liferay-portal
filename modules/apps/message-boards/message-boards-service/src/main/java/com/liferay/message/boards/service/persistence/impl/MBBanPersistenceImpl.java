@@ -3509,7 +3509,7 @@ public class MBBanPersistenceImpl
 		try {
 			session = openSession();
 
-			if (mbBan.isNew()) {
+			if (isNew) {
 				session.save(mbBan);
 
 				mbBan.setNew(false);
@@ -4231,6 +4231,7 @@ public class MBBanPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(MBBanImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

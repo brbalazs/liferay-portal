@@ -1174,7 +1174,7 @@ public class JournalArticleLocalizationPersistenceImpl
 		try {
 			session = openSession();
 
-			if (journalArticleLocalization.isNew()) {
+			if (isNew) {
 				session.save(journalArticleLocalization);
 
 				journalArticleLocalization.setNew(false);
@@ -1726,6 +1726,7 @@ public class JournalArticleLocalizationPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(JournalArticleLocalizationImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

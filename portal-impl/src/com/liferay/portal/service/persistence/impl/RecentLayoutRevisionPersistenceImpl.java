@@ -2173,7 +2173,7 @@ public class RecentLayoutRevisionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (recentLayoutRevision.isNew()) {
+			if (isNew) {
 				session.save(recentLayoutRevision);
 
 				recentLayoutRevision.setNew(false);
@@ -2822,6 +2822,7 @@ public class RecentLayoutRevisionPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(RecentLayoutRevisionImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

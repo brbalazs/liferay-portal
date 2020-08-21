@@ -3127,7 +3127,7 @@ public class CPOptionValuePersistenceImpl
 		try {
 			session = openSession();
 
-			if (cpOptionValue.isNew()) {
+			if (isNew) {
 				session.save(cpOptionValue);
 
 				cpOptionValue.setNew(false);
@@ -3829,6 +3829,7 @@ public class CPOptionValuePersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CPOptionValueImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

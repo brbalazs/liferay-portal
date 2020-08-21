@@ -3776,7 +3776,7 @@ public class CPMeasurementUnitPersistenceImpl
 		try {
 			session = openSession();
 
-			if (cpMeasurementUnit.isNew()) {
+			if (isNew) {
 				session.save(cpMeasurementUnit);
 
 				cpMeasurementUnit.setNew(false);
@@ -4569,6 +4569,7 @@ public class CPMeasurementUnitPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CPMeasurementUnitImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

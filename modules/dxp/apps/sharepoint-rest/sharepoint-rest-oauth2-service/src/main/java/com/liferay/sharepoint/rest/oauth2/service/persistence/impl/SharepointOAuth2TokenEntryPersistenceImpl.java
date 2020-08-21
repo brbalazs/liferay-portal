@@ -657,7 +657,7 @@ public class SharepointOAuth2TokenEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (sharepointOAuth2TokenEntry.isNew()) {
+			if (isNew) {
 				session.save(sharepointOAuth2TokenEntry);
 
 				sharepointOAuth2TokenEntry.setNew(false);
@@ -1156,6 +1156,7 @@ public class SharepointOAuth2TokenEntryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(SharepointOAuth2TokenEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

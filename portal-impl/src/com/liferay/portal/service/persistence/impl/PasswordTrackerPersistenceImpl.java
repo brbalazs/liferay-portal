@@ -827,7 +827,7 @@ public class PasswordTrackerPersistenceImpl
 		try {
 			session = openSession();
 
-			if (passwordTracker.isNew()) {
+			if (isNew) {
 				session.save(passwordTracker);
 
 				passwordTracker.setNew(false);
@@ -1343,6 +1343,7 @@ public class PasswordTrackerPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(PasswordTrackerImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

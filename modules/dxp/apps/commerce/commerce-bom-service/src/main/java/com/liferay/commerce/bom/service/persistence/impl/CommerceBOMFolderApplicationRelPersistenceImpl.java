@@ -1492,7 +1492,7 @@ public class CommerceBOMFolderApplicationRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceBOMFolderApplicationRel.isNew()) {
+			if (isNew) {
 				session.save(commerceBOMFolderApplicationRel);
 
 				commerceBOMFolderApplicationRel.setNew(false);
@@ -2116,6 +2116,7 @@ public class CommerceBOMFolderApplicationRelPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			CommerceBOMFolderApplicationRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

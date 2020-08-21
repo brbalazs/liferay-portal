@@ -1193,7 +1193,7 @@ public class SamlSpIdpConnectionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (samlSpIdpConnection.isNew()) {
+			if (isNew) {
 				session.save(samlSpIdpConnection);
 
 				samlSpIdpConnection.setNew(false);
@@ -1729,6 +1729,7 @@ public class SamlSpIdpConnectionPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(SamlSpIdpConnectionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -3140,7 +3140,7 @@ public class MDRRuleGroupPersistenceImpl
 		try {
 			session = openSession();
 
-			if (mdrRuleGroup.isNew()) {
+			if (isNew) {
 				session.save(mdrRuleGroup);
 
 				mdrRuleGroup.setNew(false);
@@ -3772,6 +3772,7 @@ public class MDRRuleGroupPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(MDRRuleGroupImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

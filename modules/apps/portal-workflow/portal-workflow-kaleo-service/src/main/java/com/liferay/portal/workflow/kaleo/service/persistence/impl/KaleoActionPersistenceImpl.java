@@ -2627,7 +2627,7 @@ public class KaleoActionPersistenceImpl
 		try {
 			session = openSession();
 
-			if (kaleoAction.isNew()) {
+			if (isNew) {
 				session.save(kaleoAction);
 
 				kaleoAction.setNew(false);
@@ -3314,6 +3314,7 @@ public class KaleoActionPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(KaleoActionImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

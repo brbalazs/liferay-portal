@@ -2083,7 +2083,7 @@ public class CPDefinitionInventoryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (cpDefinitionInventory.isNew()) {
+			if (isNew) {
 				session.save(cpDefinitionInventory);
 
 				cpDefinitionInventory.setNew(false);
@@ -2697,6 +2697,7 @@ public class CPDefinitionInventoryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CPDefinitionInventoryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

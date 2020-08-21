@@ -2683,7 +2683,7 @@ public class KBTemplatePersistenceImpl
 		try {
 			session = openSession();
 
-			if (kbTemplate.isNew()) {
+			if (isNew) {
 				session.save(kbTemplate);
 
 				kbTemplate.setNew(false);
@@ -3309,6 +3309,7 @@ public class KBTemplatePersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(KBTemplateImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

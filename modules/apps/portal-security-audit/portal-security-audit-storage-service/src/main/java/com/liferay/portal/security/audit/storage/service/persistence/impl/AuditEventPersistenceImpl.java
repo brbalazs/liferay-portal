@@ -803,7 +803,7 @@ public class AuditEventPersistenceImpl
 		try {
 			session = openSession();
 
-			if (auditEvent.isNew()) {
+			if (isNew) {
 				session.save(auditEvent);
 
 				auditEvent.setNew(false);
@@ -1302,6 +1302,7 @@ public class AuditEventPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(AuditEventImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -3183,7 +3183,7 @@ public class AssetDisplayPageEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (assetDisplayPageEntry.isNew()) {
+			if (isNew) {
 				session.save(assetDisplayPageEntry);
 
 				assetDisplayPageEntry.setNew(false);
@@ -3922,6 +3922,7 @@ public class AssetDisplayPageEntryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(AssetDisplayPageEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

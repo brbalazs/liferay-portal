@@ -4210,7 +4210,7 @@ public class LayoutPrototypePersistenceImpl
 		try {
 			session = openSession();
 
-			if (layoutPrototype.isNew()) {
+			if (isNew) {
 				session.save(layoutPrototype);
 
 				layoutPrototype.setNew(false);
@@ -4890,6 +4890,7 @@ public class LayoutPrototypePersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(LayoutPrototypeImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

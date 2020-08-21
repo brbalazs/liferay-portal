@@ -2336,7 +2336,7 @@ public class CPDAvailabilityEstimatePersistenceImpl
 		try {
 			session = openSession();
 
-			if (cpdAvailabilityEstimate.isNew()) {
+			if (isNew) {
 				session.save(cpdAvailabilityEstimate);
 
 				cpdAvailabilityEstimate.setNew(false);
@@ -3009,6 +3009,7 @@ public class CPDAvailabilityEstimatePersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CPDAvailabilityEstimateImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -2896,7 +2896,7 @@ public class CommerceDiscountAccountRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commerceDiscountAccountRel.isNew()) {
+			if (isNew) {
 				session.save(commerceDiscountAccountRel);
 
 				commerceDiscountAccountRel.setNew(false);
@@ -3633,6 +3633,7 @@ public class CommerceDiscountAccountRelPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(CommerceDiscountAccountRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

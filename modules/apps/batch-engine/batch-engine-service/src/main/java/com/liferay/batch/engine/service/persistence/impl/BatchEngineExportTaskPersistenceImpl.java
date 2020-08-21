@@ -2084,7 +2084,7 @@ public class BatchEngineExportTaskPersistenceImpl
 		try {
 			session = openSession();
 
-			if (batchEngineExportTask.isNew()) {
+			if (isNew) {
 				session.save(batchEngineExportTask);
 
 				batchEngineExportTask.setNew(false);
@@ -2724,6 +2724,7 @@ public class BatchEngineExportTaskPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(BatchEngineExportTaskImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

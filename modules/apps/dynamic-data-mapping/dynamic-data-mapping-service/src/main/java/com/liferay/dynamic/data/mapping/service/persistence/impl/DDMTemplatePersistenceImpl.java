@@ -12382,7 +12382,7 @@ public class DDMTemplatePersistenceImpl
 		try {
 			session = openSession();
 
-			if (ddmTemplate.isNew()) {
+			if (isNew) {
 				session.save(ddmTemplate);
 
 				ddmTemplate.setNew(false);
@@ -13630,6 +13630,7 @@ public class DDMTemplatePersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(DDMTemplateImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

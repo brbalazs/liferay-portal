@@ -2749,7 +2749,7 @@ public class AppPersistenceImpl
 		try {
 			session = openSession();
 
-			if (app.isNew()) {
+			if (isNew) {
 				session.save(app);
 
 				app.setNew(false);
@@ -3408,6 +3408,7 @@ public class AppPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(AppImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

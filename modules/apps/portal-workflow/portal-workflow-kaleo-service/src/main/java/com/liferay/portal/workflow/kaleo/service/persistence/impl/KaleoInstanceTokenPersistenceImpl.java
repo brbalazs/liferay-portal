@@ -3122,7 +3122,7 @@ public class KaleoInstanceTokenPersistenceImpl
 		try {
 			session = openSession();
 
-			if (kaleoInstanceToken.isNew()) {
+			if (isNew) {
 				session.save(kaleoInstanceToken);
 
 				kaleoInstanceToken.setNew(false);
@@ -3888,6 +3888,7 @@ public class KaleoInstanceTokenPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(KaleoInstanceTokenImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
@@ -3899,7 +3900,7 @@ public class KaleoInstanceTokenPersistenceImpl
 	@ServiceReference(type = FinderCache.class)
 	protected FinderCache finderCache;
 
-	private Long _getTime(Date date) {
+	private static Long _getTime(Date date) {
 		if (date == null) {
 			return null;
 		}

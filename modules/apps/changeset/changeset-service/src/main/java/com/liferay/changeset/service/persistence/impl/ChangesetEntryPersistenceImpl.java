@@ -3275,7 +3275,7 @@ public class ChangesetEntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (changesetEntry.isNew()) {
+			if (isNew) {
 				session.save(changesetEntry);
 
 				changesetEntry.setNew(false);
@@ -4026,6 +4026,7 @@ public class ChangesetEntryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(ChangesetEntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

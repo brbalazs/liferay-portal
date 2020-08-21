@@ -279,7 +279,7 @@ public class ClusterGroupPersistenceImpl
 		try {
 			session = openSession();
 
-			if (clusterGroup.isNew()) {
+			if (isNew) {
 				session.save(clusterGroup);
 
 				clusterGroup.setNew(false);
@@ -727,6 +727,7 @@ public class ClusterGroupPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(ClusterGroupImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

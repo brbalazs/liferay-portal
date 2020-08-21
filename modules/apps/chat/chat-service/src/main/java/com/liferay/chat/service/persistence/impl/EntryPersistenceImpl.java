@@ -4610,7 +4610,7 @@ public class EntryPersistenceImpl
 		try {
 			session = openSession();
 
-			if (entry.isNew()) {
+			if (isNew) {
 				session.save(entry);
 
 				entry.setNew(false);
@@ -5490,6 +5490,7 @@ public class EntryPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(EntryImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

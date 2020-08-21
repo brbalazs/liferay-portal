@@ -1424,7 +1424,7 @@ public class OAuthTokenPersistenceImpl
 		try {
 			session = openSession();
 
-			if (oAuthToken.isNew()) {
+			if (isNew) {
 				session.save(oAuthToken);
 
 				oAuthToken.setNew(false);
@@ -1961,6 +1961,7 @@ public class OAuthTokenPersistenceImpl
 
 	public void destroy() {
 		EntityCacheUtil.removeCache(OAuthTokenImpl.class.getName());
+
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

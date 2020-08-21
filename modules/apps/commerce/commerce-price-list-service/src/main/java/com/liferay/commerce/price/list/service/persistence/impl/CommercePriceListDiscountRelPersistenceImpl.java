@@ -2381,7 +2381,7 @@ public class CommercePriceListDiscountRelPersistenceImpl
 		try {
 			session = openSession();
 
-			if (commercePriceListDiscountRel.isNew()) {
+			if (isNew) {
 				session.save(commercePriceListDiscountRel);
 
 				commercePriceListDiscountRel.setNew(false);
@@ -3065,6 +3065,7 @@ public class CommercePriceListDiscountRelPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			CommercePriceListDiscountRelImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
