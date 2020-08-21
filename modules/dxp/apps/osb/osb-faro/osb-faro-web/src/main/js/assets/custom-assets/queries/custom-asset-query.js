@@ -11,10 +11,11 @@ export default metric =>
 			$rangeKey: Int
 			$rangeStart: String
 			$title: String
-			$touchpoint: String!
+			$touchpoint: String
 		) {
 			custom(
 				assetId: $assetId
+				canonicalUrl: $touchpoint
 				channelId: $channelId
 				country: $country
 				deviceType: $deviceType
@@ -22,7 +23,6 @@ export default metric =>
 				rangeKey: $rangeKey
 				rangeStart: $rangeStart
 				title: $title
-				url: $touchpoint
 			) {
 				${metric} {
 					histogram {

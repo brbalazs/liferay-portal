@@ -9,8 +9,18 @@ import {gql} from 'apollo-boost';
  * @returns GraphQL query
  */
 export default (queryName, metricName) => gql`
-		query GlobalFilterTouchpointQuery($channelId: String, $touchpoint: String!, $rangeKey: Int!, $title: String) {
-			${queryName}(channelId: $channelId, url: $touchpoint, rangeKey: $rangeKey, title: $title) {
+		query GlobalFilterTouchpointQuery(
+			$channelId: String
+			$touchpoint: String
+			$rangeKey: Int!
+			$title: String
+		) {
+			${queryName}(
+				channelId: $channelId
+				canonicalUrl: $touchpoint
+				rangeKey: $rangeKey
+				title: $title
+			) {
 				${metricName} {
 					...deviceFragment
 					...geolocationFragment

@@ -16,17 +16,17 @@ export default gql`
 		$rangeKey: Int
 		$rangeStart: String
 		$title: String
-		$touchpoint: String!
+		$touchpoint: String
 	) {
 		page(
 			channelId: $channelId
+			canonicalUrl: $touchpoint
 			country: $location
 			deviceType: $devices
 			rangeEnd: $rangeEnd
 			rangeKey: $rangeKey
 			rangeStart: $rangeStart
 			title: $title
-			url: $touchpoint
 		) {
 			assetTitle
 			avgTimeOnPageMetric {

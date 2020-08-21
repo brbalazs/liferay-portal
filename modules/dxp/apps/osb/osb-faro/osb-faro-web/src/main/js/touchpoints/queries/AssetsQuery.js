@@ -8,16 +8,16 @@ export default gql`
 		$rangeEnd: String
 		$rangeKey: Int
 		$rangeStart: String
-		$touchpoint: String!
+		$touchpoint: String
 	) {
 		assets(
 			channelId: $channelId
+			canonicalUrl: $touchpoint
 			country: $location
 			deviceType: $devices
 			rangeEnd: $rangeEnd
 			rangeKey: $rangeKey
 			rangeStart: $rangeStart
-			url: $touchpoint
 		) {
 			assetId
 			assetTitle

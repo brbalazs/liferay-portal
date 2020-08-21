@@ -21,10 +21,11 @@ export default (queryName, metricName) => gql`
 			$size: Int!
 			$start: Int!
 			$title: String
-			$touchpoint: String!
+			$touchpoint: String
 		) {
 			${queryName}(
 				assetId: $assetId
+				canonicalUrl: $touchpoint
 				channelId: $channelId
 				country: $location
 				deviceType: $devices
@@ -32,7 +33,6 @@ export default (queryName, metricName) => gql`
 				rangeKey: $rangeKey
 				rangeStart: $rangeStart
 				title: $title
-				url: $touchpoint
 			) {
 				${metricName} {
 					...individualsFragment

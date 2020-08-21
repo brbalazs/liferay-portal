@@ -17,10 +17,11 @@ export default gql`
 		$rangeKey: Int
 		$rangeStart: String
 		$title: String
-		$touchpoint: String!
+		$touchpoint: String
 	) {
 		form(
 			assetId: $assetId
+			canonicalUrl: $touchpoint
 			channelId: $channelId
 			country: $location
 			deviceType: $devices
@@ -28,7 +29,6 @@ export default gql`
 			rangeKey: $rangeKey
 			rangeStart: $rangeStart
 			title: $title
-			url: $touchpoint
 		) {
 			abandonmentsMetric {
 				...metricFragment
