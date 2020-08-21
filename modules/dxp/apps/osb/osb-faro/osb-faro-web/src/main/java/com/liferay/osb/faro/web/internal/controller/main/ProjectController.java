@@ -246,12 +246,6 @@ public class ProjectController extends BaseFaroController {
 			corpProjectUuid, name, emailAddressDomainsFaroParam.getValue(),
 			friendlyURL, serverLocation, ProjectConstants.STATE_NOT_READY);
 
-		_hubSpotEngineClient.submitWorkspaceUserForm(
-			faroProject,
-			_faroUserLocalService.getFaroUser(
-				faroProject.getGroupId(), user.getUserId()),
-			true);
-
 		Role role = _roleLocalService.getRole(
 			user.getCompanyId(), RoleConstants.SITE_OWNER);
 
@@ -259,6 +253,12 @@ public class ProjectController extends BaseFaroController {
 			user.getUserId(), faroProject.getGroupId(), user.getUserId(),
 			role.getRoleId(), user.getEmailAddress(),
 			FaroUserConstants.STATUS_APPROVED, false);
+
+		_hubSpotEngineClient.submitWorkspaceUserForm(
+			faroProject,
+			_faroUserLocalService.getFaroUser(
+				faroProject.getGroupId(), user.getUserId()),
+			true);
 
 		return new ProjectDisplay(faroProject, friendlyURL);
 	}
