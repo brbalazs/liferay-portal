@@ -47,7 +47,8 @@ export function getVariables({filters, interval, params, rangeSelectors = {}}) {
 
 	let variables = {
 		title: decodeURIComponent(title),
-		touchpoint: decodeURIComponent(touchpoint),
+		touchpoint:
+			touchpoint !== 'Any' ? decodeURIComponent(touchpoint) : null,
 		...getSafeRangeSelectors(rangeSelectors)
 	};
 
