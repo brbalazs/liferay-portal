@@ -223,7 +223,7 @@ describe('FormAbandonmentQuery mapper', () => {
 				rangeKey: 7,
 				rangeStart: null,
 				title: 'Liferay',
-				touchpoint: 'Any'
+				touchpoint: null
 			}
 		});
 	});

@@ -87,7 +87,7 @@ describe('TouchpointsListQuery Mappers', () => {
 				rangeKey: 7,
 				rangeStart: null,
 				title: 'AssetTitle',
-				touchpoint: 'Any'
+				touchpoint: null
 			}
 		});
 	});

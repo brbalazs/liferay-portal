@@ -83,7 +83,7 @@ describe('getVariables', () => {
 				rangeKey: 7,
 				rangeStart: null,
 				title: 'Liferay',
-				touchpoint: 'Any'
+				touchpoint: null
 			}
 		});
 	});
@@ -98,7 +98,7 @@ describe('getVariables', () => {
 				rangeKey: 7,
 				rangeStart: null,
 				title: 'Liferay',
-				touchpoint: 'Any'
+				touchpoint: null
 			}
 		});
 	});
@@ -119,7 +119,7 @@ describe('getVariables', () => {
 				rangeKey: 7,
 				rangeStart: null,
 				title: 'Liferay',
-				touchpoint: 'Any'
+				touchpoint: null
 			}
 		});
 	});
@@ -180,7 +180,7 @@ describe('getVariables', () => {
 				rangeKey: 7,
 				rangeStart: null,
 				title: '',
-				touchpoint: 'Any'
+				touchpoint: null
 			}
 		});
 	});

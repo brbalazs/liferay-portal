@@ -846,6 +846,7 @@ export function mockAction(seed = 0, data = {}) {
 		action: activityActions.visits,
 		activityKey: `key_${seed}`,
 		assetType: assetTypes.form,
+		canonicalUrl: `https://www.liferay${seed}.com`,
 		dataSourceAssetPK: String(seed),
 		day: seed,
 		eventId: String(seed),
