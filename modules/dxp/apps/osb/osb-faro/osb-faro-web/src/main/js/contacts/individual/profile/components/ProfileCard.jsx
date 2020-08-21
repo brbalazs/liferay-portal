@@ -16,10 +16,7 @@ import {
 	getSafeRangeKey,
 	INTERVAL_MAP
 } from 'shared/util/engagement-activity';
-import {
-	formatEngagementAggregation,
-	mergeHistoryByDate
-} from 'shared/util/engagement';
+import {formatEngagementAggregation} from 'shared/util/engagement';
 import {formatSessions, getActivityLabel} from 'shared/util/activities';
 import {
 	formatUTCDateFromUnix,
@@ -232,10 +229,6 @@ export class IndividualProfileCard extends React.Component {
 					activityHistory,
 					engagementChange: getSafeChange(engagementChange),
 					engagementHistory,
-					history: mergeHistoryByDate(
-						engagementHistory,
-						activityHistory
-					),
 					loading: false
 				});
 			})
@@ -333,24 +326,16 @@ export class IndividualProfileCard extends React.Component {
 			</div>
 		);
 	}
-
 	renderTimeline() {
 		const {
-			props: {
-				channelId,
-				entity: {id},
-				groupId
-			},
-			state: {history}
-		} = this;
+			channelId,
+			entity: {id},
+			groupId
+		} = this.props;
 
 		return (
 			<SearchableVerticalTimelineHOC
-				dataSourceFn={
-					history.length
-						? getActivities
-						: () => Promise.resolve({items: [], total: 0})
-				}
+				dataSourceFn={getActivities}
 				dataSourceParams={{
 					...this.getDateRange(),
 					channelId,
