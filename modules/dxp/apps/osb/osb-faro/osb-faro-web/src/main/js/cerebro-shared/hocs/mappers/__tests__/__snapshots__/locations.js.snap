@@ -41,7 +41,7 @@ Object {
     "rangeKey": 0,
     "rangeStart": null,
     "title": "",
-    "touchpoint": "Any",
+    "touchpoint": "null",
   },
 }
 `;
@@ -87,7 +87,7 @@ Object {
     "rangeKey": 0,
     "rangeStart": null,
     "title": "",
-    "touchpoint": "Any",
+    "touchpoint": "null",
   },
 }
 `;
@@ -137,7 +137,7 @@ Object {
     "rangeKey": 0,
     "rangeStart": null,
     "title": "",
-    "touchpoint": "Any",
+    "touchpoint": "null",
   },
 }
 `;
@@ -201,7 +201,7 @@ Object {
     "rangeKey": 0,
     "rangeStart": null,
     "title": "",
-    "touchpoint": "Any",
+    "touchpoint": "null",
   },
 }
 `;
