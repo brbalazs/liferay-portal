@@ -4,6 +4,7 @@ import ActivitiesChartTimeline from 'contacts/components/ActivitiesChartTimeline
 import faroConstants from 'shared/util/constants';
 import Promise from 'metal-promise';
 import React from 'react';
+import {LAST_30_DAYS} from 'shared/util/constants';
 
 const {entityTypes} = faroConstants;
 
@@ -33,6 +34,9 @@ export default class ActivitiesChartTimelineKit extends React.Component {
 					groupId='23'
 					history={activityHistory}
 					id='1'
+					rangeSelectors={{
+						rangeKey: LAST_30_DAYS
+					}}
 				/>
 			</div>
 		);
