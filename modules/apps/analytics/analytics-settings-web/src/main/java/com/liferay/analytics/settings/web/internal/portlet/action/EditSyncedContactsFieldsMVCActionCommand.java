@@ -45,12 +45,12 @@ public class EditSyncedContactsFieldsMVCActionCommand
 		Dictionary<String, Object> configurationProperties) {
 
 		String[] syncedContactFieldNames = ArrayUtil.append(
-			FieldDisplayContext.requiredContactFieldNames,
+			FieldDisplayContext.REQUIRED_CONTACT_FIELD_NAMES,
 			ParamUtil.getStringValues(
 				actionRequest, "syncedContactFieldNames"));
 
 		String[] syncedUserFieldNames = ArrayUtil.append(
-			FieldDisplayContext.requiredUserFieldNames,
+			FieldDisplayContext.REQUIRED_USER_FIELD_NAMES,
 			ParamUtil.getStringValues(actionRequest, "syncedUserFieldNames"));
 
 		configurationProperties.put(

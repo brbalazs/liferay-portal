@@ -43,10 +43,11 @@ import javax.portlet.RenderResponse;
  */
 public class FieldDisplayContext {
 
-	public static final String[] requiredContactFieldNames = {
+	public static final String[] REQUIRED_CONTACT_FIELD_NAMES = {
 		"classPK", "contactId", "createDate", "emailAddress", "modifiedDate"
 	};
-	public static final String[] requiredUserFieldNames = {
+
+	public static final String[] REQUIRED_USER_FIELD_NAMES = {
 		"createDate", "emailAddress", "modifiedDate", "userId", "uuid"
 	};
 
@@ -81,7 +82,7 @@ public class FieldDisplayContext {
 				_mvcRenderCommandName,
 				"/analytics_settings/edit_synced_contacts_fields")) {
 
-			for (String fieldName : requiredContactFieldNames) {
+			for (String fieldName : REQUIRED_CONTACT_FIELD_NAMES) {
 				fields.add(
 					new Field(
 						"Default Field", _contactFieldNames.get(fieldName),
@@ -92,7 +93,7 @@ public class FieldDisplayContext {
 					_contactFieldNames.entrySet()) {
 
 				if (ArrayUtil.contains(
-						requiredContactFieldNames, entry.getKey())) {
+						REQUIRED_CONTACT_FIELD_NAMES, entry.getKey())) {
 
 					continue;
 				}
@@ -105,17 +106,18 @@ public class FieldDisplayContext {
 			fieldSearch.setRowChecker(
 				new FieldChecker(
 					_mvcRenderCommandName, _renderResponse,
-					SetUtil.fromArray(requiredContactFieldNames),
+					SetUtil.fromArray(REQUIRED_CONTACT_FIELD_NAMES),
 					SetUtil.fromArray(
 						_analyticsConfiguration.syncedContactFieldNames())));
 			fieldSearch.setTotal(
-				_contactFieldNames.size() - requiredContactFieldNames.length);
+				_contactFieldNames.size() -
+					REQUIRED_CONTACT_FIELD_NAMES.length);
 		}
 		else if (StringUtil.equalsIgnoreCase(
 					_mvcRenderCommandName,
 					"/analytics_settings/edit_synced_users_fields")) {
 
-			for (String fieldName : requiredUserFieldNames) {
+			for (String fieldName : REQUIRED_USER_FIELD_NAMES) {
 				fields.add(
 					new Field(
 						"Default Field", _userFieldNames.get(fieldName),
@@ -124,7 +126,7 @@ public class FieldDisplayContext {
 
 			for (Map.Entry<String, String> entry : _userFieldNames.entrySet()) {
 				if (ArrayUtil.contains(
-						requiredUserFieldNames, entry.getKey())) {
+						REQUIRED_USER_FIELD_NAMES, entry.getKey())) {
 
 					continue;
 				}
@@ -148,12 +150,12 @@ public class FieldDisplayContext {
 			fieldSearch.setRowChecker(
 				new FieldChecker(
 					_mvcRenderCommandName, _renderResponse,
-					SetUtil.fromArray(requiredUserFieldNames),
+					SetUtil.fromArray(REQUIRED_USER_FIELD_NAMES),
 					SetUtil.fromArray(
 						_analyticsConfiguration.syncedUserFieldNames())));
 			fieldSearch.setTotal(
 				_userFieldNames.size() + userCustomFieldNames.size() -
-					requiredUserFieldNames.length);
+					REQUIRED_USER_FIELD_NAMES.length);
 		}
 
 		fieldSearch.setResults(fields);
