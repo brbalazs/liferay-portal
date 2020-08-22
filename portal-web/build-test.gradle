@@ -102,7 +102,19 @@ dependencies {
 }
 
 poshiRunnerResources {
-	baseNameDir "portal", "test/functional/com/liferay/portalweb"
+	baseName "portal"
+
+	dirs = ["test/functional/com/liferay/portalweb"]
+
+	Properties testProperties = GUtil.loadProperties(file("../test.properties"))
+
+	String testSubrepoDirs = testProperties.getProperty("test.subrepo.dirs")
+
+	if ((testSubrepoDirs != null) && !testSubrepoDirs.isEmpty()) {
+		testSubrepoDirs = testSubrepoDirs.replace("\${project.dir}", "..");
+
+		dirs.addAll(testSubrepoDirs.split(","))
+	}
 }
 
 repositories {
