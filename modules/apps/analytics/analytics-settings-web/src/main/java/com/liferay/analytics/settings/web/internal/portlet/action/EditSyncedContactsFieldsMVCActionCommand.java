@@ -21,7 +21,6 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 
 import java.util.Dictionary;
-import java.util.List;
 
 import javax.portlet.ActionRequest;
 
@@ -45,19 +44,13 @@ public class EditSyncedContactsFieldsMVCActionCommand
 		ActionRequest actionRequest,
 		Dictionary<String, Object> configurationProperties) {
 
-		List<String> requiredContactFieldNames =
-			FieldDisplayContext.requiredContactFieldNames;
-
 		String[] syncedContactFieldNames = ArrayUtil.append(
-			requiredContactFieldNames.toArray(new String[0]),
+			FieldDisplayContext.requiredContactFieldNames,
 			ParamUtil.getStringValues(
 				actionRequest, "syncedContactFieldNames"));
 
-		List<String> requiredUserFieldNames =
-			FieldDisplayContext.requiredUserFieldNames;
-
 		String[] syncedUserFieldNames = ArrayUtil.append(
-			requiredUserFieldNames.toArray(new String[0]),
+			FieldDisplayContext.requiredUserFieldNames,
 			ParamUtil.getStringValues(actionRequest, "syncedUserFieldNames"));
 
 		configurationProperties.put(

@@ -23,13 +23,13 @@ import com.liferay.analytics.settings.web.internal.user.AnalyticsUsersManager;
 import com.liferay.expando.kernel.model.ExpandoColumn;
 import com.liferay.expando.kernel.model.ExpandoColumnConstants;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.TreeMapBuilder;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -43,10 +43,12 @@ import javax.portlet.RenderResponse;
  */
 public class FieldDisplayContext {
 
-	public static final List<String> requiredContactFieldNames = Arrays.asList(
-		"classPK", "contactId", "createDate", "emailAddress", "modifiedDate");
-	public static final List<String> requiredUserFieldNames = Arrays.asList(
-		"createDate", "emailAddress", "modifiedDate", "userId", "uuid");
+	public static final String[] requiredContactFieldNames = {
+		"classPK", "contactId", "createDate", "emailAddress", "modifiedDate"
+	};
+	public static final String[] requiredUserFieldNames = {
+		"createDate", "emailAddress", "modifiedDate", "userId", "uuid"
+	};
 
 	public FieldDisplayContext(
 		String mvcRenderCommandName, RenderRequest renderRequest,
@@ -89,7 +91,9 @@ public class FieldDisplayContext {
 			for (Map.Entry<String, String> entry :
 					_contactFieldNames.entrySet()) {
 
-				if (requiredContactFieldNames.contains(entry.getKey())) {
+				if (ArrayUtil.contains(
+						requiredContactFieldNames, entry.getKey())) {
+
 					continue;
 				}
 
@@ -101,11 +105,11 @@ public class FieldDisplayContext {
 			fieldSearch.setRowChecker(
 				new FieldChecker(
 					_mvcRenderCommandName, _renderResponse,
-					SetUtil.fromList(requiredContactFieldNames),
+					SetUtil.fromArray(requiredContactFieldNames),
 					SetUtil.fromArray(
 						_analyticsConfiguration.syncedContactFieldNames())));
 			fieldSearch.setTotal(
-				_contactFieldNames.size() - requiredContactFieldNames.size());
+				_contactFieldNames.size() - requiredContactFieldNames.length);
 		}
 		else if (StringUtil.equalsIgnoreCase(
 					_mvcRenderCommandName,
@@ -119,7 +123,9 @@ public class FieldDisplayContext {
 			}
 
 			for (Map.Entry<String, String> entry : _userFieldNames.entrySet()) {
-				if (requiredUserFieldNames.contains(entry.getKey())) {
+				if (ArrayUtil.contains(
+						requiredUserFieldNames, entry.getKey())) {
+
 					continue;
 				}
 
@@ -142,12 +148,12 @@ public class FieldDisplayContext {
 			fieldSearch.setRowChecker(
 				new FieldChecker(
 					_mvcRenderCommandName, _renderResponse,
-					SetUtil.fromList(requiredUserFieldNames),
+					SetUtil.fromArray(requiredUserFieldNames),
 					SetUtil.fromArray(
 						_analyticsConfiguration.syncedUserFieldNames())));
 			fieldSearch.setTotal(
 				_userFieldNames.size() + userCustomFieldNames.size() -
-					requiredUserFieldNames.size());
+					requiredUserFieldNames.length);
 		}
 
 		fieldSearch.setResults(fields);
