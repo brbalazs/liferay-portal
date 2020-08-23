@@ -84,7 +84,9 @@ if (portletTitleBasedNavigation) {
 			<aui:fieldset>
 				<h1><liferay-ui:input-editor contents="<%= HtmlUtil.escape(title) %>" editorName="alloyeditor" name="titleEditor" placeholder="title" showSource="<%= false %>" /></h1>
 
-				<aui:input name="title" type="hidden" />
+				<aui:input name="title" type="hidden">
+					<aui:validator name="maxLength"><%= ModelHintsUtil.getMaxLength(AnnouncementsEntry.class.getName(), "title") %></aui:validator>
+				</aui:input>
 
 				<liferay-ui:input-editor
 					contents="<%= content %>"
