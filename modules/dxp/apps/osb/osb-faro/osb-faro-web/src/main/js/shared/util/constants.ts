@@ -134,7 +134,8 @@ export enum dataSourceStates {
 	liferayVersionInvalid = 'LIFERAY_VERSION_INVALID',
 	undefinedError = 'UNDEFINED_ERROR',
 	ready = 'READY',
-	urlInvalid = 'URL_INVALID'
+	urlInvalid = 'URL_INVALID',
+	unconfigured = 'UNCONFIGURED'
 }
 
 export enum userStatuses {
