@@ -1,19 +1,28 @@
 import AddWorkspaceForm from 'shared/components/workspaces/AddWorkspaceForm';
 import autobind from 'autobind-decorator';
+import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import React from 'react';
 import WorkspacesBasePage from 'shared/components/workspaces/BasePage';
 import {addAlert, alertTypes} from 'shared/actions/alerts';
 import {compose, optional, redirectIf, withProject} from 'shared/hoc';
+import {
+	configureProject,
+	createProject,
+	createTrialProject
+} from 'shared/actions/projects';
 import {connect} from 'react-redux';
-import {createProject, createTrialProject} from 'shared/actions/projects';
 import {Project} from '../util/records';
 import {PropTypes} from 'prop-types';
 import {Redirect} from 'react-router';
 import {Routes, toRoute} from 'shared/util/router';
 
+const {
+	dataSourceStates: {unconfigured}
+} = FaroConstants;
+
 export const routingFn = ({project}) => {
-	if (project && project.groupId) {
+	if (project && project.groupId && project.state !== unconfigured) {
 		return toRoute(Routes.WORKSPACE_WITH_ID, {groupId: project.groupId});
 	} else {
 		return null;
@@ -36,20 +45,37 @@ export class AddWorkspace extends React.Component {
 	handleSubmit({emailAddressDomains, friendlyURL, name, serverLocation}) {
 		const {
 			addAlert,
+			configureProject,
 			corpProjectUuid,
 			createProject,
-			createTrialProject
+			createTrialProject,
+			project: {groupId, state}
 		} = this.props;
 
-		const createFn = corpProjectUuid ? createProject : createTrialProject;
-
-		return createFn({
+		let params = {
 			corpProjectUuid,
 			emailAddressDomains,
 			friendlyURL: friendlyURL && `/${friendlyURL}`,
-			name,
-			serverLocation
-		})
+			name
+		};
+
+		let createFn;
+
+		if (state === unconfigured) {
+			createFn = configureProject;
+			params = {
+				...params,
+				groupId
+			};
+		} else {
+			createFn = corpProjectUuid ? createProject : createTrialProject;
+			params = {
+				...params,
+				serverLocation
+			};
+		}
+
+		return createFn(params)
 			.then(({payload: {friendlyURL, groupId}}) => {
 				this.setState({
 					friendlyURL: friendlyURL
@@ -111,7 +137,7 @@ export class AddWorkspace extends React.Component {
 export default compose(
 	connect(
 		null,
-		{addAlert, createProject, createTrialProject}
+		{addAlert, configureProject, createProject, createTrialProject}
 	),
 	optional(withProject, {idPropName: 'corpProjectUuid'}),
 	redirectIf(routingFn)

@@ -1,3 +1,4 @@
+import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import React from 'react';
 import WorkspaceListItem from './ListItem';
@@ -6,6 +7,10 @@ import {noop} from 'lodash';
 import {Project} from 'shared/util/records';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
+
+const {
+	dataSourceStates: {unconfigured}
+} = FaroConstants;
 
 export default class WorkspaceList extends React.Component {
 	static defaultProps = {
@@ -28,12 +33,12 @@ export default class WorkspaceList extends React.Component {
 		isJoinableProjects: PropTypes.bool
 	};
 
-	getRoute({corpProjectUuid, friendlyURL, groupId}) {
+	getRoute({corpProjectUuid, friendlyURL, groupId, state}) {
 		if (friendlyURL) {
 			return toRoute(Routes.WORKSPACE_WITH_ID, {
 				groupId: friendlyURL.replace('/', '')
 			});
-		} else if (groupId) {
+		} else if (groupId && state !== unconfigured) {
 			return toRoute(Routes.WORKSPACE_WITH_ID, {
 				groupId
 			});
@@ -71,7 +76,7 @@ export default class WorkspaceList extends React.Component {
 							<WorkspaceListItem
 								accountName={name}
 								className={className}
-								configured={!!groupId}
+								configured={state !== unconfigured}
 								corpProjectName={corpProjectName}
 								disabled={checkDisabled(project)}
 								groupId={groupId}
