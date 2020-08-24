@@ -55,3 +55,9 @@
 .taglib-vertical-card-footer {
 	min-height: 5.6em;
 }
+
+.rtl {
+	.icon-vertical-card-image {
+		transform: translate(50%, -50%);
+	}
+}
