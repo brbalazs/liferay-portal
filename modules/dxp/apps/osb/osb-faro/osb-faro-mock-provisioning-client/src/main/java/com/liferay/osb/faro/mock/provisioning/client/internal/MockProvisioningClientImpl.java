@@ -53,7 +53,9 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 	public void addCorpProjectUsers(String corpProjectUuid, String[] userUuids)
 		throws Exception {
 
-		if (corpProjectUuid.equals(_PROJECT_ID)) {
+		if (corpProjectUuid.equals(_PROJECT_ID) ||
+			corpProjectUuid.equals(_MOCK_PROJECT_ID)) {
+
 			return;
 		}
 
@@ -69,7 +71,9 @@ public class MockProvisioningClientImpl extends BaseMockProvisioningClientImpl {
 			String corpProjectUuid, String[] userUuids, String roleName)
 		throws Exception {
 
-		if (corpProjectUuid.equals(_PROJECT_ID)) {
+		if (corpProjectUuid.equals(_PROJECT_ID) ||
+			corpProjectUuid.equals(_MOCK_PROJECT_ID)) {
+
 			return;
 		}
 
