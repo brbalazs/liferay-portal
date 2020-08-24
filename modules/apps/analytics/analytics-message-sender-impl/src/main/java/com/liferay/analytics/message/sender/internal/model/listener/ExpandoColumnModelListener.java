@@ -151,7 +151,7 @@ public class ExpandoColumnModelListener
 		return JSONUtil.put(
 			"className", className
 		).put(
-			"companyId", expandoColumn.getColumnId()
+			"companyId", expandoColumn.getCompanyId()
 		).put(
 			"dataType", dataType
 		).put(
