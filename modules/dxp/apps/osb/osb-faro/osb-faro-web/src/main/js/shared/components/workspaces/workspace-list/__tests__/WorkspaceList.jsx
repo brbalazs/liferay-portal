@@ -1,4 +1,5 @@
 import * as data from 'test/data';
+import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import WorkspaceList from '..';
 import {cleanup, render} from '@testing-library/react';
@@ -6,6 +7,10 @@ import {fromJS} from 'immutable';
 import {Project} from 'shared/util/records';
 import {range, uniqueId} from 'lodash';
 import {StaticRouter} from 'react-router';
+
+const {
+	dataSourceStates: {unconfigured}
+} = FaroConstants;
 
 const FRIENDLY_URL_BASE = '/faro-liferay-';
 
@@ -31,7 +36,8 @@ const mockAccountWithFriendlyURLList = range(2).map(
 					corpProjectUuid: null,
 					friendlyURL: `${FRIENDLY_URL_BASE}${i}`,
 					groupId: null,
-					name: `mockProject_AccountA ${i}`
+					name: `mockProject_AccountA ${i}`,
+					state: unconfigured
 				})
 			)
 		)
