@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.util.Validator;
 import java.io.Serializable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,8 +28,18 @@ import java.util.Map;
  */
 public class AnalyticsExpandoBridgeUtil {
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getAttributes(ExpandoBridge, List)}
+	 */
+	@Deprecated
 	public static Map<String, Serializable> getAttributes(
 		ExpandoBridge expandoBridge) {
+
+		return null;
+	}
+
+	public static Map<String, Serializable> getAttributes(
+		ExpandoBridge expandoBridge, List<String> includeAttributeNames) {
 
 		Map<String, Serializable> newAttributes = new HashMap<>();
 
@@ -36,6 +47,13 @@ public class AnalyticsExpandoBridgeUtil {
 			false);
 
 		for (Map.Entry<String, Serializable> entry : attributes.entrySet()) {
+			if ((includeAttributeNames != null) &&
+				!includeAttributeNames.isEmpty() &&
+				!includeAttributeNames.contains(entry.getKey())) {
+
+				continue;
+			}
+
 			String dataType = ExpandoColumnUtil.getDataType(
 				expandoBridge.getAttributeType(entry.getKey()));
 
