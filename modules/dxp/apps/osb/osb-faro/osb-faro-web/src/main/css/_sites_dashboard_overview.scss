@@ -52,13 +52,10 @@ $visitorsPreviousPeriod: #393A4A;
 		}
 
 		.card-tabs-root {
-			margin: 0 24px;
+			margin-bottom: 0;
+			margin-top: 0;
 
 			.card-tab {
-				> .button-root {
-					padding: 8px 16px;
-				}
-
 				.title {
 					font-size: $fontSizeSmall;
 					font-weight: $fontWeightSemiBold;
