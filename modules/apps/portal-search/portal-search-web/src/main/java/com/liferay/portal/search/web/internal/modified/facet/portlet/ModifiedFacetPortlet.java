@@ -115,13 +115,12 @@ public class ModifiedFacetPortlet extends MVCPortlet {
 
 		modifiedFacetDisplayBuilder.setFacet(facet);
 
-		modifiedFacetDisplayBuilder.setPaginationStartParameterName(
-			getPaginationStartParameterName(portletSharedSearchResponse));
-
 		ThemeDisplay themeDisplay = getThemeDisplay(renderRequest);
 
 		modifiedFacetDisplayBuilder.setLocale(themeDisplay.getLocale());
-		modifiedFacetDisplayBuilder.setTimeZone(themeDisplay.getTimeZone());
+
+		modifiedFacetDisplayBuilder.setPaginationStartParameterName(
+			getPaginationStartParameterName(portletSharedSearchResponse));
 
 		String parameterName =
 			modifiedFacetPortletPreferences.getParameterName();
@@ -143,6 +142,7 @@ public class ModifiedFacetPortlet extends MVCPortlet {
 				parameterName + "To", renderRequest),
 			modifiedFacetDisplayBuilder::setToParameterValue);
 
+		modifiedFacetDisplayBuilder.setTimeZone(themeDisplay.getTimeZone());
 		modifiedFacetDisplayBuilder.setTotalHits(
 			portletSharedSearchResponse.getTotalHits());
 
