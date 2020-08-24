@@ -129,7 +129,7 @@ if (forcePost && (portletURL != null)) {
 			<li class="<%= (cur > 1) ? StringPool.BLANK : "disabled" %>">
 				<a href="<%= (cur > 1) ? _getHREF(formName, namespace + curParam, cur - 1, jsCall, url, urlAnchor) : "javascript:;" %>" onclick="<%= ((cur > 1) && forcePost) ? _getOnClick(namespace, curParam, cur -1) : "" %>">
 					<liferay-ui:icon
-						icon="angle-left"
+						icon='<%= PortalUtil.isRightToLeft(request) ? "angle-right" : "angle-left" %>'
 						markupView="lexicon"
 						message="previous-page"
 						toolTip="<%= false %>"
@@ -326,7 +326,7 @@ if (forcePost && (portletURL != null)) {
 			<li class="<%= (cur < pages) ? StringPool.BLANK : "disabled" %>">
 				<a href="<%= (cur < pages) ? _getHREF(formName, namespace + curParam, cur + 1, jsCall, url, urlAnchor) : "javascript:;" %>" onclick="<%= ((cur < pages) && forcePost) ? _getOnClick(namespace, curParam, cur + 1) : "" %>">
 					<liferay-ui:icon
-						icon="angle-right"
+						icon='<%= PortalUtil.isRightToLeft(request) ? "angle-left" : "angle-right" %>'
 						markupView="lexicon"
 						message="next-page"
 						toolTip="<%= false %>"
