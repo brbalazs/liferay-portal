@@ -26,6 +26,25 @@ export function create({
 	});
 }
 
+export function configure({
+	corpProjectUuid,
+	emailAddressDomains,
+	friendlyURL,
+	groupId,
+	name
+}) {
+	return sendRequest({
+		data: {
+			corpProjectUuid,
+			emailAddressDomains,
+			friendlyURL,
+			name
+		},
+		method: 'PUT',
+		path: `main/project/${groupId}/configure`
+	});
+}
+
 export function createTrial({
 	emailAddressDomains,
 	friendlyURL,

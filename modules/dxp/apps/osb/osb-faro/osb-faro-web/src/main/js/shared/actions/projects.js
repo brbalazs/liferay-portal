@@ -29,6 +29,25 @@ export function createProject(data) {
 		type: 'NO_OP'
 	};
 }
+
+export function configureProject(data) {
+	return {
+		meta: {
+			[CALL_API]: {
+				data,
+				requestFn: API.projects.configure,
+				schema: project(),
+				types: [
+					actionTypes.CREATE_PROJECT_REQUEST,
+					actionTypes.CREATE_PROJECT_SUCCESS,
+					actionTypes.CREATE_PROJECT_FAILURE
+				]
+			}
+		},
+		type: 'NO_OP'
+	};
+}
+
 export function createTrialProject(data) {
 	return {
 		meta: {
