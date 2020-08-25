@@ -42,6 +42,16 @@ describe('SearchCard', () => {
 		expect(container).toMatchSnapshot();
 	});
 
+	it('should have a default uneditable field with value of q', async() => {
+		const {container, getByDisplayValue} = render(<DefaultComponent />);
+
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
+
+		expect(getByDisplayValue('q')).toBeTruthy();
+	});
+
 	it('should remove special characters on fields', async() => {
 		const {container, getByDisplayValue} = render(<DefaultComponent />);
 
