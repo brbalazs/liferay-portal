@@ -41,6 +41,7 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 	const {data: searchQueryStringsData, error, loading} = useQuery(
 		PreferenceQuery,
 		{
+			fetchPolicy: 'no-cache',
 			variables: {key: SEARCH_QUERY_STRINGS_KEY}
 		}
 	);
@@ -72,13 +73,6 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 		const currentForm = _formRef.current;
 
 		updatePreference({
-			update: (cache, {data}) => {
-				cache.writeQuery({
-					data,
-					query: PreferenceQuery,
-					variables: {key: SEARCH_QUERY_STRINGS_KEY}
-				});
-			},
 			variables: {
 				key: SEARCH_QUERY_STRINGS_KEY,
 				value: JSON.stringify(
