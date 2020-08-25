@@ -159,7 +159,7 @@ exports[`SelectWorkspaceAccount should render 1`] = `
               >
                 <a
                   class="button-root btn btn-unstyled workspace-link border-button"
-                  href="/workspace/corpProjectUuid0/add"
+                  href="/workspace/corpProjectUuid123/add"
                 >
                   <div
                     class="autofit-col autofit-col-expand"
@@ -183,7 +183,7 @@ exports[`SelectWorkspaceAccount should render 1`] = `
                         <div
                           class="info-wrapper corporation-project-name"
                         >
-                          corpProjectName0
+                          corpProjectName123
                         </div>
                         <div
                           class="workspace-info"

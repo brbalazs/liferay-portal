@@ -190,12 +190,13 @@ exports[`WorkspaceList should render WorkspaceList with friendlyURL 1`] = `
                 <div
                   class="workspace-name"
                 >
-                  <div
-                    class="info-wrapper configuration-required"
+                  <span
+                    class="text-truncate"
+                    data-tooltip="false"
+                    title=""
                   >
-                    Configuration Required
-                  </div>
-                  New Unnamed Workspace
+                    mockProject_AccountA 0
+                  </span>
                 </div>
                 <div
                   class="info-wrapper corporation-project-name"
@@ -239,12 +240,13 @@ exports[`WorkspaceList should render WorkspaceList with friendlyURL 1`] = `
                 <div
                   class="workspace-name"
                 >
-                  <div
-                    class="info-wrapper configuration-required"
+                  <span
+                    class="text-truncate"
+                    data-tooltip="false"
+                    title=""
                   >
-                    Configuration Required
-                  </div>
-                  New Unnamed Workspace
+                    mockProject_AccountA 1
+                  </span>
                 </div>
                 <div
                   class="info-wrapper corporation-project-name"
