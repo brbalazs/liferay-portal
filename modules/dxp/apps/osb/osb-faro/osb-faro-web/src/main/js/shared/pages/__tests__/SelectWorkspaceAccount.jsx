@@ -41,7 +41,7 @@ describe('SelectWorkspaceAccount', () => {
 				})
 			),
 			new Project(
-				data.mockProject(0, {
+				data.mockProject(123, {
 					faroSubscription: fromJS(mockBasicSubscription),
 					name: '',
 					state: unconfigured
