@@ -27,15 +27,12 @@ import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
-import com.liferay.portal.vulcan.aggregation.Aggregation;
-import com.liferay.portal.vulcan.aggregation.Facet;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLTypeExtension;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
-import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
@@ -334,7 +331,7 @@ public class Query {
 
 		public KeywordPage(Page keywordPage) {
 			actions = keywordPage.getActions();
-			facets = keywordPage.getFacets();
+
 			items = keywordPage.getItems();
 			lastPage = keywordPage.getLastPage();
 			page = keywordPage.getPage();
@@ -344,9 +341,6 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
-
-		@GraphQLField
-		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<Keyword> items;
@@ -370,7 +364,7 @@ public class Query {
 
 		public TaxonomyCategoryPage(Page taxonomyCategoryPage) {
 			actions = taxonomyCategoryPage.getActions();
-			facets = taxonomyCategoryPage.getFacets();
+
 			items = taxonomyCategoryPage.getItems();
 			lastPage = taxonomyCategoryPage.getLastPage();
 			page = taxonomyCategoryPage.getPage();
@@ -380,9 +374,6 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
-
-		@GraphQLField
-		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<TaxonomyCategory> items;
@@ -406,7 +397,7 @@ public class Query {
 
 		public TaxonomyVocabularyPage(Page taxonomyVocabularyPage) {
 			actions = taxonomyVocabularyPage.getActions();
-			facets = taxonomyVocabularyPage.getFacets();
+
 			items = taxonomyVocabularyPage.getItems();
 			lastPage = taxonomyVocabularyPage.getLastPage();
 			page = taxonomyVocabularyPage.getPage();
@@ -416,9 +407,6 @@ public class Query {
 
 		@GraphQLField
 		protected Map<String, Map> actions;
-
-		@GraphQLField
-		protected List<Facet> facets;
 
 		@GraphQLField
 		protected java.util.Collection<TaxonomyVocabulary> items;
@@ -509,8 +497,6 @@ public class Query {
 		_taxonomyVocabularyResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
-	private BiFunction<Object, List<String>, Aggregation>
-		_aggregationBiFunction;
 	private com.liferay.portal.kernel.model.Company _company;
 	private BiFunction<Object, String, Filter> _filterBiFunction;
 	private GroupLocalService _groupLocalService;
