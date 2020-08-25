@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -162,7 +163,15 @@ public class JSONServiceAction extends JSONAction {
 					e);
 			}
 
-			return JSONFactoryUtil.serializeThrowable(e);
+			if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLES) {
+				return JSONFactoryUtil.serializeThrowable(e);
+			}
+
+			PortalUtil.sendError(
+				HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e, request,
+				response);
+
+			return JSONFactoryUtil.getNullJSON();
 		}
 	}
 

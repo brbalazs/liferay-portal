@@ -60,7 +60,11 @@ public class JSONWebServiceServiceAction extends JSONServiceAction {
 			WebKeys.UPLOAD_EXCEPTION);
 
 		if (uploadException != null) {
-			return JSONFactoryUtil.serializeThrowable(uploadException);
+			if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLES) {
+				return JSONFactoryUtil.serializeThrowable(uploadException);
+			}
+
+			return JSONFactoryUtil.getNullJSON();
 		}
 
 		try {
@@ -92,7 +96,11 @@ public class JSONWebServiceServiceAction extends JSONServiceAction {
 
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 
-				return JSONFactoryUtil.serializeThrowable(throwable);
+				if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLES) {
+					return JSONFactoryUtil.serializeThrowable(throwable);
+				}
+
+				return JSONFactoryUtil.getNullJSON();
 			}
 			else if (throwable instanceof PrincipalException ||
 					 throwable instanceof SecurityException) {
@@ -103,7 +111,11 @@ public class JSONWebServiceServiceAction extends JSONServiceAction {
 
 				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 
-				return JSONFactoryUtil.serializeThrowable(throwable);
+				if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLES) {
+					return JSONFactoryUtil.serializeThrowable(throwable);
+				}
+
+				return JSONFactoryUtil.getNullJSON();
 			}
 			else {
 				status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
@@ -118,7 +130,11 @@ public class JSONWebServiceServiceAction extends JSONServiceAction {
 
 			response.setStatus(status);
 
-			return JSONFactoryUtil.serializeThrowable(throwable);
+			if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLES) {
+				return JSONFactoryUtil.serializeThrowable(throwable);
+			}
+
+			return JSONFactoryUtil.getNullJSON();
 		}
 	}
 
