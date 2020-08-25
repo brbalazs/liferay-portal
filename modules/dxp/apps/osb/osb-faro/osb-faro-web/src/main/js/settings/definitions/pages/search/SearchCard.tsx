@@ -10,16 +10,10 @@ import PreferenceQuery from 'settings/data-privacy/queries/PreferenceQuery';
 import React, {useRef} from 'react';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert, Modal} from 'shared/types';
-import {
-	ArrayHelpers,
-	FieldArray,
-	Formik,
-	FormikTouched,
-	FormikValues
-} from 'formik';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withHistory} from 'shared/hoc';
 import {connect} from 'react-redux';
+import {FieldArray, Formik, FormikTouched, FormikValues} from 'formik';
 import {Routes, toRoute} from 'shared/util/router';
 import {sequence} from 'shared/util/promise';
 import {useMutation, useQuery} from '@apollo/react-hooks';
@@ -55,10 +49,16 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 
 	const _formRef = useRef<Formik>();
 
+	const AddButton = ({...otherProps}) => (
+		<Button borderless className='ml-1' display='secondary' {...otherProps}>
+			<Icon symbol='plus' />
+		</Button>
+	);
+
 	const getQueryStrings = (): Array<string> =>
 		searchQueryStringsData && searchQueryStringsData.preference.value
 			? JSON.parse(searchQueryStringsData.preference.value)
-			: [''];
+			: [];
 
 	const removeSpecialCharacters = (originalValue: string): string =>
 		originalValue.split('=')[0].replace(/[^\w\s]/gi, '');
@@ -104,16 +104,6 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 					message: Liferay.Language.get('error')
 				});
 			});
-	};
-
-	const handleRemoveField = (
-		arrayHelpers: ArrayHelpers,
-		index: number,
-		currentLength: number
-	): void => {
-		getQueryStrings().length === 1 && currentLength === 1
-			? arrayHelpers.replace(index, '')
-			: arrayHelpers.remove(index);
 	};
 
 	const handleCancel = (touchedFields: FormikTouched<FormikValues>): void => {
@@ -185,6 +175,27 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 									name='queryStringList'
 									render={arrayHelpers => (
 										<>
+											<div className='form-inline mb-3'>
+												<Form.Input
+													className='query-input'
+													disabled
+													name='defaultQueryString'
+													value='q'
+												/>
+
+												{!values.queryStringList
+													.length && (
+													<AddButton
+														disabled={isSubmitting}
+														onClick={() =>
+															arrayHelpers.push(
+																''
+															)
+														}
+													/>
+												)}
+											</div>
+
 											{values.queryStringList.map(
 												(queryString, index) => (
 													<div
@@ -218,12 +229,8 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 															}
 															display='secondary'
 															onClick={() =>
-																handleRemoveField(
-																	arrayHelpers,
-																	index,
-																	values
-																		.queryStringList
-																		.length
+																arrayHelpers.remove(
+																	index
 																)
 															}
 														>
@@ -236,21 +243,16 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 																.queryStringList
 																.length
 														) && (
-															<Button
-																borderless
-																className='ml-1'
+															<AddButton
 																disabled={
 																	isSubmitting
 																}
-																display='secondary'
 																onClick={() =>
 																	arrayHelpers.push(
 																		''
 																	)
 																}
-															>
-																<Icon symbol='plus' />
-															</Button>
+															/>
 														)}
 													</div>
 												)
