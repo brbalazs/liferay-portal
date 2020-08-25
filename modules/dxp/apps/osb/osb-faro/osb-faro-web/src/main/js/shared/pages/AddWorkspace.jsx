@@ -52,28 +52,21 @@ export class AddWorkspace extends React.Component {
 			project: {groupId, state}
 		} = this.props;
 
-		let params = {
-			corpProjectUuid,
+		const params = {
 			emailAddressDomains,
 			friendlyURL: friendlyURL && `/${friendlyURL}`,
-			name
+			name,
+			...(state === unconfigured
+				? {groupId}
+				: {corpProjectUuid, serverLocation})
 		};
 
-		let createFn;
-
-		if (state === unconfigured) {
-			createFn = configureProject;
-			params = {
-				...params,
-				groupId
-			};
-		} else {
-			createFn = corpProjectUuid ? createProject : createTrialProject;
-			params = {
-				...params,
-				serverLocation
-			};
-		}
+		const createFn =
+			state === unconfigured
+				? configureProject
+				: corpProjectUuid
+				? createProject
+				: createTrialProject;
 
 		return createFn(params)
 			.then(({payload: {friendlyURL, groupId}}) => {
