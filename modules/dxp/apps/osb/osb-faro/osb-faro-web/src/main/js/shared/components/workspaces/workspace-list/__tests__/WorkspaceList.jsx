@@ -36,6 +36,19 @@ const mockAccountWithFriendlyURLList = range(2).map(
 					corpProjectUuid: null,
 					friendlyURL: `${FRIENDLY_URL_BASE}${i}`,
 					groupId: null,
+					name: `mockProject_AccountA ${i}`
+				})
+			)
+		)
+);
+
+const mockAccountWithUnconfiguredList = range(2).map(
+	i =>
+		new Project(
+			fromJS(
+				data.mockProject(i, {
+					corpProjectUuid: '12345',
+					groupId: 123,
 					name: `mockProject_AccountA ${i}`,
 					state: unconfigured
 				})
@@ -63,5 +76,13 @@ describe('WorkspaceList', () => {
 			<DefaultComponent accounts={mockAccountWithFriendlyURLList} />
 		);
 		expect(container).toMatchSnapshot();
+	});
+
+	it('should render an unconfigured WorkspaceList', () => {
+		const {queryAllByText} = render(
+			<DefaultComponent accounts={mockAccountWithUnconfiguredList} />
+		);
+
+		expect(queryAllByText('Configuration Required')).toBeTruthy();
 	});
 });
