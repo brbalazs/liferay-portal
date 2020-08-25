@@ -144,6 +144,7 @@
 
 				ddmFormDefinition.defaultLanguageId =
 					'<%= LocaleUtil.toLanguageId(defaultLocale) %>';
+
 			<%
 			}
 			%>
