@@ -6,6 +6,7 @@ import {
 	LAST_24_HOURS,
 	LAST_28_DAYS,
 	LAST_30_DAYS,
+	LAST_7_DAYS,
 	LAST_90_DAYS,
 	LAST_YEAR,
 	YESTERDAY
@@ -121,6 +122,7 @@ export const formatXAxisDate = (
 
 	switch (rangeKey) {
 		case CUSTOM_RANGE:
+		case LAST_7_DAYS:
 		case LAST_28_DAYS:
 		case LAST_30_DAYS:
 		case LAST_90_DAYS:
