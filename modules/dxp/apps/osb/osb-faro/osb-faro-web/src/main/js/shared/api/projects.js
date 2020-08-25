@@ -26,16 +26,9 @@ export function create({
 	});
 }
 
-export function configure({
-	corpProjectUuid,
-	emailAddressDomains,
-	friendlyURL,
-	groupId,
-	name
-}) {
+export function configure({emailAddressDomains, friendlyURL, groupId, name}) {
 	return sendRequest({
 		data: {
-			corpProjectUuid,
 			emailAddressDomains,
 			friendlyURL,
 			name
