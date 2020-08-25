@@ -179,7 +179,7 @@ String modelName = (String)request.getAttribute("liferay-ui:input-permissions:mo
 									checked = guestPermissions.contains(action);
 								}
 								else {
-									checked = guestDefaultActions.contains(action) && (inputPermissionsViewRole.equals(RoleConstants.GUEST));
+									checked = guestDefaultActions.contains(action) && inputPermissionsViewRole.equals(RoleConstants.GUEST);
 								}
 							}
 							else if (roleName.equals(defaultGroupRole.getName())) {

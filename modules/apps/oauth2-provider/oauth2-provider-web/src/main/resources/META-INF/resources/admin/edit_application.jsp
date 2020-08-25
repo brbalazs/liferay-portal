@@ -47,7 +47,7 @@ portletDisplay.setURLBack(redirect);
 	<clay:navigation-bar
 		inverted="<%= true %>"
 		navigationItems='<%=
-				new JSPNavigationItemList(pageContext) {
+			new JSPNavigationItemList(pageContext) {
 				{
 					add(
 						navigationItem -> {

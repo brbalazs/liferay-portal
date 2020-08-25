@@ -63,7 +63,7 @@ if (portletTitleBasedNavigation) {
 						</aui:form>
 
 						<%
-						Date expirationDate = new Date(System.currentTimeMillis() + PropsValues.SESSION_TIMEOUT * Time.MINUTE);
+						Date expirationDate = new Date(System.currentTimeMillis() + (PropsValues.SESSION_TIMEOUT * Time.MINUTE));
 
 						Ticket ticket = TicketLocalServiceUtil.addTicket(user.getCompanyId(), User.class.getName(), user.getUserId(), TicketConstants.TYPE_IMPERSONATE, null, expirationDate, new ServiceContext());
 						%>

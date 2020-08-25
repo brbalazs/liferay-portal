@@ -63,7 +63,6 @@ AnnouncementsAdminViewManagementToolbarDisplayContext announcementsAdminViewMana
 						navigationItem.setHref(renderResponse.createRenderURL(), "navigation", "alerts");
 						navigationItem.setLabel(LanguageUtil.get(request, "alerts"));
 					});
-
 			}
 		}
 	%>'

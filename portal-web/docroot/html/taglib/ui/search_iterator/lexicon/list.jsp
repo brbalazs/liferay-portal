@@ -76,11 +76,11 @@ if (fixedHeader) {
 						normalizedHeaderName = normalizedHeaderNames.get(i);
 					}
 
-						if (Validator.isNotNull(normalizedHeaderName)) {
-							cssClass = (normalizedHeaderName.equals("rowChecker")) ? "lfr-checkbox-column" : "lfr-" + normalizedHeaderName + "-column";
-						}
-						else {
-							normalizedHeaderName = String.valueOf(i + 1);
+					if (Validator.isNotNull(normalizedHeaderName)) {
+						cssClass = normalizedHeaderName.equals("rowChecker") ? "lfr-checkbox-column" : "lfr-" + normalizedHeaderName + "-column";
+					}
+					else {
+						normalizedHeaderName = String.valueOf(i + 1);
 
 						cssClass = "lfr-entry-action-column";
 					}
@@ -139,9 +139,9 @@ if (fixedHeader) {
 							headerNameValue = headerName;
 						}
 
-							if (Validator.isNull(headerNameValue)) {
-								headerNameValue = StringPool.NBSP;
-							}
+						if (Validator.isNull(headerNameValue)) {
+							headerNameValue = StringPool.NBSP;
+						}
 						%>
 
 						<c:choose>
@@ -291,7 +291,7 @@ if (fixedHeader) {
 								normalizedColumnName = normalizedHeaderNames.get(j);
 
 								if (!Validator.isBlank(normalizedColumnName)) {
-									columnClassName += (normalizedColumnName.equals("rowChecker")) ? " lfr-checkbox-column" : " lfr-" + normalizedColumnName + "-column";
+									columnClassName += normalizedColumnName.equals("rowChecker") ? " lfr-checkbox-column" : " lfr-" + normalizedColumnName + "-column";
 								}
 							}
 

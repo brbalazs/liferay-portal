@@ -47,16 +47,17 @@ portletURL.setParameter("sourceVersion", String.valueOf(sourceVersion));
 />
 
 <%
-List<DropdownItem> dropdownItems = new JSPDropdownItemList(pageContext) {
-	{
-		add(
-			dropdownItem -> {
-				dropdownItem.setActive(true);
-				dropdownItem.setHref(StringPool.BLANK);
-				dropdownItem.setLabel(LanguageUtil.get(request, "all"));
-			});
-	}
-};
+List<DropdownItem> dropdownItems =
+	new JSPDropdownItemList(pageContext) {
+		{
+			add(
+				dropdownItem -> {
+					dropdownItem.setActive(true);
+					dropdownItem.setHref(StringPool.BLANK);
+					dropdownItem.setLabel(LanguageUtil.get(request, "all"));
+				});
+		}
+	};
 %>
 
 <clay:management-toolbar
@@ -68,8 +69,7 @@ List<DropdownItem> dropdownItems = new JSPDropdownItemList(pageContext) {
 					dropdownGroupItem -> {
 						dropdownGroupItem.setDropdownItems(dropdownItems);
 						dropdownGroupItem.setLabel(LanguageUtil.get(request, "filter-by-navigation"));
-					}
-				);
+					});
 			}
 		}
 	%>'
