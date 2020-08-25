@@ -56,7 +56,7 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 		</Button>
 	);
 
-	const getQueryStrings = (): Array<string> =>
+	const getQueryStringListInitialValue = (): Array<string> =>
 		searchQueryStringsData && searchQueryStringsData.preference.value
 			? JSON.parse(searchQueryStringsData.preference.value)
 			: [];
@@ -151,7 +151,7 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 				>
 					<Form
 						initialValues={{
-							queryStringList: getQueryStrings()
+							queryStringList: getQueryStringListInitialValue()
 						}}
 						onSubmit={handleSubmit}
 						ref={_formRef}
