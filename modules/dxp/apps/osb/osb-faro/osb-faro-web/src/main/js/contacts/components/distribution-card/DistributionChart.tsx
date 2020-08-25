@@ -140,6 +140,10 @@ class DistributionChart extends React.Component<IDistributionChartProps> {
 
 		const fieldDistributionsCount = individualFieldDistribution.length;
 
+		const yAxisDomain = histogram
+			? [yAxisTicks[0], yAxisTicks[yAxisTicks.length - 1]]
+			: [0, 'auto'];
+
 		const yAxisWidth = yAxisTicks.reduce((acc, item) => {
 			const textWidth = getTextWidth(item.toString());
 
@@ -185,12 +189,7 @@ class DistributionChart extends React.Component<IDistributionChartProps> {
 												stroke: AXIS.borderStroke
 											}}
 											dataKey='graphValue'
-											domain={[
-												yAxisTicks[0],
-												yAxisTicks[
-													yAxisTicks.length - 1
-												]
-											]}
+											domain={yAxisDomain}
 											tickFormatter={val => val}
 											ticks={yAxisTicks}
 											type={
@@ -206,12 +205,7 @@ class DistributionChart extends React.Component<IDistributionChartProps> {
 												stroke: AXIS.borderStroke
 											}}
 											dataKey='graphValue'
-											domain={[
-												yAxisTicks[0],
-												yAxisTicks[
-													yAxisTicks.length - 1
-												]
-											]}
+											domain={yAxisDomain}
 											orientation='right'
 											tick={false}
 											tickLine={false}
