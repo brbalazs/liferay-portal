@@ -44,10 +44,8 @@ public class FileSystemHelper {
 		try {
 			sourceFilePath = Files.createTempFile(rootDirPath, null, null);
 
-			Path fileNamePath = sourceFilePath.getFileName();
-
 			destinationFilePath = sourceFilePath.resolveSibling(
-				fileNamePath.toString() + "-link");
+				String.valueOf(sourceFilePath.getFileName()) + "-link");
 
 			Files.createLink(destinationFilePath, sourceFilePath);
 
