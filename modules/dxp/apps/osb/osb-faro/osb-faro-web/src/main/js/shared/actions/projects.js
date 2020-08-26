@@ -4,8 +4,8 @@ import {createActionTypes} from 'redux-toolbox';
 import {project, projects, projectState} from '../middleware/schema';
 
 export const actionTypes = {
-	...createActionTypes('create', 'project'),
 	...createActionTypes('configure', 'project'),
+	...createActionTypes('create', 'project'),
 	...createActionTypes('fetch', 'project'),
 	...createActionTypes('fetch', 'projects'),
 	...createActionTypes('fetch', 'project_state'),
