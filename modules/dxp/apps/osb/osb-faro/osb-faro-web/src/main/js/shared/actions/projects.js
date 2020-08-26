@@ -5,6 +5,7 @@ import {project, projects, projectState} from '../middleware/schema';
 
 export const actionTypes = {
 	...createActionTypes('create', 'project'),
+	...createActionTypes('configure', 'project'),
 	...createActionTypes('fetch', 'project'),
 	...createActionTypes('fetch', 'projects'),
 	...createActionTypes('fetch', 'project_state'),
@@ -38,9 +39,9 @@ export function configureProject(data) {
 				requestFn: API.projects.configure,
 				schema: project(),
 				types: [
-					actionTypes.CREATE_PROJECT_REQUEST,
-					actionTypes.CREATE_PROJECT_SUCCESS,
-					actionTypes.CREATE_PROJECT_FAILURE
+					actionTypes.CONFIGURE_PROJECT_REQUEST,
+					actionTypes.CONFIGURE_PROJECT_SUCCESS,
+					actionTypes.CONFIGURE_PROJECT_FAILURE
 				]
 			}
 		},
