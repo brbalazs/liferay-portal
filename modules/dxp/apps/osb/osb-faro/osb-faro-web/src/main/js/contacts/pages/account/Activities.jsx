@@ -3,7 +3,7 @@ import AccountEngagement from 'contacts/components/account/Engagement';
 import ActivitiesChartTimeline from 'contacts/components/ActivitiesChartTimeline';
 import autobind from 'autobind-decorator';
 import Card from 'shared/components/Card';
-import CardTabs from 'shared/components/CardTabs';
+import CardTabs, {ButtonDisplayMode} from 'shared/components/CardTabs';
 import FaroConstants from 'shared/util/constants';
 import Promise from 'metal-promise';
 import React from 'react';
@@ -176,7 +176,7 @@ export default class Activities extends React.Component {
 				>
 					<CardTabs
 						activeTabId={tabId}
-						className='mdn-button-tab'
+						buttonsDisplayMode={ButtonDisplayMode.SPACED_BUTTONS}
 						tabs={buildTabItems({
 							activityChange,
 							activityCount: activitiesCount,

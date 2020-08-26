@@ -3,7 +3,7 @@ import ActivitiesChart from '../../../components/ActivitiesChart';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
-import CardTabs from 'shared/components/CardTabs';
+import CardTabs, {ButtonDisplayMode} from 'shared/components/CardTabs';
 import Constants from 'shared/util/constants';
 import EngagementChart from 'contacts/components/EngagementChart';
 import Promise from 'metal-promise';
@@ -386,7 +386,7 @@ export class IndividualProfileCard extends React.Component {
 				>
 					<CardTabs
 						activeTabId={tabId}
-						className='mdn-button-tab'
+						buttonsDisplayMode={ButtonDisplayMode.SPACED_BUTTONS}
 						tabs={buildTabItems({
 							activityChange,
 							activityCount,
