@@ -90,7 +90,8 @@ public class FriendlyURLNormalizerImpl implements FriendlyURLNormalizer {
 		}
 
 		String decodedFriendlyURL = HttpUtil.decodePath(
-			StringUtil.replace(friendlyURL, CharPool.PERCENT, CharPool.POUND));
+			StringUtil.replace(
+				friendlyURL, CharPool.PERCENT, CharPool.POUND));
 
 		StringBuilder sb = new StringBuilder(decodedFriendlyURL.length());
 
