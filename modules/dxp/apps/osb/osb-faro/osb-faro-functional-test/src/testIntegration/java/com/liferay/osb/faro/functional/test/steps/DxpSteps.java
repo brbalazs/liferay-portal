@@ -22,7 +22,6 @@ import com.liferay.osb.faro.functional.test.util.FaroTestConstants;
 import com.liferay.osb.faro.functional.test.util.FaroTestDataUtil;
 import com.liferay.osb.faro.functional.test.util.FaroTransformer;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.petra.string.StringPool;
 import com.liferay.poshi.runner.util.PropsUtil;
 import com.liferay.poshi.runner.util.StringUtil;
 
@@ -37,7 +36,6 @@ import java.io.FileInputStream;
 
 import java.util.Properties;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import org.sikuli.api.robot.Key;
@@ -242,7 +240,7 @@ public class DxpSteps {
 	 * @param  pageName name of the page to create
 	 * @throws Exception if an exception occurred
 	 */
-	@And("^I create a dummy page called (.*) on the (.*)?\\s?DXP Site$")
+	@And("^I create a dummy page called (.*) on the (.*)?(?: )?DXP Site$")
 	public void createDummyPage(
 			@Transform(FaroTransformer.class) String pageName,
 			@Transform(FaroTransformer.class) String site)
@@ -258,7 +256,10 @@ public class DxpSteps {
 		_handleDxpPasswordReminder();
 
 		_faroSelenium.get(
-			PropsUtil.get("portal.url") + DxpStringPool.getPageCreationUrlPath(site));
+			PropsUtil.get("portal.url") +
+				DxpStringPool.getPageCreationUrlPath(site));
+
+		_faroSelenium.waitForElementPresent("//div[text()='Blog']");
 
 		_faroSelenium.click("//div[text()='Blog']");
 
@@ -327,6 +328,54 @@ public class DxpSteps {
 		ClickSteps.clickButton("Save");
 	}
 
+	@And(
+		"^I generate page views on the following pages as (.*) on the (.*) DXP Site$"
+	)
+	public void generatePageViewsOnSitePages(
+			@Transform(FaroTransformer.class) String user,
+			@Transform(FaroTransformer.class) String site, DataTable dataTable)
+		throws Exception {
+
+		_faroSelenium.get(
+			PropsUtil.get("portal.url") +
+				DxpStringPool.USERS_ORGANIZATIONS_CONTROL_PANEL_URL_PATH);
+
+		Toolbar.submitDxpSearchBar(user);
+
+		String userKebabXpath =
+			"//tr[descendant::*[contains(text(),'" + user +
+				"')]]/descendant::div/*[self::a or self::button]";
+
+		_faroSelenium.refreshUntilElementPresent(6, 2, userKebabXpath);
+
+		_faroSelenium.click(userKebabXpath);
+
+		WebElement webElement = _faroSelenium.findElement(
+			"//ul/li//*[text()='Impersonate User']/parent::a");
+
+		_faroSelenium.get(webElement.getAttribute("href"));
+
+		_switchDxpSiteAsUser(site);
+
+		for (String page : dataTable.asList(String.class)) {
+			_faroSelenium.get(
+				PropsUtil.get("portal.url") +
+					DxpStringPool.getSitePageUrl(site, page));
+
+			_faroSelenium.mouseOver("//footer");
+
+			_faroSelenium.refresh();
+
+			_faroSelenium.click("//*[@class='portlet-title-text']");
+
+			_faroSelenium.mouseOver("//*[@id='banner']");
+
+			_faroSelenium.refresh();
+		}
+
+		Thread.sleep(10000);
+	}
+
 	@Given("^I go to the (.*) DXP Page$")
 	public void goToDXPPage(@Transform(FaroTransformer.class) String pageName) {
 		String url = PropsUtil.get("portal.url");
@@ -372,57 +421,6 @@ public class DxpSteps {
 		_faroSelenium.click(sb.toString());
 	}
 
-	@And("^I generate page views on the following pages as (.*) on the (.*) DXP Site$")
-	public void generatePageViewsOnSitePages(
-			@Transform(FaroTransformer.class) String user,
-			@Transform(FaroTransformer.class) String site,
-			DataTable dataTable) throws Exception{
-		_faroSelenium.get(PropsUtil.get("portal.url") + DxpStringPool.USERS_ORGANIZATIONS_CONTROL_PANEL_URL_PATH);
-
-		Toolbar.submitDxpSearchBar(user);
-
-		String userKebabXpath = "//tr[descendant::*[contains(text(),'" + user + "')]]/descendant::div/*[self::a or self::button]";
-
-		_faroSelenium.refreshUntilElementPresent(6, 2, userKebabXpath);
-
-		_faroSelenium.click(userKebabXpath);
-
-
-		WebElement webElement = _faroSelenium.findElement("//ul/li//*[text()='Impersonate User']/parent::a");
-
-		_faroSelenium.get(webElement.getAttribute("href"));
-
-		_switchDxpSiteAsUser(site);
-
-		for (String page : dataTable.asList(String.class)) {
-
-			_faroSelenium.click("//a/span[text()=' " + page + " ']");
-
-			_faroSelenium.refresh();
-
-			_faroSelenium.click("//a/span[text()=' " + page + " ']");
-
-			_faroSelenium.refresh();
-		}
-
-		Thread.sleep(30000);
-	}
-
-	private void _switchDxpSiteAsUser(String site) throws Exception {
-		_faroSelenium.click("//span[@class='user-avatar-link']");
-
-		_faroSelenium.click("//a[text()='My Sites']");
-
-		NavigationSteps.switchToFocusedModal();
-
-		_faroSelenium.click("//a[text()='My Sites']");
-
-		Toolbar.submitDxpSearchBar(site);
-
-		_faroSelenium.click("//div[@class='card-body']//*[contains(text(),'" + site + "')]");
-
-		NavigationSteps.switchToMainFrame();
-	}
 	/**
 	 * Initializes the DXP instance for use by subsequent steps
 	 *
@@ -541,6 +539,25 @@ public class DxpSteps {
 			_faroSelenium.waitForPageLoadingComplete();
 			_faroSelenium.waitForLoadingComplete();
 		}
+	}
+
+	private void _switchDxpSiteAsUser(String site) throws Exception {
+		_faroSelenium.click("//span[@class='user-avatar-link']");
+
+		_faroSelenium.click("//a[text()='My Sites']");
+
+		_faroSelenium.waitForElementPresent("//iframe");
+
+		NavigationSteps.switchToFocusedModal();
+
+		_faroSelenium.click("//a[text()='My Sites']");
+
+		Toolbar.submitDxpSearchBar(site);
+
+		_faroSelenium.click(
+			"//div[@class='card-body']//*[contains(text(),'" + site + "')]");
+
+		NavigationSteps.switchToMainFrame();
 	}
 
 	private static final FaroSelenium _faroSelenium =

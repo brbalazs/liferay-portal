@@ -34,6 +34,25 @@ import org.openqa.selenium.WebElement;
  */
 public class Toolbar {
 
+	@When("^I search for (.*) in DXP$")
+	public static void submitDxpSearchBar(
+			@Transform(FaroTransformer.class) String input)
+		throws Exception {
+
+		_faroSelenium.waitForElementPresent(_DXP_SEARCH_BAR);
+
+		WebElement webElement = _faroSelenium.findElement(_DXP_SEARCH_BAR);
+
+		webElement.clear();
+
+		webElement.sendKeys(input);
+
+		webElement.sendKeys(Keys.RETURN);
+
+		_faroSelenium.waitForLoadingComplete();
+		_faroSelenium.waitForPageLoadingComplete();
+	}
+
 	/**
 	 * Clears and enters text into the search bar, then submits the form.
 	 *
@@ -163,22 +182,6 @@ public class Toolbar {
 		WebElement webElement = _faroSelenium.findElement(sb.toString());
 
 		webElement.sendKeys(input);
-
-		_faroSelenium.waitForLoadingComplete();
-		_faroSelenium.waitForPageLoadingComplete();
-	}
-
-	@When("^I search for (.*) in DXP$")
-	public static void submitDxpSearchBar(@Transform(FaroTransformer.class) String input)
-		throws Exception {
-
-		WebElement webElement = _faroSelenium.findElement(_DXP_SEARCH_BAR);
-
-		webElement.clear();
-
-		webElement.sendKeys(input);
-
-		webElement.sendKeys(Keys.RETURN);
 
 		_faroSelenium.waitForLoadingComplete();
 		_faroSelenium.waitForPageLoadingComplete();

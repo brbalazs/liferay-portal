@@ -25,7 +25,8 @@ public class FaroTransformer extends Transformer<String> {
 
 	@Override
 	public String transform(String value) {
-		return FaroTestDataUtil.parsePlaceholders(StringUtil.unquote(value));
+		return FaroTestDataUtil.parsePlaceholders(
+			StringUtil.unquote(value.trim()));
 	}
 
 }

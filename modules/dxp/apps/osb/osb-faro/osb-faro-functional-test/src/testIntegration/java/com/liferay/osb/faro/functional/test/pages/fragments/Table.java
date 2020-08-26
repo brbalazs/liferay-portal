@@ -305,6 +305,7 @@ public class Table {
 		try {
 			if (negation == null) {
 				_faroSelenium.waitForElementPresent(sb.toString());
+				_faroSelenium.assertElementPresent(sb.toString());
 			}
 			else {
 				_faroSelenium.assertElementNotPresent(sb.toString());

@@ -130,7 +130,9 @@ public class NavigationSteps {
 	 * Switches to the focused modal.
 	 */
 	@When("^I switch to the focused modal$")
-	public static void switchToFocusedModal() {
+	public static void switchToFocusedModal() throws Exception {
+		_faroSelenium.waitForElementPresent("//iframe");
+
 		WebDriver webDriver = WebDriverUtil.getWebDriver();
 
 		WebElement modalWebElement = _faroSelenium.findElement("//iframe");

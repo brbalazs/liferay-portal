@@ -14,8 +14,8 @@
 
 package com.liferay.osb.faro.functional.test.util;
 
+import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 
 /**
@@ -27,19 +27,7 @@ import com.liferay.portal.kernel.util.StringUtil;
 public class DxpStringPool {
 
 	public static final String AC_INSTANCE_SETTINGS_URL_BASE =
-		new StringBundler().append(
-			"/group/control_panel/manage?p_p_id=com_liferay_configuration_admi"
-		).append(
-			"n_web_portlet_InstanceSettingsPortlet&p_p_lifecycle=0&p_p_state=m"
-		).append(
-			"aximized&p_p_mode=view&_com_liferay_configuration_admin_web_portl"
-		).append(
-			"et_InstanceSettingsPortlet_mvcRenderCommandName=%2Fview_configura"
-		).append(
-			"tion_screen&_com_liferay_configuration_admin_web_portlet_Instance"
-		).append(
-			"SettingsPortlet_configurationScreenKey="
-		).toString();
+		_createAcInstanceSettingsUrlBase();
 
 	public static final String AC_INSTANCE_SETTINGS_URL_PATH =
 		AC_INSTANCE_SETTINGS_URL_BASE + "analytics-cloud-connection";
@@ -89,54 +77,85 @@ public class DxpStringPool {
 		"//input[@id='_com_liferay_layout_admin_web_portlet" +
 			"_GroupPagesPortlet_name']";
 
-	private static String _lintNameForUrl(String name) {
-		if (name.equals("Liferay DXP")) {
-			name = "guest";
-		} else {
-			name = StringUtil.replace(name, StringPool.SPACE, StringPool.DASH);
-		}
-		return name;
-	}
-
-	public static String getPageCreationUrlPath(String site) {
-
-		return new StringBundler().append("/group/"
-		).append(_lintNameForUrl(site)
-		).append("/~/control_panel/manage?p_p_id=com_liferay_layout_adm"
-		).append(
-				"in_web_portlet_GroupPagesPortlet&p_p_lifecycle=0&p_p_state=maximi"
-		).append(
-				"zed&p_p_mode=view&_com_liferay_layout_admin_web_portlet_GroupPage"
-		).append(
-				"sPortlet_mvcPath=%2Fselect_layout_page_template_entry.jsp&_com_li"
-		).append(
-				"feray_layout_admin_web_portlet_GroupPagesPortlet_groupId=20126&p_"
-		).append(
-				"r_p_selPlid=0&p_r_p_privateLayout=false&_com_liferay_layout_admin"
-		).append(
-				"_web_portlet_GroupPagesPortlet_selectedTab=global-templates&p_p_a"
-		).append(
-				"uth=em8IWLqf"
-		).toString();
-	}
-
-	public static final String SITES_CONTROL_PANEL_URL_PATH =
-		"/group/control_panel/manage/-/sites/sites";
-
-	public static final String USERS_ORGANIZATIONS_CONTROL_PANEL_URL_PATH =
-		new StringBundler().append("/group/control_panel/manage?p_p_id=com_lif"
-		).append("eray_users_admin_web_portlet_UsersAdminPortlet&p_p_lifecycle"
-		).append("=0&p_p_state=maximized&p_v_l_s_g_id=20122"
-		).toString();
-
 	public static final String SCOPE_CHECKBOX_XPATH =
 		"//a[@aria-expanded='true']//following-sibling::div//input[@type='c" +
 			"heckbox']";
+
+	public static final String SITES_CONTROL_PANEL_URL_PATH =
+		"/group/control_panel/manage/-/sites/sites";
 
 	public static final String SYNCED_CONTACTS_PATH =
 		AC_INSTANCE_SETTINGS_URL_BASE + "synced-contacts";
 
 	public static final String SYNCED_SITES_PATH =
 		AC_INSTANCE_SETTINGS_URL_BASE + "synced-sites";
+
+	public static final String USERS_ORGANIZATIONS_CONTROL_PANEL_URL_PATH =
+		_createUsersOrganizationsControlPanelUrlPath();
+
+	public static String getPageCreationUrlPath(String site) {
+		StringBundler sb = new StringBundler(11);
+
+		sb.append("/group/");
+		sb.append(_lintNameForUrl(site));
+		sb.append("/~/control_panel/manage?p_p_id=com_liferay_layout_adm");
+		sb.append("in_web_portlet_GroupPagesPortlet&p_p_lifecycle=0&p_p_sta");
+		sb.append("te=maximized&p_p_mode=view&_com_liferay_layout_admin_web");
+		sb.append("_portlet_GroupPagesPortlet_mvcPath=%2Fselect_layout_page");
+		sb.append("_template_entry.jsp&_com_liferay_layout_admin_web_portle");
+		sb.append("t_GroupPagesPortlet_groupId=20126&p_r_p_selPlid=0&p_r_p_");
+		sb.append("privateLayout=false&_com_liferay_layout_admin_web_portle");
+		sb.append("t_GroupPagesPortlet_selectedTab=global-templates&p_p_aut");
+		sb.append("h=em8IWLqf");
+
+		return sb.toString();
+	}
+
+	public static String getSitePageUrl(String site, String page) {
+		StringBundler sb = new StringBundler(4);
+
+		sb.append("/web/");
+		sb.append(_lintNameForUrl(site));
+		sb.append(CharPool.FORWARD_SLASH);
+		sb.append(_lintNameForUrl(page));
+
+		return sb.toString();
+	}
+
+	private static String _createAcInstanceSettingsUrlBase() {
+		StringBundler sb = new StringBundler(7);
+
+		sb.append("/group/control_panel/manage?p_p_id=com_liferay_configurat");
+		sb.append("ion_admin_web_portlet_InstanceSettingsPortlet&p_p_lifecyc");
+		sb.append("le=0&p_p_state=maximized&p_p_mode=view&_com_liferay_confi");
+		sb.append("guration_admin_web_portlet_InstanceSettingsPortlet_mvcRen");
+		sb.append("derCommandName=%2Fview_configuration_screen&_com_liferay_");
+		sb.append("configuration_admin_web_portlet_InstanceSettingsPortlet_c");
+		sb.append("onfigurationScreenKey=");
+
+		return sb.toString();
+	}
+
+	private static String _createUsersOrganizationsControlPanelUrlPath() {
+		StringBundler sb = new StringBundler(3);
+
+		sb.append("/group/control_panel/manage?p_p_id=com_liferay_users_");
+		sb.append("admin_web_portlet_UsersAdminPortlet&p_p_lifecycle=0&p");
+		sb.append("_p_state=maximized&p_v_l_s_g_id=20122");
+
+		return sb.toString();
+	}
+
+	private static String _lintNameForUrl(String name) {
+		if (name.equals("Liferay DXP")) {
+			name = "guest";
+		}
+		else {
+			name = name.trim();
+			name = StringUtil.replace(name, CharPool.SPACE, CharPool.DASH);
+		}
+
+		return name;
+	}
 
 }
