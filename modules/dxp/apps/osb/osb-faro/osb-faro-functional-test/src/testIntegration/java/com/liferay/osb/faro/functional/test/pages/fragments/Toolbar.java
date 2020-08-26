@@ -169,7 +169,7 @@ public class Toolbar {
 	}
 
 	@When("^I search for (.*) in DXP$")
-	public void setDxpSearchBar(@Transform(FaroTransformer.class) String input)
+	public static void submitDxpSearchBar(@Transform(FaroTransformer.class) String input)
 		throws Exception {
 
 		WebElement webElement = _faroSelenium.findElement(_DXP_SEARCH_BAR);

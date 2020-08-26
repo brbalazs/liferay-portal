@@ -15,6 +15,8 @@
 package com.liferay.osb.faro.functional.test.util;
 
 import com.liferay.petra.string.StringBundler;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 
 /**
  * For storing long, ambiguous, or version specific DXP XPath or URL path
@@ -25,7 +27,7 @@ import com.liferay.petra.string.StringBundler;
 public class DxpStringPool {
 
 	public static final String AC_INSTANCE_SETTINGS_URL_BASE =
-		new StringBuilder().append(
+		new StringBundler().append(
 			"/group/control_panel/manage?p_p_id=com_liferay_configuration_admi"
 		).append(
 			"n_web_portlet_InstanceSettingsPortlet&p_p_lifecycle=0&p_p_state=m"
@@ -87,23 +89,44 @@ public class DxpStringPool {
 		"//input[@id='_com_liferay_layout_admin_web_portlet" +
 			"_GroupPagesPortlet_name']";
 
-	public static final String PAGE_CREATION_URL_PATH =
-		new StringBuilder().append(
-			"/group/guest/~/control_panel/manage?p_p_id=com_liferay_layout_adm"
+	private static String _lintNameForUrl(String name) {
+		if (name.equals("Liferay DXP")) {
+			name = "guest";
+		} else {
+			name = StringUtil.replace(name, StringPool.SPACE, StringPool.DASH);
+		}
+		return name;
+	}
+
+	public static String getPageCreationUrlPath(String site) {
+
+		return new StringBundler().append("/group/"
+		).append(_lintNameForUrl(site)
+		).append("/~/control_panel/manage?p_p_id=com_liferay_layout_adm"
 		).append(
-			"in_web_portlet_GroupPagesPortlet&p_p_lifecycle=0&p_p_state=maximi"
+				"in_web_portlet_GroupPagesPortlet&p_p_lifecycle=0&p_p_state=maximi"
 		).append(
-			"zed&p_p_mode=view&_com_liferay_layout_admin_web_portlet_GroupPage"
+				"zed&p_p_mode=view&_com_liferay_layout_admin_web_portlet_GroupPage"
 		).append(
-			"sPortlet_mvcPath=%2Fselect_layout_page_template_entry.jsp&_com_li"
+				"sPortlet_mvcPath=%2Fselect_layout_page_template_entry.jsp&_com_li"
 		).append(
-			"feray_layout_admin_web_portlet_GroupPagesPortlet_groupId=20126&p_"
+				"feray_layout_admin_web_portlet_GroupPagesPortlet_groupId=20126&p_"
 		).append(
-			"r_p_selPlid=0&p_r_p_privateLayout=false&_com_liferay_layout_admin"
+				"r_p_selPlid=0&p_r_p_privateLayout=false&_com_liferay_layout_admin"
 		).append(
-			"_web_portlet_GroupPagesPortlet_selectedTab=global-templates&p_p_a"
+				"_web_portlet_GroupPagesPortlet_selectedTab=global-templates&p_p_a"
 		).append(
-			"uth=em8IWLqf"
+				"uth=em8IWLqf"
+		).toString();
+	}
+
+	public static final String SITES_CONTROL_PANEL_URL_PATH =
+		"/group/control_panel/manage/-/sites/sites";
+
+	public static final String USERS_ORGANIZATIONS_CONTROL_PANEL_URL_PATH =
+		new StringBundler().append("/group/control_panel/manage?p_p_id=com_lif"
+		).append("eray_users_admin_web_portlet_UsersAdminPortlet&p_p_lifecycle"
+		).append("=0&p_p_state=maximized&p_v_l_s_g_id=20122"
 		).toString();
 
 	public static final String SCOPE_CHECKBOX_XPATH =
