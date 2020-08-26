@@ -134,7 +134,7 @@ AUI.add(
 						var eventHandles = [
 							inputPlaceholder.get('form').on('submit', A.rbind(STR_SUBMIT, instance, inputPlaceholder)),
 							instance.after('select', instance._onSelectFlag, instance),
-							Liferay.on('inputLocalized:defaultLocaleChanged', A.bind('_onDefaultLocaleChanged', instance)),
+							Liferay.after('inputLocalized:defaultLocaleChanged', A.bind('_onDefaultLocaleChanged', instance)),
 							Liferay.on('inputLocalized:localeChanged', A.bind('_onLocaleChanged', instance)),
 							Liferay.on('submitForm', A.rbind(STR_SUBMIT, instance, inputPlaceholder))
 						];

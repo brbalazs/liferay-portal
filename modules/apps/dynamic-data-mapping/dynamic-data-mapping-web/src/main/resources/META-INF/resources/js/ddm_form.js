@@ -3468,7 +3468,7 @@ AUI.add(
 									instance
 								),
 								Liferay.after('form:registered', instance._afterFormRegistered, instance),
-								Liferay.after('inputLocalized:defaultLocaleChanged', A.bind('_onDefaultLocaleChanged', instance))
+								Liferay.on('inputLocalized:defaultLocaleChanged', A.bind('_onDefaultLocaleChanged', instance))
 							);
 
 							if (instance.get('synchronousFormSubmission')) {
