@@ -1,4 +1,5 @@
 import {
+	configureProject,
 	createProject,
 	createTrialProject,
 	fetchProject,
@@ -13,6 +14,20 @@ describe('Projects Actions', () => {
 	describe('createProject', () => {
 		it('should return an action', () => {
 			const action = createProject();
+
+			expect(isFSA(action)).toBe(true);
+			expect(action.type).toBe('NO_OP');
+		});
+	});
+
+	describe('configureProject', () => {
+		it('should return an action', () => {
+			const action = configureProject({
+				emailAddressDomains: [],
+				friendlyURL: 'ggwp',
+				groupId: '123',
+				name: 'Configure'
+			});
 
 			expect(isFSA(action)).toBe(true);
 			expect(action.type).toBe('NO_OP');
