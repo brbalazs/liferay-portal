@@ -14,7 +14,6 @@
 
 package com.liferay.headless.delivery.internal.resource.v1_0;
 
-import com.liferay.asset.kernel.model.AssetTag;
 import com.liferay.asset.kernel.service.AssetCategoryLocalService;
 import com.liferay.asset.kernel.service.AssetEntryLocalService;
 import com.liferay.asset.kernel.service.AssetLinkLocalService;
@@ -25,14 +24,10 @@ import com.liferay.headless.common.spi.resource.SPIRatingResource;
 import com.liferay.headless.common.spi.service.context.ServiceContextUtil;
 import com.liferay.headless.delivery.dto.v1_0.MessageBoardThread;
 import com.liferay.headless.delivery.dto.v1_0.Rating;
-import com.liferay.headless.delivery.dto.v1_0.TaxonomyCategoryBrief;
-import com.liferay.headless.delivery.internal.dto.v1_0.util.AggregateRatingUtil;
-import com.liferay.headless.delivery.internal.dto.v1_0.util.CreatorUtil;
+import com.liferay.headless.delivery.internal.dto.v1_0.converter.MessageBoardThreadDTOConverter;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.CustomFieldsUtil;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.EntityFieldsUtil;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.RatingUtil;
-import com.liferay.headless.delivery.internal.dto.v1_0.util.RelatedContentUtil;
-import com.liferay.headless.delivery.internal.dto.v1_0.util.TaxonomyCategoryBriefUtil;
 import com.liferay.headless.delivery.internal.odata.entity.v1_0.MessageBoardMessageEntityModel;
 import com.liferay.headless.delivery.resource.v1_0.MessageBoardThreadResource;
 import com.liferay.message.boards.constants.MBMessageConstants;
@@ -59,12 +54,11 @@ import com.liferay.portal.kernel.search.filter.TermFilter;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
-import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -431,59 +425,13 @@ public class MessageBoardThreadResourceImpl
 		MBMessage mbMessage = _mbMessageService.getMessage(
 			mbThread.getRootMessageId());
 
-		return new MessageBoardThread() {
-			{
-				actions = _getActions(mbMessage);
-				aggregateRating = AggregateRatingUtil.toAggregateRating(
-					_ratingsStatsLocalService.fetchStats(
-						MBMessage.class.getName(), mbMessage.getMessageId()));
-				articleBody = mbMessage.getBody();
-				creator = CreatorUtil.toCreator(
-					_portal, _userLocalService.fetchUser(mbThread.getUserId()));
-				customFields = CustomFieldsUtil.toCustomFields(
-					contextAcceptLanguage.isAcceptAllLanguages(),
-					MBMessage.class.getName(), mbMessage.getMessageId(),
-					mbThread.getCompanyId(),
-					contextAcceptLanguage.getPreferredLocale());
-				dateCreated = mbMessage.getCreateDate();
-				dateModified = mbMessage.getModifiedDate();
-				encodingFormat = mbMessage.getFormat();
-				headline = mbMessage.getSubject();
-				id = mbThread.getThreadId();
-				keywords = ListUtil.toArray(
-					_assetTagLocalService.getTags(
-						MBMessage.class.getName(), mbMessage.getMessageId()),
-					AssetTag.NAME_ACCESSOR);
-				numberOfMessageBoardAttachments =
-					mbMessage.getAttachmentsFileEntriesCount();
-				numberOfMessageBoardMessages =
-					_mbMessageLocalService.getChildMessagesCount(
-						mbMessage.getMessageId(),
-						WorkflowConstants.STATUS_APPROVED);
-				relatedContents = RelatedContentUtil.toRelatedContents(
-					_assetEntryLocalService, _assetLinkLocalService,
-					_dtoConverterRegistry, mbMessage.getModelClassName(),
-					mbMessage.getMessageId(),
-					contextAcceptLanguage.getPreferredLocale());
-				showAsQuestion = mbThread.isQuestion();
-				siteId = mbThread.getGroupId();
-				subscribed = _subscriptionLocalService.isSubscribed(
-					mbMessage.getCompanyId(), contextUser.getUserId(),
-					MBThread.class.getName(), mbMessage.getThreadId());
-				taxonomyCategoryBriefs = transformToArray(
-					_assetCategoryLocalService.getCategories(
-						MBMessage.class.getName(), mbThread.getRootMessageId()),
-					assetCategory ->
-						TaxonomyCategoryBriefUtil.toTaxonomyCategoryBrief(
-							contextAcceptLanguage.isAcceptAllLanguages(),
-							assetCategory,
-							contextAcceptLanguage.getPreferredLocale()),
-					TaxonomyCategoryBrief.class);
-				threadType = _toThreadType(
-					mbThread.getGroupId(), mbThread.getPriority());
-				viewCount = mbThread.getViewCount();
-			}
-		};
+		return _messageBoardThreadDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				contextAcceptLanguage.isAcceptAllLanguages(),
+				_getActions(mbMessage), _dtoConverterRegistry,
+				mbThread.getThreadId(),
+				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
+				contextUser));
 	}
 
 	private double _toPriority(Long siteId, String threadType)
@@ -520,26 +468,6 @@ public class MessageBoardThreadResourceImpl
 							return parts[0];
 						},
 						String.class))));
-	}
-
-	private String _toThreadType(Long siteId, double priority)
-		throws Exception {
-
-		MBGroupServiceSettings mbGroupServiceSettings =
-			MBGroupServiceSettings.getInstance(siteId);
-
-		String[] priorities = mbGroupServiceSettings.getPriorities(
-			contextAcceptLanguage.getPreferredLanguageId());
-
-		for (String priorityString : priorities) {
-			String[] parts = StringUtil.split(priorityString, StringPool.PIPE);
-
-			if (priority == GetterUtil.getDouble(parts[2])) {
-				return parts[0];
-			}
-		}
-
-		return null;
 	}
 
 	private void _updateQuestion(
@@ -593,6 +521,9 @@ public class MessageBoardThreadResourceImpl
 
 	@Reference
 	private MBThreadService _mbThreadService;
+
+	@Reference
+	private MessageBoardThreadDTOConverter _messageBoardThreadDTOConverter;
 
 	@Reference
 	private Portal _portal;

@@ -19,20 +19,28 @@ import com.liferay.asset.kernel.service.AssetCategoryLocalService;
 import com.liferay.asset.kernel.service.AssetEntryLocalService;
 import com.liferay.asset.kernel.service.AssetLinkLocalService;
 import com.liferay.asset.kernel.service.AssetTagLocalService;
-import com.liferay.headless.delivery.dto.v1_0.KnowledgeBaseArticle;
+import com.liferay.headless.delivery.dto.v1_0.MessageBoardThread;
 import com.liferay.headless.delivery.dto.v1_0.TaxonomyCategoryBrief;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.AggregateRatingUtil;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.CreatorUtil;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.CustomFieldsUtil;
-import com.liferay.headless.delivery.internal.dto.v1_0.util.ParentKnowledgeBaseFolderUtil;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.RelatedContentUtil;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.TaxonomyCategoryBriefUtil;
-import com.liferay.knowledge.base.model.KBArticle;
-import com.liferay.knowledge.base.service.KBArticleService;
-import com.liferay.knowledge.base.service.KBFolderService;
+import com.liferay.message.boards.model.MBMessage;
+import com.liferay.message.boards.model.MBThread;
+import com.liferay.message.boards.service.MBMessageLocalService;
+import com.liferay.message.boards.service.MBMessageService;
+import com.liferay.message.boards.service.MBStatsUserLocalService;
+import com.liferay.message.boards.service.MBThreadLocalService;
+import com.liferay.message.boards.settings.MBGroupServiceSettings;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
@@ -40,107 +48,106 @@ import com.liferay.portal.vulcan.util.TransformUtil;
 import com.liferay.ratings.kernel.service.RatingsStatsLocalService;
 import com.liferay.subscription.service.SubscriptionLocalService;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Rubén Pulido
+ * @author Javier Gamarra
  */
 @Component(
-	property = "dto.class.name=com.liferay.knowledge.base.model.KBArticle",
-	service = {DTOConverter.class, KnowledgeBaseArticleDTOConverter.class}
+	property = "dto.class.name=com.liferay.message.boards.model.MBThread",
+	service = {DTOConverter.class, MessageBoardThreadDTOConverter.class}
 )
-public class KnowledgeBaseArticleDTOConverter
-	implements DTOConverter<KBArticle, KnowledgeBaseArticle> {
+public class MessageBoardThreadDTOConverter
+	implements DTOConverter<MBThread, MessageBoardThread> {
 
 	@Override
 	public String getContentType() {
-		return KnowledgeBaseArticle.class.getSimpleName();
+		return MessageBoardThread.class.getSimpleName();
 	}
 
 	@Override
-	public KnowledgeBaseArticle toDTO(DTOConverterContext dtoConverterContext)
+	public MessageBoardThread toDTO(DTOConverterContext dtoConverterContext)
 		throws Exception {
 
-		KBArticle kbArticle = _kbArticleService.getLatestKBArticle(
-			(Long)dtoConverterContext.getId(),
-			WorkflowConstants.STATUS_APPROVED);
+		MBThread mbThread = _mbThreadLocalService.getThread(
+			(Long)dtoConverterContext.getId());
 
-		if (kbArticle == null) {
-			return null;
-		}
+		String languageId = LocaleUtil.toLanguageId(
+			dtoConverterContext.getLocale());
+		MBMessage mbMessage = _mbMessageLocalService.getMessage(
+			mbThread.getRootMessageId());
+		User user = _userLocalService.fetchUser(mbThread.getUserId());
 
-		return new KnowledgeBaseArticle() {
+		return new MessageBoardThread() {
 			{
+				actions = dtoConverterContext.getActions();
 				aggregateRating = AggregateRatingUtil.toAggregateRating(
 					_ratingsStatsLocalService.fetchStats(
-						KBArticle.class.getName(),
-						kbArticle.getResourcePrimKey()));
-				articleBody = kbArticle.getContent();
-				creator = CreatorUtil.toCreator(
-					_portal,
-					_userLocalService.fetchUser(kbArticle.getUserId()));
+						MBMessage.class.getName(), mbMessage.getMessageId()));
+				articleBody = mbMessage.getBody();
+				creator = CreatorUtil.toCreator(_portal, user);
 				customFields = CustomFieldsUtil.toCustomFields(
 					dtoConverterContext.isAcceptAllLanguages(),
-					KBArticle.class.getName(), kbArticle.getKbArticleId(),
-					kbArticle.getCompanyId(), dtoConverterContext.getLocale());
-				dateCreated = kbArticle.getCreateDate();
-				dateModified = kbArticle.getModifiedDate();
-				description = kbArticle.getDescription();
-				encodingFormat = "text/html";
-				friendlyUrlPath = kbArticle.getUrlTitle();
-				id = kbArticle.getResourcePrimKey();
+					MBMessage.class.getName(), mbMessage.getMessageId(),
+					mbThread.getCompanyId(), dtoConverterContext.getLocale());
+				dateCreated = mbMessage.getCreateDate();
+				dateModified = mbMessage.getModifiedDate();
+				encodingFormat = mbMessage.getFormat();
+				headline = mbMessage.getSubject();
+				id = mbThread.getThreadId();
 				keywords = ListUtil.toArray(
 					_assetTagLocalService.getTags(
-						KBArticle.class.getName(), kbArticle.getClassPK()),
+						MBMessage.class.getName(), mbMessage.getMessageId()),
 					AssetTag.NAME_ACCESSOR);
-				numberOfAttachments = Optional.ofNullable(
-					kbArticle.getAttachmentsFileEntries()
-				).map(
-					List::size
-				).orElse(
-					0
-				);
-				numberOfKnowledgeBaseArticles =
-					_kbArticleService.getKBArticlesCount(
-						kbArticle.getGroupId(), kbArticle.getResourcePrimKey(),
+				numberOfMessageBoardAttachments =
+					mbMessage.getAttachmentsFileEntriesCount();
+				numberOfMessageBoardMessages =
+					_mbMessageLocalService.getChildMessagesCount(
+						mbMessage.getMessageId(),
 						WorkflowConstants.STATUS_APPROVED);
-				parentKnowledgeBaseFolderId = kbArticle.getKbFolderId();
 				relatedContents = RelatedContentUtil.toRelatedContents(
 					_assetEntryLocalService, _assetLinkLocalService,
 					dtoConverterContext.getDTOConverterRegistry(),
-					kbArticle.getModelClassName(),
-					kbArticle.getResourcePrimKey(),
+					mbMessage.getModelClassName(), mbMessage.getMessageId(),
 					dtoConverterContext.getLocale());
-				siteId = kbArticle.getGroupId();
+				showAsQuestion = mbThread.isQuestion();
+				siteId = mbThread.getGroupId();
 				subscribed = _subscriptionLocalService.isSubscribed(
-					kbArticle.getCompanyId(), dtoConverterContext.getUserId(),
-					KBArticle.class.getName(), kbArticle.getResourcePrimKey());
+					mbMessage.getCompanyId(), dtoConverterContext.getUserId(),
+					MBThread.class.getName(), mbMessage.getThreadId());
 				taxonomyCategoryBriefs = TransformUtil.transformToArray(
 					_assetCategoryLocalService.getCategories(
-						KBArticle.class.getName(), kbArticle.getClassPK()),
+						MBMessage.class.getName(), mbThread.getRootMessageId()),
 					assetCategory ->
 						TaxonomyCategoryBriefUtil.toTaxonomyCategoryBrief(
 							assetCategory, dtoConverterContext),
 					TaxonomyCategoryBrief.class);
-				title = kbArticle.getTitle();
-
-				setParentKnowledgeBaseFolder(
-					() -> {
-						if (kbArticle.getKbFolderId() <= 0) {
-							return null;
-						}
-
-						return ParentKnowledgeBaseFolderUtil.
-							toParentKnowledgeBaseFolder(
-								_kbFolderService.getKBFolder(
-									kbArticle.getKbFolderId()));
-					});
+				threadType = _toThreadType(
+					languageId, mbThread.getGroupId(), mbThread.getPriority());
+				viewCount = mbThread.getViewCount();
 			}
 		};
+	}
+
+	private String _toThreadType(
+			String languageId, Long siteId, double priority)
+		throws Exception {
+
+		MBGroupServiceSettings mbGroupServiceSettings =
+			MBGroupServiceSettings.getInstance(siteId);
+
+		String[] priorities = mbGroupServiceSettings.getPriorities(languageId);
+
+		for (String priorityString : priorities) {
+			String[] parts = StringUtil.split(priorityString, StringPool.PIPE);
+
+			if (priority == GetterUtil.getDouble(parts[2])) {
+				return parts[0];
+			}
+		}
+
+		return null;
 	}
 
 	@Reference
@@ -156,10 +163,16 @@ public class KnowledgeBaseArticleDTOConverter
 	private AssetTagLocalService _assetTagLocalService;
 
 	@Reference
-	private KBArticleService _kbArticleService;
+	private MBMessageLocalService _mbMessageLocalService;
 
 	@Reference
-	private KBFolderService _kbFolderService;
+	private MBMessageService _mbMessageService;
+
+	@Reference
+	private MBStatsUserLocalService _mbStatsUserLocalService;
+
+	@Reference
+	private MBThreadLocalService _mbThreadLocalService;
 
 	@Reference
 	private Portal _portal;
