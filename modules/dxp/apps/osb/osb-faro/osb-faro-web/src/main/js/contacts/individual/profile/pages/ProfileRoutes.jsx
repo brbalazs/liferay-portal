@@ -93,7 +93,7 @@ export class IndividualProfileRoutes extends React.Component {
 							groupId,
 							label: selectedChannel && selectedChannel.name
 						}),
-						breadcrumbs.getIndividuals({channelId, groupId}),
+						breadcrumbs.getKnownIndividuals({channelId, groupId}),
 						breadcrumbs.getEntityName({label: entityName})
 					]}
 				>

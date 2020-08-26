@@ -1,10 +1,4 @@
-import {
-	ACCOUNTS,
-	INDIVIDUALS,
-	Routes,
-	SEGMENTS,
-	toRoute
-} from 'shared/util/router';
+import {ACCOUNTS, Routes, SEGMENTS, toRoute} from 'shared/util/router';
 
 type IBasicRouteArgs = {
 	groupId: string;
@@ -60,16 +54,15 @@ export const getAccounts = ({channelId, groupId}: IBasicSidebarRouteArgs) => ({
 	label: Liferay.Language.get('accounts')
 });
 
-export const getIndividuals = ({
+export const getKnownIndividuals = ({
 	channelId,
 	groupId
 }: IBasicSidebarRouteArgs) => ({
-	href: toRoute(Routes.CONTACTS_LIST_ENTITY, {
+	href: toRoute(Routes.CONTACTS_INDIVIDUALS_KNOWN_INDIVIDUALS, {
 		channelId,
-		groupId,
-		type: INDIVIDUALS
+		groupId
 	}),
-	label: Liferay.Language.get('individuals')
+	label: Liferay.Language.get('known-individuals')
 });
 
 export const getSegments = ({channelId, groupId}: IBasicSidebarRouteArgs) => ({
