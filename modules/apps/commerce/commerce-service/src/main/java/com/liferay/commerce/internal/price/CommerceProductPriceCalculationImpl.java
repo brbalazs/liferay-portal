@@ -57,7 +57,9 @@ import java.util.Optional;
 
 /**
  * @author Marco Leo
+ * @deprecated As of Athanasius (7.3.x)
  */
+@Deprecated
 public class CommerceProductPriceCalculationImpl
 	extends BaseCommerceProductPriceCalculation {
 

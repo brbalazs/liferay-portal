@@ -34,7 +34,9 @@ import java.math.BigDecimal;
 /**
  * @author Alessio Antonio Rendina
  * @author Marco Leo
+ * @deprecated As of Athanasius (7.3.x)
  */
+@Deprecated
 public class CommerceOrderPriceCalculationImpl
 	extends BaseCommerceOrderPriceCalculation {
 

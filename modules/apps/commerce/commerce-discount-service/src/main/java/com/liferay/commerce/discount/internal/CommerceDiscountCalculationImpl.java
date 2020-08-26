@@ -46,11 +46,13 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Marco Leo
+ * @deprecated As of Athanasius (7.3.x)
  */
 @Component(
 	property = "commerce.discount.calculation.key=v1.0",
 	service = CommerceDiscountCalculation.class
 )
+@Deprecated
 public class CommerceDiscountCalculationImpl
 	extends BaseCommerceDiscountCalculation {
 
