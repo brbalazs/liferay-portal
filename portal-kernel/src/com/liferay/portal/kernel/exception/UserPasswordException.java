@@ -138,8 +138,7 @@ public class UserPasswordException extends PortalException {
 
 		public MustComplyWithRegex(long userId, String regex) {
 			super(
-				String.format("Password must comply with regex: " + regex),
-				PASSWORD_INVALID);
+				"Password must comply with regex: " + regex, PASSWORD_INVALID);
 
 			this.regex = regex;
 			this.userId = userId;
