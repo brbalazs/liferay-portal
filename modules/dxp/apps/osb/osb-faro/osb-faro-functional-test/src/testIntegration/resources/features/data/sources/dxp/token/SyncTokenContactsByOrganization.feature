@@ -1,8 +1,8 @@
-@spira_Data_Source @Data_Source @DXP @Token @team_FARO @priority_4 @prototype
+@spira_Data_Source @Data_Source @DXP @Token @team_FARO @priority_4
 Feature: Sync Contacts by Organization using Auth Token
 	As a Business User, I should be able to sync contacts by Organization using Token Authentication
 
-	Background: [Setup] Navigate to the Data Source Page and Click to Add a Data Source
+	Background: [Setup] Add the DXP Data Source via Auth Token
 		* I go to the "Home" page
 		* I login as "test@faro.io:test"
 		* I should see the "Sites" page
@@ -18,6 +18,16 @@ Feature: Sync Contacts by Organization using Auth Token
 		Given I go to the "Synced Contacts" DXP Page
 		And I sync the Data Source Contacts by the following Organizations:
 			| Riot |
+		And I go to the "Synced Sites" DXP Page
+		And I create a new Combined Property with the following Sites on DXP:
+			| Liferay DXP | Main Site | Second Site |
+		And I create a dummy page called "OrgTokenContacts" on the "Main Site" DXP Site
+		And I generate page views on the following pages as "josh.day" on the "Main Site" DXP Site
+			| OrgTokenContacts |
+		And I go to the "Home" page
+		And I login as "test@faro.io:test"
+		And I click the Property Dropdown Menu
+		And I click "Liferay DXP Combined Property" in the Property Dropdown Menu
 		And I go to the "Individuals" page
 		And I click the "Known Individuals" tab
 		When I search for "josh.day@test.com"
