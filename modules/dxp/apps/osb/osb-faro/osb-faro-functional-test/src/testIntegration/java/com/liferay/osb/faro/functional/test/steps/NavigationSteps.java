@@ -133,8 +133,7 @@ public class NavigationSteps {
 	public static void switchToFocusedModal() {
 		WebDriver webDriver = WebDriverUtil.getWebDriver();
 
-		WebElement modalWebElement = _faroSelenium.findElement(
-			"//iframe[contains(@class,'dialog-iframe-node')]");
+		WebElement modalWebElement = _faroSelenium.findElement("//iframe");
 
 		WebDriver.TargetLocator targetLocator = webDriver.switchTo();
 
