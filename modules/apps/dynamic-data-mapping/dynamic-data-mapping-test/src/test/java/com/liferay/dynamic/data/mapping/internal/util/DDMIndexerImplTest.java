@@ -14,6 +14,7 @@
 
 package com.liferay.dynamic.data.mapping.internal.util;
 
+import com.liferay.dynamic.data.mapping.configuration.DDMIndexerConfiguration;
 import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServicesTracker;
 import com.liferay.dynamic.data.mapping.internal.test.util.DDMFixture;
 import com.liferay.dynamic.data.mapping.io.DDMFormJSONSerializer;
@@ -31,12 +32,14 @@ import com.liferay.dynamic.data.mapping.test.util.DDMFormValuesTestUtil;
 import com.liferay.dynamic.data.mapping.util.DDMIndexer;
 import com.liferay.portal.json.JSONFactoryImpl;
 import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.search.engine.SearchEngineInformation;
 import com.liferay.portal.search.test.util.FieldValuesAssert;
 import com.liferay.portal.search.test.util.indexing.DocumentFixture;
 
@@ -272,6 +275,38 @@ public class DDMIndexerImplTest {
 	protected DDMIndexer createDDMIndexer() {
 		return new DDMIndexerImpl() {
 			{
+				DDMIndexerConfiguration ddmIndexerConfiguration =
+					new DDMIndexerConfiguration() {
+
+						public boolean enableLegacyDDMIndexFields() {
+							return true;
+						}
+
+					};
+
+				ReflectionTestUtil.setFieldValue(
+					this, "_ddmIndexerConfiguration", ddmIndexerConfiguration);
+
+				searchEngineInformation = new SearchEngineInformation() {
+
+					public String getClientVersionString() {
+						return null;
+					}
+
+					public String getNodesString() {
+						return null;
+					}
+
+					public String getStatusString() {
+						return null;
+					}
+
+					public String getVendorString() {
+						return null;
+					}
+
+				};
+
 				setDDMFormValuesToFieldsConverter(
 					new DDMFormValuesToFieldsConverterImpl());
 			}
