@@ -30,7 +30,7 @@ Feature: Segment Activity Count is reduced when a Page with Activities is remove
 		* I click the button for Analytics Configuration
 		* I click the select all checkbox in the toolbar
 		* I click the "Configure" button
-		* I create a dummy page called "${Random.2} Page" on the local DXP instance
+		* I create a dummy page called "${Random.2} Page" on the DXP Site
 		* I go to the "Data Source" page
 		* I click the "Add Data Source" button
 		* I create a file named "SegmentActivityCount - ${Random.1}.csv" with the following content:

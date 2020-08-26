@@ -29,7 +29,7 @@ Feature: Assert Unaffected Pages Do Not Appear During Data Source Deletion
 		* I click the button for Analytics Configuration
 		* I click the select all checkbox in the toolbar
 		* I click the "Configure" button
-		* I create a dummy page called "${Random.2} Page" on the local DXP instance
+		* I create a dummy page called "${Random.2} Page" on the DXP Site
 
 	Scenario: Assert Unaffected Pages Don't Appear During Data Source Deletion
 		Given I go to the "Data Source" page

@@ -239,10 +239,15 @@ public class DxpSteps {
 	 * @param  pageName name of the page to create
 	 * @throws Exception if an exception occurred
 	 */
-	@And("^I create a dummy page called (.*) on the local DXP instance$")
+	@And("^I create a dummy page called (.*) on the (.*)?\\s?DXP Site$")
 	public void createDummyPage(
-			@Transform(FaroTransformer.class) String pageName)
+			@Transform(FaroTransformer.class) String pageName,
+			@Transform(FaroTransformer.class) String site)
 		throws Exception {
+
+		if (site == null) {
+			site = "Liferay DXP";
+		}
 
 		_faroSelenium.get(PropsUtil.get("portal.url"));
 
@@ -250,34 +255,21 @@ public class DxpSteps {
 		_handleDxpPasswordReminder();
 
 		_faroSelenium.get(
-			PropsUtil.get("portal.url") + DxpStringPool.PAGE_CREATION_URL_PATH);
+			PropsUtil.get("portal.url") + DxpStringPool.getPageCreationUrlPath(site));
 
-		_faroSelenium.click("//a[text()=' Blog ']");
+		_faroSelenium.click("//div[text()='Blog']");
+
+		_faroSelenium.waitForLoadingComplete();
 
 		NavigationSteps.switchToFocusedModal();
 
 		_faroSelenium.type(DxpStringPool.PAGE_CREATION_NAME_FIELD, pageName);
 
-		ClickSteps.clickButton("Save");
+		ClickSteps.clickButton("Add");
 
 		NavigationSteps.switchToMainFrame();
 
 		ClickSteps.clickButton("Save");
-
-		_faroSelenium.get(
-			PropsUtil.get("portal.url") + "/web/guest/" + pageName);
-
-		_faroSelenium.click("//a/span[text()=' Welcome ']");
-
-		_faroSelenium.refresh();
-
-		_faroSelenium.click("//a/span[text()=' " + pageName + " ']");
-
-		_faroSelenium.refresh();
-
-		_faroSelenium.click("//a/span[text()=' " + pageName + " ']");
-
-		Thread.sleep(90000);
 	}
 
 	@When("^I add activity to user$")
