@@ -113,9 +113,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 		PriceListAccountGroupResource.Builder builder =
 			PriceListAccountGroupResource.builder();
 
-		priceListAccountGroupResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		priceListAccountGroupResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -669,9 +667,7 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceListAccountGroup priceListAccountGroup)
-		throws Exception {
-
+	protected void assertValid(PriceListAccountGroup priceListAccountGroup) {
 		boolean valid = true;
 
 		if (priceListAccountGroup.getId() == null) {

@@ -109,9 +109,7 @@ public abstract class BaseAttachmentResourceTestCase {
 
 		AttachmentResource.Builder builder = AttachmentResource.builder();
 
-		attachmentResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		attachmentResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -951,7 +949,7 @@ public abstract class BaseAttachmentResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Attachment attachment) throws Exception {
+	protected void assertValid(Attachment attachment) {
 		boolean valid = true;
 
 		if (attachment.getId() == null) {

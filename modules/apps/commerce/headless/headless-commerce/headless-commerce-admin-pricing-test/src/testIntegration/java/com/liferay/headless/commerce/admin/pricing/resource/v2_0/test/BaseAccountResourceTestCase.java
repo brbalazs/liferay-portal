@@ -107,9 +107,7 @@ public abstract class BaseAccountResourceTestCase {
 
 		AccountResource.Builder builder = AccountResource.builder();
 
-		accountResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		accountResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -357,7 +355,7 @@ public abstract class BaseAccountResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Account account) throws Exception {
+	protected void assertValid(Account account) {
 		boolean valid = true;
 
 		if (account.getId() == null) {

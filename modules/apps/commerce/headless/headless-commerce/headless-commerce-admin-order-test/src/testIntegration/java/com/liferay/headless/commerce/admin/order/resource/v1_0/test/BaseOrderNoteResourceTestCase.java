@@ -112,9 +112,7 @@ public abstract class BaseOrderNoteResourceTestCase {
 
 		OrderNoteResource.Builder builder = OrderNoteResource.builder();
 
-		orderNoteResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		orderNoteResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -785,7 +783,7 @@ public abstract class BaseOrderNoteResourceTestCase {
 		}
 	}
 
-	protected void assertValid(OrderNote orderNote) throws Exception {
+	protected void assertValid(OrderNote orderNote) {
 		boolean valid = true;
 
 		if (orderNote.getId() == null) {

@@ -112,9 +112,7 @@ public abstract class BaseAvailabilityEstimateResourceTestCase {
 		AvailabilityEstimateResource.Builder builder =
 			AvailabilityEstimateResource.builder();
 
-		availabilityEstimateResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		availabilityEstimateResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -571,9 +569,7 @@ public abstract class BaseAvailabilityEstimateResourceTestCase {
 		}
 	}
 
-	protected void assertValid(AvailabilityEstimate availabilityEstimate)
-		throws Exception {
-
+	protected void assertValid(AvailabilityEstimate availabilityEstimate) {
 		boolean valid = true;
 
 		if (availabilityEstimate.getId() == null) {

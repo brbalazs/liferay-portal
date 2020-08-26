@@ -839,16 +839,6 @@ public class PriceModifier {
 		return string.replaceAll("\"", "\\\\\"");
 	}
 
-	private static boolean _isArray(Object value) {
-		if (value == null) {
-			return false;
-		}
-
-		Class<?> clazz = value.getClass();
-
-		return clazz.isArray();
-	}
-
 	private static String _toJSON(Map<String, ?> map) {
 		StringBuilder sb = new StringBuilder("{");
 
@@ -867,7 +857,9 @@ public class PriceModifier {
 
 			Object value = entry.getValue();
 
-			if (_isArray(value)) {
+			Class<?> clazz = value.getClass();
+
+			if (clazz.isArray()) {
 				sb.append("[");
 
 				Object[] valueArray = (Object[])value;

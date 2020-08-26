@@ -107,9 +107,7 @@ public abstract class BaseWarehouseResourceTestCase {
 
 		WarehouseResource.Builder builder = WarehouseResource.builder();
 
-		warehouseResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		warehouseResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -514,7 +512,7 @@ public abstract class BaseWarehouseResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Warehouse warehouse) throws Exception {
+	protected void assertValid(Warehouse warehouse) {
 		boolean valid = true;
 
 		if (warehouse.getId() == null) {

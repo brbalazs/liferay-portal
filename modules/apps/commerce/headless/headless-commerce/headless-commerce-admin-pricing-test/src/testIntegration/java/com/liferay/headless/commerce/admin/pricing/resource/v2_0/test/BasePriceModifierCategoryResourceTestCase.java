@@ -120,9 +120,7 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 		PriceModifierCategoryResource.Builder builder =
 			PriceModifierCategoryResource.builder();
 
-		priceModifierCategoryResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		priceModifierCategoryResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -890,9 +888,7 @@ public abstract class BasePriceModifierCategoryResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceModifierCategory priceModifierCategory)
-		throws Exception {
-
+	protected void assertValid(PriceModifierCategory priceModifierCategory) {
 		boolean valid = true;
 
 		if (priceModifierCategory.getId() == null) {

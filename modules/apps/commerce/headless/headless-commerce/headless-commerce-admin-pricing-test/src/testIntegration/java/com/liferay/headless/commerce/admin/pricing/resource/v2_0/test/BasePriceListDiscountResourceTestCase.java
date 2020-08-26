@@ -113,9 +113,7 @@ public abstract class BasePriceListDiscountResourceTestCase {
 		PriceListDiscountResource.Builder builder =
 			PriceListDiscountResource.builder();
 
-		priceListDiscountResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		priceListDiscountResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -638,9 +636,7 @@ public abstract class BasePriceListDiscountResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceListDiscount priceListDiscount)
-		throws Exception {
-
+	protected void assertValid(PriceListDiscount priceListDiscount) {
 		boolean valid = true;
 
 		if (priceListDiscount.getId() == null) {

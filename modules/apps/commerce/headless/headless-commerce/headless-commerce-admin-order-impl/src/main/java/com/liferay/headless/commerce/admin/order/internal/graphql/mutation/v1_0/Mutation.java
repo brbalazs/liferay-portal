@@ -27,8 +27,6 @@ import com.liferay.headless.commerce.admin.order.resource.v1_0.ShippingAddressRe
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.service.GroupLocalService;
-import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
@@ -490,8 +488,6 @@ public class Mutation {
 			_httpServletResponse);
 		billingAddressResource.setContextUriInfo(_uriInfo);
 		billingAddressResource.setContextUser(_user);
-		billingAddressResource.setGroupLocalService(_groupLocalService);
-		billingAddressResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(OrderResource orderResource)
@@ -503,8 +499,6 @@ public class Mutation {
 		orderResource.setContextHttpServletResponse(_httpServletResponse);
 		orderResource.setContextUriInfo(_uriInfo);
 		orderResource.setContextUser(_user);
-		orderResource.setGroupLocalService(_groupLocalService);
-		orderResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(OrderItemResource orderItemResource)
@@ -516,8 +510,6 @@ public class Mutation {
 		orderItemResource.setContextHttpServletResponse(_httpServletResponse);
 		orderItemResource.setContextUriInfo(_uriInfo);
 		orderItemResource.setContextUser(_user);
-		orderItemResource.setGroupLocalService(_groupLocalService);
-		orderItemResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(OrderNoteResource orderNoteResource)
@@ -529,8 +521,6 @@ public class Mutation {
 		orderNoteResource.setContextHttpServletResponse(_httpServletResponse);
 		orderNoteResource.setContextUriInfo(_uriInfo);
 		orderNoteResource.setContextUser(_user);
-		orderNoteResource.setGroupLocalService(_groupLocalService);
-		orderNoteResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -545,8 +535,6 @@ public class Mutation {
 			_httpServletResponse);
 		shippingAddressResource.setContextUriInfo(_uriInfo);
 		shippingAddressResource.setContextUser(_user);
-		shippingAddressResource.setGroupLocalService(_groupLocalService);
-		shippingAddressResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private static ComponentServiceObjects<BillingAddressResource>
@@ -562,12 +550,10 @@ public class Mutation {
 
 	private AcceptLanguage _acceptLanguage;
 	private com.liferay.portal.kernel.model.Company _company;
-	private GroupLocalService _groupLocalService;
+	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
+	private com.liferay.portal.kernel.model.User _user;
 	private HttpServletRequest _httpServletRequest;
 	private HttpServletResponse _httpServletResponse;
-	private RoleLocalService _roleLocalService;
-	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
 	private UriInfo _uriInfo;
-	private com.liferay.portal.kernel.model.User _user;
 
 }

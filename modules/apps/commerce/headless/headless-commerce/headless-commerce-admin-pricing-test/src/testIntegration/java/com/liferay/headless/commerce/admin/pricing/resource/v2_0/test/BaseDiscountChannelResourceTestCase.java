@@ -120,9 +120,7 @@ public abstract class BaseDiscountChannelResourceTestCase {
 		DiscountChannelResource.Builder builder =
 			DiscountChannelResource.builder();
 
-		discountChannelResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		discountChannelResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -835,9 +833,7 @@ public abstract class BaseDiscountChannelResourceTestCase {
 		}
 	}
 
-	protected void assertValid(DiscountChannel discountChannel)
-		throws Exception {
-
+	protected void assertValid(DiscountChannel discountChannel) {
 		boolean valid = true;
 
 		if (discountChannel.getId() == null) {

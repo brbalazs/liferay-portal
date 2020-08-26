@@ -107,9 +107,7 @@ public abstract class BaseChannelResourceTestCase {
 
 		ChannelResource.Builder builder = ChannelResource.builder();
 
-		channelResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		channelResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -359,7 +357,7 @@ public abstract class BaseChannelResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Channel channel) throws Exception {
+	protected void assertValid(Channel channel) {
 		boolean valid = true;
 
 		if (channel.getId() == null) {

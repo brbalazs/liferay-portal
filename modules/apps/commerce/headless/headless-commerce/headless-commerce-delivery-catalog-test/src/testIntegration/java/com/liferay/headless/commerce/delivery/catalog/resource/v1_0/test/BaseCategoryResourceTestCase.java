@@ -108,9 +108,7 @@ public abstract class BaseCategoryResourceTestCase {
 
 		CategoryResource.Builder builder = CategoryResource.builder();
 
-		categoryResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		categoryResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -370,7 +368,7 @@ public abstract class BaseCategoryResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Category category) throws Exception {
+	protected void assertValid(Category category) {
 		boolean valid = true;
 
 		if (category.getId() == null) {

@@ -119,9 +119,7 @@ public abstract class BasePriceModifierResourceTestCase {
 
 		PriceModifierResource.Builder builder = PriceModifierResource.builder();
 
-		priceModifierResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		priceModifierResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -1056,7 +1054,7 @@ public abstract class BasePriceModifierResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceModifier priceModifier) throws Exception {
+	protected void assertValid(PriceModifier priceModifier) {
 		boolean valid = true;
 
 		if (priceModifier.getId() == null) {

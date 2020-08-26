@@ -112,9 +112,7 @@ public abstract class BaseCartItemResourceTestCase {
 
 		CartItemResource.Builder builder = CartItemResource.builder();
 
-		cartItemResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		cartItemResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -572,7 +570,7 @@ public abstract class BaseCartItemResourceTestCase {
 		}
 	}
 
-	protected void assertValid(CartItem cartItem) throws Exception {
+	protected void assertValid(CartItem cartItem) {
 		boolean valid = true;
 
 		if (cartItem.getId() == null) {

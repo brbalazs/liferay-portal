@@ -108,9 +108,7 @@ public abstract class BaseProductSubscriptionConfigurationResourceTestCase {
 		ProductSubscriptionConfigurationResource.Builder builder =
 			ProductSubscriptionConfigurationResource.builder();
 
-		productSubscriptionConfigurationResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		productSubscriptionConfigurationResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -331,8 +329,7 @@ public abstract class BaseProductSubscriptionConfigurationResourceTestCase {
 	}
 
 	protected void assertValid(
-			ProductSubscriptionConfiguration productSubscriptionConfiguration)
-		throws Exception {
+		ProductSubscriptionConfiguration productSubscriptionConfiguration) {
 
 		boolean valid = true;
 

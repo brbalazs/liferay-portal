@@ -113,9 +113,7 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 		MeasurementUnitResource.Builder builder =
 			MeasurementUnitResource.builder();
 
-		measurementUnitResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		measurementUnitResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -554,9 +552,7 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 		}
 	}
 
-	protected void assertValid(MeasurementUnit measurementUnit)
-		throws Exception {
-
+	protected void assertValid(MeasurementUnit measurementUnit) {
 		boolean valid = true;
 
 		if (measurementUnit.getId() == null) {

@@ -119,9 +119,7 @@ public abstract class BaseDiscountRuleResourceTestCase {
 
 		DiscountRuleResource.Builder builder = DiscountRuleResource.builder();
 
-		discountRuleResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		discountRuleResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -911,7 +909,7 @@ public abstract class BaseDiscountRuleResourceTestCase {
 		}
 	}
 
-	protected void assertValid(DiscountRule discountRule) throws Exception {
+	protected void assertValid(DiscountRule discountRule) {
 		boolean valid = true;
 
 		if (discountRule.getId() == null) {

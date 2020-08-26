@@ -113,9 +113,7 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 		DiscountCategoryResource.Builder builder =
 			DiscountCategoryResource.builder();
 
-		discountCategoryResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		discountCategoryResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -631,9 +629,7 @@ public abstract class BaseDiscountCategoryResourceTestCase {
 		}
 	}
 
-	protected void assertValid(DiscountCategory discountCategory)
-		throws Exception {
-
+	protected void assertValid(DiscountCategory discountCategory) {
 		boolean valid = true;
 
 		if (discountCategory.getId() == null) {

@@ -108,9 +108,7 @@ public abstract class BaseOptionValueResourceTestCase {
 
 		OptionValueResource.Builder builder = OptionValueResource.builder();
 
-		optionValueResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		optionValueResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -532,7 +530,7 @@ public abstract class BaseOptionValueResourceTestCase {
 		}
 	}
 
-	protected void assertValid(OptionValue optionValue) throws Exception {
+	protected void assertValid(OptionValue optionValue) {
 		boolean valid = true;
 
 		if (optionValue.getId() == null) {

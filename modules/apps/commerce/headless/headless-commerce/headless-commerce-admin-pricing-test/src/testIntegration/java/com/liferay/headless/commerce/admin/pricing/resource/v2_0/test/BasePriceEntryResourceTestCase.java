@@ -119,9 +119,7 @@ public abstract class BasePriceEntryResourceTestCase {
 
 		PriceEntryResource.Builder builder = PriceEntryResource.builder();
 
-		priceEntryResource = builder.authentication(
-			"test@liferay.com", "test"
-		).locale(
+		priceEntryResource = builder.locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -326,8 +324,7 @@ public abstract class BasePriceEntryResourceTestCase {
 
 		PriceEntry patchPriceEntry =
 			priceEntryResource.patchPriceEntryByExternalReferenceCode(
-				postPriceEntry.getExternalReferenceCode(),
-				randomPatchPriceEntry);
+				postPriceEntry.getId(), randomPatchPriceEntry);
 
 		PriceEntry expectedPatchPriceEntry = postPriceEntry.clone();
 
@@ -1065,7 +1062,7 @@ public abstract class BasePriceEntryResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceEntry priceEntry) throws Exception {
+	protected void assertValid(PriceEntry priceEntry) {
 		boolean valid = true;
 
 		if (priceEntry.getId() == null) {
