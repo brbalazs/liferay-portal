@@ -130,9 +130,11 @@ const OutputVersionsCard: React.FC<IOutputVersionsCardProps> = ({
 
 					<b>{JOB_RUN_FREQUENCIES_LABEL_MAP[runFrequency]}</b>
 
-					<b>{`(${sub(Liferay.Language.get('next-x'), [
-						moment(nextRunDate).fromNow()
-					])})`}</b>
+					{!!nextRunDate && (
+						<b>{`(${sub(Liferay.Language.get('next-x'), [
+							moment(nextRunDate).fromNow()
+						])})`}</b>
+					)}
 				</div>
 			</Card.Header>
 
