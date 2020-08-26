@@ -176,6 +176,7 @@ export default class Activities extends React.Component {
 				>
 					<CardTabs
 						activeTabId={tabId}
+						className='mdn-button-tab'
 						tabs={buildTabItems({
 							activityChange,
 							activityCount: activitiesCount,

@@ -386,6 +386,7 @@ export class IndividualProfileCard extends React.Component {
 				>
 					<CardTabs
 						activeTabId={tabId}
+						className='mdn-button-tab'
 						tabs={buildTabItems({
 							activityChange,
 							activityCount,
