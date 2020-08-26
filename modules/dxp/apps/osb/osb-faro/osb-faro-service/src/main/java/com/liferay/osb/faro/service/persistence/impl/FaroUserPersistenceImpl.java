@@ -2767,7 +2767,7 @@ public class FaroUserPersistenceImpl
 		try {
 			session = openSession();
 
-			if (faroUser.isNew()) {
+			if (isNew) {
 				session.save(faroUser);
 
 				faroUser.setNew(false);
@@ -3424,6 +3424,7 @@ public class FaroUserPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(FaroUserImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

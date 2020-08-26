@@ -54,6 +54,7 @@
 		<property name="services" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property column="state_" name="state" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="subscription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="timeZoneId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="weDeployKey" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.liferay.osb.faro.model.impl.FaroProjectEmailAddressDomainImpl" table="OSBFaro_FaroProjectEmailAddressDomain">

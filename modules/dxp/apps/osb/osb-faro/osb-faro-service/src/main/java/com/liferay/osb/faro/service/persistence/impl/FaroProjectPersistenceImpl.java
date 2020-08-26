@@ -2149,7 +2149,7 @@ public class FaroProjectPersistenceImpl
 		try {
 			session = openSession();
 
-			if (faroProject.isNew()) {
+			if (isNew) {
 				session.save(faroProject);
 
 				faroProject.setNew(false);
@@ -2743,6 +2743,7 @@ public class FaroProjectPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(FaroProjectImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

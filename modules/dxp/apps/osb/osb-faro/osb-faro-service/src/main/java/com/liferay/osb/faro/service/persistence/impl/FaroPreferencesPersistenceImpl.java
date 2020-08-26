@@ -1086,7 +1086,7 @@ public class FaroPreferencesPersistenceImpl
 		try {
 			session = openSession();
 
-			if (faroPreferences.isNew()) {
+			if (isNew) {
 				session.save(faroPreferences);
 
 				faroPreferences.setNew(false);
@@ -1613,6 +1613,7 @@ public class FaroPreferencesPersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(FaroPreferencesImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

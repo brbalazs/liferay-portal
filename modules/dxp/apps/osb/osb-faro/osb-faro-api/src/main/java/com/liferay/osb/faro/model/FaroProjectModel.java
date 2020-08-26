@@ -343,6 +343,21 @@ public interface FaroProjectModel extends BaseModel<FaroProject> {
 	public void setSubscription(String subscription);
 
 	/**
+	 * Returns the time zone ID of this faro project.
+	 *
+	 * @return the time zone ID of this faro project
+	 */
+	@AutoEscape
+	public String getTimeZoneId();
+
+	/**
+	 * Sets the time zone ID of this faro project.
+	 *
+	 * @param timeZoneId the time zone ID of this faro project
+	 */
+	public void setTimeZoneId(String timeZoneId);
+
+	/**
 	 * Returns the we deploy key of this faro project.
 	 *
 	 * @return the we deploy key of this faro project

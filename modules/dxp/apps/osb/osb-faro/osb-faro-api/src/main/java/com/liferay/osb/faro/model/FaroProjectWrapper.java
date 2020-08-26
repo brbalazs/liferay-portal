@@ -72,6 +72,7 @@ public class FaroProjectWrapper
 		attributes.put("services", getServices());
 		attributes.put("state", getState());
 		attributes.put("subscription", getSubscription());
+		attributes.put("timeZoneId", getTimeZoneId());
 		attributes.put("weDeployKey", getWeDeployKey());
 
 		return attributes;
@@ -186,6 +187,12 @@ public class FaroProjectWrapper
 
 		if (subscription != null) {
 			setSubscription(subscription);
+		}
+
+		String timeZoneId = (String)attributes.get("timeZoneId");
+
+		if (timeZoneId != null) {
+			setTimeZoneId(timeZoneId);
 		}
 
 		String weDeployKey = (String)attributes.get("weDeployKey");
@@ -383,6 +390,16 @@ public class FaroProjectWrapper
 	@Override
 	public String getSubscription() {
 		return _faroProject.getSubscription();
+	}
+
+	/**
+	 * Returns the time zone ID of this faro project.
+	 *
+	 * @return the time zone ID of this faro project
+	 */
+	@Override
+	public String getTimeZoneId() {
+		return _faroProject.getTimeZoneId();
 	}
 
 	/**
@@ -670,6 +687,16 @@ public class FaroProjectWrapper
 	@Override
 	public void setSubscription(String subscription) {
 		_faroProject.setSubscription(subscription);
+	}
+
+	/**
+	 * Sets the time zone ID of this faro project.
+	 *
+	 * @param timeZoneId the time zone ID of this faro project
+	 */
+	@Override
+	public void setTimeZoneId(String timeZoneId) {
+		_faroProject.setTimeZoneId(timeZoneId);
 	}
 
 	/**

@@ -1401,7 +1401,7 @@ public class ContactsLayoutTemplatePersistenceImpl
 		try {
 			session = openSession();
 
-			if (contactsLayoutTemplate.isNew()) {
+			if (isNew) {
 				session.save(contactsLayoutTemplate);
 
 				contactsLayoutTemplate.setNew(false);
@@ -1988,6 +1988,7 @@ public class ContactsLayoutTemplatePersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(ContactsLayoutTemplateImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

@@ -847,7 +847,7 @@ public class ContactsCardTemplatePersistenceImpl
 		try {
 			session = openSession();
 
-			if (contactsCardTemplate.isNew()) {
+			if (isNew) {
 				session.save(contactsCardTemplate);
 
 				contactsCardTemplate.setNew(false);
@@ -1371,6 +1371,7 @@ public class ContactsCardTemplatePersistenceImpl
 
 	public void destroy() {
 		entityCache.removeCache(ContactsCardTemplateImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

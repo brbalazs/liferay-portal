@@ -1375,7 +1375,7 @@ public class FaroProjectEmailAddressDomainPersistenceImpl
 		try {
 			session = openSession();
 
-			if (faroProjectEmailAddressDomain.isNew()) {
+			if (isNew) {
 				session.save(faroProjectEmailAddressDomain);
 
 				faroProjectEmailAddressDomain.setNew(false);
@@ -1967,6 +1967,7 @@ public class FaroProjectEmailAddressDomainPersistenceImpl
 	public void destroy() {
 		entityCache.removeCache(
 			FaroProjectEmailAddressDomainImpl.class.getName());
+
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);

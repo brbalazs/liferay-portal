@@ -81,7 +81,7 @@ public interface FaroProjectLocalService
 			String corpProjectName, String corpProjectUuid,
 			List<String> emailAddressDomains, String friendlyURL,
 			String serverLocation, String services, String state,
-			String subscription, String weDeployKey)
+			String subscription, String timeZoneId, String weDeployKey)
 		throws PortalException;
 
 	/**

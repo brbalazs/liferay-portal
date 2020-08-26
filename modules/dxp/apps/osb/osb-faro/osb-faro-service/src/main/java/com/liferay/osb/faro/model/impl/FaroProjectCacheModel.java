@@ -60,7 +60,7 @@ public class FaroProjectCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(39);
+		StringBundler sb = new StringBundler(41);
 
 		sb.append("{faroProjectId=");
 		sb.append(faroProjectId);
@@ -98,6 +98,8 @@ public class FaroProjectCacheModel
 		sb.append(state);
 		sb.append(", subscription=");
 		sb.append(subscription);
+		sb.append(", timeZoneId=");
+		sb.append(timeZoneId);
 		sb.append(", weDeployKey=");
 		sb.append(weDeployKey);
 		sb.append("}");
@@ -196,6 +198,13 @@ public class FaroProjectCacheModel
 			faroProjectImpl.setSubscription(subscription);
 		}
 
+		if (timeZoneId == null) {
+			faroProjectImpl.setTimeZoneId("");
+		}
+		else {
+			faroProjectImpl.setTimeZoneId(timeZoneId);
+		}
+
 		if (weDeployKey == null) {
 			faroProjectImpl.setWeDeployKey("");
 		}
@@ -234,6 +243,7 @@ public class FaroProjectCacheModel
 		services = objectInput.readUTF();
 		state = objectInput.readUTF();
 		subscription = objectInput.readUTF();
+		timeZoneId = objectInput.readUTF();
 		weDeployKey = objectInput.readUTF();
 	}
 
@@ -330,6 +340,13 @@ public class FaroProjectCacheModel
 			objectOutput.writeUTF(subscription);
 		}
 
+		if (timeZoneId == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(timeZoneId);
+		}
+
 		if (weDeployKey == null) {
 			objectOutput.writeUTF("");
 		}
@@ -356,6 +373,7 @@ public class FaroProjectCacheModel
 	public String services;
 	public String state;
 	public String subscription;
+	public String timeZoneId;
 	public String weDeployKey;
 
 }

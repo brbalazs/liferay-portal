@@ -50,6 +50,7 @@
 		<field name="subscription" type="String">
 			<hint-collection name="TEXTAREA" />
 		</field>
+		<field name="timeZoneId" type="String" />
 		<field name="weDeployKey" type="String" />
 	</model>
 	<model name="com.liferay.osb.faro.model.FaroProjectEmailAddressDomain">

@@ -59,13 +59,13 @@ public class FaroProjectLocalServiceUtil {
 			String corpProjectName, String corpProjectUuid,
 			java.util.List<String> emailAddressDomains, String friendlyURL,
 			String serverLocation, String services, String state,
-			String subscription, String weDeployKey)
+			String subscription, String timeZoneId, String weDeployKey)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addFaroProject(
 			userId, name, accountKey, accountName, corpProjectName,
 			corpProjectUuid, emailAddressDomains, friendlyURL, serverLocation,
-			services, state, subscription, weDeployKey);
+			services, state, subscription, timeZoneId, weDeployKey);
 	}
 
 	/**

@@ -48,6 +48,7 @@ public class FaroProjectSoap implements Serializable {
 		soapModel.setServices(model.getServices());
 		soapModel.setState(model.getState());
 		soapModel.setSubscription(model.getSubscription());
+		soapModel.setTimeZoneId(model.getTimeZoneId());
 		soapModel.setWeDeployKey(model.getWeDeployKey());
 
 		return soapModel;
@@ -250,6 +251,14 @@ public class FaroProjectSoap implements Serializable {
 		_subscription = subscription;
 	}
 
+	public String getTimeZoneId() {
+		return _timeZoneId;
+	}
+
+	public void setTimeZoneId(String timeZoneId) {
+		_timeZoneId = timeZoneId;
+	}
+
 	public String getWeDeployKey() {
 		return _weDeployKey;
 	}
@@ -276,6 +285,7 @@ public class FaroProjectSoap implements Serializable {
 	private String _services;
 	private String _state;
 	private String _subscription;
+	private String _timeZoneId;
 	private String _weDeployKey;
 
 }

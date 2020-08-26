@@ -76,7 +76,7 @@ public class FaroProjectModelImpl
 		{"recommendationsEnabled", Types.BOOLEAN},
 		{"serverLocation", Types.VARCHAR}, {"services", Types.VARCHAR},
 		{"state_", Types.VARCHAR}, {"subscription", Types.VARCHAR},
-		{"weDeployKey", Types.VARCHAR}
+		{"timeZoneId", Types.VARCHAR}, {"weDeployKey", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -101,11 +101,12 @@ public class FaroProjectModelImpl
 		TABLE_COLUMNS_MAP.put("services", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("state_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("subscription", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("timeZoneId", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("weDeployKey", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table OSBFaro_FaroProject (faroProjectId LONG not null primary key,groupId LONG,userId LONG,userName VARCHAR(75) null,createTime LONG,modifiedTime LONG,name VARCHAR(75) null,accountKey VARCHAR(75) null,accountName VARCHAR(75) null,corpProjectName VARCHAR(75) null,corpProjectUuid VARCHAR(75) null,ipAddresses STRING null,lastAccessTime LONG,recommendationsEnabled BOOLEAN,serverLocation VARCHAR(75) null,services STRING null,state_ VARCHAR(75) null,subscription STRING null,weDeployKey VARCHAR(75) null)";
+		"create table OSBFaro_FaroProject (faroProjectId LONG not null primary key,groupId LONG,userId LONG,userName VARCHAR(75) null,createTime LONG,modifiedTime LONG,name VARCHAR(75) null,accountKey VARCHAR(75) null,accountName VARCHAR(75) null,corpProjectName VARCHAR(75) null,corpProjectUuid VARCHAR(75) null,ipAddresses STRING null,lastAccessTime LONG,recommendationsEnabled BOOLEAN,serverLocation VARCHAR(75) null,services STRING null,state_ VARCHAR(75) null,subscription STRING null,timeZoneId VARCHAR(75) null,weDeployKey VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table OSBFaro_FaroProject";
@@ -679,6 +680,28 @@ public class FaroProjectModelImpl
 
 			});
 		attributeGetterFunctions.put(
+			"timeZoneId",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getTimeZoneId();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"timeZoneId",
+			new BiConsumer<FaroProject, Object>() {
+
+				@Override
+				public void accept(
+					FaroProject faroProject, Object timeZoneIdObject) {
+
+					faroProject.setTimeZoneId((String)timeZoneIdObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
 			"weDeployKey",
 			new Function<FaroProject, Object>() {
 
@@ -1008,6 +1031,21 @@ public class FaroProjectModelImpl
 	}
 
 	@Override
+	public String getTimeZoneId() {
+		if (_timeZoneId == null) {
+			return "";
+		}
+		else {
+			return _timeZoneId;
+		}
+	}
+
+	@Override
+	public void setTimeZoneId(String timeZoneId) {
+		_timeZoneId = timeZoneId;
+	}
+
+	@Override
 	public String getWeDeployKey() {
 		if (_weDeployKey == null) {
 			return "";
@@ -1086,6 +1124,7 @@ public class FaroProjectModelImpl
 		faroProjectImpl.setServices(getServices());
 		faroProjectImpl.setState(getState());
 		faroProjectImpl.setSubscription(getSubscription());
+		faroProjectImpl.setTimeZoneId(getTimeZoneId());
 		faroProjectImpl.setWeDeployKey(getWeDeployKey());
 
 		faroProjectImpl.resetOriginalValues();
@@ -1272,6 +1311,14 @@ public class FaroProjectModelImpl
 			faroProjectCacheModel.subscription = null;
 		}
 
+		faroProjectCacheModel.timeZoneId = getTimeZoneId();
+
+		String timeZoneId = faroProjectCacheModel.timeZoneId;
+
+		if ((timeZoneId != null) && (timeZoneId.length() == 0)) {
+			faroProjectCacheModel.timeZoneId = null;
+		}
+
 		faroProjectCacheModel.weDeployKey = getWeDeployKey();
 
 		String weDeployKey = faroProjectCacheModel.weDeployKey;
@@ -1377,6 +1424,7 @@ public class FaroProjectModelImpl
 	private String _services;
 	private String _state;
 	private String _subscription;
+	private String _timeZoneId;
 	private String _weDeployKey;
 	private String _originalWeDeployKey;
 	private long _columnBitmask;
