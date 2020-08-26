@@ -70,7 +70,7 @@ exports[`IndividualOverview should render 1`] = `
           class="card-body no-padding"
         >
           <ul
-            class="card-tabs-root"
+            class="card-tabs-root mdn-button-tab"
           >
             <li
               class="card-tab active"

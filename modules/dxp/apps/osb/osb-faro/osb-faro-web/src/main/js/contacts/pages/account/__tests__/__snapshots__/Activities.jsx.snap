@@ -6,7 +6,7 @@ exports[`Activities should render 1`] = `
     class="card-body no-padding"
   >
     <ul
-      class="card-tabs-root"
+      class="card-tabs-root mdn-button-tab"
     >
       <li
         class="card-tab active"
@@ -411,7 +411,7 @@ exports[`Activities should render with Engagement tab as active 1`] = `
     class="card-body no-padding"
   >
     <ul
-      class="card-tabs-root"
+      class="card-tabs-root mdn-button-tab"
     >
       <li
         class="card-tab"
