@@ -59,7 +59,7 @@ public class FaroProjectLocalServiceImpl
 			String corpProjectName, String corpProjectUuid,
 			List<String> emailAddressDomains, String friendlyURL,
 			String serverLocation, String services, String state,
-			String subscription, String weDeployKey)
+			String subscription, String timeZoneId, String weDeployKey)
 		throws PortalException {
 
 		long faroProjectId = counterLocalService.increment();
@@ -101,6 +101,7 @@ public class FaroProjectLocalServiceImpl
 		faroProject.setServices(services);
 		faroProject.setState(state);
 		faroProject.setSubscription(subscription);
+		faroProject.setTimeZoneId(timeZoneId);
 		faroProject.setWeDeployKey(weDeployKey);
 
 		faroProjectEmailAddressDomainLocalService.
