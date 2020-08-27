@@ -45,7 +45,7 @@ if (analyticsConfiguration != null) {
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 
 		<liferay-ui:tabs
-			names='<%= LanguageUtil.format(resourceBundle, "contact-x", syncedContactFieldNames.length, false) + "," + LanguageUtil.format(resourceBundle, "user-x", syncedUserFieldNames.length, false) %>'
+			names='<%= LanguageUtil.format(request, "contact-x", syncedContactFieldNames.length, false) + "," + LanguageUtil.format(request, "user-x", syncedUserFieldNames.length, false) %>'
 			refresh="<%= false %>"
 		>
 			<liferay-ui:section>
