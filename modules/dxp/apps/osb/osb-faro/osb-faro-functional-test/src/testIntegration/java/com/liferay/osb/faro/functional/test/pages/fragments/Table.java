@@ -610,10 +610,15 @@ public class Table {
 			@Transform(FaroTransformer.class) String rowNumber)
 		throws Exception {
 
-		StringBundler sb = new StringBundler(4);
+		StringBundler sb = new StringBundler(9);
 
 		sb.append("//*[name()='g' and @class='bb-chart']/*[name()='g']");
 		sb.append("/*[name()='rect'][");
+		sb.append(rowNumber);
+		sb.append("]|//*[name()='svg' and @class='recharts-surface']");
+		sb.append("/*[name()='g' and contains(@class,'recharts-bar')]");
+		sb.append("/*[name()='g']//*[name()='g' and contains(@class,'");
+		sb.append("rectangle')][");
 		sb.append(rowNumber);
 		sb.append("]");
 
