@@ -270,7 +270,7 @@ public class ClickSteps {
 		StringBundler sb = new StringBundler(4);
 
 		if (cardFlag != null) {
-			sb.append("//ul[@class='card-tabs-root']/li[@class='card-tab']/a");
+			sb.append("//ul[contains(@class,'card-tabs-root')]/li[@class='card-tab']/a");
 			sb.append("/span[text()='");
 			sb.append(targetName);
 			sb.append("']");
