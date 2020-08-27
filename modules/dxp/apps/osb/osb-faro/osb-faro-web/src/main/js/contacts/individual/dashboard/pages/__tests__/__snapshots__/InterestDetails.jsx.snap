@@ -303,7 +303,7 @@ exports[`Individuals Dashboard Individuals Interest Details renders 1`] = `
                   <td
                     class=" table-column-text-end"
                   >
-                    23.00%
+                    23.0%
                   </td>
                   <td
                     class=" table-column-text-end"
