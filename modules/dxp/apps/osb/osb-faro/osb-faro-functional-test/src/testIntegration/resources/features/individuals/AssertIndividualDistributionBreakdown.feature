@@ -12,16 +12,16 @@ Feature: Assert the Individual Distribution card
 		When I select the attribute "industry"
 		And I name and save the breakdown "Industry"
 		Then I should see the following names in breakdown:
-			| architecture & planning  |
-			| food & beverages		   |
-			| philanthropy			   |
-			| international affairs	   |
-			| alternative medicine     |
-			| paper & forest products  |
-			| fund-raising             |
-			| research                 |
-			| semiconductors           |
-			| public relations and c...|
+			| architecture & planning  				|
+			| food & beverages		   				|
+			| philanthropy			   				|
+			| international affairs	   				|
+			| alternative medicine     				|
+			| paper & forest products  				|
+			| fund-raising             				|
+			| research                 				|
+			| semiconductors           				|
+			| public relations and communications	|
 
 	Scenario: Assert distribution name can't be duplicated
 		When I add another breakdown

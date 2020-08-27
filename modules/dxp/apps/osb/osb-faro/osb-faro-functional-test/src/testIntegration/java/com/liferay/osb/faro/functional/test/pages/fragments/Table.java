@@ -140,13 +140,11 @@ public class Table {
 	public void assertBreakdownNames(DataTable dataTable) throws Exception {
 		_faroSelenium.waitForLoadingComplete();
 
-		StringBundler sb = new StringBundler(5);
+		StringBundler sb = new StringBundler(3);
 
-		sb.append("//*[name()='svg']/*[name()='g']/*[name()='g' ]");
-		sb.append("/*[name()='g']/*[name()='text' and @x='-9' and @y='16']");
-		sb.append("/*[name()='tspan']|//*[name()='g' and @class=");
-		sb.append("'bb-axis bb-axis-x']/*[name()='g' and ");
-		sb.append("@class='tick']/*[name()='text' and @x='-9' and @y='78']");
+		sb.append("//*[name()='g' and contains(@class,'yAxis')]");
+		sb.append("/*[name()='g' and contains(@class,'axis-tick')]");
+		sb.append("/*[name()='g']/*[name()='text']/*[name()='tspan']");
 
 		List<WebElement> rowWebElements = _faroSelenium.findElements(
 			sb.toString());
