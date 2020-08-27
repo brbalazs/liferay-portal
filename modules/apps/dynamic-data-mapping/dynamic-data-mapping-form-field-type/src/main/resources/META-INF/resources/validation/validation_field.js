@@ -444,11 +444,15 @@ AUI.add(
 
 						var validationContainer = A.one('.lfr-ddm-form-field-validation');
 
-						var validationFieldContainer = validationContainer.one('.lfr-ddm-form-field-container');
+						var validationFieldContainers = validationContainer.all('.lfr-ddm-form-field-container');
 
-						if (validationFieldContainer) {
-							validationFieldContainer.remove();
-						}
+						validationFieldContainers.each(
+							function(validationFieldContainer) {
+								if (validationFieldContainer) {
+									validationFieldContainer.remove();
+								}
+							}
+						);
 
 						var context = instance.get('context');
 
