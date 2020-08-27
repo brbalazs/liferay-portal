@@ -515,7 +515,7 @@ export const metricsListColumns = {
 	bounceRateMetric: {
 		accessor: 'bounceRateMetric',
 		className: 'table-column-text-end',
-		dataFormatter: data => `${(data * 100).toFixed(2)}%`,
+		dataFormatter: data => `${(data * 100).toFixed(1)}%`,
 		label: Liferay.Language.get('bounce-rate')
 	},
 	commentsMetric: {

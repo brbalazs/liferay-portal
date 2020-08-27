@@ -157,7 +157,7 @@ export const formatXAxisDate = (
  */
 export const getAxisFormatter = type => {
 	if (type === 'percentage') {
-		return value => `${toRounded(value * 100, 0)}%`;
+		return value => `${toRounded(value * 100)}%`;
 	} else if (type === 'time') {
 		return value => {
 			const displayMilliseconds =
