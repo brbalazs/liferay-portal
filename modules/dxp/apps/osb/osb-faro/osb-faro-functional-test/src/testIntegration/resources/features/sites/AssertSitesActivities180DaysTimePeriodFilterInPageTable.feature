@@ -11,4 +11,4 @@ Feature: Assert Sites Activities 180 Days Time Period Filter In Page Table
     When I click the "Last 30 days" button
     And I click the "More Preset Periods" button
     And I click the "Last 180 days" button
-    Then I should see 20 rows in the table
+    Then I should see 10 rows in the table
