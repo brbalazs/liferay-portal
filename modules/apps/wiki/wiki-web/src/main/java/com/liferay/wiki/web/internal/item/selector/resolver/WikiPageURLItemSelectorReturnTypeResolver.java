@@ -78,8 +78,8 @@ public class WikiPageURLItemSelectorReturnTypeResolver
 
 		if (Validator.isNotNull(path)) {
 			return StringBundler.concat(
-				path, Portal.FRIENDLY_URL_SEPARATOR, "wiki/",
-				page.getNodeId(), StringPool.SLASH,
+				path, Portal.FRIENDLY_URL_SEPARATOR, "wiki/", page.getNodeId(),
+				StringPool.SLASH,
 				URLCodec.encodeURL(WikiEscapeUtil.escapeName(page.getTitle())));
 		}
 
