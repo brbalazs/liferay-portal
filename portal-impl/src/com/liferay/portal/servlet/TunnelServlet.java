@@ -91,20 +91,25 @@ public class TunnelServlet extends HttpServlet {
 				returnObj = methodHandler.invoke();
 			}
 		}
-		catch (InvocationTargetException ite) {
-			returnObj = ite.getCause();
+		catch (InvocationTargetException invocationTargetException) {
+			_log.error(invocationTargetException, invocationTargetException);
 
-			if (!(returnObj instanceof PortalException)) {
-				_log.error(ite, ite);
+			Throwable throwable = invocationTargetException.getCause();
 
-				if (returnObj != null) {
-					Throwable throwable = (Throwable)returnObj;
+			if (throwable != null) {
+				Class<?> clazz = throwable.getClass();
 
-					returnObj = new SystemException(throwable.getMessage());
+				if (throwable instanceof PortalException) {
+					returnObj = new PortalException(
+						"Invocation failed due to " + clazz.getName());
 				}
 				else {
-					returnObj = new SystemException();
+					returnObj = new SystemException(
+						"Invocation failed due to " + clazz.getName());
 				}
+			}
+			else {
+				returnObj = new SystemException();
 			}
 		}
 		catch (Exception e) {
