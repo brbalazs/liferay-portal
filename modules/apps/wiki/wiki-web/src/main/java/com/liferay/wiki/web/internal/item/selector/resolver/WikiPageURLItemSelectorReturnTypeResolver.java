@@ -72,13 +72,13 @@ public class WikiPageURLItemSelectorReturnTypeResolver
 		String layoutFullURL = _portal.getLayoutFullURL(
 			page.getGroupId(), WikiPortletKeys.WIKI);
 
-		URL url = new URL(layoutFullURL);
+		URL urlObject = new URL(layoutFullURL);
 
-		String relativeURL = url.getPath();
+		String path = urlObject.getPath();
 
-		if (Validator.isNotNull(relativeURL)) {
+		if (Validator.isNotNull(path)) {
 			return StringBundler.concat(
-				relativeURL, Portal.FRIENDLY_URL_SEPARATOR, "wiki/",
+				path, Portal.FRIENDLY_URL_SEPARATOR, "wiki/",
 				page.getNodeId(), StringPool.SLASH,
 				URLCodec.encodeURL(WikiEscapeUtil.escapeName(page.getTitle())));
 		}
