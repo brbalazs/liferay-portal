@@ -1,32 +1,38 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+
 import autobind from 'autobind-decorator';
 import CardTabs from 'shared/components/CardTabs';
-import Chart, {COMBINED_CHART} from 'shared/components/Chart';
 import Checkbox from 'shared/components/Checkbox';
 import getCN from 'classnames';
 import MetricValue from 'cerebro-shared/components/MetricValue';
+import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
-import ReactDOMServer from 'react-dom/server';
-import Spinner from 'shared/components/Spinner';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import Trend from 'cerebro-shared/components/Trend';
+import {AXIS, getTextWidth} from 'shared/util/clay-recharts';
+import {
+	Bar,
+	CartesianGrid,
+	Cell,
+	ComposedChart,
+	Legend,
+	Line,
+	ResponsiveContainer,
+	Text,
+	Tooltip,
+	XAxis,
+	YAxis
+} from 'recharts';
 import {find, get} from 'lodash';
 import {
 	formatXAxisDate,
 	getLegendCircle,
 	getLegendLine,
-	getLegendLineDashed,
-	isEmptyData
+	getLegendLineDashed
 } from 'shared/util/charts';
-import {
-	getAxisMeasuresFromCompositeData,
-	getAxisMeasuresFromData,
-	getDateTitle
-} from 'shared/util/charts';
-import {hasChanges} from 'shared/util/react';
+import {getDateTitle} from 'shared/util/charts';
 import {LAST_24_HOURS, YESTERDAY} from 'shared/util/constants';
 import {Map} from 'immutable';
-import {PropTypes} from 'prop-types';
 import {toInt} from 'shared/util/numbers';
 
 const CLASSNAME = 'analytics-metrics';
@@ -60,7 +66,7 @@ export const tooltipLabelTitle = rangeKey => {
 class MainMetrics extends React.Component {
 	static defaultProps = {
 		activeItemIndex: 0,
-		chartHeight: 320,
+		chartHeight: 350,
 		items: [],
 		showPrevious: false,
 		showTabs: true
@@ -111,48 +117,8 @@ class MainMetrics extends React.Component {
 	};
 
 	state = {
-		legend: {},
-		loading: false
+		hoverIndex: -1
 	};
-
-	constructor(props) {
-		super(props);
-
-		this._chartRef = React.createRef();
-	}
-
-	/**
-	 * Lifecycle Component Did Update - ReactJS
-	 * @param {object} nextProps
-	 */
-	componentDidUpdate(prevProps) {
-		if (
-			hasChanges(
-				prevProps,
-				this.props,
-				'activeItemIndex',
-				'filters',
-				'item',
-				'rangeSelectors',
-				'showPrevious'
-			)
-		) {
-			this.loading();
-		}
-	}
-
-	/**
-	 * Lifecycle Component Will Unmount - ReactJS
-	 */
-	componentWillUnmount() {
-		if (
-			this._chartRef &&
-			this._chartRef.current &&
-			this._chartRef.current._chartRef.current
-		) {
-			this._chartRef.current._chartRef.current.destroyChart();
-		}
-	}
 
 	/**
 	 * Build Tabs
@@ -195,8 +161,6 @@ class MainMetrics extends React.Component {
 		const {onActiveItemIndexChange} = this.props;
 
 		return () => {
-			this.loading();
-
 			if (onActiveItemIndexChange) {
 				onActiveItemIndexChange(toInt(index));
 			}
@@ -224,21 +188,6 @@ class MainMetrics extends React.Component {
 	}
 
 	/**
-	 * Loading
-	 */
-	loading() {
-		// This loading state is to force disposing the chart. If we dispose
-		// it directly, the chart will blink. So I figured it would be
-		// better to display a quick loading indicator. Ideally, the chart
-		// API would not need to be disposed and re-created in order to
-		// render correctly :/
-
-		this.setState({loading: true}, () =>
-			setTimeout(() => this.setState({loading: false}), 125)
-		);
-	}
-
-	/**
 	 * Render Chart
 	 */
 	renderChart() {
@@ -249,125 +198,229 @@ class MainMetrics extends React.Component {
 			showPrevious
 		} = this.props;
 
-		const {
-			compositeData,
-			content,
-			data,
-			dateKeysIMap,
-			intervals
-		} = this.getActiveItem();
+		const {content, data, dateKeysIMap, intervals} = this.getActiveItem();
 		const {name, title} = content;
 
-		const stackedBarChart = !!compositeData;
+		const timeline = data[data.length - 1];
 
-		const chartData = data
-			.filter(({id}) =>
-				showPrevious
-					? [
-							CHART_DATA_ID_1,
-							CHART_DATA_ID_2,
-							CHART_DATA_PREVIOUS
-					  ].includes(id)
-					: [CHART_DATA_ID_1, CHART_DATA_ID_2].includes(id)
+		const chartData = data.slice(0, data.length - 1);
+
+		const dataIds = chartData.map(item => item.id);
+
+		let yAxisWidth = 60;
+
+		const combinedData = timeline.data.map((date, i) =>
+			dataIds.reduce(
+				(acc, item, j) => {
+					acc[item] = chartData[j].data[i];
+
+					const textWidth = getTextWidth(
+						this.renderFormat(chartData[j].data[i])
+					);
+
+					const labelWidth = getTextWidth(
+						METRIC_TOOLTIP_LABEL_MAP[name] || title
+					);
+
+					if (yAxisWidth < textWidth) {
+						yAxisWidth = textWidth;
+					}
+
+					if (yAxisWidth < labelWidth) {
+						yAxisWidth = labelWidth;
+					}
+
+					return acc;
+				},
+				{
+					date,
+					dateString: formatXAxisDate(
+						date,
+						rangeSelectors.rangeKey,
+						interval,
+						dateKeysIMap
+					)
+				}
 			)
-			.map(data => [data.id].concat(data.data));
+		);
 
-		let maxValue = 1;
-		const tickY = {
-			format: this.renderFormat
-		};
-		const empty = isEmptyData(chartData.map(data => data.slice(1)));
+		const renderTick = ({payload, textAnchor, x, y}) => (
+			<Text
+				style={{
+					fill: AXIS.textColor,
+					font: AXIS.font,
+					fontSize: '0.75rem'
+				}}
+				textAnchor={textAnchor}
+				width={yAxisWidth}
+				x={x}
+				y={y + payload.offset}
+			>
+				{payload.value}
+			</Text>
+		);
 
-		if (!empty) {
-			let intervalsY = [];
+		const barData = chartData.filter(item => item.type === 'bar');
 
-			({intervals: intervalsY = [], maxValue} = stackedBarChart
-				? getAxisMeasuresFromCompositeData(
-						chartData.map(data => data.slice(1))
-				  )
-				: getAxisMeasuresFromData(chartData));
+		const lineData = chartData.filter(item => {
+			if (!showPrevious && item.id === CHART_DATA_PREVIOUS) {
+				return;
+			}
 
-			tickY.values = intervalsY;
-		} else {
-			tickY.count = 5;
-			tickY.format = value => (value === 0 ? this.renderFormat(0) : '');
-		}
+			return item.type !== 'bar';
+		});
 
 		return (
-			<Chart
-				axisX={{
-					tick: {
-						centered: false,
-						format: date =>
+			<ResponsiveContainer height={height}>
+				<ComposedChart data={combinedData}>
+					<CartesianGrid
+						stroke={AXIS.gridStroke}
+						strokeDasharray='3 3'
+						vertical={false}
+					/>
+
+					<XAxis
+						axisLine={{
+							stroke: AXIS.borderStroke
+						}}
+						dataKey='dateString'
+						stroke={AXIS.gridStroke}
+						tick={({payload, textAnchor, x, y}) => (
+							<Text
+								style={{
+									fill: AXIS.textColor,
+									font: AXIS.font,
+									fontSize: '0.75rem'
+								}}
+								textAnchor={textAnchor}
+								x={x}
+								y={y}
+							>
+								{payload.value}
+							</Text>
+						)}
+						tickLine={false}
+						tickMargin={12}
+						ticks={intervals.map(int =>
 							formatXAxisDate(
-								date,
+								int,
 								rangeSelectors.rangeKey,
 								interval,
 								dateKeysIMap
-							),
-						values: intervals
-					},
-					type: 'timeseries'
-				}}
-				axisY={{
-					max: maxValue,
-					min: 0,
-					padding: {
-						bottom: 0,
-						top: 0
-					},
-					tick: tickY
-				}}
-				bar={{
-					width: {
-						ratio: 0.9
-					}
-				}}
-				chartType={COMBINED_CHART}
-				className={name}
-				data={
-					showPrevious
-						? data
-						: data.filter(({id}) => id !== CHART_DATA_PREVIOUS)
-				}
-				dataId={`${name}Data`}
-				generateChartOnLoad
-				height={height}
-				id={`${name}LineChartMetricsData`}
-				legend={{
-					contents: {
-						bindto: `#Legend-${name}`,
-						template: this.renderLegends
-					},
-					item: {
-						onclick: () => false
-					},
-					show: true
-				}}
-				line={{
-					classes: stackedBarChart
-						? ['bb-line-dashed-4-4']
-						: ['bb-line', 'bb-line-dashed-4-4']
-				}}
-				otherData={
-					stackedBarChart
-						? {
-								groups: [[CHART_DATA_ID_1, CHART_DATA_ID_2]],
-								order: null
-						  }
-						: undefined
-				}
-				padding={{
-					right: 20,
-					top: 1
-				}}
-				ref={this._chartRef}
-				tooltip={{
-					contents: this.renderTooltip
-				}}
-				x='x'
-				yLabel={METRIC_TOOLTIP_LABEL_MAP[name] || title}
-			/>
+							)
+						)}
+					/>
+
+					<XAxis
+						axisLine={{
+							stroke: AXIS.borderStroke
+						}}
+						dataKey='dateString'
+						orientation='top'
+						stroke={AXIS.gridStroke}
+						tick={false}
+						tickLine={false}
+						xAxisId='top'
+					/>
+
+					<YAxis
+						axisLine={{
+							stroke: AXIS.borderStroke
+						}}
+						label={{
+							offset: 20,
+							position: 'top',
+							value: METRIC_TOOLTIP_LABEL_MAP[name] || title
+						}}
+						stroke={AXIS.gridStroke}
+						tick={({payload, y, ...others}) =>
+							renderTick({
+								payload: {
+									...payload,
+									offset: 4,
+									value: this.renderFormat(payload.value)
+								},
+								y,
+								...others
+							})
+						}
+						tickLine={false}
+						width={yAxisWidth}
+					/>
+
+					<YAxis
+						axisLine={{
+							stroke: AXIS.borderStroke
+						}}
+						orientation='right'
+						stroke={AXIS.gridStroke}
+						tick={false}
+						tickLine={false}
+						width={12}
+						yAxisId='right'
+					/>
+
+					<Tooltip content={this.renderTooltip} />
+
+					<Legend
+						align='right'
+						iconSize={8}
+						verticalAlign='bottom'
+						wrapperStyle={{
+							bottom: 'auto',
+							color: AXIS.textColor,
+							fontSize: '14px',
+							lineHeight: '21px'
+						}}
+					/>
+
+					{barData.map(item => (
+						<Bar
+							dataKey={item.id}
+							fill={item.color}
+							key={item.id}
+							legendType='circle'
+							name={item.name}
+							onMouseEnter={(e, index) =>
+								this.setState({hoverIndex: index})
+							}
+							onMouseLeave={() => this.setState({hoverIndex: -1})}
+							stackId='a'
+						>
+							{item.data.map((entry, index) => (
+								<Cell
+									fill={item.color}
+									key={`cell-${index}`}
+									opacity={
+										index === this.state.hoverIndex
+											? 0.75
+											: 1
+									}
+								/>
+							))}
+						</Bar>
+					))}
+
+					{lineData.map(item => (
+						<Line
+							dataKey={item.id}
+							dot={false}
+							fill={item.color}
+							key={item.id}
+							legendType='line'
+							name={item.name}
+							stroke={item.color}
+							strokeDasharray={
+								item.id === CHART_DATA_PREVIOUS
+									? '5 5'
+									: undefined
+							}
+							strokeWidth={2}
+							type='linear'
+						/>
+					))}
+				</ComposedChart>
+			</ResponsiveContainer>
 		);
 	}
 
@@ -376,11 +429,15 @@ class MainMetrics extends React.Component {
 	 * @param {Array} dataPoints
 	 */
 	@autobind
-	renderTooltip(dataPoints) {
+	renderTooltip({active, payload}) {
+		if (!active) {
+			return null;
+		}
+
 		const {interval, rangeSelectors, showPrevious} = this.props;
 
-		const activeChartIndex = get(dataPoints[0], 'index') || 0;
-		const dateKey = dataPoints[0].x;
+		const activeChartIndex = 0;
+		const dateKey = payload[0].payload.date;
 
 		const {
 			compositeData,
@@ -392,14 +449,14 @@ class MainMetrics extends React.Component {
 		} = this.getActiveItem();
 
 		const dataOneItemData = find(data, ({id}) => id === CHART_DATA_ID_1);
-		const dataOneValue = dataOneItemData.data[activeChartIndex];
+		const dataOneValue = payload[0].value;
 
 		const dataTwoItemData = find(data, ({id}) => id === CHART_DATA_ID_2);
-		const dataTwoValue = get(dataTwoItemData, ['data', activeChartIndex]);
+		const dataTwoValue = payload[1] && payload[1].value;
 
 		const dataPreviousPoint = find(
-			dataPoints,
-			({id}) => id === CHART_DATA_PREVIOUS
+			payload,
+			({dataKey}) => dataKey === CHART_DATA_PREVIOUS
 		);
 
 		const dataOnePreviousValue = compositeData
@@ -504,8 +561,10 @@ class MainMetrics extends React.Component {
 			}
 		].filter(Boolean);
 
-		return ReactDOMServer.renderToString(
-			<TooltipChart header={header} rows={rows} />
+		return (
+			<div className='bb-tooltip-container' style={{position: 'static'}}>
+				<TooltipChart header={header} rows={rows} />
+			</div>
 		);
 	}
 
@@ -528,6 +587,7 @@ class MainMetrics extends React.Component {
 		const {compositeData, data} = this.getActiveItem();
 
 		const name = get(find(data, d => d.id === id), 'name');
+
 		let icon;
 
 		if (compositeData) {
@@ -546,36 +606,31 @@ class MainMetrics extends React.Component {
 
 	renderItems() {
 		const {
-			props: {items, onShowPreviousChange, showPrevious},
-			state: {loading}
+			props: {onShowPreviousChange, showPrevious}
 		} = this;
 
 		const {
 			content: {name}
 		} = this.getActiveItem();
 
-		if (loading) {
-			return <Spinner alignCenter key='LOADING' />;
-		} else if (items) {
-			return (
-				<Fragment key='CHART'>
-					{this.renderChart()}
+		return (
+			<Fragment key='CHART'>
+				{this.renderChart()}
 
-					<div className={`${CLASSNAME}-chart-sub-content-wrapper`}>
-						<Checkbox
-							checked={showPrevious}
-							label={Liferay.Language.get('compare-to-previous')}
-							onChange={() => onShowPreviousChange(!showPrevious)}
-						/>
+				<div className={`${CLASSNAME}-chart-sub-content-wrapper`}>
+					<Checkbox
+						checked={showPrevious}
+						label={Liferay.Language.get('compare-to-previous')}
+						onChange={() => onShowPreviousChange(!showPrevious)}
+					/>
 
-						<ul
-							className={`${CLASSNAME}-legend chart-legend`}
-							id={`Legend-${name}`}
-						/>
-					</div>
-				</Fragment>
-			);
-		}
+					<ul
+						className={`${CLASSNAME}-legend chart-legend`}
+						id={`Legend-${name}`}
+					/>
+				</div>
+			</Fragment>
+		);
 	}
 
 	/**

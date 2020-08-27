@@ -1,9 +1,6 @@
 import Metrics, {tooltipLabelTitle} from '../Metrics';
 import React from 'react';
-jest.unmock('clay-charts');
-
 import {format} from 'd3';
-
 import {getDate} from 'shared/util/date';
 import {
 	LAST_24_HOURS,
@@ -11,16 +8,25 @@ import {
 	LAST_90_DAYS,
 	YESTERDAY
 } from 'shared/util/constants';
+import {Map} from 'immutable';
+import {render} from '@testing-library/react';
 
-import {shallow} from 'enzyme';
+jest.unmock('react-dom');
+
+const dateKeysIMap = Map(
+	['2018-01-01', '2018-01-02', '2018-01-03', '2018-01-04', '2018-01-05'].map(
+		date => [getDate(date), date.split('/').map(getDate)]
+	)
+);
 
 const items = [
 	{
 		active: true,
 		content: {
 			details: {
-				label: '20%',
-				positive: true
+				color: '#287D3C',
+				icon: 'caret-top-1',
+				label: '20%'
 			},
 			name: 'engagement',
 			title: 'Engagement',
@@ -50,6 +56,7 @@ const items = [
 				id: 'x'
 			}
 		],
+		dateKeysIMap,
 		format: format('4.3s'),
 		intervals: [
 			getDate('2018-01-01'),
@@ -109,6 +116,7 @@ const items = [
 				id: 'x'
 			}
 		],
+		dateKeysIMap,
 		format: format('4.3s'),
 		intervals: [
 			getDate('2018-01-01'),
@@ -168,6 +176,7 @@ const items = [
 				id: 'x'
 			}
 		],
+		dateKeysIMap,
 		format: format('4.3s'),
 		intervals: [
 			getDate('2018-01-01'),
@@ -195,19 +204,12 @@ const items = [
 		}
 	}
 ];
-
 describe('Metrics', () => {
 	it('should render', () => {
-		const component = shallow(<Metrics items={items} />);
-		expect(component).toMatchSnapshot();
-	});
-
-	it('should render div loading when component is loading', () => {
-		const component = shallow(<Metrics items={items} />);
-
-		component.setState({loading: true});
-
-		expect(component.find('Spinner').length).toBe(1);
+		const {container} = render(
+			<Metrics items={items} rangeSelectors={{rangeKey: LAST_24_HOURS}} />
+		);
+		expect(container).toMatchSnapshot();
 	});
 });
 

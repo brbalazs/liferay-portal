@@ -169,7 +169,6 @@ export class Distribution extends React.Component {
 		showIndividualsPreview: false
 	};
 
-	_chartRef = React.createRef();
 	_formRef = React.createRef();
 	_formSelectFieldInputRef = React.createRef();
 

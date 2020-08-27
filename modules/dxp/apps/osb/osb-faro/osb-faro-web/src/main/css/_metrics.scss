@@ -25,7 +25,8 @@ $tc: '.analytics-tooltip-chart';
 	#{$c}-chart {
 		min-height: 340px;
 
-		.chart-labels {
+		.recharts-label {
+			fill: $mainLighten28;
 			font-size: $fontSizeExtraSmall;
 			font-weight: $fontWeightRegular;
 		}
