@@ -585,6 +585,12 @@ public class CommerceProductPriceCalculationV2Impl
 			BigDecimal finalPrice, CommerceContext commerceContext)
 		throws PortalException {
 
+		if ((finalPrice == null) ||
+			(finalPrice.compareTo(BigDecimal.ZERO) <= 0)) {
+
+			return null;
+		}
+
 		CPInstance cpInstance = cpInstanceLocalService.getCPInstance(
 			cpInstanceId);
 
