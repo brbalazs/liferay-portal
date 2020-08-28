@@ -7,151 +7,153 @@
 		<definition>
 			<![CDATA[
 				{
+					"availableLanguageIds": [
+						"[$LOCALE_DEFAULT$]"
+					],
 					"defaultLanguageId": "[$LOCALE_DEFAULT$]",
-					"availableLanguageIds": ["[$LOCALE_DEFAULT$]"],
 					"fields": [
 						{
+							"dataType": "string",
+							"indexType": "keyword",
 							"label": {
 								"en_US": "Item Heading"
 							},
-							"predefinedValue": {
-								"en_US": ""
-							},
-							"style": {
-								"en_US": ""
-							},
-							"tip": {
-								"en_US": ""
-							},
-							"dataType": "string",
-							"indexType": "keyword",
 							"localizable": true,
 							"name": "ItemHeading",
-							"readOnly": false,
-							"repeatable": true,
-							"required": true,
-							"showLabel": true,
-							"type": "text",
 							"nestedFields": [
 								{
+									"dataType": "string",
+									"indexType": "keyword",
 									"label": {
 										"en_US": "Opening Short Text"
 									},
+									"localizable": true,
+									"name": "OpeningShortText",
 									"predefinedValue": {
 										"en_US": ""
 									},
-									"style": {
-										"en_US": ""
-									},
-									"tip": {
-										"en_US": ""
-									},
-									"dataType": "string",
-									"indexType": "keyword",
-									"localizable": true,
-									"name": "OpeningShortText",
 									"readOnly": false,
 									"repeatable": false,
 									"required": false,
 									"showLabel": true,
-									"type": "text"
-								},
-								{
-									"label": {
-										"en_US": "Item image"
-									},
-									"predefinedValue": {
-										"en_US": ""
-									},
 									"style": {
 										"en_US": ""
 									},
 									"tip": {
 										"en_US": ""
 									},
+									"type": "text"
+								},
+								{
 									"dataType": "image",
 									"fieldNamespace": "ddm",
 									"indexType": "keyword",
+									"label": {
+										"en_US": "Item image"
+									},
 									"localizable": true,
 									"name": "ItemImage",
+									"predefinedValue": {
+										"en_US": ""
+									},
 									"readOnly": false,
 									"repeatable": false,
 									"required": false,
 									"showLabel": true,
+									"style": {
+										"en_US": ""
+									},
+									"tip": {
+										"en_US": ""
+									},
 									"type": "ddm-image"
 								},
 								{
+									"dataType": "string",
+									"indexType": "keyword",
 									"label": {
 										"en_US": "Item Paragraph"
 									},
+									"localizable": true,
+									"name": "ItemParagraph",
 									"predefinedValue": {
 										"en_US": ""
 									},
+									"readOnly": false,
+									"repeatable": false,
+									"required": false,
+									"showLabel": true,
 									"style": {
 										"en_US": ""
 									},
 									"tip": {
 										"en_US": ""
 									},
-									"dataType": "string",
-									"indexType": "keyword",
-									"localizable": true,
-									"name": "ItemParagraph",
-									"readOnly": false,
-									"repeatable": false,
-									"required": false,
-									"showLabel": true,
 									"type": "text"
 								},
 								{
+									"dataType": "string",
+									"indexType": "keyword",
 									"label": {
 										"en_US": "Item Link Text"
 									},
-									"predefinedValue": {
-										"en_US": ""
-									},
-									"style": {
-										"en_US": ""
-									},
-									"tip": {
-										"en_US": ""
-									},
-									"dataType": "string",
-									"indexType": "keyword",
 									"localizable": true,
 									"name": "ItemLinkText",
-									"readOnly": false,
-									"repeatable": false,
-									"required": false,
-									"showLabel": true,
-									"type": "text",
 									"nestedFields": [
 										{
+											"dataType": "string",
+											"indexType": "keyword",
 											"label": {
 												"en_US": "Item Link URL"
 											},
+											"localizable": true,
+											"name": "ItemLinkURL",
 											"predefinedValue": {
 												"en_US": ""
 											},
+											"readOnly": false,
+											"repeatable": false,
+											"required": false,
+											"showLabel": true,
 											"style": {
 												"en_US": ""
 											},
 											"tip": {
 												"en_US": ""
 											},
-											"dataType": "string",
-											"indexType": "keyword",
-											"localizable": true,
-											"name": "ItemLinkURL",
-											"readOnly": false,
-											"repeatable": false,
-											"required": false,
-											"showLabel": true,
 											"type": "text"
 										}
-									]
+									],
+									"predefinedValue": {
+										"en_US": ""
+									},
+									"readOnly": false,
+									"repeatable": false,
+									"required": false,
+									"showLabel": true,
+									"style": {
+										"en_US": ""
+									},
+									"tip": {
+										"en_US": ""
+									},
+									"type": "text"
 								}
-							]
+							],
+							"predefinedValue": {
+								"en_US": ""
+							},
+							"readOnly": false,
+							"repeatable": true,
+							"required": true,
+							"showLabel": true,
+							"style": {
+								"en_US": ""
+							},
+							"tip": {
+								"en_US": ""
+							},
+							"type": "text"
 						}
 					]
 				}
@@ -167,7 +169,9 @@
 								{
 									"columns": [
 										{
-											"fieldNames": ["content"],
+											"fieldNames": [
+												"content"
+											],
 											"size": 12
 										}
 									]
