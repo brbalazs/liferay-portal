@@ -11,12 +11,13 @@ import React, {useRef} from 'react';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert, Modal} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
-import {compose, withHistory} from 'shared/hoc';
+import {compose, withCurrentUser, withHistory} from 'shared/hoc';
 import {connect} from 'react-redux';
 import {FieldArray, Formik, FormikTouched, FormikValues} from 'formik';
 import {Routes, toRoute} from 'shared/util/router';
 import {sequence} from 'shared/util/promise';
 import {useMutation, useQuery} from '@apollo/react-hooks';
+import {User} from 'shared/util/records';
 import {WrapSafeResults} from 'shared/hoc/util';
 
 const SEARCH_QUERY_STRINGS_KEY = 'search-query-strings';
@@ -24,6 +25,7 @@ const SEARCH_QUERY_STRINGS_KEY = 'search-query-strings';
 interface ISearchCardProps {
 	addAlert: Alert.AddAlert;
 	close: Modal.close;
+	currentUser: User;
 	groupId: string;
 	history: {
 		push: (path: string) => void;
@@ -49,6 +51,7 @@ const shouldRenderAddButton = (
 export const SearchCard: React.FC<ISearchCardProps> = ({
 	addAlert,
 	close,
+	currentUser,
 	groupId,
 	history,
 	open
@@ -65,6 +68,7 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 
 	const _formRef = useRef<Formik>();
 
+	const authorized = currentUser.isAdmin();
 
 	const getQueryStringListInitialValue = (): Array<string> =>
 		searchQueryStringsData && searchQueryStringsData.preference.value
@@ -200,6 +204,9 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 													>
 														<Form.Input
 															className='query-input'
+															disabled={
+																!authorized
+															}
 															name={`queryStringList.${index}`}
 															onBlur={() =>
 																handleBlur(
@@ -216,28 +223,30 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 																)
 															])}
 														/>
-
-														<Button
-															borderless
-															className='ml-1'
-															disabled={
-																isSubmitting
-															}
-															display='secondary'
-															onClick={() =>
-																arrayHelpers.remove(
-																	index
-																)
-															}
-														>
-															<Icon symbol='trash' />
-														</Button>
+														{authorized && (
+															<Button
+																borderless
+																className='ml-1'
+																disabled={
+																	isSubmitting
+																}
+																display='secondary'
+																onClick={() =>
+																	arrayHelpers.remove(
+																		index
+																	)
+																}
+															>
+																<Icon symbol='trash' />
+															</Button>
+														)}
 
 														{shouldRenderAddButton(
 															index,
 															values
 																.queryStringList
-																.length
+																.length,
+															authorized
 														) && (
 															<AddButton
 																disabled={
@@ -257,23 +266,27 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 									)}
 								/>
 
-								<div className='mt-4'>
-									<Button
-										display='primary'
-										loading={isSubmitting}
-										type='submit'
-									>
-										{Liferay.Language.get('save')}
-									</Button>
+								{authorized && (
+									<div className='mt-4'>
+										<Button
+											display='primary'
+											loading={isSubmitting}
+											type='submit'
+										>
+											{Liferay.Language.get('save')}
+										</Button>
 
-									<Button
-										className='ml-4'
-										display='secondary'
-										onClick={() => handleCancel(touched)}
-									>
-										{Liferay.Language.get('cancel')}
-									</Button>
-								</div>
+										<Button
+											className='ml-4'
+											display='secondary'
+											onClick={() =>
+												handleCancel(touched)
+											}
+										>
+											{Liferay.Language.get('cancel')}
+										</Button>
+									</div>
+								)}
 							</Form.Form>
 						)}
 					</Form>
@@ -284,6 +297,7 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 };
 
 export default compose<any>(
+	withCurrentUser,
 	withHistory,
 	connect(
 		null,
