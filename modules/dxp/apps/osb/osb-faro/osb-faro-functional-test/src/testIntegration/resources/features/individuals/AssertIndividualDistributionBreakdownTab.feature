@@ -16,15 +16,15 @@ Feature: Assert breakdown by property can select different tabs
 		And I name and save the breakdown "State"
 		When I click the "Industry" button
 		Then I should see the following names in breakdown:
-			| architecture & planning  				|
-			| food & beverages		   				|
-			| philanthropy			   				|
-			| international affairs	   				|
-			| alternative medicine     				|
-			| paper & forest products  				|
-			| fund-raising             				|
-			| research                 				|
-			| semiconductors           				|
+			| architecture & planning  		|
+			| food & beverages		   	|
+			| philanthropy			   	|
+			| international affairs	   		|
+			| alternative medicine     		|
+			| paper & forest products  		|
+			| fund-raising             		|
+			| research                 		|
+			| semiconductors           		|
 			| public relations and communications	|
 		And I delete the breakdown
 		And I delete the breakdown
