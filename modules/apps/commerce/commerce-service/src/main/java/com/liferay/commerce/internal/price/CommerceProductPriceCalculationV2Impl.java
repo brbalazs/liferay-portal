@@ -540,7 +540,7 @@ public class CommerceProductPriceCalculationV2Impl
 		CommerceCatalog commerceCatalog = cpInstance.getCommerceCatalog();
 
 		CommercePriceList basePriceList =
-			_commercePriceListLocalService.getCommerceCatalogBasePriceList(
+			_commercePriceListLocalService.fetchCommerceCatalogBasePriceList(
 				commerceCatalog.getGroupId());
 
 		if (basePriceList != null) {
