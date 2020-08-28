@@ -1,3 +1,5 @@
+import * as API from 'shared/api';
+import * as data from 'test/data';
 import mockStore from 'test/mock-store';
 import React from 'react';
 import SearchCard from '../SearchCard';
@@ -78,5 +80,37 @@ describe('SearchCard', () => {
 		changeInputValue(input, 'jackson=testvalue');
 
 		expect(input.value).toBe('jackson');
+	});
+
+	it('should render input as disabled when user is not admin', async() => {
+		API.user.fetchCurrentUser.mockReturnValueOnce(
+			Promise.resolve(data.mockMemberUser())
+		);
+
+		const {container} = render(<DefaultComponent />);
+
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
+
+		container.querySelectorAll('.query-input input').forEach(el => {
+			expect(el).toBeDisabled();
+		});
+	});
+
+	it('should not render buttons when user is not admin', async() => {
+		API.user.fetchCurrentUser.mockReturnValueOnce(
+			Promise.resolve(data.mockMemberUser())
+		);
+
+		const {container} = render(<DefaultComponent />);
+
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
+
+		expect(
+			container.querySelectorAll('.query-card-root button')
+		).toBeEmpty();
 	});
 });
