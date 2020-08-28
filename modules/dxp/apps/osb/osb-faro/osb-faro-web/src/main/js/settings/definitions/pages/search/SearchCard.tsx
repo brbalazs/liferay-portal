@@ -33,20 +33,28 @@ interface ISearchCardProps {
 	open: Modal.open;
 }
 
-const AddButton = ({...otherProps}) => (
-	<Button borderless className='ml-1' display='secondary' {...otherProps}>
-		<Icon symbol='plus' />
-	</Button>
-);
+const renderAddButton = (
+	authorized: boolean,
+	currentLength: number,
+	props: React.ButtonHTMLAttributes<HTMLButtonElement>,
+	index: number = null
+) => {
+	if (
+		(!currentLength && authorized) ||
+		(index === currentLength - 1 && currentLength <= 4 && authorized)
+	) {
+		return (
+			<Button borderless className='ml-1' display='secondary' {...props}>
+				<Icon symbol='plus' />
+			</Button>
+		);
+	}
+
+	return null;
+};
 
 const removeSpecialCharacters = (originalValue: string): string =>
 	originalValue.split('=')[0].replace(/[^\w\s]/gi, '');
-
-const shouldRenderAddButton = (
-	index: number,
-	currentLength: number,
-	authorized: boolean
-): boolean => index === currentLength - 1 && currentLength <= 4 && authorized;
 
 export const SearchCard: React.FC<ISearchCardProps> = ({
 	addAlert,
@@ -183,16 +191,17 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 													value='q'
 												/>
 
-												{!values.queryStringList
-													.length && (
-													<AddButton
-														disabled={isSubmitting}
-														onClick={() =>
+												{renderAddButton(
+													authorized,
+													values.queryStringList
+														.length,
+													{
+														disabled: isSubmitting,
+														onClick: () =>
 															arrayHelpers.push(
 																''
 															)
-														}
-													/>
+													}
 												)}
 											</div>
 
@@ -241,23 +250,19 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 															</Button>
 														)}
 
-														{shouldRenderAddButton(
-															index,
+														{renderAddButton(
+															authorized,
 															values
 																.queryStringList
 																.length,
-															authorized
-														) && (
-															<AddButton
-																disabled={
-																	isSubmitting
-																}
-																onClick={() =>
+															{
+																disabled: isSubmitting,
+																onClick: () =>
 																	arrayHelpers.push(
 																		''
 																	)
-																}
-															/>
+															},
+															index
 														)}
 													</div>
 												)
