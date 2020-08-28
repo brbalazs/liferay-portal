@@ -31,6 +31,21 @@ interface ISearchCardProps {
 	open: Modal.open;
 }
 
+const AddButton = ({...otherProps}) => (
+	<Button borderless className='ml-1' display='secondary' {...otherProps}>
+		<Icon symbol='plus' />
+	</Button>
+);
+
+const removeSpecialCharacters = (originalValue: string): string =>
+	originalValue.split('=')[0].replace(/[^\w\s]/gi, '');
+
+const shouldRenderAddButton = (
+	index: number,
+	currentLength: number,
+	authorized: boolean
+): boolean => index === currentLength - 1 && currentLength <= 4 && authorized;
+
 export const SearchCard: React.FC<ISearchCardProps> = ({
 	addAlert,
 	close,
@@ -50,24 +65,11 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 
 	const _formRef = useRef<Formik>();
 
-	const AddButton = ({...otherProps}) => (
-		<Button borderless className='ml-1' display='secondary' {...otherProps}>
-			<Icon symbol='plus' />
-		</Button>
-	);
 
 	const getQueryStringListInitialValue = (): Array<string> =>
 		searchQueryStringsData && searchQueryStringsData.preference.value
 			? JSON.parse(searchQueryStringsData.preference.value)
 			: [];
-
-	const removeSpecialCharacters = (originalValue: string): string =>
-		originalValue.split('=')[0].replace(/[^\w\s]/gi, '');
-
-	const shouldRenderAddButton = (
-		index: number,
-		currentLength: number
-	): boolean => index === currentLength - 1 && currentLength <= 4;
 
 	const handleSubmit = ({queryStringList}): void => {
 		const currentForm = _formRef.current;
