@@ -38,7 +38,7 @@ export default class WorkspaceList extends React.Component {
 			return toRoute(Routes.WORKSPACE_WITH_ID, {
 				groupId: friendlyURL.replace('/', '')
 			});
-		} else if (groupId && state !== unconfigured) {
+		} else if (!!groupId && state !== unconfigured) {
 			return toRoute(Routes.WORKSPACE_WITH_ID, {
 				groupId
 			});
@@ -76,7 +76,7 @@ export default class WorkspaceList extends React.Component {
 							<WorkspaceListItem
 								accountName={name}
 								className={className}
-								configured={state !== unconfigured}
+								configured={!!groupId && state !== unconfigured}
 								corpProjectName={corpProjectName}
 								disabled={checkDisabled(project)}
 								groupId={groupId}
