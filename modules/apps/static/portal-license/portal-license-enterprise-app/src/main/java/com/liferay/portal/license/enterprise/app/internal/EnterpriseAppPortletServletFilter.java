@@ -63,7 +63,7 @@ public class EnterpriseAppPortletServletFilter implements Filter {
 			(expirationDate - System.currentTimeMillis()) / Time.DAY;
 
 		if (LicenseManagerUtil.getLicenseState(_productId) ==
-			LicenseManager.STATE_EXPIRED) {
+				LicenseManager.STATE_EXPIRED) {
 
 			servletRequest.setAttribute(
 				"ERROR_MESSAGE",
