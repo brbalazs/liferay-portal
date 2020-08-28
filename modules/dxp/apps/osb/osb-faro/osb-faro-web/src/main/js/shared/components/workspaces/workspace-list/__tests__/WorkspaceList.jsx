@@ -35,7 +35,7 @@ const mockAccountWithFriendlyURLList = range(2).map(
 				data.mockProject(i, {
 					corpProjectUuid: null,
 					friendlyURL: `${FRIENDLY_URL_BASE}${i}`,
-					groupId: null,
+					groupId: 123,
 					name: `mockProject_AccountA ${i}`
 				})
 			)
