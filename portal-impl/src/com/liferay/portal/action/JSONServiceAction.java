@@ -163,7 +163,7 @@ public class JSONServiceAction extends JSONAction {
 					e);
 			}
 
-			if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLES) {
+			if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLE) {
 				return JSONFactoryUtil.serializeThrowable(e);
 			}
 

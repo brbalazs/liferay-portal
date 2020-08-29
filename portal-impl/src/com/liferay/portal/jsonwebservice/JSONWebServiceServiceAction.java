@@ -60,7 +60,7 @@ public class JSONWebServiceServiceAction extends JSONServiceAction {
 			WebKeys.UPLOAD_EXCEPTION);
 
 		if (uploadException != null) {
-			if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLES) {
+			if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLE) {
 				return JSONFactoryUtil.serializeThrowable(uploadException);
 			}
 
@@ -96,7 +96,7 @@ public class JSONWebServiceServiceAction extends JSONServiceAction {
 
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 
-				if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLES) {
+				if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLE) {
 					return JSONFactoryUtil.serializeThrowable(throwable);
 				}
 
@@ -111,7 +111,7 @@ public class JSONWebServiceServiceAction extends JSONServiceAction {
 
 				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 
-				if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLES) {
+				if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLE) {
 					return JSONFactoryUtil.serializeThrowable(throwable);
 				}
 
@@ -130,7 +130,7 @@ public class JSONWebServiceServiceAction extends JSONServiceAction {
 
 			response.setStatus(status);
 
-			if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLES) {
+			if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLE) {
 				return JSONFactoryUtil.serializeThrowable(throwable);
 			}
 

@@ -101,7 +101,7 @@ public abstract class JSONAction extends Action {
 				_log.warn(se.getMessage());
 			}
 
-			if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLES) {
+			if (PropsValues.JSON_SERVICE_SERIALIZE_THROWABLE) {
 				json = JSONFactoryUtil.serializeThrowable(se);
 			}
 			else {
