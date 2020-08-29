@@ -31,7 +31,7 @@ public class AttributesDisplay {
 	public AttributesDisplay(FieldMapping fieldMapping) {
 		_dataSources = fieldMapping.getDataSources();
 		_dateModified = fieldMapping.getDateModified();
-		_fieldName = fieldMapping.getFieldName();
+		_fieldName = fieldMapping.getDisplayName();
 	}
 
 	private List<FieldMapping.DataSourceFieldName> _dataSources;

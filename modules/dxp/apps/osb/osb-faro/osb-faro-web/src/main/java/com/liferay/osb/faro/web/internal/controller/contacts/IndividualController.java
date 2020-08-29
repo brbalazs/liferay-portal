@@ -18,6 +18,7 @@ import com.liferay.osb.faro.contacts.model.constants.JSONConstants;
 import com.liferay.osb.faro.engine.client.constants.FieldMappingConstants;
 import com.liferay.osb.faro.engine.client.exception.DuplicateEntryException;
 import com.liferay.osb.faro.engine.client.model.Field;
+import com.liferay.osb.faro.engine.client.model.FieldMapping;
 import com.liferay.osb.faro.engine.client.model.Individual;
 import com.liferay.osb.faro.engine.client.model.IndividualSegment;
 import com.liferay.osb.faro.engine.client.model.Results;
@@ -31,6 +32,7 @@ import com.liferay.osb.faro.web.internal.model.display.FaroResultsDisplay;
 import com.liferay.osb.faro.web.internal.model.display.contacts.IndividualDisplay;
 import com.liferay.osb.faro.web.internal.param.FaroParam;
 import com.liferay.osb.faro.web.internal.search.FaroSearchContext;
+import com.liferay.osb.faro.web.internal.util.StreamUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -125,8 +127,24 @@ public class IndividualController extends BaseFaroController {
 
 		Map<String, Map<String, List<Field>>> details = new HashMap<>();
 
+		FaroProject faroProject =
+			faroProjectLocalService.getFaroProjectByGroupId(groupId);
+
 		Individual individual = contactsEngineClient.getIndividual(
-			faroProjectLocalService.getFaroProjectByGroupId(groupId), id, null);
+			faroProject, id, null);
+
+		_setFieldMappingDisplayName(
+			individual.getCustom(),
+			contactsEngineClient.getFieldMappings(
+				faroProject, FieldMappingConstants.CONTEXT_CUSTOM, null,
+				FieldMappingConstants.OWNER_TYPE_INDIVIDUAL, null, 1, 10000,
+				null));
+		_setFieldMappingDisplayName(
+			individual.getDemographics(),
+			contactsEngineClient.getFieldMappings(
+				faroProject, FieldMappingConstants.CONTEXT_DEMOGRAPHICS, null,
+				FieldMappingConstants.OWNER_TYPE_INDIVIDUAL, null, 1, 10000,
+				null));
 
 		details.put("custom", individual.getCustom());
 		details.put("demographics", individual.getDemographics());
@@ -293,6 +311,28 @@ public class IndividualController extends BaseFaroController {
 				throw new FaroException(
 					"You cannot modify memberships of: " +
 						individualSegment.getName());
+			}
+		}
+	}
+
+	private void _setFieldMappingDisplayName(
+		Map<String, List<Field>> fieldsMap, Results<FieldMapping> results) {
+
+		if (fieldsMap.isEmpty()) {
+			return;
+		}
+
+		Map<String, FieldMapping> fieldMappingMap = StreamUtil.toMap(
+			results.getItems(), FieldMapping::getFieldName,
+			Function.identity());
+
+		for (Map.Entry<String, List<Field>> entry : fieldsMap.entrySet()) {
+			List<Field> fields = entry.getValue();
+
+			FieldMapping fieldMapping = fieldMappingMap.get(entry.getKey());
+
+			for (Field field : fields) {
+				field.setName(fieldMapping.getDisplayName());
 			}
 		}
 	}
