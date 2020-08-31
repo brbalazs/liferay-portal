@@ -18,6 +18,7 @@ Array [
 exports[`getMetricsChartData should return data formatted for use in a Metrics chart 1`] = `
 Array [
   Object {
+    "color": "#4B9BFF",
     "data": Array [
       0,
       10,
@@ -55,7 +56,7 @@ Array [
     "tooltipTitle": "",
   },
   Object {
-    "color": "#4B9BFF",
+    "color": "#7EB7FF",
     "data": Array [
       0,
       20,

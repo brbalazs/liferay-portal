@@ -18,6 +18,7 @@ Object {
       },
       "data": Array [
         Object {
+          "color": "#4B9BFF",
           "data": Array [
             4,
             315,
@@ -32,7 +33,7 @@ Object {
           "tooltipTitle": "Avg. Views",
         },
         Object {
-          "color": "#4B9BFF",
+          "color": "#7EB7FF",
           "data": Array [
             108,
             134,
