@@ -148,6 +148,8 @@ public class CommerceOrderPriceCalculationImpl
 					discountAmount.getPrice());
 			}
 
+			totalDiscounted = totalAmount;
+
 			orderTotalCommerceDiscountValue =
 				_commerceDiscountCalculation.getOrderTotalCommerceDiscountValue(
 					commerceOrder, totalAmount, commerceContext);
@@ -155,8 +157,6 @@ public class CommerceOrderPriceCalculationImpl
 			if (orderTotalCommerceDiscountValue != null) {
 				CommerceMoney discountAmount =
 					orderTotalCommerceDiscountValue.getDiscountAmount();
-
-				totalAmount = totalAmount.subtract(discountAmount.getPrice());
 
 				totalDiscounted = totalDiscounted.subtract(
 					discountAmount.getPrice());
@@ -208,6 +208,8 @@ public class CommerceOrderPriceCalculationImpl
 						discountAmount.getPrice());
 			}
 
+			totalDiscountedWithTaxAmount = totalWithTaxAmount;
+
 			orderTotalCommerceDiscountValue =
 				_commerceDiscountCalculation.getOrderTotalCommerceDiscountValue(
 					commerceOrder, totalWithTaxAmount, commerceContext);
@@ -215,9 +217,6 @@ public class CommerceOrderPriceCalculationImpl
 			if (orderTotalCommerceDiscountValue != null) {
 				CommerceMoney discountAmount =
 					orderTotalCommerceDiscountValue.getDiscountAmount();
-
-				totalWithTaxAmount = totalWithTaxAmount.subtract(
-					discountAmount.getPrice());
 
 				totalDiscountedWithTaxAmount =
 					totalDiscountedWithTaxAmount.subtract(
@@ -260,10 +259,11 @@ public class CommerceOrderPriceCalculationImpl
 		commerceOrderPriceImpl.setTotal(
 			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(),
-				totalAmount.add(taxValue.getPrice())));
+				totalDiscounted.add(taxValue.getPrice())));
 		commerceOrderPriceImpl.setTotalWithTaxAmount(
 			commerceMoneyFactory.create(
-				commerceOrder.getCommerceCurrency(), totalWithTaxAmount));
+				commerceOrder.getCommerceCurrency(),
+				totalDiscountedWithTaxAmount));
 
 		setDiscountValuesWithTaxAmount(
 			discountsTargetNetPrice, shippingWithTaxAmount,
