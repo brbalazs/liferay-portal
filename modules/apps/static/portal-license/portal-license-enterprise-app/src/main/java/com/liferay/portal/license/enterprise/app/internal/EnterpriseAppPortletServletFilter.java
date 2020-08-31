@@ -93,9 +93,15 @@ public class EnterpriseAppPortletServletFilter implements Filter {
 			sb.append(PortalUtil.getPathMain());
 			sb.append("/portal/license\">activation key for ");
 			sb.append(_productId);
-			sb.append("</a>, it will be expired in ");
+			sb.append("</a>, it will expire in ");
 			sb.append(expirationDays);
-			sb.append(" day(s)</div>");
+			sb.append(" day");
+
+			if (expirationDays > 1) {
+				sb.append("s");
+			}
+
+			sb.append("</div>");
 
 			Writer writer = servletResponse.getWriter();
 
