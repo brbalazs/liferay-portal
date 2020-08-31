@@ -61,7 +61,7 @@ public class EnterpriseAppLicenseUtil {
 					portalLicenseProperties.get("lifetime"))) {
 
 				throw new Exception(
-					"Trial license lifetime is not same with Liferay DXP");
+					"Trial license lifetime is not same as Liferay DXP");
 			}
 
 			return;
