@@ -18,7 +18,7 @@ import com.liferay.portal.kernel.messaging.Destination;
 import com.liferay.portal.kernel.messaging.DestinationConfiguration;
 import com.liferay.portal.kernel.messaging.DestinationFactory;
 import com.liferay.portal.kernel.util.HashMapDictionary;
-import com.liferay.portal.license.enterprise.app.internal.constants.EnterpriseAppDestinationNames;
+import com.liferay.portal.license.enterprise.app.internal.constants.PortalLicenseEnterpriseAppDestinationNames;
 
 import java.util.Dictionary;
 
@@ -33,7 +33,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Tina Tian
  */
 @Component(immediate = true, service = {})
-public class EnterpriseAppMessagingConfigurator {
+public class PortalLicenseEnterpriseAppMessagingConfigurator {
 
 	@Activate
 	protected void activate(BundleContext bundleContext) {
@@ -42,7 +42,8 @@ public class EnterpriseAppMessagingConfigurator {
 		DestinationConfiguration destinationConfiguration =
 			new DestinationConfiguration(
 				DestinationConfiguration.DESTINATION_TYPE_SYNCHRONOUS,
-				EnterpriseAppDestinationNames.ENTERPRISE_APP);
+				PortalLicenseEnterpriseAppDestinationNames.
+					PORTAL_LICENSE_ENTERPRISE_APP);
 
 		Destination destination = _destinationFactory.createDestination(
 			destinationConfiguration);

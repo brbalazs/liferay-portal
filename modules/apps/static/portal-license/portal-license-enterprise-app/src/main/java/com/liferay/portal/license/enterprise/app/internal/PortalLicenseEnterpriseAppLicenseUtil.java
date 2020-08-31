@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * @author Tina Tian
  */
-public class EnterpriseAppLicenseUtil {
+public class PortalLicenseEnterpriseAppLicenseUtil {
 
 	public static void verify(LicenseManager licenseManager, String productId)
 		throws Exception {

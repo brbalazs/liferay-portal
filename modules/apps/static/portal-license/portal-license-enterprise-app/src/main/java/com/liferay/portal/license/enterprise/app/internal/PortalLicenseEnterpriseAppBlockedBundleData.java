@@ -21,9 +21,9 @@ import java.util.Objects;
 /**
  * @author Tina Tian
  */
-public class BlockedBundleData {
+public class PortalLicenseEnterpriseAppBlockedBundleData {
 
-	public BlockedBundleData(
+	public PortalLicenseEnterpriseAppBlockedBundleData(
 		String location, int startLevel, String webContextPath) {
 
 		_location = location;
@@ -37,16 +37,22 @@ public class BlockedBundleData {
 			return true;
 		}
 
-		if (!(object instanceof BlockedBundleData)) {
+		if (!(object instanceof PortalLicenseEnterpriseAppBlockedBundleData)) {
 			return false;
 		}
 
-		BlockedBundleData blockedBundleData = (BlockedBundleData)object;
+		PortalLicenseEnterpriseAppBlockedBundleData
+			portalLicenseEnterpriseAppBlockedBundleData =
+				(PortalLicenseEnterpriseAppBlockedBundleData)object;
 
-		if (Objects.equals(_location, blockedBundleData._location) &&
-			(_startLevel == blockedBundleData._startLevel) &&
+		if (Objects.equals(
+				_location,
+				portalLicenseEnterpriseAppBlockedBundleData._location) &&
+			(_startLevel ==
+				portalLicenseEnterpriseAppBlockedBundleData._startLevel) &&
 			Objects.equals(
-				_webContextPath, blockedBundleData._webContextPath)) {
+				_webContextPath,
+				portalLicenseEnterpriseAppBlockedBundleData._webContextPath)) {
 
 			return true;
 		}

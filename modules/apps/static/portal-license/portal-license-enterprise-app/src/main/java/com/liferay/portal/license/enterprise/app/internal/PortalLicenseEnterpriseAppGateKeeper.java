@@ -28,7 +28,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapDictionary;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.license.enterprise.app.internal.constants.EnterpriseAppDestinationNames;
+import com.liferay.portal.license.enterprise.app.internal.constants.PortalLicenseEnterpriseAppDestinationNames;
 import com.liferay.portal.lpkg.deployer.LPKGDeployer;
 
 import java.util.ArrayList;
@@ -48,6 +48,7 @@ import javax.servlet.Filter;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
+import org.osgi.framework.BundleListener;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.framework.SynchronousBundleListener;
@@ -67,45 +68,46 @@ import org.osgi.util.tracker.ServiceTrackerCustomizer;
  * @author Tina Tian
  */
 @Component(immediate = true, service = {})
-public class EnterpriseAppGateKeeper {
+public class PortalLicenseEnterpriseAppGateKeeper {
 
 	@Activate
 	protected void activate(BundleContext bundleContext) {
 		_bundleContext = bundleContext;
 
-		_enterpriseAppBundleListener = new EnterpriseAppBundleListener(
+		_bundleListener = new PortalLicenseEnterpriseAppBundleListener(
 			bundleContext.getBundle());
 
-		bundleContext.addBundleListener(_enterpriseAppBundleListener);
+		bundleContext.addBundleListener(_bundleListener);
 
 		_scanBundles(bundleContext);
 
 		Dictionary<String, Object> dictionary = new HashMapDictionary<>();
 
 		dictionary.put(
-			"destination.name", EnterpriseAppDestinationNames.ENTERPRISE_APP);
+			"destination.name",
+			PortalLicenseEnterpriseAppDestinationNames.
+				PORTAL_LICENSE_ENTERPRISE_APP);
 
-		_messageListenerServiceRegistration = bundleContext.registerService(
-			MessageListener.class, new EnterpriseAppMessageListener(),
-			dictionary);
+		_serviceRegistration = bundleContext.registerService(
+			MessageListener.class,
+			new PortalLicenseEnterpriseAppMessageListener(), dictionary);
 
-		_enterpriseAppServletContextHelperServiceTracker =
-			ServiceTrackerFactory.open(
-				bundleContext,
-				StringBundler.concat(
-					"(&(", HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME,
-					"=*)(objectClass=org.osgi.service.http.context.",
-					"ServletContextHelper))"),
-				new EnterpriseAppWebContextServiceTrackerCustomizer());
+		_serviceTracker = ServiceTrackerFactory.open(
+			bundleContext,
+			StringBundler.concat(
+				"(&(", HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME,
+				"=*)(objectClass=org.osgi.service.http.context.",
+				"ServletContextHelper))"),
+			new PortalLicenseEnterpriseAppWebContextServiceTrackerCustomizer());
 	}
 
 	@Deactivate
 	protected void deactivate() {
-		_enterpriseAppServletContextHelperServiceTracker.close();
+		_serviceTracker.close();
 
-		_messageListenerServiceRegistration.unregister();
+		_serviceRegistration.unregister();
 
-		_bundleContext.removeBundleListener(_enterpriseAppBundleListener);
+		_bundleContext.removeBundleListener(_bundleListener);
 	}
 
 	@Reference(
@@ -117,15 +119,22 @@ public class EnterpriseAppGateKeeper {
 		_licenseManagerAtomicReference.set(licenseManager);
 
 		synchronized (this) {
-			Set<Map.Entry<String, Set<BlockedBundleData>>> entrySet =
-				_blockedBundleDataSetMap.entrySet();
+			Set
+				<Map.Entry
+					<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
+						entrySet =
+							_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
+								entrySet();
 
-			Iterator<Map.Entry<String, Set<BlockedBundleData>>> iterator =
-				entrySet.iterator();
+			Iterator
+				<Map.Entry
+					<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
+						iterator = entrySet.iterator();
 
 			while (iterator.hasNext()) {
-				Map.Entry<String, Set<BlockedBundleData>> entry =
-					iterator.next();
+				Map.Entry
+					<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>
+						entry = iterator.next();
 
 				if (_verifyLicense(entry.getKey())) {
 					_installBundles(entry.getKey(), entry.getValue());
@@ -165,14 +174,20 @@ public class EnterpriseAppGateKeeper {
 	}
 
 	private void _installBundles(
-		String productId, Set<BlockedBundleData> blockedBundleDataSet) {
+		String productId,
+		Set<PortalLicenseEnterpriseAppBlockedBundleData>
+			portalLicenseEnterpriseAppBlockedBundleDataSet) {
 
-		if (blockedBundleDataSet == null) {
+		if (portalLicenseEnterpriseAppBlockedBundleDataSet == null) {
 			return;
 		}
 
-		for (BlockedBundleData blockedBundleData : blockedBundleDataSet) {
-			String webContextPath = blockedBundleData.getWebContextPath();
+		for (PortalLicenseEnterpriseAppBlockedBundleData
+				portalLicenseEnterpriseAppBlockedBundleData :
+					portalLicenseEnterpriseAppBlockedBundleDataSet) {
+
+			String webContextPath =
+				portalLicenseEnterpriseAppBlockedBundleData.getWebContextPath();
 
 			if (webContextPath != null) {
 				_webContextPathMap.put(webContextPath, productId);
@@ -181,8 +196,9 @@ public class EnterpriseAppGateKeeper {
 			try {
 				BundleUtil.installBundle(
 					_bundleContext, _lpkgDeployer,
-					blockedBundleData.getLocation(),
-					blockedBundleData.getStartLevel());
+					portalLicenseEnterpriseAppBlockedBundleData.getLocation(),
+					portalLicenseEnterpriseAppBlockedBundleData.
+						getStartLevel());
 			}
 			catch (Exception exception) {
 				if (webContextPath != null) {
@@ -192,7 +208,8 @@ public class EnterpriseAppGateKeeper {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						"Unable to install bundle " +
-							blockedBundleData.getLocation(),
+							portalLicenseEnterpriseAppBlockedBundleData.
+								getLocation(),
 						exception);
 				}
 			}
@@ -212,7 +229,8 @@ public class EnterpriseAppGateKeeper {
 		String webContextPath = headers.get("Web-ContextPath");
 
 		synchronized (this) {
-			if (!_blockedBundleDataSetMap.containsKey(productId) &&
+			if (!_portalLicenseEnterpriseAppBlockedBundleDataSetMap.containsKey(
+					productId) &&
 				_verifyLicense(productId)) {
 
 				if (webContextPath != null) {
@@ -230,12 +248,13 @@ public class EnterpriseAppGateKeeper {
 			try {
 				bundle.uninstall();
 
-				Set<BlockedBundleData> blockedBundleDataSet =
-					_blockedBundleDataSetMap.computeIfAbsent(
-						productId, key -> new HashSet<>());
+				Set<PortalLicenseEnterpriseAppBlockedBundleData>
+					portalLicenseEnterpriseAppBlockedBundleDataSet =
+						_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
+							computeIfAbsent(productId, key -> new HashSet<>());
 
-				blockedBundleDataSet.add(
-					new BlockedBundleData(
+				portalLicenseEnterpriseAppBlockedBundleDataSet.add(
+					new PortalLicenseEnterpriseAppBlockedBundleData(
 						bundle.getLocation(), startLevel, webContextPath));
 			}
 			catch (Exception exception) {
@@ -273,7 +292,8 @@ public class EnterpriseAppGateKeeper {
 				return false;
 			}
 
-			EnterpriseAppLicenseUtil.verify(licenseManager, productId);
+			PortalLicenseEnterpriseAppLicenseUtil.verify(
+				licenseManager, productId);
 
 			return true;
 		}
@@ -292,26 +312,24 @@ public class EnterpriseAppGateKeeper {
 	private static final String _KEY_PRODUCT_ID = "product.id=";
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		EnterpriseAppGateKeeper.class);
+		PortalLicenseEnterpriseAppGateKeeper.class);
 
-	private final Map<String, Set<BlockedBundleData>> _blockedBundleDataSetMap =
-		new HashMap<>();
 	private BundleContext _bundleContext;
-	private EnterpriseAppBundleListener _enterpriseAppBundleListener;
-	private ServiceTracker<Object, ServiceRegistration<Filter>>
-		_enterpriseAppServletContextHelperServiceTracker;
+	private BundleListener _bundleListener;
 	private final AtomicReference<LicenseManager>
 		_licenseManagerAtomicReference = new AtomicReference<>();
 
 	@Reference
 	private LPKGDeployer _lpkgDeployer;
 
-	private ServiceRegistration<MessageListener>
-		_messageListenerServiceRegistration;
+	private final Map<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>
+		_portalLicenseEnterpriseAppBlockedBundleDataSetMap = new HashMap<>();
+	private ServiceRegistration<MessageListener> _serviceRegistration;
+	private ServiceTracker<Object, ServiceRegistration<Filter>> _serviceTracker;
 	private final Map<String, String> _webContextPathMap =
 		new ConcurrentHashMap<>();
 
-	private class EnterpriseAppBundleListener
+	private class PortalLicenseEnterpriseAppBundleListener
 		implements SynchronousBundleListener {
 
 		@Override
@@ -323,7 +341,7 @@ public class EnterpriseAppGateKeeper {
 			}
 		}
 
-		private EnterpriseAppBundleListener(Bundle bundle) {
+		private PortalLicenseEnterpriseAppBundleListener(Bundle bundle) {
 			_bundle = bundle;
 		}
 
@@ -331,7 +349,8 @@ public class EnterpriseAppGateKeeper {
 
 	}
 
-	private class EnterpriseAppMessageListener implements MessageListener {
+	private class PortalLicenseEnterpriseAppMessageListener
+		implements MessageListener {
 
 		@Override
 		public void receive(Message message) {
@@ -341,13 +360,17 @@ public class EnterpriseAppGateKeeper {
 				return;
 			}
 
-			synchronized (EnterpriseAppGateKeeper.this) {
+			synchronized (PortalLicenseEnterpriseAppGateKeeper.this) {
 				Set<String> blockedProductIds = Collections.emptySet();
 
 				if (productId.equals("Portal")) {
-					blockedProductIds = _blockedBundleDataSetMap.keySet();
+					blockedProductIds =
+						_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
+							keySet();
 				}
-				else if (_blockedBundleDataSetMap.containsKey(productId)) {
+				else if (_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
+							containsKey(productId)) {
+
 					blockedProductIds = Collections.singleton(productId);
 				}
 
@@ -355,7 +378,8 @@ public class EnterpriseAppGateKeeper {
 					if (_verifyLicense(blockedProductId)) {
 						_installBundles(
 							blockedProductId,
-							_blockedBundleDataSetMap.remove(blockedProductId));
+							_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
+								remove(blockedProductId));
 					}
 				}
 			}
@@ -363,7 +387,7 @@ public class EnterpriseAppGateKeeper {
 
 	}
 
-	private class EnterpriseAppWebContextServiceTrackerCustomizer
+	private class PortalLicenseEnterpriseAppWebContextServiceTrackerCustomizer
 		implements ServiceTrackerCustomizer
 			<Object, ServiceRegistration<Filter>> {
 
@@ -382,7 +406,8 @@ public class EnterpriseAppGateKeeper {
 			}
 
 			return _bundleContext.registerService(
-				Filter.class, new EnterpriseAppPortletServletFilter(productId),
+				Filter.class,
+				new PortalLicenseEnterpriseAppPortletServletFilter(productId),
 				_buildProperties(serviceReference));
 		}
 

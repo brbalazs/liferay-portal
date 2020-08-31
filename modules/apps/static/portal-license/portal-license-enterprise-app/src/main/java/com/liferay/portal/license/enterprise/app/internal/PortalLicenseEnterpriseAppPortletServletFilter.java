@@ -37,9 +37,9 @@ import javax.servlet.ServletResponse;
 /**
  * @author Dante Wang
  */
-public class EnterpriseAppPortletServletFilter implements Filter {
+public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 
-	public EnterpriseAppPortletServletFilter(String productId) {
+	public PortalLicenseEnterpriseAppPortletServletFilter(String productId) {
 		_productId = productId;
 	}
 
@@ -86,7 +86,7 @@ public class EnterpriseAppPortletServletFilter implements Filter {
 		if (((lifetimeDays == 30) && (expirationDays < 7)) ||
 			((lifetimeDays > 30) && (expirationDays < 30))) {
 
-			StringBundler sb = new StringBundler(8);
+			StringBundler sb = new StringBundler(10);
 
 			sb.append("<div class=\"alert alert-danger\">Update your ");
 			sb.append("<a class=\"alert-link\" href=\"");

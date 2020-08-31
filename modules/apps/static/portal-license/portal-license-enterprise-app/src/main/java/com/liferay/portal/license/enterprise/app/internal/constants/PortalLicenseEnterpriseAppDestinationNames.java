@@ -17,8 +17,9 @@ package com.liferay.portal.license.enterprise.app.internal.constants;
 /**
  * @author Tina Tian
  */
-public class EnterpriseAppDestinationNames {
+public class PortalLicenseEnterpriseAppDestinationNames {
 
-	public static final String ENTERPRISE_APP = "liferay/enterprise_app";
+	public static final String PORTAL_LICENSE_ENTERPRISE_APP =
+		"liferay/enterprise_app";
 
 }
