@@ -24,11 +24,11 @@ import java.util.Objects;
 public class BlockedBundleData {
 
 	public BlockedBundleData(
-		String location, String webContextPath, int startLevel) {
+		String location, int startLevel, String webContextPath) {
 
 		_location = location;
-		_webContextPath = webContextPath;
 		_startLevel = startLevel;
+		_webContextPath = webContextPath;
 	}
 
 	@Override

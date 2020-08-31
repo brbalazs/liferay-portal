@@ -236,7 +236,7 @@ public class EnterpriseAppGateKeeper {
 
 				blockedBundleDataSet.add(
 					new BlockedBundleData(
-						bundle.getLocation(), webContextPath, startLevel));
+						bundle.getLocation(), startLevel, webContextPath));
 			}
 			catch (Exception exception) {
 				_log.error(
