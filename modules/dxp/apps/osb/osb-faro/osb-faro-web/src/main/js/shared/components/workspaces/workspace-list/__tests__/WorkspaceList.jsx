@@ -42,6 +42,21 @@ const mockAccountWithFriendlyURLList = range(2).map(
 		)
 );
 
+const mockAccountWithNullStateList = range(2).map(
+	i =>
+		new Project(
+			fromJS(
+				data.mockProject(i, {
+					corpProjectUuid: null,
+					friendlyURL: `${FRIENDLY_URL_BASE}${i}`,
+					groupId: null,
+					name: `mockProject_AccountA ${i}`,
+					state: null
+				})
+			)
+		)
+);
+
 const mockAccountWithUnconfiguredList = range(2).map(
 	i =>
 		new Project(
@@ -81,6 +96,14 @@ describe('WorkspaceList', () => {
 	it('should render an unconfigured WorkspaceList', () => {
 		const {queryAllByText} = render(
 			<DefaultComponent accounts={mockAccountWithUnconfiguredList} />
+		);
+
+		expect(queryAllByText('Configuration Required')).toBeTruthy();
+	});
+
+	it('should render an unconfigured WorkspaceList when the state and groupId is null', () => {
+		const {queryAllByText} = render(
+			<DefaultComponent accounts={mockAccountWithNullStateList} />
 		);
 
 		expect(queryAllByText('Configuration Required')).toBeTruthy();
