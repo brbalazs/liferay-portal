@@ -281,8 +281,8 @@ public class EnterpriseAppGateKeeper {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					StringBundler.concat(
-						"Failed to verify license for ", productId,
-						", because ", exception.getMessage()));
+						"Failed to verify license for ", productId, ": ",
+						exception.getMessage()));
 			}
 		}
 
