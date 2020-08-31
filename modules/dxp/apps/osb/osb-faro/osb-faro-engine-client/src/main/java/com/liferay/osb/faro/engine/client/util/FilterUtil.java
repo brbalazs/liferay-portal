@@ -20,8 +20,6 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
-import java.time.Instant;
-
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,9 +59,7 @@ public class FilterUtil {
 		if (value instanceof Date) {
 			Date date = (Date)value;
 
-			Instant instant = date.toInstant();
-
-			value = instant.toString();
+			value = String.valueOf(date.toInstant());
 		}
 		else if (value instanceof List) {
 			List<?> values = (List<?>)value;
