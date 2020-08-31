@@ -147,7 +147,7 @@ public class EnterpriseAppGateKeeper {
 			return null;
 		}
 
-		int index = enterpriseAppHeader.indexOf(_PRODUCT_ID_KEY);
+		int index = enterpriseAppHeader.indexOf(_KEY_PRODUCT_ID);
 
 		if (index == -1) {
 			return null;
@@ -157,11 +157,11 @@ public class EnterpriseAppGateKeeper {
 
 		if (endIndex == -1) {
 			return enterpriseAppHeader.substring(
-				index + _PRODUCT_ID_KEY.length());
+				index + _KEY_PRODUCT_ID.length());
 		}
 
 		return enterpriseAppHeader.substring(
-			index + _PRODUCT_ID_KEY.length(), endIndex);
+			index + _KEY_PRODUCT_ID.length(), endIndex);
 	}
 
 	private void _installBundles(
@@ -289,7 +289,7 @@ public class EnterpriseAppGateKeeper {
 		return false;
 	}
 
-	private static final String _PRODUCT_ID_KEY = "product.id=";
+	private static final String _KEY_PRODUCT_ID = "product.id=";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		EnterpriseAppGateKeeper.class);
