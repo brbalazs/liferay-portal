@@ -44,9 +44,9 @@ public class BlockedBundleData {
 		BlockedBundleData blockedBundleData = (BlockedBundleData)object;
 
 		if (Objects.equals(_location, blockedBundleData._location) &&
+			(_startLevel == blockedBundleData._startLevel) &&
 			Objects.equals(
-				_webContextPath, blockedBundleData._webContextPath) &&
-			(_startLevel == blockedBundleData._startLevel)) {
+				_webContextPath, blockedBundleData._webContextPath)) {
 
 			return true;
 		}
