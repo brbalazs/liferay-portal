@@ -31,6 +31,8 @@ import com.liferay.blogs.social.BlogsActivityKeys;
 import com.liferay.blogs.util.comparator.EntryDisplayDateComparator;
 import com.liferay.blogs.util.comparator.EntryIdComparator;
 import com.liferay.document.library.kernel.model.DLFolderConstants;
+import com.liferay.expando.kernel.model.ExpandoRow;
+import com.liferay.expando.kernel.model.ExpandoTableConstants;
 import com.liferay.exportimport.kernel.lar.ExportImportThreadLocal;
 import com.liferay.friendly.url.model.FriendlyURLEntry;
 import com.liferay.friendly.url.service.FriendlyURLEntryLocalService;
@@ -39,6 +41,7 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.comment.CommentManager;
 import com.liferay.portal.kernel.dao.orm.QueryDefinition;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -698,7 +701,16 @@ public class BlogsEntryLocalServiceImpl extends BlogsEntryLocalServiceBaseImpl {
 
 		// Expando
 
-		expandoRowLocalService.deleteRows(entry.getEntryId());
+		List<ExpandoRow> rows = expandoRowLocalService.getRows(
+			entry.getCompanyId(), BlogsEntry.class.getName(),
+			ExpandoTableConstants.DEFAULT_TABLE_NAME, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS);
+
+		for (ExpandoRow row : rows) {
+			if (row.getClassPK() == entry.getEntryId()) {
+				expandoRowLocalService.deleteRow(row);
+			}
+		}
 
 		// Friendly URL
 
