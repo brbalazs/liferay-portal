@@ -25,4 +25,4 @@ Feature: Assert Liferay Data Source Contact Count Preview
 		Given I click the "Configure Data Source" tab
 		And I click the button for Contacts Configuration
 		When I click the Sync All toggle switch
-		Then I should see a preview that "1" users will be synced
+		Then I should see a preview that "21" users will be synced
