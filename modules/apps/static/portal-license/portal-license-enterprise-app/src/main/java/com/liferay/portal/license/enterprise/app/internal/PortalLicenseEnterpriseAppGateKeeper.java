@@ -16,6 +16,7 @@ package com.liferay.portal.license.enterprise.app.internal;
 
 import com.liferay.osgi.util.BundleUtil;
 import com.liferay.osgi.util.ServiceTrackerFactory;
+import com.liferay.osgi.util.bundle.BundleStartLevelUtil;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.license.util.LicenseManager;
@@ -31,6 +32,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.license.enterprise.app.internal.constants.PortalLicenseEnterpriseAppDestinationNames;
 import com.liferay.portal.lpkg.deployer.LPKGDeployer;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
@@ -181,23 +183,49 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			return;
 		}
 
+		List<Map.Entry<Bundle, PortalLicenseEnterpriseAppBlockedBundleData>>
+			bundleEntries = new ArrayList<>();
+
 		for (PortalLicenseEnterpriseAppBlockedBundleData
 				portalLicenseEnterpriseAppBlockedBundleData :
 					portalLicenseEnterpriseAppBlockedBundleDataSet) {
 
-			String webContextPath =
-				portalLicenseEnterpriseAppBlockedBundleData.getWebContextPath();
+			try {
+				bundleEntries.add(
+					new AbstractMap.SimpleImmutableEntry<>(
+						_bundleContext.installBundle(
+							portalLicenseEnterpriseAppBlockedBundleData.
+								getLocation()),
+						portalLicenseEnterpriseAppBlockedBundleData));
+			}
+			catch (Exception exception) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(
+						"Unable to install bundle " +
+							portalLicenseEnterpriseAppBlockedBundleData.
+								getLocation(),
+						exception);
+				}
+			}
+		}
+
+		for (Map.Entry<Bundle, PortalLicenseEnterpriseAppBlockedBundleData>
+				bundleEntry : bundleEntries) {
+
+			Bundle bundle = bundleEntry.getKey();
+
+			PortalLicenseEnterpriseAppBlockedBundleData blockedBundleData =
+				bundleEntry.getValue();
+
+			String webContextPath = blockedBundleData.getWebContextPath();
 
 			if (webContextPath != null) {
 				_webContextPathMap.put(webContextPath, productId);
 			}
 
 			try {
-				BundleUtil.installBundle(
-					_bundleContext, _lpkgDeployer,
-					portalLicenseEnterpriseAppBlockedBundleData.getLocation(),
-					portalLicenseEnterpriseAppBlockedBundleData.
-						getStartLevel());
+				BundleStartLevelUtil.setStartLevelAndStart(
+					bundle, blockedBundleData.getStartLevel(), _bundleContext);
 			}
 			catch (Exception exception) {
 				if (webContextPath != null) {
@@ -206,9 +234,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 				if (_log.isWarnEnabled()) {
 					_log.warn(
-						"Unable to install bundle " +
-							portalLicenseEnterpriseAppBlockedBundleData.
-								getLocation(),
+						"Unable to start bundle " + bundle.getSymbolicName(),
 						exception);
 				}
 			}
