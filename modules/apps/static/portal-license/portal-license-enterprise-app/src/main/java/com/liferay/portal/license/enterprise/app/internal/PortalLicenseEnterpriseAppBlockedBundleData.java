@@ -24,9 +24,11 @@ import java.util.Objects;
 public class PortalLicenseEnterpriseAppBlockedBundleData {
 
 	public PortalLicenseEnterpriseAppBlockedBundleData(
-		String location, int startLevel, String webContextPath) {
+		String location, String fragmentHost, int startLevel,
+		String webContextPath) {
 
 		_location = location;
+		_fragmentHost = fragmentHost;
 		_startLevel = startLevel;
 		_webContextPath = webContextPath;
 	}
@@ -48,6 +50,9 @@ public class PortalLicenseEnterpriseAppBlockedBundleData {
 		if (Objects.equals(
 				_location,
 				portalLicenseEnterpriseAppBlockedBundleData._location) &&
+			Objects.equals(
+				_fragmentHost,
+				portalLicenseEnterpriseAppBlockedBundleData._fragmentHost) &&
 			(_startLevel ==
 				portalLicenseEnterpriseAppBlockedBundleData._startLevel) &&
 			Objects.equals(
@@ -58,6 +63,10 @@ public class PortalLicenseEnterpriseAppBlockedBundleData {
 		}
 
 		return false;
+	}
+
+	public String getFragmentHost() {
+		return _fragmentHost;
 	}
 
 	public String getLocation() {
@@ -76,11 +85,14 @@ public class PortalLicenseEnterpriseAppBlockedBundleData {
 	public int hashCode() {
 		int hashCode = HashUtil.hash(0, _location);
 
+		hashCode = HashUtil.hash(hashCode, _fragmentHost);
+
 		hashCode = HashUtil.hash(hashCode, _startLevel);
 
 		return HashUtil.hash(hashCode, _webContextPath);
 	}
 
+	private final String _fragmentHost;
 	private final String _location;
 	private final int _startLevel;
 	private final String _webContextPath;

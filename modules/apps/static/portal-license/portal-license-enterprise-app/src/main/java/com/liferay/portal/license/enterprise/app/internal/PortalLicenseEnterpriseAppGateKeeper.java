@@ -50,6 +50,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
 import org.osgi.framework.BundleListener;
+import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.framework.SynchronousBundleListener;
@@ -150,6 +151,22 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		_licenseManagerAtomicReference.compareAndSet(licenseManager, null);
 	}
 
+	private String _getFragmentHost(Dictionary<String, String> headers) {
+		String fragmentHost = headers.get(Constants.FRAGMENT_HOST);
+
+		if (fragmentHost == null) {
+			return null;
+		}
+
+		int index = fragmentHost.indexOf(CharPool.SEMICOLON);
+
+		if (index != -1) {
+			fragmentHost = fragmentHost.substring(0, index);
+		}
+
+		return fragmentHost;
+	}
+
 	private String _getProductId(Dictionary<String, String> headers) {
 		String enterpriseAppHeader = headers.get("Liferay-Enterprise-App");
 
@@ -186,6 +203,8 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		List<Map.Entry<Bundle, PortalLicenseEnterpriseAppBlockedBundleData>>
 			bundleEntries = new ArrayList<>();
 
+		Set<String> fragmentHosts = new HashSet<>();
+
 		for (PortalLicenseEnterpriseAppBlockedBundleData
 				portalLicenseEnterpriseAppBlockedBundleData :
 					portalLicenseEnterpriseAppBlockedBundleDataSet) {
@@ -197,6 +216,14 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 							portalLicenseEnterpriseAppBlockedBundleData.
 								getLocation()),
 						portalLicenseEnterpriseAppBlockedBundleData));
+
+				String fragmentHost =
+					portalLicenseEnterpriseAppBlockedBundleData.
+						getFragmentHost();
+
+				if (Validator.isNotNull(fragmentHost)) {
+					fragmentHosts.add(fragmentHost);
+				}
 			}
 			catch (Exception exception) {
 				if (_log.isWarnEnabled()) {
@@ -208,6 +235,8 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 				}
 			}
 		}
+
+		List<Bundle> refreshBundles = new ArrayList<>();
 
 		for (Map.Entry<Bundle, PortalLicenseEnterpriseAppBlockedBundleData>
 				bundleEntry : bundleEntries) {
@@ -226,6 +255,10 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			try {
 				BundleStartLevelUtil.setStartLevelAndStart(
 					bundle, blockedBundleData.getStartLevel(), _bundleContext);
+
+				if (fragmentHosts.contains(bundle.getSymbolicName())) {
+					refreshBundles.add(bundle);
+				}
 			}
 			catch (Exception exception) {
 				if (webContextPath != null) {
@@ -238,6 +271,10 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 						exception);
 				}
 			}
+		}
+
+		if (!refreshBundles.isEmpty()) {
+			BundleUtil.refreshBundles(_bundleContext, refreshBundles);
 		}
 	}
 
@@ -280,7 +317,8 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 				portalLicenseEnterpriseAppBlockedBundleDataSet.add(
 					new PortalLicenseEnterpriseAppBlockedBundleData(
-						bundle.getLocation(), startLevel, webContextPath));
+						bundle.getLocation(), _getFragmentHost(headers),
+						startLevel, webContextPath));
 			}
 			catch (Exception exception) {
 				_log.error(
