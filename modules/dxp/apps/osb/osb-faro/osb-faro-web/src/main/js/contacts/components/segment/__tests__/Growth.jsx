@@ -53,7 +53,7 @@ describe('SelectedPointInfo', () => {
 				]}
 				hasSelectedPoint
 				onClearSelection={jest.fn()}
-				selectedPoint={0}
+				selectedPoint={{activeTooltipIndex: 0}}
 			/>
 		);
 		expect(container).toMatchSnapshot();
