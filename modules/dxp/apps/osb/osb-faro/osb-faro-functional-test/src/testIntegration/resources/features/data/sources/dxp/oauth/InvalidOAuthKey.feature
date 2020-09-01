@@ -21,6 +21,6 @@ Feature: Invalid OAuth Credentials
 		And I type "${OAUTH2_SECRET}" into the "Consumer Secret/Client Secret" input field
 		When I click the "Authorize & Save" button
 		And I try to accept the Liferay DXP OAuth2 Popup
-		Then I should see text saying "The application did not provide a valid client ID" on the page
+		Then I should see an oauth alert message "The application did not provide a valid client ID"
 		And I close the focused window
 		And I switch to the main window

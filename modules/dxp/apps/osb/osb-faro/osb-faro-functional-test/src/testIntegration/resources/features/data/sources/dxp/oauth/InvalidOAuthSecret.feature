@@ -21,4 +21,4 @@ Feature: Invalid OAuth2 Secret
 		And I type "invalid Consumer Secret/Client Secret" into the "Consumer Secret/Client Secret" input field
 		When I click the "Authorize & Save" button
 		And I try to accept the Liferay DXP OAuth2 Popup
-		Then I should see an error alert saying "Error:There was a problem authenticating, please check your credentials and try again."
+		Then I should see an oauth alert message "There was a problem authenticating, please check your credentials and try again."
