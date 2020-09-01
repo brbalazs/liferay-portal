@@ -177,6 +177,20 @@ public class DxpSteps {
 		sb.append("')]");
 	}
 
+	@Then("^I should see an oauth alert message (.*)$")
+	public void assertOAuthAlert(
+			@Transform(FaroTransformer.class) String message)
+		throws Exception {
+
+		StringBundler sb = new StringBundler(3);
+
+		sb.append("//text()[contains(.,'");
+		sb.append(message);
+		sb.append("')]");
+
+		_faroSelenium.waitForElementPresent(sb.toString());
+	}
+
 	@Then("^I should not be able to create property with site (.*)$")
 	public void assertSiteBlockedFromProperty(
 			@Transform(FaroTransformer.class) String siteName)
