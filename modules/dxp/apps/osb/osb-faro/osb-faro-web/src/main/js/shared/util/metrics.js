@@ -21,7 +21,8 @@ const {
 	martell: CHART_GREEN,
 	martellL2: CHART_GREEN_L2,
 	mormont: CHART_ORANGE,
-	stark: CHART_BLUE
+	stark: CHART_BLUE,
+	starkL2: CHART_BLUE_L2
 } = CHART_COLOR_NAMES;
 
 export const Icons = {
@@ -96,13 +97,14 @@ export const getMetricsChartData = ({
 	type
 }) => [
 	{
+		color: CHART_BLUE,
 		data: getDataFormatter(type)(histogram.map(({value}) => value)),
 		id: CHART_DATA_ID_1,
 		name: tooltipTitle || METRIC_TOOLTIP_LABEL_MAP[name] || title,
 		tooltipTitle
 	},
 	{
-		color: CHART_BLUE,
+		color: CHART_BLUE_L2,
 		data: getDataFormatter(type)(
 			histogram.map(({previousValue}) => previousValue)
 		),

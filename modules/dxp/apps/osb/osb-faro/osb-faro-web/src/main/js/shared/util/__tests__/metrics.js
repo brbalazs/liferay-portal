@@ -16,7 +16,7 @@ import {
 import {getDate} from 'shared/util/date';
 import {Map} from 'immutable';
 
-const CHART_BLUE = CHART_COLOR_NAMES.stark;
+const {stark: CHART_BLUE, starkL2: CHART_BLUE_L2} = CHART_COLOR_NAMES;
 
 describe('convertHistogramKeysToDate', () => {
 	it('should convert the histogram date key strings to Date types', () => {
@@ -124,13 +124,14 @@ describe('getMetricsData', () => {
 				},
 				data: [
 					{
+						color: CHART_BLUE,
 						data: [15],
 						id: 'data_1',
 						name: 'Avg. Comments',
 						tooltipTitle: 'Avg. Comments'
 					},
 					{
-						color: CHART_BLUE,
+						color: CHART_BLUE_L2,
 						data: [0],
 						id: 'data_previous',
 						name: 'Previous Period'
@@ -160,13 +161,14 @@ describe('getMetricsData', () => {
 				},
 				data: [
 					{
+						color: CHART_BLUE,
 						data: [5],
 						id: 'data_1',
 						name: 'Avg. Views',
 						tooltipTitle: 'Avg. Views'
 					},
 					{
-						color: CHART_BLUE,
+						color: CHART_BLUE_L2,
 						data: [0],
 						id: 'data_previous',
 						name: 'Previous Period'
