@@ -34,6 +34,7 @@ import com.liferay.portal.lpkg.deployer.LPKGDeployer;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -41,6 +42,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -321,7 +323,8 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 				Set<PortalLicenseEnterpriseAppBlockedBundleData>
 					portalLicenseEnterpriseAppBlockedBundleDataSet =
 						_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
-							computeIfAbsent(productId, key -> new HashSet<>());
+							computeIfAbsent(
+								productId, key -> new TreeSet<>(_comparator));
 
 				portalLicenseEnterpriseAppBlockedBundleDataSet.add(
 					new PortalLicenseEnterpriseAppBlockedBundleData(
@@ -383,6 +386,28 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		PortalLicenseEnterpriseAppGateKeeper.class);
+
+	private static final Comparator<PortalLicenseEnterpriseAppBlockedBundleData>
+		_comparator =
+			new Comparator<PortalLicenseEnterpriseAppBlockedBundleData>() {
+
+				@Override
+				public int compare(
+					PortalLicenseEnterpriseAppBlockedBundleData
+						portalLicenseEnterpriseAppBlockedBundleData1,
+					PortalLicenseEnterpriseAppBlockedBundleData
+						portalLicenseEnterpriseAppBlockedBundleData2) {
+
+					String location =
+						portalLicenseEnterpriseAppBlockedBundleData1.
+							getLocation();
+
+					return location.compareTo(
+						portalLicenseEnterpriseAppBlockedBundleData2.
+							getLocation());
+				}
+
+			};
 
 	private BundleContext _bundleContext;
 	private BundleListener _bundleListener;
