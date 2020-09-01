@@ -257,23 +257,41 @@ public class DxpSteps {
 
 		_faroSelenium.get(
 			PropsUtil.get("portal.url") +
-				DxpStringPool.getPageCreationUrlPath(site));
+				DxpStringPool.getSitePageUrl(site, pageName));
 
-		_faroSelenium.waitForElementPresent("//div[text()='Blog']");
+		StringBundler sb = new StringBundler(5);
 
-		_faroSelenium.click("//div[text()='Blog']");
+		sb.append("//div[@id='navbar_com_liferay_site_navigation_menu_web_po");
+		sb.append("rtlet_SiteNavigationMenuPortlet']");
 
-		_faroSelenium.waitForLoadingComplete();
+		_faroSelenium.waitForElementPresent(sb.toString());
 
-		NavigationSteps.switchToFocusedModal();
+		sb.append("//li//span[contains(text(),' ");
+		sb.append(pageName);
+		sb.append(" ')]");
 
-		_faroSelenium.type(DxpStringPool.PAGE_CREATION_NAME_FIELD, pageName);
+		if (_faroSelenium.isElementNotPresent(sb.toString())) {
+			_faroSelenium.get(
+				PropsUtil.get("portal.url") +
+					DxpStringPool.getPageCreationUrlPath(site));
 
-		ClickSteps.clickButton("Add");
+			_faroSelenium.waitForElementPresent("//div[text()='Blog']");
 
-		NavigationSteps.switchToMainFrame();
+			_faroSelenium.click("//div[text()='Blog']");
 
-		ClickSteps.clickButton("Save");
+			_faroSelenium.waitForLoadingComplete();
+
+			NavigationSteps.switchToFocusedModal();
+
+			_faroSelenium.type(
+				DxpStringPool.PAGE_CREATION_NAME_FIELD, pageName);
+
+			ClickSteps.clickButton("Add");
+
+			NavigationSteps.switchToMainFrame();
+
+			ClickSteps.clickButton("Save");
+		}
 	}
 
 	@When("^I add activity to user$")
