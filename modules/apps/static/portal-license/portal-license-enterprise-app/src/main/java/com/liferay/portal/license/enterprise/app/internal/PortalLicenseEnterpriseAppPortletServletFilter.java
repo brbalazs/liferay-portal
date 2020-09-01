@@ -86,14 +86,24 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 		if (((lifetimeDays == 30) && (expirationDays < 7)) ||
 			((lifetimeDays > 30) && (expirationDays < 30))) {
 
-			StringBundler sb = new StringBundler(10);
+			StringBundler sb = new StringBundler(11);
 
 			sb.append("<div class=\"alert alert-danger\">Update your ");
 			sb.append("<a class=\"alert-link\" href=\"");
 			sb.append(PortalUtil.getPathMain());
 			sb.append("/portal/license\">activation key for ");
 			sb.append(_productId);
-			sb.append("</a>, it will expire in ");
+			sb.append("</a>, it ");
+
+			if (expirationDays <= 0) {
+				sb.append("has been expired for ");
+
+				expirationDays = expirationDays * -1;
+			}
+			else {
+				sb.append("will expire in ");
+			}
+
 			sb.append(expirationDays);
 			sb.append(" day");
 
