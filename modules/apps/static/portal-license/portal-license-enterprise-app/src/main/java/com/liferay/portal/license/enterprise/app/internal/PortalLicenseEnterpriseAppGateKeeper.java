@@ -32,7 +32,6 @@ import com.liferay.portal.license.enterprise.app.internal.constants.PortalLicens
 import com.liferay.portal.lpkg.deployer.LPKGDeployer;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -360,25 +359,44 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			}
 
 			synchronized (PortalLicenseEnterpriseAppGateKeeper.this) {
-				Set<String> blockedProductIds = Collections.emptySet();
+				if (!productId.equals("Portal")) {
+					if (_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
+							containsKey(productId) &&
+						_verifyLicense(productId)) {
 
-				if (productId.equals("Portal")) {
-					blockedProductIds =
+						_installBundles(
+							productId,
+							_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
+								remove(productId));
+					}
+
+					return;
+				}
+
+				LicenseManager licenseManager =
+					_licenseManagerAtomicReference.get();
+
+				if (licenseManager == null) {
+					return;
+				}
+
+				for (String blockedProductId :
 						_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
-							keySet();
-				}
-				else if (_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
-							containsKey(productId)) {
+							keySet()) {
 
-					blockedProductIds = Collections.singleton(productId);
-				}
+					try {
+						PortalLicenseEnterpriseAppLicenseUtil.verify(
+							licenseManager, blockedProductId);
 
-				for (String blockedProductId : blockedProductIds) {
-					if (_verifyLicense(blockedProductId)) {
 						_installBundles(
 							blockedProductId,
 							_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
 								remove(blockedProductId));
+					}
+					catch (Exception exception) {
+						if (_log.isDebugEnabled()) {
+							_log.debug(exception.getMessage());
+						}
 					}
 				}
 			}
