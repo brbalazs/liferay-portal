@@ -75,6 +75,7 @@ public class ProjectDisplay {
 		_recommendationsEnabled = faroProject.isRecommendationsEnabled();
 		_serverLocation = faroProject.getServerLocation();
 		_state = faroProject.getState();
+		_timeZoneDisplay = new TimeZoneDisplay(faroProject.getTimeZoneId());
 		_userId = faroProject.getUserId();
 	}
 
@@ -179,6 +180,7 @@ public class ProjectDisplay {
 	private String _state;
 	private Date _stateEndDate;
 	private Date _stateStartDate;
+	private TimeZoneDisplay _timeZoneDisplay;
 	private long _userId;
 
 }
