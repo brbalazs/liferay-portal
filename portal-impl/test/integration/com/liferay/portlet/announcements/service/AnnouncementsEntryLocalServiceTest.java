@@ -83,12 +83,10 @@ public class AnnouncementsEntryLocalServiceTest {
 
 	@Test(expected = EntryTitleException.class)
 	public void testAddEntryWithInvalidTitle() throws Exception {
-		final String invalidTitleOver75Characters =
-			"InvalidTitleOver75CharactersInvalidTitleOver75Characters" +
-				"InvalidTitleOver75Characters";
-
 		AnnouncementsEntryLocalServiceUtil.addEntry(
-			_user.getUserId(), 0, 0, invalidTitleOver75Characters,
+			_user.getUserId(), 0, 0,
+			"InvalidTitleOver75CharactersInvalidTitleOver75Characters" +
+				"InvalidTitleOver75Characters",
 			StringUtil.randomString(), "http://localhost", "general",
 			PortalUtil.getDate(
 				1, 1, 1990, 1, 1, _user.getTimeZone(),
