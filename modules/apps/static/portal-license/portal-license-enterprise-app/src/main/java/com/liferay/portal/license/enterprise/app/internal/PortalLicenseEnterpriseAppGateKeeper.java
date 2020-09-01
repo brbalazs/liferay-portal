@@ -161,7 +161,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			return null;
 		}
 
-		int endIndex = enterpriseAppHeader.indexOf(index, CharPool.SEMICOLON);
+		int endIndex = enterpriseAppHeader.indexOf(CharPool.SEMICOLON, index);
 
 		if (endIndex == -1) {
 			return enterpriseAppHeader.substring(
