@@ -76,9 +76,9 @@ public class PortalLicenseEnterpriseAppBlockedBundleData {
 	public int hashCode() {
 		int hashCode = HashUtil.hash(0, _location);
 
-		hashCode = HashUtil.hash(hashCode, _webContextPath);
+		hashCode = HashUtil.hash(hashCode, _startLevel);
 
-		return HashUtil.hash(hashCode, _startLevel);
+		return HashUtil.hash(hashCode, _webContextPath);
 	}
 
 	private final String _location;
