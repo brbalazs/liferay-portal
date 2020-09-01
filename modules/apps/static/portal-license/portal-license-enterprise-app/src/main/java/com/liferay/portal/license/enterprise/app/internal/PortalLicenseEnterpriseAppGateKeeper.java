@@ -284,14 +284,13 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 	}
 
 	private boolean _verifyLicense(String productId) {
+		LicenseManager licenseManager = _licenseManagerAtomicReference.get();
+
+		if (licenseManager == null) {
+			return false;
+		}
+
 		try {
-			LicenseManager licenseManager =
-				_licenseManagerAtomicReference.get();
-
-			if (licenseManager == null) {
-				return false;
-			}
-
 			PortalLicenseEnterpriseAppLicenseUtil.verify(
 				licenseManager, productId);
 
