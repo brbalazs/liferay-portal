@@ -153,6 +153,22 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		_licenseManagerAtomicReference.compareAndSet(licenseManager, null);
 	}
 
+	private static String _getLPKGPath(String location) {
+		int index = location.indexOf("lpkgPath");
+
+		if (index == -1) {
+			return null;
+		}
+
+		int endIndex = location.indexOf('&', index);
+
+		if (endIndex == -1) {
+			endIndex = location.length();
+		}
+
+		return location.substring(index + 9, endIndex);
+	}
+
 	private String _getFragmentHost(Dictionary<String, String> headers) {
 		String fragmentHost = headers.get(Constants.FRAGMENT_HOST);
 
@@ -202,6 +218,37 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			return;
 		}
 
+		Set<PortalLicenseEnterpriseAppBlockedBundleData>
+			portalLicenseEnterpriseAppBlockedBundleDatas = new HashSet<>(
+				portalLicenseEnterpriseAppBlockedBundleDataSet);
+
+		Set<Bundle> lpkgSet = new HashSet<>();
+
+		Iterator<PortalLicenseEnterpriseAppBlockedBundleData> iterator =
+			portalLicenseEnterpriseAppBlockedBundleDatas.iterator();
+
+		while (iterator.hasNext()) {
+			PortalLicenseEnterpriseAppBlockedBundleData
+				portalLicenseEnterpriseAppBlockedBundleData = iterator.next();
+
+			String location =
+				portalLicenseEnterpriseAppBlockedBundleData.getLocation();
+
+			String lpkgPath = _getLPKGPath(location);
+
+			if (lpkgPath != null) {
+				lpkgSet.add(_bundleContext.getBundle(lpkgPath));
+
+				iterator.remove();
+			}
+		}
+
+		BundleUtil.refreshBundles(_bundleContext, new ArrayList<>(lpkgSet));
+
+		if (portalLicenseEnterpriseAppBlockedBundleDatas.isEmpty()) {
+			return;
+		}
+
 		List<Map.Entry<Bundle, PortalLicenseEnterpriseAppBlockedBundleData>>
 			bundleEntries = new ArrayList<>();
 
@@ -209,7 +256,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 		for (PortalLicenseEnterpriseAppBlockedBundleData
 				portalLicenseEnterpriseAppBlockedBundleData :
-					portalLicenseEnterpriseAppBlockedBundleDataSet) {
+					portalLicenseEnterpriseAppBlockedBundleDatas) {
 
 			try {
 				bundleEntries.add(
