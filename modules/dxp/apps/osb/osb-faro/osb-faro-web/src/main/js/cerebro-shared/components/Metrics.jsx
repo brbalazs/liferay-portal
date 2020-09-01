@@ -407,7 +407,7 @@ class MainMetrics extends React.Component {
 							dot={false}
 							fill={item.color}
 							key={item.id}
-							legendType='line'
+							legendType='plainline'
 							name={item.name}
 							stroke={item.color}
 							strokeDasharray={
