@@ -231,7 +231,9 @@ definition {
 	}
 
 	macro viewResultDetails {
-		AssertTextEquals(locator1 = "Portlet#H3_HEADER", value1 = "${searchAssetTitle}");
+		AssertTextEquals(
+			locator1 = "SearchResults#ASSET_DETAILS_TITLE",
+			value1 = "${searchAssetTitle}");
 	}
 
 	macro viewSearchHidden {
