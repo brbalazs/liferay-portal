@@ -290,6 +290,14 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 		String webContextPath = headers.get("Web-ContextPath");
 
+		if (webContextPath == null) {
+			String symbolicName = bundle.getSymbolicName();
+
+			if (symbolicName.endsWith(".web")) {
+				webContextPath = StringPool.SLASH + symbolicName;
+			}
+		}
+
 		synchronized (this) {
 			if (!_portalLicenseEnterpriseAppBlockedBundleDataSetMap.containsKey(
 					productId) &&
