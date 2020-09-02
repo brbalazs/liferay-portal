@@ -31,7 +31,7 @@ import java.util.stream.Stream;
  */
 public class TimeZoneUtil {
 
-	public static final String UTC = "UTC";
+	public static final String UTC_TIME_ZONE_ID = "UTC";
 
 	public static List<ZoneId> getZoneIds() {
 		Stream<String> stream = _timeZoneIds.stream();

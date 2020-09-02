@@ -285,7 +285,7 @@ public class ProjectController extends BaseFaroController {
 		FaroProject faroProject = _create(
 			corpProjectUuid, null, Collections.emptyList(), null,
 			serverLocation, ProjectConstants.STATE_UNCONFIGURED,
-			TimeZoneUtil.UTC);
+			TimeZoneUtil.UTC_TIME_ZONE_ID);
 
 		Role role = _roleLocalService.getRole(
 			user.getCompanyId(), RoleConstants.SITE_OWNER);
