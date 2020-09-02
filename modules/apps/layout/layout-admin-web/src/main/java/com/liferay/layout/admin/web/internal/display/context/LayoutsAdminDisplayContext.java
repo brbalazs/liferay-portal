@@ -243,24 +243,25 @@ public class LayoutsAdminDisplayContext {
 			return breadcrumbEntriesJSONArray;
 		}
 
-		List<Layout> layouts = selLayout.getAncestors();
+		List<Layout> ancestorLayouts = selLayout.getAncestors();
 
-		Collections.reverse(layouts);
+		Collections.reverse(ancestorLayouts);
 
-		for (Layout layout : layouts) {
+		for (Layout ancestorLayout : ancestorLayouts) {
 			if (LayoutPermissionUtil.contains(
-					_themeDisplay.getPermissionChecker(), layout,
+					_themeDisplay.getPermissionChecker(), ancestorLayout,
 					ActionKeys.VIEW)) {
 
 				breadcrumbEntriesJSONArray.put(
 					_getBreadcrumbEntryJSONObject(
-						layout.getPlid(), layout.isPrivateLayout(),
-						layout.getName(_themeDisplay.getLocale())));
+						ancestorLayout.getPlid(),
+						ancestorLayout.isPrivateLayout(),
+						ancestorLayout.getName(_themeDisplay.getLocale())));
 			}
 			else {
 				breadcrumbEntriesJSONArray.put(
 					_getBreadcrumbEntryJSONObject(
-						-1, layout.isPrivateLayout(),
+						-1, ancestorLayout.isPrivateLayout(),
 						StringPool.TRIPLE_PERIOD));
 			}
 		}
