@@ -17,7 +17,9 @@ package com.liferay.portal.license.enterprise.app.internal;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.license.util.LicenseManager;
 import com.liferay.portal.kernel.license.util.LicenseManagerUtil;
+import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -27,12 +29,15 @@ import java.io.Writer;
 
 import java.util.Map;
 
+import javax.portlet.PortletRequest;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Dante Wang
@@ -65,13 +70,21 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 		if (LicenseManagerUtil.getLicenseState(_productId) ==
 				LicenseManager.STATE_EXPIRED) {
 
-			servletRequest.setAttribute(
+			LiferayPortletRequest liferayPortletRequest =
+				PortalUtil.getLiferayPortletRequest(
+					(PortletRequest)servletRequest.getAttribute(
+						JavaConstants.JAVAX_PORTLET_REQUEST));
+
+			HttpServletRequest httpServletRequest =
+				liferayPortletRequest.getOriginalHttpServletRequest();
+
+			httpServletRequest.setAttribute(
 				"ERROR_MESSAGE",
 				StringBundler.concat(
 					"Your license for product ", _productId, " expired ",
 					expirationDays * -1, " day(s) ago"));
 
-			servletRequest.setAttribute(
+			httpServletRequest.setAttribute(
 				WebKeys.PORTLET_CONTENT_JSP, "/portal/license.jsp");
 
 			return;
