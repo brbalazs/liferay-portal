@@ -731,11 +731,14 @@ public class Table {
 		_faroSelenium.mouseOver(sb.toString());
 
 		try {
-			_faroSelenium.waitForElementPresent(
+			_faroSelenium.assertElementPresent(
 				"//div[@class='bb-tooltip-container']/table");
 		}
 		catch (Exception e) {
 			_faroSelenium.mouseOver(sb.toString());
+
+			_faroSelenium.waitForElementPresent(
+				"//div[@class='bb-tooltip-container']/table");
 		}
 	}
 
