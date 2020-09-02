@@ -67,6 +67,7 @@ class MainMetrics extends React.Component {
 	static defaultProps = {
 		activeItemIndex: 0,
 		chartHeight: 350,
+		hoveredLegendItem: null,
 		items: [],
 		showPrevious: false,
 		showTabs: true
@@ -192,11 +193,14 @@ class MainMetrics extends React.Component {
 	 */
 	renderChart() {
 		const {
-			chartHeight: height,
-			interval,
-			rangeSelectors,
-			showPrevious
-		} = this.props;
+			props: {
+				chartHeight: height,
+				interval,
+				rangeSelectors,
+				showPrevious
+			},
+			state: {hoveredLegendItem, hoverIndex}
+		} = this;
 
 		const {content, data, dateKeysIMap, intervals} = this.getActiveItem();
 		const {name, title} = content;
@@ -365,6 +369,12 @@ class MainMetrics extends React.Component {
 					<Legend
 						align='right'
 						iconSize={8}
+						onMouseEnter={({dataKey}) =>
+							this.setState({hoveredLegendItem: dataKey})
+						}
+						onMouseLeave={() =>
+							this.setState({hoveredLegendItem: null})
+						}
 						verticalAlign='bottom'
 						wrapperStyle={{
 							bottom: 'auto',
@@ -378,6 +388,12 @@ class MainMetrics extends React.Component {
 						<Bar
 							dataKey={item.id}
 							fill={item.color}
+							fillOpacity={
+								hoveredLegendItem === item.id ||
+								!hoveredLegendItem
+									? 1
+									: 0.2
+							}
 							key={item.id}
 							legendType='circle'
 							name={item.name}
@@ -391,11 +407,7 @@ class MainMetrics extends React.Component {
 								<Cell
 									fill={item.color}
 									key={`cell-${index}`}
-									opacity={
-										index === this.state.hoverIndex
-											? 0.75
-											: 1
-									}
+									opacity={index === hoverIndex ? 0.75 : 1}
 								/>
 							))}
 						</Bar>
@@ -414,6 +426,12 @@ class MainMetrics extends React.Component {
 								item.id === CHART_DATA_PREVIOUS
 									? '5 5'
 									: undefined
+							}
+							strokeOpacity={
+								hoveredLegendItem === item.id ||
+								!hoveredLegendItem
+									? 1
+									: 0.2
 							}
 							strokeWidth={2}
 							type='linear'
