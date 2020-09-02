@@ -13,6 +13,7 @@ import {
 	AreaChart,
 	CartesianGrid,
 	Legend,
+	ReferenceDot,
 	ReferenceLine,
 	ResponsiveContainer,
 	Text,
@@ -101,7 +102,7 @@ export class SegmentGrowthChart extends React.Component {
 				y: PropTypes.number
 			}),
 			activeLabel: PropTypes.any,
-			activePayload: PropTypes.arrayOf([PropTypes.object]),
+			activePayload: PropTypes.arrayOf(PropTypes.object),
 			activeTooltipIndex: PropTypes.number,
 			chartX: PropTypes.number,
 			chartY: PropTypes.number
@@ -369,6 +370,37 @@ export class SegmentGrowthChart extends React.Component {
 					<ReferenceLine
 						strokeWidth={1}
 						x={selectedPoint && selectedPoint.activeLabel}
+					/>
+
+					<ReferenceDot
+						fill={CHART_BLUE}
+						fillOpacity={
+							legendHoverItem === 'anonymousCount' ? 0.1 : 1
+						}
+						isFront
+						r={4}
+						stroke='none'
+						x={selectedPoint && selectedPoint.activeLabel}
+						y={
+							selectedPoint &&
+							selectedPoint.activePayload[0].payload.knownCount
+						}
+					/>
+
+					<ReferenceDot
+						fill={CHART_ORANGE}
+						fillOpacity={legendHoverItem === 'knownCount' ? 0.1 : 1}
+						isFront
+						r={4}
+						stroke='none'
+						x={selectedPoint && selectedPoint.activeLabel}
+						y={
+							selectedPoint &&
+							selectedPoint.activePayload[0].payload
+								.anonymousCount +
+								selectedPoint.activePayload[0].payload
+									.knownCount
+						}
 					/>
 
 					<Area
