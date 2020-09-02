@@ -248,10 +248,21 @@ public class LayoutsAdminDisplayContext {
 		Collections.reverse(layouts);
 
 		for (Layout layout : layouts) {
-			breadcrumbEntriesJSONArray.put(
-				_getBreadcrumbEntryJSONObject(
-					layout.getPlid(), layout.isPrivateLayout(),
-					layout.getName(_themeDisplay.getLocale())));
+			if (LayoutPermissionUtil.contains(
+					_themeDisplay.getPermissionChecker(), layout,
+					ActionKeys.VIEW)) {
+
+				breadcrumbEntriesJSONArray.put(
+					_getBreadcrumbEntryJSONObject(
+						layout.getPlid(), layout.isPrivateLayout(),
+						layout.getName(_themeDisplay.getLocale())));
+			}
+			else {
+				breadcrumbEntriesJSONArray.put(
+					_getBreadcrumbEntryJSONObject(
+						-1, layout.isPrivateLayout(),
+						StringPool.TRIPLE_PERIOD));
+			}
 		}
 
 		breadcrumbEntriesJSONArray.put(
@@ -1273,12 +1284,18 @@ public class LayoutsAdminDisplayContext {
 
 		breadcrumbEntryJSONObject.put("title", title);
 
-		PortletURL portletURL = getPortletURL();
+		if (plid >= 0) {
+			PortletURL portletURL = getPortletURL();
 
-		portletURL.setParameter("selPlid", String.valueOf(plid));
-		portletURL.setParameter("privateLayout", String.valueOf(privateLayout));
+			portletURL.setParameter("selPlid", String.valueOf(plid));
+			portletURL.setParameter(
+				"privateLayout", String.valueOf(privateLayout));
 
-		breadcrumbEntryJSONObject.put("url", portletURL.toString());
+			breadcrumbEntryJSONObject.put("url", portletURL.toString());
+		}
+		else {
+			breadcrumbEntryJSONObject.put("url", StringPool.BLANK);
+		}
 
 		return breadcrumbEntryJSONObject;
 	}

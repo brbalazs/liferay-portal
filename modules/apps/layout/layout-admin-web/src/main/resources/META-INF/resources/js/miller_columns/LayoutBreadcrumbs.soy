@@ -15,11 +15,15 @@
 				<li class="active breadcrumb-item">
 					<span class="breadcrumb-text-truncate">{$breadcrumbEntry.title}</span>
 				</li>
-			{else}
+			{elseif $breadcrumbEntry.url}
 				<li class="breadcrumb-item">
 					<a class="breadcrumb-link" href="{$breadcrumbEntry.url}">
 						<span class="breadcrumb-text-truncate">{$breadcrumbEntry.title}</span>
 					</a>
+				</li>
+			{else}
+				<li class="breadcrumb-item">
+					<span class="breadcrumb-text-truncate">{$breadcrumbEntry.title}</span>
 				</li>
 			{/if}
 		{/foreach}
