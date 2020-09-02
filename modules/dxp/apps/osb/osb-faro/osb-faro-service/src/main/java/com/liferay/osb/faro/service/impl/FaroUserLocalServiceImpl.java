@@ -251,7 +251,7 @@ public class FaroUserLocalServiceImpl extends FaroUserLocalServiceBaseImpl {
 		User user = userLocalService.getUser(faroUser.getUserId());
 
 		InternetAddress from = new InternetAddress(
-			user.getEmailAddress(), user.getFullName());
+			"ac@liferay.com", user.getFullName());
 
 		String toName = StringPool.BLANK;
 
@@ -330,7 +330,7 @@ public class FaroUserLocalServiceImpl extends FaroUserLocalServiceBaseImpl {
 		User senderUser = userLocalService.getUser(userId);
 
 		InternetAddress from = new InternetAddress(
-			senderUser.getEmailAddress(), senderUser.getFullName());
+			"ac@liferay.com", senderUser.getFullName());
 
 		FaroProject faroProject =
 			faroProjectLocalService.getFaroProjectByGroupId(groupId);
