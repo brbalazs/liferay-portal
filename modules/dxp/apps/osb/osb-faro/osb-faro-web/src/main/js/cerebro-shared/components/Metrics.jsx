@@ -6,7 +6,7 @@ import Checkbox from 'shared/components/Checkbox';
 import getCN from 'classnames';
 import MetricValue from 'cerebro-shared/components/MetricValue';
 import PropTypes from 'prop-types';
-import React, {Fragment} from 'react';
+import React from 'react';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import Trend from 'cerebro-shared/components/Trend';
 import {AXIS, getTextWidth} from 'shared/util/clay-recharts';
@@ -24,12 +24,7 @@ import {
 	YAxis
 } from 'recharts';
 import {find, get} from 'lodash';
-import {
-	formatXAxisDate,
-	getLegendCircle,
-	getLegendLine,
-	getLegendLineDashed
-} from 'shared/util/charts';
+import {formatXAxisDate} from 'shared/util/charts';
 import {getDateTitle} from 'shared/util/charts';
 import {LAST_24_HOURS, YESTERDAY} from 'shared/util/constants';
 import {Map} from 'immutable';
@@ -60,10 +55,7 @@ export const tooltipLabelTitle = rangeKey => {
 	return label;
 };
 
-/**
- * Main Metrics
- */
-class MainMetrics extends React.Component {
+export default class MainMetrics extends React.Component {
 	static defaultProps = {
 		activeItemIndex: 0,
 		chartHeight: 350,
@@ -76,10 +68,6 @@ class MainMetrics extends React.Component {
 	static propTypes = {
 		activeItemIndex: PropTypes.number,
 		chartHeight: PropTypes.number,
-		/**
-		 * @type {array}
-		 * @default undefined
-		 */
 		items: PropTypes.arrayOf(
 			PropTypes.shape({
 				active: PropTypes.bool,
@@ -108,12 +96,8 @@ class MainMetrics extends React.Component {
 				prevDateKeysIMap: PropTypes.instanceOf(Map)
 			})
 		),
-		/**
-		 * Callback for when activeItemIndex changes.
-		 */
 		onActiveItemIndexChange: PropTypes.func,
 		rangeSelectors: PropTypes.object,
-
 		showTabs: PropTypes.bool
 	};
 
@@ -121,9 +105,6 @@ class MainMetrics extends React.Component {
 		hoverIndex: -1
 	};
 
-	/**
-	 * Build Tabs
-	 */
 	buildTabs() {
 		const {activeItemIndex, items} = this.props;
 
@@ -153,10 +134,11 @@ class MainMetrics extends React.Component {
 		});
 	}
 
-	/**
-	 * Handle Click Tab
-	 * @param {object} event
-	 */
+	@autobind
+	formatTickLabel(value) {
+		return this.getActiveItem().format(value);
+	}
+
 	@autobind
 	handleClickTab(index) {
 		const {onActiveItemIndexChange} = this.props;
@@ -168,9 +150,6 @@ class MainMetrics extends React.Component {
 		};
 	}
 
-	/**
-	 * Get Active Item
-	 */
 	getActiveItem() {
 		const {activeItemIndex = 0, items = []} = this.props;
 
@@ -188,9 +167,6 @@ class MainMetrics extends React.Component {
 		return items[activeItemIndex];
 	}
 
-	/**
-	 * Render Chart
-	 */
 	renderChart() {
 		const {
 			props: {
@@ -202,8 +178,12 @@ class MainMetrics extends React.Component {
 			state: {hoveredLegendItem, hoverIndex}
 		} = this;
 
-		const {content, data, dateKeysIMap, intervals} = this.getActiveItem();
-		const {name, title} = content;
+		const {
+			content: {name, title},
+			data,
+			dateKeysIMap,
+			intervals
+		} = this.getActiveItem();
 
 		const timeline = data[data.length - 1];
 
@@ -219,7 +199,7 @@ class MainMetrics extends React.Component {
 					acc[item] = chartData[j].data[i];
 
 					const textWidth = getTextWidth(
-						this.renderFormat(chartData[j].data[i])
+						this.formatTickLabel(chartData[j].data[i])
 					);
 
 					const labelWidth = getTextWidth(
@@ -246,22 +226,6 @@ class MainMetrics extends React.Component {
 					)
 				}
 			)
-		);
-
-		const renderTick = ({payload, textAnchor, x, y}) => (
-			<Text
-				style={{
-					fill: AXIS.textColor,
-					font: AXIS.font,
-					fontSize: '0.75rem'
-				}}
-				textAnchor={textAnchor}
-				width={yAxisWidth}
-				x={x}
-				y={y + payload.offset}
-			>
-				{payload.value}
-			</Text>
 		);
 
 		const barData = chartData.filter(item => item.type === 'bar');
@@ -337,17 +301,21 @@ class MainMetrics extends React.Component {
 							value: METRIC_TOOLTIP_LABEL_MAP[name] || title
 						}}
 						stroke={AXIS.gridStroke}
-						tick={({payload, y, ...others}) =>
-							renderTick({
-								payload: {
-									...payload,
-									offset: 4,
-									value: this.renderFormat(payload.value)
-								},
-								y,
-								...others
-							})
-						}
+						tick={({payload, textAnchor, x, y}) => (
+							<Text
+								style={{
+									fill: AXIS.textColor,
+									font: AXIS.font,
+									fontSize: '0.75rem'
+								}}
+								textAnchor={textAnchor}
+								width={yAxisWidth}
+								x={x}
+								y={y + payload.offset}
+							>
+								{this.formatTickLabel(payload.value)}
+							</Text>
+						)}
 						tickLine={false}
 						width={yAxisWidth}
 					/>
@@ -442,10 +410,6 @@ class MainMetrics extends React.Component {
 		);
 	}
 
-	/**
-	 * Render Tooltip
-	 * @param {Array} dataPoints
-	 */
 	@autobind
 	renderTooltip({active, payload}) {
 		if (!active) {
@@ -586,76 +550,14 @@ class MainMetrics extends React.Component {
 		);
 	}
 
-	/**
-	 * Render Format
-	 * @param {string} value
-	 */
-	@autobind
-	renderFormat(value) {
-		return this.getActiveItem().format(value);
-	}
-
-	/**
-	 * Render Legends
-	 * @param {number} id
-	 * @param {string} color
-	 */
-	@autobind
-	renderLegends(id, color) {
-		const {compositeData, data} = this.getActiveItem();
-
-		const name = get(find(data, d => d.id === id), 'name');
-
-		let icon;
-
-		if (compositeData) {
-			icon =
-				id === CHART_DATA_PREVIOUS
-					? getLegendLineDashed(color)
-					: getLegendCircle(color);
-		} else if (id === CHART_DATA_PREVIOUS) {
-			icon = getLegendLineDashed(color);
-		} else if (id === CHART_DATA_ID_1) {
-			icon = getLegendLine(color);
-		}
-
-		return `<li class="chart-legend-item">${icon} ${name}</li>`;
-	}
-
-	renderItems() {
-		const {
-			props: {onShowPreviousChange, showPrevious}
-		} = this;
-
-		const {
-			content: {name}
-		} = this.getActiveItem();
-
-		return (
-			<Fragment key='CHART'>
-				{this.renderChart()}
-
-				<div className={`${CLASSNAME}-chart-sub-content-wrapper`}>
-					<Checkbox
-						checked={showPrevious}
-						label={Liferay.Language.get('compare-to-previous')}
-						onChange={() => onShowPreviousChange(!showPrevious)}
-					/>
-
-					<ul
-						className={`${CLASSNAME}-legend chart-legend`}
-						id={`Legend-${name}`}
-					/>
-				</div>
-			</Fragment>
-		);
-	}
-
-	/**
-	 * Lifecycle Render - ReactJS
-	 */
 	render() {
-		const {activeItemIndex, className, showTabs} = this.props;
+		const {
+			activeItemIndex,
+			className,
+			onShowPreviousChange,
+			showPrevious,
+			showTabs
+		} = this.props;
 
 		return (
 			<div className={getCN(CLASSNAME, className)}>
@@ -667,10 +569,18 @@ class MainMetrics extends React.Component {
 					/>
 				)}
 
-				<div className={`${CLASSNAME}-chart`}>{this.renderItems()}</div>
+				<div className={`${CLASSNAME}-chart`}>
+					{this.renderChart()}
+
+					<div className={`${CLASSNAME}-chart-sub-content-wrapper`}>
+						<Checkbox
+							checked={showPrevious}
+							label={Liferay.Language.get('compare-to-previous')}
+							onChange={() => onShowPreviousChange(!showPrevious)}
+						/>
+					</div>
+				</div>
 			</div>
 		);
 	}
 }
-
-export default MainMetrics;
