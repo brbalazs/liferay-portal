@@ -218,14 +218,10 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			return;
 		}
 
-		Set<PortalLicenseEnterpriseAppBlockedBundleData>
-			portalLicenseEnterpriseAppBlockedBundleDatas = new HashSet<>(
-				portalLicenseEnterpriseAppBlockedBundleDataSet);
-
 		Set<Bundle> lpkgSet = new HashSet<>();
 
 		Iterator<PortalLicenseEnterpriseAppBlockedBundleData> iterator =
-			portalLicenseEnterpriseAppBlockedBundleDatas.iterator();
+			portalLicenseEnterpriseAppBlockedBundleDataSet.iterator();
 
 		while (iterator.hasNext()) {
 			PortalLicenseEnterpriseAppBlockedBundleData
@@ -245,7 +241,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 		BundleUtil.refreshBundles(_bundleContext, new ArrayList<>(lpkgSet));
 
-		if (portalLicenseEnterpriseAppBlockedBundleDatas.isEmpty()) {
+		if (portalLicenseEnterpriseAppBlockedBundleDataSet.isEmpty()) {
 			return;
 		}
 
@@ -256,7 +252,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 		for (PortalLicenseEnterpriseAppBlockedBundleData
 				portalLicenseEnterpriseAppBlockedBundleData :
-					portalLicenseEnterpriseAppBlockedBundleDatas) {
+					portalLicenseEnterpriseAppBlockedBundleDataSet) {
 
 			try {
 				bundleEntries.add(
