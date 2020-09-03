@@ -596,15 +596,30 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 					return;
 				}
 
-				for (String blockedProductId :
-						_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
-							keySet()) {
+				Set
+					<Map.Entry
+						<String,
+						 Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
+							entrySet =
+								_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
+									entrySet();
 
-					if (_verifyLicense(productId, true)) {
-						_installBundles(
-							blockedProductId,
-							_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
-								remove(blockedProductId));
+				Iterator
+					<Map.Entry
+						<String,
+						 Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
+							iterator = entrySet.iterator();
+
+				while (iterator.hasNext()) {
+					Map.Entry
+						<String,
+						 Set<PortalLicenseEnterpriseAppBlockedBundleData>>
+							entry = iterator.next();
+
+					if (_verifyLicense(entry.getKey(), true)) {
+						_installBundles(entry.getKey(), entry.getValue());
+
+						iterator.remove();
 					}
 				}
 			}
