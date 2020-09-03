@@ -311,12 +311,13 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 				portalLicenseEnterpriseAppBlockedBundleData :
 					portalLicenseEnterpriseAppBlockedBundleDataSet) {
 
+			String location =
+				portalLicenseEnterpriseAppBlockedBundleData.getLocation();
+
 			try {
 				bundleEntries.add(
 					new AbstractMap.SimpleImmutableEntry<>(
-						_bundleContext.installBundle(
-							portalLicenseEnterpriseAppBlockedBundleData.
-								getLocation()),
+						_bundleContext.installBundle(location),
 						portalLicenseEnterpriseAppBlockedBundleData));
 
 				String fragmentHost =
@@ -330,10 +331,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			catch (Exception exception) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
-						"Unable to install bundle " +
-							portalLicenseEnterpriseAppBlockedBundleData.
-								getLocation(),
-						exception);
+						"Unable to install bundle " + location, exception);
 				}
 			}
 		}
