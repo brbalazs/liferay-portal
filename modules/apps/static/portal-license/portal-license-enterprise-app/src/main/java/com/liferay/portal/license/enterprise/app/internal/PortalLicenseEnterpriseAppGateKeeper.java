@@ -600,7 +600,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 					<Map.Entry
 						<String,
 						 Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
-							entrySet =
+							set =
 								_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
 									entrySet();
 
@@ -608,7 +608,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 					<Map.Entry
 						<String,
 						 Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
-							iterator = entrySet.iterator();
+							iterator = set.iterator();
 
 				while (iterator.hasNext()) {
 					Map.Entry
