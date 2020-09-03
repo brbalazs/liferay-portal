@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 import autobind from 'autobind-decorator';
 import CardTabs from 'shared/components/CardTabs';
 import Checkbox from 'shared/components/Checkbox';

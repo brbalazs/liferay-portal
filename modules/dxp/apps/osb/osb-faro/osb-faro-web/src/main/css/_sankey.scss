@@ -25,6 +25,13 @@ $c: '.analytics-sankey';
 		font-size: $sankey-title-font-size;
 	}
 
+	#{$c}-text-button {
+		&:hover {
+			cursor: pointer;
+			text-decoration: underline;
+		}
+	}
+
 	#{$c}-subtitle, #{$c}-subtitle-show-link {
 		font-size: $font-size-sm;
 

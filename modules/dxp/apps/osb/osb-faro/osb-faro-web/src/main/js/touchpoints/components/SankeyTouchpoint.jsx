@@ -1,7 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-
 import autobind from 'autobind-decorator';
 import BasePage from 'shared/components/base-page';
 import getCN from 'classnames';
@@ -400,7 +396,7 @@ class SankeyTouchpoint extends React.Component {
 		let retVal = sankeySVGTextTitleTmpl;
 
 		if (hasOnClick) {
-			retVal = <a href='javascript:;'>{sankeySVGTextTitleTmpl}</a>;
+			retVal = <tspan className='analytics-sankey-text-button' role='button'>{sankeySVGTextTitleTmpl}</tspan>;
 		} else if (url) {
 			retVal = <Link to={url}>{sankeySVGTextTitleTmpl}</Link>;
 		}
@@ -1026,15 +1022,15 @@ class SankeyTouchpoint extends React.Component {
 			<ul>
 				{!showAssets ? (
 					<li>
-						<a
+						<button
+							aria-pressed={false}
 							className='action-link icon icon-plus'
 							onClick={this.handleToggleShowAssets}
-							to='javascript:;'
 						>
 							{sub(Liferay.Language.get('show-top-x-assets'), [
 								assets.length
 							])}
-						</a>
+						</button>
 					</li>
 				) : (
 					<>
@@ -1054,13 +1050,13 @@ class SankeyTouchpoint extends React.Component {
 						})}
 
 						<li>
-							<a
-								className='icon icon-minor action-link'
+							<button
+								aria-pressed={showAssets}
+								className='action-link icon icon-minor'
 								onClick={this.handleToggleShowAssets}
-								to='javascript:;'
 							>
 								{Liferay.Language.get('close-list')}
-							</a>
+							</button>
 						</li>
 					</>
 				)}
