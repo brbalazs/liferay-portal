@@ -155,19 +155,19 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 	}
 
 	private static String _getLPKGPath(String location) {
-		int index = location.indexOf("lpkgPath");
+		int startIndex = location.indexOf("lpkgPath");
 
-		if (index == -1) {
+		if (startIndex == -1) {
 			return null;
 		}
 
-		int endIndex = location.indexOf('&', index);
+		int endIndex = location.indexOf('&', startIndex);
 
 		if (endIndex == -1) {
 			endIndex = location.length();
 		}
 
-		return location.substring(index + 9, endIndex);
+		return location.substring(startIndex + 9, endIndex);
 	}
 
 	private String _getFragmentHost(Dictionary<String, String> headers) {
