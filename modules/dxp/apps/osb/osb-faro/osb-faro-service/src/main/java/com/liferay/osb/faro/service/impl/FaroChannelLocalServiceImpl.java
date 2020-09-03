@@ -233,7 +233,7 @@ public class FaroChannelLocalServiceImpl
 		User user = userLocalService.getUser(userId);
 
 		InternetAddress from = new InternetAddress(
-			"ac@liferay.com", user.getFullName());
+			"ac@liferay.com", user.getFullName() + " (Analytics Cloud)");
 
 		User invitedUser = userLocalService.getUser(invitedUserId);
 
