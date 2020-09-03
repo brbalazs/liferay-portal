@@ -439,6 +439,41 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		return true;
 	}
 
+	private void _receive(String productId) {
+		if (!productId.equals("Portal")) {
+			if (_portalLicenseEnterpriseAppBlockedBundleDataSetMap.containsKey(
+					productId) &&
+				_verifyLicense(productId, false)) {
+
+				_installBundles(
+					productId,
+					_portalLicenseEnterpriseAppBlockedBundleDataSetMap.remove(
+						productId));
+			}
+
+			return;
+		}
+
+		Set<Map.Entry<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
+			set = _portalLicenseEnterpriseAppBlockedBundleDataSetMap.entrySet();
+
+		Iterator
+			<Map.Entry
+				<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
+					iterator = set.iterator();
+
+		while (iterator.hasNext()) {
+			Map.Entry<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>
+				entry = iterator.next();
+
+			if (_verifyLicense(entry.getKey(), true)) {
+				_installBundles(entry.getKey(), entry.getValue());
+
+				iterator.remove();
+			}
+		}
+	}
+
 	private void _scanBundles(BundleContext bundleContext) {
 		List<Bundle> uninstalledBundles = new ArrayList<>();
 
@@ -582,46 +617,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			}
 
 			synchronized (PortalLicenseEnterpriseAppGateKeeper.this) {
-				if (!productId.equals("Portal")) {
-					if (_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
-							containsKey(productId) &&
-						_verifyLicense(productId, false)) {
-
-						_installBundles(
-							productId,
-							_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
-								remove(productId));
-					}
-
-					return;
-				}
-
-				Set
-					<Map.Entry
-						<String,
-						 Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
-							set =
-								_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
-									entrySet();
-
-				Iterator
-					<Map.Entry
-						<String,
-						 Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
-							iterator = set.iterator();
-
-				while (iterator.hasNext()) {
-					Map.Entry
-						<String,
-						 Set<PortalLicenseEnterpriseAppBlockedBundleData>>
-							entry = iterator.next();
-
-					if (_verifyLicense(entry.getKey(), true)) {
-						_installBundles(entry.getKey(), entry.getValue());
-
-						iterator.remove();
-					}
-				}
+				_receive(productId);
 			}
 		}
 
