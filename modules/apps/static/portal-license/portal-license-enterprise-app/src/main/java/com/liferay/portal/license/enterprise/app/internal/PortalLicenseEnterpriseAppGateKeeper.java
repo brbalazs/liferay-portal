@@ -426,7 +426,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 				portalLicenseEnterpriseAppBlockedBundleDataSet.add(
 					new PortalLicenseEnterpriseAppBlockedBundleData(
-						bundle.getLocation(), _getFragmentHost(headers),
+						_getFragmentHost(headers), bundle.getLocation(),
 						startLevel, webContextPath));
 			}
 			catch (Exception exception) {
