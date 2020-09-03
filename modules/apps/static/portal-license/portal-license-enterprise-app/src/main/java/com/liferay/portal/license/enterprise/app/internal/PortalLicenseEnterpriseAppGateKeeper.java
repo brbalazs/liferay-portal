@@ -538,7 +538,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			String lpkgPath = _getLPKGPath(location);
 
 			if (Validator.isNull(lpkgPath) && location.endsWith(".lpkg")) {
-				_lpkgOriginBundleMap.put(
+				_lpkgOriginBundles.put(
 					bundle.getSymbolicName(), bundleEvent.getOrigin());
 
 				return;
@@ -549,7 +549,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			if (Validator.isNotNull(lpkgPath)) {
 				Bundle lpkgBundle = _bundleContext.getBundle(lpkgPath);
 
-				originBundle = _lpkgOriginBundleMap.get(
+				originBundle = _lpkgOriginBundles.get(
 					lpkgBundle.getSymbolicName());
 			}
 
@@ -565,7 +565,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		}
 
 		private final Bundle _bundle;
-		private Map<String, Bundle> _lpkgOriginBundleMap =
+		private Map<String, Bundle> _lpkgOriginBundles =
 			new ConcurrentHashMap<>();
 
 	}
