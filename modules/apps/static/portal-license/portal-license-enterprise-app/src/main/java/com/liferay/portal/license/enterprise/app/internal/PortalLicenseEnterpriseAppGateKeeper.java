@@ -141,7 +141,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 					<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>
 						entry = iterator.next();
 
-				if (_verifyLicense(entry.getKey())) {
+				if (_verifyLicense(entry.getKey(), true)) {
 					_installBundles(entry.getKey(), entry.getValue());
 
 					iterator.remove();
@@ -401,7 +401,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		synchronized (this) {
 			if (!_portalLicenseEnterpriseAppBlockedBundleDataSetMap.containsKey(
 					productId) &&
-				_verifyLicense(productId)) {
+				_verifyLicense(productId, false)) {
 
 				if (webContextPath != null) {
 					_webContextPathMap.put(webContextPath, productId);
@@ -455,7 +455,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		}
 	}
 
-	private boolean _verifyLicense(String productId) {
+	private boolean _verifyLicense(String productId, boolean swallowException) {
 		LicenseManager licenseManager = _licenseManagerAtomicReference.get();
 
 		if (licenseManager == null) {
@@ -469,7 +469,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			return true;
 		}
 		catch (Exception exception) {
-			if (_log.isWarnEnabled()) {
+			if (!swallowException && _log.isWarnEnabled()) {
 				_log.warn(
 					StringBundler.concat(
 						"Failed to verify license for ", productId, ": ",
@@ -585,7 +585,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 				if (!productId.equals("Portal")) {
 					if (_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
 							containsKey(productId) &&
-						_verifyLicense(productId)) {
+						_verifyLicense(productId, false)) {
 
 						_installBundles(
 							productId,
@@ -596,30 +596,15 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 					return;
 				}
 
-				LicenseManager licenseManager =
-					_licenseManagerAtomicReference.get();
-
-				if (licenseManager == null) {
-					return;
-				}
-
 				for (String blockedProductId :
 						_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
 							keySet()) {
 
-					try {
-						PortalLicenseEnterpriseAppLicenseUtil.verify(
-							licenseManager, blockedProductId);
-
+					if (_verifyLicense(productId, true)) {
 						_installBundles(
 							blockedProductId,
 							_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
 								remove(blockedProductId));
-					}
-					catch (Exception exception) {
-						if (_log.isDebugEnabled()) {
-							_log.debug(exception.getMessage());
-						}
 					}
 				}
 			}
