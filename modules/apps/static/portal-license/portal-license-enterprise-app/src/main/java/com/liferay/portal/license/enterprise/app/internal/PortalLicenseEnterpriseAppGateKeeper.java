@@ -42,6 +42,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
@@ -218,7 +219,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			return;
 		}
 
-		Set<Bundle> lpkgSet = new HashSet<>();
+		Set<String> lpkgPathSet = new TreeSet<>();
 
 		Iterator<PortalLicenseEnterpriseAppBlockedBundleData> iterator =
 			portalLicenseEnterpriseAppBlockedBundleDataSet.iterator();
@@ -227,19 +228,75 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			PortalLicenseEnterpriseAppBlockedBundleData
 				portalLicenseEnterpriseAppBlockedBundleData = iterator.next();
 
-			String location =
-				portalLicenseEnterpriseAppBlockedBundleData.getLocation();
-
-			String lpkgPath = _getLPKGPath(location);
+			String lpkgPath = _getLPKGPath(
+				portalLicenseEnterpriseAppBlockedBundleData.getLocation());
 
 			if (lpkgPath != null) {
-				lpkgSet.add(_bundleContext.getBundle(lpkgPath));
+				lpkgPathSet.add(lpkgPath);
+
+				String webContextPath =
+					portalLicenseEnterpriseAppBlockedBundleData.
+						getWebContextPath();
+
+				if (webContextPath != null) {
+					_webContextPathMap.put(webContextPath, productId);
+				}
 
 				iterator.remove();
 			}
 		}
 
-		BundleUtil.refreshBundles(_bundleContext, new ArrayList<>(lpkgSet));
+		List<Bundle> uninstalledBundles = new ArrayList<>();
+		Map<String, Integer> lpkgBundleMap = new TreeMap<>();
+
+		for (String lpkgPath : lpkgPathSet) {
+			Bundle bundle = _bundleContext.getBundle(lpkgPath);
+
+			if (bundle == null) {
+				continue;
+			}
+
+			BundleStartLevel bundleStartLevel = bundle.adapt(
+				BundleStartLevel.class);
+
+			lpkgBundleMap.put(
+				bundle.getLocation(), bundleStartLevel.getStartLevel());
+
+			try {
+				bundle.uninstall();
+
+				uninstalledBundles.add(bundle);
+			}
+			catch (Exception exception) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(
+						"Unable to uninstall bundle " +
+							bundle.getSymbolicName(),
+						exception);
+				}
+
+				lpkgBundleMap.remove(bundle.getLocation());
+			}
+		}
+
+		if (!uninstalledBundles.isEmpty()) {
+			BundleUtil.refreshBundles(_bundleContext, uninstalledBundles);
+		}
+
+		for (Map.Entry<String, Integer> entry : lpkgBundleMap.entrySet()) {
+			try {
+				BundleUtil.installBundle(
+					_bundleContext, _lpkgDeployer, entry.getKey(),
+					entry.getValue());
+			}
+			catch (Exception exception) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(
+						"Unable to install bundle " + entry.getKey(),
+						exception);
+				}
+			}
+		}
 
 		if (portalLicenseEnterpriseAppBlockedBundleDataSet.isEmpty()) {
 			return;
@@ -472,11 +529,37 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 		@Override
 		public void bundleChanged(BundleEvent bundleEvent) {
-			if ((bundleEvent.getType() == BundleEvent.INSTALLED) &&
-				(bundleEvent.getOrigin() != _bundle)) {
-
-				_processBundle(bundleEvent.getBundle());
+			if (bundleEvent.getType() != BundleEvent.INSTALLED) {
+				return;
 			}
+
+			Bundle bundle = bundleEvent.getBundle();
+
+			String location = bundle.getLocation();
+
+			String lpkgPath = _getLPKGPath(location);
+
+			if (Validator.isNull(lpkgPath) && location.endsWith(".lpkg")) {
+				_lpkgOriginBundleMap.put(
+					bundle.getSymbolicName(), bundleEvent.getOrigin());
+
+				return;
+			}
+
+			Bundle originBundle = bundleEvent.getOrigin();
+
+			if (Validator.isNotNull(lpkgPath)) {
+				Bundle lpkgBundle = _bundleContext.getBundle(lpkgPath);
+
+				originBundle = _lpkgOriginBundleMap.get(
+					lpkgBundle.getSymbolicName());
+			}
+
+			if (originBundle == _bundle) {
+				return;
+			}
+
+			_processBundle(bundleEvent.getBundle());
 		}
 
 		private PortalLicenseEnterpriseAppBundleListener(Bundle bundle) {
@@ -484,6 +567,8 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		}
 
 		private final Bundle _bundle;
+		private Map<String, Bundle> _lpkgOriginBundleMap =
+			new ConcurrentHashMap<>();
 
 	}
 
