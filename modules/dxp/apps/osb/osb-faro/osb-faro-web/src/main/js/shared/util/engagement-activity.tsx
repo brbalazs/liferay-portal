@@ -61,14 +61,29 @@ export interface IEngagementHistory<initDateType = Date> {
 }
 
 export interface IChartProps<T> extends React.HTMLAttributes<HTMLElement> {
+	alwaysShowSelectedTooltip: boolean;
 	forwardedRef: React.Ref<any>;
+	height: number;
 	history: Array<T>;
 	interval?: Interval;
 	onAfterInit?: () => void;
 	onPointSelect: ({index: number}) => void;
 	rangeSelectors?: RangeSelectors;
+	selectedPoint: SelectedRechartsPoint;
 	tooltipRenderRows?: (data: T) => Array<TooltipRowType>;
 }
+
+type SelectedRechartsPoint = {
+	activeCoordinate: {
+		x: number;
+		y: number;
+	};
+	activeLabel: string | number;
+	activePayload: any[];
+	activeTooltipIndex: number;
+	chartX: number;
+	chartY: number;
+};
 
 /**
  * Object containing aggregated engagement and activity information.

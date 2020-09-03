@@ -10,7 +10,7 @@ import {findLastIndex, get, isFinite, isNil, isNull, noop} from 'lodash/fp';
 import {formatChange, getFinitePercentChange} from 'shared/util/change';
 import {formatEngagementScore} from 'shared/util/engagement';
 import {formatUTCDateFromUnix, getLastDate} from 'shared/util/date';
-import {omit} from 'lodash';
+import {isNull, omit} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {SCORE} from 'shared/util/pagination';
 import {sub} from 'shared/util/lang';
@@ -162,11 +162,10 @@ export class EngagementWithList extends React.Component {
 		entityType: PropTypes.number,
 		groupId: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 			.isRequired,
-		hasSelectedPoint: PropTypes.bool,
 		id: PropTypes.string.isRequired,
 		onPointSelect: PropTypes.func.isRequired,
 		previousScore: PropTypes.number.isRequired,
-		selectedPoint: PropTypes.number,
+		selectedPoint: PropTypes.object,
 		tooltipLabels: PropTypes.shape({
 			scoreLabel: PropTypes.string,
 			subtitleLabel: PropTypes.string
@@ -180,9 +179,9 @@ export class EngagementWithList extends React.Component {
 	}
 
 	getDateRange() {
-		const {data, hasSelectedPoint, selectedPoint} = this.props;
+		const {data, selectedPoint} = this.props;
 
-		if (!hasSelectedPoint) {
+		if (!selectedPoint) {
 			return {
 				endDate: getLastDate(data, null, 'intervalInitDate'),
 				startDate: getLastDate(data, null, 'intervalInitDate')
@@ -190,32 +189,31 @@ export class EngagementWithList extends React.Component {
 		}
 
 		const intervalInitDate =
-			get('intervalInitDate', data[selectedPoint]) || null;
+			get('intervalInitDate', data[selectedPoint.activeTooltipIndex]) ||
+			null;
 
 		return {endDate: intervalInitDate, startDate: intervalInitDate};
 	}
 
 	@autobind
 	handleInitialPoint() {
-		const {
-			data,
-			hasSelectedPoint,
-			onPointSelect,
-			selectedPoint
-		} = this.props;
+		const {data, onPointSelect, selectedPoint} = this.props;
 
 		if (onPointSelect && data.length) {
 			const lastIndex = findLastIndex(point => !isNull(point.scoreAvg))(
 				data
 			);
 
-			const indexToSelect = hasSelectedPoint ? selectedPoint : lastIndex;
+			const indexToSelect = selectedPoint
+				? selectedPoint.activeTooltipIndex
+				: lastIndex;
 
 			this._chartRef.current.select([indexToSelect]);
 
 			onPointSelect({index: indexToSelect});
 		}
 	}
+
 	render() {
 		const {
 			checkDisabledFn,
@@ -231,7 +229,7 @@ export class EngagementWithList extends React.Component {
 			tooltipLabels
 		} = this.props;
 
-		const tooltipRenderRows = ({contributors}) => [
+		const tooltipRenderRows = contributors => [
 			{
 				columns: [
 					{
@@ -252,19 +250,27 @@ export class EngagementWithList extends React.Component {
 				className={getCN('engagement-chart-list-root', className)}
 				noPadding
 			>
-				<EngagementChart
-					forwardedRef={this._chartRef}
-					history={data}
-					onAfterInit={this.handleInitialPoint}
-					onPointSelect={onPointSelect}
-					tooltipRenderRows={tooltipRenderRows}
-				/>
+				<div className='engagement-chart-container'>
+					<EngagementChart
+						alwaysShowSelectedTooltip
+						forwardedRef={this._chartRef}
+						history={data}
+						onAfterInit={this.handleInitialPoint}
+						onPointSelect={onPointSelect}
+						selectedPoint={selectedPoint}
+						tooltipRenderRows={tooltipRenderRows}
+					/>
+				</div>
 
 				<SelectedPointInfo
 					data={data}
 					previousScore={previousScore}
 					scoreLabel={tooltipLabels.scoreLabel}
-					selectedPoint={selectedPoint}
+					selectedPoint={
+						selectedPoint
+							? selectedPoint.activeTooltipIndex
+							: data.length - 1
+					}
 				/>
 
 				<EngagementTable
