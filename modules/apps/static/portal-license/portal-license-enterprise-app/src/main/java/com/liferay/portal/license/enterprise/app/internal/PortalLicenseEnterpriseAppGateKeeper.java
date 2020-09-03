@@ -219,7 +219,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			return;
 		}
 
-		Set<String> lpkgPathSet = new TreeSet<>();
+		Set<String> lpkgPaths = new TreeSet<>();
 
 		Iterator<PortalLicenseEnterpriseAppBlockedBundleData> iterator =
 			portalLicenseEnterpriseAppBlockedBundleDataSet.iterator();
@@ -232,7 +232,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 				portalLicenseEnterpriseAppBlockedBundleData.getLocation());
 
 			if (lpkgPath != null) {
-				lpkgPathSet.add(lpkgPath);
+				lpkgPaths.add(lpkgPath);
 
 				String webContextPath =
 					portalLicenseEnterpriseAppBlockedBundleData.
@@ -249,7 +249,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		List<Bundle> uninstalledBundles = new ArrayList<>();
 		Map<String, Integer> lpkgBundleMap = new TreeMap<>();
 
-		for (String lpkgPath : lpkgPathSet) {
+		for (String lpkgPath : lpkgPaths) {
 			Bundle bundle = _bundleContext.getBundle(lpkgPath);
 
 			if (bundle == null) {
