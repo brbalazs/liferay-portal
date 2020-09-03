@@ -79,13 +79,12 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 				liferayPortletRequest.getOriginalHttpServletRequest();
 
 			httpServletRequest.setAttribute(
+				WebKeys.PORTLET_CONTENT_JSP, "/portal/license.jsp");
+			httpServletRequest.setAttribute(
 				"ERROR_MESSAGE",
 				StringBundler.concat(
 					"Your license for product ", _productId, " expired ",
 					expirationDays * -1, " day(s) ago"));
-
-			httpServletRequest.setAttribute(
-				WebKeys.PORTLET_CONTENT_JSP, "/portal/license.jsp");
 
 			return;
 		}
