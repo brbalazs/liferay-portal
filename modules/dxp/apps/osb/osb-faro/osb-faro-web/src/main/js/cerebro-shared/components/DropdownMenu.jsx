@@ -147,8 +147,7 @@ export class OptionItem extends React.Component {
 				onMouseOut={this.handleMouseOutSubitem}
 				onMouseOver={this.handleMouseOverSubitem}
 			>
-				{/* eslint-disable jsx-a11y/anchor-is-valid */}
-				<a
+				<button
 					className={`dropdown-item ${
 						hasHover == true ? 'active' : ''
 					}`}
@@ -165,8 +164,7 @@ export class OptionItem extends React.Component {
 							)}
 						</div>
 					)}
-				</a>
-				{/* eslint-enable jsx-a11y/anchor-is-valid */}
+				</button>
 
 				{items &&
 					!!items.length &&
