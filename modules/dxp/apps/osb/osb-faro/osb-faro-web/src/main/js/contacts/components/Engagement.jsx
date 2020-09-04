@@ -184,7 +184,7 @@ export class EngagementWithList extends React.Component {
 
 		if (!hasSelectedPoint) {
 			return {
-				endDate: getLastDate(data, 'intervalInitDate'),
+				endDate: getLastDate(data, null, 'intervalInitDate'),
 				startDate: getLastDate(data, 'intervalInitDate')
 			};
 		}

@@ -19,8 +19,9 @@ import {
 import {formatEngagementAggregation} from 'shared/util/engagement';
 import {formatSessions, getActivityLabel} from 'shared/util/activities';
 import {
-	formatUTCDateFromUnix,
 	getDateRangeLabel,
+	getDateRangeLabelFromDate,
+	getEndDate,
 	getFirstDate,
 	getLastDate
 } from 'shared/util/date';
@@ -147,7 +148,7 @@ export class IndividualProfileCard extends React.Component {
 
 	getDateRange() {
 		const {
-			props: {hasSelectedPoint, selectedPoint, tabId},
+			props: {hasSelectedPoint, interval, selectedPoint, tabId},
 			state: {activityHistory, engagementHistory}
 		} = this;
 
@@ -156,14 +157,17 @@ export class IndividualProfileCard extends React.Component {
 
 		if (!hasSelectedPoint) {
 			return {
-				endDate: getLastDate(history, 'intervalInitDate'),
+				endDate: getLastDate(history, interval, 'intervalInitDate'),
 				startDate: getFirstDate(history, 'intervalInitDate')
 			};
 		}
 
 		const {intervalInitDate} = history[selectedPoint] || {};
 
-		return {endDate: intervalInitDate, startDate: intervalInitDate};
+		return {
+			endDate: getEndDate(intervalInitDate, interval),
+			startDate: intervalInitDate
+		};
 	}
 
 	@autoCancel
@@ -281,8 +285,9 @@ export class IndividualProfileCard extends React.Component {
 											'individuals-activities-x'
 										),
 										[
-											formatUTCDateFromUnix(
-												intervalInitDate
+											getDateRangeLabelFromDate(
+												intervalInitDate,
+												interval
 											)
 										]
 									)}
@@ -313,6 +318,7 @@ export class IndividualProfileCard extends React.Component {
 										[
 											getDateRangeLabel(
 												history,
+												interval,
 												'intervalInitDate'
 											)
 										]

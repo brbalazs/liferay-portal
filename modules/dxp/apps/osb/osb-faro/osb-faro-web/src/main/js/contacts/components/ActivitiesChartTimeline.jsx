@@ -9,8 +9,9 @@ import React from 'react';
 import SearchableVerticalTimeline from 'shared/components/SearchableVerticalTimeline';
 import {formatSessions, getActivityLabel} from 'shared/util/activities';
 import {
-	formatUTCDateFromUnix,
 	getDateRangeLabel,
+	getDateRangeLabelFromDate,
+	getEndDate,
 	getFirstDate,
 	getLastDate
 } from 'shared/util/date';
@@ -86,18 +87,21 @@ export class ActivitiesChartTimeline extends React.Component {
 	}
 
 	getDateRange() {
-		const {hasSelectedPoint, history, selectedPoint} = this.props;
+		const {hasSelectedPoint, history, interval, selectedPoint} = this.props;
 
 		if (!hasSelectedPoint) {
 			return {
-				endDate: getLastDate(history, 'intervalInitDate'),
+				endDate: getLastDate(history, interval, 'intervalInitDate'),
 				startDate: getFirstDate(history, 'intervalInitDate')
 			};
 		}
 
 		const {intervalInitDate} = history[selectedPoint];
 
-		return {endDate: intervalInitDate, startDate: intervalInitDate};
+		return {
+			endDate: getEndDate(intervalInitDate, interval),
+			startDate: intervalInitDate
+		};
 	}
 
 	@autobind
@@ -155,8 +159,9 @@ export class ActivitiesChartTimeline extends React.Component {
 								<div className='d-flex align-items-baseline'>
 									<h4>
 										{sub(activitiesLabel, [
-											formatUTCDateFromUnix(
-												intervalInitDate
+											getDateRangeLabelFromDate(
+												intervalInitDate,
+												interval
 											)
 										])}
 									</h4>
@@ -181,6 +186,7 @@ export class ActivitiesChartTimeline extends React.Component {
 								{sub(activitiesLabel, [
 									getDateRangeLabel(
 										history,
+										interval,
 										'intervalInitDate'
 									)
 								])}

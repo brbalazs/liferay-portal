@@ -1,5 +1,6 @@
 import moment from 'moment';
 import {flow, get, head, last, rangeRight} from 'lodash/fp';
+import {INTERVAL_KEY_MAP} from 'shared/util/time';
 
 export const FORMAT = 'YYYY-MM-DD';
 
@@ -87,19 +88,37 @@ export const getISODate = date => moment.utc(date).toISOString();
  */
 export const getDateNow = () => moment.utc();
 
-export function getDateRangeLabel(dates, key) {
+export function getDateRangeLabel(dates, interval, key) {
 	const firstDate = flow(
 		head,
 		get(key),
 		formatUTCDate
 	)(dates);
-	const lastDate = flow(
-		last,
-		get(key),
-		formatUTCDate
-	)(dates);
+	const lastDate = formatUTCDate(getLastDate(dates, interval, key));
 
 	return `${firstDate} - ${lastDate}`;
+}
+
+export function getDateRangeLabelFromDate(date, interval) {
+	const firstDate = formatUTCDateFromUnix(date);
+
+	if (interval === INTERVAL_KEY_MAP.day) {
+		return `${firstDate}`;
+	}
+
+	const lastDate = formatUTCDate(getEndDate(date, interval));
+
+	return `${firstDate} - ${lastDate}`;
+}
+
+export function getEndDate(date, interval) {
+	if (interval === INTERVAL_KEY_MAP.week) {
+		return moment.utc(date).add('6', 'days');
+	} else if (interval === INTERVAL_KEY_MAP.month) {
+		return moment.utc(date).endOf('month');
+	}
+
+	return date;
 }
 
 /**
@@ -119,11 +138,13 @@ export function getFirstDate(dates, key) {
  *  @param {Array.<Aggregation>} aggregations - Array of objects.
  *  @returns {number} Date in unix time.
  */
-export function getLastDate(dates, key) {
-	return flow(
+export function getLastDate(dates, interval, key) {
+	const date = flow(
 		last,
 		get(key)
 	)(dates);
+
+	return getEndDate(date, interval);
 }
 
 /**
