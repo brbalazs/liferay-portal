@@ -131,8 +131,9 @@ exports[`SankeyTouchpoint should render component Sankey Chart 1`] = `
         class="analytics-sankey-subtitle"
         y="63"
       >
-        <a
-          href="javascript:;"
+        <tspan
+          class="analytics-sankey-text-button"
+          role="button"
         >
           <title>
             Close List
@@ -145,7 +146,7 @@ exports[`SankeyTouchpoint should render component Sankey Chart 1`] = `
           >
             Close List
           </tspan>
-        </a>
+        </tspan>
       </text>
     </g>
   </g>
@@ -465,8 +466,9 @@ exports[`SankeyTouchpoint should render component Sankey Chart Main 1`] = `
           class="analytics-sankey-subtitle"
           y="63"
         >
-          <a
-            href="javascript:;"
+          <tspan
+            class="analytics-sankey-text-button"
+            role="button"
           >
             <title>
               Close List
@@ -479,7 +481,7 @@ exports[`SankeyTouchpoint should render component Sankey Chart Main 1`] = `
             >
               Close List
             </tspan>
-          </a>
+          </tspan>
         </text>
       </g>
     </g>
@@ -574,12 +576,12 @@ exports[`SankeyTouchpoint should render component Sankey Chart with direct acces
       >
         <ul>
           <li>
-            <a
+            <button
+              aria-pressed="false"
               class="action-link icon icon-plus"
-              to="javascript:;"
             >
               Show Top 2 Assets
-            </a>
+            </button>
           </li>
         </ul>
       </div>

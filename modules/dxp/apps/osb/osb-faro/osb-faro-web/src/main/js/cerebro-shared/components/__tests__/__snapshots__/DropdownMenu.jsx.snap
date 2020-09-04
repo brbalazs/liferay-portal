@@ -47,7 +47,7 @@ exports[`InputItem should render 1`] = `
 exports[`OptionItem should render 1`] = `
 <div>
   <li>
-    <a
+    <button
       class="dropdown-item "
       href="javascript:;"
     >
@@ -71,7 +71,7 @@ exports[`OptionItem should render 1`] = `
           </span>
         </span>
       </div>
-    </a>
+    </button>
   </li>
 </div>
 `;
