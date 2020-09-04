@@ -225,11 +225,6 @@ exports[`Activities should render 1`] = `
                           </span>
                         </span>
                       </div>
-                      <span
-                        class="text-truncate subtitle"
-                        data-tooltip="false"
-                        title=""
-                      />
                     </div>
                   </div>
                 </div>
