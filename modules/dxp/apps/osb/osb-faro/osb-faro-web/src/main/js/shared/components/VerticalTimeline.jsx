@@ -172,10 +172,12 @@ class TimelineItem extends React.Component {
 									</span>
 								</div>
 
-								<TextTruncate
-									className='subtitle'
-									title={subtitle}
-								/>
+								{subtitle && (
+									<TextTruncate
+										className='subtitle'
+										title={subtitle}
+									/>
+								)}
 							</div>
 
 							{this.isExpandable() && (
