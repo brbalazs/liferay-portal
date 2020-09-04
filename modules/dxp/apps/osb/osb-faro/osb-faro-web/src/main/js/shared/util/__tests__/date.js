@@ -6,6 +6,7 @@ import {
 	getDate,
 	getDateNow,
 	getDateRangeLabel,
+	getDateRangeLabelFromDate,
 	getFirstDate,
 	getISODate,
 	getLastDate,
@@ -120,7 +121,31 @@ describe('date', () => {
 			];
 
 			expect(
-				getDateRangeLabel(dates, 'intervalInitDate')
+				getDateRangeLabel(dates, 'D', 'intervalInitDate')
+			).toMatchSnapshot();
+
+			expect(
+				getDateRangeLabel(dates, 'W', 'intervalInitDate')
+			).toMatchSnapshot();
+
+			expect(
+				getDateRangeLabel(dates, 'M', 'intervalInitDate')
+			).toMatchSnapshot();
+		});
+	});
+
+	describe('getDateRangeLabelFromDate', () => {
+		it('should get the date range label from a date and interval', () => {
+			expect(
+				getDateRangeLabelFromDate(data.getTimestamp(), 'D')
+			).toMatchSnapshot();
+
+			expect(
+				getDateRangeLabelFromDate(data.getTimestamp(), 'W')
+			).toMatchSnapshot();
+
+			expect(
+				getDateRangeLabelFromDate(data.getTimestamp(), 'M')
 			).toMatchSnapshot();
 		});
 	});
@@ -151,7 +176,7 @@ describe('date', () => {
 			const {activityAggregations} = data.mockActivityHistory();
 
 			expect(
-				getLastDate(activityAggregations, 'intervalInitDate')
+				getLastDate(activityAggregations, null, 'intervalInitDate')
 			).toEqual(data.getTimestamp());
 		});
 	});
