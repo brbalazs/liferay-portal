@@ -32,11 +32,21 @@ public class ActivityConstants {
 
 	public static final int ACTION_ANY = -1;
 
+	public static final int ACTION_COMMENTS = 3;
+
 	public static final int ACTION_DOWNLOADS = 0;
+
+	public static final String ACTION_KEY_COMMENT_POSTED =
+		Asset.AssetType.Blog.name() + StringPool.POUND +
+			Activity.EventId.commentPosted.name();
 
 	public static final String ACTION_KEY_DOCUMENT_DOWNLOADED =
 		Asset.AssetType.Document.name() + StringPool.POUND +
 			Activity.EventId.documentDownloaded.name();
+
+	public static final String ACTION_KEY_DOCUMENT_PREVIEWED =
+		Asset.AssetType.Document.name() + StringPool.POUND +
+			Activity.EventId.documentPreviewed.name();
 
 	public static final String ACTION_KEY_FORM_SUBMITTED =
 		Asset.AssetType.Form.name() + StringPool.POUND +
@@ -50,15 +60,27 @@ public class ActivityConstants {
 		Asset.AssetType.Page.name() + StringPool.POUND +
 			Activity.EventId.pageViewed.name();
 
+	public static final int ACTION_PREVIEWS = 4;
+
 	public static final int ACTION_SUBMISSIONS = 1;
 
 	public static final int ACTION_VISITS = 2;
 
 	public static int getAction(String eventId) {
 		if (StringUtil.equalsIgnoreCase(
-				eventId, Activity.EventId.documentDownloaded.name())) {
+				eventId, Activity.EventId.commentPosted.name())) {
+
+			return ACTION_COMMENTS;
+		}
+		else if (StringUtil.equalsIgnoreCase(
+					eventId, Activity.EventId.documentDownloaded.name())) {
 
 			return ACTION_DOWNLOADS;
+		}
+		else if (StringUtil.equalsIgnoreCase(
+					eventId, Activity.EventId.documentPreviewed.name())) {
+
+			return ACTION_PREVIEWS;
 		}
 		else if (StringUtil.equalsIgnoreCase(
 					eventId, Activity.EventId.formSubmitted.name())) {
@@ -76,33 +98,21 @@ public class ActivityConstants {
 		return ACTION_ANY;
 	}
 
-	public static String getActionKey(int action, String assetType) {
-		if (action == ACTION_DOWNLOADS) {
-			return ACTION_KEY_DOCUMENT_DOWNLOADED;
-		}
-		else if (action == ACTION_SUBMISSIONS) {
-			return ACTION_KEY_FORM_SUBMITTED;
-		}
-		else if (action == ACTION_VISITS) {
-			if (assetType.equals(Asset.AssetType.Form.name())) {
-				return ACTION_KEY_FORM_VIEWED;
-			}
-			else if (assetType.equals(Asset.AssetType.Page.name())) {
-				return ACTION_KEY_PAGE_VIEWED;
-			}
-		}
-
-		return null;
-	}
-
 	public static List<String> getActionKeys(int action) {
 		if (action == ACTION_ANY) {
 			return Arrays.asList(
-				ACTION_KEY_DOCUMENT_DOWNLOADED, ACTION_KEY_FORM_SUBMITTED,
+				ACTION_KEY_COMMENT_POSTED, ACTION_KEY_DOCUMENT_DOWNLOADED,
+				ACTION_KEY_DOCUMENT_PREVIEWED, ACTION_KEY_FORM_SUBMITTED,
 				ACTION_KEY_FORM_VIEWED, ACTION_KEY_PAGE_VIEWED);
+		}
+		else if (action == ACTION_COMMENTS) {
+			return Collections.singletonList(ACTION_KEY_COMMENT_POSTED);
 		}
 		else if (action == ACTION_DOWNLOADS) {
 			return Collections.singletonList(ACTION_KEY_DOCUMENT_DOWNLOADED);
+		}
+		else if (action == ACTION_PREVIEWS) {
+			return Collections.singletonList(ACTION_KEY_DOCUMENT_PREVIEWED);
 		}
 		else if (action == ACTION_SUBMISSIONS) {
 			return Collections.singletonList(ACTION_KEY_FORM_SUBMITTED);
@@ -122,7 +132,9 @@ public class ActivityConstants {
 	private static final Map<String, Integer> _actions =
 		new HashMap<String, Integer>() {
 			{
+				put("comments", ACTION_COMMENTS);
 				put("downloads", ACTION_DOWNLOADS);
+				put("previews", ACTION_PREVIEWS);
 				put("submissions", ACTION_SUBMISSIONS);
 				put("visits", ACTION_VISITS);
 			}

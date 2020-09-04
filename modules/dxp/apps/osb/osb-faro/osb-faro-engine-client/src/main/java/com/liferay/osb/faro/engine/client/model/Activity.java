@@ -217,7 +217,8 @@ public class Activity {
 
 	public enum EventId {
 
-		documentDownloaded, formSubmitted, formViewed, pageViewed
+		commentPosted, documentDownloaded, documentPreviewed, formSubmitted,
+		formViewed, pageViewed
 
 	}
 
