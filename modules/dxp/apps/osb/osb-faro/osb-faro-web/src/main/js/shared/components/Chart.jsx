@@ -269,10 +269,10 @@ export default class Chart extends React.Component {
 
 		if (chart) {
 			chart.unselect(`${id}${dataId}`, indexes);
-		}
 
-		if (alwaysShowSelectedTooltip) {
-			chart.tooltip.hide();
+			if (alwaysShowSelectedTooltip) {
+				chart.tooltip.hide();
+			}
 		}
 	}
 

@@ -26,6 +26,7 @@ import {
 	getLastDate
 } from 'shared/util/date';
 import {getSafeChange} from 'shared/util/change';
+import {hasChanges} from 'shared/util/react';
 import {Individual} from 'shared/util/records';
 import {omit} from 'lodash';
 import {PropTypes} from 'prop-types';
@@ -114,11 +115,16 @@ export class IndividualProfileCard extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		const {hasSelectedPoint, interval, rangeSelectors} = this.props;
+		const {hasSelectedPoint} = this.props;
 
 		if (
-			prevProps.rangeSelectors !== rangeSelectors ||
-			prevProps.interval !== interval
+			hasChanges(
+				prevProps,
+				this.props,
+				'interval',
+				'rangeSelectors',
+				'tabId'
+			)
 		) {
 			if (hasSelectedPoint) {
 				this.handleClearSelection();
