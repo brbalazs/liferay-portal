@@ -524,7 +524,6 @@ public class JournalArticleActionDropdownItemsProvider {
 			"articleId", _article.getArticleId());
 
 		return dropdownItem -> {
-			dropdownItem.setHref(deleteArticleTranslationsURL.toString());
 			dropdownItem.putData("action", "deleteArticleTranslations");
 			dropdownItem.putData(
 				"deleteArticleTranslationsURL",
@@ -536,6 +535,7 @@ public class JournalArticleActionDropdownItemsProvider {
 				"title",
 				LanguageUtil.get(_httpServletRequest, "delete-translations") +
 					StringPool.TRIPLE_PERIOD);
+			dropdownItem.setHref(deleteArticleTranslationsURL.toString());
 
 			dropdownItem.setLabel(
 				LanguageUtil.get(_httpServletRequest, "delete-translations") +
@@ -646,10 +646,10 @@ public class JournalArticleActionDropdownItemsProvider {
 
 		return dropdownItem -> {
 			dropdownItem.putData("action", "preview");
+			dropdownItem.putData("previewURL", previewURL);
 			dropdownItem.putData(
 				"title",
 				HtmlUtil.escape(_article.getTitle(_themeDisplay.getLocale())));
-			dropdownItem.putData("previewURL", previewURL);
 
 			String status = "preview";
 

@@ -1007,8 +1007,8 @@ public class AssetCategoriesDisplayContext {
 				if (isFlattenedNavigationAllowed()) {
 					add(
 						dropdownItem -> {
-							dropdownItem.setActive(_isNavigationCategory());
 							dropdownItem.putData("action", "selectCategory");
+							dropdownItem.setActive(_isNavigationCategory());
 							dropdownItem.setLabel(
 								LanguageUtil.get(_request, "category"));
 						});

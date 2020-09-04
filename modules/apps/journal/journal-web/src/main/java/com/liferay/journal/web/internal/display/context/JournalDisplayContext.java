@@ -1885,9 +1885,9 @@ public class JournalDisplayContext {
 
 				add(
 					dropdownItem -> {
-						dropdownItem.setActive(isNavigationStructure());
 						dropdownItem.putData(
 							"action", "openStructuresSelector");
+						dropdownItem.setActive(isNavigationStructure());
 						dropdownItem.setLabel(sb.toString());
 					});
 			}
