@@ -20,6 +20,7 @@ import {get} from 'lodash';
 import {
 	jobRunDataPeriods,
 	jobRunFrequencies,
+	jobRunStatuses,
 	jobTypes
 } from 'shared/util/constants';
 import {useQuery} from '@apollo/react-hooks';
@@ -32,6 +33,7 @@ interface ISummaryProps {
 	currentStep: number;
 	includePreviousPeriod: boolean;
 	itemFilters: Filter[];
+	jobRunStatus: jobRunStatuses;
 	name: string;
 	runDataPeriod: jobRunDataPeriods;
 	runFrequency: jobRunFrequencies;
@@ -50,6 +52,7 @@ const Summary: React.FC<ISummaryProps> = ({
 	currentStep,
 	includePreviousPeriod,
 	itemFilters,
+	jobRunStatus,
 	name,
 	runDataPeriod,
 	runFrequency,
@@ -118,6 +121,7 @@ const Summary: React.FC<ISummaryProps> = ({
 
 	useEffect(() => {
 		if (
+			jobRunStatus === jobRunStatuses.running ||
 			(activitiesData && !includePreviousPeriod && notEnoughActivities) ||
 			(activitiesDataWithPrevious &&
 				includePreviousPeriod &&

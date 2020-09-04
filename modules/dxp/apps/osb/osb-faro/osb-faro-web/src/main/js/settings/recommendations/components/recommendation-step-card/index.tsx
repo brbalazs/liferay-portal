@@ -261,6 +261,7 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 								errors={errors}
 								groupId={groupId}
 								initialValues={initialValues}
+								jobRunStatus={job ? job.status : null}
 								onSetDisabled={setDisabled}
 								runDate={job ? job.runDate : null}
 								setFieldValue={setFieldValue}
