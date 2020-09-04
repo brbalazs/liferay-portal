@@ -94,7 +94,7 @@ public class AssertionSteps {
 	 * @throws Exception if an exception occurred
 	 */
 	@Then(
-		"^I should see an? (error|success|info|warning) alert(?: saying (.*))?"
+		"^I should see an? (error|success|info|warning) alert(?: saying)?(.*)?$"
 	)
 	public void assertAlert(
 			String status,
@@ -169,13 +169,13 @@ public class AssertionSteps {
 				"' and text()='", end, "']"));
 	}
 
-	@Then("^I should see time filter (.*) in(?: \"(.*)\")? card$")
+	@Then("^I should see time filter (.*) in(?: )?(.*)? card$")
 	public void assertDateTimeFilter(
 			@Transform(FaroTransformer.class) String date,
 			@Transform(FaroTransformer.class) String card)
 		throws Exception {
 
-		if (card != null) {
+		if (!card.equals("")) {
 			_faroSelenium.waitForElementPresent(
 				StringBundler.concat(
 					"//h5[text()='", card, "']/parent::div//button[text()='",
@@ -320,7 +320,7 @@ public class AssertionSteps {
 			"//span[@class='net-change increase']", "+0(0%)");
 	}
 
-	@Then("^I should see (.*) in a table(?: row containing (.*))?$")
+	@Then("^I should see (.*) in a table(?: row containing)?(.*)?$")
 	public void assertTableItem(
 			@Transform(FaroTransformer.class) String targetName,
 			@Transform(FaroTransformer.class) String containingName)

@@ -160,14 +160,14 @@ public class ClickSteps {
 	 * @param targetName the target element's name or another identifier
 	 * @param cardName the card where the element is found
 	 */
-	@When("^I click the (.*) dropdown in the(?: \"(.*)\")? card$")
+	@When("^I click the (.*) dropdown in the(?: )?(.*)? card$")
 	public static void clickDropdownCard(
 		@Transform(FaroTransformer.class) String targetName,
 		@Transform(FaroTransformer.class) String cardName) {
 
 		WebElement webElement;
 
-		if (cardName != null) {
+		if (!cardName.equals("")) {
 			webElement = _faroSelenium.findElement(
 				StringBundler.concat(
 					"//h5[text()='", cardName,
