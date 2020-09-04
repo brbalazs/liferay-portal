@@ -396,7 +396,11 @@ class SankeyTouchpoint extends React.Component {
 		let retVal = sankeySVGTextTitleTmpl;
 
 		if (hasOnClick) {
-			retVal = <tspan className='analytics-sankey-text-button' role='button'>{sankeySVGTextTitleTmpl}</tspan>;
+			retVal = (
+				<tspan className='analytics-sankey-text-button' role='button'>
+					{sankeySVGTextTitleTmpl}
+				</tspan>
+			);
 		} else if (url) {
 			retVal = <Link to={url}>{sankeySVGTextTitleTmpl}</Link>;
 		}
