@@ -114,12 +114,16 @@ export class IndividualProfileCard extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		const {interval, rangeSelectors} = this.props;
+		const {hasSelectedPoint, interval, rangeSelectors} = this.props;
 
 		if (
 			prevProps.rangeSelectors !== rangeSelectors ||
 			prevProps.interval !== interval
 		) {
+			if (hasSelectedPoint) {
+				this.handleClearSelection();
+			}
+
 			this.handleFetchHistory();
 		}
 	}
