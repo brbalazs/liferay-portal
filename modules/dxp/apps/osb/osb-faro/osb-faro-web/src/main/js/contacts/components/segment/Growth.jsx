@@ -405,6 +405,7 @@ export class SegmentGrowthChart extends React.Component {
 						fillOpacity={
 							legendHoverItem === 'anonymousCount' ? 0.1 : 0.2
 						}
+						isAnimationActive={false}
 						name={Liferay.Language.get('known-members')}
 						stroke={CHART_BLUE}
 						strokeOpacity={
@@ -420,6 +421,7 @@ export class SegmentGrowthChart extends React.Component {
 						fillOpacity={
 							legendHoverItem === 'knownCount' ? 0.1 : 0.2
 						}
+						isAnimationActive={false}
 						name={Liferay.Language.get('anonymous-members')}
 						stroke={CHART_ORANGE}
 						strokeOpacity={
