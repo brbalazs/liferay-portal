@@ -18,20 +18,30 @@ import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
 const {
-	activityActions: {downloads, submissions, visits},
+	activityActions: {comments, downloads, previews, submissions, visits},
 	assetTypes
 } = FaroConstants;
 
 const ACTIVITY_ACTIONS_TITLE_LANG_MAP = {
+	[comments]: Liferay.Language.get('commented-on-x'),
 	[downloads]: Liferay.Language.get('downloaded-x'),
+	[previews]: Liferay.Language.get('previewed-x'),
 	[submissions]: Liferay.Language.get('submitted-x'),
 	[visits]: Liferay.Language.get('visited-x')
 };
 
 const ACTIVITY_ACTIONS_DESCRIPTION_LANG_MAP = {
+	[comments]: {
+		plural: Liferay.Language.get('x-comments'),
+		singular: Liferay.Language.get('x-comment')
+	},
 	[downloads]: {
 		plural: Liferay.Language.get('x-downloads'),
 		singular: Liferay.Language.get('x-download')
+	},
+	[previews]: {
+		plural: Liferay.Language.get('x-previews'),
+		singular: Liferay.Language.get('x-preview')
 	},
 	[submissions]: {
 		plural: Liferay.Language.get('x-submissions'),
@@ -195,6 +205,8 @@ export function getActivityLabel(totalElements) {
  */
 function getAssetRoute(assetType) {
 	switch (assetType) {
+		case assetTypes.blog:
+			return Routes.ASSETS_BLOGS_DASHBOARD;
 		case assetTypes.document:
 			return Routes.ASSETS_DOCUMENTS_AND_MEDIA_DASHBOARD;
 		case assetTypes.form:
@@ -229,8 +241,10 @@ export function getMaxActivitiesValue(activitiesHistory, defaultMax = 10) {
  */
 function getObjectTypeIcon(assetType) {
 	switch (assetType) {
+		case assetTypes.blog:
+			return 'ac-blogs';
 		case assetTypes.document:
-			return 'download';
+			return 'ac-documents-and-media';
 		case assetTypes.form:
 			return 'forms';
 		case assetTypes.webPage:
