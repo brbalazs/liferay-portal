@@ -1,12 +1,12 @@
 import autobind from 'autobind-decorator';
 import getCN from 'classnames';
 import Icon from './Icon';
-import moment from 'moment';
 import NoResultsDisplay, {getFormattedTitle} from './NoResultsDisplay';
 import React from 'react';
 import Spinner from './Spinner';
 import Sticker from './Sticker';
 import TextTruncate from './TextTruncate';
+import {formatUTCDateFromUnix} from 'shared/util/date';
 import {get} from 'lodash';
 import {Link} from 'react-router-dom';
 import {onEnter} from 'shared/util/key-constants';
@@ -130,7 +130,7 @@ class TimelineItem extends React.Component {
 
 						{time && (
 							<div className='timeline-item-label'>
-								{moment(time).format('h:mma')}
+								{formatUTCDateFromUnix(time, 'h:mma')}
 							</div>
 						)}
 
