@@ -20,7 +20,6 @@ import com.liferay.commerce.price.list.internal.upgrade.v2_0_0.CommercePriceList
 import com.liferay.commerce.price.list.internal.upgrade.v2_0_0.CommerceTierPriceEntryUpgradeProcess;
 import com.liferay.commerce.price.list.internal.upgrade.v2_1_0.CommercePriceListChannelRelUpgradeProcess;
 import com.liferay.commerce.price.list.internal.upgrade.v2_1_0.CommercePriceListDiscountRelUpgradeProcess;
-import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.portal.kernel.log.Log;
@@ -114,9 +113,6 @@ public class CommercePriceListUpgradeStepRegistrator
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		CommercePriceListUpgradeStepRegistrator.class);
-
-	@Reference
-	private CommercePriceListLocalService _commercePriceListLocalService;
 
 	@Reference
 	private CPDefinitionLocalService _cpDefinitionLocalService;
