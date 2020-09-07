@@ -16,8 +16,10 @@ package com.liferay.portal.search.elasticsearch6.internal.sort;
 
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.GeoDistanceSort;
+import com.liferay.portal.kernel.search.NestedSort;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.geolocation.GeoLocationPoint;
+import com.liferay.portal.kernel.search.query.QueryTranslator;
 import com.liferay.portal.kernel.util.ArrayUtil;
 
 import java.util.ArrayList;
@@ -30,13 +32,16 @@ import java.util.Set;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.common.geo.GeoDistance;
 import org.elasticsearch.common.geo.GeoPoint;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.GeoDistanceSortBuilder;
+import org.elasticsearch.search.sort.NestedSortBuilder;
 import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Michael C. Han
@@ -113,6 +118,13 @@ public class DefaultSortTranslator implements SortTranslator {
 
 				fieldSortBuilder.unmappedType("keyword");
 
+				if (sort instanceof NestedSort) {
+					NestedSort nestedSort = (NestedSort)sort;
+
+					fieldSortBuilder.setNestedSort(
+						_getNestedSortBuilder(nestedSort));
+				}
+
 				sortBuilder = fieldSortBuilder;
 			}
 
@@ -131,5 +143,30 @@ public class DefaultSortTranslator implements SortTranslator {
 
 		return Field.getSortFieldName(sort, scoreFieldName);
 	}
+
+	@Reference(target = "(search.engine.impl=Elasticsearch)", unbind = "-")
+	protected void setQueryTranslator(
+		QueryTranslator<QueryBuilder> queryTranslator) {
+
+		_queryTranslator = queryTranslator;
+	}
+
+	private NestedSortBuilder _getNestedSortBuilder(NestedSort nestedSort) {
+		NestedSortBuilder nestedSortBuilder = new NestedSortBuilder(
+			nestedSort.getPath());
+
+		if (nestedSort.getFilterQuery() != null) {
+			QueryBuilder queryBuilder = _queryTranslator.translate(
+				nestedSort.getFilterQuery(), null);
+
+			nestedSortBuilder.setFilter(queryBuilder);
+		}
+
+		nestedSortBuilder.setMaxChildren(nestedSort.getMaxChildren());
+
+		return nestedSortBuilder;
+	}
+
+	private QueryTranslator<QueryBuilder> _queryTranslator;
 
 }
