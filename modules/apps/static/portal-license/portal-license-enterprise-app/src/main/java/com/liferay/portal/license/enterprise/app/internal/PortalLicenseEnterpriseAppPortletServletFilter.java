@@ -83,7 +83,8 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 			httpServletRequest.setAttribute(
 				"ERROR_MESSAGE",
 				StringBundler.concat(
-					"Your license for product ", _productId, " expired ",
+					"Your license for product ",
+					licenseProperties.get("productEntryName"), " expired ",
 					expirationDays * -1, " day(s) ago"));
 
 			return;
@@ -104,7 +105,7 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 			sb.append("<a class=\"alert-link\" href=\"");
 			sb.append(PortalUtil.getPathMain());
 			sb.append("/portal/license\">activation key for ");
-			sb.append(_productId);
+			sb.append(licenseProperties.get("productEntryName"));
 			sb.append("</a>, it ");
 
 			if (expirationDays <= 0) {
