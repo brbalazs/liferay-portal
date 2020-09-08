@@ -34,6 +34,7 @@ import com.liferay.portal.search.spi.settings.IndexSettingsHelper;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -429,7 +430,7 @@ public class CompanyIndexFactory
 	private String _indexNumberOfReplicas;
 	private String _indexNumberOfShards;
 	private final Set<IndexSettingsContributor> _indexSettingsContributors =
-		new ConcurrentSkipListSet<>();
+		ConcurrentHashMap.newKeySet();
 	private String _overrideTypeMappings;
 
 }
