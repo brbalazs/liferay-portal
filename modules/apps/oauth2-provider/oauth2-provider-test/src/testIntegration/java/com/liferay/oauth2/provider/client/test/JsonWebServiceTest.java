@@ -120,9 +120,7 @@ public class JsonWebServiceTest extends BaseClientTestCase {
 
 		response = invocationBuilder.post(Entity.form(formData));
 
-		String responseString = response.readEntity(String.class);
-
-		Assert.assertTrue(responseString.contains("No Country exists with"));
+		Assert.assertEquals(404, response.getStatus());
 	}
 
 	public static class JsonWebServiceTestPreparatorBundleActivator
