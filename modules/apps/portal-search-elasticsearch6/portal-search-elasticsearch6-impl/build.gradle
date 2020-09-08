@@ -19,6 +19,7 @@ dependencies {
 	compileInclude group: "com.liferay", name: "org.elasticsearch.client.xpack.transport", version: elasticsearchVersion
 	compileInclude group: "com.liferay", name: "org.elasticsearch.plugin.classloader", version: elasticsearchVersion
 	compileInclude group: "com.liferay", name: "org.elasticsearch.plugin.cli", version: elasticsearchVersion
+	compileInclude group: "com.liferay", name: "org.elasticsearch.plugin.mapper-extras-client", version: elasticsearchVersion
 	compileInclude group: "com.liferay", name: "org.elasticsearch.secure.sm", version: elasticsearchVersion
 	compileInclude group: "com.liferay", name: "org.elasticsearch.xpack.core", version: elasticsearchVersion
 	compileInclude group: "com.tdunning", name: "t-digest", version: "3.0"
@@ -59,7 +60,6 @@ dependencies {
 	compileInclude group: "org.elasticsearch.client", name: "transport", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch.plugin", name: "elasticsearch-scripting-painless-spi", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch.plugin", name: "lang-mustache-client", version: elasticsearchVersion
-	compileInclude group: "org.elasticsearch.plugin", name: "mapper-extras-client", version: "7.4.2"
 	compileInclude group: "org.elasticsearch.plugin", name: "parent-join-client", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch.plugin", name: "percolator-client", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch.plugin", name: "reindex-client", version: elasticsearchVersion
