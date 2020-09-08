@@ -45,7 +45,7 @@ public class SearchDisplayContextFactoryImpl
 		return new SearchDisplayContext(
 			renderRequest, portletPreferences, portal, HtmlUtil.getHtml(),
 			language, facetedSearcherManager, new IndexSearchPropsValuesImpl(),
-			new PortletURLFactoryImpl(renderRequest, renderResponse),
+			new ClassicPortletURLFactoryImpl(renderRequest, renderResponse),
 			summaryBuilderFactory, searchFacetTracker);
 	}
 
