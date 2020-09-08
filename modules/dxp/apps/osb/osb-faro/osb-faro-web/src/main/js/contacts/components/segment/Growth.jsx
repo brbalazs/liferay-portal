@@ -227,7 +227,6 @@ export class SegmentGrowthChart extends React.Component {
 			stackId: 'count'
 		};
 
-		console.log(data);
 		return (
 			<ResponsiveContainer height={height} width='100%'>
 				<AreaChart
@@ -249,6 +248,9 @@ export class SegmentGrowthChart extends React.Component {
 						axisLine={{stroke: AXIS.borderStroke}}
 						dataKey='modifiedDate'
 						domain={['dataMin', 'dataMax']}
+						interval={6}
+						padding={{left: 20, right: 20}}
+						scale='time'
 						tick={({payload, textAnchor, x, y}) => (
 							<Text
 								style={{
@@ -263,7 +265,6 @@ export class SegmentGrowthChart extends React.Component {
 								{formatUTCDateFromUnix(payload.value, 'MMM DD')}
 							</Text>
 						)}
-						tickCount={8}
 						tickLine={false}
 						tickMargin={12}
 						type='number'
