@@ -34,18 +34,34 @@ public class PortalLicenseEnterpriseAppLicenseUtil {
 			return;
 		}
 
-		if (licenseManager.getLicenseState(productId) !=
-				LicenseManager.STATE_GOOD) {
+		int productLicenseState = licenseManager.getLicenseState(productId);
 
+		if (productLicenseState != LicenseManager.STATE_GOOD) {
+			licenseManager.checkLicense(productId);
+
+			productLicenseState = licenseManager.getLicenseState(productId);
+		}
+
+		if (productLicenseState != LicenseManager.STATE_GOOD) {
 			throw new Exception("Unable to find a valid license");
+		}
+
+		int portalLicenseState = licenseManager.getLicenseState(
+			_PRODUCT_ID_PORTAL);
+
+		if (portalLicenseState != LicenseManager.STATE_GOOD) {
+			licenseManager.checkLicense(_PRODUCT_ID_PORTAL);
+
+			portalLicenseState = licenseManager.getLicenseState(
+				_PRODUCT_ID_PORTAL);
+		}
+
+		if (portalLicenseState != LicenseManager.STATE_GOOD) {
+			throw new Exception("Unable to find a valid Liferay DXP license");
 		}
 
 		Map<String, String> portalLicenseProperties =
 			licenseManager.getLicenseProperties("Portal");
-
-		if (portalLicenseProperties == null) {
-			throw new Exception("Unable to find a valid Liferay DXP license");
-		}
 
 		String portalLicenseType = portalLicenseProperties.get("type");
 
@@ -79,5 +95,7 @@ public class PortalLicenseEnterpriseAppLicenseUtil {
 					"is a developer license");
 		}
 	}
+
+	private static final String _PRODUCT_ID_PORTAL = "Portal";
 
 }
