@@ -112,7 +112,9 @@ public abstract class BaseDiscountResourceTestCase {
 
 		DiscountResource.Builder builder = DiscountResource.builder();
 
-		discountResource = builder.locale(
+		discountResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -410,7 +412,7 @@ public abstract class BaseDiscountResourceTestCase {
 						"deleteDiscount",
 						new HashMap<String, Object>() {
 							{
-								put("discountId", discount.getId());
+								put("id", discount.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteDiscount"));
@@ -426,7 +428,7 @@ public abstract class BaseDiscountResourceTestCase {
 						"discount",
 						new HashMap<String, Object>() {
 							{
-								put("discountId", discount.getId());
+								put("id", discount.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -551,7 +553,7 @@ public abstract class BaseDiscountResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Discount discount) {
+	protected void assertValid(Discount discount) throws Exception {
 		boolean valid = true;
 
 		if (discount.getId() == null) {

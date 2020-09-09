@@ -70,6 +70,8 @@ import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
@@ -3096,6 +3098,8 @@ public class Query {
 		accountResource.setContextHttpServletResponse(_httpServletResponse);
 		accountResource.setContextUriInfo(_uriInfo);
 		accountResource.setContextUser(_user);
+		accountResource.setGroupLocalService(_groupLocalService);
+		accountResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3109,6 +3113,8 @@ public class Query {
 			_httpServletResponse);
 		accountGroupResource.setContextUriInfo(_uriInfo);
 		accountGroupResource.setContextUser(_user);
+		accountGroupResource.setGroupLocalService(_groupLocalService);
+		accountGroupResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(CategoryResource categoryResource)
@@ -3120,6 +3126,8 @@ public class Query {
 		categoryResource.setContextHttpServletResponse(_httpServletResponse);
 		categoryResource.setContextUriInfo(_uriInfo);
 		categoryResource.setContextUser(_user);
+		categoryResource.setGroupLocalService(_groupLocalService);
+		categoryResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(ChannelResource channelResource)
@@ -3131,6 +3139,8 @@ public class Query {
 		channelResource.setContextHttpServletResponse(_httpServletResponse);
 		channelResource.setContextUriInfo(_uriInfo);
 		channelResource.setContextUser(_user);
+		channelResource.setGroupLocalService(_groupLocalService);
+		channelResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(DiscountResource discountResource)
@@ -3142,6 +3152,8 @@ public class Query {
 		discountResource.setContextHttpServletResponse(_httpServletResponse);
 		discountResource.setContextUriInfo(_uriInfo);
 		discountResource.setContextUser(_user);
+		discountResource.setGroupLocalService(_groupLocalService);
+		discountResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3156,6 +3168,8 @@ public class Query {
 			_httpServletResponse);
 		discountAccountResource.setContextUriInfo(_uriInfo);
 		discountAccountResource.setContextUser(_user);
+		discountAccountResource.setGroupLocalService(_groupLocalService);
+		discountAccountResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3170,6 +3184,8 @@ public class Query {
 			_httpServletResponse);
 		discountAccountGroupResource.setContextUriInfo(_uriInfo);
 		discountAccountGroupResource.setContextUser(_user);
+		discountAccountGroupResource.setGroupLocalService(_groupLocalService);
+		discountAccountGroupResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3184,6 +3200,8 @@ public class Query {
 			_httpServletResponse);
 		discountCategoryResource.setContextUriInfo(_uriInfo);
 		discountCategoryResource.setContextUser(_user);
+		discountCategoryResource.setGroupLocalService(_groupLocalService);
+		discountCategoryResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3198,6 +3216,8 @@ public class Query {
 			_httpServletResponse);
 		discountChannelResource.setContextUriInfo(_uriInfo);
 		discountChannelResource.setContextUser(_user);
+		discountChannelResource.setGroupLocalService(_groupLocalService);
+		discountChannelResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3212,6 +3232,8 @@ public class Query {
 			_httpServletResponse);
 		discountProductResource.setContextUriInfo(_uriInfo);
 		discountProductResource.setContextUser(_user);
+		discountProductResource.setGroupLocalService(_groupLocalService);
+		discountProductResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3226,6 +3248,8 @@ public class Query {
 			_httpServletResponse);
 		discountProductGroupResource.setContextUriInfo(_uriInfo);
 		discountProductGroupResource.setContextUser(_user);
+		discountProductGroupResource.setGroupLocalService(_groupLocalService);
+		discountProductGroupResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3239,6 +3263,8 @@ public class Query {
 			_httpServletResponse);
 		discountRuleResource.setContextUriInfo(_uriInfo);
 		discountRuleResource.setContextUser(_user);
+		discountRuleResource.setGroupLocalService(_groupLocalService);
+		discountRuleResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(PriceEntryResource priceEntryResource)
@@ -3250,6 +3276,8 @@ public class Query {
 		priceEntryResource.setContextHttpServletResponse(_httpServletResponse);
 		priceEntryResource.setContextUriInfo(_uriInfo);
 		priceEntryResource.setContextUser(_user);
+		priceEntryResource.setGroupLocalService(_groupLocalService);
+		priceEntryResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(PriceListResource priceListResource)
@@ -3261,6 +3289,8 @@ public class Query {
 		priceListResource.setContextHttpServletResponse(_httpServletResponse);
 		priceListResource.setContextUriInfo(_uriInfo);
 		priceListResource.setContextUser(_user);
+		priceListResource.setGroupLocalService(_groupLocalService);
+		priceListResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3275,6 +3305,8 @@ public class Query {
 			_httpServletResponse);
 		priceListAccountResource.setContextUriInfo(_uriInfo);
 		priceListAccountResource.setContextUser(_user);
+		priceListAccountResource.setGroupLocalService(_groupLocalService);
+		priceListAccountResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3289,6 +3321,8 @@ public class Query {
 			_httpServletResponse);
 		priceListAccountGroupResource.setContextUriInfo(_uriInfo);
 		priceListAccountGroupResource.setContextUser(_user);
+		priceListAccountGroupResource.setGroupLocalService(_groupLocalService);
+		priceListAccountGroupResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3303,6 +3337,8 @@ public class Query {
 			_httpServletResponse);
 		priceListChannelResource.setContextUriInfo(_uriInfo);
 		priceListChannelResource.setContextUser(_user);
+		priceListChannelResource.setGroupLocalService(_groupLocalService);
+		priceListChannelResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3317,6 +3353,8 @@ public class Query {
 			_httpServletResponse);
 		priceListDiscountResource.setContextUriInfo(_uriInfo);
 		priceListDiscountResource.setContextUser(_user);
+		priceListDiscountResource.setGroupLocalService(_groupLocalService);
+		priceListDiscountResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3330,6 +3368,8 @@ public class Query {
 			_httpServletResponse);
 		priceModifierResource.setContextUriInfo(_uriInfo);
 		priceModifierResource.setContextUser(_user);
+		priceModifierResource.setGroupLocalService(_groupLocalService);
+		priceModifierResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3344,6 +3384,8 @@ public class Query {
 			_httpServletResponse);
 		priceModifierCategoryResource.setContextUriInfo(_uriInfo);
 		priceModifierCategoryResource.setContextUser(_user);
+		priceModifierCategoryResource.setGroupLocalService(_groupLocalService);
+		priceModifierCategoryResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3358,6 +3400,8 @@ public class Query {
 			_httpServletResponse);
 		priceModifierProductResource.setContextUriInfo(_uriInfo);
 		priceModifierProductResource.setContextUser(_user);
+		priceModifierProductResource.setGroupLocalService(_groupLocalService);
+		priceModifierProductResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3373,6 +3417,10 @@ public class Query {
 			_httpServletResponse);
 		priceModifierProductGroupResource.setContextUriInfo(_uriInfo);
 		priceModifierProductGroupResource.setContextUser(_user);
+		priceModifierProductGroupResource.setGroupLocalService(
+			_groupLocalService);
+		priceModifierProductGroupResource.setRoleLocalService(
+			_roleLocalService);
 	}
 
 	private void _populateResourceContext(ProductResource productResource)
@@ -3384,6 +3432,8 @@ public class Query {
 		productResource.setContextHttpServletResponse(_httpServletResponse);
 		productResource.setContextUriInfo(_uriInfo);
 		productResource.setContextUser(_user);
+		productResource.setGroupLocalService(_groupLocalService);
+		productResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -3397,6 +3447,8 @@ public class Query {
 			_httpServletResponse);
 		productGroupResource.setContextUriInfo(_uriInfo);
 		productGroupResource.setContextUser(_user);
+		productGroupResource.setGroupLocalService(_groupLocalService);
+		productGroupResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(SkuResource skuResource)
@@ -3408,6 +3460,8 @@ public class Query {
 		skuResource.setContextHttpServletResponse(_httpServletResponse);
 		skuResource.setContextUriInfo(_uriInfo);
 		skuResource.setContextUser(_user);
+		skuResource.setGroupLocalService(_groupLocalService);
+		skuResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(TierPriceResource tierPriceResource)
@@ -3419,6 +3473,8 @@ public class Query {
 		tierPriceResource.setContextHttpServletResponse(_httpServletResponse);
 		tierPriceResource.setContextUriInfo(_uriInfo);
 		tierPriceResource.setContextUser(_user);
+		tierPriceResource.setGroupLocalService(_groupLocalService);
+		tierPriceResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private static ComponentServiceObjects<AccountResource>
@@ -3475,12 +3531,14 @@ public class Query {
 		_tierPriceResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
-	private BiFunction<Object, String, Filter> _filterBiFunction;
-	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
 	private com.liferay.portal.kernel.model.Company _company;
-	private com.liferay.portal.kernel.model.User _user;
+	private BiFunction<Object, String, Filter> _filterBiFunction;
+	private GroupLocalService _groupLocalService;
 	private HttpServletRequest _httpServletRequest;
 	private HttpServletResponse _httpServletResponse;
+	private RoleLocalService _roleLocalService;
+	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
 	private UriInfo _uriInfo;
+	private com.liferay.portal.kernel.model.User _user;
 
 }

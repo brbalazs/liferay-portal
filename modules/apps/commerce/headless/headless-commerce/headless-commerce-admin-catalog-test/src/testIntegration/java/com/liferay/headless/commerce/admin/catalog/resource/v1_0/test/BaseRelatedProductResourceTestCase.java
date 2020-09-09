@@ -113,7 +113,9 @@ public abstract class BaseRelatedProductResourceTestCase {
 		RelatedProductResource.Builder builder =
 			RelatedProductResource.builder();
 
-		relatedProductResource = builder.locale(
+		relatedProductResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -254,9 +256,9 @@ public abstract class BaseRelatedProductResourceTestCase {
 			(List<RelatedProduct>)page.getItems());
 		assertValid(page);
 
-		relatedProductResource.deleteRelatedProduct(null);
+		relatedProductResource.deleteRelatedProduct(relatedProduct1.getId());
 
-		relatedProductResource.deleteRelatedProduct(null);
+		relatedProductResource.deleteRelatedProduct(relatedProduct2.getId());
 	}
 
 	@Test
@@ -406,9 +408,9 @@ public abstract class BaseRelatedProductResourceTestCase {
 			(List<RelatedProduct>)page.getItems());
 		assertValid(page);
 
-		relatedProductResource.deleteRelatedProduct(null);
+		relatedProductResource.deleteRelatedProduct(relatedProduct1.getId());
 
-		relatedProductResource.deleteRelatedProduct(null);
+		relatedProductResource.deleteRelatedProduct(relatedProduct2.getId());
 	}
 
 	@Test
@@ -543,7 +545,7 @@ public abstract class BaseRelatedProductResourceTestCase {
 						"deleteRelatedProduct",
 						new HashMap<String, Object>() {
 							{
-								put("relatedProductId", relatedProduct.getId());
+								put("id", relatedProduct.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteRelatedProduct"));
@@ -559,7 +561,7 @@ public abstract class BaseRelatedProductResourceTestCase {
 						"relatedProduct",
 						new HashMap<String, Object>() {
 							{
-								put("relatedProductId", relatedProduct.getId());
+								put("id", relatedProduct.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -691,7 +693,7 @@ public abstract class BaseRelatedProductResourceTestCase {
 		}
 	}
 
-	protected void assertValid(RelatedProduct relatedProduct) {
+	protected void assertValid(RelatedProduct relatedProduct) throws Exception {
 		boolean valid = true;
 
 		if (relatedProduct.getId() == null) {

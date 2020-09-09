@@ -113,7 +113,9 @@ public abstract class BaseWarehouseItemResourceTestCase {
 
 		WarehouseItemResource.Builder builder = WarehouseItemResource.builder();
 
-		warehouseItemResource = builder.locale(
+		warehouseItemResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -398,7 +400,7 @@ public abstract class BaseWarehouseItemResourceTestCase {
 						"deleteWarehouseItem",
 						new HashMap<String, Object>() {
 							{
-								put("warehouseItemId", warehouseItem.getId());
+								put("id", warehouseItem.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteWarehouseItem"));
@@ -414,7 +416,7 @@ public abstract class BaseWarehouseItemResourceTestCase {
 						"warehouseItem",
 						new HashMap<String, Object>() {
 							{
-								put("warehouseItemId", warehouseItem.getId());
+								put("id", warehouseItem.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -546,9 +548,9 @@ public abstract class BaseWarehouseItemResourceTestCase {
 			(List<WarehouseItem>)page.getItems());
 		assertValid(page);
 
-		warehouseItemResource.deleteWarehouseItem(null);
+		warehouseItemResource.deleteWarehouseItem(warehouseItem1.getId());
 
-		warehouseItemResource.deleteWarehouseItem(null);
+		warehouseItemResource.deleteWarehouseItem(warehouseItem2.getId());
 	}
 
 	@Test
@@ -715,9 +717,9 @@ public abstract class BaseWarehouseItemResourceTestCase {
 			(List<WarehouseItem>)page.getItems());
 		assertValid(page);
 
-		warehouseItemResource.deleteWarehouseItem(null);
+		warehouseItemResource.deleteWarehouseItem(warehouseItem1.getId());
 
-		warehouseItemResource.deleteWarehouseItem(null);
+		warehouseItemResource.deleteWarehouseItem(warehouseItem2.getId());
 	}
 
 	@Test
@@ -854,9 +856,9 @@ public abstract class BaseWarehouseItemResourceTestCase {
 			(List<WarehouseItem>)page.getItems());
 		assertValid(page);
 
-		warehouseItemResource.deleteWarehouseItem(null);
+		warehouseItemResource.deleteWarehouseItem(warehouseItem1.getId());
 
-		warehouseItemResource.deleteWarehouseItem(null);
+		warehouseItemResource.deleteWarehouseItem(warehouseItem2.getId());
 	}
 
 	@Test
@@ -974,7 +976,7 @@ public abstract class BaseWarehouseItemResourceTestCase {
 		}
 	}
 
-	protected void assertValid(WarehouseItem warehouseItem) {
+	protected void assertValid(WarehouseItem warehouseItem) throws Exception {
 		boolean valid = true;
 
 		if (warehouseItem.getId() == null) {

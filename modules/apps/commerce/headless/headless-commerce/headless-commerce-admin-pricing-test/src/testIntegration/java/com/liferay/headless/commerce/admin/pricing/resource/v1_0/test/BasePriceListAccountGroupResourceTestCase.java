@@ -30,7 +30,6 @@ import com.liferay.headless.commerce.admin.pricing.client.resource.v1_0.PriceLis
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v1_0.PriceListAccountGroupSerDes;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -47,8 +46,6 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
-import com.liferay.portal.test.log.CaptureAppender;
-import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -72,7 +69,6 @@ import javax.annotation.Generated;
 import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.log4j.Level;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -113,7 +109,9 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 		PriceListAccountGroupResource.Builder builder =
 			PriceListAccountGroupResource.builder();
 
-		priceListAccountGroupResource = builder.locale(
+		priceListAccountGroupResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -238,34 +236,10 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 						"deletePriceListAccountGroup",
 						new HashMap<String, Object>() {
 							{
-								put(
-									"priceListAccountGroupId",
-									priceListAccountGroup.getId());
+								put("id", priceListAccountGroup.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deletePriceListAccountGroup"));
-
-		try (CaptureAppender captureAppender =
-				Log4JLoggerTestUtil.configureLog4JLogger(
-					"graphql.execution.SimpleDataFetcherExceptionHandler",
-					Level.WARN)) {
-
-			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"priceListAccountGroup",
-						new HashMap<String, Object>() {
-							{
-								put(
-									"priceListAccountGroupId",
-									priceListAccountGroup.getId());
-							}
-						},
-						new GraphQLField("id"))),
-				"JSONArray/errors");
-
-			Assert.assertTrue(errorsJSONArray.length() > 0);
-		}
 	}
 
 	@Test
@@ -324,9 +298,11 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 			(List<PriceListAccountGroup>)page.getItems());
 		assertValid(page);
 
-		priceListAccountGroupResource.deletePriceListAccountGroup(null);
+		priceListAccountGroupResource.deletePriceListAccountGroup(
+			priceListAccountGroup1.getId());
 
-		priceListAccountGroupResource.deletePriceListAccountGroup(null);
+		priceListAccountGroupResource.deletePriceListAccountGroup(
+			priceListAccountGroup2.getId());
 	}
 
 	@Test
@@ -489,9 +465,11 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 			(List<PriceListAccountGroup>)page.getItems());
 		assertValid(page);
 
-		priceListAccountGroupResource.deletePriceListAccountGroup(null);
+		priceListAccountGroupResource.deletePriceListAccountGroup(
+			priceListAccountGroup1.getId());
 
-		priceListAccountGroupResource.deletePriceListAccountGroup(null);
+		priceListAccountGroupResource.deletePriceListAccountGroup(
+			priceListAccountGroup2.getId());
 	}
 
 	@Test
@@ -667,7 +645,9 @@ public abstract class BasePriceListAccountGroupResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceListAccountGroup priceListAccountGroup) {
+	protected void assertValid(PriceListAccountGroup priceListAccountGroup)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (priceListAccountGroup.getId() == null) {

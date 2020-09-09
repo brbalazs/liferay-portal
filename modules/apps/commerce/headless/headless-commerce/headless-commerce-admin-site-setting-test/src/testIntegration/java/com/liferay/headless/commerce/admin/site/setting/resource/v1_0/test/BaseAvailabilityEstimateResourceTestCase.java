@@ -112,7 +112,9 @@ public abstract class BaseAvailabilityEstimateResourceTestCase {
 		AvailabilityEstimateResource.Builder builder =
 			AvailabilityEstimateResource.builder();
 
-		availabilityEstimateResource = builder.locale(
+		availabilityEstimateResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -235,9 +237,7 @@ public abstract class BaseAvailabilityEstimateResourceTestCase {
 						"deleteAvailabilityEstimate",
 						new HashMap<String, Object>() {
 							{
-								put(
-									"availabilityEstimateId",
-									availabilityEstimate.getId());
+								put("id", availabilityEstimate.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteAvailabilityEstimate"));
@@ -253,9 +253,7 @@ public abstract class BaseAvailabilityEstimateResourceTestCase {
 						"availabilityEstimate",
 						new HashMap<String, Object>() {
 							{
-								put(
-									"availabilityEstimateId",
-									availabilityEstimate.getId());
+								put("id", availabilityEstimate.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -388,9 +386,11 @@ public abstract class BaseAvailabilityEstimateResourceTestCase {
 			(List<AvailabilityEstimate>)page.getItems());
 		assertValid(page);
 
-		availabilityEstimateResource.deleteAvailabilityEstimate(null);
+		availabilityEstimateResource.deleteAvailabilityEstimate(
+			availabilityEstimate1.getId());
 
-		availabilityEstimateResource.deleteAvailabilityEstimate(null);
+		availabilityEstimateResource.deleteAvailabilityEstimate(
+			availabilityEstimate2.getId());
 	}
 
 	@Test
@@ -569,7 +569,9 @@ public abstract class BaseAvailabilityEstimateResourceTestCase {
 		}
 	}
 
-	protected void assertValid(AvailabilityEstimate availabilityEstimate) {
+	protected void assertValid(AvailabilityEstimate availabilityEstimate)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (availabilityEstimate.getId() == null) {

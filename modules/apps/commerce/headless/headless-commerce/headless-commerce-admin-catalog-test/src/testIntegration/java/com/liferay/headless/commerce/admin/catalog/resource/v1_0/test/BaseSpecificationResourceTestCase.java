@@ -119,7 +119,9 @@ public abstract class BaseSpecificationResourceTestCase {
 
 		SpecificationResource.Builder builder = SpecificationResource.builder();
 
-		specificationResource = builder.locale(
+		specificationResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -223,9 +225,9 @@ public abstract class BaseSpecificationResourceTestCase {
 			(List<Specification>)page.getItems());
 		assertValid(page);
 
-		specificationResource.deleteSpecification(null);
+		specificationResource.deleteSpecification(specification1.getId());
 
-		specificationResource.deleteSpecification(null);
+		specificationResource.deleteSpecification(specification2.getId());
 	}
 
 	@Test
@@ -551,7 +553,7 @@ public abstract class BaseSpecificationResourceTestCase {
 						"deleteSpecification",
 						new HashMap<String, Object>() {
 							{
-								put("specificationId", specification.getId());
+								put("id", specification.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteSpecification"));
@@ -567,7 +569,7 @@ public abstract class BaseSpecificationResourceTestCase {
 						"specification",
 						new HashMap<String, Object>() {
 							{
-								put("specificationId", specification.getId());
+								put("id", specification.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -706,7 +708,7 @@ public abstract class BaseSpecificationResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Specification specification) {
+	protected void assertValid(Specification specification) throws Exception {
 		boolean valid = true;
 
 		if (specification.getId() == null) {

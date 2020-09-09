@@ -119,7 +119,9 @@ public abstract class BasePriceEntryResourceTestCase {
 
 		PriceEntryResource.Builder builder = PriceEntryResource.builder();
 
-		priceEntryResource = builder.locale(
+		priceEntryResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -324,7 +326,8 @@ public abstract class BasePriceEntryResourceTestCase {
 
 		PriceEntry patchPriceEntry =
 			priceEntryResource.patchPriceEntryByExternalReferenceCode(
-				postPriceEntry.getId(), randomPatchPriceEntry);
+				postPriceEntry.getExternalReferenceCode(),
+				randomPatchPriceEntry);
 
 		PriceEntry expectedPatchPriceEntry = postPriceEntry.clone();
 
@@ -381,7 +384,7 @@ public abstract class BasePriceEntryResourceTestCase {
 						"deletePriceEntry",
 						new HashMap<String, Object>() {
 							{
-								put("priceEntryId", priceEntry.getId());
+								put("id", priceEntry.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deletePriceEntry"));
@@ -397,7 +400,7 @@ public abstract class BasePriceEntryResourceTestCase {
 						"priceEntry",
 						new HashMap<String, Object>() {
 							{
-								put("priceEntryId", priceEntry.getId());
+								put("id", priceEntry.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -546,9 +549,9 @@ public abstract class BasePriceEntryResourceTestCase {
 			(List<PriceEntry>)page.getItems());
 		assertValid(page);
 
-		priceEntryResource.deletePriceEntry(null);
+		priceEntryResource.deletePriceEntry(priceEntry1.getId());
 
-		priceEntryResource.deletePriceEntry(null);
+		priceEntryResource.deletePriceEntry(priceEntry2.getId());
 	}
 
 	@Test
@@ -709,9 +712,9 @@ public abstract class BasePriceEntryResourceTestCase {
 			(List<PriceEntry>)page.getItems());
 		assertValid(page);
 
-		priceEntryResource.deletePriceEntry(null);
+		priceEntryResource.deletePriceEntry(priceEntry1.getId());
 
-		priceEntryResource.deletePriceEntry(null);
+		priceEntryResource.deletePriceEntry(priceEntry2.getId());
 	}
 
 	@Test
@@ -1062,7 +1065,7 @@ public abstract class BasePriceEntryResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceEntry priceEntry) {
+	protected void assertValid(PriceEntry priceEntry) throws Exception {
 		boolean valid = true;
 
 		if (priceEntry.getId() == null) {

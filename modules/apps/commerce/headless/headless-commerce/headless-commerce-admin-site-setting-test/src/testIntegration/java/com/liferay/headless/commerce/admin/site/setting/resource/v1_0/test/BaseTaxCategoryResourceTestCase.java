@@ -111,7 +111,9 @@ public abstract class BaseTaxCategoryResourceTestCase {
 
 		TaxCategoryResource.Builder builder = TaxCategoryResource.builder();
 
-		taxCategoryResource = builder.locale(
+		taxCategoryResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -241,9 +243,9 @@ public abstract class BaseTaxCategoryResourceTestCase {
 			(List<TaxCategory>)page.getItems());
 		assertValid(page);
 
-		taxCategoryResource.deleteTaxCategory(null);
+		taxCategoryResource.deleteTaxCategory(taxCategory1.getId());
 
-		taxCategoryResource.deleteTaxCategory(null);
+		taxCategoryResource.deleteTaxCategory(taxCategory2.getId());
 	}
 
 	@Test
@@ -380,7 +382,7 @@ public abstract class BaseTaxCategoryResourceTestCase {
 						"deleteTaxCategory",
 						new HashMap<String, Object>() {
 							{
-								put("taxCategoryId", taxCategory.getId());
+								put("id", taxCategory.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteTaxCategory"));
@@ -396,7 +398,7 @@ public abstract class BaseTaxCategoryResourceTestCase {
 						"taxCategory",
 						new HashMap<String, Object>() {
 							{
-								put("taxCategoryId", taxCategory.getId());
+								put("id", taxCategory.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -525,7 +527,7 @@ public abstract class BaseTaxCategoryResourceTestCase {
 		}
 	}
 
-	protected void assertValid(TaxCategory taxCategory) {
+	protected void assertValid(TaxCategory taxCategory) throws Exception {
 		boolean valid = true;
 
 		if (taxCategory.getId() == null) {

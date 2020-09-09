@@ -119,7 +119,9 @@ public abstract class BaseAccountResourceTestCase {
 
 		AccountResource.Builder builder = AccountResource.builder();
 
-		accountResource = builder.locale(
+		accountResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -254,9 +256,9 @@ public abstract class BaseAccountResourceTestCase {
 			Arrays.asList(account1, account2), (List<Account>)page.getItems());
 		assertValid(page);
 
-		accountResource.deleteAccount(null);
+		accountResource.deleteAccount(account1.getId());
 
-		accountResource.deleteAccount(null);
+		accountResource.deleteAccount(account2.getId());
 	}
 
 	@Test
@@ -668,7 +670,7 @@ public abstract class BaseAccountResourceTestCase {
 						"deleteAccount",
 						new HashMap<String, Object>() {
 							{
-								put("accountId", account.getId());
+								put("id", account.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteAccount"));
@@ -684,7 +686,7 @@ public abstract class BaseAccountResourceTestCase {
 						"account",
 						new HashMap<String, Object>() {
 							{
-								put("accountId", account.getId());
+								put("id", account.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -816,7 +818,7 @@ public abstract class BaseAccountResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Account account) {
+	protected void assertValid(Account account) throws Exception {
 		boolean valid = true;
 
 		if (account.getId() == null) {

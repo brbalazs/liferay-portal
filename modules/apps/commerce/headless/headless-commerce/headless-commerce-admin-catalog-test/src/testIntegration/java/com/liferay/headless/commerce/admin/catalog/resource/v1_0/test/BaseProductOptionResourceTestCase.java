@@ -112,7 +112,9 @@ public abstract class BaseProductOptionResourceTestCase {
 
 		ProductOptionResource.Builder builder = ProductOptionResource.builder();
 
-		productOptionResource = builder.locale(
+		productOptionResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -236,7 +238,7 @@ public abstract class BaseProductOptionResourceTestCase {
 						"deleteProductOption",
 						new HashMap<String, Object>() {
 							{
-								put("productOptionId", productOption.getId());
+								put("id", productOption.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteProductOption"));
@@ -252,7 +254,7 @@ public abstract class BaseProductOptionResourceTestCase {
 						"productOption",
 						new HashMap<String, Object>() {
 							{
-								put("productOptionId", productOption.getId());
+								put("id", productOption.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -384,9 +386,9 @@ public abstract class BaseProductOptionResourceTestCase {
 			(List<ProductOption>)page.getItems());
 		assertValid(page);
 
-		productOptionResource.deleteProductOption(null);
+		productOptionResource.deleteProductOption(productOption1.getId());
 
-		productOptionResource.deleteProductOption(null);
+		productOptionResource.deleteProductOption(productOption2.getId());
 	}
 
 	@Test
@@ -520,9 +522,9 @@ public abstract class BaseProductOptionResourceTestCase {
 			(List<ProductOption>)page.getItems());
 		assertValid(page);
 
-		productOptionResource.deleteProductOption(null);
+		productOptionResource.deleteProductOption(productOption1.getId());
 
-		productOptionResource.deleteProductOption(null);
+		productOptionResource.deleteProductOption(productOption2.getId());
 	}
 
 	@Test
@@ -658,7 +660,7 @@ public abstract class BaseProductOptionResourceTestCase {
 		}
 	}
 
-	protected void assertValid(ProductOption productOption) {
+	protected void assertValid(ProductOption productOption) throws Exception {
 		boolean valid = true;
 
 		if (productOption.getId() == null) {

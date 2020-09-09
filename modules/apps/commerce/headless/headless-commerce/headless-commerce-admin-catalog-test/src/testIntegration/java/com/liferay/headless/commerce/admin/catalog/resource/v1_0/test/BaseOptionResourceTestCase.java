@@ -119,7 +119,9 @@ public abstract class BaseOptionResourceTestCase {
 
 		OptionResource.Builder builder = OptionResource.builder();
 
-		optionResource = builder.locale(
+		optionResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -222,9 +224,9 @@ public abstract class BaseOptionResourceTestCase {
 			Arrays.asList(option1, option2), (List<Option>)page.getItems());
 		assertValid(page);
 
-		optionResource.deleteOption(null);
+		optionResource.deleteOption(option1.getId());
 
-		optionResource.deleteOption(null);
+		optionResource.deleteOption(option2.getId());
 	}
 
 	@Test
@@ -626,7 +628,7 @@ public abstract class BaseOptionResourceTestCase {
 						"deleteOption",
 						new HashMap<String, Object>() {
 							{
-								put("optionId", option.getId());
+								put("id", option.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteOption"));
@@ -642,7 +644,7 @@ public abstract class BaseOptionResourceTestCase {
 						"option",
 						new HashMap<String, Object>() {
 							{
-								put("optionId", option.getId());
+								put("id", option.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -766,7 +768,7 @@ public abstract class BaseOptionResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Option option) {
+	protected void assertValid(Option option) throws Exception {
 		boolean valid = true;
 
 		if (option.getId() == null) {

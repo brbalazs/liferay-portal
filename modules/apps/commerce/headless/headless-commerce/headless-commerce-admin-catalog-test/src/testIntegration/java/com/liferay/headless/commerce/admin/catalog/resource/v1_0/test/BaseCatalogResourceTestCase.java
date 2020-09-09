@@ -119,7 +119,9 @@ public abstract class BaseCatalogResourceTestCase {
 
 		CatalogResource.Builder builder = CatalogResource.builder();
 
-		catalogResource = builder.locale(
+		catalogResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -343,7 +345,7 @@ public abstract class BaseCatalogResourceTestCase {
 						"deleteCatalog",
 						new HashMap<String, Object>() {
 							{
-								put("catalogId", catalog.getId());
+								put("id", catalog.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteCatalog"));
@@ -359,7 +361,7 @@ public abstract class BaseCatalogResourceTestCase {
 						"catalog",
 						new HashMap<String, Object>() {
 							{
-								put("catalogId", catalog.getId());
+								put("id", catalog.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -450,9 +452,9 @@ public abstract class BaseCatalogResourceTestCase {
 			Arrays.asList(catalog1, catalog2), (List<Catalog>)page.getItems());
 		assertValid(page);
 
-		catalogResource.deleteCatalog(null);
+		catalogResource.deleteCatalog(catalog1.getId());
 
-		catalogResource.deleteCatalog(null);
+		catalogResource.deleteCatalog(catalog2.getId());
 	}
 
 	@Test
@@ -911,7 +913,7 @@ public abstract class BaseCatalogResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Catalog catalog) {
+	protected void assertValid(Catalog catalog) throws Exception {
 		boolean valid = true;
 
 		if (catalog.getId() == null) {

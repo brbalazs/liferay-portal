@@ -119,7 +119,9 @@ public abstract class BaseOrderResourceTestCase {
 
 		OrderResource.Builder builder = OrderResource.builder();
 
-		orderResource = builder.locale(
+		orderResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -271,9 +273,9 @@ public abstract class BaseOrderResourceTestCase {
 			Arrays.asList(order1, order2), (List<Order>)page.getItems());
 		assertValid(page);
 
-		orderResource.deleteOrder(null);
+		orderResource.deleteOrder(order1.getId());
 
-		orderResource.deleteOrder(null);
+		orderResource.deleteOrder(order2.getId());
 	}
 
 	@Test
@@ -672,7 +674,7 @@ public abstract class BaseOrderResourceTestCase {
 						"deleteOrder",
 						new HashMap<String, Object>() {
 							{
-								put("orderId", order.getId());
+								put("id", order.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteOrder"));
@@ -688,7 +690,7 @@ public abstract class BaseOrderResourceTestCase {
 						"order",
 						new HashMap<String, Object>() {
 							{
-								put("orderId", order.getId());
+								put("id", order.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -812,7 +814,7 @@ public abstract class BaseOrderResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Order order) {
+	protected void assertValid(Order order) throws Exception {
 		boolean valid = true;
 
 		if (order.getId() == null) {

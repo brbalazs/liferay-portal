@@ -30,7 +30,6 @@ import com.liferay.headless.commerce.admin.pricing.client.resource.v1_0.Discount
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v1_0.DiscountProductSerDes;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -47,8 +46,6 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
-import com.liferay.portal.test.log.CaptureAppender;
-import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -72,7 +69,6 @@ import javax.annotation.Generated;
 import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.log4j.Level;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -113,7 +109,9 @@ public abstract class BaseDiscountProductResourceTestCase {
 		DiscountProductResource.Builder builder =
 			DiscountProductResource.builder();
 
-		discountProductResource = builder.locale(
+		discountProductResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -229,34 +227,10 @@ public abstract class BaseDiscountProductResourceTestCase {
 						"deleteDiscountProduct",
 						new HashMap<String, Object>() {
 							{
-								put(
-									"discountProductId",
-									discountProduct.getId());
+								put("id", discountProduct.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteDiscountProduct"));
-
-		try (CaptureAppender captureAppender =
-				Log4JLoggerTestUtil.configureLog4JLogger(
-					"graphql.execution.SimpleDataFetcherExceptionHandler",
-					Level.WARN)) {
-
-			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"discountProduct",
-						new HashMap<String, Object>() {
-							{
-								put(
-									"discountProductId",
-									discountProduct.getId());
-							}
-						},
-						new GraphQLField("id"))),
-				"JSONArray/errors");
-
-			Assert.assertTrue(errorsJSONArray.length() > 0);
-		}
 	}
 
 	@Test
@@ -315,9 +289,9 @@ public abstract class BaseDiscountProductResourceTestCase {
 			(List<DiscountProduct>)page.getItems());
 		assertValid(page);
 
-		discountProductResource.deleteDiscountProduct(null);
+		discountProductResource.deleteDiscountProduct(discountProduct1.getId());
 
-		discountProductResource.deleteDiscountProduct(null);
+		discountProductResource.deleteDiscountProduct(discountProduct2.getId());
 	}
 
 	@Test
@@ -467,9 +441,9 @@ public abstract class BaseDiscountProductResourceTestCase {
 			(List<DiscountProduct>)page.getItems());
 		assertValid(page);
 
-		discountProductResource.deleteDiscountProduct(null);
+		discountProductResource.deleteDiscountProduct(discountProduct1.getId());
 
-		discountProductResource.deleteDiscountProduct(null);
+		discountProductResource.deleteDiscountProduct(discountProduct2.getId());
 	}
 
 	@Test
@@ -624,7 +598,9 @@ public abstract class BaseDiscountProductResourceTestCase {
 		}
 	}
 
-	protected void assertValid(DiscountProduct discountProduct) {
+	protected void assertValid(DiscountProduct discountProduct)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (discountProduct.getId() == null) {

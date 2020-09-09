@@ -119,7 +119,9 @@ public abstract class BasePriceModifierResourceTestCase {
 
 		PriceModifierResource.Builder builder = PriceModifierResource.builder();
 
-		priceModifierResource = builder.locale(
+		priceModifierResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -265,9 +267,9 @@ public abstract class BasePriceModifierResourceTestCase {
 			(List<PriceModifier>)page.getItems());
 		assertValid(page);
 
-		priceModifierResource.deletePriceModifier(null);
+		priceModifierResource.deletePriceModifier(priceModifier1.getId());
 
-		priceModifierResource.deletePriceModifier(null);
+		priceModifierResource.deletePriceModifier(priceModifier2.getId());
 	}
 
 	@Test
@@ -434,9 +436,9 @@ public abstract class BasePriceModifierResourceTestCase {
 			(List<PriceModifier>)page.getItems());
 		assertValid(page);
 
-		priceModifierResource.deletePriceModifier(null);
+		priceModifierResource.deletePriceModifier(priceModifier1.getId());
 
-		priceModifierResource.deletePriceModifier(null);
+		priceModifierResource.deletePriceModifier(priceModifier2.getId());
 	}
 
 	@Test
@@ -899,7 +901,7 @@ public abstract class BasePriceModifierResourceTestCase {
 						"deletePriceModifier",
 						new HashMap<String, Object>() {
 							{
-								put("priceModifierId", priceModifier.getId());
+								put("id", priceModifier.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deletePriceModifier"));
@@ -915,7 +917,7 @@ public abstract class BasePriceModifierResourceTestCase {
 						"priceModifier",
 						new HashMap<String, Object>() {
 							{
-								put("priceModifierId", priceModifier.getId());
+								put("id", priceModifier.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -1054,7 +1056,7 @@ public abstract class BasePriceModifierResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceModifier priceModifier) {
+	protected void assertValid(PriceModifier priceModifier) throws Exception {
 		boolean valid = true;
 
 		if (priceModifier.getId() == null) {

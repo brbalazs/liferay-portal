@@ -119,7 +119,9 @@ public abstract class BasePriceListResourceTestCase {
 
 		PriceListResource.Builder builder = PriceListResource.builder();
 
-		priceListResource = builder.locale(
+		priceListResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -231,9 +233,9 @@ public abstract class BasePriceListResourceTestCase {
 			(List<PriceList>)page.getItems());
 		assertValid(page);
 
-		priceListResource.deletePriceList(null);
+		priceListResource.deletePriceList(priceList1.getId());
 
-		priceListResource.deletePriceList(null);
+		priceListResource.deletePriceList(priceList2.getId());
 	}
 
 	@Test
@@ -626,7 +628,7 @@ public abstract class BasePriceListResourceTestCase {
 
 		PriceList patchPriceList =
 			priceListResource.patchPriceListByExternalReferenceCode(
-				postPriceList.getId(), randomPatchPriceList);
+				postPriceList.getExternalReferenceCode(), randomPatchPriceList);
 
 		PriceList expectedPatchPriceList = postPriceList.clone();
 
@@ -679,7 +681,7 @@ public abstract class BasePriceListResourceTestCase {
 						"deletePriceList",
 						new HashMap<String, Object>() {
 							{
-								put("priceListId", priceList.getId());
+								put("id", priceList.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deletePriceList"));
@@ -695,7 +697,7 @@ public abstract class BasePriceListResourceTestCase {
 						"priceList",
 						new HashMap<String, Object>() {
 							{
-								put("priceListId", priceList.getId());
+								put("id", priceList.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -844,7 +846,7 @@ public abstract class BasePriceListResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceList priceList) {
+	protected void assertValid(PriceList priceList) throws Exception {
 		boolean valid = true;
 
 		if (priceList.getId() == null) {

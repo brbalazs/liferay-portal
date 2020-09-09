@@ -119,7 +119,9 @@ public abstract class BaseDiscountRuleResourceTestCase {
 
 		DiscountRuleResource.Builder builder = DiscountRuleResource.builder();
 
-		discountRuleResource = builder.locale(
+		discountRuleResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -243,7 +245,7 @@ public abstract class BaseDiscountRuleResourceTestCase {
 						"deleteDiscountRule",
 						new HashMap<String, Object>() {
 							{
-								put("discountRuleId", discountRule.getId());
+								put("id", discountRule.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteDiscountRule"));
@@ -259,7 +261,7 @@ public abstract class BaseDiscountRuleResourceTestCase {
 						"discountRule",
 						new HashMap<String, Object>() {
 							{
-								put("discountRuleId", discountRule.getId());
+								put("id", discountRule.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -412,9 +414,9 @@ public abstract class BaseDiscountRuleResourceTestCase {
 			(List<DiscountRule>)page.getItems());
 		assertValid(page);
 
-		discountRuleResource.deleteDiscountRule(null);
+		discountRuleResource.deleteDiscountRule(discountRule1.getId());
 
-		discountRuleResource.deleteDiscountRule(null);
+		discountRuleResource.deleteDiscountRule(discountRule2.getId());
 	}
 
 	@Test
@@ -564,9 +566,9 @@ public abstract class BaseDiscountRuleResourceTestCase {
 			(List<DiscountRule>)page.getItems());
 		assertValid(page);
 
-		discountRuleResource.deleteDiscountRule(null);
+		discountRuleResource.deleteDiscountRule(discountRule1.getId());
 
-		discountRuleResource.deleteDiscountRule(null);
+		discountRuleResource.deleteDiscountRule(discountRule2.getId());
 	}
 
 	@Test
@@ -909,7 +911,7 @@ public abstract class BaseDiscountRuleResourceTestCase {
 		}
 	}
 
-	protected void assertValid(DiscountRule discountRule) {
+	protected void assertValid(DiscountRule discountRule) throws Exception {
 		boolean valid = true;
 
 		if (discountRule.getId() == null) {

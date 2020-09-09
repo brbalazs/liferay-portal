@@ -31,7 +31,6 @@ import com.liferay.headless.commerce.admin.pricing.client.serdes.v2_0.PriceListC
 import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -49,8 +48,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.search.test.util.SearchTestRule;
-import com.liferay.portal.test.log.CaptureAppender;
-import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -79,7 +76,6 @@ import javax.ws.rs.core.MultivaluedHashMap;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang.time.DateUtils;
-import org.apache.log4j.Level;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -120,7 +116,9 @@ public abstract class BasePriceListChannelResourceTestCase {
 		PriceListChannelResource.Builder builder =
 			PriceListChannelResource.builder();
 
-		priceListChannelResource = builder.locale(
+		priceListChannelResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -236,34 +234,10 @@ public abstract class BasePriceListChannelResourceTestCase {
 						"deletePriceListChannel",
 						new HashMap<String, Object>() {
 							{
-								put(
-									"priceListChannelId",
-									priceListChannel.getId());
+								put("id", priceListChannel.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deletePriceListChannel"));
-
-		try (CaptureAppender captureAppender =
-				Log4JLoggerTestUtil.configureLog4JLogger(
-					"graphql.execution.SimpleDataFetcherExceptionHandler",
-					Level.WARN)) {
-
-			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"priceListChannel",
-						new HashMap<String, Object>() {
-							{
-								put(
-									"priceListChannelId",
-									priceListChannel.getId());
-							}
-						},
-						new GraphQLField("id"))),
-				"JSONArray/errors");
-
-			Assert.assertTrue(errorsJSONArray.length() > 0);
-		}
 	}
 
 	@Test
@@ -322,9 +296,11 @@ public abstract class BasePriceListChannelResourceTestCase {
 			(List<PriceListChannel>)page.getItems());
 		assertValid(page);
 
-		priceListChannelResource.deletePriceListChannel(null);
+		priceListChannelResource.deletePriceListChannel(
+			priceListChannel1.getId());
 
-		priceListChannelResource.deletePriceListChannel(null);
+		priceListChannelResource.deletePriceListChannel(
+			priceListChannel2.getId());
 	}
 
 	@Test
@@ -475,9 +451,11 @@ public abstract class BasePriceListChannelResourceTestCase {
 			(List<PriceListChannel>)page.getItems());
 		assertValid(page);
 
-		priceListChannelResource.deletePriceListChannel(null);
+		priceListChannelResource.deletePriceListChannel(
+			priceListChannel1.getId());
 
-		priceListChannelResource.deletePriceListChannel(null);
+		priceListChannelResource.deletePriceListChannel(
+			priceListChannel2.getId());
 	}
 
 	@Test
@@ -838,7 +816,9 @@ public abstract class BasePriceListChannelResourceTestCase {
 		}
 	}
 
-	protected void assertValid(PriceListChannel priceListChannel) {
+	protected void assertValid(PriceListChannel priceListChannel)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (priceListChannel.getId() == null) {

@@ -112,7 +112,9 @@ public abstract class BaseTierPriceResourceTestCase {
 
 		TierPriceResource.Builder builder = TierPriceResource.builder();
 
-		tierPriceResource = builder.locale(
+		tierPriceResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -252,9 +254,9 @@ public abstract class BaseTierPriceResourceTestCase {
 			(List<TierPrice>)page.getItems());
 		assertValid(page);
 
-		tierPriceResource.deleteTierPrice(null);
+		tierPriceResource.deleteTierPrice(tierPrice1.getId());
 
-		tierPriceResource.deleteTierPrice(null);
+		tierPriceResource.deleteTierPrice(tierPrice2.getId());
 	}
 
 	@Test
@@ -410,9 +412,9 @@ public abstract class BaseTierPriceResourceTestCase {
 			(List<TierPrice>)page.getItems());
 		assertValid(page);
 
-		tierPriceResource.deleteTierPrice(null);
+		tierPriceResource.deleteTierPrice(tierPrice1.getId());
 
-		tierPriceResource.deleteTierPrice(null);
+		tierPriceResource.deleteTierPrice(tierPrice2.getId());
 	}
 
 	@Test
@@ -648,7 +650,7 @@ public abstract class BaseTierPriceResourceTestCase {
 						"deleteTierPrice",
 						new HashMap<String, Object>() {
 							{
-								put("tierPriceId", tierPrice.getId());
+								put("id", tierPrice.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteTierPrice"));
@@ -664,7 +666,7 @@ public abstract class BaseTierPriceResourceTestCase {
 						"tierPrice",
 						new HashMap<String, Object>() {
 							{
-								put("tierPriceId", tierPrice.getId());
+								put("id", tierPrice.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -789,7 +791,7 @@ public abstract class BaseTierPriceResourceTestCase {
 		}
 	}
 
-	protected void assertValid(TierPrice tierPrice) {
+	protected void assertValid(TierPrice tierPrice) throws Exception {
 		boolean valid = true;
 
 		if (tierPrice.getId() == null) {

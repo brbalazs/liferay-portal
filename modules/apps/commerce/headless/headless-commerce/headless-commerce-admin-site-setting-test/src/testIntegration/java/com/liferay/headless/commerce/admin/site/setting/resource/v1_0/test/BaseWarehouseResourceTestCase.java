@@ -112,7 +112,9 @@ public abstract class BaseWarehouseResourceTestCase {
 
 		WarehouseResource.Builder builder = WarehouseResource.builder();
 
-		warehouseResource = builder.locale(
+		warehouseResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -256,9 +258,9 @@ public abstract class BaseWarehouseResourceTestCase {
 			(List<Warehouse>)page.getItems());
 		assertValid(page);
 
-		warehouseResource.deleteWarehouse(null);
+		warehouseResource.deleteWarehouse(warehouse1.getId());
 
-		warehouseResource.deleteWarehouse(null);
+		warehouseResource.deleteWarehouse(warehouse2.getId());
 	}
 
 	@Test
@@ -386,7 +388,7 @@ public abstract class BaseWarehouseResourceTestCase {
 						"deleteWarehouse",
 						new HashMap<String, Object>() {
 							{
-								put("warehouseId", warehouse.getId());
+								put("id", warehouse.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteWarehouse"));
@@ -402,7 +404,7 @@ public abstract class BaseWarehouseResourceTestCase {
 						"warehouse",
 						new HashMap<String, Object>() {
 							{
-								put("warehouseId", warehouse.getId());
+								put("id", warehouse.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -527,7 +529,7 @@ public abstract class BaseWarehouseResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Warehouse warehouse) {
+	protected void assertValid(Warehouse warehouse) throws Exception {
 		boolean valid = true;
 
 		if (warehouse.getId() == null) {

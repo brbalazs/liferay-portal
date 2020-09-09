@@ -113,7 +113,9 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 		MeasurementUnitResource.Builder builder =
 			MeasurementUnitResource.builder();
 
-		measurementUnitResource = builder.locale(
+		measurementUnitResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -249,9 +251,9 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 			(List<MeasurementUnit>)page.getItems());
 		assertValid(page);
 
-		measurementUnitResource.deleteMeasurementUnit(null);
+		measurementUnitResource.deleteMeasurementUnit(measurementUnit1.getId());
 
-		measurementUnitResource.deleteMeasurementUnit(null);
+		measurementUnitResource.deleteMeasurementUnit(measurementUnit2.getId());
 	}
 
 	@Test
@@ -395,9 +397,7 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 						"deleteMeasurementUnit",
 						new HashMap<String, Object>() {
 							{
-								put(
-									"measurementUnitId",
-									measurementUnit.getId());
+								put("id", measurementUnit.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteMeasurementUnit"));
@@ -413,9 +413,7 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 						"measurementUnit",
 						new HashMap<String, Object>() {
 							{
-								put(
-									"measurementUnitId",
-									measurementUnit.getId());
+								put("id", measurementUnit.getId());
 							}
 						},
 						new GraphQLField("id"))),
@@ -552,7 +550,9 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 		}
 	}
 
-	protected void assertValid(MeasurementUnit measurementUnit) {
+	protected void assertValid(MeasurementUnit measurementUnit)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (measurementUnit.getId() == null) {

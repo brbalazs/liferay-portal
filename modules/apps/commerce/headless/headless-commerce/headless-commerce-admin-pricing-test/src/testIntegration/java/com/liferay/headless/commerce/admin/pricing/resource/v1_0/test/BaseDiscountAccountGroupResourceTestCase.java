@@ -30,7 +30,6 @@ import com.liferay.headless.commerce.admin.pricing.client.resource.v1_0.Discount
 import com.liferay.headless.commerce.admin.pricing.client.serdes.v1_0.DiscountAccountGroupSerDes;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -47,8 +46,6 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
-import com.liferay.portal.test.log.CaptureAppender;
-import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
@@ -72,7 +69,6 @@ import javax.annotation.Generated;
 import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.log4j.Level;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -113,7 +109,9 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 		DiscountAccountGroupResource.Builder builder =
 			DiscountAccountGroupResource.builder();
 
-		discountAccountGroupResource = builder.locale(
+		discountAccountGroupResource = builder.authentication(
+			"test@liferay.com", "test"
+		).locale(
 			LocaleUtil.getDefault()
 		).build();
 	}
@@ -234,34 +232,10 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 						"deleteDiscountAccountGroup",
 						new HashMap<String, Object>() {
 							{
-								put(
-									"discountAccountGroupId",
-									discountAccountGroup.getId());
+								put("id", discountAccountGroup.getId());
 							}
 						})),
 				"JSONObject/data", "Object/deleteDiscountAccountGroup"));
-
-		try (CaptureAppender captureAppender =
-				Log4JLoggerTestUtil.configureLog4JLogger(
-					"graphql.execution.SimpleDataFetcherExceptionHandler",
-					Level.WARN)) {
-
-			JSONArray errorsJSONArray = JSONUtil.getValueAsJSONArray(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"discountAccountGroup",
-						new HashMap<String, Object>() {
-							{
-								put(
-									"discountAccountGroupId",
-									discountAccountGroup.getId());
-							}
-						},
-						new GraphQLField("id"))),
-				"JSONArray/errors");
-
-			Assert.assertTrue(errorsJSONArray.length() > 0);
-		}
 	}
 
 	@Test
@@ -320,9 +294,11 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 			(List<DiscountAccountGroup>)page.getItems());
 		assertValid(page);
 
-		discountAccountGroupResource.deleteDiscountAccountGroup(null);
+		discountAccountGroupResource.deleteDiscountAccountGroup(
+			discountAccountGroup1.getId());
 
-		discountAccountGroupResource.deleteDiscountAccountGroup(null);
+		discountAccountGroupResource.deleteDiscountAccountGroup(
+			discountAccountGroup2.getId());
 	}
 
 	@Test
@@ -481,9 +457,11 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 			(List<DiscountAccountGroup>)page.getItems());
 		assertValid(page);
 
-		discountAccountGroupResource.deleteDiscountAccountGroup(null);
+		discountAccountGroupResource.deleteDiscountAccountGroup(
+			discountAccountGroup1.getId());
 
-		discountAccountGroupResource.deleteDiscountAccountGroup(null);
+		discountAccountGroupResource.deleteDiscountAccountGroup(
+			discountAccountGroup2.getId());
 	}
 
 	@Test
@@ -654,7 +632,9 @@ public abstract class BaseDiscountAccountGroupResourceTestCase {
 		}
 	}
 
-	protected void assertValid(DiscountAccountGroup discountAccountGroup) {
+	protected void assertValid(DiscountAccountGroup discountAccountGroup)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (discountAccountGroup.getId() == null) {
