@@ -82,8 +82,7 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 			if (permissionChecker.isOmniadmin()) {
 				writer.write(
 					_getExpirationMessage(
-						licenseProperties.get("productEntryName"),
-						expirationDays, servletRequest));
+						licenseProperties, expirationDays, servletRequest));
 			}
 			else {
 				StringBundler sb = new StringBundler(5);
@@ -117,8 +116,7 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 
 			writer.write(
 				_getExpirationMessage(
-					licenseProperties.get("productEntryName"), expirationDays,
-					servletRequest));
+					licenseProperties, expirationDays, servletRequest));
 		}
 	}
 
@@ -127,7 +125,7 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 	}
 
 	private String _getExpirationMessage(
-		String productName, long expirationDays,
+		Map<String, String> licenseProperties, long expirationDays,
 		ServletRequest servletRequest) {
 
 		PortletURL portletURL = PortalUtil.getControlPanelPortletURL(
@@ -141,7 +139,7 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 		sb.append("<a class=\"alert-link\" href=\"");
 		sb.append(portletURL.toString());
 		sb.append("\">activation key for ");
-		sb.append(productName);
+		sb.append(licenseProperties.get("productEntryName"));
 		sb.append("</a>, it ");
 
 		if (expirationDays <= 0) {
