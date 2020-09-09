@@ -2,6 +2,7 @@ import React from 'react';
 import ReadyToGo from '../ReadyToGo';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 import {noop} from 'lodash';
+import {StaticRouter} from 'react-router-dom';
 
 jest.unmock('react-dom');
 
@@ -9,7 +10,11 @@ describe('ReadyToGo', () => {
 	afterEach(cleanup);
 
 	it('renders', () => {
-		const {container} = render(<ReadyToGo onClose={noop} />);
+		const {container} = render(
+			<StaticRouter>
+				<ReadyToGo groupId='123' onClose={noop} />
+			</StaticRouter>
+		);
 
 		expect(container).toMatchSnapshot();
 	});
@@ -17,7 +22,11 @@ describe('ReadyToGo', () => {
 	it('calls onClose when "Get Started" is clicked', () => {
 		const spy = jest.fn();
 
-		const {queryByText} = render(<ReadyToGo onClose={spy} />);
+		const {queryByText} = render(
+			<StaticRouter>
+				<ReadyToGo groupId='123' onClose={spy} />
+			</StaticRouter>
+		);
 
 		expect(spy).not.toBeCalled();
 
