@@ -76,7 +76,7 @@ PluginPackage selPluginPackage = selTheme.getPluginPackage();
 		List<ColorScheme> colorSchemes = selTheme.getColorSchemes();
 		%>
 
-		<c:if test="<%= !colorSchemes.isEmpty() && Validator.isNotNull(selColorScheme) %>">
+		<c:if test="<%= !colorSchemes.isEmpty() && (selColorScheme != null) %>">
 			<h4><liferay-ui:message key="color-scheme" /></h4>
 
 			<img alt="" class="img-thumbnail theme-screenshot" src="<%= themeDisplay.getCDNBaseURL() %><%= HtmlUtil.escapeAttribute(selTheme.getStaticResourcePath()) %><%= HtmlUtil.escapeAttribute(selColorScheme.getColorSchemeThumbnailPath()) %>/thumbnail.png" title="<%= HtmlUtil.escapeAttribute(selColorScheme.getName()) %>" />
