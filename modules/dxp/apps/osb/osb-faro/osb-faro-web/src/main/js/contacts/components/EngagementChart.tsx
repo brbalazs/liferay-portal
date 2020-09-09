@@ -16,6 +16,7 @@ import {
 import {CHART_COLOR_NAMES} from 'shared/components/Chart';
 import {formatUTCDateFromUnix} from 'shared/util/date';
 import {IChartProps, IEngagementHistory} from 'shared/util/engagement-activity';
+import {isObject} from 'lodash';
 
 const {stark: CHART_BLUE} = CHART_COLOR_NAMES;
 
@@ -29,8 +30,13 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 }) => {
 	const [mouseOutside, setMouseOutside] = useState(false);
 
+	const hasSelectedPoint = isObject(selectedPoint);
+
 	const renderTooltip = ({active, payload}) => {
-		if (active || (selectedPoint && !!selectedPoint.activePayload.length)) {
+		if (
+			active ||
+			(hasSelectedPoint && !!selectedPoint.activePayload.length)
+		) {
 			const {
 				payload: {contributors, intervalInitDate, scoreAvg}
 			} = payload[0] || selectedPoint.activePayload[0];
@@ -181,7 +187,7 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 					content={renderTooltip}
 					cursor={{stroke: CHART_BLUE}}
 					position={
-						selectedPoint && mouseOutside
+						hasSelectedPoint && mouseOutside
 							? {
 									x: selectedPoint.chartX,
 									y: selectedPoint.chartY
@@ -199,7 +205,7 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 
 				<ReferenceLine
 					strokeWidth={1}
-					x={selectedPoint && selectedPoint.activeLabel}
+					x={hasSelectedPoint ? selectedPoint.activeLabel : null}
 				/>
 
 				<ReferenceDot
@@ -207,10 +213,11 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 					isFront
 					r={4}
 					stroke='none'
-					x={selectedPoint && selectedPoint.activeLabel}
+					x={hasSelectedPoint ? selectedPoint.activeLabel : null}
 					y={
-						selectedPoint &&
-						selectedPoint.activePayload[0].payload.scoreAvg
+						hasSelectedPoint
+							? selectedPoint.activePayload[0].payload.scoreAvg
+							: null
 					}
 				/>
 

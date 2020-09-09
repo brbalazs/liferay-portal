@@ -28,7 +28,7 @@ import {
 import {getSafeChange} from 'shared/util/change';
 import {hasChanges} from 'shared/util/react';
 import {Individual} from 'shared/util/records';
-import {omit} from 'lodash';
+import {isObject, omit} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {START_TIME} from 'shared/util/pagination';
 import {sub} from 'shared/util/lang';
@@ -88,7 +88,10 @@ export class IndividualProfileCard extends React.Component {
 		groupId: PropTypes.string.isRequired,
 		hasSelectedPoint: PropTypes.bool,
 		onPointSelect: PropTypes.func.isRequired,
-		selectedPoint: PropTypes.number,
+		selectedPoint: PropTypes.oneOfType([
+			PropTypes.number,
+			PropTypes.object
+		]),
 		tabId: PropTypes.string
 	};
 
@@ -106,7 +109,6 @@ export class IndividualProfileCard extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this._chartRef = React.createRef();
 		this._searchableVerticalTimelineRef = React.createRef();
 	}
 
@@ -115,7 +117,7 @@ export class IndividualProfileCard extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		const {hasSelectedPoint} = this.props;
+		const {hasSelectedPoint, selectedPoint} = this.props;
 
 		if (
 			hasChanges(
@@ -126,7 +128,7 @@ export class IndividualProfileCard extends React.Component {
 				'tabId'
 			)
 		) {
-			if (hasSelectedPoint) {
+			if (hasSelectedPoint || selectedPoint) {
 				this.handleClearSelection();
 			}
 
@@ -204,9 +206,7 @@ export class IndividualProfileCard extends React.Component {
 
 	@autobind
 	handleClearSelection() {
-		const {_chartRef, _searchableVerticalTimelineRef} = this;
-
-		_chartRef.current.unselect();
+		const {_searchableVerticalTimelineRef} = this;
 
 		_searchableVerticalTimelineRef.current.resetPage();
 
@@ -258,7 +258,6 @@ export class IndividualProfileCard extends React.Component {
 
 	renderChart() {
 		const {
-			_chartRef,
 			props: {
 				hasSelectedPoint,
 				interval,
@@ -273,21 +272,26 @@ export class IndividualProfileCard extends React.Component {
 			tabId === ACTIVITIES ? activityHistory : engagementHistory;
 		const SelectedChart =
 			tabId === ACTIVITIES ? ActivitiesChart : EngagementChart;
-		const {intervalInitDate, totalElements} = history[selectedPoint] || {};
+		const {intervalInitDate, totalElements} =
+			history[
+				isObject(selectedPoint)
+					? selectedPoint.activeTooltipIndex
+					: selectedPoint
+			] || {};
 
 		return (
 			<div className='individuals-activities-chart'>
 				<SelectedChart
 					alwaysShowSelectedTooltip
-					forwardedRef={_chartRef}
 					history={history}
 					interval={interval}
 					onPointSelect={this.handleChartSelect}
 					rangeSelectors={rangeSelectors}
+					selectedPoint={selectedPoint}
 				/>
 
 				<div className='selected-info'>
-					{hasSelectedPoint ? (
+					{hasSelectedPoint || selectedPoint ? (
 						<>
 							<div className='d-flex align-items-baseline'>
 								<h4>
