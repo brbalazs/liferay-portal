@@ -51,12 +51,12 @@ exports[`ReadyToGo renders 1`] = `
     <div
       class="modal-footer d-flex justify-content-center"
     >
-      <button
-        class="wide btn btn-primary"
-        type="button"
+      <a
+        class="button-root btn btn-primary wide"
+        href="/workspace/123/settings/data-source"
       >
         Get Started
-      </button>
+      </a>
     </div>
   </div>
 </div>
