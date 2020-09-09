@@ -113,7 +113,7 @@ public class DDMFormFieldFreeMarkerRenderer implements DDMFormFieldRenderer {
 			return getFieldHTML(
 				request, response, ddmFormField,
 				(Set<String>)ddmFormFieldRenderingContext.getProperty(
-					"fieldNamespaceSet"),
+					"fieldNamespaces"),
 				fields, null, portletNamespace, namespace, mode, readOnly,
 				showEmptyFieldLabel, locale);
 		}
@@ -290,7 +290,7 @@ public class DDMFormFieldFreeMarkerRenderer implements DDMFormFieldRenderer {
 	protected String getFieldHTML(
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse, DDMFormField ddmFormField,
-			Set<String> fieldNamespaceSet, Fields fields,
+			Set<String> fieldNamespaces, Fields fields,
 			DDMFormField parentDDMFormField, String portletNamespace,
 			String namespace, String mode, boolean readOnly,
 			boolean showEmptyFieldLabel, Locale locale)
@@ -352,12 +352,12 @@ public class DDMFormFieldFreeMarkerRenderer implements DDMFormFieldRenderer {
 
 			String fieldNamespace = StringUtil.randomId(8);
 
-			if (fieldNamespaceSet != null) {
-				while (fieldNamespaceSet.contains(fieldNamespace)) {
+			if (fieldNamespaces != null) {
+				while (fieldNamespaces.contains(fieldNamespace)) {
 					fieldNamespace = StringUtil.randomId(8);
 				}
 
-				fieldNamespaceSet.add(fieldNamespace);
+				fieldNamespaces.add(fieldNamespace);
 			}
 
 			if (fieldDisplayable) {
@@ -377,7 +377,7 @@ public class DDMFormFieldFreeMarkerRenderer implements DDMFormFieldRenderer {
 			childrenHTMLSB.append(
 				getHTML(
 					httpServletRequest, httpServletResponse,
-					ddmFormField.getNestedDDMFormFields(), fieldNamespaceSet,
+					ddmFormField.getNestedDDMFormFields(), fieldNamespaces,
 					fields, ddmFormField, portletNamespace, namespace, mode,
 					readOnly, showEmptyFieldLabel, locale));
 
@@ -576,7 +576,7 @@ public class DDMFormFieldFreeMarkerRenderer implements DDMFormFieldRenderer {
 	protected String getHTML(
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse,
-			List<DDMFormField> ddmFormFields, Set<String> fieldNamespaceSet,
+			List<DDMFormField> ddmFormFields, Set<String> fieldNamespaces,
 			Fields fields, DDMFormField parentDDMFormField,
 			String portletNamespace, String namespace, String mode,
 			boolean readOnly, boolean showEmptyFieldLabel, Locale locale)
@@ -588,7 +588,7 @@ public class DDMFormFieldFreeMarkerRenderer implements DDMFormFieldRenderer {
 			sb.append(
 				getFieldHTML(
 					httpServletRequest, httpServletResponse, ddmFormField,
-					fieldNamespaceSet, fields, parentDDMFormField,
+					fieldNamespaces, fields, parentDDMFormField,
 					portletNamespace, namespace, mode, readOnly,
 					showEmptyFieldLabel, locale));
 		}
