@@ -21,8 +21,7 @@ const tooltipLabels = {
 	subtitleLabel: Liferay.Language.get('x-individuals-in-segment')
 };
 
-const tooltipRenderRows = contributors => {
-	return [
+const tooltipRenderRows = contributors => [
 		{
 			columns: [
 				{
@@ -37,7 +36,6 @@ const tooltipRenderRows = contributors => {
 			]
 		}
 	];
-};
 export class SegmentEngagementChart extends React.Component {
 	render() {
 		const {data, ...otherProps} = this.props;

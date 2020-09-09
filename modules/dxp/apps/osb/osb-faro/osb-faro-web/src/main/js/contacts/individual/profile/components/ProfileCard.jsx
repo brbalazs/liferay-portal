@@ -167,14 +167,19 @@ export class IndividualProfileCard extends React.Component {
 		const history =
 			tabId === ACTIVITIES ? activityHistory : engagementHistory;
 
-		if (!hasSelectedPoint) {
+		if (!hasSelectedPoint && !isObject(selectedPoint)) {
 			return {
 				endDate: getLastDate(history, interval, 'intervalInitDate'),
 				startDate: getFirstDate(history, 'intervalInitDate')
 			};
 		}
 
-		const {intervalInitDate} = history[selectedPoint] || {};
+		const {intervalInitDate} =
+			history[
+				isObject(selectedPoint)
+					? selectedPoint.activeTooltipIndex
+					: selectedPoint
+			] || {};
 
 		return {
 			endDate: getEndDate(intervalInitDate, interval),
