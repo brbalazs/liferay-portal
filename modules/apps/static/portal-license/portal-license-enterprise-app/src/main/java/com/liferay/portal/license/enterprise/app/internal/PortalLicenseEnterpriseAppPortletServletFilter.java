@@ -17,11 +17,9 @@ package com.liferay.portal.license.enterprise.app.internal;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.license.util.LicenseManager;
 import com.liferay.portal.kernel.license.util.LicenseManagerUtil;
-import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -31,15 +29,12 @@ import java.io.Writer;
 
 import java.util.Map;
 
-import javax.portlet.PortletRequest;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Dante Wang
@@ -69,36 +64,55 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 		long expirationDays =
 			(expirationDate - System.currentTimeMillis()) / Time.DAY;
 
-		if (LicenseManagerUtil.getLicenseState(_productId) ==
-				LicenseManager.STATE_EXPIRED) {
-
-			LiferayPortletRequest liferayPortletRequest =
-				PortalUtil.getLiferayPortletRequest(
-					(PortletRequest)servletRequest.getAttribute(
-						JavaConstants.JAVAX_PORTLET_REQUEST));
-
-			HttpServletRequest httpServletRequest =
-				liferayPortletRequest.getOriginalHttpServletRequest();
-
-			httpServletRequest.setAttribute(
-				WebKeys.PORTLET_CONTENT_JSP, "/portal/license.jsp");
-			httpServletRequest.setAttribute(
-				"ERROR_MESSAGE",
-				StringBundler.concat(
-					"Your license for product ",
-					licenseProperties.get("productEntryName"), " expired ",
-					expirationDays * -1, " day(s) ago"));
-
-			return;
-		}
-
-		filterChain.doFilter(servletRequest, servletResponse);
-
 		ThemeDisplay themeDisplay = (ThemeDisplay)servletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
 		PermissionChecker permissionChecker =
 			themeDisplay.getPermissionChecker();
+
+		if (LicenseManagerUtil.getLicenseState(_productId) ==
+				LicenseManager.STATE_EXPIRED) {
+
+			expirationDays = expirationDays * -1;
+
+			StringBundler sb = null;
+
+			if (permissionChecker.isOmniadmin()) {
+				sb = new StringBundler(10);
+
+				sb.append("<div class=\"alert alert-danger\">Update your ");
+				sb.append("<a class=\"alert-link\" href=\"");
+				sb.append(PortalUtil.getPathMain());
+				sb.append("/portal/license\">activation key for ");
+				sb.append(licenseProperties.get("productEntryName"));
+				sb.append("</a>, it has been expired for ");
+				sb.append(expirationDays);
+				sb.append(" day");
+
+				if (expirationDays > 1) {
+					sb.append("s");
+				}
+
+				sb.append("</div>");
+			}
+			else {
+				sb = new StringBundler(5);
+
+				sb.append("<div class=\"alert alert-danger\">The activation ");
+				sb.append("key for ");
+				sb.append(licenseProperties.get("productEntryName"));
+				sb.append(" has been expired. Please contact your ");
+				sb.append("administrator.");
+			}
+
+			Writer writer = servletResponse.getWriter();
+
+			writer.write(sb.toString());
+
+			return;
+		}
+
+		filterChain.doFilter(servletRequest, servletResponse);
 
 		if (!permissionChecker.isOmniadmin()) {
 			return;
