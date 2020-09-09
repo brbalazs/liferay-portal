@@ -21,7 +21,6 @@ const {stark: CHART_BLUE} = CHART_COLOR_NAMES;
 
 const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 	alwaysShowSelectedTooltip = false,
-	forwardedRef,
 	height = 340,
 	history,
 	onPointSelect,
@@ -93,7 +92,6 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 				}
 				onMouseLeave={() => setMouseOutside(true)}
 				onMouseMove={() => setMouseOutside(false)}
-				ref={forwardedRef}
 			>
 				<CartesianGrid
 					stroke={AXIS.gridStroke}

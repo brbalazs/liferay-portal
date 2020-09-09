@@ -278,6 +278,7 @@ export class IndividualProfileCard extends React.Component {
 		return (
 			<div className='individuals-activities-chart'>
 				<SelectedChart
+					alwaysShowSelectedTooltip
 					forwardedRef={_chartRef}
 					history={history}
 					interval={interval}

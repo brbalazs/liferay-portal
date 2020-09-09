@@ -1,16 +1,15 @@
 import * as API from 'shared/api';
-import autobind from 'autobind-decorator';
 import Card from 'shared/components/Card';
 import EngagementChart from './EngagementChart';
 import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
-import {findLastIndex, get, isFinite, isNil, isNull, noop} from 'lodash/fp';
 import {formatChange, getFinitePercentChange} from 'shared/util/change';
 import {formatEngagementScore} from 'shared/util/engagement';
 import {formatUTCDateFromUnix, getLastDate} from 'shared/util/date';
-import {isNull, omit} from 'lodash';
+import {get, isFinite, isNil, noop} from 'lodash/fp';
+import {omit} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {SCORE} from 'shared/util/pagination';
 import {sub} from 'shared/util/lang';
@@ -172,12 +171,6 @@ export class EngagementWithList extends React.Component {
 		}).isRequired
 	};
 
-	constructor(props) {
-		super(props);
-
-		this._chartRef = React.createRef();
-	}
-
 	getDateRange() {
 		const {data, selectedPoint} = this.props;
 
@@ -193,25 +186,6 @@ export class EngagementWithList extends React.Component {
 			null;
 
 		return {endDate: intervalInitDate, startDate: intervalInitDate};
-	}
-
-	@autobind
-	handleInitialPoint() {
-		const {data, onPointSelect, selectedPoint} = this.props;
-
-		if (onPointSelect && data.length) {
-			const lastIndex = findLastIndex(point => !isNull(point.scoreAvg))(
-				data
-			);
-
-			const indexToSelect = selectedPoint
-				? selectedPoint.activeTooltipIndex
-				: lastIndex;
-
-			this._chartRef.current.select([indexToSelect]);
-
-			onPointSelect({index: indexToSelect});
-		}
 	}
 
 	render() {
@@ -253,9 +227,7 @@ export class EngagementWithList extends React.Component {
 				<div className='engagement-chart-container'>
 					<EngagementChart
 						alwaysShowSelectedTooltip
-						forwardedRef={this._chartRef}
 						history={data}
-						onAfterInit={this.handleInitialPoint}
 						onPointSelect={onPointSelect}
 						selectedPoint={selectedPoint}
 						tooltipRenderRows={tooltipRenderRows}
