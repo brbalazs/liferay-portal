@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.license.util.LicenseManagerUtil;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -28,6 +29,9 @@ import java.io.IOException;
 import java.io.Writer;
 
 import java.util.Map;
+
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletURL;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -79,7 +83,7 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 				writer.write(
 					_getExpirationMessage(
 						licenseProperties.get("productEntryName"),
-						expirationDays));
+						expirationDays, servletRequest));
 			}
 			else {
 				StringBundler sb = new StringBundler(5);
@@ -113,7 +117,8 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 
 			writer.write(
 				_getExpirationMessage(
-					licenseProperties.get("productEntryName"), expirationDays));
+					licenseProperties.get("productEntryName"), expirationDays,
+					servletRequest));
 		}
 	}
 
@@ -122,14 +127,20 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 	}
 
 	private String _getExpirationMessage(
-		String productName, long expirationDays) {
+		String productName, long expirationDays,
+		ServletRequest servletRequest) {
+
+		PortletURL portletURL = PortalUtil.getControlPanelPortletURL(
+			(PortletRequest)servletRequest.getAttribute(
+				JavaConstants.JAVAX_PORTLET_REQUEST),
+			_LICENSE_MANAGER, PortletRequest.RENDER_PHASE);
 
 		StringBundler sb = new StringBundler(11);
 
 		sb.append("<div class=\"alert alert-danger\">Update your ");
 		sb.append("<a class=\"alert-link\" href=\"");
-		sb.append(PortalUtil.getPathMain());
-		sb.append("/portal/license\">activation key for ");
+		sb.append(portletURL.toString());
+		sb.append("\">activation key for ");
 		sb.append(productName);
 		sb.append("</a>, it ");
 
@@ -153,6 +164,9 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 
 		return sb.toString();
 	}
+
+	private static final String _LICENSE_MANAGER =
+		"com_liferay_license_manager_web_portlet_LicenseManagerPortlet";
 
 	private final String _productId;
 
