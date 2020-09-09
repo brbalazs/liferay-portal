@@ -73,41 +73,25 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 		if (LicenseManagerUtil.getLicenseState(_productId) ==
 				LicenseManager.STATE_EXPIRED) {
 
-			expirationDays = expirationDays * -1;
-
-			StringBundler sb = null;
+			Writer writer = servletResponse.getWriter();
 
 			if (permissionChecker.isOmniadmin()) {
-				sb = new StringBundler(10);
-
-				sb.append("<div class=\"alert alert-danger\">Update your ");
-				sb.append("<a class=\"alert-link\" href=\"");
-				sb.append(PortalUtil.getPathMain());
-				sb.append("/portal/license\">activation key for ");
-				sb.append(licenseProperties.get("productEntryName"));
-				sb.append("</a>, it has been expired for ");
-				sb.append(expirationDays);
-				sb.append(" day");
-
-				if (expirationDays > 1) {
-					sb.append("s");
-				}
-
-				sb.append("</div>");
+				writer.write(
+					_getExpirationMessage(
+						licenseProperties.get("productEntryName"),
+						expirationDays));
 			}
 			else {
-				sb = new StringBundler(5);
+				StringBundler sb = new StringBundler(5);
 
 				sb.append("<div class=\"alert alert-danger\">The activation ");
 				sb.append("key for ");
 				sb.append(licenseProperties.get("productEntryName"));
 				sb.append(" has been expired. Please contact your ");
 				sb.append("administrator.");
+
+				writer.write(sb.toString());
 			}
-
-			Writer writer = servletResponse.getWriter();
-
-			writer.write(sb.toString());
 
 			return;
 		}
@@ -125,41 +109,49 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 		if (((lifetimeDays == 30) && (expirationDays < 7)) ||
 			((lifetimeDays > 30) && (expirationDays < 30))) {
 
-			StringBundler sb = new StringBundler(11);
-
-			sb.append("<div class=\"alert alert-danger\">Update your ");
-			sb.append("<a class=\"alert-link\" href=\"");
-			sb.append(PortalUtil.getPathMain());
-			sb.append("/portal/license\">activation key for ");
-			sb.append(licenseProperties.get("productEntryName"));
-			sb.append("</a>, it ");
-
-			if (expirationDays <= 0) {
-				sb.append("has been expired for ");
-
-				expirationDays = expirationDays * -1;
-			}
-			else {
-				sb.append("will expire in ");
-			}
-
-			sb.append(expirationDays);
-			sb.append(" day");
-
-			if (expirationDays > 1) {
-				sb.append("s");
-			}
-
-			sb.append("</div>");
-
 			Writer writer = servletResponse.getWriter();
 
-			writer.write(sb.toString());
+			writer.write(
+				_getExpirationMessage(
+					licenseProperties.get("productEntryName"), expirationDays));
 		}
 	}
 
 	@Override
 	public void init(FilterConfig filterConfig) {
+	}
+
+	private String _getExpirationMessage(
+		String productName, long expirationDays) {
+
+		StringBundler sb = new StringBundler(11);
+
+		sb.append("<div class=\"alert alert-danger\">Update your ");
+		sb.append("<a class=\"alert-link\" href=\"");
+		sb.append(PortalUtil.getPathMain());
+		sb.append("/portal/license\">activation key for ");
+		sb.append(productName);
+		sb.append("</a>, it ");
+
+		if (expirationDays <= 0) {
+			sb.append("has been expired for ");
+
+			expirationDays = expirationDays * -1;
+		}
+		else {
+			sb.append("will expire in ");
+		}
+
+		sb.append(expirationDays);
+		sb.append(" day");
+
+		if (expirationDays > 1) {
+			sb.append("s");
+		}
+
+		sb.append("</div>");
+
+		return sb.toString();
 	}
 
 	private final String _productId;
