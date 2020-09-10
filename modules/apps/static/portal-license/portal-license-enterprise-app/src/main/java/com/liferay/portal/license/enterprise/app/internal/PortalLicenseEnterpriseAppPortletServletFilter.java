@@ -59,6 +59,12 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 			FilterChain filterChain)
 		throws IOException, ServletException {
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)servletRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		PermissionChecker permissionChecker =
+			themeDisplay.getPermissionChecker();
+
 		Map<String, String> licenseProperties =
 			LicenseManagerUtil.getLicenseProperties(_productId);
 
@@ -67,12 +73,6 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 
 		long expirationDays =
 			(expirationDate - System.currentTimeMillis()) / Time.DAY;
-
-		ThemeDisplay themeDisplay = (ThemeDisplay)servletRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		PermissionChecker permissionChecker =
-			themeDisplay.getPermissionChecker();
 
 		if (LicenseManagerUtil.getLicenseState(_productId) ==
 				LicenseManager.STATE_EXPIRED) {
