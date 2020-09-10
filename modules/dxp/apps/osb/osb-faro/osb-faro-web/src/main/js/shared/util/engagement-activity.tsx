@@ -39,7 +39,7 @@ export type TooltipRowType = {
 };
 
 export type TooltipOptionsType = {
-	dateKeysIMap: Map<Date, [Date, Date?]>;
+	dateKeysIMap: Map<number, [number, number?]>;
 	history: Array<IActivitiesHistory | IEngagementHistory>;
 	interval: Interval;
 	name: string;
@@ -49,12 +49,12 @@ export type TooltipOptionsType = {
 	type: MetricValueType;
 };
 
-export interface IActivitiesHistory<initDateType = Date> {
+export interface IActivitiesHistory<initDateType = number> {
 	intervalInitDate: initDateType;
 	totalElements: number;
 }
 
-export interface IEngagementHistory<initDateType = Date> {
+export interface IEngagementHistory<initDateType = number> {
 	intervalInitDate: initDateType;
 	scoreAvg: number;
 	contributors: number;
@@ -62,28 +62,16 @@ export interface IEngagementHistory<initDateType = Date> {
 
 export interface IChartProps<T> extends React.HTMLAttributes<HTMLElement> {
 	alwaysShowSelectedTooltip: boolean;
-	forwardedRef: React.Ref<any>;
+	hasSelectedPoint?: boolean;
 	height: number;
 	history: Array<T>;
 	interval?: Interval;
 	onAfterInit?: () => void;
 	onPointSelect: ({index: number}) => void;
 	rangeSelectors?: RangeSelectors;
-	selectedPoint: SelectedRechartsPoint;
+	selectedPoint: number;
 	tooltipRenderRows?: (data: T) => Array<TooltipRowType>;
 }
-
-type SelectedRechartsPoint = {
-	activeCoordinate: {
-		x: number;
-		y: number;
-	};
-	activeLabel: string | number;
-	activePayload: any[];
-	activeTooltipIndex: number;
-	chartX: number;
-	chartY: number;
-};
 
 /**
  * Object containing aggregated engagement and activity information.
@@ -237,15 +225,15 @@ export const createDateKeysIMap = (
 		const dateEnd =
 			interval === 'W'
 				? moment
-						.utc(intervalInitDate)
+						.utc(intervalInitDate, 'x')
 						.add('6', 'days')
-						.toDate()
+						.valueOf()
 				: null;
 
 		return [intervalInitDate, [intervalInitDate, dateEnd]];
 	};
 
-	return Map<Date, [Date, Date?]>(history.map(parseHistory));
+	return Map<number, [number, number?]>(history.map(parseHistory));
 };
 
 export function convertHistoryInitDateToDate<T>(

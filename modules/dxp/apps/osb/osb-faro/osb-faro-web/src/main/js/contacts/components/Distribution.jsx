@@ -43,10 +43,11 @@ import {
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
 import {connect} from 'react-redux';
 import {createNumberMask} from 'text-mask-addons';
+import {getBarColor} from 'shared/util/charts';
 import {getFinitePercent} from 'shared/util/change';
 import {hasChanges} from 'shared/util/react';
-import {isNumber, noop, omit, pickBy, truncate} from 'lodash';
 import {List, Map} from 'immutable';
+import {noop, omit, pickBy, truncate} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {setUriQueryValues} from 'shared/util/router';
 
@@ -368,23 +369,6 @@ export class Distribution extends React.Component {
 		}));
 	}
 
-	getBarColor(index) {
-		const {
-			props: {selectedPoint},
-			state: {hoverIndex}
-		} = this;
-
-		if (selectedPoint === index) {
-			return BAR_COLORS.selected;
-		} else if (index === hoverIndex) {
-			return BAR_COLORS.hover;
-		} else if (isNumber(selectedPoint)) {
-			return BAR_COLORS.notSelected;
-		}
-
-		return BAR_COLORS.default;
-	}
-
 	getNumberOfBins() {
 		const {numberOfBins} = this.props;
 
@@ -537,6 +521,7 @@ export class Distribution extends React.Component {
 			state: {
 				fieldMappingSelected,
 				histogram,
+				hoverIndex,
 				selectedContext,
 				showIndividualsPreview
 			}
@@ -839,8 +824,10 @@ export class Distribution extends React.Component {
 													{formattedChartData.map(
 														(item, index) => (
 															<Cell
-																fill={this.getBarColor(
-																	index
+																fill={getBarColor(
+																	index,
+																	hoverIndex,
+																	selectedPoint
 																)}
 																key={`cell-${index}`}
 																style={{

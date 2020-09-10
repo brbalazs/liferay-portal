@@ -28,7 +28,7 @@ import {
 import {getSafeChange} from 'shared/util/change';
 import {hasChanges} from 'shared/util/react';
 import {Individual} from 'shared/util/records';
-import {isObject, omit} from 'lodash';
+import {omit} from 'lodash';
 import {PropTypes} from 'prop-types';
 import {START_TIME} from 'shared/util/pagination';
 import {sub} from 'shared/util/lang';
@@ -167,19 +167,14 @@ export class IndividualProfileCard extends React.Component {
 		const history =
 			tabId === ACTIVITIES ? activityHistory : engagementHistory;
 
-		if (!hasSelectedPoint && !isObject(selectedPoint)) {
+		if (!hasSelectedPoint) {
 			return {
 				endDate: getLastDate(history, interval, 'intervalInitDate'),
 				startDate: getFirstDate(history, 'intervalInitDate')
 			};
 		}
 
-		const {intervalInitDate} =
-			history[
-				isObject(selectedPoint)
-					? selectedPoint.activeTooltipIndex
-					: selectedPoint
-			] || {};
+		const {intervalInitDate} = history[selectedPoint] || {};
 
 		return {
 			endDate: getEndDate(intervalInitDate, interval),
@@ -277,17 +272,13 @@ export class IndividualProfileCard extends React.Component {
 			tabId === ACTIVITIES ? activityHistory : engagementHistory;
 		const SelectedChart =
 			tabId === ACTIVITIES ? ActivitiesChart : EngagementChart;
-		const {intervalInitDate, totalElements} =
-			history[
-				isObject(selectedPoint)
-					? selectedPoint.activeTooltipIndex
-					: selectedPoint
-			] || {};
+		const {intervalInitDate, totalElements} = history[selectedPoint] || {};
 
 		return (
 			<div className='individuals-activities-chart'>
 				<SelectedChart
 					alwaysShowSelectedTooltip
+					hasSelectedPoint={hasSelectedPoint}
 					history={history}
 					interval={interval}
 					onPointSelect={this.handleChartSelect}

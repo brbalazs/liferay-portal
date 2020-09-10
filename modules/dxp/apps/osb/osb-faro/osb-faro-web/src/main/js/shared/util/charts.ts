@@ -301,10 +301,10 @@ export const getDateTitle = (
  */
 export const getIntervals = (
 	rangeKey: RangeSelectors['rangeKey'],
-	arr: Date[],
+	arr: number[],
 	timeInterval: Interval,
-	dateKeysIMap: Map<Date, [Date, Date?]>
-): Date[] => {
+	dateKeysIMap: Map<number, [number, number?]>
+): number[] => {
 	if (arr.length) {
 		const firstDate = moment(arr[0]);
 		const [lastPeriodStart, lastPeriodEnd] = dateKeysIMap.get(

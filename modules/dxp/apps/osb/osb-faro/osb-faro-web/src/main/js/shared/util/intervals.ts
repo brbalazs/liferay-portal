@@ -12,6 +12,8 @@ import {
 import {Interval, RangeSelectors} from 'shared/types';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 
+// TODO: Add timezones to all chart functions
+
 export const getIntervalHandle = (
 	rangeKey: RangeSelectors['rangeKey'],
 	duration: number,
@@ -46,10 +48,10 @@ export const getWeekIntervalsMap = (duration: number) => ({
 });
 
 export const handleDayInterval = (
-	handleFn: (date: Date) => Date,
-	firstTick: Date,
-	lastDate: Date
-): Date[] => {
+	handleFn: (date: number) => number,
+	firstTick: number,
+	lastDate: number
+): number[] => {
 	const intervals = [firstTick];
 	let lastTick = firstTick;
 
@@ -64,47 +66,53 @@ export const handleDayInterval = (
 	return intervals;
 };
 
-export const getByEvenOrOddIndexes = (arr: Date[]): Date[] =>
+export const getByEvenOrOddIndexes = (arr: number[]): number[] =>
 	arr.length % 2 === 0
 		? [arr[0], ...arr.filter((_, index) => index % 2 !== 0)]
 		: arr.filter((_, index) => index % 2 === 0);
 
-export const getByIndexesMultipleOfFour = (arr: Date[]): Date[] =>
+export const getByIndexesMultipleOfFour = (arr: number[]): number[] =>
 	arr.filter((_, index) => index % 4 === 0);
 
-export const getByIndexesMultipleOfSix = (arr: Date[]): Date[] => [
+export const getByIndexesMultipleOfSix = (arr: number[]): number[] => [
 	...arr.filter((_, index) => index % 6 === 0),
 	arr[arr.length - 1]
 ];
 
-export const getSundays = (arr: Date[]): Date[] => {
+export const getSundays = (arr: number[]): number[] => {
 	const firstDate = arr[0];
 	const lastDate = arr[arr.length - 1];
 
 	const firstTick =
-		firstDate.getUTCDay() === 0 ? firstDate : getNextSunday(firstDate);
+		moment(firstDate).get('day') === 0
+			? firstDate
+			: getNextSunday(firstDate);
 
 	return handleDayInterval(getNextSunday, firstTick, lastDate);
 };
 
-export const getFirstAndFifteenthsDays = (arr: Date[]): Date[] => {
+export const getFirstAndFifteenthsDays = (arr: number[]): number[] => {
 	const firstDate = arr[0];
 	const lastDate = arr[arr.length - 1];
 
+	const firstDayDate = moment(firstDate).get('date');
+
 	const firstTick =
-		firstDate.getUTCDate() === 1 || firstDate.getUTCDate() === 15
+		firstDayDate === 1 || firstDayDate === 15
 			? firstDate
 			: getNextFirstOrFifteenth(firstDate);
 
 	return handleDayInterval(getNextFirstOrFifteenth, firstTick, lastDate);
 };
 
-export const getFirstDays = (arr: Date[]): Date[] => {
+export const getFirstDays = (arr: number[]): number[] => {
 	const firstDate = arr[0];
 	const lastDate = arr[arr.length - 1];
 
 	const firstTick =
-		firstDate.getUTCDate() === 1 ? firstDate : getNextFirst(firstDate);
+		moment(firstDate).get('day') === 1
+			? firstDate
+			: getNextFirst(firstDate);
 
 	return handleDayInterval(getNextFirst, firstTick, lastDate);
 };
@@ -130,28 +138,32 @@ export const getByCustomRangeKey = (
 	}
 };
 
-export const getNextSunday = (date: Date): Date =>
+export const getNextSunday = (date: number, timezone = 'UTC'): number =>
+	// TIMEZONE
 	moment(date)
 		.utc()
 		.day(7)
 		.startOf('day')
-		.toDate();
+		.valueOf();
 
-export const getNextFirstOrFifteenth = (date: Date): Date => {
-	if (date.getUTCDate() >= 15) {
+export const getNextFirstOrFifteenth = (date: number): number => {
+	if (moment(date).get('date') >= 15) {
 		return getNextFirst(date);
 	}
 
-	return moment(date)
-		.utc()
-		.date(15)
-		.startOf('day')
-		.toDate();
+	return (
+		moment(date)
+			// TIMEZONE
+			.utc()
+			.date(15)
+			.startOf('day')
+			.valueOf()
+	);
 };
 
-export const getNextFirst = (date: Date): Date =>
+export const getNextFirst = (date: number): number =>
 	moment(date)
 		.utc()
 		.endOf('month')
 		.add(1)
-		.toDate();
+		.valueOf();

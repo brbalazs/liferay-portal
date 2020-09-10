@@ -68,6 +68,7 @@ export class ActivitiesChartTimeline extends React.Component {
 		activitiesLabel: PropTypes.string.isRequired,
 		entityType: PropTypes.number.isRequired,
 		groupId: PropTypes.string.isRequired,
+		hasSelectedPoint: PropTypes.bool,
 		history: PropTypes.arrayOf(
 			PropTypes.shape({
 				intervalInitDate: PropTypes.number,
@@ -82,7 +83,6 @@ export class ActivitiesChartTimeline extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this._chartRef = React.createRef();
 		this._searchableVerticalTimelineRef = React.createRef();
 	}
 
@@ -113,13 +113,14 @@ export class ActivitiesChartTimeline extends React.Component {
 
 	@autobind
 	handleClearSelection() {
-		const {_chartRef, _searchableVerticalTimelineRef} = this;
-
-		_chartRef.current.unselect();
+		const {
+			_searchableVerticalTimelineRef,
+			props: {onPointSelect}
+		} = this;
 
 		_searchableVerticalTimelineRef.current.resetPage();
 
-		this.props.onPointSelect({index: null});
+		onPointSelect({index: null});
 	}
 
 	render() {
@@ -144,13 +145,17 @@ export class ActivitiesChartTimeline extends React.Component {
 				className={getCN('activities-chart-timeline-root', className)}
 				noPadding
 			>
-				<ActivitiesChart
-					forwardedRef={this._chartRef}
-					history={history}
-					interval={interval}
-					onPointSelect={this.handleChartSelect}
-					rangeSelectors={rangeSelectors}
-				/>
+				<div className='activities-chart-container'>
+					<ActivitiesChart
+						alwaysShowSelectedTooltip
+						hasSelectedPoint={hasSelectedPoint}
+						history={history}
+						interval={interval}
+						onPointSelect={this.handleChartSelect}
+						rangeSelectors={rangeSelectors}
+						selectedPoint={selectedPoint}
+					/>
+				</div>
 
 				{!!history.length && (
 					<div className='selected-info'>
