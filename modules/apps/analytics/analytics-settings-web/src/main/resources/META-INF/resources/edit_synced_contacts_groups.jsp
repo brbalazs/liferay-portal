@@ -22,6 +22,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 int cur = ParamUtil.getInteger(request, SearchContainer.DEFAULT_CUR_PARAM);
 int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 String entriesNavigation = ParamUtil.getString(request, "entriesNavigation");
+boolean includeSyncContactsFields = ParamUtil.getBoolean(request, "includeSyncContactsFields");
 String orderByCol = ParamUtil.getString(request, "orderByCol", "user-group-name");
 String orderByType = ParamUtil.getString(request, "orderByType", "asc");
 
@@ -59,6 +60,10 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 %>
 
 <portlet:actionURL name="/analytics_settings/edit_synced_contacts" var="editSyncedContactsURL" />
+
+<portlet:renderURL var="editSyncedContactsFieldsURL">
+	<portlet:param name="mvcRenderCommandName" value="/analytics_settings/edit_synced_contacts_fields" />
+</portlet:renderURL>
 
 <div class="container-fluid-1280">
 	<div class="col-12">
@@ -120,7 +125,7 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 	UserGroupDisplayContext userGroupDisplayContext = new UserGroupDisplayContext(renderRequest, renderResponse);
 	%>
 
-	<aui:form action="<%= editSyncedContactsURL %>" method="post" name="fm">
+	<aui:form action="<%= includeSyncContactsFields ? editSyncedContactsFieldsURL : editSyncedContactsURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="update_synced_groups" />
 		<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 
@@ -148,7 +153,7 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 		</liferay-ui:search-container>
 
 		<aui:button-row>
-			<aui:button type="submit" value="save" />
+			<aui:button type="submit" value='<%= includeSyncContactsFields ? "save-and-next" : "save" %>' />
 			<aui:button href="<%= redirect %>" type="cancel" value="cancel" />
 		</aui:button-row>
 	</aui:form>
