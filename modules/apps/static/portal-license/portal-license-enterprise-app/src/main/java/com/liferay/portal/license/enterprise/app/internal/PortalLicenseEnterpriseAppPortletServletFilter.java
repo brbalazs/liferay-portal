@@ -85,13 +85,12 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 						licenseProperties, expirationDays, servletRequest));
 			}
 			else {
-				StringBundler sb = new StringBundler(5);
+				StringBundler sb = new StringBundler(4);
 
 				sb.append("<div class=\"alert alert-danger\">The activation ");
 				sb.append("key for ");
 				sb.append(licenseProperties.get("productEntryName"));
-				sb.append(" has been expired. Please contact your ");
-				sb.append("administrator.");
+				sb.append(" has expired. Please contact your administrator.");
 
 				writer.write(sb.toString());
 			}
