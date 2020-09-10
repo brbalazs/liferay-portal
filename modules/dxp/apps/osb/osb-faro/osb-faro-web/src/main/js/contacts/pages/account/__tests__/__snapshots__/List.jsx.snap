@@ -1,97 +1,290 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`List should render 1`] = `
-<_class
-  alerts={Array []}
-  columns={
-    Array [
-      Object {
-        "accessor": "name",
-        "cellRenderer": [Function],
-        "cellRendererProps": Object {
-          "routeFn": [Function],
-        },
-        "className": "table-cell-expand",
-        "label": "Name",
-      },
-      Object {
-        "accessor": "properties.accountType",
-        "label": "Account Type",
-      },
-      Object {
-        "accessor": "individualCount",
-        "className": "table-column-text-end",
-        "dataFormatter": [Function],
-        "label": "Individuals",
-      },
-      Object {
-        "accessor": "activitiesCount",
-        "className": "table-column-text-end",
-        "dataFormatter": [Function],
-        "label": "Total Activities",
-      },
-      Object {
-        "accessor": "engagementScore",
-        "className": "table-column-text-end",
-        "dataFormatter": [Function],
-        "label": "30 Day Engagement",
-      },
-    ]
-  }
-  currentUser={
-    Immutable.Record {
-      "emailAddress": "test@liferay.com",
-      "groupId": null,
-      "id": 0,
-      "name": "Test Test",
-      "roleName": "Site Owner",
-      "screenName": "",
-      "status": 1,
-      "userId": null,
-    }
-  }
-  dataSourceFn={[Function]}
-  delta={2}
-  entityLabel="Accounts"
-  filterBy={Immutable.Map {}}
-  groupId="23"
-  hideNav={true}
-  icon="suitcase"
-  noResultsConfig={
-    Object {
-      "description": "There is no account data from existing data sources.",
-      "title": "No account data available.",
-    }
-  }
-  orderBy="asc"
-  orderByField="name"
-  orderByOptions={
-    Array [
-      Object {
-        "label": "Account Name",
-        "value": "name",
-      },
-      Object {
-        "label": "Account Type",
-        "value": "accountType",
-      },
-      Object {
-        "label": "Individuals",
-        "value": "individualCount",
-      },
-      Object {
-        "label": "Total Activities",
-        "value": "activitiesCount",
-      },
-      Object {
-        "label": "30 Day Engagement",
-        "value": "engagementScore",
-      },
-    ]
-  }
-  page={1}
-  query=""
-  rowIdentifier="id"
-  showCheckbox={false}
-/>
+<div>
+  <div
+    class="index-root"
+  >
+    <div
+      class="maintenance-alert-root"
+    />
+    <header
+      class="header-root"
+    >
+      <div
+        class="header-container"
+      >
+        <div
+          class="row-root align-items-center d-flex justify-content-between"
+        >
+          <ol
+            class="breadcrumb breadcrumbs-root"
+          >
+            <li
+              class="breadcrumb-item"
+            >
+              <a
+                class="breadcrumb-link breadcrumb-text-truncate"
+                href="/workspace/23/sites"
+              >
+                Home
+              </a>
+            </li>
+          </ol>
+        </div>
+        <div
+          class="row-root align-items-center d-flex justify-content-between"
+        >
+          <div
+            class="header-section title-section"
+          >
+            <span
+              class="align-items-center d-flex"
+            >
+              <h1
+                class="title text-truncate"
+              >
+                <span
+                  class="text-truncate"
+                  data-tooltip="false"
+                  title=""
+                >
+                  Accounts
+                </span>
+              </h1>
+            </span>
+          </div>
+          <div
+            class="header-section"
+          />
+        </div>
+      </div>
+    </header>
+    <div
+      class="body-root page-container"
+    >
+      <span
+        class="children-wrapper"
+      >
+        <div
+          class="embedded-alert-list-root"
+        />
+        <div
+          class="card card-root page-display"
+        >
+          <div
+            class="card-body no-padding"
+          >
+            <div
+              class="base-results-root d-flex flex-column flex-grow-1 searchable-table-root searchable-table-borderless"
+            >
+              <div
+                class="toolbar-root"
+              >
+                <nav
+                  class="navbar navbar-root management-bar management-bar-light navbar-expand"
+                >
+                  <div
+                    class="container-fluid"
+                  >
+                    <ul
+                      class="nav-root front-nav navbar-nav"
+                      role="tablist"
+                    >
+                      <li
+                        aria-haspopup="true"
+                        class="dropdown dropdown-root filter-and-order-root nav-item"
+                      >
+                        <button
+                          class="button-root btn btn-unstyled dropdown-toggle nav-btn show-caret"
+                          data-testid="filter-and-order-button"
+                          type="button"
+                        >
+                          <span
+                            class="text-truncate"
+                          >
+                            Order
+                          </span>
+                          
+                          <span
+                            class="caret-root"
+                          >
+                            <svg
+                              class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                              viewBox=""
+                            >
+                              <use
+                                xlink:href="#caret-bottom"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </li>
+                      <li
+                        class="nav-item"
+                        role="presentation"
+                      >
+                        <a
+                          class="button-root btn btn-unstyled nav-link nav-link-monospaced btn-outline-borderless"
+                          href="/?orderBy=desc&page=1"
+                        >
+                          <svg
+                            class="icon-root lexicon-icon lexicon-icon-order-arrow-ascending"
+                            viewBox=""
+                          >
+                            <use
+                              xlink:href="#order-arrow-ascending"
+                            />
+                          </svg>
+                        </a>
+                      </li>
+                    </ul>
+                    <div
+                      class="navbar-form navbar-form-autofit"
+                    >
+                      <div
+                        class="input-group search"
+                      >
+                        <div
+                          class="input-group-item"
+                        >
+                          <input
+                            class="input-root form-control input-group-inset input-group-inset-after"
+                            placeholder="Search"
+                            type="text"
+                            value=""
+                          />
+                          <div
+                            class="input-group-inset-item input-group-inset-item-after"
+                          >
+                            <button
+                              class="button-root btn btn-unstyled"
+                              type="button"
+                            >
+                              <svg
+                                class="icon-root lexicon-icon lexicon-icon-search"
+                                viewBox=""
+                              >
+                                <use
+                                  xlink:href="#search"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+              <div
+                class="table-responsive table-root flex-grow-1"
+              >
+                <table
+                  class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+                >
+                  <thead>
+                    <tr
+                      class=""
+                    >
+                      <th
+                        class="table-head-title table-cell-expand"
+                      >
+                        <a
+                          class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                          href="/?orderBy=desc&orderByField=name&page=1"
+                        >
+                          <span
+                            class="text-truncate"
+                          >
+                            Name
+                          </span>
+                          <span
+                            class="inline-item inline-item-after"
+                          >
+                            <svg
+                              class="icon-root lexicon-icon lexicon-icon-order-arrow-up"
+                              viewBox=""
+                            >
+                              <use
+                                xlink:href="#order-arrow-up"
+                              />
+                            </svg>
+                          </span>
+                        </a>
+                      </th>
+                      <th
+                        class="table-head-title"
+                      >
+                        <a
+                          class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                          href="/?orderBy=asc&orderByField=accountType&page=1"
+                        >
+                          <span
+                            class="text-truncate"
+                          >
+                            Account Type
+                          </span>
+                        </a>
+                      </th>
+                      <th
+                        class="table-head-title table-column-text-end"
+                      >
+                        <a
+                          class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                          href="/?orderBy=desc&orderByField=individualCount&page=1"
+                        >
+                          <span
+                            class="text-truncate"
+                          >
+                            Individuals
+                          </span>
+                        </a>
+                      </th>
+                      <th
+                        class="table-head-title table-column-text-end"
+                      >
+                        <a
+                          class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                          href="/?orderBy=desc&orderByField=activitiesCount&page=1"
+                        >
+                          <span
+                            class="text-truncate"
+                          >
+                            Total Activities
+                          </span>
+                        </a>
+                      </th>
+                      <th
+                        class="table-head-title table-column-text-end"
+                      >
+                        <a
+                          class="button-root btn btn-unstyled inline-item text-truncate-inline"
+                          href="/?orderBy=desc&orderByField=engagementScore&page=1"
+                        >
+                          <span
+                            class="text-truncate"
+                          >
+                            30 Day Engagement
+                          </span>
+                        </a>
+                      </th>
+                    </tr>
+                  </thead>
+                </table>
+                <div
+                  class="spinner-root spinner-overlay"
+                >
+                  <span
+                    class="loading-animation loading-animation-dotted"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </span>
+    </div>
+  </div>
+</div>
 `;
