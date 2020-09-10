@@ -130,7 +130,8 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 		PortletURL portletURL = PortalUtil.getControlPanelPortletURL(
 			(PortletRequest)servletRequest.getAttribute(
 				JavaConstants.JAVAX_PORTLET_REQUEST),
-			_LICENSE_MANAGER, PortletRequest.RENDER_PHASE);
+			"com_liferay_license_manager_web_portlet_LicenseManagerPortlet",
+			PortletRequest.RENDER_PHASE);
 
 		StringBundler sb = new StringBundler(11);
 
@@ -161,9 +162,6 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 
 		return sb.toString();
 	}
-
-	private static final String _LICENSE_MANAGER =
-		"com_liferay_license_manager_web_portlet_LicenseManagerPortlet";
 
 	private final String _productId;
 
