@@ -23,7 +23,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Francisco Dias
+ * @author Rachael Koestartyo
  */
 @Component(
 	property = {
