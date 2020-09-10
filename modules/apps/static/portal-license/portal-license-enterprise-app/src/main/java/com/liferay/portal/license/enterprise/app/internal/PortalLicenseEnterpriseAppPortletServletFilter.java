@@ -127,17 +127,19 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 		Map<String, String> licenseProperties, long expirationDays,
 		ServletRequest servletRequest) {
 
+		StringBundler sb = new StringBundler(11);
+
+		sb.append("<div class=\"alert alert-danger\">Update your ");
+		sb.append("<a class=\"alert-link\" href=\"");
+
 		PortletURL portletURL = PortalUtil.getControlPanelPortletURL(
 			(PortletRequest)servletRequest.getAttribute(
 				JavaConstants.JAVAX_PORTLET_REQUEST),
 			"com_liferay_license_manager_web_portlet_LicenseManagerPortlet",
 			PortletRequest.RENDER_PHASE);
 
-		StringBundler sb = new StringBundler(11);
-
-		sb.append("<div class=\"alert alert-danger\">Update your ");
-		sb.append("<a class=\"alert-link\" href=\"");
 		sb.append(portletURL.toString());
+
 		sb.append("\">activation key for ");
 		sb.append(licenseProperties.get("productEntryName"));
 		sb.append("</a>, it ");
