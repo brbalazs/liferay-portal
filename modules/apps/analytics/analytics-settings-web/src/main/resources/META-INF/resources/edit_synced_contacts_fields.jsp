@@ -17,7 +17,11 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String redirect = ParamUtil.getString(request, "redirect");
+PortletURL portletURL = renderResponse.createRenderURL();
+
+portletURL.setParameter("mvcRenderCommandName", "/analytics_settings/edit_synced_contacts_data");
+
+String redirect = ParamUtil.getString(request, "redirect", portletURL.toString());
 
 String cmd = ParamUtil.getString(request, Constants.CMD);
 boolean syncAllContacts = ParamUtil.getBoolean(request, "syncAllContacts");
@@ -33,9 +37,36 @@ if (analyticsConfiguration != null) {
 	syncedContactFieldNames = analyticsConfiguration.syncedContactFieldNames();
 	syncedUserFieldNames = analyticsConfiguration.syncedUserFieldNames();
 }
+
+portletDisplay.setShowBackIcon(true);
+portletDisplay.setURLBack(ParamUtil.getString(request, "backURL", redirect));
+
+PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "select-contact-data"), portletURL.toString());
+
+if (StringUtil.equals(cmd, "update_synced_groups")) {
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "sync-by-user-groups"), redirect);
+}
+else if (StringUtil.equals(cmd, "update_synced_organizations")) {
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "sync-by-organizations"), redirect);
+}
+
+PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "select-data-fields"), currentURL);
 %>
 
 <portlet:actionURL name="/analytics_settings/edit_synced_contacts" var="editSyncedContactsURL" />
+
+<div class="container-fluid-1280">
+	<div class="col-12">
+		<div id="breadcrumb">
+			<liferay-ui:breadcrumb
+				showCurrentGroup="<%= false %>"
+				showGuestGroup="<%= false %>"
+				showLayout="<%= false %>"
+				showPortletBreadcrumb="<%= true %>"
+			/>
+		</div>
+	</div>
+</div>
 
 <div class="pb-2 portlet-analytics-settings sheet sheet-lg">
 	<h2>

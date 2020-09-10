@@ -17,12 +17,22 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String redirect = ParamUtil.getString(request, "redirect");
+PortletURL portletURL = renderResponse.createRenderURL();
+
+boolean includeSyncContactsFields = ParamUtil.getBoolean(request, "includeSyncContactsFields");
+
+if (includeSyncContactsFields) {
+	portletURL.setParameter("mvcRenderCommandName", "/analytics_settings/edit_synced_contacts_data");
+}
+else {
+	portletURL.setParameter("mvcRenderCommandName", "/analytics_settings/edit_synced_contacts");
+}
+
+String redirect = ParamUtil.getString(request, "redirect", portletURL.toString());
 
 int cur = ParamUtil.getInteger(request, SearchContainer.DEFAULT_CUR_PARAM);
 int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 String entriesNavigation = ParamUtil.getString(request, "entriesNavigation");
-boolean includeSyncContactsFields = ParamUtil.getBoolean(request, "includeSyncContactsFields");
 String orderByCol = ParamUtil.getString(request, "orderByCol", "organization-name");
 String orderByType = ParamUtil.getString(request, "orderByType", "asc");
 
@@ -55,7 +65,14 @@ if (cur > 0) {
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(ParamUtil.getString(request, "backURL", redirect));
 
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "select-contacts"), redirect);
+if (includeSyncContactsFields) {
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "select-contact-data"), portletURL.toString());
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "select-contacts"), redirect);
+}
+else {
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "select-contacts"), portletURL.toString());
+}
+
 PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "sync-by-organizations"), currentURL);
 %>
 
