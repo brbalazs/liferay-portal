@@ -225,3 +225,15 @@ app.artifacts-3.0.18=\
 app.change.log-3.0.18=LPS-103302 LPS-110418 LPS-77699 LPS-78938 LPS-80817 LPS-80927 LPS-81404 LPS-81704 LPS-83697 LPS-84399 LPS-91343 LPS-95481 LPS-97590 LPS-97846
 
 app.git.id-3.0.18=6e269b3260d3d9b28dd373c524c9aa3bac60311f
+
+#
+# Liferay App Version 3.0.19
+#
+
+app.artifacts-3.0.19=\
+	com.liferay.notifications.uad-3.0.5.jar,\
+	com.liferay.notifications.web-2.0.26.jar
+
+app.change.log-3.0.19=LPS-103302 LPS-105380 LPS-113314 LPS-77699 LPS-78938 LPS-80817 LPS-80927 LPS-81404 LPS-81704 LPS-83697 LPS-84399 LPS-91343
+
+app.git.id-3.0.19=a62cef0d4bfb069c78b6d85d2dd718f3d66d5818

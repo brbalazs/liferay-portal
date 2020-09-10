@@ -282,3 +282,18 @@ app.artifacts-1.0.18=\
 app.change.log-1.0.18=LPS-103302 LPS-105380 LPS-108386 LPS-110419 LPS-112857 LPS-67565 LPS-77699 LPS-78194 LPS-79653 LPS-79672 LPS-79942 LPS-80332 LPS-81164 LPS-82337 LPS-82343 LPS-83494 LPS-83705 LPS-84093 LPS-84119 LPS-85296 LPS-85765 LPS-86408
 
 app.git.id-1.0.18=6e269b3260d3d9b28dd373c524c9aa3bac60311f
+
+#
+# Liferay App Version 1.0.19
+#
+
+app.artifacts-1.0.19=\
+	com.liferay.reading.time.api-1.0.19.jar,\
+	com.liferay.reading.time.editor.plugin-1.0.1.jar,\
+	com.liferay.reading.time.service-1.0.37.jar,\
+	com.liferay.reading.time.taglib-1.0.8.jar,\
+	com.liferay.reading.time.web-1.0.13.jar
+
+app.change.log-1.0.19=LPS-103302 LPS-105380 LPS-108614 LPS-115420 LPS-115531 LPS-77699 LPS-79653 LPS-79672 LPS-79942 LPS-80332 LPS-84093 LPS-84119 LPS-85296 LPS-85765 LPS-86408 LRDOCS-8120
+
+app.git.id-1.0.19=a62cef0d4bfb069c78b6d85d2dd718f3d66d5818

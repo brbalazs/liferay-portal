@@ -320,3 +320,20 @@ app.artifacts-1.0.18=\
 app.change.log-1.0.18=LPS-103302 LPS-105380 LPS-107869 LPS-108850 LPS-110117 LPS-111213 LPS-112082 LPS-113098 LPS-113826 LPS-115313 LPS-115442 LPS-77699 LPS-79653 LPS-80003 LPS-80332 LPS-81738 LPS-82655 LPS-82668 LPS-82725 LPS-82828 LPS-84090 LPS-84119 LPS-85765 LPS-88937 LPS-88958 LPS-98135
 
 app.git.id-1.0.18=6e269b3260d3d9b28dd373c524c9aa3bac60311f
+
+#
+# Liferay App Version 1.0.19
+#
+
+app.artifacts-1.0.19=\
+	com.liferay.frontend.editor.alloyeditor.web-2.0.49.jar,\
+	com.liferay.frontend.editor.api-3.0.3.jar,\
+	com.liferay.frontend.editor.ckeditor.web-2.0.56.jar,\
+	com.liferay.frontend.editor.lang-3.0.15.jar,\
+	com.liferay.frontend.editor.simple.web-2.0.16.jar,\
+	com.liferay.frontend.editor.taglib-1.0.8.jar,\
+	com.liferay.frontend.editor.tinymce.web-2.0.22.jar
+
+app.change.log-1.0.19=COMMERCE-2789 LPS-103302 LPS-105380 LPS-110498 LPS-113826 LPS-115313 LPS-115442 LPS-116085 LPS-116295 LPS-117924 LPS-118101 LPS-118703 LPS-77699 LPS-79653 LPS-80332 LPS-84119 LPS-85765 LPS-98135
+
+app.git.id-1.0.19=a62cef0d4bfb069c78b6d85d2dd718f3d66d5818

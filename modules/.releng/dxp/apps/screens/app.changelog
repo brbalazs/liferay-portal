@@ -213,3 +213,15 @@ app.artifacts-4.0.17=\
 app.change.log-4.0.17=LPS-105380 LPS-106666
 
 app.git.id-4.0.17=6e269b3260d3d9b28dd373c524c9aa3bac60311f
+
+#
+# Liferay App Version 4.0.18
+#
+
+app.artifacts-4.0.18=\
+	com.liferay.screens.api-4.0.7.jar,\
+	com.liferay.screens.service-2.0.19.jar
+
+app.change.log-4.0.18=LPS-105380 LPS-106666 LRDOCS-8120
+
+app.git.id-4.0.18=a62cef0d4bfb069c78b6d85d2dd718f3d66d5818

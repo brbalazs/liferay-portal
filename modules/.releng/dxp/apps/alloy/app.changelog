@@ -184,3 +184,14 @@ app.artifacts-1.0.16=\
 app.change.log-1.0.16=LPS-103302 LPS-105380 LPS-79653 LPS-80332 LPS-80967 LPS-81218 LPS-82828 LPS-84039 LPS-84090 LPS-84119 LPS-85796 LPS-86355 LPS-86408 LPS-86806 LPS-91413 LPS-91420 LPS-92252 LPS-97133
 
 app.git.id-1.0.16=6e269b3260d3d9b28dd373c524c9aa3bac60311f
+
+#
+# Liferay App Version 1.0.17
+#
+
+app.artifacts-1.0.17=\
+	com.liferay.alloy.mvc-3.0.17.jar
+
+app.change.log-1.0.17=LPS-105380
+
+app.git.id-1.0.17=a62cef0d4bfb069c78b6d85d2dd718f3d66d5818

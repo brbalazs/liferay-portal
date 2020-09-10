@@ -584,3 +584,33 @@ app.artifacts-1.0.18=\
 app.change.log-1.0.18=LPS-100797 LPS-101698 LPS-102042 LPS-102616 LPS-102643 LPS-103302 LPS-103528 LPS-105120 LPS-105380 LPS-105738 LPS-105761 LPS-106283 LPS-106297 LPS-107508 LPS-107621 LPS-107796 LPS-107830 LPS-107884 LPS-108225 LPS-108408 LPS-108495 LPS-108843 LPS-109066 LPS-109868 LPS-110205 LPS-110299 LPS-110343 LPS-110849 LPS-111020 LPS-111448 LPS-112106 LPS-112624 LPS-112857 LPS-113065 LPS-113093 LPS-113716 LPS-113755 LPS-114001 LPS-114098 LPS-114570 LPS-63229 LPS-77699 LPS-79653 LPS-80332 LPS-80517 LPS-80739 LPS-85296 LPS-85679 LPS-88826 LPS-91185 LPS-91241 LPS-91841 LPS-93399 LPS-93619 LPS-94207 LPS-95591 LPS-97200 LPS-98368 LPS-98372 LPS-98857
 
 app.git.id-1.0.18=6e269b3260d3d9b28dd373c524c9aa3bac60311f
+
+#
+# Liferay App Version 1.0.19
+#
+
+app.artifacts-1.0.19=\
+	com.liferay.dynamic.data.mapping.api-4.12.2.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.impl-2.0.28.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.instance-1.0.7.jar,\
+	com.liferay.dynamic.data.mapping.data.provider.web-2.0.26.jar,\
+	com.liferay.dynamic.data.mapping.expression-3.0.19.jar,\
+	com.liferay.dynamic.data.mapping.form.analytics-2.0.8.jar,\
+	com.liferay.dynamic.data.mapping.form.builder-1.0.64.jar,\
+	com.liferay.dynamic.data.mapping.form.evaluator.impl-1.0.26.jar,\
+	com.liferay.dynamic.data.mapping.form.field.type-3.0.56.jar,\
+	com.liferay.dynamic.data.mapping.form.renderer-3.0.53.jar,\
+	com.liferay.dynamic.data.mapping.form.taglib-1.0.13.jar,\
+	com.liferay.dynamic.data.mapping.form.values.factory-3.0.11.jar,\
+	com.liferay.dynamic.data.mapping.form.values.query-3.0.5.jar,\
+	com.liferay.dynamic.data.mapping.form.web-1.0.85.jar,\
+	com.liferay.dynamic.data.mapping.io-3.0.33.jar,\
+	com.liferay.dynamic.data.mapping.lang-3.0.38.jar,\
+	com.liferay.dynamic.data.mapping.service-3.0.106.jar,\
+	com.liferay.dynamic.data.mapping.taglib-3.7.1.jar,\
+	com.liferay.dynamic.data.mapping.validator-3.0.12.jar,\
+	com.liferay.dynamic.data.mapping.web-2.0.79.jar
+
+app.change.log-1.0.19=LPS-102451 LPS-103302 LPS-105380 LPS-105761 LPS-108225 LPS-108380 LPS-108614 LPS-110299 LPS-112624 LPS-112800 LPS-113264 LPS-113716 LPS-113755 LPS-114001 LPS-114098 LPS-114288 LPS-114513 LPS-114570 LPS-114582 LPS-114839 LPS-114936 LPS-115358 LPS-115420 LPS-115516 LPS-115531 LPS-115736 LPS-115796 LPS-115930 LPS-116001 LPS-116284 LPS-116409 LPS-116727 LPS-117841 LPS-118670 LPS-77595 LPS-77699 LPS-79653 LPS-80332 LPS-80517 LPS-85296 LPS-87037 LPS-89849 LPS-91241 LPS-91841 LPS-94207 LPS-96346 LPS-97200 LPS-97841 LPS-98372 LRDOCS-8120
+
+app.git.id-1.0.19=a62cef0d4bfb069c78b6d85d2dd718f3d66d5818

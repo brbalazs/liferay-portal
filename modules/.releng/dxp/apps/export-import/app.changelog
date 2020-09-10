@@ -339,3 +339,21 @@ app.artifacts-1.0.18=\
 app.change.log-1.0.18=LPS-101089 LPS-103302 LPS-104679 LPS-105380 LPS-106976 LPS-108453 LPS-108789 LPS-109465 LPS-110424 LPS-110838 LPS-113739 LPS-113755 LPS-72545 LPS-78938 LPS-79000 LPS-79257 LPS-79653 LPS-80332 LPS-80782 LPS-81185 LPS-81186 LPS-81695 LPS-81816 LPS-81943 LPS-81947 LPS-82028 LPS-82289 LPS-82446 LPS-82798 LPS-82836 LPS-84090 LPS-84119 LPS-85296 LPS-85765 LPS-86408 LPS-86806 LPS-87037 LPS-91660 LPS-96481 LPS-96911 LPS-98631 LPS-99297 LPS-99407 LPS-99917
 
 app.git.id-1.0.18=6e269b3260d3d9b28dd373c524c9aa3bac60311f
+
+#
+# Liferay App Version 1.0.19
+#
+
+app.artifacts-1.0.19=\
+	com.liferay.exportimport.api-3.3.0.jar,\
+	com.liferay.exportimport.changeset.api-1.0.8.jar,\
+	com.liferay.exportimport.changeset.service-1.0.10.jar,\
+	com.liferay.exportimport.changeset.taglib-1.0.22.jar,\
+	com.liferay.exportimport.changeset.web-1.0.23.jar,\
+	com.liferay.exportimport.resources.importer-3.0.14.jar,\
+	com.liferay.exportimport.service-5.0.86.jar,\
+	com.liferay.exportimport.web-2.0.52.jar
+
+app.change.log-1.0.19=LPS-101089 LPS-103302 LPS-104679 LPS-105380 LPS-110424 LPS-113739 LPS-113755 LPS-117578 LPS-78938 LPS-79000 LPS-79257 LPS-79653 LPS-80332 LPS-81185 LPS-81186 LPS-81943 LPS-81947 LPS-82028 LPS-82836 LPS-84119 LPS-85296 LPS-85765 LPS-86408 LPS-87037 LPS-88600 LPS-96481 LPS-96911 LPS-99297 LPS-99917
+
+app.git.id-1.0.19=a62cef0d4bfb069c78b6d85d2dd718f3d66d5818

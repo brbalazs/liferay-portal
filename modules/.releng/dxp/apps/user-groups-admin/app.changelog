@@ -301,3 +301,19 @@ app.artifacts-1.0.18=\
 app.change.log-1.0.18=LPS-103302 LPS-109712 LPS-77699 LPS-78938 LPS-79653 LPS-79679 LPS-80332 LPS-80763 LPS-80927 LPS-81404 LPS-81704 LPS-83697 LPS-84119 LPS-84399 LPS-85296 LPS-85765 LPS-91343 LPS-92285
 
 app.git.id-1.0.18=6e269b3260d3d9b28dd373c524c9aa3bac60311f
+
+#
+# Liferay App Version 1.0.19
+#
+
+app.artifacts-1.0.19=\
+	com.liferay.user.groups.admin.api-3.0.0.jar,\
+	com.liferay.user.groups.admin.impl-2.0.6.jar,\
+	com.liferay.user.groups.admin.item.selector.api-1.0.5.jar,\
+	com.liferay.user.groups.admin.item.selector.web-1.0.5.jar,\
+	com.liferay.user.groups.admin.uad-3.0.4.jar,\
+	com.liferay.user.groups.admin.web-2.0.23.jar
+
+app.change.log-1.0.19=LPS-103302 LPS-105380 LPS-77699 LPS-78938 LPS-79653 LPS-79679 LPS-80332 LPS-80763 LPS-80927 LPS-81404 LPS-81704 LPS-83697 LPS-84119 LPS-84399 LPS-85296 LPS-85765 LPS-91343 LPS-92285
+
+app.git.id-1.0.19=a62cef0d4bfb069c78b6d85d2dd718f3d66d5818

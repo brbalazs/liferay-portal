@@ -231,3 +231,16 @@ app.artifacts-1.0.17=\
 app.change.log-1.0.17=LPS-103302 LPS-110849 LPS-79653 LPS-80332 LPS-82228 LPS-82446 LPS-82572 LPS-82828 LPS-84119 LPS-85296 LPS-86408 LPS-86413 LPS-93807
 
 app.git.id-1.0.17=6e269b3260d3d9b28dd373c524c9aa3bac60311f
+
+#
+# Liferay App Version 1.0.18
+#
+
+app.artifacts-1.0.18=\
+	com.liferay.portlet.display.template.api-1.0.7.jar,\
+	com.liferay.portlet.display.template.impl-1.0.14.jar,\
+	com.liferay.portlet.display.template.web-3.0.11.jar
+
+app.change.log-1.0.18=LPS-103302 LPS-110849 LPS-79653 LPS-80332 LPS-82228 LPS-82446 LPS-82572 LPS-82828 LPS-84119 LPS-85296 LPS-86408 LPS-86413 LPS-93807
+
+app.git.id-1.0.18=a62cef0d4bfb069c78b6d85d2dd718f3d66d5818

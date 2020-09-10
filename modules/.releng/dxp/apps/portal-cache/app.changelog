@@ -306,3 +306,19 @@ app.artifacts-1.0.18=\
 app.change.log-1.0.18=LPS-100565 LPS-102700 LPS-103302 LPS-108328 LPS-77699 LPS-80332 LPS-80517 LPS-81028 LPS-82828 LPS-83545 LPS-83597 LPS-84093 LPS-84119 LPS-84138 LPS-85008 LPS-85765 LPS-86198 LPS-86408 LPS-86806 LPS-91534 LPS-93254 LPS-93265 LPS-96563
 
 app.git.id-1.0.18=6e269b3260d3d9b28dd373c524c9aa3bac60311f
+
+#
+# Liferay App Version 1.0.19
+#
+
+app.artifacts-1.0.19=\
+	com.liferay.portal.cache.api-1.2.1.jar,\
+	com.liferay.portal.cache.ehcache.impl-1.0.19.jar,\
+	com.liferay.portal.cache.ehcache.provider-3.0.2.jar,\
+	com.liferay.portal.cache.ehcache.spi-1.0.4.jar,\
+	com.liferay.portal.cache.impl-1.0.22.jar,\
+	com.liferay.portal.cache.multiple-2.0.24.jar
+
+app.change.log-1.0.19=LPS-100565 LPS-102700 LPS-103302 LPS-105380 LPS-77699 LPS-80332 LPS-80517 LPS-81028 LPS-82828 LPS-83545 LPS-83597 LPS-84093 LPS-84119 LPS-84138 LPS-85008 LPS-85765 LPS-86198 LPS-86408 LPS-86806 LPS-91534 LPS-93254 LPS-93265 LPS-96563
+
+app.git.id-1.0.19=a62cef0d4bfb069c78b6d85d2dd718f3d66d5818

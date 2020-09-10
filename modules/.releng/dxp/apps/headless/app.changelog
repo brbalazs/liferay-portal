@@ -207,3 +207,33 @@ app.artifacts-1.0.7=\
 app.change.log-1.0.7=LPS-100865 LPS-103302 LPS-105380 LPS-106382 LPS-106886 LPS-109171 LPS-109882 LPS-109953 LPS-110024 LPS-110347 LPS-110454 LPS-110685 LPS-111024 LPS-111029 LPS-111084 LPS-111235 LPS-112101 LPS-112102 LPS-112647 LPS-112999 LPS-113319 LPS-77699 LPS-85973 LPS-94274 LPS-94857 LPS-95092 LPS-95422 LPS-96627 LPS-97072 LPS-98387 LPS-98602
 
 app.git.id-1.0.7=6e269b3260d3d9b28dd373c524c9aa3bac60311f
+
+#
+# Liferay App Version 1.0.8
+#
+
+app.artifacts-1.0.8=\
+	com.liferay.headless.admin.taxonomy.api-2.11.0.jar,\
+	com.liferay.headless.admin.taxonomy.client-1.0.4.jar,\
+	com.liferay.headless.admin.taxonomy.impl-2.0.46.jar,\
+	com.liferay.headless.admin.user.api-11.5.0.jar,\
+	com.liferay.headless.admin.user.client-1.0.4.jar,\
+	com.liferay.headless.admin.user.impl-2.0.45.jar,\
+	com.liferay.headless.admin.workflow.api-11.4.0.jar,\
+	com.liferay.headless.admin.workflow.client-1.0.4.jar,\
+	com.liferay.headless.admin.workflow.impl-2.0.43.jar,\
+	com.liferay.headless.batch.engine.api-10.3.0.jar,\
+	com.liferay.headless.batch.engine.impl-1.0.18.jar,\
+	com.liferay.headless.common.spi-4.1.2.jar,\
+	com.liferay.headless.delivery.api-19.4.0.jar,\
+	com.liferay.headless.delivery.client-1.0.4.jar,\
+	com.liferay.headless.delivery.impl-2.0.53.jar,\
+	com.liferay.headless.discovery.impl-1.0.11.jar,\
+	com.liferay.headless.discovery.web-1.0.10.jar,\
+	com.liferay.headless.form.api-8.8.0.jar,\
+	com.liferay.headless.form.client-1.0.4.jar,\
+	com.liferay.headless.form.impl-2.0.47.jar
+
+app.change.log-1.0.8=COMMERCE-2789 LPS-100419 LPS-100427 LPS-100537 LPS-100656 LPS-100865 LPS-102388 LPS-102573 LPS-103302 LPS-103420 LPS-103874 LPS-104929 LPS-105235 LPS-105297 LPS-105380 LPS-106123 LPS-106382 LPS-106646 LPS-106757 LPS-106886 LPS-106992 LPS-107141 LPS-107224 LPS-108380 LPS-109171 LPS-110024 LPS-110685 LPS-111049 LPS-112102 LPS-112998 LPS-113319 LPS-113619 LPS-113663 LPS-113695 LPS-114405 LPS-115644 LPS-115946 LPS-117010 LPS-117229 LPS-117236 LPS-117310 LPS-117311 LPS-117374 LPS-117377 LPS-117605 LPS-117712 LPS-117877 LPS-117952 LPS-118716 LPS-119414 LPS-119653 LPS-77699 LPS-82148 LPS-85973 LPS-89415 LPS-92053 LPS-92096 LPS-92618 LPS-94274 LPS-94857 LPS-94991 LPS-95092 LPS-95133 LPS-95232 LPS-95723 LPS-95924 LPS-96029 LPS-96319 LPS-96627 LPS-96637 LPS-96805 LPS-97072 LPS-97900 LPS-98366 LPS-98387 LPS-98602 LPS-98787 LPS-98797 LPS-98931 LPS-99076
+
+app.git.id-1.0.8=a62cef0d4bfb069c78b6d85d2dd718f3d66d5818

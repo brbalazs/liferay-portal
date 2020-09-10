@@ -586,3 +586,34 @@ app.artifacts-1.0.18=\
 app.change.log-1.0.18=LPS-0 LPS-103302 LPS-103342 LPS-104944 LPS-105108 LPS-105380 LPS-107677 LPS-108386 LPS-108846 LPS-109848 LPS-110419 LPS-110552 LPS-112643 LPS-112857 LPS-112914 LPS-113044 LPS-114410 LPS-77699 LPS-78938 LPS-79653 LPS-79679 LPS-80295 LPS-80332 LPS-80479 LPS-80728 LPS-80927 LPS-81383 LPS-81404 LPS-81638 LPS-81704 LPS-81815 LPS-81834 LPS-81897 LPS-81983 LPS-82021/LPS-82022 LPS-82048 LPS-82343 LPS-82401 LPS-82562 LPS-82766 LPS-82798 LPS-82843 LPS-83038 LPS-83697 LPS-84092 LPS-84119 LPS-84399 LPS-85296 LPS-85318 LPS-85765 LPS-86127 LPS-86408 LPS-86806 LPS-86910 LPS-88284 LPS-88864 LPS-89485 LPS-89966 LPS-91343 LPS-91440 LPS-92566 LPS-95442 LPS-95681 LPS-96911 LPS-97094 LPS-97133 LPS-98442 LPS-99898 LRCI-156
 
 app.git.id-1.0.18=6e269b3260d3d9b28dd373c524c9aa3bac60311f
+
+#
+# Liferay App Version 1.0.19
+#
+
+app.artifacts-1.0.19=\
+	com.liferay.layout.admin.api-1.1.0.jar,\
+	com.liferay.layout.admin.web-2.0.121.jar,\
+	com.liferay.layout.api-4.1.2.jar,\
+	com.liferay.layout.impl-3.0.22.jar,\
+	com.liferay.layout.item.selector.api-2.1.4.jar,\
+	com.liferay.layout.item.selector.web-2.0.9.jar,\
+	com.liferay.layout.page.template.api-1.7.5.jar,\
+	com.liferay.layout.page.template.service-1.0.52.jar,\
+	com.liferay.layout.prototype.api-2.0.0.jar,\
+	com.liferay.layout.prototype.impl-2.0.9.jar,\
+	com.liferay.layout.set.prototype.api-2.0.0.jar,\
+	com.liferay.layout.set.prototype.impl-3.0.6.jar,\
+	com.liferay.layout.set.prototype.web-2.0.15.jar,\
+	com.liferay.layout.taglib-3.1.13.jar,\
+	com.liferay.layout.type.controller.asset.display-1.0.18.jar,\
+	com.liferay.layout.type.controller.content-1.0.24.jar,\
+	com.liferay.layout.type.controller.control.panel-3.0.2.jar,\
+	com.liferay.layout.type.controller.full.page.application-3.0.7.jar,\
+	com.liferay.layout.type.controller.link.to.page-1.0.10.jar,\
+	com.liferay.layout.type.controller.node-3.0.10.jar,\
+	com.liferay.layout.uad-3.0.6.jar
+
+app.change.log-1.0.19=LPS-103302 LPS-104944 LPS-105380 LPS-108614 LPS-110552 LPS-112981 LPS-114410 LPS-115420 LPS-115531 LPS-116502 LPS-77699 LPS-78938 LPS-79653 LPS-80295 LPS-80332 LPS-80479 LPS-80728 LPS-80927 LPS-81404 LPS-81704 LPS-82401 LPS-83038 LPS-83697 LPS-84119 LPS-84399 LPS-85765 LPS-86806 LPS-88284 LPS-88864 LPS-91343 LPS-91440 LPS-95442 LPS-97094 LPS-98442 LPS-99898 LRCI-156 LRDOCS-8120
+
+app.git.id-1.0.19=a62cef0d4bfb069c78b6d85d2dd718f3d66d5818
