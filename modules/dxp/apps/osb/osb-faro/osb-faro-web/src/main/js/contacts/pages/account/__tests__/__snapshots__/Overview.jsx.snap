@@ -1,133 +1,451 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AccountOverview should render 1`] = `
-<div
-  className="row"
->
+<div>
   <div
-    className="col-xl-7"
+    class="row"
   >
-    <_class
-      account={
-        Immutable.Record {
-          "activitiesCount": 100,
-          "createTime": null,
-          "engagementScore": 0.4899,
-          "id": "1",
-          "individualCount": 10,
-          "name": "account1",
-          "photoURL": "",
-          "properties": Immutable.Map {
-            "yearStarted": "2003",
-            "numberOfEmployees": "9001",
-            "shippingAddress": "123 Fairy Lane Diamond Bar, CA 91765 USA",
-            "accountType": "customer",
-            "phone": "123-123-1234",
-            "ownership": "private",
-            "accountNumber": "123123123",
-            "billingAddress": "123 Fairy Lane Diamond Bar, CA 91765 USA",
-            "website": "www.liferay.com",
-            "description": "Foo company description",
-            "annualRevenue": "USD $1,000,000,000",
-            "fax": "321-321-4321",
-            "industry": "Agriculture",
-          },
-          "status": null,
-          "type": 0,
-        }
-      }
-      groupId="23"
-    />
-    <InterestsCard
-      groupId="23"
-      id="test"
-    />
-    <_class
-      dataSourceFn={[Function]}
-      groupId="23"
-      id="test"
-      pageUrl="/workspace/23/contacts/accounts/test/segments"
-    />
-  </div>
-  <div
-    className="col-xl-5"
-  >
-    <InfoCard
-      header="Account Firmographics"
-      image=""
-      items={
-        Array [
-          Object {
-            "name": "name",
-            "value": "account1",
-          },
-          Object {
-            "name": "accountType",
-            "value": "customer",
-          },
-          Object {
-            "name": "accountNumber",
-            "value": "123123123",
-          },
-          Object {
-            "name": "industry",
-            "value": "Agriculture",
-          },
-          Object {
-            "name": "annualRevenue",
-            "value": "USD $1,000,000,000",
-          },
-          Object {
-            "name": "ownership",
-            "value": "private",
-          },
-          Object {
-            "name": "numberOfEmployees",
-            "value": "9001",
-          },
-          Object {
-            "name": "yearStarted",
-            "value": "2003",
-          },
-          Object {
-            "name": "description",
-            "value": "Foo company description",
-          },
-        ]
-      }
-    />
-    <InfoCard
-      header="Contact Information"
-      items={
-        Array [
-          Object {
-            "name": "phone",
-            "value": "123-123-1234",
-          },
-          Object {
-            "name": "fax",
-            "value": "321-321-4321",
-          },
-          Object {
-            "name": "billingAddress",
-            "value": "123 Fairy Lane Diamond Bar, CA 91765 USA",
-          },
-          Object {
-            "name": "shippingAddress",
-            "value": "123 Fairy Lane Diamond Bar, CA 91765 USA",
-          },
-          Object {
-            "name": "website",
-            "value": "www.liferay.com",
-          },
-        ]
-      }
-    />
-    <_class
-      dataSourceFn={[Function]}
-      groupId="23"
-      id="test"
-    />
+    <div
+      class="col-xl-7"
+    >
+      <div
+        class="card card-root account-activities-card-root"
+      >
+        <div
+          class="card-header"
+        >
+          <h5
+            class="card-title"
+          >
+            Account Activities
+          </h5>
+        </div>
+        <div
+          class="card-body"
+        >
+          <div
+            class="spinner-root spinner-spacer"
+          >
+            <span
+              class="loading-animation loading-animation-dotted"
+            />
+          </div>
+        </div>
+        <div
+          class="card-footer"
+        >
+          <a
+            class="button-root btn btn-link btn-sm"
+            href="/workspace/23/contacts/accounts/1/activities"
+          >
+            View All Activities
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-angle-right"
+              viewBox=""
+            >
+              <use
+                xlink:href="#angle-right"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div
+        class="card card-root interests-card-root"
+      >
+        <div
+          class="card-header"
+        >
+          <h5
+            class="card-title"
+          >
+            Account Interest Topics
+          </h5>
+        </div>
+        <div
+          class="table-responsive table-root flex-grow-1"
+        >
+          <table
+            class="table table-autofit table-hover table-heading-nowrap table-nowrap table-row-no-bordered"
+          >
+            <thead>
+              <tr
+                class=""
+              >
+                <th
+                  class="table-head-title"
+                >
+                  Topic
+                </th>
+                <th
+                  class="table-head-title table-cell-expand"
+                >
+                  Account Members
+                </th>
+                <th
+                  class="table-head-title table-column-text-end"
+                >
+                  % of Active Members
+                </th>
+              </tr>
+            </thead>
+          </table>
+          <div
+            class="spinner-root spinner-overlay"
+          >
+            <span
+              class="loading-animation loading-animation-dotted"
+            />
+          </div>
+        </div>
+        <div
+          class="card-footer"
+        >
+          <a
+            class="button-root btn btn-link btn-sm"
+            href="/workspace/23/contacts/accounts/test/interests"
+          >
+            View All Interests
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-angle-right"
+              viewBox=""
+            >
+              <use
+                xlink:href="#angle-right"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div
+        class="card card-root associated-segments-card-root"
+      >
+        <div
+          class="card-header"
+        >
+          <h5
+            class="card-title"
+          >
+            Associated Segments
+          </h5>
+        </div>
+        <div
+          class="card-body"
+        >
+          <div
+            class="input-group"
+          >
+            <div
+              class="input-group-item"
+            >
+              <input
+                class="input-root form-control input-group-inset input-group-inset-after"
+                placeholder="Search"
+                type="text"
+                value=""
+              />
+              <div
+                class="input-group-inset-item input-group-inset-item-after"
+              >
+                <button
+                  class="button-root btn btn-unstyled"
+                  type="button"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-search"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="#search"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content"
+        >
+          <div
+            class="spinner-root spinner-overlay"
+          >
+            <span
+              class="loading-animation loading-animation-dotted"
+            />
+          </div>
+        </div>
+        <div
+          class="card-footer"
+        >
+          <a
+            class="button-root btn btn-link btn-sm"
+            href="/workspace/23/contacts/accounts/test/segments"
+          >
+            View All Segments
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-angle-right"
+              viewBox=""
+            >
+              <use
+                xlink:href="#angle-right"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="col-xl-5"
+    >
+      <div
+        class="card card-root info-card-root"
+      >
+        <div
+          class="card-header"
+        >
+          <h5
+            class="card-title"
+          >
+            Account Firmographics
+          </h5>
+        </div>
+        <div
+          class="card-body"
+        >
+          <dl
+            class="term-list"
+          >
+            <div
+              class="term"
+            >
+              <dt>
+                Name
+              </dt>
+              <dd>
+                account1
+              </dd>
+            </div>
+            <div
+              class="term"
+            >
+              <dt>
+                Account Type
+              </dt>
+              <dd>
+                customer
+              </dd>
+            </div>
+            <div
+              class="term"
+            >
+              <dt>
+                Account Number
+              </dt>
+              <dd>
+                123123123
+              </dd>
+            </div>
+            <div
+              class="term"
+            >
+              <dt>
+                Industry
+              </dt>
+              <dd>
+                Agriculture
+              </dd>
+            </div>
+            <div
+              class="term"
+            >
+              <dt>
+                Annual Revenue
+              </dt>
+              <dd>
+                USD $1,000,000,000
+              </dd>
+            </div>
+            <div
+              class="term"
+            >
+              <dt>
+                Ownership
+              </dt>
+              <dd>
+                private
+              </dd>
+            </div>
+            <div
+              class="term"
+            >
+              <dt>
+                Employees
+              </dt>
+              <dd>
+                9001
+              </dd>
+            </div>
+            <div
+              class="term"
+            >
+              <dt>
+                Year Started
+              </dt>
+              <dd>
+                2003
+              </dd>
+            </div>
+            <div
+              class="term"
+            >
+              <dt>
+                Description
+              </dt>
+              <dd>
+                Foo company description
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+      <div
+        class="card card-root info-card-root"
+      >
+        <div
+          class="card-header"
+        >
+          <h5
+            class="card-title"
+          >
+            Contact Information
+          </h5>
+        </div>
+        <div
+          class="card-body"
+        >
+          <dl
+            class="term-list"
+          >
+            <div
+              class="term"
+            >
+              <dt>
+                Phone Number
+              </dt>
+              <dd>
+                123-123-1234
+              </dd>
+            </div>
+            <div
+              class="term"
+            >
+              <dt>
+                Fax Number
+              </dt>
+              <dd>
+                321-321-4321
+              </dd>
+            </div>
+            <div
+              class="term"
+            >
+              <dt>
+                Billing Address
+              </dt>
+              <dd>
+                123 Fairy Lane Diamond Bar, CA 91765 USA
+              </dd>
+            </div>
+            <div
+              class="term"
+            >
+              <dt>
+                Shipping Address
+              </dt>
+              <dd>
+                123 Fairy Lane Diamond Bar, CA 91765 USA
+              </dd>
+            </div>
+            <div
+              class="term"
+            >
+              <dt>
+                Website
+              </dt>
+              <dd>
+                www.liferay.com
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+      <div
+        class="card card-root known-individuals-card-root"
+      >
+        <div
+          class="card-header"
+        >
+          <h5
+            class="card-title"
+          >
+            Known Individuals
+          </h5>
+        </div>
+        <div
+          class="table-responsive table-root flex-grow-1"
+        >
+          <table
+            class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+          >
+            <thead>
+              <tr
+                class=""
+              >
+                <th
+                  class="table-head-title name"
+                >
+                  Individual
+                </th>
+                <th
+                  class="table-head-title trendline"
+                >
+                  Engagement
+                </th>
+                <th
+                  class="table-head-title score table-column-text-end"
+                />
+              </tr>
+            </thead>
+          </table>
+          <div
+            class="spinner-root spinner-overlay"
+          >
+            <span
+              class="loading-animation loading-animation-dotted"
+            />
+          </div>
+        </div>
+        <div
+          class="card-footer"
+        >
+          <a
+            class="button-root btn btn-link btn-sm"
+            href="/workspace/23/contacts/accounts/test/individuals"
+          >
+            View All Individuals
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-angle-right"
+              viewBox=""
+            >
+              <use
+                xlink:href="#angle-right"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
