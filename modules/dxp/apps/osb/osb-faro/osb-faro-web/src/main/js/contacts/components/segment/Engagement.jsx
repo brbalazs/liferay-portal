@@ -22,20 +22,20 @@ const tooltipLabels = {
 };
 
 const tooltipRenderRows = contributors => [
-		{
-			columns: [
-				{
-					label: Liferay.Language.get('active-members'),
-					weight: 'normal'
-				},
-				{
-					align: 'right',
-					label: toThousands(contributors),
-					weight: 'semibold'
-				}
-			]
-		}
-	];
+	{
+		columns: [
+			{
+				label: Liferay.Language.get('active-members'),
+				weight: 'normal'
+			},
+			{
+				align: 'right',
+				label: toThousands(contributors),
+				weight: 'semibold'
+			}
+		]
+	}
+];
 export class SegmentEngagementChart extends React.Component {
 	render() {
 		const {data, ...otherProps} = this.props;
