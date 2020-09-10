@@ -258,6 +258,7 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 		List<String> attributeNames = new ArrayList<>();
 
 		attributeNames.add("expando");
+		attributeNames.add("memberships");
 
 		for (String name : _userAttributeNames) {
 			if (ArrayUtil.contains(
