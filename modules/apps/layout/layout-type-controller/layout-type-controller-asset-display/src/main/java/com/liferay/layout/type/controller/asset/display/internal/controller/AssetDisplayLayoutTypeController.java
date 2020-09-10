@@ -18,7 +18,9 @@ import com.liferay.asset.display.contributor.constants.AssetDisplayWebKeys;
 import com.liferay.asset.display.page.constants.AssetDisplayPageConstants;
 import com.liferay.asset.display.page.model.AssetDisplayPageEntry;
 import com.liferay.asset.display.page.service.AssetDisplayPageEntryLocalService;
+import com.liferay.asset.kernel.AssetRendererFactoryRegistryUtil;
 import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.asset.kernel.model.AssetRendererFactory;
 import com.liferay.fragment.model.FragmentEntryLink;
 import com.liferay.fragment.service.FragmentEntryLinkLocalService;
 import com.liferay.layout.page.template.model.LayoutPageTemplateEntry;
@@ -30,7 +32,10 @@ import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.model.LayoutTypeController;
 import com.liferay.portal.kernel.model.impl.BaseLayoutTypeControllerImpl;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.servlet.PipingServletResponse;
 
 import java.util.List;
@@ -70,6 +75,9 @@ public class AssetDisplayLayoutTypeController
 			Layout layout)
 		throws Exception {
 
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)request.getAttribute(WebKeys.THEME_DISPLAY);
+
 		AssetEntry assetEntry = (AssetEntry)request.getAttribute(
 			AssetDisplayWebKeys.ASSET_ENTRY);
 
@@ -87,6 +95,24 @@ public class AssetDisplayLayoutTypeController
 			request.setAttribute(
 				AssetDisplayLayoutTypeControllerWebKeys.LAYOUT_FRAGMENTS,
 				fragmentEntryLinks);
+
+			AssetRendererFactory<?> assetRendererFactory =
+				AssetRendererFactoryRegistryUtil.
+					getAssetRendererFactoryByClassNameId(
+						assetEntry.getClassNameId());
+
+			if ((assetRendererFactory != null) &&
+				!assetRendererFactory.hasPermission(
+					themeDisplay.getPermissionChecker(),
+					assetEntry.getClassPK(), ActionKeys.VIEW)) {
+
+				if (themeDisplay.isSignedIn()) {
+					response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+				}
+				else {
+					response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				}
+			}
 		}
 
 		return super.includeLayoutContent(request, response, layout);
