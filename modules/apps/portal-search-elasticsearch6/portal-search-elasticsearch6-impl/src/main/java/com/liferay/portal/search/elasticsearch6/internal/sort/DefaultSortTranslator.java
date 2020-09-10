@@ -121,8 +121,7 @@ public class DefaultSortTranslator implements SortTranslator {
 				if (sort instanceof NestedSort) {
 					NestedSort nestedSort = (NestedSort)sort;
 
-					fieldSortBuilder.setNestedSort(
-						_getNestedSortBuilder(nestedSort));
+					fieldSortBuilder.setNestedSort(translate(nestedSort));
 				}
 
 				sortBuilder = fieldSortBuilder;
@@ -151,7 +150,7 @@ public class DefaultSortTranslator implements SortTranslator {
 		_queryTranslator = queryTranslator;
 	}
 
-	private NestedSortBuilder _getNestedSortBuilder(NestedSort nestedSort) {
+	protected NestedSortBuilder translate(NestedSort nestedSort) {
 		NestedSortBuilder nestedSortBuilder = new NestedSortBuilder(
 			nestedSort.getPath());
 
