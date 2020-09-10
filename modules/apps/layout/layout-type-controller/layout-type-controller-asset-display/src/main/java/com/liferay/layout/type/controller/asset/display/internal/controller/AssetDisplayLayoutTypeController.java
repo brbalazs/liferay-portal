@@ -75,8 +75,8 @@ public class AssetDisplayLayoutTypeController
 			Layout layout)
 		throws Exception {
 
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)request.getAttribute(WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
 
 		AssetEntry assetEntry = (AssetEntry)request.getAttribute(
 			AssetDisplayWebKeys.ASSET_ENTRY);
