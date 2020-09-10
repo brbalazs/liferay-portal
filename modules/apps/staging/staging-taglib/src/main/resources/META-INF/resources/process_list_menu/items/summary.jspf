@@ -15,8 +15,6 @@
 --%>
 
 <%
-long exportImportConfigurationId = MapUtil.getLong(backgroundTask.getTaskContextMap(), "exportImportConfigurationId");
-
 ExportImportConfiguration exportImportConfiguration = ExportImportConfigurationLocalServiceUtil.getExportImportConfiguration(exportImportConfigurationId);
 
 Map<String, Serializable> settingsMap = exportImportConfiguration.getSettingsMap();
