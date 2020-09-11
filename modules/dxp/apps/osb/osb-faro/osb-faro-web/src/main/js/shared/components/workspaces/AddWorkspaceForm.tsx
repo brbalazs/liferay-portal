@@ -1,3 +1,4 @@
+import * as API from 'shared/api';
 import Button from 'shared/components/Button';
 import ClayIcon from '@clayui/icon';
 import Constants from 'shared/util/constants';
@@ -22,6 +23,7 @@ import {Project} from 'shared/util/records';
 import {Routes} from 'shared/util/router';
 import {sequence} from 'shared/util/promise';
 import {sub} from 'shared/util/lang';
+import {useRequest} from 'shared/hooks';
 
 const {
 	faroURL,
@@ -36,6 +38,7 @@ const projectLocations = [
 ];
 
 const VALIDATE_DOMAINS = /^([a-zA-Z0-9_]([a-zA-Z0-9_-]{0,61}[a-zA-Z0-9_])?\.){1,126}[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z]$/;
+const TIMEZONE_DEFAULT_VALUE = {name: '(UTC) UTC', value: 'UTC'};
 
 export const emailDomainValidation = value => VALIDATE_DOMAINS.test(value);
 
@@ -84,7 +87,35 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 		path: Routes.WORKSPACE_ADD_TRIAL
 	});
 
+	const {data: timezonesAvailable, loading} = useRequest(
+		API.projects.fetchTimezonesAvailable,
+		{}
+	);
+
 	const [inputListValue, setInputListValue] = useState();
+
+	const [timezoneState, setTimezoneState] = useState({
+		filterText: '',
+		timezoneValue: TIMEZONE_DEFAULT_VALUE
+	});
+
+	const getTimezoneItems = (): Array<string | string> =>
+		timezonesAvailable
+			? timezonesAvailable
+					.map(({displayTimeZone, timeZoneId}) => ({
+						name: displayTimeZone,
+						value: timeZoneId
+					}))
+					.filter(
+						({name}) =>
+							!timezoneState.filterText ||
+							name
+								.toLowerCase()
+								.includes(
+									timezoneState.filterText.toLowerCase()
+								)
+					)
+			: [];
 
 	const handleSubmit = (
 		values,
@@ -160,7 +191,8 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 								: '',
 						name: (project && project.name) || '',
 						serverLocation:
-							(project && project.serverLocation) || US
+							(project && project.serverLocation) || US,
+						timezone: TIMEZONE_DEFAULT_VALUE
 					}}
 					onSubmit={handleSubmit}
 					ref={formRef}
@@ -277,6 +309,57 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 												false
 											)}
 									</p> */}
+								</Sheet.Section>
+
+								<Sheet.Section>
+									<Form.Label>
+										<>
+											{Liferay.Language.get('timezone')}
+
+											<span className='reference-mark'>
+												<ClayIcon symbol='asterisk' />
+											</span>
+
+											<p className='instructions'>
+												{Liferay.Language.get(
+													'select-a-timezone-that-will-be-used-for-all-data-reporting-in-your-workspace'
+												)}
+
+												<strong className='ml-1'>
+													{Liferay.Language.get(
+														'cannot-be-changed-after-creation'
+													)}
+												</strong>
+											</p>
+										</>
+									</Form.Label>
+
+									<Form.SearchableSelect
+										buttonPlaceholder={
+											timezoneState.timezoneValue.name
+										}
+										className='searchable-timezone'
+										disabled={disabled || editing}
+										inputValue={timezoneState.filterText}
+										items={getTimezoneItems()}
+										loading={loading}
+										name='timezone'
+										onSearchChange={newValue =>
+											setTimezoneState({
+												...timezoneState,
+												filterText: newValue
+											})
+										}
+										onSelect={newValue =>
+											setTimezoneState({
+												...timezoneState,
+												timezoneValue: newValue
+											})
+										}
+										selectedItem={
+											timezoneState.timezoneValue
+										}
+									/>
 								</Sheet.Section>
 
 								<Sheet.Section>

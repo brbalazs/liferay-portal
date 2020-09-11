@@ -11,7 +11,8 @@ export function create({
 	emailAddressDomains,
 	friendlyURL,
 	name,
-	serverLocation
+	serverLocation,
+	timeZoneId
 }) {
 	return sendRequest({
 		data: {
@@ -19,7 +20,8 @@ export function create({
 			emailAddressDomains,
 			friendlyURL,
 			name,
-			serverLocation
+			serverLocation,
+			timeZoneId
 		},
 		method: 'POST',
 		path: 'main/project'
@@ -42,14 +44,16 @@ export function createTrial({
 	emailAddressDomains,
 	friendlyURL,
 	name,
-	serverLocation
+	serverLocation,
+	timeZoneId
 }) {
 	return sendRequest({
 		data: {
 			emailAddressDomains,
 			friendlyURL,
 			name,
-			serverLocation
+			serverLocation,
+			timeZoneId
 		},
 		method: 'POST',
 		path: 'main/project/trial'
@@ -88,6 +92,13 @@ export function fetchProjectViaCorpProjectUuid({corpProjectUuid}) {
 	return sendRequest({
 		method: 'GET',
 		path: `main/project/corpProjectUuid/${corpProjectUuid}`
+	});
+}
+
+export function fetchTimezonesAvailable() {
+	return sendRequest({
+		method: 'GET',
+		path: 'main/project/time_zones'
 	});
 }
 
