@@ -1,17 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Cell should render 1`] = `
-<td
-  className=""
-/>
+<div>
+  <td
+    class=""
+  />
+</div>
 `;
 
 exports[`Cell should render as a table title 1`] = `
-<td
-  className=""
->
-  <h4
-    className="table-title text-truncate"
-  />
-</td>
+<div>
+  <td
+    class=""
+  >
+    <h4
+      class="table-title text-truncate"
+    />
+  </td>
+</div>
 `;
