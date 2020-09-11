@@ -30,6 +30,8 @@ describe('SegmentOverview', () => {
 			</Provider>
 		);
 
+		jest.runAllTimers();
+
 		expect(container).toMatchSnapshot();
 	});
 });

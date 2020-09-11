@@ -68,12 +68,22 @@ exports[`SegmentOverview should render 1`] = `
           class="card-body"
         >
           <div
-            class="spinner-root spinner-spacer"
+            class="chart-root segment-growth-chart-root"
           >
-            <span
-              class="loading-animation loading-animation-dotted"
-            />
+            <div
+              class="chart-labels"
+            >
+              <span>
+                Growth
+              </span>
+              <span />
+            </div>
+            <div />
           </div>
+          <div
+            class="chart-legend"
+            id="legend-growth"
+          />
         </div>
       </div>
       <div
@@ -161,11 +171,34 @@ exports[`SegmentOverview should render 1`] = `
               >
                 <ul
                   class="d-flex"
-                />
+                >
+                  <li
+                    class="tab-item d-flex align-items-baseline active"
+                  >
+                    <div
+                      class="tab-title active"
+                    >
+                      Tab 1
+                      <button
+                        class="button-root btn btn-unstyled remove-tab btn-sm"
+                        type="button"
+                      >
+                        <svg
+                          class="icon-root lexicon-icon lexicon-icon-times icon-monospaced icon-size-sm"
+                          viewBox=""
+                        >
+                          <use
+                            xlink:href="#times"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
             <button
-              class="button-root btn btn-secondary add-tab active btn-monospaced btn-outline-borderless btn-sm"
+              class="button-root btn btn-secondary add-tab btn-monospaced btn-outline-borderless btn-sm"
               type="button"
             >
               <svg
@@ -180,11 +213,53 @@ exports[`SegmentOverview should render 1`] = `
           </div>
         </div>
         <div
-          class="spinner-root spinner-overlay"
+          class="card-body align-center"
         >
-          <span
-            class="loading-animation loading-animation-dotted"
-          />
+          <div>
+            <div
+              class="no-results-root flex-grow-1"
+            >
+              <div
+                class="no-results-content"
+              >
+                <div
+                  class="no-results-icon no-results-icon-border"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-document icon-size-xxl"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="#document"
+                    />
+                  </svg>
+                </div>
+                <h4
+                  class="no-results-title"
+                >
+                  There are no items found.
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="card-footer"
+        >
+          <a
+            class="button-root btn btn-link btn-sm"
+            href="/workspace/23/contacts/segments/test/distribution"
+          >
+            Explore Breakdown
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-angle-right"
+              viewBox=""
+            >
+              <use
+                xlink:href="#angle-right"
+              />
+            </svg>
+          </a>
         </div>
       </div>
     </div>
