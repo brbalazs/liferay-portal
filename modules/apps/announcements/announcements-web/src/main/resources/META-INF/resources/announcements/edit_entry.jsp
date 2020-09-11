@@ -82,7 +82,7 @@ if (portletTitleBasedNavigation) {
 
 		<aui:fieldset-group markupView="lexicon">
 			<aui:fieldset>
-				<h1><liferay-ui:input-editor contents="<%= HtmlUtil.escape(title) %>" editorName="alloyeditor" name="titleEditor" placeholder="title" showSource="<%= false %>" /></h1>
+				<h1><liferay-ui:input-editor contents="<%= HtmlUtil.escape(title) %>" editorName="alloyeditor" name="titleEditor" onChangeMethod="onChangeTitle" placeholder="title" showSource="<%= false %>" /></h1>
 
 				<aui:input name="title" type="hidden">
 					<aui:validator name="maxLength"><%= ModelHintsUtil.getMaxLength(AnnouncementsEntry.class.getName(), "title") %></aui:validator>
@@ -169,9 +169,24 @@ if (portletTitleBasedNavigation) {
 </div>
 
 <aui:script>
-	function <portlet:namespace />saveEntry() {
-		var form = document.getElementById('<portlet:namespace />fm');
+	var form = document.getElementById('<portlet:namespace />fm');
 
+	function <portlet:namespace />onChangeTitle(title) {
+		if (form) {
+			var title = form.querySelector('#<portlet:namespace />title');
+			if (title) {
+				title.setAttribute(
+					'value',
+					window.<portlet:namespace />titleEditor.getText()
+				);
+				var formValidator = Liferay.Form.get('<portlet:namespace />fm')
+					.formValidator;
+				formValidator.validateField('<portlet:namespace />title');
+			}
+		}
+	}
+
+	function <portlet:namespace />saveEntry() {
 		if (form) {
 			form.action = '<portlet:actionURL name="/announcements/edit_entry"><portlet:param name="mvcRenderCommandName" value="/announcements/edit_entry" /></portlet:actionURL>';
 			form.target = '';
@@ -186,12 +201,6 @@ if (portletTitleBasedNavigation) {
 
 			if (content) {
 				content.setAttribute('value', window.<portlet:namespace />contentEditor.getHTML());
-			}
-
-			var title = form.querySelector('#<portlet:namespace />title');
-
-			if (title) {
-				title.setAttribute('value', window.<portlet:namespace />titleEditor.getText());
 			}
 
 			submitForm(form);
