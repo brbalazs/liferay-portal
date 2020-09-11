@@ -26,7 +26,7 @@ exports[`Workspace Settting should render 1`] = `
         <div
           class="description"
         >
-          Here you can view and change your workspace settings. You can only set your Friendly Workspace URL once. Data Center Location cannot be changed.
+          Here you can view and change your workspace settings. You can only set your Friendly Workspace URL once. Data Center Location and Timezone cannot be changed.
         </div>
       </div>
       <div
@@ -140,6 +140,67 @@ exports[`Workspace Settting should render 1`] = `
                       Oregon, USA
                     </option>
                   </select>
+                </div>
+              </div>
+              <div
+                class="sheet-section"
+              >
+                <label
+                  class="form-control-label label-root"
+                >
+                  Timezone
+                  <span
+                    class="reference-mark"
+                  >
+                    <svg
+                      class="lexicon-icon lexicon-icon-asterisk"
+                      role="presentation"
+                    >
+                      <use
+                        xlink:href="#asterisk"
+                      />
+                    </svg>
+                  </span>
+                  <p
+                    class="instructions"
+                  >
+                    Select a timezone that will be used for all data reporting in your workspace.
+                    <strong
+                      class="ml-1"
+                    >
+                      Cannot be changed after creation.
+                    </strong>
+                  </p>
+                </label>
+                <div
+                  aria-haspopup="true"
+                  class="dropdown dropdown-root searchable-select-root searchable-timezone"
+                  name="timezone"
+                >
+                  <button
+                    class="button-root btn btn-secondary dropdown-toggle show-caret"
+                    disabled=""
+                    type="button"
+                  >
+                    <span
+                      class="text-truncate"
+                    >
+                      (UTC) UTC
+                    </span>
+                    
+                    <span
+                      class="caret-root"
+                    >
+                      <svg
+                        class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                        viewBox=""
+                      >
+                        <use
+                          xlink:href="#caret-bottom"
+                        />
+                      </svg>
+                    </span>
+                  </button>
                 </div>
               </div>
               <div
