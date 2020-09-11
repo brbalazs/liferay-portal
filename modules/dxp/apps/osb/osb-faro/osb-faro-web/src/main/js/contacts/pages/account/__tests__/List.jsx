@@ -22,6 +22,8 @@ describe('List', () => {
 			</Provider>
 		);
 
+		jest.runAllTimers();
+
 		expect(container).toMatchSnapshot();
 	});
 });
