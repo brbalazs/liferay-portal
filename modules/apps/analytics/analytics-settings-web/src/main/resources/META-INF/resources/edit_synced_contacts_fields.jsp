@@ -17,13 +17,14 @@
 <%@ include file="/init.jsp" %>
 
 <%
+String cmd = ParamUtil.getString(request, Constants.CMD);
+
 PortletURL portletURL = renderResponse.createRenderURL();
 
 portletURL.setParameter("mvcRenderCommandName", "/analytics_settings/edit_synced_contacts_data");
 
 String redirect = ParamUtil.getString(request, "redirect", portletURL.toString());
 
-String cmd = ParamUtil.getString(request, Constants.CMD);
 boolean syncAllContacts = ParamUtil.getBoolean(request, "syncAllContacts");
 String[] syncedOrganizationIds = ParamUtil.getStringValues(request, "syncedOrganizationIds");
 String[] syncedUserGroupIds = ParamUtil.getStringValues(request, "syncedUserGroupIds");
