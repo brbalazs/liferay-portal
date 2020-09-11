@@ -76,7 +76,7 @@ export const Workspace: React.FC<IWorkspaceProps> = ({
 			groupId={groupId}
 			key='workspaceSettingsPage'
 			pageDescription={Liferay.Language.get(
-				'here-you-can-view-and-change-your-workspace-settings.-you-can-only-set-your-friendly-workspace-url-once.-data-center-location-cannot-be-changed'
+				'here-you-can-view-and-change-your-workspace-settings.-you-can-only-set-your-friendly-workspace-url-once.-data-center-location-and-timezone-cannot-be-changed'
 			)}
 			pageTitle={Liferay.Language.get('workspace-settings')}
 		>

@@ -42,7 +42,13 @@ export class AddWorkspace extends React.Component {
 	};
 
 	@autobind
-	handleSubmit({emailAddressDomains, friendlyURL, name, serverLocation}) {
+	handleSubmit({
+		emailAddressDomains,
+		friendlyURL,
+		name,
+		serverLocation,
+		timezone: {value}
+	}) {
 		const {
 			addAlert,
 			configureProject,
@@ -56,6 +62,7 @@ export class AddWorkspace extends React.Component {
 			emailAddressDomains,
 			friendlyURL: friendlyURL && `/${friendlyURL}`,
 			name,
+			timeZoneId: value,
 			...(state === unconfigured
 				? {groupId}
 				: {corpProjectUuid, serverLocation})
