@@ -1,13 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BasePage should render 1`] = `
-<div
-  className="settings-base-page-root"
->
-  <DocumentTitle
-    title="undefined - Settings"
-  />
-  <withRouter(Connect(MaintenanceAlert)) />
-  <div />
+<div>
+  <div
+    class="settings-base-page-root"
+  >
+    <div
+      class="maintenance-alert-root"
+    />
+    <div />
+  </div>
 </div>
 `;

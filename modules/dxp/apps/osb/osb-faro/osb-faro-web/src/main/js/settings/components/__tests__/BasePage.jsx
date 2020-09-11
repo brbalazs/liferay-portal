@@ -1,11 +1,22 @@
+import mockStore from 'test/mock-store';
 import React from 'react';
 import {SettingsBasePage as BasePage} from '../BasePage';
-import {shallow} from 'enzyme';
+import {Provider} from 'react-redux';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 describe('BasePage', () => {
 	it('should render', () => {
-		const component = shallow(<BasePage groupId='23' />);
+		const {container} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<BasePage groupId='23' />
+				</StaticRouter>
+			</Provider>
+		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
