@@ -1,3 +1,14 @@
+.searchable-select-root {
+	.dropdown-toggle {
+		background-color: #F1F2F5;
+		border: 0.0625rem solid #E7E7ED;
+	}
+
+	.dropdown-toggle:disabled {
+		background-color: rgb(222, 226, 236);
+	}
+}
+
 .add-workspace-root {
 	.title {
 		font-size: 20px;
