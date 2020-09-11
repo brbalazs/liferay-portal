@@ -6,6 +6,15 @@ export const create = jest.fn(() => Promise.resolve(data.mockProject()));
 
 export const fetch = jest.fn(() => Promise.resolve(data.mockProject()));
 
+export const fetchTimezonesAvailable = jest.fn(() =>
+	Promise.resolve(
+		range(3).map(() => ({
+			displayTimeZone: '(UTC) UTC',
+			timezoneValue: 'UTC'
+		}))
+	)
+);
+
 export const fetchProjectViaCorpProjectUuid = jest.fn(() =>
 	Promise.resolve(data.mockProject(0))
 );
