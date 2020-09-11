@@ -24,11 +24,93 @@ exports[`AccountOverview should render 1`] = `
           class="card-body"
         >
           <div
-            class="spinner-root spinner-spacer"
+            class="change-legend-root"
           >
-            <span
-              class="loading-animation loading-animation-dotted"
-            />
+            <div
+              class="legend-item activities"
+            >
+              <div
+                class="legend-header"
+              >
+                <span
+                  class="legend-color"
+                  style="background-color: rgb(75, 155, 255);"
+                />
+                <span
+                  class="title"
+                >
+                  Total Activity Count: 100
+                </span>
+              </div>
+              <div
+                class="secondary-info"
+              >
+                30 Day Change
+                <span
+                  class="change increase"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-caret-top"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="#caret-top"
+                    />
+                  </svg>
+                  128.0%
+                </span>
+              </div>
+            </div>
+            <div
+              class="legend-item engagements"
+            >
+              <div
+                class="legend-header"
+              >
+                <span
+                  class="legend-color"
+                  style="background-color: rgb(255, 180, 110);"
+                />
+                <span
+                  class="title"
+                >
+                  Engagement Score: 4.90/10
+                </span>
+              </div>
+              <div
+                class="secondary-info"
+              >
+                30 Day Change
+                <span
+                  class="change decrease"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="#caret-bottom"
+                    />
+                  </svg>
+                  20.0%
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="chart-root"
+          >
+            <div
+              class="chart-labels"
+            >
+              <span>
+                Activities
+              </span>
+              <span>
+                Engagement
+              </span>
+            </div>
+            <div />
           </div>
         </div>
         <div
@@ -168,11 +250,55 @@ exports[`AccountOverview should render 1`] = `
           class="content"
         >
           <div
-            class="spinner-root spinner-overlay"
+            class="entity-list-root"
           >
-            <span
-              class="loading-animation loading-animation-dotted"
-            />
+            <ul
+              class="list-group list-group-root show-quick-actions-on-hover"
+            >
+              <li
+                class="list-group-item list-group-item-flex"
+              >
+                <div
+                  class="autofit-col"
+                >
+                  <div
+                    class="sticker sticker-root sticker-static sticker-rounded sticker-light"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-individual-dynamic-segment"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="#individual-dynamic-segment"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  class="autofit-col autofit-col-expand"
+                >
+                  <span
+                    class="text-truncate"
+                    data-tooltip="false"
+                    title=""
+                  >
+                    <strong>
+                      <a
+                        class="list-group-link"
+                        href="/workspace/23/contacts/segments/0"
+                      >
+                        Seattle0
+                      </a>
+                    </strong>
+                  </span>
+                  <div
+                    class="secondary-info"
+                  >
+                    10 Individuals
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
         <div
@@ -417,14 +543,54 @@ exports[`AccountOverview should render 1`] = `
                 />
               </tr>
             </thead>
+            <tbody>
+              <tr
+                class=""
+              >
+                <td
+                  class="name-cell-root name"
+                >
+                  <div
+                    class="content-container"
+                  >
+                    <div
+                      class="text-truncate"
+                    >
+                      <div
+                        class="table-title text-truncate"
+                      >
+                        <a
+                          class="text-truncate"
+                          href="/workspace/23/contacts/individuals/known-individuals/0"
+                        >
+                          Foo Bar
+                        </a>
+                      </div>
+                      <div
+                        class="secondary-info text-truncate"
+                      >
+                        Developer
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="trendline trendline"
+                >
+                  <div
+                    class="trendline-root"
+                  >
+                    <div />
+                  </div>
+                </td>
+                <td
+                  class=" score table-column-text-end"
+                >
+                  4.90/10
+                </td>
+              </tr>
+            </tbody>
           </table>
-          <div
-            class="spinner-root spinner-overlay"
-          >
-            <span
-              class="loading-animation loading-animation-dotted"
-            />
-          </div>
         </div>
         <div
           class="card-footer"

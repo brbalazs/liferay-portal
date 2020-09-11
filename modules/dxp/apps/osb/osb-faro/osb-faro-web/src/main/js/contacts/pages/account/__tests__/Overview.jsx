@@ -26,6 +26,8 @@ describe('AccountOverview', () => {
 			</ApolloProvider>
 		);
 
+		jest.runAllTimers();
+
 		expect(container).toMatchSnapshot();
 	});
 });
