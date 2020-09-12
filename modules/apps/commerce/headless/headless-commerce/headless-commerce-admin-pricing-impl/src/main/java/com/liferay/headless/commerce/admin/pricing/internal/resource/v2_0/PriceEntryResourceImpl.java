@@ -184,10 +184,10 @@ public class PriceEntryResourceImpl extends BasePriceEntryResourceImpl {
 				public void accept(Object o) throws Exception {
 					SearchContext searchContext = (SearchContext)o;
 
-					searchContext.setCompanyId(contextCompany.getCompanyId());
 					searchContext.setAttribute("commercePriceListId", id);
 					searchContext.setAttribute(
 						"status", WorkflowConstants.STATUS_ANY);
+					searchContext.setCompanyId(contextCompany.getCompanyId());
 				}
 
 			},

@@ -531,8 +531,8 @@ public class CommerceBOMAdminDisplayContext {
 		searchContext.setAttributes(attributes);
 
 		searchContext.setCompanyId(companyId);
-		searchContext.setStart(start);
 		searchContext.setEnd(end);
+		searchContext.setStart(start);
 
 		searchContext.setKeywords(keywords);
 
