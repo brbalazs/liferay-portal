@@ -2,10 +2,12 @@
 	.dropdown-toggle {
 		background-color: #F1F2F5;
 		border: 0.0625rem solid #E7E7ED;
-	}
+		color: #272833;
+		font-weight: $fontWeightRegular;
 
-	.dropdown-toggle:disabled {
-		background-color: rgb(222, 226, 236);
+		&:disabled {
+			background-color: rgb(222, 226, 236);
+		}
 	}
 }
 
