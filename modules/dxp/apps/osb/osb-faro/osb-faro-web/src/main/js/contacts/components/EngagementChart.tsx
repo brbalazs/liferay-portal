@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import {AXIS} from 'shared/util/clay-recharts';
 import {
@@ -15,31 +15,32 @@ import {
 } from 'recharts';
 import {CHART_COLOR_NAMES} from 'shared/components/Chart';
 import {formatUTCDateFromUnix} from 'shared/util/date';
+import {get} from 'lodash';
 import {IChartProps, IEngagementHistory} from 'shared/util/engagement-activity';
-import {isObject} from 'lodash';
 
 const {stark: CHART_BLUE} = CHART_COLOR_NAMES;
 
 const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 	alwaysShowSelectedTooltip = false,
+	hasSelectedPoint,
 	height = 340,
 	history,
 	onPointSelect,
 	selectedPoint,
 	tooltipRenderRows
 }) => {
-	const [mouseOutside, setMouseOutside] = useState(false);
+	const _tooltipRef = useRef<any>();
 
-	const hasSelectedPoint = isObject(selectedPoint);
+	const [mouseOutside, setMouseOutside] = useState(false);
+	const [selectedTooltipX, setSelectedTooltipX] = useState(null);
 
 	const renderTooltip = ({active, payload}) => {
-		if (
-			active ||
-			(hasSelectedPoint && !!selectedPoint.activePayload.length)
-		) {
-			const {
-				payload: {contributors, intervalInitDate, scoreAvg}
-			} = payload[0] || selectedPoint.activePayload[0];
+		if (active || hasSelectedPoint) {
+			const {contributors, intervalInitDate, scoreAvg} = get(
+				payload,
+				[0, 'payload'],
+				history[selectedPoint]
+			);
 
 			return (
 				<div
@@ -88,14 +89,33 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 		}
 	};
 
+	const showFixedTooltip = hasSelectedPoint && mouseOutside;
+
 	return (
 		<ResponsiveContainer height={height}>
 			<LineChart
 				data={history}
-				onClick={pointData =>
-					alwaysShowSelectedTooltip &&
-					onPointSelect({index: pointData})
-				}
+				onClick={pointData => {
+					if (alwaysShowSelectedTooltip && pointData) {
+						if (_tooltipRef) {
+							const {
+								getTranslate,
+								props: {viewBox},
+								state: {boxWidth}
+							} = _tooltipRef.current;
+
+							setSelectedTooltipX(
+								getTranslate({
+									key: 'x',
+									tooltipDimension: boxWidth,
+									viewBoxDimension: viewBox.width
+								})
+							);
+						}
+
+						onPointSelect({index: pointData.activeTooltipIndex});
+					}
+				}}
 				onMouseLeave={() => setMouseOutside(true)}
 				onMouseMove={() => setMouseOutside(false)}
 			>
@@ -187,15 +207,15 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 					content={renderTooltip}
 					cursor={{stroke: CHART_BLUE}}
 					position={
-						hasSelectedPoint && mouseOutside
+						showFixedTooltip
 							? {
-									x: selectedPoint.chartX,
-									y: selectedPoint.chartY
+									x: selectedTooltipX
 							  }
 							: null
 					}
+					ref={_tooltipRef}
 					wrapperStyle={
-						selectedPoint && mouseOutside
+						showFixedTooltip
 							? {
 									visibility: 'visible'
 							  }
@@ -205,7 +225,11 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 
 				<ReferenceLine
 					strokeWidth={1}
-					x={hasSelectedPoint ? selectedPoint.activeLabel : null}
+					x={
+						showFixedTooltip
+							? history[selectedPoint].intervalInitDate
+							: null
+					}
 				/>
 
 				<ReferenceDot
@@ -213,10 +237,14 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 					isFront
 					r={4}
 					stroke='none'
-					x={hasSelectedPoint ? selectedPoint.activeLabel : null}
+					x={
+						hasSelectedPoint
+							? history[selectedPoint].intervalInitDate
+							: null
+					}
 					y={
 						hasSelectedPoint
-							? selectedPoint.activePayload[0].payload.scoreAvg
+							? history[selectedPoint].scoreAvg
 							: null
 					}
 				/>

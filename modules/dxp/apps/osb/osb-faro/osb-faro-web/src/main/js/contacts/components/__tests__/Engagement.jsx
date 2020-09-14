@@ -73,7 +73,7 @@ describe('EngagementWithList', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render with empty engagement', () => {
+	fit('should render with empty engagement', () => {
 		API.engagement.fetch.mockReturnValueOnce(
 			Promise.resolve(data.mockSearch(noop, 0))
 		);
@@ -82,8 +82,7 @@ describe('EngagementWithList', () => {
 			<StaticRouter>
 				<EngagementWithList
 					{...defaultProps}
-					data={[]}
-					hasSelectedPoint
+					data={mockEngagementData}
 				/>
 			</StaticRouter>
 		);
@@ -109,7 +108,6 @@ describe('SelectedPointInfo', () => {
 						scoreAvg: null
 					}
 				]}
-				hasSelectedPoint
 				previousScore={2.0}
 				scoreLabel='Segment Engagement'
 				selectedPoint={0}

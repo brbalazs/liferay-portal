@@ -161,10 +161,11 @@ export class EngagementWithList extends React.Component {
 		entityType: PropTypes.number,
 		groupId: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 			.isRequired,
+		hasSelectedPoint: PropTypes.bool,
 		id: PropTypes.string.isRequired,
 		onPointSelect: PropTypes.func.isRequired,
 		previousScore: PropTypes.number.isRequired,
-		selectedPoint: PropTypes.object,
+		selectedPoint: PropTypes.number,
 		tooltipLabels: PropTypes.shape({
 			scoreLabel: PropTypes.string,
 			subtitleLabel: PropTypes.string
@@ -172,9 +173,9 @@ export class EngagementWithList extends React.Component {
 	};
 
 	getDateRange() {
-		const {data, selectedPoint} = this.props;
+		const {data, hasSelectedPoint, selectedPoint} = this.props;
 
-		if (!selectedPoint) {
+		if (!hasSelectedPoint) {
 			return {
 				endDate: getLastDate(data, null, 'intervalInitDate'),
 				startDate: getLastDate(data, null, 'intervalInitDate')
@@ -182,8 +183,7 @@ export class EngagementWithList extends React.Component {
 		}
 
 		const intervalInitDate =
-			get('intervalInitDate', data[selectedPoint.activeTooltipIndex]) ||
-			null;
+			get('intervalInitDate', data[selectedPoint]) || null;
 
 		return {endDate: intervalInitDate, startDate: intervalInitDate};
 	}
@@ -196,6 +196,7 @@ export class EngagementWithList extends React.Component {
 			data,
 			entityType,
 			groupId,
+			hasSelectedPoint,
 			id,
 			onPointSelect,
 			previousScore,
@@ -227,6 +228,7 @@ export class EngagementWithList extends React.Component {
 				<div className='engagement-chart-container'>
 					<EngagementChart
 						alwaysShowSelectedTooltip
+						hasSelectedPoint={hasSelectedPoint}
 						history={data}
 						onPointSelect={onPointSelect}
 						selectedPoint={selectedPoint}
@@ -239,9 +241,7 @@ export class EngagementWithList extends React.Component {
 					previousScore={previousScore}
 					scoreLabel={tooltipLabels.scoreLabel}
 					selectedPoint={
-						selectedPoint
-							? selectedPoint.activeTooltipIndex
-							: data.length - 1
+						hasSelectedPoint ? selectedPoint : data.length - 1
 					}
 				/>
 
