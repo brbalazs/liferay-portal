@@ -17,6 +17,7 @@ package com.liferay.portal.license.deployer.internal.installer;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.license.util.LicenseManagerUtil;
+import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.Element;
@@ -26,9 +27,13 @@ import java.io.File;
 
 import org.apache.felix.fileinstall.ArtifactInstaller;
 
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
 /**
  * @author Amos Fong
  */
+@Component(immediate = true, service = ArtifactInstaller.class)
 public class LicenseInstaller implements ArtifactInstaller {
 
 	@Override
@@ -77,6 +82,11 @@ public class LicenseInstaller implements ArtifactInstaller {
 
 	@Override
 	public void update(File file) throws Exception {
+	}
+
+	@Reference(target = ModuleServiceLifecycle.PORTAL_INITIALIZED, unbind = "-")
+	protected void setModuleServiceLifecycle(
+		ModuleServiceLifecycle moduleServiceLifecycle) {
 	}
 
 }
