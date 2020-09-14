@@ -35,7 +35,6 @@ const ReadyToGo: React.FC<IReadyToGoProps> = ({groupId, onClose}) => {
 				<Button
 					className='wide'
 					display='primary'
-					externalLink
 					href={toRoute(Routes.SETTINGS_DATA_SOURCE_LIST, {groupId})}
 					onClick={onClose}
 				>
