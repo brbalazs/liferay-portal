@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import moment from 'moment';
+import {BAR_COLORS} from 'shared/util/clay-recharts';
 import {
 	CUSTOM_RANGE,
 	LAST_180_DAYS,
@@ -14,6 +15,7 @@ import {
 import {getIntervalHandle} from './intervals';
 import {Interval, RangeSelectors} from 'shared/types';
 import {INTERVAL_KEY_MAP, isMonthlyRangeKey} from 'shared/util/time';
+import {isNumber} from 'lodash';
 import {Map} from 'immutable';
 import {toDuration, toRounded, toThousands} from 'shared/util/numbers';
 
@@ -67,10 +69,11 @@ export const Colors = {
 };
 
 export const dateRangeFormatter = (
-	dateStart: Date,
-	dateEnd: Date,
+	dateStart: number,
+	dateEnd: number,
 	withYear: boolean = false
 ): string => {
+	// TODO: Add timezone param
 	const dayFormat = d3.utcFormat('%-d');
 	const dayMonthFormat = d3.utcFormat('%b %-d');
 	const dayMonthYearFormat = d3.utcFormat('%Y %b %-d');
@@ -78,7 +81,7 @@ export const dateRangeFormatter = (
 	return `${
 		withYear ? dayMonthYearFormat(dateStart) : dayMonthFormat(dateStart)
 	} - ${
-		dateStart.getUTCMonth() !== dateEnd.getUTCMonth()
+		moment(dateStart).get('month') !== moment(dateEnd).get('month')
 			? withYear
 				? dayMonthYearFormat(dateEnd)
 				: dayMonthFormat(dateEnd)
@@ -109,10 +112,10 @@ export const formatTooltipDate = (date, rangeKey) => {
 };
 
 export const formatXAxisDate = (
-	dateKey: Date,
+	dateKey: number,
 	rangeKey: string,
 	interval: Interval,
-	dateKeysIMap: Map<Date, [Date, Date?]>
+	dateKeysIMap: Map<number, [number, number?]>
 ) => {
 	// display date and month
 	let formatter = d3.utcFormat('%b %-d');
@@ -130,6 +133,8 @@ export const formatXAxisDate = (
 		case LAST_YEAR:
 			if (interval === INTERVAL_KEY_MAP.week) {
 				// display date range
+
+				// TODO: Add timezone param
 				return dateRangeFormatter(dateStart, dateEnd, false);
 			}
 			if (interval === INTERVAL_KEY_MAP.month) {
@@ -259,6 +264,22 @@ export const getAxisMeasuresFromData = data =>
 		)
 	);
 
+export const getBarColor = (
+	currentBarIndex: number,
+	hoverIndex: number,
+	selectedPoint: number
+): string => {
+	if (selectedPoint === currentBarIndex) {
+		return BAR_COLORS.selected;
+	} else if (currentBarIndex === hoverIndex) {
+		return BAR_COLORS.hover;
+	} else if (isNumber(selectedPoint)) {
+		return BAR_COLORS.notSelected;
+	}
+
+	return BAR_COLORS.default;
+};
+
 /**
  * Return the formatted array to display on charts.
  * @param {string} type
@@ -277,7 +298,7 @@ export const getDataFormatter = type => {
  * @param {string} rangeKey
  */
 export const getDateTitle = (
-	dates: [Date, Date?],
+	dates: [number, number?],
 	rangeKey: string,
 	interval: Interval
 ) => {

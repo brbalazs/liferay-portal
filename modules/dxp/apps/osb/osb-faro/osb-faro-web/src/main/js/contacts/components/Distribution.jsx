@@ -24,7 +24,7 @@ import {
 	individualsListColumns
 } from 'shared/util/table-columns';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
-import {AXIS, BAR_COLORS, getTextWidth} from 'shared/util/clay-recharts';
+import {AXIS, getTextWidth} from 'shared/util/clay-recharts';
 import {
 	Bar,
 	CartesianGrid,
