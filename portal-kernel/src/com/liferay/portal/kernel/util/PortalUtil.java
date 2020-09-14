@@ -2193,8 +2193,14 @@ public class PortalUtil {
 		return getPortal().isCustomPortletMode(portletMode);
 	}
 
-	public static boolean isForwardedSecure(HttpServletRequest request) {
-		return getPortal().isForwardedSecure(request);
+	public static boolean isForwarded(HttpServletRequest httpServletRequest) {
+		return getPortal().isForwarded(httpServletRequest);
+	}
+
+	public static boolean isForwardedSecure(
+		HttpServletRequest httpServletRequest) {
+
+		return getPortal().isForwardedSecure(httpServletRequest);
 	}
 
 	public static boolean isGroupAdmin(User user, long groupId)
