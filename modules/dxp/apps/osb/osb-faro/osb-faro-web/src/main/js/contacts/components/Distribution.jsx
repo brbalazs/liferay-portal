@@ -659,7 +659,7 @@ export class Distribution extends React.Component {
 								</Form.Form>
 							</Form>
 
-							{error && (
+							{error && !loading && (
 								<ErrorDisplay
 									onReload={this.handleFetchDistributionData}
 									spacer
