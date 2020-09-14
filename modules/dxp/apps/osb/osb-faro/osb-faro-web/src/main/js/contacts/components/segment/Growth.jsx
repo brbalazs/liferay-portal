@@ -3,7 +3,7 @@ import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import ChartTooltip from 'shared/components/ChartTooltip';
-import FaroConstants from 'shared/util/constants';
+import FaroConstants, {LAST_30_DAYS} from 'shared/util/constants';
 import getCN from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -27,8 +27,10 @@ import {
 	individualsListColumns
 } from 'shared/util/table-columns';
 import {CHART_COLOR_NAMES} from 'shared/components/Chart';
+import {createDateKeysIMap} from 'shared/util/intervals';
 import {DATE_CHANGED, NAME} from 'shared/util/pagination';
 import {formatUTCDateFromUnix} from 'shared/util/date';
+import {formatXAxisDate, getIntervals} from 'shared/util/charts';
 import {get, isNil, omit} from 'lodash';
 import {getNetChange} from 'shared/util/change';
 import {INDIVIDUALS} from 'shared/util/router';
@@ -36,6 +38,8 @@ import {sub} from 'shared/util/lang';
 import {withSelectedPoint, withStatefulPagination} from 'shared/hoc';
 
 const {mormont: CHART_ORANGE, stark: CHART_BLUE} = CHART_COLOR_NAMES;
+
+const INTERVAL = 'D';
 
 const SearchableEntityTableHOC = withStatefulPagination(
 	SearchableEntityTable,
@@ -226,6 +230,15 @@ export class SegmentGrowthChart extends React.Component {
 
 		const showFixedTooltip = hasSelectedPoint && mouseOutside;
 
+		const dateKeysIMap = createDateKeysIMap(INTERVAL, data, 'modifiedDate');
+
+		const intervals = getIntervals(
+			LAST_30_DAYS,
+			data.map(({modifiedDate}) => modifiedDate),
+			INTERVAL,
+			dateKeysIMap
+		);
+
 		return (
 			<ResponsiveContainer height={height} width='100%'>
 				<AreaChart
@@ -266,10 +279,8 @@ export class SegmentGrowthChart extends React.Component {
 						axisLine={{stroke: AXIS.borderStroke}}
 						dataKey='modifiedDate'
 						domain={['dataMin', 'dataMax']}
-						interval={6}
 						padding={{left: 20, right: 20}}
-						scale='time'
-						tick={({payload, textAnchor, x, y}) => (
+						tick={({payload: {value}, textAnchor, x, y}) => (
 							<Text
 								style={{
 									fill: AXIS.textColor,
@@ -280,12 +291,17 @@ export class SegmentGrowthChart extends React.Component {
 								x={x}
 								y={y}
 							>
-								{formatUTCDateFromUnix(payload.value, 'MMM DD')}
+								{formatXAxisDate(
+									value,
+									LAST_30_DAYS,
+									INTERVAL,
+									dateKeysIMap
+								)}
 							</Text>
 						)}
 						tickLine={false}
 						tickMargin={12}
-						type='number'
+						ticks={intervals}
 					/>
 
 					<XAxis
@@ -313,7 +329,12 @@ export class SegmentGrowthChart extends React.Component {
 						}}
 						name={Liferay.Language.get('growth')}
 						stroke={AXIS.gridStroke}
-						tick={({payload, textAnchor, x, y}) => (
+						tick={({
+							payload: {offset, value},
+							textAnchor,
+							x,
+							y
+						}) => (
 							<Text
 								style={{
 									fill: AXIS.textColor,
@@ -322,9 +343,9 @@ export class SegmentGrowthChart extends React.Component {
 								}}
 								textAnchor={textAnchor}
 								x={x}
-								y={y + payload.offset}
+								y={y + offset}
 							>
-								{payload.value}
+								{value}
 							</Text>
 						)}
 						tickCount={6}

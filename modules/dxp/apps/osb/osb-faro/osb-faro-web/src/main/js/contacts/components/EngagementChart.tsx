@@ -14,11 +14,15 @@ import {
 	YAxis
 } from 'recharts';
 import {CHART_COLOR_NAMES} from 'shared/components/Chart';
-import {formatUTCDateFromUnix} from 'shared/util/date';
+import {createDateKeysIMap} from 'shared/util/intervals';
+import {formatXAxisDate, getDateTitle, getIntervals} from 'shared/util/charts';
 import {get} from 'lodash';
 import {IChartProps, IEngagementHistory} from 'shared/util/engagement-activity';
+import {LAST_30_DAYS} from 'shared/util/constants';
 
 const {stark: CHART_BLUE} = CHART_COLOR_NAMES;
+
+const INTERVAL = 'D';
 
 const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 	alwaysShowSelectedTooltip = false,
@@ -33,6 +37,12 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 
 	const [mouseOutside, setMouseOutside] = useState(false);
 	const [selectedTooltipX, setSelectedTooltipX] = useState(null);
+
+	const dateKeysIMap = createDateKeysIMap(
+		INTERVAL,
+		history,
+		'intervalInitDate'
+	);
 
 	const renderTooltip = ({active, payload}) => {
 		if (active || hasSelectedPoint) {
@@ -56,9 +66,10 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 							},
 							{
 								align: 'right',
-								label: formatUTCDateFromUnix(
-									intervalInitDate,
-									'YYYY MMM DD'
+								label: getDateTitle(
+									dateKeysIMap.get(intervalInitDate),
+									LAST_30_DAYS,
+									INTERVAL
 								),
 								weight: 'semibold',
 								width: 55
@@ -90,6 +101,13 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 	};
 
 	const showFixedTooltip = hasSelectedPoint && mouseOutside;
+
+	const intervals = getIntervals(
+		LAST_30_DAYS,
+		history.map(({intervalInitDate}) => intervalInitDate),
+		INTERVAL,
+		dateKeysIMap
+	);
 
 	return (
 		<ResponsiveContainer height={height}>
@@ -129,10 +147,8 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 					axisLine={{stroke: AXIS.borderStroke}}
 					dataKey='intervalInitDate'
 					domain={['dataMin', 'dataMax']}
-					interval={6}
 					padding={{left: 20, right: 20}}
-					scale='time'
-					tick={({payload, textAnchor, x, y}) => (
+					tick={({payload: {value}, textAnchor, x, y}) => (
 						<Text
 							style={{
 								fill: AXIS.textColor,
@@ -143,12 +159,17 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 							x={x}
 							y={y}
 						>
-							{formatUTCDateFromUnix(payload.value, 'MMM DD')}
+							{formatXAxisDate(
+								value,
+								LAST_30_DAYS,
+								INTERVAL,
+								dateKeysIMap
+							)}
 						</Text>
 					)}
 					tickLine={false}
 					tickMargin={12}
-					type='number'
+					ticks={intervals}
 				/>
 
 				<XAxis
