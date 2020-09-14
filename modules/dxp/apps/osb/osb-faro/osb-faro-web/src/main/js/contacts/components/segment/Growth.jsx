@@ -94,41 +94,37 @@ export class SegmentGrowthChart extends React.Component {
 	static propTypes = {
 		alwaysShowSelectedTooltip: PropTypes.bool,
 		data: CHANGES_AGGREGATION_SHAPE,
+		hasSelectedPoint: PropTypes.bool,
 		height: PropTypes.number,
 		onPointSelect: PropTypes.func,
-		selectedPoint: PropTypes.shape({
-			activeCoordinate: PropTypes.shape({
-				x: PropTypes.number,
-				y: PropTypes.number
-			}),
-			activeLabel: PropTypes.any,
-			activePayload: PropTypes.arrayOf(PropTypes.object),
-			activeTooltipIndex: PropTypes.number,
-			chartX: PropTypes.number,
-			chartY: PropTypes.number
-		})
+		selectedPoint: PropTypes.number
 	};
 
 	state = {
 		legendHoverItem: null,
-		mouseOutside: false
+		mouseOutside: false,
+		selectedTooltipX: null
 	};
+
+	constructor(props) {
+		super(props);
+
+		this._tooltipRef = React.createRef();
+	}
 
 	@autobind
 	renderTooltip({active, payload}) {
-		const {data, selectedPoint} = this.props;
+		const {data, hasSelectedPoint, selectedPoint} = this.props;
 
-		if (active || (selectedPoint && !!selectedPoint.activePayload.length)) {
+		if (active || hasSelectedPoint) {
 			const {
-				payload: {
-					added,
-					anonymousCount,
-					knownCount,
-					modifiedDate,
-					removed,
-					value
-				}
-			} = payload[0] || selectedPoint.activePayload[0];
+				added,
+				anonymousCount,
+				knownCount,
+				modifiedDate,
+				removed,
+				value
+			} = get(payload, [0, 'payload'], data[selectedPoint]);
 
 			const change = [
 				{
@@ -214,11 +210,12 @@ export class SegmentGrowthChart extends React.Component {
 			props: {
 				alwaysShowSelectedTooltip,
 				data,
+				hasSelectedPoint,
 				height,
 				onPointSelect,
 				selectedPoint
 			},
-			state: {legendHoverItem, mouseOutside}
+			state: {legendHoverItem, mouseOutside, selectedTooltipX}
 		} = this;
 
 		const commonAreaChartStyles = {
@@ -227,14 +224,35 @@ export class SegmentGrowthChart extends React.Component {
 			stackId: 'count'
 		};
 
+		const showFixedTooltip = hasSelectedPoint && mouseOutside;
+
 		return (
 			<ResponsiveContainer height={height} width='100%'>
 				<AreaChart
 					data={data}
-					onClick={pointData =>
-						alwaysShowSelectedTooltip &&
-						onPointSelect({index: pointData})
-					}
+					onClick={pointData => {
+						if (alwaysShowSelectedTooltip && pointData) {
+							if (this._tooltipRef) {
+								const {
+									getTranslate,
+									props: {viewBox},
+									state: {boxWidth}
+								} = this._tooltipRef.current;
+
+								this.setState({
+									selectedTooltipX: getTranslate({
+										key: 'x',
+										tooltipDimension: boxWidth,
+										viewBoxDimension: viewBox.width
+									})
+								});
+							}
+
+							onPointSelect({
+								index: pointData.activeTooltipIndex
+							});
+						}
+					}}
 					onMouseLeave={() => this.setState({mouseOutside: true})}
 					onMouseMove={() => this.setState({mouseOutside: false})}
 				>
@@ -348,15 +366,15 @@ export class SegmentGrowthChart extends React.Component {
 						content={this.renderTooltip}
 						cursor={{stroke: CHART_BLUE}}
 						position={
-							selectedPoint && mouseOutside
+							showFixedTooltip
 								? {
-										x: selectedPoint.chartX,
-										y: selectedPoint.chartY
+										x: selectedTooltipX
 								  }
 								: null
 						}
+						ref={this._tooltipRef}
 						wrapperStyle={
-							selectedPoint && mouseOutside
+							showFixedTooltip
 								? {
 										visibility: 'visible'
 								  }
@@ -366,7 +384,11 @@ export class SegmentGrowthChart extends React.Component {
 
 					<ReferenceLine
 						strokeWidth={1}
-						x={selectedPoint && selectedPoint.activeLabel}
+						x={
+							showFixedTooltip
+								? data[selectedPoint].modifiedDate
+								: null
+						}
 					/>
 
 					<ReferenceDot
@@ -377,10 +399,15 @@ export class SegmentGrowthChart extends React.Component {
 						isFront
 						r={4}
 						stroke='none'
-						x={selectedPoint && selectedPoint.activeLabel}
+						x={
+							hasSelectedPoint
+								? data[selectedPoint].modifiedDate
+								: null
+						}
 						y={
-							selectedPoint &&
-							selectedPoint.activePayload[0].payload.knownCount
+							hasSelectedPoint
+								? data[selectedPoint].knownCount
+								: null
 						}
 					/>
 
@@ -390,13 +417,16 @@ export class SegmentGrowthChart extends React.Component {
 						isFront
 						r={4}
 						stroke='none'
-						x={selectedPoint && selectedPoint.activeLabel}
+						x={
+							hasSelectedPoint
+								? data[selectedPoint].modifiedDate
+								: null
+						}
 						y={
-							selectedPoint &&
-							selectedPoint.activePayload[0].payload
-								.anonymousCount +
-								selectedPoint.activePayload[0].payload
-									.knownCount
+							hasSelectedPoint
+								? data[selectedPoint].knownCount +
+								  data[selectedPoint].anonymousCount
+								: null
 						}
 					/>
 
@@ -440,25 +470,29 @@ export class SegmentGrowthChart extends React.Component {
 export class SelectedPointInfo extends React.Component {
 	static propTypes = {
 		data: CHANGES_AGGREGATION_SHAPE,
+		hasSelectedPoint: PropTypes.bool,
 		onClearSelection: PropTypes.func.isRequired,
-		selectedPoint: PropTypes.object
+		selectedPoint: PropTypes.number
 	};
 
 	render() {
-		const {data, onClearSelection, selectedPoint} = this.props;
+		const {
+			data,
+			hasSelectedPoint,
+			onClearSelection,
+			selectedPoint
+		} = this.props;
 
-		const index = get(selectedPoint, ['activeTooltipIndex']);
-
-		const {added, modifiedDate, removed} = get(data, index, {});
+		const {added, modifiedDate, removed} = get(data, selectedPoint, {});
 
 		const changeValues =
-			selectedPoint &&
-			index > 0 &&
-			getNetChange(data[index - 1], data[index]);
+			hasSelectedPoint &&
+			selectedPoint > 0 &&
+			getNetChange(data[selectedPoint - 1], data[selectedPoint]);
 
 		return (
 			<div className='selected-point-info'>
-				{selectedPoint ? (
+				{hasSelectedPoint ? (
 					<>
 						<div className='d-flex align-items-baseline'>
 							<h4>
@@ -519,23 +553,26 @@ export class SegmentGrowthWithList extends React.Component {
 		channelId: PropTypes.string,
 		data: CHANGES_AGGREGATION_SHAPE,
 		groupId: PropTypes.any.isRequired,
+		hasSelectedPoint: PropTypes.bool,
 		id: PropTypes.string.isRequired,
-		selectedPoint: PropTypes.object
+		selectedPoint: PropTypes.number
 	};
 
 	@autobind
 	fetchMembers(params) {
-		const {selectedPoint} = this.props;
+		const {hasSelectedPoint} = this.props;
 
-		const fetchMembersFn = selectedPoint ? getMemberChanges : getAllMembers;
+		const fetchMembersFn = hasSelectedPoint
+			? getMemberChanges
+			: getAllMembers;
 
 		return fetchMembersFn(params);
 	}
 
 	getColumns() {
-		const {channelId, groupId, selectedPoint} = this.props;
+		const {channelId, groupId, hasSelectedPoint} = this.props;
 
-		if (selectedPoint) {
+		if (hasSelectedPoint) {
 			return [
 				changesListColumns.getIndividualName({channelId, groupId}),
 				changesListColumns.individualEmail,
@@ -566,6 +603,7 @@ export class SegmentGrowthWithList extends React.Component {
 			className,
 			data,
 			groupId,
+			hasSelectedPoint,
 			id,
 			onPointSelect,
 			selectedPoint
@@ -586,6 +624,7 @@ export class SegmentGrowthWithList extends React.Component {
 					<SegmentGrowthChart
 						alwaysShowSelectedTooltip
 						data={data}
+						hasSelectedPoint={hasSelectedPoint}
 						onPointSelect={onPointSelect}
 						selectedPoint={selectedPoint}
 					/>
@@ -593,6 +632,7 @@ export class SegmentGrowthWithList extends React.Component {
 
 				<SelectedPointInfo
 					data={data}
+					hasSelectedPoint={hasSelectedPoint}
 					onClearSelection={this.handleClearSelection}
 					selectedPoint={selectedPoint}
 				/>
@@ -602,12 +642,12 @@ export class SegmentGrowthWithList extends React.Component {
 					dataSourceFn={this.fetchMembers}
 					dataSourceParams={{channelId, groupId, id, modifiedDate}}
 					defaultSort={{
-						field: selectedPoint ? DATE_CHANGED : NAME,
-						sortOrder: selectedPoint
+						field: hasSelectedPoint ? DATE_CHANGED : NAME,
+						sortOrder: hasSelectedPoint
 							? orderDescending
 							: orderAscending
 					}}
-					entityType={selectedPoint ? '' : INDIVIDUALS}
+					entityType={hasSelectedPoint ? '' : INDIVIDUALS}
 					rowIdentifier='id'
 				/>
 			</Card.Body>

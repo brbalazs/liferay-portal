@@ -16,7 +16,13 @@ describe('SegmentGrowthWithList', () => {
 			<StaticRouter>
 				<SegmentGrowthWithList
 					channelId='123'
-					data={[]}
+					data={[
+						{
+							added: 1,
+							modifiedDate: data.getTimestamp(),
+							removed: 3
+						}
+					]}
 					groupId='23'
 					id='3'
 					onPointSelect={jest.fn()}
@@ -53,7 +59,7 @@ describe('SelectedPointInfo', () => {
 				]}
 				hasSelectedPoint
 				onClearSelection={jest.fn()}
-				selectedPoint={{activeTooltipIndex: 0}}
+				selectedPoint={0}
 			/>
 		);
 		expect(container).toMatchSnapshot();
