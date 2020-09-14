@@ -26,6 +26,7 @@ class SearchableSelectKit extends React.Component {
 	@autobind
 	handleSelect(item) {
 		this.setState({
+			inputValue: '',
 			selectedItem: item
 		});
 	}
@@ -43,7 +44,7 @@ class SearchableSelectKit extends React.Component {
 						items={items.filter(({name}) =>
 							includes(name, inputValue)
 						)}
-						onChange={this.handleInput}
+						onSearchChange={this.handleInput}
 						onSelect={this.handleSelect}
 						selectedItem={selectedItem}
 					/>
