@@ -47,7 +47,7 @@ export class AddWorkspace extends React.Component {
 		friendlyURL,
 		name,
 		serverLocation,
-		timezone: {value}
+		timezone: {value: timeZoneId}
 	}) {
 		const {
 			addAlert,
@@ -62,7 +62,7 @@ export class AddWorkspace extends React.Component {
 			emailAddressDomains,
 			friendlyURL: friendlyURL && `/${friendlyURL}`,
 			name,
-			timeZoneId: value,
+			timeZoneId,
 			...(state === unconfigured
 				? {groupId}
 				: {corpProjectUuid, serverLocation})

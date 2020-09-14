@@ -99,7 +99,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 		timezoneValue: TIMEZONE_DEFAULT_VALUE
 	});
 
-	const getTimezoneItems = (): Array<string | string> =>
+	const getTimezoneItems = (): Array<{name: string; value: string}> =>
 		timezonesAvailable
 			? timezonesAvailable
 					.map(({displayTimeZone, timeZoneId}) => ({
@@ -352,7 +352,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 										}
 										onSelect={newValue =>
 											setTimezoneState({
-												...timezoneState,
+												filterText: '',
 												timezoneValue: newValue
 											})
 										}
