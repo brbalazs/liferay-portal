@@ -1,16 +1,7 @@
+import * as data from 'test/data';
 import moment from 'moment';
 import {
-	CUSTOM_RANGE,
-	LAST_180_DAYS,
-	LAST_24_HOURS,
-	LAST_28_DAYS,
-	LAST_30_DAYS,
-	LAST_7_DAYS,
-	LAST_90_DAYS,
-	LAST_YEAR,
-	YESTERDAY
-} from 'shared/util/constants';
-import {
+	createDateKeysIMap,
 	getByCustomRangeKey,
 	getByEvenOrOddIndexes,
 	getByIndexesMultipleOfFour,
@@ -27,11 +18,57 @@ import {
 	getWeekIntervalsMap,
 	handleDayInterval
 } from '../intervals';
+import {
+	CUSTOM_RANGE,
+	LAST_180_DAYS,
+	LAST_24_HOURS,
+	LAST_28_DAYS,
+	LAST_30_DAYS,
+	LAST_7_DAYS,
+	LAST_90_DAYS,
+	LAST_YEAR,
+	YESTERDAY
+} from 'shared/util/constants';
 import {getDate} from 'shared/util/date';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
+import {Map} from 'immutable';
 
 const currentDate = getDate();
 const mockDate = getDate('2020-06-12'); // Friday
+
+const mockData = [
+	{
+		intervalInitDate: data.getTimestamp(0),
+		scoreAvg: 2,
+		totalElements: 5
+	},
+	{
+		intervalInitDate: data.getTimestamp(1),
+		scoreAvg: 4,
+		totalElements: 10
+	}
+];
+
+describe('createDateKeysIMap', () => {
+	it('should create an dateKeysIMap', () => {
+		const dateKeysIMap = createDateKeysIMap('D', mockData);
+
+		expect(dateKeysIMap).toBeInstanceOf(Map);
+	});
+
+	it('should create an dateKeysIMap with two date when interval is week', () => {
+		const dateKeysIMap = createDateKeysIMap(
+			'W',
+			mockData,
+			'intervalInitDate'
+		);
+
+		const dates = dateKeysIMap.get(data.getTimestamp(0));
+
+		expect(dates[0]).toBeNumber();
+		expect(dates[1]).toBeNumber();
+	});
+});
 
 describe('getNext Functions', () => {
 	it('should get next sunday from a given date', () => {

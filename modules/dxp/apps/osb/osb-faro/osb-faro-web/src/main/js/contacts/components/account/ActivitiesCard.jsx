@@ -21,9 +21,9 @@ import {
 } from 'shared/util/engagement-activity';
 import {
 	convertHistoryInitDateToDate,
-	createDateKeysIMap,
 	renderTooltip
 } from 'shared/util/engagement-activity';
+import {createDateKeysIMap} from 'shared/util/intervals';
 import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
 import {DEFAULT_ENGAGEMENT_MAX} from 'shared/api/engagement';
 import {
@@ -143,7 +143,11 @@ export default class ActivitiesCard extends React.Component {
 		const {history} = this.state;
 
 		const parsedHistory = convertHistoryInitDateToDate(history);
-		const dateKeysIMap = createDateKeysIMap('D', parsedHistory);
+		const dateKeysIMap = createDateKeysIMap(
+			'D',
+			parsedHistory,
+			'intervalInitDate'
+		);
 
 		const intervals = getIntervals(
 			'30',

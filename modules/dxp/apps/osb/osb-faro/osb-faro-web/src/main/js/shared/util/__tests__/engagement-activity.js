@@ -3,12 +3,11 @@ import {
 	buildEngagementActivityAxes,
 	buildLegendItems,
 	convertHistoryInitDateToDate,
-	createDateKeysIMap,
 	formatTickVal,
 	getSafeRangeKey,
 	renderTooltip
 } from '../engagement-activity';
-import {Map} from 'immutable';
+import {createDateKeysIMap} from 'shared/util/intervals';
 
 const mockHistoryDate = [
 	{
@@ -75,23 +74,6 @@ describe('engagement-activity', () => {
 		});
 	});
 
-	describe('createDateKeysIMap', () => {
-		it('should create an dateKeysIMap', () => {
-			const dateKeysIMap = createDateKeysIMap('D', mockHistoryDate);
-
-			expect(dateKeysIMap).toBeInstanceOf(Map);
-		});
-
-		it('should create an dateKeysIMap with two date when interval is week', () => {
-			const dateKeysIMap = createDateKeysIMap('W', mockHistoryDate);
-
-			const dates = dateKeysIMap.get(data.getDate(0));
-
-			expect(dates[0]).toBeValidDate();
-			expect(dates[1]).toBeValidDate();
-		});
-	});
-
 	describe('convertHistoryInitDateToDate', () => {
 		it('should convert intervalInitDates in Date', () => {
 			const parsedHistory = convertHistoryInitDateToDate(mockHistory);
@@ -106,7 +88,11 @@ describe('engagement-activity', () => {
 		it('should render', () => {
 			const mockData = [{index: 0}];
 			const interval = 'D';
-			const dateKeysIMap = createDateKeysIMap(interval, mockHistoryDate);
+			const dateKeysIMap = createDateKeysIMap(
+				interval,
+				mockHistory,
+				'intervalInitDate'
+			);
 
 			const tooltipOptions = {
 				dateKeysIMap,

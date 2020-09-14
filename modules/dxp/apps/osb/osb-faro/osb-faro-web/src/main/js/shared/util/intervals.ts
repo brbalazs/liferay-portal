@@ -11,8 +11,30 @@ import {
 } from 'shared/util/constants';
 import {Interval, RangeSelectors} from 'shared/types';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
+import {Map} from 'immutable';
 
 // TODO: Add timezones to all chart functions
+
+export const createDateKeysIMap = (
+	interval: Interval,
+	history: Array<any>,
+	dateKey: string = 'intervalInitDate'
+) => {
+	const parseHistory = item => {
+		const dateStart = item[dateKey];
+		const dateEnd =
+			interval === 'W'
+				? moment
+						.utc(dateStart, 'x')
+						.add('6', 'days')
+						.valueOf()
+				: null;
+
+		return [dateStart, [dateStart, dateEnd]];
+	};
+
+	return Map<number, [number, number?]>(history.map(parseHistory));
+};
 
 export const getIntervalHandle = (
 	rangeKey: RangeSelectors['rangeKey'],

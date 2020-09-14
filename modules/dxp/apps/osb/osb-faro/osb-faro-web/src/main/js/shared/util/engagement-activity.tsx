@@ -1,6 +1,5 @@
 import CardTabMetric from 'contacts/individual/profile/components/CardTabMetric';
 import Constants from 'shared/util/constants';
-import moment from 'moment';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
@@ -216,25 +215,6 @@ export function buildTabItems({
 export function formatTickVal(date) {
 	return formatUTCDateFromUnix(date, 'M/D');
 }
-
-export const createDateKeysIMap = (
-	interval: Interval,
-	history: Array<IActivitiesHistory | IEngagementHistory>
-) => {
-	const parseHistory = ({intervalInitDate}) => {
-		const dateEnd =
-			interval === 'W'
-				? moment
-						.utc(intervalInitDate, 'x')
-						.add('6', 'days')
-						.valueOf()
-				: null;
-
-		return [intervalInitDate, [intervalInitDate, dateEnd]];
-	};
-
-	return Map<number, [number, number?]>(history.map(parseHistory));
-};
 
 export function convertHistoryInitDateToDate<T>(
 	history: Array<
