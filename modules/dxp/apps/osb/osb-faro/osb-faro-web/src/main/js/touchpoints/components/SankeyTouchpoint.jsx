@@ -1027,6 +1027,7 @@ class SankeyTouchpoint extends React.Component {
 				{!showAssets ? (
 					<li>
 						<button
+							aria-expanded={false}
 							aria-pressed={false}
 							className='action-link icon icon-plus'
 							onClick={this.handleToggleShowAssets}
@@ -1055,6 +1056,7 @@ class SankeyTouchpoint extends React.Component {
 
 						<li>
 							<button
+								aria-expanded={showAssets}
 								aria-pressed={showAssets}
 								className='action-link icon icon-minor'
 								onClick={this.handleToggleShowAssets}

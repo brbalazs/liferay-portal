@@ -577,6 +577,7 @@ exports[`SankeyTouchpoint should render component Sankey Chart with direct acces
         <ul>
           <li>
             <button
+              aria-expanded="false"
               aria-pressed="false"
               class="action-link icon icon-plus"
             >
