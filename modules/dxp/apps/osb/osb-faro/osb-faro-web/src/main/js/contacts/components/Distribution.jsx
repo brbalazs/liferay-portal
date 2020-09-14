@@ -938,7 +938,7 @@ export default compose(
 				fieldMappingId:
 					fieldMappingId || distributionIMap.get('fieldMappingId'),
 				loading:
-					distributionIMap.get('loading') ||
+					distributionIMap.get('loading', true) ||
 					knownIndividualCount === null,
 				selectedContext:
 					selectedContext || distributionIMap.get('context')
