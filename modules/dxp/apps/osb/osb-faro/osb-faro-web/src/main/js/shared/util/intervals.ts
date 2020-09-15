@@ -160,7 +160,7 @@ export const getByCustomRangeKey = (
 	}
 };
 
-export const getNextSunday = (date: number, timezone = 'UTC'): number =>
+export const getNextSunday = (date: number): number =>
 	// TIMEZONE
 	moment(date)
 		.utc()

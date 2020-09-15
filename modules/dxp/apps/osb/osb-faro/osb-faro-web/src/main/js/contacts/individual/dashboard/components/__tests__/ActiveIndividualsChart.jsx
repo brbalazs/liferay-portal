@@ -1,9 +1,9 @@
-import ActiveIndividualsChart, {
-	CHART_DATA_ID_1,
-	CHART_DATA_ID_2
-} from '../ActiveIndividualsChart';
+import * as data from 'test/data';
+import ActiveIndividualsChart from '../ActiveIndividualsChart';
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
+import {createDateKeysIMap} from 'shared/util/intervals';
+import {LAST_30_DAYS} from 'shared/util/constants';
 
 jest.unmock('react-dom');
 
@@ -11,12 +11,29 @@ describe('ActiveIndividualsChart', () => {
 	afterEach(cleanup);
 
 	it('should render', () => {
+		const chartData = [
+			{
+				anonymousVisitors: 1,
+				intervalInitDate: data.getTimestamp(-1),
+				knownVisitors: 3,
+				visitors: 4
+			},
+			{
+				anonymousVisitors: 6,
+				intervalInitDate: data.getTimestamp(0),
+				knownVisitors: 4,
+				visitors: 2
+			}
+		];
+
 		const {container} = render(
 			<ActiveIndividualsChart
-				data={[
-					{data: [], id: CHART_DATA_ID_1},
-					{data: [], id: CHART_DATA_ID_2}
-				]}
+				data={chartData}
+				dateKeysIMap={createDateKeysIMap(
+					LAST_30_DAYS,
+					chartData,
+					'intervalInitDate'
+				)}
 				rangeSelectors={{rangeKey: '30'}}
 			/>
 		);

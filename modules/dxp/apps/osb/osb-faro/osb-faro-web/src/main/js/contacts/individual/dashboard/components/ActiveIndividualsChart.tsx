@@ -1,233 +1,303 @@
-import Chart, {COMBINED_CHART} from 'shared/components/Chart';
-import Circle from 'shared/components/Circle';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
+import React, {useState} from 'react';
 import Spinner from 'shared/components/Spinner';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {find, get} from 'lodash';
+import {AXIS} from 'shared/util/clay-recharts';
+import {
+	Bar,
+	CartesianGrid,
+	Cell,
+	ComposedChart,
+	Legend,
+	ResponsiveContainer,
+	Text,
+	Tooltip,
+	XAxis,
+	YAxis
+} from 'recharts';
+import {CHART_COLOR_NAMES} from 'shared/components/Chart';
 import {
 	formatXAxisDate,
-	getAxisMeasuresFromCompositeData,
+	getBarColor,
 	getDateTitle,
-	getIntervals,
-	isEmptyData
+	getIntervals
 } from 'shared/util/charts';
+import {get} from 'lodash';
 import {Interval} from 'shared/types';
 import {Map} from 'immutable';
 import {RangeSelectors} from 'shared/types';
 import {toThousands} from 'shared/util/numbers';
 
-const CHART_HEIGHT = 320;
-const CHART_ID = 'activeIndividuals';
-export const CHART_DATA_ID_1 = 'knownIndividuals';
-export const CHART_DATA_ID_2 = 'anonymousIndividuals';
-
-export const LANG_MAP = {
-	[CHART_DATA_ID_1]: Liferay.Language.get('known-visitors'),
-	[CHART_DATA_ID_2]: Liferay.Language.get('anonymous-visitors')
-};
-
-export const renderTooltip = (
-	data,
-	rangeKey,
-	interval,
-	dateKeysIMap: Map<Date, [Date, Date?]>
-) => {
-	const known = find(data, ({id}) => id === CHART_DATA_ID_1);
-	const anonymous = find(data, ({id}) => id === CHART_DATA_ID_2);
-
-	return ReactDOMServer.renderToString(
-		<TooltipChart
-			header={[
-				{
-					label: Liferay.Language.get('active-individuals'),
-					weight: 'semibold',
-					width: 150
-				},
-				{
-					align: 'right',
-					label: getDateTitle(
-						dateKeysIMap.get(known.x),
-						rangeKey,
-						interval
-					),
-					weight: 'semibold',
-					width: 55
-				}
-			]}
-			rows={[
-				{
-					columns: [
-						{
-							label: Liferay.Language.get('anonymous'),
-							weight: 'semibold'
-						},
-						{
-							align: 'right',
-							label: toThousands(anonymous.value),
-							weight: 'semibold'
-						}
-					]
-				},
-				{
-					columns: [
-						{
-							label: Liferay.Language.get('known'),
-							weight: 'semibold'
-						},
-						{
-							align: 'right',
-							label: toThousands(known.value),
-							weight: 'semibold'
-						}
-					]
-				},
-				{
-					columns: [
-						{
-							label: Liferay.Language.get('total'),
-							weight: 'semibold'
-						},
-						{
-							align: 'right',
-							label: toThousands(known.value + anonymous.value),
-							weight: 'semibold'
-						}
-					]
-				}
-			]}
-		/>
-	);
-};
-
-type xAxisData = {
-	data: Date[];
-	id: string;
-};
-
-type yAxisData = {
-	data: number[];
-	id: string;
-	name: string;
-	type: string;
-};
+const {mormont: CHART_ORANGE, stark: CHART_BLUE} = CHART_COLOR_NAMES;
 
 interface IActiveIndividualsChartProps {
-	data: (xAxisData | yAxisData)[];
-	dateKeysIMap: Map<Date, [Date, Date?]>;
+	data: {
+		anonymousVisitors: number;
+		intervalInitDate: number;
+		knownVisitors: number;
+		visitors: number;
+	}[];
+	dateKeysIMap: Map<number, [number, number?]>;
+	height: number;
 	interval: Interval;
 	loading: Boolean;
 	rangeSelectors: RangeSelectors;
 }
 
 const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
-	data,
+	data = [],
 	dateKeysIMap,
+	height = 360,
 	interval,
 	loading,
 	rangeSelectors
 }) => {
-	const knownData = get(
-		find(data, ({id}) => id === CHART_DATA_ID_1),
-		'data',
-		[]
-	);
-	const anonymousData = get(
-		find(data, ({id}) => id === CHART_DATA_ID_2),
-		'data',
-		[]
-	);
+	const [hoverIndex, setHoverIndex] = useState(-1);
+	const [legendHoverItem, setLegendHoverItem] = useState(null);
 
-	const {
-		intervalCount,
-		intervals,
-		maxValue
-	} = getAxisMeasuresFromCompositeData([knownData, anonymousData]);
+	const renderTooltip = ({active, payload}) => {
+		if (active) {
+			const {
+				anonymousVisitors,
+				intervalInitDate,
+				knownVisitors,
+				visitors
+			} = get(payload, [0, 'payload'], {});
+
+			return (
+				<div
+					className='bb-tooltip-container'
+					style={{position: 'static'}}
+				>
+					<TooltipChart
+						header={[
+							{
+								label: Liferay.Language.get(
+									'active-individuals'
+								),
+								weight: 'semibold',
+								width: 150
+							},
+							{
+								align: 'right',
+								label: getDateTitle(
+									dateKeysIMap.get(intervalInitDate),
+									rangeSelectors.rangeKey,
+									interval
+								),
+								weight: 'semibold',
+								width: 55
+							}
+						]}
+						rows={[
+							{
+								columns: [
+									{
+										label: Liferay.Language.get(
+											'anonymous'
+										),
+										weight: 'semibold'
+									},
+									{
+										align: 'right',
+										label: toThousands(anonymousVisitors),
+										weight: 'semibold'
+									}
+								]
+							},
+							{
+								columns: [
+									{
+										label: Liferay.Language.get('known'),
+										weight: 'semibold'
+									},
+									{
+										align: 'right',
+										label: toThousands(knownVisitors),
+										weight: 'semibold'
+									}
+								]
+							},
+							{
+								columns: [
+									{
+										label: Liferay.Language.get('total'),
+										weight: 'semibold'
+									},
+									{
+										align: 'right',
+										label: toThousands(visitors),
+										weight: 'semibold'
+									}
+								]
+							}
+						]}
+					/>
+				</div>
+			);
+		}
+	};
 
 	return loading ? (
 		<Spinner alignCenter key='LOADING' />
 	) : (
-		<>
-			<Chart
-				axisX={{
-					tick: {
-						centered: false,
-						format: date =>
-							formatXAxisDate(
-								date,
+		<ResponsiveContainer height={height}>
+			<ComposedChart data={data}>
+				<CartesianGrid
+					stroke={AXIS.gridStroke}
+					strokeDasharray='3 3'
+					vertical={false}
+				/>
+
+				<XAxis
+					axisLine={{stroke: AXIS.borderStroke}}
+					dataKey='intervalInitDate'
+					domain={['dataMin', 'dataMax']}
+					padding={{left: 20, right: 20}}
+					tick={({payload, textAnchor, x, y}) => (
+						<Text
+							style={{
+								fill: AXIS.textColor,
+								font: AXIS.font,
+								fontSize: '0.75rem'
+							}}
+							textAnchor={textAnchor}
+							x={x}
+							y={y}
+						>
+							{formatXAxisDate(
+								payload.value,
 								rangeSelectors.rangeKey,
 								interval,
 								dateKeysIMap
-							),
-						values: getIntervals(
-							rangeSelectors.rangeKey,
-							get(
-								find(data, ({id}) => id === 'x') as xAxisData,
-								'data',
-								[]
-							),
-							interval,
-							dateKeysIMap
-						)
-					},
-					type: 'timeseries'
-				}}
-				axisY={{
-					max: maxValue,
-					padding: {
+							)}
+						</Text>
+					)}
+					tickLine={false}
+					tickMargin={12}
+					ticks={getIntervals(
+						rangeSelectors.rangeKey,
+						data.map(({intervalInitDate}) => intervalInitDate),
+						interval,
+						dateKeysIMap
+					)}
+				/>
+
+				<XAxis
+					axisLine={{stroke: AXIS.borderStroke}}
+					dataKey='intervalInitDate'
+					orientation='top'
+					stroke={AXIS.gridStroke}
+					tick={false}
+					tickLine={false}
+					xAxisId='top'
+				/>
+
+				<YAxis
+					allowDecimals={false}
+					axisLine={{stroke: AXIS.borderStroke}}
+					domain={[0, dataMax => dataMax + Math.ceil(dataMax / 10)]}
+					label={{
+						fill: AXIS.textColor,
+						offset: 20,
+						position: 'top',
+						value: Liferay.Language.get('individuals')
+					}}
+					name={Liferay.Language.get('individuals')}
+					stroke={AXIS.gridStroke}
+					tick={({payload: {offset, value}, textAnchor, x, y}) => (
+						<Text
+							style={{
+								fill: AXIS.textColor,
+								font: AXIS.font,
+								fontSize: '0.75rem'
+							}}
+							textAnchor={textAnchor}
+							x={x}
+							y={y + offset}
+						>
+							{value}
+						</Text>
+					)}
+					tickCount={6}
+					tickLine={false}
+					type='number'
+				/>
+
+				<YAxis
+					axisLine={{stroke: AXIS.borderStroke}}
+					orientation='right'
+					stroke={AXIS.gridStroke}
+					tick={false}
+					tickLine={false}
+					type='number'
+					width={1}
+					yAxisId='right'
+				/>
+
+				<Legend
+					align='right'
+					iconSize={8}
+					onMouseEnter={({dataKey}) => setLegendHoverItem(dataKey)}
+					onMouseLeave={() => setLegendHoverItem(null)}
+					verticalAlign='bottom'
+					wrapperStyle={{
 						bottom: 0,
-						top: 0
-					},
-					tick: isEmptyData([knownData, anonymousData])
-						? {
-								count: 5,
-								format: val => (val === 0 ? val : '')
-						  }
-						: {
-								count: intervalCount,
-								format: toThousands,
-								values: intervals
-						  }
-				}}
-				chartType={COMBINED_CHART}
-				data={data}
-				dataId={`${CHART_ID}Data`}
-				generateChartOnLoad
-				height={CHART_HEIGHT}
-				id={CHART_ID}
-				legend={{
-					contents: {
-						bindto: '#legend-active-individuals',
-						template: (id, color) =>
-							ReactDOMServer.renderToString(
-								<li className='chart-legend-item'>
-									<Circle color={color} />
+						color: AXIS.textColor,
+						fontSize: '14px',
+						lineHeight: '21px',
+						right: 0
+					}}
+				/>
 
-									{LANG_MAP[id]}
-								</li>
-							)
-					},
-					item: {
-						onclick: () => false
-					},
-					show: true
-				}}
-				otherData={{groups: [[CHART_DATA_ID_1, CHART_DATA_ID_2]]}}
-				tooltip={{
-					contents: d =>
-						renderTooltip(
-							d,
-							rangeSelectors.rangeKey,
-							interval,
-							dateKeysIMap
-						)
-				}}
-				x='x'
-				yLabel={Liferay.Language.get('individuals')}
-			/>
+				<Tooltip
+					content={renderTooltip}
+					cursor={{stroke: CHART_BLUE}}
+				/>
 
-			<ul className='chart-legend' id='legend-active-individuals' />
-		</>
+				<Bar
+					dataKey='knownVisitors'
+					fill={CHART_BLUE}
+					fillOpacity={
+						legendHoverItem === 'anonymousVisitors' ? 0.2 : 1
+					}
+					legendType='circle'
+					name={Liferay.Language.get('anonymous-visitors')}
+					onMouseEnter={(e, index) => setHoverIndex(index)}
+					onMouseLeave={() => setHoverIndex(-1)}
+					stackId='count'
+				>
+					{data.map((entry, index) => (
+						<Cell
+							fill={getBarColor(index, hoverIndex, null, 'blue')}
+							key={`cell-${index}`}
+						/>
+					))}
+				</Bar>
+
+				<Bar
+					dataKey='anonymousVisitors'
+					fill={CHART_ORANGE}
+					fillOpacity={legendHoverItem === 'knownVisitors' ? 0.2 : 1}
+					legendType='circle'
+					name={Liferay.Language.get('known-visitors')}
+					onMouseEnter={(e, index) => setHoverIndex(index)}
+					onMouseLeave={() => setHoverIndex(-1)}
+					stackId='count'
+				>
+					{data.map((entry, index) => (
+						<Cell
+							fill={getBarColor(
+								index,
+								hoverIndex,
+								null,
+								'orange'
+							)}
+							key={`cell-${index}`}
+						/>
+					))}
+				</Bar>
+			</ComposedChart>
+		</ResponsiveContainer>
 	);
 };
 

@@ -1,10 +1,4 @@
-import {BAR_CHART} from 'shared/components/Chart';
-import {
-	CHART_DATA_ID_1,
-	CHART_DATA_ID_2,
-	LANG_MAP
-} from '../../components/ActiveIndividualsChart';
-import {getDate} from 'shared/util/date';
+import moment from 'moment';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {Map} from 'immutable';
 import {safeResultToProps} from 'shared/util/mappers';
@@ -21,28 +15,24 @@ export const mapResultToProps = safeResultToProps(
 	({
 		site: {anonymousVisitorsMetric, knownVisitorsMetric, visitorsMetric}
 	}) => ({
-		data: [
-			{
-				data: knownVisitorsMetric.histogram.map(({value}) => value),
-				id: CHART_DATA_ID_1,
-				name: LANG_MAP[CHART_DATA_ID_1],
-				type: BAR_CHART
-			},
-			{
-				data: anonymousVisitorsMetric.histogram.map(({value}) => value),
-				id: CHART_DATA_ID_2,
-				name: LANG_MAP[CHART_DATA_ID_2],
-				type: BAR_CHART
-			},
-			{
-				data: visitorsMetric.histogram.map(({key}) => getDate(key)),
-				id: 'x'
-			}
-		],
+		data: anonymousVisitorsMetric.histogram.reduce(
+			(acc, {key, value}, i) => [
+				...acc,
+				{
+					anonymousVisitors: value,
+					intervalInitDate: moment.utc(key).valueOf(),
+					knownVisitors: knownVisitorsMetric.histogram[i].value,
+					visitors: visitorsMetric.histogram[i].value
+				}
+			],
+			[]
+		),
 		dateKeysIMap: Map(
 			visitorsMetric.histogram.map(({key, valueKey}) => [
-				getDate(key),
-				valueKey.split('/').map(getDate)
+				moment.utc(key).valueOf(),
+				valueKey
+					.split('/')
+					.map(valueKeyHalf => moment.utc(valueKeyHalf).valueOf())
 			])
 		)
 	})
