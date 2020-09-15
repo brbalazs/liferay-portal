@@ -10,8 +10,23 @@ describe('Cell', () => {
 		expect(container).toMatchSnapshot();
 	});
 
+	it('should render a children', () => {
+		const {getByText} = render(
+			<Cell>
+				<span>{'Test'}</span>
+			</Cell>
+		);
+
+		expect(getByText('Test')).toBeTruthy();
+	});
+
 	it('should render as a table title', () => {
-		const {container} = render(<Cell title />);
-		expect(container).toMatchSnapshot();
+		const {container} = render(
+			<Cell title>
+				<span>{'Test'}</span>
+			</Cell>
+		);
+
+		expect(container.querySelector('.table-title')).toBeTruthy();
 	});
 });

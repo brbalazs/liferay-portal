@@ -7,15 +7,3 @@ exports[`Cell should render 1`] = `
   />
 </div>
 `;
-
-exports[`Cell should render as a table title 1`] = `
-<div>
-  <td
-    class=""
-  >
-    <h4
-      class="table-title text-truncate"
-    />
-  </td>
-</div>
-`;
