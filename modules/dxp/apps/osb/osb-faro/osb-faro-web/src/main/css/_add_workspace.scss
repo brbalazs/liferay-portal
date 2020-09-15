@@ -1,8 +1,8 @@
 .searchable-select-root {
 	.dropdown-toggle {
-		background-color: #F1F2F5;
-		border: 0.0625rem solid #E7E7ED;
-		color: #272833;
+		background-color: $lightBackground;
+		border: 0.0625rem solid $mainLighten74;
+		color: $main;
 		font-weight: $fontWeightRegular;
 
 		&:disabled {
