@@ -86,21 +86,20 @@ export const CONTEXT_OPTIONS = [
 	}
 ];
 
+const BAR_WIDTH = 60;
+const CHART_DATA_ID = 'count';
+const CHART_PADDING = 60;
+const DEFAULT_NUMBER_OF_BINS = 10;
+const DEFAULT_SELECTED_POINT = 0;
 const MAX_ROWS = 100;
+const MAX_Y_AXIS_CHAR_COUNT = 50;
+const PADDING_FOR_PERCENTAGE = getTextWidth(' - 100.0%');
 
 export function getContextLabel(context) {
 	const contextOption = CONTEXT_OPTIONS.find(({value}) => value === context);
 
 	return contextOption ? contextOption.label : null;
 }
-
-const CHART_DATA_ID = 'count';
-const CHART_PADDING = 60;
-const DEFAULT_NUMBER_OF_BINS = 10;
-const PADDING_FOR_PERCENTAGE = getTextWidth(' - 100.0%');
-
-const DEFAULT_SELECTED_POINT = 0;
-const BAR_WIDTH = 60;
 
 export const numberOfBinsMask = createNumberMask({
 	includeThousandsSeparator: false,
@@ -109,8 +108,8 @@ export const numberOfBinsMask = createNumberMask({
 
 function formatTickVal(name, percent, showPercentage) {
 	return showPercentage
-		? `${truncate(name, {length: 50})} - ${percent}%`
-		: `${truncate(name, {length: 50})}`;
+		? `${truncate(name, {length: MAX_Y_AXIS_CHAR_COUNT})} - ${percent}%`
+		: `${truncate(name, {length: MAX_Y_AXIS_CHAR_COUNT})}`;
 }
 
 /**
@@ -554,7 +553,9 @@ export class Distribution extends React.Component {
 		const fieldDistributionsCount = fieldDistributions.length;
 
 		const yAxisWidth = yAxisTicks.reduce((acc, item) => {
-			const textWidth = getTextWidth(item.toString());
+			const textWidth = getTextWidth(
+				truncate(item.toString(), {length: MAX_Y_AXIS_CHAR_COUNT})
+			);
 
 			return textWidth > acc ? textWidth : acc;
 		}, 60);
@@ -811,10 +812,6 @@ export class Distribution extends React.Component {
 															AXIS.borderStroke
 													}}
 													dataKey={CHART_DATA_ID}
-													domain={[
-														0,
-														dataMax => dataMax * 1.1
-													]}
 													tick={false}
 													tickLine={false}
 													xAxisId='bottom'
