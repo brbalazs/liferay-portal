@@ -9,19 +9,6 @@ import {
 } from '../engagement-activity';
 import {createDateKeysIMap} from 'shared/util/intervals';
 
-const mockHistoryDate = [
-	{
-		intervalInitDate: data.getDate(0),
-		scoreAvg: 2,
-		totalElements: 5
-	},
-	{
-		intervalInitDate: data.getDate(-1),
-		scoreAvg: 4,
-		totalElements: 10
-	}
-];
-
 const mockHistory = [
 	{
 		intervalInitDate: data.getTimestamp(0),
@@ -96,7 +83,7 @@ describe('engagement-activity', () => {
 
 			const tooltipOptions = {
 				dateKeysIMap,
-				history: mockHistoryDate,
+				history: mockHistory,
 				interval,
 				name: 'Activities',
 				rangeSelectors: {

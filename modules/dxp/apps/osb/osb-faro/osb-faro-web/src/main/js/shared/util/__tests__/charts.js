@@ -32,20 +32,20 @@ import {getDate} from 'shared/util/date';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {Map} from 'immutable';
 
-const mockDate = getDate('2019-01-02');
+const mockDate = moment.utc('2019-01-02').valueOf();
 const mockDateKeysIMap = new Map([[mockDate, [mockDate]]]);
 
 describe('dateRangeFormatter', () => {
 	it('should render a range of dates with different start and ending months', () => {
-		expect(dateRangeFormatter(mockDate, getDate('2019-02-02'))).toEqual(
-			'Jan 2 - Feb 2'
-		);
+		expect(
+			dateRangeFormatter(mockDate, moment.utc('2019-02-02').valueOf())
+		).toEqual('Jan 2 - Feb 2');
 	});
 
 	it('should render a range of dates with the same start and ending months', () => {
-		expect(dateRangeFormatter(mockDate, getDate('2019-01-14'))).toEqual(
-			'Jan 2 - 14'
-		);
+		expect(
+			dateRangeFormatter(mockDate, moment.utc('2019-01-14').valueOf())
+		).toEqual('Jan 2 - 14');
 	});
 });
 
@@ -57,7 +57,10 @@ describe('formatTooltipDate', () => {
 		date.setMinutes(30);
 		date.setSeconds(0);
 
-		const formatedDate = formatTooltipDate(date, LAST_24_HOURS);
+		const formatedDate = formatTooltipDate(
+			moment.utc(date).valueOf(),
+			LAST_24_HOURS
+		);
 
 		expect(formatedDate).toEqual('Aug 7, 8 PM');
 	});
@@ -146,7 +149,7 @@ describe('getIntervals', () => {
 	const dates = [];
 
 	for (let i = 1; i < 370; i++) {
-		const date = getDate(currentDate.getTime() - i * 8.64e7);
+		const date = currentDate - i * 8.64e7;
 
 		dates.push(date);
 	}
@@ -202,10 +205,10 @@ describe('getIntervals', () => {
 			dateKeysIMap
 		);
 
-		expect(intervals[0].getUTCDay()).toEqual(0);
-		expect(intervals[1].getUTCDay()).toEqual(0);
-		expect(intervals[2].getUTCDay()).toEqual(0);
-		expect(intervals[3].getUTCDay()).toEqual(0);
+		expect(moment.utc(intervals[0]).get('day')).toEqual(0);
+		expect(moment.utc(intervals[1]).get('day')).toEqual(0);
+		expect(moment.utc(intervals[2]).get('day')).toEqual(0);
+		expect(moment.utc(intervals[3]).get('day')).toEqual(0);
 
 		expect(intervals).toEqual([
 			mockDates[2],
@@ -240,10 +243,10 @@ describe('getIntervals', () => {
 			dateKeysIMap
 		);
 
-		expect(intervals[0].getUTCDay()).toEqual(0);
-		expect(intervals[1].getUTCDay()).toEqual(0);
-		expect(intervals[2].getUTCDay()).toEqual(0);
-		expect(intervals[3].getUTCDay()).toEqual(0);
+		expect(moment.utc(intervals[0]).get('day')).toEqual(0);
+		expect(moment.utc(intervals[1]).get('day')).toEqual(0);
+		expect(moment.utc(intervals[2]).get('day')).toEqual(0);
+		expect(moment.utc(intervals[3]).get('day')).toEqual(0);
 
 		expect(intervals).toEqual([
 			mockDates[4],
@@ -278,9 +281,9 @@ describe('getIntervals', () => {
 			dateKeysIMap
 		);
 
-		expect(result[0].getUTCDate()).toEqual(15);
-		expect(result[1].getUTCDate()).toEqual(1);
-		expect(result[2].getUTCDate()).toEqual(15);
+		expect(moment.utc(result[0]).get('date')).toEqual(15);
+		expect(moment.utc(result[1]).get('date')).toEqual(1);
+		expect(moment.utc(result[2]).get('date')).toEqual(15);
 	});
 
 	it('should be return the intervals with multiple of two indexes from a array of dates from the last 90 days with a week interval', () => {
@@ -308,9 +311,9 @@ describe('getIntervals', () => {
 			dateKeysIMap
 		);
 
-		expect(result[0].getUTCDate()).toEqual(15);
-		expect(result[1].getUTCDate()).toEqual(1);
-		expect(result[2].getUTCDate()).toEqual(15);
+		expect(moment.utc(result[0]).get('date')).toEqual(15);
+		expect(moment.utc(result[1]).get('date')).toEqual(1);
+		expect(moment.utc(result[2]).get('date')).toEqual(15);
 	});
 
 	it('should be return the intervals with multiple of two indexes from a array of dates from the last 180 days with a week interval', () => {
@@ -338,11 +341,11 @@ describe('getIntervals', () => {
 			dateKeysIMap
 		);
 
-		expect(result[0].getUTCDate()).toEqual(1);
-		expect(result[1].getUTCDate()).toEqual(1);
-		expect(result[2].getUTCDate()).toEqual(1);
-		expect(result[3].getUTCDate()).toEqual(1);
-		expect(result[4].getUTCDate()).toEqual(1);
+		expect(moment.utc(result[0]).get('date')).toEqual(1);
+		expect(moment.utc(result[1]).get('date')).toEqual(1);
+		expect(moment.utc(result[2]).get('date')).toEqual(1);
+		expect(moment.utc(result[3]).get('date')).toEqual(1);
+		expect(moment.utc(result[4]).get('date')).toEqual(1);
 	});
 
 	it('should be return the intervals with multiple of four indexes from a array of dates from the last year with a week interval', () => {
@@ -370,8 +373,8 @@ describe('getIntervals', () => {
 			dateKeysIMap
 		);
 
-		expect(intervals[0].getUTCDay()).toEqual(0);
-		expect(intervals[1].getUTCDay()).toEqual(0);
+		expect(moment.utc(intervals[0]).get('day')).toEqual(0);
+		expect(moment.utc(intervals[1]).get('day')).toEqual(0);
 
 		mockDates = dates.filter((item, index) => index <= 29).reverse();
 
@@ -383,8 +386,8 @@ describe('getIntervals', () => {
 			dateKeysIMap
 		);
 
-		expect(intervals[0].getUTCDay()).toEqual(0);
-		expect(intervals[1].getUTCDay()).toEqual(0);
+		expect(moment.utc(intervals[0]).get('day')).toEqual(0);
+		expect(moment.utc(intervals[1]).get('day')).toEqual(0);
 	});
 
 	it('should be return only the 1st or 15th of each month from a array of dates of a custom rangeKey greater than 30 and smaller or equal 180', () => {
@@ -398,8 +401,8 @@ describe('getIntervals', () => {
 			dateKeysIMap
 		);
 
-		expect(intervals[0].getUTCDate()).toEqual(15);
-		expect(intervals[1].getUTCDate()).toEqual(1);
+		expect(moment.utc(intervals[0]).get('date')).toEqual(15);
+		expect(moment.utc(intervals[1]).get('date')).toEqual(1);
 
 		mockDates = dates.filter((item, index) => index <= 179).reverse();
 		dateKeysIMap = new Map(mockDates.map(date => [date, [date]]));
@@ -411,8 +414,8 @@ describe('getIntervals', () => {
 			dateKeysIMap
 		);
 
-		expect(intervals[0].getUTCDate()).toEqual(15);
-		expect(intervals[1].getUTCDate()).toEqual(1);
+		expect(moment.utc(intervals[0]).get('date')).toEqual(15);
+		expect(moment.utc(intervals[1]).get('date')).toEqual(1);
 	});
 
 	it('should be return only the 1st of each month from a array of dates of a custom rangeKey greater than 180', () => {
@@ -426,9 +429,9 @@ describe('getIntervals', () => {
 			dateKeysIMap
 		);
 
-		expect(result[0].getUTCDate()).toEqual(1);
-		expect(result[1].getUTCDate()).toEqual(1);
-		expect(result[2].getUTCDate()).toEqual(1);
+		expect(moment.utc(result[0]).get('date')).toEqual(1);
+		expect(moment.utc(result[1]).get('date')).toEqual(1);
+		expect(moment.utc(result[2]).get('date')).toEqual(1);
 	});
 
 	it('returns an empty intervals array if the original data array was empty', () => {

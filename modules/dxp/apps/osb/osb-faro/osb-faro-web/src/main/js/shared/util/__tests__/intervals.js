@@ -33,8 +33,8 @@ import {getDate} from 'shared/util/date';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {Map} from 'immutable';
 
-const currentDate = getDate();
-const mockDate = getDate('2020-06-12'); // Friday
+const currentDate = moment.utc(getDate()).valueOf();
+const mockDate = moment.utc('2020-06-12').valueOf(); // Friday
 
 const mockData = [
 	{
@@ -74,24 +74,24 @@ describe('getNext Functions', () => {
 	it('should get next sunday from a given date', () => {
 		const nextSunday = getNextSunday(currentDate);
 
-		expect(nextSunday.getUTCDay()).toEqual(0);
+		expect(moment.utc(nextSunday).get('day')).toEqual(0);
 	});
 
 	it('should get next first day of a month from a given date', () => {
 		const nextFirst = getNextFirst(currentDate);
 
-		expect(nextFirst.getUTCDate()).toEqual(1);
+		expect(moment.utc(nextFirst).get('date')).toEqual(1);
 	});
 
 	it('should get next first or fifteenth day of a month from a given date', () => {
-		const mockToFifteenthDate = getDate('2020-06-12');
-		const mockToFirstDate = getDate('2020-06-16');
+		const mockToFifteenthDate = moment.utc('2020-06-12').valueOf();
+		const mockToFirstDate = moment.utc('2020-06-16').valueOf();
 
 		const nextFirst = getNextFirstOrFifteenth(mockToFirstDate);
 		const nextFifteenth = getNextFirstOrFifteenth(mockToFifteenthDate);
 
-		expect(nextFifteenth.getUTCDate()).toEqual(15);
-		expect(nextFirst.getUTCDate()).toEqual(1);
+		expect(moment.utc(nextFifteenth).get('date')).toEqual(15);
+		expect(moment.utc(nextFirst).get('date')).toEqual(1);
 	});
 });
 
@@ -99,7 +99,7 @@ describe('getDates functions', () => {
 	const dates = [];
 
 	for (let i = 1; i < 30; i++) {
-		const date = getDate(mockDate.getTime() - i * 8.64e7);
+		const date = mockDate - i * 8.64e7;
 
 		dates.push(date);
 	}
@@ -109,22 +109,22 @@ describe('getDates functions', () => {
 	it('get Sundays from a given date array', () => {
 		const sundays = getSundays(dates);
 
-		expect(sundays[0].getUTCDay()).toEqual(0);
-		expect(sundays[1].getUTCDay()).toEqual(0);
-		expect(sundays[2].getUTCDay()).toEqual(0);
+		expect(moment.utc(sundays[0]).get('day')).toEqual(0);
+		expect(moment.utc(sundays[1]).get('day')).toEqual(0);
+		expect(moment.utc(sundays[2]).get('day')).toEqual(0);
 	});
 
 	it('get first days of each month from a given date array', () => {
 		const firstDays = getFirstDays(dates);
 
-		expect(firstDays[0].getUTCDate()).toEqual(1);
+		expect(moment.utc(firstDays[0]).get('date')).toEqual(1);
 	});
 
 	it('get first or fifteenth days of each month from a given date array', () => {
 		const firstOrFifteenthDays = getFirstAndFifteenthsDays(dates);
 
-		expect(firstOrFifteenthDays[0].getUTCDate()).toEqual(15);
-		expect(firstOrFifteenthDays[1].getUTCDate()).toEqual(1);
+		expect(moment.utc(firstOrFifteenthDays[0]).get('date')).toEqual(15);
+		expect(moment.utc(firstOrFifteenthDays[1]).get('date')).toEqual(1);
 	});
 
 	it('get by even or odd indexes', () => {
@@ -271,18 +271,19 @@ describe('handleDayInterval', () => {
 	it('should extract an array of dates from a start and end date using the handleFn argument as step', () => {
 		// function to step two days
 		const handleFn = date =>
-			moment(date)
+			moment
+				.utc(date)
 				.add(2, 'days')
-				.toDate();
-		const lastDate = getDate('2020-06-18');
+				.valueOf();
+		const lastDate = moment.utc('2020-06-18').valueOf();
 
 		const intervals = handleDayInterval(handleFn, mockDate, lastDate);
 
 		expect(intervals).toEqual([
-			getDate('2020-06-12'),
-			getDate('2020-06-14'),
-			getDate('2020-06-16'),
-			getDate('2020-06-18')
+			moment.utc('2020-06-12').valueOf(),
+			moment.utc('2020-06-14').valueOf(),
+			moment.utc('2020-06-16').valueOf(),
+			moment.utc('2020-06-18').valueOf()
 		]);
 	});
 });
