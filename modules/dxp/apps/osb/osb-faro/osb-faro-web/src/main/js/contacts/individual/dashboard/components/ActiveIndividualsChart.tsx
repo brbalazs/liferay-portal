@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Spinner from 'shared/components/Spinner';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {AXIS} from 'shared/util/clay-recharts';
+import {ANIMATION_DURATION, AXIS} from 'shared/util/clay-recharts';
 import {
 	Bar,
 	CartesianGrid,
@@ -255,13 +255,14 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 				/>
 
 				<Bar
+					animationDuration={ANIMATION_DURATION.bar}
 					dataKey='knownVisitors'
 					fill={CHART_BLUE}
 					fillOpacity={
 						legendHoverItem === 'anonymousVisitors' ? 0.2 : 1
 					}
 					legendType='circle'
-					name={Liferay.Language.get('anonymous-visitors')}
+					name={Liferay.Language.get('known-visitors')}
 					onMouseEnter={(e, index) => setHoverIndex(index)}
 					onMouseLeave={() => setHoverIndex(-1)}
 					stackId='count'
@@ -275,11 +276,12 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 				</Bar>
 
 				<Bar
+					animationDuration={ANIMATION_DURATION.bar}
 					dataKey='anonymousVisitors'
 					fill={CHART_ORANGE}
 					fillOpacity={legendHoverItem === 'knownVisitors' ? 0.2 : 1}
 					legendType='circle'
-					name={Liferay.Language.get('known-visitors')}
+					name={Liferay.Language.get('anonymous-visitors')}
 					onMouseEnter={(e, index) => setHoverIndex(index)}
 					onMouseLeave={() => setHoverIndex(-1)}
 					stackId='count'

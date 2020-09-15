@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {AXIS} from 'shared/util/clay-recharts';
+import {ANIMATION_DURATION, AXIS} from 'shared/util/clay-recharts';
 import {
 	CartesianGrid,
 	Line,
@@ -272,6 +272,7 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 
 				<Line
 					activeDot={{r: 4, stroke: CHART_BLUE}}
+					animationDuration={ANIMATION_DURATION.line}
 					dataKey='scoreAvg'
 					dot={false}
 					stroke={CHART_BLUE}

@@ -8,8 +8,12 @@ import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import Promise from 'metal-promise';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
+import {
+	ANIMATION_DURATION,
+	AXIS,
+	getTextWidth
+} from 'shared/util/clay-recharts';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
-import {AXIS, getTextWidth} from 'shared/util/clay-recharts';
 import {
 	Bar,
 	CartesianGrid,
@@ -239,6 +243,9 @@ class DistributionChart extends React.Component<
 										/>
 
 										<Bar
+											animationDuration={
+												ANIMATION_DURATION.bar
+											}
 											dataKey={CHART_DATA_ID}
 											onMouseEnter={(e, index) =>
 												this.setState({

@@ -7,7 +7,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import Trend from 'cerebro-shared/components/Trend';
-import {AXIS, getTextWidth} from 'shared/util/clay-recharts';
+import {
+	ANIMATION_DURATION,
+	AXIS,
+	getTextWidth
+} from 'shared/util/clay-recharts';
 import {
 	Bar,
 	CartesianGrid,
@@ -352,6 +356,7 @@ export default class MainMetrics extends React.Component {
 
 					{barData.map(item => (
 						<Bar
+							animationDuration={ANIMATION_DURATION.bar}
 							dataKey={item.id}
 							fill={item.color}
 							fillOpacity={
@@ -381,6 +386,7 @@ export default class MainMetrics extends React.Component {
 
 					{lineData.map(item => (
 						<Line
+							animationDuration={ANIMATION_DURATION.line}
 							dataKey={item.id}
 							dot={false}
 							fill={item.color}

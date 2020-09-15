@@ -6,6 +6,11 @@
 
 const TEXT_PADDING = 4;
 
+export const ANIMATION_DURATION = {
+	bar: 800,
+	line: 1000
+};
+
 export const AXIS = {
 	borderStroke: '#E7E7ED',
 	font:

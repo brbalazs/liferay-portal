@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {AXIS} from 'shared/util/clay-recharts';
+import {ANIMATION_DURATION, AXIS} from 'shared/util/clay-recharts';
 import {
 	Bar,
 	CartesianGrid,
@@ -260,6 +260,7 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 				/>
 
 				<Bar
+					animationDuration={ANIMATION_DURATION.bar}
 					dataKey='totalElements'
 					fill={CHART_BLUE}
 					onMouseEnter={(e, index) => setHoverIndex(index)}

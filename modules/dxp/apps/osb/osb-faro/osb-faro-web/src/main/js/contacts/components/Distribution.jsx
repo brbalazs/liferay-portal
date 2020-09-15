@@ -23,8 +23,12 @@ import {
 	accountsListColumns,
 	individualsListColumns
 } from 'shared/util/table-columns';
+import {
+	ANIMATION_DURATION,
+	AXIS,
+	getTextWidth
+} from 'shared/util/clay-recharts';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
-import {AXIS, getTextWidth} from 'shared/util/clay-recharts';
 import {
 	Bar,
 	CartesianGrid,
@@ -803,6 +807,9 @@ export class Distribution extends React.Component {
 												/>
 
 												<Bar
+													animationDuration={
+														ANIMATION_DURATION.bar
+													}
 													dataKey={CHART_DATA_ID}
 													onClick={(e, index) =>
 														this.handleChartSelect(
