@@ -25,9 +25,10 @@ import com.liferay.push.notifications.sender.PushNotificationsSender;
 import com.liferay.push.notifications.sender.Response;
 import com.liferay.push.notifications.sender.sms.internal.configuration.SMSPushNotificationsSenderConfiguration;
 
-import com.twilio.sdk.TwilioRestClient;
-import com.twilio.sdk.resource.factory.SmsFactory;
-import com.twilio.sdk.resource.instance.Account;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.rest.api.v2010.account.MessageCreator;
+import com.twilio.type.PhoneNumber;
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,10 +60,6 @@ public class SMSPushNotificationsSender implements PushNotificationsSender {
 				"SMS push notifications sender is not configured properly");
 		}
 
-		Account account = _twilioRestClient.getAccount();
-
-		SmsFactory smsFactory = account.getSmsFactory();
-
 		String body = payloadJSONObject.getString(
 			PushNotificationsConstants.KEY_BODY);
 
@@ -74,22 +71,16 @@ public class SMSPushNotificationsSender implements PushNotificationsSender {
 		}
 
 		for (String number : numbers) {
-			Map<String, String> params = new HashMap<>();
-
-			params.put("Body", body);
-			params.put("From", from);
-
-			String statusCallback =
-				_smsPushNotificationsSenderConfiguration.statusCallback();
-
-			if (Validator.isNotNull(statusCallback)) {
-				params.put("StatusCallback", statusCallback);
-			}
-
-			params.put("To", number);
+			MessageCreator messageCreator = Message.creator(
+				new PhoneNumber(number), new PhoneNumber(from), body);
 
 			Response response = new SMSResponse(
-				smsFactory.create(params), payloadJSONObject);
+				messageCreator.create(_twilioRestClient), payloadJSONObject);
+
+			com.liferay.portal.kernel.messaging.Message message =
+				new com.liferay.portal.kernel.messaging.Message();
+
+			message.setPayload(response);
 
 			MessageBusUtil.sendMessage(
 				PushNotificationsDestinationNames.PUSH_NOTIFICATION_RESPONSE,
@@ -114,7 +105,9 @@ public class SMSPushNotificationsSender implements PushNotificationsSender {
 			return;
 		}
 
-		_twilioRestClient = new TwilioRestClient(accountSID, authToken);
+		_twilioRestClient = new TwilioRestClient.Builder(
+			accountSID, authToken
+		).build();
 	}
 
 	private volatile SMSPushNotificationsSenderConfiguration
