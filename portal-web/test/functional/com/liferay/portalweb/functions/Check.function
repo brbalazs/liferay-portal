@@ -75,6 +75,26 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
+	function clickAtWithPause {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.mouseOver();
+
+		if (selenium.isNotChecked()) {
+			selenium.clickAt();
+		}
+
+		selenium.pause("3000");
+
+		AssertChecked.assertChecked();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
 	function toggleSwitch {
 		WaitForSPARefresh();
 
