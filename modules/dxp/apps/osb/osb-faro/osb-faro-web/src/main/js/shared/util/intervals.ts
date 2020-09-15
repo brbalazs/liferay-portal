@@ -106,7 +106,7 @@ export const getSundays = (arr: number[]): number[] => {
 	const lastDate = arr[arr.length - 1];
 
 	const firstTick =
-		moment(firstDate).get('day') === 0
+		moment.utc(firstDate).get('day') === 0
 			? firstDate
 			: getNextSunday(firstDate);
 
@@ -117,7 +117,7 @@ export const getFirstAndFifteenthsDays = (arr: number[]): number[] => {
 	const firstDate = arr[0];
 	const lastDate = arr[arr.length - 1];
 
-	const firstDayDate = moment(firstDate).get('date');
+	const firstDayDate = moment.utc(firstDate).get('date');
 
 	const firstTick =
 		firstDayDate === 1 || firstDayDate === 15
@@ -132,7 +132,7 @@ export const getFirstDays = (arr: number[]): number[] => {
 	const lastDate = arr[arr.length - 1];
 
 	const firstTick =
-		moment(firstDate).get('day') === 1
+		moment.utc(firstDate).get('day') === 1
 			? firstDate
 			: getNextFirst(firstDate);
 
@@ -162,21 +162,21 @@ export const getByCustomRangeKey = (
 
 export const getNextSunday = (date: number): number =>
 	// TIMEZONE
-	moment(date)
-		.utc()
+	moment
+		.utc(date)
 		.day(7)
 		.startOf('day')
 		.valueOf();
 
 export const getNextFirstOrFifteenth = (date: number): number => {
-	if (moment(date).get('date') >= 15) {
+	if (moment.utc(date).get('date') >= 15) {
 		return getNextFirst(date);
 	}
 
 	return (
-		moment(date)
+		moment
 			// TIMEZONE
-			.utc()
+			.utc(date)
 			.date(15)
 			.startOf('day')
 			.valueOf()
@@ -184,8 +184,8 @@ export const getNextFirstOrFifteenth = (date: number): number => {
 };
 
 export const getNextFirst = (date: number): number =>
-	moment(date)
-		.utc()
+	moment
+		.utc(date)
 		.endOf('month')
 		.add(1)
 		.valueOf();
