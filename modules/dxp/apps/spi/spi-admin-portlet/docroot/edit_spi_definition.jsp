@@ -343,11 +343,11 @@ if (useDefaultRestartOptions) {
 
 	var spiDefinitionRecoveryOptionsPanel = A.one('#spiDefinitionRecoveryOptionsPanel');
 
-	var maxRestartAttempts = spiDefinitionRecoveryOptionsPanel.one('#<portlet:namespace/>maxRestartAttempts');
-	var notificationRecipients = spiDefinitionRecoveryOptionsPanel.one('#<portlet:namespace/>notificationRecipients');
+	var maxRestartAttempts = spiDefinitionRecoveryOptionsPanel.one('#<portlet:namespace />maxRestartAttempts');
+	var notificationRecipients = spiDefinitionRecoveryOptionsPanel.one('#<portlet:namespace />notificationRecipients');
 
-	var useDefaultNotificationOptionsCheckbox = spiDefinitionRecoveryOptionsPanel.one('#<portlet:namespace/>useDefaultNotificationOptions');
-	var useDefaultRestartOptionsCheckbox = spiDefinitionRecoveryOptionsPanel.one('#<portlet:namespace/>useDefaultRestartOptions');
+	var useDefaultNotificationOptionsCheckbox = spiDefinitionRecoveryOptionsPanel.one('#<portlet:namespace />useDefaultNotificationOptions');
+	var useDefaultRestartOptionsCheckbox = spiDefinitionRecoveryOptionsPanel.one('#<portlet:namespace />useDefaultRestartOptions');
 
 	useDefaultNotificationOptionsCheckbox.on('change', A.rbind(onChange, null, notificationRecipients));
 	useDefaultRestartOptionsCheckbox.on('change', A.rbind(onChange, null, maxRestartAttempts));

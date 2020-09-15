@@ -151,7 +151,7 @@ FragmentEntry fragmentEntry = fragmentEntryDisplayContext.getFragmentEntry();
 		}
 	);
 
-	$('#<portlet:namespace/>removeFragmentEntry').on(
+	$('#<portlet:namespace />removeFragmentEntry').on(
 		'click',
 		function() {
 			retrieveFragmentEntry(-1);

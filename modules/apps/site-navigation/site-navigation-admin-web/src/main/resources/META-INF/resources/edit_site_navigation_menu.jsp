@@ -112,7 +112,7 @@ renderResponse.setTitle(siteNavigationAdminDisplayContext.getSiteNavigationMenuN
 					dialogIframe: {
 						bodyCssClass: 'dialog-with-footer'
 					},
-					id: '<portlet:namespace/>addMenuItem',
+					id: '<portlet:namespace />addMenuItem',
 					title: event.delegateTarget.title || event.delegateTarget.innerText,
 					uri: event.delegateTarget.href
 				}
