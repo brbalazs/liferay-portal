@@ -302,13 +302,13 @@ public class LayoutAction extends Action {
 						AUDIT_MESSAGE_COM_LIFERAY_PORTAL_MODEL_LAYOUT_VIEW &&
 					AuditRouterUtil.isDeployed()) {
 
-					User user = themeDisplay.getUser();
 					User realUser = themeDisplay.getRealUser();
+					User user = themeDisplay.getUser();
 
 					JSONObject additionalInfoJSONObject = null;
 
 					if (Validator.isNotNull(themeDisplay.getDoAsUserId()) &&
-						(user.getUserId() != realUser.getUserId())) {
+						(realUser.getUserId() != user.getUserId())) {
 
 						additionalInfoJSONObject = JSONUtil.put(
 							"userId", user.getUserId()
