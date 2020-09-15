@@ -15,10 +15,18 @@ export const AXIS = {
 };
 
 export const BAR_COLORS = {
-	default: '#4B9BFF',
-	hover: '#318DFF',
-	notSelected: '#97C5FF',
-	selected: '#0071FD'
+	blue: {
+		default: '#4B9BFF',
+		hover: '#318DFF',
+		notSelected: '#97C5FF',
+		selected: '#0071FD'
+	},
+	orange: {
+		default: '#FFB46E',
+		hover: '#FFA754',
+		notSelected: '#FFCEA1',
+		selected: '#FF8C21'
+	}
 };
 
 export function getTextWidth(text, font = '14px Source Sans Pro') {

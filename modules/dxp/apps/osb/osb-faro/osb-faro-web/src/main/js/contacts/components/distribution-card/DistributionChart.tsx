@@ -9,7 +9,7 @@ import Promise from 'metal-promise';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
-import {AXIS, BAR_COLORS, getTextWidth} from 'shared/util/clay-recharts';
+import {AXIS, getTextWidth} from 'shared/util/clay-recharts';
 import {
 	Bar,
 	CartesianGrid,
@@ -21,6 +21,7 @@ import {
 } from 'recharts';
 import {connect} from 'react-redux';
 import {DistributionTab} from 'shared/util/records';
+import {getBarColor} from 'shared/util/charts';
 import {hasChanges} from 'shared/util/react';
 import {List, Map} from 'immutable';
 import {noop, pickBy} from 'lodash';
@@ -48,7 +49,10 @@ interface IDistributionChartProps {
 }
 
 @hasRequest
-class DistributionChart extends React.Component<IDistributionChartProps> {
+class DistributionChart extends React.Component<
+	IDistributionChartProps,
+	{hoverIndex: number}
+> {
 	state = {
 		hoverIndex: -1
 	};
@@ -69,16 +73,6 @@ class DistributionChart extends React.Component<IDistributionChartProps> {
 			graphValue: histogram ? (values[0] + values[1]) / 2 : values[0],
 			values
 		}));
-	}
-
-	getBarColor(index) {
-		const {hoverIndex} = this.state;
-
-		if (index === hoverIndex) {
-			return BAR_COLORS.hover;
-		}
-
-		return BAR_COLORS.default;
 	}
 
 	getYAxisTicks(fieldDistributions, histogram) {
@@ -117,12 +111,15 @@ class DistributionChart extends React.Component<IDistributionChartProps> {
 
 	render() {
 		const {
-			error,
-			individualFieldDistributionIList,
-			loading,
-			selectedTab: {propertyType},
-			viewAllLink
-		} = this.props;
+			props: {
+				error,
+				individualFieldDistributionIList,
+				loading,
+				selectedTab: {propertyType},
+				viewAllLink
+			},
+			state: {hoverIndex}
+		} = this;
 
 		const individualFieldDistribution = individualFieldDistributionIList.toJS();
 
@@ -253,13 +250,13 @@ class DistributionChart extends React.Component<IDistributionChartProps> {
 													hoverIndex: -1
 												})
 											}
-											radius={[0, 10, 10, 0]}
 										>
 											{formattedChartData.map(
 												(item, index) => (
 													<Cell
-														fill={this.getBarColor(
-															index
+														fill={getBarColor(
+															index,
+															hoverIndex
 														)}
 														key={`cell-${index}`}
 													/>

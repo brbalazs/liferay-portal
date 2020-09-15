@@ -267,17 +267,18 @@ export const getAxisMeasuresFromData = data =>
 export const getBarColor = (
 	currentBarIndex: number,
 	hoverIndex: number,
-	selectedPoint: number
+	selectedPoint?: number,
+	color = 'blue'
 ): string => {
 	if (selectedPoint === currentBarIndex) {
-		return BAR_COLORS.selected;
+		return BAR_COLORS[color].selected;
 	} else if (currentBarIndex === hoverIndex) {
-		return BAR_COLORS.hover;
+		return BAR_COLORS[color].hover;
 	} else if (isNumber(selectedPoint)) {
-		return BAR_COLORS.notSelected;
+		return BAR_COLORS[color].notSelected;
 	}
 
-	return BAR_COLORS.default;
+	return BAR_COLORS[color].default;
 };
 
 /**
