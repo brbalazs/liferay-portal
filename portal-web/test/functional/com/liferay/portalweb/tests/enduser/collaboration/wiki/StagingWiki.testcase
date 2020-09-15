@@ -22,6 +22,12 @@ definition {
 
 		SitePages.addPublicPage(pageName = "Staging Test Page");
 
+		SitePages.configurePage(
+			columnName = "1 Column",
+			pageName = "Staging Test Page",
+			privacy = "Public Pages",
+			sitePageType = "Widget Page");
+
 		ProductMenu.gotoPortlet(
 			category = "Publishing",
 			panel = "Site Administration",
