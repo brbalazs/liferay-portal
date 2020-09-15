@@ -317,10 +317,6 @@ export class SegmentGrowthChart extends React.Component {
 					<YAxis
 						allowDecimals={false}
 						axisLine={{stroke: AXIS.borderStroke}}
-						domain={[
-							0,
-							dataMax => dataMax + Math.ceil(dataMax / 10)
-						]}
 						label={{
 							fill: AXIS.textColor,
 							offset: 20,

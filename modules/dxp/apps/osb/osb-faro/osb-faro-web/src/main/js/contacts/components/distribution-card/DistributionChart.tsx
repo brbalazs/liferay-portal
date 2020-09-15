@@ -218,10 +218,6 @@ class DistributionChart extends React.Component<
 												stroke: AXIS.borderStroke
 											}}
 											dataKey={CHART_DATA_ID}
-											domain={[
-												0,
-												dataMax => dataMax * 1.1
-											]}
 											orientation='top'
 											scale='linear'
 											tickLine={false}
@@ -233,10 +229,6 @@ class DistributionChart extends React.Component<
 												stroke: AXIS.borderStroke
 											}}
 											dataKey={CHART_DATA_ID}
-											domain={[
-												0,
-												dataMax => dataMax * 1.1
-											]}
 											tick={false}
 											tickLine={false}
 											xAxisId='bottom'

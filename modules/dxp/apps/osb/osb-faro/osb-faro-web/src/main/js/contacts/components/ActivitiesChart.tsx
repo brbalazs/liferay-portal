@@ -191,7 +191,6 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 				<YAxis
 					allowDecimals={false}
 					axisLine={{stroke: AXIS.borderStroke}}
-					domain={[0, dataMax => dataMax + Math.ceil(dataMax / 10)]}
 					label={{
 						fill: AXIS.textColor,
 						offset: 20,

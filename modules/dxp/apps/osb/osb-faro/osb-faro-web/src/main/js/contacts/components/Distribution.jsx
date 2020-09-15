@@ -785,10 +785,6 @@ export class Distribution extends React.Component {
 															AXIS.borderStroke
 													}}
 													dataKey={CHART_DATA_ID}
-													domain={[
-														0,
-														dataMax => dataMax * 1.1
-													]}
 													orientation='top'
 													scale='linear'
 													tickLine={false}
@@ -826,7 +822,6 @@ export class Distribution extends React.Component {
 															hoverIndex: -1
 														})
 													}
-													radius={[0, 10, 10, 0]}
 												>
 													{formattedChartData.map(
 														(item, index) => (
