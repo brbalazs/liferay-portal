@@ -110,6 +110,7 @@ public abstract class DemoCreatorService {
 		options.addPart("corpProjectUuid", _PROJECT_ID);
 		options.addPart("name", _PROJECT_ID);
 		options.addPart("serverLocation", LCPProject.Cluster.US.toString());
+		options.addPart("timeZoneId", "UTC");
 		options.setHeaders(headers);
 		options.setLocation("http://localhost:8080/o/faro/main/project");
 		options.setPost(true);
