@@ -16,7 +16,7 @@ import {
 import {CHART_COLOR_NAMES} from 'shared/components/Chart';
 import {createDateKeysIMap} from 'shared/util/intervals';
 import {formatXAxisDate, getDateTitle, getIntervals} from 'shared/util/charts';
-import {get} from 'lodash';
+import {get, isNumber} from 'lodash';
 import {IChartProps, IEngagementHistory} from 'shared/util/engagement-activity';
 import {LAST_30_DAYS} from 'shared/util/constants';
 
@@ -45,7 +45,7 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 	);
 
 	const renderTooltip = ({active, payload}) => {
-		if (active || hasSelectedPoint) {
+		if ((active && !!payload.length) || hasSelectedPoint) {
 			const {contributors, intervalInitDate, scoreAvg} = get(
 				payload,
 				[0, 'payload'],
@@ -86,7 +86,9 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 									},
 									{
 										align: 'right',
-										label: scoreAvg.toFixed(2),
+										label: isNumber(scoreAvg)
+											? scoreAvg.toFixed(2)
+											: null,
 										weight: 'semibold'
 									}
 								]
@@ -273,6 +275,7 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 				<Line
 					activeDot={{r: 4, stroke: CHART_BLUE}}
 					animationDuration={ANIMATION_DURATION.line}
+					connectNulls
 					dataKey='scoreAvg'
 					dot={false}
 					stroke={CHART_BLUE}

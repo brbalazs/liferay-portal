@@ -120,7 +120,7 @@ export class SegmentGrowthChart extends React.Component {
 	renderTooltip({active, payload}) {
 		const {data, hasSelectedPoint, selectedPoint} = this.props;
 
-		if (active || hasSelectedPoint) {
+		if ((active && !!payload.length) || hasSelectedPoint) {
 			const {
 				added,
 				anonymousCount,
