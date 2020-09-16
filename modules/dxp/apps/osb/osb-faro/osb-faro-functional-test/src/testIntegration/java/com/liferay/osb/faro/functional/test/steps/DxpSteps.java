@@ -47,7 +47,7 @@ public class DxpSteps {
 
 	/**
 	 * Connects AC to a local DXP instance using OAuth2, then stores the
-	 * generated Client and Secret in {@link FaroTestDataUtil#_placeholders} for
+	 * generated Client and Secret in {@link FaroTestDataUtil} _placeholders for
 	 * use by subsequent steps.
 	 *
 	 * @throws Exception if an exception occurred
@@ -444,11 +444,14 @@ public class DxpSteps {
 			@Transform(FaroTransformer.class) String propType)
 		throws Exception {
 
-		StringBundler sb = new StringBundler(3);
+		StringBundler sb = new StringBundler(6);
 
 		sb.append("//table//a[text()='");
 		sb.append(propType);
-		sb.append("']");
+		sb.append("\']|//table[contains(@class,'table')]//tr");
+		sb.append("[@data-qa-id=\"row\"]//span[contains(text(),\'");
+		sb.append(propType);
+		sb.append("\')]");
 
 		_faroSelenium.click(sb.toString());
 	}

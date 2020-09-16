@@ -48,7 +48,7 @@ public class DxpStringPool {
 		"//span[text()='Analytics']/parent::a";
 
 	public static final String AUTH_TOKEN_FIELD_XPATH =
-		"//input[@id='_com_liferay_configuration_admin_web_portlet_InstanceS" +
+		"//*[@id='_com_liferay_configuration_admin_web_portlet_InstanceS" +
 			"ettingsPortlet_token']";
 
 	public static final String CONNECT_AUTH_TOKEN_BUTTON_XPATH =

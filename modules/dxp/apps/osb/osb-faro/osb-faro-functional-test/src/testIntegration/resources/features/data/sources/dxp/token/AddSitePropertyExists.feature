@@ -1,4 +1,4 @@
-@spira_Data_Source @Data_Source @DXP @Token @Property @team_FARO @priority_3 @prototype
+@spira_Data_Source @Data_Source @DXP @Token @Property @team_FARO @priority_3
 Feature: Assign site to property when properties exist
   	As a Business User, I should be able to assign a site to property when properties exist
 

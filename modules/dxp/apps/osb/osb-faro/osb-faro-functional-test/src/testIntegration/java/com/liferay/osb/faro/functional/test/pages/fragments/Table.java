@@ -292,7 +292,7 @@ public class Table {
 			String negation, @Transform(FaroTransformer.class) String name)
 		throws Exception {
 
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(10);
 
 		sb.append("//table[contains(@class,'table')]//div/*[text()=\"");
 		sb.append(name);
@@ -300,7 +300,10 @@ public class Table {
 		sb.append(name);
 		sb.append("\"]|//table[contains(@class,'table')]//*[text()=\"");
 		sb.append(name);
-		sb.append("\"]");
+		sb.append("\"]|//table[contains(@class,'table')]//tr");
+		sb.append("[@data-qa-id='row']//span[contains(text(),\'");
+		sb.append(name);
+		sb.append("\')]");
 
 		try {
 			if (negation == null) {
