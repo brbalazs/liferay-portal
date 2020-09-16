@@ -35,6 +35,8 @@ if (message.getMessageId() == selMessage.getMessageId()) {
 }
 
 MBMessageDisplay messageDisplay = (MBMessageDisplay)request.getAttribute(WebKeys.MESSAGE_BOARDS_MESSAGE_DISPLAY);
+
+MBMessage rootMessage = treeWalker.getRoot();
 %>
 
 <c:if test="<%= (message.getMessageId() != selMessage.getMessageId()) || MBUtil.isViewableMessage(themeDisplay, message) %>">
@@ -51,7 +53,7 @@ MBMessageDisplay messageDisplay = (MBMessageDisplay)request.getAttribute(WebKeys
 	<liferay-util:include page="/message_boards/view_thread_message.jsp" servletContext="<%= application %>" />
 </c:if>
 
-<c:if test="<%= message.getMessageId() != treeWalker.getRoot().getMessageId() %>">
+<c:if test="<%= message.getMessageId() != rootMessage.getMessageId() %>">
 
 	<%
 	List messages = treeWalker.getMessages();
