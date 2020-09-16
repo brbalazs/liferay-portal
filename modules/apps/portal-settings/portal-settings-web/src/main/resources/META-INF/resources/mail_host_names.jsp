@@ -16,12 +16,8 @@
 
 <%@ include file="/init.jsp" %>
 
-<%
-String adminMailHostNames = PrefsPropsUtil.getString(company.getCompanyId(), PropsKeys.ADMIN_MAIL_HOST_NAMES);
-%>
-
 <h3><liferay-ui:message key="mail-host-names" /></h3>
 
 <aui:fieldset>
-	<aui:input label='<%= LanguageUtil.format(request, "enter-one-mail-host-name-per-line-for-all-additional-mail-host-names-besides-x", company.getMx(), false) %>' name='<%= "settings--" + PropsKeys.ADMIN_MAIL_HOST_NAMES + "--" %>' type="textarea" value="<%= adminMailHostNames %>" />
+	<aui:input label='<%= LanguageUtil.format(request, "enter-one-mail-host-name-per-line-for-all-additional-mail-host-names-besides-x", company.getMx(), false) %>' name='<%= "settings--" + PropsKeys.ADMIN_MAIL_HOST_NAMES + "--" %>' type="textarea" value="<%= PrefsPropsUtil.getString(company.getCompanyId(), PropsKeys.ADMIN_MAIL_HOST_NAMES) %>" />
 </aui:fieldset>
