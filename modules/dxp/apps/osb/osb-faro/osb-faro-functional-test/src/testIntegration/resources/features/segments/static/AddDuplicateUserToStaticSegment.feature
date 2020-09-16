@@ -25,6 +25,5 @@ Feature: Add a Duplicate User to a Static Segment
 		When I click the "Add to Static Segment" button
 		And I click the checkbox on the table row containing "AddUserToStaticSegment - ${Random.1}"
 		And I click the "Add" button
-		Then I should see an error alert
 		When I go to the "Segments" page
 		Then I should see a "Segment" named "AddUserToStaticSegment - ${Random.1}" with "1" items
