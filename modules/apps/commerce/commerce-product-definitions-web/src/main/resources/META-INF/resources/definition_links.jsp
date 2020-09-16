@@ -20,7 +20,6 @@
 CPDefinitionLinkDisplayContext cpDefinitionLinkDisplayContext = (CPDefinitionLinkDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CPDefinition cpDefinition = cpDefinitionLinkDisplayContext.getCPDefinition();
-long cpDefinitionId = cpDefinitionLinkDisplayContext.getCPDefinitionId();
 PortletURL portletURL = cpDefinitionLinkDisplayContext.getPortletURL();
 %>
 
@@ -30,7 +29,7 @@ PortletURL portletURL = cpDefinitionLinkDisplayContext.getPortletURL();
 	<aui:form action="<%= addCPDefinitionLinkURL %>" cssClass="hide" name="addCPDefinitionLinkFm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.ADD %>" />
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-		<aui:input name="cpDefinitionId" type="hidden" value="<%= cpDefinitionId %>" />
+		<aui:input name="cpDefinitionId" type="hidden" value="<%= cpDefinitionLinkDisplayContext.getCPDefinitionId() %>" />
 		<aui:input name="cpDefinitionIds" type="hidden" value="" />
 		<aui:input name="type" type="hidden" value="" />
 	</aui:form>

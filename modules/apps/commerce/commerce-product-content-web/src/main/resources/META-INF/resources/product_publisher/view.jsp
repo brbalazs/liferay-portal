@@ -24,8 +24,6 @@ Map<String, Object> contextObjects = new HashMap<>();
 contextObjects.put("cpPublisherDisplayContext", cpPublisherDisplayContext);
 
 SearchContainer searchContainer = cpPublisherDisplayContext.getSearchContainer();
-
-List<CPCatalogEntry> results = searchContainer.getResults();
 %>
 
 <c:choose>
@@ -35,7 +33,7 @@ List<CPCatalogEntry> results = searchContainer.getResults();
 			contextObjects="<%= contextObjects %>"
 			displayStyle="<%= cpPublisherDisplayContext.getDisplayStyle() %>"
 			displayStyleGroupId="<%= cpPublisherDisplayContext.getDisplayStyleGroupId() %>"
-			entries="<%= results %>"
+			entries="<%= searchContainer.getResults() %>"
 		/>
 
 		<c:if test="<%= cpPublisherDisplayContext.isPaginate() %>">
