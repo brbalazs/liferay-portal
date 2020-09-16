@@ -31,7 +31,9 @@ import com.liferay.portal.kernel.service.CompanyService;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PrefsPropsUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -118,6 +120,22 @@ public abstract class BaseAnalyticsMVCActionCommand
 			checkPermissions(themeDisplay);
 
 			saveCompanyConfiguration(actionRequest, themeDisplay);
+
+			String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
+
+			if (Objects.equals(cmd, "update_synced_contacts_fields")) {
+				boolean exit = ParamUtil.getBoolean(actionRequest, "exit");
+
+				if (exit) {
+					SessionErrors.add(actionRequest, "unsavedContactsFields");
+
+					hideDefaultErrorMessage(actionRequest);
+				}
+
+				sendRedirect(
+					actionRequest, actionResponse,
+					ParamUtil.getString(actionRequest, "redirect"));
+			}
 		}
 		catch (PrincipalException pe) {
 			_log.error(pe, pe);
