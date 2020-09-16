@@ -7370,13 +7370,6 @@ go</echo>
 											select="\1"
 										/>
 
-										<move
-											failonerror="false"
-											file="@{app.dir}/settings.gradle"
-											tofile="@{app.dir}/settings.gradle.temp"
-											verbose="true"
-										/>
-
 										<for param="module.dir.path">
 											<path>
 												<dirset
@@ -7430,12 +7423,6 @@ go</echo>
 										</ant>
 
 										<gradle-execute dir="@{app.dir}" task="clean" />
-
-										<move
-											failonerror="false"
-											file="@{app.dir}/settings.gradle.temp"
-											tofile="@{app.dir}/settings.gradle"
-										/>
 									</else>
 								</if>
 							</sequential>
