@@ -52,7 +52,7 @@
 
 		var rangeEndsLater = false;
 
-		var schedulerEndBy = AUI.$("#<portlet:namespace />schedulerEndBy");
+		var schedulerEndBy = AUI.$("#<portlet:namespace/>schedulerEndBy");
 
 		if (schedulerEndBy.length && schedulerEndBy[0].checked) {
 			var endDate = Liferay.component("<portlet:namespace />schedulerEndDateDatePicker");

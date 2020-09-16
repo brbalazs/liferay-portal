@@ -131,7 +131,7 @@ renderResponse.setTitle(oAuth2Application.getName());
 						'click',
 						function() {
 							if (confirm('<%= UnicodeLanguageUtil.format(request, "x-will-no-longer-have-access-to-your-account-removed-access-cannot-be-recovered", new String[] {oAuth2Application.getName()}) %>')) {
-								document.<portlet:namespace />fm.submit();
+								document.<portlet:namespace/>fm.submit();
 							}
 						}
 					);

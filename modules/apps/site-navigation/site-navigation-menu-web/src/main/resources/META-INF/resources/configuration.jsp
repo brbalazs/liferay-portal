@@ -229,11 +229,11 @@ else {
 		'change',
 		'select',
 		function() {
-			<portlet:namespace />resetPreview();
+			<portlet:namespace/>resetPreview();
 		}
 	);
 
-	function <portlet:namespace />resetPreview() {
+	function <portlet:namespace/>resetPreview() {
 		var selectDisplayDepth = form.fm('displayDepth');
 		var selectDisplayStyle = form.fm('displayStyle');
 		var selectExpandedLevels = form.fm('expandedLevels');
@@ -290,7 +290,7 @@ else {
 
 								$('#<portlet:namespace />rootMenuItemName').text(selectedItem.selectSiteNavigationMenuItemName);
 
-								<portlet:namespace />resetPreview();
+								<portlet:namespace/>resetPreview();
 							}
 						}
 					},
@@ -331,7 +331,7 @@ else {
 
 						$('#<portlet:namespace />removeSiteNavigationMenu').toggleClass('hide');
 
-						<portlet:namespace />resetPreview();
+						<portlet:namespace/>resetPreview();
 					}
 				}
 			);
@@ -351,7 +351,7 @@ else {
 
 			$('#<portlet:namespace />removeSiteNavigationMenu').toggleClass('hide');
 
-			<portlet:namespace />resetPreview();
+			<portlet:namespace/>resetPreview();
 		}
 	);
 
@@ -400,7 +400,7 @@ else {
 
 			$('#<portlet:namespace />removeSiteNavigationMenu').addClass('hide');
 
-			<portlet:namespace />resetPreview();
+			<portlet:namespace/>resetPreview();
 		}
 	);
 </aui:script>

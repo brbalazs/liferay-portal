@@ -242,7 +242,7 @@ if (oAuth2Application.getOAuth2ApplicationScopeAliasesId() > 0) {
 				});
 			A.one('#<portlet:namespace />impliedScopeAliases').attr('value', scopeAliases.join(' '));
 
-			document.<portlet:namespace />fm.submit();
+			document.<portlet:namespace/>fm.submit();
 		});
 
 </aui:script>

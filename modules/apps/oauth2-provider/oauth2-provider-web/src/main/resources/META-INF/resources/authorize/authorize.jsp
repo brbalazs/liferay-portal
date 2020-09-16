@@ -137,15 +137,15 @@ if (Validator.isNotNull(replyTo) && !replyTo.startsWith(PortalUtil.getPortalURL(
 								$('#<portlet:namespace />allow').on(
 									'click',
 									function() {
-										document.<portlet:namespace />fm.oauthDecision.value='allow';
-										document.<portlet:namespace />fm.submit();
+										document.<portlet:namespace/>fm.oauthDecision.value='allow';
+										document.<portlet:namespace/>fm.submit();
 									}
 								);
 								$('#<portlet:namespace />cancel').on(
 									'click',
 									function() {
-										document.<portlet:namespace />fm.oauthDecision.value='deny';
-										document.<portlet:namespace />fm.submit();
+										document.<portlet:namespace/>fm.oauthDecision.value='deny';
+										document.<portlet:namespace/>fm.submit();
 									}
 								);
 							</aui:script>

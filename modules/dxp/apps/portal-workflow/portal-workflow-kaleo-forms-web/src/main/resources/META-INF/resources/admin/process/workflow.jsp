@@ -245,7 +245,7 @@ if (tabs1.equals("published")) {
 				)
 			);
 
-			var kaleoFormsAdmin = Liferay.component('<portlet:namespace />KaleoFormsAdmin');
+			var kaleoFormsAdmin = Liferay.component('<portlet:namespace/>KaleoFormsAdmin');
 
 			kaleoFormsAdmin.saveInPortletSession(
 				{

@@ -64,7 +64,7 @@ Format dateFormatTime = DateFormatFactoryUtil.getDateTime(locale, timeZone);
 <%@ include file="/definition/init-ext.jsp" %>
 
 <aui:script use="liferay-workflow-web">
-	window.<portlet:namespace />confirmDeleteDefinition = function(deleteURL) {
+	window.<portlet:namespace/>confirmDeleteDefinition = function(deleteURL) {
 		var message = '<%= LanguageUtil.get(request, "a-deleted-workflow-cannot-be-recovered") %>';
 		var title = '<%= LanguageUtil.get(request, "delete-workflow-question") %>';
 

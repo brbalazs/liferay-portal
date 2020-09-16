@@ -102,21 +102,21 @@ renderResponse.setTitle(StringBundler.concat(selectedUser.getFullName(), " - ", 
 </aui:form>
 
 <aui:script>
-	function <portlet:namespace />doAnonymizeMultiple() {
+	function <portlet:namespace/>doAnonymizeMultiple() {
 		<portlet:namespace />doMultiple(
 			'<portlet:actionURL name="/anonymize_uad_entities" />',
 			'<liferay-ui:message key="are-you-sure-you-want-to-anonymize-the-selected-items" />'
 		);
 	}
 
-	function <portlet:namespace />doDeleteMultiple() {
+	function <portlet:namespace/>doDeleteMultiple() {
 		<portlet:namespace />doMultiple(
 			'<portlet:actionURL name="/delete_uad_entities" />',
 			'<liferay-ui:message key="are-you-sure-you-want-to-delete-the-selected-items" />'
 		);
 	}
 
-	function <portlet:namespace />doMultiple(actionURL, message) {
+	function <portlet:namespace/>doMultiple(actionURL, message) {
 		var form = document.getElementById('<portlet:namespace />viewUADEntitiesFm');
 
 		if (form) {

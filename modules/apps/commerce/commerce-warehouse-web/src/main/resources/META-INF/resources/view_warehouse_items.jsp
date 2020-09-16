@@ -99,7 +99,7 @@ if (Validator.isNotNull(backURL)) {
 	</c:choose>
 
 	<aui:script>
-		function <portlet:namespace />updateCommerceInventoryWarehouseItem(
+		function <portlet:namespace/>updateCommerceInventoryWarehouseItem(
 			commerceInventoryWarehouseId,
 			commerceInventoryWarehouseItemId,
 			index
@@ -140,7 +140,7 @@ if (Validator.isNotNull(backURL)) {
 				var curIndex = $(this)
 					.attr('id')
 					.split(quantityPrefix)[1];
-				$('#<portlet:namespace />saveButton' + curIndex).click();
+				$('#<portlet:namespace/>saveButton' + curIndex).click();
 			}
 		});
 	</aui:script>
