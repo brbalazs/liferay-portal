@@ -66,6 +66,16 @@
 	<td></td>
 </tr>
 <tr>
+	<td>WEB_CONTENT_CONTENT_CARD_TITLE</td>
+	<td>//div[contains(@class,'card-col-content')]/h2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WEB_CONTENT_CONTENT_FIGCAPTION_BOTTOM</td>
+	<td>//div[@class='figcaption-bottom']/h1</td>
+	<td></td>
+</tr>
+<tr>
 	<td>WEB_CONTENT_CONTENT_IMAGE</td>
 	<td>//div[@class='journal-content-article']/img</td>
 	<td></td>
