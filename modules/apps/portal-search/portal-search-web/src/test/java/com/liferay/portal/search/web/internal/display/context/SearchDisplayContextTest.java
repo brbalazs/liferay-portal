@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Html;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.search.context.SearchContextFactory;
 import com.liferay.portal.search.summary.SummaryBuilderFactory;
 import com.liferay.portal.search.web.constants.SearchPortletParameterNames;
 import com.liferay.portal.search.web.internal.facet.SearchFacetTracker;
@@ -68,6 +69,7 @@ public class SearchDisplayContextTest {
 		setUpHttpServletRequest();
 		setUpPortletURLFactory();
 		setUpRenderRequest();
+		setUpSearchContextFactory();
 	}
 
 	@Test
@@ -221,7 +223,7 @@ public class SearchDisplayContextTest {
 			createPortal(themeDisplay, renderRequest), Mockito.mock(Html.class),
 			Mockito.mock(Language.class), facetedSearcherManager,
 			Mockito.mock(IndexSearchPropsValues.class), portletURLFactory,
-			Mockito.mock(SummaryBuilderFactory.class),
+			Mockito.mock(SummaryBuilderFactory.class), searchContextFactory,
 			new SearchFacetTracker());
 	}
 
@@ -296,6 +298,18 @@ public class SearchDisplayContextTest {
 		);
 	}
 
+	protected void setUpSearchContextFactory() throws Exception {
+		Mockito.doReturn(
+			new SearchContext()
+		).when(
+			searchContextFactory
+		).getSearchContext(
+			Mockito.any(), Mockito.any(), Mockito.anyLong(), Mockito.any(),
+			Mockito.any(), Mockito.any(), Mockito.any(), Mockito.anyLong(),
+			Mockito.any(), Mockito.anyLong()
+		);
+	}
+
 	@Mock
 	protected FacetedSearcher facetedSearcher;
 
@@ -313,6 +327,9 @@ public class SearchDisplayContextTest {
 
 	@Mock
 	protected RenderRequest renderRequest;
+
+	@Mock
+	protected SearchContextFactory searchContextFactory;
 
 	protected ThemeDisplay themeDisplay;
 

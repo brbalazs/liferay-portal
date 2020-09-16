@@ -14,14 +14,14 @@
 
 package com.liferay.portal.search.context;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.search.SearchContext;
 
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-
-import aQute.bnd.annotation.ProviderType;
 
 /**
  * @author Bryan Engler

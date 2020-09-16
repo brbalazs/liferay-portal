@@ -22,7 +22,6 @@ import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
-import com.liferay.portal.kernel.search.SearchContextFactory;
 import com.liferay.portal.kernel.search.facet.Facet;
 import com.liferay.portal.kernel.search.facet.faceted.searcher.FacetedSearcherManager;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -31,8 +30,11 @@ import com.liferay.portal.kernel.util.Html;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.constants.SearchContextAttributes;
+import com.liferay.portal.search.context.SearchContextFactory;
 import com.liferay.portal.search.summary.SummaryBuilderFactory;
 import com.liferay.portal.search.web.constants.SearchPortletParameterNames;
 import com.liferay.portal.search.web.facet.SearchFacet;
@@ -71,6 +73,7 @@ public class SearchDisplayContext {
 			IndexSearchPropsValues indexSearchPropsValues,
 			PortletURLFactory portletURLFactory,
 			SummaryBuilderFactory summaryBuilderFactory,
+			SearchContextFactory searchContextFactory,
 			SearchFacetTracker searchFacetTracker)
 		throws PortletException {
 
@@ -79,6 +82,7 @@ public class SearchDisplayContext {
 		_indexSearchPropsValues = indexSearchPropsValues;
 		_portletURLFactory = portletURLFactory;
 		_summaryBuilderFactory = summaryBuilderFactory;
+		_searchContextFactory = searchContextFactory;
 		_searchFacetTracker = searchFacetTracker;
 
 		ThemeDisplaySupplier themeDisplaySupplier =
@@ -116,7 +120,19 @@ public class SearchDisplayContext {
 		SearchContainer<Document> searchContainer = new SearchContainer<>(
 			_renderRequest, getPortletURL(), null, emptyResultMessage);
 
-		SearchContext searchContext = SearchContextFactory.getInstance(request);
+		long[] assetCategoryIds = StringUtil.split(
+			ParamUtil.getString(request, "category"), 0L);
+		String[] assetTagNames = StringUtil.split(
+			ParamUtil.getString(request, "tag"));
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		SearchContext searchContext = _searchContextFactory.getSearchContext(
+			assetCategoryIds, assetTagNames, themeDisplay.getCompanyId(),
+			ParamUtil.getString(request, "keywords"), themeDisplay.getLayout(),
+			themeDisplay.getLocale(), request.getParameterMap(),
+			themeDisplay.getScopeGroupId(), themeDisplay.getTimeZone(),
+			themeDisplay.getUserId());
 
 		_resetScope(searchContext);
 
@@ -630,6 +646,7 @@ public class SearchDisplayContext {
 	private String _searchConfiguration;
 	private final SearchContainer<Document> _searchContainer;
 	private final SearchContext _searchContext;
+	private final SearchContextFactory _searchContextFactory;
 	private final SearchFacetTracker _searchFacetTracker;
 	private final SearchResultPreferences _searchResultPreferences;
 	private String _searchScopePreferenceString;
