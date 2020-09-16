@@ -13,4 +13,4 @@ Feature: Individuals interest details has a tab that shows active pages
 		And I click "Abram Bauch" in the table
 		And I click the "Interests" tab
 		When I click "mesh" in the table
-		Then I should see page named "mesh synergistic schemas" in the table
+		Then I should see text saying "There are no Pages found." on the page

@@ -13,4 +13,4 @@ Feature: Segment interest details has a tab that shows inactive pages
 		And I click the "Interests" tab
 		And I click "rich e-commerce" in the table
 		When I click the "Inactive Pages" tab
-		Then I should see text saying "There are no Pages found." on the page
+		Then I should see page named "orchestrate rich e-commerce" in the table

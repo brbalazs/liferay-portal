@@ -13,4 +13,4 @@ Feature: Interest details has a tab that shows active pages
 		Given I click the "Interests" tab
 		And I click "rich e-commerce" in the table
 		When I click the "Active Pages" tab
-		Then I should see page named "orchestrate rich e-commerce" in the table
+		Then I should see text saying "There are no Pages found." on the page

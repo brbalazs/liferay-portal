@@ -14,4 +14,4 @@ Feature: Individuals interest details has a tab that shows inactive pages
 		And I click the "Interests" tab
 		When I click "mesh" in the table
 		And I click the "Inactive Pages" tab
-		Then I should see text saying "There are no Pages found." on the page
+		Then I should see page named "mesh synergistic schemas" in the table
