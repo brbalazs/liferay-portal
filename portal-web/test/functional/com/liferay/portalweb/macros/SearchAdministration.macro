@@ -1,6 +1,8 @@
 definition {
 
 	macro assertEngineVendorAndVersions {
+		WaitForSPARefresh();
+
 		var alertInfo = selenium.getText("//div[contains(@class,'alert alert-info')]");
 
 		var searchEngineVendor = RegexUtil.replace("${alertInfo}", "Vendor: (.*?),", "1");
