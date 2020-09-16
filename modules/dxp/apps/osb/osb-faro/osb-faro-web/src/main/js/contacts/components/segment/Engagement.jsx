@@ -36,6 +36,7 @@ const tooltipRenderRows = contributors => [
 		]
 	}
 ];
+
 export class SegmentEngagementChart extends React.Component {
 	render() {
 		const {data, ...otherProps} = this.props;
