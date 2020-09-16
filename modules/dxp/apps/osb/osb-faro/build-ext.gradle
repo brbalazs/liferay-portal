@@ -21,6 +21,8 @@ buildscript {
 
 apply plugin: AppDockerPlugin
 
+apply plugin: "com.liferay.yarn.defaults.plugin"
+
 task checkDocker(type: DockerWaitHealthyContainer)
 task copyDockerResources(type: Copy)
 task createDocker(type: DockerCreateContainer)
