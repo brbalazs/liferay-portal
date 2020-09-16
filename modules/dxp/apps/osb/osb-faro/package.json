@@ -56,9 +56,7 @@
 	},
 	"workspaces": {
 		"packages": [
-			"apps/*/*",
-			"apps/*/*/*",
-			"dxp/apps/*/*"
+			"osb-faro-*"
 		]
 	}
 }
