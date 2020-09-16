@@ -17,7 +17,7 @@ make sure "Expose daemon on tcp://localhost:2375 without TLS" on the "General" p
 2. Run `./gradlew deploy`.
 
 #### Running Frontend Development Server
-1. Run `./gradlew npmRunStart`.
+1. Run `./gradlew packageRunStart`.
 2. Then open [http://localhost:3000](http://localhost:3000).
 
 #### Frontend Architecture
@@ -46,7 +46,7 @@ Before you open your pull request, make sure you have these:
 
 * Commit messages that are linked back to a ticket or story on [Jira](https://issues.liferay.com).
 * Unit tests (if applicable, and they generally are...).
-* All unit tests passing: `./gradlew npmRunTest`.
+* All unit tests passing: `./gradlew packageRunTest`.
 * Beautifully formatted code: `./gradlew formatSource`.
 
 After submitting your PR, Github will automatically add reviewers. They will either approve your pull request, or leave a review and request some changes. Feel free
