@@ -46,10 +46,6 @@ AMManagementToolbarDisplayContext amManagementToolbarDisplayContext = new AMMana
 	showSearch="<%= false %>"
 />
 
-<%
-PortletURL portletURL = renderResponse.createRenderURL();
-%>
-
 <div class="closed container-fluid-1280 sidenav-container sidenav-right" id="<portlet:namespace />infoPanelId">
 	<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="/adaptive_media/info_panel" var="sidebarPanelURL" />
 
@@ -102,7 +98,7 @@ PortletURL portletURL = renderResponse.createRenderURL();
 			<liferay-ui:search-container
 				emptyResultsMessage="there-are-no-image-resolutions"
 				id="imageConfigurationEntries"
-				iteratorURL="<%= portletURL %>"
+				iteratorURL="<%= renderResponse.createRenderURL() %>"
 				rowChecker="<%= new ImageConfigurationEntriesChecker(liferayPortletResponse) %>"
 				total="<%= selectedConfigurationEntries.size() %>"
 			>

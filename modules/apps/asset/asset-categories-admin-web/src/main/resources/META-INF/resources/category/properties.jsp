@@ -67,13 +67,11 @@ else {
 String redirect = ParamUtil.getString(request, "redirect", assetCategoriesDisplayContext.getEditCategoryRedirect());
 
 long vocabularyId = ParamUtil.getLong(request, "vocabularyId");
-
-String screenNavigationCategoryKey = ParamUtil.getString(request, "screenNavigationCategoryKey");
 %>
 
 <portlet:actionURL name="editProperties" var="editPropertiesURL">
 	<portlet:param name="mvcPath" value="/edit_category.jsp" />
-	<portlet:param name="screenNavigationCategoryKey" value="<%= screenNavigationCategoryKey %>" />
+	<portlet:param name="screenNavigationCategoryKey" value='<%= ParamUtil.getString(request, "screenNavigationCategoryKey") %>' />
 	<portlet:param name="vocabularyId" value="<%= String.valueOf(vocabularyId) %>" />
 </portlet:actionURL>
 
