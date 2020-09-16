@@ -20,7 +20,6 @@
 String containerCssClass = (String)request.getAttribute("liferay-frontend:screen-navigation:containerCssClass");
 String containerWrapperCssClass = (String)request.getAttribute("liferay-frontend:screen-navigation:containerWrapperCssClass");
 String fullContainerCssClass = (String)request.getAttribute("liferay-frontend:screen-navigation:fullContainerCssClass");
-String headerContainerCssClass = (String)request.getAttribute("liferay-frontend:screen-navigation:headerContainerCssClass");
 String id = (String)request.getAttribute("liferay-frontend:screen-navigation:id");
 String menubarCssClass = (String)request.getAttribute("liferay-frontend:screen-navigation:menubarCssClass");
 String navCssClass = (String)request.getAttribute("liferay-frontend:screen-navigation:navCssClass");
@@ -33,7 +32,7 @@ List<ScreenNavigationEntry> screenNavigationEntries = (List<ScreenNavigationEntr
 
 <c:if test="<%= ListUtil.isNotEmpty(screenNavigationCategories) && (screenNavigationCategories.size() > 1) %>">
 	<div class="page-header">
-		<div class="<%= headerContainerCssClass %>">
+		<div class="<%= (String)request.getAttribute("liferay-frontend:screen-navigation:headerContainerCssClass") %>">
 			<nav>
 				<ul class="nav nav-underline">
 

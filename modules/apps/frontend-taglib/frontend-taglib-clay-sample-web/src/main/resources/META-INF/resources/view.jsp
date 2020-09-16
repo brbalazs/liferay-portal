@@ -26,12 +26,11 @@
 	String[] sections = {"alerts", "badges", "buttons", "cards", "dropdowns", "form_elements", "icons", "labels", "links", "management_toolbars", "navigation_bars", "progress_bars", "stickers"};
 
 	for (int i = 0; i < sections.length; i++) {
-		String partial = "/partials/" + sections[i] + ".jsp";
 	%>
 
 		<liferay-ui:section>
 			<div class="container-fluid-1280">
-				<liferay-util:include page="<%= partial %>" servletContext="<%= application %>" />
+				<liferay-util:include page='<%= "/partials/" + sections[i] + ".jsp" %>' servletContext="<%= application %>" />
 			</div>
 		</liferay-ui:section>
 
