@@ -20,15 +20,13 @@
 PortletURL portletURL = reportsEngineDisplayContext.getPortletURL();
 
 portletURL.setParameter("mvcPath", "/admin/view.jsp");
-
-DefinitionSearch definitionSearch = reportsEngineDisplayContext.getDefinitionSearch();
 %>
 
 <aui:form action="<%= portletURL %>" method="get" name="fm">
 	<liferay-portlet:renderURLParams varImpl="portletURL" />
 
 	<liferay-ui:search-container
-		searchContainer="<%= definitionSearch %>"
+		searchContainer="<%= reportsEngineDisplayContext.getDefinitionSearch() %>"
 	>
 		<liferay-ui:search-container-results>
 			<%@ include file="/admin/definition/definition_search_results.jspf" %>

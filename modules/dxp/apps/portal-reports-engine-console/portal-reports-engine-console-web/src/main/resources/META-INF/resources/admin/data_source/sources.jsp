@@ -20,15 +20,13 @@
 PortletURL portletURL = reportsEngineDisplayContext.getPortletURL();
 
 portletURL.setParameter("mvcPath", "/admin/view.jsp");
-
-SourceSearch sourceSearch = reportsEngineDisplayContext.getSourceSearch();
 %>
 
 <aui:form action="<%= portletURL %>" method="get" name="fm">
 	<liferay-portlet:renderURLParams varImpl="searchURL" />
 
 	<liferay-ui:search-container
-		searchContainer="<%= sourceSearch %>"
+		searchContainer="<%= reportsEngineDisplayContext.getSourceSearch() %>"
 	>
 		<liferay-ui:search-container-results>
 			<%@ include file="/admin/data_source/source_search_results.jspf" %>

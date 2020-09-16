@@ -82,11 +82,9 @@ page import="com.liferay.portal.reports.engine.console.web.admin.internal.consta
 page import="com.liferay.portal.reports.engine.console.web.admin.internal.display.context.ReportsEngineDisplayContext" %><%@
 page import="com.liferay.portal.reports.engine.console.web.admin.internal.display.context.util.ReportsEngineRequestHelper" %><%@
 page import="com.liferay.portal.reports.engine.console.web.admin.internal.search.DefinitionDisplayTerms" %><%@
-page import="com.liferay.portal.reports.engine.console.web.admin.internal.search.DefinitionSearch" %><%@
 page import="com.liferay.portal.reports.engine.console.web.admin.internal.search.EntryDisplayTerms" %><%@
 page import="com.liferay.portal.reports.engine.console.web.admin.internal.search.EntrySearch" %><%@
 page import="com.liferay.portal.reports.engine.console.web.admin.internal.search.SourceDisplayTerms" %><%@
-page import="com.liferay.portal.reports.engine.console.web.admin.internal.search.SourceSearch" %><%@
 page import="com.liferay.portal.reports.engine.console.web.admin.util.EmailConfigurationUtil" %><%@
 page import="com.liferay.taglib.search.ResultRow" %>
 
