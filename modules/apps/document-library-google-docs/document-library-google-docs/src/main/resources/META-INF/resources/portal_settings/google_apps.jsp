@@ -20,13 +20,10 @@
 
 <%
 PortletPreferences companyPortletPreferences = PrefsPropsUtil.getPreferences(company.getCompanyId());
-
-String googleAppsAPIKey = PrefsParamUtil.getString(companyPortletPreferences, request, "googleAppsAPIKey");
-String googleClientId = PrefsParamUtil.getString(companyPortletPreferences, request, "googleClientId");
 %>
 
 <aui:fieldset>
-	<aui:input label='<%= ResourceBundleUtil.getString(resourceBundle, "google-apps-api-key") %>' localizeLabel="<%= false %>" name="settings--googleAppsAPIKey--" type="text" value="<%= googleAppsAPIKey %>" />
+	<aui:input label='<%= ResourceBundleUtil.getString(resourceBundle, "google-apps-api-key") %>' localizeLabel="<%= false %>" name="settings--googleAppsAPIKey--" type="text" value='<%= PrefsParamUtil.getString(companyPortletPreferences, request, "googleAppsAPIKey") %>' />
 
-	<aui:input label='<%= ResourceBundleUtil.getString(resourceBundle, "google-client-id") %>' localizeLabel="<%= false %>" name="settings--googleClientId--" type="text" value="<%= googleClientId %>" />
+	<aui:input label='<%= ResourceBundleUtil.getString(resourceBundle, "google-client-id") %>' localizeLabel="<%= false %>" name="settings--googleClientId--" type="text" value='<%= PrefsParamUtil.getString(companyPortletPreferences, request, "googleClientId") %>' />
 </aui:fieldset>
