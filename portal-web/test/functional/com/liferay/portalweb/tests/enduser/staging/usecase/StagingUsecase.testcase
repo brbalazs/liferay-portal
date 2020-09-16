@@ -778,11 +778,11 @@ definition {
 		Portlet.viewApplicationDecorator(decorator = "Barebone");
 
 		AssertTextEquals.assertPartialText(
-			locator1 = "WCD#WEB_CONTENT_CONTENT",
+			locator1 = "WCD#WEB_CONTENT_CONTENT_FIGCAPTION_BOTTOM",
 			value1 = "You're a part of the S.P.A.C.E. family");
 
 		AssertTextEquals.assertPartialText(
-			locator1 = "WCD#WEB_CONTENT_CONTENT_2",
+			locator1 = "WCD#WEB_CONTENT_CONTENT_CARD_TITLE",
 			value1 = "Faculty Meet-and-Greet Brunch");
 
 		ProductMenu.gotoPortlet(
