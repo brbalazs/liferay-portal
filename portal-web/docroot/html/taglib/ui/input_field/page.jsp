@@ -217,8 +217,6 @@ if (hints != null) {
 			if (hints != null) {
 				showTime = GetterUtil.getBoolean(hints.get("show-time"), showTime);
 			}
-
-			String timeFormat = GetterUtil.getString((String)dynamicAttributes.get("timeFormat"));
 			%>
 
 			<div class="clearfix">
@@ -248,19 +246,14 @@ if (hints != null) {
 						minuteParam='<%= fieldParam + "Minute" %>'
 						minuteValue="<%= minute %>"
 						name='<%= fieldParam + "Time" %>'
-						timeFormat="<%= timeFormat %>"
+						timeFormat='<%= GetterUtil.getString((String)dynamicAttributes.get("timeFormat")) %>'
 					/>
 				</c:if>
 			</div>
 
 			<c:if test="<%= Validator.isNotNull(dateTogglerCheckboxLabel) %>">
-
-				<%
-				String dateTogglerCheckboxName = TextFormatter.format(dateTogglerCheckboxLabel, TextFormatter.M);
-				%>
-
 				<div class="clearfix">
-					<aui:input id="<%= formName + fieldParam %>" label="<%= dateTogglerCheckboxLabel %>" name="<%= dateTogglerCheckboxName %>" type="checkbox" value="<%= disabled %>" />
+					<aui:input id="<%= formName + fieldParam %>" label="<%= dateTogglerCheckboxLabel %>" name="<%= TextFormatter.format(dateTogglerCheckboxLabel, TextFormatter.M) %>" type="checkbox" value="<%= disabled %>" />
 				</div>
 
 				<aui:script sandbox="<%= true %>">
