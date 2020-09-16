@@ -1707,10 +1707,15 @@ public class PortalUtil {
 		return getPortal().getPreferencesValidator(portlet);
 	}
 
-	public static String getRelativeHomeURL(HttpServletRequest request)
+	public static String getQueryString(HttpServletRequest httpServletRequest) {
+		return getPortal().getQueryString(httpServletRequest);
+	}
+
+	public static String getRelativeHomeURL(
+			HttpServletRequest httpServletRequest)
 		throws PortalException {
 
-		return getPortal().getRelativeHomeURL(request);
+		return getPortal().getRelativeHomeURL(httpServletRequest);
 	}
 
 	public static ResourceBundle getResourceBundle(Locale locale) {

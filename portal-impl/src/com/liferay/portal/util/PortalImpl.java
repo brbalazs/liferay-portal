@@ -4911,10 +4911,21 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
-	public String getRelativeHomeURL(HttpServletRequest request)
+	public String getQueryString(HttpServletRequest httpServletRequest) {
+		if (isForwarded(httpServletRequest)) {
+			return GetterUtil.getString(
+				httpServletRequest.getAttribute(
+					JavaConstants.JAVAX_SERVLET_FORWARD_QUERY_STRING));
+		}
+
+		return httpServletRequest.getQueryString();
+	}
+
+	@Override
+	public String getRelativeHomeURL(HttpServletRequest httpServletRequest)
 		throws PortalException {
 
-		Company company = getCompany(request);
+		Company company = getCompany(httpServletRequest);
 
 		String homeURL = company.getHomeURL();
 

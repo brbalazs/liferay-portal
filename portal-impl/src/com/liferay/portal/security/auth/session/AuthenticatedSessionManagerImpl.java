@@ -41,7 +41,6 @@ import com.liferay.portal.kernel.servlet.HttpHeaders;
 import com.liferay.portal.kernel.util.CookieKeys;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Http;
-import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -87,16 +86,7 @@ public class AuthenticatedSessionManagerImpl
 
 		request = PortalUtil.getOriginalServletRequest(request);
 
-		String queryString = null;
-
-		if (PortalUtil.isForwarded(httpServletRequest)) {
-			queryString = GetterUtil.getString(
-				request.getAttribute(
-					JavaConstants.JAVAX_SERVLET_FORWARD_QUERY_STRING));
-		}
-		else {
-			queryString = request.getQueryString();
-		}
+		String queryString = PortalUtil.getQueryString(httpServletRequest);
 
 		if (Validator.isNotNull(queryString) &&
 			queryString.contains("password=")) {
