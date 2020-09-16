@@ -161,7 +161,7 @@ definition {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
-			category = "Content &amp; Data",
+			category = "Content",
 			panel = "Site Administration",
 			portlet = "Message Boards");
 
@@ -172,7 +172,7 @@ definition {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
-			category = "Content &amp; Data",
+			category = "Content",
 			panel = "Site Administration",
 			portlet = "Documents and Media");
 

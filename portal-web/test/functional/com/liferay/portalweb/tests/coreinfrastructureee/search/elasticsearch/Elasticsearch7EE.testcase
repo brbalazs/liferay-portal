@@ -43,7 +43,7 @@ definition {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
-			category = "Content &amp; Data",
+			category = "Content",
 			panel = "Site Administration",
 			portlet = "Message Boards");
 
@@ -54,7 +54,7 @@ definition {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
-			category = "Content &amp; Data",
+			category = "Content",
 			panel = "Site Administration",
 			portlet = "Documents and Media");
 
@@ -140,7 +140,7 @@ definition {
 			searchAssetType = "Web Content Article");
 
 		ProductMenu.gotoPortlet(
-			category = "Site Builder",
+			category = "Build",
 			panel = "Site Administration",
 			portlet = "Pages");
 
