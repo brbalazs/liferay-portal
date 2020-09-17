@@ -24,10 +24,12 @@ import com.liferay.dynamic.data.mapping.render.DDMFormFieldRenderingContext;
 import com.liferay.portal.json.JSONFactoryImpl;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
+import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.ResourceBundleLoader;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.util.HtmlImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,6 +67,7 @@ public class SelectDDMFormFieldTemplateContextContributorTest
 	public void setUp() throws Exception {
 		super.setUp();
 
+		setUpHtmlUtil();
 		setUpJSONFactory();
 	}
 
@@ -368,6 +371,12 @@ public class SelectDDMFormFieldTemplateContextContributorTest
 		).thenReturn(
 			ddmFormFieldOptions
 		);
+	}
+
+	protected void setUpHtmlUtil() {
+		HtmlUtil htmlUtil = new HtmlUtil();
+
+		htmlUtil.setHtml(new HtmlImpl());
 	}
 
 	protected void setUpJSONFactory() throws Exception {
