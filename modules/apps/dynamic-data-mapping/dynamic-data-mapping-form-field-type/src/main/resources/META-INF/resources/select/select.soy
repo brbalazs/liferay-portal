@@ -100,14 +100,18 @@
 						{if $displayValues}
 							{foreach $option in $options}
 								{if $option.selected == 'true'}
-									<div class="option-selected" title="{$option.label}">{$option.label}</div>
+									{call .single_selected_option}
+										{param label: $option.label /}
+									{/call}
 								{/if}
 							{/foreach}
 
 							{if $fixedOptions}
 								{foreach $fixedOption in $fixedOptions}
 									{if $fixedOption.selected == 'true'}
-										<div class="option-selected" title="{$fixedOption.label}">{$fixedOption.label}</div>
+										{call .single_selected_option}
+											{param label: $fixedOption.label /}
+										{/call}
 									{/if}
 								{/foreach}
 							{/if}
@@ -209,6 +213,16 @@
 		</label>
 	{/if}
 
+{/template}
+
+/**
+ * Prints the single selected option.
+ */
+{template .single_selected_option}
+	{@param label: html|string}
+	<div class="option-selected" title="{$label}">
+		{$label}
+	</div>
 {/template}
 
 /**
