@@ -247,14 +247,16 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 
 		Workspace workspace = new Workspace();
 
-		buildWorkspace(getProjectId(weDeployKey), sha, trial);
+		buildWorkspace(getProjectId(weDeployKey), sha, trial, true);
 
 		workspace.setWeDeployKey(weDeployKey);
 
 		return workspace;
 	}
 
-	protected void buildWorkspace(String projectId, String sha, boolean trial) {
+	protected void buildWorkspace(
+		String projectId, String sha, boolean trial, boolean upgrade) {
+
 		getRestTemplate().exchange(
 			StringBundler.concat(_PROJECT_API_URL, projectId, "/build"),
 			HttpMethod.POST,
@@ -284,6 +286,9 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 						if (trial) {
 							sb.append("-trial");
 						}
+						else if (upgrade) {
+							sb.append("-upgrade");
+						}
 
 						put("repository", sb.toString());
 					}
@@ -309,7 +314,7 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 
 		Workspace workspace = new Workspace();
 
-		buildWorkspace(lcpProject.getProjectId(), null, trial);
+		buildWorkspace(lcpProject.getProjectId(), null, trial, false);
 
 		workspace.setWeDeployKey(lcpProject.getProjectId() + ".lfr.cloud");
 
