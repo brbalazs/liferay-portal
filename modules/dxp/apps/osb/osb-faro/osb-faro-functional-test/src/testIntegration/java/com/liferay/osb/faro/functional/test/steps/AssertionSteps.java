@@ -211,7 +211,8 @@ public class AssertionSteps {
 
 		WebElement chartXAxis = _faroSelenium.findElement(
 			"//*[name()='g' and @class='bb-axis bb-axis-x']/*[name()='g']" +
-				"[1]//*[name()='tspan']");
+				"[1]//*[name()='tspan']|//*[name()='g' and contains(@class,'" +
+					"axis-ticks')]/*[name()='g'][1]//*[name()='tspan']");
 
 		String chartXAxisValue = chartXAxis.getText();
 

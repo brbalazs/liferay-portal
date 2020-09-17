@@ -117,15 +117,18 @@ public class Table {
 
 		int columnTotal = GetterUtil.getInteger(number) - 1;
 
-		number = String.valueOf(columnTotal);
+		String newNumber = String.valueOf(columnTotal);
 
-		StringBundler sb = new StringBundler(5);
+		StringBundler sb = new StringBundler(8);
 
 		sb.append("//div[@class='bb']//*[name()='svg']/*[name()='g']");
 		sb.append("/*[name()='g' and @class='bb-chart']/*[name()='g']");
 		sb.append("/*[name()='rect' and contains(@class, '");
+		sb.append(newNumber);
+		sb.append("')]|//*[name()='g' and @class='recharts-layer']");
+		sb.append("/*[name()='g' and contains(@class,'rectangle')][");
 		sb.append(number);
-		sb.append("')]");
+		sb.append("]");
 
 		_faroSelenium.assertElementPresent(sb.toString());
 	}
@@ -719,13 +722,16 @@ public class Table {
 		_faroSelenium.waitForPageLoadingComplete();
 		_faroSelenium.waitForLoadingComplete();
 
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(10);
 
 		sb.append("//h5[text()='");
 		sb.append(card);
 		sb.append("']/parent::div/parent::div//*[");
 		sb.append("name()='g' and @class='bb-chart']/*[name()='g']");
 		sb.append("/*[name()='rect'][");
+		sb.append(rowNumber);
+		sb.append("]|//*[name()='g' and @class='recharts-layer']");
+		sb.append("/*[name()='g' and contains(@class,'rectangle')][");
 		sb.append(rowNumber);
 		sb.append("]");
 
