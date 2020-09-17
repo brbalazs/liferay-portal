@@ -1,4 +1,4 @@
-@spira_Pagination @Pagination @Individuals @List @team_FARO @priority_3
+@spira_Pagination @Pagination @Individuals @List @team_FARO @priority_3 @blocked
 Feature: Individuals Interest details list has pagination
 	As a Business User, I should be able to paginate to the second page of individuals interest details list
 
