@@ -3,26 +3,35 @@ import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import ChangeLegend from 'contacts/components/ChangeLegend';
-import Chart, {COMBINED_CHART} from 'shared/components/Chart';
+import Constants, {LAST_30_DAYS} from 'shared/util/constants';
 import ErrorDisplay from 'shared/components/ErrorDisplay';
-import FaroConstants from 'shared/util/constants';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import Promise from 'metal-promise';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
 import {Account} from 'shared/util/records';
+import {
+	ANIMATION_DURATION,
+	AXIS,
+	getAxisLabel,
+	getAxisTickText,
+	getChartTooltip
+} from 'shared/util/recharts';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {
-	buildEngagementActivityAxes,
-	buildLegendItems,
-	CHART_ACTIVITY_ID,
-	CHART_ID
-} from 'shared/util/engagement-activity';
-import {
-	convertHistoryInitDateToDate,
-	renderTooltip
-} from 'shared/util/engagement-activity';
+	Bar,
+	CartesianGrid,
+	Cell,
+	ComposedChart,
+	Line,
+	ResponsiveContainer,
+	Tooltip,
+	XAxis,
+	YAxis
+} from 'recharts';
+import {buildLegendItems} from 'shared/util/engagement-activity';
+import {CHART_COLOR_NAMES} from 'shared/components/Chart';
 import {createDateKeysIMap} from 'shared/util/intervals';
 import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
 import {DEFAULT_ENGAGEMENT_MAX} from 'shared/api/engagement';
@@ -31,12 +40,9 @@ import {
 	formatEngagementScore,
 	mergeHistoryByDate
 } from 'shared/util/engagement';
-import {
-	formatXAxisDate,
-	getIntervals,
-	MetricValueType
-} from 'shared/util/charts';
-import {getMaxActivitiesValue} from 'shared/util/activities';
+import {formatUTCDateFromUnix} from 'shared/util/date';
+import {formatXAxisDate, getBarColor, getIntervals} from 'shared/util/charts';
+import {get, isNumber} from 'lodash';
 import {getSafeChange} from 'shared/util/change';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
@@ -44,14 +50,23 @@ import {Routes, toRoute} from 'shared/util/router';
 const {
 	entityTypes: {account},
 	timeIntervals
-} = FaroConstants;
+} = Constants;
+
+const {mormont: CHART_ORANGE, stark: CHART_BLUE} = CHART_COLOR_NAMES;
+
+const INTERVAL = 'D';
 
 @hasRequest
 export default class ActivitiesCard extends React.Component {
+	static defaultProps = {
+		height: 360
+	};
+
 	static propTypes = {
 		account: PropTypes.instanceOf(Account).isRequired,
 		channelId: PropTypes.string,
-		groupId: PropTypes.string.isRequired
+		groupId: PropTypes.string.isRequired,
+		height: PropTypes.number
 	};
 
 	state = {
@@ -59,6 +74,7 @@ export default class ActivitiesCard extends React.Component {
 		engagementChange: 0,
 		error: false,
 		history: [],
+		hoverIndex: -1,
 		loading: true
 	};
 
@@ -83,6 +99,25 @@ export default class ActivitiesCard extends React.Component {
 			interval: timeIntervals.day,
 			max: DEFAULT_ACTIVITY_MAX
 		});
+	}
+
+	getChartParams() {
+		const {history} = this.state;
+
+		const dateKeysIMap = createDateKeysIMap(
+			INTERVAL,
+			history,
+			'intervalInitDate'
+		);
+
+		const intervals = getIntervals(
+			LAST_30_DAYS,
+			history.map(({intervalInitDate}) => intervalInitDate),
+			INTERVAL,
+			dateKeysIMap
+		);
+
+		return {dateKeysIMap, intervals};
 	}
 
 	@autoCancel
@@ -139,61 +174,20 @@ export default class ActivitiesCard extends React.Component {
 			});
 	}
 
-	handleChartParams() {
-		const {history} = this.state;
-
-		const parsedHistory = convertHistoryInitDateToDate(history);
-		const dateKeysIMap = createDateKeysIMap(
-			'D',
-			parsedHistory,
-			'intervalInitDate'
-		);
-
-		const intervals = getIntervals(
-			'30',
-			parsedHistory.map(({intervalInitDate}) => intervalInitDate),
-			'D',
-			dateKeysIMap
-		);
-
-		const addTooltipInfo = ({scoreAvg}) => [
-			{
-				columns: [
-					{
-						label: Liferay.Language.get('avg-engagement'),
-						weight: 'normal'
-					},
-					{
-						align: 'right',
-						label: scoreAvg.toFixed(2),
-						weight: 'semibold'
-					}
-				]
-			}
-		];
-
-		const getTooltipContents = renderTooltip({
-			dateKeysIMap,
-			history: parsedHistory,
-			interval: 'D',
-			name: Liferay.Language.get('activities'),
-			rangeSelectors: {
-				rangeKey: '30'
-			},
-			title: Liferay.Language.get('activities'),
-			tooltipRenderRows: addTooltipInfo,
-			type: MetricValueType.Number
-		});
-
-		return {dateKeysIMap, getTooltipContents, intervals};
-	}
-
 	renderChart() {
 		const {
 			props: {
-				account: {activitiesCount, engagementScore}
+				account: {activitiesCount, engagementScore},
+				height
 			},
-			state: {activityChange, engagementChange, error, history, loading}
+			state: {
+				activityChange,
+				engagementChange,
+				error,
+				history,
+				hoverIndex,
+				loading
+			}
 		} = this;
 
 		if (loading) {
@@ -207,11 +201,7 @@ export default class ActivitiesCard extends React.Component {
 				/>
 			);
 		} else {
-			const {
-				dateKeysIMap,
-				getTooltipContents,
-				intervals
-			} = this.handleChartParams();
+			const {dateKeysIMap, intervals} = this.getChartParams();
 
 			return (
 				<>
@@ -226,46 +216,151 @@ export default class ActivitiesCard extends React.Component {
 						})}
 					/>
 
-					<Chart
-						axisX={{
-							tick: {
-								centered: false,
-								format: date =>
+					<ResponsiveContainer height={height} width='100%'>
+						<ComposedChart data={history}>
+							<CartesianGrid
+								stroke={AXIS.gridStroke}
+								strokeDasharray='3 3'
+								vertical={false}
+							/>
+
+							<XAxis
+								axisLine={{stroke: AXIS.borderStroke}}
+								dataKey='intervalInitDate'
+								domain={['dataMin', 'dataMax']}
+								padding={{left: 20, right: 20}}
+								tick={getAxisTickText('x', value =>
 									formatXAxisDate(
-										date,
-										'30',
-										'D',
+										value,
+										LAST_30_DAYS,
+										INTERVAL,
 										dateKeysIMap
-									),
-								values: intervals
-							},
-							type: 'timeseries'
-						}}
-						axisY={{
-							max: getMaxActivitiesValue(history),
-							min: 0,
-							padding: {bottom: 0}
-						}}
-						axisY2={{
-							min: 0,
-							padding: {bottom: 0},
-							show: true
-						}}
-						bar={{width: {ratio: 0.9}}}
-						chartType={COMBINED_CHART}
-						data={buildEngagementActivityAxes(history)}
-						dataId={CHART_ACTIVITY_ID}
-						id={CHART_ID}
-						splineInterpolationType='monotone-x'
-						tooltip={{
-							contents: getTooltipContents
-						}}
-						x='date'
-						y2Label={Liferay.Language.get('engagement')}
-						yLabel={Liferay.Language.get('activities')}
-					/>
+									)
+								)}
+								tickLine={false}
+								tickMargin={12}
+								ticks={intervals}
+							/>
+
+							<XAxis
+								axisLine={{stroke: AXIS.borderStroke}}
+								dataKey='intervalInitDate'
+								orientation='top'
+								stroke={AXIS.gridStroke}
+								tick={false}
+								tickLine={false}
+								xAxisId='top'
+							/>
+
+							<YAxis
+								allowDecimals={false}
+								axisLine={{stroke: AXIS.borderStroke}}
+								dataKey='totalElements'
+								label={getAxisLabel(
+									Liferay.Language.get('activities')
+								)}
+								name={Liferay.Language.get('activities')}
+								stroke={AXIS.gridStroke}
+								tick={getAxisTickText('y')}
+								tickCount={6}
+								tickLine={false}
+								type='number'
+								width={40}
+								yAxisId='activities'
+							/>
+
+							<YAxis
+								allowDecimals={false}
+								axisLine={{stroke: AXIS.borderStroke}}
+								dataKey='scoreAvg'
+								label={getAxisLabel(
+									Liferay.Language.get('engagement'),
+									'right'
+								)}
+								name={Liferay.Language.get('engagement')}
+								orientation='right'
+								stroke={AXIS.gridStroke}
+								tick={getAxisTickText('y')}
+								tickLine={false}
+								type='number'
+								width={40}
+								yAxisId='engagement'
+							/>
+
+							<Tooltip
+								content={this.renderTooltip}
+								cursor={{stroke: CHART_BLUE}}
+							/>
+
+							<Bar
+								animationDuration={ANIMATION_DURATION.bar}
+								dataKey='totalElements'
+								fill={CHART_BLUE}
+								legendType='circle'
+								onMouseEnter={(e, index) =>
+									this.setState({hoverIndex: index})
+								}
+								onMouseLeave={() =>
+									this.setState({hoverIndex: -1})
+								}
+								yAxisId='activities'
+							>
+								{history.map((entry, index) => (
+									<Cell
+										fill={getBarColor(
+											index,
+											hoverIndex,
+											null,
+											'blue'
+										)}
+										key={`cell-${index}`}
+									/>
+								))}
+							</Bar>
+
+							<Line
+								activeDot={{r: 4, stroke: CHART_ORANGE}}
+								dataKey='scoreAvg'
+								dot={false}
+								legendType='circle'
+								stroke={CHART_ORANGE}
+								strokeWidth={2}
+								type='monotoneX'
+								yAxisId='engagement'
+							/>
+						</ComposedChart>
+					</ResponsiveContainer>
 				</>
 			);
+		}
+	}
+
+	@autobind
+	renderTooltip({active, payload}) {
+		if (active) {
+			const {intervalInitDate, scoreAvg, totalElements} = get(
+				payload,
+				[0, 'payload'],
+				{}
+			);
+
+			return getChartTooltip({
+				dateTitle: formatUTCDateFromUnix(
+					intervalInitDate,
+					'YYYY MMM D'
+				),
+				rows: [
+					{
+						label: Liferay.Language.get('activities'),
+						value: totalElements.toLocaleString()
+					},
+					{
+						label: Liferay.Language.get('avg-engagement'),
+						value: isNumber(scoreAvg) ? scoreAvg.toFixed(2) : null
+					}
+				],
+				title: Liferay.Language.get('activities')
+			});
 		}
 	}
 
