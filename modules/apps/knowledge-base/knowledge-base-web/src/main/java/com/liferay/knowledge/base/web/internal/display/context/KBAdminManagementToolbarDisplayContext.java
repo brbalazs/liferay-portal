@@ -38,6 +38,7 @@ import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -225,7 +226,8 @@ public class KBAdminManagementToolbarDisplayContext {
 
 							dropdownItem.setLabel(
 								LanguageUtil.get(
-									_request, kbTemplate.getTitle()));
+									_request,
+									HtmlUtil.escape(kbTemplate.getTitle())));
 						});
 				}
 			}
