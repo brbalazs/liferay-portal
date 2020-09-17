@@ -21,7 +21,8 @@ String cmd = ParamUtil.getString(request, Constants.CMD);
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
-portletURL.setParameter("mvcRenderCommandName", "/analytics_settings/edit_synced_contacts_data");
+portletURL.setParameter("mvcRenderCommandName", "/analytics_settings/view");
+portletURL.setParameter("tabs1", "synced-contacts-data");
 
 String redirect = ParamUtil.getString(request, "redirect", portletURL.toString());
 
@@ -35,8 +36,8 @@ String[] syncedContactFieldNames = new String[0];
 String[] syncedUserFieldNames = new String[0];
 
 if (analyticsConfiguration != null) {
-	syncedContactFieldNames = analyticsConfiguration.syncedContactFieldNames();
-	syncedUserFieldNames = analyticsConfiguration.syncedUserFieldNames();
+	syncedContactFieldNames = GetterUtil.getStringValues(analyticsConfiguration.syncedContactFieldNames());
+	syncedUserFieldNames = GetterUtil.getStringValues(analyticsConfiguration.syncedUserFieldNames());
 }
 
 portletDisplay.setShowBackIcon(true);

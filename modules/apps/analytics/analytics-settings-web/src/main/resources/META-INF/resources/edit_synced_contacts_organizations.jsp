@@ -22,10 +22,12 @@ PortletURL portletURL = renderResponse.createRenderURL();
 boolean includeSyncContactsFields = ParamUtil.getBoolean(request, "includeSyncContactsFields");
 
 if (includeSyncContactsFields) {
-	portletURL.setParameter("mvcRenderCommandName", "/analytics_settings/edit_synced_contacts_data");
+	portletURL.setParameter("mvcRenderCommandName", "/analytics_settings/view");
+	portletURL.setParameter("tabs1", "synced-contact-data");
 }
 else {
-	portletURL.setParameter("mvcRenderCommandName", "/analytics_settings/edit_synced_contacts");
+	portletURL.setParameter("mvcRenderCommandName", "/analytics_settings/view");
+	portletURL.setParameter("tabs1", "synced-contacts");
 }
 
 String redirect = ParamUtil.getString(request, "redirect", portletURL.toString());
@@ -52,11 +54,9 @@ sortURL.setParameter("entriesNavigation", entriesNavigation);
 navigationPortletURL.setParameter("orderBycol", orderByCol);
 navigationPortletURL.setParameter("orderByType", orderByType);
 
-PortletURL portletURL = PortletURLUtil.clone(navigationPortletURL, liferayPortletResponse);
+PortletURL displayStyleURL = PortletURLUtil.clone(navigationPortletURL, liferayPortletResponse);
 
 portletURL.setParameter("entriesNavigation", entriesNavigation);
-
-PortletURL displayStyleURL = PortletURLUtil.clone(portletURL, liferayPortletResponse);
 
 if (cur > 0) {
 	displayStyleURL.setParameter("cur", String.valueOf(cur));

@@ -32,41 +32,51 @@ Set<String> syncedUserFieldNames = SetUtil.fromArray(analyticsConfiguration.sync
 
 long totalContactsSelected = 0;
 
-if (analyticsConfiguration.syncAllContacts()) {
+if (syncAllContacts) {
 	totalContactsSelected = analyticsUsersManager.getCompanyUsersCount(themeDisplay.getCompanyId());
 }
 else {
 	String[] syncedOrganizationIds = analyticsConfiguration.syncedOrganizationIds();
 
-	long[] syncedOrganizationIdsLong = new long[syncedOrganizationIds.length];
+	long[] syncedOrganizationIdsLong = new long[0];
 
-	for (int i = 0; i < syncedOrganizationIds.length; i++) {
-		syncedOrganizationIdsLong[i] = GetterUtil.getLong(syncedOrganizationIds[i]);
+	if (!ArrayUtil.isEmpty(syncedOrganizationIds)) {
+		syncedOrganizationIdsLong = new long[syncedOrganizationIds.length];
+
+		for (int i = 0; i < syncedOrganizationIds.length; i++) {
+			syncedOrganizationIdsLong[i] = GetterUtil.getLong(syncedOrganizationIds[i]);
+		}
 	}
 
 	String[] syncedUserGroupIds = analyticsConfiguration.syncedUserGroupIds();
 
-	long[] syncedUserGroupIdsLong = new long[syncedUserGroupIds.length];
+	long[] syncedUserGroupIdsLong = new long[0];
 
-	for (int i = 0; i < syncedUserGroupIds.length; i++) {
-		syncedUserGroupIdsLong[i] = GetterUtil.getLong(syncedUserGroupIds[i]);
+	if (!ArrayUtil.isEmpty(syncedUserGroupIds)) {
+		syncedUserGroupIdsLong = new long[syncedUserGroupIds.length];
+
+		for (int i = 0; i < syncedUserGroupIds.length; i++) {
+			syncedUserGroupIdsLong[i] = GetterUtil.getLong(syncedUserGroupIds[i]);
+		}
 	}
 
 	totalContactsSelected = analyticsUsersManager.getOrganizationsAndUserGroupsUsersCount(syncedOrganizationIdsLong, syncedUserGroupIdsLong);
 }
 %>
 
-<clay:sheet
-	cssClass="portlet-analytics-settings"
->
-	<h2>
-		<liferay-ui:message key="contact-data" />
+<div class="container-fluid-1280 mt-4 portlet-analytics-settings sheet sheet-lg">
+	<h2 class="autofit-row">
+		<span class="autofit-col autofit-col-expand">
+			<liferay-ui:message key="contact-data" />
+		</span>
 	</h2>
 
 	<hr />
 
-	<div class="c-pb-3 form-text">
-		<liferay-ui:message key="select-contact-data-help" />
+	<div class="autofit-row form-text">
+		<span class="autofit-col autofit-col-expand pb-3">
+			<liferay-ui:message key="select-contact-data-help" />
+		</span>
 	</div>
 
 	<fieldset <%= connected ? "" : "disabled" %>>
@@ -90,11 +100,12 @@ else {
 		</c:choose>
 
 		<div class="pr-3">
-			<clay:sticker
-				cssClass="sticker-light"
-				displayType="light"
-				icon="user"
-			/>
+			<div class="bg-light sticker sticker-light sticker-rounded">
+				<liferay-ui:icon
+					icon="user"
+					markupView="lexicon"
+				/>
+			</div>
 		</div>
 
 		<div>
@@ -131,11 +142,12 @@ else {
 		</c:choose>
 
 		<div class="pr-3">
-			<clay:sticker
-				cssClass="sticker-light"
-				displayType="light"
-				icon="check-square"
-			/>
+			<div class="bg-light sticker sticker-light sticker-rounded">
+				<liferay-ui:icon
+					icon="check-square"
+					markupView="lexicon"
+				/>
+			</div>
 		</div>
 
 		<div>
@@ -157,4 +169,4 @@ else {
 			</c:otherwise>
 		</c:choose>
 	<fieldset>
-</clay:sheet>
+</div>
