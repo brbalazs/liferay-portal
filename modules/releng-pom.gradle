@@ -65,7 +65,7 @@ generatePomCompileOnly {
 
 		Properties dependenciesProperties = new Properties()
 
-		File dependenciesPropertiesFile = new File("compile-only-dependencies.properties")
+		File dependenciesPropertiesFile = new File("releng-pom-compile-only-dependencies.properties")
 
 		dependenciesPropertiesFile.withInputStream {
 			dependenciesProperties.load(it)
