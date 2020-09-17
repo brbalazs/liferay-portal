@@ -368,12 +368,12 @@ public class HttpImpl implements Http {
 		}
 
 		path = StringUtil.replace(
-			path, new char[] {CharPool.SLASH, CharPool.TILDE, CharPool.PLUS},
-			new String[] {_TEMP_SLASH, _TEMP_TILDE, _TEMP_PLUS});
+			path, new char[] {CharPool.PLUS, CharPool.SLASH, CharPool.TILDE},
+			new String[] {_TEMP_PLUS, _TEMP_SLASH, _TEMP_TILDE});
 		path = URLCodec.encodeURL(path, true);
 		path = StringUtil.replace(
-			path, new String[] {_TEMP_SLASH, _TEMP_TILDE, _TEMP_PLUS},
-			new String[] {StringPool.SLASH, StringPool.TILDE, StringPool.PLUS});
+			path, new String[] {_TEMP_PLUS, _TEMP_SLASH, _TEMP_TILDE},
+			new String[] {StringPool.PLUS, StringPool.SLASH, StringPool.TILDE});
 
 		return path;
 	}
