@@ -74,6 +74,7 @@ public class AssetTagsDisplayContext {
 
 		_renderRequest = renderRequest;
 		_renderResponse = renderResponse;
+
 		_request = request;
 
 		_themeDisplay = (ThemeDisplay)_request.getAttribute(
@@ -180,9 +181,6 @@ public class AssetTagsDisplayContext {
 			WorkflowConstants.STATUS_APPROVED, WorkflowConstants.STATUS_PENDING,
 			WorkflowConstants.STATUS_SCHEDULED
 		};
-
-		ThemeDisplay themeDisplay = (ThemeDisplay)_request.getAttribute(
-			WebKeys.THEME_DISPLAY);
 
 		Hits hits = AssetEntryLocalServiceUtil.search(
 			tag.getCompanyId(), new long[] {_themeDisplay.getScopeGroupId()},
@@ -326,9 +324,6 @@ public class AssetTagsDisplayContext {
 		tagsSearchContainer.setRowChecker(
 			new EmptyOnClickRowChecker(_renderResponse));
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)_request.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
 		String keywords = getKeywords();
 
 		if (Validator.isNotNull(keywords)) {
@@ -426,14 +421,11 @@ public class AssetTagsDisplayContext {
 	}
 
 	public boolean isShowAddButton() {
-		ThemeDisplay themeDisplay = (ThemeDisplay)_request.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
 		if (AssetTagsPermission.contains(
-				themeDisplay.getPermissionChecker(),
+				_themeDisplay.getPermissionChecker(),
 				AssetTagsPermission.RESOURCE_NAME,
 				AssetTagsAdminPortletKeys.ASSET_TAGS_ADMIN,
-				themeDisplay.getSiteGroupId(), ActionKeys.MANAGE_TAG)) {
+				_themeDisplay.getSiteGroupId(), ActionKeys.MANAGE_TAG)) {
 
 			return isShowTagsActionMenu();
 		}
@@ -462,10 +454,7 @@ public class AssetTagsDisplayContext {
 
 		boolean showTagsActionMenu = true;
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)_request.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		Group group = themeDisplay.getScopeGroup();
+		Group group = _themeDisplay.getScopeGroup();
 
 		if (group.isStaged() && !group.isStagingGroup() &&
 			!group.isStagedRemotely()) {
