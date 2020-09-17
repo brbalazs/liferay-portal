@@ -54,18 +54,18 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 			/>
 
 			{DEVELOPER_MODE && (
-				// TODO: LRAC-6454
-				<Switch>
-					<BundleRouter
-						data={TrackedBehaviors}
-						path={Routes.SETTINGS_DEFINITIONS_BEHAVIORS}
-					/>
-					<BundleRouter
-						data={Search}
-						path={Routes.SETTINGS_DEFINITIONS_SEARCH}
-					/>
-				</Switch>
+				// TODO: LRAC-4511 Remove when new TrackedBehavior page exists
+				<BundleRouter
+					data={TrackedBehaviors}
+					path={Routes.SETTINGS_DEFINITIONS_BEHAVIORS}
+				/>
 			)}
+
+			<BundleRouter
+				data={Search}
+				path={Routes.SETTINGS_DEFINITIONS_SEARCH}
+			/>
+
 			<RouteNotFound />
 		</Switch>
 	</Suspense>
