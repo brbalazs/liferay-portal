@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.AggregateResourceBundle;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -163,6 +162,10 @@ public class SelectDDMFormFieldTemplateContextContributor
 			_getSelectValue(ddmFormFieldRenderingContext));
 
 		for (String optionValue : ddmFormFieldOptions.getOptionsValues()) {
+			if (optionValue == null) {
+				continue;
+			}
+
 			boolean optionSelected = values.contains(optionValue);
 
 			if (optionSelected) {
@@ -172,13 +175,9 @@ public class SelectDDMFormFieldTemplateContextContributor
 			LocalizedValue optionLabel = ddmFormFieldOptions.getOptionLabels(
 				optionValue);
 
-			String optionLabelString = optionLabel.getString(locale);
-
-			if (ddmFormFieldRenderingContext.isViewMode()) {
-				optionLabelString = HtmlUtil.extractText(optionLabelString);
-			}
-
-			_putOption(options, optionSelected, optionLabelString, optionValue);
+			_putOption(
+				options, optionSelected, optionLabel.getString(locale),
+				optionValue);
 		}
 
 		if (ddmFormFieldRenderingContext.isReadOnly()) {
