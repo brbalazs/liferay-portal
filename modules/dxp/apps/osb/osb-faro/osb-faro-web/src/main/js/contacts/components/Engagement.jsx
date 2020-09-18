@@ -206,17 +206,8 @@ export class EngagementWithList extends React.Component {
 
 		const tooltipRenderRows = contributors => [
 			{
-				columns: [
-					{
-						label: Liferay.Language.get('active-members'),
-						weight: 'normal'
-					},
-					{
-						align: 'right',
-						label: toThousands(contributors),
-						weight: 'semibold'
-					}
-				]
+				label: Liferay.Language.get('active-members'),
+				value: toThousands(contributors)
 			}
 		];
 

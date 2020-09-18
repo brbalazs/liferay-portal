@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
 import Spinner from 'shared/components/Spinner';
-import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {ANIMATION_DURATION, AXIS, getAxisTickText} from 'shared/util/recharts';
+import {
+	ANIMATION_DURATION,
+	AXIS,
+	getAxisTickText,
+	getChartTooltip
+} from 'shared/util/recharts';
 import {
 	Bar,
 	CartesianGrid,
@@ -62,77 +66,28 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 				visitors
 			} = get(payload, [0, 'payload'], {});
 
-			return (
-				<div
-					className='bb-tooltip-container'
-					style={{position: 'static'}}
-				>
-					<TooltipChart
-						header={[
-							{
-								label: Liferay.Language.get(
-									'active-individuals'
-								),
-								weight: 'semibold',
-								width: 150
-							},
-							{
-								align: 'right',
-								label: getDateTitle(
-									dateKeysIMap.get(intervalInitDate),
-									rangeSelectors.rangeKey,
-									interval
-								),
-								weight: 'semibold',
-								width: 55
-							}
-						]}
-						rows={[
-							{
-								columns: [
-									{
-										label: Liferay.Language.get(
-											'anonymous'
-										),
-										weight: 'semibold'
-									},
-									{
-										align: 'right',
-										label: toThousands(anonymousVisitors),
-										weight: 'semibold'
-									}
-								]
-							},
-							{
-								columns: [
-									{
-										label: Liferay.Language.get('known'),
-										weight: 'semibold'
-									},
-									{
-										align: 'right',
-										label: toThousands(knownVisitors),
-										weight: 'semibold'
-									}
-								]
-							},
-							{
-								columns: [
-									{
-										label: Liferay.Language.get('total'),
-										weight: 'semibold'
-									},
-									{
-										align: 'right',
-										label: toThousands(visitors),
-										weight: 'semibold'
-									}
-								]
-							}
-						]}
-					/>
-				</div>
-			);
+			return getChartTooltip({
+				dateTitle: getDateTitle(
+					dateKeysIMap.get(intervalInitDate),
+					rangeSelectors.rangeKey,
+					interval
+				),
+				rows: [
+					{
+						label: Liferay.Language.get('anonymous'),
+						value: toThousands(anonymousVisitors)
+					},
+					{
+						label: Liferay.Language.get('known'),
+						value: toThousands(knownVisitors)
+					},
+					{
+						label: Liferay.Language.get('total'),
+						value: toThousands(visitors)
+					}
+				],
+				title: Liferay.Language.get('active-individuals')
+			});
 		}
 	};
 

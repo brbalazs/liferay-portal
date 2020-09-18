@@ -1,6 +1,10 @@
 import React, {useRef, useState} from 'react';
-import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {ANIMATION_DURATION, AXIS, getAxisTickText} from 'shared/util/recharts';
+import {
+	ANIMATION_DURATION,
+	AXIS,
+	getAxisTickText,
+	getChartTooltip
+} from 'shared/util/recharts';
 import {
 	Bar,
 	CartesianGrid,
@@ -55,49 +59,20 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 				history[selectedPoint]
 			);
 
-			return (
-				<div
-					className='bb-tooltip-container'
-					style={{position: 'static'}}
-				>
-					<TooltipChart
-						header={[
-							{
-								label: Liferay.Language.get('activities'),
-								weight: 'semibold',
-								width: 100
-							},
-							{
-								align: 'right',
-								label: getDateTitle(
-									dateKeysIMap.get(intervalInitDate),
-									rangeSelectors.rangeKey,
-									interval
-								),
-								weight: 'semibold',
-								width: 55
-							}
-						]}
-						rows={[
-							{
-								columns: [
-									{
-										label: Liferay.Language.get(
-											'activities'
-										),
-										weight: 'normal'
-									},
-									{
-										align: 'right',
-										label: totalElements.toLocaleString(),
-										weight: 'semibold'
-									}
-								]
-							}
-						]}
-					/>
-				</div>
-			);
+			return getChartTooltip({
+				dateTitle: getDateTitle(
+					dateKeysIMap.get(intervalInitDate),
+					rangeSelectors.rangeKey,
+					interval
+				),
+				rows: [
+					{
+						label: Liferay.Language.get('activities'),
+						value: totalElements.toLocaleString()
+					}
+				],
+				title: Liferay.Language.get('activities')
+			});
 		}
 	};
 

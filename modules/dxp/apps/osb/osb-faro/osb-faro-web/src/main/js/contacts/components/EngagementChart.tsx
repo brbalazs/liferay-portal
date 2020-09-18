@@ -1,6 +1,10 @@
 import React, {useRef, useState} from 'react';
-import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {ANIMATION_DURATION, AXIS, getAxisTickText} from 'shared/util/recharts';
+import {
+	ANIMATION_DURATION,
+	AXIS,
+	getAxisTickText,
+	getChartTooltip
+} from 'shared/util/recharts';
 import {
 	CartesianGrid,
 	Line,
@@ -51,53 +55,21 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 				history[selectedPoint]
 			);
 
-			return (
-				<div
-					className='bb-tooltip-container'
-					style={{position: 'static'}}
-				>
-					<TooltipChart
-						header={[
-							{
-								label: Liferay.Language.get('engagement'),
-								weight: 'semibold',
-								width: 100
-							},
-							{
-								align: 'right',
-								label: getDateTitle(
-									dateKeysIMap.get(intervalInitDate),
-									LAST_30_DAYS,
-									INTERVAL
-								),
-								weight: 'semibold',
-								width: 55
-							}
-						]}
-						rows={[
-							{
-								columns: [
-									{
-										label: Liferay.Language.get(
-											'avg-engagement'
-										),
-										weight: 'normal'
-									},
-									{
-										align: 'right',
-										label: isNumber(scoreAvg)
-											? scoreAvg.toFixed(2)
-											: null,
-										weight: 'semibold'
-									}
-								]
-							},
-							...(tooltipRenderRows &&
-								tooltipRenderRows(contributors))
-						].filter(Boolean)}
-					/>
-				</div>
-			);
+			return getChartTooltip({
+				dateTitle: getDateTitle(
+					dateKeysIMap.get(intervalInitDate),
+					LAST_30_DAYS,
+					INTERVAL
+				),
+				rows: [
+					{
+						label: Liferay.Language.get('avg-engagement'),
+						value: isNumber(scoreAvg) ? scoreAvg.toFixed(2) : null
+					},
+					...(tooltipRenderRows && tooltipRenderRows(contributors))
+				].filter(Boolean),
+				title: Liferay.Language.get('engagement')
+			});
 		}
 	};
 

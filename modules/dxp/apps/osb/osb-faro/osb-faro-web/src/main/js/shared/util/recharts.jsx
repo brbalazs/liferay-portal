@@ -1,4 +1,5 @@
 import React from 'react';
+import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import {Text} from 'recharts';
 
 const TEXT_PADDING = 4;
@@ -60,4 +61,37 @@ export const getAxisTickText = (axis = 'x', formatter = val => val) => ({
 	>
 		{formatter(value)}
 	</Text>
+);
+
+export const getChartTooltip = ({dateTitle, rows, title}) => (
+	<div className='bb-tooltip-container' style={{position: 'static'}}>
+		<TooltipChart
+			header={[
+				{
+					label: title,
+					weight: 'semibold',
+					width: 150
+				},
+				{
+					align: 'right',
+					label: dateTitle,
+					weight: 'semibold',
+					width: 55
+				}
+			]}
+			rows={rows.map(({label, value}) => ({
+				columns: [
+					{
+						label,
+						weight: 'normal'
+					},
+					{
+						align: 'right',
+						label: value,
+						weight: 'semibold'
+					}
+				]
+			}))}
+		/>
+	</div>
 );
