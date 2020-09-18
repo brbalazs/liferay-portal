@@ -10,6 +10,7 @@ import Trend from 'cerebro-shared/components/Trend';
 import {
 	ANIMATION_DURATION,
 	AXIS,
+	getAxisTickText,
 	getTextWidth
 } from 'shared/util/clay-recharts';
 import {
@@ -255,20 +256,7 @@ export default class MainMetrics extends React.Component {
 						}}
 						dataKey='dateString'
 						stroke={AXIS.gridStroke}
-						tick={({payload, textAnchor, x, y}) => (
-							<Text
-								style={{
-									fill: AXIS.textColor,
-									font: AXIS.font,
-									fontSize: '0.75rem'
-								}}
-								textAnchor={textAnchor}
-								x={x}
-								y={y}
-							>
-								{payload.value}
-							</Text>
-						)}
+						tick={getAxisTickText('x')}
 						tickLine={false}
 						tickMargin={12}
 						ticks={intervals.map(int =>
@@ -303,21 +291,7 @@ export default class MainMetrics extends React.Component {
 							value: METRIC_TOOLTIP_LABEL_MAP[name] || title
 						}}
 						stroke={AXIS.gridStroke}
-						tick={({payload, textAnchor, x, y}) => (
-							<Text
-								style={{
-									fill: AXIS.textColor,
-									font: AXIS.font,
-									fontSize: '0.75rem'
-								}}
-								textAnchor={textAnchor}
-								width={yAxisWidth}
-								x={x}
-								y={y + payload.offset}
-							>
-								{this.formatTickLabel(payload.value)}
-							</Text>
-						)}
+						tick={getAxisTickText('y', this.formatTickLabel)}
 						tickLine={false}
 						width={yAxisWidth}
 					/>

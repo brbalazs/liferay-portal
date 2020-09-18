@@ -1,6 +1,10 @@
 import React, {useRef, useState} from 'react';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {ANIMATION_DURATION, AXIS} from 'shared/util/clay-recharts';
+import {
+	ANIMATION_DURATION,
+	AXIS,
+	getAxisTickText
+} from 'shared/util/clay-recharts';
 import {
 	Bar,
 	CartesianGrid,
@@ -8,7 +12,6 @@ import {
 	ComposedChart,
 	ReferenceLine,
 	ResponsiveContainer,
-	Text,
 	Tooltip,
 	XAxis,
 	YAxis
@@ -150,24 +153,13 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 					dataKey='intervalInitDate'
 					domain={['dataMin', 'dataMax']}
 					padding={{left: 20, right: 20}}
-					tick={({payload: {value}, textAnchor, x, y}) => (
-						<Text
-							style={{
-								fill: AXIS.textColor,
-								font: AXIS.font,
-								fontSize: '0.75rem'
-							}}
-							textAnchor={textAnchor}
-							x={x}
-							y={y}
-						>
-							{formatXAxisDate(
-								value,
-								rangeSelectors.rangeKey,
-								interval,
-								dateKeysIMap
-							)}
-						</Text>
+					tick={getAxisTickText('x', value =>
+						formatXAxisDate(
+							value,
+							rangeSelectors.rangeKey,
+							interval,
+							dateKeysIMap
+						)
 					)}
 					tickLine={false}
 					tickMargin={12}
@@ -195,20 +187,7 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 					}}
 					name={Liferay.Language.get('activities')}
 					stroke={AXIS.gridStroke}
-					tick={({payload: {offset, value}, textAnchor, x, y}) => (
-						<Text
-							style={{
-								fill: AXIS.textColor,
-								font: AXIS.font,
-								fontSize: '0.75rem'
-							}}
-							textAnchor={textAnchor}
-							x={x}
-							y={y + offset}
-						>
-							{value}
-						</Text>
-					)}
+					tick={getAxisTickText('y')}
 					tickCount={6}
 					tickLine={false}
 					type='number'

@@ -4,6 +4,9 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+import React from 'react';
+import {Text} from 'recharts';
+
 const TEXT_PADDING = 4;
 
 export const ANIMATION_DURATION = {
@@ -34,7 +37,7 @@ export const BAR_COLORS = {
 	}
 };
 
-export function getTextWidth(text, font = '14px Source Sans Pro') {
+export const getTextWidth = (text, font = '14px Source Sans Pro') => {
 	const canvas =
 		getTextWidth.canvas ||
 		(getTextWidth.canvas = document.createElement('canvas'));
@@ -43,4 +46,24 @@ export function getTextWidth(text, font = '14px Source Sans Pro') {
 	const metrics = context.measureText(text);
 
 	return Math.ceil(metrics.width) + TEXT_PADDING;
-}
+};
+
+export const getAxisTickText = (axis = 'x', formatter = val => val) => ({
+	payload: {offset, value},
+	textAnchor,
+	x,
+	y
+}) => (
+	<Text
+		style={{
+			fill: AXIS.textColor,
+			font: AXIS.font,
+			fontSize: '0.75rem'
+		}}
+		textAnchor={textAnchor}
+		x={x}
+		y={axis === 'y' ? y + offset : y}
+	>
+		{formatter(value)}
+	</Text>
+);

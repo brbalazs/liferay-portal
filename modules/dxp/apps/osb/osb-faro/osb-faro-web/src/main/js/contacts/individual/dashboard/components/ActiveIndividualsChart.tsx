@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
 import Spinner from 'shared/components/Spinner';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {ANIMATION_DURATION, AXIS} from 'shared/util/clay-recharts';
+import {
+	ANIMATION_DURATION,
+	AXIS,
+	getAxisTickText
+} from 'shared/util/clay-recharts';
 import {
 	Bar,
 	CartesianGrid,
@@ -153,24 +157,13 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 					dataKey='intervalInitDate'
 					domain={['dataMin', 'dataMax']}
 					padding={{left: 20, right: 20}}
-					tick={({payload, textAnchor, x, y}) => (
-						<Text
-							style={{
-								fill: AXIS.textColor,
-								font: AXIS.font,
-								fontSize: '0.75rem'
-							}}
-							textAnchor={textAnchor}
-							x={x}
-							y={y}
-						>
-							{formatXAxisDate(
-								payload.value,
-								rangeSelectors.rangeKey,
-								interval,
-								dateKeysIMap
-							)}
-						</Text>
+					tick={getAxisTickText('x', value =>
+						formatXAxisDate(
+							value,
+							rangeSelectors.rangeKey,
+							interval,
+							dateKeysIMap
+						)
 					)}
 					tickLine={false}
 					tickMargin={12}
@@ -203,20 +196,7 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 					}}
 					name={Liferay.Language.get('individuals')}
 					stroke={AXIS.gridStroke}
-					tick={({payload: {offset, value}, textAnchor, x, y}) => (
-						<Text
-							style={{
-								fill: AXIS.textColor,
-								font: AXIS.font,
-								fontSize: '0.75rem'
-							}}
-							textAnchor={textAnchor}
-							x={x}
-							y={y + offset}
-						>
-							{value}
-						</Text>
-					)}
+					tick={getAxisTickText('y')}
 					tickCount={6}
 					tickLine={false}
 					type='number'

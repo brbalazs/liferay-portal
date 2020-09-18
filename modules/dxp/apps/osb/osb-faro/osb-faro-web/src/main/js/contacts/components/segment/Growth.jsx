@@ -16,12 +16,11 @@ import {
 	ReferenceDot,
 	ReferenceLine,
 	ResponsiveContainer,
-	Text,
 	Tooltip,
 	XAxis,
 	YAxis
 } from 'recharts';
-import {AXIS} from 'shared/util/clay-recharts';
+import {AXIS, getAxisTickText} from 'shared/util/clay-recharts';
 import {
 	changesListColumns,
 	individualsListColumns
@@ -280,24 +279,13 @@ export class SegmentGrowthChart extends React.Component {
 						dataKey='modifiedDate'
 						domain={['dataMin', 'dataMax']}
 						padding={{left: 20, right: 20}}
-						tick={({payload: {value}, textAnchor, x, y}) => (
-							<Text
-								style={{
-									fill: AXIS.textColor,
-									font: AXIS.font,
-									fontSize: '0.75rem'
-								}}
-								textAnchor={textAnchor}
-								x={x}
-								y={y}
-							>
-								{formatXAxisDate(
-									value,
-									LAST_30_DAYS,
-									INTERVAL,
-									dateKeysIMap
-								)}
-							</Text>
+						tick={getAxisTickText('x', value =>
+							formatXAxisDate(
+								value,
+								LAST_30_DAYS,
+								INTERVAL,
+								dateKeysIMap
+							)
 						)}
 						tickLine={false}
 						tickMargin={12}
@@ -325,25 +313,7 @@ export class SegmentGrowthChart extends React.Component {
 						}}
 						name={Liferay.Language.get('growth')}
 						stroke={AXIS.gridStroke}
-						tick={({
-							payload: {offset, value},
-							textAnchor,
-							x,
-							y
-						}) => (
-							<Text
-								style={{
-									fill: AXIS.textColor,
-									font: AXIS.font,
-									fontSize: '0.75rem'
-								}}
-								textAnchor={textAnchor}
-								x={x}
-								y={y + offset}
-							>
-								{value}
-							</Text>
-						)}
+						tick={getAxisTickText('y')}
 						tickCount={6}
 						tickLine={false}
 						type='number'

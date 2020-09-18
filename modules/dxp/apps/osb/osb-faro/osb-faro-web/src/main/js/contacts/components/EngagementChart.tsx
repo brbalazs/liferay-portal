@@ -1,6 +1,10 @@
 import React, {useRef, useState} from 'react';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {ANIMATION_DURATION, AXIS} from 'shared/util/clay-recharts';
+import {
+	ANIMATION_DURATION,
+	AXIS,
+	getAxisTickText
+} from 'shared/util/clay-recharts';
 import {
 	CartesianGrid,
 	Line,
@@ -8,7 +12,6 @@ import {
 	ReferenceDot,
 	ReferenceLine,
 	ResponsiveContainer,
-	Text,
 	Tooltip,
 	XAxis,
 	YAxis
@@ -150,24 +153,13 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 					dataKey='intervalInitDate'
 					domain={['dataMin', 'dataMax']}
 					padding={{left: 20, right: 20}}
-					tick={({payload: {value}, textAnchor, x, y}) => (
-						<Text
-							style={{
-								fill: AXIS.textColor,
-								font: AXIS.font,
-								fontSize: '0.75rem'
-							}}
-							textAnchor={textAnchor}
-							x={x}
-							y={y}
-						>
-							{formatXAxisDate(
-								value,
-								LAST_30_DAYS,
-								INTERVAL,
-								dateKeysIMap
-							)}
-						</Text>
+					tick={getAxisTickText('x', value =>
+						formatXAxisDate(
+							value,
+							LAST_30_DAYS,
+							INTERVAL,
+							dateKeysIMap
+						)
 					)}
 					tickLine={false}
 					tickMargin={12}
@@ -196,20 +188,7 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 					}}
 					name={Liferay.Language.get('engagement')}
 					stroke={AXIS.gridStroke}
-					tick={({payload, textAnchor, x, y}) => (
-						<Text
-							style={{
-								fill: AXIS.textColor,
-								font: AXIS.font,
-								fontSize: '0.75rem'
-							}}
-							textAnchor={textAnchor}
-							x={x}
-							y={y + payload.offset}
-						>
-							{payload.value}
-						</Text>
-					)}
+					tick={getAxisTickText('y')}
 					tickCount={6}
 					tickLine={false}
 					type='number'
