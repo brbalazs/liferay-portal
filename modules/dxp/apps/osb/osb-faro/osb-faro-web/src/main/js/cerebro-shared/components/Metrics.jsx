@@ -11,7 +11,8 @@ import {
 	ANIMATION_DURATION,
 	AXIS,
 	getAxisTickText,
-	getTextWidth
+	getTextWidth,
+	getYAxisLabel
 } from 'shared/util/recharts';
 import {
 	Bar,
@@ -193,7 +194,7 @@ export default class MainMetrics extends React.Component {
 
 		const dataIds = chartData.map(item => item.id);
 
-		let yAxisWidth = 60;
+		let yAxisWidth = 40;
 
 		const combinedData = timeline.data.map((date, i) =>
 			dataIds.reduce(
@@ -204,16 +205,8 @@ export default class MainMetrics extends React.Component {
 						this.formatTickLabel(chartData[j].data[i])
 					);
 
-					const labelWidth = getTextWidth(
-						METRIC_TOOLTIP_LABEL_MAP[name] || title
-					);
-
 					if (yAxisWidth < textWidth) {
 						yAxisWidth = textWidth;
-					}
-
-					if (yAxisWidth < labelWidth) {
-						yAxisWidth = labelWidth;
 					}
 
 					return acc;
@@ -284,11 +277,11 @@ export default class MainMetrics extends React.Component {
 						axisLine={{
 							stroke: AXIS.borderStroke
 						}}
-						label={{
-							offset: 20,
-							position: 'top',
-							value: METRIC_TOOLTIP_LABEL_MAP[name] || title
-						}}
+						label={getYAxisLabel(
+							METRIC_TOOLTIP_LABEL_MAP[name] || title,
+							'left',
+							yAxisWidth
+						)}
 						stroke={AXIS.gridStroke}
 						tick={getAxisTickText('y', this.formatTickLabel)}
 						tickLine={false}

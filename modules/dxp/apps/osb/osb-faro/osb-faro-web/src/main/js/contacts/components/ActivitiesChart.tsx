@@ -3,7 +3,9 @@ import {
 	ANIMATION_DURATION,
 	AXIS,
 	getAxisTickText,
-	getChartTooltip
+	getChartTooltip,
+	getYAxisLabel,
+	getYAxisWidth
 } from 'shared/util/recharts';
 import {
 	Bar,
@@ -85,6 +87,8 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 
 	const showFixedTooltip = hasSelectedPoint && mouseOutside;
 
+	const yAxisWidth = getYAxisWidth(history, 'totalElements');
+
 	return (
 		<ResponsiveContainer height={height}>
 			<ComposedChart
@@ -150,18 +154,18 @@ const ActivitiesChart: React.FC<IChartProps<IActivitiesHistory<number>>> = ({
 				<YAxis
 					allowDecimals={false}
 					axisLine={{stroke: AXIS.borderStroke}}
-					label={{
-						fill: AXIS.textColor,
-						offset: 20,
-						position: 'top',
-						value: Liferay.Language.get('activities')
-					}}
+					label={getYAxisLabel(
+						Liferay.Language.get('activities'),
+						'left',
+						yAxisWidth
+					)}
 					name={Liferay.Language.get('activities')}
 					stroke={AXIS.gridStroke}
 					tick={getAxisTickText('y')}
 					tickCount={6}
 					tickLine={false}
 					type='number'
+					width={yAxisWidth}
 				/>
 
 				<YAxis

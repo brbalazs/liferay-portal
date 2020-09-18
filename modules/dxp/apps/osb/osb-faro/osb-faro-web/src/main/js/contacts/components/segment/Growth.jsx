@@ -20,7 +20,12 @@ import {
 	XAxis,
 	YAxis
 } from 'recharts';
-import {AXIS, getAxisTickText} from 'shared/util/recharts';
+import {
+	AXIS,
+	getAxisTickText,
+	getYAxisLabel,
+	getYAxisWidth
+} from 'shared/util/recharts';
 import {
 	changesListColumns,
 	individualsListColumns
@@ -238,8 +243,10 @@ export class SegmentGrowthChart extends React.Component {
 			dateKeysIMap
 		);
 
+		const yAxisWidth = getYAxisWidth(data, 'value');
+
 		return (
-			<ResponsiveContainer height={height} width='100%'>
+			<ResponsiveContainer height={height}>
 				<AreaChart
 					data={data}
 					onClick={pointData => {
@@ -305,18 +312,18 @@ export class SegmentGrowthChart extends React.Component {
 					<YAxis
 						allowDecimals={false}
 						axisLine={{stroke: AXIS.borderStroke}}
-						label={{
-							fill: AXIS.textColor,
-							offset: 20,
-							position: 'top',
-							value: Liferay.Language.get('growth')
-						}}
+						label={getYAxisLabel(
+							Liferay.Language.get('growth'),
+							'left',
+							yAxisWidth
+						)}
 						name={Liferay.Language.get('growth')}
 						stroke={AXIS.gridStroke}
 						tick={getAxisTickText('y')}
 						tickCount={6}
 						tickLine={false}
 						type='number'
+						width={yAxisWidth}
 					/>
 
 					<YAxis

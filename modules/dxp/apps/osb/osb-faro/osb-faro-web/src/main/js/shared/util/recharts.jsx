@@ -4,6 +4,7 @@ import {Text} from 'recharts';
 
 const AXIS_LABEL_OFFSET = 20;
 const TEXT_PADDING = 4;
+const Y_AXIS_WIDTH = 30;
 
 export const ANIMATION_DURATION = {
 	bar: 800,
@@ -97,9 +98,11 @@ export const getChartTooltip = ({dateTitle, rows, title}) => (
 	</div>
 );
 
-export const getYAxisLabel = (label, position = 'left') => ({
-	viewBox: {height, width, x, y}
-}) => {
+export const getYAxisLabel = (
+	label,
+	position = 'left',
+	yAxisWidth = Y_AXIS_WIDTH
+) => ({viewBox: {height, width, x, y}}) => {
 	const verticalSign = height >= 0 ? 1 : -1;
 
 	const verticalEnd = verticalSign > 0 ? 'end' : 'start';
@@ -109,7 +112,7 @@ export const getYAxisLabel = (label, position = 'left') => ({
 			fill={AXIS.textColor}
 			textAnchor={position === 'right' ? 'end' : 'start'}
 			verticalAnchor={verticalEnd}
-			x={x + width / 2}
+			x={position === 'right' ? x + yAxisWidth : x + width - yAxisWidth}
 			y={y - verticalSign * AXIS_LABEL_OFFSET}
 		>
 			{label}
@@ -117,7 +120,7 @@ export const getYAxisLabel = (label, position = 'left') => ({
 	);
 };
 
-export const getYAxisWidth = (data, dataKey, minWidth = 60) =>
+export const getYAxisWidth = (data, dataKey, minWidth = Y_AXIS_WIDTH) =>
 	data.reduce((acc, tick) => {
 		const tickLabel = tick[dataKey];
 

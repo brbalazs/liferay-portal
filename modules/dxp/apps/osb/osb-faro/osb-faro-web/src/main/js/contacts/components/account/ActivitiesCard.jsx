@@ -204,6 +204,8 @@ export default class ActivitiesCard extends React.Component {
 		} else {
 			const {dateKeysIMap, intervals} = this.getChartParams();
 
+			const yAxisWidthLeft = getYAxisWidth(history, 'totalElements');
+
 			return (
 				<>
 					<ChangeLegend
@@ -258,7 +260,9 @@ export default class ActivitiesCard extends React.Component {
 								axisLine={{stroke: AXIS.borderStroke}}
 								dataKey='totalElements'
 								label={getYAxisLabel(
-									Liferay.Language.get('activities')
+									Liferay.Language.get('activities'),
+									'left',
+									yAxisWidthLeft
 								)}
 								name={Liferay.Language.get('activities')}
 								stroke={AXIS.gridStroke}
@@ -266,11 +270,7 @@ export default class ActivitiesCard extends React.Component {
 								tickCount={6}
 								tickLine={false}
 								type='number'
-								width={getYAxisWidth(
-									history,
-									'totalElements',
-									40
-								)}
+								width={yAxisWidthLeft}
 								yAxisId='activities'
 							/>
 
@@ -288,7 +288,7 @@ export default class ActivitiesCard extends React.Component {
 								tick={getAxisTickText('y')}
 								tickLine={false}
 								type='number'
-								width={40}
+								width={30}
 								yAxisId='engagement'
 							/>
 

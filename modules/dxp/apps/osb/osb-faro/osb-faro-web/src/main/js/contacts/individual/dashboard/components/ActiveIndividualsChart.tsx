@@ -4,7 +4,9 @@ import {
 	ANIMATION_DURATION,
 	AXIS,
 	getAxisTickText,
-	getChartTooltip
+	getChartTooltip,
+	getYAxisLabel,
+	getYAxisWidth
 } from 'shared/util/recharts';
 import {
 	Bar,
@@ -91,6 +93,8 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 		}
 	};
 
+	const yAxisWidth = getYAxisWidth(data, 'knownVisitors');
+
 	return loading ? (
 		<Spinner alignCenter key='LOADING' />
 	) : (
@@ -138,18 +142,18 @@ const ActiveIndividualsChart: React.FC<IActiveIndividualsChartProps> = ({
 				<YAxis
 					allowDecimals={false}
 					axisLine={{stroke: AXIS.borderStroke}}
-					label={{
-						fill: AXIS.textColor,
-						offset: 20,
-						position: 'top',
-						value: Liferay.Language.get('individuals')
-					}}
+					label={getYAxisLabel(
+						Liferay.Language.get('individuals'),
+						'left',
+						yAxisWidth
+					)}
 					name={Liferay.Language.get('individuals')}
 					stroke={AXIS.gridStroke}
 					tick={getAxisTickText('y')}
 					tickCount={6}
 					tickLine={false}
 					type='number'
+					width={yAxisWidth}
 				/>
 
 				<YAxis

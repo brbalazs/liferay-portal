@@ -41,4 +41,44 @@ describe('Recharts Util', () => {
 			expect(container).toMatchSnapshot();
 		});
 	});
+
+	describe('getYAxisLabel', () => {
+		it('should return a function', () => {
+			expect(recharts.getYAxisLabel('Test')).toBeFunction();
+		});
+
+		it('should render when returned function is called', () => {
+			const {container} = render(
+				recharts.getYAxisLabel('Test')({
+					viewBox: {
+						height: 14,
+						width: 26,
+						x: 12,
+						y: 24
+					}
+				})
+			);
+
+			expect(container).toMatchSnapshot();
+		});
+	});
+
+	describe('getYAxisWidth', () => {
+		it('should max y-axis width', () => {
+			expect(
+				recharts.getYAxisWidth(
+					[{title: 'test test'}, {title: 'meow'}],
+					'title'
+				)
+			).toBe(112);
+		});
+
+		it('should minWidth for y-axis width', () => {
+			const minWidth = 60;
+
+			expect(
+				recharts.getYAxisWidth([{title: 'test'}], 'title', minWidth)
+			).toBe(minWidth);
+		});
+	});
 });

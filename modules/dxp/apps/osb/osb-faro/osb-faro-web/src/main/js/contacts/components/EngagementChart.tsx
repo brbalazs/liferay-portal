@@ -3,7 +3,8 @@ import {
 	ANIMATION_DURATION,
 	AXIS,
 	getAxisTickText,
-	getChartTooltip
+	getChartTooltip,
+	getYAxisLabel
 } from 'shared/util/recharts';
 import {
 	CartesianGrid,
@@ -148,18 +149,17 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 					allowDecimals={false}
 					axisLine={{stroke: AXIS.borderStroke}}
 					dataKey='scoreAvg'
-					label={{
-						fill: AXIS.textColor,
-						offset: 20,
-						position: 'top',
-						value: Liferay.Language.get('engagement')
-					}}
+					label={getYAxisLabel(
+						Liferay.Language.get('engagement'),
+						'left'
+					)}
 					name={Liferay.Language.get('engagement')}
 					stroke={AXIS.gridStroke}
 					tick={getAxisTickText('y')}
 					tickCount={6}
 					tickLine={false}
 					type='number'
+					width={30}
 				/>
 
 				<YAxis
