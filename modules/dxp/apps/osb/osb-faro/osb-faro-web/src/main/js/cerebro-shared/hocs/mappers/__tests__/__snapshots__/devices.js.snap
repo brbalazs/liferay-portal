@@ -367,3 +367,113 @@ Object {
   "total": undefined,
 }
 `;
+
+exports[`Shared HOCs Mappers - Devices should map devices information in correct order 1`] = `
+Object {
+  "browsers": Array [
+    Object {
+      "color": "#4B9BFF",
+      "data": Array [
+        9,
+      ],
+      "id": "0Chrome",
+    },
+  ],
+  "devices": Object {
+    "categories": Array [
+      "Phone",
+      "Desktop",
+      "TV",
+      "Other",
+    ],
+    "data": Array [
+      Array [
+        "data1",
+        4,
+        2,
+        1,
+        1,
+      ],
+      Array [
+        "data2",
+        0,
+        1,
+      ],
+    ],
+    "devices": Array [
+      Object {
+        "data": Array [
+          Object {
+            "id": "data1",
+            "percentage": 0,
+            "type": "Android",
+            "views": 4,
+          },
+        ],
+        "percentageOfTotal": 0,
+        "totalViews": 4,
+        "type": "SmartPhone",
+      },
+      Object {
+        "data": Array [
+          Object {
+            "id": "data1",
+            "percentage": 0,
+            "type": "Windows",
+            "views": 2,
+          },
+          Object {
+            "id": "data2",
+            "percentage": 0,
+            "type": "macOS",
+            "views": 1,
+          },
+        ],
+        "percentageOfTotal": 0,
+        "totalViews": 3,
+        "type": "Desktop",
+      },
+      Object {
+        "data": Array [
+          Object {
+            "id": "data1",
+            "percentage": 0,
+            "type": "Tizen",
+            "views": 1,
+          },
+        ],
+        "percentageOfTotal": 0,
+        "totalViews": 1,
+        "type": "Tv",
+      },
+    ],
+    "groups": Array [
+      "data1",
+      "data2",
+    ],
+    "others": Object {
+      "data": 1,
+      "group": Array [
+        Object {
+          "data": Array [
+            Object {
+              "percentage": 0,
+              "type": "Linux",
+              "views": 1,
+            },
+          ],
+          "percentageOfTotal": 0,
+          "totalViews": 1,
+          "type": "SmallScreen",
+        },
+      ],
+      "id": "Others",
+    },
+  },
+  "empty": false,
+  "error": null,
+  "loading": false,
+  "refetch": undefined,
+  "total": undefined,
+}
+`;
