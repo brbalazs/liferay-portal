@@ -16,7 +16,8 @@ import {
 	AXIS,
 	getAxisTickText,
 	getChartTooltip,
-	getYAxisLabel
+	getYAxisLabel,
+	getYAxisWidth
 } from 'shared/util/recharts';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {
@@ -265,7 +266,11 @@ export default class ActivitiesCard extends React.Component {
 								tickCount={6}
 								tickLine={false}
 								type='number'
-								width={40}
+								width={getYAxisWidth(
+									history,
+									'totalElements',
+									40
+								)}
 								yAxisId='activities'
 							/>
 

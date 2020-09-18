@@ -116,3 +116,12 @@ export const getYAxisLabel = (label, position = 'left') => ({
 		</Text>
 	);
 };
+
+export const getYAxisWidth = (data, dataKey, minWidth = 60) =>
+	data.reduce((acc, tick) => {
+		const tickLabel = tick[dataKey];
+
+		const textWidth = getTextWidth(tickLabel);
+
+		return textWidth > acc ? textWidth : acc;
+	}, minWidth);
