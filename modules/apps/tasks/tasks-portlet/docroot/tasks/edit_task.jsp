@@ -38,8 +38,6 @@ if ((tasksEntry != null) && (tasksEntry.getDueDate() != null)) {
 }
 
 String dueDateControlGroupCssClass = renderResponse.getNamespace() + "dueDateControlGroup";
-
-String dueDateWrapperCssClass = dueDateControlGroupCssClass + StringPool.SPACE + dueDateHideClass;
 %>
 
 <c:choose>
@@ -131,7 +129,7 @@ String dueDateWrapperCssClass = dueDateControlGroupCssClass + StringPool.SPACE +
 
 					<aui:input id="addDueDate" name="addDueDate" type="hidden" value="<%= addDueDate %>" />
 
-					<aui:input label="" name="dueDate" wrapperCssClass="<%= dueDateWrapperCssClass %>" />
+					<aui:input label="" name="dueDate" wrapperCssClass="<%= dueDateControlGroupCssClass + StringPool.SPACE + dueDateHideClass %>" />
 
 					<c:if test="<%= tasksEntry != null %>">
 						<aui:select name="status">

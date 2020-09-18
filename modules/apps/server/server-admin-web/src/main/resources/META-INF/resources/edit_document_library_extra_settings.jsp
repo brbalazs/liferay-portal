@@ -76,7 +76,6 @@ if (!dlFileEntries.isEmpty()) {
 
 			<%
 			for (String key : keys) {
-				String selectName = "type_" + key;
 			%>
 
 				<aui:fieldset>
@@ -84,7 +83,7 @@ if (!dlFileEntries.isEmpty()) {
 
 					<br />
 
-					<aui:select helpMessage="custom-field-type-help" label="type" name="<%= selectName %>">
+					<aui:select helpMessage="custom-field-type-help" label="type" name='<%= "type_" + key %>'>
 						<optgroup label="<liferay-ui:message key="presets" />">
 							<aui:option label="selection-of-integer-values" value="PresetSelectionIntegerArray()" />
 							<aui:option label="selection-of-decimal-values" value="PresetSelectionDoubleArray()" />
