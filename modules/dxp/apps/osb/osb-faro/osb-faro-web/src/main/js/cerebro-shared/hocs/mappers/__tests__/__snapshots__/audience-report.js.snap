@@ -343,7 +343,7 @@ Object {
       ],
       "progress": Array [
         Object {
-          "color": "#FF5F5F",
+          "color": "#A1E7CC",
           "value": 100,
         },
       ],
@@ -395,7 +395,7 @@ Object {
       ],
       "progress": Array [
         Object {
-          "color": "#FF5F5F",
+          "color": "#A1E7CC",
           "value": 57,
         },
       ],
@@ -447,7 +447,7 @@ Object {
       ],
       "progress": Array [
         Object {
-          "color": "#FF5F5F",
+          "color": "#A1E7CC",
           "value": 42,
         },
       ],
@@ -499,7 +499,7 @@ Object {
       ],
       "progress": Array [
         Object {
-          "color": "#FF5F5F",
+          "color": "#A1E7CC",
           "value": 28,
         },
       ],
@@ -551,7 +551,7 @@ Object {
       ],
       "progress": Array [
         Object {
-          "color": "#FF5F5F",
+          "color": "#A1E7CC",
           "value": 12,
         },
       ],
@@ -603,7 +603,7 @@ Object {
       ],
       "progress": Array [
         Object {
-          "color": "#FF5F5F",
+          "color": "#A1E7CC",
           "value": 4,
         },
       ],
@@ -654,22 +654,22 @@ exports[`Shared HOCs Mappers - knownIndividuals should map knownIndividuals info
 Object {
   "data": Array [
     Object {
-      "color": "#FF5F5F",
+      "color": "#A1E7CC",
       "data": Array [
         3500,
       ],
       "id": "0Segmented",
     },
     Object {
-      "color": "#50D2A0",
+      "color": "#26966B",
       "data": Array [
         100,
       ],
-      "id": "1Non-segmented",
+      "id": "1Unsegmented",
     },
   ],
   "empty": Object {
-    "message": "0 known individuals interacted with this content.",
+    "message": "0 segmented visitors interacted with this content.",
     "show": false,
   },
   "id": "known-individuals",
@@ -677,59 +677,21 @@ Object {
 }
 `;
 
-exports[`Shared HOCs Mappers - knownIndividuals should return ordered colors based on Lexicon 1`] = `
+exports[`Shared HOCs Mappers - knownIndividuals should return martellL4 & martellD4 for segmented & unsegmented respectively 1`] = `
 Array [
   Object {
-    "color": "#FF5F5F",
+    "color": "#A1E7CC",
     "data": Array [
       3500,
     ],
     "id": "0Segmented",
   },
   Object {
-    "color": "#50D2A0",
+    "color": "#26966B",
     "data": Array [
       100,
     ],
-    "id": "1Non-segmented",
-  },
-]
-`;
-
-exports[`Shared HOCs Mappers - knownIndividuals should return ordered colors based on Lexicon when "anonymousUsersCount" and "knownUsersCount" is 0 1`] = `
-Array [
-  Object {
-    "color": "#4B9BFF",
-    "data": Array [
-      3500,
-    ],
-    "id": "0Segmented",
-  },
-  Object {
-    "color": "#FFB46E",
-    "data": Array [
-      100,
-    ],
-    "id": "1Non-segmented",
-  },
-]
-`;
-
-exports[`Shared HOCs Mappers - knownIndividuals should return ordered colors based on Lexicon when "anonymousUsersCount" is 0 1`] = `
-Array [
-  Object {
-    "color": "#FFB46E",
-    "data": Array [
-      3500,
-    ],
-    "id": "0Segmented",
-  },
-  Object {
-    "color": "#FF5F5F",
-    "data": Array [
-      100,
-    ],
-    "id": "1Non-segmented",
+    "id": "1Unsegmented",
   },
 ]
 `;
@@ -738,14 +700,14 @@ exports[`Shared HOCs Mappers - uniqueVisitors should map uniqueVisitors informat
 Object {
   "data": Array [
     Object {
-      "color": "#4B9BFF",
+      "color": "#FFB46E",
       "data": Array [
         3450,
       ],
       "id": "0Known Individuals",
     },
     Object {
-      "color": "#FFB46E",
+      "color": "#4B9BFF",
       "data": Array [
         2000,
       ],
@@ -761,45 +723,21 @@ Object {
 }
 `;
 
-exports[`Shared HOCs Mappers - uniqueVisitors should return ordered colors based on Lexicon 1`] = `
+exports[`Shared HOCs Mappers - uniqueVisitors should return  1`] = `
 Array [
   Object {
-    "color": "#4B9BFF",
+    "color": "#FFB46E",
     "data": Array [
       3450,
     ],
     "id": "0Known Individuals",
   },
   Object {
-    "color": "#FFB46E",
+    "color": "#4B9BFF",
     "data": Array [
       2000,
     ],
     "id": "1Anonymous Individuals",
-  },
-]
-`;
-
-exports[`Shared HOCs Mappers - uniqueVisitors should return ordered colors based on Lexicon when "anonymousUsersCount" is 0 1`] = `
-Array [
-  Object {
-    "color": "#4B9BFF",
-    "data": Array [
-      3450,
-    ],
-    "id": "0Known Individuals",
-  },
-]
-`;
-
-exports[`Shared HOCs Mappers - uniqueVisitors should return ordered colors based on Lexicon when "knownUsersCount" is 0 1`] = `
-Array [
-  Object {
-    "color": "#4B9BFF",
-    "data": Array [
-      2000,
-    ],
-    "id": "0Anonymous Individuals",
   },
 ]
 `;
