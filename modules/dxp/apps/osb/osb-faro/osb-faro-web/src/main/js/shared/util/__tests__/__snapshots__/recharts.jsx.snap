@@ -84,3 +84,22 @@ exports[`Recharts Util getChartTooltip should render 1`] = `
   </div>
 </div>
 `;
+
+exports[`Recharts Util getYAxisLabel should render when returned function is called 1`] = `
+<div>
+  <text
+    class="recharts-text"
+    fill="#6B6C7E"
+    text-anchor="start"
+    x="8"
+    y="4"
+  >
+    <tspan
+      dy="0em"
+      x="8"
+    >
+      Test
+    </tspan>
+  </text>
+</div>
+`;
