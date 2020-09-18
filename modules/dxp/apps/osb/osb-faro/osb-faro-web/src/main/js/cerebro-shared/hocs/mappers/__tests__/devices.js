@@ -199,4 +199,73 @@ describe('Shared HOCs Mappers - Devices', () => {
 
 		expect(mapper.props(data)).toMatchSnapshot();
 	});
+
+	it('should map devices information in correct order', () => {
+		const mapper = getDevicesMapper(
+			result => result.form.submissionsMetric
+		);
+
+		const data = {
+			data: {
+				form: {
+					submissionsMetric: {
+						browser: [
+							{
+								value: 9.0,
+								valueKey: 'Chrome'
+							}
+						],
+						device: [
+							{
+								metrics: [
+									{
+										value: 2.0,
+										valueKey: 'Windows'
+									},
+									{
+										value: 1.0,
+										valueKey: 'macOS'
+									}
+								],
+								value: 3.0,
+								valueKey: 'Desktop'
+							},
+							{
+								metrics: [
+									{
+										value: 4.0,
+										valueKey: 'Android'
+									}
+								],
+								value: 4.0,
+								valueKey: 'SmartPhone'
+							},
+							{
+								metrics: [
+									{
+										value: 1.0,
+										valueKey: 'Tizen'
+									}
+								],
+								value: 1.0,
+								valueKey: 'Tv'
+							},
+							{
+								metrics: [
+									{
+										value: 1.0,
+										valueKey: 'Linux'
+									}
+								],
+								value: 1.0,
+								valueKey: 'SmallScreen'
+							}
+						]
+					}
+				}
+			}
+		};
+
+		expect(mapper.props(data)).toMatchSnapshot();
+	});
 });
