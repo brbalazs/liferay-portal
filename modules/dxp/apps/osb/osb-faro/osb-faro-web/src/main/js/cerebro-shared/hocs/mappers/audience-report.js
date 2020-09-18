@@ -1,38 +1,10 @@
-import {CHART_COLORS} from 'shared/components/Chart';
+import {CHART_COLOR_NAMES} from 'shared/components/Chart';
 import {getPercentage} from 'shared/util/util';
 import {getVariables, safeResultToProps} from 'shared/util/mappers';
 import {sub} from 'shared/util/lang';
 import {toRounded, toThousands} from 'shared/util/numbers';
 
-/**
- * Handle Colors
- * @param {object} param
- * @description It is necessary to get the ordered color defined by the Lexicon
- */
-const handleColors = ({knownIndividualsData, uniqueVisitorsData}) => {
-	const COLORS = [...CHART_COLORS];
-
-	const uniqueVisitorsArr = uniqueVisitorsData.map(metric => {
-		if (metric.count) {
-			metric.color = COLORS.shift();
-		}
-
-		return metric;
-	});
-
-	const knownIndividualsArr = knownIndividualsData.map(metric => {
-		if (metric.count) {
-			metric.color = COLORS.shift();
-		}
-
-		return metric;
-	});
-
-	return {
-		knownIndividualsArr,
-		uniqueVisitorsArr
-	};
-};
+const {martellD4, martellL4, mormont, stark} = CHART_COLOR_NAMES;
 
 /**
  * Get Donut Data based on Metrics
@@ -213,10 +185,12 @@ const getAudienceReportMapper = (getMetric, pathUrl) => {
 
 		const knownIndividualsData = [
 			{
+				color: martellD4,
 				count: nonsegmentedKnownUsersCount,
 				label: Liferay.Language.get('non-segmented')
 			},
 			{
+				color: martellL4,
 				count: segmentedKnownUsersCount,
 				id: 'segmented',
 				label: Liferay.Language.get('segmented')
@@ -225,19 +199,16 @@ const getAudienceReportMapper = (getMetric, pathUrl) => {
 
 		const uniqueVisitorsData = [
 			{
+				color: stark,
 				count: anonymousUsersCount,
 				label: Liferay.Language.get('anonymous-individuals')
 			},
 			{
+				color: mormont,
 				count: knownUsersCount,
 				label: Liferay.Language.get('known-individuals')
 			}
 		].sort((a, b) => (a.count > b.count ? -1 : 1));
-
-		const {knownIndividualsArr, uniqueVisitorsArr} = handleColors({
-			knownIndividualsData,
-			uniqueVisitorsData
-		});
 
 		const segments = getSegmentsData(
 			{
@@ -250,15 +221,17 @@ const getAudienceReportMapper = (getMetric, pathUrl) => {
 				total: segmentedKnownUsersCount,
 				totalOthers
 			},
-			knownIndividualsArr.find(({id}) => id === 'segmented').color ||
-				CHART_COLORS[0]
+			martellL4
 		);
 
 		let knownIndividuals = getDonutData(
-			knownIndividualsArr,
+			knownIndividualsData,
 			'known-individuals'
 		);
-		let uniqueVisitors = getDonutData(uniqueVisitorsArr, 'unique-visitors');
+		let uniqueVisitors = getDonutData(
+			uniqueVisitorsData,
+			'unique-visitors'
+		);
 
 		knownIndividuals = {
 			...knownIndividuals,
