@@ -82,14 +82,26 @@ public class SearchBarPortletSharedSearchContributor
 		SearchScope searchScope = getSearchScope(
 			searchBarPortletPreferences, portletSharedSearchSettings);
 
-		if (searchScope != SearchScope.THIS_SITE) {
-			return;
-		}
-
 		SearchContext searchContext =
 			portletSharedSearchSettings.getSearchContext();
 
-		searchContext.setGroupIds(getGroupIds(portletSharedSearchSettings));
+		if (searchScope == SearchScope.THIS_SITE) {
+			searchContext.setGroupIds(getGroupIds(portletSharedSearchSettings));
+
+			return;
+		}
+
+		ThemeDisplay themeDisplay =
+			portletSharedSearchSettings.getThemeDisplay();
+
+		Group group = groupLocalService.fetchGroup(
+			themeDisplay.getScopeGroupId());
+
+		if (!searchBarPortletPreferences.isShowStagedResults() ||
+			!group.isStagingGroup()) {
+
+			searchContext.setIncludeStagingGroups(false);
+		}
 	}
 
 	protected Optional<Portlet> findTopSearchBarPortletOptional(
