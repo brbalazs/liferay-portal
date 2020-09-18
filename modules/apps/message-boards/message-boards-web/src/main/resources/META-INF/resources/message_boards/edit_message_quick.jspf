@@ -57,8 +57,6 @@ if (messageFormat.equals("bbcode")) {
 		editorName = "alloyeditor_bbcode";
 	}
 }
-
-Boolean showPermanentLink = (Boolean)request.getAttribute("edit-message.jsp-showPermanentLink");
 %>
 
 <div class="card-tab message-container reply-container">
@@ -91,7 +89,7 @@ Boolean showPermanentLink = (Boolean)request.getAttribute("edit-message.jsp-show
 
 					<h4 title="<%= HtmlUtil.escape(message.getSubject()) %>">
 						<c:choose>
-							<c:when test="<%= showPermanentLink %>">
+							<c:when test='<%= (Boolean)request.getAttribute("edit-message.jsp-showPermanentLink") %>'>
 								<a href="#<portlet:namespace />message_<%= message.getMessageId() %>" title="<liferay-ui:message key="permanent-link-to-this-item" />">
 									<%= HtmlUtil.escape(message.getSubject()) %>
 								</a>

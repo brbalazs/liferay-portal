@@ -22,8 +22,6 @@ MBCategory category = (MBCategory)request.getAttribute(WebKeys.MESSAGE_BOARDS_CA
 long categoryId = GetterUtil.getLong(request.getAttribute("view.jsp-categoryId"));
 
 MBCategoryDisplay categoryDisplay = new MBCategoryDisplay(scopeGroupId, categoryId);
-
-SearchContainer entriesSearchContainer = (SearchContainer)request.getAttribute("view.jsp-entriesSearchContainer");
 %>
 
 <div class="container-fluid-1280 view-entries-container">
@@ -75,7 +73,7 @@ SearchContainer entriesSearchContainer = (SearchContainer)request.getAttribute("
 		<aui:input name="<%= Constants.CMD %>" type="hidden" />
 
 		<liferay-ui:search-container
-			searchContainer="<%= entriesSearchContainer %>"
+			searchContainer='<%= (SearchContainer)request.getAttribute("view.jsp-entriesSearchContainer") %>'
 		>
 			<liferay-ui:search-container-row
 				className="Object"
