@@ -57,7 +57,7 @@ const formatDevices = devices => {
 				data[dataIndex].push(0);
 			}
 
-			data[dataIndex].push(devices[index].data[dataIndex].views);
+			data[dataIndex].push(groupedData[index].data[dataIndex].views);
 
 			currentData.id = groupItem;
 		});
@@ -73,6 +73,7 @@ const formatDevices = devices => {
 	return {
 		categories,
 		data,
+		devices: groupedData,
 		groups,
 		others
 	};
@@ -138,10 +139,7 @@ const getDevicesMapper = getMetric => {
 
 		return {
 			browsers: formatBrowsers(metric.browser),
-			devices: {
-				...formatDevices(devices),
-				devices
-			},
+			devices: formatDevices(devices),
 			empty: false,
 			total: metric.value
 		};
