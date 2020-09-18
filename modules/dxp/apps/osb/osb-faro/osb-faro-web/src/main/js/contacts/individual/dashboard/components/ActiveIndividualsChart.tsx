@@ -1,11 +1,7 @@
 import React, {useState} from 'react';
 import Spinner from 'shared/components/Spinner';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {
-	ANIMATION_DURATION,
-	AXIS,
-	getAxisTickText
-} from 'shared/util/clay-recharts';
+import {ANIMATION_DURATION, AXIS, getAxisTickText} from 'shared/util/recharts';
 import {
 	Bar,
 	CartesianGrid,
@@ -13,7 +9,6 @@ import {
 	ComposedChart,
 	Legend,
 	ResponsiveContainer,
-	Text,
 	Tooltip,
 	XAxis,
 	YAxis

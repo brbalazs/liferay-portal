@@ -23,11 +23,7 @@ import {
 	accountsListColumns,
 	individualsListColumns
 } from 'shared/util/table-columns';
-import {
-	ANIMATION_DURATION,
-	AXIS,
-	getTextWidth
-} from 'shared/util/clay-recharts';
+import {ANIMATION_DURATION, AXIS, getTextWidth} from 'shared/util/recharts';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {
 	Bar,

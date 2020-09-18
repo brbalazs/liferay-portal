@@ -1,10 +1,6 @@
 import React, {useRef, useState} from 'react';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {
-	ANIMATION_DURATION,
-	AXIS,
-	getAxisTickText
-} from 'shared/util/clay-recharts';
+import {ANIMATION_DURATION, AXIS, getAxisTickText} from 'shared/util/recharts';
 import {
 	CartesianGrid,
 	Line,

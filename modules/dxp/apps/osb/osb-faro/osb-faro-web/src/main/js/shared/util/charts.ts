@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import moment from 'moment';
-import {BAR_COLORS} from 'shared/util/clay-recharts';
+import {BAR_COLORS} from 'shared/util/recharts';
 import {
 	CUSTOM_RANGE,
 	LAST_180_DAYS,

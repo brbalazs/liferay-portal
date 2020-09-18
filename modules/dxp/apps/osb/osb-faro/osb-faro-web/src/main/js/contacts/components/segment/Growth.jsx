@@ -20,7 +20,7 @@ import {
 	XAxis,
 	YAxis
 } from 'recharts';
-import {AXIS, getAxisTickText} from 'shared/util/clay-recharts';
+import {AXIS, getAxisTickText} from 'shared/util/recharts';
 import {
 	changesListColumns,
 	individualsListColumns

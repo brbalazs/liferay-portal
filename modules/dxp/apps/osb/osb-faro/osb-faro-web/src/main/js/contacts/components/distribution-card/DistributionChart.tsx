@@ -8,11 +8,7 @@ import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import Promise from 'metal-promise';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
-import {
-	ANIMATION_DURATION,
-	AXIS,
-	getTextWidth
-} from 'shared/util/clay-recharts';
+import {ANIMATION_DURATION, AXIS, getTextWidth} from 'shared/util/recharts';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {
 	Bar,

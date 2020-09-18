@@ -12,7 +12,7 @@ import {
 	AXIS,
 	getAxisTickText,
 	getTextWidth
-} from 'shared/util/clay-recharts';
+} from 'shared/util/recharts';
 import {
 	Bar,
 	CartesianGrid,
@@ -21,7 +21,6 @@ import {
 	Legend,
 	Line,
 	ResponsiveContainer,
-	Text,
 	Tooltip,
 	XAxis,
 	YAxis
