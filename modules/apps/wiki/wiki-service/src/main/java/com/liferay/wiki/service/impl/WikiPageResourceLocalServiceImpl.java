@@ -91,7 +91,8 @@ public class WikiPageResourceLocalServiceImpl
 			nodeId, title);
 
 		if (pageResource == null) {
-			pageResource = addPageResource(groupId, nodeId, title);
+			pageResource = wikiPageResourceLocalService.addPageResource(
+				groupId, nodeId, title);
 		}
 
 		return pageResource.getResourcePrimKey();
@@ -108,7 +109,8 @@ public class WikiPageResourceLocalServiceImpl
 			nodeId, title);
 
 		if (pageResource == null) {
-			pageResource = addPageResource(nodeId, title);
+			pageResource = wikiPageResourceLocalService.addPageResource(
+				nodeId, title);
 		}
 
 		return pageResource.getResourcePrimKey();
