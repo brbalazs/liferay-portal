@@ -14,9 +14,9 @@ import {Account} from 'shared/util/records';
 import {
 	ANIMATION_DURATION,
 	AXIS,
-	getAxisLabel,
 	getAxisTickText,
-	getChartTooltip
+	getChartTooltip,
+	getYAxisLabel
 } from 'shared/util/recharts';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {
@@ -256,7 +256,7 @@ export default class ActivitiesCard extends React.Component {
 								allowDecimals={false}
 								axisLine={{stroke: AXIS.borderStroke}}
 								dataKey='totalElements'
-								label={getAxisLabel(
+								label={getYAxisLabel(
 									Liferay.Language.get('activities')
 								)}
 								name={Liferay.Language.get('activities')}
@@ -273,7 +273,7 @@ export default class ActivitiesCard extends React.Component {
 								allowDecimals={false}
 								axisLine={{stroke: AXIS.borderStroke}}
 								dataKey='scoreAvg'
-								label={getAxisLabel(
+								label={getYAxisLabel(
 									Liferay.Language.get('engagement'),
 									'right'
 								)}

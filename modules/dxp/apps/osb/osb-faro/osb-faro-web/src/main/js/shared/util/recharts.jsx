@@ -2,6 +2,7 @@ import React from 'react';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import {Text} from 'recharts';
 
+const AXIS_LABEL_OFFSET = 20;
 const TEXT_PADDING = 4;
 
 export const ANIMATION_DURATION = {
@@ -95,3 +96,23 @@ export const getChartTooltip = ({dateTitle, rows, title}) => (
 		/>
 	</div>
 );
+
+export const getYAxisLabel = (label, position = 'left') => ({
+	viewBox: {height, width, x, y}
+}) => {
+	const verticalSign = height >= 0 ? 1 : -1;
+
+	const verticalEnd = verticalSign > 0 ? 'end' : 'start';
+
+	return (
+		<Text
+			fill={AXIS.textColor}
+			textAnchor={position === 'right' ? 'end' : 'start'}
+			verticalAnchor={verticalEnd}
+			x={x + width / 2}
+			y={y - verticalSign * AXIS_LABEL_OFFSET}
+		>
+			{label}
+		</Text>
+	);
+};
