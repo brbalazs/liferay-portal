@@ -2,6 +2,7 @@
 	border: 1px solid $mainLighten74;
 	box-shadow: none;
 	display: flex;
+  flex-direction: column;
 
 	&.page-display {
 		min-height: 70vh;
