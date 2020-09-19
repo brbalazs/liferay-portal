@@ -9,6 +9,7 @@ import {
 	withSelectionProvider
 } from 'shared/context/selection';
 import {Columns, IPagination} from 'shared/types';
+import {DocumentNode} from 'graphql';
 import {noop, omit, pickBy} from 'lodash';
 import {OrderedMap} from 'immutable';
 import {QueryHookOptions, useQuery} from '@apollo/react-hooks';
@@ -18,7 +19,7 @@ import {withStatefulPagination} from 'shared/hoc';
 interface ISearchableTableModalGraphQLProps extends IPagination {
 	className: string;
 	columns: Columns;
-	graphqlQuery: string;
+	graphqlQuery: DocumentNode;
 	instruction?: string;
 	mapPropsToOptions: (props: {[key: string]: any}) => QueryHookOptions;
 	mapResultToProps: (result: {

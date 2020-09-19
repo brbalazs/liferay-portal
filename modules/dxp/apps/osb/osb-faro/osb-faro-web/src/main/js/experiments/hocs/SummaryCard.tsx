@@ -4,6 +4,7 @@ import React, {useContext} from 'react';
 import SummaryCardDraft from 'experiments/components/summary-card-draft';
 import SummaryCardRun from 'experiments/components/summary-card-run';
 import WrappedSafeComponent from 'cerebro-shared/hocs/WrappedSafeComponent';
+import {DocumentNode} from 'graphql';
 import {
 	EXPERIMENT_DRAFT_QUERY,
 	EXPERIMENT_QUERY
@@ -23,7 +24,7 @@ const withSummaryCard: React.FC<IWithSummaryCard> = ({status, timeZoneId}) => {
 		}
 	} = useContext(BasePage.Context);
 
-	let query: string = null;
+	let query: DocumentNode = null;
 	let Component: React.FC = null;
 
 	if (status === 'DRAFT') {

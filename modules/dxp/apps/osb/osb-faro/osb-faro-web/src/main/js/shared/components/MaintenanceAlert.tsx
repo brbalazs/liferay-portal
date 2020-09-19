@@ -1,28 +1,29 @@
 import Alert from 'shared/components/Alert';
 import autobind from 'autobind-decorator';
 import FaroConstants from 'shared/util/constants';
+import getCN from 'classnames';
 import moment from 'moment';
 import React from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Project} from 'shared/util/records';
-import {PropTypes} from 'prop-types';
 import {setMaintenanceSeen} from 'shared/actions/maintenance-seen';
 import {sub} from 'shared/util/lang';
 import {withRouter} from 'react-router-dom';
 
 const {projectStates} = FaroConstants;
 
-export class MaintenanceAlert extends React.Component {
-	static propTypes = {
-		alertDismissed: PropTypes.bool.isRequired,
-		currentUserId: PropTypes.string.isRequired,
-		groupId: PropTypes.string.isRequired,
-		project: PropTypes.instanceOf(Project).isRequired,
-		setMaintenanceSeen: PropTypes.func.isRequired,
-		stripe: PropTypes.bool
-	};
+interface IMaintenanceAlertProps {
+	alertDismissed: boolean;
+	className: string;
+	currentUserId: string;
+	groupId: string;
+	project: Project;
+	setMaintenanceSeen: (boolean) => void;
+	stripe: boolean;
+}
 
+export class MaintenanceAlert extends React.Component<IMaintenanceAlertProps> {
 	static defaultProps = {
 		stripe: false
 	};
@@ -50,6 +51,7 @@ export class MaintenanceAlert extends React.Component {
 	render() {
 		const {
 			alertDismissed,
+			className,
 			project: {state, stateStartDate},
 			stripe
 		} = this.props;
@@ -57,11 +59,7 @@ export class MaintenanceAlert extends React.Component {
 		const showAlert = state === projectStates.scheduled && !alertDismissed;
 
 		return (
-			<div
-				className={`maintenance-alert-root${
-					this.props.className ? ` ${this.props.className}` : ''
-				}`}
-			>
+			<div className={getCN('maintenance-alert-root', className)}>
 				{showAlert && (
 					<Alert
 						iconSymbol='warning-full'
@@ -111,7 +109,7 @@ export const mapState = (
 	};
 };
 
-export default compose(
+export default compose<any>(
 	withRouter,
 	connect(
 		mapState,

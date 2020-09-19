@@ -10,17 +10,13 @@ import {
 	fetchUpgradeModalSeen,
 	updateUpgradeModalSeen
 } from 'shared/actions/preferences';
-import {Modal} from 'shared/types';
 import {useChannelContext} from 'shared/context/channel';
 import {useRequest} from 'shared/hooks';
 
-interface IWrappedComponentProps {
-	close: Modal.close;
-	open: Modal.open;
-}
-
 const withUnassignedSegments = (
-	WrappedComponent: React.ComponentType<IWrappedComponentProps>
+	WrappedComponent: React.ComponentType<{
+		groupId: any;
+	}>
 ) =>
 	connect(
 		state => ({

@@ -49,7 +49,7 @@ export function validateSegmentEditor(criteria) {
 }
 
 const CriteriaBuilderForm = withField(
-	({field: {name, value}, ...fieldProps}) => {
+	({channelId, field: {name, value}, groupId, ...fieldProps}) => {
 		const handleChange = criteria => {
 			const {
 				form: {setFieldValue}
@@ -61,7 +61,9 @@ const CriteriaBuilderForm = withField(
 		return (
 			<CriteriaBuilder
 				{...fieldProps}
+				channelId={channelId}
 				criteria={value}
+				groupId={groupId}
 				onChange={handleChange}
 			/>
 		);

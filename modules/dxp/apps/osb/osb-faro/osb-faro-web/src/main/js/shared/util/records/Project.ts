@@ -2,20 +2,20 @@ import TimeZone from './TimeZone';
 import {Map, Record} from 'immutable';
 
 interface IProject {
-	accountKey?: string;
-	accountName?: string;
-	corpProjectName?: string;
-	corpProjectUuid?: string;
-	faroSubscription?: Map<string, any>;
-	friendlyURL?: string;
-	groupId?: number;
-	name?: string;
-	recommendationsEnabled?: boolean;
+	accountKey: string;
+	accountName: string;
+	corpProjectName: string;
+	corpProjectUuid: string;
+	faroSubscription: Map<string, any>;
+	friendlyURL: string;
+	groupId: number;
+	name: string;
+	recommendationsEnabled: boolean;
 	serverLocation: string;
-	state?: string;
-	stateStartDate?: number;
+	state: string;
+	stateStartDate: number;
 	timeZone: TimeZone;
-	userId?: number;
+	userId: number;
 }
 
 export default class Project
@@ -36,22 +36,22 @@ export default class Project
 		userId: null
 	})
 	implements IProject {
-	accountKey?: string;
-	accountName?: string;
-	corpProjectName?: string;
-	corpProjectUuid?: string;
-	faroSubscription?: Map<string, any>;
-	friendlyURL?: string;
-	groupId?: number;
-	name?: string;
-	recommendationsEnabled?: boolean;
+	accountKey: string;
+	accountName: string;
+	corpProjectName: string;
+	corpProjectUuid: string;
+	faroSubscription: Map<string, any>;
+	friendlyURL: string;
+	groupId: number;
+	name: string;
+	recommendationsEnabled: boolean;
 	serverLocation: string;
-	state?: string;
-	stateStartDate?: number;
+	state: string;
+	stateStartDate: number;
 	timeZone: TimeZone;
-	userId?: number;
+	userId: number;
 
-	constructor(props: IProject) {
+	constructor(props = {}) {
 		super(props);
 	}
 }

@@ -141,7 +141,6 @@ describe('InputList', () => {
 
 		const pasteEvent = createEvent.paste(containerNode, eventProperties);
 
-		pasteEvent.clipboardData = eventProperties.clipboardData;
 		fireEvent(containerNode, pasteEvent);
 
 		expect(container).toMatchSnapshot();

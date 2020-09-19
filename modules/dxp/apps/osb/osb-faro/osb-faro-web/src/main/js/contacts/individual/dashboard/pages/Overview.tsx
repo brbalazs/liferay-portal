@@ -30,7 +30,7 @@ const Overview: React.FC<IOverviewProps> = ({
 		params: {channelId, groupId}
 	}
 }) => {
-	const [dataSources, setDataSources] = useState();
+	const [dataSources, setDataSources] = useState(null);
 
 	useEffect(() => {
 		API.dataSource

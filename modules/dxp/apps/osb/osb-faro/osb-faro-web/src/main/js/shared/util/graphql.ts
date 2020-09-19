@@ -1,16 +1,19 @@
+import {DocumentNode} from 'graphql';
 import {pickBy} from 'lodash';
 
-export type GQLQuery = {
-	definitions: {
-		variableDefinitions: {
-			variable: {
-				name: {
-					value: string;
-				};
-			};
-		}[];
-	}[];
-};
+export type GQLQuery =
+	| {
+			definitions: {
+				variableDefinitions: {
+					variable: {
+						name: {
+							value: string;
+						};
+					};
+				}[];
+			}[];
+	  }
+	| DocumentNode;
 
 /**
  * Returns an object of variable keys used in the graphQL query.

@@ -21,7 +21,7 @@ global.Liferay = {
 	}
 };
 
-global.console = {error: jest.fn(), log: console.log}; // eslint-disable-line no-console
+global.console = {error: jest.fn(), log: console.log, warn: jest.fn()}; // eslint-disable-line no-console
 
 global.localStorage = (() => {
 	let store = {};

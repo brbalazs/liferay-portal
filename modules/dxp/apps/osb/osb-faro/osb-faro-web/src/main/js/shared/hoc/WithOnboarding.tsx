@@ -9,19 +9,11 @@ import {isArray} from 'lodash';
 import {OnboardingContext} from 'shared/context/onboarding';
 import {User} from 'shared/util/records';
 
-interface IWrappedComponentProps {
-	close: () => void;
-	currentUser: User;
-	data: {dataSources: []; loading: boolean};
-	loading: boolean;
-	open: (
-		modalType: string,
-		{groupId, onClose}: {groupId: string; onClose: () => void}
-	) => void;
-}
-
 const withOnboarding = (
-	WrappedComponent: React.ComponentType<IWrappedComponentProps>
+	WrappedComponent: React.ComponentType<{
+		currentUser: User;
+		groupId: string;
+	}>
 ) =>
 	compose<any>(
 		connect(

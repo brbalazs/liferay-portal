@@ -9,8 +9,8 @@ import {withField} from 'shared/components/form';
 interface ITitleEditorProps {
 	editable?: boolean;
 	inputName: string;
-	onBlur?: (object) => null;
-	onChange: (object) => null;
+	onBlur?: (event) => void;
+	onChange: (event) => void;
 	placeholder?: string;
 	value?: string;
 }

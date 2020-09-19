@@ -5,6 +5,7 @@ import LineChart from 'experiments/components/LineChart';
 import React, {useContext} from 'react';
 import SessionCard from 'experiments/components/SessionCard';
 import WrappedSafeComponent from 'cerebro-shared/hocs/WrappedSafeComponent';
+import {DocumentNode} from 'graphql';
 import {
 	EXPERIMENT_SESSION_HISTOGRAM_QUERY,
 	EXPERIMENT_SESSION_VARIANTS_HISTOGRAM_QUERY
@@ -25,7 +26,7 @@ const withSessionCard: React.FC<IWithSessionCardProps> = ({label}) => {
 		}
 	} = useContext(BasePage.Context);
 
-	let query: string = null;
+	let query: DocumentNode = null;
 	let mapper: Function = null;
 
 	if (sessionViewTriggered === 'total') {

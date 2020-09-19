@@ -141,7 +141,9 @@ export const ReferencedObjectsProvider = ({
 }) => {
 	const [referencedEntities, referencedEntitiesDispatch] = useReducer(
 		referencedEntitiesReducer,
-		segment ? createReferencedEntitiesIMapFromSegment(segment) : Map()
+		segment
+			? createReferencedEntitiesIMapFromSegment(segment)
+			: Map<string, any>()
 	);
 
 	const [referencedProperties, referencedPropertiesDispatch] = useReducer(
@@ -150,7 +152,7 @@ export const ReferencedObjectsProvider = ({
 			? (convertFieldMappingsToProperties(
 					segment.getIn(['referencedObjects', 'fieldMappings'], Map())
 			  ) as Map<string, Map<string, Property>>)
-			: Map()
+			: Map<string, any>()
 	);
 
 	useEffect(() => {
