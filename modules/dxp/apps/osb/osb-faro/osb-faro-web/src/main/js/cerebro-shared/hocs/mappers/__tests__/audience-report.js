@@ -1,5 +1,7 @@
-import {CHART_COLORS} from 'shared/components/Chart';
+import {CHART_COLOR_NAMES} from 'shared/components/Chart';
 import {getAudienceReportMapper} from '../audience-report';
+
+const {martellD4, martellL4, mormont, stark} = CHART_COLOR_NAMES;
 
 const data = {
 	form: {
@@ -214,55 +216,16 @@ describe('Shared HOCs Mappers - knownIndividuals', () => {
 		expect(mapper.props({data}).knownIndividuals).toMatchSnapshot();
 	});
 
-	it('should return ordered colors based on Lexicon', () => {
+	it('should return martellL4 & martellD4 for segmented & unsegmented respectively', () => {
 		const mapper = getAudienceReportMapper(
 			result => result.form.submissionsMetric
 		);
 		const props = mapper.props({data}).knownIndividuals;
 
-		expect(props.data[0].color).toEqual(CHART_COLORS[2]);
-		expect(props.data[1].color).toEqual(CHART_COLORS[3]);
-		expect(props.data).toMatchSnapshot();
-	});
-
-	it('should return ordered colors based on Lexicon when "anonymousUsersCount" is 0', () => {
-		const mapper = getAudienceReportMapper(
-			result => result.form.submissionsMetric
-		);
-		const props = mapper.props({
-			data: {
-				form: {
-					submissionsMetric: {
-						...data.form.submissionsMetric,
-						anonymousUsersCount: 0
-					}
-				}
-			}
-		}).knownIndividuals;
-
-		expect(props.data[0].color).toEqual(CHART_COLORS[1]);
-		expect(props.data[1].color).toEqual(CHART_COLORS[2]);
-		expect(props.data).toMatchSnapshot();
-	});
-
-	it('should return ordered colors based on Lexicon when "anonymousUsersCount" and "knownUsersCount" is 0', () => {
-		const mapper = getAudienceReportMapper(
-			result => result.form.submissionsMetric
-		);
-		const props = mapper.props({
-			data: {
-				form: {
-					submissionsMetric: {
-						...data.form.submissionsMetric,
-						anonymousUsersCount: 0,
-						knownUsersCount: 0
-					}
-				}
-			}
-		}).knownIndividuals;
-
-		expect(props.data[0].color).toEqual(CHART_COLORS[0]);
-		expect(props.data[1].color).toEqual(CHART_COLORS[1]);
+		expect(props.data[0].color).toEqual(martellL4);
+		expect(props.data[0].id).toEqual('0Segmented');
+		expect(props.data[1].color).toEqual(martellD4);
+		expect(props.data[1].id).toEqual('1Unsegmented');
 		expect(props.data).toMatchSnapshot();
 	});
 });
@@ -276,52 +239,16 @@ describe('Shared HOCs Mappers - uniqueVisitors', () => {
 		expect(mapper.props({data}).uniqueVisitors).toMatchSnapshot();
 	});
 
-	it('should return ordered colors based on Lexicon', () => {
+	it('should return ', () => {
 		const mapper = getAudienceReportMapper(
 			result => result.form.submissionsMetric
 		);
 		const props = mapper.props({data}).uniqueVisitors;
 
-		expect(props.data[0].color).toEqual(CHART_COLORS[0]);
-		expect(props.data[1].color).toEqual(CHART_COLORS[1]);
-		expect(props.data).toMatchSnapshot();
-	});
-
-	it('should return ordered colors based on Lexicon when "anonymousUsersCount" is 0', () => {
-		const mapper = getAudienceReportMapper(
-			result => result.form.submissionsMetric
-		);
-		const props = mapper.props({
-			data: {
-				form: {
-					submissionsMetric: {
-						...data.form.submissionsMetric,
-						anonymousUsersCount: 0
-					}
-				}
-			}
-		}).uniqueVisitors;
-
-		expect(props.data[0].color).toEqual(CHART_COLORS[0]);
-		expect(props.data).toMatchSnapshot();
-	});
-
-	it('should return ordered colors based on Lexicon when "knownUsersCount" is 0', () => {
-		const mapper = getAudienceReportMapper(
-			result => result.form.submissionsMetric
-		);
-		const props = mapper.props({
-			data: {
-				form: {
-					submissionsMetric: {
-						...data.form.submissionsMetric,
-						knownUsersCount: 0
-					}
-				}
-			}
-		}).uniqueVisitors;
-
-		expect(props.data[0].color).toEqual(CHART_COLORS[0]);
+		expect(props.data[0].color).toEqual(mormont);
+		expect(props.data[0].id).toEqual('0Known Individuals');
+		expect(props.data[1].color).toEqual(stark);
+		expect(props.data[1].id).toEqual('1Anonymous Individuals');
 		expect(props.data).toMatchSnapshot();
 	});
 });
