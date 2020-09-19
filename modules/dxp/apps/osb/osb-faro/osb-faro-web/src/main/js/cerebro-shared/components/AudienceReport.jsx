@@ -4,8 +4,6 @@ import Chart, {DONUT_CHART} from 'shared/components/Chart';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {getUrl} from 'shared/util/urls';
-import {Link} from 'react-router-dom';
 import {PropTypes} from 'prop-types';
 import {removeNumbers, removeSpacing} from 'shared/util/util';
 import {toFixedPoint, toRounded} from 'shared/util/numbers';
@@ -82,20 +80,12 @@ class Donut extends React.Component {
 		this.disableLegendElement();
 	}
 
-	isValidLink(title, url) {
-		const labelKnownIndividuals = Liferay.Language.get(
-			'segmented-visitors'
-		);
-
-		return url && title.indexOf(labelKnownIndividuals) !== -1;
-	}
-
 	/**
 	 * Render Legend Item
 	 * @param {string} title
 	 * @param {string} color
 	 */
-	renderLegendItem(title, color, url) {
+	renderLegendItem(title, color) {
 		const LegendTemplateColumn = () => (
 			<div className='legend-template-column'>
 				<span className='circle' style={{backgroundColor: color}} />
@@ -105,13 +95,7 @@ class Donut extends React.Component {
 
 		return ReactDOMServer.renderToString(
 			<li data-title={removeSpacing(title)}>
-				{this.isValidLink(title, url) ? (
-					<a href={decodeURIComponent(url)}>
-						<LegendTemplateColumn />
-					</a>
-				) : (
-					<LegendTemplateColumn />
-				)}
+				<LegendTemplateColumn />
 			</li>
 		);
 	}
@@ -176,8 +160,7 @@ class Donut extends React.Component {
 			data,
 			empty: {show: isEmpty},
 			id,
-			total,
-			url
+			total
 		} = this.props;
 
 		if (isEmpty) {
@@ -208,7 +191,7 @@ class Donut extends React.Component {
 						contents: {
 							bindto: `#${id}`,
 							template: (title, color) =>
-								this.renderLegendItem(title, color, url)
+								this.renderLegendItem(title, color)
 						},
 						item: {
 							onclick: () => false
@@ -260,39 +243,20 @@ const Title = ({children}) => (
 );
 
 /**
- * Get Individuals URL
- * @description Get url to navigate in a dashboard
- */
-const getIndividualsUrl = (path, router) => getUrl(path, router);
-
-/**
  * Audience Report component
  * @param object} param0
  */
-const AudienceReport = ({
-	knownIndividuals,
-	pathUrl,
-	router,
-	segments,
-	uniqueVisitors
-}) => (
+const AudienceReport = ({knownIndividuals, segments, uniqueVisitors}) => (
 	<div className={`${CLASSNAME} row w-100`}>
 		<div className='col-sm-6'>
 			<div className='row'>
 				<div className='col-sm-6'>
 					<Title>{Liferay.Language.get('visitors')}</Title>
 
-					{renderDonutChart({
-						...uniqueVisitors,
-						url: getIndividualsUrl(pathUrl, router)
-					})}
+					{renderDonutChart(uniqueVisitors)}
 				</div>
 				<div className='col-sm-6'>
-					<Title>
-						<Link to={getIndividualsUrl(pathUrl, router)}>
-							{Liferay.Language.get('segmented-visitors')}
-						</Link>
-					</Title>
+					<Title>{Liferay.Language.get('segmented-visitors')}</Title>
 
 					{renderDonutChart(knownIndividuals)}
 				</div>
