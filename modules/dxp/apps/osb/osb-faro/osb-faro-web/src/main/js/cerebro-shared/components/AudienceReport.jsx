@@ -84,7 +84,7 @@ class Donut extends React.Component {
 
 	isValidLink(title, url) {
 		const labelKnownIndividuals = Liferay.Language.get(
-			'segmented-individuals'
+			'segmented-visitors'
 		);
 
 		return url && title.indexOf(labelKnownIndividuals) !== -1;
@@ -280,7 +280,7 @@ const AudienceReport = ({
 		<div className='col-sm-6'>
 			<div className='row'>
 				<div className='col-sm-6'>
-					<Title>{Liferay.Language.get('known-individuals')}</Title>
+					<Title>{Liferay.Language.get('visitors')}</Title>
 
 					{renderDonutChart({
 						...uniqueVisitors,
@@ -290,7 +290,7 @@ const AudienceReport = ({
 				<div className='col-sm-6'>
 					<Title>
 						<Link to={getIndividualsUrl(pathUrl, router)}>
-							{Liferay.Language.get('segmented-individuals')}
+							{Liferay.Language.get('segmented-visitors')}
 						</Link>
 					</Title>
 
@@ -299,7 +299,7 @@ const AudienceReport = ({
 			</div>
 		</div>
 		<div className='col-sm-6 pl-5'>
-			<Title>{Liferay.Language.get('top-segments')}</Title>
+			<Title>{Liferay.Language.get('visitor-segments')}</Title>
 
 			{renderBarChart(segments)}
 		</div>

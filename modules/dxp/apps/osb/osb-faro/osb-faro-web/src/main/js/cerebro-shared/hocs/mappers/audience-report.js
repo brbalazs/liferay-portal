@@ -187,7 +187,7 @@ const getAudienceReportMapper = (getMetric, pathUrl) => {
 			{
 				color: martellD4,
 				count: nonsegmentedKnownUsersCount,
-				label: Liferay.Language.get('non-segmented')
+				label: Liferay.Language.get('unsegmented')
 			},
 			{
 				color: martellL4,
@@ -239,7 +239,7 @@ const getAudienceReportMapper = (getMetric, pathUrl) => {
 				...knownIndividuals.empty,
 				message: sub(
 					Liferay.Language.get(
-						'x-known-individuals-interacted-with-this-content'
+						'x-segmented-visitors-interacted-with-this-content'
 					),
 					[0]
 				)
