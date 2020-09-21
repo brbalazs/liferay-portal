@@ -951,8 +951,7 @@ public class ModulesStructureTest {
 
 		if (_isInModulesRootDir(dirPath, "sdk", "third-party", "util") ||
 			Files.exists(dirPath.resolve(".lfrbuild-ci")) ||
-			_hasGitCommitMarkerFile(dirPath) ||
-			_isInGitRepoReadOnly(dirPath) ||
+			_hasGitCommitMarkerFile(dirPath) || _isInGitRepoReadOnly(dirPath) ||
 			_isInPrivateModulesCheckoutDir(dirPath)) {
 
 			return false;
