@@ -14,7 +14,7 @@
 
 package com.liferay.osb.faro.web.internal.model.display.main;
 
-import com.liferay.osb.faro.engine.client.model.WorkspaceService;
+import com.liferay.osb.faro.engine.client.model.LCPService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,24 +23,24 @@ import java.util.regex.Pattern;
  * @author Shinn Lok
  */
 @SuppressWarnings({"FieldCanBeLocal", "UnusedDeclaration"})
-public class WorkspaceServiceDisplay {
+public class LCPServiceDisplay {
 
-	public WorkspaceServiceDisplay() {
+	public LCPServiceDisplay() {
 	}
 
-	public WorkspaceServiceDisplay(WorkspaceService workspaceService) {
-		Matcher matcher = _pattern.matcher(workspaceService.getImageHint());
+	public LCPServiceDisplay(LCPService lcpService) {
+		Matcher matcher = _pattern.matcher(lcpService.getImageHint());
 
 		if (matcher.find()) {
 			_branch = matcher.group(3);
 		}
 		else {
-			_branch = workspaceService.getImageHint();
+			_branch = lcpService.getImageHint();
 		}
 
-		_health = workspaceService.getHealth();
-		_ready = workspaceService.isReady();
-		_serviceId = workspaceService.getServiceId();
+		_health = lcpService.getHealth();
+		_ready = lcpService.isReady();
+		_serviceId = lcpService.getServiceId();
 	}
 
 	public String getBranch() {

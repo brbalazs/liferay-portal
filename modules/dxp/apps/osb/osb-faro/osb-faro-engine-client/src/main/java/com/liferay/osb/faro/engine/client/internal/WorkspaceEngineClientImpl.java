@@ -17,8 +17,8 @@ package com.liferay.osb.faro.engine.client.internal;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
 import com.liferay.osb.faro.engine.client.model.LCPProject;
+import com.liferay.osb.faro.engine.client.model.LCPService;
 import com.liferay.osb.faro.engine.client.model.Workspace;
-import com.liferay.osb.faro.engine.client.model.WorkspaceService;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.osb.faro.util.UpgradeUtil;
@@ -148,6 +148,18 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		return responseEntity.getBody();
 	}
 
+	@Override
+	public List<LCPService> getLCPServices(String weDeployKey) {
+		ResponseEntity<List<LCPService>> response = getRestTemplate().exchange(
+			StringBundler.concat(
+				_PROJECT_API_URL, getProjectId(weDeployKey), "/services"),
+			HttpMethod.GET, null,
+			new ParameterizedTypeReference<List<LCPService>>() {
+			});
+
+		return response.getBody();
+	}
+
 	public List<String> getLoadBalancerIPs(String weDeployKey) {
 		if (Validator.isNull(weDeployKey)) {
 			return Collections.emptyList();
@@ -188,28 +200,13 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 	}
 
 	@Override
-	public List<WorkspaceService> getWorkspaceServices(String weDeployKey) {
-		ResponseEntity<List<WorkspaceService>> response =
-			getRestTemplate().exchange(
-				StringBundler.concat(
-					_PROJECT_API_URL, getProjectId(weDeployKey), "/services"),
-				HttpMethod.GET, null,
-				new ParameterizedTypeReference<List<WorkspaceService>>() {
-				});
-
-		return response.getBody();
-	}
-
-	@Override
 	public void updateServices(String weDeployKey, String operation)
 		throws Exception {
 
 		List<String> serviceIds = new ArrayList<>();
 
-		for (WorkspaceService workspaceService :
-				getWorkspaceServices(weDeployKey)) {
-
-			serviceIds.add(workspaceService.getServiceId());
+		for (LCPService lcpService : getLCPServices(weDeployKey)) {
+			serviceIds.add(lcpService.getServiceId());
 		}
 
 		updateServices(weDeployKey, operation, serviceIds);

@@ -19,7 +19,7 @@ import java.util.Date;
 /**
  * @author Matthew Kong
  */
-public class WorkspaceService {
+public class LCPService {
 
 	public Date getCreatedAt() {
 		return _createdAt;

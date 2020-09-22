@@ -20,8 +20,8 @@ import com.liferay.osb.faro.contacts.service.ContactsCardTemplateLocalService;
 import com.liferay.osb.faro.contacts.service.ContactsLayoutTemplateLocalService;
 import com.liferay.osb.faro.engine.client.HubSpotEngineClient;
 import com.liferay.osb.faro.engine.client.model.LCPProject;
+import com.liferay.osb.faro.engine.client.model.LCPService;
 import com.liferay.osb.faro.engine.client.model.Workspace;
-import com.liferay.osb.faro.engine.client.model.WorkspaceService;
 import com.liferay.osb.faro.exception.EmailAddressDomainException;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.model.FaroProjectEmailAddressDomain;
@@ -43,7 +43,7 @@ import com.liferay.osb.faro.web.internal.model.display.contacts.JoinableProjectD
 import com.liferay.osb.faro.web.internal.model.display.contacts.ProjectDisplay;
 import com.liferay.osb.faro.web.internal.model.display.contacts.TimeZoneDisplay;
 import com.liferay.osb.faro.web.internal.model.display.main.FaroSubscriptionDisplay;
-import com.liferay.osb.faro.web.internal.model.display.main.WorkspaceServiceDisplay;
+import com.liferay.osb.faro.web.internal.model.display.main.LCPServiceDisplay;
 import com.liferay.osb.faro.web.internal.param.FaroParam;
 import com.liferay.osb.faro.web.internal.util.ContactsLayoutUtil;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
@@ -442,9 +442,9 @@ public class ProjectController extends BaseFaroController {
 				faroProject.setServices(
 					JSONUtil.writeValueAsString(
 						StreamUtil.toList(
-							workspaceEngineClient.getWorkspaceServices(
+							workspaceEngineClient.getLCPServices(
 								faroProject.getWeDeployKey()),
-							WorkspaceServiceDisplay::new)));
+							LCPServiceDisplay::new)));
 			}
 
 			if (!faroProject.isTrial()) {
@@ -875,9 +875,9 @@ public class ProjectController extends BaseFaroController {
 				faroProject.setServices(
 					JSONUtil.writeValueAsString(
 						StreamUtil.toList(
-							workspaceEngineClient.getWorkspaceServices(
+							workspaceEngineClient.getLCPServices(
 								faroProject.getWeDeployKey()),
-							WorkspaceServiceDisplay::new)));
+							LCPServiceDisplay::new)));
 			}
 
 			faroProject.setState(ProjectConstants.STATE_READY);
@@ -1086,14 +1086,13 @@ public class ProjectController extends BaseFaroController {
 	}
 
 	private boolean _isWorkspaceHealthy(FaroProject faroProject) {
-		for (WorkspaceService workspaceService :
-				workspaceEngineClient.getWorkspaceServices(
+		for (LCPService lcpService :
+				workspaceEngineClient.getLCPServices(
 					faroProject.getWeDeployKey())) {
 
-			if (!workspaceService.isReady() ||
+			if (!lcpService.isReady() ||
 				!StringUtil.equals(
-					workspaceService.getHealth(),
-					Workspace.Health.healthy.name())) {
+					lcpService.getHealth(), Workspace.Health.healthy.name())) {
 
 				return false;
 			}

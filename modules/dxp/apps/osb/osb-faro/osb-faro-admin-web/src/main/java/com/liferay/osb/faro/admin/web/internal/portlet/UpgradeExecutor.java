@@ -16,8 +16,8 @@ package com.liferay.osb.faro.admin.web.internal.portlet;
 
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
+import com.liferay.osb.faro.engine.client.model.LCPService;
 import com.liferay.osb.faro.engine.client.model.Workspace;
-import com.liferay.osb.faro.engine.client.model.WorkspaceService;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.osb.faro.util.UpgradeUtil;
@@ -182,7 +182,7 @@ public class UpgradeExecutor {
 
 			if (_checkHealth(
 					faroProject,
-					_workspaceEngineClient.getWorkspaceServices(
+					_workspaceEngineClient.getLCPServices(
 						faroProject.getWeDeployKey()),
 					expectedServiceIds, version)) {
 
@@ -196,39 +196,36 @@ public class UpgradeExecutor {
 	}
 
 	private boolean _checkHealth(
-		FaroProject faroProject, List<WorkspaceService> workspaceServices,
+		FaroProject faroProject, List<LCPService> lcpServices,
 		String[] expectedServiceIds, String version) {
 
 		List<String> serviceIds = new ArrayList<>(
 			Arrays.asList(expectedServiceIds));
 
-		for (WorkspaceService workspaceService : workspaceServices) {
-			if (!serviceIds.contains(workspaceService.getServiceId()) ||
+		for (LCPService lcpService : lcpServices) {
+			if (!serviceIds.contains(lcpService.getServiceId()) ||
 				(StringUtil.contains(
-					workspaceService.getImageHint(),
+					lcpService.getImageHint(),
 					"com-liferay-osb-asah-private") &&
-				 !StringUtil.endsWith(
-					 workspaceService.getImageHint(), version))) {
+				 !StringUtil.endsWith(lcpService.getImageHint(), version))) {
 
 				continue;
 			}
 
-			if (!workspaceService.isReady()) {
+			if (!lcpService.isReady()) {
 				return false;
 			}
 
-			WorkspaceService.LoadBalancer loadBalancer =
-				workspaceService.getLoadBalancer();
+			LCPService.LoadBalancer loadBalancer = lcpService.getLoadBalancer();
 
 			if (Validator.isNotNull(loadBalancer.getTargetPort()) &&
 				!StringUtil.equals(
-					workspaceService.getHealth(),
-					Workspace.Health.healthy.name())) {
+					lcpService.getHealth(), Workspace.Health.healthy.name())) {
 
 				return false;
 			}
 
-			serviceIds.remove(workspaceService.getServiceId());
+			serviceIds.remove(lcpService.getServiceId());
 		}
 
 		if (!serviceIds.isEmpty()) {
@@ -271,16 +268,15 @@ public class UpgradeExecutor {
 
 		_upgradeProgress.put(_getKey(faroProject), "Deleting services");
 
-		for (WorkspaceService workspaceService :
-				_workspaceEngineClient.getWorkspaceServices(
+		for (LCPService lcpService :
+				_workspaceEngineClient.getLCPServices(
 					faroProject.getWeDeployKey())) {
 
 			if (!ArrayUtil.contains(
-					expectedServiceIds, workspaceService.getServiceId())) {
+					expectedServiceIds, lcpService.getServiceId())) {
 
 				_workspaceEngineClient.deleteWorkspaceService(
-					faroProject.getWeDeployKey(),
-					workspaceService.getServiceId());
+					faroProject.getWeDeployKey(), lcpService.getServiceId());
 			}
 		}
 
@@ -291,7 +287,7 @@ public class UpgradeExecutor {
 			_checkInterrupted(faroProject.getWeDeployKey());
 
 			if (_isDeleted(
-					_workspaceEngineClient.getWorkspaceServices(
+					_workspaceEngineClient.getLCPServices(
 						faroProject.getWeDeployKey()),
 					expectedServiceIds)) {
 
@@ -328,11 +324,11 @@ public class UpgradeExecutor {
 	}
 
 	private boolean _isDeleted(
-		List<WorkspaceService> workspaceServices, String[] expectedServiceIds) {
+		List<LCPService> lcpServices, String[] expectedServiceIds) {
 
-		for (WorkspaceService workspaceService : workspaceServices) {
+		for (LCPService lcpService : lcpServices) {
 			if (!ArrayUtil.contains(
-					expectedServiceIds, workspaceService.getServiceId())) {
+					expectedServiceIds, lcpService.getServiceId())) {
 
 				return false;
 			}

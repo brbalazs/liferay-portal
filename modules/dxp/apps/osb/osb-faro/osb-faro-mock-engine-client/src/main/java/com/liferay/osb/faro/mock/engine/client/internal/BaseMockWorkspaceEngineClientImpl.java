@@ -16,8 +16,8 @@ package com.liferay.osb.faro.mock.engine.client.internal;
 
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
 import com.liferay.osb.faro.engine.client.model.LCPProject;
+import com.liferay.osb.faro.engine.client.model.LCPService;
 import com.liferay.osb.faro.engine.client.model.Workspace;
-import com.liferay.osb.faro.engine.client.model.WorkspaceService;
 
 import java.util.List;
 
@@ -50,6 +50,11 @@ public abstract class BaseMockWorkspaceEngineClientImpl
 	}
 
 	@Override
+	public List<LCPService> getLCPServices(String weDeployKey) {
+		return workspaceEngineClient.getLCPServices(weDeployKey);
+	}
+
+	@Override
 	public List<String> getLoadBalancerIPs(String weDeployKey) {
 		return workspaceEngineClient.getLoadBalancerIPs(weDeployKey);
 	}
@@ -57,11 +62,6 @@ public abstract class BaseMockWorkspaceEngineClientImpl
 	@Override
 	public Workspace getWorkspace(String weDeployKey) throws Exception {
 		return workspaceEngineClient.getWorkspace(weDeployKey);
-	}
-
-	@Override
-	public List<WorkspaceService> getWorkspaceServices(String weDeployKey) {
-		return workspaceEngineClient.getWorkspaceServices(weDeployKey);
 	}
 
 	@Override

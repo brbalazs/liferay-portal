@@ -16,7 +16,7 @@ package com.liferay.osb.faro.admin.web.internal.portlet.action;
 
 import com.liferay.osb.faro.admin.web.internal.constants.FaroAdminPortletKeys;
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
-import com.liferay.osb.faro.engine.client.model.WorkspaceService;
+import com.liferay.osb.faro.engine.client.model.LCPService;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
@@ -58,12 +58,12 @@ public class DeactivateProjectMVCActionCommand extends BaseMVCActionCommand {
 
 		_faroProjectLocalService.updateFaroProject(faroProject);
 
-		for (WorkspaceService workspaceService :
-				_workspaceEngineClient.getWorkspaceServices(
+		for (LCPService lcpService :
+				_workspaceEngineClient.getLCPServices(
 					faroProject.getWeDeployKey())) {
 
 			_workspaceEngineClient.deleteWorkspaceService(
-				faroProject.getWeDeployKey(), workspaceService.getServiceId());
+				faroProject.getWeDeployKey(), lcpService.getServiceId());
 		}
 	}
 
