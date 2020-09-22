@@ -233,7 +233,7 @@ if (portletTitleBasedNavigation) {
 				<aui:fieldset collapsed="<%= true %>" collapsible="<%= true %>" label="attachments">
 					<liferay-util:include page="/message_boards/edit_message_attachment.jsp" servletContext="<%= application %>" />
 
-					<c:if test="<%= existingAttachmentsFileEntries.size() > 0 %>">
+					<c:if test="<%= !existingAttachmentsFileEntries.isEmpty() %>">
 						<liferay-ui:search-container
 							emptyResultsMessage="this-message-does-not-have-file-attachments"
 							headerNames="file-name,size,action"
