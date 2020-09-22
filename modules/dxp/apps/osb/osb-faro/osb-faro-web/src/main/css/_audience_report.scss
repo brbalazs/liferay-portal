@@ -10,13 +10,6 @@ $donut: '#{$c}-donut';
 #{$donut} {
 	position: relative;
 
-	&-legend {
-		display: table;
-		font-size: 1rem;
-		margin: 0 auto;
-		padding: 0;
-	}
-
 	&-empty {
 		.total {
 			@include emptyDonut(234px);
@@ -27,38 +20,18 @@ $donut: '#{$c}-donut';
 		}
 	}
 
-	.bb-tooltip-container:after {
-		@include tooltip-arrow-left;
-	}
-
 	.bb-tooltip-container {
 		border-width: 0;
-	}
 
-	.bb-chart-arcs {
-		text {
-			font-size: $font-size-md;
-		}
-
-		.bb-chart-arc text {
-			fill: $main;
-			font-size: $font-size-sm;
-			font-weight: $fontWeightSemiBold;
+		.analytics-tooltip-chart {
+			margin: 0;
+			padding: 12px;
 		}
 	}
 
-	.total {
-		align-items: center;
-		display: flex;
-		justify-content: center;
-		left: 0;
-		margin: auto;
-		position: absolute;
-		right: 0;
-		top: 114px;
+	.legend-item {
+		color: $mainLighten28;
+		font-size: $fontSizeMedium;
+		font-weight: $fontWeightSemiBold;
 	}
-}
-
-.card-root #{$donut} .bb .bb-zoom-rect {
-	opacity: 0 !important;
 }

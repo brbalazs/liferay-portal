@@ -7,30 +7,6 @@ import {toRounded, toThousands} from 'shared/util/numbers';
 const {martellD4, martellL4, mormont, stark} = CHART_COLOR_NAMES;
 
 /**
- * Get Donut Data based on Metrics
- * @param {object} metrics
- * @param {string} id
- */
-const getDonutData = (metrics, id) => {
-	const total = metrics.reduce((total, metric) => total + metric.count, 0);
-
-	return {
-		data: metrics
-			.filter(({count}) => count > 0)
-			.map(({color, count, label}, index) => ({
-				color,
-				data: [count],
-				id: index + label
-			})),
-		empty: {
-			show: total === 0
-		},
-		id,
-		total
-	};
-};
-
-/**
  * Get formatted Segments Data
  * @param {object} param
  * @param {string} color
@@ -185,17 +161,16 @@ const getAudienceReportMapper = (getMetric, pathUrl) => {
 
 		const knownIndividualsData = [
 			{
+				color: martellL4,
+				count: segmentedKnownUsersCount,
+				label: Liferay.Language.get('segmented')
+			},
+			{
 				color: martellD4,
 				count: nonsegmentedKnownUsersCount,
 				label: Liferay.Language.get('unsegmented')
-			},
-			{
-				color: martellL4,
-				count: segmentedKnownUsersCount,
-				id: 'segmented',
-				label: Liferay.Language.get('segmented')
 			}
-		].sort((a, b) => (a.count > b.count ? -1 : 1));
+		];
 
 		const uniqueVisitorsData = [
 			{
@@ -208,7 +183,7 @@ const getAudienceReportMapper = (getMetric, pathUrl) => {
 				count: knownUsersCount,
 				label: Liferay.Language.get('known-individuals')
 			}
-		].sort((a, b) => (a.count > b.count ? -1 : 1));
+		];
 
 		const segments = getSegmentsData(
 			{
@@ -224,39 +199,42 @@ const getAudienceReportMapper = (getMetric, pathUrl) => {
 			martellL4
 		);
 
-		let knownIndividuals = getDonutData(
-			knownIndividualsData,
-			'known-individuals'
-		);
-		let uniqueVisitors = getDonutData(
-			uniqueVisitorsData,
-			'unique-visitors'
+		const knownIndividualsTotal = knownIndividualsData.reduce(
+			(total, {count}) => total + count,
+			0
 		);
 
-		knownIndividuals = {
-			...knownIndividuals,
+		const knownIndividuals = {
+			data: knownIndividualsData,
 			empty: {
-				...knownIndividuals.empty,
 				message: sub(
 					Liferay.Language.get(
 						'x-segmented-visitors-interacted-with-this-content'
 					),
 					[0]
-				)
-			}
+				),
+				show: knownIndividualsTotal === 0
+			},
+			total: knownIndividualsTotal
 		};
 
-		uniqueVisitors = {
-			...uniqueVisitors,
+		const uniqueVisitorsTotal = uniqueVisitorsData.reduce(
+			(total, {count}) => total + count,
+			0
+		);
+
+		const uniqueVisitors = {
+			data: uniqueVisitorsData,
 			empty: {
-				...uniqueVisitors.empty,
 				message: sub(
 					Liferay.Language.get(
 						'x-visitors-interacted-with-this-content'
 					),
 					[0]
-				)
-			}
+				),
+				show: uniqueVisitorsTotal === 0
+			},
+			total: uniqueVisitorsTotal
 		};
 
 		return {

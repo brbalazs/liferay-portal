@@ -223,9 +223,11 @@ describe('Shared HOCs Mappers - knownIndividuals', () => {
 		const props = mapper.props({data}).knownIndividuals;
 
 		expect(props.data[0].color).toEqual(martellL4);
-		expect(props.data[0].id).toEqual('0Segmented');
+		expect(props.data[0].label).toEqual(Liferay.Language.get('segmented'));
 		expect(props.data[1].color).toEqual(martellD4);
-		expect(props.data[1].id).toEqual('1Unsegmented');
+		expect(props.data[1].label).toEqual(
+			Liferay.Language.get('unsegmented')
+		);
 		expect(props.data).toMatchSnapshot();
 	});
 });
@@ -239,16 +241,20 @@ describe('Shared HOCs Mappers - uniqueVisitors', () => {
 		expect(mapper.props({data}).uniqueVisitors).toMatchSnapshot();
 	});
 
-	it('should return ', () => {
+	it('should return stark & mormont for anonymousIndividuals & knownIndiviudals respectively', () => {
 		const mapper = getAudienceReportMapper(
 			result => result.form.submissionsMetric
 		);
 		const props = mapper.props({data}).uniqueVisitors;
 
-		expect(props.data[0].color).toEqual(mormont);
-		expect(props.data[0].id).toEqual('0Known Individuals');
-		expect(props.data[1].color).toEqual(stark);
-		expect(props.data[1].id).toEqual('1Anonymous Individuals');
+		expect(props.data[0].color).toEqual(stark);
+		expect(props.data[0].label).toEqual(
+			Liferay.Language.get('anonymous-individuals')
+		);
+		expect(props.data[1].color).toEqual(mormont);
+		expect(props.data[1].label).toEqual(
+			Liferay.Language.get('known-individuals')
+		);
 		expect(props.data).toMatchSnapshot();
 	});
 });

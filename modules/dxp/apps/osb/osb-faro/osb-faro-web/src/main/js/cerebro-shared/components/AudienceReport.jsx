@@ -1,28 +1,35 @@
 import autobind from 'autobind-decorator';
 import BarChartHTML from 'cerebro-shared/components/BarChartHTML';
-import Chart, {DONUT_CHART} from 'shared/components/Chart';
+import PropTypes from 'prop-types';
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {PropTypes} from 'prop-types';
-import {removeNumbers, removeSpacing} from 'shared/util/util';
+import {AXIS} from 'shared/util/recharts';
+import {
+	Cell,
+	Label,
+	Legend,
+	Pie,
+	PieChart,
+	ResponsiveContainer,
+	Sector,
+	Text,
+	Tooltip
+} from 'recharts';
+import {get} from 'lodash';
 import {toFixedPoint, toRounded} from 'shared/util/numbers';
 
 const CLASSNAME = 'audience-report-chart';
 const CLASSNAME_DONUT = `${CLASSNAME}-donut`;
 const CLASSNAME_BAR_CHART = `${CLASSNAME}-bar`;
 
-/**
- * Custom Donut Chart for AudienceReport component
- */
 class Donut extends React.Component {
 	static defaultProps = {
 		data: [],
 		empty: {
 			show: false
 		},
-		total: 0,
-		url: ''
+		height: 360,
+		total: 0
 	};
 
 	static propTypes = {
@@ -31,114 +38,63 @@ class Donut extends React.Component {
 			message: PropTypes.string,
 			show: PropTypes.bool
 		}),
-		id: PropTypes.string,
-		total: PropTypes.number,
-		url: PropTypes.string
+		total: PropTypes.number
 	};
 
-	constructor(props) {
-		super(props);
+	state = {
+		hoverIndex: -1
+	};
 
-		this._legendElementRef = React.createRef();
-	}
-
-	/**
-	 * Disable Legend Element
-	 */
-	disableLegendElement() {
-		this._legendElementRef.current.classList.remove('enable-interaction');
-	}
-
-	/**
-	 * Enable Legend Element
-	 */
-	enableLegendElement() {
-		this._legendElementRef.current.classList.add('enable-interaction');
-	}
-
-	/**
-	 * Handle Legend Move Over
-	 */
 	@autobind
-	handleLegendMouseOver() {
-		this.enableLegendElement();
-	}
-
-	/**
-	 * Handle Legend Mouse Out
-	 */
-	@autobind
-	handleLegendMouseOut() {
-		this.disableLegendElement();
-	}
-
-	/**
-	 * Handle Point Mouse Out
-	 */
-	@autobind
-	handlePointMouseOut() {
-		this.disableLegendElement();
-	}
-
-	/**
-	 * Render Legend Item
-	 * @param {string} title
-	 * @param {string} color
-	 */
-	renderLegendItem(title, color) {
-		const LegendTemplateColumn = () => (
-			<div className='legend-template-column'>
-				<span className='circle' style={{backgroundColor: color}} />
-				<span className='text-truncate'>{removeNumbers(title)}</span>
-			</div>
-		);
-
-		return ReactDOMServer.renderToString(
-			<li data-title={removeSpacing(title)}>
-				<LegendTemplateColumn />
-			</li>
+	renderActiveShape({
+		cx,
+		cy,
+		endAngle,
+		fill,
+		innerRadius,
+		outerRadius,
+		startAngle
+	}) {
+		return (
+			<g>
+				<Sector
+					cx={cx}
+					cy={cy}
+					endAngle={endAngle}
+					fill={fill}
+					innerRadius={innerRadius}
+					outerRadius={outerRadius + 4}
+					startAngle={startAngle}
+				/>
+			</g>
 		);
 	}
 
 	@autobind
-	alignTooltip(values, width, height) {
-		const arrowPopoverSize = 6;
-		const tooltipDistance = 12;
+	renderBarLabel({cx, cy, innerRadius, midAngle, outerRadius, percent}) {
+		const RADIAN = Math.PI / 180;
 
-		const {layerX, layerY} = window.event;
+		const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+		const x = cx + radius * Math.cos(-midAngle * RADIAN);
+		const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-		return {
-			left: layerX + (arrowPopoverSize + tooltipDistance),
-			top: layerY - height / 2
-		};
-	}
-
-	@autobind
-	renderTooltip(data) {
-		const {id, value} = data[0];
-
-		return ReactDOMServer.renderToString(
-			<TooltipChart
-				rows={[
-					{
-						columns: [
-							{
-								className: 'pt-0',
-								label: () => (
-									<span style={{whiteSpace: 'nowrap'}}>
-										<strong>
-											{`${toFixedPoint(value)}`}
-										</strong>
-
-										{` ${removeNumbers(id)}`}
-									</span>
-								)
-							}
-						]
-					}
-				]}
-			/>
-		);
+		if (percent) {
+			return (
+				<Text
+					style={{
+						fill: 'black',
+						font: AXIS.font,
+						fontSize: '1rem',
+						fontWeight: 600
+					}}
+					textAnchor='middle'
+					x={x}
+					y={y}
+				>
+					{`${toRounded(percent * 100, 2)}%`}
+				</Text>
+			);
+		}
 	}
 
 	renderEmptyState() {
@@ -155,13 +111,53 @@ class Donut extends React.Component {
 		);
 	}
 
+	@autobind
+	renderTooltip({active, payload}) {
+		if (active && !!payload.length) {
+			const {count, label} = get(payload, [0, 'payload'], {});
+
+			return (
+				<div
+					className='bb-tooltip-container'
+					style={{position: 'static'}}
+				>
+					<TooltipChart
+						rows={[
+							{
+								columns: [
+									{
+										className: 'pt-0',
+										label: () => (
+											<span
+												style={{whiteSpace: 'nowrap'}}
+											>
+												<strong>
+													{`${toFixedPoint(count)}`}
+												</strong>
+
+												{` ${label}`}
+											</span>
+										)
+									}
+								]
+							}
+						]}
+					/>
+				</div>
+			);
+		}
+	}
+
 	render() {
 		const {
-			data,
-			empty: {show: isEmpty},
-			id,
-			total
-		} = this.props;
+			props: {
+				data,
+				empty: {show: isEmpty},
+				height,
+				total
+			},
+			state: {hoverIndex}
+		} = this;
 
 		if (isEmpty) {
 			return this.renderEmptyState();
@@ -169,50 +165,63 @@ class Donut extends React.Component {
 
 		return (
 			<div className={CLASSNAME_DONUT}>
-				<div className='total'>{toFixedPoint(total)}</div>
+				<ResponsiveContainer height={height}>
+					<PieChart>
+						<Tooltip content={this.renderTooltip} />
 
-				<Chart
-					chartType={DONUT_CHART}
-					data={data}
-					dataId={id}
-					donut={{
-						label: {
-							format: (total, value) =>
-								`${toRounded(value * 100, 2)}%`,
-							ratio: 1,
-							threshold: 0
-						},
-						padAngle: 0.03,
-						width: 55
-					}}
-					height={280}
-					id={id}
-					legend={{
-						contents: {
-							bindto: `#${id}`,
-							template: (title, color) =>
-								this.renderLegendItem(title, color)
-						},
-						item: {
-							onclick: () => false
-						},
-						show: true
-					}}
-					tooltip={{
-						contents: this.renderTooltip,
-						position: this.alignTooltip
-					}}
-				/>
+						{/* eslint-disable jsx-a11y/mouse-events-have-key-events
+						 */}
+						<Legend
+							formatter={(value, {payload: {label}}) => (
+								<span className='legend-item'>{label}</span>
+							)}
+							layout='vertical'
+							onMouseMove={(e, index) =>
+								this.setState({hoverIndex: index})
+							}
+							onMouseOut={() => this.setState({hoverIndex: -1})}
+							verticalAlign='bottom'
+						/>
 
-				<ul
-					className={`${CLASSNAME_DONUT}-legend legend-template`}
-					id={id}
-					onBlur={this.handleLegendMouseOut}
-					onFocus={this.handleLegendMouseOver}
-					onMouseOut={this.handleLegendMouseOut}
-					onMouseOver={this.handleLegendMouseOver}
-					ref={this._legendElementRef}
-				/>
+						<Pie
+							activeIndex={hoverIndex}
+							activeShape={this.renderActiveShape}
+							cy={142}
+							data={data}
+							dataKey='count'
+							endAngle={-270}
+							innerRadius={60}
+							isAnimationActive={false}
+							label={this.renderBarLabel}
+							labelLine={false}
+							legendType='circle'
+							onMouseMove={(e, index) =>
+								this.setState({hoverIndex: index})
+							}
+							onMouseOut={() => this.setState({hoverIndex: -1})}
+							outerRadius={120}
+							startAngle={90}
+						>
+							<Label
+								position='center'
+								value={toFixedPoint(total)}
+							/>
+
+							{data.map(({color}, index) => (
+								<Cell
+									fill={color}
+									fillOpacity={
+										hoverIndex >= 0 && hoverIndex !== index
+											? 0.2
+											: 1
+									}
+									key={`cell-${index}`}
+								/>
+							))}
+						</Pie>
+						{/* eslint-enable jsx-a11y/mouse-events-have-key-events */}
+					</PieChart>
+				</ResponsiveContainer>
 			</div>
 		);
 	}
