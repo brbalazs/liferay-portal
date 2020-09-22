@@ -655,24 +655,19 @@ Object {
   "data": Array [
     Object {
       "color": "#A1E7CC",
-      "data": Array [
-        3500,
-      ],
-      "id": "0Segmented",
+      "count": 3500,
+      "label": "Segmented",
     },
     Object {
       "color": "#26966B",
-      "data": Array [
-        100,
-      ],
-      "id": "1Unsegmented",
+      "count": 100,
+      "label": "Unsegmented",
     },
   ],
   "empty": Object {
     "message": "0 segmented visitors interacted with this content.",
     "show": false,
   },
-  "id": "known-individuals",
   "total": 3600,
 }
 `;
@@ -681,17 +676,13 @@ exports[`Shared HOCs Mappers - knownIndividuals should return martellL4 & martel
 Array [
   Object {
     "color": "#A1E7CC",
-    "data": Array [
-      3500,
-    ],
-    "id": "0Segmented",
+    "count": 3500,
+    "label": "Segmented",
   },
   Object {
     "color": "#26966B",
-    "data": Array [
-      100,
-    ],
-    "id": "1Unsegmented",
+    "count": 100,
+    "label": "Unsegmented",
   },
 ]
 `;
@@ -700,44 +691,35 @@ exports[`Shared HOCs Mappers - uniqueVisitors should map uniqueVisitors informat
 Object {
   "data": Array [
     Object {
-      "color": "#FFB46E",
-      "data": Array [
-        3450,
-      ],
-      "id": "0Known Individuals",
+      "color": "#4B9BFF",
+      "count": 2000,
+      "label": "Anonymous Individuals",
     },
     Object {
-      "color": "#4B9BFF",
-      "data": Array [
-        2000,
-      ],
-      "id": "1Anonymous Individuals",
+      "color": "#FFB46E",
+      "count": 3450,
+      "label": "Known Individuals",
     },
   ],
   "empty": Object {
     "message": "0 visitors interacted with this content.",
     "show": false,
   },
-  "id": "unique-visitors",
   "total": 5450,
 }
 `;
 
-exports[`Shared HOCs Mappers - uniqueVisitors should return  1`] = `
+exports[`Shared HOCs Mappers - uniqueVisitors should return stark & mormont for anonymousIndividuals & knownIndiviudals respectively 1`] = `
 Array [
   Object {
-    "color": "#FFB46E",
-    "data": Array [
-      3450,
-    ],
-    "id": "0Known Individuals",
+    "color": "#4B9BFF",
+    "count": 2000,
+    "label": "Anonymous Individuals",
   },
   Object {
-    "color": "#4B9BFF",
-    "data": Array [
-      2000,
-    ],
-    "id": "1Anonymous Individuals",
+    "color": "#FFB46E",
+    "count": 3450,
+    "label": "Known Individuals",
   },
 ]
 `;
