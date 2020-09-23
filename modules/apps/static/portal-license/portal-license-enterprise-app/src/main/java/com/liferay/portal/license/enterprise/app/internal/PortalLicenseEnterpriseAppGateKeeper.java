@@ -142,9 +142,9 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 						entry = iterator.next();
 
 				if (_verifyLicense(entry.getKey(), true)) {
-					_installBundles(entry.getKey(), entry.getValue());
-
 					iterator.remove();
+
+					_installBundles(entry.getKey(), entry.getValue());
 				}
 			}
 		}
