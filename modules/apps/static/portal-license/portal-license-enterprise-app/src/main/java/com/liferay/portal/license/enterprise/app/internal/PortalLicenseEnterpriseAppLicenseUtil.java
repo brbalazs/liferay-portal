@@ -14,6 +14,7 @@
 
 package com.liferay.portal.license.enterprise.app.internal;
 
+import com.liferay.portal.kernel.license.messaging.LCSPortletState;
 import com.liferay.portal.kernel.license.util.LicenseManager;
 import com.liferay.portal.kernel.util.ReleaseInfo;
 
@@ -56,7 +57,11 @@ public class PortalLicenseEnterpriseAppLicenseUtil {
 				_PRODUCT_ID_PORTAL);
 		}
 
-		if (portalLicenseState != LicenseManager.STATE_GOOD) {
+		if ((portalLicenseState != LicenseManager.STATE_GOOD) &&
+			!Objects.equals(
+				PortalLicenseEnterpriseAppGateKeeper.lcsPortletState,
+				LCSPortletState.GOOD)) {
+
 			throw new Exception("Unable to find a valid Liferay DXP license");
 		}
 
@@ -64,6 +69,10 @@ public class PortalLicenseEnterpriseAppLicenseUtil {
 			licenseManager.getLicenseProperties("Portal");
 
 		String portalLicenseType = portalLicenseProperties.get("type");
+
+		if (portalLicenseType == null) {
+			portalLicenseType = "production";
+		}
 
 		Map<String, String> appLicenseProperties =
 			licenseManager.getLicenseProperties(productId);

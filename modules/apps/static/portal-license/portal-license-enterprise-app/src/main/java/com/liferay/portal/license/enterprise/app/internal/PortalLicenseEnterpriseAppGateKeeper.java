@@ -19,6 +19,7 @@ import com.liferay.osgi.util.ServiceTrackerFactory;
 import com.liferay.osgi.util.bundle.BundleStartLevelUtil;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.license.messaging.LCSPortletState;
 import com.liferay.portal.kernel.license.util.LicenseManager;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -153,6 +154,8 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 	protected void unsetLicenseManager(LicenseManager licenseManager) {
 		_licenseManagerAtomicReference.compareAndSet(licenseManager, null);
 	}
+
+	protected static LCSPortletState lcsPortletState;
 
 	private static String _getLPKGPath(String location) {
 		int startIndex = location.indexOf("lpkgPath");
@@ -617,6 +620,14 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			}
 
 			synchronized (PortalLicenseEnterpriseAppGateKeeper.this) {
+				LCSPortletState lcsPortletState = (LCSPortletState)message.get(
+					"LCSPortletState");
+
+				if (lcsPortletState != null) {
+					PortalLicenseEnterpriseAppGateKeeper.lcsPortletState =
+						lcsPortletState;
+				}
+
 				_receive(productId);
 			}
 		}
