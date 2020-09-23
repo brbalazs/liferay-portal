@@ -107,10 +107,12 @@ export const getYAxisLabel = (
 
 	const verticalEnd = verticalSign > 0 ? 'end' : 'start';
 
+	const textAnchor = position === 'right' ? 'end' : 'start';
+
 	return (
 		<Text
 			fill={AXIS.textColor}
-			textAnchor={position === 'right' ? 'end' : 'start'}
+			textAnchor={textAnchor}
 			verticalAnchor={verticalEnd}
 			x={position === 'right' ? x + yAxisWidth : x + width - yAxisWidth}
 			y={y - verticalSign * AXIS_LABEL_OFFSET}
