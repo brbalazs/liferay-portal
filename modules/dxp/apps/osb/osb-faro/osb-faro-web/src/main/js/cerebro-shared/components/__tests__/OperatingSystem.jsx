@@ -7,91 +7,18 @@ jest.unmock('react-dom');
 const devices = [
 	{
 		data: [
-			{
-				percentage: 10,
-				type: 'android',
-				views: 99
-			},
-			{
-				percentage: 40,
-				type: 'android',
-				views: 2100
-			},
-			{
-				percentage: 10,
-				type: 'android',
-				views: 292
-			}
+			{percentage: 89.80645161290323, type: 'Windows', views: 696},
+			{percentage: 0.12903225806451613, type: 'Linux', views: 1}
 		],
-		percentageOfTotal: 70,
-		totalViews: 2880,
-		type: 'Smartphone'
-	},
-	{
-		data: [
-			{
-				percentage: 10,
-				type: 'android',
-				views: 2
-			},
-			{
-				percentage: 40,
-				type: 'android',
-				views: 10
-			},
-			{
-				percentage: 10,
-				type: 'android',
-				views: 30
-			}
-		],
-		percentageOfTotal: 15,
-		totalViews: 400,
-		type: 'Tablet'
-	},
-	{
-		data: [
-			{
-				percentage: 10,
-				type: 'android',
-				views: 99
-			},
-			{
-				percentage: 40,
-				type: 'android',
-				views: 100
-			},
-			{
-				percentage: 10,
-				type: 'android',
-				views: 502
-			}
-		],
-		percentageOfTotal: 15,
-		totalViews: 1030,
+		percentageOfTotal: 89.93548387096774,
+		totalViews: 697,
 		type: 'Desktop'
 	},
 	{
-		data: [
-			{
-				percentage: 10,
-				type: 'android',
-				views: 99
-			},
-			{
-				percentage: 40,
-				type: 'android',
-				views: 100
-			},
-			{
-				percentage: 10,
-				type: 'android',
-				views: 502
-			}
-		],
-		percentageOfTotal: 15,
-		totalViews: 1030,
-		type: 'Others'
+		data: [{percentage: 10.967741935483872, type: 'iOS', views: 85}],
+		percentageOfTotal: 10.967741935483872,
+		totalViews: 85,
+		type: 'Tablet'
 	}
 ];
 

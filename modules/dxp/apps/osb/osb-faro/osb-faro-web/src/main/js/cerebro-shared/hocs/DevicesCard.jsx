@@ -14,7 +14,7 @@ const WEB_BROWSER = Liferay.Language.get('browsers');
 
 const defaultProps = {
 	browsers: [],
-	devices: {},
+	devices: [],
 	items: [],
 	metricLabel: Liferay.Language.get('views')
 };
@@ -22,13 +22,15 @@ const defaultProps = {
 const propTypes = {
 	activeTab: PropTypes.string,
 	browsers: PropTypes.array,
-	devices: PropTypes.shape({
-		categories: PropTypes.array,
-		data: PropTypes.array,
-		devices: PropTypes.array,
-		groups: PropTypes.array,
-		others: PropTypes.object
-	}),
+	devices: PropTypes.arrayOf(
+		PropTypes.shape({
+			data: PropTypes.array,
+			id: PropTypes.string,
+			label: PropTypes.string,
+			percentageOfTotal: PropTypes.number,
+			type: PropTypes.string
+		})
+	),
 	items: PropTypes.array,
 	metricLabel: PropTypes.string,
 	onChange: PropTypes.func,
@@ -68,7 +70,7 @@ const Tabs = ({
 
 			{activeTab === OPERATING_SYSTEM ? (
 				<OperatingSystem
-					{...devices}
+					devices={devices}
 					empty={empty}
 					metricLabel={metricLabel}
 				/>

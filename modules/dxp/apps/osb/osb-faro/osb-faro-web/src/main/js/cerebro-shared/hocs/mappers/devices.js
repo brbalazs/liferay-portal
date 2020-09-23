@@ -4,79 +4,43 @@ import {getPercentage} from 'shared/util/util';
 import {getVariables, safeResultToProps} from 'shared/util/mappers';
 import {groupData} from 'shared/util/util';
 
-const formatOthersDevices = groupedData => {
-	const others = Object.assign(groupedData[groupedData.length - 1], {});
+const MAX_SYSTEMS = 3;
 
-	if (others.group.length - 1) {
-		others.data = others.group.reduce((actual, next) => {
-			if (actual.totalViews) {
-				return actual.totalViews + next.totalViews;
-			} else {
-				return actual + next.totalViews;
-			}
-		});
-	} else {
-		others.data = others.group[0].totalViews;
+const groupDeviceData = (data, max) => {
+	if (data.length <= max) {
+		return data;
 	}
 
-	return others;
-};
+	const otherData = data.slice(max).reduce(
+		(actual, next) => ({
+			...actual,
+			data: [
+				{
+					type: Liferay.Language.get('other'),
+					views:
+						actual.data[0].views +
+						next.data.reduce((acc, next) => acc + next.views, 0)
+				}
+			],
+			percentageOfTotal: actual.percentageOfTotal + next.percentageOfTotal
+		}),
+		{
+			data: [{views: 0}],
+			percentageOfTotal: 0,
+			type: Liferay.Language.get('other')
+		}
+	);
 
-const formatDevices = devices => {
-	const MAX_SYSTEMS = 3;
-	const data = [];
-	const groups = [];
-	const groupedData = groupData(devices, MAX_SYSTEMS);
-	let others;
-
-	if (groupedData.length > MAX_SYSTEMS) {
-		others = formatOthersDevices(groupedData);
-
-		groupedData.splice(-1, 1);
-	}
-
-	groupedData.sort((a, b) => b.totalViews - a.totalViews);
-
-	const categories = groupedData.map((information, index) => {
-		const categoryName =
-			getDeviceLabel(information.type) || information.type;
-
-		information.data.forEach((currentData, dataIndex) => {
-			const groupItem = `data${dataIndex + 1}`;
-
-			if (!data[dataIndex]) {
-				data[dataIndex] = [groupItem];
-				groups.push(groupItem);
-			}
-
-			for (
-				let i = data[dataIndex].length;
-				data[dataIndex].length - 1 < index;
-				i++
-			) {
-				data[dataIndex].push(0);
-			}
-
-			data[dataIndex].push(groupedData[index].data[dataIndex].views);
-
-			currentData.id = groupItem;
-		});
-
-		return categoryName;
-	});
-
-	if (others) {
-		data[0].push(others.data);
-		categories.push(Liferay.Language.get('other'));
-	}
-
-	return {
-		categories,
-		data,
-		devices: groupedData,
-		groups,
-		others
-	};
+	return [
+		...data.slice(0, max).map(group => ({
+			...group,
+			label: getDeviceLabel(group.type)
+		})),
+		{
+			...otherData,
+			label: Liferay.Language.get('others')
+		}
+	];
 };
 
 /**
@@ -139,7 +103,7 @@ const getDevicesMapper = getMetric => {
 
 		return {
 			browsers: formatBrowsers(metric.browser),
-			devices: formatDevices(devices),
+			devices: groupDeviceData(devices, MAX_SYSTEMS),
 			empty: false,
 			total: metric.value
 		};

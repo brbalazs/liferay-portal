@@ -1,17 +1,25 @@
 import autobind from 'autobind-decorator';
-import ClayChart from 'clay-charts-react';
+import PropTypes from 'prop-types';
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
-import {Colors, getAxisMeasuresFromData} from 'shared/util/charts';
-import {getDeviceLabel, sub} from 'shared/util/lang';
-import {hasChanges} from 'shared/util/react';
-import {isUndefined} from 'lodash';
-import {PropTypes} from 'prop-types';
+import {AXIS, getAxisTickText} from 'shared/util/recharts';
+import {
+	Bar,
+	CartesianGrid,
+	ComposedChart,
+	Label,
+	ResponsiveContainer,
+	Tooltip,
+	XAxis,
+	YAxis
+} from 'recharts';
+import {Colors} from 'shared/util/charts';
+import {range} from 'lodash';
+import {sub} from 'shared/util/lang';
 import {toRounded, toThousands} from 'shared/util/numbers';
 
 const CLASSNAME = 'analytics-operating-system-chart';
-const MAX_SYSTEMS = 3;
+const EMPTY_DATA = [{data: [{views: 0}], label: ''}];
 const MIN_VALUE = '< 0.1%';
 
 /**
@@ -21,130 +29,17 @@ const MIN_VALUE = '< 0.1%';
 class OperatingSystem extends React.Component {
 	static defaultProps = {
 		devices: [],
+		height: 370,
 		metricLabel: Liferay.Language.get('views')
 	};
 
 	static propTypes = {
-		/**
-		 * @type {?array}
-		 * @default undefined
-		 */
 		devices: PropTypes.array,
-
-		/**
-		 * @type {?boolean}
-		 * @default undefined
-		 */
 		empty: PropTypes.bool,
-
-		/**
-		 * @type {string}
-		 * @default views
-		 */
+		height: PropTypes.number,
 		metricLabel: PropTypes.string
 	};
 
-	constructor(props) {
-		super(props);
-
-		this._chartRef = React.createRef();
-	}
-
-	componentDidUpdate(prevProps) {
-		if (hasChanges(prevProps, this.props, 'devices')) {
-			let groups = ['data1'];
-			let values = [0];
-			let y = 1;
-
-			if (!this.isEmpty()) {
-				const {intervals, maxValue} = getAxisMeasuresFromData(
-					this.props.devices.map(({totalViews, type}) => [
-						type,
-						totalViews
-					])
-				);
-
-				groups = this.props.groups;
-				values = intervals;
-				y = maxValue;
-			}
-
-			const {chart} = this._chartRef.current;
-
-			chart.axis.max({y});
-
-			chart.groups([groups]);
-
-			chart.config('axis.y.tick.values', values, true);
-		}
-	}
-
-	/**
-	 * Align Tooltip
-	 */
-	@autobind
-	alignTooltip(values, width, height) {
-		const arrowPopoverSize = 6;
-		const tooltipDistance = 8;
-
-		const {layerX, layerY} = window.event;
-
-		return {
-			left: layerX - width / 2,
-			top: layerY - (height + arrowPopoverSize + tooltipDistance)
-		};
-	}
-
-	getAxisX() {
-		const {categories} = this.props;
-
-		const retVal = {categories: [' '], type: 'category'};
-
-		if (!this.isEmpty()) {
-			retVal.categories = categories;
-		}
-
-		return retVal;
-	}
-
-	getAxisY() {
-		const {devices} = this.props;
-
-		let retVal = {
-			max: 1,
-			min: 0,
-			padding: {
-				bottom: 0,
-				top: 0
-			},
-			tick: {
-				count: 1
-			}
-		};
-
-		if (!this.isEmpty()) {
-			const {intervals, maxValue} = getAxisMeasuresFromData(
-				devices.map(({totalViews, type}) => [type, totalViews])
-			);
-
-			retVal = {
-				...retVal,
-				max: maxValue,
-				tick: {
-					count: 5,
-					format: toThousands,
-					values: intervals
-				}
-			};
-		}
-
-		return retVal;
-	}
-
-	/**
-	 * Get Item Percentage
-	 * @param {number} percentage
-	 */
 	getItemPercentage(percentage) {
 		if (percentage < 0.1) {
 			return `${MIN_VALUE}`;
@@ -153,215 +48,175 @@ class OperatingSystem extends React.Component {
 		return `${toRounded(percentage)}%`;
 	}
 
-	isEmpty() {
-		const {categories, empty} = this.props;
+	@autobind
+	renderTooltip({active, payload}) {
+		const {empty, metricLabel} = this.props;
 
-		return empty && isUndefined(categories);
-	}
+		if (active) {
+			let header = null;
 
-	/**
-	 * Format Tooltip Data
-	 * @param {array} content
-	 * @param {string} color
-	 */
-	formatTooltipData(content, color) {
-		const {empty} = this.props;
-		const {devices, metricLabel} = this.props;
-
-		if (empty) {
-			return ReactDOMServer.renderToString(
-				<TooltipChart
-					rows={[
+			let rows = [
+				{
+					columns: [
 						{
-							columns: [
-								{
-									className: 'pt-0',
-									label: sub(
-										Liferay.Language.get(
-											'empty-message-metric'
-										),
-										[metricLabel.toLowerCase()]
-									)
-								}
-							]
+							className: 'pt-0',
+							label: sub(
+								Liferay.Language.get('empty-message-metric'),
+								[metricLabel.toLowerCase()]
+							)
 						}
-					]}
-				/>
+					]
+				}
+			];
+
+			if (!empty) {
+				const {
+					payload: {label, percentageOfTotal, totalViews}
+				} = payload[0];
+
+				header = [
+					{
+						label
+					},
+					{
+						align: 'right',
+						label: `${toThousands(totalViews)} ${metricLabel}`
+					},
+					{
+						align: 'right',
+						label: `${toRounded(toRounded(percentageOfTotal))}%`
+					}
+				];
+
+				rows = payload.map(({color, payload: {data}}, i) => {
+					const {percentage, type, views} = data[i];
+
+					return {
+						columns: [
+							{
+								color,
+								label: type,
+								width: 100
+							},
+							{
+								align: 'right',
+								label: toThousands(views),
+								width: 80
+							},
+							type !== 'Other' && {
+								align: 'right',
+								label: this.getItemPercentage(percentage),
+								weight: 'semibold',
+								width: 50
+							}
+						].filter(Boolean)
+					};
+				});
+			}
+
+			return (
+				<div
+					className='bb-tooltip-container'
+					style={{position: 'static'}}
+				>
+					<TooltipChart header={header} rows={rows} />
+				</div>
 			);
 		}
-
-		const currentDevice = devices[content[0].x];
-		const items = content
-			.map(item => {
-				if (!item) {
-					return;
-				}
-
-				const data = currentDevice.data.filter(
-					deviceData => deviceData.id == item.id
-				)[0];
-
-				if (data) {
-					data.color = color(item.id);
-				}
-
-				return data;
-			})
-			.filter(item => item);
-
-		items.sort((a, b) => b.views - a.views);
-
-		const header = [
-			{
-				label: getDeviceLabel(currentDevice.type) || currentDevice.type
-			},
-			{
-				align: 'right',
-				label: `${toThousands(currentDevice.totalViews)} ${metricLabel}`
-			},
-			{
-				align: 'right',
-				label: `${toRounded(
-					toRounded(currentDevice.percentageOfTotal)
-				)}%`
-			}
-		];
-
-		const rows = items.map(item => {
-			const {color, percentage, type, views} = item;
-
-			return {
-				columns: [
-					{
-						color,
-						label: type,
-						width: 100
-					},
-					{
-						align: 'right',
-						label: toThousands(views),
-						width: 80
-					},
-					{
-						align: 'right',
-						label: this.getItemPercentage(percentage),
-						weight: 'semibold',
-						width: 50
-					}
-				]
-			};
-		});
-
-		return ReactDOMServer.renderToString(
-			<TooltipChart header={header} rows={rows} />
-		);
 	}
 
-	/**
-	 * Format Grouped Tooltip Data
-	 */
-	formatGroupedTooltipData() {
-		const {others} = this.props;
-		const {metricLabel} = this.props;
-
-		const header = [
-			{
-				label: Liferay.Language.get('others')
-			},
-			{
-				label: ''
-			}
-		];
-
-		const rows = [
-			{
-				columns: [
-					{
-						label: `${toThousands(others.data)} ${metricLabel}`,
-						width: 120
-					},
-					{
-						align: 'right',
-						label: this.getItemPercentage(others.data),
-						weight: 'semibold',
-						width: 50
-					}
-				]
-			}
-		];
-
-		return ReactDOMServer.renderToString(
-			<TooltipChart header={header} rows={rows} />
-		);
-	}
-
-	/**
-	 * Render Tooltip
-	 * @param {array} content
-	 * @param {string} defaultTitleFormat
-	 * @param {string} defaultValueFormat
-	 * @param {string} color
-	 */
-	@autobind
-	renderTooltip(content, defaultTitleFormat, defaultValueFormat, color) {
-		if (content[0].x < MAX_SYSTEMS) {
-			return this.formatTooltipData(content, color);
-		}
-
-		return this.formatGroupedTooltipData();
-	}
-
-	/**
-	 * Lifecycle Render - ReactJS
-	 */
 	render() {
-		const {data, groups} = this.props;
+		const {devices, empty, height, metricLabel} = this.props;
+
+		const barCount = devices.reduce((acc, {data}) => {
+			const count = data.length;
+
+			return count > acc ? count : acc;
+		}, 0);
 
 		return (
-			<ClayChart
-				axis={{
-					x: this.getAxisX(),
-					y: this.getAxisY()
-				}}
-				className={CLASSNAME}
-				data={{
-					colors: {
-						data1: Colors.pallete[0],
-						data2: Colors.pallete[1],
-						data3: Colors.pallete[2],
-						data4: Colors.pallete[3],
-						data5: Colors.pallete[4],
-						data6: Colors.pallete[5],
-						data7: Colors.pallete[6],
-						data8: Colors.pallete[7],
-						data9: Colors.pallete[8]
-					},
-					columns: this.isEmpty() ? [['data1', 0]] : data,
-					groups: this.isEmpty() ? [['data1']] : [groups],
-					order: 'asc',
-					type: 'bar'
-				}}
-				grid={{
-					x: {
-						lines: [{value: 4}]
-					},
-					y: {
-						show: true
-					}
-				}}
-				legend={{
-					show: false
-				}}
-				padding={{
-					top: 1
-				}}
-				ref={this._chartRef}
-				tooltip={{
-					contents: this.renderTooltip,
-					position: this.alignTooltip
-				}}
-				unloadBeforeLoad
-			/>
+			<div className={CLASSNAME}>
+				<ResponsiveContainer height={height}>
+					<ComposedChart data={empty ? EMPTY_DATA : devices}>
+						<CartesianGrid
+							stroke={AXIS.gridStroke}
+							strokeDasharray='3 3'
+							vertical={false}
+						>
+							<Label
+								position='center'
+								value={sub(
+									Liferay.Language.get(
+										'empty-message-metric'
+									),
+									[metricLabel.toLowerCase()]
+								)}
+							/>
+						</CartesianGrid>
+
+						<XAxis
+							axisLine={{stroke: AXIS.borderStroke}}
+							dataKey='label'
+							padding={{left: 20, right: 20}}
+							tick={getAxisTickText('x')}
+							tickLine={false}
+							tickMargin={12}
+						/>
+
+						<XAxis
+							axisLine={{stroke: AXIS.borderStroke}}
+							dataKey='label'
+							height={1}
+							orientation='top'
+							tick={false}
+							tickLine={false}
+							xAxisId='top'
+						/>
+
+						<YAxis
+							allowDecimals={false}
+							axisLine={{stroke: AXIS.borderStroke}}
+							name={Liferay.Language.get('views')}
+							tick={getAxisTickText('y', toThousands)}
+							tickCount={6}
+							tickLine={false}
+							type='number'
+							width={30}
+						/>
+
+						<YAxis
+							axisLine={{stroke: AXIS.borderStroke}}
+							orientation='right'
+							tick={false}
+							tickLine={false}
+							type='number'
+							width={1}
+							yAxisId='right'
+						/>
+
+						<Tooltip
+							content={this.renderTooltip}
+							wrapperStyle={
+								empty
+									? {
+											visibility: 'visible'
+									  }
+									: null
+							}
+						/>
+
+						{range(0, barCount).map(i => (
+							<Bar
+								dataKey={`data[${i}].views`}
+								fill={Colors.pallete[i]}
+								isAnimationActive={false}
+								key={i}
+								stackId='devices'
+							/>
+						))}
+					</ComposedChart>
+				</ResponsiveContainer>
+			</div>
 		);
 	}
 }

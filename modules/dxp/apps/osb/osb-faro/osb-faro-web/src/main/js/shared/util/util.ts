@@ -113,40 +113,42 @@ export const getPercentage = (number1, number2) => {
  * @param {array} data
  * @param {number} max
  */
-export const groupData = (data, max) => {
+export const groupData = (data, max, dataKey = 'views') => {
 	const others = Object.assign(data, []).filter((current, index) =>
 		index > max - 1 ? current : null
 	);
-	const agroupedData = [];
-	let agroupedDataValue;
+	const groupedData = [];
 
 	if (data.length <= max) {
 		return data;
 	}
 
 	for (let i = 0; i <= max - 1; i++) {
-		agroupedData.push(data[i]);
+		groupedData.push(data[i]);
 	}
 
-	if (others.length > 1) {
-		agroupedDataValue = others.reduce((actual, next) => {
-			if (actual.data) {
-				return actual.data[0] + next.data[0];
-			} else {
-				return actual + next.data[0];
-			}
-		});
-	} else {
-		agroupedDataValue = others[0].data[0];
-	}
+	const groupedDataValue = others.reduce(
+		(actual, next) => ({
+			...actual,
+			data: [
+				{
+					[dataKey]:
+						actual.data[0][dataKey] +
+						next.data.reduce((acc, next) => acc + next[dataKey], 0),
+					type: 'Other'
+				}
+			],
+			percentageOfTotal: actual.percentageOfTotal + next.percentageOfTotal
+		}),
+		{data: [{[dataKey]: 0}], percentageOfTotal: 0, type: 'Other'}
+	);
 
-	agroupedData.push({
-		data: [agroupedDataValue],
-		group: others,
+	groupedData.push({
+		...groupedDataValue,
 		id: Liferay.Language.get('others')
 	});
 
-	return agroupedData;
+	return groupedData;
 };
 
 /**
