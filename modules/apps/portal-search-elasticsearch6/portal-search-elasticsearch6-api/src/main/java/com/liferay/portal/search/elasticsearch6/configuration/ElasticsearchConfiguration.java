@@ -203,4 +203,10 @@ public interface ElasticsearchConfiguration {
 	)
 	public String overrideTypeMappings();
 
+	@Meta.AD(
+		deflt = "true", description = "sync-search-help", name = "sync-search",
+		required = false
+	)
+	public boolean syncSearch();
+
 }
