@@ -186,6 +186,7 @@ class Donut extends React.Component {
 						<Pie
 							activeIndex={hoverIndex}
 							activeShape={this.renderActiveShape}
+							blendStroke
 							cy={142}
 							data={data}
 							dataKey='count'
@@ -216,6 +217,11 @@ class Donut extends React.Component {
 											: 1
 									}
 									key={`cell-${index}`}
+									strokeOpacity={
+										hoverIndex >= 0 && hoverIndex !== index
+											? 0
+											: 1
+									}
 								/>
 							))}
 						</Pie>
