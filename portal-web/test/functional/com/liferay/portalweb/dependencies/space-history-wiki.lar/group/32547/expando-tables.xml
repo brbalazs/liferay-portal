@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+
+<expando-tables>
+	<expando-table class-name="com.liferay.wiki.model.WikiPage"/>
+	<expando-table class-name="com.liferay.wiki.model.WikiNode"/>
+</expando-tables>
