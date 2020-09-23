@@ -1,9 +1,5 @@
 {
 	"private": true,
-	"scripts": {
-		"checkFormat": "liferay-npm-scripts check",
-		"format": "liferay-npm-scripts fix"
-	},
 	"workspaces": {
 		"packages": [
 			"osb-faro-*"
