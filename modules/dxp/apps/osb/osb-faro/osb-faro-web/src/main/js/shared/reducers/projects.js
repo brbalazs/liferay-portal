@@ -5,17 +5,7 @@ import {handleError, handleLoading} from '../util/redux';
 import {Project, RemoteData} from 'shared/util/records';
 
 const actionHandlers = {
-	[actionTypes.FETCH_PROJECT_REQUEST]: (state, {payload}) => {
-		const {id} = payload;
-
-		const corpProjectUuid = state.findKey(
-			project => String(project.getIn(['data', 'groupId'])) === String(id)
-		);
-
-		return corpProjectUuid
-			? state.mergeIn([corpProjectUuid, 'loading'], true)
-			: state.mergeIn([id], new RemoteData());
-	},
+	[actionTypes.FETCH_PROJECT_REQUEST]: handleLoading,
 	[actionTypes.FETCH_PROJECT_FAILURE]: handleError,
 	[actionTypes.FETCH_PROJECT_VIA_CORP_PROJECT_UUID_FAILURE]: handleError,
 	[actionTypes.FETCH_PROJECT_VIA_CORP_PROJECT_UUID_REQUEST]: handleLoading,
