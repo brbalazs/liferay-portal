@@ -10,6 +10,6 @@ Feature: Assert Site Activities Chart Popover follows format
 
 	Scenario: Sites Activity Chart Popover follows format
 		Given I click the "Known Individuals" tab
-		And I click "Abram Bauch" in the table
+		And I click "Alanna Emard" in the table
 		When I mouse over row "1" in "Individual Activities" card
 		Then I should see chart popover formatted YYYY MMM DD
