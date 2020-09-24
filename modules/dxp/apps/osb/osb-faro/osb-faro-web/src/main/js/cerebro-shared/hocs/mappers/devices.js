@@ -1,10 +1,30 @@
-import {Colors} from 'shared/util/charts';
 import {getDeviceLabel} from 'shared/util/lang';
 import {getPercentage} from 'shared/util/util';
 import {getVariables, safeResultToProps} from 'shared/util/mappers';
-import {groupData} from 'shared/util/util';
+import {sortBy} from 'lodash';
 
+const MAX_BROWSER = 8;
 const MAX_SYSTEMS = 3;
+
+const groupBrowserData = (data, max) => {
+	const orderedData = sortBy(data, 'value').reverse();
+
+	if (orderedData.length <= max) {
+		return orderedData;
+	}
+
+	const totalOtherValue = orderedData
+		.slice(max)
+		.reduce((actual, next) => actual + next.value, 0);
+
+	return [
+		...orderedData.slice(0, max),
+		{
+			value: totalOtherValue,
+			valueKey: Liferay.Language.get('others')
+		}
+	];
+};
 
 const groupDeviceData = (data, max) => {
 	if (data.length <= max) {
@@ -44,31 +64,6 @@ const groupDeviceData = (data, max) => {
 };
 
 /**
- * Format Browsers
- * @param {array} browsers
- * @returns {array}
- */
-const formatBrowsers = browsers => {
-	const data = browsers.map((browser, index) => ({
-		color: Colors.pallete[index] || null,
-		data: [browser.value],
-		id: index + browser.valueKey
-	}));
-
-	data.sort((a, b) => b.data[0] - a.data[0]);
-
-	const groupedData = groupData(data, 8);
-
-	if (groupedData.length) {
-		const groupSize = groupedData.length - 1;
-
-		groupedData[groupSize].color = Colors.pallete[groupSize];
-	}
-
-	return groupedData;
-};
-
-/**
  * MAPPER
  * @description Get Devices Mapper
  * @param {function} getMetric
@@ -102,7 +97,7 @@ const getDevicesMapper = getMetric => {
 		});
 
 		return {
-			browsers: formatBrowsers(metric.browser),
+			browsers: groupBrowserData(metric.browser, MAX_BROWSER),
 			devices: groupDeviceData(devices, MAX_SYSTEMS),
 			empty: false,
 			total: metric.value

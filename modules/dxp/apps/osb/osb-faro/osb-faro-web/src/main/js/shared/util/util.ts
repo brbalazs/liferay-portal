@@ -109,49 +109,6 @@ export const getPercentage = (number1, number2) => {
 };
 
 /**
- * Return an array with the parsed data grouped with the max informed value
- * @param {array} data
- * @param {number} max
- */
-export const groupData = (data, max, dataKey = 'views') => {
-	const others = Object.assign(data, []).filter((current, index) =>
-		index > max - 1 ? current : null
-	);
-	const groupedData = [];
-
-	if (data.length <= max) {
-		return data;
-	}
-
-	for (let i = 0; i <= max - 1; i++) {
-		groupedData.push(data[i]);
-	}
-
-	const groupedDataValue = others.reduce(
-		(actual, next) => ({
-			...actual,
-			data: [
-				{
-					[dataKey]:
-						actual.data[0][dataKey] +
-						next.data.reduce((acc, next) => acc + next[dataKey], 0),
-					type: 'Other'
-				}
-			],
-			percentageOfTotal: actual.percentageOfTotal + next.percentageOfTotal
-		}),
-		{data: [{[dataKey]: 0}], percentageOfTotal: 0, type: 'Other'}
-	);
-
-	groupedData.push({
-		...groupedDataValue,
-		id: Liferay.Language.get('others')
-	});
-
-	return groupedData;
-};
-
-/**
  * Return the truncate text
  * @param {string} str
  * @param {number} length

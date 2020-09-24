@@ -13,9 +13,7 @@ $type-size: 100px;
 }
 
 #{$c-web-browser} {
-	.bb .bb-zoom-rect {
-		opacity: 0 !important;
-	}
+	display: flex;
 
 	$donut-width: 60%;
 	$empty-donut-width: 270px;
@@ -28,17 +26,25 @@ $type-size: 100px;
 		@include emptyDonut($empty-donut-width);
 	}
 
-	#{$c-web-browser}-legend {
-		left: $donut-width;
-		margin: auto;
-		margin-top: -1rem;
-		overflow: auto;
-		padding: 0;
-		position: absolute;
-		width: calc(100% - #{$donut-width});
-	}
-
 	.bb-tooltip-container {
 		max-width: none !important;
+	}
+
+	.recharts-legend-item {
+		align-items: center;
+		display: flex !important;
+
+		.recharts-legend-item-text {
+			color: $mainLighten28;
+			display: flex;
+			font-size: $fontSizeMedium;
+			font-weight: $fontWeightSemiBold;
+			justify-content: space-between;
+			width: 100%;
+
+			.text-truncate {
+				margin-right: 8px;
+			}
+		}
 	}
 }
