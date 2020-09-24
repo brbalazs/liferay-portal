@@ -1091,8 +1091,6 @@ public interface Portal {
 
 	public PreferencesValidator getPreferencesValidator(Portlet portlet);
 
-	public String getQueryString(HttpServletRequest httpServletRequest);
-
 	public String getRelativeHomeURL(HttpServletRequest httpServletRequest)
 		throws PortalException;
 
@@ -1367,8 +1365,6 @@ public interface Portal {
 		String portletId, ThemeDisplay themeDisplay);
 
 	public boolean isCustomPortletMode(PortletMode portletMode);
-
-	public boolean isForwarded(HttpServletRequest httpServletRequest);
 
 	public boolean isForwardedSecure(HttpServletRequest httpServletRequest);
 
