@@ -55,7 +55,7 @@ export class AddWorkspace extends React.Component {
 			corpProjectUuid,
 			createProject,
 			createTrialProject,
-			project: {groupId, state}
+			project: {groupId, state} = {}
 		} = this.props;
 
 		const params = {
