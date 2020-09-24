@@ -1,14 +1,13 @@
 import * as API from 'shared/api';
 import {CALL_API} from '../middleware/api';
 import {createActionTypes} from 'redux-toolbox';
-import {project, projects, projectState} from '../middleware/schema';
+import {project, projects} from '../middleware/schema';
 
 export const actionTypes = {
 	...createActionTypes('configure', 'project'),
 	...createActionTypes('create', 'project'),
 	...createActionTypes('fetch', 'project'),
 	...createActionTypes('fetch', 'projects'),
-	...createActionTypes('fetch', 'project_state'),
 	...createActionTypes('fetch', 'project_via_corp_project_uuid'),
 	...createActionTypes('update', 'project')
 };
@@ -100,27 +99,6 @@ export function fetchProjects() {
 					actionTypes.FETCH_PROJECTS_FAILURE
 				]
 			}
-		},
-		type: 'NO_OP'
-	};
-}
-
-export function fetchProjectState({groupId}) {
-	return {
-		meta: {
-			[CALL_API]: {
-				data: {groupId},
-				requestFn: API.projects.fetchProjectState,
-				schema: projectState(groupId),
-				types: [
-					actionTypes.FETCH_PROJECT_STATE_REQUEST,
-					actionTypes.FETCH_PROJECT_STATE_SUCCESS,
-					actionTypes.FETCH_PROJECT_STATE_FAILURE
-				]
-			}
-		},
-		payload: {
-			id: groupId
 		},
 		type: 'NO_OP'
 	};

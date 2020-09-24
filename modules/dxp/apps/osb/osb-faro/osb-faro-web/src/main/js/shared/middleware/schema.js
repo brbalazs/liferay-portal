@@ -29,15 +29,6 @@ export const project = groupId =>
 			processStrategy
 		}
 	);
-export const projectState = groupId =>
-	new schema.Entity(
-		'projectStates',
-		{},
-		{
-			idAttribute: () => groupId,
-			processStrategy
-		}
-	);
 
 export const segment = new schema.Entity('segments', {}, {processStrategy});
 export const user = new schema.Entity('users', {}, {processStrategy});

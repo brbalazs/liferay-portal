@@ -81,13 +81,6 @@ export function fetchEmailAddressDomains({groupId}) {
 	});
 }
 
-export function fetchProjectState({groupId}) {
-	return sendRequest({
-		method: 'GET',
-		path: `main/project/${groupId}`
-	});
-}
-
 export function fetchProjectViaCorpProjectUuid({corpProjectUuid}) {
 	return sendRequest({
 		method: 'GET',

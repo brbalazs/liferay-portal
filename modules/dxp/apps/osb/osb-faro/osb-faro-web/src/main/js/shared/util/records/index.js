@@ -64,15 +64,6 @@ export const Plan = new Record({
 	startDate: Date.now()
 });
 
-export const ProjectState = new Record({
-	faroSubscription: new Map(),
-	groupId: null,
-	percentageComplete: 0,
-	recommendationsEnabled: false,
-	state: null,
-	stateStartDate: null
-});
-
 export const SearchResults = new Record({
 	disableSearch: false,
 	items: new List(),

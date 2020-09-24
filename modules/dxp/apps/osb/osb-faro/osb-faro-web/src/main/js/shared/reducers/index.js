@@ -13,7 +13,6 @@ import modals from './modals';
 import normalizer from './normalizer';
 import preferences from './preferences';
 import projects from './projects';
-import projectStates from './project-states';
 import segments from './segments';
 import settings from './settings';
 import sidebar from './sidebar';
@@ -40,7 +39,6 @@ export default composeReducers(
 		modals,
 		preferences,
 		projects,
-		projectStates,
 		segments,
 		settings,
 		sidebar,
