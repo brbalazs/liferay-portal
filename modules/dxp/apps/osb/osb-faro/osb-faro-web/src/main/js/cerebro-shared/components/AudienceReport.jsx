@@ -191,7 +191,7 @@ class Donut extends React.Component {
 							data={data}
 							dataKey='count'
 							endAngle={-270}
-							innerRadius={60}
+							innerRadius='50%'
 							isAnimationActive={false}
 							label={this.renderBarLabel}
 							labelLine={false}
@@ -200,7 +200,7 @@ class Donut extends React.Component {
 								this.setState({hoverIndex: index})
 							}
 							onMouseOut={() => this.setState({hoverIndex: -1})}
-							outerRadius={120}
+							outerRadius='90%'
 							startAngle={90}
 						>
 							<Label
