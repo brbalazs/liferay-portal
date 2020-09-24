@@ -173,7 +173,9 @@ public class LayoutAction extends Action {
 				plid = layout.getPlid();
 			}
 
-			return processLayout(actionMapping, request, response, plid);
+			if (!layout.isTypeLinkToLayout()) {
+				return processLayout(actionMapping, request, response, plid);
+			}
 		}
 
 		try {
