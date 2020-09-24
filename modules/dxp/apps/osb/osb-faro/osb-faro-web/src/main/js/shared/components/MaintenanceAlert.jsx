@@ -5,7 +5,7 @@ import moment from 'moment';
 import React from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
-import {ProjectState} from 'shared/util/records';
+import {Project} from 'shared/util/records';
 import {PropTypes} from 'prop-types';
 import {setMaintenanceSeen} from 'shared/actions/maintenance-seen';
 import {sub} from 'shared/util/lang';
@@ -18,7 +18,7 @@ export class MaintenanceAlert extends React.Component {
 		alertDismissed: PropTypes.bool.isRequired,
 		currentUserId: PropTypes.string.isRequired,
 		groupId: PropTypes.string.isRequired,
-		projectState: PropTypes.instanceOf(ProjectState).isRequired,
+		project: PropTypes.instanceOf(Project).isRequired,
 		setMaintenanceSeen: PropTypes.func.isRequired,
 		stripe: PropTypes.bool
 	};
@@ -36,7 +36,7 @@ export class MaintenanceAlert extends React.Component {
 		const {
 			currentUserId,
 			groupId,
-			projectState: {stateStartDate},
+			project: {stateStartDate},
 			setMaintenanceSeen
 		} = this.props;
 
@@ -50,7 +50,7 @@ export class MaintenanceAlert extends React.Component {
 	render() {
 		const {
 			alertDismissed,
-			projectState: {state, stateStartDate},
+			project: {state, stateStartDate},
 			stripe
 		} = this.props;
 
@@ -96,9 +96,9 @@ export const mapState = (
 ) => {
 	const currentUserId = store.getIn(['currentUser', 'data']);
 
-	const projectState = store.getIn(
-		['projectStates', groupId, 'data'],
-		new ProjectState()
+	const project = store.getIn(
+		['projects', groupId, 'data'],
+		new Project()
 	);
 
 	const prevStateStartDate = store.getIn([
@@ -107,12 +107,12 @@ export const mapState = (
 	]);
 
 	return {
-		alertDismissed: prevStateStartDate === projectState.stateStartDate,
+		alertDismissed: prevStateStartDate === project.stateStartDate,
 		currentUserId,
 		groupId,
-		projectState: store.getIn(
-			['projectStates', groupId, 'data'],
-			new ProjectState()
+		project: store.getIn(
+			['projects', groupId, 'data'],
+			new Project()
 		)
 	};
 };

@@ -4,7 +4,7 @@ import React from 'react';
 import Sheet from 'shared/components/Sheet';
 import urlConstants from 'shared/util/url-constants';
 import WorkspacesBasePage from 'shared/components/workspaces/BasePage';
-import {fetchProjectState} from 'shared/actions/projects';
+import {fetchProject} from 'shared/actions/projects';
 import {withPolling} from 'shared/hoc';
 
 const {projectStates} = Constants;
@@ -46,6 +46,6 @@ const ActivatingDisplay = () => (
 );
 
 export default withPolling(
-	fetchProjectState,
+	fetchProject,
 	({state}) => state !== projectStates.activating
 )(ActivatingDisplay);

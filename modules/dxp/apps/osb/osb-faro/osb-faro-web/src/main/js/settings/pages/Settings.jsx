@@ -459,7 +459,7 @@ export default compose(
 	connect((store, {groupId}) => ({
 		backURL: store.getIn(['settings', 'backURL']),
 		recommendationsEnabled: store.getIn(
-			['projectStates', groupId, 'data', 'recommendationsEnabled'],
+			['projects', groupId, 'data', 'recommendationsEnabled'],
 			false
 		)
 	})),

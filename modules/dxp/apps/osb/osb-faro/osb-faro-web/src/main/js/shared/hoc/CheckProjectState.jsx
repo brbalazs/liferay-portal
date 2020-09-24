@@ -6,7 +6,7 @@ import withAction from './WithAction';
 import WorkspaceNotFound from 'shared/pages/WorkspaceNotFound';
 import WorkspacesErrorDisplay from 'shared/components/workspaces/ErrorDisplay';
 import {compose} from 'redux';
-import {fetchProjectState} from '../actions/projects';
+import {fetchProject} from '../actions/projects';
 import {LocalStorageMechanism, Storage} from 'metal-storage';
 
 const {projectStates} = FaroConstants;
@@ -18,15 +18,15 @@ const {projectStates} = FaroConstants;
  */
 export default compose(
 	withAction(
-		({groupId}) => fetchProjectState({groupId}),
-		(state, {groupId}) => state.getIn(['projectStates', groupId]),
+		({groupId}) => fetchProject({groupId}),
+		(state, {groupId}) => state.getIn(['projects', groupId]),
 		{
-			propName: 'projectState',
+			propName: 'project',
 			renderErrorPage: props => <WorkspaceNotFound {...props} />
 		}
 	),
-	WrappedComponent => ({className, groupId, projectState, ...otherProps}) => {
-		const {faroSubscription} = projectState;
+	WrappedComponent => ({className, groupId, project, ...otherProps}) => {
+		const {faroSubscription} = project;
 		const storage = new Storage(new LocalStorageMechanism());
 		const currentSubscriptions = storage.get('subscriptions') || {};
 
@@ -40,7 +40,7 @@ export default compose(
 			window.setStatus();
 		}
 
-		switch (projectState.state) {
+		switch (project.state) {
 			case projectStates.ready:
 			case projectStates.scheduled:
 				return (
@@ -57,19 +57,19 @@ export default compose(
 				return (
 					<WorkspacesErrorDisplay
 						className={className}
-						errorType={projectState.state}
+						errorType={project.state}
 					/>
 				);
 
 			case projectStates.activating:
-				return <ActivatingDisplay groupId={projectState.groupId} />;
+				return <ActivatingDisplay groupId={project.groupId} />;
 
 			default:
 				return (
 					<SuccessDisplay
 						friendlyURL={
-							projectState.friendlyURL ||
-							`/${projectState.groupId}`
+							project.friendlyURL ||
+							`/${project.groupId}`
 						}
 					/>
 				);
