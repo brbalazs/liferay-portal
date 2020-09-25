@@ -9,8 +9,10 @@ interface IProject {
 	friendlyURL?: string;
 	groupId?: number;
 	name?: string;
+	recommendationsEnabled?: boolean;
 	serverLocation: string;
 	state?: string;
+	stateStartDate?: number;
 	userId?: number;
 }
 
@@ -24,8 +26,10 @@ export default class Project
 		friendlyURL: null,
 		groupId: null,
 		name: '',
+		recommendationsEnabled: false,
 		serverLocation: null,
 		state: null,
+		stateStartDate: null,
 		userId: null
 	})
 	implements IProject {
@@ -37,8 +41,10 @@ export default class Project
 	friendlyURL?: string;
 	groupId?: number;
 	name?: string;
+	recommendationsEnabled?: boolean;
 	serverLocation: string;
 	state?: string;
+	stateStartDate?: number;
 	userId?: number;
 
 	constructor(props: IProject) {
