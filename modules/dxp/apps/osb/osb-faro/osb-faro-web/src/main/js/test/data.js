@@ -922,21 +922,12 @@ export function mockProject(seed = 1, data = {}) {
 		addOnsIList: new Map(mockAddOns()),
 		corpProjectName: `corpProjectName${seed}`,
 		corpProjectUuid: `corpProjectUuid${seed}`,
-		faroSubscription: mockSubscription(),
 		groupId: seed,
 		name: `project${seed}`,
-		state: projectStates.ready,
-		userId: seed,
-		...data
-	};
-}
-
-export function mockProjectState(seed = 1, data = {}) {
-	return {
-		groupId: seed,
 		percentageComplete: 0,
 		recommendationsEnabled: true,
 		state: projectStates.ready,
+		userId: seed,
 		...data
 	};
 }

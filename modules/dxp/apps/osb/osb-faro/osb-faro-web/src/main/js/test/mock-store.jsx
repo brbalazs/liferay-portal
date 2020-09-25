@@ -9,7 +9,6 @@ import {
 	DistributionTab,
 	Individual,
 	Project,
-	ProjectState,
 	RemoteData,
 	Segment,
 	User
@@ -92,41 +91,44 @@ export const mockStoreData = fromJS({
 		}
 	},
 	projects: {
-		corpProjectUuid23: toRD(new Project(fromJS(data.mockProject('23')))),
-		corpProjectUuid26: toRD(new Project(fromJS(data.mockProject('26'))))
-	},
-	projectStates: {
-		23: toRD(new ProjectState(data.mockProjectState('23'))),
-		24: toRD(
-			new ProjectState(
-				data.mockProjectState('24', {state: projectStates.notReady})
+		23: toRD(
+			new Project(
+				data.mockProject('23', {
+					recommendationsEnabled: true,
+					stateStartDate: 1531263666366
+				})
 			)
 		),
+		24: toRD(
+			new Project(data.mockProject('24', {state: projectStates.notReady}))
+		),
 		25: toRD(
-			new ProjectState(
-				data.mockProjectState('25', {state: projectStates.maintenance})
+			new Project(
+				data.mockProject('25', {state: projectStates.maintenance})
 			)
 		),
 		26: toRD(
-			new ProjectState(
-				data.mockProjectState('26', {state: projectStates.unavailable})
+			new Project(
+				data.mockProject('26', {state: projectStates.unavailable})
 			)
 		),
 		27: toRD(
-			new ProjectState(
-				data.mockProjectState('27', {state: projectStates.scheduled})
+			new Project(
+				data.mockProject('27', {state: projectStates.scheduled})
 			)
 		),
 		28: toRD(
-			new ProjectState(
-				data.mockProjectState('28', {state: projectStates.activating})
+			new Project(
+				data.mockProject('28', {state: projectStates.activating})
 			)
 		),
 		29: toRD(
-			new ProjectState(
-				data.mockProjectState('29', {state: projectStates.deactivated})
+			new Project(
+				data.mockProject('29', {state: projectStates.deactivated})
 			)
-		)
+		),
+		corpProjectUuid23: toRD(new Project(fromJS(data.mockProject('23')))),
+		corpProjectUuid26: toRD(new Project(fromJS(data.mockProject('26'))))
 	},
 	segments: {
 		test: toRD(new Segment(data.mockSegment('test')))

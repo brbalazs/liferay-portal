@@ -4,7 +4,6 @@ import {
 	createTrialProject,
 	fetchProject,
 	fetchProjects,
-	fetchProjectState,
 	fetchProjectViaCorpProjectUuid,
 	updateProject
 } from '../projects';
@@ -55,15 +54,6 @@ describe('Projects Actions', () => {
 	describe('fetchProjects', () => {
 		it('should return an action', () => {
 			const action = fetchProjects();
-
-			expect(isFSA(action)).toBe(true);
-			expect(action.type).toBe('NO_OP');
-		});
-	});
-
-	describe('fetchProjectState', () => {
-		it('should return an action', () => {
-			const action = fetchProjectState({groupId: '23'});
 
 			expect(isFSA(action)).toBe(true);
 			expect(action.type).toBe('NO_OP');

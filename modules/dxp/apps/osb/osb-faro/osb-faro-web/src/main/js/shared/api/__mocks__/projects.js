@@ -23,10 +23,6 @@ export const fetchMany = jest.fn(() =>
 	Promise.resolve(range(3).map(i => data.mockProject(i)))
 );
 
-export const fetchProjectState = jest.fn(() =>
-	Promise.resolve(data.mockProjectState(23))
-);
-
 export const search = jest.fn(() =>
 	Promise.resolve(data.mockSearch(data.mockProject))
 );

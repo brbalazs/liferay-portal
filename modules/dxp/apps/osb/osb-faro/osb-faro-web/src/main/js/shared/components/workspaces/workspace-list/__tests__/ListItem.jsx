@@ -28,8 +28,8 @@ describe('WorkspaceListItem', () => {
 	});
 
 	it('should render a workspace item as enabled if is unavailable and the user clicks the item to reload and it then changes to available', () => {
-		API.projects.fetchProjectState.mockImplementationOnce(() =>
-			Promise.resolve(data.mockProjectState('23'))
+		API.projects.fetch.mockImplementationOnce(() =>
+			Promise.resolve(data.mockProject('23'))
 		);
 
 		const {queryByText} = render(

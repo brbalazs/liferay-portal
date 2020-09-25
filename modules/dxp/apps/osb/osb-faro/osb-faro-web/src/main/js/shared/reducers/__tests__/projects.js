@@ -9,28 +9,6 @@ describe('Projects Reducer', () => {
 		expect(typeof reducer).toBe('function');
 	});
 
-	it('should NOT create new store item on request if one is already present', () => {
-		const corpProjectUuid = 'corpProjectUuid23';
-		const groupId = '23';
-
-		const action = {
-			payload: {
-				id: groupId
-			},
-			type: actionTypes.FETCH_PROJECT_REQUEST
-		};
-
-		const prevState = new OrderedMap({
-			[corpProjectUuid]: new RemoteData({
-				data: fromJS(mockProject(groupId))
-			})
-		});
-
-		const newState = reducer(prevState, action);
-
-		expect(newState.size).toEqual(1);
-	});
-
 	it('should update the project key on UPDATE_PROJECT_SUCCESS', () => {
 		const newId = 'bar';
 		const prevId = 'foo';

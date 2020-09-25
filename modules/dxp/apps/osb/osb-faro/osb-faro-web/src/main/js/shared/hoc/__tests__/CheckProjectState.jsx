@@ -111,7 +111,7 @@ describe('SuccessDisplayIf', () => {
 	});
 
 	it('should render an error page if there was an error fetching the project', () => {
-		API.projects.fetchProjectState.mockReturnValue(
+		API.projects.fetch.mockReturnValue(
 			Promise.reject({message: 'foo rejection from server'})
 		);
 
