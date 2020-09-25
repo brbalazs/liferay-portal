@@ -15,6 +15,7 @@
 package com.liferay.osb.faro.mock.engine.client.internal;
 
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
+import com.liferay.osb.faro.engine.client.model.LCPBuildService;
 import com.liferay.osb.faro.engine.client.model.LCPProject;
 import com.liferay.osb.faro.engine.client.model.LCPService;
 import com.liferay.osb.faro.engine.client.model.Workspace;
@@ -81,7 +82,7 @@ public abstract class BaseMockWorkspaceEngineClientImpl
 	}
 
 	@Override
-	public Workspace updateWorkspace(
+	public List<LCPBuildService> updateWorkspace(
 		String weDeployKey, String sha, boolean trial) {
 
 		return workspaceEngineClient.updateWorkspace(weDeployKey, sha, trial);

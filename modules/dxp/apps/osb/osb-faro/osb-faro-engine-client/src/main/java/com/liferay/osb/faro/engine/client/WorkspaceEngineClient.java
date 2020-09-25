@@ -14,6 +14,7 @@
 
 package com.liferay.osb.faro.engine.client;
 
+import com.liferay.osb.faro.engine.client.model.LCPBuildService;
 import com.liferay.osb.faro.engine.client.model.LCPProject;
 import com.liferay.osb.faro.engine.client.model.LCPService;
 import com.liferay.osb.faro.engine.client.model.Workspace;
@@ -46,7 +47,7 @@ public interface WorkspaceEngineClient {
 			String weDeployKey, String operation, List<String> serviceIds)
 		throws Exception;
 
-	public Workspace updateWorkspace(
+	public List<LCPBuildService> updateWorkspace(
 		String weDeployKey, String sha, boolean trial);
 
 }

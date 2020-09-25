@@ -16,6 +16,7 @@ package com.liferay.osb.faro.engine.client.internal;
 
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
+import com.liferay.osb.faro.engine.client.model.LCPBuildService;
 import com.liferay.osb.faro.engine.client.model.LCPProject;
 import com.liferay.osb.faro.engine.client.model.LCPService;
 import com.liferay.osb.faro.engine.client.model.Workspace;
@@ -239,58 +240,56 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 	}
 
 	@Override
-	public Workspace updateWorkspace(
+	public List<LCPBuildService> updateWorkspace(
 		String weDeployKey, String sha, boolean trial) {
 
-		Workspace workspace = new Workspace();
-
-		buildWorkspace(getProjectId(weDeployKey), sha, trial, true);
-
-		workspace.setWeDeployKey(weDeployKey);
-
-		return workspace;
+		return buildWorkspace(getProjectId(weDeployKey), sha, trial, true);
 	}
 
-	protected void buildWorkspace(
+	protected List<LCPBuildService> buildWorkspace(
 		String projectId, String sha, boolean trial, boolean upgrade) {
 
-		getRestTemplate().exchange(
-			StringBundler.concat(_PROJECT_API_URL, projectId, "/build"),
-			HttpMethod.POST,
-			new HttpEntity<Object>(
-				new HashMap<String, String>() {
-					{
-						put("provider", "github");
-						StringBundler sb = new StringBundler(10);
+		ResponseEntity<List<LCPBuildService>> responseEntity =
+			getRestTemplate().exchange(
+				StringBundler.concat(_PROJECT_API_URL, projectId, "/build"),
+				HttpMethod.POST,
+				new HttpEntity<Object>(
+					new HashMap<String, String>() {
+						{
+							put("provider", "github");
+							StringBundler sb = new StringBundler(10);
 
-						sb.append("https://");
-						sb.append(_REPOSITORY_TOKEN);
-						sb.append(StringPool.AT);
-						sb.append("github.com/liferay");
-						sb.append("/com-liferay-osb-asah-private/tree");
-						sb.append(StringPool.SLASH);
+							sb.append("https://");
+							sb.append(_REPOSITORY_TOKEN);
+							sb.append(StringPool.AT);
+							sb.append("github.com/liferay");
+							sb.append("/com-liferay-osb-asah-private/tree");
+							sb.append(StringPool.SLASH);
 
-						if (Validator.isNull(sha)) {
-							sb.append(UpgradeUtil.getLatestVersion());
+							if (Validator.isNull(sha)) {
+								sb.append(UpgradeUtil.getLatestVersion());
+							}
+							else {
+								sb.append(sha);
+							}
+
+							sb.append(StringPool.SLASH);
+							sb.append(".wedeploy_profiles/customer");
+
+							if (trial) {
+								sb.append("-trial");
+							}
+							else if (upgrade) {
+								sb.append("-upgrade");
+							}
+
+							put("repository", sb.toString());
 						}
-						else {
-							sb.append(sha);
-						}
+					}),
+				new ParameterizedTypeReference<List<LCPBuildService>>() {
+				});
 
-						sb.append(StringPool.SLASH);
-						sb.append(".wedeploy_profiles/customer");
-
-						if (trial) {
-							sb.append("-trial");
-						}
-						else if (upgrade) {
-							sb.append("-upgrade");
-						}
-
-						put("repository", sb.toString());
-					}
-				}),
-			Void.class);
+		return responseEntity.getBody();
 	}
 
 	protected void createElasticSearchLink(LCPProject lcpProject) {
