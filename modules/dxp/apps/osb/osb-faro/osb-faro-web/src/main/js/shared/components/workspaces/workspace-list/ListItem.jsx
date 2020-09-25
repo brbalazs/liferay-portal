@@ -86,7 +86,7 @@ export default class WorkspaceListItem extends React.Component {
 		});
 
 		return API.projects
-			.fetchProject({groupId})
+			.fetch({groupId})
 			.then(({state}) => {
 				this.setState({
 					loading: false,
