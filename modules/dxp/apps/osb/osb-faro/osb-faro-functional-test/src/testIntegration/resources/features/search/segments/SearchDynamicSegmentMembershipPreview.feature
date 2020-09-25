@@ -13,9 +13,9 @@ Feature: Search a Dynamic Segment's Membership Preview Modal
 
 	Scenario: Search the Dynamic Individuals Segment's Membership Preview
 		Given I create a criteria with the following conditions:
-			| additionalName | is | bert |
+			| state | is | colorado |
 		And I click the Dynamic Segment membership preview
-		And I should see an individual named "Isiah Schumm" in the table
-		When I search for "Cruz O'Keefe"
-		Then I should see an individual named "Cruz O'Keefe" in the table
-		And I should not see an individual named "Isiah Schumm" in the table
+		And I should see an individual named "Jeraldine Jaskolski" in the table
+		When I search for "Russel Smith"
+		Then I should see an individual named "Russel Smith" in the table
+		And I should not see an individual named "Jeraldine Jaskolski" in the table
