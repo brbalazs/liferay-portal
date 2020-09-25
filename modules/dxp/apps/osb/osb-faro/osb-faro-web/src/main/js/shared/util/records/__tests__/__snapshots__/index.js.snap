@@ -10,8 +10,10 @@ Immutable.Record {
   "friendlyURL": null,
   "groupId": null,
   "name": "",
+  "recommendationsEnabled": false,
   "serverLocation": null,
   "state": null,
+  "stateStartDate": null,
   "userId": null,
 }
 `;

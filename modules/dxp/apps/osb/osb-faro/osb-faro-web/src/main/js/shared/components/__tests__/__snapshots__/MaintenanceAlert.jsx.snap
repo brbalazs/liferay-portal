@@ -57,13 +57,20 @@ Object {
   "alertDismissed": false,
   "currentUserId": "23",
   "groupId": "23",
-  "projectState": Immutable.Record {
+  "project": Immutable.Record {
+    "accountKey": "accountKey23",
+    "accountName": "accountName23",
+    "corpProjectName": "corpProjectName23",
+    "corpProjectUuid": "corpProjectUuid23",
     "faroSubscription": Immutable.Map {},
+    "friendlyURL": null,
     "groupId": "23",
-    "percentageComplete": 0,
+    "name": "project23",
     "recommendationsEnabled": true,
+    "serverLocation": null,
     "state": "SCHEDULED",
     "stateStartDate": 1531263666366,
+    "userId": "23",
   },
 }
 `;
