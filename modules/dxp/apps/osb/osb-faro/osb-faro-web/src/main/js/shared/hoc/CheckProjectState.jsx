@@ -68,8 +68,7 @@ export default compose(
 				return (
 					<SuccessDisplay
 						friendlyURL={
-							project.friendlyURL ||
-							`/${project.groupId}`
+							project.friendlyURL || `/${project.groupId}`
 						}
 					/>
 				);

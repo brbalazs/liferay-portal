@@ -96,10 +96,7 @@ export const mapState = (
 ) => {
 	const currentUserId = store.getIn(['currentUser', 'data']);
 
-	const project = store.getIn(
-		['projects', groupId, 'data'],
-		new Project()
-	);
+	const project = store.getIn(['projects', groupId, 'data'], new Project());
 
 	const prevStateStartDate = store.getIn([
 		'maintenanceSeen',
@@ -110,10 +107,7 @@ export const mapState = (
 		alertDismissed: prevStateStartDate === project.stateStartDate,
 		currentUserId,
 		groupId,
-		project: store.getIn(
-			['projects', groupId, 'data'],
-			new Project()
-		)
+		project: store.getIn(['projects', groupId, 'data'], new Project())
 	};
 };
 
