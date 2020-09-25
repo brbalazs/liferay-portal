@@ -6,7 +6,6 @@ import {
 	getRangeSelectorsFromQuery,
 	getSafeDisplayValue,
 	getSafeRangeSelectors,
-	groupData,
 	isBlank,
 	isEllipisActive,
 	truncateText
