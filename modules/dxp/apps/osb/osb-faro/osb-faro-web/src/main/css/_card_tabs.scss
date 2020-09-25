@@ -16,7 +16,12 @@
 	.card-tab {
 		font-size: $fontSizeSmall;
 		line-height: 24px;
+		margin: 0 8px;
 		position: relative;
+
+		&:first-child {
+			margin-left: 0;
+		}
 
 		&.active {
 			&::after {
@@ -24,7 +29,7 @@
 				bottom: 0;
 				content: '';
 				display: block;
-				height: .25rem;
+				height: 0.25rem;
 				left: 0;
 				position: absolute;
 				right: 0;
@@ -42,7 +47,7 @@
 
 		> .button-root {
 			color: $mainLighten28;
-			padding: 16px 4px;
+			padding: 8px 4px;
 			width: 100%;
 
 			&:hover {
