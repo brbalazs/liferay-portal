@@ -139,15 +139,20 @@ public class Table {
 	 * @param  dataTable the ordered table items
 	 * @throws Exception if an exception occurred
 	 */
-	@Then("^I should see the following names in breakdown:$")
-	public void assertBreakdownNames(DataTable dataTable) throws Exception {
+	@Then("^I should see the following names in \"(.*)\" breakdown:$")
+	public void assertBreakdownNames(String name, DataTable dataTable)
+		throws Exception {
+
 		_faroSelenium.waitForLoadingComplete();
 
-		StringBundler sb = new StringBundler(3);
+		StringBundler sb = new StringBundler(6);
 
-		sb.append("//*[name()='g' and contains(@class,'yAxis')]");
-		sb.append("/*[name()='g' and contains(@class,'axis-tick')]");
-		sb.append("/*[name()='g']/*[name()='text']/*[name()='tspan']");
+		sb.append("//*[text()='");
+		sb.append(name);
+		sb.append("']//ancestor::div[@class='card-header']");
+		sb.append("/following-sibling::div[contains(@class,'card-body");
+		sb.append("')]//*[name()='g' and contains(@class,'yAxis')]");
+		sb.append("//*[name()='text']/*[name()='tspan']");
 
 		List<WebElement> rowWebElements = _faroSelenium.findElements(
 			sb.toString());
