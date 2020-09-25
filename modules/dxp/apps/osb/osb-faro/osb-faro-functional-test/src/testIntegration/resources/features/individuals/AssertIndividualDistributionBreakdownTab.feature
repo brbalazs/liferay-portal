@@ -15,7 +15,7 @@ Feature: Assert breakdown by property can select different tabs
 		And I select the attribute "state"
 		And I name and save the breakdown "State"
 		When I click the "Industry" button
-		Then I should see the following names in breakdown:
+		Then I should see the following names in "Industry" breakdown:
 			| architecture & planning  		|
 			| food & beverages		   	|
 			| philanthropy			   	|

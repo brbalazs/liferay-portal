@@ -11,7 +11,7 @@ Feature: Assert the Individual Distribution card
 	Scenario: Add a distribution breakdown
 		When I select the attribute "industry"
 		And I name and save the breakdown "Industry"
-		Then I should see the following names in breakdown:
+		Then I should see the following names in "Industry" breakdown:
 			| architecture & planning  		|
 			| food & beverages		   	|
 			| philanthropy			   	|
