@@ -230,7 +230,8 @@ public class AssertionSteps {
 				"')]");
 
 		_faroSelenium.assertElementPresent(
-			"//div[@class='chart-labels']/span[text()='" + target + "']");
+			"//*[name()='svg' and @class='recharts-surface']" +
+				"/*[name()='g' and contains(@class,'recharts-bar')]");
 	}
 
 	/**
