@@ -13208,10 +13208,10 @@ metal-dom@2.16.8, metal-dom@^2.0.0, metal-dom@^2.16.0, metal-dom@^2.16.6, metal-
     metal "^2.16.8"
     metal-events "^2.16.8"
 
-metal-drag-drop@3.2.2:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/metal-drag-drop/-/metal-drag-drop-3.2.2.tgz#acd055435b590394273fea4ab567b3ab571e98c0"
-  integrity sha512-XVDc5HCu6qx0rkCHwgk7KkhYK0kdk9zp+ZhNyyryzP69qpVBui2LL/1PnkjcMQThA8mhVEzvyegAZsAPfnieEw==
+metal-drag-drop@3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/metal-drag-drop/-/metal-drag-drop-3.3.1.tgz#95f44395eefd095e422305753e60007e79f03ba6"
+  integrity sha512-DW+uOnCxGntk7heGEjZUezsZ5ELtfD68nTfqPy/3sYa3koqGOMAOJz5bkyfsdsY/ONx+aZYs8lG+rvfeAxQLZw==
   dependencies:
     bootstrap "^3.3.6"
     metal "^2.16.7"
