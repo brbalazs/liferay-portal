@@ -16,6 +16,7 @@ package com.liferay.osb.faro.admin.web.internal.portlet;
 
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
+import com.liferay.osb.faro.engine.client.model.LCPBuildService;
 import com.liferay.osb.faro.engine.client.model.LCPService;
 import com.liferay.osb.faro.engine.client.model.Workspace;
 import com.liferay.osb.faro.model.FaroProject;
@@ -27,14 +28,12 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +43,8 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.ws.rs.core.Response;
 
@@ -160,22 +161,30 @@ public class UpgradeExecutor {
 	}
 
 	private void _buildServices(
-			FaroProject faroProject, String version,
-			String[] expectedServiceIds, boolean waitForHealthy)
+			FaroProject faroProject, String version, boolean waitForHealthy)
 		throws Exception {
 
 		long startTime = System.currentTimeMillis();
 
 		_upgradeProgress.put(_getKey(faroProject), "Building services");
 
-		_workspaceEngineClient.updateWorkspace(
-			faroProject.getWeDeployKey(), version, faroProject.isTrial());
+		List<LCPBuildService> lcpBuildServices =
+			_workspaceEngineClient.updateWorkspace(
+				faroProject.getWeDeployKey(), version, faroProject.isTrial());
 
 		_upgradeProgress.put(_getKey(faroProject), "Waiting for services");
 
 		if (!waitForHealthy) {
 			return;
 		}
+
+		Stream<LCPBuildService> stream = lcpBuildServices.stream();
+
+		List<String> serviceIds = stream.map(
+			LCPBuildService::getServiceId
+		).collect(
+			Collectors.toList()
+		);
 
 		while ((System.currentTimeMillis() - startTime) < (Time.MINUTE * 30)) {
 			_checkInterrupted(faroProject.getWeDeployKey());
@@ -184,7 +193,7 @@ public class UpgradeExecutor {
 					faroProject,
 					_workspaceEngineClient.getLCPServices(
 						faroProject.getWeDeployKey()),
-					expectedServiceIds, version)) {
+					serviceIds, version)) {
 
 				return;
 			}
@@ -197,10 +206,9 @@ public class UpgradeExecutor {
 
 	private boolean _checkHealth(
 		FaroProject faroProject, List<LCPService> lcpServices,
-		String[] expectedServiceIds, String version) {
+		List<String> expectedServiceIds, String version) {
 
-		List<String> serviceIds = new ArrayList<>(
-			Arrays.asList(expectedServiceIds));
+		List<String> serviceIds = new ArrayList<>(expectedServiceIds);
 
 		for (LCPService lcpService : lcpServices) {
 			if (!serviceIds.contains(lcpService.getServiceId()) ||
@@ -277,20 +285,6 @@ public class UpgradeExecutor {
 			faroProject.getWeDeployKey();
 	}
 
-	private boolean _isDeleted(
-		List<LCPService> lcpServices, String[] expectedServiceIds) {
-
-		for (LCPService lcpService : lcpServices) {
-			if (!ArrayUtil.contains(
-					expectedServiceIds, lcpService.getServiceId())) {
-
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	private boolean _isUpgradeDone() {
 		for (FutureTask futureTask : _futureTasks.values()) {
 			if (!futureTask.isDone()) {
@@ -364,17 +358,7 @@ public class UpgradeExecutor {
 		}
 
 		try {
-			String[] expectedServiceIds = null;
-
-			if (faroProject.isTrial()) {
-				expectedServiceIds = _EXPECTED_SERVICE_IDS_TRIAL;
-			}
-			else {
-				expectedServiceIds = _EXPECTED_SERVICE_IDS_PAID;
-			}
-
-			_buildServices(
-				faroProject, version, expectedServiceIds, waitForHealthy);
+			_buildServices(faroProject, version, waitForHealthy);
 
 			if (refreshLiferay) {
 				_upgradeProgress.put(_getKey(faroProject), "ASAH Complete");
@@ -403,20 +387,6 @@ public class UpgradeExecutor {
 			_upgradeProgress.put(_getKey(faroProject), "Failed");
 		}
 	}
-
-	private static final String[] _DELETE_SERVICES_WHITELIST = {
-		"asah652a6babdba143d086a19db542781bc2.lfr.cloud"
-	};
-
-	private static final String[] _EXPECTED_SERVICE_IDS_PAID = {
-		"osbasahbackend", "osbasahbatchcurator", "osbasahdxpextractor",
-		"osbasahextractor", "osbasahpublisher", "osbasahqueue", "osbasahredis",
-		"osbasahsalesforceextractor", "osbasahstreamcurator", "osbasahupgrade"
-	};
-
-	private static final String[] _EXPECTED_SERVICE_IDS_TRIAL = {
-		"osbasahmonolith"
-	};
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		UpgradeExecutor.class);
