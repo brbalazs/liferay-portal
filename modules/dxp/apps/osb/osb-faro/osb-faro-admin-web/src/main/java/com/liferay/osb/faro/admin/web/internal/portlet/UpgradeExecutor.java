@@ -254,52 +254,6 @@ public class UpgradeExecutor {
 		}
 	}
 
-	private void _deleteServices(
-			FaroProject faroProject, String[] expectedServiceIds)
-		throws Exception {
-
-		if (ArrayUtil.contains(
-				_DELETE_SERVICES_WHITELIST, faroProject.getWeDeployKey())) {
-
-			return;
-		}
-
-		long startTime = System.currentTimeMillis();
-
-		_upgradeProgress.put(_getKey(faroProject), "Deleting services");
-
-		for (LCPService lcpService :
-				_workspaceEngineClient.getLCPServices(
-					faroProject.getWeDeployKey())) {
-
-			if (!ArrayUtil.contains(
-					expectedServiceIds, lcpService.getServiceId())) {
-
-				_workspaceEngineClient.deleteWorkspaceService(
-					faroProject.getWeDeployKey(), lcpService.getServiceId());
-			}
-		}
-
-		_upgradeProgress.put(
-			_getKey(faroProject), "Waiting for deleted services");
-
-		while ((System.currentTimeMillis() - startTime) < (Time.MINUTE * 5)) {
-			_checkInterrupted(faroProject.getWeDeployKey());
-
-			if (_isDeleted(
-					_workspaceEngineClient.getLCPServices(
-						faroProject.getWeDeployKey()),
-					expectedServiceIds)) {
-
-				return;
-			}
-
-			Thread.sleep(Time.SECOND * 30);
-		}
-
-		throw new Exception("Unable to delete services");
-	}
-
 	private ExecutorService _getExecutorService(String key, int threadCount) {
 		ExecutorService executorService = _executorServices.get(key);
 
@@ -418,8 +372,6 @@ public class UpgradeExecutor {
 			else {
 				expectedServiceIds = _EXPECTED_SERVICE_IDS_PAID;
 			}
-
-			_deleteServices(faroProject, expectedServiceIds);
 
 			_buildServices(
 				faroProject, version, expectedServiceIds, waitForHealthy);
