@@ -813,7 +813,9 @@ definition {
 			workflowAssetType = "Page Revision",
 			workflowTask = "Review");
 
-		Workflow.gotoPreviewView();
+		AssertVisible(locator1 = "WorkflowSubmissionsTask#PREVIEW_VIEW");
+
+		Click(locator1 = "WorkflowSubmissionsTask#PREVIEW_VIEW");
 
 		Page.viewWithWorkflowPG(workflowStatus = "Pending (Review)");
 
