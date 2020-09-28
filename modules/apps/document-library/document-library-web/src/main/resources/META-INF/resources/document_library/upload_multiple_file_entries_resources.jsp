@@ -212,7 +212,7 @@ else {
 					%>
 
 					<aui:script sandbox="<%= true %>">
-						$('#<portlet:namespace/>documentTypeSelector .lfr-menu-list').on(
+						$('#<portlet:namespace />documentTypeSelector .lfr-menu-list').on(
 							'click',
 							'li a',
 							function(event) {

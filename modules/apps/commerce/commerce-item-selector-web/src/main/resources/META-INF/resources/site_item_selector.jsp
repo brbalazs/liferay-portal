@@ -96,7 +96,7 @@ String itemSelectedEventName = simpleSiteItemSelectorViewDisplayContext.getItemS
 </div>
 
 <aui:script use="aui-base">
-	A.one('#<portlet:namespace/>sites').delegate(
+	A.one('#<portlet:namespace />sites').delegate(
 		'click',
 		function(event) {
 			var row = this.ancestor('tr');
