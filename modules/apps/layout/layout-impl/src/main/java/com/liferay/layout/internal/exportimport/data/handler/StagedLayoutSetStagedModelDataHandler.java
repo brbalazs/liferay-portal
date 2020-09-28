@@ -866,19 +866,19 @@ public class StagedLayoutSetStagedModelDataHandler
 			boolean changed = false;
 
 			for (Map.Entry<String, String> entry : defaultsMap.entrySet()) {
-				String keyProperty = entry.getKey();
+				String propertyKey = entry.getKey();
 				String defaultValue = entry.getValue();
 
 				String currentValue = settingsUnicodeProperties.getProperty(
-					keyProperty, defaultValue);
+					propertyKey, defaultValue);
 
 				String importedValue =
 					importedSettingsUnicodeProperties.getProperty(
-						keyProperty, defaultValue);
+						propertyKey, defaultValue);
 
 				if (!Objects.equals(currentValue, importedValue)) {
 					settingsUnicodeProperties.setProperty(
-						keyProperty, importedValue);
+						propertyKey, importedValue);
 
 					changed = true;
 				}
