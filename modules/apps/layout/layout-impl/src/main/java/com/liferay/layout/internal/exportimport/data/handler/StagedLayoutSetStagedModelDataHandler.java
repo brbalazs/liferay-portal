@@ -856,14 +856,14 @@ public class StagedLayoutSetStagedModelDataHandler
 				Sites.MERGE_FAIL_FRIENDLY_URL_LAYOUTS);
 
 		if (Validator.isNull(mergeFailFriendlyURLLayouts)) {
-			Map<String, String> defaultsMap = MapUtil.fromArray(defaultsArray);
+			boolean changed = false;
 
 			LayoutSet stagedLayoutSet = importedLayoutSet.getLayoutSet();
 
 			UnicodeProperties importedSettingsUnicodeProperties =
 				stagedLayoutSet.getSettingsProperties();
 
-			boolean changed = false;
+			Map<String, String> defaultsMap = MapUtil.fromArray(defaultsArray);
 
 			for (Map.Entry<String, String> entry : defaultsMap.entrySet()) {
 				String propertyKey = entry.getKey();
