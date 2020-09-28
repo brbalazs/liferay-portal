@@ -209,7 +209,7 @@ public class CPDefinitionHelperImpl implements CPDefinitionHelper {
 		CProduct cProduct = _cProductLocalService.getCProduct(cProductId);
 
 		String layoutUuid = _cpDefinitionLocalService.getLayoutUuid(
-			cProduct.getPublishedCPDefinitionId());
+			group.getGroupId(), cProduct.getPublishedCPDefinitionId());
 
 		if (Validator.isNotNull(layoutUuid)) {
 			try {
