@@ -5,6 +5,8 @@ import FaroConstants from 'shared/util/constants';
 import IndividualProfileCard from 'contacts/individual/profile/hoc/ProfileCard';
 import InterestsCard from 'contacts/individual/profile/components/InterestsCard';
 import React from 'react';
+import {compose} from 'redux';
+import {connect} from 'react-redux';
 import {Individual} from 'shared/util/records';
 import {INDIVIDUAL_COUNT} from 'shared/util/pagination';
 import {INDIVIDUALS} from 'shared/util/router';
@@ -33,17 +35,18 @@ function fetchAssociatedSegments({channelId, groupId, id, searchValue}) {
 	});
 }
 
-export default class Overview extends React.Component {
+export class Overview extends React.Component {
 	static propTypes = {
 		channelId: PropTypes.string,
 		groupId: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
 		individual: PropTypes.instanceOf(Individual).isRequired,
-		tabId: PropTypes.string
+		tabId: PropTypes.string,
+		timeZoneId: PropTypes.string
 	};
 
 	render() {
-		const {channelId, groupId, id, individual, tabId} = this.props;
+		const {channelId, groupId, id, individual, tabId, timeZoneId} = this.props;
 
 		return (
 			<div className='overview-layout'>
@@ -53,6 +56,7 @@ export default class Overview extends React.Component {
 						entity={individual}
 						groupId={groupId}
 						tabId={tabId}
+						timeZoneId={timeZoneId}
 					/>
 				</div>
 
@@ -61,6 +65,7 @@ export default class Overview extends React.Component {
 						channelId={channelId}
 						entity={individual}
 						groupId={groupId}
+						timeZoneId={timeZoneId}
 					/>
 
 					<InterestsCard
@@ -88,3 +93,11 @@ export default class Overview extends React.Component {
 		);
 	}
 }
+
+export default compose(
+	connect((store, {groupId}) => ({
+		timeZoneId: store.getIn(
+			['projects', groupId, 'data', 'timeZone', 'timeZoneId']
+		)
+	})),
+)(Overview);

@@ -343,11 +343,13 @@ export class IndividualProfileCard extends React.Component {
 			</div>
 		);
 	}
+
 	renderTimeline() {
 		const {
 			channelId,
 			entity: {id},
-			groupId
+			groupId,
+			timeZoneId
 		} = this.props;
 
 		return (
@@ -367,6 +369,7 @@ export class IndividualProfileCard extends React.Component {
 				}}
 				initialExpanded={false}
 				ref={this._searchableVerticalTimelineRef}
+				timeZoneId={timeZoneId}
 			/>
 		);
 	}

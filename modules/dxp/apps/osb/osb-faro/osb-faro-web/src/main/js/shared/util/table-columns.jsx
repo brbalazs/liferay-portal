@@ -18,10 +18,10 @@ import {
 	SourceCell,
 	WillBeRemovedCell
 } from 'shared/components/table/cell-components';
+import {applyTimeZone, formatDateToTimezone} from './date';
 import {compose} from 'lodash/fp';
 import {formatEngagementScore, getSafeEngagementDisplay} from './engagement';
 import {formatTime} from './time';
-import {formatUTCDateFromUnix} from './date';
 import {get, isNil, noop, pickBy} from 'lodash';
 import {Routes, setUriQueryValues, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
@@ -280,17 +280,17 @@ export const definitionsListColumns = {
  * Details List Columns
  */
 export const detailsListColumns = {
-	dateModified: {
-		accessor: 'dateModified',
-		dataFormatter: dateModified =>
-			!isNil(dateModified) && moment(dateModified).fromNow(),
-		label: Liferay.Language.get('last-modified')
-	},
 	getDataSourceName: groupId => ({
 		accessor: 'dataSourceName',
 		cellRenderer: SourceCell,
 		cellRendererProps: {groupId},
 		label: Liferay.Language.get('data-source')
+	}),
+	getDateModified: timeZoneId => ({
+		accessor: 'dateModified',
+		dataFormatter: dateModified =>
+			!isNil(dateModified) && applyTimeZone(dateModified, timeZoneId).fromNow(),
+		label: Liferay.Language.get('last-modified')
 	}),
 	name: {
 		accessor: 'name',
@@ -381,6 +381,12 @@ export const individualsListColumns = {
 		dataFormatter: formatScore,
 		label: Liferay.Language.get('30-day-engagement')
 	},
+	getLastActivityDate: (timeZoneId) => ({
+		accessor: 'lastActivityDate',
+		dataFormatter: data =>
+			!isNil(data) && formatDateToTimezone(data, 'll', timeZoneId),
+		label: Liferay.Language.get('last-activity')
+	}),
 	getName: ({channelId, groupId}) => ({
 		accessor: 'name',
 		cellRenderer: IndividualLinkCell,
@@ -415,12 +421,6 @@ export const individualsListColumns = {
 		accessor: 'properties.jobTitle',
 		className: 'table-cell-expand',
 		label: Liferay.Language.get('job-title')
-	},
-	lastActivityDate: {
-		accessor: 'lastActivityDate',
-		dataFormatter: data =>
-			!isNil(data) && formatUTCDateFromUnix(data, 'll'),
-		label: Liferay.Language.get('last-activity')
 	},
 	name: {
 		accessor: 'name',

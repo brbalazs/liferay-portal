@@ -6,7 +6,7 @@ import React from 'react';
 import Spinner from './Spinner';
 import Sticker from './Sticker';
 import TextTruncate from './TextTruncate';
-import {formatUTCDateFromUnix} from 'shared/util/date';
+import {formatDateToTimezone} from 'shared/util/date';
 import {get} from 'lodash';
 import {Link} from 'react-router-dom';
 import {onEnter} from 'shared/util/key-constants';
@@ -33,7 +33,8 @@ class TimelineItem extends React.Component {
 		channelId: PropTypes.string,
 		groupId: PropTypes.string,
 		initialExpanded: PropTypes.bool,
-		item: PropTypes.shape(ITEM_SHAPE).isRequired
+		item: PropTypes.shape(ITEM_SHAPE).isRequired,
+		timeZoneId: PropTypes.string.isRequired
 	};
 
 	state = {
@@ -91,7 +92,8 @@ class TimelineItem extends React.Component {
 					time,
 					title,
 					url
-				}
+				},
+				timeZoneId
 			},
 			state: {expanded}
 		} = this;
@@ -130,7 +132,7 @@ class TimelineItem extends React.Component {
 
 						{time && (
 							<div className='timeline-item-label'>
-								{formatUTCDateFromUnix(time, 'h:mma')}
+								{formatDateToTimezone(time, 'h:mma', timeZoneId)}
 							</div>
 						)}
 
@@ -199,7 +201,7 @@ class TimelineItem extends React.Component {
 					</div>
 
 					{expanded && nestedItems && (
-						<VerticalTimeline items={nestedItems} nested />
+						<VerticalTimeline items={nestedItems} nested timeZoneId={timeZoneId} />
 					)}
 				</div>
 			</li>
@@ -227,7 +229,8 @@ export default class VerticalTimeline extends React.Component {
 		initialExpanded: PropTypes.bool,
 		items: PropTypes.arrayOf(PropTypes.shape(ITEM_SHAPE)),
 		loading: PropTypes.bool,
-		nested: PropTypes.bool
+		nested: PropTypes.bool,
+		timeZoneId: PropTypes.string
 	};
 
 	render() {
@@ -237,7 +240,8 @@ export default class VerticalTimeline extends React.Component {
 			initialExpanded,
 			items,
 			loading,
-			nested
+			nested,
+			timeZoneId
 		} = this.props;
 
 		const classes = getCN('timeline', 'timeline-center', {
@@ -276,6 +280,7 @@ export default class VerticalTimeline extends React.Component {
 								initialExpanded={initialExpanded}
 								item={item}
 								key={i}
+								timeZoneId={timeZoneId}
 							/>
 						))}
 					</ul>

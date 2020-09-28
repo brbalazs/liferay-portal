@@ -3,8 +3,8 @@ import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
-import moment from 'moment';
 import React from 'react';
+import {formatDateToTimezone} from 'shared/util/date';
 import {Individual} from 'shared/util/records';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
@@ -22,7 +22,7 @@ export default class DetailsCard extends React.PureComponent {
 	};
 
 	render() {
-		const {channelId, className, entity, groupId} = this.props;
+		const {channelId, className, entity, groupId, timeZoneId} = this.props;
 
 		const individual = entity.toJS();
 
@@ -47,7 +47,7 @@ export default class DetailsCard extends React.PureComponent {
 					{dateCreated && (
 						<div className='first-seen'>
 							{sub(Liferay.Language.get('first-seen-x'), [
-								moment(dateCreated).format('LL')
+								formatDateToTimezone(dateCreated, 'LL',timeZoneId)
 							])}
 						</div>
 					)}

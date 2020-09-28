@@ -77,6 +77,7 @@ interface IKnownIndividualsProps extends React.HTMLAttributes<HTMLDivElement> {
 	orderByField?: string;
 	page?: string;
 	query?: string;
+	timeZoneId?: string;
 }
 
 interface IKnownIndividualsState {
@@ -103,7 +104,8 @@ export class KnownIndividuals extends React.Component<
 		close: PropTypes.func.isRequired,
 		currentUser: PropTypes.instanceOf(User).isRequired,
 		groupId: PropTypes.string.isRequired,
-		open: PropTypes.func.isRequired
+		open: PropTypes.func.isRequired,
+		timeZoneId: PropTypes.string
 	};
 
 	state = {
@@ -328,7 +330,8 @@ export class KnownIndividuals extends React.Component<
 			orderBy,
 			orderByField,
 			page,
-			query
+			query,
+			timeZoneId
 		} = this.props;
 
 		return (
@@ -345,7 +348,7 @@ export class KnownIndividuals extends React.Component<
 									individualsListColumns.jobTitle,
 									individualsListColumns.activitiesCount,
 									individualsListColumns.engagementScore,
-									individualsListColumns.lastActivityDate
+									individualsListColumns.getLastActivityDate(timeZoneId)
 								]}
 								currentUser={currentUser}
 								dataSourceFn={getIndividualsDataSource}
@@ -406,5 +409,10 @@ export default compose<any>(
 		null,
 		{addAlert, close, open}
 	),
+	connect((store, {groupId}) => ({
+		timeZoneId: store.getIn(
+			['projects', groupId, 'data', 'timeZone', 'timeZoneId']
+		)
+	})),
 	withSelectionProvider
 )(KnownIndividuals);

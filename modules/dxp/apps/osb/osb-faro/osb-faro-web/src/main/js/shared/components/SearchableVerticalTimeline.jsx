@@ -20,12 +20,13 @@ export default class SearchableVerticalTimeline extends React.Component {
 		initialExpanded: PropTypes.bool,
 		items: PropTypes.arrayOf(PropTypes.object),
 		loading: PropTypes.bool,
-		nested: PropTypes.bool
+		nested: PropTypes.bool,
+		timeZoneId: PropTypes.string
 	};
 
 	@autobind
 	renderVerticalTimeline({items, loading}) {
-		const {groupId, headerLabels, initialExpanded, nested} = this.props;
+		const {groupId, headerLabels, initialExpanded, nested, timeZoneId} = this.props;
 
 		return (
 			<VerticalTimeline
@@ -35,6 +36,7 @@ export default class SearchableVerticalTimeline extends React.Component {
 				items={items}
 				loading={loading}
 				nested={nested}
+				timeZoneId={timeZoneId}
 			/>
 		);
 	}

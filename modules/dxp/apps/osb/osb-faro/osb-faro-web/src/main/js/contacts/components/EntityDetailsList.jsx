@@ -6,6 +6,8 @@ import Nav from 'shared/components/Nav';
 import Promise from 'metal-promise';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
+import {compose} from 'redux';
+import {connect} from 'react-redux';
 import {detailsListColumns} from 'shared/util/table-columns';
 import {isBlank} from 'shared/util/util';
 import {Map} from 'immutable';
@@ -15,7 +17,7 @@ import {sub} from 'shared/util/lang';
 
 const DETAIL_QUERY_OPTIONS = ['dataSourceName', 'name', 'sourceName', 'value'];
 
-export default class EntityDetailsList extends React.Component {
+export class EntityDetailsList extends React.Component {
 	static defaultProps = {
 		title: Liferay.Language.get('properties')
 	};
@@ -23,6 +25,7 @@ export default class EntityDetailsList extends React.Component {
 	static propTypes = {
 		demographicsIMap: PropTypes.instanceOf(Map).isRequired,
 		groupId: PropTypes.string.isRequired,
+		timeZoneId: PropTypes.string,
 		title: PropTypes.string
 	};
 
@@ -61,13 +64,13 @@ export default class EntityDetailsList extends React.Component {
 	}
 
 	getColumns() {
-		const {groupId} = this.props;
+		const {groupId, timeZoneId} = this.props;
 
 		return [
 			detailsListColumns.name,
 			detailsListColumns.sourceName,
 			detailsListColumns.getDataSourceName(groupId),
-			detailsListColumns.dateModified
+			detailsListColumns.getDateModified(timeZoneId)
 		];
 	}
 
@@ -169,3 +172,11 @@ export default class EntityDetailsList extends React.Component {
 		);
 	}
 }
+
+export default compose(
+	connect((store, {groupId}) => ({
+		timeZoneId: store.getIn(
+			['projects', groupId, 'data', 'timeZone', 'timeZoneId']
+		)
+	})),
+)(EntityDetailsList);
