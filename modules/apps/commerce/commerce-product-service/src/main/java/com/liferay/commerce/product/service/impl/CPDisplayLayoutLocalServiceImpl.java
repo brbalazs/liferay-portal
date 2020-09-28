@@ -82,7 +82,8 @@ public class CPDisplayLayoutLocalServiceImpl
 		long classNameId = classNameLocalService.getClassNameId(clazz);
 
 		CPDisplayLayout oldCPDisplayLayout =
-			cpDisplayLayoutPersistence.fetchByC_C(classNameId, classPK);
+			cpDisplayLayoutPersistence.fetchByG_C_C(
+				groupId, classNameId, classPK);
 
 		if ((clazz == CPDefinition.class) &&
 			cpDefinitionLocalService.isVersionable(classPK)) {
@@ -97,8 +98,8 @@ public class CPDisplayLayoutLocalServiceImpl
 				throw new SystemException(pe);
 			}
 
-			oldCPDisplayLayout = cpDisplayLayoutPersistence.fetchByC_C(
-				classNameId, classPK);
+			oldCPDisplayLayout = cpDisplayLayoutPersistence.fetchByG_C_C(
+				groupId, classNameId, classPK);
 		}
 
 		if (oldCPDisplayLayout != null) {
@@ -145,7 +146,14 @@ public class CPDisplayLayoutLocalServiceImpl
 				}
 			}
 
-			return cpDisplayLayoutPersistence.remove(cpDisplayLayout);
+			do {
+				cpDisplayLayoutPersistence.remove(cpDisplayLayout);
+
+				cpDisplayLayout = cpDisplayLayoutPersistence.fetchByC_C(
+					cpDisplayLayout.getClassNameId(),
+					cpDisplayLayout.getClassPK());
+			}
+			while (cpDisplayLayout != null);
 		}
 
 		return null;
@@ -162,10 +170,22 @@ public class CPDisplayLayoutLocalServiceImpl
 		cpDisplayLayoutPersistence.removeByG_L(groupId, layoutUuid);
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x)
+	 */
+	@Deprecated
 	@Override
 	public CPDisplayLayout fetchCPDisplayLayout(Class<?> clazz, long classPK) {
 		return cpDisplayLayoutPersistence.fetchByC_C(
 			classNameLocalService.getClassNameId(clazz), classPK);
+	}
+
+	@Override
+	public CPDisplayLayout fetchCPDisplayLayout(
+		long groupId, Class<?> clazz, long classPK) {
+
+		return cpDisplayLayoutPersistence.fetchByG_C_C(
+			groupId, classNameLocalService.getClassNameId(clazz), classPK);
 	}
 
 	@Override
