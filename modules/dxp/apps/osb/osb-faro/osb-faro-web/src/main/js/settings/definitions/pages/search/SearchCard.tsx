@@ -20,6 +20,7 @@ import {useMutation, useQuery} from '@apollo/react-hooks';
 import {User} from 'shared/util/records';
 import {WrapSafeResults} from 'shared/hoc/util';
 
+const QUERY_STRING_SIZE_LIMIT = 512;
 const SEARCH_QUERY_STRINGS_KEY = 'search-query-strings';
 
 interface ISearchCardProps {
@@ -228,7 +229,7 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 															validate={sequence([
 																validateRequired,
 																validateMaxLength(
-																	50
+																	QUERY_STRING_SIZE_LIMIT
 																)
 															])}
 														/>
