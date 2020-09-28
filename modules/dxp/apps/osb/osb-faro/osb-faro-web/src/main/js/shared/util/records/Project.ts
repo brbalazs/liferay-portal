@@ -1,3 +1,4 @@
+import TimeZone from './TimeZone';
 import {Map, Record} from 'immutable';
 
 interface IProject {
@@ -13,6 +14,7 @@ interface IProject {
 	serverLocation: string;
 	state?: string;
 	stateStartDate?: number;
+	timeZone: TimeZone;
 	userId?: number;
 }
 
@@ -30,6 +32,7 @@ export default class Project
 		serverLocation: null,
 		state: null,
 		stateStartDate: null,
+		timeZone: new TimeZone(),
 		userId: null
 	})
 	implements IProject {
@@ -45,6 +48,7 @@ export default class Project
 	serverLocation: string;
 	state?: string;
 	stateStartDate?: number;
+	timeZone: TimeZone;
 	userId?: number;
 
 	constructor(props: IProject) {
