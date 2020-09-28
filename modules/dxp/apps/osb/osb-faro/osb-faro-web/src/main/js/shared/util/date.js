@@ -1,4 +1,5 @@
 import moment from 'moment';
+import momentTimezone from 'moment-timezone';
 import {flow, get, head, last, rangeRight} from 'lodash/fp';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 
@@ -46,6 +47,10 @@ export const WEEKDAYS = [
 	Liferay.Language.get('saturday')
 ];
 
+export const DEFAULT_TIMEZONE_ID = 'UTC';
+
+export const DEFAULT_FORMAT = 'LL';
+
 /**
  * Formats unix timestamp to specified moment format
  * @param {number|string|Date} date
@@ -53,12 +58,18 @@ export const WEEKDAYS = [
  * @param {string|moment.MomentBuiltinFormat} [inputFormatter]
  * @return {string} formatted date
  */
-export function formatUTCDate(date, format = 'LL', inputFormatter) {
+export function formatUTCDate(date, format = DEFAULT_FORMAT, inputFormatter) {
 	return moment.utc(date, inputFormatter).format(format);
 }
 
-export const formatUTCDateFromUnix = (date, format = 'LL') =>
+export const formatUTCDateFromUnix = (date, format = DEFAULT_FORMAT) =>
 	formatUTCDate(date, format, 'x');
+
+export const formatDateToTimezone = (date, format = DEFAULT_FORMAT, timeZoneId = DEFAULT_TIMEZONE_ID) =>
+	applyTimeZone(date, timeZoneId).format(format);
+
+export const applyTimeZone = (date, timeZoneId = DEFAULT_TIMEZONE_ID) =>
+	momentTimezone(date).tz(timeZoneId);
 
 export function generateDateRange(period = 30, interval = 'days') {
 	return rangeRight(0, period).map(cur =>
