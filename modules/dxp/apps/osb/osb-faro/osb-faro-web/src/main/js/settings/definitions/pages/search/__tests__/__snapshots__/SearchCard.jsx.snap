@@ -82,6 +82,7 @@ exports[`SearchCard should render 1`] = `
         >
           <button
             class="button-root btn btn-primary"
+            disabled=""
             type="submit"
           >
             Save
