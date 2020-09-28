@@ -174,6 +174,7 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 						{({
 							handleSubmit,
 							isSubmitting,
+							isValid,
 							setFieldTouched,
 							setFieldValue,
 							touched,
@@ -275,6 +276,7 @@ export const SearchCard: React.FC<ISearchCardProps> = ({
 								{authorized && (
 									<div className='mt-4'>
 										<Button
+											disabled={!isValid}
 											display='primary'
 											loading={isSubmitting}
 											type='submit'
