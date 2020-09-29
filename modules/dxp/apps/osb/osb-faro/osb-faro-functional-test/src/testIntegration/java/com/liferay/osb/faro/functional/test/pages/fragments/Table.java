@@ -151,8 +151,8 @@ public class Table {
 		sb.append(name);
 		sb.append("']//ancestor::div[@class='card-header']");
 		sb.append("/following-sibling::div[contains(@class,'card-body");
-		sb.append("')]//*[name()='g' and contains(@class,'yAxis')]");
-		sb.append("//*[name()='text']/*[name()='tspan']");
+		sb.append("')]//*[name()='g' and contains(@class,'yAxis')]//*");
+		sb.append("[name()='text']/*[name()='tspan']");
 
 		List<WebElement> rowWebElements = _faroSelenium.findElements(
 			sb.toString());
