@@ -408,17 +408,16 @@ export class KnownIndividuals extends React.Component<
 export default compose<any>(
 	withCurrentUser,
 	connect(
-		null,
+		(store, {groupId}) => ({
+			timeZoneId: store.getIn([
+				'projects',
+				groupId,
+				'data',
+				'timeZone',
+				'timeZoneId'
+			])
+		}),
 		{addAlert, close, open}
 	),
-	connect((store, {groupId}) => ({
-		timeZoneId: store.getIn([
-			'projects',
-			groupId,
-			'data',
-			'timeZone',
-			'timeZoneId'
-		])
-	})),
 	withSelectionProvider
 )(KnownIndividuals);
