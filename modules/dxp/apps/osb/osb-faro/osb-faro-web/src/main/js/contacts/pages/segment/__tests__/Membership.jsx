@@ -1,70 +1,89 @@
-jest.mock('shared/hoc/WithRequest', () => () => component => component);
-
 import * as data from 'test/data';
 import Membership, {ChartViews} from '../Membership';
+import mockStore from 'test/mock-store';
 import React from 'react';
 import {ENGAGEMENT, GROWTH} from 'shared/util/router';
+import {Provider} from 'react-redux';
+import {render} from '@testing-library/react';
 import {Segment} from 'shared/util/records';
-import {shallow} from 'enzyme';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 const defaultProps = {
+	channelId: '123',
 	engagementHistory: {data: [], previousScore: 0},
 	groupId: '23',
-	growthHistory: [],
-	segment: data.getImmutableMock(Segment, data.mockSegment)
+	growthHistory: {data: []},
+	id: '321',
+	segment: data.getImmutableMock(Segment, data.mockSegment),
+	timeZoneId: 'UTC'
 };
 
 describe('Membership', () => {
-	it('should render', () => {
-		const component = shallow(<Membership {...defaultProps} />);
+	const WrappedComponent = props => (
+		<Provider store={mockStore()}>
+			<StaticRouter>
+				<Membership {...defaultProps} {...props} />
+			</StaticRouter>
+		</Provider>
+	);
 
-		expect(component).toMatchSnapshot();
+	it('should render', () => {
+		const {container} = render(<WrappedComponent />);
+
+		jest.runAllTimers();
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render the growth tab', () => {
-		const component = shallow(<Membership {...defaultProps} />);
+		const {queryByTestId} = render(<WrappedComponent />);
 
-		expect(component.find('CardTabs').props().activeTabId).toEqual(GROWTH);
+		jest.runAllTimers();
+
+		expect(queryByTestId(GROWTH).className).toContain('active');
+		expect(queryByTestId(ENGAGEMENT).className).not.toContain('active');
 	});
 
 	it('should render the engagement tab', () => {
-		const component = shallow(
-			<Membership {...defaultProps} tabId={ENGAGEMENT} />
-		);
+		const {queryByTestId} = render(<WrappedComponent tabId={ENGAGEMENT} />);
 
-		expect(component.find('CardTabs').props().activeTabId).toEqual(
-			ENGAGEMENT
-		);
+		jest.runAllTimers();
+
+		expect(queryByTestId(GROWTH).className).not.toContain('active');
+		expect(queryByTestId(ENGAGEMENT).className).toContain('active');
 	});
 });
 
 describe('ChartViews', () => {
-	it('should render', () => {
-		const component = shallow(<ChartViews {...defaultProps} />);
+	const WrappedComponent = props => (
+		<StaticRouter>
+			<ChartViews {...defaultProps} {...props} />
+		</StaticRouter>
+	);
 
-		expect(component.children().shallow()).toMatchSnapshot();
+	it('should render', () => {
+		const {container} = render(<WrappedComponent />);
+
+		jest.runAllTimers();
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render the growth tab', () => {
-		const component = shallow(<ChartViews {...defaultProps} />);
+		const {queryByText} = render(<WrappedComponent />);
 
 		jest.runAllTimers();
 
-		expect(
-			component
-				.children()
-				.shallow()
-				.find('SegmentGrowthWithList').length
-		).toEqual(1);
+		expect(queryByText(/Known Members/)).toBeTruthy();
 	});
 
 	it('should render the engagement tab', () => {
-		const component = shallow(
-			<ChartViews {...defaultProps} tabId={ENGAGEMENT} />
-		);
+		const {queryByText} = render(<WrappedComponent tabId={ENGAGEMENT} />);
 
 		jest.runAllTimers();
 
-		expect(component.find('SegmentEngagementWithList').length).toEqual(1);
+		expect(queryByText(/Engaged Members/)).toBeTruthy();
 	});
 });

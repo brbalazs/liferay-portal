@@ -549,7 +549,8 @@ export class SegmentGrowthWithList extends React.Component {
 		groupId: PropTypes.any.isRequired,
 		hasSelectedPoint: PropTypes.bool,
 		id: PropTypes.string.isRequired,
-		selectedPoint: PropTypes.number
+		selectedPoint: PropTypes.number,
+		timeZoneId: PropTypes.string
 	};
 
 	@autobind
@@ -564,15 +565,15 @@ export class SegmentGrowthWithList extends React.Component {
 	}
 
 	getColumns() {
-		const {channelId, groupId, hasSelectedPoint} = this.props;
+		const {channelId, groupId, hasSelectedPoint, timeZoneId} = this.props;
 
 		if (hasSelectedPoint) {
 			return [
 				changesListColumns.getIndividualName({channelId, groupId}),
 				changesListColumns.individualEmail,
 				individualsListColumns.accountNames,
-				changesListColumns.dateFirst,
-				changesListColumns.operation
+				changesListColumns.getDateFirst(timeZoneId),
+				changesListColumns.getOperation(timeZoneId)
 			];
 		}
 
@@ -580,7 +581,7 @@ export class SegmentGrowthWithList extends React.Component {
 			individualsListColumns.getName({channelId, groupId}),
 			individualsListColumns.email,
 			individualsListColumns.accountNames,
-			individualsListColumns.dateCreated
+			individualsListColumns.getDateCreated(timeZoneId)
 		];
 	}
 

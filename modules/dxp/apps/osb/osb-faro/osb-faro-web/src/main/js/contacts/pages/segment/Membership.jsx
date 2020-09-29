@@ -6,6 +6,7 @@ import Promise from 'metal-promise';
 import React from 'react';
 import SegmentEngagementWithList from 'contacts/components/segment/Engagement';
 import SegmentGrowthWithList from 'contacts/components/segment/Growth';
+import {connect} from 'react-redux';
 import {ENGAGEMENT, GROWTH, Routes, toRoute} from 'shared/util/router';
 import {formatEngagementScore} from 'shared/util/engagement';
 import {getPluralMessage, sub} from 'shared/util/lang';
@@ -50,7 +51,8 @@ export const ChartViews = withRequest(fetchHistories, mapHistories, {
 				data: PropTypes.array
 			}).isRequired,
 			id: PropTypes.string.isRequired,
-			tabId: PropTypes.string
+			tabId: PropTypes.string,
+			timeZoneId: PropTypes.string
 		};
 
 		render() {
@@ -60,7 +62,8 @@ export const ChartViews = withRequest(fetchHistories, mapHistories, {
 				groupId,
 				growthHistory,
 				id,
-				tabId
+				tabId,
+				timeZoneId
 			} = this.props;
 
 			return (
@@ -78,6 +81,7 @@ export const ChartViews = withRequest(fetchHistories, mapHistories, {
 							channelId={channelId}
 							groupId={groupId}
 							id={id}
+							timeZoneId={timeZoneId}
 						/>
 					)}
 				</>
@@ -86,6 +90,15 @@ export const ChartViews = withRequest(fetchHistories, mapHistories, {
 	}
 );
 
+@connect((store, {groupId}) => ({
+	timeZoneId: store.getIn([
+		'projects',
+		groupId,
+		'data',
+		'timeZone',
+		'timeZoneId'
+	])
+}))
 export default class Membership extends React.Component {
 	static defaultProps = {
 		tabId: GROWTH
@@ -94,7 +107,8 @@ export default class Membership extends React.Component {
 	static propTypes = {
 		groupId: PropTypes.string.isRequired,
 		segment: PropTypes.instanceOf(Segment).isRequired,
-		tabId: PropTypes.string
+		tabId: PropTypes.string,
+		timeZoneId: PropTypes.string
 	};
 
 	buildCardTabs() {
@@ -159,9 +173,13 @@ export default class Membership extends React.Component {
 	}
 
 	render() {
-		const {channelId, groupId, segment, tabId} = this.props;
-
-		const {id} = segment;
+		const {
+			channelId,
+			groupId,
+			segment: {id},
+			tabId,
+			timeZoneId
+		} = this.props;
 
 		return (
 			<Card className='segment-membership-root' pageDisplay>
@@ -172,6 +190,7 @@ export default class Membership extends React.Component {
 					groupId={groupId}
 					id={id}
 					tabId={tabId}
+					timeZoneId={timeZoneId}
 				/>
 			</Card>
 		);

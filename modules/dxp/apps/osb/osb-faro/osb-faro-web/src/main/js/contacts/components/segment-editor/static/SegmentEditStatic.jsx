@@ -23,11 +23,6 @@ import {
 } from 'shared/context/selection';
 import {sub} from 'shared/util/lang';
 
-const COLUMNS = [
-	individualsListColumns.name,
-	individualsListColumns.dateCreated
-];
-
 const ORDER_BY_OPTIONS = [
 	{
 		label: Liferay.Language.get('name'),
@@ -50,7 +45,8 @@ export class SegmentEditStatic extends React.Component {
 		groupId: PropTypes.string.isRequired,
 		id: PropTypes.string,
 		membershipCount: PropTypes.number,
-		open: PropTypes.func.isRequired
+		open: PropTypes.func.isRequired,
+		timeZoneId: PropTypes.string
 	};
 
 	state = {
@@ -77,6 +73,15 @@ export class SegmentEditStatic extends React.Component {
 
 	fetchAccounts() {
 		return Promise.resolve({items: [], total: 0});
+	}
+
+	getColumns() {
+		const {timeZoneId} = this.props;
+
+		return [
+			individualsListColumns.name,
+			individualsListColumns.getDateCreated(timeZoneId)
+		];
 	}
 
 	getIndividuals({delta, orderBy, orderByField, page, query}) {
@@ -158,7 +163,7 @@ export class SegmentEditStatic extends React.Component {
 
 		open(modalTypes.SEARCHABLE_TABLE_MODAL, {
 			checkDisabled: this.isCurrentMember,
-			columns: COLUMNS,
+			columns: this.getColumns(),
 			dataSourceFn: this.fetchModalData,
 			entityLabel,
 			groupId,
@@ -337,7 +342,7 @@ export class SegmentEditStatic extends React.Component {
 						)}
 						addedItemsIOMap={changeset.added.toOrderedMap()}
 						className='d-flex flex-column flex-grow-1'
-						columns={COLUMNS}
+						columns={this.getColumns()}
 						dataSourceFn={this.fetchResults}
 						dataSourceParams={{
 							groupId,
@@ -365,7 +370,15 @@ export class SegmentEditStatic extends React.Component {
 
 export default compose(
 	connect(
-		null,
+		(store, {groupId}) => ({
+			timeZoneId: store.getIn([
+				'projects',
+				groupId,
+				'data',
+				'timeZone',
+				'timeZoneId'
+			])
+		}),
 		{close, open}
 	),
 	withSelectionProvider

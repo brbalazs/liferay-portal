@@ -151,11 +151,12 @@ export const assetsListColumns = {
  * Changes List Columns
  */
 export const changesListColumns = {
-	dateFirst: {
+	getDateFirst: timeZoneId => ({
 		accessor: 'dateFirst',
-		dataFormatter: value => !isNil(value) && moment(value).format('ll'),
+		dataFormatter: value =>
+			!isNil(value) && formatDateToTimeZone(value, 'll', timeZoneId),
 		label: Liferay.Language.get('first-seen')
-	},
+	}),
 	getIndividualName: ({channelId, groupId}) => ({
 		accessor: 'individualName',
 		cellRenderer: IndividualLinkCell,
@@ -163,17 +164,12 @@ export const changesListColumns = {
 		label: Liferay.Language.get('name'),
 		title: true
 	}),
-	individualEmail: {
-		accessor: 'individualEmail',
-		label: Liferay.Language.get('email'),
-		sortable: false
-	},
-	operation: {
+	getOperation: timeZoneId => ({
 		accessor: 'dateChanged',
 		dataFormatter: (value, {dateChanged, operation}) =>
 			operation && [
 				<span key='MEMBERSHIP_CHANGE'>
-					{moment(dateChanged).calendar(null, {
+					{applyTimeZone(dateChanged, timeZoneId).calendar(null, {
 						sameElse: 'll'
 					})}
 
@@ -188,6 +184,11 @@ export const changesListColumns = {
 				</span>
 			],
 		label: Liferay.Language.get('membership-change')
+	}),
+	individualEmail: {
+		accessor: 'individualEmail',
+		label: Liferay.Language.get('email'),
+		sortable: false
 	}
 };
 
@@ -360,11 +361,6 @@ export const individualsListColumns = {
 		dataFormatter: data => data.toLocaleString(),
 		label: Liferay.Language.get('total-activities')
 	},
-	dateCreated: {
-		accessor: 'dateCreated',
-		cellRenderer: DateCell,
-		label: Liferay.Language.get('first-seen')
-	},
 	email: {
 		accessor: 'properties.email',
 		label: Liferay.Language.get('email'),
@@ -382,6 +378,12 @@ export const individualsListColumns = {
 		dataFormatter: formatScore,
 		label: Liferay.Language.get('30-day-engagement')
 	},
+	getDateCreated: timeZoneId => ({
+		accessor: 'dateCreated',
+		cellRenderer: DateCell,
+		dateFormatter: date => applyTimeZone(date, timeZoneId),
+		label: Liferay.Language.get('first-seen')
+	}),
 	getLastActivityDate: timeZoneId => ({
 		accessor: 'lastActivityDate',
 		dataFormatter: data =>
@@ -825,6 +827,12 @@ export const segmentsListColumns = {
 		className: 'table-cell-expand',
 		label: Liferay.Language.get('name')
 	}),
+	getOwnerName: timeZoneId => ({
+		accessor: 'userName',
+		cellRenderer: CreatedByCell,
+		cellRendererProps: {timeZoneId},
+		label: Liferay.Language.get('created-by')
+	}),
 	individualAddedDate: {
 		cellRenderer: DateCell,
 		cellRendererProps: {
@@ -849,11 +857,6 @@ export const segmentsListColumns = {
 		cellRendererProps: {renderIcon: SegmentSticker},
 		className: 'table-cell-expand',
 		label: Liferay.Language.get('segment-name')
-	},
-	ownerName: {
-		accessor: 'userName',
-		cellRenderer: CreatedByCell,
-		label: Liferay.Language.get('created-by')
 	}
 };
 

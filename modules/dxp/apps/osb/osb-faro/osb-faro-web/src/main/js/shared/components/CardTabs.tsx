@@ -33,6 +33,7 @@ const CardTabs: React.FC<ICardTabsProps> = ({
 					className={getCN('card-tab', {
 						active: activeTabId === tabId
 					})}
+					data-testid={tabId}
 					key={tabId}
 				>
 					<Button

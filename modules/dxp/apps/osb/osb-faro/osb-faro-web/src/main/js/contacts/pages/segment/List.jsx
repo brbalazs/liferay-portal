@@ -96,7 +96,8 @@ export class List extends React.Component {
 		currentUser: PropTypes.instanceOf(User).isRequired,
 		groupId: PropTypes.string.isRequired,
 		history: PropTypes.object.isRequired,
-		open: PropTypes.func.isRequired
+		open: PropTypes.func.isRequired,
+		timeZoneId: PropTypes.string
 	};
 
 	state = {
@@ -306,7 +307,8 @@ export class List extends React.Component {
 				orderBy,
 				orderByField,
 				page,
-				query
+				query,
+				timeZoneId
 			}
 		} = this;
 
@@ -347,7 +349,7 @@ export class List extends React.Component {
 					segmentsListColumns.individualCount,
 					segmentsListColumns.activitiesCount,
 					segmentsListColumns.engagementScore,
-					segmentsListColumns.ownerName
+					segmentsListColumns.getOwnerName(timeZoneId)
 				]}
 				currentUser={currentUser}
 				dataSourceFn={fetchSegments}
@@ -418,7 +420,15 @@ export class List extends React.Component {
 
 export default compose(
 	connect(
-		null,
+		(store, {groupId}) => ({
+			timeZoneId: store.getIn([
+				'projects',
+				groupId,
+				'data',
+				'timeZone',
+				'timeZoneId'
+			])
+		}),
 		{addAlert, close, open}
 	),
 	withCurrentUser,

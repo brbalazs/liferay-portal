@@ -73,9 +73,10 @@ function getDataSourceFn(entityType) {
 /**
  * Get the table columns for entity's modal.
  * @param {number} entityType
+ * @param {string} timeZoneId
  * @returns {array}
  */
-function getEntityColumns(entityType) {
+function getEntityColumns(entityType, timeZoneId) {
 	switch (entityType) {
 		case account:
 			return [
@@ -109,7 +110,7 @@ function getEntityColumns(entityType) {
 				segmentsListColumns.individualCount,
 				segmentsListColumns.activitiesCount,
 				segmentsListColumns.engagementScore,
-				segmentsListColumns.ownerName
+				segmentsListColumns.getOwnerName(timeZoneId)
 			];
 	}
 }
@@ -209,7 +210,8 @@ export class DeleteDataSource extends React.Component {
 		groupId: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
 		open: PropTypes.func.isRequired,
-		pageActionText: PropTypes.string.isRequired
+		pageActionText: PropTypes.string.isRequired,
+		timeZoneId: PropTypes.string
 	};
 
 	state = {
@@ -256,11 +258,12 @@ export class DeleteDataSource extends React.Component {
 			dataSource: {name},
 			groupId,
 			id,
-			open
+			open,
+			timeZoneId
 		} = this.props;
 
 		open(modalTypes.SEARCHABLE_ENTITIES_TABLE_MODAL, {
-			columns: getEntityColumns(entityType),
+			columns: getEntityColumns(entityType, timeZoneId),
 			dataSourceFn: getDataSourceFn(entityType),
 			dataSourceParams: {dataSourceId: id, groupId},
 			entityLabel: getTypeLangKey(entityType),
@@ -425,7 +428,15 @@ export class DeleteDataSource extends React.Component {
 }
 
 export default connect(
-	null,
+	(store, {groupId}) => ({
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	}),
 	{
 		close,
 		open
