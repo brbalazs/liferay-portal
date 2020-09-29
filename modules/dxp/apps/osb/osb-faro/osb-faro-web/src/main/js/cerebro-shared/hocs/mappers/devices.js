@@ -28,7 +28,10 @@ const groupBrowserData = (data, max) => {
 
 const groupDeviceData = (data, max) => {
 	if (data.length <= max) {
-		return data;
+		return data.map(group => ({
+			...group,
+			label: getDeviceLabel(group.type)
+		}));
 	}
 
 	const otherData = data.slice(max).reduce(
