@@ -15,6 +15,7 @@
 package com.liferay.wiki.internal.search;
 
 import com.liferay.document.library.kernel.model.DLFileEntry;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.comment.Comment;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
@@ -193,8 +194,9 @@ public class WikiPageIndexer
 	public Hits search(SearchContext searchContext) throws SearchException {
 		Hits hits = super.search(searchContext);
 
-		String[] queryTerms = StringUtil.split(
-			searchContext.getKeywords(), " ");
+		String[] queryTerms = ArrayUtil.append(
+			GetterUtil.getStringValues(hits.getQueryTerms()),
+			StringUtil.split(searchContext.getKeywords(), StringPool.SPACE));
 
 		hits.setQueryTerms(queryTerms);
 
