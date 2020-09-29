@@ -12,6 +12,8 @@ import {
 	paginationDefaults
 } from 'shared/util/pagination';
 import {buildOrderByFields} from 'shared/util/pagination';
+import {compose} from 'redux';
+import {connect} from 'react-redux';
 import {INDIVIDUALS} from 'shared/util/router';
 import {individualsListColumns} from 'shared/util/table-columns';
 import {PropTypes} from 'prop-types';
@@ -27,7 +29,7 @@ function fetchIndividuals({id, orderBy, orderByField, ...otherData}) {
 	});
 }
 
-export default class KnownIndividuals extends React.Component {
+export class KnownIndividuals extends React.Component {
 	static defaultProps = {
 		...paginationDefaults,
 		orderByField: NAME
@@ -38,7 +40,8 @@ export default class KnownIndividuals extends React.Component {
 		channelId: PropTypes.string,
 		groupId: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
-		orderByField: PropTypes.string
+		orderByField: PropTypes.string,
+		timeZoneId: PropTypes.string
 	};
 
 	render() {
@@ -51,7 +54,8 @@ export default class KnownIndividuals extends React.Component {
 			orderBy,
 			orderByField,
 			page,
-			query
+			query,
+			timeZoneId
 		} = this.props;
 
 		return (
@@ -65,7 +69,7 @@ export default class KnownIndividuals extends React.Component {
 						individualsListColumns.jobTitle,
 						individualsListColumns.activitiesCount,
 						individualsListColumns.engagementScore,
-						individualsListColumns.lastActivityDate
+						individualsListColumns.getLastActivityDate(timeZoneId)
 					]}
 					dataSourceFn={fetchIndividuals}
 					dataSourceParams={{channelId, groupId, id}}
@@ -104,3 +108,11 @@ export default class KnownIndividuals extends React.Component {
 		);
 	}
 }
+
+export default compose(
+	connect((store, {groupId}) => ({
+		timeZoneId: store.getIn(
+			['projects', groupId, 'data', 'timeZone', 'timeZoneId']
+		)
+	}))
+)(KnownIndividuals);
