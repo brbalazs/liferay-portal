@@ -15,7 +15,10 @@ describe('KnownIndividuals', () => {
 			<StaticRouter>
 				<Provider store={mockStore()}>
 					<KnownIndividuals
-						account={data.getImmutableMock(Account, data.mockAccount)}
+						account={data.getImmutableMock(
+							Account,
+							data.mockAccount
+						)}
 						channelId='123123'
 						groupId='23'
 						id='test'

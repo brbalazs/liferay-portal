@@ -46,7 +46,14 @@ export class Overview extends React.Component {
 	};
 
 	render() {
-		const {channelId, groupId, id, individual, tabId, timeZoneId} = this.props;
+		const {
+			channelId,
+			groupId,
+			id,
+			individual,
+			tabId,
+			timeZoneId
+		} = this.props;
 
 		return (
 			<div className='overview-layout'>
@@ -96,8 +103,12 @@ export class Overview extends React.Component {
 
 export default compose(
 	connect((store, {groupId}) => ({
-		timeZoneId: store.getIn(
-			['projects', groupId, 'data', 'timeZone', 'timeZoneId']
-		)
-	})),
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	}))
 )(Overview);

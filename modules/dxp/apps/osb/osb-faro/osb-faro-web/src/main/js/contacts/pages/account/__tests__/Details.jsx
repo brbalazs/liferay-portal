@@ -15,7 +15,10 @@ describe('AccountDetails', () => {
 			<Provider store={mockStore()}>
 				<StaticRouter>
 					<Details
-						account={data.getImmutableMock(Account, data.mockAccount)}
+						account={data.getImmutableMock(
+							Account,
+							data.mockAccount
+						)}
 						groupId='23'
 						id='test'
 					/>

@@ -111,8 +111,12 @@ export class KnownIndividuals extends React.Component {
 
 export default compose(
 	connect((store, {groupId}) => ({
-		timeZoneId: store.getIn(
-			['projects', groupId, 'data', 'timeZone', 'timeZoneId']
-		)
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
 	}))
 )(KnownIndividuals);

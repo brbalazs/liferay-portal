@@ -132,7 +132,11 @@ class TimelineItem extends React.Component {
 
 						{time && (
 							<div className='timeline-item-label'>
-								{formatDateToTimezone(time, 'h:mma', timeZoneId)}
+								{formatDateToTimezone(
+									time,
+									'h:mma',
+									timeZoneId
+								)}
 							</div>
 						)}
 
@@ -201,7 +205,11 @@ class TimelineItem extends React.Component {
 					</div>
 
 					{expanded && nestedItems && (
-						<VerticalTimeline items={nestedItems} nested timeZoneId={timeZoneId} />
+						<VerticalTimeline
+							items={nestedItems}
+							nested
+							timeZoneId={timeZoneId}
+						/>
 					)}
 				</div>
 			</li>

@@ -13,9 +13,7 @@ const DefaultComponent = props => (
 	<StaticRouter>
 		<Provider store={mockStore()}>
 			<BaseDetails
-				dataSourceFn={() =>
-					Promise.resolve(data.mockAccountDetails())
-				}
+				dataSourceFn={() => Promise.resolve(data.mockAccountDetails())}
 				groupId='23'
 				id='test'
 				{...props}
@@ -42,7 +40,9 @@ describe('BaseDetails', () => {
 	});
 
 	it('should render w/ ErrorDisplay', () => {
-		const {queryByText} = render(<DefaultComponent dataSourceFn={() => Promise.reject({})}/>);
+		const {queryByText} = render(
+			<DefaultComponent dataSourceFn={() => Promise.reject({})} />
+		);
 
 		jest.runAllTimers();
 

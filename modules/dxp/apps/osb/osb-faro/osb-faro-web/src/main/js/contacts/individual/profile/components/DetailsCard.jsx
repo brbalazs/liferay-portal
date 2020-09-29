@@ -47,7 +47,11 @@ export default class DetailsCard extends React.PureComponent {
 					{dateCreated && (
 						<div className='first-seen'>
 							{sub(Liferay.Language.get('first-seen-x'), [
-								formatDateToTimezone(dateCreated, 'LL',timeZoneId)
+								formatDateToTimezone(
+									dateCreated,
+									'LL',
+									timeZoneId
+								)
 							])}
 						</div>
 					)}

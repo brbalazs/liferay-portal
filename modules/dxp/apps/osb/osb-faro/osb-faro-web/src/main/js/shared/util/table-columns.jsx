@@ -289,7 +289,8 @@ export const detailsListColumns = {
 	getDateModified: timeZoneId => ({
 		accessor: 'dateModified',
 		dataFormatter: dateModified =>
-			!isNil(dateModified) && applyTimeZone(dateModified, timeZoneId).fromNow(),
+			!isNil(dateModified) &&
+			applyTimeZone(dateModified, timeZoneId).fromNow(),
 		label: Liferay.Language.get('last-modified')
 	}),
 	name: {
@@ -381,7 +382,7 @@ export const individualsListColumns = {
 		dataFormatter: formatScore,
 		label: Liferay.Language.get('30-day-engagement')
 	},
-	getLastActivityDate: (timeZoneId) => ({
+	getLastActivityDate: timeZoneId => ({
 		accessor: 'lastActivityDate',
 		dataFormatter: data =>
 			!isNil(data) && formatDateToTimezone(data, 'll', timeZoneId),
