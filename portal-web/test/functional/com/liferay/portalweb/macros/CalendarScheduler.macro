@@ -198,6 +198,8 @@ definition {
 		else if ("${browserType}" == "chrome") {
 			ScrollWebElementIntoView(locator1 = "Calendar#SCHEDULER_VIEW_EVENT_WEEK_VIEW");
 
+			Refresh();
+
 			AssertClick.assertPartialTextClickAt(
 				locator1 = "Calendar#SCHEDULER_VIEW_EVENT_WEEK_VIEW",
 				value1 = "${eventTitle}");
