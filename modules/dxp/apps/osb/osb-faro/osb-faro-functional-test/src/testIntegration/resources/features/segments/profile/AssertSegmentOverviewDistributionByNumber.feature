@@ -11,7 +11,7 @@ Feature: Segment Overview distribution filtered by number
 	Scenario: Distribution card filtered by number
 		Given I click "everybody" in the table
 		When I create breakdown context "Accounts" by "annualRevenue" with bin number 2 named Revenue
-		Then I should see the following names in breakdown:
+		Then I should see the following names in "Revenue" breakdown:
 			| 3500000  |
 			| 49250000 |
 			| 95000000 |

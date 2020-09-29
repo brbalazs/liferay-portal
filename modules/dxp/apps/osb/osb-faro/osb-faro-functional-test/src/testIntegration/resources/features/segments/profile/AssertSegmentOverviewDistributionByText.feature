@@ -11,7 +11,7 @@ Feature: Segment Overview distribution filtered by text
 	Scenario: Distribution card filtered by text
 		Given I click "everybody" in the table
 		When I create breakdown context "Individuals" by "gender" named Gender
-		Then I should see the following names in breakdown:
+		Then I should see the following names in "Gender" breakdown:
 			| male 	 |
 			| female |
 		And I delete the breakdown

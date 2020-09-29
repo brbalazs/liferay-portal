@@ -11,7 +11,7 @@ Feature: Segment Overview distribution filtered by boolean
 	Scenario: Distribution card filtered by boolean
 		Given I click "everybody" in the table
 		When I create breakdown context "Individuals" by "doNotCall" named Call
-		Then I should see the following names in breakdown:
+		Then I should see the following names in "Call" breakdown:
 			| true  |
 			| false |
 		And I delete the breakdown
