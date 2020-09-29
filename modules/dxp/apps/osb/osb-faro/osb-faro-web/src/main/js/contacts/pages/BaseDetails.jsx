@@ -6,15 +6,17 @@ import omitDefinedProps from 'shared/util/omitDefinedProps';
 import React from 'react';
 import Spinner from 'shared/components/Spinner';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
+import {connect} from 'react-redux';
 import {fromJS, Map} from 'immutable';
 import {PropTypes} from 'prop-types';
 
 @hasRequest
-export default class BaseDetails extends React.Component {
+export class BaseDetails extends React.Component {
 	static propTypes = {
 		dataSourceFn: PropTypes.func.isRequired,
 		groupId: PropTypes.string.isRequired,
-		id: PropTypes.string.isRequired
+		id: PropTypes.string.isRequired,
+		timeZoneId: PropTypes.string.isRequired
 	};
 
 	state = {
@@ -50,7 +52,7 @@ export default class BaseDetails extends React.Component {
 
 	render() {
 		const {
-			props: {groupId, ...otherProps},
+			props: {groupId, timeZoneId, ...otherProps},
 			state: {detailsIMap, error, loading}
 		} = this;
 
@@ -76,8 +78,19 @@ export default class BaseDetails extends React.Component {
 					{...omitDefinedProps(otherProps, BaseDetails.propTypes)}
 					demographicsIMap={detailsIMap}
 					groupId={groupId}
+					timeZoneId={timeZoneId}
 				/>
 			);
 		}
 	}
 }
+
+export default connect((store, {groupId}) => ({
+	timeZoneId: store.getIn([
+		'projects',
+		groupId,
+		'data',
+		'timeZone',
+		'timeZoneId'
+	])
+}))(BaseDetails);
