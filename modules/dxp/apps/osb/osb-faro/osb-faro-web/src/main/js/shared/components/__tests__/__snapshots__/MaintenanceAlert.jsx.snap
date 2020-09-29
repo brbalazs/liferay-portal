@@ -70,6 +70,10 @@ Object {
     "serverLocation": null,
     "state": "SCHEDULED",
     "stateStartDate": 1531263666366,
+    "timeZone": Immutable.Record {
+      "displayTimeZone": "(UTC) UTC",
+      "timeZoneId": "UTC",
+    },
     "userId": "23",
   },
 }

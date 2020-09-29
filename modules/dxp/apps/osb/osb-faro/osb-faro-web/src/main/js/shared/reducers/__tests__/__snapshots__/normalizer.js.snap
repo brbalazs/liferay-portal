@@ -78,6 +78,10 @@ Immutable.Map {
         "serverLocation": null,
         "state": null,
         "stateStartDate": null,
+        "timeZone": Immutable.Record {
+          "displayTimeZone": "(UTC) UTC",
+          "timeZoneId": "UTC",
+        },
         "userId": null,
       },
       "error": false,
