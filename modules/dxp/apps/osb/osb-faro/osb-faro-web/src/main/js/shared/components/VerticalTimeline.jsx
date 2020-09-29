@@ -6,7 +6,7 @@ import React from 'react';
 import Spinner from './Spinner';
 import Sticker from './Sticker';
 import TextTruncate from './TextTruncate';
-import {formatDateToTimezone} from 'shared/util/date';
+import {formatDateToTimeZone} from 'shared/util/date';
 import {get} from 'lodash';
 import {Link} from 'react-router-dom';
 import {onEnter} from 'shared/util/key-constants';
@@ -132,7 +132,7 @@ class TimelineItem extends React.Component {
 
 						{time && (
 							<div className='timeline-item-label'>
-								{formatDateToTimezone(
+								{formatDateToTimeZone(
 									time,
 									'h:mma',
 									timeZoneId

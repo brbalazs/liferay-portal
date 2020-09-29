@@ -4,7 +4,7 @@ import Card from 'shared/components/Card';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import React from 'react';
-import {formatDateToTimezone} from 'shared/util/date';
+import {formatDateToTimeZone} from 'shared/util/date';
 import {Individual} from 'shared/util/records';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
@@ -18,7 +18,8 @@ export default class DetailsCard extends React.PureComponent {
 	static propTypes = {
 		channelId: PropTypes.string,
 		entity: PropTypes.instanceOf(Individual),
-		groupId: PropTypes.string.isRequired
+		groupId: PropTypes.string.isRequired,
+		timeZoneId: PropTypes.string.isRequired
 	};
 
 	render() {
@@ -47,7 +48,7 @@ export default class DetailsCard extends React.PureComponent {
 					{dateCreated && (
 						<div className='first-seen'>
 							{sub(Liferay.Language.get('first-seen-x'), [
-								formatDateToTimezone(
+								formatDateToTimeZone(
 									dateCreated,
 									'LL',
 									timeZoneId

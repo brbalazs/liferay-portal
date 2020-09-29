@@ -65,7 +65,7 @@ export function formatUTCDate(date, format = DEFAULT_FORMAT, inputFormatter) {
 export const formatUTCDateFromUnix = (date, format = DEFAULT_FORMAT) =>
 	formatUTCDate(date, format, 'x');
 
-export const formatDateToTimezone = (
+export const formatDateToTimeZone = (
 	date,
 	format = DEFAULT_FORMAT,
 	timeZoneId = DEFAULT_TIMEZONE_ID

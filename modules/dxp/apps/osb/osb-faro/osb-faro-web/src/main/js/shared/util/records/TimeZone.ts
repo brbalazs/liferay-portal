@@ -1,6 +1,6 @@
 import {Record} from 'immutable';
 
-interface ITimezone {
+interface ITimeZone {
 	displayTimeZone: string;
 	timeZoneId: string;
 }
@@ -10,7 +10,7 @@ export default class TimeZone
 		displayTimeZone: '(UTC) UTC',
 		timeZoneId: 'UTC'
 	})
-	implements ITimezone {
+	implements ITimeZone {
 	displayTimeZone: string;
 	timeZoneId: string;
 

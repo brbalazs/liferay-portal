@@ -18,7 +18,7 @@ import {
 	SourceCell,
 	WillBeRemovedCell
 } from 'shared/components/table/cell-components';
-import {applyTimeZone, formatDateToTimezone} from './date';
+import {applyTimeZone, formatDateToTimeZone} from './date';
 import {compose} from 'lodash/fp';
 import {formatEngagementScore, getSafeEngagementDisplay} from './engagement';
 import {formatTime} from './time';
@@ -385,7 +385,7 @@ export const individualsListColumns = {
 	getLastActivityDate: timeZoneId => ({
 		accessor: 'lastActivityDate',
 		dataFormatter: data =>
-			!isNil(data) && formatDateToTimezone(data, 'll', timeZoneId),
+			!isNil(data) && formatDateToTimeZone(data, 'll', timeZoneId),
 		label: Liferay.Language.get('last-activity')
 	}),
 	getName: ({channelId, groupId}) => ({
