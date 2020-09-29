@@ -92,7 +92,8 @@ export class IndividualProfileCard extends React.Component {
 			PropTypes.number,
 			PropTypes.object
 		]),
-		tabId: PropTypes.string
+		tabId: PropTypes.string,
+		timeZoneId: PropTypes.string.isRequired
 	};
 
 	state = {

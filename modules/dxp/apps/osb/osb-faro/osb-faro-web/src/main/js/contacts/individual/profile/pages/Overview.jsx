@@ -5,7 +5,6 @@ import FaroConstants from 'shared/util/constants';
 import IndividualProfileCard from 'contacts/individual/profile/hoc/ProfileCard';
 import InterestsCard from 'contacts/individual/profile/components/InterestsCard';
 import React from 'react';
-import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Individual} from 'shared/util/records';
 import {INDIVIDUAL_COUNT} from 'shared/util/pagination';
@@ -101,14 +100,12 @@ export class Overview extends React.Component {
 	}
 }
 
-export default compose(
-	connect((store, {groupId}) => ({
-		timeZoneId: store.getIn([
-			'projects',
-			groupId,
-			'data',
-			'timeZone',
-			'timeZoneId'
-		])
-	}))
-)(Overview);
+export default connect((store, {groupId}) => ({
+	timeZoneId: store.getIn([
+		'projects',
+		groupId,
+		'data',
+		'timeZone',
+		'timeZoneId'
+	])
+}))(Overview);

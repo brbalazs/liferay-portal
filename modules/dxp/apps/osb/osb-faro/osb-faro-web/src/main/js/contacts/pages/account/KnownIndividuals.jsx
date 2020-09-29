@@ -12,7 +12,6 @@ import {
 	paginationDefaults
 } from 'shared/util/pagination';
 import {buildOrderByFields} from 'shared/util/pagination';
-import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {INDIVIDUALS} from 'shared/util/router';
 import {individualsListColumns} from 'shared/util/table-columns';
@@ -109,14 +108,12 @@ export class KnownIndividuals extends React.Component {
 	}
 }
 
-export default compose(
-	connect((store, {groupId}) => ({
-		timeZoneId: store.getIn([
-			'projects',
-			groupId,
-			'data',
-			'timeZone',
-			'timeZoneId'
-		])
-	}))
-)(KnownIndividuals);
+export default connect((store, {groupId}) => ({
+	timeZoneId: store.getIn([
+		'projects',
+		groupId,
+		'data',
+		'timeZone',
+		'timeZoneId'
+	])
+}))(KnownIndividuals);
