@@ -15,6 +15,7 @@ import {
 	getSafeRangeKey,
 	INTERVAL_MAP
 } from 'shared/util/engagement-activity';
+import {connect} from 'react-redux';
 import {
 	formatEngagementAggregation,
 	formatEngagementScore
@@ -31,7 +32,7 @@ const {
 const DEFAULT_MAX = 30;
 
 @hasRequest
-export default class Activities extends React.Component {
+export class Activities extends React.Component {
 	static defaultProps = {
 		tabId: ACTIVITIES
 	};
@@ -40,7 +41,8 @@ export default class Activities extends React.Component {
 		account: PropTypes.instanceOf(Account).isRequired,
 		channelId: PropTypes.string,
 		groupId: PropTypes.string.isRequired,
-		tabId: PropTypes.string
+		tabId: PropTypes.string,
+		timeZoneId: PropTypes.string.isRequired
 	};
 
 	state = {
@@ -148,7 +150,8 @@ export default class Activities extends React.Component {
 				groupId,
 				interval,
 				rangeSelectors,
-				tabId
+				tabId,
+				timeZoneId
 			},
 			state: {
 				activityChange,
@@ -204,6 +207,7 @@ export default class Activities extends React.Component {
 							id={id}
 							interval={interval}
 							rangeSelectors={rangeSelectors}
+							timeZoneId={timeZoneId}
 						/>
 					)}
 
@@ -222,3 +226,13 @@ export default class Activities extends React.Component {
 		);
 	}
 }
+
+export default connect((store, {groupId}) => ({
+	timeZoneId: store.getIn([
+		'projects',
+		groupId,
+		'data',
+		'timeZone',
+		'timeZoneId'
+	])
+}))(Activities);

@@ -791,17 +791,23 @@ export const segmentsListColumns = {
 		dataFormatter: data => data.toLocaleString(),
 		label: Liferay.Language.get('total-activities')
 	},
-	dateCreated: {
-		accessor: 'dateCreated',
-		cellRenderer: DateCell,
-		label: Liferay.Language.get('date-created')
-	},
 	engagementScore: {
 		accessor: 'engagementScore',
 		className: 'table-column-text-end',
 		dataFormatter: formatScore,
 		label: Liferay.Language.get('30-day-engagement')
 	},
+	getDateCreated: timeZoneId => ({
+		accessor: 'dateCreated',
+		cellRenderer: ({data}) => (
+			<DateCell
+				data={data}
+				dateFormatter={date => formatDateToTimeZone(date, 'll', timeZoneId)}
+				datePath='dateCreated'
+			/>
+		),
+		label: Liferay.Language.get('date-created')
+	}),
 	getName: ({channelId, groupId}) => ({
 		accessor: 'name',
 		cellRenderer: NameCell,

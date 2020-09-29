@@ -26,6 +26,7 @@ export default class AssociatedSegmentsList extends React.Component {
 		groupId: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
 		orderByField: PropTypes.string,
+		timeZoneId: PropTypes.string,
 		total: PropTypes.number
 	};
 
@@ -42,6 +43,7 @@ export default class AssociatedSegmentsList extends React.Component {
 			orderByField,
 			page,
 			query,
+			timeZoneId,
 			total
 		} = this.props;
 
@@ -75,7 +77,7 @@ export default class AssociatedSegmentsList extends React.Component {
 						segmentsListColumns.getName({channelId, groupId}),
 						segmentsListColumns.individualCount,
 						segmentsListColumns.individualAddedDate,
-						segmentsListColumns.dateCreated
+						segmentsListColumns.getDateCreated(timeZoneId)
 					]}
 					dataSourceFn={dataSourceFn}
 					dataSourceParams={{channelId, groupId, id}}

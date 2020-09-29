@@ -77,7 +77,8 @@ export class ActivitiesChartTimeline extends React.Component {
 		).isRequired,
 		id: PropTypes.string.isRequired,
 		onPointSelect: PropTypes.func.isRequired,
-		selectedPoint: PropTypes.number
+		selectedPoint: PropTypes.number,
+		timeZoneId: PropTypes.string.isRequired
 	};
 
 	constructor(props) {
@@ -135,7 +136,8 @@ export class ActivitiesChartTimeline extends React.Component {
 			id,
 			interval,
 			rangeSelectors,
-			selectedPoint
+			selectedPoint,
+			timeZoneId
 		} = this.props;
 
 		const {intervalInitDate, totalElements} = history[selectedPoint] || {};
@@ -219,6 +221,7 @@ export class ActivitiesChartTimeline extends React.Component {
 						}}
 						initialExpanded={false}
 						ref={this._searchableVerticalTimelineRef}
+						timeZoneId={timeZoneId}
 					/>
 				)}
 			</Card.Body>
