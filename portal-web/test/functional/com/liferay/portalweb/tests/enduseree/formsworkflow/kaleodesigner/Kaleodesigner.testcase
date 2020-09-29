@@ -395,6 +395,14 @@ definition {
 			workflowDefinitionTitle = "New Workflow Definition Title"
 		);
 
+		KaleoDesigner.selectNode(nodeNodeLabel = "StartNode");
+
+		KaleoDesigner.deleteNode(nodeNodeLabel = "StartNode");
+
+		KaleoDesigner.selectNode(nodeNodeLabel = "EndNode");
+
+		KaleoDesigner.deleteNode(nodeNodeLabel = "EndNode");
+
 		KaleoDesigner.addNodeViaViewTab(
 			nodeDescription = "Task Node Description",
 			nodeName = "Task",
