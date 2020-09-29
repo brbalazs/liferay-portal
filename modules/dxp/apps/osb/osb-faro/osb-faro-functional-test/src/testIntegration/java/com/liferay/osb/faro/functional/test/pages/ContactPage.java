@@ -239,7 +239,7 @@ public class ContactPage {
 
 		_faroSelenium.assertElementPresent(
 			"//h5[text()='Active Individuals']/parent::div/following-siblin" +
-				"g::div/div[@class='chart-root']");
+				"g::div/div[contains(@class,'recharts')]");
 
 		_faroSelenium.assertElementPresent(
 			"//h5[text()='Top Interests as of Today']/parent::div/following-" +
