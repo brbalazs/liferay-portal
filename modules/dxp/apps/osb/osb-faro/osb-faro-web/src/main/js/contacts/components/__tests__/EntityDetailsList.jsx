@@ -1,10 +1,8 @@
 import * as data from 'test/data';
 import EntityDetailsList from '../EntityDetailsList';
-import mockStore from 'test/mock-store';
 import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 import {fromJS, Map} from 'immutable';
-import {Provider} from 'react-redux';
 import {StaticRouter} from 'react-router';
 
 jest.unmock('react-dom');
@@ -16,9 +14,7 @@ const defaultProps = {
 
 const DefaultComponent = props => (
 	<StaticRouter>
-		<Provider store={mockStore()}>
-			<EntityDetailsList {...defaultProps} {...props} />
-		</Provider>
+		<EntityDetailsList {...defaultProps} {...props} />
 	</StaticRouter>
 );
 
