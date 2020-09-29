@@ -130,3 +130,42 @@ boolean latestVersion = JournalArticleLocalServiceUtil.isLatestVersion(article.g
 		/>
 	</c:if>
 </liferay-ui:icon-menu>
+
+<aui:script>
+	AUI.$('body').on(
+		'click',
+		'.compare-to-link a',
+		function(event) {
+			var currentTarget = AUI.$(event.currentTarget);
+
+			Liferay.Util.selectEntity(
+				{
+					dialog: {
+						constrain: true,
+						destroyOnHide: true,
+						modal: true
+					},
+					eventName: '<portlet:namespace />selectVersionFm',
+					id: '<portlet:namespace />compareVersions' + currentTarget.attr('id'),
+					title: '<liferay-ui:message key="compare-versions" />',
+					uri: currentTarget.data('uri')
+				},
+				function(event) {
+					<portlet:renderURL var="compareVersionURL">
+						<portlet:param name="mvcPath" value="/compare_versions.jsp" />
+						<portlet:param name="redirect" value="<%= currentURL %>" />
+						<portlet:param name="groupId" value="<%= String.valueOf(article.getGroupId()) %>" />
+						<portlet:param name="articleId" value="<%= article.getArticleId() %>" />
+					</portlet:renderURL>
+
+					var uri = '<%= compareVersionURL %>';
+
+					uri = Liferay.Util.addParams('<portlet:namespace />sourceVersion=' + event.sourceversion, uri);
+					uri = Liferay.Util.addParams('<portlet:namespace />targetVersion=' + event.targetversion, uri);
+
+					location.href = uri;
+				}
+			);
+		}
+	);
+</aui:script>
