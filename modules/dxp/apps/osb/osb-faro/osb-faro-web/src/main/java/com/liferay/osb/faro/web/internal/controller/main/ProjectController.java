@@ -1065,6 +1065,16 @@ public class ProjectController extends BaseFaroController {
 				getFriendlyURLErrorMessage(gfurle.getType(), getUser()));
 		}
 
+		User user = getUser();
+
+		Role role = _roleLocalService.getRole(
+			user.getCompanyId(), RoleConstants.SITE_OWNER);
+
+		_faroUserLocalService.addFaroUser(
+			user.getUserId(), faroProject.getGroupId(), user.getUserId(),
+			role.getRoleId(), user.getEmailAddress(),
+			FaroUserConstants.STATUS_APPROVED, false);
+
 		Workspace workspace = workspaceEngineClient.createWorkspace(
 			serverLocation, faroProject.isTrial());
 
