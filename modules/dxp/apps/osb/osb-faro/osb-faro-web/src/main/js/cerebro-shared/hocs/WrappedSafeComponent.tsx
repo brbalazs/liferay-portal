@@ -7,6 +7,7 @@ interface IWrappedSafeComponentProps extends React.HTMLAttributes<HTMLElement> {
 	data: any;
 	error?: any;
 	loading?: boolean;
+	loadingWithContainer?: boolean;
 	mapper?: Function;
 }
 
@@ -19,6 +20,7 @@ const WrappedSafeComponent: React.FC<IWrappedSafeComponentProps> = ({
 	data,
 	error = false,
 	loading = false,
+	loadingWithContainer = false,
 	mapper
 }) => {
 	let result = {};
@@ -26,6 +28,14 @@ const WrappedSafeComponent: React.FC<IWrappedSafeComponentProps> = ({
 
 	try {
 		if (loading) {
+			if (loadingWithContainer) {
+				return (
+					<div className='minimum-height-container card card-root'>
+						<Spinner alignCenter />
+					</div>
+				);
+			}
+
 			return <Spinner alignCenter />;
 		}
 
