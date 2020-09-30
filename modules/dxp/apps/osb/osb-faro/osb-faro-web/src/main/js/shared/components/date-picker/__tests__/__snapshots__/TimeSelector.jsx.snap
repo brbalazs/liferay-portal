@@ -1,32 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TimeSelector should change the input 1`] = `
-<div>
-  <div
-    class="time-selector-root"
-  >
-    <svg
-      class="icon-root lexicon-icon lexicon-icon-time"
-      viewBox=""
-    >
-      <use
-        xlink:href="#time"
-      />
-    </svg>
-    <input
-      class="input-root form-control"
-      type="time"
-      value="test"
-    />
-    <div
-      class="time-zone"
-    >
-      (GMT +00:00)
-    </div>
-  </div>
-</div>
-`;
-
 exports[`TimeSelector should render 1`] = `
 <div>
   <div
@@ -43,7 +16,7 @@ exports[`TimeSelector should render 1`] = `
     <input
       class="input-root form-control"
       type="time"
-      value=""
+      value="2020-08-30T21:00:00Z"
     />
     <div
       class="time-zone"

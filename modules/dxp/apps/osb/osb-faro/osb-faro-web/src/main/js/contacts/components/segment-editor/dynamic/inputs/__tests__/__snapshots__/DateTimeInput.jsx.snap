@@ -13,65 +13,6 @@ exports[`DateTimeInput should render 1`] = `
       />
       <div
         class="form-group-item display-value form-group-item-label form-group-item-shrink"
-      />
-      <div>
-        operator
-      </div>
-      <div
-        class="form-group-item"
-      >
-        <div
-          aria-haspopup="true"
-          class="input-group date-input-root"
-        >
-          <div
-            class="input-group-item"
-          >
-            <input
-              class="input-root form-control input-group-inset input-group-inset-after"
-              data-testid="date-input"
-              placeholder="YYYY-MM-DD HH:MM ZZ"
-              type="text"
-              value="Invalid date"
-            />
-            <div
-              class="input-group-inset-item input-group-inset-item-after"
-            >
-              <button
-                class="button-root btn btn-unstyled"
-                type="button"
-              >
-                <svg
-                  class="icon-root lexicon-icon lexicon-icon-calendar"
-                  viewBox=""
-                >
-                  <use
-                    xlink:href="#calendar"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`DateTimeInput should render with data 1`] = `
-<div>
-  <div
-    class="criteria-statement"
-  >
-    <div
-      class="form-group form-group-autofit"
-    >
-      <div
-        class="form-group-item entity-name form-group-item-label form-group-item-shrink"
-      />
-      <div
-        class="form-group-item display-value form-group-item-label form-group-item-shrink"
       >
         Start Date Time
       </div>
@@ -93,7 +34,7 @@ exports[`DateTimeInput should render with data 1`] = `
               data-testid="date-input"
               placeholder="YYYY-MM-DD HH:MM ZZ"
               type="text"
-              value="2012-12-12 00:00 (Local Time)"
+              value="2012-12-12 00:00"
             />
             <div
               class="input-group-inset-item input-group-inset-item-after"

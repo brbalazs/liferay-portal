@@ -52,7 +52,7 @@ exports[`CustomDateTimeInput should render 1`] = `
               data-testid="date-input"
               placeholder="YYYY-MM-DD HH:MM ZZ"
               type="text"
-              value="2020-01-17 08:00 (Local Time)"
+              value="2020-01-17 00:00"
             />
             <div
               class="input-group-inset-item input-group-inset-item-after"
