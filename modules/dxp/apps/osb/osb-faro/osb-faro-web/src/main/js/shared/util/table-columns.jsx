@@ -802,7 +802,9 @@ export const segmentsListColumns = {
 		cellRenderer: ({data}) => (
 			<DateCell
 				data={data}
-				dateFormatter={date => formatDateToTimeZone(date, 'll', timeZoneId)}
+				dateFormatter={date =>
+					formatDateToTimeZone(date, 'll', timeZoneId)
+				}
 				datePath='dateCreated'
 			/>
 		),
