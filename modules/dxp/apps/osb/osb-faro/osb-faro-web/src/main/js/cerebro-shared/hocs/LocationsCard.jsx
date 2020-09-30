@@ -1,6 +1,6 @@
 import BaseCard from 'cerebro-shared/components/base-card';
 import Card from 'shared/components/Card';
-import GeoMap from 'cerebro-shared/components/GeoMapCard';
+import GeoMap from 'shared/components/geo-map/GeoMapCard';
 import React from 'react';
 import {compose} from 'redux';
 import {HOC_CARD_PROPTYPES} from 'shared/util/proptypes';
