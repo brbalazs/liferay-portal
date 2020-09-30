@@ -39,7 +39,8 @@ const TableWithData = withBaseResults(withData, {
 		router: {
 			params: {channelId, groupId},
 			query: {rangeKey}
-		}
+		},
+		timeZoneId
 	}) => [
 		metricsListColumns.getTitleId({
 			channelId,
@@ -51,7 +52,7 @@ const TableWithData = withBaseResults(withData, {
 			route: Routes.ASSETS_CUSTOM_DASHBOARD
 		}),
 		metricsListColumns.modifiedDate,
-		metricsListColumns.createDate
+		metricsListColumns.getCreateDate(timeZoneId)
 	],
 	rowIdentifier: 'id',
 	showDropdownRangeKey: false

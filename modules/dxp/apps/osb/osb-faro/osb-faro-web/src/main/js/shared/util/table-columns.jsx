@@ -533,14 +533,6 @@ export const metricsListColumns = {
 		dataFormatter: formatTime,
 		label: Liferay.Language.get('completion-time')
 	},
-	createDate: {
-		accessor: 'addedMetric',
-		cellRenderer: DateCell,
-		cellRendererProps: {
-			datePath: 'createDate'
-		},
-		label: Liferay.Language.get('added')
-	},
 	downloadsMetric: {
 		accessor: 'downloadsMetric',
 		className: 'table-column-text-end',
@@ -565,6 +557,19 @@ export const metricsListColumns = {
 		dataFormatter: data => `${(data * 100).toFixed(2)}%`,
 		label: Liferay.Language.get('exit-percentage')
 	},
+	getCreateDate: timeZoneId => ({
+		accessor: 'addedMetric',
+		cellRenderer: ({data}) => (
+			<DateCell
+				data={data}
+				dateFormatter={date =>
+					formatDateToTimeZone(date, 'll', timeZoneId)
+				}
+				datePath='createDate'
+			/>
+		),
+		label: Liferay.Language.get('added')
+	}),
 	getNameEmail: ({channelId, groupId, rangeKey, route}) => ({
 		accessor: 'name',
 		cellRenderer: NameCell,
