@@ -5,6 +5,7 @@ import FaroConstants, {
 	jobTypes
 } from 'shared/util/constants';
 import moment from 'moment';
+import TimeZone from 'shared/util/records/TimeZone';
 import {clamp, find, isArray, range, times} from 'lodash';
 import {
 	CONJUNCTIONS,
@@ -927,6 +928,7 @@ export function mockProject(seed = 1, data = {}) {
 		percentageComplete: 0,
 		recommendationsEnabled: true,
 		state: projectStates.ready,
+		timeZone: new TimeZone(),
 		userId: seed,
 		...data
 	};
