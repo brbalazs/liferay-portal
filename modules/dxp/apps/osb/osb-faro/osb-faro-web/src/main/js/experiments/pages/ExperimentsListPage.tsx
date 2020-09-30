@@ -4,6 +4,7 @@ import EmptyStateDashboard from 'shared/components/EmptyStateDashboard';
 import ExperimentListCard from '../hocs/ExperimentListCard';
 import Icon from 'shared/components/Icon';
 import React from 'react';
+import {connect} from 'react-redux';
 import {EXPERIMENT_LIST_QUERY} from '../queries/ExperimentQuery';
 import {get} from 'lodash';
 import {getMapPropsToOptions} from 'shared/hoc/mappers/metrics';
@@ -25,9 +26,13 @@ interface IExperimentsListPage extends IBasePageContext {
 			query: string;
 		};
 	};
+	timeZoneId: string;
 }
 
-const ExperimentsListPage: React.FC<IExperimentsListPage> = ({router}) => {
+const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
+	router,
+	timeZoneId
+}) => {
 	const {channelId, groupId} = router.params;
 	const {query} = router.query;
 	const {variables} = getMapPropsToOptions(EXPERIMENT_LIST_QUERY)({
@@ -78,6 +83,7 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({router}) => {
 									error={error}
 									loading={loading}
 									router={router}
+									timeZoneId={timeZoneId}
 								/>
 							) : (
 								<EmptyStateDashboard
@@ -117,4 +123,12 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({router}) => {
 	);
 };
 
-export default ExperimentsListPage;
+export default connect((store, {router: {params: {groupId}}}) => ({
+	timeZoneId: store.getIn([
+		'projects',
+		groupId,
+		'data',
+		'timeZone',
+		'timeZoneId'
+	])
+}))(ExperimentsListPage);

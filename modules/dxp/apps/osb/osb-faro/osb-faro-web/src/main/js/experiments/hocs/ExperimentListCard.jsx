@@ -1,12 +1,12 @@
 import Card from 'shared/components/Card';
-import columns from './columns';
+import getColumns from './columns';
 import React from 'react';
 import urlConstants from 'shared/util/url-constants';
 import {sub} from 'shared/util/lang';
 import {withBaseResults} from 'shared/hoc';
 
 const ExperimentListCard = props => {
-	const {experiments, ...otherProps} = props;
+	const {experiments, timeZoneId, ...otherProps} = props;
 
 	const withData = () => WrappedComponent => props => (
 		<WrappedComponent {...props} {...otherProps} items={experiments} />
@@ -28,7 +28,7 @@ const ExperimentListCard = props => {
 			false
 		),
 		emptyTitle: Liferay.Language.get('empty-title-experiments'),
-		getColumns: () => columns,
+		getColumns: () => getColumns(timeZoneId),
 		rowIdentifier: 'id',
 		showDropdownRangeKey: false
 	});

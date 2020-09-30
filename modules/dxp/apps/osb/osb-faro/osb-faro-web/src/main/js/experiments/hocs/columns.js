@@ -1,14 +1,15 @@
 import ExperimentListTitle from '../components/ExperimentListTitle';
 import Label from 'shared/components/Label';
 import moment from 'moment';
+import momentTimezone from 'moment-timezone';
 import React from 'react';
+import {applyTimeZone, formatDateToTimeZone} from 'shared/util/date';
 import {DateCell} from 'shared/components/table/cell-components';
-import {formatUTCDate} from 'shared/util/date';
 import {getStatusColor, getStatusName} from 'experiments/util/experiments';
 import {isNil} from 'lodash';
 import {TableDataCell} from 'shared/components/table/cell-components';
 
-export default [
+export default timeZoneId => [
 	{
 		accessor: 'name.raw',
 		cellRenderer: ({data: {id, name, pageURL}}) => (
@@ -51,7 +52,9 @@ export default [
 			<DateCell
 				className='table-column-text-end'
 				data={data}
-				dateFormatter={date => formatUTCDate(date, 'll')}
+				dateFormatter={date =>
+					formatDateToTimeZone(date, 'll', timeZoneId)
+				}
 				datePath='createDate'
 			/>
 		),
@@ -63,11 +66,13 @@ export default [
 		className: 'table-column-text-end',
 		dataFormatter: modifiedDate => {
 			if (!isNil(modifiedDate)) {
-				if (moment().diff(modifiedDate, 'day') > 0) {
-					return moment.utc(modifiedDate).format('ll');
-				}
+				const timeZonedDate = applyTimeZone(modifiedDate, timeZoneId);
 
-				return moment(modifiedDate).fromNow();
+				return momentTimezone()
+					.tz(timeZoneId)
+					.diff(timeZonedDate, 'day') > 0
+					? formatDateToTimeZone(modifiedDate, 'll', timeZoneId)
+					: moment.utc(modifiedDate).fromNow();
 			}
 		},
 		label: Liferay.Language.get('last-modified')
