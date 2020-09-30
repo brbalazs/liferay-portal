@@ -241,7 +241,9 @@ public class UpgradeExecutor {
 		}
 
 		try {
-			if (!_contactsEngineClient.isLatestVersion(faroProject)) {
+			if (expectedServiceIds.contains("osbasahbackend") &&
+				!_contactsEngineClient.isLatestVersion(faroProject)) {
+
 				return false;
 			}
 		}
