@@ -1,4 +1,3 @@
-import moment from 'moment';
 import React from 'react';
 import {Criterion} from 'contacts/components/segment-editor/dynamic/utils/types';
 import {
@@ -8,12 +7,13 @@ import {
 	SINCE,
 	TIME_CONJUNCTION_OPTIONS
 } from 'contacts/components/segment-editor/dynamic/utils/constants';
+import {formatUTCDate} from 'shared/util/date';
 import {getInitialConjunction} from 'contacts/components/segment-editor/dynamic/inputs/components/DateFilterConjunctionInput';
 import {getTimePeriodLabel} from 'contacts/components/segment-editor/dynamic/utils/custom-inputs';
 import {sub} from 'shared/util/lang';
 
 const formatDate = (date: string): string =>
-	moment(date).format(INPUT_DATE_FORMAT);
+	formatUTCDate(date, INPUT_DATE_FORMAT);
 
 const DateFilterConjunctionDisplay: React.FC<{
 	conjunctionCriterion: Criterion;

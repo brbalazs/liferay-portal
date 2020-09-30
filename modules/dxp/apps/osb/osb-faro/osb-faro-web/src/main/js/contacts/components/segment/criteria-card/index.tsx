@@ -15,6 +15,7 @@ interface ICriteriaCardProps {
 	criteriaString: string;
 	includeAnonymousUsers: boolean;
 	segment: Segment;
+	timeZoneId: string;
 }
 
 interface ICriteriaCardState {
@@ -63,7 +64,7 @@ class CriteriaCard extends React.Component<
 
 	render() {
 		const {
-			props: {criteriaString, includeAnonymousUsers},
+			props: {criteriaString, includeAnonymousUsers, timeZoneId},
 			state: {expand, truncate}
 		} = this;
 
@@ -87,6 +88,7 @@ class CriteriaCard extends React.Component<
 					<CriteriaView
 						criteria={translateQueryToCriteria(criteriaString)}
 						ref={this._criteriaViewRef}
+						timeZoneId={timeZoneId}
 					/>
 				</Card.Body>
 

@@ -16,7 +16,8 @@ import {PROPERTY_TYPES} from 'contacts/components/segment-editor/dynamic/utils/c
 
 const OrganizationDisplay: React.FC<ICustomDisplayComponentProps> = ({
 	criterion,
-	property
+	property,
+	timeZoneId
 }) => {
 	const value = getPropertyValue(criterion.value, 'value', 0);
 
@@ -44,7 +45,9 @@ const OrganizationDisplay: React.FC<ICustomDisplayComponentProps> = ({
 				/>
 			);
 		} else {
-			return <b>{maybeFormatValue(value, propertyDataType)}</b>;
+			return (
+				<b>{maybeFormatValue(value, propertyDataType, timeZoneId)}</b>
+			);
 		}
 	};
 

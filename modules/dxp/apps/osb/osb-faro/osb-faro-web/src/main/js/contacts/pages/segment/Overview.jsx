@@ -7,6 +7,7 @@ import FaroConstants from 'shared/util/constants';
 import InterestsCard from 'contacts/hoc/segment/InterestsCard';
 import React from 'react';
 import SegmentProfileCard from 'contacts/components/segment/ProfileCard';
+import {connect} from 'react-redux';
 import {GROWTH} from 'shared/util/router';
 import {PropTypes} from 'prop-types';
 import {Segment} from 'shared/util/records';
@@ -15,6 +16,15 @@ const {segmentTypes} = FaroConstants;
 
 const HEADER_MARGIN = 16;
 
+@connect((store, {groupId}) => ({
+	timeZoneId: store.getIn([
+		'projects',
+		groupId,
+		'data',
+		'timeZone',
+		'timeZoneId'
+	])
+}))
 export default class Overview extends React.Component {
 	static defaultProps = {
 		tabId: GROWTH
@@ -25,7 +35,8 @@ export default class Overview extends React.Component {
 		groupId: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
 		segment: PropTypes.instanceOf(Segment).isRequired,
-		tabId: PropTypes.string
+		tabId: PropTypes.string,
+		timeZoneId: PropTypes.string
 	};
 
 	_sideColumnRef = React.createRef();
@@ -55,7 +66,7 @@ export default class Overview extends React.Component {
 	}
 
 	render() {
-		const {channelId, groupId, id, segment, tabId} = this.props;
+		const {channelId, groupId, id, segment, tabId, timeZoneId} = this.props;
 
 		const {
 			activeIndividualCount,
@@ -102,6 +113,7 @@ export default class Overview extends React.Component {
 							criteriaString={criteriaString}
 							includeAnonymousUsers={includeAnonymousUsers}
 							segment={segment}
+							timeZoneId={timeZoneId}
 						/>
 					)}
 				</div>

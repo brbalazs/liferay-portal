@@ -14,7 +14,8 @@ import {isOfKnownType} from 'contacts/components/segment-editor/dynamic/utils/ut
 
 const AccountDisplay: React.FC<IDisplayComponentProps> = ({
 	criterion,
-	property
+	property,
+	timeZoneId
 }) => {
 	const valueIMap = criterion.value as CustomValue;
 
@@ -36,7 +37,7 @@ const AccountDisplay: React.FC<IDisplayComponentProps> = ({
 			<span>{operatorLabel}</span>
 
 			{!isOfKnownType(operatorKey) && (
-				<b>{maybeFormatValue(value, type)}</b>
+				<b>{maybeFormatValue(value, type, timeZoneId)}</b>
 			)}
 		</>
 	);

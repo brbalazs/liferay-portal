@@ -21,7 +21,8 @@ const {SESSION_DATE_TIME, SESSION_GEOLOCATION} = PROPERTY_TYPES;
 
 const SessionDisplay: React.FC<IDisplayComponentProps> = ({
 	criterion,
-	property
+	property,
+	timeZoneId
 }) => {
 	const valueIMap = criterion.value as CustomValue;
 
@@ -71,7 +72,8 @@ const SessionDisplay: React.FC<IDisplayComponentProps> = ({
 						.map(index =>
 							maybeFormatValue(
 								getPropertyValue(valueIMap, 'value', index),
-								type
+								type,
+								timeZoneId
 							)
 						)
 						.join(', ')}

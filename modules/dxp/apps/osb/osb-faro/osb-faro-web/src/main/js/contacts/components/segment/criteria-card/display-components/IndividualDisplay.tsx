@@ -19,7 +19,8 @@ const {DURATION, SELECT_TEXT} = PROPERTY_TYPES;
 
 const IndividualDisplay: React.FC<IDisplayComponentProps> = ({
 	criterion,
-	property
+	property,
+	timeZoneId
 }) => {
 	const {operatorName, propertyName, value} = criterion;
 
@@ -50,7 +51,7 @@ const IndividualDisplay: React.FC<IDisplayComponentProps> = ({
 			case DURATION:
 				return getDurationFormat(value);
 			default:
-				return <b>{maybeFormatValue(value, type)}</b>;
+				return <b>{maybeFormatValue(value, type, timeZoneId)}</b>;
 		}
 	};
 

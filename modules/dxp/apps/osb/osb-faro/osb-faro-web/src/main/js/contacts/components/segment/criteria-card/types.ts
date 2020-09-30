@@ -5,6 +5,7 @@ import {Property} from 'shared/util/records';
 export interface IDisplayComponentProps {
 	criterion: Criterion;
 	property: Property;
+	timeZoneId?: string;
 }
 
 export interface ICustomDisplayComponentProps extends IDisplayComponentProps {

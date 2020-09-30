@@ -7,6 +7,7 @@ import {ReferencedObjectsContext} from 'contacts/components/segment-editor/dynam
 interface ICriteriaViewProps extends React.HTMLAttributes<HTMLDivElement> {
 	criteria: Criteria;
 	forwardedRef?: React.Ref<any>;
+	timeZoneId: string;
 }
 
 class CriteriaView extends React.Component<ICriteriaViewProps> {
@@ -33,7 +34,10 @@ class CriteriaView extends React.Component<ICriteriaViewProps> {
 	}
 
 	renderCriteriaRow(criterion) {
-		const {referencedProperties} = this.context;
+		const {
+			context: {referencedProperties},
+			props: {timeZoneId}
+		} = this;
 
 		const property = findPropertyByCriterion(
 			criterion,
@@ -46,6 +50,7 @@ class CriteriaView extends React.Component<ICriteriaViewProps> {
 					<DisplayComponent
 						criterion={criterion}
 						property={property}
+						timeZoneId={timeZoneId}
 					/>
 				) : (
 					<b className='undefined-property'>

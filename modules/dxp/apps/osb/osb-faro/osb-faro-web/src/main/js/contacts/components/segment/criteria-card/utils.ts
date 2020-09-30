@@ -1,4 +1,5 @@
 import moment from 'moment';
+import {formatDateToTimeZone} from 'shared/util/date';
 import {
 	GEOLOCATION_OPTIONS,
 	INPUT_DATE_FORMAT,
@@ -93,7 +94,11 @@ export function maybeFormatToKnownType(
 	return operatorName;
 }
 
-export function maybeFormatValue(value: any, type: string): string | number {
+export function maybeFormatValue(
+	value: any,
+	type: string,
+	timeZoneId?: string
+): string | number {
 	switch (type) {
 		case ACCOUNT_TEXT:
 		case BEHAVIOR:
@@ -108,7 +113,11 @@ export function maybeFormatValue(value: any, type: string): string | number {
 			return moment(value).format(INPUT_DATE_FORMAT);
 		case DATE_TIME:
 		case SESSION_DATE_TIME:
-			return moment(value).format(INPUT_DISPLAY_DATE_TIME_FORMAT);
+			return formatDateToTimeZone(
+				value,
+				INPUT_DISPLAY_DATE_TIME_FORMAT,
+				timeZoneId
+			);
 		case ACCOUNT_NUMBER:
 		case DURATION:
 		case NUMBER:

@@ -7,7 +7,8 @@ import {maybeFormatValue} from '../utils';
 
 const InterestDisplay: React.FC<IDisplayComponentProps> = ({
 	criterion,
-	property
+	property,
+	timeZoneId
 }) => {
 	const valueIMap = criterion.value as CustomValue;
 
@@ -27,7 +28,7 @@ const InterestDisplay: React.FC<IDisplayComponentProps> = ({
 
 			<span>{Liferay.Language.get('interested-in-fragment')}</span>
 
-			<b>{maybeFormatValue(interestName, type)}</b>
+			<b>{maybeFormatValue(interestName, type, timeZoneId)}</b>
 		</>
 	);
 };
