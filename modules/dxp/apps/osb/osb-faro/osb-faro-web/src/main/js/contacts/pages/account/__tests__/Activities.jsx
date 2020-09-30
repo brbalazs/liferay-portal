@@ -1,10 +1,12 @@
 import * as API from 'shared/api';
 import * as data from 'test/data';
 import Activities from '../Activities';
+import mockStore from 'test/mock-store';
 import Promise from 'metal-promise';
 import React from 'react';
 import {Account} from 'shared/util/records';
 import {ENGAGEMENT} from 'shared/util/router';
+import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router';
 
@@ -12,14 +14,16 @@ jest.unmock('react-dom');
 
 const DefaultComponent = props => (
 	<StaticRouter>
-		<Activities
-			account={data.getImmutableMock(Account, data.mockAccount)}
-			channelId='123123'
-			groupId='23'
-			interval='D'
-			rangeSelectors={{rangeKey: 30}}
-			{...props}
-		/>
+		<Provider store={mockStore()}>
+			<Activities
+				account={data.getImmutableMock(Account, data.mockAccount)}
+				channelId='123123'
+				groupId='23'
+				interval='D'
+				rangeSelectors={{rangeKey: 30}}
+				{...props}
+			/>
+		</Provider>
 	</StaticRouter>
 );
 
