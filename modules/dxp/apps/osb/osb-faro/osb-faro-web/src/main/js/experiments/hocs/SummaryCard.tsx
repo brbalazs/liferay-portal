@@ -49,6 +49,7 @@ const withSummaryCard: React.FC<IWithSummaryCard> = ({status, timeZoneId}) => {
 				experimentId,
 				timeZoneId
 			}}
+			loadingWithContainer
 			mapper={getSummaryMapper}
 		>
 			{props => <Component {...props} />}

@@ -22,7 +22,11 @@ const withVarianCard: React.FC<IWithVarianCardProps> = ({label}) => {
 	});
 
 	return (
-		<WrappedSafeComponent {...result} mapper={getVariantMapper}>
+		<WrappedSafeComponent
+			{...result}
+			loadingWithContainer
+			mapper={getVariantMapper}
+		>
 			{props => <VariantCard {...props} label={label} />}
 		</WrappedSafeComponent>
 	);
