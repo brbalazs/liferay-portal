@@ -72,11 +72,11 @@ public class IndexWriterHelperImplTest {
 
 		addBlogEntry();
 
-		populateOriginalCounts(originalCounts, _BLOGS_ENTRY_CLASS_NAME, false);
+		populateOriginalCounts(originalCounts, _CLASS_NAME_BLOGS_ENTRY, false);
 
-		reindex(_BLOGS_ENTRY_CLASS_NAME);
+		reindex(_CLASS_NAME_BLOGS_ENTRY);
 
-		assertReindexedCounts(originalCounts, _BLOGS_ENTRY_CLASS_NAME);
+		assertReindexedCounts(originalCounts, _CLASS_NAME_BLOGS_ENTRY);
 	}
 
 	@Test
@@ -87,18 +87,18 @@ public class IndexWriterHelperImplTest {
 		addBlogEntry();
 
 		populateOriginalCounts(
-			originalBlogEntryCounts, _BLOGS_ENTRY_CLASS_NAME, false);
+			originalBlogEntryCounts, _CLASS_NAME_BLOGS_ENTRY, false);
 
 		populateOriginalCounts(
-			originalConfigurationModelCounts, _CONFIGURATION_MODEL_CLASS_NAME,
+			originalConfigurationModelCounts, _CLASS_NAME_CONFIGURATION_MODEL,
 			true);
 
 		reindex(null);
 
-		assertReindexedCounts(originalBlogEntryCounts, _BLOGS_ENTRY_CLASS_NAME);
+		assertReindexedCounts(originalBlogEntryCounts, _CLASS_NAME_BLOGS_ENTRY);
 
 		assertReindexedCounts(
-			originalConfigurationModelCounts, _CONFIGURATION_MODEL_CLASS_NAME);
+			originalConfigurationModelCounts, _CLASS_NAME_CONFIGURATION_MODEL);
 	}
 
 	@Test
@@ -106,13 +106,13 @@ public class IndexWriterHelperImplTest {
 		Map<Long, Long> originalConfigurationModelCounts = new HashMap<>();
 
 		populateOriginalCounts(
-			originalConfigurationModelCounts, _CONFIGURATION_MODEL_CLASS_NAME,
+			originalConfigurationModelCounts, _CLASS_NAME_CONFIGURATION_MODEL,
 			true);
 
-		reindex(_CONFIGURATION_MODEL_INDEXER_CLASS_NAME);
+		reindex(_CLASS_NAME_CONFIGURATION_MODEL_INDEXER);
 
 		assertReindexedCounts(
-			originalConfigurationModelCounts, _CONFIGURATION_MODEL_CLASS_NAME);
+			originalConfigurationModelCounts, _CLASS_NAME_CONFIGURATION_MODEL);
 	}
 
 	protected void addBlogEntry() throws Exception {
@@ -229,13 +229,13 @@ public class IndexWriterHelperImplTest {
 			null);
 	}
 
-	private static final String _BLOGS_ENTRY_CLASS_NAME =
+	private static final String _CLASS_NAME_BLOGS_ENTRY =
 		"com.liferay.blogs.model.BlogsEntry";
 
-	private static final String _CONFIGURATION_MODEL_CLASS_NAME =
+	private static final String _CLASS_NAME_CONFIGURATION_MODEL =
 		"com.liferay.configuration.admin.web.internal.model.ConfigurationModel";
 
-	private static final String _CONFIGURATION_MODEL_INDEXER_CLASS_NAME =
+	private static final String _CLASS_NAME_CONFIGURATION_MODEL_INDEXER =
 		"com.liferay.configuration.admin.web.internal.search." +
 			"ConfigurationModelIndexer";
 
