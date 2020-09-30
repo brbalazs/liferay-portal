@@ -77,8 +77,8 @@ describe('utils', () => {
 			${'Test'}              | ${TEXT}                | ${'"Test"'}
 			${'true'}              | ${BOOLEAN}             | ${'TRUE'}
 			${data.getTimestamp()} | ${DATE}                | ${'2018-07-10'}
-			${data.getTimestamp()} | ${DATE_TIME}           | ${'2018-07-10 23:01 (Local Time)'}
-			${data.getTimestamp()} | ${SESSION_DATE_TIME}   | ${'2018-07-10 23:01 (Local Time)'}
+			${data.getTimestamp()} | ${DATE_TIME}           | ${'2018-07-10 23:01'}
+			${data.getTimestamp()} | ${SESSION_DATE_TIME}   | ${'2018-07-10 23:01'}
 			${123}                 | ${ACCOUNT_NUMBER}      | ${123}
 			${123}                 | ${DURATION}            | ${123}
 			${123}                 | ${NUMBER}              | ${123}

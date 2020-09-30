@@ -51,13 +51,14 @@ export default class CustomDateTimeInput extends React.Component<
 	}
 
 	render() {
-		const {value, ...otherProps} = this.props;
+		const {timeZoneId, value, ...otherProps} = this.props;
 
 		return (
 			<DateTimeInput
 				{...otherProps}
 				onChange={this.handleDateChange}
 				operatorRenderer={this.renderOperatorDropdown}
+				timeZoneId={timeZoneId}
 				value={getCompleteDate(value)}
 			/>
 		);

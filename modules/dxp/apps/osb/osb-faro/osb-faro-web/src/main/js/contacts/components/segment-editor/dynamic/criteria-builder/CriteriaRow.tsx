@@ -28,6 +28,7 @@ import {
 } from '../context/referencedObjects';
 import {ClaySelectWithOption} from '@clayui/select';
 import {compose} from 'redux';
+import {connect} from 'react-redux';
 import {
 	ConnectDragPreview,
 	ConnectDragSource,
@@ -187,6 +188,7 @@ interface ICriteriaRowProps {
 	onDelete: (index: number) => void;
 	onMove: OnMove;
 	referencedProperties: Map<string, Map<string, Property>>;
+	timeZoneId: string;
 }
 
 interface ICriteriaRowState {
@@ -367,7 +369,7 @@ class CriteriaRow extends React.Component<
 
 	renderValueInput() {
 		const {
-			props: {channelId, criterion, groupId},
+			props: {channelId, criterion, groupId, timeZoneId},
 			state: {selectedProperty}
 		} = this;
 
@@ -410,6 +412,7 @@ class CriteriaRow extends React.Component<
 				operatorRenderer={this.renderOperator}
 				options={options}
 				property={selectedProperty}
+				timeZoneId={timeZoneId}
 				touched={criterion.touched}
 				valid={criterion.valid}
 				value={criterion.value}
@@ -501,7 +504,16 @@ const CriteriaRowWithDrag = dragSource(
 	})
 )(CriteriaRow);
 
-export default compose(
+export default compose<any>(
+	connect((store, {groupId}) => ({
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	})),
 	withReferencedObjectsConsumer,
 	dropTarget(
 		acceptedDragTypes,

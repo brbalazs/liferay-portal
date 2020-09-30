@@ -11,17 +11,6 @@ describe('DateTimeInput', () => {
 	it('should render', () => {
 		const {container} = render(
 			<DateTimeInput
-				operatorRenderer={() => <div>{'operator'}</div>}
-				property={new Property()}
-			/>
-		);
-
-		expect(container).toMatchSnapshot();
-	});
-
-	it('should render with data', () => {
-		const {container} = render(
-			<DateTimeInput
 				displayValue='Start Date Time'
 				operatorRenderer={() => <div>{'operator'}</div>}
 				property={new Property()}

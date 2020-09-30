@@ -34,7 +34,8 @@ export default class DatePicker extends React.Component {
 		maxRange: PropTypes.number,
 		minDate: PropTypes.instanceOf(moment),
 		onSelect: PropTypes.func,
-		showTimeSelector: PropTypes.bool
+		showTimeSelector: PropTypes.bool,
+		timeZoneId: PropTypes.string
 	};
 
 	state = {
@@ -175,7 +176,8 @@ export default class DatePicker extends React.Component {
 				maxDate,
 				maxRange,
 				minDate,
-				showTimeSelector
+				showTimeSelector,
+				timeZoneId
 			},
 			state: {currentMonth, maxRangeError}
 		} = this;
@@ -268,6 +270,7 @@ export default class DatePicker extends React.Component {
 					<div className='picker-footer'>
 						<TimeSelector
 							onChange={this.handleTimeChange}
+							timeZoneId={timeZoneId}
 							value={date}
 						/>
 					</div>

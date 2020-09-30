@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import Icon from 'shared/components/Icon';
 import Input from 'shared/components/Input';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -12,6 +12,7 @@ export default class TimeSelector extends React.Component {
 
 	static propTypes = {
 		onChange: PropTypes.func,
+		timeZoneId: PropTypes.string,
 		value: PropTypes.any
 	};
 
@@ -24,9 +25,9 @@ export default class TimeSelector extends React.Component {
 	}
 
 	render() {
-		const {value} = this.props;
+		const {timeZoneId, value} = this.props;
 
-		const timezoneOffset = moment().format('Z');
+		const timezoneOffset = moment.tz(value, timeZoneId).format('Z');
 
 		return (
 			<div className='time-selector-root'>

@@ -58,6 +58,7 @@ export interface ISegmentEditorInputBase {
 	onChange: (params: Criterion | Criterion[]) => void;
 	operatorRenderer?: React.ElementType;
 	property?: Property;
+	timeZoneId?: string;
 	touched?: boolean | object;
 	valid?: boolean | object;
 	value: string | number | CustomValue;

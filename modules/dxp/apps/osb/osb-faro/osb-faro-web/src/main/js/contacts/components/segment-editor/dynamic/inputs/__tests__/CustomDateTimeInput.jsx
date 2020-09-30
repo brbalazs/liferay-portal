@@ -14,7 +14,7 @@ const mockValue = createCustomValueMap([
 			{
 				operatorName: RELATIONAL_OPERATORS.GT,
 				propertyName: 'completeDate',
-				value: '2020-01-17T:00:00-08:00'
+				value: '2020-01-17T00:00:00.000Z'
 			}
 		]
 	}
@@ -25,7 +25,11 @@ describe('CustomDateTimeInput', () => {
 
 	it('should render', () => {
 		const {container} = render(
-			<CustomDateTimeInput property={new Property()} value={mockValue} />
+			<CustomDateTimeInput
+				property={new Property()}
+				timeZoneId='UTC'
+				value={mockValue}
+			/>
 		);
 
 		expect(container).toMatchSnapshot();

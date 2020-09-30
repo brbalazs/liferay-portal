@@ -1,6 +1,6 @@
 import React from 'react';
 import TimeSelector from '../TimeSelector';
-import {cleanup, fireEvent, render} from '@testing-library/react';
+import {cleanup, render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
@@ -8,16 +8,9 @@ describe('TimeSelector', () => {
 	afterEach(cleanup);
 
 	it('should render', () => {
-		const {container} = render(<TimeSelector />);
-
-		expect(container).toMatchSnapshot();
-	});
-
-	it('should change the input', () => {
 		const {container} = render(
-			<TimeSelector onChange={jest.fn()} value='test' />
+			<TimeSelector timeZoneId='UTC' value='2020-08-30T21:00:00Z' />
 		);
-		fireEvent.change(container.querySelector('.input-root'));
 
 		expect(container).toMatchSnapshot();
 	});

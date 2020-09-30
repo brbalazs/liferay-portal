@@ -19,7 +19,7 @@ export const isUnknown = 'is-unknown';
 
 export const INPUT_DATE_FORMAT = 'YYYY-MM-DD';
 export const INPUT_DATE_TIME_FORMAT = 'YYYY-MM-DDTHH:mmZ';
-export const INPUT_DISPLAY_DATE_TIME_FORMAT = `YYYY-MM-DD HH:mm`;
+export const INPUT_DISPLAY_DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm';
 
 /**
  * Constants for OData query.

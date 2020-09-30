@@ -10,7 +10,12 @@ import moment from 'moment';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
 import Overlay from './Overlay';
 import React from 'react';
-import {DATE_MASK, DATE_TIME_MASK, FORMAT} from 'shared/util/date';
+import {
+	applyTimeZone,
+	DATE_MASK,
+	DATE_TIME_MASK,
+	FORMAT
+} from 'shared/util/date';
 import {noop} from 'lodash';
 import {PropTypes} from 'prop-types';
 
@@ -29,6 +34,7 @@ class DateInput extends React.Component {
 		onBlur: PropTypes.func,
 		onChange: PropTypes.func,
 		showTimeSelector: PropTypes.bool,
+		timeZoneId: PropTypes.string,
 		value: PropTypes.string
 	};
 
@@ -88,20 +94,40 @@ class DateInput extends React.Component {
 		});
 	}
 
+	getDateValue() {
+		const {displayFormat, showTimeSelector, timeZoneId, value} = this.props;
+
+		if (!displayFormat) {
+			return value;
+		}
+
+		let date = value;
+
+		if (showTimeSelector) {
+			date = applyTimeZone(value, timeZoneId);
+		} else {
+			date = moment(value);
+		}
+
+		return date.format(displayFormat);
+	}
+
 	render() {
 		const {
 			props: {
 				className,
-				displayFormat,
 				format,
 				showTimeSelector,
+				timeZoneId,
 				value,
 				...otherProps
 			},
 			state: {active}
 		} = this;
 
-		const date = moment(value, format);
+		const date = showTimeSelector
+			? applyTimeZone(value, timeZoneId)
+			: moment(value, format);
 
 		return (
 			<Overlay
@@ -131,11 +157,7 @@ class DateInput extends React.Component {
 									: Liferay.Language.get('yyyy-mm-dd')
 							}
 							showMask
-							value={
-								displayFormat
-									? moment(value).format(displayFormat)
-									: value
-							}
+							value={this.getDateValue()}
 						/>
 
 						<Input.Inset position='after'>
@@ -156,6 +178,7 @@ class DateInput extends React.Component {
 							minDate={moment().subtract(100, 'years')}
 							onSelect={this.handleDateSelect}
 							showTimeSelector={showTimeSelector}
+							timeZoneId={timeZoneId}
 						/>
 					</Card.Body>
 				</Card>

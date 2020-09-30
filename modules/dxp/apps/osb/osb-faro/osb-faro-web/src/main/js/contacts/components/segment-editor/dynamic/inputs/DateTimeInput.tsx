@@ -1,8 +1,8 @@
 import autobind from 'autobind-decorator';
 import DateInput from 'shared/components/DateInput';
 import Form from 'shared/components/form';
-import moment from 'moment';
 import React from 'react';
+import {formatDateToTimeZone} from 'shared/util/date';
 import {
 	INPUT_DATE_TIME_FORMAT,
 	INPUT_DISPLAY_DATE_TIME_FORMAT,
@@ -21,7 +21,7 @@ export default class DateTimeInput extends React.Component<
 	handleDateChange(value) {
 		this.props.onChange({
 			type: PROPERTY_TYPES.DATE,
-			value
+			value: formatDateToTimeZone(value, null, 'UTC')
 		});
 	}
 
@@ -31,11 +31,14 @@ export default class DateTimeInput extends React.Component<
 			displayValue,
 			operatorRenderer: OperatorDropdown,
 			property: {entityName},
+			timeZoneId,
 			value
 		} = this.props;
 
-		const date = moment(value, INPUT_DATE_TIME_FORMAT).format(
-			INPUT_DATE_TIME_FORMAT
+		const date = formatDateToTimeZone(
+			value,
+			INPUT_DATE_TIME_FORMAT,
+			timeZoneId
 		);
 
 		return (
@@ -58,6 +61,7 @@ export default class DateTimeInput extends React.Component<
 							format={INPUT_DATE_TIME_FORMAT}
 							onChange={this.handleDateChange}
 							showTimeSelector
+							timeZoneId={timeZoneId}
 							value={date}
 						/>
 					</Form.GroupItem>
