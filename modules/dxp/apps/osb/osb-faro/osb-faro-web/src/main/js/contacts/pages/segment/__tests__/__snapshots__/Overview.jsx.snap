@@ -16,6 +16,7 @@ exports[`SegmentOverview should render 1`] = `
         >
           <li
             class="card-tab active"
+            data-testid="growth"
           >
             <a
               class="button-root btn btn-unstyled"
@@ -38,6 +39,7 @@ exports[`SegmentOverview should render 1`] = `
           </li>
           <li
             class="card-tab"
+            data-testid="engagement"
           >
             <a
               class="button-root btn btn-unstyled"

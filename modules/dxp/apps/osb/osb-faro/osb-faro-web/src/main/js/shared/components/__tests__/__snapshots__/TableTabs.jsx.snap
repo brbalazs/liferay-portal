@@ -10,6 +10,7 @@ exports[`TableTabs should render 1`] = `
     >
       <li
         class="card-tab active"
+        data-testid="foo"
       >
         <button
           class="button-root btn btn-unstyled"
@@ -25,6 +26,7 @@ exports[`TableTabs should render 1`] = `
       </li>
       <li
         class="card-tab"
+        data-testid="bar"
       >
         <button
           class="button-root btn btn-unstyled"

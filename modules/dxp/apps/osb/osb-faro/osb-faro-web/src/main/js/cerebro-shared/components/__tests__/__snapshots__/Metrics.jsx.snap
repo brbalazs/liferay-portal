@@ -10,6 +10,7 @@ exports[`Metrics should render 1`] = `
     >
       <li
         class="card-tab active"
+        data-testid="0"
       >
         <button
           class="button-root btn btn-unstyled"
@@ -61,6 +62,7 @@ exports[`Metrics should render 1`] = `
       </li>
       <li
         class="card-tab"
+        data-testid="1"
       >
         <button
           class="button-root btn btn-unstyled"
@@ -103,6 +105,7 @@ exports[`Metrics should render 1`] = `
       </li>
       <li
         class="card-tab"
+        data-testid="2"
       >
         <button
           class="button-root btn btn-unstyled"

@@ -74,6 +74,7 @@ exports[`IndividualOverview should render 1`] = `
           >
             <li
               class="card-tab active"
+              data-testid="activities"
             >
               <a
                 class="button-root btn btn-unstyled"
@@ -124,6 +125,7 @@ exports[`IndividualOverview should render 1`] = `
             </li>
             <li
               class="card-tab"
+              data-testid="engagement"
             >
               <a
                 class="button-root btn btn-unstyled"

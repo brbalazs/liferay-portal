@@ -387,9 +387,7 @@ exports[`List should render 1`] = `
                       >
                         4.90/10
                       </td>
-                      <td
-                        class=""
-                      >
+                      <td>
                         <b />
                         <div
                           class="text-secondary"

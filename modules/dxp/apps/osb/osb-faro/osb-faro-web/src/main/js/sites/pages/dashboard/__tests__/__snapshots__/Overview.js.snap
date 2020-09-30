@@ -105,6 +105,7 @@ exports[`Sites Dashboard Overview render 1`] = `
             >
               <li
                 class="card-tab active"
+                data-testid="visitorsMetric"
               >
                 <button
                   class="button-root btn btn-unstyled"
@@ -120,6 +121,7 @@ exports[`Sites Dashboard Overview render 1`] = `
               </li>
               <li
                 class="card-tab"
+                data-testid="entryMetric"
               >
                 <button
                   class="button-root btn btn-unstyled"
@@ -135,6 +137,7 @@ exports[`Sites Dashboard Overview render 1`] = `
               </li>
               <li
                 class="card-tab"
+                data-testid="exitMetric"
               >
                 <button
                   class="button-root btn btn-unstyled"
@@ -233,6 +236,7 @@ exports[`Sites Dashboard Overview render 1`] = `
             >
               <li
                 class="card-tab active"
+                data-testid="CHANNEL"
               >
                 <button
                   class="button-root btn btn-unstyled"
@@ -248,6 +252,7 @@ exports[`Sites Dashboard Overview render 1`] = `
               </li>
               <li
                 class="card-tab"
+                data-testid="SOURCE_MEDIUM"
               >
                 <button
                   class="button-root btn btn-unstyled"
@@ -263,6 +268,7 @@ exports[`Sites Dashboard Overview render 1`] = `
               </li>
               <li
                 class="card-tab"
+                data-testid="REFERRER"
               >
                 <button
                   class="button-root btn btn-unstyled"
