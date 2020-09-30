@@ -80,6 +80,10 @@ if (includeSyncContactsFields) {
 		</span>
 	</h2>
 
+	<div class="form-text">
+		<liferay-ui:message key="contact-data-help" />
+	</div>
+
 	<aui:form action="<%= includeSyncContactsFields ? editSyncedContactsFieldsURL : editSyncedContactsURL %>" method="post" name="fm">
 		<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 		<aui:input name="includeSyncContactsFields" type="hidden" value="<%= String.valueOf(includeSyncContactsFields) %>" />
@@ -88,10 +92,6 @@ if (includeSyncContactsFields) {
 			<label class="control-label">
 				<liferay-ui:message key="sync-all-contacts" />
 			</label>
-
-			<div class="form-text">
-				<liferay-ui:message key="sync-all-contacts-help" />
-			</div>
 
 			<div class="sync-all-contacts">
 
@@ -107,10 +107,6 @@ if (includeSyncContactsFields) {
 			<label class="control-label">
 				<liferay-ui:message key="sync-by-user-groups-and-organizations" />
 			</label>
-
-			<div class="form-text">
-				<liferay-ui:message key="sync-by-user-groups-and-organizations-help" />
-			</div>
 
 			<ul class="list-group-sync">
 				<li>
