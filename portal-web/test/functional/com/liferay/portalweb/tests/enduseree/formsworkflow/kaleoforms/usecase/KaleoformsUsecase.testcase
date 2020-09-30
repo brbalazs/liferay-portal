@@ -5593,6 +5593,7 @@ definition {
 			workflowActivityComment = "Process is approved.",
 			workflowAssetTitle = "Kaleo Forms Process",
 			workflowAssetType = "${workflowAssetType}",
+			workflowOrder = "true",
 			workflowTask = "Review");
 
 		Navigator.openURL();
