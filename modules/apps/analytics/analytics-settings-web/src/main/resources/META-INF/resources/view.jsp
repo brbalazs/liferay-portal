@@ -44,12 +44,12 @@ portletURL.setParameter("tabs1", tabs1);
 		<aui:nav-item href="<%= syncedSitesURL.toString() %>" label="synced-sites" selected='<%= tabs1.equals("synced-sites") %>' />
 
 		<%
-		PortletURL syncedContactsURL = PortletURLUtil.clone(portletURL, renderResponse);
+		PortletURL syncedContactDataURL = PortletURLUtil.clone(portletURL, renderResponse);
 
-		syncedContactsURL.setParameter("tabs1", "synced-contacts");
+		syncedContactDataURL.setParameter("tabs1", "synced-contact-data");
 		%>
 
-		<aui:nav-item href="<%= syncedContactsURL.toString() %>" label="synced-contacts" selected='<%= tabs1.equals("synced-contacts") %>' />
+		<aui:nav-item href="<%= syncedContactDataURL.toString() %>" label="synced-contact-data" selected='<%= tabs1.equals("synced-contact-data") %>' />
 	</aui:nav>
 </aui:nav-bar>
 
@@ -57,8 +57,8 @@ portletURL.setParameter("tabs1", tabs1);
 	<c:when test='<%= tabs1.equals("analytics-cloud-connection") %>'>
 		<liferay-util:include page="/edit_workspace_connection.jsp" servletContext="<%= application %>" />
 	</c:when>
-	<c:when test='<%= tabs1.equals("synced-contacts") %>'>
-		<liferay-util:include page="/edit_synced_contacts.jsp" servletContext="<%= application %>" />
+	<c:when test='<%= tabs1.equals("synced-contact-data") %>'>
+		<liferay-util:include page="/edit_synced_contacts_data.jsp" servletContext="<%= application %>" />
 	</c:when>
 	<c:otherwise>
 		<liferay-util:include page="/edit_synced_sites.jsp" servletContext="<%= application %>" />
