@@ -18,6 +18,7 @@ export {default as PropertyGroup} from './PropertyGroup';
 export {default as PropertySubgroup} from './PropertySubgroup';
 export {default as RemoteData, remoteDataFromList} from './RemoteData';
 export {default as Segment} from './Segment';
+export {default as TimeZone} from './TimeZone';
 
 export const Changeset = new Record({
 	added: new Map(),
