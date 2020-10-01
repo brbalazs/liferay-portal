@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
 import BasePage from 'shared/components/base-page';
-import Filter from 'cerebro-shared/components/Filter';
+import Filter from 'shared/components/filter';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {compose} from 'redux';

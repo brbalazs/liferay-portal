@@ -1,4 +1,4 @@
-import AppliedFilters from 'cerebro-shared/components/AppliedFilters';
+import AppliedFilters from 'shared/components/filter/AppliedFilters';
 import BasePage from 'shared/components/base-page';
 import React from 'react';
 import Row from '../components/Row';

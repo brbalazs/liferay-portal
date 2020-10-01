@@ -1,4 +1,4 @@
-import Filter from 'cerebro-shared/components/Filter';
+import Filter from 'shared/components/filter';
 import React from 'react';
 import Row from '../components/Row';
 import {range} from 'lodash';
