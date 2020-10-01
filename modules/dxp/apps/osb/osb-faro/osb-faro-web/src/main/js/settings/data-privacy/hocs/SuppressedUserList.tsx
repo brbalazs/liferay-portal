@@ -8,7 +8,7 @@ import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {connect} from 'react-redux';
 import {CREATE_DATE} from 'shared/util/pagination';
-import {formatUTCDate} from 'shared/util/date';
+import {formatDateToTimeZone} from 'shared/util/date';
 import {GDPR_REQUEST_STATUSES, GDPR_REQUEST_TYPES} from 'shared/util/constants';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {graphql} from '@apollo/react-hoc';
@@ -101,7 +101,7 @@ const withQueryOptions = Component => ({
 const SuppressedListWithData = withBaseResults(withData, {
 	defaultOrderByField: CREATE_DATE,
 	emptyTitle: getFormattedTitle(Liferay.Language.get('suppressed-users')),
-	getColumns: () => [
+	getColumns: ({timeZoneId}) => [
 		{
 			accessor: 'emailAddress',
 			className: 'table-cell-expand',
@@ -114,12 +114,12 @@ const SuppressedListWithData = withBaseResults(withData, {
 		},
 		{
 			accessor: 'dataControlTaskCreateDate',
-			dataFormatter: val => formatUTCDate(val, DATE_FORMAT),
+			dataFormatter: val => formatDateToTimeZone(val, DATE_FORMAT, timeZoneId),
 			label: Liferay.Language.get('requested-date')
 		},
 		{
 			accessor: 'createDate',
-			dataFormatter: val => formatUTCDate(val, DATE_FORMAT),
+			dataFormatter: val => formatDateToTimeZone(val, DATE_FORMAT, timeZoneId),
 			label: Liferay.Language.get('suppression-date')
 		}
 	],
@@ -131,6 +131,7 @@ const SuppressedListWithData = withBaseResults(withData, {
 interface ISuppressedUserListProps {
 	addAlert: Alert.AddAlert;
 	currentUser: User;
+	timeZoneId: string;
 }
 
 const SuppressedUserList: React.FC<ISuppressedUserListProps> = props => (

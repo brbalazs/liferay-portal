@@ -1,6 +1,8 @@
 import BasePage from 'settings/components/BasePage';
 import React from 'react';
 import RequestList from '../hocs/RequestList';
+import {compose} from 'redux';
+import {connect} from 'react-redux';
 import {getDataPrivacy} from 'shared/util/breadcrumbs';
 import {RouterType} from 'shared/types';
 import {User} from 'shared/util/records';
@@ -9,11 +11,13 @@ import {withCurrentUser} from 'shared/hoc';
 interface IRequestLogProps {
 	currentUser: User;
 	router: RouterType;
+	timeZoneId: string;
 }
 
 export const RequestLog: React.FC<IRequestLogProps> = ({
 	currentUser,
-	router
+	router,
+	timeZoneId
 }) => {
 	const {
 		params: {groupId}
@@ -32,9 +36,20 @@ export const RequestLog: React.FC<IRequestLogProps> = ({
 			documentTitle={Liferay.Language.get('request-log')}
 			groupId={groupId}
 		>
-			<RequestList currentUser={currentUser} router={router} />
+			<RequestList currentUser={currentUser} router={router} timeZoneId={timeZoneId} />
 		</BasePage>
 	);
 };
 
-export default withCurrentUser(RequestLog);
+export default compose<any>(
+	withCurrentUser,
+	connect((store, {groupId}) => ({
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	}))
+)(RequestLog);

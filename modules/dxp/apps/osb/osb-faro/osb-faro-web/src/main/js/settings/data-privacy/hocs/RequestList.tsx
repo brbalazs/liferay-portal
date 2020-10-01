@@ -14,7 +14,7 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {CREATE_DATE} from 'shared/util/pagination';
 import {FilterByType, RouterType} from 'shared/types';
-import {formatUTCDate} from 'shared/util/date';
+import {formatDateToTimeZone} from 'shared/util/date';
 import {
 	GDPR_REQUEST_STATUSES,
 	GDPR_REQUEST_TYPES,
@@ -124,6 +124,7 @@ export const FILTER_BY_OPTIONS = [
 ];
 
 export const getTodaysDate = () => moment().utc();
+
 const isDisabled = ({
 	completeDate,
 	status
@@ -323,7 +324,7 @@ const withQueryOptions = Component => ({
 const RequestListWithData = withCrossPageSelect(withData, {
 	defaultOrderByField: CREATE_DATE,
 	emptyTitle: getFormattedTitle(Liferay.Language.get('requests')),
-	getColumns: () => [
+	getColumns: ({timeZoneId}) => [
 		{
 			accessor: 'batchId',
 			label: Liferay.Language.get('request-id'),
@@ -342,7 +343,7 @@ const RequestListWithData = withCrossPageSelect(withData, {
 		},
 		{
 			accessor: CREATE_DATE,
-			dataFormatter: (date: string) => formatUTCDate(date, DATE_FORMAT),
+			dataFormatter: (date: string) => formatDateToTimeZone(date, DATE_FORMAT, timeZoneId),
 			label: Liferay.Language.get('requested-date')
 		},
 		{
@@ -382,6 +383,7 @@ interface IRequestListProps {
 	};
 	open: (modalType: string, options: object) => void;
 	router: RouterType;
+	timeZoneId: string;
 }
 
 const RequestList: React.FC<IRequestListProps> = ({
