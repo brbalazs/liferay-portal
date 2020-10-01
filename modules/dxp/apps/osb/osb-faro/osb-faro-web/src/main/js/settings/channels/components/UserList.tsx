@@ -78,6 +78,7 @@ interface IUserListProps extends HasModal, IPaginationUnsorted {
 	groupId: string;
 	id: string;
 	propertyName: string;
+	timeZoneId: string;
 }
 
 const UserList: React.FC<IUserListProps> = ({
@@ -88,6 +89,7 @@ const UserList: React.FC<IUserListProps> = ({
 	id,
 	open,
 	propertyName,
+	timeZoneId,
 	...otherProps
 }) => {
 	const {delta = defaultDelta, page = defaultPage, query = ''} = otherProps;
@@ -197,7 +199,7 @@ const UserList: React.FC<IUserListProps> = ({
 		open(modalTypes.SEARCHABLE_TABLE_MODAL, {
 			columns: [
 				usersListColumns.nameEmailAddress,
-				usersListColumns.lastLoginDate
+				usersListColumns.getLastLoginDate(timeZoneId)
 			],
 			dataSourceFn: ({delta, orderBy, orderByField, page, query}) =>
 				API.channels.fetchUsers({
@@ -406,6 +408,14 @@ const UserList: React.FC<IUserListProps> = ({
 };
 
 export default connect(
-	null,
+	(store, {groupId}) => ({
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	}),
 	{addAlert, close, open}
 )(UserList);

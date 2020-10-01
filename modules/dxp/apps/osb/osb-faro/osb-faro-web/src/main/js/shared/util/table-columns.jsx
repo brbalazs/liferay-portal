@@ -875,12 +875,12 @@ export const usersListColumns = {
 		label: Liferay.Language.get('email'),
 		sortable: false
 	},
-	lastLoginDate: {
+	getLastLoginDate: timeZoneId => ({
 		accessor: 'lastLoginDate',
 		cellRenderer: DateCell,
 		cellRendererProps: {
 			dateFormatter: date =>
-				moment(date).calendar(null, {
+				applyTimeZone(date, timeZoneId).calendar(null, {
 					sameElse: 'll'
 				}),
 			datePath: 'lastLoginDate'
@@ -888,7 +888,7 @@ export const usersListColumns = {
 		className: 'table-cell-expand',
 		label: Liferay.Language.get('last-login'),
 		sortable: false
-	},
+	}),
 	name: {
 		accessor: 'name',
 		className: 'table-cell-expand',
