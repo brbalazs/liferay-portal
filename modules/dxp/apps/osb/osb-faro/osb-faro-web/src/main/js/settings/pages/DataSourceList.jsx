@@ -7,7 +7,6 @@ import EmbeddedAlertList from 'shared/components/EmbeddedAlertList';
 import FaroConstants from 'shared/util/constants';
 import Icon from 'shared/components/Icon';
 import Label from 'shared/components/Label';
-import moment from 'moment';
 import Nav from 'shared/components/Nav';
 import NoResultsDisplay, {
 	getFormattedTitle
@@ -16,6 +15,7 @@ import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import {autoCancel, hasRequest} from 'shared/util/request-decorator';
 import {compose, withCurrentUser} from 'shared/hoc';
+import {connect} from 'react-redux';
 import {DataSource, User} from 'shared/util/records';
 import {
 	DATE_CREATED,
@@ -24,19 +24,16 @@ import {
 	paginationDefaults,
 	PROVIDER_TYPE
 } from 'shared/util/pagination';
+import {formatDateToTimeZone} from 'shared/util/date';
 import {fromJS} from 'immutable';
-
 import {get, isNil} from 'lodash';
-
 import {
 	getDataSourceDisplayObject,
 	validAnalyticsConfig,
 	validContactsConfig
 } from 'shared/util/data-sources';
 import {Link} from 'react-router-dom';
-
 import {PropTypes} from 'prop-types';
-
 import {Routes, toRoute} from 'shared/util/router';
 import {sub} from 'shared/util/lang';
 
@@ -123,13 +120,16 @@ const ContactsCell = ({data}) => (
 	</td>
 );
 
-const dateFormatter = date => moment(date).format('ll');
+const dateFormatter = (date, timeZoneId) => {
+	return formatDateToTimeZone(date, 'll', timeZoneId);
+};
+
 export const disableRow = ({state}) => state === inProgressDeleting;
 
-export const SyncTimeRenderer = ({data}) => {
+export const SyncTimeRenderer = ({data}, timeZoneId) => {
 	const {lastSyncDate} = data;
 
-	return <td>{!isNil(lastSyncDate) ? dateFormatter(lastSyncDate) : '-'}</td>;
+	return <td>{!isNil(lastSyncDate) ? dateFormatter(lastSyncDate, timeZoneId) : '-'}</td>;
 };
 
 export const StatusRenderer = ({data}) => {
@@ -171,7 +171,8 @@ export class DataSourceList extends React.Component {
 		currentUser: PropTypes.instanceOf(User).isRequired,
 		groupId: PropTypes.string.isRequired,
 		history: PropTypes.object.isRequired,
-		orderByField: PropTypes.string
+		orderByField: PropTypes.string,
+		timeZoneId: PropTypes.string.isRequired
 	};
 
 	state = {
@@ -331,7 +332,8 @@ export class DataSourceList extends React.Component {
 				orderBy,
 				orderByField,
 				page,
-				query
+				query,
+				timeZoneId
 			},
 			state: {alerts}
 		} = this;
@@ -379,11 +381,11 @@ export class DataSourceList extends React.Component {
 							},
 							{
 								accessor: 'dateCreated',
-								dataFormatter: dateFormatter,
+								dataFormatter: date => dateFormatter(date, timeZoneId),
 								label: Liferay.Language.get('date-added')
 							},
 							{
-								cellRenderer: SyncTimeRenderer,
+								cellRenderer: data => SyncTimeRenderer(data, timeZoneId),
 								label: Liferay.Language.get('last-synced'),
 								sortable: false
 							},
@@ -431,5 +433,14 @@ export class DataSourceList extends React.Component {
 
 export default compose(
 	withCurrentUser,
-	hasRequest
+	hasRequest,
+	connect((store, {groupId}) => ({
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	}))
 )(DataSourceList);
