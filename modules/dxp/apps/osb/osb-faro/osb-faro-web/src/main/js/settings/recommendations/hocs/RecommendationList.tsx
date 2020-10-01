@@ -20,7 +20,7 @@ import {Alert, Modal, RouterType} from 'shared/types';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
-import {formatUTCDate} from 'shared/util/date';
+import {formatDateToTimeZone} from 'shared/util/date';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {
 	getMapPropsToOptions,
@@ -57,6 +57,7 @@ interface IRecommendationListProps {
 	};
 	open: Modal.open;
 	router: RouterType;
+	timeZoneId: string;
 }
 
 const withData = () =>
@@ -277,7 +278,7 @@ const RecommendationListWithData = withCrossPageSelect(withData, {
 	emptyTitle: getFormattedTitle(
 		Liferay.Language.get('recommendations').toLowerCase()
 	),
-	getColumns: ({groupId}) => [
+	getColumns: ({groupId, timeZoneId}) => [
 		{
 			accessor: 'name',
 			cellRenderer: NameCell,
@@ -311,7 +312,7 @@ const RecommendationListWithData = withCrossPageSelect(withData, {
 		{
 			accessor: 'runDate',
 			dataFormatter: (date: string) =>
-				formatUTCDate(date, 'MMM Do, YYYY'),
+				formatDateToTimeZone(date, 'MMM Do, YYYY', timeZoneId),
 			label: Liferay.Language.get('last-trained')
 		},
 		{
@@ -365,7 +366,15 @@ export default compose<any>(
 	withCurrentUser,
 	withSelectionProvider,
 	connect(
-		null,
+		(store, {groupId}) => ({
+			timeZoneId: store.getIn([
+				'projects',
+				groupId,
+				'data',
+				'timeZone',
+				'timeZoneId'
+			])
+		}),
 		{addAlert, close, open}
 	)
 )(RecommendationList);

@@ -38,6 +38,7 @@ interface IViewProps {
 	job: Job;
 	open: Modal.open;
 	router: RouterType;
+	timeZoneId: string;
 }
 
 const View: React.FC<IViewProps> = ({
@@ -47,7 +48,8 @@ const View: React.FC<IViewProps> = ({
 	history,
 	job,
 	open,
-	router
+	router,
+	timeZoneId
 }) => {
 	const {groupId, jobId} = router.params;
 
@@ -265,6 +267,7 @@ const View: React.FC<IViewProps> = ({
 						nextRunDate={get(job, 'nextRunDate')}
 						router={router}
 						runFrequency={get(job, 'runFrequency')}
+						timeZoneId={timeZoneId}
 					/>
 					<TrainingItemsCard itemFilters={itemFilters} />
 				</BasePage>
@@ -278,7 +281,15 @@ export default compose<any>(
 	withHistory,
 	withCurrentUser,
 	connect(
-		null,
+		(store, {router: {params: {groupId}}}) => ({
+			timeZoneId: store.getIn([
+				'projects',
+				groupId,
+				'data',
+				'timeZone',
+				'timeZoneId'
+			])
+		}),
 		{addAlert, close, open}
 	)
 )(View);

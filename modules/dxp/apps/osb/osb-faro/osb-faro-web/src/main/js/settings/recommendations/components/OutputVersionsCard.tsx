@@ -8,6 +8,7 @@ import moment from 'moment';
 import React from 'react';
 import RecommendationJobRunsQuery from '../queries/RecommendationJobRunsQuery';
 import Table from 'shared/components/table';
+import {applyTimeZone} from 'shared/util/date';
 import {compose} from 'redux';
 import {getFormattedTitle} from 'shared/components/NoResultsDisplay';
 import {getMapResultToProps} from 'shared/hoc/mappers/metrics';
@@ -49,6 +50,7 @@ interface IOutputVersionsCardProps {
 	nextRunDate: string;
 	router: RouterType;
 	runFrequency: jobRunFrequencies;
+	timeZoneId: string;
 }
 
 const withData = () =>
@@ -112,7 +114,8 @@ const OutputVersionsListWithData = withStatefulPagination(
 const OutputVersionsCard: React.FC<IOutputVersionsCardProps> = ({
 	nextRunDate,
 	router,
-	runFrequency
+	runFrequency,
+	timeZoneId
 }) => {
 	const {
 		params: {jobId}
@@ -145,7 +148,7 @@ const OutputVersionsCard: React.FC<IOutputVersionsCardProps> = ({
 							accessor: 'completedDate',
 							className: 'table-cell-expand',
 							dataFormatter: val =>
-								moment.utc(val).calendar(null, {
+								applyTimeZone(val, timeZoneId).calendar(null, {
 									lastDay: DATE_FORMAT,
 									lastWeek: DATE_FORMAT,
 									nextDay: DATE_FORMAT,
