@@ -70,11 +70,6 @@ const ChannelName: ChannelNameFn = ({data, hrefFormatter}) => (
 	</td>
 );
 
-const dateFormatter: (date: Date, timeZoneId: string) => string = (
-	date,
-	timeZoneId
-) => formatDateToTimeZone(date, 'll', timeZoneId);
-
 const renderEmptyState: () => React.ReactNode = () => (
 	<EmptyState
 		className='no-results-root mt-0'
@@ -441,7 +436,11 @@ export class ChannelList extends React.Component<IChannelListProps> {
 							{
 								accessor: 'createTime',
 								dataFormatter: date =>
-									dateFormatter(date, timeZoneId),
+									formatDateToTimeZone(
+										date,
+										'll',
+										timeZoneId
+									),
 								label: Liferay.Language.get('date-added')
 							}
 						]}
