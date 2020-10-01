@@ -93,6 +93,8 @@ if (includeSyncContactsFields) {
 				<liferay-ui:message key="sync-all-contacts" />
 			</label>
 
+			<br />
+
 			<div class="sync-all-contacts">
 
 				<%
