@@ -4,7 +4,6 @@ import BasePage from 'settings/components/BasePage';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import EmptyState from 'shared/components/EmptyStateDashboard';
-import moment from 'moment';
 import Nav from 'shared/components/Nav';
 import React from 'react';
 import SearchableTableWithStaged from 'shared/components/searchable-table-with-staged';
@@ -20,6 +19,7 @@ import {autoCancel} from 'shared/util/request-decorator';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser} from 'shared/hoc';
 import {connect} from 'react-redux';
+import {formatDateToTimeZone} from 'shared/util/date';
 import {FormikActions} from 'formik';
 import {getPluralMessage, sub} from 'shared/util/lang';
 import {IPagination} from 'shared/types';
@@ -38,6 +38,7 @@ interface IChannelListProps extends IPagination {
 		push: (string) => void;
 	};
 	open: Modal.open;
+	timeZoneId: string;
 }
 
 type ChannelNameFn = (attrs: {
@@ -69,7 +70,7 @@ const ChannelName: ChannelNameFn = ({data, hrefFormatter}) => (
 	</td>
 );
 
-const dateFormatter: (date: Date) => string = date => moment(date).format('ll');
+const dateFormatter: (date: Date, timeZoneId: string) => string = (date, timeZoneId) => formatDateToTimeZone(date, 'll', timeZoneId);
 
 const renderEmptyState: () => React.ReactNode = () => (
 	<EmptyState
@@ -382,7 +383,8 @@ export class ChannelList extends React.Component<IChannelListProps> {
 			orderBy,
 			orderByField,
 			page = paginationDefaults.page,
-			query
+			query,
+			timeZoneId
 		} = this.props;
 
 		const authorized: boolean = currentUser.isAdmin();
@@ -435,7 +437,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 							},
 							{
 								accessor: 'createTime',
-								dataFormatter: dateFormatter,
+								dataFormatter: date => dateFormatter(date, timeZoneId),
 								label: Liferay.Language.get('date-added')
 							}
 						]}
@@ -462,7 +464,15 @@ export class ChannelList extends React.Component<IChannelListProps> {
 
 export default compose(
 	connect(
-		null,
+		(store, {groupId}) => ({
+			timeZoneId: store.getIn([
+				'projects',
+				groupId,
+				'data',
+				'timeZone',
+				'timeZoneId'
+			])
+		}),
 		{addAlert, close, open}
 	),
 	withCurrentUser,
