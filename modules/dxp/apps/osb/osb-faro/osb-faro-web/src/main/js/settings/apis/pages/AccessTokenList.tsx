@@ -141,13 +141,7 @@ const TokenList: React.FC<{
 						},
 						{
 							accessor: 'expirationDate',
-							dataFormatter: (val: string) =>
-								sub(Liferay.Language.get('x-days'), [
-									applyTimeZone(val, timeZoneId).diff(
-										Date.now(),
-										'days'
-									)
-								]),
+							dataFormatter: (val: string) => formatDateToTimeZone(val, 'll', timeZoneId),
 							label: Liferay.Language.get('expiration'),
 							sortable: false
 						}
