@@ -115,17 +115,9 @@ public class Table {
 			@Transform(FaroTransformer.class) String number)
 		throws Exception {
 
-		int columnTotal = GetterUtil.getInteger(number) - 1;
-
-		String newNumber = String.valueOf(columnTotal);
-
 		StringBundler sb = new StringBundler(8);
 
-		sb.append("//div[@class='bb']//*[name()='svg']/*[name()='g']");
-		sb.append("/*[name()='g' and @class='bb-chart']/*[name()='g']");
-		sb.append("/*[name()='rect' and contains(@class, '");
-		sb.append(newNumber);
-		sb.append("')]|//*[name()='g' and @class='recharts-layer']");
+		sb.append("//*[name()='g' and @class='recharts-layer']");
 		sb.append("/*[name()='g' and contains(@class,'rectangle')][");
 		sb.append(number);
 		sb.append("]");
@@ -731,11 +723,8 @@ public class Table {
 
 		sb.append("//h5[text()='");
 		sb.append(card);
-		sb.append("']/parent::div/parent::div//*[");
-		sb.append("name()='g' and @class='bb-chart']/*[name()='g']");
-		sb.append("/*[name()='rect'][");
-		sb.append(rowNumber);
-		sb.append("]|//*[name()='g' and @class='recharts-layer']");
+		sb.append("']/parent::div/following-sibling::div");
+		sb.append("//*[name()='g' and @class='recharts-layer']");
 		sb.append("/*[name()='g' and contains(@class,'rectangle')][");
 		sb.append(rowNumber);
 		sb.append("]");
