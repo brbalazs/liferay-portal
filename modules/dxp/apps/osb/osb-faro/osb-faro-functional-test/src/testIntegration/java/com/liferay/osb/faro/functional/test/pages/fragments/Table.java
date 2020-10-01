@@ -22,7 +22,6 @@ import com.liferay.osb.faro.functional.test.util.FaroTransformer;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.poshi.runner.util.GetterUtil;
 
 import cucumber.api.DataTable;
 import cucumber.api.Transform;
@@ -115,7 +114,7 @@ public class Table {
 			@Transform(FaroTransformer.class) String number)
 		throws Exception {
 
-		StringBundler sb = new StringBundler(8);
+		StringBundler sb = new StringBundler(4);
 
 		sb.append("//*[name()='g' and @class='recharts-layer']");
 		sb.append("/*[name()='g' and contains(@class,'rectangle')][");
@@ -719,12 +718,12 @@ public class Table {
 		_faroSelenium.waitForPageLoadingComplete();
 		_faroSelenium.waitForLoadingComplete();
 
-		StringBundler sb = new StringBundler(10);
+		StringBundler sb = new StringBundler(7);
 
 		sb.append("//h5[text()='");
 		sb.append(card);
-		sb.append("']/parent::div/following-sibling::div");
-		sb.append("//*[name()='g' and @class='recharts-layer']");
+		sb.append("']/parent::div/following-sibling::div//*");
+		sb.append("[name()='g' and @class='recharts-layer']");
 		sb.append("/*[name()='g' and contains(@class,'rectangle')][");
 		sb.append(rowNumber);
 		sb.append("]");
