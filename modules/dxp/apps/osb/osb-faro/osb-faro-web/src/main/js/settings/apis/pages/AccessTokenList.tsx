@@ -13,10 +13,14 @@ import {AccessToken} from '../types';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {ApisPath} from 'shared/util/url-constants';
+import {
+	applyTimeZone,
+	formatDateToTimeZone,
+	getDateNow
+} from 'shared/util/date';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
-import {formatUTCDate, getDateNow} from 'shared/util/date';
 import {Modal} from 'shared/types';
 import {sub} from 'shared/util/lang';
 import {
@@ -37,8 +41,9 @@ const TokenList: React.FC<{
 	groupId: string;
 	open: Modal.open;
 	refetch: () => Promise<any>;
+	timeZoneId: string;
 	tokens: AccessToken[];
-}> = ({addAlert, close, groupId, open, refetch, tokens}) => {
+}> = ({addAlert, close, groupId, open, refetch, timeZoneId, tokens}) => {
 	const [loading, setLoading] = useState(false);
 
 	const handleError = () => {
@@ -115,21 +120,34 @@ const TokenList: React.FC<{
 						{
 							accessor: 'lastAccessDate',
 							dataFormatter: (val: string) =>
-								formatUTCDate(val, DATE_FORMAT),
+								formatDateToTimeZone(
+									val,
+									DATE_FORMAT,
+									timeZoneId
+								),
 							label: Liferay.Language.get('last-seen'),
 							sortable: false
 						},
 						{
 							accessor: 'createDate',
 							dataFormatter: (val: string) =>
-								formatUTCDate(val, DATE_FORMAT),
+								formatDateToTimeZone(
+									val,
+									DATE_FORMAT,
+									timeZoneId
+								),
 							label: Liferay.Language.get('date-created'),
 							sortable: false
 						},
 						{
 							accessor: 'expirationDate',
-							dataFormatter: () =>
-								Liferay.Language.get('30-days'),
+							dataFormatter: (val: string) =>
+								sub(Liferay.Language.get('x-days'), [
+									applyTimeZone(val, timeZoneId).diff(
+										Date.now(),
+										'days'
+									)
+								]),
 							label: Liferay.Language.get('expiration'),
 							sortable: false
 						}
@@ -223,7 +241,15 @@ const TokenList: React.FC<{
 
 const ListWithData = compose<any>(
 	connect(
-		null,
+		(store, {groupId}) => ({
+			timeZoneId: store.getIn([
+				'projects',
+				groupId,
+				'data',
+				'timeZone',
+				'timeZoneId'
+			])
+		}),
 		{addAlert, close, open}
 	),
 	withQuery(

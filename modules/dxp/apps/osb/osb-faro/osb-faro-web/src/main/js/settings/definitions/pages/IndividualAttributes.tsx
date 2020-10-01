@@ -3,10 +3,10 @@ import BasePage from 'settings/components/BasePage';
 import Button from 'shared/components/Button';
 import Card from 'shared/components/Card';
 import Constants from 'shared/util/constants';
-import moment from 'moment';
 import React from 'react';
 import SearchableEntityTable from 'shared/components/SearchableEntityTable';
 import withStatefulPagination from 'shared/hoc/StatefulPagination';
+import {applyTimeZone} from 'shared/util/date';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {getDefinitions} from 'shared/util/breadcrumbs';
@@ -30,12 +30,14 @@ interface IIndividualAttributesProps
 	extends HasModal,
 		React.HTMLAttributes<HTMLElement> {
 	groupId: string;
+	timeZoneId: string;
 }
 
 const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 	close,
 	groupId,
-	open
+	open,
+	timeZoneId
 }) => {
 	const openModal = ({dataSources, fieldName}) => () => {
 		open(modalTypes.INDIVIDUAL_ATTRIBUTES_MODAL, {
@@ -98,7 +100,10 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 							accessor: 'dateModified',
 							className: 'pr-5',
 							dataFormatter: dateModified =>
-								moment(dateModified).fromNow(),
+								applyTimeZone(
+									dateModified,
+									timeZoneId
+								).fromNow(),
 							label: Liferay.Language.get('last-synced'),
 							sortable: false
 						}
@@ -115,6 +120,14 @@ const IndividualAttributes: React.FC<IIndividualAttributesProps> = ({
 };
 
 export default connect(
-	null,
+	(store, {groupId}) => ({
+		timeZoneId: store.getIn([
+			'projects',
+			groupId,
+			'data',
+			'timeZone',
+			'timeZoneId'
+		])
+	}),
 	{close, open}
 )(IndividualAttributes);

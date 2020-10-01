@@ -25,7 +25,7 @@ import {
 	paginationConfig,
 	paginationDefaults
 } from 'shared/util/pagination';
-import {formatUTCDateFromUnix} from 'shared/util/date';
+import {formatDateToTimeZone} from 'shared/util/date';
 import {getDefinitions} from 'shared/util/breadcrumbs';
 import {partition} from 'lodash';
 import {PropTypes} from 'prop-types';
@@ -35,8 +35,6 @@ import {UNAUTHORIZED_ACCESS} from 'shared/util/request';
 import {User} from 'shared/util/records';
 
 const INITIAL_PAGE = 1;
-
-const dateFormatter = date => formatUTCDateFromUnix(date, 'll');
 
 function fetchBlockedKeywords({
 	delta,
@@ -77,7 +75,8 @@ export class InterestTopics extends React.Component {
 		close: PropTypes.func.isRequired,
 		currentUser: PropTypes.instanceOf(User).isRequired,
 		maxLength: PropTypes.number,
-		open: PropTypes.func.isRequired
+		open: PropTypes.func.isRequired,
+		timeZoneId: PropTypes.string
 	};
 
 	constructor(props) {
@@ -350,7 +349,8 @@ export class InterestTopics extends React.Component {
 			orderBy,
 			orderByField,
 			page,
-			query
+			query,
+			timeZoneId
 		} = this.props;
 
 		return (
@@ -378,7 +378,12 @@ export class InterestTopics extends React.Component {
 							},
 							{
 								accessor: CREATE_DATE,
-								dataFormatter: dateFormatter,
+								dataFormatter: date =>
+									formatDateToTimeZone(
+										date,
+										'll',
+										timeZoneId
+									),
 								label: Liferay.Language.get('added')
 							}
 						]}
@@ -414,7 +419,15 @@ export class InterestTopics extends React.Component {
 
 export default compose(
 	connect(
-		null,
+		(store, {groupId}) => ({
+			timeZoneId: store.getIn([
+				'projects',
+				groupId,
+				'data',
+				'timeZone',
+				'timeZoneId'
+			])
+		}),
 		{addAlert, close, open}
 	),
 	withCurrentUser,
