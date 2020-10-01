@@ -281,7 +281,14 @@ export default compose<any>(
 	withHistory,
 	withCurrentUser,
 	connect(
-		(store, {router: {params: {groupId}}}) => ({
+		(
+			store,
+			{
+				router: {
+					params: {groupId}
+				}
+			}
+		) => ({
 			timeZoneId: store.getIn([
 				'projects',
 				groupId,

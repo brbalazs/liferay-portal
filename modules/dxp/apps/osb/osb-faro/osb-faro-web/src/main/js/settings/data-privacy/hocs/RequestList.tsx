@@ -343,7 +343,8 @@ const RequestListWithData = withCrossPageSelect(withData, {
 		},
 		{
 			accessor: CREATE_DATE,
-			dataFormatter: (date: string) => formatDateToTimeZone(date, DATE_FORMAT, timeZoneId),
+			dataFormatter: (date: string) =>
+				formatDateToTimeZone(date, DATE_FORMAT, timeZoneId),
 			label: Liferay.Language.get('requested-date')
 		},
 		{

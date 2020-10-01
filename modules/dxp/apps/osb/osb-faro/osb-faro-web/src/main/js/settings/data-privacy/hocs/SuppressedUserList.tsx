@@ -114,12 +114,14 @@ const SuppressedListWithData = withBaseResults(withData, {
 		},
 		{
 			accessor: 'dataControlTaskCreateDate',
-			dataFormatter: val => formatDateToTimeZone(val, DATE_FORMAT, timeZoneId),
+			dataFormatter: val =>
+				formatDateToTimeZone(val, DATE_FORMAT, timeZoneId),
 			label: Liferay.Language.get('requested-date')
 		},
 		{
 			accessor: 'createDate',
-			dataFormatter: val => formatDateToTimeZone(val, DATE_FORMAT, timeZoneId),
+			dataFormatter: val =>
+				formatDateToTimeZone(val, DATE_FORMAT, timeZoneId),
 			label: Liferay.Language.get('suppression-date')
 		}
 	],

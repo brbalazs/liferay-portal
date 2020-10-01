@@ -122,7 +122,11 @@ export default class UsageMetric extends React.Component {
 									Liferay.Language.get('x-percent-since-x'),
 									[
 										round(percent * 100),
-										formatDateToTimeZone(startDate, 'MMMM D, YYYY', timeZoneId)
+										formatDateToTimeZone(
+											startDate,
+											'MMMM D, YYYY',
+											timeZoneId
+										)
 									]
 								)}
 							</span>

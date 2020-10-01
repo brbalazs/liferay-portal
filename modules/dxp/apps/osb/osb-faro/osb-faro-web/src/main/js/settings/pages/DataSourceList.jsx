@@ -120,16 +120,21 @@ const ContactsCell = ({data}) => (
 	</td>
 );
 
-const dateFormatter = (date, timeZoneId) => {
-	return formatDateToTimeZone(date, 'll', timeZoneId);
-};
+const dateFormatter = (date, timeZoneId) =>
+	formatDateToTimeZone(date, 'll', timeZoneId);
 
 export const disableRow = ({state}) => state === inProgressDeleting;
 
 export const SyncTimeRenderer = ({data}, timeZoneId) => {
 	const {lastSyncDate} = data;
 
-	return <td>{!isNil(lastSyncDate) ? dateFormatter(lastSyncDate, timeZoneId) : '-'}</td>;
+	return (
+		<td>
+			{!isNil(lastSyncDate)
+				? dateFormatter(lastSyncDate, timeZoneId)
+				: '-'}
+		</td>
+	);
 };
 
 export const StatusRenderer = ({data}) => {
@@ -381,11 +386,13 @@ export class DataSourceList extends React.Component {
 							},
 							{
 								accessor: 'dateCreated',
-								dataFormatter: date => dateFormatter(date, timeZoneId),
+								dataFormatter: date =>
+									dateFormatter(date, timeZoneId),
 								label: Liferay.Language.get('date-added')
 							},
 							{
-								cellRenderer: data => SyncTimeRenderer(data, timeZoneId),
+								cellRenderer: data =>
+									SyncTimeRenderer(data, timeZoneId),
 								label: Liferay.Language.get('last-synced'),
 								sortable: false
 							},

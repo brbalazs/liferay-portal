@@ -36,7 +36,11 @@ export const RequestLog: React.FC<IRequestLogProps> = ({
 			documentTitle={Liferay.Language.get('request-log')}
 			groupId={groupId}
 		>
-			<RequestList currentUser={currentUser} router={router} timeZoneId={timeZoneId} />
+			<RequestList
+				currentUser={currentUser}
+				router={router}
+				timeZoneId={timeZoneId}
+			/>
 		</BasePage>
 	);
 };

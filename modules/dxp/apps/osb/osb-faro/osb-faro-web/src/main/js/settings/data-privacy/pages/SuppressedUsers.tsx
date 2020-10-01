@@ -36,7 +36,11 @@ export const SuppressedUsers: React.FC<ISuppressedUsersProps> = ({
 			documentTitle={Liferay.Language.get('suppressed-user-list')}
 			groupId={groupId}
 		>
-			<SuppressedUserList currentUser={currentUser} router={router} timeZoneId={timeZoneId} />
+			<SuppressedUserList
+				currentUser={currentUser}
+				router={router}
+				timeZoneId={timeZoneId}
+			/>
 		</BasePage>
 	);
 };

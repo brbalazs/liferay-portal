@@ -13,14 +13,10 @@ import {AccessToken} from '../types';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {ApisPath} from 'shared/util/url-constants';
-import {
-	applyTimeZone,
-	formatDateToTimeZone,
-	getDateNow
-} from 'shared/util/date';
 import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
+import {formatDateToTimeZone, getDateNow} from 'shared/util/date';
 import {Modal} from 'shared/types';
 import {sub} from 'shared/util/lang';
 import {
@@ -141,7 +137,8 @@ const TokenList: React.FC<{
 						},
 						{
 							accessor: 'expirationDate',
-							dataFormatter: (val: string) => formatDateToTimeZone(val, 'll', timeZoneId),
+							dataFormatter: (val: string) =>
+								formatDateToTimeZone(val, 'll', timeZoneId),
 							label: Liferay.Language.get('expiration'),
 							sortable: false
 						}
