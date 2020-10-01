@@ -1,5 +1,4 @@
 import MetricBar from 'shared/components/MetricBar';
-import moment from 'moment';
 import React from 'react';
 import Sticker from 'shared/components/Sticker';
 import {
@@ -14,6 +13,7 @@ import {
 	PLANS,
 	STATUS_DISPLAY_MAP
 } from 'shared/util/subscriptions';
+import {formatDateToTimeZone} from 'shared/util/date';
 import {get, round} from 'lodash';
 import {Plan} from 'shared/util/records';
 import {PropTypes} from 'prop-types';
@@ -36,7 +36,8 @@ export default class UsageMetric extends React.Component {
 			PLAN_TYPES[PLANS.basic.name],
 			PLAN_TYPES[PLANS.business.name],
 			PLAN_TYPES[PLANS.enterprise.name]
-		])
+		]),
+		timeZoneId: PropTypes.string
 	};
 
 	getUsageMetricDetails() {
@@ -74,7 +75,8 @@ export default class UsageMetric extends React.Component {
 	render() {
 		const {
 			currentPlan: {metrics, startDate},
-			metricType
+			metricType,
+			timeZoneId
 		} = this.props;
 
 		const {count, limit, status} = metrics.get(metricType);
@@ -120,9 +122,7 @@ export default class UsageMetric extends React.Component {
 									Liferay.Language.get('x-percent-since-x'),
 									[
 										round(percent * 100),
-										moment(startDate)
-											.utc()
-											.format('MMMM D, YYYY')
+										formatDateToTimeZone(startDate, 'MMMM D, YYYY', timeZoneId)
 									]
 								)}
 							</span>

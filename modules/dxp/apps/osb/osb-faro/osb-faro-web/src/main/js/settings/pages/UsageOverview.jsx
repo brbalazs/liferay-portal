@@ -144,10 +144,11 @@ export class UsageOverview extends React.Component {
 		const {
 			currentUser,
 			groupId,
-			project: {faroSubscription}
+			project: {faroSubscription, timeZone}
 		} = this.props;
 
 		const currentPlan = formatPlanData(faroSubscription);
+		const timeZoneId = timeZone.get('timeZoneId');
 
 		const showAddonPanels =
 			PLAN_LEVEL_MAP[currentPlan.name] >=
@@ -194,12 +195,14 @@ export class UsageOverview extends React.Component {
 									currentPlan={currentPlan}
 									metricType={INDIVIDUALS}
 									planType={planType}
+									timeZoneId={timeZoneId}
 								/>
 
 								<UsageMetric
 									currentPlan={currentPlan}
 									metricType={PAGEVIEWS}
 									planType={planType}
+									timeZoneId={timeZoneId}
 								/>
 							</Card.Body>
 						</Card>
