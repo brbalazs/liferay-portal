@@ -87,8 +87,16 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 		path: Routes.WORKSPACE_ADD_TRIAL
 	});
 
+	const getTimeZoneInitialValue = () =>
+		project && project.timeZone
+			? {
+					name: project.timeZone.get('displayTimeZone'),
+					value: project.timeZone.get('timeZoneId')
+			  }
+			: TIMEZONE_DEFAULT_VALUE;
+
 	const {data: timezonesAvailable, loading} = useRequest(
-		API.projects.fetchTimezonesAvailable,
+		API.projects.fetchTimeZonesAvailable,
 		{}
 	);
 
@@ -96,7 +104,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 
 	const [timezoneState, setTimezoneState] = useState({
 		filterText: '',
-		timezoneValue: TIMEZONE_DEFAULT_VALUE
+		timezoneValue: getTimeZoneInitialValue()
 	});
 
 	const getTimezoneItems = (): Array<{name: string; value: string}> =>
@@ -192,7 +200,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 						name: (project && project.name) || '',
 						serverLocation:
 							(project && project.serverLocation) || US,
-						timezone: TIMEZONE_DEFAULT_VALUE
+						timezone: getTimeZoneInitialValue()
 					}}
 					onSubmit={handleSubmit}
 					ref={formRef}
