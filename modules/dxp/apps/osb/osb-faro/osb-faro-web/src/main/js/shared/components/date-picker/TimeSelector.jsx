@@ -4,6 +4,7 @@ import Input from 'shared/components/Input';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {applyTimeZone} from 'shared/util/date';
 
 export default class TimeSelector extends React.Component {
 	static defaultProps = {
@@ -27,7 +28,7 @@ export default class TimeSelector extends React.Component {
 	render() {
 		const {timeZoneId, value} = this.props;
 
-		const timezoneOffset = moment.tz(value, timeZoneId).format('Z');
+		const timezoneOffset = applyTimeZone(value, timeZoneId).format('Z');
 
 		return (
 			<div className='time-selector-root'>
