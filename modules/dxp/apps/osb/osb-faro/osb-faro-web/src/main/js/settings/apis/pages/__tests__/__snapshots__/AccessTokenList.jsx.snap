@@ -132,7 +132,7 @@ exports[`AccessTokenList should render 1`] = `
                 <td
                   class=""
                 >
-                  30 Days
+                  Aug 9, 2018
                 </td>
                 <td
                   class=" row-inline-actions"
@@ -240,7 +240,7 @@ exports[`AccessTokenList should show the generated token in a list and the "Gene
         <td
           class=""
         >
-          30 Days
+          Aug 9, 2018
         </td>
         <td
           class=" row-inline-actions"

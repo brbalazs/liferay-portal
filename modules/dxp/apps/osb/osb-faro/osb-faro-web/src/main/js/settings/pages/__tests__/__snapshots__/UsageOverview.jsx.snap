@@ -60,6 +60,7 @@ exports[`UsageOverview should render 1`] = `
             }
             metricType="individuals"
             planType="enterprise"
+            timeZoneId="UTC"
           />
           <UsageMetric
             currentPlan={
@@ -93,6 +94,7 @@ exports[`UsageOverview should render 1`] = `
             }
             metricType="pageViews"
             planType="enterprise"
+            timeZoneId="UTC"
           />
         </Body>
       </Card>
@@ -293,6 +295,7 @@ exports[`UsageOverview should use default addons for basic plans 1`] = `
             }
             metricType="individuals"
             planType="basic"
+            timeZoneId="UTC"
           />
           <UsageMetric
             currentPlan={
@@ -326,6 +329,7 @@ exports[`UsageOverview should use default addons for basic plans 1`] = `
             }
             metricType="pageViews"
             planType="basic"
+            timeZoneId="UTC"
           />
         </Body>
       </Card>
