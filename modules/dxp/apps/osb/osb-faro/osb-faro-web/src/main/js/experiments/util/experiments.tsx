@@ -146,8 +146,6 @@ export const formatYAxis: FormatYAxisFn = metricUnit => value => {
 	return `${value.toFixed(1)}${metricUnit}`;
 };
 
-export const getDate: GetDateFn = date => moment(date).format('ll');
-
 export const getExperimentLink: GetLinkFn = (pageURL, id) =>
 	`${pageURL}?segmentsExperimentKey=${id}`;
 

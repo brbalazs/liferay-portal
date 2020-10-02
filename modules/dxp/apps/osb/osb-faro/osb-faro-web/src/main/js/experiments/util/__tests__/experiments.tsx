@@ -4,7 +4,6 @@ import {
 	formatHistogramKeyValue,
 	formatProcessedDate,
 	formatYAxis,
-	getDate,
 	getFormattedMedian,
 	getFormattedMedianLabel,
 	getFormattedProbabilityToWin,
@@ -245,18 +244,6 @@ describe('getFormattedProbabilityToWin', () => {
 
 	it('should return formatted probability to win when value is greater than 99.9', () => {
 		expect(getFormattedProbabilityToWin(100)).toEqual('> 99.9');
-	});
-});
-
-describe('getDate', () => {
-	it('should format date', () => {
-		expect(
-			getDate(
-				new Date(
-					'Fri Aug 02 2019 11:45:43 GMT-0300 (Brasilia Standard Time)'
-				)
-			)
-		).toEqual('Aug 2, 2019');
 	});
 });
 
