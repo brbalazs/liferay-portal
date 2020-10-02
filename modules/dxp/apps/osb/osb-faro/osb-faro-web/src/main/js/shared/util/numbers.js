@@ -111,7 +111,7 @@ const multipliers = {
 
 /**
  * Undo Thousands
- * @param {boolean} formatted
+ * @param {string} formatted
  */
 export const undoThousands = formatted => {
 	if (!formatted) {
