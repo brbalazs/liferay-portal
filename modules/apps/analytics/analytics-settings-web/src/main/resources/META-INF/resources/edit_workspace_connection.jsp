@@ -39,26 +39,18 @@ if (analyticsConfiguration != null) {
 	else {
 		String[] syncedOrganizationIds = GetterUtil.getStringValues(analyticsConfiguration.syncedOrganizationIds());
 
-		long[] syncedOrganizationIdsLong = new long[0];
+		long[] syncedOrganizationIdsLong = new long[syncedOrganizationIds.length];
 
-		if (!ArrayUtil.isEmpty(syncedOrganizationIds)) {
-			syncedOrganizationIdsLong = new long[syncedOrganizationIds.length];
-
-			for (int i = 0; i < syncedOrganizationIds.length; i++) {
-				syncedOrganizationIdsLong[i] = GetterUtil.getLong(syncedOrganizationIds[i]);
-			}
+		for (int i = 0; i < syncedOrganizationIds.length; i++) {
+			syncedOrganizationIdsLong[i] = GetterUtil.getLong(syncedOrganizationIds[i]);
 		}
 
 		String[] syncedUserGroupIds = GetterUtil.getStringValues(analyticsConfiguration.syncedUserGroupIds());
 
-		long[] syncedUserGroupIdsLong = new long[0];
+		long[] syncedUserGroupIdsLong = new long[syncedUserGroupIds.length];
 
-		if (!ArrayUtil.isEmpty(syncedUserGroupIds)) {
-			syncedUserGroupIdsLong = new long[syncedUserGroupIds.length];
-
-			for (int i = 0; i < syncedUserGroupIds.length; i++) {
-				syncedUserGroupIdsLong[i] = GetterUtil.getLong(syncedUserGroupIds[i]);
-			}
+		for (int i = 0; i < syncedUserGroupIds.length; i++) {
+			syncedUserGroupIdsLong[i] = GetterUtil.getLong(syncedUserGroupIds[i]);
 		}
 
 		totalContactsSelected = analyticsUsersManager.getOrganizationsAndUserGroupsUsersCount(syncedOrganizationIdsLong, syncedUserGroupIdsLong);
@@ -165,12 +157,12 @@ PortletURL portletURL = renderResponse.createRenderURL();
 		<aui:button-row>
 
 			<%
-			PortletURL syncedContactsURL = PortletURLUtil.clone(portletURL, renderResponse);
+			PortletURL syncedContactDataURL = PortletURLUtil.clone(portletURL, renderResponse);
 
-			syncedContactsURL.setParameter("tabs1", "synced-contacts");
+			syncedContactDataURL.setParameter("tabs1", "synced-contact-data");
 			%>
 
-			<aui:button disabled="<%= !connected %>" href="<%= syncedContactsURL.toString() %>" primary="<%= true %>" value="select-contacts" />
+			<aui:button disabled="<%= !connected %>" href="<%= syncedContactDataURL.toString() %>" primary="<%= true %>" value="select-contacts" />
 		</aui:button-row>
 	</aui:fieldset>
 </div>
