@@ -1,5 +1,5 @@
 import BarChartHTML from 'cerebro-shared/components/BarChartHTML';
-import Legend from 'cerebro-shared/components/Legend';
+import Legend from 'shared/components/Legend';
 import NoResultsDisplay from 'shared/components/NoResultsDisplay';
 import PerDayChart from 'experiments/hocs/PerDayChart';
 import React from 'react';

@@ -4,7 +4,7 @@ import columns from './variant-columns';
 import React from 'react';
 import Table from 'shared/components/table';
 import {CLASSNAME} from './constants';
-import {LegendData} from 'cerebro-shared/components/Legend';
+import {LegendData} from 'shared/components/Legend';
 import {Status} from 'experiments/util/types';
 import {useStateValue} from 'experiments/state';
 
