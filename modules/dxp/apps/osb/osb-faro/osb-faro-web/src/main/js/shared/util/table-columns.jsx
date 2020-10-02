@@ -380,8 +380,15 @@ export const individualsListColumns = {
 	},
 	getDateCreated: timeZoneId => ({
 		accessor: 'dateCreated',
-		cellRenderer: DateCell,
-		dateFormatter: date => applyTimeZone(date, timeZoneId),
+		cellRenderer: ({data}) => (
+			<DateCell
+				data={data}
+				dateFormatter={date =>
+					formatDateToTimeZone(date, 'll', timeZoneId)
+				}
+				datePath='dateCreated'
+			/>
+		),
 		label: Liferay.Language.get('first-seen')
 	}),
 	getLastActivityDate: timeZoneId => ({
