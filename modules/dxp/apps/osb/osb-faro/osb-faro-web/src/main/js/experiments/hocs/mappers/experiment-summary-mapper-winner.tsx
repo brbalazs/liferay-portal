@@ -1,7 +1,7 @@
 import React from 'react';
 import SummarySection from 'experiments/components/summary-section';
+import {formatDateToTimeZone} from 'shared/util/date';
 import {
-	getDate,
 	getMetricName,
 	mergedVariants,
 	modalComplete,
@@ -26,6 +26,7 @@ export default ({
 	pageURL,
 	sessions,
 	startedDate,
+	timeZoneId,
 	winnerDXPVariantId
 }) => {
 	const winnerVariant = mergedVariants(dxpVariants, variantMetrics).find(
@@ -100,7 +101,10 @@ export default ({
 		alert,
 		header: {
 			Description: () =>
-				sub(Liferay.Language.get('started-x'), [getDate(startedDate)]),
+				sub(Liferay.Language.get('started-x'), [
+					formatDateToTimeZone(startedDate, 'll', timeZoneId)
+				]),
+
 			modals,
 			title: Liferay.Language.get('winner-declared')
 		},

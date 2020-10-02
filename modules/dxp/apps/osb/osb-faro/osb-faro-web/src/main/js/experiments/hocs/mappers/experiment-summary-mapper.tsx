@@ -11,7 +11,7 @@ type Experiment = {
 	status: Status;
 };
 
-export default ({experiment, experimentId}) => {
+export default ({experiment, experimentId, timeZoneId}) => {
 	const {description, status}: Experiment = experiment;
 
 	let data = {};
@@ -28,23 +28,23 @@ export default ({experiment, experimentId}) => {
 			break;
 
 		case 'running':
-			data = getRunningData({...experiment, experimentId});
+			data = getRunningData({...experiment, experimentId, timeZoneId});
 			break;
 
 		case 'finished_winner':
-			data = getWinnerData({...experiment, experimentId});
+			data = getWinnerData({...experiment, experimentId, timeZoneId});
 			break;
 
 		case 'finished_no_winner':
-			data = getNoWinnerData({...experiment, experimentId});
+			data = getNoWinnerData({...experiment, experimentId, timeZoneId});
 			break;
 
 		case 'terminated':
-			data = getTerminatedData({...experiment, experimentId});
+			data = getTerminatedData({...experiment, experimentId, timeZoneId});
 			break;
 
 		case 'completed':
-			data = getCompletedData({...experiment, experimentId});
+			data = getCompletedData({...experiment, experimentId, timeZoneId});
 			break;
 
 		default:

@@ -7,6 +7,7 @@ import SummaryCard from 'experiments/hocs/SummaryCard';
 import TextTruncate from 'shared/components/TextTruncate';
 import VariantCard from 'experiments/hocs/VariantCard';
 import WrappedSafeComponent from 'cerebro-shared/hocs/WrappedSafeComponent';
+import {connect} from 'react-redux';
 import {EXPERIMENT_ROOT_QUERY} from 'experiments/queries/ExperimentQuery';
 import {Routes, toRoute} from 'shared/util/router';
 import {StateProvider} from 'experiments/state';
@@ -31,10 +32,12 @@ interface IExperimentOverviewPage extends React.HTMLAttributes<HTMLElement> {
 		};
 		query: object;
 	};
+	timeZoneId: string;
 }
 
 const ExperimentOverviewPage: React.FC<IExperimentOverviewPage> = ({
-	router
+	router,
+	timeZoneId
 }) => {
 	const {
 		params: {channelId, groupId, id: experimentId}
@@ -49,109 +52,115 @@ const ExperimentOverviewPage: React.FC<IExperimentOverviewPage> = ({
 	useAddRefetch(refetch);
 
 	return (
-		<>
-			<WrappedSafeComponent {...result}>
-				{({experiment}) =>
-					experiment ? (
-						<BasePage documentTitle={Liferay.Language.get('tests')}>
-							<BasePage.Header
-								breadcrumbs={[
-									breadcrumbs.getHome({
-										channelId,
-										groupId,
-										label:
-											selectedChannel &&
-											selectedChannel.name
-									}),
-									breadcrumbs.getTests({channelId, groupId}),
-									breadcrumbs.getEntityName({
-										label: experiment.name
-									})
-								]}
-							>
-								<BasePage.Header.TitleSection
-									subtitle={
-										<TextTruncate
-											title={experiment.pageURL}
+		<WrappedSafeComponent {...result}>
+			{({experiment}) =>
+				experiment ? (
+					<BasePage documentTitle={Liferay.Language.get('tests')}>
+						<BasePage.Header
+							breadcrumbs={[
+								breadcrumbs.getHome({
+									channelId,
+									groupId,
+									label:
+										selectedChannel && selectedChannel.name
+								}),
+								breadcrumbs.getTests({channelId, groupId}),
+								breadcrumbs.getEntityName({
+									label: experiment.name
+								})
+							]}
+						>
+							<BasePage.Header.TitleSection
+								subtitle={
+									<TextTruncate title={experiment.pageURL}>
+										<a
+											href={experiment.pageURL}
+											target='_blank'
 										>
-											<a
-												href={experiment.pageURL}
-												target='_blank'
-											>
-												{experiment.pageURL}
-											</a>
-										</TextTruncate>
-									}
-									title={experiment.name}
-								/>
+											{experiment.pageURL}
+										</a>
+									</TextTruncate>
+								}
+								title={experiment.name}
+							/>
 
-								<BasePage.Header.NavBar
-									items={NAV_ITEMS}
-									routeParams={{
-										channelId,
-										groupId,
-										id: experimentId,
-										title: experiment.name,
-										touchpoint: experiment.pageURL
-									}}
-								/>
-							</BasePage.Header>
-
-							<BasePage.Context.Provider
-								value={{
-									filters: {},
-									router
+							<BasePage.Header.NavBar
+								items={NAV_ITEMS}
+								routeParams={{
+									channelId,
+									groupId,
+									id: experimentId,
+									title: experiment.name,
+									touchpoint: experiment.pageURL
 								}}
-							>
-								<BasePage.Body>
-									<div className='row'>
-										<div className='col-sm-12'>
-											<SummaryCard
-												status={experiment.status}
-											/>
-										</div>
+							/>
+						</BasePage.Header>
+
+						<BasePage.Context.Provider
+							value={{
+								filters: {},
+								router
+							}}
+						>
+							<BasePage.Body>
+								<div className='row'>
+									<div className='col-sm-12'>
+										<SummaryCard
+											status={experiment.status}
+											timeZoneId={timeZoneId}
+										/>
 									</div>
+								</div>
 
-									{experiment.status !== 'DRAFT' && (
-										<>
-											<div className='row'>
-												<div className='col-sm-12'>
-													<VariantCard
-														label={Liferay.Language.get(
-															'variant-report'
-														)}
-													/>
-												</div>
+								{experiment.status !== 'DRAFT' && (
+									<>
+										<div className='row'>
+											<div className='col-sm-12'>
+												<VariantCard
+													label={Liferay.Language.get(
+														'variant-report'
+													)}
+												/>
 											</div>
+										</div>
 
-											<div className='row'>
-												<div className='col-sm-12'>
-													<SessionCard
-														label={Liferay.Language.get(
-															'test-sessions'
-														)}
-													/>
-												</div>
+										<div className='row'>
+											<div className='col-sm-12'>
+												<SessionCard
+													label={Liferay.Language.get(
+														'test-sessions'
+													)}
+												/>
 											</div>
-										</>
-									)}
-								</BasePage.Body>
-							</BasePage.Context.Provider>
-						</BasePage>
-					) : (
-						<ErrorPage
-							href={toRoute(Routes.TESTS, {channelId, groupId})}
-							linkLabel={Liferay.Language.get('go-to-tests')}
-						/>
-					)
-				}
-			</WrappedSafeComponent>
-		</>
+										</div>
+									</>
+								)}
+							</BasePage.Body>
+						</BasePage.Context.Provider>
+					</BasePage>
+				) : (
+					<ErrorPage
+						href={toRoute(Routes.TESTS, {channelId, groupId})}
+						linkLabel={Liferay.Language.get('go-to-tests')}
+					/>
+				)
+			}
+		</WrappedSafeComponent>
 	);
 };
 
-export default props => (
+const ExperimentWithState = props => (
 	<StateProvider>
 		<ExperimentOverviewPage {...props} />
 	</StateProvider>
 );
+
+export default connect((store, {router: {params: {groupId}}}) => ({
+	timeZoneId: store.getIn([
+		'projects',
+		groupId,
+		'data',
+		'timeZone',
+		'timeZoneId'
+	])
+}))(ExperimentWithState);

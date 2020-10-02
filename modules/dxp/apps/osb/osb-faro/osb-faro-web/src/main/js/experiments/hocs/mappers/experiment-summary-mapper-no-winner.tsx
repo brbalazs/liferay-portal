@@ -1,7 +1,7 @@
 import React from 'react';
 import SummarySection from 'experiments/components/summary-section';
+import {formatDateToTimeZone} from 'shared/util/date';
 import {
-	getDate,
 	getMetricName,
 	modalComplete,
 	modalPublishOtherVariant
@@ -18,7 +18,8 @@ export default ({
 	metrics: {completion, elapsedDays},
 	pageURL,
 	sessions,
-	startedDate
+	startedDate,
+	timeZoneId
 }) => {
 	const control = dxpVariants.find(({control}) => control);
 	const variants = dxpVariants.filter(({control}) => !control);
@@ -33,7 +34,9 @@ export default ({
 		},
 		header: {
 			Description: () =>
-				sub(Liferay.Language.get('started-x'), [getDate(startedDate)]),
+				sub(Liferay.Language.get('started-x'), [
+					formatDateToTimeZone(startedDate, 'll', timeZoneId)
+				]),
 			modals: [
 				modalComplete(experimentId, control.dxpVariantId),
 				modalPublishOtherVariant(

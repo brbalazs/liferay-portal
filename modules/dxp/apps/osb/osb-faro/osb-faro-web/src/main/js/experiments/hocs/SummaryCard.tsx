@@ -13,9 +13,10 @@ import {useQuery} from '@apollo/react-hooks';
 
 interface IWithSummaryCard extends React.HTMLAttributes<HTMLElement> {
 	status?: string;
+	timeZoneId: string;
 }
 
-const withSummaryCard: React.FC<IWithSummaryCard> = ({status}) => {
+const withSummaryCard: React.FC<IWithSummaryCard> = ({status, timeZoneId}) => {
 	const {
 		router: {
 			params: {id: experimentId}
@@ -44,7 +45,8 @@ const withSummaryCard: React.FC<IWithSummaryCard> = ({status}) => {
 			{...result}
 			data={{
 				...data,
-				experimentId
+				experimentId,
+				timeZoneId
 			}}
 			mapper={getSummaryMapper}
 		>

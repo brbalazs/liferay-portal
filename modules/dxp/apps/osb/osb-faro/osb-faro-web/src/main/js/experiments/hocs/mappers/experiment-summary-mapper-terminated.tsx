@@ -1,10 +1,7 @@
 import React from 'react';
 import SummarySection from 'experiments/components/summary-section';
-import {
-	getDate,
-	getMetricName,
-	modalDelete
-} from 'experiments/util/experiments';
+import {formatDateToTimeZone} from 'shared/util/date';
+import {getMetricName, modalDelete} from 'experiments/util/experiments';
 import {sub} from 'shared/util/lang';
 import {toRounded} from 'shared/util/numbers';
 import {toThousandsABTesting} from 'experiments/util/experiments';
@@ -16,7 +13,8 @@ export default ({
 	goal,
 	metrics: {completion, elapsedDays, estimatedDaysLeft},
 	sessions,
-	startedDate
+	startedDate,
+	timeZoneId
 }) => ({
 	header: {
 		cardModals: [modalDelete(experimentId)],
@@ -24,14 +22,14 @@ export default ({
 			<div className='date'>
 				<div>
 					{sub(Liferay.Language.get('started-x'), [
-						getDate(startedDate)
+						formatDateToTimeZone(startedDate, 'll', timeZoneId)
 					])}
 				</div>
 
 				{finishedDate && (
 					<div>
 						{sub(Liferay.Language.get('stopped-x'), [
-							getDate(finishedDate)
+							formatDateToTimeZone(finishedDate, 'll', timeZoneId)
 						])}
 					</div>
 				)}

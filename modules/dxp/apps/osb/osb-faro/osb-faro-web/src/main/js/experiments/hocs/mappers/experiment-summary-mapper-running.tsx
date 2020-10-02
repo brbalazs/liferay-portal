@@ -1,7 +1,8 @@
 import React from 'react';
 import SummarySection from 'experiments/components/summary-section';
 import UpdateExperimentStatusModal from 'experiments/components/modals/UpdateExperimentStatusModal';
-import {getDate, getMetricName} from 'experiments/util/experiments';
+import {formatDateToTimeZone} from 'shared/util/date';
+import {getMetricName} from 'experiments/util/experiments';
 import {sub} from 'shared/util/lang';
 import {toRounded} from 'shared/util/numbers';
 import {toThousandsABTesting} from 'experiments/util/experiments';
@@ -12,11 +13,14 @@ export default ({
 	goal,
 	metrics: {completion, elapsedDays, estimatedDaysLeft},
 	sessions,
-	startedDate
+	startedDate,
+	timeZoneId
 }) => ({
 	header: {
 		Description: () =>
-			sub(Liferay.Language.get('started-x'), [getDate(startedDate)]),
+			sub(Liferay.Language.get('started-x'), [
+				formatDateToTimeZone(startedDate, 'll', timeZoneId)
+			]),
 		modals: [
 			{
 				Component: UpdateExperimentStatusModal,

@@ -1,7 +1,7 @@
 import React from 'react';
 import SummarySection from 'experiments/components/summary-section';
+import {formatDateToTimeZone} from 'shared/util/date';
 import {
-	getDate,
 	getMetricName,
 	mergedVariants,
 	modalDelete
@@ -18,7 +18,8 @@ export default ({
 	metrics: {completion, elapsedDays, variantMetrics},
 	publishedDXPVariantId,
 	sessions,
-	startedDate
+	startedDate,
+	timeZoneId
 }) => {
 	const publishedVariant = mergedVariants(dxpVariants, variantMetrics).find(
 		({dxpVariantId}) => dxpVariantId === publishedDXPVariantId
@@ -52,13 +53,17 @@ export default ({
 				<div className='date'>
 					<div>
 						{sub(Liferay.Language.get('started-x'), [
-							getDate(startedDate)
+							formatDateToTimeZone(startedDate, 'll', timeZoneId)
 						])}
 					</div>
 					{finishedDate && (
 						<div>
 							{sub(Liferay.Language.get('ended-x'), [
-								getDate(finishedDate)
+								formatDateToTimeZone(
+									finishedDate,
+									'll',
+									timeZoneId
+								)
 							])}
 						</div>
 					)}
