@@ -194,11 +194,11 @@ public class WikiPageIndexer
 	public Hits search(SearchContext searchContext) throws SearchException {
 		Hits hits = super.search(searchContext);
 
-		String[] queryTerms = ArrayUtil.append(
-			GetterUtil.getStringValues(hits.getQueryTerms()),
-			StringUtil.split(searchContext.getKeywords(), StringPool.SPACE));
-
-		hits.setQueryTerms(queryTerms);
+		hits.setQueryTerms(
+			ArrayUtil.append(
+				GetterUtil.getStringValues(hits.getQueryTerms()),
+				StringUtil.split(
+					searchContext.getKeywords(), StringPool.SPACE)));
 
 		return hits;
 	}
