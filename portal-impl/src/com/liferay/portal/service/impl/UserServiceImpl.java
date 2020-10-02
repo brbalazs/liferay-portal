@@ -2399,7 +2399,7 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 			(creatorUser.getCompanyId() != companyId)) {
 
 			throw new PrincipalException(
-				"Only the OmniAdmin can add users to another company");
+				"Only the omniadmin can add users to another company");
 		}
 	}
 
