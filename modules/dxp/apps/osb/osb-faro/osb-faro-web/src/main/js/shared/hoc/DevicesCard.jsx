@@ -1,7 +1,7 @@
 import BaseCard from 'cerebro-shared/components/base-card';
 import Card from 'shared/components/Card';
 import CardTabs from 'shared/components/CardTabs';
-import OperatingSystem from 'cerebro-shared/components/OperatingSystem';
+import OperatingSystem from 'shared/components/OperatingSystem';
 import React, {useCallback, useState} from 'react';
 import WebBrowser from 'shared/components/WebBrowser';
 import {compose} from 'redux';
