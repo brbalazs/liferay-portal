@@ -10,7 +10,6 @@ import {ButtonProps} from 'experiments/components/summary-base-card/types';
 import {
 	FormatHistogramKeyValue,
 	FormatYAxisFn,
-	GetDateFn,
 	GetFormattedHistogramFn,
 	GetFormattedMedianFn,
 	GetFormattedVariantHistogramFn,
