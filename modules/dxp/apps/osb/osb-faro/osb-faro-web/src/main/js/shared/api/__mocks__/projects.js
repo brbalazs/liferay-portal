@@ -6,7 +6,7 @@ export const create = jest.fn(() => Promise.resolve(data.mockProject()));
 
 export const fetch = jest.fn(() => Promise.resolve(data.mockProject()));
 
-export const fetchTimeZonesAvailable = jest.fn(() =>
+export const fetchAvailableTimeZones = jest.fn(() =>
 	Promise.resolve(
 		range(3).map(() => ({
 			displayTimeZone: '(UTC) UTC',

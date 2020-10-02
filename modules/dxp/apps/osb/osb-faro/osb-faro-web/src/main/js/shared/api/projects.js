@@ -88,7 +88,7 @@ export function fetchProjectViaCorpProjectUuid({corpProjectUuid}) {
 	});
 }
 
-export function fetchTimeZonesAvailable() {
+export function fetchAvailableTimeZones() {
 	return sendRequest({
 		method: 'GET',
 		path: 'main/project/time_zones'

@@ -96,7 +96,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 			: TIMEZONE_DEFAULT_VALUE;
 
 	const {data: timezonesAvailable, loading} = useRequest(
-		API.projects.fetchTimeZonesAvailable,
+		API.projects.fetchAvailableTimeZones,
 		{}
 	);
 
