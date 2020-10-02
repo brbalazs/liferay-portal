@@ -37,8 +37,9 @@ const projectLocations = [
 	{label: Liferay.Language.get('location-us'), value: US}
 ];
 
+const TIMEZONE_DEFAULT_NAME = '(UTC) UTC';
+const TIMEZONE_DEFAULT_VALUE = 'UTC';
 const VALIDATE_DOMAINS = /^([a-zA-Z0-9_]([a-zA-Z0-9_-]{0,61}[a-zA-Z0-9_])?\.){1,126}[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z]$/;
-const TIMEZONE_DEFAULT_VALUE = {name: '(UTC) UTC', value: 'UTC'};
 
 export const emailDomainValidation = value => VALIDATE_DOMAINS.test(value);
 
@@ -87,14 +88,6 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 		path: Routes.WORKSPACE_ADD_TRIAL
 	});
 
-	const getTimeZoneInitialValue = () =>
-		project && project.timeZone
-			? {
-					name: project.timeZone.get('displayTimeZone'),
-					value: project.timeZone.get('timeZoneId')
-			  }
-			: TIMEZONE_DEFAULT_VALUE;
-
 	const {data: timezonesAvailable, loading} = useRequest(
 		API.projects.fetchAvailableTimeZones,
 		{}
@@ -104,7 +97,14 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 
 	const [timezoneState, setTimezoneState] = useState({
 		filterText: '',
-		timezoneValue: getTimeZoneInitialValue()
+		timeZoneValue: {
+			name: project
+				? project.getIn(['timeZone', 'displayTimeZone'])
+				: TIMEZONE_DEFAULT_NAME,
+			value: project
+				? project.getIn(['timeZone', 'timeZoneId'])
+				: TIMEZONE_DEFAULT_VALUE
+		}
 	});
 
 	const getTimezoneItems = (): Array<{name: string; value: string}> =>
@@ -200,7 +200,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 						name: (project && project.name) || '',
 						serverLocation:
 							(project && project.serverLocation) || US,
-						timezone: getTimeZoneInitialValue()
+						timezone: timezoneState.timeZoneValue
 					}}
 					onSubmit={handleSubmit}
 					ref={formRef}
@@ -344,7 +344,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 
 									<Form.SearchableSelect
 										buttonPlaceholder={
-											timezoneState.timezoneValue.name
+											timezoneState.timeZoneValue.name
 										}
 										className='searchable-timezone'
 										disabled={disabled || editing}
@@ -361,11 +361,11 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 										onSelect={newValue =>
 											setTimezoneState({
 												filterText: '',
-												timezoneValue: newValue
+												timeZoneValue: newValue
 											})
 										}
 										selectedItem={
-											timezoneState.timezoneValue
+											timezoneState.timeZoneValue
 										}
 									/>
 								</Sheet.Section>
