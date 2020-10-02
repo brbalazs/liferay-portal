@@ -1,7 +1,7 @@
 import BlogMetricsQuery from '../queries/BlogMetricsQuery';
 import getDevicesMapper from 'cerebro-shared/hocs/mappers/devices';
 import {graphql} from '@apollo/react-hoc';
-import {withDevicesCard} from 'cerebro-shared/hocs/DevicesCard';
+import {withDevicesCard} from 'shared/hoc/DevicesCard';
 
 /**
  * HOC
