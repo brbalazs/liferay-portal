@@ -47,34 +47,34 @@ export default timeZoneId => [
 		label: Liferay.Language.get('type')
 	},
 	{
-		accessor: 'createDate',
-		cellRenderer: ({data}) => (
-			<DateCell
-				className='table-column-text-end'
-				data={data}
-				dateFormatter={date =>
-					formatDateToTimeZone(date, 'll', timeZoneId)
-				}
-				datePath='createDate'
-			/>
-		),
+		cellRenderer: DateCell,
+		cellRendererProps: {
+			dateFormatter: date => formatDateToTimeZone(date, 'll', timeZoneId),
+			datePath: 'createDate'
+		},
 		className: 'table-column-text-end',
 		label: Liferay.Language.get('created')
 	},
 	{
-		accessor: 'modifiedDate',
-		className: 'table-column-text-end',
-		dataFormatter: modifiedDate => {
-			if (!isNil(modifiedDate)) {
-				const timeZonedDate = applyTimeZone(modifiedDate, timeZoneId);
+		cellRenderer: DateCell,
+		cellRendererProps: {
+			dateFormatter: modifiedDate => {
+				if (!isNil(modifiedDate)) {
+					const timeZonedDate = applyTimeZone(
+						modifiedDate,
+						timeZoneId
+					);
 
-				return momentTimezone()
-					.tz(timeZoneId)
-					.diff(timeZonedDate, 'day') > 0
-					? formatDateToTimeZone(modifiedDate, 'll', timeZoneId)
-					: moment.utc(modifiedDate).fromNow();
-			}
+					return momentTimezone()
+						.tz(timeZoneId)
+						.diff(timeZonedDate, 'day') > 0
+						? formatDateToTimeZone(modifiedDate, 'll', timeZoneId)
+						: moment.utc(modifiedDate).fromNow();
+				}
+			},
+			datePath: 'modifiedDate'
 		},
+		className: 'table-column-text-end',
 		label: Liferay.Language.get('last-modified')
 	}
 ];
