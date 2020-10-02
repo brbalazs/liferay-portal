@@ -2,7 +2,7 @@ import FormMetricsQuery from '../queries/FormMetricsQuery';
 import getAudienceReportMapper from 'cerebro-shared/hocs/mappers/audience-report';
 import {graphql} from '@apollo/react-hoc';
 import {Routes} from 'shared/util/router';
-import {withAudienceReportCard} from 'cerebro-shared/hocs/AudienceReportCard';
+import {withAudienceReportCard} from 'shared/hoc/AudienceReportCard';
 
 /**
  * HOC
