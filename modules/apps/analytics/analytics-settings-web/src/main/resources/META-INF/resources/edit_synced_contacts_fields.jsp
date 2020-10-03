@@ -205,7 +205,7 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 	Liferay.provide(
 		window,
 		'<portlet:namespace />showConfirmationModal',
-		function (event) {
+		function(event) {
 			var dialog = Liferay.Util.Window.getWindow({
 				dialog: {
 					bodyContent:
@@ -219,16 +219,16 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 								cssClass: 'btn-cancel',
 								label: '<liferay-ui:message key="cancel" />',
 								on: {
-									click: function () {
+									click: function() {
 										dialog.hide();
-									},
-								},
+									}
+								}
 							},
 							{
 								cssClass: 'btn-primary',
 								label: '<liferay-ui:message key="exit" />',
 								on: {
-									click: function () {
+									click: function() {
 										var form = document.getElementById(
 											'<portlet:namespace />fm'
 										);
@@ -245,9 +245,9 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 											form,
 											'<portlet:actionURL name="/analytics_settings/edit_synced_contacts" var="editSyncedContactsURL" />'
 										);
-									},
-								},
-							},
+									}
+								}
+							}
 						],
 						header: [
 							{
@@ -256,16 +256,16 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 								labelHTML:
 									'<span aria-hidden="true">&times;</span>',
 								on: {
-									click: function (event) {
+									click: function(event) {
 										dialog.hide();
-									},
-								},
-							},
-						],
+									}
+								}
+							}
+						]
 					},
-					width: 500,
+					width: 500
 				},
-				title: '<%= LanguageUtil.get(resourceBundle, "unsaved-changes") %>',
+				title: '<%= LanguageUtil.get(resourceBundle, "unsaved-changes") %>'
 			});
 		},
 		['aui-base', 'liferay-util-window']
