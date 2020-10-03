@@ -32,14 +32,20 @@ if (!Validator.isBlank(analyticsConfiguration.token())) {
 String keywords = ParamUtil.getString(request, "keywords");
 %>
 
-<div class="pb-2 portlet-analytics-settings sheet sheet-lg sync-sites">
-	<h2>
-		<liferay-ui:message key="sync-sites-to-property" />
+<div class="container-fluid-1280 mt-4 portlet-analytics-settings sheet sheet-lg sync-sites">
+	<h2 class="autofit-row">
+		<span class="autofit-col autofit-col-expand">
+			<liferay-ui:message key="sync-sites-to-property" />
+		</span>
 	</h2>
 
-	<p class="mt-3 text-secondary">
-		<liferay-ui:message key="select-or-create-a-property-to-manage-synced-sites" />
-	</p>
+	<hr />
+
+	<div class="autofit-row form-text">
+		<span class="autofit-col autofit-col-expand pb-3">
+			<liferay-ui:message key="select-or-create-a-property-to-manage-synced-sites" />
+		</span>
+	</div>
 
 	<portlet:renderURL var="addNewChannelURL">
 		<portlet:param name="mvcRenderCommandName" value="/analytics_settings/add_channel" />

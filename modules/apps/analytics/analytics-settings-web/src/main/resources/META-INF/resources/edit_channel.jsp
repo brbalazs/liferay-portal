@@ -81,14 +81,20 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 	<aui:input name="channelId" type="hidden" value="<%= channelId %>" />
 
-	<div class="portlet-analytics-settings sheet sheet-lg">
+	<div class="container-fluid-1280 mt-4 portlet-analytics-settings sheet sheet-lg">
 		<h2 class="autofit-row">
-			<liferay-ui:message arguments="<%= channelName %>" key="sites-to-sync-x" />
+			<span class="autofit-col autofit-col-expand">
+				<liferay-ui:message arguments="<%= channelName %>" key="sites-to-sync-x" />
+			</span>
 		</h2>
 
-		<p class="mt-3 text-secondary">
-			<liferay-ui:message key="sites-can-only-be-assigned-to-a-single-property-at-a-time" />
-		</p>
+		<hr />
+
+		<div class="autofit-row form-text">
+			<span class="autofit-col autofit-col-expand pb-3">
+				<liferay-ui:message key="sites-can-only-be-assigned-to-a-single-property-at-a-time" />
+			</span>
+		</div>
 
 		<liferay-frontend:management-bar
 			includeCheckBox="<%= true %>"

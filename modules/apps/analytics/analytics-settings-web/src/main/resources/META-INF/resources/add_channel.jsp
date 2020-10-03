@@ -76,14 +76,20 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 <aui:form action="<%= addChannelURL %>" method="post" name="fm">
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 
-	<div class="portlet-analytics-settings sheet sheet-lg">
+	<div class="container-fluid-1280 mt-4 portlet-analytics-settings sheet sheet-lg">
 		<h2 class="autofit-row">
-			<liferay-ui:message key="new-property" />
+			<span class="autofit-col autofit-col-expand">
+				<liferay-ui:message key="new-property" />
+			</span>
 		</h2>
 
-		<p class="mt-3 text-secondary">
-			<liferay-ui:message key="select-new-property-organization-type-and-sites-to-sync.sites-can-only-be-assigned-to-a-single-property-at-a-time" />
-		</p>
+		<hr />
+
+		<div class="autofit-row form-text">
+			<span class="autofit-col autofit-col-expand pb-3">
+				<liferay-ui:message key="select-new-property-organization-type-and-sites-to-sync.sites-can-only-be-assigned-to-a-single-property-at-a-time" />
+			</span>
+		</div>
 
 		<div class="mb-5 mt-4 radio-buttons">
 			<label class="d-block mb-3">

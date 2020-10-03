@@ -22,7 +22,7 @@ String cmd = ParamUtil.getString(request, Constants.CMD);
 PortletURL portletURL = renderResponse.createRenderURL();
 
 portletURL.setParameter("mvcRenderCommandName", "/analytics_settings/view");
-portletURL.setParameter("tabs1", "synced-contacts-data");
+portletURL.setParameter("tabs1", "synced-contact-data");
 
 String redirect = ParamUtil.getString(request, "redirect", portletURL.toString());
 
@@ -66,14 +66,20 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(resourceBundle, "
 	</div>
 </div>
 
-<div class="pb-2 portlet-analytics-settings sheet sheet-lg">
-	<h2>
-		<liferay-ui:message key="sync-data-fields" />
+<div class="container-fluid-1280 mt-4 portlet-analytics-settings sheet sheet-lg">
+	<h2 class="autofit-row">
+		<span class="autofit-col autofit-col-expand">
+			<liferay-ui:message key="sync-data-fields" />
+		</span>
 	</h2>
 
-	<p class="mt-3 text-secondary">
-		<liferay-ui:message key="sync-data-fields-help" />
-	</p>
+	<hr />
+
+	<div class="autofit-row form-text">
+		<span class="autofit-col autofit-col-expand pb-3">
+			<liferay-ui:message key="sync-data-fields-help" />
+		</span>
+	</div>
 
 	<aui:form action="<%= editSyncedContactsURL %>" method="post" name="fm">
 		<aui:input name="<%= Constants.CMD %>" type="hidden" value="update_synced_contacts_fields" />

@@ -80,8 +80,12 @@ if (includeSyncContactsFields) {
 		</span>
 	</h2>
 
-	<div class="form-text">
-		<liferay-ui:message key="contact-data-help" />
+	<hr />
+
+	<div class="autofit-row form-text">
+		<span class="autofit-col autofit-col-expand pb-3">
+			<liferay-ui:message key="contact-data-help" />
+		</span>
 	</div>
 
 	<aui:form action="<%= includeSyncContactsFields ? editSyncedContactsFieldsURL : editSyncedContactsURL %>" method="post" name="fm">
