@@ -989,7 +989,7 @@ public class JournalArticleStagedModelDataHandler
 				serviceContext.getAssetLinkEntryIds(),
 				serviceContext.getAssetPriority());
 
-			if (article.isExpired() && !importedArticle.isExpired()) {
+			if (article.isExpired() || importedArticle.isExpired()) {
 				_journalArticleLocalService.expireArticle(
 					userId, importedArticle.getGroupId(),
 					importedArticle.getArticleId(), articleURL, serviceContext);
