@@ -51,6 +51,7 @@ import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.nio.charset.Charset;
 
@@ -311,7 +312,9 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 	}
 
 	protected boolean isUserExcluded(User user) {
-		if ((user == null) || !user.isActive() ||
+		if ((user == null) ||
+			Objects.equals(
+				user.getStatus(), WorkflowConstants.STATUS_INACTIVE) ||
 			Objects.equals(
 				user.getScreenName(),
 				AnalyticsSecurityConstants.SCREEN_NAME_ANALYTICS_ADMIN)) {
