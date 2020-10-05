@@ -865,6 +865,9 @@ public class ProjectController extends BaseFaroController {
 		}
 
 		try {
+			cerebroEngineClient.addPreference(
+				faroProject, "time-zone-id", faroProject.getTimeZoneId());
+
 			_initializingGroupIds.add(groupId);
 
 			_fieldMappingController.addDefaultFieldMappings(groupId);

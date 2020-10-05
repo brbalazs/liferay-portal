@@ -31,6 +31,7 @@ import java.time.ZonedDateTime;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Optional;
 
 import org.osgi.service.component.annotations.Component;
@@ -46,6 +47,22 @@ import org.springframework.web.client.RestTemplate;
  */
 @Component(immediate = true, service = CerebroEngineClient.class)
 public class CerebroEngineClientImpl implements CerebroEngineClient {
+
+	@Override
+	public void addPreference(FaroProject faroProject, String key, String value)
+		throws Exception {
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		restTemplate.setInterceptors(
+			Collections.singletonList(
+				new AuthenticationClientHttpRequestInterceptor()));
+
+		restTemplate.exchange(
+			EngineServiceURLUtil.getBackendURL(faroProject, "/graphql"),
+			HttpMethod.POST, _getPreferenceGraphQLRequestHttpEntity(key, value),
+			String.class);
+	}
 
 	@Override
 	public long getPageViews(
@@ -122,6 +139,26 @@ public class CerebroEngineClientImpl implements CerebroEngineClient {
 		graphQLRequest.setQuery(sb.toString());
 
 		return new HttpEntity(graphQLRequest);
+	}
+
+	private HttpEntity<GraphQLRequest> _getPreferenceGraphQLRequestHttpEntity(
+		String key, String value) {
+
+		GraphQLRequest graphQLRequest = new GraphQLRequest();
+
+		graphQLRequest.setOperationName("Preference");
+		graphQLRequest.setQuery(
+			"mutation Preference($key: String!, $value: String!) " +
+				"{preference(key: $key, value: $value) {key value}}");
+		graphQLRequest.setVariables(
+			new HashMap<String, Object>() {
+				{
+					put("key", key);
+					put("value", value);
+				}
+			});
+
+		return new HttpEntity<>(graphQLRequest);
 	}
 
 	@Reference
