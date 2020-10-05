@@ -400,13 +400,8 @@
 					</aui:script>
 				</c:when>
 				<c:otherwise>
-
-					<%
-					boolean propertiesFileCreated = GetterUtil.getBoolean((Boolean)session.getAttribute(WebKeys.SETUP_WIZARD_PROPERTIES_FILE_CREATED));
-					%>
-
 					<c:choose>
-						<c:when test="<%= propertiesFileCreated %>">
+						<c:when test="<%= GetterUtil.getBoolean((Boolean)session.getAttribute(WebKeys.SETUP_WIZARD_PROPERTIES_FILE_CREATED)) %>">
 							<div class="alert alert-success">
 								<liferay-ui:message key="your-configuration-was-saved-sucessfully" />
 							</div>
