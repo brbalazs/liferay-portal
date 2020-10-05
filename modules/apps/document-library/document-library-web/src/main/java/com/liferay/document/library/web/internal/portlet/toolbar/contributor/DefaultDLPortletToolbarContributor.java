@@ -41,6 +41,7 @@ import com.liferay.portal.kernel.servlet.taglib.ui.URLMenuItem;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -93,7 +94,7 @@ public class DefaultDLPortletToolbarContributor
 				fileEntryTypes, themeDisplay.getScopeGroupId(),
 				themeDisplay.getLocale()));
 
-		urlMenuItem.setLabel(label);
+		urlMenuItem.setLabel(HtmlUtil.escape(label));
 
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 
