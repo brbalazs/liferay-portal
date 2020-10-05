@@ -314,10 +314,10 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 	protected boolean isUserExcluded(User user) {
 		if ((user == null) ||
 			Objects.equals(
-				user.getStatus(), WorkflowConstants.STATUS_INACTIVE) ||
-			Objects.equals(
 				user.getScreenName(),
-				AnalyticsSecurityConstants.SCREEN_NAME_ANALYTICS_ADMIN)) {
+				AnalyticsSecurityConstants.SCREEN_NAME_ANALYTICS_ADMIN) ||
+			Objects.equals(
+				user.getStatus(), WorkflowConstants.STATUS_INACTIVE)) {
 
 			return true;
 		}
