@@ -121,6 +121,7 @@ export default class Sidebar extends React.Component {
 			activePathname,
 			channelId,
 			channels,
+			className,
 			collapsed,
 			currentUser,
 			groupId,
@@ -130,12 +131,7 @@ export default class Sidebar extends React.Component {
 		const classes = getCN('sidebar-root', {collapsed});
 
 		return (
-			<div
-				className={
-					classes +
-					(this.props.className ? ` ${this.props.className}` : '')
-				}
-			>
+			<div className={getCN(classes, className)}>
 				<div className='sidebar-header'>
 					<Link
 						className='sidebar-header-logo'
