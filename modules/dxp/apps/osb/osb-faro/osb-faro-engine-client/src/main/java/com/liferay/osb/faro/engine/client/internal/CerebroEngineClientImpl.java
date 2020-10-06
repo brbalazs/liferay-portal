@@ -52,16 +52,8 @@ public class CerebroEngineClientImpl implements CerebroEngineClient {
 	public void addPreference(FaroProject faroProject, String key, String value)
 		throws Exception {
 
-		RestTemplate restTemplate = new RestTemplate();
-
-		restTemplate.setInterceptors(
-			Collections.singletonList(
-				new AuthenticationClientHttpRequestInterceptor()));
-
-		restTemplate.exchange(
-			EngineServiceURLUtil.getBackendURL(faroProject, "/graphql"),
-			HttpMethod.POST, _getPreferenceGraphQLRequestHttpEntity(key, value),
-			String.class);
+		_getResponseEntity(
+			faroProject, _getPreferenceGraphQLRequestHttpEntity(key, value));
 	}
 
 	@Override
@@ -70,18 +62,10 @@ public class CerebroEngineClientImpl implements CerebroEngineClient {
 			Optional<Date> toDateOptional)
 		throws Exception {
 
-		RestTemplate restTemplate = new RestTemplate();
-
-		restTemplate.setInterceptors(
-			Collections.singletonList(
-				new AuthenticationClientHttpRequestInterceptor()));
-
-		ResponseEntity<String> responseEntity = restTemplate.exchange(
-			EngineServiceURLUtil.getBackendURL(faroProject, "/graphql"),
-			HttpMethod.POST,
+		ResponseEntity<String> responseEntity = _getResponseEntity(
+			faroProject,
 			_getPagesCountGraphQLRequestHttpEntity(
-				fromDateOptional, toDateOptional),
-			String.class);
+				fromDateOptional, toDateOptional));
 
 		JSONObject rootJSONObject = _jsonFactory.createJSONObject(
 			responseEntity.getBody());
@@ -107,7 +91,7 @@ public class CerebroEngineClientImpl implements CerebroEngineClient {
 		return localDateTime.toString();
 	}
 
-	private HttpEntity _getPagesCountGraphQLRequestHttpEntity(
+	private GraphQLRequest _getPagesCountGraphQLRequestHttpEntity(
 		Optional<Date> fromDateOptional, Optional<Date> toDateOptional) {
 
 		GraphQLRequest graphQLRequest = new GraphQLRequest();
@@ -138,10 +122,10 @@ public class CerebroEngineClientImpl implements CerebroEngineClient {
 
 		graphQLRequest.setQuery(sb.toString());
 
-		return new HttpEntity(graphQLRequest);
+		return graphQLRequest;
 	}
 
-	private HttpEntity<GraphQLRequest> _getPreferenceGraphQLRequestHttpEntity(
+	private GraphQLRequest _getPreferenceGraphQLRequestHttpEntity(
 		String key, String value) {
 
 		GraphQLRequest graphQLRequest = new GraphQLRequest();
@@ -158,7 +142,22 @@ public class CerebroEngineClientImpl implements CerebroEngineClient {
 				}
 			});
 
-		return new HttpEntity<>(graphQLRequest);
+		return graphQLRequest;
+	}
+
+	private ResponseEntity<String> _getResponseEntity(
+			FaroProject faroProject, GraphQLRequest graphQLRequest)
+		throws Exception {
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		restTemplate.setInterceptors(
+			Collections.singletonList(
+				new AuthenticationClientHttpRequestInterceptor()));
+
+		return restTemplate.exchange(
+			EngineServiceURLUtil.getBackendURL(faroProject, "/graphql"),
+			HttpMethod.POST, new HttpEntity<>(graphQLRequest), String.class);
 	}
 
 	@Reference
