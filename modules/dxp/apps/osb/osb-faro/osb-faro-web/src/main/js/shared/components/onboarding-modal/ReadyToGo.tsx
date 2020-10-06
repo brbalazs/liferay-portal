@@ -3,14 +3,12 @@ import Button from 'shared/components/Button';
 import getSVG from 'shared/util/svg';
 import Modal from '../modal';
 import React from 'react';
-import {Routes, toRoute} from 'shared/util/router';
 
 interface IReadyToGoProps {
-	groupId: string;
 	onClose: () => void;
 }
 
-const ReadyToGo: React.FC<IReadyToGoProps> = ({groupId, onClose}) => {
+const ReadyToGo: React.FC<IReadyToGoProps> = ({onClose}) => {
 	const svg = getSVG('ac-ready-to-use');
 
 	return (
@@ -32,12 +30,7 @@ const ReadyToGo: React.FC<IReadyToGoProps> = ({groupId, onClose}) => {
 			</Modal.Body>
 
 			<Modal.Footer className='d-flex justify-content-center'>
-				<Button
-					className='wide'
-					display='primary'
-					href={toRoute(Routes.SETTINGS_DATA_SOURCE_LIST, {groupId})}
-					onClick={onClose}
-				>
+				<Button className='wide' display='primary' onClick={onClose}>
 					{Liferay.Language.get('get-started')}
 				</Button>
 			</Modal.Footer>
