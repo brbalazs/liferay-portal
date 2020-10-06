@@ -21,6 +21,9 @@ import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.model.CommerceAddress;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.model.CommerceShippingEngine;
+import com.liferay.commerce.model.CommerceShippingMethod;
+import com.liferay.commerce.model.CommerceShippingOption;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
 import com.liferay.commerce.payment.engine.CommercePaymentEngine;
 import com.liferay.commerce.payment.method.CommercePaymentMethod;
@@ -29,6 +32,8 @@ import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.commerce.service.CommerceShippingMethodLocalService;
+import com.liferay.commerce.util.CommerceBigDecimalUtil;
+import com.liferay.commerce.util.CommerceShippingEngineRegistry;
 import com.liferay.commerce.util.CommerceShippingHelper;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -156,13 +161,68 @@ public class CommerceCheckoutStepHelper {
 			return false;
 		}
 
-		if (_commerceShippingMethodLocalService.getCommerceShippingMethodsCount(
-				commerceOrder.getGroupId(), true) > 0) {
+		List<CommerceShippingMethod> commerceShippingMethods =
+			_commerceShippingMethodLocalService.getCommerceShippingMethods(
+				commerceOrder.getGroupId(), true);
 
-			return true;
+		if (commerceShippingMethods.isEmpty()) {
+			return false;
 		}
 
-		return false;
+		if (commerceShippingMethods.size() == 1) {
+			CommerceContext commerceContext =
+				(CommerceContext)httpServletRequest.getAttribute(
+					CommerceWebKeys.COMMERCE_CONTEXT);
+
+			CommerceShippingMethod commerceShippingMethod =
+				commerceShippingMethods.get(0);
+
+			CommerceShippingEngine commerceShippingEngine =
+				_commerceShippingEngineRegistry.getCommerceShippingEngine(
+					commerceShippingMethod.getEngineKey());
+
+			List<CommerceShippingOption> commerceShippingOptions =
+				commerceShippingEngine.getCommerceShippingOptions(
+					commerceContext, commerceOrder,
+					_portal.getLocale(httpServletRequest));
+
+			if (commerceShippingOptions.size() == 1) {
+				_updateCommerceOrder(
+					commerceContext, commerceOrder,
+					commerceShippingMethod.getCommerceShippingMethodId(),
+					commerceShippingOptions.get(0), httpServletRequest);
+
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private void _updateCommerceOrder(
+			CommerceContext commerceContext, CommerceOrder commerceOrder,
+			long commerceShippingMethodId,
+			CommerceShippingOption commerceShippingOption,
+			HttpServletRequest httpServletRequest)
+		throws PortalException {
+
+		CommerceAddress commerceAddress = commerceOrder.getBillingAddress();
+
+		if (commerceAddress == null) {
+			commerceAddress = commerceOrder.getShippingAddress();
+		}
+
+		if (commerceAddress == null) {
+			return;
+		}
+
+		commerceOrder = _commerceOrderService.updateShippingMethod(
+			commerceOrder.getCommerceOrderId(), commerceShippingMethodId,
+			commerceShippingOption.getName(), commerceContext,
+			_portal.getLocale(httpServletRequest));
+
+		httpServletRequest.setAttribute(
+			CommerceCheckoutWebKeys.COMMERCE_ORDER, commerceOrder);
 	}
 
 	private void _updateCommerceOrder(
@@ -207,6 +267,9 @@ public class CommerceCheckoutStepHelper {
 
 	@Reference
 	private CommercePaymentEngine _commercePaymentEngine;
+
+	@Reference
+	private CommerceShippingEngineRegistry _commerceShippingEngineRegistry;
 
 	@Reference
 	private CommerceShippingHelper _commerceShippingHelper;
