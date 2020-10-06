@@ -33,7 +33,6 @@ page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@
-page import="com.liferay.portlet.usersadmin.search.GroupSearch" %><%@
 page import="com.liferay.site.browser.web.internal.display.context.SiteBrowserDisplayContext" %>
 
 <%@ page import="java.util.HashMap" %><%@
