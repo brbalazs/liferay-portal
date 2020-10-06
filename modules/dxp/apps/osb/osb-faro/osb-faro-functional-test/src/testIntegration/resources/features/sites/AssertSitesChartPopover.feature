@@ -13,4 +13,4 @@ Feature: Assert Site Activities Chart Popover follows format
 		And I click the "Custom Range" button
 		And I set start date "July 1 2020" and end date "July 13 2020"
 		When I mouse over row "1" in "LIFERAY-DATASOURCE-FARO-EXAMPLE Activities" card
-		Then I should see chart popover date "2020 Jul 1"
+		Then I should see chart popover formatted YYYY MMM DD

@@ -718,7 +718,7 @@ public class Table {
 		_faroSelenium.waitForPageLoadingComplete();
 		_faroSelenium.waitForLoadingComplete();
 
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(10);
 
 		sb.append("//h5[text()='");
 		sb.append(card);
@@ -726,7 +726,10 @@ public class Table {
 		sb.append("[name()='g' and @class='recharts-layer']");
 		sb.append("/*[name()='g' and contains(@class,'rectangle')][");
 		sb.append(rowNumber);
-		sb.append("]");
+		sb.append("]|//*[name()='g' and contains(@class,'recharts-la");
+		sb.append("yer')]/*[name()='path' and contains(@class,'curve')]");
+		sb.append("|//*[name()='g' and contains(@class,'recharts-car");
+		sb.append("tesian')]/*[name()='g' and contains(@class,'grid')]");
 
 		_faroSelenium.waitForElementPresent(sb.toString());
 
