@@ -861,7 +861,6 @@ information.
 					<local name="tasks.output" />
 
 					<exec dir="@{dir}" executable="${project.dir}/gradlew${gradlew.suffix}" failonerror="@{failonerror}">
-						<arg if:set="env.JENKINS_HOME" value="--max-workers=${gradle.ci.max.workers}" />
 						<arg unless:true="${gradle.build.parallel.enabled}" value="--no-parallel" />
 						<arg if:true="${gradle.profile.enabled}" value="--profile" />
 						<arg if:set="env.JENKINS_HOME" value="--profile" />
@@ -979,7 +978,6 @@ information.
 
 							<exec dir="@{dir}" executable="${project.dir}/gradlew${gradlew.suffix}" failonerror="@{failonerror}">
 								<args />
-								<arg if:set="env.JENKINS_HOME" value="--max-workers=${gradle.ci.max.workers}" />
 								<arg unless:true="${gradle.build.parallel.enabled}" value="--no-parallel" />
 								<arg if:true="${gradle.profile.enabled}" value="--profile" />
 								<arg if:set="env.JENKINS_HOME" value="--profile" />
@@ -1014,7 +1012,6 @@ information.
 							<echoxml>
 								<exec dir="@{dir}" executable="${project.dir}/gradlew${gradlew.suffix}" failonerror="@{failonerror}">
 									<args />
-									<arg if:set="env.JENKINS_HOME" value="--max-workers=${gradle.ci.max.workers}" />
 									<arg unless:true="${gradle.build.parallel.enabled}" value="--no-parallel" />
 									<arg if:true="${gradle.profile.enabled}" value="--profile" />
 									<arg if:set="env.JENKINS_HOME" value="--profile" />
