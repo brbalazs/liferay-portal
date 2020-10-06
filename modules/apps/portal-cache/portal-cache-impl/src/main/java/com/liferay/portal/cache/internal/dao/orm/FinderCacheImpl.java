@@ -149,6 +149,10 @@ public class FinderCacheImpl
 			return null;
 		}
 
+		if (!finderPath.isBaseModelResult()) {
+			return cacheValue;
+		}
+
 		if (cacheValue instanceof List<?>) {
 			List<Serializable> primaryKeys = (List<Serializable>)cacheValue;
 
@@ -170,19 +174,15 @@ public class FinderCacheImpl
 			return Collections.unmodifiableList(list);
 		}
 
-		if (finderPath.isBaseModelResult()) {
-			Serializable result = _entityCache.loadResult(
-				finderPath.isEntityCacheEnabled(), finderPath.getResultClass(),
-				cacheValue, basePersistenceImpl);
+		Serializable result = _entityCache.loadResult(
+			finderPath.isEntityCacheEnabled(), finderPath.getResultClass(),
+			cacheValue, basePersistenceImpl);
 
-			if (result == _NULL_MODEL) {
-				return null;
-			}
-
-			return result;
+		if (result == _NULL_MODEL) {
+			return null;
 		}
 
-		return cacheValue;
+		return result;
 	}
 
 	@Override
@@ -230,24 +230,25 @@ public class FinderCacheImpl
 			cacheValue = model.getPrimaryKeyObj();
 		}
 		else if (result instanceof List<?>) {
-			List<BaseModel<?>> baseModels = (List<BaseModel<?>>)result;
+			List<?> objects = (List<?>)result;
 
-			if (baseModels.isEmpty()) {
+			if (objects.isEmpty()) {
 				cacheValue = new EmptyResult(args);
 			}
-			else if ((baseModels.size() >
-						_valueObjectFinderCacheListThreshold) &&
+			else if ((objects.size() > _valueObjectFinderCacheListThreshold) &&
 					 (_valueObjectFinderCacheListThreshold > 0)) {
 
 				_removeResult(finderPath, args);
 
 				return;
 			}
-			else {
+			else if (finderPath.isBaseModelResult()) {
 				ArrayList<Serializable> primaryKeys = new ArrayList<>(
-					baseModels.size());
+					objects.size());
 
-				for (BaseModel<?> baseModel : baseModels) {
+				for (Object object : objects) {
+					BaseModel<?> baseModel = (BaseModel<?>)object;
+
 					primaryKeys.add(baseModel.getPrimaryKeyObj());
 				}
 
