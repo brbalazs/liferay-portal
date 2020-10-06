@@ -50,6 +50,7 @@ import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.IndexWriterHelperUtil;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.RelatedEntryIndexer;
 import com.liferay.portal.kernel.search.RelatedEntryIndexerRegistryUtil;
 import com.liferay.portal.kernel.search.SearchContext;
@@ -66,6 +67,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.search.localization.SearchLocalizationHelper;
 
 import java.util.List;
 import java.util.Locale;
@@ -263,6 +265,14 @@ public class MBMessageIndexer
 		addSearchLocalizedTerm(
 			searchQuery, searchContext, Field.CONTENT, false);
 		addSearchLocalizedTerm(searchQuery, searchContext, Field.TITLE, false);
+
+		QueryConfig queryConfig = searchContext.getQueryConfig();
+
+		String[] localizedFieldNames =
+			_searchLocalizationHelper.getLocalizedFieldNames(
+				new String[] {Field.CONTENT, Field.TITLE}, searchContext);
+
+		queryConfig.addHighlightFieldNames(localizedFieldNames);
 	}
 
 	@Override
@@ -649,5 +659,8 @@ public class MBMessageIndexer
 
 	private final RelatedEntryIndexer _relatedEntryIndexer =
 		new BaseRelatedEntryIndexer();
+
+	@Reference
+	private SearchLocalizationHelper _searchLocalizationHelper;
 
 }
