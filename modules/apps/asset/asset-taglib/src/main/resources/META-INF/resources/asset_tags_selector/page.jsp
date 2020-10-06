@@ -19,7 +19,6 @@
 <%
 String addCallback = GetterUtil.getString((String)request.getAttribute("liferay-asset:asset-tags-selector:addCallback"));
 boolean allowAddEntry = GetterUtil.getBoolean((String)request.getAttribute("liferay-asset:asset-tags-selector:allowAddEntry"));
-boolean autoFocus = GetterUtil.getBoolean((String)request.getAttribute("liferay-asset:asset-tags-selector:autoFocus"));
 String eventName = (String)request.getAttribute("liferay-asset:asset-tags-selector:eventName");
 long[] groupIds = (long[])request.getAttribute("liferay-asset:asset-tags-selector:groupIds");
 String hiddenInput = (String)request.getAttribute("liferay-asset:asset-tags-selector:hiddenInput");
@@ -91,7 +90,7 @@ String tagNames = GetterUtil.getString((String)request.getAttribute("liferay-ass
 		);
 	</c:if>
 
-	<c:if test="<%= autoFocus %>">
+	<c:if test='<%= GetterUtil.getBoolean((String)request.getAttribute("liferay-asset:asset-tags-selector:autoFocus")) %>'>
 		Liferay.Util.focusFormField('#<%= id %>assetTagNames');
 	</c:if>
 </aui:script>

@@ -17,9 +17,7 @@
 <%@ include file="/site_browser/init.jsp" %>
 
 <%
-String emptyResultsMessage = GetterUtil.getString(request.getAttribute("liferay-site:site-browser:emptyResultsMessage"));
 String eventName = GetterUtil.getString(request.getAttribute("liferay-site:site-browser:eventName"));
-List<Group> groups = (List<Group>)request.getAttribute("liferay-site:site-browser:groups");
 int groupsCount = GetterUtil.getInteger(request.getAttribute("liferay-site:site-browser:groupsCount"));
 long[] selectedGroupIds = GetterUtil.getLongValues(request.getAttribute("liferay-site:site-browser:selectedGroupIds"));
 %>
@@ -38,12 +36,12 @@ long[] selectedGroupIds = GetterUtil.getLongValues(request.getAttribute("liferay
 
 <aui:form action="<%= siteBrowserDisplayContext.getPortletURL() %>" cssClass="container-fluid-1280" method="post" name="selectGroupFm">
 	<liferay-ui:search-container
-		emptyResultsMessage="<%= emptyResultsMessage %>"
+		emptyResultsMessage='<%= GetterUtil.getString(request.getAttribute("liferay-site:site-browser:emptyResultsMessage")) %>'
 		iteratorURL="<%= siteBrowserDisplayContext.getPortletURL() %>"
 		total="<%= groupsCount %>"
 	>
 		<liferay-ui:search-container-results
-			results="<%= groups %>"
+			results='<%= (List<Group>)request.getAttribute("liferay-site:site-browser:groups") %>'
 		/>
 
 		<liferay-ui:search-container-row

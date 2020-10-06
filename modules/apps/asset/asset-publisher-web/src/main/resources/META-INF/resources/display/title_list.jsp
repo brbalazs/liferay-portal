@@ -34,8 +34,6 @@ if (Validator.isNull(title)) {
 request.setAttribute("view.jsp-showIconLabel", false);
 
 boolean viewInContext = ((Boolean)request.getAttribute("view.jsp-viewInContext")).booleanValue();
-
-String viewURL = assetPublisherHelper.getAssetViewURL(liferayPortletRequest, liferayPortletResponse, assetRenderer, assetEntry, viewInContext);
 %>
 
 <c:if test="<%= assetEntryIndex == 0 %>">
@@ -45,7 +43,7 @@ String viewURL = assetPublisherHelper.getAssetViewURL(liferayPortletRequest, lif
 <li class="h3 <%= assetRendererFactory.getType() %>">
 	<span class="asset-anchor lfr-asset-anchor" id="<%= assetEntry.getEntryId() %>"></span>
 
-	<aui:a href="<%= viewURL %>">
+	<aui:a href="<%= assetPublisherHelper.getAssetViewURL(liferayPortletRequest, liferayPortletResponse, assetRenderer, assetEntry, viewInContext) %>">
 		<%= HtmlUtil.escape(title) %>
 	</aui:a>
 

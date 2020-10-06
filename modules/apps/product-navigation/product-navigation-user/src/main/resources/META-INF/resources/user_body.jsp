@@ -16,10 +16,6 @@
 
 <%@ include file="/init.jsp" %>
 
-<%
-UserPanelCategory userPanelCategory = (UserPanelCategory)request.getAttribute(ApplicationListWebKeys.PANEL_CATEGORY);
-%>
-
 <c:if test="<%= themeDisplay.isImpersonated() %>">
 	<aui:a cssClass="list-group-heading" href="<%= PortalUtil.getLayoutURL(layout, themeDisplay, false) %>">
 		<aui:icon image="change" markupView="lexicon" />
@@ -56,5 +52,5 @@ UserPanelCategory userPanelCategory = (UserPanelCategory)request.getAttribute(Ap
 </c:if>
 
 <liferay-application-list:panel-category-body
-	panelCategory="<%= userPanelCategory %>"
+	panelCategory="<%= (UserPanelCategory)request.getAttribute(ApplicationListWebKeys.PANEL_CATEGORY) %>"
 />

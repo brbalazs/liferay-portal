@@ -16,10 +16,6 @@
 
 <%@ include file="/init.jsp" %>
 
-<%
-PortletURL portletURL = renderResponse.createRenderURL();
-%>
-
 <liferay-util:include page="/toolbar.jsp" servletContext="<%= application %>" />
 
 <%
@@ -28,7 +24,7 @@ List<SPIDefinition> spiDefinitions = SPIDefinitionServiceUtil.getSPIDefinitions(
 
 <liferay-ui:search-container
 	emptyResultsMessage="no-spi-definitions-are-defined"
-	iteratorURL="<%= portletURL %>"
+	iteratorURL="<%= renderResponse.createRenderURL() %>"
 	total="<%= spiDefinitions.size() %>"
 >
 	<liferay-ui:search-container-results

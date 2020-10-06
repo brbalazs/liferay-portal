@@ -23,8 +23,6 @@ String entityId = properties.getProperty(PortletPropsKeys.SAML_ENTITY_ID, (Strin
 
 GeneralTabDefaultViewDisplayContext.X509CertificateStatus x509CertificateStatus = generalTabDefaultViewDisplayContext.getX509CertificateStatus();
 
-boolean keystoreException = x509CertificateStatus.getStatus() == GeneralTabDefaultViewDisplayContext.X509CertificateStatus.Status.SAML_KEYSTORE_EXCEPTION;
-boolean keystoreIncorrectPassword = x509CertificateStatus.getStatus() == GeneralTabDefaultViewDisplayContext.X509CertificateStatus.Status.SAML_KEYSTORE_PASSWORD_INCORRECT;
 String samlRole = properties.getProperty(PortletPropsKeys.SAML_ROLE, samlProviderConfiguration.role());
 %>
 
@@ -64,12 +62,12 @@ String samlRole = properties.getProperty(PortletPropsKeys.SAML_ROLE, samlProvide
 </portlet:actionURL>
 
 <c:choose>
-	<c:when test="<%= keystoreException %>">
+	<c:when test="<%= x509CertificateStatus.getStatus() == GeneralTabDefaultViewDisplayContext.X509CertificateStatus.Status.SAML_KEYSTORE_EXCEPTION %>">
 		<div class="portlet-msg-error">
 			<liferay-ui:message key="keystore-exception" />
 		</div>
 	</c:when>
-	<c:when test="<%= keystoreIncorrectPassword %>">
+	<c:when test="<%= x509CertificateStatus.getStatus() == GeneralTabDefaultViewDisplayContext.X509CertificateStatus.Status.SAML_KEYSTORE_PASSWORD_INCORRECT %>">
 		<div class="portlet-msg-error">
 			<liferay-ui:message key="keystore-password-incorrect" />
 		</div>

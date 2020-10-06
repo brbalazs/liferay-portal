@@ -23,7 +23,6 @@ LocalEntityManager.CertificateUsage certificateUsage = LocalEntityManager.Certif
 
 GeneralTabDefaultViewDisplayContext.X509CertificateStatus x509CertificateStatus = generalTabDefaultViewDisplayContext.getX509CertificateStatus(certificateUsage);
 
-boolean certificateAuthNeeded = x509CertificateStatus.getStatus() == GeneralTabDefaultViewDisplayContext.X509CertificateStatus.Status.SAML_X509_CERTIFICATE_AUTH_NEEDED;
 X509Certificate x509Certificate = x509CertificateStatus.getX509Certificate();
 %>
 
@@ -144,7 +143,7 @@ String introKey = StringPool.BLANK;
 			<liferay-ui:message key="entity-id-must-be-set-before-private-key-and-certificate-can-be-generated" />
 		</div>
 	</c:when>
-	<c:when test="<%= certificateAuthNeeded %>">
+	<c:when test="<%= x509CertificateStatus.getStatus() == GeneralTabDefaultViewDisplayContext.X509CertificateStatus.Status.SAML_X509_CERTIFICATE_AUTH_NEEDED %>">
 		<portlet:renderURL copyCurrentRenderParameters="<%= false %>" var="authCertificateURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 			<portlet:param name="mvcRenderCommandName" value="/admin/updateCertificate" />
 			<portlet:param name="<%= Constants.CMD %>" value="auth" />

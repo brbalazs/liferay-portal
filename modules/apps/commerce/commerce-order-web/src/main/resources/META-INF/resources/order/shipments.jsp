@@ -18,8 +18,6 @@
 
 <%
 CommerceOrderEditDisplayContext commerceOrderEditDisplayContext = (CommerceOrderEditDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
-PortletURL portletURL = commerceOrderEditDisplayContext.getCommerceShipmentsPortletURL();
 %>
 
 <liferay-portlet:renderURL var="editCommerceShipmentURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
@@ -42,7 +40,7 @@ contextParams.put("commerceOrderId", String.valueOf(commerceOrder.getCommerceOrd
 	itemsPerPage="<%= 10 %>"
 	namespace="<%= renderResponse.getNamespace() %>"
 	pageNumber="<%= 1 %>"
-	portletURL="<%= portletURL %>"
+	portletURL="<%= commerceOrderEditDisplayContext.getCommerceShipmentsPortletURL() %>"
 	showManagementBar="<%= false %>"
 	style="stacked"
 />

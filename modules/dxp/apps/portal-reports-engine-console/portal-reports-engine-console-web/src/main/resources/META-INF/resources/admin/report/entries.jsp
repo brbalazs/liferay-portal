@@ -16,10 +16,6 @@
 
 <%@ include file="/init.jsp" %>
 
-<%
-EntrySearch entrySearch = reportsEngineDisplayContext.getEntrySearch();
-%>
-
 <liferay-portlet:renderURL varImpl="searchURL">
 	<portlet:param name="mvcPath" value="/admin/view.jsp" />
 </liferay-portlet:renderURL>
@@ -28,7 +24,7 @@ EntrySearch entrySearch = reportsEngineDisplayContext.getEntrySearch();
 	<liferay-portlet:renderURLParams varImpl="searchURL" />
 
 	<liferay-ui:search-container
-		searchContainer="<%= entrySearch %>"
+		searchContainer="<%= reportsEngineDisplayContext.getEntrySearch() %>"
 	>
 		<liferay-ui:search-container-results>
 			<%@ include file="/admin/report/entry_search_results.jspf" %>

@@ -30,8 +30,6 @@ if (calendarResource != null) {
 
 	calendars = CalendarServiceUtil.getCalendarResourceCalendars(themeDisplay.getScopeGroupId(), calendarResourceId);
 }
-
-String code = BeanParamUtil.getString(calendarResource, request, "code");
 %>
 
 <liferay-ui:header
@@ -80,7 +78,7 @@ String code = BeanParamUtil.getString(calendarResource, request, "code");
 						</c:if>
 					</c:when>
 					<c:otherwise>
-						<aui:input name="code" type="resource" value="<%= code %>" />
+						<aui:input name="code" type="resource" value='<%= BeanParamUtil.getString(calendarResource, request, "code") %>' />
 					</c:otherwise>
 				</c:choose>
 

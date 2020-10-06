@@ -18,11 +18,8 @@
 
 <%
 String containerCssClass = (String)request.getAttribute("liferay-frontend:screen-navigation:containerCssClass");
-String containerWrapperCssClass = (String)request.getAttribute("liferay-frontend:screen-navigation:containerWrapperCssClass");
 String fullContainerCssClass = (String)request.getAttribute("liferay-frontend:screen-navigation:fullContainerCssClass");
 String id = (String)request.getAttribute("liferay-frontend:screen-navigation:id");
-String menubarCssClass = (String)request.getAttribute("liferay-frontend:screen-navigation:menubarCssClass");
-String navCssClass = (String)request.getAttribute("liferay-frontend:screen-navigation:navCssClass");
 PortletURL portletURL = (PortletURL)request.getAttribute("liferay-frontend:screen-navigation:portletURL");
 ScreenNavigationCategory selectedScreenNavigationCategory = (ScreenNavigationCategory)request.getAttribute("liferay-frontend:screen-navigation:selectedScreenNavigationCategory");
 ScreenNavigationEntry selectedScreenNavigationEntry = (ScreenNavigationEntry)request.getAttribute("liferay-frontend:screen-navigation:selectedScreenNavigationEntry");
@@ -59,11 +56,11 @@ List<ScreenNavigationEntry> screenNavigationEntries = (List<ScreenNavigationEntr
 </c:if>
 
 <c:if test="<%= (selectedScreenNavigationEntry != null) && ListUtil.isNotEmpty(screenNavigationEntries) %>">
-	<div class="<%= containerWrapperCssClass %>">
+	<div class="<%= (String)request.getAttribute("liferay-frontend:screen-navigation:containerWrapperCssClass") %>">
 		<div class="row">
 			<c:if test="<%= screenNavigationEntries.size() > 1 %>">
-				<div class="<%= navCssClass %>">
-					<nav class="<%= menubarCssClass %>">
+				<div class="<%= (String)request.getAttribute("liferay-frontend:screen-navigation:navCssClass") %>">
+					<nav class="<%= (String)request.getAttribute("liferay-frontend:screen-navigation:menubarCssClass") %>">
 						<a aria-controls="<%= id %>" aria-expanded="false" class="menubar-toggler" data-toggle="collapse" href="#<%= id %>" role="button">
 							<liferay-ui:message key="<%= selectedScreenNavigationEntry.getEntryKey() %>" />
 

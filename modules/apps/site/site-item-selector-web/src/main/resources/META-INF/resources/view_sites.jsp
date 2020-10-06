@@ -22,8 +22,6 @@ GroupURLProvider groupURLProvider = (GroupURLProvider)request.getAttribute(SiteW
 
 String displayStyle = siteItemSelectorViewDisplayContext.getDisplayStyle();
 String target = ParamUtil.getString(request, "target");
-
-GroupSearch groupSearch = siteItemSelectorViewDisplayContext.getGroupSearch();
 %>
 
 <clay:management-toolbar
@@ -52,7 +50,7 @@ GroupSearch groupSearch = siteItemSelectorViewDisplayContext.getGroupSearch();
 	</c:if>
 
 	<liferay-ui:search-container
-		searchContainer="<%= groupSearch %>"
+		searchContainer="<%= siteItemSelectorViewDisplayContext.getGroupSearch() %>"
 	>
 		<liferay-ui:search-container-row
 			className="com.liferay.portal.kernel.model.Group"

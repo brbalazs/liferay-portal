@@ -18,10 +18,6 @@
 
 <%
 GoogleAuthorizationConfiguration googleAuthorizationConfiguration = ConfigurationProviderUtil.getConfiguration(GoogleAuthorizationConfiguration.class, new ParameterMapSettingsLocator(request.getParameterMap(), PortalSettingsGoogleConstants.FORM_PARAMETER_NAMESPACE, new CompanyServiceSettingsLocator(company.getCompanyId(), GoogleConstants.SERVICE_NAME)));
-
-boolean googleAuthEnabled = googleAuthorizationConfiguration.enabled();
-String googleClientId = googleAuthorizationConfiguration.clientId();
-String googleClientSecret = googleAuthorizationConfiguration.clientSecret();
 %>
 
 <liferay-ui:error key="googleClientIdInvalid" message="the-google-client-id-is-invalid" />
@@ -30,11 +26,11 @@ String googleClientSecret = googleAuthorizationConfiguration.clientSecret();
 <aui:fieldset>
 	<aui:input id='<%= PortalUtil.generateRandomKey(request, "portal_settings_authentication_google") %>' name="<%= ActionRequest.ACTION_NAME %>" type="hidden" value="/portal_settings/google" />
 
-	<aui:input label="enabled" name='<%= PortalSettingsGoogleConstants.FORM_PARAMETER_NAMESPACE + "enabled" %>' type="checkbox" value="<%= googleAuthEnabled %>" />
+	<aui:input label="enabled" name='<%= PortalSettingsGoogleConstants.FORM_PARAMETER_NAMESPACE + "enabled" %>' type="checkbox" value="<%= googleAuthorizationConfiguration.enabled() %>" />
 
-	<aui:input label="google-client-id" name='<%= PortalSettingsGoogleConstants.FORM_PARAMETER_NAMESPACE + "clientId" %>' type="text" value="<%= googleClientId %>" wrapperCssClass="lfr-input-text-container" />
+	<aui:input label="google-client-id" name='<%= PortalSettingsGoogleConstants.FORM_PARAMETER_NAMESPACE + "clientId" %>' type="text" value="<%= googleAuthorizationConfiguration.clientId() %>" wrapperCssClass="lfr-input-text-container" />
 
-	<aui:input label="google-client-secret" name='<%= PortalSettingsGoogleConstants.FORM_PARAMETER_NAMESPACE + "clientSecret" %>' type="text" value="<%= googleClientSecret %>" wrapperCssClass="lfr-input-text-container" />
+	<aui:input label="google-client-secret" name='<%= PortalSettingsGoogleConstants.FORM_PARAMETER_NAMESPACE + "clientSecret" %>' type="text" value="<%= googleAuthorizationConfiguration.clientSecret() %>" wrapperCssClass="lfr-input-text-container" />
 
 	<aui:button-row>
 		<portlet:actionURL name="/portal_settings/google_delete" var="resetValuesURL">

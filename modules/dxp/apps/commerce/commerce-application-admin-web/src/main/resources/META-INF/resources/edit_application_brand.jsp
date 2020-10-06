@@ -18,8 +18,6 @@
 
 <%
 CommerceApplicationAdminDisplayContext commerceApplicationAdminDisplayContext = (CommerceApplicationAdminDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
-CommerceApplicationBrand commerceApplicationBrand = commerceApplicationAdminDisplayContext.getCommerceApplicationBrand();
 %>
 
 <clay:navigation-bar
@@ -30,7 +28,7 @@ CommerceApplicationBrand commerceApplicationBrand = commerceApplicationAdminDisp
 <liferay-frontend:screen-navigation
 	containerCssClass="col-md-10"
 	key="<%= CommerceApplicationBrandScreenNavigationConstants.SCREEN_NAVIGATION_KEY %>"
-	modelBean="<%= commerceApplicationBrand %>"
+	modelBean="<%= commerceApplicationAdminDisplayContext.getCommerceApplicationBrand() %>"
 	navCssClass="col-md-2"
 	portletURL="<%= currentURLObj %>"
 />

@@ -18,8 +18,6 @@
 
 <%
 CommerceBOMAdminDisplayContext commerceBOMAdminDisplayContext = (CommerceBOMAdminDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
-CommerceBOMDefinition commerceBOMDefinition = commerceBOMAdminDisplayContext.getCommerceBOMDefinition();
 %>
 
 <clay:navigation-bar
@@ -30,7 +28,7 @@ CommerceBOMDefinition commerceBOMDefinition = commerceBOMAdminDisplayContext.get
 <liferay-frontend:screen-navigation
 	containerCssClass="col-md-10"
 	key="<%= CommerceBOMDefinitionScreenNavigationConstants.SCREEN_NAVIGATION_KEY %>"
-	modelBean="<%= commerceBOMDefinition %>"
+	modelBean="<%= commerceBOMAdminDisplayContext.getCommerceBOMDefinition() %>"
 	navCssClass="col-md-2"
 	portletURL="<%= currentURLObj %>"
 />

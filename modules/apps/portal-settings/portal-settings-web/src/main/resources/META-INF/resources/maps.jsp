@@ -16,10 +16,6 @@
 
 <%@ include file="/init.jsp" %>
 
-<%
-String mapProviderKey = (String)request.getAttribute(MapProviderWebKeys.MAP_PROVIDER_KEY);
-%>
-
 <liferay-ui:error-marker
 	key="<%= WebKeys.ERROR_SECTION %>"
 	value="maps"
@@ -29,6 +25,6 @@ String mapProviderKey = (String)request.getAttribute(MapProviderWebKeys.MAP_PROV
 
 <liferay-map:map-provider-selector
 	configurationPrefix="settings"
-	mapProviderKey="<%= mapProviderKey %>"
+	mapProviderKey="<%= (String)request.getAttribute(MapProviderWebKeys.MAP_PROVIDER_KEY) %>"
 	name='<%= "settings--" + MapProviderWebKeys.MAP_PROVIDER_KEY + "--" %>'
 />

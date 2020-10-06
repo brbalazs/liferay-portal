@@ -83,7 +83,6 @@ page import="com.liferay.portal.reports.engine.console.web.admin.internal.displa
 page import="com.liferay.portal.reports.engine.console.web.admin.internal.display.context.util.ReportsEngineRequestHelper" %><%@
 page import="com.liferay.portal.reports.engine.console.web.admin.internal.search.DefinitionDisplayTerms" %><%@
 page import="com.liferay.portal.reports.engine.console.web.admin.internal.search.EntryDisplayTerms" %><%@
-page import="com.liferay.portal.reports.engine.console.web.admin.internal.search.EntrySearch" %><%@
 page import="com.liferay.portal.reports.engine.console.web.admin.internal.search.SourceDisplayTerms" %><%@
 page import="com.liferay.portal.reports.engine.console.web.admin.util.EmailConfigurationUtil" %><%@
 page import="com.liferay.taglib.search.ResultRow" %>
