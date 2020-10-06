@@ -40,6 +40,7 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 import java.math.BigDecimal;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author Andrea Di Giorgi
@@ -874,6 +875,22 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 			commerceOrderId, name, description, street1, street2, street3, city,
 			zip, commerceRegionId, commerceCountryId, phoneNumber,
 			serviceContext);
+	}
+
+	@Override
+	public CommerceOrder updateShippingMethod(
+			long commerceOrderId, long commerceShippingMethodId,
+			String shippingOptionName, CommerceContext commerceContext,
+			Locale locale)
+		throws PortalException {
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrderId,
+			CommerceOrderActionKeys.CHECKOUT_COMMERCE_ORDER);
+
+		return commerceOrderLocalService.updateShippingMethod(
+			commerceOrderId, commerceShippingMethodId, shippingOptionName,
+			commerceContext, locale);
 	}
 
 	@Override
