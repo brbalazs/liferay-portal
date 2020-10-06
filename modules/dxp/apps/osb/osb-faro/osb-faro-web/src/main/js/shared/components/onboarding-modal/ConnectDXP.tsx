@@ -10,12 +10,16 @@ import Input from 'shared/components/Input';
 import Modal from '../modal';
 import React, {useEffect, useRef, useState} from 'react';
 import urlConstants from 'shared/util/url-constants';
+import {ActionType, useChannelContext} from 'shared/context/channel';
+import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {DataSource} from 'shared/util/records';
 import {fetchDataSource} from 'shared/actions/data-sources';
 import {get, noop} from 'lodash';
+import {getDefaultChannel} from 'shared/components/channels-menu';
 import {Routes, toRoute} from 'shared/util/router';
 import {useLazyQuery} from '@apollo/react-hooks';
+import {withHistory} from 'shared/hoc';
 
 const {credentialTypes, dataSourceTypes} = Constants;
 const {HELP_CONNECT_DXP} = urlConstants;
@@ -32,6 +36,9 @@ interface IConnectDXPProps {
 		id: string;
 	}) => DataSource;
 	groupId: string;
+	history: {
+		push: (path: string) => void;
+	};
 	isUpgrading: boolean;
 	onboarding?: boolean;
 	onClose: () => void;
@@ -45,6 +52,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 	dxpConnected,
 	fetchDataSource,
 	groupId,
+	history,
 	isUpgrading,
 	onboarding,
 	onClose,
@@ -52,6 +60,8 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 	onNext,
 	onPrevious
 }) => {
+	const {channelDispatch} = useChannelContext();
+
 	const [getDataSources, {data}] = useLazyQuery(DataSourceQuery, {
 		fetchPolicy: 'network-only',
 		onCompleted: () => {
@@ -98,6 +108,8 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 				} else {
 					if (onboarding) {
 						onDxpConnected(true);
+
+						updateChannels();
 					} else {
 						fetchDataSource({groupId, id: dataSourceId});
 						getDataSources();
@@ -116,6 +128,24 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 
 				return prevToken;
 			});
+
+	const updateChannels = () => {
+		API.channels.fetchAll({groupId}).then(({items}) => {
+			const channelId = get(items, [0, 'id']);
+
+			history.push(toRoute(Routes.SITES, {channelId, groupId}));
+
+			channelDispatch({
+				payload: getDefaultChannel(channelId, items),
+				type: ActionType.setSelectedChannel
+			});
+
+			channelDispatch({
+				payload: items,
+				type: ActionType.setChannels
+			});
+		});
+	};
 
 	useEffect(() => {
 		_tokenRequest = getNextToken().then(setToken);
@@ -256,9 +286,12 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 	);
 };
 
-export default connect(
-	null,
-	{
-		fetchDataSource
-	}
+export default compose<any>(
+	withHistory,
+	connect(
+		null,
+		{
+			fetchDataSource
+		}
+	)
 )(ConnectDXP);
