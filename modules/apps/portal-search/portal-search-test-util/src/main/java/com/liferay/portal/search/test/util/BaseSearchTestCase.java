@@ -156,11 +156,6 @@ public abstract class BaseSearchTestCase {
 	}
 
 	@Test
-	public void testSearchCommentsByKeywords() throws Exception {
-		searchComments(true);
-	}
-
-	@Test
 	public void testSearchExpireAllVersions() throws Exception {
 		searchExpireVersions(false);
 	}
@@ -698,6 +693,10 @@ public abstract class BaseSearchTestCase {
 				"\" ", RandomTestUtil.randomString()));
 
 		assertBaseModelsCount(initialBaseModelsSearchCount, searchContext);
+	}
+
+	protected void searchComments() throws Exception {
+		searchComments(false);
 	}
 
 	protected void searchComments(boolean searchByKeywords) throws Exception {
