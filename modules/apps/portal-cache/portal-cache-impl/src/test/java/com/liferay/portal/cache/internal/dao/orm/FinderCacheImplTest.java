@@ -129,7 +129,7 @@ public class FinderCacheImplTest {
 	@Test
 	public void testPutNonbaseModelList() {
 		FinderPath finderPath = new FinderPath(
-			FinderCacheImplTest.class.getName(), "test-non-base-model",
+			FinderCacheImplTest.class.getName(), "test-nonbase-model",
 			new String[0], new String[0], false);
 
 		FinderCache finderCache = _activateFinderCache(
