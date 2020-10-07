@@ -3911,13 +3911,21 @@ go</echo>
 			<propertycopy from="search.engine[${env.CI_TEST_SUITE}]" name="suite.search.engine" silent="true" />
 
 			<if>
-				<or>
-					<equals arg1="${remote.elasticsearch.enabled}" arg2="true" />
-					<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch6" />
-				</or>
+				<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch6-jdk11" />
 				<then>
-					<ant antfile="build-test-elasticsearch6.xml" target="start-elasticsearch" />
+					<ant antfile="build-test-elasticsearch6.xml" target="start-elasticsearch">
+						<property name="jdk.version" value="openjdk11" />
+					</ant>
 				</then>
+				<elseif>
+					<or>
+						<equals arg1="${remote.elasticsearch.enabled}" arg2="true" />
+						<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch6" />
+					</or>
+					<then>
+						<ant antfile="build-test-elasticsearch6.xml" target="start-elasticsearch" />
+					</then>
+				</elseif>
 			</if>
 
 			<get-testcase-property property.name="solr.enabled" />
@@ -5465,6 +5473,7 @@ org.apache.catalina.startup.ClassLoaderFactory.level=INFO]]>
 				<or>
 					<equals arg1="${remote.elasticsearch.enabled}" arg2="true" />
 					<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch6" />
+					<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch6-jdk11" />
 				</or>
 				<then>
 					<ant antfile="build-test-elasticsearch6.xml" target="stop-elasticsearch" />
