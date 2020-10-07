@@ -684,7 +684,7 @@ prepareMajorIncrement {
 		Closure<Void> convertToProjectDependenciesClosure = {
 			File dir ->
 
-			if (dir.parentFile.name == "util") {
+			if ((dir.parentFile.name == "poshi") || (dir.parentFile.name == "util")) {
 				return
 			}
 
