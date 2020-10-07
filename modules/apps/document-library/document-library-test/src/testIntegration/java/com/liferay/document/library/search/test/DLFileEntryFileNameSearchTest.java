@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.test.rule.Sync;
 import com.liferay.portal.kernel.test.rule.SynchronousDestinationTestRule;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.workflow.WorkflowThreadLocal;
+import com.liferay.portal.search.engine.SearchEngineInformation;
 import com.liferay.portal.search.test.util.DocumentsAssert;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
@@ -104,13 +105,25 @@ public class DLFileEntryFileNameSearchTest {
 
 		addFileEntriesWithTitleSameAsFileName("One.jpg", "Two.JPG");
 
-		if (isSearchEngine("Elasticsearch")) {
-			assertSearch("jp", Arrays.asList("One.jpg"));
+		String vendor = searchEngineInformation.getVendorString();
+		String version = searchEngineInformation.getClientVersionString();
+
+		List<String> titles = null;
+
+		if (vendor.contains("Elasticsearch")) {
+			if (version.contains("6.8.")) {
+				titles = Arrays.asList("One.jpg", "Two.JPG");
+			}
+			else {
+				titles = Arrays.asList("One.jpg");
+			}
 		}
 
-		if (isSearchEngine("Solr")) {
-			assertSearch("jp", Arrays.asList("One.jpg", "Two.JPG"));
+		if (vendor.contains("Solr")) {
+			titles = Arrays.asList("One.jpg", "Two.JPG");
 		}
+
+		assertSearch("jp", titles);
 	}
 
 	@Test
@@ -281,6 +294,9 @@ public class DLFileEntryFileNameSearchTest {
 
 	@Inject
 	protected static SearchEngineHelper searchEngineHelper;
+
+	@Inject
+	protected SearchEngineInformation searchEngineInformation;
 
 	@DeleteAfterTestRun
 	private List<AssetTag> _assetTags;
