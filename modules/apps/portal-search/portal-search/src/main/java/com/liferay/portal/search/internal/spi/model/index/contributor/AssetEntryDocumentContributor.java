@@ -90,7 +90,6 @@ public class AssetEntryDocumentContributor implements DocumentContributor {
 				assetEntry.getTitleMap(), assetEntry.getDefaultLanguageId(),
 				assetEntry.getGroupId()),
 			true, true);
-		document.addNumber("viewCount", assetEntry.getViewCount());
 		document.addKeyword("visible", assetEntry.isVisible());
 	}
 
