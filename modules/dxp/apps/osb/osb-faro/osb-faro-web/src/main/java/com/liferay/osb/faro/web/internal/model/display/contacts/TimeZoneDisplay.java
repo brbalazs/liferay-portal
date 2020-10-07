@@ -15,12 +15,15 @@
 package com.liferay.osb.faro.web.internal.model.display.contacts;
 
 import com.liferay.osb.faro.web.internal.util.TimeZoneUtil;
+import com.liferay.petra.string.CharPool;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.format.TextStyle;
 
 /**
  * @author Geyson Silva
@@ -32,6 +35,8 @@ public class TimeZoneDisplay {
 	}
 
 	public TimeZoneDisplay(ZoneId zoneId) {
+		_country = TimeZoneUtil.getCountryName(zoneId);
+
 		LocalDateTime nowLocalDateTime = LocalDateTime.now();
 
 		ZonedDateTime zonedDateTime = nowLocalDateTime.atZone(zoneId);
@@ -41,12 +46,16 @@ public class TimeZoneDisplay {
 		String zoneOffsetId = zoneOffset.getId();
 
 		_displayTimeZone = String.format(
-			"(%s%s) %s", TimeZoneUtil.UTC_TIME_ZONE_ID,
-			StringUtil.removeSubstring(zoneOffsetId, "Z"), zoneId);
+			"%s %s %s (%s)", TimeZoneUtil.UTC_TIME_ZONE_ID,
+			StringUtil.removeSubstring(zoneOffsetId, "Z"),
+			zoneId.getDisplayName(TextStyle.FULL, LocaleUtil.getDefault()),
+			StringUtil.replace(
+				zoneId.getId(), CharPool.UNDERLINE, CharPool.SPACE));
 
 		_timeZoneId = zoneId.getId();
 	}
 
+	private String _country;
 	private String _displayTimeZone;
 	private String _timeZoneId;
 

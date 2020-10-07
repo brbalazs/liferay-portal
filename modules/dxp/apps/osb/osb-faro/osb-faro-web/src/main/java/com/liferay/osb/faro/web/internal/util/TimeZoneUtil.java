@@ -18,10 +18,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,8 +33,14 @@ public class TimeZoneUtil {
 
 	public static final String UTC_TIME_ZONE_ID = "UTC";
 
+	public static String getCountryName(ZoneId zoneId) {
+		return _timeZoneIdCountryMap.get(zoneId.getId());
+	}
+
 	public static List<ZoneId> getZoneIds() {
-		Stream<String> stream = _timeZoneIds.stream();
+		Set<String> timeZoneIds = _timeZoneIdCountryMap.keySet();
+
+		Stream<String> stream = timeZoneIds.stream();
 
 		Comparator<ZoneId> comparator = Comparator.comparing(
 			zoneId -> {
@@ -56,124 +62,362 @@ public class TimeZoneUtil {
 	}
 
 	public static boolean validate(String timeZoneId) {
-		return _timeZoneIds.contains(timeZoneId);
+		return _timeZoneIdCountryMap.containsKey(timeZoneId);
 	}
 
-	private static final Set<String> _timeZoneIds = new HashSet<>(
-		Arrays.asList(
-			"Africa/Abidjan", "Africa/Accra", "Africa/Algiers", "Africa/Asmera",
-			"Africa/Bissau", "Africa/Cairo", "Africa/Casablanca",
-			"Africa/Ceuta", "Africa/El_Aaiun", "Africa/Johannesburg",
-			"Africa/Juba", "Africa/Khartoum", "Africa/Lagos", "Africa/Maputo",
-			"Africa/Monrovia", "Africa/Nairobi", "Africa/Ndjamena",
-			"Africa/Tripoli", "Africa/Tunis", "Africa/Windhoek", "America/Adak",
-			"America/Anchorage", "America/Araguaina",
-			"America/Argentina/Buenos_Aires", "America/Argentina/Catamarca",
-			"America/Argentina/Cordoba", "America/Argentina/Jujuy",
-			"America/Argentina/La_Rioja", "America/Argentina/Mendoza",
-			"America/Argentina/Rio_Gallegos", "America/Argentina/Salta",
-			"America/Argentina/San_Juan", "America/Argentina/San_Luis",
-			"America/Argentina/Tucuman", "America/Argentina/Ushuaia",
-			"America/Asuncion", "America/Atikokan", "America/Bahia",
-			"America/Bahia_Banderas", "America/Barbados", "America/Belem",
-			"America/Belize", "America/Blanc-Sablon", "America/Boa_Vista",
-			"America/Bogota", "America/Boise", "America/Cambridge_Bay",
-			"America/Campo_Grande", "America/Cancun", "America/Caracas",
-			"America/Cayenne", "America/Chicago", "America/Chihuahua",
-			"America/Costa_Rica", "America/Creston", "America/Cuiaba",
-			"America/Curacao", "America/Danmarkshavn", "America/Dawson",
-			"America/Dawson_Creek", "America/Denver", "America/Detroit",
-			"America/Edmonton", "America/Eirunepe", "America/El_Salvador",
-			"America/Fort_Nelson", "America/Fortaleza", "America/Glace_Bay",
-			"America/Godthab", "America/Goose_Bay", "America/Grand_Turk",
-			"America/Guatemala", "America/Guayaquil", "America/Guyana",
-			"America/Halifax", "America/Havana", "America/Hermosillo",
-			"America/Indiana/Indianapolis", "America/Indiana/Knox",
-			"America/Indiana/Marengo", "America/Indiana/Petersburg",
-			"America/Indiana/Tell_City", "America/Indiana/Vevay",
-			"America/Indiana/Vincennes", "America/Indiana/Winamac",
-			"America/Inuvik", "America/Iqaluit", "America/Jamaica",
-			"America/Juneau", "America/Kentucky/Louisville",
-			"America/Kentucky/Monticello", "America/La_Paz", "America/Lima",
-			"America/Los_Angeles", "America/Maceio", "America/Managua",
-			"America/Manaus", "America/Martinique", "America/Matamoros",
-			"America/Mazatlan", "America/Menominee", "America/Merida",
-			"America/Metlakatla", "America/Mexico_City", "America/Miquelon",
-			"America/Moncton", "America/Monterrey", "America/Montevideo",
-			"America/Nassau", "America/New_York", "America/Nipigon",
-			"America/Nome", "America/Noronha", "America/North_Dakota/Beulah",
-			"America/North_Dakota/Center", "America/North_Dakota/New_Salem",
-			"America/Ojinaga", "America/Panama", "America/Pangnirtung",
-			"America/Paramaribo", "America/Phoenix", "America/Port-au-Prince",
-			"America/Port_of_Spain", "America/Porto_Velho",
-			"America/Puerto_Rico", "America/Punta_Arenas",
-			"America/Rainy_River", "America/Rankin_Inlet", "America/Recife",
-			"America/Regina", "America/Resolute", "America/Rio_Branco",
-			"America/Santarem", "America/Santiago", "America/Santo_Domingo",
-			"America/Sao_Paulo", "America/Scoresbysund", "America/Sitka",
-			"America/St_Johns", "America/Swift_Current", "America/Tegucigalpa",
-			"America/Thule", "America/Thunder_Bay", "America/Tijuana",
-			"America/Toronto", "America/Vancouver", "America/Whitehorse",
-			"America/Winnipeg", "America/Yakutat", "America/Yellowknife",
-			"Antarctica/Casey", "Antarctica/Davis", "Antarctica/DumontDUrville",
-			"Antarctica/Macquarie", "Antarctica/Mawson", "Antarctica/Palmer",
-			"Antarctica/Rothera", "Antarctica/Syowa", "Antarctica/Troll",
-			"Antarctica/Vostok", "Asia/Almaty", "Asia/Amman", "Asia/Anadyr",
-			"Asia/Aqtau", "Asia/Aqtobe", "Asia/Ashgabat", "Asia/Atyrau",
-			"Asia/Baghdad", "Asia/Baku", "Asia/Bangkok", "Asia/Barnaul",
-			"Asia/Beirut", "Asia/Bishkek", "Asia/Brunei", "Asia/Chita",
-			"Asia/Choibalsan", "Asia/Colombo", "Asia/Damascus", "Asia/Dhaka",
-			"Asia/Dili", "Asia/Dubai", "Asia/Dushanbe", "Asia/Famagusta",
-			"Asia/Gaza", "Asia/Hebron", "Asia/Ho_Chi_Minh", "Asia/Hong_Kong",
-			"Asia/Hovd", "Asia/Irkutsk", "Asia/Jakarta", "Asia/Jayapura",
-			"Asia/Jerusalem", "Asia/Kabul", "Asia/Kamchatka", "Asia/Karachi",
-			"Asia/Kathmandu", "Asia/Khandyga", "Asia/Kolkata",
-			"Asia/Krasnoyarsk", "Asia/Kuala_Lumpur", "Asia/Kuching",
-			"Asia/Macau", "Asia/Magadan", "Asia/Makassar", "Asia/Manila",
-			"Asia/Nicosia", "Asia/Novokuznetsk", "Asia/Novosibirsk",
-			"Asia/Omsk", "Asia/Oral", "Asia/Pontianak", "Asia/Pyongyang",
-			"Asia/Qatar", "Asia/Qyzylorda", "Asia/Riyadh", "Asia/Sakhalin",
-			"Asia/Samarkand", "Asia/Seoul", "Asia/Shanghai", "Asia/Singapore",
-			"Asia/Srednekolymsk", "Asia/Taipei", "Asia/Tashkent",
-			"Asia/Tbilisi", "Asia/Tehran", "Asia/Thimphu", "Asia/Tokyo",
-			"Asia/Tomsk", "Asia/Ulaanbaatar", "Asia/Urumqi", "Asia/Ust-Nera",
-			"Asia/Vladivostok", "Asia/Yakutsk", "Asia/Yangon",
-			"Asia/Yekaterinburg", "Asia/Yerevan", "Atlantic/Azores",
-			"Atlantic/Bermuda", "Atlantic/Canary", "Atlantic/Cape_Verde",
-			"Atlantic/Faroe", "Atlantic/Madeira", "Atlantic/Reykjavik",
-			"Atlantic/South_Georgia", "Atlantic/Stanley", "Australia/Adelaide",
-			"Australia/Brisbane", "Australia/Broken_Hill", "Australia/Currie",
-			"Australia/Darwin", "Australia/Eucla", "Australia/Hobart",
-			"Australia/Lindeman", "Australia/Lord_Howe", "Australia/Melbourne",
-			"Australia/Perth", "Australia/Sydney", "Europe/Amsterdam",
-			"Europe/Andorra", "Europe/Astrakhan", "Europe/Athens",
-			"Europe/Belgrade", "Europe/Berlin", "Europe/Brussels",
-			"Europe/Bucharest", "Europe/Budapest", "Europe/Chisinau",
-			"Europe/Copenhagen", "Europe/Dublin", "Europe/Gibraltar",
-			"Europe/Helsinki", "Europe/Istanbul", "Europe/Kaliningrad",
-			"Europe/Kiev", "Europe/Kirov", "Europe/Lisbon", "Europe/London",
-			"Europe/Luxembourg", "Europe/Madrid", "Europe/Malta",
-			"Europe/Minsk", "Europe/Monaco", "Europe/Moscow", "Europe/Nicosia",
-			"Europe/Oslo", "Europe/Paris", "Europe/Prague", "Europe/Riga",
-			"Europe/Rome", "Europe/Samara", "Europe/Saratov",
-			"Europe/Simferopol", "Europe/Sofia", "Europe/Stockholm",
-			"Europe/Tallinn", "Europe/Tirane", "Europe/Ulyanovsk",
-			"Europe/Uzhgorod", "Europe/Vienna", "Europe/Vilnius",
-			"Europe/Volgograd", "Europe/Warsaw", "Europe/Zaporozhye",
-			"Europe/Zurich", "Indian/Chagos", "Indian/Christmas",
-			"Indian/Cocos", "Indian/Kerguelen", "Indian/Mahe",
-			"Indian/Maldives", "Indian/Mauritius", "Indian/Reunion",
-			"Pacific/Apia", "Pacific/Auckland", "Pacific/Bougainville",
-			"Pacific/Chatham", "Pacific/Chuuk", "Pacific/Easter",
-			"Pacific/Efate", "Pacific/Enderbury", "Pacific/Fakaofo",
-			"Pacific/Fiji", "Pacific/Funafuti", "Pacific/Galapagos",
-			"Pacific/Gambier", "Pacific/Guadalcanal", "Pacific/Guam",
-			"Pacific/Honolulu", "Pacific/Kiritimati", "Pacific/Kosrae",
-			"Pacific/Kwajalein", "Pacific/Majuro", "Pacific/Marquesas",
-			"Pacific/Nauru", "Pacific/Niue", "Pacific/Norfolk",
-			"Pacific/Noumea", "Pacific/Pago_Pago", "Pacific/Palau",
-			"Pacific/Pitcairn", "Pacific/Pohnpei", "Pacific/Port_Moresby",
-			"Pacific/Rarotonga", "Pacific/Tahiti", "Pacific/Tarawa",
-			"Pacific/Tongatapu", "Pacific/Wake", "Pacific/Wallis", "UTC"));
+	private static final Map<String, String> _timeZoneIdCountryMap =
+		new HashMap<String, String>() {
+			{
+				put("Africa/Abidjan", "Côte d’Ivoire");
+				put("Africa/Accra", "Ghana");
+				put("Africa/Algiers", "Algeria");
+				put("Africa/Asmera", "Eritrea");
+				put("Africa/Bissau", "Guinea-Bissau");
+				put("Africa/Cairo", "Egypt");
+				put("Africa/Casablanca", "Morocco");
+				put("Africa/Ceuta", "Spain");
+				put("Africa/El_Aaiun", "Morocco");
+				put("Africa/Johannesburg", "South Africa");
+				put("Africa/Juba", "South Sudan");
+				put("Africa/Khartoum", "Sudan");
+				put("Africa/Lagos", "Nigeria");
+				put("Africa/Maputo", "Mozambique");
+				put("Africa/Monrovia", "Liberia");
+				put("Africa/Nairobi", "Kenya");
+				put("Africa/Ndjamena", "Chad");
+				put("Africa/Tripoli", "Libya");
+				put("Africa/Tunis", "Tunisia");
+				put("Africa/Windhoek", "Namibia");
+				put("America/Adak", "Alaska");
+				put("America/Anchorage", "Alaska");
+				put("America/Araguaina", "Brazil");
+				put("America/Argentina/Buenos_Aires", "Argentina");
+				put("America/Argentina/Catamarca", "Argentina");
+				put("America/Argentina/Cordoba", "Argentina");
+				put("America/Argentina/Jujuy", "Argentina");
+				put("America/Argentina/La_Rioja", "Argentina");
+				put("America/Argentina/Mendoza", "Argentina");
+				put("America/Argentina/Rio_Gallegos", "Argentina");
+				put("America/Argentina/Salta", "Argentina");
+				put("America/Argentina/San_Juan", "Argentina");
+				put("America/Argentina/San_Luis", "Argentina");
+				put("America/Argentina/Tucuman", "Argentina");
+				put("America/Argentina/Ushuaia", "Argentina");
+				put("America/Asuncion", "Paraguay");
+				put("America/Atikokan", "Canada");
+				put("America/Bahia", "Brazil");
+				put("America/Bahia_Banderas", "Mexico");
+				put("America/Barbados", "Caribbean");
+				put("America/Belem", "Brazil");
+				put("America/Belize", "Belize");
+				put("America/Blanc-Sablon", "Canada");
+				put("America/Boa_Vista", "Brazil");
+				put("America/Bogota", "Columbia");
+				put("America/Boise", "United States");
+				put("America/Cambridge_Bay", "Canada");
+				put("America/Campo_Grande", "Brazil");
+				put("America/Cancun", "Mexicon");
+				put("America/Caracas", "Venezuela");
+				put("America/Cayenne", "French Guiana");
+				put("America/Chicago", "United States");
+				put("America/Chihuahua", "Mexico");
+				put("America/Costa_Rica", "Costa Rica");
+				put("America/Creston", "United States");
+				put("America/Cuiaba", "Brazil");
+				put("America/Curacao", "Curacao");
+				put("America/Danmarkshavn", "Greenland");
+				put("America/Dawson", "Canada");
+				put("America/Dawson_Creek", "Canada");
+				put("America/Denver", "United States");
+				put("America/Detroit", "United States");
+				put("America/Edmonton", "Canada");
+				put("America/Eirunepe", "Brazil");
+				put("America/El_Salvador", "El Salvador");
+				put("America/Fort_Nelson", "Canada");
+				put("America/Fortaleza", "Brazil");
+				put("America/Glace_Bay", "Canada");
+				put("America/Godthab", "Greenland");
+				put("America/Goose_Bay", "Canada");
+				put("America/Grand_Turk", "Turks and Caicos Islands");
+				put("America/Guatemala", "Guatemala");
+				put("America/Guayaquil", "Ecuador");
+				put("America/Guyana", "Guyana");
+				put("America/Halifax", "Canada");
+				put("America/Havana", "Cuba");
+				put("America/Hermosillo", "Mexico");
+				put("America/Indiana/Indianapolis", "United States");
+				put("America/Indiana/Knox", "United States");
+				put("America/Indiana/Marengo", "United States");
+				put("America/Indiana/Petersburg", "United States");
+				put("America/Indiana/Tell_City", "United States");
+				put("America/Indiana/Vevay", "United States");
+				put("America/Indiana/Vincennes", "United States");
+				put("America/Indiana/Winamac", "United States");
+				put("America/Inuvik", "Canada");
+				put("America/Iqaluit", "Canada");
+				put("America/Jamaica", "Jamaica");
+				put("America/Juneau", "United States");
+				put("America/Kentucky/Louisville", "United States");
+				put("America/Kentucky/Monticello", "United States");
+				put("America/La_Paz", "Bolivia");
+				put("America/Lima", "Peru");
+				put("America/Los_Angeles", "United States");
+				put("America/Maceio", "Brazil");
+				put("America/Managua", "Nicaragua");
+				put("America/Manaus", "Brazil");
+				put("America/Martinique", "Martinique");
+				put("America/Matamoros", "Mexico");
+				put("America/Mazatlan", "Mexico");
+				put("America/Menominee", "United States");
+				put("America/Merida", "Mexico");
+				put("America/Metlakatla", "United States");
+				put("America/Mexico_City", "Mexico");
+				put("America/Miquelon", "St. Pierre & Miquelon");
+				put("America/Moncton", "Canada");
+				put("America/Monterrey", "Mexico");
+				put("America/Montevideo", "Uruguay");
+				put("America/Nassau", "Bahamas");
+				put("America/New_York", "United States");
+				put("America/Nipigon", "Canada");
+				put("America/Nome", "United States");
+				put("America/Noronha", "Brazil");
+				put("America/North_Dakota/Beulah", "United States");
+				put("America/North_Dakota/Center", "United States");
+				put("America/North_Dakota/New_Salem", "United States");
+				put("America/Ojinaga", "Mexico");
+				put("America/Panama", "Panama");
+				put("America/Pangnirtung", "Canada");
+				put("America/Paramaribo", "Suriname");
+				put("America/Phoenix", "United States");
+				put("America/Port-au-Prince", "Haiti");
+				put("America/Port_of_Spain", "Trinidad and Tobago");
+				put("America/Porto_Velho", "Brazil");
+				put("America/Puerto_Rico", "United States");
+				put("America/Punta_Arenas", "Chile");
+				put("America/Rainy_River", "Canada");
+				put("America/Rankin_Inlet", "Canada");
+				put("America/Recife", "Brazil");
+				put("America/Regina", "Canada");
+				put("America/Resolute", "Canada");
+				put("America/Rio_Branco", "Brazil");
+				put("America/Santarem", "Brazil");
+				put("America/Santiago", "Chile");
+				put("America/Santo_Domingo", "Dominican Republic");
+				put("America/Sao_Paulo", "Brazil");
+				put("America/Scoresbysund", "Greenland");
+				put("America/Sitka", "United States");
+				put("America/St_Johns", "Canada");
+				put("America/Swift_Current", "Canada");
+				put("America/Tegucigalpa", "Honduras");
+				put("America/Thule", "Greenland");
+				put("America/Thunder_Bay", "Canada");
+				put("America/Tijuana", "Mexico");
+				put("America/Toronto", "Canada");
+				put("America/Vancouver", "Canada");
+				put("America/Whitehorse", "Canada");
+				put("America/Winnipeg", "Canada");
+				put("America/Yakutat", "United States");
+				put("America/Yellowknife", "Canada");
+				put("Antarctica/Casey", "Antarctica");
+				put("Antarctica/Davis", "Antarctica");
+				put("Antarctica/DumontDUrville", "Antarctica");
+				put("Antarctica/Macquarie", "Antarctica");
+				put("Antarctica/Mawson", "Antarctica");
+				put("Antarctica/Palmer", "Antarctica");
+				put("Antarctica/Rothera", "Antarctica");
+				put("Antarctica/Syowa", "Antarctica");
+				put("Antarctica/Troll", "Antarctica");
+				put("Antarctica/Vostok", "Antarctica");
+				put("Asia/Almaty", "Kazakhstan");
+				put("Asia/Amman", "Jordan");
+				put("Asia/Anadyr", "Russia");
+				put("Asia/Aqtau", "Kazakhstan");
+				put("Asia/Aqtobe", "Kazakhstan");
+				put("Asia/Ashgabat", "Turkmenistan");
+				put("Asia/Atyrau", "Kazakhstan");
+				put("Asia/Baghdad", "Iraq");
+				put("Asia/Baku", "Azerbaijan");
+				put("Asia/Bangkok", "Thailand");
+				put("Asia/Barnaul", "Russia");
+				put("Asia/Beirut", "Lebanon");
+				put("Asia/Bishkek", "Kyrgyzstan");
+				put("Asia/Brunei", "Brunei");
+				put("Asia/Chita", "Russia");
+				put("Asia/Choibalsan", "Mongolia");
+				put("Asia/Colombo", "Sri Lanka");
+				put("Asia/Damascus", "Syria");
+				put("Asia/Dhaka", "Bangladesh");
+				put("Asia/Dili", "Timor-Leste");
+				put("Asia/Dubai", "United Arab Emirates");
+				put("Asia/Dushanbe", "Tajikistan");
+				put("Asia/Famagusta", "Cyprus");
+				put("Asia/Gaza", "Palestine");
+				put("Asia/Hebron", "Palestine");
+				put("Asia/Ho_Chi_Minh", "Vietnam");
+				put("Asia/Hong_Kong", "China");
+				put("Asia/Hovd", "Mongolia");
+				put("Asia/Irkutsk", "Russia");
+				put("Asia/Jakarta", "Indonesia");
+				put("Asia/Jayapura", "Indonesia");
+				put("Asia/Jerusalem", "Israel");
+				put("Asia/Kabul", "Afghanistan");
+				put("Asia/Kamchatka", "Russia");
+				put("Asia/Karachi", "Pakistan");
+				put("Asia/Kathmandu", "Nepal");
+				put("Asia/Khandyga", "Russia");
+				put("Asia/Kolkata", "India");
+				put("Asia/Krasnoyarsk", "Russia");
+				put("Asia/Kuala_Lumpur", "Malaysia");
+				put("Asia/Kuching", "Malaysia");
+				put("Asia/Macau", "China");
+				put("Asia/Magadan", "Russia");
+				put("Asia/Makassar", "Indonesia");
+				put("Asia/Manila", "Philippines");
+				put("Asia/Nicosia", "Cyprus");
+				put("Asia/Novokuznetsk", "Russia");
+				put("Asia/Novosibirsk", "Russia");
+				put("Asia/Omsk", "Russia");
+				put("Asia/Oral", "Kazakhstan");
+				put("Asia/Pontianak", "Indonesia");
+				put("Asia/Pyongyang", "North Korea");
+				put("Asia/Qatar", "Qatar");
+				put("Asia/Qyzylorda", "Kazakhstan");
+				put("Asia/Riyadh", "Saudi Arabia");
+				put("Asia/Sakhalin", "Russia");
+				put("Asia/Samarkand", "Uzbekistan");
+				put("Asia/Seoul", "South Korea");
+				put("Asia/Shanghai", "China");
+				put("Asia/Singapore", "Singapore");
+				put("Asia/Srednekolymsk", "Russia");
+				put("Asia/Taipei", "Taiwan");
+				put("Asia/Tashkent", "Uzbekistan");
+				put("Asia/Tbilisi", "Georgia");
+				put("Asia/Tehran", "Iran");
+				put("Asia/Thimphu", "Bhutan");
+				put("Asia/Tokyo", "Japan");
+				put("Asia/Tomsk", "Russia");
+				put("Asia/Ulaanbaatar", "Mongolia");
+				put("Asia/Urumqi", "China");
+				put("Asia/Ust-Nera", "Russia");
+				put("Asia/Vladivostok", "Russia");
+				put("Asia/Yakutsk", "Russia");
+				put("Asia/Yangon", "Myanmar");
+				put("Asia/Yekaterinburg", "Russia");
+				put("Asia/Yerevan", "Armenia");
+				put("Atlantic/Azores", "Portugal");
+				put("Atlantic/Bermuda", "United Kingdom");
+				put("Atlantic/Canary", "Spain");
+				put("Atlantic/Cape_Verde", "Cabo Verde");
+				put("Atlantic/Faroe", "Denmark");
+				put("Atlantic/Madeira", "Portugal");
+				put("Atlantic/Reykjavik", "Iceland");
+				put("Atlantic/South_Georgia", "United Kingdom");
+				put("Atlantic/Stanley", "United Kingdom");
+				put("Australia/Adelaide", "Australia");
+				put("Australia/Brisbane", "Australia");
+				put("Australia/Broken_Hill", "Australia");
+				put("Australia/Currie", "Australia");
+				put("Australia/Darwin", "Australia");
+				put("Australia/Eucla", "Australia");
+				put("Australia/Hobart", "Australia");
+				put("Australia/Lindeman", "Australia");
+				put("Australia/Lord_Howe", "Australia");
+				put("Australia/Melbourne", "Australia");
+				put("Australia/Perth", "Australia");
+				put("Australia/Sydney", "Australia");
+				put("Europe/Amsterdam", "Netherlands");
+				put("Europe/Andorra", "Andorra");
+				put("Europe/Astrakhan", "Russia");
+				put("Europe/Athens", "Greece");
+				put("Europe/Belgrade", "Serbia");
+				put("Europe/Berlin", "Germany");
+				put("Europe/Brussels", "Belgium");
+				put("Europe/Bucharest", "Romania");
+				put("Europe/Budapest", "Hungary");
+				put("Europe/Chisinau", "Moldova");
+				put("Europe/Copenhagen", "Denmark");
+				put("Europe/Dublin", "Ireland");
+				put("Europe/Gibraltar", "United Kingdom");
+				put("Europe/Helsinki", "Finland");
+				put("Europe/Istanbul", "Turkey");
+				put("Europe/Kaliningrad", "Russia");
+				put("Europe/Kiev", "Ukraine");
+				put("Europe/Kirov", "Russia");
+				put("Europe/Lisbon", "Portugal");
+				put("Europe/London", "United Kingdom");
+				put("Europe/Luxembourg", "Luxembourg");
+				put("Europe/Madrid", "Spain");
+				put("Europe/Malta", "Malta");
+				put("Europe/Minsk", "Russia");
+				put("Europe/Monaco", "Monaco");
+				put("Europe/Moscow", "Russia");
+				put("Europe/Nicosia", "Cyprus");
+				put("Europe/Oslo", "Norway");
+				put("Europe/Paris", "France");
+				put("Europe/Prague", "Czech Republic");
+				put("Europe/Riga", "Latvia");
+				put("Europe/Rome", "Italy");
+				put("Europe/Samara", "Russia");
+				put("Europe/Saratov", "Russia");
+				put("Europe/Simferopol", "Russia");
+				put("Europe/Sofia", "Bulgaria");
+				put("Europe/Stockholm", "Sweden");
+				put("Europe/Tallinn", "Estonia");
+				put("Europe/Tirane", "Albania");
+				put("Europe/Ulyanovsk", "Russia");
+				put("Europe/Uzhgorod", "Ukraine");
+				put("Europe/Vienna", "Austria");
+				put("Europe/Vilnius", "Lithuania");
+				put("Europe/Volgograd", "Russia");
+				put("Europe/Warsaw", "Poland");
+				put("Europe/Zaporozhye", "Ukraine");
+				put("Europe/Zurich", "Switzerland");
+				put("Indian/Chagos", "British Indian Ocean Territory");
+				put("Indian/Christmas", "Christmas Island");
+				put("Indian/Cocos", "Australia");
+				put("Indian/Kerguelen", "French Southern");
+				put("Indian/Mahe", "Seychelles");
+				put("Indian/Maldives", "Maldives");
+				put("Indian/Mauritius", "Mauritius");
+				put("Indian/Reunion", "France");
+				put("Pacific/Apia", "Samoa");
+				put("Pacific/Auckland", "New Zealand");
+				put("Pacific/Bougainville", "Papua New Guinea");
+				put("Pacific/Chatham", "New Zealand");
+				put("Pacific/Chuuk", "Micronesia");
+				put("Pacific/Easter", "Chile");
+				put("Pacific/Efate", "Vanuatu");
+				put("Pacific/Enderbury", "Kiribati");
+				put("Pacific/Fakaofo", "Tokelau");
+				put("Pacific/Fiji", "Fiji");
+				put("Pacific/Funafuti", "Tuvalu");
+				put("Pacific/Galapagos", "Ecuador");
+				put("Pacific/Gambier", "French Polynesia");
+				put("Pacific/Guadalcanal", "Solomon Islands");
+				put("Pacific/Guam", "Guam");
+				put("Pacific/Honolulu", "United States");
+				put("Pacific/Kiritimati", "Kiribati");
+				put("Pacific/Kosrae", "Micronesia");
+				put("Pacific/Kwajalein", "Marshall Islands");
+				put("Pacific/Majuro", "Marshall Islands");
+				put("Pacific/Marquesas", "French Polynesia");
+				put("Pacific/Nauru", "Nauru");
+				put("Pacific/Niue", "Niue");
+				put("Pacific/Norfolk", "Norfolk Island");
+				put("Pacific/Noumea", "New Caledonia");
+				put("Pacific/Pago_Pago", "Samoa");
+				put("Pacific/Palau", "Micronesia");
+				put("Pacific/Pitcairn", "Pitcairn");
+				put("Pacific/Pohnpei", "Micronesia");
+				put("Pacific/Port_Moresby", "Papua New Guinea");
+				put("Pacific/Rarotonga", "Cook Islands");
+				put("Pacific/Tahiti", "French Polynesia");
+				put("Pacific/Tarawa", "Kiribati");
+				put("Pacific/Tongatapu", "Tonga");
+				put("Pacific/Wake", "United States");
+				put("Pacific/Wallis", "Wallist & Futuna");
+				put("UTC", "UTC");
+			}
+		};
 
 }
