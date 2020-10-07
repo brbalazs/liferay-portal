@@ -97,7 +97,7 @@ StringBuilder friendlyURLBase = new StringBuilder();
 		<c:choose>
 			<c:when test="<%= selLayoutType.isURLFriendliable() %>">
 				<div class="form-group">
-					<label for="<portlet:namespace />friendlyURL"><liferay-ui:message key="friendly-url" /> <liferay-ui:icon-help message='<%= LanguageUtil.format(request, "for-example-x.-please-note-that-there-is-a-limit-of-x-characters-in-encoded-format-for-friendly-urls", new String[] {"<em>/news</em>", String.valueOf(LayoutConstants.FRIENDLY_URL_MAX_LENGTH)}, false) %>' /></label>
+					<label for="<portlet:namespace />friendlyURL"><liferay-ui:message key="friendly-url" /> <liferay-ui:icon-help message='<%= LanguageUtil.format(request, "there-is-a-limit-of-x-characters-in-encoded-format-for-friendly-urls-(e.g.-x)", new String[] {String.valueOf(LayoutConstants.FRIENDLY_URL_MAX_LENGTH), "<em>/news</em>"}, false) %>' /></label>
 
 					<liferay-ui:input-localized
 						defaultLanguageId="<%= LocaleUtil.toLanguageId(themeDisplay.getSiteDefaultLocale()) %>"
