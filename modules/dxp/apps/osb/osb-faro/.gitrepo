@@ -4,8 +4,8 @@
 [subrepo]
 	autopull = true
 	cmdver = liferay
-	commit = 2150f1f2424f553044e17f6f6db6a7a1c945a120
+	commit = 0867cf98e1725473253a77791fc1be09704c3f8c
 	mergebuttonmergecommits = true
 	mode = pull
-	parent = 207b1283cc4ff7ec8b017035772e2930e83abc5a
+	parent = 9ef3e3f117a828403fae386cd74933c849b11d91
 	remote = git@github.com:liferay/com-liferay-osb-faro-private.git
