@@ -14,6 +14,8 @@
 
 package com.liferay.osb.faro.web.internal.util;
 
+import com.liferay.osb.faro.web.internal.model.display.contacts.TimeZoneDisplay;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -28,16 +30,37 @@ import java.util.stream.Stream;
 
 /**
  * @author Geyson Silva
+ * @author André Miranda
  */
 public class TimeZoneUtil {
 
 	public static final String UTC_TIME_ZONE_ID = "UTC";
 
-	public static String getCountryName(ZoneId zoneId) {
-		return _timeZoneIdCountryMap.get(zoneId.getId());
+	public static TimeZoneDisplay getTimeZoneDisplay(String timeZoneId) {
+		ZoneId zoneId = ZoneId.of(timeZoneId);
+
+		return new TimeZoneDisplay(
+			zoneId, _timeZoneIdCountryMap.get(timeZoneId));
 	}
 
-	public static List<ZoneId> getZoneIds() {
+	public static List<TimeZoneDisplay> getTimeZoneDisplays() {
+		List<ZoneId> zoneIds = _getZoneIds();
+
+		Stream<ZoneId> stream = zoneIds.stream();
+
+		return stream.map(
+			zoneId -> new TimeZoneDisplay(
+				zoneId, _timeZoneIdCountryMap.get(zoneId.getId()))
+		).collect(
+			Collectors.toList()
+		);
+	}
+
+	public static boolean validate(String timeZoneId) {
+		return _timeZoneIdCountryMap.containsKey(timeZoneId);
+	}
+
+	private static List<ZoneId> _getZoneIds() {
 		Set<String> timeZoneIds = _timeZoneIdCountryMap.keySet();
 
 		Stream<String> stream = timeZoneIds.stream();
@@ -59,10 +82,6 @@ public class TimeZoneUtil {
 		).collect(
 			Collectors.toList()
 		);
-	}
-
-	public static boolean validate(String timeZoneId) {
-		return _timeZoneIdCountryMap.containsKey(timeZoneId);
 	}
 
 	private static final Map<String, String> _timeZoneIdCountryMap =

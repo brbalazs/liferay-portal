@@ -69,8 +69,6 @@ import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.comparator.GroupNameComparator;
 
-import java.time.ZoneId;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -616,15 +614,7 @@ public class ProjectController extends BaseFaroController {
 	@Path("/time_zones")
 	@RolesAllowed(RoleConstants.SITE_ADMINISTRATOR)
 	public List<TimeZoneDisplay> getTimeZones() {
-		List<ZoneId> zoneIds = TimeZoneUtil.getZoneIds();
-
-		Stream<ZoneId> stream = zoneIds.stream();
-
-		return stream.map(
-			TimeZoneDisplay::new
-		).collect(
-			Collectors.toList()
-		);
+		return TimeZoneUtil.getTimeZoneDisplays();
 	}
 
 	@Path("/{groupId}")

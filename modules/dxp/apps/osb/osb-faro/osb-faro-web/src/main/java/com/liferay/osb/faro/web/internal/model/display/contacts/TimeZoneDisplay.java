@@ -30,12 +30,8 @@ import java.time.format.TextStyle;
  */
 public class TimeZoneDisplay {
 
-	public TimeZoneDisplay(String timeZoneId) {
-		this(ZoneId.of(timeZoneId));
-	}
-
-	public TimeZoneDisplay(ZoneId zoneId) {
-		_country = TimeZoneUtil.getCountryName(zoneId);
+	public TimeZoneDisplay(ZoneId zoneId, String country) {
+		_country = country;
 
 		LocalDateTime nowLocalDateTime = LocalDateTime.now();
 
@@ -55,8 +51,8 @@ public class TimeZoneDisplay {
 		_timeZoneId = zoneId.getId();
 	}
 
-	private String _country;
-	private String _displayTimeZone;
-	private String _timeZoneId;
+	private final String _country;
+	private final String _displayTimeZone;
+	private final String _timeZoneId;
 
 }

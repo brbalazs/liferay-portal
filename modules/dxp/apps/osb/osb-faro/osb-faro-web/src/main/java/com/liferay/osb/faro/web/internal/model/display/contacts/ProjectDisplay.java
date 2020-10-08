@@ -23,6 +23,7 @@ import com.liferay.osb.faro.service.FaroProjectLocalServiceUtil;
 import com.liferay.osb.faro.web.internal.constants.ProjectConstants;
 import com.liferay.osb.faro.web.internal.model.display.main.FaroSubscriptionDisplay;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
+import com.liferay.osb.faro.web.internal.util.TimeZoneUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.Time;
@@ -75,7 +76,8 @@ public class ProjectDisplay {
 		_recommendationsEnabled = faroProject.isRecommendationsEnabled();
 		_serverLocation = faroProject.getServerLocation();
 		_state = faroProject.getState();
-		_timeZoneDisplay = new TimeZoneDisplay(faroProject.getTimeZoneId());
+		_timeZoneDisplay = TimeZoneUtil.getTimeZoneDisplay(
+			faroProject.getTimeZoneId());
 		_userId = faroProject.getUserId();
 	}
 
