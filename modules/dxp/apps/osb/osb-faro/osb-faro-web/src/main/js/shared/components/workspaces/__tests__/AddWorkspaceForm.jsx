@@ -38,7 +38,7 @@ describe('AddWorkspaceForm', () => {
 			queryByText('You can only set your friendly workspace url once')
 		).toBeNull();
 
-		expect(container.querySelector('.dropdown-toggle')).toBeDisabled();
+		expect(container.querySelector('.select-root')).toBeDisabled();
 		expect(queryByText('Save')).not.toBeNull();
 		expect(getByTestId('server-location-input')).toBeDisabled();
 	});
