@@ -114,7 +114,10 @@ export default compose(
 				}
 
 				if (hasChanges(prevProps, this.props, 'defaultChannelId')) {
-					const {channels, defaultChannelId} = this.props;
+					const {
+						context: {channels},
+						props: {defaultChannelId}
+					} = this;
 
 					channelDispatch({
 						payload: getDefaultChannel(defaultChannelId, channels),
@@ -135,9 +138,8 @@ export default compose(
 
 			render() {
 				const {
-					context: {selectedChannel},
+					context: {channels, selectedChannel},
 					props: {
-						channels,
 						className,
 						collapsed,
 						currentUser,
