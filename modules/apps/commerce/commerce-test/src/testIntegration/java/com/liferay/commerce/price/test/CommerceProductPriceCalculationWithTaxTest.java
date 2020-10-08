@@ -28,6 +28,7 @@ import com.liferay.commerce.price.list.model.CommercePriceList;
 import com.liferay.commerce.price.list.service.CommercePriceListLocalServiceUtil;
 import com.liferay.commerce.price.list.test.util.CommercePriceEntryTestUtil;
 import com.liferay.commerce.price.list.test.util.CommercePriceListTestUtil;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
@@ -40,6 +41,8 @@ import com.liferay.commerce.tax.model.CommerceTaxMethod;
 import com.liferay.commerce.test.util.CommerceTaxTestUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.commerce.test.util.TestCommerceContext;
+import com.liferay.portal.configuration.test.util.ConfigurationTestUtil;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -57,11 +60,15 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import java.util.Dictionary;
+import java.util.Hashtable;
+
 import org.frutilla.FrutillaRule;
 
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -80,11 +87,34 @@ public class CommerceProductPriceCalculationWithTaxTest {
 			new LiferayIntegrationTestRule(),
 			SynchronousDestinationTestRule.INSTANCE);
 
+	@BeforeClass
+	public static void setUpClass() throws Exception {
+		_properties = new Hashtable<>();
+
+		_properties.put(
+			"commercePricingCalculationKey",
+			CommercePricingConstants.VERSION_1_0);
+
+		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
+	}
+
+	@AfterClass
+	public static void tearDownClass() throws Exception {
+		_properties.put(
+			"commercePricingCalculationKey",
+			CommercePricingConstants.VERSION_2_0);
+
+		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
+	}
+
 	@Before
 	public void setUp() throws Exception {
-		_user = UserTestUtil.addUser();
+		_company = CommerceTestUtil.addCompany();
 
-		_group = GroupTestUtil.addGroup();
+		_user = UserTestUtil.addUser(_company);
+
+		_group = GroupTestUtil.addGroup(
+			_user.getCompanyId(), _user.getUserId(), 0);
 
 		_commerceAccount =
 			_commerceAccountLocalService.getPersonalCommerceAccount(
@@ -97,16 +127,10 @@ public class CommerceProductPriceCalculationWithTaxTest {
 			_user.getCompanyId(), _user.getGroupId(), _user.getUserId());
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 
 		_commerceTaxMethod = CommerceTaxTestUtil.addCommerceByAddressTaxMethod(
 			_user.getUserId(), _commerceChannel.getGroupId(), true);
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		_commerceAccountLocalService.deleteCommerceAccount(
-			_commerceAccount.getCommerceAccountId());
 	}
 
 	@Test
@@ -377,6 +401,12 @@ public class CommerceProductPriceCalculationWithTaxTest {
 			finalPrice.stripTrailingZeros());
 	}
 
+	private static final String _PID =
+		"com.liferay.commerce.pricing.configuration." +
+			"CommercePricingConfiguration";
+
+	private static Dictionary<String, Object> _properties;
+
 	private CommerceAccount _commerceAccount;
 
 	@Inject
@@ -385,16 +415,16 @@ public class CommerceProductPriceCalculationWithTaxTest {
 	@Inject
 	private CommerceCatalogLocalService _commerceCatalogLocalService;
 
-	@DeleteAfterTestRun
 	private CommerceChannel _commerceChannel;
-
 	private CommerceCurrency _commerceCurrency;
 
-	@Inject(filter = "commerce.price.calculation.key=v1.0")
+	@Inject
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
 
-	@DeleteAfterTestRun
 	private CommerceTaxMethod _commerceTaxMethod;
+
+	@DeleteAfterTestRun
+	private Company _company;
 
 	@Inject
 	private CPDefinitionLocalService _cpDefinitionLocalService;
@@ -402,12 +432,8 @@ public class CommerceProductPriceCalculationWithTaxTest {
 	@Inject
 	private CPInstanceLocalService _cpInstanceLocalService;
 
-	@DeleteAfterTestRun
 	private Group _group;
-
 	private ServiceContext _serviceContext;
-
-	@DeleteAfterTestRun
 	private User _user;
 
 }

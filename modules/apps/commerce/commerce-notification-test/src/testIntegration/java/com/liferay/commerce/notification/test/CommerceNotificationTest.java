@@ -47,7 +47,6 @@ import com.liferay.portal.kernel.service.UserGroupRoleLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
-import com.liferay.portal.kernel.test.util.CompanyTestUtil;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
@@ -82,18 +81,18 @@ public class CommerceNotificationTest {
 
 	@Before
 	public void setUp() throws Exception {
-		_company = CompanyTestUtil.addCompany();
+		_company = CommerceTestUtil.addCompany();
 
 		_user = UserTestUtil.addUser(_company);
 
 		_group = GroupTestUtil.addGroup(
-			_company.getCompanyId(), _user.getUserId(), 0);
+			_user.getCompanyId(), _user.getUserId(), 0);
 
 		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
-			_company.getCompanyId());
+			_user.getCompanyId());
 
 		_serviceContext = ServiceContextTestUtil.getServiceContext(
-			_company.getCompanyId(), _group.getGroupId(), _user.getUserId());
+			_user.getCompanyId(), _group.getGroupId(), _user.getUserId());
 
 		_commerceChannelLocalService.addCommerceChannel(
 			_group.getGroupId(),
@@ -336,7 +335,7 @@ public class CommerceNotificationTest {
 			new long[] {_user.getUserId()}, null, _serviceContext);
 
 		_accountAdminRole = _roleLocalService.fetchRole(
-			_company.getCompanyId(),
+			_user.getCompanyId(),
 			CommerceAccountConstants.ROLE_NAME_ACCOUNT_ADMINISTRATOR);
 
 		if (_accountAdminRole == null) {
@@ -370,7 +369,7 @@ public class CommerceNotificationTest {
 			new long[] {_serviceContext.getScopeGroupId()}, _serviceContext);
 
 		_orderManagerRole = _roleLocalService.fetchRole(
-			_company.getCompanyId(), "Order Manager");
+			_user.getCompanyId(), "Order Manager");
 
 		if (_orderManagerRole == null) {
 			_orderManagerRole = _roleLocalService.addRole(
@@ -395,7 +394,7 @@ public class CommerceNotificationTest {
 
 	private String _setUpUserGroup() throws PortalException {
 		UserGroup userGroup = _userGroupLocalService.addUserGroup(
-			_user.getUserId(), _company.getCompanyId(), "Test User Group",
+			_user.getUserId(), _user.getCompanyId(), "Test User Group",
 			RandomTestUtil.randomString(), _serviceContext);
 
 		long[] userIds = new long[1];
@@ -408,16 +407,13 @@ public class CommerceNotificationTest {
 		return userGroup.getName();
 	}
 
-	@DeleteAfterTestRun
 	private User _accountAdmin;
-
 	private Role _accountAdminRole;
 	private CommerceAccount _commerceAccount;
 
 	@Inject
 	private CommerceChannelLocalService _commerceChannelLocalService;
 
-	@DeleteAfterTestRun
 	private CommerceCurrency _commerceCurrency;
 
 	@Inject
@@ -427,7 +423,6 @@ public class CommerceNotificationTest {
 	private CommerceNotificationQueueEntryLocalService
 		_commerceNotificationQueueEntryLocalService;
 
-	@DeleteAfterTestRun
 	private CommerceNotificationTemplate _commerceNotificationTemplate;
 
 	@DeleteAfterTestRun

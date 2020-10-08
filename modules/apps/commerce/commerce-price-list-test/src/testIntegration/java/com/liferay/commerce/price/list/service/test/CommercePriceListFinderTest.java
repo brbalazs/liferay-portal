@@ -105,7 +105,7 @@ public class CommercePriceListFinderTest {
 			_commerceCurrency.getCode());
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 	}
 
 	@After
@@ -486,8 +486,8 @@ public class CommercePriceListFinderTest {
 		);
 
 		CommercePriceList baseCommercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				_commerceCatalog.getGroupId(), true, _TYPE, 1.0);
+			_commercePriceListLocalService.fetchCommerceCatalogBasePriceList(
+				_commerceCatalog.getGroupId());
 
 		Assert.assertEquals(
 			_commerceCatalog.getGroupId(), baseCommercePriceList.getGroupId());
@@ -561,10 +561,7 @@ public class CommercePriceListFinderTest {
 	@Inject
 	private CommerceAccountLocalService _commerceAccountLocalService;
 
-	@DeleteAfterTestRun
 	private CommerceCatalog _commerceCatalog;
-
-	@DeleteAfterTestRun
 	private CommerceChannel _commerceChannel;
 
 	@DeleteAfterTestRun

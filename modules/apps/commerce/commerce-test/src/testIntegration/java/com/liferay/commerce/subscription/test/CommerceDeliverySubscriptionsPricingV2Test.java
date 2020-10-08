@@ -15,46 +15,38 @@
 package com.liferay.commerce.subscription.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
-import com.liferay.commerce.account.constants.CommerceAccountConstants;
-import com.liferay.commerce.account.model.CommerceAccount;
-import com.liferay.commerce.account.test.util.CommerceAccountTestUtil;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommerceSubscriptionEntryConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.payment.engine.CommerceSubscriptionEngine;
-import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.service.CommerceOrderLocalServiceUtil;
+import com.liferay.commerce.service.CommerceShipmentLocalService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
+import com.liferay.commerce.subscription.CommerceSubscriptionEntryHelper;
 import com.liferay.commerce.test.util.CommerceTestUtil;
-import com.liferay.portal.configuration.test.util.ConfigurationTestUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
-import com.liferay.portal.kernel.test.util.RandomTestUtil;
-import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.Date;
 import java.util.List;
 
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -64,32 +56,12 @@ import org.junit.runner.RunWith;
  * @author Luca Pellizzon
  */
 @RunWith(Arquillian.class)
-public class CommercePaymentSubscriptionsTest {
+public class CommerceDeliverySubscriptionsPricingV2Test {
 
 	@ClassRule
 	@Rule
 	public static AggregateTestRule aggregateTestRule = new AggregateTestRule(
 		new LiferayIntegrationTestRule(), PermissionCheckerTestRule.INSTANCE);
-
-	@BeforeClass
-	public static void setUpClass() throws Exception {
-		_properties = new Hashtable<>();
-
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_1_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception {
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_2_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -100,25 +72,11 @@ public class CommercePaymentSubscriptionsTest {
 		_group = GroupTestUtil.addGroup(
 			_user.getCompanyId(), _user.getUserId(), 0);
 
-		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(
-				_user.getCompanyId(), _group.getGroupId(), _user.getUserId());
-
 		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
 			_group.getCompanyId());
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel(
 			_group.getGroupId(), _commerceCurrency.getCode());
-
-		_commerceAccount = CommerceAccountTestUtil.addBusinessCommerceAccount(
-			_user.getUserId(), RandomTestUtil.randomString(),
-			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-			serviceContext);
-
-		CommerceAccountTestUtil.addCommerceAccountGroupAndAccountRel(
-			_user.getCompanyId(), RandomTestUtil.randomString(),
-			CommerceAccountConstants.ACCOUNT_GROUP_TYPE_STATIC,
-			_commerceAccount.getCommerceAccountId(), serviceContext);
 
 		_commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_user.getUserId(), _commerceChannel.getGroupId(),
@@ -126,9 +84,9 @@ public class CommercePaymentSubscriptionsTest {
 	}
 
 	@Test
-	public void testPaymentSubscription() throws Exception {
+	public void testDeliveryAndPaymentSubscription() throws Exception {
 		_commerceOrder = CommerceTestUtil.addCheckoutDetailsToUserOrder(
-			_commerceOrder, _user.getUserId(), true, false);
+			_commerceOrder, _user.getUserId(), true, true);
 
 		_commerceOrder.setPaymentStatus(
 			CommerceOrderConstants.PAYMENT_STATUS_PAID);
@@ -158,7 +116,16 @@ public class CommercePaymentSubscriptionsTest {
 			CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_ACTIVE,
 			commerceSubscriptionEntry.getSubscriptionStatus());
 
+		Assert.assertEquals(
+			CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_ACTIVE,
+			commerceSubscriptionEntry.getDeliverySubscriptionStatus());
+
+		// Suspend
+
 		_commerceSubscriptionEngine.suspendRecurringPayment(
+			commerceSubscriptionEntry.getCommerceSubscriptionEntryId());
+
+		_commerceSubscriptionEngine.suspendRecurringDelivery(
 			commerceSubscriptionEntry.getCommerceSubscriptionEntryId());
 
 		commerceSubscriptionEntry =
@@ -169,7 +136,16 @@ public class CommercePaymentSubscriptionsTest {
 			CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_SUSPENDED,
 			commerceSubscriptionEntry.getSubscriptionStatus());
 
+		Assert.assertEquals(
+			CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_SUSPENDED,
+			commerceSubscriptionEntry.getDeliverySubscriptionStatus());
+
+		// Re-Activate
+
 		_commerceSubscriptionEngine.activateRecurringPayment(
+			commerceSubscriptionEntry.getCommerceSubscriptionEntryId());
+
+		_commerceSubscriptionEngine.activateRecurringDelivery(
 			commerceSubscriptionEntry.getCommerceSubscriptionEntryId());
 
 		commerceSubscriptionEntry =
@@ -180,7 +156,16 @@ public class CommercePaymentSubscriptionsTest {
 			CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_ACTIVE,
 			commerceSubscriptionEntry.getSubscriptionStatus());
 
+		Assert.assertEquals(
+			CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_ACTIVE,
+			commerceSubscriptionEntry.getDeliverySubscriptionStatus());
+
+		// Cancel
+
 		_commerceSubscriptionEngine.cancelRecurringPayment(
+			commerceSubscriptionEntry.getCommerceSubscriptionEntryId());
+
+		_commerceSubscriptionEngine.cancelRecurringDelivery(
 			commerceSubscriptionEntry.getCommerceSubscriptionEntryId());
 
 		commerceSubscriptionEntry =
@@ -190,15 +175,75 @@ public class CommercePaymentSubscriptionsTest {
 		Assert.assertEquals(
 			CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_CANCELLED,
 			commerceSubscriptionEntry.getSubscriptionStatus());
+
+		Assert.assertEquals(
+			CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_CANCELLED,
+			commerceSubscriptionEntry.getDeliverySubscriptionStatus());
 	}
 
-	private static final String _PID =
-		"com.liferay.commerce.pricing.configuration." +
-			"CommercePricingConfiguration";
+	@Test
+	public void testDeliverySubscriptionRenew() throws Exception {
+		_commerceOrder = CommerceTestUtil.addCheckoutDetailsToUserOrder(
+			_commerceOrder, _user.getUserId(), true, true);
 
-	private static Dictionary<String, Object> _properties;
+		_commerceOrder.setPaymentStatus(
+			CommerceOrderConstants.PAYMENT_STATUS_PAID);
 
-	private CommerceAccount _commerceAccount;
+		CommerceOrderLocalServiceUtil.updateCommerceOrder(_commerceOrder);
+
+		_commerceOrder = _commerceOrderEngine.checkoutCommerceOrder(
+			_commerceOrder, _user.getUserId());
+
+		Thread.sleep(1000);
+
+		List<CommerceSubscriptionEntry> commerceSubscriptionEntries =
+			_commerceSubscriptionEntryLocalService.
+				getCommerceSubscriptionEntries(
+					_user.getCompanyId(), _commerceChannel.getGroupId(),
+					_user.getUserId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+					null);
+
+		Assert.assertEquals(
+			commerceSubscriptionEntries.toString(), 1,
+			commerceSubscriptionEntries.size());
+
+		CommerceSubscriptionEntry commerceSubscriptionEntry =
+			commerceSubscriptionEntries.get(0);
+
+		_commerceSubscriptionEngine.activateRecurringDelivery(
+			commerceSubscriptionEntry.getCommerceSubscriptionEntryId());
+
+		Assert.assertEquals(
+			CommerceSubscriptionEntryConstants.SUBSCRIPTION_STATUS_ACTIVE,
+			commerceSubscriptionEntry.getDeliverySubscriptionStatus());
+
+		// Set subscription entry to be renewable
+
+		commerceSubscriptionEntry.setNextIterationDate(new Date());
+
+		Thread.sleep(1000);
+
+		_commerceSubscriptionEntryHelper.checkDeliverySubscriptionStatus(
+			commerceSubscriptionEntry);
+
+		CommerceSubscriptionEntry renewedCommerceSubscriptionEntry =
+			_commerceSubscriptionEntryLocalService.getCommerceSubscriptionEntry(
+				commerceSubscriptionEntry.getCommerceSubscriptionEntryId());
+
+		Assert.assertEquals(
+			commerceSubscriptionEntry.getDeliveryCurrentCycle() + 1,
+			renewedCommerceSubscriptionEntry.getDeliveryCurrentCycle());
+
+		long[] groupIds = {_commerceChannel.getGroupId()};
+
+		List<CommerceShipment> commerceShipments =
+			_commerceShipmentLocalService.getCommerceShipments(
+				groupIds, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+
+		Assert.assertEquals(
+			commerceShipments.toString(), 1, commerceShipments.size());
+	}
+
 	private CommerceChannel _commerceChannel;
 	private CommerceCurrency _commerceCurrency;
 
@@ -209,7 +254,13 @@ public class CommercePaymentSubscriptionsTest {
 	private CommerceOrderEngine _commerceOrderEngine;
 
 	@Inject
+	private CommerceShipmentLocalService _commerceShipmentLocalService;
+
+	@Inject
 	private CommerceSubscriptionEngine _commerceSubscriptionEngine;
+
+	@Inject
+	private CommerceSubscriptionEntryHelper _commerceSubscriptionEntryHelper;
 
 	@Inject
 	private CommerceSubscriptionEntryLocalService

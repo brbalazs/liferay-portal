@@ -101,7 +101,7 @@ public class CommercePriceListHierarchyDiscoveryTest {
 				_commerceAccount.getCommerceAccountId(), _serviceContext);
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 
 		_catalog = _commerceCatalogLocalService.addCommerceCatalog(
 			RandomTestUtil.randomString(), _commerceCurrency.getCode(),
@@ -143,13 +143,13 @@ public class CommercePriceListHierarchyDiscoveryTest {
 			_commerceAccount4);
 
 		_commerceChannel1 = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 		_commerceChannel2 = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 		_commerceChannel3 = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 		_commerceChannel4 = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 
 		long[] commerceAccount3AccountGroups =
 			_commerceAccountHelper.getCommerceAccountGroupIds(
@@ -231,8 +231,8 @@ public class CommercePriceListHierarchyDiscoveryTest {
 				LocaleUtil.US.getDisplayLanguage(), null, _serviceContext);
 
 		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), true, _TYPE, 0.0);
+			_commercePriceListLocalService.fetchCommerceCatalogBasePriceList(
+				catalog.getGroupId());
 
 		CommercePriceList discoveredPriceList =
 			_commercePriceListDiscovery.getCommercePriceList(

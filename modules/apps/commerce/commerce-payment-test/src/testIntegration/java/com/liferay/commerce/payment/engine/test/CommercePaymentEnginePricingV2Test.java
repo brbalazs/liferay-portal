@@ -24,7 +24,10 @@ import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.payment.engine.CommercePaymentEngine;
 import com.liferay.commerce.payment.service.CommercePaymentMethodGroupRelLocalService;
 import com.liferay.commerce.payment.test.util.TestCommercePaymentMethod;
-import com.liferay.commerce.pricing.constants.CommercePricingConstants;
+import com.liferay.commerce.price.list.model.CommercePriceList;
+import com.liferay.commerce.price.list.service.CommercePriceEntryLocalService;
+import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
+import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
@@ -33,7 +36,6 @@ import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.test.util.CommerceInventoryTestUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
-import com.liferay.portal.configuration.test.util.ConfigurationTestUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
@@ -46,9 +48,9 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 
+import java.math.BigDecimal;
+
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,10 +58,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.frutilla.FrutillaRule;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -71,7 +71,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * @author Luca Pellizzon
  */
 @RunWith(Arquillian.class)
-public class CommercePaymentEngineTest {
+public class CommercePaymentEnginePricingV2Test {
 
 	@ClassRule
 	@Rule
@@ -79,26 +79,6 @@ public class CommercePaymentEngineTest {
 		new AggregateTestRule(
 			new LiferayIntegrationTestRule(),
 			PermissionCheckerTestRule.INSTANCE);
-
-	@BeforeClass
-	public static void setUpClass() throws Exception {
-		_properties = new Hashtable<>();
-
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_1_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception {
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_2_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -162,9 +142,21 @@ public class CommercePaymentEngineTest {
 				LocaleUtil.toLanguageId(LocaleUtil.US), null,
 				ServiceContextTestUtil.getServiceContext(_user.getGroupId()));
 
+		CommercePriceList commercePriceList =
+			_commercePriceListLocalService.fetchCommerceCatalogBasePriceList(
+				commerceCatalog.getGroupId());
+
 		CPInstance cpInstance =
 			CPTestUtil.addCPInstanceWithRandomSkuFromCatalog(
 				commerceCatalog.getGroupId());
+
+		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+
+		_commercePriceEntryLocalService.addCommercePriceEntry(
+			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
+			commercePriceList.getCommercePriceListId(), BigDecimal.ZERO,
+			BigDecimal.ZERO,
+			ServiceContextTestUtil.getServiceContext(_user.getGroupId()));
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
@@ -240,9 +232,21 @@ public class CommercePaymentEngineTest {
 				LocaleUtil.toLanguageId(LocaleUtil.US), null,
 				ServiceContextTestUtil.getServiceContext(_user.getGroupId()));
 
+		CommercePriceList commercePriceList =
+			_commercePriceListLocalService.fetchCommerceCatalogBasePriceList(
+				commerceCatalog.getGroupId());
+
 		CPInstance cpInstance =
 			CPTestUtil.addCPInstanceWithRandomSkuFromCatalog(
 				commerceCatalog.getGroupId());
+
+		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+
+		_commercePriceEntryLocalService.addCommercePriceEntry(
+			cpDefinition.getCProductId(), cpInstance.getCPInstanceUuid(),
+			commercePriceList.getCommercePriceListId(), BigDecimal.ZERO,
+			BigDecimal.ZERO,
+			ServiceContextTestUtil.getServiceContext(_user.getGroupId()));
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
@@ -280,12 +284,6 @@ public class CommercePaymentEngineTest {
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
-	private static final String _PID =
-		"com.liferay.commerce.pricing.configuration." +
-			"CommercePricingConfiguration";
-
-	private static Dictionary<String, Object> _properties;
-
 	private CommerceChannel _commerceChannel;
 	private CommerceCurrency _commerceCurrency;
 
@@ -303,6 +301,12 @@ public class CommercePaymentEngineTest {
 	@Inject
 	private CommercePaymentMethodGroupRelLocalService
 		_commercePaymentMethodGroupRelLocalService;
+
+	@Inject
+	private CommercePriceEntryLocalService _commercePriceEntryLocalService;
+
+	@Inject
+	private CommercePriceListLocalService _commercePriceListLocalService;
 
 	@DeleteAfterTestRun
 	private Company _company;

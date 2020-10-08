@@ -45,7 +45,6 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
-import com.liferay.portal.kernel.test.util.CompanyTestUtil;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
@@ -57,7 +56,6 @@ import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -82,18 +80,18 @@ public class CommerceSubscriptionsNotificationTest {
 
 	@Before
 	public void setUp() throws Exception {
-		_company = CompanyTestUtil.addCompany();
+		_company = CommerceTestUtil.addCompany();
 
 		_user = UserTestUtil.addUser(_company);
 
 		_group = GroupTestUtil.addGroup(
-			_company.getCompanyId(), _user.getUserId(), 0);
+			_user.getCompanyId(), _user.getUserId(), 0);
 
 		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
-			_company.getCompanyId());
+			_user.getCompanyId());
 
 		_serviceContext = ServiceContextTestUtil.getServiceContext(
-			_company.getCompanyId(), _group.getGroupId(), _user.getUserId());
+			_user.getCompanyId(), _group.getGroupId(), _user.getUserId());
 
 		_commerceChannelLocalService.addCommerceChannel(
 			_group.getGroupId(),
@@ -113,22 +111,11 @@ public class CommerceSubscriptionsNotificationTest {
 			new long[] {user.getUserId()}, null, _serviceContext);
 
 		CommerceAccountTestUtil.addCommerceAccountGroupAndAccountRel(
-			_company.getCompanyId(), RandomTestUtil.randomString(),
+			_user.getCompanyId(), RandomTestUtil.randomString(),
 			CommerceAccountConstants.ACCOUNT_GROUP_TYPE_STATIC,
 			_commerceAccount.getCommerceAccountId(), _serviceContext);
 
 		_addCommerceNotificationTemplates();
-	}
-
-	@After
-	public void tearDown() throws PortalException {
-		for (CommerceNotificationTemplate commerceNotificationTemplate :
-				_commerceNotificationTemplateList) {
-
-			_commerceNotificationTemplateLocalService.
-				deleteCommerceNotificationTemplate(
-					commerceNotificationTemplate);
-		}
 	}
 
 	@Test

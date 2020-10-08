@@ -22,16 +22,17 @@ import com.liferay.commerce.product.data.source.CPDataSourceResult;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
+import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
+import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
-import com.liferay.portal.kernel.test.util.CompanyTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -47,6 +48,7 @@ import java.util.List;
 
 import org.frutilla.FrutillaRule;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -69,12 +71,24 @@ public class CPDefinitionHelperTest {
 
 	@Before
 	public void setUp() throws Exception {
-		_company = CompanyTestUtil.addCompany();
+		_company = CommerceTestUtil.addCompany();
 
 		_commerceCatalog = _commerceCatalogLocalService.addCommerceCatalog(
 			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-			LocaleUtil.US.getDisplayLanguage(), null,
+			LocaleUtil.toLanguageId(LocaleUtil.US), null,
 			ServiceContextTestUtil.getServiceContext(_company.getGroupId()));
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		List<CPDefinition> cpDefinitions =
+			_cpDefinitionLocalService.getCPDefinitions(
+				_commerceCatalog.getGroupId(), WorkflowConstants.STATUS_ANY,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+		for (CPDefinition cpDefinition : cpDefinitions) {
+			_cpDefinitionLocalService.deleteCPDefinition(cpDefinition);
+		}
 	}
 
 	@Test
@@ -267,5 +281,8 @@ public class CPDefinitionHelperTest {
 
 	@Inject
 	private CPDefinitionHelper _cpDefinitionHelper;
+
+	@Inject
+	private CPDefinitionLocalService _cpDefinitionLocalService;
 
 }

@@ -951,7 +951,6 @@ public class CommerceOrderTest {
 	@Inject
 	private CommerceAddressLocalService _commerceAddressLocalService;
 
-	@DeleteAfterTestRun
 	private CommerceChannel _commerceChannel;
 
 	@Inject

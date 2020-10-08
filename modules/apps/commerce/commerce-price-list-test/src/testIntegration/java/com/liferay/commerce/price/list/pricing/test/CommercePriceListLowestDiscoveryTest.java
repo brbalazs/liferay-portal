@@ -106,7 +106,7 @@ public class CommercePriceListLowestDiscoveryTest {
 			_commerceCurrency.getCode());
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 	}
 
 	@After
@@ -307,10 +307,7 @@ public class CommercePriceListLowestDiscoveryTest {
 	@Inject
 	private CommerceAccountLocalService _commerceAccountLocalService;
 
-	@DeleteAfterTestRun
 	private CommerceCatalog _commerceCatalog;
-
-	@DeleteAfterTestRun
 	private CommerceChannel _commerceChannel;
 
 	@DeleteAfterTestRun

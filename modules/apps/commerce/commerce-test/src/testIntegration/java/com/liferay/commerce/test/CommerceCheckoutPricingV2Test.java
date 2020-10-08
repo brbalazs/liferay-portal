@@ -28,13 +28,11 @@ import com.liferay.commerce.exception.CommerceOrderGuestCheckoutException;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
-import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.service.CommerceOrderLocalServiceUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.configuration.test.util.ConfigurationTestUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
@@ -68,16 +66,12 @@ import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 
 import java.math.BigDecimal;
 
-import java.util.Dictionary;
-import java.util.Hashtable;
 import java.util.List;
 
 import org.frutilla.FrutillaRule;
 
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -87,32 +81,12 @@ import org.junit.runner.RunWith;
  * @author Luca Pellizzon
  */
 @RunWith(Arquillian.class)
-public class CommerceCheckoutTest {
+public class CommerceCheckoutPricingV2Test {
 
 	@ClassRule
 	@Rule
 	public static AggregateTestRule aggregateTestRule = new AggregateTestRule(
 		new LiferayIntegrationTestRule(), PermissionCheckerTestRule.INSTANCE);
-
-	@BeforeClass
-	public static void setUpClass() throws Exception {
-		_properties = new Hashtable<>();
-
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_1_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception {
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_2_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -398,12 +372,6 @@ public class CommerceCheckoutTest {
 
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
-
-	private static final String _PID =
-		"com.liferay.commerce.pricing.configuration." +
-			"CommercePricingConfiguration";
-
-	private static Dictionary<String, Object> _properties;
 
 	@Inject
 	private CommerceAccountLocalService _commerceAccountLocalService;

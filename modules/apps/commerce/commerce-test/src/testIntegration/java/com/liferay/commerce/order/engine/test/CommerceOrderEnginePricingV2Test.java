@@ -16,6 +16,8 @@ package com.liferay.commerce.order.engine.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.commerce.account.model.CommerceAccount;
+import com.liferay.commerce.account.service.CommerceAccountLocalService;
+import com.liferay.commerce.account.service.CommerceAccountUserRelLocalService;
 import com.liferay.commerce.account.test.util.CommerceAccountTestUtil;
 import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommerceShipmentConstants;
@@ -40,7 +42,6 @@ import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.order.status.CommerceOrderStatus;
 import com.liferay.commerce.payment.test.util.TestCommercePaymentMethod;
-import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.model.CommerceChannelConstants;
 import com.liferay.commerce.product.service.CommerceChannelLocalServiceUtil;
@@ -49,7 +50,6 @@ import com.liferay.commerce.service.CommerceShipmentItemLocalService;
 import com.liferay.commerce.service.CommerceShipmentLocalService;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.commerce.test.util.TestCommerceContext;
-import com.liferay.portal.configuration.test.util.ConfigurationTestUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
@@ -72,18 +72,15 @@ import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 
 import java.math.BigDecimal;
 
-import java.util.Dictionary;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.frutilla.FrutillaRule;
 
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -93,7 +90,7 @@ import org.junit.runner.RunWith;
  * @author Alec Sloan
  */
 @RunWith(Arquillian.class)
-public class CommerceOrderEngineTest {
+public class CommerceOrderEnginePricingV2Test {
 
 	@ClassRule
 	@Rule
@@ -101,26 +98,6 @@ public class CommerceOrderEngineTest {
 		new AggregateTestRule(
 			new LiferayIntegrationTestRule(),
 			PermissionCheckerTestRule.INSTANCE);
-
-	@BeforeClass
-	public static void setUpClass() throws Exception {
-		_properties = new Hashtable<>();
-
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_1_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception {
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_2_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -170,6 +147,11 @@ public class CommerceOrderEngineTest {
 		_commerceContext = new TestCommerceContext(
 			_commerceCurrency, _commerceChannel, _user, _group,
 			_commerceOrder.getCommerceAccount(), _commerceOrder);
+	}
+
+	@After
+	public void tearDown() throws PortalException {
+		_commerceOrderLocalService.deleteCommerceOrder(_commerceOrder);
 	}
 
 	@Test
@@ -252,9 +234,6 @@ public class CommerceOrderEngineTest {
 		Assert.assertEquals(
 			CommerceOrderConstants.ORDER_STATUS_COMPLETED,
 			_commerceOrder.getOrderStatus());
-
-		_commerceOrderLocalService.deleteCommerceOrder(
-			_commerceOrder.getCommerceOrderId());
 	}
 
 	@Test
@@ -952,13 +931,15 @@ public class CommerceOrderEngineTest {
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
-	private static final String _PID =
-		"com.liferay.commerce.pricing.configuration." +
-			"CommercePricingConfiguration";
-
-	private static Dictionary<String, Object> _properties;
-
 	private CommerceAccount _commerceAccount;
+
+	@Inject
+	private CommerceAccountLocalService _commerceAccountLocalService;
+
+	@Inject
+	private CommerceAccountUserRelLocalService
+		_commerceAccountUserRelLocalService;
+
 	private CommerceChannel _commerceChannel;
 	private CommerceContext _commerceContext;
 	private CommerceCurrency _commerceCurrency;
@@ -967,7 +948,6 @@ public class CommerceOrderEngineTest {
 	private CommerceInventoryWarehouseLocalService
 		_commerceInventoryWarehouseLocalService;
 
-	@DeleteAfterTestRun
 	private CommerceOrder _commerceOrder;
 
 	@Inject

@@ -36,7 +36,6 @@ import com.liferay.commerce.model.CommerceShippingMethod;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.price.CommerceOrderPrice;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
-import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
@@ -52,13 +51,11 @@ import com.liferay.commerce.test.util.CommerceInventoryTestUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.commerce.test.util.TestCommerceContext;
 import com.liferay.commerce.util.CommerceShippingHelper;
-import com.liferay.portal.configuration.test.util.ConfigurationTestUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
@@ -72,17 +69,13 @@ import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
 import java.util.List;
 
 import org.frutilla.FrutillaRule;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -92,32 +85,12 @@ import org.junit.runner.RunWith;
  * @author Riccardo Alberti
  */
 @RunWith(Arquillian.class)
-public class CommerceShipmentTest {
+public class CommerceShipmentPricingV2Test {
 
 	@ClassRule
 	@Rule
 	public static AggregateTestRule aggregateTestRule = new AggregateTestRule(
 		new LiferayIntegrationTestRule(), PermissionCheckerTestRule.INSTANCE);
-
-	@BeforeClass
-	public static void setUpClass() throws Exception {
-		_properties = new Hashtable<>();
-
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_1_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception {
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_2_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -268,6 +241,8 @@ public class CommerceShipmentTest {
 
 		CPInstance cpInstance = _createCPInstance();
 
+		CPTestUtil.addBasePriceEntry(cpInstance);
+
 		BigDecimal value = BigDecimal.valueOf(RandomTestUtil.nextDouble());
 
 		CommerceOrder commerceOrder =
@@ -351,6 +326,8 @@ public class CommerceShipmentTest {
 
 		cpInstance.setPrice(BigDecimal.valueOf(25));
 
+		CPTestUtil.addBasePriceEntry(cpInstance);
+
 		_cpInstanceLocalService.updateCPInstance(cpInstance);
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
@@ -409,6 +386,8 @@ public class CommerceShipmentTest {
 		CPInstance cpInstance = _createCPInstance();
 
 		cpInstance.setPrice(BigDecimal.valueOf(25));
+
+		CPTestUtil.addBasePriceEntry(cpInstance);
 
 		_cpInstanceLocalService.updateCPInstance(cpInstance);
 
@@ -485,7 +464,11 @@ public class CommerceShipmentTest {
 
 		CPInstance cpInstance1 = _createCPInstance();
 
+		CPTestUtil.addBasePriceEntry(cpInstance1);
+
 		CPInstance cpInstance2 = _createCPInstance(cpInstance1.getGroupId());
+
+		CPTestUtil.addBasePriceEntry(cpInstance2);
 
 		BigDecimal value = BigDecimal.valueOf(RandomTestUtil.nextDouble());
 
@@ -572,6 +555,8 @@ public class CommerceShipmentTest {
 		);
 
 		CPInstance cpInstance = _createCPInstance();
+
+		CPTestUtil.addBasePriceEntry(cpInstance);
 
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
@@ -679,7 +664,11 @@ public class CommerceShipmentTest {
 
 		CPInstance cpInstance1 = _createCPInstance();
 
+		CPTestUtil.addBasePriceEntry(cpInstance1);
+
 		CPInstance cpInstance2 = _createCPInstance(cpInstance1.getGroupId());
+
+		CPTestUtil.addBasePriceEntry(cpInstance2);
 
 		BigDecimal value = BigDecimal.valueOf(RandomTestUtil.nextDouble());
 
@@ -752,6 +741,8 @@ public class CommerceShipmentTest {
 		);
 
 		CPInstance cpInstance = _createCPInstance();
+
+		CPTestUtil.addBasePriceEntry(cpInstance);
 
 		BigDecimal value = BigDecimal.valueOf(RandomTestUtil.nextDouble());
 
@@ -828,6 +819,8 @@ public class CommerceShipmentTest {
 
 		CPInstance cpInstance = _createCPInstance();
 
+		CPTestUtil.addBasePriceEntry(cpInstance);
+
 		BigDecimal value = BigDecimal.valueOf(RandomTestUtil.nextDouble());
 
 		CommerceOrder commerceOrder =
@@ -894,6 +887,8 @@ public class CommerceShipmentTest {
 
 		CPInstance cpInstance = _createCPInstance();
 
+		CPTestUtil.addBasePriceEntry(cpInstance);
+
 		BigDecimal value = BigDecimal.valueOf(RandomTestUtil.nextDouble());
 
 		CommerceOrder commerceOrder =
@@ -946,11 +941,8 @@ public class CommerceShipmentTest {
 	}
 
 	private CPInstance _createCPInstance() throws Exception {
-		Company company = CompanyLocalServiceUtil.getCompany(
-			_user.getCompanyId());
-
 		Group group = GroupTestUtil.addGroup(
-			company.getGroupId(), _user.getUserId(), 0);
+			_user.getGroupId(), _user.getUserId(), 0);
 
 		return CPTestUtil.addCPInstanceWithRandomSku(group.getGroupId());
 	}
@@ -958,12 +950,6 @@ public class CommerceShipmentTest {
 	private CPInstance _createCPInstance(long groupId) throws Exception {
 		return CPTestUtil.addCPInstanceWithRandomSku(groupId);
 	}
-
-	private static final String _PID =
-		"com.liferay.commerce.pricing.configuration." +
-			"CommercePricingConfiguration";
-
-	private static Dictionary<String, Object> _properties;
 
 	private CommerceChannel _commerceChannel;
 

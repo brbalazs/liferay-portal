@@ -23,7 +23,6 @@ import com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem;
 import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemLocalService;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
-import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
@@ -32,7 +31,6 @@ import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.shipment.test.util.CommerceShipmentTestUtil;
 import com.liferay.commerce.test.util.CommerceInventoryTestUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
-import com.liferay.portal.configuration.test.util.ConfigurationTestUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
@@ -45,17 +43,13 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
 import java.util.List;
 
 import org.frutilla.FrutillaRule;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -65,7 +59,7 @@ import org.junit.runner.RunWith;
  * @author Luca Pellizzon
  */
 @RunWith(Arquillian.class)
-public class OrderStockManagementTest {
+public class OrderStockManagementPricingV2Test {
 
 	@ClassRule
 	@Rule
@@ -73,26 +67,6 @@ public class OrderStockManagementTest {
 		new AggregateTestRule(
 			new LiferayIntegrationTestRule(),
 			PermissionCheckerTestRule.INSTANCE);
-
-	@BeforeClass
-	public static void setUpClass() throws Exception {
-		_properties = new Hashtable<>();
-
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_1_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception {
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_2_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -140,6 +114,8 @@ public class OrderStockManagementTest {
 
 		CPInstance cpInstance = CPTestUtil.addCPInstance(_group.getGroupId());
 
+		CPTestUtil.addBasePriceEntry(cpInstance);
+
 		CPDefinition cpDefinition = cpInstance.getCPDefinition();
 
 		CommerceTestUtil.updateBackOrderCPDefinitionInventory(cpDefinition);
@@ -178,6 +154,8 @@ public class OrderStockManagementTest {
 		_commerceOrders.add(commerceOrder);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstance(_group.getGroupId());
+
+		CPTestUtil.addBasePriceEntry(cpInstance);
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
@@ -249,6 +227,8 @@ public class OrderStockManagementTest {
 
 		CPInstance cpInstance = CPTestUtil.addCPInstance(_group.getGroupId());
 
+		CPTestUtil.addBasePriceEntry(cpInstance);
+
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
 
@@ -292,6 +272,8 @@ public class OrderStockManagementTest {
 
 		CPInstance cpInstance = CPTestUtil.addCPInstance(_group.getGroupId());
 
+		CPTestUtil.addBasePriceEntry(cpInstance);
+
 		CommerceTestUtil.addCommerceOrderItem(
 			commerceOrder.getCommerceOrderId(), cpInstance.getCPInstanceId(),
 			2);
@@ -320,6 +302,8 @@ public class OrderStockManagementTest {
 		_commerceOrders.add(commerceOrder);
 
 		CPInstance cpInstance = CPTestUtil.addCPInstance(_group.getGroupId());
+
+		CPTestUtil.addBasePriceEntry(cpInstance);
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
@@ -367,6 +351,8 @@ public class OrderStockManagementTest {
 
 		CPInstance cpInstance = CPTestUtil.addCPInstance(_group.getGroupId());
 
+		CPTestUtil.addBasePriceEntry(cpInstance);
+
 		CommerceInventoryWarehouse commerceInventoryWarehouse =
 			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
 
@@ -393,12 +379,6 @@ public class OrderStockManagementTest {
 
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
-
-	private static final String _PID =
-		"com.liferay.commerce.pricing.configuration." +
-			"CommercePricingConfiguration";
-
-	private static Dictionary<String, Object> _properties;
 
 	private CommerceChannel _commerceChannel;
 	private CommerceCurrency _commerceCurrency;

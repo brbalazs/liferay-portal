@@ -20,14 +20,12 @@ import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.internal.search.CommerceOrderItemIndexer;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
-import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.service.CommerceOrderItemLocalService;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.petra.string.StringPool;
-import com.liferay.portal.configuration.test.util.ConfigurationTestUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Document;
@@ -50,16 +48,12 @@ import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Dictionary;
-import java.util.Hashtable;
 import java.util.List;
 
 import org.frutilla.FrutillaRule;
 
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -70,7 +64,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 @Sync
-public class CommerceOrderItemIndexerTest {
+public class CommerceOrderItemIndexerPricingV2Test {
 
 	@ClassRule
 	@Rule
@@ -79,26 +73,6 @@ public class CommerceOrderItemIndexerTest {
 			new LiferayIntegrationTestRule(),
 			PermissionCheckerTestRule.INSTANCE,
 			SynchronousDestinationTestRule.INSTANCE);
-
-	@BeforeClass
-	public static void setUpClass() throws Exception {
-		_properties = new Hashtable<>();
-
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_1_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception {
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_2_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -140,6 +114,8 @@ public class CommerceOrderItemIndexerTest {
 		for (int i = 0; i < count; i++) {
 			CPInstance cpInstance = CPTestUtil.addCPInstance(
 				commerceOrder.getGroupId());
+
+			CPTestUtil.addBasePriceEntry(cpInstance);
 
 			cpInstance.setPurchasable(true);
 
@@ -242,17 +218,11 @@ public class CommerceOrderItemIndexerTest {
 		return searchContext;
 	}
 
-	private static final String _PID =
-		"com.liferay.commerce.pricing.configuration." +
-			"CommercePricingConfiguration";
-
 	@Inject
 	private static CommerceOrderItemLocalService _commerceOrderItemLocalService;
 
 	@Inject
 	private static IndexerRegistry _indexerRegistry;
-
-	private static Dictionary<String, Object> _properties;
 
 	@DeleteAfterTestRun
 	private CommerceCurrency _commerceCurrency;

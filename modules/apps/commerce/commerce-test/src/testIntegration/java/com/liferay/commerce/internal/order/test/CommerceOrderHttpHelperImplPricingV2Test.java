@@ -21,13 +21,13 @@ import com.liferay.commerce.constants.CommerceWebKeys;
 import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
+import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
 import com.liferay.commerce.inventory.model.CommerceInventoryBookedQuantity;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.inventory.service.CommerceInventoryBookedQuantityLocalService;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.CommerceOrderHttpHelper;
-import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.test.util.CPTestUtil;
@@ -36,7 +36,6 @@ import com.liferay.commerce.test.util.CommerceInventoryTestUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.commerce.test.util.TestCommerceContext;
 import com.liferay.petra.lang.CentralizedThreadLocal;
-import com.liferay.portal.configuration.test.util.ConfigurationTestUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
@@ -44,6 +43,7 @@ import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
+import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
@@ -56,8 +56,6 @@ import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 import com.liferay.portal.theme.ThemeDisplayFactory;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,10 +63,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.frutilla.FrutillaRule;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -80,7 +76,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * @author Luca Pellizzon
  */
 @RunWith(Arquillian.class)
-public class CommerceOrderHttpHelperImplTest {
+public class CommerceOrderHttpHelperImplPricingV2Test {
 
 	@ClassRule
 	@Rule
@@ -88,26 +84,6 @@ public class CommerceOrderHttpHelperImplTest {
 		new AggregateTestRule(
 			new LiferayIntegrationTestRule(),
 			PermissionCheckerTestRule.INSTANCE);
-
-	@BeforeClass
-	public static void setUpClass() throws Exception {
-		_properties = new Hashtable<>();
-
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_1_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception {
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_2_0);
-
-		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
-	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -227,6 +203,8 @@ public class CommerceOrderHttpHelperImplTest {
 
 		CPInstance cpInstance = CPTestUtil.addCPInstance(_group.getGroupId());
 
+		CPTestUtil.addBasePriceEntry(cpInstance);
+
 		_commerceInventoryWarehouse =
 			CommerceInventoryTestUtil.addCommerceInventoryWarehouse();
 
@@ -252,12 +230,6 @@ public class CommerceOrderHttpHelperImplTest {
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
-	private static final String _PID =
-		"com.liferay.commerce.pricing.configuration." +
-			"CommercePricingConfiguration";
-
-	private static Dictionary<String, Object> _properties;
-
 	private CommerceAccount _commerceAccount;
 
 	@Inject
@@ -268,7 +240,14 @@ public class CommerceOrderHttpHelperImplTest {
 		_commerceBookedQuantityLocalService;
 
 	private CommerceChannel _commerceChannel;
+
+	@DeleteAfterTestRun
 	private CommerceCurrency _commerceCurrency;
+
+	@Inject
+	private CommerceDiscountLocalService _commerceDiscountLocalService;
+
+	@DeleteAfterTestRun
 	private CommerceInventoryWarehouse _commerceInventoryWarehouse;
 
 	@Inject
@@ -283,6 +262,10 @@ public class CommerceOrderHttpHelperImplTest {
 	private Company _company;
 
 	private Group _group;
+
+	@Inject
+	private GroupLocalService _groupLocalService;
+
 	private HttpServletRequest _httpServletRequest;
 	private ThemeDisplay _themeDisplay;
 	private User _user;

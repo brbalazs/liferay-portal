@@ -19,19 +19,21 @@ import com.liferay.commerce.constants.CommerceOrderConstants;
 import com.liferay.commerce.constants.CommerceSubscriptionEntryConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
-import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemLocalService;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceSubscriptionEntry;
 import com.liferay.commerce.order.engine.CommerceOrderEngine;
 import com.liferay.commerce.payment.engine.CommerceSubscriptionEngine;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.service.CommerceOrderLocalServiceUtil;
 import com.liferay.commerce.service.CommerceShipmentLocalService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
 import com.liferay.commerce.subscription.CommerceSubscriptionEntryHelper;
 import com.liferay.commerce.test.util.CommerceTestUtil;
+import com.liferay.portal.configuration.test.util.ConfigurationTestUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
@@ -43,11 +45,14 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 
 import java.util.Date;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -64,11 +69,34 @@ public class CommerceDeliverySubscriptionsTest {
 	public static AggregateTestRule aggregateTestRule = new AggregateTestRule(
 		new LiferayIntegrationTestRule(), PermissionCheckerTestRule.INSTANCE);
 
+	@BeforeClass
+	public static void setUpClass() throws Exception {
+		_properties = new Hashtable<>();
+
+		_properties.put(
+			"commercePricingCalculationKey",
+			CommercePricingConstants.VERSION_1_0);
+
+		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
+	}
+
+	@AfterClass
+	public static void tearDownClass() throws Exception {
+		_properties.put(
+			"commercePricingCalculationKey",
+			CommercePricingConstants.VERSION_2_0);
+
+		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
+	}
+
 	@Before
 	public void setUp() throws Exception {
-		_group = GroupTestUtil.addGroup();
+		_company = CommerceTestUtil.addCompany();
 
-		_user = UserTestUtil.addUser();
+		_user = UserTestUtil.addUser(_company);
+
+		_group = GroupTestUtil.addGroup(
+			_user.getCompanyId(), _user.getUserId(), 0);
 
 		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
 			_group.getCompanyId());
@@ -79,13 +107,6 @@ public class CommerceDeliverySubscriptionsTest {
 		_commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_user.getUserId(), _commerceChannel.getGroupId(),
 			_commerceCurrency.getCommerceCurrencyId());
-	}
-
-	@After
-	public void tearDown() {
-		_commerceInventoryWarehouseItemLocalService.
-			deleteCommerceInventoryWarehouseItemsByCompanyId(
-				_user.getCompanyId());
 	}
 
 	@Test
@@ -249,15 +270,14 @@ public class CommerceDeliverySubscriptionsTest {
 			commerceShipments.toString(), 1, commerceShipments.size());
 	}
 
-	@DeleteAfterTestRun
+	private static final String _PID =
+		"com.liferay.commerce.pricing.configuration." +
+			"CommercePricingConfiguration";
+
+	private static Dictionary<String, Object> _properties;
+
 	private CommerceChannel _commerceChannel;
-
-	@DeleteAfterTestRun
 	private CommerceCurrency _commerceCurrency;
-
-	@Inject
-	private CommerceInventoryWarehouseItemLocalService
-		_commerceInventoryWarehouseItemLocalService;
 
 	@DeleteAfterTestRun
 	private CommerceOrder _commerceOrder;
@@ -279,9 +299,9 @@ public class CommerceDeliverySubscriptionsTest {
 		_commerceSubscriptionEntryLocalService;
 
 	@DeleteAfterTestRun
-	private Group _group;
+	private Company _company;
 
-	@DeleteAfterTestRun
+	private Group _group;
 	private User _user;
 
 }

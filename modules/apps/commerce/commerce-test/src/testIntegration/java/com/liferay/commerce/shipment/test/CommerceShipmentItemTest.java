@@ -24,6 +24,7 @@ import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceShipment;
 import com.liferay.commerce.model.CommerceShipmentItem;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.model.CommerceChannelConstants;
@@ -35,8 +36,10 @@ import com.liferay.commerce.service.CommerceShipmentLocalServiceUtil;
 import com.liferay.commerce.shipment.test.util.CommerceShipmentTestUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.commerce.test.util.TestCommerceContext;
+import com.liferay.portal.configuration.test.util.ConfigurationTestUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -49,12 +52,16 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 
 import org.frutilla.FrutillaRule;
 
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -73,10 +80,34 @@ public class CommerceShipmentItemTest {
 			new LiferayIntegrationTestRule(),
 			PermissionCheckerTestRule.INSTANCE);
 
+	@BeforeClass
+	public static void setUpClass() throws Exception {
+		_properties = new Hashtable<>();
+
+		_properties.put(
+			"commercePricingCalculationKey",
+			CommercePricingConstants.VERSION_1_0);
+
+		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
+	}
+
+	@AfterClass
+	public static void tearDownClass() throws Exception {
+		_properties.put(
+			"commercePricingCalculationKey",
+			CommercePricingConstants.VERSION_2_0);
+
+		ConfigurationTestUtil.saveConfiguration(_PID, _properties);
+	}
+
 	@Before
 	public void setUp() throws Exception {
-		_group = GroupTestUtil.addGroup();
-		_user = UserTestUtil.addUser();
+		_company = CommerceTestUtil.addCompany();
+
+		_user = UserTestUtil.addUser(_company);
+
+		_group = GroupTestUtil.addGroup(
+			_user.getCompanyId(), _user.getUserId(), 0);
 
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
@@ -328,12 +359,14 @@ public class CommerceShipmentItemTest {
 		CommerceShipmentLocalServiceUtil.addCommerceShipment(_commerceShipment);
 	}
 
-	@DeleteAfterTestRun
+	private static final String _PID =
+		"com.liferay.commerce.pricing.configuration." +
+			"CommercePricingConfiguration";
+
+	private static Dictionary<String, Object> _properties;
+
 	private CommerceChannel _commerceChannel;
-
 	private CommerceContext _commerceContext;
-
-	@DeleteAfterTestRun
 	private CommerceCurrency _commerceCurrency;
 
 	@Inject
@@ -342,19 +375,16 @@ public class CommerceShipmentItemTest {
 	@DeleteAfterTestRun
 	private CommerceOrder _commerceOrder;
 
-	@DeleteAfterTestRun
 	private CommerceShipment _commerceShipment;
-
-	@DeleteAfterTestRun
 	private CommerceShipmentItem _commerceShipmentItem;
 
 	@Inject
 	private CommerceShipmentItemLocalService _commerceShipmentItemLocalService;
 
 	@DeleteAfterTestRun
-	private Group _group;
+	private Company _company;
 
-	@DeleteAfterTestRun
+	private Group _group;
 	private User _user;
 
 }

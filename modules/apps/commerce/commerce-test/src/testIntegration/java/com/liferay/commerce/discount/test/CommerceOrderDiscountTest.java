@@ -23,11 +23,12 @@ import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
 import com.liferay.commerce.discount.constants.CommerceDiscountConstants;
 import com.liferay.commerce.discount.model.CommerceDiscount;
-import com.liferay.commerce.discount.service.CommerceDiscountLocalService;
 import com.liferay.commerce.discount.test.util.CommerceDiscountTestUtil;
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
+import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
+import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceChannel;
@@ -37,9 +38,11 @@ import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.test.util.CommerceInventoryTestUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.commerce.test.util.TestCommerceContext;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.module.configuration.ConfigurationException;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProviderUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
@@ -52,13 +55,17 @@ import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 
 import org.frutilla.FrutillaRule;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -75,11 +82,36 @@ public class CommerceOrderDiscountTest {
 	public static AggregateTestRule aggregateTestRule = new AggregateTestRule(
 		new LiferayIntegrationTestRule(), PermissionCheckerTestRule.INSTANCE);
 
+	@BeforeClass
+	public static void setUpClass() throws ConfigurationException {
+		_properties = new Hashtable<>();
+
+		_properties.put(
+			"commercePricingCalculationKey",
+			CommercePricingConstants.VERSION_1_0);
+
+		ConfigurationProviderUtil.saveSystemConfiguration(
+			CommercePricingConfiguration.class, _properties);
+	}
+
+	@AfterClass
+	public static void tearDownClass() throws ConfigurationException {
+		_properties.put(
+			"commercePricingCalculationKey",
+			CommercePricingConstants.VERSION_2_0);
+
+		ConfigurationProviderUtil.saveSystemConfiguration(
+			CommercePricingConfiguration.class, _properties);
+	}
+
 	@Before
 	public void setUp() throws Exception {
-		_group = GroupTestUtil.addGroup();
+		_company = CommerceTestUtil.addCompany();
 
-		_user = UserTestUtil.addUser();
+		_user = UserTestUtil.addUser(_company);
+
+		_group = GroupTestUtil.addGroup(
+			_user.getCompanyId(), _user.getUserId(), 0);
 
 		_commerceAccount =
 			_commerceAccountLocalService.getPersonalCommerceAccount(
@@ -96,13 +128,6 @@ public class CommerceOrderDiscountTest {
 		for (CommerceOrder commerceOrder : _commerceOrders) {
 			_commerceOrderLocalService.deleteCommerceOrder(commerceOrder);
 		}
-
-		_commerceAccountLocalService.deleteCommerceAccount(_commerceAccount);
-		GroupTestUtil.deleteGroup(_group);
-		_userLocalService.deleteUser(_user);
-
-		_commerceDiscountLocalService.deleteCommerceDiscounts(
-			_user.getCompanyId());
 	}
 
 	@Test
@@ -120,7 +145,7 @@ public class CommerceOrderDiscountTest {
 		);
 
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_user.getUserId(), commerceChannel.getGroupId(), _commerceCurrency);
@@ -196,7 +221,7 @@ public class CommerceOrderDiscountTest {
 		);
 
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_user.getUserId(), commerceChannel.getGroupId(), _commerceCurrency);
@@ -311,7 +336,7 @@ public class CommerceOrderDiscountTest {
 			"The final price will be calculated with the discounts"
 		);
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_user.getUserId(), commerceChannel.getGroupId(), _commerceCurrency);
@@ -426,32 +451,30 @@ public class CommerceOrderDiscountTest {
 	@Rule
 	public FrutillaRule frutillaRule = new FrutillaRule();
 
+	private static Dictionary<String, Object> _properties;
+
 	private CommerceAccount _commerceAccount;
 
 	@Inject
 	private CommerceAccountLocalService _commerceAccountLocalService;
 
-	@DeleteAfterTestRun
 	private CommerceCurrency _commerceCurrency;
-
-	@Inject
-	private CommerceDiscountLocalService _commerceDiscountLocalService;
 
 	@Inject
 	private CommerceOrderLocalService _commerceOrderLocalService;
 
-	@Inject(filter = "commerce.price.calculation.key=v1.0")
+	@Inject
 	private CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
 
 	private List<CommerceOrder> _commerceOrders;
+
+	@DeleteAfterTestRun
+	private Company _company;
 
 	@Inject
 	private CPInstanceLocalService _cpInstanceLocalService;
 
 	private Group _group;
 	private User _user;
-
-	@Inject
-	private UserLocalService _userLocalService;
 
 }

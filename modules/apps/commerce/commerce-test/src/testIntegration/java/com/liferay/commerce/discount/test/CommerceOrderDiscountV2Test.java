@@ -30,10 +30,8 @@ import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.price.list.model.CommercePriceEntry;
 import com.liferay.commerce.price.list.model.CommercePriceList;
+import com.liferay.commerce.price.list.service.CommercePriceListLocalService;
 import com.liferay.commerce.price.list.test.util.CommercePriceEntryTestUtil;
-import com.liferay.commerce.price.list.test.util.CommercePriceListTestUtil;
-import com.liferay.commerce.pricing.configuration.CommercePricingConfiguration;
-import com.liferay.commerce.pricing.constants.CommercePricingConstants;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
@@ -44,11 +42,11 @@ import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.test.util.CommerceInventoryTestUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.commerce.test.util.TestCommerceContext;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.module.configuration.ConfigurationProviderUtil;
-import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
+import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
@@ -62,8 +60,6 @@ import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
 import java.util.List;
 
 import org.frutilla.FrutillaRule;
@@ -89,9 +85,12 @@ public class CommerceOrderDiscountV2Test {
 
 	@Before
 	public void setUp() throws Exception {
-		_group = GroupTestUtil.addGroup();
+		_company = CommerceTestUtil.addCompany();
 
-		_user = UserTestUtil.addUser();
+		_user = UserTestUtil.addUser(_company);
+
+		_group = GroupTestUtil.addGroup(
+			_user.getCompanyId(), _user.getUserId(), 0);
 
 		_commerceAccount =
 			_commerceAccountLocalService.getPersonalCommerceAccount(
@@ -101,15 +100,6 @@ public class CommerceOrderDiscountV2Test {
 			_group.getCompanyId());
 
 		_commerceOrders = new ArrayList<>();
-
-		_properties = new Hashtable<>();
-
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_2_0);
-
-		ConfigurationProviderUtil.saveSystemConfiguration(
-			CommercePricingConfiguration.class, _properties);
 	}
 
 	@After
@@ -117,20 +107,6 @@ public class CommerceOrderDiscountV2Test {
 		for (CommerceOrder commerceOrder : _commerceOrders) {
 			_commerceOrderLocalService.deleteCommerceOrder(commerceOrder);
 		}
-
-		_commerceAccountLocalService.deleteCommerceAccount(_commerceAccount);
-		GroupTestUtil.deleteGroup(_group);
-		_userLocalService.deleteUser(_user);
-
-		_properties.put(
-			"commercePricingCalculationKey",
-			CommercePricingConstants.VERSION_1_0);
-
-		ConfigurationProviderUtil.saveSystemConfiguration(
-			CommercePricingConfiguration.class, _properties);
-
-		_commerceDiscountLocalService.deleteCommerceDiscounts(
-			_user.getCompanyId());
 	}
 
 	@Test
@@ -148,7 +124,7 @@ public class CommerceOrderDiscountV2Test {
 		);
 
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_user.getUserId(), commerceChannel.getGroupId(), _commerceCurrency);
@@ -171,8 +147,8 @@ public class CommerceOrderDiscountV2Test {
 				catalog.getGroupId());
 
 		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), true, "price-list", 1.0);
+			_commercePriceListLocalService.fetchCommerceCatalogBasePriceList(
+				catalog.getGroupId());
 
 		CPDefinition cpDefinition = cpInstanceDiscount.getCPDefinition();
 
@@ -239,7 +215,7 @@ public class CommerceOrderDiscountV2Test {
 		);
 
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_user.getUserId(), commerceChannel.getGroupId(), _commerceCurrency);
@@ -268,8 +244,8 @@ public class CommerceOrderDiscountV2Test {
 		CPDefinition cpDefinitionPlan = cpInstancePlain.getCPDefinition();
 
 		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), true, "price-list", 1.0);
+			_commercePriceListLocalService.fetchCommerceCatalogBasePriceList(
+				catalog.getGroupId());
 
 		CommercePriceEntry commercePriceEntryDiscount =
 			CommercePriceEntryTestUtil.addCommercePriceEntry(
@@ -374,7 +350,7 @@ public class CommerceOrderDiscountV2Test {
 			"The final price will be calculated with the discounts"
 		);
 		CommerceChannel commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 
 		CommerceOrder commerceOrder = CommerceTestUtil.addB2CCommerceOrder(
 			_user.getUserId(), commerceChannel.getGroupId(), _commerceCurrency);
@@ -403,8 +379,8 @@ public class CommerceOrderDiscountV2Test {
 		CPDefinition cpDefinitionPlan = cpInstancePlain.getCPDefinition();
 
 		CommercePriceList commercePriceList =
-			CommercePriceListTestUtil.addCommercePriceList(
-				catalog.getGroupId(), true, "price-list", 1.0);
+			_commercePriceListLocalService.fetchCommerceCatalogBasePriceList(
+				catalog.getGroupId());
 
 		CommercePriceEntry commercePriceEntryDiscount =
 			CommercePriceEntryTestUtil.addCommercePriceEntry(
@@ -521,15 +497,18 @@ public class CommerceOrderDiscountV2Test {
 	@Inject
 	private CommerceOrderLocalService _commerceOrderLocalService;
 
-	@Inject(filter = "commerce.price.calculation.key=v2.0")
+	@Inject
 	private CommerceOrderPriceCalculation _commerceOrderPriceCalculation;
 
 	private List<CommerceOrder> _commerceOrders;
-	private Group _group;
-	private Dictionary<String, Object> _properties;
-	private User _user;
 
 	@Inject
-	private UserLocalService _userLocalService;
+	private CommercePriceListLocalService _commercePriceListLocalService;
+
+	@DeleteAfterTestRun
+	private Company _company;
+
+	private Group _group;
+	private User _user;
 
 }

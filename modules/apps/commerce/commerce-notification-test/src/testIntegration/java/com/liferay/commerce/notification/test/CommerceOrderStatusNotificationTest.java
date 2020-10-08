@@ -283,7 +283,6 @@ public class CommerceOrderStatusNotificationTest {
 	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount;
 
-	@DeleteAfterTestRun
 	private CommerceChannel _commerceChannel;
 
 	@DeleteAfterTestRun

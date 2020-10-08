@@ -33,7 +33,6 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
-import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.service.CommerceOrderLocalService;
 import com.liferay.commerce.test.util.CommerceTestUtil;
@@ -45,7 +44,6 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.rule.SynchronousDestinationTestRule;
-import com.liferay.portal.kernel.test.util.CompanyTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
@@ -82,12 +80,12 @@ public class CommerceDiscountLocalServiceTest {
 
 	@Before
 	public void setUp() throws Exception {
-		_company = CompanyTestUtil.addCompany();
+		_company = CommerceTestUtil.addCompany();
 
 		_user = UserTestUtil.addUser(_company);
 
 		_commerceCurrency = CommerceCurrencyTestUtil.addCommerceCurrency(
-			_company.getCompanyId());
+			_user.getCompanyId());
 
 		_serviceContext = ServiceContextTestUtil.getServiceContext(
 			_user.getCompanyId(), _user.getGroupId(), _user.getUserId());
@@ -99,8 +97,8 @@ public class CommerceDiscountLocalServiceTest {
 
 		_commerceAccountGroup =
 			_commerceAccountGroupLocalService.addCommerceAccountGroup(
-				_company.getCompanyId(), RandomTestUtil.randomString(), 0,
-				false, null, _serviceContext);
+				_user.getCompanyId(), RandomTestUtil.randomString(), 0, false,
+				null, _serviceContext);
 
 		CommerceAccountGroupCommerceAccountRelLocalServiceUtil.
 			addCommerceAccountGroupCommerceAccountRel(
@@ -108,11 +106,11 @@ public class CommerceDiscountLocalServiceTest {
 				_commerceAccount.getCommerceAccountId(), _serviceContext);
 
 		_commerceCatalog = CommerceTestUtil.addCommerceCatalog(
-			_company.getCompanyId(), _company.getGroupId(), _user.getUserId(),
+			_user.getCompanyId(), _user.getGroupId(), _user.getUserId(),
 			_commerceCurrency.getCode());
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 
 		_commercePricingConfiguration =
 			_configurationProvider.getSystemConfiguration(
@@ -126,8 +124,6 @@ public class CommerceDiscountLocalServiceTest {
 		for (CommerceOrder commerceOrder : _commerceOrders) {
 			_commerceOrderLocalService.deleteCommerceOrder(commerceOrder);
 		}
-
-		_cpDefinitionLocalService.deleteCPDefinitions(_company.getCompanyId());
 	}
 
 	@Test
@@ -157,7 +153,7 @@ public class CommerceDiscountLocalServiceTest {
 
 		List<CommerceDiscount> commerceDiscounts =
 			_commerceDiscountLocalService.getUnqualifiedCommerceDiscounts(
-				_company.getCompanyId(), cpDefinition.getCPDefinitionId());
+				_user.getCompanyId(), cpDefinition.getCPDefinitionId());
 
 		Assert.assertEquals(
 			commerceDiscounts.toString(), 1, commerceDiscounts.size());
@@ -196,7 +192,7 @@ public class CommerceDiscountLocalServiceTest {
 
 		List<CommerceDiscount> commerceDiscounts =
 			_commerceDiscountLocalService.getUnqualifiedCommerceDiscounts(
-				_company.getCompanyId(), cpDefinition.getCPDefinitionId());
+				_user.getCompanyId(), cpDefinition.getCPDefinitionId());
 
 		Assert.assertEquals(
 			commerceDiscounts.toString(), 1, commerceDiscounts.size());
@@ -566,8 +562,7 @@ public class CommerceDiscountLocalServiceTest {
 
 		List<CommerceDiscount> commerceDiscounts =
 			_getOrderCommerceDiscountByHierarchy(
-				_company.getCompanyId(),
-				_commerceAccount.getCommerceAccountId(),
+				_user.getCompanyId(), _commerceAccount.getCommerceAccountId(),
 				_commerceChannel.getCommerceChannelId(), type);
 
 		CommerceDiscount commerceDiscount = commerceDiscounts.get(0);
@@ -583,8 +578,7 @@ public class CommerceDiscountLocalServiceTest {
 
 		List<CommerceDiscount> commerceDiscounts =
 			_getProductCommerceDiscountByHierarchy(
-				_company.getCompanyId(),
-				_commerceAccount.getCommerceAccountId(),
+				_user.getCompanyId(), _commerceAccount.getCommerceAccountId(),
 				_commerceChannel.getCommerceChannelId(), cpDefinitionId);
 
 		CommerceDiscount commerceDiscount = commerceDiscounts.get(0);
@@ -594,10 +588,7 @@ public class CommerceDiscountLocalServiceTest {
 			commerceDiscount.getCommerceDiscountId());
 	}
 
-	@DeleteAfterTestRun
 	private CommerceAccount _commerceAccount;
-
-	@DeleteAfterTestRun
 	private CommerceAccountGroup _commerceAccountGroup;
 
 	@Inject
@@ -606,13 +597,8 @@ public class CommerceDiscountLocalServiceTest {
 	@Inject
 	private CommerceAccountHelper _commerceAccountHelper;
 
-	@DeleteAfterTestRun
 	private CommerceCatalog _commerceCatalog;
-
-	@DeleteAfterTestRun
 	private CommerceChannel _commerceChannel;
-
-	@DeleteAfterTestRun
 	private CommerceCurrency _commerceCurrency;
 
 	@Inject
@@ -630,12 +616,7 @@ public class CommerceDiscountLocalServiceTest {
 	@Inject
 	private ConfigurationProvider _configurationProvider;
 
-	@Inject
-	private CPDefinitionLocalService _cpDefinitionLocalService;
-
 	private ServiceContext _serviceContext;
-
-	@DeleteAfterTestRun
 	private User _user;
 
 }

@@ -33,13 +33,13 @@ import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
-import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
 import com.liferay.commerce.product.test.util.CPTestUtil;
 import com.liferay.commerce.tax.model.CommerceTaxMethod;
 import com.liferay.commerce.test.util.CommerceTaxTestUtil;
 import com.liferay.commerce.test.util.CommerceTestUtil;
 import com.liferay.commerce.test.util.TestCommerceContext;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -82,9 +82,12 @@ public class CommerceProductPriceCalculationWithTaxV2Test {
 
 	@Before
 	public void setUp() throws Exception {
-		_user = UserTestUtil.addUser();
+		_company = CommerceTestUtil.addCompany();
 
-		_group = GroupTestUtil.addGroup();
+		_user = UserTestUtil.addUser(_company);
+
+		_group = GroupTestUtil.addGroup(
+			_user.getCompanyId(), _user.getUserId(), 0);
 
 		_commerceAccount =
 			_commerceAccountLocalService.getPersonalCommerceAccount(
@@ -97,7 +100,7 @@ public class CommerceProductPriceCalculationWithTaxV2Test {
 			_user.getCompanyId(), _user.getGroupId(), _user.getUserId());
 
 		_commerceChannel = CommerceTestUtil.addCommerceChannel(
-			_commerceCurrency.getCode());
+			_company.getGroupId(), _commerceCurrency.getCode());
 
 		_commerceTaxMethod = CommerceTaxTestUtil.addCommerceByAddressTaxMethod(
 			_user.getUserId(), _commerceChannel.getGroupId(), true);
@@ -326,29 +329,22 @@ public class CommerceProductPriceCalculationWithTaxV2Test {
 	@Inject
 	private CommerceCatalogLocalService _commerceCatalogLocalService;
 
-	@DeleteAfterTestRun
 	private CommerceChannel _commerceChannel;
-
 	private CommerceCurrency _commerceCurrency;
 
-	@Inject(filter = "commerce.price.calculation.key=v2.0")
+	@Inject
 	private CommerceProductPriceCalculation _commerceProductPriceCalculation;
 
-	@DeleteAfterTestRun
 	private CommerceTaxMethod _commerceTaxMethod;
+
+	@DeleteAfterTestRun
+	private Company _company;
 
 	@Inject
 	private CPDefinitionLocalService _cpDefinitionLocalService;
 
-	@Inject
-	private CPInstanceLocalService _cpInstanceLocalService;
-
-	@DeleteAfterTestRun
 	private Group _group;
-
 	private ServiceContext _serviceContext;
-
-	@DeleteAfterTestRun
 	private User _user;
 
 }
