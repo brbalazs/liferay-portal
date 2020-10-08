@@ -15,6 +15,7 @@ Immutable.Record {
   "state": null,
   "stateStartDate": null,
   "timeZone": Immutable.Record {
+    "country": "UTC",
     "displayTimeZone": "(UTC) UTC",
     "timeZoneId": "UTC",
   },

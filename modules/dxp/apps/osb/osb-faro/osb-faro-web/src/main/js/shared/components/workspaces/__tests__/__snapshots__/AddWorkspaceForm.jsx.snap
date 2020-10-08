@@ -148,33 +148,40 @@ exports[`AddWorkspaceForm should render 1`] = `
               </p>
             </label>
             <div
-              aria-haspopup="true"
-              class="dropdown dropdown-root searchable-select-root searchable-timezone"
-              name="timezone"
+              class="form-group form-group-autofit"
             >
-              <button
-                class="button-root btn btn-secondary dropdown-toggle show-caret"
-                type="button"
+              <div
+                class="form-group-item col-3 country-picker"
               >
-                <span
-                  class="text-truncate"
+                <select
+                  class="form-control select-root"
+                  disabled=""
                 >
-                  (UTC) UTC
-                </span>
-                
-                <span
-                  class="caret-root"
-                >
-                  <svg
-                    class="icon-root lexicon-icon lexicon-icon-caret-bottom"
-                    viewBox=""
+                  <option
+                    value=""
                   >
-                    <use
-                      xlink:href="#caret-bottom"
+                    Country
+                  </option>
+                </select>
+              </div>
+              <div
+                class="form-group-item col-9 time-zone-picker"
+              >
+                <div
+                  class=""
+                >
+                  <select
+                    class="form-control select-root"
+                    disabled=""
+                    id="timezone"
+                    name="timezone"
+                  >
+                    <option
+                      class=""
                     />
-                  </svg>
-                </span>
-              </button>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
           <div
