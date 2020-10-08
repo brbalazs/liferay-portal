@@ -8,31 +8,28 @@ jest.unmock('react-dom');
 
 describe('TimeZonePicker', () => {
 	it('should render', () => {
-        jest.useFakeTimers();
+		jest.useFakeTimers();
 
 		const {container} = render(
-            <Form
-                initialValues={{
-                    timezone: '',
-                }}
-            >
-                {({
-                    setFieldTouched,
-                    setFieldValue
-                }) => (
-                    <Form.Form >
-                        <TimeZonePicker
-                            fieldName='timezone'
-                            initialTimeZone={new TimeZone()}
-                            setFieldTouched={setFieldTouched}
-                            setFieldValue={setFieldValue}
-                        />
-                    </Form.Form>
-                )}
-            </Form>
-        );
+			<Form
+				initialValues={{
+					timezone: ''
+				}}
+			>
+				{({setFieldTouched, setFieldValue}) => (
+					<Form.Form>
+						<TimeZonePicker
+							fieldName='timezone'
+							initialTimeZone={new TimeZone()}
+							setFieldTouched={setFieldTouched}
+							setFieldValue={setFieldValue}
+						/>
+					</Form.Form>
+				)}
+			</Form>
+		);
 
-        jest.runAllTimers();
+		jest.runAllTimers();
 		expect(container).toMatchSnapshot();
 	});
 });

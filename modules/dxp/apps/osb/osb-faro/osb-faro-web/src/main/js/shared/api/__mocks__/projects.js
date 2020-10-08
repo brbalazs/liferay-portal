@@ -8,28 +8,25 @@ export const create = jest.fn(() => Promise.resolve(data.mockProject()));
 export const fetch = jest.fn(() => Promise.resolve(data.mockProject()));
 
 export const fetchAvailableTimeZones = jest.fn(() =>
-	Promise.resolve(
-		[
-			new TimeZone({
-				country: 'UTC',
-				displayTimeZone: '(UTC) UTC',
-				timezoneValue: 'UTC'
-			}),
+	Promise.resolve([
+		new TimeZone({
+			country: 'UTC',
+			displayTimeZone: '(UTC) UTC',
+			timezoneValue: 'UTC'
+		}),
 
-			new TimeZone({
-				country: 'Brazil',
-				displayTimeZone: 'UTC -03:00 Brasilia Time (America/Recife)',
-				timezoneValue: 'America/Recife'
-			}),
+		new TimeZone({
+			country: 'Brazil',
+			displayTimeZone: 'UTC -03:00 Brasilia Time (America/Recife)',
+			timezoneValue: 'America/Recife'
+		}),
 
-			new TimeZone({
-				country: 'Chile',
-				displayTimeZone: 'UTC -03:00 Chile Time (America/Santiago)',
-				timezoneValue: 'America/Santiago'
-			})
-
-		]
-	)
+		new TimeZone({
+			country: 'Chile',
+			displayTimeZone: 'UTC -03:00 Chile Time (America/Santiago)',
+			timezoneValue: 'America/Santiago'
+		})
+	])
 );
 
 export const fetchProjectViaCorpProjectUuid = jest.fn(() =>
