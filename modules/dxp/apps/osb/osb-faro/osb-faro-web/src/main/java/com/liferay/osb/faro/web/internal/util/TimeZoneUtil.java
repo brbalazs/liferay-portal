@@ -16,15 +16,15 @@ package com.liferay.osb.faro.web.internal.util;
 
 import com.liferay.osb.faro.web.internal.model.display.contacts.TimeZoneDisplay;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -44,13 +44,14 @@ public class TimeZoneUtil {
 	}
 
 	public static List<TimeZoneDisplay> getTimeZoneDisplays() {
-		List<ZoneId> zoneIds = _getZoneIds();
+		Set<Map.Entry<String, String>> timeZoneIds =
+			_timeZoneIdCountryMap.entrySet();
 
-		Stream<ZoneId> stream = zoneIds.stream();
+		Stream<Map.Entry<String, String>> stream = timeZoneIds.stream();
 
 		return stream.map(
-			zoneId -> new TimeZoneDisplay(
-				zoneId, _timeZoneIdCountryMap.get(zoneId.getId()))
+			entry -> new TimeZoneDisplay(
+				ZoneId.of(entry.getKey()), entry.getValue())
 		).collect(
 			Collectors.toList()
 		);
@@ -60,32 +61,28 @@ public class TimeZoneUtil {
 		return _timeZoneIdCountryMap.containsKey(timeZoneId);
 	}
 
-	private static List<ZoneId> _getZoneIds() {
-		Set<String> timeZoneIds = _timeZoneIdCountryMap.keySet();
+	private static int _compareTimeZoneId(
+		String timeZoneId1, String timeZoneId2) {
 
-		Stream<String> stream = timeZoneIds.stream();
+		Instant instant = Instant.now();
 
-		Comparator<ZoneId> comparator = Comparator.comparing(
-			zoneId -> {
-				LocalDateTime localDateTimeNow = LocalDateTime.now();
+		ZonedDateTime zonedDateTime1 = instant.atZone(ZoneId.of(timeZoneId1));
+		ZonedDateTime zonedDateTime2 = instant.atZone(ZoneId.of(timeZoneId2));
 
-				ZonedDateTime zonedDateTime = localDateTimeNow.atZone(zoneId);
+		ZoneOffset zoneOffset1 = zonedDateTime1.getOffset();
+		ZoneOffset zoneOffset2 = zonedDateTime2.getOffset();
 
-				return zonedDateTime.getOffset();
-			},
-			Comparator.reverseOrder());
+		int value = zoneOffset2.compareTo(zoneOffset1);
 
-		return stream.map(
-			ZoneId::of
-		).sorted(
-			comparator.thenComparing(ZoneId::getId)
-		).collect(
-			Collectors.toList()
-		);
+		if (value == 0) {
+			return timeZoneId1.compareTo(timeZoneId2);
+		}
+
+		return value;
 	}
 
 	private static final Map<String, String> _timeZoneIdCountryMap =
-		new HashMap<String, String>() {
+		new TreeMap<String, String>(TimeZoneUtil::_compareTimeZoneId) {
 			{
 				put("Africa/Abidjan", "Côte d’Ivoire");
 				put("Africa/Accra", "Ghana");
