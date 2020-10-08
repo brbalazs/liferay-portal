@@ -1,5 +1,5 @@
+import HTMLBox from './HTMLBox';
 import React from 'react';
-import SankeyBox from './HTMLBox';
 import {SANKEY_COLORS} from '../../utils/sankey';
 import {SankeyNode} from '../../utils/types';
 
@@ -12,12 +12,13 @@ interface IEmptyStateEdgeProps extends React.HTMLAttributes<HTMLElement> {
 
 const EmptyStateEdge: React.FC<IEmptyStateEdgeProps> = ({node}) => (
 	<div className={CLASSNAME_BOX}>
-		<SankeyBox color={SANKEY_COLORS.bgInactive} node={node} />
+		<HTMLBox color={SANKEY_COLORS.bgInactive} node={node} />
 
 		<div className={`${CLASSNAME_BOX}-text`}>
 			<p className='mb-2'>
 				{Liferay.Language.get('no-data-found-for-the-selected-filter')}
 			</p>
+
 			<p className='font-size-sm'>
 				{Liferay.Language.get(
 					'the-selected-filter-did-not-match-any-result'

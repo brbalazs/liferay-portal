@@ -18,7 +18,7 @@ export function isParentNode(node) {
 }
 
 export function getParentNode(nodes) {
-	return nodes.find(node => isParentNode(node));
+	return nodes.find(isParentNode);
 }
 
 export enum SANKEY_COLORS {
@@ -51,7 +51,7 @@ export function getNodeColor(node, activeIndex) {
 	return nextColor(index);
 }
 
-export function getCenterY({nodes}) {
+export function getCenterY(nodes) {
 	const minAndMax = nodes.reduce((result, {y0, y1}) => {
 		result[0] = y0 < result[0] || result[0] === undefined ? y0 : result[0];
 		result[1] = y1 > result[1] || result[1] === undefined ? y1 : result[1];
@@ -80,14 +80,10 @@ export function getInternalData(sankeyData, width, height) {
 	return makeSankey(sankeyData);
 }
 
-export function getSankeyHeight(internalData) {
+export function getSankeyHeight(nodes) {
 	const height = SANKEY_STARTER_HEIGHT;
 
-	if (
-		height < SANKEY_DEFAULT_HEIGHT &&
-		internalData.nodes.length &&
-		internalData.nodes.length > 2
-	) {
+	if (height < SANKEY_DEFAULT_HEIGHT && nodes.length && nodes.length > 2) {
 		return SANKEY_DEFAULT_HEIGHT;
 	}
 
@@ -100,25 +96,19 @@ export function getAssetsHeight(items) {
 
 export function calcSankeyNodePosition(expandedTouchpoint, node, y0) {
 	const margin = 13;
-	let assetsHeight = 25;
 
-	if (expandedTouchpoint && node.index > expandedTouchpoint.index) {
-		assetsHeight = getAssetsHeight(expandedTouchpoint.items);
-		assetsHeight += EXPANDED_NODE_OFFSET;
-	}
+	const assetsHeight =
+		expandedTouchpoint && node.index > expandedTouchpoint.index
+			? getAssetsHeight(expandedTouchpoint.items) + EXPANDED_NODE_OFFSET
+			: 25;
 
 	return y0 + assetsHeight + margin;
 }
 
 export function calcExpandedTouchpointBoxPosition(expandedTouchpoint, {index}) {
-	let y = 30;
-
-	if (expandedTouchpoint && index == expandedTouchpoint.index) {
-		y = getAssetsHeight(expandedTouchpoint.items);
-		y += EXPANDED_NODE_OFFSET;
-	}
-
-	return y;
+	return expandedTouchpoint && index === expandedTouchpoint.index
+		? getAssetsHeight(expandedTouchpoint.items) + EXPANDED_NODE_OFFSET
+		: 30;
 }
 
 export const getBounds = svgRef => {

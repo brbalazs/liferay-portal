@@ -24,13 +24,12 @@ export const CLASSNAME = 'analytics-sankey';
 
 interface ISankeyProps extends React.HTMLAttributes<HTMLElement> {
 	filters: object;
-	loading: boolean;
-	width: string;
 	rangeSelectors: RangeSelectors;
 	router: {
 		params: object;
 		query: object;
 	};
+	width: string;
 }
 
 const Sankey: React.FC<ISankeyProps> = ({
@@ -40,17 +39,20 @@ const Sankey: React.FC<ISankeyProps> = ({
 	width = '100%'
 }) => {
 	const svgRef = useRef<any>();
+
 	const [{links, nodes}, setData] = useState<{
 		links: Array<Link>;
 		nodes: Array<Node>;
 	}>({links: [], nodes: []});
 
 	const [activeIndex, setActiveIndex] = useState<number>(-1);
-	const [expandedTouchpoint, setExpandedTouchpoint] = useState<
-		NodeSankey & {items: Array<AssetNode>}
-	>(undefined);
 
-	const sankeyHeight = getSankeyHeight({nodes});
+	const [expandedTouchpoint, setExpandedTouchpoint] = useState<
+		SankeyNode & {items: Array<AssetNode>}
+	>();
+
+	const sankeyHeight = getSankeyHeight(nodes);
+
 	const [{stageHeight, stageWidth}, setStageSize] = useState<{
 		stageHeight: number;
 		stageWidth: number;
@@ -64,19 +66,15 @@ const Sankey: React.FC<ISankeyProps> = ({
 
 	const {loading} = useQuery(TouchpointPathQuery, {
 		onCompleted: data => {
-			const parsedData = getSankeyData(data, router);
-			setData(parsedData);
+			setData(getSankeyData(data, router));
 		},
 		variables
 	});
 
 	useEffect(() => {
-		let extraHeight = 0;
-
-		if (expandedTouchpoint) {
-			extraHeight =
-				getAssetsHeight(expandedTouchpoint.items) + SANKEY_OFFSET;
-		}
+		const extraHeight = expandedTouchpoint
+			? getAssetsHeight(expandedTouchpoint.items) + SANKEY_OFFSET
+			: 0;
 
 		setStageSize(size => ({
 			...size,
@@ -95,16 +93,16 @@ const Sankey: React.FC<ISankeyProps> = ({
 		sankeyHeight
 	);
 
-	const parentNode = internalData.nodes.find(node => isParentNode(node));
+	const parentNode = internalData.nodes.find(isParentNode);
 
 	if (parentNode && !loading && svgRef.current) {
-		if (parentNode.directAccessMetric === 0 && !links.length) {
+		if (!parentNode.directAccessMetric && !links.length) {
 			return (
 				<div ref={svgRef} style={{width}}>
 					<EmptyStateEdge node={parentNode} />
 				</div>
 			);
-		} else if (links.length === 0) {
+		} else if (!links.length) {
 			return (
 				<div ref={svgRef} style={{width}}>
 					<DirectAccessEdge
@@ -170,6 +168,7 @@ const Sankey: React.FC<ISankeyProps> = ({
 			);
 		}
 	}
+
 	return (
 		<div ref={svgRef} style={{width}}>
 			<Loading />

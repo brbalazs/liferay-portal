@@ -30,28 +30,23 @@ const Paths: React.FC<IPathsProps> = ({
 	parentNode,
 	setActiveIndex
 }) => {
-	const centerY = getCenterY({nodes});
-	let marginY = 0;
-
 	if (!nodes.length) return;
 
-	let offsetY1 =
-		calcSankeyNodePosition(expandedTouchpoint, parentNode, parentNode.y0) -
-		SANKEY_PATHS_MARGIN * 4.15;
+	const centerY = getCenterY(nodes);
+	const marginY = nodes.length <= 2 ? 31 : nodes.length === 3 ? -89 : 0;
 
-	if (expandedTouchpoint && expandedTouchpoint.index == parentNode.index) {
-		offsetY1 =
-			calcExpandedTouchpointBoxPosition(expandedTouchpoint, parentNode) -
-			SANKEY_PATHS_MARGIN;
-	}
-
-	const handleMouseEnter = ({currentTarget}) => {
-		setActiveIndex(parseInt(currentTarget.dataset.index));
-	};
-
-	const handleMouseLeave = () => {
-		setActiveIndex(-1);
-	};
+	const offsetY1 =
+		expandedTouchpoint && expandedTouchpoint.index === parentNode.index
+			? calcExpandedTouchpointBoxPosition(
+					expandedTouchpoint,
+					parentNode
+			  ) - SANKEY_PATHS_MARGIN
+			: calcSankeyNodePosition(
+					expandedTouchpoint,
+					parentNode,
+					parentNode.y0
+			  ) -
+			  SANKEY_PATHS_MARGIN * 4.15;
 
 	return (
 		<>
@@ -59,21 +54,15 @@ const Paths: React.FC<IPathsProps> = ({
 				const node = nodes[index];
 				const {source, target, width, y0, y1} = link;
 
-				let calculatedY0 = calcSankeyNodePosition(
-					expandedTouchpoint,
-					node,
-					y0
-				);
-
-				if (expandedTouchpoint && index == expandedTouchpoint.index) {
-					calculatedY0 =
-						y0 +
-						calcExpandedTouchpointBoxPosition(
-							expandedTouchpoint,
-							node
-						) +
-						8;
-				}
+				const calculatedY0 =
+					expandedTouchpoint && index === expandedTouchpoint.index
+						? y0 +
+						  calcExpandedTouchpointBoxPosition(
+								expandedTouchpoint,
+								node
+						  ) +
+						  8
+						: calcSankeyNodePosition(expandedTouchpoint, node, y0);
 
 				const sankeyLinkHorizontal = linkHorizontal()
 					.source(() => [source.x1, calculatedY0])

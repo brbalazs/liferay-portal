@@ -37,26 +37,18 @@ const HTMLBox: React.FC<IHTMLBoxProps> = ({color, items = [], node}) => {
 
 			return (
 				<Link className='icon icon-asset' to={url}>
-					<span className='text-truncate'>{asset.title}</span>
+					<TextTruncate
+						inline
+						maxCharLength={20}
+						title={asset.title}
+					/>
 				</Link>
 			);
 		}
 
 		return (
 			<ul>
-				{!showAssets ? (
-					<li>
-						<Button
-							className='action-link icon icon-plus'
-							display='link'
-							onClick={handleToggleShowAssets}
-						>
-							{sub(Liferay.Language.get('show-top-x-assets'), [
-								assets.length
-							])}
-						</Button>
-					</li>
-				) : (
+				{showAssets ? (
 					<>
 						{assets.map((asset, index) => {
 							const {title} = asset;
@@ -65,9 +57,11 @@ const HTMLBox: React.FC<IHTMLBoxProps> = ({color, items = [], node}) => {
 							return (
 								<li key={index}>
 									<Link className='icon icon-asset' to={url}>
-										<span className='text-truncate'>
-											{title}
-										</span>
+										<TextTruncate
+											inline
+											maxCharLength={20}
+											title={title}
+										/>
 									</Link>
 								</li>
 							);
@@ -83,6 +77,18 @@ const HTMLBox: React.FC<IHTMLBoxProps> = ({color, items = [], node}) => {
 							</Button>
 						</li>
 					</>
+				) : (
+					<li>
+						<Button
+							className='action-link icon icon-plus'
+							display='link'
+							onClick={handleToggleShowAssets}
+						>
+							{sub(Liferay.Language.get('show-top-x-assets'), [
+								assets.length
+							])}
+						</Button>
+					</li>
 				)}
 			</ul>
 		);
@@ -96,11 +102,13 @@ const HTMLBox: React.FC<IHTMLBoxProps> = ({color, items = [], node}) => {
 						toThousands(directAccessMetric)
 					])}
 				</div>
+
 				<div className={`${CLASSNAME_BOX}-title`}>
 					<span className='text-truncate'>
 						{name || Liferay.Language.get('untitled')}
 					</span>
 				</div>
+
 				{!!items.length && (
 					<div className={`${CLASSNAME_BOX}-show-more`}>
 						{renderListGroup()}

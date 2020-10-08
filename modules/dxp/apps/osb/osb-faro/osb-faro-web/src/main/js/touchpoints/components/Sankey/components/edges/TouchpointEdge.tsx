@@ -42,14 +42,6 @@ const TouchpointEdge: React.FC<ITouchpointEdgeProps> = ({
 
 	const [items, setItems] = useState<Array<AssetNode>>([]);
 
-	const handleMouseEnter = ({currentTarget}) => {
-		setActiveIndex(parseInt(currentTarget.dataset.index));
-	};
-
-	const handleMouseLeave = () => {
-		setActiveIndex(-1);
-	};
-
 	const {variables} = getVariables({params: router.params, rangeSelectors});
 
 	const {loading} = useQuery(AssetsQuery, {
@@ -71,11 +63,7 @@ const TouchpointEdge: React.FC<ITouchpointEdgeProps> = ({
 		variables
 	});
 
-	const calculatedY0 = calcSankeyNodePosition(
-		expandedTouchpoint,
-		node,
-		node.y0
-	);
+	const calculatedY0 = calcSankeyNodePosition(expandedTouchpoint, node, y0);
 
 	const height = y1 - y0;
 	const rectPosition = calcExpandedTouchpointBoxPosition(
@@ -83,18 +71,16 @@ const TouchpointEdge: React.FC<ITouchpointEdgeProps> = ({
 		node
 	);
 
-	let informationsY = 0;
-
-	if (!loading && !items.length) {
-		informationsY = 20;
-	}
+	const informationsY = !loading && !items.length ? 20 : 0;
 
 	return (
 		<svg
 			className={`${CLASSNAME}-node-group`}
 			data-index={index}
-			onMouseEnter={handleMouseEnter}
-			onMouseLeave={handleMouseLeave}
+			onMouseEnter={({currentTarget}) =>
+				setActiveIndex(parseInt(currentTarget.dataset.index))
+			}
+			onMouseLeave={() => setActiveIndex(-1)}
 			x={x0}
 			y={calculatedY0 - 30}
 		>
@@ -121,6 +107,7 @@ const TouchpointEdge: React.FC<ITouchpointEdgeProps> = ({
 						x: x0,
 						y: informationsY
 					}}
+					router={router}
 					setExpandedTouchpoint={setExpandedTouchpoint}
 				/>
 			</g>
@@ -133,7 +120,7 @@ const TouchpointEdge: React.FC<ITouchpointEdgeProps> = ({
 				x={100}
 				y={rectPosition + height / 2}
 			>
-				{toThousands(node.value)}
+				{toThousands(value)}
 			</text>
 		</svg>
 	);

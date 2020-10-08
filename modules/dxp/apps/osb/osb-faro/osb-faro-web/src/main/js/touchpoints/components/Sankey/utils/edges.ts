@@ -1,16 +1,10 @@
-import {
-	getParentNode,
-	isParentNode,
-	SANKEY_COLORS,
-	SANKEY_NODE_WIDTH
-} from './sankey';
+import {getParentNode, SANKEY_NODE_WIDTH} from './sankey';
 import {
 	getPercentage,
 	getRangeSelectorsFromQuery,
 	truncateText
 } from 'shared/util/util';
 import {getUrl} from 'shared/util/urls';
-import {nextColor} from 'shared/util/charts';
 import {pickBy} from 'lodash';
 import {Routes, toAssetDashboardRoute} from 'shared/util/router';
 import {SankeyNode} from '../utils/types';
@@ -63,28 +57,20 @@ export function getTouchpointUrl(title, touchpoint, {params, query}) {
 }
 
 export function getSize(value) {
-	if (isNaN(value)) {
+	if (isNaN(value) || Math.sign(value) === -1) {
 		return 0;
 	}
 
-	return Math.sign(value) == 1 ? value : 0;
+	return value;
 }
 
-export function getTitleY({directAccessMetric}: NodeSankey, items) {
+export function getTitleY({directAccessMetric}: SankeyNode, items) {
 	let titleY = 0;
 
 	if (items.length) {
-		if (directAccessMetric === 0) {
-			titleY = 220;
-		} else {
-			titleY = 183;
-		}
+		titleY = directAccessMetric === 0 ? 220 : 183;
 	} else {
-		if (directAccessMetric === 0) {
-			titleY = 250;
-		} else {
-			titleY = 210;
-		}
+		titleY = directAccessMetric === 0 ? 250 : 210;
 	}
 
 	return titleY;
@@ -103,9 +89,9 @@ export function getTotalViews({
 export function getMarginY(touchpointList) {
 	let marginY = 93;
 
-	if (touchpointList.length && touchpointList.length <= 2) {
+	if (touchpointList.length <= 2) {
 		marginY = 223;
-	} else if (touchpointList.length && touchpointList.length == 3) {
+	} else if (touchpointList.length == 3) {
 		marginY = 183;
 	}
 
@@ -120,24 +106,6 @@ export function getNodeHeight({value}: SankeyNode, nodes: Array<SankeyNode>) {
 			getPercentage(value, parentNode.value)) /
 		100
 	);
-}
-
-export function getNodeColor(node, activeIndex) {
-	const {color, index} = node;
-
-	if (activeIndex > -1 && activeIndex !== index) {
-		return SANKEY_COLORS.bgGray;
-	}
-
-	if (color) {
-		return color;
-	}
-
-	if (isParentNode(node)) {
-		return SANKEY_COLORS.bgDirectTraffic;
-	}
-
-	return nextColor(index);
 }
 
 export function getWrappedText(name, fontSize = 16) {

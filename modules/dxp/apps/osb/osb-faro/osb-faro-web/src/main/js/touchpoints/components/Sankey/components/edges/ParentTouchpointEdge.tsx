@@ -85,7 +85,7 @@ const ParentEdge: React.FC<IParentEdgeProps> = ({
 		setActiveIndex(-1);
 	};
 
-	const centerY = getCenterY({nodes});
+	const centerY = getCenterY(nodes);
 
 	const {directAccessMetric, indirectAccessMetric, x0, x1, y0, y1} = node;
 	const height = getSize(y1 - y0);
@@ -107,11 +107,8 @@ const ParentEdge: React.FC<IParentEdgeProps> = ({
 
 		let nodeY0 = parentY.y0;
 		let previousNodeHeight = 0;
-		let heightOffset = 0;
 
-		if (nodes.length && nodes.length <= 3) {
-			heightOffset = 1;
-		}
+		const heightOffset = nodes.length <= 3 ? 1 : 0;
 
 		return nodes
 			.filter(node => !isParentNode(node))

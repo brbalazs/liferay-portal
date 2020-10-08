@@ -1,6 +1,6 @@
 import AssetsQuery from 'touchpoints/queries/AssetsQuery';
+import HTMLBox from './HTMLBox';
 import React, {useState} from 'react';
-import SankeyBox from './HTMLBox';
 import {AssetNode, SankeyNode} from '../../utils/types';
 import {assetTypeLabels, getWrappedText} from '../../utils/edges';
 import {getVariables} from 'shared/util/mappers';
@@ -50,7 +50,7 @@ const DirectAccessEdge: React.FC<IDirectAccessEdge> = ({
 
 	return (
 		<div className={CLASSNAME_BOX}>
-			<SankeyBox
+			<HTMLBox
 				color={SANKEY_COLORS.bgDirectTraffic}
 				items={items}
 				node={node}
