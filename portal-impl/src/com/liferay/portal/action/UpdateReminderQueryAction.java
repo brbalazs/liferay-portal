@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.service.UserServiceUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.struts.ActionConstants;
@@ -86,7 +87,6 @@ public class UpdateReminderQueryAction extends Action {
 		AuthTokenUtil.checkCSRFToken(
 			request, UpdateReminderQueryAction.class.getName());
 
-		long userId = PortalUtil.getUserId(request);
 		String question = ParamUtil.getString(request, "reminderQueryQuestion");
 		String answer = ParamUtil.getString(request, "reminderQueryAnswer");
 
@@ -95,7 +95,10 @@ public class UpdateReminderQueryAction extends Action {
 				request, "reminderQueryCustomQuestion");
 		}
 
-		UserServiceUtil.updateReminderQuery(userId, question, answer);
+		if (!answer.equals(Portal.TEMP_OBFUSCATION_VALUE)) {
+			UserServiceUtil.updateReminderQuery(
+				PortalUtil.getUserId(request), question, answer);
+		}
 	}
 
 }
