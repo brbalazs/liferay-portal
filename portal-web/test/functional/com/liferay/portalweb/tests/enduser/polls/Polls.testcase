@@ -33,7 +33,6 @@ definition {
 
 	@priority = "4"
 	test AddPollsQuestionWithExpirationDate {
-
 		var pollsQuestionTitle = '''"Derivative"''';
 
 		Navigator.openURL();
@@ -70,7 +69,6 @@ definition {
 
 	@priority = "4"
 	test AddPollsQuestionWithSpecialCharacters {
-
 		var pollsQuestionChoiceA = '''"Black"''';
 
 		var pollsQuestionChoiceB = '''"Brown"''';

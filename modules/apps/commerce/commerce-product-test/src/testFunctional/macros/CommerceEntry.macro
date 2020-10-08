@@ -79,7 +79,6 @@ definition {
 		Click(locator1 = "Button#ADD");
 
 		if (isSet(siteName)) {
-
 			Click(
 				key_menuTab = "Type",
 				locator1 = "CommerceEntry#MENU_TAB");
@@ -721,7 +720,6 @@ definition {
 			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
 
 		for (var optionList : list "${optionList}") {
-
 			IsElementPresent(
 				key_entryName = "${optionList}",
 				locator1 = "CommerceNavigation#ENTRY_NAME");
@@ -764,7 +762,6 @@ definition {
 				value1 = "${price}");
 
 			Click(locator1 = "Icon#CLOSE");
-
 		}
 	}
 

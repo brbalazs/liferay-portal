@@ -713,7 +713,6 @@ definition {
 	}
 
 	macro basicSearchCP {
-
 		if ("${userBasicSearch}" == "Basic") {
 			Search.searchCP(searchTerm = "${userScreenName}");
 
@@ -734,7 +733,6 @@ definition {
 				value1 = "No users were found.");
 		}
 		else if ("${userBasicSearch}" == "Full Name") {
-
 			var fullName = '''"${userFirstName} ${userLastName}"''';
 
 			Search.searchCP(searchTerm = "${fullName}");
@@ -758,7 +756,6 @@ definition {
 				value1 = "No users were found.");
 		}
 		else if ("${userBasicSearch}" == "Quotes") {
-
 			var quotes = '''"${userScreenName}"''';
 
 			Search.searchCP(searchTerm = "${quotes}");

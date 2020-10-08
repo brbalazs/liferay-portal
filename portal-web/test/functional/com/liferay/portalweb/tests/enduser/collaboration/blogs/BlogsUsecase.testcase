@@ -121,7 +121,6 @@ definition {
 
 	@priority = "5"
 	test AddBlogsEntryWithSpecialCharacters {
-
 		Blogs.addEntry(
 			entryContent = '''Blogs Entry Content `~!@#$%^&*(){}[],.<>/?|''',
 			entryTitle = '''Blogs Entry Title `~!@#$%^&*(){}[],.<>/?|''');
