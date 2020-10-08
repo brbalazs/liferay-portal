@@ -28,13 +28,15 @@ import com.liferay.commerce.test.util.CommerceTestUtil;
  */
 public class CommerceSubscriptionEntryTestUtil {
 
-	public static void setUpCommerceSubscriptionEntry(
+	public static CommerceOrder setUpCommerceSubscriptionEntry(
 			long userId, long groupId, long maxSubscriptionCycles,
 			long commerceCurrencyId,
 			CommerceSubscriptionEntryHelper commerceSubscriptionEntryHelper)
 		throws Exception {
 
 		CPInstance cpInstance = CPTestUtil.addCPInstance();
+
+		CPTestUtil.addBasePriceEntry(cpInstance);
 
 		cpInstance.setOverrideSubscriptionInfo(true);
 		cpInstance.setSubscriptionEnabled(true);
@@ -66,6 +68,8 @@ public class CommerceSubscriptionEntryTestUtil {
 
 		commerceSubscriptionEntryHelper.checkCommerceSubscriptions(
 			commerceOrder);
+
+		return commerceOrder;
 	}
 
 }

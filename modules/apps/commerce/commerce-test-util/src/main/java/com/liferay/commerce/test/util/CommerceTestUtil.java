@@ -53,11 +53,16 @@ import com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOpt
 import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionLocalServiceUtil;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.PortletCategory;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.test.util.CompanyTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.util.WebAppPool;
 
 import java.math.BigDecimal;
 
@@ -105,7 +110,7 @@ public class CommerceTestUtil {
 		throws Exception {
 
 		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext();
+			ServiceContextTestUtil.getServiceContext(groupId);
 
 		if (userId == 0) {
 			userId = serviceContext.getUserId();
@@ -146,11 +151,13 @@ public class CommerceTestUtil {
 
 		long groupId = commerceOrder.getGroupId();
 
-		CPInstance cpInstance = CPTestUtil.addCPInstanceWithRandomSku(groupId);
-
 		BigDecimal price = BigDecimal.valueOf(RandomTestUtil.randomDouble());
 
+		CPInstance cpInstance = CPTestUtil.addCPInstanceWithRandomSku(groupId);
+
 		cpInstance.setPrice(price);
+
+		CPTestUtil.addBasePriceEntry(cpInstance);
 
 		if (paymentSubscription) {
 			cpInstance.setOverrideSubscriptionInfo(true);
@@ -227,6 +234,8 @@ public class CommerceTestUtil {
 		BigDecimal price = BigDecimal.valueOf(RandomTestUtil.randomDouble());
 
 		cpInstance.setPrice(price);
+
+		CPTestUtil.addBasePriceEntry(cpInstance);
 
 		if (paymentSubscription) {
 			cpInstance.setOverrideSubscriptionInfo(true);
@@ -435,6 +444,16 @@ public class CommerceTestUtil {
 			userId, groupId, RandomTestUtil.randomLocaleStringMap(),
 			RandomTestUtil.randomLocaleStringMap(), null, "fixedPrice", 1,
 			true);
+	}
+
+	public static Company addCompany() throws Exception {
+		Company company = CompanyTestUtil.addCompany();
+
+		WebAppPool.put(
+			company.getCompanyId(), WebKeys.PORTLET_CATEGORY,
+			new PortletCategory());
+
+		return company;
 	}
 
 	public static CommerceShippingMethod addFixedRateCommerceShippingMethod(
