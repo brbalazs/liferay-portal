@@ -17,7 +17,7 @@ export default class TimeZone
 	displayTimeZone: string;
 	timeZoneId: string;
 
-	constructor() {
-		super();
+	constructor(props = {}) {
+		super(props);
 	}
 }
