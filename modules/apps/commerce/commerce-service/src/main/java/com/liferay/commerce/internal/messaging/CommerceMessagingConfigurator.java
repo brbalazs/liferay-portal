@@ -46,6 +46,8 @@ public class CommerceMessagingConfigurator {
 			bundleContext, CommerceDestinationNames.SHIPMENT_STATUS);
 		_stockQuantityServiceRegistration = _registerDestination(
 			bundleContext, CommerceDestinationNames.STOCK_QUANTITY);
+		_subscriptionStatusServiceRegistration = _registerDestination(
+			bundleContext, CommerceDestinationNames.SUBSCRIPTION_STATUS);
 	}
 
 	@Deactivate
@@ -64,6 +66,10 @@ public class CommerceMessagingConfigurator {
 
 		if (_stockQuantityServiceRegistration != null) {
 			_stockQuantityServiceRegistration.unregister();
+		}
+
+		if (_subscriptionStatusServiceRegistration != null) {
+			_subscriptionStatusServiceRegistration.unregister();
 		}
 	}
 
@@ -96,5 +102,7 @@ public class CommerceMessagingConfigurator {
 		_shipmentStatusServiceRegistration;
 	private volatile ServiceRegistration<Destination>
 		_stockQuantityServiceRegistration;
+	private volatile ServiceRegistration<Destination>
+		_subscriptionStatusServiceRegistration;
 
 }
