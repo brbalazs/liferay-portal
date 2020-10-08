@@ -21,34 +21,18 @@ import com.liferay.portal.kernel.search.IndexWriter;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.Digester;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.Localization;
 import com.liferay.portal.kernel.util.Props;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.search.engine.adapter.SearchEngineAdapter;
-import com.liferay.portal.search.internal.groupby.GroupByResponseFactoryImpl;
-import com.liferay.portal.search.internal.legacy.groupby.GroupByRequestFactoryImpl;
+import com.liferay.portal.search.internal.legacy.searcher.SearchRequestBuilderFactoryImpl;
+import com.liferay.portal.search.internal.legacy.searcher.SearchResponseBuilderFactoryImpl;
 import com.liferay.portal.search.solr7.internal.connection.SolrClientManager;
 import com.liferay.portal.search.solr7.internal.connection.TestSolrClientManager;
 import com.liferay.portal.search.solr7.internal.document.DefaultSolrDocumentFactory;
-import com.liferay.portal.search.solr7.internal.document.SolrUpdateDocumentCommand;
 import com.liferay.portal.search.solr7.internal.facet.DefaultFacetProcessor;
 import com.liferay.portal.search.solr7.internal.facet.FacetProcessor;
-import com.liferay.portal.search.solr7.internal.filter.BooleanFilterTranslatorImpl;
-import com.liferay.portal.search.solr7.internal.filter.DateRangeFilterTranslatorImpl;
-import com.liferay.portal.search.solr7.internal.filter.DateRangeTermFilterTranslatorImpl;
-import com.liferay.portal.search.solr7.internal.filter.ExistsFilterTranslatorImpl;
-import com.liferay.portal.search.solr7.internal.filter.GeoBoundingBoxFilterTranslatorImpl;
-import com.liferay.portal.search.solr7.internal.filter.GeoDistanceFilterTranslatorImpl;
-import com.liferay.portal.search.solr7.internal.filter.GeoDistanceRangeFilterTranslatorImpl;
-import com.liferay.portal.search.solr7.internal.filter.GeoPolygonFilterTranslatorImpl;
-import com.liferay.portal.search.solr7.internal.filter.MissingFilterTranslatorImpl;
-import com.liferay.portal.search.solr7.internal.filter.PrefixFilterTranslatorImpl;
-import com.liferay.portal.search.solr7.internal.filter.QueryFilterTranslatorImpl;
-import com.liferay.portal.search.solr7.internal.filter.RangeTermFilterTranslatorImpl;
-import com.liferay.portal.search.solr7.internal.filter.SolrFilterTranslator;
-import com.liferay.portal.search.solr7.internal.filter.TermFilterTranslatorImpl;
-import com.liferay.portal.search.solr7.internal.filter.TermsFilterTranslatorImpl;
-import com.liferay.portal.search.solr7.internal.groupby.DefaultGroupByTranslator;
 import com.liferay.portal.search.solr7.internal.query.BooleanQueryTranslatorImpl;
 import com.liferay.portal.search.solr7.internal.query.DisMaxQueryTranslatorImpl;
 import com.liferay.portal.search.solr7.internal.query.FuzzyQueryTranslatorImpl;
@@ -62,7 +46,7 @@ import com.liferay.portal.search.solr7.internal.query.StringQueryTranslatorImpl;
 import com.liferay.portal.search.solr7.internal.query.TermQueryTranslatorImpl;
 import com.liferay.portal.search.solr7.internal.query.TermRangeQueryTranslatorImpl;
 import com.liferay.portal.search.solr7.internal.query.WildcardQueryTranslatorImpl;
-import com.liferay.portal.search.solr7.internal.stats.DefaultStatsTranslator;
+import com.liferay.portal.search.solr7.internal.search.engine.adapter.SolrSearchEngineAdapterFixture;
 import com.liferay.portal.search.solr7.internal.suggest.NGramHolderBuilderImpl;
 import com.liferay.portal.search.solr7.internal.suggest.NGramQueryBuilderImpl;
 import com.liferay.portal.search.test.util.indexing.IndexingFixture;
@@ -70,7 +54,7 @@ import com.liferay.portal.util.LocalizationImpl;
 
 import java.nio.ByteBuffer;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 
 import org.apache.solr.client.solrj.SolrQuery;
@@ -84,7 +68,14 @@ import org.mockito.Mockito;
 public class SolrIndexingFixture implements IndexingFixture {
 
 	public SolrIndexingFixture() {
-		_properties = createSolrConfigurationProperties();
+		this(Collections.<String, Object>emptyMap());
+	}
+
+	public SolrIndexingFixture(
+		Map<String, Object> solrConfigurationProperties) {
+
+		_properties = createSolrConfigurationProperties(
+			solrConfigurationProperties);
 	}
 
 	@Override
@@ -125,40 +116,23 @@ public class SolrIndexingFixture implements IndexingFixture {
 		SolrClientManager solrClientManager = new TestSolrClientManager(
 			_properties);
 
-		_indexSearcher = createIndexSearcher(solrClientManager);
-		_indexWriter = createIndexWriter(solrClientManager);
+		SolrSearchEngineAdapterFixture solrSearchEngineAdapterFixture =
+			createSolrSearchEngineAdapterFixture(
+				solrClientManager, _facetProcessor, _properties);
+
+		solrSearchEngineAdapterFixture.setUp();
+
+		SearchEngineAdapter searchEngineAdapter =
+			solrSearchEngineAdapterFixture.getSearchEngineAdapter();
+
+		_indexSearcher = createIndexSearcher(
+			searchEngineAdapter, solrClientManager);
+		_indexWriter = createIndexWriter(searchEngineAdapter);
+		_searchEngineAdapter = searchEngineAdapter;
 	}
 
 	@Override
 	public void tearDown() throws Exception {
-	}
-
-	protected static SolrFilterTranslator createSolrFilterTranslator() {
-		return new SolrFilterTranslator() {
-			{
-				dateRangeFilterTranslator = new DateRangeFilterTranslatorImpl();
-
-				setBooleanQueryTranslator(new BooleanFilterTranslatorImpl());
-				setDateRangeTermFilterTranslator(
-					new DateRangeTermFilterTranslatorImpl());
-				setExistsFilterTranslator(new ExistsFilterTranslatorImpl());
-				setGeoBoundingBoxFilterTranslator(
-					new GeoBoundingBoxFilterTranslatorImpl());
-				setGeoDistanceFilterTranslator(
-					new GeoDistanceFilterTranslatorImpl());
-				setGeoDistanceRangeFilterTranslator(
-					new GeoDistanceRangeFilterTranslatorImpl());
-				setGeoPolygonFilterTranslator(
-					new GeoPolygonFilterTranslatorImpl());
-				setMissingFilterTranslator(new MissingFilterTranslatorImpl());
-				setPrefixFilterTranslator(new PrefixFilterTranslatorImpl());
-				setQueryFilterTranslator(new QueryFilterTranslatorImpl());
-				setRangeTermFilterTranslator(
-					new RangeTermFilterTranslatorImpl());
-				setTermFilterTranslator(new TermFilterTranslatorImpl());
-				setTermsFilterTranslator(new TermsFilterTranslatorImpl());
-			}
-		};
 	}
 
 	protected static SolrQueryTranslator createSolrQueryTranslator() {
@@ -178,6 +152,23 @@ public class SolrIndexingFixture implements IndexingFixture {
 				setTermQueryTranslator(new TermQueryTranslatorImpl());
 				setTermRangeQueryTranslator(new TermRangeQueryTranslatorImpl());
 				setWildcardQueryTranslator(new WildcardQueryTranslatorImpl());
+			}
+		};
+	}
+
+	protected static SolrSearchEngineAdapterFixture
+		createSolrSearchEngineAdapterFixture(
+			SolrClientManager solrClientManager,
+			FacetProcessor<SolrQuery> facetProcessor,
+			Map<String, Object> properties) {
+
+		return new SolrSearchEngineAdapterFixture() {
+			{
+				setFacetProcessor(facetProcessor);
+				setQueryTranslator(createSolrQueryTranslator());
+				setSolrClientManager(solrClientManager);
+				setSolrDocumentFactory(new DefaultSolrDocumentFactory());
+				setProperties(properties);
 			}
 		};
 	}
@@ -205,28 +196,25 @@ public class SolrIndexingFixture implements IndexingFixture {
 	protected FacetProcessor createFacetProcessor() {
 		return new DefaultFacetProcessor() {
 			{
-				jsonFactory = _jsonFactory;
+				setJSONFactory(_jsonFactory);
 			}
 		};
 	}
 
 	protected IndexSearcher createIndexSearcher(
+		final SearchEngineAdapter searchEngineAdapter,
 		final SolrClientManager solrClientManager) {
 
 		return new SolrIndexSearcher() {
 			{
-				jsonFactory = _jsonFactory;
-				props = createProps();
-
 				setFacetProcessor(_facetProcessor);
-				setFilterTranslator(createSolrFilterTranslator());
-				setGroupByRequestFactory(new GroupByRequestFactoryImpl());
-				setGroupByResponseFactory(new GroupByResponseFactoryImpl());
-				setGroupByTranslator(new DefaultGroupByTranslator());
+				setProps(createProps());
 				setQuerySuggester(createSolrQuerySuggester(solrClientManager));
-				setQueryTranslator(createSolrQueryTranslator());
-				setSolrClientManager(solrClientManager);
-				setStatsTranslator(new DefaultStatsTranslator());
+				setSearchRequestBuilderFactory(
+					new SearchRequestBuilderFactoryImpl());
+				setSearchResponseBuilderFactory(
+					new SearchResponseBuilderFactoryImpl());
+				setSearchEngineAdapter(searchEngineAdapter);
 
 				activate(_properties);
 			}
@@ -234,18 +222,13 @@ public class SolrIndexingFixture implements IndexingFixture {
 	}
 
 	protected IndexWriter createIndexWriter(
-		final SolrClientManager solrClientManager) {
-
-		final SolrUpdateDocumentCommand solrUpdateDocumentCommand =
-			createSolrUpdateDocumentCommand(solrClientManager);
+		final SearchEngineAdapter searchEngineAdapter) {
 
 		return new SolrIndexWriter() {
 			{
-				setSolrClientManager(solrClientManager);
-				setSolrUpdateDocumentCommand(solrUpdateDocumentCommand);
+				setSearchEngineAdapter(searchEngineAdapter);
 				setSpellCheckIndexWriter(
-					createSolrSpellCheckIndexWriter(
-						solrClientManager, solrUpdateDocumentCommand));
+					createSolrSpellCheckIndexWriter(searchEngineAdapter));
 
 				activate(_properties);
 			}
@@ -267,7 +250,7 @@ public class SolrIndexingFixture implements IndexingFixture {
 		Props props = Mockito.mock(Props.class);
 
 		Mockito.doReturn(
-			"65"
+			"20"
 		).when(
 			props
 		).get(
@@ -285,13 +268,20 @@ public class SolrIndexingFixture implements IndexingFixture {
 		return props;
 	}
 
-	protected Map<String, Object> createSolrConfigurationProperties() {
-		Map<String, Object> properties = new HashMap<>();
+	protected Map<String, Object> createSolrConfigurationProperties(
+		Map<String, Object> solrConfigurationProperties) {
 
-		properties.put("defaultCollection", "liferay");
-		properties.put("logExceptionsOnly", false);
-		properties.put("readURL", "http://localhost:8983/solr/liferay");
-		properties.put("writeURL", "http://localhost:8983/solr/liferay");
+		Map<String, Object> properties = HashMapBuilder.<String, Object>put(
+			"defaultCollection", "liferay"
+		).put(
+			"logExceptionsOnly", false
+		).put(
+			"readURL", "http://localhost:8983/solr/liferay"
+		).put(
+			"writeURL", "http://localhost:8983/solr/liferay"
+		).build();
+
+		properties.putAll(solrConfigurationProperties);
 
 		return properties;
 	}
@@ -301,7 +291,7 @@ public class SolrIndexingFixture implements IndexingFixture {
 
 		return new SolrQuerySuggester() {
 			{
-				localization = _localization;
+				setLocalization(_localization);
 
 				setNGramQueryBuilder(createNGramQueryBuilder());
 				setSolrClientManager(solrClientManager);
@@ -312,29 +302,14 @@ public class SolrIndexingFixture implements IndexingFixture {
 	}
 
 	protected SolrSpellCheckIndexWriter createSolrSpellCheckIndexWriter(
-		final SolrClientManager solrClientManager,
-		final SolrUpdateDocumentCommand solrUpdateDocumentCommand) {
+		final SearchEngineAdapter searchEngineAdapter) {
 
 		return new SolrSpellCheckIndexWriter() {
 			{
 				digester = createDigester();
 				nGramHolderBuilder = new NGramHolderBuilderImpl();
 
-				setSolrClientManager(solrClientManager);
-				setSolrUpdateDocumentCommand(solrUpdateDocumentCommand);
-
-				activate(_properties);
-			}
-		};
-	}
-
-	protected SolrUpdateDocumentCommandImpl createSolrUpdateDocumentCommand(
-		final SolrClientManager solrClientManager) {
-
-		return new SolrUpdateDocumentCommandImpl() {
-			{
-				setSolrClientManager(solrClientManager);
-				setSolrDocumentFactory(new DefaultSolrDocumentFactory());
+				setSearchEngineAdapter(searchEngineAdapter);
 
 				activate(_properties);
 			}

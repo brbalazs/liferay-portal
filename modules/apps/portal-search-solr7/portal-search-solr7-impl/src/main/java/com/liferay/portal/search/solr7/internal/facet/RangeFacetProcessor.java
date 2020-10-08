@@ -64,7 +64,7 @@ public class RangeFacetProcessor implements FacetProcessor<SolrQuery> {
 
 		Collections.sort(keys);
 
-		Map map2 = new LinkedHashMap<>(map1.size());
+		Map map2 = new LinkedHashMap<>();
 
 		keys.forEach(key -> map2.put(key, map1.get(key)));
 
@@ -109,9 +109,11 @@ public class RangeFacetProcessor implements FacetProcessor<SolrQuery> {
 	protected JSONObject getFacetParameters(Facet facet, String range) {
 		JSONObject jsonObject = jsonFactory.createJSONObject();
 
-		jsonObject.put("q", facet.getFieldName() + StringPool.COLON + range);
-
-		jsonObject.put("type", "query");
+		jsonObject.put(
+			"q", facet.getFieldName() + StringPool.COLON + range
+		).put(
+			"type", "query"
+		);
 
 		return jsonObject;
 	}

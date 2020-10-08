@@ -14,7 +14,9 @@
 
 package com.liferay.portal.search.solr7.internal;
 
-import com.liferay.portal.kernel.search.AbstractSearchEngineConfigurator;
+import com.liferay.portal.kernel.messaging.DestinationFactory;
+import com.liferay.portal.kernel.messaging.MessageBus;
+import com.liferay.portal.kernel.search.BaseSearchEngineConfigurator;
 import com.liferay.portal.kernel.search.IndexSearcher;
 import com.liferay.portal.kernel.search.IndexWriter;
 import com.liferay.portal.kernel.search.SearchEngine;
@@ -37,8 +39,7 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true, property = "search.engine.impl=Solr",
 	service = SearchEngineConfigurator.class
 )
-public class SolrSearchEngineConfigurator
-	extends AbstractSearchEngineConfigurator {
+public class SolrSearchEngineConfigurator extends BaseSearchEngineConfigurator {
 
 	@Override
 	public void destroy() {
@@ -115,8 +116,15 @@ public class SolrSearchEngineConfigurator
 	@Reference
 	protected SearchEngineHelper searchEngineHelper;
 
+	@Reference
+	private DestinationFactory _destinationFactory;
+
 	private IndexSearcher _indexSearcher;
 	private IndexWriter _indexWriter;
+
+	@Reference
+	private MessageBus _messageBus;
+
 	private final Map<String, SearchEngine> _searchEngines =
 		new ConcurrentHashMap<>();
 

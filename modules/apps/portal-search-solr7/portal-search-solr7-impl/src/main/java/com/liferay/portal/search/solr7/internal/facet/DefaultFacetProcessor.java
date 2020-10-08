@@ -18,8 +18,8 @@ import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.search.facet.Facet;
 import com.liferay.portal.kernel.search.facet.config.FacetConfiguration;
+import com.liferay.portal.kernel.util.LinkedHashMapBuilder;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.solr.client.solrj.SolrQuery;
@@ -38,13 +38,11 @@ public class DefaultFacetProcessor implements FacetProcessor<SolrQuery> {
 
 	@Override
 	public Map<String, JSONObject> processFacet(Facet facet) {
-		Map<String, JSONObject> map = new LinkedHashMap<>();
-
 		String name = FacetUtil.getAggregationName(facet);
 
-		map.put(name, getFacetParameters(facet));
-
-		return map;
+		return LinkedHashMapBuilder.<String, JSONObject>put(
+			name, getFacetParameters(facet)
+		).build();
 	}
 
 	protected void applyFrequencyThreshold(
@@ -80,7 +78,7 @@ public class DefaultFacetProcessor implements FacetProcessor<SolrQuery> {
 			sortValue = "asc";
 		}
 
-		JSONObject sortJSONObject = jsonFactory.createJSONObject();
+		JSONObject sortJSONObject = _jsonFactory.createJSONObject();
 
 		sortJSONObject.put(sortParam, sortValue);
 
@@ -88,11 +86,13 @@ public class DefaultFacetProcessor implements FacetProcessor<SolrQuery> {
 	}
 
 	protected JSONObject getFacetParameters(Facet facet) {
-		JSONObject jsonObject = jsonFactory.createJSONObject();
+		JSONObject jsonObject = _jsonFactory.createJSONObject();
 
-		jsonObject.put("field", facet.getFieldName());
-
-		jsonObject.put("type", "terms");
+		jsonObject.put(
+			"field", facet.getFieldName()
+		).put(
+			"type", "terms"
+		);
 
 		FacetConfiguration facetConfiguration = facet.getFacetConfiguration();
 
@@ -106,7 +106,11 @@ public class DefaultFacetProcessor implements FacetProcessor<SolrQuery> {
 		return jsonObject;
 	}
 
-	@Reference
-	protected JSONFactory jsonFactory;
+	@Reference(unbind = "-")
+	protected void setJSONFactory(JSONFactory jsonFactory) {
+		_jsonFactory = jsonFactory;
+	}
+
+	private JSONFactory _jsonFactory;
 
 }

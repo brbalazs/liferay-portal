@@ -123,8 +123,8 @@ public class GroupByTest extends BaseGroupByTestCase {
 
 		assertSearch(
 			indexingTestHelper -> {
-				indexingTestHelper.define(
-					searchContext -> {
+				indexingTestHelper.defineRequest(
+					searchRequestBuilder -> {
 						GroupByRequest groupByRequest =
 							groupByRequestFactory.getGroupByRequest(
 								GROUP_FIELD);
@@ -132,23 +132,18 @@ public class GroupByTest extends BaseGroupByTestCase {
 						groupByRequest.setTermsSorts(
 							new Sort("scoreField", Sort.SCORE_TYPE, desc));
 
-						ArrayList<GroupByRequest> groupByRequests =
-							new ArrayList<>();
-
-						groupByRequests.add(groupByRequest);
-
-						searchContext.setAttribute(
-							"groupByRequests", groupByRequests);
+						searchRequestBuilder.groupByRequests(groupByRequest);
 					});
 
-				BooleanQueryImpl booleanQuery = new BooleanQueryImpl();
+				BooleanQueryImpl booleanQueryImpl = new BooleanQueryImpl();
 
-				booleanQuery.addExactTerm(SORT_FIELD, "3");
-				booleanQuery.addExactTerm(SORT_FIELD, "2");
+				booleanQueryImpl.addExactTerm(SORT_FIELD, "3");
+				booleanQueryImpl.addExactTerm(SORT_FIELD, "2");
 
-				booleanQuery.add(getDefaultQuery(), BooleanClauseOccur.MUST);
+				booleanQueryImpl.add(
+					getDefaultQuery(), BooleanClauseOccur.MUST);
 
-				indexingTestHelper.setQuery(booleanQuery);
+				indexingTestHelper.setQuery(booleanQueryImpl);
 
 				indexingTestHelper.search();
 
@@ -184,8 +179,8 @@ public class GroupByTest extends BaseGroupByTestCase {
 
 		assertSearch(
 			indexingTestHelper -> {
-				indexingTestHelper.define(
-					searchContext -> {
+				indexingTestHelper.defineRequest(
+					searchRequestBuilder -> {
 						GroupByRequest groupByRequest =
 							groupByRequestFactory.getGroupByRequest(
 								GROUP_FIELD);
@@ -193,13 +188,7 @@ public class GroupByTest extends BaseGroupByTestCase {
 						groupByRequest.setTermsSorts(
 							new Sort(SORT_FIELD, Sort.STRING_TYPE, desc));
 
-						ArrayList<GroupByRequest> groupByRequests =
-							new ArrayList<>();
-
-						groupByRequests.add(groupByRequest);
-
-						searchContext.setAttribute(
-							"groupByRequests", groupByRequests);
+						searchRequestBuilder.groupByRequests(groupByRequest);
 					});
 
 				indexingTestHelper.search();
