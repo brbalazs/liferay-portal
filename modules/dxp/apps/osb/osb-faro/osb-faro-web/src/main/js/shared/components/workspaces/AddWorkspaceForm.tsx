@@ -1,4 +1,3 @@
-import * as API from 'shared/api';
 import Button from 'shared/components/Button';
 import ClayIcon from '@clayui/icon';
 import Constants from 'shared/util/constants';
@@ -12,6 +11,7 @@ import getCN from 'classnames';
 import NavigationWarning from 'shared/components/NavigationWarning';
 import React, {useContext, useRef, useState} from 'react';
 import Sheet from 'shared/components/Sheet';
+import TimeZonePicker from '../TimeZonePicker';
 import urlConstants from 'shared/util/url-constants';
 import {BasePageContext} from './BasePage';
 import {close, open} from 'shared/actions/modals';
@@ -19,11 +19,10 @@ import {connect} from 'react-redux';
 import {Formik} from 'formik';
 import {matchPath} from 'react-router-dom';
 import {Modal} from 'shared/types';
-import {Project} from 'shared/util/records';
+import {Project, TimeZone} from 'shared/util/records';
 import {Routes} from 'shared/util/router';
 import {sequence} from 'shared/util/promise';
 import {sub} from 'shared/util/lang';
-import {useRequest} from 'shared/hooks';
 
 const {
 	faroURL,
@@ -37,8 +36,6 @@ const projectLocations = [
 	{label: Liferay.Language.get('location-us'), value: US}
 ];
 
-const TIMEZONE_DEFAULT_NAME = '(UTC) UTC';
-const TIMEZONE_DEFAULT_VALUE = 'UTC';
 const VALIDATE_DOMAINS = /^([a-zA-Z0-9_]([a-zA-Z0-9_-]{0,61}[a-zA-Z0-9_])?\.){1,126}[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z]$/;
 
 export const emailDomainValidation = value => VALIDATE_DOMAINS.test(value);
@@ -88,42 +85,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 		path: Routes.WORKSPACE_ADD_TRIAL
 	});
 
-	const {data: timezonesAvailable, loading} = useRequest(
-		API.projects.fetchAvailableTimeZones,
-		{}
-	);
-
 	const [inputListValue, setInputListValue] = useState();
-
-	const [timezoneState, setTimezoneState] = useState({
-		filterText: '',
-		timeZoneValue: {
-			name: project
-				? project.getIn(['timeZone', 'displayTimeZone'])
-				: TIMEZONE_DEFAULT_NAME,
-			value: project
-				? project.getIn(['timeZone', 'timeZoneId'])
-				: TIMEZONE_DEFAULT_VALUE
-		}
-	});
-
-	const getTimezoneItems = (): Array<{name: string; value: string}> =>
-		timezonesAvailable
-			? timezonesAvailable
-					.map(({displayTimeZone, timeZoneId}) => ({
-						name: displayTimeZone,
-						value: timeZoneId
-					}))
-					.filter(
-						({name}) =>
-							!timezoneState.filterText ||
-							name
-								.toLowerCase()
-								.includes(
-									timezoneState.filterText.toLowerCase()
-								)
-					)
-			: [];
 
 	const handleSubmit = (
 		values,
@@ -200,7 +162,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 						name: (project && project.name) || '',
 						serverLocation:
 							(project && project.serverLocation) || US,
-						timezone: timezoneState.timeZoneValue
+						timezone: (project && project.getIn(['timeZone', 'timeZoneId'])) || '',
 					}}
 					onSubmit={handleSubmit}
 					ref={formRef}
@@ -211,7 +173,9 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 						initialValues,
 						isSubmitting,
 						isValid,
-						resetForm
+						resetForm,
+						setFieldTouched,
+						setFieldValue
 					}) => (
 						<Form.Form onSubmit={handleSubmit}>
 							<NavigationWarning when={!!project && dirty} />
@@ -342,31 +306,12 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 										</>
 									</Form.Label>
 
-									<Form.SearchableSelect
-										buttonPlaceholder={
-											timezoneState.timeZoneValue.name
-										}
-										className='searchable-timezone'
+									<TimeZonePicker
 										disabled={disabled || editing}
-										inputValue={timezoneState.filterText}
-										items={getTimezoneItems()}
-										loading={loading}
-										name='timezone'
-										onSearchChange={newValue =>
-											setTimezoneState({
-												...timezoneState,
-												filterText: newValue
-											})
-										}
-										onSelect={newValue =>
-											setTimezoneState({
-												filterText: '',
-												timeZoneValue: newValue
-											})
-										}
-										selectedItem={
-											timezoneState.timeZoneValue
-										}
+										fieldName='timezone'
+										initialTimeZone={project && new TimeZone(project.getIn(['timeZone']))}
+										setFieldTouched={setFieldTouched}
+										setFieldValue={setFieldValue}
 									/>
 								</Sheet.Section>
 
