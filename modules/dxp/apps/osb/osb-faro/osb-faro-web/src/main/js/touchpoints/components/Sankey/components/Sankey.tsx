@@ -6,6 +6,7 @@ import Paths from './Paths';
 import React, {useEffect, useRef, useState} from 'react';
 import TouchpointEdge from './edges/TouchpointEdge';
 import TouchpointPathQuery from 'touchpoints/queries/TouchpointPathQuery';
+import {AssetNode, Link, Node, SankeyNode} from '../utils/types';
 import {
 	getAssetsHeight,
 	getBounds,
@@ -20,61 +21,6 @@ import {RangeSelectors} from 'shared/types';
 import {useQuery} from '@apollo/react-hooks';
 
 export const CLASSNAME = 'analytics-sankey';
-
-export type NodeSankey = Node & {
-	index: number;
-	sourceLinks: Array<Node>;
-	targetLinks: Array<Node>;
-	x0: number;
-	x1: number;
-	y0: number;
-	y1: number;
-	value: number;
-};
-
-export type Node = {
-	color?: string;
-	directAccessMetric?: number;
-	external: boolean;
-	indirectAccessMetric?: number;
-	name: string;
-	total?: number;
-	url: string;
-	wrappedText: {
-		lines: Array<string>;
-		sentence: string;
-		truncated: boolean;
-	};
-};
-
-export type LinkSankey = Link & {
-	index: number;
-	source: NodeSankey;
-	target: NodeSankey;
-	width: number;
-	y0: number;
-	y1: number;
-};
-
-export type Link = {
-	source: number;
-	target: number;
-	value: number;
-};
-
-export type AssetNode = {
-	assetId?: string;
-	assetType?: string;
-	id: string;
-	interactions: number;
-	title: string;
-	type: string;
-	wrappedText: {
-		lines: Array<string>;
-		sentence: string;
-		truncated: boolean;
-	};
-};
 
 interface ISankeyProps extends React.HTMLAttributes<HTMLElement> {
 	filters: object;

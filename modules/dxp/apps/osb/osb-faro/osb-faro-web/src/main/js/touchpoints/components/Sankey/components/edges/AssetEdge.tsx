@@ -1,15 +1,17 @@
 import React from 'react';
 import Title, {ITitleProps} from './Title';
-import {CLASSNAME, NodeSankey} from '../Sankey';
+import {ASSET_HEIGHT} from '../../utils/sankey';
+import {CLASSNAME} from '../Sankey';
+import {SankeyNode} from '../../utils/types';
 
 interface IAssetEdgeProps
 	extends Omit<ITitleProps, 'iconLetter' | 'textClass' | 'y' | 'name'> {
 	activeIndex: number;
 	assetIndex: number;
-	node: NodeSankey & {
+	handleShowMoreAssetsClick?: (object) => void;
+	node: SankeyNode & {
 		y: number;
 	};
-	handleShowMoreAssetsClick?: (object) => void;
 }
 
 const AssetEdge: React.FC<IAssetEdgeProps> = ({

@@ -1,13 +1,13 @@
 import React from 'react';
 import SankeyBox from './HTMLBox';
-import {NodeSankey} from '../Sankey';
 import {SANKEY_COLORS} from '../../utils/sankey';
+import {SankeyNode} from '../../utils/types';
 
 export const CLASSNAME = 'analytics-sankey';
 export const CLASSNAME_BOX = `${CLASSNAME}-parent`;
 
 interface IEmptyStateEdgeProps extends React.HTMLAttributes<HTMLElement> {
-	node: NodeSankey;
+	node: SankeyNode;
 }
 
 const EmptyStateEdge: React.FC<IEmptyStateEdgeProps> = ({node}) => (

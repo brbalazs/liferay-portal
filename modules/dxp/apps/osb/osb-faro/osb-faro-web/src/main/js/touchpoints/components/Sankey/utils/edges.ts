@@ -11,9 +11,9 @@ import {
 } from 'shared/util/util';
 import {getUrl} from 'shared/util/urls';
 import {nextColor} from 'shared/util/charts';
-import {NodeSankey} from '../components/Sankey';
 import {pickBy} from 'lodash';
 import {Routes, toAssetDashboardRoute} from 'shared/util/router';
+import {SankeyNode} from '../utils/types';
 import {textWrap} from 'd3plus-text';
 import {toThousands, undoThousands} from 'shared/util/numbers';
 
@@ -93,7 +93,7 @@ export function getTitleY({directAccessMetric}: NodeSankey, items) {
 export function getTotalViews({
 	directAccessMetric,
 	indirectAccessMetric
-}: NodeSankey) {
+}: SankeyNode) {
 	return (
 		undoThousands(toThousands(directAccessMetric)) +
 		undoThousands(toThousands(indirectAccessMetric))
@@ -112,7 +112,7 @@ export function getMarginY(touchpointList) {
 	return marginY;
 }
 
-export function getNodeHeight({value}: NodeSankey, nodes: Array<NodeSankey>) {
+export function getNodeHeight({value}: SankeyNode, nodes: Array<SankeyNode>) {
 	const parentNode = getParentNode(nodes);
 
 	return (

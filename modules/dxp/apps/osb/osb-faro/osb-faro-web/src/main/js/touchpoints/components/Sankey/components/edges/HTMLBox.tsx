@@ -1,7 +1,8 @@
 import BasePage from 'shared/components/base-page';
 import Button from 'shared/components/Button';
 import React, {useContext, useState} from 'react';
-import {AssetNode, NodeSankey} from '../Sankey';
+import TextTruncate from 'shared/components/TextTruncate';
+import {AssetNode, SankeyNode} from '../../utils/types';
 import {CLASSNAME_BOX} from './EmptyStateEdge';
 import {getAssetUrl} from '../../utils/edges';
 import {Link} from 'react-router-dom';
@@ -10,8 +11,8 @@ import {toThousands} from 'shared/util/numbers';
 
 interface IHTMLBoxProps extends React.HTMLAttributes<HTMLElement> {
 	color: string;
-	node: NodeSankey;
 	items?: Array<AssetNode>;
+	node: SankeyNode;
 }
 
 const HTMLBox: React.FC<IHTMLBoxProps> = ({color, items = [], node}) => {

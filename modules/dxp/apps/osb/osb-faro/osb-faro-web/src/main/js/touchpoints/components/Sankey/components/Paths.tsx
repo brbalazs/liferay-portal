@@ -6,19 +6,20 @@ import {
 	getDeltaY,
 	getNodeColor
 } from '../utils/sankey';
-import {CLASSNAME, LinkSankey, NodeSankey} from './Sankey';
+import {CLASSNAME} from './Sankey';
 import {linkHorizontal} from 'd3-shape';
+import {SankeyLink, SankeyNode} from '../utils/types';
 
 const SANKEY_PATHS_MARGIN = 20;
 
 interface IPathsProps extends React.SVGProps<SVGPathElement> {
 	activeIndex: number;
-	expandedTouchpoint: NodeSankey;
+	expandedTouchpoint: SankeyNode;
 	internalData: {
-		links: Array<LinkSankey>;
-		nodes: Array<NodeSankey>;
+		links: Array<SankeyLink>;
+		nodes: Array<SankeyNode>;
 	};
-	parentNode: NodeSankey;
+	parentNode: SankeyNode;
 	setActiveIndex: (index: number) => void;
 }
 
@@ -74,12 +75,6 @@ const Paths: React.FC<IPathsProps> = ({
 						8;
 				}
 
-				if (nodes.length && nodes.length <= 2) {
-					marginY = 31;
-				} else if (nodes.length && nodes.length == 3) {
-					marginY = -89;
-				}
-
 				const sankeyLinkHorizontal = linkHorizontal()
 					.source(() => [source.x1, calculatedY0])
 					.target(() => [
@@ -93,8 +88,12 @@ const Paths: React.FC<IPathsProps> = ({
 						d={sankeyLinkHorizontal()}
 						data-index={index}
 						key={`${index}_path`}
-						onMouseEnter={handleMouseEnter}
-						onMouseLeave={handleMouseLeave}
+						onMouseEnter={({currentTarget}) =>
+							setActiveIndex(
+								parseInt(currentTarget.dataset.index)
+							)
+						}
+						onMouseLeave={() => setActiveIndex(-1)}
 						stroke={getNodeColor(node, activeIndex)}
 						strokeOpacity={0.4}
 						strokeWidth={Math.max(1, width)}

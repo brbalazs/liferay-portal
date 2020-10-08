@@ -2,7 +2,7 @@ import AssetsQuery from 'touchpoints/queries/AssetsQuery';
 import Header from './Header';
 import React, {useState} from 'react';
 
-import {AssetNode, NodeSankey} from '../Sankey';
+import {AssetNode, SankeyNode} from '../../utils/types';
 import {assetTypeLabels, getWrappedText} from '../../utils/edges';
 import {
 	calcExpandedTouchpointBoxPosition,
@@ -18,8 +18,8 @@ const CLASSNAME = 'analytics-sankey';
 
 interface ITouchpointEdgeProps extends React.SVGAttributes<SVGElement> {
 	activeIndex: number;
-	expandedTouchpoint: NodeSankey;
-	node: NodeSankey;
+	expandedTouchpoint: SankeyNode;
+	node: SankeyNode;
 	rangeSelectors: RangeSelectors;
 	router: {
 		params: object;

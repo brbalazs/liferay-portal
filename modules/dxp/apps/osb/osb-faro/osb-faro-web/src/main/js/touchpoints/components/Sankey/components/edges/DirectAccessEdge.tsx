@@ -1,7 +1,7 @@
 import AssetsQuery from 'touchpoints/queries/AssetsQuery';
 import React, {useState} from 'react';
 import SankeyBox from './HTMLBox';
-import {AssetNode, NodeSankey} from '../Sankey';
+import {AssetNode, SankeyNode} from '../../utils/types';
 import {assetTypeLabels, getWrappedText} from '../../utils/edges';
 import {getVariables} from 'shared/util/mappers';
 import {RangeSelectors} from 'shared/types';
@@ -12,7 +12,7 @@ export const CLASSNAME = 'analytics-sankey';
 export const CLASSNAME_BOX = `${CLASSNAME}-parent`;
 
 interface IDirectAccessEdge extends React.HTMLAttributes<HTMLElement> {
-	node: NodeSankey;
+	node: SankeyNode;
 	rangeSelectors: RangeSelectors;
 	router: {
 		params: object;

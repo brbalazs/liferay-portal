@@ -1,7 +1,7 @@
-import BasePage from 'shared/components/base-page';
 import getCN from 'classnames';
-import React, {useContext} from 'react';
-import {AssetNode, CLASSNAME, NodeSankey} from '../Sankey';
+import React from 'react';
+import {AssetNode, SankeyNode} from '../../utils/types';
+import {CLASSNAME} from '../Sankey';
 import {getAssetUrl, getTouchpointUrl} from '../../utils/edges';
 import {getNodeColor, isParentNode} from '../../utils/sankey';
 import {isUndefined} from 'lodash';
@@ -13,7 +13,7 @@ const TITLE_FONT_SIZE = 16;
 export interface ITitleProps extends IIconProps {
 	asset?: AssetNode;
 	hasOnClick?: boolean;
-	node: NodeSankey;
+	node: SankeyNode;
 	textClass: string;
 	url?: string;
 	wrappedText?: {

@@ -1,18 +1,19 @@
 import AssetEdge from './AssetEdge';
 import React from 'react';
-import TouchpointTitle from './Title';
-import {AssetNode, CLASSNAME, NodeSankey} from '../Sankey';
+import Title from './Title';
+import {ASSET_HEIGHT, SANKEY_COLORS} from '../../utils/sankey';
+import {AssetNode, SankeyNode} from '../../utils/types';
+import {CLASSNAME} from '../Sankey';
 import {getWrappedText} from '../../utils/edges';
-import {SANKEY_COLORS} from '../../utils/sankey';
 import {sub} from 'shared/util/lang';
 import {toThousands} from 'shared/util/numbers';
 
 interface ITouchpointLabelProps extends React.SVGAttributes<SVGElement> {
 	activeIndex: number;
-	expandedTouchpoint: NodeSankey;
+	expandedTouchpoint: SankeyNode;
 	items: Array<AssetNode>;
 	loading?: boolean;
-	node: NodeSankey & {
+	node: SankeyNode & {
 		color?: string;
 		views?: number;
 		x: number;

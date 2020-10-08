@@ -1,6 +1,6 @@
 import {Colors, nextColor} from 'shared/util/charts';
 import {getWrappedText} from './edges';
-import {Link, Node} from '../components/Sankey';
+import {Link, Node} from '../utils/types';
 import {removeProtocol} from 'shared/util/util';
 import {sankey} from 'd3-sankey';
 
@@ -135,8 +135,8 @@ export const getSankeyData = (
 	{page},
 	router
 ): {
-	nodes: Array<Node>;
 	links: Array<Link>;
+	nodes: Array<Node>;
 } => {
 	const {
 		directAccessMetric,

@@ -21,8 +21,8 @@ import {
 } from '../../utils/sankey';
 import {Colors} from 'shared/util/charts';
 import {getVariables} from 'shared/util/mappers';
-import {NodeSankey} from '../Sankey';
 import {RangeSelectors} from 'shared/types';
+import {SankeyNode} from '../../utils/types';
 import {toRounded, toThousands} from 'shared/util/numbers';
 import {useQuery} from '@apollo/react-hooks';
 
@@ -30,10 +30,10 @@ const CLASSNAME = 'analytics-sankey';
 
 interface IParentEdgeProps extends React.SVGAttributes<SVGElement> {
 	activeIndex: number;
-	expandedTouchpoint: NodeSankey;
+	expandedTouchpoint: SankeyNode;
 	hasOnlyOneReferrer: boolean;
-	node: NodeSankey;
-	nodes: Array<NodeSankey>;
+	node: SankeyNode;
+	nodes: Array<SankeyNode>;
 	rangeSelectors: RangeSelectors;
 	router: {
 		params: object;
