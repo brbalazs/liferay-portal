@@ -46,8 +46,8 @@ public class TimeZoneDisplay {
 		String zoneOffsetId = zoneOffset.getId();
 
 		_displayTimeZone = String.format(
-			StringUtil.removeSubstring(zoneOffsetId, "Z"),
 			"%s%s %s (%s)", TimeZoneUtil.UTC_TIME_ZONE_ID,
+			StringUtil.removeChar(zoneOffsetId, CharPool.UPPER_CASE_Z),
 			zoneId.getDisplayName(TextStyle.FULL, LocaleUtil.getDefault()),
 			StringUtil.replace(
 				zoneId.getId(), CharPool.UNDERLINE, CharPool.SPACE));
