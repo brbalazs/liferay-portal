@@ -529,7 +529,7 @@ public class CommerceOrderEngineTest {
 		).when(
 			"We try to checkout the order"
 		).then(
-			"The Order should be in the In progress status"
+			"The Order should be in the Pending status"
 		);
 
 		Assert.assertEquals(
@@ -573,7 +573,7 @@ public class CommerceOrderEngineTest {
 			_commerceOrder, _user.getUserId());
 
 		Assert.assertEquals(
-			InProgressCommerceOrderStatusImpl.KEY,
+			PendingCommerceOrderStatusImpl.KEY,
 			_commerceOrder.getOrderStatus());
 	}
 
