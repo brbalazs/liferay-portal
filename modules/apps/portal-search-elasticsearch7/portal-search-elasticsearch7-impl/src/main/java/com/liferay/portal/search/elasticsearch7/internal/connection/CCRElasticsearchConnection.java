@@ -155,7 +155,7 @@ public class CCRElasticsearchConnection extends BaseElasticsearchConnection {
 			elasticsearchConnectionConfigurationWrapper.getCertificateFormat(
 				_connectionId);
 
-		if (certificateFormat.equals("PKCS#12")) {
+		if (certificateFormat.equals("pkcs12")) {
 			configurePKCSPaths(settingsBuilder);
 		}
 		else {
