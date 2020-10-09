@@ -68,11 +68,9 @@ int defaultSpeed = 3000;
 			<%
 			if (!fileEntries.isEmpty()) {
 				FileEntry fileEntry = (FileEntry)fileEntries.get(0);
-
-				String largeSrc = DLUtil.getPreviewURL(fileEntry, fileEntry.getFileVersion(), themeDisplay, StringPool.BLANK);
 			%>
 
-				<img alt="<liferay-ui:message escapeAttribute="<%= true %>" key="slide-show" />" name="<portlet:namespace />slideShow" src="<%= largeSrc %>" />
+				<img alt="<liferay-ui:message escapeAttribute="<%= true %>" key="slide-show" />" name="<portlet:namespace />slideShow" src="<%= DLUtil.getPreviewURL(fileEntry, fileEntry.getFileVersion(), themeDisplay, StringPool.BLANK) %>" />
 
 			<%
 			}
