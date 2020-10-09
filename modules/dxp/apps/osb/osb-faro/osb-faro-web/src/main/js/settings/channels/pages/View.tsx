@@ -24,8 +24,10 @@ import {connect} from 'react-redux';
 import {Routes, toRoute} from 'shared/util/router';
 import {SafeResults} from 'shared/hoc/util';
 import {sequence} from 'shared/util/promise';
+import {setBackURL} from 'shared/actions/settings';
 import {sub} from 'shared/util/lang';
 import {UNAUTHORIZED_ACCESS} from 'shared/util/request';
+import {updateDefaultChannelId} from 'shared/actions/preferences';
 import {User} from 'shared/util/records';
 import {useRequest} from 'shared/hooks';
 
@@ -83,11 +85,17 @@ interface IViewProps
 	addAlert: Alert.AddAlert;
 	channel?: Channel;
 	currentUser: User;
+	defaultChannelId: string;
 	groupId: string;
 	history: {
 		push: (string) => void;
 	};
 	id: string;
+	setBackURL: (url: string) => void;
+	updateDefaultChannelId: (params: {
+		defaultChannelId: string;
+		groupId: string;
+	}) => void;
 }
 
 const View: React.FC<IViewProps> = ({
@@ -95,10 +103,13 @@ const View: React.FC<IViewProps> = ({
 	channel,
 	close,
 	currentUser,
+	defaultChannelId,
 	groupId,
 	history,
 	id,
 	open,
+	setBackURL,
+	updateDefaultChannelId,
 	...otherProps
 }) => {
 	const [name, setName] = useState(channel.name);
@@ -309,6 +320,19 @@ const View: React.FC<IViewProps> = ({
 														[name]
 													) as string
 												});
+
+												if (defaultChannelId === id) {
+													updateDefaultChannelId({
+														defaultChannelId: null,
+														groupId
+													});
+
+													setBackURL(
+														toRoute(Routes.SITES, {
+															groupId
+														})
+													);
+												}
 											})
 											.catch(err =>
 												addAlert({
@@ -414,7 +438,14 @@ const View: React.FC<IViewProps> = ({
 export default compose<any>(
 	withCurrentUser,
 	connect(
-		null,
-		{addAlert, close, open}
+		state => ({
+			defaultChannelId: state.getIn([
+				'preferences',
+				'user',
+				'defaultChannelId',
+				'data'
+			])
+		}),
+		{addAlert, close, open, setBackURL, updateDefaultChannelId}
 	)
 )(ViewContainer);

@@ -26,19 +26,27 @@ import {IPagination} from 'shared/types';
 import {Link} from 'react-router-dom';
 import {paginationDefaults} from 'shared/util/pagination';
 import {Routes, toRoute} from 'shared/util/router';
+import {setBackURL} from 'shared/actions/settings';
 import {UNAUTHORIZED_ACCESS} from 'shared/util/request';
+import {updateDefaultChannelId} from 'shared/actions/preferences';
 import {User} from 'shared/util/records';
 
 interface IChannelListProps extends IPagination {
 	addAlert: Alert.AddAlert;
 	close: Modal.close;
 	currentUser: User;
+	defaultChannelId: string;
 	groupId: string;
 	history: {
 		push: (string) => void;
 	};
 	open: Modal.open;
+	setBackURL: (url: string) => void;
 	timeZoneId: string;
+	updateDefaultChannelId: (params: {
+		defaultChannelId: string;
+		groupId: string;
+	}) => void;
 }
 
 type ChannelNameFn = (attrs: {
@@ -233,7 +241,15 @@ export class ChannelList extends React.Component<IChannelListProps> {
 	handleDeleteChannel(selectedItems: SelectedItems) {
 		const {
 			context: {selectionDispatch},
-			props: {addAlert, close, groupId, open}
+			props: {
+				addAlert,
+				close,
+				defaultChannelId,
+				groupId,
+				open,
+				setBackURL,
+				updateDefaultChannelId
+			}
 		} = this;
 
 		const ids = selectedItems.keySeq().toArray();
@@ -272,6 +288,19 @@ export class ChannelList extends React.Component<IChannelListProps> {
 								false
 							) as string
 						});
+
+						if (ids.includes(defaultChannelId)) {
+							updateDefaultChannelId({
+								defaultChannelId: null,
+								groupId
+							});
+
+							setBackURL(
+								toRoute(Routes.SITES, {
+									groupId
+								})
+							);
+						}
 
 						selectionDispatch({type: ACTION_TYPES.clearAll});
 
@@ -467,8 +496,14 @@ export class ChannelList extends React.Component<IChannelListProps> {
 
 export default compose(
 	connect(
-		(store, {groupId}) => ({
-			timeZoneId: store.getIn([
+		(state, {groupId}) => ({
+			defaultChannelId: state.getIn([
+				'preferences',
+				'user',
+				'defaultChannelId',
+				'data'
+			]),
+			timeZoneId: state.getIn([
 				'projects',
 				groupId,
 				'data',
@@ -476,7 +511,7 @@ export default compose(
 				'timeZoneId'
 			])
 		}),
-		{addAlert, close, open}
+		{addAlert, close, open, setBackURL, updateDefaultChannelId}
 	),
 	withCurrentUser,
 	withSelectionProvider
