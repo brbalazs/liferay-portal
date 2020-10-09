@@ -36,20 +36,20 @@ portletURL.setParameter("tabs1", tabs1);
 		<aui:nav-item href="<%= analyticsCloudConnectionURL.toString() %>" label="analytics-cloud-connection" selected='<%= tabs1.equals("analytics-cloud-connection") %>' />
 
 		<%
-		PortletURL syncedContactsURL = PortletURLUtil.clone(portletURL, renderResponse);
-
-		syncedContactsURL.setParameter("tabs1", "synced-contacts");
-		%>
-
-		<aui:nav-item href="<%= syncedContactsURL.toString() %>" label="synced-contacts" selected='<%= tabs1.equals("synced-contacts") %>' />
-
-		<%
 		PortletURL syncedSitesURL = PortletURLUtil.clone(portletURL, renderResponse);
 
 		syncedSitesURL.setParameter("tabs1", "synced-sites");
 		%>
 
 		<aui:nav-item href="<%= syncedSitesURL.toString() %>" label="synced-sites" selected='<%= tabs1.equals("synced-sites") %>' />
+
+		<%
+		PortletURL syncedContactsURL = PortletURLUtil.clone(portletURL, renderResponse);
+
+		syncedContactsURL.setParameter("tabs1", "synced-contacts");
+		%>
+
+		<aui:nav-item href="<%= syncedContactsURL.toString() %>" label="synced-contacts" selected='<%= tabs1.equals("synced-contacts") %>' />
 	</aui:nav>
 </aui:nav-bar>
 

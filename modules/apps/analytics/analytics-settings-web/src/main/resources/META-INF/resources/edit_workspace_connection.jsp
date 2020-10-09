@@ -122,33 +122,6 @@ PortletURL portletURL = renderResponse.createRenderURL();
 
 	<aui:fieldset>
 		<label class="control-label">
-			<liferay-ui:message key="synced-contacts" />
-		</label>
-
-		<div class="form-text">
-			<liferay-ui:message key="synced-contacts-help" />
-		</div>
-
-		<small>
-			<strong>
-				<liferay-ui:message arguments="<%= totalContactsSelected %>" key="total-contacts-selected-x" />
-			</strong>
-		</small>
-
-		<aui:button-row>
-
-			<%
-			PortletURL syncedContactsURL = PortletURLUtil.clone(portletURL, renderResponse);
-
-			syncedContactsURL.setParameter("tabs1", "synced-contacts");
-			%>
-
-			<aui:button disabled="<%= !connected %>" href="<%= syncedContactsURL.toString() %>" primary="<%= true %>" value="select-contacts" />
-		</aui:button-row>
-	</aui:fieldset>
-
-	<aui:fieldset>
-		<label class="control-label">
 			<liferay-ui:message key="synced-sites" />
 		</label>
 
@@ -171,6 +144,33 @@ PortletURL portletURL = renderResponse.createRenderURL();
 			%>
 
 			<aui:button disabled="<%= !connected %>" href="<%= syncedSitesURL.toString() %>" primary="<%= true %>" value="select-sites" />
+		</aui:button-row>
+	</aui:fieldset>
+
+	<aui:fieldset>
+		<label class="control-label">
+			<liferay-ui:message key="synced-contacts" />
+		</label>
+
+		<div class="form-text">
+			<liferay-ui:message key="synced-contacts-help" />
+		</div>
+
+		<small>
+			<strong>
+				<liferay-ui:message arguments="<%= totalContactsSelected %>" key="total-contacts-selected-x" />
+			</strong>
+		</small>
+
+		<aui:button-row>
+
+			<%
+			PortletURL syncedContactsURL = PortletURLUtil.clone(portletURL, renderResponse);
+
+			syncedContactsURL.setParameter("tabs1", "synced-contacts");
+			%>
+
+			<aui:button disabled="<%= !connected %>" href="<%= syncedContactsURL.toString() %>" primary="<%= true %>" value="select-contacts" />
 		</aui:button-row>
 	</aui:fieldset>
 </div>
