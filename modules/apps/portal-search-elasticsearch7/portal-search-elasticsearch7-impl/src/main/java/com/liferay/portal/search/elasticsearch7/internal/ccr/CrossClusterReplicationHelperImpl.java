@@ -33,6 +33,7 @@ import java.nio.file.Paths;
 import java.security.KeyStore;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.net.ssl.SSLContext;
 
@@ -88,20 +89,25 @@ public class CrossClusterReplicationHelperImpl
 					" for connection ", localClusterConnectionId));
 		}
 
-		try {
-			_updateSettings(
-				localClusterConnectionId, remoteClusterAlias,
-				remoteClusterSeedNodeTransportAddress);
-		}
-		catch (Exception exception) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(
-					StringBundler.concat(
-						"Unable to add the remote cluster ", remoteClusterAlias,
-						" for connection ", localClusterConnectionId),
-					exception);
-			}
-		}
+		executeWithRestHighLevelClient(
+			localClusterConnectionId,
+			restHighLevelClient -> {
+				try {
+					_updateSettings(
+						restHighLevelClient, remoteClusterAlias,
+						remoteClusterSeedNodeTransportAddress);
+				}
+				catch (Exception exception) {
+					if (_log.isWarnEnabled()) {
+						_log.warn(
+							StringBundler.concat(
+								"Unable to add the remote cluster ",
+								remoteClusterAlias, " for connection ",
+								localClusterConnectionId),
+							exception);
+					}
+				}
+			});
 	}
 
 	@Override
@@ -115,19 +121,24 @@ public class CrossClusterReplicationHelperImpl
 					" for connection ", localClusterConnectionId));
 		}
 
-		try {
-			_updateSettings(localClusterConnectionId, remoteClusterAlias, null);
-		}
-		catch (Exception exception) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(
-					StringBundler.concat(
-						"Unable to remove the remote cluster ",
-						remoteClusterAlias, " for connection ",
-						localClusterConnectionId),
-					exception);
-			}
-		}
+		executeWithRestHighLevelClient(
+			localClusterConnectionId,
+			restHighLevelClient -> {
+				try {
+					_updateSettings(
+						restHighLevelClient, remoteClusterAlias, null);
+				}
+				catch (Exception exception) {
+					if (_log.isWarnEnabled()) {
+						_log.warn(
+							StringBundler.concat(
+								"Unable to remove the remote cluster ",
+								remoteClusterAlias, " for connection ",
+								localClusterConnectionId),
+							exception);
+					}
+				}
+			});
 	}
 
 	@Override
@@ -159,38 +170,45 @@ public class CrossClusterReplicationHelperImpl
 		String remoteClusterAlias, String indexName,
 		String localClusterConnectionId) {
 
-		if (_isFollowingActive(localClusterConnectionId, indexName)) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(
-					StringBundler.concat(
-						"The ", indexName,
-						" index is already being followed for connection ",
-						localClusterConnectionId));
-			}
+		executeWithRestHighLevelClient(
+			localClusterConnectionId,
+			restHighLevelClient -> {
+				if (_isFollowingActive(indexName, restHighLevelClient)) {
+					if (_log.isWarnEnabled()) {
+						_log.warn(
+							StringBundler.concat(
+								"The ", indexName,
+								" index is already being followed for ",
+								"connection ", localClusterConnectionId));
+					}
 
-			return;
-		}
+					return;
+				}
 
-		if (_log.isInfoEnabled()) {
-			_log.info(
-				StringBundler.concat(
-					"Executing follow request for the ", indexName,
-					" index with connection ", localClusterConnectionId));
-		}
+				if (_log.isInfoEnabled()) {
+					_log.info(
+						StringBundler.concat(
+							"Executing follow request for the ", indexName,
+							" index with connection ",
+							localClusterConnectionId));
+				}
 
-		try {
-			_putFollow(remoteClusterAlias, indexName, localClusterConnectionId);
-		}
-		catch (Exception exception) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(
-					StringBundler.concat(
-						"Unable to follow the ", indexName, " index in the ",
-						remoteClusterAlias, " cluster for connection ",
-						localClusterConnectionId),
-					exception);
-			}
-		}
+				try {
+					_putFollow(
+						remoteClusterAlias, indexName, restHighLevelClient);
+				}
+				catch (Exception exception) {
+					if (_log.isWarnEnabled()) {
+						_log.warn(
+							StringBundler.concat(
+								"Unable to follow the ", indexName,
+								" index in the ", remoteClusterAlias,
+								" cluster for connection ",
+								localClusterConnectionId),
+							exception);
+					}
+				}
+			});
 	}
 
 	public void setRESTClientLoggerLevel() {
@@ -239,22 +257,51 @@ public class CrossClusterReplicationHelperImpl
 					" index with connection ", localClusterConnectionId));
 		}
 
+		executeWithRestHighLevelClient(
+			localClusterConnectionId,
+			restHighLevelClient -> {
+				try {
+					_pauseFollow(indexName, restHighLevelClient);
+
+					_closeIndex(indexName, restHighLevelClient);
+
+					_unfollow(indexName, restHighLevelClient);
+
+					_deleteIndex(indexName, restHighLevelClient);
+				}
+				catch (Exception exception) {
+					if (_log.isWarnEnabled()) {
+						_log.warn(
+							StringBundler.concat(
+								"Unable to unfollow the ", indexName,
+								" index for connection ",
+								localClusterConnectionId),
+							exception);
+					}
+				}
+			});
+	}
+
+	protected void executeWithRestHighLevelClient(
+		String connectionId, Consumer<RestHighLevelClient> consumer) {
+
+		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient(
+			connectionId);
+
 		try {
-			_pauseFollow(indexName, localClusterConnectionId);
-
-			_closeIndex(indexName, localClusterConnectionId);
-
-			_unfollow(indexName, localClusterConnectionId);
-
-			_deleteIndex(indexName, localClusterConnectionId);
+			consumer.accept(restHighLevelClient);
 		}
-		catch (Exception exception) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(
-					StringBundler.concat(
-						"Unable to unfollow the ", indexName,
-						" index for connection ", localClusterConnectionId),
-					exception);
+		finally {
+			try {
+				restHighLevelClient.close();
+			}
+			catch (Exception exception) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(
+						"Unable to close the REST client for connection " +
+							connectionId,
+						exception);
+				}
 			}
 		}
 	}
@@ -270,11 +317,9 @@ public class CrossClusterReplicationHelperImpl
 	@Reference
 	protected ElasticsearchConnectionManager elasticsearchConnectionManager;
 
-	private void _closeIndex(String indexName, String connectionId)
+	private void _closeIndex(
+			String indexName, RestHighLevelClient restHighLevelClient)
 		throws Exception {
-
-		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient(
-			connectionId);
 
 		IndicesClient indices = restHighLevelClient.indices();
 
@@ -368,11 +413,9 @@ public class CrossClusterReplicationHelperImpl
 		}
 	}
 
-	private void _deleteIndex(String indexName, String connectionId)
+	private void _deleteIndex(
+			String indexName, RestHighLevelClient restHighLevelClient)
 		throws Exception {
-
-		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient(
-			connectionId);
 
 		IndicesClient indices = restHighLevelClient.indices();
 
@@ -382,11 +425,10 @@ public class CrossClusterReplicationHelperImpl
 		indices.delete(deleteIndexRequest, RequestOptions.DEFAULT);
 	}
 
-	private boolean _isFollowingActive(String connectionId, String indexName) {
-		try {
-			RestHighLevelClient restHighLevelClient =
-				_createRestHighLevelClient(connectionId);
+	private boolean _isFollowingActive(
+		String indexName, RestHighLevelClient restHighLevelClient) {
 
+		try {
 			CcrClient ccrClient = restHighLevelClient.ccr();
 
 			FollowInfoRequest followInfoRequest = new FollowInfoRequest(
@@ -412,11 +454,9 @@ public class CrossClusterReplicationHelperImpl
 		return false;
 	}
 
-	private void _pauseFollow(String indexName, String connectionId)
+	private void _pauseFollow(
+			String indexName, RestHighLevelClient restHighLevelClient)
 		throws Exception {
-
-		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient(
-			connectionId);
 
 		CcrClient ccrClient = restHighLevelClient.ccr();
 
@@ -427,11 +467,9 @@ public class CrossClusterReplicationHelperImpl
 	}
 
 	private void _putFollow(
-			String remoteClusterAlias, String indexName, String connectionId)
+			String remoteClusterAlias, String indexName,
+			RestHighLevelClient restHighLevelClient)
 		throws Exception {
-
-		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient(
-			connectionId);
 
 		CcrClient ccrClient = restHighLevelClient.ccr();
 
@@ -441,11 +479,9 @@ public class CrossClusterReplicationHelperImpl
 		ccrClient.putFollow(putFollowRequest, RequestOptions.DEFAULT);
 	}
 
-	private void _unfollow(String indexName, String connectionId)
+	private void _unfollow(
+			String indexName, RestHighLevelClient restHighLevelClient)
 		throws Exception {
-
-		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient(
-			connectionId);
 
 		CcrClient ccrClient = restHighLevelClient.ccr();
 
@@ -455,12 +491,9 @@ public class CrossClusterReplicationHelperImpl
 	}
 
 	private void _updateSettings(
-			String connectionId, String remoteClusterAlias,
+			RestHighLevelClient restHighLevelClient, String remoteClusterAlias,
 			String remoteClusterSeedNodeTransportAddress)
 		throws Exception {
-
-		RestHighLevelClient restHighLevelClient = _createRestHighLevelClient(
-			connectionId);
 
 		ClusterClient clusterClient = restHighLevelClient.cluster();
 
