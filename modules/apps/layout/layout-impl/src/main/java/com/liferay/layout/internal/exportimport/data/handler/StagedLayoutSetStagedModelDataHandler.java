@@ -858,10 +858,8 @@ public class StagedLayoutSetStagedModelDataHandler
 		if (Validator.isNull(mergeFailFriendlyURLLayouts)) {
 			boolean changed = false;
 
-			LayoutSet stagedLayoutSet = importedLayoutSet.getLayoutSet();
-
 			UnicodeProperties importedSettingsUnicodeProperties =
-				stagedLayoutSet.getSettingsProperties();
+				importedLayoutSet.getSettingsProperties();
 
 			Map<String, String> defaultsMap = MapUtil.fromArray(defaultsArray);
 
