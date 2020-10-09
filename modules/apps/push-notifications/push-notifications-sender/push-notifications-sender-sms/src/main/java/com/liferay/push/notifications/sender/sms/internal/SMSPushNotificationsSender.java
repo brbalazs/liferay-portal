@@ -30,7 +30,6 @@ import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.MessageCreator;
 import com.twilio.type.PhoneNumber;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
