@@ -96,7 +96,6 @@ MBMessage rootMessage = treeWalker.getRoot();
 	<c:if test="<%= !thread.isLocked() && !message.isDraft() && MBCategoryPermission.contains(permissionChecker, scopeGroupId, message.getCategoryId(), ActionKeys.REPLY_TO_MESSAGE) %>">
 
 		<%
-		MBMessage curMessage = message;
 		long replyToMessageId = message.getMessageId();
 		%>
 

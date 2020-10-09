@@ -139,7 +139,6 @@ redirectURL.setParameter("mvcPath", "/view.jsp");
 		List<String> transitionNames = workflowTaskDisplayContext.getTransitionNames(workflowTask);
 
 		for (String transitionName : transitionNames) {
-			String message = workflowTaskDisplayContext.getTransitionMessage(transitionName);
 		%>
 
 			Liferay.delegateClick('<portlet:namespace /><%= randomId + HtmlUtil.escapeJS(transitionName) %>taskChangeStatusLink', onTaskClickFn);
