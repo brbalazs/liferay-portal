@@ -16,6 +16,7 @@ package com.liferay.portal.search.solr8.internal.document;
 
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.search.geolocation.GeoLocationPoint;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.search.document.Document;
@@ -47,7 +48,13 @@ public class DefaultSolrDocumentFactory implements SolrDocumentFactory {
 			String name = field.getName();
 
 			if (!field.isLocalized()) {
-				for (String value : field.getValues()) {
+				String[] values = field.getValues();
+
+				if (ArrayUtil.isEmpty(values)) {
+					continue;
+				}
+
+				for (String value : values) {
 					if (value == null) {
 						continue;
 					}
