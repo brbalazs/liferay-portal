@@ -30,7 +30,7 @@ String samlRole = properties.getProperty(PortletPropsKeys.SAML_ROLE, samlProvide
 	<portlet:param name="tabs1" value="general" />
 </portlet:actionURL>
 
-<aui:form action="<%= updateGeneralURL %>">
+<aui:form action="<%= updateGeneralURL %>" cssClass="sheet">
 	<liferay-ui:error key="certificateInvalid" message="please-create-a-signing-credential-before-enabling" />
 	<liferay-ui:error key="entityIdInUse" message="saml-must-be-disabled-before-changing-the-entity-id" />
 	<liferay-ui:error key="entityIdTooLong" message="entity-id-too-long" />
@@ -73,19 +73,21 @@ String samlRole = properties.getProperty(PortletPropsKeys.SAML_ROLE, samlProvide
 		</div>
 	</c:when>
 	<c:when test="<%= Validator.isNotNull(entityId) %>">
-		<aui:fieldset label="certificate-and-private-key">
-			<liferay-util:include page="/admin/certificate_info.jsp" servletContext="<%= application %>">
-				<liferay-util:param name="certificateUsage" value="<%= LocalEntityManager.CertificateUsage.SIGNING.name() %>" />
-			</liferay-util:include>
-		</aui:fieldset>
-
-		<c:if test='<%= samlRole.equals("sp") %>'>
-			<aui:fieldset label="encryption-certificate-and-private-key">
+		<div class="sheet">
+			<aui:fieldset label="certificate-and-private-key">
 				<liferay-util:include page="/admin/certificate_info.jsp" servletContext="<%= application %>">
-					<liferay-util:param name="certificateUsage" value="<%= LocalEntityManager.CertificateUsage.ENCRYPTION.name() %>" />
+					<liferay-util:param name="certificateUsage" value="<%= LocalEntityManager.CertificateUsage.SIGNING.name() %>" />
 				</liferay-util:include>
 			</aui:fieldset>
-		</c:if>
+
+			<c:if test='<%= samlRole.equals("sp") %>'>
+				<aui:fieldset label="encryption-certificate-and-private-key">
+					<liferay-util:include page="/admin/certificate_info.jsp" servletContext="<%= application %>">
+						<liferay-util:param name="certificateUsage" value="<%= LocalEntityManager.CertificateUsage.ENCRYPTION.name() %>" />
+					</liferay-util:include>
+				</aui:fieldset>
+			</c:if>
+		</div>
 	</c:when>
 </c:choose>
 

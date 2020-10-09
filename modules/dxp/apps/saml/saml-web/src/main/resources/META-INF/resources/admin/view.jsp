@@ -34,10 +34,12 @@ else if (samlProviderConfigurationHelper.isRoleSp()) {
 %>
 
 <liferay-ui:tabs
+	cssClass="navigation-bar-secondary"
 	names="<%= tabs1Names %>"
+	type="tabs nav-tabs-default"
 	url="<%= portletURL.toString() %>"
 >
-	<div class="container-fluid-1280">
+	<div class="container-fluid">
 		<c:choose>
 			<c:when test='<%= tabs1.equals("general") %>'>
 				<liferay-util:include page="/admin/general.jsp" servletContext="<%= pageContext.getServletContext() %>" />

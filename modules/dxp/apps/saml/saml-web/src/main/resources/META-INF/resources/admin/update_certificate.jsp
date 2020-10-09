@@ -50,7 +50,7 @@ X509Certificate x509Certificate = (X509Certificate)request.getAttribute(SamlWebK
 
 <c:choose>
 	<c:when test="<%= x509Certificate == null %>">
-		<aui:form action="<%= updateCertificateURL %>">
+		<aui:form action="<%= updateCertificateURL %>" cssClass="sheet">
 			<div class="lfr-form-content" id="<portlet:namespace />certificateForm">
 				<div class="inline-alert-container lfr-alert-container"></div>
 

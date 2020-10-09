@@ -28,4 +28,16 @@
 			margin-top: 0;
 		}
 	}
+	.navigation-bar-secondary {
+		> .tab > a {
+			color: #CDCED9;
+			font-weight: 600;
+		}
+
+	}
+	.navigation-bar-secondary {
+		> .active > a {
+			color: #FFF;
+		}
+	}
 }

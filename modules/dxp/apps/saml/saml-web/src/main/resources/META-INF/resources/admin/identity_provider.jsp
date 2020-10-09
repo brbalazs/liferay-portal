@@ -20,7 +20,7 @@
 	<portlet:param name="tabs1" value="identity-provider" />
 </portlet:actionURL>
 
-<aui:form action="<%= updateIdentityProviderURL %>">
+<aui:form action="<%= updateIdentityProviderURL %>" cssClass="sheet">
 	<aui:fieldset label="general">
 		<aui:input helpMessage="saml-sign-metadata-description" label="saml-sign-metadata" name='<%= "settings--" + PortletPropsKeys.SAML_SIGN_METADATA + "--" %>' type="checkbox" value="<%= samlProviderConfiguration.signMetadata() %>" />
 

@@ -20,7 +20,7 @@
 	<portlet:param name="tabs1" value="service-provider" />
 </portlet:actionURL>
 
-<aui:form action="<%= updateServiceProviderURL %>">
+<aui:form action="<%= updateServiceProviderURL %>" cssClass="sheet">
 	<aui:fieldset label="general">
 		<aui:input helpMessage="saml-sp-assertion-signature-required-description" label="saml-sp-assertion-signature-required" name='<%= "settings--" + PortletPropsKeys.SAML_SP_ASSERTION_SIGNATURE_REQUIRED + "--" %>' type="checkbox" value="<%= samlProviderConfiguration.assertionSignatureRequired() %>" />
 
