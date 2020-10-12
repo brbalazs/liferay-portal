@@ -47,7 +47,8 @@ dependencies {
 	compileInclude group: "org.apache.lucene", name: "lucene-queries", version: luceneVersion
 	compileInclude group: "org.apache.lucene", name: "lucene-queryparser", version: luceneVersion
 	compileInclude group: "org.apache.lucene", name: "lucene-sandbox", version: luceneVersion
-	compileInclude group: "org.apache.lucene", name: "lucene-spatial", version: luceneVersion
+	compileInclude group: "org.apache.lucene", name: "lucene-spatial-extras", version: luceneVersion
+	compileInclude group: "org.apache.lucene", name: "lucene-spatial3d", version: luceneVersion
 	compileInclude group: "org.apache.lucene", name: "lucene-suggest", version: luceneVersion
 	compileInclude group: "org.bouncycastle", name: "bcpg-jdk15on", version: "1.61"
 	compileInclude group: "org.bouncycastle", name: "bcpkix-jdk15on", version: "1.61"
