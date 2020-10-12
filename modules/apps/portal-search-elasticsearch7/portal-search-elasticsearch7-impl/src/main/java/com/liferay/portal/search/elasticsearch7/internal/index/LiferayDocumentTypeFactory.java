@@ -35,7 +35,7 @@ import org.elasticsearch.action.admin.indices.mapping.get.GetMappingsRequestBuil
 import org.elasticsearch.action.admin.indices.mapping.get.GetMappingsResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequestBuilder;
 import org.elasticsearch.client.IndicesAdminClient;
-import org.elasticsearch.cluster.metadata.MappingMetaData;
+import org.elasticsearch.cluster.metadata.MappingMetadata;
 import org.elasticsearch.common.collect.ImmutableOpenMap;
 import org.elasticsearch.common.compress.CompressedXContent;
 import org.elasticsearch.common.settings.Settings;
@@ -132,14 +132,14 @@ public class LiferayDocumentTypeFactory
 		GetMappingsResponse getMappingsResponse =
 			getMappingsRequestBuilder.get();
 
-		ImmutableOpenMap<String, ImmutableOpenMap<String, MappingMetaData>>
+		ImmutableOpenMap<String, ImmutableOpenMap<String, MappingMetadata>>
 			map = getMappingsResponse.mappings();
 
-		ImmutableOpenMap<String, MappingMetaData> mappings = map.get(indexName);
+		ImmutableOpenMap<String, MappingMetadata> mappings = map.get(indexName);
 
-		MappingMetaData mappingMetaData = mappings.get(typeName);
+		MappingMetadata mappingMetadata = mappings.get(typeName);
 
-		CompressedXContent compressedXContent = mappingMetaData.source();
+		CompressedXContent compressedXContent = mappingMetadata.source();
 
 		return compressedXContent.toString();
 	}

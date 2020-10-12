@@ -26,7 +26,7 @@ import org.elasticsearch.action.admin.indices.mapping.get.GetMappingsResponse;
 import org.elasticsearch.client.AdminClient;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.IndicesAdminClient;
-import org.elasticsearch.cluster.metadata.MappingMetaData;
+import org.elasticsearch.cluster.metadata.MappingMetadata;
 import org.elasticsearch.common.collect.ImmutableOpenMap;
 import org.elasticsearch.common.compress.CompressedXContent;
 
@@ -50,19 +50,19 @@ public class GetMappingIndexRequestExecutorImpl
 		GetMappingsResponse getMappingsResponse =
 			getMappingsRequestBuilder.get();
 
-		ImmutableOpenMap<String, ImmutableOpenMap<String, MappingMetaData>>
+		ImmutableOpenMap<String, ImmutableOpenMap<String, MappingMetadata>>
 			mappings = getMappingsResponse.mappings();
 
 		Map<String, String> indexMappings = new HashMap<>();
 
 		for (String indexName : getMappingIndexRequest.getIndexNames()) {
-			ImmutableOpenMap<String, MappingMetaData> indexMapping =
+			ImmutableOpenMap<String, MappingMetadata> indexMapping =
 				mappings.get(indexName);
 
-			MappingMetaData mappingMetaData = indexMapping.get(
+			MappingMetadata mappingMetadata = indexMapping.get(
 				getMappingIndexRequest.getMappingName());
 
-			CompressedXContent mappingContent = mappingMetaData.source();
+			CompressedXContent mappingContent = mappingMetadata.source();
 
 			indexMappings.put(indexName, mappingContent.toString());
 		}

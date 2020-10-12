@@ -26,7 +26,7 @@ import java.util.List;
 import org.elasticsearch.action.admin.cluster.repositories.get.GetRepositoriesAction;
 import org.elasticsearch.action.admin.cluster.repositories.get.GetRepositoriesRequestBuilder;
 import org.elasticsearch.action.admin.cluster.repositories.get.GetRepositoriesResponse;
-import org.elasticsearch.cluster.metadata.RepositoryMetaData;
+import org.elasticsearch.cluster.metadata.RepositoryMetadata;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.repositories.RepositoryMissingException;
 
@@ -54,18 +54,18 @@ public class GetSnapshotRepositoriesRequestExecutorImpl
 			GetRepositoriesResponse elasticsearchGetRepositoriesResponse =
 				getRepositoriesRequestBuilder.get();
 
-			List<RepositoryMetaData> repositoriesMetaDatas =
+			List<RepositoryMetadata> repositoriesMetadatas =
 				elasticsearchGetRepositoriesResponse.repositories();
 
-			repositoriesMetaDatas.forEach(
-				repositoryMetaData -> {
+			repositoriesMetadatas.forEach(
+				repositoryMetadata -> {
 					Settings repositoryMetadataSettings =
-						repositoryMetaData.settings();
+						repositoryMetadata.settings();
 
 					SnapshotRepositoryDetails snapshotRepositoryDetails =
 						new SnapshotRepositoryDetails(
-							repositoryMetaData.name(),
-							repositoryMetaData.type(),
+							repositoryMetadata.name(),
+							repositoryMetadata.type(),
 							repositoryMetadataSettings.toString());
 
 					getSnapshotRepositoriesResponse.
@@ -79,9 +79,8 @@ public class GetSnapshotRepositoriesRequestExecutorImpl
 					repositoryMissingException, repositoryMissingException);
 			}
 		}
-		finally {
-			return getSnapshotRepositoriesResponse;
-		}
+
+		return getSnapshotRepositoriesResponse;
 	}
 
 	protected GetRepositoriesRequestBuilder createGetRepositoriesRequestBuilder(

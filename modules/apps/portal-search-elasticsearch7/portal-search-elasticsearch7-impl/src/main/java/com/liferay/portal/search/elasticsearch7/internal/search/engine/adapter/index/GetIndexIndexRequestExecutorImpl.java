@@ -27,7 +27,7 @@ import java.util.Map;
 import org.elasticsearch.action.admin.indices.get.GetIndexAction;
 import org.elasticsearch.action.admin.indices.get.GetIndexRequestBuilder;
 import org.elasticsearch.action.admin.indices.get.GetIndexResponse;
-import org.elasticsearch.cluster.metadata.MappingMetaData;
+import org.elasticsearch.cluster.metadata.MappingMetadata;
 import org.elasticsearch.common.collect.ImmutableOpenMap;
 import org.elasticsearch.common.compress.CompressedXContent;
 import org.elasticsearch.common.settings.Settings;
@@ -56,7 +56,7 @@ public class GetIndexIndexRequestExecutorImpl
 
 		getIndexIndexResponse.setIndexNames(getIndexResponse.getIndices());
 
-		ImmutableOpenMap<String, ImmutableOpenMap<String, MappingMetaData>>
+		ImmutableOpenMap<String, ImmutableOpenMap<String, MappingMetadata>>
 			indicesMappings = getIndexResponse.getMappings();
 
 		getIndexIndexResponse.setMappings(convertMappings(indicesMappings));
@@ -70,40 +70,40 @@ public class GetIndexIndexRequestExecutorImpl
 	}
 
 	protected Map<String, Map<String, String>> convertMappings(
-		ImmutableOpenMap<String, ImmutableOpenMap<String, MappingMetaData>>
+		ImmutableOpenMap<String, ImmutableOpenMap<String, MappingMetadata>>
 			indicesMappings) {
 
 		Iterator
 			<ObjectObjectCursor
-				<String, ImmutableOpenMap<String, MappingMetaData>>> iterator =
+				<String, ImmutableOpenMap<String, MappingMetadata>>> iterator =
 					indicesMappings.iterator();
 
 		Map<String, Map<String, String>> indexMappings = new HashMap<>();
 
 		while (iterator.hasNext()) {
 			ObjectObjectCursor
-				<String, ImmutableOpenMap<String, MappingMetaData>>
+				<String, ImmutableOpenMap<String, MappingMetadata>>
 					objectObjectCursor = iterator.next();
 
-			ImmutableOpenMap<String, MappingMetaData> typeMappingsData =
+			ImmutableOpenMap<String, MappingMetadata> typeMappingsData =
 				objectObjectCursor.value;
 
 			Map<String, String> indiceTypeMappings = new HashMap<>();
 
 			indexMappings.put(objectObjectCursor.key, indiceTypeMappings);
 
-			Iterator<ObjectObjectCursor<String, MappingMetaData>>
+			Iterator<ObjectObjectCursor<String, MappingMetadata>>
 				typeMappingsIterator = typeMappingsData.iterator();
 
 			while (typeMappingsIterator.hasNext()) {
-				ObjectObjectCursor<String, MappingMetaData>
+				ObjectObjectCursor<String, MappingMetadata>
 					typeMappingsObjectObjectCursor =
 						typeMappingsIterator.next();
 
-				MappingMetaData mappingMetaData =
+				MappingMetadata mappingMetadata =
 					typeMappingsObjectObjectCursor.value;
 
-				CompressedXContent mappingContent = mappingMetaData.source();
+				CompressedXContent mappingContent = mappingMetadata.source();
 
 				indiceTypeMappings.put(
 					typeMappingsObjectObjectCursor.key,

@@ -56,7 +56,7 @@ public class DeleteSnapshotRequestExecutorImpl
 
 		deleteSnapshotRequestBuilder.setRepository(
 			deleteSnapshotRequest.getRepositoryName());
-		deleteSnapshotRequestBuilder.setSnapshot(
+		deleteSnapshotRequestBuilder.setSnapshots(
 			deleteSnapshotRequest.getSnapshotName());
 
 		return deleteSnapshotRequestBuilder;

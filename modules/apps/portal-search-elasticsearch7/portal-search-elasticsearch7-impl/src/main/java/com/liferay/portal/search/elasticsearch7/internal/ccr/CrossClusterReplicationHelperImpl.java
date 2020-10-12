@@ -49,7 +49,6 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import org.elasticsearch.action.admin.cluster.settings.ClusterUpdateSettingsRequest;
-import org.elasticsearch.action.admin.indices.close.CloseIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.support.ActiveShardCount;
 import org.elasticsearch.client.CcrClient;
@@ -64,6 +63,7 @@ import org.elasticsearch.client.ccr.FollowInfoResponse;
 import org.elasticsearch.client.ccr.PauseFollowRequest;
 import org.elasticsearch.client.ccr.PutFollowRequest;
 import org.elasticsearch.client.ccr.UnfollowRequest;
+import org.elasticsearch.client.indices.CloseIndexRequest;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
