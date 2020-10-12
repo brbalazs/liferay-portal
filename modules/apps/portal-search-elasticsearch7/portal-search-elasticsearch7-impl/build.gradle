@@ -16,7 +16,6 @@ dependencies {
 	compileInclude group: "com.liferay", name: "org.elasticsearch.client.xpack.transport", version: elasticsearchVersion
 	compileInclude group: "com.liferay", name: "org.elasticsearch.plugin.classloader", version: elasticsearchVersion
 	compileInclude group: "com.liferay", name: "org.elasticsearch.plugin.cli", version: elasticsearchVersion
-	compileInclude group: "com.liferay", name: "org.elasticsearch.plugin.mapper-extras-client", version: elasticsearchVersion
 	compileInclude group: "com.liferay", name: "org.elasticsearch.xpack.core", version: elasticsearchVersion
 	compileInclude group: "com.liferay", name: "org.elasticsearch7.painless", version: "7.3.0.LIFERAY-PATCHED-2"
 	compileInclude group: "com.tdunning", name: "t-digest", version: "3.2"
@@ -67,6 +66,7 @@ dependencies {
 	compileInclude group: "org.elasticsearch.client", name: "transport", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch.plugin", name: "elasticsearch-scripting-painless-spi", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch.plugin", name: "lang-mustache-client", version: elasticsearchVersion
+	compileInclude group: "org.elasticsearch.plugin", name: "mapper-extras-client", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch.plugin", name: "parent-join-client", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch.plugin", name: "percolator-client", version: elasticsearchVersion
 	compileInclude group: "org.elasticsearch.plugin", name: "rank-eval-client", version: elasticsearchVersion
