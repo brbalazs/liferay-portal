@@ -71,9 +71,9 @@ import org.elasticsearch.client.AdminClient;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.IndicesAdminClient;
 import org.elasticsearch.cluster.ClusterState;
-import org.elasticsearch.cluster.metadata.IndexMetaData;
-import org.elasticsearch.cluster.metadata.MappingMetaData;
-import org.elasticsearch.cluster.metadata.MetaData;
+import org.elasticsearch.cluster.metadata.IndexMetadata;
+import org.elasticsearch.cluster.metadata.MappingMetadata;
+import org.elasticsearch.cluster.metadata.Metadata;
 import org.elasticsearch.common.collect.ImmutableOpenMap;
 import org.elasticsearch.common.xcontent.XContentType;
 
@@ -134,7 +134,7 @@ public class ElasticsearchSearchEngineAdapterIndexRequestTest {
 			"Close request not acknowledged",
 			closeIndexResponse.isAcknowledged());
 
-		assertIndexMetaDataState(_INDEX_NAME, IndexMetaData.State.CLOSE);
+		assertIndexMetadataState(_INDEX_NAME, IndexMetadata.State.CLOSE);
 	}
 
 	@Test
@@ -322,17 +322,17 @@ public class ElasticsearchSearchEngineAdapterIndexRequestTest {
 		GetMappingsResponse getMappingsResponse =
 			getMappingsRequestBuilder.get();
 
-		ImmutableOpenMap<String, ImmutableOpenMap<String, MappingMetaData>>
+		ImmutableOpenMap<String, ImmutableOpenMap<String, MappingMetadata>>
 			immutableOpenMap1 = getMappingsResponse.getMappings();
 
-		ImmutableOpenMap<String, MappingMetaData> immutableOpenMap2 =
+		ImmutableOpenMap<String, MappingMetadata> immutableOpenMap2 =
 			immutableOpenMap1.get(_INDEX_NAME);
 
-		MappingMetaData mappingMetaData = immutableOpenMap2.get(mappingName);
+		MappingMetadata mappingMetadata = immutableOpenMap2.get(mappingName);
 
-		String mappingMetaDataSource = String.valueOf(mappingMetaData.source());
+		String mappingMetadataSource = String.valueOf(mappingMetadata.source());
 
-		Assert.assertTrue(mappingMetaDataSource.contains(mappingSource));
+		Assert.assertTrue(mappingMetadataSource.contains(mappingSource));
 	}
 
 	@Test
@@ -399,7 +399,7 @@ public class ElasticsearchSearchEngineAdapterIndexRequestTest {
 
 		closeIndexRequestBuilder.get();
 
-		assertIndexMetaDataState(_INDEX_NAME, IndexMetaData.State.CLOSE);
+		assertIndexMetadataState(_INDEX_NAME, IndexMetadata.State.CLOSE);
 
 		OpenIndexRequest openIndexRequest = new OpenIndexRequest(_INDEX_NAME);
 
@@ -416,7 +416,7 @@ public class ElasticsearchSearchEngineAdapterIndexRequestTest {
 			"Open request not acknowledged",
 			openIndexResponse.isAcknowledged());
 
-		assertIndexMetaDataState(_INDEX_NAME, IndexMetaData.State.OPEN);
+		assertIndexMetadataState(_INDEX_NAME, IndexMetadata.State.OPEN);
 	}
 
 	protected static IndexRequestExecutor createIndexRequestExecutor(
@@ -451,8 +451,8 @@ public class ElasticsearchSearchEngineAdapterIndexRequestTest {
 		jsonFactoryUtil.setJSONFactory(new JSONFactoryImpl());
 	}
 
-	protected void assertIndexMetaDataState(
-		String indexName, IndexMetaData.State indexMetaDataState) {
+	protected void assertIndexMetadataState(
+		String indexName, IndexMetadata.State indexMetadataState) {
 
 		ClusterStateRequestBuilder clusterStateRequestBuilder =
 			new ClusterStateRequestBuilder(
@@ -465,14 +465,14 @@ public class ElasticsearchSearchEngineAdapterIndexRequestTest {
 
 		ClusterState clusterState = clusterStateResponse.getState();
 
-		MetaData metaData = clusterState.getMetaData();
+		Metadata metaData = clusterState.getMetadata();
 
-		ImmutableOpenMap<String, IndexMetaData> indexMetaDataMap =
+		ImmutableOpenMap<String, IndexMetadata> indexMetadataMap =
 			metaData.getIndices();
 
-		IndexMetaData indexMetaData = indexMetaDataMap.get(_INDEX_NAME);
+		IndexMetadata indexMetadata = indexMetadataMap.get(_INDEX_NAME);
 
-		Assert.assertEquals(indexMetaDataState, indexMetaData.getState());
+		Assert.assertEquals(indexMetadataState, indexMetadata.getState());
 	}
 
 	protected void createIndex() {

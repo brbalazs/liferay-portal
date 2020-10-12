@@ -57,7 +57,7 @@ import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsAction
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequestBuilder;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
 import org.elasticsearch.client.IndicesAdminClient;
-import org.elasticsearch.cluster.metadata.RepositoryMetaData;
+import org.elasticsearch.cluster.metadata.RepositoryMetadata;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.repositories.fs.FsRepository;
 import org.elasticsearch.snapshots.SnapshotInfo;
@@ -148,7 +148,7 @@ public class ElasticsearchSearchEngineAdapterSnapshotRequestTest {
 				DeleteSnapshotAction.INSTANCE);
 
 		deleteSnapshotRequestBuilder.setRepository(_TEST_REPOSITORY_NAME);
-		deleteSnapshotRequestBuilder.setSnapshot("test_create_snapshot");
+		deleteSnapshotRequestBuilder.setSnapshots("test_create_snapshot");
 
 		deleteSnapshotRequestBuilder.get();
 	}
@@ -175,19 +175,19 @@ public class ElasticsearchSearchEngineAdapterSnapshotRequestTest {
 		GetRepositoriesResponse getRepositoriesResponse =
 			getRepositoriesRequestBuilder.get();
 
-		List<RepositoryMetaData> repositoryMetaDatas =
+		List<RepositoryMetadata> repositoryMetadatas =
 			getRepositoriesResponse.repositories();
 
 		Assert.assertEquals(
-			"Expected 1 RepositoryMetaData", 1, repositoryMetaDatas.size());
+			"Expected 1 RepositoryMetadata", 1, repositoryMetadatas.size());
 
-		RepositoryMetaData repositoryMetaData = repositoryMetaDatas.get(0);
+		RepositoryMetadata repositoryMetadata = repositoryMetadatas.get(0);
 
 		Assert.assertEquals(
-			"testCreateSnapshotRepository", repositoryMetaData.name());
+			"testCreateSnapshotRepository", repositoryMetadata.name());
 		Assert.assertEquals(
 			SnapshotRepositoryDetails.FS_REPOSITORY_TYPE,
-			repositoryMetaData.type());
+			repositoryMetadata.type());
 
 		deleteRepository("testCreateSnapshotRepository");
 	}
@@ -299,7 +299,7 @@ public class ElasticsearchSearchEngineAdapterSnapshotRequestTest {
 				DeleteSnapshotAction.INSTANCE);
 
 		deleteSnapshotRequestBuilder.setRepository(_TEST_REPOSITORY_NAME);
-		deleteSnapshotRequestBuilder.setSnapshot("test_get_snapshots");
+		deleteSnapshotRequestBuilder.setSnapshots("test_get_snapshots");
 
 		deleteSnapshotRequestBuilder.get();
 	}
@@ -347,7 +347,7 @@ public class ElasticsearchSearchEngineAdapterSnapshotRequestTest {
 				DeleteSnapshotAction.INSTANCE);
 
 		deleteSnapshotRequestBuilder.setRepository(_TEST_REPOSITORY_NAME);
-		deleteSnapshotRequestBuilder.setSnapshot("test_restore_snapshot");
+		deleteSnapshotRequestBuilder.setSnapshots("test_restore_snapshot");
 
 		deleteSnapshotRequestBuilder.get();
 	}

@@ -39,7 +39,7 @@ import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRespon
 import org.elasticsearch.action.admin.indices.get.GetIndexResponse;
 import org.elasticsearch.client.AdminClient;
 import org.elasticsearch.client.IndicesAdminClient;
-import org.elasticsearch.cluster.metadata.MappingMetaData;
+import org.elasticsearch.cluster.metadata.MappingMetadata;
 import org.elasticsearch.common.collect.ImmutableOpenMap;
 import org.elasticsearch.common.settings.Settings;
 
@@ -542,13 +542,13 @@ public class CompanyIndexFactoryTest {
 		GetIndexResponse getIndexResponse = _elasticsearchFixture.getIndex(
 			_companyIndexFactoryFixture.getIndexName());
 
-		ImmutableOpenMap<String, ImmutableOpenMap<String, MappingMetaData>>
+		ImmutableOpenMap<String, ImmutableOpenMap<String, MappingMetadata>>
 			mappings = getIndexResponse.mappings();
 
-		Iterator<ImmutableOpenMap<String, MappingMetaData>> iterator =
+		Iterator<ImmutableOpenMap<String, MappingMetadata>> iterator =
 			mappings.valuesIt();
 
-		ImmutableOpenMap<String, MappingMetaData> map = iterator.next();
+		ImmutableOpenMap<String, MappingMetadata> map = iterator.next();
 
 		for (String indexName : indexNames) {
 			Assert.assertTrue(indexName, map.containsKey(indexName));

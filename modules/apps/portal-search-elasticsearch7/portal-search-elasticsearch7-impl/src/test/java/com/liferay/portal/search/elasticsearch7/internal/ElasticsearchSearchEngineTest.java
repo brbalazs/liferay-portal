@@ -90,7 +90,7 @@ public class ElasticsearchSearchEngineTest {
 				DeleteSnapshotAction.INSTANCE);
 
 		deleteSnapshotRequestBuilder.setRepository("liferay_backup");
-		deleteSnapshotRequestBuilder.setSnapshot("backup_test");
+		deleteSnapshotRequestBuilder.setSnapshots("backup_test");
 
 		deleteSnapshotRequestBuilder.get();
 	}
@@ -142,7 +142,7 @@ public class ElasticsearchSearchEngineTest {
 				DeleteSnapshotAction.INSTANCE);
 
 		deleteSnapshotRequestBuilder.setRepository("liferay_backup");
-		deleteSnapshotRequestBuilder.setSnapshot("restore_test");
+		deleteSnapshotRequestBuilder.setSnapshots("restore_test");
 
 		deleteSnapshotRequestBuilder.get();
 	}
