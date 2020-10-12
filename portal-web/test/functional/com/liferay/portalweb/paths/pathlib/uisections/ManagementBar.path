@@ -10,7 +10,7 @@
 <tbody>
 <tr>
 	<td>MANAGEMENT_BAR</td>
-	<td>//nav[contains(@class,'management-bar')]</td>
+	<td>//nav[contains(@class,'management-bar')] | //div[contains(@class,'management-bar')]</td>
 	<td></td>
 </tr>
 <tr>
