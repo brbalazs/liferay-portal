@@ -9,6 +9,7 @@ import RecommendationQuery from 'settings/recommendations/queries/Recommendation
 import SitesDashboardQuery from 'sites/queries/SitesDashboardQuery';
 import SuppressedUsersListQuery from 'settings/data-privacy/queries/SuppressedUsersListQuery';
 import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
+import TouchpointPathQuery from 'touchpoints/queries/TouchpointPathQuery';
 import TouchpointsQuery from 'sites/queries/TouchpointsQuery';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
@@ -411,6 +412,30 @@ export function mockTimeRangeReq() {
 						startDate: '2020-04-08T00:00'
 					}
 				]
+			}
+		}
+	};
+}
+
+export function mockTouchpointsPath(page, variables) {
+	return {
+		request: {
+			query: TouchpointPathQuery,
+			variables: {
+				channelId: '123',
+				devices: 'Any',
+				location: 'Any',
+				rangeEnd: null,
+				rangeKey: 30,
+				rangeStart: null,
+				title: '',
+				touchpoint: '',
+				...variables
+			}
+		},
+		result: {
+			data: {
+				page
 			}
 		}
 	};
