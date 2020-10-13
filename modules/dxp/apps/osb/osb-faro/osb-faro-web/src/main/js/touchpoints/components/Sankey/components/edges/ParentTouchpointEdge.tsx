@@ -207,6 +207,7 @@ const ParentEdge: React.FC<IParentEdgeProps> = ({
 					<Header
 						activeIndex={activeIndex}
 						expandedTouchpoint={expandedTouchpoint}
+						isParentNode
 						items={items}
 						node={{
 							...node,
@@ -215,6 +216,7 @@ const ParentEdge: React.FC<IParentEdgeProps> = ({
 							x: 0,
 							y: 0
 						}}
+						router={router}
 						setExpandedTouchpoint={setExpandedTouchpoint}
 					/>
 				</g>

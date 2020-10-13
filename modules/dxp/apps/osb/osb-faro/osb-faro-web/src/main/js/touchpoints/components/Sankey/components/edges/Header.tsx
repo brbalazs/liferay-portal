@@ -1,17 +1,17 @@
-import AssetEdge from './AssetEdge';
 import React from 'react';
 import Title from './Title';
-import {ASSET_HEIGHT, SANKEY_COLORS} from '../../utils/sankey';
+import {ASSET_HEIGHT, getNodeColor, SANKEY_COLORS} from '../../utils/sankey';
 import {AssetNode, SankeyNode} from '../../utils/types';
 import {CLASSNAME} from '../Sankey';
-import {getWrappedText} from '../../utils/edges';
+import {getAssetUrl, getTouchpointUrl, getWrappedText} from '../../utils/edges';
 import {sub} from 'shared/util/lang';
 import {toThousands} from 'shared/util/numbers';
 
-interface ITouchpointLabelProps extends React.SVGAttributes<SVGElement> {
+interface IHeaderProps extends React.SVGAttributes<SVGElement> {
 	activeIndex: number;
 	expandedTouchpoint: SankeyNode;
 	items: Array<AssetNode>;
+	isParentNode?: boolean;
 	loading?: boolean;
 	node: SankeyNode & {
 		color?: string;
@@ -19,25 +19,26 @@ interface ITouchpointLabelProps extends React.SVGAttributes<SVGElement> {
 		x: number;
 		y: number;
 	};
+	router: {
+		params: object;
+		query: object;
+	};
 	setExpandedTouchpoint: (object) => void;
 }
 
-const TouchpointLabel: React.FC<ITouchpointLabelProps> = ({
+const Header: React.FC<IHeaderProps> = ({
 	activeIndex,
 	expandedTouchpoint,
+	isParentNode = false,
 	items,
 	loading = false,
 	node,
+	router,
 	setExpandedTouchpoint
 }) => {
-	const {
-		index,
-		name,
-		url,
-		views,
-		wrappedText: {lines},
-		y
-	} = node;
+	const {external, index, name, url, views, wrappedText, y} = node;
+
+	const {lines} = wrappedText;
 
 	const handleShowMoreAssets = e => {
 		const {nodeIndex} = e.currentTarget.dataset;
@@ -60,40 +61,60 @@ const TouchpointLabel: React.FC<ITouchpointLabelProps> = ({
 		setExpandedTouchpoint && setExpandedTouchpoint(null);
 	};
 
+	const handleTouchpointUrl = () => {
+		if (
+			!external &&
+			url !== Liferay.Language.get('others').toLowerCase() &&
+			!isParentNode
+		) {
+			return getTouchpointUrl(name, url, router);
+		}
+	};
+
 	const renderGroupedInformation = () => (
 		<>
 			{/* Assets */}
-			{items.map(({assetId, assetType, ...otherAssetProps}, index) => (
-				<AssetEdge
-					activeIndex={activeIndex}
-					asset={{
-						...otherAssetProps,
-						id: assetId,
-						type: assetType
-					}}
-					assetIndex={index}
-					key={index}
-					node={node}
-					parentLines={lines.length}
-				/>
-			))}
+			{items.map(
+				(
+					{assetId, assetType, wrappedText, ...otherAssetProps},
+					index
+				) => (
+					<Title
+						color={getNodeColor(node, activeIndex)}
+						heightOffset={lines.length > 1 ? -1 : 7}
+						iconLetter='A'
+						key={index}
+						parentLines={lines.length}
+						radius={9}
+						textClass={`${CLASSNAME}-subtitle`}
+						title={wrappedText}
+						url={getAssetUrl(
+							{
+								...otherAssetProps,
+								id: assetId,
+								type: assetType
+							},
+							url,
+							router
+						)}
+						y={y - 1 + ASSET_HEIGHT * (index + 1)}
+					/>
+				)
+			)}
 
 			{/* Close Button*/}
 			<g data-node-index={index} onClick={handleCloseAssets}>
-				<TouchpointTitle
-					activeIndex={activeIndex}
+				<Title
+					color={getNodeColor(node, activeIndex)}
 					hasOnClick
 					heightOffset={lines.length > 1 ? -1 : 7}
 					iconLetter='-'
 					isCloseButton
-					node={node}
 					parentLines={lines.length}
 					radius={9}
 					textClass={`${CLASSNAME}-subtitle-show-link`}
-					wrappedText={getWrappedText(
-						Liferay.Language.get('close-list')
-					)}
-					y={node.y - 1 + 32 * (items.length + 1)}
+					title={getWrappedText(Liferay.Language.get('close-list'))}
+					y={y - 1 + ASSET_HEIGHT * (items.length + 1)}
 				/>
 			</g>
 		</>
@@ -104,34 +125,16 @@ const TouchpointLabel: React.FC<ITouchpointLabelProps> = ({
 
 		return (
 			<>
-				{loading && (
-					<g>
-						<TouchpointTitle
-							activeIndex={activeIndex}
-							iconLetter='+'
-							node={node}
-							parentLines={lines.length}
-							radius={9}
-							textClass={`${CLASSNAME}-subtitle-show-link`}
-							wrappedText={getWrappedText(
-								Liferay.Language.get('loading-assets')
-							)}
-							y={y + 28}
-						/>
-					</g>
-				)}
-
-				{items.length > 1 && name != Liferay.Language.get('others') && (
+				{items.length > 1 && name !== Liferay.Language.get('others') && (
 					<g data-node-index={index} onClick={handleShowMoreAssets}>
-						<TouchpointTitle
-							activeIndex={activeIndex}
+						<Title
+							color={getNodeColor(node, activeIndex)}
 							hasOnClick
 							iconLetter='+'
-							node={node}
 							parentLines={lines.length}
 							radius={9}
 							textClass={`${CLASSNAME}-subtitle-show-link`}
-							wrappedText={getWrappedText(
+							title={getWrappedText(
 								sub(Liferay.Language.get('show-top-x-assets'), [
 									items.length
 								])
@@ -141,23 +144,24 @@ const TouchpointLabel: React.FC<ITouchpointLabelProps> = ({
 					</g>
 				)}
 
-				{items.length == 1 && name != Liferay.Language.get('others') && (
+				{items.length === 1 && name !== Liferay.Language.get('others') && (
 					<g>
-						<TouchpointTitle
-							activeIndex={activeIndex}
-							asset={{
-								...items[0],
-								id: items[0].assetId,
-								type: items[0].assetType
-							}}
+						<Title
+							color={getNodeColor(node, activeIndex)}
 							iconLetter='A'
-							name={items[0].title}
-							node={node}
 							parentLines={lines.length}
 							radius={9}
 							textClass={`${CLASSNAME}-subtitle`}
-							url={url}
-							wrappedText={items[0].wrappedText}
+							title={items[0].wrappedText}
+							url={getAssetUrl(
+								{
+									...items[0],
+									id: items[0].assetId,
+									type: items[0].assetType
+								},
+								url,
+								router
+							)}
 							y={y + 28}
 						/>
 					</g>
@@ -178,21 +182,37 @@ const TouchpointLabel: React.FC<ITouchpointLabelProps> = ({
 				{`${toThousands(views)} ${Liferay.Language.get('views')}`}
 			</text>
 
-			<TouchpointTitle
-				activeIndex={activeIndex}
+			<Title
+				color={getNodeColor(node, activeIndex)}
 				iconLetter='P'
-				name={name}
-				node={node}
+				parentLines={lines.length}
 				textClass={`${CLASSNAME}-title`}
-				url={url}
+				title={wrappedText}
+				url={handleTouchpointUrl()}
 				y={y}
 			/>
 
-			{expandedTouchpoint && expandedTouchpoint.index == index
+			{loading && (
+				<g>
+					<Title
+						color={getNodeColor(node, activeIndex)}
+						iconLetter='+'
+						parentLines={lines.length}
+						radius={9}
+						textClass={`${CLASSNAME}-subtitle-show-link`}
+						title={getWrappedText(
+							Liferay.Language.get('loading-assets')
+						)}
+						y={y + 28}
+					/>
+				</g>
+			)}
+
+			{expandedTouchpoint && expandedTouchpoint.index === index
 				? renderGroupedInformation()
 				: renderSingleInformation()}
 		</>
 	);
 };
 
-export default TouchpointLabel;
+export default Header;
