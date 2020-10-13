@@ -173,10 +173,10 @@ exports[`Workspace Settting should render 1`] = `
                   </p>
                 </label>
                 <div
-                  class="form-group form-group-autofit"
+                  class="form-group time-zone-picker-root form-group-autofit"
                 >
                   <div
-                    class="form-group-item col-3 country-picker"
+                    class="form-group-item col-3"
                   >
                     <select
                       class="form-control select-root"
@@ -190,7 +190,7 @@ exports[`Workspace Settting should render 1`] = `
                     </select>
                   </div>
                   <div
-                    class="form-group-item col-9 time-zone-picker"
+                    class="form-group-item col-9"
                   >
                     <div
                       class=""
@@ -198,8 +198,8 @@ exports[`Workspace Settting should render 1`] = `
                       <select
                         class="form-control select-root"
                         disabled=""
-                        id="timezone"
-                        name="timezone"
+                        id="timeZoneId"
+                        name="timeZoneId"
                       >
                         <option
                           class=""
