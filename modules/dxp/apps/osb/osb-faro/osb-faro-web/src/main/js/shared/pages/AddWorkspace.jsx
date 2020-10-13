@@ -47,7 +47,7 @@ export class AddWorkspace extends React.Component {
 		friendlyURL,
 		name,
 		serverLocation,
-		timezone: {value: timeZoneId}
+		timeZoneId
 	}) {
 		const {
 			addAlert,

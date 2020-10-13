@@ -162,7 +162,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 						name: (project && project.name) || '',
 						serverLocation:
 							(project && project.serverLocation) || US,
-						timezone:
+						timeZoneId:
 							(project &&
 								project.getIn(['timeZone', 'timeZoneId'])) ||
 							''
@@ -311,7 +311,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 
 									<TimeZonePicker
 										disabled={disabled || editing}
-										fieldName='timezone'
+										fieldName='timeZoneId'
 										initialTimeZone={
 											project &&
 											new TimeZone(
