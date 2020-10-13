@@ -1199,9 +1199,17 @@ This target has been renamed to "snapshot-bundle". Please call "snapshot-bundle"
 	</target>
 
 	<target name="setup-profile-dxp">
+		<condition else="false" property="upstream.stable.suite" value="true">
+			<and>
+				<equals arg1="${env.CI_TEST_SUITE}" arg2="stable" />
+				<isset property="env.CONTROLLER_BUILD_URL" />
+			</and>
+		</condition>
+
 		<gradle-execute setupbinariescache="false" task="checkoutDXPScript">
 			<arg value="--build-file=${project.dir}/modules/profile-dxp.gradle" />
 			<arg value="-Dprofile.dxp.commit.id=${build.setup.profile.dxp.commit.id}" />
+			<arg value="-Dupstream.stable.suite=${upstream.stable.suite}" />
 		</gradle-execute>
 
 		<condition else="${git.working.branch.name}-private" property="to.branch.name" value="${git.working.branch.name}">
