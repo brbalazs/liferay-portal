@@ -54,8 +54,8 @@ const TimeZonePicker: React.FC<ITimeZonePicker> = ({
 	};
 
 	return (
-		<Form.Group autoFit>
-			<Form.GroupItem className='col-3 country-picker'>
+		<Form.Group autoFit className='time-zone-picker-root'>
+			<Form.GroupItem className='col-3'>
 				<select
 					className='form-control select-root'
 					disabled={disabled || loading}
@@ -73,7 +73,7 @@ const TimeZonePicker: React.FC<ITimeZonePicker> = ({
 				</select>
 			</Form.GroupItem>
 
-			<Form.GroupItem className='col-9 time-zone-picker'>
+			<Form.GroupItem className='col-9'>
 				<Form.Select
 					disabled={disabled || loading || !selectedCountry}
 					name={fieldName}

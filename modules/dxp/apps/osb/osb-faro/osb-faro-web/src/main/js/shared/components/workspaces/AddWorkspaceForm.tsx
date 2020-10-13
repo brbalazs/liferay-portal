@@ -11,7 +11,7 @@ import getCN from 'classnames';
 import NavigationWarning from 'shared/components/NavigationWarning';
 import React, {useContext, useRef, useState} from 'react';
 import Sheet from 'shared/components/Sheet';
-import TimeZonePicker from '../TimeZonePicker';
+import TimeZonePicker from '../form/TimeZonePicker';
 import urlConstants from 'shared/util/url-constants';
 import {BasePageContext} from './BasePage';
 import {close, open} from 'shared/actions/modals';
