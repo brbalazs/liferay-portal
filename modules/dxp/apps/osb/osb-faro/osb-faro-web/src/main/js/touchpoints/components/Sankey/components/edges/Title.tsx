@@ -31,7 +31,6 @@ const Title: React.FC<ITitleProps> = ({
 	hasOnClick = false,
 	textClass,
 	title: {lines, sentence, truncated},
-
 	url,
 	y,
 	...iconProps
