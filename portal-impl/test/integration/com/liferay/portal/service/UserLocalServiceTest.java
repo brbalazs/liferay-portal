@@ -25,6 +25,9 @@ import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.model.role.RoleConstants;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -50,6 +53,7 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.LongStream;
 
 import org.junit.Assert;
@@ -302,6 +306,33 @@ public class UserLocalServiceTest {
 			LongStream.rangeClosed(
 				1000, 3000
 			).toArray());
+	}
+
+	@Test
+	public void testSearchCountsUserRole() throws Exception {
+		Group group = GroupTestUtil.addGroup();
+
+		PermissionChecker oldPermissionChecker =
+			PermissionThreadLocal.getPermissionChecker();
+
+		PermissionThreadLocal.setPermissionChecker(
+			PermissionCheckerFactoryUtil.create(UserTestUtil.addUser()));
+
+		try {
+			Map<Long, Integer> counts = UserLocalServiceUtil.searchCounts(
+				TestPropsValues.getCompanyId(),
+				WorkflowConstants.STATUS_APPROVED,
+				new long[] {group.getGroupId()});
+
+			Integer count = counts.get(group.getGroupId());
+
+			Assert.assertNotNull(count);
+
+			Assert.assertEquals(1, count.intValue());
+		}
+		finally {
+			PermissionThreadLocal.setPermissionChecker(oldPermissionChecker);
+		}
 	}
 
 	@Test
