@@ -103,7 +103,7 @@ public class EmbeddedElasticsearchConnectionHttpTest {
 
 		NodeInfo nodeInfo = nodeInfos.get(0);
 
-		HttpInfo httpInfo = nodeInfo.getHttp();
+		HttpInfo httpInfo = nodeInfo.getInfo(HttpInfo.class);
 
 		BoundTransportAddress boundTransportAddress = httpInfo.address();
 
