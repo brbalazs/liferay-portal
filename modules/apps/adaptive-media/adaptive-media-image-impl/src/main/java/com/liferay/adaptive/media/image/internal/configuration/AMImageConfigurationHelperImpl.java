@@ -21,6 +21,9 @@ import com.liferay.adaptive.media.image.configuration.AMImageConfigurationEntry;
 import com.liferay.adaptive.media.image.configuration.AMImageConfigurationHelper;
 import com.liferay.adaptive.media.image.constants.AMImageDestinationNames;
 import com.liferay.adaptive.media.image.service.AMImageEntryLocalService;
+import com.liferay.portal.kernel.cache.MultiVMPool;
+import com.liferay.portal.kernel.cache.PortalCache;
+import com.liferay.portal.kernel.cache.PortalCacheHelperUtil;
 import com.liferay.portal.kernel.messaging.Destination;
 import com.liferay.portal.kernel.messaging.DestinationConfiguration;
 import com.liferay.portal.kernel.messaging.DestinationFactory;
@@ -35,6 +38,7 @@ import com.liferay.portal.kernel.settings.SettingsFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,7 +46,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -369,12 +372,19 @@ public class AMImageConfigurationHelperImpl
 			destinationConfiguration);
 
 		_messageBus.addDestination(destination);
+
+		_portalCache =
+			(PortalCache<Long, Serializable>)_multiVMPool.getPortalCache(
+				AMImageConfigurationHelperImpl.class.getName());
 	}
 
 	@Deactivate
 	protected void deactivate() {
 		_messageBus.removeDestination(
 			AMImageDestinationNames.ADAPTIVE_MEDIA_IMAGE_CONFIGURATION);
+
+		_multiVMPool.removePortalCache(
+			AMImageConfigurationHelperImpl.class.getName());
 	}
 
 	private static final boolean _isPositiveNumber(String s) {
@@ -475,10 +485,10 @@ public class AMImageConfigurationHelperImpl
 	private Stream<AMImageConfigurationEntry> _getAMImageConfigurationEntries(
 		long companyId) {
 
-		if (_configurationEntries.containsKey(companyId)) {
-			Collection<AMImageConfigurationEntry> amImageConfigurationEntries =
-				_configurationEntries.get(companyId);
+		ArrayList<AMImageConfigurationEntry> amImageConfigurationEntries =
+			(ArrayList<AMImageConfigurationEntry>)_portalCache.get(companyId);
 
+		if (amImageConfigurationEntries != null) {
 			return amImageConfigurationEntries.stream();
 		}
 
@@ -493,16 +503,16 @@ public class AMImageConfigurationHelperImpl
 			String[] imageVariants = nullableImageVariants.orElseGet(
 				() -> settings.getValues("imageVariants", new String[0]));
 
-			List<AMImageConfigurationEntry> amImageConfigurationEntries =
-				Stream.of(
-					imageVariants
-				).map(
-					_amImageConfigurationEntryParser::parse
-				).collect(
-					Collectors.toList()
-				);
+			amImageConfigurationEntries = Stream.of(
+				imageVariants
+			).map(
+				_amImageConfigurationEntryParser::parse
+			).collect(
+				Collectors.toCollection(ArrayList::new)
+			);
 
-			_configurationEntries.put(companyId, amImageConfigurationEntries);
+			PortalCacheHelperUtil.putWithoutReplicator(
+				_portalCache, companyId, amImageConfigurationEntries);
 
 			return amImageConfigurationEntries.stream();
 		}
@@ -582,9 +592,10 @@ public class AMImageConfigurationHelperImpl
 			amImageConfigurationEntryStream =
 				amImageConfigurationEntries.stream();
 
-			_configurationEntries.put(
+			_portalCache.put(
 				companyId,
-				amImageConfigurationEntryStream.collect(Collectors.toList()));
+				amImageConfigurationEntryStream.collect(
+					Collectors.toCollection(ArrayList::new)));
 		}
 		catch (SettingsException | ValidatorException e) {
 			throw new AMRuntimeException.InvalidConfiguration(e);
@@ -601,13 +612,15 @@ public class AMImageConfigurationHelperImpl
 	@Reference
 	private AMImageEntryLocalService _amImageEntryLocalService;
 
-	private final Map<Long, Collection<AMImageConfigurationEntry>>
-		_configurationEntries = new ConcurrentHashMap<>();
-
 	@Reference
 	private DestinationFactory _destinationFactory;
 
 	@Reference
 	private MessageBus _messageBus;
+
+	@Reference
+	private MultiVMPool _multiVMPool;
+
+	private PortalCache<Long, Serializable> _portalCache;
 
 }
