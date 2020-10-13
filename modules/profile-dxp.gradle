@@ -13,13 +13,19 @@ String gitCommitId = System.getProperty("profile.dxp.commit.id", "")
 String gitBranchName = "master-private"
 String gitRepositoryURL = "git@github.com:liferay/liferay-portal-ee.git"
 
+Boolean upstreamStableSuite = Boolean.valueOf(System.getProperty("upstream.stable.suite", "false"));
+
+if (upstreamStableSuite) {
+	gitRepositoryURL = "git@github.com:brianchandotcom/liferay-portal-ee.git"
+}
+
 File gitRepositoryDir = new File(projectDir.parentFile, "git-clone-profile-dxp")
 
 checkoutDXPScript {
 	dependsOn removeDXPScript
 
 	doLast {
-		if (System.getenv("JENKINS_HOME")) {
+		if (System.getenv("JENKINS_HOME") && !upstreamStableSuite) {
 			logger.lifecycle "git clone --branch={} --depth=100 --no-checkout --single-branch {} {}", gitBranchName, "git@github-dev.liferay.com:liferay/liferay-portal-ee.git", gitRepositoryDir.name
 
 			exec {
