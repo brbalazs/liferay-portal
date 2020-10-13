@@ -47,7 +47,7 @@ const TimeZonePicker: React.FC<ITimeZonePicker> = ({
 			  )
 			: [];
 
-	const handleManipulationEvents = (event): void => {
+	const handleSelectCountry = (event): void => {
 		setSelectedCountry(event.target.value);
 		setFieldTouched(fieldName, '');
 		setFieldValue(fieldName, '');
@@ -59,8 +59,8 @@ const TimeZonePicker: React.FC<ITimeZonePicker> = ({
 				<select
 					className='form-control select-root'
 					disabled={disabled || loading}
-					onBlur={handleManipulationEvents}
-					onChange={handleManipulationEvents}
+					onBlur={handleSelectCountry}
+					onChange={handleSelectCountry}
 					value={selectedCountry}
 				>
 					<option value=''>{Liferay.Language.get('country')}</option>
