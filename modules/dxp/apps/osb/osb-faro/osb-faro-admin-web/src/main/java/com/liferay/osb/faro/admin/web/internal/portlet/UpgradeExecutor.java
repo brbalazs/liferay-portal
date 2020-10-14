@@ -115,9 +115,15 @@ public class UpgradeExecutor {
 						return key1.compareTo(_getKey(faroProject2));
 					})) {
 
-			_addUpgradeTask(
-				faroProject, version, refreshLiferay, threadCount,
-				waitForHealthy);
+			if (StringUtil.equals(faroProject.getState(), "DEACTIVATED")) {
+				_upgradeProgress.put(
+					_getKey(faroProject), "Skipped - Deactivated");
+			}
+			else {
+				_addUpgradeTask(
+					faroProject, version, refreshLiferay, threadCount,
+					waitForHealthy);
+			}
 		}
 	}
 
