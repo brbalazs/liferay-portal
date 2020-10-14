@@ -196,7 +196,9 @@ public class FaroProjectLocalServiceImpl
 		Stream<FaroProject> faroProjectStream = faroProjects.stream();
 
 		return faroProjectStream.filter(
-			faroProject -> !groupIds.contains(faroProject.getGroupId())
+			faroProject ->
+				!groupIds.contains(faroProject.getGroupId()) &&
+				StringUtil.equals(faroProject.getState(), "READY")
 		).collect(
 			Collectors.toList()
 		);
