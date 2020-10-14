@@ -14,6 +14,7 @@
 
 package com.liferay.headless.delivery.internal.resource.v1_0;
 
+import com.liferay.dynamic.data.mapping.util.DDMIndexer;
 import com.liferay.expando.kernel.service.ExpandoColumnLocalService;
 import com.liferay.expando.kernel.service.ExpandoTableLocalService;
 import com.liferay.headless.common.spi.service.context.ServiceContextUtil;
@@ -22,6 +23,7 @@ import com.liferay.headless.delivery.internal.dto.v1_0.converter.StructuredConte
 import com.liferay.headless.delivery.internal.dto.v1_0.util.CustomFieldsUtil;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.EntityFieldsUtil;
 import com.liferay.headless.delivery.internal.odata.entity.v1_0.StructuredContentFolderEntityModel;
+import com.liferay.headless.delivery.internal.util.SortUtil;
 import com.liferay.headless.delivery.resource.v1_0.StructuredContentFolderResource;
 import com.liferay.journal.model.JournalFolder;
 import com.liferay.journal.model.JournalFolderConstants;
@@ -35,6 +37,9 @@ import com.liferay.portal.kernel.search.filter.TermFilter;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.legacy.searcher.SearchRequestBuilderFactory;
+import com.liferay.portal.search.query.Queries;
+import com.liferay.portal.search.sort.Sorts;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -239,6 +244,13 @@ public class StructuredContentFolderResourceImpl
 			searchContext -> {
 				searchContext.setCompanyId(contextCompany.getCompanyId());
 				searchContext.setGroupIds(new long[] {siteId});
+
+				_searchRequestBuilderFactory.builder(
+					searchContext
+				).sorts(
+					SortUtil.getFieldSorts(
+						_ddmIndexer, searchContext.getSorts(), _queries, _sorts)
+				);
 			},
 			document -> _toStructuredContentFolder(
 				_journalFolderService.getFolder(
@@ -258,6 +270,9 @@ public class StructuredContentFolderResourceImpl
 	}
 
 	@Reference
+	private DDMIndexer _ddmIndexer;
+
+	@Reference
 	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
@@ -271,6 +286,15 @@ public class StructuredContentFolderResourceImpl
 
 	@Reference
 	private Portal _portal;
+
+	@Reference
+	private Queries _queries;
+
+	@Reference
+	private SearchRequestBuilderFactory _searchRequestBuilderFactory;
+
+	@Reference
+	private Sorts _sorts;
 
 	@Reference
 	private StructuredContentFolderDTOConverter

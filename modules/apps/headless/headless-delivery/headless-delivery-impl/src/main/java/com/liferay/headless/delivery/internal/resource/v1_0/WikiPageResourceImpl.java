@@ -20,6 +20,7 @@ import com.liferay.asset.kernel.service.AssetEntryLocalService;
 import com.liferay.asset.kernel.service.AssetLinkLocalService;
 import com.liferay.asset.kernel.service.AssetTagLocalService;
 import com.liferay.blogs.model.BlogsEntry;
+import com.liferay.dynamic.data.mapping.util.DDMIndexer;
 import com.liferay.expando.kernel.service.ExpandoColumnLocalService;
 import com.liferay.expando.kernel.service.ExpandoTableLocalService;
 import com.liferay.headless.common.spi.service.context.ServiceContextUtil;
@@ -32,6 +33,7 @@ import com.liferay.headless.delivery.internal.dto.v1_0.util.EntityFieldsUtil;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.RelatedContentUtil;
 import com.liferay.headless.delivery.internal.dto.v1_0.util.TaxonomyCategoryBriefUtil;
 import com.liferay.headless.delivery.internal.odata.entity.v1_0.WikiPageEntityModel;
+import com.liferay.headless.delivery.internal.util.SortUtil;
 import com.liferay.headless.delivery.resource.v1_0.WikiPageResource;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.Field;
@@ -48,6 +50,9 @@ import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.odata.entity.EntityModel;
+import com.liferay.portal.search.legacy.searcher.SearchRequestBuilderFactory;
+import com.liferay.portal.search.query.Queries;
+import com.liferay.portal.search.sort.Sorts;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -125,8 +130,16 @@ public class WikiPageResourceImpl
 			filter, com.liferay.wiki.model.WikiPage.class, search, pagination,
 			queryConfig -> queryConfig.setSelectedFieldNames(
 				Field.ENTRY_CLASS_PK),
-			searchContext -> searchContext.setCompanyId(
-				contextCompany.getCompanyId()),
+			searchContext -> {
+				searchContext.setCompanyId(contextCompany.getCompanyId());
+
+				_searchRequestBuilderFactory.builder(
+					searchContext
+				).sorts(
+					SortUtil.getFieldSorts(
+						_ddmIndexer, searchContext.getSorts(), _queries, _sorts)
+				);
+			},
 			sorts,
 			document -> _toWikiPage(
 				_wikiPageService.getPage(
@@ -426,6 +439,9 @@ public class WikiPageResourceImpl
 	private AssetTagLocalService _assetTagLocalService;
 
 	@Reference
+	private DDMIndexer _ddmIndexer;
+
+	@Reference
 	private DTOConverterRegistry _dtoConverterRegistry;
 
 	@Reference
@@ -438,7 +454,16 @@ public class WikiPageResourceImpl
 	private Portal _portal;
 
 	@Reference
+	private Queries _queries;
+
+	@Reference
 	private RatingsStatsLocalService _ratingsStatsLocalService;
+
+	@Reference
+	private SearchRequestBuilderFactory _searchRequestBuilderFactory;
+
+	@Reference
+	private Sorts _sorts;
 
 	@Reference
 	private SubscriptionLocalService _subscriptionLocalService;
