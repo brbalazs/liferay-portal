@@ -22,6 +22,7 @@ import com.liferay.osb.faro.model.FaroUser;
 import com.liferay.osb.faro.provisioning.client.constants.ProductConstants;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.osb.faro.service.FaroUserLocalService;
+import com.liferay.osb.faro.web.internal.constants.ProjectConstants;
 import com.liferay.osb.faro.web.internal.model.display.main.FaroSubscriptionDisplay;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -80,6 +81,12 @@ public class SubmitHubSpotFormsMessageListener extends BaseMessageListener {
 		for (FaroProject faroProject :
 				_faroProjectLocalService.getFaroProjects(
 					QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
+
+			if (!StringUtil.equals(
+					faroProject.getState(), ProjectConstants.STATE_READY)) {
+
+				return;
+			}
 
 			try {
 				FaroSubscriptionDisplay faroSubscriptionDisplay =
