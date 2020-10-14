@@ -19,6 +19,7 @@ import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
+import com.liferay.osb.faro.web.internal.constants.ProjectConstants;
 import com.liferay.osb.faro.web.internal.model.display.main.FaroSubscriptionDisplay;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
 import com.liferay.petra.string.StringPool;
@@ -176,12 +177,19 @@ public class FaroProjectIndexer extends BaseIndexer<FaroProject> {
 			faroProject.getSubscription(), FaroSubscriptionDisplay.class);
 
 		try {
-			faroSubscriptionDisplay.setCounts(
-				faroProject, _cerebroEngineClient, _contactsEngineClient);
+			if (!StringUtil.equals(
+					faroProject.getState(), ProjectConstants.STATE_READY)) {
 
-			if (_log.isInfoEnabled()) {
-				_log.info(
-					"Finished setting counts " + faroProject.getGroupId());
+				document.addKeyword("offline", StringPool.TRUE);
+			}
+			else {
+				faroSubscriptionDisplay.setCounts(
+					faroProject, _cerebroEngineClient, _contactsEngineClient);
+
+				if (_log.isInfoEnabled()) {
+					_log.info(
+						"Finished setting counts " + faroProject.getGroupId());
+				}
 			}
 		}
 		catch (Exception e) {
