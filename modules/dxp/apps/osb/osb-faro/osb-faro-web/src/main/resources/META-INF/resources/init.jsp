@@ -20,10 +20,12 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 
 <%@ page import="com.liferay.osb.faro.constants.DocumentationConstants" %><%@
 page import="com.liferay.osb.faro.constants.FaroChannelConstants" %><%@
+page import="com.liferay.osb.faro.constants.FaroProjectConstants" %><%@
 page import="com.liferay.osb.faro.contacts.model.constants.ContactsCardTemplateConstants" %><%@
 page import="com.liferay.osb.faro.engine.client.constants.ActivityConstants" %><%@
 page import="com.liferay.osb.faro.engine.client.constants.DataSourceConstants" %><%@
 page import="com.liferay.osb.faro.engine.client.constants.FieldMappingConstants" %><%@
+page import="com.liferay.osb.faro.engine.client.constants.LCPProjectConstants" %><%@
 page import="com.liferay.osb.faro.engine.client.constants.SegmentConstants" %><%@
 page import="com.liferay.osb.faro.engine.client.constants.TimeConstants" %><%@
 page import="com.liferay.osb.faro.web.internal.constants.FaroConstants" %><%@
@@ -32,7 +34,6 @@ page import="com.liferay.osb.faro.web.internal.constants.FaroPortletKeys" %><%@
 page import="com.liferay.osb.faro.web.internal.constants.FaroPreferencesConstants" %><%@
 page import="com.liferay.osb.faro.web.internal.constants.FaroSubscriptionConstants" %><%@
 page import="com.liferay.osb.faro.web.internal.constants.FaroWebKeys" %><%@
-page import="com.liferay.osb.faro.web.internal.constants.ProjectConstants" %><%@
 page import="com.liferay.osb.faro.web.internal.constants.UserConstants" %><%@
 page import="com.liferay.osb.faro.web.internal.util.JSONUtil" %><%@
 page import="com.liferay.portal.kernel.model.User" %><%@
@@ -74,8 +75,8 @@ faroConstants.put("pagination", FaroPaginationConstants.getConstants());
 faroConstants.put("pathThemeImages", themeDisplay.getPathThemeImages());
 faroConstants.put("portletNamespace", PortalUtil.getPortletNamespace(FaroPortletKeys.FARO));
 faroConstants.put("preferencesScopes", FaroPreferencesConstants.getScopes());
-faroConstants.put("projectLocations", ProjectConstants.getLocations());
-faroConstants.put("projectStates", ProjectConstants.getStates());
+faroConstants.put("projectLocations", LCPProjectConstants.getLocations());
+faroConstants.put("projectStates", FaroProjectConstants.getStates());
 faroConstants.put("segmentStates", SegmentConstants.getSegmentStates());
 faroConstants.put("segmentTypes", SegmentConstants.getSegmentTypes());
 faroConstants.put("subscriptionPlans", FaroSubscriptionConstants.getFaroSubscriptionPlans());

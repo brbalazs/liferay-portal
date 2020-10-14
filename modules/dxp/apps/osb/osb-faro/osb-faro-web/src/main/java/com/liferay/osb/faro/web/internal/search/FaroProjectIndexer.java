@@ -14,12 +14,12 @@
 
 package com.liferay.osb.faro.web.internal.search;
 
+import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.engine.client.CerebroEngineClient;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
-import com.liferay.osb.faro.web.internal.constants.ProjectConstants;
 import com.liferay.osb.faro.web.internal.model.display.main.FaroSubscriptionDisplay;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
 import com.liferay.petra.string.StringPool;
@@ -178,7 +178,7 @@ public class FaroProjectIndexer extends BaseIndexer<FaroProject> {
 
 		try {
 			if (!StringUtil.equals(
-					faroProject.getState(), ProjectConstants.STATE_READY)) {
+					faroProject.getState(), FaroProjectConstants.STATE_READY)) {
 
 				document.addKeyword("offline", StringPool.TRUE);
 			}

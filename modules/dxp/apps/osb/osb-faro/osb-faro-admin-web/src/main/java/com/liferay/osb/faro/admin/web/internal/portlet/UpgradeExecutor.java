@@ -14,6 +14,7 @@
 
 package com.liferay.osb.faro.admin.web.internal.portlet;
 
+import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
 import com.liferay.osb.faro.engine.client.model.LCPBuildService;
@@ -115,7 +116,10 @@ public class UpgradeExecutor {
 						return key1.compareTo(_getKey(faroProject2));
 					})) {
 
-			if (StringUtil.equals(faroProject.getState(), "DEACTIVATED")) {
+			if (StringUtil.equals(
+					faroProject.getState(),
+					FaroProjectConstants.STATE_DEACTIVATED)) {
+
 				_upgradeProgress.put(
 					_getKey(faroProject), "Skipped - Deactivated");
 			}

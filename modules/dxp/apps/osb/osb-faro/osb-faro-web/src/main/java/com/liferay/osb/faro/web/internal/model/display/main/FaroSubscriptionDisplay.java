@@ -14,6 +14,7 @@
 
 package com.liferay.osb.faro.web.internal.model.display.main;
 
+import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.engine.client.CerebroEngineClient;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.model.Individual;
@@ -23,7 +24,6 @@ import com.liferay.osb.faro.provisioning.client.constants.ProductConstants;
 import com.liferay.osb.faro.provisioning.client.model.OSBAccountEntry;
 import com.liferay.osb.faro.provisioning.client.model.OSBOfferingEntry;
 import com.liferay.osb.faro.web.internal.constants.FaroSubscriptionConstants;
-import com.liferay.osb.faro.web.internal.constants.ProjectConstants;
 import com.liferay.osb.faro.web.internal.subscription.FaroSubscriptionPlan;
 import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -130,7 +130,7 @@ public class FaroSubscriptionDisplay {
 
 		if ((faroProject == null) ||
 			!StringUtil.equals(
-				faroProject.getState(), ProjectConstants.STATE_READY)) {
+				faroProject.getState(), FaroProjectConstants.STATE_READY)) {
 
 			return;
 		}

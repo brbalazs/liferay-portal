@@ -14,6 +14,7 @@
 
 package com.liferay.osb.faro.web.internal.controller.main;
 
+import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.constants.FaroUserConstants;
 import com.liferay.osb.faro.contacts.model.constants.JSONConstants;
 import com.liferay.osb.faro.contacts.service.ContactsCardTemplateLocalService;
@@ -34,7 +35,6 @@ import com.liferay.osb.faro.service.FaroProjectEmailAddressDomainLocalService;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.osb.faro.service.FaroUserLocalService;
 import com.liferay.osb.faro.web.internal.constants.FaroConstants;
-import com.liferay.osb.faro.web.internal.constants.ProjectConstants;
 import com.liferay.osb.faro.web.internal.controller.BaseFaroController;
 import com.liferay.osb.faro.web.internal.controller.contacts.FieldMappingController;
 import com.liferay.osb.faro.web.internal.exception.FaroException;
@@ -117,12 +117,13 @@ public class ProjectController extends BaseFaroController {
 			_faroProjectLocalService.getFaroProjectByGroupId(groupId);
 
 		if (!StringUtil.equals(
-				faroProject.getState(), ProjectConstants.STATE_DEACTIVATED)) {
+				faroProject.getState(),
+				FaroProjectConstants.STATE_DEACTIVATED)) {
 
 			return;
 		}
 
-		faroProject.setState(ProjectConstants.STATE_ACTIVATING);
+		faroProject.setState(FaroProjectConstants.STATE_ACTIVATING);
 
 		faroProjectLocalService.updateFaroProject(faroProject);
 
@@ -182,7 +183,8 @@ public class ProjectController extends BaseFaroController {
 			faroProjectLocalService.getFaroProjectByGroupId(groupId);
 
 		if (!StringUtil.equals(
-				faroProject.getState(), ProjectConstants.STATE_UNCONFIGURED)) {
+				faroProject.getState(),
+				FaroProjectConstants.STATE_UNCONFIGURED)) {
 
 			return new ProjectDisplay(faroProject);
 		}
@@ -203,7 +205,7 @@ public class ProjectController extends BaseFaroController {
 				faroProject.getGroupId(), user.getUserId()),
 			true);
 
-		faroProject.setState(ProjectConstants.STATE_NOT_READY);
+		faroProject.setState(FaroProjectConstants.STATE_NOT_READY);
 
 		faroProjectLocalService.updateFaroProject(faroProject);
 
@@ -249,7 +251,7 @@ public class ProjectController extends BaseFaroController {
 
 		faroProject = _create(
 			corpProjectUuid, name, emailAddressDomainsFaroParam.getValue(),
-			friendlyURL, serverLocation, ProjectConstants.STATE_NOT_READY,
+			friendlyURL, serverLocation, FaroProjectConstants.STATE_NOT_READY,
 			timeZoneId);
 
 		Role role = _roleLocalService.getRole(
@@ -282,7 +284,7 @@ public class ProjectController extends BaseFaroController {
 
 		FaroProject faroProject = _create(
 			corpProjectUuid, null, Collections.emptyList(), null,
-			serverLocation, ProjectConstants.STATE_UNCONFIGURED,
+			serverLocation, FaroProjectConstants.STATE_UNCONFIGURED,
 			TimeZoneUtil.UTC_TIME_ZONE_ID);
 
 		Role role = _roleLocalService.getRole(
@@ -765,13 +767,14 @@ public class ProjectController extends BaseFaroController {
 		throws Exception {
 
 		if (StringUtil.equals(
-				faroProject.getState(), ProjectConstants.STATE_UNCONFIGURED)) {
+				faroProject.getState(),
+				FaroProjectConstants.STATE_UNCONFIGURED)) {
 
 			return new ProjectDisplay(faroProject);
 		}
 
 		if (StringUtil.equals(
-				faroProject.getState(), ProjectConstants.STATE_NOT_READY)) {
+				faroProject.getState(), FaroProjectConstants.STATE_NOT_READY)) {
 
 			try {
 				refreshProjectState(faroProject);
@@ -786,10 +789,10 @@ public class ProjectController extends BaseFaroController {
 		}
 		else if (StringUtil.equals(
 					faroProject.getState(),
-					ProjectConstants.STATE_ACTIVATING) &&
+					FaroProjectConstants.STATE_ACTIVATING) &&
 				 _isWorkspaceHealthy(faroProject)) {
 
-			faroProject.setState(ProjectConstants.STATE_READY);
+			faroProject.setState(FaroProjectConstants.STATE_READY);
 
 			faroProject = _faroProjectLocalService.updateFaroProject(
 				faroProject);
@@ -814,14 +817,16 @@ public class ProjectController extends BaseFaroController {
 
 		if (StringUtil.equals(
 				projectDisplay.getState(),
-				ProjectConstants.STATE_UNAVAILABLE) &&
-			StringUtil.equals(state, ProjectConstants.STATE_SCHEDULED)) {
+				FaroProjectConstants.STATE_UNAVAILABLE) &&
+			StringUtil.equals(state, FaroProjectConstants.STATE_SCHEDULED)) {
 
 			return projectDisplay;
 		}
 		else if (StringUtil.equals(
-					projectDisplay.getState(), ProjectConstants.STATE_READY) &&
-				 StringUtil.equals(state, ProjectConstants.STATE_MAINTENANCE) &&
+					projectDisplay.getState(),
+					FaroProjectConstants.STATE_READY) &&
+				 StringUtil.equals(
+					 state, FaroProjectConstants.STATE_MAINTENANCE) &&
 				 contactsEngineClient.isLatestVersion(faroProject)) {
 
 			projectUtil.deleteGlobalState(faroProject.getGroupId());
@@ -849,7 +854,7 @@ public class ProjectController extends BaseFaroController {
 		long groupId = faroProject.getGroupId();
 
 		if (_initializingGroupIds.contains(groupId)) {
-			faroProject.setState(ProjectConstants.STATE_READY);
+			faroProject.setState(FaroProjectConstants.STATE_READY);
 
 			return faroProject;
 		}
@@ -873,7 +878,7 @@ public class ProjectController extends BaseFaroController {
 							LCPServiceDisplay::new)));
 			}
 
-			faroProject.setState(ProjectConstants.STATE_READY);
+			faroProject.setState(FaroProjectConstants.STATE_READY);
 
 			_faroProjectLocalService.updateFaroProject(faroProject);
 
@@ -1040,7 +1045,7 @@ public class ProjectController extends BaseFaroController {
 				getUserId(), name, accountKey, accountName, corpProjectName,
 				corpProjectUuid, emailAddressDomainsFaroParam.getValue(),
 				friendlyURL, serverLocation, JSONConstants.NULL_JSON_ARRAY,
-				ProjectConstants.STATE_NOT_READY,
+				FaroProjectConstants.STATE_NOT_READY,
 				JSONUtil.writeValueAsString(faroSubscriptionDisplay),
 				timeZoneId, null);
 		}

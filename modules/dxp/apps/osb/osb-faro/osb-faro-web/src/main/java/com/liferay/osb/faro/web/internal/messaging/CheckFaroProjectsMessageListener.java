@@ -16,10 +16,10 @@ package com.liferay.osb.faro.web.internal.messaging;
 
 import com.liferay.mail.kernel.model.MailMessage;
 import com.liferay.mail.kernel.service.MailService;
+import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
-import com.liferay.osb.faro.web.internal.constants.ProjectConstants;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -84,7 +84,7 @@ public class CheckFaroProjectsMessageListener extends BaseMessageListener {
 					QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
 
 			if (!StringUtil.equals(
-					faroProject.getState(), ProjectConstants.STATE_READY)) {
+					faroProject.getState(), FaroProjectConstants.STATE_READY)) {
 
 				continue;
 			}

@@ -15,6 +15,7 @@
 package com.liferay.osb.faro.admin.web.internal.portlet.action;
 
 import com.liferay.osb.faro.admin.web.internal.constants.FaroAdminPortletKeys;
+import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.petra.string.StringBundler;
@@ -76,13 +77,14 @@ public class RefreshProjectMVCActionCommand extends BaseMVCActionCommand {
 					_faroProjectLocalService.getFaroProjects(
 						QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
 
-				if (!StringUtil.equals(faroProject.getState(), "READY")) {
-					return;
-				}
+				if (StringUtil.equals(
+						faroProject.getState(),
+						FaroProjectConstants.STATE_READY)) {
 
-				sendRequest(
-					options, themeDisplay.getPortalURL(),
-					faroProject.getGroupId());
+					sendRequest(
+						options, themeDisplay.getPortalURL(),
+						faroProject.getGroupId());
+				}
 			}
 		}
 	}

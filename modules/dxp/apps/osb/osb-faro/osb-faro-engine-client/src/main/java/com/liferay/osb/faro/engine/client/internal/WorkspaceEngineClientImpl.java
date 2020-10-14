@@ -14,6 +14,7 @@
 
 package com.liferay.osb.faro.engine.client.internal;
 
+import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.WorkspaceEngineClient;
 import com.liferay.osb.faro.engine.client.model.LCPBuildService;
@@ -433,7 +434,8 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 					_workspace.getWeDeployKey());
 
 			if (faroProject != null) {
-				faroProject.setState(Workspace.AUTO_REDEPLOY_FAILED);
+				faroProject.setState(
+					FaroProjectConstants.STATE_AUTO_REDEPLOY_FAILED);
 
 				_faroProjectLocalService.updateFaroProject(faroProject);
 			}

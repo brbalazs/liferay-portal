@@ -14,6 +14,7 @@
 
 package com.liferay.osb.faro.web.internal.messaging;
 
+import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.engine.client.CerebroEngineClient;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.engine.client.HubSpotEngineClient;
@@ -22,7 +23,6 @@ import com.liferay.osb.faro.model.FaroUser;
 import com.liferay.osb.faro.provisioning.client.constants.ProductConstants;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.osb.faro.service.FaroUserLocalService;
-import com.liferay.osb.faro.web.internal.constants.ProjectConstants;
 import com.liferay.osb.faro.web.internal.model.display.main.FaroSubscriptionDisplay;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -83,9 +83,9 @@ public class SubmitHubSpotFormsMessageListener extends BaseMessageListener {
 					QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
 
 			if (!StringUtil.equals(
-					faroProject.getState(), ProjectConstants.STATE_READY)) {
+					faroProject.getState(), FaroProjectConstants.STATE_READY)) {
 
-				return;
+				continue;
 			}
 
 			try {

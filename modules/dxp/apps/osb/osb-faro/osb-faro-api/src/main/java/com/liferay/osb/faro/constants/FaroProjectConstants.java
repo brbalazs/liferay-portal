@@ -12,10 +12,7 @@
  *
  */
 
-package com.liferay.osb.faro.web.internal.constants;
-
-import com.liferay.osb.faro.engine.client.model.LCPProject;
-import com.liferay.osb.faro.engine.client.model.Workspace;
+package com.liferay.osb.faro.constants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,9 +20,12 @@ import java.util.Map;
 /**
  * @author Matthew Kong
  */
-public class ProjectConstants {
+public class FaroProjectConstants {
 
 	public static final String STATE_ACTIVATING = "ACTIVATING";
+
+	public static final String STATE_AUTO_REDEPLOY_FAILED =
+		"AUTO_REDEPLOY_FAILED";
 
 	public static final String STATE_DEACTIVATED = "DEACTIVATED";
 
@@ -41,28 +41,15 @@ public class ProjectConstants {
 
 	public static final String STATE_UNCONFIGURED = "UNCONFIGURED";
 
-	public static Map<String, String> getLocations() {
-		return _locations;
-	}
-
 	public static Map<String, String> getStates() {
 		return _states;
 	}
 
-	private static final Map<String, String> _locations =
-		new HashMap<String, String>() {
-			{
-				put("EU", LCPProject.Cluster.EU.toString());
-				put("EU2", LCPProject.Cluster.EU2.toString());
-				put("SA", LCPProject.Cluster.SA.toString());
-				put("US", LCPProject.Cluster.US.toString());
-			}
-		};
 	private static final Map<String, String> _states =
 		new HashMap<String, String>() {
 			{
 				put("activating", STATE_ACTIVATING);
-				put("autoRedeployFailed", Workspace.AUTO_REDEPLOY_FAILED);
+				put("autoRedeployFailed", STATE_AUTO_REDEPLOY_FAILED);
 				put("deactivated", STATE_DEACTIVATED);
 				put("maintenance", STATE_MAINTENANCE);
 				put("notReady", STATE_NOT_READY);

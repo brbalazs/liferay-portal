@@ -17,6 +17,7 @@ package com.liferay.osb.faro.service.impl;
 import com.liferay.mail.kernel.model.MailMessage;
 import com.liferay.mail.kernel.service.MailService;
 import com.liferay.osb.faro.constants.DocumentationConstants;
+import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.service.base.FaroProjectLocalServiceBaseImpl;
 import com.liferay.osb.faro.util.EmailUtil;
@@ -198,7 +199,8 @@ public class FaroProjectLocalServiceImpl
 		return faroProjectStream.filter(
 			faroProject ->
 				!groupIds.contains(faroProject.getGroupId()) &&
-				StringUtil.equals(faroProject.getState(), "READY")
+				StringUtil.equals(
+					faroProject.getState(), FaroProjectConstants.STATE_READY)
 		).collect(
 			Collectors.toList()
 		);

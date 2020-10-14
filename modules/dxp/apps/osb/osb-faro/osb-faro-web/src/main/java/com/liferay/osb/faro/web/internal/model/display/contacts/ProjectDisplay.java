@@ -14,13 +14,13 @@
 
 package com.liferay.osb.faro.web.internal.model.display.contacts;
 
+import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.engine.client.CerebroEngineClient;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.provisioning.client.ProvisioningClient;
 import com.liferay.osb.faro.provisioning.client.model.OSBAccountEntry;
 import com.liferay.osb.faro.service.FaroProjectLocalServiceUtil;
-import com.liferay.osb.faro.web.internal.constants.ProjectConstants;
 import com.liferay.osb.faro.web.internal.model.display.main.FaroSubscriptionDisplay;
 import com.liferay.osb.faro.web.internal.util.JSONUtil;
 import com.liferay.osb.faro.web.internal.util.TimeZoneUtil;
@@ -161,7 +161,7 @@ public class ProjectDisplay {
 				faroProject, cerebroEngineClient, contactsEngineClient);
 		}
 		catch (Exception e) {
-			_state = ProjectConstants.STATE_UNAVAILABLE;
+			_state = FaroProjectConstants.STATE_UNAVAILABLE;
 		}
 
 		return faroSubscriptionDisplay;

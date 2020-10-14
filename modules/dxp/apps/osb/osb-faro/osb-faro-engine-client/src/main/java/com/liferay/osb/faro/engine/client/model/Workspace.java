@@ -19,8 +19,6 @@ package com.liferay.osb.faro.engine.client.model;
  */
 public class Workspace {
 
-	public static final String AUTO_REDEPLOY_FAILED = "AUTO_REDEPLOY_FAILED";
-
 	public String getWeDeployKey() {
 		return _weDeployKey;
 	}
