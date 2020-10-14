@@ -36,10 +36,14 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.BaseModelListener;
+import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Organization;
+import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.ShardedModel;
+import com.liferay.portal.kernel.model.Team;
 import com.liferay.portal.kernel.model.TreeModel;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.service.CompanyService;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -59,10 +63,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import org.osgi.annotation.versioning.ProviderType;
 import org.osgi.service.component.annotations.Reference;
@@ -396,6 +402,65 @@ public abstract class BaseEntityModelListener<T extends BaseModel<T>>
 						AnalyticsExpandoBridgeUtil.getAttributes(
 							baseModel.getExpandoBridge(), null));
 				}
+
+				continue;
+			}
+			else if (includeAttributeName.equals("memberships") &&
+					 StringUtil.equals(
+						 baseModel.getModelClassName(), User.class.getName())) {
+
+				Map<String, long[]> memberships = new HashMap<>();
+
+				User user = (User)baseModel;
+
+				try {
+					List<Group> groups = user.getSiteGroups();
+
+					Stream<Group> stream = groups.stream();
+
+					long[] membershipIds = stream.mapToLong(
+						Group::getGroupId
+					).toArray();
+
+					if (membershipIds.length != 0) {
+						memberships.put(Group.class.getName(), membershipIds);
+					}
+				}
+				catch (Exception e) {
+					_log.error(e, e);
+				}
+
+				try {
+					long[] membershipIds = user.getOrganizationIds();
+
+					if (membershipIds.length != 0) {
+						memberships.put(
+							Organization.class.getName(), membershipIds);
+					}
+				}
+				catch (Exception e) {
+					_log.error(e, e);
+				}
+
+				long[] membershipIds = user.getRoleIds();
+
+				if (membershipIds.length != 0) {
+					memberships.put(Role.class.getName(), membershipIds);
+				}
+
+				membershipIds = user.getTeamIds();
+
+				if (membershipIds.length != 0) {
+					memberships.put(Team.class.getName(), membershipIds);
+				}
+
+				membershipIds = user.getUserGroupIds();
+
+				if (membershipIds.length != 0) {
+					memberships.put(UserGroup.class.getName(), membershipIds);
+				}
+
+				jsonObject.put("memberships", memberships);
 
 				continue;
 			}
