@@ -83,8 +83,8 @@ public class CheckFaroProjectsMessageListener extends BaseMessageListener {
 				_faroProjectLocalService.getFaroProjects(
 					QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
 
-			if (StringUtil.equals(
-					faroProject.getState(), ProjectConstants.STATE_NOT_READY)) {
+			if (!StringUtil.equals(
+					faroProject.getState(), ProjectConstants.STATE_READY)) {
 
 				continue;
 			}
