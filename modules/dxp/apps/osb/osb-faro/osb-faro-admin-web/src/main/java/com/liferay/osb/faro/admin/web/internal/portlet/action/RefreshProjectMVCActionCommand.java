@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.Enumeration;
@@ -74,6 +75,10 @@ public class RefreshProjectMVCActionCommand extends BaseMVCActionCommand {
 			for (FaroProject faroProject :
 					_faroProjectLocalService.getFaroProjects(
 						QueryUtil.ALL_POS, QueryUtil.ALL_POS)) {
+
+				if (!StringUtil.equals(faroProject.getState(), "READY")) {
+					return;
+				}
 
 				sendRequest(
 					options, themeDisplay.getPortalURL(),
