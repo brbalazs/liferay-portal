@@ -77,7 +77,7 @@ public class CheckFaroProjectsMessageListener extends BaseMessageListener {
 
 	@Override
 	protected void doReceive(Message message) throws Exception {
-		Map<String, Exception> projectExceptions = new HashMap<>();
+		Map<FaroProject, Exception> projectExceptions = new HashMap<>();
 
 		for (FaroProject faroProject :
 				_faroProjectLocalService.getFaroProjects(
@@ -94,7 +94,7 @@ public class CheckFaroProjectsMessageListener extends BaseMessageListener {
 					faroProject, (String)null, true, 0, 0, null);
 			}
 			catch (Exception exception) {
-				projectExceptions.put(faroProject.getWeDeployKey(), exception);
+				projectExceptions.put(faroProject, exception);
 			}
 
 			Thread.sleep(1000);
@@ -115,12 +115,17 @@ public class CheckFaroProjectsMessageListener extends BaseMessageListener {
 			_systemsDownStartTime = 0;
 		}
 		else {
-			StringBundler sb = new StringBundler(5);
+			StringBundler sb = new StringBundler(7);
 
-			for (Map.Entry<String, Exception> projectException :
+			for (Map.Entry<FaroProject, Exception> projectException :
 					projectExceptions.entrySet()) {
 
-				sb.append(projectException.getKey());
+				FaroProject faroProject = projectException.getKey();
+
+				sb.append(faroProject.getName());
+
+				sb.append(StringPool.NEW_LINE);
+				sb.append(faroProject.getWeDeployKey());
 				sb.append(StringPool.NEW_LINE);
 
 				Exception exception = projectException.getValue();
