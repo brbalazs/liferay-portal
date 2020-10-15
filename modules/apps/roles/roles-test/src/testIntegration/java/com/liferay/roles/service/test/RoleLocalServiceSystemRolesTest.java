@@ -116,7 +116,6 @@ public class RoleLocalServiceSystemRolesTest {
 
 		Role powerUserRole = _roleLocalService.fetchRole(
 			TestPropsValues.getCompanyId(), RoleConstants.POWER_USER);
-
 		Role userRole = _roleLocalService.fetchRole(
 			TestPropsValues.getCompanyId(), RoleConstants.USER);
 
@@ -136,11 +135,10 @@ public class RoleLocalServiceSystemRolesTest {
 
 			_roleLocalService.checkSystemRoles(companyId);
 
-			boolean testViewPermission = permissionChecker.hasPermission(
-				groupId, Role.class.getName(), powerUserRole.getRoleId(),
-				ActionKeys.VIEW);
-
-			Assert.assertFalse(testViewPermission);
+			Assert.assertFalse(
+				permissionChecker.hasPermission(
+					groupId, Role.class.getName(), powerUserRole.getRoleId(),
+					ActionKeys.VIEW));
 		}
 		finally {
 			if (hasViewPermission) {
