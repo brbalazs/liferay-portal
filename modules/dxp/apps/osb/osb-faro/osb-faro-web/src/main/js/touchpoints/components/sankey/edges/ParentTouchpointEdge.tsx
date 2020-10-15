@@ -9,7 +9,7 @@ import {
 	getTitleY,
 	getTotalViews,
 	getWrappedText
-} from '../../utils/edges';
+} from '../utils/edges';
 import {
 	calcExpandedTouchpointBoxPosition,
 	calcSankeyNodePosition,
@@ -18,11 +18,11 @@ import {
 	getNodeColor,
 	isParentNode,
 	SANKEY_COLORS
-} from '../../utils/sankey';
+} from '../utils/sankey';
 import {Colors} from 'shared/util/charts';
 import {getVariables} from 'shared/util/mappers';
 import {RangeSelectors} from 'shared/types';
-import {SankeyNode} from '../../utils/types';
+import {SankeyNode} from '../utils/types';
 import {toRounded, toThousands} from 'shared/util/numbers';
 import {useQuery} from '@apollo/react-hooks';
 

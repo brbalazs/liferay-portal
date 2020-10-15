@@ -1,7 +1,7 @@
 import HTMLBox from './HTMLBox';
 import React from 'react';
-import {SANKEY_COLORS} from '../../utils/sankey';
-import {SankeyNode} from '../../utils/types';
+import {SANKEY_COLORS} from '../utils/sankey';
+import {SankeyNode} from '../utils/types';
 
 export const CLASSNAME = 'analytics-sankey';
 export const CLASSNAME_BOX = `${CLASSNAME}-parent`;

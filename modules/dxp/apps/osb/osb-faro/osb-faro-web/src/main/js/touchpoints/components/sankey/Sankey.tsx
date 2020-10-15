@@ -6,7 +6,7 @@ import Paths from './Paths';
 import React, {useEffect, useRef, useState} from 'react';
 import TouchpointEdge from './edges/TouchpointEdge';
 import TouchpointPathQuery from 'touchpoints/queries/TouchpointPathQuery';
-import {AssetNode, Link, Node, SankeyNode} from '../utils/types';
+import {AssetNode, Link, Node, SankeyNode} from './utils/types';
 import {
 	getAssetsHeight,
 	getBounds,
@@ -15,7 +15,7 @@ import {
 	getSankeyHeight,
 	isParentNode,
 	SANKEY_OFFSET
-} from '../utils/sankey';
+} from './utils/sankey';
 import {getVariables} from 'shared/util/mappers';
 import {RangeSelectors} from 'shared/types';
 import {useQuery} from '@apollo/react-hooks';

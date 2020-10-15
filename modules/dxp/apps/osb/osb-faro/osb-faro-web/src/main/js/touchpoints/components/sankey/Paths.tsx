@@ -5,10 +5,10 @@ import {
 	getCenterY,
 	getDeltaY,
 	getNodeColor
-} from '../utils/sankey';
+} from './utils/sankey';
 import {CLASSNAME} from './Sankey';
 import {linkHorizontal} from 'd3-shape';
-import {SankeyLink, SankeyNode} from '../utils/types';
+import {SankeyLink, SankeyNode} from './utils/types';
 
 const SANKEY_PATHS_MARGIN = 20;
 

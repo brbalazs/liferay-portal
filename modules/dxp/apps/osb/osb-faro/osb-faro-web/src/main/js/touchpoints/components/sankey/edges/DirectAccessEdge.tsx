@@ -1,11 +1,11 @@
 import AssetsQuery from 'touchpoints/queries/AssetsQuery';
 import HTMLBox from './HTMLBox';
 import React, {useState} from 'react';
-import {AssetNode, SankeyNode} from '../../utils/types';
-import {assetTypeLabels, getWrappedText} from '../../utils/edges';
+import {AssetNode, SankeyNode} from '../utils/types';
+import {assetTypeLabels, getWrappedText} from '../utils/edges';
 import {getVariables} from 'shared/util/mappers';
 import {RangeSelectors} from 'shared/types';
-import {SANKEY_COLORS} from '../../utils/sankey';
+import {SANKEY_COLORS} from '../utils/sankey';
 import {useQuery} from '@apollo/react-hooks';
 
 export const CLASSNAME = 'analytics-sankey';

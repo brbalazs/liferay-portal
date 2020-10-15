@@ -1,9 +1,9 @@
 import React from 'react';
 import Title from './Title';
-import {ASSET_HEIGHT, getNodeColor, SANKEY_COLORS} from '../../utils/sankey';
-import {AssetNode, SankeyNode} from '../../utils/types';
+import {ASSET_HEIGHT, getNodeColor, SANKEY_COLORS} from '../utils/sankey';
+import {AssetNode, SankeyNode} from '../utils/types';
 import {CLASSNAME} from '../Sankey';
-import {getAssetUrl, getTouchpointUrl, getWrappedText} from '../../utils/edges';
+import {getAssetUrl, getTouchpointUrl, getWrappedText} from '../utils/edges';
 import {sub} from 'shared/util/lang';
 import {toThousands} from 'shared/util/numbers';
 

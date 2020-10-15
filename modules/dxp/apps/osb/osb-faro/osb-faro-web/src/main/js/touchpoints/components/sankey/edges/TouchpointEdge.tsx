@@ -2,13 +2,13 @@ import AssetsQuery from 'touchpoints/queries/AssetsQuery';
 import Header from './Header';
 import React, {useState} from 'react';
 
-import {AssetNode, SankeyNode} from '../../utils/types';
-import {assetTypeLabels, getWrappedText} from '../../utils/edges';
+import {AssetNode, SankeyNode} from '../utils/types';
+import {assetTypeLabels, getWrappedText} from '../utils/edges';
 import {
 	calcExpandedTouchpointBoxPosition,
 	calcSankeyNodePosition,
 	getNodeColor
-} from '../../utils/sankey';
+} from '../utils/sankey';
 import {getVariables} from 'shared/util/mappers';
 import {RangeSelectors} from 'shared/types';
 import {toThousands} from 'shared/util/numbers';
