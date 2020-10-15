@@ -379,15 +379,17 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 		Role userRole = getRole(companyId, RoleConstants.USER);
 
 		for (String roleName : allSystemRoles) {
-			if (!companyRolesList.contains(roleName)) {
-				Role role = getRole(companyId, roleName);
-
-				resourcePermissionLocalService.setResourcePermissions(
-					companyId, Role.class.getName(),
-					ResourceConstants.SCOPE_INDIVIDUAL,
-					String.valueOf(role.getRoleId()), userRole.getRoleId(),
-					new String[] {ActionKeys.VIEW});
+			if (companyRolesList.contains(roleName)) {
+				continue;
 			}
+
+			Role role = getRole(companyId, roleName);
+
+			resourcePermissionLocalService.setResourcePermissions(
+				companyId, Role.class.getName(),
+				ResourceConstants.SCOPE_INDIVIDUAL,
+				String.valueOf(role.getRoleId()), userRole.getRoleId(),
+				new String[] {ActionKeys.VIEW});
 		}
 	}
 
