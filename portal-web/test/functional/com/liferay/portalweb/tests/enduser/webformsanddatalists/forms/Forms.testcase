@@ -3083,6 +3083,10 @@ definition {
 			fieldTitle = "Paragraph",
 			fieldValue = "Paragraph body text.");
 
+		FormFields.selectCheckboxOption(
+			checkboxOption = "Checkbox 1",
+			fieldName = "Checkbox");
+
 		FormFields.editText(
 			fieldName = "SingleLineText",
 			fieldValue = "Single Line Text");
@@ -3102,10 +3106,6 @@ definition {
 		FormFields.editDate(
 			fieldName = "Date",
 			fieldValue = "05/02/2016");
-
-		FormFields.selectCheckboxOption(
-			checkboxOption = "Checkbox 1",
-			fieldName = "Checkbox");
 
 		FormPortlet.nextPage(
 			formPageCurrent = "Page 1",
