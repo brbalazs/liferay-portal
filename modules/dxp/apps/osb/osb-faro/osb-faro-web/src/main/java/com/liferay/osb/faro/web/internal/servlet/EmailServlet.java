@@ -83,11 +83,15 @@ public class EmailServlet extends BaseAsahServlet {
 	}
 
 	private void _sendEmail(JSONObject jsonObject) throws Exception {
+		FaroUser faroUser = _faroUserLocalService.fetchFaroUser(
+			jsonObject.getLong("ownerId"));
+
+		if (faroUser == null) {
+			return;
+		}
+
 		InternetAddress from = new InternetAddress(
 			"ac@liferay.com", "Analytics Cloud");
-
-		FaroUser faroUser = _faroUserLocalService.getFaroUser(
-			jsonObject.getLong("ownerId"));
 
 		User user = _userLocalService.getUser(faroUser.getLiveUserId());
 
