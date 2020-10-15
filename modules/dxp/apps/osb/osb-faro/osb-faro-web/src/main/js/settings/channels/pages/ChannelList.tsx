@@ -296,7 +296,7 @@ export class ChannelList extends React.Component<IChannelListProps> {
 							});
 
 							setBackURL(
-								toRoute(Routes.SITES, {
+								toRoute(Routes.WORKSPACE_WITH_ID, {
 									groupId
 								})
 							);

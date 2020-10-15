@@ -328,9 +328,12 @@ const View: React.FC<IViewProps> = ({
 													});
 
 													setBackURL(
-														toRoute(Routes.SITES, {
-															groupId
-														})
+														toRoute(
+															Routes.WORKSPACE_WITH_ID,
+															{
+																groupId
+															}
+														)
 													);
 												}
 											})
