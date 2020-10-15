@@ -18,6 +18,7 @@ import {connect} from 'react-redux';
 import {get} from 'lodash';
 import {getDefaultChannel} from 'shared/components/channels-menu';
 import {hasChanges} from 'shared/util/react';
+import {updateDefaultChannelId} from 'shared/actions/preferences';
 import {User} from '../util/records';
 import {withError, withLoading} from './util';
 
@@ -39,7 +40,7 @@ export default compose(
 		(store, {currentUser}) => ({
 			collapsed: store.getIn(['sidebar', String(currentUser.id)], false)
 		}),
-		{collapseSidebar}
+		{collapseSidebar, updateDefaultChannelId}
 	),
 	withQuery(
 		API.channels.fetchAll,
@@ -81,18 +82,31 @@ export default compose(
 			constructor(props, {channelDispatch}) {
 				super(props);
 
+				const {
+					channels,
+					defaultChannelId,
+					groupId,
+					updateDefaultChannelId
+				} = props;
+
 				this._toggleSidebarEvent = new CustomEvent('toggleSidebar');
 
+				const channel = getDefaultChannel(defaultChannelId, channels);
+
+				if (defaultChannelId !== channel.id) {
+					updateDefaultChannelId({
+						defaultChannelId: channel.id,
+						groupId
+					});
+				}
+
 				channelDispatch({
-					payload: getDefaultChannel(
-						props.defaultChannelId,
-						props.channels
-					),
+					payload: channel,
 					type: ActionType.setSelectedChannel
 				});
 
 				channelDispatch({
-					payload: props.channels,
+					payload: channels,
 					type: ActionType.setChannels
 				});
 			}
