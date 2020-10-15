@@ -184,7 +184,7 @@ definition {
 		AssertVisible(locator1 = "ManagementBar#MANAGEMENT_BAR");
 
 		var javaScript = '''
-var managementBar = Liferay.component(document.querySelector("nav.management-bar").parentNode.id);
+var managementBar = Liferay.component(document.querySelector("div.management-bar-container"));
 
 if (managementBar !== undefined) {
 	if (managementBar.wasRendered) {
