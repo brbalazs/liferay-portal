@@ -174,6 +174,13 @@ const ParentEdge: React.FC<IParentEdgeProps> = ({
 				/>
 			)}
 
+			{/* percentage bar color without opacity to handle mouse hover*/}
+			{renderParentNodeRainbow(
+				{x0: 0, x1},
+				{y0: rectPosition, y1: y1 + deltaY},
+				0
+			)}
+
 			{directAccessMetric != 0 && (
 				<g>
 					{/* background direct traffic */}
