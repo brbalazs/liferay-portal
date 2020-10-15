@@ -46,6 +46,15 @@ public class OpenIdConnectUserInfoProcessorImpl
 	public long processUserInfo(UserInfo userInfo, long companyId)
 		throws PortalException {
 
+		return processUserInfo(userInfo, companyId, null, null);
+	}
+
+	@Override
+	public long processUserInfo(
+			UserInfo userInfo, long companyId, String pathMain,
+			String portalURL)
+		throws PortalException {
+
 		String emailAddress = userInfo.getEmailAddress();
 
 		User user = _userLocalService.fetchUserByEmailAddress(
@@ -91,7 +100,6 @@ public class OpenIdConnectUserInfoProcessorImpl
 
 		Locale locale = company.getLocale();
 
-		String middleName = userInfo.getMiddleName();
 		long prefixId = 0;
 		long suffixId = 0;
 		boolean male = true;
@@ -107,11 +115,14 @@ public class OpenIdConnectUserInfoProcessorImpl
 
 		ServiceContext serviceContext = new ServiceContext();
 
+		serviceContext.setPathMain(pathMain);
+		serviceContext.setPortalURL(portalURL);
+
 		user = _userLocalService.addUser(
 			creatorUserId, companyId, autoPassword, password1, password2,
 			autoScreenName, screenName, emailAddress, facebookId, null, locale,
-			firstName, middleName, lastName, prefixId, suffixId, male,
-			birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds,
+			firstName, userInfo.getMiddleName(), lastName, prefixId, suffixId,
+			male, birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds,
 			organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
 
 		user = _userLocalService.updatePasswordReset(user.getUserId(), false);
