@@ -7,7 +7,7 @@ import {
 import {getUrl} from 'shared/util/urls';
 import {pickBy} from 'lodash';
 import {Routes, toAssetDashboardRoute} from 'shared/util/router';
-import {SankeyNode} from '../utils/types';
+import {SankeyNode} from './types';
 import {textWrap} from 'd3plus-text';
 import {toThousands, undoThousands} from 'shared/util/numbers';
 

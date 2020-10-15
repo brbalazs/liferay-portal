@@ -1,6 +1,6 @@
 import {Colors, nextColor} from 'shared/util/charts';
 import {getWrappedText} from './edges';
-import {Link, Node} from '../utils/types';
+import {Link, Node} from './types';
 import {removeProtocol} from 'shared/util/util';
 import {sankey} from 'd3-sankey';
 
