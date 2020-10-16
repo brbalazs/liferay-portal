@@ -23,8 +23,6 @@ for (Map.Entry<String, String> projectProgress : upgradeProgress.entrySet()) {
 	projectProgress.getKey();
 %>
 
-	<div> <%= projectProgress.getKey() + ": " + projectProgress.getValue() %> <div />
-
-	<%
+	<div> <%= projectProgress.getKey() + ": " + projectProgress.getValue() %> <div /><%
 }
-	%>
+%>

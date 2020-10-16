@@ -16,27 +16,20 @@
 
 <%@ include file="/init.jsp" %>
 
-<%
-String redirect = ParamUtil.getString(request, "redirect", currentURL);
-
-String version = PrefsPropsUtil.getString(themeDisplay.getCompanyId(), UpgradeConstants.REPOSITORY_SHA);
-int threadCount = PrefsPropsUtil.getInteger(themeDisplay.getCompanyId(), UpgradeConstants.UPGRADE_THREAD_COUNT);
-%>
-
 <liferay-portlet:actionURL var="configurationActionURL" />
 
 <aui:form action="<%= configurationActionURL %>" cssClass="container-fluid container-fluid-max-xl container-form-lg" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "updatePreferences();" %>'>
-	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
+	<aui:input name="redirect" type="hidden" value='<%= ParamUtil.getString(request, "redirect", currentURL) %>' />
 
 	<div class="sheet sheet-lg">
 		<div class="sheet-section">
 			<div class="form-group-autofit">
 				<div class="form-group-item">
-					<aui:input label="version" name="version" type="text" value="<%= version %>" wrapperCssClass="lfr-input-text-container" />
+					<aui:input label="version" name="version" type="text" value="<%= PrefsPropsUtil.getString(themeDisplay.getCompanyId(), UpgradeConstants.REPOSITORY_SHA) %>" wrapperCssClass="lfr-input-text-container" />
 				</div>
 
 				<div class="form-group-item">
-					<aui:input label="thread-count" name="threadCount" type="text" value="<%= threadCount %>" wrapperCssClass="lfr-input-text-container">
+					<aui:input label="thread-count" name="threadCount" type="text" value="<%= PrefsPropsUtil.getInteger(themeDisplay.getCompanyId(), UpgradeConstants.UPGRADE_THREAD_COUNT) %>" wrapperCssClass="lfr-input-text-container">
 						<aui:validator name="digits" />
 					</aui:input>
 				</div>
