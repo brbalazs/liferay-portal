@@ -93,7 +93,7 @@ export default compose(
 
 				const channel = getDefaultChannel(defaultChannelId, channels);
 
-				if (defaultChannelId !== channel.id) {
+				if (channel && defaultChannelId !== channel.id) {
 					updateDefaultChannelId({
 						defaultChannelId: channel.id,
 						groupId
