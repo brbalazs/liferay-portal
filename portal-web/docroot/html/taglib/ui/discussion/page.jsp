@@ -24,12 +24,11 @@ boolean skipEditorLoading = ParamUtil.getBoolean(request, "skipEditorLoading");
 DiscussionRequestHelper discussionRequestHelper = new DiscussionRequestHelper(request);
 DiscussionTaglibHelper discussionTaglibHelper = new DiscussionTaglibHelper(request);
 
-DiscussionPermission discussionPermission = CommentManagerUtil.getDiscussionPermission(discussionRequestHelper.getPermissionChecker());
 Discussion discussion = CommentManagerUtil.getDiscussion(discussionTaglibHelper.getUserId(), discussionRequestHelper.getScopeGroupId(), discussionTaglibHelper.getClassName(), discussionTaglibHelper.getClassPK(), new ServiceContextFunction(renderRequest));
 
 DiscussionComment rootDiscussionComment = (discussion == null) ? null : discussion.getRootDiscussionComment();
 
-CommentSectionDisplayContext commentSectionDisplayContext = CommentDisplayContextProviderUtil.getCommentSectionDisplayContext(request, response, discussionPermission, discussion);
+CommentSectionDisplayContext commentSectionDisplayContext = CommentDisplayContextProviderUtil.getCommentSectionDisplayContext(request, response, CommentManagerUtil.getDiscussionPermission(discussionRequestHelper.getPermissionChecker()), discussion);
 %>
 
 <section>

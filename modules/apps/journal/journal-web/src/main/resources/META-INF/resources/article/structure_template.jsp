@@ -17,9 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-JournalArticle article = journalDisplayContext.getArticle();
-
-JournalEditArticleDisplayContext journalEditArticleDisplayContext = new JournalEditArticleDisplayContext(request, liferayPortletResponse, article);
+JournalEditArticleDisplayContext journalEditArticleDisplayContext = new JournalEditArticleDisplayContext(request, liferayPortletResponse, journalDisplayContext.getArticle());
 
 long classNameId = ParamUtil.getLong(request, "classNameId");
 

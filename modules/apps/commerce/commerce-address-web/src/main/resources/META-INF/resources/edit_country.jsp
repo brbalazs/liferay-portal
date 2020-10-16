@@ -37,11 +37,9 @@ Map<String, Object> data = new HashMap<>();
 
 data.put("direction-right", StringPool.TRUE);
 
-String selectedScreenNavigationCategoryKey = commerceCountriesDisplayContext.getSelectedScreenNavigationCategoryKey();
-
 PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, commerceAdminModuleKey), countriesURL, data);
 PortalUtil.addPortletBreadcrumbEntry(request, title, portletURL.toString(), data);
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, selectedScreenNavigationCategoryKey), StringPool.BLANK, data);
+PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, commerceCountriesDisplayContext.getSelectedScreenNavigationCategoryKey()), StringPool.BLANK, data);
 %>
 
 <liferay-util:include page="/navbar.jsp" servletContext="<%= commerceAdminServletContext %>">

@@ -57,12 +57,10 @@ if (assetRenderer != null) {
 	}
 }
 
-String headerTitle = workflowTaskDisplayContext.getHeaderTitle(workflowTask);
-
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(backURL);
 
-renderResponse.setTitle(headerTitle);
+renderResponse.setTitle(workflowTaskDisplayContext.getHeaderTitle(workflowTask));
 %>
 
 <div class="container-fluid-1280">

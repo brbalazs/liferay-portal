@@ -65,10 +65,8 @@ if (!user.isDefaultUser()) {
 	recordSearchContainer.setRowChecker(new EmptyOnClickRowChecker(renderResponse));
 }
 
-OrderByComparator<DDLRecord> orderByComparator = kaleoFormsViewRecordsDisplayContext.getDDLRecordOrderByComparator(kaleoFormsViewRecordsDisplayContext.getOrderByCol(), kaleoFormsViewRecordsDisplayContext.getOrderByType());
-
 recordSearchContainer.setOrderByCol(kaleoFormsViewRecordsDisplayContext.getOrderByCol());
-recordSearchContainer.setOrderByComparator(orderByComparator);
+recordSearchContainer.setOrderByComparator(kaleoFormsViewRecordsDisplayContext.getDDLRecordOrderByComparator(kaleoFormsViewRecordsDisplayContext.getOrderByCol(), kaleoFormsViewRecordsDisplayContext.getOrderByType()));
 recordSearchContainer.setOrderByType(kaleoFormsViewRecordsDisplayContext.getOrderByType());
 %>
 

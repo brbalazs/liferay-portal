@@ -49,9 +49,7 @@ else {
 	entries = BlogsEntryServiceUtil.getGroupEntries(scopeGroupId, new Date(), WorkflowConstants.STATUS_APPROVED, max);
 }
 
-int total = entries.size();
-
-searchContainer.setTotal(total);
+searchContainer.setTotal(entries.size());
 
 List results = ListUtil.subList(entries, searchContainer.getStart(), searchContainer.getEnd());
 

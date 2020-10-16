@@ -17,7 +17,6 @@
 <%@ page import="com.liferay.petra.string.CharPool" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.events.ServicePreAction" %><%@
-page import="com.liferay.portal.kernel.model.Layout" %><%@
 page import="com.liferay.portal.kernel.model.LayoutConstants" %><%@
 page import="com.liferay.portal.kernel.model.LayoutSet" %><%@
 page import="com.liferay.portal.kernel.service.LayoutLocalServiceUtil" %><%@
@@ -45,13 +44,11 @@ if (layoutSet != null) {
 	long defaultPlid = LayoutLocalServiceUtil.getDefaultPlid(layoutSet.getGroupId(), layoutSet.isPrivateLayout());
 
 	if (defaultPlid != LayoutConstants.DEFAULT_PLID) {
-		Layout layout = LayoutLocalServiceUtil.getLayout(defaultPlid);
-
 		ServicePreAction servicePreAction = (ServicePreAction)InstancePool.get(ServicePreAction.class.getName());
 
 		ThemeDisplay themeDisplay = servicePreAction.initThemeDisplay(request, response);
 
-		redirect = PortalUtil.getLayoutURL(layout, themeDisplay);
+		redirect = PortalUtil.getLayoutURL(LayoutLocalServiceUtil.getLayout(defaultPlid), themeDisplay);
 	}
 	else {
 		redirect = PortalUtil.getPathMain();

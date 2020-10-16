@@ -143,10 +143,9 @@ if (Validator.isNotNull(keywords)) {
 				BaseModelSearchResult<AssetEntry> baseModelSearchResult = assetHelper.searchAssetEntries(request, assetEntryQuery, 0, delta);
 
 				for (AssetEntry assetEntry : baseModelSearchResult.getBaseModels()) {
-					String className = PortalUtil.getClassName(assetEntry.getClassNameId());
 					long classPK = assetEntry.getClassPK();
 
-					AssetRendererFactory<?> assetRendererFactory = AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(className);
+					AssetRendererFactory<?> assetRendererFactory = AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(PortalUtil.getClassName(assetEntry.getClassNameId()));
 
 					if (assetRendererFactory == null) {
 						continue;

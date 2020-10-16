@@ -107,9 +107,7 @@
 
 		permissionDisplays = ListUtil.sort(permissionDisplays);
 
-		int total = permissionDisplays.size();
-
-		searchContainer.setTotal(total);
+		searchContainer.setTotal(permissionDisplays.size());
 
 		List results = ListUtil.subList(permissionDisplays, searchContainer.getStart(), searchContainer.getEnd());
 

@@ -24,7 +24,6 @@ page import="com.liferay.portal.kernel.comment.CommentManagerUtil" %><%@
 page import="com.liferay.portal.kernel.comment.Discussion" %><%@
 page import="com.liferay.portal.kernel.comment.DiscussionComment" %><%@
 page import="com.liferay.portal.kernel.comment.DiscussionCommentIterator" %><%@
-page import="com.liferay.portal.kernel.comment.DiscussionPermission" %><%@
 page import="com.liferay.portal.kernel.comment.WorkflowableComment" %><%@
 page import="com.liferay.portal.kernel.comment.display.context.CommentSectionDisplayContext" %><%@
 page import="com.liferay.portal.kernel.comment.display.context.CommentTreeDisplayContext" %><%@

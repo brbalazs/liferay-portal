@@ -75,9 +75,7 @@ PanelCategoryRegistry panelCategoryRegistry = (PanelCategoryRegistry)request.get
 				<c:when test="<%= role.getType() == RoleConstants.TYPE_ORGANIZATION %>">
 
 					<%
-					String portletId = PortletProviderUtil.getPortletId(User.class.getName(), PortletProvider.Action.VIEW);
-
-					Portlet usersAdminPortlet = PortletLocalServiceUtil.getPortletById(company.getCompanyId(), portletId);
+					Portlet usersAdminPortlet = PortletLocalServiceUtil.getPortletById(company.getCompanyId(), PortletProviderUtil.getPortletId(User.class.getName(), PortletProvider.Action.VIEW));
 
 					editPermissionsResourceURL.setParameter("portletResource", usersAdminPortlet.getPortletId());
 

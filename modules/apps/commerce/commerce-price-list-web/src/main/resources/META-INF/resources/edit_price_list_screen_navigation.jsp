@@ -33,11 +33,9 @@ Map<String, Object> data = new HashMap<>();
 
 data.put("direction-right", StringPool.TRUE);
 
-String selectedScreenNavigationCategoryKey = commercePriceListDisplayContext.getSelectedScreenNavigationCategoryKey();
-
 PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "price-lists"), priceListsURL, data);
 PortalUtil.addPortletBreadcrumbEntry(request, title, portletURL.toString(), data);
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, selectedScreenNavigationCategoryKey), StringPool.BLANK, data);
+PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, commercePriceListDisplayContext.getSelectedScreenNavigationCategoryKey()), StringPool.BLANK, data);
 
 renderResponse.setTitle(LanguageUtil.get(request, "price-lists"));
 %>

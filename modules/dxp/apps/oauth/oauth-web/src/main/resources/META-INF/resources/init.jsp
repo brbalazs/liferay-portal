@@ -35,7 +35,6 @@ page import="com.liferay.oauth.service.permission.OAuthUserPermission" %><%@
 page import="com.liferay.oauth.util.OAuthAccessor" %><%@
 page import="com.liferay.oauth.util.OAuthActionKeys" %><%@
 page import="com.liferay.oauth.util.OAuthConsumer" %><%@
-page import="com.liferay.oauth.util.OAuthMessage" %><%@
 page import="com.liferay.oauth.util.OAuthUtil" %><%@
 page import="com.liferay.oauth.util.OAuthWebKeys" %><%@
 page import="com.liferay.oauth.web.internal.search.OAuthApplicationDisplayTerms" %><%@

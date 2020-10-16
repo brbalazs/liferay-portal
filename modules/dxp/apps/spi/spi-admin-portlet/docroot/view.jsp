@@ -70,9 +70,7 @@ List<SPIDefinition> spiDefinitions = SPIDefinitionServiceUtil.getSPIDefinitions(
 		<%
 		StringBundler applicationNamesSB = new StringBundler();
 
-		String portletIds = spiDefinition.getPortletIds();
-
-		for (String portletId : StringUtil.split(portletIds)) {
+		for (String portletId : StringUtil.split(spiDefinition.getPortletIds())) {
 			applicationNamesSB.append(PortalUtil.getPortletTitle(portletId, locale));
 			applicationNamesSB.append(StringPool.COMMA_AND_SPACE);
 		}

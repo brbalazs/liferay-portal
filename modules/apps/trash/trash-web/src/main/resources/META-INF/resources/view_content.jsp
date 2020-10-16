@@ -111,9 +111,7 @@ renderResponse.setTitle(trashRenderer.getTitle(locale));
 						<%
 						ClassedModel classedModel = (ClassedModel)curTrashedModel;
 
-						String modelClassName = classedModel.getModelClassName();
-
-						TrashHandler curTrashHandler = TrashHandlerRegistryUtil.getTrashHandler(modelClassName);
+						TrashHandler curTrashHandler = TrashHandlerRegistryUtil.getTrashHandler(classedModel.getModelClassName());
 
 						TrashRenderer curTrashRenderer = curTrashHandler.getTrashRenderer(curTrashedModel.getTrashEntryClassPK());
 

@@ -145,9 +145,7 @@ request.setAttribute("view.jsp-showIconLabel", false);
 									value = String.valueOf(assetEntry.getPriority());
 								}
 								else if (Objects.equals(metadataField, "author")) {
-									String userName = PortalUtil.getUserName(assetRenderer.getUserId(), assetRenderer.getUserName());
-
-									value = HtmlUtil.escape(userName);
+									value = HtmlUtil.escape(PortalUtil.getUserName(assetRenderer.getUserId(), assetRenderer.getUserName()));
 								}
 								else if (Objects.equals(metadataField, "view-count")) {
 									value = String.valueOf(assetEntry.getViewCount());

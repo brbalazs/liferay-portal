@@ -128,9 +128,7 @@ for (long groupId : groupIds) {
 						continue;
 					}
 
-					String portletId = curRendererFactory.getPortletId();
-
-					if (group.isStagingGroup() && !group.isStagedPortlet(portletId)) {
+					if (group.isStagingGroup() && !group.isStagedPortlet(curRendererFactory.getPortletId())) {
 						curGroupId = group.getLiveGroupId();
 					}
 

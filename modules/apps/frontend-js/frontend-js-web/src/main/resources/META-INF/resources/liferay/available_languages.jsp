@@ -22,9 +22,7 @@ page import="com.liferay.portal.kernel.util.LocaleUtil" %>
 <%@ page import="java.util.Locale" %>
 
 <%
-String languageId = LanguageUtil.getLanguageId(request);
-
-Locale locale = LocaleUtil.fromLanguageId(languageId);
+Locale locale = LocaleUtil.fromLanguageId(LanguageUtil.getLanguageId(request));
 %>
 
 AUI.add(

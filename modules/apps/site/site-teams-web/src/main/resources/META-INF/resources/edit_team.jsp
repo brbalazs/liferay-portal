@@ -77,9 +77,7 @@ renderResponse.setTitle((team == null) ? LanguageUtil.get(request, "new-team") :
 Group group = GroupLocalServiceUtil.getGroup(scopeGroupId);
 
 if (group.isOrganization()) {
-	Organization organization = OrganizationLocalServiceUtil.getOrganization(group.getOrganizationId());
-
-	UsersAdminUtil.addPortletBreadcrumbEntries(organization, request, renderResponse);
+	UsersAdminUtil.addPortletBreadcrumbEntries(OrganizationLocalServiceUtil.getOrganization(group.getOrganizationId()), request, renderResponse);
 }
 else {
 	PortalUtil.addPortletBreadcrumbEntry(request, group.getDescriptiveName(locale), null);
