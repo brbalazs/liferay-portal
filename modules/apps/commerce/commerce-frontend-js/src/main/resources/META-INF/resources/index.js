@@ -12,27 +12,6 @@
  * details.
  */
 
-import React from 'react';
-
-import {DEFAULT_LABELS} from './util/labels';
-
-const MiniCartContext = React.createContext({
-	AJAX: {},
-	CartViews: {},
-	actionURLs: {},
-	cartState: {},
-	closeCart: () => {},
-	displayDiscountLevels: false,
-	displayTotalItemsQuantity: false,
-	isOpen: false,
-	isUpdating: false,
-	labels: DEFAULT_LABELS,
-	setIsUpdating: () => {},
-	spritemap: '',
-	summaryDataMapper: () => {},
-	toggleable: true,
-	updateCartModel: () => {},
-	updateCartState: () => {}
-});
-
-export default MiniCartContext;
+export * as CommerceComponents from './components/index';
+export {default as CommerceServiceProvider} from './ServiceProvider/index';
+export {default as CommerceFrontendUtils} from './utilities/interface';

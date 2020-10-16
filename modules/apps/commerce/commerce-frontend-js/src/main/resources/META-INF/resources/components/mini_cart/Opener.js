@@ -20,9 +20,22 @@ import React, {useContext} from 'react';
 import MiniCartContext from './MiniCartContext';
 
 function Opener({openCart}) {
-	const {cartState, spritemap} = useContext(MiniCartContext),
-		{cartItems = []} = cartState,
-		numberOfItems = cartItems.length > 0 ? cartItems.length : 0;
+	const {cartState, displayTotalItemsQuantity, spritemap} = useContext(
+		MiniCartContext
+	);
+
+	let numberOfItems = 0;
+
+	if (displayTotalItemsQuantity) {
+		const {summary = {}} = cartState,
+			{itemsQuantity = 0} = summary;
+
+		numberOfItems = itemsQuantity;
+	} else {
+		const {cartItems = []} = cartState;
+
+		numberOfItems = cartItems.length;
+	}
 
 	return (
 		<button

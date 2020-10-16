@@ -12,27 +12,18 @@
  * details.
  */
 
-import React from 'react';
+import AJAX from './AJAX/index';
+import {validateEmailAddress} from './email';
+import * as Events from './eventsDefinitions';
+import {getRandomId, liferayNavigate, serializeParameters} from './index';
 
-import {DEFAULT_LABELS} from './util/labels';
+const CommerceFrontendUtils = {
+	AJAX,
+	Events,
+	getRandomId,
+	liferayNavigate,
+	serializeParameters,
+	validateEmailAddress
+};
 
-const MiniCartContext = React.createContext({
-	AJAX: {},
-	CartViews: {},
-	actionURLs: {},
-	cartState: {},
-	closeCart: () => {},
-	displayDiscountLevels: false,
-	displayTotalItemsQuantity: false,
-	isOpen: false,
-	isUpdating: false,
-	labels: DEFAULT_LABELS,
-	setIsUpdating: () => {},
-	spritemap: '',
-	summaryDataMapper: () => {},
-	toggleable: true,
-	updateCartModel: () => {},
-	updateCartState: () => {}
-});
-
-export default MiniCartContext;
+export default CommerceFrontendUtils;

@@ -23,27 +23,50 @@ import {
 	CHANGE_ORDER
 } from '../../utilities/eventsDefinitions';
 import {showErrorNotification} from '../../utilities/notifications';
-import CartItemsList from './CartItemsList';
 import MiniCartContext from './MiniCartContext';
-import Opener from './Opener';
-import Wrapper from './Wrapper';
-import {regenerateOrderDetailURL, resolveView} from './util/index';
+import {
+	ADD_PRODUCT,
+	CART,
+	HEADER,
+	ITEM,
+	ITEMS_LIST,
+	ITEMS_LIST_ACTIONS,
+	OPENER,
+	ORDER_BUTTON,
+	ORDER_IS_EMPTY,
+	REMOVE_ALL_ITEMS,
+	REVIEW_ORDER,
+	SUBMIT_ORDER,
+	VIEW_DETAILS,
+	YOUR_ORDER
+} from './util/constants';
+import {
+	normalizePartialObject,
+	regenerateOrderDetailURL,
+	summaryDataMapper
+} from './util/index';
+import {DEFAULT_LABELS} from './util/labels';
+import {DEFAULT_VIEWS, resolveCartViews} from './util/views';
 
 function MiniCart({
 	cartActionURLs,
-	cartItemsListView,
-	cartView,
+	cartViews,
 	displayDiscountLevels,
+	displayTotalItemsQuantity,
+	labels,
+	onAddToCart,
 	orderId,
-	spritemap
+	spritemap,
+	summaryDataMapper,
+	toggleable
 }) {
 	const AJAX = ServiceProvider.DeliveryCartAPI('v1');
 
-	const [isOpen, setIsOpen] = useState(false),
+	const [isOpen, setIsOpen] = useState(!toggleable || false),
 		[isUpdating, setIsUpdating] = useState(false),
 		[cartState, updateCartState] = useState({}),
 		[actionURLs, setActionURLs] = useState(cartActionURLs),
-		[CartView, setCartView] = useState(null);
+		[CartViews, setCartViews] = useState({});
 
 	const closeCart = () => setIsOpen(false),
 		openCart = () => setIsOpen(true),
@@ -69,16 +92,15 @@ function MiniCart({
 				}
 
 				updateCartState({...cartState, ...model});
+				onAddToCart(actionURLs, cartState);
 			})
-			.catch(error => {
-				showErrorNotification(error);
-			});
+			.catch(showErrorNotification);
 
 	useEffect(() => {
-		if (!CartView) {
-			resolveView(cartView).then(view => setCartView(() => view));
-		}
-	}, [CartView, cartView]);
+		resolveCartViews(normalizePartialObject(DEFAULT_VIEWS, cartViews)).then(
+			views => setCartViews(views)
+		);
+	}, [cartViews]);
 
 	useEffect(() => {
 		Liferay.on(ADD_TO_ORDER, updateCartModel);
@@ -109,28 +131,42 @@ function MiniCart({
 		<MiniCartContext.Provider
 			value={{
 				AJAX,
+				CartViews,
 				actionURLs,
 				cartState,
 				closeCart,
 				displayDiscountLevels,
+				displayTotalItemsQuantity,
 				isOpen,
 				isUpdating,
+				labels: normalizePartialObject(DEFAULT_LABELS, labels),
 				setIsUpdating,
 				spritemap,
+				summaryDataMapper,
+				toggleable,
 				updateCartModel,
 				updateCartState
 			}}
 		>
-			{!!CartView && (
-				<div className={classnames('mini-cart', isOpen && 'is-open')}>
-					<div
-						className={'mini-cart-overlay'}
-						onClick={() => setIsOpen(false)}
-					/>
+			{!!CartViews[CART] && (
+				<div
+					className={classnames(
+						'mini-cart',
+						(!toggleable || isOpen) && 'is-open'
+					)}
+				>
+					{toggleable && (
+						<>
+							<div
+								className={'mini-cart-overlay'}
+								onClick={() => setIsOpen(false)}
+							/>
 
-					<Opener openCart={openCart} />
+							<CartViews.Opener openCart={openCart} />
+						</>
+					)}
 
-					<CartView cartItemsListView={cartItemsListView} />
+					<CartViews.Cart />
 				</div>
 			)}
 		</MiniCartContext.Provider>
@@ -138,13 +174,13 @@ function MiniCart({
 }
 
 MiniCart.defaultProps = {
-	cartItemsListView: {
-		component: CartItemsList
-	},
-	cartView: {
-		component: Wrapper
-	},
-	displayDiscountLevels: false
+	cartViews: DEFAULT_VIEWS,
+	displayDiscountLevels: false,
+	displayTotalItemsQuantity: false,
+	labels: DEFAULT_LABELS,
+	onAddToCart: () => {},
+	summaryDataMapper,
+	toggleable: true
 };
 
 MiniCart.propTypes = {
@@ -152,17 +188,80 @@ MiniCart.propTypes = {
 		checkoutURL: PropTypes.string,
 		orderDetailURL: PropTypes.string
 	}).isRequired,
-	cartItemsListView: PropTypes.shape({
-		component: PropTypes.func,
-		contentRendererModuleUrl: PropTypes.string
-	}),
-	cartView: PropTypes.shape({
-		component: PropTypes.func,
-		contentRendererModuleUrl: PropTypes.string
+	cartViews: PropTypes.shape({
+		[CART]: PropTypes.oneOfType([
+			PropTypes.shape({
+				component: PropTypes.func
+			}),
+			PropTypes.shape({
+				contentRendererModuleUrl: PropTypes.string
+			})
+		]),
+		[HEADER]: PropTypes.oneOfType([
+			PropTypes.shape({
+				component: PropTypes.func
+			}),
+			PropTypes.shape({
+				contentRendererModuleUrl: PropTypes.string
+			})
+		]),
+		[ITEM]: PropTypes.oneOfType([
+			PropTypes.shape({
+				component: PropTypes.func
+			}),
+			PropTypes.shape({
+				contentRendererModuleUrl: PropTypes.string
+			})
+		]),
+		[ITEMS_LIST]: PropTypes.oneOfType([
+			PropTypes.shape({
+				component: PropTypes.func
+			}),
+			PropTypes.shape({
+				contentRendererModuleUrl: PropTypes.string
+			})
+		]),
+		[ITEMS_LIST_ACTIONS]: PropTypes.oneOfType([
+			PropTypes.shape({
+				component: PropTypes.func
+			}),
+			PropTypes.shape({
+				contentRendererModuleUrl: PropTypes.string
+			})
+		]),
+		[OPENER]: PropTypes.oneOfType([
+			PropTypes.shape({
+				component: PropTypes.func
+			}),
+			PropTypes.shape({
+				contentRendererModuleUrl: PropTypes.string
+			})
+		]),
+		[ORDER_BUTTON]: PropTypes.oneOfType([
+			PropTypes.shape({
+				component: PropTypes.func
+			}),
+			PropTypes.shape({
+				contentRendererModuleUrl: PropTypes.string
+			})
+		])
 	}),
 	displayDiscountLevels: PropTypes.bool,
+	displayTotalItemsQuantity: PropTypes.bool,
+	labels: PropTypes.shape({
+		[ADD_PRODUCT]: PropTypes.string,
+		[ORDER_IS_EMPTY]: PropTypes.string,
+		[REMOVE_ALL_ITEMS]: PropTypes.string,
+		[REVIEW_ORDER]: PropTypes.string,
+		[SUBMIT_ORDER]: PropTypes.string,
+		[VIEW_DETAILS]: PropTypes.string,
+		[YOUR_ORDER]: PropTypes.string
+	}),
+	onAddToCart: PropTypes.func,
 	orderId: PropTypes.number,
-	spritemap: PropTypes.string
+	spritemap: PropTypes.string,
+	summaryDataMapper: PropTypes.func,
+	toggleable: PropTypes.bool
 };
 
 export default MiniCart;

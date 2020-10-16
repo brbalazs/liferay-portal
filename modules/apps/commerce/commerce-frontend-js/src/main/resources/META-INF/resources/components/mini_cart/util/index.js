@@ -12,7 +12,6 @@
  * details.
  */
 
-import getJsModule from '../../../utilities/modules';
 import {DISCOUNT_LEVEL_PREFIX, ORDER_UUID_PARAMETER} from './constants';
 
 export function isNonnull(...values) {
@@ -43,20 +42,16 @@ export function parseOptions(stringifiedJSON) {
 		: options;
 }
 
+export function normalizePartialObject(defaultObject, customObject) {
+	return {...defaultObject, ...customObject};
+}
+
 export function regenerateOrderDetailURL(orderDetailURL, orderUUID) {
 	const originalURL = new URL(orderDetailURL);
 
 	originalURL.searchParams.set(ORDER_UUID_PARAMETER, orderUUID);
 
 	return originalURL.toString();
-}
-
-export function resolveView({component, contentRendererModuleUrl}) {
-	if (component) {
-		return Promise.resolve(props => component(props));
-	}
-
-	return getJsModule(contentRendererModuleUrl);
 }
 
 export function summaryDataMapper(summary) {

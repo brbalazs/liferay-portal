@@ -33,6 +33,8 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.util.IncludeTag;
 
+import java.util.HashMap;
+
 import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
@@ -95,8 +97,34 @@ public class MiniCartTag extends IncludeTag {
 		return super.doStartTag();
 	}
 
+	public HashMap<String, String> getLabels() {
+		return _labels;
+	}
+
 	public String getSpritemap() {
 		return _spritemap;
+	}
+
+	public HashMap<String, String> getViews() {
+		return _views;
+	}
+
+	public boolean isDisplayTotalItemsQuantity() {
+		return _displayTotalItemsQuantity;
+	}
+
+	public boolean isToggleable() {
+		return _toggleable;
+	}
+
+	public void setDisplayTotalItemsQuantity(
+		boolean displayTotalItemsQuantity) {
+
+		_displayTotalItemsQuantity = displayTotalItemsQuantity;
+	}
+
+	public void setLabels(HashMap<String, String> labels) {
+		_labels = labels;
 	}
 
 	@Override
@@ -113,6 +141,14 @@ public class MiniCartTag extends IncludeTag {
 		_spritemap = spritemap;
 	}
 
+	public void setToggleable(boolean toggleable) {
+		_toggleable = toggleable;
+	}
+
+	public void setViews(HashMap<String, String> views) {
+		_views = views;
+	}
+
 	@Override
 	protected void cleanUp() {
 		super.cleanUp();
@@ -120,9 +156,13 @@ public class MiniCartTag extends IncludeTag {
 		_checkoutURL = null;
 		_commerceOrderHttpHelper = null;
 		_configurationProvider = null;
+		_displayTotalItemsQuantity = false;
+		_labels = new HashMap<>();
 		_orderDetailURL = null;
 		_orderId = 0;
 		_spritemap = null;
+		_toggleable = true;
+		_views = new HashMap<>();
 	}
 
 	@Override
@@ -132,6 +172,8 @@ public class MiniCartTag extends IncludeTag {
 
 	@Override
 	protected void setAttributes(HttpServletRequest request) {
+		request.setAttribute("liferay-commerce:cart:cartViews", _views);
+
 		request.setAttribute("liferay-commerce:cart:checkoutURL", _checkoutURL);
 
 		request.setAttribute(
@@ -139,11 +181,19 @@ public class MiniCartTag extends IncludeTag {
 			_isDisplayDiscountLevels());
 
 		request.setAttribute(
+			"liferay-commerce:cart:displayTotalItemsQuantity",
+			_displayTotalItemsQuantity);
+
+		request.setAttribute("liferay-commerce:cart:labels", _labels);
+
+		request.setAttribute(
 			"liferay-commerce:cart:orderDetailURL", _orderDetailURL);
 
 		request.setAttribute("liferay-commerce:cart:orderId", _orderId);
 
 		request.setAttribute("liferay-commerce:cart:spritemap", _spritemap);
+
+		request.setAttribute("liferay-commerce:cart:toggleable", _toggleable);
 	}
 
 	private boolean _isDisplayDiscountLevels() {
@@ -170,8 +220,12 @@ public class MiniCartTag extends IncludeTag {
 	private String _checkoutURL;
 	private CommerceOrderHttpHelper _commerceOrderHttpHelper;
 	private ConfigurationProvider _configurationProvider;
+	private boolean _displayTotalItemsQuantity;
+	private HashMap<String, String> _labels = new HashMap<>();
 	private String _orderDetailURL;
 	private long _orderId;
 	private String _spritemap;
+	private boolean _toggleable = true;
+	private HashMap<String, String> _views = new HashMap<>();
 
 }
