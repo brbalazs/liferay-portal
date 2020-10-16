@@ -614,7 +614,6 @@ public class ProjectController extends BaseFaroController {
 
 	@GET
 	@Path("/time_zones")
-	@RolesAllowed(RoleConstants.SITE_ADMINISTRATOR)
 	public List<TimeZoneDisplay> getTimeZones() {
 		return TimeZoneUtil.getTimeZoneDisplays();
 	}
