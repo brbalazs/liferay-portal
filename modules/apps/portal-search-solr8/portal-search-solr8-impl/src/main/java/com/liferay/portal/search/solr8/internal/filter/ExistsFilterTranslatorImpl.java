@@ -38,7 +38,7 @@ public class ExistsFilterTranslatorImpl implements ExistsFilterTranslator {
 
 		builder.add(
 			TermRangeQuery.newStringRange(
-				existsFilter.getField(), "*", "*", true, true),
+				existsFilter.getField(), null, null, true, true),
 			BooleanClause.Occur.MUST);
 
 		return builder.build();
