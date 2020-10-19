@@ -72,7 +72,7 @@ public class SalesforceIndividualsDataCreator extends DataCreator {
 		salesforceIndividual.put(
 			"birthDate",
 			liferayUser.getOrDefault(
-				"birthday", dateAndTime.past(36500, TimeUnit.DAYS)));
+				"birthday", dateAndTime.past(18250, TimeUnit.DAYS)));
 		salesforceIndividual.put("city", address.city());
 		salesforceIndividual.put(
 			"company", salesforceAccount.getOrDefault("Name", company.name()));
