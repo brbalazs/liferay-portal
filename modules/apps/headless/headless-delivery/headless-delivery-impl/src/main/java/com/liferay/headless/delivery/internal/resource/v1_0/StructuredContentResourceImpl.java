@@ -827,9 +827,6 @@ public class StructuredContentResourceImpl
 
 		DDMStructure ddmStructure = journalArticle.getDDMStructure();
 
-		Fields fields = _journalConverter.getDDMFields(
-			ddmStructure, journalArticle.getContent());
-
 		ServiceContext serviceContext = new ServiceContext();
 
 		DDMFormValues ddmFormValues = DDMFormValuesUtil.toDDMFormValues(
@@ -840,22 +837,7 @@ public class StructuredContentResourceImpl
 
 		serviceContext.setAttribute("ddmFormValues", _toString(ddmFormValues));
 
-		Fields newFields = _ddm.getFields(
-			ddmStructure.getStructureId(), serviceContext);
-
-		Iterator<Field> iterator = fields.iterator();
-
-		while (iterator.hasNext()) {
-			Field field = iterator.next();
-
-			Field newField = newFields.get(field.getName());
-
-			field.setValues(
-				contextAcceptLanguage.getPreferredLocale(),
-				newField.getValues(contextAcceptLanguage.getPreferredLocale()));
-		}
-
-		return fields;
+		return _ddm.getFields(ddmStructure.getStructureId(), serviceContext);
 	}
 
 	private Fields _toPatchedFields(
