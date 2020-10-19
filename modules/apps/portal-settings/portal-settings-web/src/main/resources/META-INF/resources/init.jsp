@@ -31,6 +31,7 @@ page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.exception.AccountNameException" %><%@
 page import="com.liferay.portal.kernel.exception.CompanyMxException" %><%@
 page import="com.liferay.portal.kernel.exception.CompanyVirtualHostException" %><%@
+page import="com.liferay.portal.kernel.exception.EmailAddressException" %><%@
 page import="com.liferay.portal.kernel.exception.LocaleException" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.language.UnicodeLanguageUtil" %><%@

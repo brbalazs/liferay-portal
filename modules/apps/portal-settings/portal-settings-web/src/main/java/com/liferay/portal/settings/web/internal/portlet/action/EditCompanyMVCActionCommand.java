@@ -206,6 +206,15 @@ public class EditCompanyMVCActionCommand extends BaseFormMVCActionCommand {
 		UnicodeProperties properties = PropertiesParamUtil.getProperties(
 			actionRequest, "settings--");
 
+		if (properties.containsKey("admin.email.from.address")) {
+			String newEmail = properties.getProperty(
+				"admin.email.from.address");
+
+			if (!Validator.isEmailAddress(newEmail)) {
+				throw new EmailAddressException();
+			}
+		}
+
 		_companyService.updateCompany(
 			companyId, virtualHostname, mx, homeURL, !deleteLogo, logoBytes,
 			name, legalName, legalId, legalType, sicCode, tickerSymbol,
