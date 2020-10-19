@@ -54,33 +54,35 @@ public class UpgradeCaptchaConfigurationPreferences extends UpgradeProcess {
 				LegacyCaptchaPropsKeys.
 					CAPTCHA_CONFIGURATION_SIMPLECAPTCHA_GIMPY_RENDERERS_PROPERTY));
 
-		String[] upgradedSimpleCaptchaGimpyRenderers = _replaceArrayValue(
-			simpleCaptchaGimpyRenderers,
-			LegacyCaptchaPropsKeys.
-				CAPTCHA_CONFIGURATION_SIMPLECAPTCHA_BLOCK_GYMPY_RENDERER_DEPRECATED_CLASS,
-			LegacyCaptchaPropsKeys.
-				CAPTCHA_CONFIGURATION_SIMPLECAPTCHA_BLOCK_GYMPY_RENDERER_CLASS);
+		if (simpleCaptchaGimpyRenderers.length > 0) {
+			String[] upgradedSimpleCaptchaGimpyRenderers = _replaceArrayValue(
+				simpleCaptchaGimpyRenderers,
+				LegacyCaptchaPropsKeys.
+					CAPTCHA_CONFIGURATION_SIMPLECAPTCHA_BLOCK_GYMPY_RENDERER_DEPRECATED_CLASS,
+				LegacyCaptchaPropsKeys.
+					CAPTCHA_CONFIGURATION_SIMPLECAPTCHA_BLOCK_GYMPY_RENDERER_CLASS);
 
-		upgradedSimpleCaptchaGimpyRenderers = _replaceArrayValue(
-			upgradedSimpleCaptchaGimpyRenderers,
-			LegacyCaptchaPropsKeys.
-				CAPTCHA_CONFIGURATION_SIMPLECAPTCHA_DROP_SHADOW_GYMPY_RENDERER_DEPRECATED_CLASS,
-			LegacyCaptchaPropsKeys.
-				CAPTCHA_CONFIGURATION_SIMPLECAPTCHA_DROP_SHADOW_GYMPY_RENDERER_CLASS);
+			upgradedSimpleCaptchaGimpyRenderers = _replaceArrayValue(
+				upgradedSimpleCaptchaGimpyRenderers,
+				LegacyCaptchaPropsKeys.
+					CAPTCHA_CONFIGURATION_SIMPLECAPTCHA_DROP_SHADOW_GYMPY_RENDERER_DEPRECATED_CLASS,
+				LegacyCaptchaPropsKeys.
+					CAPTCHA_CONFIGURATION_SIMPLECAPTCHA_DROP_SHADOW_GYMPY_RENDERER_CLASS);
 
-		upgradedSimpleCaptchaGimpyRenderers = _replaceArrayValue(
-			upgradedSimpleCaptchaGimpyRenderers,
-			LegacyCaptchaPropsKeys.
-				CAPTCHA_CONFIGURATION_SIMPLECAPTCHA_RIPPLE_GYMPY_RENDERER_DEPRECATED_CLASS,
-			LegacyCaptchaPropsKeys.
-				CAPTCHA_CONFIGURATION_SIMPLECAPTCHA_RIPPLE_GYMPY_RENDERER_CLASS);
+			upgradedSimpleCaptchaGimpyRenderers = _replaceArrayValue(
+				upgradedSimpleCaptchaGimpyRenderers,
+				LegacyCaptchaPropsKeys.
+					CAPTCHA_CONFIGURATION_SIMPLECAPTCHA_RIPPLE_GYMPY_RENDERER_DEPRECATED_CLASS,
+				LegacyCaptchaPropsKeys.
+					CAPTCHA_CONFIGURATION_SIMPLECAPTCHA_RIPPLE_GYMPY_RENDERER_CLASS);
 
-		properties.put(
-			LegacyCaptchaPropsKeys.
-				CAPTCHA_CONFIGURATION_SIMPLECAPTCHA_GIMPY_RENDERERS_PROPERTY,
-			upgradedSimpleCaptchaGimpyRenderers);
+			properties.put(
+				LegacyCaptchaPropsKeys.
+					CAPTCHA_CONFIGURATION_SIMPLECAPTCHA_GIMPY_RENDERERS_PROPERTY,
+				upgradedSimpleCaptchaGimpyRenderers);
 
-		configuration.update(properties);
+			configuration.update(properties);
+		}
 	}
 
 	private String[] _replaceArrayValue(
