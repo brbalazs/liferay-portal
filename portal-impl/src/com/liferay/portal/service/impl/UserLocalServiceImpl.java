@@ -3570,8 +3570,6 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	public Map<Long, Integer> searchCounts(
 		long companyId, int status, long[] groupIds) {
 
-		int count = 0;
-
 		Map<Long, Integer> counts = new HashMap<>();
 
 		LinkedHashMap<String, Object> params = null;
@@ -3600,7 +3598,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 					).build();
 				}
 
-				count = userFinder.countByKeywords(
+				int count = userFinder.countByKeywords(
 					companyId, null, status, params);
 
 				if (count > 0) {
