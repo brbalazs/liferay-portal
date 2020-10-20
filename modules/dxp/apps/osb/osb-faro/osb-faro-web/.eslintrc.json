@@ -10,6 +10,7 @@
 		"plugin:jsx-a11y/recommended"
 	],
 	"globals": {
+		"analytics": true,
 		"FARO_ENV": true,
 		"IncrementalDOM": true,
 		"Liferay": true

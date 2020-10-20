@@ -145,9 +145,11 @@ export class Settings extends React.Component {
 	};
 
 	componentDidMount() {
-		const {currentUser} = this.props;
+		const {currentUser, groupId} = this.props;
 
 		analytics.identify(currentUser.id);
+
+		analytics.group(groupId)
 	}
 
 	getSidebarSections() {
