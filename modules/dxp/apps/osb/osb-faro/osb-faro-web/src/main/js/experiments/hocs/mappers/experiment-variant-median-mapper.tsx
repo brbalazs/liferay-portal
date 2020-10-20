@@ -59,29 +59,28 @@ const getMedianGraphData = ({dxpVariants, metricUnit}) => {
 
 export default ({
 	experiment: {
-		bestVariant,
 		dxpVariants,
 		goal,
-		metrics: {variantMetrics},
-		status,
-		winnerDXPVariantId
+		metrics: {variantMetrics}
 	}
 }): ExperimentVariant => {
 	const variants = mergedVariants(dxpVariants, variantMetrics);
 	const metric = goal ? goal.metric : null;
 	const metricUnit = getMetricUnit(metric);
+	const mediansData = getMedianGraphData({
+		dxpVariants: variants,
+		metricUnit
+	});
+
+	if (mediansData.items && !mediansData.items.length) {
+		return {
+			empty: true
+		};
+	}
 
 	return {
-		bestVariant,
-		data: variants,
 		legend: getLegendData(variants),
-		mediansData: getMedianGraphData({
-			dxpVariants: variants,
-			metricUnit
-		}),
-		metric,
-		metricUnit,
-		status,
-		winnerDXPVariantId
+		mediansData,
+		metricUnit
 	};
 };
