@@ -11,6 +11,12 @@ import SuppressedUsersListQuery from 'settings/data-privacy/queries/SuppressedUs
 import TimeRangeQuery from 'shared/queries/TimeRangeQuery';
 import TouchpointPathQuery from 'touchpoints/queries/TouchpointPathQuery';
 import TouchpointsQuery from 'sites/queries/TouchpointsQuery';
+import {
+	EXPERIMENT_QUERY,
+	EXPERIMENT_SESSION_HISTOGRAM_QUERY,
+	EXPERIMENT_SESSION_VARIANTS_HISTOGRAM_QUERY,
+	EXPERIMENT_VARIANTS_HISTOGRAM_QUERY
+} from 'experiments/queries/ExperimentQuery';
 import {getSafeRangeSelectors} from 'shared/util/util';
 import {INTERVAL_KEY_MAP} from 'shared/util/time';
 import {isArray, mapValues, range} from 'lodash';
@@ -20,6 +26,218 @@ const METRIC_TYPENAME_MAP = {
 	histogram: 'HistogramMetric',
 	trend: 'Trend'
 };
+
+export function mockExperimentSessionHistogramReq() {
+	return {
+		request: {
+			query: EXPERIMENT_SESSION_HISTOGRAM_QUERY,
+			variables: {
+				experimentId: '123'
+			}
+		},
+		result: {
+			data: {
+				experiment: {
+					__typename: 'Experiment',
+					id: '123',
+					sessionsHistogram: [
+						{
+							__typename: 'HistogramMetric',
+							key: '2020-09-30T00:00',
+							value: 99
+						}
+					]
+				}
+			}
+		}
+	};
+}
+
+export function mockExperimentSessionVariantsHistogramReq() {
+	return {
+		request: {
+			query: EXPERIMENT_SESSION_VARIANTS_HISTOGRAM_QUERY,
+			variables: {
+				experimentId: '123'
+			}
+		},
+		result: {
+			data: {
+				experiment: {
+					__typename: 'Experiment',
+					dxpVariants: [
+						{
+							__typename: 'DXPVariant',
+							control: true,
+							dxpVariantName: 'Control',
+							sessionsHistogram: [
+								{
+									__typename: 'HistogramMetric',
+									key: '2020-09-30T00:00',
+									value: 47
+								}
+							]
+						}
+					],
+					id: '123'
+				}
+			}
+		}
+	};
+}
+
+export function mockExperimentVariantsHistogramReq() {
+	return {
+		request: {
+			query: EXPERIMENT_VARIANTS_HISTOGRAM_QUERY,
+			variables: {
+				experimentId: '123'
+			}
+		},
+		result: {
+			data: {
+				experiment: {
+					__typename: 'Experiment',
+					dxpVariants: [
+						{
+							__typename: 'DXPVariant',
+							control: true,
+							dxpVariantId: 'DEFAULT',
+							dxpVariantName: 'Control'
+						},
+						{
+							__typename: 'DXPVariant',
+							control: false,
+							dxpVariantId: '44167',
+							dxpVariantName: 'Red Button'
+						}
+					],
+					goal: {__typename: 'Goal', metric: 'CLICK_RATE'},
+					id: '123',
+					metricsHistogram: [
+						{
+							__typename: 'ExperimentMetrics',
+							processedDate: '2020-09-30T15:00',
+							variantMetrics: [
+								{
+									__typename: 'VariantMetrics',
+									confidenceInterval: [66.0, 73.0],
+									dxpVariantId: 'DEFAULT',
+									improvement: 0.0,
+									median: 70.0
+								},
+								{
+									__typename: 'VariantMetrics',
+									confidenceInterval: [28.0, 31.0],
+									dxpVariantId: '44167',
+									improvement: -57.14285714285714,
+									median: 30.0
+								}
+							]
+						},
+						{
+							__typename: 'ExperimentMetrics',
+							processedDate: '2020-10-19T15:00',
+							variantMetrics: [
+								{
+									__typename: 'VariantMetrics',
+									confidenceInterval: [66.0, 73.0],
+									dxpVariantId: 'DEFAULT',
+									improvement: 0.0,
+									median: 70.0
+								},
+								{
+									__typename: 'VariantMetrics',
+									confidenceInterval: [28.0, 31.0],
+									dxpVariantId: '44167',
+									improvement: -57.14285714285714,
+									median: 30.0
+								}
+							]
+						}
+					]
+				}
+			}
+		}
+	};
+}
+
+export function mockExperimentReq() {
+	return {
+		request: {
+			query: EXPERIMENT_QUERY,
+			variables: {
+				experimentId: '123'
+			}
+		},
+		result: {
+			data: {
+				experiment: {
+					__typename: 'Experiment',
+					description: '',
+					dxpExperienceName: 'Default',
+					dxpSegmentName: 'Anyone',
+					dxpVariants: [
+						{
+							__typename: 'DXPVariant',
+							changes: 0,
+							control: true,
+							dxpVariantId: 'DEFAULT',
+							dxpVariantName: 'Control',
+							trafficSplit: 50.0,
+							uniqueVisitors: 402
+						},
+						{
+							__typename: 'DXPVariant',
+							changes: 0,
+							control: false,
+							dxpVariantId: '44167',
+							dxpVariantName: 'Red Button',
+							trafficSplit: 50.0,
+							uniqueVisitors: 394
+						}
+					],
+					finishedDate: null,
+					goal: {__typename: 'Goal', metric: 'CLICK_RATE'},
+					id: '123',
+					metrics: {
+						__typename: 'ExperimentMetrics',
+						completion: 99.0,
+						elapsedDays: 16,
+						estimatedDaysLeft: 1,
+						variantMetrics: [
+							{
+								__typename: 'VariantMetrics',
+								confidenceInterval: [36.0, 37.0],
+								dxpVariantId: 'DEFAULT',
+								improvement: 0.0,
+								median: 37.0,
+								probabilityToWin: 63.0
+							},
+							{
+								__typename: 'VariantMetrics',
+								confidenceInterval: [28.0, 31.0],
+								dxpVariantId: '44167',
+								improvement: -18.91891891891892,
+								median: 30.0,
+								probabilityToWin: 5070.0
+							}
+						]
+					},
+					modifiedDate: '2020-09-30T17:55:45.417Z',
+					name: 'Timezone',
+					pageURL: 'http://localhost:8089/web/guest/home',
+					publishedDXPVariantId: null,
+					sessions: 800,
+					startedDate: '2020-09-30T12:00:00.000Z',
+					status: 'RUNNING',
+					type: 'AB',
+					winnerDXPVariantId: null
+				}
+			}
+		}
+	};
+}
 
 export function mockBag({items, itemTypeName, name, typeName}) {
 	return {
