@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PerDayChart should render 1`] = `
+<div>
+  <div
+    class="analytics-experiments-line-chart"
+  >
+    <div
+      class="chart-root"
+    >
+      <div />
+    </div>
+    <ul
+      class="chart-legend"
+      id="legendId"
+    />
+  </div>
+</div>
+`;
