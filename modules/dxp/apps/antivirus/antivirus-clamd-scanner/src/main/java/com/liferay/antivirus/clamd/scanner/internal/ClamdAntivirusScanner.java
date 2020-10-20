@@ -14,6 +14,7 @@
 
 package com.liferay.antivirus.clamd.scanner.internal;
 
+import com.liferay.antivirus.clamd.scanner.internal.configuration.ClamdAntivirusScannerConfiguration;
 import com.liferay.document.library.kernel.antivirus.AntivirusScanner;
 import com.liferay.document.library.kernel.antivirus.AntivirusScannerException;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
@@ -35,7 +36,7 @@ import org.osgi.service.component.annotations.ConfigurationPolicy;
  * @author Shuyang Zhou
  */
 @Component(
-	configurationPid = "com.liferay.antivirus.clamd.scanner.internal.ClamdAntivirusScannerConfiguration",
+	configurationPid = "com.liferay.antivirus.clamd.scanner.internal.configuration.ClamdAntivirusScannerConfiguration",
 	configurationPolicy = ConfigurationPolicy.REQUIRE,
 	service = AntivirusScanner.class
 )

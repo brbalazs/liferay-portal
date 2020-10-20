@@ -12,7 +12,7 @@
  *
  */
 
-package com.liferay.antivirus.clamd.scanner.internal;
+package com.liferay.antivirus.clamd.scanner.internal.configuration;
 
 import aQute.bnd.annotation.metatype.Meta;
 
@@ -23,7 +23,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
  */
 @ExtendedObjectClassDefinition(category = "antivirus")
 @Meta.OCD(
-	id = "com.liferay.antivirus.clamd.scanner.internal.ClamdAntivirusScannerConfiguration",
+	id = "com.liferay.antivirus.clamd.scanner.internal.configuration.ClamdAntivirusScannerConfiguration",
 	localization = "content/Language",
 	name = "antivirus-clamd-scanner-configuration-name"
 )
