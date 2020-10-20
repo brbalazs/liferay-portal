@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portal.search.solr7.internal.query;
+package com.liferay.portal.search.solr8.internal.query;
 
 import org.junit.Assert;
 import org.junit.Test;

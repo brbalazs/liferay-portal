@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portal.search.solr7.internal.engine;
+package com.liferay.portal.search.solr8.internal.engine;
 
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -21,9 +21,9 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.search.engine.ConnectionInformation;
 import com.liferay.portal.search.engine.SearchEngineInformation;
-import com.liferay.portal.search.solr7.configuration.SolrConfiguration;
-import com.liferay.portal.search.solr7.internal.SolrSearchEngine;
-import com.liferay.portal.search.solr7.internal.connection.SolrClientManager;
+import com.liferay.portal.search.solr8.configuration.SolrConfiguration;
+import com.liferay.portal.search.solr8.internal.SolrSearchEngine;
+import com.liferay.portal.search.solr8.internal.connection.SolrClientManager;
 
 import java.util.List;
 import java.util.Map;
@@ -44,7 +44,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Adam Brandizzi
  */
 @Component(
-	configurationPid = "com.liferay.portal.search.solr7.configuration.SolrConfiguration",
+	configurationPid = "com.liferay.portal.search.solr8.configuration.SolrConfiguration",
 	immediate = true, service = SearchEngineInformation.class
 )
 public class SolrSearchEngineInformation implements SearchEngineInformation {
