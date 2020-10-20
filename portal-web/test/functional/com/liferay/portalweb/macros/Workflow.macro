@@ -109,7 +109,6 @@ definition {
 			Workflow.gotoCompletedFilter();
 
 			if (isSet(workflowOrder)) {
-
 				Click(locator1 = "MyWorkflowTasksTask#ORDER");
 
 				Pause(locator1 = "1000");
