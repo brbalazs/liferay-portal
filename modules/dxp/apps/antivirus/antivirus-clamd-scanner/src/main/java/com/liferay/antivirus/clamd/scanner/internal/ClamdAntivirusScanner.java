@@ -77,6 +77,21 @@ public class ClamdAntivirusScanner implements AntivirusScanner {
 		}
 	}
 
+	@Override
+	public void scan(InputStream inputStream) throws AntivirusScannerException {
+		try {
+			if (!ClamAVClient.isCleanReply(_clamdClient.scan(inputStream))) {
+				throw new AntivirusScannerException(
+					"Virus detected in input stream",
+					AntivirusScannerException.VIRUS_DETECTED);
+			}
+		}
+		catch (IOException ioException) {
+			throw new AntivirusScannerException(
+				AntivirusScannerException.PROCESS_FAILURE, ioException);
+		}
+	}
+
 	@Activate
 	protected void activate(Map<String, Object> properties) {
 		ClamdAntivirusScannerConfiguration clamdAntivirusScannerConfiguration =
