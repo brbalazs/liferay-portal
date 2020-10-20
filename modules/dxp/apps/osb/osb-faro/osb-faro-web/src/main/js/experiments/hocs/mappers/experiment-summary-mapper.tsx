@@ -14,7 +14,7 @@ type Experiment = {
 export default ({experiment, experimentId, timeZoneId}) => {
 	const {description, status}: Experiment = experiment;
 
-	let data = {};
+	let data: any = {};
 
 	switch (status.toLowerCase()) {
 		case 'draft':
@@ -53,7 +53,7 @@ export default ({experiment, experimentId, timeZoneId}) => {
 
 	return {
 		...data,
-		status: status.toLowerCase(),
+		status: status.toLowerCase() as Status,
 		summary: {
 			description,
 			subtitle: Liferay.Language.get('description'),
