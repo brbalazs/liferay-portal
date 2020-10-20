@@ -1,63 +1,96 @@
+import BasePage from 'shared/components/base-page';
 import React from 'react';
-import VariantCard from '../index';
-import {shallow} from 'enzyme';
+import VariantCard from '../Index';
+import {
+	cleanup,
+	fireEvent,
+	render,
+	waitForElementToBeRemoved
+} from '@testing-library/react';
+import {ExperimentResolver as Experiment} from 'shared/apollo/resolvers';
+import {MockedProvider} from '@apollo/react-testing';
+import {
+	mockExperimentReq,
+	mockExperimentVariantsHistogramReq
+} from 'test/graphql-data';
 import {StateProvider} from 'experiments/state';
+import {StaticRouter} from 'react-router';
 
-const data = [
-	{
-		changes: 30,
-		confidenceLevel: 0.0,
-		control: true,
-		dxpVariantId: '123',
-		dxpVariantName: 'DXP Variant Name',
-		improvementChance: 0.0,
-		improvementLift: 0.0,
-		metricRangeEnd: 0.0,
-		metricRangeStart: 0.0,
-		probabilityToWin: 0.0,
-		trafficSplit: 0.0,
-		uniqueVisitors: 0
-	},
-	{
-		changes: 5,
-		confidenceLevel: 0.0,
-		control: false,
-		dxpVariantId: '456',
-		dxpVariantName: 'Another DXP Variant Name',
-		improvementChance: 0.0,
-		improvementLift: 0.0,
-		metricRangeEnd: 0.0,
-		metricRangeStart: 0.0,
-		probabilityToWin: 0.0,
-		trafficSplit: 0.0,
-		uniqueVisitors: 0
+jest.unmock('react-dom');
+jest.useRealTimers();
+
+const PER_DAY = 'Per day';
+
+const MOCK_CONTEXT = {
+	filters: {},
+	router: {
+		params: {
+			channelId: '456',
+			groupId: '2000',
+			id: '123'
+		},
+		query: {
+			rangeKey: '30'
+		}
 	}
-];
+};
 
 describe('VariantCard', () => {
-	let component;
+	afterEach(cleanup);
 
-	afterEach(() => {
-		if (component) {
-			component.unmount();
-		}
-	});
-
-	it('should render', () => {
-		component = shallow(
-			<StateProvider>
-				<VariantCard
-					bestVariant={data[0]}
-					data={data}
-					label={Liferay.Language.get('variant-report')}
-					metric='CLICK_RATE'
-					metricUnit='%'
-					status='RUNNING'
-					winnerDXPVariantId='DEFAULT'
-				/>
-			</StateProvider>
+	it('should render', async() => {
+		const {container} = render(
+			<StaticRouter>
+				<MockedProvider
+					mocks={[
+						mockExperimentReq(),
+						mockExperimentVariantsHistogramReq()
+					]}
+					resolvers={{Experiment}}
+				>
+					<BasePage.Context.Provider value={MOCK_CONTEXT}>
+						<StateProvider>
+							<VariantCard label='test' />
+						</StateProvider>
+					</BasePage.Context.Provider>
+				</MockedProvider>
+			</StaticRouter>
 		);
 
-		expect(component).toMatchSnapshot();
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('should render a Per day chart', async() => {
+		const {container, getAllByText} = render(
+			<StaticRouter>
+				<MockedProvider
+					mocks={[
+						mockExperimentReq(),
+						mockExperimentVariantsHistogramReq()
+					]}
+					resolvers={{Experiment}}
+				>
+					<BasePage.Context.Provider value={MOCK_CONTEXT}>
+						<StateProvider>
+							<VariantCard label='test' />
+						</StateProvider>
+					</BasePage.Context.Provider>
+				</MockedProvider>
+			</StaticRouter>
+		);
+
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
+
+		expect(getAllByText(PER_DAY)[0].className).not.toContain('active');
+
+		fireEvent.click(getAllByText(PER_DAY)[0]);
+
+		expect(getAllByText(PER_DAY)[1].className).toContain('active');
 	});
 });

@@ -1,50 +1,17 @@
 import Card from 'shared/components/Card';
 import ClayNavigationBar from '@clayui/navigation-bar';
-import columns from './variant-columns';
+import MediansChart from 'experiments/components/variant-card/MediansChart';
+import PerDayChart from 'experiments/components/variant-card/PerDayChart';
 import React from 'react';
-import Table from 'shared/components/table';
+import VariantTableCard from 'experiments/components/variant-card/VariantTableCard';
 import {CLASSNAME} from './constants';
-import {LegendData} from 'shared/components/Legend';
-import {Status} from 'experiments/util/types';
 import {useStateValue} from 'experiments/state';
 
-type Variant = {
-	changes: number;
-	confidenceLevel: number;
-	control: boolean;
-	dxpVariantId: string;
-	dxpVariantName: string;
-	improvementChance: number;
-	improvementLift: number;
-	metricRangeEnd: number;
-	metricRangeStart: number;
-	probabilityToWin: number;
-	trafficSplit: number;
-	uniqueVisitors: number;
-};
-
-export interface VariantCardIProps extends React.HTMLAttributes<HTMLElement> {
-	bestVariant: Variant;
-	data: Array<Variant>;
-	label: string;
-	legend?: Array<LegendData>;
-	mediansData?: any;
-	metric: string;
-	metricUnit: string;
-	status: Status;
-	winnerDXPVariantId: string;
+interface VariantCardIProps {
+	label: String;
 }
 
-const VariantCard: React.FC<VariantCardIProps> = ({
-	bestVariant,
-	children,
-	data,
-	label,
-	metric,
-	metricUnit,
-	status,
-	winnerDXPVariantId
-}) => {
+const variantCard: React.FC<VariantCardIProps> = ({label}) => {
 	const [{variantChartTriggered}, dispatch]: any = useStateValue();
 
 	return (
@@ -96,31 +63,16 @@ const VariantCard: React.FC<VariantCardIProps> = ({
 						</ClayNavigationBar.Item>
 					</ClayNavigationBar>
 
-					{children}
+					{variantChartTriggered === 'medians' ? (
+						<MediansChart />
+					) : (
+						variantChartTriggered === 'per-day' && <PerDayChart />
+					)}
+					<VariantTableCard />
 				</div>
 			</Card.Body>
-
-			<div className={`${CLASSNAME}-table`}>
-				<Table
-					columns={columns({
-						bestVariant,
-						metric,
-						metricUnit,
-						status,
-						winnerDXPVariantId
-					})}
-					defaultSort={{
-						field: 'dxpVariantName'
-					}}
-					headingNowrap={false}
-					internalSort
-					items={data}
-					nowrap={false}
-					rowIdentifier='dxpVariantId'
-				/>
-			</div>
 		</Card>
 	);
 };
 
-export default VariantCard;
+export default variantCard;
