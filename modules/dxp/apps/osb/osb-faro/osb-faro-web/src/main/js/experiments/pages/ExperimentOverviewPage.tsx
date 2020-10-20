@@ -2,14 +2,14 @@ import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'shared/components/base-page';
 import ErrorPage from 'shared/pages/ErrorPage';
 import React from 'react';
-import SessionCard from 'experiments/hocs/SessionCard';
-import SummaryCard from 'experiments/hocs/SummaryCard';
+import SessionCard from 'experiments/components/session-card/SessionCard';
+import SummaryCard from 'experiments/components/summary-card/SummaryCard';
 import TextTruncate from 'shared/components/TextTruncate';
-import VariantCard from 'experiments/hocs/VariantCard';
-import WrappedSafeComponent from 'cerebro-shared/hocs/WrappedSafeComponent';
+import VariantCard from 'experiments/components/variant-card/Index';
 import {connect} from 'react-redux';
 import {EXPERIMENT_ROOT_QUERY} from 'experiments/queries/ExperimentQuery';
 import {Routes, toRoute} from 'shared/util/router';
+import {SafeResults} from 'shared/hoc/util';
 import {StateProvider} from 'experiments/state';
 import {useAddRefetch} from 'experiments/util/experiments';
 import {useChannelContext} from 'shared/context/channel';
@@ -52,7 +52,7 @@ const ExperimentOverviewPage: React.FC<IExperimentOverviewPage> = ({
 	useAddRefetch(refetch);
 
 	return (
-		<WrappedSafeComponent {...result}>
+		<SafeResults {...result}>
 			{({experiment}) =>
 				experiment ? (
 					<BasePage documentTitle={Liferay.Language.get('tests')}>
@@ -145,7 +145,7 @@ const ExperimentOverviewPage: React.FC<IExperimentOverviewPage> = ({
 					/>
 				)
 			}
-		</WrappedSafeComponent>
+		</SafeResults>
 	);
 };
 
