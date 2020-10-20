@@ -181,7 +181,9 @@ definition {
 	}
 
 	macro waitForManagementBar {
-		AssertVisible(locator1 = "ManagementBar#MANAGEMENT_BAR");
+		while (IsNotVisible(locator1 = "ManagementBar#MANAGEMENT_BAR")) {
+			Pause(locator1 = "1000");
+		}
 
 		var javaScript = '''
 var managementBar = Liferay.component(document.querySelector("div.management-bar-container"));
