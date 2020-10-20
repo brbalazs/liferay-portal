@@ -112,12 +112,6 @@ export default compose(
 			}
 
 			componentDidMount() {
-				const {currentUser, groupId} = this.props;
-
-				analytics.identify(currentUser.id);
-
-				analytics.group(groupId);
-
 				this.setState({
 					showTransition: true
 				});

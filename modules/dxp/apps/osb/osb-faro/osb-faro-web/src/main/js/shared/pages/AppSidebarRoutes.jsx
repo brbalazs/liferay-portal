@@ -235,6 +235,14 @@ const ROUTES = [
 export default class AppSidebarRoutes extends React.PureComponent {
 	static contextType = ChannelContext;
 
+	componentDidMount() {
+		const {currentUser, groupId} = this.props;
+
+		analytics.identify(currentUser.id);
+
+		analytics.group(groupId);
+	}
+
 	render() {
 		const {currentUser, groupId} = this.props;
 		const {selectedChannel} = this.context;
