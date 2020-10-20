@@ -1,97 +1,64 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SummaryCardRun Alert should render component with Alert 1`] = `
-<SummaryBaseCardAlert
-  symbol="home"
->
-  <SummaryBaseCardTitle
-    className="font-weight-bold mb-1"
-    label="Alert title"
-  />
-  <strong>
-    Alert description
-  </strong>
-</SummaryBaseCardAlert>
-`;
-
-exports[`SummaryCardRun Paragraph should render component 1`] = `
-Array [
-  <h3
-    class="font-weight-bold mb-4"
-  >
-    Summary title
-  </h3>,
-  <div
-    class="font-size-sm-1x mb-2 text-uppercase"
-  >
-    Summary subtitle
-  </div>,
-  <p
-    class="font-size-sm mb-0"
-  >
-    Summary description
-  </p>,
-]
-`;
-
-exports[`SummaryCardRun Sections should render component with Alert 1`] = `
-<div
-  className="analytics-summary-card-sections"
->
-  <Body
-    key="0"
-  />
-  <Body
-    key="1"
-  />
-  <Body
-    key="2"
-  />
-</div>
-`;
-
 exports[`SummaryCardRun should render component 1`] = `
-<SummaryBaseCard>
-  <Header
-    cardModals={
-      Array [
-        Object {
-          "buttonTitle": "terminate test",
-          "message": "content to terminate test",
-          "modalType": "CONFIRMATION_MODAL",
-          "onSubmit": [Function],
-          "submitMessage": "terminate",
-          "title": "dropdown terminate test",
-        },
-        Object {
-          "buttonTitle": "other test",
-          "message": "content to other test",
-          "modalType": "CONFIRMATION_MODAL",
-          "onSubmit": [Function],
-          "submitMessage": "other",
-          "title": "dropdown other test",
-        },
-      ]
-    }
+<div>
+  <div
+    class="analytics-summary-card-alert w-100 p-4"
   >
-    <SummaryBaseCardHeader
-      Description={[Function]}
-      title="Header title"
-    />
-  </Header>
-  <Body>
-    <div
-      className="w-100 mt-4"
+    <svg
+      class="lexicon-icon lexicon-icon-home"
+      role="presentation"
     >
-      <SummaryCardRunParagraph
-        description="Summary description"
-        subtitle="Summary subtitle"
-        title="Summary title"
+      <use
+        xlink:href="#home"
       />
-      <div
-        className="analytics-summary-card-sections"
-      />
+    </svg>
+    <div>
+      <h3
+        class="font-weight-bold font-weight-bold mb-1"
+      >
+        Alert title
+      </h3>
+      <strong>
+        Alert description
+      </strong>
     </div>
-  </Body>
-</SummaryBaseCard>
+  </div>
+  <div
+    class="card-body"
+  >
+    <div
+      class="w-100 mt-4"
+    >
+      <h3
+        class="font-weight-bold mb-4"
+      >
+        Summary title
+      </h3>
+      <div
+        class="font-size-sm-1x mb-2 text-uppercase"
+      >
+        Summary subtitle
+      </div>
+      <p
+        class="font-size-sm mb-0"
+      >
+        Summary description
+      </p>
+      <div
+        class="analytics-summary-card-sections"
+      >
+        <div>
+          Section 01
+        </div>
+        <div>
+          Section 02
+        </div>
+        <div>
+          Section 03
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;

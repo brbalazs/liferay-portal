@@ -1,76 +1,100 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SummaryCardDraft should render component 1`] = `
-<SummaryBaseCard
-  status="draft"
->
-  <Header
-    cardModals={
-      Array [
-        Object {
-          "title": "action 01",
-        },
-        Object {
-          "title": "action 02",
-        },
-      ]
-    }
-    modals={
-      Array [
-        Object {
-          "title": "action 01",
-        },
-        Object {
-          "title": "action 02",
-        },
-      ]
-    }
+<div>
+  <div
+    class="card-body"
   >
-    <SummaryBaseCardHeader
-      Description={[Function]}
-      title="Header title"
-    />
-  </Header>
-  <Body>
-    <SummaryCardDraftBody
-      current={0}
-      steps={
-        Array [
-          Object {
-            "Description": [Function],
-            "buttonProps": Object {
-              "label": "btn label 1",
-              "symbol": "home",
-            },
-            "title": "Step 1 title",
-          },
-          Object {
-            "Description": [Function],
-            "buttonProps": Object {
-              "label": "btn label 2",
-              "symbol": "home",
-            },
-            "title": "Step 2 title",
-          },
-        ]
-      }
-      subtitle="Setup subtitle"
-      title="Setup title"
-    />
-  </Body>
-  <Footer>
-    <SummaryBaseCardTitle
-      className="mb-4"
-      label="Summary title"
-    />
-    <SummaryBaseCardSubtitle
-      label="Summary subtitle"
-    />
+    <div
+      class="w-100 mt-4"
+    >
+      <h3
+        class="font-weight-bold mb-4"
+      >
+        Setup title
+      </h3>
+      <div
+        class="font-size-sm-1x mb-2 text-uppercase"
+      >
+        Setup subtitle
+      </div>
+      <ol
+        class="multi-step-nav multi-step-indicator-label-bottom"
+      >
+        <li
+          class="active multi-step-item multi-step-item-expand"
+        >
+          <div
+            class="multi-step-divider"
+          />
+          <div
+            class="multi-step-indicator"
+          >
+            <a
+              class="multi-step-icon"
+              data-multi-step-icon="1"
+              href="#1"
+            />
+          </div>
+          <div
+            class="card card-root analytics-summary-card-step-content analytics-summary-card-step-content-active"
+          >
+            <div
+              class="card-body"
+            >
+              <h4>
+                Step 1 title
+              </h4>
+              Step 1 Description
+            </div>
+          </div>
+        </li>
+        <li
+          class="wait multi-step-item"
+        >
+          <div
+            class="multi-step-indicator"
+          >
+            <a
+              class="multi-step-icon"
+              data-multi-step-icon="2"
+              href="#2"
+            />
+          </div>
+          <div
+            class="card card-root analytics-summary-card-step-content analytics-summary-card-step-content-wait"
+          >
+            <div
+              class="card-body"
+            >
+              <h4>
+                Step 2 title
+              </h4>
+              Step 2 Description
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div
+    class="card-footer"
+  >
+    <h3
+      class="font-weight-bold mb-4"
+    >
+      Summary title
+    </h3>
+    <div
+      class="font-size-sm-1x mb-2 text-uppercase"
+    >
+      Summary subtitle
+    </div>
     <p
-      className="mb-4"
+      class="mb-4"
     >
       Summary description
     </p>
-  </Footer>
-</SummaryBaseCard>
+  </div>
+</div>
 `;

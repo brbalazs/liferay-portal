@@ -1,59 +1,13 @@
 import React from 'react';
 import SummaryCardRun from '../index';
-import {shallow} from 'enzyme';
+import {cleanup, render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 const MOCK_ALERT = {
 	description: 'Alert description',
 	symbol: 'home',
 	title: 'Alert title'
-};
-
-const MOCK_DATA = {
-	header: {
-		cardModals: [
-			{
-				buttonTitle: 'terminate test',
-				message: 'content to terminate test',
-				modalType: 'CONFIRMATION_MODAL',
-				onSubmit: () => {},
-				submitMessage: 'terminate',
-				title: 'dropdown terminate test'
-			},
-			{
-				buttonTitle: 'other test',
-				message: 'content to other test',
-				modalType: 'CONFIRMATION_MODAL',
-				onSubmit: () => {},
-				submitMessage: 'other',
-				title: 'dropdown other test'
-			}
-		],
-		Description: () => 'Header description',
-		title: 'Header title'
-	},
-	modals: [
-		{
-			buttonTitle: 'run test',
-			message: 'content to run test',
-			modalType: 'CONFIRMATION_MODAL',
-			onSubmit: () => {},
-			submitMessage: 'run',
-			title: 'dropdown run test'
-		},
-		{
-			buttonTitle: 'delete test',
-			message: 'content to delete test',
-			modalType: 'CONFIRMATION_MODAL',
-			onSubmit: () => {},
-			submitMessage: 'delete',
-			title: 'dropdown delete test'
-		}
-	],
-	summary: {
-		description: 'Summary description',
-		subtitle: 'Summary subtitle',
-		title: 'Summary title'
-	}
 };
 
 const MOCK_SECTIONS = [
@@ -68,96 +22,80 @@ const MOCK_SECTIONS = [
 	}
 ];
 
+const MOCK_SUMMARY = {
+	description: 'Summary description',
+	subtitle: 'Summary subtitle',
+	title: 'Summary title'
+};
+
 describe('SummaryCardRun', () => {
+	afterEach(cleanup);
+
 	it('should render component', () => {
-		const component = shallow(<SummaryCardRun {...MOCK_DATA} />);
-
-		expect(component.find('SummaryBaseCardHeader').length).toBe(1);
-		expect(component.find('Header').length).toBe(1);
-		expect(component.find('Body').length).toBe(1);
-		expect(component).toMatchSnapshot();
-	});
-
-	it('should render component with status "running"', () => {
-		const component = shallow(
-			<SummaryCardRun {...MOCK_DATA} status='running' />
+		const {container} = render(
+			<SummaryCardRun
+				alert={MOCK_ALERT}
+				sections={MOCK_SECTIONS}
+				summary={MOCK_SUMMARY}
+			/>
 		);
 
-		expect(component.props().status).toEqual('running');
-	});
+		jest.runAllTimers();
 
-	it('should render component with status "terminated"', () => {
-		const component = shallow(
-			<SummaryCardRun {...MOCK_DATA} status='terminated' />
-		);
-
-		expect(component.props().status).toEqual('terminated');
-	});
-
-	it('should render component with status "finished"', () => {
-		const component = shallow(
-			<SummaryCardRun {...MOCK_DATA} status='finished' />
-		);
-
-		expect(component.props().status).toEqual('finished');
-	});
-
-	it('should render component with status "completed"', () => {
-		const component = shallow(
-			<SummaryCardRun {...MOCK_DATA} status='completed' />
-		);
-
-		expect(component.props().status).toEqual('completed');
+		expect(container).toMatchSnapshot();
 	});
 });
 
 describe('SummaryCardRun Paragraph', () => {
-	it('should render component', () => {
-		const component = shallow(<SummaryCardRun {...MOCK_DATA} />);
+	afterEach(cleanup);
 
-		expect(component.find('SummaryCardRunParagraph').length).toBe(1);
-		expect(
-			component.find('SummaryCardRunParagraph').render()
-		).toMatchSnapshot();
+	it('should render component', () => {
+		const {queryByText} = render(
+			<SummaryCardRun
+				alert={MOCK_ALERT}
+				sections={MOCK_SECTIONS}
+				summary={MOCK_SUMMARY}
+			/>
+		);
+
+		jest.runAllTimers();
+
+		expect(queryByText('Summary title')).toBeTruthy();
 	});
 });
 
 describe('SummaryCardRun Alert', () => {
+	afterEach(cleanup);
+
 	it('should render component with Alert', () => {
-		const component = shallow(
-			<SummaryCardRun {...MOCK_DATA} alert={MOCK_ALERT} />
+		const {queryByText} = render(
+			<SummaryCardRun
+				alert={MOCK_ALERT}
+				sections={MOCK_SECTIONS}
+				summary={MOCK_SUMMARY}
+			/>
 		);
 
-		expect(
-			component
-				.find('SummaryBaseCardAlert')
-				.shallow()
-				.find('SummaryBaseCardTitle').length
-		).toBe(1);
-		expect(
-			component
-				.find('SummaryBaseCardAlert')
-				.shallow()
-				.find('strong').length
-		).toBe(1);
-		expect(component.find('SummaryBaseCardAlert')).toMatchSnapshot();
+		jest.runAllTimers();
+
+		expect(queryByText('Alert title')).toBeTruthy();
 	});
 });
 
 describe('SummaryCardRun Sections', () => {
-	it('should render component with Alert', () => {
-		const component = shallow(
-			<SummaryCardRun {...MOCK_DATA} sections={MOCK_SECTIONS} />
+	it('should render component with Section', () => {
+		afterEach(cleanup);
+
+		const {queryByText} = render(
+			<SummaryCardRun
+				alert={MOCK_ALERT}
+				sections={MOCK_SECTIONS}
+				summary={MOCK_SUMMARY}
+			/>
 		);
 
-		expect(
-			component
-				.find('.analytics-summary-card-sections')
-				.shallow()
-				.find('Body').length
-		).toBe(3);
-		expect(
-			component.find('.analytics-summary-card-sections')
-		).toMatchSnapshot();
+		jest.runAllTimers();
+
+		expect(queryByText('Section 01')).toBeTruthy();
 	});
 });
