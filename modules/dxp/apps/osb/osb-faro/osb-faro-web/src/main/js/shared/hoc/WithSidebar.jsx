@@ -112,6 +112,10 @@ export default compose(
 			}
 
 			componentDidMount() {
+				const {currentUser} = this.props;
+
+				analytics.identify(currentUser.id);
+
 				this.setState({
 					showTransition: true
 				});

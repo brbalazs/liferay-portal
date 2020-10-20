@@ -144,6 +144,12 @@ export class Settings extends React.Component {
 		recommendationsEnabled: PropTypes.bool
 	};
 
+	componentDidMount() {
+		const {currentUser} = this.props;
+
+		analytics.identify(currentUser.id);
+	}
+
 	getSidebarSections() {
 		const {currentUser, groupId, recommendationsEnabled} = this.props;
 
