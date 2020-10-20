@@ -27,6 +27,7 @@ import SearchableTableModal from './SearchableTableModal';
 import SearchableTableModalGraphql from './SearchableTableModalGraphql';
 import SelectItemsModal from './SelectItemsModal';
 import TestModal from './TestModal';
+import TimeZoneAdminModal from './time-zone-admin-modal/TimeZoneAdminModal';
 import UnassignedSegmentsModal from 'shared/components/unassigned-segments-modal';
 import UpgradeConnectionModal from 'settings/components/data-source/upgrade-connection-modal';
 import {close, modalTypes} from '../actions/modals';
@@ -65,7 +66,8 @@ const COMPONENT_MAP = {
 	[modalTypes.SEARCHABLE_TABLE_MODAL]: SearchableTableModal,
 	[modalTypes.SEARCHABLE_TABLE_MODAL_GRAPHQL]: SearchableTableModalGraphql,
 	[modalTypes.SELECT_ITEMS_MODAL]: SelectItemsModal,
-	[modalTypes.TEST]: TestModal
+	[modalTypes.TEST]: TestModal,
+	[modalTypes.TIME_ZONE_ADMIN_MODAL]: TimeZoneAdminModal
 };
 
 function toggleBodyModalOpen(open = true) {
