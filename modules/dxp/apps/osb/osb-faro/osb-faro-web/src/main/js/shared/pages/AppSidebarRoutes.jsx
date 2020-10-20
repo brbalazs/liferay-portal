@@ -241,6 +241,11 @@ export default class AppSidebarRoutes extends React.PureComponent {
 		analytics.identify(currentUser.id);
 
 		analytics.group(groupId);
+
+		analytics.track('User accessed workspace', {
+			groupId,
+			userId: String(currentUser.id)
+		});
 	}
 
 	render() {
