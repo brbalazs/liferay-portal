@@ -666,8 +666,7 @@ public class ProjectController extends BaseFaroController {
 		if (!Validator.isBlank(timeZoneId)) {
 			validateTimeZoneId(timeZoneId);
 
-			cerebroEngineClient.setTimeZone(
-				faroProject, faroProject.getTimeZoneId());
+			cerebroEngineClient.updateTimeZone(faroProject);
 
 			faroProject.setTimeZoneId(timeZoneId);
 		}
@@ -876,8 +875,7 @@ public class ProjectController extends BaseFaroController {
 		try {
 			_initializingGroupIds.add(groupId);
 
-			cerebroEngineClient.setTimeZone(
-				faroProject, faroProject.getTimeZoneId());
+			cerebroEngineClient.updateTimeZone(faroProject);
 
 			_fieldMappingController.addDefaultFieldMappings(groupId);
 

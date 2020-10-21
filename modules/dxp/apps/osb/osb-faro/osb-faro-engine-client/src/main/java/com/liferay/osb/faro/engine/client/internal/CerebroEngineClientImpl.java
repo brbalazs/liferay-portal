@@ -67,11 +67,10 @@ public class CerebroEngineClientImpl implements CerebroEngineClient {
 	}
 
 	@Override
-	public void setTimeZone(FaroProject faroProject, String value)
-		throws Exception {
-
+	public void updateTimeZone(FaroProject faroProject) throws Exception {
 		_getResponseEntity(
-			faroProject, _getTimeZoneGraphQLRequestHttpEntity(value));
+			faroProject,
+			_getTimeZoneGraphQLRequestHttpEntity(faroProject.getTimeZoneId()));
 	}
 
 	private String _getDateTimeString(Optional<Date> dateOptional) {

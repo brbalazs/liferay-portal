@@ -29,7 +29,6 @@ public interface CerebroEngineClient {
 			Optional<Date> toDateOptional)
 		throws Exception;
 
-	public void setTimeZone(FaroProject faroProject, String value)
-		throws Exception;
+	public void updateTimeZone(FaroProject faroProject) throws Exception;
 
 }
