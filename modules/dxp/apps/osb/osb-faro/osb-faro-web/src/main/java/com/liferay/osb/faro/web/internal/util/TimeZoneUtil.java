@@ -128,7 +128,7 @@ public class TimeZoneUtil {
 				put("America/Belize", "Belize");
 				put("America/Blanc-Sablon", "Canada");
 				put("America/Boa_Vista", "Brazil");
-				put("America/Bogota", "Columbia");
+				put("America/Bogota", "Colombia");
 				put("America/Boise", "United States");
 				put("America/Cambridge_Bay", "Canada");
 				put("America/Campo_Grande", "Brazil");
@@ -431,7 +431,7 @@ public class TimeZoneUtil {
 				put("Pacific/Tarawa", "Kiribati");
 				put("Pacific/Tongatapu", "Tonga");
 				put("Pacific/Wake", "United States");
-				put("Pacific/Wallis", "Wallist & Futuna");
+				put("Pacific/Wallis", "Wallis & Futuna");
 				put("UTC", "UTC");
 			}
 		};
