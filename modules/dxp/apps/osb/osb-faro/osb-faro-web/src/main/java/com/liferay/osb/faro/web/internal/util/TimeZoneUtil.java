@@ -20,6 +20,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.zone.ZoneRulesException;
 
 import java.util.List;
 import java.util.Map;
@@ -58,7 +59,12 @@ public class TimeZoneUtil {
 	}
 
 	public static boolean validate(String timeZoneId) {
-		return _timeZoneIdCountryMap.containsKey(timeZoneId);
+		try {
+			return _timeZoneIdCountryMap.containsKey(timeZoneId);
+		}
+		catch (ZoneRulesException zre) {
+			return false;
+		}
 	}
 
 	private static int _compareTimeZoneId(
