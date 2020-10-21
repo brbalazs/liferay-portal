@@ -76,6 +76,7 @@ const withSummaryCard: React.FC<IWithSummaryCard> = ({status, timeZoneId}) => {
 									title={header.title}
 								/>
 							</SummaryBaseCard.Header>
+
 							<Component {...otherProps} />
 						</>
 					);

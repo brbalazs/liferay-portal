@@ -28,7 +28,6 @@ exports[`SessionCard should render 1`] = `
               xlink:href="#session-single-chart"
             />
           </svg>
-           
           Total
         </button>
         <button

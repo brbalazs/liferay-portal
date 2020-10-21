@@ -8,7 +8,7 @@ import {EXPERIMENT_QUERY} from 'experiments/queries/ExperimentQuery';
 import {SafeResults} from 'shared/hoc/util';
 import {useQuery} from '@apollo/react-hooks';
 
-const mediansChart = () => {
+const MediansChart = () => {
 	const {
 		router: {
 			params: {id: experimentId}
@@ -37,6 +37,7 @@ const mediansChart = () => {
 								'we-are-currently-collecting-data'
 							)}
 						</div>
+
 						<div>
 							{Liferay.Language.get(
 								'metrics-will-show-once-there-are-visitors-to-your-variants'
@@ -46,6 +47,7 @@ const mediansChart = () => {
 				) : (
 					<>
 						<BarChartHTML {...mediansData} />
+
 						<Legend data={legend} />
 					</>
 				);
@@ -54,4 +56,4 @@ const mediansChart = () => {
 	);
 };
 
-export default mediansChart;
+export default MediansChart;

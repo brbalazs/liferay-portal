@@ -1,6 +1,6 @@
 import BasePage from 'shared/components/base-page';
 import React from 'react';
-import VariantCard from '../Index';
+import VariantCard from '../index';
 import {
 	cleanup,
 	fireEvent,

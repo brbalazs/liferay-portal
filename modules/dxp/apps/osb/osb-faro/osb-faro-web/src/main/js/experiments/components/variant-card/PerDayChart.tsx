@@ -15,7 +15,7 @@ const getMetricUnitFromGoal = ({experiment: {goal}}) => {
 	return metricUnit;
 };
 
-const perDayChart = () => {
+const PerDayChart = () => {
 	const {
 		router: {
 			params: {id: experimentId}
@@ -60,4 +60,4 @@ const perDayChart = () => {
 	);
 };
 
-export default perDayChart;
+export default PerDayChart;
