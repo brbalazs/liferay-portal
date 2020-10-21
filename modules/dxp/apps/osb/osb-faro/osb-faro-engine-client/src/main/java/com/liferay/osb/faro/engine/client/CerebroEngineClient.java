@@ -24,12 +24,12 @@ import java.util.Optional;
  */
 public interface CerebroEngineClient {
 
-	public void addPreference(FaroProject faroProject, String key, String value)
-		throws Exception;
-
 	public long getPageViews(
 			FaroProject faroProject, Optional<Date> fromDateOptional,
 			Optional<Date> toDateOptional)
+		throws Exception;
+
+	public void setTimeZone(FaroProject faroProject, String value)
 		throws Exception;
 
 }

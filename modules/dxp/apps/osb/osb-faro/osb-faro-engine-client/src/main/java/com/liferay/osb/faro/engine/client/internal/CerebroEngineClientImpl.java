@@ -31,7 +31,6 @@ import java.time.ZonedDateTime;
 
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Optional;
 
 import org.osgi.service.component.annotations.Component;
@@ -47,14 +46,6 @@ import org.springframework.web.client.RestTemplate;
  */
 @Component(immediate = true, service = CerebroEngineClient.class)
 public class CerebroEngineClientImpl implements CerebroEngineClient {
-
-	@Override
-	public void addPreference(FaroProject faroProject, String key, String value)
-		throws Exception {
-
-		_getResponseEntity(
-			faroProject, _getPreferenceGraphQLRequestHttpEntity(key, value));
-	}
 
 	@Override
 	public long getPageViews(
@@ -73,6 +64,14 @@ public class CerebroEngineClientImpl implements CerebroEngineClient {
 		JSONObject dataJSONObject = rootJSONObject.getJSONObject("data");
 
 		return dataJSONObject.getLong("pagesCount");
+	}
+
+	@Override
+	public void setTimeZone(FaroProject faroProject, String value)
+		throws Exception {
+
+		_getResponseEntity(
+			faroProject, _getTimeZoneGraphQLRequestHttpEntity(value));
 	}
 
 	private String _getDateTimeString(Optional<Date> dateOptional) {
@@ -125,26 +124,6 @@ public class CerebroEngineClientImpl implements CerebroEngineClient {
 		return graphQLRequest;
 	}
 
-	private GraphQLRequest _getPreferenceGraphQLRequestHttpEntity(
-		String key, String value) {
-
-		GraphQLRequest graphQLRequest = new GraphQLRequest();
-
-		graphQLRequest.setOperationName("Preference");
-		graphQLRequest.setQuery(
-			"mutation Preference($key: String!, $value: String!) " +
-				"{preference(key: $key, value: $value) {key value}}");
-		graphQLRequest.setVariables(
-			new HashMap<String, Object>() {
-				{
-					put("key", key);
-					put("value", value);
-				}
-			});
-
-		return graphQLRequest;
-	}
-
 	private ResponseEntity<String> _getResponseEntity(
 			FaroProject faroProject, GraphQLRequest graphQLRequest)
 		throws Exception {
@@ -158,6 +137,17 @@ public class CerebroEngineClientImpl implements CerebroEngineClient {
 		return restTemplate.exchange(
 			EngineServiceURLUtil.getBackendURL(faroProject, "/graphql"),
 			HttpMethod.POST, new HttpEntity<>(graphQLRequest), String.class);
+	}
+
+	private GraphQLRequest _getTimeZoneGraphQLRequestHttpEntity(String value) {
+		GraphQLRequest graphQLRequest = new GraphQLRequest();
+
+		graphQLRequest.setOperationName("TimeZone");
+		graphQLRequest.setQuery(
+			"mutation TimeZone($value: String!) {timeZone(value: $value)}");
+		graphQLRequest.setVariables(Collections.singletonMap("value", value));
+
+		return graphQLRequest;
 	}
 
 	@Reference
