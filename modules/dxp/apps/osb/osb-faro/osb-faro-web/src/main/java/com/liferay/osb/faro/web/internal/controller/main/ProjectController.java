@@ -176,7 +176,9 @@ public class ProjectController extends BaseFaroController {
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("emailAddressDomains")
 				FaroParam<List<String>> emailAddressDomainsFaroParam,
-			@FormParam("name") String name)
+			@FormParam("name") String name,
+			@DefaultValue(StringPool.BLANK) @FormParam("timeZoneId")
+				String timeZoneId)
 		throws Exception {
 
 		FaroProject faroProject =
@@ -209,7 +211,9 @@ public class ProjectController extends BaseFaroController {
 
 		faroProjectLocalService.updateFaroProject(faroProject);
 
-		return update(friendlyURL, groupId, emailAddressDomainsFaroParam, name);
+		return update(
+			friendlyURL, groupId, emailAddressDomainsFaroParam, name,
+			timeZoneId);
 	}
 
 	@POST
@@ -627,7 +631,9 @@ public class ProjectController extends BaseFaroController {
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("emailAddressDomains")
 				FaroParam<List<String>> emailAddressDomainsFaroParam,
-			@FormParam("name") String name)
+			@FormParam("name") String name,
+			@DefaultValue(StringPool.BLANK) @FormParam("timeZoneId")
+				String timeZoneId)
 		throws Exception {
 
 		if ((friendlyURL == null) || Validator.isBlank(friendlyURL.trim())) {
@@ -656,6 +662,15 @@ public class ProjectController extends BaseFaroController {
 			faroProjectLocalService.getFaroProjectByGroupId(groupId);
 
 		faroProject.setName(name);
+
+		if (!Validator.isBlank(timeZoneId)) {
+			validateTimeZoneId(timeZoneId);
+
+			cerebroEngineClient.setTimeZone(
+				faroProject, faroProject.getTimeZoneId());
+
+			faroProject.setTimeZoneId(timeZoneId);
+		}
 
 		try {
 			_faroProjectEmailAddressDomainLocalService.
