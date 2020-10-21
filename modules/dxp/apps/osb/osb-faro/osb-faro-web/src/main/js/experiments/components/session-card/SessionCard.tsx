@@ -1,6 +1,7 @@
 import BasePage from 'shared/components/base-page';
 import Card from 'shared/components/Card';
 import ClayButton from '@clayui/button';
+import getCN from 'classnames';
 import getSessionMapper from 'experiments/hocs/mappers/experiment-session-mapper';
 import getSessionVariantsMapper from 'experiments/hocs/mappers/experiment-session-variants-mapper';
 import Icon from 'shared/components/Icon';
@@ -66,31 +67,31 @@ const SessionCard: React.FC<ISessionCardProps> = ({label}) => {
 
 				<ClayButton.Group>
 					<ClayButton
-						className={
-							sessionViewTriggered === 'total' ? 'active' : ''
-						}
+						className={getCN({
+							active: sessionViewTriggered === TOTAL
+						})}
 						displayType='secondary'
 						onClick={() =>
 							dispatch({
-								newAction: 'total',
+								newAction: TOTAL,
 								type: 'changeSessionView'
 							})
 						}
 						small
 					>
-						<Icon className='mr-2' symbol='session-single-chart' />{' '}
+						<Icon className='mr-2' symbol='session-single-chart' />
+
 						{Liferay.Language.get('total')}
 					</ClayButton>
+
 					<ClayButton
-						className={
-							sessionViewTriggered === 'per-variant'
-								? 'active'
-								: ''
-						}
+						className={getCN({
+							active: sessionViewTriggered === PER_VARIANT
+						})}
 						displayType='secondary'
 						onClick={() =>
 							dispatch({
-								newAction: 'per-variant',
+								newAction: PER_VARIANT,
 								type: 'changeSessionView'
 							})
 						}
@@ -113,10 +114,7 @@ const SessionCard: React.FC<ISessionCardProps> = ({label}) => {
 						loading={loading || fakeLoading}
 						{...result}
 					>
-						{props => {
-							const otherProps = mapper(props);
-							return <LineChart {...otherProps} />;
-						}}
+						{props => <LineChart {...mapper(props)} />}
 					</SafeResults>
 				}
 			</Card.Body>

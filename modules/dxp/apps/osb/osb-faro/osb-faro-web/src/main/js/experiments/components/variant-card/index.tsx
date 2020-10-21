@@ -7,11 +7,14 @@ import VariantTableCard from 'experiments/components/variant-card/VariantTableCa
 import {CLASSNAME} from './constants';
 import {useStateValue} from 'experiments/state';
 
+const MEDIANS = 'medians';
+const PER_DAY = 'per-day';
+
 interface VariantCardIProps {
 	label: String;
 }
 
-const variantCard: React.FC<VariantCardIProps> = ({label}) => {
+const VariantCard: React.FC<VariantCardIProps> = ({label}) => {
 	const [{variantChartTriggered}, dispatch]: any = useStateValue();
 
 	return (
@@ -24,19 +27,19 @@ const variantCard: React.FC<VariantCardIProps> = ({label}) => {
 				<div className={`${CLASSNAME}-charts`}>
 					<ClayNavigationBar
 						triggerLabel={
-							variantChartTriggered === 'medians'
+							variantChartTriggered === MEDIANS
 								? Liferay.Language.get('medians')
 								: Liferay.Language.get('per-day')
 						}
 					>
 						<ClayNavigationBar.Item
-							active={variantChartTriggered === 'medians'}
+							active={variantChartTriggered === MEDIANS}
 						>
 							<button
 								className='btn btn-unstyled btn-block btn-sm nav-link'
 								onClick={() =>
 									dispatch({
-										newAction: 'medians',
+										newAction: MEDIANS,
 										type: 'setVariantChartTriggered'
 									})
 								}
@@ -46,13 +49,13 @@ const variantCard: React.FC<VariantCardIProps> = ({label}) => {
 							</button>
 						</ClayNavigationBar.Item>
 						<ClayNavigationBar.Item
-							active={variantChartTriggered === 'per-day'}
+							active={variantChartTriggered === PER_DAY}
 						>
 							<button
 								className='btn btn-unstyled btn-block btn-sm nav-link'
 								onClick={() =>
 									dispatch({
-										newAction: 'per-day',
+										newAction: PER_DAY,
 										type: 'setVariantChartTriggered'
 									})
 								}
@@ -63,11 +66,12 @@ const variantCard: React.FC<VariantCardIProps> = ({label}) => {
 						</ClayNavigationBar.Item>
 					</ClayNavigationBar>
 
-					{variantChartTriggered === 'medians' ? (
+					{variantChartTriggered === MEDIANS ? (
 						<MediansChart />
 					) : (
-						variantChartTriggered === 'per-day' && <PerDayChart />
+						variantChartTriggered === PER_DAY && <PerDayChart />
 					)}
+
 					<VariantTableCard />
 				</div>
 			</Card.Body>
@@ -75,4 +79,4 @@ const variantCard: React.FC<VariantCardIProps> = ({label}) => {
 	);
 };
 
-export default variantCard;
+export default VariantCard;
