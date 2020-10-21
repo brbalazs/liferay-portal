@@ -256,7 +256,7 @@ definition {
 				value1 = "Sign In");
 		}
 		else {
-			UploadCommonFile.uploadCommonFileHidden(
+			UploadCommonFile.uploadCommonFileHiddenNoMouseOver(
 				locator1 = "DocumentsAndMediaSelectDocument#SELECT_FILE_BUTTON",
 				value1 = "${document}");
 
