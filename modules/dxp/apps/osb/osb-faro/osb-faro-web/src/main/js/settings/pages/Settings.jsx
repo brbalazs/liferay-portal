@@ -147,9 +147,13 @@ export class Settings extends React.Component {
 	componentDidMount() {
 		const {currentUser, groupId} = this.props;
 
-		analytics.identify(currentUser.id);
+		fetch('https://extreme-ip-lookup.com/json')
+			.then(response => response.json())
+			.then(({city, country, region}) => {
+				analytics.identify(currentUser.id, {city, country, region});
+			});
 
-		analytics.group(groupId)
+		analytics.group(groupId);
 	}
 
 	getSidebarSections() {
