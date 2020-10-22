@@ -2,7 +2,7 @@ import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'shared/components/base-page';
 import ErrorPage from 'shared/pages/ErrorPage';
 import React from 'react';
-import SessionCard from 'experiments/components/session-card/SessionCard';
+import SessionCard from 'experiments/components/SessionCard';
 import SummaryCard from 'experiments/components/summary-card/SummaryCard';
 import TextTruncate from 'shared/components/TextTruncate';
 import VariantCard from 'experiments/components/variant-card/Index';
