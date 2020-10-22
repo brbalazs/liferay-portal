@@ -213,6 +213,7 @@ export class Activities extends React.Component {
 
 					{tabId === ENGAGEMENT && engagementHistory && (
 						<AccountEngagement
+							channelId={channelId}
 							data={engagementHistory}
 							groupId={groupId}
 							id={id}
