@@ -44,7 +44,7 @@ public class LiferayUsersDataCreator extends DataCreator {
 	protected Map<String, Object> doCreate(Object[] params) {
 		Map<String, Object> liferayUser = new HashMap<>();
 
-		liferayUser.put("birthday", dateAndTime.past(36500, TimeUnit.DAYS));
+		liferayUser.put("birthday", dateAndTime.past(18250, TimeUnit.DAYS));
 
 		Map<String, Object> contact = new HashMap<>();
 
