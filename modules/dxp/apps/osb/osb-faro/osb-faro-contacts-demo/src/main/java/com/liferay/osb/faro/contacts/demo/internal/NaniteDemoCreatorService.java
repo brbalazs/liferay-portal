@@ -96,7 +96,9 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 		createIndividualSegments(channelId);
 
-		createMembershipChanges(channelId);
+		createMembershipChanges(channelId, _individualSegments.size());
+
+		createMembershipChanges(null, _SALESFORCE_ACCOUNTS_COUNT);
 
 		createLiferayAssociations(channelId, liferayUsersDataCreator);
 
@@ -326,14 +328,14 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 		return liferayUsersDataCreator;
 	}
 
-	protected void createMembershipChanges(String channelId) throws Exception {
-		int individualSegmentsCount = 2;
+	protected void createMembershipChanges(String channelId, int expectedCount)
+		throws Exception {
 
 		poll(
 			() -> contactsEngineClient.getIndividualSegments(
 				faroProject, channelId, null, null, null, null, null, null,
-				IndividualSegment.Status.ACTIVE.name(), 1, 10000, null),
-			individualSegmentsCount,
+				null, 1, 10000, null),
+			expectedCount,
 			results -> {
 				for (IndividualSegment individualSegment : results.getItems()) {
 					if (!StringUtil.equals(
@@ -346,7 +348,7 @@ public class NaniteDemoCreatorService extends DemoCreatorService {
 
 				return true;
 			},
-			individualSegmentsCount * Time.MINUTE, "individual segments");
+			expectedCount * Time.MINUTE, "individual segments");
 
 		MembershipChangesDataCreator membershipChangesDataCreator =
 			new MembershipChangesDataCreator(contactsEngineClient, faroProject);
