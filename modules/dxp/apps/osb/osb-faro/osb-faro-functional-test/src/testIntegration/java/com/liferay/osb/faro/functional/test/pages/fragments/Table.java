@@ -111,17 +111,36 @@ public class Table {
 
 	@Then("^I should see (.*) columns in the bar graph table$")
 	public void assertBarGraphColumnAmount(
-			@Transform(FaroTransformer.class) String number)
-		throws Exception {
+		@Transform(FaroTransformer.class) String number) {
 
-		StringBundler sb = new StringBundler(4);
+		StringBundler sb = new StringBundler(8);
 
-		sb.append("//*[name()='g' and @class='recharts-layer']");
-		sb.append("/*[name()='g' and contains(@class,'rectangle')][");
-		sb.append(number);
-		sb.append("]");
+		sb.append("//*[name()='g' and contains(@class,'recharts-line')]");
+		sb.append("/*[name()='path']");
 
-		_faroSelenium.assertElementPresent(sb.toString());
+		try {
+			WebElement rechart = _faroSelenium.findElement(sb.toString());
+
+			String barPoint = rechart.getAttribute("d");
+
+			String[] countArray = barPoint.split(",", -1);
+
+			int count = countArray.length - 1;
+
+			String counter = String.valueOf(count);
+
+			Assert.assertEquals(number, counter);
+		}
+		catch (Exception e) {
+			sb.append("|//*[name()='svg' and @class='recharts-surface']");
+			sb.append("/*[name()='g' and contains(@class,'recharts-bar')]");
+			sb.append("/*[name()='g']//*[name()='g' and contains(@class,'");
+			sb.append("rectangle')][");
+			sb.append(number);
+			sb.append("]");
+
+			_faroSelenium.findElement(sb.toString());
+		}
 	}
 
 	/**
