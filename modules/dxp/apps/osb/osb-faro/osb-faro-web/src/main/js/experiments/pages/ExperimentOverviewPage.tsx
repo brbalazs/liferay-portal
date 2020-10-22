@@ -5,7 +5,7 @@ import React from 'react';
 import SessionCard from 'experiments/components/SessionCard';
 import SummaryCard from 'experiments/components/summary-card/SummaryCard';
 import TextTruncate from 'shared/components/TextTruncate';
-import VariantCard from 'experiments/components/variant-card/Index';
+import VariantCard from 'experiments/components/variant-card/index';
 import {connect} from 'react-redux';
 import {EXPERIMENT_ROOT_QUERY} from 'experiments/queries/ExperimentQuery';
 import {Routes, toRoute} from 'shared/util/router';
