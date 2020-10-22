@@ -34,6 +34,8 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.exportimport.UserImporter;
 import com.liferay.saml.opensaml.integration.metadata.MetadataManager;
 import com.liferay.saml.opensaml.integration.resolver.UserResolver;
+import com.liferay.saml.persistence.model.SamlSpIdpConnection;
+import com.liferay.saml.persistence.service.SamlSpIdpConnectionLocalService;
 import com.liferay.saml.runtime.configuration.SamlProviderConfigurationHelper;
 
 import java.io.Serializable;
@@ -89,8 +91,12 @@ public class DefaultUserResolver implements UserResolver {
 		String subjectNameIdentifier = getSubjectNameIdentifier(
 			userResolverSAMLContext);
 
+		SamlSpIdpConnection samlSpIdpConnection =
+			_samlSpIdpConnectionLocalService.getSamlSpIdpConnection(
+				companyId, userResolverSAMLContext.resolvePeerEntityId());
+
 		String subjectNameIdentifierType = getSubjectNameIdentifierType(
-			userResolverSAMLContext);
+			userResolverSAMLContext, samlSpIdpConnection.getNameIdFormat());
 
 		if (_samlProviderConfigurationHelper.isLDAPImportEnabled()) {
 			user = importLdapUser(
@@ -240,11 +246,15 @@ public class DefaultUserResolver implements UserResolver {
 	}
 
 	protected String getSubjectNameIdentifierType(
-		UserResolverSAMLContext userResolverSAMLContext) {
+		UserResolverSAMLContext userResolverSAMLContext,
+		String defaultSubjectNameIdentifierType) {
 
 		String format = userResolverSAMLContext.resolveSubjectNameFormat();
 
-		if (format.equals(NameIDType.EMAIL)) {
+		if (Validator.isNull(format)) {
+			return defaultSubjectNameIdentifierType;
+		}
+		else if (format.equals(NameIDType.EMAIL)) {
 			return _SUBJECT_NAME_TYPE_EMAIL_ADDRESS;
 		}
 
@@ -499,6 +509,10 @@ public class DefaultUserResolver implements UserResolver {
 
 	private MetadataManager _metadataManager;
 	private SamlProviderConfigurationHelper _samlProviderConfigurationHelper;
+
+	@Reference
+	private SamlSpIdpConnectionLocalService _samlSpIdpConnectionLocalService;
+
 	private UserImporter _userImporter;
 	private UserLocalService _userLocalService;
 
