@@ -1800,9 +1800,11 @@ public abstract class BaseMessageBoardSectionResourceTestCase {
 					return false;
 				}
 			}
+
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 	protected java.util.Collection<EntityField> getEntityFields()
