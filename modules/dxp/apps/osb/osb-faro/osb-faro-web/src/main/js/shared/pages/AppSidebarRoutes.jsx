@@ -1,5 +1,4 @@
 import BundleRouter from '../../route-middleware/BundleRouter';
-// import fetch from 'shared/util/fetch';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
@@ -239,13 +238,10 @@ export default class AppSidebarRoutes extends React.PureComponent {
 	componentDidMount() {
 		const {currentUser, groupId} = this.props;
 
-		fetch('https://extreme-ip-lookup.com/json')
-			.then(response => response.json())
-			.then(({city, country, region}) => {
-				analytics.identify(currentUser.id, {city, country, region});
-			});
+		analytics.identify(currentUser.id);
 
 		analytics.group(groupId, {groupId});
+
 		analytics.track('User accessed workspace', {
 			groupId,
 			userId: String(currentUser.id)
