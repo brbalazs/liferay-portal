@@ -62,7 +62,7 @@ public abstract class BaseURLPatternMapperPerformanceTestCase
 		// Current url-patterns for Filters set in liferay-web.xml is no larger
 		// then 128.
 
-		final BitSet bitSet = new BitSet(128);
+		BitSet bitSet = new BitSet(128);
 
 		URLPatternMapper<Integer> urlPatternMapper = createURLPatternMapper(
 			createValues());
