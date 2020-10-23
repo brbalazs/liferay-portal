@@ -11,6 +11,12 @@ jest.mock('react-dom');
 
 document.body.className = 'dxp';
 
+global.analytics = {
+	group: () => {},
+		identify: () => {},
+		track: () => {}
+}
+
 global.AUI = () => ({
 	use: (module, callback) => callback()
 });

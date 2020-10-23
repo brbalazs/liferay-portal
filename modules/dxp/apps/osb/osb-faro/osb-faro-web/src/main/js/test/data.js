@@ -40,15 +40,11 @@ const {
 const BASE_TIMESTAMP = 1531263666366;
 
 export function getTimestamp(change = 0, unit = 'days') {
-	return moment(BASE_TIMESTAMP)
-		.add(change, unit)
-		.valueOf();
+	return moment(BASE_TIMESTAMP).add(change, unit).valueOf();
 }
 
 export function getDate(change = 0, unit = 'days') {
-	return moment(BASE_TIMESTAMP)
-		.add(change, unit)
-		.toDate();
+	return moment(BASE_TIMESTAMP).add(change, unit).toDate();
 }
 
 export function getImmutableMock(Record, mockFn, id, config) {
@@ -941,6 +937,7 @@ export function mockProject(seed = 1, data = {}) {
 		addOnsIList: new Map(mockAddOns()),
 		corpProjectName: `corpProjectName${seed}`,
 		corpProjectUuid: `corpProjectUuid${seed}`,
+		faroSubscription: new Map(),
 		groupId: seed,
 		name: `project${seed}`,
 		percentageComplete: 0,

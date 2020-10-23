@@ -10,7 +10,8 @@ jest.unmock('react-dom');
 const defaultProps = {
 	currentUser: data.getImmutableMock(User, data.mockUser),
 	groupId: '23',
-	location: {pathname: 'foo'}
+	location: {pathname: 'foo'},
+	project: data.mockProject()
 };
 
 const DefaultComponent = props => (
