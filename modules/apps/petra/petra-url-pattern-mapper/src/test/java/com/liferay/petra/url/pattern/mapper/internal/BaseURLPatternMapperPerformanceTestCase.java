@@ -52,15 +52,10 @@ public abstract class BaseURLPatternMapperPerformanceTestCase
 		Assert.assertTrue(delta < 10000);
 	}
 
-	/**
-	 * Performance benchmark simulation of utilizing URLPatternMapper by Filter
-	 * Chain
-	 */
 	@Test
 	public void testConsumeValuesOrdered() {
 
-		// Current url-patterns for Filters set in liferay-web.xml is no larger
-		// then 128.
+		// Emulate filter chain in liferay-web.xml
 
 		BitSet bitSet = new BitSet(128);
 
