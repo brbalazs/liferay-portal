@@ -18,6 +18,8 @@ definition {
 			Click(locator1 = "ManagementBar#ORDER_ICON_GENERIC");
 		}
 
+		Refresh();
+
 		AssertElementPresent(
 			key_order = "${order}",
 			locator1 = "ManagementBar#ORDER_ICON_SPECIFIC");
