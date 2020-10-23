@@ -40,11 +40,15 @@ const {
 const BASE_TIMESTAMP = 1531263666366;
 
 export function getTimestamp(change = 0, unit = 'days') {
-	return moment(BASE_TIMESTAMP).add(change, unit).valueOf();
+	return moment(BASE_TIMESTAMP)
+		.add(change, unit)
+		.valueOf();
 }
 
 export function getDate(change = 0, unit = 'days') {
-	return moment(BASE_TIMESTAMP).add(change, unit).toDate();
+	return moment(BASE_TIMESTAMP)
+		.add(change, unit)
+		.toDate();
 }
 
 export function getImmutableMock(Record, mockFn, id, config) {

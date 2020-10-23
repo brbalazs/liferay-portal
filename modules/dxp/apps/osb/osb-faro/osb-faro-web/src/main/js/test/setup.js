@@ -13,9 +13,9 @@ document.body.className = 'dxp';
 
 global.analytics = {
 	group: () => {},
-		identify: () => {},
-		track: () => {}
-}
+	identify: () => {},
+	track: () => {}
+};
 
 global.AUI = () => ({
 	use: (module, callback) => callback()
