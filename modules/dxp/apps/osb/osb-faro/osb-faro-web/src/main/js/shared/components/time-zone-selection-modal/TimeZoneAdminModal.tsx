@@ -1,21 +1,24 @@
 import Button from 'shared/components/Button';
 import Form from 'shared/components/form';
 import Modal from 'shared/components/modal';
-import React from 'react';
+import React, {useRef} from 'react';
 import TimeZonePicker from '../form/TimeZonePicker';
+import {Formik} from 'formik';
 import {TimeZone} from 'shared/util/records';
 
-interface ITimeZoneAdminModal {
+interface ITimeZoneSelectionModal {
     onClose: Function;
     timeZone: TimeZone;
 }
 
-const TimeZoneAdminModal: React.FC<ITimeZoneAdminModal> = ({
+const TimeZoneSelectionModal: React.FC<ITimeZoneSelectionModal> = ({
     onClose,
     timeZone
 }) => {
+    const _formRef = useRef<Formik>();
+
     const onSubmit = () => {
-        console.log('jackson');
+        const {timeZoneId} = _formRef.current.getFormikBag().values;
     };
 
     return (
@@ -29,6 +32,7 @@ const TimeZoneAdminModal: React.FC<ITimeZoneAdminModal> = ({
                     timeZoneId: ''
                 }}
                 onSubmit={onSubmit}
+                ref={_formRef}
             >
                 {({handleSubmit, isSubmitting, isValid, setFieldTouched, setFieldValue}) => (
                     <Form.Form onSubmit={handleSubmit}>
@@ -75,4 +79,4 @@ const TimeZoneAdminModal: React.FC<ITimeZoneAdminModal> = ({
     );
 };
 
-export default TimeZoneAdminModal;
+export default TimeZoneSelectionModal;

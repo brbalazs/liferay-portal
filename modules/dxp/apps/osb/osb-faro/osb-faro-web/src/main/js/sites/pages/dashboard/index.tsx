@@ -133,6 +133,7 @@ export const Dashboard: React.FC<IDashboardProps> = ({
 		variables: {credentialsType: oAuth2, type: liferay}
 	});
 
+	//TODO: REMOVE THIS PIECE OF CODE, IT'S ONLY FOR TESTING PURPOSES
 	useEffect(() => {
 		open(modalTypes.TIME_ZONE_ADMIN_MODAL, {
 			onClose: close
