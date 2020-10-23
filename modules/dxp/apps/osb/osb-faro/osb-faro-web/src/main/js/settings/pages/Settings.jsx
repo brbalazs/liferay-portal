@@ -9,9 +9,9 @@ import RouteNotFound from 'shared/components/RouteNotFound';
 import {compose} from 'shared/hoc';
 import {connect} from 'react-redux';
 import {Link, matchPath, Switch, withRouter} from 'react-router-dom';
+import {Project, User} from 'shared/util/records';
 import {PropTypes} from 'prop-types';
 import {Routes, toRoute} from 'shared/util/router';
-import {User} from 'shared/util/records';
 import {withOnboarding} from 'shared/hoc';
 
 // APIS
@@ -141,15 +141,29 @@ export class Settings extends React.Component {
 		pageDescription: PropTypes.node,
 		pageTitle: PropTypes.node,
 		passedChildren: PropTypes.node,
+		project: PropTypes.instanceOf(Project),
 		recommendationsEnabled: PropTypes.bool
 	};
 
 	componentDidMount() {
-		const {currentUser, groupId} = this.props;
+		const {
+			currentUser,
+			groupId,
+			project: {
+				faroSubscription: faroSubscriptionIMap,
+				name,
+				serverLocation
+			}
+		} = this.props;
 
 		analytics.identify(currentUser.id);
 
-		analytics.group(groupId)
+		analytics.group(groupId, {
+			groupId,
+			serverLocation,
+			subscriptionName: faroSubscriptionIMap.get('name'),
+			workspaceName: name
+		});
 	}
 
 	getSidebarSections() {
@@ -466,6 +480,7 @@ export default compose(
 	checkProjectState,
 	connect((store, {groupId}) => ({
 		backURL: store.getIn(['settings', 'backURL']),
+		project: store.getIn(['projects', groupId, 'data']),
 		recommendationsEnabled: store.getIn(
 			['projects', groupId, 'data', 'recommendationsEnabled'],
 			false

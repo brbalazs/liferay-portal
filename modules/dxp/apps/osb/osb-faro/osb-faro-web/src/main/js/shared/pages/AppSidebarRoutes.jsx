@@ -3,6 +3,7 @@ import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import {ChannelContext} from 'shared/context/channel';
+import {connect} from 'react-redux';
 import {DEVELOPER_MODE} from 'shared/util/constants';
 import {Routes} from 'shared/util/router';
 import {Switch, withRouter} from 'react-router-dom';
@@ -232,19 +233,38 @@ const ROUTES = [
 @withSidebar
 @withOnboarding
 @withUnassignedSegments
+@connect((store, {groupId}) => ({
+	project: store.getIn(['projects', groupId, 'data'])
+}))
 export default class AppSidebarRoutes extends React.PureComponent {
 	static contextType = ChannelContext;
 
 	componentDidMount() {
-		const {currentUser, groupId} = this.props;
+		const {
+			currentUser,
+			groupId,
+			project: {
+				faroSubscription: faroSubscriptionIMap,
+				name,
+				serverLocation
+			}
+		} = this.props;
 
 		analytics.identify(currentUser.id);
 
-		analytics.group(groupId, {groupId});
+		analytics.group(groupId, {
+			groupId,
+			serverLocation,
+			subscriptionName: faroSubscriptionIMap.get('name'),
+			workspaceName: name
+		});
 
 		analytics.track('User accessed workspace', {
 			groupId,
-			userId: String(currentUser.id)
+			serverLocation,
+			subscriptionName: faroSubscriptionIMap.get('name'),
+			userId: String(currentUser.id),
+			workspaceName: name
 		});
 	}
 
