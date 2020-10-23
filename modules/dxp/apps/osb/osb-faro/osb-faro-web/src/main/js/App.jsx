@@ -79,7 +79,20 @@ class RoutesContainer extends React.Component {
 	}
 
 	onRouteChanged() {
-		if (!SETTINGS_PATH_REGEX.test(window.location.pathname)) {
+		const {
+			document: {referrer, title},
+			location: {href, pathname, search}
+		} = window;
+
+		analytics.page({
+			path: pathname,
+			referrer,
+			search,
+			title,
+			url: href
+		});
+
+		if (!SETTINGS_PATH_REGEX.test(pathname)) {
 			this.props.dispatch(
 				setBackURL(
 					`${window.location.pathname}${window.location.search}`
