@@ -565,7 +565,7 @@ export const metricsListColumns = {
 		label: Liferay.Language.get('exit-percentage')
 	},
 	getCreateDate: timeZoneId => ({
-		accessor: 'addedMetric',
+		accessor: 'createDate',
 		cellRenderer: ({data}) => (
 			<DateCell
 				data={data}
