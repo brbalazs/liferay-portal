@@ -104,8 +104,8 @@ public class UserPasswordException extends PortalException {
 					userId, minLength),
 				PASSWORD_LENGTH);
 
-			this.minLength = minLength;
 			this.userId = userId;
+			this.minLength = minLength;
 		}
 
 		public final int minLength;
@@ -140,8 +140,8 @@ public class UserPasswordException extends PortalException {
 			super(
 				"Password must comply with regex: " + regex, PASSWORD_INVALID);
 
-			this.regex = regex;
 			this.userId = userId;
+			this.regex = regex;
 		}
 
 		public final String regex;
