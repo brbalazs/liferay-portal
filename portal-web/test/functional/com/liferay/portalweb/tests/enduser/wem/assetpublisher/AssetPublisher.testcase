@@ -469,6 +469,8 @@ definition {
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
+		Refresh();
+
 		AssetPublisherPortlet.viewSelectedPG(
 			selectedAsset = "Basic Document",
 			selectedAssetConfiguration = "Document");
