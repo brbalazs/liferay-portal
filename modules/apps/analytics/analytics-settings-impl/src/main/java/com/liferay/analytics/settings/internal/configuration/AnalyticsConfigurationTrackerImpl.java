@@ -585,6 +585,14 @@ public class AnalyticsConfigurationTrackerImpl
 			"previousSyncAllContacts",
 			analyticsConfiguration.syncAllContacts());
 
+		String[] syncedUserFieldNames =
+			analyticsConfiguration.syncedUserFieldNames();
+
+		if (!ArrayUtil.isEmpty(syncedUserFieldNames)) {
+			properties.put(
+				"previousSyncedUserFieldNames", syncedUserFieldNames);
+		}
+
 		String token = analyticsConfiguration.token();
 
 		if (token != null) {
