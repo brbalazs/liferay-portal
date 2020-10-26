@@ -1,4 +1,4 @@
-@spira_Sites @Sites @team_FARO @priority_3 @blocked
+@spira_Sites @Sites @team_FARO @priority_3
 Feature: Assert Sites Interests card highest interests
 	As a Business User, I should be able to view Interests card highest interest in Sites
 

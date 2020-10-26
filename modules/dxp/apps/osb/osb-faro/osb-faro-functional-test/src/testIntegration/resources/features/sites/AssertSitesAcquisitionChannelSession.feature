@@ -1,4 +1,4 @@
-@spira_Sites @Sites @team_FARO @priority_3 @blocked
+@spira_Sites @Sites @team_FARO @priority_3
 Feature: Assert Sites Acquisition card Channels highest session
 	As a Business User, I should be able to view Channels highest session in Sites
 
@@ -9,4 +9,4 @@ Feature: Assert Sites Acquisition card Channels highest session
 
 	Scenario: Assert Acquisition Channels highest session
 		Given I go to the "Sites" page
-		Then I should see the channel named "referral" in the table
+		Then I should see the channel named "direct" in the table

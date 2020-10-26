@@ -1,4 +1,4 @@
-@spira_Sites @Sites @team_FARO @priority_3 @blocked
+@spira_Sites @Sites @team_FARO @priority_3
 Feature: Assert Sites Cohort Analysis sort Anonymous Visitors
 	As a Business User, I should be able to sort Cohort Analysis by Anonymous Visitors
 

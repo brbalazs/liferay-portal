@@ -1,4 +1,4 @@
-@spira_Sites @Sites @team_FARO @priority_3 @blocked
+@spira_Sites @Sites @team_FARO @priority_3
 Feature: Assert Sites Top Pages card Visited Pages highest views
 	As a Business User, I should be able to view highest viewed visited pages in Sites
 

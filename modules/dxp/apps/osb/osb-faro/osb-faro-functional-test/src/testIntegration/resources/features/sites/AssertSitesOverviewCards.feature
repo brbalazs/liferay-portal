@@ -1,4 +1,4 @@
-@spira_Sites @Sites @team_FARO @priority_3 @blocked
+@spira_Sites @Sites @team_FARO @priority_3
 Feature: Assert the Sites Overview Cards
 	As a Business User, I should be able to assert the cards on the overview tab of a Site's page
 

@@ -1,4 +1,4 @@
-@spira_Sites @Sites @team_FARO @priority_3 @blocked
+@spira_Sites @Sites @team_FARO @priority_3
 Feature: Assert Sites Top Pages View Pages link navigates to pages tab
 	As a Business User, I should be able to assert view pages link navigates to pages tab
 

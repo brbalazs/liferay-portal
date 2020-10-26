@@ -1,4 +1,4 @@
-@spira_Sites @Sites @team_FARO @priority_3 @blocked
+@spira_Sites @Sites @team_FARO @priority_3
 Feature: Assert Sites Acquisition card Referrers highest session
 	As a Business User, I should be able to view Referrers highest session in Sites
 
