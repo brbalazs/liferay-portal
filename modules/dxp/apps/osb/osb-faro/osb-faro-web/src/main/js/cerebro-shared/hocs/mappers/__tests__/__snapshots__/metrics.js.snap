@@ -5,6 +5,7 @@ Object {
   "error": null,
   "items": Array [
     Object {
+      "asymmetricComparison": false,
       "content": Object {
         "details": Object {
           "color": "#DA1414",
