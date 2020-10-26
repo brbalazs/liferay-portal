@@ -45,7 +45,8 @@ AUI.add(
 				FacetUtil.selectTerms(form, selections);
 			},
 
-			removeStartParameter(startParameterName, queryString) {
+			removeStartParameter: function(startParameterName, queryString) {
+
 				var search = queryString;
 
 				var hasQuestionMark = search[0] === '?';
@@ -54,7 +55,7 @@ AUI.add(
 					search = search.substr(1);
 				}
 
-				var parameterArray = search.split('&').filter((item) => {
+				var parameterArray = search.split('&').filter(function (item) {
 					return item.trim() !== '';
 				});
 

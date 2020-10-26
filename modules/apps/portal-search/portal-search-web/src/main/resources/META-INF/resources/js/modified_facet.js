@@ -36,59 +36,64 @@ AUI.add(
 		A.mix(
 			ModifiedFacetFilter.prototype,
 			{
-				_initializeFormValidator() {
+				_initializeFormValidator: function() {
 					var instance = this;
 
 					var dateRangeRuleName = instance.namespace + 'dateRange';
 
-					A.mix(
-						DEFAULTS_FORM_VALIDATOR.STRINGS,
-						{
-							[dateRangeRuleName]: Language.get(
-								'search-custom-range-invalid-date-range'
-							)
-						},
-						true
+					var validatorStrings = {}
+					validatorStrings[dateRangeRuleName] = Language.get(
+						'search-custom-range-invalid-date-range'
 					);
 
 					A.mix(
-						DEFAULTS_FORM_VALIDATOR.RULES,
-						{
-							[dateRangeRuleName]() {
-								return A.Date.isGreaterOrEqual(
-									instance.toInputDatePicker.getDate(),
-									instance.fromInputDatePicker.getDate()
-								);
-							}
-						},
+						DEFAULTS_FORM_VALIDATOR.STRINGS,
+						validatorStrings,
 						true
 					);
+
+					var validatorRules = {}
+					validatorRules[dateRangeRuleName] = function () {
+						return A.Date.isGreaterOrEqual(
+							instance.toInputDatePicker.getDate(),
+							instance.fromInputDatePicker.getDate()
+						);
+					};
+
+					A.mix(
+						DEFAULTS_FORM_VALIDATOR.RULES,
+						validatorRules,
+						true
+					);
+
+					var ruleFromInputName = {};
+					ruleFromInputName[dateRangeRuleName] = true;
+
+					var ruleToInputName = {};
+					ruleToInputName[dateRangeRuleName] = true;
+
+					var rules = {};
+					rules[instance.fromInputName] = ruleFromInputName;
+					rules[instance.toInputName] = ruleToInputName;
 
 					var customRangeValidator = new A.FormValidator({
 						boundingBox: instance.form,
 						fieldContainer: 'div',
 						on: {
-							errorField() {
+							errorField: function() {
 								Util.toggleDisabled(
 									instance.searchCustomRangeButton,
 									true
 								);
 							},
-							validField() {
+							validField: function() {
 								Util.toggleDisabled(
 									instance.searchCustomRangeButton,
 									false
 								);
 							}
 						},
-						rules: {
-							[instance.fromInputName]: {
-								[dateRangeRuleName]: true
-							},
-							[instance.toInputName]: {
-								[dateRangeRuleName]: true
-							}
-						}
+						rules: rules
 					});
 
 					var onRangeSelectionChange = function() {
@@ -106,7 +111,7 @@ AUI.add(
 					);
 				},
 
-				_onDateInputKeyDown(event) {
+				_onDateInputKeyDown: function(event) {
 					if (!event.isKey('TAB')) {
 						event.preventDefault();
 					}
