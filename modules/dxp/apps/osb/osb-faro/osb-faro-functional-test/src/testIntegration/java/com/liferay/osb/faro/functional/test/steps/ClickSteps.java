@@ -192,11 +192,20 @@ public class ClickSteps {
 			@Transform(FaroTransformer.class) String targetName)
 		throws Exception {
 
-		WebElement webElement = _faroSelenium.findElement(
-			"//div[contains(@class, 'dropdown-menu show')]//*[text()='" +
-				targetName + "']");
+		if (!targetName.contains("Last")) {
+			WebElement webElement = _faroSelenium.findElement(
+				"//div[contains(@class, 'dropdown-menu show')]//*[text()='" +
+					targetName + "']");
 
-		webElement.click();
+			webElement.click();
+		}
+		else {
+			WebElement webElement = _faroSelenium.findElement(
+				"//div[contains(@class,'show')]/ul/li/button[text()='" +
+					targetName + "']/ancestor::li");
+
+			webElement.click();
+		}
 
 		if (!targetName.equals("Dynamic Segment")) {
 			_faroSelenium.waitForLoadingComplete();
