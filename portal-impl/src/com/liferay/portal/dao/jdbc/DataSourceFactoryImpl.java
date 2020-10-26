@@ -141,7 +141,7 @@ public class DataSourceFactoryImpl implements DataSourceFactory {
 			(Validator.isNotNull(jndiName) ||
 			 driverClassName.startsWith("com.mysql.cj"))) {
 
-			// https://issues.liferay.com/browse/LPS-120753
+			// LPS-120753
 
 			if (Validator.isNull(jndiName)) {
 				testDatabaseClass(driverClassName);
