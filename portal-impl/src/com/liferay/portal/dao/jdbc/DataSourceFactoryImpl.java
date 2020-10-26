@@ -663,8 +663,8 @@ public class DataSourceFactoryImpl implements DataSourceFactory {
 		catch (Exception exception) {
 			_log.error(
 				"Unable to populate IBM JDK TLS cipher suite into MySQL " +
-					"Connector/J's allowed cipher list, consider disable SSL " +
-						"for connection",
+					"Connector/J's allowed cipher list, consider disabling " +
+						"SSL for the connection",
 				exception);
 		}
 	}
