@@ -92,6 +92,7 @@ export const INDIVIDUALS_FRAGMENT = gql`
 	}
 `;
 
+// TODO: LRAC-6871 - Add isAsymmetricComparison to query
 export const METRIC_FRAGMENT = gql`
 	fragment metricFragment on Metric {
 		histogram {

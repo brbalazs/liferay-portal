@@ -84,6 +84,7 @@ const data = {
 					valueKey: '2018-05-23T00:00'
 				}
 			],
+			isAsymmetricComparison: false,
 			trend: {
 				percentage: 100,
 				trendClassification: 'NEGATIVE'

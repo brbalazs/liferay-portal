@@ -26,7 +26,7 @@ import {
 	XAxis,
 	YAxis
 } from 'recharts';
-import {find, get} from 'lodash';
+import {find, get, last} from 'lodash';
 import {formatXAxisDate} from 'shared/util/charts';
 import {getDate} from 'shared/util/date';
 import {getDateTitle} from 'shared/util/charts';
@@ -169,20 +169,51 @@ export default class MainMetrics extends React.Component {
 	}
 
 	getActiveItem() {
-		const {activeItemIndex = 0, items = []} = this.props;
+		const {activeItemIndex = 0, items = [], showPrevious} = this.props;
 
 		if (items.length === 0) {
 			return {
-				data: [],
-				intervals: []
+				chartData: [],
+				intervals: [],
+				timeline: []
 			};
 		}
 
-		if (activeItemIndex < 0 || activeItemIndex >= items.length) {
-			return items[0];
+		let retVal = items[0];
+
+		if (activeItemIndex >= 0 || activeItemIndex < items.length) {
+			retVal = items[activeItemIndex];
 		}
 
-		return items[activeItemIndex];
+		const chartData = retVal.data.slice(0, -1);
+		const timeline = last(retVal.data);
+
+		if (!showPrevious && retVal.isAsymmetricComparison) {
+			const compositeDataKeys = Object.keys(retVal.compositeData);
+
+			retVal = {
+				...retVal,
+				chartData: chartData.map(dataSet => ({
+					...dataSet,
+					data: dataSet.data.slice(1)
+				})),
+				compositeData: compositeDataKeys.reduce((acc, val) => {
+					acc = {...acc, [val]: retVal.compositeData[val].slice(1)};
+
+					return acc;
+				}, {}),
+				intervals: retVal.intervals.slice(1),
+				timeline: {data: timeline.data.slice(1), id: timeline.id}
+			};
+		} else {
+			retVal = {
+				...retVal,
+				chartData,
+				timeline
+			};
+		}
+
+		return retVal;
 	}
 
 	renderChart() {
@@ -197,15 +228,12 @@ export default class MainMetrics extends React.Component {
 		} = this;
 
 		const {
+			chartData,
 			content: {name, title},
-			data,
 			dateKeysIMap,
-			intervals
+			intervals,
+			timeline
 		} = this.getActiveItem();
-
-		const timeline = data[data.length - 1];
-
-		const chartData = data.slice(0, data.length - 1);
 
 		const dataIds = chartData.map(item => item.id);
 
@@ -410,18 +438,24 @@ export default class MainMetrics extends React.Component {
 		const dateKey = payload[0].payload.date;
 
 		const {
+			chartData,
 			compositeData,
 			content: {name, title},
-			data,
 			dateKeysIMap,
 			format,
 			prevDateKeysIMap
 		} = this.getActiveItem();
 
-		const dataOneItemData = find(data, ({id}) => id === CHART_DATA_ID_1);
+		const dataOneItemData = find(
+			chartData,
+			({id}) => id === CHART_DATA_ID_1
+		);
 		const dataOneValue = payload[0].value;
 
-		const dataTwoItemData = find(data, ({id}) => id === CHART_DATA_ID_2);
+		const dataTwoItemData = find(
+			chartData,
+			({id}) => id === CHART_DATA_ID_2
+		);
 		const dataTwoValue = payload[1] && payload[1].value;
 
 		const dataPreviousPoint = find(

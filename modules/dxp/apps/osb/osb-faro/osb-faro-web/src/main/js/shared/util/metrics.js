@@ -189,6 +189,7 @@ export const getMetricsData = (
 				timeInterval,
 				dateKeysIMap
 			),
+			isAsymmetricComparison: result[name].isAsymmetricComparison,
 			prevDateKeysIMap: new Map(
 				histogram.map(({key, previousValueKey}) => [
 					key,
