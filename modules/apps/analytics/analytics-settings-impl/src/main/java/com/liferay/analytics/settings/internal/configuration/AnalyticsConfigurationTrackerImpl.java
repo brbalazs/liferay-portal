@@ -24,6 +24,8 @@ import com.liferay.analytics.settings.internal.model.AnalyticsUserImpl;
 import com.liferay.analytics.settings.internal.security.auth.verifier.AnalyticsSecurityAuthVerifier;
 import com.liferay.analytics.settings.internal.util.EntityModelListenerTracker;
 import com.liferay.analytics.settings.security.constants.AnalyticsSecurityConstants;
+import com.liferay.expando.kernel.model.ExpandoColumn;
+import com.liferay.expando.kernel.service.ExpandoColumnLocalService;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
@@ -39,11 +41,13 @@ import com.liferay.portal.kernel.model.Contact;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.role.RoleConstants;
+import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapDictionary;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -55,6 +59,7 @@ import com.liferay.portal.security.service.access.policy.service.SAPEntryLocalSe
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Dictionary;
@@ -620,6 +625,21 @@ public class AnalyticsConfigurationTrackerImpl
 			}
 		}
 
+		String[] previousSyncedUserFieldNames = GetterUtil.getStringValues(
+			dictionary.get("previousSyncedUserFieldNames"));
+		String[] syncedUserFieldNames = GetterUtil.getStringValues(
+			dictionary.get("syncedUserFieldNames"));
+
+		Arrays.sort(previousSyncedUserFieldNames);
+		Arrays.sort(syncedUserFieldNames);
+
+		if (!Arrays.equals(
+				previousSyncedUserFieldNames, syncedUserFieldNames)) {
+
+			_syncUserCustomFields(
+				(Long)dictionary.get("companyId"), syncedUserFieldNames);
+		}
+
 		if (GetterUtil.getBoolean(dictionary.get("syncAllContacts"))) {
 			if (!GetterUtil.getBoolean(
 					dictionary.get("previousSyncAllContacts"))) {
@@ -711,6 +731,28 @@ public class AnalyticsConfigurationTrackerImpl
 		}
 	}
 
+	private void _syncUserCustomFields(
+		long companyId, String[] syncedUserFieldNames) {
+
+		List<ExpandoColumn> expandoColumns = new ArrayList<>();
+
+		List<ExpandoColumn> defaultTableColumns =
+			_expandoColumnLocalService.getDefaultTableColumns(
+				companyId, User.class.getName());
+
+		for (ExpandoColumn defaultTableColumn : defaultTableColumns) {
+			if (ArrayUtil.contains(
+					syncedUserFieldNames, defaultTableColumn.getName())) {
+
+				expandoColumns.add(defaultTableColumn);
+			}
+		}
+
+		if (!expandoColumns.isEmpty()) {
+			_addAnalyticsMessages(expandoColumns);
+		}
+	}
+
 	private void _syncUserGroupUsers(String[] userGroupIds) {
 		for (String userGroupId : userGroupIds) {
 			int count = _userLocalService.getUserGroupUsersCount(
@@ -770,6 +812,9 @@ public class AnalyticsConfigurationTrackerImpl
 	private boolean _authVerifierEnabled;
 
 	@Reference
+	private ClassNameLocalService _classNameLocalService;
+
+	@Reference
 	private CompanyLocalService _companyLocalService;
 
 	private ComponentContext _componentContext;
@@ -779,6 +824,9 @@ public class AnalyticsConfigurationTrackerImpl
 
 	@Reference
 	private EntityModelListenerTracker _entityModelListenerTracker;
+
+	@Reference
+	private ExpandoColumnLocalService _expandoColumnLocalService;
 
 	private final Set<Long> _initializedCompanyIds = new HashSet<>();
 
