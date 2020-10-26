@@ -1507,6 +1507,8 @@ definition {
 	macro viewSelectedPG {
 		Portlet.clickPortletPlusIconPG(portletName = "Asset Publisher");
 
+		Pause(locator1 = "1000");
+
 		AssertTextEquals(
 			key_menuItem = "${selectedAsset}",
 			locator1 = "MenuItem#ANY_MENU_ITEM",
