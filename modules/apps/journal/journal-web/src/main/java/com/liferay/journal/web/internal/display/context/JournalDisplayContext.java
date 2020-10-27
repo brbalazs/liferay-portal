@@ -955,12 +955,8 @@ public class JournalDisplayContext {
 				JournalPortletKeys.JOURNAL, "order-by-col", "modified-date");
 		}
 		else {
-			boolean saveOrderBy = ParamUtil.getBoolean(_request, "saveOrderBy");
-
-			if (saveOrderBy) {
-				_portalPreferences.setValue(
-					JournalPortletKeys.JOURNAL, "order-by-col", _orderByCol);
-			}
+			_portalPreferences.setValue(
+				JournalPortletKeys.JOURNAL, "order-by-col", _orderByCol);
 		}
 
 		return _orderByCol;
@@ -991,12 +987,8 @@ public class JournalDisplayContext {
 				defaultOrderByType);
 		}
 		else {
-			boolean saveOrderBy = ParamUtil.getBoolean(_request, "saveOrderBy");
-
-			if (saveOrderBy) {
-				_portalPreferences.setValue(
-					JournalPortletKeys.JOURNAL, "order-by-type", _orderByType);
-			}
+			_portalPreferences.setValue(
+				JournalPortletKeys.JOURNAL, "order-by-type", _orderByType);
 		}
 
 		return _orderByType;
