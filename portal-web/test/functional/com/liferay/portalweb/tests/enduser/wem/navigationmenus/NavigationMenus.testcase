@@ -212,7 +212,9 @@ definition {
 		SitePages.openPagesAdmin(siteURLKey = "test-site-name");
 
 		for (var index : list "1,2") {
-			SitePages.addPublicPage(pageName = "Site Page Name ${index}");
+			JSONLayout.addPublicLayout(
+				groupName = "Test Site Name",
+				layoutName = "Site Page Name ${index}");
 		}
 
 		NavigationMenusAdmin.openNavigationMenusAdmin(siteURLKey = "test-site-name");
