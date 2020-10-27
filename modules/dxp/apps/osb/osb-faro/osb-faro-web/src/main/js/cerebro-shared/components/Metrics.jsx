@@ -382,7 +382,7 @@ export default class MainMetrics extends React.Component {
 
 	@autobind
 	renderTooltip({active, payload}) {
-		if (!active || !payload) {
+		if (!active || !payload || !payload.length) {
 			return null;
 		}
 
