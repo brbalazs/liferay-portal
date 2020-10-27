@@ -12,4 +12,4 @@ Feature: No change on segment profile selected point
 		Given I click "everybody" in the table
 		And I click the "Membership" tab
 		When I click row number "2" in the bar graph table
-		Then I should see text saying "There are no items found." on the page
+		Then I should see text saying "Lavina Waelchi" on the page

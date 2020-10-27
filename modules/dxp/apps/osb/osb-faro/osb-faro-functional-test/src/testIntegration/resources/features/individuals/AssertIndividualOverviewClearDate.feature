@@ -10,8 +10,8 @@ Feature: Selected individual activity point can clear date selection
 
 	Scenario: Select clear date selection
 		Given I click the "Known Individuals" tab
-		And I click "Abram Bauch" in the table
+		And I click "Adrienne Johnston" in the table
 		When I click row number "1" in the bar graph table
-		And I should see text saying "There are no Activities found." on the page
+		And I should see text saying "Visited www.horacio-kulas.com" on the page
 		And I click the "Clear Date Selection" button
 		Then I should see an activity named "Visited www.dino-boyer.com" in the table
