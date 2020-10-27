@@ -34,9 +34,11 @@ definition {
 	test AddPageFromExistingPage {
 		property testray.component.names = "Training";
 
-		SitePages.openPagesAdmin(siteURLKey = "test-site-name");
+		JSONLayout.addPublicLayout(
+			groupName = "Test Site Name",
+			layoutName = "Site Page");
 
-		SitePages.addPublicPage(pageName = "Site Page");
+		SitePages.openPagesAdmin(siteURLKey = "test-site-name");
 
 		SitePages.addPublicPage(
 			pageName = "Site Page Name",
