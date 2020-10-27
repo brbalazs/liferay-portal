@@ -30,9 +30,15 @@ definition {
 	test AddPageMultiplePagesToSite {
 		property testray.component.names = "Site Pages Administration";
 
-		SitePages.addPublicPage(pageName = "Site Page 1");
+		JSONLayout.addPublicLayout(
+			groupName = "Test Site Name",
+			layoutName = "Site Page 1");
 
-		SitePages.addPublicPage(pageName = "Site Page 2");
+		JSONLayout.addPublicLayout(
+			groupName = "Test Site Name",
+			layoutName = "Site Page 2");
+
+		SitePages.openPagesAdmin(siteURLKey = "test-site-name");
 
 		SitePages.addPublicPage(pageName = "Site Page 3");
 
