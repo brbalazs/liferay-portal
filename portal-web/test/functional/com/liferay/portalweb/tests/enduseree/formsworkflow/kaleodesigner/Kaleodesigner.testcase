@@ -354,6 +354,8 @@ definition {
 
 	@priority = "3"
 	test AddStateNodeEditNameAndDesciptionAndDeleteViaViewTab {
+		property test.name.skip.portal.instance = "Kaleodesigner#AddStateNodeEditNameAndDesciptionAndDeleteViaViewTab";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -441,6 +443,8 @@ definition {
 
 	@priority = "3"
 	test AddTaskNodeViaSourceTabAndEditNameAndDesciptionAndDeleteViaViewTab {
+		property test.name.skip.portal.instance = "Kaleodesigner#AddTaskNodeViaSourceTabAndEditNameAndDesciptionAndDeleteViaViewTab";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -497,6 +501,8 @@ definition {
 	@description = "This is a use case for LPS-37209."
 	@priority = "4"
 	test ConfigureTaskTimersViaViewTab {
+		property test.name.skip.portal.instance = "Kaleodesigner#ConfigureTaskTimersViaViewTab";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -1097,6 +1103,8 @@ definition {
 
 	@priority = "3"
 	test PublishWorkflowDefinitionWithInvalidJoinXORNodeAndViewErrorMessage {
+		property test.name.skip.portal.instance = "Kaleodesigner#PublishWorkflowDefinitionWithInvalidJoinXORNodeAndViewErrorMessage";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -1147,6 +1155,8 @@ definition {
 
 	@priority = "4"
 	test PublishWorkflowDefinitionWithMultipleStartNodesAndViewErrorMessage {
+		property test.name.skip.portal.instance = "Kaleodesigner#PublishWorkflowDefinitionWithMultipleStartNodesAndViewErrorMessage";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -1215,6 +1225,8 @@ definition {
 
 	@priority = "4"
 	test PublishWorkflowDefinitionWithNoStartNodeAndViewErrorMessage {
+		property test.name.skip.portal.instance = "Kaleodesigner#PublishWorkflowDefinitionWithNoStartNodeAndViewErrorMessage";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
