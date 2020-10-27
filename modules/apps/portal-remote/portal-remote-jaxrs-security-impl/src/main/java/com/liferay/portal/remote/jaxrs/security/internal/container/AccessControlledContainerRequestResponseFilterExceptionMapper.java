@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.security.auth.AccessControlContext;
 import com.liferay.portal.remote.jaxrs.security.internal.entity.ForbiddenEntity;
 import com.liferay.portal.security.access.control.AccessControlAdvisor;
 import com.liferay.portal.security.access.control.AccessControlAdvisorImpl;
+import com.liferay.portal.spring.aop.ServiceBeanMethodInvocation;
 
 import java.io.IOException;
 
@@ -40,6 +41,7 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Providers;
@@ -80,7 +82,14 @@ public class AccessControlledContainerRequestResponseFilterExceptionMapper
 			accessControlled = _NULL_ACCESS_CONTROLLED;
 		}
 
-		_accessControlAdvisor.accept(method, new Object[0], accessControlled);
+		List<Object> matchedResources = _uriInfo.getMatchedResources();
+
+		Object target = matchedResources.get(matchedResources.size() - 1);
+
+		ServiceBeanMethodInvocation methodInvocation =
+			new ServiceBeanMethodInvocation(target, method, new Object[0]);
+
+		_accessControlAdvisor.accept(methodInvocation, accessControlled);
 	}
 
 	@Override
@@ -206,5 +215,8 @@ public class AccessControlledContainerRequestResponseFilterExceptionMapper
 
 	@Context
 	private ResourceInfo _resourceInfo;
+
+	@Context
+	private UriInfo _uriInfo;
 
 }
