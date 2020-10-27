@@ -198,13 +198,13 @@ definition {
 
 		Check(locator1 = "StagingPublishToLive#DATE_SCHEDULE_END_DATE_NO_END_DATE_RADIO");
 
-		Check(
-			key_frequency = "${frequency}",
-			locator1 = "StagingPublishToLive#DATE_SCHEDULE_REPEAT_RADIO");
+		Select(
+			locator1 = "StagingPublishToLive#DATE_SCHEDULE_REPEAT_DROPDOWN",
+			value1 = "${frequency}");
 
-		AssertChecked(
-			key_frequency = "${frequency}",
-			locator1 = "StagingPublishToLive#DATE_SCHEDULE_REPEAT_RADIO");
+		AssertSelectedLabel(
+			locator1 = "StagingPublishToLive#DATE_SCHEDULE_REPEAT_DROPDOWN",
+			value1 = "${frequency}");
 
 		AssertClick(
 			locator1 = "StagingPublishToLive#ADD_EVENT_BUTTON",
