@@ -630,19 +630,33 @@ public class Table {
 			@Transform(FaroTransformer.class) String rowNumber)
 		throws Exception {
 
-		StringBundler sb = new StringBundler(9);
+		_faroSelenium.waitForLoadingComplete();
+		_faroSelenium.waitForPageLoadingComplete();
 
-		sb.append("//*[name()='g' and @class='bb-chart']/*[name()='g']");
-		sb.append("/*[name()='rect'][");
-		sb.append(rowNumber);
-		sb.append("]|//*[name()='svg' and @class='recharts-surface']");
-		sb.append("/*[name()='g' and contains(@class,'recharts-bar')]");
-		sb.append("/*[name()='g']//*[name()='g' and contains(@class,'");
-		sb.append("rectangle')][");
-		sb.append(rowNumber);
-		sb.append("]");
+		StringBundler sb = new StringBundler(6);
 
-		_faroSelenium.click(sb.toString());
+		sb.append("//*[name()='g' and contains(@class,'recharts-line')]|//*");
+		sb.append("[name()='g' and contains(@class,'rectangles')]/*[name()");
+		sb.append("='g']/*[name()='g' and contains(@class,'rectangle')][");
+		sb.append(rowNumber);
+		sb.append("]|//*[name()='g' and contains(@class,'");
+		sb.append("recharts-area')]/*[name()='g' and @class='recharts-layer']");
+
+		_faroSelenium.mouseOver(sb.toString());
+
+		try {
+			_faroSelenium.click(sb.toString());
+		}
+		catch (Exception e) {
+			_faroSelenium.waitForElementPresent(
+				"//*[name()='g' and contains(@class,'recharts-yAxis " +
+					"yAxis')]/ancestor::svg/*[name()='path' and contains(@" +
+						"class,'recharts-tooltip-cursor')]");
+			_faroSelenium.click(
+				"//*[name()='g' and contains(@class,'" +
+					"recharts-yAxis yAxis')]/ancestor::*[name()='svg']/*[name" +
+						"()='g' and contains(@class,'active-dot')]");
+		}
 
 		_faroSelenium.waitForLoadingComplete();
 		_faroSelenium.waitForPageLoadingComplete();
