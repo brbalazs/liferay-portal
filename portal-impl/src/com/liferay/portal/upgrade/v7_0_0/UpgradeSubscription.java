@@ -249,6 +249,9 @@ public class UpgradeSubscription extends UpgradeProcess {
 						"DDMStructure",
 					"DDMStructure,groupId,structureId");
 				put(
+					"com.liferay.portlet.journal.model.JournalArticle",
+					"JournalArticle,groupId,resourcePrimKey");
+				put(
 					"com.liferay.portlet.journal.model.JournalFolder",
 					"JournalFolder,groupId,folderId");
 				put(
