@@ -225,6 +225,8 @@ export default class BaseSelect extends React.Component {
 
 	@autobind
 	handleOutsideClick() {
+		this._inputRef.current.blur();
+
 		this.setState({
 			active: false,
 			items: []
