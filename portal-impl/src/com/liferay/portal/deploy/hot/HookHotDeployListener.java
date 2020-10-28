@@ -15,8 +15,6 @@
 package com.liferay.portal.deploy.hot;
 
 import com.liferay.document.library.kernel.antivirus.AntivirusScanner;
-import com.liferay.document.library.kernel.antivirus.AntivirusScannerUtil;
-import com.liferay.document.library.kernel.antivirus.AntivirusScannerWrapper;
 import com.liferay.document.library.kernel.util.DLProcessor;
 import com.liferay.document.library.kernel.util.DLProcessorRegistryUtil;
 import com.liferay.mail.kernel.util.Hook;
@@ -386,14 +384,6 @@ public class HookHotDeployListener
 				_dlRepositoryContainerMap.remove(servletContextName);
 
 			dlRepositoryContainer.unregisterRepositoryFactories();
-		}
-
-		if (portalProperties.containsKey(PropsKeys.DL_STORE_ANTIVIRUS_IMPL)) {
-			AntivirusScannerWrapper antivirusScannerWrapper =
-				(AntivirusScannerWrapper)
-					AntivirusScannerUtil.getAntivirusScanner();
-
-			antivirusScannerWrapper.setAntivirusScanner(null);
 		}
 
 		if (portalProperties.containsKey(PropsKeys.DL_STORE_IMPL)) {
@@ -1412,11 +1402,9 @@ public class HookHotDeployListener
 				portletClassLoader, AntivirusScanner.class,
 				antivirusScannerClassName);
 
-			AntivirusScannerWrapper antivirusScannerWrapper =
-				(AntivirusScannerWrapper)
-					AntivirusScannerUtil.getAntivirusScanner();
-
-			antivirusScannerWrapper.setAntivirusScanner(antivirusScanner);
+			registerService(
+				servletContextName, AntivirusScanner.class.getName(),
+				AntivirusScanner.class, antivirusScanner);
 		}
 
 		if (portalProperties.containsKey(PropsKeys.DL_STORE_IMPL)) {
