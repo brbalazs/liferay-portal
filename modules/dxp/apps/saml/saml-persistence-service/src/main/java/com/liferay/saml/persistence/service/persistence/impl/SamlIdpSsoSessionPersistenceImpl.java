@@ -177,8 +177,8 @@ public class SamlIdpSsoSessionPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (SamlIdpSsoSession samlIdpSsoSession : list) {
-					if (createDate.getTime() <=
-							samlIdpSsoSession.getCreateDate().getTime()) {
+					if (createDate.getTime() <= samlIdpSsoSession.getCreateDate(
+						).getTime()) {
 
 						list = null;
 
@@ -1397,7 +1397,7 @@ public class SamlIdpSsoSessionPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_SAMLIDPSSOSESSION_WHERE_PKS_IN);
 

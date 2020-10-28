@@ -3347,7 +3347,7 @@ public class MBThreadFlagPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_MBTHREADFLAG_WHERE_PKS_IN);
 

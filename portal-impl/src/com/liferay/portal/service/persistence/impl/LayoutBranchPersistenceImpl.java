@@ -2583,7 +2583,7 @@ public class LayoutBranchPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_LAYOUTBRANCH_WHERE_PKS_IN);
 

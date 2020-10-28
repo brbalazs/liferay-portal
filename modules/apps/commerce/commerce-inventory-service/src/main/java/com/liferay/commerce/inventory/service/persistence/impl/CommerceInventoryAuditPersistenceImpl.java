@@ -179,7 +179,8 @@ public class CommerceInventoryAuditPersistenceImpl
 			if ((list != null) && !list.isEmpty()) {
 				for (CommerceInventoryAudit commerceInventoryAudit : list) {
 					if (createDate.getTime() <=
-							commerceInventoryAudit.getCreateDate().getTime()) {
+							commerceInventoryAudit.getCreateDate(
+							).getTime()) {
 
 						list = null;
 
@@ -1737,7 +1738,7 @@ public class CommerceInventoryAuditPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_COMMERCEINVENTORYAUDIT_WHERE_PKS_IN);
 

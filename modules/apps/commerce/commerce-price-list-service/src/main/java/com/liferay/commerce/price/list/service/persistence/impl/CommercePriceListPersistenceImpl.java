@@ -4570,7 +4570,8 @@ public class CommercePriceListPersistenceImpl
 			if ((list != null) && !list.isEmpty()) {
 				for (CommercePriceList commercePriceList : list) {
 					if ((displayDate.getTime() <=
-							commercePriceList.getDisplayDate().getTime()) ||
+							commercePriceList.getDisplayDate(
+							).getTime()) ||
 						(status != commercePriceList.getStatus())) {
 
 						list = null;
@@ -9630,7 +9631,7 @@ public class CommercePriceListPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_COMMERCEPRICELIST_WHERE_PKS_IN);
 

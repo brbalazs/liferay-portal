@@ -3591,7 +3591,7 @@ public class RatingsEntryPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_RATINGSENTRY_WHERE_PKS_IN);
 

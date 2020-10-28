@@ -176,7 +176,8 @@ public class SamlSpMessagePersistenceImpl
 			if ((list != null) && !list.isEmpty()) {
 				for (SamlSpMessage samlSpMessage : list) {
 					if (expirationDate.getTime() <=
-							samlSpMessage.getExpirationDate().getTime()) {
+							samlSpMessage.getExpirationDate(
+							).getTime()) {
 
 						list = null;
 
@@ -1408,7 +1409,7 @@ public class SamlSpMessagePersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_SAMLSPMESSAGE_WHERE_PKS_IN);
 

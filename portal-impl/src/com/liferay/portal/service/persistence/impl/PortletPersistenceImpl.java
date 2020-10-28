@@ -1335,7 +1335,7 @@ public class PortletPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_PORTLET_WHERE_PKS_IN);
 

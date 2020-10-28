@@ -1597,7 +1597,7 @@ public class OAuth2ScopeGrantPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_OAUTH2SCOPEGRANT_WHERE_PKS_IN);
 

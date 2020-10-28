@@ -1345,7 +1345,7 @@ public class AnnouncementsFlagPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_ANNOUNCEMENTSFLAG_WHERE_PKS_IN);
 

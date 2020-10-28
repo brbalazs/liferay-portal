@@ -857,7 +857,7 @@ public class HtmlPreviewEntryPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_HTMLPREVIEWENTRY_WHERE_PKS_IN);
 

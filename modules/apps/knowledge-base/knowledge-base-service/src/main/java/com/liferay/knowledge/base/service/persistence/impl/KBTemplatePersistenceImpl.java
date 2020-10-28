@@ -2957,7 +2957,7 @@ public class KBTemplatePersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_KBTEMPLATE_WHERE_PKS_IN);
 

@@ -35334,7 +35334,7 @@ public class KBArticlePersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_KBARTICLE_WHERE_PKS_IN);
 

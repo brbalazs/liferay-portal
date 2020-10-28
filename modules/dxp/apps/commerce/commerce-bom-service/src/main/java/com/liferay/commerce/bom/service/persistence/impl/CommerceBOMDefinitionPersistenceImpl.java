@@ -1499,7 +1499,7 @@ public class CommerceBOMDefinitionPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_COMMERCEBOMDEFINITION_WHERE_PKS_IN);
 

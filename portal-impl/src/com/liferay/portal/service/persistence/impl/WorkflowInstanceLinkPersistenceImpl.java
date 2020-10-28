@@ -1214,7 +1214,7 @@ public class WorkflowInstanceLinkPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_WORKFLOWINSTANCELINK_WHERE_PKS_IN);
 

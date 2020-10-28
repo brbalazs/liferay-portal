@@ -690,8 +690,8 @@ public class SyncDLFileVersionDiffPersistenceImpl
 			if ((list != null) && !list.isEmpty()) {
 				for (SyncDLFileVersionDiff syncDLFileVersionDiff : list) {
 					if (expirationDate.getTime() <=
-							syncDLFileVersionDiff.
-								getExpirationDate().getTime()) {
+							syncDLFileVersionDiff.getExpirationDate(
+							).getTime()) {
 
 						list = null;
 
@@ -1955,7 +1955,7 @@ public class SyncDLFileVersionDiffPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_SYNCDLFILEVERSIONDIFF_WHERE_PKS_IN);
 

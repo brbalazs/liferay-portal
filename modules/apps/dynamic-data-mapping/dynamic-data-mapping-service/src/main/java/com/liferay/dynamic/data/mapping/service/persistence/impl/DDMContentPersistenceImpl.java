@@ -3079,7 +3079,7 @@ public class DDMContentPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_DDMCONTENT_WHERE_PKS_IN);
 

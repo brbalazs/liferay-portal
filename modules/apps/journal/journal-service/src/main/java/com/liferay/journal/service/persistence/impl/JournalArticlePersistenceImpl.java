@@ -19667,8 +19667,8 @@ public class JournalArticlePersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (JournalArticle journalArticle : list) {
-					if ((displayDate.getTime() <=
-							journalArticle.getDisplayDate().getTime()) ||
+					if ((displayDate.getTime() <= journalArticle.getDisplayDate(
+						).getTime()) ||
 						(status != journalArticle.getStatus())) {
 
 						list = null;
@@ -34056,7 +34056,7 @@ public class JournalArticlePersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_JOURNALARTICLE_WHERE_PKS_IN);
 

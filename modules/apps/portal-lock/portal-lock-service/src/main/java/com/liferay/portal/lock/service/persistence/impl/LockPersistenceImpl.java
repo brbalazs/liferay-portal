@@ -1288,8 +1288,8 @@ public class LockPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (Lock lock : list) {
-					if (expirationDate.getTime() <=
-							lock.getExpirationDate().getTime()) {
+					if (expirationDate.getTime() <= lock.getExpirationDate(
+						).getTime()) {
 
 						list = null;
 
@@ -2541,7 +2541,7 @@ public class LockPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_LOCK_WHERE_PKS_IN);
 

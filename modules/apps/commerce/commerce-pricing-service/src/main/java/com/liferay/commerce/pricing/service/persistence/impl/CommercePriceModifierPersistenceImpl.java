@@ -3213,7 +3213,8 @@ public class CommercePriceModifierPersistenceImpl
 			if ((list != null) && !list.isEmpty()) {
 				for (CommercePriceModifier commercePriceModifier : list) {
 					if ((displayDate.getTime() <=
-							commercePriceModifier.getDisplayDate().getTime()) ||
+							commercePriceModifier.getDisplayDate(
+							).getTime()) ||
 						(status != commercePriceModifier.getStatus())) {
 
 						list = null;
@@ -3789,8 +3790,8 @@ public class CommercePriceModifierPersistenceImpl
 			if ((list != null) && !list.isEmpty()) {
 				for (CommercePriceModifier commercePriceModifier : list) {
 					if ((expirationDate.getTime() <=
-							commercePriceModifier.
-								getExpirationDate().getTime()) ||
+							commercePriceModifier.getExpirationDate(
+							).getTime()) ||
 						(status != commercePriceModifier.getStatus())) {
 
 						list = null;
@@ -7106,7 +7107,7 @@ public class CommercePriceModifierPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_COMMERCEPRICEMODIFIER_WHERE_PKS_IN);
 

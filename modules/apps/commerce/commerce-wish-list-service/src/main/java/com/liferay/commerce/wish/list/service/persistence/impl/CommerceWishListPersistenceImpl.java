@@ -3120,8 +3120,8 @@ public class CommerceWishListPersistenceImpl
 			if ((list != null) && !list.isEmpty()) {
 				for (CommerceWishList commerceWishList : list) {
 					if ((userId != commerceWishList.getUserId()) ||
-						(createDate.getTime() <=
-							commerceWishList.getCreateDate().getTime())) {
+						(createDate.getTime() <= commerceWishList.getCreateDate(
+						).getTime())) {
 
 						list = null;
 
@@ -4894,7 +4894,7 @@ public class CommerceWishListPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_COMMERCEWISHLIST_WHERE_PKS_IN);
 

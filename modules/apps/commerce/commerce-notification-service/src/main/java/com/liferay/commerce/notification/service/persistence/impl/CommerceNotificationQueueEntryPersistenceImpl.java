@@ -1771,8 +1771,8 @@ public class CommerceNotificationQueueEntryPersistenceImpl
 						commerceNotificationQueueEntry : list) {
 
 					if (sentDate.getTime() <=
-							commerceNotificationQueueEntry.
-								getSentDate().getTime()) {
+							commerceNotificationQueueEntry.getSentDate(
+							).getTime()) {
 
 						list = null;
 
@@ -3519,7 +3519,7 @@ public class CommerceNotificationQueueEntryPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_COMMERCENOTIFICATIONQUEUEENTRY_WHERE_PKS_IN);
 

@@ -4607,7 +4607,7 @@ public class PhonePersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_PHONE_WHERE_PKS_IN);
 

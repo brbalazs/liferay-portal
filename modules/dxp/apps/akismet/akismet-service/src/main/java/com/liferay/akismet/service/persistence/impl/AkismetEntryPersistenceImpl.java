@@ -175,8 +175,8 @@ public class AkismetEntryPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (AkismetEntry akismetEntry : list) {
-					if (modifiedDate.getTime() <=
-							akismetEntry.getModifiedDate().getTime()) {
+					if (modifiedDate.getTime() <= akismetEntry.getModifiedDate(
+						).getTime()) {
 
 						list = null;
 
@@ -1343,7 +1343,7 @@ public class AkismetEntryPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_AKISMETENTRY_WHERE_PKS_IN);
 

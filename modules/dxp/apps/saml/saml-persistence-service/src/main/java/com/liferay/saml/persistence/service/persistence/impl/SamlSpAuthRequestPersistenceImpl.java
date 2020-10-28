@@ -175,8 +175,8 @@ public class SamlSpAuthRequestPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (SamlSpAuthRequest samlSpAuthRequest : list) {
-					if (createDate.getTime() <=
-							samlSpAuthRequest.getCreateDate().getTime()) {
+					if (createDate.getTime() <= samlSpAuthRequest.getCreateDate(
+						).getTime()) {
 
 						list = null;
 
@@ -1419,7 +1419,7 @@ public class SamlSpAuthRequestPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_SAMLSPAUTHREQUEST_WHERE_PKS_IN);
 

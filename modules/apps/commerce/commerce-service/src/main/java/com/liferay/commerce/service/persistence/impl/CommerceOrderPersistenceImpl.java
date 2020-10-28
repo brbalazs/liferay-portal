@@ -6439,8 +6439,8 @@ public class CommerceOrderPersistenceImpl
 			if ((list != null) && !list.isEmpty()) {
 				for (CommerceOrder commerceOrder : list) {
 					if ((userId != commerceOrder.getUserId()) ||
-						(createDate.getTime() <=
-							commerceOrder.getCreateDate().getTime()) ||
+						(createDate.getTime() <= commerceOrder.getCreateDate(
+						).getTime()) ||
 						(orderStatus != commerceOrder.getOrderStatus())) {
 
 						list = null;
@@ -7053,8 +7053,8 @@ public class CommerceOrderPersistenceImpl
 
 			if ((list != null) && !list.isEmpty()) {
 				for (CommerceOrder commerceOrder : list) {
-					if ((createDate.getTime() <=
-							commerceOrder.getCreateDate().getTime()) ||
+					if ((createDate.getTime() <= commerceOrder.getCreateDate(
+						).getTime()) ||
 						(commerceAccountId !=
 							commerceOrder.getCommerceAccountId()) ||
 						(orderStatus != commerceOrder.getOrderStatus())) {
@@ -8799,7 +8799,7 @@ public class CommerceOrderPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_COMMERCEORDER_WHERE_PKS_IN);
 

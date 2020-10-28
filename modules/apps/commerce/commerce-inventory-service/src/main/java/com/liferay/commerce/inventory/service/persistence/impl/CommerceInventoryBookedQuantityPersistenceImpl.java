@@ -741,8 +741,8 @@ public class CommerceInventoryBookedQuantityPersistenceImpl
 						commerceInventoryBookedQuantity : list) {
 
 					if (expirationDate.getTime() <=
-							commerceInventoryBookedQuantity.
-								getExpirationDate().getTime()) {
+							commerceInventoryBookedQuantity.getExpirationDate(
+							).getTime()) {
 
 						list = null;
 
@@ -2383,7 +2383,7 @@ public class CommerceInventoryBookedQuantityPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_COMMERCEINVENTORYBOOKEDQUANTITY_WHERE_PKS_IN);
 

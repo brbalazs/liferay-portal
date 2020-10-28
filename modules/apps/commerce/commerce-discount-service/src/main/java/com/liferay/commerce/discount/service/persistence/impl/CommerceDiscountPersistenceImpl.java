@@ -4119,7 +4119,8 @@ public class CommerceDiscountPersistenceImpl
 			if ((list != null) && !list.isEmpty()) {
 				for (CommerceDiscount commerceDiscount : list) {
 					if ((displayDate.getTime() <=
-							commerceDiscount.getDisplayDate().getTime()) ||
+							commerceDiscount.getDisplayDate(
+							).getTime()) ||
 						(status != commerceDiscount.getStatus())) {
 
 						list = null;
@@ -5130,7 +5131,8 @@ public class CommerceDiscountPersistenceImpl
 			if ((list != null) && !list.isEmpty()) {
 				for (CommerceDiscount commerceDiscount : list) {
 					if ((expirationDate.getTime() <=
-							commerceDiscount.getExpirationDate().getTime()) ||
+							commerceDiscount.getExpirationDate(
+							).getTime()) ||
 						(status != commerceDiscount.getStatus())) {
 
 						list = null;
@@ -7297,7 +7299,7 @@ public class CommerceDiscountPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_COMMERCEDISCOUNT_WHERE_PKS_IN);
 

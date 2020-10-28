@@ -1414,7 +1414,7 @@ public class ListTypePersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_LISTTYPE_WHERE_PKS_IN);
 

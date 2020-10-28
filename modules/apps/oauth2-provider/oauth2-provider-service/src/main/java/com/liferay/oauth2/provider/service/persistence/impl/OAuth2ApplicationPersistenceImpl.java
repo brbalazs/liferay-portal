@@ -1798,7 +1798,7 @@ public class OAuth2ApplicationPersistenceImpl
 		}
 
 		StringBundler sb = new StringBundler(
-			uncachedPrimaryKeys.size() * 2 + 1);
+			(uncachedPrimaryKeys.size() * 2) + 1);
 
 		sb.append(_SQL_SELECT_OAUTH2APPLICATION_WHERE_PKS_IN);
 
