@@ -94,7 +94,8 @@ export default class Overlay extends React.Component {
 	};
 
 	state = {
-		active: false
+		active: false,
+		initialClickOnInput: false
 	};
 
 	constructor(props) {
@@ -144,6 +145,10 @@ export default class Overlay extends React.Component {
 			this._bodyHandler.removeListener();
 		}
 
+		if (this._mousedownHandler) {
+			this._mousedownHandler.removeListener();
+		}
+
 		this.withParent(parent => parent.removeChildOverlay(this));
 	}
 
@@ -151,6 +156,12 @@ export default class Overlay extends React.Component {
 		if (!this._bodyHandler && !this.context.parentOverlay) {
 			this._bodyHandler = dom.on(document.body, 'click', event =>
 				visitChildren(event, [this])
+			);
+
+			this._mousedownHandler = dom.on(
+				document.body,
+				'mousedown',
+				this.checkForInitialClickOnInput
 			);
 		}
 	}
@@ -183,6 +194,51 @@ export default class Overlay extends React.Component {
 
 			this.setOffset(contentNode, position, offset);
 		}
+	}
+
+	checkIfEventOutside(event) {
+		const elementNode = ReactDOM.findDOMNode(this._elementRef.current);
+		const contentNode = ReactDOM.findDOMNode(
+			this._contentElementRef.current
+		);
+
+		const eventOutsideContent =
+			(contentNode && !dom.contains(contentNode, event.target)) ||
+			!contentNode;
+
+		return (
+			eventOutsideContent &&
+			elementNode &&
+			!dom.contains(elementNode, event.target)
+		);
+	}
+
+	@autobind
+	checkForInitialClickOnInput(event) {
+		this.setState({
+			initialClickOnInput: !this.checkIfEventOutside(event)
+		});
+	}
+
+	/**
+	 * For the node visitor to check if the click event was inside the overlay's
+	 * trigger or content.
+	 * @param {event} event - The click event
+	 * @return {boolean} - True if the click was outside of the overlay
+	 */
+	checkOutsideClick(event) {
+		const {
+			props: {onOutsideClick},
+			state: {initialClickOnInput}
+		} = this;
+
+		const clickedOutside = this.checkIfEventOutside(event);
+
+		if (clickedOutside && !initialClickOnInput) {
+			onOutsideClick(event);
+		}
+
+		return clickedOutside;
 	}
 
 	getActive() {
@@ -223,34 +279,6 @@ export default class Overlay extends React.Component {
 		this.show.cancel();
 
 		this.hide();
-	}
-
-	/**
-	 * For the node visitor to check if the click event was inside the overlay's
-	 * trigger or content.
-	 * @param {event} event - The click event
-	 * @return {boolean} - True if the click was outside of the overlay
-	 */
-	checkOutsideClick(event) {
-		const elementNode = ReactDOM.findDOMNode(this._elementRef.current);
-		const contentNode = ReactDOM.findDOMNode(
-			this._contentElementRef.current
-		);
-
-		const clickedOutsideContent =
-			(contentNode && !dom.contains(contentNode, event.target)) ||
-			!contentNode;
-
-		const clickedOutside =
-			clickedOutsideContent &&
-			elementNode &&
-			!dom.contains(elementNode, event.target);
-
-		if (clickedOutside) {
-			this.props.onOutsideClick(event);
-		}
-
-		return clickedOutside;
 	}
 
 	setOffset(node, position, offset) {
