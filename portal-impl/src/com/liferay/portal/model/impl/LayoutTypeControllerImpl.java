@@ -17,6 +17,7 @@ package com.liferay.portal.model.impl;
 import com.liferay.portal.kernel.configuration.Filter;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.model.LayoutTypeController;
@@ -32,9 +33,9 @@ import com.liferay.portal.struts.StrutsUtil;
 import com.liferay.portal.util.PropsUtil;
 import com.liferay.taglib.servlet.PipingServletResponse;
 
-import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -245,13 +246,20 @@ public class LayoutTypeControllerImpl implements LayoutTypeController {
 		try {
 			Map<Locale, String> friendlyURLMap = layout.getFriendlyURLMap();
 
-			Collection<String> values = friendlyURLMap.values();
+			Set<Locale> locales = LanguageUtil.getAvailableLocales(
+				layout.getGroupId());
 
-			return values.contains(friendlyURL);
+			for (Locale locale : locales) {
+				if (friendlyURL.equals(friendlyURLMap.get(locale))) {
+					return true;
+				}
+			}
 		}
 		catch (SystemException se) {
 			throw new RuntimeException(se);
 		}
+
+		return false;
 	}
 
 	protected String getEditPage() {
