@@ -111,7 +111,11 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 
 						updateChannels();
 					} else {
-						fetchDataSource({groupId, id: dataSourceId});
+						// if it’s an upgrade from oauth to token, we need to fetch the DataSource
+						if (dataSourceId) {
+							fetchDataSource({groupId, id: dataSourceId});
+						}
+
 						getDataSources();
 					}
 				}
