@@ -126,8 +126,8 @@ createDocker {
 
 docker {
 	registryCredentials {
-		username = "liferayci"
-		password = "EJp28mGMQ9eQGfs"
+		password = System.getenv("DOCKER_PASSWORD")
+		username = System.getenv("DOCKER_USERNAME")
 	}
 }
 
