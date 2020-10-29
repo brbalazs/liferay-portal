@@ -84,15 +84,18 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 		setCurrentStep(currentStep + 1);
 	};
 
-	const handleSubmit = ({
-		includePreviousPeriod,
-		itemFilters,
-		name,
-		runDataPeriod,
-		runFrequency,
-		runNow,
-		type
-	}) => {
+	const handleSubmit = (
+		{
+			includePreviousPeriod,
+			itemFilters,
+			name,
+			runDataPeriod,
+			runFrequency,
+			runNow,
+			type
+		},
+		{setSubmitting}
+	) => {
 		let parameters = [
 			{
 				name: 'includePreviousPeriod',
@@ -161,6 +164,8 @@ const RecommendationStepCard: React.FC<IRecommendationStepCardProps> = ({
 						'there-was-an-error-processing-your-request.-please-try-again'
 					)
 				});
+
+				setSubmitting(false);
 			});
 	};
 
