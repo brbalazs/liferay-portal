@@ -28,6 +28,7 @@ import {
 } from 'recharts';
 import {find, get} from 'lodash';
 import {formatXAxisDate} from 'shared/util/charts';
+import {getDate} from 'shared/util/date';
 import {getDateTitle} from 'shared/util/charts';
 import {LAST_24_HOURS, YESTERDAY} from 'shared/util/constants';
 import {Map} from 'immutable';
@@ -56,6 +57,20 @@ export const tooltipLabelTitle = rangeKey => {
 	}
 
 	return label;
+};
+
+const getPreviousValueFromCompositeData = (
+	compositeData,
+	dataName,
+	dateKey
+) => {
+	const data = get(compositeData, dataName);
+
+	if (data) {
+		return data.find(
+			val => getDate(val.key).toString() === dateKey.toString()
+		).previousValue;
+	}
 };
 
 export default class MainMetrics extends React.Component {
@@ -359,6 +374,10 @@ export default class MainMetrics extends React.Component {
 							key={item.id}
 							legendType='plainline'
 							name={item.name}
+							onMouseEnter={(e, index) =>
+								this.setState({hoverIndex: index})
+							}
+							onMouseLeave={() => this.setState({hoverIndex: -1})}
 							stroke={item.color}
 							strokeDasharray={
 								item.id === CHART_DATA_PREVIOUS
@@ -388,7 +407,6 @@ export default class MainMetrics extends React.Component {
 
 		const {interval, rangeSelectors, showPrevious} = this.props;
 
-		const activeChartIndex = 0;
 		const dateKey = payload[0].payload.date;
 
 		const {
@@ -412,18 +430,17 @@ export default class MainMetrics extends React.Component {
 		);
 
 		const dataOnePreviousValue = compositeData
-			? get(compositeData, [
+			? getPreviousValueFromCompositeData(
+					compositeData,
 					get(dataOneItemData, 'dataName'),
-					activeChartIndex,
-					'previousValue'
-			  ])
+					dateKey
+			  )
 			: get(dataPreviousPoint, 'value');
-
-		const dataTwoPreviousValue = get(compositeData, [
+		const dataTwoPreviousValue = getPreviousValueFromCompositeData(
+			compositeData,
 			get(dataTwoItemData, 'dataName'),
-			activeChartIndex,
-			'previousValue'
-		]);
+			dateKey
+		);
 
 		const currentPeriodTitle = getDateTitle(
 			dateKeysIMap.get(dateKey),
