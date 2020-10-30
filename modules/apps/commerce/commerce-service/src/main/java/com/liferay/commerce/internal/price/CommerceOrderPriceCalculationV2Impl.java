@@ -93,7 +93,11 @@ public class CommerceOrderPriceCalculationV2Impl
 		BigDecimal subtotalWithTaxAmount = subtotalAmount.add(
 			taxValue.getPrice());
 
-		BigDecimal totalWithTaxAmount = subtotalWithTaxAmount;
+		BigDecimal totalTaxValue = taxValue.getPrice();
+
+		totalTaxValue = totalTaxValue.add(shippingTaxAmount.getPrice());
+
+		BigDecimal totalWithTaxAmount = totalAmount.add(totalTaxValue);
 
 		BigDecimal shippingDiscounted = shippingAmount;
 		BigDecimal shippingDiscountedWithTaxAmount = shippingWithTaxAmount;
@@ -164,10 +168,9 @@ public class CommerceOrderPriceCalculationV2Impl
 				taxValue.getPrice());
 			shippingDiscountedWithTaxAmount = shippingDiscounted.add(
 				shippingTaxAmount.getPrice());
-			totalDiscountedWithTaxAmount = totalDiscounted.add(
-				taxValue.getPrice());
+			totalDiscountedWithTaxAmount = totalDiscounted.add(totalTaxValue);
 
-			totalWithTaxAmount = totalAmount.add(taxValue.getPrice());
+			totalWithTaxAmount = totalAmount.add(totalTaxValue);
 		}
 		else {
 			orderShippingCommerceDiscountValue =
@@ -226,9 +229,9 @@ public class CommerceOrderPriceCalculationV2Impl
 			subtotalDiscounted = subtotalDiscountedWithTaxAmount.subtract(
 				taxValue.getPrice());
 			totalDiscounted = totalDiscountedWithTaxAmount.subtract(
-				taxValue.getPrice());
+				totalTaxValue);
 
-			totalAmount = totalWithTaxAmount.subtract(taxValue.getPrice());
+			totalAmount = totalWithTaxAmount.subtract(totalTaxValue);
 		}
 
 		// fill data
@@ -253,11 +256,13 @@ public class CommerceOrderPriceCalculationV2Impl
 		commerceOrderPriceImpl.setSubtotalWithTaxAmount(
 			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(), subtotalWithTaxAmount));
-		commerceOrderPriceImpl.setTaxValue(taxValue);
+		commerceOrderPriceImpl.setTaxValue(
+			commerceMoneyFactory.create(
+				commerceOrder.getCommerceCurrency(), totalTaxValue));
 		commerceOrderPriceImpl.setTotal(
 			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(),
-				totalDiscounted.add(taxValue.getPrice())));
+				totalDiscounted.add(totalTaxValue)));
 		commerceOrderPriceImpl.setTotalWithTaxAmount(
 			commerceMoneyFactory.create(
 				commerceOrder.getCommerceCurrency(),
