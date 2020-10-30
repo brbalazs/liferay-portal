@@ -227,6 +227,9 @@ public class UpgradeSubscription extends UpgradeProcess {
 				put(DLFolder.class.getName(), "DLFolder,groupId,folderId");
 				put(Layout.class.getName(), "Layout,groupId,plid");
 				put(
+					"com.liferay.calendar.model.CalendarBooking",
+					"CalendarBooking,groupId,calendarBookingId");
+				put(
 					"com.liferay.message.boards.kernel.model.MBCategory",
 					"MBCategory,groupId,categoryId");
 				put(
