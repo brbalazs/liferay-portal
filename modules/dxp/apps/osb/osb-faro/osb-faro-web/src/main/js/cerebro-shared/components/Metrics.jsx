@@ -188,23 +188,32 @@ export default class MainMetrics extends React.Component {
 		const chartData = retVal.data.slice(0, -1);
 		const timeline = last(retVal.data);
 
-		if (!showPrevious && retVal.isAsymmetricComparison) {
-			const compositeDataKeys = Object.keys(retVal.compositeData);
-
+		if (!showPrevious && retVal.asymmetricComparison) {
 			retVal = {
 				...retVal,
 				chartData: chartData.map(dataSet => ({
 					...dataSet,
 					data: dataSet.data.slice(1)
 				})),
-				compositeData: compositeDataKeys.reduce((acc, val) => {
-					acc = {...acc, [val]: retVal.compositeData[val].slice(1)};
-
-					return acc;
-				}, {}),
 				intervals: retVal.intervals.slice(1),
 				timeline: {data: timeline.data.slice(1), id: timeline.id}
 			};
+
+			if (retVal.compositeData) {
+				const compositeDataKeys = Object.keys(retVal.compositeData);
+
+				retVal = {
+					...retVal,
+					compositeData: compositeDataKeys.reduce((acc, val) => {
+						acc = {
+							...acc,
+							[val]: retVal.compositeData[val].slice(1)
+						};
+
+						return acc;
+					}, {})
+				};
+			}
 		} else {
 			retVal = {
 				...retVal,

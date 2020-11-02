@@ -92,19 +92,22 @@ export const INDIVIDUALS_FRAGMENT = gql`
 	}
 `;
 
-// TODO: LRAC-6871 - Add isAsymmetricComparison to query
 export const METRIC_FRAGMENT = gql`
 	fragment metricFragment on Metric {
 		histogram {
-			key
-			previousValue
-			previousValueKey
-			value
-			valueKey
-			trend {
-				percentage
-				trendClassification
+			asymmetricComparison
+			metrics {
+				key
+				previousValue
+				previousValueKey
+				value
+				valueKey
+				trend {
+					percentage
+					trendClassification
+				}
 			}
+			total
 		}
 		previousValue
 		trend {

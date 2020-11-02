@@ -427,22 +427,27 @@ export function mockLiferayDataSource(seed = 1, data = {}) {
 
 export function mockMetricFragment(seed = 0, data = {}) {
 	return {
-		histogram: range(30).map(i => ({
-			key: `${moment(getTimestamp(i)).format('YYYY-MM-DD')}T00:00`,
-			previousValue: seed * i * 2,
-			previousValueKey: `${moment(getTimestamp(i - 30)).format(
-				'YYYY-MM-DD'
-			)}T00:00`,
-			trend: {
-				percentage: 0,
+		histogram: {
+			asymmetricComparison: false,
+			metrics: range(30).map(i => ({
+				key: `${moment(getTimestamp(i)).format('YYYY-MM-DD')}T00:00`,
+				previousValue: seed * i * 2,
+				previousValueKey: `${moment(getTimestamp(i - 30)).format(
+					'YYYY-MM-DD'
+				)}T00:00`,
 				trend: {
-					percentage: -50,
-					trendClassification: 'NEGATIVE'
-				}
-			},
-			value: seed * i,
-			valueKey: `${moment(getTimestamp(i)).format('YYYY-MM-DD')}T00:00`
-		})),
+					percentage: 0,
+					trend: {
+						percentage: -50,
+						trendClassification: 'NEGATIVE'
+					}
+				},
+				value: seed * i,
+				valueKey: `${moment(getTimestamp(i)).format(
+					'YYYY-MM-DD'
+				)}T00:00`
+			}))
+		},
 		previousValue: seed * 0.75,
 		trend: {
 			percentage: 33.3,

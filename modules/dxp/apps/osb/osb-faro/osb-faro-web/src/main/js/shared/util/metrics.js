@@ -134,7 +134,7 @@ export const getMetricsData = (
 	metrics.map(({compositeMetrics, name, title, tooltipTitle, type}) => {
 		const metricFormatter = getMetricFormatter(type);
 
-		const histogram = result[name].histogram.map(
+		const histogram = result[name].histogram.metrics.map(
 			convertHistogramKeysToDate
 		);
 
@@ -143,7 +143,7 @@ export const getMetricsData = (
 					compositeData: compositeMetrics.reduce(
 						(acc, {name: compositeMetricName}) => {
 							acc[compositeMetricName] =
-								result[compositeMetricName].histogram;
+								result[compositeMetricName].histogram.metrics;
 
 							return acc;
 						},
@@ -158,6 +158,7 @@ export const getMetricsData = (
 
 		return {
 			...compositeData,
+			asymmetricComparison: result[name].histogram.asymmetricComparison,
 			content: {
 				details: {
 					color: getStatsColor(
@@ -189,7 +190,6 @@ export const getMetricsData = (
 				timeInterval,
 				dateKeysIMap
 			),
-			isAsymmetricComparison: result[name].isAsymmetricComparison,
 			prevDateKeysIMap: new Map(
 				histogram.map(({key, previousValueKey}) => [
 					key,

@@ -58,38 +58,44 @@ describe('getMetricsData', () => {
 
 		const result = {
 			comments: {
-				histogram: [
-					{
-						key: keyDate,
-						previousValue: 0,
-						previousValueKey: previousValueKeyDate,
-						trend: {
-							percentage: 10,
-							trendClassification: 'NEUTRAL'
-						},
-						value: 15,
-						valueKey: valueKeyDate
-					}
-				],
+				histogram: {
+					asymmetricalComparison: false,
+					metrics: [
+						{
+							key: keyDate,
+							previousValue: 0,
+							previousValueKey: previousValueKeyDate,
+							trend: {
+								percentage: 10,
+								trendClassification: 'NEUTRAL'
+							},
+							value: 15,
+							valueKey: valueKeyDate
+						}
+					]
+				},
 				trend: {
 					percentage: 10,
 					trendClassification: 'NEUTRAL'
 				}
 			},
 			views: {
-				histogram: [
-					{
-						key: keyDate,
-						previousValue: 0,
-						previousValueKey: previousValueKeyDate,
-						trend: {
-							percentage: 10,
-							trendClassification: 'NEUTRAL'
-						},
-						value: 5,
-						valueKey: valueKeyDate
-					}
-				],
+				histogram: {
+					asymmetricalComparison: false,
+					metrics: [
+						{
+							key: keyDate,
+							previousValue: 0,
+							previousValueKey: previousValueKeyDate,
+							trend: {
+								percentage: 10,
+								trendClassification: 'NEUTRAL'
+							},
+							value: 5,
+							valueKey: valueKeyDate
+						}
+					]
+				},
 				trend: {
 					percentage: -100,
 					trendClassification: 'NEGATIVE'
@@ -239,7 +245,7 @@ describe('getMetricsChartData', () => {
 		const mockParameters = {
 			histogram: data
 				.mockMetricFragment(10)
-				.histogram.map(convertHistogramKeysToDate),
+				.histogram.metrics.map(convertHistogramKeysToDate),
 			name: 'fooMetric',
 			title: '',
 			tooltipTitle: '',
@@ -258,14 +264,14 @@ describe('getSiteMetricsChartData', () => {
 			compositeData: {
 				anonymousVisitorsMetric: data
 					.mockMetricFragment(25)
-					.histogram.map(convertHistogramKeysToDate),
+					.histogram.metrics.map(convertHistogramKeysToDate),
 				knownVisitorsMetric: data
 					.mockMetricFragment(55)
-					.histogram.map(convertHistogramKeysToDate)
+					.histogram.metrics.map(convertHistogramKeysToDate)
 			},
 			histogram: data
 				.mockMetricFragment(85)
-				.histogram.map(convertHistogramKeysToDate),
+				.histogram.metrics.map(convertHistogramKeysToDate),
 			name,
 			title,
 			tooltipTitle,
