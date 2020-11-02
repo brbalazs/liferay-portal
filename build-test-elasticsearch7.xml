@@ -101,6 +101,16 @@ xpack.security.sessionTimeout: 600000</echo>
 		</sequential>
 	</macrodef>
 
+	<macrodef name="configure-local-cluster-properties">
+		<sequential>
+			<echo file="${elasticsearch.dir}-2/config/elasticsearch.yml">${line.separator}bootstrap.system_call_filter: false
+cluster.name: LiferayElasticsearchClusterTwo
+http.port: 9202
+transport.port: 9500-9600
+xpack.ml.enabled: false</echo>
+		</sequential>
+	</macrodef>
+
 	<macrodef name="configure-portal-remote-elasticsearch-osgi-properties">
 		<sequential>
 			<echo append="true" file="${liferay.home}/osgi/configs/com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration.config">${line.separator}operationMode="REMOTE"</echo>
@@ -377,6 +387,50 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 			</exec>
 
 			<echo>${curl.output}</echo>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="start-ccr-trial">
+		<sequential>
+			<exec executable="curl" outputproperty="curl.output.trial.remote.cluster">
+				<arg value="-H" />
+				<arg value="Content-Type:application/json" />
+				<arg value="-X" />
+				<arg value="POST" />
+				<arg value="http://localhost:9200/_license/start_trial?acknowledge=true" />
+			</exec>
+
+			<echo>${curl.output.trial.remote.cluster}</echo>
+
+			<if>
+				<contains string="${curl.output.trial.remote.cluster}" substring="&quot;trial_was_started&quot;:true" />
+				<then>
+					<echo>Trial license activated on remote cluster.</echo>
+				</then>
+				<else>
+					<fail>Trial license failed to activate on remote cluster.</fail>
+				</else>
+			</if>
+
+			<exec executable="curl" outputproperty="curl.output.trial.local.cluster">
+				<arg value="-H" />
+				<arg value="Content-Type:application/json" />
+				<arg value="-X" />
+				<arg value="POST" />
+				<arg value="http://localhost:9202/_license/start_trial?acknowledge=true" />
+			</exec>
+
+			<echo>${curl.output.trial.local.cluster}</echo>
+
+			<if>
+				<contains string="${curl.output.trial.local.cluster}" substring="&quot;trial_was_started&quot;:true" />
+				<then>
+					<echo>Trial license activated on local cluster.</echo>
+				</then>
+				<else>
+					<fail>Trial license failed to activate on local cluster.</fail>
+				</else>
+			</if>
 		</sequential>
 	</macrodef>
 
@@ -687,9 +741,27 @@ xpack.monitoring.collection.enabled: true</echo>
 
 		<antcall target="configure-elasticsearch-cluster-properties" />
 
-		<antcall target="prepare-additional-elasticsearch-dirs" />
+		<get-testcase-property property.name="remote.elasticsearch.ccr.enabled" />
 
-		<antcall target="start-elasticsearch-node" />
+		<if>
+			<equals arg1="${remote.elasticsearch.ccr.enabled}" arg2="true" />
+			<then>
+				<antcall target="prepare-additional-elasticsearch-dirs">
+					<param name="remote.elasticsearch.cluster.size" value="2" />
+				</antcall>
+
+				<configure-local-cluster-properties />
+
+				<antcall target="start-elasticsearch-node">
+					<param name="remote.elasticsearch.cluster.size" value="2" />
+				</antcall>
+			</then>
+			<else>
+				<antcall target="prepare-additional-elasticsearch-dirs" />
+
+				<antcall target="start-elasticsearch-node" />
+			</else>
+		</if>
 
 		<if>
 			<equals arg1="${elastic.xpack.enabled}" arg2="true" />
@@ -727,10 +799,27 @@ xpack.monitoring.collection.enabled: true</echo>
 					/>
 
 					<print-file file.name="${elasticsearch.dir}-${elasticsearch.node.number}/logs/LiferayElasticsearchCluster.log" />
+
+					<if>
+						<equals arg1="${remote.elasticsearch.ccr.enabled}" arg2="true" />
+						<then>
+							<waitfor maxwait="30" maxwaitunit="second" timeoutproperty="elasticsearch.server.not.started">
+								<http url="http://localhost:9202/" />
+							</waitfor>
+							<print-file file.name="${elasticsearch.dir}-2/logs/LiferayElasticsearchClusterTwo.log" />
+						</then>
+					</if>
 				</antelope:repeat>
 
 				<fail if="elasticsearch.server.not.started" message="Elasticsearch server failed to initialize." />
 			</else>
+		</if>
+
+		<if>
+			<equals arg1="${remote.elasticsearch.ccr.enabled}" arg2="true" />
+			<then>
+				<start-ccr-trial />
+			</then>
 		</if>
 	</target>
 
@@ -741,6 +830,15 @@ xpack.monitoring.collection.enabled: true</echo>
 			<var name="elasticsearch.node.number" value="0" />
 
 			<get-java-jdk-home />
+
+			<get-testcase-property property.name="remote.elasticsearch.ccr.enabled" />
+
+			<if>
+				<equals arg1="${remote.elasticsearch.ccr.enabled}" arg2="true" />
+				<then>
+					<configure-elasticsearch7-test-properties />
+				</then>
+			</if>
 
 			<antelope:repeat count="${remote.elasticsearch.cluster.size}">
 				<math
@@ -894,6 +992,44 @@ xpack.monitoring.collection.enabled: true</echo>
 				<antcall target="stop-kibana" />
 			</then>
 		</if>
+	</target>
+
+	<target name="stop-elasticsearch-local-cluster">
+		<configure-elasticsearch7-test-properties />
+
+		<if>
+			<os family="unix" />
+			<then>
+				<loadfile
+					property="pid-elasticsearch"
+					srcFile="${elasticsearch.dir}-2/pid-elasticsearch"
+				>
+					<filterchain>
+						<linecontainsregexp>
+							<regexp pattern="[0-9]*" />
+						</linecontainsregexp>
+					</filterchain>
+				</loadfile>
+
+				<exec dir="${elasticsearch.dir}-2/bin" executable="/bin/bash">
+					<arg value="-c" />
+					<arg value="kill ${pid-elasticsearch}" />
+				</exec>
+
+				<var name="pid-elasticsearch" unset="true" />
+			</then>
+			<elseif>
+				<os family="windows" />
+				<then>
+					<exec dir="${elasticsearch.dir}-2/bin" executable="cmd" spawn="true">
+						<arg value="/c" />
+						<arg value="for /f %x in (pid-elasticsearch) do taskkill /f /pid %x" />
+					</exec>
+				</then>
+			</elseif>
+		</if>
+
+		<print-file file.name="${elasticsearch.dir}-2/logs/LiferayElasticsearchClusterTwo.log" />
 	</target>
 
 	<target name="stop-kibana">

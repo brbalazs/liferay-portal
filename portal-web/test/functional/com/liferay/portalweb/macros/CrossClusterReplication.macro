@@ -1,0 +1,41 @@
+definition {
+
+	macro configureCrossClusterReplication {
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Search",
+			configurationName = "Cross-Cluster Replication",
+			configurationScope = "System Scope");
+
+		FormFields.enableCheckbox(fieldName = "ccrEnabled");
+
+		FormFields.editTextMultiline(
+			fieldName = "ccrLocalClusterConnectionConfigurations",
+			fieldValue = "localhost:8080,ccr");
+
+		// Workaround for LPS-119745
+
+		FormFields.editTextMultiline(
+			fieldName = "excludedIndexes",
+			fieldValue = "ilm-history-2-000001");
+
+		SystemSettings.saveConfiguration();
+	}
+
+	macro setupCrossClusterReplication {
+		OSGiConfig.deployOSGiConfigs(
+			OSGiConfigFileName = "com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration.config",
+			OSGiConfigs = "operationMode=&quot;REMOTE&quot;,logExceptionsOnly=&quot;true&quot;");
+
+		OSGiConfig.deployOSGiConfigs(
+			OSGiConfigFileName = "com.liferay.portal.search.elasticsearch.cross.cluster.replication.internal.configuration.ElasticsearchConnectionConfiguration-ccr.config",
+			OSGiConfigs = "clusterName=&quot;LiferayElasticsearchClusterTwo&quot;,connectionId=&quot;ccr&quot;,networkHostAddress=&quot;http://localhost:9202&quot;,transportAddresses=[&quot;localhost:9500&quot;]");
+
+		CrossClusterReplication.configureCrossClusterReplication();
+	}
+
+}

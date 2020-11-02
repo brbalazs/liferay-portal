@@ -96,4 +96,17 @@ definition {
 		}
 	}
 
+	macro viewActiveConnectionsError {
+		if (IsTextEqual.isPartialText(locator1 = "Message#ERROR", value1 = "are available")) {
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#ERROR",
+				value1 = "None of the configured nodes are available");
+		}
+		else {
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#ERROR",
+				value1 = "None of the configured nodes were available");
+		}
+	}
+
 }
