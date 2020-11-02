@@ -158,7 +158,7 @@ definition {
 		Navigator.openSpecificURL(url = "http://www.able.com:8080");
 
 		ProductMenu.gotoPortlet(
-			category = "Content &amp; Data",
+			category = "Content",
 			panel = "Site Administration",
 			portlet = "Documents and Media");
 
