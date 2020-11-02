@@ -184,14 +184,6 @@ definition {
 			value1 = "0");
 	}
 
-	macro viewItemNotNested {
-		AssertAttributeValue(
-			key_itemName = "${itemName}",
-			locator1 = "SiteNavigationMenu#ITEM_ENTRY",
-			locator2 = "data-parent-site-navigation-menu-item-id",
-			value1 = "0");
-	}
-
 	macro viewItemOrder {
 		AssertTextEquals.assertPartialText(
 			key_index = "${index}",
