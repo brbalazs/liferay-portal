@@ -369,6 +369,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>SELECTOR_INPUT</td>
+	<td>//input[contains(@id,'${key_fieldName}')][contains(@readonly,'readonly')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>SEO_HTML_TITLE</td>
 	<td>//div[label[contains(.,'HTML')]]//input</td>
 	<td></td>
