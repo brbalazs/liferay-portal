@@ -39,17 +39,17 @@ Feature: Order an Account Profile's Interests
 		Then I should see the following ordered rows in the bar graph table:
 			| cutting-edge platforms   |
 			| visionary platforms      |
-			| rich e-commerce          |
 			| web-enabled interfaces   |
 			| mesh                     |
 			| mesh synergistic schemas |
+			| rich e-commerce          |
 			| synergistic schemas      |
 		When I sort the table by the "Account Members" column header in ascending order
 		Then I should see the following ordered rows in the bar graph table:
 			| mesh                     |
 			| mesh synergistic schemas |
-			| synergistic schemas	   |
 			| rich e-commerce          |
+			| synergistic schemas	   |
 			| web-enabled interfaces   |
 			| cutting-edge platforms   |
 			| visionary platforms      |
