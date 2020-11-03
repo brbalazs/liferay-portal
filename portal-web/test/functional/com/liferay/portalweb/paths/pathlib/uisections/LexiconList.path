@@ -13,6 +13,11 @@
 	<td>//li[@data-qa-id='row'][contains(.,'${key_listEntry}')]//span[contains(@class,'workflow-value')][contains(.,'${key_listEntryLabel}')]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>LIST_ENTRY_TITLE_LINK</td>
+	<td>//li[@data-qa-id='row'][contains(.,'${key_listEntry}')]//a</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
