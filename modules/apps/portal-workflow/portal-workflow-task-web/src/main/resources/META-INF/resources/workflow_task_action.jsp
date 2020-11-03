@@ -80,16 +80,7 @@ redirectURL.setParameter("mvcPath", "/view.jsp");
 			<c:otherwise>
 				<liferay-portlet:renderURL copyCurrentRenderParameters="<%= false %>" var="assignToMeURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 					<portlet:param name="mvcPath" value="/workflow_task_assign.jsp" />
-
-					<c:choose>
-						<c:when test='<%= Validator.isNull(request.getParameter("workflowTaskId")) %>'>
-							<portlet:param name="redirect" value="<%= redirectURL.toString() %>" />
-						</c:when>
-						<c:otherwise>
-							<portlet:param name="redirect" value="<%= currentURL %>" />
-						</c:otherwise>
-					</c:choose>
-
+					<portlet:param name="redirect" value='<%= Validator.isNull(request.getParameter("workflowTaskId")) ? redirectURL.toString() : currentURL %>' />
 					<portlet:param name="workflowTaskId" value="<%= String.valueOf(workflowTask.getWorkflowTaskId()) %>" />
 					<portlet:param name="assigneeUserId" value="<%= String.valueOf(user.getUserId()) %>" />
 				</liferay-portlet:renderURL>
