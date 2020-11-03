@@ -937,8 +937,8 @@ definition {
 	@priority = "5"
 	test ExportImportPrivatePage {
 		property portal.acceptance = "true";
-		property testray.component.names = "Training";
 		property test.name.skip.portal.instance = "ExportImport#ExportImportPrivatePage";
+		property testray.component.names = "Training";
 
 		ProductMenu.gotoPortlet(
 			category = "Build",

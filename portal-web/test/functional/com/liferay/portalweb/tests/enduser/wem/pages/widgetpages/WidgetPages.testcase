@@ -150,6 +150,7 @@ definition {
 	@priority = "4"
 	test AddSitePrivateChildPage {
 		property testray.component.names = "Site Pages Administration";
+
 		var portalURL = PropsUtil.get("portal.url");
 
 		JSONLayout.addPrivateLayout(
@@ -174,6 +175,7 @@ definition {
 	@priority = "4"
 	test AddSitePrivatePagePortlet {
 		property testray.component.names = "Site Pages Administration";
+
 		var portalURL = PropsUtil.get("portal.url");
 
 		JSONLayout.addPrivateLayout(
@@ -195,6 +197,7 @@ definition {
 	@priority = "4"
 	test AddSitePublicPage {
 		property testray.component.names = "Site Pages Administration";
+
 		var portalURL = PropsUtil.get("portal.url");
 
 		JSONLayout.addPublicLayout(
@@ -329,6 +332,7 @@ definition {
 	@priority = "4"
 	test SaveEmbeddedPageType {
 		property testray.component.names = "Site Pages Administration";
+
 		var portalURL = PropsUtil.get("portal.url");
 
 		SitePages.openPagesAdmin(siteURLKey = "test-site-name");

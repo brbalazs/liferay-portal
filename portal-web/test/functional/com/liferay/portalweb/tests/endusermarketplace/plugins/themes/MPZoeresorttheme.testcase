@@ -10,6 +10,7 @@ definition {
 	@priority = "4"
 	test ZoeResortThemeSmoke {
 		property theme.plugins.includes = "zoe-resort-theme";
+
 		var appName = "Zoe Resort";
 
 		ProductMenu.gotoPortlet(

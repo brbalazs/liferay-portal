@@ -11,6 +11,7 @@ definition {
 	test ZoeHealthcareThemeSmoke {
 		property portlet.plugins.includes = "web-form-portlet";
 		property theme.plugins.includes = "zoe-healthcare-theme";
+
 		var appName = "Zoe Healthcare";
 
 		ProductMenu.gotoPortlet(

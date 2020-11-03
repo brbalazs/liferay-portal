@@ -1226,6 +1226,7 @@ definition {
 	@priority = "4"
 	test ViewContentInCustomOrganizationTypeSite {
 		property test.name.skip.portal.instance = "UsersandorganizationsUsecase#ViewContentInCustomOrganizationTypeSite";
+
 		var portalURL = PropsUtil.get("portal.url");
 
 		ProductMenu.gotoPortlet(

@@ -122,6 +122,7 @@ definition {
 	@priority = "4"
 	test BreadcrumbLinkPointsToLocalhost {
 		property test.name.skip.portal.instance = "BreadcrumbUsecase#BreadcrumbLinkPointsToLocalhost";
+
 		var portalURL = PropsUtil.get("portal.url");
 
 		ProductMenu.gotoPortlet(

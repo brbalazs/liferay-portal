@@ -688,6 +688,7 @@ definition {
 	@priority = "3"
 	test SiteFriendlyURLLayoutImporter {
 		property testray.component.names = "Site Administration";
+
 		var portalURL = PropsUtil.get("portal.url");
 
 		ProductMenu.gotoPortlet(
@@ -897,6 +898,7 @@ definition {
 		property portal.release = "false";
 		property test.name.skip.portal.instance = "SitesUsecase#SitesDemoSiteManagement";
 		property testray.component.names = "Site Administration,Site Pages Administration";
+
 		var portalURL = PropsUtil.get("portal.url");
 
 		ProductMenu.gotoPortlet(

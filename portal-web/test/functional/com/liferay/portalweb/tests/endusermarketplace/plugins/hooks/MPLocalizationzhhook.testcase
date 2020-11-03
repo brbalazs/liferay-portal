@@ -10,6 +10,7 @@ definition {
 	@priority = "4"
 	test LocalizationZHHookSmoke {
 		property hook.plugins.includes = "localization-zh-hook";
+
 		var appName = "Chinese Localization";
 
 		ProductMenu.gotoPortlet(

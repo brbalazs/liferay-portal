@@ -235,6 +235,7 @@ definition {
 	@priority = "3"
 	test SitesPanelLayout {
 		property testray.component.names = "Site Pages Administration";
+
 		var portalURL = PropsUtil.get("portal.url");
 
 		ProductMenu.gotoPortlet(
@@ -1100,6 +1101,7 @@ definition {
 	test WebContentAdministrationSitesPageTypes {
 		property portal.release = "false";
 		property testray.component.names = "Site Pages Administration,Training";
+
 		var portalURL = PropsUtil.get("portal.url");
 
 		ProductMenu.gotoPortlet(

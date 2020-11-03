@@ -10,6 +10,7 @@ definition {
 	@priority = "4"
 	test LocalizationJAHookSmoke {
 		property hook.plugins.includes = "localization-ja-hook";
+
 		var appName = "Japanese Localization";
 
 		ProductMenu.gotoPortlet(

@@ -10,6 +10,7 @@ definition {
 	@priority = "4"
 	test SocialBookmarksHookSmoke {
 		property hook.plugins.includes = "social-bookmarks-hook";
+
 		var appName = "Social Bookmarks";
 
 		ProductMenu.gotoPortlet(

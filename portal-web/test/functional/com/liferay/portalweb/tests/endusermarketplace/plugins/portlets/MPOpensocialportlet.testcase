@@ -21,6 +21,7 @@ definition {
 	@priority = "4"
 	test OpenSocialPortletSmoke {
 		property portlet.plugins.includes = "opensocial-portlet";
+
 		var appName = "OpenSocial Gadget";
 
 		Navigator.gotoPage(pageName = "Test Page");

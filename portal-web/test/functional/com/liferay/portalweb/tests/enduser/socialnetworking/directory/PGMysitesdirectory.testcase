@@ -1,9 +1,10 @@
 @component-name = "portal-social-networking"
 definition {
 
-	property portal.upstream = "true";
 	property custom.properties = "default.layout.template.id=1_column";
+	property portal.upstream = "true";
 	property testray.main.component.name = "Social Networking";
+
 	var pageName = "My Sites Directory Page";
 	var portletName = "My Sites Directory";
 

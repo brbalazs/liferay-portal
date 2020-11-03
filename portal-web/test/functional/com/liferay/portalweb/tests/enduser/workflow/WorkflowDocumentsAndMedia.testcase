@@ -35,9 +35,8 @@ definition {
 
 	@priority = "5"
 	test ApproveInDMFolderCustomWorkflow {
-		property test.name.skip.portal.instance = "WorkflowDocumentsAndMedia#ApproveInDMFolderCustomWorkflow";
-
 		property portal.release = "false";
+		property test.name.skip.portal.instance = "WorkflowDocumentsAndMedia#ApproveInDMFolderCustomWorkflow";
 		property testray.component.names = "Training";
 
 		ProductMenu.gotoPortlet(

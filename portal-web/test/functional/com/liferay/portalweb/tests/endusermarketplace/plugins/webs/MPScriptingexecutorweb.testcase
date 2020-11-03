@@ -10,6 +10,7 @@ definition {
 	@priority = "4"
 	test ScriptingExecutorWebSmoke {
 		property web.plugins.includes = "scripting-executor-web";
+
 		var appName = "Scripting Executor";
 
 		ProductMenu.gotoPortlet(

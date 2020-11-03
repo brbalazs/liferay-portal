@@ -10,6 +10,7 @@ definition {
 	@priority = "4"
 	test ZoePoliticalThemeSmoke {
 		property theme.plugins.includes = "zoe-political-theme";
+
 		var appName = "Zoe Political";
 
 		ProductMenu.gotoPortlet(

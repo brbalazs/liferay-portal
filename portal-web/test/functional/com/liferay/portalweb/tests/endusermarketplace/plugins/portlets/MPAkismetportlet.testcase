@@ -10,6 +10,7 @@ definition {
 	@priority = "4"
 	test AkismetPortletSmoke {
 		property portlet.plugins.includes = "akismet-portlet";
+
 		var appName = "Akismet";
 
 		ProductMenu.gotoPortlet(

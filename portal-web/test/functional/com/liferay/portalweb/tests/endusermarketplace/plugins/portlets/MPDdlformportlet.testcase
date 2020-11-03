@@ -21,6 +21,7 @@ definition {
 	@priority = "4"
 	test DDLFormPortletSmoke {
 		property portlet.plugins.includes = "ddl-form-portlet";
+
 		var appName = "Dynamic Data List Form";
 
 		Navigator.gotoPage(pageName = "Test Page");

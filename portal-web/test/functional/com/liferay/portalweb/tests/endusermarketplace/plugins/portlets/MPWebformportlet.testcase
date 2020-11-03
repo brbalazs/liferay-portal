@@ -21,6 +21,7 @@ definition {
 	@priority = "4"
 	test WebFormPortletSmoke {
 		property portlet.plugins.includes = "web-form-portlet";
+
 		var appName = "Web Form";
 
 		Navigator.gotoPage(pageName = "Test Page");

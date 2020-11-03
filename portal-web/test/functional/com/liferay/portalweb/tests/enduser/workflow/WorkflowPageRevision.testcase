@@ -4,6 +4,7 @@ definition {
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Workflow";
+
 	var page = "Public Pages";
 	var pageName = "Site Page Name";
 	var siteName = "Site Name";
@@ -173,6 +174,7 @@ definition {
 	@priority = "5"
 	test ViewApprovedPageAfterStagingDeactivated {
 		property portal.acceptance = "false";
+
 		var pageName = "New Site Page Name";
 
 		Navigator.gotoStagedSitePage(

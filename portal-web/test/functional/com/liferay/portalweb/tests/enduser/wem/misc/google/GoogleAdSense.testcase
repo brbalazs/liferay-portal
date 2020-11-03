@@ -1,9 +1,9 @@
 @component-name = "portal-plugins-osgi"
 definition {
 
+	property plugins.deployment.type = "osgi";
 	property portal.release = "true";
 	property portal.upstream = "true";
-	property plugins.deployment.type = "osgi";
 	property testray.component.names = "Google";
 	property testray.main.component.name = "Google";
 
@@ -25,6 +25,7 @@ definition {
 	@priority = "4"
 	test GoogleAdSensePortletSmoke {
 		property portlet.plugins.includes = "google-adsense-portlet";
+
 		var appName = "Google AdSense";
 
 		Navigator.gotoPage(pageName = "Test Page");

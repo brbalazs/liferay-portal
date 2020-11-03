@@ -21,6 +21,7 @@ definition {
 	@priority = "4"
 	test MySubscriptionsPortletSmoke {
 		property portlet.plugins.includes = "my-subscriptions-portlet";
+
 		var appName = "My Subscriptions";
 
 		Navigator.gotoPage(pageName = "Test Page");

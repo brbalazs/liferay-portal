@@ -10,6 +10,7 @@ definition {
 	@priority = "4"
 	test LogosRefTaggerPortletSmoke {
 		property portlet.plugins.includes = "logos-reftagger-portlet";
+
 		var appName = "Logos RefTagger";
 
 		ProductMenu.gotoPortlet(

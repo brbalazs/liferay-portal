@@ -10,6 +10,7 @@ definition {
 	@priority = "4"
 	test SyncWebSmoke {
 		property web.plugins.includes = "sync-web";
+
 		var appName = "Sync";
 
 		ProductMenu.gotoPortlet(

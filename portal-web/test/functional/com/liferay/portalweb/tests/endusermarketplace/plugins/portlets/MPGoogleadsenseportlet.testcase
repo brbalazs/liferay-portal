@@ -21,6 +21,7 @@ definition {
 	@priority = "4"
 	test GoogleAdSensePortletSmoke {
 		property portlet.plugins.includes = "google-adsense-portlet";
+
 		var appName = "Google AdSense";
 
 		Navigator.gotoPage(pageName = "Test Page");

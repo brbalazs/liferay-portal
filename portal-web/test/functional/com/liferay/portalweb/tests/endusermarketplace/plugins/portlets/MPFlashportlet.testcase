@@ -21,6 +21,7 @@ definition {
 	@priority = "4"
 	test FlashPortletSmoke {
 		property portlet.plugins.includes = "flash-portlet";
+
 		var appName = "Flash";
 
 		Navigator.gotoPage(pageName = "Test Page");

@@ -10,6 +10,7 @@ definition {
 	@priority = "4"
 	test 323ColumnsLayouttplSmoke {
 		property layouttpl.plugins.includes = "3-2-3-columns-layouttpl";
+
 		var appName = "3-2-3 Columns Layout";
 
 		ProductMenu.gotoPortlet(

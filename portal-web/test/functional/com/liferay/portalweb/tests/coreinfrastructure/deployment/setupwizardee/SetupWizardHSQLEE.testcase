@@ -34,8 +34,8 @@ definition {
 
 	@priority = "4"
 	test HSQLtoDB2SampleDataEnabled {
-		property databases.size = "1";
 		property database.types = "db2";
+		property databases.size = "1";
 		property test.name.skip.portal.instance = "SetupWizardHSQL#HSQLtoDB2SampleDataEnabled";
 
 		SetupWizard.configurePG(
@@ -83,8 +83,8 @@ definition {
 
 	@priority = "4"
 	test HSQLtoOracleSampleDataEnabled {
-		property databases.size = "1";
 		property database.types = "oracle";
+		property databases.size = "1";
 		property test.name.skip.portal.instance = "SetupWizardHSQL#HSQLtoOracleSampleDataEnabled";
 
 		SetupWizard.configurePG(
@@ -132,8 +132,8 @@ definition {
 
 	@priority = "4"
 	test HSQLtoSybaseSampleDataEnabled {
-		property databases.size = "1";
 		property database.types = "sybase";
+		property databases.size = "1";
 		property test.name.skip.portal.instance = "SetupWizardHSQL#HSQLtoSybaseSampleDataEnabled";
 
 		SetupWizard.configurePG(

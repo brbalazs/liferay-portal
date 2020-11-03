@@ -21,6 +21,7 @@ definition {
 	@priority = "4"
 	test NotificationsPortletSmoke {
 		property portlet.plugins.includes = "notifications-portlet";
+
 		var appName = "Notifications";
 
 		Navigator.gotoPage(pageName = "Test Page");

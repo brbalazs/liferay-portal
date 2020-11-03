@@ -2,6 +2,7 @@
 definition {
 
 	property testray.main.component.name = "Plugin Installer";
+
 	var appName = "Knowledge Base";
 
 	setUp {
