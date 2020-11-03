@@ -4,16 +4,14 @@ const crypto = require('crypto');
 const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const webpack = require('webpack');
 const {CheckerPlugin} = require('awesome-typescript-loader');
 
 const PUBLIC_PATH = '/o/osb-faro-web/dist/';
 
 function checksum(obj) {
-	return crypto
-		.createHash('MD5')
-		.update(JSON.stringify(obj))
-		.digest('hex');
+	return crypto.createHash('MD5').update(JSON.stringify(obj)).digest('hex');
 }
 
 function getPathsChecksum() {
@@ -108,7 +106,13 @@ const config = {
 			{
 				test: /\.svg$/,
 				use: [
-					'svg-sprite-loader',
+					{
+						loader: 'svg-sprite-loader',
+						options: {
+							extract: true,
+							spriteFilename: 'sprite-[hash:6].svg'
+						}
+					},
 					{
 						loader: 'svgo-loader',
 						options: {
@@ -138,6 +142,7 @@ const config = {
 			filename: 'main.css'
 		}),
 		new BundleQueryStringPlugin(),
+		new SpriteLoaderPlugin(),
 		new webpack.DefinePlugin({
 			CEREBRO_PATHS_GEOMAP_KEY: JSON.stringify(getPathsChecksum()),
 			FARO_ENV: JSON.stringify(process.env.FARO_ENVIRONMENT_NAME || '')
