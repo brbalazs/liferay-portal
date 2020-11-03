@@ -2091,21 +2091,23 @@ definition {
 	}
 
 	macro viewWithStructureCP {
-		LexiconEntry.changeDisplayStyle(displayStyle = "list");
+		if (!(isSet(predefinedValue))) {
+			LexiconEntry.changeDisplayStyle(displayStyle = "list");
 
-		WebContentNavigator.gotoEditCP(
-			webContentTitle = "${webContentTitle}",
-			webContentTitleEscapeCharacter = "${webContentTitleEscapeCharacter}");
+			WebContentNavigator.gotoEditCP(
+				webContentTitle = "${webContentTitle}",
+				webContentTitleEscapeCharacter = "${webContentTitleEscapeCharacter}");
 
-		AssertTextEquals(
-			locator1 = "TextInput#TITLE",
-			value1 = "${webContentTitle}");
-
-		if (isSet(description)) {
 			AssertTextEquals(
-				key_editor = "description",
-				locator1 = "AlloyEditor#EDITOR",
-				value1 = "${description}");
+				locator1 = "TextInput#TITLE",
+				value1 = "${webContentTitle}");
+
+			if (isSet(description)) {
+				AssertTextEquals(
+					key_editor = "description",
+					locator1 = "AlloyEditor#EDITOR",
+					value1 = "${description}");
+			}
 		}
 
 		if (isSet(webContentBoolean)) {
