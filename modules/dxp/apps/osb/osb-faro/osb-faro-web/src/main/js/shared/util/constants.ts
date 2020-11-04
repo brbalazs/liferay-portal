@@ -189,7 +189,7 @@ export const TIME_RANGE_LABELS = {
 /**
  * Sprite
  */
-export const spritemap = `${window.faroConstants.pathThemeImages}/lexicon/icons.svg`;
+export const spritemap = '/o/osb-faro-web/dist/sprite.svg';
 
 /**
  * Jobs
