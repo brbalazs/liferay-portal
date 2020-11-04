@@ -9357,6 +9357,7 @@ session.cookie.use.full.hostname=true
 		<get-ip-address />
 
 		<echo append="true" file="${test.ext.properties.file}">
+			app.server.type=${app.server.type}
 			component.names=${component.names}
 			get.location.max.retries=${test.get.location.max.retries}
 			get.location.timeout=${test.get.location.timeout}
