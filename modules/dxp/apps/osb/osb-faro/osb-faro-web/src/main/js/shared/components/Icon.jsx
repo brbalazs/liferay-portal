@@ -44,7 +44,7 @@ class Icon extends React.Component {
 				className={classes}
 				viewBox={svg.viewBox}
 			>
-				<use xlinkHref={`#${svg.id}`} />
+				<use xlinkHref={`/o/osb-faro-web/dist/sprite.svg#${svg.id}`} />
 			</svg>
 		);
 	}

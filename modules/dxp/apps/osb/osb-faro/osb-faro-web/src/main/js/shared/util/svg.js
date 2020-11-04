@@ -38,5 +38,5 @@ const DEFAULT_SVG = {
  * @returns {SVGProperties}
  */
 export default function getSVG(symbol) {
-	return svgs[symbol] || DEFAULT_SVG;
+	return svgs[`${symbol}-usage`] || DEFAULT_SVG;
 }

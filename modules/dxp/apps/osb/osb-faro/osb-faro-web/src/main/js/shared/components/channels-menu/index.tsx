@@ -168,7 +168,4 @@ const ChannelsButton = React.forwardRef<
 	</button>
 ));
 
-export default connect(
-	null,
-	{updateDefaultChannelId}
-)(ChannelsMenu);
+export default connect(null, {updateDefaultChannelId})(ChannelsMenu);
