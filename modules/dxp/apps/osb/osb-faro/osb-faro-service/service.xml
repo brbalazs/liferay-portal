@@ -113,6 +113,7 @@
 		<column name="corpProjectName" type="String" />
 		<column name="corpProjectUuid" type="String" />
 		<column name="ipAddresses" type="String" />
+		<column name="incidentReportEmailAddresses" type="String" />
 		<column name="lastAccessTime" type="long" />
 		<column name="recommendationsEnabled" type="boolean" />
 		<column name="serverLocation" type="String" />
