@@ -26,7 +26,7 @@ describe('Label', () => {
 		);
 		expect(container.querySelector('use')).toHaveAttribute(
 			'xlink:href',
-			'#question-circle-full'
+			'/o/osb-faro-web/dist/sprite.svg#question-circle-full'
 		);
 	});
 });
