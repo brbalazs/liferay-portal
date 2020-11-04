@@ -14,4 +14,4 @@ Feature: Account interests list has pagination
 		And I set the pagination delta to "5"
 		When I go to page "2" in the table
 		Then I should be on page "2" in the table
-		And I should see an interest named "synergistic schemas" in the table
+		And I should see an interest named "visionary platforms" in the table
