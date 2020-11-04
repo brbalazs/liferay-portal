@@ -1,6 +1,6 @@
 import React from 'react';
 import Thumbs from '../Thumbs';
-import {shallow} from 'enzyme';
+import {fireEvent, render} from '@testing-library/react';
 
 const items = [
 	{
@@ -14,6 +14,12 @@ const items = [
 		svg: 'cerebro-thumb-line-chart',
 		text: 'this is a thumb 2',
 		value: 'line'
+	},
+	{
+		selected: false,
+		svg: 'cerebro-thumb-line-chart',
+		text: 'this is a thumb 3',
+		value: 'line'
 	}
 ];
 
@@ -22,29 +28,22 @@ const defaultProps = {
 	onSelectThumb: jest.fn()
 };
 
+jest.unmock('react-dom');
+
 describe('AddReport', () => {
-	let component;
+	it('should render', () => {
+		const {container} = render(<Thumbs {...defaultProps} />);
 
-	afterEach(() => {
-		if (component) {
-			component.unmount();
-		}
+		expect(container).toMatchSnapshot();
 	});
 
-	it('should render component', () => {
-		const component = shallow(<Thumbs {...defaultProps} />);
-		expect(component).toMatchSnapshot();
-	});
+	it('should select the third thumb when clicked', async() => {
+		const {getByTitle} = render(<Thumbs {...defaultProps} />);
 
-	it('should select the second thumb when handleClickSelectThumb is called', () => {
-		jest.useFakeTimers();
-		const component = shallow(<Thumbs {...defaultProps} />);
+		const listItem = getByTitle('this is a thumb 3');
 
-		component.instance().handleClickSelectThumb({
-			target: {parentNode: {dataset: {id: 1}}}
-		});
+		fireEvent.click(listItem.firstChild);
 
-		jest.runAllTimers();
-		expect(component).toMatchSnapshot();
+		expect(listItem).toHaveClass('selected');
 	});
 });

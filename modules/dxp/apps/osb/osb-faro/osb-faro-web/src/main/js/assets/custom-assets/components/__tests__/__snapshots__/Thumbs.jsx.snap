@@ -1,107 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AddReport should render component 1`] = `
-<ul
-  className="analytics-add-report-thumbs"
->
-  <li
-    className="selected"
-    data-id={0}
-    data-tooltip={true}
-    key="0"
-    title="this is a thumb 1"
+exports[`AddReport should render 1`] = `
+<div>
+  <ul
+    class="analytics-add-report-thumbs"
   >
-    <button
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyPress={[Function]}
+    <li
+      class="selected"
+      data-id="0"
+      data-tooltip="true"
+      title="this is a thumb 1"
     >
-      <svg
-        className="cerebro-thumb-line-chart"
-        viewBox=""
-      >
-        <use
-          xlinkHref="#cerebro-thumb-line-chart"
-        />
-      </svg>
-    </button>
-  </li>
-  <li
-    className=""
-    data-id={1}
-    data-tooltip={true}
-    key="1"
-    title="this is a thumb 2"
-  >
-    <button
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyPress={[Function]}
+      <button>
+        <svg
+          class="cerebro-thumb-line-chart"
+          viewBox=""
+        >
+          <use
+            xlink:href="#cerebro-thumb-line-chart"
+          />
+        </svg>
+      </button>
+    </li>
+    <li
+      class=""
+      data-id="1"
+      data-tooltip="true"
+      title="this is a thumb 2"
     >
-      <svg
-        className="cerebro-thumb-line-chart"
-        viewBox=""
-      >
-        <use
-          xlinkHref="#cerebro-thumb-line-chart"
-        />
-      </svg>
-    </button>
-  </li>
-</ul>
-`;
-
-exports[`AddReport should select the second thumb when handleClickSelectThumb is called 1`] = `
-<ul
-  className="analytics-add-report-thumbs"
->
-  <li
-    className=""
-    data-id={0}
-    data-tooltip={true}
-    key="0"
-    title="this is a thumb 1"
-  >
-    <button
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyPress={[Function]}
+      <button>
+        <svg
+          class="cerebro-thumb-line-chart"
+          viewBox=""
+        >
+          <use
+            xlink:href="#cerebro-thumb-line-chart"
+          />
+        </svg>
+      </button>
+    </li>
+    <li
+      class=""
+      data-id="2"
+      data-tooltip="true"
+      title="this is a thumb 3"
     >
-      <svg
-        className="cerebro-thumb-line-chart"
-        viewBox=""
-      >
-        <use
-          xlinkHref="#cerebro-thumb-line-chart"
-        />
-      </svg>
-    </button>
-  </li>
-  <li
-    className="selected"
-    data-id={1}
-    data-tooltip={true}
-    key="1"
-    title="this is a thumb 2"
-  >
-    <button
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyPress={[Function]}
-    >
-      <svg
-        className="cerebro-thumb-line-chart"
-        viewBox=""
-      >
-        <use
-          xlinkHref="#cerebro-thumb-line-chart"
-        />
-      </svg>
-    </button>
-  </li>
-</ul>
+      <button>
+        <svg
+          class="cerebro-thumb-line-chart"
+          viewBox=""
+        >
+          <use
+            xlink:href="#cerebro-thumb-line-chart"
+          />
+        </svg>
+      </button>
+    </li>
+  </ul>
+</div>
 `;
