@@ -399,7 +399,7 @@ public class OpenIdConnectServiceHandlerImpl
 
 	protected void processUserInfo(
 			long companyId, OpenIdConnectSessionImpl openIdConnectSessionImpl,
-			OIDCProviderMetadata oidcProviderMetadata, String pathMain,
+			OIDCProviderMetadata oidcProviderMetadata, String mainPath,
 			String portalURL)
 		throws PortalException {
 
@@ -407,7 +407,7 @@ public class OpenIdConnectServiceHandlerImpl
 			openIdConnectSessionImpl.getAccessToken(), oidcProviderMetadata);
 
 		long userId = _openIdConnectUserInfoProcessor.processUserInfo(
-			userInfo, companyId, pathMain, portalURL);
+			userInfo, companyId, mainPath, portalURL);
 
 		openIdConnectSessionImpl.setLoginUserId(userId);
 

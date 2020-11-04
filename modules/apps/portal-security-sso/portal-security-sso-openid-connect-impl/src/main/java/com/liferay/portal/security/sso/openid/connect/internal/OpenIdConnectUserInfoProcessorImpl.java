@@ -44,7 +44,7 @@ public class OpenIdConnectUserInfoProcessorImpl
 
 	@Override
 	public long processUserInfo(
-			UserInfo userInfo, long companyId, String pathMain,
+			UserInfo userInfo, long companyId, String mainPath,
 			String portalURL)
 		throws PortalException {
 
@@ -108,7 +108,7 @@ public class OpenIdConnectUserInfoProcessorImpl
 
 		ServiceContext serviceContext = new ServiceContext();
 
-		serviceContext.setPathMain(pathMain);
+		serviceContext.setPathMain(mainPath);
 		serviceContext.setPortalURL(portalURL);
 
 		user = _userLocalService.addUser(
