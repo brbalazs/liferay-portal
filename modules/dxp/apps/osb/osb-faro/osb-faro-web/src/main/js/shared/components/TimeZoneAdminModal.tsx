@@ -2,12 +2,13 @@ import Button from 'shared/components/Button';
 import Form from 'shared/components/form';
 import Modal from 'shared/components/modal';
 import React, {useRef} from 'react';
-import TimeZonePicker from '../form/TimeZonePicker';
+import TimeZonePicker from './form/TimeZonePicker';
 import {Formik} from 'formik';
+import {Modal as ModalType} from 'shared/types';
 import {TimeZone} from 'shared/util/records';
 
 interface ITimeZoneSelectionModal {
-	onClose: Function;
+	onClose: ModalType.close;
 	timeZone: TimeZone;
 }
 
@@ -17,7 +18,9 @@ const TimeZoneSelectionModal: React.FC<ITimeZoneSelectionModal> = ({
 }) => {
 	const _formRef = useRef<Formik>();
 	// TODO: LRAC-6681 Add the timezone update request in modal
-	const onSubmit = () => {};
+	const onSubmit = () => {
+		console.log(_formRef.current.getFormikBag().values);
+	};
 
 	return (
 		<Modal>
@@ -41,7 +44,7 @@ const TimeZoneSelectionModal: React.FC<ITimeZoneSelectionModal> = ({
 						<Modal.Body>
 							<div className='mb-4'>
 								{Liferay.Language.get(
-									'your-workspace-now-supports-custom-timezones-setting-timezones-will-only-impact-future-data-expect-spiked-or-flat-data-for-1-2-days-following-a-change'
+									'your-workspace-now-supports-custom-timezones.-setting-timezones-will-only-impact-future-data.-expect-spiked-or-flat-data-for-1-2-days-following-a-change'
 								)}
 							</div>
 
@@ -65,7 +68,7 @@ const TimeZoneSelectionModal: React.FC<ITimeZoneSelectionModal> = ({
 						</Modal.Body>
 
 						<Modal.Footer>
-							<Button onClick={() => onClose()}>
+							<Button onClick={onClose}>
 								{Liferay.Language.get('do-this-later')}
 							</Button>
 
