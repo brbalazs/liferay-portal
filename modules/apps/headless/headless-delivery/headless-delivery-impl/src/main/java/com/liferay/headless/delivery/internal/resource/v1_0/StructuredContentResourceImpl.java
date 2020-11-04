@@ -801,6 +801,10 @@ public class StructuredContentResourceImpl
 				AggregationUtil.processVulcanAggregation(
 					_aggregations, _ddmIndexer, _queries, searchRequestBuilder,
 					aggregation);
+
+				SortUtil.processSorts(
+					_ddmIndexer, searchRequestBuilder, searchContext.getSorts(),
+					_queries, _sorts);
 			},
 			sorts,
 			document -> _toStructuredContent(
