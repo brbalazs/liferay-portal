@@ -10,7 +10,7 @@ exports[`SegmentSticker should render 1`] = `
       viewBox=""
     >
       <use
-        xlink:href="#individual-static-segment"
+        xlink:href="/o/osb-faro-web/dist/sprite.svg#individual-static-segment"
       />
     </svg>
   </div>

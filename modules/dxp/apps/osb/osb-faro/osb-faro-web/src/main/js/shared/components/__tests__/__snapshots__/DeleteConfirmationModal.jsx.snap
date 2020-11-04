@@ -24,7 +24,7 @@ exports[`DeleteConfirmationModal renders 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#warning-full"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#warning-full"
               />
             </svg>
             Test title

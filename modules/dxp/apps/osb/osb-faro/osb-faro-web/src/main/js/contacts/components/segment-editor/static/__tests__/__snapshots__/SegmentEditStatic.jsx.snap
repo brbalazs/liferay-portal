@@ -73,7 +73,7 @@ exports[`SegmentEditStatic should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#caret-bottom"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                         />
                       </svg>
                     </span>
@@ -92,7 +92,7 @@ exports[`SegmentEditStatic should render 1`] = `
                       viewBox=""
                     >
                       <use
-                        xlink:href="#order-arrow-ascending"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-ascending"
                       />
                     </svg>
                   </a>
@@ -125,7 +125,7 @@ exports[`SegmentEditStatic should render 1`] = `
                           viewBox=""
                         >
                           <use
-                            xlink:href="#search"
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                           />
                         </svg>
                       </button>

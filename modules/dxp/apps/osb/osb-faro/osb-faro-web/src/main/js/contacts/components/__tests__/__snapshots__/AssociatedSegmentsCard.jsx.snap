@@ -41,7 +41,7 @@ exports[`AssociatedSegmentsCard should render 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#search"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                 />
               </svg>
             </button>
@@ -72,7 +72,7 @@ exports[`AssociatedSegmentsCard should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#individual-dynamic-segment"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#individual-dynamic-segment"
                   />
                 </svg>
               </div>
@@ -115,7 +115,7 @@ exports[`AssociatedSegmentsCard should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#individual-dynamic-segment"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#individual-dynamic-segment"
                   />
                 </svg>
               </div>
@@ -160,7 +160,7 @@ exports[`AssociatedSegmentsCard should render 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#angle-right"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
           />
         </svg>
       </a>

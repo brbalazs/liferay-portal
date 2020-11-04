@@ -23,7 +23,7 @@ exports[`Sites Dashboard InterestDetails render 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#angle-left"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
               />
             </svg>
             Back to Interests
@@ -86,7 +86,7 @@ exports[`Sites Dashboard InterestDetails render 1`] = `
                             viewBox=""
                           >
                             <use
-                              xlink:href="#search"
+                              xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                             />
                           </svg>
                         </button>

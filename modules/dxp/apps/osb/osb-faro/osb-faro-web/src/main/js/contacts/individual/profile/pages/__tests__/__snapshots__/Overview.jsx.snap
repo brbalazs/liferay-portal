@@ -110,7 +110,7 @@ exports[`IndividualOverview should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#caret-top"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-top"
                         />
                       </svg>
                       <span
@@ -162,7 +162,7 @@ exports[`IndividualOverview should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#caret-bottom"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                         />
                       </svg>
                       <span
@@ -238,7 +238,7 @@ exports[`IndividualOverview should render 1`] = `
                               viewBox=""
                             >
                               <use
-                                xlink:href="#search"
+                                xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                               />
                             </svg>
                           </button>
@@ -368,7 +368,7 @@ exports[`IndividualOverview should render 1`] = `
                             viewBox=""
                           >
                             <use
-                              xlink:href="#caret-top"
+                              xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-top"
                             />
                           </svg>
                         </div>
@@ -406,7 +406,7 @@ exports[`IndividualOverview should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#caret-bottom"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                         />
                       </svg>
                     </span>
@@ -433,7 +433,7 @@ exports[`IndividualOverview should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#angle-left"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
                         />
                       </svg>
                     </button>
@@ -461,7 +461,7 @@ exports[`IndividualOverview should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#angle-right"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                         />
                       </svg>
                     </button>
@@ -514,7 +514,7 @@ exports[`IndividualOverview should render 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#angle-right"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
               />
             </svg>
           </a>
@@ -562,7 +562,7 @@ exports[`IndividualOverview should render 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#angle-right"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
               />
             </svg>
           </a>
@@ -607,7 +607,7 @@ exports[`IndividualOverview should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#search"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                     />
                   </svg>
                 </button>
@@ -638,7 +638,7 @@ exports[`IndividualOverview should render 1`] = `
                       viewBox=""
                     >
                       <use
-                        xlink:href="#individual-dynamic-segment"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#individual-dynamic-segment"
                       />
                     </svg>
                   </div>
@@ -683,7 +683,7 @@ exports[`IndividualOverview should render 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#angle-right"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
               />
             </svg>
           </a>

@@ -15,7 +15,7 @@ exports[`PlanBreakdown should render 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#ac-users"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-users"
             />
           </svg>
           <span

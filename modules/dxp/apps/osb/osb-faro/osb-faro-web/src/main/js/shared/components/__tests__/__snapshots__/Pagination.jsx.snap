@@ -16,7 +16,7 @@ exports[`Pagination should render 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#angle-left"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
           />
         </svg>
       </a>
@@ -42,7 +42,7 @@ exports[`Pagination should render 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#angle-right"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
           />
         </svg>
       </a>
@@ -68,7 +68,7 @@ exports[`Pagination should render a lot of pages with a middle page active 1`] =
           viewBox=""
         >
           <use
-            xlink:href="#angle-left"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
           />
         </svg>
       </a>
@@ -195,7 +195,7 @@ exports[`Pagination should render a lot of pages with a middle page active 1`] =
           viewBox=""
         >
           <use
-            xlink:href="#angle-right"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
           />
         </svg>
       </a>
@@ -221,7 +221,7 @@ exports[`Pagination should render a lot of pages with the end page active 1`] = 
           viewBox=""
         >
           <use
-            xlink:href="#angle-left"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
           />
         </svg>
       </a>
@@ -297,7 +297,7 @@ exports[`Pagination should render a lot of pages with the end page active 1`] = 
           viewBox=""
         >
           <use
-            xlink:href="#angle-right"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
           />
         </svg>
       </a>
@@ -322,7 +322,7 @@ exports[`Pagination should render with a lot of pages 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#angle-left"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
           />
         </svg>
       </a>
@@ -399,7 +399,7 @@ exports[`Pagination should render with a lot of pages 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#angle-right"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
           />
         </svg>
       </a>
@@ -426,7 +426,7 @@ exports[`Pagination should render with buttons if passed an onChange handler 1`]
           viewBox=""
         >
           <use
-            xlink:href="#angle-left"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
           />
         </svg>
       </button>
@@ -454,7 +454,7 @@ exports[`Pagination should render with buttons if passed an onChange handler 1`]
           viewBox=""
         >
           <use
-            xlink:href="#angle-right"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
           />
         </svg>
       </button>

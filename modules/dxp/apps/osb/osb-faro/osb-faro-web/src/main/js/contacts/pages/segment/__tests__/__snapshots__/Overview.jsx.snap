@@ -140,7 +140,7 @@ exports[`SegmentOverview should render 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#angle-right"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
               />
             </svg>
           </a>
@@ -181,7 +181,7 @@ exports[`SegmentOverview should render 1`] = `
                           viewBox=""
                         >
                           <use
-                            xlink:href="#times"
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
                           />
                         </svg>
                       </button>
@@ -199,7 +199,7 @@ exports[`SegmentOverview should render 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#plus"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#plus"
                 />
               </svg>
             </button>
@@ -223,7 +223,7 @@ exports[`SegmentOverview should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#document"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#document"
                     />
                   </svg>
                 </div>
@@ -249,7 +249,7 @@ exports[`SegmentOverview should render 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#angle-right"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
               />
             </svg>
           </a>

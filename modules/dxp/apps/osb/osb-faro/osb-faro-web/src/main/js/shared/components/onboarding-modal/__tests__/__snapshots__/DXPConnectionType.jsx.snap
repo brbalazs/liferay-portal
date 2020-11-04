@@ -45,7 +45,7 @@ exports[`DXPConnectionType should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#check-circle"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#check-circle"
                   />
                 </svg>
                 <span>
@@ -60,7 +60,7 @@ exports[`DXPConnectionType should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#check-circle"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#check-circle"
                   />
                 </svg>
                 <span>
@@ -75,7 +75,7 @@ exports[`DXPConnectionType should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#check-circle"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#check-circle"
                   />
                 </svg>
                 <span>

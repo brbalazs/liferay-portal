@@ -21,7 +21,7 @@ exports[`UsageMetric should render 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#faro-page-views"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#faro-page-views"
           />
         </svg>
       </div>

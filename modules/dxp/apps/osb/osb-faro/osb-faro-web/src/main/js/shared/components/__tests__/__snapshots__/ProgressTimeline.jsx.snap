@@ -21,7 +21,7 @@ exports[`ProgressTimeline should render 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#check"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#check"
           />
         </svg>
       </div>

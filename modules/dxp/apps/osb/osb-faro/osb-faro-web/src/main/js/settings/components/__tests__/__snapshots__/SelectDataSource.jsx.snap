@@ -26,7 +26,7 @@ exports[`SelectDataSource should render 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#csv-logo"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#csv-logo"
               />
             </svg>
           </div>
@@ -57,7 +57,7 @@ exports[`SelectDataSource should render 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#liferay-logo"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#liferay-logo"
               />
             </svg>
           </div>
@@ -99,7 +99,7 @@ exports[`SelectDataSource should render 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#salesforce-logo"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#salesforce-logo"
               />
             </svg>
           </div>

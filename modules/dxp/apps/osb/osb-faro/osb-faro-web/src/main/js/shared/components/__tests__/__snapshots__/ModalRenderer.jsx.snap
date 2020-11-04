@@ -35,7 +35,7 @@ exports[`ModalRenderer should pass props to modal: should render with title 'Foo
                 viewBox=""
               >
                 <use
-                  xlink:href="#times"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
                 />
               </svg>
             </button>
@@ -116,7 +116,7 @@ exports[`ModalRenderer should render multiple modals 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#times"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
                 />
               </svg>
             </button>
@@ -177,7 +177,7 @@ exports[`ModalRenderer should render multiple modals 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#times"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
                 />
               </svg>
             </button>
@@ -250,7 +250,7 @@ exports[`ModalRenderer should render test modal 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#times"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
                 />
               </svg>
             </button>

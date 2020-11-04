@@ -23,7 +23,7 @@ exports[`Setttings should render 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#angle-left"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
               />
             </svg>
           </span>
@@ -70,7 +70,7 @@ exports[`Setttings should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#ac-api"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-api"
                     />
                   </svg>
                 </span>
@@ -92,7 +92,7 @@ exports[`Setttings should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#definitions"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#definitions"
                     />
                   </svg>
                 </span>
@@ -114,7 +114,7 @@ exports[`Setttings should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#data-privacy-lock"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#data-privacy-lock"
                     />
                   </svg>
                 </span>
@@ -136,7 +136,7 @@ exports[`Setttings should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#faro-data-source"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#faro-data-source"
                     />
                   </svg>
                 </span>
@@ -169,7 +169,7 @@ exports[`Setttings should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#user-management"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#user-management"
                     />
                   </svg>
                 </span>
@@ -191,7 +191,7 @@ exports[`Setttings should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#ac-page"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-page"
                     />
                   </svg>
                 </span>
@@ -213,7 +213,7 @@ exports[`Setttings should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#usage"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#usage"
                     />
                   </svg>
                 </span>
@@ -235,7 +235,7 @@ exports[`Setttings should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#cog"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#cog"
                     />
                   </svg>
                 </span>

@@ -14,7 +14,7 @@ exports[`Alert should render 1`] = `
         viewBox=""
       >
         <use
-          xlink:href="#info-circle"
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#info-circle"
         />
       </svg>
     </span>

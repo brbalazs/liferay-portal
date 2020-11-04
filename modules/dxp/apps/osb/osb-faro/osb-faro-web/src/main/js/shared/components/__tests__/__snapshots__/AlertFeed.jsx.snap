@@ -18,7 +18,7 @@ exports[`AlertFeed should render 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#info-circle"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#info-circle"
             />
           </svg>
         </span>
@@ -36,7 +36,7 @@ exports[`AlertFeed should render 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#times"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
             />
           </svg>
         </button>
@@ -64,7 +64,7 @@ exports[`AlertFeed should render with a message comprised of language keys with 
             viewBox=""
           >
             <use
-              xlink:href="#info-circle"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#info-circle"
             />
           </svg>
         </span>
@@ -85,7 +85,7 @@ exports[`AlertFeed should render with a message comprised of language keys with 
             viewBox=""
           >
             <use
-              xlink:href="#times"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
             />
           </svg>
         </button>
@@ -113,7 +113,7 @@ exports[`AlertFeed should render with modal open 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#info-circle"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#info-circle"
             />
           </svg>
         </span>
@@ -131,7 +131,7 @@ exports[`AlertFeed should render with modal open 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#times"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
             />
           </svg>
         </button>

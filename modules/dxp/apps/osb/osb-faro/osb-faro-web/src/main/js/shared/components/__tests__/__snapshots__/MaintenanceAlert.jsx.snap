@@ -25,7 +25,7 @@ exports[`MaintenanceAlert should render w/ maintenance alert 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#warning-full"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#warning-full"
           />
         </svg>
       </span>
@@ -43,7 +43,7 @@ exports[`MaintenanceAlert should render w/ maintenance alert 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#times"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
           />
         </svg>
       </button>

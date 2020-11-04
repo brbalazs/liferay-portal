@@ -71,7 +71,7 @@ exports[`BarChartHTML should render Progress item based on grid 1`] = `
                   viewBox=""
                 >
                   <use
-                    href="#home"
+                    href="/o/osb-faro-web/dist/sprite.svg#home"
                   />
                 </svg>
               </span>
@@ -95,7 +95,7 @@ exports[`BarChartHTML should render Progress item based on grid 1`] = `
                   viewBox=""
                 >
                   <use
-                    href="#home"
+                    href="/o/osb-faro-web/dist/sprite.svg#home"
                   />
                 </svg>
               </span>
@@ -186,7 +186,7 @@ exports[`BarChartHTML should render Progress item based on grid and type of grid
                   viewBox=""
                 >
                   <use
-                    href="#home"
+                    href="/o/osb-faro-web/dist/sprite.svg#home"
                   />
                 </svg>
               </span>
@@ -210,7 +210,7 @@ exports[`BarChartHTML should render Progress item based on grid and type of grid
                   viewBox=""
                 >
                   <use
-                    href="#home"
+                    href="/o/osb-faro-web/dist/sprite.svg#home"
                   />
                 </svg>
               </span>
@@ -311,7 +311,7 @@ exports[`BarChartHTML should render Progress with Interval item based on grid an
                   viewBox=""
                 >
                   <use
-                    href="#home"
+                    href="/o/osb-faro-web/dist/sprite.svg#home"
                   />
                 </svg>
               </span>
@@ -335,7 +335,7 @@ exports[`BarChartHTML should render Progress with Interval item based on grid an
                   viewBox=""
                 >
                   <use
-                    href="#home"
+                    href="/o/osb-faro-web/dist/sprite.svg#home"
                   />
                 </svg>
               </span>
@@ -361,7 +361,7 @@ exports[`BarChartHTML should render an arrow down icon when there is a scroll do
   viewBox=""
 >
   <use
-    href="#angle-down"
+    href="/o/osb-faro-web/dist/sprite.svg#angle-down"
   />
 </svg>
 `;
@@ -396,7 +396,7 @@ exports[`BarChartHTML should render component with header 1`] = `
           viewBox=""
         >
           <use
-            href="#home"
+            href="/o/osb-faro-web/dist/sprite.svg#home"
           />
         </svg>
       </span>
@@ -420,7 +420,7 @@ exports[`BarChartHTML should render component with header 1`] = `
           viewBox=""
         >
           <use
-            href="#home"
+            href="/o/osb-faro-web/dist/sprite.svg#home"
           />
         </svg>
       </span>
@@ -469,7 +469,7 @@ exports[`BarChartHTML should render component with items 1`] = `
               viewBox=""
             >
               <use
-                href="#home"
+                href="/o/osb-faro-web/dist/sprite.svg#home"
               />
             </svg>
           </span>
@@ -493,7 +493,7 @@ exports[`BarChartHTML should render component with items 1`] = `
               viewBox=""
             >
               <use
-                href="#home"
+                href="/o/osb-faro-web/dist/sprite.svg#home"
               />
             </svg>
           </span>
@@ -547,7 +547,7 @@ exports[`BarChartHTML should render component with items nested 1`] = `
                 viewBox=""
               >
                 <use
-                  href="#home"
+                  href="/o/osb-faro-web/dist/sprite.svg#home"
                 />
               </svg>
             </span>
@@ -571,7 +571,7 @@ exports[`BarChartHTML should render component with items nested 1`] = `
                 viewBox=""
               >
                 <use
-                  href="#home"
+                  href="/o/osb-faro-web/dist/sprite.svg#home"
                 />
               </svg>
             </span>
@@ -624,7 +624,7 @@ exports[`BarChartHTML should render component with items nested 1`] = `
                     viewBox=""
                   >
                     <use
-                      href="#home"
+                      href="/o/osb-faro-web/dist/sprite.svg#home"
                     />
                   </svg>
                 </span>
@@ -648,7 +648,7 @@ exports[`BarChartHTML should render component with items nested 1`] = `
                     viewBox=""
                   >
                     <use
-                      href="#home"
+                      href="/o/osb-faro-web/dist/sprite.svg#home"
                     />
                   </svg>
                 </span>
@@ -692,7 +692,7 @@ exports[`BarChartHTML should render icon without Circle component when there is 
     viewBox=""
   >
     <use
-      href="#home"
+      href="/o/osb-faro-web/dist/sprite.svg#home"
     />
   </svg>
   <div
@@ -754,7 +754,7 @@ exports[`BarChartHTML should update component when receive new data 1`] = `
               viewBox=""
             >
               <use
-                href="#home"
+                href="/o/osb-faro-web/dist/sprite.svg#home"
               />
             </svg>
           </span>
@@ -778,7 +778,7 @@ exports[`BarChartHTML should update component when receive new data 1`] = `
               viewBox=""
             >
               <use
-                href="#home"
+                href="/o/osb-faro-web/dist/sprite.svg#home"
               />
             </svg>
           </span>

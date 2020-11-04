@@ -13,7 +13,7 @@ exports[`CriteriaSidebarItem should render 1`] = `
         viewBox=""
       >
         <use
-          xlink:href="#drag"
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#drag"
         />
       </svg>
     </span>
@@ -28,7 +28,7 @@ exports[`CriteriaSidebarItem should render 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#text"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#text"
           />
         </svg>
       </span>

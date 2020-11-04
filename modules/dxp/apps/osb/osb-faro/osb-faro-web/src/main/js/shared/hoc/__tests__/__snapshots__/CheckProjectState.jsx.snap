@@ -17,7 +17,7 @@ exports[`SuccessDisplayIf should render a scheduled maintenance error page if th
           viewBox=""
         >
           <use
-            xlink:href="#liferay-logo"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#liferay-logo"
           />
         </svg>
       </a>
@@ -69,7 +69,7 @@ exports[`SuccessDisplayIf should render a scheduled maintenance error page if th
               viewBox=""
             >
               <use
-                xlink:href="#ac-logo"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
               />
             </svg>
             <span
@@ -112,7 +112,7 @@ exports[`SuccessDisplayIf should render activating display if project state is "
           viewBox=""
         >
           <use
-            xlink:href="#liferay-logo"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#liferay-logo"
           />
         </svg>
       </a>
@@ -164,7 +164,7 @@ exports[`SuccessDisplayIf should render activating display if project state is "
               viewBox=""
             >
               <use
-                xlink:href="#ac-logo"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
               />
             </svg>
             <span
@@ -232,7 +232,7 @@ exports[`SuccessDisplayIf should render activating display if project state is "
           viewBox=""
         >
           <use
-            xlink:href="#liferay-logo"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#liferay-logo"
           />
         </svg>
       </a>
@@ -284,7 +284,7 @@ exports[`SuccessDisplayIf should render activating display if project state is "
               viewBox=""
             >
               <use
-                xlink:href="#ac-logo"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
               />
             </svg>
             <span
@@ -352,7 +352,7 @@ exports[`SuccessDisplayIf should render an error page if there was an error fetc
           viewBox=""
         >
           <use
-            xlink:href="#liferay-logo"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#liferay-logo"
           />
         </svg>
       </a>
@@ -404,7 +404,7 @@ exports[`SuccessDisplayIf should render an error page if there was an error fetc
               viewBox=""
             >
               <use
-                xlink:href="#ac-logo"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
               />
             </svg>
             <span
@@ -488,7 +488,7 @@ exports[`SuccessDisplayIf should render an unavailable error page if the project
           viewBox=""
         >
           <use
-            xlink:href="#liferay-logo"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#liferay-logo"
           />
         </svg>
       </a>
@@ -540,7 +540,7 @@ exports[`SuccessDisplayIf should render an unavailable error page if the project
               viewBox=""
             >
               <use
-                xlink:href="#ac-logo"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
               />
             </svg>
             <span

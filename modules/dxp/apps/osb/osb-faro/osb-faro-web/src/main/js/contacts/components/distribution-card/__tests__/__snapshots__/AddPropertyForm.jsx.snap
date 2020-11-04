@@ -65,7 +65,7 @@ exports[`DistributionCard AddPropertyForm renders 1`] = `
                           viewBox=""
                         >
                           <use
-                            xlink:href="#caret-bottom"
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                           />
                         </svg>
                       </div>

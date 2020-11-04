@@ -91,7 +91,7 @@ exports[`RequestLog should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#caret-bottom"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                         />
                       </svg>
                     </span>
@@ -110,7 +110,7 @@ exports[`RequestLog should render 1`] = `
                       viewBox=""
                     >
                       <use
-                        xlink:href="#order-arrow-descending"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-descending"
                       />
                     </svg>
                   </a>
@@ -143,7 +143,7 @@ exports[`RequestLog should render 1`] = `
                           viewBox=""
                         >
                           <use
-                            xlink:href="#search"
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                           />
                         </svg>
                       </button>

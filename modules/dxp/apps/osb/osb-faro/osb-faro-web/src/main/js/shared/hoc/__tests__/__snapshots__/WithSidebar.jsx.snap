@@ -36,7 +36,7 @@ exports[`withSidebar should render with the sidebar 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#ac-logo"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
             />
           </svg>
         </a>
@@ -107,7 +107,7 @@ exports[`withSidebar should render with the sidebar 1`] = `
                       viewBox=""
                     >
                       <use
-                        xlink:href="#ac-page"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-page"
                       />
                     </svg>
                   </span>
@@ -137,7 +137,7 @@ exports[`withSidebar should render with the sidebar 1`] = `
                       viewBox=""
                     >
                       <use
-                        xlink:href="#ac-assets"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-assets"
                       />
                     </svg>
                   </span>
@@ -180,7 +180,7 @@ exports[`withSidebar should render with the sidebar 1`] = `
                       viewBox=""
                     >
                       <use
-                        xlink:href="#ac-segment"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-segment"
                       />
                     </svg>
                   </span>
@@ -210,7 +210,7 @@ exports[`withSidebar should render with the sidebar 1`] = `
                       viewBox=""
                     >
                       <use
-                        xlink:href="#ac-account"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-account"
                       />
                     </svg>
                   </span>
@@ -240,7 +240,7 @@ exports[`withSidebar should render with the sidebar 1`] = `
                       viewBox=""
                     >
                       <use
-                        xlink:href="#ac-individual"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-individual"
                       />
                     </svg>
                   </span>
@@ -283,7 +283,7 @@ exports[`withSidebar should render with the sidebar 1`] = `
                       viewBox=""
                     >
                       <use
-                        xlink:href="#ac-test"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-test"
                       />
                     </svg>
                   </span>
@@ -349,7 +349,7 @@ exports[`withSidebar should render with the sidebar 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#cog"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#cog"
                     />
                   </svg>
                 </span>
@@ -379,7 +379,7 @@ exports[`withSidebar should render with the sidebar 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#angle-left"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
                     />
                   </svg>
                 </span>

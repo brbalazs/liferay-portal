@@ -16,7 +16,7 @@ exports[`Row renders 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#drag"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#drag"
           />
         </svg>
       </div>

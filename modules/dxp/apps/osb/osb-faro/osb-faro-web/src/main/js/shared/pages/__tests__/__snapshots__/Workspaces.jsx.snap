@@ -20,7 +20,7 @@ exports[`Workspaces should render a list of projects if there is only one projec
             viewBox=""
           >
             <use
-              xlink:href="#liferay-logo"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#liferay-logo"
             />
           </svg>
         </a>
@@ -72,7 +72,7 @@ exports[`Workspaces should render a list of projects if there is only one projec
                 viewBox=""
               >
                 <use
-                  xlink:href="#ac-logo"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
                 />
               </svg>
               <span
@@ -143,7 +143,7 @@ exports[`Workspaces should render a list of projects if there is only one projec
                         viewBox=""
                       >
                         <use
-                          xlink:href="#angle-right"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                         />
                       </svg>
                     </div>
@@ -195,7 +195,7 @@ exports[`Workspaces should render empty state 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#liferay-logo"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#liferay-logo"
             />
           </svg>
         </a>
@@ -247,7 +247,7 @@ exports[`Workspaces should render empty state 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#ac-logo"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
                 />
               </svg>
               <span
@@ -283,7 +283,7 @@ exports[`Workspaces should render empty state 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#ac-integration"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-integration"
                   />
                 </svg>
                 <p>
@@ -308,7 +308,7 @@ exports[`Workspaces should render empty state 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#ac-page-analytics"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-page-analytics"
                   />
                 </svg>
                 <p>
@@ -350,7 +350,7 @@ exports[`Workspaces should render with a message that all basic tier plans have 
             viewBox=""
           >
             <use
-              xlink:href="#liferay-logo"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#liferay-logo"
             />
           </svg>
         </a>
@@ -402,7 +402,7 @@ exports[`Workspaces should render with a message that all basic tier plans have 
                 viewBox=""
               >
                 <use
-                  xlink:href="#ac-logo"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
                 />
               </svg>
               <span
@@ -473,7 +473,7 @@ exports[`Workspaces should render with a message that all basic tier plans have 
                         viewBox=""
                       >
                         <use
-                          xlink:href="#angle-right"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                         />
                       </svg>
                     </div>
@@ -523,7 +523,7 @@ exports[`Workspaces should render with a message that all basic tier plans have 
                         viewBox=""
                       >
                         <use
-                          xlink:href="#angle-right"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                         />
                       </svg>
                     </div>
@@ -575,7 +575,7 @@ exports[`Workspaces should render with a message that one or more basic tier wor
             viewBox=""
           >
             <use
-              xlink:href="#liferay-logo"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#liferay-logo"
             />
           </svg>
         </a>
@@ -627,7 +627,7 @@ exports[`Workspaces should render with a message that one or more basic tier wor
                 viewBox=""
               >
                 <use
-                  xlink:href="#ac-logo"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
                 />
               </svg>
               <span
@@ -698,7 +698,7 @@ exports[`Workspaces should render with a message that one or more basic tier wor
                         viewBox=""
                       >
                         <use
-                          xlink:href="#angle-right"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                         />
                       </svg>
                     </div>
@@ -748,7 +748,7 @@ exports[`Workspaces should render with a message that one or more basic tier wor
                         viewBox=""
                       >
                         <use
-                          xlink:href="#angle-right"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                         />
                       </svg>
                     </div>

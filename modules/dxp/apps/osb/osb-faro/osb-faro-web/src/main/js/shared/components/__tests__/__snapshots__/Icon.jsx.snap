@@ -7,7 +7,7 @@ exports[`Icon should render 1`] = `
     viewBox=""
   >
     <use
-      xlink:href="#file"
+      xlink:href="/o/osb-faro-web/dist/sprite.svg#file"
     />
   </svg>
 </div>

@@ -67,7 +67,7 @@ exports[`ActivitiesChartTimeline should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#search"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                         />
                       </svg>
                     </button>
@@ -197,7 +197,7 @@ exports[`ActivitiesChartTimeline should render 1`] = `
                       viewBox=""
                     >
                       <use
-                        xlink:href="#caret-top"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-top"
                       />
                     </svg>
                   </div>
@@ -235,7 +235,7 @@ exports[`ActivitiesChartTimeline should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#caret-bottom"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                   />
                 </svg>
               </span>
@@ -262,7 +262,7 @@ exports[`ActivitiesChartTimeline should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#angle-left"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
                   />
                 </svg>
               </button>
@@ -290,7 +290,7 @@ exports[`ActivitiesChartTimeline should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#angle-right"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                   />
                 </svg>
               </button>

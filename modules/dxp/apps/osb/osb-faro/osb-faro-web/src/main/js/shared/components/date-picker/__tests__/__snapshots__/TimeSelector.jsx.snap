@@ -10,7 +10,7 @@ exports[`TimeSelector should render 1`] = `
       viewBox=""
     >
       <use
-        xlink:href="#time"
+        xlink:href="/o/osb-faro-web/dist/sprite.svg#time"
       />
     </svg>
     <input

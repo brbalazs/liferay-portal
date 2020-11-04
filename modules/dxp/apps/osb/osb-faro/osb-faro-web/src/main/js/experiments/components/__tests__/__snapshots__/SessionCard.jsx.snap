@@ -25,7 +25,7 @@ exports[`SessionCard should render 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#session-single-chart"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#session-single-chart"
             />
           </svg>
           Total
@@ -39,7 +39,7 @@ exports[`SessionCard should render 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#session-multiple-chart"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#session-multiple-chart"
             />
           </svg>
           Per Variant

@@ -30,7 +30,7 @@ exports[`DistributionCard Tabs renders 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#times"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
                   />
                 </svg>
               </button>
@@ -48,7 +48,7 @@ exports[`DistributionCard Tabs renders 1`] = `
         viewBox=""
       >
         <use
-          xlink:href="#plus"
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#plus"
         />
       </svg>
     </button>

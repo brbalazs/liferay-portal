@@ -20,7 +20,7 @@ exports[`DistributionCard DistributionChart renders 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#document"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#document"
               />
             </svg>
           </div>
@@ -46,7 +46,7 @@ exports[`DistributionCard DistributionChart renders 1`] = `
         viewBox=""
       >
         <use
-          xlink:href="#angle-right"
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
         />
       </svg>
     </a>

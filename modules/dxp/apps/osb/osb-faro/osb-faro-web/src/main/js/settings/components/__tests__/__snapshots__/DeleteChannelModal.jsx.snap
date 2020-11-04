@@ -24,7 +24,7 @@ exports[`DeleteChannelModal renders without data source alert message 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#warning-full"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#warning-full"
               />
             </svg>
             Delete ?

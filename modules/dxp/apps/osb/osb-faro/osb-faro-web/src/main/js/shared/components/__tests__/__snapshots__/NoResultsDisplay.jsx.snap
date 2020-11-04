@@ -34,7 +34,7 @@ exports[`NoResultsDisplay should render component with icon 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#home"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#home"
           />
         </svg>
       </div>

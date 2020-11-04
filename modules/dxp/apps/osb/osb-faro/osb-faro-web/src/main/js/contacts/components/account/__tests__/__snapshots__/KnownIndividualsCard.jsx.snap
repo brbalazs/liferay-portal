@@ -195,7 +195,7 @@ exports[`KnownIndividualsCard should render 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#angle-right"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
           />
         </svg>
       </a>

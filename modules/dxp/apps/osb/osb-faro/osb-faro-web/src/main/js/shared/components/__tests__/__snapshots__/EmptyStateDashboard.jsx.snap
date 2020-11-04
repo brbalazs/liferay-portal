@@ -43,7 +43,7 @@ exports[`EmptyStateDashboard should render a EmptyStateDashboard component with 
       viewBox=""
     >
       <use
-        xlink:href="#ac-satellite"
+        xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-satellite"
       />
     </svg>
     <span

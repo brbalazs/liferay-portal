@@ -48,7 +48,7 @@ exports[`ProgressBar should render a complete progress bar without error 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#check-circle"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#check-circle"
           />
         </svg>
       </div>
@@ -82,7 +82,7 @@ exports[`ProgressBar should render a progress bar with error 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#times-circle"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#times-circle"
           />
         </svg>
       </div>

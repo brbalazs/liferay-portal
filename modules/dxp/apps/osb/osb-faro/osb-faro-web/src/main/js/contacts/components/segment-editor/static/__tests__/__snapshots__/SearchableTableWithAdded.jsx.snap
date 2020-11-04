@@ -48,7 +48,7 @@ exports[`SearchableTableWithAdded should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#search"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                         />
                       </svg>
                     </button>
@@ -125,7 +125,7 @@ exports[`SearchableTableWithAdded should show the staged table if showStaged is 
                         viewBox=""
                       >
                         <use
-                          xlink:href="#search"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                         />
                       </svg>
                     </button>
@@ -203,7 +203,7 @@ exports[`SearchableTableWithAdded should show the staged table if showStaged is 
                       viewBox=""
                     >
                       <use
-                        xlink:href="#order-arrow-up"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-up"
                       />
                     </svg>
                   </span>
@@ -295,7 +295,7 @@ exports[`SearchableTableWithAdded should show the staged table if showStaged is 
                   viewBox=""
                 >
                   <use
-                    xlink:href="#caret-bottom"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                   />
                 </svg>
               </span>
@@ -320,7 +320,7 @@ exports[`SearchableTableWithAdded should show the staged table if showStaged is 
                   viewBox=""
                 >
                   <use
-                    xlink:href="#angle-left"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
                   />
                 </svg>
               </a>
@@ -367,7 +367,7 @@ exports[`SearchableTableWithAdded should show the staged table if showStaged is 
                   viewBox=""
                 >
                   <use
-                    xlink:href="#angle-right"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                   />
                 </svg>
               </a>

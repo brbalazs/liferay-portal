@@ -20,7 +20,7 @@ exports[`SelectWorkspaceAccount should render 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#liferay-logo"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#liferay-logo"
             />
           </svg>
         </a>
@@ -72,7 +72,7 @@ exports[`SelectWorkspaceAccount should render 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#ac-logo"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
                 />
               </svg>
               <span
@@ -147,7 +147,7 @@ exports[`SelectWorkspaceAccount should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#angle-right"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                         />
                       </svg>
                     </div>
@@ -194,7 +194,7 @@ exports[`SelectWorkspaceAccount should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#angle-right"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                         />
                       </svg>
                     </div>

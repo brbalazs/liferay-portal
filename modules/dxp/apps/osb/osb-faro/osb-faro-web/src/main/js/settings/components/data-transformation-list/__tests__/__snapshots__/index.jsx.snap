@@ -29,7 +29,7 @@ exports[`DataTransformationList should hide mapped fields if hide mapped fields 
               viewBox=""
             >
               <use
-                href="#caret-double"
+                href="/o/osb-faro-web/dist/sprite.svg#caret-double"
               />
             </svg>
           </span>
@@ -48,7 +48,7 @@ exports[`DataTransformationList should hide mapped fields if hide mapped fields 
       viewBox=""
     >
       <use
-        href="#faro-connection-success-ovals"
+        href="/o/osb-faro-web/dist/sprite.svg#faro-connection-success-ovals"
       />
     </svg>
   </div>
@@ -80,7 +80,7 @@ exports[`DataTransformationList should hide mapped fields if hide mapped fields 
               viewBox=""
             >
               <use
-                href="#caret-double"
+                href="/o/osb-faro-web/dist/sprite.svg#caret-double"
               />
             </svg>
           </span>
@@ -103,7 +103,7 @@ exports[`DataTransformationList should hide mapped fields if hide mapped fields 
         viewBox=""
       >
         <use
-          href="#info-circle"
+          href="/o/osb-faro-web/dist/sprite.svg#info-circle"
         />
       </svg>
     </span>
@@ -122,7 +122,7 @@ exports[`DataTransformationList should hide mapped fields if hide mapped fields 
         viewBox=""
       >
         <use
-          href="#times-circle"
+          href="/o/osb-faro-web/dist/sprite.svg#times-circle"
         />
       </svg>
     </button>

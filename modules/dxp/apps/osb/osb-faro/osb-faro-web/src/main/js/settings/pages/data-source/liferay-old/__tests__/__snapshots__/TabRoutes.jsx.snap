@@ -261,7 +261,7 @@ exports[`LiferayTabRoutes should render 1`] = `
                               viewBox=""
                             >
                               <use
-                                xlink:href="#view"
+                                xlink:href="/o/osb-faro-web/dist/sprite.svg#view"
                               />
                             </svg>
                           </button>

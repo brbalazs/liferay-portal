@@ -17,7 +17,7 @@ exports[`EmbeddedAlertList should render 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#exclamation-full"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#exclamation-full"
           />
         </svg>
       </span>

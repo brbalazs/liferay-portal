@@ -77,7 +77,7 @@ exports[`Individuals Dashboard KnownIndividuals List renders 1`] = `
                               viewBox=""
                             >
                               <use
-                                xlink:href="#caret-bottom"
+                                xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                               />
                             </svg>
                           </span>
@@ -96,7 +96,7 @@ exports[`Individuals Dashboard KnownIndividuals List renders 1`] = `
                             viewBox=""
                           >
                             <use
-                              xlink:href="#order-arrow-ascending"
+                              xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-ascending"
                             />
                           </svg>
                         </a>
@@ -129,7 +129,7 @@ exports[`Individuals Dashboard KnownIndividuals List renders 1`] = `
                                 viewBox=""
                               >
                                 <use
-                                  xlink:href="#search"
+                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                                 />
                               </svg>
                             </button>
@@ -171,7 +171,7 @@ exports[`Individuals Dashboard KnownIndividuals List renders 1`] = `
                               viewBox=""
                             >
                               <use
-                                xlink:href="#order-arrow-up"
+                                xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-up"
                               />
                             </svg>
                           </span>

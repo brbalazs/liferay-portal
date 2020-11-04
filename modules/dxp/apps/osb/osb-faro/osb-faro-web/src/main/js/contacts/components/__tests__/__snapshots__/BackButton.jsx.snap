@@ -14,7 +14,7 @@ exports[`BackButton should render 1`] = `
         viewBox=""
       >
         <use
-          xlink:href="#angle-left"
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
         />
       </svg>
       foo label

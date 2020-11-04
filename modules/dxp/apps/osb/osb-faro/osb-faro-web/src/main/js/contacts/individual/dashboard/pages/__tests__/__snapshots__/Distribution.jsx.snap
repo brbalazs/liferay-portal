@@ -67,7 +67,7 @@ exports[`Individuals Dashboard Distribution renders 1`] = `
                                 viewBox=""
                               >
                                 <use
-                                  xlink:href="#caret-bottom"
+                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                                 />
                               </svg>
                             </div>
@@ -94,7 +94,7 @@ exports[`Individuals Dashboard Distribution renders 1`] = `
                           viewBox=""
                         >
                           <use
-                            xlink:href="#document"
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#document"
                           />
                         </svg>
                       </div>

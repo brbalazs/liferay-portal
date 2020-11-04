@@ -48,7 +48,7 @@ exports[`TypeTrendCard should render 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#caret-bottom"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                 />
               </svg>
               <b>
@@ -77,7 +77,7 @@ exports[`TypeTrendCard should render 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#question-circle-full"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#question-circle-full"
                 />
               </svg>
             </span>
@@ -107,7 +107,7 @@ exports[`TypeTrendCard should render 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#caret-top"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-top"
                 />
               </svg>
               <b>
@@ -136,7 +136,7 @@ exports[`TypeTrendCard should render 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#question-circle-full"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#question-circle-full"
                 />
               </svg>
             </span>

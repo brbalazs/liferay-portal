@@ -24,7 +24,7 @@ exports[`BaseSelect should defocus the selected item 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#caret-bottom"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
           />
         </svg>
       </div>
@@ -57,7 +57,7 @@ exports[`BaseSelect should fetch items with focus 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#caret-bottom"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
           />
         </svg>
       </div>
@@ -90,7 +90,7 @@ exports[`BaseSelect should focus on the next item 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#caret-bottom"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
           />
         </svg>
       </div>
@@ -123,7 +123,7 @@ exports[`BaseSelect should focus on the previous item 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#caret-bottom"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
           />
         </svg>
       </div>
@@ -156,7 +156,7 @@ exports[`BaseSelect should focus on the selected item 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#caret-bottom"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
           />
         </svg>
       </div>
@@ -194,7 +194,7 @@ exports[`BaseSelect should render 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#caret-bottom"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
           />
         </svg>
       </div>
@@ -228,7 +228,7 @@ exports[`BaseSelect should render as disabled 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#caret-bottom"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
           />
         </svg>
       </div>

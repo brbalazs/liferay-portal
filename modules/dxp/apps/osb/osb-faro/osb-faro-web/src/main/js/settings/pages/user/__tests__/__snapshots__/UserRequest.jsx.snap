@@ -44,7 +44,7 @@ exports[`UserRequest should render 1`] = `
                       viewBox=""
                     >
                       <use
-                        xlink:href="#caret-bottom"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                       />
                     </svg>
                   </span>
@@ -63,7 +63,7 @@ exports[`UserRequest should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#order-arrow-ascending"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-ascending"
                     />
                   </svg>
                 </a>
@@ -96,7 +96,7 @@ exports[`UserRequest should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#search"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                         />
                       </svg>
                     </button>
@@ -225,7 +225,7 @@ exports[`UserRequest should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#caret-bottom"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                   />
                 </svg>
               </span>
@@ -250,7 +250,7 @@ exports[`UserRequest should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#angle-left"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
                   />
                 </svg>
               </a>
@@ -276,7 +276,7 @@ exports[`UserRequest should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#angle-right"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                   />
                 </svg>
               </a>

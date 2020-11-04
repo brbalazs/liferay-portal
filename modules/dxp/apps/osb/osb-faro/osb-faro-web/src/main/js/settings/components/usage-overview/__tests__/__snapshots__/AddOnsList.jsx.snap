@@ -23,7 +23,7 @@ exports[`AddOnsList should render 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#ac-individual"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-individual"
                 />
               </svg>
               <span
@@ -91,7 +91,7 @@ exports[`AddOnsList should render 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#faro-page-views"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#faro-page-views"
                 />
               </svg>
               <span

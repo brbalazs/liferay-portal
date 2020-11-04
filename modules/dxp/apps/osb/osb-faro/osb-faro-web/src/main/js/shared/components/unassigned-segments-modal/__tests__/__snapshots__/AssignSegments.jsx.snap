@@ -49,7 +49,7 @@ exports[`AssignSegments should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#order-arrow-up"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-up"
                         />
                       </svg>
                     </span>

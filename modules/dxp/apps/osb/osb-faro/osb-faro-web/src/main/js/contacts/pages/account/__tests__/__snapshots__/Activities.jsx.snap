@@ -46,7 +46,7 @@ exports[`Activities should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#caret-top"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-top"
                   />
                 </svg>
                 <span
@@ -164,7 +164,7 @@ exports[`Activities should render 1`] = `
                           viewBox=""
                         >
                           <use
-                            xlink:href="#search"
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                           />
                         </svg>
                       </button>
@@ -294,7 +294,7 @@ exports[`Activities should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#caret-top"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-top"
                         />
                       </svg>
                     </div>
@@ -332,7 +332,7 @@ exports[`Activities should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#caret-bottom"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                     />
                   </svg>
                 </span>
@@ -359,7 +359,7 @@ exports[`Activities should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#angle-left"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
                     />
                   </svg>
                 </button>
@@ -387,7 +387,7 @@ exports[`Activities should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#angle-right"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                     />
                   </svg>
                 </button>
@@ -447,7 +447,7 @@ exports[`Activities should render with Engagement tab as active 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#caret-top"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-top"
                   />
                 </svg>
                 <span
@@ -590,7 +590,7 @@ exports[`Activities should render with Engagement tab as active 1`] = `
                           viewBox=""
                         >
                           <use
-                            xlink:href="#search"
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                           />
                         </svg>
                       </button>
@@ -664,7 +664,7 @@ exports[`Activities should render with Engagement tab as active 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#order-arrow-down"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-down"
                         />
                       </svg>
                     </span>
@@ -745,7 +745,7 @@ exports[`Activities should render with Engagement tab as active 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#caret-bottom"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                     />
                   </svg>
                 </span>
@@ -772,7 +772,7 @@ exports[`Activities should render with Engagement tab as active 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#angle-left"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
                     />
                   </svg>
                 </button>
@@ -800,7 +800,7 @@ exports[`Activities should render with Engagement tab as active 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#angle-right"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                     />
                   </svg>
                 </button>

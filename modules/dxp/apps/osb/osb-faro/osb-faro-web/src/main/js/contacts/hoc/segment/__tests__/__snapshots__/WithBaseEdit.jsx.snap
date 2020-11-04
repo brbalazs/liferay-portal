@@ -33,7 +33,7 @@ exports[`WithBaseEdit should render the wrapped component 1`] = `
                   viewBox=""
                 >
                   <use
-                    href="#ellipsis-h"
+                    href="/o/osb-faro-web/dist/sprite.svg#ellipsis-h"
                   />
                 </svg>
               </span>

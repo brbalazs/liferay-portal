@@ -19,7 +19,7 @@ exports[`CriteriaRow should render 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#drag"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#drag"
           />
         </svg>
       </div>
@@ -108,7 +108,7 @@ exports[`CriteriaRow should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#caret-bottom"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                         />
                       </svg>
                     </div>
@@ -190,7 +190,7 @@ exports[`CriteriaRow should render 1`] = `
                       viewBox=""
                     >
                       <use
-                        xlink:href="#calendar"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#calendar"
                       />
                     </svg>
                   </button>
@@ -213,7 +213,7 @@ exports[`CriteriaRow should render 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#paste"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#paste"
             />
           </svg>
         </button>
@@ -227,7 +227,7 @@ exports[`CriteriaRow should render 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#trash"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#trash"
             />
           </svg>
         </button>

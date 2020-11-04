@@ -27,7 +27,7 @@ exports[`SearchableTableModalGraphql should render 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#times"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
             />
           </svg>
         </button>
@@ -100,7 +100,7 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#search"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                         />
                       </svg>
                     </button>
@@ -142,7 +142,7 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                       viewBox=""
                     >
                       <use
-                        xlink:href="#order-arrow-up"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-up"
                       />
                     </svg>
                   </span>
@@ -325,7 +325,7 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#caret-bottom"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                   />
                 </svg>
               </span>
@@ -352,7 +352,7 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#angle-left"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
                   />
                 </svg>
               </button>
@@ -380,7 +380,7 @@ exports[`SearchableTableModalGraphql should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#angle-right"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                   />
                 </svg>
               </button>

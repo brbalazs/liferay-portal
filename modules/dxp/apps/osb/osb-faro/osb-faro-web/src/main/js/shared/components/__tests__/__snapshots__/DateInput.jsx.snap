@@ -26,7 +26,7 @@ exports[`DateInput should render 1`] = `
           viewBox=""
         >
           <use
-            href="#calendar"
+            href="/o/osb-faro-web/dist/sprite.svg#calendar"
           />
         </svg>
       </button>

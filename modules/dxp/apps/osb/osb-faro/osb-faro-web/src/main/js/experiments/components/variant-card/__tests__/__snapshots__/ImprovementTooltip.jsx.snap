@@ -12,7 +12,7 @@ exports[`Unique Visitors Tooltip should render 1`] = `
         viewBox=""
       >
         <use
-          xlink:href="#caret-top"
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-top"
         />
       </svg>
       <span

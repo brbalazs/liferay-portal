@@ -42,7 +42,7 @@ exports[`ConnectDXP renders 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#dxp-icon-grayscale"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#dxp-icon-grayscale"
           />
         </svg>
         <svg
@@ -50,7 +50,7 @@ exports[`ConnectDXP renders 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#ac-horizontal-arrows"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-horizontal-arrows"
           />
         </svg>
         <svg
@@ -58,7 +58,7 @@ exports[`ConnectDXP renders 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#ac-logo"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
           />
         </svg>
       </div>
@@ -99,7 +99,7 @@ exports[`ConnectDXP renders 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#paste"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#paste"
                 />
               </svg>
             </button>

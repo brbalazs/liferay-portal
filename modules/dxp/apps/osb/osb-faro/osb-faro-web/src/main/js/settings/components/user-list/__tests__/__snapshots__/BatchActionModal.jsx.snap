@@ -23,7 +23,7 @@ exports[`BatchActionModal should render 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#times"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
             />
           </svg>
         </button>
@@ -54,7 +54,7 @@ exports[`BatchActionModal should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#caret-bottom"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                   />
                 </svg>
               </span>

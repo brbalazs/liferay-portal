@@ -114,7 +114,7 @@ exports[`Search should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#trash"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#trash"
                   />
                 </svg>
               </button>
@@ -127,7 +127,7 @@ exports[`Search should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#plus"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#plus"
                   />
                 </svg>
               </button>

@@ -71,7 +71,7 @@ exports[`View Channel should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#pencil"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#pencil"
                   />
                 </svg>
               </button>
@@ -188,7 +188,7 @@ exports[`View Channel should render 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#ac-no-sites"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-no-sites"
               />
             </svg>
             <span

@@ -35,7 +35,7 @@ exports[`DurationInput should render 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#caret-bottom"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
               />
             </svg>
           </span>

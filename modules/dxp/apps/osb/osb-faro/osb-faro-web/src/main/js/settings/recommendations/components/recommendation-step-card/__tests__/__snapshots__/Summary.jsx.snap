@@ -76,7 +76,7 @@ exports[`Summary should render 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#warning-full"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#warning-full"
                 />
               </svg>
               <button
@@ -148,7 +148,7 @@ exports[`Summary should render 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#question-circle-full"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#question-circle-full"
               />
             </svg>
           </span>

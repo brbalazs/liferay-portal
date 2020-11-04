@@ -59,7 +59,7 @@ exports[`InterestDetails renders 1`] = `
                       viewBox=""
                     >
                       <use
-                        xlink:href="#search"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                       />
                     </svg>
                   </button>
@@ -132,7 +132,7 @@ exports[`InterestDetails renders 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#order-arrow-down"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-down"
                     />
                   </svg>
                 </span>
@@ -314,7 +314,7 @@ exports[`InterestDetails renders 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#caret-bottom"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                 />
               </svg>
             </span>
@@ -339,7 +339,7 @@ exports[`InterestDetails renders 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#angle-left"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
                 />
               </svg>
             </a>
@@ -365,7 +365,7 @@ exports[`InterestDetails renders 1`] = `
                 viewBox=""
               >
                 <use
-                  xlink:href="#angle-right"
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                 />
               </svg>
             </a>

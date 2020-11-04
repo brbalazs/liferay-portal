@@ -67,7 +67,7 @@ exports[`ChartViews should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#search"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                         />
                       </svg>
                     </button>
@@ -108,7 +108,7 @@ exports[`ChartViews should render 1`] = `
                       viewBox=""
                     >
                       <use
-                        xlink:href="#order-arrow-up"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-up"
                       />
                     </svg>
                   </span>
@@ -210,7 +210,7 @@ exports[`ChartViews should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#caret-bottom"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                   />
                 </svg>
               </span>
@@ -237,7 +237,7 @@ exports[`ChartViews should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#angle-left"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
                   />
                 </svg>
               </button>
@@ -265,7 +265,7 @@ exports[`ChartViews should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#angle-right"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                   />
                 </svg>
               </button>
@@ -403,7 +403,7 @@ exports[`Membership should render 1`] = `
                           viewBox=""
                         >
                           <use
-                            xlink:href="#search"
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                           />
                         </svg>
                       </button>
@@ -444,7 +444,7 @@ exports[`Membership should render 1`] = `
                         viewBox=""
                       >
                         <use
-                          xlink:href="#order-arrow-up"
+                          xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-up"
                         />
                       </svg>
                     </span>
@@ -546,7 +546,7 @@ exports[`Membership should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#caret-bottom"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
                     />
                   </svg>
                 </span>
@@ -573,7 +573,7 @@ exports[`Membership should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#angle-left"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
                     />
                   </svg>
                 </button>
@@ -601,7 +601,7 @@ exports[`Membership should render 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#angle-right"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
                     />
                   </svg>
                 </button>

@@ -92,7 +92,7 @@ exports[`WithCrossPageSelect should render the selected list when the user press
                     viewBox=""
                   >
                     <use
-                      xlink:href="#search"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                     />
                   </svg>
                 </button>
@@ -163,7 +163,7 @@ exports[`WithCrossPageSelect should render the selected list when the user press
                   viewBox=""
                 >
                   <use
-                    xlink:href="#order-arrow-up"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-up"
                   />
                 </svg>
               </span>
@@ -231,7 +231,7 @@ exports[`WithCrossPageSelect should render the selected list when the user press
               viewBox=""
             >
               <use
-                xlink:href="#caret-bottom"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
               />
             </svg>
           </span>
@@ -258,7 +258,7 @@ exports[`WithCrossPageSelect should render the selected list when the user press
               viewBox=""
             >
               <use
-                xlink:href="#angle-left"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
               />
             </svg>
           </button>
@@ -286,7 +286,7 @@ exports[`WithCrossPageSelect should render the selected list when the user press
               viewBox=""
             >
               <use
-                xlink:href="#angle-right"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
               />
             </svg>
           </button>
@@ -360,7 +360,7 @@ exports[`WithCrossPageSelect should render the server data list by default 1`] =
                     viewBox=""
                   >
                     <use
-                      xlink:href="#search"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                     />
                   </svg>
                 </button>
@@ -402,7 +402,7 @@ exports[`WithCrossPageSelect should render the server data list by default 1`] =
                   viewBox=""
                 >
                   <use
-                    xlink:href="#order-arrow-down"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-down"
                   />
                 </svg>
               </span>
@@ -614,7 +614,7 @@ exports[`WithCrossPageSelect should render the server data list by default 1`] =
               viewBox=""
             >
               <use
-                xlink:href="#caret-bottom"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
               />
             </svg>
           </span>
@@ -639,7 +639,7 @@ exports[`WithCrossPageSelect should render the server data list by default 1`] =
               viewBox=""
             >
               <use
-                xlink:href="#angle-left"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-left"
               />
             </svg>
           </a>
@@ -686,7 +686,7 @@ exports[`WithCrossPageSelect should render the server data list by default 1`] =
               viewBox=""
             >
               <use
-                xlink:href="#angle-right"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#angle-right"
               />
             </svg>
           </a>

@@ -176,7 +176,7 @@ exports[`SyncSites should render 1`] = `
                                   viewBox=""
                                 >
                                   <use
-                                    xlink:href="#search"
+                                    xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                                   />
                                 </svg>
                               </button>

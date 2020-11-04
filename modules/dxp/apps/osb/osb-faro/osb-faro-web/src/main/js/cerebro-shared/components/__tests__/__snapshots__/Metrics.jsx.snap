@@ -47,7 +47,7 @@ exports[`Metrics should render 1`] = `
                   viewBox=""
                 >
                   <use
-                    xlink:href="#caret-top-1"
+                    xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-top-1"
                   />
                 </svg>
                 <span

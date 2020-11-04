@@ -134,7 +134,7 @@ exports[`LiferayDataSource should render 1`] = `
                                 viewBox=""
                               >
                                 <use
-                                  xlink:href="#pencil"
+                                  xlink:href="/o/osb-faro-web/dist/sprite.svg#pencil"
                                 />
                               </svg>
                             </button>

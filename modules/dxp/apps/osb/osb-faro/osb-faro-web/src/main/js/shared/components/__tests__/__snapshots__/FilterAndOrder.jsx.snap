@@ -28,7 +28,7 @@ exports[`FilterAndOrder should render 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#caret-bottom"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
             />
           </svg>
         </span>
@@ -66,7 +66,7 @@ exports[`FilterAndOrder should render filters as a flat list 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#caret-bottom"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
             />
           </svg>
         </span>
@@ -169,7 +169,7 @@ exports[`FilterAndOrder should render with filter by options 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#caret-bottom"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
             />
           </svg>
         </span>
@@ -213,7 +213,7 @@ exports[`FilterAndOrder should render with filter by options 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#caret-right"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-right"
               />
             </svg>
           </span>
@@ -252,7 +252,7 @@ exports[`FilterAndOrder should render with order by options 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#caret-bottom"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
             />
           </svg>
         </span>
@@ -331,7 +331,7 @@ exports[`FilterAndOrder should render with order by options and filter by option
             viewBox=""
           >
             <use
-              xlink:href="#caret-bottom"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
             />
           </svg>
         </span>
@@ -375,7 +375,7 @@ exports[`FilterAndOrder should render with order by options and filter by option
               viewBox=""
             >
               <use
-                xlink:href="#caret-right"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-right"
               />
             </svg>
           </span>

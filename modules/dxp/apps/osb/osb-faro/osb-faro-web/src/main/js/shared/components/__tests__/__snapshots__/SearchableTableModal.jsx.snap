@@ -27,7 +27,7 @@ exports[`SearchableTableModal should render 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#times"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
             />
           </svg>
         </button>
@@ -107,7 +107,7 @@ exports[`SearchableTableModal should render 1`] = `
                             viewBox=""
                           >
                             <use
-                              xlink:href="#search"
+                              xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
                             />
                           </svg>
                         </button>
@@ -149,7 +149,7 @@ exports[`SearchableTableModal should render 1`] = `
                           viewBox=""
                         >
                           <use
-                            xlink:href="#order-arrow-up"
+                            xlink:href="/o/osb-faro-web/dist/sprite.svg#order-arrow-up"
                           />
                         </svg>
                       </span>

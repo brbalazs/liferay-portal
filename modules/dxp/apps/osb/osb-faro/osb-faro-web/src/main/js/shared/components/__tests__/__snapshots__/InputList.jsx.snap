@@ -29,7 +29,7 @@ exports[`InputList should paste a text in inputList 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#info-circle"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#info-circle"
             />
           </svg>
         </span>
@@ -154,7 +154,7 @@ exports[`InputList should render with existing items 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#times"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
               />
             </svg>
           </button>
@@ -181,7 +181,7 @@ exports[`InputList should render with existing items 1`] = `
               viewBox=""
             >
               <use
-                xlink:href="#times"
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
               />
             </svg>
           </button>

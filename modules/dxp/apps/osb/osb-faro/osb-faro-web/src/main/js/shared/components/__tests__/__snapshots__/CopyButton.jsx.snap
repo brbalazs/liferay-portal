@@ -15,7 +15,7 @@ exports[`CopyButton should render 1`] = `
       viewBox=""
     >
       <use
-        xlink:href="#paste"
+        xlink:href="/o/osb-faro-web/dist/sprite.svg#paste"
       />
     </svg>
   </button>

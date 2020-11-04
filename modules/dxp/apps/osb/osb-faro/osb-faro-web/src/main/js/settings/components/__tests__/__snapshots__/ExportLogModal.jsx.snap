@@ -27,7 +27,7 @@ exports[`ExportLogModal renders 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#times"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
             />
           </svg>
         </button>
@@ -74,7 +74,7 @@ exports[`ExportLogModal renders 1`] = `
                     viewBox=""
                   >
                     <use
-                      xlink:href="#calendar"
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#calendar"
                     />
                   </svg>
                 </button>
