@@ -1,23 +1,23 @@
 .picker-root-container {
-    background-image: url("../images/word-map.svg");
-    background-repeat: no-repeat;
-    background-position-x: center;
-    margin: 32px 44px 0px;
-    min-height: 15em;
+	background-image: url('/o/osb-faro-web/dist/sprite.svg#word-map-usage');
+	background-repeat: no-repeat;
+	background-position-x: center;
+	margin: 32px 44px 0px;
+	min-height: 15em;
 
-    .current-time-display {
-        color: $mainLighten28;
-        font-size: $fontSizeExtraLarge;
-        font-weight: $fontWeightSemiBold;
-    }
-    
-    .current-time-value {
-        color: $mainLighten28;
-        font-size: $font-size-lg-2x;
-        font-weight: $fontWeightBold;
-    }
+	.current-time-display {
+		color: $mainLighten28;
+		font-size: $fontSizeExtraLarge;
+		font-weight: $fontWeightSemiBold;
+	}
 
-    .time-zone-spaced-select {
-        padding-top: 48px;
-    }
+	.current-time-value {
+		color: $mainLighten28;
+		font-size: $font-size-lg-2x;
+		font-weight: $fontWeightBold;
+	}
+
+	.time-zone-spaced-select {
+		padding-top: 48px;
+	}
 }

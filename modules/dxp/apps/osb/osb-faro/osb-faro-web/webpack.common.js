@@ -110,7 +110,7 @@ const config = {
 						loader: 'svg-sprite-loader',
 						options: {
 							extract: true,
-							spriteFilename: 'sprite-[hash:6].svg'
+							spriteFilename: 'sprite.svg'
 						}
 					},
 					{
