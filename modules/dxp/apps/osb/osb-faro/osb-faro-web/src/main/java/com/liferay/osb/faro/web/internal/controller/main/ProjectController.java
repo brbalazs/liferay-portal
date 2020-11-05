@@ -223,6 +223,7 @@ public class ProjectController extends BaseFaroController {
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("emailAddressDomains")
 				FaroParam<List<String>> emailAddressDomainsFaroParam,
+			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("incidentReportEmailAddresses")
 				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("serverLocation") String serverLocation,
@@ -280,6 +281,7 @@ public class ProjectController extends BaseFaroController {
 	@RolesAllowed(StringPool.BLANK)
 	public ProjectDisplay createProvisioned(
 			@FormParam("corpProjectUuid") String corpProjectUuid,
+			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("incidentReportEmailAddresses")
 				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("ownerEmailAddress") String ownerEmailAddress,
@@ -312,6 +314,7 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("emailAddressDomains")
 				FaroParam<List<String>> emailAddressDomainsFaroParam,
 			@FormParam("friendlyURL") String friendlyURL,
+			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("incidentReportEmailAddresses")
 				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("serverLocation") String serverLocation,
@@ -356,6 +359,7 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("emailAddressDomains")
 				FaroParam<List<String>> emailAddressDomainsFaroParam,
 			@FormParam("friendlyURL") String friendlyURL,
+			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("incidentReportEmailAddresses")
 				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("serverLocation") String serverLocation,
@@ -641,6 +645,7 @@ public class ProjectController extends BaseFaroController {
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("emailAddressDomains")
 				FaroParam<List<String>> emailAddressDomainsFaroParam,
+			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("incidentReportEmailAddresses")
 				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("name") String name,
@@ -690,8 +695,7 @@ public class ProjectController extends BaseFaroController {
 			_validateIncidentReportEmailAddresses(incidentReportEmailAddresses);
 
 			faroProject.setIncidentReportEmailAddresses(
-				JSONUtil.writeValueAsString(
-					incidentReportEmailAddressesFaroParam.getValue()));
+				JSONUtil.writeValueAsString(incidentReportEmailAddresses));
 		}
 
 		try {
