@@ -142,6 +142,10 @@ public class CrossClusterReplicationConfigurationModelListener
 	protected void addRemoteAndFollowIndexes(
 		String remoteClusterAlias, Dictionary<String, Object> properties) {
 
+		if (_log.isInfoEnabled()) {
+			_log.info("Enabling Cross-Cluster Replication");
+		}
+
 		String[] excludedIndexes = GetterUtil.getStringValues(
 			properties.get("excludedIndexes"));
 
@@ -216,6 +220,10 @@ public class CrossClusterReplicationConfigurationModelListener
 	protected void unfollowIndexesAndDeleteRemoteCluster(
 		String[] ccrLocalClusterConnectionConfigurations,
 		String remoteClusterAlias, String[] excludedIndexes) {
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Disabling Cross-Cluster Replication");
+		}
 
 		for (String ccrLocalClusterConnectionConfiguration :
 				ccrLocalClusterConnectionConfigurations) {
