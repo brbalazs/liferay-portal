@@ -4256,10 +4256,6 @@ log.sanitizer.enabled=false</echo>
 		<run-functional-test app.server.type="wildfly" database.type="mariadb" />
 	</target>
 
-	<target name="functional-wildfly160-mysql57-jdk8">
-		<run-functional-test app.server.type="wildfly" database.type="mysql" />
-	</target>
-
 	<target name="functional-wildfly140-mariadb102-jdk8">
 		<set-app-server-version-number app.server.type="wildfly" app.server.version="14.0.0" />
 
@@ -4270,6 +4266,10 @@ log.sanitizer.enabled=false</echo>
 		<set-app-server-version-number app.server.type="wildfly" app.server.version="14.0.0" />
 
 		<run-functional-test app.server.type="wildfly" app.server.version="14.0.0" database.type="mysql" />
+	</target>
+
+	<target name="functional-wildfly160-mysql57-jdk8">
+		<run-functional-test app.server.type="wildfly" database.type="mysql" />
 	</target>
 
 	<target name="gogo-shell-client-jdk8">
