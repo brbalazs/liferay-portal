@@ -174,6 +174,8 @@ public class ProjectController extends BaseFaroController {
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("emailAddressDomains")
 				FaroParam<List<String>> emailAddressDomainsFaroParam,
+			@FormParam("incidentReportEmailAddresses")
+				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("name") String name,
 			@DefaultValue(StringPool.BLANK) @FormParam("timeZoneId")
 				String timeZoneId)
@@ -210,8 +212,8 @@ public class ProjectController extends BaseFaroController {
 		faroProjectLocalService.updateFaroProject(faroProject);
 
 		return update(
-			friendlyURL, groupId, emailAddressDomainsFaroParam, name,
-			timeZoneId);
+			friendlyURL, groupId, emailAddressDomainsFaroParam,
+			incidentReportEmailAddressesFaroParam, name, timeZoneId);
 	}
 
 	@POST
