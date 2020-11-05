@@ -80,11 +80,21 @@ public class ElasticsearchConnectionManager
 	public ElasticsearchConnection getCCRElasticsearchConnection(
 		String connectionId) {
 
+		ElasticsearchConnection elasticsearchConnection =
+			_ccrElasticsearchConnections.get(connectionId);
+
 		if (_log.isInfoEnabled()) {
-			_log.info("Getting connection with ID: " + connectionId);
+			if (elasticsearchConnection != null) {
+				_log.info("Returning connection with ID: " + connectionId);
+			}
+			else {
+				_log.info(
+					"Connection not found. Returning null for ID: " +
+						connectionId);
+			}
 		}
 
-		return _ccrElasticsearchConnections.get(connectionId);
+		return elasticsearchConnection;
 	}
 
 	@Override
@@ -122,11 +132,22 @@ public class ElasticsearchConnectionManager
 	public ElasticsearchConnection getElasticsearchConnection(
 		String localClusterConnectionId, boolean preferLocalCluster) {
 
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				"Connection requested for ID: " + localClusterConnectionId);
+		}
+
 		if (_operationMode == null) {
 			return null;
 		}
 
 		if (_operationMode == OperationMode.EMBEDDED) {
+			if (_log.isInfoEnabled()) {
+				_log.info(
+					"Returning connection with ID: " +
+						EmbeddedElasticsearchConnection.CONNECTION_ID);
+			}
+
 			return _elasticsearchConnections.get(
 				EmbeddedElasticsearchConnection.CONNECTION_ID);
 		}
@@ -143,9 +164,14 @@ public class ElasticsearchConnectionManager
 							localClusterConnectionId);
 				}
 
-				return _ccrElasticsearchConnections.get(
-					localClusterConnectionId);
+				return getCCRElasticsearchConnection(localClusterConnectionId);
 			}
+		}
+
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				"Returning connection with ID: " +
+					RemoteElasticsearchConnection.CONNECTION_ID);
 		}
 
 		return _elasticsearchConnections.get(

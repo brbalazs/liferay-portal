@@ -98,14 +98,12 @@ public class CrossClusterReplicationHelperImpl
 						remoteClusterSeedNodeTransportAddress);
 				}
 				catch (Exception exception) {
-					if (_log.isWarnEnabled()) {
-						_log.warn(
-							StringBundler.concat(
-								"Unable to add the remote cluster ",
-								remoteClusterAlias, " for connection ",
-								localClusterConnectionId),
-							exception);
-					}
+					_log.error(
+						StringBundler.concat(
+							"Unable to add the remote cluster ",
+							remoteClusterAlias, " for connection ",
+							localClusterConnectionId),
+						exception);
 				}
 			});
 	}
@@ -129,14 +127,12 @@ public class CrossClusterReplicationHelperImpl
 						restHighLevelClient, remoteClusterAlias, null);
 				}
 				catch (Exception exception) {
-					if (_log.isWarnEnabled()) {
-						_log.warn(
-							StringBundler.concat(
-								"Unable to remove the remote cluster ",
-								remoteClusterAlias, " for connection ",
-								localClusterConnectionId),
-							exception);
-					}
+					_log.error(
+						StringBundler.concat(
+							"Unable to remove the remote cluster ",
+							remoteClusterAlias, " for connection ",
+							localClusterConnectionId),
+						exception);
 				}
 			});
 	}
@@ -146,8 +142,8 @@ public class CrossClusterReplicationHelperImpl
 		if (!elasticsearchConnectionManager.
 				isCrossClusterReplicationEnabled()) {
 
-			if (_log.isInfoEnabled()) {
-				_log.info(
+			if (_log.isWarnEnabled()) {
+				_log.warn(
 					"Not following index " + indexName +
 						" because cross-cluster replication is not enabled");
 			}
@@ -198,15 +194,13 @@ public class CrossClusterReplicationHelperImpl
 						remoteClusterAlias, indexName, restHighLevelClient);
 				}
 				catch (Exception exception) {
-					if (_log.isWarnEnabled()) {
-						_log.warn(
-							StringBundler.concat(
-								"Unable to follow the ", indexName,
-								" index in the ", remoteClusterAlias,
-								" cluster for connection ",
-								localClusterConnectionId),
-							exception);
-					}
+					_log.error(
+						StringBundler.concat(
+							"Unable to follow the ", indexName,
+							" index in the ", remoteClusterAlias,
+							" cluster for connection ",
+							localClusterConnectionId),
+						exception);
 				}
 			});
 	}
@@ -232,8 +226,8 @@ public class CrossClusterReplicationHelperImpl
 		if (!elasticsearchConnectionManager.
 				isCrossClusterReplicationEnabled()) {
 
-			if (_log.isInfoEnabled()) {
-				_log.info(
+			if (_log.isWarnEnabled()) {
+				_log.warn(
 					"Not unfollowing index " + indexName +
 						" because cross-cluster replication is not enabled");
 			}
@@ -270,14 +264,11 @@ public class CrossClusterReplicationHelperImpl
 					_deleteIndex(indexName, restHighLevelClient);
 				}
 				catch (Exception exception) {
-					if (_log.isWarnEnabled()) {
-						_log.warn(
-							StringBundler.concat(
-								"Unable to unfollow the ", indexName,
-								" index for connection ",
-								localClusterConnectionId),
-							exception);
-					}
+					_log.error(
+						StringBundler.concat(
+							"Unable to unfollow the ", indexName,
+							" index for connection ", localClusterConnectionId),
+						exception);
 				}
 			});
 	}
