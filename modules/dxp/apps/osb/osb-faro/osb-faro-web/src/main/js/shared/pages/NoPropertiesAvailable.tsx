@@ -7,6 +7,7 @@ import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {Routes, toRoute} from 'shared/util/router';
+import {setBackURL} from 'shared/actions/settings';
 import {User} from 'shared/util/records';
 import {withRequest} from 'shared/hoc';
 
@@ -17,6 +18,7 @@ interface INoPropertiesAvailableProps
 	dataSources: boolean;
 	groupId: string;
 	open: (modalType: string, config: object) => void;
+	setBackURL: (url: string) => void;
 }
 
 const NoPropertiesAvailable: React.FC<INoPropertiesAvailableProps> = ({
@@ -24,7 +26,8 @@ const NoPropertiesAvailable: React.FC<INoPropertiesAvailableProps> = ({
 	currentUser,
 	dataSources,
 	groupId,
-	open
+	open,
+	setBackURL
 }) => {
 	const admin = currentUser.isAdmin();
 
@@ -72,7 +75,15 @@ const NoPropertiesAvailable: React.FC<INoPropertiesAvailableProps> = ({
 							}
 							onClick={
 								dataSources
-									? null
+									? () =>
+											setBackURL(
+												toRoute(
+													Routes.WORKSPACE_WITH_ID,
+													{
+														groupId
+													}
+												)
+											)
 									: () =>
 											open(modalTypes.ONBOARDING_MODAL, {
 												groupId,
@@ -100,6 +111,6 @@ export default compose<any>(
 	),
 	connect(
 		null,
-		{close, open}
+		{close, open, setBackURL}
 	)
 )(NoPropertiesAvailable);
