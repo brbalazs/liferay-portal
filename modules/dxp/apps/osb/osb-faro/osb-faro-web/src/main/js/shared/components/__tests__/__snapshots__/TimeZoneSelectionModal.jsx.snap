@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TimeZoneAdminModal should render 1`] = `
+exports[`TimeZoneSelectionModal should render 1`] = `
 <div>
   <div
     aria-modal="true"
@@ -111,12 +111,12 @@ exports[`TimeZoneAdminModal should render 1`] = `
             <span
               class="current-time-display"
             >
-              Current time:
+              Current Time:
             </span>
             <span
               class="current-time-value ml-4"
             >
-              09:00 a.m.
+              11:01 PM
             </span>
           </div>
         </div>
