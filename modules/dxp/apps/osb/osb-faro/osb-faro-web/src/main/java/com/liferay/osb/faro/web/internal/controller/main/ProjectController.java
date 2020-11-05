@@ -241,9 +241,7 @@ public class ProjectController extends BaseFaroController {
 		}
 
 		validateCorpProjectUuid(corpProjectUuid);
-
 		validateFriendlyURL(friendlyURL);
-
 		validateTimeZoneId(timeZoneId);
 
 		User user = getUser();
@@ -668,7 +666,7 @@ public class ProjectController extends BaseFaroController {
 
 				throw new FaroValidationException(
 					"friendlyURL",
-					getFriendlyURLErrorMessage(gfurle.getType(), getUser()));
+					getFriendlyURLErrorMessage(gfurle.getType()));
 			}
 		}
 
@@ -744,7 +742,9 @@ public class ProjectController extends BaseFaroController {
 			StringUtil.merge(invalidEmailAddressDomains));
 	}
 
-	protected String getFriendlyURLErrorMessage(int type, User user) {
+	protected String getFriendlyURLErrorMessage(int type) {
+		User user = getUser();
+
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", user.getLocale(), getClass());
 
@@ -984,7 +984,7 @@ public class ProjectController extends BaseFaroController {
 
 		if (friendlyURL.matches("^/\\d*$")) {
 			throw new FaroValidationException(
-				"friendlyURL", getFriendlyURLErrorMessage(0, getUser()));
+				"friendlyURL", getFriendlyURLErrorMessage(0));
 		}
 	}
 
@@ -1047,7 +1047,7 @@ public class ProjectController extends BaseFaroController {
 
 			throw new FaroValidationException(
 				"friendlyURL",
-				getFriendlyURLErrorMessage(gfurle.getType(), user));
+				getFriendlyURLErrorMessage(gfurle.getType()));
 		}
 
 		String weDeployKey = null;
@@ -1125,7 +1125,7 @@ public class ProjectController extends BaseFaroController {
 
 			throw new FaroValidationException(
 				"friendlyURL",
-				getFriendlyURLErrorMessage(gfurle.getType(), getUser()));
+				getFriendlyURLErrorMessage(gfurle.getType()));
 		}
 
 		User user = getUser();
