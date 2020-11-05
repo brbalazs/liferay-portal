@@ -10,10 +10,7 @@ import getCN from 'classnames';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense, useContext, useEffect} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
-import {close, modalTypes, open} from 'shared/actions/modals';
 import {compose, withCurrentUser} from 'shared/hoc';
-import {connect} from 'react-redux';
-import {Modal} from 'shared/types';
 import {OAuthUpgradeWarningContext} from 'shared/context/oAuthUpgradeWarning';
 import {Routes, toRoute} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
@@ -107,16 +104,9 @@ type Router = {
 interface IDashboardProps extends React.HTMLAttributes<HTMLDivElement> {
 	currentUser: User;
 	router: Router;
-	close: Modal.close;
-	open: Modal.open;
 }
 
-export const Dashboard: React.FC<IDashboardProps> = ({
-	close,
-	currentUser,
-	open,
-	router
-}) => {
+export const Dashboard: React.FC<IDashboardProps> = ({currentUser, router}) => {
 	const {channelId, groupId} = router.params;
 	const {selectedChannel} = useChannelContext();
 
@@ -132,12 +122,6 @@ export const Dashboard: React.FC<IDashboardProps> = ({
 	const {data: oAuth2Data} = useQuery(DataSourceQuery, {
 		variables: {credentialsType: oAuth2, type: liferay}
 	});
-
-	useEffect(() => {
-		open(modalTypes.TIME_ZONE_ADMIN_MODAL, {
-			onClose: close
-		});
-	}, []);
 
 	useEffect(() => {
 		if (
@@ -237,10 +221,4 @@ export const Dashboard: React.FC<IDashboardProps> = ({
 	);
 };
 
-export default compose<any>(
-	withCurrentUser,
-	connect(
-		null,
-		{close, open}
-	)
-)(Dashboard);
+export default compose<any>(withCurrentUser)(Dashboard);
