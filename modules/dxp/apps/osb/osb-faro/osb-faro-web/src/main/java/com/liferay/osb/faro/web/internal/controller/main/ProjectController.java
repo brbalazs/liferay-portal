@@ -34,7 +34,6 @@ import com.liferay.osb.faro.provisioning.client.model.OSBOfferingEntry;
 import com.liferay.osb.faro.service.FaroProjectEmailAddressDomainLocalService;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.osb.faro.service.FaroUserLocalService;
-import com.liferay.osb.faro.web.internal.constants.FaroConstants;
 import com.liferay.osb.faro.web.internal.controller.BaseFaroController;
 import com.liferay.osb.faro.web.internal.controller.contacts.FieldMappingController;
 import com.liferay.osb.faro.web.internal.exception.FaroException;
@@ -60,7 +59,6 @@ import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.model.UserConstants;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
@@ -709,18 +707,6 @@ public class ProjectController extends BaseFaroController {
 
 		return _getProjectDisplay(
 			faroProjectLocalService.updateFaroProject(faroProject));
-	}
-
-	private void _addDefaultContactsEntities(long groupId) throws Exception {
-		for (int type : FaroConstants.getContactsTypes()) {
-			_contactsLayoutTemplateLocalService.addContactsLayoutTemplate(
-				groupId, UserConstants.USER_ID_DEFAULT,
-				_contactsLayoutUtil.addHeaderContactsCardTemplateIds(
-					groupId, type),
-				"default",
-				_contactsLayoutUtil.addContactsCardTemplateIds(groupId, type),
-				type);
-		}
 	}
 
 	private FaroProject _create(
