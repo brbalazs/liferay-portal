@@ -689,6 +689,8 @@ public class ProjectController extends BaseFaroController {
 			incidentReportEmailAddressesFaroParam.getValue();
 
 		if (!incidentReportEmailAddresses.isEmpty()) {
+			validateIncidentReportEmailAddresses(incidentReportEmailAddresses);
+
 			faroProject.setIncidentReportEmailAddresses(
 				JSONUtil.writeValueAsString(
 					incidentReportEmailAddressesFaroParam.getValue()));
@@ -797,6 +799,16 @@ public class ProjectController extends BaseFaroController {
 		}
 
 		return language.get(resourceBundle, "invalid-friendly-url");
+	}
+
+	protected String getIncidentReportEmailAddressesErrorMessage() {
+		User user = getUser();
+
+		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
+			"content.Language", user.getLocale(), getClass());
+
+		return language.get(
+			resourceBundle, "invalid-incident-report-email-addresses");
 	}
 
 	protected ProjectDisplay getProjectDisplay(FaroProject faroProject)
@@ -976,6 +988,18 @@ public class ProjectController extends BaseFaroController {
 		}
 	}
 
+	protected void validateIncidentReportEmailAddresses(
+		List<String> incidentReportEmailAddresses) {
+
+		for (String incidentReportEmailAddress : incidentReportEmailAddresses) {
+			if (!Validator.isEmailAddress(incidentReportEmailAddress)) {
+				throw new FaroValidationException(
+					"incidentReportEmailAddresses",
+					getIncidentReportEmailAddressesErrorMessage());
+			}
+		}
+	}
+
 	protected void validateTimeZoneId(String timeZoneId) {
 		if (!TimeZoneUtil.validate(timeZoneId)) {
 			throw new FaroValidationException(
@@ -989,6 +1013,8 @@ public class ProjectController extends BaseFaroController {
 			List<String> incidentReportEmailAddresses, String serverLocation,
 			String state, String timeZoneId)
 		throws Exception {
+
+		validateIncidentReportEmailAddresses(incidentReportEmailAddresses);
 
 		OSBAccountEntry osbAccountEntry =
 			_provisioningClient.getOSBAccountEntry(corpProjectUuid);
@@ -1050,6 +1076,7 @@ public class ProjectController extends BaseFaroController {
 		throws Exception {
 
 		validateFriendlyURL(friendlyURL);
+		validateIncidentReportEmailAddresses(incidentReportEmailAddresses);
 		validateTimeZoneId(timeZoneId);
 
 		FaroSubscriptionDisplay faroSubscriptionDisplay =
