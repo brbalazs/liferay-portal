@@ -10,12 +10,14 @@ interface ITimeZonePicker {
 	initialTimeZone?: TimeZone;
 	setFieldTouched: Function;
 	setFieldValue: Function;
+	onCountryChange?: Function;
 }
 
 const TimeZonePicker: React.FC<ITimeZonePicker> = ({
 	disabled = false,
 	fieldName,
 	initialTimeZone,
+	onCountryChange,
 	setFieldTouched,
 	setFieldValue
 }) => {
@@ -49,8 +51,11 @@ const TimeZonePicker: React.FC<ITimeZonePicker> = ({
 
 	const handleSelectCountry = (event): void => {
 		setSelectedCountry(event.target.value);
-		setFieldTouched(fieldName, '');
-		setFieldValue(fieldName, '');
+		setFieldTouched(fieldName, 'UTC');
+		setFieldValue(fieldName, 'UTC');
+		if (onCountryChange) {
+			onCountryChange(event.target.value);
+		}
 	};
 
 	return (
