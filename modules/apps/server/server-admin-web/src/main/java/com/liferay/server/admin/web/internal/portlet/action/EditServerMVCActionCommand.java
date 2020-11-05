@@ -388,8 +388,8 @@ public class EditServerMVCActionCommand extends BaseMVCActionCommand {
 		throws Exception {
 
 		String language = ParamUtil.getString(actionRequest, "language");
-		String script = ParamUtil.getString(actionRequest, "script");
 		String output = ParamUtil.getString(actionRequest, "output");
+		String script = ParamUtil.getString(actionRequest, "script");
 
 		PortletConfig portletConfig = getPortletConfig(actionRequest);
 
