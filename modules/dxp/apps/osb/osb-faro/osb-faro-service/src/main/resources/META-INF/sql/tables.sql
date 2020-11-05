@@ -35,6 +35,7 @@ create table OSBFaro_FaroProject (
 	corpProjectName VARCHAR(75) null,
 	corpProjectUuid VARCHAR(75) null,
 	ipAddresses STRING null,
+	incidentReportEmailAddresses STRING null,
 	lastAccessTime LONG,
 	recommendationsEnabled BOOLEAN,
 	serverLocation VARCHAR(75) null,

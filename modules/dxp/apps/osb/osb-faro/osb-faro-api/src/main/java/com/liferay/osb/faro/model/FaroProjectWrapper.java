@@ -66,6 +66,8 @@ public class FaroProjectWrapper
 		attributes.put("corpProjectName", getCorpProjectName());
 		attributes.put("corpProjectUuid", getCorpProjectUuid());
 		attributes.put("ipAddresses", getIpAddresses());
+		attributes.put(
+			"incidentReportEmailAddresses", getIncidentReportEmailAddresses());
 		attributes.put("lastAccessTime", getLastAccessTime());
 		attributes.put("recommendationsEnabled", isRecommendationsEnabled());
 		attributes.put("serverLocation", getServerLocation());
@@ -150,6 +152,13 @@ public class FaroProjectWrapper
 
 		if (ipAddresses != null) {
 			setIpAddresses(ipAddresses);
+		}
+
+		String incidentReportEmailAddresses = (String)attributes.get(
+			"incidentReportEmailAddresses");
+
+		if (incidentReportEmailAddresses != null) {
+			setIncidentReportEmailAddresses(incidentReportEmailAddresses);
 		}
 
 		Long lastAccessTime = (Long)attributes.get("lastAccessTime");
@@ -285,6 +294,16 @@ public class FaroProjectWrapper
 	@Override
 	public long getGroupId() {
 		return _faroProject.getGroupId();
+	}
+
+	/**
+	 * Returns the incident report email addresses of this faro project.
+	 *
+	 * @return the incident report email addresses of this faro project
+	 */
+	@Override
+	public String getIncidentReportEmailAddresses() {
+		return _faroProject.getIncidentReportEmailAddresses();
 	}
 
 	/**
@@ -577,6 +596,19 @@ public class FaroProjectWrapper
 	@Override
 	public void setGroupId(long groupId) {
 		_faroProject.setGroupId(groupId);
+	}
+
+	/**
+	 * Sets the incident report email addresses of this faro project.
+	 *
+	 * @param incidentReportEmailAddresses the incident report email addresses of this faro project
+	 */
+	@Override
+	public void setIncidentReportEmailAddresses(
+		String incidentReportEmailAddresses) {
+
+		_faroProject.setIncidentReportEmailAddresses(
+			incidentReportEmailAddresses);
 	}
 
 	/**

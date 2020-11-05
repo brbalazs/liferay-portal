@@ -40,6 +40,9 @@
 		<field name="ipAddresses" type="String">
 			<hint-collection name="TEXTAREA" />
 		</field>
+		<field name="incidentReportEmailAddresses" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 		<field name="lastAccessTime" type="long" />
 		<field name="recommendationsEnabled" type="boolean" />
 		<field name="serverLocation" type="String" />

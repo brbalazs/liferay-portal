@@ -72,6 +72,7 @@ public class FaroProjectModelImpl
 		{"name", Types.VARCHAR}, {"accountKey", Types.VARCHAR},
 		{"accountName", Types.VARCHAR}, {"corpProjectName", Types.VARCHAR},
 		{"corpProjectUuid", Types.VARCHAR}, {"ipAddresses", Types.VARCHAR},
+		{"incidentReportEmailAddresses", Types.VARCHAR},
 		{"lastAccessTime", Types.BIGINT},
 		{"recommendationsEnabled", Types.BOOLEAN},
 		{"serverLocation", Types.VARCHAR}, {"services", Types.VARCHAR},
@@ -95,6 +96,7 @@ public class FaroProjectModelImpl
 		TABLE_COLUMNS_MAP.put("corpProjectName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("corpProjectUuid", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("ipAddresses", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("incidentReportEmailAddresses", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("lastAccessTime", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("recommendationsEnabled", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("serverLocation", Types.VARCHAR);
@@ -106,7 +108,7 @@ public class FaroProjectModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table OSBFaro_FaroProject (faroProjectId LONG not null primary key,groupId LONG,userId LONG,userName VARCHAR(75) null,createTime LONG,modifiedTime LONG,name VARCHAR(75) null,accountKey VARCHAR(75) null,accountName VARCHAR(75) null,corpProjectName VARCHAR(75) null,corpProjectUuid VARCHAR(75) null,ipAddresses STRING null,lastAccessTime LONG,recommendationsEnabled BOOLEAN,serverLocation VARCHAR(75) null,services STRING null,state_ VARCHAR(75) null,subscription STRING null,timeZoneId VARCHAR(75) null,weDeployKey VARCHAR(75) null)";
+		"create table OSBFaro_FaroProject (faroProjectId LONG not null primary key,groupId LONG,userId LONG,userName VARCHAR(75) null,createTime LONG,modifiedTime LONG,name VARCHAR(75) null,accountKey VARCHAR(75) null,accountName VARCHAR(75) null,corpProjectName VARCHAR(75) null,corpProjectUuid VARCHAR(75) null,ipAddresses STRING null,incidentReportEmailAddresses STRING null,lastAccessTime LONG,recommendationsEnabled BOOLEAN,serverLocation VARCHAR(75) null,services STRING null,state_ VARCHAR(75) null,subscription STRING null,timeZoneId VARCHAR(75) null,weDeployKey VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table OSBFaro_FaroProject";
@@ -546,6 +548,30 @@ public class FaroProjectModelImpl
 
 			});
 		attributeGetterFunctions.put(
+			"incidentReportEmailAddresses",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getIncidentReportEmailAddresses();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"incidentReportEmailAddresses",
+			new BiConsumer<FaroProject, Object>() {
+
+				@Override
+				public void accept(
+					FaroProject faroProject,
+					Object incidentReportEmailAddressesObject) {
+
+					faroProject.setIncidentReportEmailAddresses(
+						(String)incidentReportEmailAddressesObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
 			"lastAccessTime",
 			new Function<FaroProject, Object>() {
 
@@ -936,6 +962,23 @@ public class FaroProjectModelImpl
 	}
 
 	@Override
+	public String getIncidentReportEmailAddresses() {
+		if (_incidentReportEmailAddresses == null) {
+			return "";
+		}
+		else {
+			return _incidentReportEmailAddresses;
+		}
+	}
+
+	@Override
+	public void setIncidentReportEmailAddresses(
+		String incidentReportEmailAddresses) {
+
+		_incidentReportEmailAddresses = incidentReportEmailAddresses;
+	}
+
+	@Override
 	public long getLastAccessTime() {
 		return _lastAccessTime;
 	}
@@ -1118,6 +1161,8 @@ public class FaroProjectModelImpl
 		faroProjectImpl.setCorpProjectName(getCorpProjectName());
 		faroProjectImpl.setCorpProjectUuid(getCorpProjectUuid());
 		faroProjectImpl.setIpAddresses(getIpAddresses());
+		faroProjectImpl.setIncidentReportEmailAddresses(
+			getIncidentReportEmailAddresses());
 		faroProjectImpl.setLastAccessTime(getLastAccessTime());
 		faroProjectImpl.setRecommendationsEnabled(isRecommendationsEnabled());
 		faroProjectImpl.setServerLocation(getServerLocation());
@@ -1274,6 +1319,18 @@ public class FaroProjectModelImpl
 			faroProjectCacheModel.ipAddresses = null;
 		}
 
+		faroProjectCacheModel.incidentReportEmailAddresses =
+			getIncidentReportEmailAddresses();
+
+		String incidentReportEmailAddresses =
+			faroProjectCacheModel.incidentReportEmailAddresses;
+
+		if ((incidentReportEmailAddresses != null) &&
+			(incidentReportEmailAddresses.length() == 0)) {
+
+			faroProjectCacheModel.incidentReportEmailAddresses = null;
+		}
+
 		faroProjectCacheModel.lastAccessTime = getLastAccessTime();
 
 		faroProjectCacheModel.recommendationsEnabled =
@@ -1336,7 +1393,7 @@ public class FaroProjectModelImpl
 			getAttributeGetterFunctions();
 
 		StringBundler sb = new StringBundler(
-			4 * attributeGetterFunctions.size() + 2);
+			(4 * attributeGetterFunctions.size()) + 2);
 
 		sb.append("{");
 
@@ -1368,7 +1425,7 @@ public class FaroProjectModelImpl
 			getAttributeGetterFunctions();
 
 		StringBundler sb = new StringBundler(
-			5 * attributeGetterFunctions.size() + 4);
+			(5 * attributeGetterFunctions.size()) + 4);
 
 		sb.append("<model><model-name>");
 		sb.append(getModelClassName());
@@ -1417,6 +1474,7 @@ public class FaroProjectModelImpl
 	private String _corpProjectUuid;
 	private String _originalCorpProjectUuid;
 	private String _ipAddresses;
+	private String _incidentReportEmailAddresses;
 	private long _lastAccessTime;
 	private boolean _recommendationsEnabled;
 	private String _serverLocation;

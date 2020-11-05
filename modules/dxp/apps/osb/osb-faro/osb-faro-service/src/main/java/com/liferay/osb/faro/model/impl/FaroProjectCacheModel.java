@@ -60,7 +60,7 @@ public class FaroProjectCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(41);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{faroProjectId=");
 		sb.append(faroProjectId);
@@ -86,6 +86,8 @@ public class FaroProjectCacheModel
 		sb.append(corpProjectUuid);
 		sb.append(", ipAddresses=");
 		sb.append(ipAddresses);
+		sb.append(", incidentReportEmailAddresses=");
+		sb.append(incidentReportEmailAddresses);
 		sb.append(", lastAccessTime=");
 		sb.append(lastAccessTime);
 		sb.append(", recommendationsEnabled=");
@@ -167,6 +169,14 @@ public class FaroProjectCacheModel
 			faroProjectImpl.setIpAddresses(ipAddresses);
 		}
 
+		if (incidentReportEmailAddresses == null) {
+			faroProjectImpl.setIncidentReportEmailAddresses("");
+		}
+		else {
+			faroProjectImpl.setIncidentReportEmailAddresses(
+				incidentReportEmailAddresses);
+		}
+
 		faroProjectImpl.setLastAccessTime(lastAccessTime);
 		faroProjectImpl.setRecommendationsEnabled(recommendationsEnabled);
 
@@ -235,6 +245,7 @@ public class FaroProjectCacheModel
 		corpProjectName = objectInput.readUTF();
 		corpProjectUuid = objectInput.readUTF();
 		ipAddresses = objectInput.readUTF();
+		incidentReportEmailAddresses = objectInput.readUTF();
 
 		lastAccessTime = objectInput.readLong();
 
@@ -308,6 +319,13 @@ public class FaroProjectCacheModel
 			objectOutput.writeUTF(ipAddresses);
 		}
 
+		if (incidentReportEmailAddresses == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(incidentReportEmailAddresses);
+		}
+
 		objectOutput.writeLong(lastAccessTime);
 
 		objectOutput.writeBoolean(recommendationsEnabled);
@@ -367,6 +385,7 @@ public class FaroProjectCacheModel
 	public String corpProjectName;
 	public String corpProjectUuid;
 	public String ipAddresses;
+	public String incidentReportEmailAddresses;
 	public long lastAccessTime;
 	public boolean recommendationsEnabled;
 	public String serverLocation;

@@ -42,6 +42,8 @@ public class FaroProjectSoap implements Serializable {
 		soapModel.setCorpProjectName(model.getCorpProjectName());
 		soapModel.setCorpProjectUuid(model.getCorpProjectUuid());
 		soapModel.setIpAddresses(model.getIpAddresses());
+		soapModel.setIncidentReportEmailAddresses(
+			model.getIncidentReportEmailAddresses());
 		soapModel.setLastAccessTime(model.getLastAccessTime());
 		soapModel.setRecommendationsEnabled(model.isRecommendationsEnabled());
 		soapModel.setServerLocation(model.getServerLocation());
@@ -199,6 +201,16 @@ public class FaroProjectSoap implements Serializable {
 		_ipAddresses = ipAddresses;
 	}
 
+	public String getIncidentReportEmailAddresses() {
+		return _incidentReportEmailAddresses;
+	}
+
+	public void setIncidentReportEmailAddresses(
+		String incidentReportEmailAddresses) {
+
+		_incidentReportEmailAddresses = incidentReportEmailAddresses;
+	}
+
 	public long getLastAccessTime() {
 		return _lastAccessTime;
 	}
@@ -279,6 +291,7 @@ public class FaroProjectSoap implements Serializable {
 	private String _corpProjectName;
 	private String _corpProjectUuid;
 	private String _ipAddresses;
+	private String _incidentReportEmailAddresses;
 	private long _lastAccessTime;
 	private boolean _recommendationsEnabled;
 	private String _serverLocation;

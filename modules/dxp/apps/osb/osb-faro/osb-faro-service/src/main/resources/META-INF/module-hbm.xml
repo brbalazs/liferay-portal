@@ -48,6 +48,7 @@
 		<property name="corpProjectName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="corpProjectUuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="ipAddresses" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="incidentReportEmailAddresses" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="lastAccessTime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="recommendationsEnabled" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="serverLocation" type="com.liferay.portal.dao.orm.hibernate.StringType" />

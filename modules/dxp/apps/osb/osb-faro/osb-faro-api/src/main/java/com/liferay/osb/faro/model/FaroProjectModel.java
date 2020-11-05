@@ -248,6 +248,22 @@ public interface FaroProjectModel extends BaseModel<FaroProject> {
 	public void setIpAddresses(String ipAddresses);
 
 	/**
+	 * Returns the incident report email addresses of this faro project.
+	 *
+	 * @return the incident report email addresses of this faro project
+	 */
+	@AutoEscape
+	public String getIncidentReportEmailAddresses();
+
+	/**
+	 * Sets the incident report email addresses of this faro project.
+	 *
+	 * @param incidentReportEmailAddresses the incident report email addresses of this faro project
+	 */
+	public void setIncidentReportEmailAddresses(
+		String incidentReportEmailAddresses);
+
+	/**
 	 * Returns the last access time of this faro project.
 	 *
 	 * @return the last access time of this faro project
