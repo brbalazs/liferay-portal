@@ -123,7 +123,13 @@ public class FixedCommerceShippingEngine implements CommerceShippingEngine {
 		List<CommerceShippingOption> commerceShippingOptions =
 			new ArrayList<>();
 
+		long commerceCountryId = 0;
+
 		CommerceAddress commerceAddress = commerceOrder.getShippingAddress();
+
+		if (commerceAddress != null) {
+			commerceCountryId = commerceAddress.getCommerceCountryId();
+		}
 
 		List<CommerceShippingFixedOption> commerceShippingFixedOptions =
 			_getCommerceShippingFixedOptions(groupId);
@@ -136,7 +142,7 @@ public class FixedCommerceShippingEngine implements CommerceShippingEngine {
 					isCommerceShippingMethodRestricted(
 						commerceShippingFixedOption.
 							getCommerceShippingMethodId(),
-						commerceAddress.getCommerceCountryId());
+						commerceCountryId);
 
 			if (restricted) {
 				continue;

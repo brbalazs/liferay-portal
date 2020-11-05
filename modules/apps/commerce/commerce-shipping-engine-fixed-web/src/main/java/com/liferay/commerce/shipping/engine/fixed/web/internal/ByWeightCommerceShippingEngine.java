@@ -30,6 +30,7 @@ import com.liferay.commerce.shipping.engine.fixed.model.CommerceShippingFixedOpt
 import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionLocalService;
 import com.liferay.commerce.shipping.engine.fixed.service.CommerceShippingFixedOptionRelLocalService;
 import com.liferay.commerce.util.CommerceShippingHelper;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -129,14 +130,22 @@ public class ByWeightCommerceShippingEngine implements CommerceShippingEngine {
 		double orderWeight = _commerceShippingHelper.getWeight(
 			commerceOrder.getCommerceOrderItems());
 
+		long commerceCountryId = 0;
+		long commerceRegionId = 0;
+		String zip = StringPool.BLANK;
+
+		if (commerceAddress != null) {
+			commerceCountryId = commerceAddress.getCommerceCountryId();
+			commerceRegionId = commerceAddress.getCommerceRegionId();
+			zip = commerceAddress.getZip();
+		}
+
 		CommerceShippingFixedOptionRel commerceShippingFixedOptionRel =
 			_commerceShippingFixedOptionRelLocalService.
 				fetchCommerceShippingFixedOptionRel(
 					commerceShippingFixedOption.
 						getCommerceShippingFixedOptionId(),
-					commerceAddress.getCommerceCountryId(),
-					commerceAddress.getCommerceRegionId(),
-					commerceAddress.getZip(), orderWeight);
+					commerceCountryId, commerceRegionId, zip, orderWeight);
 
 		if (commerceShippingFixedOptionRel == null) {
 			return null;
@@ -181,7 +190,13 @@ public class ByWeightCommerceShippingEngine implements CommerceShippingEngine {
 		List<CommerceShippingOption> commerceShippingOptions =
 			new ArrayList<>();
 
+		long commerceCountryId = 0;
+
 		CommerceAddress commerceAddress = commerceOrder.getShippingAddress();
+
+		if (commerceAddress != null) {
+			commerceCountryId = commerceAddress.getCommerceCountryId();
+		}
 
 		List<CommerceShippingFixedOption> commerceShippingFixedOptions =
 			_getCommerceShippingFixedOptions(commerceOrder.getGroupId());
@@ -194,7 +209,7 @@ public class ByWeightCommerceShippingEngine implements CommerceShippingEngine {
 					isCommerceShippingMethodRestricted(
 						commerceShippingFixedOption.
 							getCommerceShippingMethodId(),
-						commerceAddress.getCommerceCountryId());
+						commerceCountryId);
 
 			if (restricted) {
 				continue;
