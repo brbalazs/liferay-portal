@@ -240,9 +240,9 @@ public class ProjectController extends BaseFaroController {
 				_provisioningClient);
 		}
 
-		validateCorpProjectUuid(corpProjectUuid);
-		validateFriendlyURL(friendlyURL);
-		validateTimeZoneId(timeZoneId);
+		_validateCorpProjectUuid(corpProjectUuid);
+		_validateFriendlyURL(friendlyURL);
+		_validateTimeZoneId(timeZoneId);
 
 		User user = getUser();
 
@@ -480,7 +480,7 @@ public class ProjectController extends BaseFaroController {
 			_faroProjectLocalService.updateFaroProject(faroProject);
 		}
 
-		return getProjectDisplay(faroProject);
+		return _getProjectDisplay(faroProject);
 	}
 
 	@GET
@@ -488,7 +488,7 @@ public class ProjectController extends BaseFaroController {
 	public ProjectDisplay get(
 		@PathParam("corpProjectUuid") String corpProjectUuid) {
 
-		validateCorpProjectUuid(corpProjectUuid);
+		_validateCorpProjectUuid(corpProjectUuid);
 
 		FaroProject faroProject =
 			_faroProjectLocalService.fetchFaroProjectByCorpProjectUuid(
@@ -565,7 +565,7 @@ public class ProjectController extends BaseFaroController {
 		).map(
 			faroProject -> {
 				try {
-					return getProjectDisplay(faroProject);
+					return _getProjectDisplay(faroProject);
 				}
 				catch (Exception e) {
 					if (_log.isWarnEnabled()) {
@@ -656,7 +656,7 @@ public class ProjectController extends BaseFaroController {
 			_groupLocalService.updateGroup(group);
 		}
 		else {
-			validateFriendlyURL(friendlyURL);
+			_validateFriendlyURL(friendlyURL);
 
 			try {
 				_groupLocalService.updateFriendlyURL(groupId, friendlyURL);
@@ -666,7 +666,7 @@ public class ProjectController extends BaseFaroController {
 
 				throw new FaroValidationException(
 					"friendlyURL",
-					getFriendlyURLErrorMessage(gfurle.getType()));
+					_getFriendlyURLErrorMessage(gfurle.getType()));
 			}
 		}
 
@@ -676,7 +676,7 @@ public class ProjectController extends BaseFaroController {
 		faroProject.setName(name);
 
 		if (!Validator.isBlank(timeZoneId)) {
-			validateTimeZoneId(timeZoneId);
+			_validateTimeZoneId(timeZoneId);
 
 			faroProject.setTimeZoneId(timeZoneId);
 
@@ -687,7 +687,7 @@ public class ProjectController extends BaseFaroController {
 			incidentReportEmailAddressesFaroParam.getValue();
 
 		if (!incidentReportEmailAddresses.isEmpty()) {
-			validateIncidentReportEmailAddresses(incidentReportEmailAddresses);
+			_validateIncidentReportEmailAddresses(incidentReportEmailAddresses);
 
 			faroProject.setIncidentReportEmailAddresses(
 				JSONUtil.writeValueAsString(
@@ -703,15 +703,15 @@ public class ProjectController extends BaseFaroController {
 		catch (EmailAddressDomainException eade) {
 			throw new FaroValidationException(
 				"emailAddressDomains",
-				getEmailAddressDomainsErrorMessage(
+				_getEmailAddressDomainsErrorMessage(
 					eade.getInvalidEmailAddressDomains()));
 		}
 
-		return getProjectDisplay(
+		return _getProjectDisplay(
 			faroProjectLocalService.updateFaroProject(faroProject));
 	}
 
-	protected void addDefaultContactsEntities(long groupId) throws Exception {
+	private void _addDefaultContactsEntities(long groupId) throws Exception {
 		for (int type : FaroConstants.getContactsTypes()) {
 			_contactsLayoutTemplateLocalService.addContactsLayoutTemplate(
 				groupId, UserConstants.USER_ID_DEFAULT,
@@ -723,7 +723,146 @@ public class ProjectController extends BaseFaroController {
 		}
 	}
 
-	protected String getEmailAddressDomainsErrorMessage(
+	private FaroProject _create(
+			String corpProjectUuid, String name,
+			List<String> emailAddressDomains, String friendlyURL,
+			List<String> incidentReportEmailAddresses, String serverLocation,
+			String state, String timeZoneId)
+		throws Exception {
+
+		_validateIncidentReportEmailAddresses(incidentReportEmailAddresses);
+
+		OSBAccountEntry osbAccountEntry =
+			_provisioningClient.getOSBAccountEntry(corpProjectUuid);
+
+		FaroSubscriptionDisplay faroSubscriptionDisplay =
+			new FaroSubscriptionDisplay(osbAccountEntry);
+
+		User user = getUser();
+
+		FaroProject faroProject = null;
+
+		try {
+			faroProject = _faroProjectLocalService.addFaroProject(
+				user.getUserId(), name, osbAccountEntry.getDossieraAccountKey(),
+				osbAccountEntry.getCorpEntryName(), osbAccountEntry.getName(),
+				corpProjectUuid, emailAddressDomains, friendlyURL,
+				JSONUtil.writeValueAsString(incidentReportEmailAddresses),
+				serverLocation, JSONConstants.NULL_JSON_ARRAY, state,
+				JSONUtil.writeValueAsString(faroSubscriptionDisplay),
+				timeZoneId, null);
+		}
+		catch (EmailAddressDomainException eade) {
+			throw new FaroValidationException(
+				"emailAddressDomains",
+				_getEmailAddressDomainsErrorMessage(
+					eade.getInvalidEmailAddressDomains()));
+		}
+		catch (GroupFriendlyURLException gfurle) {
+			_log.error(gfurle, gfurle);
+
+			throw new FaroValidationException(
+				"friendlyURL", _getFriendlyURLErrorMessage(gfurle.getType()));
+		}
+
+		String weDeployKey = null;
+
+		if (corpProjectUuid.equals(_PROJECT_ID)) {
+			weDeployKey = _DEFAULT_WE_DEPLOY_KEY;
+		}
+		else {
+			Workspace workspace = workspaceEngineClient.createWorkspace(
+				serverLocation, faroProject.isTrial());
+
+			weDeployKey = workspace.getWeDeployKey();
+		}
+
+		faroProject.setWeDeployKey(weDeployKey);
+
+		return _faroProjectLocalService.updateFaroProject(faroProject);
+	}
+
+	private ProjectDisplay _createUnprovisioned(
+			String name, String accountKey, String accountName,
+			String corpProjectName, String corpProjectUuid,
+			List<String> emailAddressDomains, String friendlyURL,
+			List<String> incidentReportEmailAddresses, String serverLocation,
+			String timeZoneId, boolean trial)
+		throws Exception {
+
+		_validateFriendlyURL(friendlyURL);
+		_validateIncidentReportEmailAddresses(incidentReportEmailAddresses);
+		_validateTimeZoneId(timeZoneId);
+
+		FaroSubscriptionDisplay faroSubscriptionDisplay =
+			new FaroSubscriptionDisplay(
+				new OSBAccountEntry() {
+					{
+						OSBOfferingEntry osbOfferingEntry =
+							new OSBOfferingEntry();
+
+						if (trial) {
+							osbOfferingEntry.setProductEntryId(
+								ProductConstants.BASIC_PRODUCT_ENTRY_ID);
+						}
+						else {
+							osbOfferingEntry.setProductEntryId(
+								ProductConstants.ENTERPRISE_PRODUCT_ENTRY_ID);
+						}
+
+						osbOfferingEntry.setQuantity(1);
+
+						setOfferingEntries(
+							Collections.singletonList(osbOfferingEntry));
+					}
+				});
+
+		FaroProject faroProject = null;
+
+		try {
+			faroProject = _faroProjectLocalService.addFaroProject(
+				getUserId(), name, accountKey, accountName, corpProjectName,
+				corpProjectUuid, emailAddressDomains, friendlyURL,
+				JSONUtil.writeValueAsString(incidentReportEmailAddresses),
+				serverLocation, JSONConstants.NULL_JSON_ARRAY,
+				FaroProjectConstants.STATE_NOT_READY,
+				JSONUtil.writeValueAsString(faroSubscriptionDisplay),
+				timeZoneId, null);
+		}
+		catch (EmailAddressDomainException eade) {
+			throw new FaroValidationException(
+				"emailAddressDomains",
+				_getEmailAddressDomainsErrorMessage(
+					eade.getInvalidEmailAddressDomains()));
+		}
+		catch (GroupFriendlyURLException gfurle) {
+			_log.error(gfurle, gfurle);
+
+			throw new FaroValidationException(
+				"friendlyURL", _getFriendlyURLErrorMessage(gfurle.getType()));
+		}
+
+		User user = getUser();
+
+		Role role = _roleLocalService.getRole(
+			user.getCompanyId(), RoleConstants.SITE_OWNER);
+
+		_faroUserLocalService.addFaroUser(
+			user.getUserId(), faroProject.getGroupId(), user.getUserId(),
+			role.getRoleId(), user.getEmailAddress(),
+			FaroUserConstants.STATUS_APPROVED, false);
+
+		Workspace workspace = workspaceEngineClient.createWorkspace(
+			serverLocation, faroProject.isTrial());
+
+		faroProject.setWeDeployKey(workspace.getWeDeployKey());
+
+		return new ProjectDisplay(
+			_faroProjectLocalService.updateFaroProject(faroProject),
+			friendlyURL);
+	}
+
+	private String _getEmailAddressDomainsErrorMessage(
 		Collection<String> invalidEmailAddressDomains) {
 
 		User user = getUser();
@@ -742,7 +881,7 @@ public class ProjectController extends BaseFaroController {
 			StringUtil.merge(invalidEmailAddressDomains));
 	}
 
-	protected String getFriendlyURLErrorMessage(int type) {
+	private String _getFriendlyURLErrorMessage(int type) {
 		User user = getUser();
 
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
@@ -801,7 +940,7 @@ public class ProjectController extends BaseFaroController {
 		return language.get(resourceBundle, "invalid-friendly-url");
 	}
 
-	protected String getIncidentReportEmailAddressesErrorMessage() {
+	private String _getIncidentReportEmailAddressesErrorMessage() {
 		User user = getUser();
 
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
@@ -811,7 +950,7 @@ public class ProjectController extends BaseFaroController {
 			resourceBundle, "invalid-incident-report-email-addresses");
 	}
 
-	protected ProjectDisplay getProjectDisplay(FaroProject faroProject)
+	private ProjectDisplay _getProjectDisplay(FaroProject faroProject)
 		throws Exception {
 
 		if (StringUtil.equals(
@@ -825,7 +964,7 @@ public class ProjectController extends BaseFaroController {
 				faroProject.getState(), FaroProjectConstants.STATE_NOT_READY)) {
 
 			try {
-				refreshProjectState(faroProject);
+				_refreshProjectState(faroProject);
 			}
 			catch (Exception e) {
 				if (_log.isWarnEnabled()) {
@@ -889,14 +1028,14 @@ public class ProjectController extends BaseFaroController {
 		return projectDisplay;
 	}
 
-	protected String getTimeZoneIdErrorMessage(User user) {
+	private String _getTimeZoneIdErrorMessage(User user) {
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", user.getLocale(), getClass());
 
 		return language.get(resourceBundle, "invalid-time-zone-id");
 	}
 
-	protected FaroProject initializeFaroProject(FaroProject faroProject)
+	private FaroProject _initializeFaroProject(FaroProject faroProject)
 		throws Exception {
 
 		long groupId = faroProject.getGroupId();
@@ -936,11 +1075,35 @@ public class ProjectController extends BaseFaroController {
 		}
 	}
 
-	protected void refreshProjectState(FaroProject faroProject)
+	private boolean _isWorkspaceHealthy(FaroProject faroProject) {
+		for (LCPService lcpService :
+				workspaceEngineClient.getLCPServices(
+					faroProject.getWeDeployKey())) {
+
+			if (!lcpService.isReady() ||
+				!StringUtil.equals(
+					lcpService.getHealth(), Workspace.Health.healthy.name())) {
+
+				return false;
+			}
+
+			try {
+				contactsEngineClient.getIndividuals(
+					faroProject, (String)null, false, 1, 0, null);
+			}
+			catch (Exception e) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private void _refreshProjectState(FaroProject faroProject)
 		throws Exception {
 
 		if (StringUtil.equals(faroProject.getCorpProjectUuid(), _PROJECT_ID)) {
-			initializeFaroProject(faroProject);
+			_initializeFaroProject(faroProject);
 
 			return;
 		}
@@ -949,11 +1112,11 @@ public class ProjectController extends BaseFaroController {
 			faroProject.getWeDeployKey());
 
 		if (workspace.isReady()) {
-			initializeFaroProject(faroProject);
+			_initializeFaroProject(faroProject);
 		}
 	}
 
-	protected void validateCorpProjectUuid(String corpProjectUuid) {
+	private void _validateCorpProjectUuid(String corpProjectUuid) {
 		if (isOmniadmin()) {
 			return;
 		}
@@ -977,199 +1140,34 @@ public class ProjectController extends BaseFaroController {
 			Response.Status.FORBIDDEN);
 	}
 
-	protected void validateFriendlyURL(String friendlyURL) {
+	private void _validateFriendlyURL(String friendlyURL) {
 		if ((friendlyURL == null) || Validator.isBlank(friendlyURL)) {
 			return;
 		}
 
 		if (friendlyURL.matches("^/\\d*$")) {
 			throw new FaroValidationException(
-				"friendlyURL", getFriendlyURLErrorMessage(0));
+				"friendlyURL", _getFriendlyURLErrorMessage(0));
 		}
 	}
 
-	protected void validateIncidentReportEmailAddresses(
+	private void _validateIncidentReportEmailAddresses(
 		List<String> incidentReportEmailAddresses) {
 
 		for (String incidentReportEmailAddress : incidentReportEmailAddresses) {
 			if (!Validator.isEmailAddress(incidentReportEmailAddress)) {
 				throw new FaroValidationException(
 					"incidentReportEmailAddresses",
-					getIncidentReportEmailAddressesErrorMessage());
+					_getIncidentReportEmailAddressesErrorMessage());
 			}
 		}
 	}
 
-	protected void validateTimeZoneId(String timeZoneId) {
+	private void _validateTimeZoneId(String timeZoneId) {
 		if (!TimeZoneUtil.validate(timeZoneId)) {
 			throw new FaroValidationException(
-				"timeZoneId", getTimeZoneIdErrorMessage(getUser()));
+				"timeZoneId", _getTimeZoneIdErrorMessage(getUser()));
 		}
-	}
-
-	private FaroProject _create(
-			String corpProjectUuid, String name,
-			List<String> emailAddressDomains, String friendlyURL,
-			List<String> incidentReportEmailAddresses, String serverLocation,
-			String state, String timeZoneId)
-		throws Exception {
-
-		validateIncidentReportEmailAddresses(incidentReportEmailAddresses);
-
-		OSBAccountEntry osbAccountEntry =
-			_provisioningClient.getOSBAccountEntry(corpProjectUuid);
-
-		FaroSubscriptionDisplay faroSubscriptionDisplay =
-			new FaroSubscriptionDisplay(osbAccountEntry);
-
-		User user = getUser();
-
-		FaroProject faroProject = null;
-
-		try {
-			faroProject = _faroProjectLocalService.addFaroProject(
-				user.getUserId(), name, osbAccountEntry.getDossieraAccountKey(),
-				osbAccountEntry.getCorpEntryName(), osbAccountEntry.getName(),
-				corpProjectUuid, emailAddressDomains, friendlyURL,
-				JSONUtil.writeValueAsString(incidentReportEmailAddresses),
-				serverLocation, JSONConstants.NULL_JSON_ARRAY, state,
-				JSONUtil.writeValueAsString(faroSubscriptionDisplay),
-				timeZoneId, null);
-		}
-		catch (EmailAddressDomainException eade) {
-			throw new FaroValidationException(
-				"emailAddressDomains",
-				getEmailAddressDomainsErrorMessage(
-					eade.getInvalidEmailAddressDomains()));
-		}
-		catch (GroupFriendlyURLException gfurle) {
-			_log.error(gfurle, gfurle);
-
-			throw new FaroValidationException(
-				"friendlyURL",
-				getFriendlyURLErrorMessage(gfurle.getType()));
-		}
-
-		String weDeployKey = null;
-
-		if (corpProjectUuid.equals(_PROJECT_ID)) {
-			weDeployKey = _DEFAULT_WE_DEPLOY_KEY;
-		}
-		else {
-			Workspace workspace = workspaceEngineClient.createWorkspace(
-				serverLocation, faroProject.isTrial());
-
-			weDeployKey = workspace.getWeDeployKey();
-		}
-
-		faroProject.setWeDeployKey(weDeployKey);
-
-		return _faroProjectLocalService.updateFaroProject(faroProject);
-	}
-
-	private ProjectDisplay _createUnprovisioned(
-			String name, String accountKey, String accountName,
-			String corpProjectName, String corpProjectUuid,
-			List<String> emailAddressDomains, String friendlyURL,
-			List<String> incidentReportEmailAddresses, String serverLocation,
-			String timeZoneId, boolean trial)
-		throws Exception {
-
-		validateFriendlyURL(friendlyURL);
-		validateIncidentReportEmailAddresses(incidentReportEmailAddresses);
-		validateTimeZoneId(timeZoneId);
-
-		FaroSubscriptionDisplay faroSubscriptionDisplay =
-			new FaroSubscriptionDisplay(
-				new OSBAccountEntry() {
-					{
-						OSBOfferingEntry osbOfferingEntry =
-							new OSBOfferingEntry();
-
-						if (trial) {
-							osbOfferingEntry.setProductEntryId(
-								ProductConstants.BASIC_PRODUCT_ENTRY_ID);
-						}
-						else {
-							osbOfferingEntry.setProductEntryId(
-								ProductConstants.ENTERPRISE_PRODUCT_ENTRY_ID);
-						}
-
-						osbOfferingEntry.setQuantity(1);
-
-						setOfferingEntries(
-							Collections.singletonList(osbOfferingEntry));
-					}
-				});
-
-		FaroProject faroProject = null;
-
-		try {
-			faroProject = _faroProjectLocalService.addFaroProject(
-				getUserId(), name, accountKey, accountName, corpProjectName,
-				corpProjectUuid, emailAddressDomains, friendlyURL,
-				JSONUtil.writeValueAsString(incidentReportEmailAddresses),
-				serverLocation, JSONConstants.NULL_JSON_ARRAY,
-				FaroProjectConstants.STATE_NOT_READY,
-				JSONUtil.writeValueAsString(faroSubscriptionDisplay),
-				timeZoneId, null);
-		}
-		catch (EmailAddressDomainException eade) {
-			throw new FaroValidationException(
-				"emailAddressDomains",
-				getEmailAddressDomainsErrorMessage(
-					eade.getInvalidEmailAddressDomains()));
-		}
-		catch (GroupFriendlyURLException gfurle) {
-			_log.error(gfurle, gfurle);
-
-			throw new FaroValidationException(
-				"friendlyURL",
-				getFriendlyURLErrorMessage(gfurle.getType()));
-		}
-
-		User user = getUser();
-
-		Role role = _roleLocalService.getRole(
-			user.getCompanyId(), RoleConstants.SITE_OWNER);
-
-		_faroUserLocalService.addFaroUser(
-			user.getUserId(), faroProject.getGroupId(), user.getUserId(),
-			role.getRoleId(), user.getEmailAddress(),
-			FaroUserConstants.STATUS_APPROVED, false);
-
-		Workspace workspace = workspaceEngineClient.createWorkspace(
-			serverLocation, faroProject.isTrial());
-
-		faroProject.setWeDeployKey(workspace.getWeDeployKey());
-
-		return new ProjectDisplay(
-			_faroProjectLocalService.updateFaroProject(faroProject),
-			friendlyURL);
-	}
-
-	private boolean _isWorkspaceHealthy(FaroProject faroProject) {
-		for (LCPService lcpService :
-				workspaceEngineClient.getLCPServices(
-					faroProject.getWeDeployKey())) {
-
-			if (!lcpService.isReady() ||
-				!StringUtil.equals(
-					lcpService.getHealth(), Workspace.Health.healthy.name())) {
-
-				return false;
-			}
-
-			try {
-				contactsEngineClient.getIndividuals(
-					faroProject, (String)null, false, 1, 0, null);
-			}
-			catch (Exception e) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 	private static final String _DEFAULT_WE_DEPLOY_KEY = System.getenv(
