@@ -223,6 +223,8 @@ public class ProjectController extends BaseFaroController {
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("emailAddressDomains")
 				FaroParam<List<String>> emailAddressDomainsFaroParam,
+			@FormParam("incidentReportEmailAddresses")
+				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("serverLocation") String serverLocation,
 			@FormParam("friendlyURL") String friendlyURL,
 			@FormParam("timeZoneId") String timeZoneId)
@@ -255,8 +257,8 @@ public class ProjectController extends BaseFaroController {
 
 		faroProject = _create(
 			corpProjectUuid, name, emailAddressDomainsFaroParam.getValue(),
-			friendlyURL, serverLocation, FaroProjectConstants.STATE_NOT_READY,
-			timeZoneId);
+			friendlyURL, incidentReportEmailAddressesFaroParam.getValue(),
+			serverLocation, FaroProjectConstants.STATE_NOT_READY, timeZoneId);
 
 		Role role = _roleLocalService.getRole(
 			user.getCompanyId(), RoleConstants.SITE_OWNER);
@@ -280,6 +282,8 @@ public class ProjectController extends BaseFaroController {
 	@RolesAllowed(StringPool.BLANK)
 	public ProjectDisplay createProvisioned(
 			@FormParam("corpProjectUuid") String corpProjectUuid,
+			@FormParam("incidentReportEmailAddresses")
+				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("ownerEmailAddress") String ownerEmailAddress,
 			@FormParam("serverLocation") String serverLocation)
 		throws Exception {
@@ -288,7 +292,8 @@ public class ProjectController extends BaseFaroController {
 
 		FaroProject faroProject = _create(
 			corpProjectUuid, null, Collections.emptyList(), null,
-			serverLocation, FaroProjectConstants.STATE_UNCONFIGURED,
+			incidentReportEmailAddressesFaroParam.getValue(), serverLocation,
+			FaroProjectConstants.STATE_UNCONFIGURED,
 			TimeZoneUtil.UTC_TIME_ZONE_ID);
 
 		Role role = _roleLocalService.getRole(
@@ -309,6 +314,8 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("emailAddressDomains")
 				FaroParam<List<String>> emailAddressDomainsFaroParam,
 			@FormParam("friendlyURL") String friendlyURL,
+			@FormParam("incidentReportEmailAddresses")
+				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("serverLocation") String serverLocation,
 			@FormParam("timeZoneId") String timeZoneId)
 		throws Exception {
@@ -332,8 +339,10 @@ public class ProjectController extends BaseFaroController {
 		}
 
 		return _createUnprovisioned(
-			name, null, null, null, null, emailAddressDomainsFaroParam,
-			friendlyURL, serverLocation, timeZoneId, true);
+			name, null, null, null, null,
+			emailAddressDomainsFaroParam.getValue(), friendlyURL,
+			incidentReportEmailAddressesFaroParam.getValue(), serverLocation,
+			timeZoneId, true);
 	}
 
 	@Path("/unprovisioned")
@@ -349,6 +358,8 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("emailAddressDomains")
 				FaroParam<List<String>> emailAddressDomainsFaroParam,
 			@FormParam("friendlyURL") String friendlyURL,
+			@FormParam("incidentReportEmailAddresses")
+				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("serverLocation") String serverLocation,
 			@FormParam("timeZoneId") String timeZoneId,
 			@FormParam("trial") boolean trial)
@@ -366,7 +377,8 @@ public class ProjectController extends BaseFaroController {
 
 		return _createUnprovisioned(
 			name, accountKey, accountName, corpProjectName, corpProjectUuid,
-			emailAddressDomainsFaroParam, friendlyURL, serverLocation,
+			emailAddressDomainsFaroParam.getValue(), friendlyURL,
+			incidentReportEmailAddressesFaroParam.getValue(), serverLocation,
 			timeZoneId, trial);
 	}
 
@@ -631,6 +643,8 @@ public class ProjectController extends BaseFaroController {
 			@DefaultValue(JSONConstants.NULL_JSON_ARRAY)
 			@FormParam("emailAddressDomains")
 				FaroParam<List<String>> emailAddressDomainsFaroParam,
+			@FormParam("incidentReportEmailAddresses")
+				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("name") String name,
 			@DefaultValue(StringPool.BLANK) @FormParam("timeZoneId")
 				String timeZoneId)
@@ -669,6 +683,15 @@ public class ProjectController extends BaseFaroController {
 			faroProject.setTimeZoneId(timeZoneId);
 
 			cerebroEngineClient.updateTimeZone(faroProject);
+		}
+
+		List<String> incidentReportEmailAddresses =
+			incidentReportEmailAddressesFaroParam.getValue();
+
+		if (!incidentReportEmailAddresses.isEmpty()) {
+			faroProject.setIncidentReportEmailAddresses(
+				JSONUtil.writeValueAsString(
+					incidentReportEmailAddressesFaroParam.getValue()));
 		}
 
 		try {
@@ -963,7 +986,8 @@ public class ProjectController extends BaseFaroController {
 	private FaroProject _create(
 			String corpProjectUuid, String name,
 			List<String> emailAddressDomains, String friendlyURL,
-			String serverLocation, String state, String timeZoneId)
+			List<String> incidentReportEmailAddresses, String serverLocation,
+			String state, String timeZoneId)
 		throws Exception {
 
 		OSBAccountEntry osbAccountEntry =
@@ -981,6 +1005,7 @@ public class ProjectController extends BaseFaroController {
 				user.getUserId(), name, osbAccountEntry.getDossieraAccountKey(),
 				osbAccountEntry.getCorpEntryName(), osbAccountEntry.getName(),
 				corpProjectUuid, emailAddressDomains, friendlyURL,
+				JSONUtil.writeValueAsString(incidentReportEmailAddresses),
 				serverLocation, JSONConstants.NULL_JSON_ARRAY, state,
 				JSONUtil.writeValueAsString(faroSubscriptionDisplay),
 				timeZoneId, null);
@@ -1019,9 +1044,9 @@ public class ProjectController extends BaseFaroController {
 	private ProjectDisplay _createUnprovisioned(
 			String name, String accountKey, String accountName,
 			String corpProjectName, String corpProjectUuid,
-			FaroParam<List<String>> emailAddressDomainsFaroParam,
-			String friendlyURL, String serverLocation, String timeZoneId,
-			boolean trial)
+			List<String> emailAddressDomains, String friendlyURL,
+			List<String> incidentReportEmailAddresses, String serverLocation,
+			String timeZoneId, boolean trial)
 		throws Exception {
 
 		validateFriendlyURL(friendlyURL);
@@ -1055,8 +1080,9 @@ public class ProjectController extends BaseFaroController {
 		try {
 			faroProject = _faroProjectLocalService.addFaroProject(
 				getUserId(), name, accountKey, accountName, corpProjectName,
-				corpProjectUuid, emailAddressDomainsFaroParam.getValue(),
-				friendlyURL, serverLocation, JSONConstants.NULL_JSON_ARRAY,
+				corpProjectUuid, emailAddressDomains, friendlyURL,
+				JSONUtil.writeValueAsString(incidentReportEmailAddresses),
+				serverLocation, JSONConstants.NULL_JSON_ARRAY,
 				FaroProjectConstants.STATE_NOT_READY,
 				JSONUtil.writeValueAsString(faroSubscriptionDisplay),
 				timeZoneId, null);
