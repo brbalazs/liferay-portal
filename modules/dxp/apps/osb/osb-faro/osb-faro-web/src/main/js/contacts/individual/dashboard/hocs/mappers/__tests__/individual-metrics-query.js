@@ -2,7 +2,7 @@ import {mapPropsToOptions, mapResultToProps} from '../individual-metrics-query';
 import {range} from 'lodash';
 
 const mockMetric = {
-	histogram: range(5).map(i => ({value: i})),
+	histogram: {metrics: range(5).map(i => ({value: i}))},
 	trend: {percentage: 25.4},
 	value: 10
 };

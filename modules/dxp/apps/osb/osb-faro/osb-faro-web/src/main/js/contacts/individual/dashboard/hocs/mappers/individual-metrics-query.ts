@@ -31,13 +31,13 @@ export const mapResultToProps = safeResultToProps(
 		items: [
 			{
 				...totalIndividualsMetric,
-				data: totalIndividualsMetric.histogram,
+				data: totalIndividualsMetric.histogram.metrics,
 				id: 'totalIndividuals',
 				title: Liferay.Language.get('total-individuals')
 			},
 			{
 				...knownIndividualsMetric,
-				data: knownIndividualsMetric.histogram,
+				data: knownIndividualsMetric.histogram.metrics,
 				id: 'knownIndividualsMetric',
 				info: {
 					content: Liferay.Language.get(
@@ -49,7 +49,7 @@ export const mapResultToProps = safeResultToProps(
 			},
 			{
 				...anonymousIndividualsMetric,
-				data: anonymousIndividualsMetric.histogram,
+				data: anonymousIndividualsMetric.histogram.metrics,
 				id: 'anonymousIndividualsMetric',
 				info: {
 					content: Liferay.Language.get(
@@ -80,13 +80,15 @@ export const mapActiveIndividualsResultToProps = safeResultToProps(
 	}) => ({
 		data: [
 			{
-				data: knownIndividualsMetric.histogram.map(({value}) => value),
+				data: knownIndividualsMetric.histogram.metrics.map(
+					({value}) => value
+				),
 				id: CHART_DATA_ID_1,
 				name: LANG_MAP[CHART_DATA_ID_1],
 				type: BAR_CHART
 			},
 			{
-				data: anonymousIndividualsMetric.histogram.map(
+				data: anonymousIndividualsMetric.histogram.metrics.map(
 					({value}) => value
 				),
 				id: CHART_DATA_ID_2,
@@ -94,14 +96,14 @@ export const mapActiveIndividualsResultToProps = safeResultToProps(
 				type: BAR_CHART
 			},
 			{
-				data: totalIndividualsMetric.histogram.map(({key}) =>
+				data: totalIndividualsMetric.histogram.metrics.map(({key}) =>
 					getDate(key)
 				),
 				id: 'x'
 			}
 		],
 		dateKeysIMap: Map(
-			totalIndividualsMetric.histogram.map(({key, valueKey}) => [
+			totalIndividualsMetric.histogram.metrics.map(({key, valueKey}) => [
 				getDate(key),
 				valueKey.split('/').map(getDate)
 			])

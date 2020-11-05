@@ -361,19 +361,53 @@ export function mockIndividualMetricsReq() {
 				individualMetric: {
 					__typename: 'IndividualMetric',
 					anonymousIndividualsMetric: mockMetric({
-						histogram: [{key: '1', value: 1323321, valueKey: '1'}],
+						histogram: {
+							__typename: 'HistogramMetricBag',
+							asymmetricComparison: false,
+							metrics: [
+								{
+									__typename: 'HistogramMetric',
+									key: '1',
+									value: 1323321,
+									valueKey: '1'
+								}
+							],
+							total: 1
+						},
 						trend: {percentage: 0},
 						value: 1323321
 					}),
 					knownIndividualsMetric: mockMetric({
-						histogram: [{key: '2', value: 11987, valueKey: '1'}],
+						histogram: {
+							__typename: 'HistogramMetricBag',
+							asymmetricComparison: false,
+							metrics: [
+								{
+									__typename: 'HistogramMetric',
+									key: '2',
+									value: 11987,
+									valueKey: '1'
+								}
+							],
+							total: 1
+						},
 						trend: {percentage: 12.5},
 						value: 11987
 					}),
 					totalIndividualsMetric: mockMetric({
-						histogram: [
-							{key: '3', value: 1300000000, valueKey: '1'}
-						],
+						histogram: {
+							__typename: 'HistogramMetricBag',
+							asymmetricComparison: false,
+							metrics: [
+								{
+									__typename: 'HistogramMetric',
+									key: '3',
+									value: 1300000000,
+									valueKey: '1'
+								}
+							],
+							total: 1
+						},
 						trend: {percentage: -25},
 						value: 1300000000
 					})

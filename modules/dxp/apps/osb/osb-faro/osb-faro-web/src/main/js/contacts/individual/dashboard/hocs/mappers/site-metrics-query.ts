@@ -15,20 +15,21 @@ export const mapResultToProps = safeResultToProps(
 	({
 		site: {anonymousVisitorsMetric, knownVisitorsMetric, visitorsMetric}
 	}) => ({
-		data: anonymousVisitorsMetric.histogram.reduce(
+		data: anonymousVisitorsMetric.histogram.metrics.reduce(
 			(acc, {key, value}, i) => [
 				...acc,
 				{
 					anonymousVisitors: value,
 					intervalInitDate: moment.utc(key).valueOf(),
-					knownVisitors: knownVisitorsMetric.histogram[i].value,
-					visitors: visitorsMetric.histogram[i].value
+					knownVisitors:
+						knownVisitorsMetric.histogram.metrics[i].value,
+					visitors: visitorsMetric.histogram.metrics[i].value
 				}
 			],
 			[]
 		),
 		dateKeysIMap: Map(
-			visitorsMetric.histogram.map(({key, valueKey}) => [
+			visitorsMetric.histogram.metrics.map(({key, valueKey}) => [
 				moment.utc(key).valueOf(),
 				valueKey
 					.split('/')

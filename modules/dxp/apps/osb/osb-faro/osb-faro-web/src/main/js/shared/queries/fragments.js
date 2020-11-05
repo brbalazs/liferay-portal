@@ -121,9 +121,13 @@ export const METRIC_FRAGMENT = gql`
 export const TREND_FRAGMENT = gql`
 	fragment trendFragment on Metric {
 		histogram {
-			key
-			valueKey
-			value
+			asymmetricComparison
+			metrics {
+				key
+				valueKey
+				value
+			}
+			total
 		}
 		value
 		trend {
