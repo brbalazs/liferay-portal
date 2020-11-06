@@ -1,0 +1,37 @@
+{
+	"cpu": 2,
+	"dependencies": [
+		"liferay"
+	],
+	"id": "webserver",
+	"image": "liferaycloud/nginx:1.14.2-3.1.0",
+	"livenessProbe": {
+		"failureThreshold": 20,
+		"httpGet": {
+			"path": "/nginx_status",
+			"port": 80
+		},
+		"initialDelaySeconds": 60,
+		"timeoutSeconds": 10
+	},
+	"loadBalancer": {
+		"cdn": true,
+		"targetPort": 80
+	},
+	"memory": 512,
+	"readinessProbe": {
+		"failureThreshold": 20,
+		"httpGet": {
+			"path": "/nginx_status",
+			"port": 80
+		},
+		"initialDelaySeconds": 30,
+		"timeoutSeconds": 10
+	},
+	"strategy": {
+		"type": "RollingUpdate"
+	},
+	"volumes": {
+		"data": "/data"
+	}
+}
