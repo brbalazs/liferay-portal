@@ -332,7 +332,7 @@ module.exports = {
 			}
 		},
 		'ts-jest': {
-			tsConfig: 'tsconfig.test.json'
+			tsconfig: 'tsconfig.test.json'
 		}
 	},
 	moduleNameMapper: {
