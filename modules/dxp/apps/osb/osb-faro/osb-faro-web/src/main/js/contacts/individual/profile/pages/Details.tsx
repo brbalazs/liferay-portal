@@ -29,7 +29,7 @@ interface IDetailsProps {
 	individual: Individual;
 }
 
-const Details = ({groupId, individual}) => (
+const Details: React.FC<IDetailsProps> = ({groupId, individual}) => (
 	<BaseDetails
 		dataSourceFn={fetchIndividualDetails}
 		groupId={groupId}

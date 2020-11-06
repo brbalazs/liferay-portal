@@ -1,3 +1,4 @@
+import React from 'react';
 import {CustomValue, Property} from 'shared/util/records';
 
 export type Context = {

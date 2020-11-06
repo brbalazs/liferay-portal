@@ -16,9 +16,7 @@ import {
 import {sub} from 'shared/util/lang';
 import {userStatuses} from 'shared/util/constants';
 
-interface IUserRequestProps extends React.HTMLAttributes<HTMLElement> {}
-
-type UserRequest = {
+type UserRequestProps = {
 	close: () => void;
 	delta?: string;
 	groupId: string;
@@ -37,7 +35,7 @@ const getUsers = ({
 	orderByField,
 	page,
 	query
-}: UserRequest) => {
+}: UserRequestProps) => {
 	const getOrderByFields = () =>
 		orderByField && orderByField !== 'name'
 			? [
@@ -67,7 +65,7 @@ const getUsers = ({
 	});
 };
 
-export const UserRequest: React.FC<UserRequest & IUserRequestProps> = ({
+export const UserRequest: React.FC<UserRequestProps> = ({
 	close,
 	delta = paginationDefaults.delta,
 	groupId,

@@ -2,15 +2,15 @@ import Card from 'shared/components/Card';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import React from 'react';
 import {compose} from 'redux';
-import {RangeSelectors} from 'shared/types';
 import {withRangeKey} from 'shared/hoc';
+import {WithRangeKeyProps} from 'shared/hoc/WithRangeKey';
 
-interface ICardWithRangeKeyProps extends React.HTMLAttributes<HTMLElement> {
+interface ICardWithRangeKeyProps
+	extends WithRangeKeyProps,
+		React.HTMLAttributes<HTMLElement> {
 	children: (val) => React.ReactNode;
 	label: string;
 	legacyDropdownRangeKey: boolean;
-	onRangeSelectorsChange: (RangeSelectors) => void;
-	rangeSelectors: RangeSelectors;
 }
 
 const CardWithRangeKey = compose(withRangeKey)(

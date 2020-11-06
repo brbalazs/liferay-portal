@@ -9,7 +9,6 @@ import Spinner from 'shared/components/Spinner';
 import {
 	Filter,
 	getPropertiesFromItems,
-	Job,
 	JOB_RUN_DATA_PERIODS_LIST,
 	JOB_RUN_DATA_PERIODS_RANGE_KEY_MAP,
 	JobProperty
@@ -19,12 +18,6 @@ import {jobRunDataPeriods} from 'shared/util/constants';
 import {useQuery} from '@apollo/react-hooks';
 
 const ACTIVITIES_THRESHOLD = 1000;
-
-interface IManuallyRetrainModelModalProps {
-	job: Job;
-	onClose: () => void;
-	onSubmit: () => void;
-}
 
 const ManuallyRetrainModelModal = ({job, onClose, onSubmit}) => {
 	const {data, loading} = useQuery(

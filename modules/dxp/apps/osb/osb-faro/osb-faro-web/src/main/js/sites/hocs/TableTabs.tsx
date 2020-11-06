@@ -9,14 +9,6 @@ import {pickBy} from 'lodash';
 import {setUriQueryValues} from 'shared/util/router';
 import {Tab, default as Tabs} from 'shared/components/TableTabs';
 
-interface IBasePageContext {
-	filters: object;
-	router: {
-		params: object;
-		query: object;
-	};
-}
-
 interface ITableTabsCardProps extends React.HTMLAttributes<HTMLElement> {
 	footerHref?: string;
 	footerLabel?: string;
@@ -48,9 +40,7 @@ const withTableTabs = (withData, tabConfig: Tab[], tableConfig: object) => {
 		legacyDropdownRangeKey,
 		metricLabel
 	}: ITableTabsCardProps) => {
-		const {router} = useContext(BasePage.Context as React.Context<
-			IBasePageContext
-		>);
+		const {router} = useContext(BasePage.Context);
 
 		const [activeTabId, setActiveTab] = useState(tabConfig[0].tabId);
 		const handleActiveTabChanged = useCallback(

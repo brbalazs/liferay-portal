@@ -1,3 +1,4 @@
+import React from 'react';
 import {Map, Set} from 'immutable';
 import {Modal} from './Modal';
 
@@ -51,6 +52,7 @@ export interface IBasePageContext {
 	router: {
 		params: {
 			groupId: string;
+			[key: string]: string;
 		};
 		query: object;
 	};

@@ -245,7 +245,7 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 		return (
 			<div className={classes}>
 				{criterionGroup ? (
-					<this.NestedCriteriaGroupWithDrag
+					<this.NestedCriteriaGroupWithDrag // eslint-disable-line no-undef
 						channelId={channelId}
 						criteria={criterion}
 						criteriaGroupId={criterion.criteriaGroupId}

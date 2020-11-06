@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type Modal = {
 	Component: any;
 	props: Object;

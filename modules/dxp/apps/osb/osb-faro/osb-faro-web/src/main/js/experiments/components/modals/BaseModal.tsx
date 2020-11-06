@@ -5,7 +5,7 @@ import React, {useState} from 'react';
 import Spinner from 'shared/components/Spinner';
 import {Observer, Size, Status} from '@clayui/modal/lib/types';
 
-interface BaseModal extends React.HTMLAttributes<HTMLElement> {
+interface IBaseModalProps extends React.HTMLAttributes<HTMLElement> {
 	cancelMessage?: string;
 	children: React.ReactNode;
 	disabled?: boolean;
@@ -20,7 +20,7 @@ interface BaseModal extends React.HTMLAttributes<HTMLElement> {
 	title: string;
 }
 
-const BaseModal: React.FC<BaseModal> = ({
+const BaseModal: React.FC<IBaseModalProps> = ({
 	cancelMessage = Liferay.Language.get('cancel'),
 	children,
 	disabled = false,

@@ -12,6 +12,13 @@ const getMapResultToProps = (compositionBagName: string) =>
 	safeResultToProps(
 		({
 			[compositionBagName]: {compositions, maxCount, total, totalCount}
+		}: {
+			[key: string]: {
+				compositions: Array<any>;
+				maxCount: number;
+				total: number;
+				totalCount: number;
+			};
 		}) => ({
 			empty: !total,
 			emptyMessage: sub(Liferay.Language.get('empty-message-metric'), [

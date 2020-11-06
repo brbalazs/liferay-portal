@@ -107,7 +107,10 @@ describe('WithSelection', () => {
 		render(<WrappedComponent items={mockItemArray} />);
 
 		expect(componentSpy).toBeCalledWith(
-			expect.objectContaining({items: mockItemArray, ...expectedArgs}),
+			expect.objectContaining({
+				items: [...mockItemArray],
+				...expectedArgs
+			}),
 			{}
 		);
 	});

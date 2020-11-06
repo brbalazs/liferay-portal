@@ -1,3 +1,4 @@
+import React from 'react';
 import {Modal, Step} from 'experiments/components/summary-base-card/types';
 
 export type FormattedHistogram = {
