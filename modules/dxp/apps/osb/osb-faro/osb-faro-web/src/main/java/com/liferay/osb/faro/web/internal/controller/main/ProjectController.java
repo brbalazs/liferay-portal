@@ -666,9 +666,9 @@ public class ProjectController extends BaseFaroController {
 		if (!Validator.isBlank(timeZoneId)) {
 			validateTimeZoneId(timeZoneId);
 
-			cerebroEngineClient.updateTimeZone(faroProject);
-
 			faroProject.setTimeZoneId(timeZoneId);
+
+			cerebroEngineClient.updateTimeZone(faroProject);
 		}
 
 		try {
