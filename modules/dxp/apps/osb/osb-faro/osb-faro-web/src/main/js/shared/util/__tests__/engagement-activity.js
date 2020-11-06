@@ -4,10 +4,8 @@ import {
 	buildLegendItems,
 	convertHistoryInitDateToDate,
 	formatTickVal,
-	getSafeRangeKey,
-	renderTooltip
+	getSafeRangeKey
 } from '../engagement-activity';
-import {createDateKeysIMap} from 'shared/util/intervals';
 
 const mockHistory = [
 	{
@@ -68,32 +66,6 @@ describe('engagement-activity', () => {
 			parsedHistory.forEach(({intervalInitDate}) =>
 				expect(intervalInitDate).toBeValidDate()
 			);
-		});
-	});
-
-	describe('renderTooltip', () => {
-		it('should render', () => {
-			const mockData = [{index: 0}];
-			const interval = 'D';
-			const dateKeysIMap = createDateKeysIMap(
-				interval,
-				mockHistory,
-				'intervalInitDate'
-			);
-
-			const tooltipOptions = {
-				dateKeysIMap,
-				history: mockHistory,
-				interval,
-				name: 'Activities',
-				rangeSelectors: {
-					rangeKey: '30'
-				},
-				title: 'Activities',
-				type: 'number'
-			};
-
-			expect(renderTooltip(tooltipOptions)(mockData)).toMatchSnapshot();
 		});
 	});
 

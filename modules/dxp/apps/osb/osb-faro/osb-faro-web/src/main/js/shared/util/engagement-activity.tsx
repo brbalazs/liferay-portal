@@ -1,23 +1,15 @@
 import CardTabMetric from 'contacts/individual/profile/components/CardTabMetric';
 import Constants from 'shared/util/constants';
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-
-import TooltipChart from 'cerebro-shared/components/TooltipChart';
 import {ACTIVITIES, ENGAGEMENT, toRoute} from 'shared/util/router';
-import {
-	DataTooltip,
-	getAxisFormatter,
-	getDateTitle,
-	MetricValueType
-} from './charts';
 import {DEFAULT_ACTIVITY_MAX} from 'shared/api/activities';
 import {DEFAULT_ENGAGEMENT_MAX} from 'shared/api/engagement';
 import {formatUTCDateFromUnix} from 'shared/util/date';
-import {get, isNull} from 'lodash';
 import {getDate} from 'shared/util/date';
 import {Interval, RangeSelectors} from 'shared/types';
+import {isNull} from 'lodash';
 import {Map} from 'immutable';
+import {MetricValueType} from './charts';
 import {sub} from 'shared/util/lang';
 
 export const CHART_ACTIVITY_ID = 'activities';
@@ -228,68 +220,6 @@ export function convertHistoryInitDateToDate<T>(
 		...others
 	}));
 }
-
-export const renderTooltip = (options: TooltipOptionsType) => (
-	dataPoints: [DataTooltip]
-): string => {
-	const {
-		dateKeysIMap,
-		history,
-		interval,
-		name,
-		rangeSelectors,
-		title,
-		tooltipRenderRows,
-		type
-	} = options;
-
-	const formatter =
-		type === MetricValueType.Engagement
-			? value => value.toFixed(2)
-			: getAxisFormatter(type);
-	const data = history[get(dataPoints, [0, 'index'])];
-
-	const {intervalInitDate} = data;
-
-	const value = 'totalElements' in data ? data.totalElements : data.scoreAvg;
-
-	const currentPeriodTitle = getDateTitle(
-		dateKeysIMap.get(intervalInitDate),
-		rangeSelectors.rangeKey,
-		interval
-	);
-
-	const header = [
-		{label: title, weight: 'semibold', width: 100},
-		{
-			align: 'right',
-			label: currentPeriodTitle,
-			weight: 'semibold',
-			width: 55
-		}
-	];
-
-	const rows = [
-		{
-			columns: [
-				{
-					label: name,
-					weight: 'normal'
-				},
-				{
-					align: 'right',
-					label: formatter(value),
-					weight: 'semibold'
-				}
-			]
-		},
-		...(tooltipRenderRows && tooltipRenderRows(data))
-	].filter(Boolean);
-
-	return ReactDOMServer.renderToString(
-		<TooltipChart header={header} rows={rows} />
-	);
-};
 
 export const getSafeRangeKey = (
 	rangeKey: RangeSelectors['rangeKey']

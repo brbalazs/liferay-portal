@@ -68,5 +68,3 @@ Array [
 `;
 
 exports[`engagement-activity formatTickVal should return a given date with the format M/D 1`] = `"7/10"`;
-
-exports[`engagement-activity renderTooltip should render 1`] = `"<table class=\\"analytics-tooltip-chart\\" data-reactroot=\\"\\"><thead class=\\"analytics-tooltip-chart-header \\"><tr class=\\"analytics-tooltip-chart-row \\"><td style=\\"min-width:100px\\"><div class=\\"analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold\\"> <!-- -->Activities</div></td><td style=\\"min-width:55px\\"><div class=\\"analytics-tooltip-chart-content analytics-tooltip-chart-column text-right font-weight-semibold\\"> <!-- -->2018 Jul 10</div></td></tr></thead><tbody class=\\"analytics-tooltip-chart-body \\"><tr class=\\"analytics-tooltip-chart-row \\"><td><div class=\\"analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-normal\\"> <!-- -->Activities</div></td><td><div class=\\"analytics-tooltip-chart-content analytics-tooltip-chart-column text-right font-weight-semibold\\"> <!-- -->5</div></td></tr></tbody></table>"`;
