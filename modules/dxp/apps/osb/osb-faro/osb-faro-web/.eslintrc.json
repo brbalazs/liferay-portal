@@ -100,9 +100,12 @@
 		"react/jsx-handler-names": 2,
 		"react/jsx-key": 2,
 		"react/jsx-no-literals": 2,
-		"react/jsx-sort-props": [2, {
-			"ignoreCase": true
-		}],
+		"react/jsx-sort-props": [
+			2,
+			{
+				"ignoreCase": true
+			}
+		],
 		"react/jsx-uses-react": 2,
 		"react/jsx-uses-vars": 2,
 		"react/sort-comp": [
