@@ -137,13 +137,17 @@ public class DxpStringPool {
 	}
 
 	private static String _createContactsControlPanelUrlPath() {
-		StringBundler sb = new StringBundler(5);
+		StringBundler sb = new StringBundler(9);
 
 		sb.append("/group/control_panel/manage?p_p_id=com_liferay_configurat");
 		sb.append("ion_admin_web_portlet_InstanceSettingsPortlet&p_p_lifecyc");
 		sb.append("le=0&p_p_mode=view&_com_liferay_configuration_admin_web_p");
 		sb.append("ortlet_InstanceSettingsPortlet_mvcRenderCommandName=%2Fan");
-		sb.append("alytics_settings%2Fedit_synced_contacts");
+		sb.append("alytics_settings%2Fedit_synced_contacts&_com_liferay_conf");
+		sb.append("iguration_admin_web_portlet_InstanceSettingsPortlet_confi");
+		sb.append("gurationScreenKey%3D2-synced-contact-data&_com_liferay_co");
+		sb.append("nfiguration_admin_web_portlet_InstanceSettingsPortlet_inc");
+		sb.append("ludeSyncContactsFields=true");
 
 		return sb.toString();
 	}
