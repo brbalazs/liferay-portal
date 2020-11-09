@@ -31,7 +31,7 @@ task removeDocker(type: DockerRemoveContainer)
 task startDocker(type: DockerStartContainer)
 task stopDocker(type: DockerStopContainer)
 
-def dockerContainerId = "com-liferay-osb-faro-private"
+def dockerContainerId = "faro"
 def dockerImageId = "liferay/com-liferay-osb-faro"
 
 ext.faroEnvironmentName = System.getenv().get("FARO_ENVIRONMENT_NAME") ?: project.property("com.liferay.osb.faro.environment.name")
