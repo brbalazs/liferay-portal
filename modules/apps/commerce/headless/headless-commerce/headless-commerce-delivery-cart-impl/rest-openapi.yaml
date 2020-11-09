@@ -391,6 +391,11 @@ components:
                     type: number
                 shippingValueFormatted:
                     type: string
+                shippingValueWithTaxAmount:
+                    format: double
+                    type: number
+                shippingValueWithTaxAmountFormatted:
+                    type: string
                 subtotal:
                     format: double
                     type: number
