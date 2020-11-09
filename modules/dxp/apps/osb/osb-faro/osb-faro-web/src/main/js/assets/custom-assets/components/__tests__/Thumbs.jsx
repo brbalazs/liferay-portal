@@ -37,7 +37,7 @@ describe('AddReport', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should select the third thumb when clicked', async() => {
+	it('should select the third thumb when clicked', () => {
 		const {getByTitle} = render(<Thumbs {...defaultProps} />);
 
 		const listItem = getByTitle('this is a thumb 3');
