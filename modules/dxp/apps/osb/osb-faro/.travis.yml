@@ -6,7 +6,7 @@ jobs:
     include:
         - stage: push docker image
           if: branch = 7.1.x AND type = push
-          script: ./gradlew pushAppDockerImage -Pcom.liferay.osb.faro.environment.name=asah-local
+          script: ./gradlew pushAppDockerImage
         - stage: source formatting checks
           script: ./gradlew packageRunLint checkSourceFormatting pmdMain pmdTest pmdTestIntegration
         - stage: javascript tests
