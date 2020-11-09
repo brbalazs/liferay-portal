@@ -118,10 +118,6 @@ createDocker {
 	targetImageId {
 		dockerImageId
 	}
-
-	if (faroEnvironmentName.equals("asah-local")) {
-		network "comliferayosbasahprivate"
-	}
 }
 
 docker {
