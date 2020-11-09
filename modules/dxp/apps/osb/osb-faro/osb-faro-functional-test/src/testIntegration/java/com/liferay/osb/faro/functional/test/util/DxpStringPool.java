@@ -30,7 +30,7 @@ public class DxpStringPool {
 		_createAcInstanceSettingsUrlBase();
 
 	public static final String AC_INSTANCE_SETTINGS_URL_PATH =
-		AC_INSTANCE_SETTINGS_URL_BASE + "analytics-cloud-connection";
+		AC_INSTANCE_SETTINGS_URL_BASE + "0-analytics-cloud-connection";
 
 	public static final String ADD_OAUTH_APP_BUTTON_XPATH =
 		"//a[@title='Add OAuth 2 Application']";
@@ -85,10 +85,10 @@ public class DxpStringPool {
 		"/group/control_panel/manage/-/sites/sites";
 
 	public static final String SYNCED_CONTACTS_PATH =
-		AC_INSTANCE_SETTINGS_URL_BASE + "synced-contacts";
+		_createContactsControlPanelUrlPath();
 
 	public static final String SYNCED_SITES_PATH =
-		AC_INSTANCE_SETTINGS_URL_BASE + "synced-sites";
+		AC_INSTANCE_SETTINGS_URL_BASE + "1-synced-sites";
 
 	public static final String USERS_ORGANIZATIONS_CONTROL_PANEL_URL_PATH =
 		_createUsersOrganizationsControlPanelUrlPath();
@@ -127,11 +127,23 @@ public class DxpStringPool {
 
 		sb.append("/group/control_panel/manage?p_p_id=com_liferay_configurat");
 		sb.append("ion_admin_web_portlet_InstanceSettingsPortlet&p_p_lifecyc");
-		sb.append("le=0&p_p_state=maximized&p_p_mode=view&_com_liferay_confi");
-		sb.append("guration_admin_web_portlet_InstanceSettingsPortlet_mvcRen");
-		sb.append("derCommandName=%2Fview_configuration_screen&_com_liferay_");
-		sb.append("configuration_admin_web_portlet_InstanceSettingsPortlet_c");
-		sb.append("onfigurationScreenKey=");
+		sb.append("le=0&p_p_mode=view&_com_liferay_configuration_admin_web_p");
+		sb.append("ortlet_InstanceSettingsPortlet_mvcRenderCommandName=%2Fco");
+		sb.append("nfiguration_admin%2Fview_configuration_screen&_com_lifera");
+		sb.append("y_configuration_admin_web_portlet_InstanceSettingsPortlet");
+		sb.append("_configurationScreenKey=");
+
+		return sb.toString();
+	}
+
+	private static String _createContactsControlPanelUrlPath() {
+		StringBundler sb = new StringBundler(5);
+
+		sb.append("/group/control_panel/manage?p_p_id=com_liferay_configurat");
+		sb.append("ion_admin_web_portlet_InstanceSettingsPortlet&p_p_lifecyc");
+		sb.append("le=0&p_p_mode=view&_com_liferay_configuration_admin_web_p");
+		sb.append("ortlet_InstanceSettingsPortlet_mvcRenderCommandName=%2Fan");
+		sb.append("alytics_settings%2Fedit_synced_contacts");
 
 		return sb.toString();
 	}
