@@ -47,7 +47,7 @@ allprojects {
 
 appDocker {
 	imageName dockerImageId
-	imageTags = [faroEnvironmentName.equals("prd") ? String.valueOf(faroEnvironmentName) + "-" + new Date().format("yyyyMMdd") : faroEnvironmentName.equals("asah-local") ? "asah-local-latest" : "latest"]
+	imageTags = [faroEnvironmentName.equals("prd") ? "prd-" + new Date().format("yyyyMMdd") : "latest"]
 	inputDir "osb-faro-docker/" + faroEnvironmentName
 
 	onlyIf {
