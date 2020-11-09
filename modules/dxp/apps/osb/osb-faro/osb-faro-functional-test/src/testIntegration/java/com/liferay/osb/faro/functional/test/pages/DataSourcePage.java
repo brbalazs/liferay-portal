@@ -714,7 +714,10 @@ public class DataSourcePage {
 		}
 
 		ClickSteps.clickButton(
-			_faroSelenium.isTextPresent("Instance Settings") ? "Save" : "Add");
+			_faroSelenium.isTextPresent("Instance Settings") ? "Save and Next" :
+				"Add");
+
+		ClickSteps.clickButton("Save");
 	}
 
 	private static final FaroSelenium _faroSelenium =
