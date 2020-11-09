@@ -10,7 +10,7 @@ import com.liferay.gradle.plugins.app.docker.AppDockerPlugin
 
 buildscript {
 	dependencies {
-		classpath group: "com.bmuschko", name: "gradle-docker-plugin", version: "3.2.4"
+		classpath group: "com.bmuschko", name: "gradle-docker-plugin", version: "3.4.4"
 		classpath group: "com.liferay", name: "com.liferay.gradle.plugins.app.docker", version: "1.0.10"
 	}
 
@@ -117,6 +117,16 @@ createDocker {
 
 	targetImageId {
 		dockerImageId
+	}
+
+	def envFile = file("${rootDir}/local.env")
+
+	if (envFile.exists()) {
+		def props = new Properties()
+
+		envFile.withInputStream { props.load(it) }
+
+		props.each{withEnvVar(it.key, it.value)}
 	}
 }
 
