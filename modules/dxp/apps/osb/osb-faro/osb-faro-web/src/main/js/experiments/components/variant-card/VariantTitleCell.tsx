@@ -4,13 +4,12 @@ import React, {useRef, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {isEllipisActive} from 'shared/util/util';
 
-const CLASSNAME = 'variant-title';
-
-interface VariantTitleIProps {
+interface IVariantTitleProps {
 	label?: string;
 	title: string;
 }
-const VariantTitle: React.FC<VariantTitleIProps> = ({label, title}) => {
+
+const VariantTitle: React.FC<IVariantTitleProps> = ({label, title}) => {
 	const [showPopover, setShowPopover] = useState(false);
 	const titleRef = useRef();
 
@@ -20,7 +19,7 @@ const VariantTitle: React.FC<VariantTitleIProps> = ({label, title}) => {
 	return (
 		<td className='table-cell-expanded'>
 			<h5
-				className={`${CLASSNAME} mb-1 text-truncate`}
+				className='variant-title mb-1 text-truncate'
 				onBlur={handleMouseOut}
 				onFocus={handleMouseOver}
 				onMouseOut={handleMouseOut}
