@@ -10,13 +10,13 @@ import getCN from 'classnames';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense, useContext, useEffect} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
-import {compose, withCurrentUser} from 'shared/hoc';
 import {OAuthUpgradeWarningContext} from 'shared/context/oAuthUpgradeWarning';
 import {Routes, toRoute} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 import {useChannelContext} from 'shared/context/channel';
 import {useQuery} from '@apollo/react-hooks';
 import {User} from 'shared/util/records';
+import {withCurrentUser} from 'shared/hoc';
 
 const {
 	credentialTypes: {oAuth1, oAuth2},
@@ -221,4 +221,4 @@ export const Dashboard: React.FC<IDashboardProps> = ({currentUser, router}) => {
 	);
 };
 
-export default compose<any>(withCurrentUser)(Dashboard);
+export default withCurrentUser(Dashboard);
