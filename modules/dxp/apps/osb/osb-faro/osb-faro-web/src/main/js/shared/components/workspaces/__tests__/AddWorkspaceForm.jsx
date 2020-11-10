@@ -1,3 +1,4 @@
+import * as Constants from 'shared/util/constants';
 import * as data from 'test/data';
 import AddWorkspaceForm, {
 	emailDomainValidation,
@@ -21,6 +22,16 @@ const DefaultComponent = props => (
 );
 
 describe('AddWorkspaceForm', () => {
+	afterAll(() => {
+		// TODO: LRAC-6933 Remove DEVELOPER_MODE 2.10.0
+		Constants.DEVELOPER_MODE = false;
+	});
+
+	beforeAll(() => {
+		// TODO: LRAC-6933 Remove DEVELOPER_MODE 2.10.0
+		Constants.DEVELOPER_MODE = true;
+	});
+
 	it('should render', () => {
 		const {container} = render(<DefaultComponent />);
 		expect(container).toMatchSnapshot();

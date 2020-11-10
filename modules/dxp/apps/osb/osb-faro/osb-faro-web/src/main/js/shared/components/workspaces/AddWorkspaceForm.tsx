@@ -17,6 +17,7 @@ import urlConstants from 'shared/util/url-constants';
 import {BasePageContext} from './BasePage';
 import {close, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
+import {DEVELOPER_MODE} from 'shared/util/constants';
 import {Formik} from 'formik';
 import {matchPath} from 'react-router-dom';
 import {Modal} from 'shared/types';
@@ -436,41 +437,47 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 									/>
 								</Sheet.Section>
 
-								<Sheet.Subtitle>
-									{Liferay.Language.get('security')}
-								</Sheet.Subtitle>
+								{DEVELOPER_MODE && ( // TODO: LRAC-6933 Remove DEVELOPER_MODE Flag 2.10.0
+									<>
+										<Sheet.Subtitle>
+											{Liferay.Language.get('security')}
+										</Sheet.Subtitle>
 
-								<Sheet.Section>
-									<Form.InputList
-										errorMessage={Liferay.Language.get(
-											'please-enter-the-email-in-this-format-sample-email-com'
-										)}
-										label={
-											<>
-												{Liferay.Language.get(
-													'add-incident-report-contacts'
+										<Sheet.Section>
+											<Form.InputList
+												errorMessage={Liferay.Language.get(
+													'please-enter-the-email-in-this-format-sample-email-com'
 												)}
+												label={
+													<>
+														{Liferay.Language.get(
+															'add-incident-report-contacts'
+														)}
 
-												<p className='instructions'>
-													{Liferay.Language.get(
-														'who-should-we-contact-in-case-of-a-security-breach'
-													)}
-												</p>
-											</>
-										}
-										name='incidentReportEmailAddresses'
-										onChangeInputList={
-											setEmailAddressesInputValues
-										}
-										validate={items =>
-											emailValidationArr(
-												items,
-												emailAddressesInputValues
-											)
-										}
-										validationFn={emailValidator.validate}
-									/>
-								</Sheet.Section>
+														<p className='instructions'>
+															{Liferay.Language.get(
+																'who-should-we-contact-in-case-of-a-security-breach'
+															)}
+														</p>
+													</>
+												}
+												name='incidentReportEmailAddresses'
+												onChangeInputList={
+													setEmailAddressesInputValues
+												}
+												validate={items =>
+													emailValidationArr(
+														items,
+														emailAddressesInputValues
+													)
+												}
+												validationFn={
+													emailValidator.validate
+												}
+											/>
+										</Sheet.Section>
+									</>
+								)}
 							</Sheet.Header>
 
 							<Sheet.Footer divider={false}>
@@ -575,4 +582,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 	);
 };
 
-export default connect(null, {close, open})(AddWorkspaceForm);
+export default connect(
+	null,
+	{close, open}
+)(AddWorkspaceForm);
