@@ -22,6 +22,11 @@ exports[`AddWorkspaceForm should render 1`] = `
           <p>
              will be the owner of this workspace
           </p>
+          <h3
+            class="sheet-subtitle"
+          >
+            General
+          </h3>
           <div
             class="sheet-section input-name"
           >
@@ -282,6 +287,48 @@ exports[`AddWorkspaceForm should render 1`] = `
                         />
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h3
+            class="sheet-subtitle"
+          >
+            Security
+          </h3>
+          <div
+            class="sheet-section"
+          >
+            <div
+              class=""
+            >
+              <label
+                class="form-control-label label-root"
+                for="incidentReportEmailAddresses"
+              >
+                Add Incident Report Contacts
+                <p
+                  class="instructions"
+                >
+                  Who should we contact in case of a security breach?
+                </p>
+              </label>
+              <div
+                class="input-group"
+              >
+                <div
+                  class="input-group-item input-list-root"
+                >
+                  <div
+                    class="form-control form-control-tag-group"
+                  >
+                    <input
+                      class="form-control-inset"
+                      placeholder=""
+                      type="text"
+                      value=""
+                    />
                   </div>
                 </div>
               </div>

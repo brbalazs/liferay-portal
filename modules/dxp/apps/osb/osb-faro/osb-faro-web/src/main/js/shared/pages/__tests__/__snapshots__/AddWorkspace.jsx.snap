@@ -110,6 +110,11 @@ exports[`AddWorkspace should render 1`] = `
                   <p>
                     test@liferay.com will be the owner of this workspace
                   </p>
+                  <h3
+                    class="sheet-subtitle"
+                  >
+                    General
+                  </h3>
                   <div
                     class="sheet-section input-name"
                   >

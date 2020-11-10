@@ -9,6 +9,7 @@ Immutable.Record {
   "faroSubscription": Immutable.Map {},
   "friendlyURL": null,
   "groupId": null,
+  "incidentReportEmailAddresses": Immutable.List [],
   "name": "",
   "recommendationsEnabled": false,
   "serverLocation": null,

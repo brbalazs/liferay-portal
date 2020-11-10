@@ -46,6 +46,11 @@ exports[`Workspace Settting should render 1`] = `
             <div
               class="sheet-header"
             >
+              <h3
+                class="sheet-subtitle"
+              >
+                General
+              </h3>
               <div
                 class="sheet-section input-name"
               >

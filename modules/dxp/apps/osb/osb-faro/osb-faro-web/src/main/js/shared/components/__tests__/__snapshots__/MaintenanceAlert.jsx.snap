@@ -65,6 +65,7 @@ Object {
     "faroSubscription": Immutable.Map {},
     "friendlyURL": null,
     "groupId": "23",
+    "incidentReportEmailAddresses": Immutable.List [],
     "name": "project23",
     "recommendationsEnabled": true,
     "serverLocation": null,
