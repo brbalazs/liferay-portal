@@ -67,7 +67,7 @@ const COMPONENT_MAP = {
 	[modalTypes.SEARCHABLE_TABLE_MODAL_GRAPHQL]: SearchableTableModalGraphql,
 	[modalTypes.SELECT_ITEMS_MODAL]: SelectItemsModal,
 	[modalTypes.TEST]: TestModal,
-	[modalTypes.TIME_ZONE_ADMIN_MODAL]: TimeZoneSelectionModal
+	[modalTypes.TIME_ZONE_SELECTION_MODAL]: TimeZoneSelectionModal
 };
 
 function toggleBodyModalOpen(open = true) {
