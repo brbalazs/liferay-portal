@@ -242,10 +242,12 @@ class CriteriaGroup extends React.Component<ICriteriaGroupProps> {
 			'criterion-group': criterionGroup
 		});
 
+		const NestedCriteriaGroupWithDrag = this.NestedCriteriaGroupWithDrag;
+
 		return (
 			<div className={classes}>
 				{criterionGroup ? (
-					<this.NestedCriteriaGroupWithDrag // eslint-disable-line no-undef
+					<NestedCriteriaGroupWithDrag
 						channelId={channelId}
 						criteria={criterion}
 						criteriaGroupId={criterion.criteriaGroupId}
