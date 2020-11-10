@@ -53,6 +53,7 @@ const TimeZonePicker: React.FC<ITimeZonePicker> = ({
 		setSelectedCountry(event.target.value);
 		setFieldTouched(fieldName, 'UTC');
 		setFieldValue(fieldName, 'UTC');
+
 		if (onCountryChange) {
 			onCountryChange(event.target.value);
 		}
