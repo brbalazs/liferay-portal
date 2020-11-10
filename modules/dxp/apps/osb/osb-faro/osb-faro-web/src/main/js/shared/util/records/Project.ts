@@ -1,5 +1,5 @@
 import TimeZone from './TimeZone';
-import {Map, Record} from 'immutable';
+import {List, Map, Record} from 'immutable';
 
 interface IProject {
 	accountKey: string;
@@ -9,6 +9,7 @@ interface IProject {
 	faroSubscription: Map<string, any>;
 	friendlyURL: string;
 	groupId: number;
+	incidentReportEmailAddresses: List<string>;
 	name: string;
 	recommendationsEnabled: boolean;
 	serverLocation: string;
@@ -27,6 +28,7 @@ export default class Project
 		faroSubscription: Map(),
 		friendlyURL: null,
 		groupId: null,
+		incidentReportEmailAddresses: List(),
 		name: '',
 		recommendationsEnabled: false,
 		serverLocation: null,
@@ -43,6 +45,7 @@ export default class Project
 	faroSubscription: Map<string, any>;
 	friendlyURL: string;
 	groupId: number;
+	incidentReportEmailAddresses: List<string>;
 	name: string;
 	recommendationsEnabled: boolean;
 	serverLocation: string;

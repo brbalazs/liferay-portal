@@ -129,11 +129,18 @@ export const updateProject = ({
 	emailAddressDomains,
 	friendlyURL,
 	groupId,
+	incidentReportEmailAddresses,
 	name
 }) => ({
 	meta: {
 		[CALL_API]: {
-			data: {emailAddressDomains, friendlyURL, groupId, name},
+			data: {
+				emailAddressDomains,
+				friendlyURL,
+				groupId,
+				incidentReportEmailAddresses,
+				name
+			},
 			requestFn: API.projects.update,
 			schema: project(groupId),
 			types: [

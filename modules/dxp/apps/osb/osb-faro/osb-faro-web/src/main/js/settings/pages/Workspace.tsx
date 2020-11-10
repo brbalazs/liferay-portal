@@ -34,11 +34,17 @@ export const Workspace: React.FC<IWorkspaceProps> = ({
 	project,
 	updateProject
 }) => {
-	const handleSubmit = ({emailAddressDomains, friendlyURL, name}) =>
+	const handleSubmit = ({
+		emailAddressDomains,
+		friendlyURL,
+		incidentReportEmailAddresses,
+		name
+	}) =>
 		updateProject({
 			emailAddressDomains,
 			friendlyURL,
 			groupId,
+			incidentReportEmailAddresses,
 			name
 		})
 			.then(() => {

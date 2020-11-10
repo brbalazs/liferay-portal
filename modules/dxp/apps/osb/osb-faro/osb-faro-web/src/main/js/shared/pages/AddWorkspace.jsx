@@ -45,6 +45,7 @@ export class AddWorkspace extends React.Component {
 	handleSubmit({
 		emailAddressDomains,
 		friendlyURL,
+		incidentReportEmailAddresses,
 		name,
 		serverLocation,
 		timeZoneId
@@ -61,6 +62,7 @@ export class AddWorkspace extends React.Component {
 		const params = {
 			emailAddressDomains,
 			friendlyURL: friendlyURL && `/${friendlyURL}`,
+			incidentReportEmailAddresses,
 			name,
 			timeZoneId,
 			...(state === unconfigured
@@ -137,7 +139,12 @@ export class AddWorkspace extends React.Component {
 export default compose(
 	connect(
 		null,
-		{addAlert, configureProject, createProject, createTrialProject}
+		{
+			addAlert,
+			configureProject,
+			createProject,
+			createTrialProject
+		}
 	),
 	optional(withProject, {idPropName: 'corpProjectUuid'}),
 	redirectIf(routingFn)

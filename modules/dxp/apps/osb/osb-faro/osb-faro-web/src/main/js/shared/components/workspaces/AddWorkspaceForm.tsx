@@ -1,3 +1,4 @@
+import * as emailValidator from 'isemail';
 import Button from 'shared/components/Button';
 import ClayIcon from '@clayui/icon';
 import Constants from 'shared/util/constants';
@@ -39,6 +40,24 @@ const projectLocations = [
 const VALIDATE_DOMAINS = /^([a-zA-Z0-9_]([a-zA-Z0-9_-]{0,61}[a-zA-Z0-9_])?\.){1,126}[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z]$/;
 
 export const emailDomainValidation = value => VALIDATE_DOMAINS.test(value);
+
+const emailValidationArr = (items, inputListValue) => {
+	if (inputListValue && !emailValidator.validate(inputListValue)) {
+		return Liferay.Language.get(
+			'please-enter-the-email-in-this-format-sample-email-com'
+		);
+	} else if (items.length) {
+		return items.reduce(
+			(acc, item) =>
+				!emailValidator.validate(item)
+					? Liferay.Language.get(
+							'please-enter-the-email-in-this-format-sample-email-com'
+					  )
+					: acc,
+			''
+		);
+	}
+};
 
 export const emailDomainValidationArr = (items, inputListValue) => {
 	if (inputListValue && !emailDomainValidation(inputListValue)) {
@@ -86,6 +105,10 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 	});
 
 	const [inputListValue, setInputListValue] = useState();
+	const [
+		emailAddressesInputValues,
+		setEmailAddressesInputValues
+	] = useState();
 
 	const handleSubmit = (
 		values,
@@ -159,6 +182,10 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 							project && project.friendlyURL
 								? project.friendlyURL.replace('/', '')
 								: '',
+						incidentReportEmailAddresses:
+							(project &&
+								project.incidentReportEmailAddresses.toArray()) ||
+							[],
 						name: (project && project.name) || '',
 						serverLocation:
 							(project && project.serverLocation) || US,
@@ -205,6 +232,10 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 										</p>
 									</>
 								)}
+
+								<Sheet.Subtitle>
+									{Liferay.Language.get('general')}
+								</Sheet.Subtitle>
 
 								<Sheet.Section className='input-name'>
 									<Form.Input
@@ -404,6 +435,42 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 										validationFn={emailDomainValidation}
 									/>
 								</Sheet.Section>
+
+								<Sheet.Subtitle>
+									{Liferay.Language.get('security')}
+								</Sheet.Subtitle>
+
+								<Sheet.Section>
+									<Form.InputList
+										errorMessage={Liferay.Language.get(
+											'please-enter-the-email-in-this-format-sample-email-com'
+										)}
+										label={
+											<>
+												{Liferay.Language.get(
+													'add-incident-report-contacts'
+												)}
+
+												<p className='instructions'>
+													{Liferay.Language.get(
+														'who-should-we-contact-in-case-of-a-security-breach'
+													)}
+												</p>
+											</>
+										}
+										name='incidentReportEmailAddresses'
+										onChangeInputList={
+											setEmailAddressesInputValues
+										}
+										validate={items =>
+											emailValidationArr(
+												items,
+												emailAddressesInputValues
+											)
+										}
+										validationFn={emailValidator.validate}
+									/>
+								</Sheet.Section>
 							</Sheet.Header>
 
 							<Sheet.Footer divider={false}>
@@ -508,7 +575,4 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 	);
 };
 
-export default connect(
-	null,
-	{close, open}
-)(AddWorkspaceForm);
+export default connect(null, {close, open})(AddWorkspaceForm);

@@ -10,6 +10,7 @@ export function create({
 	corpProjectUuid,
 	emailAddressDomains,
 	friendlyURL,
+	incidentReportEmailAddresses,
 	name,
 	serverLocation,
 	timeZoneId
@@ -19,6 +20,7 @@ export function create({
 			corpProjectUuid,
 			emailAddressDomains,
 			friendlyURL,
+			incidentReportEmailAddresses,
 			name,
 			serverLocation,
 			timeZoneId
@@ -28,11 +30,18 @@ export function create({
 	});
 }
 
-export function configure({emailAddressDomains, friendlyURL, groupId, name}) {
+export function configure({
+	emailAddressDomains,
+	friendlyURL,
+	groupId,
+	incidentReportEmailAddresses,
+	name
+}) {
 	return sendRequest({
 		data: {
 			emailAddressDomains,
 			friendlyURL,
+			incidentReportEmailAddresses,
 			name
 		},
 		method: 'PUT',
@@ -43,6 +52,7 @@ export function configure({emailAddressDomains, friendlyURL, groupId, name}) {
 export function createTrial({
 	emailAddressDomains,
 	friendlyURL,
+	incidentReportEmailAddresses,
 	name,
 	serverLocation,
 	timeZoneId
@@ -51,6 +61,7 @@ export function createTrial({
 		data: {
 			emailAddressDomains,
 			friendlyURL,
+			incidentReportEmailAddresses,
 			name,
 			serverLocation,
 			timeZoneId
@@ -95,11 +106,18 @@ export function fetchAvailableTimeZones() {
 	});
 }
 
-export function update({emailAddressDomains, friendlyURL, groupId, name}) {
+export function update({
+	emailAddressDomains,
+	friendlyURL,
+	groupId,
+	incidentReportEmailAddresses,
+	name
+}) {
 	return sendRequest({
 		data: {
 			emailAddressDomains,
 			friendlyURL: friendlyURL && `/${friendlyURL}`,
+			incidentReportEmailAddresses,
 			name
 		},
 		method: 'PUT',
