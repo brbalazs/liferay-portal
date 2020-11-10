@@ -2,12 +2,12 @@ import getCN from 'classnames';
 import React from 'react';
 import {CLASSNAME} from './index';
 
-interface SummarySectionProgressBarIProps
+interface ISummarySectionProgressBarProps
 	extends React.HTMLAttributes<HTMLElement> {
 	value: number;
 }
 
-const SummarySectionProgressBar: React.FC<SummarySectionProgressBarIProps> = ({
+const SummarySectionProgressBar: React.FC<ISummarySectionProgressBarProps> = ({
 	className,
 	value
 }) => {
