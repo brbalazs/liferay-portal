@@ -1,20 +1,19 @@
 import ProgressBar from '../ProgressBar';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('SummarySection ProgressBar', () => {
 	it('should render component', () => {
-		const component = shallow(<ProgressBar value={50} />);
+		const {container} = render(<ProgressBar value={50} />);
 
-		expect(
-			component.hasClass('analytics-summary-section-progress')
-		).toBeTruthy();
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render component with completed progress', () => {
-		const component = shallow(<ProgressBar value={100} />);
+		const {container} = render(<ProgressBar value={100} />);
 
-		expect(component.hasClass('complete')).toBeTruthy();
+		expect(container.querySelectorAll('.complete')).toBeTruthy();
 	});
 });
