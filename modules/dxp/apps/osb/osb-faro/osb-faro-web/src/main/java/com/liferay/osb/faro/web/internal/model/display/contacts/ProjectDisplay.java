@@ -14,6 +14,8 @@
 
 package com.liferay.osb.faro.web.internal.model.display.contacts;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.engine.client.CerebroEngineClient;
 import com.liferay.osb.faro.engine.client.ContactsEngineClient;
@@ -30,6 +32,7 @@ import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Matthew Kong
@@ -72,6 +75,17 @@ public class ProjectDisplay {
 
 		_friendlyURL = friendlyURL;
 		_groupId = faroProject.getGroupId();
+
+		try {
+			_incidentReportEmailAddresses = JSONUtil.readValue(
+				faroProject.getIncidentReportEmailAddresses(),
+				new TypeReference<List<String>>() {
+				});
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+		}
+
 		_name = faroProject.getName();
 		_recommendationsEnabled = faroProject.isRecommendationsEnabled();
 		_serverLocation = faroProject.getServerLocation();
@@ -176,6 +190,7 @@ public class ProjectDisplay {
 	private FaroSubscriptionDisplay _faroSubscriptionDisplay;
 	private String _friendlyURL;
 	private long _groupId;
+	private List<String> _incidentReportEmailAddresses;
 	private String _name;
 	private boolean _recommendationsEnabled;
 	private String _serverLocation;
