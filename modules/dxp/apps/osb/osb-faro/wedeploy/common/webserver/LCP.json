@@ -4,7 +4,7 @@
 		"liferay"
 	],
 	"id": "webserver",
-	"image": "liferaycloud/nginx:1.14.2-3.1.0",
+	"image": "liferaycloud/nginx:1.16.1-4.0.4",
 	"livenessProbe": {
 		"failureThreshold": 20,
 		"httpGet": {
