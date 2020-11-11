@@ -78,7 +78,13 @@ export class AddWorkspace extends React.Component {
 				: createTrialProject;
 
 		return createFn(params)
-			.then(({payload: {friendlyURL, groupId}}) => {
+			.then(({payload: {friendlyURL, groupId, name}}) => {
+				analytics.track('Created Workspace', {
+					groupId: String(groupId),
+					serverLocation,
+					workspaceName: name
+				});
+
 				this.setState({
 					friendlyURL: friendlyURL
 						? friendlyURL.replace('/', '')
@@ -137,15 +143,12 @@ export class AddWorkspace extends React.Component {
 }
 
 export default compose(
-	connect(
-		null,
-		{
-			addAlert,
-			configureProject,
-			createProject,
-			createTrialProject
-		}
-	),
+	connect(null, {
+		addAlert,
+		configureProject,
+		createProject,
+		createTrialProject
+	}),
 	optional(withProject, {idPropName: 'corpProjectUuid'}),
 	redirectIf(routingFn)
 )(AddWorkspace);
