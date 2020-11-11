@@ -101,11 +101,13 @@ export class UserList extends React.Component {
 
 	@autobind
 	handleInviteModal() {
-		const {close, open} = this.props;
+		const {close, currentUser, groupId, open} = this.props;
 
 		open(modalTypes.INVITE_USERS_MODAL, {
+			groupId,
 			onClose: close,
-			onSubmit: this.handleUserInvite
+			onSubmit: this.handleUserInvite,
+			userId: String(currentUser.id)
 		});
 	}
 
@@ -218,15 +220,19 @@ export class UserList extends React.Component {
 	handleUserInvite(emailAddresses) {
 		const {addAlert, close, groupId} = this.props;
 
-		API.user
+		return API.user
 			.inviteMany({emailAddresses, groupId, roleName: 'Site Member'})
-			.then(() => {
+			.then(response => {
 				addAlert({
 					alertType: alertTypes.SUCCESS,
 					message: Liferay.Language.get('invitations-have-been-sent')
 				});
 
 				this._tableRef.current.reload();
+
+				close();
+
+				return response;
 			})
 			.catch(() => {
 				addAlert({
@@ -234,8 +240,6 @@ export class UserList extends React.Component {
 					message: Liferay.Language.get('error')
 				});
 			});
-
-		close();
 	}
 
 	@autobind

@@ -23,6 +23,7 @@ interface IInvitePeopleProps {
 	groupId: string;
 	onClose: () => void;
 	onNext: (increment?: number) => void;
+	userId: string;
 }
 
 const InvitePeople: React.FC<IInvitePeopleProps> = ({
@@ -30,7 +31,8 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 	dxpConnected,
 	groupId,
 	onClose,
-	onNext
+	onNext,
+	userId
 }) => {
 	const [emails, setEmails] = useState([]);
 	const [inputValue, setInputValue] = useState('');
@@ -50,9 +52,15 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 					groupId,
 					roleName: userRoleNames.member
 				})
-				.then(() => {
+				.then(users => {
 					setLoading(false);
 					setSent(true);
+
+					analytics.track('Invited Users', {
+						groupId,
+						userId,
+						userIds: users.map(({id}) => id)
+					});
 
 					if (dxpConnected) {
 						setTimeout(onNext, TIMEOUT_INTERVAL);
@@ -171,6 +179,6 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 };
 
 export default connect(
-	null,
+	state => ({userId: state.getIn(['currentUser', 'data'])}),
 	{addAlert}
 )(InvitePeople);
