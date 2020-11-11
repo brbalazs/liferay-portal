@@ -31,8 +31,13 @@ export default WrappedComponent => {
 			id: PropTypes.string,
 			open: PropTypes.func.isRequired,
 			segment: PropTypes.instanceOf(Segment),
-			type: PropTypes.oneOf([segmentTypes.dynamic, segmentTypes.static])
+			type: PropTypes.oneOf([segmentTypes.dynamic, segmentTypes.static]),
+			userId: PropTypes.string
 		};
+
+		componentDidMount() {
+			this._startDate = Date.now();
+		}
 
 		@autobind
 		deleteSegment() {
@@ -123,10 +128,12 @@ export default WrappedComponent => {
 			const {
 				addAlert,
 				channelId,
+				close,
 				groupId,
 				history,
 				id,
-				open
+				open,
+				userId
 			} = this.props;
 
 			const {setSubmitting} = formRef.current.getFormikActions();
@@ -146,6 +153,23 @@ export default WrappedComponent => {
 
 			submitFn(form)
 				.then(segment => {
+					if (!id) {
+						const {channelId, id, segmentType} = Array.isArray(
+							segment
+						)
+							? segment[0]
+							: segment;
+
+						// TODO: LRAC-6942 Add workspace created date once available.
+						analytics.track('Segment Created', {
+							channelId,
+							createDelta: Date.now() - this._startDate,
+							segmentId: id,
+							segmentType,
+							userId
+						});
+					}
+
 					if (
 						(Array.isArray(segment) && segment.length) ||
 						(segment && !Array.isArray(segment))
@@ -169,7 +193,9 @@ export default WrappedComponent => {
 
 					setSubmitting(false);
 
-					this.props.close();
+					close();
+
+					return segment;
 				})
 				.catch(() => {
 					addAlert({
@@ -179,7 +205,7 @@ export default WrappedComponent => {
 
 					setSubmitting(false);
 
-					this.props.close();
+					close();
 				});
 		}
 
@@ -290,8 +316,9 @@ export default WrappedComponent => {
 		}
 	}
 
-	return connect(
-		null,
-		{addAlert, close, open}
-	)(BaseEdit);
+	return connect(state => ({userId: state.getIn(['currentUser', 'data'])}), {
+		addAlert,
+		close,
+		open
+	})(BaseEdit);
 };
