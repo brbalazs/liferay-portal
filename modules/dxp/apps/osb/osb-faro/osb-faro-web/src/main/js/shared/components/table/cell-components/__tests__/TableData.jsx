@@ -1,23 +1,37 @@
 import React from 'react';
-import TableDate from '../TableData';
-import {shallow} from 'enzyme';
+import TableData from '../TableData';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 describe('TableData', () => {
 	it('should render', () => {
-		const component = shallow(<TableDate />);
+		const {container} = render(<TableData />);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with Link', () => {
-		const component = shallow(<TableDate url='foo/bar' />);
+		const {container, getAllByText} = render(
+			<StaticRouter>
+				<TableData title='My Title' url='foo/bar' />
+			</StaticRouter>
+		);
 
-		expect(component).toMatchSnapshot();
+		expect(container.querySelector('a')).toHaveAttribute(
+			'href',
+			'/foo/bar'
+		);
+		expect(getAllByText('My Title')).toBeTruthy();
 	});
 
 	it('should render with Empty message', () => {
-		const component = shallow(<TableDate emptyMessage='Empty Message' />);
+		const {container, getByText} = render(
+			<TableData emptyMessage='Empty Message' />
+		);
 
-		expect(component).toMatchSnapshot();
+		expect(container.querySelector('.text-secondary')).toBeTruthy();
+		expect(getByText('Empty Message')).toBeTruthy();
 	});
 });
