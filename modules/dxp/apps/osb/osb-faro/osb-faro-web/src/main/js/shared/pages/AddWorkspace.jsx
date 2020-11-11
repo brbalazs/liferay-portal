@@ -80,6 +80,7 @@ export class AddWorkspace extends React.Component {
 		return createFn(params)
 			.then(({payload: {friendlyURL, groupId, name}}) => {
 				analytics.track('Created Workspace', {
+					createDate: Date.now(),
 					groupId: String(groupId),
 					serverLocation,
 					workspaceName: name
@@ -143,15 +144,12 @@ export class AddWorkspace extends React.Component {
 }
 
 export default compose(
-	connect(
-		null,
-		{
-			addAlert,
-			configureProject,
-			createProject,
-			createTrialProject
-		}
-	),
+	connect(null, {
+		addAlert,
+		configureProject,
+		createProject,
+		createTrialProject
+	}),
 	optional(withProject, {idPropName: 'corpProjectUuid'}),
 	redirectIf(routingFn)
 )(AddWorkspace);
