@@ -1,4 +1,3 @@
-import * as emailValidator from 'isemail';
 import Button from 'shared/components/Button';
 import ClayIcon from '@clayui/icon';
 import Constants from 'shared/util/constants';
@@ -25,6 +24,12 @@ import {Project, TimeZone} from 'shared/util/records';
 import {Routes} from 'shared/util/router';
 import {sequence} from 'shared/util/promise';
 import {sub} from 'shared/util/lang';
+import {
+	validateEmail,
+	validateEmailArr,
+	validateEmailDomain,
+	validateEmailDomainArr
+} from 'shared/util/email-validators';
 
 const {
 	faroURL,
@@ -37,39 +42,6 @@ const projectLocations = [
 	{label: Liferay.Language.get('location-sa'), value: SA},
 	{label: Liferay.Language.get('location-us'), value: US}
 ];
-
-const VALIDATE_DOMAINS = /^([a-zA-Z0-9_]([a-zA-Z0-9_-]{0,61}[a-zA-Z0-9_])?\.){1,126}[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z]$/;
-
-export const emailDomainValidation = (emailDomain: string): boolean => VALIDATE_DOMAINS.test(emailDomain);
-
-export const emailDomainValidationArr = (
-	items: string[],
-	inputListValue: string
-): string | void => {
-	const emailDomains = items.concat(inputListValue || []);
-
-	if (emailDomains.some(emailDomain => !emailDomainValidation(emailDomain))) {
-		return Liferay.Language.get(
-			'please-enter-the-domain-in-this-format-domain-com'
-		);
-	}
-};
-
-export const emailValidation = (email: string): boolean =>
-		emailValidator.validate(email, {minDomainAtoms: 2});
-
-export const emailValidationArr = (
-	items: string[],
-	inputListValue: string
-): string | void => {
-	const emails = items.concat(inputListValue || []);
-
-	if (emails.some(email => !emailValidation(email))) {
-		return Liferay.Language.get(
-			'please-enter-the-email-in-this-format-sample-email-com'
-		);
-	}
-};
 
 interface IAddWorkspaceFormProps extends React.HTMLAttributes<HTMLElement> {
 	close: Modal.close;
@@ -421,12 +393,12 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 											position: 'prepend'
 										}}
 										validate={items =>
-											emailDomainValidationArr(
+											validateEmailDomainArr(
 												items,
 												inputListValue
 											)
 										}
-										validationFn={emailDomainValidation}
+										validationFn={validateEmailDomain}
 									/>
 								</Sheet.Section>
 
@@ -459,14 +431,12 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 													setEmailAddressesInputValues
 												}
 												validate={items =>
-													emailValidationArr(
+													validateEmailArr(
 														items,
 														emailAddressesInputValues
 													)
 												}
-												validationFn={
-													emailValidation
-												}
+												validationFn={validateEmail}
 											/>
 										</Sheet.Section>
 									</>
@@ -575,4 +545,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 	);
 };
 
-export default connect(null, {close, open})(AddWorkspaceForm);
+export default connect(
+	null,
+	{close, open}
+)(AddWorkspaceForm);
