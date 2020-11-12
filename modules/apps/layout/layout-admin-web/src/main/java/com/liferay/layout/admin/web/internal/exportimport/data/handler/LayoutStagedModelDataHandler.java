@@ -442,7 +442,13 @@ public class LayoutStagedModelDataHandler
 
 		long oldLayoutId = layoutId;
 
-		final boolean privateLayout = portletDataContext.isPrivateLayout();
+		boolean privateLayout = portletDataContext.isPrivateLayout();
+
+		String type = layout.getType();
+
+		if (!privateLayout && type.equals(LayoutConstants.TYPE_CONTROL_PANEL)) {
+			privateLayout = true;
+		}
 
 		Map<Long, Layout> layouts =
 			(Map<Long, Layout>)portletDataContext.getNewPrimaryKeysMap(
@@ -752,6 +758,8 @@ public class LayoutStagedModelDataHandler
 
 					final long finalParentLayoutId = parentLayoutId;
 
+					final boolean finalPrivateLayout = privateLayout;
+
 					priority = TransactionInvokerUtil.invoke(
 						_transactionConfig,
 						new Callable<Integer>() {
@@ -760,7 +768,7 @@ public class LayoutStagedModelDataHandler
 							public Integer call() throws Exception {
 								return _layoutLocalServiceHelper.
 									getNextPriority(
-										groupId, privateLayout,
+										groupId, finalPrivateLayout,
 										finalParentLayoutId, null, -1);
 							}
 
