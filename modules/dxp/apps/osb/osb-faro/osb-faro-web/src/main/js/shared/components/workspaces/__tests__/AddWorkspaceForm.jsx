@@ -2,7 +2,9 @@ import * as Constants from 'shared/util/constants';
 import * as data from 'test/data';
 import AddWorkspaceForm, {
 	emailDomainValidation,
-	emailDomainValidationArr
+	emailDomainValidationArr,
+	emailValidation,
+	emailValidationArr
 } from '../AddWorkspaceForm';
 import mockStore from 'test/mock-store';
 import React from 'react';
@@ -87,7 +89,7 @@ describe('AddWorkspaceForm', () => {
 		it('should return an empty string if there are valid email domains', () => {
 			expect(
 				emailDomainValidationArr(['liferay.com.br', 'liferay.com'])
-			).toEqual('');
+			).toBeFalsy();
 		});
 
 		it('should return error message when is not validated email domain', () => {
@@ -95,5 +97,37 @@ describe('AddWorkspaceForm', () => {
 				emailDomainValidationArr(['test@liferay.com', 'liferay.com'])
 			).toEqual('Please enter the domain in this format: domain.com');
 		});
+	});
+});
+
+describe('emailValidation', () => {
+	it.each`
+		domain                             | isValid
+		${'test@liferay.com'}              | ${true}
+		${'test@liferay.com.br'}           | ${true}
+		${'liferay.com'}                   | ${false}
+		${'test@liferay.com.'}             | ${false}
+		${'hooplah@liferay.com(JoeSmith)'} | ${false}
+		${'111.222.333.444'}               | ${false}
+		${'[123.123.123.123]'}             | ${false}
+	`(
+		'should return whether the email is considered valid',
+		({domain, isValid}) => {
+			const result = emailValidation(domain);
+
+			expect(result).toEqual(isValid);
+		}
+	);
+
+	it('should return an empty string if there are valid emails', () => {
+		expect(
+			emailValidationArr(['test@liferay.com.br', 'test@liferay.com'])
+		).toBeFalsy();
+	});
+
+	it('should return an error message when an email is not valid', () => {
+		expect(emailValidationArr(['test@liferay', 'liferay.com'])).toEqual(
+			'Please enter the email in this format: sample@email.com'
+		);
 	});
 });

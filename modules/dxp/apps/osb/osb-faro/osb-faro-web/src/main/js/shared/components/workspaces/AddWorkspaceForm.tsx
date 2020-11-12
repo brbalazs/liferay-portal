@@ -40,40 +40,33 @@ const projectLocations = [
 
 const VALIDATE_DOMAINS = /^([a-zA-Z0-9_]([a-zA-Z0-9_-]{0,61}[a-zA-Z0-9_])?\.){1,126}[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z]$/;
 
-export const emailDomainValidation = value => VALIDATE_DOMAINS.test(value);
+export const emailDomainValidation = (emailDomain: string): boolean => VALIDATE_DOMAINS.test(emailDomain);
 
-const emailValidationArr = (items, inputListValue) => {
-	if (inputListValue && !emailValidator.validate(inputListValue)) {
+export const emailDomainValidationArr = (
+	items: string[],
+	inputListValue: string
+): string | void => {
+	const emailDomains = items.concat(inputListValue || []);
+
+	if (emailDomains.some(emailDomain => !emailDomainValidation(emailDomain))) {
 		return Liferay.Language.get(
-			'please-enter-the-email-in-this-format-sample-email-com'
-		);
-	} else if (items.length) {
-		return items.reduce(
-			(acc, item) =>
-				!emailValidator.validate(item)
-					? Liferay.Language.get(
-							'please-enter-the-email-in-this-format-sample-email-com'
-					  )
-					: acc,
-			''
+			'please-enter-the-domain-in-this-format-domain-com'
 		);
 	}
 };
 
-export const emailDomainValidationArr = (items, inputListValue) => {
-	if (inputListValue && !emailDomainValidation(inputListValue)) {
+export const emailValidation = (email: string): boolean =>
+		emailValidator.validate(email, {minDomainAtoms: 2});
+
+export const emailValidationArr = (
+	items: string[],
+	inputListValue: string
+): string | void => {
+	const emails = items.concat(inputListValue || []);
+
+	if (emails.some(email => !emailValidation(email))) {
 		return Liferay.Language.get(
-			'please-enter-the-domain-in-this-format-domain-com'
-		);
-	} else if (items.length) {
-		return items.reduce(
-			(acc, item) =>
-				!emailDomainValidation(item)
-					? Liferay.Language.get(
-							'please-enter-the-domain-in-this-format-domain-com'
-					  )
-					: acc,
-			''
+			'please-enter-the-email-in-this-format-sample-email-com'
 		);
 	}
 };
@@ -472,7 +465,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 													)
 												}
 												validationFn={
-													emailValidator.validate
+													emailValidation
 												}
 											/>
 										</Sheet.Section>
@@ -582,7 +575,4 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 	);
 };
 
-export default connect(
-	null,
-	{close, open}
-)(AddWorkspaceForm);
+export default connect(null, {close, open})(AddWorkspaceForm);
