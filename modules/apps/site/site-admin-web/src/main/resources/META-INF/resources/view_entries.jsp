@@ -81,7 +81,14 @@ siteChecker.setRememberCheckBoxStateURLRegex("^(?!.*" + liferayPortletResponse.g
 					colspan="<%= 2 %>"
 				>
 					<h5>
-						<aui:a href="<%= viewSiteURL %>" label="<%= HtmlUtil.escape(curGroup.getDescriptiveName(locale)) %>" localizeLabel="<%= false %>" />
+						<c:choose>
+							<c:when test="<%= curGroup.isActive() %>">
+								<aui:a href="<%= viewSiteURL %>" label="<%= HtmlUtil.escape(curGroup.getDescriptiveName(locale)) %>" localizeLabel="<%= false %>" />
+							</c:when>
+							<c:otherwise>
+								<liferay-ui:message arguments="<%= HtmlUtil.escape(curGroup.getDescriptiveName(locale)) %>" key="x-inactive" />
+							</c:otherwise>
+						</c:choose>
 					</h5>
 
 					<ul class="list-inline">
@@ -114,6 +121,15 @@ siteChecker.setRememberCheckBoxStateURLRegex("^(?!.*" + liferayPortletResponse.g
 
 				<%
 				row.setCssClass("entry-card lfr-asset-item " + row.getCssClass());
+
+				String cssClass = null;
+				String title = curGroup.getDescriptiveName(locale);
+
+				if (!curGroup.isActive()) {
+					cssClass = "disabled text-muted";
+					title = LanguageUtil.format(request, "x-inactive", title);
+					viewSiteURL = null;
+				}
 				%>
 
 				<liferay-ui:search-container-column-text>
@@ -122,10 +138,11 @@ siteChecker.setRememberCheckBoxStateURLRegex("^(?!.*" + liferayPortletResponse.g
 							<liferay-frontend:vertical-card
 								actionJsp="/site_action.jsp"
 								actionJspServletContext="<%= application %>"
+								cssClass="<%= cssClass %>"
 								imageUrl="<%= siteImageURL %>"
 								resultRow="<%= row %>"
 								rowChecker="<%= searchContainer.getRowChecker() %>"
-								title="<%= curGroup.getDescriptiveName(locale) %>"
+								title="<%= title %>"
 								url="<%= viewSiteURL %>"
 							>
 								<%@ include file="/site_vertical_card.jspf" %>
@@ -135,10 +152,11 @@ siteChecker.setRememberCheckBoxStateURLRegex("^(?!.*" + liferayPortletResponse.g
 							<liferay-frontend:icon-vertical-card
 								actionJsp="/site_action.jsp"
 								actionJspServletContext="<%= application %>"
+								cssClass="<%= cssClass %>"
 								icon="sites"
 								resultRow="<%= row %>"
 								rowChecker="<%= searchContainer.getRowChecker() %>"
-								title="<%= curGroup.getDescriptiveName(locale) %>"
+								title="<%= title %>"
 								url="<%= viewSiteURL %>"
 							>
 								<%@ include file="/site_vertical_card.jspf" %>

@@ -19,7 +19,16 @@
 	name="name"
 	orderable="<%= true %>"
 >
-	<aui:a href="<%= viewSiteURL %>" label="<%= HtmlUtil.escape(curGroup.getDescriptiveName(locale)) %>" localizeLabel="<%= false %>" />
+	<c:choose>
+		<c:when test="<%= curGroup.isActive() %>">
+			<aui:a href="<%= viewSiteURL %>" label="<%= HtmlUtil.escape(curGroup.getDescriptiveName(locale)) %>" localizeLabel="<%= false %>" />
+		</c:when>
+		<c:otherwise>
+			<span class="disabled selector-button text-muted">
+				<liferay-ui:message arguments="<%= HtmlUtil.escape(curGroup.getDescriptiveName(locale)) %>" key="x-inactive" />
+			</span>
+		</c:otherwise>
+	</c:choose>
 
 	<c:if test="<%= curGroup.isOrganization() %>">
 
