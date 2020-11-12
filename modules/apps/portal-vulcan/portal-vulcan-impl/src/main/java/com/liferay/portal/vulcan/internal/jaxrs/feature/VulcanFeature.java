@@ -103,18 +103,18 @@ public class VulcanFeature implements Feature {
 	@Override
 	public boolean configure(FeatureContext featureContext) {
 		featureContext.register(BeanValidationInterceptor.class);
+		featureContext.register(DateParamConverterProvider.class);
 		featureContext.register(EntityExtensionWriterInterceptor.class);
 		featureContext.register(ExceptionMapper.class);
-		featureContext.register(DateParamConverterProvider.class);
 		featureContext.register(FieldsQueryParamContextProvider.class);
+		featureContext.register(InvalidFilterExceptionMapper.class);
+		featureContext.register(InvalidFormatExceptionMapper.class);
+		featureContext.register(JSONMessageBodyReader.class);
+		featureContext.register(JSONMessageBodyWriter.class);
 		featureContext.register(JacksonJsonProvider.class);
 		featureContext.register(JacksonXMLProvider.class);
 		featureContext.register(JsonMappingExceptionMapper.class);
-		featureContext.register(JSONMessageBodyReader.class);
-		featureContext.register(JSONMessageBodyWriter.class);
 		featureContext.register(JsonParseExceptionMapper.class);
-		featureContext.register(InvalidFilterExceptionMapper.class);
-		featureContext.register(InvalidFormatExceptionMapper.class);
 		featureContext.register(LogContainerRequestFilter.class);
 		featureContext.register(NestedFieldsContainerRequestFilter.class);
 		featureContext.register(NoSuchModelExceptionMapper.class);
@@ -130,9 +130,9 @@ public class VulcanFeature implements Feature {
 		featureContext.register(UnrecognizedPropertyExceptionMapper.class);
 		featureContext.register(ValidationExceptionMapper.class);
 		featureContext.register(WebApplicationExceptionMapper.class);
-		featureContext.register(XmlMapperContextResolver.class);
 		featureContext.register(XMLMessageBodyReader.class);
 		featureContext.register(XMLMessageBodyWriter.class);
+		featureContext.register(XmlMapperContextResolver.class);
 
 		featureContext.register(
 			new AcceptLanguageContextProvider(_language, _portal));
