@@ -1,4 +1,3 @@
-import * as emailValidator from 'isemail';
 import autobind from 'autobind-decorator';
 import Button from 'shared/components/Button';
 import Input from 'shared/components/Input';
@@ -8,6 +7,7 @@ import omitDefinedProps from 'shared/util/omitDefinedProps';
 import React from 'react';
 import {noop} from 'lodash';
 import {PropTypes} from 'prop-types';
+import {validateEmail} from 'shared/util/email-validators';
 
 export default class InviteUsersModal extends React.Component {
 	static defaultProps = {
@@ -45,14 +45,10 @@ export default class InviteUsersModal extends React.Component {
 
 		if (
 			(emails.length && !inputValue) ||
-			(inputValue && this.validateEmail(inputValue))
+			(inputValue && validateEmail(inputValue))
 		) {
 			this.props.onSubmit(this.state.emails);
 		}
-	}
-
-	validateEmail(value) {
-		return emailValidator.validate(value);
 	}
 
 	render() {
@@ -95,7 +91,7 @@ export default class InviteUsersModal extends React.Component {
 								'enter-email-address'
 							)}
 							validateOnBlur
-							validationFn={this.validateEmail}
+							validationFn={validateEmail}
 						/>
 					</Input.Group>
 				</Modal.Body>
@@ -108,8 +104,7 @@ export default class InviteUsersModal extends React.Component {
 					<Button
 						disabled={
 							(!inputValue && !emails.length) ||
-							(!!inputValue &&
-								!emailValidator.validate(inputValue))
+							(!!inputValue && !validateEmail(inputValue))
 						}
 						display='primary'
 						onClick={this.handleSubmit}

@@ -1,5 +1,4 @@
 import * as API from 'shared/api';
-import * as emailValidator from 'isemail';
 import BaseScreen from './BaseScreen';
 import Button from 'shared/components/Button';
 import Constants from 'shared/util/constants';
@@ -12,6 +11,7 @@ import React, {useState} from 'react';
 import {addAlert} from 'shared/actions/alerts';
 import {Alert} from 'shared/types';
 import {connect} from 'react-redux';
+import {validateEmail} from 'shared/util/email-validators';
 
 const {userRoleNames} = Constants;
 
@@ -40,7 +40,7 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 	const handleSubmit = () => {
 		if (
 			(emails.length && !inputValue) ||
-			(inputValue && emailValidator.validate(inputValue))
+			(inputValue && validateEmail(inputValue))
 		) {
 			setLoading(true);
 
@@ -120,7 +120,7 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 										'enter-email-address'
 									)}
 									validateOnBlur
-									validationFn={emailValidator.validate}
+									validationFn={validateEmail}
 								/>
 							</Input.GroupItem>
 						</Input.Group>
@@ -145,7 +145,7 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 				<Button
 					disabled={
 						(!inputValue && !emails.length) ||
-						(!!inputValue && !emailValidator.validate(inputValue))
+						(!!inputValue && !validateEmail(inputValue))
 					}
 					display='primary'
 					loading={loading}
