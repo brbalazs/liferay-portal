@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
+import com.liferay.portal.vulcan.fields.NestedFieldSupport;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
@@ -48,10 +49,11 @@ import org.osgi.service.component.annotations.ServiceScope;
  */
 @Component(
 	properties = "OSGI-INF/liferay/rest/v2_0/discount-account.properties",
-	scope = ServiceScope.PROTOTYPE, service = DiscountAccountResource.class
+	scope = ServiceScope.PROTOTYPE,
+	service = {DiscountAccountResource.class, NestedFieldSupport.class}
 )
 public class DiscountAccountResourceImpl
-	extends BaseDiscountAccountResourceImpl {
+	extends BaseDiscountAccountResourceImpl implements NestedFieldSupport {
 
 	@Override
 	public void deleteDiscountAccount(Long id) throws Exception {

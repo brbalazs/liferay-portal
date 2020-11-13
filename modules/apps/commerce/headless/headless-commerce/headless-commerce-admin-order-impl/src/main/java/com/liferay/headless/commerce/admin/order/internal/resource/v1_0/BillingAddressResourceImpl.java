@@ -27,6 +27,7 @@ import com.liferay.headless.commerce.admin.order.resource.v1_0.BillingAddressRes
 import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.fields.NestedField;
+import com.liferay.portal.vulcan.fields.NestedFieldSupport;
 
 import javax.ws.rs.core.Response;
 
@@ -39,9 +40,11 @@ import org.osgi.service.component.annotations.ServiceScope;
  */
 @Component(
 	properties = "OSGI-INF/liferay/rest/v1_0/billing-address.properties",
-	scope = ServiceScope.PROTOTYPE, service = BillingAddressResource.class
+	scope = ServiceScope.PROTOTYPE,
+	service = {BillingAddressResource.class, NestedFieldSupport.class}
 )
-public class BillingAddressResourceImpl extends BaseBillingAddressResourceImpl {
+public class BillingAddressResourceImpl
+	extends BaseBillingAddressResourceImpl implements NestedFieldSupport {
 
 	@Override
 	public BillingAddress getOrderByExternalReferenceCodeBillingAddress(

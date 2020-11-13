@@ -22,6 +22,7 @@ import com.liferay.headless.commerce.admin.pricing.resource.v2_0.AccountResource
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
+import com.liferay.portal.vulcan.fields.NestedFieldSupport;
 
 import javax.validation.constraints.NotNull;
 
@@ -34,9 +35,11 @@ import org.osgi.service.component.annotations.ServiceScope;
  */
 @Component(
 	properties = "OSGI-INF/liferay/rest/v2_0/account.properties",
-	scope = ServiceScope.PROTOTYPE, service = AccountResource.class
+	scope = ServiceScope.PROTOTYPE,
+	service = {AccountResource.class, NestedFieldSupport.class}
 )
-public class AccountResourceImpl extends BaseAccountResourceImpl {
+public class AccountResourceImpl
+	extends BaseAccountResourceImpl implements NestedFieldSupport {
 
 	@NestedField(parentClass = DiscountAccount.class, value = "account")
 	@Override

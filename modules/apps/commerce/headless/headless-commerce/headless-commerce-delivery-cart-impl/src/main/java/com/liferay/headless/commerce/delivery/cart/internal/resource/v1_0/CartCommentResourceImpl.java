@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 import com.liferay.portal.vulcan.fields.NestedField;
 import com.liferay.portal.vulcan.fields.NestedFieldId;
+import com.liferay.portal.vulcan.fields.NestedFieldSupport;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
@@ -46,9 +47,11 @@ import org.osgi.service.component.annotations.ServiceScope;
  */
 @Component(
 	properties = "OSGI-INF/liferay/rest/v1_0/cart-comment.properties",
-	scope = ServiceScope.PROTOTYPE, service = CartCommentResource.class
+	scope = ServiceScope.PROTOTYPE,
+	service = {CartCommentResource.class, NestedFieldSupport.class}
 )
-public class CartCommentResourceImpl extends BaseCartCommentResourceImpl {
+public class CartCommentResourceImpl
+	extends BaseCartCommentResourceImpl implements NestedFieldSupport {
 
 	@Override
 	public Response deleteCartComment(Long commentId) throws Exception {
