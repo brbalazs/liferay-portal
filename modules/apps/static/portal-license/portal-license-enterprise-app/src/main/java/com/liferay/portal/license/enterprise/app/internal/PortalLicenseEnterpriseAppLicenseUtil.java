@@ -25,21 +25,7 @@ import java.util.Objects;
  */
 public class PortalLicenseEnterpriseAppLicenseUtil {
 
-	public static void verify(LicenseManager licenseManager, String productId)
-		throws Exception {
-
-		int productLicenseState = licenseManager.getLicenseState(productId);
-
-		if (productLicenseState != LicenseManager.STATE_GOOD) {
-			licenseManager.checkLicense(productId);
-
-			productLicenseState = licenseManager.getLicenseState(productId);
-		}
-
-		if (productLicenseState != LicenseManager.STATE_GOOD) {
-			throw new Exception("Unable to find a valid license");
-		}
-
+	public static int getPortalLicenseState(LicenseManager licenseManager) {
 		int portalLicenseState = licenseManager.getLicenseState(
 			_PRODUCT_ID_PORTAL);
 
@@ -55,7 +41,25 @@ public class PortalLicenseEnterpriseAppLicenseUtil {
 				PortalLicenseEnterpriseAppGateKeeper.lcsPortletState,
 				LCSPortletState.GOOD)) {
 
-			throw new Exception("Unable to find a valid Liferay DXP license");
+			return LicenseManager.STATE_ABSENT;
+		}
+
+		return LicenseManager.STATE_GOOD;
+	}
+
+	public static void verify(LicenseManager licenseManager, String productId)
+		throws Exception {
+
+		int productLicenseState = licenseManager.getLicenseState(productId);
+
+		if (productLicenseState != LicenseManager.STATE_GOOD) {
+			licenseManager.checkLicense(productId);
+
+			productLicenseState = licenseManager.getLicenseState(productId);
+		}
+
+		if (productLicenseState != LicenseManager.STATE_GOOD) {
+			throw new Exception("Unable to find a valid license");
 		}
 
 		Map<String, String> portalLicenseProperties =

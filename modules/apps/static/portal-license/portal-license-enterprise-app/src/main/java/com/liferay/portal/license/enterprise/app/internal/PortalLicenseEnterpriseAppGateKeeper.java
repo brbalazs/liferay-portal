@@ -500,6 +500,12 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			return false;
 		}
 
+		if (PortalLicenseEnterpriseAppLicenseUtil.getPortalLicenseState(
+				licenseManager) != LicenseManager.STATE_GOOD) {
+
+			return false;
+		}
+
 		try {
 			PortalLicenseEnterpriseAppLicenseUtil.verify(
 				licenseManager, productId);
