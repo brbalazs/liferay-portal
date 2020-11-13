@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.xml.Element;
+import com.liferay.portal.util.PropsValues;
 
 import java.util.List;
 import java.util.Map;
@@ -127,14 +128,23 @@ public class LayoutFriendlyURLStagedModelDataHandler
 		layoutFriendlyURL = getUniqueLayoutFriendlyURL(
 			portletDataContext, layoutFriendlyURL, existingLayoutFriendlyURL);
 
+		boolean isPrivateLayout = portletDataContext.isPrivateLayout();
+
+		String friendlyURL = layoutFriendlyURL.getFriendlyURL();
+
+		if (layoutFriendlyURL.isPrivateLayout() &&
+			friendlyURL.equals(PropsValues.CONTROL_PANEL_LAYOUT_FRIENDLY_URL)) {
+
+			isPrivateLayout = true;
+		}
+
 		if (existingLayoutFriendlyURL == null) {
 			serviceContext.setUuid(layoutFriendlyURL.getUuid());
 
 			importedLayoutFriendlyURL =
 				_layoutFriendlyURLLocalService.addLayoutFriendlyURL(
 					userId, portletDataContext.getCompanyId(),
-					portletDataContext.getScopeGroupId(), plid,
-					portletDataContext.isPrivateLayout(),
+					portletDataContext.getScopeGroupId(), plid, isPrivateLayout,
 					layoutFriendlyURL.getFriendlyURL(),
 					layoutFriendlyURL.getLanguageId(), serviceContext);
 		}
@@ -142,8 +152,7 @@ public class LayoutFriendlyURLStagedModelDataHandler
 			importedLayoutFriendlyURL =
 				_layoutFriendlyURLLocalService.updateLayoutFriendlyURL(
 					userId, portletDataContext.getCompanyId(),
-					portletDataContext.getScopeGroupId(), plid,
-					portletDataContext.isPrivateLayout(),
+					portletDataContext.getScopeGroupId(), plid, isPrivateLayout,
 					layoutFriendlyURL.getFriendlyURL(),
 					layoutFriendlyURL.getLanguageId(), serviceContext);
 		}
