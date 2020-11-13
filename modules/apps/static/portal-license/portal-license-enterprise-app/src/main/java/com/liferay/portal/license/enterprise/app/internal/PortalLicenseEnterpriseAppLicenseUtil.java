@@ -16,7 +16,6 @@ package com.liferay.portal.license.enterprise.app.internal;
 
 import com.liferay.portal.kernel.license.messaging.LCSPortletState;
 import com.liferay.portal.kernel.license.util.LicenseManager;
-import com.liferay.portal.kernel.util.ReleaseInfo;
 
 import java.util.Map;
 import java.util.Objects;
@@ -28,12 +27,6 @@ public class PortalLicenseEnterpriseAppLicenseUtil {
 
 	public static void verify(LicenseManager licenseManager, String productId)
 		throws Exception {
-
-		String name = ReleaseInfo.getName();
-
-		if (name.contains("Community")) {
-			return;
-		}
 
 		int productLicenseState = licenseManager.getLicenseState(productId);
 
