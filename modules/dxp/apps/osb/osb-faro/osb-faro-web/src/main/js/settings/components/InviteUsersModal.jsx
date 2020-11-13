@@ -16,10 +16,8 @@ export default class InviteUsersModal extends React.Component {
 	};
 
 	static propTypes = {
-		groupId: PropTypes.string,
 		onClose: PropTypes.func,
-		onSubmit: PropTypes.func,
-		userId: PropTypes.string
+		onSubmit: PropTypes.func
 	};
 
 	state = {
@@ -44,7 +42,7 @@ export default class InviteUsersModal extends React.Component {
 	@autobind
 	handleSubmit() {
 		const {
-			props: {groupId, onSubmit, userId},
+			props: {onSubmit},
 			state: {emails, inputValue}
 		} = this;
 
@@ -54,8 +52,6 @@ export default class InviteUsersModal extends React.Component {
 		) {
 			onSubmit(emails).then(users => {
 				analytics.track('Invited Users', {
-					groupId,
-					userId,
 					userIds: users.map(({id}) => id)
 				});
 			});

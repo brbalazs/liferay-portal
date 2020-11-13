@@ -31,8 +31,7 @@ export default WrappedComponent => {
 			id: PropTypes.string,
 			open: PropTypes.func.isRequired,
 			segment: PropTypes.instanceOf(Segment),
-			type: PropTypes.oneOf([segmentTypes.dynamic, segmentTypes.static]),
-			userId: PropTypes.string
+			type: PropTypes.oneOf([segmentTypes.dynamic, segmentTypes.static])
 		};
 
 		componentDidMount() {
@@ -132,8 +131,7 @@ export default WrappedComponent => {
 				groupId,
 				history,
 				id,
-				open,
-				userId
+				open
 			} = this.props;
 
 			const {setSubmitting} = formRef.current.getFormikActions();
@@ -160,13 +158,11 @@ export default WrappedComponent => {
 							? segment[0]
 							: segment;
 
-						// TODO: LRAC-6942 Add workspace created date once available.
 						analytics.track('Segment Created', {
 							channelId,
 							createDelta: Date.now() - this._startDate,
 							segmentId: id,
-							segmentType,
-							userId
+							segmentType
 						});
 					}
 
@@ -316,9 +312,12 @@ export default WrappedComponent => {
 		}
 	}
 
-	return connect(state => ({userId: state.getIn(['currentUser', 'data'])}), {
-		addAlert,
-		close,
-		open
-	})(BaseEdit);
+	return connect(
+		null,
+		{
+			addAlert,
+			close,
+			open
+		}
+	)(BaseEdit);
 };

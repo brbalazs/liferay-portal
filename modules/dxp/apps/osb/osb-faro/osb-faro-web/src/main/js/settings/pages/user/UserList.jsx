@@ -101,13 +101,11 @@ export class UserList extends React.Component {
 
 	@autobind
 	handleInviteModal() {
-		const {close, currentUser, groupId, open} = this.props;
+		const {close, open} = this.props;
 
 		open(modalTypes.INVITE_USERS_MODAL, {
-			groupId,
 			onClose: close,
-			onSubmit: this.handleUserInvite,
-			userId: String(currentUser.id)
+			onSubmit: this.handleUserInvite
 		});
 	}
 
