@@ -1,3 +1,10 @@
+import com.liferay.gradle.plugins.JSModuleConfigGeneratorDefaultsPlugin
+import com.liferay.gradle.plugins.js.module.config.generator.JSModuleConfigGeneratorPlugin
+import com.liferay.gradle.plugins.js.transpiler.JSTranspilerBasePlugin
+import com.liferay.gradle.plugins.js.transpiler.JSTranspilerPlugin
+import com.liferay.gradle.plugins.node.NodePlugin
+import com.liferay.gradle.plugins.soy.SoyPlugin
+import com.liferay.gradle.plugins.soy.SoyTranslationPlugin
 import com.liferay.gradle.util.FileUtil
 import com.liferay.gradle.util.GradleUtil
 import com.liferay.gradle.util.copy.StripPathSegmentsAction
@@ -386,6 +393,19 @@ gradle.beforeProject {
 					}
 				}
 			}
+
+			GradleUtil.applyPlugin(project, SoyPlugin.class);
+			GradleUtil.applyPlugin(project, SoyTranslationPlugin.class);
+
+			if (tasks.findByName(NodePlugin.PACKAGE_RUN_BUILD_TASK_NAME)) {
+				GradleUtil.applyPlugin(project, JSTranspilerBasePlugin.class);
+			}
+			else {
+				GradleUtil.applyPlugin(project, JSModuleConfigGeneratorPlugin.class);
+				GradleUtil.applyPlugin(project, JSTranspilerPlugin.class);
+			}
+
+			JSModuleConfigGeneratorDefaultsPlugin.INSTANCE.apply(project);
 
 			if (bndPrintJarFiles != null) {
 				jar {
