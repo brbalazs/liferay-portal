@@ -28,7 +28,7 @@ import {
 	UPDATE_DATASET_DISPLAY
 } from '../../utilities/eventsDefinitions';
 import {getRandomId, executeAsyncAction, loadData} from '../../utilities/index';
-import getJsModule from '../../utilities/modules';
+import {getJsModule} from '../../utilities/modules';
 import {
 	showNotification,
 	showErrorNotification
