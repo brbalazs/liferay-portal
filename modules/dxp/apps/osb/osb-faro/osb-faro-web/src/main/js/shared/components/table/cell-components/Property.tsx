@@ -10,16 +10,15 @@ interface IPropertyCellProps {
 	};
 }
 
-const PropertyCell: React.FC<IPropertyCellProps> = ({className, data}) => {
-	const {name, value} = data;
+const PropertyCell: React.FC<IPropertyCellProps> = ({
+	className,
+	data: {name, value}
+}) => (
+	<td className={getCN('property-cell', className)}>
+		<div className='name'>{name}</div>
 
-	return (
-		<td className={getCN('property-cell', className)}>
-			<div className='name'>{name}</div>
-
-			<div className='table-title'>{getSafeDisplayValue(value)}</div>
-		</td>
-	);
-};
+		<div className='table-title'>{getSafeDisplayValue(value)}</div>
+	</td>
+);
 
 export default PropertyCell;
