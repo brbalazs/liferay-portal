@@ -35,6 +35,7 @@ import com.liferay.portal.lpkg.deployer.LPKGDeployer;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Dictionary;
 import java.util.HashMap;
@@ -391,6 +392,11 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			return false;
 		}
 
+		if (_productNames.get(productId) == null) {
+			throw new IllegalArgumentException(
+				"Invalid product id " + productId);
+		}
+
 		String webContextPath = headers.get("Web-ContextPath");
 
 		if (webContextPath == null) {
@@ -516,7 +522,8 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 			if (!swallowException && _log.isWarnEnabled()) {
 				_log.warn(
 					StringBundler.concat(
-						"Failed to verify license for ", productId, ": ",
+						"Failed to verify license for ",
+						_productNames.get(productId), ": ",
 						exception.getMessage()));
 			}
 		}
@@ -550,6 +557,11 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 				}
 
 			};
+
+	private static final Map<String, String> _productNames =
+		Collections.singletonMap(
+			"9a473157-06a6-44b6-b017-a360ffaf5f38",
+			"Liferay Commerce Subscription Production");
 
 	private BundleContext _bundleContext;
 	private BundleListener _bundleListener;
