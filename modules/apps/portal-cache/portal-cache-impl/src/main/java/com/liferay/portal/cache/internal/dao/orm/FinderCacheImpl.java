@@ -299,21 +299,6 @@ public class FinderCacheImpl
 		_removeResult(finderPath, args);
 	}
 
-	private void _removeResult(FinderPath finderPath, Object[] args) {
-		String encodedArguments = finderPath.encodeArguments(args);
-
-		if (_isLocalCacheEnabled()) {
-			Map<Serializable, Serializable> localCache = _localCache.get();
-
-			localCache.remove(finderPath.encodeLocalCacheKey(encodedArguments));
-		}
-
-		PortalCache<Serializable, Serializable> portalCache = _getPortalCache(
-			finderPath.getCacheName());
-
-		portalCache.remove(finderPath.encodeCacheKey(encodedArguments));
-	}
-
 	@Activate
 	@Modified
 	protected void activate() {
@@ -392,6 +377,21 @@ public class FinderCacheImpl
 		}
 
 		return ThreadLocalFilterThreadLocal.isFilterInvoked();
+	}
+
+	private void _removeResult(FinderPath finderPath, Object[] args) {
+		String encodedArguments = finderPath.encodeArguments(args);
+
+		if (_isLocalCacheEnabled()) {
+			Map<Serializable, Serializable> localCache = _localCache.get();
+
+			localCache.remove(finderPath.encodeLocalCacheKey(encodedArguments));
+		}
+
+		PortalCache<Serializable, Serializable> portalCache = _getPortalCache(
+			finderPath.getCacheName());
+
+		portalCache.remove(finderPath.encodeCacheKey(encodedArguments));
 	}
 
 	private static final String _GROUP_KEY_PREFIX =
