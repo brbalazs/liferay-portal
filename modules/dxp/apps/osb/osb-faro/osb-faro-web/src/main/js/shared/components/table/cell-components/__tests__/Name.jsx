@@ -8,7 +8,6 @@ jest.unmock('react-dom');
 const FilledComponent = props => (
 	<Name
 		data={{id: 'test', name: 'foo'}}
-		groupId='23'
 		routeFn={({data: {id}}) => `/foo/${id}`}
 		{...props}
 	/>
@@ -57,7 +56,6 @@ describe('Name', () => {
 		const {container, getByText} = render(
 			<Name
 				data={{id: 'test', name: 'foo'}}
-				groupId='23'
 				renderIcon={() => <div>{'foo icon'}</div>}
 			/>
 		);

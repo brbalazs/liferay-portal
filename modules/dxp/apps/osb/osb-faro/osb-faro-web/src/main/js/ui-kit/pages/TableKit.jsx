@@ -358,8 +358,6 @@ class TableKit extends React.Component {
 							accessor: 'name',
 							cellRenderer: NameCell,
 							cellRendererProps: {
-								channelId: '123',
-								groupId: '23',
 								route: Routes.CONTACTS_INDIVIDUAL
 							},
 							label: 'NameCellLink',

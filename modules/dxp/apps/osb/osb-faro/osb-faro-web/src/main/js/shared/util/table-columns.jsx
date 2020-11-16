@@ -418,7 +418,6 @@ export const individualsListColumns = {
 	getNameJobTitle: ({channelId, groupId}) => ({
 		cellRenderer: NameCell,
 		cellRendererProps: {
-			groupId,
 			renderSecondaryInfo: data => get(data, 'properties.jobTitle'),
 			routeFn: ({data: {id}}) =>
 				toRoute(Routes.CONTACTS_INDIVIDUAL, {channelId, groupId, id})
