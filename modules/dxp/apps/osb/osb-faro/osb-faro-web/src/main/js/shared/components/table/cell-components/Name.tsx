@@ -5,29 +5,29 @@ import {Link} from 'react-router-dom';
 import {noop} from 'lodash';
 
 interface INameProps {
-	className: string;
+	className?: string;
 	data: {
 		name: string;
 	};
-	disabled: boolean;
-	maxWidth: number;
+	disabled?: boolean;
+	maxWidth?: number;
 	nameKey?: string;
-	renderIcon: Function;
+	renderIcon?: Function;
 	renderSecondaryInfo: Function;
 	routeFn?: Function;
-	tooltip: Boolean;
+	tooltip?: boolean;
 }
 
 const Name: React.FC<INameProps> = ({
 	className,
 	data,
-	disabled,
+	disabled = false,
 	maxWidth,
 	nameKey = 'name',
 	renderIcon,
 	renderSecondaryInfo,
 	routeFn = noop,
-	tooltip
+	tooltip = false
 }) => {
 	const getSecondaryInfo = () =>
 		!!renderSecondaryInfo && (
