@@ -12,7 +12,7 @@ interface IErrorPageProps {
 	title?: string;
 }
 
-export const ErrorPage: React.FC<IErrorPageProps> = ({
+const ErrorPage: React.FC<IErrorPageProps> = ({
 	className,
 	href = toRoute(Routes.BASE),
 	linkLabel = Liferay.Language.get('go-to-home'),
