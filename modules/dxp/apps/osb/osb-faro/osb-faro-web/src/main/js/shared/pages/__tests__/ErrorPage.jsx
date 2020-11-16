@@ -1,15 +1,26 @@
 import ErrorPage from '../ErrorPage';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
+
+const DefaultComponent = props => (
+	<StaticRouter>
+		<ErrorPage {...props} />
+	</StaticRouter>
+);
 
 describe('ErrorPage', () => {
 	it('should render', () => {
-		const component = shallow(<ErrorPage />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<DefaultComponent />);
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render a custom message', () => {
-		const component = shallow(<ErrorPage message='foo bar' />);
-		expect(component).toMatchSnapshot();
+		const {getByText} = render(<DefaultComponent message='foo bar' />);
+
+		expect(getByText('foo bar')).toBeTruthy();
 	});
 });
