@@ -5,9 +5,10 @@ import React, {useEffect} from 'react';
 
 const CopyButton: React.FC<{
 	display?: Displays;
+	onClick?: (any) => void;
 	position?: string;
 	text: string;
-}> = ({display, text, ...otherProps}) => {
+}> = ({display, onClick, text, ...otherProps}) => {
 	useEffect(() => {
 		const _clipboard = new Clipboard('[data-clipboard-text]');
 
@@ -22,6 +23,7 @@ const CopyButton: React.FC<{
 			data-clipboard-text={text}
 			data-tooltip-response={Liferay.Language.get('copied')}
 			display={display}
+			onClick={onClick}
 			title={Liferay.Language.get('click-to-copy')}
 			{...otherProps}
 		>

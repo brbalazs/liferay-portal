@@ -273,6 +273,9 @@ export class DataSourceList extends React.Component {
 							href={toRoute(Routes.SETTINGS_ADD_DATA_SOURCE, {
 								groupId
 							})}
+							onClick={() => {
+								analytics.track('Clicked Add Data Source');
+							}}
 						>
 							{Liferay.Language.get('add-data-source')}
 						</Button>

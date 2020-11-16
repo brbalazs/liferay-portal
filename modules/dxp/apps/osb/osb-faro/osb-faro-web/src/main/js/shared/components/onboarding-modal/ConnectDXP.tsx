@@ -106,6 +106,8 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 						TIMEOUT_INTERVAL
 					);
 				} else {
+					analytics.track('Established connection w/ DXP');
+
 					if (onboarding) {
 						onDxpConnected(true);
 
@@ -236,7 +238,15 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 								/>
 
 								<Input.Inset position='after'>
-									<CopyButton display='light' text={token} />
+									<CopyButton
+										display='light'
+										onClick={() => {
+											analytics.track(
+												'Clicked Copy Token Button'
+											);
+										}}
+										text={token}
+									/>
 								</Input.Inset>
 							</Input.GroupItem>
 						</Input.Group>

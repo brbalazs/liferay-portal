@@ -12,7 +12,7 @@ import Form, {
 } from 'shared/components/form';
 import HelpBlock from 'shared/components/form/HelpBlock';
 import RadioGroup from 'shared/components/RadioGroup';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SitesSyncedStripe from '../components/SitesSyncedStripe';
 import TitleEditor from 'shared/components/TitleEditor';
 import UserList from '../components/UserList';
@@ -112,6 +112,15 @@ const View: React.FC<IViewProps> = ({
 	updateDefaultChannelId,
 	...otherProps
 }) => {
+	useEffect(() => {
+		const {createTime, id, name} = channel;
+
+		analytics.track('Viewed Property Dashboard', {
+			channelId: id,
+			channelName: name,
+			createTime
+		});
+	}, []);
 	const [name, setName] = useState(channel.name);
 	const [permissionType, setPermissionType] = useState(
 		channel.permissionType
