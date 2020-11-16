@@ -1,6 +1,10 @@
-configJSModules {
-	dependsOn = []
-	enabled = false
+afterEvaluate {
+	Task configJSModulesTask = tasks.findByName("configJSModules")
+
+	if (configJSModulesTask != null) {
+		configJSModulesTask.dependsOn = []
+		configJSModulesTask.enabled = false
+	}
 }
 
 dependencies {
