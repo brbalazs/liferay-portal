@@ -64,20 +64,11 @@ definition {
 	test SalesDemo {
 		property testray.component.names = "Web Content Administration,Web Content Display";
 
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "DHS Content",
-			webContentTitle = "DHS Title");
-
-		PortletEntry.publish();
+		JSONWebcontent.addWebContent(
+			content = "DHS Content",
+			groupName = "Guest",
+			title = "DHS Title"
+		);
 
 		Navigator.openURL();
 

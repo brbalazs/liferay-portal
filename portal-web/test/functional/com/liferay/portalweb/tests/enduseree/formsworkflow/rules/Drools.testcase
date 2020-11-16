@@ -44,26 +44,14 @@ definition {
 			userAddressStreet1 = "1400 Montefino Ave",
 			userAddressType = "Personal");
 
-		ProductMenu.gotoPortlet(
-			category = "Categorization",
-			panel = "Site Administration",
-			portlet = "Tags");
+		var webContentserviceContext1 = '''{"assetTagNames": ["americas"]}''';
 
-		Tag.addCP(tagName = "americas");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addWithTagCP(
-			tagNameList = "americas",
-			webContentContent = "Web Content Content",
-			webContentTitle = "Web Content Title");
-
-		Navigator.openURL();
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content",
+			groupName = "Guest",
+			serviceContext = "${webContentserviceContext1}",
+			title = "Web Content Title"
+		);
 
 		ProductMenu.gotoPortlet(
 			category = "Build",

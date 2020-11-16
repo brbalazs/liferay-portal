@@ -91,39 +91,23 @@ definition {
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content Low Priority",
+			groupName = "Site Name",
+			title = "Low Priority Web Content Title");
+
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content Higher Priority",
+			groupName = "Site Name",
+			title = "Higher Priority Web Content Title");
+
 		ProductMenu.gotoPortlet(
 			category = "Content",
 			panel = "Site Administration",
 			portlet = "Web Content"
 		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content Low Priority",
-			webContentTitle = "Low Priority Web Content Title"
-		);
-
-		PortletEntry.publish();
 
 		WebContent.viewTitle(webContentTitle = "Low Priority Web Content Title");
-
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content Higher Priority",
-			webContentTitle = "Higher Priority Web Content Title"
-		);
-
-		PortletEntry.publishAndWait();
 
 		WebContent.viewTitle(webContentTitle = "Higher Priority Web Content Title");
 
@@ -272,24 +256,10 @@ definition {
 
 		PortletEntry.save();
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content",
-			webContentTitle = "Web Content Title"
-		);
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "Web Content Title");
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content",
+			groupName = "Site Name",
+			title = "Web Content Title");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -717,45 +687,15 @@ definition {
 
 		PortletEntry.save();
 
-		Navigator.openSiteURL(siteName = "Site Name");
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content",
+			groupName = "Site Name",
+			title = "Web Content Title");
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content",
-			webContentTitle = "Web Content Title"
-		);
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "Web Content Title");
-
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content Otherwise",
-			webContentTitle = "Web Content Title Otherwise"
-		);
-
-		PortletEntry.publishAndWait();
-
-		WebContent.viewTitle(webContentTitle = "Web Content Title Otherwise");
-
-		Navigator.openSiteURL(siteName = "Site Name");
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content Otherwise",
+			groupName = "Site Name",
+			title = "Web Content Title Otherwise");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -850,24 +790,10 @@ definition {
 
 		PortletEntry.save();
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content",
-			webContentTitle = "Web Content Title"
-		);
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "Web Content Title");
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content",
+			groupName = "Site Name",
+			title = "Web Content Title");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -1311,17 +1237,10 @@ definition {
 	test CTValidationExportImport {
 		property content.targeting.release = "true";
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(webContentContent = "WC Content", webContentTitle = "WC Title");
-
-		PortletEntry.publish();
+		JSONWebcontent.addWebContent(
+			content = "WC Content",
+			groupName = "Site Name",
+			title = "WC Content");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -1423,17 +1342,10 @@ definition {
 
 		Staging.activateStagingCP(siteName = "Site Name");
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(webContentContent = "WC Content", webContentTitle = "WC Title");
-
-		PortletEntry.publish();
+		JSONWebcontent.addWebContent(
+			content = "WC Content",
+			groupName = "Site Name",
+			title = "WC Title");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -1739,41 +1651,15 @@ definition {
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content",
+			groupName = "Site Name",
+			title = "Web Content Title");
 
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content",
-			webContentTitle = "Web Content Title"
-		);
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "Web Content Title");
-
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "WC Content Unreferenced",
-			webContentTitle = "WC Title Unreferenced"
-		);
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "WC Title Unreferenced");
+		JSONWebcontent.addWebContent(
+			content = "WC Content Unreferenced",
+			groupName = "Site Name",
+			title = "WC Title Unreferenced");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -2725,24 +2611,10 @@ definition {
 		SitePages.addPublicPage(pageName = "Site Page Name");
 
 		for (var ruleName : list "Admin,Page Visited,Male,Woman") {
-			Navigator.openSiteURL(siteName = "Site Name");
-
-			ProductMenu.gotoPortlet(
-				category = "Content",
-				panel = "Site Administration",
-				portlet = "Web Content"
-			);
-
-			WebContentNavigator.gotoAddCP();
-
-			WebContent.addCP(
-				webContentContent = "WC Content ${ruleName}",
-				webContentTitle = "WC Title ${ruleName}"
-			);
-
-			PortletEntry.publishAndWait();
-
-			WebContent.viewTitle(webContentTitle = "WC Title ${ruleName}");
+			JSONWebcontent.addWebContent(
+				content = "WC Content ${ruleName}",
+				groupName = "Site Name",
+				title = "WC Title ${ruleName}");
 		}
 
 		Navigator.openSiteURL(siteName = "Site Name");
@@ -2960,43 +2832,15 @@ definition {
 	test UserSegmentAddWithAllViaUserSegmentContentDisplayPortlet {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content All",
+			groupName = "Site Name",
+			title = "Web Content Title All");
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content All",
-			webContentTitle = "Web Content Title All"
-		);
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "Web Content Title All");
-
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content Otherwise",
-			webContentTitle = "Web Content Title Otherwise"
-		);
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "Web Content Title Otherwise");
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content Otherwise",
+			groupName = "Site Name",
+			title = "Web Content Title Otherwise");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -3072,43 +2916,15 @@ definition {
 	test UserSegmentAddWithAnyViaUserSegmentContentDisplayPortlet {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content Any",
+			groupName = "Site Name",
+			title = "Web Content Title Any");
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content Any",
-			webContentTitle = "Web Content Title Any"
-		);
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "Web Content Title Any");
-
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content Otherwise",
-			webContentTitle = "Web Content Title Otherwise"
-		);
-
-		PortletEntry.publishAndWait();
-
-		WebContent.viewTitle(webContentTitle = "Web Content Title Otherwise");
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content Otherwise",
+			groupName = "Site Name",
+			title = "Web Content Title Otherwise");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -3327,43 +3143,17 @@ definition {
 
 		PortletEntry.save();
 
-		Navigator.openSiteURL(siteName = "Site Name");
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content Female",
+			groupName = "Site Name",
+			title = "Web Content Title Female");
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content Female",
-			webContentTitle = "Web Content Title Female"
-		);
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "Web Content Title Female");
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content Male",
+			groupName = "Site Name",
+			title = "Web Content Title Male");
 
 		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content Male",
-			webContentTitle = "Web Content Title Male"
-		);
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "Web Content Title Male");
 
 		Navigator.gotoSitePage(pageName = "Test Page Name", siteName = "Site Name");
 
@@ -3450,24 +3240,10 @@ definition {
 	test UserSegmentAddWithOtherwiseDontDisplayAnythingViaUserSegmentContentDisplayPortlet {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content",
-			webContentTitle = "Web Content Title"
-		);
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "Web Content Title");
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content",
+			groupName = "Site Name",
+			title = "Web Content Title");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -3610,19 +3386,12 @@ definition {
 			userScreenName = "usersn"
 		);
 
+		JSONWebcontent.addWebContent(
+			content = "WC Content",
+			groupName = "Site Name",
+			title = "WC Title");
+
 		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(webContentContent = "WC Content", webContentTitle = "WC Title");
-
-		PortletEntry.publish();
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -3774,43 +3543,15 @@ definition {
 	test UserSegmentSimulateRulesViaSimulatorPG {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content Male",
+			groupName = "Site Name",
+			title = "Web Content Title Male");
 
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content Male",
-			webContentTitle = "Web Content Title Male"
-		);
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "Web Content Title Male");
-
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content Female",
-			webContentTitle = "Web Content Title Female"
-		);
-
-		PortletEntry.publishAndWait();
-
-		WebContent.viewTitle(webContentTitle = "Web Content Title Female");
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content Female",
+			groupName = "Site Name",
+			title = "Web Content Title Female");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -3891,19 +3632,12 @@ definition {
 
 	@priority = "4"
 	test UserSegmentViewAnonymousUserDefaultBehavior {
+		JSONWebcontent.addWebContent(
+			content = "WC Content",
+			groupName = "Site Name",
+			title = "WC Title");
+
 		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content"
-		);
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(webContentContent = "WC Content", webContentTitle = "WC Title");
-
-		PortletEntry.publish();
 
 		ProductMenu.gotoPortlet(
 			category = "Content",

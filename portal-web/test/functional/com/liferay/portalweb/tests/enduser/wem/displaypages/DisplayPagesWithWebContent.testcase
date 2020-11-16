@@ -61,15 +61,10 @@ definition {
 	test ViewDisplayPageMarkedAsDefault {
 		DisplayPagesAdmin.markDisplayPageAsDefault(rowEntry = "Display Page Name");
 
-		WebContent.openWebContentAdmin(siteURLKey = "test-site-name");
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Webcontent Content",
-			webContentTitle = "Webcontent Title");
-
-		PortletEntry.publish();
+		JSONWebcontent.addWebContent(
+			content = "Webcontent Content",
+			groupName = "Test Site Name",
+			title = "Webcontent Title");
 
 		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/-/webcontent-title");
 

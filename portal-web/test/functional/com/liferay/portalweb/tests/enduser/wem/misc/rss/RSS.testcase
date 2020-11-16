@@ -194,20 +194,10 @@ definition {
 		property test.name.skip.portal.instance = "RSS#AddWebContentFeed";
 		property testray.component.names = "Asset Publisher,RSS";
 
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content Content",
-			webContentTitle = "Web Content Title");
-
-		PortletEntry.publish();
+		JSONWebcontent.addWebContent(
+			content = "Web Content Content",
+			groupName = "Site Name",
+			title = "Web Content Title");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",

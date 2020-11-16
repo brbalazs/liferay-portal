@@ -814,22 +814,10 @@ definition {
 
 		PortletEntry.publish();
 
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "Web Content4 Content",
-			webContentTitle = "Web Content4 Title");
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "Web Content4 Title");
+		JSONWebcontent.addWebContent(
+			content = "Web Content4 Content",
+			groupName = "guest",
+			title = "Web Content4 Title");
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
@@ -1101,20 +1089,10 @@ definition {
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
 		for (var siteName : list "${siteName},Site Name,Global") {
-			SitePages.openPagesAdmin(siteURLKey = "${siteName}");
-
-			ProductMenu.gotoPortlet(
-				category = "Content",
-				panel = "Site Administration",
-				portlet = "Web Content");
-
-			WebContentNavigator.gotoAddCP();
-
-			WebContent.addCP(
-				webContentContent = "${siteName} WC Content",
-				webContentTitle = "${siteName} WC Title");
-
-			PortletEntry.publish();
+			JSONWebcontent.addWebContent(
+				content = "${siteName} WC Content",
+				groupName = "${siteName}",
+				title = "${siteName} WC Title");
 		}
 
 		Navigator.gotoSitePage(
@@ -1165,20 +1143,10 @@ definition {
 		SitePages.addPublicPage(pageName = "Site Page");
 
 		for (var siteName1 : list "guest,Site Name,Global") {
-			SitePages.openPagesAdmin(siteURLKey = "${siteName1}");
-
-			ProductMenu.gotoPortlet(
-				category = "Content",
-				panel = "Site Administration",
-				portlet = "Web Content");
-
-			WebContentNavigator.gotoAddCP();
-
-			WebContent.addCP(
-				webContentContent = "${siteName1} WC Content",
-				webContentTitle = "${siteName1} WC Title");
-
-			PortletEntry.publish();
+			JSONWebcontent.addWebContent(
+				content = "${siteName1} WC Content",
+				groupName = "${siteName1}",
+				title = "${siteName1} WC Title");
 		}
 
 		Navigator.gotoSitePage(
@@ -1593,22 +1561,10 @@ definition {
 			userLoginEmailAddress = "author1ea@liferay.com",
 			userLoginFullName = "author1 author1");
 
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "WC WebContent Content",
-			webContentTitle = "WC WebContent Title");
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "WC WebContent Title");
+		JSONWebcontent.addWebContent(
+			content = "WC WebContent Content",
+			groupName = "guest",
+			title = "WC WebContent Title");
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
@@ -1723,22 +1679,10 @@ definition {
 
 	@priority = "4"
 	test ViewDeletedWCDArticleAsAdminAndGuestCP {
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "WC WebContent Content",
-			webContentTitle = "WC WebContent Title");
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "WC WebContent Title");
+		JSONWebcontent.addWebContent(
+			content = "WC WebContent Content",
+			groupName = "guest",
+			title = "WC WebContent Title");
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 

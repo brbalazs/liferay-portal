@@ -68,20 +68,31 @@ definition {
 
 		PortletEntry.save();
 
+		JSONCategory.addCategory(
+			groupName = "Site Name",
+			title = "Male Users",
+			vocabularyName = "User Segment");
+
+		var segmentCategoryId = JSONCategory.getCategoryId(
+			categoryName = "Male Users",
+			groupName = "Site Name",
+			vocabularyName = "User Segment"
+		);
+
+		var webContentserviceContext = '''{"assetCategoryIds": ["${segmentCategoryId}"]}''';
+
+		JSONWebcontent.addWebContent(
+			content = "Web Content targeted to a User Segment",
+			groupName = "Site Name",
+			serviceContext = "${webContentserviceContext}",
+			title = "Targeted Web Content Title");
+
 		SitePages.openPagesAdmin(siteURLKey = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
 			panel = "Site Administration",
 			portlet = "Web Content");
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addWithCategoryCP(
-			categoryName = "Male Users",
-			vocabularyName = "User Segment",
-			webContentContent = "Web Content targeted to a User Segment",
-			webContentTitle = "Targeted Web Content Title");
 
 		WebContentNavigator.gotoEditCP(webContentTitle = "Targeted Web Content Title");
 
@@ -311,22 +322,10 @@ definition {
 
 		PortletEntry.save();
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Content",
-			panel = "Site Administration",
-			portlet = "Web Content");
-
-		WebContentNavigator.gotoAddCP();
-
-		WebContent.addCP(
-			webContentContent = "WC Male Content View",
-			webContentTitle = "WC Male View Title");
-
-		PortletEntry.publish();
-
-		WebContent.viewTitle(webContentTitle = "WC Male View Title");
+		JSONWebcontent.addWebContent(
+			content = "WC Male Content View",
+			groupName = "Site Name",
+			title = "WC Male View Title");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
