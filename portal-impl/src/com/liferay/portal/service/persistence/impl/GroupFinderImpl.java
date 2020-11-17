@@ -41,6 +41,7 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.comparator.GroupNameComparator;
 import com.liferay.portal.model.impl.GroupImpl;
+import com.liferay.portal.model.impl.GroupModelImpl;
 import com.liferay.portal.service.impl.GroupLocalServiceImpl;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 
@@ -110,10 +111,11 @@ public class GroupFinderImpl
 		GroupFinder.class.getName() + ".findByC_PG_N_D";
 
 	public static final FinderPath FINDER_PATH_FIND_BY_C_A = new FinderPath(
+		GroupModelImpl.ENTITY_CACHE_ENABLED,
+		GroupModelImpl.FINDER_CACHE_ENABLED, Long.class,
 		GroupPersistenceImpl.FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
 		"GroupFinderImpl_findByC_A",
-		new String[] {Long.class.getName(), Boolean.class.getName()},
-		new String[] {"companyId", "active_"}, false);
+		new String[] {Long.class.getName(), Boolean.class.getName()});
 
 	public static final String JOIN_BY_ACTIVE =
 		GroupFinder.class.getName() + ".joinByActive";
