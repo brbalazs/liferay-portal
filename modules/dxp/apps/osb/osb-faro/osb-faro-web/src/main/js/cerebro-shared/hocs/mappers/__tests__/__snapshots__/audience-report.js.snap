@@ -691,12 +691,12 @@ exports[`Shared HOCs Mappers - uniqueVisitors should map uniqueVisitors informat
 Object {
   "data": Array [
     Object {
-      "color": "#4B9BFF",
+      "color": "#FFB46E",
       "count": 2000,
       "label": "Anonymous Individuals",
     },
     Object {
-      "color": "#FFB46E",
+      "color": "#4B9BFF",
       "count": 3450,
       "label": "Known Individuals",
     },
@@ -709,15 +709,15 @@ Object {
 }
 `;
 
-exports[`Shared HOCs Mappers - uniqueVisitors should return stark & mormont for anonymousIndividuals & knownIndiviudals respectively 1`] = `
+exports[`Shared HOCs Mappers - uniqueVisitors should return mormont & stark for anonymousIndividuals & knownIndiviudals respectively 1`] = `
 Array [
   Object {
-    "color": "#4B9BFF",
+    "color": "#FFB46E",
     "count": 2000,
     "label": "Anonymous Individuals",
   },
   Object {
-    "color": "#FFB46E",
+    "color": "#4B9BFF",
     "count": 3450,
     "label": "Known Individuals",
   },
