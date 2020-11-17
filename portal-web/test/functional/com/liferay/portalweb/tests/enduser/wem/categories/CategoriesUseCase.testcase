@@ -40,20 +40,16 @@ definition {
 			localizationName = "Kategorienamen",
 			vocabularyName = "Vocabulary Name");
 
-		User.openUsersAdmin(siteURLKey = "test-site-name");
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "userln",
 			userScreenName = "usersn");
 
-		User.openUsersAdmin(siteURLKey = "test-site-name");
-
-		User.editPasswordCP(
-			password = "password",
-			userEmailAddress = "userea@liferay.com",
-			userScreenName = "usersn");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
 
 		Site.openSiteMembershipsAdmin(siteURLKey = "test-site-name");
 
@@ -135,20 +131,16 @@ definition {
 			groupName = "Test Site Name",
 			layoutName = "Test Page Name");
 
-		User.openUsersAdmin();
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "userln",
 			userScreenName = "usersn");
 
-		User.openUsersAdmin();
-
-		User.editPasswordCP(
-			password = "password",
-			userEmailAddress = "userea@liferay.com",
-			userScreenName = "usersn");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
 
 		Site.openSiteMembershipsAdmin(siteURLKey = "test-site-name");
 
@@ -561,20 +553,16 @@ definition {
 			title = "Category Name",
 			vocabularyName = "Vocabulary Name");
 
-		User.openUsersAdmin();
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "userln",
 			userScreenName = "usersn");
 
-		User.openUsersAdmin();
-
-		User.editPasswordCP(
-			password = "password",
-			userEmailAddress = "userea@liferay.com",
-			userScreenName = "usersn");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
 
 		Site.openSiteMembershipsAdmin(siteURLKey = "test-site-name");
 

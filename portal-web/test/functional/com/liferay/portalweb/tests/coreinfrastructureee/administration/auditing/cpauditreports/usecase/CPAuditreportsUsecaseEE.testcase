@@ -125,25 +125,16 @@ definition {
 			locator1 = "AuditReports#REPORTS_TABLE_RESOURCE_ACTION",
 			value1 = "LOGIN_FAILURE");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "test1@liferay.com",
 			userFirstName = "test1",
 			userLastName = "test1",
 			userScreenName = "test1");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.editPasswordCP(
-			userEmailAddress = "test1@liferay.com",
-			userScreenName = "test1");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "test1@liferay.com");
 
 		ProductMenu.gotoPortlet(
 			category = "Users",

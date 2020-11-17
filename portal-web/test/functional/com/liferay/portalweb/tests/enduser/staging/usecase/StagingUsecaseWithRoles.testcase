@@ -107,15 +107,10 @@ definition {
 			userLastName = "userln",
 			userScreenName = "usersn");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.editPasswordCP(
-			password = "password",
-			userEmailAddress = "userea@liferay.com",
-			userScreenName = "usersn");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -767,19 +762,16 @@ definition {
 				roleTitle = "Web Content Administrator Role");
 		}
 
-		User.openUsersAdmin();
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "userln",
 			userScreenName = "usersn");
 
-		User.openUsersAdmin();
-
-		User.editPasswordCP(
-			userEmailAddress = "userea@liferay.com",
-			userScreenName = "usersn");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
 
 		Role.openRolesAdmin();
 
@@ -964,15 +956,10 @@ definition {
 			userLastName = "creator",
 			userScreenName = "contentcreator");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.editPasswordCP(
-			password = "password",
-			userEmailAddress = "contentcreator@liferay.com",
-			userScreenName = "contentcreator");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "contentcreator@liferay.com");
 
 		Navigator.openSiteURL(siteName = "Community Site Name");
 
@@ -1020,15 +1007,10 @@ definition {
 			userLastName = "approver",
 			userScreenName = "contentapprover");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.editPasswordCP(
-			password = "password",
-			userEmailAddress = "contentapprover@liferay.com",
-			userScreenName = "contentapprover");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "contentapprover@liferay.com");
 
 		Navigator.openSiteURL(siteName = "Community Site Name");
 
@@ -1348,19 +1330,16 @@ definition {
 				roleTitle = "Web Content Comment Reviewer");
 		}
 
-		User.openUsersAdmin();
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "userln",
 			userScreenName = "usersn");
 
-		User.openUsersAdmin();
-
-		User.editPasswordCP(
-			userEmailAddress = "userea@liferay.com",
-			userScreenName = "usersn");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
 
 		Role.openRolesAdmin();
 

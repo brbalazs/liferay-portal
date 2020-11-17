@@ -1341,25 +1341,16 @@ definition {
 
 		SitePages.addPublicPage(pageName = "Asset Publisher Page");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "userln",
 			userScreenName = "usersn");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.editPasswordCP(
-			userEmailAddress = "userea@liferay.com",
-			userScreenName = "usersn");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -1527,20 +1518,16 @@ definition {
 			var userFirstName = "${userScreenName}";
 			var userLastName = "${userScreenName}";
 
-			User.addCP(
+			JSONUser.addUser(
 				userEmailAddress = "${userEmailAddress}",
 				userFirstName = "${userFirstName}",
 				userLastName = "${userLastName}",
 				userScreenName = "${userScreenName}");
 
-			ProductMenu.gotoPortlet(
-				category = "Users",
-				panel = "Control Panel",
-				portlet = "Users and Organizations");
-
-			User.editPasswordCP(
-				userEmailAddress = "${userEmailAddress}",
-				userScreenName = "${userScreenName}");
+			JSONUser.setFirstPassword(
+				agreeToTermsAndAnswerReminderQuery = "true",
+				requireReset = "false",
+				userEmailAddress = "${userEmailAddress}");
 
 			ProductMenu.gotoPortlet(
 				category = "Users",

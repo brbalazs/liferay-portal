@@ -270,25 +270,16 @@ definition {
 	@description = "This is a use case for LPS-58754"
 	@priority = "2"
 	test WithdrawWorkflowSubmissionFromRemovedUser {
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.addCP(
-			userEmailAddress = "user@liferay.com",
+		JSONUser.addUser(
+			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "userln",
 			userScreenName = "usersn");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.editPasswordCP(
-			userEmailAddress = "user@liferay.com",
-			userScreenName = "usersn");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -309,7 +300,7 @@ definition {
 			userScreenName = "usersn");
 
 		User.logoutAndLoginPG(
-			userLoginEmailAddress = "user@liferay.com",
+			userLoginEmailAddress = "userea@liferay.com",
 			userScreenName = "usersn");
 
 		Navigator.gotoStagedSitePage(

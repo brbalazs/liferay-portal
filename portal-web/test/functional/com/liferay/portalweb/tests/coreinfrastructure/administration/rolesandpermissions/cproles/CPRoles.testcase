@@ -103,6 +103,11 @@ definition {
 			userLastName = "userln",
 			userScreenName = "usersn");
 
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
+
 		ProductMenu.gotoPortlet(
 			category = "Users",
 			panel = "Control Panel",

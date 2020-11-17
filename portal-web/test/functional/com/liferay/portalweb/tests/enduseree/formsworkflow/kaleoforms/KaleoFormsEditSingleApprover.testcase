@@ -120,25 +120,16 @@ definition {
 
 		Role.add(roleTitle = "Updater Name");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "user1@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "Creator",
 			userScreenName = "creator");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.editPasswordCP(
-			userEmailAddress = "user1@liferay.com",
-			userScreenName = "creator");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "user1@liferay.com");
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -149,25 +140,16 @@ definition {
 			roleTitle = "Administrator",
 			userScreenName = "creator");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "user2@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "Reviewer",
 			userScreenName = "reviewer");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.editPasswordCP(
-			userEmailAddress = "user2@liferay.com",
-			userScreenName = "reviewer");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "user2@liferay.com");
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -187,25 +169,16 @@ definition {
 			roleTitle = "Reviewer Name",
 			userScreenName = "reviewer");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "user3@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "Updater",
 			userScreenName = "updater");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.editPasswordCP(
-			userEmailAddress = "user3@liferay.com",
-			userScreenName = "updater");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "user3@liferay.com");
 
 		ProductMenu.gotoPortlet(
 			category = "Users",

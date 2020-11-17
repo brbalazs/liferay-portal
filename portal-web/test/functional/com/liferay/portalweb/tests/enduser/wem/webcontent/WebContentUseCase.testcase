@@ -195,30 +195,17 @@ definition {
 
 		Refresh();
 
-		for (var number : list "1,2") {
-			ProductMenu.gotoPortlet(
-				category = "Users",
-				panel = "Control Panel",
-				portlet = "Users and Organizations"
-			);
+		for (var n : list "1,2") {
+			JSONUser.addUser(
+				userEmailAddress = "userea${n}@liferay.com",
+				userFirstName = "userfn${n}",
+				userLastName = "userln${n}",
+				userScreenName = "usersn${n}");
 
-			User.addCP(
-				userEmailAddress = "user${number}@liferay.com",
-				userFirstName = "userfn${number}",
-				userLastName = "userln${number}",
-				userScreenName = "usersn${number}"
-			);
-
-			ProductMenu.gotoPortlet(
-				category = "Users",
-				panel = "Control Panel",
-				portlet = "Users and Organizations"
-			);
-
-			User.editPasswordCP(
-				userEmailAddress = "user${number}@liferay.com",
-				userScreenName = "usersn${number}"
-			);
+			JSONUser.setFirstPassword(
+				agreeToTermsAndAnswerReminderQuery = "true",
+				requireReset = "false",
+				userEmailAddress = "userea${n}@liferay.com");
 
 			Navigator.openSiteURL(siteName = "Site Name");
 
@@ -229,9 +216,9 @@ definition {
 			);
 
 			Site.assignUserAsMemberCP(
-				userFirstName = "userfn${number}",
-				userLastName = "userln${number}",
-				userScreenName = "usersn${number}"
+				userFirstName = "userfn${n}",
+				userLastName = "userln${n}",
+				userScreenName = "usersn${n}"
 			);
 		}
 
@@ -1333,29 +1320,16 @@ definition {
 			substructureName = "Global Structure"
 		);
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations"
-		);
+		JSONUser.addUser(
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
 
-		User.addCP(
-			userEmailAddress = "test1@liferay.com",
-			userFirstName = "test1",
-			userLastName = "test1",
-			userScreenName = "test1test"
-		);
-
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations"
-		);
-
-		User.editPasswordCP(
-			userEmailAddress = "test1@liferay.com",
-			userScreenName = "test1test"
-		);
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -1377,9 +1351,9 @@ definition {
 		);
 
 		Site.assignUserAsMemberCP(
-			userFirstName = "test1",
-			userLastName = "test1",
-			userScreenName = "test1test"
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn"
 		);
 
 		ProductMenu.gotoPortlet(
@@ -1389,13 +1363,13 @@ definition {
 		);
 
 		Site.assignSiteRoleCP(
-			resourceName = "test1 test1",
+			resourceName = "userfn userln",
 			roleTitle = "Site Administrator"
 		);
 
 		User.logoutAndLoginPG(
-			userLoginEmailAddress = "test1@liferay.com",
-			userLoginFullName = "test1 test1"
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln"
 		);
 
 		Navigator.openURL();

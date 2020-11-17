@@ -57,16 +57,16 @@ definition {
 	test AddSiteTeamAssignUser {
 		property testray.component.names = "Site Administration,Users and Organizations";
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "userln",
 			userScreenName = "usersn");
+
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
 
 		ProductMenu.gotoPortlet(
 			category = "Sites",
@@ -231,16 +231,16 @@ definition {
 		property portal.acceptance = "true";
 		property testray.component.names = "Site Administration,Users and Organizations";
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "userln",
 			userScreenName = "usersn");
+
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
 
 		ProductMenu.gotoPortlet(
 			category = "Sites",
@@ -461,16 +461,16 @@ definition {
 		Site.addBlankCP(siteName = "Site Name");
 
 		for (var n : list "1,2") {
-			ProductMenu.gotoPortlet(
-				category = "Users",
-				panel = "Control Panel",
-				portlet = "Users and Organizations");
-
-			User.addCP(
+			JSONUser.addUser(
 				userEmailAddress = "userea${n}@liferay.com",
 				userFirstName = "userfn${n}",
 				userLastName = "userln${n}",
 				userScreenName = "usersn${n}");
+
+			JSONUser.setFirstPassword(
+				agreeToTermsAndAnswerReminderQuery = "true",
+				requireReset = "false",
+				userEmailAddress = "userea${n}@liferay.com");
 
 			SitePages.openPagesAdmin(siteURLKey = "Site Name");
 

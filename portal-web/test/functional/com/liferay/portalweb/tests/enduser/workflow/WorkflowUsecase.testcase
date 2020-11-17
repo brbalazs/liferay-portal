@@ -718,25 +718,16 @@ definition {
 
 		Portlet.addPG(portletName = "Wiki");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "userln",
 			userScreenName = "usersn");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.editPasswordCP(
-			userEmailAddress = "userea@liferay.com",
-			userScreenName = "usersn");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -1264,16 +1255,16 @@ definition {
 			roleType = "Site");
 
 		for (var n : list "1,2") {
-			ProductMenu.gotoPortlet(
-				category = "Users",
-				panel = "Control Panel",
-				portlet = "Users and Organizations");
-
-			User.addCP(
-				userEmailAddress = "usersn${n}@liferay.com",
+			JSONUser.addUser(
+				userEmailAddress = "userea${n}@liferay.com",
 				userFirstName = "userfn${n}",
 				userLastName = "userln${n}",
 				userScreenName = "usersn${n}");
+
+			JSONUser.setFirstPassword(
+				agreeToTermsAndAnswerReminderQuery = "true",
+				requireReset = "false",
+				userEmailAddress = "userea${n}@liferay.com");
 
 			ProductMenu.gotoPortlet(
 				category = "Users",
@@ -1282,15 +1273,6 @@ definition {
 
 			User.editUserSiteCP(
 				siteName = "${siteName}",
-				userScreenName = "usersn${n}");
-
-			ProductMenu.gotoPortlet(
-				category = "Users",
-				panel = "Control Panel",
-				portlet = "Users and Organizations");
-
-			User.editPasswordCP(
-				userEmailAddress = "usersn${n}@liferay.com",
 				userScreenName = "usersn${n}");
 
 			User.logoutAndLoginPG(
