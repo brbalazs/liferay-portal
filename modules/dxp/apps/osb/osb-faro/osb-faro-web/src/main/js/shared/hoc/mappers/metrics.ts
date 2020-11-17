@@ -49,7 +49,9 @@ export const getMapPropsToOptions: (
 		rangeSelectors
 	});
 
-	const unfilteredVariables = {
+	const useDB = get(query, 'useDB', null);
+
+	let unfilteredVariables: any = {
 		...variables,
 		keywords: get(query, 'query', ''),
 		size: delta,
@@ -60,6 +62,10 @@ export const getMapPropsToOptions: (
 		start: (page - 1) * delta,
 		terms: get(params, 'interestId')
 	};
+
+	if (useDB) {
+		unfilteredVariables = {...unfilteredVariables, useDB: Boolean(useDB)};
+	}
 
 	const validVariables = gqlQuery ? getVariableDefinitions(gqlQuery) : [];
 
