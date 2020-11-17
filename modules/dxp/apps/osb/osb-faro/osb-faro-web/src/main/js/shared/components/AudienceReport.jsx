@@ -1,8 +1,10 @@
 import autobind from 'autobind-decorator';
 import BarChartHTML from 'cerebro-shared/components/BarChartHTML';
+import InfoPopover from 'shared/components/InfoPopover';
 import PropTypes from 'prop-types';
 import React from 'react';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
+import {AUDIENCE_VIEWER_MODE} from 'shared/util/constants';
 import {AXIS} from 'shared/util/recharts';
 import {
 	Cell,
@@ -16,6 +18,7 @@ import {
 	Tooltip
 } from 'recharts';
 import {get} from 'lodash';
+import {sub} from 'shared/util/lang';
 import {toFixedPoint, toRounded} from 'shared/util/numbers';
 
 const CLASSNAME = 'audience-report-chart';
@@ -253,32 +256,82 @@ const renderDonutChart = props => <Donut {...props} />;
  * Render Title for Audience Report
  * @param {object} param
  */
-const Title = ({children}) => (
-	<h4 className='mb-3 text-center text-secondary title'>{children}</h4>
+const Title = ({helperText, title}) => (
+	<div className='d-inline-flex gap'>
+		<h4 className='mb-3 text-center text-secondary title'>{title}</h4>
+
+		{helperText && <InfoPopover content={helperText} title={title} />}
+	</div>
 );
 
 /**
  * Audience Report component
  * @param object} param0
  */
-const AudienceReport = ({knownIndividuals, segments, uniqueVisitors}) => (
+const AudienceReport = ({
+	knownIndividuals,
+	knownIndividualsTitle,
+	segments,
+	segmentsTitle,
+	uniqueVisitors,
+	uniqueVisitorsTitle,
+	viewerMode
+}) => (
 	<div className={`${CLASSNAME} row w-100`}>
 		<div className='col-sm-6'>
 			<div className='row'>
-				<div className='col-sm-6'>
-					<Title>{Liferay.Language.get('visitors')}</Title>
+				<div className='col-sm-6 text-center'>
+					<Title
+						title={
+							uniqueVisitorsTitle ||
+							Liferay.Language.get('visitors')
+						}
+					/>
 
 					{renderDonutChart(uniqueVisitors)}
 				</div>
-				<div className='col-sm-6'>
-					<Title>{Liferay.Language.get('segmented-visitors')}</Title>
+				<div className='col-sm-6 text-center'>
+					<Title
+						helperText={
+							viewerMode &&
+							sub(
+								Liferay.Language.get(
+									'a-snapshot-of-the-audience-captured-at-the-time-of-x.-this-does-not-reflect-the-current-state-of-the-visitors-segments'
+								),
+								[
+									viewerMode === AUDIENCE_VIEWER_MODE.VIEW
+										? Liferay.Language.get('view')
+										: Liferay.Language.get('preview')
+								]
+							)
+						}
+						title={
+							knownIndividualsTitle ||
+							Liferay.Language.get('segmented-visitors')
+						}
+					/>
 
 					{renderDonutChart(knownIndividuals)}
 				</div>
 			</div>
 		</div>
 		<div className='col-sm-6 pl-5'>
-			<Title>{Liferay.Language.get('visitor-segments')}</Title>
+			<Title
+				helperText={
+					viewerMode &&
+					sub(
+						Liferay.Language.get(
+							'a-snapshot-of-segments-captured-at-the-time-of-x.-this-does-not-relect-the-current-state-of-the-visitors-segments'
+						),
+						[
+							viewerMode === AUDIENCE_VIEWER_MODE.VIEW
+								? Liferay.Language.get('view')
+								: Liferay.Language.get('preview')
+						]
+					)
+				}
+				title={segmentsTitle || Liferay.Language.get('viewer-segments')}
+			/>
 
 			{renderBarChart(segments)}
 		</div>
