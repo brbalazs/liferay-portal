@@ -1,4 +1,4 @@
-import com.liferay.gradle.plugins.JSModuleConfigGeneratorDefaultsPlugin
+import com.liferay.gradle.plugins.internal.JSModuleConfigGeneratorDefaultsPlugin
 import com.liferay.gradle.plugins.js.module.config.generator.JSModuleConfigGeneratorPlugin
 import com.liferay.gradle.plugins.js.transpiler.JSTranspilerBasePlugin
 import com.liferay.gradle.plugins.js.transpiler.JSTranspilerPlugin

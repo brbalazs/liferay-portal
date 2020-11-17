@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.gradle.plugins;
+package com.liferay.gradle.plugins.internal;
 
 import com.liferay.gradle.plugins.js.module.config.generator.ConfigJSModulesTask;
 import com.liferay.gradle.plugins.js.module.config.generator.JSModuleConfigGeneratorExtension;

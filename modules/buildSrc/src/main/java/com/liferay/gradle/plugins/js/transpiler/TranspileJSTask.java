@@ -41,10 +41,8 @@ import org.gradle.api.tasks.PathSensitivity;
 
 /**
  * @author     Andrea Di Giorgi
- * @deprecated As of Judson (7.1.x), with no direct replacement
  */
 @CacheableTask
-@Deprecated
 public class TranspileJSTask extends ExecuteNodeScriptTask {
 
 	public TranspileJSTask() {
