@@ -147,6 +147,10 @@ public class FinderPath {
 		return _resultClass;
 	}
 
+	public boolean isBaseModelResult() {
+		return BaseModel.class.isAssignableFrom(_resultClass);
+	}
+
 	public boolean isEntityCacheEnabled() {
 		return _entityCacheEnabled;
 	}

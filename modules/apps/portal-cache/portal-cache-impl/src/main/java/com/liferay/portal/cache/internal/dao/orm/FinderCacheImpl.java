@@ -170,7 +170,7 @@ public class FinderCacheImpl
 			return Collections.unmodifiableList(list);
 		}
 
-		if (BaseModel.class.isAssignableFrom(finderPath.getResultClass())) {
+		if (finderPath.isBaseModelResult()) {
 			Serializable result = _entityCache.loadResult(
 				finderPath.isEntityCacheEnabled(), finderPath.getResultClass(),
 				cacheValue, basePersistenceImpl);
