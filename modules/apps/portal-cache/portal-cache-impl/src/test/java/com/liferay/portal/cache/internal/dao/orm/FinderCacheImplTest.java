@@ -129,8 +129,8 @@ public class FinderCacheImplTest {
 	@Test
 	public void testPutNonbaseModelList() {
 		FinderPath finderPath = new FinderPath(
-			FinderCacheImplTest.class.getName(), "test-nonbase-model",
-			new String[0], new String[0], false);
+			true, true, Long.class, FinderCacheImplTest.class.getName(),
+			"test-nonbase-model", new String[0]);
 
 		FinderCache finderCache = _activateFinderCache(
 			_notSerializedMultiVMPool);
