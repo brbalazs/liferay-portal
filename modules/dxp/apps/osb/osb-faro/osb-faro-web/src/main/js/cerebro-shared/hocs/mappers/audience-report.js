@@ -174,12 +174,12 @@ const getAudienceReportMapper = (getMetric, pathUrl) => {
 
 		const uniqueVisitorsData = [
 			{
-				color: stark,
+				color: mormont,
 				count: anonymousUsersCount,
 				label: Liferay.Language.get('anonymous-individuals')
 			},
 			{
-				color: mormont,
+				color: stark,
 				count: knownUsersCount,
 				label: Liferay.Language.get('known-individuals')
 			}

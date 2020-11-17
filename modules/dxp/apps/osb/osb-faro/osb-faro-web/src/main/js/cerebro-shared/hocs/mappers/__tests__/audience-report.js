@@ -241,17 +241,17 @@ describe('Shared HOCs Mappers - uniqueVisitors', () => {
 		expect(mapper.props({data}).uniqueVisitors).toMatchSnapshot();
 	});
 
-	it('should return stark & mormont for anonymousIndividuals & knownIndiviudals respectively', () => {
+	it('should return mormont & stark for anonymousIndividuals & knownIndiviudals respectively', () => {
 		const mapper = getAudienceReportMapper(
 			result => result.form.submissionsMetric
 		);
 		const props = mapper.props({data}).uniqueVisitors;
 
-		expect(props.data[0].color).toEqual(stark);
+		expect(props.data[0].color).toEqual(mormont);
 		expect(props.data[0].label).toEqual(
 			Liferay.Language.get('anonymous-individuals')
 		);
-		expect(props.data[1].color).toEqual(mormont);
+		expect(props.data[1].color).toEqual(stark);
 		expect(props.data[1].label).toEqual(
 			Liferay.Language.get('known-individuals')
 		);
