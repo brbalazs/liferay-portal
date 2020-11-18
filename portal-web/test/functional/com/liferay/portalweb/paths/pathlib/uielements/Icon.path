@@ -100,7 +100,7 @@
 </tr>
 <tr>
 	<td>FLAG</td>
-	<td>//div[@title='Flag']//span[//*[name()='svg'][contains(@class,'lexicon-icon')]]</td>
+	<td>//div[@class='taglib-flags ']//span[//*[name()='svg'][contains(@class,'lexicon-icon')]]</td>
 	<td></td>
 </tr>
 <tr>
