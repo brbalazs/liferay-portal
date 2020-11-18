@@ -18,15 +18,9 @@ export const CHART_ID = 'individualActivity';
 
 const {timeIntervals} = Constants;
 
-type TooltipColumnType = {
-	align?: string;
-	label: string;
-	weight?: string;
-	truncated?: boolean;
-};
-
 export type TooltipRowType = {
-	columns: Array<TooltipColumnType>;
+	label: string;
+	value: any;
 };
 
 export type TooltipOptionsType = {

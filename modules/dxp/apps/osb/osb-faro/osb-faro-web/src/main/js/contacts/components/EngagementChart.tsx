@@ -66,9 +66,10 @@ const EngagementChart: React.FC<IChartProps<IEngagementHistory<number>>> = ({
 					{
 						label: Liferay.Language.get('avg-engagement'),
 						value: isNumber(scoreAvg) ? scoreAvg.toFixed(2) : null
-					},
-					...(tooltipRenderRows && tooltipRenderRows(contributors))
-				].filter(Boolean),
+					}
+				].concat(
+					tooltipRenderRows ? tooltipRenderRows(contributors) : []
+				),
 				title: Liferay.Language.get('engagement')
 			});
 		}
