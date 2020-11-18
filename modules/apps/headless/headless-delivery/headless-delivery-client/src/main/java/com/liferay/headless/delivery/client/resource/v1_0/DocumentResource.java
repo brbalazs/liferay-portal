@@ -25,6 +25,7 @@ import com.liferay.headless.delivery.client.serdes.v1_0.DocumentSerDes;
 import java.io.File;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
@@ -45,12 +46,14 @@ public interface DocumentResource {
 
 	public Page<Document> getDocumentFolderDocumentsPage(
 			Long documentFolderId, Boolean flatten, String search,
-			String filterString, Pagination pagination, String sortString)
+			List<String> aggregations, String filterString,
+			Pagination pagination, String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getDocumentFolderDocumentsPageHttpResponse(
 			Long documentFolderId, Boolean flatten, String search,
-			String filterString, Pagination pagination, String sortString)
+			List<String> aggregations, String filterString,
+			Pagination pagination, String sortString)
 		throws Exception;
 
 	public Document postDocumentFolderDocument(
@@ -147,12 +150,14 @@ public interface DocumentResource {
 		throws Exception;
 
 	public Page<Document> getSiteDocumentsPage(
-			Long siteId, Boolean flatten, String search, String filterString,
+			Long siteId, Boolean flatten, String search,
+			List<String> aggregations, String filterString,
 			Pagination pagination, String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getSiteDocumentsPageHttpResponse(
-			Long siteId, Boolean flatten, String search, String filterString,
+			Long siteId, Boolean flatten, String search,
+			List<String> aggregations, String filterString,
 			Pagination pagination, String sortString)
 		throws Exception;
 
@@ -231,13 +236,14 @@ public interface DocumentResource {
 
 		public Page<Document> getDocumentFolderDocumentsPage(
 				Long documentFolderId, Boolean flatten, String search,
-				String filterString, Pagination pagination, String sortString)
+				List<String> aggregations, String filterString,
+				Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				getDocumentFolderDocumentsPageHttpResponse(
-					documentFolderId, flatten, search, filterString, pagination,
-					sortString);
+					documentFolderId, flatten, search, aggregations,
+					filterString, pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -262,8 +268,8 @@ public interface DocumentResource {
 		public HttpInvoker.HttpResponse
 				getDocumentFolderDocumentsPageHttpResponse(
 					Long documentFolderId, Boolean flatten, String search,
-					String filterString, Pagination pagination,
-					String sortString)
+					List<String> aggregations, String filterString,
+					Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -1108,13 +1114,14 @@ public interface DocumentResource {
 
 		public Page<Document> getSiteDocumentsPage(
 				Long siteId, Boolean flatten, String search,
-				String filterString, Pagination pagination, String sortString)
+				List<String> aggregations, String filterString,
+				Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				getSiteDocumentsPageHttpResponse(
-					siteId, flatten, search, filterString, pagination,
-					sortString);
+					siteId, flatten, search, aggregations, filterString,
+					pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -1138,7 +1145,8 @@ public interface DocumentResource {
 
 		public HttpInvoker.HttpResponse getSiteDocumentsPageHttpResponse(
 				Long siteId, Boolean flatten, String search,
-				String filterString, Pagination pagination, String sortString)
+				List<String> aggregations, String filterString,
+				Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();

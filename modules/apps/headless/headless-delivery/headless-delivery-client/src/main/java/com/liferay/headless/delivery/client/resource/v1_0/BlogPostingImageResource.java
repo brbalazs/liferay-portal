@@ -24,6 +24,7 @@ import com.liferay.headless.delivery.client.serdes.v1_0.BlogPostingImageSerDes;
 import java.io.File;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
@@ -64,13 +65,13 @@ public interface BlogPostingImageResource {
 		throws Exception;
 
 	public Page<BlogPostingImage> getSiteBlogPostingImagesPage(
-			Long siteId, String search, String filterString,
-			Pagination pagination, String sortString)
+			Long siteId, String search, List<String> aggregations,
+			String filterString, Pagination pagination, String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getSiteBlogPostingImagesPageHttpResponse(
-			Long siteId, String search, String filterString,
-			Pagination pagination, String sortString)
+			Long siteId, String search, List<String> aggregations,
+			String filterString, Pagination pagination, String sortString)
 		throws Exception;
 
 	public BlogPostingImage postSiteBlogPostingImage(
@@ -333,13 +334,14 @@ public interface BlogPostingImageResource {
 		}
 
 		public Page<BlogPostingImage> getSiteBlogPostingImagesPage(
-				Long siteId, String search, String filterString,
-				Pagination pagination, String sortString)
+				Long siteId, String search, List<String> aggregations,
+				String filterString, Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				getSiteBlogPostingImagesPageHttpResponse(
-					siteId, search, filterString, pagination, sortString);
+					siteId, search, aggregations, filterString, pagination,
+					sortString);
 
 			String content = httpResponse.getContent();
 
@@ -363,8 +365,9 @@ public interface BlogPostingImageResource {
 
 		public HttpInvoker.HttpResponse
 				getSiteBlogPostingImagesPageHttpResponse(
-					Long siteId, String search, String filterString,
-					Pagination pagination, String sortString)
+					Long siteId, String search, List<String> aggregations,
+					String filterString, Pagination pagination,
+					String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();

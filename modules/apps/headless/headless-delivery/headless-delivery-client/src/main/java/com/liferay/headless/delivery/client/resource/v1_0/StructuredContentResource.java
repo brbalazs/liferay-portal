@@ -23,6 +23,7 @@ import com.liferay.headless.delivery.client.problem.Problem;
 import com.liferay.headless.delivery.client.serdes.v1_0.StructuredContentSerDes;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
@@ -42,23 +43,26 @@ public interface StructuredContentResource {
 	}
 
 	public Page<StructuredContent> getContentStructureStructuredContentsPage(
-			Long contentStructureId, String search, String filterString,
-			Pagination pagination, String sortString)
+			Long contentStructureId, String search, List<String> aggregations,
+			String filterString, Pagination pagination, String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			getContentStructureStructuredContentsPageHttpResponse(
-				Long contentStructureId, String search, String filterString,
+				Long contentStructureId, String search,
+				List<String> aggregations, String filterString,
 				Pagination pagination, String sortString)
 		throws Exception;
 
 	public Page<StructuredContent> getSiteStructuredContentsPage(
-			Long siteId, Boolean flatten, String search, String filterString,
+			Long siteId, Boolean flatten, String search,
+			List<String> aggregations, String filterString,
 			Pagination pagination, String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse getSiteStructuredContentsPageHttpResponse(
-			Long siteId, Boolean flatten, String search, String filterString,
+			Long siteId, Boolean flatten, String search,
+			List<String> aggregations, String filterString,
 			Pagination pagination, String sortString)
 		throws Exception;
 
@@ -97,13 +101,15 @@ public interface StructuredContentResource {
 	public Page<StructuredContent>
 			getStructuredContentFolderStructuredContentsPage(
 				Long structuredContentFolderId, Boolean flatten, String search,
-				String filterString, Pagination pagination, String sortString)
+				List<String> aggregations, String filterString,
+				Pagination pagination, String sortString)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
 			getStructuredContentFolderStructuredContentsPageHttpResponse(
 				Long structuredContentFolderId, Boolean flatten, String search,
-				String filterString, Pagination pagination, String sortString)
+				List<String> aggregations, String filterString,
+				Pagination pagination, String sortString)
 		throws Exception;
 
 	public StructuredContent postStructuredContentFolderStructuredContent(
@@ -281,14 +287,15 @@ public interface StructuredContentResource {
 
 		public Page<StructuredContent>
 				getContentStructureStructuredContentsPage(
-					Long contentStructureId, String search, String filterString,
+					Long contentStructureId, String search,
+					List<String> aggregations, String filterString,
 					Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				getContentStructureStructuredContentsPageHttpResponse(
-					contentStructureId, search, filterString, pagination,
-					sortString);
+					contentStructureId, search, aggregations, filterString,
+					pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -312,7 +319,8 @@ public interface StructuredContentResource {
 
 		public HttpInvoker.HttpResponse
 				getContentStructureStructuredContentsPageHttpResponse(
-					Long contentStructureId, String search, String filterString,
+					Long contentStructureId, String search,
+					List<String> aggregations, String filterString,
 					Pagination pagination, String sortString)
 			throws Exception {
 
@@ -370,13 +378,14 @@ public interface StructuredContentResource {
 
 		public Page<StructuredContent> getSiteStructuredContentsPage(
 				Long siteId, Boolean flatten, String search,
-				String filterString, Pagination pagination, String sortString)
+				List<String> aggregations, String filterString,
+				Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				getSiteStructuredContentsPageHttpResponse(
-					siteId, flatten, search, filterString, pagination,
-					sortString);
+					siteId, flatten, search, aggregations, filterString,
+					pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -401,8 +410,8 @@ public interface StructuredContentResource {
 		public HttpInvoker.HttpResponse
 				getSiteStructuredContentsPageHttpResponse(
 					Long siteId, Boolean flatten, String search,
-					String filterString, Pagination pagination,
-					String sortString)
+					List<String> aggregations, String filterString,
+					Pagination pagination, String sortString)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -723,14 +732,15 @@ public interface StructuredContentResource {
 		public Page<StructuredContent>
 				getStructuredContentFolderStructuredContentsPage(
 					Long structuredContentFolderId, Boolean flatten,
-					String search, String filterString, Pagination pagination,
+					String search, List<String> aggregations,
+					String filterString, Pagination pagination,
 					String sortString)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
 				getStructuredContentFolderStructuredContentsPageHttpResponse(
-					structuredContentFolderId, flatten, search, filterString,
-					pagination, sortString);
+					structuredContentFolderId, flatten, search, aggregations,
+					filterString, pagination, sortString);
 
 			String content = httpResponse.getContent();
 
@@ -755,7 +765,8 @@ public interface StructuredContentResource {
 		public HttpInvoker.HttpResponse
 				getStructuredContentFolderStructuredContentsPageHttpResponse(
 					Long structuredContentFolderId, Boolean flatten,
-					String search, String filterString, Pagination pagination,
+					String search, List<String> aggregations,
+					String filterString, Pagination pagination,
 					String sortString)
 			throws Exception {
 
