@@ -113,7 +113,7 @@ public class GroupFinderImpl
 	public static final FinderPath FINDER_PATH_FIND_BY_C_A = new FinderPath(
 		GroupModelImpl.ENTITY_CACHE_ENABLED,
 		GroupModelImpl.FINDER_CACHE_ENABLED, Long.class,
-		GroupPersistenceImpl.FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+		GroupPersistenceImpl.FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
 		"GroupFinderImpl_findByC_A",
 		new String[] {Long.class.getName(), Boolean.class.getName()});
 
