@@ -28,6 +28,7 @@ String portletResource = igRequestHelper.getPortletResource();
 DLPortletInstanceSettings dlPortletInstanceSettings = igRequestHelper.getDLPortletInstanceSettings();
 
 long rootFolderId = dlPortletInstanceSettings.getRootFolderId();
+
 String rootFolderName = StringPool.BLANK;
 
 if (rootFolderId != DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {

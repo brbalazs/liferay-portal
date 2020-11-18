@@ -51,6 +51,7 @@ String level4 = StringPool.BLANK;
 
 if (commerceDiscount != null) {
 	BigDecimal commerceDiscountLevel1 = commerceDiscount.getLevel1();
+
 	BigDecimal commerceDiscountLevel2 = commerceDiscount.getLevel2();
 	BigDecimal commerceDiscountLevel3 = commerceDiscount.getLevel3();
 	BigDecimal commerceDiscountLevel4 = commerceDiscount.getLevel4();

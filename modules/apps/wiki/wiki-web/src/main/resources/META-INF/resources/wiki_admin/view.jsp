@@ -81,6 +81,7 @@ SearchContainer wikiNodesSearchContainer = new SearchContainer(renderRequest, nu
 NodesChecker nodesChecker = new NodesChecker(liferayPortletRequest, liferayPortletResponse);
 
 wikiNodesSearchContainer.setRowChecker(nodesChecker);
+
 wikiNodesSearchContainer.setOrderByCol(orderByCol);
 wikiNodesSearchContainer.setOrderByComparator(WikiPortletUtil.getNodeOrderByComparator(orderByCol, orderByType));
 wikiNodesSearchContainer.setOrderByType(orderByType);

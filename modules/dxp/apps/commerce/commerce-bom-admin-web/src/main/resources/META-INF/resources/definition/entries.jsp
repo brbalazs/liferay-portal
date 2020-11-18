@@ -18,6 +18,7 @@
 
 <%
 String carPartsFinderRootElementId = renderResponse.getNamespace() + "-car-parts-admin";
+
 CommerceBOMAdminDisplayContext commerceBOMAdminDisplayContext = (CommerceBOMAdminDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 CommerceBOMDefinition commerceBOMDefinition = commerceBOMAdminDisplayContext.getCommerceBOMDefinition();

@@ -18,6 +18,7 @@
 
 <%
 FileEntry fileEntry = (FileEntry)request.getAttribute("info_panel.jsp-fileEntry");
+
 FileVersion fileVersion = (FileVersion)request.getAttribute("info_panel.jsp-fileVersion");
 
 DLViewFileVersionDisplayContext dlViewFileVersionDisplayContext = dlDisplayContextProvider.getDLViewFileVersionDisplayContext(request, response, fileVersion);

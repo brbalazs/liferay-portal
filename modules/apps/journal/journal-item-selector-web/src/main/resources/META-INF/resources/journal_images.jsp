@@ -40,6 +40,7 @@ if (journalArticle != null) {
 	OrderByComparator<FileEntry> orderByComparator = DLUtil.getRepositoryModelOrderByComparator(orderByCol, orderByType);
 
 	portletFileEntries = journalArticle.getImagesFileEntries(start, end, orderByComparator);
+
 	portletFileEntriesCount = journalArticle.getImagesFileEntriesCount();
 }
 %>

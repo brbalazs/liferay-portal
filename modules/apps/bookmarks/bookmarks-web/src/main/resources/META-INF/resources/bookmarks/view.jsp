@@ -110,6 +110,7 @@ if (Validator.isNotNull(keywords)) {
 	total = hits.getLength();
 
 	bookmarksSearchContainer.setTotal(total);
+
 	bookmarksSearchContainer.setResults(BookmarksUtil.getEntries(hits));
 }
 else if (navigation.equals("mine") || navigation.equals("recent")) {
@@ -122,6 +123,7 @@ else if (navigation.equals("mine") || navigation.equals("recent")) {
 	total = BookmarksEntryServiceUtil.getGroupEntriesCount(scopeGroupId, groupEntriesUserId);
 
 	bookmarksSearchContainer.setTotal(total);
+
 	bookmarksSearchContainer.setResults(BookmarksEntryServiceUtil.getGroupEntries(scopeGroupId, groupEntriesUserId, bookmarksSearchContainer.getStart(), bookmarksSearchContainer.getEnd()));
 }
 else if (useAssetEntryQuery) {
@@ -139,12 +141,14 @@ else if (useAssetEntryQuery) {
 	total = AssetEntryServiceUtil.getEntriesCount(assetEntryQuery);
 
 	bookmarksSearchContainer.setTotal(total);
+
 	bookmarksSearchContainer.setResults(AssetEntryServiceUtil.getEntries(assetEntryQuery));
 }
 else {
 	total = BookmarksFolderServiceUtil.getFoldersAndEntriesCount(scopeGroupId, folderId);
 
 	bookmarksSearchContainer.setTotal(total);
+
 	bookmarksSearchContainer.setResults(BookmarksFolderServiceUtil.getFoldersAndEntries(scopeGroupId, folderId, WorkflowConstants.STATUS_APPROVED, bookmarksSearchContainer.getStart(), bookmarksSearchContainer.getEnd()));
 }
 

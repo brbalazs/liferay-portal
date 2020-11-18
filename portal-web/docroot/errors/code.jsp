@@ -46,6 +46,7 @@ page import="com.liferay.portal.kernel.util.WebKeys" %>
 ErrorData errorData = pageContext.getErrorData();
 
 int code = errorData.getStatusCode();
+
 String msg = String.valueOf(request.getAttribute(JavaConstants.JAVAX_SERVLET_ERROR_MESSAGE));
 String uri = errorData.getRequestURI();
 

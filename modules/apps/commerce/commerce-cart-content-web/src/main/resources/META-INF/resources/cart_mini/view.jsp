@@ -37,6 +37,7 @@ if (commerceOrderPrice != null) {
 	subtotal = commerceOrderPrice.getSubtotal();
 	subtotalDiscountValue = commerceOrderPrice.getSubtotalDiscountValue();
 	taxValue = commerceOrderPrice.getTaxValue();
+
 	totalDiscountValue = commerceOrderPrice.getTotalDiscountValue();
 	totalOrder = commerceOrderPrice.getTotal();
 

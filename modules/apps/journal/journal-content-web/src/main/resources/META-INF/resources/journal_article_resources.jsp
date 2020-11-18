@@ -18,6 +18,7 @@
 
 <%
 JournalArticle article = journalContentDisplayContext.getArticle();
+
 AssetRenderer<JournalArticle> assetRenderer = journalContentDisplayContext.getAssetRenderer();
 
 String title = HtmlUtil.escape(assetRenderer.getTitle(locale));

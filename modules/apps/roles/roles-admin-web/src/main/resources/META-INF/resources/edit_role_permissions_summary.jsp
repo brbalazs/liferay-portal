@@ -81,6 +81,7 @@
 			}
 			else {
 				curModelName = resource.getName();
+
 				curModelLabel = ResourceActionsUtil.getModelResource(request, curModelName);
 
 				List portletResources = ResourceActionsUtil.getModelPortletResources(curModelName);

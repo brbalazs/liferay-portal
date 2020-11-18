@@ -24,6 +24,7 @@ Organization organization = OrganizationServiceUtil.fetchOrganization(organizati
 String reminderQueries = ParamUtil.getString(request, "reminderQueries");
 
 String currentLanguageId = LanguageUtil.getLanguageId(request);
+
 Locale defaultLocale = LocaleUtil.getDefault();
 
 String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);

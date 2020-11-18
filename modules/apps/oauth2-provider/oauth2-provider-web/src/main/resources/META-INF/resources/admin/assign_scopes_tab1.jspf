@@ -50,6 +50,7 @@
 
 						for (Map.Entry<AssignableScopes, AssignScopesDisplayContext.Relations> scopeAliasAssignableScopesEntry : applicationAssignableScopesAssignModel.entrySet()) {
 							AssignableScopes assignableScopes = scopeAliasAssignableScopesEntry.getKey();
+
 							AssignScopesDisplayContext.Relations relations = scopeAliasAssignableScopesEntry.getValue();
 
 							Set<String> scopeAliases = relations.getScopeAliases();

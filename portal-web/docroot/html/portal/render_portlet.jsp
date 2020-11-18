@@ -30,6 +30,7 @@ String portletPrimaryKey = PortletPermissionUtil.getPrimaryKey(plid, portletId);
 String columnId = GetterUtil.getString(request.getAttribute(WebKeys.RENDER_PORTLET_COLUMN_ID));
 int columnPos = GetterUtil.getInteger(request.getAttribute(WebKeys.RENDER_PORTLET_COLUMN_POS));
 int columnCount = GetterUtil.getInteger(request.getAttribute(WebKeys.RENDER_PORTLET_COLUMN_COUNT));
+
 Boolean renderPortletResource = (Boolean)request.getAttribute(WebKeys.RENDER_PORTLET_RESOURCE);
 
 boolean runtimePortlet = (renderPortletResource != null) && renderPortletResource.booleanValue();

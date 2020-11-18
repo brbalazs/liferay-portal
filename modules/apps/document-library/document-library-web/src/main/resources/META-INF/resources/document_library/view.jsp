@@ -160,6 +160,7 @@ else {
 
 	<%
 	String[] entryColumns = dlPortletInstanceSettingsHelper.getEntryColumns();
+
 	String[] escapedEntryColumns = new String[entryColumns.length];
 
 	for (int i = 0; i < entryColumns.length; i++) {

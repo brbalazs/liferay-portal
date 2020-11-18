@@ -133,6 +133,7 @@ if (ratingsType == null) {
 			kbSuggestionListDisplayContext.populateResultsAndTotal(kbCommentsSearchContainer);
 
 			request.setAttribute("view_suggestions.jsp-resultRowSplitter", new KBCommentResultRowSplitter(kbSuggestionListDisplayContext, resourceBundle));
+
 			request.setAttribute("view_suggestions.jsp-searchContainer", kbCommentsSearchContainer);
 			%>
 

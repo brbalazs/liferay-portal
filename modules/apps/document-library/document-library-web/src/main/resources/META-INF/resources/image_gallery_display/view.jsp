@@ -246,6 +246,7 @@ String[] mediaGalleryMimeTypes = dlPortletInstanceSettings.getMimeTypes();
 			igSearchContainer.setResults(results);
 
 			request.setAttribute("view.jsp-igSearchContainer", igSearchContainer);
+
 			request.setAttribute("view.jsp-mediaGalleryMimeTypes", mediaGalleryMimeTypes);
 			%>
 

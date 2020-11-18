@@ -88,6 +88,7 @@ PortletURL portletURL = viewRolesManagementToolbarDisplayContext.getPortletURL()
 				PortletURL searchContainerPortletURL = roleSearchContainer.getIteratorURL();
 
 				rowURL.setParameter("redirect", searchContainerPortletURL.toString());
+
 				rowURL.setParameter("roleId", String.valueOf(role.getRoleId()));
 			}
 			%>

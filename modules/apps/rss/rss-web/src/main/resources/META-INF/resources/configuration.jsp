@@ -125,6 +125,7 @@
 
 					if (urls.length == 0) {
 						urls = new String[1];
+
 						urls[0] = StringPool.BLANK;
 					}
 
