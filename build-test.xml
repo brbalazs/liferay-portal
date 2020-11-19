@@ -1492,9 +1492,14 @@ war.path=${app.server.portal.dir}/</echo>
 			<get-patch-requirements patch.file.zip.url="@{patch.file.zip.url}" />
 
 			<if>
-				<not>
-					<equals arg1="${patch.requirements}" arg2="" />
-				</not>
+				<and>
+					<not>
+						<equals arg1="${patch.requirements}" arg2="" />
+					</not>
+					<not>
+						<contains string="${patch.requirements}" substring="base-" />
+					</not>
+				</and>
 				<then>
 					<local name="patch.build.version" />
 					<local name="patch.portal.version" />
