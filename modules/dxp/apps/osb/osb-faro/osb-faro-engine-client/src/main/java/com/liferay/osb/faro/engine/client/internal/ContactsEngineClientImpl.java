@@ -82,12 +82,12 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.io.OutputStream;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -2784,26 +2784,18 @@ public class ContactsEngineClientImpl
 			return null;
 		}
 
-		Calendar calendar = Calendar.getInstance();
+		LocalDateTime localDateTime = LocalDateTime.ofInstant(
+			date.toInstant(), ZoneOffset.UTC);
 
-		calendar.setTime(date);
+		LocalTime localTime = LocalTime.MIN;
 
 		if (end) {
-			calendar.set(Calendar.HOUR, 23);
-			calendar.set(Calendar.MINUTE, 59);
-			calendar.set(Calendar.SECOND, 59);
-			calendar.set(Calendar.MILLISECOND, 999);
-		}
-		else {
-			calendar.set(Calendar.HOUR, 0);
-			calendar.set(Calendar.MINUTE, 0);
-			calendar.set(Calendar.SECOND, 0);
-			calendar.set(Calendar.MILLISECOND, 0);
+			localTime = LocalTime.MAX;
 		}
 
-		// ASAH-370
+		localDateTime = localDateTime.with(localTime);
 
-		return _dateFormat.format(calendar.getTime());
+		return String.valueOf(localDateTime.toInstant(ZoneOffset.UTC));
 	}
 
 	protected String getGroupBy(FieldMapping fieldMapping) {
@@ -2852,9 +2844,6 @@ public class ContactsEngineClientImpl
 	private static final String _FARO_URL = System.getenv("FARO_URL");
 
 	private static final int _PAYLOAD_MAX_BYTE_SIZE = 200000;
-
-	private static final DateFormat _dateFormat = new SimpleDateFormat(
-		"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
 	@Reference
 	private CompanyLocalService _companyLocalService;
