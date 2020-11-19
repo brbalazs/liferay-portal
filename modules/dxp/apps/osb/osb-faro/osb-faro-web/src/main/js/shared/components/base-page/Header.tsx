@@ -6,6 +6,7 @@ import Nav from 'shared/components/Nav';
 import React from 'react';
 import Row from './Row';
 import TextTruncate from 'shared/components/TextTruncate';
+import TimeZoneAlert from 'shared/components/TimeZoneAlert';
 import {getMatchedRoute, setUriQueryValues, toRoute} from 'shared/util/router';
 import {noop, pickBy} from 'lodash';
 
@@ -154,6 +155,8 @@ const Header: React.FC<IHeaderProps> & {
 
 			{children}
 		</div>
+
+		<TimeZoneAlert stripe />
 	</header>
 );
 

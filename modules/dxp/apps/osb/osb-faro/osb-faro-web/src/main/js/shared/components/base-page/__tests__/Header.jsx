@@ -1,30 +1,42 @@
 import Header from '../Header';
+import mockStore from 'test/mock-store';
 import React from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import {cleanup, render} from '@testing-library/react';
+import {Provider} from 'react-redux';
 import {Routes} from 'shared/util/router';
-
+import {StaticRouter} from 'react-router';
 jest.unmock('react-dom');
 
 describe('BasePage.Header', () => {
 	afterEach(cleanup);
 
 	it('renders Header', () => {
-		const {container} = render(<Header>{'Test Test'}</Header>);
+		const {container} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<Header>{'Test Test'}</Header>
+				</StaticRouter>
+			</Provider>
+		);
 
 		expect(container).toMatchSnapshot();
 	});
 
 	it('renders Header w/ Breadcrumbs', () => {
 		const {container} = render(
-			<Header
-				breadcrumbs={[
-					{active: false, label: 'Foo'},
-					{active: true, label: 'Bar'}
-				]}
-			>
-				{'Test Test'}
-			</Header>
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<Header
+						breadcrumbs={[
+							{active: false, label: 'Foo'},
+							{active: true, label: 'Bar'}
+						]}
+					>
+						{'Test Test'}
+					</Header>
+				</StaticRouter>
+			</Provider>
 		);
 
 		expect(container).toMatchSnapshot();
