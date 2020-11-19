@@ -2,6 +2,10 @@ $c: '.audience-report-chart';
 $donut: '#{$c}-donut';
 
 #{$c} {
+	.gap {
+		gap: 8px;
+	}
+
 	.title a {
 		color: $secondary;
 	}
