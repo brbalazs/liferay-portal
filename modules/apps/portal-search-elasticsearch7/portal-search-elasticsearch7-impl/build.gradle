@@ -82,7 +82,7 @@ dependencies {
 	compileInclude group: "org.yaml", name: "snakeyaml", version: "1.26"
 
 	compileOnly group: "com.fasterxml.jackson.core", name: "jackson-core", version: "2.10.3"
-	compileOnly group: "com.ibm.icu", name: "icu4j", version: "61.1"
+	compileOnly group: "com.ibm.icu", name: "icu4j", version: "62.1"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "default"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
 	compileOnly group: "commons-collections", name: "commons-collections", version: "3.2.2"
