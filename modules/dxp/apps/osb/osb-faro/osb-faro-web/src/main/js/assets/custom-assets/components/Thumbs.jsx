@@ -103,7 +103,9 @@ class Thumbs extends React.Component {
 								onKeyPress={this.handleKeyPress}
 							>
 								<svg className={svg} viewBox={viewBox}>
-									<use xlinkHref={`#${id}`} />
+									<use
+										xlinkHref={`/o/osb-faro-web/dist/sprite.svg#${id}`}
+									/>
 								</svg>
 							</button>
 						</li>

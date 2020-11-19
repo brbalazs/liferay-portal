@@ -19,7 +19,9 @@ const ReadyToGo: React.FC<IReadyToGoProps> = ({onClose}) => {
 		>
 			<Modal.Body className='d-flex flex-column align-items-center'>
 				<svg className='ac-ready-to-use' viewBox={svg.viewBox}>
-					<use xlinkHref={`#${svg.id}`} />
+					<use
+						xlinkHref={`/o/osb-faro-web/dist/sprite.svg#${svg.id}`}
+					/>
 				</svg>
 
 				<span className='description'>

@@ -82,7 +82,9 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 		>
 			<Modal.Body className='d-flex flex-column align-items-center flex-grow-1 justify-content-center'>
 				<svg className='ac-invite' viewBox={svg.viewBox}>
-					<use xlinkHref={`#${svg.id}`} />
+					<use
+						xlinkHref={`/o/osb-faro-web/dist/sprite.svg#${svg.id}`}
+					/>
 				</svg>
 
 				{sent ? (
@@ -168,7 +170,4 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 	);
 };
 
-export default connect(
-	null,
-	{addAlert}
-)(InvitePeople);
+export default connect(null, {addAlert})(InvitePeople);

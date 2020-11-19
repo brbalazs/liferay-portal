@@ -15,7 +15,9 @@ const Welcome: React.FC<IWelcomeProps> = ({onNext}) => {
 		<div className='welcome'>
 			<Modal.Body className='d-flex flex-column align-items-center'>
 				<svg className='ac-property-buildings' viewBox={svg.viewBox}>
-					<use xlinkHref={`#${svg.id}`} />
+					<use
+						xlinkHref={`/o/osb-faro-web/dist/sprite.svg#${svg.id}`}
+					/>
 				</svg>
 
 				<h2>{Liferay.Language.get('introducing-properties')}</h2>
