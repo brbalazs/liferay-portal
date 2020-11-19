@@ -5,6 +5,7 @@ import LocationsCard from '../hocs/LocationsCard';
 import MetricsCard from '../hocs/MetricsCard';
 import React from 'react';
 import TouchpointsListCard from '../../shared/hocs/TouchpointsListCard';
+import {AUDIENCE_VIEWER_MODE} from 'shared/util/constants';
 
 /**
  * Forms Dashboard Page
@@ -25,8 +26,13 @@ export default function FormsDashboardPage() {
 			<div className='row'>
 				<div className='col-sm-12'>
 					<AudienceReportCard
+						knownIndividualsTitle={Liferay.Language.get(
+							'segmented-views'
+						)}
 						label={Liferay.Language.get('audience')}
 						legacyDropdownRangeKey={false}
+						uniqueVisitorsTitle={Liferay.Language.get('views')}
+						viewerMode={AUDIENCE_VIEWER_MODE.VIEW}
 					/>
 				</div>
 			</div>
