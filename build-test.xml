@@ -816,7 +816,35 @@ jdbc.counter.connectionProperties=oracle.jdbc.ReadTimeout=0;oracle.net.CONNECT_T
 				src="${tstamp.value}.zip"
 			/>
 
-			<xmlproperty file="${tstamp.value}-dir/fixpack_documentation.xml" />
+			<if>
+				<available file="${tstamp.value}-dir/fixpack_documentation.xml" />
+				<then>
+					<xmlproperty file="${tstamp.value}-dir/fixpack_documentation.xml" />
+				</then>
+				<elseif>
+					<available file="${tstamp.value}-dir/fixpack_documentation.json" />
+					<then>
+						<local name="json.content" />
+
+						<loadfile
+							property="json.content"
+							srcFile="${tstamp.value}-dir/fixpack_documentation.json"
+						/>
+
+						<script language="javascript">
+							var json = project.getProperty("json.content");
+
+							var fixpackDocumentation = JSON.parse(json);
+
+							var patchRequirements = fixpackDocumentation["patch"]["requirements"];
+
+							if (patchRequirements != null) {
+								project.setProperty("patch.requirements", patchRequirements);
+							}
+						</script>
+					</then>
+				</elseif>
+			</if>
 
 			<antelope:stringutil property="patch.requirements" string="${patch.requirements}">
 				<antelope:replace regex="!" replacement="" />
