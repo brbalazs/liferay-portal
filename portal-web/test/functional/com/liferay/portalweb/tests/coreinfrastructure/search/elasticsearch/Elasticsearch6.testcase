@@ -120,6 +120,23 @@ definition {
 			locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE_SPECIFIC");
 	}
 
+	test AssertSearchAdmin {
+		property test.name.skip.portal.instance = "Elasticsearch6#AssertSearchAdmin";
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		var clientVersion = Elasticsearch.getClientVersion();
+		var serverVersion = Elasticsearch.getServerVersion();
+
+		SearchAdministration.assertEngineVendorAndVersions(
+			clientVersion = "${clientVersion}",
+			engineVendor = "Elasticsearch",
+			serverVersion = "${serverVersion}");
+	}
+
 	@ignore = "true"
 	@priority = "3"
 	test AssertSystemSettingsPropogateToModule {
