@@ -208,8 +208,8 @@ public interface ElasticsearchConfiguration {
 	 */
 	@Deprecated
 	@Meta.AD(
-		deflt = "true", description = "sync-search-help", name = "sync-search",
-		required = false
+		deflt = "true", description = "sync-search-deprecated-help",
+		name = "sync-search", required = false
 	)
 	public boolean syncSearch();
 
