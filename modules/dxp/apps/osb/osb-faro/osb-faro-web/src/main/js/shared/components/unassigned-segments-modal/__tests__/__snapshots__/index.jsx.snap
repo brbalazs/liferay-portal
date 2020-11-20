@@ -21,7 +21,7 @@ exports[`UnassignedSegmentsModal renders 1`] = `
             viewBox=""
           >
             <use
-              xlink:href="#ac-property-buildings"
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-property-buildings"
             />
           </svg>
           <h2>

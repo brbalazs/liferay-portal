@@ -39,7 +39,7 @@ exports[`InvitePeople renders 1`] = `
         viewBox=""
       >
         <use
-          xlink:href="#ac-invite"
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-invite"
         />
       </svg>
       <div

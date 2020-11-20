@@ -39,7 +39,7 @@ exports[`ReadyToGo renders 1`] = `
         viewBox=""
       >
         <use
-          xlink:href="#ac-ready-to-use"
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-ready-to-use"
         />
       </svg>
       <span

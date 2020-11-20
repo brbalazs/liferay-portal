@@ -39,7 +39,7 @@ exports[`Welcome renders 1`] = `
         viewBox=""
       >
         <use
-          xlink:href="#analytics-onboarding-welcome"
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#analytics-onboarding-welcome"
         />
       </svg>
       <span

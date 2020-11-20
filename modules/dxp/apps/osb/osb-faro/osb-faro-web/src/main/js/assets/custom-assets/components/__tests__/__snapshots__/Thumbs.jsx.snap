@@ -17,7 +17,7 @@ exports[`AddReport should render 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#cerebro-thumb-line-chart"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#cerebro-thumb-line-chart"
           />
         </svg>
       </button>
@@ -34,7 +34,7 @@ exports[`AddReport should render 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#cerebro-thumb-line-chart"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#cerebro-thumb-line-chart"
           />
         </svg>
       </button>
@@ -51,7 +51,7 @@ exports[`AddReport should render 1`] = `
           viewBox=""
         >
           <use
-            xlink:href="#cerebro-thumb-line-chart"
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#cerebro-thumb-line-chart"
           />
         </svg>
       </button>
