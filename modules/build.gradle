@@ -1,3 +1,4 @@
+import com.liferay.gradle.plugins.defaults.internal.LiferayThemeDefaultsGulpPlugin
 import com.liferay.gradle.plugins.internal.JSModuleConfigGeneratorDefaultsPlugin
 import com.liferay.gradle.plugins.js.module.config.generator.JSModuleConfigGeneratorPlugin
 import com.liferay.gradle.plugins.js.transpiler.JSTranspilerBasePlugin
@@ -481,6 +482,10 @@ gradle.beforeProject {
 			replaceSoyTranslation {
 				enabled = false
 			}
+		}
+
+		pluginManager.withPlugin("com.liferay.theme.defaults.plugin") {
+			LiferayThemeDefaultsGulpPlugin.INSTANCE.apply(project);
 		}
 
 		pluginManager.withPlugin("eclipse") {
