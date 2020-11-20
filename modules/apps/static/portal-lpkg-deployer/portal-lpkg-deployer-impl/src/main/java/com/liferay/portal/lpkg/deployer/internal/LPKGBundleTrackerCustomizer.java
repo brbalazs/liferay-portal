@@ -61,6 +61,8 @@ import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -450,13 +452,19 @@ public class LPKGBundleTrackerCustomizer
 	}
 
 	private String _extractFileName(String string) {
-		int endIndex = string.indexOf(CharPool.DASH);
+		Matcher matcher = _pattern.matcher(string);
 
-		int beginIndex = string.lastIndexOf(CharPool.SLASH, endIndex) + 1;
+		if (matcher.matches()) {
+			String name = matcher.group(1);
 
-		String name = string.substring(beginIndex, endIndex);
+			return name.concat(string.substring(string.length() - 4));
+		}
 
-		return name.concat(string.substring(string.length() - 4));
+		if (_log.isWarnEnabled()) {
+			_log.warn("Unable to extract symbolic name from " + string);
+		}
+
+		return StringPool.BLANK;
 	}
 
 	private boolean _isBundleInstalled(Bundle bundle, URL url, String location)
@@ -774,6 +782,9 @@ public class LPKGBundleTrackerCustomizer
 	private static final Log _log = LogFactoryUtil.getLog(
 		LPKGBundleTrackerCustomizer.class);
 
+	private static final Pattern _pattern = Pattern.compile(
+		"([a-zA-Z0-9_\\-\\.]+?)-\\d+[\\.\\d+]?[\\.\\d+]?(\\.[a-zA-Z0-9_-]+)*" +
+			"\\..+");
 	private static final List<String> _staticLPKGBundleSymbolicNames =
 		StaticLPKGResolver.getStaticLPKGBundleSymbolicNames();
 
