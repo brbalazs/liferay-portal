@@ -55,6 +55,7 @@ AUI.add(
 
 						portletURL.setParameter('criteria', 'com.liferay.item.selector.criteria.file.criterion.FileItemSelectorCriterion');
 						portletURL.setParameter('doAsGroupId', instance.get('groupId'));
+						portletURL.setParameter('folderId',instance.get('folderId'));
 						portletURL.setParameter('itemSelectedEventName', portletNamespace + 'selectDocumentLibrary');
 						portletURL.setParameter('p_p_auth', instance.get('itemSelectorAuthToken'));
 						portletURL.setParameter('refererGroupId', instance.get('groupId'));
