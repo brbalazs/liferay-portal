@@ -1,0 +1,973 @@
+> Task :buildSrc:compileJava UP-TO-DATE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:processResources UP-TO-DATE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:assemble UP-TO-DATE
+> Task :buildSrc:compileTestJava NO-SOURCE
+> Task :buildSrc:compileTestGroovy NO-SOURCE
+> Task :buildSrc:processTestResources NO-SOURCE
+> Task :buildSrc:testClasses UP-TO-DATE
+> Task :buildSrc:test NO-SOURCE
+> Task :buildSrc:check UP-TO-DATE
+> Task :buildSrc:build UP-TO-DATE
+Configuration on demand is an incubating feature.
+> Task :core:petra:petra-reflect:compileJava UP-TO-DATE
+> Task :core:petra:petra-reflect:copyCSS NO-SOURCE
+> Task :core:petra:petra-reflect:buildCSS NO-SOURCE
+> Task :core:petra:petra-reflect:processResources UP-TO-DATE
+> Task :core:petra:petra-reflect:transpileJS SKIPPED
+> Task :core:petra:petra-reflect:configJSModules SKIPPED
+> Task :core:petra:petra-reflect:copyLibs SKIPPED
+> Task :core:petra:petra-reflect:replaceSoyTranslation SKIPPED
+> Task :core:petra:petra-reflect:wrapSoyAlloyTemplate SKIPPED
+> Task :core:petra:petra-reflect:classes UP-TO-DATE
+> Task :core:petra:petra-reflect:zipZippableResources UP-TO-DATE
+> Task :core:petra:petra-reflect:jar UP-TO-DATE
+> Task :core:petra:petra-reflect:autoUpdateXml SKIPPED
+> Task :core:petra:petra-lang:compileJava UP-TO-DATE
+> Task :core:petra:petra-lang:copyCSS NO-SOURCE
+> Task :core:petra:petra-lang:buildCSS NO-SOURCE
+> Task :core:petra:petra-lang:processResources UP-TO-DATE
+> Task :core:petra:petra-lang:transpileJS SKIPPED
+> Task :core:petra:petra-lang:configJSModules SKIPPED
+> Task :core:petra:petra-lang:copyLibs SKIPPED
+> Task :core:petra:petra-lang:replaceSoyTranslation SKIPPED
+> Task :core:petra:petra-lang:wrapSoyAlloyTemplate SKIPPED
+> Task :core:petra:petra-lang:classes UP-TO-DATE
+> Task :core:petra:petra-lang:zipZippableResources UP-TO-DATE
+> Task :core:petra:petra-lang:jar UP-TO-DATE
+> Task :core:petra:petra-lang:autoUpdateXml SKIPPED
+> Task :core:petra:petra-string:compileJava UP-TO-DATE
+> Task :core:petra:petra-string:copyCSS NO-SOURCE
+> Task :core:petra:petra-string:buildCSS NO-SOURCE
+> Task :core:petra:petra-string:processResources UP-TO-DATE
+> Task :core:petra:petra-string:transpileJS SKIPPED
+> Task :core:petra:petra-string:configJSModules SKIPPED
+> Task :core:petra:petra-string:copyLibs SKIPPED
+> Task :core:petra:petra-string:replaceSoyTranslation SKIPPED
+> Task :core:petra:petra-string:wrapSoyAlloyTemplate SKIPPED
+> Task :core:petra:petra-string:classes UP-TO-DATE
+> Task :core:petra:petra-string:zipZippableResources UP-TO-DATE
+> Task :core:petra:petra-string:jar UP-TO-DATE
+> Task :apps:static:portal-configuration:portal-configuration-metatype-api:compileJava UP-TO-DATE
+> Task :apps:static:portal-configuration:portal-configuration-metatype-api:copyCSS NO-SOURCE
+> Task :apps:static:portal-configuration:portal-configuration-metatype-api:buildCSS NO-SOURCE
+> Task :apps:static:portal-configuration:portal-configuration-metatype-api:processResources UP-TO-DATE
+> Task :apps:static:portal-configuration:portal-configuration-metatype-api:transpileJS SKIPPED
+> Task :apps:static:portal-configuration:portal-configuration-metatype-api:configJSModules SKIPPED
+> Task :apps:static:portal-configuration:portal-configuration-metatype-api:copyLibs SKIPPED
+> Task :apps:static:portal-configuration:portal-configuration-metatype-api:replaceSoyTranslation SKIPPED
+> Task :apps:static:portal-configuration:portal-configuration-metatype-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:static:portal-configuration:portal-configuration-metatype-api:classes UP-TO-DATE
+> Task :apps:static:portal-configuration:portal-configuration-metatype-api:zipZippableResources UP-TO-DATE
+> Task :apps:static:portal-configuration:portal-configuration-metatype-api:jar UP-TO-DATE
+> Task :apps:blogs:blogs-api:compileJava UP-TO-DATE
+> Task :apps:blogs:blogs-api:copyCSS NO-SOURCE
+> Task :apps:blogs:blogs-api:buildCSS NO-SOURCE
+> Task :apps:blogs:blogs-api:processResources UP-TO-DATE
+> Task :apps:blogs:blogs-api:transpileJS SKIPPED
+> Task :apps:blogs:blogs-api:configJSModules SKIPPED
+> Task :apps:blogs:blogs-api:copyLibs SKIPPED
+> Task :apps:blogs:blogs-api:replaceSoyTranslation SKIPPED
+> Task :apps:blogs:blogs-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:blogs:blogs-api:classes UP-TO-DATE
+> Task :apps:blogs:blogs-api:zipZippableResources UP-TO-DATE
+> Task :apps:static:portal-configuration:portal-configuration-metatype-api:autoUpdateXml SKIPPED
+> Task :apps:blogs:blogs-api:jar UP-TO-DATE
+> Task :apps:blogs:blogs-api:autoUpdateXml SKIPPED
+> Task :core:osgi-felix-util:compileJava UP-TO-DATE
+> Task :core:osgi-felix-util:copyCSS NO-SOURCE
+> Task :core:osgi-felix-util:buildCSS NO-SOURCE
+> Task :core:osgi-felix-util:processResources UP-TO-DATE
+> Task :core:osgi-felix-util:transpileJS SKIPPED
+> Task :core:osgi-felix-util:configJSModules SKIPPED
+> Task :core:osgi-felix-util:copyLibs SKIPPED
+> Task :core:osgi-felix-util:replaceSoyTranslation SKIPPED
+> Task :core:osgi-felix-util:wrapSoyAlloyTemplate SKIPPED
+> Task :core:osgi-felix-util:classes UP-TO-DATE
+> Task :core:osgi-felix-util:zipZippableResources UP-TO-DATE
+> Task :core:osgi-felix-util:jar UP-TO-DATE
+> Task :core:osgi-felix-util:autoUpdateXml SKIPPED
+> Task :core:osgi-service-tracker-collections:compileJava UP-TO-DATE
+> Task :core:osgi-service-tracker-collections:copyCSS NO-SOURCE
+> Task :core:osgi-service-tracker-collections:buildCSS NO-SOURCE
+> Task :core:osgi-service-tracker-collections:processResources UP-TO-DATE
+> Task :core:osgi-service-tracker-collections:transpileJS SKIPPED
+> Task :core:osgi-service-tracker-collections:configJSModules SKIPPED
+> Task :core:osgi-service-tracker-collections:copyLibs SKIPPED
+> Task :core:osgi-service-tracker-collections:replaceSoyTranslation SKIPPED
+> Task :core:osgi-service-tracker-collections:wrapSoyAlloyTemplate SKIPPED
+> Task :core:osgi-service-tracker-collections:classes UP-TO-DATE
+> Task :core:osgi-service-tracker-collections:zipZippableResources UP-TO-DATE
+> Task :core:osgi-service-tracker-collections:jar UP-TO-DATE
+> Task :core:osgi-service-tracker-collections:autoUpdateXml SKIPPED
+> Task :core:petra:petra-memory:compileJava UP-TO-DATE
+> Task :core:petra:petra-memory:copyCSS NO-SOURCE
+> Task :core:petra:petra-memory:buildCSS NO-SOURCE
+> Task :core:petra:petra-memory:processResources UP-TO-DATE
+> Task :core:petra:petra-memory:transpileJS SKIPPED
+> Task :core:petra:petra-memory:configJSModules SKIPPED
+> Task :core:petra:petra-memory:copyLibs SKIPPED
+> Task :core:petra:petra-memory:replaceSoyTranslation SKIPPED
+> Task :core:petra:petra-memory:wrapSoyAlloyTemplate SKIPPED
+> Task :core:petra:petra-memory:classes UP-TO-DATE
+> Task :core:petra:petra-memory:zipZippableResources UP-TO-DATE
+> Task :core:petra:petra-memory:jar UP-TO-DATE
+> Task :core:petra:petra-concurrent:compileJava UP-TO-DATE
+> Task :core:petra:petra-concurrent:copyCSS NO-SOURCE
+> Task :core:petra:petra-concurrent:buildCSS NO-SOURCE
+> Task :core:petra:petra-concurrent:processResources UP-TO-DATE
+> Task :core:petra:petra-concurrent:transpileJS SKIPPED
+> Task :core:petra:petra-concurrent:configJSModules SKIPPED
+> Task :core:petra:petra-concurrent:copyLibs SKIPPED
+> Task :core:petra:petra-concurrent:replaceSoyTranslation SKIPPED
+> Task :core:petra:petra-concurrent:wrapSoyAlloyTemplate SKIPPED
+> Task :core:petra:petra-concurrent:classes UP-TO-DATE
+> Task :core:petra:petra-concurrent:zipZippableResources UP-TO-DATE
+> Task :core:petra:petra-memory:autoUpdateXml SKIPPED
+> Task :core:petra:petra-concurrent:jar UP-TO-DATE
+> Task :core:petra:petra-concurrent:autoUpdateXml SKIPPED
+> Task :core:petra:petra-function:compileJava UP-TO-DATE
+> Task :core:petra:petra-function:copyCSS NO-SOURCE
+> Task :core:petra:petra-function:buildCSS NO-SOURCE
+> Task :core:petra:petra-function:processResources UP-TO-DATE
+> Task :core:petra:petra-function:transpileJS SKIPPED
+> Task :core:petra:petra-function:configJSModules SKIPPED
+> Task :core:petra:petra-function:copyLibs SKIPPED
+> Task :core:petra:petra-function:replaceSoyTranslation SKIPPED
+> Task :core:petra:petra-function:wrapSoyAlloyTemplate SKIPPED
+> Task :core:petra:petra-function:classes UP-TO-DATE
+> Task :core:petra:petra-function:zipZippableResources UP-TO-DATE
+> Task :core:petra:petra-function:jar UP-TO-DATE
+> Task :apps:static:portal-lpkg-deployer:portal-lpkg-deployer-api:compileJava UP-TO-DATE
+> Task :apps:static:portal-lpkg-deployer:portal-lpkg-deployer-api:copyCSS NO-SOURCE
+> Task :apps:static:portal-lpkg-deployer:portal-lpkg-deployer-api:buildCSS NO-SOURCE
+> Task :apps:static:portal-lpkg-deployer:portal-lpkg-deployer-api:processResources UP-TO-DATE
+> Task :apps:static:portal-lpkg-deployer:portal-lpkg-deployer-api:transpileJS SKIPPED
+> Task :apps:static:portal-lpkg-deployer:portal-lpkg-deployer-api:configJSModules SKIPPED
+> Task :apps:static:portal-lpkg-deployer:portal-lpkg-deployer-api:copyLibs SKIPPED
+> Task :apps:static:portal-lpkg-deployer:portal-lpkg-deployer-api:replaceSoyTranslation SKIPPED
+> Task :apps:static:portal-lpkg-deployer:portal-lpkg-deployer-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:static:portal-lpkg-deployer:portal-lpkg-deployer-api:classes UP-TO-DATE
+> Task :apps:static:portal-lpkg-deployer:portal-lpkg-deployer-api:zipZippableResources UP-TO-DATE
+> Task :apps:static:portal-lpkg-deployer:portal-lpkg-deployer-api:jar UP-TO-DATE
+> Task :apps:static:portal-osgi-web:portal-osgi-web-wab-generator-api:compileJava UP-TO-DATE
+> Task :apps:static:portal-osgi-web:portal-osgi-web-wab-generator-api:copyCSS NO-SOURCE
+> Task :apps:static:portal-osgi-web:portal-osgi-web-wab-generator-api:buildCSS NO-SOURCE
+> Task :apps:static:portal-osgi-web:portal-osgi-web-wab-generator-api:processResources UP-TO-DATE
+> Task :apps:static:portal-osgi-web:portal-osgi-web-wab-generator-api:transpileJS SKIPPED
+> Task :apps:static:portal-osgi-web:portal-osgi-web-wab-generator-api:configJSModules SKIPPED
+> Task :apps:static:portal-osgi-web:portal-osgi-web-wab-generator-api:copyLibs SKIPPED
+> Task :apps:static:portal-osgi-web:portal-osgi-web-wab-generator-api:replaceSoyTranslation SKIPPED
+> Task :apps:static:portal-osgi-web:portal-osgi-web-wab-generator-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:static:portal-osgi-web:portal-osgi-web-wab-generator-api:classes UP-TO-DATE
+> Task :apps:static:portal-osgi-web:portal-osgi-web-wab-generator-api:zipZippableResources UP-TO-DATE
+> Task :apps:static:portal-osgi-web:portal-osgi-web-wab-generator-api:jar UP-TO-DATE
+> Task :apps:static:osgi:osgi-util:compileJava UP-TO-DATE
+> Task :apps:static:osgi:osgi-util:copyCSS NO-SOURCE
+> Task :apps:static:osgi:osgi-util:buildCSS NO-SOURCE
+> Task :apps:static:osgi:osgi-util:processResources UP-TO-DATE
+> Task :apps:static:osgi:osgi-util:transpileJS SKIPPED
+> Task :apps:static:osgi:osgi-util:configJSModules SKIPPED
+> Task :apps:static:osgi:osgi-util:copyLibs SKIPPED
+> Task :apps:static:osgi:osgi-util:replaceSoyTranslation SKIPPED
+> Task :apps:static:osgi:osgi-util:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:static:osgi:osgi-util:classes UP-TO-DATE
+> Task :apps:static:osgi:osgi-util:zipZippableResources UP-TO-DATE
+> Task :apps:static:portal-lpkg-deployer:portal-lpkg-deployer-api:autoUpdateXml SKIPPED
+> Task :apps:static:portal-osgi-web:portal-osgi-web-wab-generator-api:autoUpdateXml SKIPPED
+> Task :apps:static:osgi:osgi-util:jar UP-TO-DATE
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-api:compileJava UP-TO-DATE
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-api:copyCSS NO-SOURCE
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-api:buildCSS NO-SOURCE
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-api:processResources UP-TO-DATE
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-api:transpileJS SKIPPED
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-api:configJSModules SKIPPED
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-api:copyLibs SKIPPED
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-api:replaceSoyTranslation SKIPPED
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-api:classes UP-TO-DATE
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-api:zipZippableResources UP-TO-DATE
+> Task :apps:static:osgi:osgi-util:autoUpdateXml SKIPPED
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-api:jar UP-TO-DATE
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-api:autoUpdateXml SKIPPED
+> Task :core:registry-api:compileJava UP-TO-DATE
+> Task :core:registry-api:copyCSS NO-SOURCE
+> Task :core:registry-api:buildCSS NO-SOURCE
+> Task :core:registry-api:processResources UP-TO-DATE
+> Task :core:registry-api:transpileJS SKIPPED
+> Task :core:registry-api:configJSModules SKIPPED
+> Task :core:registry-api:copyLibs SKIPPED
+> Task :core:registry-api:replaceSoyTranslation SKIPPED
+> Task :core:registry-api:wrapSoyAlloyTemplate SKIPPED
+> Task :core:registry-api:classes UP-TO-DATE
+> Task :core:registry-api:zipZippableResources UP-TO-DATE
+> Task :core:registry-api:jar UP-TO-DATE
+> Task :core:registry-api:autoUpdateXml SKIPPED
+> Task :apps:asset:asset-api:compileJava UP-TO-DATE
+> Task :apps:asset:asset-api:copyCSS NO-SOURCE
+> Task :apps:asset:asset-api:buildCSS NO-SOURCE
+> Task :apps:asset:asset-api:processResources UP-TO-DATE
+> Task :apps:asset:asset-api:transpileJS SKIPPED
+> Task :apps:asset:asset-api:configJSModules SKIPPED
+> Task :apps:asset:asset-api:copyLibs SKIPPED
+> Task :apps:asset:asset-api:replaceSoyTranslation SKIPPED
+> Task :apps:asset:asset-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:asset:asset-api:classes UP-TO-DATE
+> Task :apps:asset:asset-api:zipZippableResources UP-TO-DATE
+> Task :apps:asset:asset-api:jar UP-TO-DATE
+> Task :apps:asset:asset-api:autoUpdateXml SKIPPED
+> Task :apps:asset:asset-test-util:compileJava UP-TO-DATE
+> Task :apps:asset:asset-test-util:copyCSS NO-SOURCE
+> Task :apps:asset:asset-test-util:buildCSS NO-SOURCE
+> Task :apps:asset:asset-test-util:processResources UP-TO-DATE
+> Task :apps:asset:asset-test-util:transpileJS SKIPPED
+> Task :apps:asset:asset-test-util:configJSModules SKIPPED
+> Task :apps:asset:asset-test-util:copyLibs SKIPPED
+> Task :apps:asset:asset-test-util:replaceSoyTranslation SKIPPED
+> Task :apps:asset:asset-test-util:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:asset:asset-test-util:classes UP-TO-DATE
+> Task :apps:asset:asset-test-util:zipZippableResources UP-TO-DATE
+> Task :apps:asset:asset-test-util:jar UP-TO-DATE
+> Task :apps:asset:asset-test-util:autoUpdateXml SKIPPED
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-test-util:compileJava UP-TO-DATE
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-test-util:copyCSS NO-SOURCE
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-test-util:buildCSS NO-SOURCE
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-test-util:processResources UP-TO-DATE
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-test-util:transpileJS SKIPPED
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-test-util:configJSModules SKIPPED
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-test-util:copyLibs SKIPPED
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-test-util:replaceSoyTranslation SKIPPED
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-test-util:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-test-util:classes UP-TO-DATE
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-test-util:zipZippableResources UP-TO-DATE
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-test-util:jar UP-TO-DATE
+> Task :apps:dynamic-data-mapping:dynamic-data-mapping-test-util:autoUpdateXml SKIPPED
+> Task :apps:subscription:subscription-api:compileJava UP-TO-DATE
+> Task :apps:subscription:subscription-api:copyCSS NO-SOURCE
+> Task :apps:subscription:subscription-api:buildCSS NO-SOURCE
+> Task :apps:subscription:subscription-api:processResources UP-TO-DATE
+> Task :apps:subscription:subscription-api:transpileJS SKIPPED
+> Task :apps:subscription:subscription-api:configJSModules SKIPPED
+> Task :apps:subscription:subscription-api:copyLibs SKIPPED
+> Task :apps:subscription:subscription-api:replaceSoyTranslation SKIPPED
+> Task :apps:subscription:subscription-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:subscription:subscription-api:classes UP-TO-DATE
+> Task :apps:subscription:subscription-api:zipZippableResources UP-TO-DATE
+> Task :apps:subscription:subscription-api:jar UP-TO-DATE
+> Task :apps:static:portal-configuration:portal-configuration-persistence-api:compileJava UP-TO-DATE
+> Task :apps:static:portal-configuration:portal-configuration-persistence-api:copyCSS NO-SOURCE
+> Task :apps:static:portal-configuration:portal-configuration-persistence-api:buildCSS NO-SOURCE
+> Task :apps:static:portal-configuration:portal-configuration-persistence-api:processResources UP-TO-DATE
+> Task :apps:static:portal-configuration:portal-configuration-persistence-api:transpileJS SKIPPED
+> Task :apps:static:portal-configuration:portal-configuration-persistence-api:configJSModules SKIPPED
+> Task :apps:static:portal-configuration:portal-configuration-persistence-api:copyLibs SKIPPED
+> Task :apps:static:portal-configuration:portal-configuration-persistence-api:replaceSoyTranslation SKIPPED
+> Task :apps:static:portal-configuration:portal-configuration-persistence-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:static:portal-configuration:portal-configuration-persistence-api:classes UP-TO-DATE
+> Task :apps:static:portal-configuration:portal-configuration-persistence-api:zipZippableResources UP-TO-DATE
+> Task :apps:static:portal-configuration:portal-configuration-persistence-api:jar UP-TO-DATE
+> Task :apps:journal:journal-api:compileJava UP-TO-DATE
+> Task :apps:journal:journal-api:copyCSS NO-SOURCE
+> Task :apps:journal:journal-api:buildCSS NO-SOURCE
+> Task :apps:journal:journal-api:processResources UP-TO-DATE
+> Task :apps:journal:journal-api:transpileJS SKIPPED
+> Task :apps:journal:journal-api:configJSModules SKIPPED
+> Task :apps:journal:journal-api:copyLibs SKIPPED
+> Task :apps:journal:journal-api:replaceSoyTranslation SKIPPED
+> Task :apps:journal:journal-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:journal:journal-api:classes UP-TO-DATE
+> Task :apps:journal:journal-api:zipZippableResources UP-TO-DATE
+> Task :apps:subscription:subscription-api:autoUpdateXml SKIPPED
+> Task :apps:static:portal-configuration:portal-configuration-persistence-api:autoUpdateXml SKIPPED
+> Task :apps:journal:journal-api:jar UP-TO-DATE
+> Task :apps:journal:journal-api:autoUpdateXml SKIPPED
+> Task :apps:rss:rss-api:compileJava UP-TO-DATE
+> Task :apps:rss:rss-api:copyCSS NO-SOURCE
+> Task :apps:rss:rss-api:buildCSS NO-SOURCE
+> Task :apps:rss:rss-api:processResources UP-TO-DATE
+> Task :apps:rss:rss-api:transpileJS SKIPPED
+> Task :apps:rss:rss-api:configJSModules SKIPPED
+> Task :apps:rss:rss-api:copyLibs SKIPPED
+> Task :apps:rss:rss-api:replaceSoyTranslation SKIPPED
+> Task :apps:rss:rss-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:rss:rss-api:classes UP-TO-DATE
+> Task :apps:rss:rss-api:zipZippableResources UP-TO-DATE
+> Task :apps:rss:rss-api:jar UP-TO-DATE
+> Task :apps:journal:journal-test-util:compileJava UP-TO-DATE
+> Task :apps:journal:journal-test-util:copyCSS NO-SOURCE
+> Task :apps:journal:journal-test-util:buildCSS NO-SOURCE
+> Task :apps:journal:journal-test-util:processResources UP-TO-DATE
+> Task :apps:journal:journal-test-util:transpileJS SKIPPED
+> Task :apps:journal:journal-test-util:configJSModules SKIPPED
+> Task :apps:journal:journal-test-util:copyLibs SKIPPED
+> Task :apps:journal:journal-test-util:replaceSoyTranslation SKIPPED
+> Task :apps:journal:journal-test-util:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:journal:journal-test-util:classes UP-TO-DATE
+> Task :apps:journal:journal-test-util:zipZippableResources UP-TO-DATE
+> Task :apps:rss:rss-api:autoUpdateXml SKIPPED
+> Task :apps:journal:journal-test-util:jar UP-TO-DATE
+> Task :apps:journal:journal-test-util:autoUpdateXml SKIPPED
+> Task :apps:knowledge-base:knowledge-base-api:compileJava UP-TO-DATE
+> Task :apps:knowledge-base:knowledge-base-api:copyCSS NO-SOURCE
+> Task :apps:knowledge-base:knowledge-base-api:buildCSS NO-SOURCE
+> Task :apps:knowledge-base:knowledge-base-api:processResources UP-TO-DATE
+> Task :apps:knowledge-base:knowledge-base-api:transpileJS SKIPPED
+> Task :apps:knowledge-base:knowledge-base-api:configJSModules SKIPPED
+> Task :apps:knowledge-base:knowledge-base-api:copyLibs SKIPPED
+> Task :apps:knowledge-base:knowledge-base-api:replaceSoyTranslation SKIPPED
+> Task :apps:knowledge-base:knowledge-base-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:knowledge-base:knowledge-base-api:classes UP-TO-DATE
+> Task :apps:knowledge-base:knowledge-base-api:zipZippableResources UP-TO-DATE
+> Task :apps:knowledge-base:knowledge-base-api:jar UP-TO-DATE
+> Task :apps:knowledge-base:knowledge-base-api:autoUpdateXml SKIPPED
+> Task :apps:message-boards:message-boards-api:compileJava UP-TO-DATE
+> Task :apps:message-boards:message-boards-api:copyCSS NO-SOURCE
+> Task :apps:message-boards:message-boards-api:buildCSS NO-SOURCE
+> Task :apps:message-boards:message-boards-api:processResources UP-TO-DATE
+> Task :apps:message-boards:message-boards-api:transpileJS SKIPPED
+> Task :apps:message-boards:message-boards-api:configJSModules SKIPPED
+> Task :apps:message-boards:message-boards-api:copyLibs SKIPPED
+> Task :apps:message-boards:message-boards-api:replaceSoyTranslation SKIPPED
+> Task :apps:message-boards:message-boards-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:message-boards:message-boards-api:classes UP-TO-DATE
+> Task :apps:message-boards:message-boards-api:zipZippableResources UP-TO-DATE
+> Task :apps:message-boards:message-boards-api:jar UP-TO-DATE
+> Task :apps:message-boards:message-boards-api:autoUpdateXml SKIPPED
+> Task :apps:message-boards:message-boards-test-util:compileJava UP-TO-DATE
+> Task :apps:message-boards:message-boards-test-util:copyCSS NO-SOURCE
+> Task :apps:message-boards:message-boards-test-util:buildCSS NO-SOURCE
+> Task :apps:message-boards:message-boards-test-util:processResources UP-TO-DATE
+> Task :apps:message-boards:message-boards-test-util:transpileJS SKIPPED
+> Task :apps:message-boards:message-boards-test-util:configJSModules SKIPPED
+> Task :apps:message-boards:message-boards-test-util:copyLibs SKIPPED
+> Task :apps:message-boards:message-boards-test-util:replaceSoyTranslation SKIPPED
+> Task :apps:message-boards:message-boards-test-util:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:message-boards:message-boards-test-util:classes UP-TO-DATE
+> Task :apps:message-boards:message-boards-test-util:zipZippableResources UP-TO-DATE
+> Task :apps:message-boards:message-boards-test-util:jar UP-TO-DATE
+> Task :apps:message-boards:message-boards-test-util:autoUpdateXml SKIPPED
+> Task :apps:portal-odata:portal-odata-api:compileJava UP-TO-DATE
+> Task :apps:portal-odata:portal-odata-api:copyCSS NO-SOURCE
+> Task :apps:portal-odata:portal-odata-api:buildCSS NO-SOURCE
+> Task :apps:portal-odata:portal-odata-api:processResources UP-TO-DATE
+> Task :apps:portal-odata:portal-odata-api:transpileJS SKIPPED
+> Task :apps:portal-odata:portal-odata-api:configJSModules SKIPPED
+> Task :apps:portal-odata:portal-odata-api:copyLibs SKIPPED
+> Task :apps:portal-odata:portal-odata-api:replaceSoyTranslation SKIPPED
+> Task :apps:portal-odata:portal-odata-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:portal-odata:portal-odata-api:classes UP-TO-DATE
+> Task :apps:portal-odata:portal-odata-api:zipZippableResources UP-TO-DATE
+> Task :apps:portal-odata:portal-odata-api:jar UP-TO-DATE
+> Task :apps:portal-odata:portal-odata-api:autoUpdateXml SKIPPED
+> Task :apps:portal:portal-instance-lifecycle-api:compileJava UP-TO-DATE
+> Task :apps:portal:portal-instance-lifecycle-api:copyCSS NO-SOURCE
+> Task :apps:portal:portal-instance-lifecycle-api:buildCSS NO-SOURCE
+> Task :apps:portal:portal-instance-lifecycle-api:processResources UP-TO-DATE
+> Task :apps:portal:portal-instance-lifecycle-api:transpileJS SKIPPED
+> Task :apps:portal:portal-instance-lifecycle-api:configJSModules SKIPPED
+> Task :apps:portal:portal-instance-lifecycle-api:copyLibs SKIPPED
+> Task :apps:portal:portal-instance-lifecycle-api:replaceSoyTranslation SKIPPED
+> Task :apps:portal:portal-instance-lifecycle-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:portal:portal-instance-lifecycle-api:classes UP-TO-DATE
+> Task :apps:portal:portal-instance-lifecycle-api:zipZippableResources UP-TO-DATE
+> Task :apps:portal:portal-instance-lifecycle-api:jar UP-TO-DATE
+> Task :apps:portal:portal-instance-lifecycle-api:autoUpdateXml SKIPPED
+> Task :apps:portal-background-task:portal-background-task-api:compileJava UP-TO-DATE
+> Task :apps:portal-background-task:portal-background-task-api:copyCSS NO-SOURCE
+> Task :apps:portal-background-task:portal-background-task-api:buildCSS NO-SOURCE
+> Task :apps:portal-background-task:portal-background-task-api:processResources UP-TO-DATE
+> Task :apps:portal-background-task:portal-background-task-api:transpileJS SKIPPED
+> Task :apps:portal-background-task:portal-background-task-api:configJSModules SKIPPED
+> Task :apps:portal-background-task:portal-background-task-api:copyLibs SKIPPED
+> Task :apps:portal-background-task:portal-background-task-api:replaceSoyTranslation SKIPPED
+> Task :apps:portal-background-task:portal-background-task-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:portal-background-task:portal-background-task-api:classes UP-TO-DATE
+> Task :apps:portal-background-task:portal-background-task-api:zipZippableResources UP-TO-DATE
+> Task :apps:portal-background-task:portal-background-task-api:jar UP-TO-DATE
+> Task :apps:portal-background-task:portal-background-task-api:autoUpdateXml SKIPPED
+> Task :core:petra:petra-nio:compileJava UP-TO-DATE
+> Task :core:petra:petra-nio:copyCSS NO-SOURCE
+> Task :core:petra:petra-nio:buildCSS NO-SOURCE
+> Task :core:petra:petra-nio:processResources UP-TO-DATE
+> Task :core:petra:petra-nio:transpileJS SKIPPED
+> Task :core:petra:petra-nio:configJSModules SKIPPED
+> Task :core:petra:petra-nio:copyLibs SKIPPED
+> Task :core:petra:petra-nio:replaceSoyTranslation SKIPPED
+> Task :core:petra:petra-nio:wrapSoyAlloyTemplate SKIPPED
+> Task :core:petra:petra-nio:classes UP-TO-DATE
+> Task :core:petra:petra-nio:zipZippableResources UP-TO-DATE
+> Task :core:petra:petra-nio:jar UP-TO-DATE
+> Task :apps:portal-search:portal-search-api:compileJava UP-TO-DATE
+> Task :apps:portal-search:portal-search-api:copyCSS NO-SOURCE
+> Task :apps:portal-search:portal-search-api:buildCSS NO-SOURCE
+> Task :apps:portal-search:portal-search-api:processResources UP-TO-DATE
+> Task :apps:portal-search:portal-search-api:transpileJS SKIPPED
+> Task :apps:portal-search:portal-search-api:configJSModules SKIPPED
+> Task :apps:portal-search:portal-search-api:copyLibs SKIPPED
+> Task :apps:portal-search:portal-search-api:replaceSoyTranslation SKIPPED
+> Task :apps:portal-search:portal-search-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:portal-search:portal-search-api:classes UP-TO-DATE
+> Task :apps:portal-search:portal-search-api:zipZippableResources UP-TO-DATE
+> Task :core:petra:petra-nio:autoUpdateXml SKIPPED
+> Task :apps:portal-search:portal-search-api:jar UP-TO-DATE
+> Task :apps:portal-search:portal-search-spi:compileJava UP-TO-DATE
+> Task :apps:portal-search:portal-search-spi:copyCSS NO-SOURCE
+> Task :apps:portal-search:portal-search-spi:buildCSS NO-SOURCE
+> Task :apps:portal-search:portal-search-spi:processResources UP-TO-DATE
+> Task :apps:portal-search:portal-search-spi:transpileJS SKIPPED
+> Task :apps:portal-search:portal-search-spi:configJSModules SKIPPED
+> Task :apps:portal-search:portal-search-spi:copyLibs SKIPPED
+> Task :apps:portal-search:portal-search-spi:replaceSoyTranslation SKIPPED
+> Task :apps:portal-search:portal-search-spi:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:portal-search:portal-search-spi:classes UP-TO-DATE
+> Task :apps:portal-search:portal-search-spi:zipZippableResources UP-TO-DATE
+> Task :apps:portal-search:portal-search-spi:jar UP-TO-DATE
+> Task :core:petra:petra-executor:compileJava UP-TO-DATE
+> Task :core:petra:petra-executor:copyCSS NO-SOURCE
+> Task :core:petra:petra-executor:buildCSS NO-SOURCE
+> Task :core:petra:petra-executor:processResources UP-TO-DATE
+> Task :core:petra:petra-executor:transpileJS SKIPPED
+> Task :core:petra:petra-executor:configJSModules SKIPPED
+> Task :core:petra:petra-executor:copyLibs SKIPPED
+> Task :core:petra:petra-executor:replaceSoyTranslation SKIPPED
+> Task :core:petra:petra-executor:wrapSoyAlloyTemplate SKIPPED
+> Task :core:petra:petra-executor:classes UP-TO-DATE
+> Task :core:petra:petra-executor:zipZippableResources UP-TO-DATE
+> Task :core:petra:petra-executor:jar UP-TO-DATE
+> Task :apps:portal-search:portal-search:compileJava UP-TO-DATE
+> Task :apps:portal-search:portal-search:copyCSS NO-SOURCE
+> Task :apps:portal-search:portal-search:buildCSS NO-SOURCE
+> Task :apps:portal-search:portal-search:processResources UP-TO-DATE
+> Task :apps:portal-search:portal-search:transpileJS SKIPPED
+> Task :apps:portal-search:portal-search:configJSModules SKIPPED
+> Task :apps:portal-search:portal-search:copyLibs SKIPPED
+> Task :apps:portal-search:portal-search:replaceSoyTranslation SKIPPED
+> Task :apps:portal-search:portal-search:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:portal-search:portal-search:classes UP-TO-DATE
+> Task :apps:portal-search:portal-search:zipZippableResources UP-TO-DATE
+> Task :apps:portal-search:portal-search-api:autoUpdateXml SKIPPED
+> Task :apps:portal-search:portal-search-spi:autoUpdateXml SKIPPED
+> Task :core:petra:petra-executor:autoUpdateXml SKIPPED
+> Task :apps:portal-search:portal-search:jar UP-TO-DATE
+> Task :apps:portal-search:portal-search:autoUpdateXml SKIPPED
+> Task :apps:portal-search:portal-search-engine-adapter-api:compileJava UP-TO-DATE
+> Task :apps:portal-search:portal-search-engine-adapter-api:copyCSS NO-SOURCE
+> Task :apps:portal-search:portal-search-engine-adapter-api:buildCSS NO-SOURCE
+> Task :apps:portal-search:portal-search-engine-adapter-api:processResources UP-TO-DATE
+> Task :apps:portal-search:portal-search-engine-adapter-api:transpileJS SKIPPED
+> Task :apps:portal-search:portal-search-engine-adapter-api:configJSModules SKIPPED
+> Task :apps:portal-search:portal-search-engine-adapter-api:copyLibs SKIPPED
+> Task :apps:portal-search:portal-search-engine-adapter-api:replaceSoyTranslation SKIPPED
+> Task :apps:portal-search:portal-search-engine-adapter-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:portal-search:portal-search-engine-adapter-api:classes UP-TO-DATE
+> Task :apps:portal-search:portal-search-engine-adapter-api:zipZippableResources UP-TO-DATE
+> Task :apps:portal-search:portal-search-engine-adapter-api:jar UP-TO-DATE
+> Task :apps:portal-search:portal-search-engine-adapter-api:autoUpdateXml SKIPPED
+> Task :apps:portal-search:portal-search-test-util:compileJava UP-TO-DATE
+> Task :apps:portal-search:portal-search-test-util:copyCSS NO-SOURCE
+> Task :apps:portal-search:portal-search-test-util:buildCSS NO-SOURCE
+> Task :apps:portal-search:portal-search-test-util:processResources UP-TO-DATE
+> Task :apps:portal-search:portal-search-test-util:transpileJS SKIPPED
+> Task :apps:portal-search:portal-search-test-util:configJSModules SKIPPED
+> Task :apps:portal-search:portal-search-test-util:copyLibs SKIPPED
+> Task :apps:portal-search:portal-search-test-util:replaceSoyTranslation SKIPPED
+> Task :apps:portal-search:portal-search-test-util:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:portal-search:portal-search-test-util:classes UP-TO-DATE
+> Task :apps:portal-search:portal-search-test-util:zipZippableResources UP-TO-DATE
+> Task :apps:portal-search:portal-search-test-util:jar UP-TO-DATE
+> Task :apps:portal-search:portal-search-test-util:autoUpdateXml SKIPPED
+> Task :apps:batch-engine:batch-engine-api:compileJava UP-TO-DATE
+> Task :apps:batch-engine:batch-engine-api:copyCSS NO-SOURCE
+> Task :apps:batch-engine:batch-engine-api:buildCSS NO-SOURCE
+> Task :apps:batch-engine:batch-engine-api:processResources UP-TO-DATE
+> Task :apps:batch-engine:batch-engine-api:transpileJS SKIPPED
+> Task :apps:batch-engine:batch-engine-api:configJSModules SKIPPED
+> Task :apps:batch-engine:batch-engine-api:copyLibs SKIPPED
+> Task :apps:batch-engine:batch-engine-api:replaceSoyTranslation SKIPPED
+> Task :apps:batch-engine:batch-engine-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:batch-engine:batch-engine-api:classes UP-TO-DATE
+> Task :apps:batch-engine:batch-engine-api:zipZippableResources UP-TO-DATE
+> Task :apps:batch-engine:batch-engine-api:jar UP-TO-DATE
+> Task :apps:batch-engine:batch-engine-api:autoUpdateXml SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-api:compileJava UP-TO-DATE
+> Task :apps:oauth2-provider:oauth2-provider-scope-api:copyCSS NO-SOURCE
+> Task :apps:oauth2-provider:oauth2-provider-scope-api:buildCSS NO-SOURCE
+> Task :apps:oauth2-provider:oauth2-provider-scope-api:processResources UP-TO-DATE
+> Task :apps:oauth2-provider:oauth2-provider-scope-api:transpileJS SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-api:configJSModules SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-api:copyLibs SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-api:replaceSoyTranslation SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-api:classes UP-TO-DATE
+> Task :apps:oauth2-provider:oauth2-provider-scope-api:zipZippableResources UP-TO-DATE
+> Task :apps:oauth2-provider:oauth2-provider-scope-api:jar UP-TO-DATE
+> Task :apps:oauth2-provider:oauth2-provider-scope-api:autoUpdateXml SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-spi:compileJava UP-TO-DATE
+> Task :apps:oauth2-provider:oauth2-provider-scope-spi:copyCSS NO-SOURCE
+> Task :apps:oauth2-provider:oauth2-provider-scope-spi:buildCSS NO-SOURCE
+> Task :apps:oauth2-provider:oauth2-provider-scope-spi:processResources UP-TO-DATE
+> Task :apps:oauth2-provider:oauth2-provider-scope-spi:transpileJS SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-spi:configJSModules SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-spi:copyLibs SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-spi:replaceSoyTranslation SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-spi:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-spi:classes UP-TO-DATE
+> Task :apps:oauth2-provider:oauth2-provider-scope-spi:zipZippableResources UP-TO-DATE
+> Task :apps:oauth2-provider:oauth2-provider-scope-spi:jar UP-TO-DATE
+> Task :apps:oauth2-provider:oauth2-provider-scope-liferay-api:compileJava UP-TO-DATE
+> Task :apps:oauth2-provider:oauth2-provider-scope-liferay-api:copyCSS NO-SOURCE
+> Task :apps:oauth2-provider:oauth2-provider-scope-liferay-api:buildCSS NO-SOURCE
+> Task :apps:oauth2-provider:oauth2-provider-scope-liferay-api:processResources UP-TO-DATE
+> Task :apps:oauth2-provider:oauth2-provider-scope-liferay-api:transpileJS SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-liferay-api:configJSModules SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-liferay-api:copyLibs SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-liferay-api:replaceSoyTranslation SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-liferay-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-liferay-api:classes UP-TO-DATE
+> Task :apps:oauth2-provider:oauth2-provider-scope-liferay-api:zipZippableResources UP-TO-DATE
+> Task :apps:oauth2-provider:oauth2-provider-scope-spi:autoUpdateXml SKIPPED
+> Task :apps:oauth2-provider:oauth2-provider-scope-liferay-api:jar UP-TO-DATE
+> Task :apps:oauth2-provider:oauth2-provider-scope-liferay-api:autoUpdateXml SKIPPED
+> Task :apps:portal-vulcan:portal-vulcan-api:compileJava UP-TO-DATE
+> Task :apps:portal-vulcan:portal-vulcan-api:copyCSS NO-SOURCE
+> Task :apps:portal-vulcan:portal-vulcan-api:buildCSS NO-SOURCE
+> Task :apps:portal-vulcan:portal-vulcan-api:processResources UP-TO-DATE
+> Task :apps:portal-vulcan:portal-vulcan-api:transpileJS SKIPPED
+> Task :apps:portal-vulcan:portal-vulcan-api:configJSModules SKIPPED
+> Task :apps:portal-vulcan:portal-vulcan-api:copyLibs SKIPPED
+> Task :apps:portal-vulcan:portal-vulcan-api:replaceSoyTranslation SKIPPED
+> Task :apps:portal-vulcan:portal-vulcan-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:portal-vulcan:portal-vulcan-api:classes UP-TO-DATE
+> Task :apps:portal-vulcan:portal-vulcan-api:zipZippableResources UP-TO-DATE
+> Task :apps:portal-vulcan:portal-vulcan-api:jar UP-TO-DATE
+> Task :apps:portal-vulcan:portal-vulcan-api:autoUpdateXml SKIPPED
+> Task :apps:upload:upload-api:compileJava UP-TO-DATE
+> Task :apps:upload:upload-api:copyCSS NO-SOURCE
+> Task :apps:upload:upload-api:buildCSS NO-SOURCE
+> Task :apps:upload:upload-api:processResources UP-TO-DATE
+> Task :apps:upload:upload-api:transpileJS SKIPPED
+> Task :apps:upload:upload-api:configJSModules SKIPPED
+> Task :apps:upload:upload-api:copyLibs SKIPPED
+> Task :apps:upload:upload-api:replaceSoyTranslation SKIPPED
+> Task :apps:upload:upload-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:upload:upload-api:classes UP-TO-DATE
+> Task :apps:upload:upload-api:zipZippableResources UP-TO-DATE
+> Task :apps:upload:upload-api:jar UP-TO-DATE
+> Task :apps:item-selector:item-selector-api:compileJava UP-TO-DATE
+> Task :apps:item-selector:item-selector-api:copyCSS NO-SOURCE
+> Task :apps:item-selector:item-selector-api:buildCSS NO-SOURCE
+> Task :apps:item-selector:item-selector-api:processResources UP-TO-DATE
+> Task :apps:item-selector:item-selector-api:transpileJS SKIPPED
+> Task :apps:item-selector:item-selector-api:configJSModules SKIPPED
+> Task :apps:item-selector:item-selector-api:copyLibs SKIPPED
+> Task :apps:item-selector:item-selector-api:replaceSoyTranslation SKIPPED
+> Task :apps:item-selector:item-selector-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:item-selector:item-selector-api:classes UP-TO-DATE
+> Task :apps:item-selector:item-selector-api:zipZippableResources UP-TO-DATE
+> Task :apps:upload:upload-api:autoUpdateXml SKIPPED
+> Task :apps:item-selector:item-selector-api:jar UP-TO-DATE
+> Task :apps:item-selector:item-selector-api:autoUpdateXml SKIPPED
+> Task :apps:item-selector:item-selector-criteria-api:compileJava UP-TO-DATE
+> Task :apps:item-selector:item-selector-criteria-api:copyCSS NO-SOURCE
+> Task :apps:item-selector:item-selector-criteria-api:buildCSS NO-SOURCE
+> Task :apps:item-selector:item-selector-criteria-api:processResources UP-TO-DATE
+> Task :apps:item-selector:item-selector-criteria-api:transpileJS SKIPPED
+> Task :apps:item-selector:item-selector-criteria-api:configJSModules SKIPPED
+> Task :apps:item-selector:item-selector-criteria-api:copyLibs SKIPPED
+> Task :apps:item-selector:item-selector-criteria-api:replaceSoyTranslation SKIPPED
+> Task :apps:item-selector:item-selector-criteria-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:item-selector:item-selector-criteria-api:classes UP-TO-DATE
+> Task :apps:item-selector:item-selector-criteria-api:zipZippableResources UP-TO-DATE
+> Task :apps:item-selector:item-selector-criteria-api:jar UP-TO-DATE
+> Task :apps:item-selector:item-selector-criteria-api:autoUpdateXml SKIPPED
+> Task :apps:wiki:wiki-api:compileJava UP-TO-DATE
+> Task :apps:wiki:wiki-api:copyCSS NO-SOURCE
+> Task :apps:wiki:wiki-api:buildCSS NO-SOURCE
+> Task :apps:wiki:wiki-api:processResources UP-TO-DATE
+> Task :apps:wiki:wiki-api:transpileJS SKIPPED
+> Task :apps:wiki:wiki-api:configJSModules SKIPPED
+> Task :apps:wiki:wiki-api:copyLibs SKIPPED
+> Task :apps:wiki:wiki-api:replaceSoyTranslation SKIPPED
+> Task :apps:wiki:wiki-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:wiki:wiki-api:classes UP-TO-DATE
+> Task :apps:wiki:wiki-api:zipZippableResources UP-TO-DATE
+> Task :apps:wiki:wiki-api:jar UP-TO-DATE
+> Task :apps:wiki:wiki-api:autoUpdateXml SKIPPED
+> Task :core:petra:petra-function:autoUpdateXml SKIPPED
+> Task :core:petra:petra-string:autoUpdateXml SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-api:compileJava UP-TO-DATE
+> Task :apps:headless:headless-delivery:headless-delivery-api:copyCSS NO-SOURCE
+> Task :apps:headless:headless-delivery:headless-delivery-api:buildCSS NO-SOURCE
+> Task :apps:headless:headless-delivery:headless-delivery-api:processResources UP-TO-DATE
+> Task :apps:headless:headless-delivery:headless-delivery-api:transpileJS SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-api:configJSModules SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-api:copyLibs SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-api:replaceSoyTranslation SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-api:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-api:classes UP-TO-DATE
+> Task :apps:headless:headless-delivery:headless-delivery-api:zipZippableResources UP-TO-DATE
+> Task :apps:headless:headless-delivery:headless-delivery-api:jar UP-TO-DATE
+> Task :apps:headless:headless-delivery:headless-delivery-api:autoUpdateXml SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-client:compileJava UP-TO-DATE
+> Task :apps:headless:headless-delivery:headless-delivery-client:copyCSS NO-SOURCE
+> Task :apps:headless:headless-delivery:headless-delivery-client:buildCSS NO-SOURCE
+> Task :apps:headless:headless-delivery:headless-delivery-client:processResources UP-TO-DATE
+> Task :apps:headless:headless-delivery:headless-delivery-client:transpileJS SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-client:configJSModules SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-client:copyLibs SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-client:replaceSoyTranslation SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-client:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-client:classes UP-TO-DATE
+> Task :apps:headless:headless-delivery:headless-delivery-client:zipZippableResources UP-TO-DATE
+> Task :apps:headless:headless-delivery:headless-delivery-client:jar UP-TO-DATE
+> Task :apps:headless:headless-delivery:headless-delivery-client:autoUpdateXml SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-test:compileJava NO-SOURCE
+> Task :apps:headless:headless-delivery:headless-delivery-test:copyCSS NO-SOURCE
+> Task :apps:headless:headless-delivery:headless-delivery-test:buildCSS NO-SOURCE
+> Task :apps:headless:headless-delivery:headless-delivery-test:processResources NO-SOURCE
+> Task :apps:headless:headless-delivery:headless-delivery-test:transpileJS SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-test:configJSModules SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-test:copyLibs SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-test:replaceSoyTranslation SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-test:wrapSoyAlloyTemplate SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-test:classes UP-TO-DATE
+> Task :apps:headless:headless-delivery:headless-delivery-test:copyTestModules UP-TO-DATE
+> Task :apps:headless:headless-delivery:headless-delivery-test:setUpTestableTomcat
+> Task :apps:headless:headless-delivery:headless-delivery-test:startTestableTomcat SKIPPED
+> Task :apps:headless:headless-delivery:headless-delivery-test:compileTestIntegrationJava UP-TO-DATE
+> Task :apps:headless:headless-delivery:headless-delivery-test:processTestIntegrationResources UP-TO-DATE
+> Task :apps:headless:headless-delivery:headless-delivery-test:testIntegrationClasses UP-TO-DATE
+
+> Task :apps:headless:headless-delivery:headless-delivery-test:testIntegration
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest STANDARD_OUT
+    Loading jar:file:/Users/javierdearcos/Projects/liferay/liferay-home-7.1/bundles/tomcat-9.0.37/webapps/ROOT/WEB-INF/lib/portal-impl.jar!/system.properties
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testClientSerDesToDTO STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testClientSerDesToDTO PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testClientSerDesToJSON STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testClientSerDesToJSON PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testDeleteStructuredContent STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testDeleteStructuredContent PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testDeleteStructuredContentMyRating STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testDeleteStructuredContentMyRating PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testEscapeRegexInStringFields STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testEscapeRegexInStringFields PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetContentStructureStructuredContentsPage STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetContentStructureStructuredContentsPage PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetContentStructureStructuredContentsPageWithFilterDateTimeEquals STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetContentStructureStructuredContentsPageWithFilterDateTimeEquals PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetContentStructureStructuredContentsPageWithFilterStringEquals STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetContentStructureStructuredContentsPageWithFilterStringEquals PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetContentStructureStructuredContentsPageWithPagination STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetContentStructureStructuredContentsPageWithPagination PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetContentStructureStructuredContentsPageWithSortDateTime STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetContentStructureStructuredContentsPageWithSortDateTime PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetContentStructureStructuredContentsPageWithSortInteger STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetContentStructureStructuredContentsPageWithSortInteger PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetContentStructureStructuredContentsPageWithSortString STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetContentStructureStructuredContentsPageWithSortString PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentByKey STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentByKey PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentByUuid STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentByUuid PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentsPage STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentsPage PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentsPageWithFilterDateTimeEquals STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentsPageWithFilterDateTimeEquals PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentsPageWithFilterStringEquals STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentsPageWithFilterStringEquals PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentsPageWithPagination STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentsPageWithPagination PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentsPageWithSortDateTime STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentsPageWithSortDateTime PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentsPageWithSortInteger STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentsPageWithSortInteger PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentsPageWithSortString STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetSiteStructuredContentsPageWithSortString PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContent STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContent PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentFolderStructuredContentsPage STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentFolderStructuredContentsPage PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentFolderStructuredContentsPageWithFilterDateTimeEquals STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentFolderStructuredContentsPageWithFilterDateTimeEquals PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentFolderStructuredContentsPageWithFilterStringEquals STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentFolderStructuredContentsPageWithFilterStringEquals PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentFolderStructuredContentsPageWithPagination STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentFolderStructuredContentsPageWithPagination PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentFolderStructuredContentsPageWithSortDateTime STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentFolderStructuredContentsPageWithSortDateTime PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentFolderStructuredContentsPageWithSortInteger STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentFolderStructuredContentsPageWithSortInteger PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentFolderStructuredContentsPageWithSortString STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentFolderStructuredContentsPageWithSortString PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentMyRating STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentMyRating PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentRenderedContentTemplate STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGetStructuredContentRenderedContentTemplate PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLDeleteStructuredContent STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLDeleteStructuredContent PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLGetSiteStructuredContentByKey STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLGetSiteStructuredContentByKey FAILED
+    java.lang.IllegalArgumentException: Expected starts with '{', but found 'n' in 'null'
+    	at com.liferay.headless.delivery.client.json.BaseJSONParser._assertStartsWithAndEndsWith(BaseJSONParser.java:259)
+    	at com.liferay.headless.delivery.client.json.BaseJSONParser.parseToDTO(BaseJSONParser.java:50)
+    	at com.liferay.headless.delivery.client.serdes.v1_0.StructuredContentSerDes.toDTO(StructuredContentSerDes.java:48)
+    	at com.liferay.headless.delivery.resource.v1_0.test.BaseStructuredContentResourceTestCase.testGraphQLGetSiteStructuredContentByKey(BaseStructuredContentResourceTestCase.java:995)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.lang.reflect.Method.invoke(Method.java:498)
+    	at com.liferay.arquillian.extension.junit.bridge.server.TestExecutorRunnable$2.evaluate(TestExecutorRunnable.java:234)
+    	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+    	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.test.rule.LiferayIntegrationTestRule$1$1.evaluate(LiferayIntegrationTestRule.java:154)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.AbstractTestRule$2.evaluate(AbstractTestRule.java:86)
+    	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+    	at com.liferay.arquillian.extension.junit.bridge.server.TestExecutorRunnable$1.evaluate(TestExecutorRunnable.java:143)
+    	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.test.rule.LiferayIntegrationTestRule$1$1.evaluate(LiferayIntegrationTestRule.java:154)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+    	at com.liferay.arquillian.extension.junit.bridge.server.TestExecutorRunnable._execute(TestExecutorRunnable.java:181)
+    	at com.liferay.arquillian.extension.junit.bridge.server.TestExecutorRunnable.run(TestExecutorRunnable.java:95)
+    	at java.lang.Thread.run(Thread.java:748)
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLGetSiteStructuredContentByKeyNotFound STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLGetSiteStructuredContentByKeyNotFound PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLGetSiteStructuredContentByUuid STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLGetSiteStructuredContentByUuid FAILED
+    java.lang.IllegalArgumentException: Expected starts with '{', but found 'n' in 'null'
+    	at com.liferay.headless.delivery.client.json.BaseJSONParser._assertStartsWithAndEndsWith(BaseJSONParser.java:259)
+    	at com.liferay.headless.delivery.client.json.BaseJSONParser.parseToDTO(BaseJSONParser.java:50)
+    	at com.liferay.headless.delivery.client.serdes.v1_0.StructuredContentSerDes.toDTO(StructuredContentSerDes.java:48)
+    	at com.liferay.headless.delivery.resource.v1_0.test.BaseStructuredContentResourceTestCase.testGraphQLGetSiteStructuredContentByUuid(BaseStructuredContentResourceTestCase.java:1072)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.lang.reflect.Method.invoke(Method.java:498)
+    	at com.liferay.arquillian.extension.junit.bridge.server.TestExecutorRunnable$2.evaluate(TestExecutorRunnable.java:234)
+    	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+    	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.test.rule.LiferayIntegrationTestRule$1$1.evaluate(LiferayIntegrationTestRule.java:154)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.AbstractTestRule$2.evaluate(AbstractTestRule.java:86)
+    	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+    	at com.liferay.arquillian.extension.junit.bridge.server.TestExecutorRunnable$1.evaluate(TestExecutorRunnable.java:143)
+    	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.test.rule.LiferayIntegrationTestRule$1$1.evaluate(LiferayIntegrationTestRule.java:154)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+    	at com.liferay.arquillian.extension.junit.bridge.server.TestExecutorRunnable._execute(TestExecutorRunnable.java:181)
+    	at com.liferay.arquillian.extension.junit.bridge.server.TestExecutorRunnable.run(TestExecutorRunnable.java:95)
+    	at java.lang.Thread.run(Thread.java:748)
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLGetSiteStructuredContentByUuidNotFound STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLGetSiteStructuredContentByUuidNotFound PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLGetSiteStructuredContentsPage STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLGetSiteStructuredContentsPage PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLGetStructuredContent STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLGetStructuredContent PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLGetStructuredContentNotFound STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLGetStructuredContentNotFound PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLPostSiteStructuredContent STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testGraphQLPostSiteStructuredContent PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPatchStructuredContent STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPatchStructuredContent PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPostSiteLocalizedStructuredContent STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPostSiteLocalizedStructuredContent FAILED
+    com.liferay.headless.delivery.client.problem.Problem$ProblemException
+    	at com.liferay.headless.delivery.client.resource.v1_0.StructuredContentResource$StructuredContentResourceImpl.postSiteStructuredContent(StructuredContentResource.java:497)
+    	at com.liferay.headless.delivery.resource.v1_0.test.BaseStructuredContentResourceTestCase.testPostSiteStructuredContent_addStructuredContent(BaseStructuredContentResourceTestCase.java:950)
+    	at com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest.testPostSiteLocalizedStructuredContent(StructuredContentResourceTest.java:225)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.lang.reflect.Method.invoke(Method.java:498)
+    	at com.liferay.arquillian.extension.junit.bridge.server.TestExecutorRunnable$2.evaluate(TestExecutorRunnable.java:234)
+    	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+    	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.test.rule.LiferayIntegrationTestRule$1$1.evaluate(LiferayIntegrationTestRule.java:154)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$1.evaluate(BaseTestRule.java:55)
+    	at com.liferay.portal.kernel.test.rule.AbstractTestRule$2.evaluate(AbstractTestRule.java:86)
+    	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+    	at com.liferay.arquillian.extension.junit.bridge.server.TestExecutorRunnable$1.evaluate(TestExecutorRunnable.java:143)
+    	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at com.liferay.portal.test.rule.LiferayIntegrationTestRule$1$1.evaluate(LiferayIntegrationTestRule.java:154)
+    	at com.liferay.portal.kernel.test.rule.BaseTestRule$2.evaluate(BaseTestRule.java:72)
+    	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+    	at com.liferay.arquillian.extension.junit.bridge.server.TestExecutorRunnable._execute(TestExecutorRunnable.java:181)
+    	at com.liferay.arquillian.extension.junit.bridge.server.TestExecutorRunnable.run(TestExecutorRunnable.java:95)
+    	at java.lang.Thread.run(Thread.java:748)
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPostSiteStructuredContent STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPostSiteStructuredContent PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPostStructuredContentFolderStructuredContent STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPostStructuredContentFolderStructuredContent PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPostStructuredContentMyRating STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPostStructuredContentMyRating PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPutStructuredContent STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPutStructuredContent PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPutStructuredContentMyRating STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPutStructuredContentMyRating PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPutStructuredContentSubscribe STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPutStructuredContentSubscribe PASSED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPutStructuredContentUnsubscribe STARTED
+
+com.liferay.headless.delivery.resource.v1_0.test.StructuredContentResourceTest > testPutStructuredContentUnsubscribe PASSED
+There were failing tests. See the report at: file:///Users/javierdearcos/Projects/liferay/liferay-home-7.1/liferay-portal-ee/modules/apps/headless/headless-delivery/headless-delivery-test/build/reports/tests/testIntegration/index.html
+
+> Task :apps:headless:headless-delivery:headless-delivery-test:stopTestableTomcat
+
+BUILD SUCCESSFUL in 1m 56s
+147 actionable tasks: 3 executed, 144 up-to-date
