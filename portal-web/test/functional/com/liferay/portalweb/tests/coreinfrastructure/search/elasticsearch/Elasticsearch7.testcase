@@ -232,10 +232,22 @@ definition {
 			panel = "Control Panel",
 			portlet = "Search");
 
-		SearchAdministration.assertEngineVendorAndVersions(
-			clientVersion = "7.9.0",
-			engineVendor = "Elasticsearch",
-			serverVersion = "7.9.0");
+		var serverVersion = Elasticsearch.getServerVersion();
+
+		if (IsTextEqual.isPartialText(locator1 = "//div[contains(@class,'alert alert-info')]", value1 = "Embedded")) {
+			SearchAdministration.assertEngineVendorAndVersions(
+				clientVersion = "${serverVersion}",
+				engineVendor = "Elasticsearch",
+				serverVersion = "${serverVersion}");
+		}
+		else {
+			var clientVersion = Elasticsearch.getClientVersion();
+
+			SearchAdministration.assertEngineVendorAndVersions(
+				clientVersion = "${clientVersion}",
+				engineVendor = "Elasticsearch",
+				serverVersion = "${serverVersion}");
+		}
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
