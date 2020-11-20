@@ -50,19 +50,19 @@ export default compose<any>(
 				}
 			}
 		) => ({
-				timeZone: state
-					.getIn(
-						[
-							'projects',
-							groupId,
-							'data',
-							'timeZone',
-							'displayTimeZone'
-						],
-						''
-					)
-					.replace(TIME_ZONE_COUNTRY_REGEX, '')
-			}),
+			timeZone: state
+				.getIn(
+					[
+						'projects',
+						groupId,
+						'data',
+						'timeZone',
+						'displayTimeZone'
+					],
+					''
+				)
+				.replace(TIME_ZONE_COUNTRY_REGEX, '')
+		}),
 		null
 	)
 )(TimeZoneAlert);
