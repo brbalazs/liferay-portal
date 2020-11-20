@@ -216,11 +216,22 @@ definition {
 		property osgi.app.includes = "";
 		property test.name.skip.portal.instance = "Elasticsearch7#HotDeployElasticsearch7App";
 
-		if (IsTextEqual.isPartialText(locator1 = "HelloWorld#PORTLET_CONTENT", value1 = "Liferay Community Edition")) {
-			var appName = "Liferay CE Connector to Elasticsearch 7";
+		var portalURL = JSONCompany.getPortalURL();
+
+		var curl = '''
+			${portalURL}/api/jsonws/portal/get-build-number \
+				-u test@liferay.com:test
+		''';
+
+		var portalBuildNumber = JSONCurlUtil.get("${curl}");
+
+		var isDXP = StringUtil.startsWith("${portalBuildNumber}", "711");
+
+		if ("${isDXP}" == "true") {
+			var appName = "Liferay Connector to Elasticsearch 7";
 		}
 		else {
-			var appName = "Liferay Connector to Elasticsearch 7";
+			var appName = "Liferay CE Connector to Elasticsearch 7";
 		}
 
 		AssertConsoleTextNotPresent(value1 = "The portal instance needs to be restarted");
