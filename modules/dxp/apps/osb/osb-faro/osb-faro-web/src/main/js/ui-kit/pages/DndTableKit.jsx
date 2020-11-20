@@ -83,7 +83,7 @@ const DndTableKit = () => {
 							accessor: 'properties.worksFor',
 							label: 'Works For'
 						},
-						individualsListColumns.lastActivityDate
+						individualsListColumns.getLastActivityDate('UTC')
 					]}
 					items={items}
 					onItemsChange={setItems}

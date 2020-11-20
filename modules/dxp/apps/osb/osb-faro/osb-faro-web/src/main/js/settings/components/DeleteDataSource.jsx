@@ -98,7 +98,7 @@ function getEntityColumns(entityType, timeZoneId) {
 				individualsListColumns.jobTitle,
 				individualsListColumns.activitiesCount,
 				individualsListColumns.engagementScore,
-				individualsListColumns.lastActivityDate,
+				individualsListColumns.getLastActivityDate(timeZoneId),
 				individualsListColumns.willBeRemoved
 			];
 		case page:
