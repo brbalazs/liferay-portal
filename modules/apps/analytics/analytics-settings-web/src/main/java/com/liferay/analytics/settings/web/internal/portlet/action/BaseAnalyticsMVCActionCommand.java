@@ -136,6 +136,16 @@ public abstract class BaseAnalyticsMVCActionCommand
 					actionRequest, actionResponse,
 					ParamUtil.getString(actionRequest, "redirect"));
 			}
+
+			if (SessionErrors.contains(
+					actionRequest, "unableToNotifyAnalyticsCloud")) {
+
+				hideDefaultErrorMessage(actionRequest);
+
+				sendRedirect(
+					actionRequest, actionResponse,
+					ParamUtil.getString(actionRequest, "redirect"));
+			}
 		}
 		catch (PrincipalException pe) {
 			_log.error(pe, pe);
