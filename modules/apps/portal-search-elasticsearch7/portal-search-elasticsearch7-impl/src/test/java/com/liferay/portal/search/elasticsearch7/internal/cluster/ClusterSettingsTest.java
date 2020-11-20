@@ -63,7 +63,7 @@ public class ClusterSettingsTest {
 		TimeValue slowTaskLoggingThreshold = ReflectionTestUtil.getFieldValue(
 			masterService, "slowTaskLoggingThreshold");
 
-		Assert.assertEquals("10m", slowTaskLoggingThreshold.toString());
+		Assert.assertEquals("10s", slowTaskLoggingThreshold.toString());
 	}
 
 	private final TestCluster _testCluster = new TestCluster(1, this);
