@@ -125,14 +125,18 @@ public class JournalEditArticleDisplayContext {
 		strings.put(
 			"default", LanguageUtil.format(_request, "default", "content"));
 
-		for (Locale availableLocale : getAvailableLocales()) {
-			String curLanguageId = LocaleUtil.toLanguageId(availableLocale);
+		Set<Locale> locales = getAvailableLocales();
+
+		locales.add(LocaleUtil.fromLanguageId(getDefaultArticleLanguageId()));
+
+		for (Locale locale : locales) {
+			String curLanguageId = LocaleUtil.toLanguageId(locale);
 
 			strings.put(
 				curLanguageId,
 				LanguageUtil.format(
 					_request, "default-language-x",
-					availableLocale.getDisplayName(
+					locale.getDisplayName(
 						LocaleUtil.fromLanguageId(getSelectedLanguageId())),
 					false));
 
