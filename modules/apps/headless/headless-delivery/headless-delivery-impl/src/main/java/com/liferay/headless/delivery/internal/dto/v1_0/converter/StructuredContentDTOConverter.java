@@ -41,6 +41,7 @@ import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.service.JournalArticleService;
 import com.liferay.journal.util.JournalContent;
 import com.liferay.journal.util.JournalConverter;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.comment.CommentManager;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -56,7 +57,11 @@ import com.liferay.ratings.kernel.service.RatingsStatsLocalService;
 import com.liferay.subscription.service.SubscriptionLocalService;
 
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -120,7 +125,7 @@ public class StructuredContentDTOConverter
 					dtoConverterContext.getLocale());
 				description_i18n = LocalizedMapUtil.getI18nMap(
 					dtoConverterContext.isAcceptAllLanguages(),
-					journalArticle.getDescriptionMap());
+					_filterDescriptionMap(journalArticle.getDescriptionMap()));
 				friendlyUrlPath = journalArticle.getUrlTitle(
 					dtoConverterContext.getLocale());
 				friendlyUrlPath_i18n = LocalizedMapUtil.getI18nMap(
@@ -169,6 +174,20 @@ public class StructuredContentDTOConverter
 				uuid = journalArticle.getUuid();
 			}
 		};
+	}
+
+	private Map<Locale, String> _filterDescriptionMap(
+		Map<Locale, String> descriptionMap) {
+
+		Set<Map.Entry<Locale, String>> set = descriptionMap.entrySet();
+
+		Stream<Map.Entry<Locale, String>> stream = set.stream();
+
+		return stream.filter(
+			entry -> !StringPool.BLANK.equals(entry.getValue())
+		).collect(
+			Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)
+		);
 	}
 
 	private ContentField[] _toContentFields(
