@@ -8,16 +8,20 @@ import {Routes} from 'shared/util/router';
 import {StaticRouter} from 'react-router';
 jest.unmock('react-dom');
 
+const WrappedComponent = props => (
+	<Provider store={mockStore()}>
+		<StaticRouter>
+			<Header {...props}></Header>
+		</StaticRouter>
+	</Provider>
+);
+
 describe('BasePage.Header', () => {
 	afterEach(cleanup);
 
 	it('renders Header', () => {
 		const {container} = render(
-			<Provider store={mockStore()}>
-				<StaticRouter>
-					<Header>{'Test Test'}</Header>
-				</StaticRouter>
-			</Provider>
+			<WrappedComponent>{'Test Test'}</WrappedComponent>
 		);
 
 		expect(container).toMatchSnapshot();
@@ -25,18 +29,14 @@ describe('BasePage.Header', () => {
 
 	it('renders Header w/ Breadcrumbs', () => {
 		const {container} = render(
-			<Provider store={mockStore()}>
-				<StaticRouter>
-					<Header
-						breadcrumbs={[
-							{active: false, label: 'Foo'},
-							{active: true, label: 'Bar'}
-						]}
-					>
-						{'Test Test'}
-					</Header>
-				</StaticRouter>
-			</Provider>
+			<WrappedComponent
+				breadcrumbs={[
+					{active: false, label: 'Foo'},
+					{active: true, label: 'Bar'}
+				]}
+			>
+				{'Test Test'}
+			</WrappedComponent>
 		);
 
 		expect(container).toMatchSnapshot();

@@ -9,7 +9,7 @@ jest.unmock('react-dom');
 
 describe('TimeZoneAlert', () => {
 	afterEach(cleanup);
-	// Updates the snapshot when add the request of TimeZoneAlert LRAC-6961
+	// TODO: Updates the snapshot when add the request of TimeZoneAlert LRAC-6961
 	it('should render', () => {
 		const {container} = render(
 			<Provider store={mockStore()}>
