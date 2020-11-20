@@ -5,35 +5,17 @@ import {connect} from 'react-redux';
 import {sub} from 'shared/util/lang';
 import {withRouter} from 'react-router-dom';
 
-const timeZoneCountryRegex = /\([^)]+.*/;
+const TIME_ZONE_COUNTRY_REGEX = /\([^)]+.*/;
 
-export const mapState = (
-	store,
-	{
-		match: {
-			params: {groupId}
-		}
-	}
-) => {
-	const timeZone = store.getIn([
-		'projects',
-		groupId,
-		'data',
-		'timeZone',
-		'displayTimeZone'
-	]);
-
-	return {
-		timeZone: timeZone ? timeZone.replace(timeZoneCountryRegex, '') : ''
-	};
-};
-
-interface ITimeZoneAlertModal {
+interface ITimeZoneAlertModalProps {
 	stripe: boolean;
 	timeZone: string;
 }
 
-const TimeZoneAlert: React.FC<ITimeZoneAlertModal> = ({stripe, timeZone}) => {
+const TimeZoneAlert: React.FC<ITimeZoneAlertModalProps> = ({
+	stripe,
+	timeZone
+}) => {
 	const [showAlert, setShowAlert] = useState(false);
 	// TODO: LRAC-6961 Add the request to show the TimeZone Stripe and UTC
 
@@ -60,7 +42,27 @@ const TimeZoneAlert: React.FC<ITimeZoneAlertModal> = ({stripe, timeZone}) => {
 export default compose<any>(
 	withRouter,
 	connect(
-		mapState,
+		(
+			state,
+			{
+				match: {
+					params: {groupId}
+				}
+			}
+		) => ({
+				timeZone: state
+					.getIn(
+						[
+							'projects',
+							groupId,
+							'data',
+							'timeZone',
+							'displayTimeZone'
+						],
+						''
+					)
+					.replace(TIME_ZONE_COUNTRY_REGEX, '')
+			}),
 		null
 	)
 )(TimeZoneAlert);
