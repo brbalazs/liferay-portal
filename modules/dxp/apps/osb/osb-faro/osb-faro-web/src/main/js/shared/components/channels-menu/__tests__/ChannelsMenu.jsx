@@ -9,14 +9,14 @@ jest.unmock('react-dom');
 
 const mockMenuItems = () => [
 	{
-		id: 'link1',
+		id: '1',
 		name: 'Link 1',
-		url: '/link-1'
+		url: '/1'
 	},
 	{
-		id: 'link2',
+		id: '2',
 		name: 'Link 2',
-		url: '/link-2'
+		url: '/2'
 	}
 ];
 
@@ -54,7 +54,7 @@ describe('ChannelsMenu', () => {
 				<BrowserRouter>
 					<ChannelsMenu
 						channels={mockMenuItems()}
-						defaultChannelId='link1'
+						defaultChannelId='1'
 						groupId='123456'
 					/>
 				</BrowserRouter>

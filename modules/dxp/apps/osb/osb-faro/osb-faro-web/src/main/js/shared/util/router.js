@@ -53,7 +53,7 @@ export const Routes = buildRoutes({
 				path: '/:groupId([\\w._-]+)',
 				routes: {
 					CHANNEL: {
-						path: '/:channelId?',
+						path: '/:channelId(\\d+)?',
 						routes: {
 							ASSETS: {
 								path: '/assets',
