@@ -756,9 +756,8 @@ public class LayoutStagedModelDataHandler
 				if (!ExportImportThreadLocal.
 						isInitialLayoutStagingInProcess()) {
 
-					final long finalParentLayoutId = parentLayoutId;
-
 					final boolean finalPrivateLayout = privateLayout;
+					final long finalParentLayoutId = parentLayoutId;
 
 					priority = TransactionInvokerUtil.invoke(
 						_transactionConfig,
