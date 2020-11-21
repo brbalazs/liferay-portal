@@ -128,14 +128,14 @@ public class LayoutFriendlyURLStagedModelDataHandler
 		layoutFriendlyURL = getUniqueLayoutFriendlyURL(
 			portletDataContext, layoutFriendlyURL, existingLayoutFriendlyURL);
 
-		boolean isPrivateLayout = portletDataContext.isPrivateLayout();
+		boolean privateLayout = portletDataContext.isPrivateLayout();
 
 		String friendlyURL = layoutFriendlyURL.getFriendlyURL();
 
 		if (layoutFriendlyURL.isPrivateLayout() &&
 			friendlyURL.equals(PropsValues.CONTROL_PANEL_LAYOUT_FRIENDLY_URL)) {
 
-			isPrivateLayout = true;
+			privateLayout = true;
 		}
 
 		if (existingLayoutFriendlyURL == null) {
@@ -144,7 +144,7 @@ public class LayoutFriendlyURLStagedModelDataHandler
 			importedLayoutFriendlyURL =
 				_layoutFriendlyURLLocalService.addLayoutFriendlyURL(
 					userId, portletDataContext.getCompanyId(),
-					portletDataContext.getScopeGroupId(), plid, isPrivateLayout,
+					portletDataContext.getScopeGroupId(), plid, privateLayout,
 					layoutFriendlyURL.getFriendlyURL(),
 					layoutFriendlyURL.getLanguageId(), serviceContext);
 		}
@@ -152,7 +152,7 @@ public class LayoutFriendlyURLStagedModelDataHandler
 			importedLayoutFriendlyURL =
 				_layoutFriendlyURLLocalService.updateLayoutFriendlyURL(
 					userId, portletDataContext.getCompanyId(),
-					portletDataContext.getScopeGroupId(), plid, isPrivateLayout,
+					portletDataContext.getScopeGroupId(), plid, privateLayout,
 					layoutFriendlyURL.getFriendlyURL(),
 					layoutFriendlyURL.getLanguageId(), serviceContext);
 		}
