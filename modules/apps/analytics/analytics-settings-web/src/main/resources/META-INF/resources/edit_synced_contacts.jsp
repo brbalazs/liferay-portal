@@ -202,8 +202,11 @@ if (includeSyncContactsFields) {
 			</ul>
 		</fieldset>
 
-		<aui:button-row>
-			<aui:button disabled="<%= !connected %>" type="submit" value='<%= includeSyncContactsFields ? "save-and-next" : "save" %>' />
-		</aui:button-row>
+		<div class="text-right">
+			<aui:button-row>
+				<aui:button href="<%= redirect %>" type="cancel" value="cancel" />
+				<aui:button disabled="<%= !connected %>" type="submit" value='<%= includeSyncContactsFields ? "save-and-next" : "save" %>' />
+			</aui:button-row>
+		</div>
 	</aui:form>
 </div>
