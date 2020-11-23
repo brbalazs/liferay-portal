@@ -158,7 +158,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 						timeZoneId:
 							(project &&
 								project.getIn(['timeZone', 'timeZoneId'])) ||
-							''
+							'UTC' // TODO: [LRAC-6981] Make the default value to be an empty string for 2.10
 					}}
 					onSubmit={handleSubmit}
 					ref={formRef}
@@ -283,42 +283,47 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 									</p> */}
 								</Sheet.Section>
 
-								<Sheet.Section>
-									<Form.Label>
-										<>
-											{Liferay.Language.get('timezone')}
-
-											<span className='reference-mark'>
-												<ClayIcon symbol='asterisk' />
-											</span>
-
-											<p className='instructions'>
+								{/* TODO: [LRAC-6981] Enable this again for 2.10 release */}
+								{false && (
+									<Sheet.Section>
+										<Form.Label>
+											<>
 												{Liferay.Language.get(
-													'select-a-timezone-that-will-be-used-for-all-data-reporting-in-your-workspace'
+													'timezone'
 												)}
 
-												<strong className='ml-1'>
-													{Liferay.Language.get(
-														'cannot-be-changed-after-creation'
-													)}
-												</strong>
-											</p>
-										</>
-									</Form.Label>
+												<span className='reference-mark'>
+													<ClayIcon symbol='asterisk' />
+												</span>
 
-									<TimeZonePicker
-										disabled={disabled || editing}
-										fieldName='timeZoneId'
-										initialTimeZone={
-											project &&
-											new TimeZone(
-												project.getIn(['timeZone'])
-											)
-										}
-										setFieldTouched={setFieldTouched}
-										setFieldValue={setFieldValue}
-									/>
-								</Sheet.Section>
+												<p className='instructions'>
+													{Liferay.Language.get(
+														'select-a-timezone-that-will-be-used-for-all-data-reporting-in-your-workspace'
+													)}
+
+													<strong className='ml-1'>
+														{Liferay.Language.get(
+															'cannot-be-changed-after-creation'
+														)}
+													</strong>
+												</p>
+											</>
+										</Form.Label>
+
+										<TimeZonePicker
+											disabled={disabled || editing}
+											fieldName='timeZoneId'
+											initialTimeZone={
+												project &&
+												new TimeZone(
+													project.getIn(['timeZone'])
+												)
+											}
+											setFieldTouched={setFieldTouched}
+											setFieldValue={setFieldValue}
+										/>
+									</Sheet.Section>
+								)}
 
 								<Sheet.Section>
 									<Form.Input
