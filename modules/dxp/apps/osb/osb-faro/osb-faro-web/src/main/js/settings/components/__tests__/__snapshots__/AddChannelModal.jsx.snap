@@ -45,7 +45,11 @@ exports[`AddChannelModal renders 1`] = `
               class="form-control-label label-root"
               for="name"
             >
-              Property Name
+              <span
+                class="content-container"
+              >
+                Property Name
+              </span>
             </label>
             <input
               class="input-root form-control"

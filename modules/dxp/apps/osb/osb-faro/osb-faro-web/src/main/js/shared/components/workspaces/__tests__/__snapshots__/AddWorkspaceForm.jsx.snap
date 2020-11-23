@@ -37,18 +37,22 @@ exports[`AddWorkspaceForm should render 1`] = `
                 class="form-control-label label-root"
                 for="name"
               >
-                Workspace Name
                 <span
-                  class="reference-mark"
+                  class="content-container"
                 >
-                  <svg
-                    class="lexicon-icon lexicon-icon-asterisk"
-                    role="presentation"
+                  Workspace Name
+                  <span
+                    class="reference-mark"
                   >
-                    <use
-                      xlink:href="#asterisk"
-                    />
-                  </svg>
+                    <svg
+                      class="lexicon-icon lexicon-icon-asterisk"
+                      role="presentation"
+                    >
+                      <use
+                        xlink:href="#asterisk"
+                      />
+                    </svg>
+                  </span>
                 </span>
               </label>
               <input
@@ -70,24 +74,28 @@ exports[`AddWorkspaceForm should render 1`] = `
                 class="form-control-label label-root"
                 for="serverLocation"
               >
-                Data Center Location
                 <span
-                  class="reference-mark"
+                  class="content-container"
                 >
-                  <svg
-                    class="lexicon-icon lexicon-icon-asterisk"
-                    role="presentation"
+                  Data Center Location
+                  <span
+                    class="reference-mark"
                   >
-                    <use
-                      xlink:href="#asterisk"
-                    />
-                  </svg>
+                    <svg
+                      class="lexicon-icon lexicon-icon-asterisk"
+                      role="presentation"
+                    >
+                      <use
+                        xlink:href="#asterisk"
+                      />
+                    </svg>
+                  </span>
+                  <p
+                    class="instructions"
+                  >
+                    Select a server to store your data. This could have implications to your organization's policy on user data storage.
+                  </p>
                 </span>
-                <p
-                  class="instructions"
-                >
-                  Select a server to store your data. This could have implications to your organization's policy on user data storage.
-                </p>
               </label>
               <select
                 class="form-control select-root"
@@ -128,29 +136,33 @@ exports[`AddWorkspaceForm should render 1`] = `
             <label
               class="form-control-label label-root"
             >
-              Timezone
               <span
-                class="reference-mark"
+                class="content-container"
               >
-                <svg
-                  class="lexicon-icon lexicon-icon-asterisk"
-                  role="presentation"
+                Timezone
+                <span
+                  class="reference-mark"
                 >
-                  <use
-                    xlink:href="#asterisk"
-                  />
-                </svg>
+                  <svg
+                    class="lexicon-icon lexicon-icon-asterisk"
+                    role="presentation"
+                  >
+                    <use
+                      xlink:href="#asterisk"
+                    />
+                  </svg>
+                </span>
+                <p
+                  class="instructions"
+                >
+                  Select a timezone that will be used for all data reporting in your workspace.
+                  <strong
+                    class="ml-1"
+                  >
+                    Cannot be changed after creation.
+                  </strong>
+                </p>
               </span>
-              <p
-                class="instructions"
-              >
-                Select a timezone that will be used for all data reporting in your workspace.
-                <strong
-                  class="ml-1"
-                >
-                  Cannot be changed after creation.
-                </strong>
-              </p>
             </label>
             <div
               class="form-group time-zone-picker-root form-group-autofit"
@@ -199,17 +211,21 @@ exports[`AddWorkspaceForm should render 1`] = `
                 class="form-control-label label-root"
                 for="friendlyURL"
               >
-                Set a Friendly Workspace URL
-                <p
-                  class="instructions"
+                <span
+                  class="content-container"
                 >
-                  You can only set your friendly workspace URL once.
-                </p>
-                <p
-                  class="instructions form-text"
-                >
-                  http://localhost:3000/workspace
-                </p>
+                  Set a Friendly Workspace URL
+                  <p
+                    class="instructions"
+                  >
+                    You can only set your friendly workspace URL once.
+                  </p>
+                  <p
+                    class="instructions form-text"
+                  >
+                    http://localhost:3000/workspace
+                  </p>
+                </span>
               </label>
               <div
                 class="input-group"
@@ -245,15 +261,26 @@ exports[`AddWorkspaceForm should render 1`] = `
               class=""
             >
               <label
-                class="form-control-label label-root"
+                class="form-control-label label-root required"
                 for="emailAddressDomains"
               >
-                Allowed Email Domains
-                <p
-                  class="instructions"
+                <span
+                  class="content-container"
                 >
-                  Anyone with an email address at these domains can request access to your workspace.
-                </p>
+                  Allowed Email Domains
+                </span>
+              </label>
+              <label
+                class="form-control-label label-root font-weight-normal"
+                for="emailAddressDomains"
+              >
+                <span
+                  class="content-container"
+                >
+                  <p>
+                    Anyone with an email address at these domains can request access to your workspace.
+                  </p>
+                </span>
               </label>
               <div
                 class="input-group"
@@ -304,15 +331,38 @@ exports[`AddWorkspaceForm should render 1`] = `
               class=""
             >
               <label
-                class="form-control-label label-root"
+                class="form-control-label label-root required"
                 for="incidentReportEmailAddresses"
               >
-                Add Incident Report Contacts
-                <p
-                  class="instructions"
+                <span
+                  class="content-container"
                 >
-                  Who should we contact in case of a security breach?
-                </p>
+                  Add Incident Report Contacts
+                </span>
+                <span
+                  class="info-popover-root"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-question-circle-full"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#question-circle-full"
+                    />
+                  </svg>
+                </span>
+              </label>
+              <label
+                class="form-control-label label-root font-weight-normal"
+                for="incidentReportEmailAddresses"
+              >
+                <span
+                  class="content-container"
+                >
+                  <p>
+                    Who should we contact in case of a security breach?
+                  </p>
+                </span>
               </label>
               <div
                 class="input-group"

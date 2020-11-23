@@ -4,6 +4,10 @@ exports[`Label should render 1`] = `
 <div>
   <label
     class="form-control-label label-root"
-  />
+  >
+    <span
+      class="content-container"
+    />
+  </label>
 </div>
 `;

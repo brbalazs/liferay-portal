@@ -21,14 +21,18 @@ exports[`Interactions should render 1`] = `
               class="form-control-label label-root"
               for="runDataPeriod"
             >
-              <div>
-                Select Interaction Period
-                <div
-                  class="secondary-info"
-                >
-                  The interaction period requires a minimum of 1,000 events.
+              <span
+                class="content-container"
+              >
+                <div>
+                  Select Interaction Period
+                  <div
+                    class="secondary-info"
+                  >
+                    The interaction period requires a minimum of 1,000 events.
+                  </div>
                 </div>
-              </div>
+              </span>
             </label>
             <select
               class="form-control select-root"

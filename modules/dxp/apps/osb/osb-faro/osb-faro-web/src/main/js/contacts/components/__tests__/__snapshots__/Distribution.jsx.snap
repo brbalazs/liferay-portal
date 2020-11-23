@@ -54,7 +54,11 @@ exports[`SegmentDistribution should render 1`] = `
                   class="form-control-label label-root"
                   for="breakdown"
                 >
-                  by
+                  <span
+                    class="content-container"
+                  >
+                    by
+                  </span>
                 </label>
               </div>
               <div

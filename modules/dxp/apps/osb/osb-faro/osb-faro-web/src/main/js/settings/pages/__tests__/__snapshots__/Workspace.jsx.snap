@@ -61,18 +61,22 @@ exports[`Workspace Settting should render 1`] = `
                     class="form-control-label label-root"
                     for="name"
                   >
-                    Workspace Name
                     <span
-                      class="reference-mark"
+                      class="content-container"
                     >
-                      <svg
-                        class="lexicon-icon lexicon-icon-asterisk"
-                        role="presentation"
+                      Workspace Name
+                      <span
+                        class="reference-mark"
                       >
-                        <use
-                          xlink:href="#asterisk"
-                        />
-                      </svg>
+                        <svg
+                          class="lexicon-icon lexicon-icon-asterisk"
+                          role="presentation"
+                        >
+                          <use
+                            xlink:href="#asterisk"
+                          />
+                        </svg>
+                      </span>
                     </span>
                   </label>
                   <input
@@ -94,24 +98,28 @@ exports[`Workspace Settting should render 1`] = `
                     class="form-control-label label-root"
                     for="serverLocation"
                   >
-                    Data Center Location
                     <span
-                      class="reference-mark"
+                      class="content-container"
                     >
-                      <svg
-                        class="lexicon-icon lexicon-icon-asterisk"
-                        role="presentation"
+                      Data Center Location
+                      <span
+                        class="reference-mark"
                       >
-                        <use
-                          xlink:href="#asterisk"
-                        />
-                      </svg>
+                        <svg
+                          class="lexicon-icon lexicon-icon-asterisk"
+                          role="presentation"
+                        >
+                          <use
+                            xlink:href="#asterisk"
+                          />
+                        </svg>
+                      </span>
+                      <p
+                        class="instructions"
+                      >
+                        Select a server to store your data. This could have implications to your organization's policy on user data storage.
+                      </p>
                     </span>
-                    <p
-                      class="instructions"
-                    >
-                      Select a server to store your data. This could have implications to your organization's policy on user data storage.
-                    </p>
                   </label>
                   <select
                     class="form-control select-root"
@@ -157,12 +165,16 @@ exports[`Workspace Settting should render 1`] = `
                     class="form-control-label label-root"
                     for="friendlyURL"
                   >
-                    Set a Friendly Workspace URL
-                    <p
-                      class="instructions form-text"
+                    <span
+                      class="content-container"
                     >
-                      http://localhost:3000/workspace
-                    </p>
+                      Set a Friendly Workspace URL
+                      <p
+                        class="instructions form-text"
+                      >
+                        http://localhost:3000/workspace
+                      </p>
+                    </span>
                   </label>
                   <div
                     class="input-group"
@@ -198,15 +210,26 @@ exports[`Workspace Settting should render 1`] = `
                   class=""
                 >
                   <label
-                    class="form-control-label label-root"
+                    class="form-control-label label-root required"
                     for="emailAddressDomains"
                   >
-                    Allowed Email Domains
-                    <p
-                      class="instructions"
+                    <span
+                      class="content-container"
                     >
-                      Anyone with an email address at these domains can request access to your workspace.
-                    </p>
+                      Allowed Email Domains
+                    </span>
+                  </label>
+                  <label
+                    class="form-control-label label-root font-weight-normal"
+                    for="emailAddressDomains"
+                  >
+                    <span
+                      class="content-container"
+                    >
+                      <p>
+                        Anyone with an email address at these domains can request access to your workspace.
+                      </p>
+                    </span>
                   </label>
                   <div
                     class="input-group"

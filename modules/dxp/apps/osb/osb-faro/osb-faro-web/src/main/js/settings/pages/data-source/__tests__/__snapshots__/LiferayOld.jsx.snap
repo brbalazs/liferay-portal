@@ -167,7 +167,11 @@ exports[`LiferayDataSourceOld should render 1`] = `
                       class="form-control-label label-root required"
                       for="dataSourceName"
                     >
-                      Name
+                      <span
+                        class="content-container"
+                      >
+                        Name
+                      </span>
                     </label>
                     <input
                       class="input-root form-control"
@@ -185,7 +189,11 @@ exports[`LiferayDataSourceOld should render 1`] = `
                       class="form-control-label label-root required"
                       for="url"
                     >
-                      URL
+                      <span
+                        class="content-container"
+                      >
+                        URL
+                      </span>
                     </label>
                     <input
                       class="input-root form-control"
@@ -212,7 +220,11 @@ exports[`LiferayDataSourceOld should render 1`] = `
                       class="form-control-label label-root required"
                       for="consumerKey"
                     >
-                      Consumer Key/Client ID
+                      <span
+                        class="content-container"
+                      >
+                        Consumer Key/Client ID
+                      </span>
                     </label>
                     <input
                       autocomplete="new-password"
@@ -231,7 +243,11 @@ exports[`LiferayDataSourceOld should render 1`] = `
                       class="form-control-label label-root required"
                       for="consumerSecret"
                     >
-                      Consumer Secret/Client Secret
+                      <span
+                        class="content-container"
+                      >
+                        Consumer Secret/Client Secret
+                      </span>
                     </label>
                     <div
                       class="input-group"
