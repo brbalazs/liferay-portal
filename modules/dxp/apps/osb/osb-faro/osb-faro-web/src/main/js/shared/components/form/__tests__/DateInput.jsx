@@ -29,6 +29,8 @@ describe('DateInput', () => {
 			<DefaultComponent label={labelContent} required />
 		);
 
-		expect(queryByText(labelContent)).toHaveClass('required');
+		expect(queryByText(labelContent).closest('label')).toHaveClass(
+			'required'
+		);
 	});
 });

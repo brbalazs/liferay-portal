@@ -12,9 +12,11 @@
 			margin-left: 4px;
 		}
 
-		&.required:after {
-			color: $error;
-			content: '*';
+		&.required {
+			.content-container:after {
+				color: $error;
+				content: '*';
+			}
 		}
 	}
 }

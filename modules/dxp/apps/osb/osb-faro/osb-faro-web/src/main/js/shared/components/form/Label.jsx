@@ -36,7 +36,7 @@ export default class Label extends React.Component {
 					}
 				)}
 			>
-				{children}
+				<span className='content-container'>{children}</span>
 
 				{popover && (
 					<InfoPopover

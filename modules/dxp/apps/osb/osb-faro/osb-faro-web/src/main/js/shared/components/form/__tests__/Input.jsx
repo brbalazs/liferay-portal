@@ -33,6 +33,8 @@ describe('Input', () => {
 	it('should render a required input', () => {
 		const {queryByText} = render(<DefaultComponent required />);
 
-		expect(queryByText('Input label')).toHaveClass('required');
+		expect(queryByText('Input label').closest('label')).toHaveClass(
+			'required'
+		);
 	});
 });
