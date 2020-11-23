@@ -24,16 +24,12 @@
 			margin-top: 4px;
 		}
 
-		.input-group > .input-group-append .form-control  {
+		.input-group > .input-group-append .form-control {
 			border-bottom-left-radius: 0;
 			border-top-left-radius: 0;
 		}
 
 		.label-root {
-			.instructions {
-				font-weight: $fontWeightRegular;
-			}
-
 			p {
 				margin-bottom: 6px;
 			}
@@ -59,5 +55,11 @@
 
 	.sheet-section {
 		margin-bottom: 2rem;
+	}
+}
+
+.add-workspace-popover-content {
+	ul {
+		padding-left: 16px;
 	}
 }

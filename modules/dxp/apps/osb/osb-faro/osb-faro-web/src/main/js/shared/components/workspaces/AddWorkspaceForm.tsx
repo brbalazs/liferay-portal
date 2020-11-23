@@ -414,29 +414,57 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 												errorMessage={Liferay.Language.get(
 													'please-enter-the-email-in-this-format-sample-email-com'
 												)}
-												label={
-													<>
-														{Liferay.Language.get(
-															'add-incident-report-contacts'
-														)}
-
-														<p className='instructions'>
-															{Liferay.Language.get(
-																'who-should-we-contact-in-case-of-a-security-breach'
-															)}
-														</p>
-													</>
-												}
+												label={Liferay.Language.get(
+													'add-incident-report-contacts'
+												)}
 												name='incidentReportEmailAddresses'
 												onChangeInputList={
 													setEmailAddressesInputValues
 												}
-												validate={items =>
-													validateEmailArr(
-														items,
-														emailAddressesInputValues
+												popover={{
+													content: (
+														<div className='add-workspace-popover-content'>
+															{Liferay.Language.get(
+																'this-person-will-be-contacted-in-the-event-of'
+															)}
+
+															<ul>
+																<li>
+																	{Liferay.Language.get(
+																		'service-interruptions-fragment'
+																	)}
+																</li>
+
+																<li>
+																	{Liferay.Language.get(
+																		'security-incidents-fragment'
+																	)}
+																</li>
+
+																<li>
+																	{Liferay.Language.get(
+																		'other-urgent-service-updates-that-require-action-fragment'
+																	)}
+																</li>
+															</ul>
+														</div>
+													),
+													title: Liferay.Language.get(
+														'incident-report-contact'
 													)
-												}
+												}}
+												required
+												secondaryInfo={Liferay.Language.get(
+													'who-should-we-contact-in-case-of-a-security-breach'
+												)}
+												validate={sequence([
+													validateRequired,
+													items =>
+														validateEmailArr(
+															items,
+															emailAddressesInputValues
+														)
+												])}
 												validationFn={validateEmail}
 											/>
 										</Sheet.Section>
