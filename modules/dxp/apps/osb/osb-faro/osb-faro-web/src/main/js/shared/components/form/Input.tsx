@@ -29,7 +29,6 @@ interface IFormInputProps
 		React.HTMLAttributes<HTMLInputElement> {
 	contentAfter: React.ReactNode;
 	inline: boolean;
-	info: string;
 	inset: {
 		content: React.ReactNode;
 		position: InsetPositions;
@@ -37,6 +36,10 @@ interface IFormInputProps
 	label: string;
 	mask: any;
 	onChange: (event) => void;
+	popover?: {
+		content: React.ReactNode;
+		title: React.ReactNode;
+	};
 	required: boolean;
 	showHelpBlock: boolean;
 	showSuccess: boolean;
@@ -68,7 +71,6 @@ export default class FormInput extends React.Component<IFormInputProps> {
 			errors: PropTypes.object,
 			touched: PropTypes.object
 		}),
-		info: PropTypes.string,
 		inline: PropTypes.bool,
 		inset: PropTypes.shape({
 			content: PropTypes.node,
@@ -85,6 +87,10 @@ export default class FormInput extends React.Component<IFormInputProps> {
 			})
 		]),
 		onChange: PropTypes.func,
+		popover: PropTypes.shape({
+			content: PropTypes.node,
+			title: PropTypes.node
+		}),
 		required: PropTypes.bool,
 		showHelpBlock: PropTypes.bool,
 		showSuccess: PropTypes.bool,
@@ -192,11 +198,11 @@ export default class FormInput extends React.Component<IFormInputProps> {
 			className,
 			field,
 			form,
-			info,
 			inline,
 			inset,
 			label,
 			mask,
+			popover,
 			required,
 			showHelpBlock,
 			showSuccess,
@@ -227,7 +233,7 @@ export default class FormInput extends React.Component<IFormInputProps> {
 		return (
 			<div className={classes} style={style}>
 				{label && (
-					<Label htmlFor={name} info={info} required={required}>
+					<Label htmlFor={name} popover={popover} required={required}>
 						{label}
 					</Label>
 				)}

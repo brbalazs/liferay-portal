@@ -374,21 +374,15 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 										errorMessage={Liferay.Language.get(
 											'please-enter-the-domain-in-this-format-domain-com'
 										)}
-										label={
-											<>
-												{Liferay.Language.get(
-													'allowed-email-domains'
-												)}
-
-												<p className='instructions'>
-													{Liferay.Language.get(
-														'anyone-with-an-email-address-at-these-domains-can-request-access-to-your-workspace'
-													)}
-												</p>
-											</>
-										}
+										label={Liferay.Language.get(
+											'allowed-email-domains'
+										)}
 										name='emailAddressDomains'
 										onChangeInputList={setInputListValue}
+										required
+										secondaryInfo={Liferay.Language.get(
+											'anyone-with-an-email-address-at-these-domains-can-request-access-to-your-workspace'
+										)}
 										text={{
 											content: '@',
 											position: 'prepend'

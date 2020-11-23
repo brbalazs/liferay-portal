@@ -28,9 +28,12 @@ export class FormSelectFieldInput extends React.Component {
 			touched: PropTypes.object
 		}),
 		groupId: PropTypes.string.isRequired,
-		info: PropTypes.string,
 		label: PropTypes.string,
 		onSelect: PropTypes.func,
+		popover: PropTypes.shape({
+			content: PropTypes.node,
+			title: PropTypes.node
+		}),
 		required: PropTypes.bool,
 		showHelpBlock: PropTypes.bool
 	};
@@ -57,9 +60,9 @@ export class FormSelectFieldInput extends React.Component {
 			field: {name, onBlur, value},
 			form,
 			groupId,
-			info,
 			innerRef,
 			label,
+			popover,
 			required,
 			showHelpBlock
 		} = this.props;
@@ -74,7 +77,7 @@ export class FormSelectFieldInput extends React.Component {
 		return (
 			<div className={classes}>
 				{label && (
-					<Label htmlFor={name} info={info} required={required}>
+					<Label htmlFor={name} popover={popover} required={required}>
 						{label}
 					</Label>
 				)}

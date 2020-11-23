@@ -9,9 +9,12 @@ interface IFormSelectProps
 	extends FieldProps,
 		React.HTMLAttributes<HTMLElement> {
 	disabled: boolean;
-	info: string;
 	inline?: boolean;
 	label: React.ReactNode;
+	popover: {
+		content: React.ReactNode;
+		title: React.ReactNode;
+	};
 	required?: boolean;
 }
 
@@ -20,9 +23,9 @@ const FormSelect: React.FC<IFormSelectProps> = ({
 	className,
 	field,
 	form,
-	info,
 	inline = false,
 	label,
+	popover,
 	required = false,
 	...otherProps
 }) => {
@@ -41,7 +44,7 @@ const FormSelect: React.FC<IFormSelectProps> = ({
 	return (
 		<div className={classes}>
 			{label && (
-				<Label htmlFor={name} info={info} required={required}>
+				<Label htmlFor={name} popover={popover} required={required}>
 					{label}
 				</Label>
 			)}

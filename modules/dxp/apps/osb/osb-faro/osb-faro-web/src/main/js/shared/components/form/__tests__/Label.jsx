@@ -17,16 +17,9 @@ describe('Label', () => {
 		expect(container.querySelector('.required')).toBeTruthy();
 	});
 
-	it('should render with a tooltip and icon', () => {
+	it('should render with a popover component', () => {
 		const {container} = render(<Label info='foo bar baz' />);
 
-		expect(container.querySelector('label')).toHaveAttribute(
-			'data-tooltip',
-			'true'
-		);
-		expect(container.querySelector('use')).toHaveAttribute(
-			'xlink:href',
-			'/o/osb-faro-web/dist/sprite.svg#question-circle-full'
-		);
+		expect(container.querySelector('.info-popover-root')).toBeTruthy;
 	});
 });

@@ -9,9 +9,12 @@ import {isNumber} from 'lodash';
 interface IFormDateInputProps
 	extends FieldProps,
 		React.HTMLAttributes<HTMLElement> {
-	info: string;
 	inline: boolean;
 	label: string;
+	popover: {
+		content: React.ReactNode;
+		title: React.ReactNode;
+	};
 	required?: boolean;
 	width: number;
 }
@@ -20,9 +23,9 @@ const FormDateInput: React.FC<IFormDateInputProps> = ({
 	className,
 	field,
 	form,
-	info,
 	inline = false,
 	label,
+	popover,
 	required = false,
 	width
 }) => {
@@ -50,7 +53,7 @@ const FormDateInput: React.FC<IFormDateInputProps> = ({
 	return (
 		<div className={classes} style={style}>
 			{label && (
-				<Label htmlFor={name} info={info} required={required}>
+				<Label htmlFor={name} popover={popover} required={required}>
 					{label}
 				</Label>
 			)}
