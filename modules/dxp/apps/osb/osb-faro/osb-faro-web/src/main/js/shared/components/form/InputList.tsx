@@ -19,8 +19,12 @@ interface IInputListProps
 	};
 	label?: React.ReactNode;
 	onChangeInputList: (value: string) => void;
+	popover?: {
+		content: React.ReactNode;
+		titel: React.ReactNode;
+	};
 	required?: boolean;
-	info?: string;
+	secondaryInfo?: React.ReactNode;
 	showHelpBlock?: boolean;
 	text?: {
 		content: React.ReactNode;
@@ -87,12 +91,13 @@ const FormInputList: React.FC<IInputListProps> = ({
 	errorMessage,
 	field: {name, value},
 	form: {errors, setFieldError, setFieldTouched, setFieldValue, touched},
-	info,
 	inline,
 	inset,
 	label,
 	onChangeInputList,
+	popover,
 	required,
+	secondaryInfo,
 	showHelpBlock = true,
 	text,
 	validationFn = () => true,
@@ -133,8 +138,14 @@ const FormInputList: React.FC<IInputListProps> = ({
 	return (
 		<div className={classes}>
 			{label && (
-				<Label htmlFor={name} info={info} required={required}>
+				<Label htmlFor={name} popover={popover} required={required}>
 					{label}
+				</Label>
+			)}
+
+			{secondaryInfo && (
+				<Label className='font-weight-normal' htmlFor={name}>
+					<p>{secondaryInfo}</p>
 				</Label>
 			)}
 

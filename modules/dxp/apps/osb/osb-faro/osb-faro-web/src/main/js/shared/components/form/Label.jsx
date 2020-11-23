@@ -1,5 +1,5 @@
 import getCN from 'classnames';
-import Icon from '../Icon';
+import InfoPopover from 'shared/components/InfoPopover';
 import omitDefinedProps from 'shared/util/omitDefinedProps';
 import React from 'react';
 import {PropTypes} from 'prop-types';
@@ -10,26 +10,23 @@ export default class Label extends React.Component {
 	};
 
 	static propTypes = {
-		info: PropTypes.string,
+		className: PropTypes.string,
+		popover: PropTypes.object,
 		required: PropTypes.bool
 	};
 
 	render() {
-		const {children, className, info, required, ...otherProps} = this.props;
-
-		let tooltipProps = {};
-
-		if (info) {
-			tooltipProps = {
-				'data-tooltip': true,
-				title: info
-			};
-		}
+		const {
+			children,
+			className,
+			popover,
+			required,
+			...otherProps
+		} = this.props;
 
 		return (
 			<label
 				{...omitDefinedProps(otherProps, Label.propTypes)}
-				{...tooltipProps}
 				className={getCN(
 					'form-control-label',
 					'label-root',
@@ -41,8 +38,11 @@ export default class Label extends React.Component {
 			>
 				{children}
 
-				{info && (
-					<Icon className='info' symbol='question-circle-full' />
+				{popover && (
+					<InfoPopover
+						content={popover.content}
+						title={popover.title}
+					/>
 				)}
 			</label>
 		);
