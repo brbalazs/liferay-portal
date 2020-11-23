@@ -305,10 +305,7 @@ const AudienceReport = ({
 								]
 							)
 						}
-						title={
-							knownIndividualsTitle ||
-							Liferay.Language.get('segmented-visitors')
-						}
+						title={knownIndividualsTitle}
 					/>
 
 					{renderDonutChart(knownIndividuals)}
