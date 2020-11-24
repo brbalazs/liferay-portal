@@ -272,67 +272,61 @@ const AudienceReport = ({
 	knownIndividuals,
 	knownIndividualsTitle,
 	segments,
-	segmentsTitle,
+	segmentsTitle = Liferay.Language.get('viewer-segments'),
 	uniqueVisitors,
-	uniqueVisitorsTitle,
+	uniqueVisitorsTitle = Liferay.Language.get('visitors'),
 	viewerMode
-}) => (
-	<div className={`${CLASSNAME} row w-100`}>
-		<div className='col-sm-6'>
-			<div className='row'>
-				<div className='col-sm-6 text-center'>
-					<Title
-						title={
-							uniqueVisitorsTitle ||
-							Liferay.Language.get('visitors')
-						}
-					/>
+}) => {
+	const viewerModeSubtext =
+		viewerMode === AUDIENCE_VIEWER_MODE.VIEW
+			? Liferay.Language.get('view').toLowerCase()
+			: Liferay.Language.get('preview').toLowerCase();
 
-					{renderDonutChart(uniqueVisitors)}
-				</div>
-				<div className='col-sm-6 text-center'>
-					<Title
-						helperText={
-							viewerMode &&
-							sub(
-								Liferay.Language.get(
-									'a-snapshot-of-the-audience-captured-at-the-time-of-x.-this-does-not-reflect-the-current-state-of-the-visitors-segments'
-								),
-								[
-									viewerMode === AUDIENCE_VIEWER_MODE.VIEW
-										? Liferay.Language.get('view')
-										: Liferay.Language.get('preview')
-								]
-							)
-						}
-						title={knownIndividualsTitle}
-					/>
+	return (
+		<div className={`${CLASSNAME} row w-100`}>
+			<div className='col-sm-6'>
+				<div className='row'>
+					<div className='col-sm-6 text-center'>
+						<Title title={uniqueVisitorsTitle} />
 
-					{renderDonutChart(knownIndividuals)}
+						{renderDonutChart(uniqueVisitors)}
+					</div>
+					<div className='col-sm-6 text-center'>
+						<Title
+							helperText={
+								viewerMode &&
+								sub(
+									Liferay.Language.get(
+										'a-snapshot-of-the-audience-captured-at-the-time-of-x.-this-does-not-reflect-the-current-state-of-the-visitors-segments'
+									),
+									[viewerModeSubtext]
+								)
+							}
+							title={knownIndividualsTitle}
+						/>
+
+						{renderDonutChart(knownIndividuals)}
+					</div>
 				</div>
 			</div>
-		</div>
-		<div className='col-sm-6 pl-5'>
-			<Title
-				helperText={
-					viewerMode &&
-					sub(
-						Liferay.Language.get(
-							'a-snapshot-of-segments-captured-at-the-time-of-x.-this-does-not-relect-the-current-state-of-the-visitors-segments'
-						),
-						[
-							viewerMode === AUDIENCE_VIEWER_MODE.VIEW
-								? Liferay.Language.get('view')
-								: Liferay.Language.get('preview')
-						]
-					)
-				}
-				title={segmentsTitle || Liferay.Language.get('viewer-segments')}
-			/>
+			<div className='col-sm-6 pl-5'>
+				<Title
+					helperText={
+						viewerMode &&
+						sub(
+							Liferay.Language.get(
+								'a-snapshot-of-segments-captured-at-the-time-of-x.-this-does-not-relect-the-current-state-of-the-visitors-segments'
+							),
+							[viewerModeSubtext]
+						)
+					}
+					title={segmentsTitle}
+				/>
 
-			{renderBarChart(segments)}
+				{renderBarChart(segments)}
+			</div>
 		</div>
-	</div>
-);
+	);
+};
 
 export default AudienceReport;
