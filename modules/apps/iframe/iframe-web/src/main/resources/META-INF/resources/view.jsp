@@ -148,7 +148,7 @@
 	var iframe = A.one('#<portlet:namespace />iframe');
 
 	if (iframe) {
-		iframe.set('src', '<%= HtmlUtil.escapeHREF(iFrameDisplayContext.getIframeSrc()) %>');
+		iframe.set('src', '<%= HtmlUtil.escapeJS(iFrameDisplayContext.getIframeSrc()) %>');
 
 		iframe.plug(
 			A.Plugin.AutosizeIframe,
@@ -185,7 +185,7 @@
 		headers.append('Authorization', 'Basic ' + btoa('<%= iFramePortletInstanceConfiguration.basicUserName() %>:<%= iFramePortletInstanceConfiguration.basicPassword() %>'))
 
 		fetch(
-			'<%= HtmlUtil.escapeHREF(iFrameDisplayContext.getIframeSrc()) %>',
+			'<%= HtmlUtil.escapeJS(iFrameDisplayContext.getIframeSrc()) %>',
 			{
 				headers: headers,
 				method: 'GET',
