@@ -44,7 +44,7 @@ const config = {
 	},
 	output: {
 		filename: buildName,
-		path: path.resolve('./build/node/packageRunBuild/resources/'),
+		path: path.resolve('src/main/resources/META-INF/resources/dist'),
 		publicPath: '',
 	},
 	plugins: [
