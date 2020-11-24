@@ -1,323 +1,256 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DataTransformation should hide unmatched fields 1`] = `
-<div
-  className="data-transformation-root"
->
-  <Header
-    border={true}
-  >
-    <h3
-      className="title"
-    >
-      Map Contact Data
-    </h3>
-    <p
-      className="text-secondary"
-    >
-      All fields have been mapped automatically to the best possible match. Please confirm the data mapping below and make any changes if necessary. You may only map one source data field to a single Analytics Cloud field.
-    </p>
-  </Header>
-  <Body
-    className="summary-section"
-  >
-    <p
-      className="summary"
-    >
-      <Icon
-        symbol="faro-connection-success-ovals"
-      />
-      2 fields mapped.
-      <Icon
-        symbol="faro-connection-error-ovals"
-      />
-      0 fields not mapped.
-    </p>
-    <Checkbox
-      checked={false}
-      label="Unmapped Fields Only"
-      onChange={[Function]}
-    />
-  </Body>
-  <Section
-    lastChildMargin={false}
-  >
-    <DataTransformationList
-      dataSourceFn={[Function]}
-      duplicateTargetFieldsIMap={Immutable.Map {}}
-      fieldsIList={
-        Immutable.List [
-          Immutable.Map {
-            "source": Immutable.Map {
-              "name": "TestHas default match 1",
-              "value": undefined,
-            },
-            "suggestion": Immutable.Map {
-              "name": "foo",
-              "value": "valuenull",
-            },
-          },
-          Immutable.Map {
-            "source": Immutable.Map {
-              "name": "TestHas default match 2",
-              "value": undefined,
-            },
-            "suggestion": Immutable.Map {
-              "name": "bar",
-              "value": "valuenull",
-            },
-          },
-        ]
-      }
-      groupId="23"
-      hideMappedFields={false}
-      id="123"
-      initialSearchedSuggestions={
-        Array [
-          Object {
-            "name": "Test0",
-            "value": "value0",
-          },
-        ]
-      }
-      mappingSuggestions={
-        Object {
-          "TestHas default match 1": Array [
-            Object {
-              "context": "demographics",
-              "dataSourceFieldNames": Object {},
-              "id": "null",
-              "name": "foo",
-              "ownerType": "individual",
-              "type": "Text",
-              "values": Array [
-                "valuenull",
-              ],
-            },
-          ],
-          "TestHas default match 2": Array [
-            Object {
-              "context": "demographics",
-              "dataSourceFieldNames": Object {},
-              "id": "null",
-              "name": "bar",
-              "ownerType": "individual",
-              "type": "Text",
-              "values": Array [
-                "valuenull",
-              ],
-            },
-          ],
-          "TestNo default match": Array [],
-        }
-      }
-      onChange={[Function]}
-      readOnly={false}
-      sourceFieldPlaceholder="Select Field from Source"
-      sourceFields={
-        Object {
-          "TestHas default match 1": undefined,
-          "TestHas default match 2": undefined,
-          "TestNo default match": undefined,
-        }
-      }
-      sourceTitle="Source Data"
-      suggestionsTitle="Analytics Cloud Field"
-    />
-    <div
-      className="add-custom-field"
-    >
-      <div>
-        Add a custom field mapping.
-      </div>
-      <Button
-        onClick={[Function]}
-      >
-        Add Field
-      </Button>
-    </div>
-  </Section>
-  <Footer
-    divider={false}
-  >
-    <FormNavigation
-      cancelHref="/workspace/23/settings/data-source"
-      enableNext={true}
-      onNextStep={[Function]}
-      submitMessage="Done"
-    />
-  </Footer>
-</div>
-`;
-
 exports[`DataTransformation should render 1`] = `
-<div
-  className="data-transformation-root"
->
-  <Header
-    border={true}
+<div>
+  <div
+    class="data-transformation-root"
   >
-    <h3
-      className="title"
-    >
-      Map Contact Data
-    </h3>
-  </Header>
-  <Spinner
-    alignCenter={false}
-    display="dotted"
-    fadeIn={false}
-    inline={false}
-    light={false}
-    overlay={false}
-    spacer={true}
-  />
-  <Footer
-    divider={false}
-  >
-    <FormNavigation
-      cancelHref="/workspace/23/settings/data-source"
-      enableNext={false}
-      onNextStep={[Function]}
-      submitMessage="Done"
-    />
-  </Footer>
-</div>
-`;
-
-exports[`DataTransformation should render w/ a mapped field 1`] = `
-<div
-  className="data-transformation-root"
->
-  <Header
-    border={true}
-  >
-    <h3
-      className="title"
-    >
-      Map Contact Data
-    </h3>
-    <p
-      className="text-secondary"
-    >
-      All fields have been mapped automatically to the best possible match. Please confirm the data mapping below and make any changes if necessary. You may only map one source data field to a single Analytics Cloud field.
-    </p>
-  </Header>
-  <Body
-    className="summary-section"
-  >
-    <p
-      className="summary"
-    >
-      <Icon
-        symbol="faro-connection-success-ovals"
-      />
-      1 fields mapped.
-      <Icon
-        symbol="faro-connection-error-ovals"
-      />
-      1 fields not mapped.
-    </p>
-    <Checkbox
-      checked={false}
-      label="Unmapped Fields Only"
-      onChange={[Function]}
-    />
-  </Body>
-  <Section
-    lastChildMargin={false}
-  >
-    <DataTransformationList
-      dataSourceFn={[Function]}
-      duplicateTargetFieldsIMap={Immutable.Map {}}
-      fieldsIList={
-        Immutable.List [
-          Immutable.Map {
-            "source": Immutable.Map {
-              "name": "TestMatched Field",
-              "value": undefined,
-            },
-            "suggestion": Immutable.Map {
-              "name": "Test0",
-              "value": "value0",
-            },
-          },
-          Immutable.Map {
-            "source": Immutable.Map {
-              "name": "TestUnmatched Field",
-              "value": undefined,
-            },
-            "suggestion": Immutable.Map {
-              "name": undefined,
-              "value": undefined,
-            },
-          },
-        ]
-      }
-      groupId="23"
-      hideMappedFields={false}
-      id="123"
-      initialSearchedSuggestions={
-        Array [
-          Object {
-            "name": "Test0",
-            "value": "value0",
-          },
-        ]
-      }
-      mappingSuggestions={
-        Object {
-          "TestMatched Field": Array [
-            Object {
-              "context": "demographics",
-              "dataSourceFieldNames": Object {},
-              "id": "0",
-              "name": "Test0",
-              "ownerType": "individual",
-              "type": "Text",
-              "values": Array [
-                "value0",
-              ],
-            },
-          ],
-          "TestUnmatched Field": Array [],
-        }
-      }
-      onChange={[Function]}
-      readOnly={false}
-      sourceFieldPlaceholder="Select Field from Source"
-      sourceFields={
-        Object {
-          "TestMatched Field": undefined,
-          "TestUnmatched Field": undefined,
-        }
-      }
-      sourceTitle="Source Data"
-      suggestionsTitle="Analytics Cloud Field"
-    />
     <div
-      className="add-custom-field"
+      class="sheet-header"
     >
-      <div>
-        Add a custom field mapping.
-      </div>
-      <Button
-        onClick={[Function]}
+      <h3
+        class="title"
       >
-        Add Field
-      </Button>
+        Map Contact Data
+      </h3>
+      <p
+        class="text-secondary"
+      >
+        All fields have been mapped automatically to the best possible match. Please confirm the data mapping below and make any changes if necessary. You may only map one source data field to a single Analytics Cloud field.
+      </p>
     </div>
-  </Section>
-  <Footer
-    divider={false}
-  >
-    <FormNavigation
-      cancelHref="/workspace/23/settings/data-source"
-      enableNext={false}
-      onNextStep={[Function]}
-      submitMessage="Done"
-    />
-  </Footer>
+    <div
+      class="sheet-body summary-section"
+    >
+      <p
+        class="summary"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-faro-connection-success-ovals"
+          viewBox=""
+        >
+          <use
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#faro-connection-success-ovals"
+          />
+        </svg>
+        0 fields mapped.
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-faro-connection-error-ovals"
+          viewBox=""
+        >
+          <use
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#faro-connection-error-ovals"
+          />
+        </svg>
+        1 fields not mapped.
+      </p>
+      <div
+        class="custom-control custom-checkbox"
+      >
+        <label>
+          <input
+            class="custom-control-input"
+            type="checkbox"
+            value="false"
+          />
+          <span
+            class="custom-control-label"
+          >
+            <span
+              class="custom-control-label-text"
+            >
+              Unmapped Fields Only
+            </span>
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      class="sheet-section"
+    >
+      <div
+        class="data-transformation-list-root"
+      >
+        <div
+          class="data-transformation-header"
+        >
+          <div
+            class="left"
+          >
+            Source Data
+          </div>
+          <div
+            class="right"
+          >
+            Analytics Cloud Field
+          </div>
+        </div>
+        <div
+          class="form-group data-transformation-item-root error form-group-autofit"
+        >
+          <div
+            class="form-group-item"
+          >
+            <div>
+              <div
+                aria-haspopup="true"
+                class="dropdown dropdown-root searchable-select-root"
+              >
+                <button
+                  class="button-root btn btn-secondary dropdown-toggle show-caret"
+                  type="button"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Test0
+                  </span>
+                  
+                  <span
+                    class="caret-root"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-caret-double"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-double"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+              <div
+                class="example-value text-truncate"
+              />
+            </div>
+          </div>
+          <div
+            class="form-group-item add-on form-group-item-shrink"
+          >
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-faro-connection-error-ovals"
+              viewBox=""
+            >
+              <use
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#faro-connection-error-ovals"
+              />
+            </svg>
+          </div>
+          <div
+            class="form-group-item"
+          >
+            <div
+              class="suggestion"
+            >
+              <div
+                aria-haspopup="true"
+                class="dropdown dropdown-root searchable-select-root"
+                name="undefined.0"
+              >
+                <button
+                  class="button-root btn btn-secondary dropdown-toggle show-caret"
+                  type="button"
+                >
+                  <span
+                    class="text-truncate"
+                  >
+                    Select Analytics Cloud Field
+                  </span>
+                  
+                  <span
+                    class="caret-root"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-caret-double"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-double"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+              <div
+                class="example-value text-truncate"
+              />
+            </div>
+          </div>
+          <div
+            class="form-group-item add-on form-group-item-shrink"
+          >
+            <span
+              data-tooltip="true"
+              title="No fields matched. Please select a field from the dropdown or create a new one."
+            >
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-exclamation-full help"
+                viewBox=""
+              >
+                <use
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#exclamation-full"
+                />
+              </svg>
+            </span>
+          </div>
+          <div
+            class="form-group-item add-on form-group-item-shrink"
+          >
+            <button
+              class="button-root btn btn-unstyled"
+              data-tooltip="true"
+              title="Remove Field"
+              type="button"
+            >
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-times-circle"
+                viewBox=""
+              >
+                <use
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#times-circle"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="add-custom-field"
+      >
+        <div>
+          Add a custom field mapping.
+        </div>
+        <button
+          class="button-root btn btn-secondary"
+          type="button"
+        >
+          Add Field
+        </button>
+      </div>
+    </div>
+    <div
+      class="sheet-footer"
+    >
+      <div
+        class="form-navigation-root"
+      >
+        <a
+          class="button-root btn btn-secondary cancel"
+          href="/workspace/23/settings/data-source"
+        >
+          Cancel
+        </a>
+        <button
+          class="button-root btn btn-primary"
+          disabled=""
+          type="button"
+        >
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
