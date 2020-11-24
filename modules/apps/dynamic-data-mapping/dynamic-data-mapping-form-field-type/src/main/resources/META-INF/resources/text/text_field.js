@@ -94,6 +94,13 @@ AUI.add(
 						return 'input';
 					},
 
+					isMultilineTextRenderedByIE() {
+						return (
+							this.get('displayStyle') === 'multiline' &&
+							Liferay.Browser.isIe()
+						);
+					},
+
 					render: function() {
 						var instance = this;
 
@@ -107,6 +114,10 @@ AUI.add(
 							if (instance.get('displayStyle') === 'multiline') {
 								instance._setInitialHeight();
 								instance.syncInputHeight();
+							}
+
+							if (instance.isMultilineTextRenderedByIE()) {
+								instance._onTextFieldValueChange();
 							}
 						});
 
@@ -222,8 +233,19 @@ AUI.add(
 					_onTextFieldValueChange: function() {
 						var instance = this;
 
+						var inputNode = instance.getInputNode();
+
 						if (instance.get('displayStyle') === 'multiline') {
 							instance.syncInputHeight();
+						}
+
+						if (instance.isMultilineTextRenderedByIE()) {
+							if (instance.get('value') === '') {
+								const currentTargetValue = inputNode._node.value;
+								inputNode._node.value = ' ';
+								inputNode._node.value = currentTargetValue;
+								inputNode.blur();
+							}
 						}
 					},
 
