@@ -1,16 +1,32 @@
 import * as API from 'shared/api';
+import mockStore from 'test/mock-store';
 import Promise from 'metal-promise';
 import React from 'react';
 import {DataTransformation, processFieldMappings} from '../DataTransformation';
+import {
+	fireEvent,
+	render
+} from '@testing-library/react';
 import {fromJS} from 'immutable';
 import {mockFieldMapping, mockMapping} from 'test/data';
-import {shallow} from 'enzyme';
+import {Provider} from 'react-redux';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 const defaultProps = {
 	groupId: '23',
 	id: '123',
 	onSubmit: jest.fn()
 };
+
+const DefaultComponent = props => (
+	<StaticRouter>
+		<Provider store={mockStore()}>
+			<DataTransformation {...defaultProps} {...props} />
+		</Provider>
+	</StaticRouter>
+);
 
 describe('processFieldMappings', () => {
 	it('should return fieldMappings', () => {
@@ -34,9 +50,11 @@ describe('processFieldMappings', () => {
 
 describe('DataTransformation', () => {
 	it('should render', () => {
-		const component = shallow(<DataTransformation {...defaultProps} />);
+		const {container} = render(<DefaultComponent />);
 
-		expect(component).toMatchSnapshot();
+		jest.runAllTimers();
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render w/ the done button enabled', () => {
@@ -48,13 +66,11 @@ describe('DataTransformation', () => {
 			])
 		);
 
-		const component = shallow(<DataTransformation {...defaultProps} />);
-
-		expect(component.find('FormNavigation').prop('enableNext')).toBe(false);
+		const {getByText} = render(<DefaultComponent />);
 
 		jest.runAllTimers();
 
-		expect(component.find('FormNavigation').prop('enableNext')).toBe(true);
+		expect(getByText('Done')).not.toBeDisabled();
 	});
 
 	it('should render w/ a mapped field', () => {
@@ -67,11 +83,11 @@ describe('DataTransformation', () => {
 			])
 		);
 
-		const component = shallow(<DataTransformation {...defaultProps} />);
+		const {getByText} = render(<DefaultComponent />);
 
 		jest.runAllTimers();
 
-		expect(component).toMatchSnapshot();
+		expect(getByText('TestMatched Field')).toBeTruthy();
 	});
 
 	it('should hide mapped fields', () => {
@@ -84,15 +100,13 @@ describe('DataTransformation', () => {
 			])
 		);
 
-		const component = shallow(<DataTransformation {...defaultProps} />);
-
-		component.setState({hideMappedFields: true});
+		const {container, getByText} = render(<DefaultComponent />);
 
 		jest.runAllTimers();
 
-		expect(
-			component.find('DataTransformationList').prop('hideMappedFields')
-		).toBe(true);
+		fireEvent.click(getByText('Unmapped Fields Only'));
+
+		expect(container.querySelector('.hidden')).toBeTruthy();
 	});
 
 	it('should hide unmatched fields', () => {
@@ -108,39 +122,36 @@ describe('DataTransformation', () => {
 			])
 		);
 
-		const component = shallow(
-			<DataTransformation {...defaultProps} showUnmatchedFields={false} />
-		);
+		const {queryByText} = render(<DefaultComponent showUnmatchedFields={false} />);
 
 		jest.runAllTimers();
 
-		expect(component).toMatchSnapshot();
+		expect(queryByText('TestNo default match')).toBeFalsy();
 	});
 
 	it('should render w/ the done button disabled if there are duplicate SCV field mappings', () => {
-		const component = shallow(<DataTransformation {...defaultProps} />);
-
-		const mockSuggestion = {
-			suggestion: {name: 'additionalName', value: 'foo'}
-		};
-
-		jest.runAllTimers();
-
-		component.setState({
-			fieldsIList: fromJS([
-				{
-					source: {name: 'first_name', value: 'bar'},
-					...mockSuggestion
-				},
-				{
-					source: {name: 'nick_name', value: 'baz'},
-					...mockSuggestion
-				}
+		API.dataSource.fetchMappings.mockReturnValue(
+			Promise.resolve([
+				mockMapping('Has default match 1', {
+					suggestions: [
+						mockFieldMapping(null, {name: 'foo'}),
+						mockFieldMapping(null, {name: 'jack', value: 'dupe'})
+					]
+				}),
+				mockMapping('Has default match 2', {
+					suggestions: [
+						mockFieldMapping(null, {name: 'bar'}),
+						mockFieldMapping(null, {name: 'jack', value: 'dupe'})
+					]
+				}),
+				mockMapping('No default match')
 			])
-		});
+		);
+
+		const {getByText} = render(<DefaultComponent />);
 
 		jest.runAllTimers();
 
-		expect(component.find('FormNavigation').prop('enableNext')).toBe(false);
+		expect(getByText('Done')).toBeDisabled();
 	});
 });
