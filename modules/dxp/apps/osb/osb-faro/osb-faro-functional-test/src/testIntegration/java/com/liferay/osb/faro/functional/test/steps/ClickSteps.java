@@ -80,12 +80,14 @@ public class ClickSteps {
 			return;
 		}
 
-		StringBundler sb = new StringBundler(9);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("//button[normalize-space(text())='");
 		sb.append(targetName);
-		sb.append("' and not(@disabled)]|//button/descendant-or-self::");
-		sb.append("*[normalize-space(text())='");
+		sb.append("' and not(@disabled)]|//h4[text()='");
+		sb.append(targetName);
+		sb.append("']/parent::div/parent::div/parent::button|//button");
+		sb.append("/descendant-or-self::*[normalize-space(text())='");
 		sb.append(targetName);
 		sb.append("' and not(@disabled)]|//a/descendant-or-self::");
 		sb.append("*[normalize-space(text())='");
