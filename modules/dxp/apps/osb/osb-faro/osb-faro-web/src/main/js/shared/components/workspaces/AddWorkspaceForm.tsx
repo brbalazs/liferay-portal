@@ -158,7 +158,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 						timeZoneId:
 							(project &&
 								project.getIn(['timeZone', 'timeZoneId'])) ||
-							'UTC' // TODO: [LRAC-6981] Make the default value to be an empty string for 2.10
+							'UTC' // TODO: [LRAC-6981] Make the default value to be an empty string for 2.10.0
 					}}
 					onSubmit={handleSubmit}
 					ref={formRef}
@@ -283,31 +283,27 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 									</p> */}
 								</Sheet.Section>
 
-								{/* TODO: [LRAC-6981] Enable this again for 2.10 release */}
-								{false && (
+								{/* TODO: [LRAC-6981] Enable this again for 2.10.0 release */}
+								{DEVELOPER_MODE && (
 									<Sheet.Section>
 										<Form.Label>
-											<>
+											{Liferay.Language.get('timezone')}
+
+											<span className='reference-mark'>
+												<ClayIcon symbol='asterisk' />
+											</span>
+
+											<p className='instructions'>
 												{Liferay.Language.get(
-													'timezone'
+													'select-a-timezone-that-will-be-used-for-all-data-reporting-in-your-workspace'
 												)}
 
-												<span className='reference-mark'>
-													<ClayIcon symbol='asterisk' />
-												</span>
-
-												<p className='instructions'>
+												<strong className='ml-1'>
 													{Liferay.Language.get(
-														'select-a-timezone-that-will-be-used-for-all-data-reporting-in-your-workspace'
+														'cannot-be-changed-after-creation'
 													)}
-
-													<strong className='ml-1'>
-														{Liferay.Language.get(
-															'cannot-be-changed-after-creation'
-														)}
-													</strong>
-												</p>
-											</>
+												</strong>
+											</p>
 										</Form.Label>
 
 										<TimeZonePicker
