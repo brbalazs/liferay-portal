@@ -462,9 +462,7 @@ public class ServiceContextFactory {
 
 		if (updateAssetCategoryIds) {
 			serviceContext.setAssetCategoryIds(
-				ArrayUtil.toArray(
-					assetCategoryIdsList.toArray(
-						new Long[assetCategoryIdsList.size()])));
+				ArrayUtil.toArray(assetCategoryIdsList.toArray(new Long[0])));
 		}
 
 		serviceContext.setAssetEntryVisible(
