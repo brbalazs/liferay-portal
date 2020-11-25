@@ -3,10 +3,7 @@ import mockStore from 'test/mock-store';
 import Promise from 'metal-promise';
 import React from 'react';
 import {DataTransformation, processFieldMappings} from '../DataTransformation';
-import {
-	fireEvent,
-	render
-} from '@testing-library/react';
+import {fireEvent, render} from '@testing-library/react';
 import {fromJS} from 'immutable';
 import {mockFieldMapping, mockMapping} from 'test/data';
 import {Provider} from 'react-redux';
@@ -122,7 +119,9 @@ describe('DataTransformation', () => {
 			])
 		);
 
-		const {queryByText} = render(<DefaultComponent showUnmatchedFields={false} />);
+		const {queryByText} = render(
+			<DefaultComponent showUnmatchedFields={false} />
+		);
 
 		jest.runAllTimers();
 
