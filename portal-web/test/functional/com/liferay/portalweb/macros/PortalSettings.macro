@@ -1159,7 +1159,7 @@ definition {
 			locator1 = "PortalSettingsEmailNotifications#EMAIL_NOTIFICATIONS_SENDER_NAME_FIELD",
 			value1 = "Joe Bloggs");
 
-		AssertTextEquals(
+		AssertTextEquals.assertPartialText(
 			locator1 = "PortalSettingsEmailNotifications#EMAIL_NOTIFICATIONS_SENDER_ADDRESS_HEADER",
 			value1 = "Address");
 
