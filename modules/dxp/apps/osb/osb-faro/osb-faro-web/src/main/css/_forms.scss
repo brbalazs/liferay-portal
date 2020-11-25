@@ -8,15 +8,17 @@
 	.form-control-label {
 		font-size: $fontSizeSmall;
 
+		> .content-container {
+			margin: 0;
+		}
+
 		> span {
 			margin-left: 4px;
 		}
 
-		&.required {
-			.content-container:after {
-				color: $error;
-				content: '*';
-			}
+		&.required:after {
+			color: $error;
+			content: '*';
 		}
 	}
 }

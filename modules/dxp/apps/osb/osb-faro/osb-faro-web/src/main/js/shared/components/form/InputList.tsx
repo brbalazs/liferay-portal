@@ -21,7 +21,7 @@ interface IInputListProps
 	onChangeInputList: (value: string) => void;
 	popover?: {
 		content: React.ReactNode;
-		titel: React.ReactNode;
+		title: React.ReactNode;
 	};
 	required?: boolean;
 	secondaryInfo?: React.ReactNode;
