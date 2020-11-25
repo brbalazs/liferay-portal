@@ -2,58 +2,59 @@ import BaseCard from '../';
 import BasePage from 'shared/components/base-page';
 import client from 'shared/apollo/client';
 import React from 'react';
-import {ApolloProvider} from '@apollo/react-components';
-import {shallow} from 'enzyme';
+import {ApolloProvider} from '@apollo/react-hoc';
+import {render} from '@testing-library/react';
+
+const MOCK_CONTEXT = {
+	router: {
+		query: {
+			rangeKey: '0'
+		}
+	}
+};
+
+const WrappedComponent = props => (
+	<ApolloProvider client={client}>
+		<BasePage.Context.Provider value={MOCK_CONTEXT}>
+			<BaseCard
+				className='my-component-classname'
+				label='My title'
+				{...props}
+			/>
+		</BasePage.Context.Provider>
+	</ApolloProvider>
+);
+
+jest.unmock('react-dom');
 
 describe('BaseCard', () => {
-	const MOCK_CONTEXT = {
-		router: {
-			query: {
-				rangeKey: '0'
-			}
-		}
-	};
-
-	const WrappedComponent = props => (
-		<ApolloProvider client={client}>
-			<BasePage.Context.Provider value={MOCK_CONTEXT}>
-				<BaseCard {...props} />
-			</BasePage.Context.Provider>
-		</ApolloProvider>
-	);
-
-	const Header = () => <div>{'My custom header component'}</div>;
-
-	const props = {
-		className: 'my-component-classname',
-		label: 'My title'
-	};
-
 	it('should render component', () => {
-		const component = shallow(
-			<WrappedComponent {...props}>
+		const {container} = render(
+			<WrappedComponent>
 				{() => <div>{'My body component'}</div>}
 			</WrappedComponent>
 		);
 
-		expect(component.render()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render component with custom Header', () => {
-		const component = shallow(
-			<WrappedComponent {...props} Header={Header}>
+		const Header = () => <div>{'My custom header component'}</div>;
+
+		const {getByText} = render(
+			<WrappedComponent Header={Header}>
 				{() => <div>{'My body component'}</div>}
 			</WrappedComponent>
 		);
 
-		expect(component.render()).toMatchSnapshot();
+		expect(getByText('My body component')).toBeTruthy();
 	});
 
 	it('should return the props in Body component', () => {
 		let customBodyProps = {};
 
-		const component = shallow(
-			<WrappedComponent {...props}>
+		render(
+			<WrappedComponent>
 				{props => {
 					customBodyProps = props;
 
@@ -61,8 +62,6 @@ describe('BaseCard', () => {
 				}}
 			</WrappedComponent>
 		);
-
-		component.render();
 
 		expect(customBodyProps).toEqual({
 			filters: undefined,
@@ -77,19 +76,15 @@ describe('BaseCard', () => {
 	});
 
 	it('should render a Card Header with an interval selector', () => {
-		const component = shallow(
-			<WrappedComponent {...props} showInterval>
+		const {container, getByText} = render(
+			<WrappedComponent showInterval>
 				{() => <div>{'My body component'}</div>}
 			</WrappedComponent>
 		);
 
-		expect(
-			component
-				.find('BaseCard')
-				.shallow()
-				.find('BaseCardHeaderDefault')
-				.shallow()
-				.find('IntervalSelector').length
-		).toBe(1);
+		expect(container.querySelector('.interval-selector-root')).toBeTruthy();
+		expect(getByText('D')).toBeTruthy();
+		expect(getByText('W')).toBeTruthy();
+		expect(getByText('M')).toBeTruthy();
 	});
 });
