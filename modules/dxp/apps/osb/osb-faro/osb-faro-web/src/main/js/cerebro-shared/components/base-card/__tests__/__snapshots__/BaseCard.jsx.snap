@@ -1,44 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BaseCard should render component 1`] = `
-<div
-  class="card card-root my-component-classname"
->
+<div>
   <div
-    class="card-header align-items-center d-flex justify-content-between"
+    class="card card-root my-component-classname"
   >
-    <h5
-      class="card-title"
-    >
-      My title
-    </h5>
     <div
-      class="d-flex"
+      class="card-header align-items-center d-flex justify-content-between"
     >
-      <div
-        class="spinner-root spinner-inline"
+      <h5
+        class="card-title"
       >
-        <span
-          class="loading-animation loading-animation-dotted"
-        />
+        My title
+      </h5>
+      <div
+        class="d-flex"
+      >
+        <div
+          class="spinner-root spinner-inline"
+        >
+          <span
+            class="loading-animation loading-animation-dotted"
+          />
+        </div>
       </div>
     </div>
-  </div>
-  <div>
-    My body component
-  </div>
-</div>
-`;
-
-exports[`BaseCard should render component with custom Header 1`] = `
-<div
-  class="card card-root my-component-classname"
->
-  <div>
-    My custom header component
-  </div>
-  <div>
-    My body component
+    <div>
+      My body component
+    </div>
   </div>
 </div>
 `;
