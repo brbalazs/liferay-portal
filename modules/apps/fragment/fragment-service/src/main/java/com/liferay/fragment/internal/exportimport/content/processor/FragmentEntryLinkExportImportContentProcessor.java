@@ -190,6 +190,11 @@ public class FragmentEntryLinkExportImportContentProcessor
 				replaceImportContentReferences(
 					portletDataContext, stagedModel, content);
 
+		content =
+			_layoutReferencesExportImportContentProcessor.
+				replaceImportContentReferences(
+					portletDataContext, stagedModel, content);
+
 		JSONObject editableValuesJSONObject = JSONFactoryUtil.createJSONObject(
 			content);
 
