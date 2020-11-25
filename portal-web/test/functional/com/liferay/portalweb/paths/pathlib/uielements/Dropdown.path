@@ -9,6 +9,11 @@
 </thead>
 <tbody>
 <tr>
+	<td>CAPTION</td>
+	<td>//div[contains(@class,'caption') and normalize-space()='${key_caption}']</td>
+	<td></td>
+</tr>
+<tr>
 	<td>ENTRIES</td>
 	<td>//a[contains(@class,'dropdown') and contains(.,'Entries')]</td>
 	<td></td>
