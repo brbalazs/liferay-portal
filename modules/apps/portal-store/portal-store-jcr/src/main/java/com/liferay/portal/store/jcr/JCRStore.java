@@ -21,6 +21,7 @@ import com.liferay.document.library.kernel.store.Store;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -191,6 +192,15 @@ public class JCRStore extends BaseStore {
 		finally {
 			_jcrFactoryWrapper.closeSession(session);
 		}
+	}
+
+	@Override
+	public void addFile(
+			long companyId, long repositoryId, String fileName,
+			String versionLabel, InputStream is)
+		throws PortalException {
+
+		addFile(companyId, repositoryId, fileName, is);
 	}
 
 	@Override
@@ -583,6 +593,14 @@ public class JCRStore extends BaseStore {
 		}
 
 		return size;
+	}
+
+	@Override
+	public String[] getFileVersions(
+			long companyId, long repositoryId, String fileName)
+		throws PortalException {
+
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

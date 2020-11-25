@@ -23,6 +23,7 @@ import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
@@ -115,6 +116,15 @@ public class CMISStore extends BaseStore {
 		throws DuplicateFileException {
 
 		updateFile(companyId, repositoryId, fileName, VERSION_DEFAULT, is);
+	}
+
+	@Override
+	public void addFile(
+			long companyId, long repositoryId, String fileName,
+			String versionLabel, InputStream is)
+		throws PortalException {
+
+		addFile(companyId, repositoryId, fileName, is);
 	}
 
 	@Override
@@ -272,6 +282,14 @@ public class CMISStore extends BaseStore {
 			companyId, repositoryId, fileName, versionLabel);
 
 		return document.getContentStreamLength();
+	}
+
+	@Override
+	public String[] getFileVersions(
+			long companyId, long repositoryId, String fileName)
+		throws PortalException {
+
+		throw new UnsupportedOperationException();
 	}
 
 	public String getHeadVersionLabel(

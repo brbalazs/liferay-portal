@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.ByteArrayFileInputStream;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.util.PropsValues;
 
@@ -409,26 +410,36 @@ public class DLStoreImpl implements DLStore {
 
 		Store store = _storeFactory.getStore();
 
-		for (String versionLabel :
-				store.getFileVersions(companyId, repositoryId, fileName)) {
+		Class<?> clazz = store.getClass();
 
-			try {
-				store.addFile(
-					companyId, newRepositoryId, fileName, versionLabel,
-					store.getFileAsStream(
-						companyId, repositoryId, fileName, versionLabel));
+		if (ArrayUtil.contains(
+				_DEPRECATED_STORES_CLASS_NAMES, clazz.getName())) {
 
-				store.deleteFile(
-					companyId, repositoryId, fileName, versionLabel);
-			}
-			catch (Exception exception) {
-				store.addFile(
-					companyId, newRepositoryId, fileName,
-					store.getFileAsStream(
-						companyId, repositoryId, fileName, versionLabel));
+			store.updateFile(
+				companyId, repositoryId, newRepositoryId, fileName);
+		}
+		else {
+			for (String versionLabel :
+					store.getFileVersions(companyId, repositoryId, fileName)) {
 
-				store.deleteFile(
-					companyId, repositoryId, fileName, versionLabel);
+				try {
+					store.addFile(
+						companyId, newRepositoryId, fileName, versionLabel,
+						store.getFileAsStream(
+							companyId, repositoryId, fileName, versionLabel));
+
+					store.deleteFile(
+						companyId, repositoryId, fileName, versionLabel);
+				}
+				catch (Exception exception) {
+					store.addFile(
+						companyId, newRepositoryId, fileName,
+						store.getFileAsStream(
+							companyId, repositoryId, fileName, versionLabel));
+
+					store.deleteFile(
+						companyId, repositoryId, fileName, versionLabel);
+				}
 			}
 		}
 	}
@@ -683,6 +694,11 @@ public class DLStoreImpl implements DLStore {
 
 	@BeanReference(type = GroupLocalService.class)
 	protected GroupLocalService groupLocalService;
+
+	private static final String[] _DEPRECATED_STORES_CLASS_NAMES = {
+		"com.liferay.portal.store.cmis.CMISStore",
+		"com.liferay.portal.store.jcr.JCRStore"
+	};
 
 	private final StoreFactory _storeFactory;
 
