@@ -41,6 +41,7 @@ interface IFormInputProps
 		title: React.ReactNode;
 	};
 	required: boolean;
+	secondaryInfo?: React.ReactNode;
 	showHelpBlock: boolean;
 	showSuccess: boolean;
 	text: {
@@ -204,6 +205,7 @@ export default class FormInput extends React.Component<IFormInputProps> {
 			mask,
 			popover,
 			required,
+			secondaryInfo,
 			showHelpBlock,
 			showSuccess,
 			width,
@@ -235,6 +237,12 @@ export default class FormInput extends React.Component<IFormInputProps> {
 				{label && (
 					<Label htmlFor={name} popover={popover} required={required}>
 						{label}
+					</Label>
+				)}
+
+				{secondaryInfo && (
+					<Label className='font-weight-normal' htmlFor={name}>
+						<p>{secondaryInfo}</p>
 					</Label>
 				)}
 
