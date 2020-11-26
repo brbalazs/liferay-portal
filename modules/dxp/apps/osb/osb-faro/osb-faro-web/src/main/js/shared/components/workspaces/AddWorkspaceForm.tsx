@@ -207,17 +207,12 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 									<Form.Input
 										disabled={disabled}
 										label={
-											<>
-												{Liferay.Language.get(
-													'workspace-name'
-												)}
-
-												<span className='reference-mark'>
-													<ClayIcon symbol='asterisk' />
-												</span>
-											</>
+											Liferay.Language.get(
+												'workspace-name'
+											)
 										}
 										name='name'
+										required
 										validate={sequence([
 											validateRequired,
 											validateMaxLength(255)
@@ -234,23 +229,15 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 											(project && project.serverLocation)
 										}
 										label={
-											<>
-												{Liferay.Language.get(
-													'data-center-location'
-												)}
-
-												<span className='reference-mark'>
-													<ClayIcon symbol='asterisk' />
-												</span>
-
-												<p className='instructions'>
-													{Liferay.Language.get(
-														'select-a-server-to-store-your-data.-this-could-have-implications-to-your-organizations-policy-on-user-data-storage'
-													)}
-												</p>
-											</>
+											Liferay.Language.get(
+												'data-center-location'
+											)
 										}
 										name='serverLocation'
+										required
+										secondaryInfo={Liferay.Language.get(
+											'select-a-server-to-store-your-data.-this-could-have-implications-to-your-organizations-policy-on-user-data-storage'
+										)}
 									>
 										{projectLocations.map(
 											({label, value}) => (
@@ -286,25 +273,23 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 								{/* TODO: [LRAC-6981] Enable this again for 2.10.0 release */}
 								{DEVELOPER_MODE && (
 									<Sheet.Section>
-										<Form.Label>
+										<Form.Label
+											required
+										>
 											{Liferay.Language.get('timezone')}
-
-											<span className='reference-mark'>
-												<ClayIcon symbol='asterisk' />
-											</span>
-
-											<p className='instructions'>
-												{Liferay.Language.get(
-													'select-a-timezone-that-will-be-used-for-all-data-reporting-in-your-workspace'
-												)}
-
-												<strong className='ml-1'>
-													{Liferay.Language.get(
-														'cannot-be-changed-after-creation'
-													)}
-												</strong>
-											</p>
 										</Form.Label>
+
+										<p className='instructions'>
+											{Liferay.Language.get(
+												'select-a-timezone-that-will-be-used-for-all-data-reporting-in-your-workspace'
+											)}
+
+											<strong className='ml-1'>
+												{Liferay.Language.get(
+													'cannot-be-changed-after-creation'
+												)}
+											</strong>
+										</p>
 
 										<TimeZonePicker
 											disabled={disabled || editing}
@@ -329,17 +314,15 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 											(project && project.friendlyURL)
 										}
 										label={
-											<>
-												{Liferay.Language.get(
+												Liferay.Language.get(
 													'set-a-friendly-workspace-url'
-												)}
-
-												{!editing && (
-													<p className='instructions'>
-														{Liferay.Language.get(
-															'you-can-only-set-your-friendly-workspace-url-once'
-														)}
-													</p>
+												)
+										}
+										name='friendlyURL'
+										secondaryInfo={
+											<>
+												{!editing && Liferay.Language.get(
+													'you-can-only-set-your-friendly-workspace-url-once'
 												)}
 
 												<p className='instructions form-text'>
@@ -347,7 +330,6 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 												</p>
 											</>
 										}
-										name='friendlyURL'
 										text={{
 											content: '/',
 											position: 'prepend'
