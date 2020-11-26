@@ -30,6 +30,10 @@
 		}
 
 		.label-root {
+			.instructions {
+				font-weight: $fontWeightRegular;
+			}
+
 			p {
 				margin-bottom: 6px;
 			}
