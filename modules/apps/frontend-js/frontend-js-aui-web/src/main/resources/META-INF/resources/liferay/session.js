@@ -600,7 +600,7 @@ AUI.add(
 									duration: 500,
 									message: instance._warningText,
 									on: {
-										click(event) {
+										click: function click(event) {
 											if (
 												event.domEvent.target.test(
 													'.alert-link'
@@ -616,7 +616,7 @@ AUI.add(
 												instance._alertClosed = true;
 											}
 										},
-										focus(event) {
+										focus: function focus(event) {
 											if (instance._alert) {
 												var notificationContainer = A.one(
 													'.lfr-notification-container'
