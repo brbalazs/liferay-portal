@@ -29,15 +29,14 @@
 			border-top-left-radius: 0;
 		}
 
-		.label-root {
-			.instructions {
-				font-weight: $fontWeightRegular;
-			}
-
-			p {
-				margin-bottom: 6px;
-			}
+		.instructions {
+			font-weight: $fontWeightRegular;
 		}
+
+		p {
+			margin-bottom: 6px;
+		}
+
 
 		.terms {
 			font-size: $fontSizeSmall;
