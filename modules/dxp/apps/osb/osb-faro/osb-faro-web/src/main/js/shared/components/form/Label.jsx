@@ -30,12 +30,19 @@ export default class Label extends React.Component {
 				className={getCN(
 					'form-control-label',
 					'label-root',
-					className, {
+					className,
+					{
 						required: required && !popover
 					}
 				)}
 			>
-				<span className={getCN('content-container', {required: required && !!popover})}>{children}</span>
+				<span
+					className={getCN('content-container', {
+						required: required && !!popover
+					})}
+				>
+					{children}
+				</span>
 
 				{popover && (
 					<InfoPopover

@@ -1,5 +1,4 @@
 import Button from 'shared/components/Button';
-import ClayIcon from '@clayui/icon';
 import Constants from 'shared/util/constants';
 import Form, {
 	validateMaxLength,
@@ -206,11 +205,9 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 								<Sheet.Section className='input-name'>
 									<Form.Input
 										disabled={disabled}
-										label={
-											Liferay.Language.get(
-												'workspace-name'
-											)
-										}
+										label={Liferay.Language.get(
+											'workspace-name'
+										)}
 										name='name'
 										required
 										validate={sequence([
@@ -228,11 +225,9 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 											editing ||
 											(project && project.serverLocation)
 										}
-										label={
-											Liferay.Language.get(
-												'data-center-location'
-											)
-										}
+										label={Liferay.Language.get(
+											'data-center-location'
+										)}
 										name='serverLocation'
 										required
 										secondaryInfo={Liferay.Language.get(
@@ -273,9 +268,7 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 								{/* TODO: [LRAC-6981] Enable this again for 2.10.0 release */}
 								{DEVELOPER_MODE && (
 									<Sheet.Section>
-										<Form.Label
-											required
-										>
+										<Form.Label required>
 											{Liferay.Language.get('timezone')}
 										</Form.Label>
 
@@ -313,17 +306,16 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 											disabled ||
 											(project && project.friendlyURL)
 										}
-										label={
-												Liferay.Language.get(
-													'set-a-friendly-workspace-url'
-												)
-										}
+										label={Liferay.Language.get(
+											'set-a-friendly-workspace-url'
+										)}
 										name='friendlyURL'
 										secondaryInfo={
 											<>
-												{!editing && Liferay.Language.get(
-													'you-can-only-set-your-friendly-workspace-url-once'
-												)}
+												{!editing &&
+													Liferay.Language.get(
+														'you-can-only-set-your-friendly-workspace-url-once'
+													)}
 
 												<p className='instructions form-text'>
 													{`${faroURL}/workspace`}
