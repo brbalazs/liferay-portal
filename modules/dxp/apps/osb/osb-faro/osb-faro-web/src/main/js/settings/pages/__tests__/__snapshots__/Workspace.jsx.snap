@@ -58,25 +58,13 @@ exports[`Workspace Settting should render 1`] = `
                   class=""
                 >
                   <label
-                    class="form-control-label label-root"
+                    class="form-control-label label-root required"
                     for="name"
                   >
                     <span
                       class="content-container"
                     >
                       Workspace Name
-                      <span
-                        class="reference-mark"
-                      >
-                        <svg
-                          class="lexicon-icon lexicon-icon-asterisk"
-                          role="presentation"
-                        >
-                          <use
-                            xlink:href="#asterisk"
-                          />
-                        </svg>
-                      </span>
                     </span>
                   </label>
                   <input
@@ -95,28 +83,23 @@ exports[`Workspace Settting should render 1`] = `
                   class=""
                 >
                   <label
-                    class="form-control-label label-root"
+                    class="form-control-label label-root required"
                     for="serverLocation"
                   >
                     <span
                       class="content-container"
                     >
                       Data Center Location
-                      <span
-                        class="reference-mark"
-                      >
-                        <svg
-                          class="lexicon-icon lexicon-icon-asterisk"
-                          role="presentation"
-                        >
-                          <use
-                            xlink:href="#asterisk"
-                          />
-                        </svg>
-                      </span>
-                      <p
-                        class="instructions"
-                      >
+                    </span>
+                  </label>
+                  <label
+                    class="form-control-label label-root font-weight-normal"
+                    for="serverLocation"
+                  >
+                    <span
+                      class="content-container"
+                    >
+                      <p>
                         Select a server to store your data. This could have implications to your organization's policy on user data storage.
                       </p>
                     </span>
@@ -169,10 +152,21 @@ exports[`Workspace Settting should render 1`] = `
                       class="content-container"
                     >
                       Set a Friendly Workspace URL
-                      <p
-                        class="instructions form-text"
-                      >
-                        http://localhost:3000/workspace
+                    </span>
+                  </label>
+                  <label
+                    class="form-control-label label-root font-weight-normal"
+                    for="friendlyURL"
+                  >
+                    <span
+                      class="content-container"
+                    >
+                      <p>
+                        <p
+                          class="instructions form-text"
+                        >
+                          http://localhost:3000/workspace
+                        </p>
                       </p>
                     </span>
                   </label>

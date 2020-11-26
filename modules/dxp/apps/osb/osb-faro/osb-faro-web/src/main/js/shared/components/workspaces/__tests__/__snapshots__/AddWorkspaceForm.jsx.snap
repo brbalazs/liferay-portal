@@ -34,25 +34,13 @@ exports[`AddWorkspaceForm should render 1`] = `
               class=""
             >
               <label
-                class="form-control-label label-root"
+                class="form-control-label label-root required"
                 for="name"
               >
                 <span
                   class="content-container"
                 >
                   Workspace Name
-                  <span
-                    class="reference-mark"
-                  >
-                    <svg
-                      class="lexicon-icon lexicon-icon-asterisk"
-                      role="presentation"
-                    >
-                      <use
-                        xlink:href="#asterisk"
-                      />
-                    </svg>
-                  </span>
                 </span>
               </label>
               <input
@@ -71,28 +59,23 @@ exports[`AddWorkspaceForm should render 1`] = `
               class=""
             >
               <label
-                class="form-control-label label-root"
+                class="form-control-label label-root required"
                 for="serverLocation"
               >
                 <span
                   class="content-container"
                 >
                   Data Center Location
-                  <span
-                    class="reference-mark"
-                  >
-                    <svg
-                      class="lexicon-icon lexicon-icon-asterisk"
-                      role="presentation"
-                    >
-                      <use
-                        xlink:href="#asterisk"
-                      />
-                    </svg>
-                  </span>
-                  <p
-                    class="instructions"
-                  >
+                </span>
+              </label>
+              <label
+                class="form-control-label label-root font-weight-normal"
+                for="serverLocation"
+              >
+                <span
+                  class="content-container"
+                >
+                  <p>
                     Select a server to store your data. This could have implications to your organization's policy on user data storage.
                   </p>
                 </span>
@@ -134,36 +117,24 @@ exports[`AddWorkspaceForm should render 1`] = `
             class="sheet-section"
           >
             <label
-              class="form-control-label label-root"
+              class="form-control-label label-root required"
             >
               <span
                 class="content-container"
               >
                 Timezone
-                <span
-                  class="reference-mark"
-                >
-                  <svg
-                    class="lexicon-icon lexicon-icon-asterisk"
-                    role="presentation"
-                  >
-                    <use
-                      xlink:href="#asterisk"
-                    />
-                  </svg>
-                </span>
-                <p
-                  class="instructions"
-                >
-                  Select a timezone that will be used for all data reporting in your workspace.
-                  <strong
-                    class="ml-1"
-                  >
-                    Cannot be changed after creation.
-                  </strong>
-                </p>
               </span>
             </label>
+            <p
+              class="instructions"
+            >
+              Select a timezone that will be used for all data reporting in your workspace.
+              <strong
+                class="ml-1"
+              >
+                Cannot be changed after creation.
+              </strong>
+            </p>
             <div
               class="form-group time-zone-picker-root form-group-autofit"
             >
@@ -215,15 +186,22 @@ exports[`AddWorkspaceForm should render 1`] = `
                   class="content-container"
                 >
                   Set a Friendly Workspace URL
-                  <p
-                    class="instructions"
-                  >
+                </span>
+              </label>
+              <label
+                class="form-control-label label-root font-weight-normal"
+                for="friendlyURL"
+              >
+                <span
+                  class="content-container"
+                >
+                  <p>
                     You can only set your friendly workspace URL once.
-                  </p>
-                  <p
-                    class="instructions form-text"
-                  >
-                    http://localhost:3000/workspace
+                    <p
+                      class="instructions form-text"
+                    >
+                      http://localhost:3000/workspace
+                    </p>
                   </p>
                 </span>
               </label>
@@ -331,11 +309,11 @@ exports[`AddWorkspaceForm should render 1`] = `
               class=""
             >
               <label
-                class="form-control-label label-root required"
+                class="form-control-label label-root"
                 for="incidentReportEmailAddresses"
               >
                 <span
-                  class="content-container"
+                  class="content-container required"
                 >
                   Add Incident Report Contacts
                 </span>
