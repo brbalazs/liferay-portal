@@ -16,6 +16,7 @@ interface IFormSelectProps
 		title: React.ReactNode;
 	};
 	required?: boolean;
+	secondaryInfo?: React.ReactNode;
 }
 
 const FormSelect: React.FC<IFormSelectProps> = ({
@@ -27,6 +28,7 @@ const FormSelect: React.FC<IFormSelectProps> = ({
 	label,
 	popover,
 	required = false,
+	secondaryInfo,
 	...otherProps
 }) => {
 	const {disabled} = otherProps;
@@ -46,6 +48,12 @@ const FormSelect: React.FC<IFormSelectProps> = ({
 			{label && (
 				<Label htmlFor={name} popover={popover} required={required}>
 					{label}
+				</Label>
+			)}
+
+			{secondaryInfo && (
+				<Label className='font-weight-normal' htmlFor={name}>
+					<p>{secondaryInfo}</p>
 				</Label>
 			)}
 
