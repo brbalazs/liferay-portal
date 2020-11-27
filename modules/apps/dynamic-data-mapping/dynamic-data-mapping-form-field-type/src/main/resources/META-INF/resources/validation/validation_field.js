@@ -171,7 +171,7 @@ AUI.add(
 						var errorMessageValue = instance.get('errorMessageValue')
 
 						if (Lang.isObject(errorMessageValue)) {
-							if (errorMessageValue[instance._getEditingLanguageId()]) {
+							if (errorMessageValue[instance._getEditingLanguageId()] !== undefined) {
 								errorMessageValue = errorMessageValue[instance._getEditingLanguageId()];
 							}
 							else {
