@@ -775,12 +775,9 @@ definition {
 			selectPublicPages = "true",
 			siteTemplate = "Community Site");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site2 Name");
 
-		Site.addBlankCP(siteName = "Site2 Name");
+		Navigator.openSiteURL(siteName = "Site2 Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -1019,12 +1016,7 @@ definition {
 			password = "test",
 			userEmailAddress = "test@liferay.com");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
-
-		Site.addBlankCP(siteName = "Site Name");
+		JSONGroup.addGroup(groupName = "Site Name");
 
 		LAR.importSiteCP(
 			larFileName = "${larFileName}",
@@ -1046,12 +1038,9 @@ definition {
 	test SiteTeamsPermissions {
 		property testray.component.names = "Permissions,Site Administration";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Build",
@@ -1183,12 +1172,9 @@ definition {
 	test SiteTeamsXSS {
 		property testray.component.names = "Site Administration,XSS";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Members",

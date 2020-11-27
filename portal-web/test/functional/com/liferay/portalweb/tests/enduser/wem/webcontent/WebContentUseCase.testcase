@@ -36,21 +36,13 @@ definition {
 	test AddAndViewStructureAndTemplateWithPermissions {
 		property testray.component.names = "Permissions,Roles,Training,Web Content Administration";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Home");
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages"
-		);
-
-		SitePages.addPublicPage(pageName = "Home");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		JSONRole.addRegularRole(
 			roleKey = "Regular Role Name",
@@ -541,21 +533,11 @@ definition {
 		property osgi.app.includes = "currency-converter";
 		property testray.component.names = "Web Content Administration";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Test Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages"
-		);
-
-		SitePages.addPublicPage(pageName = "Web Content Display Page");
+		JSONLayout.addPublicLayout(
+			groupName = "Test Site Name",
+			layoutName = "Web Content Display Page");
 
 		Navigator.openSiteURL(siteName = "Test Site Name");
 
@@ -631,21 +613,11 @@ definition {
 		property osgi.app.includes = "currency-converter";
 		property testray.component.names = "Web Content Administration";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
+		JSONGroup.addGroup(groupName = "Test Site Name");
 
-		Site.addBlankCP(siteName = "Test Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages"
-		);
-
-		SitePages.addPublicPage(pageName = "Web Content Display Page");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Web Content Display Page");
 
 		Navigator.openSiteURL(siteName = "Test Site Name");
 
@@ -721,21 +693,11 @@ definition {
 	test AddExistingPageAsDisplayPageInSiteCP {
 		property testray.component.names = "Training,Web Content Administration";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
+		JSONGroup.addGroup(groupName = "Blank Site Name");
 
-		Site.addBlankCP(siteName = "Blank Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages"
-		);
-
-		SitePages.addPublicPage(pageName = "Site Page Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Blank Site Name",
+			layoutName = "Site Page Name");
 
 		Navigator.openSiteURL(siteName = "Blank Site Name");
 
@@ -1018,13 +980,9 @@ definition {
 		property test.name.skip.portal.instance = "WebContentUseCase#AddWebContentFromImportedStructureAndTemplate ";
 		property testray.component.names = "Training";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -2175,21 +2133,13 @@ definition {
 	test MoveImportedWebContentArticlesToFolders {
 		property testray.component.names = "Training,Web Content Administration";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
+		JSONGroup.addGroup(groupName = "S.P.A.C.E.");
 
-		Site.addBlankCP(siteName = "S.P.A.C.E.");
+		JSONLayout.addPublicLayout(
+			groupName = "S.P.A.C.E.",
+			layoutName = "Test Page Name");
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages"
-		);
-
-		SitePages.addPublicPage(pageName = "Test Page Name");
+		Navigator.openSiteURL(siteName = "S.P.A.C.E.");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -2363,23 +2313,17 @@ definition {
 	test StagingPublishExpiredWebContentViaWCD {
 		property testray.component.names = "Staging,Web Content Administration";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Staging Test Page");
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages"
-		);
+		Navigator.openSiteURL(siteName = "Site Name");
 
-		SitePages.addPublicPage(pageName = "Staging Test Page");
-
-		Navigator.gotoSitePage(pageName = "Staging Test Page", siteName = "Site Name");
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
 
 		Portlet.addPG(portletName = "Web Content Display");
 
@@ -2542,21 +2486,11 @@ definition {
 
 		SystemSettings.saveConfiguration();
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
-
-		Site.addBlankCP(parentSiteName = "Site Name", siteName = "Child SiteName");
+		JSONGroup.addChildSite(
+			groupName = "Child SiteName",
+			parentGroupName = "Site Name");
 
 		SitePages.openPagesAdmin(siteURLKey = "Site Name");
 

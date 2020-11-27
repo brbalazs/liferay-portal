@@ -15,18 +15,15 @@ definition {
 
 		User.firstLoginPG();
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Test Localization");
 
-		SitePages.addPublicPage(pageName = "${pageName}");
-
-		Navigator.gotoPage(pageName = "${pageName}");
+		Navigator.gotoPage(pageName = "Test Localization");
 
 		Portlet.addPG(
-			pageName = "${pageName}",
-			portletName = "${portletName}");
+			pageName = "Test Localization",
+			portletName = "Test Localized Portlet");
 	}
 
 	tearDown {

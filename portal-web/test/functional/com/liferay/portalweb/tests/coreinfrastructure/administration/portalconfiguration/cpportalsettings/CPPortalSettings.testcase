@@ -145,12 +145,9 @@ definition {
 	test EditDefaultUserAssociationsSites {
 		property test.name.skip.portal.instance = "CPPortalSettings#EditDefaultUserAssociationsSites";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -296,12 +293,9 @@ definition {
 
 		PortalSettings.configureContentSharingSubSitesCP(subSites = "enabledByDefault");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Build",
@@ -409,12 +403,9 @@ definition {
 
 		PortalSettings.configureContentSharingSubSitesCP(subSites = "enabledByDefault");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Build",

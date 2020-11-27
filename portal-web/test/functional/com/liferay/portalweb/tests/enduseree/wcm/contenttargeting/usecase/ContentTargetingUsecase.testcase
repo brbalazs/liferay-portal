@@ -18,21 +18,13 @@ definition {
 
 		User.firstLoginPG();
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Test Page Name");
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages"
-		);
-
-		SitePages.addPublicPage(pageName = "Test Page Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 	}
 
 	tearDown {
@@ -54,8 +46,6 @@ definition {
 	@priority = "4"
 	test CampaignAddMultipleWithPrioritiesViaCampaignDisplayPortlet {
 		property content.targeting.release = "true";
-
-		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -239,8 +229,6 @@ definition {
 	test CampaignAddViaCampaignContentDisplayPortlet {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Site Administration",
@@ -332,8 +320,6 @@ definition {
 	test CampaignDeleteMultiple {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Site Administration",
@@ -406,8 +392,6 @@ definition {
 	@priority = "4"
 	test CampaignViewContentViewsReports {
 		property content.targeting.release = "true";
-
-		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -668,8 +652,6 @@ definition {
 	test CampaignViewOtherwiseDisplayContentViaCampaignDisplayPortlet {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Site Administration",
@@ -771,8 +753,6 @@ definition {
 	test CampaignViewOtherwiseDontDisplayViaCampaignDisplayPortlet {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Site Administration",
@@ -865,8 +845,6 @@ definition {
 	@priority = "3"
 	test CampaignViewStatusCP {
 		property content.targeting.release = "true";
-
-		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -984,8 +962,6 @@ definition {
 	@priority = "4"
 	test CampaignViewTrackingActionReports {
 		property content.targeting.release = "true";
-
-		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -1332,8 +1308,6 @@ definition {
 	test CTValidationStaging {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
 		ProductMenu.gotoPortlet(
 			category = "Publishing",
 			panel = "Site Administration",
@@ -1403,8 +1377,6 @@ definition {
 	@priority = "4"
 	test ExportImportDeletions {
 		property content.targeting.release = "true";
-
-		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -1649,8 +1621,6 @@ definition {
 	test ExportImportViewOnlyContentCTWithReferencedWCImported {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
 		JSONWebcontent.addWebContent(
 			content = "Web Content Content",
 			groupName = "Site Name",
@@ -1798,8 +1768,6 @@ definition {
 	@priority = "4"
 	test StagingContentTargeting {
 		property content.targeting.release = "true";
-
-		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Publishing",
@@ -2033,8 +2001,6 @@ definition {
 	test StagingCTDeletions {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
 		ProductMenu.gotoPortlet(
 			category = "Publishing",
 			panel = "Site Administration",
@@ -2099,8 +2065,6 @@ definition {
 	@priority = "4"
 	test StagingCTDisabled {
 		property content.targeting.release = "true";
-
-		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Publishing",
@@ -2227,8 +2191,6 @@ definition {
 	@priority = "4"
 	test StagingCTEnabled {
 		property content.targeting.release = "true";
-
-		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Publishing",
@@ -2376,8 +2338,6 @@ definition {
 	test UserSegmentAddCategorizationToContent {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Site Administration",
@@ -2485,8 +2445,6 @@ definition {
 	test UserSegmentAddFromParentSiteViaCampaign {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Site Administration",
@@ -2502,21 +2460,13 @@ definition {
 
 		PortletEntry.save();
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
+		JSONGroup.addChildSite(
+			groupName = "Child SiteName",
+			parentGroupName = "Site Name");
 
-		Site.addBlankCP(parentSiteName = "Site Name", siteName = "Child SiteName");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages"
-		);
-
-		SitePages.addPublicPage(pageName = "Page Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Child SiteName",
+			layoutName = "Page Name");
 
 		SitePages.openPagesAdmin(siteURLKey = "Child SiteName");
 
@@ -2782,13 +2732,9 @@ definition {
 	test UserSegmentAddParentSiteCategorizationToChildSiteContent {
 		property content.targeting.release = "true";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
-
-		Site.addBlankCP(parentSiteName = "Site Name", siteName = "Child SiteName");
+		JSONGroup.addChildSite(
+			groupName = "Child SiteName",
+			parentGroupName = "Site Name");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -2999,8 +2945,6 @@ definition {
 	test UserSegmentAddWithBelongsViaUserSegmentContentDisplayPortlet {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Site Administration",
@@ -3125,8 +3069,6 @@ definition {
 	@priority = "4"
 	test UserSegmentAddWithDoesNotBelongViaUserSegmentContentDisplayPortlet {
 		property content.targeting.release = "true";
-
-		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -3293,8 +3235,6 @@ definition {
 	@priority = "4"
 	test UserSegmentDeleteMultiple {
 		property content.targeting.release = "true";
-
-		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -3755,8 +3695,6 @@ definition {
 	test UserSegmentViewAnyContentWithCategorizationViaAPPortletAndExportImportLAR {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Site Administration",
@@ -3890,8 +3828,6 @@ definition {
 	test UserSegmentViewInSimulatorPG {
 		property content.targeting.release = "true";
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Site Administration",
@@ -3999,8 +3935,6 @@ definition {
 	@priority = "4"
 	test UserSegmentViewSpecificContentWithCategorizationViaAPPortlet {
 		property content.targeting.release = "true";
-
-		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

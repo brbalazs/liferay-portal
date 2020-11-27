@@ -13,21 +13,13 @@ definition {
 
 		User.firstLoginPG();
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Test Site Name");
 
-		Site.addBlankCP(siteName = "Test Site Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "ADT Test Page");
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(
-			pageName = "ADT Test Page",
-			sitePageType = "Widget Page");
+		Navigator.openSiteURL(siteName = "Test Site Name");
 
 		SitePages.configurePage(
 			columnName = "1 Column",

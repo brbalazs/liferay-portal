@@ -44,19 +44,13 @@ definition {
 	test ViewNewSiteMember {
 		property test.name.skip.portal.instance = "InviteMembers#ViewNewSiteMember";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page 1");
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Site Page 1");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		Navigator.gotoSitePage(
 			pageName = "Site Page 1",

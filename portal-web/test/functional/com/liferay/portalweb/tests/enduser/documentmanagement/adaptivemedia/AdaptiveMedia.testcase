@@ -691,12 +691,7 @@ definition {
 	@ignore = "true"
 	@priority = "5"
 	test ViewNumberOfAdaptedImagesAfterAdaptingImages {
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
-
-		Site.addBlankCP(siteName = "Site Name");
+		JSONGroup.addGroup(groupName = "Site Name");
 
 		SitePages.openPagesAdmin(siteURLKey = "Site Name");
 
@@ -747,7 +742,9 @@ definition {
 			panel = "Control Panel",
 			portlet = "Sites");
 
-		Site.addBlankCP(siteName = "Another Site Name");
+		JSONGroup.addGroup(groupName = "Another Site Name");
+
+		Navigator.openSiteURL(siteName = "Another Site Name");
 
 		for (var entryCount : list "1,2") {
 			ProductMenu.gotoPortlet(

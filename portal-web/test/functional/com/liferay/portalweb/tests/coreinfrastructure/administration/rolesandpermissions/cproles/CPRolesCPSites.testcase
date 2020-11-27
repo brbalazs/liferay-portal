@@ -77,12 +77,9 @@ definition {
 			resourceName = "90",
 			roleTitle = "Regrole Name");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		Permissions.removePermissionViaAPI(
 			resourceAction = "ADD_COMMUNITY",
@@ -142,12 +139,9 @@ definition {
 			roleTitle = "Roles Regrole Name",
 			userScreenName = "usersn");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Parent Site Name");
 
-		Site.addBlankCP(siteName = "Parent Site Name");
+		Navigator.openSiteURL(siteName = "Parent Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Sites",
@@ -470,19 +464,11 @@ definition {
 			userLoginFullName = "Test Test",
 			userScreenName = "usersn");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Site Page");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page");
 
 		Permissions.definePermissionViaJSONAPI(
 			resourceAction = "ACCESS_IN_CONTROL_PANEL",

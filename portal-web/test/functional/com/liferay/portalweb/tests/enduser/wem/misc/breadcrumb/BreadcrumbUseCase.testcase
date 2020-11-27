@@ -29,23 +29,16 @@ definition {
 	test BreadcrumbConfiguration {
 		property test.name.skip.portal.instance = "BreadcrumbUsecase#BreadcrumbConfiguration";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Page Name");
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Parent Page Name");
-
-		SitePages.addPublicChildPage(
-			childPageName = "Child Page Name",
-			parentPageName = "Parent Page Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Child Page Name",
+			parentLayoutName = "Parent Page Name");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -125,19 +118,11 @@ definition {
 
 		var portalURL = PropsUtil.get("portal.url");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Site Page Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page Name");
 
 		Navigator.gotoSpecificURLPage(
 			pageName = "Site Page Name",

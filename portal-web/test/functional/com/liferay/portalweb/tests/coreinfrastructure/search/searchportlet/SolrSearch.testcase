@@ -634,7 +634,7 @@ definition {
 			portlet = "Sites"
 		);
 
-		Site.addBlankCP(siteName = "Site Name 1");
+		JSONGroup.addGroup(groupName = "Site Name 1");
 
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
@@ -642,13 +642,9 @@ definition {
 			title = "Apple"
 		);
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
+		JSONGroup.addGroup(groupName = "Site Name 2");
 
-		Site.addBlankCP(siteName = "Site Name 2");
+		Navigator.openSiteURL(siteName = "Site Name 2");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -662,13 +658,13 @@ definition {
 			dmDocumentTitle = "Apple"
 		);
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
+		JSONGroup.addGroup(groupName = "Site Name 3");
 
-		Site.addBlankCP(siteName = "Site Name 3");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name 3",
+			layoutName = "Site 3 Home Page");
+
+		Navigator.openSiteURL(siteName = "Site Name 3");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -683,8 +679,6 @@ definition {
 			panel = "Site Administration",
 			portlet = "Pages"
 		);
-
-		SitePages.addPublicPage(pageName = "Site 3 Home Page");
 
 		SitePages.addPublicPage(
 			inheritChanges = "disable",
@@ -742,13 +736,9 @@ definition {
 			dmDocumentTitle = "Potato Document"
 		);
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
+		JSONGroup.addGroup(groupName = "Test Site");
 
-		Site.addBlankCP(siteName = "Test Site");
+		Navigator.openSiteURL(siteName = "Test Site");
 
 		SitePages.openPagesAdmin(siteURLKey = "Test Site");
 
@@ -904,13 +894,13 @@ definition {
 	@description = "This is a use case for LPS-81931"
 	@priority = "5"
 	test SearchGlobalTemplateSmoke {
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Home");
+
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -928,8 +918,6 @@ definition {
 			panel = "Site Administration",
 			portlet = "Pages"
 		);
-
-		SitePages.addPublicPage(pageName = "Home");
 
 		SitePages.addPublicPage(
 			inheritChanges = "disable",

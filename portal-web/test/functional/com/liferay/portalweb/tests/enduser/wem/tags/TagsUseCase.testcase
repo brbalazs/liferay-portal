@@ -28,19 +28,11 @@ definition {
 	test AddAutoAssertionTagViaBlogs {
 		property testray.component.names = "Blogs,Tags";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Page Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page");
 
 		for (var tagName : list "tag name 1,tag name 2,tag name 3") {
 			Navigator.openSiteURL(siteName = "Site Name");
@@ -82,19 +74,11 @@ definition {
 	test AddFrontPageTag {
 		property testray.component.names = "Tags,Wiki";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Page Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page 1");
 
 		Navigator.gotoSitePage(
 			pageName = "Page Name",
@@ -112,19 +96,11 @@ definition {
 	test AddMultipleTagsViaBlogs {
 		property testray.component.names = "Blogs,Tags";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Page Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Page Name");
 
 		Navigator.gotoSitePage(
 			pageName = "Page Name",
@@ -158,19 +134,11 @@ definition {
 		property portal.acceptance = "true";
 		property testray.component.names = "Blogs,Tags";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Page Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Page Name");
 
 		for (var tagName : list "tag1,tag2,tag3") {
 			Navigator.openSiteURL(siteName = "Site Name");
@@ -220,19 +188,11 @@ definition {
 		property portal.acceptance = "true";
 		property testray.component.names = "Blogs,Tags";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Page Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Page Name");
 
 		Navigator.gotoSitePage(
 			pageName = "Page Name",
@@ -453,19 +413,11 @@ definition {
 	test RemoveSelectTagViaBlogs {
 		property testray.component.names = "Blogs,Tags";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Page Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Page Name");
 
 		Navigator.gotoSitePage(
 			pageName = "Page Name",
@@ -529,19 +481,11 @@ definition {
 		property portal.acceptance = "true";
 		property testray.component.names = "Blogs,Tags";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Page Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Page Name");
 
 		Navigator.gotoSitePage(
 			pageName = "Page Name",
@@ -596,19 +540,18 @@ definition {
 	test SearchMultipleTagsViaBlogs {
 		property testray.component.names = "Blogs,Tags";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Page Name");
+
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Build",
 			panel = "Site Administration",
 			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Page Name");
 
 		SitePages.addPublicPage(
 			pageName = "search",

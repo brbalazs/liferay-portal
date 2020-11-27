@@ -1747,12 +1747,9 @@ definition {
 	@description = "This is a use case for LPS-50557."
 	@priority = "3"
 	test CreateSiteAndViewDefaultDataDefinitions {
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",

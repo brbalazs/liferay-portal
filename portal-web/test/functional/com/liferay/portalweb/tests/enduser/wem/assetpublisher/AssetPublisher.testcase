@@ -99,19 +99,11 @@ definition {
 
 	@priority = "4"
 	test AddAPPortletToSite {
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Asset Publisher Page");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Asset Publisher Page");
 
 		Navigator.gotoSitePage(
 			pageName = "Asset Publisher Page",
@@ -412,12 +404,9 @@ definition {
 
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Test Site");
 
-		Site.addBlankCP(siteName = "Test Site");
+		Navigator.openURL();
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 
@@ -637,12 +626,9 @@ definition {
 	test FindSiteAPViaSearchScopeSelector {
 		property testray.component.names = "Asset Publisher";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openURL();
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
 

@@ -1596,12 +1596,9 @@ definition {
 
 		UserGroup.addCP(userGroupName = "UG UserGroup Name");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name 1");
 
-		Site.addBlankCP(siteName = "Site Name 1");
+		Navigator.openSiteURL(siteName = "Site Name 1");
 
 		ProductMenu.gotoPortlet(
 			category = "Members",
@@ -1665,21 +1662,13 @@ definition {
 			userGroupName = "UG UserGroup Name",
 			userScreenName = "usersn");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name 2");
 
-		Site.addBlankCP(siteName = "Site Name 2");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name 2",
+			layoutName = "Documents and Media Page");
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(
-			pageName = "Documents and Media Page",
-			sitePageType = "Widget Page");
+		Navigator.openSiteURL(siteName = "Site Name 2");
 
 		SitePages.configurePage(
 			columnName = "1 Column",

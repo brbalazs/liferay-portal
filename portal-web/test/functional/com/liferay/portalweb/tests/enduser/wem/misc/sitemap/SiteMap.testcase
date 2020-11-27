@@ -10,23 +10,16 @@ definition {
 
 		User.firstLoginPG();
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		JSONLayout.addPrivateLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page Name");
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPrivatePage(pageName = "Site Page Name");
-
-		SitePages.addPrivateChildPage(
-			childPageName = "Child Page Name",
-			parentPageName = "Site Page Name");
+		JSONLayout.addPrivateLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page Name",
+			parentLayoutName = "Child Page Name");
 	}
 
 	tearDown {

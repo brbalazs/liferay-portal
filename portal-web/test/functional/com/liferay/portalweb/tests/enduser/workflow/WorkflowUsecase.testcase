@@ -57,14 +57,9 @@ definition {
 			workflowDefinition = "Single Approver",
 			workflowResourceValue = "Blogs Entry");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		Navigator.openURL();
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -230,12 +225,7 @@ definition {
 
 	@priority = "4"
 	test AddBlogsEntriesWithSiteScopeWorkflowAndAssertWorkflowScope {
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
-
-		Site.addBlankCP(siteName = "Site Name");
+		JSONGroup.addGroup(groupName = "Site Name");
 
 		Navigator.openURL();
 
@@ -1136,19 +1126,11 @@ definition {
 	@description = "This is a use case for LPS-59108."
 	@priority = "4"
 	test ViewWorkflowConfigurationScope {
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "New Site");
 
-		Site.addBlankCP(siteName = "New Site");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Site Page");
+		JSONLayout.addPublicLayout(
+			groupName = "New Site",
+			layoutName = "Site Page");
 
 		Navigator.openSiteURL(siteName = "New Site");
 

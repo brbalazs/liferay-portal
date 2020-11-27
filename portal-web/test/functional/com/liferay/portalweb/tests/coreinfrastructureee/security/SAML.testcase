@@ -43,15 +43,7 @@ definition {
 
 		JSONRole.addSiteRole(roleKey = "TestSiteRole", roleTitle = "TestSiteRole");
 
-		Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites"
-		);
-
-		Site.addBlankCP(siteName = "Site Name");
+		JSONGroup.addGroup(groupName = "Site Name");
 
 		Navigator.openURL();
 

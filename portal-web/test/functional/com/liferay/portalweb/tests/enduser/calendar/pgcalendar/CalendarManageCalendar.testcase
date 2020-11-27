@@ -190,12 +190,9 @@ definition {
 
 	@priority = "4"
 	test DeactivateAndDeleteSiteCalendarAndViewSiteCalendarEvent {
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		Navigator.gotoPage(pageName = "Calendar Page");
 
@@ -491,23 +488,18 @@ definition {
 	test ViewAvailableCalendars {
 		property test.name.skip.portal.instance = "CalendarManageCalendar#ViewAvailableCalendars";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addCP(
-			siteName = "Site Name",
-			siteType = "Blank");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Calendar Site Page");
+
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Build",
 			panel = "Site Administration",
 			portlet = "Pages");
-
-		SitePages.addPublicPage(
-			pageName = "Calendar Site Page",
-			sitePageType = "Widget Page");
 
 		SitePages.configurePage(
 			columnName = "1 Column",
@@ -590,21 +582,13 @@ definition {
 
 	@priority = "3"
 	test ViewSiteNameUpdate {
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page Name");
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(
-			pageName = "Site Page Name",
-			sitePageType = "Widget Page");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		SitePages.configurePage(
 			columnName = "1 Column",

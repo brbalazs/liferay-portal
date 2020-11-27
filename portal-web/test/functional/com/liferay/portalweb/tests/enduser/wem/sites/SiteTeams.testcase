@@ -32,12 +32,14 @@ definition {
 	test AddSiteTeam {
 		property testray.component.names = "Site Administration";
 
+		JSONGroup.addGroup(groupName = "Site Name");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
 		ProductMenu.gotoPortlet(
 			category = "Sites",
 			panel = "Control Panel",
 			portlet = "Sites");
-
-		Site.addBlankCP(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Members",
@@ -68,12 +70,9 @@ definition {
 			requireReset = "false",
 			userEmailAddress = "userea@liferay.com");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Members",
@@ -118,12 +117,9 @@ definition {
 	test AddSiteTeamAssignUserGroup {
 		property testray.component.names = "Site Administration,User Groups";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Members",
@@ -180,19 +176,11 @@ definition {
 	test AddSiteTeamMultiple {
 		property testray.component.names = "Site Administration";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Site Page");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page");
 
 		SitePages.openPagesAdmin(siteURLKey = "Site Name");
 
@@ -242,12 +230,9 @@ definition {
 			requireReset = "false",
 			userEmailAddress = "userea@liferay.com");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Members",
@@ -310,12 +295,9 @@ definition {
 	test AddSiteTeamRemoveUserGroup {
 		property testray.component.names = "Site Administration,User Groups";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Members",
@@ -388,12 +370,9 @@ definition {
 	test AddSiteTeamSearchUserGroups {
 		property testray.component.names = "Site Administration,User Groups";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		for (var n : list "1,2") {
 			ProductMenu.gotoPortlet(
@@ -453,12 +432,9 @@ definition {
 	test AddSiteTeamSearchUsers {
 		property testray.component.names = "Site Administration,Users and Organizations";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		for (var n : list "1,2") {
 			JSONUser.addUser(
@@ -527,12 +503,9 @@ definition {
 	test DeleteSiteTeam {
 		property testray.component.names = "Site Administration";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Members",
@@ -555,12 +528,9 @@ definition {
 		property portal.acceptance = "true";
 		property testray.component.names = "Site Administration";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Members",

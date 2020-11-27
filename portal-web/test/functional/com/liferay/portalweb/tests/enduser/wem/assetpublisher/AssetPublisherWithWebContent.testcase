@@ -162,19 +162,11 @@ definition {
 			webContentContent = "WC WebContent Content",
 			webContentTitle = "WC WebContent Title");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Site Test Page 1");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Test Page 1");
 
 		Navigator.gotoSitePage(
 			pageName = "Site Test Page 1",
@@ -420,19 +412,11 @@ definition {
 			webContentText = "WC WebContent Text",
 			webContentTitle = "WC WebContent Title");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Site Test Page 1");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Test Page 1");
 
 		Navigator.gotoSitePage(
 			pageName = "Site Test Page 1",

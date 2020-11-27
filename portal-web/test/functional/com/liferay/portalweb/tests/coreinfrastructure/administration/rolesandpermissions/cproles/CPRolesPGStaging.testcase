@@ -13,19 +13,11 @@ definition {
 
 		User.firstLoginPG();
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Staging Test Page");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Staging Test Page");
 	}
 
 	tearDown {
@@ -58,28 +50,16 @@ definition {
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "userln",
 			userScreenName = "usersn");
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.editPasswordCP(
-			password = "password",
-			userEmailAddress = "userea@liferay.com",
-			userScreenName = "usersn");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -144,30 +124,16 @@ definition {
 
 	@priority = "4"
 	test StagingBlogsRolesWorkflow {
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "usereapu@liferay.com",
 			userFirstName = "userfnpu",
 			userLastName = "userlnpu",
 			userScreenName = "usersnpu");
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.editPasswordCP(
-			password = "password",
-			userEmailAddress = "usereapu@liferay.com",
-			userScreenName = "usersnpu");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "usereapu@liferay.com");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -222,30 +188,16 @@ definition {
 			resourceName = "userfnpu userlnpu",
 			roleTitle = "Power User Name");
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "usereacr@liferay.com",
 			userFirstName = "userfncr",
 			userLastName = "userlncr",
 			userScreenName = "usersncr");
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.editPasswordCP(
-			password = "password",
-			userEmailAddress = "usereacr@liferay.com",
-			userScreenName = "usersncr");
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "usereacr@liferay.com");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -270,18 +222,16 @@ definition {
 			userLastName = "userlncr",
 			userScreenName = "usersncr");
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.addCP(
+		JSONUser.addUser(
 			userEmailAddress = "usereaa@liferay.com",
 			userFirstName = "userfna",
 			userLastName = "userlna",
 			userScreenName = "usersna");
+
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "usereaa@liferay.com");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 

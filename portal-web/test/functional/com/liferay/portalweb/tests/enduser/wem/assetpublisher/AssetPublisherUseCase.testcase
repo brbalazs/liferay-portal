@@ -1072,19 +1072,11 @@ definition {
 		property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "AssetPublisherUseCase#AssetPublisherSiteAndGlobalScopeAccessibility";
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Site Page");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page");
 
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
@@ -1128,19 +1120,11 @@ definition {
 
 		var siteName = TestCase.getSiteViaEnvironment(siteName = "${siteName}");
 
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Site Page");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page");
 
 		for (var siteName1 : list "guest,Site Name,Global") {
 			JSONWebcontent.addWebContent(
@@ -1327,19 +1311,13 @@ definition {
 
 	@priority = "4"
 	test ViewAPPortletAsNewUserSiteAdministratorViaUserSite {
-		ProductMenu.gotoPortlet(
-			category = "Sites",
-			panel = "Control Panel",
-			portlet = "Sites");
+		JSONGroup.addGroup(groupName = "Site Name");
 
-		Site.addBlankCP(siteName = "Site Name");
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Asset Publisher Page");
 
-		ProductMenu.gotoPortlet(
-			category = "Build",
-			panel = "Site Administration",
-			portlet = "Pages");
-
-		SitePages.addPublicPage(pageName = "Asset Publisher Page");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
