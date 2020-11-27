@@ -301,14 +301,13 @@ public class DDMFormValuesValidatorImpl implements DDMFormValuesValidator {
 			return;
 		}
 
-		for (Locale locale : value.getAvailableLocales()) {
-			boolean valid = evaluateValidationExpression(
-				validationExpression, ddmFormField.getName(),
-				ddmFormField.getDataType(), value.getString(locale));
+		boolean valid = evaluateValidationExpression(
+			validationExpression, ddmFormField.getName(),
+			ddmFormField.getDataType(),
+			value.getString(value.getDefaultLocale()));
 
-			if (!valid) {
-				throw new MustSetValidValue(ddmFormField.getName());
-			}
+		if (!valid) {
+			throw new MustSetValidValue(ddmFormField.getName());
 		}
 	}
 
