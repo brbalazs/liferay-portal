@@ -1278,10 +1278,15 @@ public class JournalPortlet extends MVCPortlet {
 				ActionUtil.getFolder(renderRequest);
 			}
 		}
-		catch (Exception e) {
-			_log.error(e.getMessage());
+		catch (Exception exception) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(exception, exception);
+			}
+			else {
+				_log.error(exception.getMessage());
+			}
 
-			SessionErrors.add(renderRequest, e.getClass());
+			SessionErrors.add(renderRequest, exception.getClass());
 		}
 
 		if (SessionErrors.contains(
