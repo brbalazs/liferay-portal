@@ -50,8 +50,7 @@ definition {
 			content = "Web Content Content",
 			groupName = "Guest",
 			serviceContext = "${webContentserviceContext1}",
-			title = "Web Content Title"
-		);
+			title = "Web Content Title");
 
 		ProductMenu.gotoPortlet(
 			category = "Build",

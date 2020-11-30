@@ -67,8 +67,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "DHS Content",
 			groupName = "Guest",
-			title = "DHS Title"
-		);
+			title = "DHS Title");
 
 		Navigator.openURL();
 

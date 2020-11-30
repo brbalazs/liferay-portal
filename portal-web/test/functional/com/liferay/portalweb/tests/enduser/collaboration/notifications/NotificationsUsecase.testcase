@@ -246,8 +246,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Guest",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		Staging.publishToLiveNowViaPortletCP();
 
@@ -368,8 +367,7 @@ definition {
 			content = "WC WebContent Content",
 			folderName = "WC Folder Name",
 			groupName = "Test Site Name",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		User.logoutAndLoginPG(
 			userLoginEmailAddress = "userea@liferay.com",

@@ -205,8 +205,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "Web Content Content",
 			groupName = "Site Name",
-			title = "Web Content Title"
-		);
+			title = "Web Content Title");
 
 		Navigator.gotoStagedSitePage(
 			pageName = "Staging Test Page",

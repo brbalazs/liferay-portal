@@ -79,8 +79,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Guest",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		MockMock.viewMail(
 			asset = "Web Content",
@@ -98,8 +97,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Guest",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		User.logoutAndLoginPG(
 			userLoginEmailAddress = "userea@liferay.com",
@@ -147,8 +145,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Guest",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		User.logoutAndLoginPG(
 			userLoginEmailAddress = "userea@liferay.com",

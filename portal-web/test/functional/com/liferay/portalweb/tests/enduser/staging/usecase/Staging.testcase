@@ -166,8 +166,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Site Name",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		Staging.openStagingAdmin(siteURLKey = "site-name");
 
@@ -214,8 +213,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Site Name",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		SitePages.openPagesAdmin(siteURLKey = "site-name");
 

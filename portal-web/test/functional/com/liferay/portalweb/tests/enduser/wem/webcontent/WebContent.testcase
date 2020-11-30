@@ -680,8 +680,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent 1 Content",
 			groupName = "Guest",
-			title = "WC WebContent 1 Title"
-		);
+			title = "WC WebContent 1 Title");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -940,20 +939,17 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content 1",
 			groupName = "Guest",
-			title = "WC WebContent Title 1"
-		);
+			title = "WC WebContent Title 1");
 
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content 2",
 			groupName = "Guest",
-			title = "WC WebContent Title 2"
-		);
+			title = "WC WebContent Title 2");
 
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content 3",
 			groupName = "Guest",
-			title = "WC WebContent Title 3"
-		);
+			title = "WC WebContent Title 3");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -1309,8 +1305,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Guest",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -1485,8 +1480,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Guest",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		Navigator.openURL();
 
@@ -1680,8 +1674,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Guest",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -1722,8 +1715,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Guest",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -1752,8 +1744,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Guest",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -1787,8 +1778,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Guest",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -1830,8 +1820,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Guest",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -2317,8 +2306,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Guest",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -2410,8 +2398,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Guest",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		JSONRole.addRegularRole(
 			roleKey = "Web Content Administrator Role",
@@ -2574,8 +2561,7 @@ definition {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Guest",
-			title = "WC WebContent Title"
-		);
+			title = "WC WebContent Title");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
