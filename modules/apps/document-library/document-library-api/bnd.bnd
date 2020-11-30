@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Document Library API
 Bundle-SymbolicName: com.liferay.document.library.api
-Bundle-Version: 4.3.15
+Bundle-Version: 4.3.16
 Export-Package:\
 	com.liferay.document.library.configuration,\
 	com.liferay.document.library.constants,\
