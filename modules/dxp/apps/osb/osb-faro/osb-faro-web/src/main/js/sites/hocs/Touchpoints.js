@@ -16,7 +16,7 @@ import {sub} from 'shared/util/lang';
 import {VISITORS_METRIC} from 'shared/util/pagination';
 import {withBaseResults} from 'shared/hoc';
 
-// POC TEMP
+// LRAC-6976 POC TEMP
 const withData = (useDB = false) => () =>
 	graphql(
 		useDB ? TOUCHPOINTS_QUERY_TEST : TouchpointsQuery,
@@ -26,7 +26,7 @@ const withData = (useDB = false) => () =>
 		}))
 	);
 
-// POC TEMP
+// LRAC-6976 POC TEMP
 const getTableWithData = useDB => {
 	const TableWithData = withBaseResults(withData(useDB), {
 		defaultOrderByField: VISITORS_METRIC,

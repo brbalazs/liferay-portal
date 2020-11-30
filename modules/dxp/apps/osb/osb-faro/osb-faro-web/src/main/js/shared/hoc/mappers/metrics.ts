@@ -49,6 +49,7 @@ export const getMapPropsToOptions: (
 		rangeSelectors
 	});
 
+	// LRAC-6976 POC TEMP
 	const useDB = get(query, 'useDB', null) === 'true';
 
 	let unfilteredVariables: any = {
@@ -63,6 +64,7 @@ export const getMapPropsToOptions: (
 		terms: get(params, 'interestId')
 	};
 
+	// LRAC-6976 POC TEMP
 	if (useDB) {
 		unfilteredVariables = {...unfilteredVariables, useDB};
 	}
