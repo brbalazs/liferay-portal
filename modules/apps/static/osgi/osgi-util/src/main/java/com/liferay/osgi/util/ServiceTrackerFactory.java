@@ -134,7 +134,7 @@ public class ServiceTrackerFactory {
 	}
 
 	public static <T, W> ServiceTracker<T, ServiceRegistration<W>>
-		openWrapperRegistrator(
+		openWrapperServiceRegistrator(
 			BundleContext bundleContext, Class<T> trackedClass,
 			Class<W> registeredClass, Function<T, W> wrapperFunction,
 			String... propertyNames) {
