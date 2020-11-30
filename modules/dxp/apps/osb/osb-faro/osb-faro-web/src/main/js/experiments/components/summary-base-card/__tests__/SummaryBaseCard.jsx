@@ -1,23 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import SummaryBaseCard from '../index';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
 
-ReactDOM.createPortal.mockImplementationOnce(component => component);
+jest.unmock('react-dom');
 
 describe('SummaryBaseCard', () => {
 	it('should render component', () => {
-		const component = shallow(<SummaryBaseCard />);
+		const {container} = render(<SummaryBaseCard />);
 
-		expect(component.length).toBe(1);
-		expect(component.hasClass('card-root card analytics-summary-card'));
-		expect(component.render()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
 
 describe('SummaryBaseCard.Header Actions', () => {
 	it('should render component with Header', () => {
-		const component = shallow(
+		const {getByText} = render(
 			<SummaryBaseCard>
 				<SummaryBaseCard.Header>
 					{'Summary Card with Header'}
@@ -25,21 +22,17 @@ describe('SummaryBaseCard.Header Actions', () => {
 			</SummaryBaseCard>
 		);
 
-		expect(component.find('Header').length).toBe(1);
-		expect(component.find('Header').props().children).toEqual(
-			'Summary Card with Header'
-		);
-		expect(component.children().render()).toMatchSnapshot();
+		expect(getByText('Summary Card with Header')).toBeTruthy();
 	});
 
-	it('should render component with Header and 1 action', () => {
+	it('should render component with Header and 1 modal', () => {
 		const MODALS = [
 			{
 				title: 'action 01'
 			}
 		];
 
-		const component = shallow(
+		const {container, getByText} = render(
 			<SummaryBaseCard>
 				<SummaryBaseCard.Header modals={MODALS}>
 					{'Summary Card with Header'}
@@ -47,46 +40,13 @@ describe('SummaryBaseCard.Header Actions', () => {
 			</SummaryBaseCard>
 		);
 
-		expect(component.find('Header').props().modals).toEqual(MODALS);
+		expect(getByText('action 01')).toBeEnabled();
 		expect(
-			component
-				.find('Header')
-				.shallow()
-				.find('ForwardRef').length
-		).toBe(1);
+			container.querySelector('.btn-group').firstChild.nextSibling
+		).toBeFalsy();
 	});
 
-	it('should render component with Header and 2 modals', () => {
-		const MODALS = [
-			{
-				title: 'action 01'
-			},
-			{
-				label: 'action 02',
-				type: 'action02'
-			}
-		];
-
-		const component = shallow(
-			<SummaryBaseCard>
-				<SummaryBaseCard.Header modals={MODALS}>
-					{'Summary Card with Header'}
-				</SummaryBaseCard.Header>
-			</SummaryBaseCard>
-		);
-
-		expect(component.find('Header').props().modals).toEqual(MODALS);
-		expect(
-			component
-				.find('Header')
-				.shallow()
-				.find('ClayDropDownItemList')
-				.shallow()
-				.find('ForwardRef').length
-		).toBe(1);
-	});
-
-	it('should render component with Header and 3 modals', () => {
+	it('should render component with Header and multiple modals', () => {
 		const MODALS = [
 			{
 				title: 'action 01'
@@ -105,7 +65,7 @@ describe('SummaryBaseCard.Header Actions', () => {
 			}
 		];
 
-		const component = shallow(
+		const {container, getByText} = render(
 			<SummaryBaseCard>
 				<SummaryBaseCard.Header modals={MODALS}>
 					{'Summary Card with Header'}
@@ -113,79 +73,16 @@ describe('SummaryBaseCard.Header Actions', () => {
 			</SummaryBaseCard>
 		);
 
-		expect(component.find('Header').props().modals).toEqual(MODALS);
+		expect(getByText('action 01')).toBeTruthy();
 		expect(
-			component
-				.find('Header')
-				.shallow()
-				.find('ClayDropDownItemList')
-				.shallow()
-				.find('ForwardRef').length
-		).toBe(3);
-	});
-});
-
-describe('SummaryBaseCard.Header cardModals', () => {
-	it('should render component with Header and 1 card action', () => {
-		const CARD_MODALS = [
-			{
-				title: 'action 01'
-			}
-		];
-
-		const component = shallow(
-			<SummaryBaseCard>
-				<SummaryBaseCard.Header cardModals={CARD_MODALS}>
-					{'Summary Card with Header'}
-				</SummaryBaseCard.Header>
-			</SummaryBaseCard>
-		);
-
-		expect(component.find('Header').props().cardModals).toEqual(
-			CARD_MODALS
-		);
-		expect(
-			component
-				.find('Header')
-				.shallow()
-				.find('ForwardRef').length
-		).toBe(1);
-	});
-
-	it('should render component with Header and 2 card modals', () => {
-		const CARD_MODALS = [
-			{
-				title: 'action 01'
-			},
-			{
-				label: 'action 02',
-				type: 'action02'
-			}
-		];
-
-		const component = shallow(
-			<SummaryBaseCard>
-				<SummaryBaseCard.Header cardModals={CARD_MODALS}>
-					{'Summary Card with Header'}
-				</SummaryBaseCard.Header>
-			</SummaryBaseCard>
-		);
-
-		expect(component.find('Header').props().cardModals).toEqual(
-			CARD_MODALS
-		);
-		expect(
-			component
-				.find('Header')
-				.shallow()
-				.find('ForwardRef').length
-		).toBe(2);
+			container.querySelector('.btn-group').firstChild.nextSibling
+		).toBeTruthy();
 	});
 });
 
 describe('SummaryBaseCard.Body', () => {
 	it('should render component with Body', () => {
-		const component = shallow(
+		const {getByText} = render(
 			<SummaryBaseCard>
 				<SummaryBaseCard.Body>
 					{'Summary Card with Body'}
@@ -193,17 +90,13 @@ describe('SummaryBaseCard.Body', () => {
 			</SummaryBaseCard>
 		);
 
-		expect(component.find('Body').length).toBe(1);
-		expect(component.find('Body').props().children).toEqual(
-			'Summary Card with Body'
-		);
-		expect(component.children().render()).toMatchSnapshot();
+		expect(getByText('Summary Card with Body')).toBeTruthy();
 	});
 });
 
 describe('SummaryBaseCard.Footer', () => {
 	it('should render component with Footer', () => {
-		const component = shallow(
+		const {container, getByText} = render(
 			<SummaryBaseCard>
 				<SummaryBaseCard.Footer>
 					{'Summary Card with Footer'}
@@ -211,10 +104,7 @@ describe('SummaryBaseCard.Footer', () => {
 			</SummaryBaseCard>
 		);
 
-		expect(component.find('Footer').length).toBe(1);
-		expect(component.find('Footer').props().children).toEqual(
-			'Summary Card with Footer'
-		);
-		expect(component.children().render()).toMatchSnapshot();
+		expect(container.querySelector('.card-footer')).toBeTruthy();
+		expect(getByText('Summary Card with Footer'));
 	});
 });
