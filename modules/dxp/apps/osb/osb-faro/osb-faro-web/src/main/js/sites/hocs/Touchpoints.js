@@ -76,7 +76,7 @@ const getTableWithData = useDB => {
 };
 
 const Touchpoints = ({router}) => {
-	const TableWithData = getTableWithData(router.query.useDB);
+	const TableWithData = getTableWithData(router.query.useDB === 'true');
 
 	return (
 		<Card className='site-touchpoints-root' pageDisplay>
