@@ -84,103 +84,99 @@ public class FragmentEntryLinkExportImportContentProcessor
 			return content;
 		}
 
-		Iterator<String> keysIterator = editableValuesJSONObject.keys();
+		JSONObject editableProcessorJSONObject =
+			editableValuesJSONObject.getJSONObject(
+				_KEY_EDITABLE_FRAGMENT_ENTRY_PROCESSOR);
 
-		while (keysIterator.hasNext()) {
-			String key = keysIterator.next();
+		if ((editableProcessorJSONObject == null) ||
+			(editableProcessorJSONObject.length() <= 0)) {
 
-			JSONObject editableProcessorJSONObject =
-				editableValuesJSONObject.getJSONObject(key);
+			return content;
+		}
 
-			if (editableProcessorJSONObject == null) {
+		Iterator<String> editableKeysIterator =
+			editableProcessorJSONObject.keys();
+
+		while (editableKeysIterator.hasNext()) {
+			String editableKey = editableKeysIterator.next();
+
+			JSONObject editableJSONObject =
+				editableProcessorJSONObject.getJSONObject(editableKey);
+
+			long classNameId = editableJSONObject.getLong("classNameId");
+			long classPK = editableJSONObject.getLong("classPK");
+
+			if ((classNameId == 0) || (classPK == 0)) {
 				continue;
 			}
 
-			Iterator<String> editableKeysIterator =
-				editableProcessorJSONObject.keys();
+			AssetEntry assetEntry = _assetEntryLocalService.getEntry(
+				_portal.getClassName(classNameId), classPK);
 
-			while (editableKeysIterator.hasNext()) {
-				String editableKey = editableKeysIterator.next();
+			AssetRenderer assetRenderer = assetEntry.getAssetRenderer();
 
-				JSONObject editableJSONObject =
-					editableProcessorJSONObject.getJSONObject(editableKey);
+			if (assetRenderer == null) {
+				continue;
+			}
 
-				long classNameId = editableJSONObject.getLong("classNameId");
-				long classPK = editableJSONObject.getLong("classPK");
+			AssetRendererFactory assetRendererFactory =
+				assetRenderer.getAssetRendererFactory();
 
-				if ((classNameId == 0) || (classPK == 0)) {
-					continue;
+			StagingGroupHelper stagingGroupHelper =
+				StagingGroupHelperUtil.getStagingGroupHelper();
+
+			if (!stagingGroupHelper.isStagedPortlet(
+					portletDataContext.getScopeGroupId(),
+					assetRendererFactory.getPortletId())) {
+
+				continue;
+			}
+
+			editableJSONObject.put(
+				"className", _portal.getClassName(classNameId));
+
+			if (exportReferencedContent) {
+				try {
+					StagedModelDataHandlerUtil.exportReferenceStagedModel(
+						portletDataContext, stagedModel,
+						(StagedModel)assetRenderer.getAssetObject(),
+						PortletDataContext.REFERENCE_TYPE_DEPENDENCY);
 				}
+				catch (Exception e) {
+					if (_log.isDebugEnabled()) {
+						StringBundler messageSB = new StringBundler(11);
 
-				AssetEntry assetEntry = _assetEntryLocalService.getEntry(
-					_portal.getClassName(classNameId), classPK);
+						messageSB.append("Staged model with class name ");
+						messageSB.append(stagedModel.getModelClassName());
+						messageSB.append(" and primary key ");
+						messageSB.append(stagedModel.getPrimaryKeyObj());
+						messageSB.append(" references asset entry with class ");
+						messageSB.append("primary key ");
+						messageSB.append(classPK);
+						messageSB.append(" and class name ");
+						messageSB.append(_portal.getClassName(classNameId));
+						messageSB.append(" that could not be exported due to ");
+						messageSB.append(e);
 
-				AssetRenderer assetRenderer = assetEntry.getAssetRenderer();
+						String errorMessage = messageSB.toString();
 
-				if (assetRenderer == null) {
-					continue;
-				}
-
-				AssetRendererFactory assetRendererFactory =
-					assetRenderer.getAssetRendererFactory();
-
-				StagingGroupHelper stagingGroupHelper =
-					StagingGroupHelperUtil.getStagingGroupHelper();
-
-				if (!stagingGroupHelper.isStagedPortlet(
-						portletDataContext.getScopeGroupId(),
-						assetRendererFactory.getPortletId())) {
-
-					continue;
-				}
-
-				editableJSONObject.put(
-					"className", _portal.getClassName(classNameId));
-
-				if (exportReferencedContent) {
-					try {
-						StagedModelDataHandlerUtil.exportReferenceStagedModel(
-							portletDataContext, stagedModel,
-							(StagedModel)assetRenderer.getAssetObject(),
-							PortletDataContext.REFERENCE_TYPE_DEPENDENCY);
-					}
-					catch (Exception e) {
-						if (_log.isDebugEnabled()) {
-							StringBundler messageSB = new StringBundler(12);
-
-							messageSB.append("Staged model with class name ");
-							messageSB.append(stagedModel.getModelClassName());
-							messageSB.append(" and primary key ");
-							messageSB.append(stagedModel.getPrimaryKeyObj());
-							messageSB.append(" references asset entry with ");
-							messageSB.append("class primary key ");
-							messageSB.append(classPK);
-							messageSB.append(" and class name ");
-							messageSB.append(_portal.getClassName(classNameId));
-							messageSB.append(" that could not be exported ");
-							messageSB.append("due to ");
-							messageSB.append(e);
-
-							String errorMessage = messageSB.toString();
-
-							if (Validator.isNotNull(e.getMessage())) {
-								errorMessage = StringBundler.concat(
-									errorMessage, ": ", e.getMessage());
-							}
-
-							_log.debug(errorMessage, e);
+						if (Validator.isNotNull(e.getMessage())) {
+							errorMessage = StringBundler.concat(
+								errorMessage, ": ", e.getMessage());
 						}
+
+						_log.debug(errorMessage, e);
 					}
 				}
-				else {
-					Element entityElement =
-						portletDataContext.getExportDataElement(stagedModel);
+			}
+			else {
+				Element entityElement = portletDataContext.getExportDataElement(
+					stagedModel);
 
-					portletDataContext.addReferenceElement(
-						stagedModel, entityElement,
-						(ClassedModel)assetRenderer.getAssetObject(),
-						PortletDataContext.REFERENCE_TYPE_DEPENDENCY, true);
-				}
+				portletDataContext.addReferenceElement(
+					stagedModel, entityElement,
+					(ClassedModel)assetRenderer.getAssetObject(),
+					PortletDataContext.REFERENCE_TYPE_DEPENDENCY, true);
 			}
 		}
 
@@ -212,65 +208,62 @@ public class FragmentEntryLinkExportImportContentProcessor
 			return content;
 		}
 
-		Iterator<String> keysIterator = editableValuesJSONObject.keys();
+		JSONObject editableProcessorJSONObject =
+			editableValuesJSONObject.getJSONObject(
+				_KEY_EDITABLE_FRAGMENT_ENTRY_PROCESSOR);
 
-		while (keysIterator.hasNext()) {
-			String key = keysIterator.next();
+		if ((editableProcessorJSONObject == null) ||
+			(editableProcessorJSONObject.length() <= 0)) {
 
-			JSONObject editableProcessorJSONObject =
-				editableValuesJSONObject.getJSONObject(key);
+			return content;
+		}
 
-			if (editableProcessorJSONObject == null) {
+		Iterator<String> editableKeysIterator =
+			editableProcessorJSONObject.keys();
+
+		while (editableKeysIterator.hasNext()) {
+			String editableKey = editableKeysIterator.next();
+
+			JSONObject editableJSONObject =
+				editableProcessorJSONObject.getJSONObject(editableKey);
+
+			String className = GetterUtil.getString(
+				editableJSONObject.remove("className"));
+
+			if (Validator.isNull(className)) {
 				continue;
 			}
 
-			Iterator<String> editableKeysIterator =
-				editableProcessorJSONObject.keys();
+			AssetRendererFactory assetRendererFactory =
+				AssetRendererFactoryRegistryUtil.
+					getAssetRendererFactoryByClassName(className);
 
-			while (editableKeysIterator.hasNext()) {
-				String editableKey = editableKeysIterator.next();
+			StagingGroupHelper stagingGroupHelper =
+				StagingGroupHelperUtil.getStagingGroupHelper();
 
-				JSONObject editableJSONObject =
-					editableProcessorJSONObject.getJSONObject(editableKey);
+			if (!stagingGroupHelper.isStagedPortlet(
+					portletDataContext.getScopeGroupId(),
+					assetRendererFactory.getPortletId())) {
 
-				String className = GetterUtil.getString(
-					editableJSONObject.remove("className"));
-
-				if (Validator.isNull(className)) {
-					continue;
-				}
-
-				AssetRendererFactory assetRendererFactory =
-					AssetRendererFactoryRegistryUtil.
-						getAssetRendererFactoryByClassName(className);
-
-				StagingGroupHelper stagingGroupHelper =
-					StagingGroupHelperUtil.getStagingGroupHelper();
-
-				if (!stagingGroupHelper.isStagedPortlet(
-						portletDataContext.getScopeGroupId(),
-						assetRendererFactory.getPortletId())) {
-
-					continue;
-				}
-
-				long classPK = editableJSONObject.getLong("classPK");
-
-				if (classPK == 0) {
-					continue;
-				}
-
-				editableJSONObject.put(
-					"classNameId", _portal.getClassNameId(className));
-
-				Map<Long, Long> primaryKeys =
-					(Map<Long, Long>)portletDataContext.getNewPrimaryKeysMap(
-						className);
-
-				classPK = MapUtil.getLong(primaryKeys, classPK, classPK);
-
-				editableJSONObject.put("classPK", classPK);
+				continue;
 			}
+
+			long classPK = editableJSONObject.getLong("classPK");
+
+			if (classPK == 0) {
+				continue;
+			}
+
+			editableJSONObject.put(
+				"classNameId", _portal.getClassNameId(className));
+
+			Map<Long, Long> primaryKeys =
+				(Map<Long, Long>)portletDataContext.getNewPrimaryKeysMap(
+					className);
+
+			classPK = MapUtil.getLong(primaryKeys, classPK, classPK);
+
+			editableJSONObject.put("classPK", classPK);
 		}
 
 		return editableValuesJSONObject.toString();
@@ -280,6 +273,10 @@ public class FragmentEntryLinkExportImportContentProcessor
 	public void validateContentReferences(long groupId, String content)
 		throws PortalException {
 	}
+
+	private static final String _KEY_EDITABLE_FRAGMENT_ENTRY_PROCESSOR =
+		"com.liferay.fragment.entry.processor.editable." +
+			"EditableFragmentEntryProcessor";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		FragmentEntryLinkExportImportContentProcessor.class);
