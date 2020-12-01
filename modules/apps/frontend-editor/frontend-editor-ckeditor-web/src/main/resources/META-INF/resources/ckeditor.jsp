@@ -239,6 +239,8 @@ name = HtmlUtil.escapeJS(name);
 				if (CKEDITOR.env.gecko && (CKEDITOR.tools.trim(data) == '<br />')) {
 					data = '';
 				}
+
+				data = data.replace(/(\u200B){7}/, '');
 			}
 
 			return data;
