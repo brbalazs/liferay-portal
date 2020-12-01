@@ -317,9 +317,9 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 														'you-can-only-set-your-friendly-workspace-url-once'
 													)}
 
-												<p className='instructions form-text'>
+												<span className='instructions'>
 													{`${faroURL}/workspace`}
-												</p>
+												</span>
 											</>
 										}
 										text={{

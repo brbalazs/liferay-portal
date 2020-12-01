@@ -30,13 +30,13 @@
 		}
 
 		.instructions {
-			font-weight: $fontWeightRegular;
+			color: $secondary;
+			display: block;
 		}
 
 		p {
 			margin-bottom: 6px;
 		}
-
 
 		.terms {
 			font-size: $fontSizeSmall;

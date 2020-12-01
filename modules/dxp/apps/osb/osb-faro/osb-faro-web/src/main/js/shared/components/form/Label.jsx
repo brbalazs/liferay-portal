@@ -32,17 +32,11 @@ export default class Label extends React.Component {
 					'label-root',
 					className,
 					{
-						required: required && !popover
+						required
 					}
 				)}
 			>
-				<span
-					className={getCN('content-container', {
-						required: required && !!popover
-					})}
-				>
-					{children}
-				</span>
+				<span className='content-container'>{children}</span>
 
 				{popover && (
 					<InfoPopover
