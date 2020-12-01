@@ -104,8 +104,8 @@ public class AnalyticsSettingsUtil {
 				bodyJSONObject, companyId,
 				new HttpPost(String.format("%s/%s", asahFaroBackendURL, path)));
 		}
-		catch (IOException ioException) {
-			throw new PortalException(ioException);
+		catch (IOException ioe) {
+			throw new PortalException(ioe);
 		}
 	}
 

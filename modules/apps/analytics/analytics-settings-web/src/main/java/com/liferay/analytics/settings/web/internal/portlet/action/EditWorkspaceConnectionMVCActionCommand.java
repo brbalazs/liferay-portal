@@ -221,7 +221,7 @@ public class EditWorkspaceConnectionMVCActionCommand
 					actionRequest, "unableToNotifyAnalyticsCloud");
 			}
 		}
-		catch (Exception exception) {
+		catch (Exception e) {
 			SessionErrors.add(actionRequest, "unableToNotifyAnalyticsCloud");
 		}
 

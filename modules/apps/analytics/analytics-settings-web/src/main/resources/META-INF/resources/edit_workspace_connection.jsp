@@ -67,9 +67,9 @@ PortletURL portletURL = renderResponse.createRenderURL();
 			message: '<liferay-ui:message key="unable-to-notify-analytics-cloud" />',
 			title: Liferay.Language.get('warning'),
 			toastProps: {
-				autoClose: 5000,
+				autoClose: 5000
 			},
-			type: 'warning',
+			type: 'warning'
 		});
 	</aui:script>
 </c:if>

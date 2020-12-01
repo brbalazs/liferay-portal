@@ -112,8 +112,8 @@ public class AddChannelMVCActionCommand extends BaseAnalyticsMVCActionCommand {
 			return groupJSONObject.put(
 				"name", group.getDescriptiveName(themeDisplay.getLocale()));
 		}
-		catch (PortalException portalException) {
-			_log.error(portalException, portalException);
+		catch (PortalException pe) {
+			_log.error(pe, pe);
 
 			ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 				"content.Language", themeDisplay.getLocale(), getClass());

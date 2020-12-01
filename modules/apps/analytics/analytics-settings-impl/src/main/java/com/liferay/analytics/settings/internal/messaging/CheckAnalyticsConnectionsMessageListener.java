@@ -86,13 +86,13 @@ public class CheckAnalyticsConnectionsMessageListener
 				_analyticsMessageSenderClient.validateConnection(
 					analyticsConfigurationEntry.getKey());
 			}
-			catch (Exception exception) {
+			catch (Exception e) {
 				_log.error(
 					"Unable to connect Analytics Cloud for company " +
 						analyticsConfigurationEntry.getKey(),
-					exception);
+					e);
 
-				throw exception;
+				throw e;
 			}
 		}
 	}

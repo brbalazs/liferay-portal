@@ -115,8 +115,8 @@ public class ChannelDisplayContext {
 
 			return channelSearch;
 		}
-		catch (Exception exception) {
-			_log.error("Unable to get channel search", exception);
+		catch (Exception e) {
+			_log.error("Unable to get channel search", e);
 
 			return null;
 		}
