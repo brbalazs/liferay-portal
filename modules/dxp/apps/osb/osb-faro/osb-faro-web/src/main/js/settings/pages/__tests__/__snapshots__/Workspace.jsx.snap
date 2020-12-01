@@ -162,11 +162,11 @@ exports[`Workspace Settting should render 1`] = `
                       class="content-container"
                     >
                       <p>
-                        <p
-                          class="instructions form-text"
+                        <span
+                          class="instructions"
                         >
                           http://localhost:3000/workspace
-                        </p>
+                        </span>
                       </p>
                     </span>
                   </label>

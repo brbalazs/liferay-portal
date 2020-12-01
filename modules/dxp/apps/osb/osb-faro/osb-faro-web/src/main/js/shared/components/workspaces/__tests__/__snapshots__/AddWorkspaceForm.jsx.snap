@@ -197,11 +197,11 @@ exports[`AddWorkspaceForm should render 1`] = `
                 >
                   <p>
                     You can only set your friendly workspace URL once.
-                    <p
-                      class="instructions form-text"
+                    <span
+                      class="instructions"
                     >
                       http://localhost:3000/workspace
-                    </p>
+                    </span>
                   </p>
                 </span>
               </label>
@@ -309,11 +309,11 @@ exports[`AddWorkspaceForm should render 1`] = `
               class=""
             >
               <label
-                class="form-control-label label-root"
+                class="form-control-label label-root required"
                 for="incidentReportEmailAddresses"
               >
                 <span
-                  class="content-container required"
+                  class="content-container"
                 >
                   Add Incident Report Contacts
                 </span>

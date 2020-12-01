@@ -226,11 +226,11 @@ exports[`AddWorkspace should render 1`] = `
                         >
                           <p>
                             You can only set your friendly workspace URL once.
-                            <p
-                              class="instructions form-text"
+                            <span
+                              class="instructions"
                             >
                               http://localhost:3000/workspace
-                            </p>
+                            </span>
                           </p>
                         </span>
                       </label>
