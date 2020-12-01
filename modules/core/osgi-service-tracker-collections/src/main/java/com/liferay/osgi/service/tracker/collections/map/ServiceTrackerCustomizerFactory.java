@@ -82,8 +82,7 @@ public class ServiceTrackerCustomizerFactory {
 				}
 
 				try {
-					return new ServiceWrapperImpl<>(
-						_getProperties(serviceReference), service);
+					return new ServiceWrapperImpl<>(serviceReference, service);
 				}
 				catch (Throwable t) {
 					bundleContext.ungetService(serviceReference);
@@ -100,8 +99,7 @@ public class ServiceTrackerCustomizerFactory {
 				ServiceWrapperImpl<S> serviceWrapperImpl =
 					(ServiceWrapperImpl<S>)serviceWrapper;
 
-				serviceWrapperImpl._setProperties(
-					_getProperties(serviceReference));
+				serviceWrapperImpl._resetProperties();
 			}
 
 			@Override
@@ -123,26 +121,27 @@ public class ServiceTrackerCustomizerFactory {
 
 	}
 
-	private static <S> Map<String, Object> _getProperties(
-		final ServiceReference<S> serviceReference) {
-
-		Map<String, Object> properties = new HashMap<>();
-
-		String[] propertyKeys = serviceReference.getPropertyKeys();
-
-		for (String propertyKey : propertyKeys) {
-			properties.put(
-				propertyKey, serviceReference.getProperty(propertyKey));
-		}
-
-		return properties;
-	}
-
 	private static class ServiceWrapperImpl<S> implements ServiceWrapper<S> {
 
 		@Override
 		public Map<String, Object> getProperties() {
-			return _properties;
+			Map<String, Object> properties = _properties;
+
+			if (properties == null) {
+				properties = new HashMap<>();
+
+				String[] propertyKeys = _serviceReference.getPropertyKeys();
+
+				for (String propertyKey : propertyKeys) {
+					properties.put(
+						propertyKey,
+						_serviceReference.getProperty(propertyKey));
+				}
+
+				_properties = properties;
+			}
+
+			return properties;
 		}
 
 		@Override
@@ -150,17 +149,20 @@ public class ServiceTrackerCustomizerFactory {
 			return _service;
 		}
 
-		private ServiceWrapperImpl(Map<String, Object> properties, S service) {
-			_properties = properties;
+		private ServiceWrapperImpl(
+			ServiceReference<S> serviceReference, S service) {
+
+			_serviceReference = serviceReference;
 			_service = service;
 		}
 
-		private void _setProperties(Map<String, Object> properties) {
-			_properties = properties;
+		private void _resetProperties() {
+			_properties = null;
 		}
 
 		private volatile Map<String, Object> _properties;
 		private final S _service;
+		private final ServiceReference<S> _serviceReference;
 
 	}
 
