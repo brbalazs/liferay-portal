@@ -2,7 +2,8 @@ import * as data from 'test/data';
 import InterestDetails from '../InterestDetails';
 import React from 'react';
 import {Individual} from 'shared/util/records';
-import {shallow} from 'enzyme';
+import {render, waitForElementToBeRemoved} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
 
 const defaultProps = {
 	active: 'true',
@@ -12,34 +13,50 @@ const defaultProps = {
 	interestId: 1
 };
 
+jest.unmock('react-dom');
+
 describe('InterestDetails', () => {
-	it('should render', () => {
-		const component = shallow(<InterestDetails {...defaultProps} />);
-
-		expect(component).toMatchSnapshot();
-	});
-
-	it('should render an active pages list tab', () => {
-		const component = shallow(<InterestDetails {...defaultProps} />);
-
-		expect(
-			component
-				.find('Item')
-				.at(0)
-				.prop('active')
-		).toBe(true);
-	});
-
-	it('should render an inactive pages list tab', () => {
-		const component = shallow(
-			<InterestDetails {...defaultProps} active='false' />
+	it('should render', async() => {
+		const {container} = render(
+			<StaticRouter>
+				<InterestDetails {...defaultProps} />
+			</StaticRouter>
 		);
 
-		expect(
-			component
-				.find('Item')
-				.at(1)
-				.prop('active')
-		).toBe(true);
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('should render an active pages list tab', async() => {
+		const {container, getByText} = render(
+			<StaticRouter>
+				<InterestDetails {...defaultProps} />
+			</StaticRouter>
+		);
+
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
+
+		expect(getByText('Active Pages')).toBeTruthy();
+		expect(getByText('Active Pages').parentElement).toHaveClass('active');
+	});
+
+	it('should render an inactive pages list tab', async() => {
+		const {container, getByText} = render(
+			<StaticRouter>
+				<InterestDetails {...defaultProps} active='false' />
+			</StaticRouter>
+		);
+
+		await waitForElementToBeRemoved(() =>
+			container.querySelector('.spinner-root')
+		);
+
+		expect(getByText('Inactive Pages')).toBeTruthy();
+		expect(getByText('Inactive Pages').parentElement).toHaveClass('active');
 	});
 });
