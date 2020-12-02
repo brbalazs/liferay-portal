@@ -33,6 +33,8 @@ definition {
 
 	@priority = "3"
 	test BlogsOrganizationWorkflowStaging {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		ProductMenu.gotoPortlet(
 			category = "Users",
 			panel = "Control Panel",

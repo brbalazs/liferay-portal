@@ -3292,6 +3292,8 @@ definition {
 
 	@priority = "4"
 	test UserSegmentDisableAnonymousUserAnalytics {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",

@@ -100,6 +100,7 @@ definition {
 
 	@priority = "5"
 	test SearchPermissions {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property testray.component.names = "Training";
 
 		ProductMenu.gotoPortlet(

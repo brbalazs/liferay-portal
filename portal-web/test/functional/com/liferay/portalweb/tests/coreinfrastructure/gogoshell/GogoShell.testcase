@@ -80,6 +80,7 @@ definition {
 
 	@priority = "4"
 	test OmniAdminCanAccessGogoShellCommandViaPortlet {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "GogoShell#OmniAdminCanAccessGogoShellCommandViaPortlet";
 
 		JSONUser.addUser(
@@ -113,6 +114,7 @@ definition {
 
 	@priority = "4"
 	test SiteAdminCannotAccessGogoShellPortlet {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "GogoShell#SiteAdminCannotAccessGogoShellPortlet";
 
 		JSONUser.addUser(

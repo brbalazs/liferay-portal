@@ -34,6 +34,7 @@ definition {
 
 	@priority = "5"
 	test AddAndViewStructureAndTemplateWithPermissions {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property testray.component.names = "Permissions,Roles,Training,Web Content Administration";
 
 		JSONGroup.addGroup(groupName = "Site Name");
@@ -1210,6 +1211,7 @@ definition {
 
 	@priority = "3"
 	test AddWebContentWithGlobalStructureAndEditedDefaultValues {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property testray.component.names = "Web Content Administration";
 
 		SitePages.openPagesAdmin(siteURLKey = "global");

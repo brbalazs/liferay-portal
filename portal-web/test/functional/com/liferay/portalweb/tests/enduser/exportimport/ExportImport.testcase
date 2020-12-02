@@ -1807,6 +1807,7 @@ definition {
 	@description = "This is a use case for LPS-88498."
 	@priority = "5"
 	test ExportViaGuest {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property portal.release = "false";
 		property test.name.skip.portal.instance = "ExportImport#ExportViaGuest";
 

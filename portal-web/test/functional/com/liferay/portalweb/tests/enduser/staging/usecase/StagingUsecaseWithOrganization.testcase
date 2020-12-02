@@ -38,6 +38,7 @@ definition {
 
 	@priority = "5"
 	test StagingOrganizations {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property portal.acceptance = "true";
 		property testray.component.names = "Training";
 

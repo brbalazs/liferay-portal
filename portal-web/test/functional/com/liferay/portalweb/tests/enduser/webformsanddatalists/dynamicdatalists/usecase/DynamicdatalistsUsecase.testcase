@@ -730,6 +730,8 @@ definition {
 	@description = "This is a use case for LPS-69273."
 	@priority = "4"
 	test AddRepeatableFieldAsNonAdminUser {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONRole.addRegularRole(
 			roleKey = "DDMRegRole Name",
 			roleTitle = "DDMRegRole Name");
@@ -1472,6 +1474,8 @@ definition {
 
 	@priority = "4"
 	test AssertUserCannotDeleteEntryAfterPermissionRemoved {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
 		JSONUser.addUser(
@@ -1598,6 +1602,8 @@ definition {
 
 	@priority = "4"
 	test AssertUserUpdateRejectedRecord {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		ProductMenu.gotoPortlet(
 			category = "Build",
 			panel = "Site Administration",

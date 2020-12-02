@@ -1,6 +1,7 @@
 @component-name = "portal-search"
 definition {
 
+	property custom.properties = "jsonws.web.service.paths.excludes=";
 	property osgi.module.configuration.file.names = "com.liferay.portal.search.web.internal.configuration.SearchWebConfiguration.config";
 	property osgi.module.configurations = "classicSearchPortletInFrontPage=&quot;true&quot;";
 	property portal.release = "true";
@@ -139,8 +140,6 @@ definition {
 
 	@priority = "4"
 	test SearchByPermission {
-		property custom.properties = "jsonws.web.service.paths.excludes=";
-
 		JSONWebcontent.addWebContent(
 			content = "WC Content",
 			groupName = "Guest",

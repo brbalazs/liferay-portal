@@ -121,6 +121,8 @@ definition {
 
 	@priority = "3"
 	test ChangeColorCalendarSiteCalendarsEventRegular {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
 		CalendarNavigator.gotoAddEvent();
@@ -321,6 +323,8 @@ definition {
 
 	@priority = "3"
 	test EditUserCalendarOtherCalendars {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
@@ -354,6 +358,7 @@ definition {
 
 	@priority = "5"
 	test SearchForOtherCalendars {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "Calendar#SearchForOtherCalendars";
 
@@ -431,6 +436,8 @@ definition {
 	@description = "This is a use case for LPS-51572."
 	@priority = "3"
 	test SearchForOtherCalendarsAsNonPowerUser {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONUser.addUser(
 			userEmailAddress = "userea1@liferay.com",
 			userFirstName = "userfn1",
@@ -486,6 +493,7 @@ definition {
 
 	@priority = "4"
 	test ViewAvailableCalendars {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "CalendarManageCalendar#ViewAvailableCalendars";
 
 		JSONGroup.addGroup(groupName = "Site Name");

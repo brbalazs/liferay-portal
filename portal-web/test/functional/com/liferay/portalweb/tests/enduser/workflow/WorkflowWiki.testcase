@@ -59,6 +59,7 @@ definition {
 
 	@priority = "5"
 	test ApproveFrontPageUserEdit {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property portal.acceptance = "false";
 
 		JSONUser.addUser(
@@ -157,6 +158,8 @@ definition {
 
 	@priority = "4"
 	test RejectFrontPageUserEdit {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",

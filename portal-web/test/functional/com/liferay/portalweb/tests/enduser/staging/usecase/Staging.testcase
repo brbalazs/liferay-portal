@@ -1131,6 +1131,8 @@ definition {
 	@description = "This is a use case for LPS-96155."
 	@priority = "4"
 	test PublishReviewedPageRevision {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONLayout.addPublicLayout(
 			groupName = "Site Name",
 			layoutName = "Staging Test Page 1");
@@ -3497,6 +3499,8 @@ definition {
 	@description = "This is a use case for LPS-98473."
 	@priority = "3"
 	test SubscribeWebContentWithStaging {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONGroup.addGroup(groupName = "Test Site");
 
 		Navigator.openSiteURL(siteName = "Site Name");
@@ -3633,6 +3637,7 @@ definition {
 
 	@priority = "4"
 	test ViewHistoryVersionWithDeletedUser {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "Staging#ViewHistoryVersionWithDeletedUser";
 
 		JSONUser.addUser(

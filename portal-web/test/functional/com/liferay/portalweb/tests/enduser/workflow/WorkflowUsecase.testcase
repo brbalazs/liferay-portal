@@ -684,6 +684,8 @@ definition {
 
 	@priority = "4"
 	test AddWikiPageAsSiteUser {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
 		Navigator.openURL();
@@ -1201,6 +1203,8 @@ definition {
 	@description = "This is a use case for LRQA-13519."
 	@priority = "5"
 	test ViewWorkflowSubmissionsFromDifferentUsers {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
 		ProductMenu.gotoPortlet(

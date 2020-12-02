@@ -1057,6 +1057,8 @@ definition {
 
 	@priority = "4"
 	test SearchUser {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
 		JSONUser.addUser(
@@ -1123,6 +1125,8 @@ definition {
 
 	@priority = "4"
 	test SearchUserWildcard {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
 		JSONUser.addUser(
@@ -1790,6 +1794,7 @@ definition {
 	@priority = "5"
 	test ViewMultipleFacetURLs {
 		property osgi.app.includes = "bookmarks";
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		var searchPage = "Search Page";
 
 		JSONCategory.addVocabulary(

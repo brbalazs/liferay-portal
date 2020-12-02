@@ -57,6 +57,7 @@ definition {
 
 	@priority = "4"
 	test AddSiteTeamAssignUser {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property testray.component.names = "Site Administration,Users and Organizations";
 
 		JSONUser.addUser(
@@ -216,6 +217,7 @@ definition {
 
 	@priority = "5"
 	test AddSiteTeamRemoveUser {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property portal.acceptance = "true";
 		property testray.component.names = "Site Administration,Users and Organizations";
 
@@ -430,6 +432,7 @@ definition {
 	}
 
 	test AddSiteTeamSearchUsers {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property testray.component.names = "Site Administration,Users and Organizations";
 
 		JSONGroup.addGroup(groupName = "Site Name");

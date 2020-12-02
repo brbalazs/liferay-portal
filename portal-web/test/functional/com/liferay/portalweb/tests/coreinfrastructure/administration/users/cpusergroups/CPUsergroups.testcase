@@ -26,6 +26,7 @@ definition {
 
 	@priority = "5"
 	test AddMember {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property portal.acceptance = "true";
 
 		JSONUser.addUser(
@@ -187,6 +188,8 @@ definition {
 
 	@priority = "4"
 	test DeleteUserGroupWithMemberAssigned {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
@@ -261,6 +264,8 @@ definition {
 
 	@priority = "4"
 	test RemoveMember {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
@@ -309,6 +314,7 @@ definition {
 
 	@priority = "3"
 	test SearchCurrentMembersAssignedToUserGroup {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "CPUsergroups#SearchCurrentMembersAssignedToUserGroup";
 
 		ProductMenu.gotoPortlet(

@@ -182,6 +182,8 @@ definition {
 
 	@priority = "3"
 	test ViewInvitedResourceAvailability {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",

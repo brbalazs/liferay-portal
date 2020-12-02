@@ -416,6 +416,8 @@ definition {
 
 	@priority = "4"
 	test SitesDynamicTemplateInheritance {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
 		ProductMenu.gotoPortlet(
@@ -501,6 +503,7 @@ definition {
 
 	@priority = "3"
 	test SitesTemplateResourceInheritance {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property portal.release = "false";
 
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");

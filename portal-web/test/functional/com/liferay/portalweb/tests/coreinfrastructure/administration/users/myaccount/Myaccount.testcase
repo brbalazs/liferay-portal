@@ -24,6 +24,8 @@ definition {
 
 	@priority = "5"
 	test AddOrganizationMember {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
@@ -194,6 +196,8 @@ definition {
 
 	@priority = "4"
 	test ViewMyAccountUser {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
@@ -226,6 +230,8 @@ definition {
 	@description = "This is a use case for LPS-76106."
 	@priority = "5"
 	test ViewMyAccountUserViaURL {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		var portalURL = PropsUtil.get("portal.url");
 
 		JSONUser.addUser(

@@ -93,6 +93,8 @@ definition {
 	@description = "This is a use case for LPS-109572."
 	@priority = "4"
 	test AssignNewUserToRegularRole {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONRole.addRegularRole(
 			roleKey = "Regular Role",
 			roleTitle = "Regular Role");

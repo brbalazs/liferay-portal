@@ -93,6 +93,8 @@ definition {
 	@ignore = "true"
 	@priority = "4"
 	test AddUserCalendarToOtherCalendars {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
@@ -228,6 +230,8 @@ definition {
 	@description = "This is a use case for LPS-56229."
 	@priority = "3"
 	test ViewUserCanAddSiteCalendarsWithCalendarPermissions {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		ProductMenu.gotoPortlet(
 			category = "Users",
 			panel = "Control Panel",

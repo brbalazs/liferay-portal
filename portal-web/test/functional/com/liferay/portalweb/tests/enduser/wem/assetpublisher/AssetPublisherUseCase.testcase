@@ -1311,6 +1311,8 @@ definition {
 
 	@priority = "4"
 	test ViewAPPortletAsNewUserSiteAdministratorViaUserSite {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONGroup.addGroup(groupName = "Site Name");
 
 		JSONLayout.addPublicLayout(
@@ -1449,6 +1451,8 @@ definition {
 
 	@priority = "3"
 	test ViewAuthorChangeViaAP {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		AssetPublisherPortlet.configureShowMetadataFieldsPG(
 			addMetadata = "true",
 			metadataFieldList = "Author",

@@ -26,6 +26,7 @@ definition {
 
 	@priority = "4"
 	test AddCategorywithLocalization {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property testray.component.names = "Categories,Localization";
 
 		JSONCategory.addVocabulary(
@@ -125,6 +126,7 @@ definition {
 
 	@priority = "4"
 	test AddCategorywithSiteRole {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property testray.component.names = "Categories,Permissions,Roles";
 
 		JSONLayout.addPublicLayout(
@@ -542,6 +544,7 @@ definition {
 
 	@priority = "4"
 	test DeletePartialCategory {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property testray.component.names = "Categories,Permissions,Roles";
 
 		JSONCategory.addVocabulary(

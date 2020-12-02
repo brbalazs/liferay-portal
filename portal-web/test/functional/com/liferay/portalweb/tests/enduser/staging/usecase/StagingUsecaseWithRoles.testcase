@@ -40,6 +40,8 @@ definition {
 
 	@priority = "4"
 	test StagingDemoLocalLive1 {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
@@ -812,6 +814,8 @@ definition {
 
 	@priority = "4"
 	test StagingLocalLiveWorkflow {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		ProductMenu.gotoPortlet(
 			category = "Sites",
 			panel = "Control Panel",
@@ -1251,6 +1255,8 @@ definition {
 	@description = "This is a use case for LPS-88004."
 	@priority = "3"
 	test UpdateAndDeleteWebContentCommentOnLiveSite {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(

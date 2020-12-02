@@ -34,6 +34,8 @@ definition {
 
 	@priority = "4"
 	test AddPortletAsUserWithCustomizePermission {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONGroup.addGroup(groupName = "Site Name");
 
 		JSONLayout.addPublicLayout(
@@ -102,6 +104,8 @@ definition {
 
 	@priority = "4"
 	test PortletConfigurationChangesWithinCustomizableColumnShouldNotAffectAllUsers {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONGroup.addGroup(groupName = "Site Name");
 
 		JSONLayout.addPublicLayout(
@@ -186,6 +190,8 @@ definition {
 
 	@priority = "4"
 	test SiteMembershouldAddAndRemovePortletFromHisCustomizableView {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONGroup.addGroup(groupName = "Site Name");
 
 		JSONLayout.addPublicLayout(
@@ -268,6 +274,7 @@ definition {
 
 	@priority = "4"
 	test SiteMemberWithCustomizablePagePermissionsWillOnlySeePortletsInCustomizableView {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "PageCustomizations#SiteMemberWithCustomizablePagePermissionsWillOnlySeePortletsInCustomizableView";
 
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");

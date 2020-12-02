@@ -556,6 +556,8 @@ definition {
 
 	@priority = "4"
 	test AssignRolePermissionsAddProcessCP {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		ProductMenu.gotoPortlet(
 			category = "Users",
 			panel = "Control Panel",
@@ -697,6 +699,7 @@ definition {
 
 	@priority = "5"
 	test AssignRolePermissionsApprovePG {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "KaleoformsUsecase#AssignRolePermissionsApprovePG";
 
 		ProductMenu.gotoPortlet(
@@ -876,6 +879,8 @@ definition {
 
 	@priority = "4"
 	test AssignRolePermissionsCompleteFormPG {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		ProductMenu.gotoPortlet(
 			category = "Users",
 			panel = "Control Panel",
@@ -1056,6 +1061,7 @@ definition {
 
 	@priority = "5"
 	test AssignRolePermissionsRejectPG {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "KaleoformsUsecase#AssignRolePermissionsRejectPG";
 
 		ProductMenu.gotoPortlet(
@@ -1235,6 +1241,7 @@ definition {
 
 	@priority = "4"
 	test AssignRolePermissionsSubmitProcessPG {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.name.skip.portal.instance = "KaleoformsUsecase#AssignRolePermissionsSubmitProcessPG";
 
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
@@ -1432,6 +1439,8 @@ definition {
 
 	@priority = "3"
 	test AssignRolePermissionsViewPG {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		ProductMenu.gotoPortlet(
 			category = "Users",
 			panel = "Control Panel",
@@ -4775,6 +4784,8 @@ definition {
 
 	@priority = "3"
 	test ViewApprovedProcessRecordsSeparateAuthor {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(

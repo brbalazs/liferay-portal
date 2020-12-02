@@ -102,6 +102,7 @@ definition {
 	@ignore = "true"
 	@priority = "4"
 	test CompleteProcessAndViewEmailNotifications {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.assert.javascript.errors = "false";
 		property test.name.skip.portal.instance = "KaleoFormsEditSingleApprover#CompleteProcessAndViewEmailNotifications";
 		property test.smtp.server.enabled = "true";

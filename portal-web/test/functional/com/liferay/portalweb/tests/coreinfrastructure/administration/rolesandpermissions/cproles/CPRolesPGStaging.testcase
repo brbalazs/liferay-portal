@@ -39,6 +39,8 @@ definition {
 
 	@priority = "4"
 	test AccessStaging {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
@@ -124,6 +126,8 @@ definition {
 
 	@priority = "4"
 	test StagingBlogsRolesWorkflow {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONUser.addUser(
 			userEmailAddress = "usereapu@liferay.com",
 			userFirstName = "userfnpu",

@@ -139,6 +139,8 @@ definition {
 
 	@priority = "3"
 	test EditInviteForUserCalendar {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
@@ -254,6 +256,8 @@ definition {
 
 	@priority = "3"
 	test EditReminderForUserCalendar {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",

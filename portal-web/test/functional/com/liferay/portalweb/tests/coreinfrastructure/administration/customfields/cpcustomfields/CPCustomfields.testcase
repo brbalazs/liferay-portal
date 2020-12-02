@@ -181,6 +181,8 @@ definition {
 
 	@priority = "5"
 	test AddCustomFieldUserBoolean {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -217,6 +219,7 @@ definition {
 	@priority = "5"
 	test EditCustomFieldUserBoolean {
 		property app.server.types = "jboss,resin,tcserver,tomcat,weblogic,websphere,wildfly";
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property database.types = "db2,hypersonic,mariadb,mysql,oracle,postgresql,sqlserver,sybase";
 		property environment.acceptance = "true";
 		property portal.acceptance = "true";
@@ -330,6 +333,8 @@ definition {
 	@description = "This is a use case for LPS-57830."
 	@priority = "4"
 	test UpdateDocumentWithCustomField {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		JSONGroup.addGroup(groupName = "Site Name");
 
 		JSONLayout.addPublicLayout(

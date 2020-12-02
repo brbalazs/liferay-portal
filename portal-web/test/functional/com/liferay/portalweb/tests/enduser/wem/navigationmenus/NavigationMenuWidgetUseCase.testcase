@@ -158,6 +158,7 @@ definition {
 
 	@priority = "4"
 	test ViewNoAddPagePermissionsPG {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property testray.component.names = "Navigation,Permissions";
 
 		ProductMenu.gotoPortlet(

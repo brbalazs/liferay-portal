@@ -380,6 +380,7 @@ definition {
 
 	@priority = "3"
 	test ViewNoInfoMessageWhenChangingSiteTemplateAsUser {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property testray.component.names = "Site and Page Templates,Site Pages Administration";
 
 		JSONUser.addUser(
