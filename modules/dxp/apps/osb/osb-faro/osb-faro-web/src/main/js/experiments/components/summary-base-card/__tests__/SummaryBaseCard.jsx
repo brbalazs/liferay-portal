@@ -14,7 +14,7 @@ describe('SummaryBaseCard', () => {
 
 describe('SummaryBaseCard.Header Actions', () => {
 	it('should render component with Header', () => {
-		const {getByText} = render(
+		const {container, getByText} = render(
 			<SummaryBaseCard>
 				<SummaryBaseCard.Header>
 					{'Summary Card with Header'}
@@ -23,6 +23,7 @@ describe('SummaryBaseCard.Header Actions', () => {
 		);
 
 		expect(getByText('Summary Card with Header')).toBeTruthy();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render component with Header and 1 modal', () => {
@@ -82,7 +83,7 @@ describe('SummaryBaseCard.Header Actions', () => {
 
 describe('SummaryBaseCard.Body', () => {
 	it('should render component with Body', () => {
-		const {getByText} = render(
+		const {container, getByText} = render(
 			<SummaryBaseCard>
 				<SummaryBaseCard.Body>
 					{'Summary Card with Body'}
@@ -91,6 +92,7 @@ describe('SummaryBaseCard.Body', () => {
 		);
 
 		expect(getByText('Summary Card with Body')).toBeTruthy();
+		expect(container).toMatchSnapshot();
 	});
 });
 
@@ -106,5 +108,6 @@ describe('SummaryBaseCard.Footer', () => {
 
 		expect(container.querySelector('.card-footer')).toBeTruthy();
 		expect(getByText('Summary Card with Footer'));
+		expect(container).toMatchSnapshot();
 	});
 });
