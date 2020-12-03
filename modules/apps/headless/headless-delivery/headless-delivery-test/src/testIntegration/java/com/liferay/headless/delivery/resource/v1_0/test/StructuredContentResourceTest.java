@@ -95,6 +95,7 @@ public class StructuredContentResourceTest
 			irrelevantGroup, "test-structured-content-structure.json");
 
 		_ddmTemplate = _addDDMTemplate(_ddmStructure);
+		_addDDMTemplate(_ddmLocalizedStructure);
 		_addDDMTemplate(_irrelevantDDMStructure);
 
 		_journalFolder = JournalTestUtil.addFolder(
