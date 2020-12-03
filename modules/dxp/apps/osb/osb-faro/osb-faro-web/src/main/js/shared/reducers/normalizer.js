@@ -5,7 +5,6 @@ import {
 	EntityLayout,
 	Individual,
 	Project,
-	ProjectState,
 	RemoteData,
 	SearchResults,
 	Segment,
@@ -21,7 +20,6 @@ const ENTITY_RECORD_MAP = {
 	interests: SearchResults,
 	layouts: EntityLayout,
 	projects: Project,
-	projectStates: ProjectState,
 	segments: Segment,
 	users: User
 };
@@ -76,11 +74,6 @@ export default (state = new Map(), action) => {
 								getRequestState(entityRecord, entity.data)
 							);
 						case 'projects':
-							return result.setIn(
-								[entityType, String(id)],
-								getRequestState(entityRecord, entity.data)
-							);
-						case 'projectStates':
 							return result.setIn(
 								[entityType, String(id)],
 								getRequestState(entityRecord, entity.data)
