@@ -1,5 +1,7 @@
 import getSessionMapper from '../experiment-session-variants-mapper';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 const DATA_MOCK = {
 	experiment: {
@@ -119,7 +121,7 @@ describe('Experiment Session Variants Mapper', () => {
 	});
 
 	it('should render Tooltip', () => {
-		const Tooltip = shallow(
+		const {container} = render(
 			mapper.Tooltip({
 				dataPoint: [
 					{
@@ -130,7 +132,7 @@ describe('Experiment Session Variants Mapper', () => {
 				]
 			})
 		);
-		expect(Tooltip.render()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should return empty true when sessionHistogram to be null', () => {
