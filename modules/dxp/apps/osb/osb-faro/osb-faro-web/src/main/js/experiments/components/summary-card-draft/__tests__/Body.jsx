@@ -1,6 +1,8 @@
 import Body from '../Body';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 const MOCK_DATA = {
 	steps: [
@@ -27,23 +29,16 @@ const MOCK_DATA = {
 
 describe('SummaryCardDraft Body', () => {
 	it('should render component', () => {
-		const component = shallow(<Body {...MOCK_DATA} current={0} />);
+		const {container} = render(<Body {...MOCK_DATA} current={1} />);
 
-		expect(component.find('SummaryBaseCardTitle').length).toBe(1);
-		expect(component.find('SummaryBaseCardSubtitle').length).toBe(1);
-		expect(component.find('ClayMultiStep').length).toBe(1);
-		expect(
-			component
-				.find('ClayMultiStep')
-				.shallow()
-				.find('ClayMultiStepItem').length
-		).toBe(2);
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('Current step should be 0 by default when there is no value', () => {
-		const component = shallow(<Body {...MOCK_DATA} />);
+		const {getByText} = render(<Body {...MOCK_DATA} />);
 
-		expect(component.find('ClayMultiStep').props().current).toBe(0);
+		expect(
+			getByText('Step 1 title').parentElement.parentElement
+		).toHaveClass('analytics-summary-card-step-content-active');
 	});
 });
