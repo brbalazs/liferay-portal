@@ -497,7 +497,9 @@ definition {
 			panel = "Control Panel",
 			portlet = "Orders");
 
-
+		ClickNoError(
+			locator1 = "CommerceEntry#ROW_VERTICAL_ELLIPSIS_BY_ORDER_WORKFLOW_STATUS",
+			key_orderWorkflowStatus = "Open");
 
 		CommerceEntry.clickNoError(menuItem = "View");
 
@@ -513,7 +515,9 @@ definition {
 			panel = "Control Panel",
 			portlet = "Orders");
 
-
+		ClickNoError(
+			locator1 = "CommerceEntry#ROW_VERTICAL_ELLIPSIS_BY_ORDER_WORKFLOW_STATUS",
+			key_orderWorkflowStatus = "Pending");
 
 		CommerceEntry.clickNoError(menuItem = "View");
 
