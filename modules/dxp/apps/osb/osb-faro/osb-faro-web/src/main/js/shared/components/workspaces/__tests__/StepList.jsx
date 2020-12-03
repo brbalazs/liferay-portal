@@ -1,29 +1,31 @@
 import React from 'react';
 import StepList from '../StepList';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
+
+const DefaultComponent = props => (
+	<StepList steps={['step1', 'step2']} {...props} />
+);
 
 describe('StepList', () => {
 	it('should render', () => {
-		const component = shallow(<StepList />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<DefaultComponent />);
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with secondaryInfo and steps', () => {
-		const component = shallow(
-			<StepList secondaryInfo='test' steps={['test', 'test 2']} />
-		);
-		expect(component).toMatchSnapshot();
+		const {getByText} = render(<DefaultComponent secondaryInfo='test' />);
+
+		expect(getByText('test')).toBeTruthy();
 	});
 
 	it('should render without bullet', () => {
-		const component = shallow(
-			<StepList
-				hideBullets
-				secondaryInfo='test'
-				steps={['test', 'test 2']}
-			/>
+		const {getByText} = render(
+			<DefaultComponent hideBullets secondaryInfo='test' />
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(getByText('test').parentElement).toHaveClass('hide-bullets');
 	});
 });
