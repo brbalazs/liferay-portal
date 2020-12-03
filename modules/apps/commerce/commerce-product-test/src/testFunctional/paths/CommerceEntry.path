@@ -399,6 +399,11 @@
     <td></td>
 </tr>
 <tr>
+	<td>ROW_VERTICAL_ELLIPSIS_BY_ORDER_WORKFLOW_STATUS</td>
+	<td>//div[@class='dataset-display-wrapper' or @class='searchcontainer-content']//..//strong[text()='${key_orderWorkflowStatus}']/../../../following-sibling::td//button</td>
+	<td></td>
+</tr>
+<tr>
 	<td>CHANNEL_PAYMENT_METHOD_NAME</td>
 	<td>//div/h4[contains(.,'Payment Methods')]/..//button[contains(.,'${key_paymentMethod}')]</td>
 	<td></td>
