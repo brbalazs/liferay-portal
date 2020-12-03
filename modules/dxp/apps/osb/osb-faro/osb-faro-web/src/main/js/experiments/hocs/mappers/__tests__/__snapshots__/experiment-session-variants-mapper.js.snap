@@ -1,58 +1,64 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Experiment Session Variants Mapper should render Tooltip 1`] = `
-<table
-  class="analytics-tooltip-chart"
->
-  <thead
-    class="analytics-tooltip-chart-header "
+<div>
+  <table
+    class="analytics-tooltip-chart"
   >
-    <tr
-      class="analytics-tooltip-chart-row "
+    <thead
+      class="analytics-tooltip-chart-header "
     >
-      <td>
-        <div
-          class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold"
-        >
-           May 17
-        </div>
-      </td>
-      <td>
-        <div
-          class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold"
-        >
-           Sessions
-        </div>
-      </td>
-    </tr>
-  </thead>
-  <tbody
-    class="analytics-tooltip-chart-body "
-  >
-    <tr
-      class="analytics-tooltip-chart-row "
+      <tr
+        class="analytics-tooltip-chart-row "
+      >
+        <td>
+          <div
+            class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold"
+          >
+             
+            May 17
+          </div>
+        </td>
+        <td>
+          <div
+            class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold"
+          >
+             
+            Sessions
+          </div>
+        </td>
+      </tr>
+    </thead>
+    <tbody
+      class="analytics-tooltip-chart-body "
     >
-      <td>
-        <div
-          class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-normal"
-        >
-          <span
-            class="circle"
-            style="background-color:#6B6C7E;height:8px;width:8px"
-          />
-           Helen Lamb
-        </div>
-      </td>
-      <td>
-        <div
-          class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-right font-weight-normal"
-        >
-           1.5K
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      <tr
+        class="analytics-tooltip-chart-row "
+      >
+        <td>
+          <div
+            class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-normal"
+          >
+            <span
+              class="circle"
+              style="background-color: rgb(107, 108, 126); height: 8px; width: 8px;"
+            />
+             
+            Helen Lamb
+          </div>
+        </td>
+        <td>
+          <div
+            class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-right font-weight-normal"
+          >
+             
+            1.5K
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 `;
 
 exports[`Experiment Session Variants Mapper should return formatted data 1`] = `
