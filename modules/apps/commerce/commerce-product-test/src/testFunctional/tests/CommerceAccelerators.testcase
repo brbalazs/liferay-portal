@@ -498,7 +498,6 @@ definition {
 			portlet = "Orders");
 
 
-		ClickNoError(locator1 = "CommerceEntry#BODY_VERTICAL_ELLIPSIS");
 
 		CommerceEntry.clickNoError(menuItem = "View");
 
@@ -515,7 +514,6 @@ definition {
 			portlet = "Orders");
 
 
-		ClickNoError(locator1 = "CommerceEntry#BODY_VERTICAL_ELLIPSIS");
 
 		CommerceEntry.clickNoError(menuItem = "View");
 
