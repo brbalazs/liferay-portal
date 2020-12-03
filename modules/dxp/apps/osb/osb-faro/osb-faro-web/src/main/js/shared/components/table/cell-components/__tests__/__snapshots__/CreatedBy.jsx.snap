@@ -1,16 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CreatedByCell should render 1`] = `
-<td>
-  <b>
-    Test Test
-  </b>
-  <div
-    className="text-secondary"
-  >
-    <em>
-      Last Edited: 7/10/18
-    </em>
-  </div>
-</td>
+<tr>
+  <td>
+    <b>
+      Test Test
+    </b>
+    <div
+      class="text-secondary"
+    >
+      <em>
+        Last Edited: 7/10/18
+      </em>
+    </div>
+  </td>
+</tr>
 `;
