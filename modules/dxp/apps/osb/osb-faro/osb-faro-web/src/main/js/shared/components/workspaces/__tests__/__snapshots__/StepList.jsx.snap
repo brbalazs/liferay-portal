@@ -1,53 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StepList should render 1`] = `
-<div
-  className="step-list-root"
->
-  <ul />
-</div>
-`;
-
-exports[`StepList should render with secondaryInfo and steps 1`] = `
-<div
-  className="step-list-root"
->
-  <b>
-    test
-  </b>
-  <ul>
-    <li
-      key="0"
-    >
-      test
-    </li>
-    <li
-      key="1"
-    >
-      test 2
-    </li>
-  </ul>
-</div>
-`;
-
-exports[`StepList should render without bullet 1`] = `
-<div
-  className="step-list-root hide-bullets"
->
-  <b>
-    test
-  </b>
-  <ul>
-    <li
-      key="0"
-    >
-      test
-    </li>
-    <li
-      key="1"
-    >
-      test 2
-    </li>
-  </ul>
+<div>
+  <div
+    class="step-list-root"
+  >
+    <ul>
+      <li>
+        step1
+      </li>
+      <li>
+        step2
+      </li>
+    </ul>
+  </div>
 </div>
 `;
