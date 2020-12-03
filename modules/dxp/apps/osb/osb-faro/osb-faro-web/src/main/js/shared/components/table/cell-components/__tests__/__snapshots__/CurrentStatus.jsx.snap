@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CurrentStatusCell should render 1`] = `
-<td
-  className=""
->
-  Member
-</td>
+<tr>
+  <td>
+    Member
+  </td>
+</tr>
 `;
 
 exports[`CurrentStatusCell should render as a non-member 1`] = `
-<td
-  className=""
->
-  Non-member
-</td>
+<tr>
+  <td>
+    Non-member
+  </td>
+</tr>
 `;

@@ -1,29 +1,35 @@
 import CurrentStatusCell from '../CurrentStatus';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
+
+const tableRow = document.createElement('tr');
 
 describe('CurrentStatusCell', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<CurrentStatusCell
 				data={{
 					currentMember: true
 				}}
-			/>
+			/>,
+			{container: document.body.appendChild(tableRow)}
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render as a non-member', () => {
-		const component = shallow(
+		const {container} = render(
 			<CurrentStatusCell
 				data={{
 					currentMember: false
 				}}
-			/>
+			/>,
+			{container: document.body.appendChild(tableRow)}
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
