@@ -26,8 +26,6 @@ describe('IndividualLinkCell', () => {
 			{container: document.body.appendChild(tableRow)}
 		);
 
-		jest.runAllTimers();
-
 		expect(container).toMatchSnapshot();
 	});
 
