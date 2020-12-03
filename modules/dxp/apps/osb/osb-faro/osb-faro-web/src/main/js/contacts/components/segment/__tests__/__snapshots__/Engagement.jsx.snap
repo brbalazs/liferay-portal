@@ -232,9 +232,7 @@ exports[`SegmentEngagementWithList should render 1`] = `
               >
                 test0@liferay.com
               </td>
-              <td
-                class=""
-              >
+              <td>
                 Member
               </td>
               <td
