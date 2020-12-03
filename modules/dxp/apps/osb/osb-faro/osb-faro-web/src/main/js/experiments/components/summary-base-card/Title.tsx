@@ -1,17 +1,14 @@
 import getCN from 'classnames';
 import React from 'react';
 
-interface SummaryBaseCardTitleIProps extends React.HTMLAttributes<HTMLElement> {
+interface ISummaryBaseCardTitleProps extends React.HTMLAttributes<HTMLElement> {
+	className?: string;
 	label: string;
 }
 
-const SummaryBaseCardTitle: React.FC<SummaryBaseCardTitleIProps> = ({
+const SummaryBaseCardTitle: React.FC<ISummaryBaseCardTitleProps> = ({
 	className,
 	label
-}) => {
-	const classes = getCN('font-weight-bold', className);
-
-	return <h3 className={classes}>{label}</h3>;
-};
+}) => <h3 className={getCN('font-weight-bold', className)}>{label}</h3>;
 
 export default SummaryBaseCardTitle;
