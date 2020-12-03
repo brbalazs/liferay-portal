@@ -1,13 +1,11 @@
 import React from 'react';
 import Title from '../Title';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
 
 describe('SummaryBaseCard Title', () => {
 	it('should render component', () => {
-		const component = shallow(<Title label='My Title' />);
+		const {container} = render(<Title className='testing-class' label='My Title' />);
 
-		expect(component.length).toBe(1);
-		expect(component.hasClass('font-weight-bold')).toBeTruthy();
-		expect(component.render()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
