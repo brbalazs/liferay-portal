@@ -1,25 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AccountNames should render 1`] = `
-<td
-  className="name-cell-root"
->
-  <div
-    className="text-truncate"
+<tr>
+  <td
+    class="name-cell-root"
   >
-    foo, bar, baz
-  </div>
-</td>
-`;
-
-exports[`AccountNames should render a fallback display 1`] = `
-<td
-  className="name-cell-root"
->
-  <div
-    className="text-truncate"
-  >
-    -
-  </div>
-</td>
+    <div
+      class="text-truncate"
+    >
+      foo, bar, baz
+    </div>
+  </td>
+</tr>
 `;

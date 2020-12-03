@@ -1,29 +1,35 @@
 import AccountNames from '../AccountNames';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
+
+const tableRow = document.createElement('tr');
 
 describe('AccountNames', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<AccountNames
 				data={{
 					accountNames: ['foo', 'bar', 'baz']
 				}}
-			/>
+			/>,
+			{container: document.body.appendChild(tableRow)}
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render a fallback display', () => {
-		const component = shallow(
+		const {getByText} = render(
 			<AccountNames
 				data={{
 					accountNames: []
 				}}
-			/>
+			/>,
+			{container: document.body.appendChild(tableRow)}
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(getByText('-')).toBeTruthy();
 	});
 });
