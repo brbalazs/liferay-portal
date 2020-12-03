@@ -1,18 +1,23 @@
 import * as data from 'test/data';
 import EngagementHistoryCell from '../EngagementHistory';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('EngagementHistoryCell', () => {
 	it('should render', () => {
-		const component = shallow(
+		const tableRow = document.createElement('tr');
+
+		const {container} = render(
 			<EngagementHistoryCell
 				data={{
 					engagementHistory: data.mockEngagementData()
 				}}
-			/>
+			/>,
+			{container: document.body.appendChild(tableRow)}
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });

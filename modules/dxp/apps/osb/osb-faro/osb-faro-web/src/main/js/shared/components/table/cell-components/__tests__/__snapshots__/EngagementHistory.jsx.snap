@@ -1,31 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EngagementHistoryCell should render 1`] = `
-<td
-  className="trendline"
->
-  <TrendLine
-    data={
-      Array [
-        0.2,
-        0.28,
-      ]
-    }
-    point={
-      Object {
-        "show": false,
-      }
-    }
-    size={
-      Object {
-        "height": 40,
-      }
-    }
-    tooltip={
-      Object {
-        "show": false,
-      }
-    }
-  />
-</td>
+<tr>
+  <td
+    class="trendline"
+  >
+    <div
+      class="trendline-root"
+    >
+      <div />
+    </div>
+  </td>
+</tr>
 `;
