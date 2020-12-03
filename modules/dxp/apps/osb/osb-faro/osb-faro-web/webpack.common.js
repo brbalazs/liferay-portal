@@ -49,7 +49,7 @@ const config = {
 		rules: [
 			{
 				include,
-				loader: 'awesome-typescript-loader',
+				loader: 'ts-loader',
 				resolve: {
 					alias: {
 						assets: resolveModule('assets'),
