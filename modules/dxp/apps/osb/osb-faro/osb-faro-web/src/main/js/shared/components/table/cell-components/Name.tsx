@@ -7,13 +7,14 @@ import {noop} from 'lodash';
 interface INameProps {
 	className?: string;
 	data: {
+		id?: string;
 		name: string;
 	};
 	disabled?: boolean;
 	maxWidth?: number;
 	nameKey?: string;
 	renderIcon?: Function;
-	renderSecondaryInfo: Function;
+	renderSecondaryInfo?: Function;
 	routeFn?: Function;
 	tooltip?: boolean;
 }
