@@ -4,7 +4,9 @@ import {render} from '@testing-library/react';
 
 describe('SummaryBaseCard Title', () => {
 	it('should render component', () => {
-		const {container} = render(<Title className='testing-class' label='My Title' />);
+		const {container} = render(
+			<Title className='testing-class' label='My Title' />
+		);
 
 		expect(container).toMatchSnapshot();
 	});
