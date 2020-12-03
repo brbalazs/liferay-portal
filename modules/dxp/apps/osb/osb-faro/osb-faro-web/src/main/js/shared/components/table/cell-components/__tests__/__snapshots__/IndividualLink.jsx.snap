@@ -1,53 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`IndividualLinkCell should render 1`] = `
-<td
-  className="name-cell-root"
->
-  <div
-    className="content-container"
+<tr>
+  <td
+    class="name-cell-root"
   >
     <div
-      className="text-truncate"
+      class="content-container"
     >
       <div
-        className="table-title text-truncate"
+        class="text-truncate"
       >
-        <Link
-          className="text-truncate"
-          replace={false}
-          to="/workspace/123/contacts/individuals/known-individuals/456"
+        <div
+          class="table-title text-truncate"
         >
-          Test Test
-        </Link>
+          <a
+            class="text-truncate"
+            href="/workspace/123/contacts/individuals/known-individuals/456"
+          >
+            Test Test
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-</td>
+  </td>
+</tr>
 `;
 
 exports[`IndividualLinkCell should render with individual data 1`] = `
-<td
-  className="name-cell-root"
->
-  <div
-    className="content-container"
+<tr>
+  <td
+    class="name-cell-root"
   >
     <div
-      className="text-truncate"
+      class="content-container"
     >
       <div
-        className="table-title text-truncate"
+        class="text-truncate"
       >
-        <Link
-          className="text-truncate"
-          replace={false}
-          to="/workspace/123/contacts/individuals/known-individuals/individual456"
+        <div
+          class="table-title text-truncate"
         >
-          individual Test
-        </Link>
+          <a
+            class="text-truncate"
+            href="/workspace/123/contacts/individuals/known-individuals/individual456"
+          >
+            individual Test
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-</td>
+  </td>
+</tr>
 `;
