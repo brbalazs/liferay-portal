@@ -6,7 +6,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const webpack = require('webpack');
-const {CheckerPlugin} = require('awesome-typescript-loader');
 
 const PUBLIC_PATH = '/o/osb-faro-web/dist/';
 
@@ -137,7 +136,6 @@ const config = {
 		publicPath: PUBLIC_PATH
 	},
 	plugins: [
-		new CheckerPlugin(),
 		new MiniCssExtractPlugin({
 			filename: 'main.css'
 		}),
