@@ -1,6 +1,8 @@
 import React from 'react';
 import StepBody from '../StepBody';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 const MOCK_STEP = {
 	buttonProps: {
@@ -19,33 +21,28 @@ const MOCK_STEP = {
 
 describe('SummaryCardDraft StepBody', () => {
 	it('should render component', () => {
-		const component = shallow(
-			<StepBody status='wait' step={MOCK_STEP} />
-		).find('Card');
+		const {container} = render(<StepBody status='wait' step={MOCK_STEP} />);
 
-		expect(
-			component.hasClass('analytics-summary-card-step-content')
-		).toBeTruthy();
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render "wait card" when status is wait', () => {
-		const component = shallow(
-			<StepBody status='wait' step={MOCK_STEP} />
-		).find('Card');
+		const {container} = render(<StepBody status='wait' step={MOCK_STEP} />);
 
 		expect(
-			component.hasClass('analytics-summary-card-step-content-wait')
+			container.querySelector('.analytics-summary-card-step-content-wait')
 		).toBeTruthy();
 	});
 
 	it('should render "active card" when status is active', () => {
-		const component = shallow(
+		const {container} = render(
 			<StepBody status='active' step={MOCK_STEP} />
-		).find('Card');
+		);
 
 		expect(
-			component.hasClass('analytics-summary-card-step-content-active')
-		).toBeTruthy();
+			container.querySelector(
+				'.analytics-summary-card-step-content-active'
+			)
+		).toMatchSnapshot();
 	});
 });
