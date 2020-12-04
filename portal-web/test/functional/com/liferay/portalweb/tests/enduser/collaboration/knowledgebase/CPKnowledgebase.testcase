@@ -337,7 +337,7 @@ definition {
 			configurationName = "Upload Servlet Request",
 			configurationScope = "System Scope");
 
-		ServerAdministration.configureFileUploadOverallMaximumFileSize(maxFileSize = "65536");
+		ServerAdministration.configureFileUploadOverallMaximumFileSize(maxFileSize = "102400");
 
 		Navigator.openURL();
 
@@ -350,7 +350,7 @@ definition {
 			kbArticleAttachment = "high_resolution_photo.jpg",
 			kbArticleContent = "Knowledge Base Article Content",
 			kbArticleTitle = "Knowledge Base Article Title",
-			maxFileSize = "64");
+			maxFileSize = "100");
 
 		Navigator.openURL();
 
