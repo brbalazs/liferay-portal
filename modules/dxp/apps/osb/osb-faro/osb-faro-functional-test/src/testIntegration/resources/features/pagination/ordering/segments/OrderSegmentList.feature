@@ -10,10 +10,10 @@ Feature: Order the Segment List
 		* I click the "Create Segment" button
 		* I click the "Static Segment" dropdown option
 		* I click the "Add Members" button
-		* I search for "Abram Bauch"
-		* I click the checkbox on the table row containing "Abram Bauch"
-		* I search for "Willa"
-		* I click the checkbox on the table row containing "Willa Watsica"
+		* I search for "Ben"
+		* I click the checkbox on the table row containing "Ben Larkin"
+		* I search for "Annis"
+		* I click the checkbox on the table row containing "Annis Osinski"
 		* I search for "Alyse"
 		* I click the checkbox on the table row containing "Alyse Cronin"
 		* I click the "Add" button
