@@ -102,7 +102,6 @@ definition {
 			panel = "Control Panel",
 			portlet = "Orders");
 
-		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Pending");
 
 		ClickNoError(locator1 = "CommerceEntry#BODY_VERTICAL_ELLIPSIS");
 
@@ -117,7 +116,6 @@ definition {
 			panel = "Control Panel",
 			portlet = "Orders");
 
-		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Pending");
 
 		ClickNoError(locator1 = "CommerceEntry#BODY_VERTICAL_ELLIPSIS");
 
