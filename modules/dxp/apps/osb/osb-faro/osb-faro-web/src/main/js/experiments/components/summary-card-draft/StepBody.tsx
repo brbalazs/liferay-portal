@@ -8,7 +8,7 @@ import {DisplayType} from 'shared/types';
 import {Step} from '../summary-base-card/types';
 import {useModal} from '@clayui/modal';
 
-interface SummaryCardDraftSetpBodyIProps
+interface ISummaryCardDraftStepBodyProps
 	extends React.HTMLAttributes<HTMLElement> {
 	status: string;
 	step: Step & {
@@ -20,7 +20,7 @@ interface SummaryCardDraftSetpBodyIProps
 	};
 }
 
-const SummaryCardDraftSetpBody: React.FC<SummaryCardDraftSetpBodyIProps> = ({
+const SummaryCardDraftStepBody: React.FC<ISummaryCardDraftStepBodyProps> = ({
 	status,
 	step: {buttonProps, Description, link, modal, title}
 }) => {
@@ -84,22 +84,20 @@ const SummaryCardDraftSetpBody: React.FC<SummaryCardDraftSetpBodyIProps> = ({
 	);
 
 	return (
-		<>
-			<Card
-				className={`${CLASSNAME}-step-content ${CLASSNAME}-step-content-${status}`}
-			>
-				<Card.Body>
-					<h4>{title}</h4>
-					<Description
-						className={`${CLASSNAME}-step-content-description`}
-					/>
-					{modal && renderModal()}
+		<Card
+			className={`${CLASSNAME}-step-content ${CLASSNAME}-step-content-${status}`}
+		>
+			<Card.Body>
+				<h4>{title}</h4>
+				<Description
+					className={`${CLASSNAME}-step-content-description`}
+				/>
+				{modal && renderModal()}
 
-					{link && renderLink()}
-				</Card.Body>
-			</Card>
-		</>
+				{link && renderLink()}
+			</Card.Body>
+		</Card>
 	);
 };
 
-export default SummaryCardDraftSetpBody;
+export default SummaryCardDraftStepBody;
