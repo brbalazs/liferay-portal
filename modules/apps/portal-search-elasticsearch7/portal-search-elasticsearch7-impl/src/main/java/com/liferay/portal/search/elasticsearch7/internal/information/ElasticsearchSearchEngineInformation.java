@@ -92,28 +92,30 @@ public class ElasticsearchSearchEngineInformation
 		List<ConnectionInformation> connectionInformationList =
 			new LinkedList<>();
 
-		addMainConnection(
-			elasticsearchConnectionManager.getElasticsearchConnection(),
-			connectionInformationList);
+		ElasticsearchConnection elasticsearchConnection =
+			elasticsearchConnectionManager.getElasticsearchConnection();
+
+		addMainConnection(elasticsearchConnection, connectionInformationList);
 
 		String filterString = String.format(
 			"(&(service.factoryPid=%s)",
 			_ELASTICSEARCH_CONNECTION_CONFIGURATION_CLASS_NAME);
 
+		ElasticsearchConnection localClusterElasticsearchConnection =
+			elasticsearchConnectionManager.getElasticsearchConnection(true);
+
 		if (!isOperationModeEmbedded() &&
-			elasticsearchConnectionManager.isCrossClusterReplicationEnabled()) {
+			elasticsearchConnectionManager.isCrossClusterReplicationEnabled() &&
+			!elasticsearchConnection.equals(
+				localClusterElasticsearchConnection)) {
 
 			addCCRConnection(
-				elasticsearchConnectionManager.getElasticsearchConnection(true),
-				connectionInformationList);
+				localClusterElasticsearchConnection, connectionInformationList);
 
-			String connectionId =
-				elasticsearchConnectionManager.getLocalClusterConnectionId();
-
-			if (!Validator.isBlank(connectionId)) {
-				filterString = filterString.concat(
-					String.format("(!(connectionId=%s))", connectionId));
-			}
+			filterString = filterString.concat(
+				String.format(
+					"(!(connectionId=%s))",
+					localClusterElasticsearchConnection.getConnectionId()));
 		}
 
 		filterString = filterString.concat(")");
@@ -300,7 +302,10 @@ public class ElasticsearchSearchEngineInformation
 		String[] labels = {"read", "write"};
 
 		if (!isOperationModeEmbedded() &&
-			elasticsearchConnectionManager.isCrossClusterReplicationEnabled()) {
+			elasticsearchConnectionManager.isCrossClusterReplicationEnabled() &&
+			!elasticsearchConnection.equals(
+				elasticsearchConnectionManager.getElasticsearchConnection(
+					true))) {
 
 			labels = new String[] {"write"};
 		}
