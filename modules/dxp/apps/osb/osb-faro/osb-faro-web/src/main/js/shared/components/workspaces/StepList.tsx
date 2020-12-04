@@ -2,9 +2,9 @@ import getCN from 'classnames';
 import React from 'react';
 
 interface IStepListProps {
-	className: string;
+	className?: string;
 	hideBullets: Boolean;
-	secondaryInfo: string;
+	secondaryInfo?: string;
 	steps: Array<string>;
 }
 
