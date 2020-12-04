@@ -306,7 +306,7 @@ definition {
 
 		Click(locator1 = "Button#SUBMIT");
 
-        Pause(locator1 = "2000");
+		Pause(locator1 = "2000");
 
 		Refresh();
 

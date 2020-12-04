@@ -351,8 +351,8 @@ definition {
 			portlet = "Orders");
 
 		ClickNoError(
-			locator1 = "CommerceEntry#ROW_VERTICAL_ELLIPSIS_BY_ORDER_WORKFLOW_STATUS",
-			key_orderWorkflowStatus = "Open");
+			key_orderWorkflowStatus = "Open",
+			locator1 = "CommerceEntry#ROW_VERTICAL_ELLIPSIS_BY_ORDER_WORKFLOW_STATUS");
 
 		CommerceEntry.clickNoError(menuItem = "View");
 
@@ -369,8 +369,8 @@ definition {
 			portlet = "Orders");
 
 		ClickNoError(
-			locator1 = "CommerceEntry#ROW_VERTICAL_ELLIPSIS_BY_ORDER_WORKFLOW_STATUS",
-			key_orderWorkflowStatus = "Pending");
+			key_orderWorkflowStatus = "Pending",
+			locator1 = "CommerceEntry#ROW_VERTICAL_ELLIPSIS_BY_ORDER_WORKFLOW_STATUS");
 
 		CommerceEntry.clickNoError(menuItem = "View");
 
@@ -500,8 +500,8 @@ definition {
 			portlet = "Orders");
 
 		ClickNoError(
-			locator1 = "CommerceEntry#ROW_VERTICAL_ELLIPSIS_BY_ORDER_WORKFLOW_STATUS",
-			key_orderWorkflowStatus = "Open");
+			key_orderWorkflowStatus = "Open",
+			locator1 = "CommerceEntry#ROW_VERTICAL_ELLIPSIS_BY_ORDER_WORKFLOW_STATUS");
 
 		CommerceEntry.clickNoError(menuItem = "View");
 
@@ -518,8 +518,8 @@ definition {
 			portlet = "Orders");
 
 		ClickNoError(
-			locator1 = "CommerceEntry#ROW_VERTICAL_ELLIPSIS_BY_ORDER_WORKFLOW_STATUS",
-			key_orderWorkflowStatus = "Pending");
+			key_orderWorkflowStatus = "Pending",
+			locator1 = "CommerceEntry#ROW_VERTICAL_ELLIPSIS_BY_ORDER_WORKFLOW_STATUS");
 
 		CommerceEntry.clickNoError(menuItem = "View");
 
