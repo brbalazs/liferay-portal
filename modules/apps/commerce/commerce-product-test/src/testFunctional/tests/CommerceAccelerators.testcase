@@ -244,6 +244,8 @@ definition {
 
 		CommerceChannels.activatePaymentMethod(paymentMethod = "Money Order");
 
+		Refresh();
+
 		Navigator.openWithAppendToBaseURL(urlAppend = "web/minium");
 
 		CommerceNavigator.gotoMiniumSidebarItem(menuItem = "Account Management");
