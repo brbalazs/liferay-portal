@@ -115,7 +115,7 @@
 </tr>
 <tr>
 	<td>FLAG_MODAL</td>
-	<td>//section[contains(@class,'modal-body')]/form[contains(@name,'flagsForm')]</td>
+	<td>//div[contains(@class,'modal-body')]</td>
 	<td></td>
 </tr>
 <tr>
