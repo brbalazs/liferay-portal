@@ -4490,6 +4490,10 @@ log.sanitizer.enabled=false</echo>
 		<run-legacy-database-dump database.type="postgresql" />
 	</target>
 
+	<target name="legacy-functional-bundle-tomcat-postgresql110">
+		<run-legacy-database-dump database.type="postgresql" database.version="11" />
+	</target>
+
 	<target name="legacy-functional-bundle-tomcat-sqlserver2017">
 		<run-legacy-database-dump database.type="sqlserver" database.version="2017" />
 	</target>
