@@ -255,7 +255,7 @@ public class ActionUtil {
 		).build();
 	}
 
-	private static String _getFirstParameterFromPath(
+	private static String _getFirstParameterNameFromPath(
 		Class<?> clazz, String methodName) {
 
 		Method[] methods = clazz.getMethods();
@@ -338,11 +338,11 @@ public class ActionUtil {
 					return value.get(0);
 				}));
 
-		String firstParameter = _getFirstParameterFromPath(
+		String firstParameterName = _getFirstParameterNameFromPath(
 			clazz.getSuperclass(), methodName);
 
-		if (Validator.isNotNull(firstParameter)) {
-			parameterMap.put(firstParameter, id);
+		if (Validator.isNotNull(firstParameterName)) {
+			parameterMap.put(firstParameterName, id);
 		}
 
 		return parameterMap;
