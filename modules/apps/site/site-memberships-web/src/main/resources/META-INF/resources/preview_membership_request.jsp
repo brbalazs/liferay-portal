@@ -60,7 +60,7 @@ renderResponse.setTitle(userName);
 					</small>
 
 					<p>
-						<%= membershipRequest.getComments() %>
+						<%= HtmlUtil.escape(membershipRequest.getComments()) %>
 					</p>
 				</div>
 			</div>
@@ -105,7 +105,7 @@ renderResponse.setTitle(userName);
 					</small>
 
 					<p>
-						<%= membershipRequest.getReplyComments() %>
+						<%= HtmlUtil.escape(membershipRequest.getReplyComments()) %>
 					</p>
 				</div>
 			</div>
