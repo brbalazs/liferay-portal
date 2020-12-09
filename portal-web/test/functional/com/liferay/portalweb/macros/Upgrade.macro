@@ -2102,29 +2102,96 @@ definition {
 			panel = "Site Administration",
 			portlet = "Web Content");
 
-		WebContentAdmin.viewEntryWorkflowStatus(
-			entry = "Web Content Title",
-			workflowStatus = "Approved");
+		for (var fieldName : list "Boolean,Date,Decimal,Documents and Media,HTML,Image,Integer,Link to Page,Number,Radio,Select,Separator,Text,Text Box") {
+			WebContentAdmin.viewEntryWorkflowStatus(
+				entry = "${fieldName} Web Content",
+				workflowStatus = "Approved");
+		}
 
 		WebContent.viewWithStructureCP(
 			webContentBoolean = "true",
+			webContentTitle = "Boolean Web Content");
+
+		Navigator.gotoBack();
+
+		WebContent.viewWithStructureCP(
 			webContentDate = "10/10/2020",
+			webContentTitle = "Date Web Content");
+
+		Navigator.gotoBack();
+
+		WebContent.viewWithStructureCP(
 			webContentDecimal = "0.5",
+			webContentTitle = "Decimal Web Content");
+
+		Navigator.gotoBack();
+
+		WebContent.viewWithStructureCP(
 			webContentDocumentsAndMedia = "Document Title",
 			webContentDocumentsAndMediaFieldName = "Documents_and_Media",
+			webContentTitle = "Documents and Media Web Content");
+
+		Navigator.gotoBack();
+
+		WebContent.viewWithStructureCP(
 			webContentHTML = "This is a HTML field",
-			webContentImage = "Document_1.jpg",
+			webContentTitle = "HTML Web Content");
+
+		Navigator.gotoBack();
+
+		WebContent.viewWithStructureCP(
 			webContentInteger = "9",
+			webContentTitle = "Integer Web Content");
+
+		Navigator.gotoBack();
+
+		WebContent.viewWithStructureCP(
 			webContentLinkToPage = "Welcome",
 			webContentLinkToPageFieldName = "Link_to_Page",
+			webContentTitle = "Link to Page Web Content");
+
+		Navigator.gotoBack();
+
+		WebContent.viewWithStructureCP(
 			webContentNumber = "-1",
+			webContentTitle = "Number Web Content");
+
+		Navigator.gotoBack();
+
+		WebContent.viewWithStructureCP(
 			webContentRadio = "option 1",
+			webContentTitle = "Radio Web Content");
+
+		Navigator.gotoBack();
+
+		WebContent.viewWithStructureCP(
 			webContentSelect = "option 2",
+			webContentTitle = "Select Web Content");
+
+		Navigator.gotoBack();
+
+		WebContent.viewWithStructureCP(
 			webContentSeparator = "true",
+			webContentTitle = "Separator Web Content");
+
+		Navigator.gotoBack();
+
+		WebContent.viewWithStructureCP(
 			webContentText = "This is a Text field",
+			webContentTitle = "Text Web Content");
+
+		Navigator.gotoBack();
+
+		WebContent.viewWithStructureCP(
 			webContentTextBox = "This is a Text Box field",
 			webContentTextBoxFieldName = "Text_Box",
-			webContentTitle = "Web Content Title");
+			webContentTitle = "Text Box Web Content");
+
+		Navigator.gotoBack();
+
+		WebContent.viewWithStructureCP(
+			webContentImage = "Document_1.jpg",
+			webContentTitle = "Image Web Content");
 	}
 
 	macro viewWebContentWithPredefinedValueInWebContentField {
