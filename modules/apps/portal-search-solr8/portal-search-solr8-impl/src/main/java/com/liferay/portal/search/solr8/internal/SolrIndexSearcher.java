@@ -348,7 +348,9 @@ public class SolrIndexSearcher extends BaseIndexSearcher {
 		BaseSearchResponse baseSearchResponse,
 		SearchResponseBuilder searchResponseBuilder) {
 
-		searchResponseBuilder.requestString(
+		searchResponseBuilder.count(
+			baseSearchResponse.getCount()
+		).requestString(
 			baseSearchResponse.getSearchRequestString()
 		).responseString(
 			baseSearchResponse.getSearchResponseString()

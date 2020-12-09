@@ -221,6 +221,7 @@ public class DefaultSearchSearchResponseAssemblerHelperImpl
 		hits.setQueryTerms(new String[0]);
 		hits.setScores(ArrayUtil.toFloatArray(scores));
 
+		searchSearchResponse.setCount(hits.getLength());
 		searchSearchResponse.setHits(hits);
 
 		searchSearchResponse.setSearchHits(toSearchHits(documents));
