@@ -78,7 +78,7 @@ public class LanguageResourceImpl extends BaseLanguageResourceImpl {
 		return new Language() {
 			{
 				countryName = locale.getDisplayCountry(preferredLocale);
-				id = LocaleUtil.toLanguageId(locale);
+				id = locale.toLanguageTag();
 				markedAsDefault = Objects.equals(defaultLocale, locale);
 				name = locale.getDisplayLanguage(preferredLocale);
 
