@@ -57,7 +57,7 @@ public class InputSteps {
 			String fieldType)
 		throws Exception {
 
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(26);
 
 		sb.append("//div[contains(.,'");
 		sb.append(targetName);
@@ -85,7 +85,10 @@ public class InputSteps {
 		sb.append(targetName);
 		sb.append("']|//label[contains(text(),'");
 		sb.append(targetName);
-		sb.append("')]/parent::div/input");
+		sb.append("')]/parent::div/input|//*[text()='");
+		sb.append(targetName);
+		sb.append("']parent::label/following-sibling::div/div/");
+		sb.append(fieldType);
 
 		_faroSelenium.waitForElementPresent(sb.toString());
 
