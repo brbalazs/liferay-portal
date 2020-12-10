@@ -242,7 +242,7 @@ public class SegmentPage {
 		}
 
 		WebElement nameWebElement = _faroSelenium.findElement(
-			"//label[text()='Breakdown Name']" +
+			"//*[text()='Breakdown Name']/ancestor::label" +
 				"/following-sibling::input[@type='text']");
 
 		nameWebElement.sendKeys(name);

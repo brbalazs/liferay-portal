@@ -54,7 +54,7 @@ public class ContactPage {
 		@Transform(FaroTransformer.class) String name) {
 
 		WebElement breakdownWebElement = _faroSelenium.findElement(
-			"//label[text()='Breakdown Name']" +
+			"//*[text()='Breakdown Name']/ancestor::label" +
 				"/following-sibling::input[@type='text']");
 
 		if (Validator.isBlank(breakdownWebElement.getText())) {
@@ -74,7 +74,7 @@ public class ContactPage {
 		throws Exception {
 
 		WebElement breakdownWebElement = _faroSelenium.findElement(
-			"//label[text()='Breakdown Name']" +
+			"//*[text()='Breakdown Name']/ancestor::label" +
 				"/following-sibling::input[@type='text']");
 
 		if (Validator.isBlank(breakdownWebElement.getText())) {
