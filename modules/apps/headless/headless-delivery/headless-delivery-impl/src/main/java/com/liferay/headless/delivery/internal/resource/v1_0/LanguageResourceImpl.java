@@ -46,23 +46,6 @@ public class LanguageResourceImpl extends BaseLanguageResourceImpl {
 
 	@Override
 	public Page<Language> getSiteLanguagesPage(Long siteId) throws Exception {
-		return _getLanguagesPage(siteId);
-	}
-
-	private Locale _getGroupDefaultLocale(long groupId) throws Exception {
-		Group group = _groupService.getGroup(groupId);
-
-		String defaultLanguageId = LocalizationUtil.getDefaultLanguageId(
-			group.getName());
-
-		if (Validator.isNotNull(defaultLanguageId)) {
-			return LocaleUtil.fromLanguageId(defaultLanguageId);
-		}
-
-		return LocaleUtil.getSiteDefault();
-	}
-
-	private Page<Language> _getLanguagesPage(Long groupId) throws Exception {
 		boolean acceptAllLanguages =
 			contextAcceptLanguage.isAcceptAllLanguages();
 
@@ -78,6 +61,19 @@ public class LanguageResourceImpl extends BaseLanguageResourceImpl {
 				availableLocale -> _toLanguage(
 					acceptAllLanguages, availableLocales, defaultLocale,
 					availableLocale, preferredLocale)));
+	}
+
+	private Locale _getGroupDefaultLocale(long groupId) throws Exception {
+		Group group = _groupService.getGroup(groupId);
+
+		String defaultLanguageId = LocalizationUtil.getDefaultLanguageId(
+			group.getName());
+
+		if (Validator.isNotNull(defaultLanguageId)) {
+			return LocaleUtil.fromLanguageId(defaultLanguageId);
+		}
+
+		return LocaleUtil.getSiteDefault();
 	}
 
 	private Language _toLanguage(
