@@ -24,21 +24,21 @@ public class CPSubscriptionInfo {
 	public CPSubscriptionInfo(
 		int subscriptionLength, String subscriptionType,
 		UnicodeProperties subscriptionTypeSettingsProperties,
-		long maxSubscriptionCycleNumber, int deliverySubscriptionLength,
+		long maxSubscriptionCycles, int deliverySubscriptionLength,
 		String deliverySubscriptionType,
 		UnicodeProperties deliverySubscriptionTypeSettingsProperties,
-		long deliveryMaxSubscriptionCycleNumber) {
+		long deliveryMaxSubscriptionCycles) {
 
 		_subscriptionLength = subscriptionLength;
 		_subscriptionType = subscriptionType;
 		_subscriptionTypeSettingsProperties =
 			subscriptionTypeSettingsProperties;
-		_maxSubscriptionCycles = maxSubscriptionCycleNumber;
+		_maxSubscriptionCycles = maxSubscriptionCycles;
 		_deliverySubscriptionLength = deliverySubscriptionLength;
 		_deliverySubscriptionType = deliverySubscriptionType;
 		_deliverySubscriptionTypeSettingsProperties =
 			deliverySubscriptionTypeSettingsProperties;
-		_deliveryMaxSubscriptionCycles = deliveryMaxSubscriptionCycleNumber;
+		_deliveryMaxSubscriptionCycles = deliveryMaxSubscriptionCycles;
 	}
 
 	public long getDeliveryMaxSubscriptionCycles() {
