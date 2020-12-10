@@ -46,21 +46,16 @@ public class LanguageResourceImpl extends BaseLanguageResourceImpl {
 
 	@Override
 	public Page<Language> getSiteLanguagesPage(Long siteId) throws Exception {
-		boolean acceptAllLanguages =
-			contextAcceptLanguage.isAcceptAllLanguages();
-
-		Set<Locale> availableLocales = LanguageUtil.getAvailableLocales(
-			groupId);
-
-		Locale defaultLocale = _getGroupDefaultLocale(groupId);
-		Locale preferredLocale = contextAcceptLanguage.getPreferredLocale();
+		Set<Locale> availableLocales = LanguageUtil.getAvailableLocales(siteId);
+		Locale defaultLocale = _getGroupDefaultLocale(siteId);
 
 		return Page.of(
 			TransformUtil.transform(
 				availableLocales,
 				availableLocale -> _toLanguage(
-					acceptAllLanguages, availableLocales, defaultLocale,
-					availableLocale, preferredLocale)));
+					contextAcceptLanguage.isAcceptAllLanguages(),
+					availableLocales, defaultLocale, availableLocale,
+					contextAcceptLanguage.getPreferredLocale())));
 	}
 
 	private Locale _getGroupDefaultLocale(long groupId) throws Exception {
