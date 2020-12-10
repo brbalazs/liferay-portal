@@ -53,9 +53,10 @@ public class VelocityTemplate extends AbstractSingleResourceTemplate {
 			templateContextHelper, TemplateConstants.LANG_TYPE_VM,
 			resourceModificationCheckInterval, restricted);
 
-		_velocityContext = new VelocityContext(super.context);
 		_velocityEngine = velocityEngine;
 		_restricted = restricted;
+
+		_velocityContext = new VelocityContext(super.context);
 	}
 
 	@Override

@@ -130,6 +130,7 @@ public abstract class BaseChannelImpl implements Channel {
 
 	protected BaseChannelImpl(long companyId, long usedId) {
 		_companyId = companyId;
+
 		_userId = usedId;
 	}
 

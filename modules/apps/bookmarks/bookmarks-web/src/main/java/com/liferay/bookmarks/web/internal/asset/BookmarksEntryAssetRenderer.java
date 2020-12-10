@@ -55,6 +55,7 @@ public class BookmarksEntryAssetRenderer
 		ModelResourcePermission<BookmarksEntry> modelResourcePermission) {
 
 		_entry = entry;
+
 		_bookmarksEntryModelResourcePermission = modelResourcePermission;
 	}
 

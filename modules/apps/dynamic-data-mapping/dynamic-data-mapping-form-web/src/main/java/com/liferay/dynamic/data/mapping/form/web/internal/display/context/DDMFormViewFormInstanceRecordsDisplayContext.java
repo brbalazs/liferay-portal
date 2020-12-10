@@ -83,10 +83,11 @@ public class DDMFormViewFormInstanceRecordsDisplayContext {
 
 		_renderRequest = renderRequest;
 		_renderResponse = renderResponse;
+		_storageEngine = storageEngine;
+
 		_ddmFormInstance = formInstance;
 		_ddmFormInstanceRecordLocalService = formInstanceRecordLocalService;
 		_ddmFormFieldTypeServicesTracker = formFieldTypeServicesTracker;
-		_storageEngine = storageEngine;
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)_renderRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);

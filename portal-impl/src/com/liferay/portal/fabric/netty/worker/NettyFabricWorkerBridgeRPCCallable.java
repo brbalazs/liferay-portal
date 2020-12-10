@@ -38,6 +38,7 @@ public class NettyFabricWorkerBridgeRPCCallable<T extends Serializable>
 
 		_id = id;
 		_processCallable = processCallable;
+
 		_rpcRelayTimeout = rpcRelayTime;
 	}
 

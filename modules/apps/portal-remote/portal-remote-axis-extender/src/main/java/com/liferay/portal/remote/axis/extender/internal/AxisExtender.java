@@ -81,6 +81,7 @@ public class AxisExtender {
 			_authVerifierFilterServiceRegistration =
 				authVerifierFilterServiceRegistration;
 			_axisServletServiceRegistration = axisServletServiceRegistration;
+
 			_bundleServletContextHelperServiceRegistration =
 				bundleServletContextServiceRegistration;
 		}

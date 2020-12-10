@@ -45,8 +45,9 @@ public class ConfiguratorExtension implements Extension {
 		_configurationAdmin = configurationAdmin;
 		_logger = logger;
 		_namespace = namespace;
-		_configurationContents = namedConfigurationContents;
 		_configurationDescriptionFactories = configurationDescriptionFactories;
+
+		_configurationContents = namedConfigurationContents;
 	}
 
 	@Override

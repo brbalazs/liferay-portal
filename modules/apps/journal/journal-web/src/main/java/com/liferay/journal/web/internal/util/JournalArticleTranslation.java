@@ -25,8 +25,9 @@ import java.util.Locale;
 public class JournalArticleTranslation {
 
 	public JournalArticleTranslation(boolean defaultLanguage, Locale locale) {
-		_default = defaultLanguage;
 		_locale = locale;
+
+		_default = defaultLanguage;
 	}
 
 	public String getLanguageId() {

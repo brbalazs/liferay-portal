@@ -65,6 +65,7 @@ public class MockRegistrationReference implements RegistrationReference {
 
 		_intraband = intraband;
 		_scatteringByteChannel = scatteringByteChannel;
+
 		_gatheringByteChannel = gatherByteChannel;
 	}
 

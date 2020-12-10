@@ -28,9 +28,10 @@ public class PathElement implements Serializable {
 		KaleoNode startKaleoNode, KaleoNode targetKaleoNode,
 		ExecutionContext executionContext) {
 
+		_executionContext = executionContext;
+
 		_startNode = startKaleoNode;
 		_targetNode = targetKaleoNode;
-		_executionContext = executionContext;
 	}
 
 	public ExecutionContext getExecutionContext() {

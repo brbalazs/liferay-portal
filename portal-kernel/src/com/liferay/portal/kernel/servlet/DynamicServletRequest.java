@@ -126,8 +126,9 @@ public class DynamicServletRequest extends HttpServletRequestWrapper {
 
 		super(request);
 
-		_params = new HashMap<>();
 		_inherit = inherit;
+
+		_params = new HashMap<>();
 
 		if (params != null) {
 			_params.putAll(params);

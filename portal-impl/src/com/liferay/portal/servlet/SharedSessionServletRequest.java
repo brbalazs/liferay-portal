@@ -32,8 +32,9 @@ public class SharedSessionServletRequest extends HttpServletRequestWrapper {
 
 		super(request);
 
-		_portalSession = request.getSession();
 		_shared = shared;
+
+		_portalSession = request.getSession();
 	}
 
 	@Override

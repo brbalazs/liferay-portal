@@ -103,8 +103,9 @@ public final class AMAttribute<T, V> {
 		AMDistanceComparator<V> amDistanceComparator) {
 
 		_name = name;
-		_converterFunction = converter;
 		_amDistanceComparator = amDistanceComparator;
+
+		_converterFunction = converter;
 	}
 
 	/**

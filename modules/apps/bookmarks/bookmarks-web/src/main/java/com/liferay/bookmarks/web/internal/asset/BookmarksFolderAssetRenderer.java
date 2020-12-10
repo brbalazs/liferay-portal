@@ -59,6 +59,7 @@ public class BookmarksFolderAssetRenderer
 
 		_folder = folder;
 		_trashHelper = trashHelper;
+
 		_bookmarksFolderModelResourcePermission = modelResourcePermission;
 	}
 

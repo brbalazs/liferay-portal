@@ -284,9 +284,10 @@ public class PortletTransactionManager implements PlatformTransactionManager {
 			Session portletSession) {
 
 			_transactionStatus = transactionStatus;
-			_portletSessionFactory = targetSessionFactory;
 			_previousPortletSessionHolder = previousPortletSessionHolder;
 			_portletSession = portletSession;
+
+			_portletSessionFactory = targetSessionFactory;
 		}
 
 		private final Session _portletSession;

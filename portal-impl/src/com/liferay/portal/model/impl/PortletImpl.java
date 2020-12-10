@@ -224,7 +224,6 @@ public class PortletImpl extends PortletBaseImpl {
 
 		_rootPortlet = rootPortlet;
 		_pluginPackage = pluginPackage;
-		_defaultPluginSetting = pluginSetting;
 		_icon = icon;
 		_virtualPath = virtualPath;
 		_strutsPath = strutsPath;
@@ -256,7 +255,6 @@ public class PortletImpl extends PortletBaseImpl {
 		_xmlRpcMethodClass = xmlRpcMethodClass;
 		_controlPanelEntryCategory = controlPanelEntryCategory;
 		_controlPanelEntryWeight = controlPanelEntryWeight;
-		_controlPanelEntryClass = controlPanelClass;
 		_assetRendererFactoryClasses = assetRendererFactoryClasses;
 		_atomCollectionAdapterClasses = atomCollectionAdapterClasses;
 		_customAttributesDisplayClasses = customAttributesDisplayClasses;
@@ -324,6 +322,9 @@ public class PortletImpl extends PortletBaseImpl {
 		_portletInfo = portletInfo;
 		_portletFilters = portletFilters;
 		_portletApp = portletApp;
+
+		_defaultPluginSetting = pluginSetting;
+		_controlPanelEntryClass = controlPanelClass;
 	}
 
 	/**

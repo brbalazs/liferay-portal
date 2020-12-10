@@ -30,8 +30,9 @@ public class GeoBoundsAggregationResultImpl
 
 		super(name);
 
-		_topLeftGeolocationPoint = topLeftGeoLocationPoint;
 		_bottomRightGeoLocationPoint = bottomRightGeoLocationPoint;
+
+		_topLeftGeolocationPoint = topLeftGeoLocationPoint;
 	}
 
 	@Override

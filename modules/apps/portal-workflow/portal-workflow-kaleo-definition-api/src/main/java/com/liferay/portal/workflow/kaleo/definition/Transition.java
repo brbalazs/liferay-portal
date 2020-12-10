@@ -25,6 +25,7 @@ public class Transition {
 		_name = name;
 		_sourceNode = sourceNode;
 		_targetNode = targetNode;
+
 		_default = defaultValue;
 	}
 

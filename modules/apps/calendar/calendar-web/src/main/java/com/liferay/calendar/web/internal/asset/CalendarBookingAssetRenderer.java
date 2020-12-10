@@ -61,6 +61,7 @@ public class CalendarBookingAssetRenderer
 		ModelResourcePermission<Calendar> modelResourcePermission) {
 
 		_calendarBooking = calendarBooking;
+
 		_calendarModelResourcePermission = modelResourcePermission;
 	}
 

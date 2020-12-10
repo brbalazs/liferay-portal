@@ -46,13 +46,14 @@ public class WikiPageItemSelectorViewDisplayContext {
 		String itemSelectedEventName, boolean search, PortletURL portletURL) {
 
 		_wikiPageItemSelectorCriterion = wikiPageItemSelectorCriterion;
-		_wikiPageItemSelectorView = wikiAttachmentItemSelectorView;
 		_wikiNodeLocalService = wikiNodeLocalService;
 		_itemSelectorReturnTypeResolverHandler =
 			itemSelectorReturnTypeResolverHandler;
 		_itemSelectedEventName = itemSelectedEventName;
 		_search = search;
 		_portletURL = portletURL;
+
+		_wikiPageItemSelectorView = wikiAttachmentItemSelectorView;
 	}
 
 	public String getItemSelectedEventName() {

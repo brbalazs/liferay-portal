@@ -64,6 +64,7 @@ public class DDMFormViewFormInstanceRecordDisplayContext {
 		DDMFormValuesMerger formValuesMerger) {
 
 		_httpServletResponse = httpServletResponse;
+
 		_ddmFormInstanceRecordLocalService = formInstanceRecordLocalService;
 		_ddmFormInstanceVersionLocalService = formInstanceVersionLocalService;
 		_ddmFormRenderer = formRenderer;

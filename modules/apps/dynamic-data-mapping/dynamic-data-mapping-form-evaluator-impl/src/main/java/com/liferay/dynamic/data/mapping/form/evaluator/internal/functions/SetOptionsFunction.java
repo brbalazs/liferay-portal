@@ -42,8 +42,9 @@ public class SetOptionsFunction extends BaseDDMFormRuleFunction {
 
 		super(ddmFormFieldEvaluationResults);
 
-		_languageId = LanguageUtil.getLanguageId(locale);
 		_jsonFactory = jsonFactory;
+
+		_languageId = LanguageUtil.getLanguageId(locale);
 	}
 
 	@Override

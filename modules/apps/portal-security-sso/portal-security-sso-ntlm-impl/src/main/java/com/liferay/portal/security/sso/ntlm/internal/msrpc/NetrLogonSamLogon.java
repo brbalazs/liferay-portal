@@ -33,6 +33,7 @@ public class NetrLogonSamLogon extends DcerpcMessage {
 
 		_logonServer = logonServer;
 		_computerName = computerName;
+
 		_authenticator = netlogonAuthenticator;
 		_returnAuthenticator = returnNetlogonAuthenticator;
 		_logonInformation = netlogonNetworkInfo;

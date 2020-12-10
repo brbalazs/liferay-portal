@@ -42,6 +42,7 @@ public abstract class BasePreferencesImpl implements Serializable {
 
 		_ownerId = ownerId;
 		_ownerType = ownerType;
+
 		_originalXML = xml;
 		_originalPreferences = preferences;
 	}

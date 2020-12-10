@@ -52,6 +52,7 @@ public class IndexedFieldsFixture {
 
 		_resourcePermissionLocalService = resourcePermissionLocalService;
 		_searchEngineHelper = searchEngineHelper;
+
 		_documentBuilderFactory = null;
 	}
 

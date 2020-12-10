@@ -26,6 +26,7 @@ public class IndexDocumentResponse implements DocumentResponse {
 	@Deprecated
 	public IndexDocumentResponse(int status) {
 		_status = status;
+
 		_uid = null;
 	}
 

@@ -65,12 +65,13 @@ public class DDMFormAssetRenderer
 		_formInstanceRecord = formInstanceRecord;
 		_formInstanceRecordVersion = formInstanceRecordVersion;
 		_ddmFormInstanceRecordLocalService = ddmFormInstanceRecordLocalService;
-		_ddmFormInstanceVersionLocalService = formInstanceVersionLocalService;
 		_ddmFormRenderer = ddmFormRenderer;
 		_ddmFormValuesFactory = ddmFormValuesFactory;
 		_ddmFormValuesMerger = ddmFormValuesMerger;
 		_ddmFormInstanceModelResourcePermission =
 			ddmFormInstanceModelResourcePermission;
+
+		_ddmFormInstanceVersionLocalService = formInstanceVersionLocalService;
 
 		DDMFormInstance formInstance = null;
 

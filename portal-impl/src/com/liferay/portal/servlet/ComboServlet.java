@@ -525,6 +525,7 @@ public class ComboServlet extends HttpServlet {
 
 		public FileContentBag(byte[] fileContent, long lastModifiedTime) {
 			_fileContent = fileContent;
+
 			_lastModified = lastModifiedTime;
 		}
 

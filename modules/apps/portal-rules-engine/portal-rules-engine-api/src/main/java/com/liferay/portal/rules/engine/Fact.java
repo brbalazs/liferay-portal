@@ -23,6 +23,7 @@ public class Fact<T> implements Serializable {
 
 	public Fact(String identifier, T object) {
 		_identifier = identifier;
+
 		_factObject = object;
 	}
 

@@ -61,12 +61,13 @@ public class IndexerQueryBuilderImpl<T extends BaseModel<?>>
 		_modelSearchSettings = modelSearchSettings;
 		_modelKeywordQueryContributorsHolder =
 			modelKeywordQueryContributorsHolder;
-		_modelSearchContextContributors = modelSearchContextContributor;
 		_keywordQueryContributorsHolder = keywordQueryContributorsHolder;
 		_preFilterContributorHelper = preFilterContributorHelper;
 		_searchContextContributors = searchContextContributors;
 		_indexerPostProcessorsHolder = indexerPostProcessorsHolder;
 		_relatedEntryIndexerRegistry = relatedEntryIndexerRegistry;
+
+		_modelSearchContextContributors = modelSearchContextContributor;
 	}
 
 	@Override

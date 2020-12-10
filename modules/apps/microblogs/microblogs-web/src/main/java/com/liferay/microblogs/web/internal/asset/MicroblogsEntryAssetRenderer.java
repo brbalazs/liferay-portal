@@ -50,6 +50,7 @@ public class MicroblogsEntryAssetRenderer
 		ModelResourcePermission<MicroblogsEntry> modelResourcePermission) {
 
 		_entry = entry;
+
 		_microblogsEntryModelResourcePermission = modelResourcePermission;
 	}
 

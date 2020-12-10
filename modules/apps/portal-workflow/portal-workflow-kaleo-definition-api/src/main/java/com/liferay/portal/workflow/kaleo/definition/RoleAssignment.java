@@ -28,6 +28,7 @@ public class RoleAssignment extends Assignment {
 		super(AssignmentType.ROLE);
 
 		_roleId = roleId;
+
 		_roleName = null;
 		_roleType = null;
 	}

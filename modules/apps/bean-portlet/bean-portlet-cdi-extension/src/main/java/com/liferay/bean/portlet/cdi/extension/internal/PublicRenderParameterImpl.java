@@ -22,8 +22,9 @@ import javax.xml.namespace.QName;
 public class PublicRenderParameterImpl implements PublicRenderParameter {
 
 	public PublicRenderParameterImpl(String identifier, QName qName) {
-		_identifer = identifier;
 		_qName = qName;
+
+		_identifer = identifier;
 	}
 
 	@Override

@@ -37,6 +37,7 @@ public class MapBackedSet<E> extends AbstractSet<E> implements Serializable {
 		}
 
 		_backedMap = backedMap;
+
 		_backedMapKeySet = backedMap.keySet();
 	}
 

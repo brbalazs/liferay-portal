@@ -29,8 +29,9 @@ public class JSConfigGeneratorModule {
 		List<String> dependencies, String contextPath) {
 
 		_jsConfigGeneratorPackage = jsConfigGeneratorPackage;
-		_id = moduleId;
 		_dependencies = dependencies;
+
+		_id = moduleId;
 
 		int index = moduleId.indexOf(StringPool.SLASH);
 

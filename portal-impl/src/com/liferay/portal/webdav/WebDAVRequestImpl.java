@@ -64,8 +64,9 @@ public class WebDAVRequestImpl implements WebDAVRequest {
 
 		_groupId = WebDAVUtil.getGroupId(_companyId, _path);
 
-		_userId = GetterUtil.getLong(_request.getRemoteUser());
 		_permissionChecker = permissionChecker;
+
+		_userId = GetterUtil.getLong(_request.getRemoteUser());
 	}
 
 	@Override

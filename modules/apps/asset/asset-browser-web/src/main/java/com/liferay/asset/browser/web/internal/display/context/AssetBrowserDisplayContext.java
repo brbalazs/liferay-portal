@@ -73,9 +73,10 @@ public class AssetBrowserDisplayContext {
 	public AssetBrowserDisplayContext(
 		RenderRequest renderRequest, RenderResponse renderResponse) {
 
-		_request = PortalUtil.getHttpServletRequest(renderRequest);
 		_renderRequest = renderRequest;
 		_renderResponse = renderResponse;
+
+		_request = PortalUtil.getHttpServletRequest(renderRequest);
 
 		_assetHelper = (AssetHelper)renderRequest.getAttribute(
 			AssetWebKeys.ASSET_HELPER);

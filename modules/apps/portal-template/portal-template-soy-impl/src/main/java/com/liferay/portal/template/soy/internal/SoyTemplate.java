@@ -76,9 +76,10 @@ public class SoyTemplate extends AbstractMultiResourceTemplate {
 
 		_templateContextHelper = templateContextHelper;
 
+		_soyTofuCacheHandler = soyTofuCacheHandler;
+
 		_soyContextImpl = new SoyContextImpl(
 			context, templateContextHelper.getRestrictedVariables());
-		_soyTofuCacheHandler = soyTofuCacheHandler;
 
 		_setBaseContext();
 	}

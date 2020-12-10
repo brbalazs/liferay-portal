@@ -117,6 +117,9 @@ public class DDMFormAdminDisplayContext {
 		_addDefaultSharedFormLayoutPortalInstanceLifecycleListener =
 			addDefaultSharedFormLayoutPortalInstanceLifecycleListener;
 		_ddmExporterFactory = ddmExporterFactory;
+		_jsonFactory = jsonFactory;
+		_storageEngine = storageEngine;
+
 		_ddmFormWebConfiguration = formWebConfiguration;
 		_ddmFormInstanceRecordLocalService = formInstanceRecordLocalService;
 		_ddmFormInstanceService = formInstanceService;
@@ -128,8 +131,6 @@ public class DDMFormAdminDisplayContext {
 		_ddmFormValuesMerger = formValuesMerger;
 		_ddmStructureLocalService = structureLocalService;
 		_ddmStructureService = structureService;
-		_jsonFactory = jsonFactory;
-		_storageEngine = storageEngine;
 
 		formAdminRequestHelper = new DDMFormAdminRequestHelper(renderRequest);
 

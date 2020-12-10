@@ -118,9 +118,10 @@ public class EntityField {
 
 		_name = name;
 		_type = type;
-		_sortableNameFunction = sortableFieldNameFunction;
 		_filterableFieldNameFunction = filterableFieldNameFunction;
 		_filterableFieldValueFunction = filterableFieldValueFunction;
+
+		_sortableNameFunction = sortableFieldNameFunction;
 	}
 
 	/**

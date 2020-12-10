@@ -34,6 +34,7 @@ public class NettyFabricWorkerProcessCallableExecutor
 
 		_channel = channel;
 		_fabricWorkerId = fabricWorkerId;
+
 		_rpcRelayTimeout = rpcRelayTime;
 	}
 

@@ -37,8 +37,9 @@ public class EncryptedServletRequest extends HttpServletRequestWrapper {
 	public EncryptedServletRequest(HttpServletRequest request, Key key) {
 		super(request);
 
-		_params = new HashMap<>();
 		_key = key;
+
+		_params = new HashMap<>();
 
 		Map<String, String[]> parameters = request.getParameterMap();
 

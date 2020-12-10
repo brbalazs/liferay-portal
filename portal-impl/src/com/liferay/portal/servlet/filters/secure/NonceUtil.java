@@ -154,6 +154,7 @@ public class NonceUtil {
 			}
 
 			_nonce = nonce;
+
 			_createTime = System.currentTimeMillis();
 		}
 

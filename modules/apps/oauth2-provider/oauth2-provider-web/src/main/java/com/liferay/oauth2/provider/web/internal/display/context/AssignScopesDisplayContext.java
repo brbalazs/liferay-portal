@@ -64,6 +64,7 @@ public class AssignScopesDisplayContext
 			portletRequest, themeDisplay);
 
 		_applicationDescriptorLocator = applicationDescriptorLocator;
+
 		_locale = themeDisplay.getLocale();
 
 		Set<String> scopeAliases = new HashSet<>(
