@@ -14,6 +14,7 @@
 
 package com.liferay.osb.faro.web.internal.controller.main;
 
+import com.liferay.osb.faro.constants.FaroNotificationConstants;
 import com.liferay.osb.faro.constants.FaroProjectConstants;
 import com.liferay.osb.faro.constants.FaroUserConstants;
 import com.liferay.osb.faro.contacts.model.constants.JSONConstants;
@@ -26,11 +27,13 @@ import com.liferay.osb.faro.engine.client.model.Workspace;
 import com.liferay.osb.faro.exception.EmailAddressDomainException;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.model.FaroProjectEmailAddressDomain;
+import com.liferay.osb.faro.model.FaroUser;
 import com.liferay.osb.faro.provisioning.client.ProvisioningClient;
 import com.liferay.osb.faro.provisioning.client.constants.CorpProjectConstants;
 import com.liferay.osb.faro.provisioning.client.constants.ProductConstants;
 import com.liferay.osb.faro.provisioning.client.model.OSBAccountEntry;
 import com.liferay.osb.faro.provisioning.client.model.OSBOfferingEntry;
+import com.liferay.osb.faro.service.FaroNotificationLocalService;
 import com.liferay.osb.faro.service.FaroProjectEmailAddressDomainLocalService;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.osb.faro.service.FaroUserLocalService;
@@ -683,6 +686,10 @@ public class ProjectController extends BaseFaroController {
 		if (!Validator.isBlank(timeZoneId)) {
 			_validateTimeZoneId(timeZoneId);
 
+			if (!Objects.equals(faroProject.getTimeZoneId(), timeZoneId)) {
+				_sendTimeZoneNotification(groupId);
+			}
+
 			faroProject.setTimeZoneId(timeZoneId);
 
 			cerebroEngineClient.updateTimeZone(faroProject);
@@ -1108,6 +1115,19 @@ public class ProjectController extends BaseFaroController {
 		}
 	}
 
+	private void _sendTimeZoneNotification(long groupId) {
+		List<FaroUser> faroUsers = _faroUserLocalService.findByG_S(
+			groupId, FaroUserConstants.STATUS_APPROVED);
+
+		for (FaroUser faroUser : faroUsers) {
+			_faroNotificationLocalService.addFaroNotification(
+				faroUser.getUserId(), groupId,
+				FaroNotificationConstants.SCOPE_USER,
+				FaroNotificationConstants.TYPE_ALERT,
+				FaroNotificationConstants.SUBTYPE_TIME_ZONE_CHANGED);
+		}
+	}
+
 	private void _validateCorpProjectUuid(String corpProjectUuid) {
 		if (isOmniadmin()) {
 			return;
@@ -1182,6 +1202,9 @@ public class ProjectController extends BaseFaroController {
 
 	@Reference
 	private ContactsLayoutUtil _contactsLayoutUtil;
+
+	@Reference
+	private FaroNotificationLocalService _faroNotificationLocalService;
 
 	@Reference
 	private FaroProjectEmailAddressDomainLocalService
