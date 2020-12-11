@@ -2,6 +2,9 @@ create unique index IX_5960B666 on OSBFaro_FaroChannel (channelId[$COLUMN_LENGTH
 create index IX_28923D9C on OSBFaro_FaroChannel (groupId, userId);
 create index IX_286BA5A1 on OSBFaro_FaroChannel (workspaceGroupId);
 
+create index IX_A608C94D on OSBFaro_FaroNotification (groupId, scope[$COLUMN_LENGTH:75$], read_);
+create index IX_8E7E81C1 on OSBFaro_FaroNotification (userId, scope[$COLUMN_LENGTH:75$], read_);
+
 create unique index IX_12C47BB1 on OSBFaro_FaroPreferences (groupId, ownerId);
 
 create unique index IX_ECF55FFC on OSBFaro_FaroProject (corpProjectUuid[$COLUMN_LENGTH:75$]);

@@ -12,15 +12,28 @@
  *
  */
 
-package com.liferay.osb.faro.model.impl;
+package com.liferay.osb.faro.exception;
+
+import com.liferay.portal.kernel.exception.NoSuchModelException;
 
 /**
  * @author Matthew Kong
  */
-public class FaroProjectEmailAddressDomainImpl
-	extends FaroProjectEmailAddressDomainBaseImpl {
+public class NoSuchFaroNotificationException extends NoSuchModelException {
 
-	public FaroProjectEmailAddressDomainImpl() {
+	public NoSuchFaroNotificationException() {
+	}
+
+	public NoSuchFaroNotificationException(String msg) {
+		super(msg);
+	}
+
+	public NoSuchFaroNotificationException(String msg, Throwable throwable) {
+		super(msg, throwable);
+	}
+
+	public NoSuchFaroNotificationException(Throwable throwable) {
+		super(throwable);
 	}
 
 }

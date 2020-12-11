@@ -11,6 +11,18 @@ create table OSBFaro_FaroChannel (
 	workspaceGroupId LONG
 );
 
+create table OSBFaro_FaroNotification (
+	faroNotificationId LONG not null primary key,
+	groupId LONG,
+	userId LONG,
+	createTime LONG,
+	modifiedTime LONG,
+	scope VARCHAR(75) null,
+	read_ BOOLEAN,
+	type_ VARCHAR(75) null,
+	subType VARCHAR(75) null
+);
+
 create table OSBFaro_FaroPreferences (
 	faroPreferencesId LONG not null primary key,
 	groupId LONG,

@@ -17,10 +17,9 @@ package com.liferay.osb.faro.model.impl;
 /**
  * @author Matthew Kong
  */
-public class FaroProjectEmailAddressDomainImpl
-	extends FaroProjectEmailAddressDomainBaseImpl {
+public class FaroNotificationImpl extends FaroNotificationBaseImpl {
 
-	public FaroProjectEmailAddressDomainImpl() {
+	public FaroNotificationImpl() {
 	}
 
 }
