@@ -52,6 +52,29 @@
 		<reference entity="UserGroupRole" package-path="com.liferay.portal" />
 	</entity>
 	<entity local-service="true" name="FaroEmail" persistence-class="false" remote-service="false" />
+	<entity local-service="true" name="FaroNotification" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="faroNotificationId" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="createTime" type="long" />
+		<column name="modifiedTime" type="long" />
+
+		<!-- Other fields -->
+
+		<column name="scope" type="String" />
+		<column name="read" type="boolean" />
+		<column name="type" type="String" />
+		<column name="subType" type="String" />
+	</entity>
 	<entity local-service="true" name="FaroPreferences" remote-service="false">
 
 		<!-- PK fields -->
