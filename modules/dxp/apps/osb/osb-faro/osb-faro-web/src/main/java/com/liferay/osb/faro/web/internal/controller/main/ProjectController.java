@@ -88,6 +88,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -637,6 +638,31 @@ public class ProjectController extends BaseFaroController {
 	@Path("/time_zones")
 	public List<TimeZoneDisplay> getTimeZones() {
 		return TimeZoneUtil.getTimeZoneDisplays();
+	}
+
+	@PATCH
+	@Path("/{groupId}")
+	@RolesAllowed(RoleConstants.SITE_ADMINISTRATOR)
+	public void patchTimeZone(
+			@PathParam("groupId") long groupId,
+			@DefaultValue(StringPool.BLANK) @FormParam("timeZoneId")
+				String timeZoneId)
+		throws Exception {
+
+		FaroProject faroProject =
+			faroProjectLocalService.getFaroProjectByGroupId(groupId);
+
+		if (!Objects.equals(faroProject.getTimeZoneId(), timeZoneId)) {
+			_validateTimeZoneId(timeZoneId);
+
+			_sendTimeZoneNotification(groupId);
+
+			cerebroEngineClient.updateTimeZone(faroProject);
+
+			faroProject.setTimeZoneId(timeZoneId);
+
+			faroProjectLocalService.updateFaroProject(faroProject);
+		}
 	}
 
 	@Path("/{groupId}")
