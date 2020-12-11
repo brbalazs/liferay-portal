@@ -257,7 +257,7 @@ definition {
 	@priority = "5"
 	test AddNewWorkflowDefinitionViaViewTab {
 		property test.name.skip.portal.instance = "Kaleodesigner#AddNewWorkflowDefinitionViaViewTab";
-		
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -587,7 +587,7 @@ definition {
 			line = "28");
 
 		KaleoDesigner.viewSourceXMLLine(
-			kdSourceXML = '''<script-language>groovy</script-language>''',
+			kdSourceXML = '''<script-language>beanshell</script-language>''',
 			line = "29");
 	}
 
