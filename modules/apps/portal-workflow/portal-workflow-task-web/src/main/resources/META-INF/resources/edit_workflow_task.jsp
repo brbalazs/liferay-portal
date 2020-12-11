@@ -222,7 +222,7 @@ renderResponse.setTitle(workflowTaskDisplayContext.getHeaderTitle(workflowTask))
 								icon="<%= workflowHandler.getIconCssClass() %>"
 								label="<%= true %>"
 								markupView="lexicon"
-								message="<%= workflowTaskDisplayContext.getAssetTitle(workflowTask) %>"
+								message="<%= HtmlUtil.escape(workflowTaskDisplayContext.getAssetTitle(workflowTask)) %>"
 							/>
 						</h3>
 
