@@ -1,4 +1,4 @@
-Liferay-Releng-App-Description: ${liferay.releng.app.title.prefix} Connector to Elasticsearch 7 connects Liferay Portal or Liferay DXP to Elasticsearch 7.9+ search engines.
+Liferay-Releng-App-Description: ${liferay.releng.app.title.prefix} Connector to Elasticsearch 7 connects Liferay Portal or Liferay DXP to Elasticsearch 7.9.x through 7.10.x search engine.
 Liferay-Releng-App-Title: ${liferay.releng.app.title.prefix} Connector to Elasticsearch 7
 Liferay-Releng-Bundle: false
 Liferay-Releng-Category: Utility
