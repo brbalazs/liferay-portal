@@ -353,7 +353,6 @@ const AddWorkspaceForm: React.FC<IAddWorkspaceFormProps> = ({
 										)}
 										name='emailAddressDomains'
 										onChangeInputList={setInputListValue}
-										required
 										secondaryInfo={Liferay.Language.get(
 											'anyone-with-an-email-address-at-these-domains-can-request-access-to-your-workspace'
 										)}
