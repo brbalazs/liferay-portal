@@ -401,33 +401,21 @@ public class DataSourcePage {
 		FaroTestDataUtil.setPlaceholder("DXP_AUTH_TOKEN", tokenString);
 	}
 
-	@When("^I create a new Property named (.*)$")
+	@When("^I( attempt to)? create a new Property named (.*)$")
 	public void createProperty(
-			@Transform(FaroTransformer.class) String propName)
+			String saveFlag, @Transform(FaroTransformer.class) String propName)
 		throws Exception {
 
 		ClickSteps.clickButton("New Property");
 
 		InputSteps.inputText(propName, "Property Name", "input");
 
-		ClickSteps.clickButton("Save");
+		if (saveFlag == null) {
+			ClickSteps.clickButton("Save");
+		}
 
 		_faroSelenium.waitForLoadingComplete();
 		_faroSelenium.waitForPageLoadingComplete();
-	}
-
-	@When("^I attempt to create a new Property named (.*)$")
-	public void createPropertyInvalid(
-			@Transform(FaroTransformer.class) String propName)
-		throws Exception {
-
-		ClickSteps.clickButton("New Property");
-
-		_faroSelenium.waitForElementPresent("//label[text()='Property Name']");
-
-		_faroSelenium.sendKeys(
-			"//label[text()='Property Name']/following-sibling::input",
-			propName);
 	}
 
 	/**
