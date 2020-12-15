@@ -81,6 +81,7 @@ public class GraphQLAsahServlet extends BaseAsahServlet {
 
 			HttpGet httpGet = new HttpGet(uri);
 
+			httpGet.setHeader(ASAH_PROJECT_ID_HEADER, getProjectId());
 			httpGet.setHeader(
 				ASAH_SECURITY_SIGNATURE_HEADER, getSecuritySignature(uri));
 
@@ -128,6 +129,7 @@ public class GraphQLAsahServlet extends BaseAsahServlet {
 
 			httpPost.setEntity(postEntity);
 
+			httpPost.setHeader(ASAH_PROJECT_ID_HEADER, getProjectId());
 			httpPost.setHeader(
 				ASAH_SECURITY_SIGNATURE_HEADER, getSecuritySignature(uri));
 			httpPost.setHeader("content-type", "application/json");

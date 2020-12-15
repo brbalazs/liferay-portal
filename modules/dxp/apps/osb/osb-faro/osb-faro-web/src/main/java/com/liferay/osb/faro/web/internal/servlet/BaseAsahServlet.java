@@ -15,7 +15,9 @@
 package com.liferay.osb.faro.web.internal.servlet;
 
 import com.liferay.osb.faro.engine.client.util.EngineServiceURLUtil;
+import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.web.internal.util.FaroProjectThreadLocal;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -53,6 +55,13 @@ public abstract class BaseAsahServlet extends HttpServlet {
 		return uriBuilder.build();
 	}
 
+	protected String getProjectId() {
+		FaroProject faroProject = FaroProjectThreadLocal.getFaroProject();
+
+		return StringUtil.removeSubstring(
+			faroProject.getWeDeployKey(), ".lfr.cloud");
+	}
+
 	protected String getSecuritySignature(URI uri) {
 		String url = uri.toString();
 
@@ -60,6 +69,9 @@ public abstract class BaseAsahServlet extends HttpServlet {
 			_ASAH_TOKEN.concat(
 				url.substring(0, url.lastIndexOf(uri.getPath()))));
 	}
+
+	protected static final String ASAH_PROJECT_ID_HEADER =
+		"OSB-Asah-Project-Id";
 
 	protected static final String ASAH_SECURITY_SIGNATURE_HEADER =
 		"OSB-Asah-Faro-Backend-Security-Signature";

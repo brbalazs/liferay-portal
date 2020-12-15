@@ -68,6 +68,8 @@ public class ProxyDownloadAsahServlet extends BaseAsahServlet {
 			URLConnection urlConnection = url.openConnection();
 
 			urlConnection.setRequestProperty(
+				ASAH_PROJECT_ID_HEADER, getProjectId());
+			urlConnection.setRequestProperty(
 				ASAH_SECURITY_SIGNATURE_HEADER, getSecuritySignature(uri));
 
 			urlConnection.connect();
@@ -108,6 +110,8 @@ public class ProxyDownloadAsahServlet extends BaseAsahServlet {
 			urlConnection.setRequestProperty(
 				HttpHeaders.CONTENT_TYPE,
 				httpServletRequest.getHeader(HttpHeaders.CONTENT_TYPE));
+			urlConnection.setRequestProperty(
+				ASAH_PROJECT_ID_HEADER, getProjectId());
 			urlConnection.setRequestProperty(
 				ASAH_SECURITY_SIGNATURE_HEADER, getSecuritySignature(uri));
 
