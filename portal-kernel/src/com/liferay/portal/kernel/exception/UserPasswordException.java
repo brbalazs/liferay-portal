@@ -286,12 +286,12 @@ public class UserPasswordException extends PortalException {
 					changeableDate),
 				PASSWORD_TOO_YOUNG);
 
+			this.userId = userId;
+			this.changeableDate = changeableDate;
+
 			TimeZone timeZone = TimeZoneUtil.getDefault();
 
 			timeZoneId = timeZone.getID();
-
-			this.userId = userId;
-			this.changeableDate = changeableDate;
 		}
 
 		public MustNotBeChangedYet(User user, Date changeableDate) {
@@ -300,10 +300,10 @@ public class UserPasswordException extends PortalException {
 					"Password for user %s must not be changed until %s",
 					user.getUserId(), changeableDate));
 
+			this.changeableDate = changeableDate;
+
 			timeZoneId = user.getTimeZoneId();
 			userId = user.getUserId();
-
-			this.changeableDate = changeableDate;
 		}
 
 		public final Date changeableDate;
