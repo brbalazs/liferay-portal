@@ -1,6 +1,6 @@
 import Promise from 'metal-promise';
 import {formatStringToLowercase} from 'shared/util/util';
-import {isObject, isString} from 'lodash';
+import {isObject, isString, isArray} from 'lodash';
 import {sub} from 'shared/util/lang';
 
 /**
@@ -35,13 +35,14 @@ export function validateInputMessage(messageValue: string) {
 	};
 }
 
-export function validateRequired(value: {value: any} | string) {
+export function validateRequired(value: {value: any} | string | Array<string>) {
 	let error = '';
 
 	if (
 		!value ||
 		(isString(value) && !value.trim()) ||
-		(isObject(value) && !value.value)
+		(isArray(value) && !value.length) ||
+		(!isArray(value) && isObject(value) && !value.value)
 	) {
 		error = Liferay.Language.get('required');
 	}
