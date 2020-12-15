@@ -1,38 +1,48 @@
 import * as data from 'test/data';
-import FaroConstants from 'shared/util/constants';
+import Constants from 'shared/util/constants';
+import mockStore from 'test/mock-store';
 import React from 'react';
 import {CSV} from '../CSV';
 import {DataSource, User} from 'shared/util/records';
-import {shallow} from 'enzyme';
+import {Provider} from 'react-redux';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
 
-const {userRoleNames} = FaroConstants;
+jest.unmock('react-dom');
 
-const defaultProps = {
-	currentUser: new User(data.mockUser()),
-	dataSource: new DataSource(data.mockCSVDataSource()),
-	groupId: '23',
-	id: 'test'
-};
+const {userRoleNames} = Constants;
+
+const DefaultComponent = props => (
+	<Provider store={mockStore()}>
+		<StaticRouter>
+			<CSV
+				currentUser={new User(data.mockUser())}
+				dataSource={new DataSource(data.mockCSVDataSource())}
+				groupId='23'
+				id='test'
+				{...props}
+			/>
+		</StaticRouter>
+	</Provider>
+);
 
 describe('CSV', () => {
 	it('should render', () => {
-		const component = shallow(<CSV {...defaultProps} />);
+		const {container, queryByText} = render(<DefaultComponent />);
 
-		expect(component).toMatchSnapshot();
+		expect(queryByText(/Edit CSV/)).toBeTruthy();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should not render an Edit CSV Configuration button if the user role is member', () => {
-		const component = shallow(
-			<CSV
-				{...defaultProps}
+		const {queryByText} = render(
+			<DefaultComponent
 				currentUser={
 					new User(data.mockUser(0, {roleName: userRoleNames.member}))
 				}
 			/>
 		);
 
-		expect(component.findWhere(n => n.text() === 'Edit CSV').length).toBe(
-			0
-		);
+		expect(queryByText(/Edit CSV/)).toBeNull();
 	});
 });
