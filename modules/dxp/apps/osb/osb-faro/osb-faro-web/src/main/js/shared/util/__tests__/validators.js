@@ -163,6 +163,14 @@ describe('validateRequired', () => {
 		return expect(response).resolves.toMatchSnapshot();
 	});
 
+	it('should validate required as valid when validating array with value', () => {
+		expect.assertions(1);
+
+		const response = validateRequired(['test']);
+
+		return expect(response).resolves.toMatchSnapshot();
+	});
+
 	it('should validate required as not valid if the value is a string with only spaces', () => {
 		expect.assertions(1);
 
