@@ -68,7 +68,7 @@ public class AuthenticationClientHttpRequestInterceptor
 		return clientHttpRequestExecution.execute(httpRequest, bytes);
 	}
 
-	private static final String _ASAH_PROJECT_ID_HEADER = "OSB-Asah-Project-Id";
+	private static final String _ASAH_PROJECT_ID_HEADER = "OSB-Asah-Project-ID";
 
 	private static final String _ASAH_SECURITY_SIGNATURE_HEADER =
 		"OSB-Asah-Faro-Backend-Security-Signature";

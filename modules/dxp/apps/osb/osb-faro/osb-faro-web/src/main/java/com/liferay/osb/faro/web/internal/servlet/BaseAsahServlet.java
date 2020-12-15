@@ -71,7 +71,7 @@ public abstract class BaseAsahServlet extends HttpServlet {
 	}
 
 	protected static final String ASAH_PROJECT_ID_HEADER =
-		"OSB-Asah-Project-Id";
+		"OSB-Asah-Project-ID";
 
 	protected static final String ASAH_SECURITY_SIGNATURE_HEADER =
 		"OSB-Asah-Faro-Backend-Security-Signature";
