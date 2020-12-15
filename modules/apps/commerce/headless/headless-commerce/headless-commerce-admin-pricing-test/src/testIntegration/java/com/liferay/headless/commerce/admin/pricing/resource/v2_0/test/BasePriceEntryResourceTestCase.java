@@ -334,8 +334,9 @@ public abstract class BasePriceEntryResourceTestCase {
 		_beanUtilsBean.copyProperties(
 			expectedPatchPriceEntry, randomPatchPriceEntry);
 
-		PriceEntry getPriceEntry = priceEntryResource.getPriceEntry(
-			patchPriceEntry.getId());
+		PriceEntry getPriceEntry =
+			priceEntryResource.getPriceEntryByExternalReferenceCode(
+				patchPriceEntry.getExternalReferenceCode());
 
 		assertEquals(expectedPatchPriceEntry, getPriceEntry);
 		assertValid(getPriceEntry);
