@@ -1,100 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Row should render 1`] = `
-<tbody>
-  <tr
-    className=""
-    onClick={[Function]}
-  />
-</tbody>
+<div>
+  <tbody>
+    <tr
+      class=""
+    />
+  </tbody>
+</div>
 `;
 
 exports[`Row should render with data 1`] = `
-<tbody>
-  <tr
-    className=""
-    onClick={[Function]}
-  >
-    <Cell
-      key="0"
-      title={true}
+<div>
+  <tbody>
+    <tr
+      class=""
     >
-      Foo Bar
-    </Cell>
-    <Cell
-      key="1"
-    >
-      50,000
-    </Cell>
-  </tr>
-</tbody>
-`;
-
-exports[`Row should render with empty data if the accessor does not exist at all on the object 1`] = `
-<tbody>
-  <tr
-    className=""
-    onClick={[Function]}
-  >
-    <Cell
-      key="0"
-      title={true}
-    >
-      Foo Bar
-    </Cell>
-    <Cell
-      key="1"
-    >
-      50,000
-    </Cell>
-    <Cell
-      key="2"
-    >
-      -
-    </Cell>
-  </tr>
-</tbody>
-`;
-
-exports[`Row should render with empty data if the column accessor value is null 1`] = `
-<tbody>
-  <tr
-    className=""
-    onClick={[Function]}
-  >
-    <Cell
-      key="0"
-      title={true}
-    >
-      Foo Bar
-    </Cell>
-    <Cell
-      key="1"
-    >
-      -
-    </Cell>
-  </tr>
-</tbody>
-`;
-
-exports[`Row should render with the header 1`] = `
-<thead>
-  <tr
-    className=""
-    onClick={[Function]}
-  >
-    <HeaderCell
-      accessor="name"
-      key="0"
-    >
-      Name
-    </HeaderCell>
-    <HeaderCell
-      accessor="properties.salary"
-      key="1"
-    >
-      Salary
-    </HeaderCell>
-  </tr>
-</thead>
+      <td
+        class=""
+      >
+        <h4
+          class="table-title text-truncate"
+        >
+          Foo Bar
+        </h4>
+      </td>
+      <td
+        class=""
+      >
+        50,000
+      </td>
+    </tr>
+  </tbody>
+</div>
 `;
