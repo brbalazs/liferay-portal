@@ -38,6 +38,35 @@
 			[$ORDER_BY$]
 		]]>
 	</sql>
+	<sql id="com.liferay.osb.faro.service.persistence.FaroNotificationFinder.findDismissed">
+		<![CDATA[
+			SELECT
+				{OSBFaro_FaroNotification.*}
+			FROM
+				OSBFaro_FaroNotification
+			WHERE
+				OSBFaro_FaroNotification.createTime < UNIX_TIMESTAMP(CURDATE() - INTERVAL 30 DAY) * 1000
+		]]>
+	</sql>
+	<sql id="com.liferay.osb.faro.service.persistence.FaroNotificationFinder.findLast30Days">
+		<![CDATA[
+			SELECT
+				{OSBFaro_FaroNotification.*}
+			FROM
+				OSBFaro_FaroNotification
+			WHERE
+				(OSBFaro_FaroNotification.createTime >= UNIX_TIMESTAMP(CURDATE() - INTERVAL 30 DAY) * 1000) AND
+				(OSBFaro_FaroNotification.read_ IS FALSE) AND
+				(OSBFaro_FaroNotification.groupId = ?) AND
+				(
+					(
+						(OSBFaro_FaroNotification.`scope` = 'USER') AND
+						(OSBFaro_FaroNotification.userId = ?)
+					) OR
+					(OSBFaro_FaroNotification.`scope` = 'WORKSPACE')
+				)
+		]]>
+	</sql>
 	<sql id="com.liferay.osb.faro.service.persistence.FaroProjectFinder.findByED">
 		<![CDATA[
 			SELECT
