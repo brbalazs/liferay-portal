@@ -54,17 +54,10 @@ public class FaroNotificationLocalServiceImpl
 	}
 
 	@Override
-	public List<FaroNotification> findFaroNotificationsByG_S_R(
-		long groupId, String scope, boolean read) {
+	public List<FaroNotification> findFaroNotificationsLast30Days(
+		long groupId, long userId) {
 
-		return faroNotificationPersistence.findByG_S_R(groupId, scope, read);
-	}
-
-	@Override
-	public List<FaroNotification> findFaroNotificationsByU_S_R(
-		long userId, String scope, boolean read) {
-
-		return faroNotificationPersistence.findByU_S_R(userId, scope, read);
+		return faroNotificationFinder.findLast30Days(groupId, userId);
 	}
 
 }

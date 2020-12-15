@@ -14,7 +14,6 @@
 
 package com.liferay.osb.faro.web.internal.controller.main;
 
-import com.liferay.osb.faro.constants.FaroNotificationConstants;
 import com.liferay.osb.faro.model.FaroNotification;
 import com.liferay.osb.faro.service.FaroNotificationLocalService;
 import com.liferay.osb.faro.web.internal.controller.BaseFaroController;
@@ -23,7 +22,6 @@ import com.liferay.osb.faro.web.internal.model.display.contacts.NotificationDisp
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.RoleConstants;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -69,15 +67,13 @@ public class NotificationController extends BaseFaroController {
 	public List<NotificationDisplay> getNotifications(
 		@PathParam("groupId") long groupId) {
 
-		Stream<List<FaroNotification>> stream = Stream.of(
-			_faroNotificationLocalService.findFaroNotificationsByU_S_R(
-				getUserId(), FaroNotificationConstants.SCOPE_USER, false),
-			_faroNotificationLocalService.findFaroNotificationsByG_S_R(
-				groupId, FaroNotificationConstants.SCOPE_WORKSPACE, false));
+		List<FaroNotification> faroNotifications =
+			_faroNotificationLocalService.findFaroNotificationsLast30Days(
+				groupId, getUserId());
 
-		return stream.flatMap(
-			Collection::stream
-		).map(
+		Stream<FaroNotification> stream = faroNotifications.stream();
+
+		return stream.map(
 			NotificationDisplay::new
 		).collect(
 			Collectors.toList()
