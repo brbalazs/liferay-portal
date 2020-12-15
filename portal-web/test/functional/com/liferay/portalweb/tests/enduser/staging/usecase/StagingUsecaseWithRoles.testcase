@@ -669,6 +669,8 @@ definition {
 	@description = "This is a use case for LPS-82564."
 	@priority = "4"
 	test StagingLocalLiveWebContent {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
 		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(

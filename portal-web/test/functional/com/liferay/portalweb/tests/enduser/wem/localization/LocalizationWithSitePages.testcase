@@ -35,7 +35,9 @@ definition {
 			groupName = "Site Name",
 			layoutName = "Home");
 
-		Navigator.openSiteURL(siteName = "Site Name");
+		Navigator.gotoSitePage(
+			pageName = "Home",
+			siteName = "Site Name");
 
 		SitePages.gotoPageMenuItem(
 			menuItem = "Configure",

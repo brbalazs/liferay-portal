@@ -816,7 +816,7 @@ definition {
 
 		JSONWebcontent.addWebContent(
 			content = "Web Content4 Content",
-			groupName = "guest",
+			groupName = "Guest",
 			title = "Web Content4 Title");
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
@@ -1126,7 +1126,7 @@ definition {
 			groupName = "Site Name",
 			layoutName = "Site Page");
 
-		for (var siteName1 : list "guest,Site Name,Global") {
+		for (var siteName1 : list "Guest,Site Name,Global") {
 			JSONWebcontent.addWebContent(
 				content = "${siteName1} WC Content",
 				groupName = "${siteName1}",
@@ -1532,7 +1532,7 @@ definition {
 
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
-			groupName = "guest",
+			groupName = "Guest",
 			title = "WC WebContent Title");
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");
@@ -1650,7 +1650,7 @@ definition {
 	test ViewDeletedWCDArticleAsAdminAndGuestCP {
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
-			groupName = "guest",
+			groupName = "Guest",
 			title = "WC WebContent Title");
 
 		Navigator.gotoPage(pageName = "Asset Publisher Page");

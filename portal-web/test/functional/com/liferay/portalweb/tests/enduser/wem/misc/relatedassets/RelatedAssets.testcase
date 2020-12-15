@@ -59,10 +59,18 @@ definition {
 
 		ProductMenu.gotoStagingSite();
 
-		JSONWebcontent.addWebContent(
-			content = "Web Content Content 1",
-			groupName = "Site Name",
-			title = "Web Content Title 1");
+		ProductMenu.gotoPortlet(
+			category = "Content",
+			panel = "Site Administration",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "Web Content Content 1",
+			webContentTitle = "Web Content Title 1");
+
+		PortletEntry.publish();
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -174,7 +182,7 @@ definition {
 
 		JSONWebcontent.addWebContent(
 			content = "Web Content Content 1",
-			groupName = "global",
+			groupName = "Global",
 			title = "Web Content Title 1");
 
 		Navigator.openSiteURL(siteName = "Site Name");

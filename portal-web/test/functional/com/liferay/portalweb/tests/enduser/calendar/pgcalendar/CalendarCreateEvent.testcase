@@ -1026,7 +1026,7 @@ definition {
 			specificOptionSetValue = "userfn1 userln1,userfn2 userln2,userfn3 userln3");
 
 		User.logoutAndLoginPG(
-			userLoginEmailAddress = "usersn1@liferay.com",
+			userLoginEmailAddress = "userea1@liferay.com",
 			userLoginFullName = "userfn1 userln1");
 
 		Navigator.gotoPage(pageName = "Calendar Page");
@@ -1036,7 +1036,7 @@ definition {
 			rsvp = "Maybe");
 
 		User.logoutAndLoginPG(
-			userLoginEmailAddress = "usersn2@liferay.com",
+			userLoginEmailAddress = "userea2@liferay.com",
 			userLoginFullName = "userfn2 userln2");
 
 		Navigator.gotoPage(pageName = "Calendar Page");
@@ -1046,7 +1046,7 @@ definition {
 			rsvp = "No");
 
 		User.logoutAndLoginPG(
-			userLoginEmailAddress = "usersn3@liferay.com",
+			userLoginEmailAddress = "userea3@liferay.com",
 			userLoginFullName = "userfn3 userln3");
 
 		Navigator.gotoPage(pageName = "Calendar Page");

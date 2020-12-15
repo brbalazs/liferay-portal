@@ -118,6 +118,10 @@ definition {
 			layoutName = "Child Page Name",
 			parentLayoutName = "Site Page2 Name");
 
+		Navigator.gotoSitePage(
+			pageName = "Site Page1 Name",
+			siteName = "Site Name");
+
 		ProductMenu.gotoPortlet(
 			category = "Build",
 			panel = "Site Administration",

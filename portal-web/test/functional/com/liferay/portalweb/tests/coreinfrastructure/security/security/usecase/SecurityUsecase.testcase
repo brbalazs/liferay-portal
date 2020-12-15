@@ -160,10 +160,6 @@ out.println(PortalUtil.escapeRedirect("/"));
 			panel = "Control Panel",
 			portlet = "Users and Organizations");
 
-		User.editPasswordCP(
-			userEmailAddress = "userea@liferay.com",
-			userScreenName = "usersn");
-
 		UserBar.gotoProfile();
 
 		Portlet.addPG(portletName = "Calendar");

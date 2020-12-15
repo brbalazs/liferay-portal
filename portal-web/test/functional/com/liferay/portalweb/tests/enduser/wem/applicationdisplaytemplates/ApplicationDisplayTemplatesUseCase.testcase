@@ -16,7 +16,7 @@ definition {
 		JSONGroup.addGroup(groupName = "Test Site Name");
 
 		JSONLayout.addPublicLayout(
-			groupName = "Site Name",
+			groupName = "Test Site Name",
 			layoutName = "ADT Test Page");
 
 		Navigator.openSiteURL(siteName = "Test Site Name");

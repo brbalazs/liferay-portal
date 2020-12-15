@@ -1598,6 +1598,10 @@ definition {
 
 		JSONGroup.addGroup(groupName = "Site Name 1");
 
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name 1",
+			layoutName = "Site Page Name");
+
 		Navigator.openSiteURL(siteName = "Site Name 1");
 
 		ProductMenu.gotoPortlet(

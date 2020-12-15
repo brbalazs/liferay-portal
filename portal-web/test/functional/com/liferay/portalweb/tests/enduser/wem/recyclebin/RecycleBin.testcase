@@ -49,7 +49,7 @@ definition {
 			panel = "Site Administration",
 			portlet = "Web Content");
 
-		WebContent.deleteWithDisabledRB(entryTitle = "Web Content Title");
+		WebContent.deleteWithDisabledRB(entryTitle = "WC WebContent Title");
 	}
 
 	@priority = "3"

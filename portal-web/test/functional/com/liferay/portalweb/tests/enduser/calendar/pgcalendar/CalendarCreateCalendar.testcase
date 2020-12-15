@@ -95,16 +95,16 @@ definition {
 	test AddUserCalendarToOtherCalendars {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
-		JSONUser.addUser(
+		ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.addCP(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "userln",
 			userScreenName = "usersn");
-
-		JSONUser.setFirstPassword(
-			agreeToTermsAndAnswerReminderQuery = "true",
-			requireReset = "false",
-			userEmailAddress = "userea@liferay.com");
 
 		Navigator.gotoPage(pageName = "Calendar Page");
 
@@ -319,7 +319,7 @@ definition {
 		Navigator.gotoPage(pageName = "Calendar Page");
 
 		User.logoutAndLoginPG(
-			userLoginEmailAddress = "usersn@liferay.com",
+			userLoginEmailAddress = "userea@liferay.com",
 			userScreenName = "usersn");
 
 		UserBar.gotoDashboard();
@@ -327,7 +327,7 @@ definition {
 		Portlet.addPG(portletName = "Calendar");
 
 		User.logoutAndLoginPG(
-			userLoginEmailAddress = "usersn@liferay.com",
+			userLoginEmailAddress = "userea@liferay.com",
 			userScreenName = "usersn");
 
 		UserBar.gotoDashboard();

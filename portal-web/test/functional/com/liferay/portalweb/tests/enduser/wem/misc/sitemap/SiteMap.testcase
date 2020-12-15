@@ -18,8 +18,8 @@ definition {
 
 		JSONLayout.addPrivateLayout(
 			groupName = "Site Name",
-			layoutName = "Site Page Name",
-			parentLayoutName = "Child Page Name");
+			layoutName = "Child Page Name",
+			parentLayoutName = "Site Page Name");
 	}
 
 	tearDown {

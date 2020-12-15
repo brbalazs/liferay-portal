@@ -59,6 +59,12 @@ definition {
 
 		JSONGroup.addGroup(groupName = "Site Name");
 
+		JSONGroup.addGroup(groupName = "Site Name");
+
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page Name");
+
 		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
@@ -1262,7 +1268,7 @@ definition {
 				userScreenName = "usersn${n}");
 
 			User.logoutAndLoginPG(
-				userLoginEmailAddress = "usersn${n}@liferay.com",
+				userLoginEmailAddress = "userea${n}@liferay.com",
 				userScreenName = "usersn${n}");
 
 			Navigator.openURL();
@@ -1312,7 +1318,7 @@ definition {
 		}
 
 		User.logoutAndLoginPG(
-			userLoginEmailAddress = "usersn1@liferay.com",
+			userLoginEmailAddress = "userea1@liferay.com",
 			userScreenName = "usersn1");
 
 		Navigator.openURL();
@@ -1339,7 +1345,7 @@ definition {
 		Workflow.viewSubmissionNotPresent(workflowAssetTitle = "User 2 Blog Title Approved");
 
 		User.logoutAndLoginPG(
-			userLoginEmailAddress = "usersn2@liferay.com",
+			userLoginEmailAddress = "userea2@liferay.com",
 			userScreenName = "usersn2");
 
 		Navigator.openURL();

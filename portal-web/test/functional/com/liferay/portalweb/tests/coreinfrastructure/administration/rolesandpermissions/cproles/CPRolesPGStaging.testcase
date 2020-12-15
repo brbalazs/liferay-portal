@@ -237,20 +237,6 @@ definition {
 			requireReset = "false",
 			userEmailAddress = "usereaa@liferay.com");
 
-		Navigator.openSiteURL(siteName = "Site Name");
-
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.editPasswordCP(
-			password = "password",
-			userEmailAddress = "usereaa@liferay.com",
-			userScreenName = "usersna");
-
-		Navigator.openSiteURL(siteName = "Site Name");
-
 		ProductMenu.gotoPortlet(
 			category = "Users",
 			panel = "Control Panel",

@@ -917,7 +917,7 @@ definition {
 
 		JSONLayout.addPublicLayout(
 			groupName = "Test Site Name",
-			layoutName = "Test Site Name");
+			layoutName = "Test Site Page");
 
 		Navigator.gotoSitePage(
 			pageName = "Test Site Page",
@@ -1658,6 +1658,10 @@ definition {
 		JSONGroup.addGroup(groupName = "Exported Site");
 
 		Navigator.openSiteURL(siteName = "Exported Site");
+
+		JSONLayout.addPublicLayout(
+			groupName = "Exported Site",
+			layoutName = "Exported Site Page");
 
 		ProductMenu.gotoPortlet(
 			category = "Content",

@@ -1455,6 +1455,10 @@ definition {
 
 		JSONGroup.addGroup(groupName = "Site Name");
 
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Name Page");
+
 		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(

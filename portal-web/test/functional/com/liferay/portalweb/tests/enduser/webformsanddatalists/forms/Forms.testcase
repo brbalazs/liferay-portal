@@ -493,7 +493,7 @@ definition {
 			groupName = "Form Site",
 			layoutName = "Form Page");
 
-		Navigator.openSiteURL(siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Form Site");
 
 		ProductMenu.gotoPortlet(
 			category = "Members",

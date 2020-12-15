@@ -33,7 +33,7 @@ definition {
 
 		JSONLayout.addPublicLayout(
 			groupName = "Site Name",
-			layoutName = "Page Name");
+			layoutName = "Parent Page Name");
 
 		JSONLayout.addPublicLayout(
 			groupName = "Site Name",

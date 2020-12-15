@@ -936,6 +936,10 @@ definition {
 
 		JSONGroup.addGroup(groupName = "Remote Site");
 
+		JSONLayout.addPublicLayout(
+			groupName = "Remote Site",
+			layoutName = "Remote Test Page");
+
 		Navigator.openSiteURL(siteName = "Remote Site");
 
 		ProductMenu.gotoPortlet(

@@ -80,12 +80,12 @@ definition {
 
 		JSONWebcontent.addFolder(
 			folderName = "WC Folder Name",
-			groupName = "Guest");
+			groupName = "${siteName}");
 
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			folderName = "WC Folder Name",
-			groupName = "Guest",
+			groupName = "${siteName}",
 			title = "WC WebContent Title");
 
 		ProductMenu.gotoPortlet(
@@ -129,7 +129,7 @@ definition {
 
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
-			groupName = "Guest",
+			groupName = "${siteName}",
 			title = "WC WebContent Title");
 
 		ProductMenu.gotoPortlet(
@@ -258,7 +258,7 @@ definition {
 
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
-			groupName = "Guest",
+			groupName = "${siteName}",
 			title = "WC WebContent Title");
 
 		ProductMenu.gotoPortlet(

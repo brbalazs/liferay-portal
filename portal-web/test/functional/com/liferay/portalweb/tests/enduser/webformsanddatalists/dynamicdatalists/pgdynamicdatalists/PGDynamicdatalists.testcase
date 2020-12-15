@@ -1040,7 +1040,7 @@ definition {
 		);
 
 		User.logoutAndLoginPG(
-			userLoginEmailAddress = "user@liferay.com",
+			userLoginEmailAddress = "userea@liferay.com",
 			userLoginFullName = "userfn userln"
 		);
 

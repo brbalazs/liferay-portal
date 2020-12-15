@@ -163,10 +163,15 @@ definition {
 
 		echo("Page Scope ID is: ${pageScopeId}");
 
-		JSONWebcontent.addWebContent(
-			content = "WC WebContent Content",
-			groupName = "Site Name",
-			title = "WC WebContent Title");
+		WebContent.openWebContentAdmin(siteURLKey = "${pageScopeId}");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent Content",
+			webContentTitle = "WC WebContent Title");
+
+		PortletEntry.publish();
 
 		Staging.openStagingAdmin(siteURLKey = "site-name");
 

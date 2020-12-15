@@ -190,7 +190,7 @@ definition {
 
 		for (var n : list "1,2") {
 			JSONUser.addUser(
-				userEmailAddress = "userea${n}@liferay.com",
+				userEmailAddress = "user${n}@liferay.com",
 				userFirstName = "userfn${n}",
 				userLastName = "userln${n}",
 				userScreenName = "usersn${n}");
@@ -198,7 +198,7 @@ definition {
 			JSONUser.setFirstPassword(
 				agreeToTermsAndAnswerReminderQuery = "true",
 				requireReset = "false",
-				userEmailAddress = "userea${n}@liferay.com");
+				userEmailAddress = "user${n}@liferay.com");
 
 			Navigator.openSiteURL(siteName = "Site Name");
 
@@ -712,7 +712,7 @@ definition {
 
 		JSONWebcontent.addWebContent(
 			content = "Web Content Content",
-			groupName = "Blank Site name",
+			groupName = "Blank Site Name",
 			title = "Web Content Title"
 		);
 

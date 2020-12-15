@@ -310,7 +310,7 @@ definition {
 			groupName = "${siteName}",
 			layoutName = "${pageName}");
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		SitePages.openPagesAdmin(siteURLKey = "${siteName}");
 
 		ProductMenu.gotoPortlet(
 			category = "Members",

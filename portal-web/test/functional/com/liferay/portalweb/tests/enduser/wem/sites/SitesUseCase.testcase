@@ -778,6 +778,10 @@ definition {
 
 		JSONGroup.addGroup(groupName = "Site2 Name");
 
+		JSONLayout.addPublicLayout(
+			groupName = "Site2 Name",
+			layoutName = "Site2 Name Page");
+
 		Navigator.openSiteURL(siteName = "Site2 Name");
 
 		ProductMenu.gotoPortlet(
@@ -1041,6 +1045,10 @@ definition {
 
 		JSONGroup.addGroup(groupName = "Site Name");
 
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page Name");
+
 		Navigator.openSiteURL(siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
@@ -1174,6 +1182,10 @@ definition {
 		property testray.component.names = "Site Administration,XSS";
 
 		JSONGroup.addGroup(groupName = "Site Name");
+
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page Name");
 
 		Navigator.openSiteURL(siteName = "Site Name");
 

@@ -45,9 +45,7 @@ definition {
 			Tag.addCP(tagName = "${tagName}");
 		}
 
-		Navigator.gotoSitePage(
-			pageName = "Page Name",
-			siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		Portlet.addPG(portletName = "Blogs");
 
@@ -80,9 +78,7 @@ definition {
 			groupName = "Site Name",
 			layoutName = "Site Page 1");
 
-		Navigator.gotoSitePage(
-			pageName = "Page Name",
-			siteName = "Site Name");
+		Navigator.openSiteURL(siteName = "Site Name");
 
 		Portlet.addPG(portletName = "Wiki");
 

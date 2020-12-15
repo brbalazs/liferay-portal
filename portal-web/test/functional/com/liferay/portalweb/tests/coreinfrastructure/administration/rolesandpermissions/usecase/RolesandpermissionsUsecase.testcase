@@ -355,7 +355,9 @@ definition {
 			groupName = "Site Name",
 			layoutName = "Private Blogs Page");
 
-		Navigator.openSiteURL(siteName = "Site Name");
+		Navigator.openPrivateSitePageURL(
+			pageName = "Private Blogs Page",
+			siteName = "Site Name");
 
 		ProductMenu.gotoPortlet(
 			category = "Build",
@@ -1813,16 +1815,16 @@ definition {
 
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
-		JSONUser.addUser(
+		ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.addCP(
 			userEmailAddress = "userea@liferay.com",
 			userFirstName = "userfn",
 			userLastName = "userln",
 			userScreenName = "usersn");
-
-		JSONUser.setFirstPassword(
-			agreeToTermsAndAnswerReminderQuery = "true",
-			requireReset = "false",
-			userEmailAddress = "userea@liferay.com");
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
