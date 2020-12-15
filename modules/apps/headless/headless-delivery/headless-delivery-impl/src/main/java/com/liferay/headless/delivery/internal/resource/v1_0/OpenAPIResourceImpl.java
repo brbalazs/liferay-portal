@@ -102,6 +102,8 @@ public class OpenAPIResourceImpl {
 
 			add(KnowledgeBaseFolderResourceImpl.class);
 
+			add(LanguageResourceImpl.class);
+
 			add(MessageBoardAttachmentResourceImpl.class);
 
 			add(MessageBoardMessageResourceImpl.class);
