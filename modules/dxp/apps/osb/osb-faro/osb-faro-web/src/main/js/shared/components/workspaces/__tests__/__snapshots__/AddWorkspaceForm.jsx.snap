@@ -239,7 +239,7 @@ exports[`AddWorkspaceForm should render 1`] = `
               class=""
             >
               <label
-                class="form-control-label label-root required"
+                class="form-control-label label-root"
                 for="emailAddressDomains"
               >
                 <span

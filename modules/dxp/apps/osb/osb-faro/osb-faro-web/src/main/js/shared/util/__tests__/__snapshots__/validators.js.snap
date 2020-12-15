@@ -14,4 +14,4 @@ exports[`validateRequired should validate required as not valid if the value is 
 
 exports[`validateRequired should validate required as valid 1`] = `""`;
 
-exports[`validateRequired should validate required as valid when validating array 1`] = `""`;
+exports[`validateRequired should validate required as valid when validating array with value 1`] = `""`;
