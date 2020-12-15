@@ -1,35 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DateInput should render 1`] = `
-<div
-  aria-haspopup="true"
-  class="input-group date-input-root"
->
+<div>
   <div
-    class="input-group-item"
+    aria-haspopup="true"
+    class="input-group date-input-root"
   >
-    <input
-      class="input-root form-control input-group-inset input-group-inset-after"
-      data-testid="date-input"
-      placeholder="YYYY-MM-DD"
-      type="text"
-    />
     <div
-      class="input-group-inset-item input-group-inset-item-after"
+      class="input-group-item"
     >
-      <button
-        class="button-root btn btn-unstyled"
-        type="button"
+      <input
+        class="input-root form-control input-group-inset input-group-inset-after"
+        data-testid="date-input"
+        placeholder="YYYY-MM-DD"
+        type="text"
+        value=""
+      />
+      <div
+        class="input-group-inset-item input-group-inset-item-after"
       >
-        <svg
-          class="icon-root lexicon-icon lexicon-icon-calendar"
-          viewBox=""
+        <button
+          class="button-root btn btn-unstyled"
+          type="button"
         >
-          <use
-            href="/o/osb-faro-web/dist/sprite.svg#calendar"
-          />
-        </svg>
-      </button>
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-calendar"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#calendar"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 </div>
