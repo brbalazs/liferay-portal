@@ -64,6 +64,10 @@ public class FaroNotificationLocalServiceUtil {
 			userId, groupId, scope, type, subType);
 	}
 
+	public static void clearDismissedNotifications() {
+		getService().clearDismissedNotifications();
+	}
+
 	/**
 	 * Creates a new faro notification with the primary key. Does not add the faro notification to the database.
 	 *
@@ -214,15 +218,9 @@ public class FaroNotificationLocalServiceUtil {
 	}
 
 	public static java.util.List<com.liferay.osb.faro.model.FaroNotification>
-		findFaroNotificationsByG_S_R(long groupId, String scope, boolean read) {
+		findFaroNotificationsLast30Days(long groupId, long userId) {
 
-		return getService().findFaroNotificationsByG_S_R(groupId, scope, read);
-	}
-
-	public static java.util.List<com.liferay.osb.faro.model.FaroNotification>
-		findFaroNotificationsByU_S_R(long userId, String scope, boolean read) {
-
-		return getService().findFaroNotificationsByU_S_R(userId, scope, read);
+		return getService().findFaroNotificationsLast30Days(groupId, userId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery

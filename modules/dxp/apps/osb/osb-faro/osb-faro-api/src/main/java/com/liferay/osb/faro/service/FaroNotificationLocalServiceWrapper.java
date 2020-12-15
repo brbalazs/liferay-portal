@@ -59,6 +59,11 @@ public class FaroNotificationLocalServiceWrapper
 			userId, groupId, scope, type, subType);
 	}
 
+	@Override
+	public void clearDismissedNotifications() {
+		_faroNotificationLocalService.clearDismissedNotifications();
+	}
+
 	/**
 	 * Creates a new faro notification with the primary key. Does not add the faro notification to the database.
 	 *
@@ -224,18 +229,10 @@ public class FaroNotificationLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.osb.faro.model.FaroNotification>
-		findFaroNotificationsByG_S_R(long groupId, String scope, boolean read) {
+		findFaroNotificationsLast30Days(long groupId, long userId) {
 
-		return _faroNotificationLocalService.findFaroNotificationsByG_S_R(
-			groupId, scope, read);
-	}
-
-	@Override
-	public java.util.List<com.liferay.osb.faro.model.FaroNotification>
-		findFaroNotificationsByU_S_R(long userId, String scope, boolean read) {
-
-		return _faroNotificationLocalService.findFaroNotificationsByU_S_R(
-			userId, scope, read);
+		return _faroNotificationLocalService.findFaroNotificationsLast30Days(
+			groupId, userId);
 	}
 
 	@Override

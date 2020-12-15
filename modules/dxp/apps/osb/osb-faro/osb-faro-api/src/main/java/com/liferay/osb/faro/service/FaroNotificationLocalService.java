@@ -79,6 +79,8 @@ public interface FaroNotificationLocalService
 	public FaroNotification addFaroNotification(
 		long userId, long groupId, String scope, String type, String subType);
 
+	public void clearDismissedNotifications();
+
 	/**
 	 * Creates a new faro notification with the primary key. Does not add the faro notification to the database.
 	 *
@@ -193,11 +195,8 @@ public interface FaroNotificationLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public FaroNotification fetchFaroNotification(long faroNotificationId);
 
-	public List<FaroNotification> findFaroNotificationsByG_S_R(
-		long groupId, String scope, boolean read);
-
-	public List<FaroNotification> findFaroNotificationsByU_S_R(
-		long userId, String scope, boolean read);
+	public List<FaroNotification> findFaroNotificationsLast30Days(
+		long groupId, long userId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
