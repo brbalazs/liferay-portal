@@ -13,3 +13,5 @@ exports[`validateRequired should validate required as not valid 1`] = `"Required
 exports[`validateRequired should validate required as not valid if the value is a string with only spaces 1`] = `"Required"`;
 
 exports[`validateRequired should validate required as valid 1`] = `""`;
+
+exports[`validateRequired should validate required as valid when validating array 1`] = `""`;
