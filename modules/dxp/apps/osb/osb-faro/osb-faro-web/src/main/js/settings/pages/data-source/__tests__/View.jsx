@@ -1,24 +1,41 @@
-jest.mock('../CSV', () => 'CSV');
-jest.mock('../Liferay', () => 'LiferayDataSource');
-jest.mock('../Salesforce', () => 'Salesforce');
-
 import * as data from 'test/data';
+import Constants from 'shared/util/constants';
+import mockStore from 'test/mock-store';
 import React from 'react';
 import {DataSource, User} from 'shared/util/records';
-import {shallow} from 'enzyme';
+import {MemoryRouter} from 'react-router';
+import {Provider} from 'react-redux';
+import {render} from '@testing-library/react';
 import {View} from '../View';
+import {waitForLoading} from 'test/helpers';
 
-const defaultProps = {
-	currentUser: data.getImmutableMock(User, data.mockUser),
-	groupId: '23',
-	id: '24'
-};
+const {
+	credentialTypes: {token}
+} = Constants;
+
+jest.unmock('react-dom');
+
+const DefaultComponent = props => (
+	<Provider store={mockStore()}>
+		<MemoryRouter
+			initialEntries={[
+				'/workspace/32719/settings/data-source/450553575308493949'
+			]}
+		>
+			<View
+				currentUser={data.getImmutableMock(User, data.mockUser)}
+				groupId='23'
+				id='24'
+				{...props}
+			/>
+		</MemoryRouter>
+	</Provider>
+);
 
 describe('View', () => {
 	it('should render a CSV data-source page', () => {
-		const component = shallow(
-			<View
-				{...defaultProps}
+		const {container} = render(
+			<DefaultComponent
 				dataSource={data.getImmutableMock(
 					DataSource,
 					data.mockCSVDataSource
@@ -26,13 +43,35 @@ describe('View', () => {
 			/>
 		);
 
-		expect(component.name()).toBe('CSV');
+		jest.runAllTimers();
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render a Liferay data-source page', () => {
-		const component = shallow(
-			<View
-				{...defaultProps}
+		const {container} = render(
+			<DefaultComponent
+				dataSource={data.getImmutableMock(
+					DataSource,
+					data.mockLiferayDataSource,
+					'123',
+					{
+						credentials: {
+							type: token
+						}
+					}
+				)}
+			/>
+		);
+
+		jest.runAllTimers();
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('should render a Liferay data-source old page', async() => {
+		const {container} = render(
+			<DefaultComponent
 				dataSource={data.getImmutableMock(
 					DataSource,
 					data.mockLiferayDataSource
@@ -40,13 +79,16 @@ describe('View', () => {
 			/>
 		);
 
-		expect(component.name()).toBe('LiferayDataSource');
+		await waitForLoading(container);
+
+		jest.runAllTimers();
+
+		expect(container).toMatchSnapshot();
 	});
 
-	it('should render a Salesforce data-source page', () => {
-		const component = shallow(
-			<View
-				{...defaultProps}
+	it('should render a Salesforce data-source page', async() => {
+		const {container} = render(
+			<DefaultComponent
 				dataSource={data.getImmutableMock(
 					DataSource,
 					data.mockSalesforceDataSource
@@ -54,6 +96,10 @@ describe('View', () => {
 			/>
 		);
 
-		expect(component.name()).toBe('Salesforce');
+		await waitForLoading(container);
+
+		jest.runAllTimers();
+
+		expect(container).toMatchSnapshot();
 	});
 });
