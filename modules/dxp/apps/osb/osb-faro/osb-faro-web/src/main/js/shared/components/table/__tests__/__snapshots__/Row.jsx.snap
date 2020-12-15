@@ -85,29 +85,13 @@ exports[`Row should render with the header 1`] = `
   >
     <HeaderCell
       accessor="name"
-      headerLink={false}
       key="0"
-      orderParams={
-        Immutable.Record {
-          "field": "",
-          "sortOrder": "asc",
-        }
-      }
-      sortable={true}
     >
       Name
     </HeaderCell>
     <HeaderCell
       accessor="properties.salary"
-      headerLink={false}
       key="1"
-      orderParams={
-        Immutable.Record {
-          "field": "",
-          "sortOrder": "asc",
-        }
-      }
-      sortable={true}
     >
       Salary
     </HeaderCell>
