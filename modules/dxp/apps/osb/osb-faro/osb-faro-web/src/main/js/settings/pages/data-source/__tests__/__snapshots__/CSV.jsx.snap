@@ -1,95 +1,134 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CSV should render 1`] = `
-<Connect(SettingsBasePage)
-  breadcrumbItems={
-    Array [
-      Object {
-        "href": "/workspace/23/settings/data-source",
-        "label": "Data Sources",
-      },
-      Object {
-        "active": true,
-        "label": "CSV1",
-        "truncate": true,
-      },
-    ]
-  }
-  className="csv-data-source-root"
-  documentTitle="CSV1"
-  groupId="23"
->
-  <Sheet
-    large={false}
-    pageDisplay={false}
+<div>
+  <div
+    class="settings-base-page-root csv-data-source-root"
   >
-    <Header
-      border={true}
-      className="header-content"
+    <div
+      class="maintenance-alert-root"
+    />
+    <ol
+      class="breadcrumb breadcrumbs-root"
     >
-      <div
-        className="page-title-group"
+      <li
+        class="breadcrumb-item"
       >
-        <h3
-          className="w-50"
+        <a
+          class="breadcrumb-link breadcrumb-text-truncate"
+          href="/workspace/23/settings/data-source"
         >
-          <DefinitionItem
-            editable={true}
-            name="name"
-            onSubmit={[Function]}
-            validate={[Function]}
-            value="CSV1"
-          />
-        </h3>
+          Data Sources
+        </a>
+      </li>
+      <li
+        class="breadcrumb-item active"
+      >
+        <span
+          class="breadcrumb-text-truncate"
+        >
+          CSV1
+        </span>
+      </li>
+    </ol>
+    <div>
+      <div
+        class="sheet"
+      >
         <div
-          className="button-row"
+          class="sheet-header header-content"
         >
-          <Button
-            display="primary"
-            href="/workspace/23/settings/data-source/test/edit"
+          <div
+            class="page-title-group"
           >
-            Edit CSV
-          </Button>
-          <Button
-            href="/workspace/23/settings/data-source/test/delete"
+            <h3
+              class="w-50"
+            >
+              <div
+                class="definition-item-root"
+              >
+                <div
+                  class="d-flex align-items-center"
+                >
+                  <span
+                    class="text-truncate"
+                    data-tooltip="false"
+                    title=""
+                  >
+                    CSV1
+                  </span>
+                  <button
+                    aria-label="Edit"
+                    class="button-root btn btn-secondary btn-sm"
+                    type="button"
+                  >
+                    <svg
+                      class="icon-root lexicon-icon lexicon-icon-pencil"
+                      viewBox=""
+                    >
+                      <use
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#pencil"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </h3>
+            <div
+              class="button-row"
+            >
+              <a
+                class="button-root btn btn-primary"
+                href="/workspace/23/settings/data-source/test/edit"
+              >
+                Edit CSV
+              </a>
+              <a
+                class="button-root btn btn-secondary"
+                href="/workspace/23/settings/data-source/test/delete"
+              >
+                Delete Data Source
+              </a>
+            </div>
+          </div>
+          <div
+            class="file-info"
           >
-            Delete Data Source
-          </Button>
+            <div
+              class="definition-item-root"
+            >
+              <div
+                class="d-flex align-items-center"
+              >
+                -
+              </div>
+            </div>
+            <button
+              class="button-root btn btn-secondary toggle-preview btn-sm"
+              type="button"
+            >
+              View File Preview
+            </button>
+          </div>
+        </div>
+        <div
+          class="sheet-body"
+        >
+          <h3
+            class="mappings-header"
+          >
+            Current Mappings
+          </h3>
+        </div>
+        <div
+          class="spinner-root spinner-spacer"
+        >
+          <span
+            class="loading-animation loading-animation-dotted"
+          />
         </div>
       </div>
-      <div
-        className="file-info"
-      >
-        <DefinitionItem
-          name="name"
-          value={null}
-        />
-        <Button
-          className="toggle-preview"
-          display="secondary"
-          onClick={[Function]}
-          size="sm"
-        >
-          View File Preview
-        </Button>
-      </div>
-    </Header>
-    <Body>
-      <h3
-        className="mappings-header"
-      >
-        Current Mappings
-      </h3>
-    </Body>
-    <Spinner
-      alignCenter={false}
-      display="dotted"
-      fadeIn={false}
-      inline={false}
-      light={false}
-      overlay={false}
-      spacer={true}
-    />
-  </Sheet>
-</Connect(SettingsBasePage)>
+    </div>
+  </div>
+</div>
 `;
