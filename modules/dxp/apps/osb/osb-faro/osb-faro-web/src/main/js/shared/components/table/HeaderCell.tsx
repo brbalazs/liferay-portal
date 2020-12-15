@@ -1,5 +1,5 @@
 import Button from 'shared/components/Button';
-import faroConstants from 'shared/util/constants';
+import Constants from 'shared/util/constants';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import React from 'react';
@@ -8,16 +8,16 @@ import {
 	getDefaultSortOrder,
 	invertOrder
 } from 'shared/util/pagination';
-import {get, isNull} from 'lodash';
+import {get, isNull, noop} from 'lodash';
 import {OrderParams} from 'shared/util/records';
 import {setUriQueryValues} from 'shared/util/router';
 
 interface IHeaderCellProps {
 	accessor: string;
-	children?: any;
-	className: string;
+	children: React.ReactNode;
+	className?: string;
 	headerLink?: boolean;
-	onSort: (fieldName: string) => void;
+	onSort?: (fieldName: string) => void;
 	orderParams?: {OrderParams};
 	sortable?: boolean;
 }
@@ -27,11 +27,11 @@ const HeaderCell: React.FC<IHeaderCellProps> = ({
 	children,
 	className,
 	headerLink = false,
-	onSort,
+	onSort = noop,
 	orderParams = new OrderParams(),
 	sortable = true
 }) => {
-	const {cur: defaultPage} = faroConstants.pagination;
+	const {cur: defaultPage} = Constants.pagination;
 
 	const fieldName = get(ACCESSOR_TO_FIELD_MAP, [accessor], accessor);
 
