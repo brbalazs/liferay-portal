@@ -1,13 +1,22 @@
+import ConfigureCSV from '../ConfigureCSV';
+import mockStore from 'test/mock-store';
 import React from 'react';
-import {ConfigureCSVTesting} from '../ConfigureCSV';
-import {shallow} from 'enzyme';
+import {Provider} from 'react-redux';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 describe('ConfigureCSV', () => {
 	it('should render', () => {
-		const component = shallow(
-			<ConfigureCSVTesting groupId='23' id='123' />
+		const {container} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<ConfigureCSV groupId='23' id='123' />
+				</StaticRouter>
+			</Provider>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
