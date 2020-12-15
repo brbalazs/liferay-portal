@@ -131,7 +131,7 @@ public class CerebroEngineClientImpl implements CerebroEngineClient {
 
 		restTemplate.setInterceptors(
 			Collections.singletonList(
-				new AuthenticationClientHttpRequestInterceptor()));
+				new AuthenticationClientHttpRequestInterceptor(faroProject)));
 
 		return restTemplate.exchange(
 			EngineServiceURLUtil.getBackendURL(faroProject, "/graphql"),

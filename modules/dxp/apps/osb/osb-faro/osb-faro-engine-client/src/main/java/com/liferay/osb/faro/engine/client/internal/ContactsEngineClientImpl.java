@@ -2397,7 +2397,7 @@ public class ContactsEngineClientImpl
 			OutputStream outputStream)
 		throws Exception {
 
-		RestTemplate restTemplate = getRestTemplate();
+		RestTemplate restTemplate = getRestTemplate(faroProject);
 
 		RequestCallback requestCallback = clientHttpRequest -> {
 			HttpHeaders httpHeaders = clientHttpRequest.getHeaders();
@@ -2459,7 +2459,7 @@ public class ContactsEngineClientImpl
 
 		FaroThreadLocal.setCacheEnabled(false);
 
-		RestTemplate restTemplate = getRestTemplate();
+		RestTemplate restTemplate = getRestTemplate(faroProject);
 
 		ResponseEntity<Map<String, Object>> responseEntity =
 			restTemplate.exchange(

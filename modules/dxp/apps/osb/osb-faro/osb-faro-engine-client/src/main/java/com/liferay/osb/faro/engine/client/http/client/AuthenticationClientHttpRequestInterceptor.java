@@ -14,7 +14,9 @@
 
 package com.liferay.osb.faro.engine.client.http.client;
 
+import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import java.io.IOException;
 
@@ -36,6 +38,10 @@ import org.springframework.http.client.ClientHttpResponse;
 public class AuthenticationClientHttpRequestInterceptor
 	implements ClientHttpRequestInterceptor {
 
+	public AuthenticationClientHttpRequestInterceptor(FaroProject faroProject) {
+		_faroProject = faroProject;
+	}
+
 	@Override
 	public ClientHttpResponse intercept(
 			HttpRequest httpRequest, byte[] bytes,
@@ -45,11 +51,15 @@ public class AuthenticationClientHttpRequestInterceptor
 		try {
 			HttpHeaders httpHeaders = httpRequest.getHeaders();
 
-			String signature = DigestUtils.sha256Hex(
-				_ASAH_TOKEN.concat(
-					HttpRequestUtil.getOriginalURL(httpRequest)));
-
-			httpHeaders.add(_ASAH_SECURITY_SIGNATURE_HEADER, signature);
+			httpHeaders.add(
+				_ASAH_PROJECT_ID_HEADER,
+				StringUtil.removeSubstring(
+					_faroProject.getWeDeployKey(), ".lfr.cloud"));
+			httpHeaders.add(
+				_ASAH_SECURITY_SIGNATURE_HEADER,
+				DigestUtils.sha256Hex(
+					_ASAH_TOKEN.concat(
+						HttpRequestUtil.getOriginalURL(httpRequest))));
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
@@ -58,10 +68,14 @@ public class AuthenticationClientHttpRequestInterceptor
 		return clientHttpRequestExecution.execute(httpRequest, bytes);
 	}
 
+	private static final String _ASAH_PROJECT_ID_HEADER = "OSB-Asah-Project-Id";
+
 	private static final String _ASAH_SECURITY_SIGNATURE_HEADER =
 		"OSB-Asah-Faro-Backend-Security-Signature";
 
 	private static final String _ASAH_TOKEN = System.getenv("OSB_ASAH_TOKEN");
+
+	private final FaroProject _faroProject;
 
 	private static class HttpRequestUtil {
 

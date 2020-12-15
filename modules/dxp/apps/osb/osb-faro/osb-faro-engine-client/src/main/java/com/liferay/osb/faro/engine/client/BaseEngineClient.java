@@ -99,7 +99,7 @@ public abstract class BaseEngineClient {
 
 		String templatedURL = getTemplatedURL(faroProject, type);
 
-		RestTemplate restTemplate = getRestTemplate();
+		RestTemplate restTemplate = getRestTemplate(faroProject);
 
 		UriTemplateHandler uriTemplateHandler =
 			(UriTemplateHandler)restTemplate.getUriTemplateHandler();
@@ -205,7 +205,9 @@ public abstract class BaseEngineClient {
 			FaroProject faroProject, String type, List<String> ids)
 		throws FaroEngineClientException {
 
-		getRestTemplate().exchange(
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		restTemplate.exchange(
 			getTemplatedURL(faroProject, type), HttpMethod.DELETE,
 			new HttpEntity<>(ids), String.class, getUriVariables(faroProject));
 	}
@@ -215,8 +217,9 @@ public abstract class BaseEngineClient {
 			Map<String, Object> uriVariables)
 		throws FaroEngineClientException {
 
-		getRestTemplate().delete(
-			getTemplatedURL(faroProject, type), uriVariables);
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		restTemplate.delete(getTemplatedURL(faroProject, type), uriVariables);
 	}
 
 	protected void delete(FaroProject faroProject, String type, String id)
@@ -226,7 +229,9 @@ public abstract class BaseEngineClient {
 			throw new FaroEngineClientException();
 		}
 
-		getRestTemplate().delete(
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		restTemplate.delete(
 			getTemplatedURL(faroProject, type),
 			getUriVariables(faroProject, id));
 	}
@@ -237,7 +242,7 @@ public abstract class BaseEngineClient {
 			Map<String, Object> uriVariables)
 		throws Exception {
 
-		RestTemplate restTemplate = getRestTemplate();
+		RestTemplate restTemplate = getRestTemplate(faroProject);
 
 		ResponseEntity<T> responseEntity = restTemplate.exchange(
 			getUriString(faroProject, path, queryParameters), HttpMethod.GET,
@@ -252,7 +257,9 @@ public abstract class BaseEngineClient {
 		ParameterizedTypeReference<T> parameterizedTypeReference,
 		Map<String, Object> uriVariables) {
 
-		ResponseEntity<T> responseEntity = getRestTemplate().exchange(
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		ResponseEntity<T> responseEntity = restTemplate.exchange(
 			getTemplatedURL(faroProject, type), HttpMethod.GET,
 			HttpEntity.EMPTY, parameterizedTypeReference, uriVariables);
 
@@ -278,7 +285,9 @@ public abstract class BaseEngineClient {
 			throw new FaroEngineClientException();
 		}
 
-		ResponseEntity<T> responseEntity = getRestTemplate().getForEntity(
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		ResponseEntity<T> responseEntity = restTemplate.getForEntity(
 			getTemplatedURL(faroProject, type), responseType, uriVariables);
 
 		return responseEntity.getBody();
@@ -316,7 +325,7 @@ public abstract class BaseEngineClient {
 		return _OSB_ASAH_BACKEND_URL;
 	}
 
-	protected RestTemplate getRestTemplate() {
+	protected RestTemplate getRestTemplate(FaroProject faroProject) {
 		RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
 
 		restTemplateBuilder = restTemplateBuilder.uriTemplateHandler(
@@ -344,7 +353,7 @@ public abstract class BaseEngineClient {
 		clientHttpRequestInterceptors.add(
 			new AuditClientHttpRequestInterceptor());
 		clientHttpRequestInterceptors.add(
-			new AuthenticationClientHttpRequestInterceptor());
+			new AuthenticationClientHttpRequestInterceptor(faroProject));
 
 		Cache cache = getCache();
 
@@ -394,7 +403,9 @@ public abstract class BaseEngineClient {
 			return engineURL + _urlPaths.get(type);
 		}
 
-		ResponseEntity<Resource<?>> responseEntity = getRestTemplate().exchange(
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		ResponseEntity<Resource<?>> responseEntity = restTemplate.exchange(
 			engineURL, HttpMethod.GET, null,
 			new ParameterizedTypeReference<Resource<?>>() {
 			},
@@ -519,7 +530,9 @@ public abstract class BaseEngineClient {
 		FaroProject faroProject, String type, Object object,
 		Class<T> responseType, Map<String, Object> uriVariables) {
 
-		return getRestTemplate().patchForObject(
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		return restTemplate.patchForObject(
 			getTemplatedURL(faroProject, type), object, responseType,
 			uriVariables);
 	}
@@ -528,7 +541,9 @@ public abstract class BaseEngineClient {
 		FaroProject faroProject, String type, String id, Object object,
 		Class<T> responseType) {
 
-		return getRestTemplate().patchForObject(
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		return restTemplate.patchForObject(
 			getTemplatedURL(faroProject, type), object, responseType,
 			getUriVariables(faroProject, id));
 	}
@@ -539,7 +554,7 @@ public abstract class BaseEngineClient {
 			Class<T> responseType, Map<String, Object> uriVariables)
 		throws Exception {
 
-		RestTemplate restTemplate = getRestTemplate();
+		RestTemplate restTemplate = getRestTemplate(faroProject);
 
 		ResponseEntity<T> responseEntity = restTemplate.exchange(
 			getUriString(faroProject, path, queryParameters), HttpMethod.POST,
@@ -553,7 +568,9 @@ public abstract class BaseEngineClient {
 		FaroProject faroProject, String type, Object object,
 		Class<T> responseType) {
 
-		ResponseEntity<T> responseEntity = getRestTemplate().postForEntity(
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		ResponseEntity<T> responseEntity = restTemplate.postForEntity(
 			getTemplatedURL(faroProject, type), object, responseType,
 			getUriVariables(faroProject));
 
@@ -564,7 +581,9 @@ public abstract class BaseEngineClient {
 		FaroProject faroProject, String type, Object object,
 		Class<T> responseType, Map<String, Object> uriVariables) {
 
-		ResponseEntity<T> responseEntity = getRestTemplate().postForEntity(
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		ResponseEntity<T> responseEntity = restTemplate.postForEntity(
 			getTemplatedURL(faroProject, type), object, responseType,
 			uriVariables);
 
@@ -576,7 +595,9 @@ public abstract class BaseEngineClient {
 		ParameterizedTypeReference<T> responseType,
 		Map<String, Object> uriVariables) {
 
-		ResponseEntity<T> responseEntity = getRestTemplate().exchange(
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		ResponseEntity<T> responseEntity = restTemplate.exchange(
 			getTemplatedURL(faroProject, type), HttpMethod.POST,
 			new HttpEntity<>((T)object), responseType, uriVariables);
 
@@ -588,7 +609,9 @@ public abstract class BaseEngineClient {
 			Class<T> responseType)
 		throws FaroEngineClientException {
 
-		ResponseEntity<T> responseEntity = getRestTemplate().postForEntity(
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		ResponseEntity<T> responseEntity = restTemplate.postForEntity(
 			getTemplatedURL(faroProject, type), null, responseType,
 			getUriVariables(faroProject, id));
 
@@ -599,7 +622,9 @@ public abstract class BaseEngineClient {
 		FaroProject faroProject, String type, Object object,
 		Class<T> responseType, Map<String, Object> uriVariables) {
 
-		ResponseEntity<T> responseEntity = getRestTemplate().exchange(
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		ResponseEntity<T> responseEntity = restTemplate.exchange(
 			getTemplatedURL(faroProject, type), HttpMethod.PUT,
 			new HttpEntity<T>((T)object), responseType, uriVariables);
 
