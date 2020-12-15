@@ -1,6 +1,6 @@
 import Promise from 'metal-promise';
 import {formatStringToLowercase} from 'shared/util/util';
-import {isObject, isString, isArray} from 'lodash';
+import {isArray, isObject, isString} from 'lodash';
 import {sub} from 'shared/util/lang';
 
 /**
