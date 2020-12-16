@@ -1,47 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UserActionsRenderer should render 1`] = `
-<span
-  className=""
->
-  <Button
-    disabled={false}
-    onClick={[Function]}
-    size="sm"
+<div>
+  <span
+    class=""
   >
-    Edit
-  </Button>
-  <Button
-    borderless={true}
-    disabled={false}
-    onClick={[Function]}
-    size="sm"
-  >
-    <Icon
-      symbol="trash"
-    />
-  </Button>
-</span>
-`;
-
-exports[`UserActionsRenderer should render with save and cancel buttons because editing is true 1`] = `
-<span
-  className=""
->
-  <Button
-    disabled={false}
-    display="primary"
-    onClick={[Function]}
-    size="sm"
-  >
-    Save
-  </Button>
-  <Button
-    disabled={false}
-    onClick={[Function]}
-    size="sm"
-  >
-    Cancel
-  </Button>
-</span>
+    <button
+      class="button-root btn btn-secondary btn-sm"
+      type="button"
+    >
+      Edit
+    </button>
+    <button
+      class="button-root btn btn-secondary btn-outline-borderless btn-sm"
+      type="button"
+    >
+      <svg
+        class="icon-root lexicon-icon lexicon-icon-trash"
+        viewBox=""
+      >
+        <use
+          xlink:href="/o/osb-faro-web/dist/sprite.svg#trash"
+        />
+      </svg>
+    </button>
+  </span>
+</div>
 `;
