@@ -1,33 +1,43 @@
-jest.mock('../edit/Dynamic', () => 'DynamicSegment');
-jest.mock('../edit/Static', () => 'StaticSegment');
-
-import FaroConstants from 'shared/util/constants';
+import Constants from 'shared/util/constants';
+import mockStore from 'test/mock-store';
 import React from 'react';
 import {Edit} from '../Edit';
-import {shallow} from 'enzyme';
+import {Provider} from 'react-redux';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
 
-const {segmentTypes} = FaroConstants;
+jest.unmock('react-dom');
+
+const {segmentTypes} = Constants;
+
+const DefaultComponent = props => (
+	<Provider store={mockStore()}>
+		<StaticRouter>
+			<Edit groupId='23' {...props} />
+		</StaticRouter>
+	</Provider>
+);
 
 describe('Edit', () => {
 	it('should render', () => {
-		const component = shallow(<Edit groupId='23' />);
+		const {container} = render(<DefaultComponent />);
 
-		expect(component.name()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render a dynamic segment', () => {
-		const component = shallow(
-			<Edit groupId='23' type={segmentTypes.dynamic} />
+		const {getByText} = render(
+			<DefaultComponent type={segmentTypes.dynamic} />
 		);
 
-		expect(component.name()).toEqual('DynamicSegment');
+		expect(getByText('DYNAMIC Segment')).toBeTruthy();
 	});
 
 	it('should render a static segment', () => {
-		const component = shallow(
-			<Edit groupId='23' type={segmentTypes.static} />
+		const {getByText} = render(
+			<DefaultComponent type={segmentTypes.static} />
 		);
 
-		expect(component.name()).toEqual('StaticSegment');
+		expect(getByText('STATIC Segment')).toBeTruthy();
 	});
 });
