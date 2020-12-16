@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * @author Geyson Silva
@@ -51,6 +52,16 @@ public class FaroNotificationLocalServiceImpl
 		faroNotification.setSubType(subType);
 
 		return faroNotificationPersistence.update(faroNotification);
+	}
+
+	@Override
+	public void clearDismissedNotifications() {
+		List<FaroNotification> dismissedNotifications =
+			faroNotificationFinder.findDismissedNotifications();
+
+		Stream<FaroNotification> stream = dismissedNotifications.stream();
+
+		stream.forEach(faroNotificationPersistence::remove);
 	}
 
 	@Override
