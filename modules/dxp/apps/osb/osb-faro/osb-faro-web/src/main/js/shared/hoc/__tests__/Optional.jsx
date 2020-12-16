@@ -1,29 +1,26 @@
 import optional from '../Optional';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('Optional', () => {
 	it('should render the original component', () => {
-		const fn = jest.fn();
-		const hoc = () => fn;
-		const Optional = optional(hoc)(jest.fn());
-		shallow(<Optional id={null} />);
-		expect(fn).not.toBeCalled();
+		const hoc = jest.fn(() => 'hoc component');
+		const Optional = optional(hoc)(jest.fn(() => 'wrapped component'));
+
+		const {queryByText} = render(<Optional id={null} />);
+
+		expect(queryByText('hoc component')).toBeNull();
+		expect(queryByText('wrapped component')).toBeTruthy();
 	});
 
 	it('should render the HOC component instead', () => {
 		const hoc = jest.fn(() => () => 'hoc component');
 		const Optional = optional(hoc)(jest.fn(() => 'wrapped component'));
-		const component = shallow(<Optional id={23} />);
-		expect(component.shallow().text()).toEqual('hoc component');
-	});
+		const {queryByText} = render(<Optional id={23} />);
 
-	it('should allow the id prop name to be set', () => {
-		const hoc = jest.fn(() => () => 'hoc component');
-		const Optional = optional(hoc, {idPropName: 'foobar'})(
-			jest.fn(() => 'wrapped component')
-		);
-		const component = shallow(<Optional foobar={23} />);
-		expect(component.prop('foobar')).toEqual(23);
+		expect(queryByText('hoc component')).toBeTruthy();
+		expect(queryByText('wrapped component')).toBeNull();
 	});
 });
