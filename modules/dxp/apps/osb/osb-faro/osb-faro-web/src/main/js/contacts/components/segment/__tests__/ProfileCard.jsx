@@ -1,35 +1,39 @@
 import * as data from 'test/data';
 import React from 'react';
 import {ENGAGEMENT} from 'shared/util/router';
+import {render} from '@testing-library/react';
 import {Segment} from 'shared/util/records';
 import {SegmentProfileCard} from '../ProfileCard';
-import {shallow} from 'enzyme';
+import {StaticRouter} from 'react-router-dom';
+
+jest.unmock('react-dom');
+
+const DefaultComponent = props => (
+	<StaticRouter>
+		<SegmentProfileCard
+			channelId='123'
+			groupId='23'
+			segment={data.getImmutableMock(Segment, data.mockSegment, '3')}
+			{...props}
+		/>
+	</StaticRouter>
+);
 
 describe('SegmentProfileCard', () => {
 	it('should render', () => {
-		const component = shallow(
-			<SegmentProfileCard
-				channelId='123'
-				groupId='23'
-				segment={data.getImmutableMock(Segment, data.mockSegment, '3')}
-			/>
-		);
+		const {container, getByTestId} = render(<DefaultComponent />);
 
-		expect(component).toMatchSnapshot();
+		jest.runAllTimers();
+
+		expect(getByTestId('growth').className).toContain('active');
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with Engagement tab as active', () => {
-		const component = shallow(
-			<SegmentProfileCard
-				channelId='123'
-				groupId='23'
-				segment={data.getImmutableMock(Segment, data.mockSegment, '3')}
-				tabId={ENGAGEMENT}
-			/>
-		);
+		const {getByTestId} = render(<DefaultComponent tabId={ENGAGEMENT} />);
 
-		expect(component.find('CardTabs').props().activeTabId).toEqual(
-			ENGAGEMENT
-		);
+		jest.runAllTimers();
+
+		expect(getByTestId('engagement').className).toContain('active');
 	});
 });
