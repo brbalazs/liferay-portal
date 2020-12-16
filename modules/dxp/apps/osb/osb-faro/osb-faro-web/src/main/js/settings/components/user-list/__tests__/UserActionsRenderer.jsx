@@ -1,19 +1,21 @@
 import React from 'react';
 import UserActionsRenderer from '../UserActionsRenderer';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
 import {User} from 'shared/util/records';
+
+jest.unmock('react-dom');
 
 describe('UserActionsRenderer', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<UserActionsRenderer currentUserId={1} data={new User({id: 2})} />
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with save and cancel buttons because editing is true', () => {
-		const component = shallow(
+		const {findByText} = render(
 			<UserActionsRenderer
 				currentUserId={1}
 				data={new User({id: 2})}
@@ -21,11 +23,12 @@ describe('UserActionsRenderer', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(findByText('Save')).toBeTruthy();
+		expect(findByText('Cancel')).toBeTruthy();
 	});
 
 	it('should render without row actions for the current user', () => {
-		const component = shallow(
+		const {queryAllByRole} = render(
 			<UserActionsRenderer
 				currentUserId={1}
 				data={new User({id: 1})}
@@ -33,6 +36,6 @@ describe('UserActionsRenderer', () => {
 			/>
 		);
 
-		expect(component.find('Button').length).toBe(0);
+		expect(queryAllByRole('button').length).toBe(0);
 	});
 });
