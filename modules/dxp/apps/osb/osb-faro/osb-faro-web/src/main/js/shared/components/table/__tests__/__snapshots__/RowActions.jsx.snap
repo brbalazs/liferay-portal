@@ -1,59 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RowActions should render 1`] = `
-<td
-  className=""
->
-  <RowActions
-    actions={
-      Array [
-        Object {
-          "label": "foo",
-        },
-      ]
-    }
-    quickActions={Array []}
-  />
-</td>
-`;
-
-exports[`RowActions should render with quick actions 1`] = `
-<Fragment>
-  <div
-    className="quick-action-menu"
+<div>
+  <td
+    class=""
   >
-    <Button
-      alt="foo"
-      className="component-action quick-action-item"
-      display="unstyled"
-      key="foo"
+    <div
+      aria-haspopup="true"
+      class="dropdown dropdown-root dropdown-action"
     >
-      <Icon
-        symbol="pencil"
-      />
-    </Button>
-  </div>
-  <Dropdown
-    align="bottomRight"
-    buttonProps={
-      Object {
-        "className": "component-action",
-        "display": "unstyled",
-      }
-    }
-    className="dropdown-action"
-    disabled={false}
-    forceAlignment={false}
-    icon="ellipsis-v"
-    showCaret={false}
-  >
-    <Item
-      active={false}
-      hideOnClick={true}
-      key="foo"
-    >
-      foo
-    </Item>
-  </Dropdown>
-</Fragment>
+      <button
+        class="button-root btn btn-unstyled dropdown-toggle component-action"
+        type="button"
+      >
+        <span>
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-ellipsis-v"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#ellipsis-v"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </td>
+</div>
 `;
