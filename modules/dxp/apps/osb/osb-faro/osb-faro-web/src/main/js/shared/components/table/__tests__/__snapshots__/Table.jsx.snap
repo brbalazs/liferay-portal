@@ -1,789 +1,128 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Table should render 1`] = `
-<div
-  className="table-responsive table-root flex-grow-1"
->
-  <table
-    className="table table-autofit table-hover table-heading-nowrap table-nowrap"
+<div>
+  <div
+    class="table-responsive table-root flex-grow-1"
   >
-    <Row
-      columns={
-        Array [
-          Object {
-            "accessor": "name",
-            "label": "Name",
-          },
-          Object {
-            "accessor": "properties.salary",
-            "label": "Salary",
-          },
-        ]
-      }
-      data={Object {}}
-      disabled={false}
-      expandable={false}
-      header={true}
-      headerLink={true}
-      items={Array []}
-      itemsSelected={false}
-      onClick={[Function]}
-      onRowDelete={[Function]}
-      onRowSave={[Function]}
-      onSort={[Function]}
-      orderParams={
-        Immutable.Record {
-          "field": "",
-          "sortOrder": "asc",
-        }
-      }
-      selected={false}
-      showCheckbox={false}
-    />
-    <Row
-      columns={
-        Array [
-          Object {
-            "accessor": "name",
-            "label": "Name",
-          },
-          Object {
-            "accessor": "properties.salary",
-            "label": "Salary",
-          },
-        ]
-      }
-      data={
-        Object {
-          "activitiesCount": 1000,
-          "colorId": "0",
-          "dateCreated": 1531090866366,
-          "engagementScore": 0.4899,
-          "id": "0",
-          "image": "/path/to/portrait.png",
-          "lastActivityDate": 1531263666366,
-          "name": "Foo Bar",
-          "properties": Object {
-            "familyName": "Bar",
-            "givenName": "Foo",
-            "jobTitle": "Developer",
-            "salary": "50,000",
-            "title": "Developer",
-          },
-          "type": 2,
-        }
-      }
-      disabled={false}
-      expandable={false}
-      header={false}
-      items={
-        Array [
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "0",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "0",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "1",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "1",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "2",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "2",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "3",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "3",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "4",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "4",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-        ]
-      }
-      itemsSelected={false}
-      key="0"
-      nestedLevel={0}
-      onClick={[Function]}
-      onRowDelete={[Function]}
-      onRowSave={[Function]}
-      rowIndex={0}
-      selected={null}
-      showCheckbox={false}
-    />
-    <Row
-      columns={
-        Array [
-          Object {
-            "accessor": "name",
-            "label": "Name",
-          },
-          Object {
-            "accessor": "properties.salary",
-            "label": "Salary",
-          },
-        ]
-      }
-      data={
-        Object {
-          "activitiesCount": 1000,
-          "colorId": "1",
-          "dateCreated": 1531090866366,
-          "engagementScore": 0.4899,
-          "id": "1",
-          "image": "/path/to/portrait.png",
-          "lastActivityDate": 1531263666366,
-          "name": "Foo Bar",
-          "properties": Object {
-            "familyName": "Bar",
-            "givenName": "Foo",
-            "jobTitle": "Developer",
-            "salary": "50,000",
-            "title": "Developer",
-          },
-          "type": 2,
-        }
-      }
-      disabled={false}
-      expandable={false}
-      header={false}
-      items={
-        Array [
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "0",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "0",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "1",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "1",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "2",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "2",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "3",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "3",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "4",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "4",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-        ]
-      }
-      itemsSelected={false}
-      key="1"
-      nestedLevel={0}
-      onClick={[Function]}
-      onRowDelete={[Function]}
-      onRowSave={[Function]}
-      rowIndex={1}
-      selected={null}
-      showCheckbox={false}
-    />
-    <Row
-      columns={
-        Array [
-          Object {
-            "accessor": "name",
-            "label": "Name",
-          },
-          Object {
-            "accessor": "properties.salary",
-            "label": "Salary",
-          },
-        ]
-      }
-      data={
-        Object {
-          "activitiesCount": 1000,
-          "colorId": "2",
-          "dateCreated": 1531090866366,
-          "engagementScore": 0.4899,
-          "id": "2",
-          "image": "/path/to/portrait.png",
-          "lastActivityDate": 1531263666366,
-          "name": "Foo Bar",
-          "properties": Object {
-            "familyName": "Bar",
-            "givenName": "Foo",
-            "jobTitle": "Developer",
-            "salary": "50,000",
-            "title": "Developer",
-          },
-          "type": 2,
-        }
-      }
-      disabled={false}
-      expandable={false}
-      header={false}
-      items={
-        Array [
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "0",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "0",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "1",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "1",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "2",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "2",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "3",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "3",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "4",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "4",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-        ]
-      }
-      itemsSelected={false}
-      key="2"
-      nestedLevel={0}
-      onClick={[Function]}
-      onRowDelete={[Function]}
-      onRowSave={[Function]}
-      rowIndex={2}
-      selected={null}
-      showCheckbox={false}
-    />
-    <Row
-      columns={
-        Array [
-          Object {
-            "accessor": "name",
-            "label": "Name",
-          },
-          Object {
-            "accessor": "properties.salary",
-            "label": "Salary",
-          },
-        ]
-      }
-      data={
-        Object {
-          "activitiesCount": 1000,
-          "colorId": "3",
-          "dateCreated": 1531090866366,
-          "engagementScore": 0.4899,
-          "id": "3",
-          "image": "/path/to/portrait.png",
-          "lastActivityDate": 1531263666366,
-          "name": "Foo Bar",
-          "properties": Object {
-            "familyName": "Bar",
-            "givenName": "Foo",
-            "jobTitle": "Developer",
-            "salary": "50,000",
-            "title": "Developer",
-          },
-          "type": 2,
-        }
-      }
-      disabled={false}
-      expandable={false}
-      header={false}
-      items={
-        Array [
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "0",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "0",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "1",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "1",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "2",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "2",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "3",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "3",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "4",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "4",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-        ]
-      }
-      itemsSelected={false}
-      key="3"
-      nestedLevel={0}
-      onClick={[Function]}
-      onRowDelete={[Function]}
-      onRowSave={[Function]}
-      rowIndex={3}
-      selected={null}
-      showCheckbox={false}
-    />
-    <Row
-      columns={
-        Array [
-          Object {
-            "accessor": "name",
-            "label": "Name",
-          },
-          Object {
-            "accessor": "properties.salary",
-            "label": "Salary",
-          },
-        ]
-      }
-      data={
-        Object {
-          "activitiesCount": 1000,
-          "colorId": "4",
-          "dateCreated": 1531090866366,
-          "engagementScore": 0.4899,
-          "id": "4",
-          "image": "/path/to/portrait.png",
-          "lastActivityDate": 1531263666366,
-          "name": "Foo Bar",
-          "properties": Object {
-            "familyName": "Bar",
-            "givenName": "Foo",
-            "jobTitle": "Developer",
-            "salary": "50,000",
-            "title": "Developer",
-          },
-          "type": 2,
-        }
-      }
-      disabled={false}
-      expandable={false}
-      header={false}
-      items={
-        Array [
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "0",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "0",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "1",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "1",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "2",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "2",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "3",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "3",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-          Object {
-            "activitiesCount": 1000,
-            "colorId": "4",
-            "dateCreated": 1531090866366,
-            "engagementScore": 0.4899,
-            "id": "4",
-            "image": "/path/to/portrait.png",
-            "lastActivityDate": 1531263666366,
-            "name": "Foo Bar",
-            "properties": Object {
-              "familyName": "Bar",
-              "givenName": "Foo",
-              "jobTitle": "Developer",
-              "salary": "50,000",
-              "title": "Developer",
-            },
-            "type": 2,
-          },
-        ]
-      }
-      itemsSelected={false}
-      key="4"
-      nestedLevel={0}
-      onClick={[Function]}
-      onRowDelete={[Function]}
-      onRowSave={[Function]}
-      rowIndex={4}
-      selected={null}
-      showCheckbox={false}
-    />
-  </table>
-</div>
-`;
-
-exports[`Table should render without items 1`] = `
-<div
-  className="table-responsive table-root flex-grow-1"
->
-  <table
-    className="table table-autofit table-hover table-heading-nowrap table-nowrap"
-  >
-    <Row
-      columns={
-        Array [
-          Object {
-            "accessor": "name",
-            "label": "Name",
-          },
-          Object {
-            "accessor": "properties.salary",
-            "label": "Salary",
-          },
-        ]
-      }
-      data={Object {}}
-      disabled={false}
-      expandable={false}
-      header={true}
-      headerLink={true}
-      items={Array []}
-      itemsSelected={false}
-      onClick={[Function]}
-      onRowDelete={[Function]}
-      onRowSave={[Function]}
-      onSort={[Function]}
-      orderParams={
-        Immutable.Record {
-          "field": "",
-          "sortOrder": "asc",
-        }
-      }
-      selected={false}
-      showCheckbox={false}
-    />
-  </table>
+    <table
+      class="table table-autofit table-hover table-heading-nowrap table-nowrap"
+    >
+      <thead>
+        <tr
+          class=""
+        >
+          <th
+            class="table-head-title"
+          >
+            <a
+              class="button-root btn btn-unstyled inline-item text-truncate-inline"
+              href="/?orderBy=asc&orderByField=name&page=1"
+            >
+              <span
+                class="text-truncate"
+              >
+                Name
+              </span>
+            </a>
+          </th>
+          <th
+            class="table-head-title"
+          >
+            <a
+              class="button-root btn btn-unstyled inline-item text-truncate-inline"
+              href="/?orderBy=asc&orderByField=properties.salary&page=1"
+            >
+              <span
+                class="text-truncate"
+              >
+                Salary
+              </span>
+            </a>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class=""
+        >
+          <td
+            class=""
+          >
+            Foo Bar
+          </td>
+          <td
+            class=""
+          >
+            50,000
+          </td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr
+          class=""
+        >
+          <td
+            class=""
+          >
+            Foo Bar
+          </td>
+          <td
+            class=""
+          >
+            50,000
+          </td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr
+          class=""
+        >
+          <td
+            class=""
+          >
+            Foo Bar
+          </td>
+          <td
+            class=""
+          >
+            50,000
+          </td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr
+          class=""
+        >
+          <td
+            class=""
+          >
+            Foo Bar
+          </td>
+          <td
+            class=""
+          >
+            50,000
+          </td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr
+          class=""
+        >
+          <td
+            class=""
+          >
+            Foo Bar
+          </td>
+          <td
+            class=""
+          >
+            50,000
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 `;
