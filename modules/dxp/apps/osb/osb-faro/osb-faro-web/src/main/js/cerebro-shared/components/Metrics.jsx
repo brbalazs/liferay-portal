@@ -153,11 +153,6 @@ export default class MainMetrics extends React.Component {
 	}
 
 	@autobind
-	formatTickLabel(value) {
-		return this.getActiveItem().format(value);
-	}
-
-	@autobind
 	handleClickTab(index) {
 		const {onActiveItemIndexChange} = this.props;
 
@@ -252,6 +247,7 @@ export default class MainMetrics extends React.Component {
 			chartData,
 			content: {name, title},
 			dateKeysIMap,
+			format,
 			intervals,
 			timeline
 		} = this.getActiveItem();
@@ -266,7 +262,7 @@ export default class MainMetrics extends React.Component {
 					acc[item] = chartData[j].data[i];
 
 					const textWidth = getTextWidth(
-						this.formatTickLabel(chartData[j].data[i])
+						format(chartData[j].data[i])
 					);
 
 					if (yAxisWidth < textWidth) {
@@ -347,7 +343,7 @@ export default class MainMetrics extends React.Component {
 							yAxisWidth
 						)}
 						stroke={AXIS.gridStroke}
-						tick={getAxisTickText('y', this.formatTickLabel)}
+						tick={getAxisTickText('y', format)}
 						tickLine={false}
 						width={yAxisWidth}
 					/>
