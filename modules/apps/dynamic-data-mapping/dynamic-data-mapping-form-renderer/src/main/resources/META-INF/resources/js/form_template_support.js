@@ -73,6 +73,8 @@ AUI.add(
 							field.updateContainer();
 						}
 					);
+					
+					container.set('id', 'parent_' + container.get('id'));
 
 					instance.fire('render');
 				}
