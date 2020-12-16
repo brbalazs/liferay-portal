@@ -214,6 +214,18 @@ export default class MainMetrics extends React.Component {
 					}, {})
 				};
 			}
+		} else if (showPrevious && retVal.asymmetricComparison) {
+			retVal = {
+				...retVal,
+				chartData: chartData.map(dataSet => ({
+					...dataSet,
+					data:
+						dataSet.id !== 'data_previous'
+							? [null, ...dataSet.data.slice(1)]
+							: dataSet.data
+				})),
+				timeline
+			};
 		} else {
 			retVal = {
 				...retVal,
@@ -447,6 +459,7 @@ export default class MainMetrics extends React.Component {
 		const dateKey = payload[0].payload.date;
 
 		const {
+			asymmetricComparison,
 			chartData,
 			compositeData,
 			content: {name, title},
@@ -454,6 +467,10 @@ export default class MainMetrics extends React.Component {
 			format,
 			prevDateKeysIMap
 		} = this.getActiveItem();
+
+		const showCurrentPeriod = asymmetricComparison
+			? payload.length > 1
+			: true;
 
 		const dataOneItemData = find(
 			chartData,
@@ -504,7 +521,7 @@ export default class MainMetrics extends React.Component {
 				weight: 'normal',
 				width: 55
 			},
-			{
+			showCurrentPeriod && {
 				align: 'right',
 				label: currentPeriodTitle,
 				weight: 'semibold',
@@ -528,7 +545,7 @@ export default class MainMetrics extends React.Component {
 						align: 'right',
 						label: format(dataOnePreviousValue)
 					},
-					{
+					showCurrentPeriod && {
 						align: 'right',
 						label: format(dataOneValue),
 						weight: 'semibold'
@@ -545,7 +562,7 @@ export default class MainMetrics extends React.Component {
 						align: 'right',
 						label: format(dataTwoPreviousValue)
 					},
-					{
+					showCurrentPeriod && {
 						align: 'right',
 						label: format(dataTwoValue),
 						weight: 'semibold'
@@ -564,7 +581,7 @@ export default class MainMetrics extends React.Component {
 							dataOnePreviousValue + dataTwoPreviousValue
 						)
 					},
-					{
+					showCurrentPeriod && {
 						align: 'right',
 						label: format(dataOneValue + dataTwoValue),
 						weight: 'semibold'
