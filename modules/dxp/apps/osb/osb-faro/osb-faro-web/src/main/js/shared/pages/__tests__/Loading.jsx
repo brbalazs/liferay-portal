@@ -1,10 +1,13 @@
 import Loading from '../Loading';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('Loading', () => {
 	it('should render', () => {
-		const component = shallow(<Loading />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<Loading />);
+
+		expect(container).toMatchSnapshot();
 	});
 });
