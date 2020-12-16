@@ -4,7 +4,9 @@ import client from 'shared/apollo/client';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
 import {BrowserRouter} from 'react-router-dom';
-import {shallow} from 'enzyme';
+import {cleanup, render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 const items = [
 	{
@@ -73,13 +75,7 @@ const items = [
 ];
 
 describe('AssetsListCard', () => {
-	let component;
-
-	afterEach(() => {
-		if (component) {
-			component.unmount();
-		}
-	});
+	afterEach(cleanup);
 
 	const MOCK_CONTEXT = {
 		router: {
@@ -108,14 +104,14 @@ describe('AssetsListCard', () => {
 	);
 
 	it('should render component', () => {
-		component = shallow(<WrappedComponent />);
+		const {container} = render(<WrappedComponent />);
 
-		expect(component.render()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render component with items', () => {
-		component = shallow(<WrappedComponent items={items} />);
+		const {container} = render(<WrappedComponent items={items} />);
 
-		expect(component.render()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
