@@ -1,3 +1,112 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Edit should render 1`] = `"DynamicSegment"`;
+exports[`Edit should render 1`] = `
+<div>
+  <div
+    class="index-root segment-edit-root"
+  >
+    <div
+      class="maintenance-alert-root"
+    />
+    <header
+      class="header-root"
+    >
+      <div
+        class="header-container"
+      >
+        <div
+          class="row-root align-items-center d-flex justify-content-between"
+        >
+          <ol
+            class="breadcrumb breadcrumbs-root"
+          >
+            <li
+              class="breadcrumb-item"
+            >
+              <a
+                class="breadcrumb-link breadcrumb-text-truncate"
+                href="/workspace/23/sites"
+              >
+                Home
+              </a>
+            </li>
+            <li
+              class="breadcrumb-item"
+            >
+              <a
+                class="breadcrumb-link breadcrumb-text-truncate"
+                href="/workspace/23/contacts/segments"
+              >
+                Segments
+              </a>
+            </li>
+            <li
+              class="breadcrumb-item active"
+            >
+              <span
+                class="breadcrumb-text-truncate"
+              >
+                Create Segment
+              </span>
+            </li>
+          </ol>
+        </div>
+        <div
+          class="row-root align-items-center d-flex justify-content-between"
+        >
+          <div
+            class="header-section title-section"
+          >
+            <span
+              class="align-items-center d-flex"
+            >
+              <h1
+                class="title text-truncate"
+              >
+                <span
+                  class="text-truncate"
+                  data-tooltip="false"
+                  title=""
+                >
+                  Create Individuals Segment
+                </span>
+              </h1>
+              <div
+                class="label label-root label-secondary label-lg label-uppercase"
+              >
+                <span
+                  class="label-item"
+                >
+                  DYNAMIC Segment
+                </span>
+              </div>
+            </span>
+          </div>
+          <div
+            class="header-section"
+          />
+        </div>
+      </div>
+    </header>
+    <div
+      class="body-root"
+    >
+      <span
+        class="children-wrapper"
+      >
+        <div
+          class="loading-root"
+        >
+          <div
+            class="spinner-root spinner-fade-in"
+          >
+            <span
+              class="loading-animation loading-animation-dotted"
+            />
+          </div>
+        </div>
+      </span>
+    </div>
+  </div>
+</div>
+`;
