@@ -1,8 +1,12 @@
 import React from 'react';
 import Table, {getRowIdentifierValue} from '../index';
 import {mockIndividual} from 'test/data';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
 import {times} from 'lodash';
+
+jest.unmock('react-dom');
+
 const INDIVIDUALS = times(5, i => mockIndividual(i));
 
 const COLUMNS = [
@@ -64,133 +68,137 @@ const GROUPS = [
 
 describe('Table', () => {
 	it('should render', () => {
-		const component = shallow(
-			<Table columns={COLUMNS} items={INDIVIDUALS} rowIdentifier='id' />
+		const {container} = render(
+			<StaticRouter>
+				<Table
+					columns={COLUMNS}
+					items={INDIVIDUALS}
+					rowIdentifier='id'
+				/>
+			</StaticRouter>
 		);
-		expect(component).toMatchSnapshot();
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render without items', () => {
-		const component = shallow(
-			<Table columns={COLUMNS} rowIdentifier='id' />
+		const {container} = render(
+			<StaticRouter>
+				<Table columns={COLUMNS} rowIdentifier='id' />
+			</StaticRouter>
 		);
-		expect(component).toMatchSnapshot();
+
+		expect(container.querySelector('tbody')).toBeNull();
 	});
 
 	it('should render with borders', () => {
-		const component = shallow(
-			<Table
-				bordered
-				columns={COLUMNS}
-				items={INDIVIDUALS}
-				rowIdentifier='id'
-			/>
+		const {container} = render(
+			<StaticRouter>
+				<Table
+					bordered
+					columns={COLUMNS}
+					items={INDIVIDUALS}
+					rowIdentifier='id'
+				/>
+			</StaticRouter>
 		);
 
-		expect(component.find('.table-bordered').exists()).toBe(true);
+		expect(container.querySelector('.table-bordered')).toBeTruthy();
 	});
 
 	it('should render with nowrap headings', () => {
-		const component = shallow(
-			<Table
-				columns={COLUMNS}
-				headingNowrap
-				items={INDIVIDUALS}
-				rowIdentifier='id'
-			/>
+		const {container} = render(
+			<StaticRouter>
+				<Table
+					columns={COLUMNS}
+					headingNowrap
+					items={INDIVIDUALS}
+					rowIdentifier='id'
+				/>
+			</StaticRouter>
 		);
 
-		expect(component.find('.table-heading-nowrap').exists()).toBe(true);
+		expect(container.querySelector('.table-heading-nowrap')).toBeTruthy();
 	});
 
 	it('should render with nowrap rows', () => {
-		const component = shallow(
-			<Table
-				columns={COLUMNS}
-				items={INDIVIDUALS}
-				nowrap
-				rowIdentifier='id'
-			/>
+		const {container} = render(
+			<StaticRouter>
+				<Table
+					columns={COLUMNS}
+					items={INDIVIDUALS}
+					nowrap
+					rowIdentifier='id'
+				/>
+			</StaticRouter>
 		);
 
-		expect(component.find('.table-nowrap').exists()).toBe(true);
-	});
-
-	it('should render and set orderParams state from the defaultSort if available', () => {
-		const defaultSort = {
-			field: 'name',
-			sortOrder: 'asc'
-		};
-
-		const component = shallow(
-			<Table
-				columns={COLUMNS}
-				defaultSort={defaultSort}
-				items={INDIVIDUALS}
-				rowIdentifier='id'
-			/>
-		);
-
-		expect(component.state().orderParams.toJS()).toEqual(defaultSort);
+		expect(container.querySelector('.table-nowrap')).toBeTruthy();
 	});
 
 	it('should render with nested tables', () => {
-		const component = shallow(
-			<Table
-				columns={COLUMNS}
-				defaultSort={{
-					field: 'name',
-					sortOrder: 'desc'
-				}}
-				items={GROUPS}
-				nestedTables={[
-					{
-						accessor: 'jobTitles',
-						columns: [
-							{
-								accessor: 'value',
-								label: 'Job Title'
-							},
-							{
-								accessor: 'total',
-								label: 'Individual Count'
-							}
-						],
-						rowIdentifier: 'value'
-					},
-					{
-						accessor: 'individuals',
-						columns: [
-							{
-								accessor: 'name',
-								label: 'Name'
-							},
-							{
-								accessor: 'properties.salary',
-								label: 'Salary'
-							}
-						],
-						rowIdentifier: 'id'
-					}
-				]}
-				rowIdentifier='id'
-			/>
+		const {container} = render(
+			<StaticRouter>
+				<Table
+					columns={COLUMNS}
+					defaultSort={{
+						field: 'name',
+						sortOrder: 'desc'
+					}}
+					items={GROUPS}
+					nestedTables={[
+						{
+							accessor: 'jobTitles',
+							columns: [
+								{
+									accessor: 'value',
+									label: 'Job Title'
+								},
+								{
+									accessor: 'total',
+									label: 'Individual Count'
+								}
+							],
+							rowIdentifier: 'value'
+						},
+						{
+							accessor: 'individuals',
+							columns: [
+								{
+									accessor: 'name',
+									label: 'Name'
+								},
+								{
+									accessor: 'properties.salary',
+									label: 'Salary'
+								}
+							],
+							rowIdentifier: 'id'
+						}
+					]}
+					rowIdentifier='id'
+				/>
+			</StaticRouter>
 		);
 
-		expect(component.findWhere(n => n.props().clickable).length).toBe(2);
+		expect(
+			container.querySelector('.table-action-link').firstChild
+		).toHaveClass('lexicon-icon-caret-right');
 	});
 
 	it('should render with a loading spinner', () => {
-		const component = shallow(
-			<Table
-				columns={COLUMNS}
-				items={INDIVIDUALS}
-				loading
-				rowIdentifier='id'
-			/>
+		const {container} = render(
+			<StaticRouter>
+				<Table
+					columns={COLUMNS}
+					items={INDIVIDUALS}
+					loading
+					rowIdentifier='id'
+				/>
+			</StaticRouter>
 		);
 
-		expect(component.find('Spinner').exists()).toBe(true);
+		expect(container.querySelector('.spinner-root')).toBeTruthy();
 	});
 
 	describe('getRowIdentifierValue', () => {
