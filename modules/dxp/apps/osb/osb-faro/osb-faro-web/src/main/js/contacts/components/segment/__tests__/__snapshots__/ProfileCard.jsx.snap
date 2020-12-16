@@ -1,56 +1,77 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SegmentProfileCard should render 1`] = `
-<Card
-  className="segment-profile-card-root"
->
-  <CardTabs
-    activeTabId="growth"
-    tabs={
-      Array [
-        Object {
-          "secondaryInfo": Array [
+<div>
+  <div
+    class="card card-root segment-profile-card-root"
+  >
+    <ul
+      class="card-tabs-root"
+    >
+      <li
+        class="card-tab active"
+        data-testid="growth"
+      >
+        <a
+          class="button-root btn btn-unstyled"
+          href="/workspace/23/123/contacts/segments/3/growth"
+        >
+          <span
+            class="title"
+          >
+            Membership
+          </span>
+          <div>
             <b
-              className="primary-content"
+              class="primary-content"
             >
               10
-            </b>,
-            " Individuals in Segment",
-          ],
-          "tabId": "growth",
-          "tabUrl": "/workspace/23/123/contacts/segments/3/growth",
-          "title": "Membership",
-        },
-        Object {
-          "secondaryInfo": Array [
+            </b>
+             Individuals in Segment
+          </div>
+        </a>
+      </li>
+      <li
+        class="card-tab"
+        data-testid="engagement"
+      >
+        <a
+          class="button-root btn btn-unstyled"
+          href="/workspace/23/123/contacts/segments/3/engagement"
+        >
+          <span
+            class="title"
+          >
+            Segment Engagement Score
+          </span>
+          <div>
             <span
-              className="primary-content"
+              class="primary-content"
             >
-              <React.Fragment>
-                4.90
-                <span
-                  className="denominator"
-                >
-                  /10
-                </span>
-              </React.Fragment>
-            </span>,
-            " Avg. Member Score",
-          ],
-          "tabId": "engagement",
-          "tabUrl": "/workspace/23/123/contacts/segments/3/engagement",
-          "title": "Segment Engagement Score",
-        },
-      ]
-    }
-  />
-  <Body>
-    <Component
-      channelId="123"
-      groupId="23"
-      id="3"
-      tabId="growth"
-    />
-  </Body>
-</Card>
+              4.90
+              <span
+                class="denominator"
+              >
+                /10
+              </span>
+            </span>
+             Avg. Member Score
+          </div>
+        </a>
+      </li>
+    </ul>
+    <div
+      class="card-body"
+    >
+      <div
+        class="recharts-responsive-container"
+        style="width: 100%; height: 360px;"
+      >
+        <div
+          style="position: absolute; width: 0px; height: 0px; visibility: hidden; display: none;"
+        />
+      </div>
+    </div>
+  </div>
+</div>
 `;
