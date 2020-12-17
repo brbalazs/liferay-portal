@@ -335,9 +335,14 @@ public class CounterFinderImpl
 			newValue = counterHolder.addAndGet(size);
 
 			if (newValue > counterHolder.getRangeMax()) {
+				int range = counterRegister.getRangeSize();
+
+				if (size > range) {
+					range = size;
+				}
+
 				CounterHolder newCounterHolder = _obtainIncrement(
-					counterRegister.getName(), counterRegister.getRangeSize(),
-					0);
+					counterRegister.getName(), range, 0);
 
 				newValue = newCounterHolder.addAndGet(size);
 
