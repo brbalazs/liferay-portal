@@ -401,3 +401,40 @@ export const toThousandsABTesting = number => {
 
 	return toThousands(number);
 };
+
+export const getFormattedDataHistogram = (histogram, index) =>
+	histogram.map(({median, processedDate}) => ({
+		id: `data${index + 1}`,
+		key: processedDate,
+		value: median
+	}));
+
+export const getFormattedDataTooltip = dataPoint => {
+	const header = [
+		{
+			label: d3.utcFormat('%b %-d')(
+				getDateUtil(dataPoint[0].payload.key)
+			),
+			weight: 'semibold'
+		},
+		{
+			label: Liferay.Language.get('sessions'),
+			weight: 'semibold'
+		}
+	];
+
+	const rows = dataPoint.map(({color, name, payload}) => ({
+		columns: [
+			{
+				color,
+				label: name
+			},
+			{
+				align: 'right',
+				label: toThousandsABTesting(payload.value)
+			}
+		]
+	}));
+
+	return {header, rows};
+};
