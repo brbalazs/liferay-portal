@@ -21,8 +21,14 @@ import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.model.AssetCategoryConstants;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.cache.thread.local.ThreadLocalCachable;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.Property;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.ModelHintsUtil;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.SystemEventConstants;
@@ -125,6 +131,18 @@ public class AssetCategoryLocalServiceImpl
 		category.setVocabularyId(vocabularyId);
 
 		category = assetCategoryPersistence.update(category);
+
+		TransactionCommitCallbackUtil.registerCallback(
+			new Callable<Void>() {
+
+				@Override
+				public Void call() throws Exception {
+					_rebuildTreeIfBroken(groupId);
+
+					return null;
+				}
+
+			});
 
 		// Resources
 
@@ -794,6 +812,34 @@ public class AssetCategoryLocalServiceImpl
 		}
 	}
 
+	private long _getAssetCategoriesCount(long groupId) {
+		DynamicQuery dynamicQuery = assetCategoryLocalService.dynamicQuery();
+		Property groupIdProperty = PropertyFactoryUtil.forName("groupId");
+
+		dynamicQuery.add(groupIdProperty.eq(groupId));
+
+		return assetCategoryLocalService.dynamicQueryCount(dynamicQuery);
+	}
+
+	private long _getMaxRightCategoryId(long groupId) {
+		DynamicQuery dynamicQuery = assetCategoryLocalService.dynamicQuery();
+		Property groupIdProperty = PropertyFactoryUtil.forName("groupId");
+
+		dynamicQuery.add(groupIdProperty.eq(groupId));
+
+		dynamicQuery.setProjection(
+			ProjectionFactoryUtil.max("rightCategoryId"));
+
+		List<Long> results = assetCategoryLocalService.dynamicQuery(
+			dynamicQuery);
+
+		if (ListUtil.isNotEmpty(results)) {
+			return results.get(0);
+		}
+
+		return 0;
+	}
+
 	private List<AssetCategory> _getNestedChildrenCategories(long categoryId) {
 		List<AssetCategory> categories = new ArrayList<>();
 
@@ -815,5 +861,30 @@ public class AssetCategoryLocalServiceImpl
 
 		return categories;
 	}
+
+	private synchronized void _rebuildTreeIfBroken(long groupId) {
+		long count = _getAssetCategoriesCount(groupId);
+
+		if (count == 0) {
+			return;
+		}
+
+		long maxRightCategoryId = _getMaxRightCategoryId(groupId);
+
+		if (maxRightCategoryId != (count * 2)) {
+			if (_log.isDebugEnabled()) {
+				String message = StringBundler.concat(
+					"Broken tree detected for left/right categoryId. ",
+					"Rebuilding tree for groupId: ", groupId);
+
+				_log.debug(message);
+			}
+
+			assetCategoryLocalService.rebuildTree(groupId, true);
+		}
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		AssetCategoryLocalServiceImpl.class);
 
 }
