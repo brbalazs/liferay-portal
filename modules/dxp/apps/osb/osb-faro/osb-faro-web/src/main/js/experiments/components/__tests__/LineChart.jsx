@@ -6,12 +6,12 @@ import {range} from 'lodash';
 jest.unmock('react-dom');
 
 const createData = value => ({
-	data: [new Date()],
-	id: `id${value}`,
-	label: `label${value}`
+	color: `#${value}`,
+	data: [{key: new Date().toISOString(), value}],
+	name: `name${value}`
 });
 
-const createDate = () => new Date();
+const createDate = () => new Date().toISOString();
 
 describe('LineChart', () => {
 	afterEach(cleanup);
