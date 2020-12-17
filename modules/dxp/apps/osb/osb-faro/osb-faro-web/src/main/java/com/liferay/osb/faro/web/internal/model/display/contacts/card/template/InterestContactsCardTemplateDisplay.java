@@ -45,11 +45,12 @@ public class InterestContactsCardTemplateDisplay
 
 		super(contactsCardTemplate, size, _SUPPORTED_SIZES);
 
+		_size = MapUtil.getInteger(settings, "size");
+
 		_filterType = MapUtil.getString(settings, "filterType");
 		_interval = MapUtil.getString(
 			settings, "interval", TimeConstants.INTERVAL_MONTH);
 		_max = MapUtil.getInteger(settings, "max");
-		_size = MapUtil.getInteger(settings, "size");
 	}
 
 	@Override

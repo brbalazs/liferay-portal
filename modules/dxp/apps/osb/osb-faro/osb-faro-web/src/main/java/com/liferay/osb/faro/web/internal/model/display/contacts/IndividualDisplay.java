@@ -55,12 +55,13 @@ public class IndividualDisplay implements FaroEntityDisplay {
 				});
 		}
 
+		_individual = individual;
+
 		_activitiesCount = individual.getActivitiesCount();
 		_dataSourceIndividualPKs = individual.getDataSourceIndividualPKs();
 		_dateCreated = individual.getDateCreated();
 		_engagementScore = individual.getEngagementScore();
 		_id = individual.getId();
-		_individual = individual;
 		_lastActivityDate = individual.getLastActivityDate();
 
 		StringBundler sb = new StringBundler(3);

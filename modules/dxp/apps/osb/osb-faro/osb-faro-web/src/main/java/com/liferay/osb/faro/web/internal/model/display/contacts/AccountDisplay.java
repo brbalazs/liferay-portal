@@ -50,6 +50,7 @@ public class AccountDisplay implements FaroEntityDisplay {
 
 	public AccountDisplay(Account account, PhotoURLUtil photoURLUtil) {
 		_account = account;
+
 		_activitiesCount = account.getActivitiesCount();
 		_dateCreated = account.getDateCreated();
 		_individualCount = account.getIndividualCount();

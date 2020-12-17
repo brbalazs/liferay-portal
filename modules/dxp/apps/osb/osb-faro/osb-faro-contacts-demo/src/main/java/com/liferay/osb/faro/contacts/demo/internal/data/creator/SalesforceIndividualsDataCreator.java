@@ -38,6 +38,7 @@ public class SalesforceIndividualsDataCreator extends DataCreator {
 			"individuals");
 
 		_dataSourceId = dataSourceId;
+
 		_salesforceAuditEventsDataCreator =
 			new SalesforceAuditEventsDataCreator(
 				contactsEngineClient, faroProject, "individuals");

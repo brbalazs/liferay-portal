@@ -48,6 +48,7 @@ public class FaroPreferencesDisplay {
 	public FaroPreferencesDisplay(long groupId, long ownerId) {
 		_groupId = groupId;
 		_ownerId = ownerId;
+
 		_preferences = new WorkspacePreferences();
 	}
 

@@ -68,6 +68,7 @@ public abstract class ContactsCardTemplateDisplay extends FaroModelDisplay {
 		_size = size;
 
 		_supportedSizes = supportedSizes;
+
 		_type = contactsCardTemplate.getType();
 	}
 

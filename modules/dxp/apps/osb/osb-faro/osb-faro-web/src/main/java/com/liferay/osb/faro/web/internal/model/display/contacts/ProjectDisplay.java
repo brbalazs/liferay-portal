@@ -74,6 +74,7 @@ public class ProjectDisplay {
 		}
 
 		_friendlyURL = friendlyURL;
+
 		_groupId = faroProject.getGroupId();
 
 		try {

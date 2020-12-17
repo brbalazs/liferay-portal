@@ -35,6 +35,7 @@ public class LiferayOrganizationsDataCreator extends DataCreator {
 			"organizations");
 
 		_dataSourceId = dataSourceId;
+
 		_faroInfoOrganizationsDataCreator =
 			new FaroInfoOrganizationsDataCreator(
 				contactsEngineClient, faroProject);

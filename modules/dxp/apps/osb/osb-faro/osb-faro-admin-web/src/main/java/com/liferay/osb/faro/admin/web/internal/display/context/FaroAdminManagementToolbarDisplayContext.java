@@ -51,6 +51,7 @@ public class FaroAdminManagementToolbarDisplayContext
 			searchContainer);
 
 		_renderResponse = renderResponse;
+
 		_themeDisplay = (ThemeDisplay)httpServletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 	}
