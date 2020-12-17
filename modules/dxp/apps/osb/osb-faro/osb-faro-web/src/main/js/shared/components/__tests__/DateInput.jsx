@@ -11,13 +11,10 @@ describe('DateInput', () => {
 	});
 
 	it('should use the displayFormat prop for displaying the date', () => {
-		const onChange = jest.fn();
-		const displayFormat = 'YYYY MM DD HH:mm';
-
 		const {getByDisplayValue} = render(
 			<DateInput
-				displayFormat={displayFormat}
-				onChange={onChange}
+				displayFormat='YYYY MM DD HH:mm'
+				onChange={jest.fn()}
 				value='1970-01-01'
 			/>
 		);
