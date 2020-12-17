@@ -47,12 +47,36 @@ describe('Experiment Session Mapper', () => {
 
 	it('should group values from data', () => {
 		expect(mapper.data[0].data).toEqual([
-			2884,
-			2967,
-			1981,
-			1502,
-			1253,
-			3944
+			{
+				key: '2018-05-17T00:00',
+				value: 2884,
+				valueKey: '2018-05-17T00:00'
+			},
+			{
+				key: '2018-05-18T00:00',
+				value: 2967,
+				valueKey: '2018-05-18T00:00'
+			},
+			{
+				key: '2018-05-19T00:00',
+				value: 1981,
+				valueKey: '2018-05-19T00:00'
+			},
+			{
+				key: '2018-05-20T00:00',
+				value: 1502,
+				valueKey: '2018-05-20T00:00'
+			},
+			{
+				key: '2018-05-21T00:00',
+				value: 1253,
+				valueKey: '2018-05-21T00:00'
+			},
+			{
+				key: '2018-05-22T00:00',
+				value: 3944,
+				valueKey: '2018-05-22T00:00'
+			}
 		]);
 	});
 
@@ -62,12 +86,12 @@ describe('Experiment Session Mapper', () => {
 
 	it('should get intervals', () => {
 		expect(mapper.intervals).toEqual([
-			new Date('2018-05-17T00:00:00.000Z'),
-			new Date('2018-05-18T00:00:00.000Z'),
-			new Date('2018-05-19T00:00:00.000Z'),
-			new Date('2018-05-20T00:00:00.000Z'),
-			new Date('2018-05-21T00:00:00.000Z'),
-			new Date('2018-05-22T00:00:00.000Z')
+			'2018-05-17T00:00',
+			'2018-05-18T00:00',
+			'2018-05-19T00:00',
+			'2018-05-20T00:00',
+			'2018-05-21T00:00',
+			'2018-05-22T00:00'
 		]);
 	});
 
@@ -75,7 +99,14 @@ describe('Experiment Session Mapper', () => {
 		const Tooltip = shallow(
 			mapper.Tooltip({
 				dataPoint: [
-					{value: 1500, x: new Date('2018-05-17T00:00:00.000Z')}
+					{
+						color: '#6B6C7E',
+						name: 'data1',
+						payload: {
+							key: '2018-05-17T00:00',
+							value: 1500
+						}
+					}
 				]
 			})
 		);

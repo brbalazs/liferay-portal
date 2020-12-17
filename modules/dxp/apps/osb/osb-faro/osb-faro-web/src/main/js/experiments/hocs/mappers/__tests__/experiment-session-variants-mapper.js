@@ -102,10 +102,77 @@ describe('Experiment Session Variants Mapper', () => {
 	});
 
 	it('should group values from data', () => {
-		expect(mapper.data[0].data).toEqual([206, 91, 189]);
-		expect(mapper.data[1].data).toEqual([137, 234, 393]);
-		expect(mapper.data[2].data).toEqual([428, 168, 299]);
-		expect(mapper.data[3].data).toEqual([343, 67, 66]);
+		expect(mapper.data[0].data).toEqual([
+			{
+				key: '2018-05-17T00:00',
+				value: 206,
+				valueKey: '2018-05-17T00:00'
+			},
+			{
+				key: '2018-05-18T00:00',
+				value: 91,
+				valueKey: '2018-05-18T00:00'
+			},
+			{
+				key: '2018-05-19T00:00',
+				value: 189,
+				valueKey: '2018-05-19T00:00'
+			}
+		]);
+
+		expect(mapper.data[1].data).toEqual([
+			{
+				key: '2018-05-17T00:00',
+				value: 137,
+				valueKey: '2018-05-17T00:00'
+			},
+			{
+				key: '2018-05-18T00:00',
+				value: 234,
+				valueKey: '2018-05-18T00:00'
+			},
+			{
+				key: '2018-05-19T00:00',
+				value: 393,
+				valueKey: '2018-05-19T00:00'
+			}
+		]);
+
+		expect(mapper.data[2].data).toEqual([
+			{
+				key: '2018-05-17T00:00',
+				value: 428,
+				valueKey: '2018-05-17T00:00'
+			},
+			{
+				key: '2018-05-18T00:00',
+				value: 168,
+				valueKey: '2018-05-18T00:00'
+			},
+			{
+				key: '2018-05-19T00:00',
+				value: 299,
+				valueKey: '2018-05-19T00:00'
+			}
+		]);
+
+		expect(mapper.data[3].data).toEqual([
+			{
+				key: '2018-05-17T00:00',
+				value: 343,
+				valueKey: '2018-05-17T00:00'
+			},
+			{
+				key: '2018-05-18T00:00',
+				value: 67,
+				valueKey: '2018-05-18T00:00'
+			},
+			{
+				key: '2018-05-19T00:00',
+				value: 66,
+				valueKey: '2018-05-19T00:00'
+			}
+		]);
 	});
 
 	it('should format number', () => {
@@ -114,9 +181,9 @@ describe('Experiment Session Variants Mapper', () => {
 
 	it('should get intervals', () => {
 		expect(mapper.intervals).toEqual([
-			new Date('2018-05-17T00:00:00.000Z'),
-			new Date('2018-05-18T00:00:00.000Z'),
-			new Date('2018-05-19T00:00:00.000Z')
+			'2018-05-17T00:00',
+			'2018-05-18T00:00',
+			'2018-05-19T00:00'
 		]);
 	});
 
@@ -125,9 +192,12 @@ describe('Experiment Session Variants Mapper', () => {
 			mapper.Tooltip({
 				dataPoint: [
 					{
-						id: 'data1',
-						value: 1500,
-						x: new Date('2018-05-17T00:00:00.000Z')
+						color: '#6B6C7E',
+						name: 'data1',
+						payload: {
+							key: '2018-05-17T00:00',
+							value: 1500
+						}
 					}
 				]
 			})
