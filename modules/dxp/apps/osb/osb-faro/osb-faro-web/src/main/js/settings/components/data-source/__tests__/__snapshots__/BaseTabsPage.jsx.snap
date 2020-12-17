@@ -1,80 +1,165 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BaseTabsPage should render 1`] = `
-<withRouter()
-  currentUser={
-    Immutable.Record {
-      "emailAddress": "test@liferay.com",
-      "groupId": null,
-      "id": 0,
-      "name": "Test Test",
-      "roleName": "Site Owner",
-      "screenName": "",
-      "status": 1,
-      "userId": null,
-    }
-  }
-  dataSource={
-    Immutable.Record {
-      "contactsSelected": false,
-      "credentials": Immutable.Map {
-        "login": "LiferayUser1",
-      },
-      "dateCreated": 1531090866366,
-      "disabled": false,
-      "event": null,
-      "fileName": null,
-      "id": "1",
-      "lastSyncDate": 1531263666366,
-      "name": "Liferay1",
-      "properties": Immutable.Map {},
-      "provider": Immutable.Map {
-        "type": "LIFERAY",
-      },
-      "providerType": "LIFERAY",
-      "sitesSelected": false,
-      "state": "CREDENTIALS_VALID",
-      "status": "ACTIVE",
-      "type": 1,
-      "url": "https://www.faro-1.io",
-    }
-  }
-  groupId="23"
-  id="test"
->
-  <Sheet
-    className="data-source-base-tabs-root"
-    large={false}
-    pageDisplay={true}
+<div>
+  <div
+    class="settings-base-page-root data-source-base-page-root"
   >
-    <Body>
-      <Nav
-        display="underline"
+    <div
+      class="maintenance-alert-root"
+    />
+    <div
+      class="content-header"
+    >
+      <div
+        class="header-text"
       >
-        <Item
-          active={true}
-          disabled={false}
-          href="/workspace/23/settings/data-source/test"
-        >
-          <h4>
-            Authorization
-          </h4>
-        </Item>
-        <Item
-          active={false}
-          disabled={false}
-          href="/workspace/23/settings/data-source/test/liferay/configuration-status"
-        >
-          <h4>
+        <h3>
+          <span
+            class="text-truncate"
+            data-tooltip="false"
+            title=""
+          >
             Configure Data Source
-          </h4>
-          <ForwardRef
-            className="ml-2"
-            label={2}
-          />
-        </Item>
-      </Nav>
-    </Body>
-  </Sheet>
-</withRouter()>
+          </span>
+        </h3>
+        <div
+          class="description"
+        >
+          Liferay1 - https://www.faro-1.io
+        </div>
+      </div>
+      <div
+        class="page-actions-container"
+      />
+    </div>
+    <div>
+      <div
+        class="page-container"
+      >
+        <div
+          class="content-main"
+        >
+          <div
+            class="sheet data-source-base-tabs-root page-display"
+          >
+            <div
+              class="sheet-body"
+            >
+              <ul
+                class="nav-root nav nav-underline"
+                role="tablist"
+              >
+                <li
+                  class="nav-item active"
+                  role="presentation"
+                >
+                  <a
+                    class="nav-link active"
+                    href="/workspace/23/settings/data-source/test"
+                    role="tab"
+                  >
+                    <h4>
+                      Authorization
+                    </h4>
+                  </a>
+                </li>
+                <li
+                  class="nav-item"
+                  role="presentation"
+                >
+                  <a
+                    class="nav-link"
+                    href="/workspace/23/settings/data-source/test/liferay/configuration-status"
+                    role="tab"
+                  >
+                    <h4>
+                      Configure Data Source
+                    </h4>
+                    <span
+                      class="badge badge-primary ml-2"
+                    >
+                      <span
+                        class="badge-item badge-item-expand"
+                      >
+                        2
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-side"
+        >
+          <div
+            class="panel-root upgrade-connection-card-root"
+          >
+            <div
+              class="panel-header"
+              role="button"
+              tabindex="0"
+            >
+              <div
+                class="panel-title"
+              >
+                Upgrade Your Connection Type
+              </div>
+            </div>
+            <div
+              class="panel-body"
+            >
+              <p>
+                Analytics Cloud now uses a more secure token-based connection that gives you finer control of your data. OAuth connections will be deprecated in a future release. Click the button below to get started with migrating your data source.
+              </p>
+              <button
+                class="button-root btn btn-secondary btn-sm"
+                type="button"
+              >
+                Start Upgrade...
+              </button>
+            </div>
+          </div>
+          <div
+            class="panel-root data-source-status-root"
+          >
+            <div
+              class="panel-header"
+              role="button"
+              tabindex="0"
+            >
+              <div
+                class="panel-title"
+              >
+                <div>
+                  Current Status:
+                </div>
+              </div>
+              <div
+                class="panel-title-label"
+              >
+                <div
+                  class="label label-root label-info label-lg label-uppercase"
+                >
+                  <span
+                    class="label-item"
+                  >
+                    Authenticated
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="panel-body"
+            >
+              You have successfully authenticated your client id and secret with you data source. You can now configure your data.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;
