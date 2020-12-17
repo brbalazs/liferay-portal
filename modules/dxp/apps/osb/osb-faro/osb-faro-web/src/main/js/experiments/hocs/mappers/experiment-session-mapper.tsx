@@ -1,11 +1,10 @@
-import * as d3 from 'd3';
 import React from 'react';
 import TooltipChart from 'cerebro-shared/components/TooltipChart';
+import {CHART_COLOR_NAMES} from 'shared/components/Chart';
 import {getAxisFormatter} from 'shared/util/charts';
-import {
-	getFormattedHistogram,
-	toThousandsABTesting
-} from 'experiments/util/experiments';
+import {getFormattedDataTooltip} from 'experiments/util/experiments';
+
+const {stark: CHART_BLUE} = CHART_COLOR_NAMES;
 
 export default ({experiment}) => {
 	if (
@@ -17,50 +16,20 @@ export default ({experiment}) => {
 		};
 	}
 
-	const {key, value} = getFormattedHistogram(experiment.sessionsHistogram);
-
 	return {
 		data: [
 			{
-				data: value,
-				id: 'data1',
-				label: Liferay.Language.get('total')
-			},
-			{
-				data: key,
-				id: 'x'
+				color: CHART_BLUE,
+				data: experiment.sessionsHistogram,
+				name: Liferay.Language.get('total')
 			}
 		],
 		format: getAxisFormatter('number'),
-		intervals: key,
-		Tooltip: ({dataPoint}) => {
-			const header = [
-				{
-					label: Liferay.Language.get('date'),
-					weight: 'semibold',
-					width: 120
-				},
-				{
-					label: Liferay.Language.get('session'),
-					weight: 'semibold'
-				}
-			];
-
-			const rows = [
-				{
-					columns: [
-						{
-							label: d3.utcFormat('%b %-d')(dataPoint[0].x)
-						},
-						{
-							align: 'right',
-							label: toThousandsABTesting(dataPoint[0].value)
-						}
-					]
-				}
-			];
-
-			return <TooltipChart header={header} rows={rows} />;
-		}
+		intervals: experiment.sessionsHistogram.map(({key}) => key),
+		Tooltip: ({dataPoint}) => (
+			<div className='bb-tooltip-container' style={{position: 'static'}}>
+				<TooltipChart {...getFormattedDataTooltip(dataPoint)} />
+			</div>
+		)
 	};
 };
