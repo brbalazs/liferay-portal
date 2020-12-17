@@ -24,9 +24,9 @@ import aQute.bnd.annotation.ProviderType;
 public interface FaroNotificationFinder {
 
 	public java.util.List<com.liferay.osb.faro.model.FaroNotification>
-		findDismissedNotifications();
+		findDismissedFaroNotifications();
 
 	public java.util.List<com.liferay.osb.faro.model.FaroNotification>
-		findLast30Days(long groupId, long userId);
+		findFaroNotificationsLast30Days(long groupId, long userId);
 
 }

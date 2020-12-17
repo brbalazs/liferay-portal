@@ -43,7 +43,7 @@ public class FaroNotificationFinderImpl
 		FaroNotificationFinder.class.getName() + ".findLast30Days";
 
 	@Override
-	public List<FaroNotification> findDismissedNotifications() {
+	public List<FaroNotification> findDismissedFaroNotifications() {
 		Session session = null;
 
 		try {
@@ -67,7 +67,9 @@ public class FaroNotificationFinderImpl
 	}
 
 	@Override
-	public List<FaroNotification> findLast30Days(long groupId, long userId) {
+	public List<FaroNotification> findFaroNotificationsLast30Days(
+		long groupId, long userId) {
+
 		Session session = null;
 
 		try {

@@ -57,7 +57,7 @@ public class FaroNotificationLocalServiceImpl
 	@Override
 	public void clearDismissedNotifications() {
 		List<FaroNotification> dismissedNotifications =
-			faroNotificationFinder.findDismissedNotifications();
+			faroNotificationFinder.findDismissedFaroNotifications();
 
 		Stream<FaroNotification> stream = dismissedNotifications.stream();
 
@@ -68,7 +68,8 @@ public class FaroNotificationLocalServiceImpl
 	public List<FaroNotification> findFaroNotificationsLast30Days(
 		long groupId, long userId) {
 
-		return faroNotificationFinder.findLast30Days(groupId, userId);
+		return faroNotificationFinder.findFaroNotificationsLast30Days(
+			groupId, userId);
 	}
 
 }
