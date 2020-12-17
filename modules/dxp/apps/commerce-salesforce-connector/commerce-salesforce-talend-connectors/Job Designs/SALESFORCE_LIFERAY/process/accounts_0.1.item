@@ -116,7 +116,7 @@
     <routinesParameter id="_K2CdQI6pEemhwO0W1oTKMw" name="TalendString"/>
     <routinesParameter id="_O9I4YJKBEemlEu0eFgvOVg" name="LiferayAPIsUtil"/>
   </parameters>
-  <node componentName="tLiferayConnection" componentVersion="0.3.0.SNAPSHOT" offsetLabelX="0" offsetLabelY="0" posX="416" posY="64">
+  <node componentName="tLiferayConnection" componentVersion="0.4.0.SNAPSHOT" offsetLabelX="0" offsetLabelY="0" posX="416" posY="64">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLiferayConnection_1" show="false"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="" show="false"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
@@ -452,7 +452,7 @@
       </inputTables>
     </nodeData>
   </node>
-  <node componentName="tLiferayOutput" componentVersion="0.3.0.SNAPSHOT" offsetLabelX="0" offsetLabelY="0" posX="608" posY="416">
+  <node componentName="tLiferayOutput" componentVersion="0.4.0.SNAPSHOT" offsetLabelX="0" offsetLabelY="0" posX="608" posY="416">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLiferayOutput_2" show="false"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="" show="false"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
@@ -792,7 +792,7 @@
       </inputTables>
     </nodeData>
   </node>
-  <node componentName="tLiferayOutput" componentVersion="0.3.0.SNAPSHOT" offsetLabelX="0" offsetLabelY="0" posX="608" posY="256">
+  <node componentName="tLiferayOutput" componentVersion="0.4.0.SNAPSHOT" offsetLabelX="0" offsetLabelY="0" posX="608" posY="256">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLiferayOutput_1" show="false"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="" show="false"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>

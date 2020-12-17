@@ -271,7 +271,7 @@
       </inputTables>
     </nodeData>
   </node>
-  <node componentName="tLiferayOutput" componentVersion="0.3.0.SNAPSHOT" offsetLabelX="0" offsetLabelY="0" posX="736" posY="320">
+  <node componentName="tLiferayOutput" componentVersion="0.4.0.SNAPSHOT" offsetLabelX="0" offsetLabelY="0" posX="736" posY="320">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLiferayOutput_1" show="false"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="" show="false"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
@@ -467,7 +467,7 @@
       </column>
     </metadata>
   </node>
-  <node componentName="tLiferayConnection" componentVersion="0.3.0.SNAPSHOT" offsetLabelX="0" offsetLabelY="0" posX="96" posY="64">
+  <node componentName="tLiferayConnection" componentVersion="0.4.0.SNAPSHOT" offsetLabelX="0" offsetLabelY="0" posX="96" posY="64">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLiferayConnection_1" show="false"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="" show="false"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
@@ -486,7 +486,7 @@
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row"/>
     <metadata connector="FLOW" name="tJava_1"/>
   </node>
-  <node componentName="tLiferayInput" componentVersion="0.3.0.SNAPSHOT" offsetLabelX="0" offsetLabelY="0" posX="256" posY="192">
+  <node componentName="tLiferayInput" componentVersion="0.4.0.SNAPSHOT" offsetLabelX="0" offsetLabelY="0" posX="256" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLiferayInput_1" show="false"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="" show="false"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
@@ -680,7 +680,7 @@
       </inputTables>
     </nodeData>
   </node>
-  <node componentName="tLiferayOutput" componentVersion="0.3.0.SNAPSHOT" offsetLabelX="0" offsetLabelY="0" posX="736" posY="448">
+  <node componentName="tLiferayOutput" componentVersion="0.4.0.SNAPSHOT" offsetLabelX="0" offsetLabelY="0" posX="736" posY="448">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLiferayOutput_2" show="false"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="" show="false"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" show="false"/>
