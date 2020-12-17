@@ -32,13 +32,12 @@ const PerDayChart = () => {
 				const metricUnit = getMetricUnitFromGoal(props);
 
 				const {
+					chartType,
 					data,
 					empty,
 					format,
 					intervals,
-					Tooltip,
-					tooltipConfig,
-					type
+					Tooltip
 				} = getPerDayMapper(metricUnit)(props);
 
 				return empty ? (
@@ -47,12 +46,11 @@ const PerDayChart = () => {
 					/>
 				) : (
 					<LineChart
+						chartType={chartType}
 						data={data}
 						format={format}
 						intervals={intervals}
 						Tooltip={Tooltip}
-						tooltipConfig={tooltipConfig}
-						type={type}
 					/>
 				);
 			}}
