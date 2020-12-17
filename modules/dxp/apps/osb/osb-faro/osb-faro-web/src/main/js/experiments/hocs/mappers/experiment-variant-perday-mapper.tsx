@@ -6,10 +6,11 @@ import {
 	dateFormatter,
 	formatHistogramKeyValue,
 	formatYAxis,
-	getFormattedVariantHistogram,
+	getFormattedDataHistogram,
 	normalizeHistogram,
 	TOOLTIP_METRICS
 } from 'experiments/util/experiments';
+import {getDate as getDateUtil} from 'shared/util/date';
 
 const CONTROL_COLOR = '#6B6C7E';
 
@@ -27,36 +28,28 @@ export default metricUnit => ({experiment}) => {
 		metricUnit
 	);
 
-	const histograms = normalizedHistogram.map(
+	const data = normalizedHistogram.map(
 		({control, dxpVariantName, variantsHistogram}, index) => {
-			const {value} = getFormattedVariantHistogram(variantsHistogram);
+			const data = getFormattedDataHistogram(variantsHistogram, index);
 
 			return {
-				color: control && CONTROL_COLOR,
-				data: value,
-				id: `data${index + 1}`,
-				label: dxpVariantName
+				color: control ? CONTROL_COLOR : CHART_COLORS[index],
+				data,
+				name: dxpVariantName
 			};
 		}
 	);
 
-	const {key} = getFormattedVariantHistogram(
-		normalizedHistogram[0].variantsHistogram
-	);
-
 	return {
-		data: [
-			...histograms,
-			{
-				data: key,
-				id: 'x'
-			}
-		],
+		chartType: 'area',
+		data,
 		format: formatYAxis(metricUnit),
-		intervals: key,
+		intervals: normalizedHistogram[0].variantsHistogram.map(
+			({processedDate}) => processedDate
+		),
 		Tooltip: ({dataPoint}) => {
-			const date = dateFormatter(dataPoint[0].x);
-			const variant = variantsKeyValue[dataPoint[0].id][date];
+			const date = dateFormatter(getDateUtil(dataPoint[0].payload.key));
+			const variant = variantsKeyValue[dataPoint[0].payload.id][date];
 
 			let header: Array<Object>;
 			let rows: Array<Object>;
@@ -66,7 +59,9 @@ export default metricUnit => ({experiment}) => {
 					{
 						label: `${Liferay.Language.get(
 							'variants'
-						)} - ${d3.utcFormat('%m/%d/%Y')(dataPoint[0].x)}`,
+						)} - ${d3.utcFormat('%m/%d/%Y')(
+							getDateUtil(dataPoint[0].payload.key)
+						)}`,
 						weight: 'semibold',
 						width: 100
 					},
@@ -79,17 +74,12 @@ export default metricUnit => ({experiment}) => {
 				];
 
 				rows = dataPoint.map(point => {
-					const variant = variantsKeyValue[point.id][date];
-					const colorPosition =
-						parseInt(point.id.substr(point.id.length - 1)) - 2;
-					const color = variant.control
-						? CONTROL_COLOR
-						: CHART_COLORS[colorPosition];
+					const variant = variantsKeyValue[point.payload.id][date];
 
 					return {
 						columns: [
 							{
-								color,
+								color: point.color,
 								label: variant.name,
 								truncated: true
 							},
@@ -99,11 +89,13 @@ export default metricUnit => ({experiment}) => {
 									className: 'align-items-end',
 									label: dataRenderer
 										? dataRenderer(
-												variantsKeyValue[point.id][date]
+												variantsKeyValue[
+													point.payload.id
+												][date]
 										  )
-										: variantsKeyValue[point.id][date][
-												accessor
-										  ],
+										: variantsKeyValue[point.payload.id][
+												date
+										  ][accessor],
 									weight: 'semibold'
 								})
 							)
@@ -147,11 +139,14 @@ export default metricUnit => ({experiment}) => {
 				);
 			}
 
-			return <TooltipChart header={header} rows={rows} />;
-		},
-		tooltipConfig: {
-			grouped: false
-		},
-		type: 'area'
+			return (
+				<div
+					className='bb-tooltip-container'
+					style={{position: 'static'}}
+				>
+					<TooltipChart header={header} rows={rows} />
+				</div>
+			);
+		}
 	};
 };
