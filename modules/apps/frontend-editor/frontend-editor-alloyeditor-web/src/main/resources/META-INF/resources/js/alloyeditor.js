@@ -356,7 +356,7 @@ AUI.add(
 						}
 					},
 
-					_onDrop(event) {
+					_onDrop: function(event) {
 						var instance = this;
 	
 						var data = event.data.dataTransfer.getData('text/html');
