@@ -1,116 +1,46 @@
 import * as d3 from 'd3';
-import Chart from 'shared/components/Chart';
-import Circle from 'shared/components/Circle';
-import React, {useRef} from 'react';
-import ReactDOMServer from 'react-dom/server';
+import React, {useState} from 'react';
+import {ANIMATION_DURATION, AXIS, getAxisTickText} from 'shared/util/recharts';
+import {
+	Area,
+	CartesianGrid,
+	ComposedChart,
+	Legend,
+	Line,
+	ResponsiveContainer,
+	Tooltip as TooltipRechart,
+	XAxis,
+	YAxis
+} from 'recharts';
+import {CHART_COLOR_NAMES} from 'shared/components/Chart';
 import {getAxisMeasuresFromData} from 'shared/util/charts';
+import {getDate} from 'shared/util/date';
 import {getShortIntervals} from 'experiments/util/experiments';
+
+const {stark: CHART_BLUE} = CHART_COLOR_NAMES;
 
 const CLASSNAME = 'analytics-experiments-line-chart';
 
-const isEmptyData: IsEmptyData = data =>
-	!data.filter(value => value > 0).length;
+const AREA_TYPE = 'area';
+const LINE_TYPE = 'line';
 
-type ChartData = {
-	data: Array<number> | Array<Date>;
-	id: string;
-	label?: string;
-};
-
-type IsEmptyData = (data: Array<number>) => boolean;
-
-type Format = (value: Date) => Function | string;
-
-type tickY = {
-	count?: number;
-	format: Format;
-	values?: Array<Date>;
-};
-
-type DataPoint = {
-	x: Date;
-	value: number;
-	id: string;
-	index: number;
-	name: string;
-};
-
-interface Tooltip extends React.HTMLAttributes<HTMLElement> {
-	dataPoint: Array<DataPoint>;
-}
-
-interface ILineChartProps extends React.HTMLAttributes<HTMLElement> {
-	Tooltip?: React.FC<Tooltip>;
-	data: Array<ChartData>;
-	format: Function;
-	height?: number;
-	intervals: Array<Date>;
-	tooltipConfig?: Object;
-	type?: string;
-}
-
-/**
- * Returns a {point} object formatted for the lineChart,
- * passing the date as a parameter to check if the array size
- * is 1 because if so, there is only one day to plot on the chart.
- * So we can make the point, improving UX.
- * @param data
- * @returns point
- */
-const getPoint = (data: Array<Object>) => {
-	let point: any = {
-		select: {
-			r: 20
-		},
-		show: true
-	};
-
-	if (data.length === 1) {
-		point = {
-			...point,
-			r: 3
-		};
-	}
-
-	return point;
-};
-
-const LineChart: React.FC<ILineChartProps> = ({
-	data,
-	format,
-	height = 320,
-	intervals,
-	Tooltip,
-	tooltipConfig = {},
-	type = 'line'
-}) => {
-	const chartRef = useRef(null);
-
-	let maxValue = 1;
+const getTicksY: GetTicksY = (data, format) => {
+	const combinedData = [];
 
 	let tickY: tickY = {
 		format: value => format(value)
 	};
 
-	let chartData = [];
-
-	data.forEach(({data, id}) => {
-		if (id !== 'x') {
-			chartData = [...chartData, ...data];
-		}
+	data.forEach(({data}) => {
+		data.forEach(({value}) => {
+			combinedData.push(value);
+		});
 	});
 
-	// Shorten intervals
-	if (intervals.length >= 12) {
-		intervals = getShortIntervals(intervals);
-	}
-
-	if (!isEmptyData(chartData)) {
+	if (!isEmptyData(combinedData)) {
 		let intervalsY = [];
 
-		({intervals: intervalsY, maxValue} = getAxisMeasuresFromData(
-			chartData
-		));
+		({intervals: intervalsY} = getAxisMeasuresFromData(combinedData));
 
 		tickY = {
 			...tickY,
@@ -119,72 +49,203 @@ const LineChart: React.FC<ILineChartProps> = ({
 	} else {
 		tickY = {
 			...tickY,
-			count: 5,
 			format: () => format(0)
 		};
 	}
 
+	return tickY;
+};
+
+const isEmptyData: IsEmptyData = data =>
+	!data.filter(value => value > 0).length;
+
+type ChartData = {
+	data: Array<Data>;
+	name: string;
+	color: string;
+};
+
+type Data = {
+	key: string;
+	value: string;
+	id?: string;
+};
+
+type DataPoint = {
+	color: string;
+	dataKey: string;
+	name: string;
+	payload: Data;
+};
+
+type Format = (value: Date) => Function | string;
+
+type GetTicksY = (data: Array<ChartData>, format: Function) => tickY;
+
+type IsEmptyData = (data: Array<number>) => boolean;
+
+type tickY = {
+	format: Format;
+	values?: Array<Date>;
+};
+interface Tooltip extends React.HTMLAttributes<HTMLElement> {
+	dataPoint: Array<DataPoint>;
+}
+
+interface ILineChartProps extends React.HTMLAttributes<HTMLElement> {
+	chartType?: string;
+	data: Array<ChartData>;
+	format: Function;
+	height?: number;
+	intervals: any;
+	Tooltip?: React.FC<Tooltip>;
+}
+
+const LineChart: React.FC<ILineChartProps> = ({
+	chartType = LINE_TYPE,
+	data,
+	format,
+	height = 320,
+	intervals,
+	Tooltip
+}) => {
+	const [legendHoverItem, setLegendHoverItem] = useState();
+
+	const tickY = getTicksY(data, format);
+
+	// Shorten intervals of tickX
+	if (intervals.length >= 12) {
+		intervals = getShortIntervals(intervals);
+	}
+
 	return (
 		<div className={CLASSNAME}>
-			<Chart
-				axisX={{
-					tick: {
-						format: (date: Date) => d3.utcFormat('%b %-d')(date),
-						values: intervals
-					},
-					type: 'timeseries'
-				}}
-				axisY={{
-					max: maxValue,
-					min: 0,
-					padding: {
-						bottom: 0,
-						top: 0
-					},
-					tick: tickY
-				}}
-				chartType={type}
-				data={data}
-				dataId='lineChartDataId'
-				height={height}
-				id='lineChartId'
-				legend={{
-					contents: {
-						bindto: '#legendId',
-						template: (id: string, color: string) => {
-							const selected = data.find(d => d.id === id);
+			<ResponsiveContainer height={height}>
+				<ComposedChart>
+					<CartesianGrid
+						stroke={AXIS.gridStroke}
+						strokeDasharray='3 3'
+						vertical={false}
+					/>
 
-							if (!selected)
-								return ReactDOMServer.renderToString(<div />);
-
-							return ReactDOMServer.renderToString(
-								<li className='chart-legend-item'>
-									<Circle color={color} />{' '}
-									{` ${selected.label}`}
-								</li>
-							);
+					<XAxis
+						allowDuplicatedCategory={false}
+						axisLine={{stroke: AXIS.borderStroke}}
+						dataKey='key'
+						tickFormatter={date =>
+							d3.utcFormat('%b %-d')(getDate(date))
 						}
-					},
-					item: {
-						onclick: () => false
-					},
-					show: true
-				}}
-				point={getPoint(data[0].data)}
-				ref={chartRef}
-				tooltip={
-					Tooltip && {
-						contents: (dataPoint: Array<DataPoint>) =>
-							ReactDOMServer.renderToString(
-								<Tooltip dataPoint={dataPoint} />
-							),
-						...tooltipConfig
-					}
-				}
-				x='x'
-			/>
+						tickLine={false}
+						ticks={intervals}
+						type='category'
+					/>
 
-			<ul className='chart-legend' id='legendId' />
+					<XAxis
+						axisLine={{
+							stroke: AXIS.borderStroke
+						}}
+						orientation='top'
+						stroke={AXIS.gridStroke}
+						tick={false}
+						tickLine={false}
+						xAxisId='top'
+					/>
+
+					<YAxis
+						axisLine={{stroke: AXIS.borderStroke}}
+						stroke={AXIS.gridStroke}
+						tick={getAxisTickText('y', tickY.format)}
+						tickLine={false}
+						ticks={tickY.values}
+						type='number'
+					/>
+
+					<YAxis
+						axisLine={{
+							stroke: AXIS.borderStroke
+						}}
+						orientation='right'
+						stroke={AXIS.gridStroke}
+						tick={false}
+						tickLine={false}
+						width={12}
+						yAxisId='right'
+					/>
+
+					{chartType === AREA_TYPE &&
+						data.map(area => (
+							<Area
+								animationDuration={ANIMATION_DURATION.line}
+								data={area.data}
+								dataKey='value'
+								dot={false}
+								fill={area.color || CHART_BLUE}
+								fillOpacity={
+									legendHoverItem === area.name ||
+									!legendHoverItem
+										? 0.1
+										: 0.2
+								}
+								key={area.name}
+								legendType='plainline'
+								name={area.name}
+								stroke={area.color || CHART_BLUE}
+								strokeOpacity={
+									legendHoverItem === area.name ||
+									!legendHoverItem
+										? 1
+										: 0.2
+								}
+								strokeWidth='2'
+							/>
+						))}
+
+					{chartType === LINE_TYPE &&
+						data.map(line => (
+							<Line
+								animationDuration={ANIMATION_DURATION.line}
+								data={line.data}
+								dataKey='value'
+								dot={false}
+								key={line.name}
+								legendType='plainline'
+								name={line.name}
+								stroke={line.color || CHART_BLUE}
+								strokeOpacity={
+									legendHoverItem === line.name ||
+									!legendHoverItem
+										? 1
+										: 0.2
+								}
+								strokeWidth='2'
+							/>
+						))}
+
+					<TooltipRechart
+						content={({active, payload}) => {
+							if (active && !!payload.length) {
+								return <Tooltip dataPoint={payload} />;
+							}
+						}}
+						cursor={{stroke: CHART_BLUE}}
+					/>
+
+					<Legend
+						align='right'
+						iconSize={8}
+						onMouseEnter={({value}) => setLegendHoverItem(value)}
+						onMouseLeave={() => setLegendHoverItem(null)}
+						verticalAlign='bottom'
+						wrapperStyle={{
+							bottom: 0,
+							color: AXIS.textColor,
+							fontSize: '14px',
+							lineHeight: '21px',
+							right: 0
+						}}
+					/>
+				</ComposedChart>
+			</ResponsiveContainer>
 		</div>
 	);
 };
