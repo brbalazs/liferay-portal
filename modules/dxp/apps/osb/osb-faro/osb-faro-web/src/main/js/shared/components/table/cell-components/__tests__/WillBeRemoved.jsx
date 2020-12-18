@@ -1,10 +1,12 @@
 import React from 'react';
 import WillBeRemovedCell from '../WillBeRemoved';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('WillBeRemovedCell', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<WillBeRemovedCell
 				data={{
 					dataSourceIndividualPKs: []
@@ -12,11 +14,11 @@ describe('WillBeRemovedCell', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render as will be removed', () => {
-		const component = shallow(
+		const {container} = render(
 			<WillBeRemovedCell
 				data={{
 					dataSourceIndividualPKs: ['test']
@@ -24,6 +26,6 @@ describe('WillBeRemovedCell', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
