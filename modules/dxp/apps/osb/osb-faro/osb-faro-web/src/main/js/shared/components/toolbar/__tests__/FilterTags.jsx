@@ -1,11 +1,13 @@
 import FilterTags from '../FilterTags';
 import React from 'react';
 import {range} from 'lodash';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('FilterTags', () => {
 	it('should render a list of tags', () => {
-		const component = shallow(
+		const {container} = render(
 			<FilterTags
 				tags={range(3).map(i => ({
 					key: `foo${i}`,
@@ -15,6 +17,6 @@ describe('FilterTags', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
