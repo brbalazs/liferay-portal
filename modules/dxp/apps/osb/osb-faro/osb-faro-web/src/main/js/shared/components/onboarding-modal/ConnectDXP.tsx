@@ -92,7 +92,11 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 		return toRoute(Routes.SETTINGS_DATA_SOURCE_LIST, {groupId});
 	};
 
-	const selectAll = () => _inputRef.current && _inputRef.current.selectAll();
+	const selectAll = () => {
+		analytics.track('Clicked Copy Token Button');
+
+		_inputRef.current && _inputRef.current.selectAll();
+	};
 
 	let _tokenRequest;
 
@@ -302,10 +306,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 
 export default compose<any>(
 	withHistory,
-	connect(
-		null,
-		{
-			fetchDataSource
-		}
-	)
+	connect(null, {
+		fetchDataSource
+	})
 )(ConnectDXP);
