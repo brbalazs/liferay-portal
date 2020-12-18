@@ -31,7 +31,7 @@ public class FaroNotificationLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public FaroNotification addFaroNotification(
-		long userId, long groupId, String scope, String type, String subType) {
+		long userId, long groupId, String scope, String type, String subtype) {
 
 		long faroNotificationId = counterLocalService.increment();
 
@@ -49,7 +49,7 @@ public class FaroNotificationLocalServiceImpl
 		faroNotification.setRead(false);
 		faroNotification.setScope(scope);
 		faroNotification.setType(type);
-		faroNotification.setSubType(subType);
+		faroNotification.setSubtype(subtype);
 
 		return faroNotificationPersistence.update(faroNotification);
 	}

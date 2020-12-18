@@ -30,14 +30,14 @@ public class NotificationDisplay {
 		_id = faroNotification.getFaroNotificationId();
 		_read = faroNotification.getRead();
 		_type = faroNotification.getType();
-		_subType = faroNotification.getSubType();
+		_subtype = faroNotification.getSubtype();
 		_userId = faroNotification.getUserId();
 	}
 
 	private long _groupId;
 	private long _id;
 	private boolean _read;
-	private String _subType;
+	private String _subtype;
 	private String _type;
 	private long _userId;
 

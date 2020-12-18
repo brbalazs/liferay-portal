@@ -80,8 +80,8 @@ public class FaroNotificationCacheModel
 		sb.append(read);
 		sb.append(", type=");
 		sb.append(type);
-		sb.append(", subType=");
-		sb.append(subType);
+		sb.append(", subtype=");
+		sb.append(subtype);
 		sb.append("}");
 
 		return sb.toString();
@@ -113,11 +113,11 @@ public class FaroNotificationCacheModel
 			faroNotificationImpl.setType(type);
 		}
 
-		if (subType == null) {
-			faroNotificationImpl.setSubType("");
+		if (subtype == null) {
+			faroNotificationImpl.setSubtype("");
 		}
 		else {
-			faroNotificationImpl.setSubType(subType);
+			faroNotificationImpl.setSubtype(subtype);
 		}
 
 		faroNotificationImpl.resetOriginalValues();
@@ -140,7 +140,7 @@ public class FaroNotificationCacheModel
 
 		read = objectInput.readBoolean();
 		type = objectInput.readUTF();
-		subType = objectInput.readUTF();
+		subtype = objectInput.readUTF();
 	}
 
 	@Override
@@ -171,11 +171,11 @@ public class FaroNotificationCacheModel
 			objectOutput.writeUTF(type);
 		}
 
-		if (subType == null) {
+		if (subtype == null) {
 			objectOutput.writeUTF("");
 		}
 		else {
-			objectOutput.writeUTF(subType);
+			objectOutput.writeUTF(subtype);
 		}
 	}
 
@@ -187,6 +187,6 @@ public class FaroNotificationCacheModel
 	public String scope;
 	public boolean read;
 	public String type;
-	public String subType;
+	public String subtype;
 
 }

@@ -62,7 +62,7 @@ public class FaroNotificationWrapper
 		attributes.put("scope", getScope());
 		attributes.put("read", isRead());
 		attributes.put("type", getType());
-		attributes.put("subType", getSubType());
+		attributes.put("subtype", getSubtype());
 
 		return attributes;
 	}
@@ -117,10 +117,10 @@ public class FaroNotificationWrapper
 			setType(type);
 		}
 
-		String subType = (String)attributes.get("subType");
+		String subtype = (String)attributes.get("subtype");
 
-		if (subType != null) {
-			setSubType(subType);
+		if (subtype != null) {
+			setSubtype(subtype);
 		}
 	}
 
@@ -221,8 +221,8 @@ public class FaroNotificationWrapper
 	 * @return the sub type of this faro notification
 	 */
 	@Override
-	public String getSubType() {
-		return _faroNotification.getSubType();
+	public String getSubtype() {
+		return _faroNotification.getSubtype();
 	}
 
 	/**
@@ -395,11 +395,11 @@ public class FaroNotificationWrapper
 	/**
 	 * Sets the sub type of this faro notification.
 	 *
-	 * @param subType the sub type of this faro notification
+	 * @param subtype the sub type of this faro notification
 	 */
 	@Override
-	public void setSubType(String subType) {
-		_faroNotification.setSubType(subType);
+	public void setSubtype(String subtype) {
+		_faroNotification.setSubtype(subtype);
 	}
 
 	/**

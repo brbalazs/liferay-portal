@@ -70,7 +70,7 @@ public class FaroNotificationModelImpl
 		{"userId", Types.BIGINT}, {"createTime", Types.BIGINT},
 		{"modifiedTime", Types.BIGINT}, {"scope", Types.VARCHAR},
 		{"read_", Types.BOOLEAN}, {"type_", Types.VARCHAR},
-		{"subType", Types.VARCHAR}
+		{"subtype", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -85,11 +85,11 @@ public class FaroNotificationModelImpl
 		TABLE_COLUMNS_MAP.put("scope", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("read_", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("subType", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("subtype", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table OSBFaro_FaroNotification (faroNotificationId LONG not null primary key,groupId LONG,userId LONG,createTime LONG,modifiedTime LONG,scope VARCHAR(75) null,read_ BOOLEAN,type_ VARCHAR(75) null,subType VARCHAR(75) null)";
+		"create table OSBFaro_FaroNotification (faroNotificationId LONG not null primary key,groupId LONG,userId LONG,createTime LONG,modifiedTime LONG,scope VARCHAR(75) null,read_ BOOLEAN,type_ VARCHAR(75) null,subtype VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table OSBFaro_FaroNotification";
@@ -432,24 +432,24 @@ public class FaroNotificationModelImpl
 
 			});
 		attributeGetterFunctions.put(
-			"subType",
+			"subtype",
 			new Function<FaroNotification, Object>() {
 
 				@Override
 				public Object apply(FaroNotification faroNotification) {
-					return faroNotification.getSubType();
+					return faroNotification.getSubtype();
 				}
 
 			});
 		attributeSetterBiConsumers.put(
-			"subType",
+			"subtype",
 			new BiConsumer<FaroNotification, Object>() {
 
 				@Override
 				public void accept(
-					FaroNotification faroNotification, Object subTypeObject) {
+					FaroNotification faroNotification, Object subtypeObject) {
 
-					faroNotification.setSubType((String)subTypeObject);
+					faroNotification.setSubtype((String)subtypeObject);
 				}
 
 			});
@@ -572,18 +572,18 @@ public class FaroNotificationModelImpl
 	}
 
 	@Override
-	public String getSubType() {
-		if (_subType == null) {
+	public String getSubtype() {
+		if (_subtype == null) {
 			return "";
 		}
 		else {
-			return _subType;
+			return _subtype;
 		}
 	}
 
 	@Override
-	public void setSubType(String subType) {
-		_subType = subType;
+	public void setSubtype(String subtype) {
+		_subtype = subtype;
 	}
 
 	@Override
@@ -626,7 +626,7 @@ public class FaroNotificationModelImpl
 		faroNotificationImpl.setScope(getScope());
 		faroNotificationImpl.setRead(isRead());
 		faroNotificationImpl.setType(getType());
-		faroNotificationImpl.setSubType(getSubType());
+		faroNotificationImpl.setSubtype(getSubtype());
 
 		faroNotificationImpl.resetOriginalValues();
 
@@ -722,12 +722,12 @@ public class FaroNotificationModelImpl
 			faroNotificationCacheModel.type = null;
 		}
 
-		faroNotificationCacheModel.subType = getSubType();
+		faroNotificationCacheModel.subtype = getSubtype();
 
-		String subType = faroNotificationCacheModel.subType;
+		String subtype = faroNotificationCacheModel.subtype;
 
-		if ((subType != null) && (subType.length() == 0)) {
-			faroNotificationCacheModel.subType = null;
+		if ((subtype != null) && (subtype.length() == 0)) {
+			faroNotificationCacheModel.subtype = null;
 		}
 
 		return faroNotificationCacheModel;
@@ -811,7 +811,7 @@ public class FaroNotificationModelImpl
 	private String _scope;
 	private boolean _read;
 	private String _type;
-	private String _subType;
+	private String _subtype;
 	private FaroNotification _escapedModel;
 
 }

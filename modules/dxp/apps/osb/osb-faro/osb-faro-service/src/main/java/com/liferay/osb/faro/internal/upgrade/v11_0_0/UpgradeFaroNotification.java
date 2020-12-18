@@ -34,7 +34,7 @@ public class UpgradeFaroNotification extends UpgradeProcess {
 				"create table OSBFaro_FaroNotification (faroNotificationId ",
 				"LONG not null primary key, groupId LONG, userId LONG, ",
 				"createTime LONG, modifiedTime LONG, scope VARCHAR(75) null, ",
-				"read_ BOOLEAN, type_ VARCHAR(75) null, subType VARCHAR(75) ",
+				"read_ BOOLEAN, type_ VARCHAR(75) null, subtype VARCHAR(75) ",
 				"null)"));
 
 		_notifyFaroProjects();
@@ -46,7 +46,7 @@ public class UpgradeFaroNotification extends UpgradeProcess {
 		String sql = StringBundler.concat(
 			"insert into OSBFaro_FaroNotification (faroNotificationId, ",
 			"groupId, userId, createTime, modifiedTime, scope, read_, type_, ",
-			"subType) values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			"subtype) values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {
 			long now = System.currentTimeMillis();

@@ -38,7 +38,7 @@ public class FaroNotificationSoap implements Serializable {
 		soapModel.setScope(model.getScope());
 		soapModel.setRead(model.isRead());
 		soapModel.setType(model.getType());
-		soapModel.setSubType(model.getSubType());
+		soapModel.setSubtype(model.getSubtype());
 
 		return soapModel;
 	}
@@ -168,12 +168,12 @@ public class FaroNotificationSoap implements Serializable {
 		_type = type;
 	}
 
-	public String getSubType() {
-		return _subType;
+	public String getSubtype() {
+		return _subtype;
 	}
 
-	public void setSubType(String subType) {
-		_subType = subType;
+	public void setSubtype(String subtype) {
+		_subtype = subtype;
 	}
 
 	private long _faroNotificationId;
@@ -184,6 +184,6 @@ public class FaroNotificationSoap implements Serializable {
 	private String _scope;
 	private boolean _read;
 	private String _type;
-	private String _subType;
+	private String _subtype;
 
 }

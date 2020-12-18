@@ -77,7 +77,7 @@ public interface FaroNotificationLocalService
 
 	@Indexable(type = IndexableType.REINDEX)
 	public FaroNotification addFaroNotification(
-		long userId, long groupId, String scope, String type, String subType);
+		long userId, long groupId, String scope, String type, String subtype);
 
 	public void clearDismissedNotifications();
 

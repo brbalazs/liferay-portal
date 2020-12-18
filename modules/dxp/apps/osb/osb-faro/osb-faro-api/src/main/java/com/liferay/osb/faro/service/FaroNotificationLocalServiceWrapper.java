@@ -53,10 +53,10 @@ public class FaroNotificationLocalServiceWrapper
 
 	@Override
 	public com.liferay.osb.faro.model.FaroNotification addFaroNotification(
-		long userId, long groupId, String scope, String type, String subType) {
+		long userId, long groupId, String scope, String type, String subtype) {
 
 		return _faroNotificationLocalService.addFaroNotification(
-			userId, groupId, scope, type, subType);
+			userId, groupId, scope, type, subtype);
 	}
 
 	@Override

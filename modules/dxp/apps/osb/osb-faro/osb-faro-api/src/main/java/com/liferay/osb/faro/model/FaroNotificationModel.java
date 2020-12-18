@@ -199,14 +199,14 @@ public interface FaroNotificationModel extends BaseModel<FaroNotification> {
 	 * @return the sub type of this faro notification
 	 */
 	@AutoEscape
-	public String getSubType();
+	public String getSubtype();
 
 	/**
 	 * Sets the sub type of this faro notification.
 	 *
-	 * @param subType the sub type of this faro notification
+	 * @param subtype the sub type of this faro notification
 	 */
-	public void setSubType(String subType);
+	public void setSubtype(String subtype);
 
 	@Override
 	public boolean isNew();
