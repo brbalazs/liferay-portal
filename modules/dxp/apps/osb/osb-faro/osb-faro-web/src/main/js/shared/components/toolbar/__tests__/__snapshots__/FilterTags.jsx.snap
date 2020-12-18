@@ -1,33 +1,111 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FilterTags should render a list of tags 1`] = `
-<Fragment>
-  <TbarItem
-    expand={false}
-    key="foo-value0"
+<div>
+  <div
+    class="tbar-item"
   >
-    <FilterTagItem
-      label="Foo Label0"
-      value="foo-value0"
-    />
-  </TbarItem>
-  <TbarItem
-    expand={false}
-    key="foo-value1"
+    <div
+      class="tbar-section text-truncate"
+    >
+      <div
+        class="label label-root label-info label-lg label-dismissible"
+      >
+        <span
+          class="label-item"
+        >
+          Foo Label0
+        </span>
+        <span
+          class="label-item label-item-after"
+        >
+          <button
+            aria-label="Close"
+            class="button-root btn btn-secondary close"
+            type="button"
+          >
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-times icon-size-sm"
+              viewBox=""
+            >
+              <use
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
+              />
+            </svg>
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="tbar-item"
   >
-    <FilterTagItem
-      label="Foo Label1"
-      value="foo-value1"
-    />
-  </TbarItem>
-  <TbarItem
-    expand={true}
-    key="foo-value2"
+    <div
+      class="tbar-section text-truncate"
+    >
+      <div
+        class="label label-root label-info label-lg label-dismissible"
+      >
+        <span
+          class="label-item"
+        >
+          Foo Label1
+        </span>
+        <span
+          class="label-item label-item-after"
+        >
+          <button
+            aria-label="Close"
+            class="button-root btn btn-secondary close"
+            type="button"
+          >
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-times icon-size-sm"
+              viewBox=""
+            >
+              <use
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
+              />
+            </svg>
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="tbar-item tbar-item-expand"
   >
-    <FilterTagItem
-      label="Foo Label2"
-      value="foo-value2"
-    />
-  </TbarItem>
-</Fragment>
+    <div
+      class="tbar-section text-truncate"
+    >
+      <div
+        class="label label-root label-info label-lg label-dismissible"
+      >
+        <span
+          class="label-item"
+        >
+          Foo Label2
+        </span>
+        <span
+          class="label-item label-item-after"
+        >
+          <button
+            aria-label="Close"
+            class="button-root btn btn-secondary close"
+            type="button"
+          >
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-times icon-size-sm"
+              viewBox=""
+            >
+              <use
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#times"
+              />
+            </svg>
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 `;
