@@ -931,8 +931,6 @@ definition {
 			teamName = "Site Team Name");
 	}
 
-	@description = "This will be ignored until LPS-103054 is fixed."
-	@ignore = "true"
 	@priority = "3"
 	test PublishWebContentFriendlyURLEncoding {
 		Navigator.openSiteURL(siteName = "Site Name");
