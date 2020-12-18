@@ -1,9 +1,14 @@
 import CohortChart from '../index';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('CohortChart', () => {
 	it('should render', () => {
+		const dateLabelFn = (value, shouldRender) =>
+			shouldRender ? value : '-';
+
 		const aggregatedCounts = [
 			{
 				retention: 12.123123,
@@ -20,6 +25,7 @@ describe('CohortChart', () => {
 				{
 					colorHex: '#000000',
 					dateLabel: 'February',
+					dateLabelFn,
 					periodLabel: 'Month 0',
 					retention: 12.123123,
 					rowKey: '2019-02-01',
@@ -28,6 +34,7 @@ describe('CohortChart', () => {
 				{
 					colorHex: '#000000',
 					dateLabel: 'March',
+					dateLabelFn,
 					periodLabel: 'Month 1',
 					retention: 42.123123,
 					rowKey: '2019-03-01',
@@ -38,6 +45,7 @@ describe('CohortChart', () => {
 				{
 					colorHex: '#000000',
 					dateLabel: 'February',
+					dateLabelFn,
 					periodLabel: 'Month 0',
 					retention: 22.113123,
 					rowKey: '2019-02-01',
@@ -46,7 +54,7 @@ describe('CohortChart', () => {
 			]
 		];
 
-		const component = shallow(
+		const {container} = render(
 			<CohortChart
 				aggregatedCounts={aggregatedCounts}
 				data={data}
@@ -55,6 +63,6 @@ describe('CohortChart', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
