@@ -1,101 +1,104 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CohortChart should render 1`] = `
-<table
-  className="cohort-chart-root"
->
-  <thead>
-    <tr>
-      <th />
-      <th
-        className="visitors-header table-cell-expand table-column-text-end"
-      >
-        Visitors
-      </th>
-      <th
-        className="period table-cell-expand table-column-text-center"
-        key="Month 0"
-      >
-        Month 0
-      </th>
-      <th
-        className="period table-cell-expand table-column-text-center"
-        key="Month 1"
-      >
-        Month 1
-      </th>
-    </tr>
-    <tr>
-      <th />
-      <th
-        className="visitors table-column-text-end"
-      >
-        10
-      </th>
-      <th
-        className="table-cell-expand table-column-text-center"
-        key="0"
-      >
-        12.12%
-      </th>
-      <th
-        className="table-cell-expand table-column-text-center"
-        key="1"
-      >
-        42.12%
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr
-      key="0"
-    >
-      <td
-        className="interval"
-      >
-        February
-      </td>
-      <td
-        className="visitors table-column-text-end"
-      >
-        10
-      </td>
-      <Item
-        colorHex="#000000"
-        key="0-0"
-        periodLabel="Month 0"
-        retention={12.123123}
-        value={10}
-      />
-      <Item
-        colorHex="#000000"
-        key="0-1"
-        periodLabel="Month 1"
-        retention={42.123123}
-        value={56}
-      />
-    </tr>
-    <tr
-      key="1"
-    >
-      <td
-        className="interval"
-      >
-        March
-      </td>
-      <td
-        className="visitors table-column-text-end"
-      >
-        60
-      </td>
-      <Item
-        colorHex="#000000"
-        key="1-0"
-        periodLabel="Month 0"
-        retention={22.113123}
-        value={60}
-      />
-    </tr>
-  </tbody>
-</table>
+<div>
+  <table
+    class="cohort-chart-root"
+  >
+    <thead>
+      <tr>
+        <th />
+        <th
+          class="visitors-header table-cell-expand table-column-text-end"
+        >
+          Visitors
+        </th>
+        <th
+          class="period table-cell-expand table-column-text-center"
+        >
+          Month 0
+        </th>
+        <th
+          class="period table-cell-expand table-column-text-center"
+        >
+          Month 1
+        </th>
+      </tr>
+      <tr>
+        <th />
+        <th
+          class="visitors table-column-text-end"
+        >
+          10
+        </th>
+        <th
+          class="table-cell-expand table-column-text-center"
+        >
+          12.12%
+        </th>
+        <th
+          class="table-cell-expand table-column-text-center"
+        >
+          42.12%
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          class="interval"
+        >
+          February
+        </td>
+        <td
+          class="visitors table-column-text-end"
+        >
+          10
+        </td>
+        <td
+          class="cohort-item-root table-cell-expand table-column-text-center"
+          style="background: rgb(0, 0, 0);"
+        >
+          <span
+            class="retention"
+          >
+            12.12%
+          </span>
+        </td>
+        <td
+          class="cohort-item-root table-cell-expand table-column-text-center"
+          style="background: rgb(0, 0, 0);"
+        >
+          <span
+            class="retention"
+          >
+            42.12%
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td
+          class="interval"
+        >
+          March
+        </td>
+        <td
+          class="visitors table-column-text-end"
+        >
+          60
+        </td>
+        <td
+          class="cohort-item-root table-cell-expand table-column-text-center"
+          style="background: rgb(0, 0, 0);"
+        >
+          <span
+            class="retention"
+          >
+            22.11%
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 `;
