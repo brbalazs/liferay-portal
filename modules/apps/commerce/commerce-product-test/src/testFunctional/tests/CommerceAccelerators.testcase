@@ -556,7 +556,7 @@ definition {
 			productName = "ABS Sensor",
 			productQuantity = "2");
 
-		CommerceLogin.miniumLogoutPG();
+		User.logoutPG();
 
 		CommerceLogin.miniumLogin(
 			password = "test",
