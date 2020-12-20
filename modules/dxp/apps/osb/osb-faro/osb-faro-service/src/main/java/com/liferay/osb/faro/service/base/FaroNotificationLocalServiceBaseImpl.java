@@ -16,7 +16,6 @@ package com.liferay.osb.faro.service.base;
 
 import com.liferay.osb.faro.model.FaroNotification;
 import com.liferay.osb.faro.service.FaroNotificationLocalService;
-import com.liferay.osb.faro.service.persistence.FaroNotificationFinder;
 import com.liferay.osb.faro.service.persistence.FaroNotificationPersistence;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -400,26 +399,6 @@ public abstract class FaroNotificationLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the faro notification finder.
-	 *
-	 * @return the faro notification finder
-	 */
-	public FaroNotificationFinder getFaroNotificationFinder() {
-		return faroNotificationFinder;
-	}
-
-	/**
-	 * Sets the faro notification finder.
-	 *
-	 * @param faroNotificationFinder the faro notification finder
-	 */
-	public void setFaroNotificationFinder(
-		FaroNotificationFinder faroNotificationFinder) {
-
-		this.faroNotificationFinder = faroNotificationFinder;
-	}
-
-	/**
 	 * Returns the counter local service.
 	 *
 	 * @return the counter local service
@@ -500,9 +479,6 @@ public abstract class FaroNotificationLocalServiceBaseImpl
 
 	@BeanReference(type = FaroNotificationPersistence.class)
 	protected FaroNotificationPersistence faroNotificationPersistence;
-
-	@BeanReference(type = FaroNotificationFinder.class)
-	protected FaroNotificationFinder faroNotificationFinder;
 
 	@ServiceReference(
 		type = com.liferay.counter.kernel.service.CounterLocalService.class

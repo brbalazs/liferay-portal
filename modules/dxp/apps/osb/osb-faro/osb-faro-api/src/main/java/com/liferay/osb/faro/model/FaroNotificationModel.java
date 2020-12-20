@@ -143,6 +143,20 @@ public interface FaroNotificationModel extends BaseModel<FaroNotification> {
 	public void setModifiedTime(long modifiedTime);
 
 	/**
+	 * Returns the class pk of this faro notification.
+	 *
+	 * @return the class pk of this faro notification
+	 */
+	public long getClassPK();
+
+	/**
+	 * Sets the class pk of this faro notification.
+	 *
+	 * @param classPK the class pk of this faro notification
+	 */
+	public void setClassPK(long classPK);
+
+	/**
 	 * Returns the scope of this faro notification.
 	 *
 	 * @return the scope of this faro notification
@@ -194,17 +208,17 @@ public interface FaroNotificationModel extends BaseModel<FaroNotification> {
 	public void setType(String type);
 
 	/**
-	 * Returns the sub type of this faro notification.
+	 * Returns the subtype of this faro notification.
 	 *
-	 * @return the sub type of this faro notification
+	 * @return the subtype of this faro notification
 	 */
 	@AutoEscape
 	public String getSubtype();
 
 	/**
-	 * Sets the sub type of this faro notification.
+	 * Sets the subtype of this faro notification.
 	 *
-	 * @param subtype the sub type of this faro notification
+	 * @param subtype the subtype of this faro notification
 	 */
 	public void setSubtype(String subtype);
 

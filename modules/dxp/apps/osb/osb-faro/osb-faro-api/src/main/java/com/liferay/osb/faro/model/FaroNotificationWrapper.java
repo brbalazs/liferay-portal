@@ -59,6 +59,7 @@ public class FaroNotificationWrapper
 		attributes.put("userId", getUserId());
 		attributes.put("createTime", getCreateTime());
 		attributes.put("modifiedTime", getModifiedTime());
+		attributes.put("classPK", getClassPK());
 		attributes.put("scope", getScope());
 		attributes.put("read", isRead());
 		attributes.put("type", getType());
@@ -99,6 +100,12 @@ public class FaroNotificationWrapper
 			setModifiedTime(modifiedTime);
 		}
 
+		Long classPK = (Long)attributes.get("classPK");
+
+		if (classPK != null) {
+			setClassPK(classPK);
+		}
+
 		String scope = (String)attributes.get("scope");
 
 		if (scope != null) {
@@ -133,6 +140,16 @@ public class FaroNotificationWrapper
 	@Override
 	public int compareTo(FaroNotification faroNotification) {
 		return _faroNotification.compareTo(faroNotification);
+	}
+
+	/**
+	 * Returns the class pk of this faro notification.
+	 *
+	 * @return the class pk of this faro notification
+	 */
+	@Override
+	public long getClassPK() {
+		return _faroNotification.getClassPK();
 	}
 
 	/**
@@ -216,9 +233,9 @@ public class FaroNotificationWrapper
 	}
 
 	/**
-	 * Returns the sub type of this faro notification.
+	 * Returns the subtype of this faro notification.
 	 *
-	 * @return the sub type of this faro notification
+	 * @return the subtype of this faro notification
 	 */
 	@Override
 	public String getSubtype() {
@@ -293,6 +310,16 @@ public class FaroNotificationWrapper
 	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_faroNotification.setCachedModel(cachedModel);
+	}
+
+	/**
+	 * Sets the class pk of this faro notification.
+	 *
+	 * @param classPK the class pk of this faro notification
+	 */
+	@Override
+	public void setClassPK(long classPK) {
+		_faroNotification.setClassPK(classPK);
 	}
 
 	/**
@@ -393,9 +420,9 @@ public class FaroNotificationWrapper
 	}
 
 	/**
-	 * Sets the sub type of this faro notification.
+	 * Sets the subtype of this faro notification.
 	 *
-	 * @param subtype the sub type of this faro notification
+	 * @param subtype the subtype of this faro notification
 	 */
 	@Override
 	public void setSubtype(String subtype) {

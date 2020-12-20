@@ -13,7 +13,6 @@
 	<bean class="com.liferay.osb.faro.service.impl.FaroEmailLocalServiceImpl" id="com.liferay.osb.faro.service.FaroEmailLocalService" />
 	<bean class="com.liferay.osb.faro.service.impl.FaroNotificationLocalServiceImpl" id="com.liferay.osb.faro.service.FaroNotificationLocalService" />
 	<bean class="com.liferay.osb.faro.service.persistence.impl.FaroNotificationPersistenceImpl" id="com.liferay.osb.faro.service.persistence.FaroNotificationPersistence" parent="basePersistence" />
-	<bean class="com.liferay.osb.faro.service.persistence.impl.FaroNotificationFinderImpl" id="com.liferay.osb.faro.service.persistence.FaroNotificationFinder" parent="basePersistence" />
 	<bean class="com.liferay.osb.faro.service.impl.FaroPreferencesLocalServiceImpl" id="com.liferay.osb.faro.service.FaroPreferencesLocalService" />
 	<bean class="com.liferay.osb.faro.service.persistence.impl.FaroPreferencesPersistenceImpl" id="com.liferay.osb.faro.service.persistence.FaroPreferencesPersistence" parent="basePersistence" />
 	<bean class="com.liferay.osb.faro.service.impl.FaroProjectLocalServiceImpl" id="com.liferay.osb.faro.service.FaroProjectLocalService" />

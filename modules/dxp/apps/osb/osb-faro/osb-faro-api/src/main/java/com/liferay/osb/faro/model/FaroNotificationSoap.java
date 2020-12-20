@@ -35,6 +35,7 @@ public class FaroNotificationSoap implements Serializable {
 		soapModel.setUserId(model.getUserId());
 		soapModel.setCreateTime(model.getCreateTime());
 		soapModel.setModifiedTime(model.getModifiedTime());
+		soapModel.setClassPK(model.getClassPK());
 		soapModel.setScope(model.getScope());
 		soapModel.setRead(model.isRead());
 		soapModel.setType(model.getType());
@@ -140,6 +141,14 @@ public class FaroNotificationSoap implements Serializable {
 		_modifiedTime = modifiedTime;
 	}
 
+	public long getClassPK() {
+		return _classPK;
+	}
+
+	public void setClassPK(long classPK) {
+		_classPK = classPK;
+	}
+
 	public String getScope() {
 		return _scope;
 	}
@@ -181,6 +190,7 @@ public class FaroNotificationSoap implements Serializable {
 	private long _userId;
 	private long _createTime;
 	private long _modifiedTime;
+	private long _classPK;
 	private String _scope;
 	private boolean _read;
 	private String _type;

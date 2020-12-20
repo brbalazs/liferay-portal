@@ -62,7 +62,7 @@ public class FaroNotificationCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{faroNotificationId=");
 		sb.append(faroNotificationId);
@@ -74,6 +74,8 @@ public class FaroNotificationCacheModel
 		sb.append(createTime);
 		sb.append(", modifiedTime=");
 		sb.append(modifiedTime);
+		sb.append(", classPK=");
+		sb.append(classPK);
 		sb.append(", scope=");
 		sb.append(scope);
 		sb.append(", read=");
@@ -96,6 +98,7 @@ public class FaroNotificationCacheModel
 		faroNotificationImpl.setUserId(userId);
 		faroNotificationImpl.setCreateTime(createTime);
 		faroNotificationImpl.setModifiedTime(modifiedTime);
+		faroNotificationImpl.setClassPK(classPK);
 
 		if (scope == null) {
 			faroNotificationImpl.setScope("");
@@ -136,6 +139,8 @@ public class FaroNotificationCacheModel
 		createTime = objectInput.readLong();
 
 		modifiedTime = objectInput.readLong();
+
+		classPK = objectInput.readLong();
 		scope = objectInput.readUTF();
 
 		read = objectInput.readBoolean();
@@ -154,6 +159,8 @@ public class FaroNotificationCacheModel
 		objectOutput.writeLong(createTime);
 
 		objectOutput.writeLong(modifiedTime);
+
+		objectOutput.writeLong(classPK);
 
 		if (scope == null) {
 			objectOutput.writeUTF("");
@@ -184,6 +191,7 @@ public class FaroNotificationCacheModel
 	public long userId;
 	public long createTime;
 	public long modifiedTime;
+	public long classPK;
 	public String scope;
 	public boolean read;
 	public String type;

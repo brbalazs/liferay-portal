@@ -30,10 +30,11 @@
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createTime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="modifiedTime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="classPK" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="scope" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property column="read_" name="read" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property column="type_" name="type" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="subType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="subtype" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.liferay.osb.faro.model.impl.FaroPreferencesImpl" table="OSBFaro_FaroPreferences">
 		<id name="faroPreferencesId" type="long">
