@@ -33,29 +33,35 @@ public class UpgradeFaroNotification extends UpgradeProcess {
 			StringBundler.concat(
 				"create table OSBFaro_FaroNotification (faroNotificationId ",
 				"LONG not null primary key, groupId LONG, userId LONG, ",
-				"createTime LONG, modifiedTime LONG, scope VARCHAR(75) null, ",
-				"read_ BOOLEAN, type_ VARCHAR(75) null, subtype VARCHAR(75) ",
-				"null)"));
+				"createTime LONG, modifiedTime LONG, classPK LONG, scope ",
+				"VARCHAR(75) null, read_ BOOLEAN, type_ VARCHAR(75) null, ",
+				"subtype VARCHAR(75) null)"));
+		runSQL(
+			"create index IX_A41A962F on OSBFaro_FaroNotification " +
+				"(createTime);");
+		runSQL(
+			"create index IX_BD2D078E on OSBFaro_FaroNotification (groupId, " +
+				"createTime, classPK);");
 
 		_notifyFaroProjects();
 	}
 
-	private void _addFaroNotification(long groupId, long userId)
-		throws SQLException {
-
+	private void _addFaroNotification(long groupId) throws SQLException {
 		String sql = StringBundler.concat(
 			"insert into OSBFaro_FaroNotification (faroNotificationId, ",
-			"groupId, userId, createTime, modifiedTime, scope, read_, type_, ",
+			"groupId, createTime, modifiedTime, classPK, scope, read_, type_, ",
 			"subtype) values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {
-			long now = System.currentTimeMillis();
-
 			ps.setLong(1, increment());
 			ps.setLong(2, groupId);
-			ps.setLong(3, userId);
+
+			long now = System.currentTimeMillis();
+
+			ps.setLong(3, now);
 			ps.setLong(4, now);
-			ps.setLong(5, now);
+
+			ps.setLong(5, groupId);
 			ps.setString(6, FaroNotificationConstants.SCOPE_WORKSPACE);
 			ps.setBoolean(7, false);
 			ps.setString(8, FaroNotificationConstants.TYPE_MODAL);
@@ -67,12 +73,12 @@ public class UpgradeFaroNotification extends UpgradeProcess {
 
 	private void _notifyFaroProjects() throws SQLException {
 		try (PreparedStatement ps = connection.prepareStatement(
-				"select groupId, userId from OSBFaro_FaroProject")) {
+				"select groupId from OSBFaro_FaroProject")) {
 
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				_addFaroNotification(rs.getLong(1), rs.getLong(2));
+				_addFaroNotification(rs.getLong(1));
 			}
 		}
 	}
