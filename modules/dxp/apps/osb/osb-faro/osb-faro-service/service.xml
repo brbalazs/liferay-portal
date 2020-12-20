@@ -75,6 +75,17 @@
 		<column name="read" type="boolean" />
 		<column name="type" type="String" />
 		<column name="subtype" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="C" return-type="Collection">
+			<finder-column comparator="&lt;" name="createTime" />
+		</finder>
+		<finder name="G_C_C" return-type="Collection" where="read = [$FALSE$]">
+			<finder-column name="groupId" />
+			<finder-column comparator="&gt;" name="createTime" />
+			<finder-column arrayable-operator="OR" name="classPK" />
+		</finder>
 	</entity>
 	<entity local-service="true" name="FaroPreferences" remote-service="false">
 

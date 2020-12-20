@@ -18,6 +18,13 @@ import com.liferay.osb.faro.model.FaroNotification;
 import com.liferay.osb.faro.service.base.FaroNotificationLocalServiceBaseImpl;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -31,7 +38,7 @@ public class FaroNotificationLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public FaroNotification addFaroNotification(
-		long userId, long groupId, String classPK, String scope, String type,
+		long userId, long groupId, long classPK, String scope, String type,
 		String subtype) {
 
 		long faroNotificationId = counterLocalService.increment();
@@ -58,10 +65,10 @@ public class FaroNotificationLocalServiceImpl
 
 	@Override
 	public void clearDismissedNotifications() {
-		List<FaroNotification> dismissedNotifications =
-			faroNotificationFinder.findDismissedFaroNotifications();
+		List<FaroNotification> faroNotifications =
+			faroNotificationPersistence.findByC(_getDateMillis());
 
-		Stream<FaroNotification> stream = dismissedNotifications.stream();
+		Stream<FaroNotification> stream = faroNotifications.stream();
 
 		stream.forEach(this::deleteFaroNotification);
 	}
@@ -70,8 +77,31 @@ public class FaroNotificationLocalServiceImpl
 	public List<FaroNotification> findFaroNotificationsLast30Days(
 		long groupId, long userId) {
 
-		return faroNotificationFinder.findFaroNotificationsLast30Days(
-			groupId, userId);
+		PermissionChecker permissionChecker =
+			PermissionThreadLocal.getPermissionChecker();
+
+		if (permissionChecker.isGroupAdmin(groupId) ||
+			permissionChecker.isGroupOwner(groupId)) {
+
+			return faroNotificationPersistence.findByG_C_C(
+				groupId, _getDateMillis(), new long[] {groupId, userId});
+		}
+
+		return faroNotificationPersistence.findByG_C_C(
+			groupId, _getDateMillis(), userId);
+	}
+
+	private long _getDateMillis() {
+		LocalDate localDate = LocalDate.now();
+
+		localDate = localDate.minusDays(30);
+
+		ZonedDateTime zonedDateTime = localDate.atStartOfDay(
+			ZoneId.systemDefault());
+
+		Instant instant = zonedDateTime.toInstant();
+
+		return instant.toEpochMilli();
 	}
 
 }
