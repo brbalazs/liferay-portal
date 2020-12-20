@@ -63,7 +63,7 @@ public class FaroNotificationLocalServiceImpl
 
 		Stream<FaroNotification> stream = dismissedNotifications.stream();
 
-		stream.forEach(faroNotificationPersistence::remove);
+		stream.forEach(this::deleteFaroNotification);
 	}
 
 	@Override
