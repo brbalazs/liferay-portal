@@ -77,7 +77,12 @@ public class FaroNotificationFinderImpl
 
 			String sql = _customSQL.get(getClass(), FIND_LAST_30_DAYS);
 
-			if (!_isGroupAdmin(groupId)) {
+			PermissionChecker permissionChecker =
+				PermissionThreadLocal.getPermissionChecker();
+
+			if (!permissionChecker.isGroupAdmin(groupId) ||
+				!permissionChecker.isGroupOwner(groupId)) {
+
 				sql = StringUtil.removeSubstring(sql, _WORKSPACE_SQL);
 			}
 
@@ -99,13 +104,6 @@ public class FaroNotificationFinderImpl
 		finally {
 			closeSession(session);
 		}
-	}
-
-	private boolean _isGroupAdmin(long groupId) {
-		PermissionChecker permissionChecker =
-			PermissionThreadLocal.getPermissionChecker();
-
-		return permissionChecker.isGroupAdmin(groupId);
 	}
 
 	private static final String _WORKSPACE_SQL =
