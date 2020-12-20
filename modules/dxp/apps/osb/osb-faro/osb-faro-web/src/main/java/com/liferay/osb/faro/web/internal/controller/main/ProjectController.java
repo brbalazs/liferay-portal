@@ -1147,7 +1147,7 @@ public class ProjectController extends BaseFaroController {
 
 		for (FaroUser faroUser : faroUsers) {
 			_faroNotificationLocalService.addFaroNotification(
-				faroUser.getUserId(), groupId,
+				getUserId(), groupId, faroUser.getUserId(),
 				FaroNotificationConstants.SCOPE_USER,
 				FaroNotificationConstants.TYPE_ALERT,
 				FaroNotificationConstants.SUBTYPE_TIME_ZONE_CHANGED);
