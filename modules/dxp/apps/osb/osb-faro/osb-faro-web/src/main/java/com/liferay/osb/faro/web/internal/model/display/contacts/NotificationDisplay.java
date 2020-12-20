@@ -26,19 +26,11 @@ public class NotificationDisplay {
 	}
 
 	public NotificationDisplay(FaroNotification faroNotification) {
-		_groupId = faroNotification.getGroupId();
 		_id = faroNotification.getFaroNotificationId();
-		_read = faroNotification.getRead();
-		_type = faroNotification.getType();
 		_subtype = faroNotification.getSubtype();
-		_userId = faroNotification.getUserId();
 	}
 
-	private long _groupId;
 	private long _id;
-	private boolean _read;
 	private String _subtype;
-	private String _type;
-	private long _userId;
 
 }

@@ -54,12 +54,11 @@ public class NotificationController extends BaseFaroController {
 	@DELETE
 	@Path("/{id}")
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
-	public NotificationDisplay deleteNotification(
+	public void deleteNotification(
 			@PathParam("groupId") long groupId, @PathParam("id") long id)
 		throws PortalException {
 
-		return new NotificationDisplay(
-			_faroNotificationLocalService.deleteFaroNotification(id));
+		_faroNotificationLocalService.deleteFaroNotification(id);
 	}
 
 	@GET
@@ -83,7 +82,7 @@ public class NotificationController extends BaseFaroController {
 	@Path("/{id}/read")
 	@POST
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
-	public NotificationDisplay readNotification(
+	public void readNotification(
 			@PathParam("groupId") long groupId, @PathParam("id") long id)
 		throws PortalException {
 
@@ -92,9 +91,7 @@ public class NotificationController extends BaseFaroController {
 
 		faroNotification.setRead(true);
 
-		return new NotificationDisplay(
-			_faroNotificationLocalService.updateFaroNotification(
-				faroNotification));
+		_faroNotificationLocalService.updateFaroNotification(faroNotification);
 	}
 
 	@Reference
