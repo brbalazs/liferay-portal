@@ -51,7 +51,7 @@ public class UpgradeFaroNotification extends UpgradeProcess {
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {
 			long now = System.currentTimeMillis();
 
-			ps.setLong(1, groupId);
+			ps.setLong(1, increment());
 			ps.setLong(2, groupId);
 			ps.setLong(3, userId);
 			ps.setLong(4, now);
