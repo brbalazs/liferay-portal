@@ -6,6 +6,16 @@ import {StaticRouter} from 'react-router';
 jest.unmock('react-dom');
 
 describe('InterestPagesList', () => {
+	it('should render', () => {
+		const {container} = render(
+			<StaticRouter>
+				<InterestPagesList dataSourceParams={{}} />
+			</StaticRouter>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
 	it('should render an activePages component', () => {
 		const {container} = render(
 			<StaticRouter>
@@ -13,7 +23,9 @@ describe('InterestPagesList', () => {
 			</StaticRouter>
 		);
 
-		expect(container).toMatchSnapshot();
+		expect(
+			container.querySelector('.lexicon-icon-order-arrow-down')
+		).toBeTruthy();
 	});
 
 	it('should render an InactivePages component', () => {
@@ -23,6 +35,8 @@ describe('InterestPagesList', () => {
 			</StaticRouter>
 		);
 
-		expect(container).toMatchSnapshot();
+		expect(
+			container.querySelector('.lexicon-icon-order-arrow-down')
+		).toBeFalsy();
 	});
 });
