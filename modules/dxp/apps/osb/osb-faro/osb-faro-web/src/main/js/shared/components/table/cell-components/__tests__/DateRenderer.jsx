@@ -2,11 +2,13 @@ import DateRenderer from '../DateRenderer';
 import moment from 'moment';
 import React from 'react';
 import {getTimestamp} from 'test/data';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('DateRenderer', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<DateRenderer
 				data={{
 					dateCreated: getTimestamp()
@@ -14,11 +16,11 @@ describe('DateRenderer', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with date provided in the datePath String', () => {
-		const component = shallow(
+		const {container} = render(
 			<DateRenderer
 				data={{
 					dateAdded: getTimestamp(),
@@ -28,11 +30,11 @@ describe('DateRenderer', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with date provided in the datePath Array', () => {
-		const component = shallow(
+		const {container} = render(
 			<DateRenderer
 				data={{
 					properties: {
@@ -44,11 +46,11 @@ describe('DateRenderer', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should use a custom date formatter', () => {
-		const component = shallow(
+		const {container} = render(
 			<DateRenderer
 				data={{
 					dateCreated: getTimestamp()
@@ -57,6 +59,6 @@ describe('DateRenderer', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
