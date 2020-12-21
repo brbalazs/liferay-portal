@@ -48,6 +48,7 @@ definition {
 
 	test DeactivateCommerceAccount {
 		property portal.acceptance = "quarantine";
+		property portal.upstream = "quarantine";
 		property test.name.skip.portal.instance = "CommerceAccelerators#DeactivateCommerceAccount";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Minium");
@@ -126,7 +127,7 @@ definition {
 	@description = "This is a workaround for an issue with Minium's sidebar on CI"
 	test DeactivateCommerceAccountAdminLogOut {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "CommerceAccelerators#DeactivateCommerceAccount";
+		property test.name.skip.portal.instance = "CommerceAccelerators#DeactivateCommerceAccountAdminLogOut";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Minium");
 
@@ -309,6 +310,7 @@ definition {
 
 	test MiniumSiteFullFlow {
 		property portal.acceptance = "quarantine";
+		property portal.upstream = "quarantine";
 		property test.name.skip.portal.instance = "CommerceAccelerators#MiniumSiteFullFlow";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Minium");
