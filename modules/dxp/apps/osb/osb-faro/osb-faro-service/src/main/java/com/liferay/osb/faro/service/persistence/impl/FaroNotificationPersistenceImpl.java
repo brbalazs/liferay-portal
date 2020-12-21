@@ -80,8 +80,8 @@ public class FaroNotificationPersistenceImpl
 	private FinderPath _finderPathWithPaginationFindAll;
 	private FinderPath _finderPathWithoutPaginationFindAll;
 	private FinderPath _finderPathCountAll;
-	private FinderPath _finderPathWithPaginationFindByC;
-	private FinderPath _finderPathWithPaginationCountByC;
+	private FinderPath _finderPathWithPaginationFindByCreateTime;
+	private FinderPath _finderPathWithPaginationCountByCreateTime;
 
 	/**
 	 * Returns all the faro notifications where createTime &lt; &#63;.
@@ -90,8 +90,9 @@ public class FaroNotificationPersistenceImpl
 	 * @return the matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByC(long createTime) {
-		return findByC(createTime, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	public List<FaroNotification> findByCreateTime(long createTime) {
+		return findByCreateTime(
+			createTime, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
@@ -107,8 +108,10 @@ public class FaroNotificationPersistenceImpl
 	 * @return the range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByC(long createTime, int start, int end) {
-		return findByC(createTime, start, end, null);
+	public List<FaroNotification> findByCreateTime(
+		long createTime, int start, int end) {
+
+		return findByCreateTime(createTime, start, end, null);
 	}
 
 	/**
@@ -125,11 +128,12 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByC(
+	public List<FaroNotification> findByCreateTime(
 		long createTime, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
-		return findByC(createTime, start, end, orderByComparator, true);
+		return findByCreateTime(
+			createTime, start, end, orderByComparator, true);
 	}
 
 	/**
@@ -147,7 +151,7 @@ public class FaroNotificationPersistenceImpl
 	 * @return the ordered range of matching faro notifications
 	 */
 	@Override
-	public List<FaroNotification> findByC(
+	public List<FaroNotification> findByCreateTime(
 		long createTime, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator,
 		boolean useFinderCache) {
@@ -155,7 +159,7 @@ public class FaroNotificationPersistenceImpl
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
-		finderPath = _finderPathWithPaginationFindByC;
+		finderPath = _finderPathWithPaginationFindByCreateTime;
 		finderArgs = new Object[] {createTime, start, end, orderByComparator};
 
 		List<FaroNotification> list = null;
@@ -188,7 +192,7 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_SQL_SELECT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_C_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_CREATETIME_CREATETIME_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -244,12 +248,12 @@ public class FaroNotificationPersistenceImpl
 	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification findByC_First(
+	public FaroNotification findByCreateTime_First(
 			long createTime,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws NoSuchFaroNotificationException {
 
-		FaroNotification faroNotification = fetchByC_First(
+		FaroNotification faroNotification = fetchByCreateTime_First(
 			createTime, orderByComparator);
 
 		if (faroNotification != null) {
@@ -276,11 +280,11 @@ public class FaroNotificationPersistenceImpl
 	 * @return the first matching faro notification, or <code>null</code> if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification fetchByC_First(
+	public FaroNotification fetchByCreateTime_First(
 		long createTime,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
-		List<FaroNotification> list = findByC(
+		List<FaroNotification> list = findByCreateTime(
 			createTime, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -299,12 +303,12 @@ public class FaroNotificationPersistenceImpl
 	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification findByC_Last(
+	public FaroNotification findByCreateTime_Last(
 			long createTime,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws NoSuchFaroNotificationException {
 
-		FaroNotification faroNotification = fetchByC_Last(
+		FaroNotification faroNotification = fetchByCreateTime_Last(
 			createTime, orderByComparator);
 
 		if (faroNotification != null) {
@@ -331,17 +335,17 @@ public class FaroNotificationPersistenceImpl
 	 * @return the last matching faro notification, or <code>null</code> if a matching faro notification could not be found
 	 */
 	@Override
-	public FaroNotification fetchByC_Last(
+	public FaroNotification fetchByCreateTime_Last(
 		long createTime,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
-		int count = countByC(createTime);
+		int count = countByCreateTime(createTime);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<FaroNotification> list = findByC(
+		List<FaroNotification> list = findByCreateTime(
 			createTime, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -361,7 +365,7 @@ public class FaroNotificationPersistenceImpl
 	 * @throws NoSuchFaroNotificationException if a faro notification with the primary key could not be found
 	 */
 	@Override
-	public FaroNotification[] findByC_PrevAndNext(
+	public FaroNotification[] findByCreateTime_PrevAndNext(
 			long faroNotificationId, long createTime,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws NoSuchFaroNotificationException {
@@ -376,12 +380,12 @@ public class FaroNotificationPersistenceImpl
 
 			FaroNotification[] array = new FaroNotificationImpl[3];
 
-			array[0] = getByC_PrevAndNext(
+			array[0] = getByCreateTime_PrevAndNext(
 				session, faroNotification, createTime, orderByComparator, true);
 
 			array[1] = faroNotification;
 
-			array[2] = getByC_PrevAndNext(
+			array[2] = getByCreateTime_PrevAndNext(
 				session, faroNotification, createTime, orderByComparator,
 				false);
 
@@ -395,7 +399,7 @@ public class FaroNotificationPersistenceImpl
 		}
 	}
 
-	protected FaroNotification getByC_PrevAndNext(
+	protected FaroNotification getByCreateTime_PrevAndNext(
 		Session session, FaroNotification faroNotification, long createTime,
 		OrderByComparator<FaroNotification> orderByComparator,
 		boolean previous) {
@@ -413,7 +417,7 @@ public class FaroNotificationPersistenceImpl
 
 		sb.append(_SQL_SELECT_FARONOTIFICATION_WHERE);
 
-		sb.append(_FINDER_COLUMN_C_CREATETIME_2);
+		sb.append(_FINDER_COLUMN_CREATETIME_CREATETIME_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -511,9 +515,9 @@ public class FaroNotificationPersistenceImpl
 	 * @param createTime the create time
 	 */
 	@Override
-	public void removeByC(long createTime) {
+	public void removeByCreateTime(long createTime) {
 		for (FaroNotification faroNotification :
-				findByC(
+				findByCreateTime(
 					createTime, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 
 			remove(faroNotification);
@@ -527,8 +531,8 @@ public class FaroNotificationPersistenceImpl
 	 * @return the number of matching faro notifications
 	 */
 	@Override
-	public int countByC(long createTime) {
-		FinderPath finderPath = _finderPathWithPaginationCountByC;
+	public int countByCreateTime(long createTime) {
+		FinderPath finderPath = _finderPathWithPaginationCountByCreateTime;
 
 		Object[] finderArgs = new Object[] {createTime};
 
@@ -539,7 +543,7 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_SQL_COUNT_FARONOTIFICATION_WHERE);
 
-			sb.append(_FINDER_COLUMN_C_CREATETIME_2);
+			sb.append(_FINDER_COLUMN_CREATETIME_CREATETIME_2);
 
 			String sql = sb.toString();
 
@@ -571,31 +575,31 @@ public class FaroNotificationPersistenceImpl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_C_CREATETIME_2 =
+	private static final String _FINDER_COLUMN_CREATETIME_CREATETIME_2 =
 		"faroNotification.createTime < ?";
 
 	private FinderPath _finderPathWithPaginationFindByG_C_C;
 	private FinderPath _finderPathWithPaginationCountByG_C_C;
 
 	/**
-	 * Returns all the faro notifications where groupId = &#63; and createTime &gt; &#63; and classPK = &#63;.
+	 * Returns all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63;.
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPK the class pk
+	 * @param ownerId the owner ID
 	 * @return the matching faro notifications
 	 */
 	@Override
 	public List<FaroNotification> findByG_C_C(
-		long groupId, long createTime, long classPK) {
+		long groupId, long createTime, long ownerId) {
 
 		return findByG_C_C(
-			groupId, createTime, classPK, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			groupId, createTime, ownerId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
 			null);
 	}
 
 	/**
-	 * Returns a range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and classPK = &#63;.
+	 * Returns a range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
@@ -603,20 +607,20 @@ public class FaroNotificationPersistenceImpl
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPK the class pk
+	 * @param ownerId the owner ID
 	 * @param start the lower bound of the range of faro notifications
 	 * @param end the upper bound of the range of faro notifications (not inclusive)
 	 * @return the range of matching faro notifications
 	 */
 	@Override
 	public List<FaroNotification> findByG_C_C(
-		long groupId, long createTime, long classPK, int start, int end) {
+		long groupId, long createTime, long ownerId, int start, int end) {
 
-		return findByG_C_C(groupId, createTime, classPK, start, end, null);
+		return findByG_C_C(groupId, createTime, ownerId, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and classPK = &#63;.
+	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
@@ -624,7 +628,7 @@ public class FaroNotificationPersistenceImpl
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPK the class pk
+	 * @param ownerId the owner ID
 	 * @param start the lower bound of the range of faro notifications
 	 * @param end the upper bound of the range of faro notifications (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -632,15 +636,15 @@ public class FaroNotificationPersistenceImpl
 	 */
 	@Override
 	public List<FaroNotification> findByG_C_C(
-		long groupId, long createTime, long classPK, int start, int end,
+		long groupId, long createTime, long ownerId, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
 		return findByG_C_C(
-			groupId, createTime, classPK, start, end, orderByComparator, true);
+			groupId, createTime, ownerId, start, end, orderByComparator, true);
 	}
 
 	/**
-	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and classPK = &#63;.
+	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
@@ -648,7 +652,7 @@ public class FaroNotificationPersistenceImpl
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPK the class pk
+	 * @param ownerId the owner ID
 	 * @param start the lower bound of the range of faro notifications
 	 * @param end the upper bound of the range of faro notifications (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -657,7 +661,7 @@ public class FaroNotificationPersistenceImpl
 	 */
 	@Override
 	public List<FaroNotification> findByG_C_C(
-		long groupId, long createTime, long classPK, int start, int end,
+		long groupId, long createTime, long ownerId, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator,
 		boolean useFinderCache) {
 
@@ -666,7 +670,7 @@ public class FaroNotificationPersistenceImpl
 
 		finderPath = _finderPathWithPaginationFindByG_C_C;
 		finderArgs = new Object[] {
-			groupId, createTime, classPK, start, end, orderByComparator
+			groupId, createTime, ownerId, start, end, orderByComparator
 		};
 
 		List<FaroNotification> list = null;
@@ -679,7 +683,7 @@ public class FaroNotificationPersistenceImpl
 				for (FaroNotification faroNotification : list) {
 					if ((groupId != faroNotification.getGroupId()) ||
 						(createTime >= faroNotification.getCreateTime()) ||
-						(classPK != faroNotification.getClassPK())) {
+						(ownerId != faroNotification.getOwnerId())) {
 
 						list = null;
 
@@ -706,7 +710,7 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_FINDER_COLUMN_G_C_C_CREATETIME_2);
 
-			sb.append(_FINDER_COLUMN_G_C_C_CLASSPK_2);
+			sb.append(_FINDER_COLUMN_G_C_C_OWNERID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(
@@ -731,7 +735,7 @@ public class FaroNotificationPersistenceImpl
 
 				queryPos.add(createTime);
 
-				queryPos.add(classPK);
+				queryPos.add(ownerId);
 
 				list = (List<FaroNotification>)QueryUtil.list(
 					query, getDialect(), start, end);
@@ -758,23 +762,23 @@ public class FaroNotificationPersistenceImpl
 	}
 
 	/**
-	 * Returns the first faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and classPK = &#63;.
+	 * Returns the first faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63;.
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPK the class pk
+	 * @param ownerId the owner ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching faro notification
 	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
 	 */
 	@Override
 	public FaroNotification findByG_C_C_First(
-			long groupId, long createTime, long classPK,
+			long groupId, long createTime, long ownerId,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws NoSuchFaroNotificationException {
 
 		FaroNotification faroNotification = fetchByG_C_C_First(
-			groupId, createTime, classPK, orderByComparator);
+			groupId, createTime, ownerId, orderByComparator);
 
 		if (faroNotification != null) {
 			return faroNotification;
@@ -790,8 +794,8 @@ public class FaroNotificationPersistenceImpl
 		sb.append(", createTime>");
 		sb.append(createTime);
 
-		sb.append(", classPK=");
-		sb.append(classPK);
+		sb.append(", ownerId=");
+		sb.append(ownerId);
 
 		sb.append("}");
 
@@ -799,21 +803,21 @@ public class FaroNotificationPersistenceImpl
 	}
 
 	/**
-	 * Returns the first faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and classPK = &#63;.
+	 * Returns the first faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63;.
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPK the class pk
+	 * @param ownerId the owner ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching faro notification, or <code>null</code> if a matching faro notification could not be found
 	 */
 	@Override
 	public FaroNotification fetchByG_C_C_First(
-		long groupId, long createTime, long classPK,
+		long groupId, long createTime, long ownerId,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
 		List<FaroNotification> list = findByG_C_C(
-			groupId, createTime, classPK, 0, 1, orderByComparator);
+			groupId, createTime, ownerId, 0, 1, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -823,23 +827,23 @@ public class FaroNotificationPersistenceImpl
 	}
 
 	/**
-	 * Returns the last faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and classPK = &#63;.
+	 * Returns the last faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63;.
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPK the class pk
+	 * @param ownerId the owner ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching faro notification
 	 * @throws NoSuchFaroNotificationException if a matching faro notification could not be found
 	 */
 	@Override
 	public FaroNotification findByG_C_C_Last(
-			long groupId, long createTime, long classPK,
+			long groupId, long createTime, long ownerId,
 			OrderByComparator<FaroNotification> orderByComparator)
 		throws NoSuchFaroNotificationException {
 
 		FaroNotification faroNotification = fetchByG_C_C_Last(
-			groupId, createTime, classPK, orderByComparator);
+			groupId, createTime, ownerId, orderByComparator);
 
 		if (faroNotification != null) {
 			return faroNotification;
@@ -855,8 +859,8 @@ public class FaroNotificationPersistenceImpl
 		sb.append(", createTime>");
 		sb.append(createTime);
 
-		sb.append(", classPK=");
-		sb.append(classPK);
+		sb.append(", ownerId=");
+		sb.append(ownerId);
 
 		sb.append("}");
 
@@ -864,27 +868,27 @@ public class FaroNotificationPersistenceImpl
 	}
 
 	/**
-	 * Returns the last faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and classPK = &#63;.
+	 * Returns the last faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63;.
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPK the class pk
+	 * @param ownerId the owner ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching faro notification, or <code>null</code> if a matching faro notification could not be found
 	 */
 	@Override
 	public FaroNotification fetchByG_C_C_Last(
-		long groupId, long createTime, long classPK,
+		long groupId, long createTime, long ownerId,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
-		int count = countByG_C_C(groupId, createTime, classPK);
+		int count = countByG_C_C(groupId, createTime, ownerId);
 
 		if (count == 0) {
 			return null;
 		}
 
 		List<FaroNotification> list = findByG_C_C(
-			groupId, createTime, classPK, count - 1, count, orderByComparator);
+			groupId, createTime, ownerId, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -894,12 +898,12 @@ public class FaroNotificationPersistenceImpl
 	}
 
 	/**
-	 * Returns the faro notifications before and after the current faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and classPK = &#63;.
+	 * Returns the faro notifications before and after the current faro notification in the ordered set where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63;.
 	 *
 	 * @param faroNotificationId the primary key of the current faro notification
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPK the class pk
+	 * @param ownerId the owner ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next faro notification
 	 * @throws NoSuchFaroNotificationException if a faro notification with the primary key could not be found
@@ -907,7 +911,7 @@ public class FaroNotificationPersistenceImpl
 	@Override
 	public FaroNotification[] findByG_C_C_PrevAndNext(
 			long faroNotificationId, long groupId, long createTime,
-			long classPK, OrderByComparator<FaroNotification> orderByComparator)
+			long ownerId, OrderByComparator<FaroNotification> orderByComparator)
 		throws NoSuchFaroNotificationException {
 
 		FaroNotification faroNotification = findByPrimaryKey(
@@ -921,13 +925,13 @@ public class FaroNotificationPersistenceImpl
 			FaroNotification[] array = new FaroNotificationImpl[3];
 
 			array[0] = getByG_C_C_PrevAndNext(
-				session, faroNotification, groupId, createTime, classPK,
+				session, faroNotification, groupId, createTime, ownerId,
 				orderByComparator, true);
 
 			array[1] = faroNotification;
 
 			array[2] = getByG_C_C_PrevAndNext(
-				session, faroNotification, groupId, createTime, classPK,
+				session, faroNotification, groupId, createTime, ownerId,
 				orderByComparator, false);
 
 			return array;
@@ -942,7 +946,7 @@ public class FaroNotificationPersistenceImpl
 
 	protected FaroNotification getByG_C_C_PrevAndNext(
 		Session session, FaroNotification faroNotification, long groupId,
-		long createTime, long classPK,
+		long createTime, long ownerId,
 		OrderByComparator<FaroNotification> orderByComparator,
 		boolean previous) {
 
@@ -963,7 +967,7 @@ public class FaroNotificationPersistenceImpl
 
 		sb.append(_FINDER_COLUMN_G_C_C_CREATETIME_2);
 
-		sb.append(_FINDER_COLUMN_G_C_C_CLASSPK_2);
+		sb.append(_FINDER_COLUMN_G_C_C_OWNERID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields =
@@ -1038,7 +1042,7 @@ public class FaroNotificationPersistenceImpl
 
 		queryPos.add(createTime);
 
-		queryPos.add(classPK);
+		queryPos.add(ownerId);
 
 		if (orderByComparator != null) {
 			for (Object orderByConditionValue :
@@ -1060,7 +1064,7 @@ public class FaroNotificationPersistenceImpl
 	}
 
 	/**
-	 * Returns all the faro notifications where groupId = &#63; and createTime &gt; &#63; and classPK = any &#63;.
+	 * Returns all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = any &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
@@ -1068,20 +1072,20 @@ public class FaroNotificationPersistenceImpl
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPKs the class pks
+	 * @param ownerIds the owner IDs
 	 * @return the matching faro notifications
 	 */
 	@Override
 	public List<FaroNotification> findByG_C_C(
-		long groupId, long createTime, long[] classPKs) {
+		long groupId, long createTime, long[] ownerIds) {
 
 		return findByG_C_C(
-			groupId, createTime, classPKs, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			groupId, createTime, ownerIds, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
 			null);
 	}
 
 	/**
-	 * Returns a range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and classPK = any &#63;.
+	 * Returns a range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = any &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
@@ -1089,20 +1093,20 @@ public class FaroNotificationPersistenceImpl
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPKs the class pks
+	 * @param ownerIds the owner IDs
 	 * @param start the lower bound of the range of faro notifications
 	 * @param end the upper bound of the range of faro notifications (not inclusive)
 	 * @return the range of matching faro notifications
 	 */
 	@Override
 	public List<FaroNotification> findByG_C_C(
-		long groupId, long createTime, long[] classPKs, int start, int end) {
+		long groupId, long createTime, long[] ownerIds, int start, int end) {
 
-		return findByG_C_C(groupId, createTime, classPKs, start, end, null);
+		return findByG_C_C(groupId, createTime, ownerIds, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and classPK = any &#63;.
+	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = any &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
@@ -1110,7 +1114,7 @@ public class FaroNotificationPersistenceImpl
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPKs the class pks
+	 * @param ownerIds the owner IDs
 	 * @param start the lower bound of the range of faro notifications
 	 * @param end the upper bound of the range of faro notifications (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -1118,15 +1122,15 @@ public class FaroNotificationPersistenceImpl
 	 */
 	@Override
 	public List<FaroNotification> findByG_C_C(
-		long groupId, long createTime, long[] classPKs, int start, int end,
+		long groupId, long createTime, long[] ownerIds, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator) {
 
 		return findByG_C_C(
-			groupId, createTime, classPKs, start, end, orderByComparator, true);
+			groupId, createTime, ownerIds, start, end, orderByComparator, true);
 	}
 
 	/**
-	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and classPK = &#63;, optionally using the finder cache.
+	 * Returns an ordered range of all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63;, optionally using the finder cache.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>FaroNotificationModelImpl</code>.
@@ -1134,7 +1138,7 @@ public class FaroNotificationPersistenceImpl
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPK the class pk
+	 * @param ownerId the owner ID
 	 * @param start the lower bound of the range of faro notifications
 	 * @param end the upper bound of the range of faro notifications (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -1143,22 +1147,22 @@ public class FaroNotificationPersistenceImpl
 	 */
 	@Override
 	public List<FaroNotification> findByG_C_C(
-		long groupId, long createTime, long[] classPKs, int start, int end,
+		long groupId, long createTime, long[] ownerIds, int start, int end,
 		OrderByComparator<FaroNotification> orderByComparator,
 		boolean useFinderCache) {
 
-		if (classPKs == null) {
-			classPKs = new long[0];
+		if (ownerIds == null) {
+			ownerIds = new long[0];
 		}
-		else if (classPKs.length > 1) {
-			classPKs = ArrayUtil.unique(classPKs);
+		else if (ownerIds.length > 1) {
+			ownerIds = ArrayUtil.unique(ownerIds);
 
-			Arrays.sort(classPKs);
+			Arrays.sort(ownerIds);
 		}
 
-		if (classPKs.length == 1) {
+		if (ownerIds.length == 1) {
 			return findByG_C_C(
-				groupId, createTime, classPKs[0], start, end,
+				groupId, createTime, ownerIds[0], start, end,
 				orderByComparator);
 		}
 
@@ -1169,13 +1173,13 @@ public class FaroNotificationPersistenceImpl
 
 			if (useFinderCache) {
 				finderArgs = new Object[] {
-					groupId, createTime, StringUtil.merge(classPKs)
+					groupId, createTime, StringUtil.merge(ownerIds)
 				};
 			}
 		}
 		else if (useFinderCache) {
 			finderArgs = new Object[] {
-				groupId, createTime, StringUtil.merge(classPKs), start, end,
+				groupId, createTime, StringUtil.merge(ownerIds), start, end,
 				orderByComparator
 			};
 		}
@@ -1191,7 +1195,7 @@ public class FaroNotificationPersistenceImpl
 					if ((groupId != faroNotification.getGroupId()) ||
 						(createTime >= faroNotification.getCreateTime()) ||
 						!ArrayUtil.contains(
-							classPKs, faroNotification.getClassPK())) {
+							ownerIds, faroNotification.getOwnerId())) {
 
 						list = null;
 
@@ -1210,12 +1214,12 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_FINDER_COLUMN_G_C_C_CREATETIME_2);
 
-			if (classPKs.length > 0) {
+			if (ownerIds.length > 0) {
 				sb.append("(");
 
-				sb.append(_FINDER_COLUMN_G_C_C_CLASSPK_7);
+				sb.append(_FINDER_COLUMN_G_C_C_OWNERID_7);
 
-				sb.append(StringUtil.merge(classPKs));
+				sb.append(StringUtil.merge(ownerIds));
 
 				sb.append(")");
 
@@ -1277,17 +1281,17 @@ public class FaroNotificationPersistenceImpl
 	}
 
 	/**
-	 * Removes all the faro notifications where groupId = &#63; and createTime &gt; &#63; and classPK = &#63; from the database.
+	 * Removes all the faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63; from the database.
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPK the class pk
+	 * @param ownerId the owner ID
 	 */
 	@Override
-	public void removeByG_C_C(long groupId, long createTime, long classPK) {
+	public void removeByG_C_C(long groupId, long createTime, long ownerId) {
 		for (FaroNotification faroNotification :
 				findByG_C_C(
-					groupId, createTime, classPK, QueryUtil.ALL_POS,
+					groupId, createTime, ownerId, QueryUtil.ALL_POS,
 					QueryUtil.ALL_POS, null)) {
 
 			remove(faroNotification);
@@ -1295,18 +1299,18 @@ public class FaroNotificationPersistenceImpl
 	}
 
 	/**
-	 * Returns the number of faro notifications where groupId = &#63; and createTime &gt; &#63; and classPK = &#63;.
+	 * Returns the number of faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = &#63;.
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPK the class pk
+	 * @param ownerId the owner ID
 	 * @return the number of matching faro notifications
 	 */
 	@Override
-	public int countByG_C_C(long groupId, long createTime, long classPK) {
+	public int countByG_C_C(long groupId, long createTime, long ownerId) {
 		FinderPath finderPath = _finderPathWithPaginationCountByG_C_C;
 
-		Object[] finderArgs = new Object[] {groupId, createTime, classPK};
+		Object[] finderArgs = new Object[] {groupId, createTime, ownerId};
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -1319,7 +1323,7 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_FINDER_COLUMN_G_C_C_CREATETIME_2);
 
-			sb.append(_FINDER_COLUMN_G_C_C_CLASSPK_2);
+			sb.append(_FINDER_COLUMN_G_C_C_OWNERID_2);
 
 			String sql = sb.toString();
 
@@ -1336,7 +1340,7 @@ public class FaroNotificationPersistenceImpl
 
 				queryPos.add(createTime);
 
-				queryPos.add(classPK);
+				queryPos.add(ownerId);
 
 				count = (Long)query.uniqueResult();
 
@@ -1356,26 +1360,26 @@ public class FaroNotificationPersistenceImpl
 	}
 
 	/**
-	 * Returns the number of faro notifications where groupId = &#63; and createTime &gt; &#63; and classPK = any &#63;.
+	 * Returns the number of faro notifications where groupId = &#63; and createTime &gt; &#63; and ownerId = any &#63;.
 	 *
 	 * @param groupId the group ID
 	 * @param createTime the create time
-	 * @param classPKs the class pks
+	 * @param ownerIds the owner IDs
 	 * @return the number of matching faro notifications
 	 */
 	@Override
-	public int countByG_C_C(long groupId, long createTime, long[] classPKs) {
-		if (classPKs == null) {
-			classPKs = new long[0];
+	public int countByG_C_C(long groupId, long createTime, long[] ownerIds) {
+		if (ownerIds == null) {
+			ownerIds = new long[0];
 		}
-		else if (classPKs.length > 1) {
-			classPKs = ArrayUtil.unique(classPKs);
+		else if (ownerIds.length > 1) {
+			ownerIds = ArrayUtil.unique(ownerIds);
 
-			Arrays.sort(classPKs);
+			Arrays.sort(ownerIds);
 		}
 
 		Object[] finderArgs = new Object[] {
-			groupId, createTime, StringUtil.merge(classPKs)
+			groupId, createTime, StringUtil.merge(ownerIds)
 		};
 
 		Long count = (Long)finderCache.getResult(
@@ -1390,12 +1394,12 @@ public class FaroNotificationPersistenceImpl
 
 			sb.append(_FINDER_COLUMN_G_C_C_CREATETIME_2);
 
-			if (classPKs.length > 0) {
+			if (ownerIds.length > 0) {
 				sb.append("(");
 
-				sb.append(_FINDER_COLUMN_G_C_C_CLASSPK_7);
+				sb.append(_FINDER_COLUMN_G_C_C_OWNERID_7);
 
-				sb.append(StringUtil.merge(classPKs));
+				sb.append(StringUtil.merge(ownerIds));
 
 				sb.append(")");
 
@@ -1447,11 +1451,11 @@ public class FaroNotificationPersistenceImpl
 	private static final String _FINDER_COLUMN_G_C_C_CREATETIME_2 =
 		"faroNotification.createTime > ? AND ";
 
-	private static final String _FINDER_COLUMN_G_C_C_CLASSPK_2 =
-		"faroNotification.classPK = ? AND faroNotification.read = [$FALSE$]";
+	private static final String _FINDER_COLUMN_G_C_C_OWNERID_2 =
+		"faroNotification.ownerId = ? AND faroNotification.read = [$FALSE$]";
 
-	private static final String _FINDER_COLUMN_G_C_C_CLASSPK_7 =
-		"faroNotification.classPK IN (";
+	private static final String _FINDER_COLUMN_G_C_C_OWNERID_7 =
+		"faroNotification.ownerId IN (";
 
 	public FaroNotificationPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
@@ -2140,20 +2144,20 @@ public class FaroNotificationPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0]);
 
-		_finderPathWithPaginationFindByC = new FinderPath(
+		_finderPathWithPaginationFindByCreateTime = new FinderPath(
 			FaroNotificationModelImpl.ENTITY_CACHE_ENABLED,
 			FaroNotificationModelImpl.FINDER_CACHE_ENABLED,
 			FaroNotificationImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-			"findByC",
+			"findByCreateTime",
 			new String[] {
 				Long.class.getName(), Integer.class.getName(),
 				Integer.class.getName(), OrderByComparator.class.getName()
 			});
 
-		_finderPathWithPaginationCountByC = new FinderPath(
+		_finderPathWithPaginationCountByCreateTime = new FinderPath(
 			FaroNotificationModelImpl.ENTITY_CACHE_ENABLED,
 			FaroNotificationModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByC",
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByCreateTime",
 			new String[] {Long.class.getName()});
 
 		_finderPathWithPaginationFindByG_C_C = new FinderPath(

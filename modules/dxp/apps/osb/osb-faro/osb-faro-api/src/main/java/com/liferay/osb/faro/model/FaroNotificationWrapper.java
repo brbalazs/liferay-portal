@@ -59,7 +59,7 @@ public class FaroNotificationWrapper
 		attributes.put("userId", getUserId());
 		attributes.put("createTime", getCreateTime());
 		attributes.put("modifiedTime", getModifiedTime());
-		attributes.put("classPK", getClassPK());
+		attributes.put("ownerId", getOwnerId());
 		attributes.put("scope", getScope());
 		attributes.put("read", isRead());
 		attributes.put("type", getType());
@@ -100,10 +100,10 @@ public class FaroNotificationWrapper
 			setModifiedTime(modifiedTime);
 		}
 
-		Long classPK = (Long)attributes.get("classPK");
+		Long ownerId = (Long)attributes.get("ownerId");
 
-		if (classPK != null) {
-			setClassPK(classPK);
+		if (ownerId != null) {
+			setOwnerId(ownerId);
 		}
 
 		String scope = (String)attributes.get("scope");
@@ -140,16 +140,6 @@ public class FaroNotificationWrapper
 	@Override
 	public int compareTo(FaroNotification faroNotification) {
 		return _faroNotification.compareTo(faroNotification);
-	}
-
-	/**
-	 * Returns the class pk of this faro notification.
-	 *
-	 * @return the class pk of this faro notification
-	 */
-	@Override
-	public long getClassPK() {
-		return _faroNotification.getClassPK();
 	}
 
 	/**
@@ -195,6 +185,16 @@ public class FaroNotificationWrapper
 	@Override
 	public long getModifiedTime() {
 		return _faroNotification.getModifiedTime();
+	}
+
+	/**
+	 * Returns the owner ID of this faro notification.
+	 *
+	 * @return the owner ID of this faro notification
+	 */
+	@Override
+	public long getOwnerId() {
+		return _faroNotification.getOwnerId();
 	}
 
 	/**
@@ -313,16 +313,6 @@ public class FaroNotificationWrapper
 	}
 
 	/**
-	 * Sets the class pk of this faro notification.
-	 *
-	 * @param classPK the class pk of this faro notification
-	 */
-	@Override
-	public void setClassPK(long classPK) {
-		_faroNotification.setClassPK(classPK);
-	}
-
-	/**
 	 * Sets the create time of this faro notification.
 	 *
 	 * @param createTime the create time of this faro notification
@@ -382,6 +372,16 @@ public class FaroNotificationWrapper
 	@Override
 	public void setNew(boolean n) {
 		_faroNotification.setNew(n);
+	}
+
+	/**
+	 * Sets the owner ID of this faro notification.
+	 *
+	 * @param ownerId the owner ID of this faro notification
+	 */
+	@Override
+	public void setOwnerId(long ownerId) {
+		_faroNotification.setOwnerId(ownerId);
 	}
 
 	/**

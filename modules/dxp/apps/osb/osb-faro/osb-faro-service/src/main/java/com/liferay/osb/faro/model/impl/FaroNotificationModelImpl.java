@@ -68,7 +68,7 @@ public class FaroNotificationModelImpl
 	public static final Object[][] TABLE_COLUMNS = {
 		{"faroNotificationId", Types.BIGINT}, {"groupId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"createTime", Types.BIGINT},
-		{"modifiedTime", Types.BIGINT}, {"classPK", Types.BIGINT},
+		{"modifiedTime", Types.BIGINT}, {"ownerId", Types.BIGINT},
 		{"scope", Types.VARCHAR}, {"read_", Types.BOOLEAN},
 		{"type_", Types.VARCHAR}, {"subtype", Types.VARCHAR}
 	};
@@ -82,7 +82,7 @@ public class FaroNotificationModelImpl
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("createTime", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("modifiedTime", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("classPK", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("ownerId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("scope", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("read_", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
@@ -90,7 +90,7 @@ public class FaroNotificationModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table OSBFaro_FaroNotification (faroNotificationId LONG not null primary key,groupId LONG,userId LONG,createTime LONG,modifiedTime LONG,classPK LONG,scope VARCHAR(75) null,read_ BOOLEAN,type_ VARCHAR(75) null,subtype VARCHAR(75) null)";
+		"create table OSBFaro_FaroNotification (faroNotificationId LONG not null primary key,groupId LONG,userId LONG,createTime LONG,modifiedTime LONG,ownerId LONG,scope VARCHAR(75) null,read_ BOOLEAN,type_ VARCHAR(75) null,subtype VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table OSBFaro_FaroNotification";
@@ -122,11 +122,11 @@ public class FaroNotificationModelImpl
 			"value.object.column.bitmask.enabled.com.liferay.osb.faro.model.FaroNotification"),
 		true);
 
-	public static final long CLASSPK_COLUMN_BITMASK = 1L;
+	public static final long CREATETIME_COLUMN_BITMASK = 1L;
 
-	public static final long CREATETIME_COLUMN_BITMASK = 2L;
+	public static final long GROUPID_COLUMN_BITMASK = 2L;
 
-	public static final long GROUPID_COLUMN_BITMASK = 4L;
+	public static final long OWNERID_COLUMN_BITMASK = 4L;
 
 	public static final long FARONOTIFICATIONID_COLUMN_BITMASK = 8L;
 
@@ -378,24 +378,24 @@ public class FaroNotificationModelImpl
 
 			});
 		attributeGetterFunctions.put(
-			"classPK",
+			"ownerId",
 			new Function<FaroNotification, Object>() {
 
 				@Override
 				public Object apply(FaroNotification faroNotification) {
-					return faroNotification.getClassPK();
+					return faroNotification.getOwnerId();
 				}
 
 			});
 		attributeSetterBiConsumers.put(
-			"classPK",
+			"ownerId",
 			new BiConsumer<FaroNotification, Object>() {
 
 				@Override
 				public void accept(
-					FaroNotification faroNotification, Object classPKObject) {
+					FaroNotification faroNotification, Object ownerIdObject) {
 
-					faroNotification.setClassPK((Long)classPKObject);
+					faroNotification.setOwnerId((Long)ownerIdObject);
 				}
 
 			});
@@ -585,25 +585,25 @@ public class FaroNotificationModelImpl
 	}
 
 	@Override
-	public long getClassPK() {
-		return _classPK;
+	public long getOwnerId() {
+		return _ownerId;
 	}
 
 	@Override
-	public void setClassPK(long classPK) {
-		_columnBitmask |= CLASSPK_COLUMN_BITMASK;
+	public void setOwnerId(long ownerId) {
+		_columnBitmask |= OWNERID_COLUMN_BITMASK;
 
-		if (!_setOriginalClassPK) {
-			_setOriginalClassPK = true;
+		if (!_setOriginalOwnerId) {
+			_setOriginalOwnerId = true;
 
-			_originalClassPK = _classPK;
+			_originalOwnerId = _ownerId;
 		}
 
-		_classPK = classPK;
+		_ownerId = ownerId;
 	}
 
-	public long getOriginalClassPK() {
-		return _originalClassPK;
+	public long getOriginalOwnerId() {
+		return _originalOwnerId;
 	}
 
 	@Override
@@ -707,7 +707,7 @@ public class FaroNotificationModelImpl
 		faroNotificationImpl.setUserId(getUserId());
 		faroNotificationImpl.setCreateTime(getCreateTime());
 		faroNotificationImpl.setModifiedTime(getModifiedTime());
-		faroNotificationImpl.setClassPK(getClassPK());
+		faroNotificationImpl.setOwnerId(getOwnerId());
 		faroNotificationImpl.setScope(getScope());
 		faroNotificationImpl.setRead(isRead());
 		faroNotificationImpl.setType(getType());
@@ -780,9 +780,9 @@ public class FaroNotificationModelImpl
 
 		_setOriginalCreateTime = false;
 
-		_originalClassPK = _classPK;
+		_originalOwnerId = _ownerId;
 
-		_setOriginalClassPK = false;
+		_setOriginalOwnerId = false;
 
 		_columnBitmask = 0;
 	}
@@ -802,7 +802,7 @@ public class FaroNotificationModelImpl
 
 		faroNotificationCacheModel.modifiedTime = getModifiedTime();
 
-		faroNotificationCacheModel.classPK = getClassPK();
+		faroNotificationCacheModel.ownerId = getOwnerId();
 
 		faroNotificationCacheModel.scope = getScope();
 
@@ -912,9 +912,9 @@ public class FaroNotificationModelImpl
 	private long _originalCreateTime;
 	private boolean _setOriginalCreateTime;
 	private long _modifiedTime;
-	private long _classPK;
-	private long _originalClassPK;
-	private boolean _setOriginalClassPK;
+	private long _ownerId;
+	private long _originalOwnerId;
+	private boolean _setOriginalOwnerId;
 	private String _scope;
 	private boolean _read;
 	private String _type;

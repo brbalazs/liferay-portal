@@ -38,7 +38,7 @@ public class FaroNotificationLocalServiceImpl
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public FaroNotification addFaroNotification(
-		long userId, long groupId, long classPK, String scope, String type,
+		long userId, long groupId, long ownerId, String scope, String type,
 		String subtype) {
 
 		long faroNotificationId = counterLocalService.increment();
@@ -54,7 +54,7 @@ public class FaroNotificationLocalServiceImpl
 		faroNotification.setCreateTime(now);
 		faroNotification.setModifiedTime(now);
 
-		faroNotification.setClassPK(classPK);
+		faroNotification.setOwnerId(ownerId);
 		faroNotification.setRead(false);
 		faroNotification.setScope(scope);
 		faroNotification.setType(type);
@@ -66,7 +66,7 @@ public class FaroNotificationLocalServiceImpl
 	@Override
 	public void clearDismissedNotifications() {
 		List<FaroNotification> faroNotifications =
-			faroNotificationPersistence.findByC(_getDateMillis());
+			faroNotificationPersistence.findByCreateTime(_getDateMillis());
 
 		Stream<FaroNotification> stream = faroNotifications.stream();
 

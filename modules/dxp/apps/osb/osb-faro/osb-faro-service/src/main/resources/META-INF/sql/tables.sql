@@ -17,7 +17,7 @@ create table OSBFaro_FaroNotification (
 	userId LONG,
 	createTime LONG,
 	modifiedTime LONG,
-	classPK LONG,
+	ownerId LONG,
 	scope VARCHAR(75) null,
 	read_ BOOLEAN,
 	type_ VARCHAR(75) null,

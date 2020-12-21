@@ -33,7 +33,7 @@ public class UpgradeFaroNotification extends UpgradeProcess {
 			StringBundler.concat(
 				"create table OSBFaro_FaroNotification (faroNotificationId ",
 				"LONG not null primary key, groupId LONG, userId LONG, ",
-				"createTime LONG, modifiedTime LONG, classPK LONG, scope ",
+				"createTime LONG, modifiedTime LONG, ownerId LONG, scope ",
 				"VARCHAR(75) null, read_ BOOLEAN, type_ VARCHAR(75) null, ",
 				"subtype VARCHAR(75) null)"));
 		runSQL(
@@ -41,7 +41,7 @@ public class UpgradeFaroNotification extends UpgradeProcess {
 				"(createTime);");
 		runSQL(
 			"create index IX_BD2D078E on OSBFaro_FaroNotification (groupId, " +
-				"createTime, classPK);");
+				"createTime, ownerId);");
 
 		_notifyFaroProjects();
 	}
@@ -49,7 +49,7 @@ public class UpgradeFaroNotification extends UpgradeProcess {
 	private void _addFaroNotification(long groupId) throws SQLException {
 		String sql = StringBundler.concat(
 			"insert into OSBFaro_FaroNotification (faroNotificationId, ",
-			"groupId, createTime, modifiedTime, classPK, scope, read_, type_, ",
+			"groupId, createTime, modifiedTime, ownerId, scope, read_, type_, ",
 			"subtype) values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {

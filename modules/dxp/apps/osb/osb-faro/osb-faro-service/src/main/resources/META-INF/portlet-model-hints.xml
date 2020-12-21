@@ -19,7 +19,7 @@
 		<field name="userId" type="long" />
 		<field name="createTime" type="long" />
 		<field name="modifiedTime" type="long" />
-		<field name="classPK" type="long" />
+		<field name="ownerId" type="long" />
 		<field name="scope" type="String" />
 		<field name="read" type="boolean" />
 		<field name="type" type="String" />

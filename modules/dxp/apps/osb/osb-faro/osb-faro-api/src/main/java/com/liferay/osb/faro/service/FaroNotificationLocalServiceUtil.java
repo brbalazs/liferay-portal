@@ -57,11 +57,11 @@ public class FaroNotificationLocalServiceUtil {
 
 	public static com.liferay.osb.faro.model.FaroNotification
 		addFaroNotification(
-			long userId, long groupId, long classPK, String scope, String type,
+			long userId, long groupId, long ownerId, String scope, String type,
 			String subtype) {
 
 		return getService().addFaroNotification(
-			userId, groupId, classPK, scope, type, subtype);
+			userId, groupId, ownerId, scope, type, subtype);
 	}
 
 	public static void clearDismissedNotifications() {

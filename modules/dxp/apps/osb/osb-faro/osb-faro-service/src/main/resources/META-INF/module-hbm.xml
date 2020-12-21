@@ -30,7 +30,7 @@
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createTime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="modifiedTime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="classPK" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="ownerId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="scope" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property column="read_" name="read" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property column="type_" name="type" type="com.liferay.portal.dao.orm.hibernate.StringType" />

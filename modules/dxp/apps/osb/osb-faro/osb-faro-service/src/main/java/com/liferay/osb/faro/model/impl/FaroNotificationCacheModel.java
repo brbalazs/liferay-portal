@@ -74,8 +74,8 @@ public class FaroNotificationCacheModel
 		sb.append(createTime);
 		sb.append(", modifiedTime=");
 		sb.append(modifiedTime);
-		sb.append(", classPK=");
-		sb.append(classPK);
+		sb.append(", ownerId=");
+		sb.append(ownerId);
 		sb.append(", scope=");
 		sb.append(scope);
 		sb.append(", read=");
@@ -98,7 +98,7 @@ public class FaroNotificationCacheModel
 		faroNotificationImpl.setUserId(userId);
 		faroNotificationImpl.setCreateTime(createTime);
 		faroNotificationImpl.setModifiedTime(modifiedTime);
-		faroNotificationImpl.setClassPK(classPK);
+		faroNotificationImpl.setOwnerId(ownerId);
 
 		if (scope == null) {
 			faroNotificationImpl.setScope("");
@@ -140,7 +140,7 @@ public class FaroNotificationCacheModel
 
 		modifiedTime = objectInput.readLong();
 
-		classPK = objectInput.readLong();
+		ownerId = objectInput.readLong();
 		scope = objectInput.readUTF();
 
 		read = objectInput.readBoolean();
@@ -160,7 +160,7 @@ public class FaroNotificationCacheModel
 
 		objectOutput.writeLong(modifiedTime);
 
-		objectOutput.writeLong(classPK);
+		objectOutput.writeLong(ownerId);
 
 		if (scope == null) {
 			objectOutput.writeUTF("");
@@ -191,7 +191,7 @@ public class FaroNotificationCacheModel
 	public long userId;
 	public long createTime;
 	public long modifiedTime;
-	public long classPK;
+	public long ownerId;
 	public String scope;
 	public boolean read;
 	public String type;

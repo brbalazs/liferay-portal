@@ -143,18 +143,18 @@ public interface FaroNotificationModel extends BaseModel<FaroNotification> {
 	public void setModifiedTime(long modifiedTime);
 
 	/**
-	 * Returns the class pk of this faro notification.
+	 * Returns the owner ID of this faro notification.
 	 *
-	 * @return the class pk of this faro notification
+	 * @return the owner ID of this faro notification
 	 */
-	public long getClassPK();
+	public long getOwnerId();
 
 	/**
-	 * Sets the class pk of this faro notification.
+	 * Sets the owner ID of this faro notification.
 	 *
-	 * @param classPK the class pk of this faro notification
+	 * @param ownerId the owner ID of this faro notification
 	 */
-	public void setClassPK(long classPK);
+	public void setOwnerId(long ownerId);
 
 	/**
 	 * Returns the scope of this faro notification.
