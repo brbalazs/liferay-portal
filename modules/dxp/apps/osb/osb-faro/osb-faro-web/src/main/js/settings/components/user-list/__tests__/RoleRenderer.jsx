@@ -1,6 +1,8 @@
 import React from 'react';
 import RoleRenderer from '../RoleRenderer';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 const userRoleOptions = [
 	{label: 'Administrator', value: 'Site Administrator'},
@@ -10,15 +12,15 @@ const userRoleOptions = [
 
 describe('RoleRenderer', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<RoleRenderer data={{roleName: 'Site Owner'}} />
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render as being edited', () => {
-		const component = shallow(
+		const {container} = render(
 			<RoleRenderer
 				data={{roleName: 'Site Member'}}
 				editing
@@ -26,13 +28,13 @@ describe('RoleRenderer', () => {
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render and call the onUpdateEdits prop callback with the initial roleName', () => {
 		const onUpdateEditsSpy = jest.fn();
 
-		shallow(
+		render(
 			<RoleRenderer
 				data={{roleName: 'Site Member'}}
 				editing
