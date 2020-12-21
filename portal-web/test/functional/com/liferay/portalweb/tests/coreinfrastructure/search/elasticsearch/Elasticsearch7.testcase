@@ -125,64 +125,6 @@ definition {
 			locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE_SPECIFIC");
 	}
 
-	@description = "This is a use case for LPS-57894."
-	@priority = "3"
-	test UpdateSystemSettingsWithoutPortalRestart {
-		property remote.elasticsearch7.enabled = "true";
-		property test.name.skip.portal.instance = "Elasticsearch7#UpdateSystemSettingsWithoutPortalRestart";
-
-		var elasticsearchVersion = Elasticsearch.getServerVersion();
-
-		var liferayHome = PropsUtil.get("liferay.home.dir.name");
-
-		var elasticsearchYML = "${liferayHome}/elasticsearch-${elasticsearchVersion}-1/config/elasticsearch.yml";
-
-		AntCommand.antCommand(
-			locator1 = "build-test-elasticsearch7.xml",
-			value1 = "stop-elasticsearch");
-
-		var fileContent = FileUtil.read("${elasticsearchYML}");
-
-		var updatedContent = StringUtil.replace("${fileContent}", "LiferayElasticsearchCluster", "LiferayElasticsearchCluster1");
-
-		FileUtil.write("${elasticsearchYML}","${updatedContent}");
-
-		AntCommand.antCommand(
-			locator1 = "build-test-elasticsearch7.xml",
-			value1 = "start-elasticsearch-node -Delasticsearch.dir=${liferayHome}/elasticsearch-${elasticsearchVersion} -Dremote.elasticsearch.cluster.size=1");
-
-		Pause(locator1 = "30000");
-
-		ProductMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Control Panel",
-			portlet = "System Settings");
-
-		SystemSettings.gotoConfiguration(
-			configurationCategory = "Search",
-			configurationName = "Elasticsearch 7",
-			configurationScope = "System Scope");
-
-		FormFields.editTextMultiline(
-			fieldName = "clusterName",
-			fieldValue = "LiferayElasticsearchCluster1");
-
-		SystemSettings.saveConfiguration();
-
-		JSONWebcontent.addWebContent(
-			content = "WC Content",
-			groupName = "Guest",
-			title = "apple");
-
-		Navigator.openURL();
-
-		SearchPortlets.searchEmbedded(searchTerm = "apple");
-
-		SearchResultPortlet.viewSearchResults(
-			searchAssetTitle = "apple",
-			searchAssetType = "Web Content Article");
-	}
-
 	@priority = "5"
 	test ElasticsearchRemoteClusterSmokeTest {
 		property portal.acceptance = "true";
@@ -350,6 +292,64 @@ definition {
 		Navigator.openSpecificURL(url = "http://localhost:9200");
 
 		Elasticsearch.viewClusterStatus(clusterStatus = "&quot;cluster_name&quot; : &quot;LiferayElasticsearchCluster1&quot;");
+	}
+
+	@description = "This is a use case for LPS-57894."
+	@priority = "3"
+	test UpdateSystemSettingsWithoutPortalRestart {
+		property remote.elasticsearch7.enabled = "true";
+		property test.name.skip.portal.instance = "Elasticsearch7#UpdateSystemSettingsWithoutPortalRestart";
+
+		var elasticsearchVersion = Elasticsearch.getServerVersion();
+
+		var liferayHome = PropsUtil.get("liferay.home.dir.name");
+
+		var elasticsearchYML = "${liferayHome}/elasticsearch-${elasticsearchVersion}-1/config/elasticsearch.yml";
+
+		AntCommand.antCommand(
+			locator1 = "build-test-elasticsearch7.xml",
+			value1 = "stop-elasticsearch");
+
+		var fileContent = FileUtil.read("${elasticsearchYML}");
+
+		var updatedContent = StringUtil.replace("${fileContent}", "LiferayElasticsearchCluster", "LiferayElasticsearchCluster1");
+
+		FileUtil.write("${elasticsearchYML}","${updatedContent}");
+
+		AntCommand.antCommand(
+			locator1 = "build-test-elasticsearch7.xml",
+			value1 = "start-elasticsearch-node -Delasticsearch.dir=${liferayHome}/elasticsearch-${elasticsearchVersion} -Dremote.elasticsearch.cluster.size=1");
+
+		Pause(locator1 = "30000");
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Search",
+			configurationName = "Elasticsearch 7",
+			configurationScope = "System Scope");
+
+		FormFields.editTextMultiline(
+			fieldName = "clusterName",
+			fieldValue = "LiferayElasticsearchCluster1");
+
+		SystemSettings.saveConfiguration();
+
+		JSONWebcontent.addWebContent(
+			content = "WC Content",
+			groupName = "Guest",
+			title = "apple");
+
+		Navigator.openURL();
+
+		SearchPortlets.searchEmbedded(searchTerm = "apple");
+
+		SearchResultPortlet.viewSearchResults(
+			searchAssetTitle = "apple",
+			searchAssetType = "Web Content Article");
 	}
 
 }
