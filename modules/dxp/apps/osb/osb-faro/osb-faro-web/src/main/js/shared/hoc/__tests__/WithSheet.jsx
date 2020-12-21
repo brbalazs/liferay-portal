@@ -1,6 +1,8 @@
 import React from 'react';
 import withSheet from '../WithSheet';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('withSheet', () => {
 	it('should render', () => {
@@ -8,7 +10,8 @@ describe('withSheet', () => {
 			<p>{'Test Test'}</p>
 		));
 
-		const component = shallow(<WrappedComponent />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(<WrappedComponent />);
+
+		expect(container).toMatchSnapshot();
 	});
 });
