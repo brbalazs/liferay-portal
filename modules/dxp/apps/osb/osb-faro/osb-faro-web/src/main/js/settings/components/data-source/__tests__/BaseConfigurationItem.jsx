@@ -1,21 +1,23 @@
 import BaseConfigurationItem from '../BaseConfigurationItem';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('BaseConfigurationItem', () => {
 	it('should render', () => {
-		const component = shallow(
+		const {container} = render(
 			<BaseConfigurationItem
 				description='Test description'
 				title='Test Test'
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render as disabled', () => {
-		const component = shallow(
+		const {getByText} = render(
 			<BaseConfigurationItem
 				buttonParams={{disabled: true}}
 				description='Test description'
@@ -23,11 +25,11 @@ describe('BaseConfigurationItem', () => {
 			/>
 		);
 
-		expect(component.find('Button').prop('disabled')).toBe(true);
+		expect(getByText('Configure')).toBeDisabled();
 	});
 
 	it('should render with a status message', () => {
-		const component = shallow(
+		const {getByText} = render(
 			<BaseConfigurationItem
 				buttonParams={{disabled: true}}
 				description='Test description'
@@ -36,11 +38,11 @@ describe('BaseConfigurationItem', () => {
 			/>
 		);
 
-		expect(component.find('.status')).toMatchSnapshot();
+		expect(getByText('Test Status Message')).toBeTruthy();
 	});
 
 	it('should render with a metric bar', () => {
-		const component = shallow(
+		const {container} = render(
 			<BaseConfigurationItem
 				buttonParams={{disabled: true}}
 				completion={0.8}
@@ -51,6 +53,7 @@ describe('BaseConfigurationItem', () => {
 			/>
 		);
 
-		expect(component.find('MetricBar').length).toBe(1);
+		expect(container.querySelector('.metric-bar-root')).toBeTruthy();
+		expect(container.querySelector('.bar')).toHaveStyle('width: 80%;');
 	});
 });
