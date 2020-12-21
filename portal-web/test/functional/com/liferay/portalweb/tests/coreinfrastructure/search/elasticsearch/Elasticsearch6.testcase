@@ -137,13 +137,33 @@ definition {
 			serverVersion = "${serverVersion}");
 	}
 
-	@ignore = "true"
+	@description = "This is a use case for LPS-57894."
 	@priority = "3"
-	test AssertSystemSettingsPropogateToModule {
+	test UpdateSystemSettingsWithoutPortalRestart {
+		property remote.elasticsearch.enabled = "true";
+		property test.name.skip.portal.instance = "Elasticsearch6#UpdateSystemSettingsWithoutPortalRestart";
 
-		// Ignoring test until LPS-65459 is resolved
+		var elasticsearchVersion = Elasticsearch.getServerVersion();
 
-		property test.name.skip.portal.instance = "Elasticsearch6#AssertSystemSettingsPropogateToModule";
+		var liferayHome = PropsUtil.get("liferay.home.dir.name");
+
+		var elasticsearchYML = "${liferayHome}/elasticsearch-${elasticsearchVersion}-1/config/elasticsearch.yml";
+
+		AntCommand.antCommand(
+			locator1 = "build-test-elasticsearch6.xml",
+			value1 = "stop-elasticsearch");
+
+		var fileContent = FileUtil.read("${elasticsearchYML}");
+
+		var updatedContent = StringUtil.replace("${fileContent}", "LiferayElasticsearchCluster", "LiferayElasticsearchCluster1");
+
+		FileUtil.write("${elasticsearchYML}","${updatedContent}");
+
+		AntCommand.antCommand(
+			locator1 = "build-test-elasticsearch6.xml",
+			value1 = "start-elasticsearch-node -Dremote.elasticsearch.cluster.size=1");
+
+		Pause(locator1 = "30000");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -155,15 +175,24 @@ definition {
 			configurationName = "Elasticsearch 6",
 			configurationScope = "System Scope");
 
-		SystemSettings.editTextAreaSetting(
-			settingName = "Cluster Name",
-			settingValue = "LiferayElasticsearchCluster1");
+		FormFields.editTextMultiline(
+			fieldName = "clusterName",
+			fieldValue = "LiferayElasticsearchCluster1");
 
 		SystemSettings.saveConfiguration();
 
-		Navigator.openSpecificURL(url = "http://localhost:9200");
+		JSONWebcontent.addWebContent(
+			content = "WC Content",
+			groupName = "Guest",
+			title = "apple");
 
-		Elasticsearch.viewClusterStatus(clusterStatus = "&quot;cluster_name&quot; : &quot;LiferayElasticsearchCluster1&quot;");
+		Navigator.openURL();
+
+		SearchPortlets.searchEmbedded(searchTerm = "apple");
+
+		SearchResultPortlet.viewSearchResults(
+			searchAssetTitle = "apple",
+			searchAssetType = "Web Content Article");
 	}
 
 	@priority = "5"
