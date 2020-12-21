@@ -6,7 +6,7 @@ import {StaticRouter} from 'react-router';
 jest.unmock('react-dom');
 
 describe('InterestPagesList', () => {
-	it('should render an activePages component', async() => {
+	it('should render an activePages component', () => {
 		const {container} = render(
 			<StaticRouter>
 				<InterestPagesList dataSourceParams={{active: true}} />
@@ -16,7 +16,7 @@ describe('InterestPagesList', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render an InactivePages component', async() => {
+	it('should render an InactivePages component', () => {
 		const {container} = render(
 			<StaticRouter>
 				<InterestPagesList dataSourceParams={{active: false}} />
