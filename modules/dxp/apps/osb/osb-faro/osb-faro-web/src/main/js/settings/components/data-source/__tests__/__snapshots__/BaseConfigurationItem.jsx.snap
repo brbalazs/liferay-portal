@@ -1,45 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BaseConfigurationItem should render 1`] = `
-<div
-  className="base-configuration-item-root"
->
+<div>
   <div
-    className="actions"
-  >
-    <Button
-      block={true}
-    >
-      Configure
-    </Button>
-  </div>
-  <div
-    className="info"
+    class="base-configuration-item-root"
   >
     <div
-      className="title"
+      class="actions"
     >
-      <b>
-        Test Test
-      </b>
+      <button
+        class="button-root btn btn-secondary btn-block"
+        type="button"
+      >
+        Configure
+      </button>
     </div>
     <div
-      className="text-secondary"
+      class="info"
     >
       <div
-        className="description"
+        class="title"
       >
-        Test description
+        <b>
+          Test Test
+        </b>
+      </div>
+      <div
+        class="text-secondary"
+      >
+        <div
+          class="description"
+        >
+          Test description
+        </div>
       </div>
     </div>
   </div>
-</div>
-`;
-
-exports[`BaseConfigurationItem should render with a status message 1`] = `
-<div
-  className="status"
->
-  Test Status Message
 </div>
 `;
