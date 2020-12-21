@@ -4,7 +4,7 @@ import client from 'shared/apollo/client';
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-components';
 import {BrowserRouter} from 'react-router-dom';
-import {cleanup, render} from '@testing-library/react';
+import {render} from '@testing-library/react';
 
 jest.unmock('react-dom');
 
@@ -75,8 +75,6 @@ const items = [
 ];
 
 describe('AssetsListCard', () => {
-	afterEach(cleanup);
-
 	const MOCK_CONTEXT = {
 		router: {
 			params: {
