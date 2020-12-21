@@ -1,57 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RoleRenderer should render 1`] = `
-<td>
-  <StopClickPropagation>
-    Owner
-  </StopClickPropagation>
-</td>
+<div>
+  <td>
+    <span>
+      Owner
+    </span>
+  </td>
+</div>
 `;
 
 exports[`RoleRenderer should render as being edited 1`] = `
-<td>
-  <StopClickPropagation>
-    <Dropdown
-      align="bottomLeft"
-      buttonProps={
-        Object {
-          "size": "sm",
-        }
-      }
-      disabled={false}
-      forceAlignment={false}
-      icon=""
-      label="Member"
-      showCaret={true}
-    >
-      <Item
-        active={false}
-        hideOnClick={true}
-        key="Site Administrator"
-        onClick={[Function]}
-        value="Site Administrator"
+<div>
+  <td>
+    <span>
+      <div
+        aria-haspopup="true"
+        class="dropdown dropdown-root"
       >
-        Administrator
-      </Item>
-      <Item
-        active={false}
-        hideOnClick={true}
-        key="Site Member"
-        onClick={[Function]}
-        value="Site Member"
-      >
-        Member
-      </Item>
-      <Item
-        active={false}
-        hideOnClick={true}
-        key="Site Owner"
-        onClick={[Function]}
-        value="Site Owner"
-      >
-        Owner
-      </Item>
-    </Dropdown>
-  </StopClickPropagation>
-</td>
+        <button
+          class="button-root btn btn-secondary dropdown-toggle show-caret btn-sm"
+          type="button"
+        >
+          <span
+            class="text-truncate"
+          >
+            Member
+          </span>
+          
+          <span
+            class="caret-root"
+          >
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-caret-bottom"
+              viewBox=""
+            >
+              <use
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#caret-bottom"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </span>
+  </td>
+</div>
 `;
