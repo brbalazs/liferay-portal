@@ -1,21 +1,28 @@
 import InterestPagesList from '../InterestPagesList';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 describe('InterestPagesList', () => {
-	it('should render an activePages component', () => {
-		const component = shallow(
-			<InterestPagesList dataSourceParams={{active: true}} />
+	it('should render an activePages component', async() => {
+		const {container} = render(
+			<StaticRouter>
+				<InterestPagesList dataSourceParams={{active: true}} />
+			</StaticRouter>
 		);
 
-		expect(component.name()).toBe('ActivePagesList');
+		expect(container).toMatchSnapshot();
 	});
 
-	it('should render an InactivePages component', () => {
-		const component = shallow(
-			<InterestPagesList dataSourceParams={{active: false}} />
+	it('should render an InactivePages component', async() => {
+		const {container} = render(
+			<StaticRouter>
+				<InterestPagesList dataSourceParams={{active: false}} />
+			</StaticRouter>
 		);
 
-		expect(component.name()).toBe('InactivePagesList');
+		expect(container).toMatchSnapshot();
 	});
 });
