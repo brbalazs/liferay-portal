@@ -39,6 +39,8 @@ SelectLayoutPageTemplateEntryDisplayContext selectLayoutPageTemplateEntryDisplay
 
 			<portlet:renderURL var="addLayoutURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 				<portlet:param name="mvcRenderCommandName" value="/layout/add_layout" />
+				<portlet:param name="selPlid" value='<%= String.valueOf(ParamUtil.getLong(request, "selPlid")) %>' />
+				<portlet:param name="privateLayout" value='<%= String.valueOf(ParamUtil.getBoolean(request, "privateLayout")) %>' />
 				<portlet:param name="layoutPageTemplateEntryId" value="<%= String.valueOf(layoutPageTemplateEntry.getLayoutPageTemplateEntryId()) %>" />
 				<portlet:param name="layoutPrototypeId" value="<%= String.valueOf(layoutPageTemplateEntry.getLayoutPrototypeId()) %>" />
 			</portlet:renderURL>
