@@ -137,7 +137,7 @@ public class AssetCategoryLocalServiceImpl
 
 				@Override
 				public Void call() throws Exception {
-					_rebuildTreeIfBroken(groupId);
+					_rebuildTree(groupId);
 
 					return null;
 				}
@@ -823,6 +823,7 @@ public class AssetCategoryLocalServiceImpl
 
 	private long _getMaxRightCategoryId(long groupId) {
 		DynamicQuery dynamicQuery = assetCategoryLocalService.dynamicQuery();
+
 		Property groupIdProperty = PropertyFactoryUtil.forName("groupId");
 
 		dynamicQuery.add(groupIdProperty.eq(groupId));
@@ -862,7 +863,7 @@ public class AssetCategoryLocalServiceImpl
 		return categories;
 	}
 
-	private synchronized void _rebuildTreeIfBroken(long groupId) {
+	private synchronized void _rebuildTree(long groupId) {
 		long count = _getAssetCategoriesCount(groupId);
 
 		if (count == 0) {
@@ -874,8 +875,8 @@ public class AssetCategoryLocalServiceImpl
 		if (maxRightCategoryId != (count * 2)) {
 			if (_log.isDebugEnabled()) {
 				String message = StringBundler.concat(
-					"Broken tree detected for left/right categoryId. ",
-					"Rebuilding tree for groupId: ", groupId);
+					"Broken tree detected for left/right category ID. ",
+					"Rebuilding tree for group ", groupId, ".");
 
 				_log.debug(message);
 			}

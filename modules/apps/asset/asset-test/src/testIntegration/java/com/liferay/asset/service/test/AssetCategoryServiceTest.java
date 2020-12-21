@@ -136,11 +136,6 @@ public class AssetCategoryServiceTest {
 
 		AssetVocabulary vocabulary = AssetTestUtil.addVocabulary(groupId);
 
-		// Prepare 5 callables for simultaneously creating:
-		//   3 categories at the root level
-		//   2 categories at the root level, each with 2 children categories
-		// Total: 9 categories
-
 		List<Callable<Void>> callables = new ArrayList<>();
 
 		for (int i = 0; i < 3; i++) {
@@ -173,15 +168,11 @@ public class AssetCategoryServiceTest {
 
 		Collections.shuffle(callables);
 
-		// Simultaneously created the nested categories
-
 		ExecutorService executorService = Executors.newFixedThreadPool(3);
 
 		executorService.invokeAll(callables);
 
 		executorService.shutdown();
-
-		// Assert Results
 
 		List<AssetCategory> assetCategories =
 			AssetCategoryServiceUtil.getVocabularyCategories(
