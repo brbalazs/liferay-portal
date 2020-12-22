@@ -200,8 +200,8 @@ definition {
 		CommerceAcceleratorsInitializer.viewAllAccountsFromAccountSelector();
 
 		AssertElementNotPresent(
-			locator1 = "CommerceNavigation#ENTRY_NAME",
-			key_entryName = "Commerce Account");
+			key_entryName = "Commerce Account",
+			locator1 = "CommerceNavigation#ENTRY_NAME");
 	}
 
 	test InitializeNewMiniumSite {
