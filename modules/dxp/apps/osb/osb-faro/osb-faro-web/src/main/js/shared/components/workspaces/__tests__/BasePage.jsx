@@ -1,62 +1,65 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
 import {User} from 'shared/util/records';
 import {WorkspacesBasePage} from '../BasePage';
+
+jest.unmock('react-dom');
 
 const currentUser = new User({
 	emailAddress: 'test@test.com',
 	name: 'Test Test'
 });
 
+const DefaultComponent = props => (
+	<StaticRouter>
+		<WorkspacesBasePage
+			currentUser={currentUser}
+			title='Test Title'
+			{...props}
+		/>
+	</StaticRouter>
+);
+
 describe('WorkspacesBasePage', () => {
 	it('should render', () => {
-		const component = shallow(
-			<WorkspacesBasePage
-				currentUser={currentUser}
+		const {container} = render(
+			<DefaultComponent
 				details={[
 					<p key='1'>{'Test Details'}</p>,
 					<p key='2'>{'More Test Details'}</p>
 				]}
-				title='Test Title'
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render when details is jsx', () => {
-		const component = shallow(
-			<WorkspacesBasePage
-				currentUser={currentUser}
-				details={<b>{'test'}</b>}
-				title='Test Title'
-			/>
+		const {queryByText} = render(
+			<DefaultComponent details={<b>{'Test0'}</b>} />
 		);
-		expect(component).toMatchSnapshot();
+
+		expect(queryByText('Test0')).toBeTruthy();
 	});
 
 	it('should render when details is a string', () => {
-		const component = shallow(
-			<WorkspacesBasePage
-				currentUser={currentUser}
-				details='Test Details'
-				title='Test Title'
-			/>
+		const {queryByText} = render(
+			<DefaultComponent details='Test Details' />
 		);
-		expect(component).toMatchSnapshot();
+
+		expect(queryByText('Test Details')).toBeTruthy();
 	});
 
 	it('should render with back button', () => {
-		const component = shallow(
-			<WorkspacesBasePage
+		const {queryByText} = render(
+			<DefaultComponent
 				backLabel='Back to Test'
 				backURL='#'
-				currentUser={currentUser}
 				details={['Test Details. ', 'More Test Details']}
-				title='Test Title'
 			/>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(queryByText('Back to Test')).toBeTruthy();
 	});
 });
