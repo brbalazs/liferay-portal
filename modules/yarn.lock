@@ -7237,7 +7237,7 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-dnd-core@10.0.1, dnd-core@^10.0.1:
+dnd-core@^10.0.1:
   version "10.0.1"
   resolved "https://registry.yarnpkg.com/dnd-core/-/dnd-core-10.0.1.tgz#151d95cd3a7fa47b210905c301364c0828203029"
   integrity sha512-PokpWzFSKbpmJSWbSIfVJtIsRdx3DP5e3//agNNzV8L1k9T4/IFKtgjjwKeLKmP9qMuTXdZZGSS40w+eZ8MmUg==
@@ -12005,10 +12005,10 @@ liferay-amd-loader@4.0.0-alpha.5:
   resolved "https://registry.yarnpkg.com/liferay-amd-loader/-/liferay-amd-loader-4.0.0-alpha.5.tgz#cf2f3d8b2922d11a35e297113cf859e5241ad443"
   integrity sha512-zjX1hBwe6laOAvex49zPIbbsDUvSNA2Nw8ob2sRbGEfZMv5pZWleQqSC0Tx/ZGa0A7oaTniaFS3tekS4/bKbwA==
 
-liferay-ckeditor@4.14.1-liferay.13:
-  version "4.14.1-liferay.13"
-  resolved "https://registry.yarnpkg.com/liferay-ckeditor/-/liferay-ckeditor-4.14.1-liferay.13.tgz#7cdc18c8489858363173bf85152b6977594d48eb"
-  integrity sha512-sQUOwLo1e0FknD5DpuYPWFH4Xo5djIDESw5RxjG4gPDqEEKDBqxDzH/Zs9veih/AfYBl101/oJ1znra6j0kdkw==
+liferay-ckeditor@4.14.1-liferay.14:
+  version "4.14.1-liferay.14"
+  resolved "https://registry.yarnpkg.com/liferay-ckeditor/-/liferay-ckeditor-4.14.1-liferay.14.tgz#4cd336ede6cd12d75aac0dd266e5666641f07a84"
+  integrity sha512-/9NnDwhm0KtDLkbYqBgUHi7/J8GNMoAGBm0bngzU1HIg3LSPehnLVUsntdXkL+kJV22Y2sLspVGndVhaUNGDXA==
 
 liferay-css-parse@~1.7.1:
   version "1.7.1"
@@ -12743,12 +12743,7 @@ lodash@3.x, lodash@^3.10.0:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
   integrity sha1-W/Rejkm6QYnhfUgnid/RW9FAt7Y=
 
-lodash@4.17.19:
-  version "4.17.19"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
-  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
-
-lodash@>=2.4.0, lodash@^4.0.0, lodash@^4.0.1, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.5.0, lodash@~4.17.10:
+lodash@4.17.19, lodash@>=2.4.0, lodash@^4.0.0, lodash@^4.0.1, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.5.0, lodash@~4.17.10:
   version "4.17.19"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
   integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
