@@ -814,6 +814,7 @@ public class AssetCategoryLocalServiceImpl
 
 	private long _getAssetCategoriesCount(long groupId) {
 		DynamicQuery dynamicQuery = assetCategoryLocalService.dynamicQuery();
+
 		Property groupIdProperty = PropertyFactoryUtil.forName("groupId");
 
 		dynamicQuery.add(groupIdProperty.eq(groupId));
