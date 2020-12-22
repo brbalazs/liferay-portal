@@ -1,9 +1,14 @@
 import * as data from 'test/data';
 import FaroConstants from 'shared/util/constants';
+import mockStore from 'test/mock-store';
 import React from 'react';
 import {DataSource, User} from 'shared/util/records';
 import {LiferayAuthorization} from '../Authorization';
-import {shallow} from 'enzyme';
+import {Provider} from 'react-redux';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 const {
 	userRoleNames: {member}
@@ -18,21 +23,36 @@ const defaultProps = {
 
 describe('LiferayAuthorization', () => {
 	it('should render', () => {
-		const component = shallow(<LiferayAuthorization {...defaultProps} />);
+		const {container} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<LiferayAuthorization {...defaultProps} />
+				</StaticRouter>
+			</Provider>
+		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render as read-only if the user is not authorized to make changes', () => {
-		const component = shallow(
-			<LiferayAuthorization
-				{...defaultProps}
-				currentUser={data.getImmutableMock(User, data.mockUser, '23', {
-					roleName: member
-				})}
-			/>
+		const {queryByText} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<LiferayAuthorization
+						{...defaultProps}
+						currentUser={data.getImmutableMock(
+							User,
+							data.mockUser,
+							'23',
+							{
+								roleName: member
+							}
+						)}
+					/>
+				</StaticRouter>
+			</Provider>
 		);
 
-		expect(component.children().prop('authorized')).toBe(false);
+		expect(queryByText('Delete Data Source')).toBeFalsy();
 	});
 });
