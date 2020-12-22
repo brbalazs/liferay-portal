@@ -199,7 +199,9 @@ definition {
 
 		CommerceAcceleratorsInitializer.viewAllAccountsFromAccountSelector();
 
-		AssertElementPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER");
+		AssertElementNotPresent(
+			locator1 = "CommerceNavigation#ENTRY_NAME",
+			key_entryName = "Commerce Account");
 	}
 
 	test InitializeNewMiniumSite {
