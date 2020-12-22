@@ -358,8 +358,7 @@ public class StagedLayoutSetStagedModelDataHandler
 			Boolean.TRUE.toString(), "lfr-theme:regular:show-header-search",
 			Boolean.TRUE.toString(),
 			"lfr-theme:regular:show-maximize-minimize-application-links",
-			Boolean.FALSE.toString(),
-			"lfr-theme:regular:wrap-widget-page-content",
+			Boolean.FALSE.toString(), "lfr-theme:regular:wrap-content",
 			Boolean.TRUE.toString());
 
 		// Last merge time
