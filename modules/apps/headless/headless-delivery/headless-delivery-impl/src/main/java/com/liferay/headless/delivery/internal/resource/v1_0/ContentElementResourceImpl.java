@@ -86,7 +86,11 @@ public class ContentElementResourceImpl extends BaseContentElementResourceImpl {
 		AssetSearcher assetSearcher =
 			(AssetSearcher)AssetSearcher.getInstance();
 
-		assetSearcher.setAssetEntryQuery(new AssetEntryQuery());
+		AssetEntryQuery assetEntryQuery = new AssetEntryQuery();
+
+		assetEntryQuery.setGroupIds(new long[] {siteId});
+
+		assetSearcher.setAssetEntryQuery(assetEntryQuery);
 
 		List<AssetEntry> assetEntries = _assetHelper.getAssetEntries(
 			assetSearcher.search(searchContext));
@@ -95,7 +99,7 @@ public class ContentElementResourceImpl extends BaseContentElementResourceImpl {
 			new HashMap<>(),
 			TransformUtil.transform(facets.values(), FacetUtil::toFacet),
 			transform(assetEntries, this::_toContentElement), pagination,
-			_assetHelper.searchCount(searchContext, new AssetEntryQuery()));
+			_assetHelper.searchCount(searchContext, assetEntryQuery));
 	}
 
 	private SearchContext _getAssetSearchContext(
