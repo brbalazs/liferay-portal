@@ -1,8 +1,10 @@
 import React from 'react';
 import withToolbar from '../WithToolbar';
 import {compose} from 'redux';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
 import {withStaticRouter} from 'test/mock-router';
+
+jest.unmock('react-dom');
 
 describe('withToolbar', () => {
 	it('renders', () => {
@@ -11,8 +13,8 @@ describe('withToolbar', () => {
 			withToolbar({showRangeDropdownKey: true})
 		)(() => <div>{'foobar'}</div>);
 
-		const component = shallow(<WrappedComponent />);
+		const {container} = render(<WrappedComponent />);
 
-		expect(component.render().length).toBe(2);
+		expect(container).toMatchSnapshot();
 	});
 });
