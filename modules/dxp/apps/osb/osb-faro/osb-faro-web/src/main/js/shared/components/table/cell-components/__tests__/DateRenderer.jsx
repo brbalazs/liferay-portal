@@ -23,10 +23,10 @@ describe('DateRenderer', () => {
 		const {container} = render(
 			<DateRenderer
 				data={{
-					dateAdded: getTimestamp(),
-					dateCreated: 0
+					dateCreated: 0,
+					dateUpdated: getTimestamp()
 				}}
-				datePath='dateAdded'
+				datePath='dateUpdated'
 			/>
 		);
 
