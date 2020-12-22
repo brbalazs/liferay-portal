@@ -1,6 +1,8 @@
 import getSummaryMapper from 'experiments/hocs/mappers/experiment-summary-mapper';
 import {mergedVariants} from 'experiments/util/experiments';
-import {mount, shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 const DXP_VARIANTS_MOCK = [
 	{
@@ -103,21 +105,15 @@ describe('Summary Mapper for status in DRAFT', () => {
 		expect(mapper).toMatchSnapshot();
 	});
 
-	it('should render step 1 description', () => {
-		expect(mapper.setup.steps[0].Description()).toMatchSnapshot();
-	});
-
-	it('should render step 2 description', () => {
-		expect(mapper.setup.steps[1].Description()).toMatchSnapshot();
-	});
-
-	it('should render step 3 description', () => {
-		expect(mapper.setup.steps[2].Description()).toMatchSnapshot();
-	});
-
-	it('should render step 4 description', () => {
-		expect(mapper.setup.steps[3].Description()).toMatchSnapshot();
-	});
+	it.each`
+		step
+		${1}
+		${2}
+		${3}
+		${4}
+	`('should render step $step description', ({step}) =>
+		expect(mapper.setup.steps[step - 1].Description()).toMatchSnapshot()
+	);
 
 	it('should return formatted header', () => {
 		expect(mapper.header.title).toEqual('Test Is in Draft Mode');
@@ -148,58 +144,22 @@ describe('Summary Mapper for status in DRAFT', () => {
 		expect(mapper).toMatchSnapshot();
 	});
 
-	it('should display empty state for step 1', () => {
+	it.each`
+		step | emptyText
+		${1} | ${'Select a control experience and target segment for your test.'}
+		${2} | ${"Choose a metric that determines your campaign's success."}
+		${3} | ${'No variants created.'}
+		${4} | ${'Review traffic split and run your test.'}
+	`('should display empty state for step $step', ({emptyText, step}) => {
 		const mapper = getSummaryMapper({
 			experiment: {
 				status: 'DRAFT'
 			}
 		});
-		const Description = mount(mapper.setup.steps[0].Description());
 
-		expect(Description.text()).toEqual(
-			'Select a control experience and target segment for your test.'
-		);
-		expect(Description).toMatchSnapshot();
-	});
+		const {getByText} = render(mapper.setup.steps[step - 1].Description());
 
-	it('should display empty state for step 1', () => {
-		const mapper = getSummaryMapper({
-			experiment: {
-				status: 'DRAFT'
-			}
-		});
-		const Description = mount(mapper.setup.steps[1].Description());
-
-		expect(Description.text()).toEqual(
-			"Choose a metric that determines your campaign's success."
-		);
-		expect(Description).toMatchSnapshot();
-	});
-
-	it('should display empty state for step 1', () => {
-		const mapper = getSummaryMapper({
-			experiment: {
-				status: 'DRAFT'
-			}
-		});
-		const Description = mount(mapper.setup.steps[2].Description());
-
-		expect(Description.text()).toEqual('No variants created.');
-		expect(Description).toMatchSnapshot();
-	});
-
-	it('should display empty state for step 1', () => {
-		const mapper = getSummaryMapper({
-			experiment: {
-				status: 'DRAFT'
-			}
-		});
-		const Description = mount(mapper.setup.steps[3].Description());
-
-		expect(Description.text()).toEqual(
-			'Review traffic split and run your test.'
-		);
-		expect(Description).toMatchSnapshot();
+		expect(getByText(emptyText)).toBeTruthy();
 	});
 });
 
@@ -229,47 +189,41 @@ describe('Summary Mapper for status in RUNNING', () => {
 	});
 
 	it('should return Body for section 1', () => {
-		const Body = mount(mapper.sections[0].Body());
+		const {container, getByText} = render(mapper.sections[0].Body());
 
-		expect(Body.props().title).toEqual('Test Completion');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual(
-			'100%'
-		);
-		expect(Body.find('SummarySectionProgressBar').props().value).toEqual(
-			100
-		);
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Test Completion'));
+		expect(getByText('100%'));
+		expect(
+			container.querySelector('.analytics-summary-section-progress-bar')
+		).toHaveStyle('width: 100%;');
 	});
 
 	it('should return Body for section 2', () => {
-		const Body = mount(mapper.sections[1].Body());
+		const {getByText} = render(mapper.sections[1].Body());
 
-		expect(Body.props().title).toEqual('Days Running');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual('5');
-		expect(Body.find('SummarySectionDescription').props().value).toEqual(
-			'About 15 Days Left'
-		);
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Days Running'));
+		expect(getByText('5'));
+		expect(getByText('About 15 Days Left'));
 	});
 
 	it('should return Body for section 3', () => {
-		const Body = mount(mapper.sections[2].Body());
+		const {getByText} = render(mapper.sections[2].Body());
 
-		expect(Body.props().title).toEqual('Total Test Sessions');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual('3K');
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Total Test Sessions'));
+		expect(getByText('3K'));
 	});
 
 	it('should return Body for section 4', () => {
-		const Body = mount(mapper.sections[3].Body());
+		const {container, getByText} = render(mapper.sections[3].Body());
 
-		expect(Body.props().title).toEqual('Test Metric');
-		expect(Body.find('SummarySectionMetricType').props().value).toEqual(
-			'Click-Through Rate'
-		);
-		expect(Body.find('SummarySectionVariant').props().lift).toEqual('5%');
-		expect(Body.find('SummarySectionVariant').props().status).toEqual('up');
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Test Metric'));
+		expect(getByText('Click-Through Rate'));
+		expect(
+			container.querySelector(
+				'.analytics-summary-section-variant-status-up'
+			)
+		).toBeTruthy();
+		expect(getByText('5% lift'));
 	});
 });
 
@@ -308,44 +262,40 @@ describe('Summary Mapper for status in FINISHED_WINNER and winner no declared', 
 	});
 
 	it('should return Body for section 1', () => {
-		const Body = mount(mapper.sections[0].Body());
+		const {container, getByText} = render(mapper.sections[0].Body());
 
-		expect(Body.props().title).toEqual('Test Completion');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual(
-			'100%'
-		);
-		expect(Body.find('SummarySectionProgressBar').props().value).toEqual(
-			100
-		);
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Test Completion')).toBeTruthy();
+		expect(getByText('100%'));
+		expect(
+			container.querySelector('.analytics-summary-section-progress-bar')
+		).toHaveStyle('width: 100%;');
 	});
 
 	it('should return Body for section 2', () => {
-		const Body = mount(mapper.sections[1].Body());
+		const {getByText} = render(mapper.sections[1].Body());
 
-		expect(Body.props().title).toEqual('Days Running');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual('5');
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Days Running')).toBeTruthy();
+		expect(getByText('5')).toBeTruthy();
 	});
 
 	it('should return Body for section 3', () => {
-		const Body = mount(mapper.sections[2].Body());
+		const {getByText} = render(mapper.sections[2].Body());
 
-		expect(Body.props().title).toEqual('Total Test Sessions');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual('3K');
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Total Test Sessions')).toBeTruthy();
+		expect(getByText('3K')).toBeTruthy();
 	});
 
 	it('should return Body for section 4', () => {
-		const Body = mount(mapper.sections[3].Body());
+		const {container, getByText} = render(mapper.sections[3].Body());
 
-		expect(Body.props().title).toEqual('Test Metric');
-		expect(Body.find('SummarySectionMetricType').props().value).toEqual(
-			'Click-Through Rate'
-		);
-		expect(Body.find('SummarySectionVariant').props().lift).toEqual('5%');
-		expect(Body.find('SummarySectionVariant').props().status).toEqual('up');
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Test Metric')).toBeTruthy();
+		expect(getByText('Click-Through Rate')).toBeTruthy();
+		expect(
+			container.querySelector(
+				'.analytics-summary-section-variant-status-up'
+			)
+		).toBeTruthy();
+		expect(getByText('5% lift'));
 	});
 });
 
@@ -415,44 +365,40 @@ describe('Summary Mapper for status FINISHED_WINNER and winner declared', () => 
 	});
 
 	it('should return Body for section 1', () => {
-		const Body = mount(mapper.sections[0].Body());
+		const {container, getByText} = render(mapper.sections[0].Body());
 
-		expect(Body.props().title).toEqual('Test Completion');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual(
-			'100%'
-		);
-		expect(Body.find('SummarySectionProgressBar').props().value).toEqual(
-			100
-		);
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Test Completion')).toBeTruthy();
+		expect(getByText('100%'));
+		expect(
+			container.querySelector('.analytics-summary-section-progress-bar')
+		).toHaveStyle('width: 100%;');
 	});
 
 	it('should return Body for section 2', () => {
-		const Body = mount(mapper.sections[1].Body());
+		const {getByText} = render(mapper.sections[1].Body());
 
-		expect(Body.props().title).toEqual('Days Running');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual('5');
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Days Running'));
+		expect(getByText('5'));
 	});
 
 	it('should return Body for section 3', () => {
-		const Body = mount(mapper.sections[2].Body());
+		const {getByText} = render(mapper.sections[2].Body());
 
-		expect(Body.props().title).toEqual('Total Test Sessions');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual('3K');
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Total Test Sessions'));
+		expect(getByText('3K'));
 	});
 
 	it('should return Body for section 4', () => {
-		const Body = mount(mapper.sections[3].Body());
+		const {container, getByText} = render(mapper.sections[3].Body());
 
-		expect(Body.props().title).toEqual('Test Metric');
-		expect(Body.find('SummarySectionMetricType').props().value).toEqual(
-			'Click-Through Rate'
-		);
-		expect(Body.find('SummarySectionVariant').props().lift).toEqual('5%');
-		expect(Body.find('SummarySectionVariant').props().status).toEqual('up');
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Test Metric'));
+		expect(getByText('Click-Through Rate'));
+		expect(
+			container.querySelector(
+				'.analytics-summary-section-variant-status-up'
+			)
+		).toBeTruthy();
+		expect(getByText('5% lift'));
 	});
 });
 
@@ -509,11 +455,10 @@ describe('Summary Mapper for status in COMPLETED', () => {
 	});
 
 	it('should return formatted header', () => {
-		const Description = shallow(mapper.header.Description());
+		const {getByText} = render(mapper.header.Description());
 
-		expect(Description.html()).toEqual(
-			'<div class="date"><div>Started: Aug 5, 2019</div><div>Ended: Aug 14, 2019</div></div>'
-		);
+		expect(getByText('Started: Aug 5, 2019')).toBeTruthy();
+		expect(getByText('Ended: Aug 14, 2019')).toBeTruthy();
 		expect(mapper.header.title).toEqual('Test Complete');
 	});
 
@@ -522,42 +467,34 @@ describe('Summary Mapper for status in COMPLETED', () => {
 	});
 
 	it('should return Body for section 1', () => {
-		const Body = mount(mapper.sections[0].Body());
+		const {container, getByText} = render(mapper.sections[0].Body());
 
-		expect(Body.props().title).toEqual('Test Completion');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual(
-			'100%'
-		);
-		expect(Body.find('SummarySectionProgressBar').props().value).toEqual(
-			100
-		);
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Test Completion')).toBeTruthy();
+		expect(getByText('100%'));
+		expect(
+			container.querySelector('.analytics-summary-section-progress-bar')
+		).toHaveStyle('width: 100%;');
 	});
 
 	it('should return Body for section 2', () => {
-		const Body = mount(mapper.sections[1].Body());
+		const {getByText} = render(mapper.sections[1].Body());
 
-		expect(Body.props().title).toEqual('Days Ran');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual('5');
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Days Ran'));
+		expect(getByText('5'));
 	});
 
 	it('should return Body for section 3', () => {
-		const Body = mount(mapper.sections[2].Body());
+		const {getByText} = render(mapper.sections[2].Body());
 
-		expect(Body.props().title).toEqual('Total Test Sessions');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual('3K');
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Total Test Sessions'));
+		expect(getByText('3K'));
 	});
 
 	it('should return Body for section 4', () => {
-		const Body = mount(mapper.sections[3].Body());
+		const {getByText} = render(mapper.sections[3].Body());
 
-		expect(Body.props().title).toEqual('Test Metric');
-		expect(Body.find('SummarySectionMetricType').props().value).toEqual(
-			'Click-Through Rate'
-		);
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Test Metric'));
+		expect(getByText('Click-Through Rate'));
 	});
 });
 
@@ -589,11 +526,10 @@ describe('Summary Mapper for status in COMPLETED and a variant published', () =>
 	});
 
 	it('should return formatted header', () => {
-		const Description = shallow(mapper.header.Description());
+		const {getByText} = render(mapper.header.Description());
 
-		expect(Description.html()).toEqual(
-			'<div class="date"><div>Started: Aug 5, 2019</div><div>Ended: Aug 14, 2019</div></div>'
-		);
+		expect(getByText('Started: Aug 5, 2019')).toBeTruthy();
+		expect(getByText('Ended: Aug 14, 2019')).toBeTruthy();
 		expect(mapper.header.title).toEqual('Test Complete');
 	});
 
@@ -602,42 +538,34 @@ describe('Summary Mapper for status in COMPLETED and a variant published', () =>
 	});
 
 	it('should return Body for section 1', () => {
-		const Body = mount(mapper.sections[0].Body());
+		const {container, getByText} = render(mapper.sections[0].Body());
 
-		expect(Body.props().title).toEqual('Test Completion');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual(
-			'100%'
-		);
-		expect(Body.find('SummarySectionProgressBar').props().value).toEqual(
-			100
-		);
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Test Completion')).toBeTruthy();
+		expect(getByText('100%'));
+		expect(
+			container.querySelector('.analytics-summary-section-progress-bar')
+		).toHaveStyle('width: 100%;');
 	});
 
 	it('should return Body for section 2', () => {
-		const Body = mount(mapper.sections[1].Body());
+		const {getByText} = render(mapper.sections[1].Body());
 
-		expect(Body.props().title).toEqual('Days Ran');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual('5');
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Days Ran'));
+		expect(getByText('5'));
 	});
 
 	it('should return Body for section 3', () => {
-		const Body = mount(mapper.sections[2].Body());
+		const {getByText} = render(mapper.sections[2].Body());
 
-		expect(Body.props().title).toEqual('Total Test Sessions');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual('3K');
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Total Test Sessions'));
+		expect(getByText('3K'));
 	});
 
 	it('should return Body for section 4', () => {
-		const Body = mount(mapper.sections[3].Body());
+		const {getByText} = render(mapper.sections[3].Body());
 
-		expect(Body.props().title).toEqual('Test Metric');
-		expect(Body.find('SummarySectionMetricType').props().value).toEqual(
-			'Click-Through Rate'
-		);
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Test Metric'));
+		expect(getByText('Click-Through Rate'));
 	});
 });
 
@@ -661,11 +589,10 @@ describe('Summary Mapper for status in TERMINATED', () => {
 	});
 
 	it('should return formatted header', () => {
-		const Description = shallow(mapper.header.Description());
+		const {getByText} = render(mapper.header.Description());
 
-		expect(Description.html()).toEqual(
-			'<div class="date"><div>Started: Aug 5, 2019</div><div>Stopped: Aug 14, 2019</div></div>'
-		);
+		expect(getByText('Started: Aug 5, 2019')).toBeTruthy();
+		expect(getByText('Stopped: Aug 14, 2019')).toBeTruthy();
 		expect(mapper.header.title).toEqual('Test Was Terminated');
 	});
 
@@ -674,43 +601,39 @@ describe('Summary Mapper for status in TERMINATED', () => {
 	});
 
 	it('should return Body for section 1', () => {
-		const Body = mount(mapper.sections[0].Body());
+		const {container, getByText} = render(mapper.sections[0].Body());
 
-		expect(Body.props().title).toEqual('Test Completion');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual(
-			'100%'
-		);
-		expect(Body.find('SummarySectionProgressBar').props().value).toEqual(
-			100
-		);
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Test Completion')).toBeTruthy();
+		expect(getByText('100%'));
+		expect(
+			container.querySelector('.analytics-summary-section-progress-bar')
+		).toHaveStyle('width: 100%;');
 	});
 
 	it('should return Body for section 2', () => {
-		const Body = mount(mapper.sections[1].Body());
+		const {getByText} = render(mapper.sections[1].Body());
 
-		expect(Body.props().title).toEqual('Days Running');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual('5');
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Days Running'));
+		expect(getByText('5'));
 	});
 
 	it('should return Body for section 3', () => {
-		const Body = mount(mapper.sections[2].Body());
+		const {getByText} = render(mapper.sections[2].Body());
 
-		expect(Body.props().title).toEqual('Total Test Sessions');
-		expect(Body.find('SummarySectionHeading').props().value).toEqual('3K');
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Total Test Sessions'));
+		expect(getByText('3K'));
 	});
 
 	it('should return Body for section 4', () => {
-		const Body = mount(mapper.sections[3].Body());
+		const {container, getByText} = render(mapper.sections[3].Body());
 
-		expect(Body.props().title).toEqual('Test Metric');
-		expect(Body.find('SummarySectionMetricType').props().value).toEqual(
-			'Click-Through Rate'
-		);
-		expect(Body.find('SummarySectionVariant').props().lift).toEqual('5%');
-		expect(Body.find('SummarySectionVariant').props().status).toEqual('up');
-		expect(Body.render()).toMatchSnapshot();
+		expect(getByText('Test Metric'));
+		expect(getByText('Click-Through Rate'));
+		expect(
+			container.querySelector(
+				'.analytics-summary-section-variant-status-up'
+			)
+		).toBeTruthy();
+		expect(getByText('5% lift'));
 	});
 });
