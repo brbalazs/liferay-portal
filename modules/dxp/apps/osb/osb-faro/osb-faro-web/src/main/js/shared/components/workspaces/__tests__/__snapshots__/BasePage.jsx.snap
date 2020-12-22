@@ -1,103 +1,95 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WorkspacesBasePage should render 1`] = `
-<ContextProvider
-  value={
-    Object {
-      "currentUser": Immutable.Record {
-        "emailAddress": "test@test.com",
-        "groupId": null,
-        "id": null,
-        "name": "Test Test",
-        "roleName": null,
-        "screenName": "",
-        "status": 0,
-        "userId": null,
-      },
-    }
-  }
->
+<div>
   <div
-    className="workspaces-base-page-root"
+    class="workspaces-base-page-root"
   >
-    <DocumentTitle
-      title="Test Title"
-    />
     <div
-      className="header-container"
+      class="header-container"
     >
       <a
         href="https://liferay.com"
         target="_blank"
       >
-        <Icon
-          className="liferay-logo"
-          symbol="liferay-logo"
-        />
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-liferay-logo liferay-logo"
+          viewBox=""
+        >
+          <use
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#liferay-logo"
+          />
+        </svg>
       </a>
-      <userDropDown
-        alignmentPosition={3}
-        menuItems={
-          Array [
-            Object {
-              "items": Array [
-                Object {
-                  "externalLink": true,
-                  "label": "Account",
-                  "url": "https://web.liferay.com/web//account-settings",
-                },
-                Object {
-                  "externalLink": true,
-                  "label": "Sign Out",
-                  "url": "/c/portal/logout",
-                },
-              ],
-              "subheaderLabel": "test@test.com",
-            },
-          ]
-        }
-        showCaret={true}
-        userName="Test Test"
-      />
-    </div>
-    <div
-      className="content"
-    >
-      <div
-        className="content-container"
-      >
-        <div
-          className="title-container"
+      <div>
+        <button
+          class="user-menu button-root btn btn-unstyled trigger"
+          style=""
+          type="button"
         >
           <div
-            className="logo-container"
+            class="text-truncate"
           >
-            <Icon
-              className="logo-icon"
-              symbol="ac-logo"
-            />
+            <div
+              class="sticker sticker-root sticker-static avatar sticker-circle"
+            >
+              TT
+            </div>
             <span
-              className="logo-text"
+              class="user-name"
+            >
+              Test Test
+            </span>
+            <svg
+              class="lexicon-icon lexicon-icon-caret-bottom caret"
+              role="presentation"
+            >
+              <use
+                xlink:href="#caret-bottom"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+    <div
+      class="content"
+    >
+      <div
+        class="content-container"
+      >
+        <div
+          class="title-container"
+        >
+          <div
+            class="logo-container"
+          >
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-ac-logo logo-icon"
+              viewBox=""
+            >
+              <use
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#ac-logo"
+              />
+            </svg>
+            <span
+              class="logo-text"
             >
               Analytics Cloud
             </span>
           </div>
           <h1
-            className="title"
+            class="title"
           >
             Test Title
           </h1>
           <div
-            className="details-container"
+            class="details-container"
           >
-            <p
-              key="1"
-            >
+            <p>
               Test Details
             </p>
-            <p
-              key="2"
-            >
+            <p>
               More Test Details
             </p>
           </div>
@@ -105,318 +97,5 @@ exports[`WorkspacesBasePage should render 1`] = `
       </div>
     </div>
   </div>
-</ContextProvider>
-`;
-
-exports[`WorkspacesBasePage should render when details is a string 1`] = `
-<ContextProvider
-  value={
-    Object {
-      "currentUser": Immutable.Record {
-        "emailAddress": "test@test.com",
-        "groupId": null,
-        "id": null,
-        "name": "Test Test",
-        "roleName": null,
-        "screenName": "",
-        "status": 0,
-        "userId": null,
-      },
-    }
-  }
->
-  <div
-    className="workspaces-base-page-root"
-  >
-    <DocumentTitle
-      title="Test Title"
-    />
-    <div
-      className="header-container"
-    >
-      <a
-        href="https://liferay.com"
-        target="_blank"
-      >
-        <Icon
-          className="liferay-logo"
-          symbol="liferay-logo"
-        />
-      </a>
-      <userDropDown
-        alignmentPosition={3}
-        menuItems={
-          Array [
-            Object {
-              "items": Array [
-                Object {
-                  "externalLink": true,
-                  "label": "Account",
-                  "url": "https://web.liferay.com/web//account-settings",
-                },
-                Object {
-                  "externalLink": true,
-                  "label": "Sign Out",
-                  "url": "/c/portal/logout",
-                },
-              ],
-              "subheaderLabel": "test@test.com",
-            },
-          ]
-        }
-        showCaret={true}
-        userName="Test Test"
-      />
-    </div>
-    <div
-      className="content"
-    >
-      <div
-        className="content-container"
-      >
-        <div
-          className="title-container"
-        >
-          <div
-            className="logo-container"
-          >
-            <Icon
-              className="logo-icon"
-              symbol="ac-logo"
-            />
-            <span
-              className="logo-text"
-            >
-              Analytics Cloud
-            </span>
-          </div>
-          <h1
-            className="title"
-          >
-            Test Title
-          </h1>
-          <div
-            className="details-container"
-          >
-            Test Details
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</ContextProvider>
-`;
-
-exports[`WorkspacesBasePage should render when details is jsx 1`] = `
-<ContextProvider
-  value={
-    Object {
-      "currentUser": Immutable.Record {
-        "emailAddress": "test@test.com",
-        "groupId": null,
-        "id": null,
-        "name": "Test Test",
-        "roleName": null,
-        "screenName": "",
-        "status": 0,
-        "userId": null,
-      },
-    }
-  }
->
-  <div
-    className="workspaces-base-page-root"
-  >
-    <DocumentTitle
-      title="Test Title"
-    />
-    <div
-      className="header-container"
-    >
-      <a
-        href="https://liferay.com"
-        target="_blank"
-      >
-        <Icon
-          className="liferay-logo"
-          symbol="liferay-logo"
-        />
-      </a>
-      <userDropDown
-        alignmentPosition={3}
-        menuItems={
-          Array [
-            Object {
-              "items": Array [
-                Object {
-                  "externalLink": true,
-                  "label": "Account",
-                  "url": "https://web.liferay.com/web//account-settings",
-                },
-                Object {
-                  "externalLink": true,
-                  "label": "Sign Out",
-                  "url": "/c/portal/logout",
-                },
-              ],
-              "subheaderLabel": "test@test.com",
-            },
-          ]
-        }
-        showCaret={true}
-        userName="Test Test"
-      />
-    </div>
-    <div
-      className="content"
-    >
-      <div
-        className="content-container"
-      >
-        <div
-          className="title-container"
-        >
-          <div
-            className="logo-container"
-          >
-            <Icon
-              className="logo-icon"
-              symbol="ac-logo"
-            />
-            <span
-              className="logo-text"
-            >
-              Analytics Cloud
-            </span>
-          </div>
-          <h1
-            className="title"
-          >
-            Test Title
-          </h1>
-          <div
-            className="details-container"
-          >
-            <b>
-              test
-            </b>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</ContextProvider>
-`;
-
-exports[`WorkspacesBasePage should render with back button 1`] = `
-<ContextProvider
-  value={
-    Object {
-      "currentUser": Immutable.Record {
-        "emailAddress": "test@test.com",
-        "groupId": null,
-        "id": null,
-        "name": "Test Test",
-        "roleName": null,
-        "screenName": "",
-        "status": 0,
-        "userId": null,
-      },
-    }
-  }
->
-  <div
-    className="workspaces-base-page-root"
-  >
-    <DocumentTitle
-      title="Test Title"
-    />
-    <div
-      className="header-container"
-    >
-      <a
-        href="https://liferay.com"
-        target="_blank"
-      >
-        <Icon
-          className="liferay-logo"
-          symbol="liferay-logo"
-        />
-      </a>
-      <userDropDown
-        alignmentPosition={3}
-        menuItems={
-          Array [
-            Object {
-              "items": Array [
-                Object {
-                  "externalLink": true,
-                  "label": "Account",
-                  "url": "https://web.liferay.com/web//account-settings",
-                },
-                Object {
-                  "externalLink": true,
-                  "label": "Sign Out",
-                  "url": "/c/portal/logout",
-                },
-              ],
-              "subheaderLabel": "test@test.com",
-            },
-          ]
-        }
-        showCaret={true}
-        userName="Test Test"
-      />
-    </div>
-    <div
-      className="content"
-    >
-      <div
-        className="content-container"
-      >
-        <div
-          className="back-container"
-        >
-          <Button
-            display="unstyled"
-            href="#"
-          >
-            <Icon
-              symbol="angle-left"
-            />
-            Back to Test
-          </Button>
-        </div>
-        <div
-          className="title-container"
-        >
-          <div
-            className="logo-container"
-          >
-            <Icon
-              className="logo-icon"
-              symbol="ac-logo"
-            />
-            <span
-              className="logo-text"
-            >
-              Analytics Cloud
-            </span>
-          </div>
-          <h1
-            className="title"
-          >
-            Test Title
-          </h1>
-          <div
-            className="details-container"
-          >
-            Test Details. 
-            More Test Details
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</ContextProvider>
+</div>
 `;
