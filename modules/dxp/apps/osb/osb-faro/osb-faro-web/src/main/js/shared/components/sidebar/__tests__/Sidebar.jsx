@@ -1,6 +1,9 @@
+import mockStore from 'test/mock-store';
 import React from 'react';
 import Sidebar from '../index';
-import {shallow} from 'enzyme';
+import {Provider} from 'react-redux';
+import {render} from '@testing-library/react';
+import {StaticRouter} from 'react-router';
 import {User} from 'shared/util/records';
 
 const defaultProps = {
@@ -10,38 +13,51 @@ const defaultProps = {
 	groupId: '23'
 };
 
+jest.unmock('react-dom');
+
 describe('Sidebar', () => {
 	it('should render', () => {
-		const component = shallow(<Sidebar {...defaultProps} />);
-		expect(component).toMatchSnapshot();
+		const {container} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<Sidebar {...defaultProps} />
+				</StaticRouter>
+			</Provider>
+		);
+
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render as collapsed', () => {
-		const component = shallow(<Sidebar {...defaultProps} collapsed />);
-		expect(component.find('.sidebar-root.collapsed').exists()).toBe(true);
-	});
-
-	it('should have default values if not all language keys are passed', () => {
-		const component = shallow(
-			<Sidebar
-				{...defaultProps}
-				language={{
-					accounts: 'Foo',
-					assets: 'Bar'
-				}}
-			/>
+		const {container} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<Sidebar {...defaultProps} collapsed />
+				</StaticRouter>
+			</Provider>
 		);
 
-		expect(component).toMatchSnapshot();
+		expect(container.querySelector('.sidebar-root')).toHaveClass(
+			'collapsed'
+		);
 	});
 
 	it('should render with a specific sidebar id active', () => {
-		const component = shallow(
-			<Sidebar
-				{...defaultProps}
-				activePathname='/workspace/23/contacts/individuals'
-			/>
+		const activePathName = '/workspace/23/123/contacts/individuals';
+
+		const {container} = render(
+			<Provider store={mockStore()}>
+				<StaticRouter>
+					<Sidebar
+						{...defaultProps}
+						activePathname={activePathName}
+					/>
+				</StaticRouter>
+			</Provider>
 		);
-		expect(component).toMatchSnapshot();
+
+		expect(
+			container.querySelector('.sidebar-item-root.active').firstChild
+		).toHaveAttribute('href', activePathName);
 	});
 });
