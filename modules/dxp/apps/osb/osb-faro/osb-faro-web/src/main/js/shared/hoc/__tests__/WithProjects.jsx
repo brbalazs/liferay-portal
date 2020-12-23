@@ -1,18 +1,29 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
 import {withProjects} from '../WithProjects';
 
+jest.unmock('react-dom');
+
 describe('WithProjects', () => {
-	it('should pass projects to the WrappedComponent', () => {
+	it('should render WrappedComponent', () => {
 		const WrappedComponent = withProjects(() => <div>{'foo'}</div>);
 
-		const component = shallow(<WrappedComponent projects={[{}]} />);
+		const {container} = render(<WrappedComponent projects={[{}]} />);
 
-		const hasProjectsProperty = Object.prototype.hasOwnProperty.call(
-			component.props(),
-			'projects'
-		);
+		expect(container).toMatchSnapshot();
+	});
 
-		expect(hasProjectsProperty).toBe(true);
+	it('should pass projects to the WrappedComponent', () => {
+		const WrappedComponent = withProjects(({projects}) => (
+			<div>
+				{projects && projects.length
+					? 'There are projects'
+					: 'No projects here'}
+			</div>
+		));
+
+		const {getByText} = render(<WrappedComponent projects={[{}]} />);
+
+		expect(getByText('There are projects'));
 	});
 });
