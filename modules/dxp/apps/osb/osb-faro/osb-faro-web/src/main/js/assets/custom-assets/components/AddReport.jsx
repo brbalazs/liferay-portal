@@ -179,10 +179,13 @@ class AddReport extends React.Component {
 	renderInputSelectMetric() {
 		return (
 			<div className='form-group'>
-				<label>{Liferay.Language.get('metric')}</label>
+				<label for='metricSelector'>
+					{Liferay.Language.get('metric')}
+				</label>
 
 				<select
 					className='form-control'
+					id='metricSelector'
 					onBlur={this.handleBlurSelectMetric}
 					onChange={this.handleChangeSelectMetric}
 				>
@@ -205,10 +208,13 @@ class AddReport extends React.Component {
 	renderInputReportName() {
 		return (
 			<div className='form-group'>
-				<label>{Liferay.Language.get('report-name')}</label>
+				<label for='reportNameInput'>
+					{Liferay.Language.get('report-name')}
+				</label>
 
 				<input
 					className='form-control'
+					id='reportNameInput'
 					maxLength={90}
 					onInput={this.handleChangeReportTitle}
 					placeholder={Liferay.Language.get(
