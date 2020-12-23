@@ -174,19 +174,13 @@ public class AssetCategoryServiceTest {
 
 		executorService.shutdown();
 
-		List<AssetCategory> categories =
-			AssetCategoryServiceUtil.getVocabularyCategories(
-				vocabulary.getVocabularyId(), -1, -1, null);
-
-		long expectedCategoriesCount = 9;
-		long expectedLeftRightCategoryIdsCount = 18;
-		List<Long> expectedSortedLeftRightCategoryIds = Arrays.asList(
-			1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L, 13L, 14L, 15L,
-			16L, 17L, 18L);
-
 		assertUniqueLeftRightCategories(
-			expectedCategoriesCount, expectedLeftRightCategoryIdsCount,
-			expectedSortedLeftRightCategoryIds, categories);
+			9, 18,
+			Arrays.asList(
+				1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L, 13L, 14L,
+				15L, 16L, 17L, 18L),
+			AssetCategoryServiceUtil.getVocabularyCategories(
+				vocabulary.getVocabularyId(), -1, -1, null));
 	}
 
 	protected void assertLeftRightCategory(
@@ -211,13 +205,10 @@ public class AssetCategoryServiceTest {
 
 		Collections.sort(actualSortedLeftRightCategoryIds);
 
-		long actualCategoriesCount = categories.size();
-		long actualLeftRightCategoryIdsCount =
-			actualSortedLeftRightCategoryIds.size();
-
-		Assert.assertEquals(expectedCategoriesCount, actualCategoriesCount);
+		Assert.assertEquals(expectedCategoriesCount, (int)categories.size());
 		Assert.assertEquals(
-			expectedLeftRightCategoryIdsCount, actualLeftRightCategoryIdsCount);
+			expectedLeftRightCategoryIdsCount,
+			(long)actualSortedLeftRightCategoryIds.size());
 		Assert.assertEquals(
 			expectedSortedLeftRightCategoryIds.toString(),
 			actualSortedLeftRightCategoryIds.toString());
