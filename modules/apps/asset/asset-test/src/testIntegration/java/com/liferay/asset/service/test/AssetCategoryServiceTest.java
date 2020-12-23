@@ -180,13 +180,13 @@ public class AssetCategoryServiceTest {
 
 		long expectedCategoriesCount = 9;
 		long expectedLeftRightCategoryIdsCount = 18;
-		List<Long> expectedLeftRightCategoryIdsSorted = Arrays.asList(
+		List<Long> expectedSortedLeftRightCategoryIds = Arrays.asList(
 			1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L, 13L, 14L, 15L,
 			16L, 17L, 18L);
 
 		assertUniqueLeftRightCategories(
 			expectedCategoriesCount, expectedLeftRightCategoryIdsCount,
-			expectedLeftRightCategoryIdsSorted, categories);
+			expectedSortedLeftRightCategoryIds, categories);
 	}
 
 	protected void assertLeftRightCategory(
@@ -199,28 +199,28 @@ public class AssetCategoryServiceTest {
 
 	protected void assertUniqueLeftRightCategories(
 		long expectedCategoriesCount, long expectedLeftRightCategoryIdsCount,
-		List<Long> expectedLeftRightCategoryIdsSorted,
+		List<Long> expectedSortedLeftRightCategoryIds,
 		List<AssetCategory> categories) {
 
-		List<Long> actualLeftRightCategoryIdsSorted = new ArrayList<>();
+		List<Long> actualSortedLeftRightCategoryIds = new ArrayList<>();
 
 		for (AssetCategory category : categories) {
-			actualLeftRightCategoryIdsSorted.add(category.getLeftCategoryId());
-			actualLeftRightCategoryIdsSorted.add(category.getRightCategoryId());
+			actualSortedLeftRightCategoryIds.add(category.getLeftCategoryId());
+			actualSortedLeftRightCategoryIds.add(category.getRightCategoryId());
 		}
 
-		Collections.sort(actualLeftRightCategoryIdsSorted);
+		Collections.sort(actualSortedLeftRightCategoryIds);
 
 		long actualCategoriesCount = categories.size();
 		long actualLeftRightCategoryIdsCount =
-			actualLeftRightCategoryIdsSorted.size();
+			actualSortedLeftRightCategoryIds.size();
 
 		Assert.assertEquals(expectedCategoriesCount, actualCategoriesCount);
 		Assert.assertEquals(
 			expectedLeftRightCategoryIdsCount, actualLeftRightCategoryIdsCount);
 		Assert.assertEquals(
-			expectedLeftRightCategoryIdsSorted.toString(),
-			actualLeftRightCategoryIdsSorted.toString());
+			expectedSortedLeftRightCategoryIds.toString(),
+			actualSortedLeftRightCategoryIds.toString());
 	}
 
 	@DeleteAfterTestRun
