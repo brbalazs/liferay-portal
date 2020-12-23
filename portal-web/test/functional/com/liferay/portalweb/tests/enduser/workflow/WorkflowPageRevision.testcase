@@ -368,12 +368,6 @@ definition {
 
 		Navigator.gotoNavItem(navItem = "Monitoring");
 
-		Workflow.withdrawTaskByActions(
-			workflowAssetTitle = "Site Page Name",
-			workflowAssetType = "Page Revision",
-			workflowDefinition = "Single Approver",
-			workflowTask = "Update");
-
 		Workflow.viewDefaultWorkflowSubmissions();
 	}
 
