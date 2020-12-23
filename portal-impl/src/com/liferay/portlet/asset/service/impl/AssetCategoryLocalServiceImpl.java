@@ -875,11 +875,9 @@ public class AssetCategoryLocalServiceImpl
 
 		if (maxRightCategoryId != (count * 2)) {
 			if (_log.isDebugEnabled()) {
-				String message = StringBundler.concat(
-					"Broken tree detected for left/right category ID. ",
-					"Rebuilding tree for group ", groupId, ".");
-
-				_log.debug(message);
+				_log.debug(
+					"Rebuilding tree for group " + groupId +
+						" because of broken tree for left/right category ID");
 			}
 
 			assetCategoryLocalService.rebuildTree(groupId, true);
