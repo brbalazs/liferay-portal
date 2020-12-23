@@ -173,6 +173,8 @@ Import-Package:\
 	\
 	!org.xnio.*,\
 	\
+	!org.yaml.snakeyaml.*,\
+	\
 	!reactor.*,\
 	\
 	!rx.*,\

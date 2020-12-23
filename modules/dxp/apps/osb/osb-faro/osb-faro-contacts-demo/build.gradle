@@ -9,7 +9,7 @@ dependencies {
 	compileInclude group: "commons-codec", name: "commons-codec", version: "1.11"
 	compileInclude group: "dk.brics.automaton", name: "automaton", version: "1.11.2"
 	compileInclude group: "org.apache.commons", name: "commons-lang3", version: "3.5"
-	compileInclude group: "org.yaml", name: "snakeyaml", version: "1.20"
+	compileInclude group: "org.yaml", name: "snakeyaml", version: "1.27"
 	compileInclude group: "user-agent-utils", name: "user-agent-utils", version: "1.2.3"
 
 	compileOnly group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"

@@ -22,7 +22,6 @@ dependencies {
 	compileInclude group: "org.apache.commons", name: "commons-collections4", version: "4.4"
 	compileInclude group: "org.apache.httpcomponents", name: "httpclient", version: "4.5.5"
 	compileInclude group: "org.apache.httpcomponents", name: "httpcore", version: "4.4.10"
-	compileInclude group: "org.yaml", name: "snakeyaml", version: "1.15"
 
 	compileOnly group: "com.liferay", name: "com.liferay.oauth2.provider.api", version: "1.2.2"
 	compileOnly group: "com.liferay", name: "com.liferay.oauth2.provider.scope.api", version: "1.0.4"
