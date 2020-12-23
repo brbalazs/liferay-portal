@@ -1,129 +1,96 @@
 import AddReport from '../AddReport';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {fireEvent, render} from '@testing-library/react';
+
+jest.unmock('react-dom');
 
 describe('AddReport', () => {
 	it('should render without analytics-add-report-empty-dashboard class', () => {
-		const component = shallow(<AddReport />);
+		const {container} = render(<AddReport />);
 
-		expect(component.render()).toMatchSnapshot();
+		expect(
+			container.querySelector('.analytics-add-report-empty-dashboard')
+		).toBeFalsy();
 	});
 
 	it('should render with analytics-add-report-empty-dashboard class', () => {
-		const component = shallow(<AddReport isEmptyDashboard />);
+		const {container} = render(<AddReport isEmptyDashboard />);
 
-		expect(component.render()).toMatchSnapshot();
+		expect(
+			container.querySelector('.analytics-add-report-empty-dashboard')
+		).toBeTruthy();
 	});
 
 	it('should render a form AddReport', () => {
-		const component = shallow(<AddReport />);
+		const {container, getByText} = render(<AddReport />);
 
-		component.instance().openReport();
+		fireEvent.click(getByText('Add Report'));
 
-		expect(component.render()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render an empty state when closeReport method is called', () => {
-		const component = shallow(<AddReport />);
+		const {container, getByText} = render(<AddReport isEmptyDashboard />);
 
-		component.instance().closeReport();
+		fireEvent.click(getByText('Add Report'));
+		fireEvent.click(getByText('Cancel'));
 
-		expect(component.render()).toMatchSnapshot();
+		expect(
+			container.querySelector('.analytics-add-report-empty-dashboard')
+		).toBeTruthy();
 	});
 
 	it('should be false when some form field has not filled in', () => {
-		const component = shallow(<AddReport />);
+		const {getByText} = render(<AddReport />);
 
-		component.setState({
-			report: {
-				chartType: 'line',
-				metric: 'viewsMetric',
-				title: null
-			}
-		});
+		fireEvent.click(getByText('Add Report'));
 
-		component.instance().enableButtonSave();
-
-		expect(component.state('isEnableToSave')).toBe(false);
+		expect(getByText('Save')).toBeDisabled();
 	});
 
 	it('should be true when all form field has filled in', () => {
-		const component = shallow(<AddReport />);
+		const {getByLabelText, getByText} = render(<AddReport />);
 
-		component.setState({
-			report: {
-				chartType: 'line',
-				metric: 'viewsMetric',
-				title: 'My title'
-			}
+		fireEvent.click(getByText('Add Report'));
+
+		fireEvent.input(getByLabelText('Report Name'), {
+			target: {value: 'jacksontesting'}
+		});
+		fireEvent.change(getByLabelText('Metric'), {
+			target: {value: 'clicksMetric'}
 		});
 
-		component.instance().enableButtonSave();
+		expect(getByLabelText('Report Name').value).toBe('jacksontesting');
+		expect(getByLabelText('Metric').value).toBe('clicksMetric');
 
-		expect(component.state('isEnableToSave')).toBe(true);
+		expect(getByText('Save')).not.toBeDisabled();
 	});
 
-	it('should return a report with the title when the handleChangeReportTitle is called', () => {
-		const component = shallow(<AddReport />);
+	it('should close form when the user saves the report', () => {
+		const {getByLabelText, getByText} = render(
+			<AddReport onGetReport={jest.fn()} />
+		);
 
-		component
-			.instance()
-			.handleChangeReportTitle({target: {value: 'My title 2'}});
+		fireEvent.click(getByText('Add Report'));
 
-		expect(component.state('report')).toEqual({
-			chartType: '',
-			metric: '',
-			title: 'My title 2'
+		fireEvent.input(getByLabelText('Report Name'), {
+			target: {value: 'jacksontesting'}
 		});
-	});
-
-	it('should return a report with the title when the handleChangeSelectMetric is called', () => {
-		const component = shallow(<AddReport />);
-
-		component
-			.instance()
-			.handleChangeSelectMetric({target: {value: 'viewsMetric'}});
-
-		expect(component.state('report')).toEqual({
-			chartType: '',
-			metric: 'viewsMetric',
-			title: ''
+		fireEvent.change(getByLabelText('Metric'), {
+			target: {value: 'clicksMetric'}
 		});
+
+		fireEvent.click(getByText('Save'));
+
+		expect(getByText('Add Report')).toBeTruthy();
 	});
 
-	it('should return a report with the title when the getSelectedChartType is called', () => {
-		const component = shallow(<AddReport />);
+	it('should close form when the user cancels the report addition', () => {
+		const {getByText} = render(<AddReport onGetReport={jest.fn()} />);
 
-		component.instance().handleGetSelectedChartType({value: 'line'});
+		fireEvent.click(getByText('Add Report'));
+		fireEvent.click(getByText('Cancel'));
 
-		expect(component.state('report')).toEqual({
-			chartType: 'line',
-			metric: '',
-			title: ''
-		});
-	});
-
-	it('should open form when handleClickAddReport is called', () => {
-		const component = shallow(<AddReport />);
-
-		component.instance().handleClickAddReport();
-
-		expect(component.state('showFormAddReport')).toBeTruthy();
-	});
-
-	it('should close form when handleClickSaveReport is called', () => {
-		const component = shallow(<AddReport onGetReport={jest.fn()} />);
-
-		component.instance().handleClickSaveReport();
-
-		expect(component.state('showFormAddReport')).toBeFalsy();
-	});
-
-	it('should close form when handleClickCancelReport is called', () => {
-		const component = shallow(<AddReport onGetReport={jest.fn()} />);
-
-		component.instance().handleClickCancelReport();
-
-		expect(component.state('showFormAddReport')).toBeFalsy();
+		expect(getByText('Add Report')).toBeTruthy();
 	});
 });
