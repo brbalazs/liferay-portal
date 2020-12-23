@@ -14,43 +14,37 @@ const {
 	userRoleNames: {member}
 } = FaroConstants;
 
-const defaultProps = {
-	currentUser: data.getImmutableMock(User, data.mockUser),
-	dataSource: data.getImmutableMock(DataSource, data.mockLiferayDataSource),
-	groupId: '23',
-	id: 'test'
-};
+const WrappedComponent = props => (
+	<Provider store={mockStore()}>
+		<StaticRouter>
+			<LiferayAuthorization
+				currentUser={data.getImmutableMock(User, data.mockUser)}
+				dataSource={data.getImmutableMock(
+					DataSource,
+					data.mockLiferayDataSource
+				)}
+				groupId='23'
+				id='test'
+				{...props}
+			/>
+		</StaticRouter>
+	</Provider>
+);
 
 describe('LiferayAuthorization', () => {
 	it('should render', () => {
-		const {container} = render(
-			<Provider store={mockStore()}>
-				<StaticRouter>
-					<LiferayAuthorization {...defaultProps} />
-				</StaticRouter>
-			</Provider>
-		);
+		const {container} = render(<WrappedComponent />);
 
 		expect(container).toMatchSnapshot();
 	});
 
 	it('should render as read-only if the user is not authorized to make changes', () => {
 		const {queryByText} = render(
-			<Provider store={mockStore()}>
-				<StaticRouter>
-					<LiferayAuthorization
-						{...defaultProps}
-						currentUser={data.getImmutableMock(
-							User,
-							data.mockUser,
-							'23',
-							{
-								roleName: member
-							}
-						)}
-					/>
-				</StaticRouter>
-			</Provider>
+			<WrappedComponent
+				currentUser={data.getImmutableMock(User, data.mockUser, '23', {
+					roleName: member
+				})}
+			/>
 		);
 
 		expect(queryByText('Delete Data Source')).toBeFalsy();
