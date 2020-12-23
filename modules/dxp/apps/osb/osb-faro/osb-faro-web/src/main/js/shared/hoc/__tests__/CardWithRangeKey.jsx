@@ -1,8 +1,9 @@
-jest.mock('shared/hoc/DropdownRangeKey', () => 'DropdownRangeKey');
-
 import CardWithRangeKey from '../CardWithRangeKey';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
+
+jest.mock('shared/hoc/DropdownRangeKey', () => 'DropdownRangeKey');
+jest.unmock('react-dom');
 
 const WrappedComponent = () => (
 	<CardWithRangeKey>{() => <div>{'foo'}</div>}</CardWithRangeKey>
@@ -10,13 +11,8 @@ const WrappedComponent = () => (
 
 describe('CardWithRangeKey', () => {
 	it('render', () => {
-		const component = shallow(<WrappedComponent rangeKey='30' />);
+		const {container} = render(<WrappedComponent rangeKey='30' />);
 
-		expect(
-			component
-				.dive()
-				.shallow()
-				.find('DropdownRangeKey').length
-		).toBe(1);
+		expect(container).toMatchSnapshot();
 	});
 });
