@@ -2,9 +2,12 @@ import * as data from 'test/data';
 import FaroConstants from 'shared/util/constants';
 import React from 'react';
 import {DataSource} from 'shared/util/records';
+import {fireEvent, render} from '@testing-library/react';
 import {OAUTH_CALLBACK_URL} from 'shared/util/oauth';
 import {OAuthForm} from '../OAuthForm';
-import {shallow} from 'enzyme';
+import {StaticRouter} from 'react-router';
+
+jest.unmock('react-dom');
 
 const {dataSourceStates, dataSourceStatuses, dataSourceTypes} = FaroConstants;
 
@@ -33,168 +36,136 @@ const defaultProps = {
 
 describe('OAuthForm', () => {
 	it('should render', () => {
-		const component = shallow(<OAuthForm {...defaultProps} />);
+		const {container} = render(
+			<StaticRouter>
+				<OAuthForm {...defaultProps} />
+			</StaticRouter>
+		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render with oauth owner', () => {
-		const component = shallow(
-			<OAuthForm
-				{...defaultProps}
-				dataSource={data.getImmutableMock(
-					DataSource,
-					data.mockLiferayDataSource,
-					23,
-					{
-						credentials: {
-							oAuthOwner: {
-								emailAddress: 'test@liferay.com',
-								name: 'test test'
+		const {queryByText} = render(
+			<StaticRouter>
+				<OAuthForm
+					{...defaultProps}
+					dataSource={data.getImmutableMock(
+						DataSource,
+						data.mockLiferayDataSource,
+						23,
+						{
+							credentials: {
+								oAuthOwner: {
+									emailAddress: 'test@liferay.com',
+									name: 'test test'
+								}
 							}
 						}
-					}
-				)}
-			/>
+					)}
+				/>
+			</StaticRouter>
 		);
 
-		expect(
-			component
-				.shallow()
-				.find('.oauth-owner .name')
-				.text()
-		).toBe('test test');
+		expect(queryByText('test test').parentElement).toHaveClass(
+			'oauth-owner'
+		);
 	});
 
 	it('should render with "remove" button', () => {
-		const component = shallow(
-			<OAuthForm
-				{...defaultProps}
-				dataSource={data.getImmutableMock(
-					DataSource,
-					data.mockLiferayDataSource,
-					23,
-					{
-						credentials: {
-							oAuthOwner: {
-								emailAddress: 'test@liferay.com',
-								name: 'test test'
+		const {queryByText} = render(
+			<StaticRouter>
+				<OAuthForm
+					{...defaultProps}
+					dataSource={data.getImmutableMock(
+						DataSource,
+						data.mockLiferayDataSource,
+						23,
+						{
+							credentials: {
+								oAuthOwner: {
+									emailAddress: 'test@liferay.com',
+									name: 'test test'
+								}
 							}
 						}
-					}
-				)}
-			/>
+					)}
+				/>
+			</StaticRouter>
 		);
 
-		component.setState({editing: true});
-
-		expect(
-			component
-				.shallow()
-				.find('.oauth-owner')
-				.find('Button')
-				.children()
-				.text()
-		).toBe('Remove');
+		expect(queryByText('Remove')).toBeTruthy();
 	});
 
 	it('should render without an edit button if authorized is false', () => {
-		const component = shallow(
-			<OAuthForm {...defaultProps} authorized={false} />
+		const {queryByText} = render(
+			<StaticRouter>
+				<OAuthForm {...defaultProps} authorized={false} />
+			</StaticRouter>
 		);
 
-		expect(component.shallow()).toMatchSnapshot();
+		expect(queryByText('Edit')).toBeNull();
 	});
 
 	it('should render by default as disabled with an edit button if this is an existing data source', () => {
-		const component = shallow(
-			<OAuthForm {...defaultProps} authorized id='23' />
+		const {getByText} = render(
+			<StaticRouter>
+				<OAuthForm {...defaultProps} authorized id='23' />
+			</StaticRouter>
 		);
 
 		expect(
-			component
-				.shallow()
-				.find('Button')
-				.children()
-				.text()
-		).toBe('Edit');
+			getByText('Authorize to add a new owner.').parentElement
+		).toHaveClass('disabled');
+		expect(getByText('Edit')).toBeTruthy();
 	});
 
-	it('should render with an"Authorize & Save" and "Cancel" button if the edit button is clicked', () => {
+	it('should render with an "Authorize & Save" and "Cancel" button if the edit button is clicked', () => {
 		React.createRef.mockReturnValueOnce(getMockRef('foo'));
 
-		const component = shallow(
-			<OAuthForm
-				{...defaultProps}
-				authorized
-				dataSource={data.getImmutableMock(
-					DataSource,
-					data.mockSalesforceDataSource
-				)}
-				id='23'
-				type={dataSourceTypes.salesforce}
-			/>
+		const {getByText} = render(
+			<StaticRouter>
+				<OAuthForm
+					{...defaultProps}
+					authorized
+					dataSource={data.getImmutableMock(
+						DataSource,
+						data.mockSalesforceDataSource
+					)}
+					id='23'
+					type={dataSourceTypes.salesforce}
+				/>
+			</StaticRouter>
 		);
 
-		expect(
-			component
-				.shallow()
-				.find('Button')
-				.children()
-				.text()
-		).toBe('Edit');
+		fireEvent.click(getByText('Edit'));
 
-		component.instance().handleToggleEditing();
-
-		jest.runAllTimers();
-
-		expect(
-			component
-				.shallow()
-				.find('Button')
-				.at(0)
-				.children()
-				.text()
-		).toBe('Authorize & Save');
+		expect(getByText('Authorize & Save')).toBeTruthy();
+		expect(getByText('Cancel')).toBeTruthy();
 	});
 
 	it('should render with all inputs disabled if the user is not authorized and the datasource has an UNDEFINED_ERROR state', () => {
-		const component = shallow(
-			<OAuthForm
-				{...defaultProps}
-				authorized={false}
-				dataSource={data.getImmutableMock(
-					DataSource,
-					data.mockLiferayDataSource,
-					{
-						state: dataSourceStates.undefinedError,
-						status: dataSourceStatuses.inactive
-					}
-				)}
-				id='23'
-				type={dataSourceTypes.liferay}
-			/>
+		const {container} = render(
+			<StaticRouter>
+				<OAuthForm
+					{...defaultProps}
+					authorized={false}
+					dataSource={data.getImmutableMock(
+						DataSource,
+						data.mockLiferayDataSource,
+						{
+							state: dataSourceStates.undefinedError,
+							status: dataSourceStatuses.inactive
+						}
+					)}
+					id='23'
+					type={dataSourceTypes.liferay}
+				/>
+			</StaticRouter>
 		);
 
-		expect(
-			component
-				.shallow()
-				.find('ForwardRef')
-				.everyWhere(node => node.props().disabled)
-		).toBe(true);
-
-		expect(
-			component
-				.shallow()
-				.find('PasswordInput')
-				.props().disabled
-		).toBe(true);
-
-		expect(
-			component
-				.shallow()
-				.find('.oauth-owner')
-				.hasClass('disabled')
-		).toBe(true);
+		container
+			.querySelectorAll('input')
+			.forEach(element => expect(element).toBeDisabled());
 	});
 });
