@@ -3374,7 +3374,7 @@
   </node>
   <node componentName="tJava" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="96" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tJava_1" show="false"/>
-    <elementParameter field="MEMO_JAVA" name="CODE" value="if(Objects.equals(context.lastRunStartDate, &quot;&quot;)) {&#xA;&#x9;context.lastRunStartDate = TalendDate.getDate(&quot;yyyy-MM-dd'T'HH:mm:ssZ&quot;);&#xA;}&#xA;&#xA;context.lastRunStartDate = TalendDate.addDate(context.lastRunStartDate, &quot;yyyy-MM-dd'T'HH:mm:ssZ&quot;, -context.deltaMins , &quot;mm&quot;);&#xA;&#xA;System.out.printf(&quot;Importing account records modified after %s%n&quot;, context.lastRunStartDate);&#xA;"/>
+    <elementParameter field="MEMO_JAVA" name="CODE" value="if(context.lastRunStartDate != null) {&#xA;&#x9;String sanitizedLastRunStartDate = context.lastRunStartDate.trim();&#xA;&#x9;&#xA;&#x9;if (!sanitizedLastRunStartDate.isEmpty()) {&#xA;&#x9;&#x9;context.lastRunStartDate = TalendDate.addDate(&#xA;&#x9;&#x9;&#x9;sanitizedLastRunStartDate, &quot;yyyy-MM-dd'T'HH:mm:ssZ&quot;, -context.deltaMins , &quot;mm&quot;);&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;System.out.printf(&#xA;&#x9;&#x9;&#x9;&quot;Importing account data modified after %s%n&quot;, context.lastRunStartDate);&#xA;&#x9;}&#xA;&#x9;else {&#xA;&#x9;&#x9;context.lastRunStartDate = null;&#xA;&#x9;}&#xA;}&#xA;&#xA;if (context.lastRunStartDate == null) {&#xA;&#x9;System.out.println(&quot;Importing all account data&quot;);&#xA;}"/>
     <elementParameter field="MEMO_IMPORT" name="IMPORT" value="import java.util.Objects;"/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__"/>
