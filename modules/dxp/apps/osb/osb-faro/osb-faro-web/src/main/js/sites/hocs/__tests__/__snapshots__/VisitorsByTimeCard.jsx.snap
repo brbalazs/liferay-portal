@@ -1,35 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VisitorsByTimeCard render 1`] = `
-<div
-  class="card card-root"
->
+<div>
   <div
-    class="card-header align-items-center d-flex justify-content-between"
+    class="card card-root"
   >
-    <h5
-      class="card-title"
-    />
     <div
-      class="spinner-root spinner-inline"
+      class="card-header align-items-center d-flex justify-content-between"
     >
-      <span
-        class="loading-animation loading-animation-dotted"
+      <h5
+        class="card-title"
       />
+      <div
+        class="spinner-root spinner-inline"
+      >
+        <span
+          class="loading-animation loading-animation-dotted"
+        />
+      </div>
     </div>
-  </div>
-  <div
-    class="card-body"
-  >
     <div
-      class="spinner-root spinner-center spinner-spacer"
+      class="card-body"
     >
-      <span
-        class="loading-animation loading-animation-dotted"
-      />
+      <div
+        class="spinner-root spinner-center spinner-spacer"
+      >
+        <span
+          class="loading-animation loading-animation-dotted"
+        />
+      </div>
     </div>
   </div>
 </div>
 `;
 
-exports[`renderTooltip render 1`] = `<<table class="analytics-tooltip-chart" data-reactroot=""><thead class="analytics-tooltip-chart-header "><tr class="analytics-tooltip-chart-row "><td><div class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold"> <!-- -->Sunday - 12 PM</div></td></tr></thead><tbody class="analytics-tooltip-chart-body "><tr class="analytics-tooltip-chart-row "><td><div class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-center font-weight-normal"> <!-- -->98 Visitors</div></td></tr></tbody></table> />`;
+exports[`renderTooltip render 1`] = `
+<div>
+  &lt;table class="analytics-tooltip-chart" data-reactroot=""&gt;&lt;thead class="analytics-tooltip-chart-header "&gt;&lt;tr class="analytics-tooltip-chart-row "&gt;&lt;td&gt;&lt;div class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-left font-weight-semibold"&gt; &lt;!-- --&gt;Sunday - 12 PM&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody class="analytics-tooltip-chart-body "&gt;&lt;tr class="analytics-tooltip-chart-row "&gt;&lt;td&gt;&lt;div class="analytics-tooltip-chart-content analytics-tooltip-chart-column text-center font-weight-normal"&gt; &lt;!-- --&gt;98 Visitors&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+</div>
+`;
