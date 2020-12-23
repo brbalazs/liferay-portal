@@ -6,8 +6,10 @@ import VisitorsByTimeCard, {
 	renderTooltip
 } from '../VisitorsByTimeCard';
 import {ApolloProvider} from '@apollo/react-components';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router-dom';
+
+jest.unmock('react-dom');
 
 const MOCK_CONTEXT = {
 	rangeKey: {defaultValue: '30'},
@@ -34,18 +36,19 @@ const WrappedComponent = props => (
 
 describe('VisitorsByTimeCard', () => {
 	it('render', () => {
-		const component = shallow(<WrappedComponent />);
+		const {container} = render(<WrappedComponent />);
 
-		expect(component.render()).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
 
 describe('renderTooltip', () => {
 	it('render', () => {
-		const Tooltip = renderTooltip({column: 'Sunday', row: 12, value: 98});
-		const component = shallow(<Tooltip />);
+		const {container} = render(
+			renderTooltip({column: 'Sunday', row: 12, value: 98})
+		);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 });
 
