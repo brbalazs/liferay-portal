@@ -47,7 +47,6 @@ public class ContentElementResourceTest
 				testDepotEntry.getGroupId(),
 				"a" + RandomTestUtil.randomString(),
 				RandomTestUtil.randomString()));
-
 		ContentElement contentElement2 = _toContentElement(
 			JournalTestUtil.addArticle(
 				testDepotEntry.getGroupId(),
@@ -82,7 +81,6 @@ public class ContentElementResourceTest
 			JournalTestUtil.addArticle(
 				testGroup.getGroupId(), "a" + RandomTestUtil.randomString(),
 				RandomTestUtil.randomString()));
-
 		ContentElement contentElement2 = _toContentElement(
 			JournalTestUtil.addArticle(
 				testGroup.getGroupId(), "b" + RandomTestUtil.randomString(),
