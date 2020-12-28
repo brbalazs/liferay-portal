@@ -1,8 +1,10 @@
 import React from 'react';
 import withPaginationBar from '../WithPaginationBar';
 import {compose} from 'redux';
-import {shallow} from 'enzyme';
+import {render} from '@testing-library/react';
 import {withStaticRouter} from 'test/mock-router';
+
+jest.unmock('react-dom');
 
 describe('withPaginationBar', () => {
 	it('renders', () => {
@@ -11,11 +13,11 @@ describe('withPaginationBar', () => {
 			withPaginationBar({defaultDelta: 10})
 		)(() => <div>{'foobar'}</div>);
 
-		const component = shallow(
+		const {container} = render(
 			<WrappedComponent delta={5} page={1} total={15} />
 		);
 
-		expect(component.render().length).toBe(2);
+		expect(container).toMatchSnapshot();
 	});
 
 	it('renders w/o the pagination bar', () => {
@@ -24,8 +26,8 @@ describe('withPaginationBar', () => {
 			withPaginationBar({defaultDelta: 10})
 		)(() => <div>{'foobar'}</div>);
 
-		const component = shallow(<WrappedComponent total={0} />);
+		const {container} = render(<WrappedComponent total={0} />);
 
-		expect(component.render().length).toBe(1);
+		expect(container).toMatchSnapshot();
 	});
 });
