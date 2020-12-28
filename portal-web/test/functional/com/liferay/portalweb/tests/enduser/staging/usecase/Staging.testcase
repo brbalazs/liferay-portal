@@ -536,7 +536,7 @@ definition {
 		WikiPage.viewPG(
 			wikiPageContent = "Edited Wiki Page Content",
 			wikiPageTitle = "Wiki Page Title");
-		
+
 		Navigator.gotoSitePage(
 			pageName = "Staging Test Page",
 			siteName = "Site Name");
