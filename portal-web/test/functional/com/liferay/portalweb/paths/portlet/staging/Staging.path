@@ -118,6 +118,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>STAGING_BUTTON</td>
+	<td>//li[contains(@class,'staging-link')]/a[contains(@value,'staging')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>STAGING_VIEW</td>
 	<td>//body[contains(@class,'local-staging')]</td>
 	<td></td>

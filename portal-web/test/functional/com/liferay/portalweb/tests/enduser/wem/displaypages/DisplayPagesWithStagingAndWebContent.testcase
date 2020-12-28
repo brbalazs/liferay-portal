@@ -154,7 +154,7 @@ definition {
 			locator1 = "Fragment#FRAGMENT");
 	}
 
-	@description = "This tests one of the workarounds of LPS-86373."
+	@description = "This tests one of the workarounds of LPS-86373 and a use case for LPS-118841."
 	@priority = "5"
 	test PublishDisplayPageMarkedAsDefault {
 		property portal.acceptance = "true";
@@ -194,6 +194,22 @@ definition {
 		Staging.publishCustomPublication();
 
 		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/-/webcontent-title");
+
+		AssertVisible(
+			key_content = "Webcontent Title",
+			key_fragmentClass = "header",
+			key_position = "1",
+			locator1 = "Fragment#FRAGMENT");
+
+		AssertVisible(
+			key_content = "Webcontent Content",
+			key_fragmentClass = "rich-text",
+			key_position = "2",
+			locator1 = "Fragment#FRAGMENT");
+
+		AssertClick.assertPartialTextClickAt(
+			locator1 = "Staging#STAGING_BUTTON",
+			value1 = "Staging");
 
 		AssertVisible(
 			key_content = "Webcontent Title",
