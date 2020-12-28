@@ -1,6 +1,9 @@
 addons:
     chrome: stable
 dist: trusty
+env:
+    global:
+        - NODE_OPTIONS=--max_old_space_size=2048
 jdk: oraclejdk8
 jobs:
     include:
@@ -10,7 +13,7 @@ jobs:
         - stage: source formatting checks
           script: ./gradlew packageRunLint checkSourceFormatting pmdMain pmdTest pmdTestIntegration
         - stage: javascript tests
-          script: ./gradlew packageRunTest
+          script: ./gradlew packageRunWebpack packageRunTest
           after_success: ./gradlew packageRunCoveralls
 services:
     - docker
