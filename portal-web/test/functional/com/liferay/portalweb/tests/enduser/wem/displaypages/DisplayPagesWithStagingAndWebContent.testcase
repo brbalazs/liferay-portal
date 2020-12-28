@@ -157,7 +157,8 @@ definition {
 	@description = "This tests one of the workarounds of LPS-86373 and a use case for LPS-118841."
 	@priority = "5"
 	test PublishDisplayPageMarkedAsDefault {
-		property portal.acceptance = "true";
+		property portal.acceptance = "quarantine";
+		property portal.upstream = "quarantine";
 
 		DisplayPagesAdmin.markDisplayPageAsDefault(rowEntry = "Display Page Name");
 
