@@ -28,9 +28,11 @@ public class NotificationDisplay {
 	public NotificationDisplay(FaroNotification faroNotification) {
 		_id = faroNotification.getFaroNotificationId();
 		_subtype = faroNotification.getSubtype();
+		_type = faroNotification.getType();
 	}
 
 	private long _id;
 	private String _subtype;
+	private String _type;
 
 }
