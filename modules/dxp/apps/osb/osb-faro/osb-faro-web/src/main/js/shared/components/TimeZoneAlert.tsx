@@ -1,3 +1,4 @@
+import * as API from 'shared/api';
 import Alert from 'shared/components/Alert';
 import React, {useState} from 'react';
 import {compose} from 'redux';
@@ -8,21 +9,26 @@ import {withRouter} from 'react-router-dom';
 const TIME_ZONE_COUNTRY_REGEX = /\([^)]+.*/;
 
 interface ITimeZoneAlertModalProps {
+	groupId: string;
+	notificationId: string;
 	stripe: boolean;
 	timeZone: string;
 }
 
 const TimeZoneAlert: React.FC<ITimeZoneAlertModalProps> = ({
+	groupId,
+	notificationId,
 	stripe,
 	timeZone
 }) => {
-	const [showAlert, setShowAlert] = useState(false);
-	// TODO: LRAC-6961 Add the request to show the TimeZone Stripe and UTC
+	const [showAlert, setShowAlert] = useState(true);
 
 	return showAlert ? (
 		<Alert
 			iconSymbol='exclamation-full'
+			key={notificationId}
 			onClose={() => {
+				API.notifications.readNotification(groupId, notificationId);
 				setShowAlert(false);
 			}}
 			stripe={stripe}
