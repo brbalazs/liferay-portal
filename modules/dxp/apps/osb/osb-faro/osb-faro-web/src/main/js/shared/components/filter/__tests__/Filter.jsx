@@ -1,6 +1,9 @@
 import Filter from '..';
 import React from 'react';
-import {shallow} from 'enzyme';
+import {fireEvent, render} from '@testing-library/react';
+import {noop} from 'lodash';
+
+jest.unmock('react-dom');
 
 const MOCK_ITEMS = [
 	{
@@ -92,30 +95,31 @@ const MOCK_ITEMS = [
 
 describe('Filter', () => {
 	it('should render', () => {
-		const component = shallow(<Filter items={MOCK_ITEMS} />);
+		const {container} = render(<Filter items={MOCK_ITEMS} />);
 
-		expect(component).toMatchSnapshot();
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should call onClick on handleClickApplyFilter', () => {
 		const spy = jest.fn();
 
-		const component = shallow(<Filter items={MOCK_ITEMS} onChange={spy} />);
+		const {getByText} = render(
+			<Filter items={MOCK_ITEMS} onChange={spy} />
+		);
 
-		component.instance().handleClickApplyFilter();
+		fireEvent.click(getByText('Albania'));
 
 		expect(spy).toBeCalled();
 	});
 
-	it('should call onClick on handleUpdateFilters', () => {
-		const spy = jest.fn();
+	it('should render de Clear Filter Button', () => {
+		const {getByText} = render(
+			<Filter items={MOCK_ITEMS} onChange={noop} />
+		);
 
-		const component = shallow(<Filter items={MOCK_ITEMS} onChange={spy} />);
+		fireEvent.click(getByText('Albania'));
+		fireEvent.click(getByText('Phone'));
 
-		const appliedFilters = {test: 'test'};
-
-		component.instance().handleUpdateFilters(appliedFilters);
-
-		expect(spy).toBeCalledWith(appliedFilters);
+		expect(getByText('Clear Filter')).toBeTruthy();
 	});
 });
