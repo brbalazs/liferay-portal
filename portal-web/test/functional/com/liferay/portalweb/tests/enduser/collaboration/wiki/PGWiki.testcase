@@ -911,6 +911,61 @@ definition {
 		);
 	}
 
+	@description = "This is a use case for LPS-50602"
+	@priority = "5"
+	test NoUpdateAfterDraftWikiPage {
+		ProductMenu.gotoPortlet(
+			category = "Build",
+			panel = "Site Administration",
+			portlet = "Pages"
+		);
+
+		SitePages.addPublicPage(pageName = "Activities Test Page");
+
+		Navigator.gotoPage(pageName = "Activities Test Page");
+
+		Portlet.addPG(portletName = "Activities");
+
+		Navigator.gotoPage(pageName = "Wiki Test Page");
+
+		WikiNavigator.gotoAllPagesPG();
+
+		WikiPage.addPG(
+			wikiPageContent = "Wiki Page Content",
+			wikiPageTitle = "Wiki Page Title");
+
+		Navigator.gotoPage(pageName = "Activities Test Page");
+
+		AssertTextEquals.assertPartialText(
+			key_portletName = "Activities",
+			locator1 = "Portlet#BODY",
+			value1 = "Test wrote a new wiki page, Wiki Page Title.");
+
+		Navigator.gotoPage(pageName = "Wiki Test Page");
+
+		WikiNavigator.gotoAllPagesPG();
+
+		WikiNavigator.gotoEntryEditViaPGTable(wikiPageTitle = "Wiki Page Title");
+
+		WikiEntry.addPageContent(wikiPageContent = "Edit Wiki Page Content");
+
+		SelectFrame(value1 = "relative=top");
+
+		WikiEntry.saveAsDraft();
+
+		Navigator.gotoPage(pageName = "Activities Test Page");
+
+		AssertTextEquals.assertPartialText(
+			key_portletName = "Activities",
+			locator1 = "Portlet#BODY",
+			value1 = "Test wrote a new wiki page, Wiki Page Title.");
+
+		AssertTextNotEquals.assertNotPartialText(
+			key_portletName = "Activities",
+			locator1 = "Portlet#BODY",
+			value1 = "Test updated a wiki page, Wiki Page Title.");
+	}
+
 	@priority = "3"
 	test RemoveRedirectLinkFromPage {
 		Navigator.gotoPage(pageName = "Wiki Test Page");
