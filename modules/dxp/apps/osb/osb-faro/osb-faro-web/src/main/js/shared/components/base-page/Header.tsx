@@ -3,10 +3,10 @@ import Button from 'shared/components/Button';
 import Dropdown from 'shared/components/Dropdown';
 import getCN from 'classnames';
 import Nav from 'shared/components/Nav';
+import NotificationAlertList from '../NotificationAlertList';
 import React from 'react';
 import Row from './Row';
 import TextTruncate from 'shared/components/TextTruncate';
-import TimeZoneAlert from 'shared/components/TimeZoneAlert';
 import {getMatchedRoute, setUriQueryValues, toRoute} from 'shared/util/router';
 import {noop, pickBy} from 'lodash';
 
@@ -136,6 +136,7 @@ type Breadcrumb = {
 };
 
 interface IHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+	groupId: string;
 	breadcrumbs: Breadcrumb[];
 }
 
@@ -144,7 +145,7 @@ const Header: React.FC<IHeaderProps> & {
 	PageActions: typeof PageActions;
 	Section: typeof Section;
 	TitleSection: typeof TitleSection;
-} = ({breadcrumbs, children}) => (
+} = ({breadcrumbs, children, groupId}) => (
 	<header className='header-root'>
 		<div className='header-container'>
 			{breadcrumbs && (
@@ -156,7 +157,7 @@ const Header: React.FC<IHeaderProps> & {
 			{children}
 		</div>
 
-		<TimeZoneAlert stripe />
+		<NotificationAlertList groupId={groupId} stripe />
 	</header>
 );
 
