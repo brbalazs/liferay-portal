@@ -671,6 +671,14 @@ export function mockMembershipChangeAggregation(seed = 0, data = {}) {
 	};
 }
 
+export function mockNotification(seed = 0, data = {}) {
+	return {
+		id: String(seed),
+		subtype: 'TIME_ZONE_CHANGED',
+		...data
+	};
+}
+
 export function mockGraphqlOrganization(seed = 0, data = {}) {
 	return {
 		id: String(seed),
