@@ -38,14 +38,16 @@ export const Workspace: React.FC<IWorkspaceProps> = ({
 		emailAddressDomains,
 		friendlyURL,
 		incidentReportEmailAddresses,
-		name
+		name,
+		timeZoneId
 	}) =>
 		updateProject({
 			emailAddressDomains,
 			friendlyURL,
 			groupId,
 			incidentReportEmailAddresses,
-			name
+			name,
+			timeZoneId
 		})
 			.then(() => {
 				if (friendlyURL !== groupId) {

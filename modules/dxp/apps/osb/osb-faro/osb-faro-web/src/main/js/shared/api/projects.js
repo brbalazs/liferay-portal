@@ -111,14 +111,16 @@ export function update({
 	friendlyURL,
 	groupId,
 	incidentReportEmailAddresses,
-	name
+	name,
+	timeZoneId
 }) {
 	return sendRequest({
 		data: {
 			emailAddressDomains,
 			friendlyURL: friendlyURL && `/${friendlyURL}`,
 			incidentReportEmailAddresses,
-			name
+			name,
+			timeZoneId
 		},
 		method: 'PUT',
 		path: `main/project/${groupId}`
