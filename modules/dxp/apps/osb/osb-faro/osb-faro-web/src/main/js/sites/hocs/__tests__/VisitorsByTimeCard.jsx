@@ -8,6 +8,7 @@ import VisitorsByTimeCard, {
 import {ApolloProvider} from '@apollo/react-components';
 import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router-dom';
+import {waitForLoading} from 'test/helpers';
 
 jest.unmock('react-dom');
 
@@ -35,8 +36,10 @@ const WrappedComponent = props => (
 );
 
 describe('VisitorsByTimeCard', () => {
-	it('render', () => {
+	it('render', async() => {
 		const {container} = render(<WrappedComponent />);
+
+		await waitForLoading(container);
 
 		expect(container).toMatchSnapshot();
 	});
