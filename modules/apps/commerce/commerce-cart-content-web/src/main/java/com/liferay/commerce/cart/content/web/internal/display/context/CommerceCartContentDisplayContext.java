@@ -142,11 +142,9 @@ public class CommerceCartContentDisplayContext {
 	}
 
 	public String getCommercePriceDisplayType() throws PortalException {
-		CommerceOrder commerceOrder = getCommerceOrder();
-
 		CommerceChannel commerceChannel =
-			_commerceChannelLocalService.getCommerceChannelByOrderGroupId(
-				commerceOrder.getGroupId());
+			_commerceChannelLocalService.getCommerceChannel(
+				commerceContext.getCommerceChannelId());
 
 		return commerceChannel.getPriceDisplayType();
 	}
