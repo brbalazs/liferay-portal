@@ -2,9 +2,9 @@ import Breadcrumbs from 'shared/components/Breadcrumbs';
 import DocumentTitle from 'shared/components/DocumentTitle';
 import getCN from 'classnames';
 import MaintenanceAlert from 'shared/components/MaintenanceAlert';
+import NotificationAlertList from 'shared/components/NotificationAlertList';
 import React from 'react';
 import TextTruncate from 'shared/components/TextTruncate';
-import TimeZoneAlert from 'shared/components/TimeZoneAlert';
 import {compose} from 'shared/hoc';
 import {connect} from 'react-redux';
 import {PageActions} from 'shared/components/base-page/Header';
@@ -20,6 +20,7 @@ export class SettingsBasePage extends React.Component {
 		breadcrumbItems: PropTypes.array,
 		documentTitle: PropTypes.string,
 		groupId: PropTypes.string.isRequired,
+		notifications: PropTypes.array,
 		pageActions: PropTypes.array,
 		pageActionsDisplayLimit: PropTypes.number,
 		pageDescription: PropTypes.node,
@@ -32,6 +33,7 @@ export class SettingsBasePage extends React.Component {
 			breadcrumbItems,
 			className,
 			documentTitle,
+			groupId,
 			pageActions,
 			pageActionsDisplayLimit,
 			pageDescription,
@@ -46,7 +48,7 @@ export class SettingsBasePage extends React.Component {
 						pageTitle} - ${Liferay.Language.get('settings')}`}
 				/>
 
-				<TimeZoneAlert />
+				<NotificationAlertList groupId={groupId} />
 
 				<MaintenanceAlert />
 
