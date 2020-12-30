@@ -69,6 +69,7 @@ const ExperimentOverviewPage: React.FC<IExperimentOverviewPage> = ({
 									label: experiment.name
 								})
 							]}
+							groupId={groupId}
 						>
 							<BasePage.Header.TitleSection
 								subtitle={

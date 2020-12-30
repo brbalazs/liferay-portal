@@ -89,6 +89,7 @@ const Dashboard: React.FC<IDashboardProps> = ({
 						label: selectedChannel && selectedChannel.name
 					})
 				]}
+				groupId={groupId}
 			>
 				<BasePage.Header.TitleSection
 					title={Liferay.Language.get('individuals')}

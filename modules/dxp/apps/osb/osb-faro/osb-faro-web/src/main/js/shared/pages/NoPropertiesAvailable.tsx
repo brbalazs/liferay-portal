@@ -44,7 +44,7 @@ const NoPropertiesAvailable: React.FC<INoPropertiesAvailableProps> = ({
 			className='no-properties-available-root'
 			documentTitle={Liferay.Language.get('no-properties-available')}
 		>
-			<BasePage.Header breadcrumbs={[]}>
+			<BasePage.Header breadcrumbs={[]} groupId={groupId}>
 				<BasePage.Header.TitleSection
 					className='text-secondary'
 					title={Liferay.Language.get('no-properties-available')}

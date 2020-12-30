@@ -50,6 +50,7 @@ function WebContentRoutes({className, router}) {
 					breadcrumbs.getWebContent({channelId, groupId}),
 					breadcrumbs.getEntityName({label: decodedTitle})
 				]}
+				groupId={groupId}
 			>
 				<BasePage.Header.TitleSection title={decodedTitle} />
 

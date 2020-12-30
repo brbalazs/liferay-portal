@@ -50,6 +50,7 @@ function DocumentsAndMediaRoutes({className, router}) {
 					breadcrumbs.getDocumentsAndMedia({channelId, groupId}),
 					breadcrumbs.getEntityName({label: decodedTitle})
 				]}
+				groupId={groupId}
 			>
 				<BasePage.Header.TitleSection title={decodedTitle} />
 

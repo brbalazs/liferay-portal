@@ -147,6 +147,7 @@ export const Dashboard: React.FC<IDashboardProps> = ({currentUser, router}) => {
 						label: selectedChannelName
 					})
 				]}
+				groupId={groupId}
 			>
 				<BasePage.Header.TitleSection
 					className={getCN({'no-sites-connected': !selectedChannel})}

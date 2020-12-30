@@ -220,6 +220,7 @@ class CustomAssetsDashboardPage extends React.Component {
 						breadcrumbs.getCustomContent({channelId, groupId}),
 						breadcrumbs.getEntityName({label: decodedTitle})
 					]}
+					groupId={groupId}
 				>
 					<BasePage.Header.TitleSection title={decodedTitle} />
 				</BasePage.Header>

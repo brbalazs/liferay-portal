@@ -48,6 +48,7 @@ function BlogsRoutes({className, router}) {
 					breadcrumbs.getBlogs({channelId, groupId}),
 					breadcrumbs.getEntityName({label: decodedTitle})
 				]}
+				groupId={groupId}
 			>
 				<BasePage.Header.TitleSection title={decodedTitle} />
 

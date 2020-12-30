@@ -96,6 +96,7 @@ export class IndividualProfileRoutes extends React.Component {
 						breadcrumbs.getKnownIndividuals({channelId, groupId}),
 						breadcrumbs.getEntityName({label: entityName})
 					]}
+					groupId={groupId}
 				>
 					<BasePage.Header.TitleSection title={entityName} />
 

@@ -87,6 +87,7 @@ function AssetsRoutes({className, router}) {
 						label: selectedChannel && selectedChannel.name
 					})
 				]}
+				groupId={groupId}
 			>
 				<BasePage.Header.TitleSection
 					title={Liferay.Language.get('assets')}

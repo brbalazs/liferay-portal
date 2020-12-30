@@ -60,6 +60,7 @@ const ExperimentsListPage: React.FC<IExperimentsListPage> = ({
 						label: selectedChannel && selectedChannel.name
 					})
 				]}
+				groupId={groupId}
 			>
 				<BasePage.Header.TitleSection
 					title={Liferay.Language.get('tests')}

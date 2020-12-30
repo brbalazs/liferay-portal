@@ -81,6 +81,7 @@ function TouchpointRoutes({className, router}) {
 					breadcrumbs.getPages({channelId, groupId}),
 					breadcrumbs.getEntityName({label: decodedTitle})
 				]}
+				groupId={groupId}
 			>
 				<BasePage.Header.TitleSection
 					subtitle={

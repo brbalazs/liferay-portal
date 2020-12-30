@@ -48,6 +48,7 @@ function FormsRoutes({className, router}) {
 					breadcrumbs.getForms({channelId, groupId}),
 					breadcrumbs.getEntityName({label: decodedTitle})
 				]}
+				groupId={groupId}
 			>
 				<BasePage.Header.TitleSection title={decodedTitle} />
 

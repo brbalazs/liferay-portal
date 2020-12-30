@@ -157,6 +157,7 @@ export class SegmentProfileRoutes extends React.Component {
 						breadcrumbs.getSegments({channelId, groupId}),
 						breadcrumbs.getEntityName({label: segment.name})
 					]}
+					groupId={groupId}
 				>
 					<BasePage.Row>
 						<BasePage.Header.TitleSection

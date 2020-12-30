@@ -240,6 +240,7 @@ export default WrappedComponent => {
 							breadcrumbs.getSegments({channelId, groupId}),
 							...breadcrumbItems
 						]}
+						groupId={groupId}
 					>
 						<BasePage.Row>
 							<BasePage.Header.TitleSection

@@ -235,6 +235,7 @@ export default class BaseListPage extends React.Component {
 							label: selectedChannel && selectedChannel.name
 						})
 					]}
+					groupId={groupId}
 				>
 					<BasePage.Row>
 						<BasePage.Header.TitleSection title={entityLabel} />

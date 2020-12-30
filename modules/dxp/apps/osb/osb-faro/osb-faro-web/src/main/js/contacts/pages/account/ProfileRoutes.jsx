@@ -129,6 +129,7 @@ export class AccountProfileRoutes extends React.Component {
 						breadcrumbs.getAccounts({channelId, groupId}),
 						breadcrumbs.getEntityName({label: accountName})
 					]}
+					groupId={groupId}
 				>
 					<BasePage.Header.TitleSection title={accountName} />
 
