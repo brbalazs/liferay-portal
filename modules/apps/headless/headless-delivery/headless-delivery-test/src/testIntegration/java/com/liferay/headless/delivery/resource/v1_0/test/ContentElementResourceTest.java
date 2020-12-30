@@ -15,8 +15,6 @@
 package com.liferay.headless.delivery.resource.v1_0.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
-import com.liferay.depot.model.DepotEntry;
-import com.liferay.depot.service.DepotEntryLocalServiceUtil;
 import com.liferay.headless.delivery.client.dto.v1_0.ContentElement;
 import com.liferay.headless.delivery.client.pagination.Page;
 import com.liferay.headless.delivery.client.pagination.Pagination;
@@ -36,41 +34,6 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class ContentElementResourceTest
 	extends BaseContentElementResourceTestCase {
-
-	@Override
-	@Test
-	public void testGetAssetLibraryContentElementsPageWithSortString()
-		throws Exception {
-
-		ContentElement contentElement1 = _toContentElement(
-			JournalTestUtil.addArticle(
-				testDepotEntry.getGroupId(),
-				"a" + RandomTestUtil.randomString(),
-				RandomTestUtil.randomString()));
-		ContentElement contentElement2 = _toContentElement(
-			JournalTestUtil.addArticle(
-				testDepotEntry.getGroupId(),
-				"b" + RandomTestUtil.randomString(),
-				RandomTestUtil.randomString()));
-
-		Page<ContentElement> ascPage =
-			contentElementResource.getAssetLibraryContentElementsPage(
-				testGetAssetLibraryContentElementsPage_getAssetLibraryId(),
-				null, null, null, Pagination.of(1, 2), "title:asc");
-
-		assertEquals(
-			Arrays.asList(contentElement1, contentElement2),
-			(List<ContentElement>)ascPage.getItems());
-
-		Page<ContentElement> descPage =
-			contentElementResource.getAssetLibraryContentElementsPage(
-				testGetAssetLibraryContentElementsPage_getAssetLibraryId(),
-				null, null, null, Pagination.of(1, 2), "title:desc");
-
-		assertEquals(
-			Arrays.asList(contentElement2, contentElement1),
-			(List<ContentElement>)descPage.getItems());
-	}
 
 	@Override
 	@Test
@@ -115,18 +78,6 @@ public class ContentElementResourceTest
 		return new String[] {
 			"contentType", "creatorId", "dateCreated", "dateModified"
 		};
-	}
-
-	@Override
-	protected ContentElement
-			testGetAssetLibraryContentElementsPage_addContentElement(
-				Long assetLibraryId, ContentElement contentElement)
-		throws Exception {
-
-		DepotEntry depotEntry = DepotEntryLocalServiceUtil.getDepotEntry(
-			assetLibraryId);
-
-		return _getContentElement(depotEntry.getGroupId());
 	}
 
 	@Override
