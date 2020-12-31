@@ -114,7 +114,7 @@ renderResponse.setTitle(title);
 					function() {
 						return new Liferay.KaleoFormsAdmin(
 							{
-								currentURL: '<%= currentURL %>',
+								currentURL: '<%= HtmlUtil.escape(currentURL) %>',
 								form: form,
 								kaleoProcessId: <%= kaleoProcessId %>,
 								namespace: '<portlet:namespace />',
