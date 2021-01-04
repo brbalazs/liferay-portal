@@ -36,14 +36,14 @@ public class SitemapURLProviderRegistryUtil {
 	}
 
 	public static List<SitemapURLProvider> getSitemapURLProviders() {
-		Set<String> keySet = _sitemapURLProvidersServiceTrackerMap.keySet();
+		Set<String> classNames = _sitemapURLProvidersServiceTrackerMap.keySet();
 
 		List<SitemapURLProvider> sitemapURLProviders = new ArrayList<>(
-			keySet.size());
+			classNames.size());
 
-		for (String key : keySet) {
+		for (String className : classNames) {
 			sitemapURLProviders.add(
-				_sitemapURLProvidersServiceTrackerMap.getService(key));
+				_sitemapURLProvidersServiceTrackerMap.getService(className));
 		}
 
 		return sitemapURLProviders;
