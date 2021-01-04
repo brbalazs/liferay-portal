@@ -34,6 +34,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.osgi.service.component.annotations.Component;
@@ -63,11 +64,11 @@ public class NotificationController extends BaseFaroController {
 	@GET
 	@RolesAllowed(RoleConstants.SITE_MEMBER)
 	public List<NotificationDisplay> getNotifications(
-		@PathParam("groupId") long groupId) {
+		@PathParam("groupId") long groupId, @QueryParam("type") String type) {
 
 		List<FaroNotification> faroNotifications =
 			_faroNotificationLocalService.findFaroNotificationsLast30Days(
-				groupId, getUserId());
+				groupId, type, getUserId());
 
 		Stream<FaroNotification> stream = faroNotifications.stream();
 

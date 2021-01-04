@@ -75,7 +75,7 @@ public class FaroNotificationLocalServiceImpl
 
 	@Override
 	public List<FaroNotification> findFaroNotificationsLast30Days(
-		long groupId, long userId) {
+		long groupId, String type, long userId) {
 
 		PermissionChecker permissionChecker =
 			PermissionThreadLocal.getPermissionChecker();
@@ -83,12 +83,12 @@ public class FaroNotificationLocalServiceImpl
 		if (permissionChecker.isGroupAdmin(groupId) ||
 			permissionChecker.isGroupOwner(groupId)) {
 
-			return faroNotificationPersistence.findByG_C_C(
-				groupId, _getDateMillis(), new long[] {groupId, userId});
+			return faroNotificationPersistence.findByG_C_C_T(
+				groupId, _getDateMillis(), new long[] {groupId, userId}, type);
 		}
 
-		return faroNotificationPersistence.findByG_C_C(
-			groupId, _getDateMillis(), userId);
+		return faroNotificationPersistence.findByG_C_C_T(
+			groupId, _getDateMillis(), userId, type);
 	}
 
 	private long _getDateMillis() {
