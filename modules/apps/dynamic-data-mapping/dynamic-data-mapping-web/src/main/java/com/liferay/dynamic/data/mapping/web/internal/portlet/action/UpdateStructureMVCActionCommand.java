@@ -88,8 +88,6 @@ public class UpdateStructureMVCActionCommand extends DDMBaseMVCActionCommand {
 
 		DDMForm ddmForm = _ddm.getDDMForm(actionRequest);
 
-		ActionUtil.validateFieldNames(ddmForm);
-
 		DDMFormLayout ddmFormLayout = _ddm.getDefaultDDMFormLayout(ddmForm);
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
