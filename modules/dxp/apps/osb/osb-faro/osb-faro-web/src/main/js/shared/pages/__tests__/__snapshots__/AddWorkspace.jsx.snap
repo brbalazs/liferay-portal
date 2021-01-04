@@ -385,6 +385,71 @@ exports[`AddWorkspace should render 1`] = `
                       </div>
                     </div>
                   </div>
+                  <h3
+                    class="sheet-subtitle"
+                  >
+                    Security
+                  </h3>
+                  <div
+                    class="sheet-section"
+                  >
+                    <div
+                      class=""
+                    >
+                      <label
+                        class="form-control-label label-root required"
+                        for="incidentReportEmailAddresses"
+                      >
+                        <span
+                          class="content-container"
+                        >
+                          Add Incident Report Contacts
+                        </span>
+                        <span
+                          class="info-popover-root"
+                        >
+                          <svg
+                            class="icon-root lexicon-icon lexicon-icon-question-circle-full"
+                            viewBox=""
+                          >
+                            <use
+                              xlink:href="/o/osb-faro-web/dist/sprite.svg#question-circle-full"
+                            />
+                          </svg>
+                        </span>
+                      </label>
+                      <label
+                        class="form-control-label label-root font-weight-normal"
+                        for="incidentReportEmailAddresses"
+                      >
+                        <span
+                          class="content-container"
+                        >
+                          <p>
+                            Who should we contact in case of a security breach?
+                          </p>
+                        </span>
+                      </label>
+                      <div
+                        class="input-group"
+                      >
+                        <div
+                          class="input-group-item input-list-root"
+                        >
+                          <div
+                            class="form-control form-control-tag-group"
+                          >
+                            <input
+                              class="form-control-inset"
+                              placeholder=""
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div
                   class="sheet-footer"
