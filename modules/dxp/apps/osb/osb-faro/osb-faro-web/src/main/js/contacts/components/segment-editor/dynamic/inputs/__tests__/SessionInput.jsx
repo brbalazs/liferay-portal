@@ -21,7 +21,34 @@ describe('SessionInput', () => {
 				touched={{customInput: true, dateFilter: true}}
 				valid={{customInput: true, dateFilter: true}}
 				value={fromJS({
-					criterionGroup: {items: [{operatorName: EQ}]}
+					criterionGroup: {
+						items: [
+							{operatorName: EQ},
+							{
+								operatorName: EQ,
+								propertyName: 'completeDate',
+								value: '2021-01-01'
+							}
+						]
+					}
+				})}
+			/>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('should render with "ever"', () => {
+		const {container} = render(
+			<SessionInput
+				operatorRenderer={() => <div>{'operator'}</div>}
+				property={new Property()}
+				touched={{customInput: true, dateFilter: true}}
+				valid={{customInput: true, dateFilter: true}}
+				value={fromJS({
+					criterionGroup: {
+						items: [{operatorName: EQ}]
+					}
 				})}
 			/>
 		);

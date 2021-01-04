@@ -260,6 +260,22 @@ export default class GeolocationInput extends React.Component<
 		};
 	}
 
+	getConjunctionDateFilterIMap(value) {
+		const conjunctionDateFilterIndex = getIndexFromPropertyName(
+			value,
+			'completeDate'
+		);
+
+		if (conjunctionDateFilterIndex >= 0) {
+			return getFilterCriterionIMap(
+				value,
+				conjunctionDateFilterIndex
+			).toJS();
+		}
+
+		return {propertyName: 'completeDate'};
+	}
+
 	@autobind
 	handleConjunctionChange(criterion) {
 		const {onChange, touched, valid, value} = this.props;
@@ -349,15 +365,7 @@ export default class GeolocationInput extends React.Component<
 		const cityInputValue = getLocationTypeValue(value, CITY);
 		const regionInputValue = getLocationTypeValue(value, REGION);
 
-		const conjunctionDateFilterIndex = getIndexFromPropertyName(
-			value,
-			'completeDate'
-		);
-
-		const conjunctionCriterion = (
-			getFilterCriterionIMap(value, conjunctionDateFilterIndex) ||
-			Map({propertyName: 'completeDate'})
-		).toJS();
+		const conjunctionCriterion = this.getConjunctionDateFilterIMap(value);
 
 		return (
 			<div className='criteria-statement geolocation-input'>

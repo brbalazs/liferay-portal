@@ -5,7 +5,7 @@ import CustomStringInput from './CustomStringInput';
 import DateFilterConjunctionInput from './components/DateFilterConjunctionInput';
 import Form from 'shared/components/form';
 import React from 'react';
-import {fromJS, Map} from 'immutable';
+import {fromJS} from 'immutable';
 import {
 	getFilterCriterionIMap,
 	getIndexFromPropertyName,
@@ -46,6 +46,24 @@ export default class SessionInput extends React.Component<ISessionInputProps> {
 				query: getPropertyValue(valueIMap, 'value', 0)
 			})
 			.then(({items}) => items);
+	}
+
+	getConjunctionDateFilterIMap() {
+		const {value} = this.props;
+
+		const conjunctionDateFilterIndex = getIndexFromPropertyName(
+			value,
+			'completeDate'
+		);
+
+		if (conjunctionDateFilterIndex >= 0) {
+			return getFilterCriterionIMap(
+				value,
+				conjunctionDateFilterIndex
+			).toJS();
+		}
+
+		return {propertyName: 'completeDate'};
 	}
 
 	@autobind
@@ -98,17 +116,7 @@ export default class SessionInput extends React.Component<ISessionInputProps> {
 	}
 
 	render() {
-		const {value} = this.props;
-
-		const conjunctionDateFilterIndex = getIndexFromPropertyName(
-			value,
-			'completeDate'
-		);
-
-		const conjunctionCriterion = (
-			getFilterCriterionIMap(value, conjunctionDateFilterIndex) ||
-			Map({propertyName: 'completeDate'})
-		).toJS();
+		const conjunctionCriterion = this.getConjunctionDateFilterIMap();
 
 		return (
 			<div className='criteria-statement'>
