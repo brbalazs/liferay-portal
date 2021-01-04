@@ -197,7 +197,7 @@ public interface FaroNotificationLocalService
 	public FaroNotification fetchFaroNotification(long faroNotificationId);
 
 	public List<FaroNotification> findFaroNotificationsLast30Days(
-		long groupId, long userId);
+		long groupId, String type, long userId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();

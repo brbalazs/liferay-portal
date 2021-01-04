@@ -218,9 +218,11 @@ public class FaroNotificationLocalServiceUtil {
 	}
 
 	public static java.util.List<com.liferay.osb.faro.model.FaroNotification>
-		findFaroNotificationsLast30Days(long groupId, long userId) {
+		findFaroNotificationsLast30Days(
+			long groupId, String type, long userId) {
 
-		return getService().findFaroNotificationsLast30Days(groupId, userId);
+		return getService().findFaroNotificationsLast30Days(
+			groupId, type, userId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery

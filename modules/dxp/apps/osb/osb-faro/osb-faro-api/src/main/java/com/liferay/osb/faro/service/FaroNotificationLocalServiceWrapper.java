@@ -230,10 +230,11 @@ public class FaroNotificationLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.osb.faro.model.FaroNotification>
-		findFaroNotificationsLast30Days(long groupId, long userId) {
+		findFaroNotificationsLast30Days(
+			long groupId, String type, long userId) {
 
 		return _faroNotificationLocalService.findFaroNotificationsLast30Days(
-			groupId, userId);
+			groupId, type, userId);
 	}
 
 	@Override
