@@ -81,10 +81,11 @@
 		<finder name="CreateTime" return-type="Collection">
 			<finder-column comparator="&lt;" name="createTime" />
 		</finder>
-		<finder name="G_C_C" return-type="Collection" where="read = [$FALSE$]">
+		<finder name="G_C_C_T" return-type="Collection" where="read = [$FALSE$]">
 			<finder-column name="groupId" />
 			<finder-column comparator="&gt;" name="createTime" />
 			<finder-column arrayable-operator="OR" name="ownerId" />
+			<finder-column name="type" />
 		</finder>
 	</entity>
 	<entity local-service="true" name="FaroPreferences" remote-service="false">
