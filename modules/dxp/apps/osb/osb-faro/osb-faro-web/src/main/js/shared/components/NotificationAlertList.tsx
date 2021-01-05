@@ -1,6 +1,7 @@
 import * as API from 'shared/api';
 import React from 'react';
 import TimeZoneAlert from './TimeZoneAlert';
+import {NotificationType} from 'shared/util/records/Notification';
 import {useRequest} from 'shared/hooks';
 
 enum NotificationSubtype {
@@ -34,7 +35,8 @@ const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
 	stripe = false
 }) => {
 	const {data, loading} = useRequest(API.notifications.fetchNotifications, {
-		groupId
+		groupId,
+		type: NotificationType.ALERT
 	});
 
 	const notifications =

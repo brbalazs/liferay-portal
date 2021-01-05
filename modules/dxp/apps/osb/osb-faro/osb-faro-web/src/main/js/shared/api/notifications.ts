@@ -1,7 +1,8 @@
 import sendRequest from 'shared/util/request';
 
-export const fetchNotifications = ({groupId}) =>
+export const fetchNotifications = ({groupId, type}) =>
 	sendRequest({
+		data: {type},
 		method: 'GET',
 		path: `main/${groupId}/notification`
 	});
