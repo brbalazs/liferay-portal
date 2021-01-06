@@ -469,7 +469,7 @@ public class ProjectController extends BaseFaroController {
 							LCPServiceDisplay::new)));
 			}
 
-			if (Validator.isNull(faroProject.getCorpProjectUuid())) {
+			if (Validator.isNotNull(faroProject.getCorpProjectUuid())) {
 				faroProject.setSubscription(
 					JSONUtil.writeValueAsString(
 						new FaroSubscriptionDisplay(
