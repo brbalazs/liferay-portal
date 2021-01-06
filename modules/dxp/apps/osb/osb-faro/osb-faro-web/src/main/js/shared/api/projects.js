@@ -140,3 +140,11 @@ export function sendRequestAccess(groupId) {
 		path: `main/${groupId}/user/join_request`
 	});
 }
+
+export function patchTimeZone(groupId, timeZoneId) {
+	return sendRequest({
+		data: {timeZoneId},
+		method: 'PATCH',
+		path: `main/project/${groupId}`
+	});
+}
