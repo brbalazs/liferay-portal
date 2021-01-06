@@ -125,6 +125,8 @@ renderResponse.setTitle(LanguageUtil.get(request, "select-template"));
 								<portlet:renderURL var="addLayoutURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 									<portlet:param name="mvcRenderCommandName" value="/layout/add_layout" />
 									<portlet:param name="layoutPageTemplateEntryId" value="<%= String.valueOf(layoutPageTemplateEntry.getLayoutPageTemplateEntryId()) %>" />
+									<portlet:param name="selPlid" value='<%= String.valueOf(ParamUtil.getLong(request, "selPlid")) %>' />
+									<portlet:param name="privateLayout" value='<%= String.valueOf(ParamUtil.getBoolean(request, "privateLayout")) %>' />
 								</portlet:renderURL>
 
 								<liferay-ui:search-container-column-text>
