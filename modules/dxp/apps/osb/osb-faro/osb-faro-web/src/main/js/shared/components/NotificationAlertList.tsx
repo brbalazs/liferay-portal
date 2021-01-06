@@ -21,7 +21,7 @@ const timeZoneAlertTransformer = (
 	/>
 );
 
-const notificationStrategy = new Map<string, Function>([
+const notificationStrategies = new Map<string, Function>([
 	[NotificationSubtype.TIME_ZONE_CHANGED, timeZoneAlertTransformer]
 ]);
 
@@ -43,7 +43,7 @@ const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
 		loading || !data
 			? []
 			: data.map(notification => {
-					const transformer = notificationStrategy.get(
+					const transformer = notificationStrategies.get(
 						notification.subtype
 					);
 
