@@ -1226,6 +1226,10 @@ definition {
 	test ViewDateFieldPredefinedValue {
 		Navigator.openURL();
 
+		var currentDateYear = DateUtil.getCurrentYear();
+		var currentDatelastYear = ${currentDateYear} - 1;
+		var currentDatelastYearShort = StringUtil.substring("${currentDatelastYear}", "2", "4");
+
 		ProductMenu.gotoPortlet(
 			category = "Content",
 			panel = "Site Administration",
@@ -1246,10 +1250,10 @@ definition {
 			field = "Date",
 			fieldFieldLabel = "Date",
 			fieldName = "Date",
-			fieldPredefinedValue = "09/01/2019",
+			fieldPredefinedValue = "09/01/${currentDatelastYear}",
 			fieldPredefinedValueDay = "1",
 			fieldPredefinedValueMonth = "September",
-			fieldPredefinedValueYear = "2019"
+			fieldPredefinedValueYear = "${currentDatelastYear}"
 		);
 
 		DDLDataDefinition.save();
@@ -1275,15 +1279,15 @@ definition {
 			field = "Date",
 			fieldFieldLabel = "Date",
 			fieldName = "Date",
-			fieldPredefinedValue = "09/01/2019"
+			fieldPredefinedValue = "09/01/${currentDatelastYear}"
 		);
 
 		PortletEntry.publish();
 
 		DDLRecord.viewViaDDLDisplayPG(
 			ddlListName = "List Name",
-			ddlRecordFieldData = "9/1/2019",
-			ddlRecordFieldData_1 = "9/1/19",
+			ddlRecordFieldData = "9/1/${currentDatelastYear}",
+			ddlRecordFieldData_1 = "9/1/${currentDatelastYearShort}",
 			field = "Date",
 			fieldFieldLabel = "Date"
 		);
@@ -1299,11 +1303,11 @@ definition {
 			field = "Date",
 			fieldFieldLabel = "Date",
 			fieldName = "Date",
-			fieldPredefinedValue = "09/01/2019"
+			fieldPredefinedValue = "09/01/${currentDatelastYear}"
 		);
 
 		DDLRecord.populateFieldDate(
-			ddlRecordFieldData = "05/13/2019",
+			ddlRecordFieldData = "05/13/${currentDatelastYear}",
 			fieldFieldLabel = "Date",
 			fieldName = "Date"
 		);
@@ -1312,8 +1316,8 @@ definition {
 
 		DDLRecord.viewViaDDLDisplayPG(
 			ddlListName = "List Name",
-			ddlRecordFieldData = "5/13/2019",
-			ddlRecordFieldData_1 = "5/13/19",
+			ddlRecordFieldData = "5/13/${currentDatelastYear}",
+			ddlRecordFieldData_1 = "5/13/${currentDatelastYearShort}",
 			field = "Date",
 			fieldFieldLabel = "Date"
 		);
