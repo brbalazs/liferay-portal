@@ -46,16 +46,18 @@ names.addAll(ListUtil.toList(teams, Team.NAME_ACCESSOR));
 			>
 				<c:if test="<%= !selectUsers %>">
 					<liferay-frontend:vertical-card-footer>
-						<span class="text-default">
-							<c:choose>
-								<c:when test="<%= !SetUtil.isEmpty(names) %>">
+						<c:choose>
+							<c:when test="<%= !SetUtil.isEmpty(names) %>">
+								<span class="text-default" title="<%= HtmlUtil.escape(StringUtil.merge(names, StringPool.COMMA_AND_SPACE)) %>">
 									<%= HtmlUtil.escape(StringUtil.merge(names, StringPool.COMMA_AND_SPACE)) %>
-								</c:when>
-								<c:otherwise>
+								</span>
+							</c:when>
+							<c:otherwise>
+								<span class="text-default">
 									&nbsp;
-								</c:otherwise>
-							</c:choose>
-						</span>
+								</span>
+							</c:otherwise>
+						</c:choose>
 					</liferay-frontend:vertical-card-footer>
 				</c:if>
 			</liferay-frontend:user-vertical-card>
