@@ -5908,7 +5908,25 @@ information. Make sure to commit in all build services results.
 
 		<get-module-base-dir-from-subrepository-name subrepository.name="${subrepository.name}" />
 
+		<move
+			file="${module.base.dir}/settings.gradle"
+			tofile="${module.base.dir}/settings.gradle.temp"
+			verbose="true"
+		/>
+
+		<if>
+			<contains string="${module.base.dir}" substring="dxp" />
+			<then>
+				<antcall inheritAll="false" target="setup-profile-dxp" />
+			</then>
+		</if>
+
 		<gradle-execute checktask="true" dir="${module.base.dir}" refreshdependencies="true" task="compileJava" />
+
+		<move
+			file="${module.base.dir}/settings.gradle.temp"
+			tofile="${module.base.dir}/settings.gradle"
+		/>
 	</target>
 
 	<target name="subrepository-functional-tomcat90-mysql57-jdk8">
@@ -5932,10 +5950,28 @@ information. Make sure to commit in all build services results.
 
 		<get-module-base-dir-from-subrepository-name subrepository.name="${subrepository.name}" />
 
+		<move
+			file="${module.base.dir}/settings.gradle"
+			tofile="${module.base.dir}/settings.gradle.temp"
+			verbose="true"
+		/>
+
+		<if>
+			<contains string="${module.base.dir}" substring="dxp" />
+			<then>
+				<antcall inheritAll="false" target="setup-profile-dxp" />
+			</then>
+		</if>
+
 		<gradle-execute checktask="true" dir="${module.base.dir}" refreshdependencies="true" task="pmdMain">
 			<arg value="pmdTest" />
 			<arg value="pmdTestIntegration" />
 		</gradle-execute>
+
+		<move
+			file="${module.base.dir}/settings.gradle.temp"
+			tofile="${module.base.dir}/settings.gradle"
+		/>
 	</target>
 
 	<target name="subrepository-semantic-versioning-jdk8">
@@ -5958,7 +5994,25 @@ information. Make sure to commit in all build services results.
 
 		<echo>Executing baseline on ${module.base.dir}.</echo>
 
+		<move
+			file="${module.base.dir}/settings.gradle"
+			tofile="${module.base.dir}/settings.gradle.temp"
+			verbose="true"
+		/>
+
+		<if>
+			<contains string="${module.base.dir}" substring="dxp" />
+			<then>
+				<antcall inheritAll="false" target="setup-profile-dxp" />
+			</then>
+		</if>
+
 		<gradle-execute checktask="true" dir="${module.base.dir}" forcedcacheenabled="false" refreshdependencies="true" task="baseline" />
+
+		<move
+			file="${module.base.dir}/settings.gradle.temp"
+			tofile="${module.base.dir}/settings.gradle"
+		/>
 
 		<echo>Checking for baseline log files.</echo>
 
@@ -5997,9 +6051,27 @@ information. Make sure to commit in all build services results.
 
 		<get-module-base-dir-from-subrepository-name subrepository.name="${subrepository.name}" />
 
+		<move
+			file="${module.base.dir}/settings.gradle"
+			tofile="${module.base.dir}/settings.gradle.temp"
+			verbose="true"
+		/>
+
+		<if>
+			<contains string="${module.base.dir}" substring="dxp" />
+			<then>
+				<antcall inheritAll="false" target="setup-profile-dxp" />
+			</then>
+		</if>
+
 		<gradle-execute dir="${module.base.dir}" refreshdependencies="true" task="checkSourceFormatting">
 			<arg value="-PdependencyCheckerIgnoreFailures=false" />
 		</gradle-execute>
+
+		<move
+			file="${module.base.dir}/settings.gradle.temp"
+			tofile="${module.base.dir}/settings.gradle"
+		/>
 	</target>
 
 	<target name="subrepository-unit-jdk8">
