@@ -6,7 +6,8 @@ export enum NotificationType {
 }
 
 export enum NotificationSubtype {
-	TIME_ZONE_CHANGED = 'TIME_ZONE_CHANGED'
+	TIME_ZONE_CHANGED = 'TIME_ZONE_CHANGED',
+	TIME_ZONE_ADMIN = 'TIME_ZONE_ADMIN'
 }
 interface INotification {
 	id: string;
