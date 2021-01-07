@@ -75,7 +75,9 @@ public class CKEditorConfigContributor extends BaseCKEditorConfigContributor {
 		jsonObject.put("closeNoticeTimeout", 8000);
 		jsonObject.put("entities", Boolean.FALSE);
 
-		String extraPlugins = "a11yhelpbtn,itemselector,lfrpopup,media";
+		String extraPlugins =
+			"a11yhelpbtn,filebrowser,find,flash,itemselector," +
+				"lfrpopup,media,selectall,smiley,specialchar";
 
 		boolean inlineEdit = GetterUtil.getBoolean(
 			(String)inputEditorTaglibAttributes.get(
