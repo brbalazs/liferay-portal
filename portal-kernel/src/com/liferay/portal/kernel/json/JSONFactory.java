@@ -18,6 +18,7 @@ import aQute.bnd.annotation.ProviderType;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Brian Wing Shun Chan
@@ -47,6 +48,8 @@ public interface JSONFactory {
 	public <T> JSONDeserializer<T> createJSONDeserializer();
 
 	public JSONObject createJSONObject();
+
+	public JSONObject createJSONObject(Map<?, ?> map);
 
 	public JSONObject createJSONObject(String json) throws JSONException;
 

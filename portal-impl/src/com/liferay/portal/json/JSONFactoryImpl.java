@@ -36,6 +36,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.jabsorb.serializer.MarshallException;
 
@@ -163,6 +164,11 @@ public class JSONFactoryImpl implements JSONFactory {
 	@Override
 	public JSONObject createJSONObject() {
 		return new JSONObjectImpl();
+	}
+
+	@Override
+	public JSONObject createJSONObject(Map<?, ?> map) {
+		return new JSONObjectImpl(map);
 	}
 
 	@Override
