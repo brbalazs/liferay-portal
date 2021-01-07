@@ -4,6 +4,10 @@ export enum NotificationType {
 	ALERT = 'ALERT',
 	MODAL = 'MODAL'
 }
+
+export enum NotificationSubtype {
+	TIME_ZONE_CHANGED = 'TIME_ZONE_CHANGED'
+}
 interface INotification {
 	id: string;
 	subtype: string;

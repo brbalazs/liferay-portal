@@ -1,12 +1,11 @@
 import * as API from 'shared/api';
 import React from 'react';
 import TimeZoneAlert from './TimeZoneAlert';
-import {NotificationType} from 'shared/util/records/Notification';
+import {
+	NotificationSubtype,
+	NotificationType
+} from 'shared/util/records/Notification';
 import {useRequest} from 'shared/hooks';
-
-enum NotificationSubtype {
-	TIME_ZONE_CHANGED = 'TIME_ZONE_CHANGED'
-}
 
 const timeZoneAlertTransformer = (
 	groupId: string,
