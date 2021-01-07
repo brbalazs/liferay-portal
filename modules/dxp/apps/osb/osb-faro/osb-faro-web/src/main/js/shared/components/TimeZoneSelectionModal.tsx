@@ -1,3 +1,4 @@
+import * as API from 'shared/api';
 import Button from 'shared/components/Button';
 import Form from 'shared/components/form';
 import Modal from 'shared/components/modal';
@@ -15,11 +16,15 @@ import {TimeZone} from 'shared/util/records';
 const FORMAT_LT = 'LT';
 
 interface ITimeZoneSelectionModal {
+	groupId: string;
+	notificationId: string;
 	onClose: ModalType.close;
 	timeZone: TimeZone;
 }
 
 const TimeZoneSelectionModal: React.FC<ITimeZoneSelectionModal> = ({
+	groupId,
+	notificationId,
 	onClose,
 	timeZone
 }) => {
@@ -28,9 +33,18 @@ const TimeZoneSelectionModal: React.FC<ITimeZoneSelectionModal> = ({
 		formatUTCDate(getDateNow(), FORMAT_LT)
 	);
 
-	// TODO: LRAC-6681 Add the timezone update request in modal
 	const onSubmit = () => {
-		_formRef.current.getFormikBag().values;
+		const {timeZoneId} = _formRef.current.getFormikBag().values;
+
+		API.projects.patchTimeZone(groupId, timeZoneId);
+
+		onClose();
+	};
+
+	const handleClose = (): void => {
+		API.notifications.readNotification(groupId, notificationId);
+
+		onClose();
 	};
 
 	return (
@@ -99,7 +113,7 @@ const TimeZoneSelectionModal: React.FC<ITimeZoneSelectionModal> = ({
 							</Modal.Body>
 
 							<Modal.Footer>
-								<Button onClick={onClose}>
+								<Button onClick={handleClose}>
 									{Liferay.Language.get('do-this-later')}
 								</Button>
 
