@@ -77,7 +77,7 @@ public class CKEditorConfigContributor extends BaseCKEditorConfigContributor {
 
 		String extraPlugins =
 			"a11yhelpbtn,filebrowser,find,flash,itemselector," +
-				"lfrpopup,media,selectall,smiley,specialchar";
+				"lfrpopup,media,selectall,smiley,specialchar,stylescombo";
 
 		boolean inlineEdit = GetterUtil.getBoolean(
 			(String)inputEditorTaglibAttributes.get(
