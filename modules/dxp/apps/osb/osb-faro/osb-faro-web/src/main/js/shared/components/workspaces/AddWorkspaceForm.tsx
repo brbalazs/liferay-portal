@@ -15,7 +15,6 @@ import urlConstants from 'shared/util/url-constants';
 import {BasePageContext} from './BasePage';
 import {close, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
-import {DEVELOPER_MODE} from 'shared/util/constants';
 import {Formik} from 'formik';
 import {matchPath} from 'react-router-dom';
 import {Modal} from 'shared/types';
