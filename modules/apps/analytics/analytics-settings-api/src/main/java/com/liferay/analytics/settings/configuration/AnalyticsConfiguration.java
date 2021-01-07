@@ -48,6 +48,9 @@ public interface AnalyticsConfiguration {
 	public String liferayAnalyticsFaroBackendSecuritySignature();
 
 	@Meta.AD(required = false)
+	public String liferayAnalyticsProjectId();
+
+	@Meta.AD(required = false)
 	public String liferayAnalyticsURL();
 
 	@Meta.AD(required = false)
