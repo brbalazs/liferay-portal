@@ -4,6 +4,7 @@ import Form from 'shared/components/form';
 import Modal from 'shared/components/modal';
 import React, {useRef, useState} from 'react';
 import TimeZonePicker from './form/TimeZonePicker';
+import {connect} from 'react-redux';
 import {
 	formatDateToTimeZone,
 	formatUTCDate,
@@ -36,9 +37,7 @@ const TimeZoneSelectionModal: React.FC<ITimeZoneSelectionModal> = ({
 	const onSubmit = () => {
 		const {timeZoneId} = _formRef.current.getFormikBag().values;
 
-		API.projects.patchTimeZone(groupId, timeZoneId);
-
-		onClose();
+		API.projects.patchTimeZone(groupId, timeZoneId).then(handleClose);
 	};
 
 	const handleClose = (): void => {
@@ -134,4 +133,8 @@ const TimeZoneSelectionModal: React.FC<ITimeZoneSelectionModal> = ({
 	);
 };
 
-export default TimeZoneSelectionModal;
+export default connect((store, {groupId}) => ({
+	timeZone: new TimeZone(
+		store.getIn(['projects', groupId, 'data', 'timeZone'])
+	)
+}))(TimeZoneSelectionModal);
