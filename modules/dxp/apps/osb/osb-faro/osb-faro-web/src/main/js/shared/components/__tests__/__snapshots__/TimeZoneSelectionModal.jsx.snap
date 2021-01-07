@@ -78,7 +78,6 @@ exports[`TimeZoneSelectionModal should render 1`] = `
                   >
                     <select
                       class="form-control select-root"
-                      disabled=""
                       id="timeZoneId"
                       name="timeZoneId"
                     >
@@ -90,18 +89,6 @@ exports[`TimeZoneSelectionModal should render 1`] = `
                         value="UTC"
                       >
                         (UTC) UTC
-                      </option>
-                      <option
-                        class=""
-                        value="UTC"
-                      >
-                        UTC -03:00 Brasilia Time (America/Recife)
-                      </option>
-                      <option
-                        class=""
-                        value="UTC"
-                      >
-                        UTC -03:00 Chile Time (America/Santiago)
                       </option>
                     </select>
                   </div>
