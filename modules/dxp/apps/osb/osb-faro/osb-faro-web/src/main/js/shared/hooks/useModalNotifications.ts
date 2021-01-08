@@ -35,7 +35,11 @@ const modalNotificationStrategies = new Map<string, Function>([
 	]
 ]);
 
-function useModalNotifications(close: Modal.close, groupId: string, open: Modal.open): void {
+function useModalNotifications(
+	close: Modal.close,
+	groupId: string,
+	open: Modal.open
+): void {
 	const {data, loading} = useRequest(API.notifications.fetchNotifications, {
 		groupId,
 		type: NotificationType.MODAL

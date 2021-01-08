@@ -7,7 +7,11 @@ import NotificationAlertList from '../NotificationAlertList';
 import React from 'react';
 import Row from './Row';
 import TextTruncate from 'shared/components/TextTruncate';
+import useModalNotifications from 'shared/hooks/useModalNotifications';
+import {close, open} from 'shared/actions/modals';
+import {connect} from 'react-redux';
 import {getMatchedRoute, setUriQueryValues, toRoute} from 'shared/util/router';
+import {Modal} from 'shared/types';
 import {noop, pickBy} from 'lodash';
 
 type NavBarItem = {
@@ -136,8 +140,10 @@ type Breadcrumb = {
 };
 
 interface IHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-	groupId: string;
 	breadcrumbs: Breadcrumb[];
+	close: Modal.close;
+	groupId: string;
+	open: Modal.open;
 }
 
 const Header: React.FC<IHeaderProps> & {
@@ -145,27 +151,34 @@ const Header: React.FC<IHeaderProps> & {
 	PageActions: typeof PageActions;
 	Section: typeof Section;
 	TitleSection: typeof TitleSection;
-} = ({breadcrumbs, children, groupId}) => (
-	<header className='header-root'>
-		<div className='header-container'>
-			{breadcrumbs && (
-				<Row>
-					<Breadcrumbs items={breadcrumbs} />
-				</Row>
-			)}
+} = ({breadcrumbs, children, close, groupId, open}) => {
+	useModalNotifications(close, groupId, open);
 
-			{children}
-		</div>
+	return (
+		<header className='header-root'>
+			<div className='header-container'>
+				{breadcrumbs && (
+					<Row>
+						<Breadcrumbs items={breadcrumbs} />
+					</Row>
+				)}
 
-		<NotificationAlertList groupId={groupId} stripe />
-	</header>
-);
+				{children}
+			</div>
+
+			<NotificationAlertList groupId={groupId} stripe />
+		</header>
+	);
+};
 
 Header.NavBar = NavBar;
 Header.PageActions = PageActions;
 Header.Section = Section;
 Header.TitleSection = TitleSection;
 
-export default Header;
+export default connect(
+	null,
+	{close, open}
+)(Header);
 
 export {NavBar, PageActions, Section, TitleSection};
