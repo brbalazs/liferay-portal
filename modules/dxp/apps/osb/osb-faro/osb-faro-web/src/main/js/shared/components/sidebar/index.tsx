@@ -3,10 +3,14 @@ import getCN from 'classnames';
 import Icon from '../Icon';
 import React from 'react';
 import SidebarItem from './SidebarItem';
+import useModalNotifications from 'shared/hooks/useModalNotifications';
 import UserDropdown from 'shared/components/user-dropdown';
 import {ACCOUNTS, Routes, SEGMENTS, toRoute} from 'shared/util/router';
+import {close, open} from 'shared/actions/modals';
+import {connect} from 'react-redux';
 import {DEVELOPER_MODE} from 'shared/util/constants';
 import {Link, matchPath} from 'react-router-dom';
+import {Modal} from 'shared/types';
 import {User} from 'shared/util/records';
 
 interface ISidebarProps {
@@ -21,9 +25,11 @@ interface ISidebarProps {
 		tokenAuth: boolean;
 	}[];
 	className?: string;
+	close: Modal.close,
 	collapsed: boolean;
 	currentUser: User;
 	groupId: string;
+	open: Modal.open;
 	onToggle: () => void;
 }
 
@@ -32,11 +38,15 @@ const Sidebar: React.FC<ISidebarProps> = ({
 	channelId,
 	channels = [],
 	className,
+	close,
 	collapsed = false,
 	currentUser = new User(),
 	groupId,
+	open,
 	onToggle
 }) => {
+	useModalNotifications(close, groupId, open);
+
 	const getSidebarSections = () => [
 		{
 			items: [
@@ -217,4 +227,7 @@ const Sidebar: React.FC<ISidebarProps> = ({
 	);
 };
 
-export default Sidebar;
+export default connect(
+	null,
+	{close, open}
+)(Sidebar);
