@@ -182,7 +182,7 @@ public class GroupDisplayContext {
 			HttpResponse httpResponse = AnalyticsSettingsUtil.doPost(
 				JSONUtil.put(
 					"dataSourceId",
-					AnalyticsSettingsUtil.getAsahFaroBackendDataSourceId(
+					AnalyticsSettingsUtil.getDataSourceId(
 						themeDisplay.getCompanyId())
 				).put(
 					"groupIds", groupIds

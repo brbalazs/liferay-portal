@@ -170,7 +170,7 @@ public class AddChannelMVCActionCommand extends BaseAnalyticsMVCActionCommand {
 				"channelType", channelType
 			).put(
 				"dataSourceId",
-				AnalyticsSettingsUtil.getAsahFaroBackendDataSourceId(
+				AnalyticsSettingsUtil.getDataSourceId(
 					themeDisplay.getCompanyId())
 			).put(
 				"groups",
@@ -221,7 +221,7 @@ public class AddChannelMVCActionCommand extends BaseAnalyticsMVCActionCommand {
 			themeDisplay.getCompanyId(),
 			String.format(
 				"api/1.0/data-sources/%s/details",
-				AnalyticsSettingsUtil.getAsahFaroBackendDataSourceId(
+				AnalyticsSettingsUtil.getDataSourceId(
 					themeDisplay.getCompanyId())));
 
 		StatusLine statusLine = httpResponse.getStatusLine();
