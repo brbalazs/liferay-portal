@@ -5,7 +5,7 @@ import Notification, {
 } from 'shared/util/records/Notification';
 import {Modal} from 'shared/types';
 import {modalTypes} from 'shared/actions/modals';
-import {useRequest} from 'shared/hooks';
+import {useEffect} from 'react';
 
 interface ITimeZoneAdminModalRenderProps {
 	close: Modal.close;
@@ -40,11 +40,6 @@ function useModalNotifications(
 	groupId: string,
 	open: Modal.open
 ): void {
-	const {data, loading} = useRequest(API.notifications.fetchNotifications, {
-		groupId,
-		type: NotificationType.MODAL
-	});
-
 	const handleRender = (notificationList: Array<Notification>): void => {
 		const notificationToRender = notificationList.pop();
 
@@ -67,10 +62,14 @@ function useModalNotifications(
 		}
 	};
 
-	if (!loading && data.length) {
-		close();
-		handleRender([...data]);
-	}
+	useEffect(() => {
+		API.notifications
+			.fetchNotifications({
+				groupId,
+				type: NotificationType.MODAL
+			})
+			.then(handleRender);
+	}, []);
 }
 
 export default useModalNotifications;
