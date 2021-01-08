@@ -1,6 +1,6 @@
+import BasePage from '../BasePage';
 import mockStore from 'test/mock-store';
 import React from 'react';
-import {SettingsBasePage as BasePage} from '../BasePage';
 import {cleanup, render} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import {StaticRouter} from 'react-router';
@@ -41,7 +41,10 @@ describe('BasePage', () => {
 		const {getByText} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>
-					<BasePage pageDescription='testPageDescription' />
+					<BasePage
+						groupId='23'
+						pageDescription='testPageDescription'
+					/>
 				</StaticRouter>
 			</Provider>
 		);
@@ -53,7 +56,10 @@ describe('BasePage', () => {
 		const {getByText} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>
-					<BasePage breadcrumbItems={mockBreadcrumbItems} />
+					<BasePage
+						breadcrumbItems={mockBreadcrumbItems}
+						groupId='23'
+					/>
 				</StaticRouter>
 			</Provider>
 		);
@@ -65,7 +71,7 @@ describe('BasePage', () => {
 		const {getByText} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>
-					<BasePage pageActions={mockPageActions} />
+					<BasePage groupId='23' pageActions={mockPageActions} />
 				</StaticRouter>
 			</Provider>
 		);
@@ -77,7 +83,7 @@ describe('BasePage', () => {
 		const {getByText} = render(
 			<Provider store={mockStore()}>
 				<StaticRouter>
-					<BasePage pageTitle='testPageTitle' />
+					<BasePage groupId='23' pageTitle='testPageTitle' />
 				</StaticRouter>
 			</Provider>
 		);
