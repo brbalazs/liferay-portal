@@ -26,7 +26,7 @@ const notificationStrategies = new Map<string, Function>([
 
 interface INotificationAlertListProps {
 	groupId: string;
-	stripe: boolean;
+	stripe?: boolean;
 }
 
 const NotificationAlertList: React.FC<INotificationAlertListProps> = ({
