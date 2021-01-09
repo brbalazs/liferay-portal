@@ -17,6 +17,7 @@ package com.liferay.asset.service.test;
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.model.AssetVocabulary;
+import com.liferay.asset.kernel.service.AssetCategoryLocalServiceUtil;
 import com.liferay.asset.kernel.service.AssetCategoryServiceUtil;
 import com.liferay.asset.kernel.service.AssetVocabularyServiceUtil;
 import com.liferay.asset.test.util.AssetTestUtil;
@@ -179,6 +180,32 @@ public class AssetCategoryServiceTest {
 			Arrays.asList(
 				1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L, 13L, 14L,
 				15L, 16L, 17L, 18L),
+			AssetCategoryServiceUtil.getVocabularyCategories(
+				vocabulary.getVocabularyId(), -1, -1, null));
+	}
+
+	@Test
+	public void testUniqueCategoryIdsWhenAddingCategoryToBrokenTree()
+		throws Exception {
+
+		long groupId = _group.getGroupId();
+
+		AssetVocabulary vocabulary = AssetTestUtil.addVocabulary(groupId);
+
+		AssetCategory firstCategory = AssetTestUtil.addCategory(
+			groupId, vocabulary.getVocabularyId());
+
+		AssetTestUtil.addCategory(groupId, vocabulary.getVocabularyId());
+
+		firstCategory.setLeftCategoryId(3);
+		firstCategory.setRightCategoryId(4);
+
+		AssetCategoryLocalServiceUtil.updateAssetCategory(firstCategory);
+
+		AssetTestUtil.addCategory(groupId, vocabulary.getVocabularyId());
+
+		assertUniqueLeftRightCategories(
+			3, 6, Arrays.asList(1L, 2L, 3L, 4L, 5L, 6L),
 			AssetCategoryServiceUtil.getVocabularyCategories(
 				vocabulary.getVocabularyId(), -1, -1, null));
 	}
