@@ -324,6 +324,7 @@ public abstract class BasePriceEntryResourceTestCase {
 
 		PriceEntry randomPatchPriceEntry = randomPatchPriceEntry();
 
+		@SuppressWarnings("PMD.UnusedLocalVariable")
 		PriceEntry patchPriceEntry =
 			priceEntryResource.patchPriceEntryByExternalReferenceCode(
 				postPriceEntry.getExternalReferenceCode(),
@@ -474,6 +475,7 @@ public abstract class BasePriceEntryResourceTestCase {
 
 		PriceEntry randomPatchPriceEntry = randomPatchPriceEntry();
 
+		@SuppressWarnings("PMD.UnusedLocalVariable")
 		PriceEntry patchPriceEntry = priceEntryResource.patchPriceEntry(
 			postPriceEntry.getId(), randomPatchPriceEntry);
 

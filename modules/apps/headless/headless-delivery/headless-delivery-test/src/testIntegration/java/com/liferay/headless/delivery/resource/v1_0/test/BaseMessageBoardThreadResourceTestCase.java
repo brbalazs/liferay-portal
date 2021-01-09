@@ -740,6 +740,7 @@ public abstract class BaseMessageBoardThreadResourceTestCase {
 		MessageBoardThread randomPatchMessageBoardThread =
 			randomPatchMessageBoardThread();
 
+		@SuppressWarnings("PMD.UnusedLocalVariable")
 		MessageBoardThread patchMessageBoardThread =
 			messageBoardThreadResource.patchMessageBoardThread(
 				postMessageBoardThread.getId(), randomPatchMessageBoardThread);
