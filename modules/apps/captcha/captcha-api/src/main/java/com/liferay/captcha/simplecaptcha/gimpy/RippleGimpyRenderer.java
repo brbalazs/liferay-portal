@@ -14,14 +14,13 @@
 
 package com.liferay.captcha.simplecaptcha.gimpy;
 
-import static nl.captcha.util.ImageUtil.applyFilter;
-
 import com.jhlabs.image.RippleFilter;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageFilter;
 
 import nl.captcha.gimpy.GimpyRenderer;
+import nl.captcha.util.ImageUtil;
 
 /**
  * Copy of nl.captcha.gimpy.RippleGimpyRenderer modified to work with the latest
@@ -43,7 +42,8 @@ public class RippleGimpyRenderer implements GimpyRenderer {
 		rippleFilter.setYAmplitude(1.7F);
 		rippleFilter.setYWavelength(5);
 
-		applyFilter(bufferedImage, new BufferedImageFilter(rippleFilter));
+		ImageUtil.applyFilter(
+			bufferedImage, new BufferedImageFilter(rippleFilter));
 	}
 
 }

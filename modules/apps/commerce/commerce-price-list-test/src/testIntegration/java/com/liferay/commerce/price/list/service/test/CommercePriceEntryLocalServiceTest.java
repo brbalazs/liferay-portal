@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.price.list.service.test;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.test.util.CommerceCurrencyTestUtil;
@@ -46,6 +44,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.frutilla.FrutillaRule;
+
+import org.hamcrest.CoreMatchers;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -179,7 +179,8 @@ public class CommercePriceEntryLocalServiceTest {
 			cpInstance, price, promoPrice, commercePriceEntry);
 		Assert.assertThat(
 			externalReferenceCode,
-			equalTo(commercePriceEntry.getExternalReferenceCode()));
+			CoreMatchers.equalTo(
+				commercePriceEntry.getExternalReferenceCode()));
 	}
 
 	@Test
@@ -222,7 +223,8 @@ public class CommercePriceEntryLocalServiceTest {
 
 		Assert.assertThat(
 			commercePriceEntry.getCommercePriceEntryId(),
-			equalTo(fetchedCommercePriceEntry.getCommercePriceEntryId()));
+			CoreMatchers.equalTo(
+				fetchedCommercePriceEntry.getCommercePriceEntryId()));
 	}
 
 	@Test
@@ -307,7 +309,8 @@ public class CommercePriceEntryLocalServiceTest {
 
 		Assert.assertThat(
 			commercePriceEntry.getCommercePriceEntryId(),
-			equalTo(fetchedCommercePriceEntry.getCommercePriceEntryId()));
+			CoreMatchers.equalTo(
+				fetchedCommercePriceEntry.getCommercePriceEntryId()));
 	}
 
 	@Test
@@ -367,7 +370,8 @@ public class CommercePriceEntryLocalServiceTest {
 
 		Assert.assertThat(
 			childCommercePriceEntry.getCommercePriceEntryId(),
-			equalTo(fetchedCommercePriceEntry.getCommercePriceEntryId()));
+			CoreMatchers.equalTo(
+				fetchedCommercePriceEntry.getCommercePriceEntryId()));
 	}
 
 	@Test
@@ -700,13 +704,15 @@ public class CommercePriceEntryLocalServiceTest {
 
 		Assert.assertThat(
 			cpInstance.getCPInstanceId(),
-			equalTo(actualCpInstance.getCPInstanceId()));
+			CoreMatchers.equalTo(actualCpInstance.getCPInstanceId()));
 
 		BigDecimal actualPrice = commercePriceEntry.getPrice();
 		BigDecimal actualPromoPrice = commercePriceEntry.getPromoPrice();
 
-		Assert.assertThat(price, equalTo(actualPrice.doubleValue()));
-		Assert.assertThat(promoPrice, equalTo(actualPromoPrice.doubleValue()));
+		Assert.assertThat(
+			price, CoreMatchers.equalTo(actualPrice.doubleValue()));
+		Assert.assertThat(
+			promoPrice, CoreMatchers.equalTo(actualPromoPrice.doubleValue()));
 	}
 
 	private CommerceCurrency _commerceCurrency;

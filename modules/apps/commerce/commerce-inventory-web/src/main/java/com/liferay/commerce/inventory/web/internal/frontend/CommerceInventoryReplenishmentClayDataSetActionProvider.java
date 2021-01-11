@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.inventory.web.internal.frontend;
 
-import static com.liferay.portal.kernel.security.permission.PermissionThreadLocal.getPermissionChecker;
-
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetAction;
 import com.liferay.commerce.frontend.clay.data.set.ClayDataSetActionProvider;
 import com.liferay.commerce.inventory.constants.CommerceInventoryActionKeys;
@@ -28,6 +26,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -71,7 +70,7 @@ public class CommerceInventoryReplenishmentClayDataSetActionProvider
 		Replenishment replenishment = (Replenishment)model;
 
 		if (PortalPermissionUtil.contains(
-				getPermissionChecker(),
+				PermissionThreadLocal.getPermissionChecker(),
 				CommerceInventoryActionKeys.MANAGE_INVENTORY)) {
 
 			ClayDataSetAction editClayDataSetAction = new ClayDataSetAction(

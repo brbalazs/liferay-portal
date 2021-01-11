@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.inventory.web.internal.frontend;
 
-import static com.liferay.portal.kernel.security.permission.PermissionThreadLocal.getPermissionChecker;
-
 import com.liferay.commerce.frontend.CommerceDataSetDataProvider;
 import com.liferay.commerce.frontend.Filter;
 import com.liferay.commerce.frontend.Pagination;
@@ -25,6 +23,7 @@ import com.liferay.commerce.inventory.service.CommerceInventoryWarehouseItemLoca
 import com.liferay.commerce.inventory.web.internal.model.InventoryItem;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.Portal;
 
@@ -53,7 +52,7 @@ public class CommerceInventoryItemDataSetDataProvider
 		throws PortalException {
 
 		PortalPermissionUtil.check(
-			getPermissionChecker(),
+			PermissionThreadLocal.getPermissionChecker(),
 			CommerceInventoryActionKeys.MANAGE_INVENTORY);
 
 		return _commerceInventoryWarehouseItemLocalService.
@@ -68,7 +67,7 @@ public class CommerceInventoryItemDataSetDataProvider
 		throws PortalException {
 
 		PortalPermissionUtil.check(
-			getPermissionChecker(),
+			PermissionThreadLocal.getPermissionChecker(),
 			CommerceInventoryActionKeys.MANAGE_INVENTORY);
 
 		List<InventoryItem> inventoryItems = new ArrayList<>();

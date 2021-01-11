@@ -14,8 +14,6 @@
 
 package com.liferay.commerce.inventory.web.internal.display.context;
 
-import static com.liferay.portal.kernel.security.permission.PermissionThreadLocal.getPermissionChecker;
-
 import com.liferay.commerce.frontend.ClayCreationMenu;
 import com.liferay.commerce.frontend.ClayCreationMenuActionItem;
 import com.liferay.commerce.frontend.model.HeaderActionModel;
@@ -33,6 +31,7 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -193,7 +192,7 @@ public class CommerceInventoryDisplayContext {
 		}
 
 		if (PortalPermissionUtil.contains(
-				getPermissionChecker(),
+				PermissionThreadLocal.getPermissionChecker(),
 				CommerceInventoryActionKeys.MANAGE_INVENTORY)) {
 
 			RenderResponse renderResponse =
@@ -215,7 +214,7 @@ public class CommerceInventoryDisplayContext {
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
 		if (PortalPermissionUtil.contains(
-				getPermissionChecker(),
+				PermissionThreadLocal.getPermissionChecker(),
 				CommerceInventoryActionKeys.MANAGE_INVENTORY)) {
 
 			clayCreationMenu.addClayCreationMenuActionItem(
@@ -256,7 +255,7 @@ public class CommerceInventoryDisplayContext {
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
 		if (PortalPermissionUtil.contains(
-				getPermissionChecker(),
+				PermissionThreadLocal.getPermissionChecker(),
 				CommerceInventoryActionKeys.MANAGE_INVENTORY)) {
 
 			clayCreationMenu.addClayCreationMenuActionItem(
@@ -308,7 +307,7 @@ public class CommerceInventoryDisplayContext {
 		ClayCreationMenu clayCreationMenu = new ClayCreationMenu();
 
 		if (PortalPermissionUtil.contains(
-				getPermissionChecker(),
+				PermissionThreadLocal.getPermissionChecker(),
 				CommerceInventoryActionKeys.MANAGE_INVENTORY)) {
 
 			clayCreationMenu.addClayCreationMenuActionItem(

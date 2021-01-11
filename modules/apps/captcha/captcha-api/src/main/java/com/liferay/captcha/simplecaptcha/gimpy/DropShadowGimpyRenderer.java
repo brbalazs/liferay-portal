@@ -14,14 +14,13 @@
 
 package com.liferay.captcha.simplecaptcha.gimpy;
 
-import static nl.captcha.util.ImageUtil.applyFilter;
-
 import com.jhlabs.image.ShadowFilter;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageFilter;
 
 import nl.captcha.gimpy.GimpyRenderer;
+import nl.captcha.util.ImageUtil;
 
 /**
  * Copy of nl.captcha.gimpy.DropShadowGimpyRenderer modified to work with the
@@ -49,7 +48,8 @@ public class DropShadowGimpyRenderer implements GimpyRenderer {
 		shadowFilter.setOpacity(_opacity / 100F);
 		shadowFilter.setRadius(_radius);
 
-		applyFilter(bufferedImage, new BufferedImageFilter(shadowFilter));
+		ImageUtil.applyFilter(
+			bufferedImage, new BufferedImageFilter(shadowFilter));
 	}
 
 	private final int _opacity;
