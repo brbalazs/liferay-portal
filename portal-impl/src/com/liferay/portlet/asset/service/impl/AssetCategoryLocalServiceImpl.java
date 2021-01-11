@@ -23,6 +23,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.cache.thread.local.ThreadLocalCachable;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.ProjectionList;
 import com.liferay.portal.kernel.dao.orm.Property;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -812,36 +813,6 @@ public class AssetCategoryLocalServiceImpl
 		}
 	}
 
-	private long _getAssetCategoriesCount(long groupId) {
-		DynamicQuery dynamicQuery = assetCategoryLocalService.dynamicQuery();
-
-		Property groupIdProperty = PropertyFactoryUtil.forName("groupId");
-
-		dynamicQuery.add(groupIdProperty.eq(groupId));
-
-		return assetCategoryLocalService.dynamicQueryCount(dynamicQuery);
-	}
-
-	private long _getMaxRightCategoryId(long groupId) {
-		DynamicQuery dynamicQuery = assetCategoryLocalService.dynamicQuery();
-
-		Property groupIdProperty = PropertyFactoryUtil.forName("groupId");
-
-		dynamicQuery.add(groupIdProperty.eq(groupId));
-
-		dynamicQuery.setProjection(
-			ProjectionFactoryUtil.max("rightCategoryId"));
-
-		List<Long> results = assetCategoryLocalService.dynamicQuery(
-			dynamicQuery);
-
-		if (ListUtil.isNotEmpty(results)) {
-			return results.get(0);
-		}
-
-		return 0;
-	}
-
 	private List<AssetCategory> _getNestedChildrenCategories(long categoryId) {
 		List<AssetCategory> categories = new ArrayList<>();
 
@@ -864,16 +835,45 @@ public class AssetCategoryLocalServiceImpl
 		return categories;
 	}
 
-	private synchronized void _rebuildTree(long groupId) {
-		long count = _getAssetCategoriesCount(groupId);
+	private boolean _hasBrokenTree(long groupId) {
+		DynamicQuery dynamicQuery = assetCategoryLocalService.dynamicQuery();
 
-		if (count == 0) {
-			return;
+		Property groupIdProperty = PropertyFactoryUtil.forName("groupId");
+
+		dynamicQuery.add(groupIdProperty.eq(groupId));
+
+		ProjectionList projectionList = ProjectionFactoryUtil.projectionList();
+
+		projectionList.add(ProjectionFactoryUtil.count("categoryId"));
+
+		projectionList.add(
+			ProjectionFactoryUtil.countDistinct("leftCategoryId"));
+
+		projectionList.add(
+			ProjectionFactoryUtil.countDistinct("rightCategoryId"));
+
+		dynamicQuery.setProjection(projectionList);
+
+		List<Object> results = assetCategoryLocalService.dynamicQuery(
+			dynamicQuery);
+
+		Object[] counts = (Object[])results.get(0);
+
+		long categoryIdsCount = (Long)counts[0];
+		long uniqueLeftCategoryIdsCount = (Long)counts[1];
+		long uniqueRightCategoryIdsCount = (Long)counts[2];
+
+		if ((uniqueLeftCategoryIdsCount != categoryIdsCount) ||
+			(uniqueRightCategoryIdsCount != categoryIdsCount)) {
+
+			return true;
 		}
 
-		long maxRightCategoryId = _getMaxRightCategoryId(groupId);
+		return false;
+	}
 
-		if (maxRightCategoryId != (count * 2)) {
+	private synchronized void _rebuildTree(long groupId) {
+		if (_hasBrokenTree(groupId)) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					"Rebuilding tree for group " + groupId +
