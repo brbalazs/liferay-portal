@@ -7,7 +7,7 @@ import {Modal} from 'shared/types';
 import {modalTypes} from 'shared/actions/modals';
 import {useEffect} from 'react';
 
-interface ITimeZoneAdminModalRenderProps {
+interface IModalNotificationRenderProps {
 	close: Modal.close;
 	groupId: string;
 	notificationId: string;
@@ -27,7 +27,7 @@ const renderTimeZoneAdminModal = (
 const modalNotificationStrategies = new Map<string, Function>([
 	[
 		NotificationSubtype.TIME_ZONE_ADMIN,
-		(params: ITimeZoneAdminModalRenderProps) =>
+		(params: IModalNotificationRenderProps) =>
 			renderTimeZoneAdminModal(
 				modalTypes.TIME_ZONE_SELECTION_MODAL,
 				params
