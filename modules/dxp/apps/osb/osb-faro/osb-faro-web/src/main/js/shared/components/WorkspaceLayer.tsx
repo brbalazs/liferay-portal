@@ -44,22 +44,30 @@ const WorkspaceLayer: React.FC<IWorkspaceLayerProps> = ({
 }) => {
 	useEffect(() => {
 		if (currentUserId && workspaceName) {
-			analytics.identify(currentUserId);
+			analytics.identify(currentUserId, null, {ip: '0'});
 
-			analytics.group(groupId, {
+			analytics.group(
 				groupId,
-				serverLocation,
-				subscriptionName: faroSubscriptionIMap.get('name'),
-				workspaceName: name
-			});
+				{
+					groupId,
+					serverLocation,
+					subscriptionName: faroSubscriptionIMap.get('name'),
+					workspaceName: name
+				},
+				{ip: '0'}
+			);
 
-			analytics.track('User accessed workspace', {
-				groupId,
-				serverLocation,
-				subscriptionName: faroSubscriptionIMap.get('name'),
-				userId: String(currentUserId),
-				workspaceName
-			});
+			analytics.track(
+				'User accessed workspace',
+				{
+					groupId,
+					serverLocation,
+					subscriptionName: faroSubscriptionIMap.get('name'),
+					userId: String(currentUserId),
+					workspaceName
+				},
+				{ip: '0'}
+			);
 		}
 	}, [currentUserId, workspaceName]);
 

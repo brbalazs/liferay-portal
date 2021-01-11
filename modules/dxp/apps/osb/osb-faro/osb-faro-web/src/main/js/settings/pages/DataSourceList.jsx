@@ -274,7 +274,11 @@ export class DataSourceList extends React.Component {
 								groupId
 							})}
 							onClick={() => {
-								analytics.track('Clicked Add Data Source');
+								analytics.track(
+									'Clicked Add Data Source',
+									null,
+									{ip: '0'}
+								);
 							}}
 						>
 							{Liferay.Language.get('add-data-source')}

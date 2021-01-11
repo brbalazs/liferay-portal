@@ -158,12 +158,16 @@ export default WrappedComponent => {
 							? segment[0]
 							: segment;
 
-						analytics.track('Segment Created', {
-							channelId,
-							createDelta: Date.now() - this._startDate,
-							segmentId: id,
-							segmentType
-						});
+						analytics.track(
+							'Segment Created',
+							{
+								channelId,
+								createDelta: Date.now() - this._startDate,
+								segmentId: id,
+								segmentType
+							},
+							{ip: '0'}
+						);
 					}
 
 					if (
@@ -312,12 +316,9 @@ export default WrappedComponent => {
 		}
 	}
 
-	return connect(
-		null,
-		{
-			addAlert,
-			close,
-			open
-		}
-	)(BaseEdit);
+	return connect(null, {
+		addAlert,
+		close,
+		open
+	})(BaseEdit);
 };

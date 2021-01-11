@@ -54,9 +54,13 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 					setLoading(false);
 					setSent(true);
 
-					analytics.track('Invited Users', {
-						userIds: users.map(({id}) => id)
-					});
+					analytics.track(
+						'Invited Users',
+						{
+							userIds: users.map(({id}) => id)
+						},
+						{ip: '0'}
+					);
 
 					if (dxpConnected) {
 						setTimeout(onNext, TIMEOUT_INTERVAL);
@@ -174,7 +178,4 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 	);
 };
 
-export default connect(
-	null,
-	{addAlert}
-)(InvitePeople);
+export default connect(null, {addAlert})(InvitePeople);

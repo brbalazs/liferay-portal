@@ -115,11 +115,15 @@ const View: React.FC<IViewProps> = ({
 	useEffect(() => {
 		const {createTime, id, name} = channel;
 
-		analytics.track('Viewed Property Dashboard', {
-			channelId: id,
-			channelName: name,
-			createTime
-		});
+		analytics.track(
+			'Viewed Property Dashboard',
+			{
+				channelId: id,
+				channelName: name,
+				createTime
+			},
+			{ip: '0'}
+		);
 	}, []);
 	const [name, setName] = useState(channel.name);
 	const [permissionType, setPermissionType] = useState(

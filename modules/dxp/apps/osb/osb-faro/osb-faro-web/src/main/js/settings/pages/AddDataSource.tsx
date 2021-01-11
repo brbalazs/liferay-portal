@@ -31,7 +31,11 @@ export const AddDataSource: React.FC<IAddDataSourceProps> = ({
 					iconSize: 'xxxl',
 					name: Liferay.Language.get('liferay-dxp'),
 					onClick: () => {
-						analytics.track('Clicked Create DXP Data Source');
+						analytics.track(
+							'Clicked Create DXP Data Source',
+							null,
+							{ip: '0'}
+						);
 
 						open(modalTypes.CONNECT_DXP_MODAL, {
 							groupId,
@@ -86,8 +90,5 @@ export const AddDataSource: React.FC<IAddDataSourceProps> = ({
 
 export default compose(
 	withAdminPermission,
-	connect(
-		null,
-		{close, open}
-	)
+	connect(null, {close, open})
 )(AddDataSource);

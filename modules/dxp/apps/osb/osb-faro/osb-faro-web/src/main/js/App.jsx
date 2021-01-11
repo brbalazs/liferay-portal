@@ -84,13 +84,16 @@ class RoutesContainer extends React.Component {
 			location: {href, pathname, search}
 		} = window;
 
-		analytics.page({
-			path: pathname,
-			referrer,
-			search,
-			title,
-			url: href
-		});
+		analytics.page(
+			{
+				path: pathname,
+				referrer,
+				search,
+				title,
+				url: href
+			},
+			{ip: '0'}
+		);
 
 		if (!SETTINGS_PATH_REGEX.test(pathname)) {
 			this.props.dispatch(
