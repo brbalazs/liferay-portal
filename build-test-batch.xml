@@ -1873,7 +1873,9 @@ ${poshi.runner.testsuite.testcase.name}</echo>
 
 							<antcall inheritAll="false" target="prepare-system-ext-properties" />
 
-							<ant dir="modules" inheritAll="false" target="build-app-lpkg-base" />
+							<ant dir="modules" inheritAll="false" target="build-app-lpkg-base">
+								<property name="liferay.home" value="${liferay.home}" />
+							</ant>
 
 							<delete dir="${liferay.home}/osgi/deploy" />
 							<delete dir="${liferay.home}/osgi/modules" />
@@ -2061,7 +2063,9 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 
 							<antcall inheritAll="false" target="prepare-system-ext-properties" />
 
-							<ant dir="modules" inheritAll="false" target="build-app-lpkg-base" />
+							<ant dir="modules" inheritAll="false" target="build-app-lpkg-base">
+								<property name="liferay.home" value="${liferay.home}" />
+							</ant>
 
 							<for param="app.dir">
 								<path>
@@ -2113,6 +2117,7 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 										<then>
 											<ant dir="modules" inheritAll="false" target="build-app-lpkg">
 												<property name="app.name" value="${app.name}" />
+												<property name="liferay.home" value="${liferay.home}" />
 												<property name="output.dir" value="${app.server.parent.dir}/osgi/temp/${app.name}" />
 											</ant>
 										</then>
@@ -2365,7 +2370,9 @@ module.framework.properties.lpkg.index.validator.enabled=true</echo>
 
 							<antcall inheritAll="false" target="prepare-system-ext-properties" />
 
-							<ant dir="modules" inheritAll="false" target="build-app-lpkg-release" />
+							<ant dir="modules" inheritAll="false" target="build-app-lpkg-release">
+								<property name="liferay.home" value="${liferay.home}" />
+							</ant>
 
 							<delete dir="${liferay.home}/osgi/deploy" />
 							<delete dir="${liferay.home}/osgi/modules" />
@@ -2985,6 +2992,7 @@ log.sanitizer.enabled=false</echo>
 
 			<ant dir="modules" inheritAll="false" target="build-app-lpkg-all">
 				<property name="app.server.parent.dir" value="${project.dir}/bundles" />
+				<property name="liferay.home" value="${liferay.home}" />
 				<property name="osgi.dir" value="${app.server.parent.dir}/osgi" />
 			</ant>
 		</sequential>
