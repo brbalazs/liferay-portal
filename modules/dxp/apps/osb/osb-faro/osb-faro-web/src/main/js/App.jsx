@@ -12,7 +12,6 @@ import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import Tooltip from 'shared/components/Tooltip';
 import UnassignedSegmentsProvider from 'shared/context/unassignedSegments';
-import WorkspaceLayer from 'shared/components/WorkspaceLayer';
 import {ApolloProvider} from '@apollo/react-components';
 import {ApolloProvider as ApolloProviderHooks} from '@apollo/react-hooks';
 import {ClayIconSpriteContext} from '@clayui/icon';
@@ -47,6 +46,11 @@ const SelectWorkspaceAccount = lazy(() =>
 );
 const Workspaces = lazy(() =>
 	import(/* webpackChunkName: "Workspaces" */ './shared/pages/Workspaces')
+);
+
+// WorkspaceLayer
+const WorkspaceLayer = lazy(() =>
+	import(/* webpackChunkName: "WorkspaceLayer" */ './shared/components/WorkspaceLayer')
 );
 
 // Other
@@ -276,24 +280,6 @@ export default class App extends React.Component {
 																/>
 
 																<WorkspaceLayer />
-
-																{/* <BundleRouter
-																	data={
-																		Settings
-																	}
-																	path={
-																		Routes.SETTINGS
-																	}
-																/>
-
-																<BundleRouter
-																	data={
-																		AppSidebarRoutes
-																	}
-																	path={
-																		Routes.CHANNEL
-																	}
-																/> */}
 
 																<RouteNotFound />
 															</Switch>
