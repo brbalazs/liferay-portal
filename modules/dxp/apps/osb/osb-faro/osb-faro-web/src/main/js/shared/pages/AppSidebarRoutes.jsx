@@ -238,36 +238,6 @@ const ROUTES = [
 }))
 export default class AppSidebarRoutes extends React.PureComponent {
 	static contextType = ChannelContext;
-
-	componentDidMount() {
-		const {
-			currentUser,
-			groupId,
-			project: {
-				faroSubscription: faroSubscriptionIMap,
-				name,
-				serverLocation
-			}
-		} = this.props;
-
-		analytics.identify(currentUser.id);
-
-		analytics.group(groupId, {
-			groupId,
-			serverLocation,
-			subscriptionName: faroSubscriptionIMap.get('name'),
-			workspaceName: name
-		});
-
-		analytics.track('User accessed workspace', {
-			groupId,
-			serverLocation,
-			subscriptionName: faroSubscriptionIMap.get('name'),
-			userId: String(currentUser.id),
-			workspaceName: name
-		});
-	}
-
 	render() {
 		const {currentUser, groupId} = this.props;
 		const {selectedChannel} = this.context;

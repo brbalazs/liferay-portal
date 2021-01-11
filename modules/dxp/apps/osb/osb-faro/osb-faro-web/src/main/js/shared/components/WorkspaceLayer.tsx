@@ -1,44 +1,67 @@
 import BundleRouter from 'route-middleware/BundleRouter';
 import Loading from 'shared/pages/Loading';
-import React, {lazy, Suspense} from 'react';
+import React, {lazy, Suspense, useEffect} from 'react';
 import useModalNotifications from 'shared/hooks/useModalNotifications';
 import {close, open} from 'shared/actions/modals';
 import {connect} from 'react-redux';
 import {matchPath} from 'react-router';
 import {Modal} from 'shared/types';
+import {Project} from 'shared/util/records';
 import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 
 // App Routes with Sidebar
-const AppSidebarRoutes = lazy(() =>
-	import(
-		/* webpackChunkName: "AppSidebarRoutes" */ 'shared/pages/AppSidebarRoutes'
-	)
+const AppSidebarRoutes = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "AppSidebarRoutes" */ 'shared/pages/AppSidebarRoutes'
+		)
 );
 
 // Settings
-const Settings = lazy(() =>
-	import(/* webpackChunkName: "Settings" */ 'settings/pages/Settings')
+const Settings = lazy(
+	() => import(/* webpackChunkName: "Settings" */ 'settings/pages/Settings')
 );
 
 interface IWorkspaceLayerProps {
 	close: Modal.close;
-	location: {
-		pathname: string;
-	};
+	currentUserId: string;
+	faroSubscriptionIMap: Map<string, any>;
+	groupId: string;
 	open: Modal.open;
+	serverLocation: string;
+	workspaceName: string;
 }
 
 const WorkspaceLayer: React.FC<IWorkspaceLayerProps> = ({
 	close,
-	location,
-	open
+	currentUserId,
+	faroSubscriptionIMap,
+	groupId,
+	open,
+	serverLocation,
+	workspaceName
 }) => {
-	const {
-		params: {groupId}
-	} = matchPath(location.pathname, {
-		path: Routes.WORKSPACE_WITH_ID
-	});
+	useEffect(() => {
+		if (currentUserId && workspaceName) {
+			analytics.identify(currentUserId);
+
+			analytics.group(groupId, {
+				groupId,
+				serverLocation,
+				subscriptionName: faroSubscriptionIMap.get('name'),
+				workspaceName: name
+			});
+
+			analytics.track('User accessed workspace', {
+				groupId,
+				serverLocation,
+				subscriptionName: faroSubscriptionIMap.get('name'),
+				userId: String(currentUserId),
+				workspaceName
+			});
+		}
+	}, [currentUserId, workspaceName]);
 
 	useModalNotifications(close, groupId, open);
 
@@ -54,6 +77,24 @@ const WorkspaceLayer: React.FC<IWorkspaceLayerProps> = ({
 };
 
 export default connect(
-	null,
+	(store, {location: {pathname}}) => {
+		const {
+			params: {groupId}
+		} = matchPath(pathname, {
+			path: Routes.WORKSPACE_WITH_ID
+		});
+
+		const project =
+			store.getIn(['projects', groupId, 'data'], new Project()) ||
+			new Project();
+
+		return {
+			currentUserId: store.getIn(['currentUser', 'data']),
+			faroSubscriptionIMap: project.get('faroSubscription'),
+			groupId,
+			serverLocation: project.get('serverLocation'),
+			workspaceName: project.get('name')
+		};
+	},
 	{close, open}
 )(WorkspaceLayer);

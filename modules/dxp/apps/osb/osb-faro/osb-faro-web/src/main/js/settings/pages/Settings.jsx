@@ -145,27 +145,6 @@ export class Settings extends React.Component {
 		recommendationsEnabled: PropTypes.bool
 	};
 
-	componentDidMount() {
-		const {
-			currentUser,
-			groupId,
-			project: {
-				faroSubscription: faroSubscriptionIMap,
-				name,
-				serverLocation
-			}
-		} = this.props;
-
-		analytics.identify(currentUser.id);
-
-		analytics.group(groupId, {
-			groupId,
-			serverLocation,
-			subscriptionName: faroSubscriptionIMap.get('name'),
-			workspaceName: name
-		});
-	}
-
 	getSidebarSections() {
 		const {currentUser, groupId, recommendationsEnabled} = this.props;
 
