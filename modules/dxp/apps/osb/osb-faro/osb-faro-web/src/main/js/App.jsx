@@ -12,6 +12,7 @@ import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
 import Tooltip from 'shared/components/Tooltip';
 import UnassignedSegmentsProvider from 'shared/context/unassignedSegments';
+import WorkspaceLayer from 'shared/components/WorkspaceLayer';
 import {ApolloProvider} from '@apollo/react-components';
 import {ApolloProvider as ApolloProviderHooks} from '@apollo/react-hooks';
 import {ClayIconSpriteContext} from '@clayui/icon';
@@ -34,14 +35,6 @@ import {setBackURL} from 'shared/actions/settings';
 import {spritemap} from 'shared/util/constants';
 import {throttle} from 'lodash';
 
-// App Routes with Sidebar
-
-const AppSidebarRoutes = lazy(() =>
-	import(
-		/* webpackChunkName: "AppSidebarRoutes" */ './shared/pages/AppSidebarRoutes'
-	)
-);
-
 // Workspaces
 
 const AddWorkspace = lazy(() =>
@@ -55,10 +48,6 @@ const SelectWorkspaceAccount = lazy(() =>
 const Workspaces = lazy(() =>
 	import(/* webpackChunkName: "Workspaces" */ './shared/pages/Workspaces')
 );
-
-// Settings
-
-const Settings = lazy(() => import('./settings/pages/Settings'));
 
 // Other
 
@@ -286,7 +275,9 @@ export default class App extends React.Component {
 																	}
 																/>
 
-																<BundleRouter
+																<WorkspaceLayer />
+
+																{/* <BundleRouter
 																	data={
 																		Settings
 																	}
@@ -302,7 +293,7 @@ export default class App extends React.Component {
 																	path={
 																		Routes.CHANNEL
 																	}
-																/>
+																/> */}
 
 																<RouteNotFound />
 															</Switch>
