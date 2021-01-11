@@ -18,11 +18,15 @@ const renderTimeZoneAdminModal = (
 	modalType: Modal.modalTypes,
 	{close, groupId, notificationId, open}
 ) =>
-	open(modalType, {
-		groupId,
-		notificationId,
-		onClose: close
-	});
+	open(
+		modalType,
+		{
+			groupId,
+			notificationId,
+			onClose: close
+		},
+		{closeOnBlur: false}
+	);
 
 const modalNotificationStrategies = new Map<string, Function>([
 	[
