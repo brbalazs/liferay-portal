@@ -32,7 +32,7 @@ const WrapperComponent = connect(
 });
 
 describe('useModalNotifications', () => {
-	it('it should open a notification modal', () => {
+	it('should open a notification modal', () => {
 		mockGetDateNow(data.getTimestamp(0));
 
 		API.notifications.fetchNotifications.mockReturnValue(
@@ -58,7 +58,7 @@ describe('useModalNotifications', () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	it('it should open another notification modal after closing one when having multiple modals', () => {
+	it('should open another notification modal after closing one when having multiple modals', () => {
 		mockGetDateNow(data.getTimestamp(0));
 
 		API.notifications.fetchNotifications.mockReturnValue(

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useModalNotifications it should open a notification modal 1`] = `
+exports[`useModalNotifications should open a notification modal 1`] = `
 <div>
   <div
     class="modal-renderer-root"

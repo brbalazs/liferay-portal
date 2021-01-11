@@ -17,7 +17,9 @@ const AppSidebarRoutes = lazy(() =>
 );
 
 // Settings
-const Settings = lazy(() => import('settings/pages/Settings'));
+const Settings = lazy(() =>
+	import(/* webpackChunkName: "Settings" */ 'settings/pages/Settings')
+);
 
 interface IWorkspaceLayerProps {
 	close: Modal.close;

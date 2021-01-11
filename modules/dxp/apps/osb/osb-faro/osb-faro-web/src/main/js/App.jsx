@@ -50,7 +50,9 @@ const Workspaces = lazy(() =>
 
 // WorkspaceLayer
 const WorkspaceLayer = lazy(() =>
-	import(/* webpackChunkName: "WorkspaceLayer" */ './shared/components/WorkspaceLayer')
+	import(
+		/* webpackChunkName: "WorkspaceLayer" */ './shared/components/WorkspaceLayer'
+	)
 );
 
 // Other
