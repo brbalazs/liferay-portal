@@ -316,9 +316,12 @@ export default WrappedComponent => {
 		}
 	}
 
-	return connect(null, {
-		addAlert,
-		close,
-		open
-	})(BaseEdit);
+	return connect(
+		null,
+		{
+			addAlert,
+			close,
+			open
+		}
+	)(BaseEdit);
 };

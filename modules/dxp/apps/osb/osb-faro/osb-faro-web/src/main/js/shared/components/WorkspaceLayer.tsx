@@ -11,16 +11,15 @@ import {Routes} from 'shared/util/router';
 import {Switch} from 'react-router-dom';
 
 // App Routes with Sidebar
-const AppSidebarRoutes = lazy(
-	() =>
-		import(
-			/* webpackChunkName: "AppSidebarRoutes" */ 'shared/pages/AppSidebarRoutes'
-		)
+const AppSidebarRoutes = lazy(() =>
+	import(
+		/* webpackChunkName: "AppSidebarRoutes" */ 'shared/pages/AppSidebarRoutes'
+	)
 );
 
 // Settings
-const Settings = lazy(
-	() => import(/* webpackChunkName: "Settings" */ 'settings/pages/Settings')
+const Settings = lazy(() =>
+	import(/* webpackChunkName: "Settings" */ 'settings/pages/Settings')
 );
 
 interface IWorkspaceLayerProps {

@@ -10,10 +10,10 @@
 		"plugin:jsx-a11y/recommended"
 	],
 	"globals": {
-		"analytics": true,
 		"FARO_ENV": true,
 		"IncrementalDOM": true,
-		"Liferay": true
+		"Liferay": true,
+		"analytics": true
 	},
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {

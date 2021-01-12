@@ -178,4 +178,7 @@ const InvitePeople: React.FC<IInvitePeopleProps> = ({
 	);
 };
 
-export default connect(null, {addAlert})(InvitePeople);
+export default connect(
+	null,
+	{addAlert}
+)(InvitePeople);

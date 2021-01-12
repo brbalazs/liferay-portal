@@ -90,5 +90,8 @@ export const AddDataSource: React.FC<IAddDataSourceProps> = ({
 
 export default compose(
 	withAdminPermission,
-	connect(null, {close, open})
+	connect(
+		null,
+		{close, open}
+	)
 )(AddDataSource);
