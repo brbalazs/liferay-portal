@@ -48,6 +48,7 @@ public class FaroProjectSoap implements Serializable {
 		soapModel.setRecommendationsEnabled(model.isRecommendationsEnabled());
 		soapModel.setServerLocation(model.getServerLocation());
 		soapModel.setServices(model.getServices());
+		soapModel.setSharedCluster(model.isSharedCluster());
 		soapModel.setState(model.getState());
 		soapModel.setSubscription(model.getSubscription());
 		soapModel.setTimeZoneId(model.getTimeZoneId());
@@ -247,6 +248,18 @@ public class FaroProjectSoap implements Serializable {
 		_services = services;
 	}
 
+	public boolean getSharedCluster() {
+		return _sharedCluster;
+	}
+
+	public boolean isSharedCluster() {
+		return _sharedCluster;
+	}
+
+	public void setSharedCluster(boolean sharedCluster) {
+		_sharedCluster = sharedCluster;
+	}
+
 	public String getState() {
 		return _state;
 	}
@@ -296,6 +309,7 @@ public class FaroProjectSoap implements Serializable {
 	private boolean _recommendationsEnabled;
 	private String _serverLocation;
 	private String _services;
+	private boolean _sharedCluster;
 	private String _state;
 	private String _subscription;
 	private String _timeZoneId;

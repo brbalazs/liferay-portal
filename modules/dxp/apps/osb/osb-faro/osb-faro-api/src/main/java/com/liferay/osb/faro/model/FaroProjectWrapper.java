@@ -72,6 +72,7 @@ public class FaroProjectWrapper
 		attributes.put("recommendationsEnabled", isRecommendationsEnabled());
 		attributes.put("serverLocation", getServerLocation());
 		attributes.put("services", getServices());
+		attributes.put("sharedCluster", isSharedCluster());
 		attributes.put("state", getState());
 		attributes.put("subscription", getSubscription());
 		attributes.put("timeZoneId", getTimeZoneId());
@@ -184,6 +185,12 @@ public class FaroProjectWrapper
 
 		if (services != null) {
 			setServices(services);
+		}
+
+		Boolean sharedCluster = (Boolean)attributes.get("sharedCluster");
+
+		if (sharedCluster != null) {
+			setSharedCluster(sharedCluster);
 		}
 
 		String state = (String)attributes.get("state");
@@ -397,6 +404,16 @@ public class FaroProjectWrapper
 	}
 
 	/**
+	 * Returns the shared cluster of this faro project.
+	 *
+	 * @return the shared cluster of this faro project
+	 */
+	@Override
+	public boolean getSharedCluster() {
+		return _faroProject.getSharedCluster();
+	}
+
+	/**
 	 * Returns the state of this faro project.
 	 *
 	 * @return the state of this faro project
@@ -499,6 +516,16 @@ public class FaroProjectWrapper
 	@Override
 	public boolean isRecommendationsEnabled() {
 		return _faroProject.isRecommendationsEnabled();
+	}
+
+	/**
+	 * Returns <code>true</code> if this faro project is shared cluster.
+	 *
+	 * @return <code>true</code> if this faro project is shared cluster; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isSharedCluster() {
+		return _faroProject.isSharedCluster();
 	}
 
 	@Override
@@ -704,6 +731,16 @@ public class FaroProjectWrapper
 	@Override
 	public void setServices(String services) {
 		_faroProject.setServices(services);
+	}
+
+	/**
+	 * Sets whether this faro project is shared cluster.
+	 *
+	 * @param sharedCluster the shared cluster of this faro project
+	 */
+	@Override
+	public void setSharedCluster(boolean sharedCluster) {
+		_faroProject.setSharedCluster(sharedCluster);
 	}
 
 	/**

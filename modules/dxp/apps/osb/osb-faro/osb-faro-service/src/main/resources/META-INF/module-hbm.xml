@@ -68,6 +68,7 @@
 		<property name="recommendationsEnabled" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="serverLocation" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="services" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="sharedCluster" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property column="state_" name="state" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="subscription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="timeZoneId" type="com.liferay.portal.dao.orm.hibernate.StringType" />

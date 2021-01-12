@@ -53,6 +53,7 @@ create table OSBFaro_FaroProject (
 	recommendationsEnabled BOOLEAN,
 	serverLocation VARCHAR(75) null,
 	services STRING null,
+	sharedCluster BOOLEAN,
 	state_ VARCHAR(75) null,
 	subscription STRING null,
 	timeZoneId VARCHAR(75) null,

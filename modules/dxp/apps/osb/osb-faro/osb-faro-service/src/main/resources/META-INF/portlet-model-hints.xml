@@ -61,6 +61,7 @@
 		<field name="services" type="String">
 			<hint-collection name="TEXTAREA" />
 		</field>
+		<field name="sharedCluster" type="boolean" />
 		<field name="state" type="String" />
 		<field name="subscription" type="String">
 			<hint-collection name="TEXTAREA" />

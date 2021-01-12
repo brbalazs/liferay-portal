@@ -329,6 +329,27 @@ public interface FaroProjectModel extends BaseModel<FaroProject> {
 	public void setServices(String services);
 
 	/**
+	 * Returns the shared cluster of this faro project.
+	 *
+	 * @return the shared cluster of this faro project
+	 */
+	public boolean getSharedCluster();
+
+	/**
+	 * Returns <code>true</code> if this faro project is shared cluster.
+	 *
+	 * @return <code>true</code> if this faro project is shared cluster; <code>false</code> otherwise
+	 */
+	public boolean isSharedCluster();
+
+	/**
+	 * Sets whether this faro project is shared cluster.
+	 *
+	 * @param sharedCluster the shared cluster of this faro project
+	 */
+	public void setSharedCluster(boolean sharedCluster);
+
+	/**
 	 * Returns the state of this faro project.
 	 *
 	 * @return the state of this faro project

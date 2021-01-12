@@ -76,8 +76,9 @@ public class FaroProjectModelImpl
 		{"lastAccessTime", Types.BIGINT},
 		{"recommendationsEnabled", Types.BOOLEAN},
 		{"serverLocation", Types.VARCHAR}, {"services", Types.VARCHAR},
-		{"state_", Types.VARCHAR}, {"subscription", Types.VARCHAR},
-		{"timeZoneId", Types.VARCHAR}, {"weDeployKey", Types.VARCHAR}
+		{"sharedCluster", Types.BOOLEAN}, {"state_", Types.VARCHAR},
+		{"subscription", Types.VARCHAR}, {"timeZoneId", Types.VARCHAR},
+		{"weDeployKey", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -101,6 +102,7 @@ public class FaroProjectModelImpl
 		TABLE_COLUMNS_MAP.put("recommendationsEnabled", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("serverLocation", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("services", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("sharedCluster", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("state_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("subscription", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("timeZoneId", Types.VARCHAR);
@@ -108,7 +110,7 @@ public class FaroProjectModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table OSBFaro_FaroProject (faroProjectId LONG not null primary key,groupId LONG,userId LONG,userName VARCHAR(75) null,createTime LONG,modifiedTime LONG,name VARCHAR(75) null,accountKey VARCHAR(75) null,accountName VARCHAR(75) null,corpProjectName VARCHAR(75) null,corpProjectUuid VARCHAR(75) null,ipAddresses STRING null,incidentReportEmailAddresses STRING null,lastAccessTime LONG,recommendationsEnabled BOOLEAN,serverLocation VARCHAR(75) null,services STRING null,state_ VARCHAR(75) null,subscription STRING null,timeZoneId VARCHAR(75) null,weDeployKey VARCHAR(75) null)";
+		"create table OSBFaro_FaroProject (faroProjectId LONG not null primary key,groupId LONG,userId LONG,userName VARCHAR(75) null,createTime LONG,modifiedTime LONG,name VARCHAR(75) null,accountKey VARCHAR(75) null,accountName VARCHAR(75) null,corpProjectName VARCHAR(75) null,corpProjectUuid VARCHAR(75) null,ipAddresses STRING null,incidentReportEmailAddresses STRING null,lastAccessTime LONG,recommendationsEnabled BOOLEAN,serverLocation VARCHAR(75) null,services STRING null,sharedCluster BOOLEAN,state_ VARCHAR(75) null,subscription STRING null,timeZoneId VARCHAR(75) null,weDeployKey VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table OSBFaro_FaroProject";
@@ -662,6 +664,28 @@ public class FaroProjectModelImpl
 
 			});
 		attributeGetterFunctions.put(
+			"sharedCluster",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getSharedCluster();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"sharedCluster",
+			new BiConsumer<FaroProject, Object>() {
+
+				@Override
+				public void accept(
+					FaroProject faroProject, Object sharedClusterObject) {
+
+					faroProject.setSharedCluster((Boolean)sharedClusterObject);
+				}
+
+			});
+		attributeGetterFunctions.put(
 			"state",
 			new Function<FaroProject, Object>() {
 
@@ -1044,6 +1068,21 @@ public class FaroProjectModelImpl
 	}
 
 	@Override
+	public boolean getSharedCluster() {
+		return _sharedCluster;
+	}
+
+	@Override
+	public boolean isSharedCluster() {
+		return _sharedCluster;
+	}
+
+	@Override
+	public void setSharedCluster(boolean sharedCluster) {
+		_sharedCluster = sharedCluster;
+	}
+
+	@Override
 	public String getState() {
 		if (_state == null) {
 			return "";
@@ -1167,6 +1206,7 @@ public class FaroProjectModelImpl
 		faroProjectImpl.setRecommendationsEnabled(isRecommendationsEnabled());
 		faroProjectImpl.setServerLocation(getServerLocation());
 		faroProjectImpl.setServices(getServices());
+		faroProjectImpl.setSharedCluster(isSharedCluster());
 		faroProjectImpl.setState(getState());
 		faroProjectImpl.setSubscription(getSubscription());
 		faroProjectImpl.setTimeZoneId(getTimeZoneId());
@@ -1352,6 +1392,8 @@ public class FaroProjectModelImpl
 			faroProjectCacheModel.services = null;
 		}
 
+		faroProjectCacheModel.sharedCluster = isSharedCluster();
+
 		faroProjectCacheModel.state = getState();
 
 		String state = faroProjectCacheModel.state;
@@ -1480,6 +1522,7 @@ public class FaroProjectModelImpl
 	private String _serverLocation;
 	private String _originalServerLocation;
 	private String _services;
+	private boolean _sharedCluster;
 	private String _state;
 	private String _subscription;
 	private String _timeZoneId;
