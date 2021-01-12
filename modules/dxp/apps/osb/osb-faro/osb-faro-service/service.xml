@@ -161,6 +161,7 @@
 		<column name="recommendationsEnabled" type="boolean" />
 		<column name="serverLocation" type="String" />
 		<column name="services" type="String" />
+		<column name="sharedCluster" type="boolean" />
 		<column name="state" type="String" />
 		<column name="subscription" type="String" />
 		<column name="timeZoneId" type="String" />
