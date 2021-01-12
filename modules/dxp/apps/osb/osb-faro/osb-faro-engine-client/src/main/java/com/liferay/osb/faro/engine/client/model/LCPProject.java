@@ -36,17 +36,10 @@ public class LCPProject {
 	}
 
 	public String getESProjectId() {
-		if (StringUtil.equals(_cluster, Cluster.EU.toString())) {
-			return "ac-europe";
-		}
-		else if (StringUtil.equals(_cluster, Cluster.EU2.toString())) {
-			return "ac-europe2";
-		}
-		else if (StringUtil.equals(_cluster, Cluster.SA.toString())) {
-			return "ac-southamerica";
-		}
-		else if (StringUtil.equals(_cluster, Cluster.US.toString())) {
-			return "ac-us";
+		Cluster cluster = Cluster.fromString(_cluster);
+
+		if (cluster != null) {
+			return cluster.getProjectId();
 		}
 
 		return null;
@@ -114,18 +107,43 @@ public class LCPProject {
 
 	public enum Cluster {
 
-		EU("europe-west2-c1"), EU2("europe-west3-c1"),
-		SA("southamerica-east1-c1"), US("us-west1-c1");
+		EU("ac-europe", "europe-west2-c1"),
+		EU2("ac-europe2", "europe-west3-c1"),
+		SA("ac-southamerica", "southamerica-east1-c1"),
+		US("ac-us", "us-west1-c1");
+
+		public static Cluster fromString(String value) {
+			if (StringUtil.equals(value, Cluster.EU._value)) {
+				return Cluster.EU;
+			}
+			else if (StringUtil.equals(value, Cluster.EU2._value)) {
+				return Cluster.EU2;
+			}
+			else if (StringUtil.equals(value, Cluster.SA._value)) {
+				return Cluster.SA;
+			}
+			else if (StringUtil.equals(value, Cluster.US._value)) {
+				return Cluster.US;
+			}
+
+			return null;
+		}
+
+		public String getProjectId() {
+			return _projectId;
+		}
 
 		@Override
 		public String toString() {
 			return _value;
 		}
 
-		private Cluster(String value) {
+		private Cluster(String projectId, String value) {
+			_projectId = projectId;
 			_value = value;
 		}
 
+		private final String _projectId;
 		private final String _value;
 
 	}
