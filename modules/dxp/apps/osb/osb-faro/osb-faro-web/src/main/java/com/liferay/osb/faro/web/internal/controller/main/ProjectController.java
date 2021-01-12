@@ -24,6 +24,7 @@ import com.liferay.osb.faro.engine.client.HubSpotEngineClient;
 import com.liferay.osb.faro.engine.client.model.LCPProject;
 import com.liferay.osb.faro.engine.client.model.LCPService;
 import com.liferay.osb.faro.engine.client.model.Workspace;
+import com.liferay.osb.faro.engine.client.util.EngineServiceURLUtil;
 import com.liferay.osb.faro.exception.EmailAddressDomainException;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.model.FaroProjectEmailAddressDomain;
@@ -37,6 +38,7 @@ import com.liferay.osb.faro.service.FaroNotificationLocalService;
 import com.liferay.osb.faro.service.FaroProjectEmailAddressDomainLocalService;
 import com.liferay.osb.faro.service.FaroProjectLocalService;
 import com.liferay.osb.faro.service.FaroUserLocalService;
+import com.liferay.osb.faro.web.internal.annotations.Unauthenticated;
 import com.liferay.osb.faro.web.internal.controller.BaseFaroController;
 import com.liferay.osb.faro.web.internal.controller.contacts.FieldMappingController;
 import com.liferay.osb.faro.web.internal.exception.FaroException;
@@ -530,6 +532,33 @@ public class ProjectController extends BaseFaroController {
 		).collect(
 			Collectors.toList()
 		);
+	}
+
+	@GET
+	@Path("/{projectId}/endpoints")
+	@Unauthenticated
+	public Map<String, Object> getEndpoints(
+			@PathParam("projectId") String projectId)
+		throws Exception {
+
+		Map<String, Object> properties = new HashMap<>();
+
+		FaroProject faroProject =
+			faroProjectLocalService.fetchFaroProjectByWeDeployKey(
+				projectId + ".lfr.cloud");
+
+		if (faroProject == null) {
+			return properties;
+		}
+
+		properties.put(
+			"liferayAnalyticsEndpointURL",
+			EngineServiceURLUtil.getPublisherExternalURL(faroProject));
+		properties.put(
+			"liferayAnalyticsFaroBackendURL",
+			EngineServiceURLUtil.getBackendExternalURL(faroProject));
+
+		return properties;
 	}
 
 	@GET
