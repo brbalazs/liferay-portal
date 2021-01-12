@@ -194,6 +194,7 @@ public class DataSourceController extends BaseFaroController {
 		properties.put(
 			"liferayAnalyticsFaroBackendURL",
 			EngineServiceURLUtil.getBackendExternalURL(faroProject));
+		properties.put("liferayAnalyticsProjectId", faroProject.getProjectId());
 		properties.put("liferayAnalyticsURL", dataSource.getWorkspaceURL());
 
 		TokenCredentials tokenCredentials =

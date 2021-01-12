@@ -361,6 +361,11 @@ public class FaroProjectWrapper
 		return _faroProject.getPrimaryKeyObj();
 	}
 
+	@Override
+	public String getProjectId() {
+		return _faroProject.getProjectId();
+	}
+
 	/**
 	 * Returns the recommendations enabled of this faro project.
 	 *

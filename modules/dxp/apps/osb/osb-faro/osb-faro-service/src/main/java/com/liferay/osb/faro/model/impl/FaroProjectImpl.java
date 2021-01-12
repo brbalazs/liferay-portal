@@ -34,6 +34,11 @@ public class FaroProjectImpl extends FaroProjectBaseImpl {
 	}
 
 	@Override
+	public String getProjectId() {
+		return StringUtil.removeSubstring(getWeDeployKey(), ".lfr.cloud");
+	}
+
+	@Override
 	public boolean isAllowedIPAddress(String ipAddress) {
 		try {
 			JSONArray jsonArray = JSONFactoryUtil.createJSONArray(

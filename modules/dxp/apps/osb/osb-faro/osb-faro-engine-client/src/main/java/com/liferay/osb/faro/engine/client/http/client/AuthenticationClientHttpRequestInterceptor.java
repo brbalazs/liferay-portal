@@ -16,7 +16,6 @@ package com.liferay.osb.faro.engine.client.http.client;
 
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 
 import java.io.IOException;
 
@@ -52,9 +51,7 @@ public class AuthenticationClientHttpRequestInterceptor
 			HttpHeaders httpHeaders = httpRequest.getHeaders();
 
 			httpHeaders.add(
-				_ASAH_PROJECT_ID_HEADER,
-				StringUtil.removeSubstring(
-					_faroProject.getWeDeployKey(), ".lfr.cloud"));
+				_ASAH_PROJECT_ID_HEADER, _faroProject.getProjectId());
 			httpHeaders.add(
 				_ASAH_SECURITY_SIGNATURE_HEADER,
 				DigestUtils.sha256Hex(
