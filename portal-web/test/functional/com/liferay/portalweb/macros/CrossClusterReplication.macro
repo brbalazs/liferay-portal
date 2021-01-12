@@ -36,6 +36,22 @@ definition {
 			OSGiConfigs = "clusterName=&quot;LiferayElasticsearchClusterTwo&quot;,connectionId=&quot;ccr&quot;,networkHostAddress=&quot;http://localhost:9202&quot;,transportAddresses=[&quot;localhost:9500&quot;]");
 
 		CrossClusterReplication.configureCrossClusterReplication();
+
+		echo("##");
+		echo("## Local Cluster Health");
+		echo("##");
+
+		var localClusterHealth = JSONCurlUtil.get("http://localhost:9202/_cluster/health?pretty");
+
+		if (contains("${localClusterHealth}", "red")) {
+			echo("##");
+			echo("## Local Cluster Index Status");
+			echo("##");
+
+			JSONCurlUtil.get("http://localhost:9202/_cat/indices?pretty");
+
+			fail("A follower index is in red status.");
+		}
 	}
 
 }
