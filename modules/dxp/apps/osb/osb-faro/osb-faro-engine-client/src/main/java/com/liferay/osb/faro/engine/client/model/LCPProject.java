@@ -129,6 +129,10 @@ public class LCPProject {
 			return null;
 		}
 
+		public String getBaseURL() {
+			return _baseURL;
+		}
+
 		public String getProjectId() {
 			return _projectId;
 		}
@@ -141,8 +145,12 @@ public class LCPProject {
 		private Cluster(String projectId, String value) {
 			_projectId = projectId;
 			_value = value;
+
+			_baseURL = String.format(
+				"https://%s-{service}.lfr.cloud/", projectId);
 		}
 
+		private final String _baseURL;
 		private final String _projectId;
 		private final String _value;
 
