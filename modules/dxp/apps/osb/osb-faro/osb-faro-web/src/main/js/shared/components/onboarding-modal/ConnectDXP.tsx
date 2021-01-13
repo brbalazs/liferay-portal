@@ -93,7 +93,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 	};
 
 	const selectAll = () => {
-		analytics.track('Clicked Copy Token Button', null, {
+		analytics.track('Clicked Copy Token Button - TEST', null, {
 			ip: '0'
 		});
 
@@ -112,9 +112,13 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 						TIMEOUT_INTERVAL
 					);
 				} else {
-					analytics.track('Established connection w/ DXP', null, {
-						ip: '0'
-					});
+					analytics.track(
+						'Established connection w/ DXP - TEST',
+						null,
+						{
+							ip: '0'
+						}
+					);
 
 					if (onboarding) {
 						onDxpConnected(true);
@@ -250,7 +254,7 @@ const ConnectDXP: React.FC<IConnectDXPProps> = ({
 										display='light'
 										onClick={() => {
 											analytics.track(
-												'Clicked Copy Token Button',
+												'Clicked Copy Token Button - TEST',
 												null,
 												{ip: '0'}
 											);

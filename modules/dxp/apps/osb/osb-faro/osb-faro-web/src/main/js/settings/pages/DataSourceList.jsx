@@ -275,7 +275,7 @@ export class DataSourceList extends React.Component {
 							})}
 							onClick={() => {
 								analytics.track(
-									'Clicked Add Data Source',
+									'Clicked Add Data Source - TEST',
 									null,
 									{ip: '0'}
 								);

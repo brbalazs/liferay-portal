@@ -116,7 +116,7 @@ const View: React.FC<IViewProps> = ({
 		const {createTime, id, name} = channel;
 
 		analytics.track(
-			'Viewed Property Dashboard',
+			'Viewed Property Dashboard - Test',
 			{
 				channelId: id,
 				channelName: name,

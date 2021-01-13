@@ -32,7 +32,7 @@ export const AddDataSource: React.FC<IAddDataSourceProps> = ({
 					name: Liferay.Language.get('liferay-dxp'),
 					onClick: () => {
 						analytics.track(
-							'Clicked Create DXP Data Source',
+							'Clicked Create DXP Data Source - TEST',
 							null,
 							{ip: '0'}
 						);
