@@ -17,6 +17,8 @@ package com.liferay.osb.faro.engine.client.util;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.liferay.osb.faro.engine.client.exception.FaroEngineClientException;
+import com.liferay.osb.faro.engine.client.model.LCPProject;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -29,6 +31,7 @@ import java.net.URL;
 
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
 
 /**
@@ -51,7 +54,14 @@ public class EngineServiceURLUtil {
 	public static String getBackendURL(FaroProject faroProject, String path)
 		throws URISyntaxException {
 
-		return _getURL(faroProject, _OSB_ASAH_BACKEND_URL, path);
+		String url = _OSB_ASAH_BACKEND_URL;
+
+		if (faroProject.isSharedCluster()) {
+			url = StringUtil.replace(
+				_getClusterBaseURL(faroProject), "{service}", "osbasahbackend");
+		}
+
+		return _getURL(faroProject, url, path);
 	}
 
 	public static String getPublisherExternalURL(FaroProject faroProject)
@@ -69,7 +79,27 @@ public class EngineServiceURLUtil {
 	public static String getPublisherURL(FaroProject faroProject, String path)
 		throws URISyntaxException {
 
-		return _getURL(faroProject, _OSB_ASAH_PUBLISHER_URL, path);
+		String url = _OSB_ASAH_PUBLISHER_URL;
+
+		if (faroProject.isSharedCluster()) {
+			url = StringUtil.replace(
+				_getClusterBaseURL(faroProject), "{service}",
+				"osbasahpublisher");
+		}
+
+		return _getURL(faroProject, url, path);
+	}
+
+	private static String _getClusterBaseURL(FaroProject faroProject) {
+		LCPProject.Cluster cluster = LCPProject.Cluster.fromString(
+			faroProject.getServerLocation());
+
+		if (cluster == null) {
+			throw new FaroEngineClientException(
+				"Invalid server location: " + faroProject.getServerLocation());
+		}
+
+		return cluster.getBaseURL();
 	}
 
 	private static String _getExternalURL(String url) {
@@ -99,7 +129,7 @@ public class EngineServiceURLUtil {
 			FaroProject faroProject, String url, String path)
 		throws URISyntaxException {
 
-		if (faroProject.isTrial() &&
+		if (faroProject.isTrial() && !faroProject.isSharedCluster() &&
 			Validator.isNotNull(_OSB_ASAH_MONOLITH_URL)) {
 
 			url = _OSB_ASAH_MONOLITH_URL;
