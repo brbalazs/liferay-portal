@@ -29,6 +29,7 @@ import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
@@ -167,17 +168,13 @@ public class PriceModifierProductGroupResourceImpl
 			CommercePriceModifierRel commercePriceModifierRel)
 		throws PortalException {
 
-		CommercePriceModifier commercePriceModifier =
-			commercePriceModifierRel.getCommercePriceModifier();
-
 		return HashMapBuilder.<String, Map<String, String>>put(
 			"delete",
 			addAction(
-				"UPDATE", commercePriceModifier.getCommercePriceListId(),
+				"UPDATE",
+				commercePriceModifierRel.getCommercePriceModifierRelId(),
 				"deletePriceModifierProductGroup",
-				commercePriceModifier.getUserId(),
-				"com.liferay.commerce.price.list.model.CommercePriceList",
-				commercePriceModifier.getGroupId())
+				_commercePriceModifierRelModelResourcePermission)
 		).build();
 	}
 
@@ -215,6 +212,12 @@ public class PriceModifierProductGroupResourceImpl
 
 		return priceModifierProductGroups;
 	}
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.pricing.model.CommercePriceModifierRel)"
+	)
+	private ModelResourcePermission<CommercePriceModifierRel>
+		_commercePriceModifierRelModelResourcePermission;
 
 	@Reference
 	private CommercePriceModifierRelService _commercePriceModifierRelService;
