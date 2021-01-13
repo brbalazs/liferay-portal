@@ -233,6 +233,8 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("incidentReportEmailAddresses")
 				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("serverLocation") String serverLocation,
+			@DefaultValue("false") @FormParam("sharedCluster")
+				FaroParam<Boolean> sharedCluster,
 			@FormParam("friendlyURL") String friendlyURL,
 			@FormParam("timeZoneId") String timeZoneId)
 		throws Exception {
@@ -263,7 +265,8 @@ public class ProjectController extends BaseFaroController {
 		faroProject = _create(
 			corpProjectUuid, name, emailAddressDomainsFaroParam.getValue(),
 			friendlyURL, incidentReportEmailAddressesFaroParam.getValue(),
-			serverLocation, FaroProjectConstants.STATE_NOT_READY, timeZoneId);
+			serverLocation, sharedCluster.getValue(),
+			FaroProjectConstants.STATE_NOT_READY, timeZoneId);
 
 		Role role = _roleLocalService.getRole(
 			user.getCompanyId(), RoleConstants.SITE_OWNER);
@@ -291,7 +294,9 @@ public class ProjectController extends BaseFaroController {
 			@FormParam("incidentReportEmailAddresses")
 				FaroParam<List<String>> incidentReportEmailAddressesFaroParam,
 			@FormParam("ownerEmailAddress") String ownerEmailAddress,
-			@FormParam("serverLocation") String serverLocation)
+			@FormParam("serverLocation") String serverLocation,
+			@DefaultValue("false") @FormParam("sharedCluster")
+				FaroParam<Boolean> sharedCluster)
 		throws Exception {
 
 		User user = getUser();
@@ -299,7 +304,7 @@ public class ProjectController extends BaseFaroController {
 		FaroProject faroProject = _create(
 			corpProjectUuid, null, Collections.emptyList(), null,
 			incidentReportEmailAddressesFaroParam.getValue(), serverLocation,
-			FaroProjectConstants.STATE_UNCONFIGURED,
+			sharedCluster.getValue(), FaroProjectConstants.STATE_UNCONFIGURED,
 			TimeZoneUtil.UTC_TIME_ZONE_ID);
 
 		Role role = _roleLocalService.getRole(
@@ -785,7 +790,7 @@ public class ProjectController extends BaseFaroController {
 			String corpProjectUuid, String name,
 			List<String> emailAddressDomains, String friendlyURL,
 			List<String> incidentReportEmailAddresses, String serverLocation,
-			String state, String timeZoneId)
+			boolean sharedCluster, String state, String timeZoneId)
 		throws Exception {
 
 		_validateIncidentReportEmailAddresses(incidentReportEmailAddresses);
@@ -827,6 +832,12 @@ public class ProjectController extends BaseFaroController {
 
 		if (corpProjectUuid.equals(_PROJECT_ID)) {
 			weDeployKey = _DEFAULT_WE_DEPLOY_KEY;
+		}
+		else if (sharedCluster) {
+			faroProject.setSharedCluster(true);
+
+			weDeployKey =
+				contactsEngineClient.addProject(faroProject) + ".lfr.cloud";
 		}
 		else {
 			Workspace workspace = workspaceEngineClient.createWorkspace(
