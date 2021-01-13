@@ -28,6 +28,7 @@ import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
@@ -158,16 +159,13 @@ public class PriceListChannelResourceImpl
 			CommercePriceListChannelRel commercePriceListChannelRel)
 		throws PortalException {
 
-		CommercePriceList commercePriceList =
-			commercePriceListChannelRel.getCommercePriceList();
-
 		return HashMapBuilder.<String, Map<String, String>>put(
 			"delete",
 			addAction(
-				"UPDATE", commercePriceList.getCommercePriceListId(),
-				"deletePriceListChannel", commercePriceList.getUserId(),
-				"com.liferay.commerce.price.list.model.CommercePriceList",
-				commercePriceList.getGroupId())
+				"UPDATE",
+				commercePriceListChannelRel.getCommercePriceListChannelRelId(),
+				"deletePriceListChannel",
+				_commercePriceListChannelRelModelResourcePermission)
 		).build();
 	}
 
@@ -208,6 +206,12 @@ public class PriceListChannelResourceImpl
 
 	@Reference
 	private CommerceChannelService _commerceChannelService;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.price.list.model.CommercePriceListChannelRel)"
+	)
+	private ModelResourcePermission<CommercePriceListChannelRel>
+		_commercePriceListChannelRelModelResourcePermission;
 
 	@Reference
 	private CommercePriceListChannelRelService
