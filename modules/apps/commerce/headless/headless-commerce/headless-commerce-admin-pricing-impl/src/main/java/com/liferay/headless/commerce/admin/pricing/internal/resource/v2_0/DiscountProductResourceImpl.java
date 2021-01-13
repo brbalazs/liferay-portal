@@ -29,7 +29,7 @@ import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
-import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
@@ -162,19 +162,12 @@ public class DiscountProductResourceImpl
 			CommerceDiscountRel commerceDiscountRel)
 		throws PortalException {
 
-		ServiceContext serviceContext =
-			_serviceContextHelper.getServiceContext();
-
-		CommerceDiscount commerceDiscount =
-			commerceDiscountRel.getCommerceDiscount();
-
 		return HashMapBuilder.<String, Map<String, String>>put(
 			"delete",
 			addAction(
-				"UPDATE", commerceDiscount.getCommerceDiscountId(),
-				"deleteDiscountProduct", commerceDiscountRel.getUserId(),
-				"com.liferay.commerce.discount.model.CommerceDiscount",
-				serviceContext.getScopeGroupId())
+				"UPDATE", commerceDiscountRel.getCommerceDiscountRelId(),
+				"deleteDiscountProduct",
+				_commerceDiscountRelModelResourcePermission)
 		).build();
 	}
 
@@ -208,6 +201,12 @@ public class DiscountProductResourceImpl
 
 		return discountProducts;
 	}
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.discount.model.CommerceDiscountRel)"
+	)
+	private ModelResourcePermission<CommerceDiscountRel>
+		_commerceDiscountRelModelResourcePermission;
 
 	@Reference
 	private CommerceDiscountRelService _commerceDiscountRelService;

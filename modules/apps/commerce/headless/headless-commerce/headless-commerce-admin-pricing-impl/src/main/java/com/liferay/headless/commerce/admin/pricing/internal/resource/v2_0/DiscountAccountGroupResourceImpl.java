@@ -28,7 +28,7 @@ import com.liferay.headless.commerce.core.util.ServiceContextHelper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
-import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
@@ -173,20 +173,14 @@ public class DiscountAccountGroupResourceImpl
 				commerceDiscountCommerceAccountGroupRel)
 		throws PortalException {
 
-		ServiceContext serviceContext =
-			_serviceContextHelper.getServiceContext();
-
-		CommerceDiscount commerceDiscount =
-			commerceDiscountCommerceAccountGroupRel.getCommerceDiscount();
-
 		return HashMapBuilder.<String, Map<String, String>>put(
 			"delete",
 			addAction(
-				"UPDATE", commerceDiscount.getCommerceDiscountId(),
+				"UPDATE",
+				commerceDiscountCommerceAccountGroupRel.
+					getCommerceDiscountCommerceAccountGroupRelId(),
 				"deleteDiscountAccountGroup",
-				commerceDiscountCommerceAccountGroupRel.getUserId(),
-				"com.liferay.commerce.discount.model.CommerceDiscount",
-				serviceContext.getScopeGroupId())
+				_commerceDiscountCommerceAccountGroupRelModelResourcePermission)
 		).build();
 	}
 
@@ -232,6 +226,12 @@ public class DiscountAccountGroupResourceImpl
 
 	@Reference
 	private CommerceAccountGroupService _commerceAccountGroupService;
+
+	@Reference(
+		target = "(model.class.name=com.liferay.commerce.discount.model.CommerceDiscountCommerceAccountGroupRel)"
+	)
+	private ModelResourcePermission<CommerceDiscountCommerceAccountGroupRel>
+		_commerceDiscountCommerceAccountGroupRelModelResourcePermission;
 
 	@Reference
 	private CommerceDiscountCommerceAccountGroupRelService
