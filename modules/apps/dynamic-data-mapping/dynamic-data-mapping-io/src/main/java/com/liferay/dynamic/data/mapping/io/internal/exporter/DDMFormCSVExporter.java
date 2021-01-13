@@ -27,6 +27,7 @@ import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.CSVUtil;
+import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringBundler;
 
@@ -126,7 +127,9 @@ public class DDMFormCSVExporter extends BaseDDMFormExporter {
 						values.get(entry.getKey());
 
 					sb.append(
-						CSVUtil.encode(ddmFormFieldRenderedValue.getValue()));
+						CSVUtil.encode(
+							HtmlUtil.extractText(
+								ddmFormFieldRenderedValue.getValue())));
 				}
 				else {
 					sb.append(StringPool.BLANK);
