@@ -132,6 +132,7 @@ export default class Gallery extends React.Component {
 
 		return (
 			<div className="product-gallery">
+				{images && images.length > 0 && (
 				<MainImage
 					background={background}
 					loading={loading}
@@ -140,7 +141,7 @@ export default class Gallery extends React.Component {
 					onZoom={this.fullscreenOpen}
 					src={images[selected].url}
 					title={images[selected].title}
-				/>
+				/> )}
 
 				{images.length > 1 ? (
 					<Thumbnails
