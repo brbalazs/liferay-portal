@@ -91,6 +91,10 @@ public class EngineServiceURLUtil {
 	}
 
 	private static String _getClusterBaseURL(FaroProject faroProject) {
+		if (StringUtils.isNotBlank(_OSB_ASAH_LOCAL_CLUSTER_URL)) {
+			return _OSB_ASAH_LOCAL_CLUSTER_URL;
+		}
+
 		LCPProject.Cluster cluster = LCPProject.Cluster.fromString(
 			faroProject.getServerLocation());
 
@@ -149,6 +153,9 @@ public class EngineServiceURLUtil {
 
 	private static final String _OSB_ASAH_BACKEND_URL = System.getenv(
 		"OSB_ASAH_BACKEND_URL");
+
+	private static final String _OSB_ASAH_LOCAL_CLUSTER_URL = System.getenv(
+		"OSB_ASAH_LOCAL_CLUSTER_URL");
 
 	private static final String _OSB_ASAH_MONOLITH_URL = System.getenv(
 		"OSB_ASAH_MONOLITH_URL");
