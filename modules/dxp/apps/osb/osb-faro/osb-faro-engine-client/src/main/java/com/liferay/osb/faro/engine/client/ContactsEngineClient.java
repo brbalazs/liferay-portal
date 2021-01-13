@@ -124,6 +124,8 @@ public interface ContactsEngineClient {
 
 	public void addNanites(FaroProject faroProject, List<String> classNames);
 
+	public String addProject(FaroProject faroProject) throws Exception;
+
 	public void assignChannelToIndividualSegment(
 		FaroProject faroProject, String individualSegmentId, String channelId);
 

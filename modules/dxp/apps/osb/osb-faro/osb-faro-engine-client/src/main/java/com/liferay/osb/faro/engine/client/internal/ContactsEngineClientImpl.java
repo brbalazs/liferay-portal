@@ -27,6 +27,7 @@ import com.liferay.osb.faro.engine.client.model.Activity;
 import com.liferay.osb.faro.engine.client.model.ActivityAggregation;
 import com.liferay.osb.faro.engine.client.model.ActivityAsset;
 import com.liferay.osb.faro.engine.client.model.ActivityGroup;
+import com.liferay.osb.faro.engine.client.model.AsahProject;
 import com.liferay.osb.faro.engine.client.model.Asset;
 import com.liferay.osb.faro.engine.client.model.Author;
 import com.liferay.osb.faro.engine.client.model.BlockedKeyword;
@@ -62,6 +63,7 @@ import com.liferay.osb.faro.engine.client.model.StringPagedResources;
 import com.liferay.osb.faro.engine.client.model.credentials.TokenCredentials;
 import com.liferay.osb.faro.engine.client.model.provider.LiferayProvider;
 import com.liferay.osb.faro.engine.client.model.provider.SalesforceProvider;
+import com.liferay.osb.faro.engine.client.util.EngineServiceURLUtil;
 import com.liferay.osb.faro.engine.client.util.FilterBuilder;
 import com.liferay.osb.faro.engine.client.util.FilterConstants;
 import com.liferay.osb.faro.engine.client.util.FilterUtil;
@@ -69,6 +71,7 @@ import com.liferay.osb.faro.engine.client.util.OrderByField;
 import com.liferay.osb.faro.model.FaroProject;
 import com.liferay.osb.faro.util.FaroThreadLocal;
 import com.liferay.osb.faro.util.UpgradeUtil;
+import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchPaginationUtil;
 import com.liferay.portal.kernel.model.User;
@@ -408,6 +411,23 @@ public class ContactsEngineClientImpl
 		post(
 			faroProject, Rels.ADMIN_NANITES, classNames, Void.class,
 			uriVariables);
+	}
+
+	@Override
+	public String addProject(FaroProject faroProject) throws Exception {
+		RestTemplate restTemplate = getRestTemplate(faroProject);
+
+		String projectId =
+			"asah" +
+				StringUtil.replace(
+					String.valueOf(UUID.randomUUID()), CharPool.DASH,
+					StringPool.BLANK);
+
+		restTemplate.postForEntity(
+			EngineServiceURLUtil.getBackendURL(faroProject, "/projects"),
+			new AsahProject(projectId), Void.class);
+
+		return projectId;
 	}
 
 	@Override

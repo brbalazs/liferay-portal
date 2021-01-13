@@ -208,6 +208,10 @@ public abstract class BaseMockContactsEngineClientImpl
 		contactsEngineClient.addNanites(faroProject, classNames);
 	}
 
+	public String addProject(FaroProject faroProject) throws Exception {
+		return contactsEngineClient.addProject(faroProject);
+	}
+
 	@Override
 	public void assignChannelToIndividualSegment(
 		FaroProject faroProject, String individualSegmentId, String channelId) {
