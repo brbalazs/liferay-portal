@@ -191,8 +191,9 @@ public interface CartResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}",
-				cartId);
+						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}");
+
+			httpInvoker.path("cartId", cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -306,8 +307,9 @@ public interface CartResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}",
-				cartId);
+						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}");
+
+			httpInvoker.path("cartId", cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -369,8 +371,9 @@ public interface CartResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}",
-				cartId);
+						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}");
+
+			httpInvoker.path("cartId", cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -432,8 +435,9 @@ public interface CartResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}",
-				cartId);
+						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}");
+
+			httpInvoker.path("cartId", cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -555,8 +559,9 @@ public interface CartResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/coupon-code",
-				cartId);
+						"/o/headless-commerce-delivery-cart/v1.0/carts/{cartId}/coupon-code");
+
+			httpInvoker.path("cartId", cartId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -626,8 +631,9 @@ public interface CartResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts",
-				channelId);
+						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts");
+
+			httpInvoker.path("channelId", channelId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -691,8 +697,9 @@ public interface CartResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts",
-				channelId);
+						"/o/headless-commerce-delivery-cart/v1.0/channels/{channelId}/carts");
+
+			httpInvoker.path("channelId", channelId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

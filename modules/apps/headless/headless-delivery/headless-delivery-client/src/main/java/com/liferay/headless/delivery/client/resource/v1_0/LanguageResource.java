@@ -154,8 +154,9 @@ public interface LanguageResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/sites/{siteId}/languages",
-				siteId);
+						"/o/headless-delivery/v1.0/sites/{siteId}/languages");
+
+			httpInvoker.path("siteId", siteId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

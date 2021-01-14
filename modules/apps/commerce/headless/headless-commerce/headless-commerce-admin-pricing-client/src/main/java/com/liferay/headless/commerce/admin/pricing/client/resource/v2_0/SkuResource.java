@@ -149,8 +149,9 @@ public interface SkuResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-commerce-admin-pricing/v2.0/price-entries/{id}/sku",
-				id);
+						"/o/headless-commerce-admin-pricing/v2.0/price-entries/{id}/sku");
+
+			httpInvoker.path("id", id);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

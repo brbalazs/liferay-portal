@@ -174,8 +174,9 @@ public interface PostalAddressResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-admin-user/v1.0/organizations/{organizationId}/postal-addresses",
-				organizationId);
+						"/o/headless-admin-user/v1.0/organizations/{organizationId}/postal-addresses");
+
+			httpInvoker.path("organizationId", organizationId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -237,8 +238,9 @@ public interface PostalAddressResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-admin-user/v1.0/postal-addresses/{postalAddressId}",
-				postalAddressId);
+						"/o/headless-admin-user/v1.0/postal-addresses/{postalAddressId}");
+
+			httpInvoker.path("postalAddressId", postalAddressId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -302,8 +304,9 @@ public interface PostalAddressResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-admin-user/v1.0/user-accounts/{userAccountId}/postal-addresses",
-				userAccountId);
+						"/o/headless-admin-user/v1.0/user-accounts/{userAccountId}/postal-addresses");
+
+			httpInvoker.path("userAccountId", userAccountId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

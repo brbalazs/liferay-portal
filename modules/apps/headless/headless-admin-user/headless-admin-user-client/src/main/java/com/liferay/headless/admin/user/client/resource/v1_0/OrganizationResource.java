@@ -266,8 +266,9 @@ public interface OrganizationResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-admin-user/v1.0/organizations/{organizationId}",
-				organizationId);
+						"/o/headless-admin-user/v1.0/organizations/{organizationId}");
+
+			httpInvoker.path("organizationId", organizationId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -359,8 +360,9 @@ public interface OrganizationResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-admin-user/v1.0/organizations/{parentOrganizationId}/organizations",
-				parentOrganizationId);
+						"/o/headless-admin-user/v1.0/organizations/{parentOrganizationId}/organizations");
+
+			httpInvoker.path("parentOrganizationId", parentOrganizationId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

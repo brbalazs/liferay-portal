@@ -258,8 +258,9 @@ public interface DocumentFolderResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/document-folders/{documentFolderId}",
-				documentFolderId);
+						"/o/headless-delivery/v1.0/document-folders/{documentFolderId}");
+
+			httpInvoker.path("documentFolderId", documentFolderId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -377,8 +378,9 @@ public interface DocumentFolderResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/document-folders/{documentFolderId}",
-				documentFolderId);
+						"/o/headless-delivery/v1.0/document-folders/{documentFolderId}");
+
+			httpInvoker.path("documentFolderId", documentFolderId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -444,8 +446,9 @@ public interface DocumentFolderResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/document-folders/{documentFolderId}",
-				documentFolderId);
+						"/o/headless-delivery/v1.0/document-folders/{documentFolderId}");
+
+			httpInvoker.path("documentFolderId", documentFolderId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -510,8 +513,9 @@ public interface DocumentFolderResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/document-folders/{documentFolderId}",
-				documentFolderId);
+						"/o/headless-delivery/v1.0/document-folders/{documentFolderId}");
+
+			httpInvoker.path("documentFolderId", documentFolderId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -633,8 +637,9 @@ public interface DocumentFolderResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/document-folders/{documentFolderId}/subscribe",
-				documentFolderId);
+						"/o/headless-delivery/v1.0/document-folders/{documentFolderId}/subscribe");
+
+			httpInvoker.path("documentFolderId", documentFolderId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -698,8 +703,9 @@ public interface DocumentFolderResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/document-folders/{documentFolderId}/unsubscribe",
-				documentFolderId);
+						"/o/headless-delivery/v1.0/document-folders/{documentFolderId}/unsubscribe");
+
+			httpInvoker.path("documentFolderId", documentFolderId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -792,8 +798,9 @@ public interface DocumentFolderResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/document-folders/{parentDocumentFolderId}/document-folders",
-				parentDocumentFolderId);
+						"/o/headless-delivery/v1.0/document-folders/{parentDocumentFolderId}/document-folders");
+
+			httpInvoker.path("parentDocumentFolderId", parentDocumentFolderId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -860,8 +867,9 @@ public interface DocumentFolderResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/document-folders/{parentDocumentFolderId}/document-folders",
-				parentDocumentFolderId);
+						"/o/headless-delivery/v1.0/document-folders/{parentDocumentFolderId}/document-folders");
+
+			httpInvoker.path("parentDocumentFolderId", parentDocumentFolderId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -953,8 +961,9 @@ public interface DocumentFolderResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/sites/{siteId}/document-folders",
-				siteId);
+						"/o/headless-delivery/v1.0/sites/{siteId}/document-folders");
+
+			httpInvoker.path("siteId", siteId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -1019,8 +1028,9 @@ public interface DocumentFolderResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/sites/{siteId}/document-folders",
-				siteId);
+						"/o/headless-delivery/v1.0/sites/{siteId}/document-folders");
+
+			httpInvoker.path("siteId", siteId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -1080,8 +1090,9 @@ public interface DocumentFolderResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/sites/{siteId}/document-folders/batch",
-				siteId);
+						"/o/headless-delivery/v1.0/sites/{siteId}/document-folders/batch");
+
+			httpInvoker.path("siteId", siteId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

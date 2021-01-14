@@ -222,8 +222,9 @@ public interface RoleResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-admin-user/v1.0/roles/{roleId}",
-				roleId);
+						"/o/headless-admin-user/v1.0/roles/{roleId}");
+
+			httpInvoker.path("roleId", roleId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);

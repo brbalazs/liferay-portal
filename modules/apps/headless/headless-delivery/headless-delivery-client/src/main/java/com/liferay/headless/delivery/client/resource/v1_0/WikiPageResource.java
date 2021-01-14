@@ -257,8 +257,9 @@ public interface WikiPageResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/wiki-nodes/{wikiNodeId}/wiki-pages",
-				wikiNodeId);
+						"/o/headless-delivery/v1.0/wiki-nodes/{wikiNodeId}/wiki-pages");
+
+			httpInvoker.path("wikiNodeId", wikiNodeId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -322,8 +323,9 @@ public interface WikiPageResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/wiki-nodes/{wikiNodeId}/wiki-pages",
-				wikiNodeId);
+						"/o/headless-delivery/v1.0/wiki-nodes/{wikiNodeId}/wiki-pages");
+
+			httpInvoker.path("wikiNodeId", wikiNodeId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -383,8 +385,9 @@ public interface WikiPageResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/wiki-nodes/{wikiNodeId}/wiki-pages/batch",
-				wikiNodeId);
+						"/o/headless-delivery/v1.0/wiki-nodes/{wikiNodeId}/wiki-pages/batch");
+
+			httpInvoker.path("wikiNodeId", wikiNodeId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -446,8 +449,9 @@ public interface WikiPageResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/wiki-page/{wikiPageId}/subscribe",
-				wikiPageId);
+						"/o/headless-delivery/v1.0/wiki-page/{wikiPageId}/subscribe");
+
+			httpInvoker.path("wikiPageId", wikiPageId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -509,8 +513,9 @@ public interface WikiPageResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/wiki-page/{wikiPageId}/unsubscribe",
-				wikiPageId);
+						"/o/headless-delivery/v1.0/wiki-page/{wikiPageId}/unsubscribe");
+
+			httpInvoker.path("wikiPageId", wikiPageId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -572,8 +577,9 @@ public interface WikiPageResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/wiki-pages/{parentWikiPageId}/wiki-pages",
-				parentWikiPageId);
+						"/o/headless-delivery/v1.0/wiki-pages/{parentWikiPageId}/wiki-pages");
+
+			httpInvoker.path("parentWikiPageId", parentWikiPageId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -638,8 +644,9 @@ public interface WikiPageResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/wiki-pages/{parentWikiPageId}/wiki-pages",
-				parentWikiPageId);
+						"/o/headless-delivery/v1.0/wiki-pages/{parentWikiPageId}/wiki-pages");
+
+			httpInvoker.path("parentWikiPageId", parentWikiPageId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -699,8 +706,9 @@ public interface WikiPageResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/wiki-pages/{wikiPageId}",
-				wikiPageId);
+						"/o/headless-delivery/v1.0/wiki-pages/{wikiPageId}");
+
+			httpInvoker.path("wikiPageId", wikiPageId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -815,8 +823,9 @@ public interface WikiPageResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/wiki-pages/{wikiPageId}",
-				wikiPageId);
+						"/o/headless-delivery/v1.0/wiki-pages/{wikiPageId}");
+
+			httpInvoker.path("wikiPageId", wikiPageId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
@@ -880,8 +889,9 @@ public interface WikiPageResource {
 			httpInvoker.path(
 				_builder._scheme + "://" + _builder._host + ":" +
 					_builder._port +
-						"/o/headless-delivery/v1.0/wiki-pages/{wikiPageId}",
-				wikiPageId);
+						"/o/headless-delivery/v1.0/wiki-pages/{wikiPageId}");
+
+			httpInvoker.path("wikiPageId", wikiPageId);
 
 			httpInvoker.userNameAndPassword(
 				_builder._login + ":" + _builder._password);
