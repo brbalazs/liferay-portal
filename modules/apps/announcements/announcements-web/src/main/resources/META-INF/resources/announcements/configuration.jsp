@@ -367,8 +367,8 @@ announcementsPortletInstanceConfiguration = ParameterMapUtil.setParameterMap(Ann
 				selectedScopeRoleIds.setAttribute('value', Liferay.Util.listSelect(currentScopeRoleIds));
 			}
 
-			var currentScopeUserGroupIds = <portlet:namespace />form.querySelector('#<portlet:namespace />selectedScopeUserGroupIds');
-			var selectedScopeUserGroupIds =<portlet:namespace />form.querySelector('#<portlet:namespace />currentScopeUserGroupIds');
+			var currentScopeUserGroupIds = <portlet:namespace />form.querySelector('#<portlet:namespace />currentScopeUserGroupIds');
+			var selectedScopeUserGroupIds =<portlet:namespace />form.querySelector('#<portlet:namespace />selectedScopeUserGroupIds');
 
 			if (currentScopeUserGroupIds && selectedScopeUserGroupIds) {
 				selectedScopeUserGroupIds.setAttribute('value', Liferay.Util.listSelect(currentScopeUserGroupIds));
