@@ -7163,6 +7163,20 @@ go</echo>
 		<echo file="${liferay.home}/data/license/LiferayCommerce_enterprise.li">${commerce.license}</echo>
 	</target>
 
+	<target name="deploy-commerce-license-xml">
+		<if>
+			<matches pattern="https?://" string="${test.commerce.license.url}" />
+			<then>
+				<mkdir dir="${liferay.home}/deploy" />
+
+				<mirrors-get
+					dest="${liferay.home}/deploy/portal-commerce-license.xml"
+					src="${test.commerce.license.url}"
+				/>
+			</then>
+		</if>
+	</target>
+
 	<target name="deploy-dependency-jars">
 		<get-testcase-property property.name="liferay.training.dependency.jars" />
 
