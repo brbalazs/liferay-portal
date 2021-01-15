@@ -14,7 +14,7 @@
 
 package com.liferay.analytics.settings.web.internal.upgrade;
 
-import com.liferay.analytics.settings.web.internal.upgrade.v1_0_0.UpgradeAnalyticsConfigurationPreferences;
+import com.liferay.portal.kernel.service.CompanyService;
 import com.liferay.portal.kernel.upgrade.DummyUpgradeStep;
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 
@@ -34,8 +34,18 @@ public class AnalyticsSettingsWebUpgrade implements UpgradeStepRegistrator {
 
 		registry.register(
 			"0.0.1", "1.0.0",
-			new UpgradeAnalyticsConfigurationPreferences(_configurationAdmin));
+			new com.liferay.analytics.settings.web.internal.upgrade.v1_0_0.
+				UpgradeAnalyticsConfigurationPreferences(_configurationAdmin));
+
+		registry.register(
+			"1.0.0", "1.0.1",
+			new com.liferay.analytics.settings.web.internal.upgrade.v1_0_1.
+				UpgradeAnalyticsConfigurationPreferences(
+					_companyService, _configurationAdmin));
 	}
+
+	@Reference
+	private CompanyService _companyService;
 
 	@Reference
 	private ConfigurationAdmin _configurationAdmin;
