@@ -18,6 +18,7 @@ import com.liferay.analytics.settings.configuration.AnalyticsConfigurationTracke
 import com.liferay.analytics.settings.web.internal.constants.AnalyticsSettingsPortletKeys;
 import com.liferay.analytics.settings.web.internal.constants.AnalyticsSettingsWebKeys;
 import com.liferay.analytics.settings.web.internal.user.AnalyticsUsersManager;
+import com.liferay.portal.kernel.model.Release;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -83,6 +84,13 @@ public class AnalyticsCloudConnectionPortlet extends MVCPortlet {
 		AnalyticsUsersManager analyticsUsersManager) {
 
 		_analyticsUsersManager = analyticsUsersManager;
+	}
+
+	@Reference(
+		target = "(&(release.bundle.symbolic.name=com.liferay.analytics.settings.web)(release.schema.version>=1.0.1))",
+		unbind = "-"
+	)
+	protected void setRelease(Release release) {
 	}
 
 	@Reference
