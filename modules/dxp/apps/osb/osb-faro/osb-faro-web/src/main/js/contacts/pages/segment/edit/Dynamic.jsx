@@ -30,7 +30,4 @@ export class DynamicSegmentEdit extends React.Component {
 	}
 }
 
-export default compose(
-	withBaseEdit,
-	withPropertyGroups
-)(DynamicSegmentEdit);
+export default compose(withPropertyGroups, withBaseEdit)(DynamicSegmentEdit);
