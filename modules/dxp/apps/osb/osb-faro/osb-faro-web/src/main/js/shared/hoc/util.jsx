@@ -75,6 +75,7 @@ export const withLoading = (options = {}) => Component => ({
 	alignCenter = false,
 	className,
 	data,
+	fadeIn = true,
 	inline = false,
 	loading,
 	page = true,
@@ -82,7 +83,11 @@ export const withLoading = (options = {}) => Component => ({
 }) => {
 	if (loading) {
 		return get(options, 'page', page) ? (
-			<LoadingPage className={className} key='LOADING' />
+			<LoadingPage
+				className={className}
+				fadeIn={get(options, 'fadeIn', fadeIn)}
+				key='LOADING'
+			/>
 		) : (
 			<Spinner
 				alignCenter={get(options, 'alignCenter', alignCenter)}

@@ -6,6 +6,7 @@ import {withError, withLoading} from './util';
 
 const defaultOptions = {
 	errorProps: {},
+	fadeIn: true,
 	page: true
 };
 
@@ -18,6 +19,7 @@ const defaultOptions = {
  * passed to ErrorPage. If this is a function, then it will be passed an
  * object and is expected to return a props object for ErrorPage.
  * @param {Boolean} [options.page] - Whether the component is a page display or not.
+ * @param {Boolean} [options.fadeIn] - Whether the spinner should fadeIn or not.
  * @returns {Function} - The new component
  */
 export default (
@@ -25,7 +27,7 @@ export default (
 	mapResultToProps = val => val,
 	options = {}
 ) => WrappedComponent => {
-	const {alignCenter = false, errorProps, page} = {
+	const {alignCenter = false, errorProps, fadeIn, page} = {
 		...defaultOptions,
 		...options
 	};
@@ -38,7 +40,7 @@ export default (
 		const Composed = compose(
 			withQuery(request, val => val),
 			withError({...propsToError, page}),
-			withLoading({alignCenter, page})
+			withLoading({alignCenter, fadeIn, page})
 		)(({data, ...otherProps}) => (
 			<WrappedComponent
 				groupId={groupId}

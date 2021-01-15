@@ -4,11 +4,11 @@ import Spinner from '../components/Spinner';
 
 export default class Loading extends React.Component {
 	render() {
-		const {className} = this.props;
+		const {className, fadeIn = true} = this.props;
 
 		return (
 			<div className={getCN('loading-root', className)}>
-				<Spinner fadeIn />
+				<Spinner fadeIn={fadeIn} />
 			</div>
 		);
 	}
