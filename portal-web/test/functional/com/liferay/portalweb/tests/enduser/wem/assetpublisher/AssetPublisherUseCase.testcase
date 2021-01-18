@@ -1078,9 +1078,7 @@ definition {
 			groupName = "Site Name",
 			layoutName = "Site Page");
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
-
-		for (var siteName : list "${siteName},Site Name,Global") {
+		for (var siteName : list "Guest,Site Name,Global") {
 			JSONWebcontent.addWebContent(
 				content = "${siteName} WC Content",
 				groupName = "${siteName}",
@@ -1103,7 +1101,7 @@ definition {
 			pageName = "Site Page",
 			siteName = "Site Name");
 
-		for (var siteName : list "${siteName},Site Name,Global") {
+		for (var siteName : list "Guest,Site Name,Global") {
 			AssetPublisherPortlet.viewAssetPG(
 				assetContent = "${siteName} WC Content",
 				assetTitle = "${siteName} WC Title");

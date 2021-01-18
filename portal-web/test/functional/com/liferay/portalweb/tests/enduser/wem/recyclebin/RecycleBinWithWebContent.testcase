@@ -74,18 +74,14 @@ definition {
 	test MoveFolderWithWebContentToRecycleBin {
 		property test.name.skip.portal.instance = "RecycleBinWithWebContent#MoveFolderWithWebContentToRecycleBin";
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
-
-		Navigator.openSiteURL(siteName = "${siteName}");
-
 		JSONWebcontent.addFolder(
 			folderName = "WC Folder Name",
-			groupName = "${siteName}");
+			groupName = "Guest");
 
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			folderName = "WC Folder Name",
-			groupName = "${siteName}",
+			groupName = "Guest",
 			title = "WC WebContent Title");
 
 		ProductMenu.gotoPortlet(
@@ -97,7 +93,7 @@ definition {
 			assetType = "Web Content Folder",
 			folderName = "WC Folder Name");
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -106,7 +102,7 @@ definition {
 
 		WebContent.viewDefaultCP(webContentTitle = "WC Folder Name");
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
 			category = "Recycle Bin",
@@ -123,13 +119,9 @@ definition {
 	test RecycleWebContentViaDeleteIcon {
 		property test.name.skip.portal.instance = "RecycleBinWithWebContent#RecycleWebContentViaDeleteIcon";
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
-
-		Navigator.openSiteURL(siteName = "${siteName}");
-
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
-			groupName = "${siteName}",
+			groupName = "Guest",
 			title = "WC WebContent Title");
 
 		ProductMenu.gotoPortlet(
@@ -139,7 +131,7 @@ definition {
 
 		WebContent.moveToRecycleBinViaDeleteIconCP();
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -148,7 +140,7 @@ definition {
 
 		WebContent.viewDefaultCP(webContentTitle = "WC WebContent Title");
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
 			category = "Recycle Bin",
@@ -254,11 +246,9 @@ definition {
 	test ViewDuplicateAssetNamesInRecycleBin {
 		property test.name.skip.portal.instance = "RecycleBinWithWebContent#ViewDuplicateAssetNamesInRecycleBin";
 
-		var siteName = TestCase.getSiteName(siteName = "${siteName}");
-
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
-			groupName = "${siteName}",
+			groupName = "Guest",
 			title = "WC WebContent Title");
 
 		ProductMenu.gotoPortlet(
@@ -268,7 +258,7 @@ definition {
 
 		WebContent.moveToRecycleBinViaDeleteIconCP();
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
 			category = "Recycle Bin",
@@ -280,7 +270,7 @@ definition {
 			assetType = "Web Content Article",
 			deleteUser = "Test Test");
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openURL();
 
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
@@ -294,7 +284,7 @@ definition {
 
 		WebContent.moveToRecycleBinViaDeleteIconCP();
 
-		Navigator.openSiteURL(siteName = "${siteName}");
+		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
 			category = "Recycle Bin",

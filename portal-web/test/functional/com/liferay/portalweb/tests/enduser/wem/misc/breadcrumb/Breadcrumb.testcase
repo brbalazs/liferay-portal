@@ -348,11 +348,13 @@ definition {
 
 		JSONLayout.addPublicLayout(
 			groupName = "Child SiteName",
-			layoutName = "Parent Page Name");
+			layoutName = "Parent Page Name",
+			parentGroupName = "Site Name");
 
 		JSONLayout.addPublicLayout(
 			groupName = "Child SiteName",
 			layoutName = "Child Page Name",
+			parentGroupName = "Site Name",
 			parentLayoutName = "Parent Page Name");
 
 		Navigator.openSiteURL(siteName = "Child SiteName");

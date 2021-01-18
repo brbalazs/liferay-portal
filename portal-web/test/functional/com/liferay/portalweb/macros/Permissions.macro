@@ -437,6 +437,8 @@ definition {
 			groupName = "${siteName}",
 			layoutName = "${pageName}");
 
+		SitePages.openPagesAdmin(siteURLKey = "${siteName}");
+
 		ProductMenu.gotoPortlet(
 			category = "Members",
 			panel = "Site Administration",
@@ -520,6 +522,8 @@ definition {
 		JSONLayout.addPublicLayout(
 			groupName = "${siteName}",
 			layoutName = "${pageName}");
+
+		SitePages.openPagesAdmin(siteURLKey = "${siteName}");
 
 		ProductMenu.gotoPortlet(
 			category = "Members",

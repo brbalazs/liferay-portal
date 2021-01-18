@@ -534,7 +534,7 @@ definition {
 		property osgi.app.includes = "currency-converter";
 		property testray.component.names = "Web Content Administration";
 
-		JSONGroup.addGroup(groupName = "Site Name");
+		JSONGroup.addGroup(groupName = "Test Site Name");
 
 		JSONLayout.addPublicLayout(
 			groupName = "Test Site Name",
@@ -617,7 +617,7 @@ definition {
 		JSONGroup.addGroup(groupName = "Test Site Name");
 
 		JSONLayout.addPublicLayout(
-			groupName = "Site Name",
+			groupName = "Test Site Name",
 			layoutName = "Web Content Display Page");
 
 		Navigator.openSiteURL(siteName = "Test Site Name");

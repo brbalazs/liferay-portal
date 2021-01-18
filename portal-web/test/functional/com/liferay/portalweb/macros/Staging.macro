@@ -934,13 +934,12 @@ definition {
 
 		var siteID = "${siteID}";
 
-		JSONGroup.addGroup(groupName = "Remote Site");
+		ProductMenu.gotoPortlet(
+			category = "Sites",
+			panel = "Control Panel",
+			portlet = "Sites");
 
-		JSONLayout.addPublicLayout(
-			groupName = "Remote Site",
-			layoutName = "Remote Test Page");
-
-		Navigator.openSiteURL(siteName = "Remote Site");
+		Site.addBlankCP(siteName = "Remote Site");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
