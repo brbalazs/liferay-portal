@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create Event Analysis render 1`] = `
+<div>
+  <div
+    class="index-root create-event-analysis-root"
+  >
+    <div
+      class="maintenance-alert-root"
+    />
+    <header
+      class="header-root"
+    >
+      <div
+        class="header-container"
+      >
+        <div
+          class="row-root align-items-center d-flex justify-content-between"
+        >
+          <ol
+            class="breadcrumb breadcrumbs-root"
+          >
+            <li
+              class="breadcrumb-item"
+            >
+              <a
+                class="breadcrumb-link breadcrumb-text-truncate"
+                href="/workspace/123/456/sites"
+              >
+                Home
+              </a>
+            </li>
+          </ol>
+        </div>
+        <div
+          class="header-section title-section"
+        >
+          <span
+            class="align-items-center d-flex"
+          >
+            <h1
+              class="title text-truncate"
+            >
+              <span
+                class="text-truncate"
+                data-tooltip="false"
+                title=""
+              >
+                Event Analysis
+              </span>
+            </h1>
+          </span>
+        </div>
+      </div>
+    </header>
+    <div
+      class="body-root page-container"
+    >
+      <span
+        class="children-wrapper"
+      >
+        card goes here
+      </span>
+    </div>
+  </div>
+</div>
+`;
