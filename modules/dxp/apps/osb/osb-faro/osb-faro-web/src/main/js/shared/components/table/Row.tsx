@@ -61,10 +61,10 @@ const Row: React.FC<IRowProps> = ({
 		handleEventPropagation(event);
 
 		if (nestedTables && nestedTables[nestedLevel]) {
-			setState({
-				...state,
-				expanded: !state.expanded
-			});
+			setState(prevState => ({
+				...prevState,
+				expanded: !prevState.expanded
+			}));
 		}
 
 		onClick(data);
@@ -73,26 +73,23 @@ const Row: React.FC<IRowProps> = ({
 	const handleEventPropagation = event => event.stopPropagation();
 
 	const handleEdit = () =>
-		setState({
-			...state,
+		setState(prevState => ({
+			...prevState,
 			editing: true
-		});
+		}));
 
 	const handleResetEdits = () =>
-		setState({
-			...state,
+		setState(prevState => ({
+			...prevState,
 			editing: false,
 			edits: {}
-		});
+		}));
 
-	const handleUpdateEdits = (attr, value) => {
-		const {edits} = state;
-
-		setState({
-			...state,
-			edits: {...edits, [attr]: value}
-		});
-	};
+	const handleUpdateEdits = (attr, value) =>
+		setState(prevState => ({
+			...prevState,
+			edits: {...prevState.edits, [attr]: value}
+		}));
 
 	const renderActionColumn = () => {
 		const {editing, edits} = state;
