@@ -51,6 +51,14 @@ const AccountProfileRoutes = lazy(() =>
 	)
 );
 
+/* Event Analysis */
+
+const CreateEventAnalysis = lazy(() =>
+	import(
+		/* webpackChunkName: "CreateEventAnalysis" */ '../../event-analysis/pages/CreateEventAnalysis'
+	)
+);
+
 /* Individuals */
 
 const IndividualProfileRoutes = lazy(() =>
@@ -200,6 +208,13 @@ const ROUTES = [
 		exact: false,
 		path: Routes.SITES_TOUCHPOINTS_ROUTES
 	},
+	DEVELOPER_MODE && {
+		// TODO: LRAC-7253
+		data: CreateEventAnalysis,
+		destructured: false,
+		exact: true,
+		path: Routes.EVENT_ANALYSIS_CREATE
+	},
 	{
 		data: ExperimentsList,
 		destructured: false,
@@ -227,7 +242,7 @@ const ROUTES = [
 		destructured: false,
 		path: Routes.CHANNEL
 	}
-];
+].filter(Boolean);
 
 @withRouter
 @withSidebar

@@ -186,6 +186,12 @@ export const Routes = buildRoutes({
 									CONTACTS_SEGMENT_CREATE: `/${SEGMENTS}/create`
 								}
 							},
+							EVENT_ANALYSIS: {
+								path: '/event-analysis',
+								routes: {
+									EVENT_ANALYSIS_CREATE: '/create'
+								}
+							},
 							SITES: {
 								path: '/sites',
 								routes: {

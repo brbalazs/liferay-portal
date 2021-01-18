@@ -37,70 +37,87 @@ const Sidebar: React.FC<ISidebarProps> = ({
 	groupId,
 	onToggle
 }) => {
-	const getSidebarSections = () => [
-		{
-			items: [
-				{
-					icon: 'ac-page',
-					label: Liferay.Language.get('sites'),
-					route: Routes.SITES,
-					url: toRoute(Routes.SITES, {channelId, groupId})
-				},
-				{
-					icon: 'ac-assets',
-					label: Liferay.Language.get('assets'),
-					route: Routes.ASSETS,
-					url: toRoute(Routes.ASSETS, {channelId, groupId})
-				}
-			],
-			label: Liferay.Language.get('touchpoints')
-		},
-		{
-			items: [
-				{
-					icon: 'ac-segment',
-					label: Liferay.Language.get('segments'),
-					route: Routes.CONTACTS_LIST_SEGMENT,
-					url: toRoute(Routes.CONTACTS_LIST_ENTITY, {
-						channelId,
-						groupId,
-						type: SEGMENTS
-					})
-				},
-				{
-					icon: 'ac-account',
-					label: Liferay.Language.get('accounts'),
-					route: Routes.CONTACTS_LIST_ACCOUNT,
-					url: toRoute(Routes.CONTACTS_LIST_ENTITY, {
-						channelId,
-						groupId,
-						type: ACCOUNTS
-					})
-				},
-				{
-					icon: 'ac-individual',
-					label: Liferay.Language.get('individuals'),
-					route: Routes.CONTACTS_INDIVIDUALS,
-					url: toRoute(Routes.CONTACTS_INDIVIDUALS, {
-						channelId,
-						groupId
-					})
-				}
-			],
-			label: Liferay.Language.get('people')
-		},
-		{
-			items: [
-				{
-					icon: 'ac-test',
-					label: Liferay.Language.get('tests'),
-					route: Routes.TESTS,
-					url: toRoute(Routes.TESTS, {channelId, groupId})
-				}
-			],
-			label: Liferay.Language.get('optimize')
-		}
-	];
+	const getSidebarSections = () => {
+		const items = [
+			{
+				icon: 'ac-page',
+				label: Liferay.Language.get('sites'),
+				route: Routes.SITES,
+				url: toRoute(Routes.SITES, {channelId, groupId})
+			},
+			{
+				icon: 'ac-assets',
+				label: Liferay.Language.get('assets'),
+				route: Routes.ASSETS,
+				url: toRoute(Routes.ASSETS, {channelId, groupId})
+			}
+		];
+
+		return [
+			{
+				items: DEVELOPER_MODE // TODO: LRAC-7253
+					? [
+							...items,
+							{
+								icon: 'ac-event-analysis',
+								label: Liferay.Language.get('event-analysis'),
+								route: Routes.EVENT_ANALYSIS_CREATE,
+								url: toRoute(Routes.EVENT_ANALYSIS_CREATE, {
+									channelId,
+									groupId
+								})
+							}
+					  ]
+					: items,
+				label: Liferay.Language.get('touchpoints')
+			},
+			{
+				items: [
+					{
+						icon: 'ac-segment',
+						label: Liferay.Language.get('segments'),
+						route: Routes.CONTACTS_LIST_SEGMENT,
+						url: toRoute(Routes.CONTACTS_LIST_ENTITY, {
+							channelId,
+							groupId,
+							type: SEGMENTS
+						})
+					},
+					{
+						icon: 'ac-account',
+						label: Liferay.Language.get('accounts'),
+						route: Routes.CONTACTS_LIST_ACCOUNT,
+						url: toRoute(Routes.CONTACTS_LIST_ENTITY, {
+							channelId,
+							groupId,
+							type: ACCOUNTS
+						})
+					},
+					{
+						icon: 'ac-individual',
+						label: Liferay.Language.get('individuals'),
+						route: Routes.CONTACTS_INDIVIDUALS,
+						url: toRoute(Routes.CONTACTS_INDIVIDUALS, {
+							channelId,
+							groupId
+						})
+					}
+				],
+				label: Liferay.Language.get('people')
+			},
+			{
+				items: [
+					{
+						icon: 'ac-test',
+						label: Liferay.Language.get('tests'),
+						route: Routes.TESTS,
+						url: toRoute(Routes.TESTS, {channelId, groupId})
+					}
+				],
+				label: Liferay.Language.get('optimize')
+			}
+		];
+	};
 
 	const getUserMenuItems = () => [
 		{
