@@ -1,5 +1,4 @@
 import BundleRouter from 'route-middleware/BundleRouter';
-import Events from './events/Events';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
@@ -29,6 +28,10 @@ const TrackedBehaviors = lazy(() =>
 
 const Search = lazy(() =>
 	import(/* webpackChunkName: "DefinitionsSearch" */ './search/Search')
+);
+
+const Events = lazy(() =>
+	import(/* webpackChunkName: "DefinitionsEvents" */ './events/Events')
 );
 
 interface IDefinitionsProps extends React.HTMLAttributes<HTMLDivElement> {}
