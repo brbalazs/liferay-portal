@@ -44,7 +44,7 @@ const items = (devMode: boolean = false): ListItem[] => [
 		]
 	},
 	{
-		header: Liferay.Language.get('activities'),
+		header: Liferay.Language.get('behaviors'),
 		items: [
 			devMode && {
 				description: Liferay.Language.get(
@@ -52,6 +52,13 @@ const items = (devMode: boolean = false): ListItem[] => [
 				),
 				route: Routes.SETTINGS_DEFINITIONS_BEHAVIORS,
 				title: Liferay.Language.get('behaviors')
+			},
+			{
+				description: Liferay.Language.get(
+					'view-and-manage-your-default-events-custom-events-and-event-attributes'
+				),
+				route: Routes.SETTINGS_DEFINITIONS_EVENTS,
+				title: Liferay.Language.get('events')
 			},
 			{
 				description: Liferay.Language.get(
