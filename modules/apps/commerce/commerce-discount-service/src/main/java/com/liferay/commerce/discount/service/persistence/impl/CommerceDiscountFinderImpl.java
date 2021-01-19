@@ -267,7 +267,7 @@ public class CommerceDiscountFinderImpl
 		long[] commercePricingClassIds) {
 
 		return _findProductDiscount(
-			FIND_BY_A_C_C_PRODUCT, null, commerceAccountId, null, null,
+			FIND_BY_A_C_C_PRODUCT, null, commerceAccountId, null, -1L,
 			cpDefinitionId, assetCategoryIds, commercePricingClassIds);
 	}
 
@@ -276,7 +276,7 @@ public class CommerceDiscountFinderImpl
 		long commerceAccountId, String commerceDiscountTargetType) {
 
 		return _findOrderDiscounts(
-			FIND_BY_A_C_C_ORDER, null, commerceAccountId, null, null,
+			FIND_BY_A_C_C_ORDER, null, commerceAccountId, null, -1L,
 			commerceDiscountTargetType);
 	}
 
@@ -286,7 +286,7 @@ public class CommerceDiscountFinderImpl
 		long[] assetCategoryIds, long[] commercePricingClassIds) {
 
 		return _findProductDiscount(
-			FIND_BY_AG_C_C_PRODUCT, null, null, commerceAccountGroupIds, null,
+			FIND_BY_AG_C_C_PRODUCT, null, null, commerceAccountGroupIds, -1L,
 			cpDefinitionId, assetCategoryIds, commercePricingClassIds);
 	}
 
@@ -295,7 +295,7 @@ public class CommerceDiscountFinderImpl
 		long[] commerceAccountGroupIds, String commerceDiscountTargetType) {
 
 		return _findOrderDiscounts(
-			FIND_BY_AG_C_C_ORDER, null, null, commerceAccountGroupIds, null,
+			FIND_BY_AG_C_C_ORDER, null, null, commerceAccountGroupIds, -1L,
 			commerceDiscountTargetType);
 	}
 
@@ -590,7 +590,7 @@ public class CommerceDiscountFinderImpl
 			qPos.add(commerceAccountId);
 		}
 
-		if (commerceChannelId != null) {
+		if ((commerceChannelId != null) && (commerceChannelId > -1)) {
 			qPos.add(commerceChannelId);
 		}
 
