@@ -1,0 +1,17 @@
+.chip-root {
+	background-color: $white;
+	border: 1px solid $mainLighten65;
+	border-radius: 2px;
+	color: $secondary;
+
+	.remove-button {
+		color: $mainLighten52;
+		margin-left: 24px;
+		margin-right: 8px;
+
+		&:focus,
+		&:hover {
+			color: $mainLighten28;
+		}
+	}
+}
