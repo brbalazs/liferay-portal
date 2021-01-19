@@ -12,7 +12,7 @@ const AnnualPrice = ({price}) => (
 
 			<span className='text-secondary small'>{` / ${Liferay.Language.get(
 				'year'
-			)}`}</span>
+			).toLowerCase()}`}</span>
 		</div>
 	</div>
 );
