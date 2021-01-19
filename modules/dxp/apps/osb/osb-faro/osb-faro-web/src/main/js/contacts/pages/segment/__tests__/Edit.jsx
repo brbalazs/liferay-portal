@@ -1,7 +1,7 @@
 import Constants from 'shared/util/constants';
+import Edit from '../Edit';
 import mockStore from 'test/mock-store';
 import React from 'react';
-import {Edit} from '../Edit';
 import {Provider} from 'react-redux';
 import {render} from '@testing-library/react';
 import {StaticRouter} from 'react-router';
@@ -19,16 +19,20 @@ const DefaultComponent = props => (
 );
 
 describe('Edit', () => {
-	it('should render', () => {
+	it('should render', async() => {
 		const {container} = render(<DefaultComponent />);
+
+		jest.runAllTimers();
 
 		expect(container).toMatchSnapshot();
 	});
 
-	it('should render a dynamic segment', () => {
+	it('should render a dynamic segment', async() => {
 		const {getByText} = render(
 			<DefaultComponent type={segmentTypes.dynamic} />
 		);
+
+		jest.runAllTimers();
 
 		expect(getByText('DYNAMIC Segment')).toBeTruthy();
 	});
@@ -37,6 +41,8 @@ describe('Edit', () => {
 		const {getByText} = render(
 			<DefaultComponent type={segmentTypes.static} />
 		);
+
+		jest.runAllTimers();
 
 		expect(getByText('STATIC Segment')).toBeTruthy();
 	});

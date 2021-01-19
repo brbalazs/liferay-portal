@@ -543,6 +543,7 @@ export function mockFieldMapping(seed = 0, data = {}) {
 		id: String(seed),
 		name: `Test${seed}`,
 		ownerType: 'individual',
+		rawType: 'Text',
 		type: 'Text',
 		values: [`value${seed}`],
 		...data
