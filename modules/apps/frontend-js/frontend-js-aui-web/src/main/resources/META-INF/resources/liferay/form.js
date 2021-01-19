@@ -13,6 +13,8 @@ AUI.add(
 
 		var TABS_SECTION_STR = 'TabsSection';
 
+		var REGEX_EMAIL = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:\w(?:[\w-]*\w)?\.)+(\w(?:[\w-]*\w))$/;
+
 		var REGEX_NUMBER = /^[+\-]?(\d+)([.|,]\d+)*([eE][+-]?\d+)?$/;
 
 		var REGEX_URL = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(https?\:\/\/|www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))((.*):(\d*)\/?(.*))?)/;
@@ -23,6 +25,10 @@ AUI.add(
 			}
 
 			return defaultAcceptFiles(val, node, ruleValue);
+		};
+
+		var email = function (val) {
+			return REGEX_EMAIL.test(val);
 		};
 
 		var maxFileSize = function(val, node, ruleValue) {
@@ -47,6 +53,7 @@ AUI.add(
 			DEFAULTS_FORM_VALIDATOR.RULES,
 			{
 				acceptFiles: acceptFiles,
+				email: email,
 				maxFileSize: maxFileSize,
 				number: number,
 				url: url
