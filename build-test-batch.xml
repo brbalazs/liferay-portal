@@ -373,21 +373,6 @@ mariadb.executable=${mariadb.executable}]]></echo>
 								<then>
 									<start-docker-database />
 								</then>
-								<elseif>
-									<or>
-										<and>
-											<equals arg1="@{database.type}" arg2="oracle" />
-											<equals arg1="@{database.version}" arg2="19.3.0.0.0" />
-										</and>
-										<and>
-											<equals arg1="@{database.type}" arg2="postgresql" />
-											<equals arg1="@{database.version}" arg2="11" />
-										</and>
-									</or>
-									<then>
-										<fail message="Unsupported database: @{database.type}-@{database.version}" />
-									</then>
-								</elseif>
 								<else>
 									<exec executable="${database.service.executable}" resultproperty="exec.result">
 										<arg line="${database.service.cmd.start}" />
@@ -397,74 +382,64 @@ mariadb.executable=${mariadb.executable}]]></echo>
 								</else>
 							</if>
 
+							<get-operating-system-property property.name="operating.system.docker.image" />
+
+							<if>
+								<isset property="operating.system.docker.image" />
+								<then>
+									<stop-docker-os />
+
+									<start-docker-os />
+								</then>
+							</if>
+
+							<antcall inheritall="false" target="copy-optional-jars">
+								<param name="database.type" value="@{database.type}" />
+								<param name="todir" value="lib/development" />
+							</antcall>
+
+							<local name="test.app.server.lib.global.dir" />
+
+							<propertycopy from="app.server.${app.server.type}.lib.global.dir" name="test.app.server.lib.global.dir" />
+
+							<antcall inheritall="false" target="copy-optional-jars">
+								<param name="database.type" value="@{database.type}" />
+								<param name="todir" value="${test.app.server.lib.global.dir}" />
+							</antcall>
+
+							<antcall if:true="@{rebuild.database}" inheritall="false" target="rebuild-database">
+								<param name="database.type" value="@{database.type}" />
+							</antcall>
+
+							<test-action />
+
+							<if if:true="@{stop.app.server}">
+								<available file=".testable.portal.started" />
+								<then>
+									<antcall target="stop-app-server" />
+
+									<delete failonerror="false" file=".testable.portal.started" />
+								</then>
+							</if>
+
+							<get-operating-system-property property.name="operating.system.docker.image" />
+
+							<if>
+								<isset property="operating.system.docker.image" />
+								<then>
+									<stop-docker-os />
+								</then>
+							</if>
+
 							<if>
 								<isset property="database.docker.image" />
 								<then>
-									<start-docker-database />
+									<stop-docker-database />
 								</then>
 								<else>
-									<exec executable="${database.service.executable}" resultproperty="exec.result">
-										<arg line="${database.service.cmd.start}" />
+									<exec executable="${database.service.executable}" failonerror="true">
+										<arg line="${database.service.cmd.stop}" />
 									</exec>
-
-									<if>
-										<isset property="operating.system.docker.image" />
-										<then>
-											<stop-docker-os />
-
-											<start-docker-os />
-										</then>
-									</if>
-
-									<antcall inheritall="false" target="copy-optional-jars">
-										<param name="database.type" value="@{database.type}" />
-										<param name="todir" value="lib/development" />
-									</antcall>
-
-									<local name="test.app.server.lib.global.dir" />
-
-									<propertycopy from="app.server.${app.server.type}.lib.global.dir" name="test.app.server.lib.global.dir" />
-
-									<antcall inheritall="false" target="copy-optional-jars">
-										<param name="database.type" value="@{database.type}" />
-										<param name="todir" value="${test.app.server.lib.global.dir}" />
-									</antcall>
-
-									<antcall if:true="@{rebuild.database}" inheritall="false" target="rebuild-database">
-										<param name="database.type" value="@{database.type}" />
-									</antcall>
-
-									<test-action />
-
-									<if if:true="@{stop.app.server}">
-										<available file=".testable.portal.started" />
-										<then>
-											<antcall target="stop-app-server" />
-
-											<delete failonerror="false" file=".testable.portal.started" />
-										</then>
-									</if>
-
-									<get-operating-system-property property.name="operating.system.docker.image" />
-
-									<if>
-										<isset property="operating.system.docker.image" />
-										<then>
-											<stop-docker-os />
-										</then>
-									</if>
-
-									<if>
-										<isset property="database.docker.image" />
-										<then>
-											<stop-docker-database />
-										</then>
-										<else>
-											<exec executable="${database.service.executable}" failonerror="true">
-												<arg line="${database.service.cmd.stop}" />
-											</exec>
-										</else>
-									</if>
 								</else>
 							</if>
 						</action>
