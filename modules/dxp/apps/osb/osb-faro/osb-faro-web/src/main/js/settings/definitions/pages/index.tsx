@@ -1,4 +1,5 @@
 import BundleRouter from 'route-middleware/BundleRouter';
+import Events from './events/Events';
 import Loading from 'shared/pages/Loading';
 import React, {lazy, Suspense} from 'react';
 import RouteNotFound from 'shared/components/RouteNotFound';
@@ -60,6 +61,11 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 					path={Routes.SETTINGS_DEFINITIONS_BEHAVIORS}
 				/>
 			)}
+
+			<BundleRouter
+				data={Events}
+				path={Routes.SETTINGS_DEFINITIONS_EVENTS}
+			/>
 
 			<BundleRouter
 				data={Search}
