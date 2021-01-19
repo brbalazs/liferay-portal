@@ -1995,14 +1995,16 @@ public class JournalDisplayContext {
 	}
 
 	private String _getStatusLabel(int status) {
-		String label = WorkflowConstants.getStatusLabel(status);
+		String label = null;
 
 		if (status == WorkflowConstants.STATUS_APPROVED) {
 			label = "with-approved-versions";
 		}
-
-		if (status == WorkflowConstants.STATUS_EXPIRED) {
+		else if (status == WorkflowConstants.STATUS_EXPIRED) {
 			label = "with-expired-versions";
+		}
+		else {
+			label = WorkflowConstants.getStatusLabel(status);
 		}
 
 		return LanguageUtil.get(_request, label);
