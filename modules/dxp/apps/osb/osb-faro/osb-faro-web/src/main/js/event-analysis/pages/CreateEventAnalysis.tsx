@@ -1,5 +1,6 @@
 import * as breadcrumbs from 'shared/util/breadcrumbs';
 import BasePage from 'shared/components/base-page';
+import EventAnalysisEditor from '../components/event-analysis-editor';
 import React from 'react';
 
 type RouterParams = {
@@ -41,7 +42,9 @@ const CreateEventAnalysis: React.FC<ICreateEventAnalysisProps> = ({
 			/>
 		</BasePage.Header>
 
-		<BasePage.Body>{'card goes here'}</BasePage.Body>
+		<BasePage.Body>
+			<EventAnalysisEditor />
+		</BasePage.Body>
 	</BasePage>
 );
 
