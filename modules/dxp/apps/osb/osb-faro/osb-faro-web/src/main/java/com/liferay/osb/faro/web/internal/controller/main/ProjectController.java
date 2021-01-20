@@ -1146,6 +1146,11 @@ public class ProjectController extends BaseFaroController {
 			groupId, FaroUserConstants.STATUS_APPROVED);
 
 		for (FaroUser faroUser : faroUsers) {
+			_faroNotificationLocalService.deleteFaroNotifications(
+				groupId, FaroNotificationConstants.TYPE_ALERT,
+				FaroNotificationConstants.SUBTYPE_TIME_ZONE_CHANGED,
+				faroUser.getUserId());
+
 			_faroNotificationLocalService.addFaroNotification(
 				getUserId(), groupId, faroUser.getUserId(),
 				FaroNotificationConstants.SCOPE_USER,
