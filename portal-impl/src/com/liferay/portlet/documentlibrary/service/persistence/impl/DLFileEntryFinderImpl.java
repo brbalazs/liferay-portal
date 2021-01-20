@@ -781,10 +781,6 @@ public class DLFileEntryFinderImpl
 				qPos.add(repositoryId);
 			}
 
-			for (Long folderId : folderIds) {
-				qPos.add(folderId);
-			}
-
 			if (mimeTypes != null) {
 				qPos.add(mimeTypes);
 			}
@@ -897,7 +893,8 @@ public class DLFileEntryFinderImpl
 
 		for (int i = 0; i < folderIds.size(); i++) {
 			sb.append(tableName);
-			sb.append(".folderId = ? ");
+			sb.append(".folderId = ");
+			sb.append(folderIds.get(i));
 
 			if ((i + 1) != folderIds.size()) {
 				sb.append(WHERE_OR);
