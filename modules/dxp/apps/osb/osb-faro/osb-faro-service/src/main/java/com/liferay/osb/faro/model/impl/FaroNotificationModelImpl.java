@@ -128,9 +128,11 @@ public class FaroNotificationModelImpl
 
 	public static final long OWNERID_COLUMN_BITMASK = 4L;
 
-	public static final long TYPE_COLUMN_BITMASK = 8L;
+	public static final long SUBTYPE_COLUMN_BITMASK = 8L;
 
-	public static final long FARONOTIFICATIONID_COLUMN_BITMASK = 16L;
+	public static final long TYPE_COLUMN_BITMASK = 16L;
+
+	public static final long FARONOTIFICATIONID_COLUMN_BITMASK = 32L;
 
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(
 		com.liferay.osb.faro.service.util.ServiceProps.get(
@@ -675,7 +677,17 @@ public class FaroNotificationModelImpl
 
 	@Override
 	public void setSubtype(String subtype) {
+		_columnBitmask |= SUBTYPE_COLUMN_BITMASK;
+
+		if (_originalSubtype == null) {
+			_originalSubtype = _subtype;
+		}
+
 		_subtype = subtype;
+	}
+
+	public String getOriginalSubtype() {
+		return GetterUtil.getString(_originalSubtype);
 	}
 
 	public long getColumnBitmask() {
@@ -797,6 +809,8 @@ public class FaroNotificationModelImpl
 		_setOriginalOwnerId = false;
 
 		_originalType = _type;
+
+		_originalSubtype = _subtype;
 
 		_columnBitmask = 0;
 	}
@@ -934,6 +948,7 @@ public class FaroNotificationModelImpl
 	private String _type;
 	private String _originalType;
 	private String _subtype;
+	private String _originalSubtype;
 	private long _columnBitmask;
 	private FaroNotification _escapedModel;
 

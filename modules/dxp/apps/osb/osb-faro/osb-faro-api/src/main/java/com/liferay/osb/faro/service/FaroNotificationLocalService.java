@@ -120,6 +120,9 @@ public interface FaroNotificationLocalService
 	public FaroNotification deleteFaroNotification(long faroNotificationId)
 		throws PortalException;
 
+	public void deleteFaroNotifications(
+		long groupId, String type, String subtype, long userId);
+
 	/**
 	 * @throws PortalException
 	 */

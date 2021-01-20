@@ -115,6 +115,12 @@ public class FaroNotificationLocalServiceUtil {
 		return getService().deleteFaroNotification(faroNotificationId);
 	}
 
+	public static void deleteFaroNotifications(
+		long groupId, String type, String subtype, long userId) {
+
+		getService().deleteFaroNotifications(groupId, type, subtype, userId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */

@@ -117,6 +117,14 @@ public class FaroNotificationLocalServiceWrapper
 			faroNotificationId);
 	}
 
+	@Override
+	public void deleteFaroNotifications(
+		long groupId, String type, String subtype, long userId) {
+
+		_faroNotificationLocalService.deleteFaroNotifications(
+			groupId, type, subtype, userId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
