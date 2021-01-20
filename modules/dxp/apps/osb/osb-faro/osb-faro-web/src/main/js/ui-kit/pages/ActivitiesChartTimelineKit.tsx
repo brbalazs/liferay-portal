@@ -2,7 +2,6 @@ import * as API from 'shared/api';
 import * as data from 'test/data';
 import ActivitiesChartTimeline from 'contacts/components/ActivitiesChartTimeline';
 import faroConstants from 'shared/util/constants';
-import getCN from 'classnames';
 import Promise from 'metal-promise';
 import React from 'react';
 import {LAST_30_DAYS} from 'shared/util/constants';
@@ -22,8 +21,8 @@ Object.assign(API.activities, {
 		})
 });
 
-const ActivitiesChartTimelineKit: React.FC<any> = ({className}) => (
-	<div className={getCN(className)}>
+const ActivitiesChartTimelineKit: React.FC = () => (
+	<div>
 		<ActivitiesChartTimeline
 			activitiesLabel='Test label'
 			entityType={entityTypes.account}
