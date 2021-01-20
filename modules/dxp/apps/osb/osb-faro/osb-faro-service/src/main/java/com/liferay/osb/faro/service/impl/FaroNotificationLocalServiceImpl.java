@@ -74,6 +74,14 @@ public class FaroNotificationLocalServiceImpl
 	}
 
 	@Override
+	public void deleteFaroNotifications(
+		long groupId, String type, String subtype, long userId) {
+
+		faroNotificationPersistence.removeByG_C_C_T_S(
+			groupId, _getDateMillis(), userId, type, subtype);
+	}
+
+	@Override
 	public List<FaroNotification> findFaroNotificationsLast30Days(
 		long groupId, String type, long userId) {
 
