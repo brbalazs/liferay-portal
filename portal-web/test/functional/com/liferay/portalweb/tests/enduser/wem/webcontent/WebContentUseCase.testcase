@@ -1373,6 +1373,17 @@ definition {
 			userScreenName = "test1test"
 		);
 
+		ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations"
+		);
+
+		User.assignRegularRoleCP(
+			roleTitle = "Power User",
+			userScreenName = "test1test"
+		);
+
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
