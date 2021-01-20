@@ -53,7 +53,8 @@ const items = (devMode: boolean = false): ListItem[] => [
 				route: Routes.SETTINGS_DEFINITIONS_BEHAVIORS,
 				title: Liferay.Language.get('behaviors')
 			},
-			{
+			// TODO: LRAC-7254
+			devMode && {
 				description: Liferay.Language.get(
 					'view-and-manage-your-default-events-custom-events-and-event-attributes'
 				),
