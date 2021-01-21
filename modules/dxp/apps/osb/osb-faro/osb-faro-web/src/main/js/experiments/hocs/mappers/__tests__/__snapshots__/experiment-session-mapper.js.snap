@@ -2,8 +2,7 @@
 
 exports[`Experiment Session Mapper should render Tooltip 1`] = `
 <div
-  class="bb-tooltip-container"
-  style="position:static"
+  class="bb-tooltip-container position-static"
 >
   <table
     class="analytics-tooltip-chart"
