@@ -1,0 +1,107 @@
+.event-analysis-editor-root {
+	color: $secondary;
+
+	.card-tabs-root {
+		font-size: $fontSizeSmall;
+		margin: 0;
+	}
+
+	.compare-to-previous-checkbox {
+		.custom-control-label-text {
+			color: $secondary;
+		}
+	}
+
+	.event-analysis-builder-root {
+		background-color: $lightBackground;
+		border: 1px solid $mainLighten74;
+		border-radius: 4px 4px 0 0;
+		margin: 16px;
+		padding: 16px;
+
+		.analysis-section-root {
+			.analysis-list {
+				margin-right: 16px;
+
+				.analysis-chip-root {
+					line-height: 24px;
+					max-height: 42px;
+					padding: 8px 0 8px 8px;
+
+					.event-name {
+						font-weight: $fontWeightSemiBold;
+						white-space: nowrap;
+					}
+				}
+			}
+		}
+
+		.breakdown-section-root {
+			overflow-x: hidden;
+
+			.breakdown-list {
+				margin: 0 4px;
+				overflow-x: auto;
+				padding: 0 4px;
+
+				.breakdown-chip-wrapper {
+					padding-left: 8px;
+					padding-right: 8px;
+
+					&.hover-left {
+						box-shadow: inset 1px 0 $primary, -1px 0 $primary;
+					}
+
+					&.hover-right {
+						box-shadow: inset -1px 0 0 0 $primary, 1px 0 $primary;
+					}
+
+					.breakdown-chip-root {
+						color: $secondary;
+
+						&.dragging:hover,
+						&.dragging:hover .remove-button {
+							color: $mainLighten52;
+						}
+
+						.attribute-label {
+							font-size: 10px;
+							text-transform: uppercase;
+							white-space: nowrap;
+						}
+
+						.attribute-value {
+							font-size: $fontSizeSmall;
+							font-weight: $fontWeightSemiBold;
+							white-space: nowrap;
+						}
+
+						.drag-handle {
+							color: $mainLighten65;
+							cursor: grab;
+						}
+
+						.sticker {
+							background-color: $lightBackground;
+							margin: 4px 16px 4px 4px;
+						}
+					}
+				}
+			}
+
+			.section-header {
+				margin-left: 16px;
+			}
+		}
+
+		.section-header {
+			color: $secondary;
+			font-weight: $fontWeightSemiBold;
+			margin: 0 0 16px 0;
+		}
+	}
+
+	.options-wrapper {
+		margin: 0 16px 24px;
+	}
+}
