@@ -123,11 +123,11 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 	public void init(FilterConfig filterConfig) {
 	}
 
-	private String _getExpirationMessage(
-		Map<String, String> licenseProperties, long expirationDays,
+	private String _getAdminMessage(
+		Map<String, String> licenseProperties, String reason,
 		ServletRequest servletRequest) {
 
-		StringBundler sb = new StringBundler(11);
+		StringBundler sb = new StringBundler(8);
 
 		sb.append("<div class=\"alert alert-danger\">Update your ");
 		sb.append("<a class=\"alert-link\" href=\"");
@@ -142,7 +142,20 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 
 		sb.append("\">activation key for ");
 		sb.append(licenseProperties.get("productEntryName"));
-		sb.append("</a>, it ");
+		sb.append("</a>, ");
+		sb.append(reason);
+		sb.append("</div>");
+
+		return sb.toString();
+	}
+
+	private String _getExpirationMessage(
+		Map<String, String> licenseProperties, long expirationDays,
+		ServletRequest servletRequest) {
+
+		StringBundler sb = new StringBundler(6);
+
+		sb.append("it ");
 
 		if (expirationDays <= 0) {
 			sb.append("has been expired for ");
@@ -162,7 +175,8 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 
 		sb.append("</div>");
 
-		return sb.toString();
+		return _getAdminMessage(
+			licenseProperties, sb.toString(), servletRequest);
 	}
 
 	private final String _productId;
