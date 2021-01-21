@@ -307,6 +307,10 @@ public class DLPortletInstanceSettingsHelper {
 		_currentEntryColumns = new ArrayList<>();
 
 		for (String entryColumn : entryColumns) {
+			if (entryColumn.equals("action") && !isShowActions()) {
+				continue;
+			}
+
 			_currentEntryColumns.add(
 				new KeyValuePair(
 					entryColumn,
