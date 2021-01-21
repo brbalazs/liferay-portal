@@ -32,7 +32,8 @@ export function getAssetUrl(
 			...params,
 			assetId,
 			title,
-			touchpoint
+			touchpoint,
+			...(type === 'custom' ? {id: assetId} : false)
 		},
 		pickBy({...query, rangeKey: rangeSelectors.rangeKey})
 	);
