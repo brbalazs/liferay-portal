@@ -24,36 +24,29 @@ const CLASSNAME = 'analytics-experiments-line-chart';
 const AREA_TYPE = 'area';
 const LINE_TYPE = 'line';
 
-const getTicksY: GetTicksY = (data, format) => {
-	const combinedData = [];
-
-	let tickY: tickY = {
+const getYTicks: GetYTicks = (chartDataList, format) => {
+	let yTick: YTick = {
 		format: value => format(value)
 	};
 
-	data.forEach(({data}) => {
-		data.forEach(({value}) => {
-			combinedData.push(value);
-		});
-	});
+	const combinedData = chartDataList
+		.map(({data}) => data.map(({value}) => Number(value)))
+		.reduce(
+			(prevDataArray, currDataArray) => [
+				...prevDataArray,
+				...currDataArray
+			],
+			[]
+		);
 
-	if (!isEmptyData(combinedData)) {
-		let intervalsY = [];
+	yTick = {
+		...yTick,
+		...(!isEmptyData(combinedData)
+			? {values: getAxisMeasuresFromData(combinedData).intervals}
+			: {format: () => format(0)})
+	};
 
-		({intervals: intervalsY} = getAxisMeasuresFromData(combinedData));
-
-		tickY = {
-			...tickY,
-			values: intervalsY
-		};
-	} else {
-		tickY = {
-			...tickY,
-			format: () => format(0)
-		};
-	}
-
-	return tickY;
+	return yTick;
 };
 
 const isEmptyData: IsEmptyData = data =>
@@ -80,11 +73,11 @@ type DataPoint = {
 
 type Format = (value: Date) => Function | string;
 
-type GetTicksY = (data: Array<ChartData>, format: Function) => tickY;
+type GetYTicks = (data: Array<ChartData>, format: Function) => YTick;
 
 type IsEmptyData = (data: Array<number>) => boolean;
 
-type tickY = {
+type YTick = {
 	format: Format;
 	values?: Array<Date>;
 };
@@ -111,7 +104,7 @@ const LineChart: React.FC<ILineChartProps> = ({
 }) => {
 	const [legendHoverItem, setLegendHoverItem] = useState();
 
-	const tickY = getTicksY(data, format);
+	const yTick = getYTicks(data, format);
 
 	// Shorten intervals of tickX
 	if (intervals.length >= 12) {
@@ -154,9 +147,9 @@ const LineChart: React.FC<ILineChartProps> = ({
 					<YAxis
 						axisLine={{stroke: AXIS.borderStroke}}
 						stroke={AXIS.gridStroke}
-						tick={getAxisTickText('y', tickY.format)}
+						tick={getAxisTickText('y', yTick.format)}
 						tickLine={false}
-						ticks={tickY.values}
+						ticks={yTick.values}
 						type='number'
 					/>
 
