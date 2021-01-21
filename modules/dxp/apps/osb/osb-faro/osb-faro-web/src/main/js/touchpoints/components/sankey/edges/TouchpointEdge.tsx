@@ -60,7 +60,10 @@ const TouchpointEdge: React.FC<ITouchpointEdgeProps> = ({
 			setItems(items);
 		},
 		skip: !!items.length,
-		variables
+		variables: {
+			...variables,
+			touchpoint: decodeURIComponent(node.url)
+		}
 	});
 
 	const calculatedY0 = calcSankeyNodePosition(expandedTouchpoint, node, y0);
