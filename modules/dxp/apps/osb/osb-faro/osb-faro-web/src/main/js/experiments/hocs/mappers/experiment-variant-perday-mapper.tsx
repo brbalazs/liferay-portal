@@ -140,10 +140,7 @@ export default metricUnit => ({experiment}) => {
 			}
 
 			return (
-				<div
-					className='bb-tooltip-container'
-					style={{position: 'static'}}
-				>
+				<div className='bb-tooltip-container position-static'>
 					<TooltipChart header={header} rows={rows} />
 				</div>
 			);

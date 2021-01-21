@@ -27,7 +27,7 @@ export default ({experiment}) => {
 		format: getAxisFormatter('number'),
 		intervals: experiment.sessionsHistogram.map(({key}) => key),
 		Tooltip: ({dataPoint}) => (
-			<div className='bb-tooltip-container' style={{position: 'static'}}>
+			<div className='bb-tooltip-container position-static'>
 				<TooltipChart {...getFormattedDataTooltip(dataPoint)} />
 			</div>
 		)
