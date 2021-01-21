@@ -6,7 +6,7 @@ interface IEventsProps {
 	groupId: string;
 }
 
-export const Events: React.FC<IEventsProps> = ({groupId}) => (
+const Events: React.FC<IEventsProps> = ({groupId}) => (
 	<BasePage
 		breadcrumbItems={[
 			getDefinitions({groupId}),
@@ -17,7 +17,7 @@ export const Events: React.FC<IEventsProps> = ({groupId}) => (
 			'this-is-the-data-model-of-events-sent-to-analytics-cloud'
 		)}
 		pageTitle={Liferay.Language.get('events')}
-	></BasePage>
+	/>
 );
 
 export default Events;
