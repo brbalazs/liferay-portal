@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BreakdownChip render 1`] = `
+<div>
+  <div
+    class="breakdown-chip-container"
+  >
+    <div
+      class="chip-root d-flex align-items-center justify-content-between breakdown-chip-root"
+    >
+      <div
+        class="drag-handle"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-drag"
+          viewBox=""
+        >
+          <use
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#drag"
+          />
+        </svg>
+      </div>
+      <div
+        class="sticker"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-text"
+          viewBox=""
+        >
+          <use
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#text"
+          />
+        </svg>
+      </div>
+      <div>
+        <div
+          class="attribute-label"
+        >
+          Event | Article View
+        </div>
+        <div
+          class="attribute-value"
+        >
+          is "Stuff"
+        </div>
+      </div>
+      <button
+        class="button-root btn btn-unstyled remove-button"
+        type="button"
+      >
+        <svg
+          class="icon-root lexicon-icon lexicon-icon-times-circle"
+          viewBox=""
+        >
+          <use
+            xlink:href="/o/osb-faro-web/dist/sprite.svg#times-circle"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+`;

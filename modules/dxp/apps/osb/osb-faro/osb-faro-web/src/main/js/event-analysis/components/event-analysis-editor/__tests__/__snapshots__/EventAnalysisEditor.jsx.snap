@@ -1,0 +1,331 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Event Analysis Editor render 1`] = `
+<div>
+  <div
+    class="card card-root event-analysis-editor-root"
+  >
+    <div
+      class="event-analysis-builder-root d-flex"
+    >
+      <div
+        class="analysis-section-root"
+      >
+        <div
+          class="section-header"
+        >
+          Analyze
+        </div>
+        <div
+          class="analysis-list"
+        >
+          <div
+            class="chip-root d-flex align-items-center justify-content-between analysis-chip-root"
+          >
+            <div
+              class="event-name"
+            >
+              Article Views
+            </div>
+            <button
+              class="button-root btn btn-unstyled remove-button"
+              type="button"
+            >
+              <svg
+                class="icon-root lexicon-icon lexicon-icon-times-circle"
+                viewBox=""
+              >
+                <use
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#times-circle"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="breakdown-section-root flex-grow-1"
+      >
+        <div
+          class="section-header"
+        >
+          Breakdown By
+        </div>
+        <div
+          class="breakdown-container d-flex align-items-center"
+        >
+          <div
+            class="breakdown-list d-flex align-items-center"
+          >
+            <div
+              class="breakdown-chip-container"
+            >
+              <div
+                class="chip-root d-flex align-items-center justify-content-between breakdown-chip-root"
+              >
+                <div
+                  class="drag-handle"
+                  draggable="true"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-drag"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#drag"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="sticker"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-text"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#text"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <div
+                    class="attribute-label"
+                  >
+                    Event | Job Title
+                  </div>
+                  <div
+                    class="attribute-value"
+                  >
+                    is not "Stuff"
+                  </div>
+                </div>
+                <button
+                  class="button-root btn btn-unstyled remove-button"
+                  type="button"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-times-circle"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#times-circle"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div
+              class="breakdown-chip-container"
+            >
+              <div
+                class="chip-root d-flex align-items-center justify-content-between breakdown-chip-root"
+              >
+                <div
+                  class="drag-handle"
+                  draggable="true"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-drag"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#drag"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="sticker"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-time"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#time"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <div
+                    class="attribute-label"
+                  >
+                    Session | Session Time
+                  </div>
+                  <div
+                    class="attribute-value"
+                  >
+                    &gt; 34:12:03
+                  </div>
+                </div>
+                <button
+                  class="button-root btn btn-unstyled remove-button"
+                  type="button"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-times-circle"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#times-circle"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div
+              class="breakdown-chip-container"
+            >
+              <div
+                class="chip-root d-flex align-items-center justify-content-between breakdown-chip-root"
+              >
+                <div
+                  class="drag-handle"
+                  draggable="true"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-drag"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#drag"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="sticker"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-date"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#date"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <div
+                    class="attribute-label"
+                  >
+                    Event | Article Date
+                  </div>
+                  <div
+                    class="attribute-value"
+                  >
+                    Year, Jan 20, 2020 - Jan 24, 2020
+                  </div>
+                </div>
+                <button
+                  class="button-root btn btn-unstyled remove-button"
+                  type="button"
+                >
+                  <svg
+                    class="icon-root lexicon-icon lexicon-icon-times-circle"
+                    viewBox=""
+                  >
+                    <use
+                      xlink:href="/o/osb-faro-web/dist/sprite.svg#times-circle"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div />
+        </div>
+      </div>
+    </div>
+    <div
+      class="options-container d-flex justify-content-between"
+    >
+      <ul
+        class="card-tabs-root type-selector"
+      >
+        <li
+          class="card-tab active"
+          data-testid="total"
+        >
+          <button
+            class="button-root btn btn-unstyled"
+            type="button"
+          >
+            <span
+              class="title"
+            >
+              Total
+            </span>
+            <div />
+          </button>
+        </li>
+        <li
+          class="card-tab"
+          data-testid="unique"
+        >
+          <button
+            class="button-root btn btn-unstyled"
+            type="button"
+          >
+            <span
+              class="title"
+            >
+              Unique
+            </span>
+            <div />
+          </button>
+        </li>
+        <li
+          class="card-tab"
+          data-testid="average"
+        >
+          <button
+            class="button-root btn btn-unstyled"
+            type="button"
+          >
+            <span
+              class="title"
+            >
+              Average
+            </span>
+            <div />
+          </button>
+        </li>
+      </ul>
+      <div
+        class="d-flex align-items-center"
+      >
+        <div
+          class="custom-control custom-checkbox compare-to-previous-checkbox mb-0 mr-4"
+        >
+          <label>
+            <input
+              class="custom-control-input"
+              type="checkbox"
+              value="false"
+            />
+            <span
+              class="custom-control-label"
+            >
+              <span
+                class="custom-control-label-text"
+              >
+                Compare to Previous
+              </span>
+            </span>
+          </label>
+        </div>
+        <div
+          class="spinner-root spinner-inline"
+        >
+          <span
+            class="loading-animation loading-animation-dotted"
+          />
+        </div>
+      </div>
+    </div>
+    <div>
+      Insert Chart Component here
+    </div>
+  </div>
+</div>
+`;
