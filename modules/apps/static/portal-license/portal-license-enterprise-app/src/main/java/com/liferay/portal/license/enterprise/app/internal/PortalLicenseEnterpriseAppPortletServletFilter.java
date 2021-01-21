@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import java.util.Map;
+import java.util.Objects;
 
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
@@ -68,15 +69,44 @@ public class PortalLicenseEnterpriseAppPortletServletFilter implements Filter {
 		Map<String, String> licenseProperties =
 			LicenseManagerUtil.getLicenseProperties(_productId);
 
+		int licenseState = LicenseManagerUtil.getLicenseState(_productId);
+
+		if ((licenseState == LicenseManager.STATE_OVERLOAD) &&
+			Objects.equals("virtual-cluster", licenseProperties.get("type"))) {
+
+			Writer writer = servletResponse.getWriter();
+
+			if (permissionChecker.isOmniadmin()) {
+				writer.write(
+					_getAdminMessage(
+						licenseProperties,
+						"it has exceeded the maximum number of cluster nodes " +
+							GetterUtil.getInteger(
+								licenseProperties.get("maxClusterNodes")),
+						servletRequest));
+			}
+			else {
+				StringBundler sb = new StringBundler(5);
+
+				sb.append("<div class=\"alert alert-danger\">The activation ");
+				sb.append("key for ");
+				sb.append(licenseProperties.get("productEntryName"));
+				sb.append(" has exceeded the maximum number of cluster ");
+				sb.append("nodes. Please contact your administrator.");
+
+				writer.write(sb.toString());
+			}
+
+			return;
+		}
+
 		long expirationDate = GetterUtil.getLong(
 			licenseProperties.get("expirationDate"));
 
 		long expirationDays =
 			(expirationDate - System.currentTimeMillis()) / Time.DAY;
 
-		if (LicenseManagerUtil.getLicenseState(_productId) ==
-				LicenseManager.STATE_EXPIRED) {
-
+		if (licenseState == LicenseManager.STATE_EXPIRED) {
 			Writer writer = servletResponse.getWriter();
 
 			if (permissionChecker.isOmniadmin()) {
