@@ -59,16 +59,18 @@ const Definitions: React.FC<IDefinitionsProps> = () => (
 
 			{DEVELOPER_MODE && (
 				// TODO: LRAC-4511 Remove when new TrackedBehavior page exists
-				<BundleRouter
-					data={TrackedBehaviors}
-					path={Routes.SETTINGS_DEFINITIONS_BEHAVIORS}
-				/>
+				// TODO: LRAC-7254 Move events route out of devmode
+				<>
+					<BundleRouter
+						data={TrackedBehaviors}
+						path={Routes.SETTINGS_DEFINITIONS_BEHAVIORS}
+					/>
+					<BundleRouter
+						data={Events}
+						path={Routes.SETTINGS_DEFINITIONS_EVENTS}
+					/>
+				</>
 			)}
-
-			<BundleRouter
-				data={Events}
-				path={Routes.SETTINGS_DEFINITIONS_EVENTS}
-			/>
 
 			<BundleRouter
 				data={Search}
