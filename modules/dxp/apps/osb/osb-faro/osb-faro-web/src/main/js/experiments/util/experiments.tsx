@@ -10,6 +10,7 @@ import {ButtonProps} from 'experiments/components/summary-base-card/types';
 import {
 	FormatHistogramKeyValue,
 	FormatYAxisFn,
+	GetFormattedDataTooltip,
 	GetFormattedHistogramFn,
 	GetFormattedMedianFn,
 	GetFormattedVariantHistogramFn,
@@ -409,7 +410,7 @@ export const getFormattedDataHistogram = (histogram, index) =>
 		value: median
 	}));
 
-export const getFormattedDataTooltip = dataPoint => {
+export const getFormattedDataTooltip: GetFormattedDataTooltip = dataPoint => {
 	const header = [
 		{
 			label: d3.utcFormat('%b %-d')(

@@ -1,6 +1,33 @@
 import React from 'react';
 import {Modal, Step} from 'experiments/components/summary-base-card/types';
 
+export type Column = {
+	align?: string;
+	className?: string;
+	color?: string;
+	label?: string | Function;
+	truncated?: boolean;
+	weight?: string;
+	width?: string;
+};
+
+export type Columns = {
+	columns: Array<Column>;
+};
+
+export type Data = {
+	key: string;
+	value: string;
+	id?: string;
+};
+
+export type DataPoint = {
+	color: string;
+	dataKey: string;
+	name: string;
+	payload: Data;
+};
+
 export type FormattedHistogram = {
 	key: Array<Date>;
 	value: Array<number>;
@@ -14,6 +41,13 @@ export type FormatHistogramKeyValue = (
 export type FormatYAxisFn = (metricUnit: string) => (value: number) => string;
 
 export type GetDateFn = (date: Date) => string;
+
+export type GetFormattedDataTooltip = (
+	dataPoint: Array<DataPoint>
+) => {
+	header: Array<Column>;
+	rows: Array<Columns>;
+};
 
 export type GetFormattedHistogramFn = (
 	histogram: Array<Histogram>
