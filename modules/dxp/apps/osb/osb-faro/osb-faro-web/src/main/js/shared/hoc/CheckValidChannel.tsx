@@ -64,7 +64,7 @@ const checkValidChannel = (
 			{...otherProps}
 			channelId={channelId}
 			channels={channels}
-			defaultChannelId={defaultChannelId}
+			defaultChannelId={channelId}
 			groupId={groupId}
 			history={history}
 			location={location}
