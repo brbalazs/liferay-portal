@@ -125,31 +125,7 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 	protected void setLicenseManager(LicenseManager licenseManager) {
 		_licenseManagerAtomicReference.set(licenseManager);
 
-		synchronized (this) {
-			Set
-				<Map.Entry
-					<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
-						entrySet =
-							_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
-								entrySet();
-
-			Iterator
-				<Map.Entry
-					<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
-						iterator = entrySet.iterator();
-
-			while (iterator.hasNext()) {
-				Map.Entry
-					<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>
-						entry = iterator.next();
-
-				if (_verifyLicense(entry.getKey(), true)) {
-					iterator.remove();
-
-					_installBundles(entry.getKey(), entry.getValue());
-				}
-			}
-		}
+		_scanBlockedBundles();
 	}
 
 	protected void unsetLicenseManager(LicenseManager licenseManager) {
@@ -479,6 +455,34 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 				iterator.remove();
 
 				_installBundles(entry.getKey(), entry.getValue());
+			}
+		}
+	}
+
+	private void _scanBlockedBundles() {
+		synchronized (this) {
+			Set
+				<Map.Entry
+					<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
+						entrySet =
+							_portalLicenseEnterpriseAppBlockedBundleDataSetMap.
+								entrySet();
+
+			Iterator
+				<Map.Entry
+					<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>>
+						iterator = entrySet.iterator();
+
+			while (iterator.hasNext()) {
+				Map.Entry
+					<String, Set<PortalLicenseEnterpriseAppBlockedBundleData>>
+						entry = iterator.next();
+
+				if (_verifyLicense(entry.getKey(), true)) {
+					iterator.remove();
+
+					_installBundles(entry.getKey(), entry.getValue());
+				}
 			}
 		}
 	}
