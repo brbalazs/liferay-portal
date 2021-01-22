@@ -444,7 +444,7 @@
 <!--PRICE-->
 <tr>
 	<td>INPUT_PRICE</td>
-	<td>//div[label[(text() = ' Price ' )]]//input[@type='text']</td>
+	<td>//div[label[(text() = ' Price ' )]]//input[@type='text'] | //label[normalize-space(text())='Price']/following-sibling::div//input[@type='text']</td>
 	<td></td>
 </tr>
 <!--IMAGES-->
@@ -461,7 +461,7 @@
 </tr>
 <tr>
 	<td>PRODUCT_DETAIL_VIEW_OPTION</td>
-	<td>//div[contains(@class,'card d-flex')]//h4[contains(.,'Option')]/..//a</td>
+	<td>/div[contains(@class,'card d-flex')]//h4[contains(.,'Option')]/..//a | //div/button[contains(.,'Color')]</td>
 	<td></td>
 </tr>
 <tr>
