@@ -19,6 +19,7 @@ import com.liferay.osgi.util.ServiceTrackerFactory;
 import com.liferay.osgi.util.bundle.BundleStartLevelUtil;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.cluster.ClusterExecutor;
 import com.liferay.portal.kernel.license.messaging.LCSPortletState;
 import com.liferay.portal.kernel.license.util.LicenseManager;
 import com.liferay.portal.kernel.log.Log;
@@ -122,10 +123,25 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 		policy = ReferencePolicy.DYNAMIC,
 		policyOption = ReferencePolicyOption.GREEDY
 	)
+	protected void setClusterExecutor(ClusterExecutor clusterExecutor) {
+		_clusterExecutorAtomicReference.set(clusterExecutor);
+
+		_scanBlockedBundles();
+	}
+
+	@Reference(
+		cardinality = ReferenceCardinality.OPTIONAL,
+		policy = ReferencePolicy.DYNAMIC,
+		policyOption = ReferencePolicyOption.GREEDY
+	)
 	protected void setLicenseManager(LicenseManager licenseManager) {
 		_licenseManagerAtomicReference.set(licenseManager);
 
 		_scanBlockedBundles();
+	}
+
+	protected void unsetClusterExecutor(ClusterExecutor clusterExecutor) {
+		_clusterExecutorAtomicReference.compareAndSet(clusterExecutor, null);
 	}
 
 	protected void unsetLicenseManager(LicenseManager licenseManager) {
@@ -504,6 +520,12 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 	}
 
 	private boolean _verifyLicense(String productId, boolean swallowException) {
+		ClusterExecutor clusterExecutor = _clusterExecutorAtomicReference.get();
+
+		if (clusterExecutor == null) {
+			return false;
+		}
+
 		LicenseManager licenseManager = _licenseManagerAtomicReference.get();
 
 		if (licenseManager == null) {
@@ -569,6 +591,8 @@ public class PortalLicenseEnterpriseAppGateKeeper {
 
 	private BundleContext _bundleContext;
 	private BundleListener _bundleListener;
+	private final AtomicReference<ClusterExecutor>
+		_clusterExecutorAtomicReference = new AtomicReference<>();
 	private final AtomicReference<LicenseManager>
 		_licenseManagerAtomicReference = new AtomicReference<>();
 
