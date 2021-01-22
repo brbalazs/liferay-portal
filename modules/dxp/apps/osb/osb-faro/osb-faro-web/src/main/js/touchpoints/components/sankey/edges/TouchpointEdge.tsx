@@ -38,7 +38,7 @@ const TouchpointEdge: React.FC<ITouchpointEdgeProps> = ({
 	setActiveIndex,
 	setExpandedTouchpoint
 }) => {
-	const {index, value, x0, x1, y0, y1} = node;
+	const {index, url, value, x0, x1, y0, y1} = node;
 
 	const [items, setItems] = useState<Array<AssetNode>>([]);
 
@@ -62,7 +62,7 @@ const TouchpointEdge: React.FC<ITouchpointEdgeProps> = ({
 		skip: !!items.length,
 		variables: {
 			...variables,
-			touchpoint: decodeURIComponent(node.url)
+			touchpoint: decodeURIComponent(url)
 		}
 	});
 
