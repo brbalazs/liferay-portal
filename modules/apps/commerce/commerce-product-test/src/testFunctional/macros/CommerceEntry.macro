@@ -428,12 +428,16 @@ definition {
 	}
 
 	macro deleteCommerceEntry {
-		ClickNoError(locator1 = "CommerceEntry#BODY_VERTICAL_ELLIPSIS");
+		ClickNoError(
+			key_value = "",
+			locator1 = "CommerceEntry#BODY_VERTICAL_ELLIPSIS");
 
 		CommerceEntry.clickNoError(menuItem = "Delete");
 
-		AssertElementPresent(locator1 = "Message#SUCCESS");
-
+		if (IsElementPresent(locator1 = "Message#SUCCESS")) {
+			AssertElementPresent(locator1 = "Message#SUCCESS");
+		}
+		
 		AssertElementNotPresent(locator1 = "Message#ERROR");
 	}
 
@@ -751,7 +755,7 @@ definition {
 
 			Click(
 				key_entryName = "${sku}",
-				locator1 = "CommerceNavigation#ENTRY_NAME");
+				locator1 = "CommerceNavigation#DATASET_DISPLAY_ENTRY_NAME");
 
 			SelectFrame(locator1 = "CommerceEntry#IFRAME_SIDE_PANEL");
 
