@@ -642,10 +642,6 @@ public class DLFileEntryFinderImpl
 
 			qPos.add(queryDefinition.getStatus());
 
-			for (Long folderId : folderIds) {
-				qPos.add(folderId);
-			}
-
 			Iterator<Long> itr = q.iterate();
 
 			if (itr.hasNext()) {
@@ -706,10 +702,6 @@ public class DLFileEntryFinderImpl
 
 			for (Long repositoryId : repositoryIds) {
 				qPos.add(repositoryId);
-			}
-
-			for (Long folderId : folderIds) {
-				qPos.add(folderId);
 			}
 
 			if (mimeTypes != null) {
