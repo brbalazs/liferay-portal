@@ -424,7 +424,11 @@ function DatasetDisplay(props) {
 	function executeAsyncItemAction(url, method) {
 		setActionLoading(true);
 		return executeAsyncAction(url, method)
-			.then(_ => handleCompletedAction())
+			.then(_ => {
+				setTimeout(() => {
+            	handleCompletedAction()
+            	}, 500);
+			})
 			.catch(handleFailedAction);
 	}
 
