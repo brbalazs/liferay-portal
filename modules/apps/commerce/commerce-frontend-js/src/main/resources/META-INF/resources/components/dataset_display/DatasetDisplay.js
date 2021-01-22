@@ -426,8 +426,8 @@ function DatasetDisplay(props) {
 		return executeAsyncAction(url, method)
 			.then(_ => {
 				setTimeout(() => {
-            	handleCompletedAction()
-            	}, 500);
+					handleCompletedAction();
+				}, 500);
 			})
 			.catch(handleFailedAction);
 	}

@@ -437,7 +437,7 @@ definition {
 		if (IsElementPresent(locator1 = "Message#SUCCESS")) {
 			AssertElementPresent(locator1 = "Message#SUCCESS");
 		}
-		
+
 		AssertElementNotPresent(locator1 = "Message#ERROR");
 	}
 
