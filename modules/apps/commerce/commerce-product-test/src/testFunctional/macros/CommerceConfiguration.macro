@@ -118,9 +118,7 @@ definition {
 
 		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Price Lists");
 
-		while (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
-			CommerceProducts.deleteEntries(deleteMessage = "Are you sure you want to delete the selected price lists?");
-		}
+		CommerceConfiguration.commercePriceListsTearDown();
 
 		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Discounts");
 
