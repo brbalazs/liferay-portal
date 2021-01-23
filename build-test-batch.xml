@@ -5308,19 +5308,6 @@ ${output.content}</echo>
 		</run-batch-test>
 	</target>
 
-	<target name="portal-license-jdk8">
-		<run-batch-test>
-			<test-action>
-				<sequential>
-					<ant dir="${release.tool.dir}" inheritAll="false" target="dist" useNativeBasedir="true">
-						<property name="override.decrement.module.bnd.versions" value="true" />
-						<property name="project.release.dir.native" value="${release.tool.dir}" />
-					</ant>
-				</sequential>
-			</test-action>
-		</run-batch-test>
-	</target>
-
 	<target name="portal-second-startup-space-in-path-jdk8">
 		<sequential>
 			<run-batch-test>
