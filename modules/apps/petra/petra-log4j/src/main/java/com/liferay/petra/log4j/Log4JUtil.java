@@ -19,6 +19,7 @@ import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringReader;
+import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactory;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
@@ -140,8 +141,8 @@ public class Log4JUtil {
 				jdkLogger.setLevel(_getJdkLevel(priority));
 			}
 		}
-		catch (Exception e) {
-			_logger.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 	}
 
@@ -182,8 +183,8 @@ public class Log4JUtil {
 		try {
 			LogFactoryUtil.setLogFactory(logFactory);
 		}
-		catch (Exception e) {
-			_logger.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 		}
 
 		for (Map.Entry<String, String> entry : customLogSettings.entrySet()) {
@@ -294,8 +295,8 @@ public class Log4JUtil {
 
 			urlContent = new String(bytes, StringPool.UTF8);
 		}
-		catch (Exception e) {
-			_logger.error(e, e);
+		catch (Exception exception) {
+			_log.error(exception, exception);
 
 			return null;
 		}
@@ -332,7 +333,7 @@ public class Log4JUtil {
 			StringPool.BLANK);
 	}
 
-	private static final Logger _logger = Logger.getRootLogger();
+	private static final Log _log = LogFactoryUtil.getLog(Log4JUtil.class);
 
 	private static String _liferayHome;
 
