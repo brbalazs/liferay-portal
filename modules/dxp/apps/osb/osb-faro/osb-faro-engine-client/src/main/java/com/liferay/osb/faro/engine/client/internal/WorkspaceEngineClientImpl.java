@@ -311,6 +311,42 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		return buildWorkspace(getProjectId(weDeployKey), sha, trial, true);
 	}
 
+	protected void attachElasticsearchSecrets(Workspace workspace)
+		throws Exception {
+
+		if (Validator.isNull(_ELASTICSEARCH_PASSWORD) ||
+			Validator.isNull(_ELASTICSEARCH_USER)) {
+
+			return;
+		}
+
+		long startTime = System.currentTimeMillis();
+
+		List<LCPService> lcpServices = getLCPServices(
+			workspace.getWeDeployKey());
+
+		while (lcpServices.isEmpty()) {
+			Thread.sleep(10 * Time.SECOND);
+
+			lcpServices = getLCPServices(workspace.getWeDeployKey());
+
+			if ((System.currentTimeMillis() - startTime) > Time.HOUR) {
+				_log.error(
+					"Unable to deploy services to " +
+						workspace.getWeDeployKey());
+
+				return;
+			}
+		}
+
+		for (LCPService lcpService : lcpServices) {
+			attachSecrets(
+				workspace.getWeDeployKey(), lcpService.getServiceId(),
+				"ELASTICSEARCH_PASSWORD", "elasticsearchpassword",
+				"ELASTICSEARCH_USER", "elasticsearchuser");
+		}
+	}
+
 	protected List<LCPBuildService> buildWorkspace(
 		String projectId, String sha, boolean trial, boolean upgrade) {
 
@@ -487,6 +523,8 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		}
 
 		protected void doRun() throws Exception {
+			attachElasticsearchSecrets(_workspace);
+
 			for (int i = 0; i < 3; i++) {
 				Thread.sleep(Time.HOUR);
 
