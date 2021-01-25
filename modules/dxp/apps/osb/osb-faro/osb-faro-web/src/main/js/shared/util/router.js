@@ -269,7 +269,9 @@ export const Routes = buildRoutes({
 											SETTINGS_DEFINITIONS_EVENTS_CUSTOM:
 												'/custom',
 											SETTINGS_DEFINITIONS_EVENTS_DEFAULT:
-												'/default'
+												'/default',
+											SETTINGS_DEFINITIONS_EVENTS_VIEW:
+												'/:eventId'
 										}
 									},
 									SETTINGS_DEFINITIONS_INDIVIDUAL_ATTRIBUTES:
