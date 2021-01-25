@@ -71,13 +71,10 @@ public class Log4JUtil {
 				configureLog4J(enu.nextElement());
 			}
 		}
-		catch (IOException ioe) {
-			java.util.logging.Logger logger =
-				java.util.logging.Logger.getLogger(Log4JUtil.class.getName());
-
-			logger.log(
-				java.util.logging.Level.WARNING,
-				"Unable to load portal-log4j-ext.xml", ioe);
+		catch (IOException ioException) {
+			if (_log.isWarnEnabled()) {
+				_log.warn("Unable to load portal-log4j-ext.xml", ioException);
+			}
 		}
 	}
 
