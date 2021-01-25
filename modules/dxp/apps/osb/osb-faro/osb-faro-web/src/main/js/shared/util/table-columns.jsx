@@ -308,6 +308,34 @@ export const detailsListColumns = {
 };
 
 /**
+ * Event List Columns
+ */
+export const eventListColumns = {
+	description: {
+		accessor: 'description',
+		label: Liferay.Language.get('description'),
+		sortable: false
+	},
+	displayName: {
+		accessor: 'displayName',
+		label: Liferay.Language.get('display-name')
+	},
+	getName: ({channelId, groupId}) => ({
+		accessor: 'name',
+		cellRenderer: NameCell,
+		cellRendererProps: {
+			routeFn: ({data: {eventId}}) =>
+				toRoute(Routes.SETTINGS_DEFINITIONS_EVENTS_VIEW, {
+					channelId,
+					eventId,
+					groupId
+				})
+		},
+		label: Liferay.Language.get('event-name')
+	})
+};
+
+/**
  * Engagement List Columns
  */
 export const engagementListColumns = {
