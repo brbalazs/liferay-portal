@@ -705,7 +705,9 @@ definition {
 	}
 
 	macro viewProductOptions {
-		Click(locator1 = "CommerceEntry#PRODUCT_DETAIL_VIEW_OPTION");
+		Click(
+			locator1 = "CommerceEntry#PRODUCT_DETAIL_VIEW_OPTION_2",
+			key_entryName = "${optionName}");
 
 		SelectFrame(locator1 = "CommerceEntry#IFRAME_SIDE_PANEL");
 

@@ -461,7 +461,12 @@
 </tr>
 <tr>
 	<td>PRODUCT_DETAIL_VIEW_OPTION</td>
-	<td>/div[contains(@class,'card d-flex')]//h4[contains(.,'Option')]/..//a | //div/button[contains(.,'Color')]</td>
+	<td>/div[contains(@class,'card d-flex')]//h4[contains(.,'Option')]/..//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PRODUCT_DETAIL_VIEW_OPTION_2</td>
+	<td>//div/button[contains(.,'${key_entryName}')]</td>
 	<td></td>
 </tr>
 <tr>
