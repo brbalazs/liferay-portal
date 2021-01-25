@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -65,6 +66,53 @@ import org.springframework.web.client.RestTemplate;
  */
 @Component(immediate = true, service = WorkspaceEngineClient.class)
 public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
+
+	@Override
+	public void attachSecrets(
+		String weDeployKey, String serviceId, String... envVarSecretNames) {
+
+		if ((envVarSecretNames.length % 2) != 0) {
+			return;
+		}
+
+		getRestTemplate().exchange(
+			StringBundler.concat(
+				_PROJECT_API_URL, getProjectId(weDeployKey), "/services/",
+				serviceId, "/secrets"),
+			HttpMethod.POST,
+			new HttpEntity<Object>(
+				new HashMap<String, List<Map<String, String>>>() {
+					{
+						put(
+							"attachments",
+							new ArrayList<Map<String, String>>() {
+								{
+									for (int i = 0;
+										 i < envVarSecretNames.length; i += 2) {
+
+										String envVarName =
+											envVarSecretNames[i];
+										String secretName =
+											envVarSecretNames[i + 1];
+
+										add(
+											new HashMap<String, String>() {
+												{
+													put(
+														"envVarName",
+														envVarName);
+													put(
+														"secretName",
+														secretName);
+												}
+											});
+									}
+								}
+							});
+					}
+				}),
+			Void.class);
+	}
 
 	@Override
 	public void createSecret(String weDeployKey, String name, String value) {
