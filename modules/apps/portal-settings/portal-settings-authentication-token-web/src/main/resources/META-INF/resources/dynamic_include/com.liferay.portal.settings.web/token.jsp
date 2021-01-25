@@ -34,6 +34,8 @@ String userTokenName = tokenConfiguration.userTokenName();
 	<liferay-ui:error key="logoutRedirectURLInvalid" message="the-logout-redirect-url-is-invalid" />
 
 	<aui:fieldset>
+		<aui:input id='<%= PortalUtil.generateRandomKey(request, "portal_settings_authentication_token") %>' name="<%= ActionRequest.ACTION_NAME %>" type="hidden" value="/portal_settings/token" />
+
 		<aui:input label="enabled" name='<%= PortalSettingsTokenConstants.FORM_PARAMETER_NAMESPACE + "enabled" %>' type="checkbox" value="<%= enabled %>" />
 
 		<aui:input helpMessage="import-from-ldap-help" label="import-from-ldap" name='<%= PortalSettingsTokenConstants.FORM_PARAMETER_NAMESPACE + "importFromLDAP" %>' type="checkbox" value="<%= importFromLDAP %>" />
