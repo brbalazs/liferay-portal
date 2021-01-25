@@ -1,7 +1,11 @@
+import BundleRouter from 'route-middleware/BundleRouter';
 import Card from 'shared/components/Card';
+import EventList from '../EventList';
+import Loading from 'shared/pages/Loading';
 import Nav from 'shared/components/Nav';
-import React from 'react';
+import React, {Suspense} from 'react';
 import {getMatchedRoute, Routes, toRoute} from 'shared/util/router';
+import {Switch} from 'react-router';
 
 const NAV_ITEMS = [
 	{
@@ -42,6 +46,23 @@ const EventsCard: React.FC<IEventsCardProps> = ({groupId}) => {
 						</div>
 					</Nav.Item>
 				))}
+
+				<Suspense fallback={<Loading />}>
+					<Switch>
+						<BundleRouter
+							data={EventList}
+							exact
+							path={Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT}
+						/>
+
+						<BundleRouter
+							componentProps={{customEvent: true}}
+							data={EventList}
+							exact
+							path={Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM}
+						/>
+					</Switch>
+				</Suspense>
 			</Nav>
 		</Card>
 	);
