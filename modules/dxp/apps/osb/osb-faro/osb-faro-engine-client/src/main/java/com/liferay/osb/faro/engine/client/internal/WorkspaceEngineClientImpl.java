@@ -370,8 +370,24 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			Void.class);
 	}
 
+	protected void createElasticsearchSecrets(LCPProject lcpProject) {
+		if (Validator.isNull(_ELASTICSEARCH_PASSWORD) ||
+			Validator.isNull(_ELASTICSEARCH_USER)) {
+
+			return;
+		}
+
+		createSecret(
+			lcpProject.getProjectId(), "elasticsearchpassword",
+			_ELASTICSEARCH_PASSWORD);
+		createSecret(
+			lcpProject.getProjectId(), "elasticsearchuser",
+			_ELASTICSEARCH_USER);
+	}
+
 	protected Workspace createWorkspace(LCPProject lcpProject, boolean trial) {
 		createElasticSearchLink(lcpProject);
+		createElasticsearchSecrets(lcpProject);
 
 		Workspace workspace = new Workspace();
 
@@ -413,6 +429,12 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			return false;
 		}
 	}
+
+	private static final String _ELASTICSEARCH_PASSWORD = System.getenv(
+		"ELASTICSEARCH_PASSWORD");
+
+	private static final String _ELASTICSEARCH_USER = System.getenv(
+		"ELASTICSEARCH_USER");
 
 	private static final String _PROJECT_API_URL = GetterUtil.getString(
 		System.getenv("FARO_DXP_CLOUD_API_URL"),
