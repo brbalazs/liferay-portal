@@ -67,6 +67,22 @@ import org.springframework.web.client.RestTemplate;
 public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 
 	@Override
+	public void createSecret(String weDeployKey, String name, String value) {
+		getRestTemplate().exchange(
+			StringBundler.concat(
+				_PROJECT_API_URL, getProjectId(weDeployKey), "/secrets"),
+			HttpMethod.POST,
+			new HttpEntity<Object>(
+				new HashMap<String, String>() {
+					{
+						put("name", name);
+						put("value", value);
+					}
+				}),
+			Void.class);
+	}
+
+	@Override
 	public Workspace createWorkspace(String region, boolean trial) {
 		String uuid = String.valueOf(UUID.randomUUID());
 

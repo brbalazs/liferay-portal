@@ -26,6 +26,8 @@ import java.util.List;
  */
 public interface WorkspaceEngineClient {
 
+	public void createSecret(String weDeployKey, String name, String value);
+
 	public Workspace createWorkspace(String region, boolean trial);
 
 	public void deleteWorkspaceService(String weDeployKey, String serviceId);

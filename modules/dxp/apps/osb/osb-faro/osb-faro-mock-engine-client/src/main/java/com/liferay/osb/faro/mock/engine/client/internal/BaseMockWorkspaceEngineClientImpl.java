@@ -31,6 +31,11 @@ public abstract class BaseMockWorkspaceEngineClientImpl
 	implements WorkspaceEngineClient {
 
 	@Override
+	public void createSecret(String weDeployKey, String name, String value) {
+		workspaceEngineClient.createSecret(weDeployKey, name, value);
+	}
+
+	@Override
 	public Workspace createWorkspace(String region, boolean trial) {
 		return workspaceEngineClient.createWorkspace(region, trial);
 	}
