@@ -341,6 +341,7 @@ module.exports = {
 		'^clay-charts-react(.*)$': '<rootDir>/src/main/js/clay-charts-react$1',
 		'^contacts(.*)$': '<rootDir>/src/main/js/contacts$1',
 		'^dnd-core$': 'dnd-core/dist/cjs',
+		'^event-analysis(.*)$': '<rootDir>/src/main/js/event-analysis$1',
 		'^experiments(.*)$': '<rootDir>/src/main/js/experiments$1',
 		'^home(.*)$': '<rootDir>/src/main/js/home$1',
 		'^react-dnd$': 'react-dnd/dist/cjs',

@@ -56,6 +56,7 @@ const config = {
 						'clay-charts-react': resolveModule('clay-charts-react'),
 						contacts: resolveModule('contacts'),
 						'custom-types': resolveModule('custom-types'),
+						'event-analysis': resolveModule('event-analysis'),
 						experiments: resolveModule('experiments'),
 						home: resolveModule('home'),
 						'route-middleware': resolveModule('route-middleware'),
