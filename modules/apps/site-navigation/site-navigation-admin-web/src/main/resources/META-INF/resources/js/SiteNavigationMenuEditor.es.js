@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 import {dom, toElement} from 'metal-dom';
 import {Drag, DragDrop} from 'metal-drag-drop';
 import position from 'metal-position';
@@ -9,7 +23,6 @@ import {
 	isOver,
 	shouldBeNested
 } from './SiteNavigationMenuDOMHandler.es';
-
 import {
 	getChildren,
 	getFromContentElement,
@@ -47,7 +60,6 @@ const KEYS = {
  */
 
 class SiteNavigationMenuEditor extends State {
-
 	/**
 	 * @inheritDoc
 	 * @review
@@ -62,34 +74,28 @@ class SiteNavigationMenuEditor extends State {
 		this._controlMenuHeight = controlMenu ? controlMenu.offsetHeight : 0;
 
 		const managementBar = document.querySelector('.management-bar');
-		this._managementBarHeight = managementBar ? managementBar.offsetHeight : 0;
+		this._managementBarHeight = managementBar
+			? managementBar.offsetHeight
+			: 0;
 
 		this.setState(config);
 
-		this._dragDrop = new DragDrop(
-			{
-				autoScroll: true,
-				dragPlaceholder: Drag.Placeholder.CLONE,
-				handles: `.${MENU_ITEM_DRAG_ICON_CLASSNAME}`,
-				sources: `.${MENU_ITEM_CLASSNAME}`,
-				targets: `.${MENU_ITEM_CLASSNAME}`
-			}
-		);
+		this._dragDrop = new DragDrop({
+			autoScroll: true,
+			dragPlaceholder: Drag.Placeholder.CLONE,
+			handles: `.${MENU_ITEM_DRAG_ICON_CLASSNAME}`,
+			sources: `.${MENU_ITEM_CLASSNAME}`,
+			targets: `.${MENU_ITEM_CLASSNAME}`
+		});
 
 		this._dragDrop.on(
 			DragDrop.Events.DRAG,
 			this._handleDragItem.bind(this)
 		);
 
-		this._dragDrop.on(
-			Drag.Events.START,
-			this._handleDragStart.bind(this)
-		);
+		this._dragDrop.on(Drag.Events.START, this._handleDragStart.bind(this));
 
-		this._dragDrop.on(
-			DragDrop.Events.END,
-			this._handleDropItem.bind(this)
-		);
+		this._dragDrop.on(DragDrop.Events.END, this._handleDropItem.bind(this));
 
 		this._itemClickHandler = dom.on(
 			`.${MENU_ITEM_CONTENT_CLASSNAME}`,
@@ -157,38 +163,41 @@ class SiteNavigationMenuEditor extends State {
 		this._draggedItemRegion = position.getRegion(placeholderMenuItem);
 
 		if (
-			placeholderMenuItem && isMenuItem(placeholderMenuItem) &&
-			sourceMenuItem && isMenuItem(sourceMenuItem) &&
-			nearestMenuItem && isMenuItem(nearestMenuItem)
+			placeholderMenuItem &&
+			isMenuItem(placeholderMenuItem) &&
+			sourceMenuItem &&
+			isMenuItem(sourceMenuItem) &&
+			nearestMenuItem &&
+			isMenuItem(nearestMenuItem)
 		) {
-			const nested = shouldBeNested(
-				placeholderMenuItem,
-				nearestMenuItem
-			);
+			const nested = shouldBeNested(placeholderMenuItem, nearestMenuItem);
 
-			const over = isOver(
-				placeholderMenuItem,
-				nearestMenuItem
-			);
+			const over = isOver(placeholderMenuItem, nearestMenuItem);
 
 			if (!over && nested) {
-				insertAtPosition(
-					nearestMenuItem,
-					sourceMenuItem,
-					0
+				insertAtPosition(nearestMenuItem, sourceMenuItem, 0);
+			} else {
+				let nearestMenuItemPosition = position.getRegion(
+					nearestMenuItem
 				);
-			}
-			else {
-				let nearestMenuItemPosition = position.getRegion(nearestMenuItem);
 
-				while (placeholderMenuItem.offsetLeft < nearestMenuItemPosition.left && getParent(nearestMenuItem) !== this._container) {
-					nearestMenuItem = getParent(nearestMenuItem)
-					nearestMenuItemPosition = position.getRegion(nearestMenuItem);
+				while (
+					placeholderMenuItem.offsetLeft <
+						nearestMenuItemPosition.left &&
+					getParent(nearestMenuItem) !== this._container
+				) {
+					nearestMenuItem = getParent(nearestMenuItem);
+					nearestMenuItemPosition = position.getRegion(
+						nearestMenuItem
+					);
 				}
 
 				const nearestMenuItemParent = getParent(nearestMenuItem);
 
-				const nearestMenuItemIndex = getChildren(nearestMenuItemParent).indexOf(nearestMenuItem) + (over ? 0 : 1);
+				const nearestMenuItemIndex =
+					getChildren(nearestMenuItemParent).indexOf(
+						nearestMenuItem
+					) + (over ? 0 : 1);
 
 				insertAtPosition(
 					nearestMenuItemParent,
@@ -229,22 +238,17 @@ class SiteNavigationMenuEditor extends State {
 		const menuItem = data.source;
 		const menuItemId = getId(menuItem);
 
-		const menuItemIndex = getSiblings(menuItem)
-			.indexOf(menuItem);
+		const menuItemIndex = getSiblings(menuItem).indexOf(menuItem);
 
-		const menuItemParentId = getId(
-			getParent(menuItem)
-		);
+		const menuItemParentId = getId(getParent(menuItem));
 
 		this._draggedItemRegion = null;
 
-		this._updateParentAndOrder(
-			{
-				dragOrder: menuItemIndex,
-				parentId: menuItemParentId,
-				siteNavigationMenuItemId: menuItemId
-			}
-		);
+		this._updateParentAndOrder({
+			dragOrder: menuItemIndex,
+			parentId: menuItemParentId,
+			siteNavigationMenuItemId: menuItemId
+		});
 
 		setDragging(menuItem, false);
 	}
@@ -257,9 +261,7 @@ class SiteNavigationMenuEditor extends State {
 	 */
 
 	_handleItemClick(event) {
-		const menuItem = getFromContentElement(
-			event.delegateTarget
-		);
+		const menuItem = getFromContentElement(event.delegateTarget);
 
 		this.selectedMenuItem = menuItem;
 	}
@@ -275,23 +277,20 @@ class SiteNavigationMenuEditor extends State {
 		event.stopPropagation();
 
 		const menuItem = event.delegateTarget;
-		const menuItemIndex = getSiblings(menuItem)
-			.indexOf(menuItem);
+		const menuItemIndex = getSiblings(menuItem).indexOf(menuItem);
 
 		const menuItemParent = getParent(menuItem);
 
 		let layoutModified = false;
 
-		if ((event.key === KEYS.ENTER) || (event.key === KEYS.SPACEBAR)) {
+		if (event.key === KEYS.ENTER || event.key === KEYS.SPACEBAR) {
 			this.selectedMenuItem = menuItem;
-		}
-		else if (event.key === KEYS.ARROW_LEFT) {
-			const menuItemParentIndex = getSiblings(menuItemParent)
-				.indexOf(menuItemParent);
-
-			const menuItemGrandParent = getParent(
+		} else if (event.key === KEYS.ARROW_LEFT) {
+			const menuItemParentIndex = getSiblings(menuItemParent).indexOf(
 				menuItemParent
 			);
+
+			const menuItemGrandParent = getParent(menuItemParent);
 
 			if (menuItemParentIndex !== -1) {
 				insertAtPosition(
@@ -302,64 +301,38 @@ class SiteNavigationMenuEditor extends State {
 			}
 
 			layoutModified = true;
-		}
-		else if (event.key === KEYS.ARROW_UP && menuItemIndex > 0) {
-			insertAtPosition(
-				menuItemParent,
-				menuItem,
-				menuItemIndex - 1
-			);
+		} else if (event.key === KEYS.ARROW_UP && menuItemIndex > 0) {
+			insertAtPosition(menuItemParent, menuItem, menuItemIndex - 1);
 
 			layoutModified = true;
-		}
-		else if (event.key === KEYS.ARROW_RIGHT && menuItemIndex > 0) {
+		} else if (event.key === KEYS.ARROW_RIGHT && menuItemIndex > 0) {
 			const previousSibling = getSiblings(menuItem)[menuItemIndex - 1];
 
-			insertAtPosition(
-				previousSibling,
-				menuItem,
-				Infinity
-			);
+			insertAtPosition(previousSibling, menuItem, Infinity);
 
 			layoutModified = true;
-		}
-		else if (event.key === KEYS.ARROW_DOWN) {
-			insertAtPosition(
-				menuItemParent,
-				menuItem,
-				menuItemIndex + 2
-			);
+		} else if (event.key === KEYS.ARROW_DOWN) {
+			insertAtPosition(menuItemParent, menuItem, menuItemIndex + 2);
 
 			layoutModified = true;
 		}
 
 		if (layoutModified) {
-			const siteNavigationMenuItemId = getId(
-				menuItem
-			);
+			const siteNavigationMenuItemId = getId(menuItem);
 
-			this._updateParentAndOrder(
-				{
-					dragOrder: getSiblings(menuItem)
-						.indexOf(menuItem),
+			this._updateParentAndOrder({
+				dragOrder: getSiblings(menuItem).indexOf(menuItem),
 
-					parentId: getId(
-						getParent(menuItem)
-					),
+				parentId: getId(getParent(menuItem)),
 
-					siteNavigationMenuItemId
-				}
-			);
+				siteNavigationMenuItemId
+			});
 
-			requestAnimationFrame(
-				() => {
-					const modifiedMenuItem = getFromId(
-						siteNavigationMenuItemId
-					);
+			requestAnimationFrame(() => {
+				const modifiedMenuItem = getFromId(siteNavigationMenuItemId);
 
-					modifiedMenuItem.focus();
-				}
-			);
+				modifiedMenuItem.focus();
+			});
 		}
 	}
 
@@ -404,19 +377,13 @@ class SiteNavigationMenuEditor extends State {
 			data.parentId
 		);
 
-		formData.append(
-			`${this.namespace}order`,
-			data.dragOrder
-		);
+		formData.append(`${this.namespace}order`, data.dragOrder);
 
-		return fetch(
-			this.editSiteNavigationMenuItemParentURL,
-			{
-				body: formData,
-				credentials: 'include',
-				method: 'POST'
-			}
-		);
+		return fetch(this.editSiteNavigationMenuItemParentURL, {
+			body: formData,
+			credentials: 'include',
+			method: 'POST'
+		});
 	}
 }
 
@@ -428,7 +395,6 @@ class SiteNavigationMenuEditor extends State {
  */
 
 SiteNavigationMenuEditor.STATE = {
-
 	/**
 	 * URL for edit site navigation menu item parent action.
 	 * @default undefined
@@ -472,7 +438,9 @@ SiteNavigationMenuEditor.STATE = {
 	 * @type {number}
 	 */
 
-	_controlMenuHeight: Config.number().internal().value(0),
+	_controlMenuHeight: Config.number()
+		.internal()
+		.value(0),
 
 	/**
 	 * @default -1
@@ -483,7 +451,9 @@ SiteNavigationMenuEditor.STATE = {
 	 * @type {number}
 	 */
 
-	_currentYPosition: Config.number().internal().value(-1),
+	_currentYPosition: Config.number()
+		.internal()
+		.value(-1),
 
 	/**
 	 * Internal DragDrop instance.
@@ -518,8 +488,9 @@ SiteNavigationMenuEditor.STATE = {
 	 * @type {number}
 	 */
 
-	_managementBarHeight: Config.number().internal().value(0)
-
+	_managementBarHeight: Config.number()
+		.internal()
+		.value(0)
 };
 
 export {SiteNavigationMenuEditor};
