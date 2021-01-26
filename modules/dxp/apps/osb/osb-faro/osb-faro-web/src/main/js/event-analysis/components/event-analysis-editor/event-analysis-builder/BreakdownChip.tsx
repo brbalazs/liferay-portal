@@ -2,8 +2,9 @@ import Chip from 'shared/components/Chip';
 import getCN from 'classnames';
 import Icon from 'shared/components/Icon';
 import React, {useEffect, useRef, useState} from 'react';
-import {Breakdown, Filter} from '../types';
+import {Attribute, Breakdown, DataTypes, Filter} from '../types';
 import {DropTargetMonitor, useDrag, useDrop} from 'react-dnd';
+import {getBreakdownDisplay} from '../utils';
 
 const HOVER_TYPES = {
 	LEFT: 'left',
@@ -14,26 +15,29 @@ const ITEM_TYPES = {
 	BREAKDOWN_CHIP: 'breakdown_chip'
 };
 
+const TYPE_ICON_MAP = {
+	[DataTypes.Boolean]: 'check',
+	[DataTypes.Date]: 'date',
+	[DataTypes.Duration]: 'time',
+	[DataTypes.Number]: 'integer',
+	[DataTypes.String]: 'text'
+};
+
 interface DragItem {
 	index: number;
 	type: string;
 }
 
-const getFilterDisplay = filter => {
-	switch (filter.dataType) {
-		case 'number':
-			return '';
-	}
-};
-
 interface IBreakdownChipProps {
-	breakdown?: Breakdown; // TODO: This probably shouldn't be optional
+	attribute: Attribute;
+	breakdown: Breakdown;
 	filter?: Filter;
 	index: number;
 	onMove: (from: number, to: number) => void;
 	onCloseClick: (attributeId: string) => void;
 }
 const BreakdownChip: React.FC<IBreakdownChipProps> = ({
+	attribute,
 	breakdown,
 	filter,
 	index,
@@ -96,7 +100,6 @@ const BreakdownChip: React.FC<IBreakdownChipProps> = ({
 
 				const destIndex = hoverLeft ? hoverIndex - 1 : hoverIndex + 1;
 
-				console.log('hoverLeft');
 				if (destIndex === dragIndex) {
 					setHoverPosition(null);
 				} else if (hoverLeft) {
@@ -123,15 +126,11 @@ const BreakdownChip: React.FC<IBreakdownChipProps> = ({
 		preview(_chipRef);
 	}, []);
 
-	const getHeader = () => {};
-
-	const getMain = () => {
-		if (filter) {
-			return getFilterDisplay(filter);
-		}
-
-		return breakdown.name;
-	};
+	const [attributeLabel, attributeValue] = getBreakdownDisplay(
+		attribute,
+		breakdown,
+		filter
+	);
 
 	return (
 		<div
@@ -151,8 +150,14 @@ const BreakdownChip: React.FC<IBreakdownChipProps> = ({
 					<Icon symbol='drag' />
 				</div>
 
+				<div className='sticker'>
+					<Icon symbol={TYPE_ICON_MAP[breakdown.dataType]} />
+				</div>
+
 				<div>
-					<b>{breakdown.name}</b>
+					<div className='attribute-label'>{attributeLabel}</div>
+
+					<div className='attribute-value'>{attributeValue}</div>
 				</div>
 			</Chip>
 		</div>

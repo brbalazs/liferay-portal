@@ -5,12 +5,29 @@ export enum AttributeTypes {
 	Session = 'session'
 }
 
+export enum CalculationTypes {
+	Average = 'average',
+	Total = 'total',
+	Unique = 'unique'
+}
+
 export enum DataTypes {
 	Boolean = 'boolean',
 	Date = 'date',
 	Duration = 'duration',
 	Number = 'number',
 	String = 'string'
+}
+
+export enum DateGroupings {
+	Dates = 'dates',
+	Months = 'months',
+	Years = 'years'
+}
+
+export enum EventTypes {
+	Custom = 'custom',
+	Default = 'default'
 }
 
 export enum Operators {
@@ -21,18 +38,6 @@ export enum Operators {
 	GT = 'gt',
 	LT = 'lt',
 	NE = 'ne'
-}
-
-export enum Type { // TODO: Make this enum more specific in name  make this plural too
-	Average = 'average',
-	Total = 'total',
-	Unique = 'unique'
-}
-
-export enum DateGroupings {
-	Dates = 'dates',
-	Months = 'months',
-	Years = 'years'
 }
 
 export type Attribute = {
@@ -48,9 +53,8 @@ export type Breakdown = {
 	attributeId: string;
 	dataType: DataTypes;
 	dateGrouping?: DateGroupings;
-	bin?: any; // TODO: May have to make this more specific
+	bin?: number;
 	type: AttributeTypes;
-	// name?: string;
 };
 
 export type Event = {
@@ -58,14 +62,11 @@ export type Event = {
 	displayName?: string;
 	id: string;
 	name: string;
-	type: string; // TODO: Default or Custom
+	type: EventTypes;
 };
 
 export type Filter = {
 	attributeId: string;
-	// dataType: DataTypes; // TODO: update this to be on of the specified data types
-	operator: Operators; // TODO: Make this more specific when operators have been defined
+	operator: Operators;
 	value: (boolean | string | number)[];
 };
-
-// TODO Create type for Operators
