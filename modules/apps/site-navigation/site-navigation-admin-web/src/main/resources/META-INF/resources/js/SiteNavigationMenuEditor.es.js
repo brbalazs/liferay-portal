@@ -1,4 +1,4 @@
-import {dom} from 'metal-dom';
+import {dom, toElement} from 'metal-dom';
 import {Drag, DragDrop} from 'metal-drag-drop';
 import position from 'metal-position';
 import State, {Config} from 'metal-state';
@@ -18,6 +18,7 @@ import {
 	getParent,
 	getSiblings,
 	isMenuItem,
+	MENU_CONTAINER_CLASSNAME,
 	MENU_ITEM_CLASSNAME,
 	MENU_ITEM_CONTENT_CLASSNAME,
 	MENU_ITEM_DRAG_ICON_CLASSNAME,
@@ -54,6 +55,8 @@ class SiteNavigationMenuEditor extends State {
 
 	constructor(config, ...args) {
 		super(config, ...args);
+
+		this._container = toElement(`.${MENU_CONTAINER_CLASSNAME}`);
 
 		const controlMenu = document.querySelector('.control-menu');
 		this._controlMenuHeight = controlMenu ? controlMenu.offsetHeight : 0;
@@ -142,7 +145,7 @@ class SiteNavigationMenuEditor extends State {
 		const placeholderMenuItem = data.placeholder;
 		const sourceMenuItem = data.source;
 
-		const nearestMenuItem = getNearestMenuItem(
+		let nearestMenuItem = getNearestMenuItem(
 			sourceMenuItem,
 			placeholderMenuItem
 		);
@@ -176,9 +179,14 @@ class SiteNavigationMenuEditor extends State {
 				);
 			}
 			else {
-				const nearestMenuItemParent = getParent(
-					nearestMenuItem
-				);
+				let nearestMenuItemPosition = position.getRegion(nearestMenuItem);
+
+				while (placeholderMenuItem.offsetLeft < nearestMenuItemPosition.left && getParent(nearestMenuItem) !== this._container) {
+					nearestMenuItem = getParent(nearestMenuItem)
+					nearestMenuItemPosition = position.getRegion(nearestMenuItem);
+				}
+
+				const nearestMenuItemParent = getParent(nearestMenuItem);
 
 				const nearestMenuItemIndex = getChildren(nearestMenuItemParent).indexOf(nearestMenuItem) + (over ? 0 : 1);
 
