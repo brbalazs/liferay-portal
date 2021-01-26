@@ -75,18 +75,25 @@ if (Validator.isNotNull(portletConfigurationPermissionsDisplayContext.getModelRe
 						}
 						%>
 
-						<liferay-ui:icon
-							icon="<%= icon %>"
-							label="<%= false %>"
-							markupView="lexicon"
-							message="<%= LanguageUtil.get(request, message) %>"
-						/>
+						<span class="text-truncate-inline">
+							<span class="inline-item-before">
+								<liferay-ui:icon
+									icon="<%= icon %>"
+									label="<%= false %>"
+									markupView="lexicon"
+									message="<%= LanguageUtil.get(request, message) %>"
+								/>
+							</span>
+							<span class="lfr-portal-tooltip text-truncate" title="<%= role.getTitle(locale) %>">
+								<%= role.getTitle(locale) %>
+							</span>
 
-						<%= role.getTitle(locale) %>
-
-						<c:if test="<%= layout.isPrivateLayout() && name.equals(RoleConstants.GUEST) %>">
-							<liferay-ui:icon-help message="under-the-current-configuration-all-users-automatically-inherit-permissions-from-the-guest-role" />
-						</c:if>
+							<c:if test="<%= layout.isPrivateLayout() && name.equals(RoleConstants.GUEST) %>">
+								<span class="inline-item-after">
+									<liferay-ui:icon-help message="under-the-current-configuration-all-users-automatically-inherit-permissions-from-the-guest-role" />
+								</span>
+							</c:if>
+						</span>
 					</liferay-ui:search-container-column-text>
 
 					<%
