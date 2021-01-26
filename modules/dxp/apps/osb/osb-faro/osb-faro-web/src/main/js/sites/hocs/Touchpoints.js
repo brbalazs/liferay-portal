@@ -75,8 +75,12 @@ const getTableWithData = useDB => {
 	return TableWithData;
 };
 
+const TableWithDataNewDB = getTableWithData(true);
+const TableWithDataOldDB = getTableWithData();
+
 const Touchpoints = ({router}) => {
-	const TableWithData = getTableWithData(router.query.useDB === 'true');
+	const TableWithData =
+		router.query.useDB === 'true' ? TableWithDataNewDB : TableWithDataOldDB;
 
 	return (
 		<Card className='site-touchpoints-root' pageDisplay>
