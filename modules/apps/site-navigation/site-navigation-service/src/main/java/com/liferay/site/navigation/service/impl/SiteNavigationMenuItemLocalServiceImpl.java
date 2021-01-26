@@ -135,7 +135,7 @@ public class SiteNavigationMenuItemLocalServiceImpl
 
 				siblingSiteNavigationMenuItem.setOrder(
 					siteNavigationMenuItems.size() +
-						siteNavigationMenuItem.getOrder());
+						siblingSiteNavigationMenuItem.getOrder() - 1);
 
 				siteNavigationMenuItemPersistence.update(
 					siblingSiteNavigationMenuItem);
