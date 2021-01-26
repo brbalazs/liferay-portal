@@ -264,8 +264,13 @@ export const Routes = buildRoutes({
 									SETTINGS_DEFINITIONS_EVENTS: {
 										path: '/events',
 										routes: {
-											SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES:
-												'/attributes',
+											SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES: {
+												path: '/attributes',
+												routes: {
+													SETTINGS_DEFINITIONS_ATTRIBUTES_VIEW:
+														'/:attributeId'
+												}
+											},
 											SETTINGS_DEFINITIONS_EVENTS_CUSTOM:
 												'/custom',
 											SETTINGS_DEFINITIONS_EVENTS_DEFAULT:
