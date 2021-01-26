@@ -58,7 +58,7 @@ const items = (devMode: boolean = false): ListItem[] => [
 				description: Liferay.Language.get(
 					'view-and-manage-your-default-events-custom-events-and-event-attributes'
 				),
-				route: Routes.SETTINGS_DEFINITIONS_EVENTS,
+				route: Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT,
 				title: Liferay.Language.get('events')
 			},
 			{
