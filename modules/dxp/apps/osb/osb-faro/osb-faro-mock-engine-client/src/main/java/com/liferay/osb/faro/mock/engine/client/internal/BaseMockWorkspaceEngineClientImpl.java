@@ -31,11 +31,23 @@ public abstract class BaseMockWorkspaceEngineClientImpl
 	implements WorkspaceEngineClient {
 
 	@Override
+	public void attachElasticsearchSecrets(String weDeployKey)
+		throws Exception {
+
+		workspaceEngineClient.attachElasticsearchSecrets(weDeployKey);
+	}
+
+	@Override
 	public void attachSecrets(
 		String weDeployKey, String serviceId, String... envVarSecretNames) {
 
 		workspaceEngineClient.attachSecrets(
 			weDeployKey, serviceId, envVarSecretNames);
+	}
+
+	@Override
+	public void createElasticsearchSecrets(String weDeployKey) {
+		workspaceEngineClient.createElasticsearchSecrets(weDeployKey);
 	}
 
 	@Override
@@ -76,6 +88,16 @@ public abstract class BaseMockWorkspaceEngineClientImpl
 	@Override
 	public Workspace getWorkspace(String weDeployKey) throws Exception {
 		return workspaceEngineClient.getWorkspace(weDeployKey);
+	}
+
+	@Override
+	public boolean hasSecret(String weDeployKey, String name) {
+		return workspaceEngineClient.hasSecret(weDeployKey, name);
+	}
+
+	@Override
+	public void updateSecret(String weDeployKey, String name, String value) {
+		workspaceEngineClient.updateSecret(weDeployKey, name, value);
 	}
 
 	@Override

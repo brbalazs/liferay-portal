@@ -137,6 +137,14 @@ public class FaroAdminManagementToolbarDisplayContext
 							LanguageUtil.get(
 								request, "upgrade-all-projects-fast"));
 					});
+				addDropdownItem(
+					dropdownItem -> {
+						dropdownItem.setHref(
+							portletURL, ActionRequest.ACTION_NAME,
+							"/faro_admin/update_secrets", "faroProjectId", -1);
+						dropdownItem.setLabel(
+							LanguageUtil.get(request, "update-all-secrets"));
+					});
 			}
 		};
 	}

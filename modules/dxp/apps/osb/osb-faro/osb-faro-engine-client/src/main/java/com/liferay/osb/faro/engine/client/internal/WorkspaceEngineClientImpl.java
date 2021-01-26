@@ -68,6 +68,40 @@ import org.springframework.web.client.RestTemplate;
 public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 
 	@Override
+	public void attachElasticsearchSecrets(String weDeployKey)
+		throws Exception {
+
+		if (Validator.isNull(_ELASTICSEARCH_PASSWORD) ||
+			Validator.isNull(_ELASTICSEARCH_USER)) {
+
+			return;
+		}
+
+		long startTime = System.currentTimeMillis();
+
+		List<LCPService> lcpServices = getLCPServices(weDeployKey);
+
+		while (lcpServices.isEmpty()) {
+			Thread.sleep(10 * Time.SECOND);
+
+			lcpServices = getLCPServices(weDeployKey);
+
+			if ((System.currentTimeMillis() - startTime) > Time.HOUR) {
+				_log.error("Unable to deploy services to " + weDeployKey);
+
+				return;
+			}
+		}
+
+		for (LCPService lcpService : lcpServices) {
+			attachSecrets(
+				weDeployKey, lcpService.getServiceId(),
+				"ELASTICSEARCH_PASSWORD", "elasticsearchpassword",
+				"ELASTICSEARCH_USER", "elasticsearchuser");
+		}
+	}
+
+	@Override
 	public void attachSecrets(
 		String weDeployKey, String serviceId, String... envVarSecretNames) {
 
@@ -112,6 +146,19 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 					}
 				}),
 			Void.class);
+	}
+
+	@Override
+	public void createElasticsearchSecrets(String weDeployKey) {
+		if (Validator.isNull(_ELASTICSEARCH_PASSWORD) ||
+			Validator.isNull(_ELASTICSEARCH_USER)) {
+
+			return;
+		}
+
+		createSecret(
+			weDeployKey, "elasticsearchpassword", _ELASTICSEARCH_PASSWORD);
+		createSecret(weDeployKey, "elasticsearchuser", _ELASTICSEARCH_USER);
 	}
 
 	@Override
@@ -266,6 +313,38 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 	}
 
 	@Override
+	public boolean hasSecret(String weDeployKey, String name) {
+		try {
+			getRestTemplate().exchange(
+				StringBundler.concat(
+					_PROJECT_API_URL + getProjectId(weDeployKey), "/secrets/",
+					name),
+				HttpMethod.GET, null, Object.class);
+
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public void updateSecret(String weDeployKey, String name, String value) {
+		getRestTemplate().exchange(
+			StringBundler.concat(
+				_PROJECT_API_URL, getProjectId(weDeployKey), "/secrets/", name),
+			HttpMethod.PUT,
+			new HttpEntity<Object>(
+				new HashMap<String, String>() {
+					{
+						put("name", name);
+						put("value", value);
+					}
+				}),
+			Void.class);
+	}
+
+	@Override
 	public void updateServices(String weDeployKey, String operation)
 		throws Exception {
 
@@ -309,42 +388,6 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		String weDeployKey, String sha, boolean trial) {
 
 		return buildWorkspace(getProjectId(weDeployKey), sha, trial, true);
-	}
-
-	protected void attachElasticsearchSecrets(Workspace workspace)
-		throws Exception {
-
-		if (Validator.isNull(_ELASTICSEARCH_PASSWORD) ||
-			Validator.isNull(_ELASTICSEARCH_USER)) {
-
-			return;
-		}
-
-		long startTime = System.currentTimeMillis();
-
-		List<LCPService> lcpServices = getLCPServices(
-			workspace.getWeDeployKey());
-
-		while (lcpServices.isEmpty()) {
-			Thread.sleep(10 * Time.SECOND);
-
-			lcpServices = getLCPServices(workspace.getWeDeployKey());
-
-			if ((System.currentTimeMillis() - startTime) > Time.HOUR) {
-				_log.error(
-					"Unable to deploy services to " +
-						workspace.getWeDeployKey());
-
-				return;
-			}
-		}
-
-		for (LCPService lcpService : lcpServices) {
-			attachSecrets(
-				workspace.getWeDeployKey(), lcpService.getServiceId(),
-				"ELASTICSEARCH_PASSWORD", "elasticsearchpassword",
-				"ELASTICSEARCH_USER", "elasticsearchuser");
-		}
 	}
 
 	protected List<LCPBuildService> buildWorkspace(
@@ -406,24 +449,9 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 			Void.class);
 	}
 
-	protected void createElasticsearchSecrets(LCPProject lcpProject) {
-		if (Validator.isNull(_ELASTICSEARCH_PASSWORD) ||
-			Validator.isNull(_ELASTICSEARCH_USER)) {
-
-			return;
-		}
-
-		createSecret(
-			lcpProject.getProjectId(), "elasticsearchpassword",
-			_ELASTICSEARCH_PASSWORD);
-		createSecret(
-			lcpProject.getProjectId(), "elasticsearchuser",
-			_ELASTICSEARCH_USER);
-	}
-
 	protected Workspace createWorkspace(LCPProject lcpProject, boolean trial) {
 		createElasticSearchLink(lcpProject);
-		createElasticsearchSecrets(lcpProject);
+		createElasticsearchSecrets(lcpProject.getProjectId());
 
 		Workspace workspace = new Workspace();
 
@@ -523,7 +551,7 @@ public class WorkspaceEngineClientImpl implements WorkspaceEngineClient {
 		}
 
 		protected void doRun() throws Exception {
-			attachElasticsearchSecrets(_workspace);
+			attachElasticsearchSecrets(_workspace.getWeDeployKey());
 
 			for (int i = 0; i < 3; i++) {
 				Thread.sleep(Time.HOUR);

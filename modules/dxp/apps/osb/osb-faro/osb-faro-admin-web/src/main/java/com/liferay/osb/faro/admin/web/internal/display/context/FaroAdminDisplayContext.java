@@ -147,6 +147,16 @@ public class FaroAdminDisplayContext {
 							LanguageUtil.get(
 								_httpServletRequest, "stop-upgrade"));
 					});
+				add(
+					dropdownItem -> {
+						dropdownItem.setHref(
+							portletURL, ActionRequest.ACTION_NAME,
+							"/faro_admin/update_secrets", "faroProjectId",
+							faroProjectAdminDisplay.getFaroProjectId());
+						dropdownItem.setLabel(
+							LanguageUtil.get(
+								_httpServletRequest, "update-secrets"));
+					});
 			}
 		};
 	}
