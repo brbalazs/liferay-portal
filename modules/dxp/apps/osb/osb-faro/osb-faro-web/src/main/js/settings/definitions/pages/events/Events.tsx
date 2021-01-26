@@ -5,29 +5,29 @@ import React from 'react';
 import {getDefinitions} from 'shared/util/breadcrumbs';
 import {getMatchedRoute, Routes, toRoute} from 'shared/util/router';
 
+const NAV_ITEMS = [
+	{
+		exact: true,
+		label: Liferay.Language.get('default-events'),
+		route: Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT
+	},
+	{
+		exact: true,
+		label: Liferay.Language.get('custom-events'),
+		route: Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM
+	},
+	{
+		exact: true,
+		label: Liferay.Language.get('attributes'),
+		route: Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES
+	}
+];
+
 interface IEventsProps {
 	groupId: string;
 }
 
 const Events: React.FC<IEventsProps> = ({groupId}) => {
-	const NAV_ITEMS = [
-		{
-			exact: true,
-			label: Liferay.Language.get('default-events'),
-			route: Routes.SETTINGS_DEFINITIONS_EVENTS_DEFAULT
-		},
-		{
-			exact: true,
-			label: Liferay.Language.get('custom-events'),
-			route: Routes.SETTINGS_DEFINITIONS_EVENTS_CUSTOM
-		},
-		{
-			exact: true,
-			label: Liferay.Language.get('attributes'),
-			route: Routes.SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES
-		}
-	];
-
 	const matchedRoute = getMatchedRoute(NAV_ITEMS);
 
 	return (
