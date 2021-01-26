@@ -1,11 +1,14 @@
 import BundleRouter from 'route-middleware/BundleRouter';
 import Card from 'shared/components/Card';
-import EventList from '../EventList';
 import Loading from 'shared/pages/Loading';
 import Nav from 'shared/components/Nav';
-import React, {Suspense} from 'react';
+import React, {lazy, Suspense} from 'react';
 import {getMatchedRoute, Routes, toRoute} from 'shared/util/router';
 import {Switch} from 'react-router';
+
+const EventList = lazy(() =>
+	import(/* webpackChunkName: "EventList" */ './EventList')
+);
 
 const NAV_ITEMS = [
 	{

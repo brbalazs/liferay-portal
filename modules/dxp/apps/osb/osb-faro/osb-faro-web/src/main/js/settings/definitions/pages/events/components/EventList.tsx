@@ -2,7 +2,7 @@ import React from 'react';
 import {eventListColumns} from 'shared/util/table-columns';
 import {withBaseResults} from 'shared/hoc';
 
-// TODO: Use the graphql query instead of mocked data
+// TODO: LRAC-7329 Use the graphql query instead of mocked data
 const withData = () => WrapperComponent => props => {
 	const items = [
 		{
@@ -44,9 +44,16 @@ const TableWithData = withBaseResults(withData, {
 	showDropdownRangeKey: false
 });
 
-const EventList = ({customEvents, ...props}) => {
+interface IEventListProps {
+	customEvents: boolean;
+}
+
+const EventList: React.FC<IEventListProps> = ({
+	customEvents = false,
+	...props
+}) => {
 	if (customEvents) {
-		// TODO: modify query to fetch only custom events
+		// TODO: LRAC-7329 modify query to fetch only custom events
 	}
 
 	return <TableWithData {...props} />;
