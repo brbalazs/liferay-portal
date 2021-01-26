@@ -78,6 +78,7 @@ Object {
   "SETTINGS_DATA_SOURCE_EDIT": "/workspace/:groupId([\\\\w._-]+)/settings/data-source/:id/edit",
   "SETTINGS_DATA_SOURCE_LIST": "/workspace/:groupId([\\\\w._-]+)/settings/data-source",
   "SETTINGS_DEFINITIONS": "/workspace/:groupId([\\\\w._-]+)/settings/definitions",
+  "SETTINGS_DEFINITIONS_ATTRIBUTES_VIEW": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/events/attributes/:attributeId",
   "SETTINGS_DEFINITIONS_BEHAVIORS": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/behaviors",
   "SETTINGS_DEFINITIONS_EVENTS": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/events",
   "SETTINGS_DEFINITIONS_EVENTS_ATTRIBUTES": "/workspace/:groupId([\\\\w._-]+)/settings/definitions/events/attributes",
