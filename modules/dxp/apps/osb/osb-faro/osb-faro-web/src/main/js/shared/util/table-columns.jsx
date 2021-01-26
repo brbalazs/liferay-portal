@@ -148,6 +148,47 @@ export const assetsListColumns = {
 };
 
 /**
+ * Attribute List Columns
+ */
+
+export const attributesColumns = {
+	defaultDataType: {
+		accessor: 'defaultDataType',
+		label: Liferay.Language.get('data-type')
+	},
+	description: {
+		accessor: 'description',
+		label: Liferay.Language.get('description'),
+		sortable: false
+	},
+	displayName: {
+		accessor: 'displayName',
+		label: Liferay.Language.get('display-name')
+	},
+	getName: ({channelId, groupId}) => ({
+		accessor: 'name',
+		cellRenderer: NameCell,
+		cellRendererProps: {
+			routeFn: ({data: {attributeId}}) =>
+				toRoute(Routes.SETTINGS_DEFINITIONS_ATTRIBUTES_VIEW, {
+					attributeId,
+					channelId,
+					groupId
+				})
+		},
+		label: Liferay.Language.get('attribute')
+	}),
+	name: {
+		accessor: 'name',
+		label: Liferay.Language.get('attribute')
+	},
+	sampleValue: {
+		accessor: 'sampleValue',
+		label: Liferay.Language.get('sample-value')
+	}
+};
+
+/**
  * Changes List Columns
  */
 export const changesListColumns = {
