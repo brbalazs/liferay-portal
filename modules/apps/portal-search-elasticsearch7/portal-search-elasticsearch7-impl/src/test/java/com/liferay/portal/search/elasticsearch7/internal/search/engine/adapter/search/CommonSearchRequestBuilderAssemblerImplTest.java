@@ -120,18 +120,6 @@ public class CommonSearchRequestBuilderAssemblerImplTest {
 	protected static CommonSearchRequestBuilderAssembler
 		createCommonSearchRequestBuilderAssembler(Queries queries) {
 
-		ElasticsearchQueryTranslatorFixture
-			elasticsearchQueryTranslatorFixture =
-				new ElasticsearchQueryTranslatorFixture();
-
-		ElasticsearchFilterTranslatorFixture
-			elasticsearchFilterTranslatorFixture =
-				new ElasticsearchFilterTranslatorFixture();
-
-		ElasticsearchQueryTranslator elasticsearchQueryTranslator =
-			elasticsearchQueryTranslatorFixture.
-				getElasticsearchQueryTranslator();
-
 		com.liferay.portal.search.elasticsearch7.internal.legacy.query.
 			ElasticsearchQueryTranslatorFixture
 				legacyElasticsearchQueryTranslatorFixture =
@@ -142,6 +130,19 @@ public class CommonSearchRequestBuilderAssemblerImplTest {
 			ElasticsearchQueryTranslator legacyElasticsearchQueryTranslator =
 				legacyElasticsearchQueryTranslatorFixture.
 					getElasticsearchQueryTranslator();
+
+		ElasticsearchQueryTranslatorFixture
+			elasticsearchQueryTranslatorFixture =
+				new ElasticsearchQueryTranslatorFixture();
+
+		ElasticsearchFilterTranslatorFixture
+			elasticsearchFilterTranslatorFixture =
+				new ElasticsearchFilterTranslatorFixture(
+					legacyElasticsearchQueryTranslator);
+
+		ElasticsearchQueryTranslator elasticsearchQueryTranslator =
+			elasticsearchQueryTranslatorFixture.
+				getElasticsearchQueryTranslator();
 
 		return new CommonSearchRequestBuilderAssemblerImpl() {
 			{
