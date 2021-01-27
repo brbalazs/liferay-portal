@@ -29,12 +29,6 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 }) => {
 	const [attributes, setAttributes] = useState<Attribute[]>([
 		{
-			defaultDataType: DataTypes.String,
-			displayName: 'Article Title',
-			id: '0',
-			name: 'Article Title'
-		},
-		{
 			defaultDataType: DataTypes.Number,
 			displayName: 'Article Count',
 			id: '1',
@@ -53,12 +47,6 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 			name: 'sessionTime'
 		},
 		{
-			defaultDataType: DataTypes.Boolean,
-			displayName: 'Enrolled in Autopay',
-			id: '4',
-			name: 'autopay'
-		},
-		{
 			defaultDataType: DataTypes.Date,
 			displayName: 'Article Date',
 			id: '5',
@@ -66,11 +54,6 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 		}
 	]);
 	const [breakdowns, setBreakdowns] = useState<Breakdown[]>([
-		{
-			attributeId: '0',
-			dataType: DataTypes.String,
-			type: AttributeTypes.Event
-		},
 		{
 			attributeId: '1',
 			bin: 10,
@@ -88,23 +71,18 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 			type: AttributeTypes.Session
 		},
 		{
-			attributeId: '4',
-			dataType: DataTypes.Boolean,
-			type: AttributeTypes.Individual
-		},
-		{
 			attributeId: '5',
 			dataType: DataTypes.Date,
 			dateGrouping: DateGroupings.Years,
 			type: AttributeTypes.Event
 		}
-	]); // TODO: remove default values here
+	]); // TODO: LRAC-7247 Remove default values here
 	const [compareToPrevious, setCompareToPrevious] = useState(false);
 	const [event, setEvent] = useState<Event>({
 		id: '0',
 		name: 'Article Views',
 		type: EventTypes.Custom
-	}); // TODO: Remove default event
+	}); // TODO: LRAC-7247 Remove default event
 	const [filters, setFilters] = useState<Filter[]>([
 		{
 			attributeId: '2',
@@ -122,28 +100,15 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 			value: [123123123]
 		},
 		{
-			attributeId: '4',
-			operator: Operators.EQ,
-			value: [false]
-		},
-		{
 			attributeId: '5',
 			operator: Operators.Between,
 			value: ['2020-01-20', '2020-01-24']
 		}
-	]); // TODO: remove default values here
+	]); // TODO: LRAC-7247 Remove mocked values
 	const [type, setType] = useState<CalculationTypes>(CalculationTypes.Total);
 
 	useEffect(() => {
-		// console.log('change', {
-		// 	attributes,
-		// 	breakdowns,
-		// 	compareToPrevious,
-		// 	event,
-		// 	filters,
-		// 	rangeSelectors,
-		// 	type
-		// });
+		// TODO: LRAC-7333 Add request here
 	}, [
 		attributes,
 		breakdowns,
