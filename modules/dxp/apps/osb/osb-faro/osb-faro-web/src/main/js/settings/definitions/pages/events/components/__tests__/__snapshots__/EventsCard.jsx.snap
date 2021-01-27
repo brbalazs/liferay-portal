@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventsCard should render 1`] = `
+<div>
+  <div
+    class="card card-root page-display"
+  >
+    <ul
+      class="nav-root page-subnav mx-4 my-3 nav nav-underline"
+      role="tablist"
+    >
+      <li
+        class="nav-item"
+        role="presentation"
+      >
+        <a
+          class="nav-link"
+          href="/workspace/23/settings/definitions/events/default"
+          role="tab"
+        >
+          <div
+            class="mb-2"
+          >
+            <b>
+              Default Events
+            </b>
+          </div>
+        </a>
+      </li>
+      <li
+        class="nav-item"
+        role="presentation"
+      >
+        <a
+          class="nav-link"
+          href="/workspace/23/settings/definitions/events/custom"
+          role="tab"
+        >
+          <div
+            class="mb-2"
+          >
+            <b>
+              Custom Events
+            </b>
+          </div>
+        </a>
+      </li>
+      <li
+        class="nav-item"
+        role="presentation"
+      >
+        <a
+          class="nav-link"
+          href="/workspace/23/settings/definitions/events/attributes"
+          role="tab"
+        >
+          <div
+            class="mb-2"
+          >
+            <b>
+              Attributes
+            </b>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
