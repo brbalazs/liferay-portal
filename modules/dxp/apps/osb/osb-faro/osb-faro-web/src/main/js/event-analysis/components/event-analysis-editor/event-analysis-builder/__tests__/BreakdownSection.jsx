@@ -27,7 +27,7 @@ describe('BreakdownSection', () => {
 					{
 						displayName: 'Article Title',
 						id: '321321',
-							name: 'articleTitle'
+						name: 'articleTitle'
 					},
 					{
 						displayName: 'Job Title',
