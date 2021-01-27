@@ -31,25 +31,19 @@ const EventAnalysisBuilder: React.FC<IEventAnalysisBuilderProps> = ({
 		onFiltersChange([]);
 	};
 
-	// TODO: Add border to divider class
-
 	return (
 		<div className='event-analysis-builder-root d-flex'>
 			<AnalysisSection event={event} onClearAll={handleClearAll} />
 
 			{event && (
-				<>
-					<div className='divider' />
-
-					<BreakdownSection
-						attributes={attributes}
-						breakdowns={breakdowns}
-						filters={filters}
-						onAttributesChange={onAttributesChange}
-						onBreakdownsChange={onBreakdownsChange}
-						onFiltersChange={onFiltersChange}
-					/>
-				</>
+				<BreakdownSection
+					attributes={attributes}
+					breakdowns={breakdowns}
+					filters={filters}
+					onAttributesChange={onAttributesChange}
+					onBreakdownsChange={onBreakdownsChange}
+					onFiltersChange={onFiltersChange}
+				/>
 			)}
 		</div>
 	);

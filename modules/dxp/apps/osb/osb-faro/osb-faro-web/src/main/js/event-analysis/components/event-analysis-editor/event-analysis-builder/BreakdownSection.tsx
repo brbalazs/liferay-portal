@@ -7,6 +7,8 @@ import {curry, flow} from 'lodash';
 import {DndProvider} from 'react-dnd';
 import {moveItem} from 'shared/util/array';
 
+const MAX_BREAKDOWNS = 3;
+
 interface IBreakdownSectionProps {
 	attributes: Attribute[];
 	breakdowns: Breakdown[];
@@ -55,14 +57,14 @@ const BreakdownSection: React.FC<IBreakdownSectionProps> = ({
 	};
 
 	return (
-		<div className='breakdown-section-root'>
+		<div className='breakdown-section-root flex-grow-1'>
 			<div className='section-header'>
 				{Liferay.Language.get('breakdown-by')}
 			</div>
 
-			<div className='d-flex'>
+			<div className='breakdown-container d-flex align-items-center'>
 				<DndProvider backend={HTML5Backend}>
-					<div className='breakdown-list d-flex'>
+					<div className='breakdown-list d-flex align-items-center'>
 						{attributes.map((attribute, i) => (
 							<BreakdownChip
 								attribute={attribute}
@@ -87,9 +89,18 @@ const BreakdownSection: React.FC<IBreakdownSectionProps> = ({
 					</div>
 				</DndProvider>
 
-				{filters.length < 3 && (
-					<Button display='light' icon='plus' iconAlignment='left' />
-				)}
+				<div>
+					{filters.length < MAX_BREAKDOWNS && (
+						<Button
+							borderless
+							className='add-breakdown'
+							display='light'
+							icon='plus'
+							iconAlignment='left'
+							size='sm'
+						/>
+					)}
+				</div>
 			</div>
 		</div>
 	);

@@ -141,7 +141,7 @@ const BreakdownChip: React.FC<IBreakdownChipProps> = ({
 
 	return (
 		<div
-			className={getCN('breakdown-chip-wrapper', {
+			className={getCN('breakdown-chip-container', {
 				[`hover-${hoverPosition}`]: isOver && canDrop && hoverPosition
 			})}
 			ref={_wrapperRef}

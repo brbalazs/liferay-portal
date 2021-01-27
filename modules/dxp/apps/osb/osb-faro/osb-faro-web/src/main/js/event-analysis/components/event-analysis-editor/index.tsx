@@ -29,12 +29,6 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 }) => {
 	const [attributes, setAttributes] = useState<Attribute[]>([
 		{
-			defaultDataType: DataTypes.Number,
-			displayName: 'Article Count',
-			id: '1',
-			name: 'Article Count'
-		},
-		{
 			defaultDataType: DataTypes.String,
 			displayName: 'Job Title',
 			id: '2',
@@ -54,12 +48,6 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 		}
 	]);
 	const [breakdowns, setBreakdowns] = useState<Breakdown[]>([
-		{
-			attributeId: '1',
-			bin: 10,
-			dataType: DataTypes.Number,
-			type: AttributeTypes.Event
-		},
 		{
 			attributeId: '2',
 			dataType: DataTypes.String,
@@ -88,11 +76,6 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 			attributeId: '2',
 			operator: Operators.NE,
 			value: ['Stuff']
-		},
-		{
-			attributeId: '1',
-			operator: Operators.GT,
-			value: [3232]
 		},
 		{
 			attributeId: '3',
@@ -132,7 +115,7 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 				onFiltersChange={setFilters}
 			/>
 
-			<div className='options-wrapper d-flex justify-content-between'>
+			<div className='options-container d-flex justify-content-between'>
 				<CardTabs
 					activeTabId={type}
 					className='type-selector'

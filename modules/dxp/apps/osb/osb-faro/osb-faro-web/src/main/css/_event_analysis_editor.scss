@@ -39,51 +39,61 @@
 		.breakdown-section-root {
 			overflow-x: hidden;
 
-			.breakdown-list {
-				margin: 0 4px;
-				overflow-x: auto;
-				padding: 0 4px;
+			.add-breakdown {
+				color: $mainLighten28;
+				padding: 8px;
+			}
 
-				.breakdown-chip-wrapper {
-					padding-left: 8px;
-					padding-right: 8px;
+			.breakdown-container {
+				border-left: 1px solid $mainLighten65;
 
-					&.hover-left {
-						box-shadow: inset 1px 0 $primary, -1px 0 $primary;
-					}
+				.breakdown-list {
+					margin: 0 4px;
+					overflow-x: auto;
+					padding: 0 4px;
 
-					&.hover-right {
-						box-shadow: inset -1px 0 0 0 $primary, 1px 0 $primary;
-					}
+					.breakdown-chip-container {
+						padding-left: 8px;
+						padding-right: 8px;
 
-					.breakdown-chip-root {
-						color: $secondary;
-
-						&.dragging:hover,
-						&.dragging:hover .remove-button {
-							color: $mainLighten52;
+						&.hover-left {
+							box-shadow: inset 1px 0 $primary, -1px 0 $primary;
 						}
 
-						.attribute-label {
-							font-size: 10px;
-							text-transform: uppercase;
-							white-space: nowrap;
+						&.hover-right {
+							box-shadow: inset -1px 0 0 0 $primary,
+								1px 0 $primary;
 						}
 
-						.attribute-value {
-							font-size: $fontSizeSmall;
-							font-weight: $fontWeightSemiBold;
-							white-space: nowrap;
-						}
+						.breakdown-chip-root {
+							color: $secondary;
 
-						.drag-handle {
-							color: $mainLighten65;
-							cursor: grab;
-						}
+							&.dragging:hover,
+							&.dragging:hover .remove-button {
+								color: $mainLighten52;
+							}
 
-						.sticker {
-							background-color: $lightBackground;
-							margin: 4px 16px 4px 4px;
+							.attribute-label {
+								font-size: 10px;
+								text-transform: uppercase;
+								white-space: nowrap;
+							}
+
+							.attribute-value {
+								font-size: $fontSizeSmall;
+								font-weight: $fontWeightSemiBold;
+								white-space: nowrap;
+							}
+
+							.drag-handle {
+								color: $mainLighten65;
+								cursor: grab;
+							}
+
+							.sticker {
+								background-color: $lightBackground;
+								margin: 4px 16px 4px 4px;
+							}
 						}
 					}
 				}
@@ -101,7 +111,7 @@
 		}
 	}
 
-	.options-wrapper {
+	.options-container {
 		margin: 0 16px 24px;
 	}
 }
