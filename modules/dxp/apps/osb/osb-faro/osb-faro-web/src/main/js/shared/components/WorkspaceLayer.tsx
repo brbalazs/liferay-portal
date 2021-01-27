@@ -42,7 +42,7 @@ const WorkspaceLayer: React.FC<IWorkspaceLayerProps> = ({
 	workspaceName
 }) => {
 	useEffect(() => {
-		if (currentUserId && workspaceName) {
+		if (currentUserId && currentUserId !== '0' && workspaceName) {
 			analytics.identify(currentUserId, null, {ip: '0'});
 
 			analytics.group(
