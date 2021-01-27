@@ -33,8 +33,13 @@ interface IBreakdownChipProps {
 	breakdown: Breakdown;
 	filter?: Filter;
 	index: number;
-	onMove: (from: number, to: number) => void;
 	onCloseClick: (attributeId: string) => void;
+	onEditSubmit: (
+		attributeId: string,
+		breakdown: Breakdown,
+		filter: Filter
+	) => void;
+	onMove: (from: number, to: number) => void;
 }
 const BreakdownChip: React.FC<IBreakdownChipProps> = ({
 	attribute,
@@ -131,6 +136,8 @@ const BreakdownChip: React.FC<IBreakdownChipProps> = ({
 		breakdown,
 		filter
 	);
+
+	// TODO: LRAC-7247 Add onClick to BreakdownChip to edit current values
 
 	return (
 		<div

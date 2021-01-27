@@ -40,6 +40,20 @@ const BreakdownSection: React.FC<IBreakdownSectionProps> = ({
 		);
 	};
 
+	const handleEditSubmit = (attributeId, breakdown, filter) => {
+		onBreakdownsChange([
+			...breakdowns.filter(
+				breakdown => attributeId !== breakdown.attributeId
+			),
+			breakdown
+		]);
+
+		onFiltersChange([
+			...filters.filter(filter => attributeId !== filter.attributeId),
+			filter
+		]);
+	};
+
 	return (
 		<div className='breakdown-section-root'>
 			<div className='section-header'>
@@ -63,6 +77,7 @@ const BreakdownSection: React.FC<IBreakdownSectionProps> = ({
 								index={i}
 								key={attribute.id}
 								onCloseClick={handleClose}
+								onEditSubmit={handleEditSubmit}
 								onMove={flow(
 									curry(moveItem)(attributes),
 									onAttributesChange
