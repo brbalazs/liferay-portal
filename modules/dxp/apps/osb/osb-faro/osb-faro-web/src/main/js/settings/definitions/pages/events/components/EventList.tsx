@@ -28,7 +28,8 @@ const EventList: React.FC<IEventListProps> = ({
 	customEvents = false,
 	...props
 }) => {
-	let items = [
+	// TODO: LRAC-7329 Get rid of this hardcoded mocked items
+	let MOCKED_ITEMS = [
 		{
 			description: 'mydescription',
 			displayName: 'displayNamehere',
@@ -54,14 +55,14 @@ const EventList: React.FC<IEventListProps> = ({
 
 	if (customEvents) {
 		// TODO: LRAC-7329 modify query to fetch only custom events
-		items = items.map(item => ({
+		MOCKED_ITEMS = MOCKED_ITEMS.map(item => ({
 			...item,
 			displayName: `${item.displayName}CUSTOM`,
 			eventType: 'CUSTOM'
 		}));
 	}
 
-	return <TableWithData {...props} items={items} />;
+	return <TableWithData {...props} items={MOCKED_ITEMS} />;
 };
 
 export default EventList;
