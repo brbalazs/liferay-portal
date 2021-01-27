@@ -154,6 +154,13 @@ export const assetsListColumns = {
 export const attributesColumns = {
 	defaultDataType: {
 		accessor: 'defaultDataType',
+		cellRenderer: ({data: {defaultDataType}}) => (
+			<td>
+				<Label display='primary' uppercase>
+					{defaultDataType}
+				</Label>
+			</td>
+		),
 		label: Liferay.Language.get('data-type')
 	},
 	description: {
