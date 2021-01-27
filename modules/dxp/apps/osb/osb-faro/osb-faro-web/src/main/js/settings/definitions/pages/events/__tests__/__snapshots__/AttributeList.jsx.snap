@@ -167,10 +167,16 @@ exports[`AttributeList should render 1`] = `
           >
             1
           </td>
-          <td
-            class=""
-          >
-            TYPE
+          <td>
+            <div
+              class="label label-root label-primary label-uppercase"
+            >
+              <span
+                class="label-item"
+              >
+                TYPE
+              </span>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -215,10 +221,16 @@ exports[`AttributeList should render 1`] = `
           >
             2
           </td>
-          <td
-            class=""
-          >
-            TYPE2
+          <td>
+            <div
+              class="label label-root label-primary label-uppercase"
+            >
+              <span
+                class="label-item"
+              >
+                TYPE2
+              </span>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -263,10 +275,16 @@ exports[`AttributeList should render 1`] = `
           >
             3
           </td>
-          <td
-            class=""
-          >
-            TYPE3
+          <td>
+            <div
+              class="label label-root label-primary label-uppercase"
+            >
+              <span
+                class="label-item"
+              >
+                TYPE3
+              </span>
+            </div>
           </td>
         </tr>
       </tbody>
