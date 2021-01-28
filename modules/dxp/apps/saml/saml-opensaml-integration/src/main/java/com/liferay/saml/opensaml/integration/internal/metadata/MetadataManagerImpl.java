@@ -220,7 +220,8 @@ public class MetadataManagerImpl
 
 		try {
 			String portalURL = _portal.getPortalURL(
-				httpServletRequest, isSSLRequired());
+				httpServletRequest,
+				isSSLRequired() | _portal.isSecure(httpServletRequest));
 			String localEntityId = _localEntityManager.getLocalEntityId();
 
 			if (_samlProviderConfigurationHelper.isRoleIdp()) {
