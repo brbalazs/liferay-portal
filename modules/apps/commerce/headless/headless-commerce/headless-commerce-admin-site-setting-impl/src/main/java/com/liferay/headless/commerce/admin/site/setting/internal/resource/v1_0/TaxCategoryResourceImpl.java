@@ -18,8 +18,6 @@ import com.liferay.headless.commerce.admin.site.setting.dto.v1_0.TaxCategory;
 import com.liferay.headless.commerce.admin.site.setting.internal.util.v1_0.TaxCategoryHelper;
 import com.liferay.headless.commerce.admin.site.setting.resource.v1_0.TaxCategoryResource;
 
-import javax.validation.constraints.NotNull;
-
 import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
@@ -36,7 +34,7 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class TaxCategoryResourceImpl extends BaseTaxCategoryResourceImpl {
 
 	@Override
-	public Response deleteTaxCategory(@NotNull Long id) throws Exception {
+	public Response deleteTaxCategory(Long id) throws Exception {
 		_taxCategoryHelper.deleteTaxCategory(id);
 
 		Response.ResponseBuilder responseBuilder = Response.ok();
@@ -45,7 +43,7 @@ public class TaxCategoryResourceImpl extends BaseTaxCategoryResourceImpl {
 	}
 
 	@Override
-	public TaxCategory getTaxCategory(@NotNull Long id) throws Exception {
+	public TaxCategory getTaxCategory(Long id) throws Exception {
 		return _taxCategoryHelper.getTaxCategory(id);
 	}
 

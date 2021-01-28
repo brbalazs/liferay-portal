@@ -38,8 +38,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-
 import javax.ws.rs.core.Response;
 
 import org.osgi.service.component.annotations.Component;
@@ -69,7 +67,7 @@ public class WarehouseItemResourceImpl
 
 	@Override
 	public Response deleteWarehouseItemByExternalReferenceCode(
-			@NotNull String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
@@ -137,7 +135,7 @@ public class WarehouseItemResourceImpl
 
 	@Override
 	public WarehouseItem getWarehouseItemByExternalReferenceCode(
-			@NotNull String externalReferenceCode)
+			String externalReferenceCode)
 		throws Exception {
 
 		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
@@ -234,7 +232,7 @@ public class WarehouseItemResourceImpl
 
 	@Override
 	public Response patchWarehouseItemByExternalReferenceCode(
-			@NotNull String externalReferenceCode, WarehouseItem warehouseItem)
+			String externalReferenceCode, WarehouseItem warehouseItem)
 		throws Exception {
 
 		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
@@ -306,7 +304,7 @@ public class WarehouseItemResourceImpl
 
 	@Override
 	public WarehouseItem postWarehouseItemByExternalReferenceCode(
-			@NotNull String externalReferenceCode, WarehouseItem warehouseItem)
+			String externalReferenceCode, WarehouseItem warehouseItem)
 		throws Exception {
 
 		CommerceInventoryWarehouse commerceInventoryWarehouse = null;

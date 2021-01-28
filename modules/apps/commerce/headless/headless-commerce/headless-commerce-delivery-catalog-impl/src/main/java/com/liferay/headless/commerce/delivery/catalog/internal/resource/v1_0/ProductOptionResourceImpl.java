@@ -33,8 +33,6 @@ import com.liferay.portal.vulcan.pagination.Pagination;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -53,8 +51,7 @@ public class ProductOptionResourceImpl
 	@NestedField(parentClass = Product.class, value = "productOptions")
 	@Override
 	public Page<ProductOption> getChannelProductOptionsPage(
-			@NotNull Long channelId,
-			@NestedFieldId(value = "productId") @NotNull Long productId,
+			Long channelId, @NestedFieldId(value = "productId") Long productId,
 			Pagination pagination)
 		throws Exception {
 
