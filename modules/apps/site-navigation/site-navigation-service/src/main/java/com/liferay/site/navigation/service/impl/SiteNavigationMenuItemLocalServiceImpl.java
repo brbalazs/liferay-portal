@@ -224,10 +224,9 @@ public class SiteNavigationMenuItemLocalServiceImpl
 			siteNavigationMenuItem.getSiteNavigationMenuId(),
 			siteNavigationMenuItemId, parentSiteNavigationMenuItemId);
 
-		int oldOrder = siteNavigationMenuItem.getOrder();
-
 		long oldParentSiteNavigationMenuItemId =
 			siteNavigationMenuItem.getParentSiteNavigationMenuItemId();
+		int oldOrder = siteNavigationMenuItem.getOrder();
 
 		siteNavigationMenuItem.setParentSiteNavigationMenuItemId(
 			parentSiteNavigationMenuItemId);
