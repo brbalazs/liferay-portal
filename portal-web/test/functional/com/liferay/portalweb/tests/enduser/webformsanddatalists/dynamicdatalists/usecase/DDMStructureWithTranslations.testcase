@@ -80,7 +80,7 @@ definition {
 			ddlRecordFieldData = "pt-BR Pergunta",
 			fieldName = "Pergunta");
 
-		for (var language : list "es-ES,en-US") {
+		for (var language : list "en-US,pt-BR,es-ES") {
 			PortletEntry.changeLocale(locale = "${language}");
 
 			DDLRecord.populateFieldText(
@@ -92,7 +92,7 @@ definition {
 				fieldName = "Pergunta");
 		}
 
-		for (var language : list "pt-BR,en-US,es-ES,") {
+		for (var language : list "es-ES,pt-BR,en-US") {
 			PortletEntry.changeLocale(locale = "${language}");
 
 			FormFields.viewTextValue(
