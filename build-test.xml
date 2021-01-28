@@ -4179,13 +4179,21 @@ go</echo>
 			<get-testcase-property property.name="remote.elasticsearch7.enabled" />
 
 			<if>
-				<or>
-					<equals arg1="${remote.elasticsearch7.enabled}" arg2="true" />
-					<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch7" />
-				</or>
+				<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch7-jdk11" />
 				<then>
-					<ant antfile="build-test-elasticsearch7.xml" target="start-elasticsearch" />
+					<ant antfile="build-test-elasticsearch7.xml" target="start-elasticsearch">
+						<property name="jdk.version" value="openjdk11" />
+					</ant>
 				</then>
+				<elseif>
+					<or>
+						<equals arg1="${remote.elasticsearch7.enabled}" arg2="true" />
+						<equals arg1="${suite.search.engine}" arg2="remote-elasticsearch7" />
+					</or>
+					<then>
+						<ant antfile="build-test-elasticsearch7.xml" target="start-elasticsearch" />
+					</then>
+				</elseif>
 			</if>
 
 			<get-testcase-property property.name="solr.enabled" />
