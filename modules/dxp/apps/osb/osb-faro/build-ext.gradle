@@ -130,6 +130,12 @@ createDocker {
 	}
 }
 
+buildAppDockerImage {
+	def LABEL_BUILD_DATE = ('git log -1 --format=%cd').execute().text.trim()
+	def LABEL_VCS_REF = ('git rev-parse --short=7 HEAD').execute().text.trim()
+	buildArgs = ['LABEL_BUILD_DATE': LABEL_BUILD_DATE, 'LABEL_VCS_REF': LABEL_VCS_REF]
+}
+
 docker {
 	registryCredentials {
 		password = System.getenv("DOCKER_PASSWORD")

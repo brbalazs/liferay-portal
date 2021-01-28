@@ -2,11 +2,16 @@ FROM liferay/portal-snapshot:7.1.x-201811281240-5dc481e
 
 USER root
 
+ARG LABEL_BUILD_DATE
+ARG LABEL_VCS_REF
+
 ENV FARO_DEFAULT_WE_DEPLOY_KEY=osbasah.lfr.cloud \
 	FARO_DEMO_CREATOR_METHOD=snapshot \
 	FARO_PROJECT_ID=FARO-DEV-liferay \
 	FARO_URL=http://localhost:8080 \
 	JAVA_OPTS=-Djava.rmi.server.hostname="localhost -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n" \
+	LABEL_BUILD_DATE=${LABEL_BUILD_DATE} \
+	LABEL_VCS_REF=${LABEL_VCS_REF} \
 	OSB_API_TOKEN=lwn8C5iAlUi2bvaqSm \
 	OSB_API_URL=https://web-uat.liferay.com \
 	OSB_ASAH_BACKEND_URL=http://osbasahbackend:8080 \
