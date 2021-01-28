@@ -134,6 +134,14 @@ public class DataSourceFactoryImpl implements DataSourceFactory {
 
 	@Override
 	public DataSource initDataSource(Properties properties) throws Exception {
+
+		Properties defaultProperties = PropsUtil.getProperties(
+			"jdbc.default.", true);
+
+		PropertiesUtil.merge(defaultProperties, properties);
+
+		properties = defaultProperties;
+
 		String jndiName = properties.getProperty("jndi.name");
 		String driverClassName = properties.getProperty("driverClassName");
 
