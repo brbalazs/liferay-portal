@@ -4,4 +4,5 @@ Bundle-Version: 4.0.14
 Export-Package:\
 	com.liferay.portal.security.sso.openid.connect,\
 	com.liferay.portal.security.sso.openid.connect.configuration,\
-	com.liferay.portal.security.sso.openid.connect.constants
+	com.liferay.portal.security.sso.openid.connect.constants,\
+	com.liferay.portal.security.sso.openid.connect.util
