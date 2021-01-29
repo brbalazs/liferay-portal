@@ -18,12 +18,12 @@ describe('BreakdownChip', () => {
 				}}
 				breakdown={{
 					attributeId: '123123',
+					dataType: 'string',
 					type: 'event'
 				}}
 				filter={{
 					attributeId: '123123',
-					dataType: 'string',
-					operator: 'EQ',
+					operator: 'eq',
 					value: ['Stuff']
 				}}
 				index={1}

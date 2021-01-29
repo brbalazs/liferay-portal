@@ -56,9 +56,7 @@ const BreakdownChip: React.FC<IBreakdownChipProps> = ({
 
 	const [{canDrop, isOver}, drop] = useDrop({
 		accept: ITEM_TYPES.BREAKDOWN_CHIP,
-		canDrop: (item: DragItem) => {
-			const {index: dragIndex} = item;
-
+		canDrop: ({index: dragIndex}: DragItem) => {
 			const dropIndex = index;
 
 			return dragIndex !== dropIndex;
@@ -67,9 +65,7 @@ const BreakdownChip: React.FC<IBreakdownChipProps> = ({
 			canDrop: monitor.canDrop(),
 			isOver: monitor.isOver()
 		}),
-		drop: (item: DragItem) => {
-			const {index: dragIndex} = item;
-
+		drop: ({index: dragIndex}: DragItem) => {
 			let dropIndex = index;
 
 			const insertLeft =
@@ -86,11 +82,10 @@ const BreakdownChip: React.FC<IBreakdownChipProps> = ({
 
 			onMove(dragIndex, dropIndex);
 		},
-		hover: (item: DragItem, monitor: DropTargetMonitor) => {
-			const {index: dragIndex} = item;
-
+		hover: ({index: dragIndex}: DragItem, monitor: DropTargetMonitor) => {
 			const hoverIndex = index;
 
+			// Determine whether hover is on left or right side of hovered BreakdownChip
 			if (_wrapperRef.current) {
 				const {
 					right,

@@ -53,48 +53,11 @@ const STRING_OPERATOR_LABELS_MAP = {
 	[Operators.NE]: Liferay.Language.get('is-not-fragment')
 };
 
-export const getBreakdownDisplay = (
-	attribute: Attribute,
-	breakdown: Breakdown,
-	filter: Filter
-): string[] => {
-	let displayFn: (
-		attribute: Attribute,
-		breakdown: Breakdown,
-		filter?: Filter
-	) => string[] = getDefaultDisplay;
-
-	if (filter) {
-		switch (breakdown.dataType) {
-			case DataTypes.Boolean:
-				displayFn = getBooleanDisplay;
-				break;
-			case DataTypes.Date:
-				displayFn = getDateDisplay;
-				break;
-			case DataTypes.Duration:
-				displayFn = getDurationDisplay;
-				break;
-			case DataTypes.Number:
-				displayFn = getNumberDisplay;
-				break;
-			case DataTypes.String:
-				displayFn = getStringDisplay;
-				break;
-			default:
-				displayFn = getDefaultDisplay;
-				break;
-		}
-	}
-
-	return displayFn(attribute, breakdown, filter);
-};
-
 const getBooleanDisplay = (
 	attribute: Attribute,
 	breakdown: Breakdown,
 	filter: Filter
-): string[] => [
+): [string, string] => [
 	getDefaultDisplay(attribute, breakdown).join(' | '),
 	BOOLEAN_LABEL_MAP[String(filter.value[0])]
 ];
@@ -102,23 +65,23 @@ const getBooleanDisplay = (
 const getDateDisplay = (
 	attribute: Attribute,
 	breakdown: Breakdown,
-	{operator, value}: Filter
-): string[] => {
+	{operator, value: [startDate, endDate]}: Filter
+): [string, string] => {
 	const {dateGrouping} = breakdown;
 
 	const dateGroupingLabel = DATE_GROUPING_LABELS_MAP[dateGrouping];
 
 	const operatorLabel = DATE_OPERATOR_LABELS_MAP[operator];
 
-	const startDate = formatUTCDate(value[0] as string, 'll');
+	const formattedStartDate = formatUTCDate(startDate as string, 'll');
 
 	const breakdownValue =
 		operator === Operators.Between
-			? `${startDate} ${operatorLabel} ${formatUTCDate(
-					value[1] as string,
+			? `${formattedStartDate} ${operatorLabel} ${formatUTCDate(
+					endDate as string,
 					'll'
 			  )}`
-			: `${operatorLabel} ${startDate}`;
+			: `${operatorLabel} ${formattedStartDate}`;
 
 	return [
 		getDefaultDisplay(attribute, breakdown).join(' | '),
@@ -129,13 +92,13 @@ const getDateDisplay = (
 const getDefaultDisplay = (
 	{displayName, name}: Attribute,
 	{type}: Breakdown
-): string[] => [ATTRIBUTE_TYPE_LABEL_MAP[type], displayName || name];
+): [string, string] => [ATTRIBUTE_TYPE_LABEL_MAP[type], displayName || name];
 
 const getDurationDisplay = (
 	attribute: Attribute,
 	breakdown: Breakdown,
 	{operator, value: [value]}: Filter
-): string[] => {
+): [string, string] => {
 	const duration = formatTime(value as number);
 
 	return [
@@ -147,16 +110,16 @@ const getDurationDisplay = (
 const getNumberDisplay = (
 	attribute: Attribute,
 	breakdown: Breakdown,
-	{operator, value}: Filter
-): string[] => {
+	{operator, value: [start, end]}: Filter
+): [string, string] => {
 	const {bin} = breakdown;
 
 	const operatorLabel = NUMBER_OPERATOR_LABELS_MAP[operator];
 
 	const breakdownValue =
 		operator === Operators.Between
-			? `${value[0]} ${operatorLabel} ${value[1]}`
-			: `${operatorLabel} ${value[0]}`;
+			? `${start} ${operatorLabel} ${end}`
+			: `${operatorLabel} ${start}`;
 
 	return [
 		getDefaultDisplay(attribute, breakdown).join(' | '),
@@ -168,7 +131,33 @@ const getStringDisplay = (
 	attribute: Attribute,
 	breakdown: Breakdown,
 	{operator, value}: Filter
-): string[] => [
+): [string, string] => [
 	getDefaultDisplay(attribute, breakdown).join(' | '),
 	`${STRING_OPERATOR_LABELS_MAP[operator]} "${value}"`
 ];
+
+const BREAKDOWN_DISPLAY_MAP = {
+	[DataTypes.Boolean]: getBooleanDisplay,
+	[DataTypes.Date]: getDateDisplay,
+	[DataTypes.Duration]: getDurationDisplay,
+	[DataTypes.Number]: getNumberDisplay,
+	[DataTypes.String]: getStringDisplay
+};
+
+export const getBreakdownDisplay = (
+	attribute: Attribute,
+	breakdown: Breakdown,
+	filter: Filter
+): [string, string] => {
+	let displayFn: (
+		attribute: Attribute,
+		breakdown: Breakdown,
+		filter?: Filter
+	) => [string, string] = getDefaultDisplay;
+
+	if (filter) {
+		displayFn = BREAKDOWN_DISPLAY_MAP[breakdown.dataType];
+	}
+
+	return displayFn(attribute, breakdown, filter);
+};

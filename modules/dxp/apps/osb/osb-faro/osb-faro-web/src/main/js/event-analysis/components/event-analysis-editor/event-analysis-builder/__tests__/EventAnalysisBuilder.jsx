@@ -27,11 +27,13 @@ describe('Event Analysis Builder', () => {
 				breakdowns={[
 					{
 						attributeId: '321321',
+						dataType: 'string',
 						type: 'event'
 					},
 					{
 						attributeId: '123123',
-						attributeType: 'event'
+						dataType: 'string',
+						type: 'event'
 					}
 				]}
 				event={{
@@ -42,7 +44,6 @@ describe('Event Analysis Builder', () => {
 				filters={[
 					{
 						attributeId: '123123',
-						dataType: 'string',
 						operator: 'eq',
 						value: ['Stuff']
 					}
