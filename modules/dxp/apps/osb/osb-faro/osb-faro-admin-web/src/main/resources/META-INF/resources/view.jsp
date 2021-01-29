@@ -54,6 +54,13 @@ boolean omniAdmin = permissionChecker.isOmniadmin();
 							navigationItem.setLabel(LanguageUtil.get(request, "upgrade"));
 						});
 				}
+
+				add(
+					navigationItem -> {
+						navigationItem.setActive(tabs1.equals("system_info"));
+						navigationItem.setHref(renderResponse.createRenderURL(), "mvcPath", "/view.jsp", "tabs1", "system_info");
+						navigationItem.setLabel(LanguageUtil.get(request, "system-info"));
+					});
 			}
 		}
 	%>'
@@ -66,7 +73,10 @@ boolean omniAdmin = permissionChecker.isOmniadmin();
 	<c:when test='<%= tabs1.equals("settings") %>'>
 		<liferay-util:include page="/settings.jsp" servletContext="<%= application %>" />
 	</c:when>
-	<c:otherwise>
+	<c:when test='<%= tabs1.equals("upgrade") %>'>
 		<liferay-util:include page="/upgrade_progress.jsp" servletContext="<%= application %>" />
+	</c:when>
+	<c:otherwise>
+		<liferay-util:include page="/system_info.jsp" servletContext="<%= application %>" />
 	</c:otherwise>
 </c:choose>
