@@ -24,16 +24,16 @@ const EventAnalysisBuilder: React.FC<IEventAnalysisBuilderProps> = ({
 	onEventChange,
 	onFiltersChange
 }) => {
-	const handleClearAll = () => {
+	const handleEventChange = (event?: Event) => {
 		onAttributesChange([]);
 		onBreakdownsChange([]);
-		onEventChange(null);
+		onEventChange(event);
 		onFiltersChange([]);
 	};
 
 	return (
 		<div className='event-analysis-builder-root d-flex'>
-			<AnalysisSection event={event} onClearAll={handleClearAll} />
+			<AnalysisSection event={event} onEventChange={handleEventChange} />
 
 			{event && (
 				<BreakdownSection

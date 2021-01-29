@@ -1,3 +1,19 @@
+.event-analysis-dropdown-menu-root {
+	.dropdown-item {
+		&:not(.active) {
+			.dropdown-item-primary-button {
+				color: $mainLighten28;
+			}
+		}
+	}
+
+	.event-analysis-dropdown-header {
+		font-size: $fontSizeMedium;
+		font-weight: $fontWeightSemiBold;
+		padding: 8px 20px;
+	}
+}
+
 .event-analysis-editor-root {
 	color: $secondary;
 
@@ -20,6 +36,10 @@
 		padding: 16px;
 
 		.analysis-section-root {
+			.add-analysis-button {
+				padding: 8px;
+			}
+
 			.analysis-list {
 				margin-right: 16px;
 
@@ -27,8 +47,15 @@
 					line-height: 24px;
 					max-height: 42px;
 					padding: 8px 0 8px 8px;
+					transition: box-shadow 300ms ease-in-out;
+
+					&:focus,
+					&:hover {
+						box-shadow: 0px 1px 5px -1px rgba($black, 0.3);
+					}
 
 					.event-name {
+						color: $secondary;
 						font-weight: $fontWeightSemiBold;
 						white-space: nowrap;
 					}

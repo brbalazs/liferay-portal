@@ -4,18 +4,7 @@ import Checkbox from 'shared/components/Checkbox';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import EventAnalysisBuilder from './event-analysis-builder';
 import React, {useEffect, useState} from 'react';
-import {
-	Attribute,
-	AttributeTypes,
-	Breakdown,
-	CalculationTypes,
-	DataTypes,
-	DateGroupings,
-	Event,
-	EventTypes,
-	Filter,
-	Operators
-} from './types';
+import {Attribute, Breakdown, CalculationTypes, Event, Filter} from './types';
 import {withRangeKey} from 'shared/hoc';
 import {WithRangeKeyProps} from 'shared/hoc/WithRangeKey';
 
@@ -27,67 +16,11 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 	onRangeSelectorsChange,
 	rangeSelectors
 }) => {
-	const [attributes, setAttributes] = useState<Attribute[]>([
-		{
-			defaultDataType: DataTypes.String,
-			displayName: 'Job Title',
-			id: '2',
-			name: 'Job Title'
-		},
-		{
-			defaultDataType: DataTypes.Duration,
-			displayName: 'Session Time',
-			id: '3',
-			name: 'sessionTime'
-		},
-		{
-			defaultDataType: DataTypes.Date,
-			displayName: 'Article Date',
-			id: '5',
-			name: 'dateCreated'
-		}
-	]);
-	const [breakdowns, setBreakdowns] = useState<Breakdown[]>([
-		{
-			attributeId: '2',
-			dataType: DataTypes.String,
-			type: AttributeTypes.Event
-		},
-		{
-			attributeId: '3',
-			dataType: DataTypes.Duration,
-			type: AttributeTypes.Session
-		},
-		{
-			attributeId: '5',
-			dataType: DataTypes.Date,
-			dateGrouping: DateGroupings.Years,
-			type: AttributeTypes.Event
-		}
-	]); // TODO: LRAC-7247 Remove default values here
+	const [attributes, setAttributes] = useState<Attribute[]>([]);
+	const [breakdowns, setBreakdowns] = useState<Breakdown[]>([]);
 	const [compareToPrevious, setCompareToPrevious] = useState(false);
-	const [event, setEvent] = useState<Event>({
-		id: '0',
-		name: 'Article Views',
-		type: EventTypes.Custom
-	}); // TODO: LRAC-7247 Remove default event
-	const [filters, setFilters] = useState<Filter[]>([
-		{
-			attributeId: '2',
-			operator: Operators.NE,
-			value: ['Stuff']
-		},
-		{
-			attributeId: '3',
-			operator: Operators.GT,
-			value: [123123123]
-		},
-		{
-			attributeId: '5',
-			operator: Operators.Between,
-			value: ['2020-01-20', '2020-01-24']
-		}
-	]); // TODO: LRAC-7247 Remove mocked values
+	const [event, setEvent] = useState<Event>(null);
+	const [filters, setFilters] = useState<Filter[]>([]);
 	const [type, setType] = useState<CalculationTypes>(CalculationTypes.Total);
 
 	useEffect(() => {

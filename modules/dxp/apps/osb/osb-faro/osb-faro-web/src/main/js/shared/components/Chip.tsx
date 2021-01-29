@@ -23,7 +23,7 @@ const Chip = React.forwardRef<HTMLDivElement, IChipProps>(
 				display='unstyled'
 				icon='times-circle'
 				iconAlignment='left'
-				onClick={onCloseClick}
+				onClick={() => onCloseClick()}
 			/>
 		</div>
 	)
