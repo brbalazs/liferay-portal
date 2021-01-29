@@ -11377,6 +11377,7 @@ ANT_OPTS=${env.ANT_OPTS}</echo>
 							</or>
 							<then>
 								<prepare-jboss-module-configuration />
+
 								<print-file file.name="${app.server.lib.global.dir}/module.xml" />
 							</then>
 						</if>
