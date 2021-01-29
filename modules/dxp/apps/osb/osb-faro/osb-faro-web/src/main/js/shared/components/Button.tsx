@@ -103,6 +103,7 @@ class Button extends React.Component<IButtonProps> {
 			disabled = false,
 			display = 'secondary',
 			externalLink = false,
+			forwardedRef,
 			href,
 			icon,
 			iconAlignment,
@@ -138,6 +139,7 @@ class Button extends React.Component<IButtonProps> {
 					className={classes}
 					href={disabled ? undefined : href}
 					onClick={onClick}
+					ref={forwardedRef}
 				>
 					{children}
 				</a>
@@ -145,7 +147,12 @@ class Button extends React.Component<IButtonProps> {
 			/* eslint-enable */
 		} else if (!disabled && !externalLink && href) {
 			return (
-				<Link className={classes} onClick={onClick} to={href}>
+				<Link
+					className={classes}
+					onClick={onClick}
+					ref={forwardedRef}
+					to={href}
+				>
 					{children}
 				</Link>
 			);
@@ -156,6 +163,7 @@ class Button extends React.Component<IButtonProps> {
 					className={classes}
 					disabled={disabled || loading}
 					onClick={onClick}
+					ref={forwardedRef}
 					type={type}
 				>
 					{loading && (
@@ -175,7 +183,9 @@ class Button extends React.Component<IButtonProps> {
 	}
 }
 
-export default Object.assign(Button, {
-	Group: ButtonGroup,
-	GroupItem: ButtonGroupItem
-});
+export default Object.assign(
+	React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) => (
+		<Button forwardedRef={ref} {...props} />
+	)),
+	{Group: ButtonGroup, GroupItem: ButtonGroupItem}
+);
