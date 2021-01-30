@@ -61,7 +61,7 @@ exports[`Row should display an error state if it is a duplicate target field 1`]
     className="add-on"
     shrink={true}
   >
-    <Button
+    <ForwardRef
       data-tooltip={true}
       display="unstyled"
       onClick={[Function]}
@@ -70,7 +70,7 @@ exports[`Row should display an error state if it is a duplicate target field 1`]
       <Icon
         symbol="times-circle"
       />
-    </Button>
+    </ForwardRef>
   </FormGroupItem>
 </FormGroup>
 `;
@@ -136,7 +136,7 @@ exports[`Row should render 1`] = `
     className="add-on"
     shrink={true}
   >
-    <Button
+    <ForwardRef
       data-tooltip={true}
       display="unstyled"
       onClick={[Function]}
@@ -145,7 +145,7 @@ exports[`Row should render 1`] = `
       <Icon
         symbol="times-circle"
       />
-    </Button>
+    </ForwardRef>
   </FormGroupItem>
 </FormGroup>
 `;
@@ -217,7 +217,7 @@ exports[`Row should update when receiving a new field: should contain "baz" and 
     className="add-on"
     shrink={true}
   >
-    <Button
+    <ForwardRef
       data-tooltip={true}
       display="unstyled"
       onClick={[Function]}
@@ -226,7 +226,7 @@ exports[`Row should update when receiving a new field: should contain "baz" and 
       <Icon
         symbol="times-circle"
       />
-    </Button>
+    </ForwardRef>
   </FormGroupItem>
 </FormGroup>
 `;

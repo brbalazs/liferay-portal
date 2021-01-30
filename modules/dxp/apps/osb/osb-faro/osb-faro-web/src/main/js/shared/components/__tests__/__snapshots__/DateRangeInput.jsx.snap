@@ -10,6 +10,7 @@ exports[`DateRangeInput renders 1`] = `
       class="input-group-item"
     >
       <input
+        autocomplete="off"
         class="input-root form-control input-group-inset input-group-inset-after"
         data-testid="date-range-input"
         placeholder="YYYY-MM-DD to YYYY-MM-DD"

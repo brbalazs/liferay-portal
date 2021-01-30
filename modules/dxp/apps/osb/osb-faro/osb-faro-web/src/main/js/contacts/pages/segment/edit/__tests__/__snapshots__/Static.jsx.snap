@@ -125,20 +125,20 @@ exports[`StaticSegmentEdit should not render a navigation warning after being ch
           <div
             className="form-actions"
           >
-            <Button
+            <ForwardRef
               className="cancel"
               href="/workspace/23/contacts/segments"
             >
               Cancel
-            </Button>
-            <Button
+            </ForwardRef>
+            <ForwardRef
               className="submit"
               disabled={false}
               display="primary"
               type="submit"
             >
               Create
-            </Button>
+            </ForwardRef>
           </div>
         </div>
       </Body>
@@ -270,20 +270,20 @@ exports[`StaticSegmentEdit should not render a navigation warning after being ch
           <div
             className="form-actions"
           >
-            <Button
+            <ForwardRef
               className="cancel"
               href="/workspace/23/contacts/segments"
             >
               Cancel
-            </Button>
-            <Button
+            </ForwardRef>
+            <ForwardRef
               className="submit"
               disabled={true}
               display="primary"
               type="submit"
             >
               Create
-            </Button>
+            </ForwardRef>
           </div>
         </div>
       </Body>
@@ -436,20 +436,20 @@ exports[`StaticSegmentEdit should render a navigation warning 1`] = `
           <div
             className="form-actions"
           >
-            <Button
+            <ForwardRef
               className="cancel"
               href="/workspace/23/contacts/segments"
             >
               Cancel
-            </Button>
-            <Button
+            </ForwardRef>
+            <ForwardRef
               className="submit"
               disabled={false}
               display="primary"
               type="submit"
             >
               Create
-            </Button>
+            </ForwardRef>
           </div>
         </div>
       </Body>

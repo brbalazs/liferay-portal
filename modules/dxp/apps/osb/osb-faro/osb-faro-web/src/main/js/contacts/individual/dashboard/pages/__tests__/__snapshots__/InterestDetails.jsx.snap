@@ -99,7 +99,6 @@ exports[`Individuals Dashboard Individuals Interest Details renders 1`] = `
                 >
                   <button
                     class="dropdown-toggle btn btn-outline-borderless btn-sm btn-outline-secondary"
-                    style=""
                     type="button"
                   >
                     Last 30 days

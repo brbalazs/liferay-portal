@@ -2,6 +2,6 @@
 
 exports[`Tooltip renders 1`] = `
 <div>
-  <span />
+  <div />
 </div>
 `;

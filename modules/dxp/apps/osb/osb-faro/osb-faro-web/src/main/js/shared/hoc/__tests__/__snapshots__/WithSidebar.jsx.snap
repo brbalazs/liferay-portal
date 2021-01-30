@@ -42,7 +42,6 @@ exports[`withSidebar should render with the sidebar 1`] = `
         </a>
         <button
           class="channels-menu button-root btn btn-unstyled"
-          style=""
         >
           <div
             class="channels-menu-icon"
@@ -312,7 +311,6 @@ exports[`withSidebar should render with the sidebar 1`] = `
           >
             <button
               class="user-menu button-root btn btn-unstyled trigger"
-              style=""
               type="button"
             >
               <div

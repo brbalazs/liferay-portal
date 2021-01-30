@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AttributeSection render 1`] = `
+<div>
+  <div
+    class="attribute-section-root flex-grow-1"
+  >
+    <div
+      class="section-header"
+    >
+      Breakdown By
+    </div>
+    <div
+      class="attribute-container d-flex align-items-center"
+    >
+      <div
+        class="attribute-list d-flex align-items-center"
+      />
+      <div>
+        <div
+          class="dropdown"
+        >
+          <button
+            class="button-root btn btn-light dropdown-toggle add-attribute btn-outline-borderless btn-sm"
+            type="button"
+          >
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-plus"
+              viewBox=""
+            >
+              <use
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#plus"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AttributeSection render with breakdown & filter 1`] = `
+<div>
+  <div
+    class="attribute-section-root flex-grow-1"
+  >
+    <div
+      class="section-header"
+    >
+      Breakdown By
+    </div>
+    <div
+      class="attribute-container d-flex align-items-center"
+    >
+      <div
+        class="attribute-list d-flex align-items-center"
+      />
+      <div>
+        <div
+          class="dropdown"
+        >
+          <button
+            class="button-root btn btn-light dropdown-toggle add-attribute btn-outline-borderless btn-sm"
+            type="button"
+          >
+            <svg
+              class="icon-root lexicon-icon lexicon-icon-plus"
+              viewBox=""
+            >
+              <use
+                xlink:href="/o/osb-faro-web/dist/sprite.svg#plus"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

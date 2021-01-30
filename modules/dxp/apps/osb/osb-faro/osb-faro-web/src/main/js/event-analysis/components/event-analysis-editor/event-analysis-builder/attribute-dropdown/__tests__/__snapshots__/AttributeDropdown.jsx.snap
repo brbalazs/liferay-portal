@@ -1,0 +1,227 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AttributeDropdown render 1`] = `
+<div>
+  <div
+    class="dropdown"
+  >
+    <button
+      class="dropdown-toggle"
+      data-testid="target"
+      style=""
+    >
+      click me
+    </button>
+  </div>
+</div>
+`;
+
+exports[`AttributeDropdown render 2`] = `
+<div
+  class="dropdown-menu base-dropdown-menu-root event-analysis-editor-attribute-dropdown-root show"
+  style="left: -995px; top: -999px;"
+>
+  <div
+    class="event-analysis-dropdown-header"
+  >
+    <div
+      class="event-analysis-dropdown-header-title"
+    >
+      Attributes
+    </div>
+    <ul
+      class="card-tabs-root event-type-selector small"
+    >
+      <li
+        class="card-tab active"
+        data-testid="event"
+      >
+        <button
+          class="button-root btn btn-unstyled"
+          type="button"
+        >
+          <span
+            class="title"
+          >
+            Event
+          </span>
+          <div />
+        </button>
+      </li>
+    </ul>
+  </div>
+  <form
+    class=""
+  >
+    <div
+      class="dropdown-section"
+    >
+      <div
+        class="input-group input-group-sm"
+      >
+        <div
+          class="input-group-item"
+        >
+          <input
+            class="form-control input-group-inset input-group-inset-after"
+            placeholder="Search"
+            type="text"
+            value=""
+          />
+          <span
+            class="input-group-inset-item input-group-inset-item-after"
+          >
+            <button
+              class="btn btn-unstyled"
+              type="button"
+            >
+              <svg
+                class="lexicon-icon lexicon-icon-search"
+                role="presentation"
+              >
+                <use
+                  xlink:href="/o/osb-faro-web/dist/sprite.svg#search"
+                />
+              </svg>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ul
+    class="list-unstyled"
+  >
+    <li>
+      <span
+        aria-haspopup="true"
+        class="dropdown-item d-flex justify-content-between"
+      >
+        <button
+          class="button-root btn btn-unstyled dropdown-item-primary-button"
+          type="button"
+        >
+          Time on Page
+        </button>
+        <button
+          class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
+          type="button"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-filter"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#filter"
+            />
+          </svg>
+        </button>
+      </span>
+    </li>
+    <li>
+      <span
+        aria-haspopup="true"
+        class="dropdown-item d-flex justify-content-between"
+      >
+        <button
+          class="button-root btn btn-unstyled dropdown-item-primary-button"
+          type="button"
+        >
+          Date Created
+        </button>
+        <button
+          class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
+          type="button"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-filter"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#filter"
+            />
+          </svg>
+        </button>
+      </span>
+    </li>
+    <li>
+      <span
+        aria-haspopup="true"
+        class="dropdown-item d-flex justify-content-between"
+      >
+        <button
+          class="button-root btn btn-unstyled dropdown-item-primary-button"
+          type="button"
+        >
+          Answered
+        </button>
+        <button
+          class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
+          type="button"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-filter"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#filter"
+            />
+          </svg>
+        </button>
+      </span>
+    </li>
+    <li>
+      <span
+        aria-haspopup="true"
+        class="dropdown-item d-flex justify-content-between"
+      >
+        <button
+          class="button-root btn btn-unstyled dropdown-item-primary-button"
+          type="button"
+        >
+          Filed Ticket
+        </button>
+        <button
+          class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
+          type="button"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-filter"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#filter"
+            />
+          </svg>
+        </button>
+      </span>
+    </li>
+    <li>
+      <span
+        aria-haspopup="true"
+        class="dropdown-item d-flex justify-content-between"
+      >
+        <button
+          class="button-root btn btn-unstyled dropdown-item-primary-button"
+          type="button"
+        >
+          Read Article
+        </button>
+        <button
+          class="button-root btn btn-secondary filter-button btn-outline-borderless btn-sm"
+          type="button"
+        >
+          <svg
+            class="icon-root lexicon-icon lexicon-icon-filter"
+            viewBox=""
+          >
+            <use
+              xlink:href="/o/osb-faro-web/dist/sprite.svg#filter"
+            />
+          </svg>
+        </button>
+      </span>
+    </li>
+  </ul>
+</div>
+`;

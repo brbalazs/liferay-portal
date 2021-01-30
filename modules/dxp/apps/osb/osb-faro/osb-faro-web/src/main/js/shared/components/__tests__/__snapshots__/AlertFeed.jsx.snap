@@ -5,9 +5,9 @@ exports[`AlertFeed should render 1`] = `
   <div
     class="alert-feed-root alert-notifications"
   >
-    <span>
+    <div>
       <div
-        class="alert alert-dismissible alert-info transition-slide-up-appear"
+        class="alert alert-dismissible alert-info transition-slide-up-appear transition-slide-up-appear-active"
         role="alert"
       >
         <span
@@ -41,7 +41,7 @@ exports[`AlertFeed should render 1`] = `
           </svg>
         </button>
       </div>
-    </span>
+    </div>
   </div>
 </div>
 `;
@@ -51,9 +51,9 @@ exports[`AlertFeed should render with a message comprised of language keys with 
   <div
     class="alert-feed-root alert-notifications"
   >
-    <span>
+    <div>
       <div
-        class="alert alert-dismissible alert-info transition-slide-up-appear"
+        class="alert alert-dismissible alert-info transition-slide-up-appear transition-slide-up-appear-active"
         role="alert"
       >
         <span
@@ -90,7 +90,7 @@ exports[`AlertFeed should render with a message comprised of language keys with 
           </svg>
         </button>
       </div>
-    </span>
+    </div>
   </div>
 </div>
 `;
@@ -100,9 +100,9 @@ exports[`AlertFeed should render with modal open 1`] = `
   <div
     class="alert-feed-root alert-notifications modal-active"
   >
-    <span>
+    <div>
       <div
-        class="alert alert-dismissible alert-info transition-slide-up-appear"
+        class="alert alert-dismissible alert-info transition-slide-up-appear transition-slide-up-appear-active"
         role="alert"
       >
         <span
@@ -136,7 +136,7 @@ exports[`AlertFeed should render with modal open 1`] = `
           </svg>
         </button>
       </div>
-    </span>
+    </div>
   </div>
 </div>
 `;

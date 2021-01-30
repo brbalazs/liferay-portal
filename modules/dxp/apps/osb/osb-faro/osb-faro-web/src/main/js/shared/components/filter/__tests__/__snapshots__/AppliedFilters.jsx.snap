@@ -52,7 +52,7 @@ exports[`AppliedFilters should render 1`] = `
       size="lg"
     />
   </div>
-  <Button
+  <ForwardRef
     className="ml-4"
     display="secondary"
     icon="trash"
@@ -60,7 +60,7 @@ exports[`AppliedFilters should render 1`] = `
     size="sm"
   >
     Clear Filter
-  </Button>
+  </ForwardRef>
 </div>
 `;
 

@@ -66,7 +66,7 @@ exports[`Create Event Analysis render 1`] = `
             class="event-analysis-builder-root d-flex"
           >
             <div
-              class="analysis-section-root"
+              class="event-section-root"
             >
               <div
                 class="section-header"
@@ -74,222 +74,25 @@ exports[`Create Event Analysis render 1`] = `
                 Analyze
               </div>
               <div
-                class="analysis-list"
+                class="event-list"
               >
                 <div
-                  class="chip-root d-flex align-items-center justify-content-between analysis-chip-root"
+                  class="dropdown"
                 >
-                  <div
-                    class="event-name"
-                  >
-                    Article Views
-                  </div>
                   <button
-                    class="button-root btn btn-unstyled remove-button"
+                    class="button-root btn btn-primary dropdown-toggle add-event-button btn-sm"
                     type="button"
                   >
                     <svg
-                      class="icon-root lexicon-icon lexicon-icon-times-circle"
+                      class="icon-root lexicon-icon lexicon-icon-plus"
                       viewBox=""
                     >
                       <use
-                        xlink:href="/o/osb-faro-web/dist/sprite.svg#times-circle"
+                        xlink:href="/o/osb-faro-web/dist/sprite.svg#plus"
                       />
                     </svg>
                   </button>
                 </div>
-              </div>
-            </div>
-            <div
-              class="breakdown-section-root flex-grow-1"
-            >
-              <div
-                class="section-header"
-              >
-                Breakdown By
-              </div>
-              <div
-                class="breakdown-container d-flex align-items-center"
-              >
-                <div
-                  class="breakdown-list d-flex align-items-center"
-                >
-                  <div
-                    class="breakdown-chip-container"
-                  >
-                    <div
-                      class="chip-root d-flex align-items-center justify-content-between breakdown-chip-root"
-                    >
-                      <div
-                        class="drag-handle"
-                        draggable="true"
-                      >
-                        <svg
-                          class="icon-root lexicon-icon lexicon-icon-drag"
-                          viewBox=""
-                        >
-                          <use
-                            xlink:href="/o/osb-faro-web/dist/sprite.svg#drag"
-                          />
-                        </svg>
-                      </div>
-                      <div
-                        class="sticker"
-                      >
-                        <svg
-                          class="icon-root lexicon-icon lexicon-icon-text"
-                          viewBox=""
-                        >
-                          <use
-                            xlink:href="/o/osb-faro-web/dist/sprite.svg#text"
-                          />
-                        </svg>
-                      </div>
-                      <div>
-                        <div
-                          class="attribute-label"
-                        >
-                          Event | Job Title
-                        </div>
-                        <div
-                          class="attribute-value"
-                        >
-                          is not "Stuff"
-                        </div>
-                      </div>
-                      <button
-                        class="button-root btn btn-unstyled remove-button"
-                        type="button"
-                      >
-                        <svg
-                          class="icon-root lexicon-icon lexicon-icon-times-circle"
-                          viewBox=""
-                        >
-                          <use
-                            xlink:href="/o/osb-faro-web/dist/sprite.svg#times-circle"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    class="breakdown-chip-container"
-                  >
-                    <div
-                      class="chip-root d-flex align-items-center justify-content-between breakdown-chip-root"
-                    >
-                      <div
-                        class="drag-handle"
-                        draggable="true"
-                      >
-                        <svg
-                          class="icon-root lexicon-icon lexicon-icon-drag"
-                          viewBox=""
-                        >
-                          <use
-                            xlink:href="/o/osb-faro-web/dist/sprite.svg#drag"
-                          />
-                        </svg>
-                      </div>
-                      <div
-                        class="sticker"
-                      >
-                        <svg
-                          class="icon-root lexicon-icon lexicon-icon-time"
-                          viewBox=""
-                        >
-                          <use
-                            xlink:href="/o/osb-faro-web/dist/sprite.svg#time"
-                          />
-                        </svg>
-                      </div>
-                      <div>
-                        <div
-                          class="attribute-label"
-                        >
-                          Session | Session Time
-                        </div>
-                        <div
-                          class="attribute-value"
-                        >
-                          &gt; 34:12:03
-                        </div>
-                      </div>
-                      <button
-                        class="button-root btn btn-unstyled remove-button"
-                        type="button"
-                      >
-                        <svg
-                          class="icon-root lexicon-icon lexicon-icon-times-circle"
-                          viewBox=""
-                        >
-                          <use
-                            xlink:href="/o/osb-faro-web/dist/sprite.svg#times-circle"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    class="breakdown-chip-container"
-                  >
-                    <div
-                      class="chip-root d-flex align-items-center justify-content-between breakdown-chip-root"
-                    >
-                      <div
-                        class="drag-handle"
-                        draggable="true"
-                      >
-                        <svg
-                          class="icon-root lexicon-icon lexicon-icon-drag"
-                          viewBox=""
-                        >
-                          <use
-                            xlink:href="/o/osb-faro-web/dist/sprite.svg#drag"
-                          />
-                        </svg>
-                      </div>
-                      <div
-                        class="sticker"
-                      >
-                        <svg
-                          class="icon-root lexicon-icon lexicon-icon-date"
-                          viewBox=""
-                        >
-                          <use
-                            xlink:href="/o/osb-faro-web/dist/sprite.svg#date"
-                          />
-                        </svg>
-                      </div>
-                      <div>
-                        <div
-                          class="attribute-label"
-                        >
-                          Event | Article Date
-                        </div>
-                        <div
-                          class="attribute-value"
-                        >
-                          Year, Jan 20, 2020 - Jan 24, 2020
-                        </div>
-                      </div>
-                      <button
-                        class="button-root btn btn-unstyled remove-button"
-                        type="button"
-                      >
-                        <svg
-                          class="icon-root lexicon-icon lexicon-icon-times-circle"
-                          viewBox=""
-                        >
-                          <use
-                            xlink:href="/o/osb-faro-web/dist/sprite.svg#times-circle"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div />
               </div>
             </div>
           </div>
@@ -297,7 +100,7 @@ exports[`Create Event Analysis render 1`] = `
             class="options-container d-flex justify-content-between"
           >
             <ul
-              class="card-tabs-root type-selector"
+              class="card-tabs-root type-selector small"
             >
               <li
                 class="card-tab active"

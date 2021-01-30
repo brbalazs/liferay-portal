@@ -27,7 +27,6 @@ exports[`AddWorkspace should render 1`] = `
         <div>
           <button
             class="user-menu button-root btn btn-unstyled trigger"
-            style=""
             type="button"
           >
             <div

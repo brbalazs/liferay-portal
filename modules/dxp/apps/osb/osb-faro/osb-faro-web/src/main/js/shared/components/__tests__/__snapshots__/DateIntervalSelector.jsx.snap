@@ -1,32 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DateIntervalSelector should render 1`] = `
-<Button
-  className="date-interval-selector-root"
-  display="unstyled"
-  onClick={[Function]}
->
-  <div
-    className="label-container"
-  >
-    <span
-      className="button-label-separator"
-    >
-      |
-    </span>
-    <span
-      className="interval-label"
-    />
-  </div>
-  <div
-    className="icon-container"
-  >
-    <Icon
-      symbol="calendar"
-    />
-  </div>
-</Button>
-`;
+exports[`DateIntervalSelector should render 1`] = `null`;
 
 exports[`DateIntervalSelector should render button label with custom range 1`] = `
 <Overlay
@@ -39,8 +13,9 @@ exports[`DateIntervalSelector should render button label with custom range 1`] =
   offset={8}
   onOutsideClick={[Function]}
   showDelay={400}
+  usePortal={true}
 >
-  <Button
+  <ForwardRef
     className="date-interval-selector-root"
     display="unstyled"
     onClick={[Function]}
@@ -65,7 +40,7 @@ exports[`DateIntervalSelector should render button label with custom range 1`] =
         symbol="calendar"
       />
     </div>
-  </Button>
+  </ForwardRef>
   <Card
     horizontal={true}
   >
@@ -196,8 +171,9 @@ exports[`DateIntervalSelector should render button label with different interval
   offset={8}
   onOutsideClick={[Function]}
   showDelay={400}
+  usePortal={true}
 >
-  <Button
+  <ForwardRef
     className="date-interval-selector-root"
     display="unstyled"
     onClick={[Function]}
@@ -223,7 +199,7 @@ exports[`DateIntervalSelector should render button label with different interval
         symbol="calendar"
       />
     </div>
-  </Button>
+  </ForwardRef>
   <Card
     horizontal={true}
   >
@@ -350,8 +326,9 @@ exports[`DateIntervalSelector should render content in overlay 1`] = `
   offset={8}
   onOutsideClick={[Function]}
   showDelay={400}
+  usePortal={true}
 >
-  <Button
+  <ForwardRef
     className="date-interval-selector-root"
     display="unstyled"
     onClick={[Function]}
@@ -375,7 +352,7 @@ exports[`DateIntervalSelector should render content in overlay 1`] = `
         symbol="calendar"
       />
     </div>
-  </Button>
+  </ForwardRef>
   <Card
     horizontal={true}
   >
