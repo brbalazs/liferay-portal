@@ -18,6 +18,10 @@
 }
 
 .event-analysis-dropdown-menu-root {
+	.card-tabs-root {
+		margin: 0 20px 8px;
+	}
+
 	.dropdown-item {
 		&:not(.active) {
 			.dropdown-item-primary-button {
@@ -35,11 +39,6 @@
 
 .event-analysis-editor-root {
 	color: $secondary;
-
-	.card-tabs-root {
-		font-size: $fontSizeSmall;
-		margin: 0;
-	}
 
 	.compare-to-previous-checkbox {
 		.custom-control-label-text {

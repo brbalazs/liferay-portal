@@ -1,5 +1,5 @@
 import Card from 'shared/components/Card';
-import CardTabs from 'shared/components/CardTabs';
+import CardTabs, {CardTabSizes} from 'shared/components/CardTabs';
 import Checkbox from 'shared/components/Checkbox';
 import DropdownRangeKey from 'shared/hoc/DropdownRangeKey';
 import EventAnalysisBuilder from './event-analysis-builder';
@@ -52,6 +52,7 @@ const EventAnalysisEditor: React.FC<IEventAnalysisEditorProps> = ({
 				<CardTabs
 					activeTabId={type}
 					className='type-selector'
+					size={CardTabSizes.Small}
 					tabs={[
 						{
 							onClick: () => setType(CalculationTypes.Total),

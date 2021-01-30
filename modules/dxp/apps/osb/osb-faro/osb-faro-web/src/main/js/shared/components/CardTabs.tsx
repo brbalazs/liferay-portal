@@ -6,11 +6,16 @@ export enum ButtonDisplayMode {
 	SPACED_BUTTONS = 'mdn-button-tab'
 }
 
+export enum CardTabSizes {
+	Small = 'small'
+}
+
 interface ICardTabsProps {
 	activeTabId: number | string;
 	buttonsDisplayMode?: ButtonDisplayMode;
 	className?: string;
 	onChange?: (tabId: string) => void;
+	size?: CardTabSizes;
 	tabs: Array<any>;
 }
 
@@ -19,6 +24,7 @@ const CardTabs: React.FC<ICardTabsProps> = ({
 	buttonsDisplayMode,
 	className,
 	onChange,
+	size,
 	tabs
 }) => {
 	const handleEmitOnChange = (onClick, tabId): void => {
@@ -27,7 +33,14 @@ const CardTabs: React.FC<ICardTabsProps> = ({
 	};
 
 	return (
-		<ul className={getCN('card-tabs-root', className, buttonsDisplayMode)}>
+		<ul
+			className={getCN(
+				'card-tabs-root',
+				className,
+				buttonsDisplayMode,
+				size
+			)}
+		>
 			{tabs.map(({onClick, secondaryInfo, tabId, tabUrl, title}) => (
 				<li
 					className={getCN('card-tab', {
